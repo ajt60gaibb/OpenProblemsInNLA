@@ -1,6 +1,6 @@
 # Open-problem catalog
 
-**67 / 1,000 admitted entries — partial collection.** Last literature screen:
+**73 / 1,000 admitted entries — partial collection.** Last literature screen:
 **2026-09-08**. No solutions are attempted. An admitted entry has a precise
 statement, the requested ratings, references, and a bounded search for later
 resolutions; admission does not certify that no solution exists.
@@ -18,11 +18,13 @@ resolutions; admission does not certify that no solution exists.
 | [Accurate arithmetic and structured linear algebra](accurate-arithmetic.md) | 1 |
 | [Tensors, low-rank approximation, and randomized linear algebra](tensors-randomized.md) | 8 |
 | [Hierarchical and general structured matrix approximation](randomized-extensions.md) | 5 |
+| [Randomly pivoted factorizations](randomized-estimation.md) | 3 |
 | [Inverse spectra and structured conditioning](inverse-eigenvalue.md) | 5 |
 | [Positive matrix factorizations](positive-factorizations.md) | 5 |
 | [Exact nonnegative ranks](nonnegative-rank.md) | 4 |
 | [Nonnegative factorization: identifiability and global approximation](nonnegative-factorization.md) | 2 |
 | [Matrix properties under interval uncertainty](interval-matrices.md) | 2 |
+| [Absolute value equations and their conditioning](absolute-value-equations.md) | 3 |
 | [Algebraic complexity and matrix powering](complexity.md) | 8 |
 
 ## All admitted problems
@@ -75,6 +77,9 @@ statement and references.
 | [RE-03](randomized-extensions.md#re-03) | Optimal matvec query complexity of HODLR approximation | challenging | interesting to the community |
 | [RE-05](randomized-extensions.md#re-05) | Pure relative error for approximation by a linear matrix family | challenging | interesting to the community |
 | [RE-06](randomized-extensions.md#re-06) | Nonadaptive queries for finite-family matrix approximation | challenging | interesting to the community |
+| [RA-01](randomized-estimation.md#ra-01) | Optimal pivot count for RPCholesky trace approximation | challenging | interesting to the community |
+| [RA-02](randomized-estimation.md#ra-02) | Polynomial trace-error factor after exactly the target rank of pivots | challenging | interesting to the community |
+| [RA-03](randomized-estimation.md#ra-03) | Improve the randomized LU squared-error factor to $2^k$ | challenging | interesting to specialist |
 | [IS-01](inverse-eigenvalue.md#is-01) | Two permutation matrices generate the doubly stochastic spectral boundary | challenging | interesting to the community |
 | [IS-02](inverse-eigenvalue.md#is-02) | Where a symmetric stochastic matrix can be spectrally unique | challenging | interesting to specialist |
 | [IS-03](inverse-eigenvalue.md#is-03) | Johnson's derivative-realizability conjecture | challenging | interesting to the community |
@@ -93,6 +98,9 @@ statement and references.
 | [NM-03](nonnegative-factorization.md#nm-03) | Complexity of globally optimal nonnegative rank-two approximation | extreme | broadly interesting |
 | [IV-01](interval-matrices.md#iv-01) | Two-vertex certification of nonsingular sign regularity | challenging | interesting to specialist |
 | [IV-02](interval-matrices.md#iv-02) | Exact determinant ranges of general tridiagonal interval matrices | challenging | interesting to the community |
+| [AV-01](absolute-value-equations.md#av-01) | Recognizing the maximum finite number of solutions | challenging | interesting to specialist |
+| [AV-02](absolute-value-equations.md#av-02) | Hardness of the spectral-norm condition number | challenging | interesting to the community |
+| [AV-03](absolute-value-equations.md#av-03) | Polynomial-time solution under the regularity promise | extreme | broadly interesting |
 | [AC-01](complexity.md#ac-01) | Is the matrix multiplication exponent two? | extreme | broadly interesting |
 | [AC-02](complexity.md#ac-02) | Exact bilinear rank of the $3\times3$ matrix product | extreme | interesting to the community |
 | [AC-03](complexity.md#ac-03) | Border rank of the $3\times3$ matrix product | extreme | interesting to the community |

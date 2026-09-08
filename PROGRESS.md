@@ -6,7 +6,7 @@ the problems. Lean is inactive and not requested.
 
 ## Current state — 2026-09-08
 
-**PARTIAL: 67 / 1,000 admitted entries.** The remaining 933 are not supplied.
+**PARTIAL: 73 / 1,000 admitted entries.** The remaining 927 are not supplied.
 The [catalog index](proof/catalog/README.md) lists every admitted entry and both
 requested ratings. No placeholders, excluded questions, or arbitrary parameter
 instances contribute to the count.
@@ -17,10 +17,12 @@ instances contribute to the count.
 - Structured matrix functions: 1; accurate arithmetic: 1.
 - Tensors, low-rank approximation, and randomized methods: 8.
 - Hierarchical and structured matrix approximation: 5.
+- Randomly pivoted factorizations: 3.
 - Inverse spectra and structured conditioning: 5.
 - Positive semidefinite and completely positive factorizations: 5.
 - Exact nonnegative ranks: 4; nonnegative factorization complexity: 2.
 - Interval matrices: 2.
+- Absolute-value equations and conditioning: 3.
 - Algebraic complexity and matrix powering: 8.
 
 All entries include primary references and dated bounded literature searches.
@@ -63,6 +65,14 @@ concern; neither openness nor refutation is claimed. Different SSC definitions
 and the presence of a nonnegativity constraint on the other factor matter.
 NR-03 fixes every entry of the correlation matrix; July 2026 bounds for a
 partial unique-disjointness matrix do not settle this prescribed completion.
+
+Epperly's 2025 dissertation was checked against his August 2026 RPCholesky
+analysis. Its earlier oversampling conjectures are excluded, while RA-01–03
+state the surviving sharper pivot count, exactly-r-step error factor, and
+randomized-LU factor questions. AV-03 is the polynomial-time P-LCP problem
+in equivalent AVE form and is counted once; a June 2026 parameter-dependent
+algorithm does not settle the input-length-only target. These six entries
+received independent source and quantifier audits.
 
 The current scope includes directly relevant matrix theory and arithmetic
 complexity as well as core NLA. The optional breadth question received no reply,

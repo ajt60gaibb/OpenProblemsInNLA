@@ -3,7 +3,7 @@
 A collection of precise open problems drawn from books and research
 publications, with references and dated checks for subsequent solutions.
 
-**Current collection: 67 / 1,000 problems. The project is incomplete.**
+**Current collection: 73 / 1,000 problems. The project is incomplete.**
 
 **[Browse all problems →](proof/catalog/README.md)**
 
@@ -16,11 +16,13 @@ publications, with references and dated checks for subsequent solutions.
 | [Accurate arithmetic and structured linear algebra](proof/catalog/accurate-arithmetic.md) | 1 |
 | [Tensors, low-rank approximation, and randomized linear algebra](proof/catalog/tensors-randomized.md) | 8 |
 | [Hierarchical and general structured matrix approximation](proof/catalog/randomized-extensions.md) | 5 |
+| [Randomly pivoted factorizations](proof/catalog/randomized-estimation.md) | 3 |
 | [Inverse spectra and structured conditioning](proof/catalog/inverse-eigenvalue.md) | 5 |
 | [Positive matrix factorizations](proof/catalog/positive-factorizations.md) | 5 |
 | [Exact nonnegative ranks](proof/catalog/nonnegative-rank.md) | 4 |
 | [Nonnegative factorization: identifiability and global approximation](proof/catalog/nonnegative-factorization.md) | 2 |
 | [Matrix properties under interval uncertainty](proof/catalog/interval-matrices.md) | 2 |
+| [Absolute value equations and their conditioning](proof/catalog/absolute-value-equations.md) | 3 |
 | [Algebraic complexity and matrix powering](proof/catalog/complexity.md) | 8 |
 
 Each problem gives its assumptions and quantifiers, one difficulty label, one

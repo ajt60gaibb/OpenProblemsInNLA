@@ -228,7 +228,7 @@ These are exclusions, not additional open problems. Reports of a new proof or co
 | Nyström diminishing-returns question for SDDM/SDD inverses | Matthew J. Colbrook, [*Nyström Error Beyond M-Matrices: A Minimal Diagonally Dominant Obstruction*](https://arxiv.org/abs/2607.19282), July 2026, settles the SDDM case positively and gives an order-three SDD counterexample. The abstract explicitly identifies workshop Problem 4.6 as answered. |
 | Constant-failure-probability OSI sketch-and-solve | Alex Townsend and Chris Wang, [*Oblivious Subspace Injection Is Not Enough for Relative Error*, v2](https://arxiv.org/abs/2604.10215v2), August 2026, §3.1, gives a counterexample to relative error controlled solely by the OSI failure parameter (workshop Problem 5.1). |
 | OSI randomized-SVD claim as printed | Townsend and Wang, [same paper, v2](https://arxiv.org/abs/2604.10215v2), §4.1, gives a randomized-SVD counterexample to OSI-only relative error (workshop Problem 5.2). It is excluded on this substantive status evidence. |
-| Hamiltonian-derived NEPv identity as printed | Sra, [same paper](https://arxiv.org/html/2608.29595v1), Appendix A.5, identifies a same-site-term obstruction to the displayed identity in workshop §6.2. The defective formulation is not an open problem. |
+| Hamiltonian-derived NEPv identity as printed | Sra, [August 2026 manuscript](https://arxiv.org/html/2608.29595v1), Appendix A.5, identifies a same-site-term obstruction to the displayed identity in workshop §6.2. The defective formulation is not an open problem. |
 
 The searches establish a documented literature check, not exhaustive coverage of every book, publication, or unindexed result through the check date.
 
