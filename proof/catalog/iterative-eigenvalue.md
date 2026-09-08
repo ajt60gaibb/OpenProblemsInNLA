@@ -16,9 +16,17 @@ Partial pivoting chooses a largest-magnitude entry in the active first column; c
 
 <a id="ie-01"></a>
 
-## IE-01 — Forsythe's conjecture beyond restart length two
+## Removed IE-01 — Forsythe's conjecture beyond restart length two
 
-[Open the problem folder](../../linear-systems-and-elimination/IE-01/README.md) · [PDF](../../linear-systems-and-elimination/IE-01/problem.pdf) · [LaTeX](../../linear-systems-and-elimination/IE-01/problem.tex)
+**Status: resolved; removed from the open count on 2026-09-08.**
+
+Colbrook, Stepaniants, and Townsend,
+[*A Complete Resolution of Forsythe's Conjecture for Restarted Conjugate Gradients*](https://arxiv.org/abs/2609.04659),
+September 4, 2026, [Theorem 1.1](https://arxiv.org/html/2609.04659v1),
+proves convergence for restart length $s=3$ and supplies counterexamples for
+every $s\ge4$. This settles the full range formerly admitted as IE-01.
+The earlier screen missed this paper. The ID remains reserved, and the old
+statement and exports are preserved in Git history.
 
 
 <a id="ie-02"></a>
@@ -120,7 +128,7 @@ for a universal $C$, all $nu$ sufficiently small, and all inputs including clust
 ## Removed or withheld questions — not included in the count
 
 - **Polynomial worst-case complete/rook pivoting growth:** excluded. Shah and Urschel, [*Entry growth in Gaussian elimination*](https://arxiv.org/abs/2608.19189), August 2026, Theorems 1.6–1.7, give quasipolynomial lower bounds. This is a recent preprint resolution claim, not an independently certified proof by this catalog.
-- **Forsythe restart length two:** excluded because of the August 2026 Colbrook–Stepaniants–Townsend preprint cited in IE-01. The remaining general question is retained there.
+- **Forsythe conjecture, all restart lengths:** the September 2026 [complete resolution](https://arxiv.org/abs/2609.04659) supersedes the earlier restart-two-only exclusion. Former [IE-01](#ie-01) is also removed.
 - **Power-law-spectrum CG versus randomized coordinate descent, Simons Problem 2.4:** withheld following Chen et al., [*Iteris: Agentic Research Loops for Computational Mathematics*](https://arxiv.org/html/2606.02484v1#S4.SS2), June 2026, Theorem 1 and Appendix 6. It claims a fixed-parameter phase diagram; its rate bounds are expressly not sharp. Counting the original question without checking this claim would be misleading.
 - **Higham's complex symmetric positive-definite growth bound:** excluded. Zhang, [*Sharp condition-number bounds for growth factors of Higham matrices in Gaussian elimination*](https://arxiv.org/abs/2604.23024), April 2026, identifies Drury's 2013 bound and develops a strict, quantitative refinement.
 - **Broad GMRES convergence explanations, unspecified block-Lanczos rounding analyses, and unspecified MRRR input conditions:** retained only as source leads, not admitted as precise problems. The relevant source is [Amsel et al., §§2.5–2.6 and §3.4](https://arxiv.org/html/2602.05394v3). Additional work is needed to turn each into a quantifiable target without inventing a new problem or restating a known theorem.

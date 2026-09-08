@@ -1,12 +1,11 @@
 # Linear systems and elimination
 
-[← All categories](../README.md) · [All 73 problems](../CATALOG.md)
+[← All categories](../README.md) · [All 72 problems](../CATALOG.md)
 
-9 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
+8 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
 
 | ID | Problem | Difficulty | Importance | Read / source |
 | --- | --- | --- | --- | --- |
-| [IE-01](IE-01/README.md) | Forsythe's conjecture beyond restart length two | extreme | interesting to the community | [PDF](IE-01/problem.pdf) · [TeX](IE-01/problem.tex) |
 | [IE-02](IE-02/README.md) | Is the ideal GMRES bound sharp for every Jordan block? | challenging | interesting to specialist | [PDF](IE-02/problem.pdf) · [TeX](IE-02/problem.tex) |
 | [IE-03](IE-03/README.md) | Cryer's Hadamard complete-pivoting conjecture | extreme | interesting to the community | [PDF](IE-03/problem.pdf) · [TeX](IE-03/problem.tex) |
 | [IE-04](IE-04/README.md) | Exponential smoothed tail bounds for partial pivoting | extreme | broadly interesting | [PDF](IE-04/problem.pdf) · [TeX](IE-04/problem.tex) |
@@ -17,3 +16,5 @@
 | [KE-01](KE-01/README.md) | Exploit spectral outliers without losing input sparsity | challenging | interesting to the community | [PDF](KE-01/problem.pdf) · [TeX](KE-01/problem.tex) |
 
 Ratings are editorial. Literature checks are dated 2026-09-08; this reorganization does not represent a new status search. [Rating definitions](../README.md#ratings).
+
+IE-01 was removed following a [complete resolution of Forsythe’s conjecture](https://arxiv.org/abs/2609.04659). Its ID remains reserved; see the [exclusion note](../proof/catalog/iterative-eigenvalue.md#ie-01).

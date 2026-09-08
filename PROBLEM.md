@@ -40,10 +40,11 @@ inactive formalization track.
   needs more evidence, and resolved/rejected historical problems.
 - A durable progress record giving the actual count against the target of 1,000.
 
-The immediate requested deliverable is to reorganize and typeset the existing
-73 curated problems. This changes presentation and navigation, not the admitted
-count or the date/scope of the existing literature checks. Former chapter pages
-in `proof/catalog/` preserve old anchors, source notes, and uncounted material.
+The category organization and Markdown/LaTeX/PDF export are complete. The latest
+requested correction removes IE-01 following the September 2026 resolution of
+Forsythe's conjecture, leaving 72 admitted problems. Maintain accurate counts
+and retain resolution references in the former chapter pages in `proof/catalog/`,
+which preserve old anchors, source notes, and uncounted material.
 
 Start with core NLA: linear systems, least squares, eigenvalue and singular-value
 computation, matrix functions, numerical stability, conditioning, low-rank

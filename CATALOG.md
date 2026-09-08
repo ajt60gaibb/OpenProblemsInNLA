@@ -1,6 +1,6 @@
 # All open problems
 
-**73 / 1,000 admitted entries — partial collection.**
+**72 / 1,000 admitted entries — partial collection.**
 
 [Browse by category](README.md) · [Rating definitions](README.md#ratings) · [Source coverage and screening notes](proof/SOURCES.md)
 
@@ -10,7 +10,6 @@ Each ID opens the complete statement in Markdown. PDFs and LaTeX sources carry t
 
 | ID | Problem | Difficulty | Importance | Read / source |
 | --- | --- | --- | --- | --- |
-| [IE-01](linear-systems-and-elimination/IE-01/README.md) | Forsythe's conjecture beyond restart length two | extreme | interesting to the community | [PDF](linear-systems-and-elimination/IE-01/problem.pdf) · [TeX](linear-systems-and-elimination/IE-01/problem.tex) |
 | [IE-02](linear-systems-and-elimination/IE-02/README.md) | Is the ideal GMRES bound sharp for every Jordan block? | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-02/problem.pdf) · [TeX](linear-systems-and-elimination/IE-02/problem.tex) |
 | [IE-03](linear-systems-and-elimination/IE-03/README.md) | Cryer's Hadamard complete-pivoting conjecture | extreme | interesting to the community | [PDF](linear-systems-and-elimination/IE-03/problem.pdf) · [TeX](linear-systems-and-elimination/IE-03/problem.tex) |
 | [IE-04](linear-systems-and-elimination/IE-04/README.md) | Exponential smoothed tail bounds for partial pivoting | extreme | broadly interesting | [PDF](linear-systems-and-elimination/IE-04/problem.pdf) · [TeX](linear-systems-and-elimination/IE-04/problem.tex) |

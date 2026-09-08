@@ -3,15 +3,15 @@
 A collection of precise open problems drawn from books and research
 publications, with references and dated checks for subsequent solutions.
 
-**Current collection: 73 / 1,000 problems. The project is incomplete.**
+**Current collection: 72 / 1,000 problems. The project is incomplete.**
 
-**[Browse all 73 problems →](CATALOG.md)**
+**[Browse all 72 problems →](CATALOG.md)**
 
 ## Browse by category
 
 | Category | Problems |
 | --- | ---: |
-| [Linear systems and elimination](linear-systems-and-elimination/README.md) | 9 |
+| [Linear systems and elimination](linear-systems-and-elimination/README.md) | 8 |
 | [Eigenvalues and inverse problems](eigenvalues-and-inverse-problems/README.md) | 10 |
 | [Matrix functions and stability](matrix-functions-and-stability/README.md) | 13 |
 | [Randomized and low-rank approximation](randomized-and-low-rank-approximation/README.md) | 12 |
@@ -72,4 +72,4 @@ reference, particularly when reporting a solution or a missing assumption.
 
 ## Editing and PDF generation
 
-Edit the problem’s `README.md`, which is the source of truth. With Pandoc and XeLaTeX installed, run `python3 tools/render_problems.py IE-01` to regenerate one problem, or omit the ID to regenerate the collection. Each exported `problem.tex` can also be compiled on its own with XeLaTeX. [The shared typesetting template](tools/problem-template.tex) controls appearance. Check the resulting PDF whenever a statement changes.
+Edit the problem’s `README.md`, which is the source of truth. With Pandoc and XeLaTeX installed, run `python3 tools/render_problems.py IE-02` to regenerate one problem, or omit the ID to regenerate the collection. Each exported `problem.tex` can also be compiled on its own with XeLaTeX. [The shared typesetting template](tools/problem-template.tex) controls appearance. Check the resulting PDF whenever a statement changes.

@@ -1,26 +1,27 @@
 # Catalog progress
 
 Target: **1,000 distinct, precise, source-backed open NLA problems**; see
-`PROBLEM.md`. Current focus: **PROOF — presentation of the 73 curated problems**,
+`PROBLEM.md`. Current focus: **PROOF — curation and status corrections**,
 without solving them. Lean is inactive and not requested.
 
 ## Current state — 2026-09-08
 
-**PARTIAL: 73 / 1,000 admitted entries.** The remaining 927 are not supplied.
+**PARTIAL: 72 / 1,000 admitted entries.** The remaining 928 are not supplied.
 The [catalog index](CATALOG.md) lists every admitted entry and both
 requested ratings. No placeholders, excluded questions, or arbitrary parameter
 instances contribute to the count.
 
 The user requested category folders and an individual Markdown/LaTeX/PDF
-document for each existing problem. Eight root categories and 73 problem folders
+document for each existing problem. Eight root categories and 72 problem folders
 now hold the canonical statements. Shared mathematical definitions have been
 copied into the entries that require them; the original chapter pages retain
 their anchors and uncounted screening notes.
 
-**COMPLETE: presentation of the existing 73 entries.** All 73 standalone TeX
-documents compile to PDF, with no overflow or missing-character warnings. All
-76 final pages were visually inspected (70 one-page documents, three two-page
-documents). An independent comparison against the original chapters confirmed
+**COMPLETE: presentation of the admitted entries.** The original 73-document
+export compiled without overflow or missing-character warnings, and all 76 pages
+were visually inspected. Removing the resolved IE-01 leaves 72 documents and
+75 previously inspected pages (69 one-page documents, three two-page documents).
+An independent comparison against the original chapters confirmed
 the statements, both ratings, status notes, 44 shared-context additions, and
 preserved uncounted material. Every problem folder contains exactly its canonical
 Markdown, TeX source, and PDF; local navigation links were checked. The small
@@ -29,7 +30,7 @@ Markdown, TeX source, and PDF; local navigation links were checked. The small
 This export is not a new literature search and does not change the 2026-09-08
 screening date. The wider 1,000-problem curation objective remains partial.
 
-- Linear systems and elimination: 9.
+- Linear systems and elimination: 8.
 - Eigenvalues and inverse problems: 10.
 - Matrix functions and stability: 13.
 - Randomized and low-rank approximation: 12.
@@ -45,8 +46,15 @@ importance are editorial ratings, with definitions in the repository README.
 
 ## Mathematical screening findings
 
+**IE-01 removed on 2026-09-08:** the user identified Colbrook, Stepaniants, and
+Townsend's [complete resolution of Forsythe's conjecture](https://arxiv.org/abs/2609.04659),
+submitted September 4, 2026. Theorem 1.1 covers the former entry: convergence for
+$s=3$, counterexamples for every $s\ge4$. The initial screen missed this paper.
+Its exclusion note retains the stable ID; its three obsolete files were removed
+from the current collection and remain in Git history.
+
 Recent full-solution claims exclude general Crouzeix, polynomial complete-pivot
-growth, matrix Spencer, and the restart-two Forsythe question. Higham's
+growth, matrix Spencer, and all restart lengths in the Forsythe question. Higham's
 Fréchet-derivative Jordan-form question has a later solution; his growth-bound
 question for complex symmetric matrices was also already answered. The
 [source record](proof/SOURCES.md) and chapter exclusions preserve the references.

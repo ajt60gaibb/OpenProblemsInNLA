@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Render the canonical per-problem README.md files with Pandoc and XeLaTeX.
 
-Usage: python3 tools/render_problems.py [IE-01 MF-02 ...]
+Usage: python3 tools/render_problems.py [IE-02 MF-02 ...]
 Requires pandoc and xelatex on PATH. Generated TeX files are standalone.
 """
 

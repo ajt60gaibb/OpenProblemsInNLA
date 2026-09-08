@@ -1,6 +1,6 @@
 # Randomized and low-rank approximation
 
-[← All categories](../README.md) · [All 73 problems](../CATALOG.md)
+[← All categories](../README.md) · [All 72 problems](../CATALOG.md)
 
 12 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
 
