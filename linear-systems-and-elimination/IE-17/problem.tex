@@ -1,0 +1,106 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={IE-17 - Monotonic
+optimal backward error along
+LSMR},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-17}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Linear systems and elimination\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Monotonic
+optimal backward error along LSMR\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} explicit dissertation conjecture; later resolution not
+located
+
+Let \(A\in\mathbb R^{m\times n}\) and \(b\in\mathbb R^m\). In exact
+arithmetic, start LSMR at \(x_0=0\): equivalently, \(x_k\) minimizes
+\(\|A^T(b-Ax)\|_2\) over \(\mathcal K_k(A^TA,A^Tb)\). Work up to its
+exact termination and use its minimum-length iterate if necessary. Let
+\(r=b-Ax\) and define the matrix-only normwise backward error \[
+\mu(x)=\min\{\|E\|_2:(A+E)^T((A+E)x-b)=0\}.
+\] For \(x\ne0\), put \(K_x=[A^T,\,(\|r\|_2/\|x\|_2)I]^T\),
+\(v_x=[r^T,0^T]^T\), and \[
+\widetilde\mu(x)=\frac{\|K_xK_x^{\dagger}v_x\|_2}{\|x\|_2}.
+\] Here \(\dagger\) is the Moore--Penrose inverse; at an exact
+least-squares solution set both errors to zero.
+
+Are both sequences \(\mu(x_k)\) and \(\widetilde\mu(x_k)\)
+nonincreasing, for successive nonzero LSMR iterates? These two closely
+related claims are counted together, as in the source. The right-hand
+side \(b\) is kept fixed in the backward-error model.
+
+A positive answer would justify backward-error stopping decisions
+without a later iteration making the current iterate less backward
+accurate. The known monotonicity of \(\|r_k\|_2\) and \(\|A^Tr_k\|_2\)
+does not establish this statement.
+
+\subsection{References}\label{references}
+
+D. C.-L. Fong, \emph{Minimum-Residual Methods for Sparse Least-Squares
+Using Golub--Kahan Bidiagonalization}, Stanford dissertation 2011,
+§7.2.1 and definitions (4.1),(4.5), printed pp.~56--57,118
+(\href{https://web.stanford.edu/group/SOL/dissertations/david-fong-thesis-online.pdf}{primary
+PDF}). Fong and M. Saunders, \emph{LSMR: An iterative algorithm for
+sparse least-squares problems}, SISC 33(2011),2950--2971, §§6.1--6.2,
+Fig7.5
+(\href{https://web.stanford.edu/group/SOL/software/lsmr/LSMR-SISC-2011.pdf}{author
+PDF}). E. Hallman and M. Gu, \emph{LSMB: Minimizing the backward error
+for least-squares problems}, SIMAX 39(2018),1295--1317
+(\href{https://erhallma.math.ncsu.edu/papers/hallman2018lsmb.pdf}{author
+PDF}).
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+Exact-title and ``LSMR optimal backward error monotonicity
+conjecture/proof/counterexample'' searches found no resolution. The
+LSMB2018 discussion of nonmonotonicity concerns LSQR, and its proposed
+method differs from LSMR. Hallman's May 2026 arXiv:2605.09211 develops
+backward-error formulas and estimates, without resolving this
+iterate-monotonicity conjecture. No recent explicit reaffirmation was
+located.
+\end{document}

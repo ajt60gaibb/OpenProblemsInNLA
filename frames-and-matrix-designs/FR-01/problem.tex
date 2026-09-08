@@ -1,0 +1,115 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={FR-01 - Polynomial-time
+deterministic restricted isometries with nearly linear row
+count},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}FR-01}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Frames and matrix designs\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Polynomial-time
+deterministic restricted isometries with nearly linear row count\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} broadly
+interesting\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} source-stated open construction problem; no resolution
+found in screening on 2026-09-08.
+
+Does a deterministic algorithm exist, with running time polynomial in
+\(N\), which, for every pair of integers \(N\geq2\) and
+\(1\leq s\leq N\), constructs a matrix \(A\in\mathbb R^{m\times N}\)
+satisfying \[
+m\leq C s\log^c(2N),\qquad
+\|x\|_2\leq\|Ax\|_2\leq2\|x\|_2
+\quad\text{whenever }x\in\mathbb R^N,\ |\operatorname{supp}(x)|\leq s,
+\] for absolute constants \(C,c>0\)? The algorithm must output the
+entries, rather than merely assert existence. As usual, one may use
+rational output of polynomial bit length; the fixed distortion interval
+permits constant-accuracy rounding of a construction with slack. The row
+bound is permitted to exceed \(N\), when the identity is sufficient.
+
+This is the deterministic construction question in the data-streams
+workshop report, with its original fixed-distortion convention. It does
+not strengthen the source to the sharper \(O(s\log(N/s))\) row target.
+Such matrices would give short, reproducible measurement operators with
+uniform control of every sparse least-squares subproblem.
+
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \emph{Open Problems in Data Streams and Related Topics}, IITK Workshop
+  on Algorithms for Data Streams, 2006. Martin Strauss's
+  restricted-isometry problem, first numbered construction question on
+  printed p.~10, asks for a polynomial-time deterministic
+  \(s\operatorname{polylog}(N)\times N\) construction.
+  \href{https://citeseerx.ist.psu.edu/document?doi=5394ab5bf4b66bfb52f111525d6141a3226ba883&repid=rep1&type=pdf}{Workshop
+  report}.
+\item
+  A. S. Bandeira, \emph{Ten Lectures and Forty-Two Open Problems in the
+  Mathematics of Data Science}, lecture notes, Open Problem 5.1 and its
+  surrounding discussion of explicit restricted isometries.
+  \href{https://people.math.ethz.ch/~abandeira/TenLecturesFortyTwoProblems.pdf}{Author's
+  notes}.
+\item
+  A. S. Bandeira, M. Fickus, D. G. Mixon, and P. Wong, \emph{The road to
+  deterministic matrices with the restricted isometry property}, Journal
+  of Fourier Analysis and Applications 19 (2013), pp.~1123--1149.
+  Sections 1 and 4 discuss the deterministic obstruction and candidate
+  frames. \href{https://arxiv.org/abs/1202.1234}{Paper}.
+\end{enumerate}
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+Searched ``deterministic RIP polynomial time nearly optimal 2025 2026'',
+``restricted isometry deterministic square root bottleneck 2026'', and
+current explicit sensing-matrix papers. The August 2026 paper
+\emph{Compressed sensing matrices from orthogonal spaces over finite
+fields of odd characteristic} (arXiv:2608.23062) gives particular
+finite-field constructions and coherence bounds, not the displayed
+uniform nearly linear row count. No resolution was found.
+\end{document}

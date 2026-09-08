@@ -1,8 +1,8 @@
 # Nonnegative and positive factorizations
 
-[← All categories](../README.md) · [All 75 problems](../CATALOG.md)
+[← All categories](../README.md) · [All 125 problems](../CATALOG.md)
 
-11 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
+12 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
 
 | ID | Problem | Difficulty | Importance | Read / source |
 | --- | --- | --- | --- | --- |
@@ -17,5 +17,6 @@
 | [NR-04](NR-04/README.md) | The nonnegative rank of the nine-point distance matrix | hard | interesting to specialist | [PDF](NR-04/problem.pdf) · [TeX](NR-04/problem.tex) |
 | [NM-01](NM-01/README.md) | Polynomial-time minimum-volume decision under sufficient scattering | extreme | broadly interesting | [PDF](NM-01/problem.pdf) · [TeX](NM-01/problem.tex) |
 | [NM-03](NM-03/README.md) | Complexity of globally optimal nonnegative rank-two approximation | extreme | broadly interesting | [PDF](NM-03/problem.pdf) · [TeX](NM-03/problem.tex) |
+| [NM-04](NM-04/README.md) | The Rowland–Wu polynomial identity for Sinkhorn limits | challenging | interesting to the community | [PDF](NM-04/problem.pdf) · [TeX](NM-04/problem.tex) |
 
-Ratings are editorial. Literature checks are dated 2026-09-08; this reorganization does not represent a new status search. [Rating definitions](../README.md#ratings).
+Ratings are editorial. Each entry records its literature check and the scope of the evidence. [Rating definitions](../README.md#ratings).

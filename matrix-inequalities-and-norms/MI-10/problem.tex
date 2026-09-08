@@ -1,0 +1,114 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={MI-10 - Chollet's
+permanent inequality for Hadamard
+products},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MI-10}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Matrix inequalities and norms\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Chollet's
+permanent inequality for Hadamard products\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} explicit conjecture; low-order proof claims do not
+settle the general case
+
+For an \(n\times n\) matrix \(C=(c_{ij})\), define \[
+\operatorname{per}C=\sum_{\sigma\in S_n}\prod_{i=1}^n c_{i,\sigma(i)}.
+\] Is it true that, for every integer \(n\ge1\) and every pair of
+complex Hermitian positive-semidefinite matrices
+\(A,B\in\mathbb C^{n\times n}\), \[
+\operatorname{per}(A\circ B)\le
+(\operatorname{per}A)(\operatorname{per}B),
+\qquad (A\circ B)_{ij}=a_{ij}b_{ij}?
+\]
+
+\subsection{Relevance}\label{relevance}
+
+The Hadamard product preserves positive semidefiniteness and corresponds
+to tensor products of Gram vectors. The conjecture seeks a computable
+structural upper bound for a difficult matrix polynomial under this
+basic matrix operation. It concerns matrix inequalities and permanent
+computation.
+
+\subsection{References}\label{references}
+
+\begin{itemize}
+\tightlist
+\item
+  J. Chollet, \emph{Is there a permanental analogue to Oppenheim's
+  inequality?}, American Mathematical Monthly 89 (1982), 57--58
+  (\href{https://doi.org/10.1080/00029890.1982.11995380}{original
+  paper}).
+\item
+  P. Pant and R. Singh, \emph{On Chollet's Permanent Conjecture for
+  Graph Laplacians}, arXiv:2604.24192 (2026), abstract and introduction,
+  with structured partial results
+  (\href{https://arxiv.org/abs/2604.24192}{primary manuscript}).
+\item
+  Q. Li, Q. Zhao, and W. Luo, \emph{Chollet's Permanent Conjecture
+  Through Order Six via Border Induction}, posted 31 August 2026,
+  Theorem 1.1
+  (\href{https://www.preprints.org/manuscript/202608.2196}{primary
+  preprint}).
+\item
+  I. M. Wanless, \emph{Lieb's permanental dominance conjecture} (2022),
+  Conjecture 5 and the implication diagram distinguishing it from
+  disproved stronger conjectures
+  (\href{https://arxiv.org/pdf/2202.01867}{primary manuscript}).
+\end{itemize}
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+The August 2026 preprint claims the displayed inequality through order
+six. That claim has not been independently refereed here and does not
+claim the unrestricted result; the unresolved target includes orders
+\(n\ge7\). The April 2026 paper addresses structured classes. Searches
+for ``Chollet conjecture'', ``permanent'', ``proof'', and 2025--2026
+found no general resolution. Disproofs of the stronger Bapat--Sunder and
+permanent-on-top conjectures do not refute this statement.
+\end{document}

@@ -1,0 +1,111 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={MI-12 - Marcus's
+inequality for the permanent of block
+permanents},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MI-12}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Matrix inequalities and norms\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Marcus's
+inequality for the permanent of block permanents\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} interesting
+to specialist\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} explicit conjectured inequality; no later resolution
+located
+
+For a square matrix \(C\) of order \(r\), write \[
+\operatorname{per}C=\sum_{\sigma\in S_r}\prod_{i=1}^r c_{i,\sigma(i)}.
+\] Let \(m,k\ge2\) be arbitrary integers and let
+\(A\in\mathbb C^{mk\times mk}\) be Hermitian positive semidefinite.
+Partition \(A\) into an \(m\times m\) array of \(k\times k\) blocks
+\(A_{ij}\), and form \[
+G=(g_{ij})_{i,j=1}^m,\qquad g_{ij}=\operatorname{per}(A_{ij}).
+\] Must \[
+\operatorname{per}A\ge\operatorname{per}G
+\] always hold?
+
+\subsection{Relevance}\label{relevance}
+
+This asks how a costly matrix polynomial behaves under block aggregation
+by the same polynomial. It is a precise constraint on hierarchical
+permanent computation for PSD matrices; positivity is assumed for the
+whole matrix, not separately for off-diagonal blocks.
+
+\subsection{References}\label{references}
+
+\begin{itemize}
+\tightlist
+\item
+  I. M. Wanless, \emph{Lieb's permanental dominance conjecture} (2022),
+  Conjecture 3 and the following paragraph
+  (\href{https://arxiv.org/pdf/2202.01867}{primary manuscript}).
+\item
+  F. Zhang, \emph{An update on a few permanent conjectures}, Special
+  Matrices 4 (2016), 305--316, discussion of Marcus's
+  permanent-of-permanents conjecture
+  (\href{https://arxiv.org/pdf/1608.02844}{primary manuscript};
+  \href{https://doi.org/10.1515/spma-2016-0030}{journal}).
+\item
+  E. H. Lieb, \emph{Proofs of some Conjectures on Permanents}, Journal
+  of Mathematics and Mechanics 16 (1966), 127--134, the two-block
+  inequality
+  (\href{https://iumj.s3-us-west-2.amazonaws.com/abstracts/16008_abs.pdf}{publisher's
+  first page}).
+\end{itemize}
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+Wanless records this inequality as open and identifies Lieb's proof for
+\(m=2\). Searches for ``Marcus conjecture'', ``permanent of
+permanents'', ``block permanents'', ``proof'', and 2025--2026 found no
+general resolution. This entry is specifically the inequality component:
+some historical formulations additionally conjecture an equality
+characterization. The trivial block sizes \(m=1\) and \(k=1\) are
+omitted, and no unqualified equality characterization is imported.
+Lieb's general permanental dominance conjecture would imply this
+assertion, but this is a separately stated historical conjecture.
+\end{document}

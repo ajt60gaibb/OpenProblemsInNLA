@@ -1,0 +1,116 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={SP-05 - Symmetric
+minimizer for a positive definite Jordan--Kronecker
+product},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}SP-05}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Eigenvalues and inverse problems\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Symmetric
+minimizer for a positive definite Jordan--Kronecker product\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Topic:} Structured eigenvalue problems and semidefinite
+optimization.
+
+\subsection{Problem statement}\label{problem-statement}
+
+Let \(n\ge 2\) and let \(A,B\in\mathbb R^{n\times n}\) be symmetric
+positive definite. Let \(T\in\mathbb R^{n^2\times n^2}\) be the
+commutation matrix defined by
+\(T\operatorname{vec}(X)=\operatorname{vec}(X^T)\), where
+\(\operatorname{vec}\) stacks columns. Is it always true that
+
+\[
+\min_{\substack{u\in\mathbb R^{n^2}\setminus\{0\}\\Tu=u}}
+\frac{u^T(A\otimes B)u}{u^Tu}
+\;\le\;
+\min_{\substack{w\in\mathbb R^{n^2}\setminus\{0\}\\Tw=-w}}
+\frac{w^T(A\otimes B)w}{w^Tw}?
+\]
+
+Equivalently, must the smallest eigenvalue of \(A\otimes B+B\otimes A\)
+have an eigenvector \(\operatorname{vec}(X)\) with \(X=X^T\ne0\)?
+
+\subsection{Why it matters}\label{why-it-matters}
+
+An affirmative answer would identify which invariant subspace contains
+the smallest eigenvalue of an important structured matrix operator,
+relevant to positivity checks in semidefinite optimization.
+
+\subsection{References}\label{references}
+
+\begin{itemize}
+\tightlist
+\item
+  N. Kalantarova and L. Tunçel,
+  \href{https://arxiv.org/abs/1805.09737}{On the spectral structure of
+  Jordan--Kronecker products of symmetric and skew-symmetric matrices},
+  \emph{Linear Algebra and its Applications} 608 (2021), 343--362.
+  Conjecture 1, equation (7), p.~12 of arXiv v3; the preceding
+  discussion explains the optimization connection.
+\item
+  D. Kressner and B. Vandereycken,
+  \href{https://arxiv.org/abs/2608.20875}{A counterexample to the
+  symmetric-maximizer conjecture for Lyapunov operators}, 2026,
+  abstract. This resolves a different symmetric-maximizer conjecture and
+  is included to distinguish the recent result from this problem.
+\end{itemize}
+
+\subsection{Status check}\label{status-check}
+
+On 2026-09-08, checked arXiv v3 (2020-08-08, still the latest listed
+version) and searched combinations of ``Jordan-Kronecker'', ``positive
+definite'', ``conjecture'', ``smallest'', ``counterexample'', and the
+authors' names, including 2025--2026 results. No resolution of
+Conjecture 1 was located. The source's counterexamples to general
+symmetric-matrix interlacing do not dispose of its separately stated
+positive definite conjecture. The August 2026 Lyapunov result concerns
+an operator norm maximizer, rather than this positive definite
+Jordan--Kronecker minimum. No recent explicit reaffirmation of this
+exact conjecture was found; the status evidence is therefore bounded.
+\end{document}

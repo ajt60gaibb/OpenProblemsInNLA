@@ -1,0 +1,121 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={SP-04 - The
+smallest-multiplier rule for nearest unit-absolute-determinant
+matrices},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}SP-04}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Eigenvalues and inverse problems\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}The
+smallest-multiplier rule for nearest unit-absolute-determinant
+matrices\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} explicit open root-selection question; no resolution
+located
+
+For \(n\ge2\), define \[
+\mathcal G_n=\{X\in\mathbb R^{n\times n}:\det X\in\{-1,1\}\},
+\qquad
+\|Y\|_F^2=\sum_{i,j}y_{ij}^2.
+\] For a real data matrix \(U\), consider the real stationary pairs \[
+\mathcal C(U)=
+\{(X,c)\in\mathcal G_n\times\mathbb R:X^T(U-X)=cI_n\}.
+\] For generic \(U\), this set is finite. Choose a pair \((X_*,c_*)\)
+whose multiplier has minimum absolute value. Does \[
+\|U-X_*\|_F=\min_{X\in\mathcal G_n}\|U-X\|_F
+\] hold for every \(n\ge2\) and generic real \(U\)?
+
+Here generic means outside an exceptional proper real algebraic set; in
+particular \(U\) is invertible and its squared singular values are
+distinct. If minimum absolute multipliers tie, the question can be
+restricted to the generic locus where the choice is unique. The source
+phrases the same selection question using the real roots of its
+elimination polynomial \(R_1(c)\), which correspond one-to-one to
+stationary matrices for generic data.
+
+\subsection{Relevance}\label{relevance}
+
+This is a concrete question about selecting the global nearest matrix
+from the stationary solutions of a structured matrix nearness problem. A
+positive answer would supply a scalar criterion for identifying the
+global solution. Both determinant signs are allowed; this must not be
+silently replaced by projection onto \(\operatorname{SL}_n(\mathbb R)\)
+alone.
+
+\subsection{References}\label{references}
+
+\begin{itemize}
+\tightlist
+\item
+  J. A. Baaijens and J. Draisma, \emph{Euclidean distance degrees of
+  real algebraic groups}, Linear Algebra and its Applications 467
+  (2015), 174--187, §4.1, equations (4)--(5), elimination algorithm, and
+  Problem 4.3 on p.186
+  (\href{https://pure.tue.nl/ws/files/3846347/391917266748824.pdf}{version
+  of record};
+  \href{https://doi.org/10.1016/j.laa.2014.11.012}{journal}).
+\item
+  P. Jaap and O. Sander, \emph{How to project onto SL(n)},
+  arXiv:2501.19310 (2025), introduction pp.1--2, discussing the
+  Baaijens--Draisma conjectural global selection rule
+  (\href{https://arxiv.org/pdf/2501.19310}{primary manuscript}); Journal
+  of Optimization Theory and Applications 209 (2026), article 40
+  (\href{https://doi.org/10.1007/s10957-026-02974-8}{journal}).
+\end{itemize}
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+The January 2025 manuscript explicitly describes the earlier proposed
+global-minimum selection as conjectural. Its journal version appeared in
+April 2026; the accessible journal abstract and arXiv version history
+were checked, but the subscription-only journal body was not inspected.
+Searches for ``nearest determinant-one matrix'', ``Baaijens'',
+``smallest absolute value'', ``projection SL(n)'', and 2025--2026 found
+no resolution of this exact rule. The problem retains the source's
+generic-data scope.
+\end{document}

@@ -6,13 +6,13 @@ without solving them. Lean is inactive and not requested.
 
 ## Current state — 2026-09-08
 
-**PARTIAL: 75 / 1,000 admitted entries.** The remaining 925 are not supplied.
+**PARTIAL: 125 / 1,000 admitted entries.** The remaining 875 are not supplied.
 The [catalog index](CATALOG.md) lists every admitted entry and both
 requested ratings. No placeholders, excluded questions, or arbitrary parameter
 instances contribute to the count.
 
 The user requested category folders and an individual Markdown/LaTeX/PDF
-document for each existing problem. Eight root categories and 75 problem folders
+document for each existing problem. Ten root categories and 125 problem folders
 now hold the canonical statements. Shared mathematical definitions have been
 copied into the entries that require them; the original chapter pages retain
 their anchors and uncounted screening notes.
@@ -35,12 +35,14 @@ pivot ties, the all-stage growth definition, and distinctness. Complex fields in
 IE-13–14 follow the adjacent theorem; the exercise itself leaves the field implicit.
 The wider 1,000-problem curation objective remains partial.
 
-- Linear systems and elimination: 11.
-- Eigenvalues and inverse problems: 10.
-- Matrix functions and stability: 13.
-- Randomized and low-rank approximation: 12.
-- Tensor computations: 4.
-- Nonnegative and positive factorizations: 11.
+- Linear systems and elimination: 15.
+- Eigenvalues and inverse problems: 17.
+- Matrix functions and stability: 17.
+- Randomized and low-rank approximation: 17.
+- Tensor computations: 13.
+- Nonnegative and positive factorizations: 12.
+- Matrix inequalities and norms: 12.
+- Frames and matrix designs: 8.
 - Arithmetic and complexity: 9.
 - Intervals and absolute value equations: 5.
 
@@ -50,6 +52,22 @@ Older-status entries explicitly expose their weaker evidence. Difficulty and
 importance are editorial ratings, with definitions in the repository README.
 
 ## Mathematical screening findings
+
+**COMPLETE: the requested wider batch of 50 additions.** Six search subagents
+covered iterative methods, matrix functions and inequalities, randomized NLA and
+frames, tensors, spectral/inverse problems, and structured matrices. The
+[durable screen](proof/WIDE-SEARCH-2026-09.md) records exact source passages,
+related statements counted together, recent partial results, resolutions,
+withdrawals, and uncounted reserves. The new categories expose matrix inequalities
+and frame/design questions separately. Root source review covered all 50 additions;
+independent audits also checked the tensor, spectral, and structured groups.
+
+The 50 new PDFs contain 51 pages (NM-04 requires two), for **125 PDFs and 129
+pages** overall. New documents compile without overflow or missing-character
+warnings, and all 51 new pages were visually inspected. The source audit clarified
+border-rank limits, rectangular Sinkhorn normalization and every coefficient sign,
+entrywise versus Loewner order, generic matrix-nearness data, and the corrected
+Toeplitz theorem's conjectural status. No conjectures were solved or attacked.
 
 **Higham notes screened on 2026-09-08:** the
 [complete disposition record](proof/HIGHAM-2002-SCREEN.md) covers all 20 numbered
@@ -126,6 +144,9 @@ no evidence yet establishes that the target can be filled within a narrower
 scope without inventing questions or subdividing them artificially.
 
 ## Remaining work
+
+The requested 50-entry batch is complete. The broader 1,000-entry target remains
+partial, with 875 further distinct admissions needed.
 
 Continue source curation in underrepresented core NLA areas, including
 randomized estimation, absolute-value systems, least squares, preconditioning,

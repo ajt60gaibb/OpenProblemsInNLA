@@ -1,0 +1,109 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={RA-07 - Convexity
+of the expected error of volume-sampled column
+subsets},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RA-07}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Randomized and low-rank approximation\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Convexity
+of the expected error of volume-sampled column subsets\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} source-stated conjecture; no resolution found in
+screening on 2026-09-08.
+
+For \(n\geq3\) and positive real numbers \(\lambda_1,\ldots,\lambda_n\),
+let \[
+e_j(\lambda)=\sum_{\substack{S\subseteq\{1,\ldots,n\}\\|S|=j}}
+\prod_{i\in S}\lambda_i,
+\qquad e_0=1,\quad e_{n+1}=0.
+\] Define \(f(j)=(j+1)e_{j+1}(\lambda)/e_j(\lambda)\) for
+\(1\leq j\leq n\). Is \(f\) discretely convex, that is, \[
+f(j-1)-2f(j)+f(j+1)\geq0
+\qquad(2\leq j\leq n-1),
+\] for every such \(n\) and positive tuple \(\lambda\)?
+
+For a matrix \(A\) with positive eigenvalues \(\lambda_i\) of \(A^TA\),
+sample a set \(S\) of \(j\) columns with probability proportional to
+\(\det(A_S^TA_S)\). Its expected squared Frobenius projection error is
+\[
+\mathbb E\|(I-P_{A_S})A\|_F^2=f(j),
+\] where \(P_{A_S}\) is the orthogonal projector onto the selected
+column span. Thus the conjecture asserts a diminishing marginal
+improvement in the average reconstruction error of these fixed-size
+determinantal samples. It is distinct from optimizing a worst-case
+approximation factor over all matrices with a prescribed spectrum.
+
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  M. Dereziński, R. Khanna, and M. W. Mahoney, \emph{Improved guarantees
+  and a multiple-descent curve for Column Subset Selection and the
+  Nyström method}, NeurIPS 2020, arXiv:2002.09073. Section 5, Conjecture
+  1 is exactly the discrete-convexity statement.
+  \href{https://arxiv.org/abs/2002.09073}{Paper}.
+\item
+  A. Deshpande, L. Rademacher, S. S. Vempala, and G. Wang, \emph{Matrix
+  Approximation and Projective Clustering via Volume Sampling}, Theory
+  of Computing 2 (2006), Article 12, pp.~225--247. See the
+  volume-sampling matrix approximation results.
+  \href{https://theoryofcomputing.org/articles/v002a012/}{Paper}.
+\end{enumerate}
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+Searched ``Derezinski Khanna Mahoney Conjecture 1 convexity'',
+``elementary symmetric ratio \(k+1\) convexity DPP'', and the exact 2020
+paper title with 2025/2026. Checked the current arXiv record. No proof
+or counterexample was found. Standard Newton inequalities imply other
+ratio inequalities but are not cited as a resolution of this
+second-difference inequality.
+\end{document}

@@ -1,8 +1,8 @@
 # Linear systems and elimination
 
-[← All categories](../README.md) · [All 75 problems](../CATALOG.md)
+[← All categories](../README.md) · [All 125 problems](../CATALOG.md)
 
-11 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
+15 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
 
 | ID | Problem | Difficulty | Importance | Read / source |
 | --- | --- | --- | --- | --- |
@@ -17,7 +17,9 @@
 | [IE-14](IE-14/README.md) | Sharp growth for cyclic tridiagonal matrices | challenging | interesting to specialist | [PDF](IE-14/problem.pdf) · [TeX](IE-14/problem.tex) |
 | [IE-15](IE-15/README.md) | Exact small-order growth factors for rook pivoting | challenging | interesting to specialist | [PDF](IE-15/problem.pdf) · [TeX](IE-15/problem.tex) |
 | [KE-01](KE-01/README.md) | Exploit spectral outliers without losing input sparsity | challenging | interesting to the community | [PDF](KE-01/problem.pdf) · [TeX](KE-01/problem.tex) |
+| [IE-16](IE-16/README.md) | A sharp subset bound for worst-case normal GMRES | challenging | interesting to the community | [PDF](IE-16/problem.pdf) · [TeX](IE-16/problem.tex) |
+| [IE-17](IE-17/README.md) | Monotonic optimal backward error along LSMR | challenging | interesting to the community | [PDF](IE-17/problem.pdf) · [TeX](IE-17/problem.tex) |
+| [IE-18](IE-18/README.md) | The exact four-step amplification of restarted Anderson acceleration | challenging | interesting to the community | [PDF](IE-18/problem.pdf) · [TeX](IE-18/problem.tex) |
+| [IE-19](IE-19/README.md) | Sharp inverse norm bound from upper bounds on matrix entries | challenging | interesting to specialist | [PDF](IE-19/problem.pdf) · [TeX](IE-19/problem.tex) |
 
-Ratings are editorial. Literature checks are dated 2026-09-08. IE-13–15 were added in the [Higham screening](../proof/HIGHAM-2002-SCREEN.md); each records the limits of its later-literature search. [Rating definitions](../README.md#ratings).
-
-IE-01 was removed following a [complete resolution of Forsythe’s conjecture](https://arxiv.org/abs/2609.04659). Its ID remains reserved; see the [exclusion note](../proof/catalog/iterative-eigenvalue.md#ie-01).
+Ratings are editorial. Each entry records its literature check and the scope of the evidence. [Rating definitions](../README.md#ratings).

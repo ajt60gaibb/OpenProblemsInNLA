@@ -1,6 +1,6 @@
 # Arithmetic and complexity
 
-[← All categories](../README.md) · [All 75 problems](../CATALOG.md)
+[← All categories](../README.md) · [All 125 problems](../CATALOG.md)
 
 9 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
 
@@ -16,4 +16,4 @@
 | [AC-07](AC-07/README.md) | Scholz–Brauer inequality for multiplication chains | challenging | interesting to specialist | [PDF](AC-07/problem.pdf) · [TeX](AC-07/problem.tex) |
 | [AC-08](AC-08/README.md) | Knuth–Stolarsky lower bound for addition chains | challenging | interesting to specialist | [PDF](AC-08/problem.pdf) · [TeX](AC-08/problem.tex) |
 
-Ratings are editorial. Literature checks are dated 2026-09-08; this reorganization does not represent a new status search. [Rating definitions](../README.md#ratings).
+Ratings are editorial. Each entry records its literature check and the scope of the evidence. [Rating definitions](../README.md#ratings).

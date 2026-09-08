@@ -1,8 +1,8 @@
 # Randomized and low-rank approximation
 
-[← All categories](../README.md) · [All 75 problems](../CATALOG.md)
+[← All categories](../README.md) · [All 125 problems](../CATALOG.md)
 
-12 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
+17 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
 
 | ID | Problem | Difficulty | Importance | Read / source |
 | --- | --- | --- | --- | --- |
@@ -18,5 +18,10 @@
 | [RA-01](RA-01/README.md) | Optimal pivot count for RPCholesky trace approximation | challenging | interesting to the community | [PDF](RA-01/problem.pdf) · [TeX](RA-01/problem.tex) |
 | [RA-02](RA-02/README.md) | Polynomial trace-error factor after exactly the target rank of pivots | challenging | interesting to the community | [PDF](RA-02/problem.pdf) · [TeX](RA-02/problem.tex) |
 | [RA-03](RA-03/README.md) | Improve the randomized LU squared-error factor to $2^k$ | challenging | interesting to specialist | [PDF](RA-03/problem.pdf) · [TeX](RA-03/problem.tex) |
+| [KE-05](KE-05/README.md) | Spectral-gap-independent constants for randomized block polynomial interpolation | challenging | interesting to the community | [PDF](KE-05/problem.pdf) · [TeX](KE-05/problem.tex) |
+| [RA-04](RA-04/README.md) | Clustered singular-value gaps in randomized block Krylov approximation | hard | interesting to specialist | [PDF](RA-04/problem.pdf) · [TeX](RA-04/problem.tex) |
+| [RA-05](RA-05/README.md) | Sharp joint rank and accuracy dependence for strong $\ell_p$ subspace coresets | hard | interesting to the community | [PDF](RA-05/problem.pdf) · [TeX](RA-05/problem.tex) |
+| [RA-06](RA-06/README.md) | Sensitivity-dependent row sampling for $\ell_p$ embeddings when p exceeds two | hard | interesting to the community | [PDF](RA-06/problem.pdf) · [TeX](RA-06/problem.tex) |
+| [RA-07](RA-07/README.md) | Convexity of the expected error of volume-sampled column subsets | challenging | interesting to the community | [PDF](RA-07/problem.pdf) · [TeX](RA-07/problem.tex) |
 
-Ratings are editorial. Literature checks are dated 2026-09-08; this reorganization does not represent a new status search. [Rating definitions](../README.md#ratings).
+Ratings are editorial. Each entry records its literature check and the scope of the evidence. [Rating definitions](../README.md#ratings).

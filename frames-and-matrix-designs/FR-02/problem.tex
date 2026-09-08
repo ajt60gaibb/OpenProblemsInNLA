@@ -1,0 +1,120 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={FR-02 - Sharp
+sample complexity for restricted isometries from the cyclic Fourier
+matrix},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}FR-02}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Frames and matrix designs\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Sharp
+sample complexity for restricted isometries from the cyclic Fourier
+matrix\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} broadly
+interesting\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} source-stated sharp-order open problem; no resolution
+found in screening on 2026-09-08.
+
+Let \(F_N\in\mathbb C^{N\times N}\) be the unitary cyclic discrete
+Fourier matrix, \[
+(F_N)_{j\ell}=N^{-1/2}\exp(-2\pi\mathrm i j\ell/N),\quad0\leq j,\ell<N.
+\] Choose \(r_1,\ldots,r_m\) independently and uniformly from
+\(\{0,\ldots,N-1\}\), allowing repetitions, and form
+\(A=\sqrt{N/m}(F_N)_{(r_1,\ldots,r_m),:}\). Put \[
+\delta_s(A)=\sup_{\substack{x\in\mathbb C^N\setminus\{0\}\\|\operatorname{supp}(x)|\leq s}}
+\left|\frac{\|Ax\|_2^2}{\|x\|_2^2}-1\right|,
+\qquad
+m_*(N,s)=\min\{m\geq1:\Pr[\delta_s(A)\leq1/3]\geq2/3\}.
+\] Determine the order of \(m_*(N,s)\), within absolute multiplicative
+constants, uniformly for integers \(N\geq2\) and \(2\leq s\leq N\). In
+particular, identify the logarithmic factors that are necessary rather
+than artifacts of current upper bounds.
+
+The problem fixes the group to cyclic Fourier, the sampling to
+independent rows with replacement, and the success and distortion
+thresholds to constants. Results for Walsh--Hadamard matrices do not
+automatically give the same sharp answer for every cyclic \(N\). This
+distinction matters because lower bounds can depend on subgroup
+structure.
+
+Fast multiplication by Fourier sketches is valuable in large
+least-squares and sparse recovery computations. The source asks how many
+Fourier rows suffice for a fixed restricted-isometry tolerance.
+Haviv--Regev's upper bound is \(O(s\log^2(s)\log N)\) at fixed
+tolerance; known lower bounds leave a logarithmic gap in general.
+
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A. S. Bandeira, \emph{Ten Lectures and Forty-Two Open Problems in the
+  Mathematics of Data Science}, Open Problem 6.1, including its explicit
+  sampling-with-replacement Fourier model.
+  \href{https://people.math.ethz.ch/~abandeira/TenLecturesFortyTwoProblems.pdf}{Author's
+  notes}.
+\item
+  I. Haviv and O. Regev, \emph{The Restricted Isometry Property of
+  Subsampled Fourier Matrices}, SODA 2016; Geometric and Functional
+  Analysis 27 (2017), pp.~119--142. Main restricted-isometry theorem.
+  \href{https://arxiv.org/abs/1507.01768}{Paper}.
+\item
+  A. S. Bandeira, M. E. Lewis, and D. G. Mixon, \emph{Discrete
+  uncertainty principles and sparse signal processing}, Journal of
+  Fourier Analysis and Applications 24 (2018), pp.~935--956. Theorem 16
+  gives a Fourier sampling lower bound under stated divisibility
+  hypotheses. \href{https://arxiv.org/abs/1504.01014}{Paper}.
+\end{enumerate}
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+Searched ``subsampled Fourier RIP sharp logarithmic 2025 2026'',
+``cyclic Fourier RIP lower bound'', and the exact upper-bound title;
+checked current arXiv records. No uniform sharp-order resolution was
+found. Bounds for partial circulant Gaussian operators and Boolean Walsh
+transforms concern different random matrices.
+\end{document}

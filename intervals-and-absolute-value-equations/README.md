@@ -1,6 +1,6 @@
 # Intervals and absolute value equations
 
-[← All categories](../README.md) · [All 75 problems](../CATALOG.md)
+[← All categories](../README.md) · [All 125 problems](../CATALOG.md)
 
 5 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
 
@@ -12,4 +12,4 @@
 | [AV-02](AV-02/README.md) | Hardness of the spectral-norm condition number | challenging | interesting to the community | [PDF](AV-02/problem.pdf) · [TeX](AV-02/problem.tex) |
 | [AV-03](AV-03/README.md) | Polynomial-time solution under the regularity promise | extreme | broadly interesting | [PDF](AV-03/problem.pdf) · [TeX](AV-03/problem.tex) |
 
-Ratings are editorial. Literature checks are dated 2026-09-08; this reorganization does not represent a new status search. [Rating definitions](../README.md#ratings).
+Ratings are editorial. Each entry records its literature check and the scope of the evidence. [Rating definitions](../README.md#ratings).

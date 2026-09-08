@@ -1,0 +1,99 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={IE-16 - A
+sharp subset bound for worst-case normal
+GMRES},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-16}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Linear systems and elimination\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}A
+sharp subset bound for worst-case normal GMRES\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} explicit conjecture; no later resolution located
+
+Let \(L\subset\mathbb C\setminus\{0\}\) consist of \(n\ge3\) distinct
+points. For a nonempty \(S\subseteq L\), define \[
+M_k(S)=\min_{p\in\mathbb C[z],\ \deg p\le k,\ p(0)=1}\max_{z\in S}|p(z)|.
+\] Is it true, simultaneously for every such \(L\) and
+\(1\le k\le n-2\), that \[
+M_k(L)\le\frac4\pi\max_{S\subseteq L,\ |S|=k+1}M_k(S)?
+\] The constant is required to be independent of dimension, degree, and
+the locations of the points.
+
+For a normal matrix with spectrum \(L\), \(M_k(L)\) is the largest
+relative residual norm attainable at GMRES step \(k\), over unit initial
+residuals. The smaller-set quantities have explicit formulas through
+Lagrange interpolation. The question therefore asks for a sharp,
+dimension-independent certificate of worst-case convergence using small
+subsets of the spectrum. It is distinct from equality of ideal and
+worst-case GMRES for a nonnormal Jordan block (IE-02).
+
+\subsection{References}\label{references}
+
+J. Liesen and P. Tichý, \emph{The worst-case GMRES for normal matrices},
+BIT 44 (2004), 79--98, conjecture (3.16), pp.~91--92, and Appendix
+(\href{https://page.math.tu-berlin.de/~liesen/Publicat/LieTic04.pdf}{author
+copy}). Their \emph{A min-max problem on roots of unity}, TU Berlin
+Preprint 28-2003, conclusion (9.1), proves selected roots-of-unity cases
+and sharpness of \(4/\pi\)
+(\href{https://doi.org/10.14279/depositonce-14263}{university record}).
+Their survey \emph{Convergence analysis of Krylov subspace methods},
+GAMM-Mitteilungen 27 (2004), discussion after (11), restates the
+conjecture
+(\href{https://page.math.tu-berlin.de/~liesen/Publicat/LiTiGAMM.pdf}{author
+copy}).
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+Searched the original title with ``conjecture'', ``4/pi'', ``4/π'',
+``proof'', ``counterexample'', and 2025--2026; checked the authors'
+current publication lists. The later Jordan-block papers concern a
+different conjecture. No resolution or recent explicit reaffirmation of
+this particular bound was located; its open-status evidence is
+historical and bounded.
+\end{document}

@@ -1,0 +1,97 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={KE-04 - Strict
+interlacing across block Lanczos
+iterations},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}KE-04}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Eigenvalues and inverse problems\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Strict
+interlacing across block Lanczos iterations\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} explicit conjecture in a 2025 primary manuscript
+
+Let \(A\in\mathbb R^{n\times n}\) be symmetric and
+\(V\in\mathbb R^{n\times p}\) have full column rank. Write \[
+\mathcal K_j=\operatorname{range}[V,AV,\ldots,A^{j-1}V],
+\] and let \(s\) be the largest integer with \(\dim\mathcal K_s=sp\).
+For \(1\le j\le s\), choose an orthonormal basis \(Q_j\) of
+\(\mathcal K_j\) and order the eigenvalues of \(T_j=Q_j^TAQ_j\) as
+\(\theta_1^{(j)}\le\cdots\le\theta_{jp}^{(j)}\), with multiplicity.
+
+For every \(1\le k<j\le s\) and \(1\le i\le(k-1)p\), must the open
+interval \[
+(\theta_i^{(k)},\theta_{i+p}^{(k)})
+\] contain an eigenvalue of \(T_j\)? The statement concerns exact
+arithmetic before the first loss of full block dimension. Although
+Lanczos supplies compatible block tridiagonal representations, the
+spectra do not depend on the chosen bases.
+
+This would extend a scalar Lanczos property used to interpret later Ritz
+values and distinguish genuine eigenvalue approximation from clusters
+created by finite precision.
+
+\subsection{References}\label{references}
+
+D. Šimonová and P. Tichý, \emph{On finite precision block Lanczos
+computations}, arXiv:2507.16484v1 (22 July 2025), §2.1, unnumbered
+conjecture and final discussion
+(\href{https://arxiv.org/html/2507.16484v1}{primary manuscript}). J.
+Liesen and Z. Strakoš, \emph{Krylov Subspace Methods: Principles and
+Analysis}, Oxford 2013, the scalar Lanczos/orthogonal-polynomial
+background cited by the source
+(\href{https://doi.org/10.1093/acprof:oso/9780199655410.001.0001}{publisher}).
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+The arXiv abstract/history and full §2.1 were inspected; v1 remains the
+only listed version. Searches ``block Lanczos interlacing conjecture'',
+``Šimonová Tichý interlacing'', and 2026 proof/counterexample queries
+found no resolution. Standard weak Cauchy interlacing is not the
+asserted strict interval-occupancy result.
+\end{document}

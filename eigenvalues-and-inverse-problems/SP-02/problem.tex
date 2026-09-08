@@ -1,0 +1,101 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={SP-02 - The
+sharp off-diagonal threshold for spectral-subspace
+rotation},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}SP-02}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Eigenvalues and inverse problems\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}The
+sharp off-diagonal threshold for spectral-subspace rotation\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} explicit conjecture; no later resolution located
+
+Let \(A\) be a self-adjoint, possibly unbounded operator on a separable
+complex Hilbert space, with \(\sigma(A)=\sigma\cup\Sigma\) for nonempty
+closed sets satisfying \(d=\operatorname{dist}(\sigma,\Sigma)>0\). Let
+\(P=E_A(\sigma)\). Suppose a bounded self-adjoint perturbation \(V\) is
+off-diagonal relative to this decomposition: \[
+PVP=0,\qquad (I-P)V(I-P)=0.
+\] Writing \(O_r(S)=\{x\in\mathbb R:\operatorname{dist}(x,S)<r\}\) and
+\(Q=E_{A+V}(O_{d/2}(\sigma))\), does \[
+\|V\|<\frac{\sqrt3}{2}d\quad\Longrightarrow\quad\|P-Q\|<1
+\] hold universally? Here \(E_B\) is the spectral projection measure of
+\(B\), and norms are operator norms. No ordering of the two spectral
+sets is assumed.
+
+The source retains the full operator setting, encompassing Hermitian
+block matrices in invariant-subspace computations. The threshold
+\(\sqrt3/2\) already guarantees that the perturbed spectral components
+stay separated; the unresolved assertion controls their maximal subspace
+angle. Off-diagonal structure makes this a different threshold problem
+from the general-perturbation constant \(1/2\).
+
+\subsection{References}\label{references}
+
+A. Seelmann, \emph{Notes on the subspace perturbation problem for
+off-diagonal perturbations}, Proceedings AMS 144 (2016), 3825--3832, §1,
+(1.1)--(1.4), and Theorem 2.5
+(\href{https://arxiv.org/pdf/1412.6294}{primary manuscript};
+\href{https://doi.org/10.1090/proc/13118}{journal}). A. Seelmann,
+\emph{Unifying the treatment of indefinite and semidefinite
+perturbations in the subspace perturbation problem}, Operators and
+Matrices 15 (2021), 1181--1188
+(\href{https://files.ele-math.com/articles/oam-15-74.pdf}{primary
+paper}), treats a different extension of the perturbation hypotheses.
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+The 2016 paper explicitly conjectures \(c_{\mathrm{opt-off}}=\sqrt3/2\)
+and proves \(c_{\mathrm{opt-off}}>0.6940725\). The 2021 extension does
+not attain this off-diagonal endpoint. Searches for ``off-diagonal
+subspace perturbation'', ``0.6940725'', ``sqrt 3'', ``optimal
+constant'', ``conjecture'', and 2024--2026 found no resolution. This is
+a historical-source entry with a bounded later-literature check, not a
+certified claim of present openness.
+\end{document}

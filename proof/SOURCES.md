@@ -3,7 +3,22 @@
 Last updated: **2026-09-08**. This records source coverage and consequential
 exclusions. It is not an exhaustive bibliography or a claim that every problem
 in the books below has been checked. Each admitted entry has its own references
-and status evidence in the [catalog](catalog/README.md).
+and status evidence in the [catalog](../CATALOG.md).
+
+## Wider search batch: 50 additions
+
+The [September 2026 wider source screen](WIDE-SEARCH-2026-09.md) records the six
+search areas, 50 admitted targets, primary source locators, duplicate decisions,
+partial resolutions, withdrawn claims, and additional uncounted leads. It brings
+the collection to 125 entries. Every addition has a standalone Markdown statement,
+TeX source, and visually checked PDF, with both requested ratings.
+
+Newly examined source groups include Fong's 2011 LSMR dissertation, Bandeira's
+*Ten Lectures and Forty-Two Open Problems*, Landsberg's *Geometry and Complexity
+Theory*, the 2026 *Randomstrasse101* collection, Seelmann's spectral-subspace
+papers, Wanless's permanent survey, and original tensor, matrix-inequality,
+structured-spectrum, matrix-scaling, and matrix-nearness papers. The linked screen
+identifies the passages actually used; this is not a claim of full-book coverage.
 
 ## Books, monographs, and surveys examined
 

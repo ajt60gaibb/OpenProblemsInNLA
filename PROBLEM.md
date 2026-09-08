@@ -41,9 +41,14 @@ inactive formalization track.
 - A durable progress record giving the actual count against the target of 1,000.
 
 The category organization and Markdown/LaTeX/PDF export are complete. The latest
-request is to screen the user's Higham 2002 reading notes and add distinct,
-precise surviving open problems. This screen adds IE-13–15, leaving 75 admitted
-problems; `proof/HIGHAM-2002-SCREEN.md` records every supplied lead's disposition.
+request is a wider literature search using six subagents, aiming to add **50 more
+distinct, precisely stated NLA conjectures from books or papers**, with the same
+status checks, ratings, and Markdown/TeX/PDF deliverables. This batch is complete:
+50 entries were added to the starting 75,
+for **125 admitted entries**. The [wider screen](proof/WIDE-SEARCH-2026-09.md)
+records the six searches and admission decisions. The earlier Higham screen
+added IE-13–15;
+`proof/HIGHAM-2002-SCREEN.md` records its supplied leads' dispositions.
 IE-01 remains removed following the September 2026 resolution of Forsythe's
 conjecture. Maintain accurate counts and retain resolution references in the
 source record and former chapter pages in `proof/catalog/`, which preserve old

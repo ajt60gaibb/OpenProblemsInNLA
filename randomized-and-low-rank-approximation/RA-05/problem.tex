@@ -1,0 +1,114 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={RA-05 - Sharp
+joint rank and accuracy dependence for strong \ell\_p subspace
+coresets},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RA-05}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Randomized and low-rank approximation\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Sharp
+joint rank and accuracy dependence for strong \(\ell_p\) subspace
+coresets\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} hard\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} source-stated open question; no resolution found in
+screening on 2026-09-08.
+
+Fix a real \(p>2\). For \(A\in\mathbb R^{n\times d}\), with rows
+\(a_i^T\), and a linear subspace \(F\subseteq\mathbb R^d\), define \[
+\operatorname{cost}_A(F)=\sum_{i=1}^n\|a_i^T(I-P_F)\|_2^p,
+\] where \(P_F\) is the Euclidean orthogonal projector. A strong row
+coreset consists of nonnegative weights \(w_1,\ldots,w_n\), supported on
+a small subset of the original rows, for which \[
+(1-\varepsilon)\operatorname{cost}_A(F)
+\leq\sum_iw_i\|a_i^T(I-P_F)\|_2^p
+\leq(1+\varepsilon)\operatorname{cost}_A(F)
+\] holds simultaneously for every \(F\) of dimension at most \(k\).
+
+Determine the optimal worst-case coreset size as a joint function of
+\(k\) and \(\varepsilon\), up to logarithmic factors. In particular, do
+constants \(C_p,c_p>0\) exist such that, for all \(n,d\), integers
+\(1\leq k<d\), all input matrices \(A\), and all \(0<\varepsilon<1/2\),
+such a coreset exists with \[
+|\operatorname{supp}(w)|\leq
+C_p\left(\frac{k^{p/2}}{\varepsilon}+\frac{k}{\varepsilon^2}\right)
+\log^{c_p}\!\left(\frac{2k}{\varepsilon}\right)?
+\] The constants may depend on fixed \(p\), but not on
+\(n,d,k,\varepsilon\). This is an existence/size question; no extra
+running-time target is imposed.
+
+Such a coreset permits subsequent robust low-rank fitting on a much
+smaller weighted matrix. The August 2026 paper proves an upper bound of
+order \(\widetilde O_p(k^{p/2}/\varepsilon^2)\) and explicitly
+identifies the remaining gap to the joint lower-bound expression in
+Section 1.4. Its new result supersedes older questions that merely asked
+for an \(\varepsilon^{-2}\) dependence.
+
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  H. Lin, V. Mirrokni, and D. P. Woodruff, \emph{Nearly Optimal Strong
+  Coresets for \(\ell_p\) Subspace Approximation}, arXiv:2608.26047v2,
+  Section 1.4 ``Open problems''; Section 1.2 for the new bounds.
+  \href{https://arxiv.org/html/2608.26047v2}{Paper}.
+\item
+  D. P. Woodruff and T. Yasuda, \emph{Root ridge leverage score sampling
+  for \(\ell_p\) subspace approximation}, FOCS 2025, full version
+  arXiv:2407.03262. \href{https://arxiv.org/abs/2407.03262}{Paper}.
+\end{enumerate}
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+Searched ``strong coresets subspace approximation p greater than 2
+epsilon 2026'' and the exact 2026 title; checked the latest arXiv v2 of
+August 27, 2026. No later resolution was found. The target comes from
+the remaining question in that paper, rather than its already improved
+predecessor bounds.
+\end{document}

@@ -1,0 +1,120 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={FR-03 - Uniform
+conditioning of large Paley-frame column
+subsets},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}FR-03}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Frames and matrix designs\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Uniform
+conditioning of large Paley-frame column subsets\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} broadly
+interesting\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} source-stated conjecture; no unconditional resolution
+found in screening on 2026-09-08.
+
+For a prime \(p\equiv1\pmod4\), let \(Q\) be the nonzero quadratic
+residues modulo \(p\), and set \(N=(p+1)/2\). Define
+\(\Phi_p\in\mathbb C^{N\times(p+1)}\) with row labels \(\{0\}\cup Q\)
+and column labels \(\{0,\ldots,p-1,\infty\}\) by \[
+(\Phi_p)_{0j}=p^{-1/2},\qquad
+(\Phi_p)_{rj}=\sqrt{2/p}\exp(-2\pi\mathrm i rj/p)
+\quad(r\in Q,\ 0\leq j<p),
+\] and \((\Phi_p)_{0,\infty}=1\), \((\Phi_p)_{r,\infty}=0\) for
+\(r\in Q\). All columns have Euclidean norm one.
+
+Do constants \(0<\varepsilon<1/2\), \(c>0\), \(C<\infty\), and \(p_0\)
+exist such that, for every prime \(p\geq p_0\) with \(p\equiv1\pmod4\)
+and every column subset \(S\) with \[
+1\leq |S|\leq \lfloor c p^{1/2+\varepsilon}\rfloor,
+\] the column submatrix satisfies \[
+\kappa_2((\Phi_p)_S)
+=\frac{\sigma_{\max}((\Phi_p)_S)}
+{\sigma_{\min}((\Phi_p)_S)}\leq C?
+\] The condition number is infinite when the columns are dependent.
+Constants must be independent of both \(p\) and \(S\).
+
+This is the bounded-condition-number formulation of the Paley-frame
+conjecture in Randomstrasse 101, Conjecture 29. It asks for uniform
+conditioning beyond the square-root sparsity scale, rather than
+conditioning of a random subset. The explicit frame would provide
+deterministic measurement matrices with stable sparse least-squares
+subproblems. The general deterministic restricted-isometry construction
+problem does not require this particular matrix, so neither problem
+duplicates the other.
+
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A. S. Bandeira, D. Dmitriev, K. Lucca, P. Nizić-Nikolac, and A.
+  Rödder, \emph{Randomstrasse 101: Open Problems of 2025},
+  arXiv:2603.29571 (2026), Conjecture 29 and the preceding Paley
+  construction. \href{https://arxiv.org/html/2603.29571v1}{Paper}.
+\item
+  A. S. Bandeira, M. Fickus, D. G. Mixon, and P. Wong, \emph{The road to
+  deterministic matrices with the restricted isometry property}, Journal
+  of Fourier Analysis and Applications 19 (2013), pp.~1123--1149. The
+  Paley ETF discussion supplies the original restricted-isometry
+  motivation. \href{https://arxiv.org/abs/1202.1234}{Paper}.
+\item
+  S. Satake, \emph{On the restricted isometry property of the Paley
+  matrix}, Linear Algebra and its Applications 631 (2021), pp.~35--47.
+  Its main implication is conditional on a Paley-graph conjecture.
+  \href{https://arxiv.org/abs/2011.02907}{Paper}.
+\end{enumerate}
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+Searched ``Paley matrix RIP conjecture 2025 2026'', ``Paley ETF
+condition number square root bottleneck'', and the exact Satake title;
+checked the 2026 restatement and current arXiv records. No unconditional
+proof or counterexample was found. Conditional graph-discrepancy
+implications do not settle the quantifiers above.
+\end{document}

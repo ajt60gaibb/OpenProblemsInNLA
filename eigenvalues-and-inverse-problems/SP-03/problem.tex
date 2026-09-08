@@ -1,0 +1,115 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={SP-03 - The
+Euclidean distance degree of the real symplectic
+group},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}SP-03}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Eigenvalues and inverse problems\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}The
+Euclidean distance degree of the real symplectic group\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} explicit proposed formula for an open problem; no
+resolution located
+
+For each \(m\ge1\), set \[
+J=\begin{pmatrix}0&I_m\\-I_m&0\end{pmatrix},\qquad
+\operatorname{Sp}_{2m}(\mathbb C)=
+\{X\in\mathbb C^{2m\times2m}:X^TJX=J\}.
+\] For a generic data matrix \(U\in\mathbb C^{2m\times2m}\), let \(D_m\)
+be the number of complex critical points on this variety of \[
+f_U(X)=\operatorname{tr}\bigl((X-U)^T(X-U)\bigr).
+\] This is the complexification of squared real Frobenius distance; the
+transpose is not a conjugate transpose. Equivalently, count the
+solutions \(X\) of \(X^TJX=J\) and \[
+\operatorname{tr}\bigl((U-X)^TXH\bigr)=0
+\quad\text{for every }H\in\mathbb C^{2m\times2m}
+\text{ satisfying }H^TJ+JH=0.
+\] ``Generic'' means outside a proper Zariski-closed set where the
+finite critical-point count can change. Is \[
+D_m=2^{m^2}+2^{\,2m-1}
+\qquad\text{for every }m\ge1?
+\]
+
+\subsection{Relevance}\label{relevance}
+
+\(D_m\) measures the algebraic complexity of finding the nearest real
+symplectic matrix. This is a structured matrix nearness problem,
+relevant when numerical approximations should preserve a symplectic
+form. The standard Frobenius inner product and the displayed \(J\) are
+part of the problem.
+
+\subsection{References}\label{references}
+
+\begin{itemize}
+\tightlist
+\item
+  J. A. Baaijens and J. Draisma, \emph{Euclidean distance degrees of
+  real algebraic groups}, Linear Algebra and its Applications 467
+  (2015), 174--187, §5, p.187: proposed formula immediately before
+  Problem 5.1; §2 for critical equations
+  (\href{https://pure.tue.nl/ws/files/3846347/391917266748824.pdf}{version
+  of record};
+  \href{https://doi.org/10.1016/j.laa.2014.11.012}{journal}).
+\item
+  Z. Lai, L.-H. Lim, and K. Ye, \emph{Euclidean Distance Degree in
+  Manifold Optimization}, SIAM Journal on Optimization 35 (2025),
+  2402--2422, related ED-degree results for flag, Grassmann, and Stiefel
+  models (\href{https://doi.org/10.1137/25M1735032}{journal}).
+\end{itemize}
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+The source computed \(D_1=4\), \(D_2=24\), and \(D_3=544\), and
+explicitly proposed the displayed pattern. It did not assert a proof.
+Searches for ``symplectic group'', ``Euclidean distance degree'', ``ED
+degree'', ``544'', and 2024--2026 found no proof, counterexample, or
+additional general formula. The 2025 related article's abstract treats
+different manifold families. No recent explicit reaffirmation of this
+exact formula was located.
+\end{document}
