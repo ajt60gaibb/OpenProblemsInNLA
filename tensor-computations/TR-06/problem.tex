@@ -1,0 +1,117 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={TR-06 - Finite
+mean angular condition number for identifiable tensor
+decomposition},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}TR-06}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Tensor computations\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Finite
+mean angular condition number for identifiable tensor decomposition\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to specialist\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open conjecture; explicit journal source published in
+2023.
+
+\subsection{Context and notation}\label{context-and-notation}
+
+Fix \(d\ge3\), \(n_j\ge2\), and \(r\ge2\). Assume generic complex
+identifiability: outside a proper algebraic exceptional set, a complex
+tensor of rank \(r\) in this format has a unique unordered collection of
+\(r\) rank-one summands. Let \(M_r\) be the smooth identifiable locus of
+real rank-\(r\) tensors, with induced Euclidean volume \(dV\). The
+random input has density
+
+\[
+d\mu(A)=Z^{-1}e^{-\|A\|_F^2/2}\,dV(A).
+\]
+
+For the addition map \(\Phi(a_1,\ldots,a_r)=\sum_i a_i\) on rank-one
+tensors, let \(\Psi\) be a local inverse at \(A\). Use Frobenius norms
+and their product norm. Define
+
+\[
+\kappa(A)=\|D\Psi(A)\|_2,\qquad
+\kappa_{\rm ang}(A)=\|D(p^{\times r}\circ\Psi)(A)\|_2,
+\quad p(a)=a/\|a\|_F.
+\]
+
+Values on measure-zero exceptional sets do not affect the expectations.
+This samples tensors by volume, not independent Gaussian summands.
+
+\subsection{Problem statement}\label{problem-statement}
+
+Under this probability model, prove or disprove
+
+\[
+\mathbb E_\mu\kappa_{\rm ang}(A)<\infty
+\]
+
+for every admissible format and \(r\ge3\). The rank-two case is a
+theorem. Normalizing each recovered summand inside the derivative is
+part of the definition; simply dividing the regular condition number by
+a scalar does not give this problem.
+
+\subsection{Reference}\label{reference}
+
+Beltrán, Breiding, and Vannieuwenhoven,
+\href{https://doi.org/10.1007/s10208-022-09551-1}{\emph{The Average
+Condition Number of Most Tensor Rank Decomposition Problems Is
+Infinite}}, \emph{Foundations of Computational Mathematics} 23 (2023),
+433--491: equation (6), Theorem 3, and Conjecture 2. The
+\href{https://arxiv.org/pdf/1903.05527}{author preprint} labels the
+conjecture 1.10.
+
+\subsection{Status check}\label{status-check}
+
+Searches included
+\textit{"tensor" "angular condition number" "2026"} and
+\textit{"angular condition" "tensor" finite proved}. No higher-rank
+resolution was located. Generic uniqueness alone is not an integrability
+estimate. The latest explicit conjecture located is the 2023 journal
+version.
+\end{document}

@@ -5,25 +5,28 @@ publications, with references and dated checks for subsequent solutions.
 
 **Current collection: 73 / 1,000 problems. The project is incomplete.**
 
-**[Browse all problems →](proof/catalog/README.md)**
+**[Browse all 73 problems →](CATALOG.md)**
 
-| Subject | Problems |
+## Browse by category
+
+| Category | Problems |
 | --- | ---: |
-| [Iterative methods, eigenvalue computation, and elimination](proof/catalog/iterative-eigenvalue.md) | 11 |
-| [Sparse solvers and eigenvalue algorithms](proof/catalog/krylov-extensions.md) | 3 |
-| [Matrix functions and stability of matrix families](proof/catalog/matrix-functions.md) | 12 |
-| [Structured matrix functions](proof/catalog/structured-functions.md) | 1 |
-| [Accurate arithmetic and structured linear algebra](proof/catalog/accurate-arithmetic.md) | 1 |
-| [Tensors, low-rank approximation, and randomized linear algebra](proof/catalog/tensors-randomized.md) | 8 |
-| [Hierarchical and general structured matrix approximation](proof/catalog/randomized-extensions.md) | 5 |
-| [Randomly pivoted factorizations](proof/catalog/randomized-estimation.md) | 3 |
-| [Inverse spectra and structured conditioning](proof/catalog/inverse-eigenvalue.md) | 5 |
-| [Positive matrix factorizations](proof/catalog/positive-factorizations.md) | 5 |
-| [Exact nonnegative ranks](proof/catalog/nonnegative-rank.md) | 4 |
-| [Nonnegative factorization: identifiability and global approximation](proof/catalog/nonnegative-factorization.md) | 2 |
-| [Matrix properties under interval uncertainty](proof/catalog/interval-matrices.md) | 2 |
-| [Absolute value equations and their conditioning](proof/catalog/absolute-value-equations.md) | 3 |
-| [Algebraic complexity and matrix powering](proof/catalog/complexity.md) | 8 |
+| [Linear systems and elimination](linear-systems-and-elimination/README.md) | 9 |
+| [Eigenvalues and inverse problems](eigenvalues-and-inverse-problems/README.md) | 10 |
+| [Matrix functions and stability](matrix-functions-and-stability/README.md) | 13 |
+| [Randomized and low-rank approximation](randomized-and-low-rank-approximation/README.md) | 12 |
+| [Tensor computations](tensor-computations/README.md) | 4 |
+| [Nonnegative and positive factorizations](nonnegative-and-positive-factorizations/README.md) | 11 |
+| [Arithmetic and complexity](arithmetic-and-complexity/README.md) | 9 |
+| [Intervals and absolute value equations](intervals-and-absolute-value-equations/README.md) | 5 |
+
+Open a category, then a problem folder. Every problem has three files:
+
+- **`README.md`** — the canonical statement, rendered directly on GitHub and readable by chatbots.
+- **`problem.pdf`** — a typeset document for reading, downloading, or printing.
+- **`problem.tex`** — standalone LaTeX source for the PDF.
+
+Shared definitions are included in each problem so it can be read independently. Problem IDs remain stable across the new categories.
 
 Each problem gives its assumptions and quantifiers, one difficulty label, one
 importance rating, a brief set of references, and a literature-status check.
@@ -58,7 +61,7 @@ none exists, especially for older or less widely indexed sources.
 
 Resolved questions, recent full-solution claims, and candidates with unclear
 statements or status are kept outside the count. See [source coverage and
-uncounted leads](proof/SOURCES.md) and the exclusions at the end of each chapter.
+uncounted leads](proof/SOURCES.md) and the preserved [chapter screening notes](proof/catalog/README.md).
 Clearly identified quantitative restatements are editorial formulations of
 published questions, rather than quotations attributed to their authors.
 
@@ -66,3 +69,7 @@ The [canonical objective](PROBLEM.md) preserves the target of 1,000 distinct
 entries. [Progress](PROGRESS.md) records actual coverage and outstanding work.
 Suggestions and corrections should identify the problem ID and a primary
 reference, particularly when reporting a solution or a missing assumption.
+
+## Editing and PDF generation
+
+Edit the problem’s `README.md`, which is the source of truth. With Pandoc and XeLaTeX installed, run `python3 tools/render_problems.py IE-01` to regenerate one problem, or omit the ID to regenerate the collection. Each exported `problem.tex` can also be compiled on its own with XeLaTeX. [The shared typesetting template](tools/problem-template.tex) controls appearance. Check the resulting PDF whenever a statement changes.

@@ -1,0 +1,107 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={AV-01 - Recognizing
+the maximum finite number of
+solutions},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}AV-01}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Intervals and absolute value equations\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Recognizing
+the maximum finite number of solutions\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to specialist\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open; checked 2026-09-08\\
+\textbf{Area:} complexity of piecewise linear systems
+
+\subsection{Context and notation}\label{context-and-notation}
+
+Absolute values and vector inequalities are componentwise. All
+algorithmic questions use rational input in binary and the deterministic
+Turing model. Input length includes the matrix dimensions and the bit
+lengths of all rational coefficients.
+
+\subsection{Problem statement}\label{problem-statement}
+
+For input \(A\in\mathbb Q^{n\times n}\) and \(b\in\mathbb Q^n\),
+\(n\ge1\), set
+
+\[
+\Sigma_+(A,b)=\{x\in\mathbb R^n:Ax+|x|=b\}.
+\]
+
+\subsubsection{Question}\label{question}
+
+Classify the computational complexity of deciding whether
+
+\[
+|\Sigma_+(A,b)|=2^n.
+\]
+
+In particular, is this decision problem in \(\mathsf P\), or can an
+\(\mathsf{NP}\)-hardness or \(\mathsf{coNP}\)-hardness classification be
+established by polynomial-time many-one reductions? The task returns one
+Boolean answer. Infinite solution sets are negative instances. There is
+no promise that the solution set is finite.
+
+\subsection{Reference}\label{reference}
+
+Milan Hladík,
+\href{https://doi.org/10.1007/s11590-025-02251-z}{\emph{Absolute value
+equations with \(2^n\) solutions}}, Optimization Letters \textbf{20}
+(2026), 559--575, §2.3 and §7. The paper provides structural
+characterizations but explicitly leaves this recognition complexity
+open. Proposition 9 treats the subclass \(\rho(|A|)<1\).
+
+\subsection{Status evidence}\label{status-evidence}
+
+The version of record appeared October 6, 2025, in the April 2026 issue.
+Searches for the title with ``complexity'', ``solved'', and ``2026'',
+and for ``Hladík \(2^n\) complexity'', found no subsequent
+classification. No separate arXiv version was located. The related
+result about more than \(2^{n-1}\) solutions concerns a different
+threshold and does not settle this question.
+\end{document}

@@ -1,0 +1,125 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={AV-03 - Polynomial-time
+solution under the regularity
+promise},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}AV-03}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Intervals and absolute value equations\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Polynomial-time
+solution under the regularity promise\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} broadly
+interesting\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open; checked 2026-09-08\\
+\textbf{Area:} algorithms for piecewise linear systems and
+complementarity
+
+\subsection{Context and notation}\label{context-and-notation}
+
+Absolute values and vector inequalities are componentwise. All
+algorithmic questions use rational input in binary and the deterministic
+Turing model. Input length includes the matrix dimensions and the bit
+lengths of all rational coefficients.
+
+For a real square matrix \(A\), define the diagonal perturbation family
+
+\[
+\mathcal D(A)=\{A-\operatorname{diag}(d):d\in[-1,1]^n\}.
+\]
+
+Call this family \textbf{regular} when every member is nonsingular. Only
+diagonal entries vary. This is precisely the entrywise interval matrix
+\([A-I_n,A+I_n]\).
+
+\subsection{Problem statement}\label{problem-statement}
+
+Is there a deterministic algorithm and a polynomial \(p\) such that, for
+every \(n\ge1\), rational \(A\in\mathbb Q^{n\times n}\) and
+\(b\in\mathbb Q^n\) with regular \(\mathcal D(A)\), the algorithm
+outputs the exact rational vector \(x\) satisfying
+
+\[
+Ax-|x|=b
+\]
+
+within \(p(\ell)\) bit operations, where \(\ell\) is the binary input
+length?
+
+The promise guarantees existence and uniqueness. No certificate of
+regularity is supplied or required, and behavior on inputs violating the
+promise is unrestricted. Polynomial dependence on coefficient bit length
+is allowed; this does not ask for a strongly polynomial algorithm.
+
+\subsection{References}\label{references}
+
+Milan Hladík, Hossein Moosaei, Fakhrodin Hashemi, Saeed Ketabchi, and
+Panos M. Pardalos,
+\href{https://doi.org/10.1007/s10589-025-00717-5}{\emph{An overview of
+absolute value equations: from theory to solution methods and
+challenges}}, Computational Optimization and Applications \textbf{93}
+(2026), 435--488, §2.4.2, paragraph following conditions (15)--(16);
+§2.2 gives the complementarity connection.
+
+This is the AVE formulation of the polynomial-time P-matrix linear
+complementarity problem; it is counted once. Michaela Borzechowski, John
+Fearnley, Spencer Gordon, Rahul Savani, Patrick Schnider, and Simon
+Weber, \href{https://doi.org/10.4230/LIPIcs.ICALP.2024.32}{\emph{Two
+Choices Are Enough for P-LCPs, USOs, and Colorful Tangents}}, ICALP
+2024, §1, explicitly retain that algorithmic question.
+
+\subsection{Status evidence}\label{status-evidence}
+
+The survey appeared online August 8, 2025. Borzechowski et al.'s latest
+\href{https://arxiv.org/abs/2402.07683}{arXiv version} is v2, May 21,
+2024. Searches for ``P-matrix linear complementarity 2026
+polynomial-time'' and ``P-LCP solved polynomial algorithm'' found no
+solution. E.-Nagy and Végh's
+\href{https://arxiv.org/html/2605.10701v2}{June 30, 2026 revision},
+abstract and §6, gives an algorithm whose complexity also depends on an
+optimized handicap number; it does not give the required polynomial
+bound in input length alone.
+\end{document}

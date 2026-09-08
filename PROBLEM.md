@@ -26,14 +26,24 @@ literature verification. No solutions, proof attempts, CAP, or Lean development
 are requested. Preserve existing template materials without maintaining an
 inactive formalization track.
 
-- A browsable Markdown catalog in `proof/catalog/`, linked from the repository
-  README, with stable problem identifiers.
+- Category folders at the repository root, each containing an index and one
+  subfolder per admitted problem, with stable problem identifiers. The root
+  README and `CATALOG.md` provide category and full-collection navigation.
+- For every admitted problem, a canonical `README.md` suitable for GitHub and
+  chatbot reading, standalone `problem.tex`, and compiled human-readable
+  `problem.pdf`. Shared definitions must be included locally so each document
+  can be understood independently. The three formats must state the same problem.
 - For each problem: topic, precise statement including assumptions and
   quantifiers, difficulty, importance, short motivation, primary references with
   locators where available, and a dated status check.
 - A clear distinction between admitted open problems, candidates whose status
   needs more evidence, and resolved/rejected historical problems.
 - A durable progress record giving the actual count against the target of 1,000.
+
+The immediate requested deliverable is to reorganize and typeset the existing
+73 curated problems. This changes presentation and navigation, not the admitted
+count or the date/scope of the existing literature checks. Former chapter pages
+in `proof/catalog/` preserve old anchors, source notes, and uncounted material.
 
 Start with core NLA: linear systems, least squares, eigenvalue and singular-value
 computation, matrix functions, numerical stability, conditioning, low-rank

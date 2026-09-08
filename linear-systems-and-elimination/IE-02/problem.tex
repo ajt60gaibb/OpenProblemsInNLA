@@ -1,0 +1,97 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={IE-02 - Is
+the ideal GMRES bound sharp for every Jordan
+block?},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-02}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Linear systems and elimination\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Is
+the ideal GMRES bound sharp for every Jordan block?\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to specialist\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open; several parameter regimes are known.
+
+\subsection{Problem statement}\label{problem-statement}
+
+For \(n\geq2\) and \(\lambda\in\mathbb C\setminus\{0\}\), let
+\(J_n(\lambda)=\lambda I+N\), where \(N_{i,i+1}=1\) and all other
+entries of \(N\) vanish. Let
+\(\mathcal P_k=\{p\in\mathbb C[z]:\deg p\leq k,\ p(0)=1\}\). Define
+
+\[
+\psi_k(J)=\max_{\|v\|_2=1}\min_{p\in\mathcal P_k}\|p(J)v\|_2,
+\qquad
+\phi_k(J)=\min_{p\in\mathcal P_k}\|p(J)\|_2.
+\]
+
+Prove or disprove \(\psi_k(J_n(\lambda))=\phi_k(J_n(\lambda))\) for
+every \(1\leq k<n\). The maximum describes the slowest possible GMRES
+residual reduction, whereas the minimum over operator norms is the ideal
+bound. The familiar inequality \(\psi_k\leq\phi_k\) does not answer the
+question. A single Jordan block is a published structural test case, not
+a claim about all nonnormal matrices.
+
+\subsection{References}\label{references}
+
+Tichý, Liesen, and Faber,
+\href{https://etna.ricam.oeaw.ac.at/volumes/2001-2010/vol26/abstract.php?pages=453-473}{\emph{On
+worst-case GMRES, ideal GMRES, and the polynomial numerical hull of a
+Jordan block}}, ETNA 26 (2007), 453--473, §1 conjecture and subsequent
+special cases. Faber, Liesen, and Tichý,
+\href{https://arxiv.org/abs/2506.09687}{\emph{Matrix best approximation
+in the spectral norm}}, published in LAA 733 (2026), §§4--5.
+
+\subsection{Status check}\label{status-check}
+
+Searches for
+\textit{Jordan block ideal GMRES equality proved 2026} and
+\textit{site:arxiv.org GMRES Jordan block} found the original partial
+results and the 2026 general approximation paper, but no resolution of
+the displayed Jordan-block equality. The latter paper's doubling theorem
+changes the matrix and does not by itself establish this statement.
+\end{document}

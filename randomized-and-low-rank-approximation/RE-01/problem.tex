@@ -1,0 +1,133 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={RE-01 - Constant-factor
+HSS approximation in polynomial
+time},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RE-01}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Randomized and low-rank approximation\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Constant-factor
+HSS approximation in polynomial time\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open; checked 2026-09-08\\
+\textbf{Area:} structured low-rank matrix approximation
+
+\subsection{Context and notation}\label{context-and-notation}
+
+Use exact real arithmetic, with comparisons, standard Gaussian sampling,
+and exact SVDs available as primitives; charge an SVD of an
+\(a\times b\) matrix \(O(ab\min(a,b))\) operations. This states the
+idealized arithmetic model used here, rather than a finite precision or
+bit complexity claim. A matrix--vector query returns either \(Av\) or
+\(A^\mathsf Tv\) for one chosen real vector \(v\); both types count
+toward the total. Randomized guarantees are for every fixed input, with
+probability or expectation over the algorithm's randomness.
+
+For \(N=2^{L+1}k\), \(k,L\ge1\), form the perfect binary tree that
+successively halves the ordered index set \([N]=\{1,\ldots,N\}\) until
+every leaf contains \(2k\) indices. Define \(\mathcal S_{L,k}\) to
+contain precisely the real \(N\times N\) matrices \(B\) such that, for
+every nonroot node \(I\) of this tree,
+
+\[
+\operatorname{rank}B[I,[N]\setminus I]\le k,
+\qquad
+\operatorname{rank}B[[N]\setminus I,I]\le k.
+\]
+
+This is the HSS class with rank at most \(k\), including its constraints
+across levels. There is no restriction inside a leaf diagonal block. Set
+
+\[
+E_{L,k}(A)=\min_{B\in\mathcal S_{L,k}}\|A-B\|_F^2.
+\]
+
+The minimum exists. The rank definition follows Stefano Massei, Leonardo
+Robol, and Daniel Kressner,
+\href{https://arxiv.org/pdf/1909.07909v3}{\emph{hm-toolbox: MATLAB
+Software for HODLR and HSS Matrices}}, SIAM Journal on Scientific
+Computing \textbf{42} (2020), C43--C68, §2.2, Definition 3. Equivalence
+with the telescoping representation and existence of a minimizer are
+recorded in Amsel et al., cited below, Definition 3 and Appendix D.
+
+\subsection{Problem statement}\label{problem-statement}
+
+Do absolute constants \(C,c>0\) and a uniform randomized algorithm exist
+that, given the entries of any \(A\in\mathbb R^{N\times N}\) and
+integers \(k,L\ge1\) with \(N=2^{L+1}k\), returns
+\(B\in\mathcal S_{L,k}\) using \(O(N^c)\) arithmetic operations and
+satisfies
+
+\[
+\mathbb E\|A-B\|_F^2\le C\,E_{L,k}(A)?
+\]
+
+The exponent and approximation constant must be independent of
+\(k,L,A\). A deterministic algorithm is allowed. The output must retain
+rank at most \(k\).
+
+\subsection{Reference}\label{reference}
+
+Noah Amsel, Tyler Chen, Feyza Duman Keles, Diana Halikias, Cameron
+Musco, Christopher Musco, and David Persson,
+\href{https://arxiv.org/html/2505.16937v2}{\emph{Quasi-optimal
+Hierarchically Semi-separable Matrix Approximation}}, SIAM Journal on
+Matrix Analysis and Applications \textbf{47} (2026), 586--621, §3.4;
+Theorems 6 and 12. That section expressly asks for a polynomial-time
+constant-factor approximation.
+
+\subsection{Status evidence}\label{status-evidence}
+
+The known squared-error factor is \(O(L)\). The lower bound near \(2\)
+concerns the analyzed greedy algorithm, not all algorithms. Searches for
+``HSS constant-factor approximation 2026'' and ``hierarchically
+semiseparable approximation constant 2026'' found no resolution. The
+latest arXiv version is v2, September 6, 2025; the
+\href{https://doi.org/10.1137/25M176622X}{journal version} appeared
+online May 8, 2026.
+\end{document}

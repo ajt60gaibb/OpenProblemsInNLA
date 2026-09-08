@@ -1,0 +1,106 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={IE-10 - Conditioning
+of a random Krylov compression of a cyclic
+shift},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-10}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Eigenvalues and inverse problems\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Conditioning
+of a random Krylov compression of a cyclic shift\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to specialist\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open.
+
+\subsection{Problem statement}\label{problem-statement}
+
+Let \(C_n\in\mathbb C^{n\times n}\) be the cyclic shift,
+\(C_ne_j=e_{j+1}\) for \(j<n\) and \(C_ne_n=e_1\). Draw \(b\) uniformly
+from the complex unit sphere. For \(2\leq k<n\), let \(Q\) have
+orthonormal columns spanning
+
+\[
+\mathcal K_k(C_n,b)=\operatorname{span}\{b,C_nb,\ldots,C_n^{k-1}b\},
+\qquad H=Q^*C_nQ.
+\]
+
+This subspace has dimension \(k\) almost surely. Define
+\(\kappa_V(H)=\inf_{H=VDV^{-1},\ D\text{ diagonal}}\|V\|_2\|V^{-1}\|_2\),
+and set it to \(+\infty\) if \(H\) is not diagonalizable. Do universal
+constants \(C,c>0\) exist such that, for every \(n\geq3\) and
+\(2\leq k<n\), with the same constants,
+
+\[
+\Pr\{\kappa_V(H)\leq Cn^c\}\geq0.99?
+\]
+
+Changing the orthonormal basis of the same Krylov space does not affect
+this question. Randomness belongs to the starting vector; replacing
+\(Q\) by an independently Haar-distributed subspace would change the
+model.
+
+\subsection{Reference}\label{reference}
+
+Amsel et al.,
+\href{https://arxiv.org/html/2602.05394v3\#S3.SS3}{\emph{Linear Systems
+and Eigenvalue Problems}}, Problem 3.5, which explicitly singles out the
+circulant shift. This entry fixes ``high probability'' to a uniform 0.99
+success target.
+
+\subsection{Status check}\label{status-check}
+
+Searches for \textit{Krylov circulant shift condition 2026} and
+\textit{random Krylov compression eigenvector condition number}
+found no solution. The deterministic starting vector \(e_1\) gives a
+Jordan compression, so the unrandomized statement would be false; that
+exceptional example does not settle the probabilistic problem. The
+workshop report's 20 August update reports
+\href{https://yangpliu.github.io/repository.html}{Peng's obstruction}
+for arbitrary real diagonalizable inputs with ill-conditioned
+eigenvectors and real Gaussian starts. It explicitly leaves the
+normal-input case open, which includes the cyclic shift here.
+\end{document}

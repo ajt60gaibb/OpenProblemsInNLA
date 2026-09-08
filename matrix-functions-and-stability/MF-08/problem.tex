@@ -1,0 +1,93 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={MF-08 - NP-hardness
+of unrestricted static output-feedback
+stabilization},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MF-08}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Matrix functions and stability\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}NP-hardness
+of unrestricted static output-feedback stabilization\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} broadly
+interesting\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open; longstanding complexity question, with related
+variants separated
+
+\subsection{Problem statement}\label{problem-statement}
+
+Consider the decision language whose inputs are rational matrices
+\(A\in\mathbb Q^{n\times n}\), \(B\in\mathbb Q^{n\times m}\), and
+\(C\in\mathbb Q^{p\times n}\), with positive dimensions included in the
+input. The answer is yes precisely when there exists an unrestricted
+real matrix \(K\in\mathbb R^{m\times p}\) for which
+
+\[
+\operatorname{Re}\lambda<0\qquad\text{for every }\lambda\in\sigma(A+BKC).
+\]
+
+Is this language NP-hard under polynomial-time many-one reductions in
+the binary encoding of the rational input? The requested output is a
+complexity theorem, not another numerical heuristic for finding \(K\).
+
+\subsection{References and status
+evidence}\label{references-and-status-evidence}
+
+Minyue Fu,
+\href{https://www.eng.newcastle.edu.au/~mf140/home/Papers/Fu_UTSC.pdf}{Two
+Challenging Problems in Control Theory}, §3, pp.~3--7, defines strict
+Hurwitz stabilization and distinguishes it from the known NP-hard
+problem with entrywise bounds on \(K\) (§3.1). Gillis and Sharma,
+\href{https://arxiv.org/pdf/2202.02618}{Solving matrix nearness problems
+via Hamiltonian systems, matrix factorization, and optimization},
+§3.5.2, pp.~50--51 (2022 manuscript), reiterates the unresolved
+complexity of static output feedback. Its broader stability convention
+should not replace the strict inequality above. Follow-up searches for
+unrestricted stabilization NP-hardness found no resolving reduction;
+claims about arbitrary bilinear matrix inequalities or prescribed pole
+placement do not by themselves settle this language. No claim of NP
+membership is made.
+\end{document}

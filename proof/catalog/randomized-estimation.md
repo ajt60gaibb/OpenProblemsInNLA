@@ -1,5 +1,7 @@
 # Randomly pivoted factorizations
 
+> Legacy source map and screening notes. Admitted statements have moved to category/problem folders. Follow the links below or [browse the new index](../../CATALOG.md). Shared notation and uncounted material are retained here as the historical source record.
+
 This chapter contains **3 admitted problems**. Literature checks were
 performed on **2026-09-08** and establish provisional open status, not an
 exhaustive proof that no solution exists. Ratings are editorial assessments.
@@ -27,112 +29,22 @@ $\mathbb E\operatorname{tr}(R_r)\leq2^r\tau_r(A)$.
 
 ## RA-01 — Optimal pivot count for RPCholesky trace approximation
 
-**Difficulty:** challenging  
-**Importance:** interesting to the community  
-**Topic:** randomized low-rank approximation; kernel matrices
+[Open the problem folder](../../randomized-and-low-rank-approximation/RA-01/README.md) · [PDF](../../randomized-and-low-rank-approximation/RA-01/problem.pdf) · [LaTeX](../../randomized-and-low-rank-approximation/RA-01/problem.tex)
 
-Does there exist a universal constant $C\geq1$ such that, for every
-$n\geq1$, every Hermitian positive-semidefinite $A\in\mathbb C^{n\times n}$,
-every integer $1\leq r\leq n$, and every $0<\varepsilon<1$, RPCholesky
-satisfies
-
-$$
-\mathbb E\operatorname{tr}(R_k)\leq(1+\varepsilon)\tau_r(A),
-\qquad k=\min\{n,\lceil Cr/\varepsilon\rceil\}?
-$$
-
-The expectation is over the algorithm's adaptive pivots. The constant must
-be independent of dimension, spectrum, rank, and tolerance. The target
-concerns this fixed pivoting rule.
-
-**References:** Epperly, [*A new analysis of the randomly pivoted Cholesky
-algorithm*](https://arxiv.org/html/2608.20633v1), §1.2, conjecture immediately
-after Eq. (1.5), and Corollary 1.3. Earlier motivation appears in
-Epperly, [*Make the Most of What You Have*](https://tropp.caltech.edu/dissertations/Epp25-Making-Most.pdf),
-Caltech dissertation (2025), §11.1, p. 181.
-
-**Status check:** The August 2026 paper proves the larger bound
-$k\geq r/\varepsilon+2r\sqrt{\log r}+r\log(1/\varepsilon)+2.3r$
-and explicitly conjectures the displayed improvement. Searches for the
-paper's title, `RPCholesky optimal r epsilon`, and `RPCholesky conjecture`
-found no subsequent resolution. The arXiv record listed only v1, posted
-August 21, 2026. The weaker dissertation Conjecture 11.1 is therefore
-excluded as resolved by this later preprint.
 
 <a id="ra-02"></a>
 
 ## RA-02 — Polynomial trace-error factor after exactly the target rank of pivots
 
-**Difficulty:** challenging  
-**Importance:** interesting to the community  
-**Topic:** randomized factorization; approximation guarantees
+[Open the problem folder](../../randomized-and-low-rank-approximation/RA-02/README.md) · [PDF](../../randomized-and-low-rank-approximation/RA-02/problem.pdf) · [LaTeX](../../randomized-and-low-rank-approximation/RA-02/problem.tex)
 
-Do constants $C>0$ and $p\geq0$ exist such that, for every $n\geq1$,
-every Hermitian positive-semidefinite $A\in\mathbb C^{n\times n}$, and
-every integer $1\leq r\leq n$,
-
-$$
-\mathbb E\operatorname{tr}(R_r)\leq Cr^p\tau_r(A)?
-$$
-
-Both constants must be independent of $n,r,A$. Exactly $r$ RPCholesky
-steps are permitted, with the zero-residual convention above. This asks
-for a polynomial approximation factor without oversampling; RA-01 instead
-allows additional pivots to obtain relative error near one.
-
-**References:** Epperly, [*Make the Most of What You Have*](https://tropp.caltech.edu/dissertations/Epp25-Making-Most.pdf),
-§11.1, Conjecture 11.2, p. 182; Chen et al.,
-[RPCholesky](https://doi.org/10.1002/cpa.22234), Lemma 5.5, p. 1020.
-Gilles and Wilber, [*Low-Rank Approximation by Randomly Pivoted LU*](https://arxiv.org/html/2601.22344v1),
-§3.1, paragraph following Theorem 3, explicitly reiterate this conjecture.
-
-**Source normalization:** The dissertation calls $A^{(r)}$ a residual but
-prints $\operatorname{tr}(A-A^{(r)})$, without expectation. We use its
-cited Lemma 5.5 to correct both notation defects. The later paper confirms
-the intended polynomial improvement over that lemma's $2^r$ factor.
-
-**Status check:** Searches for `RPCholesky r-step polynomial`,
-`RPCholesky conjecture polynomial`, and the cited papers found no resolution.
-Epperly's August 2026 oversampling theorem does not supply a polynomial
-factor at exactly $r$ steps. Its Theorem 1.2 is noninformative at $k=r$.
 
 <a id="ra-03"></a>
 
 ## RA-03 — Improve the randomized LU squared-error factor to $2^k$
 
-**Difficulty:** challenging  
-**Importance:** interesting to specialist  
-**Topic:** randomized LU; low-rank approximation
+[Open the problem folder](../../randomized-and-low-rank-approximation/RA-03/README.md) · [PDF](../../randomized-and-low-rank-approximation/RA-03/problem.pdf) · [LaTeX](../../randomized-and-low-rank-approximation/RA-03/problem.tex)
 
-For $A\in\mathbb C^{m\times n}$, define exact-arithmetic residuals
-$S_0=A$. At step $t$, choose $(i,j)$ with conditional probability
-$|(S_t)_{ij}|^2/\|S_t\|_F^2$ and update
-
-$$
-S_{t+1}=S_t-\frac{S_t(:,j)S_t(i,:)}{(S_t)_{ij}}.
-$$
-
-After a zero residual, keep subsequent residuals zero. Prove or refute,
-for every $m,n\geq1$, every $A$, and every
-$1\leq k\leq\min(m,n)$,
-
-$$
-\mathbb E\|S_k\|_F^2\leq2^k
-\sum_{j>k}\sigma_j(A)^2,
-$$
-
-where singular values decrease with $j$. The bound concerns the mean
-squared Frobenius error of this specified algorithm.
-
-**References:** Gilles and Wilber, [*Low-Rank Approximation by Randomly
-Pivoted LU*](https://arxiv.org/html/2601.22344v1), Algorithm 1 and §3.1,
-Theorem 3, Eq. (10), and the following conjecture (pp. 7–8).
-
-**Status check:** Their theorem gives $4^k$; the conjecture explicitly
-replaces it by $2^k$. Searches for the title, `randomly pivoted LU 2^k`,
-and improved RPLU error bounds found no later resolution. The arXiv
-submission history listed only v1 of January 29, 2026. The August 2026
-RPCholesky theorem addresses a different pivot distribution and norm.
 
 ## Excluded and uncounted leads
 

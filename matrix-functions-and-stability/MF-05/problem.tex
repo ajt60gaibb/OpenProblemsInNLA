@@ -1,0 +1,112 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={MF-05 - Local
+Hölder continuity of the joint spectral
+radius},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MF-05}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Matrix functions and stability\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Local
+Hölder continuity of the joint spectral radius\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open; Conjecture L1 in the source below
+
+\subsection{Context and notation}\label{context-and-notation}
+
+Let \(\mathcal H_d\) denote the nonempty compact subsets of
+\(\mathbb C^{d\times d}\). Use the spectral norm and its Hausdorff
+distance
+
+\[
+d_H(\mathcal M,\mathcal N)=\max\left\{
+\sup_{A\in\mathcal M}\inf_{B\in\mathcal N}\|A-B\|_2,
+\sup_{B\in\mathcal N}\inf_{A\in\mathcal M}\|A-B\|_2\right\}.
+\]
+
+The joint spectral radius is
+
+\[
+\widehat\rho(\mathcal M)=\lim_{k\to\infty}
+\max_{A_1,\ldots,A_k\in\mathcal M}\|A_k\cdots A_1\|_2^{1/k}.
+\]
+
+These definitions also apply to finite real matrix sets. The ordinary
+spectral radius of one matrix is written \(\rho(A)\).
+
+\subsection{Problem statement}\label{problem-statement}
+
+For every \(d\ge1\) and \(\mathcal M_0\in\mathcal H_d\), do there exist
+\(r,C>0\) such that
+
+\[
+|\widehat\rho(\mathcal M)-\widehat\rho(\mathcal N)|
+\le C d_H(\mathcal M,\mathcal N)^{1/d}
+\]
+
+whenever \(d_H(\mathcal M,\mathcal M_0)<r\) and
+\(d_H(\mathcal N,\mathcal M_0)<r\)?
+
+\subsection{Reference and status
+evidence}\label{reference-and-status-evidence}
+
+Epperlein and Wirth, \href{https://arxiv.org/html/2311.18633v2}{The
+joint spectral radius is pointwise Hölder continuous}, Linear Algebra
+Appl. 704 (2025), 92--122,
+\href{https://doi.org/10.1016/j.laa.2024.09.016}{DOI}, §2, Conjecture 3
+(L1). Pointwise results in that paper do not prove this local assertion.
+
+\subsection{Additional status
+evidence}\label{additional-status-evidence}
+
+Searches combining ``joint spectral radius'' with ``local Hölder'',
+``Lipschitz lower'', ``trajectory bounds'', the authors' names, and
+2025/2026 found no later resolution. These searches supplement the
+explicit 2025 conjectures; they do not establish exhaustiveness. The
+three entries are separately named assertions in the source, not a count
+of dimensional cases.
+\end{document}

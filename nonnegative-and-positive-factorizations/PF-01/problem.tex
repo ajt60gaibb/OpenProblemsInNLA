@@ -1,0 +1,127 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={PF-01 - Exact
+positive semidefinite rank of subset-intersection
+matrices},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}PF-01}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Nonnegative and positive
+factorizations\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Exact
+positive semidefinite rank of subset-intersection matrices\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to specialist\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open; checked 2026-09-08\\
+\textbf{Area:} structured positive semidefinite factorization
+
+\subsection{Context and notation}\label{context-and-notation}
+
+Write \(\mathbb S_+^k\) for the cone of real symmetric positive
+semidefinite \(k\times k\) matrices. For an entrywise nonnegative matrix
+\(M\in\mathbb R_+^{p\times q}\), its \textbf{real positive semidefinite
+rank} is
+
+\[
+\operatorname{rank}_{\rm psd}(M)
+=\min\{k\ge1:\ \exists A_1,\ldots,A_p,B_1,\ldots,B_q\in\mathbb S_+^k,\quad
+M_{ij}=\operatorname{tr}(A_iB_j)\ \text{for all }i,j\}.
+\]
+
+This definition concerns a family of matrix factors indexed by the rows
+and columns of \(M\).
+
+\subsection{Problem statement}\label{problem-statement}
+
+For each integer \(n\ge5\), let \(\mathcal I_n\) and \(\mathcal J_n\)
+consist of the subsets of \(\{1,\ldots,n\}\) of cardinalities
+\(\lfloor n/2\rfloor\) and \(\lceil n/2\rceil\), respectively. Define
+the nonnegative matrix
+
+\[
+M^{(n)}\in\mathbb R_+^{\mathcal I_n\times\mathcal J_n},
+\qquad M^{(n)}_{I,J}=|I\cap J|.
+\]
+
+\subsubsection{Question}\label{question}
+
+Determine \(\operatorname{rank}_{\rm psd}(M^{(n)})\) exactly as a
+function of \(n\), with real symmetric factors as defined above. The
+family is one problem; its individual orders are not separate catalog
+entries.
+
+The source supplies the bounds
+
+\[
+\left\lceil\frac{\sqrt{1+8n}-1}{2}\right\rceil
+\le \operatorname{rank}_{\rm psd}(M^{(n)})
+\le 2\lceil\sqrt n\rceil.
+\]
+
+These matrices provide structured benchmarks for algorithms seeking
+small positive semidefinite factorizations.
+
+\subsection{References}\label{references}
+
+Hamza Fawzi, João Gouveia, Pablo A. Parrilo, Richard Z. Robinson, and
+Rekha R. Thomas, \href{https://arxiv.org/html/1407.4095}{\emph{Positive
+semidefinite rank}}, Mathematical Programming \textbf{153} (2015),
+133--177, §9.1, Problem 9.2. Arnaud Vandaele, François Glineur, and
+Nicolas Gillis, \href{https://arxiv.org/pdf/1707.07953}{\emph{Algorithms
+for Positive Semidefinite Factorization}}, Computational Optimization
+and Applications \textbf{71} (2018), 193--219, §4.2, preprint
+pp.~10--11.
+
+\subsection{Status evidence}\label{status-evidence}
+
+The algorithm paper explicitly retains the unknown exact rank and uses
+known upper bounds in its experiments. Searches for ``positive
+semidefinite rank Johnson scheme'', ``positive semidefinite rank
+intersection matrix'', and ``P5 psd rank'' found no subsequent exact
+formula. The arXiv histories of both cited papers were checked; each
+lists only its original version. No newer explicit open-status
+confirmation was located.
+\end{document}

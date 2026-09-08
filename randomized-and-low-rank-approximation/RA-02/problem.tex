@@ -1,0 +1,123 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={RA-02 - Polynomial
+trace-error factor after exactly the target rank of
+pivots},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RA-02}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Randomized and low-rank approximation\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Polynomial
+trace-error factor after exactly the target rank of pivots\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Topic:} randomized factorization; approximation guarantees
+
+\textbf{Status:} open; admitted after a bounded literature search found
+no resolution.
+
+\subsection{Context and notation}\label{context-and-notation}
+
+For a Hermitian positive-semidefinite \(A\in\mathbb C^{n\times n}\),
+define the exact-arithmetic RPCholesky residuals by \(R_0=A\).
+Conditional on \(R_t\ne0\), select \(j\) with probability
+\((R_t)_{jj}/\operatorname{tr}(R_t)\) and set
+
+\[
+R_{t+1}=R_t-\frac{R_t(:,j)R_t(j,:)}{(R_t)_{jj}}.
+\]
+
+If \(R_t=0\), keep all subsequent residuals zero. Eigenvalues are
+ordered \(\lambda_1(A)\geq\cdots\geq\lambda_n(A)\geq0\), and
+\(\tau_r(A)=\sum_{j>r}\lambda_j(A)\). This is the pivot rule in Chen,
+Epperly, Tropp, and Webber,
+\href{https://doi.org/10.1002/cpa.22234}{\emph{Randomly pivoted
+Cholesky: Practical approximation of a kernel matrix with few entry
+evaluations}}, Algorithm 1; their Lemma 5.5 gives the current comparison
+\(\mathbb E\operatorname{tr}(R_r)\leq2^r\tau_r(A)\).
+
+\subsection{Problem statement}\label{problem-statement}
+
+Do constants \(C>0\) and \(p\geq0\) exist such that, for every
+\(n\geq1\), every Hermitian positive-semidefinite
+\(A\in\mathbb C^{n\times n}\), and every integer \(1\leq r\leq n\),
+
+\[
+\mathbb E\operatorname{tr}(R_r)\leq Cr^p\tau_r(A)?
+\]
+
+Both constants must be independent of \(n,r,A\). Exactly \(r\)
+RPCholesky steps are permitted, with the zero-residual convention above.
+This asks for a polynomial approximation factor without oversampling;
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-01/README.md}{RA-01}
+instead allows additional pivots to obtain relative error near one.
+
+\subsection{References}\label{references}
+
+Epperly,
+\href{https://tropp.caltech.edu/dissertations/Epp25-Making-Most.pdf}{\emph{Make
+the Most of What You Have}}, §11.1, Conjecture 11.2, p.~182; Chen et
+al., \href{https://doi.org/10.1002/cpa.22234}{RPCholesky}, Lemma 5.5,
+p.~1020. Gilles and Wilber,
+\href{https://arxiv.org/html/2601.22344v1}{\emph{Low-Rank Approximation
+by Randomly Pivoted LU}}, §3.1, paragraph following Theorem 3,
+explicitly reiterate this conjecture.
+
+\subsection{Source normalization}\label{source-normalization}
+
+The dissertation calls \(A^{(r)}\) a residual but prints
+\(\operatorname{tr}(A-A^{(r)})\), without expectation. We use its cited
+Lemma 5.5 to correct both notation defects. The later paper confirms the
+intended polynomial improvement over that lemma's \(2^r\) factor.
+
+\subsection{Status check}\label{status-check}
+
+Searches for \textit{RPCholesky r-step polynomial},
+\textit{RPCholesky conjecture polynomial}, and the cited papers found
+no resolution. Epperly's August 2026 oversampling theorem does not
+supply a polynomial factor at exactly \(r\) steps. Its Theorem 1.2 is
+noninformative at \(k=r\).
+\end{document}

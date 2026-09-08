@@ -1,0 +1,132 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={PF-05 - Infinitesimal
+rigidity detects unique size-two factors in the presence of
+zeros},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}PF-05}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Nonnegative and positive
+factorizations\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Infinitesimal
+rigidity detects unique size-two factors in the presence of zeros\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to specialist\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} explicitly conjectured in the August 2026 source;
+checked 2026-09-08.
+
+\subsection{Context and notation}\label{context-and-notation}
+
+Write \(\mathbb S_+^k\) for the cone of real symmetric positive
+semidefinite \(k\times k\) matrices. For an entrywise nonnegative matrix
+\(M\in\mathbb R_+^{p\times q}\), its \textbf{real positive semidefinite
+rank} is
+
+\[
+\operatorname{rank}_{\rm psd}(M)
+=\min\{k\ge1:\ \exists A_1,\ldots,A_p,B_1,\ldots,B_q\in\mathbb S_+^k,\quad
+M_{ij}=\operatorname{tr}(A_iB_j)\ \text{for all }i,j\}.
+\]
+
+This definition concerns a family of matrix factors indexed by the rows
+and columns of \(M\).
+
+\subsection{Problem statement}\label{problem-statement}
+
+Let \(M\in\mathbb R_+^{p\times q}\) satisfy \(\operatorname{rank}(M)=3\)
+and \(\operatorname{rank}_{\rm psd}(M)=2\), and fix any size-two
+factorization \(M_{ij}=\operatorname{tr}(A_iB_j)\). Zero entries of
+\(M\) are allowed.
+
+Call a collection of real symmetric matrices \((E_i,F_j)\) a feasible
+linear direction if
+
+\[
+\operatorname{tr}(E_iB_j)+\operatorname{tr}(A_iF_j)=0\quad\text{for every }i,j
+\]
+
+and some \(h>0\) satisfies \(A_i+tE_i\succeq0\), \(B_j+tF_j\succeq0\)
+for all \(i,j\) and \(t\in[0,h)\). The trace constraint is imposed only
+to first order; the perturbed factors need not represent \(M\) at
+positive \(t\).
+
+\subsubsection{Question}\label{question}
+
+Are the following conditions equivalent for every such factorization?
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Every feasible linear direction has the form \(E_i=dA_i\),
+  \(F_j=-dB_j\) for one real scalar \(d\) common to all factors.
+\item
+  Every other size-two factorization \((\widetilde A_i,\widetilde B_j)\)
+  of \(M\) satisfies \(\widetilde A_i=S^\mathsf T A_iS\) and
+  \(\widetilde B_j=S^{-1}B_jS^{-\mathsf T}\) for one
+  \(S\in GL(2,\mathbb R)\).
+\end{enumerate}
+
+This asks whether an infinitesimal test certifies uniqueness of the
+optimal matrix factors up to changes of basis. Condition 1 is exactly
+the source's 2-infinitesimal rigidity: for size two, the relevant
+second-degree Taylor polynomials are the complete principal minors, and
+Theorem 2.2 identifies the trivial directions as the common scalings
+above.
+
+\subsection{Reference and status}\label{reference-and-status}
+
+K. Dawson, S. Hoşten, K. Kubjas, and L. Metsälampi,
+\href{https://arxiv.org/html/2410.18891v2}{\emph{Uniqueness of size-2
+positive semidefinite matrix factorizations}, v2}, 31 August 2026,
+Definition 1, Remark 1, Theorem 2.2, and the conjecture immediately
+after Theorem 5.2. Theorem 5.2 proves the assertion when every entry of
+\(M\) is strictly positive. Lemma 19 identifies local and global
+rigidity in the stated rank class, so omitting the equivalent local
+condition does not weaken the source's remaining conjecture. Searches
+for the title, PSD rigidity with zeros, and later work found no
+resolution beyond this latest version.
+\end{document}

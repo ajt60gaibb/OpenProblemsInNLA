@@ -1,5 +1,7 @@
 # Inverse spectra and structured conditioning
 
+> Legacy source map and screening notes. Admitted statements have moved to category/problem folders. Follow the links below or [browse the new index](../../CATALOG.md). Shared notation and uncounted material are retained here as the historical source record.
+
 Five admitted problems. Difficulty and importance are editorial assessments.
 All status searches below were performed on **2026-09-08**. “Open” means that
 the cited source poses the question and the recorded searches found no complete
@@ -9,191 +11,36 @@ resolution; it is a bounded literature assessment.
 
 ## IS-01 — Two permutation matrices generate the doubly stochastic spectral boundary
 
-**Difficulty:** challenging  
-**Importance:** interesting to the community  
-**Status:** open.
+[Open the problem folder](../../eigenvalues-and-inverse-problems/IS-01/README.md) · [PDF](../../eigenvalues-and-inverse-problems/IS-01/problem.pdf) · [LaTeX](../../eigenvalues-and-inverse-problems/IS-01/problem.tex)
 
-Let $\mathcal D_n$ consist of the real entrywise-nonnegative $n\times n$
-matrices whose row and column sums are all one, and define the single-eigenvalue
-region
-
-$$
-D_n=\{z\in\mathbb C:z\in\sigma(A)\text{ for some }A\in\mathcal D_n\}.
-$$
-
-Prove or disprove that, for every integer $n\geq1$ and every
-$z\in\partial D_n$, there exist $n\times n$ permutation matrices $P,Q$
-and $t\in[0,1]$ such that
-
-$$
-\det\bigl(zI-tP-(1-t)Q\bigr)=0.
-$$
-
-The boundary is taken in the usual topology of $\mathbb C$, and $P=Q$
-is allowed. The task concerns one eigenvalue, not simultaneous realization of
-a prescribed full spectrum. It would reduce boundary computation to a finite
-collection of one-parameter matrix families. Counterexamples for convex hulls
-of other matrix groups do not automatically apply to all permutation matrices.
-
-**References:** Harlev, Johnson, and Lim, [*The Doubly Stochastic Single
-Eigenvalue Problem: A Computational Approach*](https://arxiv.org/html/1908.03647v2),
-Conjecture 2.7 and §6; published in *Experimental Mathematics* 31 (2022),
-936–945. Verbeken and Ginis, [ILAS 2026 abstract](https://ilas2026.math.vt.edu/docs/ILAS2026-Book-Of-Abstracts.pdf),
-p. 150.
-
-**Status check:** Searches for `Harlev Johnson Lim boundary conjecture` and
-`doubly stochastic boundary conjecture 2026` found the 2026 authors reporting
-numerical support through order 25, rather than a proof. The older
-Perfect–Mirsky conjecture fails at order five; that failure does not refute
-this different assertion.
 
 <a id="is-02"></a>
 
 ## IS-02 — Where a symmetric stochastic matrix can be spectrally unique
 
-**Difficulty:** challenging  
-**Importance:** interesting to specialist  
-**Status:** open.
+[Open the problem folder](../../eigenvalues-and-inverse-problems/IS-02/README.md) · [PDF](../../eigenvalues-and-inverse-problems/IS-02/problem.pdf) · [LaTeX](../../eigenvalues-and-inverse-problems/IS-02/problem.tex)
 
-For $n\geq4$, put
-$\mathcal S_n=\{A\in\mathbb R^{n\times n}:A=A^T,\ A\geq0,\ A\mathbf1=\mathbf1\}$
-and $C_n=(\mathbf1\mathbf1^T-I)/(n-1)$. A matrix $A\in\mathcal S_n$
-is *spectrally unique* if every $B\in\mathcal S_n$ with the same eigenvalues,
-including multiplicities, satisfies $B=R^TAR$ for a permutation matrix $R$.
-Let $[X,Y]=\{(1-t)X+tY:0\leq t\leq1\}$.
-
-Prove or disprove the following necessary condition: every spectrally unique
-$A\in\mathcal S_n$ with $\operatorname{tr}A>0$ belongs to
-
-$$
-[I,C_n]\ \cup\!
-\bigcup_{V\in\operatorname{vert}(\mathcal S_n)}
-\bigl([I,V]\cup[C_n,V]\bigr).
-$$
-
-Here a vertex is an extreme point of the indicated convex polytope; it need
-not be a permutation matrix. Only the stated implication is asserted.
-This asks where recovering a nonnegative symmetric stochastic matrix from its
-spectrum can be unique up to relabeling, a different issue from mere spectral
-feasibility.
-
-**References:** Mourad and Abbas, [2013 preprint](https://arxiv.org/pdf/1310.1273),
-definitions in §1 and Conjecture 5.1, p. 10;
-[published article](https://doi.org/10.1080/03081087.2014.903590),
-*Linear and Multilinear Algebra* 63 (2015), 869–881.
-
-**Status check:** Searches for the exact title, `symmetric doubly stochastic
-Conjecture 5.1`, and author/title combinations with `counterexample` and
-`2026` found no resolution. The source solves order three, which is excluded
-from the remaining statement above.
 
 <a id="is-03"></a>
 
 ## IS-03 — Johnson's derivative-realizability conjecture
 
-**Difficulty:** challenging  
-**Importance:** interesting to the community  
-**Status:** open.
+[Open the problem folder](../../eigenvalues-and-inverse-problems/IS-03/README.md) · [PDF](../../eigenvalues-and-inverse-problems/IS-03/problem.pdf) · [LaTeX](../../eigenvalues-and-inverse-problems/IS-03/problem.tex)
 
-For every integer $n\geq5$ and every real entrywise-nonnegative matrix
-$A\in\mathbb R^{n\times n}$, define $p_A(z)=\det(zI-A)$.
-Must there exist an entrywise-nonnegative
-$B\in\mathbb R^{(n-1)\times(n-1)}$ such that
-
-$$
-\det(zI-B)=\frac1n p_A'(z)\qquad\text{as polynomials in }z?
-$$
-
-Equivalently, the critical points of the characteristic polynomial, counted
-with multiplicity, would themselves form a realizable spectrum of the smaller
-order. Neither $A$ nor $B$ is assumed symmetric or diagonalizable. The
-realization must have exactly order $n-1$; allowing arbitrary additional zero
-eigenvalues changes the problem. This would provide a dimension-reduction
-operation for nonnegative spectral realization.
-
-**References:** Hoover, McCormick, Paparella, and Thrall,
-[*On the realizability of the critical points of a realizable list*](https://arxiv.org/pdf/1712.05454),
-Conjecture 1.2, p. 2, and §6. The paper credits the conjecture to Johnson and
-records the Cronin–Laffey low-order results.
-
-**Status check:** Searches for `Johnson conjecture derivative nonnegative
-matrix characteristic polynomial proof counterexample`, `1712.05454 2026`,
-and `Monov conjecture solved` found no general resolution. The source proves
-several classes and records the solved cases $n\leq4$, and
-$n\leq6$ with $\operatorname{tr}A=0$. Nonnegative power sums alone are a
-different hypothesis. Monov's weaker moment conjecture is not separately
-counted here.
 
 <a id="is-04"></a>
 
 ## IS-04 — A condition number of two for a sign matrix in every dimension
 
-**Difficulty:** challenging  
-**Importance:** interesting to the community  
-**Status:** open.
+[Open the problem folder](../../eigenvalues-and-inverse-problems/IS-04/README.md) · [PDF](../../eigenvalues-and-inverse-problems/IS-04/problem.pdf) · [LaTeX](../../eigenvalues-and-inverse-problems/IS-04/problem.tex)
 
-For $n\geq1$, define
-
-$$
-h(n)=\min_{A\in\{-1,1\}^{n\times n}}\kappa_2(A),\qquad
-\kappa_2(A)=\frac{\sigma_{\max}(A)}{\sigma_{\min}(A)},
-$$
-
-with $\kappa_2(A)=+\infty$ for singular $A$. Prove or disprove
-
-$$
-\sup_{n\geq1}h(n)=2.
-$$
-
-Since $h(3)=2$, the unresolved claim is the upper bound in every dimension.
-No symmetry or circulant structure is imposed. The target refines the known
-existence of uniformly well-conditioned sign matrices, which is useful for
-constructing approximately isometric linear maps and well-conditioned bases.
-
-**References:** Alexeev, Jasper, and Mixon,
-[*Asymptotically optimal approximate Hadamard matrices*](https://arxiv.org/html/2511.14653v1),
-§6, Problem 12. Dong and Rudelson,
-[*Approximately Hadamard matrices and Riesz bases in random frames*](https://arxiv.org/abs/2207.07523),
-introduction; *IMRN* (2024), 2044–2065.
-
-**Status check:** Searches for `approximate Hadamard sup 2 conjecture`,
-`2511.14653 2026 condition number`, and `approximate Hadamard supremum`
-found no proof of the sharp constant. The fact that $h(n)\to1$ is already
-known and is not the problem counted here.
 
 <a id="is-05"></a>
 
 ## IS-05 — The optimal decay exponent for the conditioning of sign matrices
 
-**Difficulty:** extreme  
-**Importance:** interesting to the community  
-**Status:** open.
+[Open the problem folder](../../eigenvalues-and-inverse-problems/IS-05/README.md) · [PDF](../../eigenvalues-and-inverse-problems/IS-05/problem.pdf) · [LaTeX](../../eigenvalues-and-inverse-problems/IS-05/problem.tex)
 
-With $h(n)$ defined in IS-04, determine the exact number
-
-$$
-\alpha_*=\sup\{\alpha\geq0:\ \exists C>0\ \forall n\geq1,
-\ h(n)-1\leq Cn^{-\alpha}\}.
-$$
-
-The constant $C$ may depend on $\alpha$, but not on dimension. This
-specifies the uniform asymptotic power exponent; logarithmic factors do not
-change the supremum. Orders admitting exact Hadamard matrices have
-$h(n)-1=0$, which are included without taking logarithms of zero.
-Current bounds give $17/92\leq\alpha_*\leq1$.
-
-**References:** Alexeev, Jasper, and Mixon,
-[*Asymptotically optimal approximate Hadamard matrices*](https://arxiv.org/html/2511.14653v1),
-§6, Problem 11; the supremum above is an editorial precise formulation of
-its decay-exponent question. Steinerberger,
-[*Open Problems*](https://faculty.washington.edu/steinerb/openproblems.pdf),
-Problem 69, November 2025 update, identifies the sharp rate as unresolved.
-
-**Status check:** Searches for `approximate Hadamard 17/92 2026` and
-`approximate Hadamard condition 2026 sharp` found no exact exponent. A global
-constant as in IS-04 does not specify a decay exponent, while an asymptotic
-exponent permits finitely many exceptions to any proposed sharp constant.
-The two independently posed problems are therefore retained separately.
 
 ## Withheld leads and resolved questions — not included in the count
 

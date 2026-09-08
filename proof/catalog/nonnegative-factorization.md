@@ -1,5 +1,7 @@
 # Nonnegative factorization: identifiability and global approximation
 
+> Legacy source map and screening notes. Admitted statements have moved to category/problem folders. Follow the links below or [browse the new index](../../CATALOG.md). Shared notation and uncounted material are retained here as the historical source record.
+
 This chapter contains **2 admitted problems**. The literature checks below were performed on **2026-09-08**. They support
 provisional open status; they are not an exhaustive proof that no solution
 exists. Difficulty and importance are editorial assessments.
@@ -38,45 +40,8 @@ to one. This is min-vol NMF (1), Definition 4.42 of the book.
 
 ## NM-01 — Polynomial-time minimum-volume decision under sufficient scattering
 
-**Difficulty:** extreme  
-**Importance:** broadly interesting  
-**Topic:** structured matrix factorization; global optimization
+[Open the problem folder](../../nonnegative-and-positive-factorizations/NM-01/README.md) · [PDF](../../nonnegative-and-positive-factorizations/NM-01/problem.pdf) · [LaTeX](../../nonnegative-and-positive-factorizations/NM-01/problem.tex)
 
-Consider the following rational-input decision version of minimum-volume
-optimization. The input is $X\in\mathbb Q^{m\times n}$, an integer
-$2\leq r\leq\min(m,n)$, and $\tau\in\mathbb Q_{\geq0}$, with the promise
-that $\operatorname{rank}(X)=r$ and that there exist real factors
-$X=W_\star H_\star$ feasible for (MV) with $H_\star$ satisfying SSC.
-These factors are not supplied. Decide whether
-
-$$
-\exists W\in\mathbb R^{m\times r},\ H\in\mathbb R_+^{r\times n}:
-\quad X=WH,\quad e_r^TH=e_n^T,\quad\det(W^TW)\leq\tau.
-$$
-
-Does a polynomial-time algorithm exist, with time measured in the total
-binary input length? Randomization is allowed with success probability at
-least $2/3$ on every promised input. The algorithm must run in polynomial
-time on all inputs but need only answer correctly on promised inputs.
-Checking the SSC promise is not part of the task. This decision formulation
-fixes the computational model of the book's polynomial-solvability
-conjecture; it does not assert an equivalence with exact factor recovery.
-
-**References:** Gillis, [*Nonnegative Matrix Factorization*](https://doi.org/10.1137/1.9781611976410),
-§4.3.3.6, pp. 148–149, with Definitions 4.15 and 4.42 and Theorem 4.43;
-[author-hosted book](https://orbi.umons.ac.be/bitstream/20.500.12907/42337/1/NMFbook_SIAM_reprint.pdf).
-Barbarino, Gillis, and Saha,
-[*Robustness of Minimum-Volume Nonnegative Matrix Factorization under an Expanded Sufficiently Scattered Condition*](https://arxiv.org/html/2511.04291v1),
-§5, final research question.
-
-**Status check:** Searches for `minimum-volume NMF polynomial time
-sufficiently scattered` and `minimum volume simplex sufficiently scattered
-algorithm 2026 2025` found no polynomial-time guarantee for this promise.
-The November 2025 paper still asks for complexity results under its stronger
-$p$-SSC assumption. Its robustness theorems assume a globally optimal
-minimum-volume solution; they do not compute one in polynomial time.
-The book explains why the maximum-inscribed-ellipsoid approach can require
-exponentially many polytope facets.
 
 <a id="nm-02"></a>
 
@@ -137,46 +102,8 @@ establish this converse.
 
 ## NM-03 — Complexity of globally optimal nonnegative rank-two approximation
 
-**Difficulty:** extreme  
-**Importance:** broadly interesting  
-**Topic:** low-rank approximation; computational complexity
+[Open the problem folder](../../nonnegative-and-positive-factorizations/NM-03/README.md) · [PDF](../../nonnegative-and-positive-factorizations/NM-03/problem.pdf) · [LaTeX](../../nonnegative-and-positive-factorizations/NM-03/problem.tex)
 
-Given an arbitrary $X\in\mathbb Q_+^{m\times n}$ and
-$\tau\in\mathbb Q_{\geq0}$, determine the complexity of deciding whether
-
-$$
-\exists W\in\mathbb R_+^{m\times2},\ H\in\mathbb R_+^{2\times n}:
-\quad\sum_{i=1}^m\sum_{j=1}^n
-\left(X_{ij}-\sum_{k=1}^2W_{ik}H_{kj}\right)^2\leq\tau.
-$$
-
-In particular, is there a deterministic algorithm polynomial in the total
-binary input length, or is this decision problem NP-hard under polynomial-time
-many-one reductions? This is a complexity-classification question, without
-an assumption that these two outcomes exhaust the possibilities. The
-factors may have real entries; only the data and threshold must be rational.
-Their inner dimension is at most two, with a zero factor column permitted.
-
-This fixes an exact decision interpretation of the literature's global
-rank-two NMF optimization question. There is no promise that $X$ itself
-has rank two. When a rank-two truncated SVD of $X$ is nonnegative, a best
-nonnegative rank-two approximation is obtainable from it. Arbitrary input
-can fall outside this tractable special case, and alternating nonnegative
-least squares need not find a global optimum.
-
-**References:** Gillis, [*Nonnegative Matrix Factorization*](https://doi.org/10.1137/1.9781611976410.ch6),
-§6.1.3, p. 199, Theorem 6.6 and final paragraph. Lindy, Noferini, and
-Van Dooren, [*On rank-2 Nonnegative Matrix Factorizations and their variants*](https://arxiv.org/abs/2507.20612v1),
-§1, with §3's suboptimal approximation and §4's ANLS initialization.
-
-**Status check:** Searches for `rank two nonnegative matrix factorization
-approximation NP hard polynomial time 2025 2026` and `rank-2 NMF complexity
-2026` found no resolution. The July 2025 primary paper explicitly identifies
-rank two as an unresolved complexity case; its contribution is an effective
-initial approximation and heuristic refinement. The March 2026
-[constrained nonnegative Gram-feasibility preprint](https://arxiv.org/abs/2603.19976)
-concerns partially specified symmetric matrices with affine side constraints,
-which are absent from the problem above.
 
 ## Related directions — uncounted
 

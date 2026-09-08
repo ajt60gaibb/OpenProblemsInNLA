@@ -1,0 +1,113 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={NR-03 - Full
+nonnegative rank of the quadratic correlation
+matrix},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}NR-03}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Nonnegative and positive
+factorizations\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Full
+nonnegative rank of the quadratic correlation matrix\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} broadly
+interesting\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open; checked 2026-09-08\\
+\textbf{Area:} exact NMF and lower bounds for optimization formulations
+
+\subsection{Context and notation}\label{context-and-notation}
+
+All factorizations are over the real numbers. For
+\(X\in\mathbb R_{\ge0}^{m\times n}\), define
+
+\[
+\operatorname{rank}_+(X)=\min\{r\ge0:X=WH,\quad
+W\in\mathbb R_{\ge0}^{m\times r},\ H\in\mathbb R_{\ge0}^{r\times n}\}.
+\]
+
+\subsection{Problem statement}\label{problem-statement}
+
+For each integer \(n\ge3\), let \(C_n\) be the \(2^n\times2^n\) matrix
+indexed by \(a,b\in\{0,1\}^n\) and defined by
+
+\[
+C_n(a,b)=(1-a^{\mathsf T}b)^2.
+\]
+
+\subsubsection{Question}\label{question}
+
+Is \(\operatorname{rank}_+(C_n)=2^n\) for every \(n\ge3\)? All entries,
+including those for \(a^{\mathsf T}b>1\), are fixed by this formula.
+
+The matrix has ordinary rank \(1+n(n+1)/2\) and is a submatrix of a
+slack matrix of the correlation polytope formed from valid, possibly
+redundant inequalities. The conjecture therefore asks for a large
+separation between ordinary and nonnegative matrix rank with
+consequences for linear programming representations.
+
+\subsection{References}\label{references}
+
+Vandaele, Gillis, Glineur, and Tuyttens,
+\href{https://arxiv.org/html/1411.7245}{\emph{Heuristics for Exact
+Nonnegative Matrix Factorization}}, §6.4, Conjecture 4. Gillis,
+\href{https://orbi.umons.ac.be/bitstream/20.500.12907/42337/1/NMFbook_SIAM_reprint.pdf}{\emph{Nonnegative
+Matrix Factorization}}, §3.7, p.~96, using the name \(U_n\) for this
+fixed matrix.
+
+\subsection{Status evidence}\label{status-evidence}
+
+Baeckelant et al.,
+\href{https://arxiv.org/html/2605.14058v2}{\emph{Computing Lower Bounds
+on the Nonnegative Rank via Non-Convex Optimization Solvers}}, §6.7 and
+Appendix A.4, still states the full-rank conjecture. Searches for its
+resolution found none. Sergeev's July 2026
+\href{https://arxiv.org/abs/2607.27014}{\emph{Upper bounds for the
+monotone rank of the unique disjointness matrix}} concerns ranks of a
+\textbf{partial} unique-disjointness matrix with unspecified entries
+when \(a^{\mathsf T}b>1\); those bounds do not determine the rank of
+this prescribed completion. The open \(n=3\) instance is not counted
+separately.
+\end{document}

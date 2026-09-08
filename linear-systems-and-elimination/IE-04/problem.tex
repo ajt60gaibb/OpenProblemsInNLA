@@ -1,0 +1,116 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={IE-04 - Exponential
+smoothed tail bounds for partial
+pivoting},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-04}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Linear systems and elimination\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Exponential
+smoothed tail bounds for partial pivoting\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} broadly
+interesting\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open.
+
+\subsection{Context and notation}\label{context-and-notation}
+
+All elimination in this problem is in exact arithmetic. Write
+\(\|A\|_{\max}=\max_{ij}|a_{ij}|\). A pivoting path creates successive
+active Schur complements \(S_1=A,S_2,\ldots,S_n\), with row/column
+permutations as appropriate. Its element-growth factor is
+
+\[
+\rho(A)=\frac{\max_{1\leq j\leq n}\|S_j\|_{\max}}{\|A\|_{\max}}.
+\]
+
+Partial pivoting chooses a largest-magnitude entry in the active first
+column; complete pivoting chooses one anywhere in the active matrix. If
+ties occur, a universal statement includes every admissible tie choice;
+a supremum includes all admissible paths. These conventions remove
+implementation-dependent ambiguity. Matrices are nonsingular unless
+otherwise stated.
+
+\subsection{Problem statement}\label{problem-statement}
+
+Do universal constants \(c_1,c_2>0\) exist such that, for every
+\(n\geq1\), deterministic \(\bar A\in\mathbb R^{n\times n}\) with
+\(\|\bar A\|_2\leq1\), \(0<\sigma\leq1\), and \(x\geq1\), the matrix
+\(A=\bar A+\sigma G\), with independent standard normal entries in
+\(G\), satisfies
+
+\[
+\Pr\!\left\{\rho_{\mathrm{PP}}(A)>x(n/\sigma)^{c_1}\right\}
+\leq 2^{-c_2x}?
+\]
+
+This is a uniform smoothed-analysis question: the deterministic center
+may itself be a worst-case input. Almost surely the perturbed matrix is
+nonsingular and the pivot choices have no ties. Numerical evidence or
+estimates only at \(\bar A=0\) do not settle the quantifier over
+deterministic centers. The tail estimate would quantify the rarity of
+substantial growth after small Gaussian input perturbations.
+
+\subsection{References}\label{references}
+
+Spielman and Teng,
+\href{https://www.cs.yale.edu/homes/spielman/PAPERS/focmSmoothed.pdf}{\emph{Smoothed
+Analysis: An Attempt to Explain the Behavior of Algorithms in
+Practice}}, §P6, Conjecture 16, p.~52 of the author PDF. Huang and
+Tikhomirov,
+\href{https://doi.org/10.1007/s00440-024-01276-2}{\emph{Average-case
+analysis of the Gaussian elimination with partial pivoting}}, PTRF 189
+(2024), introduction.
+
+\subsection{Status check}\label{status-check}
+
+Searches for \textit{Exponential Stability of GEPP solved} and
+\textit{Gaussian elimination smoothed analysis 2025 2026} found the
+average-case theorem, not this exponential tail bound. The 2026
+Peca-Medlin butterfly paper also distinguishes average-case results from
+the still-unavailable full smoothed analysis. Randomizing the pivot rule
+is a different model.
+\end{document}

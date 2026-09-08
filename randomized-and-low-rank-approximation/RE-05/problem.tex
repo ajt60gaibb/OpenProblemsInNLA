@@ -1,0 +1,125 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={RE-05 - Pure
+relative error for approximation by a linear matrix
+family},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RE-05}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Randomized and low-rank approximation\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Pure
+relative error for approximation by a linear matrix family\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open; checked 2026-09-08\\
+\textbf{Area:} matrix sketching and structured least squares
+
+\subsection{Context and notation}\label{context-and-notation}
+
+Use exact real arithmetic, with comparisons, standard Gaussian sampling,
+and exact SVDs available as primitives; charge an SVD of an
+\(a\times b\) matrix \(O(ab\min(a,b))\) operations. This states the
+idealized arithmetic model used here, rather than a finite precision or
+bit complexity claim. A matrix--vector query returns either \(Av\) or
+\(A^\mathsf Tv\) for one chosen real vector \(v\); both types count
+toward the total. Randomized guarantees are for every fixed input, with
+probability or expectation over the algorithm's randomness.
+
+\subsection{Problem statement}\label{problem-statement}
+
+Let \(1\le q\le n^2\) and suppose linearly independent matrices
+\(P_1,\ldots,P_q\in\mathbb R^{n\times n}\) are given explicitly. Write
+
+\[
+\mathcal L=\operatorname{span}_{\mathbb R}\{P_1,\ldots,P_q\}.
+\]
+
+An arbitrary \(A\in\mathbb R^{n\times n}\) is accessible only through
+matrix--vector queries.
+
+\subsubsection{Question}\label{question}
+
+Do absolute constants \(C>0\), integers \(a,b\ge0\), and a uniform
+randomized algorithm exist that, for every \(0<\varepsilon<1/2\), use at
+most
+
+\[
+C\sqrt q\,\varepsilon^{-a}
+\bigl[1+\log(2+q)+\log(1/\varepsilon)\bigr]^b
+\]
+
+queries and return coefficients \(c_1,\ldots,c_q\in\mathbb R\) such
+that, with probability at least \(0.99\),
+
+\[
+\left\|A-\sum_{j=1}^q c_jP_j\right\|_F
+\le(1+\varepsilon)\min_{D\in\mathcal L}\|A-D\|_F?
+\]
+
+Adaptive queries and unrestricted computation between queries are
+permitted. The displayed bound must hold uniformly over the basis and
+the target.
+
+\subsection{Reference}\label{reference}
+
+Noah Amsel, Pratyush Avi, Tyler Chen, Feyza Duman Keles, Chinmay Hegde,
+Christopher Musco, Cameron Musco, and David Persson,
+\href{https://arxiv.org/html/2507.19290v2}{\emph{Query Efficient
+Structured Matrix Learning}}, COLT 2026, PMLR \textbf{336}, 158--194,
+§5, linear-family conjecture; Corollary 1 has an additional term
+\(\alpha\|A\|_F\) and query dependence on \(\alpha\).
+
+\subsection{Status evidence}\label{status-evidence}
+
+The August 21, 2026 revision explicitly retains this question. Searches
+for ``linear matrix families pure relative error'' and ``linearly
+parameterized matrix relative error 2026'' found no resolution. Its
+abstract update resolves a related finite-family problem; finite-family
+discretization still produces additive error and does not automatically
+supply the displayed guarantee. See the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/proof/catalog/randomized-extensions.md\#excluded-and-uncounted-leads}{finite-family
+exclusion}.
+\end{document}

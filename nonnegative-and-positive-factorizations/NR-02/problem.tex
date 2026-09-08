@@ -1,0 +1,120 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={NR-02 - Additivity
+for Cartesian-product slack
+matrices},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}NR-02}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Nonnegative and positive
+factorizations\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Additivity
+for Cartesian-product slack matrices\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open; checked 2026-09-08\\
+\textbf{Area:} nonnegative rank and polyhedral optimization
+
+\subsection{Context and notation}\label{context-and-notation}
+
+All factorizations are over the real numbers. For
+\(X\in\mathbb R_{\ge0}^{m\times n}\), define
+
+\[
+\operatorname{rank}_+(X)=\min\{r\ge0:X=WH,\quad
+W\in\mathbb R_{\ge0}^{m\times r},\ H\in\mathbb R_{\ge0}^{r\times n}\}.
+\]
+
+\subsection{Problem statement}\label{problem-statement}
+
+Let \(P\subset\mathbb R^d\) and \(Q\subset\mathbb R^e\) be
+full-dimensional polytopes with \(d,e\ge1\). Let
+\(S\in\mathbb R_{\ge0}^{m\times n}\) and
+\(T\in\mathbb R_{\ge0}^{p\times q}\) be their slack matrices: rows
+correspond to all facets in irredundant inequality descriptions, columns
+to all vertices, and each entry is the right-hand side minus the
+left-hand side of that facet inequality at that vertex. Construct
+\(C\in\mathbb R_{\ge0}^{(m+p)\times nq}\) by giving it one column for
+each pair \((i,j)\) of vertices:
+
+\[
+C[:,(i,j)]=\begin{pmatrix}S[:,i]\\T[:,j]\end{pmatrix}.
+\]
+
+\subsubsection{Question}\label{question}
+
+Is
+
+\[
+\operatorname{rank}_+(C)=\operatorname{rank}_+(S)+\operatorname{rank}_+(T)
+\]
+
+always true? The hypotheses that \(S,T\) are polytope slack matrices are
+part of the question. Through the slack-factorization theorem, this also
+asks whether the minimum number of inequalities in an extended
+formulation is additive under Cartesian products.
+
+\subsection{References}\label{references}
+
+Gillis,
+\href{https://orbi.umons.ac.be/bitstream/20.500.12907/42337/1/NMFbook_SIAM_reprint.pdf}{\emph{Nonnegative
+Matrix Factorization}}, §3.6.5, pp.~93--94. Hans Raj Tiwary, Stefan
+Weltge, and Rico Zenklusen,
+\href{https://arxiv.org/abs/1702.01959}{\emph{Extension complexities of
+Cartesian products involving a pyramid}}, Information Processing Letters
+\textbf{128} (2017), 11--13, introduction and main theorem.
+
+\subsection{Status evidence}\label{status-evidence}
+
+The equality is proved when at least one factor is a pyramid. Searches
+for Cartesian-product extension-complexity additivity, counterexamples,
+and 2025--2026 developments found no general resolution. Stefan Weltge
+poses the general equality again in the
+\href{https://www.cargese.org/2022/open-problems.pdf}{Cargèse workshop
+open problems}, September 20, 2022, p.~1. This is the latest explicit
+general open-status confirmation located; its age is a limitation of
+this entry.
+\end{document}

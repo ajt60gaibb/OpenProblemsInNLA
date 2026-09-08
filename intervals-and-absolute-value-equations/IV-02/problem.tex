@@ -1,0 +1,127 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={IV-02 - Exact
+determinant ranges of general tridiagonal interval
+matrices},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IV-02}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Intervals and absolute value equations\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Exact
+determinant ranges of general tridiagonal interval matrices\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Topic:} interval linear algebra; determinants; computational
+complexity
+
+\textbf{Status:} open; admitted after a bounded literature search found
+no resolution.
+
+\subsection{Problem statement}\label{problem-statement}
+
+For \(n\geq2\), let the input consist of \(3n-2\) closed real intervals
+with rational endpoints: diagonal intervals
+\([\underline a_i,\overline a_i]\) for \(1\leq i\leq n\), upper-diagonal
+intervals \([\underline b_i,\overline b_i]\), and lower-diagonal
+intervals \([\underline c_i,\overline c_i]\) for \(1\leq i<n\). All
+lower endpoints are at most their upper endpoints. Define
+
+\[
+\mathcal T=\{T\in\mathbb R^{n\times n}:
+T_{ii}\in[\underline a_i,\overline a_i],\quad
+T_{i,i+1}\in[\underline b_i,\overline b_i],\quad
+T_{i+1,i}\in[\underline c_i,\overline c_i],\quad
+T_{ij}=0\text{ if }|i-j|>1\}.
+\]
+
+All uncertain entries vary independently. Does a deterministic algorithm
+exist that returns the two exact rational numbers
+
+\[
+d_- = \min_{T\in\mathcal T}\det T,
+\qquad
+d_+ = \max_{T\in\mathcal T}\det T
+\]
+
+in time polynomial in the total binary input length? The target is the
+exact range \([d_-,d_+]\), including instances containing singular
+matrices and intervals crossing zero. Rational output is appropriate
+because the determinant is affine in each entry separately and its
+extrema are attained at endpoint matrices. The polynomial bound must be
+uniform in \(n\).
+
+\subsection{References}\label{references}
+
+Horáček, Hladík, and Matějka,
+\href{https://doi.org/10.13001/1081-3810.3719}{\emph{Determinants of
+interval matrices}}, Electronic Journal of Linear Algebra 33 (2018),
+99--112, \textbf{§5.4, p.~106}, immediately after Proposition 5.6;
+\href{https://journals.uwyo.edu/index.php/ela/article/download/1831/1831/1831}{journal
+PDF}. The corresponding location in
+\href{https://arxiv.org/abs/1809.03736v1}{arXiv:1809.03736v1} is §6.4,
+p.~9, after Proposition 6.7. The source proves polynomial computability
+for interval tridiagonal H-matrices and explicitly leaves general
+tridiagonal interval matrices open.
+
+\subsection{Status check (2026-09-08)}\label{status-check-2026-09-08}
+
+Searches for \textit{tridiagonal interval determinant complexity},
+\textit{tridiagonal determinant range}, and
+\textit{tridiagonal interval determinant polynomial 2026} found no
+resolution for independent-entry exact ranges. Two superficially
+conflicting Thirupathi--Thamaraiselvan papers,
+\href{https://doi.org/10.28924/2291-8639-21-2023-20}{\emph{Symbolic
+Algorithm for Inverting General k-Tridiagonal Interval Matrices}} and
+\href{https://doi.org/10.28924/2291-8639-21-2023-87}{\emph{A Symbolic
+Algorithm for Solving Doubly Bordered k-Tridiagonal Interval Linear
+Systems}}, both published in 2023, use different generalized arithmetic
+(§2.2, pp.~3--4). Their multiplication centers the result at the product
+of midpoints and takes the smaller distance to the standard product
+endpoints. Consequently it sends \([1,2]\) and \([2,3]\) to
+\([2,11/2]\), while independent products range over \([2,6]\). Their
+symbolic determinant algorithms therefore do not establish exact ranges
+in the sense defined above.
+\end{document}

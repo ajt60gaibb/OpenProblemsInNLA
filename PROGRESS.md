@@ -1,29 +1,42 @@
 # Catalog progress
 
 Target: **1,000 distinct, precise, source-backed open NLA problems**; see
-`PROBLEM.md`. Current focus: **PROOF — literature curation**, without solving
-the problems. Lean is inactive and not requested.
+`PROBLEM.md`. Current focus: **PROOF — presentation of the 73 curated problems**,
+without solving them. Lean is inactive and not requested.
 
 ## Current state — 2026-09-08
 
 **PARTIAL: 73 / 1,000 admitted entries.** The remaining 927 are not supplied.
-The [catalog index](proof/catalog/README.md) lists every admitted entry and both
+The [catalog index](CATALOG.md) lists every admitted entry and both
 requested ratings. No placeholders, excluded questions, or arbitrary parameter
 instances contribute to the count.
 
-- Iterative methods, eigenvalue computation, elimination: 11.
-- Sparse solvers and Krylov query complexity: 3.
-- Matrix functions, matrix products, and stability: 12.
-- Structured matrix functions: 1; accurate arithmetic: 1.
-- Tensors, low-rank approximation, and randomized methods: 8.
-- Hierarchical and structured matrix approximation: 5.
-- Randomly pivoted factorizations: 3.
-- Inverse spectra and structured conditioning: 5.
-- Positive semidefinite and completely positive factorizations: 5.
-- Exact nonnegative ranks: 4; nonnegative factorization complexity: 2.
-- Interval matrices: 2.
-- Absolute-value equations and conditioning: 3.
-- Algebraic complexity and matrix powering: 8.
+The user requested category folders and an individual Markdown/LaTeX/PDF
+document for each existing problem. Eight root categories and 73 problem folders
+now hold the canonical statements. Shared mathematical definitions have been
+copied into the entries that require them; the original chapter pages retain
+their anchors and uncounted screening notes.
+
+**COMPLETE: presentation of the existing 73 entries.** All 73 standalone TeX
+documents compile to PDF, with no overflow or missing-character warnings. All
+76 final pages were visually inspected (70 one-page documents, three two-page
+documents). An independent comparison against the original chapters confirmed
+the statements, both ratings, status notes, 44 shared-context additions, and
+preserved uncounted material. Every problem folder contains exactly its canonical
+Markdown, TeX source, and PDF; local navigation links were checked. The small
+`tools/render_problems.py` exporter regenerates TeX/PDF from the Markdown.
+
+This export is not a new literature search and does not change the 2026-09-08
+screening date. The wider 1,000-problem curation objective remains partial.
+
+- Linear systems and elimination: 9.
+- Eigenvalues and inverse problems: 10.
+- Matrix functions and stability: 13.
+- Randomized and low-rank approximation: 12.
+- Tensor computations: 4.
+- Nonnegative and positive factorizations: 11.
+- Arithmetic and complexity: 9.
+- Intervals and absolute value equations: 5.
 
 All entries include primary references and dated bounded literature searches.
 The absence of a found resolution is not a certificate of current openness.

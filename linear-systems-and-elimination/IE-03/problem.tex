@@ -1,0 +1,116 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={IE-03 - Cryer's
+Hadamard complete-pivoting
+conjecture},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-03}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Linear systems and elimination\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Cryer's
+Hadamard complete-pivoting conjecture\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open.
+
+\subsection{Context and notation}\label{context-and-notation}
+
+All elimination in this problem is in exact arithmetic. Write
+\(\|A\|_{\max}=\max_{ij}|a_{ij}|\). A pivoting path creates successive
+active Schur complements \(S_1=A,S_2,\ldots,S_n\), with row/column
+permutations as appropriate. Its element-growth factor is
+
+\[
+\rho(A)=\frac{\max_{1\leq j\leq n}\|S_j\|_{\max}}{\|A\|_{\max}}.
+\]
+
+Partial pivoting chooses a largest-magnitude entry in the active first
+column; complete pivoting chooses one anywhere in the active matrix. If
+ties occur, a universal statement includes every admissible tie choice;
+a supremum includes all admissible paths. These conventions remove
+implementation-dependent ambiguity. Matrices are nonsingular unless
+otherwise stated.
+
+\subsection{Problem statement}\label{problem-statement}
+
+A real Hadamard matrix of order \(n\) is a matrix
+\(H\in\{-1,1\}^{n\times n}\) satisfying \(HH^T=nI\). Prove or disprove
+that, for every Hadamard matrix and every complete-pivoting path,
+
+\[
+\rho(H)=n.
+\]
+
+The quantified input is an existing Hadamard matrix; this question does
+not ask whether Hadamard matrices exist in every order divisible by
+four. Since \(\|H\|_{\max}=1\), the requested upper bound says that no
+entry in any active Schur complement can exceed \(n\) in absolute value.
+The final pivot already supplies the matching lower bound. Permuting or
+resigning rows and columns does not remove the need to account for all
+allowed pivot paths.
+
+\subsection{References}\label{references}
+
+N. J. Higham,
+\href{https://doi.org/10.1137/1.9780898718027}{\emph{Accuracy and
+Stability of Numerical Algorithms}, 2nd ed.}, SIAM (2002), Problem 9.17,
+p.~193, poses this book-sourced question. Kravvaritis and Mitrouli,
+\href{https://doi.org/10.1002/nla.637}{\emph{The growth factor of a
+Hadamard matrix of order 16 is 16}}, NLA with Applications 16 (2009),
+715--743, introduction and main result. Peca-Medlin,
+\href{https://doi.org/10.1080/03081087.2026.2660796}{\emph{Complete
+pivoting growth of butterfly matrices and butterfly Hadamard matrices}},
+2026, introduction and §2.
+
+\subsection{Status check}\label{status-check}
+
+Searches for \textit{Hadamard Cryer 2026} and
+\textit{Hadamard growth conjecture 2026 proof} found the general
+conjecture still identified as open in the 2026 butterfly paper.
+Shah--Urschel's August 2026 general elimination construction is not a
+Hadamard counterexample. Known Sylvester and small-order cases must not
+be counted as additional open problems.
+\end{document}

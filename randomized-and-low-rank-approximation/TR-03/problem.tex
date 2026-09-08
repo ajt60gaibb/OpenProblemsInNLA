@@ -1,0 +1,107 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={TR-03 - Sharp
+gap between volume sampling and the worst matrix with a prescribed
+spectrum},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}TR-03}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Randomized and low-rank approximation\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Sharp
+gap between volume sampling and the worst matrix with a prescribed
+spectrum\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open quantitative subquestion of a source updated
+2026-08-20.
+
+\subsection{Problem statement}\label{problem-statement}
+
+For \(n\ge3\), \(1\le k\le n-2\), and \(\lambda\in(0,\infty)^n\), write
+\(K_V=V^T\operatorname{diag}(\lambda)V\), \(V\in O(n)\), and define
+
+\[
+x_k(\lambda)=\max_{V\in O(n)}\min_{|I|=k}
+\operatorname{tr}\bigl(K_V-(K_V)_{:I}(K_V)_{II}^{-1}(K_V)_{I:}\bigr),
+\quad
+y_k(\lambda)=(k+1)\frac{e_{k+1}(\lambda)}{e_k(\lambda)},
+\]
+
+where \(e_j(\lambda)=\sum_{|I|=j}\prod_{i\in I}\lambda_i\). Determine,
+up to universal multiplicative constants, the dependence on \(n,k\) of
+
+\[
+R_{n,k}=\sup_{\lambda\in(0,\infty)^n}\frac{y_k(\lambda)}{x_k(\lambda)}.
+\]
+
+Here \(y_k\) is the expected trace error when the selected subset has
+probability \(\det((K_V)_{II})/e_k(\lambda)\). The question compares
+that expectation with optimal subset selection after an adversary
+chooses the eigenvectors. This order of quantifiers is essential. The
+endpoint \(R_{n,n-1}=1\) is known and excluded. The displayed supremum
+is a concrete subquestion of the source's request for spectrum-dependent
+tightness bounds; stronger bounds retaining the full spectrum would also
+be valuable.
+
+\subsection{References}\label{references}
+
+Amsel et al., \href{https://arxiv.org/html/2602.05394v3}{workshop
+report}, §4.2, Problem 4.7 and equations (15)--(16). Mark Fornace and
+Michael Lindsey, \href{https://arxiv.org/html/2407.01698v2}{\emph{Column
+and Row Subset Selection Using Nuclear Scores: Algorithms and Theory for
+Nyström Approximation, CUR Decomposition, and Graph Laplacian
+Reduction}}, §4 and Appendix C, for determinantal sampling and the
+elementary-symmetric-polynomial formulas.
+
+\subsection{Status check}\label{status-check}
+
+Searches included \textit{"minimax" "volume sampling" "2026"},
+\textit{"volume sampling" "worst" "spectrum" "2026"}, and
+\textit{"volume sampling" "tightness" Fornace}. No matching sharp
+estimate for \(R_{n,k}\) was located. Generic column-subset
+approximation guarantees do not by themselves settle this spectral
+minimax ratio.
+\end{document}

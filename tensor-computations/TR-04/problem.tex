@@ -1,0 +1,114 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={TR-04 - Improve
+the worst-case approximation factor for prescribed tensor-train
+ranks},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}TR-04}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Tensor computations\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Improve
+the worst-case approximation factor for prescribed tensor-train
+ranks\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open; explicit source updated 2026-08-20.
+
+\subsection{Problem statement}\label{problem-statement}
+
+Let \(d\ge3\), \(n_1,\ldots,n_d\ge2\), and positive integers
+\(r_1,\ldots,r_{d-1}\) be given. Let
+\(S_r\subset\mathbb R^{n_1\times\cdots\times n_d}\) consist of tensors
+whose unfolding separating modes \(1,\ldots,j\) from modes
+\(j+1,\ldots,d\) has rank at most \(r_j\), for every \(j\). For a dense
+input tensor \(A\), put
+
+\[
+E_*(A,r)=\min_{Y\in S_r}\|A-Y\|_F^2.
+\]
+
+Find a polynomial-time algorithm returning \(X\in S_r\) with
+
+\[
+\|A-X\|_F^2<(d-1)E_*(A,r)
+\qquad\text{whenever }E_*(A,r)>0,
+\]
+
+and exact reconstruction when \(E_*(A,r)=0\); alternatively, establish a
+complexity obstruction to such a guarantee. Ranks may not be increased.
+Polynomial time is measured in the dense input size and rank parameters,
+in the idealized arithmetic/SVD model used for TT-SVD; a bit-complexity
+formulation must additionally specify precision and output tolerances.
+
+This is the tensor-train case of the published tree-network question.
+The positive-error qualification corrects the impossible strict
+inequality at zero optimum. It asks for a uniformly valid algorithm, not
+an empirical improvement or a guarantee restricted to particular input
+tensors.
+
+\subsection{References}\label{references}
+
+I. V. Oseledets,
+\href{https://doi.org/10.1137/090752286}{\emph{Tensor-Train
+Decomposition}}, \emph{SIAM Journal on Scientific Computing} 33 (2011),
+2295--2317, Theorem 2.2 and Corollary 2.4. Amsel et al.,
+\href{https://arxiv.org/html/2602.05394v3}{workshop report}, §6.1,
+Problem 6.1. Matthew Fahrbach and Mehrdad Ghadiri,
+\href{https://arxiv.org/html/2508.06693v1}{\emph{A Tight Lower Bound for
+the Approximation Guarantee of Higher-Order Singular Value
+Decomposition}}, Theorems 1.2--1.3, concerns tightness of specific
+Tucker algorithms rather than a lower bound against all tensor-train
+algorithms.
+
+\subsection{Status check}\label{status-check}
+
+Searches included
+\textit{"tensor train" "approximation" "2026" "improvement"} and
+\textit{"tree tensor" "approximation guarantee" "2026"}. No
+universal improvement or matching complexity lower bound was located.
+Randomized methods and better practical error estimates require a
+separate comparison with the displayed worst-case statement.
+\end{document}

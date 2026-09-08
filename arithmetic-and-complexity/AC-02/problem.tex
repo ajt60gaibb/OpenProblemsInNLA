@@ -1,0 +1,97 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={AC-02 - Exact
+bilinear rank of the 3 × 3 matrix
+product},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}AC-02}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Arithmetic and complexity\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Exact
+bilinear rank of the \(3\times3\) matrix product\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Topic:} small matrix multiplication algorithms
+
+\textbf{Status:} open; admitted after a bounded literature search found
+no resolution.
+
+\subsection{Problem statement}\label{problem-statement}
+
+Determine the least integer \(r\) for which there are complex
+coefficients \(u_{t,ij},v_{t,ij},w_{ij,t}\) satisfying, for every pair
+of complex \(3\times3\) matrices,
+
+\[
+(AB)_{ij}=\sum_{t=1}^{r} w_{ij,t}
+ \left(\sum_{a,b=1}^{3}u_{t,ab}A_{ab}\right)
+ \left(\sum_{c,d=1}^{3}v_{t,cd}B_{cd}\right).
+\]
+
+Scalar linear combinations are free in this bilinear-rank model. The
+classical upper bound is 23; deciding whether 22 products suffice is
+part of determining the exact minimum. Algorithms mixing entries of both
+inputs within a factor are outside this specified model.
+
+\subsection{Why it matters}\label{why-it-matters}
+
+Such identities can be applied recursively to matrix blocks.
+
+\subsection{References and status}\label{references-and-status}
+
+Bläser,
+\href{https://theoryofcomputing.org/articles/gs005/gs005.pdf}{2013}, §1
+and Example 5.10. Y. Sun,
+\href{https://arxiv.org/abs/2604.27645}{\emph{An Exact 56-Addition,
+Rank-23 Scheme for General 3×3 Matrix Multiplication}} (2026), gives
+another 23-product scheme. C. Wang,
+\href{https://arxiv.org/abs/2603.07280}{\emph{Automated Lower Bounds for
+Bilinear Complexity over Finite Fields}}, v10 (2026), improves a lower
+bound over \(\mathbb F_2\); that is not a complex-field resolution.
+Searches for ``rank 22 matrix multiplication 2026 proof'' found no
+qualifying algorithm or matching lower bound. \textbf{Admitted: no
+resolution located.}
+\end{document}

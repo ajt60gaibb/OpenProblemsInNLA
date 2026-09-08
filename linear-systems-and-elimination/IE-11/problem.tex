@@ -1,0 +1,116 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={IE-11 - The
+exact fifth complete-pivoting growth
+factor},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-11}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Linear systems and elimination\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}The
+exact fifth complete-pivoting growth factor\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to specialist\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open.
+
+\subsection{Context and notation}\label{context-and-notation}
+
+All elimination in this problem is in exact arithmetic. Write
+\(\|A\|_{\max}=\max_{ij}|a_{ij}|\). A pivoting path creates successive
+active Schur complements \(S_1=A,S_2,\ldots,S_n\), with row/column
+permutations as appropriate. Its element-growth factor is
+
+\[
+\rho(A)=\frac{\max_{1\leq j\leq n}\|S_j\|_{\max}}{\|A\|_{\max}}.
+\]
+
+Partial pivoting chooses a largest-magnitude entry in the active first
+column; complete pivoting chooses one anywhere in the active matrix. If
+ties occur, a universal statement includes every admissible tie choice;
+a supremum includes all admissible paths. These conventions remove
+implementation-dependent ambiguity. Matrices are nonsingular unless
+otherwise stated.
+
+\subsection{Problem statement}\label{problem-statement}
+
+Let
+
+\[
+g_5=\sup\{\rho_{\mathrm{CP}}(A):A\in\mathbb R^{5\times5}\text{ nonsingular}\}.
+\]
+
+Let \(\alpha\) be the unique real root in \((4,5)\) of the integer
+polynomial \(P_5\) displayed in Equation (2.15) of the primary reference
+below. This definition specifies an exact algebraic number; numerically
+\(\alpha\approx4.1325170786324728542\). Prove or disprove
+
+\[
+g_5=\alpha.
+\]
+
+All complete-pivoting paths are included in the supremum. The lower
+bound \(g_5\geq\alpha\) is already established in the cited paper. The
+unresolved part is global optimality over all allowable patterns of
+active constraints, not exact evaluation of a particular numerical
+example. Order five is independently singled out by the literature as
+the first unresolved dimension; this catalog does not split the same
+question into entries for every subsequent order.
+
+\subsection{Reference}\label{reference}
+
+Chen, Edelman, and Urschel,
+\href{https://arxiv.org/html/2602.20390v1}{\emph{The largest 5th pivot
+may be the root of a 61st degree polynomial}}, February 2026, Equation
+(2.15), Conjecture 2.1, Theorem 2.2, and Theorem 3.5. The current
+rigorous interval is \(\alpha\leq g_5\leq4.84\).
+
+\subsection{Status check}\label{status-check}
+
+Searches for the paper title and
+\textit{complete pivoting maximum five 2026} found no global proof.
+Shah--Urschel's August asymptotic result leaves this exact
+finite-dimensional optimum undetermined.
+\end{document}

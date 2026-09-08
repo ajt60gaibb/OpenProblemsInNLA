@@ -1,0 +1,112 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={IE-06 - The
+square-root upper bound for Gaussian partial-pivoting
+growth},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-06}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Linear systems and elimination\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}The
+square-root upper bound for Gaussian partial-pivoting growth\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open; polynomial growth with high probability is known.
+
+\subsection{Context and notation}\label{context-and-notation}
+
+All elimination in this problem is in exact arithmetic. Write
+\(\|A\|_{\max}=\max_{ij}|a_{ij}|\). A pivoting path creates successive
+active Schur complements \(S_1=A,S_2,\ldots,S_n\), with row/column
+permutations as appropriate. Its element-growth factor is
+
+\[
+\rho(A)=\frac{\max_{1\leq j\leq n}\|S_j\|_{\max}}{\|A\|_{\max}}.
+\]
+
+Partial pivoting chooses a largest-magnitude entry in the active first
+column; complete pivoting chooses one anywhere in the active matrix. If
+ties occur, a universal statement includes every admissible tie choice;
+a supremum includes all admissible paths. These conventions remove
+implementation-dependent ambiguity. Matrices are nonsingular unless
+otherwise stated.
+
+\subsection{Problem statement}\label{problem-statement}
+
+Let \(G_n\in\mathbb R^{n\times n}\) have independent \(N(0,1)\) entries.
+Is the following precise square-root upper-bound conjecture true?
+
+\[
+\text{For every }\eta>0,\qquad
+\lim_{n\to\infty}\Pr\{\rho_{\mathrm{PP}}(G_n)>n^{1/2+\eta}\}=0.
+\]
+
+Here growth is measured over the exact-arithmetic Schur complements as
+defined above. This formulation asks only for the conjectured upper
+exponent; it does not add an unsupported matching lower-bound assertion
+or a limiting-distribution claim. It is also distinct from
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-04/README.md}{IE-04},
+which requires a uniform result after perturbing every deterministic
+center and prescribes an exponential tail.
+
+\subsection{References}\label{references}
+
+Huang and Tikhomirov,
+\href{https://doi.org/10.1007/s00440-024-01276-2}{\emph{Average-case
+analysis of the Gaussian elimination with partial pivoting}}, PTRF 189
+(2024), 501--567, introduction, discussion of Edelman's numerical
+evidence and main theorems. Trefethen and Schreiber,
+\href{https://doi.org/10.1137/0611023}{\emph{Average-Case Stability of
+Gaussian Elimination}}, SIAM J. Matrix Anal. Appl. 11 (1990), 335--360.
+
+\subsection{Status check}\label{status-check}
+
+Searches for \textit{Gaussian elimination n\^{}\{1/2\}\ 2025\ 2026}
+and \textit{site:arxiv.org Gaussian growth factor 2026} found
+polynomial upper bounds and the August worst-case results, but no proof
+at the square-root exponent. The distinction between exact and computed
+growth factors matters; the catalog statement fixes the former.
+\end{document}

@@ -1,0 +1,105 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={TR-01 - Optimal
+dimension for a rerandomized Hadamard
+embedding},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}TR-01}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Randomized and low-rank approximation\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Optimal
+dimension for a rerandomized Hadamard embedding\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open; explicit source updated 2026-08-20.
+
+\subsection{Problem statement}\label{problem-statement}
+
+Let \(n\) be a power of two, \(1\le r\le n\), and \(0<\varepsilon<1/2\).
+Let \(F\) be the normalized Walsh--Hadamard matrix, let \(D_1,D_2\) have
+independent Rademacher diagonal entries, and let
+\(S\in\mathbb R^{n\times k}\) select a uniformly random \(k\)-element
+subset of coordinates, independently. Set
+
+\[
+\Omega=\sqrt{n/k}\,D_1FD_2FS.
+\]
+
+Does a universal \(C>0\) exist such that, for every fixed
+\(r\)-dimensional subspace \(V\subseteq\mathbb R^n\), choosing
+\(k=\min\{n,\lceil Cr/\varepsilon^2\rceil\}\) gives
+
+\[
+\Pr\left\{(1-\varepsilon)\|x\|_2^2\le
+\|\Omega^Tx\|_2^2\le(1+\varepsilon)\|x\|_2^2
+\text{ for every }x\in V\right\}\ge0.99?
+\]
+
+This fixes normalization, sampling without replacement, and a constant
+success probability in the workshop question. Results for a single
+randomization, three randomizations, or independently sampled sparse
+sketches do not establish this statement.
+
+\subsection{References}\label{references}
+
+Amsel et al., \href{https://arxiv.org/html/2602.05394v3}{\emph{Linear
+Systems and Eigenvalue Problems: Open Questions from a Simons
+Workshop}}, §5.3, Definition 5.3 and Problem 5.6. For the single-round
+baseline, Joel A. Tropp,
+\href{https://arxiv.org/abs/1011.1595}{\emph{Improved Analysis of the
+Subsampled Randomized Hadamard Transform}}, \emph{Advances in Adaptive
+Data Analysis} 3 (2011), 115--126, Theorem 3.1.
+
+\subsection{Status check}\label{status-check}
+
+Searches included \textit{"rerandomized SRHT" counterexample},
+\textit{"rerandomized" "subspace" Hadamard}, and
+\textit{"Hadamard" "two" "2026" embedding conjecture}. No resolution
+of the displayed two-round assertion was located. The September 2026
+SparseStack result in the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/proof/catalog/tensors-randomized.md\#screened-items-that-are-not-counted}{screening
+notes} concerns another distribution.
+\end{document}

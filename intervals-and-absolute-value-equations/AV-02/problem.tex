@@ -1,0 +1,122 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={AV-02 - Hardness
+of the spectral-norm condition
+number},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}AV-02}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Intervals and absolute value equations\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Hardness
+of the spectral-norm condition number\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open; checked 2026-09-08\\
+\textbf{Area:} condition estimation and rigorous error bounds
+
+\subsection{Context and notation}\label{context-and-notation}
+
+Absolute values and vector inequalities are componentwise. All
+algorithmic questions use rational input in binary and the deterministic
+Turing model. Input length includes the matrix dimensions and the bit
+lengths of all rational coefficients.
+
+For a real square matrix \(A\), define the diagonal perturbation family
+
+\[
+\mathcal D(A)=\{A-\operatorname{diag}(d):d\in[-1,1]^n\}.
+\]
+
+Call this family \textbf{regular} when every member is nonsingular. Only
+diagonal entries vary. This is precisely the entrywise interval matrix
+\([A-I_n,A+I_n]\).
+
+\subsection{Problem statement}\label{problem-statement}
+
+Let \(n\ge1\) and let \(A\in\mathbb Q^{n\times n}\) be promised to have
+regular \(\mathcal D(A)\). Define
+
+\[
+c_2(A)=\max_{d\in[-1,1]^n}
+\left\|(A-\operatorname{diag}(d))^{-1}\right\|_2
+=\left(\min_{d\in[-1,1]^n}
+\sigma_{\min}(A-\operatorname{diag}(d))\right)^{-1}.
+\]
+
+\subsubsection{Question}\label{question}
+
+Is deciding \(c_2(A)\ge t\), given such an \(A\) and a positive rational
+threshold \(t\), \(\mathsf{NP}\)-hard under polynomial-time Turing
+reductions that query only inputs satisfying the regularity promise?
+
+This is a decision formulation of the published hardness conjecture.
+Equality belongs to the yes case. Checking the promise is outside the
+task. The spectral norm is the operator norm induced by the Euclidean
+vector norm.
+
+\subsection{References}\label{references}
+
+Moslem Zamani and Milan Hladík,
+\href{https://doi.org/10.1007/s10107-021-01756-6}{\emph{Error bounds and
+a condition number for the absolute value equations}}, Mathematical
+Programming \textbf{198} (2023), 85--113, §2, paragraph before
+Proposition 3; §2.1 and §7. The maximum is attained at a sign vector by
+Proposition 2; Proposition 6 gives a formula for symmetric \(A\). The
+conjecture concerns general matrices.
+
+The quantity bounds forward error by residual for \(Ax-|x|=b\); see
+Theorem 7. Its computation remains explicitly unclassified in Hladík et
+al.'s \href{https://doi.org/10.1007/s10589-025-00717-5}{2026 survey},
+§5.4.
+
+\subsection{Status evidence}\label{status-evidence}
+
+The original paper's latest arXiv version is
+\href{https://arxiv.org/abs/1912.12904}{v2, January 17, 2020}; the
+journal text was published January 30, 2022. Searches for ``absolute
+value equations condition number 2026'', ``spectral norm complexity'',
+and ``2-norm NP-hard'' found no resolution.
+\end{document}

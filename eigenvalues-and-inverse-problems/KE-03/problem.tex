@@ -1,0 +1,115 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={KE-03 - Find
+a near-largest nonnormal eigenvalue using few matrix-vector
+products},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}KE-03}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Eigenvalues and inverse problems\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Find
+a near-largest nonnormal eigenvalue using few matrix-vector
+products\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Topic:} nonsymmetric eigenvalue computation; query complexity
+
+\textbf{Status:} open; admitted after a bounded literature search found
+no resolution.
+
+\subsection{Context and notation}\label{context-and-notation}
+
+All norms are Euclidean vector norms or their induced matrix norms.
+
+\subsection{Problem statement}\label{problem-statement}
+
+An unknown diagonalizable \(A\in\mathbb C^{n\times n}\) is available
+only through exact queries \(v\mapsto Av\). A number \(K\geq1\) is
+supplied, with the promise that \(A=V\Lambda V^{-1}\) for some diagonal
+\(\Lambda\) and \(\|V\|_2\|V^{-1}\|_2\leq K\). Assume
+\(\rho(A)=\max_{\mu\in\sigma(A)}|\mu|>0\); neither the eigenvalues nor
+\(V\) are supplied.
+
+Do universal constants \(C,a,b>0\) and a randomized algorithm exist
+that, for every such input and every \(\varepsilon\in(0,1/2)\), returns
+a complex number \(z\) with probability at least \(0.99\) such that
+
+\[
+\text{there exists }\mu\in\sigma(A):
+\quad |\mu|\geq(1-\varepsilon)\rho(A),
+\qquad |z-\mu|\leq\varepsilon\rho(A),
+\]
+
+using at most \(C[1+\log(nK)]^a\varepsilon^{-b}\) matrix-vector queries?
+The algorithm may perform finite exact arithmetic between queries; the
+requested bound concerns query count. Products with \(A^*\) and
+solutions of shifted linear systems are not additional oracle
+operations. Supplying \(K\) and fixing a success probability make the
+computational formulation explicit.
+
+\subsection{References}\label{references}
+
+Amsel et al.,
+\href{https://arxiv.org/html/2602.05394v3\#S3.SS5}{workshop report},
+Problem 3.9. Shah, Srivastava, and Zeng,
+\href{https://arxiv.org/pdf/2411.19926v1}{\emph{Sparse Pseudospectral
+Shattering}, first version}, §1.3, Theorem 1.5 and its power-iteration
+argument, supplies the related spectral-radius estimate cited by the
+workshop.
+
+\subsection{Status check}\label{status-check}
+
+Searches for \textit{nonnormal eigenvalue query complexity 2026} and
+\textit{nonnormal spectral radius matrix-vector algorithm 2026}
+found no resolution. The radius estimate controls a nonnegative scalar
+and allows backward error; it does not locate a near-extremal eigenvalue
+in the complex plane as required here. The
+\href{https://arxiv.org/abs/2411.19926v3}{April 2026 third version}
+replaces that application with a GMRES application (§6), so the
+version-specific locator above is intentional. The workshop still poses
+Problem 3.9 in its August update, separately from its resolved general
+Ritz-compression question.
+\end{document}

@@ -1,0 +1,101 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={NR-04 - The
+nonnegative rank of the nine-point distance
+matrix},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}NR-04}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Nonnegative and positive
+factorizations\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}The
+nonnegative rank of the nine-point distance matrix\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} hard\quad\textbf{Importance:} interesting
+to specialist\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open; checked 2026-09-08\\
+\textbf{Area:} exact factorization of Euclidean distance matrices
+
+\subsection{Context and notation}\label{context-and-notation}
+
+All factorizations are over the real numbers. For
+\(X\in\mathbb R_{\ge0}^{m\times n}\), define
+
+\[
+\operatorname{rank}_+(X)=\min\{r\ge0:X=WH,\quad
+W\in\mathbb R_{\ge0}^{m\times r},\ H\in\mathbb R_{\ge0}^{r\times n}\}.
+\]
+
+\subsection{Problem statement}\label{problem-statement}
+
+Let \(D\in\mathbb R_{\ge0}^{9\times9}\) have entries \(D_{ij}=(i-j)^2\)
+for \(1\le i,j\le9\).
+
+\subsubsection{Question}\label{question}
+
+Does there exist an exact factorization \(D=WH\) with
+\(W\in\mathbb R_{\ge0}^{9\times6}\) and
+\(H\in\mathbb R_{\ge0}^{6\times9}\)? Equivalently, is
+\(\operatorname{rank}_+(D)=6\) or \(7\)?
+
+\subsection{References}\label{references}
+
+Baeckelant, Vandaele, and Gillis,
+\href{https://arxiv.org/html/2605.14058v2}{\emph{Computing Lower Bounds
+on the Nonnegative Rank via Non-Convex Optimization Solvers}}, Appendix
+A.1, Table 6 and its final paragraph, expressly isolates this case.
+Pavel Hrubeš, \emph{On the nonnegative rank of distance matrices},
+Information Processing Letters \textbf{112} (2012), 457--461, supplies
+the upper-bound construction cited there.
+
+\subsection{Status evidence}\label{status-evidence}
+
+The July 2026 revision records bounds \(6\le
+\operatorname{rank}_+(D)\le7\) and explicitly calls the exact value
+open. Targeted searches for the nine-point linear Euclidean distance
+matrix and subsequent nonnegative-rank results found no resolution. This
+is a named unresolved benchmark in the source, rather than an arbitrary
+specialization of a separately counted general problem.
+\end{document}

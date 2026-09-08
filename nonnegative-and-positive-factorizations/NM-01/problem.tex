@@ -1,0 +1,141 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={NM-01 - Polynomial-time
+minimum-volume decision under sufficient
+scattering},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}NM-01}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Nonnegative and positive
+factorizations\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Polynomial-time
+minimum-volume decision under sufficient scattering\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} broadly
+interesting\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Topic:} structured matrix factorization; global optimization
+
+\textbf{Status:} open; admitted after a bounded literature search found
+no resolution.
+
+\subsection{Context and notation}\label{context-and-notation}
+
+For \(H\in\mathbb R_+^{r\times n}\), let
+\(\operatorname{cone}(H)=\{Hy:y\in\mathbb R_+^n\}\) and let \(e_d\) be
+the all-ones vector in \(\mathbb R^d\). Here \textbf{SSC} means the
+precise version in Gillis's Definition 4.15:
+
+\[
+\mathcal C_r=\{x\in\mathbb R_+^r:
+e_r^Tx\geq\sqrt{r-1}\|x\|_2\}\subseteq\operatorname{cone}(H),
+\]
+
+and every orthogonal \(Q\in\mathbb R^{r\times r}\) satisfying
+\(\operatorname{cone}(H)\subseteq\operatorname{cone}(Q)\) is a
+permutation matrix. Some later sources use a stronger second condition
+involving the boundary of the dual cone; that condition is not
+substituted here.
+
+For \(X\in\mathbb R^{m\times n}\) and \(r=\operatorname{rank}(X)\), the
+minimum-volume problem considered here is
+
+\[
+\min_{W\in\mathbb R^{m\times r},\ H\in\mathbb R_+^{r\times n}}
+\det(W^TW)
+\quad\text{subject to}\quad
+X=WH,\qquad e_r^TH=e_n^T.\tag{MV}
+\]
+
+In particular, \(W\) is unrestricted in sign and the \textbf{columns} of
+\(H\) sum to one. This is min-vol NMF (1), Definition 4.42 of the book.
+
+\subsection{Problem statement}\label{problem-statement}
+
+Consider the following rational-input decision version of minimum-volume
+optimization. The input is \(X\in\mathbb Q^{m\times n}\), an integer
+\(2\leq r\leq\min(m,n)\), and \(\tau\in\mathbb Q_{\geq0}\), with the
+promise that \(\operatorname{rank}(X)=r\) and that there exist real
+factors \(X=W_\star H_\star\) feasible for (MV) with \(H_\star\)
+satisfying SSC. These factors are not supplied. Decide whether
+
+\[
+\exists W\in\mathbb R^{m\times r},\ H\in\mathbb R_+^{r\times n}:
+\quad X=WH,\quad e_r^TH=e_n^T,\quad\det(W^TW)\leq\tau.
+\]
+
+Does a polynomial-time algorithm exist, with time measured in the total
+binary input length? Randomization is allowed with success probability
+at least \(2/3\) on every promised input. The algorithm must run in
+polynomial time on all inputs but need only answer correctly on promised
+inputs. Checking the SSC promise is not part of the task. This decision
+formulation fixes the computational model of the book's
+polynomial-solvability conjecture; it does not assert an equivalence
+with exact factor recovery.
+
+\newpage
+\subsection{References}\label{references}
+
+Gillis, \href{https://doi.org/10.1137/1.9781611976410}{\emph{Nonnegative
+Matrix Factorization}}, §4.3.3.6, pp.~148--149, with Definitions 4.15
+and 4.42 and Theorem 4.43;
+\href{https://orbi.umons.ac.be/bitstream/20.500.12907/42337/1/NMFbook_SIAM_reprint.pdf}{author-hosted
+book}. Barbarino, Gillis, and Saha,
+\href{https://arxiv.org/html/2511.04291v1}{\emph{Robustness of
+Minimum-Volume Nonnegative Matrix Factorization under an Expanded
+Sufficiently Scattered Condition}}, §5, final research question.
+
+\subsection{Status check}\label{status-check}
+
+Searches for
+\textit{minimum-volume NMF polynomial time sufficiently scattered}
+and
+\textit{minimum volume simplex sufficiently scattered algorithm 2026 2025}
+found no polynomial-time guarantee for this promise. The November 2025
+paper still asks for complexity results under its stronger \(p\)-SSC
+assumption. Its robustness theorems assume a globally optimal
+minimum-volume solution; they do not compute one in polynomial time. The
+book explains why the maximum-inscribed-ellipsoid approach can require
+exponentially many polytope facets.
+\end{document}
