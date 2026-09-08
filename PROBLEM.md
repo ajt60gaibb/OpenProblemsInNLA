@@ -39,7 +39,7 @@ Start with core NLA: linear systems, least squares, eigenvalue and singular-valu
 computation, matrix functions, numerical stability, conditioning, low-rank
 approximation, and numerical tensor methods. Directly relevant matrix theory and
 algebraic complexity may be included with their numerical connection explained;
-the breadth is subject to the user's pending scope preference.
+this broad scope is the working interpretation in the absence of a narrower user preference.
 
 ## Admission and completion
 
