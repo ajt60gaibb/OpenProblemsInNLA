@@ -1,8 +1,8 @@
 # Arithmetic and complexity
 
-[← All categories](../README.md) · [All 125 problems](../CATALOG.md)
+[← All categories](../README.md) · [All 147 problems](../CATALOG.md)
 
-9 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
+11 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
 
 | ID | Problem | Difficulty | Importance | Read / source |
 | --- | --- | --- | --- | --- |
@@ -15,5 +15,7 @@
 | [AC-06](AC-06/README.md) | Explicit tensors with quadratic border rank | extreme | broadly interesting | [PDF](AC-06/problem.pdf) · [TeX](AC-06/problem.tex) |
 | [AC-07](AC-07/README.md) | Scholz–Brauer inequality for multiplication chains | challenging | interesting to specialist | [PDF](AC-07/problem.pdf) · [TeX](AC-07/problem.tex) |
 | [AC-08](AC-08/README.md) | Knuth–Stolarsky lower bound for addition chains | challenging | interesting to specialist | [PDF](AC-08/problem.pdf) · [TeX](AC-08/problem.tex) |
+| [AC-09](AC-09/README.md) | Deterministic polynomial-time commutative Edmonds problem | extreme | broadly interesting | [PDF](AC-09/problem.pdf) · [TeX](AC-09/problem.tex) |
+| [AC-10](AC-10/README.md) | An explicit rational Valiant-rigid matrix family | extreme | broadly interesting | [PDF](AC-10/problem.pdf) · [TeX](AC-10/problem.tex) |
 
 Ratings are editorial. Each entry records its literature check and the scope of the evidence. [Rating definitions](../README.md#ratings).

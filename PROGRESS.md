@@ -6,13 +6,13 @@ without solving them. Lean is inactive and not requested.
 
 ## Current state — 2026-09-08
 
-**PARTIAL: 125 / 1,000 admitted entries.** The remaining 875 are not supplied.
+**PARTIAL: 147 / 1,000 admitted entries.** The remaining 853 are not supplied.
 The [catalog index](CATALOG.md) lists every admitted entry and both
 requested ratings. No placeholders, excluded questions, or arbitrary parameter
 instances contribute to the count.
 
 The user requested category folders and an individual Markdown/LaTeX/PDF
-document for each existing problem. Ten root categories and 125 problem folders
+document for each existing problem. Eleven root categories and 147 problem folders
 now hold the canonical statements. Shared mathematical definitions have been
 copied into the entries that require them; the original chapter pages retain
 their anchors and uncounted screening notes.
@@ -35,15 +35,16 @@ pivot ties, the all-stage growth definition, and distinctness. Complex fields in
 IE-13–14 follow the adjacent theorem; the exercise itself leaves the field implicit.
 The wider 1,000-problem curation objective remains partial.
 
-- Linear systems and elimination: 15.
+- Linear systems and elimination: 16.
 - Eigenvalues and inverse problems: 17.
-- Matrix functions and stability: 17.
-- Randomized and low-rank approximation: 17.
-- Tensor computations: 13.
+- Matrix functions and stability: 18.
+- Randomized and low-rank approximation: 21.
+- Tensor computations: 14.
 - Nonnegative and positive factorizations: 12.
-- Matrix inequalities and norms: 12.
-- Frames and matrix designs: 8.
-- Arithmetic and complexity: 9.
+- Matrix inequalities and norms: 17.
+- Frames and matrix designs: 10.
+- Matrix discrepancy and optimization: 6.
+- Arithmetic and complexity: 11.
 - Intervals and absolute value equations: 5.
 
 All entries include primary references and dated bounded literature searches.
@@ -52,6 +53,29 @@ Older-status entries explicitly expose their weaker evidence. Difficulty and
 importance are editorial ratings, with definitions in the repository README.
 
 ## Mathematical screening findings
+
+**COMPLETE: incorporation of the 43 supplied additional candidates.** The
+[full disposition screen](proof/ADDITIONAL-PROBLEMS-SCREEN.md) records 22 new
+entries, 15 duplicates or already-covered candidates, one stronger RIP target
+newly grouped in FR-01, and five withheld/excluded candidates. The
+[original proposal](proof/proposals/ADDITIONAL_PROBLEMS.md) is preserved as supplied.
+DR-BCG has a later primary resolution claim; Dittert and circulant Hadamard have
+standing full-proof claims; the bidiagonal-SVD and order-five inverse-spectrum
+leads still need precise completion criteria. None contributes to the count.
+
+The source review preserves explicit computational models and distinguishes
+formalizations from source-stated conjectures. Independent audits checked CG,
+matrix-function transfer, the scalar versus full-vector Kronecker oracle,
+theta/frame/RIP statements, and five matrix inequalities. Corrections include
+published versus preprint Lih–Wang claims, the fixed-M inverse-semigroup bounds,
+and primary-source author lists. No solutions or proof attempts were made.
+
+The new matrix-discrepancy-and-optimization category contains six entries.
+The 22 new PDFs contain 23 pages; revised FR-01 remains one page. All 24 new or
+changed pages were visually checked, with no remaining overflow or missing-character
+warnings. The collection now has **147 PDFs and 152 pages**. Navigation, distinct
+IDs, required ratings and one Markdown/TeX/PDF set per problem were checked.
+
 
 **COMPLETE: the requested wider batch of 50 additions.** Six search subagents
 covered iterative methods, matrix functions and inequalities, randomized NLA and
@@ -145,8 +169,9 @@ scope without inventing questions or subdividing them artificially.
 
 ## Remaining work
 
-The requested 50-entry batch is complete. The broader 1,000-entry target remains
-partial, with 875 further distinct admissions needed.
+The requested 50-entry batch and subsequent 43-candidate proposal screen are complete.
+All proposal dispositions are recorded. Duplicates and unresolved formulations do
+not count as additions. The broader 1,000-entry target remains partial at 147 entries.
 
 Continue source curation in underrepresented core NLA areas, including
 randomized estimation, absolute-value systems, least squares, preconditioning,

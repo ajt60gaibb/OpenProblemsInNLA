@@ -1,0 +1,129 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={RA-11 - Optimal
+trace-estimation complexity using Kronecker matrix-vector
+queries},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RA-11}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Randomized and low-rank approximation\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Optimal
+trace-estimation complexity using Kronecker matrix-vector queries\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Topic:} Structured randomized trace estimation.
+
+Let \(n,q\ge2\) be integers and \(0<\varepsilon<1/2\). An unknown real
+symmetric PSD matrix \(M\in\mathbb R^{n^q\times n^q}\) is accessible
+only through an exact oracle which, on input
+\(v_1,\ldots,v_q\in\mathbb R^n\), returns
+
+\[
+M(v_1\otimes\cdots\otimes v_q)\in\mathbb R^{n^q}.
+\]
+
+Let \(Q(n,q,\varepsilon)\) be the smallest integer \(t\) for which a
+randomized algorithm can, for every such \(M\), make at most \(t\)
+oracle calls and output \(\widehat t\in\mathbb R\) satisfying
+
+\[
+\Pr\bigl\{|\widehat t-\operatorname{tr}(M)|\le\varepsilon\operatorname{tr}(M)\bigr\}\ge\frac23.
+\]
+
+Queries may depend on previous responses and internal randomness. The
+algorithm may perform arbitrary finite exact arithmetic between calls;
+only oracle calls are counted. The inputs \(n,q,\varepsilon\) are known.
+Neither the query vectors nor their concatenation are required to have
+bounded condition number, and there is no restriction to Hutchinson
+estimators.
+
+Determine \(Q(n,q,\varepsilon)\) up to universal constant factors,
+simultaneously in all three parameters.
+
+This is a precise query-complexity formulation of the source's request
+for tight trace-estimation bounds. It would quantify the cost of
+exploiting rank-one tensor queries when ordinary matrix access is
+unavailable.
+
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  R. A. Meyer, W. Swartworth, and D. P. Woodruff,
+  \href{https://arxiv.org/html/2502.08029v2}{Understanding the Kronecker
+  Matrix-Vector Complexity of Linear Algebra}, ICML 2025, PMLR 267,
+  43909--43933. Definition 1 specifies the oracle; §6, final sentence,
+  asks for tight trace-estimation bounds. Theorem 7 bounds a conditioned
+  scalar quadratic-form oracle; its following discussion distinguishes
+  full-vector responses.
+  \href{https://proceedings.mlr.press/v267/meyer25a.html}{Published
+  record}.
+\item
+  R. A. Meyer and H. Avron,
+  \href{https://arxiv.org/abs/2309.04952}{Hutchinson's Estimator is Bad
+  at Kronecker-Trace-Estimation}, \emph{SIAM Journal on Matrix Analysis
+  and Applications} 47 (2026), 353--387, abstract and trace-estimator
+  bounds. These tight rates concern the specified estimator and query
+  distributions.
+\end{enumerate}
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+Checked the first paper's latest listed arXiv v2 (2025-02-13), §6, and
+its ICML publication record; checked the second paper's latest listed v2
+(2025-01-31) and 2026 journal record. Searches for ``Kronecker trace
+estimation tight 2026'' and the exact first title found no solution for
+unrestricted adaptive algorithms. The available trace lower bound
+assumes both scalar quadratic-form queries and bounded query
+conditioning; it does not establish a lower bound for the unrestricted
+full-vector oracle defined here. The 2026 Hutchinson article establishes
+estimator-specific rates and therefore does not determine \(Q\). The
+minimax definition and explicit parameter range are editorial
+formalization of a source-stated complexity question, not a quoted
+formula from the paper.
+\end{document}

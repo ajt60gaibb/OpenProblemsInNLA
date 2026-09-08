@@ -1,0 +1,109 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={MD-03 - The
+Komlós discrepancy
+conjecture},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MD-03}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Matrix discrepancy and optimization\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}The
+Komlós discrepancy conjecture\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} broadly
+interesting\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Provenance:} source-stated conjecture.
+
+\textbf{Status:} no resolution found in screening on 2026-09-08.
+
+Does a finite constant \(C>0\) exist such that, for every pair of
+positive integers \(m,n\) and every matrix
+\(A=(a_{ij})\in\mathbb R^{m\times n}\) satisfying \[
+\sum_{i=1}^m a_{ij}^2\leq1\qquad(1\leq j\leq n),
+\] there is a vector \(x\in\{-1,1\}^n\) for which \[
+\|Ax\|_\infty=\max_{1\leq i\leq m}\left|\sum_{j=1}^n a_{ij}x_j\right|\leq C?
+\] The same constant must work for every dimension and matrix. The
+question asks for existence of a signing; it does not additionally
+require an algorithm.
+
+This is a matrix balancing problem: choose column signs so that their
+sum is small in every coordinate. Its norm constraint and simultaneous
+coordinate control connect discrepancy theory with rounding and linear
+optimization.
+
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  N. Bansal and H. Jiang, \emph{An Exposition of the
+  \(\widetilde O(\log^{1/4}n)\) Bound for the Komlós Problem},
+  arXiv:2608.28452 (2026), abstract and introduction, including the
+  explicit conjecture and the new dimension-dependent bound.
+  \href{https://arxiv.org/html/2608.28452v1}{Paper}.
+\item
+  N. Bansal and H. Jiang, \emph{Decoupling via Affine
+  Spectral-Independence: Beck-Fiala and Komlós Bounds Beyond
+  Banaszczyk}, arXiv:2508.03961v2 (2025), abstract and introductory
+  results. \href{https://arxiv.org/abs/2508.03961}{Paper}.
+\item
+  W. Banaszczyk, \emph{Balancing vectors and Gaussian measures of
+  n-dimensional convex bodies}, Random Structures \& Algorithms 12(4)
+  (1998), pp.~351--360, the main vector-balancing theorem underlying the
+  earlier logarithmic bound.
+  \href{https://onlinelibrary.wiley.com/doi/abs/10.1002/\%28SICI\%291098-2418\%28199807\%2912\%3A4\%3C351\%3A\%3AAID-RSA3\%3E3.0.CO\%3B2-S}{Article}.
+\end{enumerate}
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+checked the current arXiv records (2608.28452v1, 2026-08-28;
+2508.03961v2, 2025-09-09) and searched ``Komlos conjecture solved proof
+September 2026'' and ``Komlos Bansal Jiang 2026 bound''. The new bound
+is \(O((\log n)^{1/4}(\log\log n)^{7/4})\) in its asymptotic range, not
+a universal constant. No full proof, counterexample, or withdrawal of
+these source papers was found. The disproved Hajela conjecture and the
+separate matrix Spencer conjecture are not this statement.
+\end{document}

@@ -1,8 +1,8 @@
 # Randomized and low-rank approximation
 
-[← All categories](../README.md) · [All 125 problems](../CATALOG.md)
+[← All categories](../README.md) · [All 147 problems](../CATALOG.md)
 
-17 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
+21 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
 
 | ID | Problem | Difficulty | Importance | Read / source |
 | --- | --- | --- | --- | --- |
@@ -23,5 +23,9 @@
 | [RA-05](RA-05/README.md) | Sharp joint rank and accuracy dependence for strong $\ell_p$ subspace coresets | hard | interesting to the community | [PDF](RA-05/problem.pdf) · [TeX](RA-05/problem.tex) |
 | [RA-06](RA-06/README.md) | Sensitivity-dependent row sampling for $\ell_p$ embeddings when p exceeds two | hard | interesting to the community | [PDF](RA-06/problem.pdf) · [TeX](RA-06/problem.tex) |
 | [RA-07](RA-07/README.md) | Convexity of the expected error of volume-sampled column subsets | challenging | interesting to the community | [PDF](RA-07/problem.pdf) · [TeX](RA-07/problem.tex) |
+| [RA-08](RA-08/README.md) | Concave-function transfer of spectral low-rank error | challenging | interesting to the community | [PDF](RA-08/problem.pdf) · [TeX](RA-08/problem.tex) |
+| [RA-09](RA-09/README.md) | Concave-function transfer of Frobenius low-rank error | challenging | interesting to the community | [PDF](RA-09/problem.pdf) · [TeX](RA-09/problem.tex) |
+| [RA-10](RA-10/README.md) | Constant-loss nuclear-error transfer without matrix ordering | challenging | interesting to the community | [PDF](RA-10/problem.pdf) · [TeX](RA-10/problem.tex) |
+| [RA-11](RA-11/README.md) | Optimal trace-estimation complexity using Kronecker matrix-vector queries | extreme | interesting to the community | [PDF](RA-11/problem.pdf) · [TeX](RA-11/problem.tex) |
 
 Ratings are editorial. Each entry records its literature check and the scope of the evidence. [Rating definitions](../README.md#ratings).

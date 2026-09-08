@@ -1,0 +1,129 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={RA-10 - Constant-loss
+nuclear-error transfer without matrix
+ordering},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RA-10}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Randomized and low-rank approximation\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Constant-loss
+nuclear-error transfer without matrix ordering\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Topic:} Low-rank approximation of matrix functions.
+
+Does a universal constant \(C\ge1\) exist with the following property?
+For every \(n\ge2\), \(1\le k<n\), real symmetric positive semidefinite
+matrices \(A,\widehat A\in\mathbb R^{n\times n}\), \(\varepsilon\ge0\),
+and continuous operator-monotone function \(f:[0,\infty)\to[0,\infty)\),
+
+\[
+\|A-\widehat A_k\|_*\le(1+\varepsilon)\|A-A_k\|_*
+\]
+
+implies
+
+\[
+\|f(A)-f(\widehat A)_k\|_*\le(1+C\varepsilon)\|f(A)-f(A)_k\|_*?
+\]
+
+Here \(\|M\|_*=\sum_i\sigma_i(M)\) is the nuclear norm. Operator
+monotonicity means \(f(H)\succeq f(G)\) for every size and every real
+symmetric \(H\succeq G\succeq0\); functions of matrices are defined
+spectrally. No ordering between \(A\) and \(\widehat A\) is assumed.
+
+For an ordered orthonormal eigendecomposition
+\(X=\sum_{i=1}^n\lambda_iq_iq_i^T\) of a PSD matrix, set
+
+\[
+X_k=\sum_{i=1}^k\lambda_iq_iq_i^T,
+\qquad f(X)_k=\sum_{i=1}^kf(\lambda_i)q_iq_i^T.
+\]
+
+The assertion must hold for every choice of ordered eigenvectors, using
+the same choice in both truncations. \(C\) must be independent of all
+inputs, including \(f\).
+
+This is the nuclear-norm instance of the authors' explicit question
+about a fixed loss in approximation accuracy. It asks whether the
+ordering condition in existing transfer results can be removed at a
+controlled price.
+
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  D. Persson, R. A. Meyer, and C. Musco,
+  \href{https://arxiv.org/html/2311.14023v2}{Algorithm-agnostic low-rank
+  approximation of operator monotone matrix functions}, \emph{SIAM
+  Journal on Matrix Analysis and Applications} 46 (2025), 1--21. §1.2,
+  paragraph immediately preceding Table 1; §5, Example 5.3 and closing
+  paragraph; Theorem 2.4 is the ordered predecessor. Equation (2)
+  specifies truncation.
+\item
+  D. Persson, T. Chen, and C. Musco,
+  \href{https://arxiv.org/abs/2502.01888}{Randomized block-Krylov
+  subspace methods for low-rank approximation of matrix functions},
+  \emph{Linear Algebra and its Applications} 741 (2026), 32--65,
+  abstract and algorithmic scope.
+\end{enumerate}
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+Checked the source's latest listed arXiv v2 (2024-07-04), its 2025
+journal record, and the exact counterexample and constant-loss
+discussion. Searches combining the title, ``constant'',
+``counterexamples'', ``nuclear'', ``funNyström'', and 2026 found no
+general resolution. Example 5.3 rules out \(C=1\), while the source
+expressly leaves a larger fixed constant possible. The 2026 Krylov work
+addresses specific algorithms, not arbitrary PSD approximation pairs.
+This entry is explicitly a specialization of the source's broader
+question; the source does not number it as a separate conjecture. No
+later explicit reaffirmation was located.
+\end{document}

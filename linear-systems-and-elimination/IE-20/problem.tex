@@ -1,0 +1,171 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={IE-20 - Precision
+required for conjugate gradients to attain backward accuracy in n
+steps},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-20}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Linear systems and elimination\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Precision
+required for conjugate gradients to attain backward accuracy in n
+steps\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Topic:} Finite-precision Krylov methods.
+
+This fixes an implementation and arithmetic model for the precision
+question in the cited workshop report. These conventions are an
+editorial specialization of its question, not an additional conjecture
+quoted from the authors.
+
+Let \(n\ge1\), \(K\ge1\), and \(0<\varepsilon<1/2\). At precision
+\(p\ge2\), the inputs are a real symmetric positive definite matrix
+\(A\in\mathbb R^{n\times n}\) and \(b\in\mathbb R^n\setminus\{0\}\)
+whose entries are exactly representable using \(p\) binary significant
+bits and unbounded exponents. They are read exactly, and the error below
+is measured against these stored inputs. Assume \(\kappa_2(A)\le K\).
+
+Use the scalar relative-error model with \(u=2^{-p}\):
+
+\[
+\operatorname{fl}(a\circ b)=(a\circ b)(1+\delta),
+\quad |\delta|\le u,\quad \circ\in\{+,-,\times,/\},
+\]
+
+for nonzero divisors, with no underflow or overflow. Guarantees must
+hold for every choice of permitted operation errors. Products are
+rounded separately from additions; dot products and matrix-vector rows
+are accumulated from left to right in index order, starting from zero.
+Copies, sign changes, and comparisons are exact. The model is an error
+envelope, not an assumption of independent random roundoff.
+
+Run unpreconditioned conjugate gradients with no restarts, residual
+replacement, or reorthogonalization. Initialize \(x_0=0\),
+\(r_0=p_0=b\), and \(\rho_0=\operatorname{fl}(r_0^Tr_0)\). For
+\(j=0,\ldots,n-1\), evaluate
+
+\[
+q_j=\operatorname{fl}(Ap_j),\qquad
+d_j=\operatorname{fl}(p_j^Tq_j),\qquad
+\alpha_j=\operatorname{fl}(\rho_j/d_j),
+\]
+
+\[
+x_{j+1}=\operatorname{fl}(x_j+\alpha_jp_j),\qquad
+r_{j+1}=\operatorname{fl}(r_j-\alpha_jq_j),
+\]
+
+and, if another step is needed,
+
+\[
+\rho_{j+1}=\operatorname{fl}(r_{j+1}^Tr_{j+1}),\qquad
+\beta_j=\operatorname{fl}(\rho_{j+1}/\rho_j),\qquad
+p_{j+1}=\operatorname{fl}(r_{j+1}+\beta_jp_j).
+\]
+
+Stop when the computed residual vector is zero, or before a division by
+zero. The performance criterion is that at least one iterate produced
+before stopping and by step \(n\) satisfies
+
+\[
+\eta(x_j;A,b):=
+\frac{\|b-Ax_j\|_2}{\|A\|_2\|x_j\|_2+\|b\|_2}\le\varepsilon.
+\]
+
+Here \(b-Ax_j\) is the true residual, not the recursively updated vector
+\(r_j\). Thus early exact convergence succeeds, while a zero computed
+residual or breakdown does not automatically certify success.
+
+Define \(P_{\rm CG}(n,K,\varepsilon)\) as the least integer
+\(p_{\min}\ge2\) such that this criterion holds at every precision
+\(p\ge p_{\min}\), for every admissible stored input at that precision
+and every permitted rounding-error sequence; set it to infinity if no
+such threshold exists. Determine, up to universal multiplicative
+constants, the worst-case dependence of \(P_{\rm CG}\) on \(n\), \(K\),
+and \(\varepsilon\).
+
+The question quantifies the precision cost of the exact-arithmetic
+finite-termination property for a standard short-recurrence solver.
+
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  N. Amsel et al., \href{https://arxiv.org/html/2602.05394v3}{Linear
+  Systems and Eigenvalue Problems: Open Questions from a Simons
+  Workshop}, arXiv v3 (2026-08-21), §2.6, Problem 2.17. The question
+  asks for precision sufficient for normwise backward accuracy in at
+  most \(n\) CG steps; neighboring Problems 2.15--2.16 emphasize
+  residuals and implementation dependence.
+\item
+  C. Musco, C. Musco, and A. Sidford,
+  \href{https://arxiv.org/abs/1708.07788}{Stability of the Lanczos
+  Method for Matrix Function Approximation}, SODA 2018, 1605--1624,
+  abstract and discussion of inverse approximation and finite-precision
+  CG. Its polynomial-approximation results are relevant background, not
+  a sharp answer to this target.
+\item
+  S. Chenakkod, M. Dereziński, X. Dong, and M. Rudelson,
+  \href{https://arxiv.org/abs/2604.23193}{Well-Conditioned Oblivious
+  Perturbations in Linear Space}, 2026, abstract and perturbed-CG
+  application.
+\end{enumerate}
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+Checked workshop v3, which explicitly retains Problem 2.17 in its August
+2026 update. Searches combined ``conjugate gradient'', ``precision'',
+``bits'', ``n steps'', ``backward error'', and 2026. No sharp solution
+was located. The April 2026 perturbation paper concerns a modified
+randomized solver and an \(O(n)\) matrix-vector bound, not this fixed
+unperturbed recurrence with an at-most-\(n\) requirement. Input rounding
+is excluded explicitly; other CG implementations and stronger bit-cost
+claims are outside this model specialization. The bounded literature
+search is not a proof of current openness.
+\end{document}

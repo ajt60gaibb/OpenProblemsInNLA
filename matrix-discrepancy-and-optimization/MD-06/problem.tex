@@ -1,0 +1,126 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={MD-06 - Global
+synchronization of a random cubic
+graph},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MD-06}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Matrix discrepancy and optimization\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Global
+synchronization of a random cubic graph\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} hard\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Provenance:} source-stated conjecture, with the phase domain
+written explicitly as a torus.
+
+\textbf{Status:} no resolution for degree three found in screening on
+2026-09-08.
+
+For each even integer \(n\geq4\), let \(G_n\) be uniformly distributed
+over the labelled simple \(3\)-regular graphs with vertex set
+\(\{1,\ldots,n\}\). For a graph \(G\) on these vertices, define \[
+E_G(\theta)=
+\sum_{\{i,j\}\in E(G)}
+\bigl(1-\cos(\theta_i-\theta_j)\bigr),
+\qquad
+\theta\in(\mathbb R/2\pi\mathbb Z)^n.
+\] A phase vector is synchronized if \(\theta_i=\theta_j\) modulo
+\(2\pi\) for every pair \(i,j\). A local minimum is understood with
+respect to the usual topology on the phase torus; it need not be strict.
+
+Is it true that \[
+\lim_{\substack{n\to\infty\\ n\ {\rm even}}}
+\mathbb P\!\left(
+\text{every local minimum of }E_{G_n}
+\text{ is synchronized}
+\right)=1?
+\]
+
+The energy is a sparse graph optimization problem whose derivatives
+involve weighted graph Laplacians. The conjecture asks whether a typical
+graph of the smallest plausible fixed regular degree has no
+nonsynchronized local minima.
+
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A. S. Bandeira, A. Kireeva, A. Maillard, and A. Rödder,
+  \emph{Randomstrasse101: Open Problems of 2024}, arXiv:2504.20539
+  (2025), Definition 2.1 and Conjecture 3.
+  \href{https://arxiv.org/html/2504.20539v1}{Paper}.
+\item
+  P. Abdalla, A. S. Bandeira, M. Kassabov, V. Souza, S. H. Strogatz, and
+  A. Townsend, \emph{Expander graphs are globally synchronizing},
+  Advances in Mathematics 488 (2026), article 110773;
+  arXiv:2210.12788v4, introduction and Section 7. The random regular
+  result requires substantially larger fixed degree.
+  \href{https://arxiv.org/abs/2210.12788}{Paper}.
+\item
+  V. Jain, C. Mizgerd, and M. Sawhney, \emph{The random graph process is
+  globally synchronizing}, arXiv:2501.12205 (2025), Theorem 1.2: the
+  connectivity hitting-time result for a different random graph model.
+  \href{https://arxiv.org/abs/2501.12205}{Paper}.
+\item
+  S. Lepsveridze and S. Zhang, \emph{Graphs with connectivity
+  \(3/4-\varepsilon\) are globally synchronizing}, (2026), dense
+  minimum-degree result. \href{https://arxiv.org/abs/2608.20010}{Paper}.
+\end{enumerate}
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+checked the current records 2504.20539v1 (2025-04-29), 2210.12788v4
+(2026-01-19), 2501.12205v1 (2025-01-21), and 2608.20010v1 (2026-08-20),
+and searched ``random cubic globally synchronizing 2026'' and ``random
+regular graphs degree 3 conjecture''. The large-degree,
+random-graph-process, and dense minimum-degree results do not establish
+the stated cubic-graph assertion. No proof, counterexample, or relevant
+withdrawal was found. The source's angular variables give the torus used
+here; its isolated sphere notation is not imposed on the phases.
+\end{document}

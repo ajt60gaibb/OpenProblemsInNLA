@@ -1,0 +1,132 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={AC-10 - An
+explicit rational Valiant-rigid matrix
+family},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}AC-10}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Arithmetic and complexity\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}An
+explicit rational Valiant-rigid matrix family\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} broadly
+interesting\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Provenance:} rational-field specialization of a source-stated
+explicit-rigidity target.
+
+\textbf{Status:} no construction meeting this target found in screening
+on 2026-09-08.
+
+For \(A\in\mathbb Q^{n\times n}\) and an integer \(0\leq r\leq n\),
+define its rigidity over \(\mathbb Q\) by \[
+R_A^{\mathbb Q}(r)
+=\min\left\{
+|\{(i,j):A_{ij}\ne B_{ij}\}|:
+B\in\mathbb Q^{n\times n},\
+\operatorname{rank}_{\mathbb Q}(B)\leq r
+\right\}.
+\] Construct a constant \(\delta>0\) and a family
+\(A_n\in\mathbb Q^{n\times n}\) such that a single deterministic
+algorithm, on input the unary encoding \(1^n\), outputs all rational
+entries of \(A_n\) in binary using polynomially many bit operations in
+\(n\), and \[
+R_{A_n}^{\mathbb Q}
+\left(\left\lfloor\frac{n}{\log\log n}\right\rfloor\right)
+\geq n^{1+\delta}
+\] for every sufficiently large integer \(n\). Here \(\log\) denotes the
+natural logarithm. The output convention requires polynomial total bit
+length; an exponentially long algebraic description does not meet this
+requirement.
+
+Rigidity measures how resistant a matrix is to rank reduction by sparse
+entry changes. An explicit family at this scale would supply hard
+instances for linear circuit computation. The source states the target
+over a field; this entry explicitly selects rational entries and
+rational perturbations, rather than asserting that all choices of field
+are equivalent.
+
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  J. Alman and J. Liang, \emph{Low Rank Matrix Rigidity: Tight Lower
+  Bounds and Hardness Amplification}, arXiv:2502.19580 (2025), Section 1
+  and Section 1.1: definition of rigidity, uniform polynomial-time
+  explicitness, and the \(n/\log\log n\) Valiant target.
+  \href{https://arxiv.org/html/2502.19580v1}{Paper}.
+\item
+  L. Hambardzumyan, K. Myasnikov, A. Riazanov, M. Shirley, and A.
+  Shraibman, \emph{Spiky Rank and Its Applications to Rigidity and
+  Circuits}, ICALP 2026, LIPIcs 374, article 106, Section 1.2.1:
+  explicit rigidity remains insufficient for the relevant circuit lower
+  bounds.
+  \href{https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ICALP.2026.106}{Published
+  paper}.
+\item
+  L. G. Valiant, \emph{Graph-theoretic arguments in low-level
+  complexity}, MFCS 1977, pp.~162--176, the original rigidity connection
+  to linear circuits.
+  \href{https://doi.org/10.1007/3-540-08353-7_135}{Article}.
+\item
+  Z. Dvir and A. Liu, \emph{Fourier and Circulant Matrices are Not
+  Rigid}, arXiv:1902.07334 (2019), main non-rigidity results for
+  prominent structured candidates.
+  \href{https://arxiv.org/abs/1902.07334}{Paper}.
+\end{enumerate}
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+checked 2502.19580v1 (2025-02-26), the July 2026 published paper, and
+searches ``matrix rigidity explicit rational 2026 Valiant construction''
+and ``Valiant rigidity solved''. The 2025 bounds for logarithmic target
+rank and its conditional amplification results do not give the displayed
+higher-rank target. Known non-rigidity results prevent treating Walsh or
+Fourier matrices as established candidates. No qualifying
+polynomial-time rational construction or resolution was found. This
+status applies to the stated rational specialization.
+\end{document}

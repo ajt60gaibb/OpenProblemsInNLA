@@ -1,8 +1,8 @@
 # Matrix inequalities and norms
 
-[← All categories](../README.md) · [All 125 problems](../CATALOG.md)
+[← All categories](../README.md) · [All 147 problems](../CATALOG.md)
 
-12 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
+17 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
 
 | ID | Problem | Difficulty | Importance | Read / source |
 | --- | --- | --- | --- | --- |
@@ -18,5 +18,10 @@
 | [MI-10](MI-10/README.md) | Chollet's permanent inequality for Hadamard products | extreme | interesting to the community | [PDF](MI-10/problem.pdf) · [TeX](MI-10/problem.tex) |
 | [MI-11](MI-11/README.md) | Lieb's permanental dominance conjecture | extreme | interesting to the community | [PDF](MI-11/problem.pdf) · [TeX](MI-11/problem.tex) |
 | [MI-12](MI-12/README.md) | Marcus's inequality for the permanent of block permanents | extreme | interesting to specialist | [PDF](MI-12/problem.pdf) · [TeX](MI-12/problem.tex) |
+| [MI-13](MI-13/README.md) | Nobori's spectral-middle-factor commutator conjecture | challenging | interesting to the community | [PDF](MI-13/problem.pdf) · [TeX](MI-13/problem.tex) |
+| [MI-14](MI-14/README.md) | The complex Lu–Wenzel spectral conjecture | extreme | interesting to the community | [PDF](MI-14/problem.pdf) · [TeX](MI-14/problem.tex) |
+| [MI-15](MI-15/README.md) | A sum-of-squares representation for the Toeplitz commutator form | challenging | interesting to the community | [PDF](MI-15/problem.pdf) · [TeX](MI-15/problem.tex) |
+| [MI-16](MI-16/README.md) | The maximum permanent on a positive-semidefinite unitary orbit | extreme | interesting to the community | [PDF](MI-16/problem.pdf) · [TeX](MI-16/problem.tex) |
+| [MI-17](MI-17/README.md) | The Lih–Wang permanent inequality toward the flat matrix | extreme | interesting to specialist | [PDF](MI-17/problem.pdf) · [TeX](MI-17/problem.tex) |
 
 Ratings are editorial. Each entry records its literature check and the scope of the evidence. [Rating definitions](../README.md#ratings).

@@ -1,8 +1,8 @@
 # Frames and matrix designs
 
-[← All categories](../README.md) · [All 125 problems](../CATALOG.md)
+[← All categories](../README.md) · [All 147 problems](../CATALOG.md)
 
-8 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
+10 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
 
 | ID | Problem | Difficulty | Importance | Read / source |
 | --- | --- | --- | --- | --- |
@@ -14,5 +14,7 @@
 | [FR-06](FR-06/README.md) | Nonexistence of a complete set of mutually unbiased bases in dimension six | extreme | broadly interesting | [PDF](FR-06/problem.pdf) · [TeX](FR-06/problem.tex) |
 | [FR-07](FR-07/README.md) | Zauner's conjecture on maximal complex equiangular tight frames | extreme | broadly interesting | [PDF](FR-07/problem.pdf) · [TeX](FR-07/problem.tex) |
 | [FR-08](FR-08/README.md) | Hadamard matrices at every admissible order | extreme | broadly interesting | [PDF](FR-08/problem.pdf) · [TeX](FR-08/problem.tex) |
+| [FR-09](FR-09/README.md) | Complex equiangular tight frames with twice the dimension | extreme | broadly interesting | [PDF](FR-09/problem.pdf) · [TeX](FR-09/problem.tex) |
+| [FR-10](FR-10/README.md) | Sharp sampling complexity for Walsh restricted isometries | challenging | broadly interesting | [PDF](FR-10/problem.pdf) · [TeX](FR-10/problem.tex) |
 
 Ratings are editorial. Each entry records its literature check and the scope of the evidence. [Rating definitions](../README.md#ratings).

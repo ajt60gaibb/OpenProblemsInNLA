@@ -67,40 +67,57 @@ m\leq C s\log^c(2N),\qquad
 \] for absolute constants \(C,c>0\)? The algorithm must output the
 entries, rather than merely assert existence. As usual, one may use
 rational output of polynomial bit length; the fixed distortion interval
-permits constant-accuracy rounding of a construction with slack. The row
-bound is permitted to exceed \(N\), when the identity is sufficient.
+permits sufficiently fine rational rounding using polynomial bit length
+of a construction with slack. The row bound is permitted to exceed
+\(N\), when the identity is sufficient.
 
 This is the deterministic construction question in the data-streams
-workshop report, with its original fixed-distortion convention. It does
-not strengthen the source to the sharper \(O(s\log(N/s))\) row target.
-Such matrices would give short, reproducible measurement operators with
-uniform control of every sparse least-squares subproblem.
+workshop report, with its original fixed-distortion convention. The
+sharper optimal-row question below is separately attributed and grouped
+here. Such matrices would give short, reproducible measurement operators
+with uniform control of every sparse least-squares subproblem.
+
+\subsection{Related stronger question: optimal row
+count}\label{related-stronger-question-optimal-row-count}
+
+Does a deterministic algorithm, polynomial in \(N\), output for every
+\(N\ge2\) and \(1\le s\le N\) a rational matrix
+\(B\in\mathbb Q^{m\times N}\) of polynomial bit length such that \[
+m\le C s\log(eN/s),\qquad
+\tfrac12\|x\|_2^2\le\|Bx\|_2^2\le\tfrac32\|x\|_2^2
+\quad\text{for all }x\in\mathbb R^N\text{ with }|\operatorname{supp}x|\le s,
+\] for an absolute \(C\)? This is the supplied ADD-022 quantitative
+formulation of the deterministic-construction gap discussed by Rao, with
+fixed distortion and an explicit output model. It strengthens the row
+target of the original question. Both targets are grouped as one entry;
+randomized constructions do not answer either deterministic question.
 
 \subsection{References}\label{references}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
   \emph{Open Problems in Data Streams and Related Topics}, IITK Workshop
-  on Algorithms for Data Streams, 2006. Martin Strauss's
-  restricted-isometry problem, first numbered construction question on
-  printed p.~10, asks for a polynomial-time deterministic
-  \(s\operatorname{polylog}(N)\times N\) construction.
-  \href{https://citeseerx.ist.psu.edu/document?doi=5394ab5bf4b66bfb52f111525d6141a3226ba883&repid=rep1&type=pdf}{Workshop
+  on Algorithms for Data Streams, 2006. Martin Strauss's Question 21(1),
+  printed p.~10.
+  \href{https://www.cse.iitk.ac.in/users/sganguly/data-stream-probs.pdf}{Workshop
   report}.
 \item
   A. S. Bandeira, \emph{Ten Lectures and Forty-Two Open Problems in the
-  Mathematics of Data Science}, lecture notes, Open Problem 5.1 and its
-  surrounding discussion of explicit restricted isometries.
+  Mathematics of Data Science}, lecture notes, Open Problem 5.1 (printed
+  p.~88), a related weaker target with sparsity about
+  \(m^{0.6}/\operatorname{polylog}N\).
   \href{https://people.math.ethz.ch/~abandeira/TenLecturesFortyTwoProblems.pdf}{Author's
   notes}.
 \item
   A. S. Bandeira, M. Fickus, D. G. Mixon, and P. Wong, \emph{The road to
   deterministic matrices with the restricted isometry property}, Journal
   of Fourier Analysis and Applications 19 (2013), pp.~1123--1149.
-  Sections 1 and 4 discuss the deterministic obstruction and candidate
-  frames. \href{https://arxiv.org/abs/1202.1234}{Paper}.
+  Sections 1 and 4. \href{https://arxiv.org/abs/1202.1234}{Paper}.
+\item
+  S. Rao, \emph{Satisfying the restricted isometry property with the
+  optimal number of rows and slightly less randomness}, introduction and
+  Theorem 1.1. \href{https://arxiv.org/abs/2311.07889}{Paper}.
 \end{enumerate}
 
 \subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
@@ -111,5 +128,7 @@ current explicit sensing-matrix papers. The August 2026 paper
 \emph{Compressed sensing matrices from orthogonal spaces over finite
 fields of odd characteristic} (arXiv:2608.23062) gives particular
 finite-field constructions and coherence bounds, not the displayed
-uniform nearly linear row count. No resolution was found.
+uniform nearly linear row count. No resolution was found for either
+target. Rao's v2 theorem achieves optimal rows using randomness and does
+not settle the stronger deterministic formulation.
 \end{document}

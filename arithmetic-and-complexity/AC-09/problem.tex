@@ -1,0 +1,120 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={AC-09 - Deterministic
+polynomial-time commutative Edmonds
+problem},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}AC-09}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Arithmetic and complexity\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Deterministic
+polynomial-time commutative Edmonds problem\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} broadly
+interesting\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Provenance:} source-stated problem, with rational input and bit
+complexity made explicit.
+
+\textbf{Status:} no general deterministic polynomial-time algorithm
+found in screening on 2026-09-08.
+
+The input consists of positive integers \(n,s\) and matrices
+\(A_1,\ldots,A_s\in\mathbb Q^{n\times n}\), with rational entries
+represented by signed binary numerators and positive binary
+denominators. Does there exist a deterministic algorithm, running in a
+number of bit operations bounded by a polynomial in the total binary
+input length, that decides whether \[
+\det\!\left(\sum_{i=1}^s x_iA_i\right)
+\] is the zero polynomial in the commuting indeterminates
+\(x_1,\ldots,x_s\) over \(\mathbb Q\)?
+
+Equivalently, decide whether the rational linear space \[
+\left\{\sum_{i=1}^s c_iA_i:\ c_1,\ldots,c_s\in\mathbb Q\right\}
+\] contains a nonsingular matrix. No prescribed matrix structure is
+assumed.
+
+This is exact rank and nonsingularity testing for a parametrized matrix
+space. Random evaluation gives a randomized route; the problem asks
+whether randomness can be eliminated while retaining polynomial running
+time.
+
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  C. Chindris and D. Kline, \emph{Edmonds' problem and the membership
+  problem for orbit semigroups of quiver representations},
+  arXiv:2008.13648 (2020), introduction: the general deterministic
+  nonsingularity problem and the special classes treated in the paper.
+  \href{https://arxiv.org/html/2008.13648v1}{Paper}.
+\item
+  G. Ivanyos, M. Karpinski, Y. Qiao, and M. Santha, \emph{Generalized
+  Wong sequences and their applications to Edmonds' problems},
+  arXiv:1307.6429v2 (2014), abstract and introduction: symbolic
+  determinant identity testing, including the rational field and
+  algorithms for restricted matrix spaces.
+  \href{https://arxiv.org/abs/1307.6429}{Paper}.
+\item
+  A. Chatterjee, S. Ghosh, R. Gurjar, R. Raj, and T. Thierauf,
+  \emph{Bipartite Matching is in NC}, ECCC TR26-100, revision 2 (2026),
+  Section 1.1, ``Non-commutative rank'': explicitly distinguishes the
+  still-open deterministic commutative rank problem.
+  \href{https://eccc.weizmann.ac.il/report/2026/100/}{Report and version
+  history}.
+\end{enumerate}
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+searched ``commutative Edmonds 2026'' and ``Edmonds rational
+deterministic polynomial rank matrix space''; checked the current arXiv
+records and ECCC revision 2 dated 2026-07-15. The 2026 report still
+states that no deterministic polynomial-time algorithm is known for
+commutative symbolic matrix rank. Deterministic algorithms for
+noncommutative rank and for rank-one-spanned or triangularizable matrix
+spaces do not settle this unrestricted commuting-variable problem. No
+full resolution or relevant source withdrawal was found.
+\end{document}

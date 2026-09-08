@@ -1,0 +1,108 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={FR-10 - Sharp
+sampling complexity for Walsh restricted
+isometries},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}FR-10}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Frames and matrix designs\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Sharp
+sampling complexity for Walsh restricted isometries\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} broadly
+interesting\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} source-backed open problem; no resolution found in the
+bounded literature check.
+
+Let \(N=2^d\) with \(d\ge1\) and index rows and columns by
+\(\mathbb F_2^d\). The normalized Walsh matrix is \[
+(H_N)_{a,b}=N^{-1/2}(-1)^{a\cdot b}.
+\] For \(m\ge1\), choose row indices \(a_1,\ldots,a_m\) independently
+and uniformly with replacement and set
+\(\Phi=\sqrt{N/m}(H_N)_{(a_1,\ldots,a_m),:}\). Let \(E_{m,N,k}\) be the
+event that \[
+\tfrac12\|x\|_2^2\le\|\Phi x\|_2^2\le\tfrac32\|x\|_2^2
+\quad\text{for every }x\in\mathbb R^N\text{ with }|\operatorname{supp}x|\le k.
+\] Define \[
+m_*(N,k)=\min\{m\in\mathbb N:m\ge1,\ \Pr(E_{m,N,k})\ge0.9\}.
+\] \textbf{Problem.} Determine \(m_*(N,k)\) up to universal
+multiplicative constants, uniformly for \(1\le k\le N\), including all
+necessary logarithmic factors. The same sample must work for all sparse
+vectors. This is a quantitative restatement of the published sampling
+gap, not a separately numbered conjecture; the success probability and
+distortion fix a convention.
+
+The Walsh transform is the Fourier transform on \(\mathbb F_2^d\). Its
+subspace structure differs from the cyclic Fourier ensemble in FR-02, so
+their lower bounds cannot be interchanged.
+
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  J. Błasiok, P. Lopatto, K. Luh, J. Marcinek, and S. Rao, \emph{An
+  improved lower bound for sparse reconstruction from subsampled Walsh
+  matrices}, Discrete Analysis 2023:3, introduction and Theorem 3.1.
+  \href{https://arxiv.org/abs/1903.12135}{Paper}.
+\item
+  I. Haviv and O. Regev, \emph{The restricted isometry property of
+  subsampled Fourier matrices}, Theorem 1.1 and its
+  bounded-orthonormal-matrix scope.
+  \href{https://arxiv.org/abs/1507.01768}{Paper}.
+\end{enumerate}
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+The lower-bound paper uses independent Bernoulli row inclusion; the
+upper-bound literature also treats independent draws with replacement,
+the explicit convention here. Its \(\Omega(k\log k\log(N/k))\)
+obstruction applies in a specified intermediate sparsity range, not as
+an all-parameter formula. The logarithmic gap discussed there remains
+unclosed in the targeted search for later Walsh RIP results. Endpoint
+regimes must also be accounted for; in particular \(m_*(N,1)=1\).
+\end{document}

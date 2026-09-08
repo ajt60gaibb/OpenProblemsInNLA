@@ -3,23 +3,24 @@
 A collection of precise open problems drawn from books and research
 publications, with references and dated checks for subsequent solutions.
 
-**Current collection: 125 / 1,000 problems. The project is incomplete.**
+**Current collection: 147 / 1,000 problems. The project is incomplete.**
 
-**[Browse all 125 problems →](CATALOG.md)**
+**[Browse all 147 problems →](CATALOG.md)**
 
 ## Browse by category
 
 | Category | Problems |
 | --- | ---: |
-| [Linear systems and elimination](linear-systems-and-elimination/README.md) | 15 |
+| [Linear systems and elimination](linear-systems-and-elimination/README.md) | 16 |
 | [Eigenvalues and inverse problems](eigenvalues-and-inverse-problems/README.md) | 17 |
-| [Matrix functions and stability](matrix-functions-and-stability/README.md) | 17 |
-| [Randomized and low-rank approximation](randomized-and-low-rank-approximation/README.md) | 17 |
-| [Tensor computations](tensor-computations/README.md) | 13 |
+| [Matrix functions and stability](matrix-functions-and-stability/README.md) | 18 |
+| [Randomized and low-rank approximation](randomized-and-low-rank-approximation/README.md) | 21 |
+| [Tensor computations](tensor-computations/README.md) | 14 |
 | [Nonnegative and positive factorizations](nonnegative-and-positive-factorizations/README.md) | 12 |
-| [Matrix inequalities and norms](matrix-inequalities-and-norms/README.md) | 12 |
-| [Frames and matrix designs](frames-and-matrix-designs/README.md) | 8 |
-| [Arithmetic and complexity](arithmetic-and-complexity/README.md) | 9 |
+| [Matrix inequalities and norms](matrix-inequalities-and-norms/README.md) | 17 |
+| [Frames and matrix designs](frames-and-matrix-designs/README.md) | 10 |
+| [Matrix discrepancy and optimization](matrix-discrepancy-and-optimization/README.md) | 6 |
+| [Arithmetic and complexity](arithmetic-and-complexity/README.md) | 11 |
 | [Intervals and absolute value equations](intervals-and-absolute-value-equations/README.md) | 5 |
 
 Open a category, then a problem folder. Every problem has three files:
@@ -36,7 +37,7 @@ The collection includes core NLA and directly relevant matrix theory and
 computational complexity. Entries explain that connection where it is less
 immediate. No solutions or proof attempts are part of this project.
 
-The latest [wider literature screen](proof/WIDE-SEARCH-2026-09.md) adds 50 distinct problems from six searches, with source checks, partial results, exclusions, and uncounted leads. The earlier [Higham 2002 screen](proof/HIGHAM-2002-SCREEN.md) records three additions from the book.
+The [wider literature screen](proof/WIDE-SEARCH-2026-09.md) adds 50 distinct problems from six searches, with source checks, partial results, exclusions, and uncounted leads. The earlier [Higham 2002 screen](proof/HIGHAM-2002-SCREEN.md) records three additions from the book.
 
 ## Ratings
 
@@ -73,6 +74,8 @@ The [canonical objective](PROBLEM.md) preserves the target of 1,000 distinct
 entries. [Progress](PROGRESS.md) records actual coverage and outstanding work.
 Suggestions and corrections should identify the problem ID and a primary
 reference, particularly when reporting a solution or a missing assumption.
+
+The [additional-problems screen](proof/ADDITIONAL-PROBLEMS-SCREEN.md) maps all 43 supplied candidates: 22 new entries, 15 duplicates, one grouped stronger formulation, and five withheld or excluded candidates.
 
 ## Editing and PDF generation
 

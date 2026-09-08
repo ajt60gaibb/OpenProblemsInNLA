@@ -1,0 +1,37 @@
+# FR-10 — Sharp sampling complexity for Walsh restricted isometries
+
+**Difficulty:** challenging  
+**Importance:** broadly interesting  
+**Last checked:** 2026-09-08
+
+**Status:** source-backed open problem; no resolution found in the bounded literature check.
+
+Let $N=2^d$ with $d\ge1$ and index rows and columns by $\mathbb F_2^d$. The normalized Walsh matrix is
+$$
+(H_N)_{a,b}=N^{-1/2}(-1)^{a\cdot b}.
+$$
+For $m\ge1$, choose row indices $a_1,\ldots,a_m$ independently and uniformly with replacement and set $\Phi=\sqrt{N/m}(H_N)_{(a_1,\ldots,a_m),:}$. Let $E_{m,N,k}$ be the event that
+$$
+\tfrac12\|x\|_2^2\le\|\Phi x\|_2^2\le\tfrac32\|x\|_2^2
+\quad\text{for every }x\in\mathbb R^N\text{ with }|\operatorname{supp}x|\le k.
+$$
+Define
+$$
+m_*(N,k)=\min\{m\in\mathbb N:m\ge1,\ \Pr(E_{m,N,k})\ge0.9\}.
+$$
+**Problem.** Determine $m_*(N,k)$ up to universal multiplicative constants, uniformly for $1\le k\le N$, including all necessary logarithmic factors. The same sample must work for all sparse vectors. This is a quantitative restatement of the published sampling gap, not a separately numbered conjecture; the success probability and distortion fix a convention.
+
+The Walsh transform is the Fourier transform on $\mathbb F_2^d$. Its subspace structure differs from the cyclic Fourier ensemble in FR-02, so their lower bounds cannot be interchanged.
+
+## References
+
+1. J. Błasiok, P. Lopatto, K. Luh, J. Marcinek, and S. Rao, *An improved lower bound for sparse reconstruction from subsampled Walsh matrices*, Discrete Analysis 2023:3, introduction and Theorem 3.1. [Paper](https://arxiv.org/abs/1903.12135).
+2. I. Haviv and O. Regev, *The restricted isometry property of subsampled Fourier matrices*, Theorem 1.1 and its bounded-orthonormal-matrix scope. [Paper](https://arxiv.org/abs/1507.01768).
+
+## Status check — 2026-09-08
+
+The lower-bound paper uses independent Bernoulli row inclusion; the upper-bound literature also treats independent draws with replacement, the explicit convention here. Its $\Omega(k\log k\log(N/k))$ obstruction applies in a specified intermediate sparsity range, not as an all-parameter formula. The logarithmic gap discussed there remains unclosed in the targeted search for later Walsh RIP results. Endpoint regimes must also be accounted for; in particular $m_*(N,1)=1$.
+
+<!-- navigation -->
+[All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
+<!-- /navigation -->

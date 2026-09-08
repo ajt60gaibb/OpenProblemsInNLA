@@ -41,14 +41,21 @@ inactive formalization track.
 - A durable progress record giving the actual count against the target of 1,000.
 
 The category organization and Markdown/LaTeX/PDF export are complete. The latest
-request is a wider literature search using six subagents, aiming to add **50 more
-distinct, precisely stated NLA conjectures from books or papers**, with the same
-status checks, ratings, and Markdown/TeX/PDF deliverables. This batch is complete:
-50 entries were added to the starting 75,
-for **125 admitted entries**. The [wider screen](proof/WIDE-SEARCH-2026-09.md)
-records the six searches and admission decisions. The earlier Higham screen
-added IE-13–15;
-`proof/HIGHAM-2002-SCREEN.md` records its supplied leads' dispositions.
+completed request was to incorporate the user's `ADDITIONAL_PROBLEMS.md` proposal, containing
+43 candidates, into the then 125-entry collection, yielding 147 admitted entries.
+The [complete disposition screen](proof/ADDITIONAL-PROBLEMS-SCREEN.md) records all
+43 outcomes. For further additions, compare complete statements
+against the current catalog, check source fidelity and later resolutions, add
+new admissible problems with the same formats and ratings, and record every
+candidate's disposition. Preserve stronger related questions within an existing
+entry where separate counting would inflate the collection. The supplied file
+is preserved as proposal material in `proof/proposals/ADDITIONAL_PROBLEMS.md`;
+its stated counts and historical overlap notes are not the current catalog state.
+
+The previous six-search batch added 50 problems to the starting 75. The
+[wider screen](proof/WIDE-SEARCH-2026-09.md) records those admissions and
+exclusions. The earlier Higham screen added IE-13–15 and is recorded in
+`proof/HIGHAM-2002-SCREEN.md`.
 IE-01 remains removed following the September 2026 resolution of Forsythe's
 conjecture. Maintain accurate counts and retain resolution references in the
 source record and former chapter pages in `proof/catalog/`, which preserve old

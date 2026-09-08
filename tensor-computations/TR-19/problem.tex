@@ -1,0 +1,123 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={TR-19 - Exact
+best-rank-one approximation ratios for general tensor
+formats},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}TR-19}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Tensor computations\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Exact
+best-rank-one approximation ratios for general tensor formats\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Topic:} Tensor approximation and norm comparison.
+
+For integers \(d\ge3\) and \(2\le n_1\le\cdots\le n_d\), let
+\(V=\mathbb R^{n_1\times\cdots\times n_d}\). For \(T\in V\), define
+
+\[
+\|T\|_F^2=\sum_{i_1=1}^{n_1}\cdots\sum_{i_d=1}^{n_d}T_{i_1\ldots i_d}^2,
+\]
+
+\[
+\|T\|_\sigma=\max_{\substack{x_j\in\mathbb R^{n_j}\\\|x_j\|_2=1,\ 1\le j\le d}}
+\left|\sum_{i_1=1}^{n_1}\cdots\sum_{i_d=1}^{n_d}
+T_{i_1\ldots i_d}\prod_{j=1}^d(x_j)_{i_j}\right|.
+\]
+
+Determine, as a function of the dimensions, the exact value
+
+\[
+\tau(n_1,\ldots,n_d)=\min_{T\in V\setminus\{0\}}\frac{\|T\|_\sigma}{\|T\|_F}.
+\]
+
+Equivalently, determine the largest constant \(\tau\) for which
+\(\tau\|T\|_F\le\|T\|_\sigma\) holds for every tensor in that format.
+The target is the sharp constant for general formats, not merely another
+upper or lower bound. All formats constitute one problem.
+
+This ratio measures the worst-case amount of tensor energy accessible to
+a best rank-one approximation and is relevant to convergence analyses of
+successive rank-one approximation methods.
+
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Z. Li and Y.-B. Zhao,
+  \href{https://pure.port.ac.uk/ws/portalfiles/portal/19117904/On_norm_compression_inequalities.pdf}{On
+  norm compression inequalities for partitioned block tensors},
+  \emph{Calcolo} 57 (2020), article 11, §5, equation (15), pp.~15--16.
+  The text explicitly identifies determination of the general extremal
+  ratio as the outstanding problem.
+\item
+  Z. Li, Y. Nakatsukasa, T. Soma, and A. Uschmajew,
+  \href{https://arxiv.org/abs/1707.02569}{On orthogonal tensors and best
+  rank-one approximation ratio}, \emph{SIAM Journal on Matrix Analysis
+  and Applications} 39 (2018), 400--425, abstract and characterization
+  of equality in the basic dimension bound.
+\item
+  K. Kozhasov and J. Tonelli-Cueto,
+  \href{https://arxiv.org/abs/2201.02191}{Probabilistic bounds on best
+  rank-one approximation ratio}, arXiv v2 (2022-09-23), abstract and
+  bounds for general and partially symmetric tensors.
+\end{enumerate}
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+Checked the 2020 published text and the later probabilistic-bound
+paper's latest listed arXiv version. Searches for ``best rank-one
+approximation ratio 2026'' and ``extremal ratio tensor spectral
+Frobenius 2025 2026'' found no exact general formula. Known
+orthogonal-tensor cases and probabilistic dimension bounds give partial
+answers. They are not additional open entries. This target differs from
+counting critical rank-one approximations, choosing an inner product to
+minimize that count, and tensor-train quasi-optimality. No recent
+explicit reaffirmation of the full exact-value problem was located.
+\end{document}

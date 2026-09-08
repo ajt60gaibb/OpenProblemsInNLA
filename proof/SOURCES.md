@@ -5,6 +5,17 @@ exclusions. It is not an exhaustive bibliography or a claim that every problem
 in the books below has been checked. Each admitted entry has its own references
 and status evidence in the [catalog](../CATALOG.md).
 
+## Supplied additional-problems proposal: 22 additions
+
+The [complete 43-candidate screen](ADDITIONAL-PROBLEMS-SCREEN.md) adds 22 entries,
+bringing the collection from 125 to 147. It records 15 duplicates or previously
+covered candidates, the stronger target grouped in FR-01, and five exclusions or
+holds. Newly verified source passages cover CG precision, matrix-function
+transfer, Kronecker trace queries, tensor norm ratios, theta/frame constructions,
+commutator and permanent questions, matrix discrepancy, symbolic rank, rigidity,
+and inverse-semigroup growth. Formalizations and field/model specializations
+are explicitly labelled; the original proposal is retained separately.
+
 ## Wider search batch: 50 additions
 
 The [September 2026 wider source screen](WIDE-SEARCH-2026-09.md) records the six
