@@ -1,0 +1,114 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={IE-15 - Exact
+small-order growth factors for rook
+pivoting},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-15}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Linear systems and elimination\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Exact
+small-order growth factors for rook pivoting\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to specialist\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open in the historical source; no exact resolution
+found in the bounded later search below.
+
+\subsection{Problem statement}\label{problem-statement}
+
+All arithmetic is exact and matrices are real and nonsingular. At each
+step of Gaussian elimination with rook pivoting, select a nonzero entry
+maximal in absolute value both in its row and in its column of the
+active matrix. Move it to the active \((1,1)\) position by row and
+column interchanges, and form the trailing Schur complement.
+
+For an admissible path \(\pi\) on \(A\in\mathbb R^{n\times n}\), let
+\(S_1=A,\ldots,S_n\) be the active matrices and define
+
+\[
+\rho(A,\pi)=\frac{\max_{1\le k\le n}\|S_k\|_{\max}}{\|A\|_{\max}},
+\qquad \|M\|_{\max}=\max_{i,j}|m_{ij}|,
+\] \[
+g_{\mathrm{RP}}(n)=\sup_{\substack{A\in\mathbb R^{n\times n}\\\det A\ne0}}\
+\sup_{\pi\text{ permitted by rook pivoting}}\rho(A,\pi).
+\]
+
+Determine the two exact constants \(g_{\mathrm{RP}}(3)\) and
+\(g_{\mathrm{RP}}(4)\), with matching upper and lower bounds. All
+admissible rook choices and ties are included. The source singles out
+dimensions at most four; \(g_{\mathrm{RP}}(1)=1\) and
+\(g_{\mathrm{RP}}(2)=2\) are known. The two unknown constants are
+counted as one problem.
+
+Rook pivoting balances pivot-search cost and growth control. Sharp
+small-order constants would sharpen its finite-dimensional stability
+theory. General asymptotic growth estimates do not determine them; IE-11
+concerns a different pivoting rule.
+
+\subsection{References}\label{references}
+
+N. J. Higham,
+\href{https://doi.org/10.1137/1.9780898718027}{\emph{Accuracy and
+Stability of Numerical Algorithms}, second edition}, SIAM (2002),
+Problem 9.18, p.~193, and definition (9.15), p.~169. A. Edelman and J.
+Urschel, \href{https://doi.org/10.1137/23M1571903}{\emph{Some New
+Results on the Maximum Growth Factor in Gaussian Elimination}}, SIMAX 45
+(2024), \href{https://arxiv.org/html/2303.04892v4}{§6}. R. Shah and J.
+Urschel, \href{https://arxiv.org/html/2608.19189v4}{\emph{Entry growth
+in Gaussian elimination}}, August 31, 2026 revision, Theorem 1.6 (=6.2).
+
+\subsection{Status check}\label{status-check}
+
+The book's question and real-field supremum were checked directly.
+Searches for \textit{rook pivoting 3x3}, \textit{rook pivoting 2.9},
+\textit{rook pivoting 4.16}, and
+\textit{rook pivoting maximum growth exact value} found no exact
+small-order solution. The cited 2024 large-order construction and 2026
+asymptotic result do not settle this pair. The book's decimals 2.9 and
+4.16 are historical numerical search outcomes, not exact values. No
+recent source explicitly reaffirming this particular question's openness
+was located.
+\end{document}

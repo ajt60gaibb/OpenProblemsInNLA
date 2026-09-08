@@ -6,13 +6,13 @@ without solving them. Lean is inactive and not requested.
 
 ## Current state — 2026-09-08
 
-**PARTIAL: 72 / 1,000 admitted entries.** The remaining 928 are not supplied.
+**PARTIAL: 75 / 1,000 admitted entries.** The remaining 925 are not supplied.
 The [catalog index](CATALOG.md) lists every admitted entry and both
 requested ratings. No placeholders, excluded questions, or arbitrary parameter
 instances contribute to the count.
 
 The user requested category folders and an individual Markdown/LaTeX/PDF
-document for each existing problem. Eight root categories and 72 problem folders
+document for each existing problem. Eight root categories and 75 problem folders
 now hold the canonical statements. Shared mathematical definitions have been
 copied into the entries that require them; the original chapter pages retain
 their anchors and uncounted screening notes.
@@ -27,10 +27,15 @@ preserved uncounted material. Every problem folder contains exactly its canonica
 Markdown, TeX source, and PDF; local navigation links were checked. The small
 `tools/render_problems.py` exporter regenerates TeX/PDF from the Markdown.
 
-This export is not a new literature search and does not change the 2026-09-08
-screening date. The wider 1,000-problem curation objective remains partial.
+The subsequent Higham source screen adds three one-page PDFs, for 75 documents
+and 78 pages total. The new TeX/PDF files compile without overflow or missing
+characters; all three new pages were visually inspected. Independent source
+review checked matrix fields, bandwidth boundaries, both corner requirements,
+pivot ties, the all-stage growth definition, and distinctness. Complex fields in
+IE-13–14 follow the adjacent theorem; the exercise itself leaves the field implicit.
+The wider 1,000-problem curation objective remains partial.
 
-- Linear systems and elimination: 8.
+- Linear systems and elimination: 11.
 - Eigenvalues and inverse problems: 10.
 - Matrix functions and stability: 13.
 - Randomized and low-rank approximation: 12.
@@ -45,6 +50,25 @@ Older-status entries explicitly expose their weaker evidence. Difficulty and
 importance are editorial ratings, with definitions in the repository README.
 
 ## Mathematical screening findings
+
+**Higham notes screened on 2026-09-08:** the
+[complete disposition record](proof/HIGHAM-2002-SCREEN.md) covers all 20 numbered
+leads, the methodological 26.4 lead, and five prose leads. Added IE-13 (unequal
+bandwidth GEPP growth), IE-14 (cyclic tridiagonal GEPP growth), and IE-15 (exact
+rook growth in orders three and four, counted together). No later solution was
+located; these entries explicitly expose their historical-source status evidence
+and the absence of a recent explicit reaffirmation of openness.
+
+The screen found a 2014 published claim resolving Higham's tridiagonal inverse
+bound conjecture, so that narrower candidate remains outside the count; it does
+not settle the book's full-matrix question. Classical Gram–Schmidt's missing
+orthogonality bound has a 2005 answer. Fasi–Hashemi's September 2026 Sylvester
+paper is partial progress, while Hashemi–Nakatsukasa's Sherman–Morrison paper
+explicitly leaves unconditional bounds open. Those leads need precise surviving
+targets or complete arithmetic models. Complete-pivoting asymptotics are
+superseded by the August v4 theorem, and the Hadamard part duplicates IE-03.
+Corrected the Drury paper link and Teng Zhang's authorship in the source record.
+No solutions or proof attempts were made.
 
 **IE-01 removed on 2026-09-08:** the user identified Colbrook, Stepaniants, and
 Townsend's [complete resolution of Forsythe's conjecture](https://arxiv.org/abs/2609.04659),

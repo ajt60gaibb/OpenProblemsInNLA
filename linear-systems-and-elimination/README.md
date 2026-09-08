@@ -1,8 +1,8 @@
 # Linear systems and elimination
 
-[← All categories](../README.md) · [All 72 problems](../CATALOG.md)
+[← All categories](../README.md) · [All 75 problems](../CATALOG.md)
 
-8 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
+11 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
 
 | ID | Problem | Difficulty | Importance | Read / source |
 | --- | --- | --- | --- | --- |
@@ -13,8 +13,11 @@
 | [IE-06](IE-06/README.md) | The square-root upper bound for Gaussian partial-pivoting growth | challenging | interesting to the community | [PDF](IE-06/problem.pdf) · [TeX](IE-06/problem.tex) |
 | [IE-11](IE-11/README.md) | The exact fifth complete-pivoting growth factor | challenging | interesting to specialist | [PDF](IE-11/problem.pdf) · [TeX](IE-11/problem.tex) |
 | [IE-12](IE-12/README.md) | Near-quadratic solution cost at a prescribed backward error | extreme | broadly interesting | [PDF](IE-12/problem.pdf) · [TeX](IE-12/problem.tex) |
+| [IE-13](IE-13/README.md) | Sharp growth for unequal lower and upper bandwidths | challenging | interesting to specialist | [PDF](IE-13/problem.pdf) · [TeX](IE-13/problem.tex) |
+| [IE-14](IE-14/README.md) | Sharp growth for cyclic tridiagonal matrices | challenging | interesting to specialist | [PDF](IE-14/problem.pdf) · [TeX](IE-14/problem.tex) |
+| [IE-15](IE-15/README.md) | Exact small-order growth factors for rook pivoting | challenging | interesting to specialist | [PDF](IE-15/problem.pdf) · [TeX](IE-15/problem.tex) |
 | [KE-01](KE-01/README.md) | Exploit spectral outliers without losing input sparsity | challenging | interesting to the community | [PDF](KE-01/problem.pdf) · [TeX](KE-01/problem.tex) |
 
-Ratings are editorial. Literature checks are dated 2026-09-08; this reorganization does not represent a new status search. [Rating definitions](../README.md#ratings).
+Ratings are editorial. Literature checks are dated 2026-09-08. IE-13–15 were added in the [Higham screening](../proof/HIGHAM-2002-SCREEN.md); each records the limits of its later-literature search. [Rating definitions](../README.md#ratings).
 
 IE-01 was removed following a [complete resolution of Forsythe’s conjecture](https://arxiv.org/abs/2609.04659). Its ID remains reserved; see the [exclusion note](../proof/catalog/iterative-eigenvalue.md#ie-01).

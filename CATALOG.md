@@ -1,6 +1,6 @@
 # All open problems
 
-**72 / 1,000 admitted entries — partial collection.**
+**75 / 1,000 admitted entries — partial collection.**
 
 [Browse by category](README.md) · [Rating definitions](README.md#ratings) · [Source coverage and screening notes](proof/SOURCES.md)
 
@@ -17,6 +17,9 @@ Each ID opens the complete statement in Markdown. PDFs and LaTeX sources carry t
 | [IE-06](linear-systems-and-elimination/IE-06/README.md) | The square-root upper bound for Gaussian partial-pivoting growth | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-06/problem.pdf) · [TeX](linear-systems-and-elimination/IE-06/problem.tex) |
 | [IE-11](linear-systems-and-elimination/IE-11/README.md) | The exact fifth complete-pivoting growth factor | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-11/problem.pdf) · [TeX](linear-systems-and-elimination/IE-11/problem.tex) |
 | [IE-12](linear-systems-and-elimination/IE-12/README.md) | Near-quadratic solution cost at a prescribed backward error | extreme | broadly interesting | [PDF](linear-systems-and-elimination/IE-12/problem.pdf) · [TeX](linear-systems-and-elimination/IE-12/problem.tex) |
+| [IE-13](linear-systems-and-elimination/IE-13/README.md) | Sharp growth for unequal lower and upper bandwidths | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-13/problem.pdf) · [TeX](linear-systems-and-elimination/IE-13/problem.tex) |
+| [IE-14](linear-systems-and-elimination/IE-14/README.md) | Sharp growth for cyclic tridiagonal matrices | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-14/problem.pdf) · [TeX](linear-systems-and-elimination/IE-14/problem.tex) |
+| [IE-15](linear-systems-and-elimination/IE-15/README.md) | Exact small-order growth factors for rook pivoting | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-15/problem.pdf) · [TeX](linear-systems-and-elimination/IE-15/problem.tex) |
 | [KE-01](linear-systems-and-elimination/KE-01/README.md) | Exploit spectral outliers without losing input sparsity | challenging | interesting to the community | [PDF](linear-systems-and-elimination/KE-01/problem.pdf) · [TeX](linear-systems-and-elimination/KE-01/problem.tex) |
 
 ## [Eigenvalues and inverse problems](eigenvalues-and-inverse-problems/README.md)

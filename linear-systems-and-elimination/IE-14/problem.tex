@@ -1,0 +1,117 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={IE-14 - Sharp
+growth for cyclic tridiagonal
+matrices},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-14}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Linear systems and elimination\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Sharp
+growth for cyclic tridiagonal matrices\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to specialist\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open in the historical source; no resolution found in
+the bounded later search below.
+
+\subsection{Problem statement}\label{problem-statement}
+
+For each \(n\ge4\), let \(\mathcal C_n\) consist of the nonsingular
+matrices \(A\in\mathbb C^{n\times n}\) whose only permitted nonzero
+positions satisfy
+
+\[|i-j|\le1\quad\text{or}\quad(i,j)\in\{(1,n),(n,1)\},\]
+
+with \(a_{1n}\ne0\) and \(a_{n1}\ne0\). This is the cyclic tridiagonal
+pattern called \emph{quasi-tridiagonal} in the source. No symmetry or
+diagonal dominance is assumed.
+
+Apply Gaussian elimination with partial pivoting (GEPP) in exact
+arithmetic. At each stage select a largest-modulus entry in the active
+first column, interchange its row with the active first row, and form
+the trailing Schur complement. For an admissible path \(\pi\), let
+\(S_1=A,\ldots,S_n\) denote the active matrices. Define
+
+\[
+\rho(A,\pi)=\frac{\max_{1\le k\le n}\|S_k\|_{\max}}{\|A\|_{\max}},
+\qquad \|M\|_{\max}=\max_{i,j}|m_{ij}|,
+\]
+\[c_n=\sup_{A\in\mathcal C_n}\ \sup_{\pi\text{ permitted by GEPP}}\rho(A,\pi).\]
+
+Determine \(c_n\) for every \(n\ge4\), with matching upper bounds and
+examples approaching each supremum. All admissible tie choices are
+included. The given ordering is fixed before the stated GEPP run;
+preliminary row or column reorderings are not permitted. All sizes
+constitute one extremal problem.
+
+Ordinary tridiagonal inputs have growth at most two. This question
+isolates the effect of the two corner entries on partial-pivoting
+stability. Unlike the fixed-bandwidth problem IE-13, the corner offsets
+grow with \(n\).
+
+\subsection{Reference}\label{reference}
+
+N. J. Higham,
+\href{https://doi.org/10.1137/1.9780898718027}{\emph{Accuracy and
+Stability of Numerical Algorithms}, second edition}, SIAM (2002),
+Problem 9.15(b), p.~193; Theorem 9.11, p.~173, supplies the ordinary
+tridiagonal comparison.
+
+\subsection{Status check}\label{status-check}
+
+The book's sparsity pattern was checked directly. Its wording omits the
+field; this entry adopts \(\mathbb C\) from the adjacent Theorem 9.11.
+Searches for \textit{quasi-tridiagonal growth factor},
+\textit{quasi-tridiagonal partial pivoting}, and
+\textit{Gaussian elimination cyclic tridiagonal growth} found no
+solution of this exact extremal question. A
+\href{https://doi.org/10.1007/s10910-017-0761-9}{2017 cyclic-reduction
+paper} uses a different matrix pattern and algorithm. Shah--Urschel's
+\href{https://arxiv.org/html/2608.19189v4}{August 31, 2026 revision},
+Theorems 2.2--2.3, does not determine this extremum. No recent explicit
+reaffirmation of the question's openness was found; absence of a located
+resolution is the limit of this check.
+\end{document}

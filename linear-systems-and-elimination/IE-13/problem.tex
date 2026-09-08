@@ -1,0 +1,122 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={IE-13 - Sharp
+growth for unequal lower and upper
+bandwidths},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-13}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Linear systems and elimination\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Sharp
+growth for unequal lower and upper bandwidths\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to specialist\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open in the historical source; no resolution found in
+the bounded later search below.
+
+\subsection{Problem statement}\label{problem-statement}
+
+Work in exact arithmetic over \(\mathbb C\). For integers \(p,q\ge0\),
+define
+
+\[
+\mathcal B_n(p,q)=\{A\in\mathbb C^{n\times n}:\det A\ne0,\quad
+a_{ij}=0\text{ if }i-j>p\text{ or }j-i>q\}.
+\]
+
+Gaussian elimination with partial pivoting (GEPP) chooses a
+largest-modulus entry in the active first column, moves its row to the
+first position, and forms the trailing Schur complement. For a permitted
+path \(\pi\), let \(S_1=A,\ldots,S_n\) be its active matrices and define
+
+\[
+\rho(A,\pi)=\frac{\max_{1\le k\le n}\|S_k\|_{\max}}{\|A\|_{\max}},
+\qquad \|M\|_{\max}=\max_{i,j}|m_{ij}|.
+\]
+
+Determine, for all \(p\ne q\), the sharp bound independent of dimension,
+
+\[
+G(p,q)=\sup_{n\ge1+\max(p,q)}\ \sup_{A\in\mathcal B_n(p,q)}\
+\sup_{\pi\text{ permitted by GEPP}}\rho(A,\pi).
+\]
+
+Identify the least universal upper bound and matching examples
+approaching it. All tie choices are included. The bandwidth restrictions
+apply in the given ordering; no reordering before GEPP is allowed.
+Bandwidths are \emph{at most} \(p\) and \(q\); unequal pairs with one
+zero bandwidth are included. For \(p\ge1\), the equal-bandwidth case is
+known:
+
+\[G(p,p)=2^{2p-1}-(p-1)2^{p-2}.\]
+
+This asks how unequal bandwidths affect worst-case element growth in
+banded linear solves. All unequal pairs constitute one problem.
+
+\subsection{References}\label{references}
+
+N. J. Higham,
+\href{https://doi.org/10.1137/1.9780898718027}{\emph{Accuracy and
+Stability of Numerical Algorithms}, second edition}, SIAM (2002),
+Problem 9.15(a), p.~193; definitions and Theorem 9.11, pp.~172--173. Z.
+Bohte, \href{https://doi.org/10.1093/imamat/16.2.133}{\emph{Bounds for
+Rounding Errors in the Gaussian Elimination for Band Systems}}, J. Inst.
+Maths. Applics. 16 (1975), 133--142.
+
+\subsection{Status check}\label{status-check}
+
+The book's problem was checked directly. Its wording omits the field;
+this entry adopts \(\mathbb C\) from its referenced Theorem 9.11.
+Searches for \textit{Higham 9.15 growth},
+\textit{growth factor lower bandwidth upper bandwidth}, and
+\textit{Bohte Gaussian 1975} found no general unequal-bandwidth
+solution. Shah--Urschel's
+\href{https://arxiv.org/html/2608.19189v4}{August 31, 2026 revision},
+Theorems 2.2--2.3, studies sparsity constraints without determining this
+extremal function. No recent explicit reaffirmation of this particular
+question's openness was located; the status rests on the original
+question and this bounded later-literature check.
+\end{document}

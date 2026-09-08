@@ -3,7 +3,7 @@
 The collection is organized into category folders at the repository root.
 
 - [Browse eight categories](../../README.md)
-- [Browse all 72 problems with ratings, PDFs, and LaTeX](../../CATALOG.md)
+- [Browse all 75 problems with ratings, PDFs, and LaTeX](../../CATALOG.md)
 - [Source coverage and uncounted leads](../SOURCES.md)
 
 The former chapter pages retain their anchors, links to relocated problems, and historical screening notes. Only the per-problem Markdown files are canonical statements.

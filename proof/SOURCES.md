@@ -9,7 +9,7 @@ and status evidence in the [catalog](catalog/README.md).
 
 | Source | Material actually examined | Result / next useful work |
 | --- | --- | --- |
-| N. J. Higham, *Accuracy and Stability of Numerical Algorithms*, 2nd ed., SIAM, 2002; [university-hosted copy](https://pages.stat.wisc.edu/~bwu62/771/hingham2002.pdf) | Research-problem passages on summation, elimination, conditioning, least squares, and matrix powers; Problem 15.8 also inspected visually because text extraction obscures absolute-value bars. | Problem 9.17 contributes to IE-03. Problem 10.12 is resolved. Several other passages remain uncounted below. This is a selected-passage screen, not a cover-to-cover review. |
+| N. J. Higham, *Accuracy and Stability of Numerical Algorithms*, 2nd ed., SIAM, 2002; [university-hosted copy](https://pages.stat.wisc.edu/~bwu62/771/hingham2002.pdf) | The user's 20 numbered leads, methodological Problem 26.4, and five prose leads; critical matrix patterns, formulas, and algorithms checked in page images. | Problems 9.15(a–b) and 9.18 supply IE-13–15. The Hadamard part of 9.17 duplicates IE-03. [Full screening](HIGHAM-2002-SCREEN.md) records later results and all uncounted leads. This is a selected-passage screen, not a cover-to-cover review. |
 | R. Jungers, *The Joint Spectral Radius: Theory and Applications*, Springer, 2009; [author manuscript](https://perso.uclouvain.be/raphael.jungers/sites/default/files/kcfinder/files/book.pdf) | Strict stability decidability, finiteness, algebraicity, and marginal-growth questions in §§2.2.3, 4.4 and the growth discussion. | MF-04, MF-09, MF-10; later work replacing refuted growth conjectures leads to MF-11–12. |
 | M. Bläser, *Fast Matrix Multiplication*, Graduate Surveys 5, Theory of Computing, 2013; [open monograph](https://theoryofcomputing.org/articles/gs005/gs005.pdf) | Arithmetic models and named research problems on addition chains, bilinear rank, direct sums, and asymptotic tensor rank. | AC-01–05 and AC-07–08; direct-sum additivity and a historical rank-complexity question excluded after later results. The monograph is distributed under CC BY. |
 | N. J. Higham, *Functions of Matrices: Theory and Computation*, SIAM, 2008; [author's book page](https://nhigham.com/books/) | Problems 3.11 and 6.25, the Newton square-root iteration in §6.8.3, and the scaling-and-squaring forward-error question, checked with the author's errata and follow-up papers. | SF-01 retains the real H-matrix question; Problem 3.11 is resolved. A new quantitative forward-error bound was not silently attributed to the book. Full-book coverage is unfinished. |
@@ -36,7 +36,7 @@ are withheld from an open collection while the claim stands.
 | General Crouzeix constant-two conjecture | Lorist and Schwenninger, [*A solution to Crouzeix's conjecture*](https://arxiv.org/abs/2608.03841), August 2026 preprint. | Withheld because of a full proof claim. |
 | Polynomial worst-case element growth with complete pivoting | Shah and Urschel, [*Entry growth in Gaussian elimination*](https://arxiv.org/abs/2608.19189), August 2026 preprint. | Claimed quasipolynomial lower growth rules out the old polynomial conjecture. Distinct structured and small-order questions remain in IE. |
 | Forsythe conjecture, all restart lengths | Colbrook, Stepaniants, and Townsend, [*A Complete Resolution of Forsythe's Conjecture for Restarted Conjugate Gradients*](https://arxiv.org/abs/2609.04659), September 4, 2026, Theorem 1.1. | IE-01 removed: convergence for $s=3$, counterexamples for every $s\ge4$. The earlier screen missed this resolution. |
-| Growth factor at most two for complex symmetric matrices with positive definite real and imaginary parts | Drury, [2013 proof](https://arxiv.org/abs/1305.5211); Teng and Zhang, [2026 refinement](https://arxiv.org/abs/2604.23024). | Higham's ASNA Problem 10.12 is historical, not an open entry. |
+| Growth factor at most two for complex symmetric matrices with positive definite real and imaginary parts | Drury, [2013 determinant inequality](https://doi.org/10.1016/j.laa.2013.08.031); Teng Zhang, [2026 refinement](https://arxiv.org/abs/2604.23024). | Higham's ASNA Problem 10.12 is historical, not an open entry. Earlier author/link errors are corrected in the Higham screen. |
 | Jordan form of the Fréchet derivative of a matrix function | Noferini, [*The Jordan canonical form of the Fréchet derivative of a matrix function and the bivariate Jordan problem*](https://arxiv.org/html/2512.08399v5), §§4–5, and [journal record](https://doi.org/10.1016/j.laa.2026.06.002). | Higham's Functions of Matrices Problem 3.11 is answered. The paper leaves different structural questions open. The journal issue is dated October 2026, but the manuscript and online result were available before this check. |
 | Matrix Spencer discrepancy conjecture | Akbas and Sra, [August 2026 manuscript](https://arxiv.org/abs/2608.28816). | Withheld because of a claimed general constructive result; earlier partial results are no longer an adequate status check. |
 | Tensor-rank direct-sum additivity | Shitov, [*A counterexample to Strassen's direct sum conjecture*](https://arxiv.org/abs/1712.08660). | Refuted; not interchangeable with AC-05. |
@@ -50,6 +50,12 @@ are withheld from an open collection while the claim stands.
 
 ## Uncounted source leads requiring further work
 
+The [Higham 2002 screening note](HIGHAM-2002-SCREEN.md) gives dispositions,
+references, and admission obstacles for all supplied book leads. In particular,
+the old CGS question has a later answer, the Sylvester question has a September
+2026 partial answer, and Sherman–Morrison bounds remain a promising candidate
+whose complete arithmetic model needs clarification.
+
 - **Inverse estimates for row-diagonally-dominant matrices.** Higham ASNA
   Problem 15.8, printed p. 304, and [Higham 1990](https://eprints.maths.manchester.ac.uk/354/1/0611036.pdf),
   §4, concern the maximum of
@@ -57,10 +63,13 @@ are withheld from an open collection while the claim stands.
   row-diagonally-dominant $A=LU$ and $y\ge0$. A precise formulation must require
   nonsingularity, nonzero leading pivots, and $y\ne0$. The original tridiagonal
   bound is $2n-1$ and a dimension-independent improvement was conjectured;
-  the book asks about full matrices. Searches for the problem number, the
-  original title, and diagonal-dominance inverse-overestimation conjectures
-  located no recent explicit status confirmation. Keep uncounted pending a
-  fuller citation-chain check. The absolute values around $A^{-1}$ are essential.
+  the book asks about full matrices. Huang, Liu, and Zhu's
+  [2014 publisher abstract](https://link.springer.com/article/10.1007/s10543-014-0481-5)
+  explicitly claims to settle the tridiagonal conjecture. Its full theorem was
+  not retrieved, so no exact constant or full-matrix extension is asserted.
+  The narrower conjecture is withheld; the full-matrix question still needs a
+  precise surviving target and further status work. Absolute values around
+  $A^{-1}$ are essential.
 - **Stable selected bidiagonal singular vectors.** IE-09 is retained as an
   uncounted candidate in its chapter. A cost constant allowed arbitrary
   dependence on fixed precision, combined with $nu$ small, makes an asymptotic
@@ -68,8 +77,9 @@ are withheld from an open collection while the claim stands.
 - **Sorted compensated summation.** Higham ASNA Problem 4.10 needs an exact
   floating-point model and a quantitative error threshold before “large
   relative error” becomes a well-defined minimum-length question. No entry yet.
-- **Equality-constrained least squares.** Higham ASNA Problems 20.12–20.13
-  motivate mixed-versus-backward-stability and rowwise-backward-error questions.
+- **Least-squares stability.** Higham ASNA Problem 20.12 concerns
+  mixed-versus-backward stability for equality-constrained LS; 20.13 concerns
+  row-wise backward error for unconstrained LS.
   The perturbation model, requested computational bound, and later status
   still need checking. A generic quantifier-elimination procedure would not
   answer the intended practical question.

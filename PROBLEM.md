@@ -41,10 +41,13 @@ inactive formalization track.
 - A durable progress record giving the actual count against the target of 1,000.
 
 The category organization and Markdown/LaTeX/PDF export are complete. The latest
-requested correction removes IE-01 following the September 2026 resolution of
-Forsythe's conjecture, leaving 72 admitted problems. Maintain accurate counts
-and retain resolution references in the former chapter pages in `proof/catalog/`,
-which preserve old anchors, source notes, and uncounted material.
+request is to screen the user's Higham 2002 reading notes and add distinct,
+precise surviving open problems. This screen adds IE-13–15, leaving 75 admitted
+problems; `proof/HIGHAM-2002-SCREEN.md` records every supplied lead's disposition.
+IE-01 remains removed following the September 2026 resolution of Forsythe's
+conjecture. Maintain accurate counts and retain resolution references in the
+source record and former chapter pages in `proof/catalog/`, which preserve old
+anchors and uncounted material.
 
 Start with core NLA: linear systems, least squares, eigenvalue and singular-value
 computation, matrix functions, numerical stability, conditioning, low-rank

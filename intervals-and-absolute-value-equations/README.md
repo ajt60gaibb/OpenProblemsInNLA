@@ -1,6 +1,6 @@
 # Intervals and absolute value equations
 
-[← All categories](../README.md) · [All 72 problems](../CATALOG.md)
+[← All categories](../README.md) · [All 75 problems](../CATALOG.md)
 
 5 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
 

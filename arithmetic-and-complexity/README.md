@@ -1,6 +1,6 @@
 # Arithmetic and complexity
 
-[← All categories](../README.md) · [All 72 problems](../CATALOG.md)
+[← All categories](../README.md) · [All 75 problems](../CATALOG.md)
 
 9 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
 

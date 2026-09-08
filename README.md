@@ -3,15 +3,15 @@
 A collection of precise open problems drawn from books and research
 publications, with references and dated checks for subsequent solutions.
 
-**Current collection: 72 / 1,000 problems. The project is incomplete.**
+**Current collection: 75 / 1,000 problems. The project is incomplete.**
 
-**[Browse all 72 problems →](CATALOG.md)**
+**[Browse all 75 problems →](CATALOG.md)**
 
 ## Browse by category
 
 | Category | Problems |
 | --- | ---: |
-| [Linear systems and elimination](linear-systems-and-elimination/README.md) | 8 |
+| [Linear systems and elimination](linear-systems-and-elimination/README.md) | 11 |
 | [Eigenvalues and inverse problems](eigenvalues-and-inverse-problems/README.md) | 10 |
 | [Matrix functions and stability](matrix-functions-and-stability/README.md) | 13 |
 | [Randomized and low-rank approximation](randomized-and-low-rank-approximation/README.md) | 12 |
@@ -33,6 +33,8 @@ importance rating, a brief set of references, and a literature-status check.
 The collection includes core NLA and directly relevant matrix theory and
 computational complexity. Entries explain that connection where it is less
 immediate. No solutions or proof attempts are part of this project.
+
+The latest [Higham 2002 screening](proof/HIGHAM-2002-SCREEN.md) adds three distinct problems and records duplicates, later results, and uncounted leads.
 
 ## Ratings
 
