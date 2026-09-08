@@ -1,49 +1,56 @@
-# Problem
+# 1,000 open problems in numerical linear algebra
 
-> **UNINITIALIZED TEMPLATE.** On the first Goal, Codex replaces this entire file
-> with a faithful, precise formulation of the mathematical objective supplied
-> by the user. The user should not edit this template by hand.
+## Objective
 
-## Exact mathematical target
+Turn this GitHub repository into a collection of **1,000 distinct open problems
+in numerical linear algebra (NLA)**, extracted from books and research
+publications. Each entry must give a precise, well-defined mathematical
+statement and a brief set of references.
 
-State every assumption, quantifier, definition, convention, and relevant edge
-case. Preserve the user's actual objective; do not silently weaken or replace
-it. Resolve minor ambiguity by the most faithful workable interpretation and
-record that interpretation. Ask only when no reasonable interpretation
-preserves the intended target.
+Every entry must carry exactly one difficulty label: **hard**, **challenging**,
+or **extreme**; and exactly one importance rating: **interesting to specialist**,
+**interesting to the community**, or **broadly interesting**. These are editorial
+assessments, not claims made by the cited authors.
 
-## Resolution sought
+Check whether each proposed problem has already been solved. The user's final
+sentence is interpreted in the context of an *open*-problem collection: exclude
+resolved questions, and describe partial resolutions that limit the surviving
+statement. A historical open-problem citation alone does not establish current
+openness. Record the date, sources, and scope of the literature check. Absence of
+a found solution is evidence with a stated limit, not a proof of openness.
 
-State what mathematically resolves the target: proof, counterexample,
-classification, exact bound, construction, formalization, or another precise
-outcome.
+## Scope and deliverables
 
-## Required deliverables
+Focus: **PROOF**, used here for human-readable mathematical curation and
+literature verification. No solutions, proof attempts, CAP, or Lean development
+are requested. Preserve existing template materials without maintaining an
+inactive formalization track.
 
-Record what the current Goal requires:
+- A browsable Markdown catalog in `proof/catalog/`, linked from the repository
+  README, with stable problem identifiers.
+- For each problem: topic, precise statement including assumptions and
+  quantifiers, difficulty, importance, short motivation, primary references with
+  locators where available, and a dated status check.
+- A clear distinction between admitted open problems, candidates whose status
+  needs more evidence, and resolved/rejected historical problems.
+- A durable progress record giving the actual count against the target of 1,000.
 
-- a rigorous human-readable or computer-assisted proof in `proof/`;
-- a Lean formalization in `lean/`; or
-- both.
+Start with core NLA: linear systems, least squares, eigenvalue and singular-value
+computation, matrix functions, numerical stability, conditioning, low-rank
+approximation, and numerical tensor methods. Directly relevant matrix theory and
+algebraic complexity may be included with their numerical connection explained;
+the breadth is subject to the user's pending scope preference.
 
-A later explicit user Goal may change or expand these deliverables. Record such
-a change rather than treating the original focus as permanent.
+## Admission and completion
 
-## Permitted results and resources
+Use original restatements supported by primary literature or books. Do not
+invent conjectures, inflate the count using equivalent formulations or arbitrary
+parameter instances, treat a vague research direction as a precise problem, or
+count a solved problem as open. An undecided candidate does not count toward the
+target.
 
-List external theorems, literature, libraries, datasets, formal systems, or
-computational assumptions that may be used. Keep methodology open unless a
-restriction is mathematically essential or supplied by the user.
-
-## Outcomes that do not count as completion
-
-List important partial results or reductions that would not settle the exact
-target or satisfy the requested deliverables.
-
-## Completion criterion
-
-State exactly what must exist for the project to be complete. Distinguish the
-mathematical theorem from optional exposition and from any requested Lean or
-computer-assisted verification. Include only proof-bearing computation,
-certificates, formal objects, independent checks, or reproduction genuinely
-needed to justify the result. Generic process work is not proof evidence.
+Completion requires 1,000 distinct admitted entries meeting all requested
+conditions and a target-specific audit of statement fidelity, duplication,
+scope, and known resolutions. A smaller collection is partial progress, even
+when its entries are high quality. No proof of any catalog problem is part of
+the deliverable.
