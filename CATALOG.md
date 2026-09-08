@@ -1,10 +1,11 @@
 # All open problems
 
-**147 / 1,000 admitted entries — partial collection.**
+**159 / 1,000 admitted entries — partial collection.**
 
 [Browse by category](README.md) · [Rating definitions](README.md#ratings) · [Source coverage and screening notes](proof/SOURCES.md)
 
 Each ID opens the complete statement in Markdown. PDFs and LaTeX sources carry the same mathematical content, with shared notation included locally. The last literature screening date is 2026-09-08; each entry states the scope of its check. Missing IDs belong to excluded or withheld questions and do not contribute to the count.
+
 
 
 
@@ -28,6 +29,9 @@ Each ID opens the complete statement in Markdown. PDFs and LaTeX sources carry t
 | [IE-18](linear-systems-and-elimination/IE-18/README.md) | The exact four-step amplification of restarted Anderson acceleration | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-18/problem.pdf) · [TeX](linear-systems-and-elimination/IE-18/problem.tex) |
 | [IE-19](linear-systems-and-elimination/IE-19/README.md) | Sharp inverse norm bound from upper bounds on matrix entries | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-19/problem.pdf) · [TeX](linear-systems-and-elimination/IE-19/problem.tex) |
 | [IE-20](linear-systems-and-elimination/IE-20/README.md) | Precision required for conjugate gradients to attain backward accuracy in n steps | extreme | interesting to the community | [PDF](linear-systems-and-elimination/IE-20/problem.pdf) · [TeX](linear-systems-and-elimination/IE-20/problem.tex) |
+| [IE-21](linear-systems-and-elimination/IE-21/README.md) | Sharp row-deletion singular-value limit for spherical random matrices | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-21/problem.pdf) · [TeX](linear-systems-and-elimination/IE-21/problem.tex) |
+| [IE-22](linear-systems-and-elimination/IE-22/README.md) | Optimal uniform row-deletion singular-value constant | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-22/problem.pdf) · [TeX](linear-systems-and-elimination/IE-22/problem.tex) |
+| [IE-23](linear-systems-and-elimination/IE-23/README.md) | Uniqueness of the right inverse minimizing an induced p-to-2 norm | hard | interesting to specialist | [PDF](linear-systems-and-elimination/IE-23/problem.pdf) · [TeX](linear-systems-and-elimination/IE-23/problem.tex) |
 
 
 ## [Eigenvalues and inverse problems](eigenvalues-and-inverse-problems/README.md)
@@ -51,6 +55,9 @@ Each ID opens the complete statement in Markdown. PDFs and LaTeX sources carry t
 | [SP-04](eigenvalues-and-inverse-problems/SP-04/README.md) | The smallest-multiplier rule for nearest unit-absolute-determinant matrices | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-04/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-04/problem.tex) |
 | [SP-05](eigenvalues-and-inverse-problems/SP-05/README.md) | Symmetric minimizer for a positive definite Jordan–Kronecker product | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-05/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-05/problem.tex) |
 | [SP-06](eigenvalues-and-inverse-problems/SP-06/README.md) | A real-valued symbol on a Jordan curve and real Toeplitz spectra | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-06/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-06/problem.tex) |
+| [SP-07](eigenvalues-and-inverse-problems/SP-07/README.md) | The sharp spectral-matching constant for normal matrices | extreme | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-07/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-07/problem.tex) |
+| [SP-08](eigenvalues-and-inverse-problems/SP-08/README.md) | Rank-two maximizers of spectral spread on an entry interval | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-08/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-08/problem.tex) |
+| [SP-09](eigenvalues-and-inverse-problems/SP-09/README.md) | Unitary-orbit distance under finite block repetition | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/SP-09/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-09/problem.tex) |
 
 
 ## [Matrix functions and stability](matrix-functions-and-stability/README.md)
@@ -75,6 +82,7 @@ Each ID opens the complete statement in Markdown. PDFs and LaTeX sources carry t
 | [MF-15](matrix-functions-and-stability/MF-15/README.md) | Critical exponent for generalized doubly nonnegative matrices | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-15/problem.pdf) · [TeX](matrix-functions-and-stability/MF-15/problem.tex) |
 | [MF-16](matrix-functions-and-stability/MF-16/README.md) | Uniqueness of positive definite solutions of two-letter word equations in order two | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-16/problem.pdf) · [TeX](matrix-functions-and-stability/MF-16/problem.tex) |
 | [MF-17](matrix-functions-and-stability/MF-17/README.md) | Optimal uniform growth after inversion of an exponentially stable generator | hard | interesting to the community | [PDF](matrix-functions-and-stability/MF-17/problem.pdf) · [TeX](matrix-functions-and-stability/MF-17/problem.tex) |
+| [MF-18](matrix-functions-and-stability/MF-18/README.md) | Imaginary-part rank in a limiting Green-function matrix equation | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-18/problem.pdf) · [TeX](matrix-functions-and-stability/MF-18/problem.tex) |
 
 
 ## [Randomized and low-rank approximation](randomized-and-low-rank-approximation/README.md)
@@ -102,6 +110,10 @@ Each ID opens the complete statement in Markdown. PDFs and LaTeX sources carry t
 | [RA-09](randomized-and-low-rank-approximation/RA-09/README.md) | Concave-function transfer of Frobenius low-rank error | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-09/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-09/problem.tex) |
 | [RA-10](randomized-and-low-rank-approximation/RA-10/README.md) | Constant-loss nuclear-error transfer without matrix ordering | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-10/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-10/problem.tex) |
 | [RA-11](randomized-and-low-rank-approximation/RA-11/README.md) | Optimal trace-estimation complexity using Kronecker matrix-vector queries | extreme | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-11/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-11/problem.tex) |
+| [RA-12](randomized-and-low-rank-approximation/RA-12/README.md) | Relative-error threshold for extremal Gaussian trace bounds | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-12/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-12/problem.tex) |
+| [RA-13](randomized-and-low-rank-approximation/RA-13/README.md) | Absolute-error threshold for extremal Gaussian trace bounds | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-13/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-13/problem.tex) |
+| [RA-14](randomized-and-low-rank-approximation/RA-14/README.md) | Optimal query complexity of spectral rank-$k$ approximation | extreme | broadly interesting | [PDF](randomized-and-low-rank-approximation/RA-14/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-14/problem.tex) |
+| [RA-15](randomized-and-low-rank-approximation/RA-15/README.md) | Query complexity from Schatten to spectral norms | extreme | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-15/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-15/problem.tex) |
 
 
 ## [Tensor computations](tensor-computations/README.md)
@@ -122,6 +134,7 @@ Each ID opens the complete statement in Markdown. PDFs and LaTeX sources carry t
 | [TR-17](tensor-computations/TR-17/README.md) | Frobenius inner products minimize the algebraic complexity of rank-one approximation | challenging | interesting to the community | [PDF](tensor-computations/TR-17/problem.pdf) · [TeX](tensor-computations/TR-17/problem.tex) |
 | [TR-18](tensor-computations/TR-18/README.md) | Near-optimal type-2 bound for Gaussian sums of symmetric tensors | extreme | broadly interesting | [PDF](tensor-computations/TR-18/problem.pdf) · [TeX](tensor-computations/TR-18/problem.tex) |
 | [TR-19](tensor-computations/TR-19/README.md) | Exact best-rank-one approximation ratios for general tensor formats | extreme | interesting to the community | [PDF](tensor-computations/TR-19/problem.pdf) · [TeX](tensor-computations/TR-19/problem.tex) |
+| [TR-20](tensor-computations/TR-20/README.md) | Rayleigh–Ritz discriminant degrees for rank-one matrices | challenging | interesting to specialist | [PDF](tensor-computations/TR-20/problem.pdf) · [TeX](tensor-computations/TR-20/problem.tex) |
 
 
 ## [Nonnegative and positive factorizations](nonnegative-and-positive-factorizations/README.md)

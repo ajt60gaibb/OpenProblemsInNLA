@@ -1,0 +1,133 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={RA-12 - Relative-error
+threshold for extremal Gaussian trace
+bounds},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RA-12}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Randomized and low-rank approximation\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Relative-error
+threshold for extremal Gaussian trace bounds\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Source:} Hallman, Conjecture 3 together with Theorem 6.
+
+\subsection{Problem statement}\label{problem-statement}
+
+For a real symmetric \(d\times d\) matrix \(D\) and integer \(m\ge1\),
+define the Gaussian trace estimator
+
+\[
+T_m(D)=\frac1m\sum_{j=1}^{m}z_j^TDz_j,
+\qquad z_1,\ldots,z_m\overset{\mathrm{iid}}{\sim}N(0,I_d).
+\]
+
+Let \(A\ne0\) be any real symmetric positive semidefinite \(n\times n\)
+matrix, with \(n\ge1\), and set
+
+\[
+\mu=\frac{\operatorname{tr}(A)}{\|A\|_2},\qquad
+B_\mu=\frac1\mu\operatorname{diag}
+\left(I_{\lfloor\mu\rfloor},\,\mu-\lfloor\mu\rfloor\right).
+\]
+
+Here \(\|\cdot\|_2\) is the spectral norm, \(\mu\ge1\), and a zero final
+diagonal entry may be retained. Let \(X\) have the Gamma distribution
+with shape and rate both \(m\mu/2\). The shape/rate convention means
+that \(\operatorname{Gamma}(\alpha,\beta)\) has density
+\(\beta^\alpha x^{\alpha-1}e^{-\beta x}/\Gamma(\alpha)\) for \(x>0\).
+
+\textbf{Conjecture.} For every such \(A\), every integer \(m\ge1\), and
+every \(\varepsilon\ge2/(m\mu)\), the complete comparison chain holds:\\
+\[
+\begin{aligned}
+\Pr\!\left(
+ |T_m(A)-\operatorname{tr}(A)|
+ \ge\varepsilon\operatorname{tr}(A)
+\right)
+&\le \Pr\!\left(|T_m(B_\mu)-1|\ge\varepsilon\right)\\
+&\le \Pr\!\left(|X-1|\ge\varepsilon\right).
+\end{aligned}
+\]
+
+Each estimator uses Gaussian vectors of its own matrix dimension; only
+their distributions are compared.
+
+\subsection{Why it matters in numerical linear
+algebra}\label{why-it-matters-in-numerical-linear-algebra}
+
+This would specify the tolerance range on which effective rank yields
+extremal, distribution-level confidence bounds for Gaussian trace
+estimation. It also applies to Frobenius-norm estimation through
+\(\|C\|_F^2=\operatorname{tr}(C^TC)\).
+
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Eric Hallman,
+  \href{https://arxiv.org/html/2411.15454v1\#S5}{\emph{Extremal bounds
+  for Gaussian trace estimation}}, arXiv:2411.15454v1 (2024), §5,
+  Theorem 6 and Conjecture 3.
+\item
+  Alice Cortinovis and Daniel Kressner,
+  \href{https://doi.org/10.1007/s10208-021-09525-9}{\emph{On Randomized
+  Trace Estimates for Indefinite Matrices with an Application to
+  Determinants}}, FoCM 22 (2022), 875--903, Theorem 1.
+\end{enumerate}
+
+\subsection{Status check}\label{status-check}
+
+Theorem 6 proves the comparisons beyond an unspecified threshold;
+Conjecture 3 supplies the explicit threshold above. On 2026-09-08 the
+\href{https://arxiv.org/abs/2411.15454}{arXiv record} still listed only
+v1. Title, author, conjecture-number and 2025/2026 searches found no
+resolution. The author's \href{https://arxiv.org/abs/2512.02316}{later
+XTrace paper} studies different estimators. This is a bounded check.
+\end{document}

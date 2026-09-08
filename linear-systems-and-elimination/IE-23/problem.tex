@@ -1,0 +1,122 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={IE-23 - Uniqueness
+of the right inverse minimizing an induced p-to-2
+norm},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-23}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Linear systems and elimination\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Uniqueness
+of the right inverse minimizing an induced p-to-2 norm\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} hard\quad\textbf{Importance:} interesting
+to specialist\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open in the checked literature
+
+\subsection{Problem statement}\label{problem-statement}
+
+Let \(1\le m<n\), let \(A\in\mathbb C^{m\times n}\) have rank \(m\), and
+let \(2<p<\infty\). For \(X\in\mathbb C^{n\times m}\) define the induced
+norm
+
+\[
+\|X\|_{p\to2}=\sup_{y\in\mathbb C^m\setminus\{0\}}
+\frac{\|Xy\|_2}{\bigl(\sum_{i=1}^m|y_i|^p\bigr)^{1/p}}.
+\]
+
+The Moore--Penrose inverse \(A^\dagger=A^*(AA^*)^{-1}\) minimizes this
+norm among the right inverses \(X\) satisfying \(AX=I_m\). Is it always
+the unique minimizer? Equivalently, must
+
+\[
+AX=I_m,\quad X\ne A^\dagger
+\quad\Longrightarrow\quad
+\|X\|_{p\to2}>\|A^\dagger\|_{p\to2}
+\]
+
+hold for every such \(A,p,X\)?
+
+This is the direct-inverse uniqueness question in Dokmanić--Gribonval's
+Remark 4.1. The endpoints and the separate objective \(\|XA\|_{p\to2}\)
+are outside this statement.
+
+\subsection{Connection to numerical linear
+algebra}\label{connection-to-numerical-linear-algebra}
+
+The norm measures the worst Euclidean solution amplification for
+right-hand sides bounded in \(\ell^p\). Uniqueness determines whether
+another linear solver can match the Moore--Penrose inverse's optimal
+amplification while changing its sparsity or structure.
+
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  I. Dokmanić and R. Gribonval, \emph{Beyond Moore--Penrose Part I:
+  Generalized Inverses that Minimize Matrix Norms}, arXiv:1706.08349v2
+  (2017), §2.1 and §2.4 (right inverses and \(A^\dagger\)); §4.4,
+  Corollary 4.2(3) and Remark 4.1, manuscript p.~18 (PDF page 18).
+  \href{https://arxiv.org/abs/1706.08349}{Preprint and version history}.
+  \href{https://arxiv.org/pdf/1706.08349}{PDF}.
+\item
+  I. Dokmanić and R. Gribonval,
+  \href{https://arxiv.org/abs/1706.08701}{\emph{Part II: The Sparse
+  Pseudoinverse}}, 2017, §2. Its entrywise-norm objective is different.
+\end{enumerate}
+
+\subsection{Status check}\label{status-check}
+
+Checked the complete v2 statement and version history on 2026-09-08; v2,
+dated 2017-07-13, remains the latest arXiv version of Part I. Searches
+combined the authors, the paper title, ``induced norm'', ``p to 2'',
+``unique'', ``uniqueness'', ``generalized inverse'', and 2025/2026. The
+companion paper's sparse-inverse uniqueness results concern entrywise
+norms and generic inputs, not this induced-norm claim for every
+full-row-rank matrix. No later proof or counterexample was located. This
+bounded search does not certify that no resolution exists elsewhere.
+\end{document}

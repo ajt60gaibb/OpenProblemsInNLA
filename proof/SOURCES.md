@@ -5,6 +5,18 @@ exclusions. It is not an exhaustive bibliography or a claim that every problem
 in the books below has been checked. Each admitted entry has its own references
 and status evidence in the [catalog](../CATALOG.md).
 
+## Further literature expansion: 12 additions
+
+The [new source screen](LITERATURE-EXPANSION-2026-09.md) brings the collection
+from 147 to 159. It covers row-deletion conditioning, induced-norm inverse
+uniqueness, normal spectral matching and orbit distance, spectral spread,
+a limiting Green-function matrix equation, Gaussian trace thresholds,
+low-rank query complexity, and rank-one Rayleigh–Ritz discriminants.
+Each admission has an exact source locator and a bounded later-status check.
+Explicit mathematical models are distinguished from editorial formalizations.
+The screen also records resolved historical questions and precise obstacles
+for the uncounted reserves. All 12 new PDFs were compiled and visually checked.
+
 ## Supplied additional-problems proposal: 22 additions
 
 The [complete 43-candidate screen](ADDITIONAL-PROBLEMS-SCREEN.md) adds 22 entries,

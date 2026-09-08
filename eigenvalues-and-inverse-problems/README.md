@@ -1,8 +1,8 @@
 # Eigenvalues and inverse problems
 
-[← All categories](../README.md) · [All 147 problems](../CATALOG.md)
+[← All categories](../README.md) · [All 159 problems](../CATALOG.md)
 
-17 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
+20 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
 
 | ID | Problem | Difficulty | Importance | Read / source |
 | --- | --- | --- | --- | --- |
@@ -23,5 +23,8 @@
 | [SP-04](SP-04/README.md) | The smallest-multiplier rule for nearest unit-absolute-determinant matrices | challenging | interesting to the community | [PDF](SP-04/problem.pdf) · [TeX](SP-04/problem.tex) |
 | [SP-05](SP-05/README.md) | Symmetric minimizer for a positive definite Jordan–Kronecker product | challenging | interesting to the community | [PDF](SP-05/problem.pdf) · [TeX](SP-05/problem.tex) |
 | [SP-06](SP-06/README.md) | A real-valued symbol on a Jordan curve and real Toeplitz spectra | challenging | interesting to the community | [PDF](SP-06/problem.pdf) · [TeX](SP-06/problem.tex) |
+| [SP-07](SP-07/README.md) | The sharp spectral-matching constant for normal matrices | extreme | interesting to the community | [PDF](SP-07/problem.pdf) · [TeX](SP-07/problem.tex) |
+| [SP-08](SP-08/README.md) | Rank-two maximizers of spectral spread on an entry interval | challenging | interesting to the community | [PDF](SP-08/problem.pdf) · [TeX](SP-08/problem.tex) |
+| [SP-09](SP-09/README.md) | Unitary-orbit distance under finite block repetition | challenging | interesting to specialist | [PDF](SP-09/problem.pdf) · [TeX](SP-09/problem.tex) |
 
 Ratings are editorial. Each entry records its literature check and the scope of the evidence. [Rating definitions](../README.md#ratings).

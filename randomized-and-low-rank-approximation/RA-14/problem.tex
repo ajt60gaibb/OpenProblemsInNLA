@@ -1,0 +1,134 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={RA-14 - Optimal
+query complexity of spectral rank-k
+approximation},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RA-14}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Randomized and low-rank approximation\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Optimal
+query complexity of spectral rank-\(k\) approximation\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} broadly
+interesting\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Source:} Bakshi--Narayanan, Open Question 1.10.
+
+\subsection{Problem statement}\label{problem-statement}
+
+Let \(n\ge2\), \(1\le k<n\), and \(0<\varepsilon<1/2\). An unknown
+matrix \(A\in\mathbb R^{n\times n}\) is available through exact products
+\(Ax\) and \(A^Tx\), with one such product counting as one query. An
+algorithm may choose each real query vector adaptively using all earlier
+answers and its random bits. Arithmetic and other computation between
+queries are unrestricted; matrix entries are not otherwise accessible.
+
+Let \(q_{\mathrm{sp}}(n,k,\varepsilon)\) be the smallest integer \(q\)
+for which an algorithm using at most \(q\) queries returns a matrix
+\(Z\in\mathbb R^{n\times k}\) with \(Z^TZ=I_k\) such that, for every
+input \(A\),
+
+\[
+\Pr\!\left[
+\|A(I-ZZ^T)\|_2
+\le (1+\varepsilon)
+\min_{\substack{U\in\mathbb R^{n\times k}\\U^TU=I_k}}
+\|A(I-UU^T)\|_2
+\right]\ge\frac{99}{100}.
+\]
+
+Probability is over the algorithm's internal randomness, and
+\(\|\cdot\|_2\) is the spectral norm.
+
+\textbf{Open problem.} Determine \(q_{\mathrm{sp}}(n,k,\varepsilon)\) up
+to universal constant factors, with the dependence on \(k\), \(n\), and
+\(\varepsilon\) simultaneous. In particular, determine the optimal
+dependence on a growing target rank rather than keeping \(k\) fixed. The
+answer must cover the finite-dimensional regime, where learning all
+columns uses \(n\) queries.\\
+This is a square-matrix formulation of the source's question with an
+editorially fixed two-sided oracle model. The introduction describes
+products \(Av\); Algorithm 7.4 explicitly uses both \(A\) and \(A^T\).
+On symmetric inputs these models coincide.
+
+\subsection{Why it matters in numerical linear
+algebra}\label{why-it-matters-in-numerical-linear-algebra}
+
+Matrix products dominate many large-scale singular-subspace
+computations. The question asks which dependence on the requested number
+of singular vectors is unavoidable for every adaptive algorithm, rather
+than for a chosen Krylov implementation.
+
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Ainesh Bakshi and Shyam Narayanan,
+  \href{https://arxiv.org/html/2304.03191v1\#S1.SS2}{\emph{Krylov
+  Methods are (nearly) Optimal for Low-Rank Approximation}},
+  arXiv:2304.03191v1 (2023), Open Question 1.10; Theorem 1.1 and
+  Algorithm 7.4.
+\item
+  Tyler Chen et al., \href{https://arxiv.org/abs/2508.06486}{\emph{Does
+  block size matter in randomized block Krylov low-rank
+  approximation?}}, 2025, §1: later block-size bounds.
+\end{enumerate}
+
+\subsection{Status check}\label{status-check}
+
+The source's \(O(k\log n/\sqrt\varepsilon)\) upper bound and fixed-rank
+lower bound do not determine the growing-rank dependence. The 2025 paper
+studies Krylov block sizes; its clustered-gap conjecture is separately
+cataloged.
+
+On 2026-09-08 the \href{https://arxiv.org/abs/2304.03191}{source record}
+still listed only v1. Searches for ``Open Question 1.10,'' target-rank
+matrix-vector complexity, and 2025/2026 follow-ups found no joint
+characterization. The source's lower bound has a
+sufficiently-large-dimension regime, not every finite \(n,\varepsilon\).
+This is a bounded check.
+\end{document}

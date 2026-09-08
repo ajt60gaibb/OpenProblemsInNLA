@@ -1,6 +1,6 @@
 # Matrix discrepancy and optimization
 
-[← All categories](../README.md) · [All 147 problems](../CATALOG.md)
+[← All categories](../README.md) · [All 159 problems](../CATALOG.md)
 
 6 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
 

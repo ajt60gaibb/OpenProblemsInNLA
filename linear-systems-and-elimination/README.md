@@ -1,8 +1,8 @@
 # Linear systems and elimination
 
-[← All categories](../README.md) · [All 147 problems](../CATALOG.md)
+[← All categories](../README.md) · [All 159 problems](../CATALOG.md)
 
-16 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
+19 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
 
 | ID | Problem | Difficulty | Importance | Read / source |
 | --- | --- | --- | --- | --- |
@@ -22,5 +22,8 @@
 | [IE-18](IE-18/README.md) | The exact four-step amplification of restarted Anderson acceleration | challenging | interesting to the community | [PDF](IE-18/problem.pdf) · [TeX](IE-18/problem.tex) |
 | [IE-19](IE-19/README.md) | Sharp inverse norm bound from upper bounds on matrix entries | challenging | interesting to specialist | [PDF](IE-19/problem.pdf) · [TeX](IE-19/problem.tex) |
 | [IE-20](IE-20/README.md) | Precision required for conjugate gradients to attain backward accuracy in n steps | extreme | interesting to the community | [PDF](IE-20/problem.pdf) · [TeX](IE-20/problem.tex) |
+| [IE-21](IE-21/README.md) | Sharp row-deletion singular-value limit for spherical random matrices | challenging | interesting to the community | [PDF](IE-21/problem.pdf) · [TeX](IE-21/problem.tex) |
+| [IE-22](IE-22/README.md) | Optimal uniform row-deletion singular-value constant | challenging | interesting to the community | [PDF](IE-22/problem.pdf) · [TeX](IE-22/problem.tex) |
+| [IE-23](IE-23/README.md) | Uniqueness of the right inverse minimizing an induced p-to-2 norm | hard | interesting to specialist | [PDF](IE-23/problem.pdf) · [TeX](IE-23/problem.tex) |
 
 Ratings are editorial. Each entry records its literature check and the scope of the evidence. [Rating definitions](../README.md#ratings).

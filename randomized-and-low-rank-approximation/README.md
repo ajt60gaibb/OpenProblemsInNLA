@@ -1,8 +1,8 @@
 # Randomized and low-rank approximation
 
-[← All categories](../README.md) · [All 147 problems](../CATALOG.md)
+[← All categories](../README.md) · [All 159 problems](../CATALOG.md)
 
-21 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
+25 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
 
 | ID | Problem | Difficulty | Importance | Read / source |
 | --- | --- | --- | --- | --- |
@@ -27,5 +27,9 @@
 | [RA-09](RA-09/README.md) | Concave-function transfer of Frobenius low-rank error | challenging | interesting to the community | [PDF](RA-09/problem.pdf) · [TeX](RA-09/problem.tex) |
 | [RA-10](RA-10/README.md) | Constant-loss nuclear-error transfer without matrix ordering | challenging | interesting to the community | [PDF](RA-10/problem.pdf) · [TeX](RA-10/problem.tex) |
 | [RA-11](RA-11/README.md) | Optimal trace-estimation complexity using Kronecker matrix-vector queries | extreme | interesting to the community | [PDF](RA-11/problem.pdf) · [TeX](RA-11/problem.tex) |
+| [RA-12](RA-12/README.md) | Relative-error threshold for extremal Gaussian trace bounds | challenging | interesting to the community | [PDF](RA-12/problem.pdf) · [TeX](RA-12/problem.tex) |
+| [RA-13](RA-13/README.md) | Absolute-error threshold for extremal Gaussian trace bounds | challenging | interesting to the community | [PDF](RA-13/problem.pdf) · [TeX](RA-13/problem.tex) |
+| [RA-14](RA-14/README.md) | Optimal query complexity of spectral rank-$k$ approximation | extreme | broadly interesting | [PDF](RA-14/problem.pdf) · [TeX](RA-14/problem.tex) |
+| [RA-15](RA-15/README.md) | Query complexity from Schatten to spectral norms | extreme | interesting to the community | [PDF](RA-15/problem.pdf) · [TeX](RA-15/problem.tex) |
 
 Ratings are editorial. Each entry records its literature check and the scope of the evidence. [Rating definitions](../README.md#ratings).

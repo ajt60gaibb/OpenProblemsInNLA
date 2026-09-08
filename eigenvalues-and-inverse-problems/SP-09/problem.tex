@@ -1,0 +1,122 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={SP-09 - Unitary-orbit
+distance under finite block
+repetition},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}SP-09}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Eigenvalues and inverse problems\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Unitary-orbit
+distance under finite block repetition\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to specialist\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Status:} open; source-stated question with a bounded
+later-status search.
+
+\subsection{Problem statement}\label{problem-statement}
+
+For \(A,B\in\mathbb C^{n\times n}\), define the distance between their
+unitary similarity orbits in the spectral norm by
+
+\[
+\delta_n(A,B)=\min_{U\in\mathbb C^{n\times n},\ U^*U=I_n}
+\|A-U^*BU\|_2.
+\]
+
+For a positive integer \(k\), write \(A^{(k)}=I_k\otimes A\), the block
+diagonal matrix with \(k\) copies of \(A\). Is it true that, for every
+\(n\ge3\), every finite integer \(k\ge2\), and every pair of normal
+matrices \(A,B\in\mathbb C^{n\times n}\),
+
+\[
+\delta_{nk}\bigl(A^{(k)},B^{(k)}\bigr)=\delta_n(A,B)?
+\]
+
+Normality means \(AA^*=A^*A\) and \(BB^*=B^*B\). The minimizing unitary
+on the left is unrestricted in dimension \(nk\); it may mix different
+copies. Thus the question asks whether block repetition can improve the
+best unitary-similarity fit between normal matrices.
+
+\subsection{Why it matters}\label{why-it-matters}
+
+This is a matrix-nearness problem with prescribed spectra. It tests
+whether a structured enlargement changes the optimum in spectral norm, a
+metric for which matching eigenvalues alone need not give the orbit
+distance.
+
+\subsection{References}\label{references}
+
+L. W. Marcoux and Y. Zhang,
+\href{https://doi.org/10.1016/j.jfa.2020.108778}{\emph{On Specht's
+Theorem in UHF C}-algebras*}, Journal of Functional Analysis 280 (2021),
+108778, §5, Question 5.4, pp.~26--27;
+\href{https://uwspace.uwaterloo.ca/items/5359b050-4379-49b2-bdda-66ac3611d3ca}{institutional
+full text}.
+
+L. W. Marcoux, P. Sarkowicz, and Y. Zhang,
+\href{https://arxiv.org/html/2508.13834v1}{\emph{Kaplansky's problem and
+unitary orbits in matrix amplifications}}, arXiv:2508.13834v1 (2025),
+§3.5 and Propositions 3.15, 3.21, and 4.14.
+
+\subsection{Status check}\label{status-check}
+
+Theorem 5.3 of the source proves equality for normal matrices of order
+two. Theorem 5.1 establishes a strict decrease for some unrestricted
+matrices, so normality cannot simply be omitted. The example after
+Question 5.4 uses infinitely many copies and does not resolve the
+finite-\(k\) question. The direct follow-up 2508.13834v1 repeats the
+order-two result in §3.5. Its normal-element Propositions 3.15 and 3.21
+concern zero orbit distance; its Proposition 4.14 counterexamples have
+no normality requirement. Neither settles preservation of all distances
+for finite normal matrices. The published §5 and these later passages
+were checked. Searches for
+\textit{Marcoux Zhang Question 5.4 normal matrices},
+\textit{normal matrices ampliations unitary orbit distance}, and
+2025/2026 follow-ups found no finite-dimensional normal counterexample
+or general proof. This is limited search evidence, not a certificate of
+openness.
+\end{document}

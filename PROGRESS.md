@@ -6,13 +6,13 @@ without solving them. Lean is inactive and not requested.
 
 ## Current state — 2026-09-08
 
-**PARTIAL: 147 / 1,000 admitted entries.** The remaining 853 are not supplied.
+**PARTIAL: 159 / 1,000 admitted entries.** The remaining 841 are not supplied.
 The [catalog index](CATALOG.md) lists every admitted entry and both
 requested ratings. No placeholders, excluded questions, or arbitrary parameter
 instances contribute to the count.
 
 The user requested category folders and an individual Markdown/LaTeX/PDF
-document for each existing problem. Eleven root categories and 147 problem folders
+document for each existing problem. Eleven root categories and 159 problem folders
 now hold the canonical statements. Shared mathematical definitions have been
 copied into the entries that require them; the original chapter pages retain
 their anchors and uncounted screening notes.
@@ -35,11 +35,11 @@ pivot ties, the all-stage growth definition, and distinctness. Complex fields in
 IE-13–14 follow the adjacent theorem; the exercise itself leaves the field implicit.
 The wider 1,000-problem curation objective remains partial.
 
-- Linear systems and elimination: 16.
-- Eigenvalues and inverse problems: 17.
-- Matrix functions and stability: 18.
-- Randomized and low-rank approximation: 21.
-- Tensor computations: 14.
+- Linear systems and elimination: 19.
+- Eigenvalues and inverse problems: 20.
+- Matrix functions and stability: 19.
+- Randomized and low-rank approximation: 25.
+- Tensor computations: 15.
 - Nonnegative and positive factorizations: 12.
 - Matrix inequalities and norms: 17.
 - Frames and matrix designs: 10.
@@ -53,6 +53,21 @@ Older-status entries explicitly expose their weaker evidence. Difficulty and
 importance are editorial ratings, with definitions in the repository README.
 
 ## Mathematical screening findings
+
+**COMPLETE: further literature expansion, 12 additions.** The
+[source screen](proof/LITERATURE-EXPANSION-2026-09.md) records IE-21–23,
+SP-07–09, MF-18, RA-12–15, and TR-20, with exact primary locators, later
+results, and uncounted reserves. Independent audits checked spectral statements,
+Gaussian trace chains, oracle conventions, and the withheld experimental
+Kaczmarz–Kac prediction. The low-rank questions explicitly disclose their
+square-matrix, two-sided-oracle formalization. Historical-source status evidence
+is preserved for the normal spectral-matching constant.
+
+All 12 new documents are one page, compiled without overflow or missing-character
+warnings, and were visually inspected. The current collection contains
+**159 PDFs and 164 pages**, with one Markdown/TeX/PDF set per entry. No solutions
+or proof attempts were made. Source-backed unresolved directions with incomplete
+quantifiers were kept outside the count.
 
 **COMPLETE: incorporation of the 43 supplied additional candidates.** The
 [full disposition screen](proof/ADDITIONAL-PROBLEMS-SCREEN.md) records 22 new
@@ -73,7 +88,7 @@ and primary-source author lists. No solutions or proof attempts were made.
 The new matrix-discrepancy-and-optimization category contains six entries.
 The 22 new PDFs contain 23 pages; revised FR-01 remains one page. All 24 new or
 changed pages were visually checked, with no remaining overflow or missing-character
-warnings. The collection now has **147 PDFs and 152 pages**. Navigation, distinct
+warnings. That batch brought the collection to **147 PDFs and 152 pages**. Navigation, distinct
 IDs, required ratings and one Markdown/TeX/PDF set per problem were checked.
 
 
@@ -169,13 +184,12 @@ scope without inventing questions or subdividing them artificially.
 
 ## Remaining work
 
-The requested 50-entry batch and subsequent 43-candidate proposal screen are complete.
-All proposal dispositions are recorded. Duplicates and unresolved formulations do
-not count as additions. The broader 1,000-entry target remains partial at 147 entries.
-
-Continue source curation in underrepresented core NLA areas, including
-randomized estimation, absolute-value systems, least squares, preconditioning,
-matrix polynomials, and numerical tensor methods.
+The requested 50-entry batch, the 43-candidate proposal screen, and this further
+12-entry literature batch are complete. The broader target remains partial at
+159 entries. Continue source curation in underrepresented core NLA areas,
+including least squares, preconditioning, matrix polynomials, and numerical
+tensor methods. Reserves need the specific source or quantifier clarification
+recorded in the screens before they can count.
 Full-book coverage is unfinished. `proof/SOURCES.md` records the actual books
 and passages examined, plus useful candidates and precise obstacles.
 

@@ -1,8 +1,8 @@
 # Matrix functions and stability
 
-[← All categories](../README.md) · [All 147 problems](../CATALOG.md)
+[← All categories](../README.md) · [All 159 problems](../CATALOG.md)
 
-18 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
+19 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
 
 | ID | Problem | Difficulty | Importance | Read / source |
 | --- | --- | --- | --- | --- |
@@ -24,5 +24,6 @@
 | [MF-15](MF-15/README.md) | Critical exponent for generalized doubly nonnegative matrices | challenging | interesting to the community | [PDF](MF-15/problem.pdf) · [TeX](MF-15/problem.tex) |
 | [MF-16](MF-16/README.md) | Uniqueness of positive definite solutions of two-letter word equations in order two | challenging | interesting to the community | [PDF](MF-16/problem.pdf) · [TeX](MF-16/problem.tex) |
 | [MF-17](MF-17/README.md) | Optimal uniform growth after inversion of an exponentially stable generator | hard | interesting to the community | [PDF](MF-17/problem.pdf) · [TeX](MF-17/problem.tex) |
+| [MF-18](MF-18/README.md) | Imaginary-part rank in a limiting Green-function matrix equation | challenging | interesting to specialist | [PDF](MF-18/problem.pdf) · [TeX](MF-18/problem.tex) |
 
 Ratings are editorial. Each entry records its literature check and the scope of the evidence. [Rating definitions](../README.md#ratings).

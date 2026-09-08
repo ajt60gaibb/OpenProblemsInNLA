@@ -1,8 +1,8 @@
 # Tensor computations
 
-[← All categories](../README.md) · [All 147 problems](../CATALOG.md)
+[← All categories](../README.md) · [All 159 problems](../CATALOG.md)
 
-14 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
+15 admitted problems. Each folder contains its canonical `README.md`, a standalone `problem.tex`, and the compiled `problem.pdf`.
 
 | ID | Problem | Difficulty | Importance | Read / source |
 | --- | --- | --- | --- | --- |
@@ -20,5 +20,6 @@
 | [TR-17](TR-17/README.md) | Frobenius inner products minimize the algebraic complexity of rank-one approximation | challenging | interesting to the community | [PDF](TR-17/problem.pdf) · [TeX](TR-17/problem.tex) |
 | [TR-18](TR-18/README.md) | Near-optimal type-2 bound for Gaussian sums of symmetric tensors | extreme | broadly interesting | [PDF](TR-18/problem.pdf) · [TeX](TR-18/problem.tex) |
 | [TR-19](TR-19/README.md) | Exact best-rank-one approximation ratios for general tensor formats | extreme | interesting to the community | [PDF](TR-19/problem.pdf) · [TeX](TR-19/problem.tex) |
+| [TR-20](TR-20/README.md) | Rayleigh–Ritz discriminant degrees for rank-one matrices | challenging | interesting to specialist | [PDF](TR-20/problem.pdf) · [TeX](TR-20/problem.tex) |
 
 Ratings are editorial. Each entry records its literature check and the scope of the evidence. [Rating definitions](../README.md#ratings).

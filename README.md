@@ -3,19 +3,19 @@
 A collection of precise open problems drawn from books and research
 publications, with references and dated checks for subsequent solutions.
 
-**Current collection: 147 / 1,000 problems. The project is incomplete.**
+**Current collection: 159 / 1,000 problems. The project is incomplete.**
 
-**[Browse all 147 problems →](CATALOG.md)**
+**[Browse all 159 problems →](CATALOG.md)**
 
 ## Browse by category
 
 | Category | Problems |
 | --- | ---: |
-| [Linear systems and elimination](linear-systems-and-elimination/README.md) | 16 |
-| [Eigenvalues and inverse problems](eigenvalues-and-inverse-problems/README.md) | 17 |
-| [Matrix functions and stability](matrix-functions-and-stability/README.md) | 18 |
-| [Randomized and low-rank approximation](randomized-and-low-rank-approximation/README.md) | 21 |
-| [Tensor computations](tensor-computations/README.md) | 14 |
+| [Linear systems and elimination](linear-systems-and-elimination/README.md) | 19 |
+| [Eigenvalues and inverse problems](eigenvalues-and-inverse-problems/README.md) | 20 |
+| [Matrix functions and stability](matrix-functions-and-stability/README.md) | 19 |
+| [Randomized and low-rank approximation](randomized-and-low-rank-approximation/README.md) | 25 |
+| [Tensor computations](tensor-computations/README.md) | 15 |
 | [Nonnegative and positive factorizations](nonnegative-and-positive-factorizations/README.md) | 12 |
 | [Matrix inequalities and norms](matrix-inequalities-and-norms/README.md) | 17 |
 | [Frames and matrix designs](frames-and-matrix-designs/README.md) | 10 |
@@ -76,6 +76,8 @@ Suggestions and corrections should identify the problem ID and a primary
 reference, particularly when reporting a solution or a missing assumption.
 
 The [additional-problems screen](proof/ADDITIONAL-PROBLEMS-SCREEN.md) maps all 43 supplied candidates: 22 new entries, 15 duplicates, one grouped stronger formulation, and five withheld or excluded candidates.
+
+The [further literature expansion](proof/LITERATURE-EXPANSION-2026-09.md) adds 12 problems on iterative methods, spectral perturbation, matrix equations, randomized approximation, and tensor energy computations, with precise source locators and later-status checks.
 
 ## Editing and PDF generation
 

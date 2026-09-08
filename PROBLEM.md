@@ -40,9 +40,14 @@ inactive formalization track.
   needs more evidence, and resolved/rejected historical problems.
 - A durable progress record giving the actual count against the target of 1,000.
 
-The category organization and Markdown/LaTeX/PDF export are complete. The latest
-completed request was to incorporate the user's `ADDITIONAL_PROBLEMS.md` proposal, containing
-43 candidates, into the then 125-entry collection, yielding 147 admitted entries.
+The latest literature-expansion request added 12 problems to the 147-entry
+catalog, giving 159 admitted statements; see the
+[further source screen](proof/LITERATURE-EXPANSION-2026-09.md). It prioritized
+core NLA and retained all three document formats without a numerical quota.
+
+The category organization and Markdown/LaTeX/PDF export are complete. The
+preceding request incorporated the user's `ADDITIONAL_PROBLEMS.md` proposal,
+containing 43 candidates, into the then 125-entry collection, yielding 147 entries.
 The [complete disposition screen](proof/ADDITIONAL-PROBLEMS-SCREEN.md) records all
 43 outcomes. For further additions, compare complete statements
 against the current catalog, check source fidelity and later resolutions, add
