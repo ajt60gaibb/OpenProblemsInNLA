@@ -99,3 +99,20 @@ current entry. Every pair of ratings has a short rationale.
 ## Contributing
 
 Suggestions, references and corrections are welcome through [GitHub issues](https://github.com/ajt60gaibb/OpenProblemsInNLA/issues) and pull requests. See [CONTRIBUTING.md](CONTRIBUTING.md) for admission criteria, editing and PDF generation, and the [correction or resolution template](.github/ISSUE_TEMPLATE/correction_or_resolution.md) for reporting a solution. A closed issue is not a mathematical status label; the canonical entry and indexes show whether a problem is solved.
+
+## Citing this collection
+
+If you use this collection, please cite:
+
+```bibtex
+@misc{townsend2026openproblemsnla,
+  author = {Townsend, Alex},
+  title  = {{Open Problems in Numerical Linear Algebra}},
+  year   = {2026},
+  url    = {https://github.com/ajt60gaibb/OpenProblemsInNLA},
+  note   = {GitHub repository}
+}
+```
+
+Include your access date or the commit used when referring to a particular version.
+For an individual problem, give its ID and cite the original sources listed in the entry as well.
