@@ -6,8 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open in general; several dimension and interval cases proved.  
-**Last checked:** 2026-09-08  
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects an all-dimensions rank structure for global spread maximizers; community impact is an extremal spectral problem for entry-bounded symmetric matrices.
 
 ## Problem statement
 
@@ -46,7 +48,7 @@ L. Gonzalez-Vega, J. R. Sendra, and J. Sendra,
 [*On the maximal spread of symmetric Bohemian matrices*](https://arxiv.org/abs/2510.15919),
 2025, §1 (displayed Fallat–Xing conjecture), §§3.2, 7–8, and §10.
 
-## Status check
+## Earlier status check — 2026-09-08
 
 Version 1 of the 2025 paper is the latest listed version checked. It proves
 the conjecture for all $a\in(-1,1)$ when $2\le n\le7$, and for $a=0$
@@ -57,3 +59,7 @@ confirms the finite computational ranges. Searches for `Fallat Xing spread
 conjecture proof 2026` and later maximal-spread papers found no general
 resolution. Restricting entries to interval endpoints alone is already known
 and is not counted separately.
+
+## Audit update — 2026-09-10
+
+Rechecked [Corless and collaborators](https://arxiv.org/html/2510.15919), especially the proved cases and conclusion. The conjecture holds for all displayed interval parameters through order seven, with additional $a=0$ dimensions, but the general all-orders statement remains open. Spread/rank-two searches found no subsequent completion. The status now explicitly records these substantive proved ranges rather than describing the entire entry simply as open.

@@ -3,7 +3,10 @@
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
 **Topic:** Finite-precision Krylov methods.  
-**Last checked:** 2026-09-08
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Extreme reflects a general finite-precision guarantee for exactly n CG steps, beyond standard exact-arithmetic termination; community impact is a foundational reliability question for Krylov solvers.
 
 This fixes an implementation and arithmetic model for the precision question in the cited workshop report. These conventions are an editorial specialization of its question, not an additional conjecture quoted from the authors.
 
@@ -65,3 +68,7 @@ Checked workshop v3, which explicitly retains Problem 2.17 in its August 2026 up
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
 <!-- /navigation -->
+
+## Audit update — 2026-09-10
+
+Rechecked [the August 2026 workshop revision](https://arxiv.org/html/2602.05394v3), Problem 2.17. It still asks the required precision question. CG backward-accuracy and finite-precision searches located no sharp answer for the explicitly fixed arithmetic model here; those implementation conventions remain an editorial specialization rather than a verbatim source claim.

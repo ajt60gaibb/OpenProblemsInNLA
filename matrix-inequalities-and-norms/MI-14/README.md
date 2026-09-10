@@ -3,7 +3,10 @@
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
 **Provenance:** explicit conjecture  
-**Last checked:** 2026-09-08
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10
+
+**Rating rationale:** Uniform control of the full commutator spectrum is a major strengthening of established norm bounds; it connects Sylvester operators with geometric matrix inequalities.
 
 ## Problem statement
 
@@ -27,9 +30,11 @@ This bounds sums of squared singular values of the commutator map $Y\mapsto XY-Y
 2. J. Ge, F. Li, Z. Tang, and Y. Zhou, *A survey on the DDVV-type inequalities*, Advances in Mathematics (China) 53 (2024), 449–467: published Conjecture 4.6 and Theorems 4.1–4.2, pp.463–464. These are Conjecture 4.14 and Theorems 4.17–4.18 in [arXiv:2402.01085v1](https://arxiv.org/html/2402.01085v1). [Published PDF](https://ccj.pku.edu.cn/Article/DownLoad?id=374327987&type=ArticleFile).
 3. Z. Liu, *The Lu–Wenzel Spectral Conjecture for Square-Zero Matrices*, Zenodo record 21693383, abstract. [Author's preprint record](https://zenodo.org/records/21693383).
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
 Both arXiv sources remain v1. The published survey retains the conjecture and records the normal, rank-one, and $n=2,3$ cases. Liu's record claims the additional class $X^2=0$ and scalar translates; its abstract does not claim the unrestricted assertion. That record's displayed publication date and July 2026 creation metadata differ, so no priority date is inferred from it. Searches used `Lu-Wenzel conjecture proof 2026`, `Lu Wenzel conjecture solved`, and `Lu-Wenzel spectral conjecture`. No general resolution was located. Equivalent majorization and fundamental-commutator formulations, and the real restriction, are grouped in this entry.
+
+**Audit update (2026-09-10):** Rechecked the 2024 survey’s Conjecture 4.14 and special-case discussion, and searched for later Lu–Wenzel spectral results. The normal, rank-one and low-order cases are within the displayed target; the square-zero preprint claims only another restricted class. This is a bounded literature check, not a proof that no solution exists.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

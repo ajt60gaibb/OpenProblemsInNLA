@@ -6,8 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** open in the historical source; no resolution found in the bounded later search below.  
-**Last checked:** 2026-09-08  
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects interacting fill-in and pivot choices across arbitrary unequal bandwidths; specialist impact is a sharp stability classification for banded elimination.
 
 ## Problem statement
 
@@ -42,6 +44,10 @@ This asks how unequal bandwidths affect worst-case element growth in banded line
 
 N. J. Higham, [*Accuracy and Stability of Numerical Algorithms*, second edition](https://doi.org/10.1137/1.9780898718027), SIAM (2002), Problem 9.15(a), p. 193; definitions and Theorem 9.11, pp. 172–173. Z. Bohte, [*Bounds for Rounding Errors in the Gaussian Elimination for Band Systems*](https://doi.org/10.1093/imamat/16.2.133), J. Inst. Maths. Applics. 16 (1975), 133–142.
 
-## Status check
+## Earlier status check — 2026-09-08
 
 The book's problem was checked directly. Its wording omits the field; this entry adopts $\mathbb C$ from its referenced Theorem 9.11. Searches for `Higham 9.15 growth`, `growth factor lower bandwidth upper bandwidth`, and `Bohte Gaussian 1975` found no general unequal-bandwidth solution. Shah–Urschel's [August 31, 2026 revision](https://arxiv.org/html/2608.19189v4), Theorems 2.2–2.3, studies sparsity constraints without determining this extremal function. No recent explicit reaffirmation of this particular question's openness was located; the status rests on the original question and this bounded later-literature check.
+
+## Audit update — 2026-09-10
+
+Higham's [Problem 9.15(a)](https://pages.stat.wisc.edu/~bwu62/771/hingham2002.pdf), p. 193, remains the explicit historical source. Unequal-bandwidth and sharp-growth searches, including the [August 2026 complete-pivoting manuscript](https://arxiv.org/html/2608.19189v4), did not identify a sharp answer for this partial-pivoting sparsity pattern. This is a bounded historical-source assessment, without a recent explicit reaffirmation.

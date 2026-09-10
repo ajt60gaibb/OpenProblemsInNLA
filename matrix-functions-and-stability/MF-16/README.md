@@ -2,8 +2,10 @@
 
 **Topic:** Structured nonlinear matrix equations.  
 **Difficulty:** challenging  
-**Importance:** interesting to the community  
-**Last checked:** 2026-09-08
+**Importance:** interesting to specialist  
+**Rating rationale:** Challenging because uniqueness must hold for words of unbounded length despite higher-dimensional failures; specialist impact reflects the surviving two-letter, order-two setting.  
+**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
 
 ## Problem statement
 
@@ -30,6 +32,10 @@ The question concerns whether a structured nonlinear matrix equation has a singl
 ## Status check
 
 On 2026-09-08, searched the titles, “symmetric word equations”, “Conjecture 11.5”, “2 × 2”, “two-by-two”, “uniqueness”, “counterexample”, and 2025–2026. No order-two resolution was located. Armstrong–Hillar refute unrestricted uniqueness in dimensions at least three, while explicitly retaining the order-two conjecture; their special order-two theorem and known bounded-degree results do not cover every word. No recent explicit reaffirmation was found. The statement deliberately records the source-backed two-letter problem rather than presuming that the paper's comments about reducing complex matrices to real matrices cover arbitrarily many fixed letters.
+
+## Audit — 2026-09-10
+
+Rechecked [Armstrong–Hillar, Theorem 11.4 and Conjecture 11.5](https://arxiv.org/pdf/math/0507306). The nontrivial word $XBX^2B^3X^2BX$ is settled in order two, but arbitrary words remain open. Title and order-two uniqueness searches found no full resolution. Existence alone is not the reason for the partial-resolution tag.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

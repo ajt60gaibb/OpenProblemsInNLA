@@ -1,10 +1,11 @@
 # RA-05 — Sharp joint rank and accuracy dependence for strong $\ell_p$ subspace coresets
 
-**Difficulty:** hard  
+**Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Last checked:** 2026-09-08
+**Rating rationale:** Challenging because simultaneous control of all subspaces must match joint rank and accuracy lower bounds; community impact is compact robust low-rank fitting.  
+**Last checked:** 2026-09-10  
 
-**Status:** source-stated open question; no resolution found in screening on 2026-09-08.
+**Status:** Open  
 
 Fix a real $p>2$. For $A\in\mathbb R^{n\times d}$, with rows $a_i^T$, and a linear subspace $F\subseteq\mathbb R^d$, define
 $$
@@ -36,6 +37,10 @@ Such a coreset permits subsequent robust low-rank fitting on a much smaller weig
 ## Status check — 2026-09-08
 
 Searched “strong coresets subspace approximation p greater than 2 epsilon 2026” and the exact 2026 title; checked the latest arXiv v2 of August 27, 2026. No later resolution was found. The target comes from the remaining question in that paper, rather than its already improved predecessor bounds.
+
+## Audit — 2026-09-10
+
+Rechecked [Lin–Mirrokni–Woodruff, §1.4](https://arxiv.org/html/2608.26047v2) and the August 27 version record. The joint $k,\varepsilon$ gap remains explicit. Strong-coreset follow-up searches found no resolution. Difficulty was raised because the target concerns all input matrices and requires a new uniform sampling analysis.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

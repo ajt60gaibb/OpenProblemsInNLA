@@ -2,9 +2,11 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Last checked:** 2026-09-08
+**Status:** Open  
+**Last checked:** 2026-09-10
 
-**Status:** source-stated sharp-order open problem; no resolution found in screening on 2026-09-08.
+**Rating rationale:** The sharp uniform Fourier sampling rate is a longstanding barrier at the interface of harmonic analysis, sparse recovery and fast numerical sketches.
+
 
 Let $F_N\in\mathbb C^{N\times N}$ be the unitary cyclic discrete Fourier matrix,
 $$
@@ -29,9 +31,11 @@ Fast multiplication by Fourier sketches is valuable in large least-squares and s
 2. I. Haviv and O. Regev, *The Restricted Isometry Property of Subsampled Fourier Matrices*, SODA 2016; Geometric and Functional Analysis 27 (2017), pp. 119–142. Main restricted-isometry theorem. [Paper](https://arxiv.org/abs/1507.01768).
 3. A. S. Bandeira, M. E. Lewis, and D. G. Mixon, *Discrete uncertainty principles and sparse signal processing*, Journal of Fourier Analysis and Applications 24 (2018), pp. 935–956. Theorem 16 gives a Fourier sampling lower bound under stated divisibility hypotheses. [Paper](https://arxiv.org/abs/1504.01014).
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
 Searched “subsampled Fourier RIP sharp logarithmic 2025 2026”, “cyclic Fourier RIP lower bound”, and the exact upper-bound title; checked current arXiv records. No uniform sharp-order resolution was found. Bounds for partial circulant Gaussian operators and Boolean Walsh transforms concern different random matrices.
+
+**Audit update (2026-09-10):** Rechecked Haviv–Regev’s current record and searched for sharp cyclic Fourier RIP rates. The known upper bound leaves a logarithmic gap; Boolean Walsh lower bounds do not supply a uniform cyclic-group answer. This is a bounded literature check, not a proof that no solution exists.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

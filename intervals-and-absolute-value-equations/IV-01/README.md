@@ -6,9 +6,11 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** open; checked 2026-09-08  
+**Status:** Partially resolved  
 **Area:** structured matrices and interval linear algebra  
-**Last checked:** 2026-09-08  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects extending two-vertex certification through zero minors in arbitrary dimension; specialist impact is the efficient recognition of structured interval matrix families.
 
 ## Problem statement
 
@@ -45,7 +47,7 @@ Reliable Computing **22** (2016), 1–14, Conjecture 3.1, p. 7. Adm and Garloff,
 Acta Scientiarum Mathematicarum, published January 17, 2026, §3, especially
 the question following Theorem 3.2 and the discussion of admissible signatures.
 
-## Status evidence
+## Earlier status evidence — 2026-09-08
 
 The 2026 survey explicitly retains this question. It
 records positive results for strictly sign regular matrices, totally
@@ -55,3 +57,7 @@ $L_{ij}=U_{ij}$, if any, all have the same parity of $i+j$; fixed entries of
 both parities are allowed in the general question. It also records
 counterexamples when nonsingularity is omitted. Searches for sign-regular interval conjectures and subsequent
 2026 results found no resolution of the displayed implication.
+
+## Audit update — 2026-09-10
+
+Rechecked the [2026 survey](https://link.springer.com/article/10.1007/s44146-026-00223-y), §3, Theorems 3.2–3.3 and the intervening open question. Tridiagonal and certain signature classes, as well as the specified restrictions on fixed-entry parity, prove substantive subclasses even for $n\ge5$. The unrestricted nonsingular case remains explicitly open there. Searches for subsequent sign-regular interval certification results found no general resolution; the status now exposes these partial results.

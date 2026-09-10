@@ -6,9 +6,11 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** open; checked 2026-09-08  
+**Status:** Open  
 **Area:** complexity of piecewise linear systems  
-**Last checked:** 2026-09-08  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects a complexity classification for recognizing an exponential finite solution count; specialist impact concerns the solution geometry of absolute value equations.
 
 ## Context and notation
 
@@ -36,6 +38,10 @@ In particular, is this decision problem in $\mathsf P$, or can an $\mathsf{NP}$-
 
 Milan Hladík, [*Absolute value equations with $2^n$ solutions*](https://doi.org/10.1007/s11590-025-02251-z), Optimization Letters **20** (2026), 559–575, §2.3 and §7. The paper provides structural characterizations but explicitly leaves this recognition complexity open. Proposition 9 treats the subclass $\rho(|A|)<1$.
 
-## Status evidence
+## Earlier status evidence — 2026-09-08
 
 The version of record appeared October 6, 2025, in the April 2026 issue. Searches for the title with “complexity”, “solved”, and “2026”, and for “Hladík $2^n$ complexity”, found no subsequent classification. No separate arXiv version was located. The related result about more than $2^{n-1}$ solutions concerns a different threshold and does not settle this question.
+
+## Audit update — 2026-09-10
+
+Rechecked Hladík's [journal paper](https://link.springer.com/article/10.1007/s11590-025-02251-z), §2.3, which explicitly leaves maximum-count recognition open. Searches for later complexity results found no classification of the displayed problem. Its theorem on having more than $2^{n-1}$ solutions addresses a different threshold and does not solve exact $2^n$ recognition.

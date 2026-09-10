@@ -6,8 +6,9 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** open in the cited book; no subsequent resolution located.  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Challenging because convergence does not control comparison-matrix structure at each iterate; specialist impact concerns square-root algorithms for H-matrices.  
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10  
 
 ## Problem statement
 
@@ -45,3 +46,7 @@ structure preservation found no resolution. The recent
 [Bini–Iannazzo–Meini–Meng preprint](https://arxiv.org/html/2605.21679)
 (20 May 2026), §§3–4, treats M-matrices, a narrower class. The latest explicit
 open-problem evidence found for this assertion remains the 2008 book.
+
+## Audit — 2026-09-10
+
+Rechecked the [2026 M-matrix paper, §§4 and 4.2](https://arxiv.org/html/2605.21679): its normalized nonsingular M-matrix class has structure-preserving Newton iterates starting from $A$. This is a substantive subfamily of the displayed target. Searches for Higham's Problem 6.25 and H-matrix iterate preservation found no general answer; the surviving H-matrix question still has historical evidence.

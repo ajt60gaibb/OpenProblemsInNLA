@@ -6,8 +6,10 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Status:** open.  
-**Last checked:** 2026-09-08  
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Extreme reflects a uniform tail bound over adversarial matrix centers, beyond current average-case analysis; broad impact is justified by explaining the stability of a standard dense solver.
 
 ## Context and notation
 
@@ -32,8 +34,12 @@ This is a uniform smoothed-analysis question: the deterministic center may itsel
 
 ## References
 
-Spielman and Teng, [*Smoothed Analysis: An Attempt to Explain the Behavior of Algorithms in Practice*](https://www.cs.yale.edu/homes/spielman/PAPERS/focmSmoothed.pdf), §P6, Conjecture 16, p. 52 of the author PDF. Huang and Tikhomirov, [*Average-case analysis of the Gaussian elimination with partial pivoting*](https://doi.org/10.1007/s00440-024-01276-2), PTRF 189 (2024), introduction.
+Spielman and Teng, [*Smoothed Analysis of Algorithms and Heuristics: Progress and Open Questions*](https://www.cs.yale.edu/homes/spielman/PAPERS/focmSmoothed.pdf), §P6, Conjecture 16, p. 52 of the author PDF; in *Foundations of Computational Mathematics, Santander 2005* (2006), 274–342, [chapter DOI](https://doi.org/10.1017/CBO9780511721571.010). Huang and Tikhomirov, [*Average-case analysis of the Gaussian elimination with partial pivoting*](https://doi.org/10.1007/s00440-024-01276-2), PTRF 189 (2024), introduction.
 
-## Status check
+## Earlier status check — 2026-09-08
 
 Searches for `Exponential Stability of GEPP solved` and `Gaussian elimination smoothed analysis 2025 2026` found the average-case theorem, not this exponential tail bound. The 2026 Peca-Medlin butterfly paper also distinguishes average-case results from the still-unavailable full smoothed analysis. Randomizing the pivot rule is a different model.
+
+## Audit update — 2026-09-10
+
+The linked Spielman–Teng chapter was checked against the [author bibliography](https://www.cs.yale.edu/homes/spielman/SmoothedAnalysis/surveys.html): its title has been corrected in the reference, with Conjecture 16 unchanged. [Huang–Tikhomirov](https://link.springer.com/article/10.1007/s00440-024-01276-2) explicitly discusses the obstruction to extending its Gaussian result to arbitrary centers. Searches for exponential GEPP tails and subsequent smoothed-analysis results found no theorem with the displayed uniform quantifiers.

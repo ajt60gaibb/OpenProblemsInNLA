@@ -3,7 +3,9 @@
 **Topic:** Positivity of conventional matrix powers.  
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Last checked:** 2026-09-08
+**Rating rationale:** Challenging because nonsymmetric spectral powers require a sharp dimension-uniform positivity threshold; community impact concerns matrix functions and positive matrix dynamics.  
+**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
 
 ## Problem statement
 
@@ -42,6 +44,10 @@ This asks for the exact dimension-dependent threshold beyond which spectral matr
 ## Status check
 
 On 2026-09-08, checked the latest listed arXiv version and searched “generalized doubly nonnegative”, “critical exponent”, “2(n-2)”, “conjecture”, and 2025–2026. No resolution of Question 4.7 was located. The source proves existence of a finite threshold and $\mathrm{CE}_3=2$. The solved symmetric doubly nonnegative problem has threshold $n-2$ and concerns a smaller class; results for entrywise (Hadamard) powers concern a different operation. The special case $n=4$ and related integrality questions are included within this single target, not counted separately. No recent explicit reaffirmation was found.
+
+## Audit — 2026-09-10
+
+Rechecked [Han–Johnson–Paparella, Corollary 4.5 and Question 4.7](https://arxiv.org/pdf/1407.7059). The $n=3$ equality is proved; the all-dimensions formula remains posed. Generalized-DN critical-exponent searches found no later resolution. The [published record](https://doi.org/10.1080/03081087.2016.1223009) confirms the 2017 article; symmetric and entrywise-power theorems do not settle it.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

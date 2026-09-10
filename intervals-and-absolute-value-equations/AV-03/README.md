@@ -6,9 +6,11 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Status:** open; checked 2026-09-08  
+**Status:** Open  
 **Area:** algorithms for piecewise linear systems and complementarity  
-**Last checked:** 2026-09-08  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Extreme reflects the longstanding polynomial-time barrier for P-matrix complementarity in an equivalent regular AVE form; broad impact spans optimization, complexity, and piecewise linear systems.
 
 ## Context and notation
 
@@ -40,6 +42,10 @@ Milan Hladík, Hossein Moosaei, Fakhrodin Hashemi, Saeed Ketabchi, and Panos M. 
 
 This is the AVE formulation of the polynomial-time P-matrix linear complementarity problem; it is counted once. Michaela Borzechowski, John Fearnley, Spencer Gordon, Rahul Savani, Patrick Schnider, and Simon Weber, [*Two Choices Are Enough for P-LCPs, USOs, and Colorful Tangents*](https://doi.org/10.4230/LIPIcs.ICALP.2024.32), ICALP 2024, §1, explicitly retain that algorithmic question.
 
-## Status evidence
+## Earlier status evidence — 2026-09-08
 
 The survey appeared online August 8, 2025. Borzechowski et al.'s latest [arXiv version](https://arxiv.org/abs/2402.07683) is v2, May 21, 2024. Searches for “P-matrix linear complementarity 2026 polynomial-time” and “P-LCP solved polynomial algorithm” found no solution. E.-Nagy and Végh's [June 30, 2026 revision](https://arxiv.org/html/2605.10701v2), abstract and §6, gives an algorithm whose complexity also depends on an optimized handicap number; it does not give the required polynomial bound in input length alone.
+
+## Audit update — 2026-09-10
+
+Rechecked the [2025 survey](https://link.springer.com/article/10.1007/s10589-025-00717-5), §2.4.2, and [E.-Nagy–Végh's 2026 handicap reduction](https://arxiv.org/html/2605.10701v2). The latter's complexity also depends on its handicap parameter, so it does not establish a bound polynomial solely in the displayed input length. P-LCP/regular-AVE polynomial-time searches found no such algorithm or matching resolution.

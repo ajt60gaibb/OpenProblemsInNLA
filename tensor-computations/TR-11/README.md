@@ -2,7 +2,9 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Last checked:** 2026-09-08
+**Rating rationale:** Extreme because the target is a classification across all formats and strictly subcritical ranks, with secant nondefectivity and exceptional families as obstacles; community importance is generic uniqueness of CP factors.  
+**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
 
 ## Statement
 
@@ -32,9 +34,9 @@ The conjecture specifies the range in which a generic low-rank tensor model has 
 2. The same authors, *An Algorithm for Generic and Low-Rank Specific Identifiability of Complex Tensors*, SIAM J. Matrix Anal. Appl. 35 (2014), 1265–1287. [DOI](https://epubs.siam.org/doi/10.1137/140961389); [primary preprint](https://arxiv.org/abs/1403.4157), Theorem 1.1, for the verified bounded-format classification.
 3. A. Massarenti and M. Mella, *Bronowski's conjecture and the identifiability of projective varieties*. [January 2024 primary revision](https://arxiv.org/pdf/2210.13524v3), abstract and §§3–4, for later conditional links between identifiability and nondefectivity.
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
-Reference 1 records verification for $\prod n_i\le15000$. The later Massarenti–Mella results reduce broad identifiability questions to secant nondefectivity under hypotheses; they are not a full classification of these formats. Searches `"generic identifiability" "conjecture" "2026" tensor`, `"Chiantini" "Vannieuwenhoven" "conjecture" "2025"`, and `"Chiantini" "Vannieuwenhoven" "conjecture" "2026"` located no full resolution. Status is bounded by those searches.
+Rechecked [Chiantini–Ottaviani–Vannieuwenhoven, Conjecture 6 and Remark 7](https://arxiv.org/pdf/1609.00123), including all six exceptions. The source records proof for formats with product of dimensions at most 15000. Targeted searches for later Segre identifiability and classification results found additional nondefectivity/identifiability bounds, but no unrestricted classification. The displayed family therefore has substantive proved cases and an unresolved general remainder; a fresh primary reaffirmation of the entire list was not located.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

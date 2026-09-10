@@ -6,8 +6,9 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open; Conjecture L1 in the source below  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Challenging because reducible families obstruct uniform perturbation estimates; community impact comes from conditioning and robustness of stability computations.  
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -58,3 +59,7 @@ radius” with “local Hölder”, “Lipschitz lower”, “trajectory bounds�
 names, and 2025/2026 found no later resolution. These searches supplement the
 explicit 2025 conjectures; they do not establish exhaustiveness. The three entries
 are separately named assertions in the source, not a count of dimensional cases.
+
+## Audit — 2026-09-10
+
+Rechecked [Epperlein–Wirth, §1 and Conjecture 3 (L1)](https://arxiv.org/html/2311.18633v2). Local Lipschitz continuity settles the irreducible-family subcase, but the displayed exponent for arbitrary compact families remains open. Author and local-Hölder follow-up searches found no resolution; the weaker general pointwise results do not suffice.

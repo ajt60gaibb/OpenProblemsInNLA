@@ -1,8 +1,10 @@
 # TR-16 — Monotonicity of the average number of critical rank-one approximations
 
 **Difficulty:** challenging  
-**Importance:** interesting to the community  
-**Last checked:** 2026-09-08
+**Importance:** interesting to specialist  
+**Rating rationale:** Challenging because a dimension comparison of Gaussian critical-point expectations needs control beyond the known integral formula; specialist importance concerns a particular statistic of rank-one approximation landscapes.  
+**Last checked:** 2026-09-10  
+**Status:** Open  
 
 ## Statement
 
@@ -32,9 +34,9 @@ Rank-one approximation algorithms navigate a landscape of stationary points. Thi
 1. J. Draisma and E. Horobeţ, *The average number of critical rank-one approximations to a tensor*, Linear Multilinear Algebra 64 (2016), 2498–2518. [DOI](https://doi.org/10.1080/03081087.2016.1164660); [primary preprint](https://arxiv.org/pdf/1408.3507), Conjecture 1.3, p.3; §1 defines the Gaussian average and Theorem 1.1 gives an integral formula.
 2. S. Friedland and G. Ottaviani, *The Number of Singular Vector Tuples and Uniqueness of Best Rank-One Approximation of Tensors*, Found. Comput. Math. 14 (2014), 1209–1242. [DOI](https://doi.org/10.1007/s10208-014-9194-z); [primary preprint](https://arxiv.org/pdf/1210.8316), Theorem 1, for the corresponding complex critical-point count.
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
-The latest originating arXiv revision (November 2, 2015) retains Conjecture 1.3. Searches `"critical rank-one" "monotonicity"`, `"Draisma" "Horobet" "Conjecture 1.3"`, and `"Draisma" "Horobet" "conjecture" proof stabilization` located no proof or counterexample. Constancy results for the complex count do not settle this real Gaussian expectation. No recent primary reaffirmation was located.
+Rechecked [Draisma–Horobeţ, Conjecture 1.3](https://arxiv.org/pdf/1408.3507), including the direction of the inequality, and searched by the authors, critical-rank-one counts and monotonicity. No proof or counterexample to the real Gaussian statement was located. The matrix case is excluded here, and stabilization of complex critical-point counts does not settle this expectation. No recent explicit primary reaffirmation was found.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

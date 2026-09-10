@@ -6,9 +6,10 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
+**Rating rationale:** Extreme because explicit superlinear tensor lower bounds remain far below generic quadratic behavior; broad importance is the construction of hard instances for bilinear computation and circuit lower bounds.  
 **Topic:** explicit lower bounds for tensor decompositions  
-**Last checked:** 2026-09-08  
-**Status:** open; admitted after a bounded literature search found no resolution.  
+**Last checked:** 2026-09-10  
+**Status:** Open  
 
 ## Context and notation
 
@@ -43,3 +44,7 @@ conjecture quoted from it. Searches for “explicit tensors
 superlinear rank 2026” and “explicit tensors superlinear border rank” located
 no quadratic construction; weaker semi-explicit constructions do not meet this
 statement. **Admitted: no resolution located.**
+
+## Status check — 2026-09-10
+
+Rechecked the [2025 Landsberg–Michałek paper](https://www.theoryofcomputing.org/articles/v021a013/v021a013.pdf), and searched for explicit superlinear or quadratic border-rank constructions. The July 2026 [Arithmetic circuit lower bounds from sumset expansion](https://arxiv.org/abs/2607.15848), also [ECCC TR26-138](https://eccc.weizmann.ac.il/report/2026/138/), gives semi-explicit tensors over number fields. That does not meet the displayed polynomial-time rational-output requirement. No qualifying quadratic construction was located.

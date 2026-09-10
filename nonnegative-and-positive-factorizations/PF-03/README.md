@@ -6,9 +6,10 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Status:** open; checked 2026-09-08  
+**Rating rationale:** Extreme because rational certificates on arbitrary boundary faces require new arithmetic control beyond interior geometry; community importance is exact certification in completely positive optimization.  
+**Status:** Partially resolved  
 **Area:** exact certificates for nonnegative symmetric factorization  
-**Last checked:** 2026-09-08  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -36,6 +37,7 @@ Rational matrices in the interior of $\mathcal{CP}_n$ have rational completely p
 
 Abraham Berman and Naomi Shaked-Monderer, [*Completely Positive Matrices over Sets*](https://cot.mathres.org/issues/COT202523.pdf), Communications in Optimization Theory (2025), article 23, §2, Question 2.1 and the explicit boundary Open Problem, p. 2. Mathieu Dutour Sikirić, Achill Schürmann, and Frank Vallentin, [*Rational factorizations of completely positive matrices*](https://doi.org/10.1016/j.laa.2017.02.017), Linear Algebra and its Applications **523** (2017), 46–51, Theorem 1.1. Max Pfeffer and José Alejandro Samper, [*The Cone of $5\times5$ Completely Positive Matrices*](https://link.springer.com/article/10.1007/s00454-023-00620-y), Discrete & Computational Geometry **71** (2024), 442–466, §6, Problem 6.3, discusses the order-five boundary.
 
-## Status evidence
+## Status check — 2026-09-10
 
-Searches for “rational completely positive 2026 boundary” and “completely positive rational 2025” located no general boundary resolution. Alexander Oertel and Achill Schürmann's [*Generalized Perfect Matrices*, latest arXiv v2](https://arxiv.org/html/2602.05841v2), submitted 2026-06-04, §6.1.1, still guarantees rational factors for interior matrices; its introduction describes the general rational-factorization algorithm conditionally on existence. Neither result resolves the displayed boundary question.
+Rechecked [Berman–Shaked-Monderer, §2](https://cot.mathres.org/issues/COT202523.pdf) and [Oertel–Schürmann v2, §6.1.1](https://arxiv.org/html/2602.05841v2), and searched for a 2026 boundary resolution. Rank-at-most-two and other specified boundary classes have rational factors, but the 2025 paper still poses the general boundary problem. The 2026 interior theorem does not resolve it. No full boundary construction or counterexample was located; unrestricted factor width is essential.
+

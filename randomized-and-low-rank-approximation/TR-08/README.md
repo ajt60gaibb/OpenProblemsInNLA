@@ -6,8 +6,9 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open problem in a preprint updated 2026-07-08.  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Challenging because a sharp lower-singular-value threshold needs both necessity and sufficiency; community impact is the sparsity cost of reliable randomized embeddings.  
+**Status:** Open  
+**Last checked:** 2026-09-10  
 
 ## Problem statement
 
@@ -28,3 +29,7 @@ Huang, Rudelson, and Tikhomirov, [*Well-Invertible Column Subsets of Sparse Matr
 ## Status check
 
 Searches included `"Optimal OSI sparsity" "2026"` and the paper title with `threshold`. No sharp threshold result was located. A sufficient condition from a two-sided embedding theorem would not on its own establish necessity here.
+
+## Audit — 2026-09-10
+
+Rechecked [Problem 7.2](https://arxiv.org/html/2607.05384v2) and [Tikhomirov's later paper](https://arxiv.org/html/2607.23017v1), which uses different aspect-ratio and randomness regimes. Threshold and sparse-rectangular-matrix searches found no sharp criterion for this fixed-column-sparsity model. A sufficient embedding result alone does not determine the target.

@@ -1,0 +1,136 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={IV-03 - Polynomial-size
+vertex test for inverse M-matrix
+intervals},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IV-03}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Intervals and absolute value equations\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Polynomial-size
+vertex test for inverse M-matrix intervals\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to specialist\par}
+{\sffamily\small\bfseries\color{accent}Status: Open\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Rating rationale:} Replacing an exponential interval test by a
+quadratic vertex family is challenging; verified inverse-positivity has
+specialist importance in interval matrix analysis.
+
+\textbf{Area:} interval linear algebra; structured matrices
+
+\subsection{Problem statement}\label{problem-statement}
+
+A real square matrix \(M\) is a nonsingular M-matrix if its off-diagonal
+entries are nonpositive, \(M\) is invertible, and \(M^{-1}\) is
+entrywise nonnegative. An inverse M-matrix is the inverse of such a
+matrix.
+
+For every \(n\ge1\), let \(L,U\in\mathbb R^{n\times n}\) satisfy
+\(L\le U\) entrywise, and set
+
+\[
+\mathcal A=\{A:L\le A\le U\},\qquad C=(L+U)/2,\qquad R=(U-L)/2.
+\]
+
+For \(i=1,\ldots,n\), let \(z^{(i)}\) have entry \(-1\) in position
+\(i\) and entry \(1\) elsewhere, and write
+\(D_i=\operatorname{diag}(z^{(i)})\).
+
+Is the following equivalence true?
+
+\[
+\begin{gathered}
+\bigl[\text{every }A\in\mathcal A\text{ is an inverse M-matrix}\bigr]
+\\\Longleftrightarrow\\
+\left[\begin{gathered}
+C+sD_iRD_j\text{ is an inverse M-matrix}\\
+\text{for every }i,j\in\{1,\ldots,n\}\text{ and }s\in\{-1,1\}
+\end{gathered}\right].
+\end{gathered}
+\]
+
+All entries in the interval vary independently, and degenerate intervals
+are allowed. The proposed test uses at most \(2n^2\) matrices; repeated
+test matrices are harmless. This would give a small exact certificate
+for a structured property needed in interval inversion and verified
+linear-system computation.
+
+\subsection{References}\label{references}
+
+Milan Hladík,
+\href{https://doi.org/10.1007/978-3-030-31041-7_16}{\emph{An overview of
+polynomially computable characteristics of special interval matrices}},
+in \emph{Beyond Traditional Probabilistic Data Processing Techniques},
+Springer (2020), pp.~295--310;
+\href{https://arxiv.org/pdf/1711.08732}{author preprint,
+arXiv:1711.08732v1}, §9, Conjecture 1, p.~11, with the vectors defined
+in Theorem 24.
+
+Jürgen Garloff, Doaa Al-Saafin, and Mohammad Adm,
+\href{https://reliable-computing.org/reliable-computing-28-pp-056-070.pdf}{\emph{Further
+Matrix Classes Possessing the Interval Property}}, Reliable Computing
+\textbf{28} (2021), 56--70, p.~64, paragraph immediately before IP 4.4.
+
+\subsection{Status check}\label{status-check}
+
+The 2021 paper explicitly retains this conjecture while proving a
+different sufficient vertex family of size \(2^{n-1}\). On 2026-09-10,
+searches combining the original title, inverse M-matrices, interval
+property, conjecture, and 2025/2026 found no resolution. Hladík's
+current publication list and the later interval-property paper were
+checked. This is a selected-source status check, not an exhaustive
+citation audit.
+
+\subsection{Independent audit ---
+2026-09-10}\label{independent-audit-2026-09-10}
+
+The full Hladík preprint, §9, Conjecture 1, agrees with the displayed
+two-sign vertex family, including the definition of each \(z^{(i)}\).
+Garloff--Al-Saafin--Adm, p.~64, expressly leaves that conjecture
+unresolved; its exponential family is a different test, not a resolution
+for a subclass here. Independent later searches for the exact conjecture
+and matrix class found no resolution.
+\end{document}

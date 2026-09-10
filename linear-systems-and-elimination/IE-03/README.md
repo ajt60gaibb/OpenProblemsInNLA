@@ -6,8 +6,10 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Status:** open.  
-**Last checked:** 2026-09-08  
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Extreme reflects a longstanding conjecture across every Hadamard order and pivot path; community impact comes from sharp complete-pivoting stability and its connection to Hadamard structure.
 
 ## Context and notation
 
@@ -35,6 +37,10 @@ N. J. Higham, [*Accuracy and Stability of Numerical Algorithms*,
 2nd ed.](https://doi.org/10.1137/1.9780898718027), SIAM (2002), Problem 9.17,
 p. 193, poses this book-sourced question. Kravvaritis and Mitrouli, [*The growth factor of a Hadamard matrix of order 16 is 16*](https://doi.org/10.1002/nla.637), NLA with Applications 16 (2009), 715–743, introduction and main result. Peca-Medlin, [*Complete pivoting growth of butterfly matrices and butterfly Hadamard matrices*](https://doi.org/10.1080/03081087.2026.2660796), 2026, introduction and §2.
 
-## Status check
+## Earlier status check — 2026-09-08
 
 Searches for `Hadamard Cryer 2026` and `Hadamard growth conjecture 2026 proof` found the general conjecture still identified as open in the 2026 butterfly paper. Shah–Urschel's August 2026 general elimination construction is not a Hadamard counterexample. Known Sylvester and small-order cases must not be counted as additional open problems.
+
+## Audit update — 2026-09-10
+
+The [2026 butterfly paper](https://www.tandfonline.com/doi/abs/10.1080/03081087.2026.2660796), §3, retains the general Hadamard conjecture while recording proofs for Sylvester-type matrices in all their orders and every Hadamard matrix of order at most 16. Hence the status now records partial resolution. Searches for Cryer/Hadamard growth and later complete-pivoting results found no general proof or counterexample; asymptotic bounds for unrestricted matrices do not settle this subclass.

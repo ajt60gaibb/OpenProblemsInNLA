@@ -1,0 +1,130 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={TR-21 - A
+Seginer theorem for arbitrary independent identically distributed tensor
+entries},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}TR-21}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Tensor computations\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}A
+Seginer theorem for arbitrary independent identically distributed tensor
+entries\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Rating rationale:} Obtaining a uniform bound without moment
+control needs substantial new random-tensor analysis. Sharp
+injective-norm estimates matter to the community working on tensor
+approximation and random multilinear algorithms.
+
+\subsection{Problem statement}\label{problem-statement}
+
+Fix an integer \(r\geq 3\). For integers \(n_1,\ldots,n_r\geq2\), let
+\(T\in\mathbb R^{n_1\times\cdots\times n_r}\) have independent
+identically distributed integrable real entries of mean zero. Its
+injective norm is \[
+\|T\|_{\mathrm{inj}}=
+\sup_{\|x_j\|_2=1,\ 1\leq j\leq r}
+|\langle T,x_1\otimes\cdots\otimes x_r\rangle|.
+\] Define the largest expected Euclidean fiber norm by \[
+F(T)=\max_{1\leq k\leq r}\mathbb E
+\max_{\substack{i_j\in\{1,\ldots,n_j\}\\j\ne k}}
+\left(\sum_{a=1}^{n_k}
+T_{i_1,\ldots,i_{k-1},a,i_{k+1},\ldots,i_r}^{\,2}\right)^{1/2}.
+\] Do constants \(0<c_r\leq C_r<\infty\), depending only on the order
+\(r\), exist such that \[
+c_rF(T)\leq\mathbb E\|T\|_{\mathrm{inj}}\leq C_rF(T)
+\] for every such format and entry distribution?
+
+This is Lucca--Pesenti's Conjecture 1.8, with its comparison notation
+written as explicit quantifiers. The entry distribution may depend on
+the dimensions. No variance normalization, finite higher moment,
+density, or dimension-independent moment-equivalence hypothesis is
+imposed. Integrability makes both expectations finite in every finite
+format. The matrix case \(r=2\) is Seginer's theorem and is included
+only as background.
+
+\subsection{Why it matters}\label{why-it-matters}
+
+The injective norm measures the largest interaction with a rank-one
+tensor. A fiber-based characterization would give sharp noise scales for
+random tensor approximation, including sparse distributions for which
+flattening and logarithmic losses can obscure the relevant scale.
+
+\newpage
+\subsection{References and status
+check}\label{references-and-status-check}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  K. Lucca and L. Pesenti, \emph{Norm Bounds for Sparse Random Tensors
+  and Spectral Gap of Random Hypergraphs},
+  \href{https://arxiv.org/html/2607.07308v1}{arXiv:2607.07308v1}, §1.3,
+  Conjecture 1.8; Assumption 1.6, Theorem 1.7, and Appendix B describe
+  the proved moment-restricted case.
+\item
+  Y. Seginer, \emph{The expected norm of random matrices},
+  Combinatorics, Probability and Computing \textbf{9} (2000), 149--166;
+  the matrix predecessor, identified in reference 26 of Lucca--Pesenti.
+\end{enumerate}
+
+\subsubsection{Status check ---
+2026-09-10}\label{status-check-2026-09-10}
+
+Checked Lucca--Pesenti v1, Conjecture 1.8, Theorem 1.7 and Proposition
+B.1, and targeted Seginer/tensor/2026 resolution searches. Their
+moment-restricted theorem proves the comparison for subclasses with
+fixed numerical moment-equivalence parameters; its constants otherwise
+depend on those parameters as well as the order. These are substantive
+proved subclasses, so the status is Partially resolved. The requested
+uniformity over arbitrary integrable distributions remains open,
+explicitly including centered Bernoulli entries with parameter \(1/n\).
+No full resolution was located. The matrix theorem and estimates with
+logarithmic losses do not settle the displayed target.
+\end{document}

@@ -6,8 +6,9 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** explicitly conjectured in the August 2026 source; checked 2026-09-08.  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Challenging because zeros change the feasible infinitesimal motions and defeat the positive-entry argument; specialist importance is a precise uniqueness test for size-two PSD factors.  
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -64,3 +65,7 @@ strictly positive. Lemma 19 identifies local and global rigidity in the stated
 rank class, so omitting the equivalent local condition does not weaken the
 source's remaining conjecture. Searches for the title, PSD rigidity with zeros,
 and later work found no resolution beyond this latest version.
+
+## Status check — 2026-09-10
+
+Rechecked [Dawson–Hoşten–Kubjas–Metsälampi v2, Theorem 2.2, Theorem 5.2 and its following conjecture](https://arxiv.org/html/2410.18891v2), and searched for later rigidity results with zero entries. The August 31, 2026 revision proves equivalence for strictly positive M and conjectures its extension to matrices with zeros. Those positive matrices are a proved part of the displayed target. No resolution of the zero-entry remainder was located.

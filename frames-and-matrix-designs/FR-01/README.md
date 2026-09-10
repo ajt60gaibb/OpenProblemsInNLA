@@ -2,9 +2,11 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Last checked:** 2026-09-08
+**Status:** Open  
+**Last checked:** 2026-09-10
 
-**Status:** source-stated open construction problem; no resolution found in screening on 2026-09-08.
+**Rating rationale:** Uniform efficient deterministic restricted isometries are a foundational derandomization barrier with consequences for sensing, algorithms and numerical approximation.
+
 
 Does a deterministic algorithm exist, with running time polynomial in $N$, which, for every pair of integers $N\geq2$ and $1\leq s\leq N$, constructs a matrix $A\in\mathbb R^{m\times N}$ satisfying
 $$
@@ -34,9 +36,11 @@ for an absolute $C$? This is the supplied ADD-022 quantitative formulation of th
 
 4. S. Rao, *Satisfying the restricted isometry property with the optimal number of rows and slightly less randomness*, introduction and Theorem 1.1. [Paper](https://arxiv.org/abs/2311.07889).
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
 Searched “deterministic RIP polynomial time nearly optimal 2025 2026”, “restricted isometry deterministic square root bottleneck 2026”, and current explicit sensing-matrix papers. The August 2026 paper *Compressed sensing matrices from orthogonal spaces over finite fields of odd characteristic* (arXiv:2608.23062) gives particular finite-field constructions and coherence bounds, not the displayed uniform nearly linear row count. No resolution was found for either target. Rao’s v2 theorem achieves optimal rows using randomness and does not settle the stronger deterministic formulation.
+
+**Audit update (2026-09-10):** Rechecked Rao v2: its optimal row count still uses randomness. Searches for deterministic RIP constructions through the audit date found no construction meeting either displayed target. This is a bounded literature check, not a proof that no solution exists.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

@@ -2,7 +2,9 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Last checked:** 2026-09-08
+**Rating rationale:** Challenging because local minimality of ED degree must be strengthened to a global comparison across all positive definite metrics; community importance concerns weighted approximation and partially symmetric tensor models.  
+**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
 
 ## Statement
 
@@ -28,9 +30,9 @@ The ED degree counts algebraic stationary solutions of weighted rank-one approxi
 1. K. Kozhasov, A. Muniz, Y. Qi, and L. Sodomaco, *On the minimal algebraic complexity of the rank-one approximation problem for general inner products*. [Primary text](https://arxiv.org/html/2309.15105v3), Conjecture 3.9; Theorem 3.12 and §4; [publication DOI](https://doi.org/10.1090/mcom/4176).
 2. J. Draisma, E. Horobeţ, G. Ottaviani, B. Sturmfels, and R. R. Thomas, *The Euclidean distance degree of an algebraic variety*, Found. Comput. Math. (2016). [Primary preprint](https://arxiv.org/pdf/1309.0049), §§1–2 for ED degree and §4 for average ED degree.
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
-The October 13, 2025 revision of reference 1 explicitly retains Conjecture 3.9. It proves local minimality for all these varieties and global minimality for matrices, binary symmetric tensors, and ternary symmetric cubics. Searches `"Frobenius" "ED degree" "conjecture" "2026"` and the exact paper title with `proof` located no general resolution. This bounded check distinguishes global minimality from the proved local theorem.
+Rechecked [Kozhasov et al. v3, Conjecture 3.9, Theorem 3.12 and §5](https://arxiv.org/html/2309.15105v3), and searched for a later general proof. Global minimality is proved for binary symmetric tensors and ternary symmetric cubics, which occur in this target; the matrix theorem concerns excluded order two. Local minimality is known generally but does not prove the requested global inequality. No full resolution was located.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

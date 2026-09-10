@@ -6,8 +6,10 @@
 
 **Difficulty:** hard  
 **Importance:** interesting to specialist  
-**Status:** open in the checked literature  
-**Last checked:** 2026-09-08  
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Hard reflects a focused uniqueness question for a known norm minimizer; specialist impact is the characterization of generalized inverses under induced norms.
 
 ## Problem statement
 
@@ -39,6 +41,10 @@ The norm measures the worst Euclidean solution amplification for right-hand side
 1. I. Dokmanić and R. Gribonval, *Beyond Moore–Penrose Part I: Generalized Inverses that Minimize Matrix Norms*, arXiv:1706.08349v2 (2017), §2.1 and §2.4 (right inverses and $A^\dagger$); §4.4, Corollary 4.2(3) and Remark 4.1, manuscript p. 18 (PDF page 18). [Preprint and version history](https://arxiv.org/abs/1706.08349). [PDF](https://arxiv.org/pdf/1706.08349).
 2. I. Dokmanić and R. Gribonval, [*Part II: The Sparse Pseudoinverse*](https://arxiv.org/abs/1706.08701), 2017, §2. Its entrywise-norm objective is different.
 
-## Status check
+## Earlier status check — 2026-09-08
 
 Checked the complete v2 statement and version history on 2026-09-08; v2, dated 2017-07-13, remains the latest arXiv version of Part I. Searches combined the authors, the paper title, “induced norm”, “p to 2”, “unique”, “uniqueness”, “generalized inverse”, and 2025/2026. The companion paper's sparse-inverse uniqueness results concern entrywise norms and generic inputs, not this induced-norm claim for every full-row-rank matrix. No later proof or counterexample was located. This bounded search does not certify that no resolution exists elsewhere.
+
+## Audit update — 2026-09-10
+
+The [author copy of Part I](https://dokmanic.ece.illinois.edu/assets/pdf/DokmanicG17aa.pdf), Corollary 4.2(3) and Remark 4.1 on printed p. 18, explicitly separates minimality from the remaining uniqueness question for $2<p<\infty$. Searches for later induced-$p$-to-2 uniqueness results found no resolution; Part II's sparse-inverse objectives do not supply this missing assertion.

@@ -3,7 +3,10 @@
 **Difficulty:** extreme  
 **Importance:** interesting to specialist  
 **Provenance:** explicit conjecture  
-**Last checked:** 2026-09-08
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10
+
+**Rating rationale:** The all-order assertion is a longstanding sharp permanent inequality; its immediate implications are concentrated in stochastic-matrix permanent theory.
 
 ## Problem statement
 
@@ -24,9 +27,11 @@ Mixing with the flat matrix is a basic averaging operation on stochastic matrice
 1. K.-W. Lih and E. T. H. Wang, *A convexity inequality on the permanent of doubly stochastic matrices*, Congressus Numerantium 36 (1982), 189–198. Original statement and order-three result; bibliographic attribution and formulation reproduced in reference 2, §1.
 2. D. K. Udayan and K. Somasundaram, *Lih Wang's and Dittert's conjectures on permanents*, Special Matrices 12 (2024), 20240006, §1, equation (3), Theorems 2.1–2.2. [Published full text](https://www.degruyterbrill.com/document/doi/10.1515/spma-2024-0006/html); [older arXiv v1](https://arxiv.org/abs/2312.00464).
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
 The arXiv record remains its December 2023 v1, but the May 2024 published paper has materially narrower claims than that preprint's abstract. Published Theorem 2.1 covers order four; Theorem 2.2 covers only certain order-six matrices and $t\in[0.7836,1]$. The general-dimensional assertion survives. Searches used `Lih Wang conjecture 2026 permanent`, `Lih-Wang permanent counterexample proof 2025 2026`, and the exact journal title. No full resolution was located. The full journal theorem statements were read; the 1982 paper was traced through their references. The failed extension to all $t\in[0,1]$ is a different assertion.
+
+**Audit update (2026-09-10):** Rechecked the published Theorems 2.1–2.2, rather than substituting the broader preprint abstract, and searched for later Lih–Wang resolutions. Order four and the restricted order-six result leave the general target unresolved. This is a bounded literature check, not a proof that no solution exists.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

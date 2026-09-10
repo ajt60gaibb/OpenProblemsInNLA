@@ -2,8 +2,10 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to specialist  
-**Status:** explicit conjectured inequality; no later resolution located  
-**Last checked:** 2026-09-08
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10
+
+**Rating rationale:** The all-block-count inequality is a longstanding permanent conjecture; its immediate payoff is the specialized theory of PSD block permanents.
 
 For a square matrix $C$ of order $r$, write
 $$
@@ -28,8 +30,10 @@ always hold?
 - F. Zhang, *An update on a few permanent conjectures*, Special Matrices 4 (2016), 305–316, discussion of Marcus's permanent-of-permanents conjecture ([primary manuscript](https://arxiv.org/pdf/1608.02844); [journal](https://doi.org/10.1515/spma-2016-0030)).
 - E. H. Lieb, *Proofs of some Conjectures on Permanents*, Journal of Mathematics and Mechanics 16 (1966), 127–134, the two-block inequality ([publisher's first page](https://iumj.s3-us-west-2.amazonaws.com/abstracts/16008_abs.pdf)).
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
  Wanless records this inequality as open and identifies Lieb's proof for $m=2$. Searches for “Marcus conjecture”, “permanent of permanents”, “block permanents”, “proof”, and 2025–2026 found no general resolution. This entry is specifically the inequality component: some historical formulations additionally conjecture an equality characterization. The trivial block sizes $m=1$ and $k=1$ are omitted, and no unqualified equality characterization is imported. Lieb's general permanental dominance conjecture would imply this assertion, but this is a separately stated historical conjecture.
+
+**Audit update (2026-09-10):** Rechecked Wanless Conjecture 3 and its following paragraph. The $m=2$ theorem and a real-matrix regime are partial cases; later searches for the permanent-of-permanents inequality found no unrestricted resolution. This is a bounded literature check, not a proof that no solution exists.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

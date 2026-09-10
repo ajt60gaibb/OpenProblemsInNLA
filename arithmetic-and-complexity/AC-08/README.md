@@ -4,11 +4,12 @@
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
 <!-- /navigation -->
 
-**Difficulty:** challenging  
+**Difficulty:** extreme  
 **Importance:** interesting to specialist  
+**Rating rationale:** Extreme because this universal binary-weight lower bound is a longstanding barrier in optimal addition-chain analysis; specialist importance is its role in proving and pruning minimum-multiplication powering algorithms.  
 **Topic:** lower bounds for multiplication-only powering  
-**Last checked:** 2026-09-08  
-**Status:** open; admitted after a bounded literature search found no resolution.  
+**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
 
 ## Context and notation
 
@@ -41,3 +42,7 @@ Searches for “Knuth Stolarsky conjecture 2026 proof” found no general resolu
 Bläser's Research Problem 2.10 is a discovery lead; this entry uses the explicit
 floor/ceiling formulation in the specialized sources. **Admitted: no resolution
 located.**
+
+## Status check — 2026-09-10
+
+Rechecked [Altman’s formulation and small-step results, thesis §4.4](https://hjaltman.github.io/thesis-FIXED.pdf), alongside the indexed 2018 journal text, and searched for later Knuth–Stolarsky resolutions. The conjecture is proved for small-step count at most three; the full inequality is not settled by those cases. No general proof or counterexample was located. The floor/ceiling convention is unchanged, and the later-status evidence is a bounded search without a new peer-reviewed general-status statement.

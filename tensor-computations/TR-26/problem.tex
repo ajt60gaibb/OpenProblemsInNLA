@@ -1,0 +1,130 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={TR-26 - Degrees
+of the two Rayleigh--Ritz discriminant parts for rational normal
+curves},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}TR-26}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Tensor computations\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Degrees
+of the two Rayleigh--Ritz discriminant parts for rational normal
+curves\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to specialist\par}
+{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Rating rationale:} Separating the isotropic and nonisotropic
+degree contributions requires substantial algebraic analysis beyond the
+known total. The result mainly interests specialists in conditioning of
+constrained eigenvalue problems.
+
+\subsection{Problem statement}\label{problem-statement}
+
+For every integer \(d\geq2\), use the specific rational normal curve \[
+C_d=\{[a^d:a^{d-1}b:\cdots:b^d]:[a:b]\in\mathbb P^1\}
+\subset\mathbb P^d.
+\] For a complex symmetric matrix \(H\) of order \(d+1\), consider
+\(\rho_H(z)=z^\top Hz/(z^\top z)\) on the part of \(C_d\) where
+\(z^\top z\ne0\). Transposes here do not conjugate.
+
+Let \(\mathcal R\) be the Zariski closure in
+\(C_d\times\mathbb P(\operatorname{Sym}_{d+1}(\mathbb C))\) of all pairs
+\(([z],[H])\) for which \([z]\) is a critical point of
+\(\rho_H|_{C_d}\). Choose homogeneous generators \(g_i\) of its ideal
+and let \[
+\mathcal B=\{([z],[H])\in\mathcal R:
+\operatorname{rank}(\partial g_i/\partial z_j)\leq d-1\}.
+\] Put \(Q=\{([z],[H]):z^\top z=0\}\) and let \(\pi\) project to the
+matrix factor. Define \[
+\Sigma_{\mathrm{iso}}=\pi(\mathcal B\cap Q),\qquad
+\Sigma_{\mathrm{noniso}}=\overline{\pi(\mathcal B\setminus Q)}^{\,\mathrm{Zar}}.
+\] Are these projective hypersurfaces with \[
+\deg\Sigma_{\mathrm{noniso}}=6(d-1),\qquad
+\deg\Sigma_{\mathrm{iso}}=2d?
+\] Degree refers to each reduced algebraic set, including all its
+components. The question is Conjecture 3.14 in the source. Both parts
+belong to one problem; the standard unweighted embedding and the
+bilinear quadratic form are fixed.
+
+\subsection{Why it matters}\label{why-it-matters}
+
+These discriminants locate parameter values at which constrained
+Rayleigh-quotient critical points collide or cease to form a reduced
+finite set. They describe degeneracy in a basic nonlinear analogue of
+matrix eigenvalue computations.
+
+\newpage
+\subsection{References and status
+check}\label{references-and-status-check}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  V. Borovik, H. Friedman, S. Hoşten, and M. Pfeffer, \emph{Numerical
+  Algebraic Geometry for Energy Computations on Tensor Train Varieties},
+  \href{https://arxiv.org/pdf/2512.06939v2}{arXiv:2512.06939v2}, §3.2,
+  Conjecture 3.14, pp.13--14; the correspondence and ramification
+  definitions are on pp.7--13.
+\item
+  The same paper, Proposition 3.10, proves the total discriminant degree
+  \(2(4d-3)\); Examples 3.12--3.13 compute small cases.
+\end{enumerate}
+
+\subsubsection{Status check ---
+2026-09-10}\label{status-check-2026-09-10}
+
+Checked the June 2026 revision, Proposition 3.10, Examples 3.12--3.13
+and Conjecture 3.14, and searched the title and rational-normal-curve
+Rayleigh--Ritz discriminants. Example 3.12 gives an explicit symbolic
+factorization for \(d=2\), with isotropic degree four and nonisotropic
+degree six; this is a proved small-degree case supporting Partially
+resolved. Example 3.13 also reports symbolic degree computation for
+\(d=3\). The separate numerical checks through \(d=10\) are evidence,
+not a general proof. The total-degree theorem alone does not determine
+the component split. No later general proof or counterexample was
+located.
+\end{document}

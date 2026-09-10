@@ -2,8 +2,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** explicit conjecture in a 2025 primary manuscript  
-**Last checked:** 2026-09-08
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects a stronger strict interlacing law than general compression interlacing supplies; community impact is spectral information across block Krylov iterations.
 
 Let $A\in\mathbb R^{n\times n}$ be symmetric and $V\in\mathbb R^{n\times p}$ have full column rank. Write
 $$
@@ -31,3 +33,7 @@ This would extend a scalar Lanczos property used to interpret later Ritz values 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
 <!-- /navigation -->
+
+## Audit update — 2026-09-10
+
+Rechecked the explicit conjecture and concluding discussion in the [2025 block-Lanczos manuscript](https://arxiv.org/html/2507.16484v1). Its block-width index ranges agree with this entry. Searches for later strict block-Lanczos interlacing proofs found no resolution; ordinary Cauchy interlacing is weaker than the displayed claim.

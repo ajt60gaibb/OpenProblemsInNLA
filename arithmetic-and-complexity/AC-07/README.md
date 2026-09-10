@@ -4,11 +4,12 @@
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
 <!-- /navigation -->
 
-**Difficulty:** challenging  
+**Difficulty:** extreme  
 **Importance:** interesting to specialist  
+**Rating rationale:** Extreme because the unrestricted inequality is a longstanding frontier of addition-chain theory despite many proved structured cases; specialist importance reflects the multiplication-only powering model.  
 **Topic:** multiplication counts for matrix powers  
-**Last checked:** 2026-09-08  
-**Status:** open; admitted after a bounded literature search found no resolution.  
+**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
 
 ## Problem statement
 
@@ -36,3 +37,7 @@ its result imposes additional conditions on an optimal addition chain.
 Searches for “Scholz Brauer conjecture proof 2026” and inspection of these
 sources found no proof or disproof of the unrestricted inequality.
 **Admitted: no resolution located.**
+
+## Status check — 2026-09-10
+
+Added [Wallner, The Decompressed Tree Size of k-Ary Chains, §7](https://doi.org/10.1007/s00026-026-00816-y), published April 2026, which still identifies Scholz–Brauer as an open conjecture. Searches for full proofs found structured-chain and almost-all-integer claims, not the universal result; [Agama’s 2024 introduction](https://eprint.iacr.org/2024/1199.pdf) recalls Brauer’s proved star-optimal subclass. Clift’s counterexample concerns equality, not this upper bound. The [2016 “First Conjecture” paper](https://doi.org/10.4236/am.2016.71006) concerns elementary binary-length bounds, a different statement.

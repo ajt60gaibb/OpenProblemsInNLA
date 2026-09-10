@@ -2,8 +2,10 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
+**Rating rationale:** Extreme because optimal adaptive information bounds remain unknown even across exponential tensor-order scales; community impact is reliable computation with tensor-structured matrix access.  
 **Topic:** Structured randomized trace estimation.  
-**Last checked:** 2026-09-08
+**Last checked:** 2026-09-10  
+**Status:** Open  
 
 Let $n,q\ge2$ be integers and $0<\varepsilon<1/2$. An unknown real symmetric PSD matrix $M\in\mathbb R^{n^q\times n^q}$ is accessible only through an exact oracle which, on input $v_1,\ldots,v_q\in\mathbb R^n$, returns
 
@@ -31,6 +33,10 @@ This is a precise query-complexity formulation of the source's request for tight
 ## Status check — 2026-09-08
 
 Checked the first paper's latest listed arXiv v2 (2025-02-13), §6, and its ICML publication record; checked the second paper's latest listed v2 (2025-01-31) and 2026 journal record. Searches for “Kronecker trace estimation tight 2026” and the exact first title found no solution for unrestricted adaptive algorithms. The available trace lower bound assumes both scalar quadratic-form queries and bounded query conditioning; it does not establish a lower bound for the unrestricted full-vector oracle defined here. The 2026 Hutchinson article establishes estimator-specific rates and therefore does not determine $Q$. The minimax definition and explicit parameter range are editorial formalization of a source-stated complexity question, not a quoted formula from the paper.
+
+## Audit — 2026-09-10
+
+Rechecked [Meyer–Swartworth–Woodruff, §6](https://arxiv.org/html/2502.08029v2) and the [2026 Hutchinson publication](https://doi.org/10.1137/24M1720895). Kronecker-trace-complexity searches found no unrestricted adaptive characterization. Conditioned scalar-query lower bounds and estimator-specific rates still do not settle the full-vector oracle.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

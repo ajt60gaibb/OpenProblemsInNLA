@@ -34,7 +34,7 @@ conjecture},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MI-13}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-08}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -50,11 +50,23 @@ conjecture},pdfauthor={Open Problems in Numerical Linear Algebra}}
 spectral-middle-factor commutator conjecture\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
-to the community\par}
+to specialist\par}
+{\sffamily\small\bfseries\color{accent}Status: Solved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
 \textbf{Provenance:} explicit conjecture
+
+\textbf{Resolution --- affirmative, 2026-09-10:} The exact statement
+follows from the established complex refined commutator inequality. The
+complete reduction is given below. This is a repository proof checked
+independently by two additional Codex agents; it has not received
+external peer review or Lean formalization. No claim of novelty is made.
+
+\textbf{Rating rationale:} The difficulty label is retained as the
+historical pre-resolution assessment; it is no longer an estimate of
+open work. The impact is a specific rectangular commutator inequality,
+hence specialist.
 
 \subsection{Problem statement}\label{problem-statement}
 
@@ -79,7 +91,6 @@ for products of rectangular matrices.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
   M. Nobori, \emph{A generalization of the Böttcher--Wenzel inequality
   for three rectangular matrices}, Linear Algebra and its Applications
@@ -91,18 +102,92 @@ for products of rectangular matrices.
   the \(q\)-deformed commutator}, arXiv:2608.03897v1 (2026), Theorem 1.1
   and §3. \href{https://arxiv.org/html/2608.03897v1}{Primary
   manuscript}.
+\item
+  K. M. R. Audenaert, \emph{Variance bounds, with an application to norm
+  bounds for commutators}, Linear Algebra Appl. 432(5) (2010),
+  1126--1143; preprint §7.4, Corollary 5, manuscript p.~25.
+  \href{https://arxiv.org/pdf/0907.3913}{Primary manuscript}.
 \end{enumerate}
 
-\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+\subsection{Resolution proof ---
+2026-09-10}\label{resolution-proof-2026-09-10}
 
-The original arXiv record remains v2, dated 3 July 2025. Its proved
-Theorem 1.1 places the spectral norm on \(C\) and the Frobenius norm on
-\(B\); that is a different assertion. The author's August 2026 paper
-treats two-factor expressions \(AB-qBA\), and does not claim this
-conjecture. Searches used \textit{Nobori Conjecture 3.1},
-\textit{three rectangular matrices conjecture proof}, and
-\textit{Nobori commutator spectral conjecture}. No resolution was
-located. The original conjecture and later theorem statements were
-inspected; the subscription journal body was not independently
-retrieved.
+Write \(s_2(X)=(\sigma_1(X)^2+\sigma_2(X)^2)^{1/2}\). The established
+complex refined commutator inequality is
+
+\[\|[X,Y]\|_F\le\sqrt2\,s_2(X)\|Y\|_F,
+\qquad X,Y\in\mathbb C^{r\times r},\quad r\ge2.\tag{1}\]
+
+This is Audenaert's Corollary 5, with the two arguments interchanged;
+his \(\|\cdot\|_2\) denotes the Frobenius norm and his
+\(\|\cdot\|_{(2),2}\) is \(s_2\). It also follows from Nobori's proved
+Theorem 1.1 by making its third matrix the identity. Neither route
+assumes Nobori's Conjecture 3.1.
+
+First suppose \(A,B,C\) are square of order \(r\). For every unitary
+\(U\),
+
+\[(AUC-CUA)U=[AU,CU].\]
+
+Unitary invariance and (1) therefore give
+
+\[\|AUC-CUA\|_F\le\sqrt2\,s_2(A)\|C\|_F.\tag{2}\]
+
+If \(\|B\|_2\le1\), choose a singular value decomposition \(B=P D Q^*\),
+with \(P,Q\) unitary and \(D\) real diagonal with entries in \([0,1]\).
+Define
+
+\[U_\pm=P\bigl(D\pm i\sqrt{I-D^2}\bigr)Q^*.\]
+
+Each diagonal entry of \(D\pm i\sqrt{I-D^2}\) has modulus one, so
+\(U_+\) and \(U_-\) are unitary and \(B=(U_++U_-)/2\). Linearity in
+\(B\), the triangle inequality, and (2) yield
+
+\[\|ABC-CBA\|_F
+\le\frac{\|AU_+C-CU_+A\|_F+\|AU_-C-CU_-A\|_F}{2}
+\le\sqrt2\,s_2(A)\|C\|_F.\]
+
+For arbitrary nonzero \(B\), apply this result to \(B/\|B\|_2\) and
+rescale. The case \(B=0\) is immediate. This proves the claimed
+unsquared bound for square matrices.
+
+For the rectangular case, put \(r=\max(m,n)\) and let
+\(E\in\mathbb C^{r\times m}\) and \(F\in\mathbb C^{r\times n}\) be
+coordinate inclusions, so \(E^*E=I_m\) and \(F^*F=I_n\). Set
+
+\[\widetilde A=EAF^*,\qquad
+\widetilde B=FBE^*,\qquad
+\widetilde C=ECF^*.\]
+
+These are square matrices of order \(r\), and
+
+\[\widetilde A\widetilde B\widetilde C-
+\widetilde C\widetilde B\widetilde A=E(ABC-CBA)F^*.\]
+
+The inclusions preserve Frobenius and operator norms and add only zero
+singular values. Thus \(s_2(\widetilde A)=s_2(A)\), including when the
+rank is below two. Apply the square result and square its nonnegative
+sides to obtain exactly
+
+\[\|ABC-CBA\|_F^2\le
+2\|B\|_2^2\bigl(\sigma_1(A)^2+\sigma_2(A)^2\bigr)\|C\|_F^2.\]
+
+This covers every displayed dimension and factor, without invertibility
+or reality assumptions. The constant two is attained for \(m=n=2\),
+\(A=\operatorname{diag}(1,-1)\), \(B=I_2\) and \(C=e_{12}\): both sides
+equal four.
+
+\subsection{Status evidence and verification
+scope}\label{status-evidence-and-verification-scope}
+
+Nobori's source still labels the target Conjecture 3.1. A bounded search
+found no separate published resolution, but the explicit argument above
+changes this catalog's status. The audit checked the complex field in
+(1), the norm conventions, unitary invariance, the two-unitary
+decomposition, scaling at \(B=0\), preservation of rectangular products
+and singular values, and sharpness. Two independent agent reviews
+accepted the reduction. The published commutator theorem is the external
+dependency; the new reduction is not a claim of an externally refereed
+theorem. The original target is retained and excluded from the open
+count.
 \end{document}

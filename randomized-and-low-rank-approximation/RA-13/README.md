@@ -6,7 +6,9 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Challenging because signed eigenvalue contributions require uniform extremal tail comparisons; community impact is rigorous trace estimates for indefinite matrices.  
+**Last checked:** 2026-09-10  
+**Status:** Open  
 
 ## Problem statement
 
@@ -66,3 +68,7 @@ The bound would quantify trace-estimation error even when positive and negative 
 Theorem 7 leaves its threshold unspecified. Checked 2026-09-08: the source still lists only v1. Author, title and 2025/2026 searches, including the [later XTrace paper](https://arxiv.org/abs/2512.02316), found no resolution. This is a bounded check.
 
 The displayed conjecture is retained despite a source prose inconsistency: its threshold tends to zero as $m\to\infty$, whereas the following sentence says it tends to $\phi$.
+
+## Audit — 2026-09-10
+
+Rechecked [Hallman, Theorem 7 and Conjecture 4](https://arxiv.org/html/2411.15454v1); the record remains v1. Author and extremal-Gaussian-trace searches found no resolution. The displayed formula matches the numbered conjecture; its inconsistent following prose remains disclosed, and no sharper threshold is claimed proved.

@@ -2,8 +2,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** explicit conjecture; no later resolution located  
-**Last checked:** 2026-09-08
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects an optimal off-diagonal perturbation bound for arbitrary separated spectral sets; community impact is a sharp guarantee for invariant-subspace stability.
 
 Let $A$ be a self-adjoint, possibly unbounded operator on a separable complex Hilbert space, with $\sigma(A)=\sigma\cup\Sigma$ for nonempty closed sets satisfying $d=\operatorname{dist}(\sigma,\Sigma)>0$. Let $P=E_A(\sigma)$. Suppose a bounded self-adjoint perturbation $V$ is off-diagonal relative to this decomposition:
 $$
@@ -28,3 +30,7 @@ The source retains the full operator setting, encompassing Hermitian block matri
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
 <!-- /navigation -->
+
+## Audit update — 2026-09-10
+
+Rechecked [Seelmann's account](https://arxiv.org/pdf/1412.6294) and the [2021 follow-up](https://files.ele-math.com/articles/oam-15-74.pdf). The proved sufficient constant above 0.694 remains below the conjectured threshold $\sqrt3/2$. Searches for subsequent off-diagonal optimal-threshold results found no general proof or counterexample. A smaller sufficient constant is progress but not a proved subfamily of the optimal-constant determination.

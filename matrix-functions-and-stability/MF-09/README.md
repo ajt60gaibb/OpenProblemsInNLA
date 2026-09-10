@@ -6,8 +6,9 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Status:** open; book question with subsequent-literature screening  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Extreme because termination at an unpromised strict threshold is a foundational decidability barrier; broad impact includes switched control and algorithmic matrix-product theory.  
+**Status:** Open  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -51,3 +52,7 @@ reduction was located. Some later literature summarizes the non-strict theorem
 as a generic stability impossibility; admission here follows its actual threshold.
 [MF-04](../MF-04/README.md) is a proposed finite-product property, whereas this entry asks for a decision
 procedure even if such a property fails.
+
+## Audit — 2026-09-10
+
+Rechecked the indexed text of [Jungers, Open Question 1](https://perso.uclouvain.be/raphael.jungers/sites/default/files/kcfinder/files/book.pdf) and strict-stability/decidability searches. No deciding algorithm or applicable undecidability theorem was located. [Daubechies–Lagarias' correction](https://websites.umich.edu/~lagarias/doc/corr-infprod.pdf) independently distinguishes the unresolved subunit test from the undecidable unit-threshold problem. Evidence remains historical and bounded.

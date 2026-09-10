@@ -2,9 +2,10 @@
 
 **Difficulty:** hard  
 **Importance:** interesting to specialist  
-**Last checked:** 2026-09-08
+**Rating rationale:** Hard because this is a focused spectral-gap refinement of an established Krylov bound; specialist impact reflects the source's assessment that its practical gain is limited.  
+**Last checked:** 2026-09-10  
 
-**Status:** source-stated conjecture; no resolution found in screening on 2026-09-08.
+**Status:** Open  
 
 Let $A\in\mathbb R^{n\times d}$ have singular values $\sigma_1\geq\sigma_2\geq\cdots$. Fix integers $1\leq b\leq k$, set $t=\lceil k/b\rceil$, and set $k'=bt\leq\operatorname{rank}(A)$. Define
 $$
@@ -38,12 +39,16 @@ The existing theorem instead depends logarithmically on every consecutive gap an
 
 ## References
 
-1. T. Chen, E. N. Epperly, R. A. Meyer, C. Musco, and A. Rao, *Does block size matter in randomized block Krylov low-rank approximation?*, arXiv:2508.06486v2. Section 5 states the conjecture; Section 3.3 gives the full quantitative Theorem 1.3, and Algorithm 1 fixes the algorithm. [Paper](https://arxiv.org/html/2508.06486v2).
+1. T. Chen, E. N. Epperly, R. A. Meyer, C. Musco, and A. Rao, *Does block size matter in randomized block Krylov low-rank approximation?*, SODA 2026, pp. 1026–1046 ([published paper](https://doi.org/10.1137/1.9781611978971.42)); arXiv:2508.06486v2. Section 5 states the conjecture; Section 3.3 gives the full quantitative Theorem 1.3, and Algorithm 1 fixes the algorithm. [Paper](https://arxiv.org/html/2508.06486v2).
 2. R. A. Meyer, C. Musco, and C. Musco, *On the Unreasonable Effectiveness of Single Vector Krylov Methods for Low-Rank Approximation*, SODA 2024, pp. 811–845, especially Theorem 4.5. [Paper](https://arxiv.org/abs/2305.02535).
 
 ## Status check — 2026-09-08
 
 Searched the exact 2025 paper title, “block Krylov b-th order gap conjecture”, and “randomized block Krylov clustered gaps 2026”; checked the current arXiv abstract/version record and Section 5. No proof or counterexample was found. Input perturbation results in Section 3.5 do not establish the unperturbed statement above.
+
+## Audit — 2026-09-10
+
+Rechecked [§5 of the latest arXiv v2](https://arxiv.org/html/2508.06486v2), which retains the clustered-gap conjecture, and added the [SODA 2026 publication](https://doi.org/10.1137/1.9781611978971.42), pp. 1026–1046. Clustered-gap and later low-rank-query searches found no resolution. Randomly perturbing the input changes the displayed target.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

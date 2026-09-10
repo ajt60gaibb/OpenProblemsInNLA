@@ -1,10 +1,12 @@
 # FR-09 — Complex equiangular tight frames with twice the dimension
 
 **Difficulty:** extreme  
-**Importance:** broadly interesting  
-**Last checked:** 2026-09-08
+**Importance:** interesting to the community  
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10
 
-**Status:** source-backed open problem; no resolution found in the bounded literature check.
+**Rating rationale:** All-dimension redundancy-two ETF existence is a difficult exact-design barrier; its direct impact is in frame theory, sensing and reconstruction.
+
 
 **Conjecture.** For every integer $d\ge2$, there exist $2d$ vectors $v_1,\ldots,v_{2d}\in\mathbb C^d$ satisfying
 $$
@@ -20,9 +22,13 @@ These are optimal line configurations at redundancy two: their coherence attains
 
 1. A. Glazyrin, *New constructions of optimal arrangements of $2d$ lines in $\mathbb C^d$*, August 2026, Conjecture 1 (attributed to Fallon and Iverson), and Sections 2–5 for constructions. [Paper](https://arxiv.org/abs/2608.16116).
 
-## Status check — 2026-09-08
+2. K. Fallon and J. W. Iverson, *On the optimal arrangement of $2d$ lines in $\mathbb C^d$*, Information and Inference 14(2) (2025), iaaf008. [Published paper](https://doi.org/10.1093/imaiai/iaaf008).
+
+## Status check — 2026-09-10
 
 Glazyrin explicitly retains the all-dimension conjecture while extending the known constructions. Searches for the Fallon–Iverson conjecture and later redundancy-two ETF results found no full resolution. Finite dimension verification and the new tensor/power constructions do not cover the universal statement.
+
+**Audit update (2026-09-10):** Rechecked Glazyrin’s Conjecture 1 and construction discussion, and searched for later Fallon–Iverson results. Added the original published conjecture source. Explicit families provide partial cases, not every dimension. This is a bounded literature check, not a proof that no solution exists.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

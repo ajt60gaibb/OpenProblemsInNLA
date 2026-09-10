@@ -3,9 +3,11 @@
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
 **Provenance:** source-stated conjecture.  
-**Last checked:** 2026-09-08
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10
 
-**Status:** no unrestricted resolution found in screening on 2026-09-08.  
+**Rating rationale:** The unrestricted square-root sparsity law is a central discrepancy conjecture with broad consequences for combinatorics, rounding and optimization.
+
 
 Does a finite universal constant $C>0$ exist such that the following holds for every pair of positive integers $m,n$, every integer $t$ with $1\leq t\leq m$, and every matrix $A=(a_{ij})\in\{0,1\}^{m\times n}$?
 If
@@ -26,9 +28,11 @@ The matrix is the incidence matrix of a set system: each element belongs to at m
 2. N. Bansal and H. Jiang, *Decoupling via Affine Spectral-Independence: Beck-Fiala and Komlós Bounds Beyond Banaszczyk*, arXiv:2508.03961v2 (2025), abstract and introductory results. [Paper](https://arxiv.org/abs/2508.03961).
 3. J. Beck and T. Fiala, *“Integer-making” theorems*, Discrete Applied Mathematics 3(1) (1981), pp. 1–8, the original bounded-column-sparsity discrepancy results. [Article](https://doi.org/10.1016/0166-218X(81)90022-6).
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
 checked 2607.14238v1 (2026-07-15), 2508.03961v2 (2025-09-09), and searches “Beck Fiala conjecture solved 2026 logarithmic sparsity” and “Online Beck Fiala Down to Logarithmic Sparsity”. The 2026 work reaches sparsities $t\geq(\log n)^{1+o(1)}$ in its notation translated to $n$ columns; it does not establish the assertion for all sparsities. Online lower bounds concern a more restrictive information model. No full resolution or withdrawal was found.
+
+**Audit update (2026-09-10):** Rechecked the July 2026 online/offline paper and searched for unrestricted Beck–Fiala results. It proves the offline target in a substantial sparsity regime, which is part of the displayed family, but leaves smaller sparsities unresolved. This is a bounded literature check, not a proof that no solution exists.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

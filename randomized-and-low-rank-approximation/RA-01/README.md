@@ -6,9 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
+**Rating rationale:** Challenging because a uniform near-optimal pivot count must exploit adaptive residual structure; community impact is efficient kernel and PSD matrix approximation.  
 **Topic:** randomized low-rank approximation; kernel matrices  
-**Last checked:** 2026-09-08  
-**Status:** open; admitted after a bounded literature search found no resolution.  
+**Last checked:** 2026-09-10  
+**Status:** Open  
 
 ## Context and notation
 
@@ -62,3 +63,7 @@ paper's title, `RPCholesky optimal r epsilon`, and `RPCholesky conjecture`
 found no subsequent resolution. The arXiv record listed only v1, posted
 August 21, 2026. The weaker dissertation Conjecture 11.1 is therefore
 excluded as resolved by this later preprint.
+
+## Audit — 2026-09-10
+
+Rechecked the [August 2026 conjecture after (1.5)](https://arxiv.org/html/2608.20633v1) and its current arXiv record, still v1. Optimal-pivot and RPCholesky follow-up searches found no resolution. The proved extra rank-dependent term does not establish the uniform $O(r/\varepsilon)$ target.

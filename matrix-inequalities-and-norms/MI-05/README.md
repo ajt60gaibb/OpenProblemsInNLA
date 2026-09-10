@@ -2,7 +2,10 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Last checked:** 2026-09-08
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10
+
+**Rating rationale:** This decades-old spectral enclosure conjecture for arbitrary normal pairs is a major matrix-theory barrier with consequences for determinant and spectral analysis.
 
 ## Problem statement
 
@@ -22,9 +25,11 @@ The conjecture would bound a determinant using only two spectra, even when the m
 2. N. Bebiano and J. P. da Providência, *Revisiting the Marcus–de Oliveira conjecture*, Mathematics 13(5) (2025), 711, §1. [DOI](https://doi.org/10.3390/math13050711).
 3. J. I. Mulero-Martínez, *A variational framework for determinantal inequalities of normal matrices: Successes and obstructions*, Linear Algebra and its Applications 740 (2026), 19–38; abstract and structured-class results. [DOI](https://doi.org/10.1016/j.laa.2026.03.019).
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
 The April 2026 preprint proposes a stronger conjecture rather than proving this one. The July 2026 journal paper explicitly describes the unrestricted conjecture as open and proves structured cases. Searches included `Marcus de Oliveira conjecture 2026 proof`, `Marcus Oliveira determinant counterexample`, and the exact 2026 titles. No complete proof or counterexample was located. Primary full text was checked for reference 1; reference 3's status evidence was its publisher abstract, not an independently audited proof.
+
+**Audit update (2026-09-10):** Rechecked Kovacec’s Conjecture 1 and the July 2026 publisher abstract of Mulero-Martínez, then searched for a full resolution. The latter explicitly retains the general conjecture while proving structured spectral classes. This is a bounded literature check, not a proof that no solution exists.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

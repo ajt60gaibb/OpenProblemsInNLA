@@ -6,9 +6,10 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
+**Rating rationale:** Extreme because it predicts minimal asymptotic complexity for every concise tight tensor; broad importance follows from consequences for matrix multiplication and exponential-time combinatorial algorithms.  
 **Topic:** complexity of structured tensor powers  
-**Last checked:** 2026-09-08  
-**Status:** open; admitted after a bounded literature search found no resolution.  
+**Last checked:** 2026-09-10  
+**Status:** Open  
 
 ## Context and notation
 
@@ -43,3 +44,7 @@ conjecture and gives a conditional consequence, not a refutation. K. Lee,
 (2026), Conjecture 1, retains the tight/concise formulation. Searches for
 “asymptotic rank conjecture proved 2026” found no resolution. Numerical evidence
 is not a proof. **Admitted: no resolution located.**
+
+## Status check — 2026-09-10
+
+Rechecked [Lee, Conjecture 1](https://arxiv.org/html/2601.08119v1) and [Björklund–Kaski](https://arxiv.org/abs/2310.11926), then searched for 2026 proofs and counterexamples. The tight/concise asymptotic-rank formulation remains explicitly conjectural. Its incompatibility with the Set Cover Conjecture is conditional and does not refute it. No unconditional full resolution was located; numerical rank estimates do not prove the universal limit.

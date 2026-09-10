@@ -6,8 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open in the checked literature  
-**Last checked:** 2026-09-08  
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects a sharp limit for the least singular value after adversarial row deletion; community impact includes random matrix theory and robust iterative solvers.
 
 ## Problem statement
 
@@ -41,6 +43,10 @@ The quantity measures the worst conditioning remaining after rows are discarded.
 1. S. Steinerberger, *Quantile-based Random Kaczmarz for corrupted linear systems of equations*, Information and Inference **12**(1) (2023), 448–465, §2.3, equation (8) and the following paragraph. [Published paper](https://doi.org/10.1093/imaiai/iaab029). [Author preprint](https://arxiv.org/abs/2107.05554), v1 (2021), §2.3, equation $(\diamond)$.
 2. E. Battaglia, J.-F. Cai, J. Chen, A. Ma, D. Needell, and T. Wu, *Quantile Randomized Kaczmarz for Streaming Linear Systems with Massart Noise*, arXiv:2608.27968v1 (2026), §1.1, discussion of Steinerberger's random-matrix heuristic and the distinction between static and streaming data; §5. [Preprint](https://arxiv.org/abs/2608.27968).
 
-## Status check
+## Earlier status check — 2026-09-08
 
 Checked the published formulation and the arXiv version history (2107.05554 has only v1), then searched the problem's title, the author's name with “subsingular”, and combinations of “trimmed/smallest singular value”, “quantile”, “Kaczmarz”, “heuristic”, “proof”, “2025”, and “2026”. The August 2026 streaming paper still describes the original estimate as a heuristic; its fresh-sample convergence bounds do not establish this static-matrix limit. No later proof or counterexample was located in this bounded search. That is a literature-status assessment, not a proof of openness.
+
+## Audit update — 2026-09-10
+
+Rechecked Steinerberger's [primary formulation](https://arxiv.org/pdf/2107.05554), §2.3, and the [2026 streaming follow-up](https://arxiv.org/html/2608.27968v1). Searches found no proof of the static proportional-deletion limit. Cai, Chen, Ma, and Wu's new [subsample-size theorem](https://doi.org/10.1137/25M1785678), SIAM J. Matrix Anal. Appl. 47 (2026), 802–823, concerns quantile estimation during QRK, a different asymptotic quantity.

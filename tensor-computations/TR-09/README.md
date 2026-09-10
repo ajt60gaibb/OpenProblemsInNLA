@@ -6,8 +6,9 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Status:** open; source published in 2026, with expressly partial progress in August 2026.  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Extreme because a uniform convergence guarantee must handle arbitrary smoothed factors, random initialization and near-exact recovery below quadratic overparameterization; broad importance includes nonconvex optimization and machine learning.  
+**Status:** Open  
+**Last checked:** 2026-09-10  
 
 ## Problem statement
 
@@ -30,6 +31,7 @@ using polynomially many exact real arithmetic operations in $n,r,\log(1/\varepsi
 
 Dionysis Arvanitakis, Vaidehi Srinivas, and Aravindan Vijayaraghavan, [*Open Problem: How Much Overparametrization Is Needed for ALS in Tensor Decomposition?*](https://proceedings.mlr.press/v336/arvanitakis26a.html), COLT 2026, PMLR 336, 7105–7110, §2, Open Problem 2 and the following probability clarification. Zhang et al., [*VALG: An Agentic System for ML Theory Research and Demonstrations on COLT 2026 Open Problems*](https://arxiv.org/html/2608.13060v1), §4.1.1, Theorem 4.1 and Discussion.
 
-## Status check
+## Status check — 2026-09-10
 
-Searches included `"ALS" "subquadratic" tensor 2026` and the exact COLT problem title. VALG reports $k=\Theta(r^{5/3}(\log r)^{5/2})$ under additional scale, interference, balance, smoothing, and dimension assumptions, and explicitly calls the result partial. That result does not resolve the general base-factor formulation. The source informally motivates well-conditioned factors but its displayed smoothed model permits arbitrary base factors; this entry follows that displayed quantifier. A future revision may distinguish a uniformly norm-bounded base model once a precise source formulation is identified.
+Rechecked the [COLT 2026 problem](https://proceedings.mlr.press/v336/arvanitakis26a.html) and [VALG, §4.1.1](https://arxiv.org/html/2608.13060v1), and searched for subquadratic ALS resolutions. VALG explicitly reports only partial progress, with $k=\Theta(r^{5/3}(\log r)^{5/2})$, adding scale, interference, balance, smoothing and dimension assumptions and using a proposal/landing/ALS pipeline. It is not a verified solution under every initialization and update convention displayed here; arbitrary base factors remain the decisive unresolved quantifier. No full resolution was located. The source informally motivates well-conditioned factors, but its displayed smoothed model permits arbitrary base factors; this entry preserves that quantifier.
+

@@ -6,8 +6,9 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open; explicit 2026 problem  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Challenging because multiplication complexity and uniform approximation must be optimized together; community impact comes from sign, projector, and polar computations.  
+**Status:** Open  
+**Last checked:** 2026-09-10  
 
 ## Problem statement
 
@@ -39,3 +40,7 @@ Amsel et al.,
 [Recursive expansion of the matrix step function using polynomials of degree eight](https://arxiv.org/html/2606.24701v1),
 §7 (June 2026), still identifies optimal recursive expansion as open. Its
 particular algorithm does not establish the unrestricted optimum above.
+
+## Audit — 2026-09-10
+
+Rechecked the [workshop's Problem 6.3](https://arxiv.org/html/2602.05394v3#S6.SS3) and the [degree-eight follow-up, §7](https://arxiv.org/html/2606.24701v1). Neither determines the unrestricted optimum. Searches for optimal sign approximation and recursive-expansion follow-ups found no resolution; this is a bounded literature check.

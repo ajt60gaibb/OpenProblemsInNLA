@@ -2,7 +2,9 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Last checked:** 2026-09-08
+**Rating rationale:** Extreme because excluding every further perfect identifiable format is a global classification problem; community importance comes from determining when generic tensor factors are uniquely recoverable at the dimension threshold.  
+**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
 
 ## Statement
 
@@ -25,9 +27,9 @@ This determines whether a decomposition algorithm can uniquely recover component
 1. J. D. Hauenstein, L. Oeding, G. Ottaviani, and A. J. Sommese, *Homotopy techniques for tensor decomposition and perfect identifiability*, J. reine angew. Math. 753 (2019), 1–22. [DOI](https://doi.org/10.1515/crelle-2016-0067); [primary preprint](https://arxiv.org/pdf/1501.00090), §1, equation (2) and Conjecture 1.3, p.3; Theorems 1.1–1.2 establish the two sporadic positive cases.
 2. A. Massarenti, M. Mella, and G. Staglianò, *Effective identifiability criteria for tensors and polynomials*, J. Symbolic Comput. 87 (2018), 227–237. [Author PDF](https://www.iris.unict.it/retrieve/dfe4d22d-829e-bb0a-e053-d805fe0a78d9/Massarenti__Mella__Staglian%C3%B2_-_Effective_identi%EF%AC%81ability_criteria_for_tensors_and_polynomials.pdf), §1, discussion of the Hauenstein et al. generic-identifiability conjecture.
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
-The latest originating preprint revision (November 9, 2016; journal publication 2019) retains Conjecture 1.3, while replacing its former symmetric analogue by Galuppi–Mella's theorem. Searches `"perfect identifiability" conjecture 2025 2026`, `"perfect formats" "conjecture" "2025" OR "2026"`, and `"Hauenstein" "identifiability" "conjecture" "2026"` located no resolution of this nonsymmetric statement. This is a bounded search without a new 2026 reaffirmation.
+Rechecked [Hauenstein et al., Theorems 1.1–1.2 and Conjecture 1.3](https://arxiv.org/pdf/1501.00090), and searched for later perfect-format classifications. The listed positive cases are proved, while exhaustiveness of the nonsymmetric list remains conjectural. The solved symmetric analogue does not imply this claim. No full resolution was located; the 2019 publication remains the latest explicit source checked for this exact classification.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

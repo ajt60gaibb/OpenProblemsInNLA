@@ -6,9 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open; checked 2026-09-08  
+**Rating rationale:** Challenging because all query choices must precede information about the target; community impact is parallel and pass-efficient structured matrix learning.  
+**Status:** Open  
 **Area:** nonadaptive matrix sketching  
-**Last checked:** 2026-09-08  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -43,3 +44,7 @@ Amsel et al., [*Query Efficient Structured Matrix Learning*](https://arxiv.org/h
 ## Status evidence
 
 Both sources explicitly ask whether adaptivity is necessary; the paper's August 21, 2026 revision retains the question. Searches for “finite matrix approximation adaptivity 2026” and the paper identifier with “non-adaptive” found no resolution. The abstract's linked finite-family improvement, Theorem 1.2, uses two rounds after receiving a constant-factor warm start: its left query vectors depend on the first round's answers. It does not supply the required nonadaptive algorithm.
+
+## Audit — 2026-09-10
+
+Rechecked [Amsel et al., §5](https://arxiv.org/html/2507.19290v2) and the [COLT 2026 record](https://proceedings.mlr.press/v336/amsel26a.html). The adaptivity question remains. Nonadaptive structured-learning searches found no resolution; the linked finite-family relative-error improvement still uses responses to choose later queries.

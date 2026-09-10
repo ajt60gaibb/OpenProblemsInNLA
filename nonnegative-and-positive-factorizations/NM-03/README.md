@@ -4,11 +4,12 @@
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
 <!-- /navigation -->
 
-**Difficulty:** extreme  
-**Importance:** broadly interesting  
+**Difficulty:** challenging  
+**Importance:** interesting to the community  
+**Rating rationale:** Challenging because rank two still requires a global complexity classification despite tractable special inputs; community importance comes from the basic gap between SVD approximation and constrained NMF.  
 **Topic:** low-rank approximation; computational complexity  
-**Last checked:** 2026-09-08  
-**Status:** open; admitted after a bounded literature search found no resolution.  
+**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
 
 ## Problem statement
 
@@ -42,13 +43,7 @@ Gillis, [*Nonnegative Matrix Factorization*](https://doi.org/10.1137/1.978161197
 Van Dooren, [*On rank-2 Nonnegative Matrix Factorizations and their variants*](https://arxiv.org/abs/2507.20612v1),
 §1, with §3's suboptimal approximation and §4's ANLS initialization.
 
-## Status check
+## Status check — 2026-09-10
 
-Searches for `rank two nonnegative matrix factorization
-approximation NP hard polynomial time 2025 2026` and `rank-2 NMF complexity
-2026` found no resolution. The July 2025 primary paper explicitly identifies
-rank two as an unresolved complexity case; its contribution is an effective
-initial approximation and heuristic refinement. The March 2026
-[constrained nonnegative Gram-feasibility preprint](https://arxiv.org/abs/2603.19976)
-concerns partially specified symmetric matrices with affine side constraints,
-which are absent from the problem above.
+Rechecked the [Lindy–Noferini–Van Dooren preprint](https://arxiv.org/abs/2507.20612v1) and [Noferini’s December 2025 seminar](https://www.gssi.it/seminars/seminars-2025/item/26061-nomads-seminar-rank-2-nonnegative-matrix-factorizations-and-their-variants?print=1&tmpl=component), which explicitly retains the rank-two complexity question. Inputs having a nonnegative best rank-two SVD approximation form a proved tractable subclass. Searches also found [Gouveia–Wiebe’s 2026 integer-factor problem](https://arxiv.org/abs/2602.05957); its integer factors and exact-rank input are different. The [2026 constrained Gram-feasibility hardness result](https://arxiv.org/abs/2603.19976) also has additional affine entry constraints and is not this unconstrained approximation problem. No unrestricted rational-input decision classification was located.
+

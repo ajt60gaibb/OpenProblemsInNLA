@@ -6,8 +6,9 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open conjecture; explicit journal source published in 2023.  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Challenging because extending the mean-divergence theorem requires controlling singular decomposition geometry beyond the existing identifiability hypothesis; community importance comes from average numerical conditioning of CP decomposition.  
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -41,6 +42,7 @@ for every admissible format and $r\ge2$. Rank two is already proved. The unresol
 
 Carlos Beltrán, Paul Breiding, and Nick Vannieuwenhoven, [*The Average Condition Number of Most Tensor Rank Decomposition Problems Is Infinite*](https://doi.org/10.1007/s10208-022-09551-1), *Foundations of Computational Mathematics* 23 (2023), 433–491: Definition 1, Assumption 1, equation (5), Theorems 1–2, and Conjecture 1. The [author preprint](https://arxiv.org/pdf/1903.05527) labels the conjecture 1.8.
 
-## Status check
+## Status check — 2026-09-10
 
-Searches included `"average condition number" "tensor" conjecture 2025 2026` and `"regular condition number" "tensor" "2026" conjecture proof`. No removal of the remaining hypothesis was located. The latest explicit conjecture located is the 2023 journal version.
+Rechecked the [journal version, Theorems 1–2 and Conjecture 1](https://doi.org/10.1007/s10208-022-09551-1), and searched for subsequent average-condition-number resolutions. Rank two and the higher-rank formats satisfying the theorem’s extra smaller-format identifiability assumption are proved portions of the displayed family; removing that assumption remains unresolved. No later general proof was located. The latest explicit conjecture checked remains the 2023 journal version, so the later-status evidence is a bounded search.
+

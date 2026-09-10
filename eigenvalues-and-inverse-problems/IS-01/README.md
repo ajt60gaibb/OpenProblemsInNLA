@@ -6,8 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open.  
-**Last checked:** 2026-09-08  
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects a global spectral-boundary description using a restricted combinatorial family; community impact connects stochastic matrices, inverse spectra, and convex geometry.
 
 ## Problem statement
 
@@ -41,10 +43,14 @@ Conjecture 2.7 and §6; published in *Experimental Mathematics* 31 (2022),
 936–945. Verbeken and Ginis, [ILAS 2026 abstract](https://ilas2026.math.vt.edu/docs/ILAS2026-Book-Of-Abstracts.pdf),
 p. 150.
 
-## Status check
+## Earlier status check — 2026-09-08
 
 Searches for `Harlev Johnson Lim boundary conjecture` and
 `doubly stochastic boundary conjecture 2026` found the 2026 authors reporting
 numerical support through order 25, rather than a proof. The older
 Perfect–Mirsky conjecture fails at order five; that failure does not refute
 this different assertion.
+
+## Audit update — 2026-09-10
+
+Rechecked the [Boundary Conjecture source](https://arxiv.org/abs/1908.03647) and the [ILAS 2026 abstracts](https://ilas2026.math.vt.edu/docs/ILAS2026-Book-Of-Abstracts.pdf), p. 150. The latter reports further computational exploration, not a general proof. Searches for subsequent doubly stochastic spectral-boundary results found no resolution; the refuted Perfect–Mirsky conjecture is a different claim.

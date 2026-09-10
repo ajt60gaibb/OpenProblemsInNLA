@@ -1,0 +1,128 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={MF-19 - Decidability
+of zero hitting by rational matrix
+powers},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MF-19}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Matrix functions and stability\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Decidability
+of zero hitting by rational matrix powers\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} broadly
+interesting\par}
+{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Rating rationale:} Unconditional decidability in unrestricted
+dimension is an extreme longstanding barrier; reachability, recurrences
+and exact linear dynamics give broad significance.
+
+\subsection{Problem statement}\label{problem-statement}
+
+Does there exist a single algorithm which, given a positive integer
+\(d\), a matrix \(A\in\mathbb Q^{d\times d}\), and vectors
+\(u,v\in\mathbb Q^d\), always halts and correctly decides whether
+
+\[
+u^{T}A^kv=0\qquad\text{for some integer }k\ge0?
+\]
+
+All rational inputs are represented exactly, for example by binary
+integers for numerators and nonzero denominators. There is no a priori
+bound on \(d\), on the entries, or on the hitting time \(k\). The output
+sought is a yes/no answer; numerical near-zero detection does not
+suffice.
+
+This is the Skolem problem in its matrix-power form. Equivalently, one
+is given rational coefficients and initial values for a finite-order
+scalar linear recurrence and asks whether one of its terms vanishes.
+These equivalent formulations form one catalog entry.
+
+The matrix formulation asks whether a discrete linear system reaches a
+specified hyperplane. It is directly relevant to exact observability,
+reachability, and verification of linear dynamics, and exposes a
+fundamental limit of computations with powers of matrices.
+
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  P. Bacik, T. Karimov, F. Luca, J. Nieuwveld, J. Ouaknine, D. Purser
+  and J. Worrell, \emph{A survey of the Skolem and Positivity Problems
+  for linear recurrence sequences}, submitted (2026), §1, Problem 2, and
+  the discussion of linear dynamical systems; §5.
+  \href{https://people.mpi-sws.org/~joel/publications/skolem_and_positivity_survey26.pdf}{Author-hosted
+  PDF}.
+\item
+  F. Luca, J. Ouaknine and J. Worrell, \emph{Conjectural Decidability of
+  the Skolem Problem}, arXiv:2607.15510v1 (2026), §1.
+  \href{https://arxiv.org/pdf/2607.15510}{Full preprint}.
+\end{enumerate}
+
+Status check (2026-09-10): the 2026 survey still poses the general
+problem. The July 16 preprint proves conditional decidability under a
+strengthened prime-gap conjecture and an unconditional density-one
+universal Skolem-set result; it does not supply an unconditional
+algorithm on all inputs. Its current arXiv record is v1. Searches for
+``Skolem Problem decidability solution 2026'', including September
+developments, found special-family and positive-characteristic results
+but no general rational-input resolution. This is a dated, bounded
+status check.
+
+\subsection{Audit --- 2026-09-10}\label{audit-2026-09-10}
+
+Independently rechecked
+\href{https://arxiv.org/pdf/2607.15510}{Luca--Ouaknine--Worrell, §1},
+its current v1 record, and the
+\href{https://people.mpi-sws.org/~joel/publications/skolem_and_positivity_survey26abs.html}{2026
+survey's author abstract}. The order-at-most-four decidability result
+gives a substantive exact subclass (in particular, \(d\le4\) here),
+justifying Partially resolved; conditional decidability and density-one
+sets do not settle unrestricted inputs. Later Skolem-decidability
+searches found no unconditional general resolution. Both ratings are
+retained.
+\end{document}

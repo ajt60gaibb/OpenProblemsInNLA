@@ -6,8 +6,9 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open; Conjecture L3 in the source below  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Challenging because the constant must be uniform over all families of a given dimension; community impact spans transient growth and stability analysis.  
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -50,3 +51,7 @@ radius” with “local Hölder”, “Lipschitz lower”, “trajectory bounds�
 names, and 2025/2026 found no later resolution. These searches supplement the
 explicit 2025 conjectures; they do not establish exhaustiveness. The three entries
 are separately named assertions in the source, not a count of dimensional cases.
+
+## Audit — 2026-09-10
+
+Rechecked [Conjecture 3 (L3) and Lemma 27](https://arxiv.org/html/2311.18633v2): dimension two is proved, but higher-dimensional uniform constants remain conjectural. Searches for trajectory bounds and subsequent Epperlein–Wirth work found no resolution. Family-dependent polynomial estimates do not establish the displayed uniform statement.

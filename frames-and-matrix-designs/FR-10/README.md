@@ -1,10 +1,12 @@
 # FR-10 — Sharp sampling complexity for Walsh restricted isometries
 
-**Difficulty:** challenging  
+**Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Last checked:** 2026-09-08
+**Status:** Open  
+**Last checked:** 2026-09-10
 
-**Status:** source-backed open problem; no resolution found in the bounded literature check.
+**Rating rationale:** Closing the uniform logarithmic sampling gap is a longstanding restricted-isometry barrier comparable in scale to the cyclic Fourier problem, with consequences for sparse recovery and fast sketches.
+
 
 Let $N=2^d$ with $d\ge1$ and index rows and columns by $\mathbb F_2^d$. The normalized Walsh matrix is
 $$
@@ -28,9 +30,11 @@ The Walsh transform is the Fourier transform on $\mathbb F_2^d$. Its subspace st
 1. J. Błasiok, P. Lopatto, K. Luh, J. Marcinek, and S. Rao, *An improved lower bound for sparse reconstruction from subsampled Walsh matrices*, Discrete Analysis 2023:3, introduction and Theorem 3.1. [Paper](https://arxiv.org/abs/1903.12135).
 2. I. Haviv and O. Regev, *The restricted isometry property of subsampled Fourier matrices*, Theorem 1.1 and its bounded-orthonormal-matrix scope. [Paper](https://arxiv.org/abs/1507.01768).
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
 The lower-bound paper uses independent Bernoulli row inclusion; the upper-bound literature also treats independent draws with replacement, the explicit convention here. Its $\Omega(k\log k\log(N/k))$ obstruction applies in a specified intermediate sparsity range, not as an all-parameter formula. The logarithmic gap discussed there remains unclosed in the targeted search for later Walsh RIP results. Endpoint regimes must also be accounted for; in particular $m_*(N,1)=1$.
+
+**Audit update (2026-09-10):** Rechecked the Walsh lower-bound record and Haviv–Regev upper bound, and searched for a later matching rate. The intermediate-sparsity obstruction is not an all-parameter formula. Difficulty is aligned with the comparable Fourier gap in FR-02. This is a bounded literature check, not a proof that no solution exists.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

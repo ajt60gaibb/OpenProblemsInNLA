@@ -6,8 +6,10 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Status:** open.  
-**Last checked:** 2026-09-08  
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Extreme reflects deterministic regularization of a fully general nonnormal eigenproblem; broad impact comes from replacing randomness in a basic numerical linear algebra primitive.
 
 ## Problem statement
 
@@ -32,6 +34,10 @@ using $O(n^3\log^d(n/\delta))$ exact arithmetic operations, for universal consta
 
 Banks, Garza-Vargas, Kulkarni, and Srivastava, [*Pseudospectral Shattering, the Sign Function, and Diagonalization in Nearly Matrix Multiplication Time*](https://doi.org/10.1007/s10208-022-09577-5), FOCM 23 (2023), §6, first future-research question. Amsel et al., [*Linear Systems and Eigenvalue Problems*](https://arxiv.org/html/2602.05394v3#S3.SS1), August 2026, Problem 3.1.
 
-## Status check
+## Earlier status check — 2026-09-08
 
 Searches for `deterministic pseudospectral shattering 2026` found randomized and exponential-bound deterministic results, not the stated algorithm. The normalization and exponent orientation here are explicit: Problem 3.1's printed $(\delta/n)^c$ contradicts its own preceding motivation; $(n/\delta)^c$ is the intended polynomial upper bound.
+
+## Audit update — 2026-09-10
+
+Rechecked [workshop version 3](https://arxiv.org/html/2602.05394v3), Problem 3.1. Deterministic pseudospectral-regularization searches found no solution. The corrected reciprocal scale in this entry remains necessary; the source's displayed exponent does not match the intended inverse-polynomial regularity guarantee.

@@ -6,8 +6,9 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open; explicit 2026 problem  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Challenging because optimal cubic compositions must be compared with unrestricted evaluation programs; community impact comes from reusable matrix-sign iterations.  
+**Status:** Open  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -60,3 +61,7 @@ provides a June 2026 follow-up discussion; it does not settle this comparison.
 [MF-01](../MF-01/README.md) asks for an optimum value over general evaluation programs.
 This problem measures the price of a particular, reusable composition architecture;
 the two tasks are related but have different requested outputs.
+
+## Audit — 2026-09-10
+
+Rechecked [Problem 6.5](https://arxiv.org/html/2602.05394v3#S6.SS3) and the [degree-eight paper's concluding discussion](https://arxiv.org/html/2606.24701v1). The optimal composition comparison remains posed. Searches for cubic and recursive sign-expansion improvements found no resolution of this exact multiplication-overhead target.

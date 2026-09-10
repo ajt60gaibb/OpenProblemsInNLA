@@ -1,87 +1,83 @@
-# 1,000 open problems in numerical linear algebra
+# Open problems in numerical linear algebra
 
 ## Objective
 
-Turn this GitHub repository into a collection of **1,000 distinct open problems
-in numerical linear algebra (NLA)**, extracted from books and research
-publications. Each entry must give a precise, well-defined mathematical
-statement and a brief set of references.
+Maintain a collection of **200 distinct open problems in numerical linear
+algebra**, extracted from books and research publications. Each entry must state
+a precise mathematical question and give a brief set of primary references.
 
-Every entry must carry exactly one difficulty label: **hard**, **challenging**,
-or **extreme**; and exactly one importance rating: **interesting to specialist**,
-**interesting to the community**, or **broadly interesting**. These are editorial
-assessments, not claims made by the cited authors.
+Every entry carries exactly one difficulty label — **hard**, **challenging** or
+**extreme** — and one importance rating — **interesting to specialist**,
+**interesting to the community** or **broadly interesting**. These are editorial
+judgments, explained by a short rationale, not ratings attributed to the authors.
 
-Check whether each proposed problem has already been solved. The user's final
-sentence is interpreted in the context of an *open*-problem collection: exclude
-resolved questions, and describe partial resolutions that limit the surviving
-statement. A historical open-problem citation alone does not establish current
-openness. Record the date, sources, and scope of the literature check. Absence of
-a found solution is evidence with a stated limit, not a proof of openness.
+Current focus: **PROOF**, used here for human-readable mathematical curation and
+status verification. Lean is inactive. There is no campaign to solve catalog
+problems. Short arguments needed to establish an entry's mathematical status
+are within the separately requested status audit; label their evidence precisely.
 
 ## Scope and deliverables
 
-Focus: **PROOF**, used here for human-readable mathematical curation and
-literature verification. No solutions, proof attempts, CAP, or Lean development
-are requested. Preserve existing template materials without maintaining an
-inactive formalization track.
+- Root category folders, each with an index and one subfolder per problem using
+  a stable identifier. The root README and `CATALOG.md` provide navigation.
+- A canonical `README.md`, standalone `problem.tex` and compiled `problem.pdf`
+  per retained entry. Each must include enough definitions to be understood
+  independently, and all three formats must state the same mathematical target.
+- A precise statement with assumptions, fields, quantifiers and any required
+  computational model; motivation; both ratings and their rationale; primary
+  references with exact locators where available; status and a dated check.
+- Clear separation of open targets, substantive partial resolutions, complete
+  solutions, solution claims and candidates needing verification. Only **Open**
+  and **Partially resolved** entries count toward 200.
+- Contributor instructions for proposing problems or corrections through GitHub
+  issues and for submitting complete changes through pull requests. Provide
+  practical issue and PR templates and explain document regeneration.
+- A durable source screen and progress record stating the actual count,
+  literature coverage and unresolved verification limits.
 
-- Category folders at the repository root, each containing an index and one
-  subfolder per admitted problem, with stable problem identifiers. The root
-  README and `CATALOG.md` provide category and full-collection navigation.
-- For every admitted problem, a canonical `README.md` suitable for GitHub and
-  chatbot reading, standalone `problem.tex`, and compiled human-readable
-  `problem.pdf`. Shared definitions must be included locally so each document
-  can be understood independently. The three formats must state the same problem.
-- For each problem: topic, precise statement including assumptions and
-  quantifiers, difficulty, importance, short motivation, primary references with
-  locators where available, and a dated status check.
-- A clear distinction between admitted open problems, candidates whose status
-  needs more evidence, and resolved/rejected historical problems.
-- A durable progress record giving the actual count against the target of 1,000.
-
-The latest literature-expansion request added 12 problems to the 147-entry
-catalog, giving 159 admitted statements; see the
-[further source screen](proof/LITERATURE-EXPANSION-2026-09.md). It prioritized
-core NLA and retained all three document formats without a numerical quota.
-
-The category organization and Markdown/LaTeX/PDF export are complete. The
-preceding request incorporated the user's `ADDITIONAL_PROBLEMS.md` proposal,
-containing 43 candidates, into the then 125-entry collection, yielding 147 entries.
-The [complete disposition screen](proof/ADDITIONAL-PROBLEMS-SCREEN.md) records all
-43 outcomes. For further additions, compare complete statements
-against the current catalog, check source fidelity and later resolutions, add
-new admissible problems with the same formats and ratings, and record every
-candidate's disposition. Preserve stronger related questions within an existing
-entry where separate counting would inflate the collection. The supplied file
-is preserved as proposal material in `proof/proposals/ADDITIONAL_PROBLEMS.md`;
-its stated counts and historical overlap notes are not the current catalog state.
-
-The previous six-search batch added 50 problems to the starting 75. The
-[wider screen](proof/WIDE-SEARCH-2026-09.md) records those admissions and
-exclusions. The earlier Higham screen added IE-13–15 and is recorded in
-`proof/HIGHAM-2002-SCREEN.md`.
-IE-01 remains removed following the September 2026 resolution of Forsythe's
-conjecture. Maintain accurate counts and retain resolution references in the
-source record and former chapter pages in `proof/catalog/`, which preserve old
-anchors and uncounted material.
-
-Start with core NLA: linear systems, least squares, eigenvalue and singular-value
+Core NLA includes linear systems, least squares, eigenvalue and singular-value
 computation, matrix functions, numerical stability, conditioning, low-rank
-approximation, and numerical tensor methods. Directly relevant matrix theory and
-algebraic complexity may be included with their numerical connection explained;
-this broad scope is the working interpretation in the absence of a narrower user preference.
+approximation and tensor methods. Directly relevant matrix theory and algebraic
+complexity are included when their numerical connection is explained.
 
-## Admission and completion
+## Admission and status standards
 
-Use original restatements supported by primary literature or books. Do not
-invent conjectures, inflate the count using equivalent formulations or arbitrary
-parameter instances, treat a vague research direction as a precise problem, or
-count a solved problem as open. An undecided candidate does not count toward the
-target.
+Use original restatements supported by primary publications. Do not invent
+conjectures, convert vague research directions into arbitrary quantitative
+claims, count equivalent formulations twice, or split parameter cases merely
+to increase the count. Related questions can be distinct, but explain known
+implications; stronger bounds on the same target normally belong in one entry.
 
-Completion requires 1,000 distinct admitted entries meeting all requested
-conditions and a target-specific audit of statement fidelity, duplication,
-scope, and known resolutions. A smaller collection is partial progress, even
-when its entries are high quality. No proof of any catalog problem is part of
-the deliverable.
+Check original statements against current versions and later publications,
+including proofs, counterexamples and unpublished full-resolution claims.
+Historical open status alone is insufficient evidence of current openness.
+Record known cases and the limits of the search. Failure to locate a solution
+is not a proof that none exists. Do not classify a result for a different model,
+field or computational objective as resolving the displayed target.
+
+A solved or claimed-solved problem retains its ID and its original statement,
+with the outcome, date and resolution reference made visible, but is excluded
+from the open count. Undecided admissions do not count. Never recycle a retired
+published ID. `RESOLVED.md` indexes the retained outcomes and screened claims.
+
+## Current requests and completion
+
+The 2026-09-10 expansion request is to bring the collection to 200 open targets,
+frame the repository around that maintained collection, and explain how to
+contribute through issues and PRs. The concurrent audit request rechecks the
+existing entries' statements, status and both ratings and exposes those statuses
+in the Markdown, PDFs and indexes. Repository visibility is a separate user
+choice and is not changed by these tasks.
+
+The [expansion screen](proof/EXPANSION-TO-200-2026-09.md) records 42 additions.
+The audit removes MI-13 from the former 159 open targets, giving
+**159 − 1 + 42 = 200**. MI-13's status follows a published refined commutator
+inequality and an elementary reduction, independently reviewed by two Codex
+agents; this is not an external peer review, Lean proof or novelty claim. IE-01
+is retained as a full solution claim following the user's Forsythe correction.
+
+Completion requires the 200 admitted targets, a statement-specific audit of
+source fidelity, distinctness, assumptions and known resolutions, synchronized
+Markdown/TeX/PDF files, updated indexes and contribution guidance, and a committed
+and pushed GitHub state. `PROGRESS.md` distinguishes mathematical admission from
+pending rendering or publication work.

@@ -1,5 +1,7 @@
 # Literature coverage and uncounted leads
 
+The [September 10 expansion screen](EXPANSION-TO-200-2026-09.md) records 42 new admissions and the primary-source checks that bring the audited collection to **200 open targets**. Historical counts below refer to earlier screens.
+
 Last updated: **2026-09-08**. This records source coverage and consequential
 exclusions. It is not an exhaustive bibliography or a claim that every problem
 in the books below has been checked. Each admitted entry has its own references
@@ -133,7 +135,7 @@ whose complete arithmetic model needs clarification.
 
 ## Coverage still missing
 
-The target of 1,000 requires much broader primary-source coverage. Books on
+Further curation can broaden primary-source coverage. Books on
 iterative methods, least squares, structured matrices, inverse problems,
 matrix polynomials, and numerical tensor methods remain substantially
 unscreened. Trefethen–Bau's [author page](https://people.maths.ox.ac.uk/trefethen/text.html)

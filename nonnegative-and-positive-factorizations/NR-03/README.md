@@ -6,9 +6,10 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Status:** open; checked 2026-09-08  
+**Rating rationale:** Extreme because full nonnegative rank is much sharper than available exponential lower bounds for this family; broad importance concerns communication complexity and limitations of linear programming formulations.  
+**Status:** Open  
 **Area:** exact NMF and lower bounds for optimization formulations  
-**Last checked:** 2026-09-08  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -48,13 +49,7 @@ Vandaele, Gillis, Glineur, and Tuyttens,
 [*Nonnegative Matrix Factorization*](https://orbi.umons.ac.be/bitstream/20.500.12907/42337/1/NMFbook_SIAM_reprint.pdf),
 §3.7, p. 96, using the name $U_n$ for this fixed matrix.
 
-## Status evidence
+## Status check — 2026-09-10
 
-Baeckelant et al.,
-[*Computing Lower Bounds on the Nonnegative Rank via Non-Convex Optimization Solvers*](https://arxiv.org/html/2605.14058v2),
-§6.7 and Appendix A.4, still states the full-rank conjecture. Searches for its
-resolution found none. Sergeev's July 2026
-[*Upper bounds for the monotone rank of the unique disjointness matrix*](https://arxiv.org/abs/2607.27014)
-concerns ranks of a **partial** unique-disjointness matrix with unspecified
-entries when $a^{\mathsf T}b>1$; those bounds do not determine the rank of this
-prescribed completion. The open $n=3$ instance is not counted separately.
+Rechecked [Baeckelant et al. v2, §6.7 and Appendix A.4](https://arxiv.org/html/2605.14058v2) and [Sergeev’s July 2026 paper](https://arxiv.org/abs/2607.27014), and searched for a full-rank resolution. The former retains the prescribed-completion conjecture, including the unresolved n=3 case. Sergeev treats a partial unique-disjointness matrix whose remaining entries may vary; this does not determine the rank of the fixed matrix here. No full resolution was located.
+

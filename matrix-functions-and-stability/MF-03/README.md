@@ -6,8 +6,9 @@
 
 **Difficulty:** hard  
 **Importance:** interesting to specialist  
-**Status:** open; original conjecture plus a search for subsequent resolution  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Hard because this is a focused all-orders Padé inequality within established approximation theory; its immediate impact is on specialist wave-kernel error analysis.  
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10  
 
 ## Problem statement
 
@@ -40,3 +41,7 @@ manuscript p. 12. Lemma 4.5 establishes the finite range $m\le20$;
 with “conjecture” and for “Conjecture 4.6” with “cosh” and “Padé” located no
 general proof or counterexample. The status evidence is therefore weaker than a
 recent paper explicitly reaffirming the conjecture.
+
+## Audit — 2026-09-10
+
+Rechecked [Lemma 4.5 and Conjecture 4.6](https://eprints.maths.manchester.ac.uk/2651/3/manuscript_nadukandi_higham_wkm_2018_08_01.pdf): the displayed assertion is proved for $1\le m\le20$, while arbitrary $m$ remains conjectural. Paper-title and conjecture-number searches found no general resolution. The open portion still rests on historical primary evidence.

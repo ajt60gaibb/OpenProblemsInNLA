@@ -2,8 +2,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** explicit dissertation conjecture; later resolution not located  
-**Last checked:** 2026-09-08
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects monotonicity of an optimization-defined error along coupled Krylov iterates; community impact is a stopping and reliability guarantee for a widely used least-squares method.
 
 Let $A\in\mathbb R^{m\times n}$ and $b\in\mathbb R^m$. In exact arithmetic, start LSMR at $x_0=0$: equivalently, $x_k$ minimizes $\|A^T(b-Ax)\|_2$ over $\mathcal K_k(A^TA,A^Tb)$. Work up to its exact termination and use its minimum-length iterate if necessary. Let $r=b-Ax$ and define the matrix-only normwise backward error
 $$
@@ -30,3 +32,7 @@ A positive answer would justify backward-error stopping decisions without a late
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
 <!-- /navigation -->
+
+## Audit update — 2026-09-10
+
+Rechecked Fong's [dissertation](https://web.stanford.edu/group/SOL/dissertations/david-fong-thesis-online.pdf), §7.2.1, printed p. 118, which separately conjectures monotonicity of both displayed errors. [Hallman (2026)](https://arxiv.org/abs/2605.09211) studies a variational equation and lower bound for the backward error; it does not assert this iterate monotonicity. Searches for LSMR optimal-backward-error monotonicity located no proof or counterexample.

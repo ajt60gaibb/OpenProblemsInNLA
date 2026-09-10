@@ -1,0 +1,128 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={SP-11 - The
+delta conjecture for minimum symmetric
+rank},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}SP-11}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Eigenvalues and inverse problems\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}The
+delta conjecture for minimum symmetric rank\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} interesting
+to the community\par}
+{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Rating rationale:} Extreme reflects the longstanding all-graph
+gap between a local degree constraint and an exact matrix-realization
+guarantee. Community impact comes from controlling achievable eigenvalue
+multiplicity across symmetric sparsity patterns.
+
+\subsection{Problem statement}\label{problem-statement}
+
+Let \(G\) be any finite simple undirected graph on \(n\ge1\) vertices,
+and let \(\delta(G)\) be its minimum vertex degree. Let
+\(\mathcal S(G)\) consist of the real symmetric \(n\times n\) matrices
+whose off-diagonal nonzero entries occur exactly at edges of \(G\), with
+unrestricted diagonal entries.
+
+Must there exist \(A\in\mathcal S(G)\) such that \[
+\dim\ker A\ge\delta(G)?
+\] Equivalently, with
+\(\operatorname{mr}(G)=\min_{A\in\mathcal S(G)}\operatorname{rank}A\),
+is \[
+\operatorname{mr}(G)\le n-\delta(G)
+\] valid for every \(G\)?
+
+\subsection{Relevance and ratings}\label{relevance-and-ratings}
+
+This asks whether local sparsity information guarantees feasibility of a
+symmetric matrix with a specified large nullspace. It belongs to
+structured inverse eigenvalue and low-rank matrix construction. It does
+not prescribe the numerical edge weights, and does not require positive
+semidefiniteness.
+
+\subsection{References}\label{references}
+
+\begin{itemize}
+\tightlist
+\item
+  F. Barioli, S. M. Fallat, H. Gupta, and Z. Li, \emph{The weak version
+  of the graph complement conjecture and partial results for the delta
+  conjecture}, Discrete Mathematics 349 (2026), 114861, §1, paragraph
+  immediately before Conjecture 1.5
+  (\href{https://arxiv.org/html/2505.24577v1}{primary manuscript};
+  \href{https://doi.org/10.1016/j.disc.2025.114861}{journal}).
+\item
+  S. M. Fallat and L. Hogben, \emph{The minimum rank of symmetric
+  matrices described by a graph: A survey}, Linear Algebra and its
+  Applications 426 (2007), 558--582, minimum-rank definitions and
+  inverse eigenvalue interpretation
+  (\href{https://aimath.org/WWN/matrixspectrum/FallatHogbenMinRank07.pdf}{primary
+  manuscript};
+  \href{https://doi.org/10.1016/j.laa.2007.05.036}{journal}).
+\end{itemize}
+
+\subsection{Status check}\label{status-check}
+
+The 2026 article treats the original conjecture as open and establishes
+results under additional graph restrictions. Its numbered Conjecture 1.5
+is a stronger positive-semidefinite/SAP statement; the present entry
+retains the original real symmetric formulation stated directly before
+it. Searches for ``minimum rank'', ``delta conjecture'', ``proof'', and
+2025--2026 found no general resolution. The stronger variants are not
+counted as additional problems.
+
+\subsection{Audit update --- 2026-09-10}\label{audit-update-2026-09-10}
+
+\textbf{Partially resolved:} Barioli--Fallat--Gupta--Li, Theorem
+2.11(a), proves the stronger bound \(\nu(G)\ge\delta(G)\) for graphs of
+girth at least \(11\) and minimum degree at least \(4\). Parts (b)--(e)
+give further explicit girth and forbidden-subgraph regimes. These
+PSD/SAP witnesses also belong to the unrestricted symmetric class
+displayed here. The full primary manuscript, 2026 publication record and
+later-resolution searches were checked; no proof for all graphs was
+located.
+\end{document}

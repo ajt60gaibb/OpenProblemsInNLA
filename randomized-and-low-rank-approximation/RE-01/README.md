@@ -6,9 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open; checked 2026-09-08  
+**Rating rationale:** Challenging because shared HSS bases couple approximation choices across levels; community impact is reliable compression for hierarchical numerical solvers.  
+**Status:** Open  
 **Area:** structured low-rank matrix approximation  
-**Last checked:** 2026-09-08  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -47,3 +48,7 @@ Noah Amsel, Tyler Chen, Feyza Duman Keles, Diana Halikias, Cameron Musco, Christ
 ## Status evidence
 
 The known squared-error factor is $O(L)$. The lower bound near $2$ concerns the analyzed greedy algorithm, not all algorithms. Searches for “HSS constant-factor approximation 2026” and “hierarchically semiseparable approximation constant 2026” found no resolution. The latest arXiv version is v2, September 6, 2025; the [journal version](https://doi.org/10.1137/25M176622X) appeared online May 8, 2026.
+
+## Audit — 2026-09-10
+
+Rechecked [Amsel et al., §3.4 and Appendix B.1](https://arxiv.org/html/2505.16937v2) and its [2026 journal record](https://doi.org/10.1137/25M176622X). Constant-factor polynomial-time HSS approximation remains unresolved. Constant-factor and later HSS searches found no solution; the known depth-dependent factor is weaker than this target.

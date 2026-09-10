@@ -6,9 +6,10 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
+**Rating rationale:** Extreme because closing the exponent gap is a longstanding central barrier in algebraic algorithms; broad importance follows from matrix multiplication’s role throughout NLA and computational complexity.  
 **Topic:** arithmetic complexity of dense matrix multiplication  
-**Last checked:** 2026-09-08  
-**Status:** open; admitted after a bounded literature search found no resolution.  
+**Last checked:** 2026-09-10  
+**Status:** Open  
 
 ## Problem statement
 
@@ -34,3 +35,7 @@ and AlphaEvolve*](https://arxiv.org/abs/2608.16884) (2026), abstract and §1,
 reports $\omega<2.371177$, which does not reach two. Searches for “matrix
 multiplication exponent 2026” and “omega equals 2 proof” located improvements,
 not a resolution. **Admitted: no resolution located.**
+
+## Status check — 2026-09-10
+
+Rechecked [Dupont et al., August 2026](https://arxiv.org/abs/2608.16884), and searched for exponent-two proofs and newer matrix-multiplication bounds. Its reported bound is still strictly above two, at 2.371177. No proof of exponent two or a strict lower bound above two was located. Faster finite-size identities and improved numerical optimizations of existing bounds do not decide the asymptotic equality.

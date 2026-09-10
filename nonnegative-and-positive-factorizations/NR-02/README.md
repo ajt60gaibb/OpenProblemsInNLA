@@ -6,9 +6,10 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Status:** open; checked 2026-09-08  
+**Rating rationale:** Extreme because additivity across arbitrary polytopes is a general structural barrier for extension complexity; community importance links optimal factorizations with compositional linear optimization models.  
+**Status:** Partially resolved  
 **Area:** nonnegative rank and polyhedral optimization  
-**Last checked:** 2026-09-08  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -55,12 +56,7 @@ Gillis, [*Nonnegative Matrix Factorization*](https://orbi.umons.ac.be/bitstream/
 Information Processing Letters **128** (2017), 11–13, introduction and main
 theorem.
 
-## Status evidence
+## Status check — 2026-09-10
 
-The equality is proved when at least one factor is a
-pyramid. Searches for Cartesian-product extension-complexity additivity,
-counterexamples, and 2025–2026 developments found no general resolution.
-Stefan Weltge poses the general equality again in the
-[Cargèse workshop open problems](https://www.cargese.org/2022/open-problems.pdf),
-September 20, 2022, p. 1. This is the latest explicit general open-status
-confirmation located; its age is a limitation of this entry.
+Rechecked [Tiwary–Weltge–Zenklusen](https://arxiv.org/abs/1702.01959) and [Weltge’s 2022 workshop question](https://www.cargese.org/2022/open-problems.pdf), then searched for later product-additivity proofs and counterexamples. Equality is proved whenever one factor is a pyramid, a substantive portion of the displayed target. The unrestricted equality remains open in the latest explicit source located; no subsequent full resolution was found. The 2022 date limits the strength of the current-status evidence.
+

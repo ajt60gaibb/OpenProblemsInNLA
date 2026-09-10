@@ -2,9 +2,11 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Last checked:** 2026-09-08
+**Status:** Open  
+**Last checked:** 2026-09-10
 
-**Status:** source-stated conjecture; no unconditional resolution found in screening on 2026-09-08.
+**Rating rationale:** Uniform conditioning for this explicit arithmetic frame beyond square-root sparsity is a major deterministic sensing barrier linking number theory and numerical reconstruction.
+
 
 For a prime $p\equiv1\pmod4$, let $Q$ be the nonzero quadratic residues modulo $p$, and set $N=(p+1)/2$. Define $\Phi_p\in\mathbb C^{N\times(p+1)}$ with row labels $\{0\}\cup Q$ and column labels $\{0,\ldots,p-1,\infty\}$ by
 $$
@@ -34,9 +36,11 @@ This is the bounded-condition-number formulation of the Paley-frame conjecture i
 2. A. S. Bandeira, M. Fickus, D. G. Mixon, and P. Wong, *The road to deterministic matrices with the restricted isometry property*, Journal of Fourier Analysis and Applications 19 (2013), pp. 1123–1149. The Paley ETF discussion supplies the original restricted-isometry motivation. [Paper](https://arxiv.org/abs/1202.1234).
 3. S. Satake, *On the restricted isometry property of the Paley matrix*, Linear Algebra and its Applications 631 (2021), pp. 35–47. Its main implication is conditional on a Paley-graph conjecture. [Paper](https://arxiv.org/abs/2011.02907).
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
 Searched “Paley matrix RIP conjecture 2025 2026”, “Paley ETF condition number square root bottleneck”, and the exact Satake title; checked the 2026 restatement and current arXiv records. No unconditional proof or counterexample was found. Conditional graph-discrepancy implications do not settle the quantifiers above.
+
+**Audit update (2026-09-10):** Rechecked the 2026 Conjecture 29 and searched for later Paley ETF results. The exact uniform condition-number target remains explicitly conjectured; no unconditional resolution was located. This is a bounded literature check, not a proof that no solution exists.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

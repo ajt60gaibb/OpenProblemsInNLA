@@ -7,8 +7,10 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Topic:** nonsymmetric eigenvalue computation; query complexity  
-**Last checked:** 2026-09-08  
-**Status:** open; admitted after a bounded literature search found no resolution.  
+**Last checked:** 2026-09-10  
+**Status:** Open  
+
+**Rating rationale:** Challenging reflects a query bound for general nonnormal matrices, whose eigenvalues need not be controlled by power iteration; community impact is the complexity of large nonsymmetric eigenproblems.
 
 ## Context and notation
 
@@ -47,7 +49,7 @@ Problem 3.9. Shah, Srivastava, and Zeng,
 §1.3, Theorem 1.5 and its power-iteration argument, supplies the related
 spectral-radius estimate cited by the workshop.
 
-## Status check
+## Earlier status check — 2026-09-08
 
 Searches for `nonnormal eigenvalue query complexity 2026`
 and `nonnormal spectral radius matrix-vector algorithm 2026` found no
@@ -57,3 +59,7 @@ plane as required here. The [April 2026 third version](https://arxiv.org/abs/241
 replaces that application with a GMRES application (§6), so the version-specific
 locator above is intentional. The workshop still poses Problem 3.9 in its
 August update, separately from its resolved general Ritz-compression question.
+
+## Audit update — 2026-09-10
+
+Rechecked [workshop version 3](https://arxiv.org/html/2602.05394v3), Problem 3.9. Searches for nonnormal largest-eigenvalue matrix-vector query bounds found no theorem or lower bound settling the displayed question. Hermitian or singular-value oracle results do not answer it.

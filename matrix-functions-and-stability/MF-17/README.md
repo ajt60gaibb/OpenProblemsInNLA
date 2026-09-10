@@ -1,11 +1,12 @@
 # MF-17 — Optimal uniform growth after inversion of an exponentially stable generator
 
-**Difficulty:** hard  
+**Difficulty:** challenging  
 **Importance:** interesting to the community  
+**Rating rationale:** Challenging because matching growth bounds require uniform control over arbitrary Hilbert-space generators; community impact includes semigroup stability and rational time discretization.  
 **Provenance:** explicit fixed-bound formalization of the source's growth question.  
-**Last checked:** 2026-09-08
+**Last checked:** 2026-09-10  
 
-**Status:** no sharp growth order found in screening on 2026-09-08.  
+**Status:** Open  
 
 For each fixed real number $M>1$, let $\mathcal A_M$ consist of all pairs $(H,A)$ such that $H$ is a complex Hilbert space and $A$ is the generator of a strongly continuous semigroup $T(s)$ on $H$ satisfying
 $$
@@ -38,6 +39,10 @@ G_M(t)\leq2M^2\bigl(2-e^{-1}+e^{-1}\log t\bigr),
 \qquad t>1.
 $$
 Theorem 1.2(2) of reference 1 gives examples with a doubly logarithmic lower bound raised to a positive exponent, while the original semigroup bound is $1+C\alpha/(1-\alpha)$ for an absolute $C$ and $0<\alpha<1$. Thus its parameters allow examples within each fixed $M>1$ class. These estimates do not determine the matching asymptotic order. The older yes/no inverse-generator problem was resolved negatively in the 2026 paper and is not listed as open here.
+
+## Audit — 2026-09-10
+
+Rechecked [Lorist–Meyries–Veraar, Problem 1.3 and Theorem 1.2](https://arxiv.org/html/2608.06272v3). The sharp growth question survives their negative inverse-generator theorem; logarithmic upper and doubly logarithmic lower bounds do not match. Title and inverse-semigroup-growth searches found no improvement resolving the fixed-$M$ envelope. Difficulty was raised to reflect the operator-theoretic obstruction.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

@@ -6,8 +6,9 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open conjecture in a preprint updated 2026-07-08.  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Challenging because arbitrary support intersections defeat existing sparse-matrix estimates; community impact is understanding limits of sparse sketches and column selection.  
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10  
 
 ## Problem statement
 
@@ -27,3 +28,7 @@ Han Huang, Mark Rudelson, and Konstantin Tikhomirov, [*Well-Invertible Column Su
 ## Status check
 
 Searches included `"unrestricted deterministic sparse sketches" conjecture` and the exact paper title with `2026`. No subsequent resolution was located. The paper’s disproof of a particular SparseStack conjecture does not establish its own unrestricted deterministic conjecture.
+
+## Audit — 2026-09-10
+
+Rechecked [Huang–Rudelson–Tikhomirov, Theorem 1.3 and Conjecture 7.1](https://arxiv.org/html/2607.05384v2): a structural subclass is proved, while arbitrary deterministic supports remain conjectural. Title and sparse-subset follow-up searches found no full resolution. [Tikhomirov's later embedding paper](https://arxiv.org/html/2607.23017v1) studies random models and spectral-norm estimates, not all deterministic support patterns.

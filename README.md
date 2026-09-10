@@ -3,25 +3,29 @@
 A collection of precise open problems drawn from books and research
 publications, with references and dated checks for subsequent solutions.
 
-**Current collection: 159 / 1,000 problems. The project is incomplete.**
+<!-- catalog-summary -->
+**200 problems with open targets:** 114 open and 86 partially resolved. **2 other retained entries**, excluded from the open count.
 
-**[Browse all 159 problems →](CATALOG.md)**
+Every listed entry was checked on **2026-09-10**. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
+
+**[Browse all 200 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
+<!-- /catalog-summary -->
 
 ## Browse by category
 
 | Category | Problems |
 | --- | ---: |
-| [Linear systems and elimination](linear-systems-and-elimination/README.md) | 19 |
-| [Eigenvalues and inverse problems](eigenvalues-and-inverse-problems/README.md) | 20 |
-| [Matrix functions and stability](matrix-functions-and-stability/README.md) | 19 |
-| [Randomized and low-rank approximation](randomized-and-low-rank-approximation/README.md) | 25 |
-| [Tensor computations](tensor-computations/README.md) | 15 |
+| [Linear systems and elimination](linear-systems-and-elimination/README.md) | 21 |
+| [Eigenvalues and inverse problems](eigenvalues-and-inverse-problems/README.md) | 23 |
+| [Matrix functions and stability](matrix-functions-and-stability/README.md) | 23 |
+| [Randomized and low-rank approximation](randomized-and-low-rank-approximation/README.md) | 27 |
+| [Tensor computations](tensor-computations/README.md) | 26 |
 | [Nonnegative and positive factorizations](nonnegative-and-positive-factorizations/README.md) | 12 |
-| [Matrix inequalities and norms](matrix-inequalities-and-norms/README.md) | 17 |
-| [Frames and matrix designs](frames-and-matrix-designs/README.md) | 10 |
+| [Matrix inequalities and norms](matrix-inequalities-and-norms/README.md) | 28 |
+| [Frames and matrix designs](frames-and-matrix-designs/README.md) | 11 |
 | [Matrix discrepancy and optimization](matrix-discrepancy-and-optimization/README.md) | 6 |
-| [Arithmetic and complexity](arithmetic-and-complexity/README.md) | 11 |
-| [Intervals and absolute value equations](intervals-and-absolute-value-equations/README.md) | 5 |
+| [Arithmetic and complexity](arithmetic-and-complexity/README.md) | 14 |
+| [Intervals and absolute value equations](intervals-and-absolute-value-equations/README.md) | 9 |
 
 Open a category, then a problem folder. Every problem has three files:
 
@@ -35,9 +39,7 @@ Each problem gives its assumptions and quantifiers, one difficulty label, one
 importance rating, a brief set of references, and a literature-status check.
 The collection includes core NLA and directly relevant matrix theory and
 computational complexity. Entries explain that connection where it is less
-immediate. No solutions or proof attempts are part of this project.
-
-The [wider literature screen](proof/WIDE-SEARCH-2026-09.md) adds 50 distinct problems from six searches, with source checks, partial results, exclusions, and uncounted leads. The earlier [Higham 2002 screen](proof/HIGHAM-2002-SCREEN.md) records three additions from the book.
+immediate. The project prioritizes curation. Short mathematical arguments needed to settle an entry’s status are recorded with their verification level; MI-13 is one such resolved entry.
 
 ## Ratings
 
@@ -56,9 +58,29 @@ scope and expected difficulty, rather than estimating a completion time.
 | **interesting to the community** | Relevant to a substantial part of the NLA community or to several numerical methods. |
 | **broadly interesting** | Consequences extend across NLA and into other major areas of mathematics, computation, or applications. |
 
+## Problem status
+
+Status is separate from difficulty and impact and appears on every problem,
+PDF and index row. A solved problem keeps its ID and original statement; its
+page records the outcome, date and exact resolution reference.
+
+| Display | Meaning | Counted as open? |
+| --- | --- | --- |
+| 🔵 **OPEN** | The stated target remains unresolved in the checked literature. | Yes |
+| 🟡 **PARTIAL** | Substantive cases inside the displayed target are proved; the entry identifies the remaining cases. This may reflect older results, not necessarily a new discovery. | Yes, once |
+| ✅ **SOLVED** | A published or independently verified result settles the exact target, affirmatively or by a counterexample. | No |
+| 🟠 **SOLUTION CLAIMED** | A primary manuscript claims a complete resolution; its full proof has not been independently verified here. | No |
+| ⚪ **NEEDS VERIFICATION** | A material statement or status issue prevents admission. This is not a claim that the problem is solved. | No |
+
+We retain older-source entries when the exact question is supported and no
+resolution was found, but explicitly flag the limits of that evidence. An
+improved bound or a result for a different algorithm or model is not a full
+resolution. See [solved problems and solution claims](RESOLVED.md) for the archive
+and the procedure for reporting a solution.
+
 ## What “open” means here
 
-The latest screening date is **2026-09-08**. A historical open-problem citation
+The latest full-catalog audit date is **2026-09-10**. A historical open-problem citation
 is checked against subsequent publications and targeted searches. The entry
 records what was checked and distinguishes known special cases from the
 remaining question. A search that finds no resolution cannot guarantee that
@@ -70,15 +92,22 @@ uncounted leads](proof/SOURCES.md) and the preserved [chapter screening notes](p
 Clearly identified quantitative restatements are editorial formulations of
 published questions, rather than quotations attributed to their authors.
 
-The [canonical objective](PROBLEM.md) preserves the target of 1,000 distinct
-entries. [Progress](PROGRESS.md) records actual coverage and outstanding work.
+The [full status and rating audit](proof/STATUS-AUDIT-2026-09-10.md) covers every
+current entry. Every pair of ratings has a short rationale. “Impact” in the
+indexes means the canonical **Importance** rating; the three allowed values
+remain the same.
+
+The [latest expansion screen](proof/EXPANSION-TO-200-2026-09.md) records new admissions, exclusions and their source checks. Earlier screens remain linked from the source record.
+
+The [curation principles](PROBLEM.md) define the scope and admission criteria.
+[Progress](PROGRESS.md) records coverage and outstanding work.
 Suggestions and corrections should identify the problem ID and a primary
 reference, particularly when reporting a solution or a missing assumption.
 
-The [additional-problems screen](proof/ADDITIONAL-PROBLEMS-SCREEN.md) maps all 43 supplied candidates: 22 new entries, 15 duplicates, one grouped stronger formulation, and five withheld or excluded candidates.
-
-The [further literature expansion](proof/LITERATURE-EXPANSION-2026-09.md) adds 12 problems on iterative methods, spectral perturbation, matrix equations, randomized approximation, and tensor energy computations, with precise source locators and later-status checks.
-
 ## Editing and PDF generation
 
-Edit the problem’s `README.md`, which is the source of truth. With Pandoc and XeLaTeX installed, run `python3 tools/render_problems.py IE-02` to regenerate one problem, or omit the ID to regenerate the collection. Each exported `problem.tex` can also be compiled on its own with XeLaTeX. [The shared typesetting template](tools/problem-template.tex) controls appearance. Check the resulting PDF whenever a statement changes.
+Edit the problem’s `README.md`, which is the source of truth. Run `python3 tools/update_catalog.py` after changing a title, rating or status; it rebuilds the category and full indexes and excludes solved, claimed and unverified entries from the open counts. With Pandoc and XeLaTeX installed, run `python3 tools/render_problems.py IE-02` to regenerate one problem, or omit the ID to regenerate the collection. Each exported `problem.tex` can also be compiled on its own with XeLaTeX. [The shared typesetting template](tools/problem-template.tex) controls appearance. Check the resulting PDF whenever an entry changes.
+
+## Contributing
+
+Suggestions, references and corrections are welcome through [GitHub issues](https://github.com/ajt60gaibb/OpenProblemsInNLA/issues) and pull requests. See [contributor instructions](CONTRIBUTING.md) and the [correction or resolution template](.github/ISSUE_TEMPLATE/correction_or_resolution.md). A closed issue is not a mathematical status label; the canonical entry and indexes show whether a problem is solved.

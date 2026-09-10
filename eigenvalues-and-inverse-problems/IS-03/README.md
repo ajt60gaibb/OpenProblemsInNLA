@@ -6,8 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open.  
-**Last checked:** 2026-09-08  
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects preserving nonnegative realizability under polynomial differentiation; community impact connects the nonnegative inverse eigenvalue problem with polynomial critical points.
 
 ## Problem statement
 
@@ -34,7 +36,7 @@ Hoover, McCormick, Paparella, and Thrall,
 Conjecture 1.2, p. 2, and §6. The paper credits the conjecture to Johnson and
 records the Cronin–Laffey low-order results.
 
-## Status check
+## Earlier status check — 2026-09-08
 
 Searches for `Johnson conjecture derivative nonnegative
 matrix characteristic polynomial proof counterexample`, `1712.05454 2026`,
@@ -43,3 +45,7 @@ several classes and records the solved cases $n\leq4$, and
 $n\leq6$ with $\operatorname{tr}A=0$. Nonnegative power sums alone are a
 different hypothesis. Monov's weaker moment conjecture is not separately
 counted here.
+
+## Audit update — 2026-09-10
+
+Rechecked the [primary manuscript](https://arxiv.org/pdf/1712.05454), Conjecture 1.2 and its proved families; the [journal version](https://doi.org/10.1016/j.laa.2018.06.024) is LAA 555 (2018), 301–313. Results for Ciarlet/Suleĭmanova lists, appropriate companion-matrix realizations, and trace-zero lists of orders five and six settle substantive portions of the displayed target. Johnson-conjecture/critical-point searches found no general proof or counterexample.

@@ -6,7 +6,9 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Extreme because the information-theoretic transition must be uniform in norm parameter, accuracy, and dimension; community impact is the cost of low-rank approximation across error measures.  
+**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
 
 ## Problem statement
 
@@ -50,3 +52,7 @@ This asks how the matrix-product cost changes between aggregate singular-value e
 For fixed finite $p$, the source gives a dimension-independent query bound; the spectral lower bound grows with $\log n$ in its stated dimension regime. Neither gives optimal uniform dependence on growing $p$. The 2024 work improves running time.
 
 Checked 2026-09-08: both arXiv records list only v1. Searches for “Open Question 1.11,” Schatten phase transition, query complexity, and 2025/2026 found no resolution. The older rank-one spectral lower-bound question was solved by the 2023 source. This is a bounded check.
+
+## Audit — 2026-09-10
+
+Rechecked [Bakshi–Narayanan, Theorem 1.1 and Open Question 1.11](https://arxiv.org/html/2304.03191v1). The spectral endpoint has matching bounds in its stated dimension regime; optimal growing-$p$ dependence remains open. Later Schatten-query searches found no full characterization; finite-$p$ near-optimal results and running-time improvements leave this transition unresolved.

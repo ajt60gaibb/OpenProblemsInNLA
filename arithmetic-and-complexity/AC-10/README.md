@@ -2,10 +2,11 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
+**Rating rationale:** Extreme because an explicit family at Valiant’s rank scale would break a longstanding linear-circuit lower-bound barrier; broad importance connects sparse perturbations, matrix structure and computational complexity.  
 **Provenance:** rational-field specialization of a source-stated explicit-rigidity target.  
-**Last checked:** 2026-09-08
+**Last checked:** 2026-09-10  
 
-**Status:** no construction meeting this target found in screening on 2026-09-08.  
+**Status:** Open  
 
 For $A\in\mathbb Q^{n\times n}$ and an integer $0\leq r\leq n$, define its rigidity over $\mathbb Q$ by
 $$
@@ -33,9 +34,9 @@ Rigidity measures how resistant a matrix is to rank reduction by sparse entry ch
 3. L. G. Valiant, *Graph-theoretic arguments in low-level complexity*, MFCS 1977, pp. 162–176, the original rigidity connection to linear circuits. [Article](https://doi.org/10.1007/3-540-08353-7_135).
 4. Z. Dvir and A. Liu, *Fourier and Circulant Matrices are Not Rigid*, arXiv:1902.07334 (2019), main non-rigidity results for prominent structured candidates. [Paper](https://arxiv.org/abs/1902.07334).
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
-checked 2502.19580v1 (2025-02-26), the July 2026 published paper, and searches “matrix rigidity explicit rational 2026 Valiant construction” and “Valiant rigidity solved”. The 2025 bounds for logarithmic target rank and its conditional amplification results do not give the displayed higher-rank target. Known non-rigidity results prevent treating Walsh or Fourier matrices as established candidates. No qualifying polynomial-time rational construction or resolution was found. This status applies to the stated rational specialization.
+Rechecked [Alman–Liang, §1](https://arxiv.org/html/2502.19580v1) and the [ICALP 2026 spiky-rank paper](https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ICALP.2026.106), and searched for explicit rational Valiant-rigid constructions. The former’s low-rank bounds and conditional amplification do not meet the displayed n/log-log-n rank scale. No polynomial-time rational family meeting the target was located. The conclusion concerns rigidity over the rationals; results in other fields or for random matrices require a separate comparison.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

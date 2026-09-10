@@ -6,8 +6,10 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Status:** open.  
-**Last checked:** 2026-09-08  
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Extreme reflects a sharp asymptotic rate tied to longstanding gaps in Hadamard constructions; community impact is a quantitative limit on nearly orthogonal sign matrices.
 
 ## Context and notation
 
@@ -44,10 +46,14 @@ its decay-exponent question. Steinerberger,
 [*Open Problems*](https://faculty.washington.edu/steinerb/openproblems.pdf),
 Problem 69, November 2025 update, identifies the sharp rate as unresolved.
 
-## Status check
+## Earlier status check — 2026-09-08
 
 Searches for `approximate Hadamard 17/92 2026` and
 `approximate Hadamard condition 2026 sharp` found no exact exponent. A global
 constant as in [IS-04](../IS-04/README.md) does not specify a decay exponent, while an asymptotic
 exponent permits finitely many exceptions to any proposed sharp constant.
 The two independently posed problems are therefore retained separately.
+
+## Audit update — 2026-09-10
+
+Rechecked [Alexeev–Jasper–Mixon](https://arxiv.org/html/2511.14653v1), §6, Problem 11, and [Steinerberger's problem collection](https://faculty.washington.edu/steinerb/openproblems.pdf), Problem 69. Both leave the sharp rate unresolved. Searches for later approximate-Hadamard conditioning exponents found no determination of the optimum; a nonsharp exponent bound does not by itself resolve the target.

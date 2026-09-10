@@ -1,0 +1,132 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={SP-10 - The
+graph complement conjecture for minimum symmetric
+rank},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}SP-10}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Eigenvalues and inverse problems\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}The
+graph complement conjecture for minimum symmetric rank\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} interesting
+to the community\par}
+{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Rating rationale:} Extreme reflects a longstanding bound over
+all symmetric sparsity patterns, still beyond the available general rank
+estimates. Community impact comes from its central role in graph inverse
+eigenvalue problems and complementary low-rank realizations.
+
+\subsection{Problem statement}\label{problem-statement}
+
+For a finite simple undirected graph \(G\) with vertex set
+\(\{1,\ldots,n\}\), \(n\ge1\), define \[
+\mathcal S(G)=\{A\in\mathbb R^{n\times n}:A=A^T,\ \mathcal G(A)=G\},
+\qquad
+\operatorname{mr}(G)=\min_{A\in\mathcal S(G)}\operatorname{rank}A.
+\] Here \(\mathcal G(A)\) has an edge \(\{i,j\}\) exactly when
+\(i\ne j\) and \(a_{ij}\ne0\). Diagonal entries are unrestricted. Let
+\(G^c\) have exactly the complementary edges between distinct vertices.
+Does every such graph satisfy \[
+\operatorname{mr}(G)+\operatorname{mr}(G^c)\le n+2?
+\]
+
+\subsection{Relevance and ratings}\label{relevance-and-ratings}
+
+This is a structured low-rank feasibility problem for complementary
+symmetric sparsity patterns. Because diagonal shifts preserve those
+patterns, minimum rank also determines the largest eigenvalue
+multiplicity realizable with a prescribed off-diagonal pattern. It is an
+inverse eigenvalue problem, not a claim about the rank of the unweighted
+adjacency matrix.
+
+\subsection{References}\label{references}
+
+\begin{itemize}
+\item
+  F. Barioli, S. M. Fallat, H. Gupta, and Z. Li, \emph{The weak version
+  of the graph complement conjecture and partial results for the delta
+  conjecture}, Discrete Mathematics 349 (2026), 114861, Conjecture 1.1
+  (\href{https://arxiv.org/html/2505.24577v1}{primary manuscript};
+  \href{https://doi.org/10.1016/j.disc.2025.114861}{journal}).
+\item
+  S. M. Fallat and L. Hogben, \emph{The minimum rank of symmetric
+  matrices described by a graph: A survey}, Linear Algebra and its
+  Applications 426 (2007), 558--582, introduction and discussion of
+  minimum rank
+  (\href{https://aimath.org/WWN/matrixspectrum/FallatHogbenMinRank07.pdf}{primary
+  manuscript};
+  \href{https://doi.org/10.1016/j.laa.2007.05.036}{journal}).
+\item
+  M. Jansrang and S. K. Narayan, \emph{Graph complement conjecture for
+  classes of shadow graphs}, Operators and Matrices 15 (2021), 589--614,
+  §1 and Theorem 1
+  (\href{https://files.ele-math.com/articles/oam-15-40.pdf}{primary
+  paper}; \href{https://doi.org/10.7153/oam-2021-15-40}{journal}).
+\end{itemize}
+
+\subsection{Status check}\label{status-check}
+
+The 2026 paper resolves a weak version with a coefficient strictly below
+\(2\) in front of \(n\), not the displayed coefficient \(1\). Searches
+for ``graph complement conjecture'', ``minimum rank'', ``solved'',
+``proof'', and 2025--2026 found no general resolution. The source's May
+2025 arXiv version and the 2026 journal record were checked. No
+positive-semidefinite or strong-Arnold variant is separately counted
+here.
+
+\subsection{Audit update --- 2026-09-10}\label{audit-update-2026-09-10}
+
+\textbf{Partially resolved:} trees, unicyclic graphs, chordal graphs and
+partial 3-trees satisfy the stronger real positive-semidefinite version;
+Jansrang--Narayan §1 records these results and Theorem 1 proves
+additional shadow-graph families. Since unrestricted minimum rank is no
+larger than PSD minimum rank, these are cases of the displayed target.
+The general graph case remains the unresolved question. The full primary
+manuscript and 2026 publication record above, the 2021 paper, and
+targeted later-resolution searches were checked; no full resolution was
+located.
+\end{document}

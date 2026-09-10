@@ -6,8 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
+**Rating rationale:** Challenging because an explicit threshold must control extremal tails uniformly over spectra; community impact is sharper distribution-level trace-estimation confidence bounds.  
 **Source:** Hallman, Conjecture 3 together with Theorem 6.  
-**Last checked:** 2026-09-08  
+**Last checked:** 2026-09-10  
+**Status:** Open  
 
 ## Problem statement
 
@@ -54,3 +56,7 @@ This would specify the tolerance range on which effective rank yields extremal, 
 ## Status check
 
 Theorem 6 proves the comparisons beyond an unspecified threshold; Conjecture 3 supplies the explicit threshold above. On 2026-09-08 the [arXiv record](https://arxiv.org/abs/2411.15454) still listed only v1. Title, author, conjecture-number and 2025/2026 searches found no resolution. The author's [later XTrace paper](https://arxiv.org/abs/2512.02316) studies different estimators. This is a bounded check.
+
+## Audit — 2026-09-10
+
+Rechecked [Hallman, Theorem 6 and Conjecture 3](https://arxiv.org/html/2411.15454v1); the record still lists only v1. Author, Gaussian-trace, and conjecture searches found no resolution. An unspecified larger threshold proves a weaker result and does not verify the displayed explicit threshold.

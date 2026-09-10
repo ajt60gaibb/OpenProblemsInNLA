@@ -6,9 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open; checked 2026-09-08  
+**Rating rationale:** Challenging because sharp cp-rank control is still missing for the remaining order-six boundary configurations; community importance is the size of exact completely positive certificates.  
+**Status:** Partially resolved  
 **Area:** size of nonnegative symmetric factorizations  
-**Last checked:** 2026-09-08  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -32,6 +33,7 @@ A known reduction places a matrix attaining the order-six maximum on the boundar
 
 Abraham Berman, Mirjam Dür, and Naomi Shaked-Monderer, [*Open problems in the theory of completely positive and copositive matrices*](https://journals.uwyo.edu/index.php/ela/article/download/1477/1477), Electronic Journal of Linear Algebra **29** (2015), 46–58, §4.2, p. 53. Naomi Shaked-Monderer, [*On the DJL conjecture for order 6*, corrected arXiv v3](https://arxiv.org/html/1501.02426v3), 2017-06-01; journal version in Operators and Matrices **11** (2017), 71–88, Theorem 1.1 and Corollary 3.2.
 
-## Status evidence
+## Status check — 2026-09-10
 
-Searches for “DJL conjecture 2026”, “DJL conjecture 2025”, “cp-rank order 6 solved”, and “maximum cp-rank 6 2026” found no order-six proof or counterexample. The corrected v3 retains the question. Roger Behling, Douglas Gonçalves, Hugo Lara, and Harry Oviedo, [*A Projected Inexact Levenberg-Marquardt Method for the Completely Positive Matrix Factorization*](https://doi.org/10.1007/s10957-026-02950-2), Journal of Optimization Theory and Applications **209** (2026), article 9, §5.6, reproduces higher-order counterexamples to the general DJL conjecture, not an order-six resolution. The most recent explicit open statement verified for this exact case is the corrected 2017 source.
+Rechecked [Shaked-Monderer’s corrected v3, Theorem 1.1 and Corollary 3.2](https://arxiv.org/html/1501.02426v3), and searched for later order-six DJL resolutions. The nine-term bound is proved on the boundary classes orthogonal to exceptional extremal copositive matrices, including positive nonsingular boundary matrices. Remaining maximizers can have a zero entry; this reduction is not a proof for all order-six matrices. [Behling et al. (2026), §5.6](https://doi.org/10.1007/s10957-026-02950-2), reproduces counterexamples in orders seven and twelve, not six. No full resolution was located, and the exact open-status source remains historical.
+

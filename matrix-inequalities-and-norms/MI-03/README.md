@@ -2,7 +2,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Last checked:** 2026-09-08
+**Status:** Open  
+**Last checked:** 2026-09-10
+
+**Rating rationale:** Sharpness for every odd summand count needs a new extremal construction or obstruction; the payoff is concentrated in operator triangle inequalities.
 
 ## Problem statement
 
@@ -23,9 +26,11 @@ The scalar absolute-value triangle inequality fails in matrix order. The optimal
 1. J.-C. Bourin and E.-Y. Lee, *Diagonal and off-diagonal blocks of positive definite partitioned matrices*, arXiv:2307.02034v3 (15 December 2023), Corollary 4.4 and the conjecture immediately following Remark 4.5. [Primary text](https://arxiv.org/html/2307.02034).
 2. E.-Y. Lee, *How to compare the absolute values of operator sums and the sums of absolute values?*, Operators and Matrices 6(3) (2012), 613–619; §2 supplies related triangle inequalities. [Primary paper](https://files.ele-math.com/articles/oam-06-42.pdf), [DOI](https://doi.org/10.7153/oam-06-42).
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
 Corollary 4.4 establishes $c_k\le k/4$ for every $k$ and sharpness for even $k$; the source separately conjectures sharpness for all odd $k>1$. Its latest version remains v3. Searches included `Bourin Lee contractions odd k constant k/4`, `three contractions 3/4 sharp conjecture`, and `Bourin contractions sharp 2025 2026`. The 2026 symmetric-modulus papers concern different inequalities. No resolution of this additive odd-summand problem was located.
+
+**Audit update (2026-09-10):** Rechecked the conjecture after Remark 4.5 in Bourin–Lee and searched for odd-summand sharpness results. The proved even-summand statement is outside the target, which already restricts to odd $k$. This is a bounded literature check, not a proof that no solution exists.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

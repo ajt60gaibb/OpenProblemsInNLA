@@ -6,9 +6,10 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
+**Rating rationale:** Extreme because the exact rank of this small multiplication tensor remains a decades-old barrier despite extensive algorithm searches; community importance concerns recursive matrix multiplication and bilinear algorithm design.  
 **Topic:** small matrix multiplication algorithms  
-**Last checked:** 2026-09-08  
-**Status:** open; admitted after a bounded literature search found no resolution.  
+**Last checked:** 2026-09-10  
+**Status:** Open  
 
 ## Problem statement
 
@@ -41,3 +42,7 @@ over Finite Fields*](https://arxiv.org/abs/2603.07280), v10 (2026), improves a
 lower bound over $\mathbb F_2$; that is not a complex-field resolution. Searches
 for “rank 22 matrix multiplication 2026 proof” found no qualifying algorithm
 or matching lower bound. **Admitted: no resolution located.**
+
+## Status check — 2026-09-10
+
+Rechecked [Sun’s rank-23 construction](https://arxiv.org/abs/2604.27645) and [Alman–Li, §1](https://arxiv.org/html/2605.21738v1), which explicitly identifies both exact rank and border rank of the 3×3 product as unresolved. Searches for 22-product complex bilinear algorithms found no qualifying construction or matching lower bound. Fewer additions at rank 23 and finite-field lower bounds do not settle this complex-field minimum.

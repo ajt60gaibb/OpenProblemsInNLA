@@ -2,9 +2,11 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Last checked:** 2026-09-08
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10
 
-**Status:** source-stated conjecture; no valid general resolution found in screening on 2026-09-08.
+**Rating rationale:** All-dimension SIC existence is a central structured-design barrier connecting frame theory, quantum information and arithmetic geometry.
+
 
 For every integer $d\geq2$, do there exist $d^2$ unit vectors $\phi_1,\ldots,\phi_{d^2}\in\mathbb C^d$ satisfying
 $$
@@ -22,9 +24,11 @@ These frames attain the optimal coherence for $d^2$ unit vectors and lead to hig
 2. M. Appleby, S. T. Flammia, and G. S. Kopp, *A Constructive Approach to Zauner's Conjecture via the Stark Conjectures*, arXiv:2501.03970v2 (2025). The abstract and main construction distinguish conjectural/conditional arithmetic input from unconditional all-dimension existence. [Paper](https://arxiv.org/abs/2501.03970).
 3. S. Joka, *Symmetric Informationally Complete Positive Operator Valued Measure and Zauner conjecture*, arXiv:2601.13475v5. Cited only as an excluded proof claim: withdrawn May 31, 2026, with the author's comment that the proof is incorrect. [Withdrawal record](https://arxiv.org/abs/2601.13475).
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
 Searched “Zauner conjecture proof 2026”, “SIC POVM all dimensions solved”, and checked the latest versions rather than relying on search snippets. The apparent January 2026 proof claim is withdrawn; its unchanged abstract must not be read as a valid solution. The Appleby–Flammia–Kopp construction does not give an unconditional proof of the statement. No other general resolution was found.
+
+**Audit update (2026-09-10):** Rechecked the Appleby–Flammia–Kopp conditional construction and Joka’s withdrawn v5, and searched for other general proofs. Many individual dimensions have exact constructions, but the all-dimension existence question remains unresolved; the withdrawn claim is not a solution. This is a bounded literature check, not a proof that no solution exists.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

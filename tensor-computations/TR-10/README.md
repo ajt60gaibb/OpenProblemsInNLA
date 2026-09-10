@@ -2,7 +2,9 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Last checked:** 2026-09-08
+**Rating rationale:** Extreme because equality of two secant-rank notions for all symmetric tensors remains a foundational tensor-geometry barrier; community importance concerns whether symmetry can be imposed without an approximation-rank penalty.  
+**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
 
 ## Statement
 
@@ -21,9 +23,9 @@ This asks whether exploiting symmetry can increase the number of rank-one terms 
 1. T. Mańdziuk and E. Ventura, *Symmetrization maps and minimal border rank Comon's conjecture*, arXiv:2411.05721v2, 2026. [Full text](https://arxiv.org/html/2411.05721v2), §1, opening discussion and Conjecture 1.1; the general conjecture precedes the minimal-border-rank specialization. [Version record](https://arxiv.org/abs/2411.05721).
 2. J. M. Landsberg, *Geometry and Complexity Theory*, Cambridge University Press, 2017. [Author text](https://people.tamu.edu/~jml/simonsclass.pdf), Conjecture 5.6.1.5, a three-factor formulation.
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
-The September 3, 2026 revision of reference 1 describes the general conjecture as open and proves special minimal-border-rank cases. Searches `"border rank Comon" 2026 proof` and `"Comon" "border" "counterexample" "2025" OR "2026"` located no general resolution. The ordinary exact-rank Comon conjecture was disproved by Shitov; that counterexample does not settle this border-rank question. This is a bounded literature check, not a proof of absence of a solution.
+Rechecked [Mańdziuk–Ventura v2, §1 and the main theorems](https://arxiv.org/html/2411.05721v2), and searched for 2025–2026 proofs or counterexamples. The September 2026 revision explicitly leaves the general border conjecture open while proving minimal-border-rank subfamilies. Those are genuine portions of this universal target; Shitov’s counterexample to ordinary exact-rank Comon is a different statement. No full border-rank resolution was located.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

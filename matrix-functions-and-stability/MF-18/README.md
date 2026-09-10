@@ -4,10 +4,11 @@
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
 <!-- /navigation -->
 
-**Last checked:** 2026-09-08  
+**Last checked:** 2026-09-10  
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** conjecture; no general resolution located as of 2026-09-08  
+**Rating rationale:** Challenging because the limiting complex solution must be tied exactly to unit-circle eigenstructure; specialist impact is on structured Green-function matrix equations.  
+**Status:** Partially resolved  
 
 ## Problem statement
 
@@ -53,3 +54,7 @@ The source proves the upper bound by $m$. Its earlier SIAM paper proves equality
 ## Status check
 
 On 2026-09-08, checked both papers' scope and Guo's [publication list through 2026](https://uregina.ca/~chguo/paper.html). Searches using the JCAM title, authors, “Green rank conjecture,” “weakly stabilizing,” and 2025/2026 found no general resolution. The source proves only the upper bound in the stated complex setting. This is a bounded literature check.
+
+## Audit — 2026-09-10
+
+Rechecked [Guo–Kuo–Lin, Theorem 5 and its following conjecture](https://uregina.ca/~chguo/JCAM_GuoKuoLin.pdf). The general complex equality remains posed, while the cited earlier real-coefficient case is settled. Exact-title, author, and rank-conjecture searches found no general resolution. The upper bound alone does not prove equality.

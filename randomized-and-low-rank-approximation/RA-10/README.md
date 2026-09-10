@@ -2,8 +2,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
+**Rating rationale:** Challenging because a dimension-independent loss must survive removal of matrix ordering; community impact is transferring nuclear-error guarantees between matrix functions.  
 **Topic:** Low-rank approximation of matrix functions.  
-**Last checked:** 2026-09-08
+**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
 
 Does a universal constant $C\ge1$ exist with the following property? For every $n\ge2$, $1\le k<n$, real symmetric positive semidefinite matrices $A,\widehat A\in\mathbb R^{n\times n}$, $\varepsilon\ge0$, and continuous operator-monotone function $f:[0,\infty)\to[0,\infty)$,
 
@@ -38,6 +40,10 @@ This is the nuclear-norm instance of the authors' explicit question about a fixe
 ## Status check — 2026-09-08
 
 Checked the source's latest listed arXiv v2 (2024-07-04), its 2025 journal record, and the exact counterexample and constant-loss discussion. Searches combining the title, “constant”, “counterexamples”, “nuclear”, “funNyström”, and 2026 found no general resolution. Example 5.3 rules out $C=1$, while the source expressly leaves a larger fixed constant possible. The 2026 Krylov work addresses specific algorithms, not arbitrary PSD approximation pairs. This entry is explicitly a specialization of the source's broader question; the source does not number it as a separate conjecture. No later explicit reaffirmation was located.
+
+## Audit — 2026-09-10
+
+Rechecked [Theorem 2.4 and Example 5.3](https://arxiv.org/html/2311.14023v2): ordered pairs satisfy $C=1$, while unordered pairs can violate that constant. A larger universal constant remains open. Constant-loss nuclear-transfer searches found no resolution; the partial tag refers only to the ordered subclass.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

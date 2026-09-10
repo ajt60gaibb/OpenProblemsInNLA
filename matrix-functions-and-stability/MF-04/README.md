@@ -6,8 +6,9 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Status:** open; explicitly retained in a 2025 follow-up  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Extreme because rational-input finiteness is a longstanding barrier in joint spectral-radius theory; its consequences reach control, combinatorics, and exact computation.  
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -46,7 +47,11 @@ Jungers, *The Joint Spectral Radius: Theory and Applications*,
 They reduce this question to pairs of binary matrices in arbitrary dimension.
 Mejstrik,
 [The finiteness conjecture for 3×3 binary matrices](https://arxiv.org/pdf/2505.10178),
-§3 and Theorem 3.1 (2025 preprint), treats the all-dimensions problem as open
+§3 and Theorem 3.1, *Dolomites Research Notes on Approximation* 15 (2022), 24–38 (deposited on arXiv in 2025), treats the all-dimensions problem as open
 while proving the binary-pair case in dimension three. Searches for rational
 finiteness and binary-pair counterexamples through the check date found no
 resolution of the general question. Equivalent binary formulations count once.
+
+## Audit — 2026-09-10
+
+Rechecked the [published Mejstrik paper](https://drna.padovauniversitypress.it/system/files/papers/MEJSTRIK.pdf), §3: binary pairs through dimension three are settled, while arbitrary dimensions remain open. Corrected its publication date to 2022; the [2025 arXiv date](https://arxiv.org/abs/2505.10178) is a deposit date. Rational-finiteness and later binary-pair searches found no general resolution.

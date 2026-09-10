@@ -4,11 +4,12 @@
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
 <!-- /navigation -->
 
-**Difficulty:** extreme  
-**Importance:** broadly interesting  
+**Difficulty:** challenging  
+**Importance:** interesting to the community  
+**Rating rationale:** Challenging because the SSC promise gives identifiability without a known polynomial optimization method; community importance reflects minimum-volume factorization in source separation and data analysis.  
 **Topic:** structured matrix factorization; global optimization  
-**Last checked:** 2026-09-08  
-**Status:** open; admitted after a bounded literature search found no resolution.  
+**Last checked:** 2026-09-10  
+**Status:** Open  
 
 ## Context and notation
 
@@ -71,13 +72,7 @@ Barbarino, Gillis, and Saha,
 [*Robustness of Minimum-Volume Nonnegative Matrix Factorization under an Expanded Sufficiently Scattered Condition*](https://arxiv.org/html/2511.04291v1),
 §5, final research question.
 
-## Status check
+## Status check — 2026-09-10
 
-Searches for `minimum-volume NMF polynomial time
-sufficiently scattered` and `minimum volume simplex sufficiently scattered
-algorithm 2026 2025` found no polynomial-time guarantee for this promise.
-The November 2025 paper still asks for complexity results under its stronger
-$p$-SSC assumption. Its robustness theorems assume a globally optimal
-minimum-volume solution; they do not compute one in polynomial time.
-The book explains why the maximum-inscribed-ellipsoid approach can require
-exponentially many polytope facets.
+Rechecked [Barbarino–Gillis–Saha, §5](https://arxiv.org/html/2511.04291v1), and searched for minimum-volume NMF complexity under sufficient scattering. The paper still asks about polynomial solvability even under its stronger p-SSC assumption; its robustness results assume a global optimum. No algorithm for the displayed rational decision promise was located. [Gillis–Luce](https://arxiv.org/abs/2402.06019) studies checking SSC itself, which is excluded from this promised-input task.
+

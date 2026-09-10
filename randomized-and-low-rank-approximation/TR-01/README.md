@@ -6,8 +6,9 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open; explicit source updated 2026-08-20.  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Challenging because two structured randomizations must remove the embedding logarithm uniformly over subspaces; community impact is fast sketching for least squares and low-rank methods.  
+**Status:** Open  
+**Last checked:** 2026-09-10  
 
 ## Problem statement
 
@@ -34,3 +35,7 @@ Amsel et al., [*Linear Systems and Eigenvalue Problems: Open Questions from a Si
 ## Status check
 
 Searches included `"rerandomized SRHT" counterexample`, `"rerandomized" "subspace" Hadamard`, and `"Hadamard" "two" "2026" embedding conjecture`. No resolution of the displayed two-round assertion was located. The September 2026 SparseStack result in the [screening notes](../../proof/catalog/tensors-randomized.md#screened-items-that-are-not-counted) concerns another distribution.
+
+## Audit — 2026-09-10
+
+Rechecked [workshop Problem 5.6](https://arxiv.org/html/2602.05394v3). The precise two-round Hadamard distribution remains unproved there. Rerandomized-Hadamard and later embedding searches found no resolution; guarantees for independent sparse entries or additional randomizations do not settle this distribution.

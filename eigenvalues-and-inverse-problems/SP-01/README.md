@@ -2,8 +2,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** explicit open constant problem; no later resolution located  
-**Last checked:** 2026-09-08
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects a sharp perturbation threshold without geometric separation assumptions beyond a spectral gap; community impact is the stability of spectral subspaces.
 
 Let $A$ be a self-adjoint, possibly unbounded operator on a separable complex Hilbert space. Suppose $\sigma(A)=\sigma\cup\Sigma$, where the two nonempty closed sets satisfy $d=\operatorname{dist}(\sigma,\Sigma)>0$. For a bounded self-adjoint perturbation $V$, set
 $$
@@ -27,3 +29,7 @@ The two spectral sets may interlace: no ordering or disjoint-convex-hull hypothe
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
 <!-- /navigation -->
+
+## Audit update — 2026-09-10
+
+Rechecked [Seelmann's primary account](https://arxiv.org/pdf/1412.6294) and the [2021 perturbation paper](https://files.ele-math.com/articles/oam-15-74.pdf). The generic sharp threshold remains distinct from the established sufficient constants and stronger results under extra geometry. Searches for subsequent optimal generic subspace-rotation thresholds found no solution; these nonsharp estimates do not complete the displayed optimum.

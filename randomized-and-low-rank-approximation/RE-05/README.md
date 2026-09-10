@@ -6,9 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open; checked 2026-09-08  
+**Rating rationale:** Challenging because arbitrary matrix subspaces need pure relative error with few queries; community impact spans structured least squares and matrix compression.  
+**Status:** Partially resolved  
 **Area:** matrix sketching and structured least squares  
-**Last checked:** 2026-09-08  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -49,3 +50,7 @@ Noah Amsel, Pratyush Avi, Tyler Chen, Feyza Duman Keles, Chinmay Hegde, Christop
 ## Status evidence
 
 The August 21, 2026 revision explicitly retains this question. Searches for “linear matrix families pure relative error” and “linearly parameterized matrix relative error 2026” found no resolution. Its abstract update resolves a related finite-family problem; finite-family discretization still produces additive error and does not automatically supply the displayed guarantee. See the [finite-family exclusion](../../proof/catalog/randomized-extensions.md#excluded-and-uncounted-leads).
+
+## Audit — 2026-09-10
+
+Rechecked [Amsel et al., Corollary 1 and §5](https://arxiv.org/html/2507.19290v2). The general linear-family conjecture survives the finite-family update. [Fixed-sparsity approximation](https://doi.org/10.1137/25M1742710) uses $O(s/\varepsilon)$ queries for fixed patterns with at most $s$ entries per row. For patterns with exactly $s$ entries in every row, $q=ns$ and $s\le\sqrt q$, establishing the requested scale for this subclass; arbitrary bases remain open. Linear-family and nonadaptive follow-up searches found no general resolution.

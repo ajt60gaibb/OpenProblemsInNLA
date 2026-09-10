@@ -6,9 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open; checked 2026-09-08  
+**Rating rationale:** Challenging because reusing sketches introduces dependencies across the hierarchy; community impact is reducing operator access in black-box HSS compression.  
+**Status:** Open  
 **Area:** randomized matrix compression  
-**Last checked:** 2026-09-08  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -49,3 +50,7 @@ Amsel et al., [*Quasi-optimal Hierarchically Semi-separable Matrix Approximation
 The proved guarantee uses $O(kL)$ queries. Reusing sketches reduces the query count, but its approximation guarantee remains unproved. Searches for “HSS O(k) approximation 2026 matvec” and “HSS approximation logarithmic 2026” found no resolution. Levitt–Martinsson's latest arXiv version is v3, submitted June 21, 2024. Christopher Musco's [February 2026 ICERM slides](https://app.icerm.brown.edu/assets/568/10574/10574_5858_Musco_020420261630_Slides.pdf), numbered slide 14, still list $O(k\log N)$ queries for HSS approximation.
 
 [RE-01](../RE-01/README.md) permits full access and asks for a constant error factor. RE-02 retains the known dependence of the error factor on depth and asks for fewer queries. Neither target directly implies the other.
+
+## Audit — 2026-09-10
+
+Rechecked [Amsel et al., Theorem 13 and §4.4](https://arxiv.org/html/2505.16937v2). The proved approximation uses depth-dependent queries; the reused-sketch algorithm lacks the requested guarantee. HSS matvec and later-publication searches found no resolution with a query count independent of depth.

@@ -6,8 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
+**Rating rationale:** Challenging because general discriminant-degree formulas must account for degeneracies and the excluded isotropic locus; specialist importance concerns algebraic conditioning of rank-one Rayleigh–Ritz optimization.  
 **Source:** Borovik–Friedman–Hoşten–Pfeffer, Conjecture 3.18 in v2.  
-**Last checked:** 2026-09-08  
+**Last checked:** 2026-09-10  
+**Status:** Open  
 
 ## Problem statement
 
@@ -51,6 +53,7 @@ Minimizing $R_H$ over real rank-one matrix states is a constrained energy proble
 1. Viktoriia Borovik, Hannah Friedman, Serkan Hoşten, and Max Pfeffer, [*Numerical Algebraic Geometry for Energy Computations on Tensor Train Varieties*](https://arxiv.org/html/2512.06939v2), arXiv:2512.06939v2 (2026), §3.2, Proposition 3.7, definition before Example 3.11, Conjecture 3.18; §7.2, Table 4.
 2. Flavio Salizzoni, Luca Sodomaco, and Julian Weigert, [*Nonlinear Rayleigh quotient optimization*](https://arxiv.org/html/2510.17760v1), 2025, §§2 and 5.
 
-## Status check
+## Status check — 2026-09-10
 
-The current v2, submitted 2026-06-18, retains Conjecture 3.18. Table 4 gives small-dimensional numerical evidence, not a general proof. On 2026-09-08, exact-title, author, discriminant and conjecture-number searches found no resolution. Known generic critical-point counts are different invariants. This is a bounded check.
+Rechecked [Borovik et al. v2, Conjecture 3.18 and Table 4](https://arxiv.org/html/2512.06939v2), and searched the title, authors, discriminant and conjecture number. The June 2026 revision retains both formulas as one conjecture. Small-dimensional numerical evidence and generic critical-point counts are not proofs of the stated general discriminant degrees. No later resolution was located.
+

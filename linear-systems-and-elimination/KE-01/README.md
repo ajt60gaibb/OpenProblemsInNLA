@@ -7,8 +7,10 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Topic:** sparse linear systems; randomized preconditioning  
-**Last checked:** 2026-09-08  
-**Status:** open; admitted after a bounded literature search found no resolution.  
+**Last checked:** 2026-09-10  
+**Status:** Open  
+
+**Rating rationale:** Challenging reflects combining spectral deflation with an input-sparsity cost guarantee; community impact spans sparse solvers, preconditioning, and regression.
 
 ## Context and notation
 
@@ -52,7 +54,7 @@ Definition 2.4 and Problem 2.5. Dereziński and Sidford,
 SODA 2026, pp. 925–938; [full manuscript](https://arxiv.org/html/2507.11724),
 Theorems 3 and 29, gives the dense-input predecessor.
 
-## Status check
+## Earlier status check — 2026-09-08
 
 Searches for `sparse outlying singular values solver 2026`
 and `spectral outliers linear systems 2026` found the newer Liu, Nguyen, Peng,
@@ -63,3 +65,7 @@ $m\times d$ factor with at most $s$ nonzeros per row, its bit bound includes
 $m^{o(1)}\widetilde O(ms+\sqrt{d/k}\,k^2+k^{\omega+\eta})$. These input
 restrictions and extra terms do not establish the requested general bound.
 The workshop's August update records this as partial progress on Problem 2.9.
+
+## Audit update — 2026-09-10
+
+Rechecked [workshop Problem 2.5](https://arxiv.org/html/2602.05394v3) and [Liu–Nguyen–Peng–Yang](https://yangpliu.github.io/pdf/faster-solvers-sparse-spectral-outliers.pdf), Theorem 1.1. The latter is a meaningful newer sparse-factor result but retains different input assumptions and overhead, as detailed above. Spectral-outlier solver searches found no theorem establishing this entry's exact general bound; the author-hosted manuscript is identifiable through [Liu's publication list](https://yangpliu.github.io/research.html).

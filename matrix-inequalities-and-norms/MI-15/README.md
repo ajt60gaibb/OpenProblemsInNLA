@@ -1,9 +1,12 @@
 # MI-15 — A sum-of-squares representation for the Toeplitz commutator form
 
 **Difficulty:** challenging  
-**Importance:** interesting to the community  
+**Importance:** interesting to specialist  
 **Provenance:** explicit conjecture  
-**Last checked:** 2026-09-08
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10
+
+**Rating rationale:** All-order algebraic certification needs more than known nonnegativity; its direct application is a specific Toeplitz commutator form.
 
 ## Problem statement
 
@@ -27,9 +30,11 @@ An explicit sum-of-squares identity would give an algebraic certificate for a st
 1. L. László, *Sum of squares representation for the Böttcher–Wenzel biquadratic form*, Acta Universitatis Sapientiae, Informatica 4(1) (2012), 17–32: equation (1), §5, and Conjecture 15, p.31. [Primary manuscript](https://arxiv.org/pdf/1207.6372).
 2. J. Ge, F. Li, Z. Tang, and Y. Zhou, *A survey on the DDVV-type inequalities*, Advances in Mathematics (China) 53 (2024), 449–467: published Conjecture 4.1, p.461; Conjecture 4.3 in [arXiv:2402.01085v1](https://arxiv.org/html/2402.01085v1). [Published PDF](https://ccj.pku.edu.cn/Article/DownLoad?id=374327987&type=ArticleFile).
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
 Both arXiv records remain v1; the published 2024 survey still poses this SOS assertion. László's particular certificate strategy works through order seven; its failure in a larger order is not a disproof of all SOS representations. Searches used `Toeplitz SOS Wenzel`, `Toeplitz Bottcher squares proof`, and `Toeplitz Conjecture 15 squares`. No general proof or non-SOS counterexample was located. The already proved Böttcher–Wenzel nonnegativity statement is not being counted again. The optional rational-certificate request in the original is not imposed as an additional conjecture.
+
+**Audit update (2026-09-10):** Rechecked the survey’s Conjecture 4.3 and searched for later Toeplitz SOS results. The general assertion remains a conjecture; known small-order certificates do not establish all-order representability. This is a bounded literature check, not a proof that no solution exists.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

@@ -1,11 +1,13 @@
 # MD-06 — Global synchronization of a random cubic graph
 
-**Difficulty:** hard  
+**Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Provenance:** source-stated conjecture, with the phase domain written explicitly as a torus.  
-**Last checked:** 2026-09-08
+**Status:** Open  
+**Last checked:** 2026-09-10
 
-**Status:** no resolution for degree three found in screening on 2026-09-08.  
+**Rating rationale:** Controlling every local minimum on sparse random cubic graphs requires new landscape analysis beyond existing dense and high-degree results; it informs synchronization and nonconvex optimization.
+
 
 For each even integer $n\geq4$, let $G_n$ be uniformly distributed over the labelled simple $3$-regular graphs with vertex set $\{1,\ldots,n\}$. For a graph $G$ on these vertices, define
 $$
@@ -35,9 +37,11 @@ The energy is a sparse graph optimization problem whose derivatives involve weig
 3. V. Jain, C. Mizgerd, and M. Sawhney, *The random graph process is globally synchronizing*, arXiv:2501.12205 (2025), Theorem 1.2: the connectivity hitting-time result for a different random graph model. [Paper](https://arxiv.org/abs/2501.12205).
 4. S. Lepsveridze and S. Zhang, *Graphs with connectivity $3/4-\varepsilon$ are globally synchronizing*, (2026), dense minimum-degree result. [Paper](https://arxiv.org/abs/2608.20010).
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
 checked the current records 2504.20539v1 (2025-04-29), 2210.12788v4 (2026-01-19), 2501.12205v1 (2025-01-21), and 2608.20010v1 (2026-08-20), and searched “random cubic globally synchronizing 2026” and “random regular graphs degree 3 conjecture”. The large-degree, random-graph-process, and dense minimum-degree results do not establish the stated cubic-graph assertion. No proof, counterexample, or relevant withdrawal was found. The source's angular variables give the torus used here; its isolated sphere notation is not imposed on the phases.
+
+**Audit update (2026-09-10):** Rechecked the 2025 cubic-graph conjecture and August 2026 dense-degree theorem, and searched for later cubic synchronization results. The dense threshold result concerns a different graph regime and does not resolve this target. This is a bounded literature check, not a proof that no solution exists.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

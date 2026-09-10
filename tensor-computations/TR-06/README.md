@@ -6,8 +6,9 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** open conjecture; explicit journal source published in 2023.  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Challenging because generic uniqueness does not supply the integrability estimates needed near degenerate decompositions; specialist importance reflects the particular angular condition number and volume-based input model.  
+**Status:** Open  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -41,6 +42,7 @@ for every admissible format and $r\ge3$. The rank-two case is a theorem. Normali
 
 Beltrán, Breiding, and Vannieuwenhoven, [*The Average Condition Number of Most Tensor Rank Decomposition Problems Is Infinite*](https://doi.org/10.1007/s10208-022-09551-1), *Foundations of Computational Mathematics* 23 (2023), 433–491: equation (6), Theorem 3, and Conjecture 2. The [author preprint](https://arxiv.org/pdf/1903.05527) labels the conjecture 1.10.
 
-## Status check
+## Status check — 2026-09-10
 
-Searches included `"tensor" "angular condition number" "2026"` and `"angular condition" "tensor" finite proved`. No higher-rank resolution was located. Generic uniqueness alone is not an integrability estimate. The latest explicit conjecture located is the 2023 journal version.
+Rechecked the [journal version, equation (6), Theorem 3 and Conjecture 2](https://doi.org/10.1007/s10208-022-09551-1), and searched for higher-rank angular-condition-number proofs. The theorem covers rank two, which the displayed target already excludes; no result proving finite mean for all admissible ranks at least three was located. The 2023 conjecture is the latest explicit statement checked, and a later unlocated result cannot be ruled out.
+

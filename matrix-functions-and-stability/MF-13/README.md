@@ -1,8 +1,10 @@
 # MF-13 — Symmetric maximizers for Lyapunov operators of order six
 
 **Difficulty:** challenging  
-**Importance:** interesting to the community  
-**Last checked:** 2026-09-08
+**Importance:** interesting to specialist  
+**Rating rationale:** Challenging because the last undecided dimension sits between proved cases and counterexamples; specialist impact reflects the surviving order-six norm identity rather than the refuted all-orders claim.  
+**Last checked:** 2026-09-10  
+**Status:** Open  
 
 ## Problem statement
 
@@ -29,6 +31,10 @@ Restricting a norm calculation to symmetric matrices substantially reduces the a
 ## Status check — 2026-09-08
 
 Reference 1 explicitly leaves order six open, while refuting every order at least seven. The original all-orders assertion must therefore not be catalogued as open. The latest arXiv record is v1. Searches included `symmetric-maximizer Lyapunov order six`, `Lyapunov conjecture 2026 proof`, and the exact paper title; no subsequent resolution of order six was located. This is a targeted literature check, not a certification of openness.
+
+## Audit — 2026-09-10
+
+Rechecked the [August 2026 counterexample paper, §5](https://arxiv.org/html/2608.20875): order six alone remains unresolved. Exact-title and order-six searches found no subsequent resolution. The importance rating now reflects this narrow surviving target; the broader symmetric-maximizer assertion has already been refuted.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

@@ -6,8 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** open; source-stated question with a bounded later-status search.  
-**Last checked:** 2026-09-08  
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects preservation of a nontrivial spectral-norm orbit distance under larger unitary mixing; specialist impact concerns finite matrix amplification and operator-algebraic nearness.
 
 ## Problem statement
 
@@ -50,13 +52,13 @@ L. W. Marcoux, P. Sarkowicz, and Y. Zhang,
 [*Kaplansky's problem and unitary orbits in matrix amplifications*](https://arxiv.org/html/2508.13834v1),
 arXiv:2508.13834v1 (2025), §3.5 and Propositions 3.15, 3.21, and 4.14.
 
-## Status check
+## Earlier status check — 2026-09-08
 
 Theorem 5.3 of the source proves equality for normal matrices of order two.
 Theorem 5.1 establishes a strict decrease for some unrestricted matrices,
 so normality cannot simply be omitted. The example after Question 5.4 uses
 infinitely many copies and does not resolve the finite-$k$ question.
-The direct follow-up 2508.13834v1 repeats the order-two result in §3.5.
+The direct follow-up 2508.13834v1 records the order-two result after Corollary 3.5. The corollary itself proves equality for self-adjoint matrices of every order.
 Its normal-element Propositions 3.15 and 3.21 concern zero orbit distance;
 its Proposition 4.14 counterexamples have no normality requirement. Neither
 settles preservation of all distances for finite normal matrices.
@@ -64,3 +66,7 @@ The published §5 and these later passages were checked. Searches for `Marcoux Z
 5.4 normal matrices`, `normal matrices ampliations unitary orbit distance`,
 and 2025/2026 follow-ups found no finite-dimensional normal counterexample or
 general proof. This is limited search evidence, not a certificate of openness.
+
+## Audit update — 2026-09-10
+
+Rechecked [Marcoux–Sarkowicz–Zhang](https://arxiv.org/html/2508.13834v1), Corollary 3.5: equality is proved for every pair of self-adjoint matrices, in every dimension and finite multiplicity. This substantive normal subclass was missing from the earlier status explanation. General normal matrices remain unresolved in the checked sources; finite-normal amplification searches found no completion. The nonnormal counterexamples and zero-distance results do not settle the remaining positive-distance question.

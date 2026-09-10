@@ -1,0 +1,133 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={TR-28 - Entropy
+formula for the asymptotic subrank of Dicke
+tensors},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}TR-28}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Tensor computations\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Entropy
+formula for the asymptotic subrank of Dicke tensors\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Rating rationale:} Matching the entropy upper bound for this
+structured tensor family requires substantial progress beyond its known
+binary and multilinear cases. Tensor restriction rates and entanglement
+conversion give the question community importance.
+
+\subsection{Problem statement}\label{problem-statement}
+
+Let \(n\geq2\) and let \(d_1,\ldots,d_n\) be positive integers with
+\(k=d_1+\cdots+d_n\). In \((\mathbb C^n)^{\otimes k}\), define the Dicke
+tensor \[
+D_{\mathbf d}=
+\sum_{\substack{(i_1,\ldots,i_k)\in\{1,\ldots,n\}^{k}\\
+|\{j:i_j=a\}|=d_a\ \text{for all }a}}
+e_{i_1}\otimes\cdots\otimes e_{i_k}.
+\] For any tensor \(T\in V_1\otimes\cdots\otimes V_k\), its subrank
+\(Q(T)\) is the largest integer \(s\) for which there are linear maps
+\(L_j:V_j\to\mathbb C^s\) satisfying \[
+(L_1\otimes\cdots\otimes L_k)T=\sum_{a=1}^{s}e_a^{\otimes k}.
+\] Let \(\widetilde Q(T)=\lim_{m\to\infty}Q(T^{\boxtimes m})^{1/m}\),
+where powers group corresponding modes.
+
+Does every Dicke tensor satisfy \[
+\widetilde Q(D_{\mathbf d})
+=2^{H(d_1/k,\ldots,d_n/k)},\qquad
+H(p_1,\ldots,p_n)=-\sum_{a=1}^np_a\log_2p_a?
+\] The maps in the subrank definition are arbitrary complex linear maps,
+independently chosen in each mode. No symmetry or coordinate-selection
+constraint is imposed. Multiplying \(D_{\mathbf d}\) by a nonzero scalar
+does not change the question, so this agrees with the symmetric-tensor
+convention for the monomial \(x_1^{d_1}\cdots x_n^{d_n}\).
+
+\subsection{Why it matters}\label{why-it-matters}
+
+Subrank measures how many independent scalar computations a tensor can
+perform after linear transformations. The conjecture predicts the
+exponential rate obtainable from repeated copies of an explicit
+structured tensor solely from its multiplicity distribution.
+
+\subsection{References and status
+check}\label{references-and-status-check}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  P. Vrana and M. Christandl, \emph{Asymptotic entanglement
+  transformation between W and GHZ states},
+  \href{https://arxiv.org/pdf/1310.3244}{arXiv:1310.3244}, §VI, equation
+  (40), p.10; Journal of Mathematical Physics \textbf{56} (2015),
+  022204. The conversion-rate formulation is reciprocal to the base-two
+  logarithm of asymptotic subrank.
+\item
+  A. Oneto and E. Ventura, \emph{Ranks of tensors: geometry and
+  applications}, \href{https://doi.org/10.1007/s40574-025-00472-9}{2025
+  survey}, Conjecture 4.26, states the displayed subrank formula
+  explicitly.
+\item
+  M. Christandl, P. Vrana, and J. Zuiddam, \emph{Asymptotic tensor rank
+  of graph tensors: beyond matrix multiplication},
+  \href{https://ir.cwi.nl/pub/28609/28609.pdf}{Computational Complexity
+  \textbf{28} (2019), 57--111}, introduction and tight-tensor
+  lower-bound results.
+\end{enumerate}
+
+\subsubsection{Status check ---
+2026-09-10}\label{status-check-2026-09-10}
+
+Checked the source formulation and the explicit 2025 restatement,
+Conjecture 4.26, with targeted Dicke-tensor/subrank/entropy searches
+through 2026. The formula is established for \(n=2\) and for
+\(d_1=\cdots=d_n=1\), substantive parameter families within this target.
+The all-multiplicity statement remains conjectural in the survey, and no
+full later resolution was located. Asymptotic-rank computations and
+lower bounds on subrank do not by themselves establish the requested
+equality.
+\end{document}

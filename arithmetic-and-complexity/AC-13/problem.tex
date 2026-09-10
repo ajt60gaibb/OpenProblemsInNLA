@@ -1,0 +1,138 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={AC-13 - Deterministic
+near-quadratic matrix multiplication
+verification},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}AC-13}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Arithmetic and complexity\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Deterministic
+near-quadratic matrix multiplication verification\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} broadly
+interesting\par}
+{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Rating rationale:} Matching randomized verification in
+deterministic near-quadratic bit time is a longstanding derandomization
+barrier, with obstructions known for restricted algorithm classes. Exact
+matrix verification has broad importance across linear algebra and
+computational complexity.
+
+\textbf{Area:} computational complexity; exact linear algebra
+
+\subsection{Problem statement}\label{problem-statement}
+
+For every fixed constant \(c>0\), is there a deterministic algorithm
+that, given three explicitly represented \(n\times n\) matrices
+\(A,B,C\), decides exactly whether
+
+\[
+AB=C
+\]
+
+in \(\widetilde O(n^2)\) bit operations in each of the following input
+domains?
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Integer matrices with every input entry in \([-n^c,n^c]\).
+\item
+  Matrices over a finite field \(\mathbb F_q\) with \(q\le n^c\).
+\end{enumerate}
+
+Here \(\widetilde O(n^2)\) means \(O(n^2(\log n)^d)\) for a constant
+\(d\) independent of the matrices and \(n\); constants may depend on
+\(c\). Integers use binary encoding. For the finite-field case, use a
+standard explicit field representation: \(q=p^r\), elements represented
+by polynomials of degree less than \(r\) over \(\mathbb F_p\), and an
+irreducible degree-\(r\) modulus supplied with the input. The field
+representation is promised valid. Arithmetic and intermediate bit
+lengths contribute to the running time.
+
+The answer must be correct on every input. There is no sparsity, rank,
+symmetry, or nonsingularity promise, and no auxiliary certificate from a
+prover. This is one derandomization question across the two domains
+explicitly identified in the source. The field-encoding convention makes
+its bit-cost interpretation explicit.
+
+Verification is a basic task for checking exact matrix computations.
+Freivalds's randomized test already has near-quadratic bit complexity
+for these domains. Counting operations on arbitrarily large integers at
+unit cost would change the question.
+
+\newpage
+\subsection{References}\label{references}
+
+Huck Bennett, Karthik Gajulapalli, Alexander Golovnev, and Evelyn
+Warton, \href{https://arxiv.org/pdf/2309.16176v2}{\emph{Matrix
+Multiplication Verification Using Coding Theory}}, RANDOM 2024,
+\href{https://doi.org/10.4230/LIPIcs.APPROX/RANDOM.2024.42}{LIPIcs 317,
+Article 42}; full version §1.3, p.~10, and Definition 2.6, p.~12.
+Section 1.2 discusses why an existing quadratic arithmetic-operation
+algorithm is not a quadratic bit algorithm.
+
+The same authors,
+\href{https://arxiv.org/pdf/2508.10250}{\emph{Output-Sparse Matrix
+Multiplication Using Compressed Sensing}}, 2025 preprint, accepted at
+RANDOM 2026; §1.1, Theorems 1--2, and §1.2 explain the later
+sparse-product advances and their relationship to verification.
+
+\subsection{Status check --- 2026-09-10}\label{status-check-2026-09-10}
+
+Checked Bennett--Gajulapalli--Golovnev--Warton v2, §§1.1--1.3, the 2025
+follow-up, and targeted deterministic-verification/2025--2026 searches.
+The 2024 paper recounts a deterministic near-quadratic algorithm under
+the promise that \(AB-C\) has at most \(n\) nonzero entries, a
+substantive solved input subclass. Its newer coding-theory and
+sparse-product results do not yield the required unrestricted
+near-quadratic bit bound. No such general algorithm was located. The
+paper's lower-bound barrier concerns a restricted class of
+linear-algebraic algorithms; it is not an unconditional impossibility
+theorem. Unbounded unit-cost integer arithmetic changes the target
+model.
+\end{document}

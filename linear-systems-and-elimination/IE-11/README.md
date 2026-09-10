@@ -6,8 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** open.  
-**Last checked:** 2026-09-08  
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects a nonconvex global optimization problem with a high-degree algebraic candidate; specialist impact is an exact low-order pivoting constant.
 
 ## Context and notation
 
@@ -39,6 +41,10 @@ All complete-pivoting paths are included in the supremum. The lower bound $g_5\g
 
 Chen, Edelman, and Urschel, [*The largest 5th pivot may be the root of a 61st degree polynomial*](https://arxiv.org/html/2602.20390v1), February 2026, Equation (2.15), Conjecture 2.1, Theorem 2.2, and Theorem 3.5. The current rigorous interval is $\alpha\leq g_5\leq4.84$.
 
-## Status check
+## Earlier status check — 2026-09-08
 
 Searches for the paper title and `complete pivoting maximum five 2026` found no global proof. Shah–Urschel's August asymptotic result leaves this exact finite-dimensional optimum undetermined.
+
+## Audit update — 2026-09-10
+
+The [February 2026 primary preprint](https://arxiv.org/abs/2602.20390) still presents the degree-61 candidate as conjecturally optimal, rather than proving the matching upper bound. Title-based and fifth-pivot resolution searches found no later exact determination. The broader complete-pivoting bounds do not certify this finite-order optimum.

@@ -2,8 +2,10 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
+**Rating rationale:** Extreme because exact constants across all tensor formats involve unresolved extremal tensor geometry; community importance is the sharp energy captured by rank-one approximation and its role in iterative decomposition.  
 **Topic:** Tensor approximation and norm comparison.  
-**Last checked:** 2026-09-08
+**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
 
 For integers $d\ge3$ and $2\le n_1\le\cdots\le n_d$, let $V=\mathbb R^{n_1\times\cdots\times n_d}$. For $T\in V$, define
 
@@ -33,9 +35,9 @@ This ratio measures the worst-case amount of tensor energy accessible to a best 
 2. Z. Li, Y. Nakatsukasa, T. Soma, and A. Uschmajew, [On orthogonal tensors and best rank-one approximation ratio](https://arxiv.org/abs/1707.02569), *SIAM Journal on Matrix Analysis and Applications* 39 (2018), 400–425, abstract and characterization of equality in the basic dimension bound.
 3. K. Kozhasov and J. Tonelli-Cueto, [Probabilistic bounds on best rank-one approximation ratio](https://arxiv.org/abs/2201.02191), arXiv v2 (2022-09-23), abstract and bounds for general and partially symmetric tensors.
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
-Checked the 2020 published text and the later probabilistic-bound paper's latest listed arXiv version. Searches for “best rank-one approximation ratio 2026” and “extremal ratio tensor spectral Frobenius 2025 2026” found no exact general formula. Known orthogonal-tensor cases and probabilistic dimension bounds give partial answers. They are not additional open entries. This target differs from counting critical rank-one approximations, choosing an inner product to minimize that count, and tensor-train quasi-optimality. No recent explicit reaffirmation of the full exact-value problem was located.
+Rechecked [Li–Zhao, §5](https://pure.port.ac.uk/ws/portalfiles/portal/19117904/On_norm_compression_inequalities.pdf), [Li et al. on orthogonal tensors](https://arxiv.org/abs/1707.02569), and [Kozhasov–Tonelli-Cueto](https://arxiv.org/abs/2201.02191), and searched for later exact-ratio results. Orthogonal-tensor formats give exact values for substantive subfamilies; the general-format formula remains unresolved. Probabilistic upper bounds do not determine it. No newer full resolution was located.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

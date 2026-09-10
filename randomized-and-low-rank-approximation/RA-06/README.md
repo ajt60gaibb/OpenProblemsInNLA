@@ -1,10 +1,11 @@
 # RA-06 — Sensitivity-dependent row sampling for $\ell_p$ embeddings when p exceeds two
 
-**Difficulty:** hard  
+**Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Last checked:** 2026-09-08
+**Rating rationale:** Challenging because ordinary sensitivities must control all directions with nearly linear total-sensitivity cost; community impact is instance-sensitive regression and subspace sketching.  
+**Last checked:** 2026-09-10  
 
-**Status:** source-stated conjecture; no resolution found in screening on 2026-09-08.
+**Status:** Open  
 
 Fix $p>2$. For a full-column-rank matrix $A\in\mathbb R^{n\times d}$, with rows $a_i^T$, set
 $$
@@ -44,6 +45,10 @@ This would exploit easy instances through total sensitivity rather than using th
 ## Status check — 2026-09-08
 
 Searched “p>2 sensitivity sampling conjecture 2025 2026”, “sensitivity sampling S+d”, and the exact paper titles; checked the current arXiv records. No resolution of the stated p>2 rule was found. Results using $\ell_2$ augmentation for p≤2 do not settle it. The 2026 deterministic embedding claim was withdrawn (latest v3, May 15, 2026), so its abstract is not evidence that any open case has been resolved.
+
+## Audit — 2026-09-10
+
+Rechecked [Woodruff–Yasuda, §3](https://arxiv.org/html/2306.00732v2) and the [augmentation paper's scope](https://arxiv.org/abs/2406.00328). The ordinary-sensitivity $p>2$ target remains unresolved in these sources. Sensitivity-sampling follow-up searches found no resolution. Difficulty was raised to reflect the general uniform sampling obstruction.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

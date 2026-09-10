@@ -6,8 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** open.  
-**Last checked:** 2026-09-08  
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects the geometry of isospectral stochastic families in arbitrary dimension; specialist impact concerns the narrow property of spectral uniqueness within that class.
 
 ## Problem statement
 
@@ -40,9 +42,13 @@ definitions in §1 and Conjecture 5.1, p. 10;
 [published article](https://doi.org/10.1080/03081087.2014.903590),
 *Linear and Multilinear Algebra* 63 (2015), 869–881.
 
-## Status check
+## Earlier status check — 2026-09-08
 
 Searches for the exact title, `symmetric doubly stochastic
 Conjecture 5.1`, and author/title combinations with `counterexample` and
 `2026` found no resolution. The source solves order three, which is excluded
 from the remaining statement above.
+
+## Audit update — 2026-09-10
+
+Rechecked [Mourad–Abbas](https://arxiv.org/pdf/1310.1273), §5, Conjecture 5.1, against the trace and locus restrictions here. Searches for spectrally unique symmetric stochastic matrices and later work on that conjecture found no general answer. The order-three classification is outside the displayed unresolved dimensions, so it does not change this entry's status. Evidence remains historical rather than a recent explicit reaffirmation.

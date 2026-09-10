@@ -2,7 +2,10 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Last checked:** 2026-09-08
+**Status:** Open  
+**Last checked:** 2026-09-10
+
+**Rating rationale:** An exact all-dimension optimum imposes rigid real orthogonality constraints beyond a general upper bound; it would clarify matrix averaging and majorization decompositions.
 
 ## Problem statement
 
@@ -22,9 +25,11 @@ Diagonal extraction is a basic matrix operation. Expressing it by the shortest a
 1. J.-C. Bourin and E.-Y. Lee, *Averages over matrix unitary orbits and spectral order*, arXiv:2606.15624v2 (18 June 2026), Lemma 4.1 and Question 4.8. [Primary text](https://arxiv.org/html/2606.15624).
 2. R. Bhatia, *Pinching, trimming, truncating, and averaging of matrices*, American Mathematical Monthly 107(7) (2000), 602–608, equation (2), for the complex unitary counterpart cited in reference 1. [DOI](https://doi.org/10.2307/2589115).
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
 The latest source is v2 and explicitly asks for the smallest length. Searches included `orthogonal pinching minimum phi Bourin Lee`, `Averages over matrix unitary orbits spectral order 2026`, and `diagonal pinching orthogonal matrices minimum`. No general determination was located. The adjacent Question 4.9 reverses the quantifier order by allowing the matrices to depend on $X$; it is not counted separately here. This is an exact optimization question rather than a conjectured closed formula.
+
+**Audit update (2026-09-10):** Rechecked Question 4.8 in the current Bourin–Lee text and searched for minimal orthogonal pinching averages. The question remains explicit; allowing the conjugations to depend on $X$ is the different Question 4.9. This is a bounded literature check, not a proof that no solution exists.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

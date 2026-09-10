@@ -2,9 +2,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Last checked:** 2026-09-08
+**Rating rationale:** Challenging because the required second-difference inequality goes beyond standard log-concavity; community impact is understanding average column-selection and Nyström error.  
+**Last checked:** 2026-09-10  
 
-**Status:** source-stated conjecture; no resolution found in screening on 2026-09-08.
+**Status:** Open  
 
 For $n\geq3$ and positive real numbers $\lambda_1,\ldots,\lambda_n$, let
 $$
@@ -33,6 +34,10 @@ where $P_{A_S}$ is the orthogonal projector onto the selected column span. Thus 
 ## Status check — 2026-09-08
 
 Searched “Derezinski Khanna Mahoney Conjecture 1 convexity”, “elementary symmetric ratio $k+1$ convexity DPP”, and the exact 2020 paper title with 2025/2026. Checked the current arXiv record. No proof or counterexample was found. Standard Newton inequalities imply other ratio inequalities but are not cited as a resolution of this second-difference inequality.
+
+## Audit — 2026-09-10
+
+Rechecked [Dereziński–Khanna–Mahoney, §5, Conjecture 1](https://arxiv.org/html/2002.09073); the current record remains v3 of December 2020. Volume-sampling convexity and elementary-symmetric-ratio searches found no resolution. This remains historical explicit conjecture evidence, supplemented by a bounded follow-up search.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

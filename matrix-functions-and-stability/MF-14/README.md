@@ -2,7 +2,9 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Last checked:** 2026-09-08
+**Rating rationale:** Challenging because numerical evidence for coefficient-space coverage needs exact algebraic justification; community impact comes from multiplication budgets for practical matrix-function evaluation.  
+**Last checked:** 2026-09-10  
+**Status:** Open  
 
 ## Problem statement
 
@@ -27,6 +29,10 @@ For a dense input matrix, matrix products dominate the cost of polynomial evalua
 ## Status check — 2026-09-08
 
 The latest arXiv source remains v3 and labels the displayed equality a conjecture supported by computations. The later papers give constructions and stability procedures without establishing the seven-product degree-coverage claim. Searches included the exact title with `2026`, `Jarlebring Lorentzon conjecture seven multiplications 42`, and `Sastre polynomial evaluation 2026`. No resolution was located. A [3 September 2026 author talk](https://indico3.mpi-magdeburg.mpg.de/event/58/contributions/1074/) also describes higher-cost degree coverage as conjectural. Six-product real/complex formulations have a separate source ambiguity and are deliberately not included here.
+
+## Audit — 2026-09-10
+
+Rechecked [Conjecture 13 and Remark 14](https://arxiv.org/html/2504.01500): complex closure coverage at seven products is still conjectural, with concrete matrix-exponential applications. Title and seven-product searches found no exact proof. The [June 2026 degree-eight construction](https://arxiv.org/html/2606.24701v1) solves a different budget/degree problem.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

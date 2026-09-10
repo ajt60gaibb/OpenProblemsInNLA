@@ -6,8 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open; polynomial growth with high probability is known.  
-**Last checked:** 2026-09-08  
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects the need for a sharp probabilistic exponent beyond existing polynomial estimates; community impact is its prediction of typical partial-pivoting stability.
 
 ## Context and notation
 
@@ -34,6 +36,10 @@ Here growth is measured over the exact-arithmetic Schur complements as defined a
 
 Huang and Tikhomirov, [*Average-case analysis of the Gaussian elimination with partial pivoting*](https://doi.org/10.1007/s00440-024-01276-2), PTRF 189 (2024), 501–567, introduction, discussion of Edelman's numerical evidence and main theorems. Trefethen and Schreiber, [*Average-Case Stability of Gaussian Elimination*](https://doi.org/10.1137/0611023), SIAM J. Matrix Anal. Appl. 11 (1990), 335–360.
 
-## Status check
+## Earlier status check — 2026-09-08
 
 Searches for `Gaussian elimination n^{1/2} 2025 2026` and `site:arxiv.org Gaussian growth factor 2026` found polynomial upper bounds and the August worst-case results, but no proof at the square-root exponent. The distinction between exact and computed growth factors matters; the catalog statement fixes the former.
+
+## Audit update — 2026-09-10
+
+The [2024 journal article](https://link.springer.com/article/10.1007/s00440-024-01276-2) distinguishes its proved polynomial bound from the numerically suggested square-root scale. Searches for Gaussian GEPP growth and later work by Huang–Tikhomirov located no proof of the displayed exponent. A polynomial bound with an unspecified larger exponent does not resolve a parameter range of this sharper target.

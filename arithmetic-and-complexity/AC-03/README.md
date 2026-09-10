@@ -6,9 +6,10 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
+**Rating rationale:** Extreme because exact border rank remains unknown even for this fixed matrix-product tensor; community importance reflects degenerating bilinear algorithms and the geometry behind fast multiplication.  
 **Topic:** approximate bilinear algorithms  
-**Last checked:** 2026-09-08  
-**Status:** open; admitted after a bounded literature search found no resolution.  
+**Last checked:** 2026-09-10  
+**Status:** Open  
 
 ## Problem statement
 
@@ -36,3 +37,7 @@ Theorem 1.1, proves $\underline R(M_3)\ge17$. J. Alman and B. Li,
 (2026), §1, explicitly identifies this exact border rank as open. Searches for
 “3x3 border rank matrix multiplication 2026” found no exact determination.
 **Admitted: no resolution located.**
+
+## Status check — 2026-09-10
+
+Rechecked [Alman–Li, §1](https://arxiv.org/html/2605.21738v1), and searched for a 2026 exact border-rank determination of the 3×3 multiplication tensor. The May 2026 source explicitly lists this value as open. Neither its asymptotic-rank improvements nor an exact-rank algorithm determines the border rank. No full resolution was located; the previously cited lower bound remains a bound, not an exact answer.

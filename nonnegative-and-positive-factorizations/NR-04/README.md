@@ -6,9 +6,10 @@
 
 **Difficulty:** hard  
 **Importance:** interesting to specialist  
-**Status:** open; checked 2026-09-08  
+**Rating rationale:** Hard because a single small exact factorization must be constructed or excluded using sharp nonnegative-rank tools; specialist importance reflects its role as a named distance-matrix benchmark.  
+**Status:** Open  
 **Area:** exact factorization of Euclidean distance matrices  
-**Last checked:** 2026-09-08  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -41,11 +42,7 @@ Pavel Hrubeš, *On the nonnegative rank of distance matrices*, Information
 Processing Letters **112** (2012), 457–461, supplies the upper-bound construction
 cited there.
 
-## Status evidence
+## Status check — 2026-09-10
 
-The July 2026 revision records bounds $6\le
-\operatorname{rank}_+(D)\le7$ and explicitly calls the exact value open.
-Targeted searches for the nine-point linear Euclidean distance matrix and
-subsequent nonnegative-rank results found no resolution. This is a named
-unresolved benchmark in the source, rather than an arbitrary specialization
-of a separately counted general problem.
+Rechecked [Baeckelant et al. v2, Appendix A.1, Table 6 and final paragraph](https://arxiv.org/html/2605.14058v2), and searched for later nine-point distance-matrix factorizations. The July 2026 text explicitly retains the gap between six and seven. Its new exact results for orders eleven and twelve do not settle order nine. No six-factor construction or seven-factor lower bound was located.
+

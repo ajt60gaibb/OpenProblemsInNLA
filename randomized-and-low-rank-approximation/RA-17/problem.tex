@@ -1,0 +1,134 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={RA-17 - Minimum
+linear measurements for uniform recovery of real low-rank
+matrices},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RA-17}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Randomized and low-rank approximation\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Minimum
+linear measurements for uniform recovery of real low-rank matrices\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Rating rationale:} The all-dimension real measurement
+classification needs new control of exceptional kernels and topological
+obstructions, hence challenging. Its main impact is on the community
+working on low-rank matrix sensing and recovery.
+
+\subsection{Problem statement}\label{problem-statement}
+
+For integers \(d\geq2\) and \(1\leq r\leq\lfloor d/2\rfloor\), let \[
+\mathcal M_{d,r}(\mathbb R)=\{X\in\mathbb R^{d\times d}:\operatorname{rank}X\leq r\}.
+\] For real measurement matrices \(A_1,\ldots,A_m\), define \[
+\mathcal A(X)=
+(\operatorname{tr}(A_1^\top X),\ldots,\operatorname{tr}(A_m^\top X)).
+\] Determine the exact integer \[
+\mu_{\mathbb R}(d,r)=
+\min\{m:\exists A_1,\ldots,A_m\in\mathbb R^{d\times d},\
+\mathcal A|_{\mathcal M_{d,r}(\mathbb R)}\text{ is injective}\}
+\] for all such \(d,r\).
+
+Injectivity is uniform: every two matrices of rank at most \(r\) with
+equal measurements must coincide. Equivalently, \(\ker\mathcal A\) must
+contain no nonzero matrix of rank at most \(2r\). No randomness,
+stability guarantee, computationally efficient decoder, positive
+semidefiniteness, or generic-signal exception is required. The problem
+concerns unrestricted real square matrices and unrestricted real linear
+measurements.
+
+\subsection{Why it matters}\label{why-it-matters}
+
+This is the information-theoretic limit of noiseless real matrix
+sensing. It distinguishes intrinsic identifiability from the larger
+measurement budgets that particular algorithms or stability guarantees
+may require.
+
+\newpage
+\subsection{References and status
+check}\label{references-and-status-check}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Z. Xu, \emph{Signal Recovery on Algebraic Varieties Using Linear
+  Samples}, \href{https://arxiv.org/pdf/2506.17572}{arXiv:2506.17572},
+  §5, Problem 5.1 and Remark 5.6, pp.13--15; published in
+  \href{https://doi.org/10.1007/s10114-026-5299-y}{Acta Mathematica
+  Sinica \textbf{42} (2026), 740--754}.
+\item
+  Z. Xu, \emph{The minimal measurement number for low-rank matrix
+  recovery}, \href{https://doi.org/10.1016/j.acha.2017.01.005}{Applied
+  and Computational Harmonic Analysis}, the original real counterexample
+  and complex exact-count results cited as reference 18 in the survey.
+\end{enumerate}
+
+The 2026 survey explicitly retains the real problem. It gives
+\(\mu_{\mathbb R}(d,r)\leq4dr-4r^2\) and equality in specified dimension
+families, while its real \((d,r)=(4,1)\) construction uses 11
+measurements rather than the complex threshold 12. Thus the uniformly
+asserted equality with the complex count is already false and is not
+proposed here. The complex count itself is solved. Current version
+checks and searches for Xu, the exact title, and 2025--2026 minimal real
+low-rank measurements found no general resolution.
+
+\subsection{Audit --- 2026-09-10}\label{audit-2026-09-10}
+
+Independently rechecked \href{https://arxiv.org/html/2506.17572v2}{Xu,
+Theorem 5.5 and Remark 5.6}, the unchanged June 2025 arXiv v2 record,
+and the
+\href{https://actamath.cjoe.ac.cn/Jwk_sxxb_en/EN/10.1007/s10114-026-5299-y}{2026
+publication}. Equality is proved when \(d=2^k+r\) (subject to the stated
+rank range) or \(d=2r+1\), so Partially resolved is warranted. Targeted
+later searches found no full real measurement-count classification.
+Changed extreme/broad ratings to challenging/community, matching the
+concrete exceptional-kernel obstacle and the scope of noiseless matrix
+sensing. The unresolved aim is a general sharp formula or classification
+in \(d,r\); individual fixed cases can already be expressed as decidable
+real polynomial feasibility problems.
+\end{document}

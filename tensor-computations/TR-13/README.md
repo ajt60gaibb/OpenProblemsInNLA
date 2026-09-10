@@ -1,8 +1,10 @@
 # TR-13 — Equality of ranks for generic odd-order Hankel tensors
 
 **Difficulty:** challenging  
-**Importance:** interesting to the community  
-**Last checked:** 2026-09-08
+**Importance:** interesting to specialist  
+**Rating rationale:** Challenging because the remaining odd orders require rank lower bounds beyond the proved even-order and cubic mechanisms; specialist importance reflects the restriction to generic Hankel tensors.  
+**Last checked:** 2026-09-10  
+**Status:** Open  
 
 ## Statement
 
@@ -29,9 +31,9 @@ Hankel tensor decompositions encode sums of exponentials used in signal reconstr
 1. J. Nie and K. Ye, *Hankel Tensor Decompositions and Ranks*, SIAM J. Matrix Anal. Appl. 40 (2019). [DOI](https://epubs.siam.org/doi/10.1137/18M1168285); [author preprint](https://arxiv.org/pdf/1706.03631), §6, Question 6.1 and Conjecture 6.2, p.16; Corollary 3.3 gives the generic Vandermonde rank.
 2. L. Qi, *Hankel Tensors: Associated Hankel Matrices and Vandermonde Decomposition*, 2014. [Primary preprint](https://arxiv.org/pdf/1310.5470), §1, equation (1), and §4, Theorem 3, for the structured decomposition background.
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
-Reference 1's latest arXiv revision, January 28, 2019, explicitly poses this conjecture after the even-order and third-order results. Searches `"Hankel" "Conjecture 6.2"`, `"Hankel tensor" "rank" "odd order" conjecture`, and `"Hankel" "rank" "conjecture" "2026"` found no resolution. Status is supported by the originating paper and a bounded later search, without a fresh 2026 reaffirmation located.
+Rechecked [Nie–Ye, §6, Question 6.1 and Conjecture 6.2](https://arxiv.org/pdf/1706.03631), and searched the conjecture number and later odd-order Hankel-rank literature. The general odd-order target remains conjectural in that source; its even-order and order-three theorems are already excluded here. No later proof or counterexample was located. Status rests on the 2019 primary text plus this bounded search.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

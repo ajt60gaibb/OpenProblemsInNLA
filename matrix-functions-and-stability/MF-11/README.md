@@ -6,8 +6,9 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** open; two-part question retained as one entry  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Challenging because cancellations across coupled blocks resist general growth regularity; its immediate impact is on specialists in marginally stable matrix products.  
+**Status:** Open  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -58,3 +59,7 @@ Linear Algebra Appl. 709 (2025), 132–163,
 Question 1. The source names these properties weak increase and weak upper regular
 variation. Searches for both property names, the authors, and subsequent
 matrix-product growth papers located no resolution.
+
+## Audit — 2026-09-10
+
+Rechecked [Varney–Morris, §7, Question 1](https://arxiv.org/html/2209.00449). Both weak increase and weak upper regular variation remain posed; the source explains why cancellation defeats its current argument. Property-name and author follow-up searches found no resolution of the two-part target.

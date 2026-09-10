@@ -6,8 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** open in the historical source; no resolution found in the bounded later search below.  
-**Last checked:** 2026-09-08  
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects an all-orders extremal problem in which the two corner entries change elimination fill; specialist impact is a precise stability bound for cyclic tridiagonal systems.
 
 ## Problem statement
 
@@ -33,6 +35,10 @@ Ordinary tridiagonal inputs have growth at most two. This question isolates the 
 
 N. J. Higham, [*Accuracy and Stability of Numerical Algorithms*, second edition](https://doi.org/10.1137/1.9780898718027), SIAM (2002), Problem 9.15(b), p. 193; Theorem 9.11, p. 173, supplies the ordinary tridiagonal comparison.
 
-## Status check
+## Earlier status check — 2026-09-08
 
 The book's sparsity pattern was checked directly. Its wording omits the field; this entry adopts $\mathbb C$ from the adjacent Theorem 9.11. Searches for `quasi-tridiagonal growth factor`, `quasi-tridiagonal partial pivoting`, and `Gaussian elimination cyclic tridiagonal growth` found no solution of this exact extremal question. A [2017 cyclic-reduction paper](https://doi.org/10.1007/s10910-017-0761-9) uses a different matrix pattern and algorithm. Shah–Urschel's [August 31, 2026 revision](https://arxiv.org/html/2608.19189v4), Theorems 2.2–2.3, does not determine this extremum. No recent explicit reaffirmation of the question's openness was found; absence of a located resolution is the limit of this check.
+
+## Audit update — 2026-09-10
+
+Rechecked Higham's [Problem 9.15(b)](https://pages.stat.wisc.edu/~bwu62/771/hingham2002.pdf), p. 193, against the two-corner pattern displayed here. Searches for cyclic/quasi-tridiagonal pivot growth and later elimination bounds found no exact solution. The [August 2026 general complete-pivoting results](https://arxiv.org/html/2608.19189v4) address a different pivot rule and do not provide this pattern's sharp partial-pivoting bound; current openness rests on the historical question and this limited search.

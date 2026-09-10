@@ -6,8 +6,9 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Status:** open; longstanding complexity question, with related variants separated  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Extreme because this is a longstanding complexity barrier for unrestricted feedback design; broad impact connects control synthesis, optimization, and computational complexity.  
+**Status:** Open  
+**Last checked:** 2026-09-10  
 
 ## Problem statement
 
@@ -38,3 +39,7 @@ strict inequality above. Follow-up searches for unrestricted stabilization
 NP-hardness found no resolving reduction; claims about arbitrary bilinear matrix
 inequalities or prescribed pole placement do not by themselves settle this
 language. No claim of NP membership is made.
+
+## Audit — 2026-09-10
+
+Rechecked [Fu, §3.1](https://www.eng.newcastle.edu.au/~mf140/home/Papers/Fu_UTSC.pdf) and [Gillis–Sharma, §3.5.2](https://arxiv.org/pdf/2202.02618). Searches for unrestricted static-output-feedback NP-hardness found no applicable reduction. Bounded feedback gains, prescribed poles, and general bilinear inequalities remain different decision problems; later generic hardness descriptions do not establish this one.

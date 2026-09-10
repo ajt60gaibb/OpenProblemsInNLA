@@ -6,9 +6,10 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
+**Rating rationale:** Extreme because reaching the minimal asymptotic rank for this tensor would force the foundational exponent-two breakthrough; broad importance therefore extends well beyond its fixed small format.  
 **Topic:** asymptotic tensor algorithms  
-**Last checked:** 2026-09-08  
-**Status:** open; admitted after a bounded literature search found no resolution.  
+**Last checked:** 2026-09-10  
+**Status:** Open  
 
 ## Context and notation
 
@@ -40,3 +41,7 @@ upper bound $\widetilde R(T)<3.931$. Searches for “small Coppersmith Winograd
 asymptotic rank 2026 3” located that improvement, not equality. Border-rank
 results for a fixed tensor power do not alone determine this limit.
 **Admitted: no resolution located.**
+
+## Status check — 2026-09-10
+
+Rechecked [Alman–Li, abstract and Theorems 1.2–1.3](https://arxiv.org/html/2605.21738v1), and searched for later small Coppersmith–Winograd asymptotic-rank results. The paper improves the upper bound below 3.931 and confirms that equality with three would imply exponent two. No proof or disproof of that equality was located. An improved upper bound or a border-rank result for one finite power is not a solved portion of this single exact-value target.

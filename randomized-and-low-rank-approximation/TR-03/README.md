@@ -6,8 +6,9 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open quantitative subquestion of a source updated 2026-08-20.  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Challenging because the adversarial eigenvector choice and optimal subset must be compared sharply; community impact is spectrum-sensitive Nyström and column selection.  
+**Status:** Open  
+**Last checked:** 2026-09-10  
 
 ## Problem statement
 
@@ -35,3 +36,7 @@ Amsel et al., [workshop report](https://arxiv.org/html/2602.05394v3), §4.2, Pro
 ## Status check
 
 Searches included `"minimax" "volume sampling" "2026"`, `"volume sampling" "worst" "spectrum" "2026"`, and `"volume sampling" "tightness" Fornace`. No matching sharp estimate for $R_{n,k}$ was located. Generic column-subset approximation guarantees do not by themselves settle this spectral minimax ratio.
+
+## Audit — 2026-09-10
+
+Rechecked [workshop Problem 4.7 and equations (15)–(16)](https://arxiv.org/html/2602.05394v3). They support the stated spectral-minimax subquestion. Volume-sampling, worst-spectrum, and tightness searches found no sharp joint estimate for the displayed ratio; generic subset guarantees leave its quantifier order unresolved.

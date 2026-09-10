@@ -1,10 +1,12 @@
 # FR-04 — Universal exponential deterioration of minimally redundant real phase-retrieval frames
 
-**Difficulty:** hard  
+**Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Last checked:** 2026-09-08
+**Status:** Open  
+**Last checked:** 2026-09-10
 
-**Status:** source-stated conjecture; the Gaussian special case is solved, but no universal resolution was found in screening on 2026-09-08.
+**Rating rationale:** A universal bound over every full-spark measurement design requires a structural obstruction beyond the Gaussian analysis; it matters for stable phase retrieval.
+
 
 For $n\geq2$, let $A\in\mathbb R^{(2n-1)\times n}$ be full spark: every choice of $n$ rows is linearly independent. Write $a_i^T$ for its rows and define
 $$
@@ -26,9 +28,11 @@ For a full-spark matrix at this row count, the displayed definition is equivalen
 2. A. S. Bandeira et al., *Randomstrasse 101: Open Problems of 2025*, arXiv:2603.29571 (2026), Conjecture 20. [Paper](https://arxiv.org/html/2603.29571v1).
 3. Y. Shmalo, *Extreme least singular values of Gaussian row submatrices and a phase retrieval stability problem*, arXiv:2607.06249 (2026). Abstract and Section 1.2/Corollary 1.2 give the critical real Gaussian asymptotic. [Paper](https://arxiv.org/abs/2607.06249).
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
-Searched “Balan Wang exponential conjecture solved”, “phase retrieval stability omega 2026”, and checked the latest abstract of arXiv:2607.06249. The July 2026 result proves $\omega(A_n)=4^{-n+o_P(n)}$ for independent standard Gaussian entries. A probabilistic result for this ensemble does not prove the uniform inequality over all full-spark matrices. The separate Gaussian-base question should therefore be excluded, while this deterministic conjecture remains a candidate.
+Searched “Balan Wang exponential conjecture solved”, “phase retrieval stability omega 2026”, and checked the latest abstract of arXiv:2607.06249. The July 2026 result proves $\omega(A_n)=4^{-n+o_P(n)}$ for independent standard Gaussian entries. A probabilistic result for this ensemble does not prove the uniform inequality over all full-spark matrices. The separate Gaussian-base question should therefore be excluded, while this deterministic conjecture remains open in the screened literature.
+
+**Audit update (2026-09-10):** Rechecked Conjecture 20 and Shmalo’s July 2026 Gaussian asymptotic, then searched for universal Balan–Wang bounds. A high-probability ensemble theorem is not a deterministic bound for every full-spark matrix, so the target remains open. This is a bounded literature check, not a proof that no solution exists.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

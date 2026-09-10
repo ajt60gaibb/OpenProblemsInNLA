@@ -1,200 +1,117 @@
 # Catalog progress
 
-Target: **1,000 distinct, precise, source-backed open NLA problems**; see
-`PROBLEM.md`. Current focus: **PROOF — curation and status corrections**,
-without solving them. Lean is inactive and not requested.
+Current objective: **200 distinct, precise, source-backed open NLA problems**;
+see [PROBLEM.md](PROBLEM.md). Focus: **PROOF — curation and status verification**.
+Lean is inactive. No conjecture-solving campaign is requested.
 
-## Current state — 2026-09-08
+## Current state — 2026-09-10
 
-**PARTIAL: 159 / 1,000 admitted entries.** The remaining 841 are not supplied.
-The [catalog index](CATALOG.md) lists every admitted entry and both
-requested ratings. No placeholders, excluded questions, or arbitrary parameter
-instances contribute to the count.
+**COMPLETE: 200 open targets in 11 categories, with a full status and rating audit.**
+The integrated export contains **202 Markdown/TeX/PDF sets and 263 PDF pages**,
+including the two retained entries outside the open count. All final pages were
+visually inspected; the latest builds have no overfull-box or missing-character
+warnings. Status and check dates agree between each canonical page and its PDF.
+Index and canonical-page local links were checked.
 
-The user requested category folders and an individual Markdown/LaTeX/PDF
-document for each existing problem. Eleven root categories and 159 problem folders
-now hold the canonical statements. Shared mathematical definitions have been
-copied into the entries that require them; the original chapter pages retain
-their anchors and uncounted screening notes.
+The collection retains **202 problem folders**: 200 with open targets, MI-13
+marked **Solved**, and IE-01 marked **Solution claimed**. Only **Open** and
+**Partially resolved** statuses contribute to the 200. Every entry has canonical
+Markdown, both editorial ratings with rationale, a status and a dated literature
+check; the integrated export synchronizes the standalone TeX and PDF versions.
 
-**COMPLETE: presentation of the admitted entries.** The original 73-document
-export compiled without overflow or missing-character warnings, and all 76 pages
-were visually inspected. Removing the resolved IE-01 leaves 72 documents and
-75 previously inspected pages (69 one-page documents, three two-page documents).
-An independent comparison against the original chapters confirmed
-the statements, both ratings, status notes, 44 shared-context additions, and
-preserved uncounted material. Every problem folder contains exactly its canonical
-Markdown, TeX source, and PDF; local navigation links were checked. The small
-`tools/render_problems.py` exporter regenerates TeX/PDF from the Markdown.
+| Category | Open targets |
+| --- | ---: |
+| Linear systems and elimination | 21 |
+| Eigenvalues and inverse problems | 23 |
+| Matrix functions and stability | 23 |
+| Randomized and low-rank approximation | 27 |
+| Tensor computations | 26 |
+| Nonnegative and positive factorizations | 12 |
+| Matrix inequalities and norms | 28 |
+| Frames and matrix designs | 11 |
+| Matrix discrepancy and optimization | 6 |
+| Arithmetic and complexity | 14 |
+| Intervals and absolute value equations | 9 |
+| **Total** | **200** |
 
-The subsequent Higham source screen adds three one-page PDFs, for 75 documents
-and 78 pages total. The new TeX/PDF files compile without overflow or missing
-characters; all three new pages were visually inspected. Independent source
-review checked matrix fields, bandwidth boundaries, both corner requirements,
-pivot ties, the all-stage growth definition, and distinctness. Complex fields in
-IE-13–14 follow the adjacent theorem; the exercise itself leaves the field implicit.
-The wider 1,000-problem curation objective remains partial.
+## Current expansion and audit
 
-- Linear systems and elimination: 19.
-- Eigenvalues and inverse problems: 20.
-- Matrix functions and stability: 19.
-- Randomized and low-rank approximation: 25.
-- Tensor computations: 15.
-- Nonnegative and positive factorizations: 12.
-- Matrix inequalities and norms: 17.
-- Frames and matrix designs: 10.
-- Matrix discrepancy and optimization: 6.
-- Arithmetic and complexity: 11.
-- Intervals and absolute value equations: 5.
+The [expansion screen](proof/EXPANSION-TO-200-2026-09.md) records **42 new
+admissions**, exact primary locators, distinctions from existing problems,
+rejected resolved candidates and remaining access limits. Three parallel
+literature searches and independent cross-reviews covered the new statements.
+The earlier 159-entry collection loses MI-13 from its open count, giving
+**159 − 1 + 42 = 200**. No placeholders or arbitrary parameter cases count.
 
-All entries include primary references and dated bounded literature searches.
-The absence of a found resolution is not a certificate of current openness.
-Older-status entries explicitly expose their weaker evidence. Difficulty and
-importance are editorial ratings, with definitions in the repository README.
+New coverage includes exact interval solution hulls, incomplete factorizations
+for Neumann systems, block-Toeplitz conditioning and eigenvalue expansions,
+quadratic and low-rank measurements, generalized permanents, graph inverse
+spectra, matrix-function inequalities and tensor norms and ranks. The screen
+explicitly records the one-way implication between the two separately posed
+asymptotic-rank questions. It does not claim exhaustive book coverage.
 
-## Mathematical screening findings
+The [completed full-catalog audit](proof/STATUS-AUDIT-2026-09-10.md) records
+**114 Open, 86 Partially resolved, one Solved and one Solution claimed**.
+It reviews status, difficulty and importance separately, changes 29 rating labels
+on 27 existing entries, and recalibrates nine new draft entries. Every entry
+includes a rationale and exact known-case boundaries. The full and category
+indexes show status; the [resolution archive](RESOLVED.md) keeps solved targets
+and unverified complete-solution claims visible. **MI-13 is settled by a published
+complex refined commutator bound plus an elementary rectangular-to-square
+reduction.** Two independent Codex-agent reviews checked the argument's
+assumptions and edge cases. This is status verification, not external peer
+review, a Lean verification or a claim of mathematical novelty. Its retained
+entry contains the argument and evidence.
 
-**COMPLETE: further literature expansion, 12 additions.** The
-[source screen](proof/LITERATURE-EXPANSION-2026-09.md) records IE-21–23,
-SP-07–09, MF-18, RA-12–15, and TR-20, with exact primary locators, later
-results, and uncounted reserves. Independent audits checked spectral statements,
-Gaussian trace chains, oracle conventions, and the withheld experimental
-Kaczmarz–Kac prediction. The low-rank questions explicitly disclose their
-square-matrix, two-sided-oracle formalization. Historical-source status evidence
-is preserved for the normal spectral-matching constant.
+**IE-01 remains outside the open count.** Colbrook, Stepaniants and Townsend's
+[September 2026 manuscript](https://arxiv.org/abs/2609.04659) claims a complete
+resolution of Forsythe's conjecture: the restart-three result and counterexamples
+at every restart length at least four. The user identified this missed source.
+The stable page is restored with **Solution claimed** status and links to the
+resolution, rather than presented as an open problem.
 
-All 12 new documents are one page, compiled without overflow or missing-character
-warnings, and were visually inspected. The current collection contains
-**159 PDFs and 164 pages**, with one Markdown/TeX/PDF set per entry. No solutions
-or proof attempts were made. Source-backed unresolved directions with incomplete
-quantifiers were kept outside the count.
+The proposed sharp Paulsen distance bound is withheld after
+[Lau–Ramachandran, §7](https://arxiv.org/html/2510.13751v1), announces forthcoming
+work closing the remaining dimension factor. The current paper does not contain
+that full proof. Other exclusions include recent permanent anticoncentration,
+nonnegative Kronecker-square counterexamples, refuted Lee-constant formulas,
+and resolved determinant or Toeplitz questions. They are documented in the
+source screen without treating unpublished claims as independently verified.
 
-**COMPLETE: incorporation of the 43 supplied additional candidates.** The
-[full disposition screen](proof/ADDITIONAL-PROBLEMS-SCREEN.md) records 22 new
-entries, 15 duplicates or already-covered candidates, one stronger RIP target
-newly grouped in FR-01, and five withheld/excluded candidates. The
-[original proposal](proof/proposals/ADDITIONAL_PROBLEMS.md) is preserved as supplied.
-DR-BCG has a later primary resolution claim; Dittert and circulant Hadamard have
-standing full-proof claims; the bidiagonal-SVD and order-five inverse-spectrum
-leads still need precise completion criteria. None contributes to the count.
+The repository-facing text describes the maintained collection. Contribution
+instructions and issue/PR templates explain source requirements, duplicate and
+solution checks, ratings and document generation. GitHub issues are enabled.
+Repository visibility remains private unless the user explicitly chooses
+otherwise.
 
-The source review preserves explicit computational models and distinguishes
-formalizations from source-stated conjectures. Independent audits checked CG,
-matrix-function transfer, the scalar versus full-vector Kronecker oracle,
-theta/frame/RIP statements, and five matrix inequalities. Corrections include
-published versus preprint Lih–Wang claims, the fixed-M inverse-semigroup bounds,
-and primary-source author lists. No solutions or proof attempts were made.
+## Durable earlier source records
 
-The new matrix-discrepancy-and-optimization category contains six entries.
-The 22 new PDFs contain 23 pages; revised FR-01 remains one page. All 24 new or
-changed pages were visually checked, with no remaining overflow or missing-character
-warnings. That batch brought the collection to **147 PDFs and 152 pages**. Navigation, distinct
-IDs, required ratings and one Markdown/TeX/PDF set per problem were checked.
+- [Further literature screen](proof/LITERATURE-EXPANSION-2026-09.md): 12 additions
+  that brought the catalog from 147 to 159; the 12 PDFs were one page each and
+  were visually reviewed. The then-current export had 159 PDFs and 164 pages.
+- [Supplied proposal screen](proof/ADDITIONAL-PROBLEMS-SCREEN.md): all 43 supplied
+  candidates, including 22 new entries, 15 duplicates or already covered leads,
+  one stronger RIP target grouped in FR-01, and five withheld candidates. The
+  original proposal remains in `proof/proposals/ADDITIONAL_PROBLEMS.md`.
+- [Wider source screen](proof/WIDE-SEARCH-2026-09.md): the prior 50 additions,
+  source corrections, grouped variants, resolutions and uncounted reserves.
+- [Higham 2002 screen](proof/HIGHAM-2002-SCREEN.md): the supplied book leads,
+  three admitted growth questions and exclusions or model ambiguities.
+- [Source coverage](proof/SOURCES.md): books and specific passages examined,
+  historical exclusions and reasons uncounted leads require further work.
+  Former chapter pages in `proof/catalog/` preserve useful older anchors.
 
-
-**COMPLETE: the requested wider batch of 50 additions.** Six search subagents
-covered iterative methods, matrix functions and inequalities, randomized NLA and
-frames, tensors, spectral/inverse problems, and structured matrices. The
-[durable screen](proof/WIDE-SEARCH-2026-09.md) records exact source passages,
-related statements counted together, recent partial results, resolutions,
-withdrawals, and uncounted reserves. The new categories expose matrix inequalities
-and frame/design questions separately. Root source review covered all 50 additions;
-independent audits also checked the tensor, spectral, and structured groups.
-
-The 50 new PDFs contain 51 pages (NM-04 requires two), for **125 PDFs and 129
-pages** overall. New documents compile without overflow or missing-character
-warnings, and all 51 new pages were visually inspected. The source audit clarified
-border-rank limits, rectangular Sinkhorn normalization and every coefficient sign,
-entrywise versus Loewner order, generic matrix-nearness data, and the corrected
-Toeplitz theorem's conjectural status. No conjectures were solved or attacked.
-
-**Higham notes screened on 2026-09-08:** the
-[complete disposition record](proof/HIGHAM-2002-SCREEN.md) covers all 20 numbered
-leads, the methodological 26.4 lead, and five prose leads. Added IE-13 (unequal
-bandwidth GEPP growth), IE-14 (cyclic tridiagonal GEPP growth), and IE-15 (exact
-rook growth in orders three and four, counted together). No later solution was
-located; these entries explicitly expose their historical-source status evidence
-and the absence of a recent explicit reaffirmation of openness.
-
-The screen found a 2014 published claim resolving Higham's tridiagonal inverse
-bound conjecture, so that narrower candidate remains outside the count; it does
-not settle the book's full-matrix question. Classical Gram–Schmidt's missing
-orthogonality bound has a 2005 answer. Fasi–Hashemi's September 2026 Sylvester
-paper is partial progress, while Hashemi–Nakatsukasa's Sherman–Morrison paper
-explicitly leaves unconditional bounds open. Those leads need precise surviving
-targets or complete arithmetic models. Complete-pivoting asymptotics are
-superseded by the August v4 theorem, and the Hadamard part duplicates IE-03.
-Corrected the Drury paper link and Teng Zhang's authorship in the source record.
-No solutions or proof attempts were made.
-
-**IE-01 removed on 2026-09-08:** the user identified Colbrook, Stepaniants, and
-Townsend's [complete resolution of Forsythe's conjecture](https://arxiv.org/abs/2609.04659),
-submitted September 4, 2026. Theorem 1.1 covers the former entry: convergence for
-$s=3$, counterexamples for every $s\ge4$. The initial screen missed this paper.
-Its exclusion note retains the stable ID; its three obsolete files were removed
-from the current collection and remain in Git history.
-
-Recent full-solution claims exclude general Crouzeix, polynomial complete-pivot
-growth, matrix Spencer, and all restart lengths in the Forsythe question. Higham's
-Fréchet-derivative Jordan-form question has a later solution; his growth-bound
-question for complex symmetric matrices was also already answered. The
-[source record](proof/SOURCES.md) and chapter exclusions preserve the references.
-
-The August workshop revision reports a full solution claim for the fermionic
-kernel question, so former TR-02 is excluded. The August revision of the
-structured-matrix-learning paper has an abstract update reporting a resolution
-of finite-family relative error, while §5 still contains its old question:
-former RE-04 is excluded. Section-only screening can miss these updates.
-
-Independent source audits checked the complexity, iterative, tensor, and
-matrix-product drafts. Material corrections included field restrictions,
-both residual equations for singular triples, precision-dependent operation
-counts, fixed versus simultaneous probability quantifiers, and strict versus
-non-strict stability thresholds. IE-09 remains uncounted because its faithful
-precision/complexity formulation is unresolved. IE-12 was revised after the
-May 2026 version of its source proved the general-system rate with a log n
-overhead; only the stated bound without that overhead remains admitted.
-Independent audits also checked the HSS/HODLR rank definitions, adaptive query
-models, PSD factorization orbits, rigidity with zero entries, nonnegative-rank
-conjectures, and interval sign regularity. The exact determinant-range question
-is not answered by later methods using a different generalized interval
-arithmetic.
-
-Gillis's book supplies precise factorization questions. NM-02, the necessity
-of sufficient scattering for minimum-volume uniqueness, is withheld because
-a concrete 2021 enclosing-triangle example raises an unresolved compatibility
-concern; neither openness nor refutation is claimed. Different SSC definitions
-and the presence of a nonnegativity constraint on the other factor matter.
-NR-03 fixes every entry of the correlation matrix; July 2026 bounds for a
-partial unique-disjointness matrix do not settle this prescribed completion.
-
-Epperly's 2025 dissertation was checked against his August 2026 RPCholesky
-analysis. Its earlier oversampling conjectures are excluded, while RA-01–03
-state the surviving sharper pivot count, exactly-r-step error factor, and
-randomized-LU factor questions. AV-03 is the polynomial-time P-LCP problem
-in equivalent AVE form and is counted once; a June 2026 parameter-dependent
-algorithm does not settle the input-length-only target. These six entries
-received independent source and quantifier audits.
-
-The current scope includes directly relevant matrix theory and arithmetic
-complexity as well as core NLA. The optional breadth question received no reply,
-so work proceeded with this interpretation. The user's target remains 1,000;
-no evidence yet establishes that the target can be filled within a narrower
-scope without inventing questions or subdividing them artificially.
+Historical counts in these screens describe their batches, not the current
+catalog. Existing exclusions and partial-result restrictions remain binding;
+old chat suggestions are not a pending queue.
 
 ## Remaining work
 
-The requested 50-entry batch, the 43-candidate proposal screen, and this further
-12-entry literature batch are complete. The broader target remains partial at
-159 entries. Continue source curation in underrepresented core NLA areas,
-including least squares, preconditioning, matrix polynomials, and numerical
-tensor methods. Reserves need the specific source or quantifier clarification
-recorded in the screens before they can count.
-Full-book coverage is unfinished. `proof/SOURCES.md` records the actual books
-and passages examined, plus useful candidates and precise obstacles.
+The requested expansion, status/rating audit, contribution guidance and solved-
+problem display are complete. No Pro review is active (`PRO_REQUEST.md` is CLOSED).
+The coherent changes are committed and pushed together on `main`.
 
-Before admitting another batch, compare its statements with current primary
-versions, check later work for solutions or counterexamples, and avoid counting
-equivalent formulations. Update the index, counts, and source record only when
-the admitted collection changes meaningfully. No Pro review is active
-(`PRO_REQUEST.md` is CLOSED); no review Doc has been created.
+After delivery, future contributions should follow `CONTRIBUTING.md`. New
+admissions require the same source, duplicate and current-status checks; solved
+entries stay visible and are excluded from open counts. Full-book coverage is
+unfinished, and bounded literature searches do not certify openness.

@@ -2,8 +2,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
+**Rating rationale:** Challenging because squared Frobenius transfer needs control of eigenvectors as well as eigenvalues; community impact is reusable low-rank approximation of matrix functions.  
 **Topic:** Low-rank approximation of matrix functions.  
-**Last checked:** 2026-09-08
+**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
 
 Let $n\ge2$, $1\le k<n$, and $A,\widehat A\in\mathbb R^{n\times n}$ be symmetric with $A\succeq\widehat A\succeq0$. Let $f:[0,\infty)\to[0,\infty)$ be continuous, concave, and nondecreasing. For a positive semidefinite matrix $X=\sum_{i=1}^n\lambda_iq_iq_i^T$ with decreasing eigenvalues and orthonormal eigenvectors, write
 
@@ -38,6 +40,10 @@ The problem asks whether a reusable approximation to $A$ provides near-optimal F
 ## Status check — 2026-09-08
 
 Checked the source's latest listed arXiv v2 (2024-07-04), 2025 journal record, Table 1, Theorem 2.5, and §5. Searches combining the title, “concave”, “Frobenius”, “counterexample”, “funNyström”, and 2026 found no resolution. The related 2026 Krylov paper does not establish the universal ordered-pair implication. No explicit reaffirmation later than the 2025 publication was located. The source's nuclear-norm counterexample and its unordered Frobenius example do not answer this target. Unlike the spectral-error question, this statement concerns squared Frobenius error and a stronger premise; these are distinct explicitly marked open cells in the source table.
+
+## Audit — 2026-09-10
+
+Rechecked [Table 1 and Theorem 2.5](https://arxiv.org/html/2311.14023v2): operator-monotone functions satisfy this stronger-premise implication, while general concave functions remain open. Frobenius/concavity and later matrix-function searches found no resolution. The difference-of-squared-norms premise is essential.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

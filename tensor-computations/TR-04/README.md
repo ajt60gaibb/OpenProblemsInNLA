@@ -6,8 +6,9 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Status:** open; explicit source updated 2026-08-20.  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Extreme because the guarantee must improve a general worst-case approximation barrier without increasing ranks; community importance reflects the central role of TT compression in numerical tensor methods.  
+**Status:** Open  
+**Last checked:** 2026-09-10  
 
 ## Problem statement
 
@@ -32,6 +33,7 @@ This is the tensor-train case of the published tree-network question. The positi
 
 I. V. Oseledets, [*Tensor-Train Decomposition*](https://doi.org/10.1137/090752286), *SIAM Journal on Scientific Computing* 33 (2011), 2295–2317, Theorem 2.2 and Corollary 2.4. Amsel et al., [workshop report](https://arxiv.org/html/2602.05394v3), §6.1, Problem 6.1. Matthew Fahrbach and Mehrdad Ghadiri, [*A Tight Lower Bound for the Approximation Guarantee of Higher-Order Singular Value Decomposition*](https://arxiv.org/html/2508.06693v1), Theorems 1.2–1.3, concerns tightness of specific Tucker algorithms rather than a lower bound against all tensor-train algorithms.
 
-## Status check
+## Status check — 2026-09-10
 
-Searches included `"tensor train" "approximation" "2026" "improvement"` and `"tree tensor" "approximation guarantee" "2026"`. No universal improvement or matching complexity lower bound was located. Randomized methods and better practical error estimates require a separate comparison with the displayed worst-case statement.
+Rechecked [workshop v3, §6.1, Problem 6.1](https://arxiv.org/html/2602.05394v3), which still requests a strict improvement or a complexity obstruction. Searches for tensor-train approximation improvements in 2026 also located [Yu et al., randomized block Krylov TT approximation](https://doi.org/10.3389/fams.2026.1824146): its probabilistic error estimates and practical speedups do not give the displayed universal improvement at unchanged ranks. No full resolution was located; the positive-optimum qualification remains essential.
+

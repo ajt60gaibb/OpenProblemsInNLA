@@ -6,9 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open; checked 2026-09-08  
+**Rating rationale:** Challenging because matching adaptive-query lower and upper bounds must cover depth and accuracy jointly; community impact is the cost of hierarchical matrix compression.  
+**Status:** Open  
 **Area:** information complexity of hierarchical matrix approximation  
-**Last checked:** 2026-09-08  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -42,3 +43,7 @@ The known upper bound is $O(\min\{n,kL^4/\varepsilon^3\})$. The source proves $\
 ## Status evidence
 
 The latest arXiv version is v2, October 24, 2024. Searches for “HODLR query complexity 2026” and “HODLR approximation 2026 lower bound” found no matching improvement. Musco's [February 2026 ICERM slides](https://app.icerm.brown.edu/assets/568/10574/10574_5858_Musco_020420261630_Slides.pdf), numbered slide 14, retain the stated upper bound. No later explicit open-status confirmation was located.
+
+## Audit — 2026-09-10
+
+Rechecked [Chen et al., Theorems 1.1–1.2 and §8](https://arxiv.org/html/2407.04686v2). The gap in logarithmic and accuracy factors remains. HODLR query-complexity and later hierarchical-approximation searches found no matching characterization, including the near-full-recovery regime.

@@ -7,8 +7,10 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Topic:** Hermitian eigenproblems; deterministic regularization  
-**Last checked:** 2026-09-08  
-**Status:** open; admitted after a bounded literature search found no resolution.  
+**Last checked:** 2026-09-10  
+**Status:** Open  
+
+**Rating rationale:** Challenging reflects derandomizing eigenvalue separation within a nearly linear cost; community impact is deterministic preprocessing for Hermitian eigensolvers.
 
 ## Context and notation
 
@@ -50,7 +52,7 @@ Problem 3.2. Sobczyk, [*Deterministic complexity analysis of Hermitian eigenprob
 §1.1 for the arithmetic model, Theorem 1.1 for the tridiagonal eigensolver,
 and §5, question 4, for deterministic spectral separation.
 
-## Status check
+## Earlier status check — 2026-09-08
 
 Searches for `deterministic Minami perturbation`,
 `Minami deterministic eigenvalue gap algorithm 2026`, and `Minami
@@ -60,3 +62,7 @@ nearly quadratic time; it does not provide the requested nearly linear
 diagonal perturbation. The workshop retains Problem 3.2 in its August 2026
 update. The normalization and a bounded perturbation are stated explicitly
 here, making the scale of its gap guarantee unambiguous.
+
+## Audit update — 2026-09-10
+
+Rechecked [workshop version 3](https://arxiv.org/html/2602.05394v3), Problem 3.2. Searches for deterministic Minami-type separation and nearly linear tridiagonal perturbation constructions found no solution of the simultaneous separation and runtime requirements.

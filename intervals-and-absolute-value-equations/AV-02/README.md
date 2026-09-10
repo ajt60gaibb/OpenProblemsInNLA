@@ -5,10 +5,12 @@
 <!-- /navigation -->
 
 **Difficulty:** challenging  
-**Importance:** interesting to the community  
-**Status:** open; checked 2026-09-08  
+**Importance:** interesting to specialist  
+**Status:** Open  
 **Area:** condition estimation and rigorous error bounds  
-**Last checked:** 2026-09-08  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects an exact complexity classification under a regularity promise where other norms behave differently; specialist impact is the computation of one AVE condition number.
 
 ## Context and notation
 
@@ -45,6 +47,10 @@ Moslem Zamani and Milan Hladík, [*Error bounds and a condition number for the a
 
 The quantity bounds forward error by residual for $Ax-|x|=b$; see Theorem 7. Its computation remains explicitly unclassified in Hladík et al.'s [2026 survey](https://doi.org/10.1007/s10589-025-00717-5), §5.4.
 
-## Status evidence
+## Earlier status evidence — 2026-09-08
 
 The original paper's latest arXiv version is [v2, January 17, 2020](https://arxiv.org/abs/1912.12904); the journal text was published January 30, 2022. Searches for “absolute value equations condition number 2026”, “spectral norm complexity”, and “2-norm NP-hard” found no resolution.
+
+## Audit update — 2026-09-10
+
+Rechecked the [2025 survey](https://link.springer.com/article/10.1007/s10589-025-00717-5), §5.4, and the [condition-number paper](https://link.springer.com/article/10.1007/s10107-021-01756-6). They distinguish the unresolved spectral norm from proved hardness for the one- and infinity-norm versions. Spectral-norm complexity searches found no resolution under the stated promise. Impact is narrowed to specialist to match this particular condition-estimation classification.

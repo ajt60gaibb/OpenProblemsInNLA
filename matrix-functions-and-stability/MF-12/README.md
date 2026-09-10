@@ -6,8 +6,9 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open; explicit question in a 2025 journal paper  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Challenging because finite families must realize every exponent at every length; community impact connects switched dynamics and asymptotic matrix-product growth.  
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -50,3 +51,7 @@ Varney and Morris,
 remains posed. Searches for the title, authors, and marginal-growth exponents
 through 2026 located no complete answer. Infinite compact families and
 subsequence-only lower bounds do not meet the finite-family, every-length target.
+
+## Audit — 2026-09-10
+
+Rechecked [Varney–Morris, Corollary 6.1, Proposition 3.1, and Question 2](https://arxiv.org/html/2209.00449): exponent $1/3$ is realized and realizable exponents are closed under addition. The all-exponents assertion remains open. Author and marginal-growth-exponent searches found no complete finite-family construction or obstruction.

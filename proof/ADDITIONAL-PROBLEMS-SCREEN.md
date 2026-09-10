@@ -8,7 +8,7 @@ screen. Its relative references to `INDEX.md`, `SCREENING_NOTES.md`, and
 
 **Result: 22 new entries, 15 duplicates or already-covered candidates, one stronger
 formulation newly grouped into an existing entry, and five withheld/excluded
-candidates. The catalog now contains 147 / 1,000 entries.** “Duplicate” below
+candidates. The catalog now contains 147 entries.** “Duplicate” below
 includes a narrower case already covered and a companion previously grouped.
 No proposal has been dropped without a recorded disposition.
 

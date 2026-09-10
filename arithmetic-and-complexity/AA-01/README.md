@@ -6,8 +6,9 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Status:** open in the cited literature; checked 2026-09-08.  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Extreme because the existence of any accurate computation tree is a general decidability problem beyond checking a supplied algorithm; broad importance includes numerical stability, symbolic computation and automated algorithm design.  
+**Status:** Open  
+**Last checked:** 2026-09-10  
 
 ## Problem statement
 
@@ -62,3 +63,7 @@ Searches on 2026-09-08 for accurate polynomial evaluability, real-arithmetic
 decidability, and follow-ups to the cited authors found no complete decision
 procedure or undecidability theorem for the displayed model. The recent talk
 does not separately specify every tree convention used here.
+
+## Status check — 2026-09-10
+
+Rechecked [Demmel et al., §3.3.7](https://people.eecs.berkeley.edu/~demmel/Demmel_pubs_07_11_final/B15_ActaNumerica08.pdf) and [Demmel’s October 2025 Simons abstract](https://simons.berkeley.edu/events/when-accurate-efficient-expression-evaluation-linear-algebra-possible), and searched for later real-polynomial decision procedures. The broad real accurate-evaluation question remains explicitly open in the seminar abstract; no complete algorithm or undecidability theorem for the displayed finite-tree model was located. The complex-domain characterization and fixed-tree verification do not answer this existence question.

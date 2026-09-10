@@ -2,7 +2,9 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Last checked:** 2026-09-08
+**Rating rationale:** Challenging because odd-order H-eigenvalue positivity lacks the even-order polynomial-positivity argument; specialist importance lies in transferring spectral certificates within Hankel representations.  
+**Last checked:** 2026-09-10  
+**Status:** Open  
 
 ## Statement
 
@@ -29,9 +31,9 @@ The question transfers a spectral positivity certificate between different Hanke
 1. W. Ding, L. Qi, and Y. Wei, *Inheritance properties and sum-of-squares decomposition of Hankel tensors: theory and algorithms*, BIT Numer. Math. 57 (2017), 169–190. [DOI](https://doi.org/10.1007/s10543-016-0622-0); [author PDF](https://www.polyu.edu.hk/ama/staff/new/qilq/BIT-DQW.pdf), final §4, “The third inheritance property of Hankel tensors,” concluding conjecture; §2 gives order/dimension conventions.
 2. L. Qi, *Hankel Tensors: Associated Hankel Matrices and Vandermonde Decomposition*, 2014. [Primary preprint](https://arxiv.org/pdf/1310.5470), §5, concerning H-eigenvalues and complete Hankel tensors.
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
-Reference 1 proves the corresponding inheritance with even lower order and leaves the odd-order case conjectural. Searches `"Hankel" "third inheritance" counterexample`, `"tensor" "inheritance" "conjecture" Hankel proof`, and `"Hankel" "inheritance" "2026" conjecture` located no resolution. Results under stronger assumptions such as complete Hankel structure do not establish this statement. This is a bounded historical-source check.
+Rechecked the [Ding–Qi–Wei journal text, final §4](https://www.polyu.edu.hk/ama/staff/new/qilq/BIT-DQW.pdf), and searched for proofs or counterexamples to the third inheritance property. The source explicitly leaves odd lower order unresolved; its even-lower-order result lies outside the displayed target. Complete or strong Hankel hypotheses would be additional restrictions. No later resolution was located; this remains a bounded historical-source check.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

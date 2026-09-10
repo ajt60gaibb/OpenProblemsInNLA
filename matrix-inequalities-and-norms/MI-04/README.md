@@ -1,8 +1,11 @@
 # MI-04 — A universal block-norm characterization of essentially Hermitian matrices
 
 **Difficulty:** challenging  
-**Importance:** interesting to the community  
-**Last checked:** 2026-09-08
+**Importance:** interesting to specialist  
+**Status:** Open  
+**Last checked:** 2026-09-10
+
+**Rating rationale:** The universal converse needs new control of positive block completions; its immediate impact is a specific numerical-range characterization.
 
 ## Problem statement
 
@@ -23,9 +26,11 @@ The question characterizes exactly when off-diagonal coupling in a positive bloc
 1. J.-C. Bourin and E.-Y. Lee, *Eigenvalue inequalities for positive block matrices with the inradius of the numerical range*, arXiv:2111.15180v1 (30 November 2021), Conjecture 3.3, Theorem 3.2, and Proposition 3.4. [Primary text](https://arxiv.org/html/2111.15180).
 2. T. Hayashi, *On a norm inequality for a positive block-matrix*, Linear Algebra and its Applications 566 (2019), 86–97, Theorem 2.5. [Preprint](https://arxiv.org/abs/1808.00181), [DOI](https://doi.org/10.1016/j.laa.2018.12.027).
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
 The latest arXiv version of reference 1 remains v1. Hayashi proves normality under additional invertibility and distinct-singular-value assumptions, not the stated conclusion in full generality. A Frobenius-norm variant characterizes normality and is already proved. Searches included `Bourin essentially Hermitian conjecture`, `universal positive block matrix norm Hayashi conjecture`, and `essentially Hermitian conjecture proof 2025 2026`. No later resolution of Conjecture 3.3 was located. A 2025 result on decomposable numerical ranges settles a different conjecture.
+
+**Audit update (2026-09-10):** Rechecked Bourin–Lee Conjecture 3.3 and searched for subsequent essentially-Hermitian characterizations. The Frobenius-norm theorem has a different norm and conclusion; no resolution of the operator-norm converse was located. This is a bounded literature check, not a proof that no solution exists.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

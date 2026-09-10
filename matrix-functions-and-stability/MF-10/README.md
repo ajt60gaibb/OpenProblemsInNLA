@@ -6,8 +6,9 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Status:** open; book question with subsequent-literature screening  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Extreme because exact arithmetic character of rational-input growth rates remains a longstanding barrier; community impact concerns representability and certification of spectral computations.  
+**Status:** Open  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -49,3 +50,7 @@ Both signs are permitted. A finite-product formula would imply
 algebraicity for its particular input, but this question requires no such formula.
 It concerns exact representation of a matrix computation's output, separately
 from the geometry of the set of all stable inputs.
+
+## Audit — 2026-09-10
+
+Rechecked the indexed text of [Jungers, Open Question 7](https://perso.uclouvain.be/raphael.jungers/sites/default/files/kcfinder/files/book.pdf) and searched rational-input algebraicity and transcendence. No proof or rational counterexample was located. Failure of semialgebraic dependence on input data does not imply a transcendental value for a rational input; recent explicit open-status evidence remains unavailable.

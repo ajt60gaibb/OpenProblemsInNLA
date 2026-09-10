@@ -6,9 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
+**Rating rationale:** Challenging because nonsymmetric residuals lose the trace identities behind Cholesky bounds; specialist impact is a sharper guarantee for one randomized LU rule.  
 **Topic:** randomized LU; low-rank approximation  
-**Last checked:** 2026-09-08  
-**Status:** open; admitted after a bounded literature search found no resolution.  
+**Last checked:** 2026-09-10  
+**Status:** Open  
 
 ## Problem statement
 
@@ -45,3 +46,7 @@ replaces it by $2^k$. Searches for the title, `randomly pivoted LU 2^k`,
 and improved RPLU error bounds found no later resolution. The arXiv
 submission history listed only v1 of January 29, 2026. The August 2026
 RPCholesky theorem addresses a different pivot distribution and norm.
+
+## Audit — 2026-09-10
+
+Rechecked [Algorithm 1, Theorem 3, and the following conjecture](https://arxiv.org/html/2601.22344v1); its record still lists v1. RPLU and improved-bound searches found no resolution. The theorem remains at $4^k$, while the stated squared-error conjecture is $2^k$.

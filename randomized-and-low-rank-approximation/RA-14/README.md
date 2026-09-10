@@ -6,8 +6,10 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
+**Rating rationale:** Extreme because matching information bounds for every adaptive algorithm and growing rank is a fundamental barrier; broad impact includes large-scale spectral computation and data analysis.  
 **Source:** Bakshi–Narayanan, Open Question 1.10.  
-**Last checked:** 2026-09-08  
+**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
 
 ## Problem statement
 
@@ -43,3 +45,7 @@ Matrix products dominate many large-scale singular-subspace computations. The qu
 The source's $O(k\log n/\sqrt\varepsilon)$ upper bound and fixed-rank lower bound do not determine the growing-rank dependence. The 2025 paper studies Krylov block sizes; its clustered-gap conjecture is separately cataloged.
 
 On 2026-09-08 the [source record](https://arxiv.org/abs/2304.03191) still listed only v1. Searches for “Open Question 1.10,” target-rank matrix-vector complexity, and 2025/2026 follow-ups found no joint characterization. The source's lower bound has a sufficiently-large-dimension regime, not every finite $n,\varepsilon$. This is a bounded check.
+
+## Audit — 2026-09-10
+
+Rechecked [Bakshi–Narayanan, Theorem 1.1 and Open Question 1.10](https://arxiv.org/html/2304.03191v1). Fixed-rank spectral complexity is settled in the theorem's sufficiently-large-dimension regime; growing-rank and simultaneous finite-parameter dependence remain unresolved. Later query-complexity searches and the [SODA 2026 block-size paper](https://doi.org/10.1137/1.9781611978971.42) did not settle the full target.

@@ -1,6 +1,6 @@
 # Further literature expansion — 2026-09-08
 
-This batch adds **12 distinct entries** to the starting 147, giving **159 / 1,000**.
+This batch adds **12 distinct entries** to the starting 147, giving **159 admitted entries**.
 Three parallel literature searches covered iterative methods and linear systems,
 matrix functions and equations, and randomized/tensor methods; the root search
 covered spectral perturbation, matrix nearness, and structured conditioning.

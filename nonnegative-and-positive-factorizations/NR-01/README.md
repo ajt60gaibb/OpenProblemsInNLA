@@ -6,9 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open; checked 2026-09-08  
+**Rating rationale:** Challenging because matching lower bounds must hold for every polygon size despite an explicit upper construction; community importance connects structured NMF with optimal linear extended formulations.  
+**Status:** Partially resolved  
 **Area:** structured nonnegative matrix factorization  
-**Last checked:** 2026-09-08  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -56,10 +57,7 @@ corresponding upper bound. Nicolas Gillis,
 [*Nonnegative Matrix Factorization*](https://orbi.umons.ac.be/bitstream/20.500.12907/42337/1/NMFbook_SIAM_reprint.pdf),
 SIAM, 2020, §3.6.3.4, p. 90.
 
-## Status evidence
+## Status check — 2026-09-10
 
-Baeckelant, Vandaele, and Gillis,
-[*Computing Lower Bounds on the Nonnegative Rank via Non-Convex Optimization Solvers*](https://arxiv.org/html/2605.14058v2),
-revised July 6, 2026, Appendix A.2, still identifies sharpness as conjectural.
-Searches for the conjecture and regular-polygon nonnegative ranks in 2025–2026
-found no subsequent resolution. The family is counted once.
+Rechecked [Baeckelant–Vandaele–Gillis v2, Appendix A.2, Table 7](https://arxiv.org/html/2605.14058v2), and searched for later regular-polygon rank resolutions. The conjectured value is attained and proved for substantive ranges, including n from 5 through 16, but gaps remain, for example at n=17. The upper formula remains conjecturally sharp for the whole family; no full resolution was located.
+

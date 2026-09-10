@@ -4,10 +4,12 @@
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
 <!-- /navigation -->
 
-**Difficulty:** challenging  
+**Difficulty:** hard  
 **Importance:** interesting to specialist  
-**Status:** open in the historical source; no exact resolution found in the bounded later search below.  
-**Last checked:** 2026-09-08  
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Hard reflects two focused finite-dimensional extremal constants within an established pivoting model; specialist impact concerns exact small-order rook-pivoting behavior.
 
 ## Problem statement
 
@@ -32,6 +34,10 @@ Rook pivoting balances pivot-search cost and growth control. Sharp small-order c
 
 N. J. Higham, [*Accuracy and Stability of Numerical Algorithms*, second edition](https://doi.org/10.1137/1.9780898718027), SIAM (2002), Problem 9.18, p. 193, and definition (9.15), p. 169. A. Edelman and J. Urschel, [*Some New Results on the Maximum Growth Factor in Gaussian Elimination*](https://doi.org/10.1137/23M1571903), SIMAX 45 (2024), [§6](https://arxiv.org/html/2303.04892v4). R. Shah and J. Urschel, [*Entry growth in Gaussian elimination*](https://arxiv.org/html/2608.19189v4), August 31, 2026 revision, Theorem 1.6 (=6.2).
 
-## Status check
+## Earlier status check — 2026-09-08
 
 The book's question and real-field supremum were checked directly. Searches for `rook pivoting 3x3`, `rook pivoting 2.9`, `rook pivoting 4.16`, and `rook pivoting maximum growth exact value` found no exact small-order solution. The cited 2024 large-order construction and 2026 asymptotic result do not settle this pair. The book's decimals 2.9 and 4.16 are historical numerical search outcomes, not exact values. No recent source explicitly reaffirming this particular question's openness was located.
+
+## Audit update — 2026-09-10
+
+Rechecked Higham's [Problem 9.18](https://pages.stat.wisc.edu/~bwu62/771/hingham2002.pdf), p. 193. Searches for exact order-three/order-four rook growth and the [2026 general pivoting bounds](https://arxiv.org/html/2608.19189v4) found no exact values. Difficulty is reduced to hard to reflect the focused finite-order target, although the global upper-bound proofs may still be substantial. The open verdict remains bounded by a historical explicit source.

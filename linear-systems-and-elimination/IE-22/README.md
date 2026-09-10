@@ -6,8 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open in the checked literature  
-**Last checked:** 2026-09-08  
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects an optimal uniform extremum over matrices and deleted row sets; community impact is a sharp robustness limit for row-sampling methods.
 
 ## Problem statement
 
@@ -48,6 +50,10 @@ This asks how well any unit-row linear system can retain its smallest singular v
 1. S. Steinerberger, *Quantile-based Random Kaczmarz for corrupted linear systems of equations*, Information and Inference **12**(1) (2023), 448–465, §2.3, the third question immediately after equation (8). [Published paper](https://doi.org/10.1093/imaiai/iaab029). [Author preprint](https://arxiv.org/abs/2107.05554), v1, §2.3, paragraph following $(\diamond)$.
 2. E. Battaglia, J.-F. Cai, J. Chen, A. Ma, D. Needell, and T. Wu, *Quantile Randomized Kaczmarz for Streaming Linear Systems with Massart Noise*, arXiv:2608.27968v1 (2026), §1.1 (background on the same restricted-singular-value heuristic and the different streaming model), §5. [Preprint](https://arxiv.org/abs/2608.27968).
 
-## Status check
+## Earlier status check — 2026-09-08
 
 Checked the published question and latest arXiv records on 2026-09-08. Targeted searches for “Steinerberger subsingular”, “small subsingular values”, “quantile Kaczmarz optimal constants”, “unit rows smallest singular value”, and 2025/2026 variants found no resolution of the all-matrices extremum. Recent streaming Kaczmarz guarantees do not supply this universal extremal inequality. The random-ensemble limit in the same source is a related but distinct question: it specifies a random construction, whereas this question optimizes over all unit-row matrices. Openness remains subject to the limits of this search.
+
+## Audit update — 2026-09-10
+
+Rechecked Steinerberger's [primary formulation](https://arxiv.org/pdf/2107.05554), §2.3. Searches for the optimal row-deletion constant and quantile-Kaczmarz follow-ups found no proof of this extremal value. The new [Cai–Chen–Ma–Wu paper](https://doi.org/10.1137/25M1785678), SIAM J. Matrix Anal. Appl. 47 (2026), 802–823, proves a tight QRK subsample-size result, not the universal matrix constant asked for here.

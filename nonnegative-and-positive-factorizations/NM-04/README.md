@@ -3,7 +3,9 @@
 **Topic:** Exact matrix scaling and balancing.  
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Last checked:** 2026-09-08
+**Rating rationale:** Challenging because the full coefficient formula requires a general algebraic-combinatorial identity; community importance concerns exact formulas for a widely used matrix-scaling limit.  
+**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
 
 ## Problem statement
 
@@ -64,9 +66,9 @@ This would give an explicit algebraic relation for entries of a ubiquitous itera
 - E. Rowland, [Combinatorial structure behind Sinkhorn limits](https://ericrowland.github.io/talks/Combinatorial_structure_behind_Sinkhorn_limits_SIAM.pdf), SIAM talk, 2025-07-07, slide 13: the coefficient formula remains conjectural after the degree bound was proved.
 - M. C. Fang, [Closed Form of a Generalized Sinkhorn Limit](https://arxiv.org/abs/2506.06338), 2025, abstract and the general algebraic degree bound. This settles the degree-bound consequence, rather than the displayed coefficient formula.
 
-## Status check
+## Status check — 2026-09-10
 
-On 2026-09-08, checked the latest listed Rowland–Wu arXiv version, Rowland's July 2025 slides, and Fang's 2025 abstract. Searches combined “Sinkhorn”, “Rowland”, “Wu”, “Conjecture 2”, “formula”, “proof”, and 2026. No proof or counterexample to the full displayed identity was located. The degree bound $\binom{m+n-2}{m-1}$ alone has been resolved and is excluded as a separate open problem. The present target retains all coefficients, signs, and the rectangular normalization from the source.
+Rechecked [Rowland–Wu v2, §2 and Conjecture 2](https://arxiv.org/pdf/2409.02789), including the rectangular scaling and four coefficient signs, and [Fang’s degree-bound result](https://arxiv.org/abs/2506.06338). The 3×3 coefficient formula is proved, while the determinant formula in arbitrary dimensions remains conjectural. Searches for subsequent Rowland–Wu identity proofs found no full resolution. Fang’s general degree bound alone does not establish the displayed coefficients.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

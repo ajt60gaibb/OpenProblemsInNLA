@@ -2,8 +2,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** explicit conjecture; no later resolution located  
-**Last checked:** 2026-09-08
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects extending a discrete real approximation principle to complex spectra with a sharp constant; community impact concerns usable worst-case GMRES bounds for normal matrices.
 
 Let $L\subset\mathbb C\setminus\{0\}$ consist of $n\ge3$ distinct points. For a nonempty $S\subseteq L$, define
 $$
@@ -28,3 +30,7 @@ For a normal matrix with spectrum $L$, $M_k(L)$ is the largest relative residual
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
 <!-- /navigation -->
+
+## Audit update — 2026-09-10
+
+The [primary paper](https://page.math.tu-berlin.de/~liesen/Publicat/LieTic04.pdf), §3.2.1, proves the stronger subset equality for every real spectrum, a substantive subclass of the displayed target. Its complex-spectrum conjecture remains in §3.2.2. Searches for the Liesen–Tichý conjecture and later sharp normal-GMRES subset bounds found no general resolution; the current status records the real-spectrum partial result without asserting exhaustive literature coverage.

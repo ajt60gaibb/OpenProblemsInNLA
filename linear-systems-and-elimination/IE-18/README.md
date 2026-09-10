@@ -2,8 +2,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** explicit conjecture in the 2025 journal version  
-**Last checked:** 2026-09-08
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects a global maximization of a nonlinear homogeneous residual map in arbitrary dimension; community impact is an exact convergence factor for restarted Anderson acceleration.
 
 Let $n\ge2$ and let $M\in\mathbb R^{n\times n}$ be nonzero and symmetric, with $1\notin\sigma(M)$. Put $A=I-M$. Define the positively homogeneous map
 $$
@@ -31,3 +33,7 @@ The conjecture says that a largest four-step residual amplification is attained 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
 <!-- /navigation -->
+
+## Audit update — 2026-09-10
+
+Rechecked [version 4](https://arxiv.org/html/2312.04776v4), Conjecture 10 and its surrounding discussion, against the [2025 journal record](https://doi.org/10.1137/24M1672262). The general-dimensional identity is still conjectural; the order-two case alone does not justify a substantive partial-status label. Targeted searches for this four-step amplification conjecture found no later resolution.

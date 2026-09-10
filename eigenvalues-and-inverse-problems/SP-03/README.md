@@ -1,9 +1,11 @@
 # SP-03 — The Euclidean distance degree of the real symplectic group
 
 **Difficulty:** challenging  
-**Importance:** interesting to the community  
-**Status:** explicit proposed formula for an open problem; no resolution located  
-**Last checked:** 2026-09-08
+**Importance:** interesting to specialist  
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects an all-ranks algebraic critical-point count with only low-rank computations; specialist impact concerns the algebraic complexity of symplectic matrix nearness.
 
 For each $m\ge1$, set
 $$
@@ -41,3 +43,7 @@ $$
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
 <!-- /navigation -->
+
+## Audit update — 2026-09-10
+
+Rechecked [Baaijens–Draisma](https://pure.tue.nl/ws/files/3846347/391917266748824.pdf), §5: the general expression is proposed from small-rank computations, without a proof. Searches for symplectic Euclidean distance degrees and subsequent matrix-manifold ED-degree work found no derivation of this formula. Importance is narrowed to specialist because the requested output is a specific algebraic degree, rather than a general symplectic projection algorithm.

@@ -6,8 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** open.  
-**Last checked:** 2026-09-08  
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects a least-singular-value bound for a dependent random Krylov matrix; specialist impact concerns a structured compression mechanism in eigenvalue algorithms.
 
 ## Problem statement
 
@@ -30,6 +32,10 @@ Changing the orthonormal basis of the same Krylov space does not affect this que
 
 Amsel et al., [*Linear Systems and Eigenvalue Problems*](https://arxiv.org/html/2602.05394v3#S3.SS3), Problem 3.5, which explicitly singles out the circulant shift. This entry fixes “high probability” to a uniform 0.99 success target.
 
-## Status check
+## Earlier status check — 2026-09-08
 
 Searches for `Krylov circulant shift condition 2026` and `random Krylov compression eigenvector condition number` found no solution. The deterministic starting vector $e_1$ gives a Jordan compression, so the unrandomized statement would be false; that exceptional example does not settle the probabilistic problem. The workshop report’s 20 August update reports [Peng’s obstruction](https://yangpliu.github.io/repository.html) for arbitrary real diagonalizable inputs with ill-conditioned eigenvectors and real Gaussian starts. It explicitly leaves the normal-input case open, which includes the cyclic shift here.
+
+## Audit update — 2026-09-10
+
+Rechecked [workshop version 3](https://arxiv.org/html/2602.05394v3), Problem 3.5 and its August update. The arbitrary-diagonalizable counterexample does not cover this normal cyclic shift. Random Krylov/circulant conditioning searches found no bound resolving the displayed structured case.

@@ -1,9 +1,11 @@
 # SP-04 — The smallest-multiplier rule for nearest unit-absolute-determinant matrices
 
 **Difficulty:** challenging  
-**Importance:** interesting to the community  
-**Status:** explicit open root-selection question; no resolution located  
-**Last checked:** 2026-09-08
+**Importance:** interesting to specialist  
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects a global root-selection rule across all dimensions and singular-value data; specialist impact is the exact projection onto a specific determinant constraint.
 
 For $n\ge2$, define
 $$
@@ -38,3 +40,7 @@ Here generic means outside an exceptional proper real algebraic set; in particul
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
 <!-- /navigation -->
+
+## Audit update — 2026-09-10
+
+Rechecked [Baaijens–Draisma](https://pure.tue.nl/ws/files/3846347/391917266748824.pdf), §4.1, Problem 4.3, and [Sander's 2025 manuscript](https://arxiv.org/pdf/2501.19310), introduction. The latter still describes the global selection step as conjectural. Searches for smallest-multiplier projection results found no general proof. The positive-determinant projection problem and algorithms reaching stationary points must be distinguished from the stated $\det=\pm1$ global rule; impact is narrowed to specialist.

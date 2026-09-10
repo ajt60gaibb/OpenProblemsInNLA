@@ -2,7 +2,9 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Last checked:** 2026-09-08
+**Rating rationale:** Extreme because the low-p regime encounters an explicit geometric barrier in tensor concentration; broad importance spans probability, analysis, theoretical computer science and noisy tensor computation.  
+**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
 
 ## Statement
 
@@ -27,9 +29,9 @@ This would control the injective norm of tensor perturbations with general covar
 1. A. S. Bandeira, D. Dmitriev, K. Lucca, P. Nizić-Nikolac, and A. Rödder, *Randomstrasse101: Open Problems of 2025*, arXiv:2603.29571, 2026. [Primary text](https://arxiv.org/html/2603.29571v1), Entry 8 by K. Lucca, Conjecture 16 and equations (1)–(2).
 2. A. S. Bandeira, S. Gopi, H. Jiang, K. Lucca, and T. Rothvoss, *A Geometric Perspective on the Injective Norm of Sums of Random Tensors*. [Primary preprint](https://arxiv.org/abs/2411.10633), introduction and tensor type-2 bounds; published as *Tensor Concentration Inequalities: A Geometric Approach*, STOC 2025.
 
-## Status check — 2026-09-08
+## Status check — 2026-09-10
 
-Reference 1's displayed manuscript is dated August 24, 2026 and retains the conjecture. It states that $p\ge2r$ is proved, as is the matrix case $r=p=2$; general $p<2r$ remains beyond the available bounds. Searches `"tensor" "type-2" "conjecture" "2026"` and `"tensor" "type-2" conjecture proof 2025 2026` found no full resolution. Results for independent entries or rank-one summands impose stronger hypotheses. The $p=\infty$ endpoint is already covered by the source's established high-$p$ regime and is not an additional open entry.
+Rechecked [Randomstrasse101, Entry 8, Conjecture 16](https://arxiv.org/html/2603.29571v1) and the [underlying tensor-concentration paper](https://arxiv.org/abs/2411.10633), then searched for later type-2 bounds. The displayed inequality is proved for p at least twice the tensor order and for the matrix case r=p=2; the general low-p regime remains unresolved in the August 2026 manuscript. No full resolution was located. Restrictions on covariance or summands do not establish the universal claim.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

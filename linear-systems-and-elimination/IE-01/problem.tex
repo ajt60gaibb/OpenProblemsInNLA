@@ -1,0 +1,120 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={IE-01 - Forsythe's
+conjecture beyond restart length
+two},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-01}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Linear systems and elimination\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Forsythe's
+conjecture beyond restart length two\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} interesting
+to the community\par}
+{\sffamily\small\bfseries\color{accent}Status: Solution claimed\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\begin{quote}
+\textbf{SOLUTION CLAIMED --- excluded from the open count.} The
+September 2026 paper reports a complete classification. The theorem
+scope was checked; this catalog has not independently verified the full
+proof.
+\end{quote}
+
+\textbf{Rating rationale:} Historical ratings describe the original
+long-standing convergence problem and its importance for iterative
+linear solvers. They are not an estimate of remaining work after the
+claimed resolution.
+
+\subsection{Original problem
+statement}\label{original-problem-statement}
+
+Let \(A\in\mathbb R^{n\times n}\) be symmetric positive definite,
+\(b,x_0\in\mathbb R^n\), and \(3\leq s<n\). At each restart, perform
+exactly \(s\) exact-arithmetic conjugate-gradient steps, starting from
+the last iterate, and discard the previous search directions. Denote the
+iterate after restart cycle \(j\) by \(x_j\). Suppose this process never
+terminates exactly, and put
+
+\[
+r_j=b-Ax_j,\qquad y_j=r_j/\|r_j\|_2.
+\]
+
+Prove or disprove that both \((y_{2j})_{j\geq0}\) and
+\((y_{2j+1})_{j\geq0}\) converge in \(\mathbb R^n\), for every such
+input and restart length. The question concerns directions, not whether
+the residual norms tend to zero. Exact termination is excluded so every
+normalization exists.
+
+\subsection{References}\label{references}
+
+Faber, Liesen, and Tichý,
+\href{https://doi.org/10.1007/s10543-023-00991-x}{\emph{On the Forsythe
+conjecture}}, BIT 63 (2023), §2, especially the displayed Forsythe
+conjecture. Colbrook, Stepaniants, and Townsend,
+\href{https://arxiv.org/abs/2608.02852}{\emph{A Proof of the Forsythe
+Conjecture for the Two-Step Restarted Conjugate Gradient Method}},
+August 2026, §1 and main theorem.
+
+\subsection{Resolution and status check ---
+2026-09-10}\label{resolution-and-status-check-2026-09-10}
+
+M. J. Colbrook, G. Stepaniants, and A. Townsend, \emph{A Complete
+Resolution of Forsythe's Conjecture for Restarted Conjugate Gradients},
+\href{https://arxiv.org/abs/2609.04659v2}{arXiv:2609.04659v2}, submitted
+September 4 and revised September 7, 2026, \textbf{Theorem 1.1}.
+
+The theorem reports convergence of the even and odd normalized residual
+subsequences for restart lengths two and three, and counterexamples for
+every restart length at least four. This covers the entire original
+range \(s\ge3\) and answers the universal conjecture negatively. The
+exact-arithmetic, real symmetric positive-definite and nontermination
+conditions match the original entry.
+
+The current abstract, version history and theorem statement were
+checked. This is a full-resolution preprint claim, not a newly performed
+proof audit. The problem was removed from the open count on 2026-09-08;
+its original page is now restored so the stable ID and resolution remain
+visible. No part of this entry contributes to the open count.
+\end{document}

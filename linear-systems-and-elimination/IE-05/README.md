@@ -6,8 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** open.  
-**Last checked:** 2026-09-08  
+**Status:** Open  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects a global extremal problem with pivot-path constraints in every dimension; specialist impact concerns sharp constants on the orthogonal subclass.
 
 ## Context and notation
 
@@ -35,6 +37,10 @@ The supremum on the left includes all admissible partial-pivoting paths. The can
 
 Peca-Medlin, [*Growth factors of orthogonal matrices and local behavior of Gaussian elimination with partial and complete pivoting*](https://arxiv.org/html/2308.16146v2), published in SIAM J. Matrix Anal. Appl. (2024), §3.2 and Appendix B. The paper conjectures this equality and establishes $\rho_{\mathrm{PP}}(Q_n)=2^{n-1}(1+o(1))/\sqrt3$.
 
-## Status check
+## Earlier status check — 2026-09-08
 
 Searches for `GEPP orthogonal conjecture 2026` and the exact paper title found no proof of the extremal equality. The 2026 butterfly paper still identifies orthogonal partial-pivoting growth as open. The August Shah–Urschel results concern different growth questions and pivot strategies; their exponential examples do not establish this exact supremum.
+
+## Audit update — 2026-09-10
+
+Rechecked [Peca-Medlin's manuscript](https://arxiv.org/html/2308.16146v2), §3.2 and Appendix B, and its [SIAM publication](https://doi.org/10.1137/23M1597733), SIAM J. Matrix Anal. Appl. 45 (2024), 1599–1620. The candidate extremizers remain supported by the stated construction and experiments, without a general optimality proof. Searches for subsequent orthogonal GEPP extremizer results found no resolution.

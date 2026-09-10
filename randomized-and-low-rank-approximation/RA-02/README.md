@@ -6,9 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
+**Rating rationale:** Challenging because removing exponential loss without oversampling requires sharper adaptive-pivot analysis; community impact is rank-efficient PSD approximation.  
 **Topic:** randomized factorization; approximation guarantees  
-**Last checked:** 2026-09-08  
-**Status:** open; admitted after a bounded literature search found no resolution.  
+**Last checked:** 2026-09-10  
+**Status:** Open  
 
 ## Context and notation
 
@@ -65,3 +66,7 @@ Searches for `RPCholesky r-step polynomial`,
 `RPCholesky conjecture polynomial`, and the cited papers found no resolution.
 Epperly's August 2026 oversampling theorem does not supply a polynomial
 factor at exactly $r$ steps. Its Theorem 1.2 is noninformative at $k=r$.
+
+## Audit — 2026-09-10
+
+Rechecked [Gilles–Wilber's discussion after Theorem 3](https://arxiv.org/html/2601.22344v1), which reiterates the polynomial-factor conjecture. Exactly-$r$-step and later RPCholesky searches found no resolution. The [August oversampling theorem](https://arxiv.org/html/2608.20633v1) does not establish the displayed factor after exactly $r$ pivots.

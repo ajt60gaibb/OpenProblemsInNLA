@@ -6,8 +6,9 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open; Conjecture P2 in the source below  
-**Last checked:** 2026-09-08  
+**Rating rationale:** Challenging because the sharp one-sided perturbation rate must survive reducibility; community impact is reliable lower stability estimates under data perturbation.  
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -59,3 +60,7 @@ radius” with “local Hölder”, “Lipschitz lower”, “trajectory bounds�
 names, and 2025/2026 found no later resolution. These searches supplement the
 explicit 2025 conjectures; they do not establish exhaustiveness. The three entries
 are separately named assertions in the source, not a count of dimensional cases.
+
+## Audit — 2026-09-10
+
+Rechecked [Epperlein–Wirth, §1 and Conjecture 3 (P2)](https://arxiv.org/html/2311.18633v2). Local Lipschitz continuity gives the asserted lower bound at irreducible families. The general reducible case remains posed, and searches for Lipschitz lower bounds and later author work found no resolution.

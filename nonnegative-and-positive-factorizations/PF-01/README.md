@@ -6,9 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** open; checked 2026-09-08  
+**Rating rationale:** Challenging because the symmetric subset structure has not yielded matching PSD-rank bounds; specialist importance reflects this explicit family’s role as a benchmark for semidefinite factorization.  
+**Status:** Open  
 **Area:** structured positive semidefinite factorization  
-**Last checked:** 2026-09-08  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -49,6 +50,7 @@ These matrices provide structured benchmarks for algorithms seeking small positi
 
 Hamza Fawzi, João Gouveia, Pablo A. Parrilo, Richard Z. Robinson, and Rekha R. Thomas, [*Positive semidefinite rank*](https://arxiv.org/html/1407.4095), Mathematical Programming **153** (2015), 133–177, §9.1, Problem 9.2. Arnaud Vandaele, François Glineur, and Nicolas Gillis, [*Algorithms for Positive Semidefinite Factorization*](https://arxiv.org/pdf/1707.07953), Computational Optimization and Applications **71** (2018), 193–219, §4.2, preprint pp. 10–11.
 
-## Status evidence
+## Status check — 2026-09-10
 
-The algorithm paper explicitly retains the unknown exact rank and uses known upper bounds in its experiments. Searches for “positive semidefinite rank Johnson scheme”, “positive semidefinite rank intersection matrix”, and “P5 psd rank” found no subsequent exact formula. The arXiv histories of both cited papers were checked; each lists only its original version. No newer explicit open-status confirmation was located.
+Rechecked [Fawzi et al., Problem 9.2](https://arxiv.org/html/1407.4095) and [Vandaele–Glineur–Gillis, §4.2](https://arxiv.org/pdf/1707.07953), and searched by subset intersections, Johnson schemes and the problem number. The sources support the displayed real-factor bounds but not an exact formula. No later determination was located; the 2018 algorithm paper remains the latest explicit status source checked, so the later evidence is limited to this search.
+

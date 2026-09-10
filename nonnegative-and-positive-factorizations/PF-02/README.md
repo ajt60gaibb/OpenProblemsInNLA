@@ -6,9 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** open; checked 2026-09-08  
+**Rating rationale:** Challenging because topology of optimal PSD factorizations must be controlled beyond size two; community importance concerns nonuniqueness and separated solution families in constrained factorization algorithms.  
+**Status:** Open  
 **Area:** geometry of constrained matrix factorizations  
-**Last checked:** 2026-09-08  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
@@ -51,6 +52,7 @@ The ordinary-rank hypothesis is part of the problem. The case $k=2$ is known to 
 
 Fawzi, Gouveia, Parrilo, Robinson, and Thomas, [*Positive semidefinite rank*](https://arxiv.org/html/1407.4095), §9.2, Problem 9.4. Richard Z. Robinson, [*The Positive Semidefinite Rank of Matrices and Polytopes*](https://digital.lib.washington.edu/server/api/core/bitstreams/4e9d6133-5d14-4071-9905-70bd7dfd530e/content), University of Washington dissertation (2015), Chapter 7, especially Proposition 7.0.8.
 
-## Status evidence
+## Status check — 2026-09-10
 
-Searches for “psd factorizations connected”, “positive semidefinite factorization space connected”, and “psd factorization orbits connected 2026” found the original question and the known $k=2$ result, but no resolution under the displayed rank conditions. Universality or disconnectedness results for nonnegative vector factorizations do not by themselves answer this question. No recent explicit open-status confirmation was located.
+Rechecked [Fawzi et al., §9.2, Problem 9.4](https://arxiv.org/html/1407.4095), including the ordinary-rank hypothesis, and searched for connectedness of PSD factorization orbits. No resolution for k at least three was located. The proved k=2 case is excluded here; disconnected nonnegative factorizations do not automatically remain disconnected in the PSD orbit space. No recent primary reaffirmation of the exact higher-size question was found.
+

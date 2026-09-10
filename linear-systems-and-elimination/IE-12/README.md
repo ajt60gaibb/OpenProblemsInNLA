@@ -4,10 +4,12 @@
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
 <!-- /navigation -->
 
-**Difficulty:** extreme  
+**Difficulty:** challenging  
 **Importance:** broadly interesting  
-**Status:** open; removing dimension-dependent overhead from general backward-error solution cost.  
-**Last checked:** 2026-09-08  
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10  
+
+**Rating rationale:** Challenging reflects the remaining removal of a dimension-dependent logarithm from an established general algorithm; broad impact follows from a condition-independent cost bound for arbitrary linear systems.
 
 ## Problem statement
 
@@ -43,3 +45,7 @@ make this explicit. Searches on 2026-09-08 for “universal backward error 2026
 linear systems”, “MINBERR smoothed analysis”, and “quadratic backward error
 linear solver” found no resolution of the displayed bound. The earlier
 version's lack of a proved general-system rate is no longer current.
+
+## Audit update — 2026-09-10
+
+Rechecked [version 2](https://arxiv.org/html/2604.16075v2), Corollaries 17 and 25 and §7. Positive definite inputs satisfy the displayed cost by Corollary 17; the general bound still contains $\log n$. This warrants partial status and a difficulty change from extreme to challenging for the narrowed remaining gap. Searches for universal backward-error convergence and MINBERR follow-ups found no dimension-independent general bound.

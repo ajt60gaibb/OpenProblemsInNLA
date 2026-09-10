@@ -5,10 +5,12 @@
 <!-- /navigation -->
 
 **Difficulty:** challenging  
-**Importance:** interesting to the community  
+**Importance:** interesting to specialist  
 **Topic:** interval linear algebra; determinants; computational complexity  
-**Last checked:** 2026-09-08  
-**Status:** open; admitted after a bounded literature search found no resolution.  
+**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
+
+**Rating rationale:** Challenging reflects classifying exact determinant-range computation for a structured but dependency-sensitive interval family; specialist impact concerns this particular interval matrix class.
 
 ## Problem statement
 
@@ -68,3 +70,7 @@ midpoints and takes the smaller distance to the standard product endpoints.
 Consequently it sends $[1,2]$ and $[2,3]$ to $[2,11/2]$, while independent
 products range over $[2,6]$. Their symbolic determinant algorithms therefore
 do not establish exact ranges in the sense defined above.
+
+## Audit update — 2026-09-10
+
+Rechecked Hladík's [primary paper](https://journals.uwyo.edu/index.php/ela/article/download/1831/1831/1831), §5.4 after Proposition 5.6. The tridiagonal interval H-matrix subclass has a polynomial exact determinant-range algorithm and is a substantive included part of the displayed target, so the status is Partially resolved. The general tridiagonal complexity question remains unresolved. Later determinant-range searches found no classification in standard independent-entry interval arithmetic; the generalized-arithmetic claims discussed above use a different operation. Impact is narrowed to specialist. The remaining general question has a historical explicit source, without a recent reaffirmation.
