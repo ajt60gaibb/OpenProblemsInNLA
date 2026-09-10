@@ -29,17 +29,18 @@ Every listed entry was checked on **2026-09-10**. Literature checks are bounded;
 
 Open a category, then a problem folder. Every problem has three files:
 
-- **`README.md`** — the canonical statement, rendered directly on GitHub and readable by chatbots.
+- **`README.md`** — the canonical statement, rendered directly on GitHub.
 - **`problem.pdf`** — a typeset document for reading, downloading, or printing.
 - **`problem.tex`** — standalone LaTeX source for the PDF.
 
-Shared definitions are included in each problem so it can be read independently. Problem IDs remain stable across the new categories.
+Shared definitions are included in each problem so it can be read independently. Problem IDs remain stable when categories or statuses change.
 
 Each problem gives its assumptions and quantifiers, one difficulty label, one
 importance rating, a brief set of references, and a literature-status check.
 The collection includes core NLA and directly relevant matrix theory and
 computational complexity. Entries explain that connection where it is less
-immediate. The project prioritizes curation. Short mathematical arguments needed to settle an entry’s status are recorded with their verification level; MI-13 is one such resolved entry.
+immediate. Resolution arguments are recorded with their verification level;
+[MI-13](matrix-inequalities-and-norms/MI-13/README.md) includes a complete proof.
 
 ## Ratings
 
@@ -87,27 +88,14 @@ remaining question. A search that finds no resolution cannot guarantee that
 none exists, especially for older or less widely indexed sources.
 
 Resolved questions, recent full-solution claims, and candidates with unclear
-statements or status are kept outside the count. See [source coverage and
-uncounted leads](proof/SOURCES.md) and the preserved [chapter screening notes](proof/catalog/README.md).
+statements or status are kept outside the count. The [supporting references](references/README.md)
+document source coverage, excluded candidates and the status audit.
 Clearly identified quantitative restatements are editorial formulations of
 published questions, rather than quotations attributed to their authors.
 
-The [full status and rating audit](proof/STATUS-AUDIT-2026-09-10.md) covers every
-current entry. Every pair of ratings has a short rationale. “Impact” in the
-indexes means the canonical **Importance** rating; the three allowed values
-remain the same.
-
-The [latest expansion screen](proof/EXPANSION-TO-200-2026-09.md) records new admissions, exclusions and their source checks. Earlier screens remain linked from the source record.
-
-The [curation principles](PROBLEM.md) define the scope and admission criteria.
-[Progress](PROGRESS.md) records coverage and outstanding work.
-Suggestions and corrections should identify the problem ID and a primary
-reference, particularly when reporting a solution or a missing assumption.
-
-## Editing and PDF generation
-
-Edit the problem’s `README.md`, which is the source of truth. Run `python3 tools/update_catalog.py` after changing a title, rating or status; it rebuilds the category and full indexes and excludes solved, claimed and unverified entries from the open counts. With Pandoc and XeLaTeX installed, run `python3 tools/render_problems.py IE-02` to regenerate one problem, or omit the ID to regenerate the collection. Each exported `problem.tex` can also be compiled on its own with XeLaTeX. [The shared typesetting template](tools/problem-template.tex) controls appearance. Check the resulting PDF whenever an entry changes.
+The [full status and rating audit](references/STATUS-AUDIT-2026-09-10.md) covers every
+current entry. Every pair of ratings has a short rationale.
 
 ## Contributing
 
-Suggestions, references and corrections are welcome through [GitHub issues](https://github.com/ajt60gaibb/OpenProblemsInNLA/issues) and pull requests. See [contributor instructions](CONTRIBUTING.md) and the [correction or resolution template](.github/ISSUE_TEMPLATE/correction_or_resolution.md). A closed issue is not a mathematical status label; the canonical entry and indexes show whether a problem is solved.
+Suggestions, references and corrections are welcome through [GitHub issues](https://github.com/ajt60gaibb/OpenProblemsInNLA/issues) and pull requests. See [CONTRIBUTING.md](CONTRIBUTING.md) for admission criteria, editing and PDF generation, and the [correction or resolution template](.github/ISSUE_TEMPLATE/correction_or_resolution.md) for reporting a solution. A closed issue is not a mathematical status label; the canonical entry and indexes show whether a problem is solved.

@@ -34,7 +34,7 @@ Amsel et al., [*Linear Systems and Eigenvalue Problems: Open Questions from a Si
 
 ## Status check
 
-Searches included `"rerandomized SRHT" counterexample`, `"rerandomized" "subspace" Hadamard`, and `"Hadamard" "two" "2026" embedding conjecture`. No resolution of the displayed two-round assertion was located. The September 2026 SparseStack result in the [screening notes](../../proof/catalog/tensors-randomized.md#screened-items-that-are-not-counted) concerns another distribution.
+Searches included `"rerandomized SRHT" counterexample`, `"rerandomized" "subspace" Hadamard`, and `"Hadamard" "two" "2026" embedding conjecture`. No resolution of the displayed two-round assertion was located. The September 2026 SparseStack result in the [screening notes](../../references/SCREENED-OUT.md#screened-items-that-are-not-counted) concerns another distribution.
 
 ## Audit — 2026-09-10
 

@@ -1,14 +1,13 @@
-# Screen of the supplied additional problems
+# Additional candidate screen — 2026-09-08
 
 Screened **2026-09-08** against the current 125-entry catalog and primary literature.
-The 43-candidate [user proposal](proposals/ADDITIONAL_PROBLEMS.md) is preserved
-as supplied. Its older overlap annotations are superseded by this statement-level
-screen. Its relative references to `INDEX.md`, `SCREENING_NOTES.md`, and
-`records.json` refer to unsupplied companion files, not this repository’s navigation.
+This statement-level screen records all 43 candidates, their sources and their
+dispositions. Counts describe this historical screen; see the
+[current catalog](../CATALOG.md) for later status changes.
 
 **Result: 22 new entries, 15 duplicates or already-covered candidates, one stronger
 formulation newly grouped into an existing entry, and five withheld/excluded
-candidates. The catalog now contains 147 entries.** “Duplicate” below
+candidates. The catalog then contained 147 entries.** “Duplicate” below
 includes a narrower case already covered and a companion previously grouped.
 No proposal has been dropped without a recorded disposition.
 
@@ -157,9 +156,8 @@ unconditionally as open. Ordinary Hadamard existence is already FR-08.
 
 ## Verification scope
 
-Three research subagents screened disjoint supplied ranges; the root screened
-the remaining range and integrated the entries. Independent follow-up audits
-checked the core arithmetic/query formulations, theta/frame/RIP statements, and
+Candidate statements were checked against their primary sources. Separate
+Codex-agent follow-up audits checked the core arithmetic/query formulations, theta/frame/RIP statements, and
 matrix-inequality source statements. Bibliographic corrections include the distinct
 author lists of the 2024 and 2025 annual Randomstrasse archives and the circulant
 theta paper. No conjecture was attacked or solved. Each entry states the searches,
@@ -169,4 +167,4 @@ remain visibly identified.
 
 The 22 new PDFs contain 23 pages; the revised FR-01 remains one page. All 24
 new or changed pages were visually checked after compilation. The collection
-now contains 147 PDFs and 152 pages. Navigation and required metadata were checked.
+then contained 147 PDFs and 152 pages. Navigation and required metadata were checked.

@@ -1,13 +1,11 @@
 # Wider source screen — September 2026
 
-The user requested 50 further precise NLA conjectures and six search subagents.
-Six searches were launched, covering iterative methods, matrix functions and
-inequalities, randomized NLA and frames, tensors, spectral/inverse problems,
-and structured matrices. The starting catalog contained 75 entries. This note
-records substantive source and status findings. **50 new entries are admitted,
-bringing the catalog from 75 to 125.** The six searches ran in two waves because
-three subagents could run concurrently. Root review checked every selected draft;
-independent audits additionally checked the tensor and spectral/structured groups.
+The source screen covered iterative methods, matrix functions and inequalities,
+randomized NLA and frames, tensors, spectral/inverse problems, and structured
+matrices. It admitted **50 entries**, bringing the collection from 75 to 125.
+These are historical counts; see the [current catalog](../CATALOG.md) for later
+additions and status changes. All selected statements received source checks;
+separate Codex-agent audits also checked the tensor and spectral/structured groups.
 
 The scope includes source-stated conjectures and precisely posed exact-value
 or sharp-order open questions. An optimization question is identified as such,

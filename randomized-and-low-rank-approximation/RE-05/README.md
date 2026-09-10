@@ -49,7 +49,7 @@ Noah Amsel, Pratyush Avi, Tyler Chen, Feyza Duman Keles, Chinmay Hegde, Christop
 
 ## Status evidence
 
-The August 21, 2026 revision explicitly retains this question. Searches for “linear matrix families pure relative error” and “linearly parameterized matrix relative error 2026” found no resolution. Its abstract update resolves a related finite-family problem; finite-family discretization still produces additive error and does not automatically supply the displayed guarantee. See the [finite-family exclusion](../../proof/catalog/randomized-extensions.md#excluded-and-uncounted-leads).
+The August 21, 2026 revision explicitly retains this question. Searches for “linear matrix families pure relative error” and “linearly parameterized matrix relative error 2026” found no resolution. Its abstract update resolves a related finite-family problem; finite-family discretization still produces additive error and does not automatically supply the displayed guarantee. See the [finite-family exclusion](../../references/SCREENED-OUT.md#excluded-and-uncounted-leads).
 
 ## Audit — 2026-09-10
 

@@ -57,13 +57,13 @@ Colbrook, Stepaniants and Townsend's [September 2026 preprint, v2, Theorem 1.1](
 
 ### 🟠 TR-02 — Greedy cross approximation of the fermionic kernel
 
-The [current workshop report, update after Problem 4.2](https://arxiv.org/html/2602.05394), records V. S. Pendyala's [2026 full-solution claim](https://doi.org/10.5281/zenodo.21863274) for the logarithmic cutoff/accuracy rate. The workshop's report of the claim was checked; the claimed proof itself has not been independently reviewed. The [original screening note](proof/catalog/tensors-randomized.md#screened-items-that-are-not-counted) preserves the context.
+The [current workshop report, update after Problem 4.2](https://arxiv.org/html/2602.05394), records V. S. Pendyala's [2026 full-solution claim](https://doi.org/10.5281/zenodo.21863274) for the logarithmic cutoff/accuracy rate. The workshop's report of the claim was checked; the claimed proof itself has not been independently reviewed. The [screening note](references/SCREENED-OUT.md#screened-items-that-are-not-counted) preserves the context.
 
 <a id="re-04"></a>
 
 ### 🟠 RE-04 — Finite-family structured approximation with relative error
 
-The [August 2026 update following the abstract of Amsel et al.](https://arxiv.org/html/2507.19290v2) reports an improvement to relative error $1+\varepsilon$ and links an author-endorsed argument. This supersedes its stale question in §5. The [screening note](proof/catalog/randomized-extensions.md#excluded-and-uncounted-leads) records the exact distinction from the still-open linear-family and nonadaptive questions. This catalog has checked the scope of the reported resolution, not independently verified its proof.
+The [August 2026 update following the abstract of Amsel et al.](https://arxiv.org/html/2507.19290v2) reports an improvement to relative error $1+\varepsilon$ and links an author-endorsed argument. This supersedes its stale question in §5. The [screening note](references/SCREENED-OUT.md#excluded-and-uncounted-leads) records the exact distinction from the still-open linear-family and nonadaptive questions. This catalog has checked the scope of the reported resolution, not independently verified its proof.
 
 ### 🟠 Sharp Paulsen bound — proposed FR-12, not admitted
 
@@ -74,10 +74,10 @@ the announcement addresses the proposed sharp strengthening. The announcement
 was independently checked, but its forthcoming proof was not available for
 verification. The temporary expansion candidate was withheld and does not
 contribute to the open count. Its disposition is recorded in the
-[expansion screen](proof/EXPANSION-TO-200-2026-09.md).
+[expansion screen](references/EXPANSION-TO-200-2026-09.md).
 
 Other historical exclusions and full-proof claims remain documented in the
-[source record](proof/SOURCES.md#important-historical-questions-excluded).
+[source record](references/SOURCES.md#important-historical-questions-excluded).
 This page highlights resolutions and former catalog IDs; it is not a list of
 every rejected candidate.
 

@@ -2,7 +2,7 @@
 
 The [September 10 expansion screen](EXPANSION-TO-200-2026-09.md) records 42 new admissions and the primary-source checks that bring the audited collection to **200 open targets**. Historical counts below refer to earlier screens.
 
-Last updated: **2026-09-08**. This records source coverage and consequential
+Last updated: **2026-09-10**. Earlier screens retain their original dates. This records source coverage and consequential
 exclusions. It is not an exhaustive bibliography or a claim that every problem
 in the books below has been checked. Each admitted entry has its own references
 and status evidence in the [catalog](../CATALOG.md).
@@ -19,7 +19,7 @@ Explicit mathematical models are distinguished from editorial formalizations.
 The screen also records resolved historical questions and precise obstacles
 for the uncounted reserves. All 12 new PDFs were compiled and visually checked.
 
-## Supplied additional-problems proposal: 22 additions
+## Additional candidate screen: 22 additions
 
 The [complete 43-candidate screen](ADDITIONAL-PROBLEMS-SCREEN.md) adds 22 entries,
 bringing the collection from 125 to 147. It records 15 duplicates or previously
@@ -28,7 +28,7 @@ holds. Newly verified source passages cover CG precision, matrix-function
 transfer, Kronecker trace queries, tensor norm ratios, theta/frame constructions,
 commutator and permanent questions, matrix discrepancy, symbolic rank, rigidity,
 and inverse-semigroup growth. Formalizations and field/model specializations
-are explicitly labelled; the original proposal is retained separately.
+are explicitly labelled in the screen and canonical entries.
 
 ## Wider search batch: 50 additions
 
@@ -49,7 +49,7 @@ identifies the passages actually used; this is not a claim of full-book coverage
 
 | Source | Material actually examined | Result / next useful work |
 | --- | --- | --- |
-| N. J. Higham, *Accuracy and Stability of Numerical Algorithms*, 2nd ed., SIAM, 2002; [university-hosted copy](https://pages.stat.wisc.edu/~bwu62/771/hingham2002.pdf) | The user's 20 numbered leads, methodological Problem 26.4, and five prose leads; critical matrix patterns, formulas, and algorithms checked in page images. | Problems 9.15(a–b) and 9.18 supply IE-13–15. The Hadamard part of 9.17 duplicates IE-03. [Full screening](HIGHAM-2002-SCREEN.md) records later results and all uncounted leads. This is a selected-passage screen, not a cover-to-cover review. |
+| N. J. Higham, *Accuracy and Stability of Numerical Algorithms*, 2nd ed., SIAM, 2002; [university-hosted copy](https://pages.stat.wisc.edu/~bwu62/771/hingham2002.pdf) | Twenty numbered leads, methodological Problem 26.4, and five prose leads; critical matrix patterns, formulas, and algorithms checked in page images. | Problems 9.15(a–b) and 9.18 supply IE-13–15. The Hadamard part of 9.17 duplicates IE-03. [Full screening](HIGHAM-2002-SCREEN.md) records later results and all uncounted leads. This is a selected-passage screen, not a cover-to-cover review. |
 | R. Jungers, *The Joint Spectral Radius: Theory and Applications*, Springer, 2009; [author manuscript](https://perso.uclouvain.be/raphael.jungers/sites/default/files/kcfinder/files/book.pdf) | Strict stability decidability, finiteness, algebraicity, and marginal-growth questions in §§2.2.3, 4.4 and the growth discussion. | MF-04, MF-09, MF-10; later work replacing refuted growth conjectures leads to MF-11–12. |
 | M. Bläser, *Fast Matrix Multiplication*, Graduate Surveys 5, Theory of Computing, 2013; [open monograph](https://theoryofcomputing.org/articles/gs005/gs005.pdf) | Arithmetic models and named research problems on addition chains, bilinear rank, direct sums, and asymptotic tensor rank. | AC-01–05 and AC-07–08; direct-sum additivity and a historical rank-complexity question excluded after later results. The monograph is distributed under CC BY. |
 | N. J. Higham, *Functions of Matrices: Theory and Computation*, SIAM, 2008; [author's book page](https://nhigham.com/books/) | Problems 3.11 and 6.25, the Newton square-root iteration in §6.8.3, and the scaling-and-squaring forward-error question, checked with the author's errata and follow-up papers. | SF-01 retains the real H-matrix question; Problem 3.11 is resolved. A new quantitative forward-error bound was not silently attributed to the book. Full-book coverage is unfinished. |

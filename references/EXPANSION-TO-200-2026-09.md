@@ -1,7 +1,7 @@
 # Literature expansion to 200 open targets — 2026-09-10
 
 This screen admits **42 new problems**. The starting catalog had 159 open
-targets; the concurrent status audit settles former MI-13 and removes it from
+targets; the September 10 status audit settles former MI-13 and removes it from
 the open count. Thus **159 − 1 + 42 = 200**. Retained resolved or claimed-solved
 pages are additional archival entries, not part of the 200.
 
@@ -16,9 +16,8 @@ Three parallel searches covered matrix inequalities/functions, randomized and
 tensor methods, and structured/interval/iterative methods. An additional source
 screen covered graph inverse eigenvalues, permanents and phase retrieval.
 Independent cross-checks scrutinized the final statements and later results;
-the concurrent full-catalog audit also reviews these admissions. No solutions
-were attempted in this expansion. MI-13's short status argument belongs to the
-separately requested audit and is documented on its retained page.
+the full-catalog audit also reviews these admissions. MI-13's resolution argument
+is documented on its retained page.
 
 ## Admissions and primary locators
 
@@ -159,13 +158,3 @@ uploaded thesis. IE-24–25 compare the available 2025 preprint and the 2026 jou
 abstract; full journal text was inaccessible. Older-source entries state when no
 recent explicit reaffirmation was found. These limits are retained in the
 canonical pages, not replaced by claims of exhaustive verification.
-
-## Presentation and contributions
-
-Every new entry uses the repository's Markdown, standalone LaTeX and PDF
-formats. Final rendering and page inspection are integrated with the concurrent
-status audit and recorded in `PROGRESS.md`. The root catalog is framed as a
-maintained collection of 200 open targets. Contributor instructions explain
-primary-source requirements, duplicate and resolution checks, ratings, issues,
-pull requests and regeneration of human-readable documents. Issue and PR
-templates make these requirements visible when proposing a change.
