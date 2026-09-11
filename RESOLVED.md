@@ -150,6 +150,52 @@ These three entries remain in the open count.
 
 **RA-13 (Open).** The centered augmented density has a genuine inflection point beyond the proposed auxiliary upper bound. Together with the mode example, this refutes the upper assertions of Hallman Conjectures 1 and 2. The complete absolute Gaussian trace-tail probability chain in this entry is neither proved nor refuted. Failure of an auxiliary sufficient condition does not refute the final tail comparisons; status remains Open. [Complete proof](references/colbrook-transfer-2026-09-11/manuscripts/04_gamma_auxiliary_counterexamples.pdf), Proposition 3.1 (with Proposition 2.1 for related evidence); [review](references/colbrook-transfer-2026-09-11/verification/reviews/gamma-auxiliary-review.md).
 
+## Reviewed interval and absolute-value submissions - 2026-09-11
+
+Seven exact targets are classified below. Independent agent review is not external peer review; the [submission record](references/colbrook-intervals-2026-09-11/README.md) preserves AI-draft provenance, authorship requested by Matthew J. Colbrook, full source hashes and fresh checks. No priority claim is made. Original IDs and historical ratings are retained. AV-03 and IV-01 are unchanged.
+
+### AV-01 - Affirmative complexity classification
+
+[Original statement](intervals-and-absolute-value-equations/AV-01/README.md). **Solved, recorded 2026-09-11.** Matthew J. Colbrook (University of Cambridge). Theorem 1 and the algorithm in Section 4 prove polynomial-time recognition of exactly $2^n$ distinct solutions to $Ax+|x|=b$ using $n+1$ rational LP feasibility tests. The result uses rational binary input, has no regularity or finiteness promise, and rejects infinite solution sets. It classifies the displayed decision problem in $\mathsf P$.
+
+[Complete manuscript](references/colbrook-intervals-2026-09-11/manuscripts/AV-01.pdf); [full independent agent review](references/colbrook-intervals-2026-09-11/verification/reviews/AV-01-review.md).
+
+### AV-02 - Hardness classification
+
+[Original statement](intervals-and-absolute-value-equations/AV-02/README.md). **Solved, recorded 2026-09-11.** Matthew J. Colbrook (University of Cambridge). Theorem 2 and Sections 2-3 give a polynomial-time many-one reduction from MAX-CUT to the threshold $c_2(A)\ge t$, using integer upper-triangular matrices with diagonal 2. All queried families are regular. This proves the requested promise-preserving Turing hardness, with equality in the yes case; the restricted rational triangular problem is NP-complete. The result does not assert $\mathsf P\ne\mathsf{NP}$.
+
+[Complete manuscript](references/colbrook-intervals-2026-09-11/manuscripts/AV-02.pdf); [full independent agent review](references/colbrook-intervals-2026-09-11/verification/reviews/AV-02-review.md).
+
+### IV-02 - Complexity classification
+
+[Original statement](intervals-and-absolute-value-equations/IV-02/README.md). **Solved, recorded 2026-09-11.** Matthew J. Colbrook (University of Cambridge). Theorem 1 proves NP-completeness of the upper determinant threshold and NP-hardness of exact determinant-range computation, even for regular independent-entry tridiagonal interval matrices. Section 5 supplies the exact-output upper bound: a polynomial algorithm for the full displayed target exists if and only if $\mathsf P=\mathsf{NP}$. No unconditional separation or strong NP-hardness is asserted.
+
+[Complete manuscript](references/colbrook-intervals-2026-09-11/manuscripts/IV-02_IV-04.pdf); [full independent agent review](references/colbrook-intervals-2026-09-11/verification/reviews/IV-02_IV-04-review.md).
+
+### IV-03 - Affirmative resolution
+
+[Original statement](intervals-and-absolute-value-equations/IV-03/README.md). **Solved, recorded 2026-09-11.** Matthew J. Colbrook (University of Cambridge). Theorem 1 proves that every interval member is inverse-M if and only if the $n^2$ vertices $C-D_iRD_j$ are inverse-M. These are contained in the displayed two-sign family, so the original $2n^2$ equivalence follows. The proof covers all real endpoints, every dimension, zero widths, zero entries and reducible matrices without assuming regularity.
+
+[Complete manuscript](references/colbrook-intervals-2026-09-11/manuscripts/IV-03.pdf); [full independent agent review](references/colbrook-intervals-2026-09-11/verification/reviews/IV-03-review.md).
+
+### IV-04 - Complexity classification
+
+[Original statement](intervals-and-absolute-value-equations/IV-04/README.md). **Solved, recorded 2026-09-11.** Matthew J. Colbrook (University of Cambridge). Theorem 2 proves NP-hardness of exact tridiagonal solution-hull computation even for a regular independent-entry matrix family and the point right-hand side $-e_n$. Section 5 covers the full exact-output convention, including empty solution sets and infinite endpoints, and makes polynomial-time existence equivalent to $\mathsf P=\mathsf{NP}$. It does not unconditionally rule out polynomial time.
+
+[Complete manuscript](references/colbrook-intervals-2026-09-11/manuscripts/IV-02_IV-04.pdf); [full independent agent review](references/colbrook-intervals-2026-09-11/verification/reviews/IV-02_IV-04-review.md).
+
+### IV-05 - Affirmative algorithmic resolution
+
+[Original statement](intervals-and-absolute-value-equations/IV-05/README.md). **Solved, recorded 2026-09-11.** Matthew J. Colbrook (University of Cambridge). Theorem 3 and Sections 3-5 give the exact coordinatewise solution hull using $2n$ rational LPs, each with $n$ variables and $2n$ inequalities, in polynomial binary input length. The construction uses precisely the inverse-M promise and arbitrary interval right-hand sides. Promise recognition is not needed; no solver for the general regular AV-03 problem is claimed.
+
+[Complete manuscript](references/colbrook-intervals-2026-09-11/manuscripts/IV-05.pdf); [full independent agent review](references/colbrook-intervals-2026-09-11/verification/reviews/IV-05-review.md).
+
+### IV-06 - Negative resolution
+
+[Original statement](intervals-and-absolute-value-equations/IV-06/README.md). **Solved, recorded 2026-09-11.** Matthew J. Colbrook (University of Cambridge). Theorem 1 gives a $3\times3$ independent-entry interval matrix with at least four components in its real eigenvalue set. Four exact integer eigenpairs at $-3,0,3,25$ and excluded separators $-1,1,12$ refute the universal at-most-$n$ conjecture. No symmetry assumption is introduced, and locating every component endpoint is unnecessary.
+
+[Complete manuscript](references/colbrook-intervals-2026-09-11/manuscripts/IV-06.pdf); [full independent agent review](references/colbrook-intervals-2026-09-11/verification/reviews/IV-06-review.md).
+
 ## Published resolutions of historical questions
 
 These questions were screened out before receiving current catalog folders;

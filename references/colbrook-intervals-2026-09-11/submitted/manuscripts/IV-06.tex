@@ -1,0 +1,70 @@
+\input{common.tex}
+\begin{document}
+\header{A $3\times3$ interval matrix with at least four real-eigenvalue components}{Repository IV-06. Claimed counterexample; independent review pending.}
+\begin{abstract}
+A two-parameter interval matrix with integer endpoints has at least four connected components in its real eigenvalue set. Four exact eigenpairs and three exact excluded real numbers provide a short certificate. This disproves the proposed bound of $n$ components for a general $n\times n$ interval matrix.
+\end{abstract}
+\section{Counterexample}
+Consider the independent interval entries
+\[
+ A(a,b)=\begin{pmatrix}25&a&b\\1&-1&0\\1&0&1\end{pmatrix},
+ \qquad a\in[-166,-16],\qquad b\in[9,159].
+\]
+Let
+\[
+ \Lambda_{\R}=\{\lambda\in\R:\det(\lambda I-A(a,b))=0
+                  \text{ for some admissible }a,b\}.
+\]
+This is the real eigenvalue set in the conjecture recorded in IV-06 \cite{repo}.
+\begin{theorem}
+The set $\Lambda_{\R}$ has at least four connected components, although the matrix dimension is three.
+\end{theorem}
+\begin{proof}
+Put $a=-91+d_1$, $b=84+d_2$, where $d_1,d_2\in[-75,75]$ independently. Direct expansion gives
+\begin{align*}
+ p(\lambda;d_1,d_2)
+ &=\det(\lambda I-A)\\
+ &=(\lambda-25)(\lambda^2+6)-d_1(\lambda-1)-d_2(\lambda+1).
+\end{align*}
+For every fixed real $\lambda$, its exact range over the two parameters is
+\begin{equation}\label{eq:range}
+ (\lambda-25)(\lambda^2+6)
+ +[-75,75]\bigl(|\lambda-1|+|\lambda+1|\bigr).
+\end{equation}
+There is no interval overestimation: the determinant is affine in each of the two independent parameters and has no mixed term. Thus $\lambda\in\Lambda_{\R}$ exactly when the interval in \eqref{eq:range} contains zero.
+
+The following four eigenpairs certify four included real numbers. Each vector is nonzero, each parameter pair is in the interval, and direct integer multiplication verifies $A(a,b)v=\lambda v$.
+\[
+\begin{array}{r|r r|r r r}
+ \lambda&a&b&\multicolumn{3}{c}{v^T}\\\hline
+ -3&-21&154&-4&2&1\\
+ 0&-16&9&-1&-1&1\\
+ 3&-146&29&4&1&2\\
+ 25&-91&84&312&12&13
+\end{array}
+\]
+At three intervening real numbers, \eqref{eq:range} yields
+\[
+\begin{array}{r|r}
+ \lambda&\text{exact determinant interval}\\\hline
+ -1&[-332,-32]\\
+ 1&[-318,-18]\\
+ 12&[-3750,-150].
+\end{array}
+\]
+None contains zero. Therefore
+\[
+ -3\ <\ \underbrace{-1}_{\notin\Lambda_{\R}}\ <\ 0\ <\
+ \underbrace{1}_{\notin\Lambda_{\R}}\ <\ 3\ <\
+ \underbrace{12}_{\notin\Lambda_{\R}}\ <\ 25
+\]
+places the four included points in four distinct connected components: every connected subset of the real line containing two points must contain all points between them. This proves the theorem and disproves the proposed general bound.
+\end{proof}
+\section{Scope and reproducibility}
+Only two matrix entries vary, and their uncertainty is independent. All other entries are fixed integers. The argument proves at least four components; locating every component endpoint is unnecessary for the counterexample. It concerns the union of real eigenvalues of all admissible real matrices, not the complex spectral set and not an enclosure returned by an interval algorithm.
+
+The accompanying exact test script expands the characteristic polynomial, verifies all four integer eigenpairs, and computes the three determinant intervals using rational arithmetic. No floating-point eigenvalues are used in this certificate.
+\begin{thebibliography}{9}
+\bibitem{repo} OpenProblemsInNLA, problem IV-06, including its original conjecture references. \repo{IV-06}.
+\end{thebibliography}
+\end{document}

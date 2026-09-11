@@ -1,0 +1,175 @@
+% Full source/preamble SHA256 (UTF-8/LF): 8794ee90e8ac9982384fff220c531ce123a5f29c2bf2abaaf15853b966c4f435 d8e7a0de2ed1a1fd162b147211fe29c7b1d7bfbc0be7b827dcda4d9a2653d0d4
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,mathtools,booktabs,enumitem}
+\usepackage[margin=26mm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyvrb}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\setlist{nosep}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\adj}{\operatorname{adj}}
+\newcommand{\co}{\operatorname{conv}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\NP}{\mathsf{NP}}
+\newcommand{\PP}{\mathsf P}
+\newcommand{\header}[2]{\begin{center}{\Large\bfseries #1\par}\vspace{6pt}{\small #2\par}\end{center}\vspace{6pt}}
+\newcommand{\repo}[1]{\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/intervals-and-absolute-value-equations/#1}}
+
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\hypersetup{pdfauthor={Matthew J. Colbrook},pdftitle={Tridiagonal interval determinants and solution hulls}}
+
+\begin{document}
+\header{Exact tridiagonal interval determinants and solution hulls are NP-hard}{Repository IV-02 and IV-04. Claimed resolutions; independent review pending.}
+\begin{center}Matthew J. Colbrook\\{\small Department of Applied Mathematics and Theoretical Physics\\University of Cambridge, Cambridge, United Kingdom\\\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}\\11 September 2026\end{center}
+\textbf{Independently reviewed resolution.} This is a complexity classification; it does not establish P unequal to NP.
+The dated \href{https://github.com/MColbrook/OpenProblemsInNLA/blob/codex/colbrook-package-submissions/references/colbrook-intervals-2026-09-11/verification/reviews/IV-02_IV-04-review.md}{independent agent review} supersedes the original pending-review header. Agent review is not external human peer review or formal certification. The source archive describes these as AI-generated drafts; authorship is attributed at the submitter's request.
+\par\medskip
+% BEGIN REVIEWED BODY
+\begin{abstract}
+A reduction from PARTITION encodes signed sums of small rational rotation angles in the continuant of a tridiagonal interval matrix. It proves NP-completeness of the upper determinant threshold problem, and NP-hardness of exact determinant-range and exact solution-hull computation. The reduction uses independent interval entries, fixed superdiagonal entries equal to 1, and an everywhere nonsingular interval family. For the hull result the right-hand side is the single point $-e_n$. General exact-output upper bounds are also recorded, so each requested polynomial-time existence question is equivalent to $\mathsf P=\mathsf{NP}$.
+\end{abstract}
+\section{Scope}
+The exact determinant-range and solution-hull problems for rational tridiagonal interval matrices are the subjects of IV-02 and IV-04 \cite{repo2,repo4}. Polynomial algorithms for important special subclasses do not resolve the general questions \cite{det,overview,complexity}. The reduction below does not assert strong NP-hardness: the rational gap can be small in the numerical value of the input.
+\section{Rational rotations as continuants}
+For rational $a,\beta$, put
+\[
+ M(a,\beta)=\begin{pmatrix}a&-\beta\\1&0\end{pmatrix}.
+\]
+Given a PARTITION instance with positive integer weights $w_1,\ldots,w_m$, let
+\[
+ W=\sum_iw_i,\quad\delta=\frac1{10W^2},\quad t_i=\delta w_i,\quad
+ c_i=\frac{1-t_i^2}{1+t_i^2},\quad s_i=\frac{2t_i}{1+t_i^2}.
+\]
+Here $c_i>0$, $c_i^2+s_i^2=1$, and
+\[
+ R_i=\begin{pmatrix}c_i&-s_i\\s_i&c_i\end{pmatrix}
+ =M(-s_i/c_i,-1/c_i)M(s_i,-c_i)
+\]
+is a rotation through $\theta_i=2\arctan(t_i)$. Also,
+\[
+ M(0,-1)M(0,q)=\diag(1,-q),\qquad q\in[-1,1].
+\]
+Thus a pair of companion matrices implements a rotation, and another pair implements an independent reflection-or-identity gate at its endpoints.
+
+Construct $N=4m-2$ layers, in order of application, as follows:
+\[
+\begin{array}{c|cc|l}
+ j&a_j&\beta_j&\text{range}\\\hline
+ 4i-3&s_i&-c_i&i=1,\ldots,m\\
+ 4i-2&-s_i/c_i&-1/c_i&i=1,\ldots,m\\
+ 4i-1&0&q_i&i=1,\ldots,m-1,\quad q_i\in[-1,1]\\
+ 4i&0&-1&i=1,\ldots,m-1.
+\end{array}
+\]
+Let $T(q)$ have diagonal $a_j$, all superdiagonal entries equal to 1, and subdiagonal entry $T_{j,j-1}=\beta_j$ for $j\ge2$. The unused $\beta_1$ is only a notational convenience in the transfer identity. The $m-1$ intervals $q_i\in[-1,1]$ are distinct matrix entries and are mutually independent.
+
+The continuant recurrence for leading determinants is
+\[
+ p_{-1}=0,\quad p_0=1,\quad p_j=a_jp_{j-1}-\beta_jp_{j-2}.
+\]
+Therefore $\det T=p_N$ is the first coordinate of
+\[
+ M(a_N,\beta_N)\cdots M(a_1,\beta_1)(1,0)^T.
+\]
+At a gate vertex, put $\epsilon_i=-q_i\in\{-1,1\}$. The successive vector angles satisfy
+\[
+ \phi_1=\theta_1,\qquad \phi_{i+1}=\theta_{i+1}+\epsilon_i\phi_i.
+\]
+Consequently the endpoint determinants are exactly
+\begin{equation}\label{eq:cos}
+ \cos\Big(\sum_{i=1}^m\sigma_i\theta_i\Big),
+ \qquad \sigma_i\in\{-1,1\},\quad\sigma_m=1.
+\end{equation}
+Every such pattern occurs: take $\epsilon_i=\sigma_i\sigma_{i+1}$. Fixing the last sign loses no zero signed sum, since a simultaneous sign reversal preserves zero.
+\section{Separation and regularity}
+The elementary integral bound
+\[
+ 0\le2t-2\arctan t\le\frac23t^3\qquad(t\ge0)
+\]
+gives
+\[
+ E:=\sum_i|\theta_i-2\delta w_i|
+ \le\frac23\delta^3W^3=\frac{\delta}{150W}\le\frac\delta{10}.
+\]
+Also $\sum_i\theta_i\le2\delta W=1/(5W)\le1/5$. Every determinant in \eqref{eq:cos} is therefore positive. A determinant is multiaffine in independent entries; throughout a box it is a convex combination of its vertex values. Thus every matrix in the entire interval family is nonsingular, not just its vertices. The determinant maximum is attained at a vertex.
+
+If PARTITION has a solution, choose its signs with $\sigma_m=1$. Then the angle in \eqref{eq:cos} has absolute value at most $\delta/10$, giving
+\[
+ \max_q\det T(q)\ge1-\frac{\delta^2}{200}.
+\]
+If there is no partition, each integer signed weight sum has absolute value at least 1. Every endpoint angle then has absolute value at least $2\delta-E\ge19\delta/10$, and at most $1/5$. For $|x|\le1$, Taylor's inequality gives $\cos x\le1-x^2/3$. Hence
+\[
+ \max_q\det T(q)\le1-\frac{361}{300}\delta^2<1-\delta^2.
+\]
+The rational threshold
+\[
+ \tau=1-\frac{\delta^2}{2}
+\]
+strictly separates the two cases.
+
+All numbers constructed above have $O(\log W)$ bits per entry. For example $c_i$ and $s_i$ use integers of sizes polynomial in $W$, not an exponentially long list of repeated rotations. There are $O(m)$ rows and interval entries. The reduction is polynomial in the binary input length.
+\begin{theorem}\label{thm:det}
+Deciding whether the maximum determinant of a rational tridiagonal interval matrix is at least a rational threshold is NP-complete. NP-hardness holds even when every matrix in the interval family is nonsingular and every superdiagonal entry is fixed at 1. In particular exact determinant-range computation is NP-hard.
+\end{theorem}
+\begin{proof}
+Hardness is the reduction above from the standard NP-complete PARTITION problem \cite{karp}. Membership in NP follows from multiaffinity: a vertex is a polynomial-size certificate, and its rational determinant is computable exactly in polynomial time.
+\end{proof}
+\section{Transferring hardness to a solution hull}
+For a tridiagonal $N\times N$ matrix with all superdiagonal entries 1, the corner cofactor identity is
+\[
+ (T^{-1})_{1N}=\frac{(-1)^{N+1}}{\det T}.
+\]
+Indeed, deleting row $N$ and column 1 leaves a triangular matrix with diagonal entries all 1. Our $N=4m-2$ is even and all determinants are positive. Take the point right-hand side $b=-e_N$. Then
+\[
+ x_1=(T^{-1}b)_1=\frac1{\det T}>0.
+\]
+The lower endpoint of coordinate 1 of the exact interval solution hull is therefore
+\[
+ \underline{x}_1=\frac1{\max_q\det T(q)}.
+\]
+It decides the determinant threshold by comparison with $1/\tau$.
+\begin{theorem}\label{thm:hull}
+Exact solution-hull computation for rational tridiagonal interval systems is NP-hard even for regular interval matrices, point right-hand side $-e_N$, and fixed superdiagonal entries all equal to 1. These instances have nonempty bounded solution sets.
+\end{theorem}
+\section{Exact-output upper bounds}
+For completeness, both general exact-output problems are in $\mathsf{FP}^{\NP}$. This also makes precise the ``unless $\mathsf P=\mathsf{NP}$'' qualification.
+
+For determinants, multiply all vertex entries by a common denominator $D$ whose bit length is polynomial in the input. Let $H$ bound the absolute values of the resulting integers. The scaled determinant is an integer of absolute value at most $n!H^n$. Binary search with the NP vertex-threshold oracle finds its exact maximum and minimum in polynomially many queries; divide by $D^n$.
+
+For hulls, write the interval data as $[C-R,C+R]$ and $[b_c-b_r,b_c+b_r]$. Rowwise independent interval evaluation gives the exact solution set
+\[
+ \Sigma=\{x:|Cx-b_c|\le R|x|+b_r\}
+       =\bigcup_{s\in\{-1,1\}^n}P_s,
+\]
+where
+\[
+ P_s=\{x:D_sx\ge0,\ (C-RD_s)x\le b_c+b_r,
+                 \ (-C-RD_s)x\le-b_c+b_r\}.
+\]
+Each $P_s$ is a rational pointed polyhedron, since it is contained in an orthant. Nonempty such polyhedra have vertices, and finite coordinate optima are attained at vertices. After a common denominator is cleared in the coefficients and right-hand sides, let $H$ bound their integer sizes and put $Q=n!H^n$, increasing $H$ to at least 1. Cramer's rule bounds every vertex coordinate numerator in absolute value by $Q$ and its denominator by $Q$.
+
+Nonemptiness is in NP: guess $s$ and a polynomial-bit feasible vertex. Unboundedness of coordinate $i$ is in NP: guess a feasible sign polyhedron and a rational recession vector normalized to have $i$th coordinate $1$ (or $-1$). Such certificates have polynomial encoding length by standard rational-polyhedron bounds. Because the union has finitely many members, an unbounded coordinate in the union is unbounded in at least one member.
+
+When an endpoint is finite, the query $\exists x\in\Sigma:x_i\ge t$ is in NP by the same sign-polyhedron certificate argument, including the extra rational inequality. Binary search brackets the endpoint in an interval of width less than $1/(2Q^2)$ inside $[-Q,Q]$. At most one rational with denominator at most $Q$ is in that bracket. Continued-fraction rational reconstruction recovers it in polynomial time. Lower endpoints are handled by $-x_i$. Empty sets and infinite endpoints are covered by the earlier oracle queries.
+
+Thus a polynomial-time algorithm exists for either complete exact-output task if $\PP=\NP$. The hardness theorems prove the converse. These upper bounds are included as standard complexity completion, not as an independent novelty claim.
+\begin{thebibliography}{9}
+\bibitem{repo2} OpenProblemsInNLA, problem IV-02. \repo{IV-02}.
+\bibitem{repo4} OpenProblemsInNLA, problem IV-04. \repo{IV-04}.
+\bibitem{det} J. Hor\'a\v cek, M. Hlad\'ik and J. Mat\v ejka, \emph{Determinants of interval matrices}, Electronic Journal of Linear Algebra 33 (2018), 99--112. \url{https://doi.org/10.13001/1081-3810.3719}.
+\bibitem{overview} M. Hlad\'ik, \emph{An overview of polynomially computable characteristics of special interval matrices}, Springer (2020), 295--310. \url{https://doi.org/10.1007/978-3-030-31041-7_16}.
+\bibitem{complexity} J. Hor\'a\v cek, M. Hlad\'ik and M. \v Cern\'y, \emph{Interval Linear Algebra and Computational Complexity}, Springer (2017), 37--66. \url{https://doi.org/10.1007/978-3-319-49984-0_3}.
+\bibitem{karp} R. M. Karp, \emph{Reducibility among combinatorial problems}, in Complexity of Computer Computations (1972), 85--103. \url{https://doi.org/10.1007/978-1-4684-2001-2_9}.
+\end{thebibliography}
+\end{document}
+
+% END REVIEWED BODY

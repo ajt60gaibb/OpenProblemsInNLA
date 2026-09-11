@@ -1,0 +1,165 @@
+    An n2 -vertex characterization of inverse-M interval matrices
+                 Repository IV-03. Claimed resolution; independent review pending.
+
+
+
+                                               Abstract
+          An interval matrix consists entirely of inverse-M matrices if and only if n2 specified
+      vertices are inverse-M matrices. This proves the proposed 2n2 -vertex criterion and shows that
+      half of those tests are unnecessary. The proof combines induction on principal submatrices,
+      monotonicity of two-index Schur complements, and an adjugate lemma that rules out
+      singularity without assuming regularity in advance. Zero entries, zero interval widths, and
+      reducible matrices are allowed.
+
+
+1    Definitions and main theorem
+A nonsingular M-matrix is a real matrix B with nonpositive off-diagonal entries and B −1 ≥ 0.
+A matrix A is inverse-M if it is nonsingular, A ≥ 0, and A−1 has nonpositive off-diagonal entries.
+These definitions include reducible matrices.
+Let A = [L, U ] = [C − R, C + R], where R ≥ 0. For i = 1, . . . , n, let z (i) have entry −1 at
+position i and entry 1 elsewhere, and put Di = diag(z (i) ). Define
+
+                                Vij = C − Di RDj         (1 ≤ i, j ≤ n).
+
+The repository’s proposed polynomial criterion uses both signs of this expression [1, 2]; an
+exponential vertex characterization is known [3].
+Theorem 1. Every matrix in A is inverse-M if and only if every one of the n2 matrices Vij is
+inverse-M.
+
+The reverse implication is the substantive one. Since these n2 vertices are among the proposed
+2n2 tests, the theorem implies that proposed characterization as well.
+
+
+2    Basic closure facts
+Lemma 2. Every principal submatrix of a nonsingular M-matrix is a nonsingular M-matrix,
+and all its principal minors are positive. Every principal submatrix of an inverse-M matrix is
+inverse-M and has positive determinant. Every principal Schur complement of an inverse-M
+matrix is inverse-M, in particular entrywise nonnegative.
+
+Proof. Let B be a nonsingular M-matrix. Set w = B −1 1 > 0; strict positivity follows because
+a nonnegative invertible matrix has no zero row. The matrix H = B diag(w) has nonpositive
+off-diagonal entries and satisfies H1 = 1. Thus H and all its principal submatrices are strictly
+row diagonally dominant with positive diagonal. Write any such submatrix as D(I − K) with
+positive diagonal D, K ≥ 0, and ∥K∥∞ < 1. The Neumann series gives a nonnegative inverse.
+The determinant is positive because det(I − tK) is continuous and nonzero for 0 ≤ t ≤ 1, and
+is 1 at t = 0. Positive diagonal scaling transfers these conclusions to the principal submatrices
+of B.
+Now let A = B −1 and partition the indices as S, T . Jacobi’s complementary principal-minor
+identity gives
+                                            det BT T
+                                 det ASS =            > 0,
+                                              det B
+
+                                                    1
+with the empty determinant interpreted as 1. Moreover,
+
+                                  A−1              −1
+                                   SS = BSS − BST BT T BT S
+
+has nonpositive off-diagonal entries. Since ASS ≥ 0, it is inverse-M. Finally,
+
+                                AT T − AT S A−1
+                                             SS AST = (BT T )
+                                                             −1
+
+
+is inverse-M and nonnegative.
+
+Lemma 3 (Adjugate completion). Let n ≥ 3. If all nonempty proper principal minors of A
+are positive and all off-diagonal entries of adj A are nonpositive, then det A > 0.
+
+Proof. Suppose first det A = 0. A nonzero principal minor of order n − 1 implies rank A = n − 1.
+Thus H = adj A has rank one and strictly positive diagonal. Rank one implies
+
+                                H12 H23 H31 = H11 H22 H33 > 0,
+
+contradicting nonpositivity of the three off-diagonal factors.
+Suppose instead det A < 0, and put B = A−1 . Its diagonal is negative and its off-diagonal
+entries are nonnegative. Jacobi’s identity implies that every nonempty principal minor of B
+is negative, since its complementary principal minor in A is positive, or equals 1 when the
+complement is empty. Choose any three indices and write the corresponding principal submatrix
+as                                 
+                        −a p      q
+                        r −b s  ,         a, b, c > 0, p, q, r, s, t, u ≥ 0.
+                                   
+                         t   u −c
+Its negative principal minors of order two imply pr > ab, qt > ac, and su > bc. Its determinant
+is
+                        −abc + asu + bqt + cpr + pst + qru > 2abc > 0,
+a contradiction. Both alternatives are impossible.
+
+
+3    Proof of the vertex characterization
+Assume all Vij are inverse-M. Each lower endpoint is nonnegative, since (Vij )ij = Lij . Thus
+L ≥ 0 and every A in the interval is nonnegative.
+We induct on n. For n = 1, the tested matrix is L, and positivity of L suffices. For n = 2, the
+vertex                                                !
+                                            L11 U12
+                                     V11 =
+                                            U21 L22
+has positive determinant. Hence every interval member has
+
+                       det A = a11 a22 − a12 a21 ≥ L11 L22 − U12 U21 > 0.
+
+Its inverse has nonpositive off-diagonal entries, proving the assertion.
+Let n ≥ 3. Every proper principal interval inherits the vertex hypothesis: the local test for
+indices i, j is the corresponding principal submatrix of the global Vij . Lemma 2 and induction
+imply that every proper principal submatrix of every A ∈ A is inverse-M. In particular all
+proper principal minors of every interval member are positive. This is an inductive proof, not
+an instruction to perform exponentially many algorithmic tests.
+
+
+                                                2
+Fix distinct i, j, and put S = {1, . . . , n} \ {i, j}. Define
+                   fij (A) = aij − AiS A−1
+                                        SS ASj ,        u = AiS A−1
+                                                                 SS ,   v = A−1
+                                                                             SS ASj .
+
+Here u ≥ 0 and v ≥ 0. For example, in the proper principal inverse-M block on {i} ∪ S, the
+off-diagonal block of its inverse is −α−1 u, where the scalar Schur complement α > 0 by the
+ratio of positive principal determinants. Its nonpositivity proves u ≥ 0. The argument for v
+uses the block on S ∪ {j}.
+Throughout the box, ordinary matrix differentiation gives
+           ∂fij            ∂fij                ∂fij                 ∂fij
+                = 1,            = −vk ,             = −uk ,              = uk vℓ   (k, ℓ ∈ S).
+           ∂aij            ∂aik                ∂akj                 ∂akℓ
+All other entries are irrelevant to fij . These signs show that its minimum is attained with aij
+and ASS at their lower endpoints, and AiS and ASj at their upper endpoints. These are exactly
+their values in Vij . Consequently
+                                        fij (A) ≥ fij (Vij ) ≥ 0.
+The last inequality holds because fij (Vij ) is an off-diagonal entry of the two-index principal
+Schur complement of an inverse-M matrix; Lemma 2 makes that complement nonnegative.
+The adjugate identity
+                                    (adj A)ij = − det(ASS )fij (A)
+now proves that every off-diagonal adjugate entry is nonpositive. This identity does not require
+A itself to be invertible: it follows by eliminating the invertible block ASS and taking the
+appropriate cofactor of the resulting two-by-two block, or by polynomial continuity. Lemma 3
+yields det A > 0. Hence A−1 has nonpositive off-diagonal entries. Since A ≥ 0, it is inverse-M.
+The forward implication of Theorem 1 is immediate because the test matrices belong to the
+interval.
+
+
+4    Complexity and boundary cases
+Form n2 rational vertices. For each, check nonsingularity and entrywise nonnegativity, compute
+its inverse exactly, and check its off-diagonal signs. This takes O(n5 ) arithmetic operations using
+standard cubic inversion, with polynomial rational bit complexity. The arithmetic-operation
+count is not a claim of strongly polynomial bit complexity.
+No strict positivity of off-diagonal entries or interval widths was assumed. The proof explicitly
+treats possible singularity of an interior full matrix through Lemma 3, rather than presuming
+regularity to justify inversion. Reducible and point intervals are included.
+
+
+References
+[1] OpenProblemsInNLA,      problem    IV-03.    https://github.com/ajt60gaibb/
+    OpenProblemsInNLA/tree/main/intervals-and-absolute-value-equations/IV-03.
+[2] M. Hladík, An overview of polynomially computable characteristics of special interval matrices,
+    Springer (2020), 295–310, Section 9. https://doi.org/10.1007/978-3-030-31041-7_16.
+    Author version: https://arxiv.org/abs/1711.08732.
+[3] J. Garloff, A. Al-Saafin and M. Adm, Further Matrix Classes Possessing the Interval
+    Property, Reliable Computing 28 (2021), 56–70, Section 4. https://reliable-computing.
+    org/reliable-computing-28-pp-056-070.pdf.
+
+
+                                                    3
+

@@ -6,11 +6,21 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Open  
+**Status:** Solved
 **Area:** complexity of piecewise linear systems  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-11
 
 **Rating rationale:** Challenging reflects a complexity classification for recognizing an exponential finite solution count; specialist impact concerns the solution geometry of absolute value equations.
+
+<!-- colbrook-intervals -->
+## Independently reviewed resolution - 2026-09-11
+
+**Affirmative complexity classification.** Theorem 1 and the algorithm in Section 4 prove polynomial-time recognition of exactly $2^n$ distinct solutions to $Ax+|x|=b$ using $n+1$ rational LP feasibility tests. The result uses rational binary input, has no regularity or finiteness promise, and rejects infinite solution sets. It classifies the displayed decision problem in $\mathsf P$.
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. See the [complete manuscript](../../references/colbrook-intervals-2026-09-11/manuscripts/AV-01.pdf), [independent agent review](../../references/colbrook-intervals-2026-09-11/verification/reviews/AV-01-review.md) and [submission record](../../references/colbrook-intervals-2026-09-11/README.md). The source archive identifies the drafts as AI-generated; authorship is recorded at the submitter's request. This is agent verification, not external human peer review or formal proof-assistant certification.
+
+The difficulty, importance and rating rationale below are historical assessments of the original open target. The original statement and dated audits are preserved.
+<!-- /colbrook-intervals -->
 
 ## Context and notation
 

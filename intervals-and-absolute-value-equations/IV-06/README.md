@@ -6,12 +6,22 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Open  
-**Last checked:** 2026-09-10
+**Status:** Solved
+**Last checked:** 2026-09-11
 
 **Rating rationale:** Controlling the topology of the real spectrum for nonsymmetric uncertain matrices appears to require new analysis, warranting challenging. The component-count bound primarily advances specialist interval spectral enclosure theory.
 
 **Area:** interval linear algebra; eigenvalue computation  
+
+<!-- colbrook-intervals -->
+## Independently reviewed resolution - 2026-09-11
+
+**Negative resolution.** Theorem 1 gives a $3\times3$ independent-entry interval matrix with at least four components in its real eigenvalue set. Four exact integer eigenpairs at $-3,0,3,25$ and excluded separators $-1,1,12$ refute the universal at-most-$n$ conjecture. No symmetry assumption is introduced, and locating every component endpoint is unnecessary.
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. See the [complete manuscript](../../references/colbrook-intervals-2026-09-11/manuscripts/IV-06.pdf), [independent agent review](../../references/colbrook-intervals-2026-09-11/verification/reviews/IV-06-review.md) and [submission record](../../references/colbrook-intervals-2026-09-11/README.md). The source archive identifies the drafts as AI-generated; authorship is recorded at the submitter's request. This is agent verification, not external human peer review or formal proof-assistant certification.
+
+The difficulty, importance and rating rationale below are historical assessments of the original open target. The original statement and dated audits are preserved.
+<!-- /colbrook-intervals -->
 
 ## Problem statement
 
