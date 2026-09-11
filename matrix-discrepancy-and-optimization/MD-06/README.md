@@ -3,8 +3,19 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Provenance:** source-stated conjecture, with the phase domain written explicitly as a torus.  
-**Status:** Open  
-**Last checked:** 2026-09-10
+**Status:** Solved
+**Last checked:** 2026-09-11
+
+<!-- colbrook-discrepancy -->
+## Independently reviewed resolution - 2026-09-11
+
+**Negative resolution, Theorem 1.** For a uniformly random labelled simple cubic graph on an even number of vertices, the probability that every local minimum of the homogeneous Kuramoto energy is synchronized tends to **zero**, rather than one. With high probability a nonsynchronized local minimum has edge cosines at least $1/32$ and Hessian at least $(1/320)I$ on the mean-zero subspace. The full analytic argument and the primary random-graph inputs passed two independent agent reviews. The graph model, torus topology and quantification over every local minimum are unchanged.
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [Complete manuscript](../../references/colbrook-discrepancy-2026-09-11/manuscripts/MD-06.pdf), [deterministic review](../../references/colbrook-discrepancy-2026-09-11/verification/reviews/MD-06-deterministic-review.md), [probabilistic review](../../references/colbrook-discrepancy-2026-09-11/verification/reviews/MD-06-probabilistic-review.md). See the [submission record](../../references/colbrook-discrepancy-2026-09-11/README.md) for provenance and missing-file limitations. This is independent agent verification, not external human peer review or formal proof-assistant certification. No novelty or priority claim is made.
+
+The difficulty, importance and rating rationale below are historical assessments of the original open target.
+
+<!-- /colbrook-discrepancy -->
 
 **Rating rationale:** Controlling every local minimum on sparse random cubic graphs requires new landscape analysis beyond existing dense and high-degree results; it informs synchronization and nonconvex optimization.
 

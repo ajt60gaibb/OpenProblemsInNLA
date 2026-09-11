@@ -1,0 +1,147 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=26mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,booktabs,microtype}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\one}{\boldsymbol 1}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\tr}{\operatorname{tr}}
+\setlength{\emergencystretch}{3em}
+\allowdisplaybreaks[1]
+\title{An exact spectral backward-error counterexample for LSMR}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\noindent\textit{Reconstructed candidate proof draft. Independent mathematical review and source/priority verification are required. The IE identifiers are provisional labels recovered from earlier notes, not verified current repository identifiers.}
+
+
+\begin{abstract}
+An integer $4\times3$ least-squares problem has exact LSMR iterates with increasing optimal matrix-only spectral-norm backward error. A spectral completion gives an upper certificate $1979/2000$ for the squared first error, and a positive-definite rational matrix gives a strict lower certificate $99/100$ for the squared second error. The stated backward-error approximation increases as well. These certificates use exact rational arithmetic, not a floating-point optimizer or substitution of the Frobenius norm.
+\end{abstract}
+\section{Definitions and exact iterates}
+For $r=b-Ax$, define
+\[
+\mu(x)=\min\{\norm E_2:(A+E)^T((A+E)x-b)=0\}.
+\]
+Only $A$ is perturbed; the norm is spectral. The approximation uses $\eta=\norm r_2/\norm x_2$, $K=(A^T,\eta I)^T$, $v=(r^T,0)^T$, and $\widetilde\mu(x)=\norm{KK^\dagger v}_2/\norm x_2$. For nonzero $x,r$, projection algebra gives
+\[
+\widetilde\mu(x)^2=r^TA\bigl(\norm x_2^2A^TA+\norm r_2^2I\bigr)^{-1}A^Tr.
+\]
+Use no damping, $x_0=0$, and
+\[
+A=\begin{pmatrix}1&0&0\\0&6&0\\0&0&5\\0&0&0\end{pmatrix},\qquad b=(11,1,1,1)^T.
+\]
+The matrix has full column rank. Put $H=A^TA=\diag(1,36,25)$ and $g=A^Tb=(11,6,5)^T$. Exact LSMR minimizes $\norm{g-Hx}_2$ over $\mathcal K_k(H,g)$. Its first two iterates are
+\[
+x_1=\frac{1021}{31201}g=\frac1{31201}(11231,6126,5105)^T,
+\]
+\[
+x_2=\frac{16321g-383Hg}{110438}=\frac1{55219}(87659,7599,16865)^T.
+\]
+For $V_1=(g)$ and $V_2=(g,Hg)$, direct multiplication checks $x_k\in\operatorname{range}V_k$ and $(HV_k)^T(g-Hx_k)=0$. The columns of $HV_k$ are independent, so these conditions uniquely certify the minimizing iterates. The third is $(11,1/6,1/5)^T$, the exact least-squares solution.
+
+The first residuals are
+\[
+r_1=\frac1{31201}(331980,-5555,5676,31201)^T,\quad
+r_2=\frac1{55219}(519750,9625,-29106,55219)^T.
+\]
+The normal residuals decrease, as required by LSMR:
+\[
+\norm{A^Tr_1}_2^2=\frac{3593700}{31201}>\frac{5336100}{55219}=\norm{A^Tr_2}_2^2.
+\]
+\section{General lower and upper certificates}
+For nonzero $x$, write $s=\norm x_2^2$, $z=Ax$, $r=b-z$, and
+\[C=AA^T,\qquad D=\frac{\norm r_2^2I-rr^T+zz^T}{s}.\]
+\begin{lemma}
+If $m>n$ and $0\le t\le1$, then $\mu(x)^2\ge\lambda_{\min}(tC+(1-t)D)$.
+\end{lemma}
+\begin{proof}
+For a feasible $E$ whose new residual is nonzero, let $u$ be its unit direction. Then $(A+E)^Tu=0$, so $\norm E_2^2\ge u^TCu$. The residual is $uu^Tb$, because it is orthogonal to $(A+E)x$. Therefore $Ex=r-uu^Tb$, and $\norm E_2^2\ge\norm{r-uu^Tb}_2^2/s=u^TDu$. A convex combination proves the claim.
+
+For zero new residual, $Ex=r$, so $\norm E_2^2\ge\norm r_2^2/s$. Choose unit $u\in\ker A^T$, possible since $m>n$. Then $u^Tz=0$ and
+\[
+u^T[tC+(1-t)D]u=(1-t)(\norm r_2^2-(u^Tr)^2)/s\le\norm r_2^2/s.
+\]
+This proves the same bound in that case.
+\end{proof}
+\begin{lemma}
+If a unit vector $u$ has $u^TCu<\kappa$ and $u^TDu<\kappa$, with $\kappa>0$, then a feasible perturbation has $\norm E_2\le\sqrt\kappa$.
+\end{lemma}
+\begin{proof}
+Let $e=x/\sqrt s$ and prescribe
+\[
+E^Tu=-A^Tu=:de+a_\perp,\qquad
+Ee=(r-uu^Tb)/\sqrt s=:du+c_\perp,
+\]
+where $a_\perp\perp e$, $c_\perp\perp u$, and the shared scalar is $d=-u^TAx/\sqrt s$. The two squared lengths are $u^TCu,u^TDu$. A completion is
+\[
+E=due^T+ua_\perp^T+c_\perp e^T-\frac{d}{\kappa-d^2}c_\perp a_\perp^T.
+\]
+To bound its norm, put $d_0=d/\sqrt\kappa$, $r_0=\sqrt{1-d_0^2}$. In decompositions along $u,e$, $E/\sqrt\kappa$ factors as
+\[
+\begin{pmatrix}1&0\\0&c_\perp/(\sqrt\kappa r_0)\end{pmatrix}
+\begin{pmatrix}d_0&r_0\\r_0&-d_0\end{pmatrix}
+\begin{pmatrix}1&0\\0&a_\perp^T/(\sqrt\kappa r_0)\end{pmatrix}.
+\]
+The outside maps have norm at most one by the prescribed length bounds, and the middle map is orthogonal. The prescriptions give $(A+E)^Tu=0$ and $(A+E)x=(I-uu^T)b$, proving feasibility.
+\end{proof}
+\section{Strict increase}
+For $x_1$, choose $w=(250,-1,1,27)^T$, $u=w/\sqrt{63231}$, $\kappa=1979/2000$. Exact evaluation gives
+\[
+u^TCu=\frac{62561}{63231}<\kappa,\qquad
+u^TDu=\frac{1642993919237}{1713779258646}<\kappa.
+\]
+The upper lemma applies. For $x_2$, set $t=5/6$ and $c=99/100$. Then $tC+(1-t)D-cI=K/2407881992100$, where
+\[
+\scriptsize
+K=\begin{pmatrix}
+206417059721&-50293465200&1125984433750&-1435003762500\\
+-50293465200&83658415217471&206242965000&-26574143750\\
+1125984433750&206242965000&61800032332121&80360210700\\
+-1435003762500&-26574143750&80360210700&11170189945871
+\end{pmatrix}.
+\]
+The four leading principal determinants are
+\begin{align*}
+&206417059721,\\
+&17265994657467102998545591,\\
+&960941324740480331793743845178086291011,\\
+&65442104145157248520714038046591467785805073713081.
+\end{align*}
+All are positive. Sylvester's criterion and the lower lemma give
+\[\boxed{\mu(x_1)^2\le\frac{1979}{2000}<\frac{99}{100}<\mu(x_2)^2.}\]
+\section{Approximation and rational witness}
+The squared approximations are exactly
+\begin{align*}
+\widetilde\mu(x_1)^2&=\frac{69694107852573439503892031925}{69323394392991282508138323472},\\
+\widetilde\mu(x_2)^2&=\frac{5430772101137459612205263871781350}{5387955615790281743396033884265233}.
+\end{align*}
+Cross multiplication yields
+\[\boxed{\widetilde\mu(x_1)^2<1.006<1.007<\widetilde\mu(x_2)^2,}\]
+where the decimals are exact rational cutoffs.
+
+The upper completion also has a fully rational form. Put $\omega=w^Tw$, $h=w^Tz$, $c_0=r-w(w^Tr)/\omega$, $a_0=-A^Tw+(h/s)x$. Then
+\[
+E=-ww^TA/\omega+c_0x^T/s+\frac{h\,c_0a_0^T}{\omega s\kappa-h^2}.
+\]
+The verifier directly checks the perturbed normal equations and positivity of all leading principal minors of $\kappa I-E^TE$. The complete rational matrix is saved in its results file.
+
+A dense variant multiplies $A,b$ by the Hadamard matrix with rows $(1,1,1,1)$, $(1,-1,1,-1)$, $(1,1,-1,-1)$, $(1,-1,-1,1)$, producing
+\[
+A'=\begin{pmatrix}1&6&5\\1&-6&5\\1&6&-5\\1&-6&-5\end{pmatrix},\qquad b'=(14,10,10,10)^T.
+\]
+This multiplier is twice orthogonal. Iterates are unchanged and both error quantities double, preserving the strict increases without a zero row.
+\section{Sources and scope}
+Recovered references: OpenProblemsInNLA, provisionally IE-17, \emph{Monotonic optimal backward error along LSMR}; D. C.-L. Fong and M. A. Saunders, \emph{LSMR: An Iterative Algorithm for Sparse Least-Squares Problems}, SIAM J. Sci. Comput. 33(5), 2011, 2950--2971, DOI 10.1137/10079687X.\footnote{\url{https://arxiv.org/abs/1006.0758}. Reference metadata was retained from earlier notes; source conventions and priority require verification.}
+The target addressed here uses the explicit spectral-norm definition in Section 1. The current repository statement was not independently retrieved during reconstruction. A different norm or a perturbation model allowing changes to $b$ is outside this certificate's stated claim.
+
+\end{document}

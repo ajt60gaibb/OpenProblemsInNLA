@@ -7,9 +7,22 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because topology of optimal PSD factorizations must be controlled beyond size two; community importance concerns nonuniqueness and separated solution families in constrained factorization algorithms.  
-**Status:** Open  
+**Status:** Solved  
 **Area:** geometry of constrained matrix factorizations  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-11  
+
+<!-- colbrook-factorization -->
+## Resolution — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the exact target.**
+
+A strictly positive integer $6\times6$ matrix has ordinary rank six and real positive semidefinite rank three, while its minimal-factor congruence quotient is disconnected. A continuous congruence-invariant orientation takes opposite signs on two explicit factorizations, proving actual disconnectedness in the required quotient topology. Further constructions cover every factor size $k\ge3$, including strictly positive rational examples by a nonquantitative perturbation argument.
+
+The complete target is resolved. Its former difficulty rating is historical; the original statement, references and dated audits remain below.
+
+**Primary reference:** [complete authored PDF](../../references/colbrook-factorization-2026-09-11/manuscripts/PF-02_disconnected_orbits.pdf), [standalone TeX](../../references/colbrook-factorization-2026-09-11/manuscripts/PF-02_disconnected_orbits.tex), **Theorem 1; Theorem 4 extends the counterexamples to every factor size**. [Independent proof review](../../references/colbrook-factorization-2026-09-11/verification/reviews/PF-02-review.md) · [Authorship and submission record](../../references/colbrook-factorization-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
+
+<!-- /colbrook-factorization -->
 
 ## Context and notation
 

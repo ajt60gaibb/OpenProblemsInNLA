@@ -37,3 +37,7 @@ The primary problem source and the 2017 author-hosted manuscript were inspected 
 ## Submission
 
 Prepared on a separate branch `sgstepaniants:codex/stepaniants-mi24-schatten` from the published base `ab754fabe3d48dc8d6eab6bcffce583e46d2b88f`, for a new pull request against `ajt60gaibb/OpenProblemsInNLA:main`. The permanent MI-24 ID, canonical path and original target are unchanged. [Resolution issue 90](https://github.com/ajt60gaibb/OpenProblemsInNLA/issues/90) follows the correction-or-resolution template. [Pull request 91](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/91) targets upstream `main` and explicitly requests maintainer review, fork-workflow approval if required, and merge upon acceptance. Upstream acceptance is pending.
+
+## Integration with updated upstream
+
+After upstream advanced to `16369809e6e600144bd350ab70b7473b652f46f1`, the branch merged that published revision, retained its other resolutions, and regenerated the catalog from canonical metadata. All 203 permanent IDs and the original target match current upstream; all 17 safeguard tests pass. The authored proof sources and PDFs remain byte-for-byte identical to their reviewed versions without contact email.

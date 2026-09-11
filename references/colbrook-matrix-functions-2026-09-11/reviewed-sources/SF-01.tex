@@ -1,0 +1,191 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,microtype}
+\hypersetup{hidelinks}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\comp}[1]{\langle #1\rangle}
+\newcommand{\ones}{\mathbf 1}
+\newcommand{\diag}{\operatorname{diag}}
+\title{Preservation of positive-diagonal H-matrices by scaled Newton and Halley square-root iterations}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+Every scaled Newton square-root iterate of a real nonsingular H-matrix with positive diagonal entries is again a real nonsingular H-matrix with positive diagonal entries, when initialized by a positive scalar multiple of the identity, a positive scalar multiple of the input, or more generally a nonzero nonnegative affine function of the input. The scaling parameter may be any positive scalar at each step. No normalization of the input diagonal is required. The same conclusions hold for scaled Halley square-root iteration. A single positive diagonal similarity makes all the iterates strictly row diagonally dominant. The proof uses an elementary class of rational functions closed under positive linear combinations and the transformation $f(z)\mapsto z/f(z)$, together with a resolvent comparison inequality. The theorem addresses the stated initialization and positive-diagonal hypotheses; it is not a result for arbitrary commuting H-matrix initializations.
+\end{abstract}
+
+\section{Definitions and statement}
+For a real matrix $A$, its comparison matrix is defined by
+\[
+\comp A_{ii}=|A_{ii}|,\qquad \comp A_{ij}=-|A_{ij}|\quad(i\ne j).
+\]
+A real matrix is a nonsingular H-matrix if its comparison matrix is a nonsingular M-matrix. We use $\mathcal H_+$ for the subclass whose diagonal entries are positive. A real Z-matrix, namely one with nonpositive off-diagonal entries, is a nonsingular M-matrix exactly when it has a vector $v>0$ with $Cv>0$. Vector and matrix inequalities in this note are entrywise.
+
+\begin{theorem}\label{thm:newton}
+Let $A\in\mathcal H_+$, let $\alpha,\beta\ge0$ with $\alpha+\beta>0$, and set $X_0=\alpha I+\beta A$. For any sequence of positive real numbers $\mu_k$, define
+\begin{equation}\label{eq:newton}
+X_{k+1}=\frac12\bigl(\mu_kX_k+\mu_k^{-1}A X_k^{-1}\bigr).
+\end{equation}
+Every inverse in this recurrence exists and every $X_k$ belongs to $\mathcal H_+$. Put $C=\comp A$, and let $Y_k$ satisfy the same recurrence with $C$ in place of $A$, the same numerical scalars $\mu_k$, and $Y_0=\alpha I+\beta C$. Then
+\begin{equation}\label{eq:comparison}
+\comp{X_k}\ge Y_k,\qquad Y_k\text{ is a nonsingular M-matrix}.
+\end{equation}
+Moreover, the single vector $v=C^{-1}\ones>0$ satisfies
+\[
+\comp{X_k}v\ge Y_kv>0\quad\text{for every }k.
+\]
+Consequently $\diag(v)^{-1}X_k\diag(v)$ has a positive diagonal and is strictly row diagonally dominant for every $k$.
+\end{theorem}
+
+The cases $X_0=cI$ and $X_0=A/c$, $c>0$, are included. The statement is a structure-preservation theorem in exact arithmetic; it does not assert convergence for an arbitrary sequence of scaling parameters, nor numerical stability of the uncoupled recurrence.
+
+\section{An elementary rational function class}
+Let $\mathcal B$ consist of the nonzero rational functions
+\begin{equation}\label{eq:class}
+f(z)=a+bz+\sum_{j=1}^{\ell}w_j\frac{z}{z+t_j},
+\qquad a,b\ge0,\quad w_j,t_j>0,
+\end{equation}
+where an empty sum is allowed. Repeated $t_j$ may be combined. This is the rational complete Bernstein class, but only the elementary representation \eqref{eq:class} will be used.
+
+\begin{lemma}\label{lem:closure}
+The class $\mathcal B$ is closed under positive linear combinations and under $f(z)\mapsto z/f(z)$. It is consequently also closed under weighted parallel sums
+\[
+(f^{-1}+c g^{-1})^{-1}=\frac{z}{z/f+c z/g},\qquad f,g\in\mathcal B,\quad c>0.
+\]
+\end{lemma}
+\begin{proof}
+Closure under positive linear combinations is immediate. If $f$ is a positive constant, then $z/f$ is a positive multiple of $z$, so consider nonconstant $f$. For $\operatorname{Im}z\ne0$,
+\[
+\operatorname{Im} f(z)=\operatorname{Im}z\left(b+\sum_j\frac{w_jt_j}{|z+t_j|^2}\right),
+\]
+and the factor in parentheses is strictly positive. Thus every zero of $f$ is real. Also $f(x)>0$ for $x>0$, and, away from its poles,
+\[
+f'(x)=b+\sum_j\frac{w_jt_j}{(x+t_j)^2}>0.
+\]
+Every zero is therefore nonpositive and simple. A zero at the origin, if present, is canceled in $g(z)=z/f(z)$, and in this case $g(0)=1/f'(0)>0$; otherwise $g(0)=0$. The poles of $f$ are removable points or zeros of $g$.
+
+Write the negative zeros of $f$ as $-s_j$, $s_j>0$. The residue of $g$ at $-s_j$ is
+\[
+-\frac{s_j}{f'(-s_j)}=-w'_j s_j,\qquad w'_j=\frac1{f'(-s_j)}>0.
+\]
+The polynomial part of $g$ has degree at most one. Its linear coefficient is nonnegative: it is $0$ if $b>0$, and it is $1/(a+\sum_j w_j)>0$ if $b=0$. Subtracting the terms $w'_jz/(z+s_j)$ leaves an affine polynomial whose constant term is $g(0)\ge0$. This gives a representation of the form \eqref{eq:class} for $g$.
+\end{proof}
+
+\section{Comparison matrices and rational functions}
+\begin{lemma}\label{lem:resolvent}
+If $A\in\mathcal H_+$ and $C=\comp A$, then for every $t>0$,
+\begin{equation}\label{eq:resolvent}
+\bigl|(A+tI)^{-1}\bigr|\le (C+tI)^{-1}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Let $D=\diag(A)$ and $N=D-A$. Then $C=D-|N|$. Choose $v>0$ with $Cv>0$. The weighted maximum norm shows that
+\[
+\rho\bigl((D+tI)^{-1}|N|\bigr)<1.
+\]
+The Neumann series for $(A+tI)^{-1}$ is therefore absolutely dominated, term by term, by the nonnegative Neumann series for $(C+tI)^{-1}$. This proves \eqref{eq:resolvent}. The same argument at $t=0$ also proves that $A$ is nonsingular.
+\end{proof}
+
+\begin{theorem}\label{thm:preserver}
+If $A\in\mathcal H_+$, $C=\comp A$, and $f\in\mathcal B$, then $f(A)\in\mathcal H_+$, $f(C)$ is a nonsingular M-matrix, and
+\begin{equation}\label{eq:fcomparison}
+\comp{f(A)}\ge f(C).
+\end{equation}
+The vector $v=C^{-1}\ones$ satisfies $f(C)v>0$.
+\end{theorem}
+\begin{proof}
+All rational functions are defined because their poles are negative real numbers and Lemma~\ref{lem:resolvent} applies. From \eqref{eq:class},
+\[
+f(C)=aI+bC+\sum_jw_j\bigl(I-t_j(C+t_jI)^{-1}\bigr),
+\]
+so $f(C)$ is a Z-matrix. Since $Cv=\ones$ and $C$ commutes with each resolvent,
+\[
+f(C)v=av+b\ones+\sum_jw_j(C+t_jI)^{-1}\ones>0.
+\]
+Here $v>0$, each resolvent is nonnegative with positive diagonal, and at least one coefficient is positive. The Z-matrix criterion proves that $f(C)$ is a nonsingular M-matrix, in particular with positive diagonal.
+
+Lemma~\ref{lem:resolvent}, applied to the representation
+\[
+f(A)=aI+bA+\sum_jw_j\bigl(I-t_j(A+t_jI)^{-1}\bigr),
+\]
+gives $f(A)_{ii}\ge f(C)_{ii}>0$. For $i\ne j$ it gives
+\[
+|f(A)_{ij}|\le b|A_{ij}|+\sum_{\ell} w_{\ell}t_{\ell}\bigl((C+t_{\ell}I)^{-1}\bigr)_{ij}
+=-f(C)_{ij}.
+\]
+These diagonal and off-diagonal bounds prove \eqref{eq:fcomparison}. Multiplication by $v$ yields $\comp{f(A)}v>0$, so $f(A)\in\mathcal H_+$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:newton}]
+Set $f_0(z)=\alpha+\beta z\in\mathcal B$ and inductively define
+\[
+f_{k+1}(z)=\tfrac12\bigl(\mu_k f_k(z)+\mu_k^{-1}z/f_k(z)\bigr).
+\]
+Lemma~\ref{lem:closure} gives $f_k\in\mathcal B$ for every $k$. Theorem~\ref{thm:preserver} shows inductively that $X_k=f_k(A)$ is nonsingular and $Y_k=f_k(C)$ is a nonsingular M-matrix, so the rational recurrence agrees with \eqref{eq:newton}. It also proves all the comparison and common-weight assertions.
+\end{proof}
+
+\section{Halley iteration}
+The same rational class gives a structure-preservation result for Halley's method without additional hypotheses.
+\begin{corollary}\label{cor:halley}
+Under the hypotheses and initialization of Theorem~\ref{thm:newton}, let $Y_k=\mu_kX_k$ and define
+\begin{equation}\label{eq:halley}
+X_{k+1}=Y_k(Y_k^2+3A)(3Y_k^2+A)^{-1},\qquad \mu_k>0.
+\end{equation}
+Every inverse in this recurrence exists. Every $X_k$ lies in $\mathcal H_+$, and all the comparison and common-weight conclusions of Theorem~\ref{thm:newton} hold with Halley iteration in place of Newton iteration.
+\end{corollary}
+\begin{proof}
+For $f\in\mathcal B$, put $g=z/f\in\mathcal B$. The scalar Halley map has the identity
+\[
+\frac{f(f^2+3z)}{3f^2+z}
+=\frac13f+\frac83\bigl(f^{-1}+3g^{-1}\bigr)^{-1}.
+\]
+The closure lemma shows that this map belongs to $\mathcal B$. Replacing $f$ by $\mu_k f$ proves inductively that the rational function of $A$ at every step is in this class.
+
+For completeness, the displayed matrix denominator in \eqref{eq:halley} is nonsingular, not merely a formal cancellation of rational functions. A positive diagonal similarity makes $A$ strictly row diagonally dominant with positive diagonal, so every eigenvalue of $A$ has positive real part. If $\operatorname{Re}z>0$, then every nonzero $f\in\mathcal B$ satisfies $\operatorname{Re}f(z)>0$. This follows termwise from \eqref{eq:class}, including
+\[
+\operatorname{Re}\frac{z}{z+t}
+=\frac{|z|^2+t\operatorname{Re}z}{|z+t|^2}>0.
+\]
+Thus $1/f(z)+3/g(z)$ has positive real part and is nonzero. Since $z$ and $f(z)$ are nonzero, the identity
+\[
+\frac{1}{f(z)}+\frac{3}{g(z)}=\frac{z+3f(z)^2}{zf(z)}
+\]
+proves $3f(z)^2+z\ne0$ on the right half-plane. Rational spectral mapping gives the required nonsingularity. Theorem~\ref{thm:preserver} now supplies the remaining assertions.
+\end{proof}
+
+\section{Scope and relationship to prior results}
+Guo~\cite{G}, in the paragraph following Proposition~22 (author preprint, p.~20), explicitly asks whether unscaled Newton iteration with $X_0=I$ preserves the class of all nonsingular M-matrices when diagonal entries larger than one are allowed. Theorem~\ref{thm:newton}, with $A=C$, $\alpha=1$, $\beta=0$, and $\mu_k=1$, answers that precise question affirmatively.
+
+Guo and Lu~\cite{GL}, Theorem~11, prove structure preservation for the broader Schr\"oder family under the condition that the input diagonal lies in $(0,1]$, with $X_0=I$. Their discussion cites Guo~\cite{G} for the earlier Newton and Halley analyses. Kouba~\cite{K} gives explicit partial-fraction formulas for the scalar Newton and Halley square-root iterates. These precedents are not claimed as new here. The theorems above treat square-root iteration without diagonal normalization, include arbitrary positive scalar scaling at each step, and prove one common diagonal-dominance weight for the entire sequence. The unscaled cases can also be approached through the earlier partial-fraction formulas; no claim that those formulas are new is made. The proofs of the present statements are self-contained, and priority of their precise extensions remains subject to literature and external review.
+
+The positive-diagonal hypothesis cannot simply be removed. For example,
+\[
+A=\begin{pmatrix}-1&3\\-1/10&-1\end{pmatrix},\qquad
+\comp A=\begin{pmatrix}1&-3\\-1/10&1\end{pmatrix}
+\]
+is a real nonsingular H-matrix, and its eigenvalues are $-1\pm i\sqrt{3/10}$, so its principal square root is defined. Nevertheless, starting unscaled Newton iteration at $I$ gives
+\[
+X_1=(I+A)/2=\begin{pmatrix}0&3/2\\-1/20&0\end{pmatrix},
+\]
+which is not an H-matrix.
+
+Nor does the theorem concern arbitrary initial matrices which merely commute with $A$. Its initialization is explicitly a nonnegative affine function of $A$, or more generally any $f_0(A)$ with $f_0\in\mathcal B$. The exact repository initialization and nonsingularity conventions should be checked against this statement before changing its catalog status. This is a complete proof of the theorem stated here, submitted for external mathematical and scope review.
+
+\begin{thebibliography}{9}
+\bibitem{G}
+C.-H. Guo, \emph{On Newton's method and Halley's method for the principal $p$th root of a matrix}, Linear Algebra Appl. \textbf{432} (2010), 1905--1922.
+\href{https://doi.org/10.1016/j.laa.2009.02.030}{doi:10.1016/j.laa.2009.02.030}.
+\bibitem{GL}
+C.-H. Guo and D. Lu, \emph{A study of Schr\"oder's method for the matrix $p$th root using power series expansions}, 2018.
+\href{https://arxiv.org/abs/1807.04251}{arXiv:1807.04251}, Theorem~11 and the definition of $H_1$, manuscript pp.~7--8.
+\bibitem{K}
+O. Kouba, \emph{Partial fraction expansions for Newton's and Halley's iterations for square roots}, Kyungpook Math. J. \textbf{52} (2012), 347--357.
+\href{https://doi.org/10.5666/KMJ.2012.52.3.347}{doi:10.5666/KMJ.2012.52.3.347}.
+\href{https://arxiv.org/abs/1104.4175}{arXiv:1104.4175}.
+\end{thebibliography}
+\end{document}

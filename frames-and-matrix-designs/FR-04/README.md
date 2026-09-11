@@ -3,10 +3,20 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Status:** Open  
-**Last checked:** 2026-09-10
+**Last checked:** 2026-09-11
 
 **Rating rationale:** A universal bound over every full-spark measurement design requires a structural obstruction beyond the Gaussian analysis; it matters for stable phase retrieval.
 
+
+<!-- colbrook-frames -->
+## Reviewed submission - 2026-09-11
+
+Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge.
+
+Theorems 1 and 3 prove a sharp weighted planar inequality and the general bound $\omega_n(A)\le\sqrt{4\|A\|_F^2/(nM)}\sin(\pi/(2M))$, $M=m-n+2$. For $m=2n-1$ this is $O(L(A)n^{-3/2})$. The polynomial order was already known; this self-contained weighted argument does not establish exponential deterioration. The displayed conjecture remains Open.
+
+See the [manuscript](../../references/colbrook-frames-2026-09-11/manuscripts/planar_projection_bound.pdf), [independent agent review](../../references/colbrook-frames-2026-09-11/verification/reviews/FR-04-review.md), and [reproducible submission record](../../references/colbrook-frames-2026-09-11/README.md). Independent agent review is not external human peer review or formal proof-assistant certification. Original problem, ratings and historical audits are retained below.
+<!-- /colbrook-frames -->
 
 For $n\geq2$, let $A\in\mathbb R^{(2n-1)\times n}$ be full spark: every choice of $n$ rows is linearly independent. Write $a_i^T$ for its rows and define
 $$

@@ -1,0 +1,202 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=28mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs,microtype}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\N}{\mathbb N}
+\newcommand{\C}{\mathbb C}
+\DeclareMathOperator{\diag}{diag}
+\title{A uniform disk bound for diagonal Pad\'e approximants of the wave-kernel function}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+Let $r_m$ be the diagonal $[m/m]$ Pad\'e approximant at the origin to $\cosh\sqrt z$. We prove that $r_m$ exists, has no poles in $|z|\leq3$, and satisfies $|r_m(z)-1|\leq2$ there, for every $m\geq0$. The bound is strict for $m\geq2$ and is attained for $m=1$ at $z=3$. The large-order argument follows from a Schur-function formula for the denominator: its $j$th coefficient in absolute value is bounded by the $j$th power of the tail sum of the reciprocals of the zeros of the entire function. Only the orders $1\leq m\leq15$ remain; they are covered by a previously published lemma and, independently, by supplied exact-rational certificates. This settles Conjecture~4.6 of Nadukandi and Higham for the stated scalar disk.
+\end{abstract}
+
+\section{Statement and scope}
+Write
+\begin{equation}\label{eq:f}
+f(z)=\cosh\sqrt z=\sum_{k=0}^{\infty}\frac{z^k}{(2k)!}.
+\end{equation}
+The notation in \eqref{eq:f} denotes an entire function, without a choice of square-root branch. A normalized diagonal Pad\'e pair consists of polynomials $p_m,q_m$ of degree at most $m$, with $q_m(0)=1$, satisfying
+\begin{equation}\label{eq:pade}
+q_m(z)f(z)-p_m(z)=O(z^{2m+1}).
+\end{equation}
+Nadukandi and Higham established the desired disk bound for $1\leq m\leq20$ in Lemma~4.5 of \cite{NH}, and formulated its all-order extension as Conjecture~4.6. The present note proves that extension.
+
+\begin{theorem}\label{thm:main}
+For every integer $m\geq0$, the normalized pair \eqref{eq:pade} exists uniquely. Its denominator is nonzero throughout the closed disk $|z|\leq3$, and
+\begin{equation}\label{eq:main}
+\left|\frac{p_m(z)}{q_m(z)}-1\right|\leq2\qquad(|z|\leq3).
+\end{equation}
+For $m\geq2$ the inequality is strict. For $m=1$, equality is attained at $z=3$.
+\end{theorem}
+
+The proof of the large-order part is analytic and uses no numerical extrapolation. The finite verification below uses rational arithmetic, not floating-point estimates.
+
+\section{A denominator estimate from tableaux}
+Let $t=(t_1,t_2,\ldots)$ be a sequence of positive real numbers with finite sum, and put
+\[
+F(z)=\prod_{\nu=1}^{\infty}(1+t_\nu z)=\sum_{k=0}^{\infty}e_k(t)z^k,
+\qquad e_0=1,\qquad e_k=0\ (k<0).
+\]
+Here $e_k$ is the elementary symmetric function. Let $s_\lambda$ denote the Schur function associated with a partition $\lambda$, and $h_j$ the complete homogeneous symmetric function. We use the standard dual Jacobi--Trudi identity and semistandard-tableau formula \cite{Macdonald}. In a semistandard tableau, entries weakly increase along rows and strictly increase down columns, and the weight is the product of the corresponding variables. Both formulas pass from finitely many variables to the present setting by positivity and convergence. Indeed, a sum of tableau weights of a fixed shape of size $L$ is at most $(\sum_\nu t_\nu)^L$.
+
+\begin{lemma}\label{lem:schur}
+For every $m\geq1$, the normalized $[m/m]$ Pad\'e denominator of $F$ exists uniquely and has the form
+\begin{equation}\label{eq:qcoeff}
+Q_m(z)=\sum_{j=0}^m(-1)^j b_{m,j}z^j,
+\qquad
+b_{m,j}=\frac{s_{(m^m,j)}(t)}{s_{(m^m)}(t)},
+\end{equation}
+where a zero last part is omitted. If $S_m=\sum_{\nu>m}t_\nu$, then
+\begin{equation}\label{eq:tail}
+0<b_{m,j}\leq h_j(t_{m+1},t_{m+2},\ldots)\leq S_m^j
+\quad(1\leq j\leq m),\qquad b_{m,0}=1.
+\end{equation}
+\end{lemma}
+\begin{proof}
+The Pad\'e equations for the nonconstant denominator coefficients have coefficient matrix
+\[
+T_m=(e_{m+i-j})_{i,j=1}^m.
+\]
+Transposing and applying the dual Jacobi--Trudi identity gives
+\[
+\det T_m=\det(e_{m-i+j})_{i,j=1}^m=s_{(m^m)}(t)>0.
+\]
+Strict positivity follows, for example, from the tableau whose $r$th row consists entirely of the entry $r$. Thus the denominator equations are uniquely solvable, and the numerator is the degree-$m$ truncation of $Q_mF$.
+
+By Cramer's rule, the coefficient of $z^j$ is the determinant obtained by replacing column $j$ by $-(e_{m+i})_{i=1}^m$, divided by $\det T_m$. Move the replaced column to the first position. The minus sign and the $j-1$ column transpositions give the sign $(-1)^j$. The remaining column indices are $0,1,\ldots,j-1,j+1,\ldots,m$. After transposition, the dual Jacobi--Trudi partition has conjugate
+\[
+((m+1)^j,m^{m-j}),
+\]
+and hence is $(m^m,j)$. This proves \eqref{eq:qcoeff}.
+
+A tableau of shape $(m^m,j)$ consists of an $m\times m$ rectangle with an extra bottom row of length $j$. Restrict such a tableau to the rectangle. Each entry in the extra row is at least $m+1$, because the column above it contains $m$ strictly smaller positive integers. For each fixed rectangular tableau, the sum of the weights of its possible extra rows is therefore at most
+\[
+h_j(t_{m+1},t_{m+2},\ldots).
+\]
+Summing over rectangular tableaux proves the first upper bound in \eqref{eq:tail}. The second follows by expanding $(\sum_{\nu>m}t_\nu)^j$: each weakly increasing $j$-tuple occurring in $h_j$ occurs there with a positive integer multiplicity. Positivity of the numerator in \eqref{eq:qcoeff} follows from its tableau formula.
+\end{proof}
+
+\begin{lemma}\label{lem:disk}
+In the setting of Lemma~\ref{lem:schur}, let $R>0$ and suppose $2RS_m<1$. Then $Q_m$ has no zero in $|z|\leq R$, and its Pad\'e quotient $R_m=P_m/Q_m$ satisfies
+\begin{equation}\label{eq:generalbound}
+|R_m(z)-1|\leq \frac{F(R)-1}{1-2RS_m}\qquad(|z|\leq R).
+\end{equation}
+\end{lemma}
+\begin{proof}
+Set $B=\sum_{j=0}^m b_{m,j}R^j$. Lemma~\ref{lem:schur} gives
+\[
+B\leq\sum_{j=0}^m(RS_m)^j\leq\frac{1}{1-RS_m}<2.
+\]
+Consequently, $|Q_m(z)|\geq1-\sum_{j=1}^m b_{m,j}R^j=2-B>0$ on the disk. Since $P_m$ is the truncation of $Q_mF$ through degree $m$, the polynomial $P_m-Q_m$ is the corresponding truncation of $Q_m(F-1)$. Thus
+\[
+|P_m(z)-Q_m(z)|\leq B\,(F(R)-1).
+\]
+The function $B\mapsto B/(2-B)$ is increasing for $0\leq B<2$, so division by $|Q_m(z)|$ gives
+\[
+|R_m(z)-1|\leq (F(R)-1)\frac{B}{2-B}
+\leq\frac{F(R)-1}{1-2RS_m}.
+\qedhere
+\]
+\end{proof}
+
+\section{Application to the wave-kernel function}
+The classical product for the cosine, or equivalently for the hyperbolic cosine, yields
+\begin{equation}\label{eq:product}
+f(z)=\prod_{\nu=1}^{\infty}\left(1+\frac{z}{\pi^2(\nu-\tfrac12)^2}\right).
+\end{equation}
+Thus Lemma~\ref{lem:schur} proves existence and uniqueness for every $m\geq1$. For this product,
+\begin{equation}\label{eq:sm}
+S_m=\frac{1}{\pi^2}\sum_{\nu=m+1}^{\infty}\frac{1}{(\nu-\tfrac12)^2}
+\leq\frac{1}{\pi^2}\int_m^{\infty}\frac{dx}{x^2}
+=\frac{1}{\pi^2m}<\frac{1}{9m}.
+\end{equation}
+The sum--integral inequality follows by convexity of $x^{-2}$ on each unit interval, evaluating at its midpoint.
+
+We also have the elementary rational estimate
+\begin{equation}\label{eq:coshbound}
+f(3)\leq 1+\frac32+\frac38+\frac{3/80}{1-3/56}
+=\frac{6179}{2120}<\frac{35}{12}.
+\end{equation}
+Indeed, the term of index $3$ in \eqref{eq:f} at $z=3$ is $3/80$, and from that index onwards the ratio of successive terms is at most $3/56$.
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+For $m\geq16$, \eqref{eq:sm} gives $6S_m<1/24$. Lemma~\ref{lem:disk}, with $R=3$, and \eqref{eq:coshbound} therefore show that $q_m$ has no zeros on the disk and
+\[
+|r_m(z)-1|\leq\frac{f(3)-1}{1-6S_m}
+<\frac{23/12}{23/24}=2.
+\]
+The remaining orders $1\leq m\leq15$ are contained in Lemma~4.5 of \cite{NH}. For completeness, a separate exact verification of these orders is specified in Section~\ref{sec:finite}; it also proves strictness for $2\leq m\leq15$. Directly,
+\[
+p_1(z)=1+\frac{5z}{12},\qquad q_1(z)=1-\frac{z}{12},\qquad r_1(3)=3.
+\]
+Finally, $p_0=q_0=1$ handles $m=0$.
+\end{proof}
+
+\begin{corollary}\label{cor:matrix}
+For any complex square matrix $A$ with spectral radius $\rho(A)\leq3$, the denominator $q_m(A)$ is invertible and
+\[
+\rho(I-r_m(A))\leq2.
+\]
+The inequality is strict when $m\geq2$.
+\end{corollary}
+\begin{proof}
+Apply Theorem~\ref{thm:main} to every eigenvalue of $A$ and use the spectral mapping theorem for a rational function without poles on the spectrum.
+\end{proof}
+
+\begin{remark}
+The universal constant $2$ cannot be reduced, because $m=1$, $A=3I$ attains it. Accordingly, the non-strict inequality in Corollary~\ref{cor:matrix} is necessary when order one is included. The strict matrix inequality printed as (4.9) in \cite{NH} needs this boundary qualification. No operator-norm bound for arbitrary nonnormal matrices is asserted here.
+\end{remark}
+
+\section{Independent exact verification of the finite orders}\label{sec:finite}
+The accompanying file \path{wave_kernel_finite_certificate.json} lists rational coefficients of $p_m,q_m$ for $1\leq m\leq15$. The standard-library Python verifier \path{wave_kernel_certificate.py} checks the normalization and all coefficients of \eqref{eq:pade} through degree $2m$. It then forms, in exact rational arithmetic,
+\[
+B_m=\sum_{j=0}^m |q_{m,j}|3^j,
+\qquad N_m=\sum_{j=0}^m |p_{m,j}-q_{m,j}|3^j,
+\]
+and checks
+\begin{equation}\label{eq:finitechecks}
+B_m<2,\qquad N_m\leq2(2-B_m).
+\end{equation}
+These inequalities imply the disk bound by the triangle inequality. In addition, for $2\leq m\leq15$ it checks $20N_m<39(2-B_m)$, proving a strict upper bound of $39/20$. Approximate values below are only a reading aid; they are not used by the verifier.
+
+\begin{center}
+\begin{tabular}{@{}rrrrrr@{}}\toprule
+$m$ & $N_m/(2-B_m)$ & $m$ & $N_m/(2-B_m)$ & $m$ & $N_m/(2-B_m)$\\\midrule
+1 & 2.000000000 & 6 & 1.918557671 & 11 & 1.915740164\\
+2 & 1.948859710 & 7 & 1.917487136 & 12 & 1.915552304\\
+3 & 1.930661765 & 8 & 1.916795806 & 13 & 1.915406509\\
+4 & 1.923632876 & 9 & 1.916324021 & 14 & 1.915291107\\
+5 & 1.920341686 & 10 & 1.915987937 & 15 & 1.915198207\\\bottomrule
+\end{tabular}
+\end{center}
+
+Verification requires only Python 3 and may be run from the package root as
+\begin{verbatim}
+python code/wave_kernel_certificate.py \
+    results/wave_kernel_finite_certificate.json --verify
+\end{verbatim}
+
+\begin{thebibliography}{9}
+\bibitem{NH}
+P. Nadukandi and N. J. Higham,
+\emph{Computing the wave-kernel matrix functions},
+SIAM Journal on Scientific Computing \textbf{40}(6) (2018), A4060--A4082.
+\href{https://doi.org/10.1137/18M1170352}{doi:10.1137/18M1170352}.
+Author manuscript, version August 1, 2018, Lemma~4.5 and Conjecture~4.6, pp.~11--12:
+\url{https://eprints.maths.manchester.ac.uk/2651/3/manuscript_nadukandi_higham_wkm_2018_08_01.pdf}.
+
+\bibitem{Macdonald}
+I. G. Macdonald,
+\emph{Symmetric Functions and Hall Polynomials},
+second edition, Oxford University Press, 1995, Chapter~I, Section~3
+(Schur functions, tableau formula, and dual Jacobi--Trudi identity).
+\end{thebibliography}
+\end{document}

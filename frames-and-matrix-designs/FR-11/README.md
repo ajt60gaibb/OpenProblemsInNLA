@@ -7,9 +7,19 @@
 **Difficulty:** challenging
 **Importance:** interesting to the community
 **Status:** Partially resolved  
-**Last checked:** 2026-09-10
+**Last checked:** 2026-09-11
 
 **Rating rationale:** Exact thresholds across all dimensions require algebraic and topological analysis beyond known families; they guide quadratic matrix-measurement design.
+
+<!-- colbrook-frames -->
+## Reviewed submission - 2026-09-11
+
+Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge.
+
+The construction theorem and its proof give twelve explicit integral symmetric $7\times7$ matrices, with maximum absolute entry 144, that recover every real signal including zero up to sign. Thus $m_{\mathbb R}(7)\le12$ in the unrestricted self-adjoint model. No matching lower bound or all-dimension/all-field formula is established. The manuscript also proves quantitative separation and exact-arithmetic decoding; floating-point decoder tests are finite diagnostics, with a separately documented scaling correction.
+
+See the [manuscript](../../references/colbrook-frames-2026-09-11/manuscripts/twelve_measurements.pdf), [independent agent review](../../references/colbrook-frames-2026-09-11/verification/reviews/FR-11-review.md), and [reproducible submission record](../../references/colbrook-frames-2026-09-11/README.md). Independent agent review is not external human peer review or formal proof-assistant certification. Original problem, ratings and historical audits are retained below.
+<!-- /colbrook-frames -->
 
 ## Problem statement
 

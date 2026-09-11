@@ -1,0 +1,389 @@
+% Reviewed source SHA256 (UTF-8/LF): 6feb8ce53691a946250fe13ce786d31df25d328090576c5f2091e1c1945ccdb0
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,booktabs,array}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}\newcommand{\C}{\mathbb C}
+\newcommand{\im}{\operatorname{Im}}\newcommand{\re}{\operatorname{Re}}
+\newcommand{\coef}{\mathrm{coef}}
+\title{An explicit twelve-measurement construction in real dimension seven}
+\author{Matthew J. Colbrook\\\small Department of Applied Mathematics and Theoretical Physics\\\small University of Cambridge, Cambridge, United Kingdom\\\small\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}\date{11 September 2026}
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\hypersetup{pdfauthor={Matthew J. Colbrook}}
+\begin{document}
+\maketitle
+
+\noindent\textbf{Independently reviewed partial result.} This proves an upper bound of twelve unrestricted real symmetric measurements in dimension seven, not optimality or the all-dimension target.
+The dated \href{https://github.com/MColbrook/OpenProblemsInNLA/blob/codex/colbrook-frames-submissions/references/colbrook-frames-2026-09-11/verification/reviews/FR-11-review.md}{independent agent review} records the subsequent checks and supersedes original draft remarks about pending review. This is not external human peer review or formal certification.
+\par\medskip
+% BEGIN REVIEWED BODY
+
+\begin{abstract}
+We give twelve explicitly specified integral symmetric $7\times7$ matrices whose quadratic measurements distinguish every vector in $\R^7$ up to a global sign, including the zero vector. Every matrix entry has absolute value at most $144$. The construction is obtained by restricting multiplication of complex cubic polynomials to a real hyperplane and then taking a real-linear quotient with a two-dimensional kernel. Nonsingularity is proved by examining all ten unordered balanced factorizations of each polynomial in that kernel; three uniform inequalities cover all factors and all parameter values. A separate perturbation argument supplies a conservative global lower stability bound. This establishes $m_{\R}(7)\le12$ in the unrestricted self-adjoint measurement model. It does not establish equality, nor determine the minimum measurement numbers in all dimensions.
+\end{abstract}
+
+\section{Statement and scope}
+For real symmetric matrices $A_1,\ldots,A_m$, write
+\[
+ Q_A(x)=(x^T A_1x,\ldots,x^T A_mx).
+\]
+Here phase retrieval means the implication
+\[
+ Q_A(x)=Q_A(y)\quad\Longrightarrow\quad x=y\ \text{or}\ x=-y
+ \qquad (x,y\in\R^d),
+\]
+with no normalization assumption and with zero included. We use $m_{\R}(d)$ for the least possible number of measurements in this model. In particular, the matrices need not be positive semidefinite or rank one. This is the real part of the target recorded as FR-11 in the OpenProblemsInNLA repository\footnote{\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/frames-and-matrix-designs/FR-11}.} and the model studied by Wang and Xu~\cite{WX}.
+
+\begin{theorem}\label{thm:main}
+For $x=(x_0,\ldots,x_6)\in\R^7$, put
+\begin{align*}
+ a_0&=5(x_0+i x_1), & a_1&=12(x_2+i x_3), & a_3&=12(x_4+i x_5),\\
+ a_2&=(9-2i)x_6-(x_0+i x_1)-(x_2+i x_3), & b&=\frac5{12}.
+\end{align*}
+Define six complex quadratic polynomials by
+\begin{align}
+ q_1&=a_0^2, & q_2&=2a_0a_1+b\overline{a_3}^{\,2},\nonumber\\
+ q_3&=a_1^2+2a_0a_2-\overline{a_3}^{\,2}, &
+ q_4&=2(a_0a_3+a_1a_2),\label{eq:quadratics}\\
+ q_5&=a_2^2+2a_1a_3, & q_6&=2a_2a_3+b a_3^2.\nonumber
+\end{align}
+Then
+\[
+ Q(x)=(\re q_1,\im q_1,\ldots,\re q_6,\im q_6)
+\]
+is phase retrievable on all of $\R^7$. Its twelve real component matrices are integral and symmetric, and their entries have absolute value at most $144$. Thus $m_{\R}(7)\le12$.
+\end{theorem}
+
+The formulas in~\eqref{eq:quadratics}, together with the displayed real-linear coefficient map, specify the matrices without any numerical approximation. Equivalently, the matrix for a real quadratic $q$ is $\frac12\nabla^2 q$. An exact machine-readable matrix list and a symbolic generator accompany this note.
+
+The equivalence between real quadratic phase retrieval and nonsingular symmetric bilinear maps is established in~\cite{WX}; we include the one-line argument needed here. The general real upper bounds reported in~\cite{WX,XuSurvey} are $2d-1$ for odd $d$ and $2d-2$ for even $d$. Substituting $d=7$ in that generic odd-dimensional bound gives $13$. The present explicit construction supplies $12$ for this dimension. This comparison is to those stated bounds, not a claim that no earlier specialized twelve-measurement construction exists. Priority requires a separate historical literature audit. No optimality claim is made.
+
+\section{Polynomial realization}
+Let $\mathcal P_r=\C[z]_{\le r}$, viewed as a real vector space. If $f\in\mathcal P_3$, write $f=\sum_{j=0}^3 f_jz^j$. Set
+\[
+ \varepsilon=\frac15,\qquad c=9+2i,\qquad
+ L_0(f)=f_2+\varepsilon b f_1+\varepsilon f_0,
+ \qquad L(f)=cL_0(f),
+\]
+and define the seven-dimensional real hyperplane
+\[
+ H=\{f\in\mathcal P_3:\im L(f)=0\}.
+\]
+For the coefficients in Theorem~\ref{thm:main}, the polynomial $f_x=\sum a_jz^j$ satisfies
+\[
+ L_0(f_x)=(9-2i)x_6,\qquad L(f_x)=85x_6.
+\]
+The map $x\mapsto f_x$ is a real-linear bijection from $\R^7$ onto $H$: $a_0,a_1,a_3$ are arbitrary complex numbers, and the hyperplane condition gives exactly one remaining real parameter.
+
+For $t\in\C$ put
+\begin{equation}\label{eq:kernel}
+ P_t(z)=z(z-b)(t z^4+\overline t),\qquad
+ W=\{P_t:t\in\C\}\subset\mathcal P_6.
+\end{equation}
+This is a two-dimensional real subspace. Define a real-linear quotient map $R:\mathcal P_6\to\C^6$ by
+\begin{equation}\label{eq:quotient}
+ R(p)=\bigl(p_0,\ p_1+b\overline{p_6},\ p_2-\overline{p_6},\
+ p_3,\ p_4,\ p_5+b p_6\bigr).
+\end{equation}
+It is surjective and $\ker R=W$, directly by comparison of coefficients. We identify $\C^6$ with $\R^{12}$ by taking real and imaginary parts in that order. Define
+\[
+ B(f,g)=R(fg)\qquad(f,g\in H).
+\]
+This is symmetric and real bilinear. Substitution shows that $R(f_x^2)$ is exactly~\eqref{eq:quadratics}.
+
+\begin{lemma}\label{lem:bilinear}
+If $B:H\times H\to\C^6$ is nonsingular, in the sense that $B(f,g)=0$ forces $f=0$ or $g=0$, then $x\mapsto R(f_x^2)$ is phase retrievable.
+\end{lemma}
+\begin{proof}
+The equality $R(f_x^2)=R(f_y^2)$ gives
+$B(f_x-f_y,f_x+f_y)=0$. Nonsingularity and the injectivity of $x\mapsto f_x$ imply $x=y$ or $x=-y$.
+\end{proof}
+
+\section{A uniform obstruction for all ten factorizations}
+We prove the stronger factor inequality needed later for stability.
+
+\begin{lemma}\label{lem:factor}
+Let $|t|=1$, and let $F,G$ be any monic cubic polynomials with $FG=P_t/t$. Then
+\begin{equation}\label{eq:margin}
+ \bigl|\im\{tL(F)L(G)\}\bigr|\ \ge\ \eta,
+ \qquad \eta=\frac{385}{144}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Write $t=e^{i\theta}$. Besides $0$ and $b$, the roots of $P_t$ are
+\[
+ \gamma_j=e^{-i\theta/2}\zeta_j,
+ \qquad \zeta_j=\exp\bigl(i(\pi/4+j\pi/2)\bigr),\quad 0\le j<4.
+\]
+They are distinct, have modulus one, and satisfy $t\gamma_j^2\in\{i,-i\}$. There are $\frac12\binom63=10$ unordered partitions of these six roots into two triples. We cover all of them in three cases. We shall use
+\[
+ c^2=77+36i,\qquad |c|^2=85.
+\]
+
+\paragraph{Case A: $0$ and $b$ lie in the same factor (four partitions).}
+For one of the rotating roots $\gamma$,
+\[
+ F=z(z-b)(z-\gamma),\qquad G=z^3+\gamma z^2+\gamma^2z+\gamma^3.
+\]
+A direct coefficient calculation gives
+\[
+ L_0(F)=-\gamma+r_F,\quad r_F=-b+\varepsilon b^2\gamma,
+ \qquad L_0(G)=\gamma+r_G,\quad r_G=\varepsilon b\gamma^2+\varepsilon\gamma^3.
+\]
+Consequently
+\[
+ |L_0(F)L_0(G)+\gamma^2|\le D_A,
+\]
+where
+\begin{align*}
+ D_A&=(b+\varepsilon b^2)+\varepsilon(1+b)
+       +(b+\varepsilon b^2)\varepsilon(1+b)\\
+    &=\frac{7453}{8640}.
+\end{align*}
+The main term $-c^2t\gamma^2$ has imaginary part of absolute value $77$. Therefore
+\[
+ |\im\{tL(F)L(G)\}|\ge77-85D_A
+   =\frac{6355}{1728}>\frac{385}{144}.
+\]
+
+\paragraph{Case B: $0$ and $b$ lie in different factors (six partitions).}
+Write
+\[
+ F=z(z^2-sz+p),\qquad G=(z-b)(z^2+sz+p'),
+\]
+where $s$ is the sum of the two rotating roots assigned to $F$, and $p,p'$ are the products of the rotating pairs. In particular $|p|=1$. Here the exact cancellation of the $p'$ terms gives
+\begin{equation}\label{eq:split}
+ L_0(F)=-s+\varepsilon bp,
+ \qquad L_0(G)=(1-\varepsilon b^2)s-b.
+\end{equation}
+If the pair in $F$ is adjacent in the rotating square (four partitions), then $|s|=\sqrt2$ and $ts^2\in\{2,-2\}$. Thus the main term $-c^2ts^2$ has imaginary part of absolute value $72$. Using $\sqrt2<r:=99/70$ in the error terms gives
+\[
+ |L_0(F)L_0(G)+s^2|\le D_B,
+\]
+with
+\[
+ D_B=r(\varepsilon b+b+r\varepsilon b^2)
+      +\varepsilon b(b+r\varepsilon b^2)
+     =\frac{230141}{282240}.
+\]
+It follows that
+\[
+ |\im\{tL(F)L(G)\}|\ge72-85D_B
+ =\frac{151859}{56448}>\frac{385}{144}.
+\]
+If the pair is opposite (two partitions), then $s=0$ and $p=-\gamma^2$ for a rotating root $\gamma$. Equation~\eqref{eq:split} gives the exact identity
+\[
+ tL_0(F)L_0(G)=\varepsilon b^2t\gamma^2\in
+ \{i\varepsilon b^2,-i\varepsilon b^2\}.
+\]
+Its product with $c^2$ has imaginary part of absolute value
+$77\varepsilon b^2=385/144$. This completes all ten partitions.
+\end{proof}
+
+\begin{proposition}\label{prop:ns}
+The bilinear map $B(f,g)=R(fg)$ is nonsingular on $H\times H$.
+\end{proposition}
+\begin{proof}
+Suppose $f,g\in H$ are nonzero and $R(fg)=0$. Then $fg=P_t$ for some $t$. The complex polynomial ring is an integral domain, so $t\ne0$. Replacing $f$ by $f/|t|$, which remains in $H$, reduces to $|t|=1$. Since $P_t$ has degree six and $f,g$ have degree at most three, both factors have degree three. Write $f=\alpha F$ and $g=\beta G$ with $F,G$ monic. Their leading coefficients satisfy $\alpha\beta=t$. Hence
+\[
+ L(f)L(g)=tL(F)L(G).
+\]
+The left side is real because $f,g\in H$; the right side has nonzero imaginary part by Lemma~\ref{lem:factor}. This contradiction proves the proposition. Lemma~\ref{lem:bilinear} proves the phase retrieval assertion of Theorem~\ref{thm:main}. Expanding~\eqref{eq:quadratics} verifies the integral-entry assertion, also certified by the accompanying symbolic script.
+\end{proof}
+
+\section{A conservative quantitative stability bound}
+All norms on coefficient vectors and output vectors in this section are Euclidean. Write $\|f\|_{\coef}=(\sum|f_j|^2)^{1/2}$ and
+\[
+ d_{\pm}(x,y)=\min\{\|x-y\|_2,\|x+y\|_2\}.
+\]
+The factor bound $\eta$ above is not itself a lower bound for the Euclidean condition of the measurement map: monic factor normalizations matter. The following argument supplies that missing step explicitly.
+
+\begin{lemma}\label{lem:mahler}
+For $f,g\in\mathcal P_3$,
+\[
+ \|fg\|_{\coef}\ge\frac1{20}\|f\|_{\coef}\|g\|_{\coef}.
+\]
+\end{lemma}
+\begin{proof}
+For a nonzero polynomial $h=a\prod_{j=1}^{r}(z-\rho_j)$, let
+$M(h)=|a|\prod_j\max(1,|\rho_j|)$. Each coefficient of a degree-at-most-three polynomial has modulus at most $\binom3j M(h)$ after harmless zero padding; equivalently one can use its actual degree and then bound $\binom{2r}{r}\le20$. Thus $\|h\|_{\coef}\le\sqrt{20}\,M(h)$ for $h\in\mathcal P_3$. Also $M(fg)=M(f)M(g)$. The mean-value identity for $\log|z-\rho|$ on the unit circle, followed by Jensen's inequality and Parseval's identity, gives $M(h)\le\|h\|_{\coef}$ for every polynomial $h$. Combining these inequalities proves the claim. Cases with a zero factor are immediate.
+\end{proof}
+
+\begin{lemma}\label{lem:coefstable}
+For $f,g\in H$,
+\[
+ \|R(fg)\|_2\ge10^{-7}\|f\|_{\coef}\|g\|_{\coef}.
+\]
+\end{lemma}
+\begin{proof}
+It suffices to consider unit coefficient norms. Set $p=fg$, $t=p_6$ and $E=p-P_t$. By~\eqref{eq:quotient}, $E$ has degree at most five and
+$\|E\|_{\coef}=\|R(p)\|_2=:u$. Suppose, for a contradiction, that $u\le10^{-7}$. The case $u=0$ is excluded by Proposition~\ref{prop:ns}. Lemma~\ref{lem:mahler} and
+$\|P_t\|_{\coef}=\sqrt{2(1+b^2)}|t|<2|t|$ give
+\[
+ |t|>\frac{1/20-u}{2}>\frac1{80}.
+\]
+The roots of $P_t$ still consist of $0,b$ and four points of modulus one, because $|\overline t/t|=1$. Set
+\[
+ \rho=\frac{100u}{|t|}\le8000u\le\frac{8}{10000}<\frac1{100}.
+\]
+The six disks of radius $\rho$ about those roots are disjoint. On each disk boundary, using the minimum separations between the fixed roots and the rotating roots,
+\begin{align*}
+ |P_t(z)|&\ge |t|\rho\,(b-1/100)(1-b-1/100)^4\\
+          &>\frac{|t|\rho}{25}=4u.
+\end{align*}
+On the same boundary $|z|\le101/100$, so
+\[
+ |E(z)|\le\sqrt6(101/100)^5u<3u.
+\]
+Rouch\'e's theorem implies that $p=P_t+E$ has exactly one root, counted with multiplicity, in each disk. In particular all its roots are simple, and its monic factors $f_0,g_0$ match some monic factors $F,G$ of $P_t/t$ root by root with errors less than $\rho$.
+
+If three roots, initially of modulus at most one, each move by at most $\rho$, the changes in the quadratic, linear and constant coefficients of their monic cubic are bounded, respectively, by
+\[
+ 3\rho,\qquad 6\rho+3\rho^2,\qquad
+ 3\rho+3\rho^2+\rho^3.
+\]
+It follows, using $|c|<10$ and $\varepsilon b=1/12$, that
+\[
+ |L(f_0)-L(F)|<42\rho,\qquad
+ |L(g_0)-L(G)|<42\rho.
+\]
+Also $|L(F)|,|L(G)|<10(3+3/12+1/5)<35$. Therefore
+\begin{align*}
+ |L(f_0)L(g_0)-L(F)L(G)|
+ &<2940\rho+1764\rho^2\\
+ &<3000\rho.
+\end{align*}
+Writing $f=\alpha f_0$, $g=\beta g_0$ gives $\alpha\beta=t$, so $tL(f_0)L(g_0)=L(f)L(g)$ is real. Lemma~\ref{lem:factor}, applied to $t/|t|$ (which has the same normalized polynomial $P_t/t$), yields
+\[
+ \frac{385}{144}\le3000\rho\le 3000\cdot8000\cdot10^{-7}
+ =\frac{12}{5},
+\]
+an impossibility. This excludes $u\le10^{-7}$ for unit nonzero factors and proves the stated weak inequality for all factors by real positive rescaling.
+\end{proof}
+
+\begin{theorem}\label{thm:stable}
+For the integral matrices in Theorem~\ref{thm:main}, their associated bilinear map $\mathcal B(x,y)=(x^TA_jy)_{j=1}^{12}$ satisfies
+\[
+ \|\mathcal B(x,y)\|_2\ge10^{-6}\|x\|_2\|y\|_2.
+\]
+Consequently, for all $x,y\in\R^7$,
+\begin{align*}
+ \|Q(x)-Q(y)\|_2
+ &\ge10^{-6}\|x-y\|_2\|x+y\|_2\\
+ &\ge10^{-6}d_{\pm}(x,y)
+       \sqrt{\|x\|_2^2+\|y\|_2^2}.
+\end{align*}
+\end{theorem}
+\begin{proof}
+The coordinate definitions give
+\[
+ \|x\|_2^2=\frac{|a_0|^2}{25}
+  +\frac{|a_1|^2+|a_3|^2}{144}
+  +\frac{(\re L_0(f_x))^2}{81}.
+\]
+Cauchy--Schwarz implies
+\[
+ \|x\|_2^2\le
+ \left(\frac1{25}+\frac{1+1/144+1/25}{81}\right)\|f_x\|_{\coef}^2
+ =\frac{15433}{291600}\|f_x\|_{\coef}^2
+ <\frac1{16}\|f_x\|_{\coef}^2.
+\]
+Thus Lemma~\ref{lem:coefstable} gives the stronger constant $16\cdot10^{-7}$ in the first inequality, and hence $10^{-6}$. Apply it to $x-y,x+y$. Finally,
+$\max(\|x-y\|_2,\|x+y\|_2)\ge\sqrt{\|x\|_2^2+\|y\|_2^2}$ by the parallelogram identity.
+\end{proof}
+
+\begin{corollary}
+If symmetric perturbations $E_1,\ldots,E_{12}$ satisfy
+$\bigl(\sum_j\|E_j\|_{\mathrm{op}}^2\bigr)^{1/2}<10^{-6}$,
+then $(A_j+E_j)_{j=1}^{12}$ remains phase retrievable on all of $\R^7$.
+\end{corollary}
+\begin{proof}
+For unit $x,y$, the perturbation of the bilinear output has norm at most the displayed combined operator norm. Theorem~\ref{thm:stable} therefore leaves a strictly positive nonsingularity margin, and Lemma~\ref{lem:bilinear} applies.
+\end{proof}
+
+\section{An explicit decoder using a quartic}
+The construction also permits exact reconstruction without searching over a seven-dimensional signal space. Let $q_1,\ldots,q_6$ be the complex data in~\eqref{eq:quadratics}, and assume these data belong to the image of $Q$.
+
+\begin{proposition}\label{prop:decoder}
+Every signal can be recovered up to sign using complex square roots, the roots of a single polynomial of degree at most four, and direct equality tests. In the generic branch $q_1\ne0$, at most four complex candidates need to be tested. The remaining branches use only square roots and arithmetic operations.
+\end{proposition}
+\begin{proof}
+First suppose $q_1\ne0$ and fix one of the two square roots $a_0$ of $q_1$. Introduce a complex variable $u$, intended to equal $\overline{a_3}^{\,2}$, and recursively define
+\begin{align*}
+ A_1(u)&=\frac{q_2-bu}{2a_0},\\
+ A_2(u)&=\frac{q_3+u-A_1(u)^2}{2a_0},\\
+ A_3(u)&=\frac{q_4-2A_1(u)A_2(u)}{2a_0}.
+\end{align*}
+Their degrees are one, two and three. Form
+\[
+ \Phi(u)=A_2(u)^2+2A_1(u)A_3(u)-q_5.
+\]
+This is a quartic whose leading coefficient is
+\[
+ [u^4]\Phi(u)=\frac{5b^4}{64a_0^6}\ne0.
+\]
+For each of its at most four distinct roots, set $a_j=A_j(u)$ for $j=1,2,3$ and retain the candidate only if
+\[
+ u=\overline{a_3}^{\,2},\qquad
+ 2a_2a_3+ba_3^2=q_6,\qquad
+ \im\{(9+2i)(a_2+a_1/12+a_0/5)\}=0.
+\]
+Every retained candidate is in $H$ and satisfies all six original equations. The actual signal, after a possible global sign change to match the chosen $a_0$, supplies a retained candidate. By Theorem~\ref{thm:main} it is the only one. The real coordinates are then
+\[
+ (x_0,x_1)=\tfrac15(\re a_0,\im a_0),\quad
+ (x_2,x_3)=\tfrac1{12}(\re a_1,\im a_1),\quad
+ (x_4,x_5)=\tfrac1{12}(\re a_3,\im a_3),
+\]
+with $x_6=\re(a_2+a_1/12+a_0/5)/9$.
+
+If $q_1=0$, then $a_0=0$. If $q_2\ne0$, choose
+\[
+ a_3=\sqrt{\overline{q_2}/b},\qquad
+ a_2=\frac{q_6-ba_3^2}{2a_3},\qquad
+ a_1=\frac{q_5-a_2^2}{2a_3}.
+\]
+The two square-root choices give opposite coefficient vectors. If $q_2=0$ also, then $a_3=0$. For $q_3\ne0$, choose $a_1=\sqrt{q_3}$ and $a_2=q_4/(2a_1)$. Finally, if $q_1=q_2=q_3=0$, then $a_0=a_1=a_3=0$ and one chooses $a_2=\sqrt{q_5}$. The last case includes the zero signal. Because the data are assumed to be in the image, these branch formulas satisfy the hyperplane condition and all unused equations; for arbitrary input data, those equations must instead be checked as consistency tests.
+\end{proof}
+
+The companion decoder uses floating-point polynomial roots, optional local polishing, and an explicit final residual check. Proposition~\ref{prop:decoder} is an exact-arithmetic statement; division by a small $a_0$ may be ill-conditioned in floating point, so the implementation is not claimed to have uniform numerical accuracy on every signal.
+
+\begin{corollary}\label{cor:noise}
+Suppose $y=Q(x)+e$ with $\|e\|_2\le\epsilon$, and let $\widehat x$ be any global minimizer of $\|Q(z)-y\|_2$ over $z\in\R^7$. Such a minimizer exists, and, writing $c_*=10^{-6}$,
+\[
+ d_\pm(\widehat x,x)\le\sqrt{\frac{2\epsilon}{c_*}}.
+\]
+For $x\ne0$ one also has
+\[
+ d_\pm(\widehat x,x)\le\frac{2\epsilon}{c_*\|x\|_2}.
+\]
+\end{corollary}
+\begin{proof}
+Theorem~\ref{thm:stable} with $y=0$ gives $\|Q(z)\|_2\ge c_*\|z\|_2^2$, proving coercivity and hence existence of a minimizer. Its measurement residual is at most $\epsilon$, so $\|Q(\widehat x)-Q(x)\|_2\le2\epsilon$. Apply Theorem~\ref{thm:stable}, using both $\|\widehat x-x\|\|\widehat x+x\|\ge d_\pm(\widehat x,x)^2$ and $\sqrt{\|\widehat x\|^2+\|x\|^2}\ge\|x\|$.
+\end{proof}
+
+This corollary is a stability guarantee for a global variational solution. It does not assert that the local polishing routine in the supplied decoder finds that global solution for arbitrary noisy data.
+
+\section{Verification, limitations and relation to FR-11}
+The exact proof consists of the coefficient identities, the three rational case bounds, and the perturbation inequalities above. It does not rely on sampling angles or on local optimization. The accompanying verification program checks the symbolic identities, reconstructs the twelve integral symmetric matrices, checks all rational inequalities, and performs optional numerical falsification searches. Finite angle grids and local minimizations are diagnostic evidence only; they are not global certificates and are not used to establish the theorem.
+
+The construction proves an upper bound at one real dimension. It does not show that eleven or ten measurements are impossible. It does not settle the complex-field minimum or the all-dimensions real minimum. Accordingly, it supports a partial-progress addendum to FR-11, not a change of that repository entry's status to solved.
+
+No assertion of historical priority is made. Wang--Xu~\cite{WX}, the later survey~\cite{XuSurvey}, and Harrison's discussion of symmetric nonsingular bilinear maps~\cite{Harrison} provide relevant comparisons. Older literature on Euclidean models of projective spaces, notably James~\cite{James}, also needs to be checked before any novelty claim is made.
+
+\begin{thebibliography}{9}
+\bibitem{WX} Y. Wang and Z. Xu, \emph{Generalized phase retrieval: measurement number, matrix recovery and beyond}, Applied and Computational Harmonic Analysis 47 (2019), 423--446. Preprint: \url{https://arxiv.org/abs/1605.08034}.
+\bibitem{XuSurvey} Z. Xu, \emph{Signal Recovery on Algebraic Varieties Using Linear Samples}, Acta Mathematica Sinica, English Series 42 (2026), 740--754. Preprint: \url{https://arxiv.org/abs/2506.17572}.
+\bibitem{Harrison} M. Harrison, \emph{Introducing totally nonparallel immersions}, preprint, 2019. \url{https://arxiv.org/abs/1907.11312}.
+\bibitem{James} I. M. James, \emph{Euclidean models of projective spaces}, Bulletin of the London Mathematical Society 3 (1971), 257--276. \url{https://doi.org/10.1112/blms/3.3.257}. Bibliographic record consulted; full text not verified here.
+\end{thebibliography}
+\end{document}
+
+% END REVIEWED BODY

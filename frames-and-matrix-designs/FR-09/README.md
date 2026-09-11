@@ -3,10 +3,20 @@
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
 **Status:** Partially resolved  
-**Last checked:** 2026-09-10
+**Last checked:** 2026-09-11
 
 **Rating rationale:** All-dimension redundancy-two ETF existence is a difficult exact-design barrier; its direct impact is in frame theory, sensing and reconstruction.
 
+
+<!-- colbrook-frames -->
+## Reviewed submission - 2026-09-11
+
+Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge.
+
+The supplied rational certificates independently pass the exact interval contraction test in dimensions $d=166,209,256,1505$. The accompanying proof, Sections 1-4, constructs Hermitian conference matrices of order $2d$ and hence unit-norm complex equiangular tight frames with $2d$ vectors. This records four certified instances, not all dimensions or an asserted priority claim. The other 88 dimensions appearing only in the supplied catalog report lack certificates in this archive and are not certified by this submission.
+
+See the [certificate proof](../../references/colbrook-frames-2026-09-11/conference-proof.md), [independent agent review](../../references/colbrook-frames-2026-09-11/verification/reviews/FR-09-review.md), and [reproducible submission record](../../references/colbrook-frames-2026-09-11/README.md). Independent agent review is not external human peer review or formal proof-assistant certification. Original problem, ratings and historical audits are retained below.
+<!-- /colbrook-frames -->
 
 **Conjecture.** For every integer $d\ge2$, there exist $2d$ vectors $v_1,\ldots,v_{2d}\in\mathbb C^d$ satisfying
 $$

@@ -1,0 +1,169 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,microtype}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\rank}{\operatorname{rank}}
+\title{An orientation obstruction to connectedness of minimal positive semidefinite factorization orbits}
+\author{}\date{}
+\begin{document}\maketitle
+\begin{abstract}
+We give a positive integer $6\times6$ matrix of ordinary rank six and real positive semidefinite rank three whose space of minimal positive semidefinite factorizations, modulo real congruence, is disconnected. A continuous orientation sign is invariant under every size-three congruence and takes both values on explicit positive definite factorizations. This gives a negative answer to catalog problem PF-02 and the corresponding connectedness question of Fawzi--Gouveia--Parrilo--Robinson--Thomas. An intrinsic three-dimensional support orientation extends the construction to every factor size at least three; a compactness argument also yields strictly positive rational examples in every such size.
+\end{abstract}
+
+\section{The counterexample}
+Let
+\begin{equation}\label{eq:M}
+M=\begin{pmatrix}
+24&20&20&16&16&16\\
+20&24&20&16&16&16\\
+20&20&24&16&16&16\\
+16&16&16&14&12&12\\
+16&16&16&12&14&12\\
+16&16&16&12&12&14
+\end{pmatrix}.
+\end{equation}
+Write $E_{ij}$ for matrix units in order three, and define
+\[
+A_i=2I_3+2E_{ii}\quad(1\leq i\leq3),
+\]
+\[
+A_4=2I_3+E_{12}+E_{21},\quad
+A_5=2I_3+E_{13}+E_{31},\quad
+A_6=2I_3+E_{23}+E_{32}.
+\]
+Set $B_i=A_i$. All six factors are positive definite. Direct multiplication gives $M_{ij}=\tr(A_iA_j)$.
+
+A second factorization is obtained by replacing only $A_4$ and $B_4$ with
+\[
+\widehat A_4=\widehat B_4=2I_3-E_{12}-E_{21},
+\]
+and leaving the remaining factors unchanged. The trace inner products remain unchanged, because $E_{12}+E_{21}$ is orthogonal to all diagonal matrices and to the other two off-diagonal basis matrices. The changed factors are still positive definite, with eigenvalues $1,2,3$.
+
+\begin{theorem}\label{thm:main}
+The matrix~\eqref{eq:M} has $\rank M=6$ and real positive semidefinite rank three. The quotient $\mathcal F_3(M)/\GL(3,\mathbb R)$, with the quotient topology specified in PF-02, is disconnected.
+\end{theorem}
+
+\section{The orientation invariant}
+Fix the ordered coordinates
+\[
+\operatorname{coord}(X)=(X_{11},X_{22},X_{33},X_{12},X_{13},X_{23})
+\]
+on $\mathbb S^3$. For a tuple of row factors, let $U_A$ be the $6\times6$ matrix whose $i$th row is $\operatorname{coord}(A_i)$. For the displayed factors,
+\[
+U_A=\begin{pmatrix}
+4&2&2&0&0&0\\
+2&4&2&0&0&0\\
+2&2&4&0&0&0\\
+2&2&2&1&0&0\\
+2&2&2&0&1&0\\
+2&2&2&0&0&1
+\end{pmatrix},\qquad \det U_A=32.
+\]
+The second factorization has $\det U_{\widehat A}=-32$.
+The trace metric in these coordinates is $G=\operatorname{diag}(1,1,1,2,2,2)$, so
+\[
+ M=U_A G U_A^{\mathsf T},\qquad \det M=32^2\cdot8=8192.
+\]
+Thus $M$ has rank six. Any size-$k$ real positive semidefinite factorization has ordinary rank at most $\dim\mathbb S^k=k(k+1)/2$. Size two is therefore impossible, whereas the factors above have size three. This proves the rank assertions.
+
+\begin{lemma}\label{lem:det}
+The determinant of the linear map $C_S:\mathbb S^k\to\mathbb S^k$, $C_S(X)=S^{\mathsf T}XS$, is
+\[
+ \det C_S=(\det S)^{k+1}.
+\]
+In particular every such map is orientation preserving when $k$ is odd.
+\end{lemma}
+\begin{proof}
+For diagonal $S$ with entries $s_1,\ldots,s_k$, the diagonal matrix units have eigenvalues $s_i^2$ under $C_S$, and the symmetric off-diagonal units have eigenvalues $s_is_j$ for $i<j$. Their product is $\prod_i s_i^{k+1}$. The same identity holds for diagonalizable matrices by change of basis, and extends to all matrices because both sides are polynomials in the entries of $S$ and diagonalizable matrices with distinct real eigenvalues include a nonempty open set.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+For any size-three factorization $(\widetilde A_i,\widetilde B_j)$ of $M$, its row coordinate matrix $U_{\widetilde A}$ is invertible: otherwise the factorization would imply $\rank M<6$. Consequently
+\[
+ \varepsilon(\widetilde A,\widetilde B)
+ =\operatorname{sgn}\det U_{\widetilde A}\in\{-1,+1\}
+\]
+is a well-defined continuous function on $\mathcal F_3(M)$.
+
+Applying a congruence $\widetilde A_i\mapsto S^{\mathsf T}\widetilde A_iS$ multiplies $\det U_{\widetilde A}$ by $\det C_S=(\det S)^4>0$. Thus $\varepsilon$ is constant on every orbit. By the defining property of the quotient topology, it descends to a continuous function
+\[
+ \bar\varepsilon:\mathcal F_3(M)/\GL(3,\mathbb R)\longrightarrow\{-1,+1\}.
+\]
+The two explicit factorizations give opposite signs. The two inverse images are therefore disjoint nonempty open-and-closed sets whose union is the quotient. This proves disconnectedness, not merely failure of uniqueness or the absence of a particular path.
+\end{proof}
+
+\section{Odd sizes and exact scope}
+\begin{corollary}
+For every odd $k\geq3$, there is a positive rational matrix $M$ of ordinary rank $k(k+1)/2$ and real positive semidefinite rank $k$ for which the corresponding orbit quotient is disconnected.
+\end{corollary}
+\begin{proof}
+Use the $k$ matrices $2I_k+2E_{ii}$ and the $\binom{k}{2}$ matrices $2I_k+E_{ij}+E_{ji}$, and form their trace Gram matrix. They are a basis of $\mathbb S^k$ and are positive definite. Negating one selected off-diagonal pair in the factors preserves their Gram matrix, preserves positive definiteness, and reverses the coordinate determinant. Lemma~\ref{lem:det} makes the sign invariant for odd $k$. The full ordinary rank and the dimension bound imply that the minimal factor size is exactly $k$.
+\end{proof}
+
+\section{Counterexamples in every size}
+The elementary full-space orientation in Lemma~\ref{lem:det} changes sign under some even-size congruences. A three-dimensional support forced by zero entries avoids this obstruction.
+
+\begin{theorem}\label{thm:all-sizes}
+For every integer $k\geq3$, there is a nonnegative integer matrix of ordinary rank $k(k+1)/2$ and real positive semidefinite rank $k$ whose size-$k$ congruence quotient is disconnected. Moreover, for every such $k$ there is a strictly positive rational matrix with the same properties.
+\end{theorem}
+\begin{proof}[Block construction]
+The case $k=3$ is Theorem~\ref{thm:main}. Suppose $k=3+r$ with $r\geq1$, and write $d=r(r+1)/2$ and $N=k(k+1)/2$. Construct an ordered basis $F_1,\ldots,F_N$ of $\mathbb S^k$ consisting of the following positive semidefinite matrices:
+\begin{enumerate}
+\item the six matrices $A_1,\ldots,A_6$ above, embedded in the leading $3\times3$ block, with zero trailing block;
+\item a basis of $\mathbb S^r$ embedded in the trailing block, using $2I_r+2E_{ii}$ and $2I_r+E_{ij}+E_{ji}$ as in the odd-size construction;
+\item the $3r$ matrices $2I_k+E_{ij}+E_{ji}$ for $1\leq i\leq3<j\leq k$.
+\end{enumerate}
+There are $6+d+3r=N$ matrices. Independence follows first from the cross-block entries and then from independence within the two diagonal blocks. Their trace Gram matrix $M_0$ is an integer nonnegative matrix of rank $N$. Its positive semidefinite rank is $k$ by the dimension bound. Negating only the $(1,2)$ and $(2,1)$ entries of every factor preserves positive semidefiniteness and the trace Gram matrix, just as before.
+
+For any size-$k$ factorization $(\widetilde A,\widetilde B)$ of $M_0$, let $\mathcal T$ denote the six leading indices and $\mathcal D$ the $d$ trailing-block indices, and put
+\[
+ Q=\sum_{j\in\mathcal D}\widetilde B_j.
+\]
+The submatrix $M_0[\mathcal D,\mathcal D]$ has rank $d$. Since all $\widetilde B_j$ in this block are supported on $\operatorname{im}Q$, the bound $d\leq s(s+1)/2$, where $s=\rank Q$, gives $s\geq r$. Each entry of $M_0[\mathcal T,\mathcal D]$ is zero. For positive semidefinite matrices, zero trace inner product implies orthogonal ranges. Consequently the six $\widetilde A_i$, $i\in\mathcal T$, are supported on $U=\ker Q$, which has dimension at most three. The rank-six leading principal submatrix of $M_0$ makes these six matrices linearly independent. Hence $\dim U=3$, $\rank Q=r$, and the ordered six matrices are a basis of $\mathbb S(U)$.
+
+The vector space $\mathbb S(U)$ has a canonical orientation: choose any ordered basis of the three-dimensional space $U$ and then the diagonal and symmetric off-diagonal coordinates in the order used above. Changing the basis of $U$ multiplies the determinant on $\mathbb S(U)$ by a positive number, the fourth power of a nonzero determinant. Thus the orientation of the ordered six factors is independent of that choice. It varies continuously, as is seen in local frames of the Grassmannian, and is invariant under every size-$k$ congruence. In the two displayed factorizations it takes opposite signs, because negating the selected off-diagonal coordinate reverses exactly one of the six basis vectors' coordinate directions. It therefore descends to a continuous surjection from the quotient to $\{-1,+1\}$.
+\end{proof}
+
+\begin{proof}[Strictly positive perturbation]
+Keep the factors of the block construction and define
+\[
+ F_i(\eta)=F_i+\eta I_k,\qquad
+ M(\eta)_{ij}=\tr\bigl(F_i(\eta)F_j(\eta)\bigr).
+\]
+For every $\eta>0$ all factors and all entries of $M(\eta)$ are strictly positive definite and strictly positive, respectively. The factors remain a basis for all sufficiently small $\eta$, by continuity of their coordinate determinant. The coordinate reflection that negates the $(1,2)$ entry fixes $I_k$, so it gives two continuously varying factorizations of the same $M(\eta)$, both of size $k$ and with full ordinary rank $N$.
+
+We show that these factorizations remain separated when $\eta>0$ is small. In any size-$k$ factorization of any matrix of ordinary rank $N$, the sum $S_A=\sum_i\widetilde A_i$ is positive definite: otherwise every row factor would be supported on a proper subspace, contradicting rank $N$. Apply the canonical normalization
+\[
+ A_i'=S_A^{-1/2}\widetilde A_iS_A^{-1/2},\qquad
+ B_j'=S_A^{1/2}\widetilde B_jS_A^{1/2}.
+\]
+Then $\sum_i A_i'=I_k$, $0\preceq A_i'\preceq I_k$, and $\tr B_j'=\sum_i M_{ij}$. Thus all normalized factorizations of matrices $M(\eta)$ with $\eta$ in a fixed sufficiently small closed interval form a bounded closed set and are compact. Every limit as $\eta\to0$ is a normalized factorization of $M_0$.
+
+At each such limiting factorization, $Q'=\sum_{j\in\mathcal D}B_j'$ has exactly three zero eigenvalues, and the six leading $A_i'$ form a basis on its kernel. These facts hold uniformly in a neighborhood of the compact normalized fiber of $M_0$: the fourth eigenvalue is bounded away from zero, and the Gram determinant of the six restricted matrices is bounded away from zero. More explicitly, use the spectral subspace $U'$ belonging to the three smallest eigenvalues of $Q'$ whenever the third and fourth eigenvalues are separated, and restrict each leading $A_i'$ to $U'$. The eigenvalue separation and the nonzero Gram determinant are open conditions, valid on the entire compact fiber at $\eta=0$. A compactness contradiction shows that they hold for \emph{every} normalized factorization of $M(\eta)$ once $0\leq\eta<\eta_0$ for some $\eta_0>0$.
+
+The canonical orientation of these six restrictions in $\mathbb S(U')$ is consequently continuous. Normalized representatives of any congruence orbit differ by an orthogonal transformation: if $\widetilde A_i$ is transformed by $T^{\mathsf T}\widetilde A_iT$, the two normalized tuples are related by the orthogonal matrix $S_A^{1/2}T(T^{\mathsf T}S_AT)^{-1/2}$. The spectral subspace, the restrictions, and their canonical orientation respect orthogonal changes of coordinates. The sign therefore defines a continuous congruence-invariant function on the entire factorization space of $M(\eta)$, not just on the displayed examples. On the two explicit continuous families its signs remain opposite to one another for small $\eta$, as at $\eta=0$. This proves disconnectedness. Choose any rational $\eta$ with $0<\eta<\eta_0$ to obtain a strictly positive rational example.
+\end{proof}
+
+The positive perturbation argument is an existence result: no numerical value of $\eta_0$ is asserted. The explicit $6\times6$ matrix~\eqref{eq:M}, and the unperturbed integer block constructions in every size, require no such perturbation bound. Neither result classifies the total number of connected components. The field and equivalence group are exactly the real symmetric congruence quotient of PF-02~\cite{catalog}; changing either changes the question.
+
+
+\section{Verification and review}
+The accompanying \texttt{verification/verify\_pf02.py} uses exact integer and rational arithmetic to verify both factorizations, positive definiteness, the ordinary rank, the determinant $8192$, and the opposite factor orientation determinants. It also checks the integer block construction in sizes four through seven, including full coordinate rank, block ranks, zero cross-block entries, and preservation of all Gram entries under the reflection. The proof of the continuous quotient invariant is independent of these computations. This is a complete counterexample proof draft, not a claim of external peer review or repository acceptance.
+
+\begin{thebibliography}{9}
+\bibitem{fgprt}
+H. Fawzi, J. Gouveia, P. A. Parrilo, R. Z. Robinson, and R. R. Thomas,
+\emph{Positive semidefinite rank}, Mathematical Programming \textbf{153} (2015), 133--177; arXiv:1407.4095, Section 7 and Problem 9.4.
+\url{https://arxiv.org/html/1407.4095}.
+\bibitem{catalog}
+A. Townsend, \emph{Open Problems in Numerical Linear Algebra}, problem PF-02,
+canonical statement accessed 11 September 2026.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/nonnegative-and-positive-factorizations/PF-02}.
+\end{thebibliography}
+\end{document}

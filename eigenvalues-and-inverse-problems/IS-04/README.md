@@ -7,7 +7,16 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Status:** Partially resolved  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-11  
+
+<!-- colbrook-round3 -->
+## Independently reviewed partial result - 2026-09-11
+
+Theorem 1 constructs explicit real sign matrices of order $p^2$ for every odd prime $p\geq13$, with condition number at most $(p+2+3\sqrt p)/(p-2-3\sqrt p)$. For primes $p\geq361$ this is at most $210/151<\sqrt2$. This answers the cited paper\'s separate Problem 13, but does not prove the repository\'s bound in every dimension.
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [Complete manuscript](../../references/colbrook-round3-2026-09-11/manuscripts/IS-04.pdf), [independent proof review](../../references/colbrook-round3-2026-09-11/verification/reviews/IS-04-review.md), and [submission record](../../references/colbrook-round3-2026-09-11/README.md). The supplied manuscripts and code disclose AI generation. Agent review is not external human peer review or formal certification; no novelty or priority claim is made.
+
+<!-- /colbrook-round3 -->
 
 **Rating rationale:** Challenging reflects a sharp universal constant whose remaining obstruction is a large finite set of dimensions; community impact is the construction of well-conditioned sign matrices.
 

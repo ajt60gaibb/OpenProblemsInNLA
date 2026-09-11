@@ -1,0 +1,235 @@
+% Reviewed source SHA256 (UTF-8/LF): dafb9c110fefe4e0803649714c1b323f62bfae1670926ec7ab65153ad20c459e
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,microtype}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\Sym}{\mathbb S^2}
+\newcommand{\PSD}{\mathbb S^2_+}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\rank}{\operatorname{rank}}
+\title{Linear rigidity and uniqueness of size-two positive semidefinite factorizations with zeros}
+\author{Matthew J. Colbrook\\\small Department of Applied Mathematics and Theoretical Physics\\\small University of Cambridge, Cambridge, United Kingdom\\\small\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}
+\date{11 September 2026}
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\hypersetup{pdfauthor={Matthew J. Colbrook}}
+\begin{document}
+\maketitle
+
+\noindent\textbf{Verified resolution of PF-05.} Theorem 1, with Theorem 8 for the zero-entry construction. The complete canonical target is resolved.
+The dated \href{https://github.com/MColbrook/OpenProblemsInNLA/blob/codex/colbrook-factorization-resolutions/references/colbrook-factorization-2026-09-11/verification/reviews/PF-05-review.md}{independent agent review} records the subsequent checks and supersedes original draft remarks about pending review. This is not external human peer review or formal certification.
+\par\medskip
+% BEGIN REVIEWED BODY
+
+\begin{abstract}
+We prove the zero-entry extension of the equivalence between linear (2-infinitesimal) rigidity and uniqueness up to congruence for real size-two positive semidefinite factorizations of matrices of ordinary rank three. The proof does not assume distinct factors, a generic zero pattern, or nonzero rows and columns. The main construction converts any inequivalent factorization, after normalizing one nonzero orthogonal pair, into an explicit nonscalar feasible linear direction. An integration lemma establishes the reverse implication for all rank-three, size-two factorizations. Together with the previously established positive-entry case, this settles the exact assertion in catalog problem PF-05.
+\end{abstract}
+
+\section{Statement and scope}
+All vector spaces and factors are real. The adjoint of an operator on $\Sym$ is taken with respect to $\langle X,Y\rangle=\tr(XY)$. Let
+\[
+M_{ij}=\tr(A_iB_j),\qquad A_i,B_j\in\PSD,
+\qquad \rank M=3.
+\]
+Since $\dim\Sym=3$, both families of factors span $\Sym$. In particular the positive semidefinite rank of $M$ is two.
+
+A \emph{feasible linear direction} is a tuple $(E_i,F_j)$ satisfying
+\[
+\tr(E_iB_j)+\tr(A_iF_j)=0
+\]
+and, for some $h>0$, $A_i+tE_i\succeq0$ and $B_j+tF_j\succeq0$ for every $0\leq t<h$. This is the exact convention in PF-05~\cite{catalog}. It imposes first-order trace preservation and actual positive semidefiniteness of the straight factor segments, not merely tangent-cone membership.
+
+\begin{theorem}\label{thm:main}
+For every such factorization, the following statements are equivalent.
+\begin{enumerate}
+\item Every feasible linear direction is $E_i=dA_i$, $F_j=-dB_j$ for a common real scalar $d$.
+\item Every other size-two positive semidefinite factorization of $M$ is obtained by
+\[
+ A_i\mapsto S^{\mathsf T}A_iS,
+ \qquad B_j\mapsto S^{-1}B_jS^{-\mathsf T}
+ \qquad(S\in\GL(2,\mathbb R)).
+\]
+\end{enumerate}
+\end{theorem}
+Theorem 5.2 of Dawson--Ho\c{s}ten--Kubjas--Mets\"alampi~\cite{dhkm} establishes this equivalence when all entries are positive. We prove the zero-entry case below and give an independent proof of the implication from uniqueness to linear rigidity that does not require positivity. No claim about higher factor sizes is made.
+
+\section{Full-rank linear algebra and integration}
+\begin{lemma}\label{lem:operator}
+Every tuple satisfying the first-order trace equations has a unique representation
+\[
+ E_i=T(A_i),\qquad F_j=-T^*(B_j)
+\]
+for a linear operator $T:\Sym\to\Sym$.
+Every other size-two factorization has the form
+\[
+ \widetilde A_i=L(A_i),\qquad
+ \widetilde B_j=(L^*)^{-1}(B_j)
+\]
+for an invertible linear operator $L:\Sym\to\Sym$.
+\end{lemma}
+\begin{proof}
+If $\sum_i c_i A_i=0$, the first-order equations imply
+$\tr((\sum_i c_iE_i)B_j)=0$ for every $j$. The $B_j$ span $\Sym$, so $\sum_i c_iE_i=0$. Thus $T(A_i)=E_i$ is well defined and unique. The equations and spanning of the $A_i$ then give $F_j=-T^*(B_j)$.
+For another factorization, the relations among the rows of $M$ are exactly those among the $A_i$, and also exactly those among the $\widetilde A_i$, because both dual families span. The assignment $A_i\mapsto\widetilde A_i$ therefore defines an invertible $L$. Equality of the trace pairings gives the displayed formula for the dual factors.
+\end{proof}
+
+\begin{lemma}[Integration of a feasible linear direction]\label{lem:integrate}
+If $(T(A_i),-T^*(B_j))$ is feasible, then for all sufficiently small $t\geq0$,
+\[
+ A_i(t)=(I+tT)(A_i),\qquad
+ B_j(t)=(I+tT^*)^{-1}(B_j)
+\]
+is an exact positive semidefinite factorization of $M$.
+\end{lemma}
+\begin{proof}
+The primal factors are positive semidefinite by hypothesis, and $I+tT$ is invertible for sufficiently small $t$. Trace preservation is exact by the adjoint identity. It remains to check the dual factors.
+
+Fix $j$ and write $B=B_j$, $F=-T^*(B)$. If $B=0$, the claim is immediate. If $B\succ0$, it follows by continuity. Otherwise an orthogonal basis gives
+\[
+ B=\begin{pmatrix}\lambda&0\\0&0\end{pmatrix},\qquad
+ F=\begin{pmatrix}u&v\\v&w\end{pmatrix},\quad \lambda>0.
+\]
+Feasibility of $B+tF$ implies $w\geq0$. If $w>0$, the expansion
+\[
+ (I+tT^*)^{-1}(B)=B+tF+O(t^2)
+\]
+has determinant $\lambda wt+O(t^2)>0$ and positive trace for small positive $t$, hence is positive definite. If $w=0$, the determinant of the feasible straight segment is $-t^2v^2$, forcing $v=0$. Thus $F=(u/\lambda)B$ and $T^*(B)=-(u/\lambda)B$. Consequently
+\[
+ (I+tT^*)^{-1}(B)=(1-tu/\lambda)^{-1}B\succeq0
+\]
+for sufficiently small $t$. A common interval works for the finite family of factors.
+\end{proof}
+
+\begin{lemma}\label{lem:line}
+If every $I+tT$, for $t$ in some interval $[0,h)$, is a congruence operator on $\Sym$, then $T=dI$ for a scalar $d$.
+\end{lemma}
+\begin{proof}
+For every rank-one $X\succeq0$, all $X+tT(X)$ are rank-one positive semidefinite. Fix $t_0\in(0,h)$. At $t_0/2$ this matrix is the average of $X$ and $X+t_0T(X)$. Two nonproportional nonzero rank-one positive semidefinite matrices have rank-two sum. Hence $T(X)$ is proportional to $X$.
+
+Let $P=e_1e_1^{\mathsf T}$, $Q=e_2e_2^{\mathsf T}$, and $R=e_1e_2^{\mathsf T}+e_2e_1^{\mathsf T}$. Write $T(P)=aP$, $T(Q)=bQ$. Applying the preceding observation to the rank-one matrices $P+Q+R$ and $P+Q-R$, and comparing their coefficients in the basis $(P,Q,R)$, gives $a=b$ and $T(R)=aR$. Thus $T=aI$.
+\end{proof}
+
+\begin{corollary}\label{cor:reverse}
+Statement 2 of Theorem~\ref{thm:main} implies statement 1, whether or not $M$ has zeros.
+\end{corollary}
+\begin{proof}
+Represent a feasible direction using Lemma~\ref{lem:operator} and integrate it using Lemma~\ref{lem:integrate}. Under uniqueness, each resulting tuple is congruent to the original one. Since the $A_i$ span $\Sym$, the operator $I+tT$ itself is a congruence operator. Lemma~\ref{lem:line} implies that $T$ is scalar.
+\end{proof}
+
+\section{A zero-pair normal form}
+\begin{lemma}\label{lem:zero}
+Zero rows and zero columns can be removed without changing either property in Theorem~\ref{thm:main}. If a remaining entry is zero, its two factors are nonzero orthogonal rank-one matrices. A congruence can normalize them to
+\[
+ A_{i_0}=P=\begin{pmatrix}1&0\\0&0\end{pmatrix},\qquad
+ B_{j_0}=Q=\begin{pmatrix}0&0\\0&1\end{pmatrix}.
+\]
+\end{lemma}
+\begin{proof}
+A zero row forces $A_i=0$, because its trace against every spanning $B_j$ vanishes. The same holds in every alternative factorization. The first-order equations also force $E_i=0$. The corresponding statements hold for zero columns. Removal retains ordinary rank three, and neither equivalence nor feasible directions changes.
+
+For nonzero positive semidefinite $A,B$ with $\tr(AB)=0$, the ranges are orthogonal: $A^{1/2}BA^{1/2}$ is positive semidefinite with zero trace, hence zero. In dimension two both factors consequently have rank one. An orthogonal basis followed by diagonal scaling under the primal/dual congruence normalizes them as asserted.
+\end{proof}
+
+\begin{lemma}\label{lem:normal}
+Suppose the normalized pair $(P,Q)$ is present. Any inequivalent alternative factorization can, after its own congruence, be represented by an invertible operator
+\begin{equation}\label{eq:L}
+ L\begin{pmatrix}a&b\\b&c\end{pmatrix}
+ =\begin{pmatrix}a+\alpha b+\beta c&\gamma b\\\gamma b&c\end{pmatrix},
+ \qquad \gamma>0,
+\end{equation}
+with $(\alpha,\beta,\gamma)\ne(0,0,1)$.
+Its dual operator is
+\begin{equation}\label{eq:Ldual}
+ (L^*)^{-1}\begin{pmatrix}d&e\\e&f\end{pmatrix}
+ =\begin{pmatrix}d&(e-\alpha d/2)/\gamma\\
+ (e-\alpha d/2)/\gamma&f-\beta d\end{pmatrix}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Normalize the corresponding nonzero orthogonal pair of the alternative factorization to $(P,Q)$ as well. Lemma~\ref{lem:operator} gives $L(P)=P$ and $L^*(Q)=Q$. Thus in coordinates $(a,b,c)$ the operator has form
+\[
+ (a,b,c)\mapsto(a+\alpha_0b+\beta_0c,\ \gamma b+\delta c,\ c),
+ \qquad \gamma\ne0.
+\]
+Apply the congruence with $S=\left(\begin{smallmatrix}1&0\\-\delta&1\end{smallmatrix}\right)$ to its output. This fixes both distinguished factors under the primal/dual action and replaces the parameters by
+\[
+ \alpha=\alpha_0-2\delta\gamma,\qquad
+ \beta=\beta_0-\delta^2,\qquad \delta=0.
+\]
+A congruence by $\operatorname{diag}(1,-1)$, if needed, makes $\gamma>0$. If the remaining triple were $(0,0,1)$, the normalized factors would coincide with the original factors, contradicting inequivalence. Direct evaluation of the trace pairing proves~\eqref{eq:Ldual}.
+\end{proof}
+
+\section{An explicit direction from an inequivalent factorization}
+\begin{theorem}\label{thm:construction}
+If a factorization has a nonzero orthogonal pair and has an inequivalent size-two factorization, it admits a nonscalar feasible linear direction.
+\end{theorem}
+\begin{proof}
+Use Lemma~\ref{lem:normal} and set
+\[
+ s=\gamma^2>0,\qquad \sigma=s-1,
+ \qquad
+ T\begin{pmatrix}a&b\\b&c\end{pmatrix}
+ =(-\sigma a+\alpha b+\beta c)P.
+\]
+Then
+\begin{equation}\label{eq:dual-direction}
+ -T^*\begin{pmatrix}d&e\\e&f\end{pmatrix}
+ =d\begin{pmatrix}\sigma&-\alpha/2\\-\alpha/2&-\beta\end{pmatrix}.
+\end{equation}
+The operator $T$ is nonzero, because $(\sigma,\alpha,\beta)\ne(0,0,0)$. Its image has dimension at most one, so it cannot be a scalar operator on the three-dimensional space $\Sym$. The first-order trace equations hold automatically. We verify straight-line positive semidefiniteness for every factor.
+
+For a positive definite primal factor, sufficiently small perturbations are harmless; a zero factor stays zero. If a nonzero rank-one primal factor $A=\left(\begin{smallmatrix}a&b\\b&c\end{smallmatrix}\right)$ has $c=0$, it is $aP$ and $T(A)=-\sigma A$, so its line remains positive semidefinite near zero. If $c>0$, use $ac=b^2$ and $L(A)\succeq0$ to obtain
+\[
+ 0\leq\det L(A)
+ =c(-\sigma a+\alpha b+\beta c).
+\]
+The coefficient of $P$ in $T(A)$ is therefore nonnegative. Thus $A+tT(A)\succeq0$ for all $t\geq0$ in this case.
+
+Again positive definite and zero dual factors cause no difficulty. A rank-one dual factor with $d=0$ is a multiple of $Q$, and~\eqref{eq:dual-direction} vanishes. Every remaining rank-one dual factor is
+\[
+ B=d\begin{pmatrix}1&u\\u&u^2\end{pmatrix},\qquad d>0.
+\]
+By~\eqref{eq:Ldual} and positive semidefiniteness of the alternative dual factor,
+\[
+ g:=s(u^2-\beta)-(u-\alpha/2)^2\geq0.
+\]
+Define $q=\sigma u^2+\alpha u-\beta$. The crucial identity is
+\begin{equation}\label{eq:square}
+ s q=g+(\sigma u+\alpha/2)^2.
+\end{equation}
+It gives $q\geq0$. Writing $F=-T^*(B)$, direct expansion gives
+\[
+ \det(B+tF)=d^2\left[tq+t^2\left(-\sigma\beta-\frac{\alpha^2}{4}\right)\right].
+\]
+If $q>0$, this determinant and the trace are positive for sufficiently small positive $t$, so the line is positive definite. If $q=0$, identity~\eqref{eq:square} forces $\alpha=-2\sigma u$; the equation $q=0$ then gives $\beta=-\sigma u^2$. Substitution in~\eqref{eq:dual-direction} yields $F=\sigma B$, so the line is positive semidefinite near zero in this case as well. There are finitely many factors; choose a common positive interval. This proves feasibility of the nonscalar direction.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+The implication 2$\Rightarrow$1 is Corollary~\ref{cor:reverse}. Remove zero rows and columns using Lemma~\ref{lem:zero}. If the reduced matrix is positive, 1$\Rightarrow$2 is the established positive-entry theorem~\cite[Theorem 5.2]{dhkm}. Otherwise it has a nonzero orthogonal pair, and Theorem~\ref{thm:construction} proves the contrapositive of 1$\Rightarrow$2. This covers all cases.
+\end{proof}
+
+\section{Verification and review scope}
+The accompanying script \texttt{verification/verify\_pf05.py} checks the adjoint formulas, the primal determinant, identity~\eqref{eq:square}, the dual line determinant, and the flat-direction eigenvector identity using exact symbolic arithmetic. It also checks a rational rank-three example with a zero entry and an inequivalent canonical factorization. These checks verify algebraic steps; the proof above, not numerical tests, establishes the theorem.
+
+This is a complete proof draft for independent mathematical review. It has not been externally refereed. The only prior theorem used to cover a separate case is the positive-entry equivalence in~\cite{dhkm}; the new zero-entry argument is self-contained. No assertion is made that this manuscript has already been accepted by the repository or by the authors of the underlying conjecture.
+
+\begin{thebibliography}{9}
+\bibitem{dhkm}
+K. Dawson, S. Ho\c{s}ten, K. Kubjas, and L. Mets\"alampi,
+\emph{Uniqueness of size-2 positive semidefinite matrix factorizations},
+arXiv:2410.18891v2, 31 August 2026, especially Definition 1, Theorem 2.2, Theorem 5.2, and the conjecture following it.
+\url{https://arxiv.org/html/2410.18891v2}.
+\bibitem{catalog}
+A. Townsend, \emph{Open Problems in Numerical Linear Algebra}, problem PF-05,
+canonical statement accessed 11 September 2026.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/nonnegative-and-positive-factorizations/PF-05}.
+\end{thebibliography}
+\end{document}
+
+% END REVIEWED BODY

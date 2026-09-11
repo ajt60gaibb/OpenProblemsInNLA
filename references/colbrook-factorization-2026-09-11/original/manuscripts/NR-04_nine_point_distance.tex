@@ -1,0 +1,121 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,microtype}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\conv}{\operatorname{conv}}
+\newcommand{\aff}{\operatorname{aff}}
+\newcommand{\R}{\mathbb R}
+\title{The nonnegative rank of the nine-point linear distance matrix}
+\author{}\date{}
+\begin{document}\maketitle
+\begin{abstract}
+We prove that the matrix $D_9=((i-j)^2)_{i,j=1}^9$ has nonnegative rank seven. The lower bound combines the polygon-section interpretation of restricted nonnegative rank with Sylvester's rank inequality applied to both factors. In a factorization with at most six terms, each factor would have ordinary rank at least five; their product would then have rank at least four, a contradiction. An explicit seven-term integer factorization supplies the matching upper bound. More generally, every rank-three square matrix of order at least nine with zero diagonal and strictly positive off-diagonal entries has nonnegative rank at least seven.
+\end{abstract}
+
+\section{The result}
+For an entrywise nonnegative matrix $M$, its nonnegative rank is the least $k$ such that $M=WH$ with $W,H$ entrywise nonnegative and with inner dimension $k$.
+\begin{theorem}\label{thm:main}
+Let $D_9\in\R_+^{9\times9}$ have entries $(D_9)_{ij}=(i-j)^2$. Then
+\[
+ \boxed{\rank_+(D_9)=7.}
+\]
+\end{theorem}
+This determines the value requested in catalog problem NR-04~\cite{catalog}. The previously recorded gap is six versus seven~\cite{gg,bvg}. The new lower bound uses both sides of a factorization, rather than maximizing a one-sided section bound over all possible factor ranks.
+
+\section{A polygon contact lemma}
+We include a self-contained form of the rank-three contact argument underlying the restricted nonnegative rank result of Gillis and Glineur~\cite[Theorem 8]{gg}.
+\begin{lemma}\label{lem:contact}
+Let $P$ be a bounded two-dimensional polygon. Suppose $p_1,\ldots,p_N$ lie in the relative interiors of $N$ distinct edges of $P$. Every polygon $R$ satisfying
+\[
+ \conv\{p_1,\ldots,p_N\}\subseteq R\subseteq P
+\]
+and having dimension two has at least $N$ vertices.
+\end{lemma}
+\begin{proof}
+Let $u_i$ be the outward unit normal to the edge of $P$ containing $p_i$. Because $p_i\in R\subseteq P$, the corresponding supporting line supports $R$ as well.
+
+The outward normal cones of the vertices of $R$ partition the circle of normal directions into consecutive closed arcs. Make these arcs half-open, including each initial endpoint and excluding each terminal endpoint, so that each normal direction belongs to exactly one arc. Assign $u_i$ to that arc's vertex.
+
+No two $u_i,u_j$ can be assigned to the same vertex $v$. If they were, at least one of them, say $u_i$, would be in the interior of its arc, because a half-open arc contains only one of its two endpoints. In that direction $v$ is the unique maximizer on $R$, hence $p_i=v$. The other normal $u_j$ also supports $R$ at $v$, and its supporting value agrees with that for $P$, since $p_j\in R$. Thus $p_i=v$ lies on two distinct edges of $P$, contradicting its relative-interior property. The assignment is injective, proving the assertion.
+\end{proof}
+
+\section{A low-rank factor must produce a small section}
+\begin{lemma}\label{lem:factor}
+Suppose $M\in\R_+^{N\times N}$ has rank three, zero diagonal, and strictly positive off-diagonal entries. If $M=WH$ is a nonnegative factorization with inner dimension at most six and $\rank W\leq4$, then $N\leq8$.
+\end{lemma}
+\begin{proof}
+Discard zero columns of $W$ and the corresponding rows of $H$. Normalize every remaining column of $W$ to sum to one, compensating in $H$. Next normalize each column of $M$ to sum to one, compensating in $H$ once more. Call the resulting factorization $X=UV$. Every column of $U$, $V$, and $X$ now sums to one; all diagonal rescalings preserve ranks. In particular,
+\[
+ \rank X=3,\qquad \rank U\leq4,
+ \qquad X_{jj}=0,\quad X_{ij}>0\ (i\ne j).
+\]
+The columns of $X$ belong to $T=\conv\{U_{:1},\ldots,U_{:k}\}$, with $k\leq6$. Since the columns sum to one,
+\[
+ \dim T=\rank U-1\leq3.
+\]
+Let $L=\aff\{X_{:1},\ldots,X_{:N}\}$, which has dimension two. It is contained in $\aff T$. Define
+\[
+ P=L\cap\R_+^N,\qquad R=T\cap L.
+\]
+Both are bounded polygons: they lie in the standard simplex, and both contain the two-dimensional convex hull of the columns of $X$. Each $X_{:j}$ lies in the relative interior of a distinct edge of $P$. Indeed, exactly its $j$th coordinate is zero, and all the other defining inequalities are strict there. The $j$th coordinate is nonconstant on $L$, since it vanishes at $X_{:j}$ and is positive at the other columns. Lemma~\ref{lem:contact} therefore gives
+\begin{equation}\label{eq:lowersection}
+ N\leq\#\operatorname{vertices}(R).
+\end{equation}
+
+If $\dim T=2$, then $L=\aff T$ and $R=T$ has at most six vertices. If $\dim T=3$, a three-dimensional polytope with $v\leq6$ vertices has at most $2v-4\leq8$ facets by Euler's formula and the planar graph bound. Restricting its facet inequalities to $L$ describes $R$ by at most eight halfplanes. Hence $R$ has at most eight edges, and therefore at most eight vertices. Combining with~\eqref{eq:lowersection} proves $N\leq8$.
+\end{proof}
+
+\begin{theorem}\label{thm:general}
+If $M\in\R_+^{N\times N}$ has rank three, zero diagonal, strictly positive off-diagonal entries, and $N\geq9$, then $\rank_+(M)\geq7$.
+\end{theorem}
+\begin{proof}
+Suppose $M=WH$ has inner dimension $k\leq6$. Lemma~\ref{lem:factor} implies $\rank W\geq5$. Apply the same lemma to the transposed factorization $M^{\mathsf T}=H^{\mathsf T}W^{\mathsf T}$ to obtain $\rank H\geq5$. Sylvester's rank inequality now yields
+\[
+ 3=\rank(WH)\geq\rank W+\rank H-k\geq5+5-6=4,
+\]
+a contradiction. Symmetry is not needed: the zero-diagonal, positive-off-diagonal hypotheses hold for the transpose as well.
+\end{proof}
+An equivalent way to locate the contradiction is that Sylvester's inequality forces at least one factor in a six-term rank-three factorization to have rank at most four. Its three-dimensional convex hull cannot have a polygon section with the nine required contacts.
+
+\section{An explicit upper certificate}
+The matrix $D_9$ has ordinary rank three, since
+\[
+ (i-j)^2=i^2+j^2-2ij
+\]
+gives a rank-at-most-three decomposition, while its leading $3\times3$ minor has determinant eight. Thus Theorem~\ref{thm:general} supplies the lower bound seven.
+
+For the upper bound put $t_i=i-5$ and $a_i=|t_i|$ for $1\leq i\leq9$, and write $z_+=\max\{z,0\}$. Define $W\in\mathbb Z_+^{9\times7}$ and $H\in\mathbb Z_+^{7\times9}$ by
+\begin{align*}
+ W_{i,r+1}&=\begin{cases}1,&a_i=r,\\0,&a_i\ne r,\end{cases}
+ &H_{r+1,j}&=(r-a_j)^2 &&(0\leq r\leq4),\\
+ W_{i,6}&=2(t_i)_+,&H_{6,j}&=2(-t_j)_+,\\
+ W_{i,7}&=2(-t_i)_+,&H_{7,j}&=2(t_j)_+.
+\end{align*}
+These matrices are entrywise nonnegative integers, and
+\begin{align*}
+ (WH)_{ij}
+ &=(|t_i|-|t_j|)^2
+   +4(t_i)_+(-t_j)_++4(-t_i)_+(t_j)_+\\
+ &=(t_i-t_j)^2=(i-j)^2.
+\end{align*}
+This proves the upper bound and completes Theorem~\ref{thm:main}. The reflection identity is a standard source of the known upper bounds~\cite{gg}; it is included here to make the certificate directly checkable.
+
+\section{Scope and verification}
+The lower bound applies to every nine-point linear Euclidean distance matrix with distinct real coordinates, and more generally to the nonsymmetric matrices in Theorem~\ref{thm:general}. It does not assert a general exact formula for all larger distance matrices.
+
+The accompanying \texttt{verification/verify\_nr04.py} checks the integer factorization, its dimensions and signs, the ordinary rank and minor determinant, and the rank inequality arithmetic. It also records all candidate pairs of factor ranks allowed by Sylvester's inequality. The geometric lower-bound proof is not replaced by this finite verification. This is a complete proof draft pending independent mathematical review, not a claim of repository acceptance.
+
+\begin{thebibliography}{9}
+\bibitem{gg} N. Gillis and F. Glineur, \emph{On the geometric interpretation of the nonnegative rank}, Linear Algebra and its Applications \textbf{437} (2012), 2685--2712; arXiv:1009.0880, Sections 3.2--3.3 and Theorem 8.
+\url{https://arxiv.org/html/1009.0880}.
+\bibitem{bvg} T. Baeckelant, A. Vandaele, and N. Gillis, \emph{Computing lower bounds on the nonnegative rank via non-convex optimization solvers}, arXiv:2605.14058v2, 6 July 2026, Appendix A.1, Table 6.
+\url{https://arxiv.org/html/2605.14058v2}.
+\bibitem{catalog} A. Townsend, \emph{Open Problems in Numerical Linear Algebra}, problem NR-04, canonical statement accessed 11 September 2026.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/nonnegative-and-positive-factorizations/NR-04}.
+\end{thebibliography}
+\end{document}

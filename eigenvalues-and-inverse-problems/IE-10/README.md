@@ -6,8 +6,19 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Solved  
+**Last checked:** 2026-09-11  
+
+<!-- colbrook-round3 -->
+## Independently reviewed resolution - 2026-09-11
+
+Theorem 1 proves $\mathbb E\kappa_V(H_k)\leq17n^2k$ for the exact complex-sphere cyclic-shift model. Markov\'s inequality gives the uniform $0.99$ target with $C=1700$ and $c=3$. Sections 5 and 6-7 give two probability proofs; real starts and arbitrary nonnormal inputs are outside the result.
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [Complete manuscript](../../references/colbrook-round3-2026-09-11/manuscripts/IE-10.pdf), [independent proof review](../../references/colbrook-round3-2026-09-11/verification/reviews/IE-10-review.md), and [submission record](../../references/colbrook-round3-2026-09-11/README.md). The supplied manuscripts and code disclose AI generation. Agent review is not external human peer review or formal certification; no novelty or priority claim is made.
+
+The difficulty, importance and rating rationale below are historical assessments of the original open target.
+
+<!-- /colbrook-round3 -->
 
 **Rating rationale:** Challenging reflects a least-singular-value bound for a dependent random Krylov matrix; specialist impact concerns a structured compression mechanism in eigenvalue algorithms.
 
