@@ -8,8 +8,18 @@
 **Importance:** interesting to specialist  
 **Rating rationale:** Challenging because nonsymmetric residuals lose the trace identities behind Cholesky bounds; specialist impact is a sharper guarantee for one randomized LU rule.  
 **Topic:** randomized LU; low-rank approximation  
-**Last checked:** 2026-09-10  
-**Status:** Open  
+**Last checked:** 2026-09-11  
+**Status:** Solved  
+
+<!-- colbrook-random-pivoting -->
+## Resolution — 2026-09-11
+
+**Negative resolution by Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Section 2 gives the exact counterexample $A=\left(\begin{smallmatrix}2&1\\1&2\end{smallmatrix}\right)$: one pivot has expected squared Frobenius error $18/5$, while the best rank-one squared error is $1$. Thus the displayed $2^k$ bound is false already at $k=1$. Theorem 1 additionally proves that the known $4^r$ factor is sharp as a supremum at every rank, even on real entrywise-positive positive-definite inputs.
+
+[Complete manuscript](../../references/colbrook-random-pivoting-2026-09-11/manuscripts/sharp_random_pivoting.pdf) · [TeX](../../references/colbrook-random-pivoting-2026-09-11/manuscripts/sharp_random_pivoting.tex) · [Independent complete-source PASS review](../../references/colbrook-random-pivoting-2026-09-11/verification/reviews/RA-03-review.md) · [Authorship, exact checks and provenance](../../references/colbrook-random-pivoting-2026-09-11/README.md).
+
+Verification is independent agent review, not external human peer review or formal certification. AI assistance is disclosed; no priority claim is made. The original statement and audits remain below; ratings are historical.
+<!-- /colbrook-random-pivoting -->
 
 ## Problem statement
 

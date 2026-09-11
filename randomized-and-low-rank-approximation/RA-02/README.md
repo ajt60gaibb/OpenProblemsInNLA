@@ -8,8 +8,18 @@
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because removing exponential loss without oversampling requires sharper adaptive-pivot analysis; community impact is rank-efficient PSD approximation.  
 **Topic:** randomized factorization; approximation guarantees  
-**Last checked:** 2026-09-10  
-**Status:** Open  
+**Last checked:** 2026-09-11  
+**Status:** Solved  
+
+<!-- colbrook-random-pivoting -->
+## Resolution — 2026-09-11
+
+**Negative resolution by Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Theorem 1 and Corollary 3 disprove the existence of constants $C,p$ giving the displayed polynomial bound after exactly $r$ pivots. For every fixed $r\ge1$, real entrywise-positive positive-definite matrices of order $r+1$ approach the sharp expected trace-error ratio $2^r$ as a parameter tends to zero. Choose $r$ first and then the parameter; no limit uniform in $r$ is needed. The result does not address oversampling (RA-01).
+
+[Complete manuscript](../../references/colbrook-random-pivoting-2026-09-11/manuscripts/sharp_random_pivoting.pdf) · [TeX](../../references/colbrook-random-pivoting-2026-09-11/manuscripts/sharp_random_pivoting.tex) · [Independent complete-source PASS review](../../references/colbrook-random-pivoting-2026-09-11/verification/reviews/RA-02-review.md) · [Authorship, exact checks and provenance](../../references/colbrook-random-pivoting-2026-09-11/README.md).
+
+Verification is independent agent review, not external human peer review or formal certification. AI assistance is disclosed; no priority claim is made. The original statement and audits remain below; ratings are historical.
+<!-- /colbrook-random-pivoting -->
 
 ## Context and notation
 

@@ -1,0 +1,234 @@
+RA-10: constant-loss nuclear-error transfer without
+matrix ordering
+George Stepaniants
+Department of Computing and Mathematical Sciences, California Institute of Technology , Pasadena,
+California, USA
+11 September 2026
+Verification status: independent-agent PASS. This manuscript was developed with sub-
+stantial ChatGPT/Codex assistance. A separate Codex agent independently checked the
+complete mathematical argument and the exact canonical target. Detailed independent
+review. This is independent automated-agent review , not external human peer review or
+formal verification. No historical priority or optimality of the constant is claimed. The sub-
+mission record preserves the frozen reviewed draft and its hashes.
+1. Statement and notation
+For a real symmetric matrix 𝑀 , write 𝑀+ for its positive part and ‖𝑀 ‖∗ for its nuclear norm. If
+𝑃 is an orthogonal projection and 𝐵 = 𝑃 𝐵𝑃 is positive semidefinite, write 𝑓(𝐵)𝑃 for the matrix
+obtained by applying 𝑓 on range (𝑃 ) and setting its action on ker (𝑃 ) to zero. In particular ,
+𝑓(𝐵)𝑃 = 𝑓(𝐵) when 𝑓(0) = 0 . The selected projection 𝑃 is retained even when 𝐵 has rank
+smaller than rank (𝑃 ).
+Theorem 1. The exact statement of RA-10 holds with the universal constant 𝐶 = 11. More
+explicitly , let 𝑛 ≥ 2, 1 ≤ 𝑘 < 𝑛 , let 𝐴 and ̂𝐴 be real symmetric positive semidefinite matrices,
+and choose any ordered orthonormal eigenbasis of ̂𝐴. Let 𝑃 project onto its first 𝑘 vectors
+and let 𝐵 = ̂𝐴𝑘. For every continuous operator-monotone 𝑓 ∶ [0, ∞) → [0, ∞)and 𝜀 ≥ 0,
+‖𝐴 − 𝐵‖∗ ≤ (1 + 𝜀)‖𝐴 − 𝐴𝑘‖∗
+implies
+‖𝑓(𝐴) − 𝑓( ̂𝐴)𝑘‖∗ ≤ (1 + 11𝜀)‖𝑓(𝐴) − 𝑓(𝐴)𝑘‖∗.
+Both truncations of ̂𝐴 use the same selected eigenvectors. No matrix ordering, commutation,
+invertibility , spectral simplicity , or strict gap at 𝑘 is assumed.
+Put 𝑎1 ≥ ⋯ ≥ 𝑎 𝑛 ≥ 0 for the eigenvalues of 𝐴 and 𝜏 = ∑𝑖>𝑘 𝑎𝑖. The quantity
+𝑒(𝐵) = ‖𝐴 − 𝐵‖ ∗ − 𝜏
+is nonnegative by the best-rank- 𝑘 approximation property of the nuclear norm. We first
+prove the estimate for the ridge atoms 𝑓𝑠(𝑥) = 𝑥/(𝑠 + 𝑥) , 𝑠 > 0 . The proof only uses finite-
+dimensional matrix algebra, standard eigenvalue comparison, and the positive integral rep-
+resentation of operator-monotone functions.
+1
+
+2. A compression estimate for ridge functions
+Lemma 2. Let 𝐴 ⪰ 0 , let 𝑃 be an orthogonal projection of rank 𝑘, and put 𝐶 = 𝑃 𝐴𝑃. Let 𝐻
+be the restriction of 𝐶 to range (𝑃 ). For arbitrary 𝑠, 𝑐 > 0, set
+𝐷 = 𝐶 − 𝐴, 𝑑 = tr((𝑐𝐼𝑘 − 𝐻)+), 𝑔 = 1
+𝑠 + 𝑐 .
+Then
+tr((𝑓𝑠(𝐶) − 𝑓𝑠(𝐴))+) ≤ 2𝑔[tr(𝐷+) + 𝑑]. (1)
+This lemma does not require the eigenvalues of 𝐶 to match any eigenvalues of 𝐴.
+Proof. First suppose 𝐻 ≻ 0 . In the orthogonal decomposition range (𝑃 ) ⊕ker(𝑃 ), write
+𝐴 = [ 𝐻 𝐸
+𝐸𝑇 𝐹 ] , 𝐶 = [ 𝐻 0
+0 0 ] .
+Positivity of 𝐴 gives 𝐹 ⪰ 𝐸 𝑇 𝐻 −1𝐸. Put 𝑍 = 𝑓 𝑠(𝐶) − 𝑓𝑠(𝐴). Let 𝑣 = (𝑢, 𝑤) be a unit eigenvector
+of 𝑍 with positive eigenvalue 𝜆. Since 0 ⪯ 𝑓𝑠(𝐴) and 𝑓𝑠(𝐶) ≺ 𝐼, we have 0 < 𝜆 < 1 . Define
+𝜇 = 𝜆
+1 + 𝜆, 0 < 𝜇 < 1
+2.
+The resolvent identity 𝑍 = 𝑠[(𝑠𝐼 + 𝐴)−1 − (𝑠𝐼 + 𝐶)−1]and 𝑍𝑣 = 𝜆𝑣 give
+(𝑠𝐼 + 𝐴)−1𝑣 = (𝑠𝐼 + 𝐶)−1𝑣 + 𝜆
+𝑠 𝑣.
+Multiplying by 𝑠𝐼 + 𝐴 and using the two block rows yields
+𝐸𝑤 = −𝜇(𝑠𝐼 + 𝐻)𝑢, (2)
+𝐸𝑇 (𝑠𝐼 + 𝜇𝐻)(𝑠𝐼 + 𝐻)−1𝑢 + (𝐹 + 𝜇𝑠𝐼)𝑤 = 0. (3)
+Taking the inner product of (3) with 𝑤 and substituting (2) gives
+𝑤𝑇 𝐹 𝑤 = 𝜇𝑠(‖𝑢‖2 − ‖𝑤‖2) + 𝜇2𝑢𝑇 𝐻𝑢. (4)
+On the other hand, the Schur-complement inequality and (2) give
+𝑤𝑇 𝐹 𝑤 ≥ 𝜇 2𝑢𝑇 (𝑠𝐼 + 𝐻)𝐻 −1(𝑠𝐼 + 𝐻)𝑢
+= 𝜇 2𝑢𝑇 𝐻𝑢 + 2𝜇2𝑠‖𝑢‖2 + 𝜇2𝑠2𝑢𝑇 𝐻 −1𝑢.
+Comparing with (4), and dividing by 𝜇𝑠 > 0, proves
+‖𝑤‖2 ≤ (1 − 2𝜇)‖𝑢‖2 − 𝜇𝑠 𝑢𝑇 𝐻 −1𝑢.
+Because ‖𝑢‖2 + ‖𝑤‖2 = 1, it follows that
+‖𝑢‖2 ≥ 1
+2(1 − 𝜇). (5)
+A direct calculation from (2) and (4) gives
+2
+
+𝑣𝑇 𝐷𝑣 = 𝜇𝑠 + 𝜇(2 − 𝜇)𝑢𝑇 𝐻𝑢. (6)
+Let Δ = (𝑐𝐼 𝑘 − 𝐻)+, so 𝐻 ⪰ 𝑐𝐼 𝑘 − Δ. By (5)-(6),
+𝑣𝑇 𝐷𝑣 ≥ 𝜇𝑠 + 𝜇(2 − 𝜇)𝑐
+2(1 − 𝜇) − 𝜇(2 − 𝜇)𝑢𝑇 Δ𝑢
+≥ 𝜆(𝑠 + 𝑐)
+2 − 𝜇(2 − 𝜇)𝑢𝑇 Δ𝑢.
+(7)
+The second inequality follows because the difference between its two scalar terms is
+𝜇 [𝑠(1 − 2𝜇) + 𝑐(1 − 𝜇)]
+2(1 − 𝜇) ≥ 0.
+Take an orthonormal basis of the positive eigenspace of 𝑍 and sum (7). For its orthogonal
+projection 𝑄, the variational formula tr (𝐷+) = max0⪯𝑅⪯𝐼 tr(𝑅𝐷) gives tr (𝑄𝐷) ≤ tr(𝐷+). Also
+0 < 𝜇(2 − 𝜇) < 1 for each positive eigenvalue, and the 𝑃-components 𝑢 of these orthonormal
+vectors satisfy ∑ 𝑢𝑢𝑇 ⪯ 𝐼𝑘. Therefore
+𝑠 + 𝑐
+2 tr(𝑍+) ≤ tr(𝐷+) + tr(Δ).
+This is (1).
+If 𝐻 is singular , apply the proved case to 𝐴𝑟 = 𝐴 + 𝑟𝑃 and 𝐶𝑟 = 𝐶 + 𝑟𝑃, 𝑟 > 0. Their difference
+remains 𝐷, and 𝐴𝑟 ⪰ 0. For fixed 𝑠 > 0, all resolvents and positive-part traces are continuous
+as 𝑟 decreases to zero, and tr ((𝑐𝐼 − 𝐻 − 𝑟𝐼)+) tends to 𝑑. Taking that limit proves (1) without
+an invertibility assumption. □
+3. Matching the leading spectrum
+Assume 𝜏 > 0 , so 𝑐 = 𝑎 𝑘 > 0 , and continue to write 𝑔 = 1/(𝑠 + 𝑐) . Let 𝐵0 be any positive
+semidefinite matrix supported on a rank- 𝑘 projection 𝑃, whose eigenvalues on that subspace
+are 𝑎1, … , 𝑎𝑘. Its eigenvectors are arbitrary . Define
+𝑒0 = ‖𝐴 − 𝐵 0‖∗ − 𝜏 , 𝐶 = 𝑃 𝐴𝑃 , 𝐻 = 𝐶∣ range(𝑃 ),
+𝐿 = ∑
+𝑖≤𝑘
+𝑎𝑖 − tr 𝐻, 𝑅 = ‖𝐵 0 − 𝐶‖∗.
+The compression eigenvalues ℎ1 ≥ ⋯ ≥ ℎ 𝑘 satisfy 0 ≤ ℎ 𝑖 ≤ 𝑎 𝑖 by the min-max principle. Thus
+𝐿 ≥ 0. Pinching 𝐴 − 𝐵0 into the 𝑃 and 𝐼 − 𝑃 blocks cannot increase its nuclear norm, and the
+complementary 𝐴 block is positive semidefinite. Consequently
+𝑒0 ≥ 𝑅 + 𝐿. (8)
+Put 𝑒𝐶 = ‖𝐴 − 𝐶‖ ∗ − 𝜏 . The triangle inequality gives
+𝑒𝐶 ≤ 𝑒 0 + 𝑅. (9)
+The trace identity ‖𝑀 ‖∗ = 2 tr(𝑀+) − tr 𝑀 for symmetric 𝑀 , applied to 𝐶 − 𝐴, gives
+𝑒𝐶 = 𝐿 + 2 tr((𝐶 − 𝐴)+). (10)
+Moreover ,
+3
+
+𝑑 = tr((𝑐𝐼𝑘 − 𝐻)+) = ∑
+𝑖
+(𝑐 − ℎ𝑖)+ ≤ ∑
+𝑖
+(𝑎𝑖 − ℎ𝑖) = 𝐿. (11)
+Let 𝜏𝑠 = ∑𝑖>𝑘 𝑓𝑠(𝑎𝑖), and define
+𝐿𝑠 = ∑
+𝑖≤𝑘
+𝑓𝑠(𝑎𝑖) − tr 𝑓𝑠(𝐻).
+For 𝑎 ≥ 𝑐 and 𝑏 ≥ 0 , the exact scalar identity
+|𝑓𝑠(𝑎) − 𝑓𝑠(𝑏)| = 𝑠|𝑎 − 𝑏|
+(𝑠 + 𝑎)(𝑠 + 𝑏) ≤ 𝑔|𝑎 − 𝑏| (12)
+holds. Since ℎ𝑖 ≤ 𝑎 𝑖, it implies 0 ≤ 𝐿 𝑠 ≤ 𝑔𝐿 .
+By Lemma 2, (10)-(11), and the trace-positive-part identity ,
+‖𝑓𝑠(𝐴) − 𝑓𝑠(𝐶)‖∗ − 𝜏𝑠 = 𝐿 𝑠 + 2 tr((𝑓𝑠(𝐶) − 𝑓𝑠(𝐴))+)
+≤ 𝑔𝐿 + 4𝑔[tr((𝐶 − 𝐴)+) + 𝑑]
+≤ 𝑔(2𝑒𝐶 + 3𝐿).
+(13)
+On range(𝑃 ), 𝐵0 ⪰ 𝑐𝐼𝑘 and 𝐻 ⪰ 0 . The resolvent identity and the ideal property of the nuclear
+norm imply
+‖𝑓𝑠(𝐵0) − 𝑓𝑠(𝐶)‖∗ = ∥𝑠(𝑠𝐼 + 𝐵0)−1(𝐵0 − 𝐶)(𝑠𝐼 + 𝐶)−1∥∗
+≤ 𝑔𝑅.
+(14)
+Here the calculation is performed on range (𝑃 ); both matrix-function differences vanish on
+its orthogonal complement. The factors have operator norms at most 1/(𝑠 + 𝑐) and 1/𝑠, re-
+spectively . No commutation of 𝐵0 and 𝐶 is used.
+Combining (8)-(9) and (13)-(14),
+‖𝑓𝑠(𝐴) − 𝑓𝑠(𝐵0)‖∗ − 𝜏𝑠 ≤ 𝑔(2𝑒𝐶 + 3𝐿 + 𝑅)
+≤ 𝑔(2𝑒0 + 3𝑅 + 3𝐿)
+≤ 5𝑔𝑒 0.
+(15)
+4. Arbitrary selected approximants
+Return to 𝐵 = ̂𝐴𝑘 and its prescribed projection 𝑃. Let 𝑏1 ≥ ⋯ ≥ 𝑏 𝑘 ≥ 0 be its selected
+eigenvalues. In the same selected eigenvectors define 𝐵0 with eigenvalues 𝑎1, … , 𝑎𝑘, and put
+𝑟 = ∑
+𝑖≤𝑘
+|𝑎𝑖 − 𝑏𝑖| = ‖𝐵 0 − 𝐵‖∗.
+The eigenvalue perturbation inequality for Hermitian matrices in the nuclear norm gives
+𝑟 + 𝜏 ≤ ‖𝐴 − 𝐵‖ ∗, hence 𝑟 ≤ 𝑒(𝐵). (16)
+This is the standard inequality ∑𝑖 |𝜆𝑖(𝑋)−𝜆𝑖(𝑌 )| ≤ ‖𝑋−𝑌 ‖ ∗ for ordered Hermitian eigenvalues;
+the remaining 𝑛 − 𝑘 eigenvalues of 𝐵 are zero. For completeness, put 𝐽 = 𝑋 − 𝑌 , 𝐽− = (−𝐽 )+,
+and 𝑈 = 𝑋 + 𝐽 − = 𝑌 + 𝐽 +. Then 𝑈 ⪰ 𝑋, 𝑌 . The min-max principle gives 𝑢𝑖 ≥ max(𝑥𝑖, 𝑦𝑖) for
+their ordered eigenvalues, so
+4
+
+∑
+𝑖
+|𝑥𝑖 − 𝑦𝑖| ≤ 2 tr 𝑈 − tr 𝑋 − tr 𝑌
+= tr 𝐽+ + tr 𝐽− = ‖𝑋 − 𝑌 ‖ ∗.
+This proves the inequality , including all repeated-eigenvalue cases. Also,
+𝑒0 ≤ 𝑒(𝐵) + 𝑟. (17)
+Because 𝐵0 and 𝐵 use the same eigenvectors, (12) gives
+‖𝑓𝑠(𝐵0) − 𝑓𝑠(𝐵)‖∗ ≤ 𝑔𝑟. (18)
+Equations (15)-(18) prove the absolute excess bound
+‖𝑓𝑠(𝐴) − 𝑓𝑠(𝐵)‖∗ − 𝜏𝑠 ≤ 5𝑔 [𝑒(𝐵) + 𝑟] + 𝑔𝑟
+≤ 11𝑔 𝑒(𝐵). (19)
+Each tail eigenvalue is at most 𝑐, so
+𝜏𝑠 = ∑
+𝑖>𝑘
+𝑎𝑖
+𝑠 + 𝑎𝑖
+≥ 𝜏
+𝑠 + 𝑐 = 𝑔𝜏 . (20)
+Thus, whenever 𝑒(𝐵) ≤ 𝜀𝜏 ,
+‖𝑓𝑠(𝐴) − 𝑓𝑠(𝐵)‖∗ ≤ (1 + 11𝜀)𝜏𝑠. (21)
+In particular , (21) is uniform in 𝑠 > 0 and uses the actual selected eigenspaces.
+5. Positive integral combinations and boundary cases
+We use the standard positive integral representation of continuous nonnegative operator-
+monotone functions on [0, ∞):
+𝑓(𝑥) = 𝛼 + 𝛽𝑥 + ∫
+(0,∞)
+𝑥
+𝑠 + 𝑥 𝑑𝜈(𝑠), (22)
+where 𝛼 = 𝑓(0) ≥ 0 , 𝛽 ≥ 0 , 𝜈 is a positive measure and ∫(0,∞)(1 + 𝑠)−1 𝑑𝜈(𝑠) < ∞. One primary
+reference is P . Chansangiam, Integral Representations and Decompositions of Operator
+Monotone Functions on the Nonnegative Reals , arXiv:1304.7936v1, Proposition 1.1, p. 2. It
+represents 𝑓(𝑥) as the integral of 𝑥(1 + 𝑠)/(𝑥 + 𝑠) against a finite positive measure 𝑚 on the
+compactified half-line [0, ∞]. Its endpoint atoms give 𝛼 = 𝑚({0}) and 𝛽 = 𝑚({∞}) ; on (0, ∞),
+set 𝑑𝜈(𝑠) = (1 + 𝑠) 𝑑𝑚(𝑠), which gives (22) and its stated integrability . Continuity at zero gives
+the stated extension there. The original target requires monotonicity for all real symmetric
+sizes; realification of complex Hermitian matrices gives the equivalent hypothesis for the
+usual representation theorem.
+For fixed finite-dimensional 𝐴 and 𝐵, (22) may be applied spectrally . The resulting matrix
+integrals converge absolutely: each positive matrix integrand has nuclear norm bounded
+by the finite sum of its scalar spectral values, whose integrals are finite. By the triangle
+inequality for the integral,
+‖𝑓(𝐴) − 𝑓(𝐵)𝑃 ‖∗ ≤ 𝛼(𝑛 − 𝑘) + 𝛽‖𝐴 − 𝐵‖∗
++ ∫
+(0,∞)
+‖𝑓𝑠(𝐴) − 𝑓𝑠(𝐵)‖∗ 𝑑𝜈(𝑠).
+5
+
+The best-rank- 𝑘 tail of 𝑓(𝐴) is exactly
+𝜏𝑓 = 𝛼(𝑛 − 𝑘) + 𝛽𝜏 + ∫
+(0,∞)
+𝜏𝑠 𝑑𝜈(𝑠).
+If 𝜏 > 0 , apply (19)-(20), or equivalently (21), to every ridge atom. The linear term satisfies
+the original bound with constant one; the constant term contributes exactly 𝛼(𝑛 − 𝑘). Since
+𝜀 ≥ 0,
+‖𝑓(𝐴) − 𝑓(𝐵)𝑃 ‖∗ ≤ (1 + 11𝜀)𝜏𝑓 .
+Finally , if 𝜏 = 0 , the hypothesis forces ‖𝐴 − 𝐵‖ ∗ = 0, so 𝐴 = 𝐵 and range (𝐴) ⊆ range(𝑃 ). The
+selected functional-calculus truncation is 𝑓(𝐵)𝑃 = 𝑓(𝐴)𝑃, and
+𝑓(𝐴) − 𝑓(𝐵)𝑃 = 𝑓(0)(𝐼 − 𝑃 ).
+Its nuclear norm is (𝑛 − 𝑘)𝑓(0), exactly the best-rank- 𝑘 tail of 𝑓(𝐴). This handles all zero-tail,
+zero-matrix and rank-deficient cases without division by a vanishing quantity . As 𝑓(𝐵)𝑃 =
+𝑓( ̂𝐴)𝑘 by the fixed selected eigenvectors, Theorem 1 follows. □
+References and scope
+1. D. Persson, R. A. Meyer and C. Musco, Algorithm-agnostic low-rank approximation of
+operator monotone matrix functions , SIAM Journal on Matrix Analysis and Applications
+46 (2025), 1-21; arXiv:2311.14023v2, Section 1.2 and the closing paragraph of Section
+5. Their ordered result and counterexamples to constant one are credited; the present
+target is the unordered nuclear-norm question.
+2. P . Chansangiam,Integral Representations and Decompositions of Operator Monotone
+Functions on the Nonnegative Reals , arXiv:1304.7936v1 (30 April 2013), Proposition
+1.1, p. 2; Theorem 1.2 gives the equivalent weighted-harmonic-mean formulation.
+3. The canonical RA-10 entry and Matthew J. Colbrook’s independently reviewed commut-
+ing partial result are retained in the repository . That result proves the necessary lower
+bound 𝐶 ≥ 2 . The present proof claims only existence with 𝐶 = 11, not sharpness or a
+Frobenius/Schatten generalization.
+The substantive new estimate is Lemma 2. The sharper isospectral ridge inequality and
+square inequality explored in earlier notes are not premises of this proof. No numerical
+search is used to establish the theorem.
+6
