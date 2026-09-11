@@ -4,11 +4,24 @@
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
 <!-- /navigation -->
 
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-11  
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
 **Rating rationale:** Challenging because the limiting complex solution must be tied exactly to unit-circle eigenstructure; specialist impact is on structured Green-function matrix equations.  
 **Status:** Partially resolved  
+
+<!-- colbrook-matrix-functions -->
+## Auxiliary result; canonical target unchanged — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the stated real-coefficient auxiliary theorem.**
+
+For real $A,Q$ with $Q=Q^\top$, scalar regularization $i\eta I$, and a finite invertible stabilizing limit, the manuscript proves that the imaginary-part rank is half the number of odd unit-circle Jordan blocks. It also establishes semisimple regularity and an exact defective example.
+
+This does not settle the canonical general complex $C,D,R,P$ problem. Its simple-eigenvalue real subcase was already known; the defective extension is an auxiliary result outside the canonical simple-eigenvalue hypothesis. The existing partial status and general complex target are retained. The entry remains in the open count. Its difficulty and importance ratings continue to describe the surviving canonical target.
+
+**Primary reference:** [complete authored PDF](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-18.pdf), [standalone TeX](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-18.tex), **Theorem 1 and Corollary 3; Section 8 exact defective example**. [Independent proof review](../../references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-18-review.md) · [Authorship and submission record](../../references/colbrook-matrix-functions-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
+
+<!-- /colbrook-matrix-functions -->
 
 ## Problem statement
 

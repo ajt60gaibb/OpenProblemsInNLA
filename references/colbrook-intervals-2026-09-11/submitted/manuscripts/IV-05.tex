@@ -1,0 +1,105 @@
+\input{common.tex}
+\begin{document}
+\header{Exact inverse-M interval solution hulls by $2n$ linear programs}{Repository IV-05. Claimed resolution; independent review pending.}
+\begin{abstract}
+For a rational interval matrix whose every member is inverse-M, and an arbitrary rational interval right-hand side, we compute the exact solution hull using $2n$ linear programs with $n$ variables and $2n$ inequalities each. A complementary-parts linear program solves the relevant absolute value equations. A sign argument using the inverse-M promise proves that their solutions are attained coordinatewise hull endpoints. All claims are in exact rational bit complexity; floating-point test code is supplementary only.
+\end{abstract}
+\section{Problem and notation}
+Write
+\[
+ \boldsymbol A=[C-R,C+R],\quad R\ge0,\qquad
+ \boldsymbol b=[b_c-b_r,b_c+b_r],\quad b_r\ge0.
+\]
+Assume every $A\in\boldsymbol A$ is inverse-M: $A\ge0$, $A$ is nonsingular, and $A^{-1}$ has nonpositive off-diagonal entries. Its inverse is then a nonsingular M-matrix and has positive diagonal entries. The requested hull is the smallest coordinate box containing
+\[
+ \Sigma=\{x:Ax=b\text{ for some }A\in\boldsymbol A,
+                                  b\in\boldsymbol b\}.
+\]
+This is the problem in IV-05 \cite{repo,overview}. The promise suffices for the algorithm; it can separately be checked by the criterion proposed in the accompanying IV-03 manuscript.
+\section{A bijective absolute value map}
+For a fixed sign vector $\sigma\in\{-1,1\}^n$, define
+\[
+ H_\sigma(x)=Cx-D_\sigma R|x|.
+\]
+Every selection matrix $C-D_\sigma RD_s$, and indeed every matrix $C-D_\sigma RD_d$ for $d\in[-1,1]^n$, belongs to $\boldsymbol A$.
+\begin{lemma}\label{lem:bijective}
+If every matrix in $\boldsymbol A$ is nonsingular, then $H_\sigma$ is a bijection of $\R^n$ onto $\R^n$.
+\end{lemma}
+\begin{proof}
+For $x,y$, write $|x|-|y|=D_d(x-y)$, where $d_i=(|x_i|-|y_i|)/(x_i-y_i)$ when $x_i\ne y_i$, and $d_i=0$ otherwise. Each $|d_i|\le1$. Thus
+\[
+ H_\sigma(x)-H_\sigma(y)=(C-D_\sigma RD_d)(x-y),
+\]
+which proves injectivity.
+
+Compactness of the regular interval family gives a uniform positive lower bound $\alpha$ on its smallest singular values. Hence $\|H_\sigma(x)\|\ge\alpha\|x\|$. For any $b$, the continuous squared residual $\|H_\sigma(x)-b\|^2$ is coercive and has a global minimizer $x$.
+
+Put $r=H_\sigma(x)-b$, and suppose $r\ne0$. Let $J_s$ range over the finitely many selection matrices whose signs agree with all nonzero coordinates of $x$. Every convex combination of these matrices lies in the regular interval family. Therefore $0$ is not in the compact convex hull of the vectors $J_s^Tr$: an equality $0=\bar J^Tr$ would contradict nonsingularity of $\bar J$. Let $g\ne0$ be the point in that convex hull nearest to 0. The projection inequality gives $g^TJ_s^Tr\ge\|g\|^2$ for every adjacent selection. Take $h=-g$. For sufficiently small positive $t$, the point $x+th$ lies in one such selection region and
+\[
+ H_\sigma(x+th)=H_\sigma(x)+tJ_sh,
+ \qquad r^TJ_sh\le-\|g\|^2<0.
+\]
+The squared residual strictly decreases for sufficiently small $t$, a contradiction. Thus the minimum residual is zero, proving surjectivity.
+\end{proof}
+\section{Solving the map by a linear program}
+Fix $\sigma$ and a rational $b$. Put
+\[
+ P=C-D_\sigma R,\qquad Q=C+D_\sigma R,
+ \qquad X=Q^{-1},\quad Y=P^{-1}.
+\]
+The matrices $P,Q$ are inverse-M. Thus $X,Y$ have positive diagonal and nonpositive off-diagonal entries. Consider the linear program in the free variable $y\in\R^n$:
+\begin{equation}\label{eq:lp}
+ \min\ \one^Ty
+ \quad\text{subject to}\quad Xy\ge0,\qquad Y(y+b)\ge0.
+\end{equation}
+\begin{lemma}\label{lem:lp}
+The program \eqref{eq:lp} has an optimum. For every optimum, setting
+\[
+ v=Xy,\qquad u=Y(y+b),\qquad x=u-v
+\]
+gives the unique solution of $H_\sigma(x)=b$.
+\end{lemma}
+\begin{proof}
+Lemma~\ref{lem:bijective} supplies a root $x$. With $u=x^+$ and $v=x^-$, one has $Pu-Qv=b$. Thus $y=Qv$ is feasible in \eqref{eq:lp}. For every feasible $y$, $v=Xy\ge0$ implies $y=Qv\ge0$. Consequently the objective is bounded below, and its feasible sublevel sets are compact. An optimum exists.
+
+At an optimum, write $u=Y(y+b)\ge0$, $v=Xy\ge0$. Suppose $u_k>0$ and $v_k>0$. Decrease $y_k$ slightly. The $k$th entries of $u,v$ decrease by the positive diagonal coefficients $Y_{kk},X_{kk}$ and remain nonnegative for a sufficiently small decrease. Every other entry weakly increases because the off-diagonal coefficients of $X,Y$ are nonpositive. This gives a feasible strict objective decrease, a contradiction. Hence $u_kv_k=0$ for every $k$.
+
+It follows that $x=u-v$ has $|x|=u+v$. Since $Pu-Qv=b$, we obtain $Cx-D_\sigma R|x|=b$. The root is unique by Lemma~\ref{lem:bijective}.
+\end{proof}
+\section{The exact hull endpoints}
+\begin{theorem}\label{thm:hull}
+For coordinate $i$, choose $\sigma_i=1$ and $\sigma_j=-1$ for $j\ne i$. The unique solution of
+\[
+ H_\sigma(x)=b_c+D_\sigma b_r
+\]
+has $x_i=\max_{z\in\Sigma}z_i$. Reversing all these signs gives $x_i=\min_{z\in\Sigma}z_i$. Consequently $2n$ instances of \eqref{eq:lp} compute the exact hull.
+\end{theorem}
+\begin{proof}
+Let $b_\sigma=b_c+D_\sigma b_r$, and let $x$ solve the stated equation. For any true solution $z$ with $A'z=b'$, rowwise interval evaluation gives
+\[
+ D_\sigma\big(H_\sigma(z)-b_\sigma\big)\le0.
+\]
+Indeed, a row with $\sigma_j=1$ uses the minimum possible row product $C_{j,:}z-R_{j,:}|z|$, which is at most $b'_j$ and hence at most the upper right-hand-side endpoint. A row with $\sigma_j=-1$ uses the maximum possible row product, which is at least $b'_j$ and hence at least the lower endpoint.
+
+Write $w=D_\sigma(H_\sigma(z)-b_\sigma)\le0$. The secant identity from Lemma~\ref{lem:bijective} yields
+\[
+ z-x=M^{-1}D_\sigma w,\qquad M\in\boldsymbol A.
+\]
+For the upper-endpoint sign choice, row $i$ of $M^{-1}D_\sigma$ is entrywise nonnegative: its diagonal entry is positive, and each off-diagonal entry is a nonpositive entry of $M^{-1}$ multiplied by $-1$. Thus $z_i\le x_i$. For the reversed sign choice that row is nonpositive, giving $z_i\ge x_i$.
+
+The bounds are attained. Choose any signs $s$ consistent with the nonzero coordinates of $x$. Then $A^*=C-D_\sigma RD_s\in\boldsymbol A$, and
+\[
+ A^*x=H_\sigma(x)=b_\sigma\in\boldsymbol b.
+\]
+Hence $x\in\Sigma$, proving both endpoint assertions.
+\end{proof}
+\section{Exact complexity and limitations}
+Each of the $2n$ programs has $n$ variables and $2n$ inequalities. Exact inversion of the rational endpoint matrices $P,Q$ produces polynomial-bit rational coefficients. Polynomial-time rational linear programming \cite{lp} and exact postprocessing therefore give polynomial bit complexity for the hull. The interval family is compact and regular, so the solution set is nonempty and bounded for every nonempty interval right-hand side.
+
+The argument does not supply a polynomial algorithm for general regular absolute value equations (AV-03). It uses the nonpositive off-diagonal signs of $P^{-1}$ and $Q^{-1}$ in the coordinate-decrease proof of complementarity. General regularity alone does not provide those signs. The bijectivity lemma alone is an existence result, not a general polynomial-time search algorithm.
+\begin{thebibliography}{9}
+\bibitem{repo} OpenProblemsInNLA, problem IV-05. \repo{IV-05}.
+\bibitem{overview} M. Hlad\'ik, \emph{An overview of polynomially computable characteristics of special interval matrices}, Springer (2020), 295--310, Section 9. \url{https://doi.org/10.1007/978-3-030-31041-7_16}.
+\bibitem{lp} N. Karmarkar, \emph{A new polynomial-time algorithm for linear programming}, Combinatorica 4 (1984), 373--395. \url{https://doi.org/10.1007/BF02579150}.
+\end{thebibliography}
+\end{document}

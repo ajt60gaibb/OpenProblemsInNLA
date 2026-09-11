@@ -1,0 +1,104 @@
+% Reviewed source SHA256 (UTF-8/LF): 6b011818e6e430346073f47a875e344c78217f2b1bbce5788bacd29787ab751e
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,microtype}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\rank}{\operatorname{rank}}
+\title{The nonnegative rank of the three-bit quadratic correlation matrix}
+\author{Matthew J. Colbrook\\\small Department of Applied Mathematics and Theoretical Physics\\\small University of Cambridge, Cambridge, United Kingdom\\\small\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}\date{11 September 2026}
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\hypersetup{pdfauthor={Matthew J. Colbrook}}
+\begin{document}\maketitle
+
+\noindent\textbf{Verified partial result for NR-03.} Theorem 1 and Lemma 2. Only n=3 is settled; the full family remains open.
+The dated \href{https://github.com/MColbrook/OpenProblemsInNLA/blob/codex/colbrook-factorization-resolutions/references/colbrook-factorization-2026-09-11/verification/reviews/NR-03-review.md}{independent agent review} records the subsequent checks and supersedes original draft remarks about pending review. This is not external human peer review or formal certification.
+\par\medskip
+% BEGIN REVIEWED BODY
+
+\begin{abstract}
+For the $8\times8$ matrix $C(A,B)=(1-|A\cap B|)^2$ indexed by subsets of a three-element set, we prove that the nonnegative rank is eight. The proof excludes a seven-term factorization using the parity null vector and nine distinguished positive entries. It supplies an exact solution of the $n=3$ case of catalog problem NR-03, not of the full family.
+\end{abstract}
+
+\section{Result}
+\begin{theorem}\label{thm:main}
+Let $C$ be indexed by all subsets of $\{1,2,3\}$ and have entries
+\[
+ C(A,B)=(1-|A\cap B|)^2.
+\]
+Then $\rank_+(C)=8$.
+\end{theorem}
+The catalog and its cited 2026 benchmark study retain a gap between seven and eight in this case~\cite{catalog,bvg}. The proof below closes this single-order gap. No conclusion for every $n\geq3$ is inferred.
+
+\section{Parity balance in a hypothetical seven-term factorization}
+Order subsets by their binary masks $0,1,\ldots,7$, and set $z_A=(-1)^{|A|}$. Then
+\[
+ C=\begin{pmatrix}
+1&1&1&1&1&1&1&1\\
+1&0&1&0&1&0&1&0\\
+1&1&0&0&1&1&0&0\\
+1&0&0&1&1&0&0&1\\
+1&1&1&1&0&0&0&0\\
+1&0&1&0&0&1&0&1\\
+1&1&0&0&0&0&1&1\\
+1&0&0&1&0&1&1&4
+\end{pmatrix},\quad
+ z=(1,-1,-1,1,-1,1,1,-1)^{\mathsf T}.
+\]
+Direct multiplication gives $Cz=0$ and $z^{\mathsf T}C=0$. The leading $7\times7$ principal minor is $-8$, so $\rank C=7$.
+
+Suppose $C=WH$ with $W\in\mathbb R_+^{8\times7}$ and $H\in\mathbb R_+^{7\times8}$. Both factors have rank seven. From $Cz=0$ and injectivity of $W$, we obtain $Hz=0$. From $z^{\mathsf T}C=0$ and the full row rank of $H$, we obtain $z^{\mathsf T}W=0$. Hence every column $w$ of $W$ and every row $h^{\mathsf T}$ of $H$ is \emph{parity balanced}:
+\[
+ \sum_{|A|\text{ even}}w_A=\sum_{|A|\text{ odd}}w_A,
+ \qquad
+ \sum_{|B|\text{ even}}h_B=\sum_{|B|\text{ odd}}h_B.
+\]
+A nonzero nonnegative parity-balanced vector has at least one positive coordinate of each parity. Moreover, every rank-one summand $wh^{\mathsf T}$ is supported entirely on positive entries of $C$, because the summands are nonnegative.
+
+\section{Nine distinguished entries}
+Write $s_i=\{i\}$ and $d_i=\{1,2,3\}\setminus\{i\}$ for $i=1,2,3$. Consider the nine entries
+\[
+ (s_i,d_i),\qquad(d_i,s_i),\qquad(d_i,d_i)
+ \qquad(i=1,2,3).
+\]
+Each of these entries equals one.
+
+\begin{lemma}\label{lem:nine}
+A nonnegative rank-one matrix $wh^{\mathsf T}$ whose support is contained in the positive support of $C$, and whose two vectors are parity balanced, can be positive at at most one of these nine entries.
+\end{lemma}
+\begin{proof}
+For different indices $i\ne j$, one has
+\[
+ C(s_i,d_j)=C(d_i,s_j)=C(d_i,d_j)=0.
+\]
+These zero entries rule out sharing any two distinguished entries with different indices in a positive rank-one rectangle. For a fixed index, the pair $(s_i,d_i)$ and $(d_i,s_i)$ is ruled out by $C(s_i,s_i)=0$.
+
+Suppose one summand is positive at both $(s_i,d_i)$ and $(d_i,d_i)$. Then $w_{s_i},w_{d_i},h_{d_i}>0$. Every column index $B$ with $h_B>0$ must satisfy both $C(s_i,B)>0$ and $C(d_i,B)>0$. The first condition says $i\notin B$, so $B\subseteq d_i$. The second then says $|B|\ne1$. Thus $B$ is either $\varnothing$ or $d_i$, both even. This contradicts parity balance of the nonzero vector $h$. The remaining possible pair $(d_i,s_i)$ and $(d_i,d_i)$ is excluded by the transposed argument using parity balance of $w$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+A seven-term factorization would consist of seven parity-balanced rank-one summands. Every distinguished entry must be positive in at least one summand, but Lemma~\ref{lem:nine} permits each summand to account for at most one of nine entries. This is impossible. Since ordinary rank gives $\rank_+(C)\geq7$ and the identity factorization gives $\rank_+(C)\leq8$, it follows that $\rank_+(C)=8$.
+\end{proof}
+
+\section{Exact verification and limitations}
+The script \texttt{verification/verify\_nr03\_n3.py} checks the parity null identities, the nonzero minor, and all $89$ positive-support rectangles whose row and column index sets both contain both parities. Every such rectangle contains at most one distinguished entry. This finite check supplements the short symbolic proof of Lemma~\ref{lem:nine}; it is not a numerical optimization certificate.
+
+The parity restriction on \emph{both} factors was deduced from a hypothetical factorization of inner dimension equal to ordinary rank. It must not be imposed on arbitrary wider factorizations. In particular this proof does not imply a general nine-term lower bound, which would contradict the explicit eight-term identity factorization. Nor does it settle NR-03 for all orders. This manuscript should be submitted as a partial resolution of that family.
+
+\begin{thebibliography}{9}
+\bibitem{catalog}
+A. Townsend, \emph{Open Problems in Numerical Linear Algebra}, problem NR-03,
+canonical statement accessed 11 September 2026.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/nonnegative-and-positive-factorizations/NR-03}.
+\bibitem{bvg}
+T. Baeckelant, A. Vandaele, and N. Gillis,
+\emph{Computing Lower Bounds on the Nonnegative Rank via Non-Convex Optimization Solvers},
+arXiv:2605.14058v2, 6 July 2026, Section 6.7 and Appendix A.4.
+\url{https://arxiv.org/html/2605.14058v2}.
+\end{thebibliography}
+\end{document}
+
+% END REVIEWED BODY

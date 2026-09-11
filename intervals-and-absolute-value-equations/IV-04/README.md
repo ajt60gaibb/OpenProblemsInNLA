@@ -6,12 +6,22 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-10
+**Status:** Solved
+**Last checked:** 2026-09-11
 
 **Rating rationale:** Removing the remaining complexity obstruction for genuinely tridiagonal interval systems appears to require new analysis, warranting challenging. Community impact comes from exact uncertainty bounds for a common structured linear system.
 
 **Area:** interval linear systems; computational complexity  
+
+<!-- colbrook-intervals -->
+## Independently reviewed resolution - 2026-09-11
+
+**Complexity classification.** Theorem 2 proves NP-hardness of exact tridiagonal solution-hull computation even for a regular independent-entry matrix family and the point right-hand side $-e_n$. Section 5 covers the full exact-output convention, including empty solution sets and infinite endpoints, and makes polynomial-time existence equivalent to $\mathsf P=\mathsf{NP}$. It does not unconditionally rule out polynomial time.
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. See the [complete manuscript](../../references/colbrook-intervals-2026-09-11/manuscripts/IV-02_IV-04.pdf), [independent agent review](../../references/colbrook-intervals-2026-09-11/verification/reviews/IV-02_IV-04-review.md) and [submission record](../../references/colbrook-intervals-2026-09-11/README.md). The source archive identifies the drafts as AI-generated; authorship is recorded at the submitter's request. This is agent verification, not external human peer review or formal proof-assistant certification.
+
+The difficulty, importance and rating rationale below are historical assessments of the original open target. The original statement and dated audits are preserved.
+<!-- /colbrook-intervals -->
 
 ## Problem statement
 

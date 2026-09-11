@@ -4,8 +4,21 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because nonsymmetric spectral powers require a sharp dimension-uniform positivity threshold; community impact concerns matrix functions and positive matrix dynamics.  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-11  
 **Status:** Partially resolved  
+
+<!-- colbrook-matrix-functions -->
+## Verified partial result — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the stated partial results.**
+
+The conventional critical exponent satisfies $\mathrm{CE}_n\ge2n-4$ for every $n\ge3$, already for rational entrywise nonnegative matrices with distinct positive eigenvalues. Combining this with the published upper bound gives $\mathrm{CE}_4=4$.
+
+The matching upper bound for every $n\ge5$, and hence the full family equality, remain unresolved. These are conventional matrix powers, not entrywise powers. The entry remains in the open count. Its difficulty and importance ratings continue to describe the surviving canonical target.
+
+**Primary reference:** [complete authored PDF](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-15.pdf), [standalone TeX](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-15.tex), **Theorem 1 and Corollary 4**. [Independent proof review](../../references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-15-review.md) · [Authorship and submission record](../../references/colbrook-matrix-functions-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
+
+<!-- /colbrook-matrix-functions -->
 
 ## Problem statement
 

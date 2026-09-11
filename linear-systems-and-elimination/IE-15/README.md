@@ -7,7 +7,13 @@
 **Difficulty:** hard  
 **Importance:** interesting to specialist  
 **Status:** Open  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-11
+
+<!-- colbrook-recovered -->
+## Related order-five bound - 2026-09-11
+
+Matthew J. Colbrook submitted a recovered rational $5\times5$ matrix with an admissible rook path of growth $893/131$. The [complete construction](../../references/colbrook-recovered-2026-09-11/submitted/research/rook_partial.md), [exact rerun](../../references/colbrook-recovered-2026-09-11/verification/fresh-rook-results.json), and [independent review](../../references/colbrook-recovered-2026-09-11/verification/reviews/rook-review.md) verify this finite lower bound, with ties allowed. It concerns order five and determines neither requested order-three nor order-four constant. **IE-15 remains Open**, with its target and ratings unchanged. See the [submission record](../../references/colbrook-recovered-2026-09-11/README.md) for the Cambridge affiliation, AI-assistance disclosure and verification limits.
+<!-- /colbrook-recovered -->
 
 **Rating rationale:** Hard reflects two focused finite-dimensional extremal constants within an established pivoting model; specialist impact concerns exact small-order rook-pivoting behavior.
 

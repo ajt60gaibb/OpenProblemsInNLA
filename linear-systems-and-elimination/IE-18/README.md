@@ -2,8 +2,18 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Solved
+**Last checked:** 2026-09-11
+
+<!-- colbrook-recovered -->
+## Independently reviewed resolution - 2026-09-11
+
+**Negative resolution.** Section 2 refutes the exact four-step identity using $M=\operatorname{diag}(1/10,1/2,3/5)$ and $v=(1,1,1)^T$: the squared norm ratio is $1920682/21289638243>1/14641$, the square of the proposed factor. Both $M$ and $I-M$ are positive definite. Section 3 proves unbounded underestimation over a parameter family. The separate asymptotic convergence question is not resolved.
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [Complete manuscript](../../references/colbrook-recovered-2026-09-11/manuscripts/IE-18.pdf), [independent proof review](../../references/colbrook-recovered-2026-09-11/verification/reviews/IE-18-review.md), and [submission record](../../references/colbrook-recovered-2026-09-11/README.md). The supplied notes were reconstructed with substantial AI assistance. This is independent agent verification, not external human peer review or formal proof-assistant certification; no novelty or priority claim is made.
+
+The difficulty, importance and rating rationale below are historical assessments of the original open target. Original statements, references and dated audits are preserved.
+<!-- /colbrook-recovered -->
 
 **Rating rationale:** Challenging reflects a global maximization of a nonlinear homogeneous residual map in arbitrary dimension; community impact is an exact convergence factor for restarted Anderson acceleration.
 

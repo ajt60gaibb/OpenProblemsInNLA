@@ -1,0 +1,203 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,microtype,booktabs}
+\hypersetup{hidelinks}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\CE}{\operatorname{CE}}
+\newcommand{\diag}{\operatorname{diag}}
+\title{A linear lower bound for generalized doubly nonnegative critical exponents}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+For every $n\ge3$, the conventional critical exponent of the $n\times n$ generalized doubly nonnegative matrices is at least $2n-4$. The proof uses a rational, nonnegative cyclic-bidiagonal family with two eigenvalues of order one and $n-2$ positive eigenvalues of order $\epsilon$. A particular entry of its real powers has a negative leading coefficient throughout the interval $(2n-5,2n-4)$. Together with the published upper bound, this proves $\CE_4=4$, resolving Conjecture~4.6 of Han, Johnson, and Paparella. Equality $\CE_n=2n-4$ for all $n\ge5$ is not proved. Exact rational interval certificates for eight finite examples accompany the analytic proof.
+\end{abstract}
+
+\section{Statement and an explicit matrix family}
+A real matrix is \emph{generalized doubly nonnegative} (GDN) if it is entrywise nonnegative, diagonalizable, and has nonnegative eigenvalues. For such a matrix and $\alpha>0$, the conventional power is $A^\alpha=S\diag(\lambda_i^\alpha)S^{-1}$. Let $\CE_n$ be the infimum of the numbers $c$ such that $A^\alpha$ is entrywise nonnegative for every $n\times n$ GDN matrix and every $\alpha>c$.
+
+\begin{theorem}\label{thm:lower}
+For every integer $n\ge3$,
+\[
+\CE_n\ge 2n-4.
+\]
+The lower bound is already valid for GDN matrices with rational entries and distinct positive eigenvalues.
+\end{theorem}
+
+Set $m=n-2$ and $\kappa=1/4$. Define $A_\epsilon$ by
+\begin{align}
+(A_\epsilon)_{ii}&=i\epsilon &&(1\le i\le m),\nonumber\\
+(A_\epsilon)_{m+1,m+1}&=1,\qquad (A_\epsilon)_{m+2,m+2}=2,\nonumber\\
+(A_\epsilon)_{i,i+1}&=\epsilon &&(1\le i\le m),\label{eq:matrix}\\
+(A_\epsilon)_{m+1,m+2}&=1,\qquad (A_\epsilon)_{m+2,1}=\kappa,\nonumber
+\end{align}
+with every other entry zero. For example, in order four this is
+\[
+A_\epsilon=\begin{pmatrix}
+\epsilon&\epsilon&0&0\\
+0&2\epsilon&\epsilon&0\\
+0&0&1&1\\
+1/4&0&0&2
+\end{pmatrix}.
+\]
+We shall prove that it is GDN throughout the explicit parameter range
+\begin{equation}\label{eq:epsrange}
+0<\epsilon\le\frac{1}{8(m+1)}.
+\end{equation}
+
+\section{Positive, simple eigenvalues}
+Write
+\[
+Q_\epsilon(z)=\prod_{i=1}^m(z-i\epsilon).
+\]
+Expansion of the determinant of a cyclic-bidiagonal matrix gives
+\begin{equation}\label{eq:char}
+p_\epsilon(z):=\det(zI-A_\epsilon)
+=Q_\epsilon(z)(z-1)(z-2)-\kappa\epsilon^m.
+\end{equation}
+There are just two nonzero permutation terms: the diagonal term and the full cycle. The latter has negative sign in $\det(zI-A_\epsilon)$, in every dimension.
+
+\begin{lemma}\label{lem:roots}
+For every $\epsilon$ satisfying \eqref{eq:epsrange}, $p_\epsilon$ has $m$ distinct positive roots in the respective intervals
+\[
+\epsilon(i-1/4)<\lambda_i(\epsilon)<\epsilon(i+1/4),\quad 1\le i\le m,
+\]
+and one root in each of $(3/4,1)$ and $(2,9/4)$. All roots are simple. As $\epsilon\downarrow0$, the last two roots converge to $1$ and $2$. Moreover,
+\[
+\lambda_i(\epsilon)=\epsilon u_i(\epsilon),\qquad u_i(\epsilon)\longrightarrow u_i>0,
+\]
+where $u_1,\ldots,u_m$ are the distinct roots of
+\begin{equation}\label{eq:lowpoly}
+q_0(u)=2\prod_{i=1}^m(u-i)-\kappa.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Set
+\[
+q_\epsilon(u)=\epsilon^{-m}p_\epsilon(\epsilon u)
+=\prod_{i=1}^m(u-i)(1-\epsilon u)(2-\epsilon u)-\kappa.
+\]
+At either endpoint $u=i\pm1/4$, the absolute value of the product $\prod_{j=1}^m(u-j)$ is at least $3/16$. Indeed, one factor has modulus $1/4$, at most one additional factor has modulus below $1$ (in which case it is $3/4$), and all remaining factors have modulus above $1$. For $m=1$ the product has modulus $1/4$.
+
+These endpoints satisfy $0<\epsilon u<1/8$, so
+\[
+(1-\epsilon u)(2-\epsilon u)>(7/8)(15/8)=105/64.
+\]
+The magnitude of the product before subtracting $\kappa$ is therefore at least $315/1024>1/4$. Its sign changes across each interval $(i-1/4,i+1/4)$; subtracting $\kappa=1/4$ does not change either endpoint sign. There is consequently a root in each of the $m$ low intervals.
+
+At $z=1$ and $z=2$, $p_\epsilon(z)=-\kappa\epsilon^m<0$. At $z=3/4$, each factor $3/4-i\epsilon$ is greater than $5/8$, and thus
+\[
+p_\epsilon(3/4)>\frac5{16}\left(\frac58\right)^m-\frac14\epsilon^m>0.
+\]
+The final inequality follows, for instance, from $\epsilon\le1/16$. Similarly, $p_\epsilon(9/4)>0$. This provides two more positive roots. The $m+2$ intervals are disjoint, and the polynomial has degree $m+2$, so there is exactly one simple root in each and no other root.
+
+For the limiting assertions, $q_\epsilon$ converges coefficientwise to $q_0$. The same endpoint argument at $\epsilon=0$ gives one simple root of $q_0$ in each low interval. Compactness and uniqueness then give $u_i(\epsilon)\to u_i$. Coefficientwise convergence of $p_\epsilon$ to $z^m(z-1)(z-2)$ and the two high-root intervals gives convergence of the remaining roots to $1$ and $2$.
+\end{proof}
+
+Entrywise nonnegativity is apparent from \eqref{eq:matrix}. Lemma~\ref{lem:roots} proves that $A_\epsilon$ is GDN, with a simple positive spectrum, on the entire range \eqref{eq:epsrange}.
+
+\section{A negative leading coefficient in a matrix power}
+For $z$ off the spectrum, the $(1,m)$ entry of the resolvent is
+\begin{equation}\label{eq:resolvent}
+\bigl((zI-A_\epsilon)^{-1}\bigr)_{1m}
+=\frac{\epsilon^{m-1}(z-1)(z-2)}{p_\epsilon(z)}.
+\end{equation}
+This is the cofactor formula along the directed path from vertex $1$ to vertex $m$; its $m-1$ edges have product $\epsilon^{m-1}$, and the two vertices outside the path contribute $z-1$ and $z-2$. When $m=1$, it is the usual diagonal cofactor formula and the empty edge product is one.
+
+Since the spectrum is positive and simple, partial fractions in \eqref{eq:resolvent} yield, for every real $\alpha>0$,
+\begin{equation}\label{eq:power}
+(A_\epsilon^\alpha)_{1m}
+=\epsilon^{m-1}\sum_{p_\epsilon(\lambda)=0}
+\frac{\lambda^\alpha(\lambda-1)(\lambda-2)}{p_\epsilon'(\lambda)}.
+\end{equation}
+
+\begin{lemma}\label{lem:limit}
+For every fixed $\alpha>2m-1$,
+\begin{equation}\label{eq:limit}
+\lim_{\epsilon\downarrow0}\epsilon^{-(2m-1)}(A_\epsilon^\alpha)_{1m}
+=\kappa\bigl(2^{\alpha-2m}-1\bigr).
+\end{equation}
+\end{lemma}
+\begin{proof}
+First consider a low root $\lambda_i=\epsilon u_i(\epsilon)$. Since
+\[
+p_\epsilon'(\epsilon u)=\epsilon^{m-1}q_\epsilon'(u),
+\]
+its coefficient in the spectral expansion \eqref{eq:power}, before the factor $\lambda_i^\alpha$, is
+\[
+\frac{(\epsilon u_i(\epsilon)-1)(\epsilon u_i(\epsilon)-2)}
+{q_\epsilon'(u_i(\epsilon))}.
+\]
+This remains bounded: its denominator converges to $q_0'(u_i)\ne0$. The sum of the low-root contributions is therefore $O(\epsilon^\alpha)$, which is $o(\epsilon^{2m-1})$ under the hypothesis on $\alpha$.
+
+Now let $\lambda$ be one of the two high roots. The characteristic equation gives the exact identity
+\[
+(\lambda-1)(\lambda-2)=\frac{\kappa\epsilon^m}{Q_\epsilon(\lambda)}.
+\]
+Its contribution to the left side of \eqref{eq:limit}, before passage to the limit, is thus
+\[
+\frac{\kappa\lambda^\alpha}{Q_\epsilon(\lambda)p_\epsilon'(\lambda)}.
+\]
+For the root tending to $b\in\{1,2\}$, with $c$ the other element of this set,
+\[
+Q_\epsilon(\lambda)\longrightarrow b^m,
+\qquad p_\epsilon'(\lambda)\longrightarrow b^m(b-c).
+\]
+The two limiting contributions sum to
+\[
+\kappa\left(\frac{1^{\alpha-2m}}{1-2}
++\frac{2^{\alpha-2m}}{2-1}\right)
+=\kappa(2^{\alpha-2m}-1).
+\qedhere
+\]
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:lower}]
+Choose any $\alpha\in(2m-1,2m)$. The limit in Lemma~\ref{lem:limit} is strictly negative. Hence $(A_\epsilon^\alpha)_{1m}<0$ for all sufficiently small positive $\epsilon$, while Lemma~\ref{lem:roots} ensures that $A_\epsilon$ is GDN. Rational positive $\epsilon$ can be chosen arbitrarily small, so the examples may have rational entries. Since $\alpha$ can approach $2m=2n-4$ from below, the asserted lower bound follows.
+\end{proof}
+
+\begin{corollary}\label{cor:ce4}
+The conventional critical exponent for $4\times4$ GDN matrices is $4$.
+\end{corollary}
+\begin{proof}
+Theorem~\ref{thm:lower} gives $\CE_4\ge4$. Theorem~3.3 of Han, Johnson, and Paparella~\cite{HJP} gives $\CE_4\le(4^2-2\cdot4)/2=4$.
+\end{proof}
+
+\section{Scope, verification, and remaining question}
+Corollary~\ref{cor:ce4} proves Conjecture~4.6 of \cite{HJP}. Theorem~\ref{thm:lower} proves the lower-bound direction of the equality proposed in their Question~4.7. The upper bound $\CE_n\le2n-4$ for all $n\ge5$ is not established here, so the general critical-exponent target must not be marked completely solved on the basis of this note.
+
+The analytic argument does not depend on experiments. As an independent finite check, the accompanying standard-library verifier isolates all roots of \eqref{eq:char} by rational sign-changing intervals and evaluates \eqref{eq:power} with outward rational interval arithmetic. It uses the characteristic equation to replace $(\lambda-1)(\lambda-2)$, avoiding cancellation. At $\alpha=2m-1/2$, the only irrational scalar operation is $\sqrt\lambda$, enclosed using integer square roots. All eight enclosures below have strictly negative upper endpoint.
+
+\begin{center}
+\begin{tabular}{@{}rrrr@{}}\toprule
+$n$ & $\epsilon$ & $\alpha$ & $\epsilon^{-(2n-5)}(A_\epsilon^\alpha)_{1,n-2}$, approximate\\\midrule
+3 & $10^{-6}$  & $3/2$  & $-0.072030414192$\\
+4 & $10^{-12}$ & $7/2$  & $-0.073212657290$\\
+5 & $10^{-18}$ & $11/2$ & $-0.073223138537$\\
+6 & $10^{-24}$ & $15/2$ & $-0.073223301045$\\
+7 & $10^{-30}$ & $19/2$ & $-0.073223304600$\\
+8 & $10^{-36}$ & $23/2$ & $-0.073223304700$\\
+9 & $10^{-42}$ & $27/2$ & $-0.073223304703$\\
+10& $10^{-48}$ & $31/2$ & $-0.073223304703$\\\bottomrule
+\end{tabular}
+\end{center}
+
+The exact endpoints, not the rounded values in the table, are stored in \path{results/gdn_certificate.json}. From the package root, run
+\begin{verbatim}
+python code/gdn_certificate.py \
+    results/gdn_certificate.json --verify
+\end{verbatim}
+The code verifies finite examples only. It does not substitute for the all-dimensions limiting argument.
+
+\begin{thebibliography}{9}
+\bibitem{HJP}
+X. Han, C. R. Johnson, and P. Paparella,
+\emph{The critical exponent for generalized doubly nonnegative matrices},
+Linear and Multilinear Algebra \textbf{65}(5) (2017), 1035--1044.
+\href{https://doi.org/10.1080/03081087.2016.1223009}{doi:10.1080/03081087.2016.1223009}.
+\href{https://arxiv.org/abs/1407.7059}{arXiv:1407.7059v3}, Theorem~3.3, Conjecture~4.6, and Question~4.7 (manuscript pp.~4 and~7--8).
+\end{thebibliography}
+\end{document}

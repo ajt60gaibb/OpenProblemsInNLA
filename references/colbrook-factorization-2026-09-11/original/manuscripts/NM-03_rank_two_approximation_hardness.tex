@@ -1,0 +1,278 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,microtype}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\one}{\mathbf 1}
+\title{NP-hardness of globally optimal nonnegative rank-two approximation}
+\author{}\date{}
+\begin{document}\maketitle
+\begin{abstract}
+We give a polynomial-time many-one reduction from positive one-in-three satisfiability to the exact rational-input decision problem for nonnegative rank-two approximation in squared Frobenius norm. The reduction produces strictly positive, symmetric positive-definite rational matrices. Their unconstrained best rank-two approximation error is an explicitly specified rational threshold. A feasible nonnegative approximation at that threshold exists exactly when the Boolean instance is satisfiable. The proof uses a rational orthogonal projector to encode the Boolean equations in a repeated eigenspace and a quantitative endpoint-rounding argument to recover a Boolean solution. The reduction has an inverse-polynomial error gap, and a rational perturbation makes the spectrum simple while preserving hardness. This answers the NP-hardness alternative in catalog problem NM-03; it does not assert NP membership for arbitrary real-factor instances.
+\end{abstract}
+
+\section{Decision problem and theorem}
+Given $X\in\Q_+^{m\times n}$ and $\tau\in\Q_{\geq0}$, consider the decision problem
+\begin{equation}\label{eq:decision}
+ \exists W\in\R_+^{m\times2},\quad H\in\R_+^{2\times n}
+ \quad\text{such that}\quad \|X-WH\|_F^2\leq\tau.
+\end{equation}
+All entries of $W,H$ may be real. A zero column or row allows inner dimension less than two. This is the exact interpretation specified by NM-03~\cite{catalog}; the rank-two optimization question is also discussed in~\cite{lnv}.
+
+\begin{theorem}\label{thm:hard}
+Problem~\eqref{eq:decision} is NP-hard under polynomial-time many-one reductions. This remains true when $m=n=N$, every entry of $X$ is strictly positive, and $X$ is symmetric positive definite. The reduction can be chosen so that the eigenvalues of $X$ belong to
+\[
+ \left\{1+\frac1{12N},\ 1,\ 1-\frac1{24N^2}\right\}.
+\]
+\end{theorem}
+
+We reduce from positive one-in-three satisfiability: every clause contains three distinct, unnegated Boolean variables, and exactly one variable in each clause must be true. This problem is NP-complete; stronger restricted versions are proved NP-complete in~\cite{hmr}. Unused variables can be deleted. Thus we restrict to nonempty instances in which every variable occurs, which does not change NP-hardness.
+
+\section{Homogeneous Boolean equations}
+Let a positive one-in-three instance have $n$ variables and clauses $\mathcal C$. Add two anchor coordinates $s,t$ and put $N=n+2$. Define an integer matrix $C$ with one row for each clause $\{i,j,k\}$, encoding
+\begin{equation}\label{eq:clause}
+ \chi_i+\chi_j+\chi_k-\chi_s-2\chi_t=0.
+\end{equation}
+Every row has sum zero, $\ell_1$ norm six, and squared Euclidean norm eight. In particular, $C\one=0$.
+
+\begin{lemma}\label{lem:boolean}
+The original instance is satisfiable if and only if
+\[
+ \ker C\cap\bigl(\{0,1\}^N\setminus\{0,\one\}\bigr)\ne\varnothing.
+\]
+Moreover, $\dim(\ker C\cap\one^\perp)\geq1$.
+\end{lemma}
+\begin{proof}
+If $(\chi_s,\chi_t)=(1,0)$, equations~\eqref{eq:clause} are precisely the one-in-three conditions. If the anchors are $(0,1)$, every clause contains exactly two ones, so complementing every coordinate yields a one-in-three assignment with anchors $(1,0)$.
+
+When the anchors are $(0,0)$, each clause forces its three variables to zero; because every variable occurs, the entire vector is zero. When the anchors are $(1,1)$, the right-hand side is three, forcing the entire vector to be one. This proves the equivalence.
+
+The vector with value $1/3$ at every original variable, value one at $s$, and value zero at $t$ belongs to $\ker C$ and is not constant. Subtracting its mean gives a nonzero vector in $\ker C\cap\one^\perp$.
+\end{proof}
+
+\section{The rational matrix and its best rank-two approximations}
+Let $r=\rank C$, and let $P$ be the orthogonal projector onto the row space of $C$. If $D$ consists of any maximal linearly independent set of rows of $C$, then
+\begin{equation}\label{eq:projector}
+ P=D^{\mathsf T}(DD^{\mathsf T})^{-1}D.
+\end{equation}
+In particular, $P$ is rational and $P\one=0$. Write
+\[
+ E=\ker C\cap\one^\perp,\qquad
+ \delta=\frac1{12N},\qquad \epsilon=\frac{\delta}{2N}=\frac1{24N^2},
+\]
+and define
+\begin{equation}\label{eq:input}
+ X=I_N+\frac\delta N\one\one^{\mathsf T}-\epsilon P,
+ \qquad
+ \tau=N-r-2+r(1-\epsilon)^2.
+\end{equation}
+The three orthogonal subspaces $\operatorname{span}\{\one\}$, $E$, and $\operatorname{row}(C)$ have respective eigenvalues $1+\delta$, $1$, and $1-\epsilon$ under $X$. By Lemma~\ref{lem:boolean}, $\dim E=N-r-1\geq1$. Therefore $X$ is positive definite and
+\begin{equation}\label{eq:error}
+ \tau=\|X\|_F^2-(1+\delta)^2-1\geq0.
+\end{equation}
+An orthogonal projector has $|P_{ij}|\leq1$. Thus, for $i\ne j$,
+\[
+ X_{ij}=\frac\delta N-\epsilon P_{ij}
+ \geq\frac\delta N-\epsilon=\frac\delta{2N}>0.
+\]
+The diagonal entries are at least $1-\epsilon>0$ as well.
+
+\begin{lemma}\label{lem:best}
+Every real matrix $Y$ of rank at most two satisfying $\|X-Y\|_F^2\leq\tau$ has the form
+\begin{equation}\label{eq:best}
+ Y=\frac{1+\delta}{N}\one\one^{\mathsf T}+vv^{\mathsf T},
+ \qquad v\in E,\quad \|v\|_2=1.
+\end{equation}
+Conversely, every matrix in~\eqref{eq:best} has rank two and squared error $\tau$.
+\end{lemma}
+\begin{proof}
+Let $R$ be the orthogonal projector onto the row space of $Y$, so that $Y=YR$ and $\rank R\leq2$. Orthogonality of the two right-hand row spaces gives
+\begin{align*}
+ \|X-Y\|_F^2
+ &=\|X(I-R)\|_F^2+\|XR-Y\|_F^2\\
+ &=\|X\|_F^2-\tr(RX^2)+\|XR-Y\|_F^2.
+\end{align*}
+The eigenvalues of $X^2$ are $(1+\delta)^2$, $1$, and $(1-\epsilon)^2$, on the subspaces described above. For any orthogonal projector of rank at most two,
+\[
+ \tr(RX^2)\leq(1+\delta)^2+1.
+\]
+To see the equality conditions explicitly, expand the trace in an orthonormal eigenbasis of $X^2$. Its coefficients are numbers in $[0,1]$ with sum at most two. Achieving the displayed maximum requires rank two, coefficient one on $\one/\sqrt N$, and zero weight on the eigenspace with eigenvalue $(1-\epsilon)^2$. Consequently $\operatorname{range}R=\operatorname{span}\{\one,v\}$ for a unit $v\in E$.
+
+The assumed error bound and~\eqref{eq:error} force both trace equality and $Y=XR$. Substitution gives~\eqref{eq:best}. The converse follows by the same decomposition.
+\end{proof}
+
+\section{Endpoint rounding}
+The next lemma provides the soundness step. Its use of a positive but small $\delta$ is what permits the input matrix to be strictly positive.
+
+\begin{lemma}\label{lem:round}
+Suppose $v\in\ker C\cap\one^\perp$, $\|v\|_2=1$, and the matrix in~\eqref{eq:best} is entrywise nonnegative. Then $\ker C$ contains a nonconstant Boolean vector.
+\end{lemma}
+\begin{proof}
+Put $a=-\min_i v_i>0$ and $b=\max_i v_i>0$. The signs follow from $\one^{\mathsf T}v=0$ and $v\ne0$. Applying nonnegativity to coordinates attaining the minimum and maximum yields
+\[
+ Nab\leq1+\delta.
+\]
+On the other hand,
+\begin{equation}\label{eq:variance}
+ \sum_{i=1}^N(b-v_i)(v_i+a)
+ =Nab-\sum_i v_i^2+(b-a)\sum_i v_i
+ =Nab-1.
+\end{equation}
+All terms on the left are nonnegative. Hence $1\leq Nab\leq1+\delta$, and their sum is at most $\delta$.
+
+Write $L=a+b$. Round each $v_i$ to a nearest endpoint $w_i\in\{-a,b\}$, breaking ties arbitrarily. Let $d_i=|w_i-v_i|\leq L/2$. Then
+\[
+ (b-v_i)(v_i+a)=d_i(L-d_i)\geq\frac L2d_i,
+ \qquad\text{so}\qquad d_i\leq\frac{2\delta}{L}.
+\]
+Define $\chi\in\{0,1\}^N$ by $w=L\chi-a\one$. The coordinates attaining $-a$ and $b$ round to different endpoints, so $\chi$ is nonconstant. Since $Cv=C\one=0$, each row of $C$ gives
+\[
+ |(C\chi)_j|=\frac{|(C(w-v))_j|}{L}
+ \leq\frac{6\max_i d_i}{L}
+ \leq\frac{12\delta}{L^2}.
+\]
+From $Nab\geq1$ we obtain $L^2\geq4ab\geq4/N$. Thus
+\[
+ |(C\chi)_j|\leq3N\delta=\frac14<1.
+\]
+But $C\chi$ is an integer vector. It must therefore be zero, as required.
+\end{proof}
+
+\section{Completeness, soundness, and encoding length}
+\begin{proof}[Proof of Theorem~\ref{thm:hard}]
+Given a Boolean instance, output the rational pair $(X,\tau)$ in~\eqref{eq:input}.
+
+For completeness, a satisfying assignment extends to a nonconstant $\chi\in\{0,1\}^N\cap\ker C$ by Lemma~\ref{lem:boolean}. Let $k=\one^{\mathsf T}\chi$, so $1\leq k\leq N-1$, and set
+\[
+ v=\frac{\chi-(k/N)\one}{\sqrt{k(N-k)/N}}.
+\]
+Then $v\in E$ and $\|v\|_2=1$. The associated matrix~\eqref{eq:best} has entries
+\begin{equation}\label{eq:two-block}
+ Y_{ij}=\frac\delta N+
+ \begin{cases}
+  1/k,&\chi_i=\chi_j=1,\\
+  1/(N-k),&\chi_i=\chi_j=0,\\
+  0,&\chi_i\ne\chi_j.
+ \end{cases}
+\end{equation}
+It is strictly positive and has only two distinct rows. More explicitly, take $W=[\chi\ \ \one-\chi]$ and take the two rows of $H$ to be one row of $Y$ from each of the two groups. Then $W,H\geq0$ and $WH=Y$. Lemma~\ref{lem:best} gives $\|X-WH\|_F^2=\tau$.
+
+For soundness, if~\eqref{eq:decision} holds, then $Y=WH$ is nonnegative and has rank at most two. Lemma~\ref{lem:best} places it in~\eqref{eq:best}; Lemma~\ref{lem:round} gives a nonconstant Boolean vector in $\ker C$; and Lemma~\ref{lem:boolean} recovers a satisfying assignment.
+
+Finally, the construction has polynomial binary encoding length and is computable in polynomial time. Independent rows of $C$ are found by rational Gaussian elimination. The Gram matrix $DD^{\mathsf T}$ is an integer matrix of order $r\leq N-2$, and its determinant is at most $8^r$ by Hadamard's inequality, since each row of $D$ has squared norm eight. Its minors likewise have at most polynomially many bits (for example, the elementary determinant expansion and the entry bound eight suffice). The adjugate formula in~\eqref{eq:projector} therefore gives rational entries of polynomial bit length. Standard exact elimination computes them in polynomial time. The rational numbers $\delta,\epsilon,\tau$ and all entries of $X$ consequently have polynomial bit length, and the output has $N^2+1$ rational entries. This proves a polynomial-time many-one reduction.
+\end{proof}
+
+\section{An inverse-polynomial gap and simple-spectrum inputs}
+The reduction is not confined to a decision made exactly at a repeated singular value. Its rounding argument has a quantitative margin.
+
+\begin{theorem}\label{thm:gap}
+For the input in~\eqref{eq:input}, put
+\[
+ \eta=\frac{\epsilon}{9216N^4}=\frac1{221184N^6}.
+\]
+If the Boolean instance is satisfiable, a nonnegative rank-two approximation has squared error $\tau$. If it is unsatisfiable, no entrywise nonnegative real matrix of ordinary rank at most two has squared error at most $\tau+\eta$.
+\end{theorem}
+\begin{proof}
+Only the second assertion requires proof. Suppose that $Y\geq0$, $\rank Y\leq2$, and $\|X-Y\|_F^2\leq\tau+\eta$. Set
+\[
+ u=\one/\sqrt N,\quad \lambda=1+\delta,\quad
+ \alpha=\lambda^2-1,\quad \beta=1-(1-\epsilon)^2.
+\]
+Let $R$ be the row-space projector of $Y$, $a=u^{\mathsf T}Ru$, and $b=\tr(RP)$. The orthogonal decomposition from Lemma~\ref{lem:best} gives
+\begin{equation}\label{eq:gaploss}
+ (2-\rank R)+\alpha(1-a)+\beta b+\|XR-Y\|_F^2\leq\eta.
+\end{equation}
+All terms on the left are nonnegative. Since $N\geq5$, we have $\eta<\min\{1,\alpha,\beta\}$ and $\alpha,\beta\geq\epsilon$. Thus $\rank R=2$, $a>0$, and $b<1$.
+
+Take $q=Ru/\sqrt a$ and a unit vector $w\in\operatorname{range}R$ orthogonal to $q$. Then $u^{\mathsf T}w=0$. If $P_E$ denotes the projector onto $E$, the vector
+\[
+ v=\frac{P_Ew}{\|P_Ew\|_2}
+\]
+is well defined: $\|Pw\|_2^2\leq b<1$, and $w\perp u$. Put $S=uu^{\mathsf T}+vv^{\mathsf T}$. For unit vectors $z,z'$, the identity
+$\|zz^{\mathsf T}-z'z'^{\mathsf T}\|_F^2=2(1-(z^{\mathsf T}z')^2)$ yields
+\[
+ \|R-S\|_F
+ \leq\sqrt{2(1-a)}+\sqrt{2\|Pw\|_2^2}
+ \leq\sqrt{2\eta/\alpha}+\sqrt{2\eta/\beta}.
+\]
+Consequently the exact optimal rank-two matrix
+$Z=XS=\lambda uu^{\mathsf T}+vv^{\mathsf T}$ satisfies
+\begin{align*}
+ d:=\|Y-Z\|_F
+ &\leq\sqrt\eta+\lambda\bigl(\sqrt{2\eta/\alpha}+\sqrt{2\eta/\beta}\bigr)\\
+ &\leq8\sqrt{\eta/\epsilon}
+ =\frac1{12N^2}.
+\end{align*}
+For the second inequality, use $\lambda<2$, $\epsilon<1$, and $1+4\sqrt2<8$.
+
+Every entry of $Z$ is at least $-d$. In the notation of Lemma~\ref{lem:round}, this implies
+\[
+ Nab\leq1+\delta+Nd.
+\]
+Here $a,b$ now denote the positive endpoint magnitudes of $v$, not the projector quantities above. The endpoint-rounding proof applies verbatim with
+$\Delta=\delta+Nd\leq1/(6N)$ in place of $\delta$. It gives a nonconstant Boolean vector $\chi$ with
+$|(C\chi)_j|\leq3N\Delta\leq1/2<1$ for every row. Hence $C\chi=0$, contradicting unsatisfiability by Lemma~\ref{lem:boolean}.
+\end{proof}
+
+\begin{corollary}\label{cor:simple}
+Problem~\eqref{eq:decision} is NP-hard even for strictly positive symmetric positive-definite rational inputs with pairwise distinct eigenvalues. The reduction has an inverse-polynomial additive separation between yes- and no-instances in squared Frobenius error.
+\end{corollary}
+\begin{proof}
+Write
+\[
+ f(A)=\inf\{\|A-WH\|_F^2:W,H\geq0\text{ have inner dimension two}\}.
+\]
+Let $D_0=\operatorname{diag}(1,2,\ldots,N)$ and set
+\[
+ L=N(N-1)+1,\qquad t_j=\frac{j\eta}{64N^2L}\quad(1\leq j\leq L).
+\]
+The discriminant of the characteristic polynomial of $X+tD_0$, regarded as a polynomial in $t$, has degree at most $N(N-1)$ and is not identically zero. Indeed, for sufficiently large $t$, its eigenvalues divided by $t$ are arbitrarily close to the distinct diagonal entries of $D_0$. Therefore at least one $t_j$ gives a simple spectrum. Find one by exact characteristic-polynomial computations and testing the gcd with the derivative. There are polynomially many tests with polynomial-bit rational inputs, so this selection is polynomial time.
+
+Put $X'=X+t_jD_0$. It remains strictly positive and positive definite. For $e=\|X'-X\|_F$,
+\[
+ e\leq t_jN^{3/2}\leq\frac\eta{64\sqrt N}.
+\]
+Distance to any nonempty set is 1-Lipschitz, and the set of nonnegative rank-two products contains zero. Since $\|X\|_F\leq2\sqrt N$ and $e\leq\sqrt N$,
+\[
+ |f(X')-f(X)|
+ \leq e(2\|X\|_F+e)
+ \leq5\sqrt N\,e
+ \leq\frac{5\eta}{64}<\frac\eta8.
+\]
+By Theorem~\ref{thm:gap}, a yes-instance has $f(X')\leq\tau+\eta/8$, while a no-instance has $f(X')\geq\tau+7\eta/8$. The rational threshold $\tau'=\tau+\eta/2$ therefore distinguishes them, with an additive margin at least $3\eta/8$ on either side. In a yes-instance the explicit factors from~\eqref{eq:two-block} already achieve error below $\tau'$; no attainment issue for the infimum is needed. All numbers introduced have polynomial encoding length.
+\end{proof}
+
+\section{Scope and verification}
+The theorem proves NP-hardness of the stated exact decision problem; it does not establish its membership in NP. In particular, the proof does not assume that arbitrary feasible real factors admit polynomial-size rational certificates. The yes-instances produced by this reduction do admit the explicit rational factors in~\eqref{eq:two-block}.
+
+The repeated eigenvalue one makes the base construction transparent. Theorem~\ref{thm:gap} supplies an explicit inverse-polynomial squared-error gap, and Corollary~\ref{cor:simple} shows that multiplicity is not essential to hardness. Neither result asserts NP-completeness or a constant relative-error hardness threshold.
+
+The accompanying script \texttt{verification/verify\_nm03.py} uses exact rational arithmetic to check the projectors, positivity, spectral subspace identities, thresholds, Boolean equivalence, and all explicit witnesses on sixteen small instances. It includes the unsatisfiable instance consisting of all four triples of four variables: its second eigenspace is one-dimensional, and its unique best unconstrained rank-two approximation has a negative entry. The script also checks~\eqref{eq:variance} symbolically. The separate script \texttt{verification/verify\_nm03\_gap.py} checks the gap constants and the rational simple-spectrum perturbation on small instances. These finite checks supplement the proof rather than replace it.
+
+\paragraph{Review status.} This is a complete solution claim prepared for independent review, not a claim of publication, acceptance, or independent verification.
+
+\begin{thebibliography}{9}
+\bibitem{catalog}
+OpenProblemsInNLA contributors.
+\emph{NM-03: Complexity of globally optimal nonnegative rank-two approximation}.
+Repository statement, last checked September 10, 2026; accessed September 11, 2026.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/nonnegative-and-positive-factorizations/NM-03}.
+\bibitem{hmr}
+M.~M.~Hasan, D.~Mondal, and M.~S.~Rahman.
+\emph{Positive Planar Satisfiability Problems under 3-Connectivity Constraints}.
+arXiv:2108.12500v1, 2021, especially Section 5.
+\url{https://arxiv.org/abs/2108.12500}.
+\bibitem{lnv}
+E.~Lindy, V.~Noferini, and P.~Van Dooren.
+\emph{On rank-2 Nonnegative Matrix Factorizations and their variants}.
+arXiv:2507.20612v1, 2025.
+\url{https://arxiv.org/abs/2507.20612v1}.
+\end{thebibliography}
+\end{document}

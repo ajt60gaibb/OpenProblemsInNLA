@@ -1,0 +1,160 @@
+% Reviewed source SHA256 (UTF-8/LF): e6919a807c600c3774f722955e2aeeeb6cee649ad3abfb3428acc3003f9bce2e
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,microtype}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}\newtheorem{proposition}[theorem]{Proposition}
+\newcommand{\R}{\mathbb R}\newcommand{\sm}{\sigma_{\min}}
+\title{A sharp weighted planar lemma and a subframe singular-value bound}
+\author{Matthew J. Colbrook\\\small Department of Applied Mathematics and Theoretical Physics\\\small University of Cambridge, Cambridge, United Kingdom\\\small\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}\date{11 September 2026}
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\hypersetup{pdfauthor={Matthew J. Colbrook}}
+\begin{document}\maketitle
+
+\noindent\textbf{Independently reviewed partial result.} This is a polynomial auxiliary bound. The universal exponential conjecture remains open; novelty of the polynomial order is not claimed.
+The dated \href{https://github.com/MColbrook/OpenProblemsInNLA/blob/codex/colbrook-frames-submissions/references/colbrook-frames-2026-09-11/verification/reviews/FR-04-review.md}{independent agent review} records the subsequent checks and supersedes original draft remarks about pending review. This is not external human peer review or formal certification.
+\par\medskip
+% BEGIN REVIEWED BODY
+
+\begin{abstract}
+For $M$ vectors in the real plane with prescribed total squared norm $E$, the smallest least singular value of a pair is at most $\sqrt{2E/M}\sin(\pi/(2M))$. Equality is attained by equal-length vectors on equally spaced projective lines. Combining this sharp weighted lemma with determinant-weighted projection gives an explicit bound for the smallest least singular value of a square row submatrix of any real rectangular matrix. At the minimally redundant phase-retrieval size $(2n-1)\times n$, it has order $n^{-3/2}$ times the largest row norm. The exponential bound requested in FR-04 is not obtained. The polynomial order was already present in the literature; this note supplies a self-contained weighted argument, not a resolution of FR-04.
+\end{abstract}
+
+\section{The weighted planar problem}
+For row vectors $b_1,\ldots,b_M\in\R^2$, put
+\[
+ E=\sum_{i=1}^M\|b_i\|_2^2,\qquad
+ t=\min_{i<j}\sm\begin{pmatrix}b_i\\b_j\end{pmatrix}.
+\]
+
+\begin{theorem}\label{thm:plane}
+For every $M\ge2$,
+\[
+ t\le\sqrt{\frac{2E}{M}}\sin\frac{\pi}{2M}.
+\]
+The constant is sharp. If $E>0$, equality holds for vectors of norm $\sqrt{E/M}$ whose unoriented lines are equally spaced in the real projective line.
+\end{theorem}
+\begin{proof}
+The case $t=0$ is immediate. Assume $t>0$ and write $q_i=\|b_i\|^2/t^2\ge1$. The vectors lie on distinct projective lines. Order the lines cyclically, with consecutive angle gaps $\theta_i\in(0,\pi)$ satisfying $\sum_i\theta_i=\pi$; indices below are cyclic.
+
+Every two-row Gram matrix minus $t^2 I$ is positive semidefinite. Its determinant inequality implies
+\[
+ |\cos\theta_i|\le\sqrt{1-q_i^{-1}}\sqrt{1-q_{i+1}^{-1}}.
+\]
+Define $g(z)=\arccos(e^z)$ for $z<0$. Since
+\[
+ g''(z)=-\frac{e^z}{(1-e^{2z})^{3/2}}<0,
+\]
+concavity, with endpoint values interpreted by limits, gives
+\begin{align*}
+ \theta_i
+ &\ge\arccos\left(\sqrt{1-q_i^{-1}}\sqrt{1-q_{i+1}^{-1}}\right)\\
+ &\ge\frac12\arccos(1-q_i^{-1})+
+       \frac12\arccos(1-q_{i+1}^{-1}).
+\end{align*}
+The function $f(q)=\arccos(1-q^{-1})$ on $q\ge1$ is convex, because for $q>1$,
+\[
+ f''(q)=\frac{3q-1}{q^2(2q-1)^{3/2}}>0.
+\]
+Consequently
+\[
+ \pi=\sum_i\theta_i\ge\sum_i f(q_i)
+ \ge M f\left(\frac{E}{Mt^2}\right).
+\]
+As $f$ is decreasing, this is equivalent to
+\[
+ \frac{Mt^2}{E}\le1-\cos\frac\pi M
+ =2\sin^2\frac\pi{2M},
+\]
+which proves the bound.
+
+For equal-length vectors on equally spaced projective lines, the smallest angle between two lines is $\pi/M$. A pair with equal row norm $r$ and projective separation $\alpha$ has least singular value $r\sqrt{1-|\cos\alpha|}$. Thus its smallest value over all pairs is $\sqrt{2E/M}\sin(\pi/(2M))$, proving sharpness.
+\end{proof}
+
+The unit-maximum-row-norm planar extremum $\sqrt2 L\sin(\pi/(2M))$ is discussed by Liu~\cite{Liu}. Theorem~\ref{thm:plane} uses total squared norm instead and is no weaker, since $E/M\le L^2$. An exhaustive historical audit of this weighted formulation is not claimed.
+
+\section{Determinant-weighted residual energy}
+Let $A$ be a real $m\times n$ matrix, with rows $a_i$, $m\ge n\ge2$, and write $E=\|A\|_F^2$. For a row set $S$, let $P_S$ be the orthogonal projector onto the complement of the row span of $A_S$.
+
+\begin{lemma}\label{lem:energy}
+If $A$ has rank $n$, some linearly independent set $S$ of $n-2$ rows satisfies
+\[
+ \sum_{i=1}^m\|P_Sa_i\|_2^2\le\frac{2E}{n}.
+\]
+For $n=2$, use the empty set and $P_S=I$.
+\end{lemma}
+\begin{proof}
+Let $k=n-2$ and give each $k$-element row set weight
+$w_S=\det(A_S A_S^T)$. The weights are nonnegative and their sum is positive. If $w_S>0$, the Gram determinant formula gives
+\[
+ w_S\|P_Sa_i\|^2=\det(A_{S\cup\{i\}}A_{S\cup\{i\}}^T)
+ \qquad(i\notin S).
+\]
+If $w_S=0$, both sides are zero: adding a single row to a dependent $k$-set cannot make a $(k+1)$-set independent. Summing and counting each $(k+1)$-set $k+1$ times yields
+\[
+ \frac{\sum_S w_S\sum_i\|P_Sa_i\|^2}{\sum_Sw_S}
+ =(k+1)\frac{e_{k+1}(\lambda)}{e_k(\lambda)},
+\]
+where $\lambda_1,\ldots,\lambda_n>0$ are the eigenvalues of $A^T A$ and $e_j$ denotes the $j$th elementary symmetric polynomial. The identification of the determinant sums with $e_j(\lambda)$ follows from Cauchy--Binet.
+
+Newton's inequalities imply that the ratios of consecutive normalized elementary symmetric polynomials decrease, so
+\[
+ \frac{e_{n-1}(\lambda)/n}{e_{n-2}(\lambda)/\binom n2}
+ \le\frac{e_1(\lambda)}{n}=\frac En.
+\]
+Multiplication by $n-1$ gives a weighted mean at most $2E/n$, and at least one positive-weight set is no larger than that mean. The case $n=2$ is also the direct identity $E=2E/n$.
+\end{proof}
+
+\begin{theorem}\label{thm:general}
+For every real $m\times n$ matrix, $m\ge n\ge2$, put
+\[
+ \omega_n(A)=\min_{|T|=n}\sm(A_T),\qquad M=m-n+2.
+\]
+Then
+\[
+ \boxed{\quad
+ \omega_n(A)\le\sqrt{\frac{4\|A\|_F^2}{nM}}\,
+                       \sin\frac\pi{2M}.
+ \quad}
+\]
+\end{theorem}
+\begin{proof}
+If $A$ has rank less than $n$, the left side is zero. Otherwise choose $S$ from Lemma~\ref{lem:energy}. Its orthogonal complement is a plane. The $M$ rows not in $S$, projected to this plane, have total squared norm at most $2E/n$. Apply Theorem~\ref{thm:plane} to obtain a pair $i,j\notin S$ and a unit vector $x$ in that plane such that
+\[
+ |a_i x|^2+|a_j x|^2\le\frac{4E}{nM}\sin^2\frac\pi{2M}.
+\]
+All rows in $S$ annihilate $x$, so the same upper bound holds for $\|A_{S\cup\{i,j\}}x\|^2$. Taking a least singular value proves the assertion.
+\end{proof}
+
+\begin{corollary}\label{cor:critical}
+For a real $(2n-1)\times n$ matrix with largest row norm $L$,
+\[
+ \omega_n(A)\le
+ 2L\sqrt{\frac{2n-1}{n(n+1)}}\,
+ \sin\frac\pi{2(n+1)}
+ \sim \pi\sqrt2\,L\,n^{-3/2}
+\]
+as an asymptotic expression for the upper bound.
+\end{corollary}
+\begin{proof}
+Substitute $m=2n-1$ and $\|A\|_F^2\le(2n-1)L^2$ in Theorem~\ref{thm:general}.
+\end{proof}
+
+\section{The unresolved exponential step}
+FR-04 asks whether universal constants $C>0$ and $0<\beta<1$ bound the same quantity by $CL\beta^n$ for every minimally redundant full-spark matrix~\cite{Repo}. Corollary~\ref{cor:critical} does not provide such constants. A polynomial upper bound cannot be substituted for an exponential one. The order $n^{-3/2}$ already appears in the discussion by Balan and Wang~\cite{BW}, so the order itself must not be presented as a new solution.
+
+The argument isolates two sources of loss. Determinant-weighted projection controls a mean residual energy, not the distribution of the least singular values across exponentially many bases. The last two-dimensional step controls only the $M$ directions in a single projected plane. Neither step supplies exponential amplification. Small determinants by themselves do not repair the gap: the determinant is the product of all singular values, and without lower bounds for the other singular values it need not force an exponentially small least singular value.
+
+The accompanying script checks the derivative identities, the determinant-weighted energy identity on exact rational examples, the sharp equally spaced planar examples, and numerical instances of the general bound. These checks are supplementary to the proof above.
+
+\begin{thebibliography}{9}
+\bibitem{Repo} OpenProblemsInNLA, \emph{FR-04: frames and matrix designs}. \url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/frames-and-matrix-designs/FR-04}.
+\bibitem{BW} R. Balan and Y. Wang, \emph{Invertibility and robustness of phaseless reconstruction}, Applied and Computational Harmonic Analysis 38 (2015), 469--488. \url{https://www.cscamm.umd.edu/publications/ACHA2015paper_CS-16-05.pdf}.
+\bibitem{Liu} \emph{On the minimal smallest singular value of subframes for signal recovery}, Operators and Matrices 18 (2024), 273--293. \url{https://files.ele-math.com/articles/oam-18-17.pdf}.
+\end{thebibliography}
+\end{document}
+
+% END REVIEWED BODY

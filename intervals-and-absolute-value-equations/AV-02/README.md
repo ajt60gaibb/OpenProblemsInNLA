@@ -6,11 +6,21 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Open  
+**Status:** Solved
 **Area:** condition estimation and rigorous error bounds  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-11
 
 **Rating rationale:** Challenging reflects an exact complexity classification under a regularity promise where other norms behave differently; specialist impact is the computation of one AVE condition number.
+
+<!-- colbrook-intervals -->
+## Independently reviewed resolution - 2026-09-11
+
+**Hardness classification.** Theorem 2 and Sections 2-3 give a polynomial-time many-one reduction from MAX-CUT to the threshold $c_2(A)\ge t$, using integer upper-triangular matrices with diagonal 2. All queried families are regular. This proves the requested promise-preserving Turing hardness, with equality in the yes case; the restricted rational triangular problem is NP-complete. The result does not assert $\mathsf P\ne\mathsf{NP}$.
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. See the [complete manuscript](../../references/colbrook-intervals-2026-09-11/manuscripts/AV-02.pdf), [independent agent review](../../references/colbrook-intervals-2026-09-11/verification/reviews/AV-02-review.md) and [submission record](../../references/colbrook-intervals-2026-09-11/README.md). The source archive identifies the drafts as AI-generated; authorship is recorded at the submitter's request. This is agent verification, not external human peer review or formal proof-assistant certification.
+
+The difficulty, importance and rating rationale below are historical assessments of the original open target. The original statement and dated audits are preserved.
+<!-- /colbrook-intervals -->
 
 ## Context and notation
 

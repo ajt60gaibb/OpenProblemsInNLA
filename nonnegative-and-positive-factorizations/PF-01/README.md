@@ -7,9 +7,22 @@
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
 **Rating rationale:** Challenging because the symmetric subset structure has not yielded matching PSD-rank bounds; specialist importance reflects this explicit family’s role as a benchmark for semidefinite factorization.  
-**Status:** Open  
+**Status:** Partially resolved  
 **Area:** structured positive semidefinite factorization  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-11  
+
+<!-- colbrook-factorization -->
+## Partial result — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the stated partial scope.**
+
+The real positive semidefinite rank is exactly four for $n=5$ and $n=6$. Explicit graph factors give the general bound $\operatorname{rank}_{\rm psd}M^{(n)}\le\lceil2\sqrt{2\lfloor(n-1)/2\rfloor}\rceil$, and submatrix monotonicity gives a lower bound of four for every $n\ge5$.
+
+**Remaining question:** The exact ranks as a function of $n$ remain undetermined for $n\ge7$. In particular, the new upper bound five at $n=7,8$ is not accompanied by a matching lower bound five. The finite orders remain part of this single family entry. The ratings assess that surviving question.
+
+**Primary reference:** [complete authored PDF](../../references/colbrook-factorization-2026-09-11/manuscripts/PF-01_subset_intersection.pdf), [standalone TeX](../../references/colbrook-factorization-2026-09-11/manuscripts/PF-01_subset_intersection.tex), **Theorem 1, Corollary 5 and equation (8)**. [Independent proof review](../../references/colbrook-factorization-2026-09-11/verification/reviews/PF-01-review.md) · [Authorship and submission record](../../references/colbrook-factorization-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
+
+<!-- /colbrook-factorization -->
 
 ## Context and notation
 

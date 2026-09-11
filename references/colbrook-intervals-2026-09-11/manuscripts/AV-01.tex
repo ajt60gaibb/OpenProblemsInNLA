@@ -1,0 +1,131 @@
+% Full source/preamble SHA256 (UTF-8/LF): 9a4765c26b64d8383872a0970a6752ec63e48020f5b0a4509ad49cf6047c524a d8e7a0de2ed1a1fd162b147211fe29c7b1d7bfbc0be7b827dcda4d9a2653d0d4
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,mathtools,booktabs,enumitem}
+\usepackage[margin=26mm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyvrb}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\setlist{nosep}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\adj}{\operatorname{adj}}
+\newcommand{\co}{\operatorname{conv}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\NP}{\mathsf{NP}}
+\newcommand{\PP}{\mathsf P}
+\newcommand{\header}[2]{\begin{center}{\Large\bfseries #1\par}\vspace{6pt}{\small #2\par}\end{center}\vspace{6pt}}
+\newcommand{\repo}[1]{\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/intervals-and-absolute-value-equations/#1}}
+
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\hypersetup{pdfauthor={Matthew J. Colbrook},pdftitle={Recognizing the maximum finite AVE solution count}}
+
+\begin{document}
+\header{Recognizing the maximum finite number of solutions of an absolute value equation}{Repository AV-01. Claimed resolution; independent review pending.}
+\begin{center}Matthew J. Colbrook\\{\small Department of Applied Mathematics and Theoretical Physics\\University of Cambridge, Cambridge, United Kingdom\\\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}\\11 September 2026\end{center}
+\textbf{Independently reviewed resolution.} The exact catalog target is settled in the scope stated below.
+The dated \href{https://github.com/MColbrook/OpenProblemsInNLA/blob/codex/colbrook-package-submissions/references/colbrook-intervals-2026-09-11/verification/reviews/AV-01-review.md}{independent agent review} supersedes the original pending-review header. Agent review is not external human peer review or formal certification. The source archive describes these as AI-generated drafts; authorship is attributed at the submitter's request.
+\par\medskip
+% BEGIN REVIEWED BODY
+\begin{abstract}
+For rational $A\in\R^{n\times n}$ and $b\in\R^n$, we give a polynomial-time test for whether $Ax+|x|=b$ has exactly $2^n$ distinct solutions. The test uses $n+1$ rational linear-programming feasibility problems. No nonsingularity or spectral-radius promise is required; infinite solution sets are rejected. The proof characterizes the maximum finite solution count by the geometry of a polytope with paired inequalities.
+\end{abstract}
+\section{Statement and relation to the problem}
+Absolute values and inequalities are componentwise. Put $D_d=\diag(d)$ and
+\[
+ P=\{y:(A+I)y\le b,\ (A-I)y\le b\},\qquad u(y)=b-Ay.
+\]
+Thus $y\in P$ if and only if $u(y)\ge |y|$. The repository asks for polynomial-time recognition of exactly $2^n$ solutions, including the possibility of singular systems and infinitely many solutions in negative instances \cite{repo}. Earlier sufficient assumptions include a spectral-radius restriction \cite{hladik}.
+\begin{theorem}\label{thm:main}
+The following are equivalent:
+\begin{enumerate}
+\item $Ax+|x|=b$ has exactly $2^n$ distinct solutions.
+\item $b>0$, $P$ is bounded, and $u_i(y)>0$ for every $y\in P$ and $i=1,\ldots,n$.
+\end{enumerate}
+\end{theorem}
+\section{Necessity}
+In the closed orthant indexed by $s\in\{-1,1\}^n$, the solution set is
+\[
+ \{x:(A+D_s)x=b,\ D_sx\ge0\}.
+\]
+It is convex. A finite such set contains at most one point. Count incidences between solutions and closed orthants. If there are exactly $2^n$ solutions, each orthant contains exactly one solution, and each solution belongs to exactly one closed orthant. In particular all its coordinates are nonzero. Denote the solution by $x_s=D_su_s$, where $u_s>0$. The matrix $A+D_s$ is nonsingular: otherwise its nullspace would give a nonconstant line segment of solutions in the open orthant. Consequently $N_s=I+AD_s$ is nonsingular and $N_su_s=b$.
+
+For $d\in[-1,1]^n$, let
+\[
+ q(d)=\det(I+AD_d),
+\]
+and let $r_i(d)$ be the determinant obtained by replacing column $i$ of $I+AD_d$ by $b$. Both polynomials are multiaffine, and $r_i$ does not depend on $d_i$. Cramer's rule gives
+\[
+ r_i(s)=q(s)(u_s)_i.
+\]
+Flipping $s_i$ leaves the left side unchanged, so the determinants at two adjacent cube vertices have the same sign. All cube vertices are connected by such flips. Their determinant average is $q(0)=1$, hence every $q(s)$ is positive. Every $r_i(s)$ is therefore positive as well. Multiaffine interpolation yields
+\[
+ q(d)>0,\qquad r_i(d)>0\quad(d\in[-1,1]^n).
+\]
+At $d=0$ this implies $b_i=r_i(0)>0$. The continuous function
+\[
+ u(d)=(I+AD_d)^{-1}b
+\]
+is strictly positive on the entire cube.
+
+For any $y\in P$, define $u=b-Ay\ge|y|$. Set $d_i=y_i/u_i$ when $u_i>0$, and set $d_i=0$ when $u_i=0$ (which also forces $y_i=0$). Then $y=D_du$ and $(I+AD_d)u=b$, so $u=u(d)>0$. Conversely, $y=D_du(d)$ is in $P$ for every $d$ in the cube. Thus
+\[
+ P=\{D_du(d):d\in[-1,1]^n\}.
+\]
+This is the continuous image of a compact set, and all the asserted slack inequalities hold.
+\section{Sufficiency}
+Assume condition 2. The origin satisfies all $2n$ inequalities strictly, so $P$ is nonempty and full dimensional. In pair $i$, the inequalities are $y_i\le u_i(y)$ and $-y_i\le u_i(y)$. They cannot both be active at a feasible point, since that would force $y_i=u_i(y)=0$.
+
+A vertex of a full-dimensional polytope requires $n$ linearly independent active normals. At most one normal per pair can be active. Therefore each vertex has exactly one active inequality from each pair, and those $n$ normals are independent. Its coordinates are nonzero, and it is an AVE solution.
+
+We show that the sign patterns of vertices are closed under flipping any one coordinate. Start at a vertex and retain its $n-1$ active equations from all pairs except pair $i$. Their common nullspace is one dimensional. Choose the direction that strictly relaxes the omitted active inequality. A sufficiently small step in this direction is feasible. Boundedness gives a finite last feasible point on the resulting ray. At this endpoint some new inequality must become active. It cannot be the opposite of any retained inequality, since two members of a pair cannot be active together. It cannot be the inequality being strictly relaxed. It must therefore be the opposite member of pair $i$. Its normal is independent of the retained normals, since its value changes along the ray. Hence the endpoint is a vertex with exactly sign $i$ flipped.
+
+A nonempty bounded polytope has a vertex. Repeated flips now produce a vertex in every open orthant. For each pattern, its active system is nonsingular, so there is at most one such vertex. Conversely, an AVE solution lies in $P$, is strict in sign, and satisfies one of these nonsingular active systems. It equals the corresponding vertex. There are exactly $2^n$ solutions, proving Theorem~\ref{thm:main}.
+\section{The algorithm and bit complexity}
+First reject if any $b_i\le0$. Test feasibility of
+\begin{equation}\label{eq:recession}
+ (A+I)r\le0,\qquad(A-I)r\le0,\qquad-\one^TAr=1.
+\end{equation}
+Reject if feasible. Indeed, a recession vector satisfies $-Ar\ge|r|$. For every nonzero such vector, $-\one^TAr\ge\|r\|_1>0$, so it can be scaled to satisfy the last equality. Conversely, any feasible vector in \eqref{eq:recession} is a nonzero recession vector. Since $P$ is already nonempty, this is exactly the boundedness test.
+
+For each $i$, test feasibility of
+\begin{equation}\label{eq:face}
+ (A+I)y\le b,\qquad(A-I)y\le b,\qquad A_{i,:}y=b_i.
+\end{equation}
+Reject if any of these $n$ systems is feasible, and accept otherwise. On $P$, the final equality is precisely $u_i(y)=0$; all $u_i$ are nonnegative there. Theorem~\ref{thm:main} proves correctness.
+
+There are $n+1$ feasibility tests, each with $n$ variables, $2n$ inequalities, and one equality. Their rational coefficients have polynomial encoding length in the input. Polynomial-time rational linear programming \cite{lp} therefore gives a polynomial bit-complexity algorithm. This statement concerns exact rational linear programming; floating-point implementations in the accompanying tests are only diagnostic.
+\begin{remark}
+Boundedness is essential. For $n=1$, $A=2$, $b=1$, one has $P=(-\infty,1/3]$ and $1-2y>0$ throughout $P$, but the equation has only one solution.
+\end{remark}
+
+\section{An exact example beyond the spectral-radius restriction}
+For
+\[
+ A=\frac35\begin{pmatrix}1&1\\-1&1\end{pmatrix},\qquad b=(1,2)^T,
+\]
+the four solutions are
+\[
+ (10/73,95/73)^T,\quad(-10/7,5/7)^T,\quad
+ (40/7,-95/7)^T,\quad(-40/13,-5/13)^T.
+\]
+Direct substitution verifies each equation, and the four sign systems are
+nonsingular. Meanwhile $|A|$ has spectral radius $6/5>1$. This example
+illustrates that the theorem is not confined to the earlier spectral-radius
+subclass.
+
+\begin{thebibliography}{9}
+\bibitem{repo} OpenProblemsInNLA, problem AV-01. \repo{AV-01}.
+\bibitem{hladik} M. Hlad\'ik, \emph{Absolute value equations with $2^n$ solutions}, Optimization Letters 20 (2026), 559--575. \url{https://doi.org/10.1007/s11590-025-02251-z}.
+\bibitem{lp} N. Karmarkar, \emph{A new polynomial-time algorithm for linear programming}, Combinatorica 4 (1984), 373--395. \url{https://doi.org/10.1007/BF02579150}.
+\end{thebibliography}
+\end{document}
+
+% END REVIEWED BODY

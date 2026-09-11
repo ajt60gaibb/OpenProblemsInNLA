@@ -45,3 +45,7 @@ The [dated public-network audit](verification/network-check.json) covers the par
 ## Submission
 
 Prepared on the separate branch `sgstepaniants:codex/stepaniants-mi28-determinant` from the published base, preserving the permanent ID, canonical path and original mathematical target. [Resolution issue 84](https://github.com/ajt60gaibb/OpenProblemsInNLA/issues/84) follows the correction-or-resolution template. [Pull request 85](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/85) targets upstream `main` and explicitly asks the maintainer to review the complete proof, approve any required fork-workflow run and merge the resolution if accepted. Upstream acceptance is pending.
+
+## Integration with updated upstream
+
+After upstream advanced to `16369809e6e600144bd350ab70b7473b652f46f1`, the branch merged that published revision, retained its other resolutions, and regenerated the catalog from canonical metadata. All 203 permanent IDs and the original target match current upstream; all 17 safeguard tests pass. The authored proof sources and PDFs remain byte-for-byte identical to their reviewed versions without contact email.

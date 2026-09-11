@@ -3,8 +3,21 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because numerical evidence for coefficient-space coverage needs exact algebraic justification; community impact comes from multiplication budgets for practical matrix-function evaluation.  
-**Last checked:** 2026-09-10  
-**Status:** Open  
+**Last checked:** 2026-09-11  
+**Status:** Partially resolved  
+
+<!-- colbrook-matrix-functions -->
+## Verified partial result — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the stated partial results.**
+
+A fixed seven-product scheme has a full-rank complex coefficient map, certified by a nonzero exact integer Jacobian minor. Its image contains a nonempty Zariski-open subset of $\mathbb C[x]_{\le42}$ and is Euclidean dense there.
+
+The upper bound excluding degree 43 and above is not proved. The maximal-degree equality remains open; neither exact representation of every polynomial nor real Euclidean dense coverage is asserted. The entry remains in the open count. Its difficulty and importance ratings continue to describe the surviving canonical target.
+
+**Primary reference:** [complete authored PDF](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-14.pdf), [standalone TeX](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-14.tex), **Theorem 1 and equations (1)-(2)**. [Independent proof review](../../references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-14-review.md) · [Authorship and submission record](../../references/colbrook-matrix-functions-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
+
+<!-- /colbrook-matrix-functions -->
 
 ## Problem statement
 
