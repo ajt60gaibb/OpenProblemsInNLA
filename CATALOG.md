@@ -1,8 +1,8 @@
 # All problems and their status
 
-**200 problems with open targets:** 114 open and 86 partially resolved. **2 other retained entries**, excluded from the open count.
+**201 problems with open targets:** 114 open and 87 partially resolved. **2 other retained entries**, excluded from the open count.
 
-Every listed entry was checked on **2026-09-10**. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
+Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
 [Categories](README.md) · [Status definitions](README.md#problem-status) · [Solved and claimed solutions](RESOLVED.md) · [Rating definitions](README.md#ratings)
 
@@ -120,6 +120,7 @@ Retained entries outside the open count:
 | [RA-15](randomized-and-low-rank-approximation/RA-15/README.md) | Query complexity from Schatten to spectral norms | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-15/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-15/problem.tex) |
 | [RA-16](randomized-and-low-rank-approximation/RA-16/README.md) | Super-exponential decay of the zero-permanent probability | **🔵 OPEN** | extreme | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-16/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-16/problem.tex) |
 | [RA-17](randomized-and-low-rank-approximation/RA-17/README.md) | Minimum linear measurements for uniform recovery of real low-rank matrices | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-17/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-17/problem.tex) |
+| [RA-18](randomized-and-low-rank-approximation/RA-18/README.md) | The Goreinov–Tyrtyshnikov–Zamarashkin conjecture on square-submatrix inverse norms | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-18/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-18/problem.tex) |
 | [RE-01](randomized-and-low-rank-approximation/RE-01/README.md) | Constant-factor HSS approximation in polynomial time | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RE-01/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RE-01/problem.tex) |
 | [RE-02](randomized-and-low-rank-approximation/RE-02/README.md) | HSS approximation from a number of matvecs independent of depth | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RE-02/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RE-02/problem.tex) |
 | [RE-03](randomized-and-low-rank-approximation/RE-03/README.md) | Optimal matvec query complexity of HODLR approximation | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RE-03/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RE-03/problem.tex) |
