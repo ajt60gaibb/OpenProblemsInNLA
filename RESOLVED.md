@@ -55,6 +55,22 @@ The original statements, permanent IDs and historical ratings remain retained. T
 
 [Canonical target](tensor-computations/TR-26/README.md) · [Complete proof](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-26.md) · [PDF](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-26.pdf) · [Independent review](references/colbrook-unclaimed-2026-09-11/verification/reviews/TR-26-review.md). **Theorem 1 and Sections 2–7.** For every $d\ge2$ in the exact standard unweighted embedding, the reduced isotropic and nonisotropic Rayleigh–Ritz discriminants have degrees $2d$ and $6(d-1)$. The proof establishes distinct isotropic hyperplanes, irreducibility of the other part and generic discriminant multiplicity one, including $d=2$ and matrix-map degeneracies.
 
+### ✅ Three further tensor resolutions by Matthew J. Colbrook — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Three separate agents reviewed the complete recovered AI-assisted manuscripts and returned PASS for their exact canonical targets. Original IDs, targets, historical ratings and provenance remain intact. Verification is independent agent review, not external human peer review or formal certification. [Submission record](references/colbrook-recovered-tensors-2026-09-11/README.md). The already-pushed TR-06, TR-15 and TR-26 submissions are excluded from this batch.
+
+#### TR-04 — affirmative resolution
+
+[Canonical target](tensor-computations/TR-04/README.md) · [Complete proof](references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-04.pdf) · [Independent review](references/colbrook-recovered-tensors-2026-09-11/verification/reviews/TR-04-review.md). **Theorem 3 and Sections 2–4.** A deterministic algorithm tests at most $n_1$ first-cut singular-subspace choices and TT-SVD completions. It returns a tensor within the prescribed ranks with squared error strictly less than $(d-1)E_*$ whenever $E_*>0$, and exactly reconstructs when $E_*=0$, in the canonical idealized arithmetic/SVD model. This settles the displayed pointwise target. It does not give a smaller uniform factor $c<d-1$ or a finite-precision bit-complexity guarantee; the fixed-format limiting example in Section 5 makes this distinction explicit.
+
+#### TR-13 — affirmative resolution
+
+[Canonical target](tensor-computations/TR-13/README.md) · [Complete proof](references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-13.pdf) · [Independent review](references/colbrook-recovered-tensors-2026-09-11/verification/reviews/TR-13-review.md). **Theorem 1 and Sections 2–5.** For every odd $m\ge5$ and $n\ge2$, a nonempty Zariski-open set of complex Hankel tensors has ordinary rank, symmetric rank, ordinary border rank, symmetric border rank and Vandermonde rank all equal to $\lceil(m(n-1)+1)/2\rceil$. A compressed three-slice Koszul flattening gives the ordinary-border-rank lower bound, including arbitrary unstructured limiting sequences; a dominant moment map supplies the matching actual Vandermonde-rank upper bound. Exceptional Hankel tensors and the separate all-tensors question TR-14 are not settled.
+
+#### TR-20 — affirmative resolution
+
+[Canonical target](tensor-computations/TR-20/README.md) · [Complete proof](references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-20.pdf) · [Independent review](references/colbrook-recovered-tensors-2026-09-11/verification/reviews/TR-20-review.md). **Theorem 1 and Sections 2–8.** For every $n\ge2$, the reduced nonisotropic Rayleigh–Ritz discriminants in the original complex bilinear Segre model have degrees $24\binom{n+1}{3}$ for $2\times n$ matrices and $24n^2\binom n2$ for $3\times n$ matrices. The proof handles the logarithmic boundary and crossings, proves simple ramification and generic degree one onto the reduced irreducible image, and then extracts both formulas. Its general coefficient expression is additional to the two requested formulas.
+
 ### ✅ MI-13 — Nobori's spectral-middle-factor commutator inequality
 
 [Original statement and complete proof](matrix-inequalities-and-norms/MI-13/README.md) · [PDF](matrix-inequalities-and-norms/MI-13/problem.pdf)

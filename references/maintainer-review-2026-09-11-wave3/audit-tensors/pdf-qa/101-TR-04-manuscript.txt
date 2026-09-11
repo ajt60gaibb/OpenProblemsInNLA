@@ -1,0 +1,248 @@
+A strict pointwise tensor-train approximation bound
+by finite singular-subspace tie handling
+Matthew J. Colbrook∗
+11 September 2026
+Recovered qualified manuscript for TR-04. Not a uniform-factor improvement.
+Authorship recorded at the submitter's request. This recovered draft was generated with
+AI assistance. The complete original source passed independent agent review against the
+exact repository target. This is not external human peer review or formal certification; no
+priorityclaimismade. Originalprovenance,full-sourcereviewhashesanddiagnosticresults
+accompany this manuscript in the submission record.
+Abstract
+For prescribed tensor-train rank bounds, a deterministic algorithm in the exact arith-
+metic/SVDmodelreturnsanapproximationwithsquarederrorstrictlysmallerthan(d−1)
+timestheoptimalsquarederrorwheneverthatoptimumispositive,andreconstructsexactly
+at zero optimum. It performs at most n tensor-train SVD completions. The only modifi-
+1
+cation to the standard construction is to test a finite collection of equally optimal first-cut
+singular subspaces when a positive singular value straddles the truncation boundary. This
+addresses the strict pointwise inequality displayed in TR-04. It does not produce a uniform
+constant c<d−1: an explicit fixed-format family shows that its error ratios can approach
+d−1 already when d=3.
+1 The target and the distinction between two guarantees
+Let d ≥ 3, let A ∈ Rn1 ×···×n d be a dense tensor, and let r 1 ,...,r d−1 be positive integers. Denote
+by S the set of tensors whose unfolding at every cut 1,...,j | j+1,...,d has rank at most r .
+r j
+Write
+E∗ = E∗(A,r) =
+Y
+m
+∈
+i
+S
+n
+r
+∥A−Y∥2
+F
+.
+This minimum exists: S is a closed intersection of determinantal sets, and a minimizing se-
+r
+quence may be confined to a bounded ball. The displayed strict inequality in the repository
+is
+∥A−X∥2
+F
+< (d−1)E∗ (E∗ > 0), (1)
+with exact reconstruction when E∗ = 0, in the idealized arithmetic/SVD model [3, 2]. A
+guarantee of the form (1) for every input does not imply that the supremum of all error ratios
+is smaller than d−1. We prove the former, and make no claim of the latter. In particular this
+note must not be presented as a smaller uniform worst-case constant.
+∗Department of Applied Mathematics and Theoretical Physics, University of Cambridge, Cambridge, United
+Kingdom. Email: [contact omitted].
+1
+
+2 A completion estimate
+The standard TT-SVD guarantee [1, Theorem 2.2 and Corollary 2.4] will be used on the re-
+maining cuts after a first projection.
+Lemma 1. Let U ∈ Rn1 ×k have orthonormal columns, with k ≤ r
+1
+, and put P = UUT.
+Compress the first mode to form B = UTA. Treat its first two indices as a single index, so B is
+a tensor of order d−1 and format (kn )×n ×···×n . Apply ordinary TT-SVD to this tensor
+2 3 d
+with cut-rank bounds r 2 ,...,r d−1 , and lift the result through U to obtain X U . Then X U ∈ S r ,
+and for every Y ∈ S ,
+r
+∥A−X ∥2 ≤ ∥(I −P)A∥2 +(d−2)∥P(A−Y)∥2. (2)
+U F F F
+Here and below a matrix acting on a tensor acts on its first mode.
+Proof. The first cut of X has rank at most k. The remaining cuts have the specified rank
+U
+bounds, which are preserved by lifting through U. The compressed tensor UTY satisfies every
+remaining cut constraint: compression is left multiplication on each such unfolding and cannot
+increase its rank. The TT-SVD guarantee on the d−2 remaining cuts is therefore
+∥B−B b∥2 ≤ (d−2)∥UT(A−Y)∥2.
+F F
+For completeness, this usual guarantee follows by summing the squared orthogonal truncation
+residuals at successive cuts. Each residual is at most the best error at that cut; projecting any
+feasible comparison tensor through the previously computed orthogonal factors shows that each
+is at most the squared error of that comparison tensor. There are d−2 cuts. This argument
+also gives zero residuals when the input is already feasible. Finally, the first-mode discarded
+component is orthogonal to the lifted completion residual, giving
+∥A−X ∥2 = ∥(I −P)A∥2 +∥B−B b∥2.
+U F F F
+The identity ∥UT(A−Y)∥ = ∥P(A−Y)∥ completes the proof.
+F F
+3 The finite algorithm
+Let A denote the n ×(n ···n ) first unfolding. If A = 0, return 0. Compute its SVD and
+(1) 1 2 d
+let X
+ε2 = σ (A )2,
+i (1)
+i>r1
+where singular values beyond the matrix dimensions are interpreted as zero. Construct a list P
+of first-mode projectors as follows.
+If rankA ≤ r , use just the projector onto the column space of A . Otherwise let
+(1) 1 (1)
+τ = σ (A ) > 0. Let H be the span of left singular vectors with singular value strictly greater
+r1 (1)
+than τ, put h = dimH, and let E be the left singular space for τ, of dimension t. Set s = r −h,
+1
+so 1 ≤ s ≤ t. If s = t, use just the projector onto H ⊕E. If s < t, take any fixed orthonormal
+basis u 0 ,...,u t−1 of E and form the t cyclic windows
+W j = span{u j ,u j+1 ,...,u j+s−1 }, 0 ≤ j < t,
+with subscripts modulo t. Use the t projectors
+P = P +P . (3)
+j H Wj
+Each projector in P is a best first-cut rank-r projection (or an exact column-space projection
+1
+when the rank is smaller). For each P ∈ P, choose an orthonormal column matrix U with
+2
+
+P = UUT, form X by Lemma 1, and compute its actual Frobenius error. Return a candidate
+U
+of minimum error, resolving any final tie deterministically.
+There are at most n candidates. SVDs, matrix products, tensor reshapings, and error
+1
+computations have polynomial cost in the dense input size and the rank parameters. Thus this
+isadeterministicpolynomial-timealgorithminthearithmetic/SVDmodel. Equalityofsingular
+values is tested exactly in that model. A floating-point implementation with a tolerance is an
+illustration, not a bit-complexity implementation of the exact tie test.
+4 Proof of the strict guarantee
+We first isolate the only equality case requiring attention.
+Lemma 2. Suppose rankA > r , and let Y satisfy rankY ≤ r and ∥A − Y∥2 = ε2.
+(1) 1 (1) 1 F
+With H and E defined above, the residual R = A−Y obeys P R = 0. If s = t, it also obeys
+H
+(P +P )R = 0.
+H E
+Proof. Let S be the column space of Y . The orthogonal decomposition
+(1)
+∥A −Y ∥2 = ∥(I −P )A ∥2 +∥P A −Y ∥2
+(1) (1) F S (1) F S (1) (1) F
+shows that equality with the best rank-r error forces Y = P A and forces P to maximize
+1 (1) S (1) S
+the captured singular energy. Since τ > 0, dimS = r . The equality characterization of this
+1
+variational maximum gives S = H ⊕E for an s-dimensional subspace E ⊂ E. One can see
+0 0
+this directly by writing tr(P A AT ) in an eigenbasis: all weights at eigenvalues strictly above
+S (1) (1)
+τ2 must be one, all below must be zero, and the remaining weight is s in the τ2 eigenspace.
+Thus H ⊂ S, and also E ⊂ S when s = t. The asserted residual orthogonality follows.
+Theorem 3. The finite algorithm above returns X ∈ S
+r
+satisfying (1) whenever E∗ > 0, and
+returns X = A when E∗ = 0.
+Proof. Fix a best feasible Y ∈ S
+r
+, and write R = A−Y. The first-cut lower bound is ε2 ≤ E∗.
+Every tested projector P has ∥(I −P)A∥2 = ε2; Lemma 1 gives
+F
+∥A−X
+U
+∥2
+F
+≤ ε2+(d−2)∥PR∥2
+F
+≤ ε2+(d−2)E∗. (4)
+If ε2 < E∗, this is strictly smaller than (d − 1)E∗. In particular, this covers rankA
+(1)
+≤ r
+1
+whenever E∗ > 0.
+It remains to consider ε2 = E∗ > 0. By Lemma 2, P
+H
+R = 0. If s = t, the single tested
+projector annihilates R, so (4) bounds the error by E∗ < (d−1)E∗. If 0 < s < t, the cyclic-
+window projectors satisfy the exact averaging identity
+1
+Xt−1
+s
+P = P ,
+t
+Wj
+t
+E
+j=0
+since each basis vector appears in exactly s windows. Hence
+1
+Xt−1
+s s
+t
+∥P
+j
+R∥2
+F
+=
+t
+∥P
+E
+R∥2
+F
+≤
+t
+E∗ < E∗.
+j=0
+At least one tested projector has this bound. Its completion satisfies
+(cid:18) (cid:19)
+s
+∥A−X
+U
+∥2
+F
+≤ 1+(d−2)
+t
+E∗ < (d−1)E∗.
+The returned minimum-error candidate is no worse.
+Finally, if E∗ = 0, then A ∈ S
+r
+, ε2 = 0, and (4) with R = 0 forces the returned error to be
+zero.
+3
+
+5 Why this is not a uniform constant improvement
+This distinction is material to the scope of the result, not a numerical precision issue. Consider
+d = 3, format 3×3×2, ranks (2,1), and the tensor
+A = αe ⊗e ⊗f +βe ⊗e ⊗f +γe ⊗e ⊗f , α > γ ≥ β > 0.
+1 1 1 2 2 1 3 3 2
+Its optimal error is E∗ = γ2. Indeed, a tensor feasible for ranks (2,1) is M⊗v with rankM ≤ 2.
+For a unit vector v = (c,s), the contracted matrix is diag(αc,βc,γs). The maximum possible
+sum of its two largest squared singular values, also maximizing over c2+s2 = 1, is
+max{α2+β2,α2,β2,γ2} = α2+β2.
+This proves the claimed optimum by orthogonal projection.
+When γ > β, the best first-cut rank-two subspace is uniquely span(e ,e ). The remaining
+1 3
+rank-one truncation retains only the α term. The algorithm’s squared error is therefore β2+γ2,
+and its ratio to optimum is
+1+(β/γ)2 < 2.
+Keeping α = 2, β = 1 and sending γ ↓ 1 shows that these ratios approach 2 = d−1 in a fixed
+format. At γ = β, an unfortunate ordinary TT-SVD tie choice can attain ratio exactly two; the
+finite tie handling removes that equality. No theorem here asserts a uniform ratio bounded by
+2−δ for a fixed δ > 0.
+6 Reproducibility and scope
+The accompanying verify_tr04.py checks the projector averaging identity exactly, checks the
+fixed-format family and rotated tie bases, and tests the numerical implementation for rank fea-
+sibility and exact reconstruction up to floating-point error. The exact mathematical algorithm
+and its guarantee are Theorem 3; a tolerance-based SVD is not claimed to detect exact ties in
+finite precision. No ranks are enlarged. No oracle for E∗ or for an optimal Y is used: those
+objects appear only in the proof. The assertion addressed is the strict pointwise target, not a
+stronger uniform-factor or bit-complexity formulation.
+References
+[1] I. V. Oseledets, Tensor-Train Decomposition, SIAM Journal on Scientific Computing 33
+(2011), 2295–2317, Theorem 2.2 and Corollary 2.4. doi:10.1137/090752286.
+[2] N. Amsel et al., Linear Systems and Eigenvalue Problems: Open Questions from a Simons
+Workshop, arXiv:2602.05394v3 (2026), Section 6.1, Problem 6.1.
+[3] OpenProblemsInNLA, TR-04: Improve the worst-case approximation factor for prescribed
+tensor-train ranks, canonical statement. https://github.com/ajt60gaibb/OpenProblems
+InNLA/tree/main/tensor-computations/TR-04.
+4
