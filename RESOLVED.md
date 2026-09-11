@@ -15,6 +15,14 @@ catalog with **🟡 PARTIAL** and an explanation of what remains.
 
 ## Resolved catalog entries
 
+### ✅ MF-22 — cubic C1 spline Schrödinger Toeplitz conditioning — George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology.
+
+**Solved affirmatively, 2026-09-11.** The [Theorem in Section 1 and proof in Sections 2–4](matrix-functions-and-stability/MF-22/solution.md) establish eventual invertibility and $\kappa_2(H_n(\rho))\le K_\rho n$ for every fixed real $\rho>0$. This answers the exact pure Toeplitz question with exponent one, including $\rho=\sqrt{10}$ and all stated boundary entries. [Proof PDF](matrix-functions-and-stability/MF-22/solution.pdf) · [Original canonical target](matrix-functions-and-stability/MF-22/README.md).
+
+The full proof passed a separate [Codex-agent mathematical review](references/stepaniants-mf22-2026-09-11/verification/MF-22-independent-review.md), with an independent checker confirming 31 exact polynomial identities. The [submission record](references/stepaniants-mf22-2026-09-11/README.md) documents substantial AI assistance, the exact reviewed source, public branch/fork checks, and verification limits. This is automated-agent review, not external human peer review or formal verification. The original authors retain credit for the family, root classification and question; the original ID, statement, path and historical ratings remain unchanged.
+
 ### ✅ MI-13 — Nobori's spectral-middle-factor commutator inequality
 
 [Original statement and complete proof](matrix-inequalities-and-norms/MI-13/README.md) · [PDF](matrix-inequalities-and-norms/MI-13/problem.pdf)

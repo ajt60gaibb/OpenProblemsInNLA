@@ -1,6 +1,6 @@
 # All problems and their status
 
-**153 problems with open targets:** 75 open and 78 partially resolved. **50 other retained entries**, excluded from the open count.
+**152 problems with open targets:** 74 open and 78 partially resolved. **51 other retained entries**, excluded from the open count.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -97,7 +97,6 @@ Retained entries outside the open count:
 | [MF-19](matrix-functions-and-stability/MF-19/README.md) | Decidability of zero hitting by rational matrix powers | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-19/problem.pdf) · [TeX](matrix-functions-and-stability/MF-19/problem.tex) |
 | [MF-20](matrix-functions-and-stability/MF-20/README.md) | Decidability of zero hitting by a matrix exponential | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-20/problem.pdf) · [TeX](matrix-functions-and-stability/MF-20/problem.tex) |
 | [MF-21](matrix-functions-and-stability/MF-21/README.md) | The uniform expansion threshold for Toeplitz symbols with higher-order zeros | **🔵 OPEN** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-21/problem.pdf) · [TeX](matrix-functions-and-stability/MF-21/problem.tex) |
-| [MF-22](matrix-functions-and-stability/MF-22/README.md) | Polynomial conditioning of the cubic C1 spline Schrödinger Toeplitz family | **🔵 OPEN** | hard | interesting to specialist | [PDF](matrix-functions-and-stability/MF-22/problem.pdf) · [TeX](matrix-functions-and-stability/MF-22/problem.tex) |
 
 Retained entries outside the open count:
 
@@ -105,6 +104,7 @@ Retained entries outside the open count:
 | --- | --- | --- | --- | --- | --- |
 | [MF-03](matrix-functions-and-stability/MF-03/README.md) | A uniform disk bound for wave-kernel Padé approximants | **✅ SOLVED** | hard | interesting to specialist | [PDF](matrix-functions-and-stability/MF-03/problem.pdf) · [TeX](matrix-functions-and-stability/MF-03/problem.tex) |
 | [MF-16](matrix-functions-and-stability/MF-16/README.md) | Uniqueness of positive definite solutions of two-letter word equations in order two | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-16/problem.pdf) · [TeX](matrix-functions-and-stability/MF-16/problem.tex) |
+| [MF-22](matrix-functions-and-stability/MF-22/README.md) | Polynomial conditioning of the cubic C1 spline Schrödinger Toeplitz family | **✅ SOLVED** | hard | interesting to specialist | [PDF](matrix-functions-and-stability/MF-22/problem.pdf) · [TeX](matrix-functions-and-stability/MF-22/problem.tex) |
 | [SF-01](matrix-functions-and-stability/SF-01/README.md) | Preservation of real H-matrix structure by Newton square-root iterates | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/SF-01/problem.pdf) · [TeX](matrix-functions-and-stability/SF-01/problem.tex) |
 
 

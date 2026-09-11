@@ -2,7 +2,7 @@
 
 [← All categories](../README.md) · [Full catalog](../CATALOG.md) · [Solved and claimed solutions](../RESOLVED.md)
 
-**20 problems with open targets.** 3 retained entries are excluded from the open count.
+**19 problems with open targets.** 4 retained entries are excluded from the open count.
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
@@ -25,7 +25,6 @@
 | [MF-19](MF-19/README.md) | Decidability of zero hitting by rational matrix powers | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](MF-19/problem.pdf) · [TeX](MF-19/problem.tex) |
 | [MF-20](MF-20/README.md) | Decidability of zero hitting by a matrix exponential | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](MF-20/problem.pdf) · [TeX](MF-20/problem.tex) |
 | [MF-21](MF-21/README.md) | The uniform expansion threshold for Toeplitz symbols with higher-order zeros | **🔵 OPEN** | challenging | interesting to specialist | [PDF](MF-21/problem.pdf) · [TeX](MF-21/problem.tex) |
-| [MF-22](MF-22/README.md) | Polynomial conditioning of the cubic C1 spline Schrödinger Toeplitz family | **🔵 OPEN** | hard | interesting to specialist | [PDF](MF-22/problem.pdf) · [TeX](MF-22/problem.tex) |
 
 ## Retained entries outside the open count
 
@@ -33,6 +32,7 @@
 | --- | --- | --- | --- | --- | --- |
 | [MF-03](MF-03/README.md) | A uniform disk bound for wave-kernel Padé approximants | **✅ SOLVED** | hard | interesting to specialist | [PDF](MF-03/problem.pdf) · [TeX](MF-03/problem.tex) |
 | [MF-16](MF-16/README.md) | Uniqueness of positive definite solutions of two-letter word equations in order two | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MF-16/problem.pdf) · [TeX](MF-16/problem.tex) |
+| [MF-22](MF-22/README.md) | Polynomial conditioning of the cubic C1 spline Schrödinger Toeplitz family | **✅ SOLVED** | hard | interesting to specialist | [PDF](MF-22/problem.pdf) · [TeX](MF-22/problem.tex) |
 | [SF-01](SF-01/README.md) | Preservation of real H-matrix structure by Newton square-root iterates | **✅ SOLVED** | challenging | interesting to specialist | [PDF](SF-01/problem.pdf) · [TeX](SF-01/problem.tex) |
 
 Ratings are editorial; each entry explains both ratings and the scope of its status evidence. [Definitions](../README.md#problem-status).
