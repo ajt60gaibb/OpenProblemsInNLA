@@ -1,0 +1,632 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,array}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Sharp worst-case factors for randomly pivoted Cholesky and LU},
+ pdfsubject={Proposed negative resolutions of the same-rank RPCholesky and RPLU conjectures},
+ pdfkeywords={randomized numerical linear algebra, Cholesky, LU, sharp bounds}}
+\usepackage{enumitem}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\setlength{\emergencystretch}{2em}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\rank}{rank}
+\newcommand{\E}{\mathbb E}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\F}{\mathrm F}
+\newcommand{\sub}[1]{[#1]}
+\newcommand{\ind}{\mathbf 1}
+\newcommand{\eps}{\epsilon}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\title{Sharp worst-case factors for randomly pivoted Cholesky and LU}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\vspace{-2.2em}
+\begin{abstract}
+For every positive integer $r$, an explicit one-parameter family of real,
+entrywise-positive, positive-definite matrices of order $r+1$ makes the expected
+trace error of $r$ randomly pivoted Cholesky steps approach $2^r$ times the optimal
+rank-$r$ trace error. The same family makes the expected squared Frobenius error
+of $r$ randomly pivoted LU steps approach $4^r$ times the optimal rank-$r$
+squared Frobenius error. Thus both previously established universal factors are
+sharp as suprema. The same suprema hold on positive-definite correlation
+matrices when the dimension is unrestricted. In particular, a polynomial-in-$r$ factor for same-rank
+RPCholesky and a $2^r$ factor for same-rank RPLU are impossible without additional
+hypotheses. The proof combines scale-separated Cauchy--Binet expansions with an
+exact cancellation over pivot histories. A separate $2\times2$ rational example
+already disproves the literal $2^r$ RPLU bound at $r=1$. Exact rational
+verification certificates accompany the proof.
+\end{abstract}
+
+\section{Algorithms and results}
+
+For a positive-semidefinite matrix $A$, write
+\[
+ \tau_r(A)=\sum_{j>r}\lambda_j(A),
+ \qquad \lambda_1(A)\ge\cdots\ge\lambda_n(A)\ge0.
+\]
+Randomly pivoted Cholesky starts from $R_0=A$. Given a nonzero residual $R_s$,
+it chooses $j$ with probability $(R_s)_{jj}/\tr R_s$ and sets
+\begin{equation}\label{eq:chol-update}
+ R_{s+1}=R_s-\frac{(R_s)_{:j}(R_s)_{j:}}{(R_s)_{jj}}.
+\end{equation}
+The residual is positive semidefinite, so its trace is also its nuclear norm.
+The known universal bound is
+\begin{equation}\label{eq:known-chol}
+ \E\tr R_r\le 2^r\tau_r(A)
+ \qquad\text{\cite[Lemma 5.5]{CETW}}.
+\end{equation}
+
+Randomly pivoted LU starts from $B_0=A$, now allowing a general rectangular
+complex matrix. It chooses $(i,j)$ with probability
+$|(B_s)_{ij}|^2/\norm{B_s}_{\F}^2$ and sets
+\begin{equation}\label{eq:lu-update}
+ B_{s+1}=B_s-\frac{(B_s)_{:j}(B_s)_{i:}}{(B_s)_{ij}}.
+\end{equation}
+A zero entry has zero selection probability. If the residual becomes zero,
+the algorithm can stop. If $A_r$ denotes a best rank-$r$ approximation, the
+known bound is
+\begin{equation}\label{eq:known-lu}
+ \E\norm{B_r}_{\F}^2\le4^r\norm{A-A_r}_{\F}^2
+ \qquad\text{\cite[Theorem 3]{GW}}.
+\end{equation}
+Gilles and Wilber conjecture that the factor $4^r$ can be replaced by $2^r$
+\cite[discussion after Theorem 3]{GW}. The two questions addressed here are
+same-rank approximation questions: exactly $r$ pivots are compared with the
+best rank-$r$ error. They correspond to the polynomial-factor RPCholesky
+question and the $2^r$ RPLU question catalogued as RA-02 and RA-03,
+respectively, in \cite{REPO}. All algorithmic statements below are in exact
+arithmetic.
+
+For $r\ge1$, put $n=r+1$. For $0<t<1$, define
+\begin{equation}\label{eq:family}
+ \begin{split}
+ L(t)_{ij}&=
+ \begin{cases}
+  1,&i=j,\\
+  t^j/(i+j),&i>j,\\
+  0,&i<j,
+ \end{cases}\qquad 1\le i,j\le n,\\
+ \eps&=t^{n^2},\qquad
+ D=\diag(1,\eps,\ldots,\eps^{n-1}),\qquad
+ A_r(t)=L(t)D L(t)^{\mathsf T}.
+ \end{split}
+\end{equation}
+The matrix is positive definite for every $t>0$. Its entries are positive:
+for each off-diagonal entry the contribution of the first column of $L$ is
+already positive. Rational $t$ gives a rational matrix.
+
+\begin{theorem}[Sharp lower-bound family]\label{thm:main}
+Fix $r\ge1$. Apply $r$ steps of the two algorithms to $A=A_r(t)$ in
+\eqref{eq:family}. Then
+\begin{equation}\label{eq:main-limits}
+ \lim_{t\downarrow0}\frac{\E\tr R_r}{\tau_r(A)}=2^r,
+ \qquad
+ \lim_{t\downarrow0}\frac{\E\norm{B_r}_{\F}^2}
+ {\norm{A-A_r^{\mathrm{best}}}_{\F}^2}=4^r,
+\end{equation}
+where $A_r^{\mathrm{best}}$ denotes a best rank-$r$ approximation of $A$.
+Every square submatrix of $A_r(t)$ is nonsingular for all sufficiently small
+$t>0$, with the threshold allowed to depend on $r$. Thus every ordered pivot
+history appearing in the proof has positive probability.
+\end{theorem}
+
+\begin{corollary}[Worst-case constants]\label{cor:sup}
+For each $r\ge1$, the supremum of the RPCholesky ratio over all
+positive-semidefinite inputs with nonzero rank-$r$ tail is $2^r$. The supremum
+of the RPLU squared-error ratio over all matrix inputs with nonzero rank-$r$
+error is $4^r$. Restricting the lower-bound examples to real positive-definite,
+entrywise-positive matrices does not change either supremum.
+\end{corollary}
+\begin{proof}
+The upper bounds are \eqref{eq:known-chol} and \eqref{eq:known-lu};
+Theorem~\ref{thm:main} gives the matching lower bounds.
+\end{proof}
+
+\begin{corollary}[Consequences for the proposed improvements]\label{cor:negative}
+There are no fixed constants $C>0$ and $p\ge0$ such that
+$\E\tr R_r\le Cr^p\tau_r(A)$ for every $r$ and every positive-semidefinite $A$.
+For RPLU, no bound of the form
+$\E\norm{B_r}_{\F}^2\le C2^r\norm{A-A_r}_{\F}^2$ holds with $C$ independent
+of $r$. More generally, no factor $q(r)2^r$, with $q$ a fixed nonnegative polynomial,
+can replace $4^r$ uniformly.
+\end{corollary}
+\begin{proof}
+For the first statement, choose $r$ so that $2^{r-1}>Cr^p$, and then use
+Theorem~\ref{thm:main} with $t$ sufficiently small. For the second and third
+statements, a zero proposed factor is immediately impossible. Otherwise,
+$4^r/(2^r q(r))=2^r/q(r)$ is unbounded; again choose $r$ first and then $t$.
+No limit uniform in $r$ is needed.
+\end{proof}
+
+\section{A two-dimensional RPLU counterexample}
+
+The literal factor-$2^r$ inequality fails even at $r=1$. Take
+\begin{equation}\label{eq:small}
+ A=\begin{pmatrix}2&1\\1&2\end{pmatrix}.
+\end{equation}
+Its singular values are $3$ and $1$, so the optimal rank-one squared Frobenius
+error is $1$. The total squared entry norm is $10$. Each diagonal pivot has
+probability $2/5$ and leaves one nonzero residual entry of magnitude $3/2$.
+Each off-diagonal pivot has probability $1/10$ and leaves one nonzero residual
+entry of magnitude $3$. Therefore
+\begin{equation}\label{eq:small-expectation}
+ \E\norm{B_1}_{\F}^2
+ =2\left(\frac25\frac94\right)
+  +2\left(\frac1{10}\,9\right)
+ =\frac{18}{5}>2\norm{A-A_1}_{\F}^2.
+\end{equation}
+This calculation requires no limiting argument and no numerical eigensolver.
+
+More generally, if every entry of a nonsingular $2\times2$ matrix is nonzero,
+a pivot at $(i,j)$ leaves the complementary entry with magnitude
+$|\det A|/|A_{ij}|$. Summing over the four pivot probabilities gives
+\[
+ \E\norm{B_1}_{\F}^2=\frac{4|\det A|^2}{\norm A_{\F}^2},
+ \qquad
+ \frac{\E\norm{B_1}_{\F}^2}{\sigma_2(A)^2}
+ =\frac{4\sigma_1(A)^2}{\sigma_1(A)^2+\sigma_2(A)^2}.
+\]
+The latter ratio tends to $4$ when the singular-value ratio tends to infinity.
+The rest of the note establishes sharpness at every rank, not just at rank one.
+
+\section{Prefix minors and scale separation}
+
+Throughout the proof, $r$ (and hence $n$) is fixed and $t\downarrow0$.
+All implicit constants may depend on the fixed dimension. A submatrix indexed
+by sets is ordered increasingly unless an appended row or column order is
+specified. For $S\subseteq\{1,\ldots,n\}$ with $|S|=s$, set
+\[
+ M_s(S)=L[S,1\!:\!s],\qquad
+ d_s(S)=\sum_{j\in\{1,\ldots,s\}\setminus S}j.
+\]
+An empty determinant is $1$.
+
+\begin{lemma}[Prefix-row minors]\label{lem:prefix}
+For every such $S$,
+\begin{equation}\label{eq:prefix-asymptotic}
+ \det M_s(S)=\kappa_s(S)t^{d_s(S)}(1+O(t)),
+ \qquad \kappa_s(S)\ne0.
+\end{equation}
+For $s\ge1$, $M_s(S)$ is invertible for sufficiently small $t$, and
+$\norm{M_s(S)^{-1}}_2=O(t^{-s})$.
+\end{lemma}
+\begin{proof}
+Let $P=S\cap\{1,\ldots,s\}$, $I=S\setminus\{1,\ldots,s\}$, and
+$J=\{1,\ldots,s\}\setminus S$. Thus $|I|=|J|$. Group the rows as $(P,I)$
+and the columns as $(P,J)$. Multiply each column indexed by $j\in J$ by
+$t^{-j}$, leaving columns in $P$ unchanged. The resulting matrix has a finite
+limit of the form
+\[
+ \begin{pmatrix}I&F\\0&C\end{pmatrix},
+ \qquad C=\left[\frac1{i+j}\right]_{i\in I,\,j\in J},
+\]
+where $F$ is finite. Indeed, $L[P,P]\to I$, $L[I,P]\to0$, and the scaled
+$L[I,J]$ equals $C$ exactly. In the block $L[P,J]$, no diagonal entry occurs
+because $P$ and $J$ are disjoint, so column scaling leaves bounded entries.
+
+The Cauchy matrix $C$ is nonsingular. For distinct increasing $x_a$ and $y_b$
+with positive sums, the elementary Cauchy determinant identity is
+\[
+ \det\left[\frac1{x_a+y_b}\right]_{a,b=1}^{m}
+ =\frac{\prod_{a<a'}(x_{a'}-x_a)\prod_{b<b'}(y_{b'}-y_b)}
+ {\prod_{a,b}(x_a+y_b)}\ne0.
+\]
+The empty block has determinant $1$. Undoing the column scaling gives
+\eqref{eq:prefix-asymptotic}, including a possible sign from column ordering.
+The scaled matrix and its inverse remain bounded. Undoing the scaling in the
+inverse costs at most $t^{-s}$, proving the norm bound.
+\end{proof}
+
+\begin{lemma}[Dominance of the leading spectral scales]\label{lem:CB}
+For row and column sets $I,J$ of cardinality $s\le n-1$,
+\begin{equation}\label{eq:CB-asymptotic}
+ \det A[I,J]
+ \sim \eps^{s(s-1)/2}\det M_s(I)\det M_s(J).
+\end{equation}
+For $s=n$, the corresponding equality is exact, with $M_n=L$ and
+$\det L=1$. Consequently, every square minor of $A$ is nonzero for all
+sufficiently small positive $t$.
+\end{lemma}
+\begin{proof}
+Cauchy--Binet gives
+\[
+ \det A[I,J]=\sum_{\substack{T\subseteq\{1,\ldots,n\}\\|T|=s}}
+ \det L[I,T]\det L[J,T]\,
+ \eps^{\sum_{j\in T}(j-1)}.
+\]
+The smallest power of $\eps$ occurs uniquely at $T=\{1,\ldots,s\}$ and is
+$s(s-1)/2$. All other powers are at least one larger. Since $L(t)$ remains
+bounded, all minors in the finite sum remain bounded. Thus
+\[
+ \det A[I,J]=\eps^{s(s-1)/2}
+ \left(\det M_s(I)\det M_s(J)+O(\eps)\right).
+\]
+Lemma~\ref{lem:prefix} shows that the leading product has nonzero coefficient
+and $t$-degree at most $s(s+1)$. Since $\eps=t^{n^2}$ and
+$n^2>s(s+1)$ for $s\le n-1$, the remainder divided by that product tends to
+zero. If $s=n$, the sum has only one term. There are finitely many minors in
+a fixed dimension, so their eventual nonvanishing holds simultaneously.
+\end{proof}
+
+\section{Residual normalizers}
+
+For $|S|=s<n$, let $l_{s+1}=L[:,s+1]$ and define
+\begin{equation}\label{eq:w}
+ c_s(S)=M_s(S)^{-1}l_{s+1}[S],\qquad
+ w_s(S)=l_{s+1}-L[:,1\!:\!s]c_s(S),\qquad
+ h_s(S)=\norm{w_s(S)}_2^2.
+\end{equation}
+For $s=0$, the coefficient vector is empty and $w_0(\varnothing)=l_1$.
+The vector $w_s(S)$ vanishes on $S$.
+
+\begin{lemma}[A binary limiting rule]\label{lem:h}
+For each fixed $S$ of size $s<n$,
+\begin{equation}\label{eq:h-indicator}
+ \lim_{t\downarrow0}\frac1{h_s(S)}
+ =\ind_{\{s+1\notin S\}}.
+\end{equation}
+Moreover, $h_s(S)\ge1/4$ for all sufficiently small $t$.
+\end{lemma}
+\begin{proof}
+Because $L\to I$, its smallest singular value is at least $1/2$ eventually.
+The vector $w_s(S)$ equals $L$ times a vector whose first $s$ entries are
+$-c_s(S)$, whose $(s+1)$st entry is $1$, and whose remaining entries vanish.
+It follows that
+\begin{equation}\label{eq:h-lower}
+ h_s(S)\ge\frac14\left(1+\norm{c_s(S)}_2^2\right).
+\end{equation}
+If $s+1\notin S$, every entry of $l_{s+1}[S]$ is either zero or
+$O(t^{s+1})$. Lemma~\ref{lem:prefix} therefore gives $c_s(S)=O(t)$, so
+$w_s(S)\to e_{s+1}$ and $h_s(S)\to1$.
+
+If $s+1\in S$, the row of $M_s(S)$ indexed by $s+1$ has norm $O(t)$, whereas
+the same entry of $l_{s+1}[S]$ is exactly $1$. The equation defining $c_s(S)$
+forces $\norm{c_s(S)}_2\ge c/t$ for a positive constant $c$ and small $t$.
+Equation~\eqref{eq:h-lower} then gives $h_s(S)\to\infty$.
+The empty-set case is included in the first alternative.
+\end{proof}
+
+For equally sized row and column sets $I,J$, define the full, zero-padded
+interpolatory residual
+\[
+ \mathcal R(I,J)=A-A[:,J]A[I,J]^{-1}A[I,:].
+\]
+For empty sets this means $\mathcal R(\varnothing,\varnothing)=A$.
+Its rows in $I$ and columns in $J$ vanish. After any nonzero-pivot history with
+selected row set $I$ and column set $J$, Gaussian elimination gives this
+residual, independently of the order within the selected sets. In the
+Cholesky case $I=J$.
+
+\begin{lemma}[Asymptotic normalizers]\label{lem:normalizers}
+For $|I|=|J|=s<n$, one has
+\begin{align}
+ T_s(S):=\tr\mathcal R(S,S)&\sim\eps^s h_s(S),\label{eq:trace-asymptotic}\\
+ Q_s(I,J):=\norm{\mathcal R(I,J)}_{\F}^2
+ &\sim\eps^{2s}h_s(I)h_s(J).\label{eq:norm-asymptotic}
+\end{align}
+In particular,
+\begin{align}
+ \frac{\eps^s}{T_s(S)}&\longrightarrow\ind_{\{s+1\notin S\}},\label{eq:trace-indicator}\\
+ \frac{\eps^{2s}}{Q_s(I,J)}
+ &\longrightarrow\ind_{\{s+1\notin I\}}\ind_{\{s+1\notin J\}}.
+ \label{eq:norm-indicator}
+\end{align}
+\end{lemma}
+\begin{proof}
+For $i\notin I$ and $j\notin J$, the bordered determinant identity, with $i$
+and $j$ appended to the existing orders, gives
+\[
+ \mathcal R(I,J)_{ij}
+ =\frac{\det A[(I,i),(J,j)]}{\det A[I,J]}.
+\]
+Apply Lemma~\ref{lem:CB} to numerator and denominator. The ratio of the
+powers of $\eps$ is $\eps^s$. A second bordered determinant identity gives
+\[
+ \det L[(I,i),1\!:\!s+1]=\det M_s(I)\,w_s(I)_i,
+\]
+and the analogous column identity gives $\det M_s(J)\,w_s(J)_j$.
+Consequently,
+\begin{equation}\label{eq:entry-asymptotic}
+ \mathcal R(I,J)_{ij}
+ =\eps^s w_s(I)_i w_s(J)_j(1+o(1)).
+\end{equation}
+The two components in this formula are nonzero for sufficiently small $t$,
+by Lemma~\ref{lem:prefix} applied to the bordered prefix minors. For a fixed
+dimension, the relative $o(1)$ is uniform over the finitely many relevant
+entries and sets.
+
+For principal residuals, the diagonal leading terms in
+\eqref{eq:entry-asymptotic} are $\eps^s w_s(S)_i^2$. Summing them proves
+\eqref{eq:trace-asymptotic}. Squaring and summing all entries proves
+\eqref{eq:norm-asymptotic}. These are relative asymptotics even when a vector
+$w_s$ diverges: the maximum relative error tends to zero before the weighted
+finite sum is taken. Finally use Lemma~\ref{lem:h}; its lower bound on $h_s$
+justifies inversion also in the diverging cases.
+\end{proof}
+
+\section{Exact cancellation over pivot histories}
+
+The next identities hold before taking any limit. Recall that $n=r+1$.
+For a Cholesky history $(j_1,\ldots,j_r)$ of distinct indices, let
+$S_s=\{j_1,\ldots,j_s\}$. For an LU history, define similarly
+$I_s=\{i_1,\ldots,i_s\}$ and $J_s=\{j_1,\ldots,j_s\}$.
+
+\begin{lemma}[History identities]\label{lem:paths}
+For an $(r+1)\times(r+1)$ positive-definite input with all square minors
+nonzero, the expectations after $r$ pivots satisfy
+\begin{align}
+ \E\tr R_r
+ &=\det A\sum_{(j_1,\ldots,j_r)}
+     \prod_{s=0}^{r-1}\frac1{T_s(S_s)},\label{eq:chol-path}\\
+ \E\norm{B_r}_{\F}^2
+ &=|\det A|^2\sum_{\substack{(i_1,\ldots,i_r)\\(j_1,\ldots,j_r)}}
+     \prod_{s=0}^{r-1}\frac1{Q_s(I_s,J_s)}.\label{eq:lu-path}
+\end{align}
+The sums range over ordered lists of distinct indices; in the second sum
+row indices and column indices are separately distinct.
+\end{lemma}
+\begin{proof}
+In Cholesky, the product of the $r$ pivot values is the principal determinant
+$\det A[S_r,S_r]$. The probability of the history is this product divided by
+$\prod_{s=0}^{r-1}T_s(S_s)$. Only one diagonal residual entry remains after
+$r$ pivots, and its value is $\det A/\det A[S_r,S_r]$. The determinant factors
+cancel when probability is multiplied by final trace.
+
+In LU, the product of the pivot values equals the determinant of the selected
+$r\times r$ block in the ordered row and column lists. Its squared modulus
+is the numerator of the history probability. The only remaining residual
+entry has squared modulus $|\det A|^2/|\det A[I_r,J_r]|^2$; permutations
+change only a sign before taking the modulus. Cancellation gives
+\eqref{eq:lu-path}. Summing history contributions proves both identities.
+No independence of the LU row and column choices is being assumed.
+\end{proof}
+
+\section{Counting the surviving histories}
+
+First identify the optimal error scale. The determinant and inverse of the
+family satisfy
+\begin{equation}\label{eq:det-inverse}
+ \det A=\eps^{r(r+1)/2},\qquad
+ \eps^r A^{-1}
+ =L^{-\mathsf T}\diag(\eps^r,\eps^{r-1},\ldots,1)L^{-1}
+ \longrightarrow e_n e_n^{\mathsf T}.
+\end{equation}
+The largest eigenvalue on the right-hand side tends to $1$, whence
+\begin{equation}\label{eq:lambda-scale}
+ \frac{\lambda_n(A)}{\eps^r}\longrightarrow1.
+\end{equation}
+Since $A$ has order $r+1$ and is positive definite,
+$\tau_r(A)=\lambda_n(A)$ and
+$\norm{A-A_r^{\mathrm{best}}}_{\F}^2=\lambda_n(A)^2$.
+
+Using \eqref{eq:det-inverse} in the first history identity gives
+\begin{equation}\label{eq:normalized-chol-path}
+ \frac{\E\tr R_r}{\lambda_n(A)}
+ =\frac{\eps^r}{\lambda_n(A)}
+ \sum_{(j_1,\ldots,j_r)}\prod_{s=0}^{r-1}
+       \frac{\eps^s}{T_s(S_s)}.
+\end{equation}
+By Lemma~\ref{lem:normalizers}, the product for a fixed history tends to $1$
+precisely when
+\begin{equation}\label{eq:survive}
+ s+1\notin S_s\qquad(0\le s\le r-1),
+\end{equation}
+and otherwise tends to $0$. The condition at $s=0$ is vacuous.
+
+Condition~\eqref{eq:survive} is equivalent to
+\begin{equation}\label{eq:twochoices}
+ j_u\in\{1,\ldots,u,n\}\setminus\{j_1,\ldots,j_{u-1}\}
+ \qquad(1\le u\le r).
+\end{equation}
+Indeed, choosing a label $q\in\{2,\ldots,r\}$ before position $q$ violates
+\eqref{eq:survive} at $s=q-1$. Conversely, if every such label is chosen no
+earlier than its own position, no prefix can contain its next label. Label
+$n=r+1$ has no corresponding normalizer constraint, because the normalizers
+stop at $s=r-1$.
+
+At position $u$, the allowed set before removing earlier choices has $u+1$
+elements. All $u-1$ earlier choices lie in it. Thus there are exactly two
+choices at every position, and exactly $2^r$ surviving histories.
+The sum in \eqref{eq:normalized-chol-path} is finite for each fixed $r$.
+Together with \eqref{eq:lambda-scale}, this proves the Cholesky limit.
+
+For LU, the corresponding normalized identity is
+\begin{equation}\label{eq:normalized-lu-path}
+ \frac{\E\norm{B_r}_{\F}^2}{\lambda_n(A)^2}
+ =\frac{\eps^{2r}}{\lambda_n(A)^2}
+ \sum_{\substack{(i_1,\ldots,i_r)\\(j_1,\ldots,j_r)}}
+ \prod_{s=0}^{r-1}\frac{\eps^{2s}}{Q_s(I_s,J_s)}.
+\end{equation}
+Lemma~\ref{lem:normalizers} says that a summand tends to $1$ exactly when
+both the row history and the column history satisfy \eqref{eq:survive}; it
+otherwise tends to $0$. Each list has $2^r$ possibilities, giving $4^r$
+ordered pairs. This is a factorization of the limiting indicator and a
+combinatorial count, not a claim that the algorithm samples its row and column
+histories independently. Equation~\eqref{eq:lambda-scale} now proves the LU
+limit and completes the proof of Theorem~\ref{thm:main}.
+\qed
+
+\section{Unit-diagonal inputs by row replication}
+
+The examples of order $r+1$ are not unit-diagonal. Nevertheless, requiring a
+unit diagonal does not improve either worst-case constant when arbitrary
+matrix dimensions are allowed.
+
+\begin{proposition}[Correlation-matrix sharpness]\label{prop:correlation}
+For each fixed $r\ge1$, both suprema in Corollary~\ref{cor:sup} remain unchanged
+when inputs are restricted to real, entrywise-positive, positive-definite
+matrices with every diagonal entry equal to $1$.
+\end{proposition}
+\begin{proof}
+First let $A$ be any rational positive-definite matrix of order $n$ with
+positive entries. Choose $c>0$ rational so that
+$m_i=A_{ii}/c$ is a positive integer for every $i$. Put $N=\sum_i m_i$.
+Partition the $N$ row labels into groups of sizes $m_1,\ldots,m_n$, and
+construct $P\in\R^{N\times n}$ by assigning each row in group $i$ the vector
+$e_i^{\mathsf T}/\sqrt{m_i}$. Then $P^{\mathsf T}P=I_n$, and
+\[
+ C=c^{-1}PAP^{\mathsf T}
+\]
+is positive semidefinite, entrywise positive, and unit-diagonal. Its nonzero
+eigenvalues are those of $A/c$.
+
+The two pivoting processes on $C$ exactly reproduce those on $A$ after
+aggregating pivot labels by group. More precisely, if the current residual
+has the form $c^{-1}PBP^{\mathsf T}$, a Cholesky pivot in group $i$ has
+aggregate probability
+\[
+ \frac{m_i B_{ii}/(cm_i)}{\tr B/c}=\frac{B_{ii}}{\tr B}.
+\]
+For LU, the aggregate probability of a row in group $i$ and a column in
+group $j$ is
+\[
+ \frac{m_i m_j |B_{ij}|^2/(c^2m_i m_j)}{\norm B_{\F}^2/c^2}
+ =\frac{|B_{ij}|^2}{\norm B_{\F}^2}.
+\]
+Substituting either pivot into its rank-one update shows that the new
+residual is $c^{-1}P B_{\mathrm{new}}P^{\mathsf T}$. These assertions also
+respect zero pivot probabilities. Thus the trace error is scaled by $1/c$
+and the squared Frobenius error by $1/c^2$, exactly as are the respective
+optimal rank-$r$ errors. Both expected-error ratios are unchanged.
+
+To obtain positive definiteness, put
+\[
+ C_\delta=\frac{C+\delta I_N}{1+\delta},\qquad \delta>0.
+\]
+This matrix is positive definite, entrywise positive, and unit-diagonal.
+Fix a finite stopping rank $r$ for which the optimal error of $C$ is positive.
+Every pivot history having positive probability for $C$ has nonzero pivots
+at all of its steps. Along each such history, the pivot values, probabilities,
+and terminal residuals for $C_\delta$ converge to those for $C$, because the
+rank-one updates are rational functions whose denominators remain nonzero.
+There are only finitely many histories. Summing these convergent contributions
+and discarding all other, nonnegative contributions proves
+\[
+ \liminf_{\delta\downarrow0} F_r(C_\delta)\ge F_r(C),
+\]
+where $F_r$ is either expected-error ratio. Here the optimal-error denominators
+converge to their positive values for $C$, by continuity of the eigenvalues.
+Full continuity of the LU expectation at zero pivot entries is not needed.
+
+Finally choose rational $t$ in Theorem~\ref{thm:main} to approach the desired
+sharp constant, apply the replication construction to $A_r(t)$, and then
+take $\delta$ sufficiently small. The known universal upper bounds complete
+the proof. The replicated dimension $N$ is not bounded uniformly in $t$.
+\end{proof}
+
+\section{Exact finite certificates and scope}
+
+The limiting proof establishes a counterexample for every proposed smaller
+uniform factor. The accompanying code also supplies explicit finite rational
+certificates. These are useful because the matrices are deliberately
+ill-conditioned, making an ordinary double-precision eigensolve unreliable.
+
+Let $v=L^{-\mathsf T}e_n$ and $\nu=\norm v_2^2$. From
+\eqref{eq:det-inverse},
+\[
+ \eps^r A^{-1}\succeq vv^{\mathsf T},\qquad
+ \lambda_n(A)\le\frac{\eps^r}{\nu}.
+\]
+For $0\le s\le r-1$, let $\mathcal G_s$ consist of all $s$-element subsets
+of $\{1,\ldots,s,n\}$, and define the exact rational maxima
+\[
+ m_s=\max_{S\in\mathcal G_s}\frac{T_s(S)}{\eps^s},\qquad
+ q_s=\max_{I,J\in\mathcal G_s}\frac{Q_s(I,J)}{\eps^{2s}}.
+\]
+Every history counted in \eqref{eq:twochoices} has its $s$th prefix in
+$\mathcal G_s$. Retaining only these histories in
+\eqref{eq:normalized-chol-path} and \eqref{eq:normalized-lu-path} gives
+\begin{equation}\label{eq:cert}
+ \frac{\E\tr R_r}{\lambda_n(A)}\ge
+ \frac{2^r\nu}{\prod_{s=0}^{r-1}m_s},\qquad
+ \frac{\E\norm{B_r}_{\F}^2}{\lambda_n(A)^2}\ge
+ \frac{4^r\nu^2}{\prod_{s=0}^{r-1}q_s}.
+\end{equation}
+For a finite certificate it suffices to verify that these retained pivot
+histories are valid; nonsingularity of their prefix and terminal blocks is
+checked exactly. Omitted histories contribute nonnegative error.
+
+The file \texttt{exact\_certificate.py} evaluates \eqref{eq:cert} with Python
+\texttt{Fraction} arithmetic. The separate file
+\texttt{exact\_enumeration.py} recursively executes all actual rank-one pivot
+updates for small dimensions, without using the history cancellation formula
+to compute expectations. It encloses the optimal error using
+\[
+ \frac{\eps^r}{\tr(\eps^r A^{-1})}\le\lambda_n(A)
+ \le\frac{\eps^r}{\nu}.
+\]
+Both endpoints and both error expectations are rational, so the resulting
+ratio enclosures are rigorous. Selected lower bounds at $t=1/100$ are shown
+below; the displayed decimals are rounded downward, and the exact fractions
+are stored in the accompanying JSON records.
+
+\begin{center}
+\small
+\begin{tabular}{@{}r l r r r r@{}}
+\toprule
+$r$ & Certificate & Cholesky ratio $>$ & $2^r$ & LU ratio $>$ & $4^r$\\
+\midrule
+2 & All pivot updates & 3.99995644 & 4 & 15.99965154 & 16\\
+3 & All pivot updates & 7.99957072 & 8 & 63.99313178 & 64\\
+8 & Retained histories & 255.85420697 & 256 & 65461.37522779 & 65536\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The rank-eight certificate uses $n=9$ and $\eps=(1/100)^{81}$.
+The unusually small scales are part of an exact-arithmetic worst-case
+construction, not a proposed practical test in double precision.
+
+The small-dimensional family has unrestricted diagonal entries;
+Proposition~\ref{prop:correlation} separately covers the unit-diagonal setting
+in unrestricted dimension. No bounded-condition-number claim is made.
+These results do not resolve how many pivots beyond $r$ suffice for a
+$(1+\delta)$-relative trace approximation, the separate oversampling question
+RA-01. In particular, after $r+1$ pivots the matrices in this note are recovered
+exactly. Zero-padding embeds the lower-bound family in any larger dimension
+without altering its nonzero-pivot process, but does not turn this same-rank
+result into an oversampling lower bound.
+
+\begin{thebibliography}{9}
+\bibitem{CETW}
+Y.~Chen, E.~N. Epperly, J.~A. Tropp, and R.~J. Webber.
+\emph{Randomly pivoted Cholesky: Practical approximation of a kernel matrix
+with few entry evaluations}.
+Communications on Pure and Applied Mathematics, 78(5):995--1041, 2025.
+\href{https://doi.org/10.1002/cpa.22234}{doi:10.1002/cpa.22234}.
+The universal same-rank bound is Lemma~5.5.
+
+\bibitem{GW}
+M.~A. Gilles and H.~Wilber.
+\emph{Low-Rank Approximation by Randomly Pivoted LU}.
+arXiv:2601.22344, 2026.
+\url{https://arxiv.org/abs/2601.22344}.
+The equation numbering here follows the
+\href{https://www.researchgate.net/publication/400339985_Low-Rank_Approximation_by_Randomly_Pivoted_LU}{author-posted full text}
+dated 2 February 2026. The sampling rule is equation~(3), the bound is
+Theorem~3, and the proposed $2^r$ improvement appears immediately after it.
+
+\bibitem{REPO}
+\emph{Open Problems in Numerical Linear Algebra}, randomized and low-rank
+approximation category, entries RA-02 and RA-03.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/randomized-and-low-rank-approximation}.
+The repository-audit record accompanying this note distinguishes the retrieved
+category listing from source-file and pull-request checks that could not be
+completed. The mathematical statements proved here are specified in full
+above and do not depend on a repository status label.
+\end{thebibliography}
+\end{document}

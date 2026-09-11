@@ -1,0 +1,273 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\DeclareMathOperator{\rank}{rank}
+\title{A strict pointwise tensor-train approximation bound\newline by finite singular-subspace tie handling}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\begin{center}\small Recovered qualified manuscript for TR-04. Not a uniform-factor improvement.\end{center}
+\begin{abstract}
+For prescribed tensor-train rank bounds, a deterministic algorithm in
+the exact arithmetic/SVD model returns an approximation with squared
+error strictly smaller than $(d-1)$ times the optimal squared error
+whenever that optimum is positive, and reconstructs exactly at zero
+optimum. It performs at most $n_1$ tensor-train SVD completions. The only
+modification to the standard construction is to test a finite collection
+of equally optimal first-cut singular subspaces when a positive singular
+value straddles the truncation boundary. This addresses the strict
+pointwise inequality displayed in TR-04. It does not produce a uniform
+constant $c<d-1$: an explicit fixed-format family shows that its error
+ratios can approach $d-1$ already when $d=3$.
+\end{abstract}
+
+\section{The target and the distinction between two guarantees}
+Let $d\ge3$, let $A\in\R^{n_1\times\cdots\times n_d}$ be a dense tensor,
+and let $r_1,\ldots,r_{d-1}$ be positive integers. Denote by $S_r$ the
+set of tensors whose unfolding at every cut $1,\ldots,j\mid j+1,\ldots,d$
+has rank at most $r_j$. Write
+\[
+ E_* = E_*(A,r)=\min_{Y\in S_r}\|A-Y\|_F^2.
+\]
+This minimum exists: $S_r$ is a closed intersection of determinantal
+sets, and a minimizing sequence may be confined to a bounded ball.
+The displayed strict inequality in the repository is
+\begin{equation}\label{eq:target}
+ \|A-X\|_F^2<(d-1)E_*\qquad(E_*>0),
+\end{equation}
+with exact reconstruction when $E_*=0$, in the idealized arithmetic/SVD
+model \cite{repo,workshop}.
+A guarantee of the form \eqref{eq:target} for every input does not imply
+that the supremum of all error ratios is smaller than $d-1$. We prove
+the former, and make no claim of the latter. In particular this note
+must not be presented as a smaller uniform worst-case constant.
+
+\section{A completion estimate}
+The standard TT-SVD guarantee \cite[Theorem 2.2 and Corollary 2.4]{O}
+will be used on the remaining cuts after a first projection.
+
+\begin{lemma}\label{lem:completion}
+Let $U\in\R^{n_1\times k}$ have orthonormal columns, with $k\le r_1$,
+and put $P=UU^T$. Compress the first mode to form $B=U^T A$.
+Treat its first two indices as a single index, so $B$ is a tensor of
+order $d-1$ and format $(kn_2)\times n_3\times\cdots\times n_d$.
+Apply ordinary TT-SVD to this tensor with cut-rank bounds
+$r_2,\ldots,r_{d-1}$, and lift the result through $U$ to obtain $X_U$.
+Then $X_U\in S_r$, and for every $Y\in S_r$,
+\begin{equation}\label{eq:completion}
+ \|A-X_U\|_F^2
+ \le \|(I-P)A\|_F^2+(d-2)\|P(A-Y)\|_F^2.
+\end{equation}
+Here and below a matrix acting on a tensor acts on its first mode.
+\end{lemma}
+\begin{proof}
+The first cut of $X_U$ has rank at most $k$. The remaining cuts have the
+specified rank bounds, which are preserved by lifting through $U$.
+The compressed tensor $U^TY$ satisfies every remaining cut constraint:
+compression is left multiplication on each such unfolding and cannot
+increase its rank. The TT-SVD guarantee on the $d-2$ remaining cuts is
+therefore
+\[
+ \|B-\widehat B\|_F^2\le(d-2)\|U^T(A-Y)\|_F^2.
+\]
+For completeness, this usual guarantee follows by summing the squared
+orthogonal truncation residuals at successive cuts. Each residual is at
+most the best error at that cut; projecting any feasible comparison
+tensor through the previously computed orthogonal factors shows that
+each is at most the squared error of that comparison tensor. There are
+$d-2$ cuts. This argument also gives zero residuals when the input is
+already feasible.
+Finally, the first-mode discarded component is orthogonal to the lifted
+completion residual, giving
+\[
+ \|A-X_U\|_F^2=\|(I-P)A\|_F^2+\|B-\widehat B\|_F^2.
+\]
+The identity $\|U^T(A-Y)\|_F=\|P(A-Y)\|_F$ completes the proof.
+\end{proof}
+
+\section{The finite algorithm}
+Let $A_{(1)}$ denote the $n_1\times(n_2\cdots n_d)$ first unfolding.
+If $A=0$, return $0$. Compute its SVD and let
+\[
+ \varepsilon^2=\sum_{i>r_1}\sigma_i(A_{(1)})^2,
+\]
+where singular values beyond the matrix dimensions are interpreted as
+zero. Construct a list $\mathcal P$ of first-mode projectors as follows.
+
+If $\rank A_{(1)}\le r_1$, use just the projector onto the column space
+of $A_{(1)}$. Otherwise let $\tau=\sigma_{r_1}(A_{(1)})>0$. Let $H$ be
+the span of left singular vectors with singular value strictly greater
+than $\tau$, put $h=\dim H$, and let $E$ be the left singular space for
+$\tau$, of dimension $t$. Set $s=r_1-h$, so $1\le s\le t$.
+If $s=t$, use just the projector onto $H\oplus E$.
+If $s<t$, take any fixed orthonormal basis $u_0,\ldots,u_{t-1}$ of $E$
+and form the $t$ cyclic windows
+\[
+ W_j=\operatorname{span}\{u_j,u_{j+1},\ldots,u_{j+s-1}\},
+ \qquad 0\le j<t,
+\]
+with subscripts modulo $t$. Use the $t$ projectors
+\begin{equation}\label{eq:projectors}
+ P_j=P_H+P_{W_j}.
+\end{equation}
+Each projector in $\mathcal P$ is a best first-cut rank-$r_1$ projection
+(or an exact column-space projection when the rank is smaller).
+For each $P\in\mathcal P$, choose an orthonormal column matrix $U$ with
+$P=UU^T$, form $X_U$ by Lemma~\ref{lem:completion}, and compute its
+actual Frobenius error. Return a candidate of minimum error, resolving
+any final tie deterministically.
+
+There are at most $n_1$ candidates. SVDs, matrix products, tensor
+reshapings, and error computations have polynomial cost in the dense
+input size and the rank parameters. Thus this is a deterministic
+polynomial-time algorithm in the arithmetic/SVD model. Equality of
+singular values is tested exactly in that model. A floating-point
+implementation with a tolerance is an illustration, not a bit-complexity
+implementation of the exact tie test.
+
+\section{Proof of the strict guarantee}
+We first isolate the only equality case requiring attention.
+
+\begin{lemma}\label{lem:matrix}
+Suppose $\rank A_{(1)}>r_1$, and let $Y$ satisfy
+$\rank Y_{(1)}\le r_1$ and
+$\|A-Y\|_F^2=\varepsilon^2$.
+With $H$ and $E$ defined above, the residual $R=A-Y$ obeys
+$P_HR=0$. If $s=t$, it also obeys $(P_H+P_E)R=0$.
+\end{lemma}
+\begin{proof}
+Let $S$ be the column space of $Y_{(1)}$. The orthogonal decomposition
+\[
+ \|A_{(1)}-Y_{(1)}\|_F^2
+ =\|(I-P_S)A_{(1)}\|_F^2+
+   \|P_SA_{(1)}-Y_{(1)}\|_F^2
+\]
+shows that equality with the best rank-$r_1$ error forces
+$Y_{(1)}=P_SA_{(1)}$ and forces $P_S$ to maximize the captured singular
+energy. Since $\tau>0$, $\dim S=r_1$. The equality characterization of
+this variational maximum gives
+$S=H\oplus E_0$ for an $s$-dimensional subspace $E_0\subset E$.
+One can see this directly by writing
+$\operatorname{tr}(P_SA_{(1)}A_{(1)}^T)$ in an eigenbasis: all weights
+at eigenvalues strictly above $\tau^2$ must be one, all below must be
+zero, and the remaining weight is $s$ in the $\tau^2$ eigenspace.
+Thus $H\subset S$, and also $E\subset S$ when $s=t$.
+The asserted residual orthogonality follows.
+\end{proof}
+
+\begin{theorem}\label{thm:strict}
+The finite algorithm above returns $X\in S_r$ satisfying
+\eqref{eq:target} whenever $E_*>0$, and returns $X=A$ when $E_*=0$.
+\end{theorem}
+\begin{proof}
+Fix a best feasible $Y\in S_r$, and write $R=A-Y$.
+The first-cut lower bound is $\varepsilon^2\le E_*$.
+Every tested projector $P$ has $\|(I-P)A\|_F^2=\varepsilon^2$;
+Lemma~\ref{lem:completion} gives
+\begin{equation}\label{eq:basic}
+ \|A-X_U\|_F^2
+ \le\varepsilon^2+(d-2)\|PR\|_F^2
+ \le\varepsilon^2+(d-2)E_*.
+\end{equation}
+If $\varepsilon^2<E_*$, this is strictly smaller than $(d-1)E_*$.
+In particular, this covers $\rank A_{(1)}\le r_1$ whenever $E_*>0$.
+
+It remains to consider $\varepsilon^2=E_*>0$. By
+Lemma~\ref{lem:matrix}, $P_HR=0$. If $s=t$, the single tested
+projector annihilates $R$, so \eqref{eq:basic} bounds the error by
+$E_*<(d-1)E_*$. If $0<s<t$, the cyclic-window projectors satisfy the
+exact averaging identity
+\[
+ \frac1t\sum_{j=0}^{t-1}P_{W_j}=\frac{s}{t}P_E,
+\]
+since each basis vector appears in exactly $s$ windows. Hence
+\[
+ \frac1t\sum_{j=0}^{t-1}\|P_jR\|_F^2
+ =\frac{s}{t}\|P_ER\|_F^2
+ \le\frac{s}{t}E_*<E_*.
+\]
+At least one tested projector has this bound. Its completion satisfies
+\[
+ \|A-X_U\|_F^2
+ \le\left(1+(d-2)\frac{s}{t}\right)E_*
+ <(d-1)E_*.
+\]
+The returned minimum-error candidate is no worse.
+
+Finally, if $E_*=0$, then $A\in S_r$, $\varepsilon^2=0$, and
+\eqref{eq:basic} with $R=0$ forces the returned error to be zero.
+\end{proof}
+
+\section{Why this is not a uniform constant improvement}
+This distinction is material to the scope of the result, not a numerical
+precision issue. Consider $d=3$, format $3\times3\times2$, ranks $(2,1)$,
+and the tensor
+\[
+ A=\alpha e_1\otimes e_1\otimes f_1
+   +\beta e_2\otimes e_2\otimes f_1
+   +\gamma e_3\otimes e_3\otimes f_2,
+ \qquad \alpha>\gamma\ge\beta>0.
+\]
+Its optimal error is $E_*=\gamma^2$.
+Indeed, a tensor feasible for ranks $(2,1)$ is $M\otimes v$ with
+$\rank M\le2$. For a unit vector $v=(c,s)$, the contracted matrix is
+$\operatorname{diag}(\alpha c,\beta c,\gamma s)$. The maximum possible
+sum of its two largest squared singular values, also maximizing over
+$c^2+s^2=1$, is
+\[
+ \max\{\alpha^2+\beta^2,\alpha^2,\beta^2,\gamma^2\}
+ =\alpha^2+\beta^2.
+\]
+This proves the claimed optimum by orthogonal projection.
+
+When $\gamma>\beta$, the best first-cut rank-two subspace is uniquely
+$\operatorname{span}(e_1,e_3)$. The remaining rank-one truncation retains
+only the $\alpha$ term. The algorithm's squared error is therefore
+$\beta^2+\gamma^2$, and its ratio to optimum is
+\[
+ 1+(\beta/\gamma)^2<2.
+\]
+Keeping $\alpha=2$, $\beta=1$ and sending $\gamma\downarrow1$ shows that
+these ratios approach $2=d-1$ in a fixed format. At $\gamma=\beta$,
+an unfortunate ordinary TT-SVD tie choice can attain ratio exactly two;
+the finite tie handling removes that equality. No theorem here asserts
+a uniform ratio bounded by $2-\delta$ for a fixed $\delta>0$.
+
+\section{Reproducibility and scope}
+The accompanying \texttt{verify\_tr04.py} checks the projector averaging
+identity exactly, checks the fixed-format family and rotated tie bases,
+and tests the numerical implementation for rank feasibility and exact
+reconstruction up to floating-point error. The exact mathematical
+algorithm and its guarantee are Theorem~\ref{thm:strict}; a tolerance-based
+SVD is not claimed to detect exact ties in finite precision.
+No ranks are enlarged. No oracle for $E_*$ or for an optimal $Y$ is used:
+those objects appear only in the proof. The assertion addressed is the
+strict pointwise target, not a stronger uniform-factor or bit-complexity
+formulation.
+
+\begin{thebibliography}{9}
+\bibitem{O}
+I.~V.~Oseledets, \emph{Tensor-Train Decomposition},
+SIAM Journal on Scientific Computing 33 (2011), 2295--2317,
+Theorem 2.2 and Corollary 2.4.
+\href{https://doi.org/10.1137/090752286}{doi:10.1137/090752286}.
+\bibitem{workshop}
+N.~Amsel et al., \emph{Linear Systems and Eigenvalue Problems:
+Open Questions from a Simons Workshop},
+\href{https://arxiv.org/abs/2602.05394}{arXiv:2602.05394v3} (2026),
+Section 6.1, Problem 6.1.
+\bibitem{repo}
+OpenProblemsInNLA, \emph{TR-04: Improve the worst-case approximation
+factor for prescribed tensor-train ranks}, canonical statement.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/tensor-computations/TR-04}.
+\end{thebibliography}
+\end{document}
