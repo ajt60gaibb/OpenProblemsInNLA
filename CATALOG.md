@@ -1,6 +1,6 @@
 # All problems and their status
 
-**154 problems with open targets:** 77 open and 77 partially resolved. **49 other retained entries**, excluded from the open count.
+**152 problems with open targets:** 75 open and 77 partially resolved. **51 other retained entries**, excluded from the open count.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -114,8 +114,6 @@ Retained entries outside the open count:
 | --- | --- | --- | --- | --- | --- |
 | [KE-05](randomized-and-low-rank-approximation/KE-05/README.md) | Spectral-gap-independent constants for randomized block polynomial interpolation | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/KE-05/problem.pdf) · [TeX](randomized-and-low-rank-approximation/KE-05/problem.tex) |
 | [RA-01](randomized-and-low-rank-approximation/RA-01/README.md) | Optimal pivot count for RPCholesky trace approximation | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-01/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-01/problem.tex) |
-| [RA-02](randomized-and-low-rank-approximation/RA-02/README.md) | Polynomial trace-error factor after exactly the target rank of pivots | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-02/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-02/problem.tex) |
-| [RA-03](randomized-and-low-rank-approximation/RA-03/README.md) | Improve the randomized LU squared-error factor to $2^k$ | **🔵 OPEN** | challenging | interesting to specialist | [PDF](randomized-and-low-rank-approximation/RA-03/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-03/problem.tex) |
 | [RA-04](randomized-and-low-rank-approximation/RA-04/README.md) | Clustered singular-value gaps in randomized block Krylov approximation | **🔵 OPEN** | hard | interesting to specialist | [PDF](randomized-and-low-rank-approximation/RA-04/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-04/problem.tex) |
 | [RA-05](randomized-and-low-rank-approximation/RA-05/README.md) | Sharp joint rank and accuracy dependence for strong $\ell_p$ subspace coresets | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-05/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-05/problem.tex) |
 | [RA-06](randomized-and-low-rank-approximation/RA-06/README.md) | Sensitivity-dependent row sampling for $\ell_p$ embeddings when p exceeds two | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-06/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-06/problem.tex) |
@@ -141,6 +139,8 @@ Retained entries outside the open count:
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
+| [RA-02](randomized-and-low-rank-approximation/RA-02/README.md) | Polynomial trace-error factor after exactly the target rank of pivots | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-02/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-02/problem.tex) |
+| [RA-03](randomized-and-low-rank-approximation/RA-03/README.md) | Improve the randomized LU squared-error factor to $2^k$ | **✅ SOLVED** | challenging | interesting to specialist | [PDF](randomized-and-low-rank-approximation/RA-03/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-03/problem.tex) |
 | [RA-07](randomized-and-low-rank-approximation/RA-07/README.md) | Convexity of the expected error of volume-sampled column subsets | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-07/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-07/problem.tex) |
 | [RA-08](randomized-and-low-rank-approximation/RA-08/README.md) | Concave-function transfer of spectral low-rank error | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-08/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-08/problem.tex) |
 | [RA-09](randomized-and-low-rank-approximation/RA-09/README.md) | Concave-function transfer of Frobenius low-rank error | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-09/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-09/problem.tex) |
