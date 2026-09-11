@@ -53,3 +53,7 @@ python3 -m unittest discover -s tests -p 'test_problem_ids.py' -v
 The shared solution template makes its email field optional. Both exported TeX files compile independently. The [document checks](verification/document-checks.json) record actual builds, every-page visual inspection, permanent-ID validation and final artifact hashes.
 
 The submission branch is `sgstepaniants:codex/stepaniants-ra10-nuclear-transfer`, based on the upstream main commit above. The correction-or-resolution issue and new pull request target `ajt60gaibb/OpenProblemsInNLA:main`. They are listed in the [author's RA-10 submission discussions](https://github.com/ajt60gaibb/OpenProblemsInNLA/issues?q=RA-10+author%3Asgstepaniants); the pull request links its resolution issue and explicitly requests maintainer review and merge. Maintainer acceptance and merge are separate from the documented mathematical review.
+
+## Integration with accepted main — 11 September 2026
+
+The existing submission branch now retains accepted upstream changes from `87366c6` through a non-rewriting merge. The [dated integration record](verification/main-integration-2026-09-11-87366c6.md) documents unchanged reviewed proof files, preserved author attribution and mathematical targets, regenerated indexes, and passing ID/tests. Historical source hashes and reviews above are retained.
