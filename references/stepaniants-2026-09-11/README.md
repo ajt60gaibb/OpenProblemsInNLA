@@ -2,7 +2,6 @@
 
 **Submission author:** George Stepaniants.  
 **Current affiliation:** Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.  
-**Email:** gstepan@caltech.edu.  
 **Submission and independent review date:** 11 September 2026.
 
 The byline is included at the author's explicit request. The current affiliation was checked against the [official Caltech profile](https://www.cms.caltech.edu/people/george-stepaniants) and [personal academic website](https://georgestepaniants.com/) on 11 September 2026. The website lists an Assistant Professorship in Cambridge's Department of Applied Mathematics and Theoretical Physics and a visiting-faculty appointment at NYU Courant beginning in October 2026; these future appointments are not presented as current affiliations.

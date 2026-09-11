@@ -37,3 +37,17 @@ No numerical experiment can establish the universal statements here, so this rev
 I re-read `references/stepaniants-2026-09-11/manuscripts/md03_md04_proofs.tex` after attribution and independent-review statements were added. Both theorem applications remain correct, and the attribution correctly makes George Stepaniants the application-note author while retaining Guo, Fang and Lu as the original theorem authors. The mathematical core is byte-identical to `md03_md04_original_user_source.tex`.
 
 The hashed byte range starts at the first `\section{MD-03` and ends immediately before the first `\paragraph{Attribution and scope`; it includes all intervening source bytes and whitespace. Its length is 2052 bytes. SHA-256: `f600ec82ae76dcc6c9cbb9f9ce067066032de70864e532403614f0583bc4ab4f`. This fingerprint excludes title, author, review-status and layout material outside that range. Any subsequent layout change inside the range requires a new hash, even if the mathematics is unchanged.
+
+## Author-contact redaction — 11 September 2026
+
+At the author’s request, the contact-address line was removed from the public byline. George Stepaniants, the Department of Computing and Mathematical Sciences and the California Institute of Technology remain. Only the source’s author block changed; every byte from `\begin{document}` through the end of the document is unchanged. The previously reviewed mathematical-core hash above therefore remains valid.
+
+Previous complete source SHA-256: `22e421f243a61c6b56275e8e3d27366ad0517c5e0f9e45401850e69ee4f530c6`.
+
+Current complete source SHA-256: `8bad48796fd3608e65c12123db561c9f29d41d912edfe4c5d024540465030f2b`.
+
+Unchanged complete document-body SHA-256: `4610299e6267c35035b3a84154cee7492952d619c3e31eb432a35b0d4a30aa8e`.
+
+The PDF was rebuilt twice with pdfLaTeX without warnings, and all 2 pages were independently visually inspected after the edit. Text extraction, PDF metadata, annotations and decoded PDF objects were checked for the author’s email address, with no matches. The full branch-added text and PDF inventory was also checked. These metadata-only edits do not alter the mathematical PASS verdict. Historical source hashes are retained explicitly here and in the document-check record.
+
+Redaction and preservation reviewer: independent Codex agent `/root/prepare_manuscripts`, 11 September 2026.

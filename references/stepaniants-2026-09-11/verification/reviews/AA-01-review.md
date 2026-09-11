@@ -53,3 +53,17 @@ For the final mathematical-core fingerprint, take the source bytes beginning wit
 The previously checked 24,934-byte range had SHA-256 `ed26948abc4889c1b6af2e979fc49c3b250503f0f03581c321d755f9392a5d32`. The 27 added bytes are exactly `\Needspace{9\baselineskip}` followed by a newline; no mathematical content changed.
 
 Layout-only changes outside that range do not change the fingerprint or this mathematical verdict. A later substantive change inside or outside the range should be reviewed on its merits; a hash alone is not a proof certificate.
+
+## Author-contact redaction — 11 September 2026
+
+At the author’s request, the contact-address line was removed from the public byline. George Stepaniants, the Department of Computing and Mathematical Sciences and the California Institute of Technology remain. Only the source’s author block changed; every byte from `\begin{document}` through the end of the document is unchanged. The previously reviewed mathematical-core hash above therefore remains valid.
+
+Previous complete source SHA-256: `dce8c5f92bd59e94a7de785d35fd5bae558275f497c6e0b2148aa4b86992b9f2`.
+
+Current complete source SHA-256: `14165ab6a606af9bc966b4ecf60f0dd79542e4a65ee4a6519e4a07bff6b4e139`.
+
+Unchanged complete document-body SHA-256: `212035a280475cb6338964aa5a4569ac21c9d9af3e8f8f9a9520ada263284abd`.
+
+The PDF was rebuilt twice with pdfLaTeX without warnings, and all 11 pages were independently visually inspected after the edit. Text extraction, PDF metadata, annotations and decoded PDF objects were checked for the author’s email address, with no matches. The full branch-added text and PDF inventory was also checked. These metadata-only edits do not alter the mathematical PASS verdict. Historical source hashes are retained explicitly here and in the document-check record.
+
+Redaction and preservation reviewer: independent Codex agent `/root/prepare_manuscripts`, 11 September 2026.
