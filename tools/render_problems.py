@@ -58,7 +58,7 @@ def render(source):
         # Keep references with the dated evidence in entries that otherwise
         # leave only a few lines on a second page after the status audit.
         if identifier in {
-            'AA-01', 'AC-13', 'AV-02', 'AV-03', 'FR-01', 'IE-24', 'IE-25', 'IE-03', 'IE-06',
+            'AA-01', 'AC-13', 'AV-02', 'AV-03', 'FR-01', 'FR-02', 'FR-04', 'FR-10', 'FR-11', 'IE-24', 'IE-25', 'IE-03', 'IE-06',
             'IE-11', 'IE-13', 'IE-19', 'IE-21', 'IE-22', 'IV-02', 'IV-04',
             'IV-05', 'IV-06', 'KE-05', 'MF-14', 'MF-15', 'MF-16', 'MF-17',
             'MF-18', 'MF-21', 'NM-01', 'PF-05', 'RA-02', 'RA-04', 'RA-06',

@@ -4,9 +4,9 @@ A collection of precise open problems drawn from books and research
 publications, with references and dated checks for subsequent solutions.
 
 <!-- catalog-summary -->
-**200 problems with open targets:** 114 open and 86 partially resolved. **2 other retained entries**, excluded from the open count.
+**200 problems with open targets:** 112 open and 88 partially resolved. **2 other retained entries**, excluded from the open count.
 
-Every listed entry was checked on **2026-09-10**. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
+Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
 **[Browse all 200 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
 <!-- /catalog-summary -->
