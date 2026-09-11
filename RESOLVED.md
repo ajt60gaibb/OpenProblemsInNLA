@@ -15,6 +15,14 @@ catalog with **🟡 PARTIAL** and an explanation of what remains.
 
 ## Resolved catalog entries
 
+### ✅ RA-13 - absolute-error Gaussian trace-tail threshold - George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved affirmatively, 2026-09-11.** [Sections 1-8 of the complete proof](randomized-and-low-rank-approximation/RA-13/solution.md) establish both canonical probability comparisons for every nonzero real symmetric matrix, including indefinite matrices, every positive sample count, and the stated threshold endpoint. The argument proves a stronger one-sided comparison for centered signed Gamma sums, then applies it to both signs and takes an infinite-divisibility limit. [Proof PDF](randomized-and-low-rank-approximation/RA-13/solution.pdf) · [Original target](randomized-and-low-rank-approximation/RA-13/README.md).
+
+The full proof passed a separate [independent Codex-agent review](references/stepaniants-ra13-2026-09-11/verification/RA-13-independent-review.md), including the published bell-shape theorem, new inflection identity, grouped transfers and endpoint limits. AI assistance and the limits of automated review are explicit. Kwaśnicki's and Hallman's external results retain attribution; Colbrook's earlier auxiliary counterexamples remain valid and separately credited. [Submission record and public-status audit](references/stepaniants-ra13-2026-09-11/README.md). The permanent ID, original statement and historical ratings are retained.
+
 ### ✅ MI-13 — Nobori's spectral-middle-factor commutator inequality
 
 [Original statement and complete proof](matrix-inequalities-and-norms/MI-13/README.md) · [PDF](matrix-inequalities-and-norms/MI-13/problem.pdf)
