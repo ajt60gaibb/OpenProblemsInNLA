@@ -4,11 +4,11 @@ A collection of precise open problems drawn from books and research
 publications, with references and dated checks for subsequent solutions.
 
 <!-- catalog-summary -->
-**182 problems with open targets:** 100 open and 82 partially resolved. **20 other retained entries**, excluded from the open count.
+**183 problems with open targets:** 100 open and 83 partially resolved. **20 other retained entries**, excluded from the open count.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
-**[Browse all 182 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
+**[Browse all 183 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
 <!-- /catalog-summary -->
 
 ## Browse by category
@@ -18,7 +18,7 @@ Each entry records its own literature-check date. Literature checks are bounded;
 | [Linear systems and elimination](linear-systems-and-elimination/README.md) | 21 |
 | [Eigenvalues and inverse problems](eigenvalues-and-inverse-problems/README.md) | 15 |
 | [Matrix functions and stability](matrix-functions-and-stability/README.md) | 23 |
-| [Randomized and low-rank approximation](randomized-and-low-rank-approximation/README.md) | 27 |
+| [Randomized and low-rank approximation](randomized-and-low-rank-approximation/README.md) | 28 |
 | [Tensor computations](tensor-computations/README.md) | 26 |
 | [Nonnegative and positive factorizations](nonnegative-and-positive-factorizations/README.md) | 12 |
 | [Matrix inequalities and norms](matrix-inequalities-and-norms/README.md) | 18 |
@@ -93,8 +93,8 @@ document source coverage, excluded candidates and the status audit.
 Clearly identified quantitative restatements are editorial formulations of
 published questions, rather than quotations attributed to their authors.
 
-The [full status and rating audit](references/STATUS-AUDIT-2026-09-10.md) covers every
-current entry. Every pair of ratings has a short rationale.
+The [full status and rating audit](references/STATUS-AUDIT-2026-09-10.md) covers every entry present at that date.
+Every pair of ratings has a short rationale.
 
 ## Contributing
 
