@@ -115,6 +115,18 @@ The proof passed a separate [Codex-agent mathematical review](references/stepani
 
 The complete analytic proof passed a separate [Codex-agent review](references/stepaniants-ie15-2026-09-11/verification/reviews/IE-15-review.md) and independent rational witness checks. AI assistance and the limits of automated review are explicit; no external human peer review or formal certification is asserted. [Submission record and public-branch check](references/stepaniants-ie15-2026-09-11/README.md). Existing issue 71 concerns order five and does not settle these two constants. The original ID, statement, path and historical ratings are retained.
 
+### ✅ AA-01, MD-03 and MD-04 — submissions by George Stepaniants, 2026-09-11
+
+**Submission author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA. Two separate Codex agents independently reviewed the three exact targets and returned PASS. The drafts were supplied in a ChatGPT conversation. Verification is independent automated-agent review, not external human peer review or formal certification. [Authorship, complete manuscripts, review reports and duplicate-submission check](references/stepaniants-2026-09-11/README.md).
+
+**AA-01 (Solved, affirmative) — George Stepaniants.** [Original target and resolution](arithmetic-and-complexity/AA-01/README.md) · [Complete proof](arithmetic-and-complexity/AA-01/solution.pdf), **Theorem 2.1 and Corollary 7.1** · [Independent review](references/stepaniants-2026-09-11/verification/reviews/AA-01-review.md). Stepaniants's signed-order gap characterization gives a finite family of real-quantifier-elimination tests deciding accurate evaluability and constructs an evaluator on positive instances. It covers the exact constant-free finite-tree model, including stored reuse, error-dependent branches, all real inputs and zeros.
+
+**MD-03 (Solved, affirmative) — application note by George Stepaniants.** [Original target and resolution](matrix-discrepancy-and-optimization/MD-03/README.md). **Shengtao Guo, Ethan X. Fang and Junwei Lu**, [arXiv:2609.11189v1](https://arxiv.org/abs/2609.11189v1), **Theorem 1.1, p. 1**, prove the universal Komlós bound with $C=3\sqrt{2\pi}$. Stepaniants's [application note](references/stepaniants-2026-09-11/manuscripts/md03_md04_proofs.pdf), Theorem 1, identifies the matrix columns with the source vectors.
+
+**MD-04 (Solved, affirmative) — application note by George Stepaniants.** [Original target and resolution](matrix-discrepancy-and-optimization/MD-04/README.md). **Guo, Fang and Lu, Corollary 1.2, p. 2**, prove $\operatorname{disc}(A)<3\sqrt{2\pi t}$ at every allowed sparsity. Stepaniants's [application note](references/stepaniants-2026-09-11/manuscripts/md03_md04_proofs.pdf), Theorem 2, records the exact match. The [discrepancy review](references/stepaniants-2026-09-11/verification/reviews/MD-03-MD-04-review.md) checks the substantive source proof as well as both applications. The source remains a preprint, discloses Odin AI use, and retains full theorem attribution to Guo, Fang and Lu.
+
+All three original statements, canonical paths, IDs and historical ratings/audits remain visible. The three surviving targets were open in the published base and all other public branches when checked before this submission.
+
 ### ✅ MI-13 — Nobori's spectral-middle-factor commutator inequality
 
 [Original statement and complete proof](matrix-inequalities-and-norms/MI-13/README.md) · [PDF](matrix-inequalities-and-norms/MI-13/problem.pdf)

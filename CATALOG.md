@@ -1,6 +1,6 @@
 # All problems and their status
 
-**137 problems with open targets:** 66 open and 71 partially resolved. **66 other retained entries**, excluded from the open count.
+**135 problems with open targets:** 65 open and 70 partially resolved. **68 other retained entries**, excluded from the open count.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -270,14 +270,14 @@ Retained entries outside the open count:
 | --- | --- | --- | --- | --- | --- |
 | [MD-01](matrix-discrepancy-and-optimization/MD-01/README.md) | The sharp Lovász-theta constant for dense random graphs | **🔵 OPEN** | challenging | broadly interesting | [PDF](matrix-discrepancy-and-optimization/MD-01/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-01/problem.tex) |
 | [MD-02](matrix-discrepancy-and-optimization/MD-02/README.md) | The sharp Lovász-theta constant for random circulant graphs | **🔵 OPEN** | challenging | interesting to the community | [PDF](matrix-discrepancy-and-optimization/MD-02/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-02/problem.tex) |
-| [MD-03](matrix-discrepancy-and-optimization/MD-03/README.md) | The Komlós discrepancy conjecture | **🔵 OPEN** | extreme | broadly interesting | [PDF](matrix-discrepancy-and-optimization/MD-03/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-03/problem.tex) |
-| [MD-04](matrix-discrepancy-and-optimization/MD-04/README.md) | The Beck–Fiala discrepancy conjecture | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-discrepancy-and-optimization/MD-04/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-04/problem.tex) |
 | [MD-05](matrix-discrepancy-and-optimization/MD-05/README.md) | The sharp universal Spencer discrepancy constant | **🔵 OPEN** | extreme | interesting to the community | [PDF](matrix-discrepancy-and-optimization/MD-05/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-05/problem.tex) |
 
 Retained entries outside the open count:
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
+| [MD-03](matrix-discrepancy-and-optimization/MD-03/README.md) | The Komlós discrepancy conjecture | **✅ SOLVED** | extreme | broadly interesting | [PDF](matrix-discrepancy-and-optimization/MD-03/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-03/problem.tex) |
+| [MD-04](matrix-discrepancy-and-optimization/MD-04/README.md) | The Beck–Fiala discrepancy conjecture | **✅ SOLVED** | extreme | broadly interesting | [PDF](matrix-discrepancy-and-optimization/MD-04/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-04/problem.tex) |
 | [MD-06](matrix-discrepancy-and-optimization/MD-06/README.md) | Global synchronization of a random cubic graph | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-discrepancy-and-optimization/MD-06/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-06/problem.tex) |
 
 
