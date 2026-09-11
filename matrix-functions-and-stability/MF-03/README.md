@@ -7,8 +7,21 @@
 **Difficulty:** hard  
 **Importance:** interesting to specialist  
 **Rating rationale:** Hard because this is a focused all-orders Padé inequality within established approximation theory; its immediate impact is on specialist wave-kernel error analysis.  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-10  
+**Status:** Solved  
+**Last checked:** 2026-09-11  
+
+<!-- colbrook-matrix-functions -->
+## Resolution — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the exact target.**
+
+For every integer $m\ge1$, the normalized diagonal Padé denominator for $\cosh\sqrt z$ is nonzero on $|z|\le3$ and $|1-r_m(z)|\le2$ there. The bound is strict for $m\ge2$ and sharp for $m=1$ at $z=3$. The analytic tail argument and exact finite certificates cover every order.
+
+The complete target is resolved. Its former difficulty rating is historical; the original statement, references and dated audits remain below.
+
+**Primary reference:** [complete authored PDF](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-03.pdf), [standalone TeX](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-03.tex), **Theorem 1**. [Independent proof review](../../references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-03-review.md) · [Authorship and submission record](../../references/colbrook-matrix-functions-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
+
+<!-- /colbrook-matrix-functions -->
 
 ## Problem statement
 

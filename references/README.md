@@ -23,3 +23,5 @@ screen. Use [CATALOG.md](../CATALOG.md) for current counts and statuses.
 | [Additional candidate screen](ADDITIONAL-PROBLEMS-SCREEN.md) | Forty-three candidates, their source checks, duplicates and exclusion reasons. |
 | [Further literature screen](LITERATURE-EXPANSION-2026-09.md) | Twelve admissions and uncounted reserves. |
 | [September 10 source screen](EXPANSION-TO-200-2026-09.md) | Forty-two admissions, source-fidelity checks and recent resolution claims. |
+
+- [Matrix-function submissions by Matthew J. Colbrook (2026-09-11)](colbrook-matrix-functions-2026-09-11/README.md): three independently reviewed resolutions, two partial results, and one auxiliary real-coefficient theorem.
