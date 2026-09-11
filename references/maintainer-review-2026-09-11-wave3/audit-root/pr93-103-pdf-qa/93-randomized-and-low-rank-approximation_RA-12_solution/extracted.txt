@@ -1,0 +1,242 @@
+Verified resolution / RA-12 11 September 2026
+RA-12: the relative-error threshold for extremal
+Gaussian trace bounds
+George Stepaniants
+Department of Computing and Mathematical Sciences, California Institute of Technology , Pasadena,
+California, USA
+Verification status: independent-agent PASS. This manuscript proves the complete
+canonical RA-12 comparison, with both tails controlled at the stated threshold. It was devel-
+oped with substantial ChatGPT/Codex assistance. A separate agent independently checked
+the entire proof, the exact target, the external unimodality theorem and all endpoints. De-
+tailed independent review .
+The submission record preserves the frozen draft and its exact hashes. The mathematical
+core below is unchanged from that reviewed draft. Verification is independent automated-
+agent review , not external human peer review or formal proof certification. The published
+Gamma-convolution unimodality theorem and Hallman’s coefficient-derivative method re-
+tain their attribution.
+The statement
+For a real symmetric matrix 𝐷 and a positive integer 𝑚, let
+𝑇𝑚(𝐷) = 1
+𝑚
+𝑚
+∑
+𝑗=1
+𝑧𝑇
+𝑗 𝐷𝑧𝑗, 𝑧 𝑗
+iid
+∼ 𝑁 (0, 𝐼).
+Let 𝐴 ≠ 0 be positive semidefinite, and define
+𝜇 = tr 𝐴
+‖𝐴‖2
+≥ 1, 𝐵 𝜇 = 1
+𝜇 diag(𝐼⌊𝜇⌋, 𝜇 − ⌊𝜇⌋).
+A zero last entry is allowed. Gamma distributions below use shape and rate parameters.
+Theorem 1 (the full RA-12 comparison). If 𝑋 ∼ Gamma(𝑚𝜇/2, 𝑚𝜇/2), then for every
+𝜀 ≥ 2/(𝑚𝜇),
+Pr(|𝑇𝑚(𝐴) − tr 𝐴| ≥ 𝜀 tr 𝐴) ≤ Pr(|𝑇𝑚(𝐵𝜇) − 1| ≥ 𝜀) ≤ Pr(|𝑋 − 1| ≥ 𝜀).
+The proof establishes each upper-tail and lower-tail comparison separately at these thresh-
+olds. The matrices may have any finite dimensions; their random vectors need not be cou-
+pled.
+A mode bound for Gamma convolutions
+We use the classical unimodality of finite sums of independent positive Gamma random
+variables. An explicit primary statement covering different shapes and scales is Roosta-
+Khorasani and Székely , Theorem 4 , Appendix A. The same source’s Lemma 5 records posi-
+tivity , analyticity on the positive half-line and the behavior at zero. We use unimodality , not
+the auxiliary mode bound conjectured in Hallman.
+The following location bound follows directly from the density’s convolution equation.
+Lemma 2 (mode lies between mean minus extreme scales). Let 𝑌 be a finite sum of
+independent Gamma variables with positive shapes 𝑟𝑖 and positive scales 𝑤𝑖, and assume
+∑𝑖 𝑟𝑖 > 1. Let
+𝑀 = 𝔼𝑌 = ∑
+𝑖
+𝑟𝑖𝑤𝑖, 𝑤 − = min
+𝑖
+𝑤𝑖, 𝑤 + = max
+𝑖
+𝑤𝑖.
+Independent Codex-agent review; not external human peer review or formal certification. 1
+
+Verified resolution / RA-12 11 September 2026
+Its positive mode 𝑧 satisfies
+𝑀 − 𝑤+ ≤ 𝑧 ≤ 𝑀 − 𝑤 −.
+Proof. Let 𝑓 be the density , extended by zero to negative arguments, and put
+𝑘(𝑡) = ∑
+𝑖
+𝑟𝑖𝑒−𝑡/𝑤𝑖 , 𝑡 ≥ 0.
+The Laplace transform is 𝐿(𝑢) = ∏𝑖(1 + 𝑤𝑖𝑢)−𝑟𝑖 for 𝑢 > 0. Hence
+−𝐿′(𝑢) = 𝐿(𝑢) ∑
+𝑖
+𝑟𝑖𝑤𝑖
+1 + 𝑤𝑖𝑢.
+Uniqueness of Laplace transforms gives the density identity
+𝑥𝑓(𝑥) = ∫
+𝑥
+0
+𝑘(𝑡)𝑓(𝑥 − 𝑡) 𝑑𝑡 (𝑥 > 0).
+The density is positive and smooth for 𝑥 > 0 , vanishes at zero because ∑𝑖 𝑟𝑖 > 1, and tends
+to zero at infinity . Therefore its global mode is attained at a positive point 𝑧, with 𝑓(𝑧) > 0
+and 𝑓 ′(𝑧) = 0. Differentiating the convolution by differentiating its smooth kernel gives
+𝑓(𝑥) + 𝑥𝑓′(𝑥) = 𝑘(0)𝑓(𝑥) + ∫
+𝑥
+0
+𝑘′(𝑡)𝑓(𝑥 − 𝑡) 𝑑𝑡.
+Define, for 𝑡 ≥ 0,
+𝑣(𝑡) = 1 − 𝑓(𝑧 − 𝑡)
+𝑓(𝑧) .
+Since 𝑧 is a global mode, 0 ≤ 𝑣(𝑡) ≤ 1 . The first convolution identity at 𝑧, together with
+∫
+∞
+0 𝑘(𝑡) 𝑑𝑡 = 𝑀, yields
+𝑀 − 𝑧 = ∫
+∞
+0
+𝑘(𝑡)𝑣(𝑡) 𝑑𝑡.
+The differentiated identity at 𝑧, together with ∫
+∞
+0 [−𝑘′(𝑡)] 𝑑𝑡 = 𝑘(0), yields
+1 = ∫
+∞
+0
+[−𝑘′(𝑡)]𝑣(𝑡) 𝑑𝑡.
+Term by term in the definition of 𝑘,
+𝑤−[−𝑘′(𝑡)] ≤ 𝑘(𝑡) ≤ 𝑤+[−𝑘′(𝑡)].
+Integrating these inequalities against 𝑣(𝑡) ≥ 0 proves 𝑤− ≤ 𝑀 − 𝑧 ≤ 𝑤 +, as required. All
+integrals are finite because 𝑣 ≤ 1 and 𝑘, −𝑘′ are integrable. □
+Independent Codex-agent review; not external human peer review or formal certification. 2
+
+Verified resolution / RA-12 11 September 2026
+Transfers that respect the coefficient cap
+Fix any 𝛼 > 0, and let 𝐺𝑖
+iid
+∼ Gamma(𝛼, 1). For a finite vector 𝑤 with 0 ≤ 𝑤𝑖 ≤ 1, put
+𝑄𝑤 = ∑
+𝑖
+𝑤𝑖𝐺𝑖, 𝜎 = ∑
+𝑖
+𝑤𝑖 > 0, 𝜌 = 𝛼𝜎.
+Let 𝑤ext consist of ⌊𝜎⌋ ones, the remaining entry 𝜎 − ⌊𝜎⌋, and zeros as necessary . Its coordi-
+nates sum to 𝜎. The zero entries have no effect on the distribution.
+Lemma 3 (extremal capped coefficients). For every such 𝑤,
+Pr(𝑄𝑤 ≥ 𝑥) ≤ Pr(𝑄𝑤ext ≥ 𝑥) (𝑥 ≥ 𝜌 + 1),
+and
+Pr(𝑄𝑤 ≤ 𝑥) ≤ Pr(𝑄𝑤ext ≤ 𝑥) (𝑥 ≤ 𝜌 − 1).
+In particular , for every ℎ ≥ 1,
+Pr(|𝑄𝑤 − 𝜌| ≥ ℎ) ≤ Pr(|𝑄𝑤ext − 𝜌| ≥ ℎ).
+Proof. If at most one coordinate lies strictly between zero and one, the vector is already
+𝑤ext up to permutation. Otherwise choose a smallest strictly fractional coordinate 𝑏 and
+any other fractional coordinate 𝑎 ≥ 𝑏 . All positive coordinates of 𝑤 are at least 𝑏, since the
+remaining nonfractional positive coordinates equal one.
+Replace this pair by
+𝑎(𝑡) = 𝑎 + 𝑡, 𝑏(𝑡) = 𝑏 − 𝑡, 0 ≤ 𝑡 ≤ 𝑡 ∗ ∶= min{1 − 𝑎, 𝑏}.
+The sum of the weights, and therefore the mean 𝜌, stays fixed. At the endpoint, at least
+one fractional coordinate becomes zero or one. For 0 ≤ 𝑡 < 𝑡 ∗, 𝑏(𝑡) > 0 remains a minimum
+positive coefficient of the complete vector , every coefficient is at most one, and 𝑎(𝑡) ≥ 𝑏(𝑡).
+Write 𝑄𝑡 for the corresponding weighted Gamma sum, and let 𝐸1, 𝐸2 be independent rate-one
+exponentials, independent of the Gamma sum. Denote the density of
+𝑌𝑡 = 𝑄𝑡 + 𝑎(𝑡)𝐸1 + 𝑏(𝑡)𝐸2
+by 𝑔𝑡. All positive scales of 𝑌𝑡 lie in [𝑏(𝑡), 1]; its mean is 𝜌 + 𝑎(𝑡) + 𝑏(𝑡); and its total shape is
+greater than two. Lemma 2 therefore bounds its mode 𝑧𝑡 by
+𝜌 − 1 ≤ 𝜌 + 𝑎(𝑡) + 𝑏(𝑡) − 1 ≤ 𝑧𝑡 ≤ 𝜌 + 𝑎(𝑡) + 𝑏(𝑡) − 𝑏(𝑡) = 𝜌 + 𝑎(𝑡) ≤ 𝜌 + 1.
+By the cited unimodality theorem, 𝑔′
+𝑡(𝑥) ≥ 0 for 0 < 𝑥 ≤ 𝜌 − 1, when this interval is nonempty ,
+and 𝑔′
+𝑡(𝑥) ≤ 0 for 𝑥 ≥ 𝜌 + 1.
+For completeness, the precise coefficient derivative is
+𝜕
+𝜕𝑡 Pr(𝑄𝑡 ≤ 𝑥) = 𝛼(𝑎(𝑡) − 𝑏(𝑡))𝑔′
+𝑡(𝑥), 𝑥 > 0.
+This is the identity used in Hallman, Appendix A.1 . It also follows directly here. The Laplace
+transform of the CDF of 𝑄𝑡 is 𝐿𝑄𝑡
+(𝑢)/𝑢, and differentiation gives
+𝜕
+𝜕𝑡
+𝐿𝑄𝑡
+(𝑢)
+𝑢 = 𝛼(𝑎(𝑡) − 𝑏(𝑡))𝑢
+𝐿𝑄𝑡
+(𝑢)
+(1 + 𝑎(𝑡)𝑢)(1 + 𝑏(𝑡)𝑢)= 𝛼(𝑎(𝑡) − 𝑏(𝑡))𝑢𝐿𝑌𝑡
+(𝑢).
+Independent Codex-agent review; not external human peer review or formal certification. 3
+
+Verified resolution / RA-12 11 September 2026
+The inverse transform is the displayed formula because 𝑔𝑡(0) = 0 . Differentiation under
+the transform and inversion are justified on every compact subinterval of [0, 𝑡∗): all varying
+scales are bounded away from zero there, and the finite Gamma convolution densities and
+their parameter derivatives have exponential decay and the standard locally integrable be-
+havior at zero. Equivalently , the cited coefficient-derivative identity applies directly to the
+two changing positive coefficients.
+The prefactor is nonnegative. Thus the lower CDF is nondecreasing along the transfer for
+𝑥 ≤ 𝜌 − 1 , while the upper CDF is nonincreasing for 𝑥 ≥ 𝜌 + 1 . The claims for 𝑥 ≤ 0 are
+immediate, since a nonzero weighted Gamma sum is strictly positive almost surely . Conti-
+nuity of the distributions in the coefficients gives the same inequalities at 𝑡 = 𝑡 ∗, including
+an endpoint with 𝑏(𝑡∗) = 0.
+Each transfer strictly reduces the number of fractional coordinates. After finitely many
+transfers there is at most one, and the resulting vector is exactly 𝑤ext up to zeros and per-
+mutation. Iterating the tail comparisons proves the two displayed one-sided bounds. Each
+nonzero weighted Gamma sum has a continuous distribution, so strict versus non-strict in-
+equalities at the finite tail endpoints make no difference. Adding the lower and upper tails
+at 𝜌 − ℎ and 𝜌 + ℎ proves the last assertion. □
+Passage to the Gamma upper bound
+Lemma 4 (Gamma comparison). With the notation of Lemma 3, let 𝐻 ∼ Gamma(𝜌, 1).
+Then
+Pr(𝑄𝑤 ≥ 𝑥) ≤ Pr(𝐻 ≥ 𝑥) (𝑥 ≥ 𝜌 + 1), Pr(𝑄𝑤 ≤ 𝑥) ≤ Pr(𝐻 ≤ 𝑥) (𝑥 ≤ 𝜌 − 1).
+Consequently Pr (|𝑄𝑤 − 𝜌| ≥ ℎ) ≤ Pr(|𝐻 − 𝜌| ≥ ℎ) for ℎ ≥ 1.
+Proof. Fix a positive integer 𝑁. Infinite divisibility of the Gamma law writes each 𝐺𝑖 as a
+sum of 𝑁 independent Gamma(𝛼/𝑁 , 1)variables. Thus 𝑄𝑤 has exactly the same distribution
+as a Gamma sum with shape 𝛼/𝑁 and the coefficient vector formed by repeating 𝑤 𝑁 times.
+The coefficient cap is still one, the coefficient sum is 𝑁 𝜎, and the mean is still 𝜌.
+Lemma 3 compares this sum with 𝐻𝑁 having Laplace transform
+𝔼𝑒−𝑢𝐻𝑁 = (1 + 𝑢)−𝛼⌊𝑁𝜎⌋/𝑁 (1 + 𝑟𝑁 𝑢)−𝛼/𝑁 , 𝑟 𝑁 = 𝑁 𝜎 − ⌊𝑁 𝜎⌋ ∈ [0, 1).
+The second factor is interpreted as one when 𝑟𝑁 = 0 . Since 𝛼⌊𝑁 𝜎⌋/𝑁 → 𝛼𝜎 = 𝜌 and 0 ≤
+log(1 + 𝑟𝑁 𝑢) ≤ log(1 + 𝑢) for 𝑢 > 0, these transforms tend to (1 + 𝑢)−𝜌, the transform of 𝐻.
+One can also see the weak convergence without invoking a transform convergence theo-
+rem: for all sufficiently large 𝑁, 𝐻𝑁 is the sum of an independent Gamma variable of shape
+𝛼⌊𝑁 𝜎⌋/𝑁and rate one, and a nonnegative residual of mean 𝑟𝑁 𝛼/𝑁 → 0. The first shape tends
+to 𝜌 > 0, so its law converges to 𝐻, and the residual tends to zero in probability by Markov’s
+inequality . Thus 𝐻𝑁 converges in distribution to 𝐻.
+Every real number is a continuity point of the Gamma CDF , including zero. Passing to the
+limit in the one-sided comparisons supplied by Lemma 3 proves the assertions. □
+Proof of Theorem 1
+Let 𝜆𝑖 ≥ 0 be the eigenvalues of 𝐴, with 𝜆max = ‖𝐴‖ 2 > 0, and put
+𝑤𝑖 = 𝜆 𝑖/𝜆max, 𝛼 = 𝑚/2, 𝜌 = 𝛼𝜇.
+Rotational invariance of the standard Gaussian law and the identity 𝜒2
+𝑚/2 ∼ Gamma(𝑚/2, 1)
+give
+Independent Codex-agent review; not external human peer review or formal certification. 4
+
+Verified resolution / RA-12 11 September 2026
+𝑇𝑚(𝐴)
+tr 𝐴
+𝑑
+= 𝑄𝑤
+𝜌 .
+The corresponding extremal coefficient vector in Lemma 3 is precisely the vector defining
+𝐵𝜇, after multiplication by 𝜇, so
+𝑇𝑚(𝐵𝜇)
+𝑑
+= 𝑄𝑤ext
+𝜌 .
+Finally , if 𝐻 ∼ Gamma(𝜌, 1), then 𝐻/𝜌 has the law of 𝑋. The hypothesis on 𝜀 is exactly
+ℎ ∶= 𝜌𝜀 ≥ 1.
+Apply Lemma 3 to 𝑄𝑤 and then Lemma 4 to 𝑄𝑤ext. Dividing the variables and the deviation
+threshold by 𝜌 gives the full stated chain. □
+Scope and relation to the auxiliary counterexamples
+The argument works for every 𝑚 ≥ 1, including 𝑚 = 1, every nonzero positive semidefinite
+matrix, every effective rank (integer or noninteger), and the stated endpoint 𝜀 = 2/(𝑚𝜇) .
+Rank deficiency and zero padded coefficients are harmless. No estimate for an individual
+density with arbitrary augmentation indices is asserted.
+The new point is the choice of transfers: the smaller augmented scale is always a minimum
+positive scale of the current distribution. General majorization paths need not have this
+property . Therefore the proof does not assert Hallman’s disproved upper-mode Conjecture
+1, and the auxiliary counterexample does not contradict the argument.
+References
+1. Hallman. Eric Hallman, Extremal bounds for Gaussian trace estimation ,
+arXiv:2411.15454v1 (2024), §5, Theorem 6 and Conjecture 3; Appendix A.1 for the
+coefficient derivative. Primary text .
+2. Roosta-Khorasani and Székely . Farbod Roosta-Khorasani and Gábor J. Székely ,
+Schur properties of convolutions of gamma random variables , Metrika 78 (2015), 997–
+1014, Appendix A, Theorem 4 and Lemma 5. Primary arXiv text ; DOI.
+3. RA-12. Relative-error threshold for extremal Gaussian trace bounds , retained canoni-
+cal problem statement in OpenProblemsInNLA. Canonical entry .
+Independent Codex-agent review; not external human peer review or formal certification. 5
