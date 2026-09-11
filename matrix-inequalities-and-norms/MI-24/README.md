@@ -6,10 +6,16 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-10
+**Status:** Solved  
+**Last checked:** 2026-09-11
 
-**Rating rationale:** Extending the proved trace and Frobenius cases to all Schatten norms is challenging; the comparison of these particular means has specialist importance.
+**Rating rationale (historical):** Extending the proved trace and Frobenius cases to all Schatten norms is challenging; the comparison of these particular means has specialist importance.
+
+## Resolution — 2026-09-11
+
+**Solved (affirmative).** George Stepaniants's [complete proof](solution.md), **Theorem 1**, proves the displayed inequality for every dimension, every complex positive definite pair and every $1\le p\le\infty$. The published Heron norm inequality and a positive matrix comparison give $\|A+B+2G\|_p\le\|A+B+G+L\|_p$. Since $2(A+B+G+L)=(A+B+2G)+(A+B+2L)$, the triangle inequality then proves the desired comparison. [Proof PDF](solution.pdf) · [Standalone TeX](solution.tex).
+
+The complete argument and its precise published input passed a [separate Codex-agent review](../../references/stepaniants-mi24-2026-09-11/verification/reviews/MI-24-review.md). It was developed with ChatGPT/Codex; the verification is independent agent review, not external human peer review or formal certification. [Authorship, source checks, reproduction and public-branch audit](../../references/stepaniants-mi24-2026-09-11/README.md). The contribution is the convexity deduction from existing comparisons. The original ID, path, statement, historical ratings and earlier status check below remain intact.
 
 ## Problem statement
 

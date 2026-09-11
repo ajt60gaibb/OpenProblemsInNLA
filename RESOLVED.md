@@ -15,6 +15,12 @@ catalog with **🟡 PARTIAL** and an explanation of what remains.
 
 ## Resolved catalog entries
 
+### MI-24 — the full Schatten norm complement
+
+**Solved, 2026-09-11.** George Stepaniants, California Institute of Technology, proves the full comparison $\|A+B+G+L\|_p\le\|A+B+2L\|_p$ for every complex positive definite pair, every dimension and all $1\le p\le\infty$. [Theorem 1](matrix-inequalities-and-norms/MI-24/solution.md) combines the published Dinh–Dumitru–Franco Heron inequality, a positive matrix comparison, and the triangle inequality. [Proof PDF](matrix-inequalities-and-norms/MI-24/solution.pdf) · [Canonical target](matrix-inequalities-and-norms/MI-24/README.md).
+
+The complete argument passed a separate [Codex-agent review](references/stepaniants-mi24-2026-09-11/verification/reviews/MI-24-review.md). AI assistance, the existing published inputs and the limits of automated review are explicit. [Submission record and public-branch check](references/stepaniants-mi24-2026-09-11/README.md). The original ID, statement, path and historical ratings are retained.
+
 ### ✅ MI-13 — Nobori's spectral-middle-factor commutator inequality
 
 [Original statement and complete proof](matrix-inequalities-and-norms/MI-13/README.md) · [PDF](matrix-inequalities-and-norms/MI-13/problem.pdf)

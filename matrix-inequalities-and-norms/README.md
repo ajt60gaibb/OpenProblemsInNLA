@@ -2,7 +2,7 @@
 
 [← All categories](../README.md) · [Full catalog](../CATALOG.md) · [Solved and claimed solutions](../RESOLVED.md)
 
-**18 problems with open targets.** 11 retained entries are excluded from the open count.
+**17 problems with open targets.** 12 retained entries are excluded from the open count.
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
@@ -20,7 +20,6 @@
 | [MI-17](MI-17/README.md) | The Lih–Wang permanent inequality toward the flat matrix | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](MI-17/problem.pdf) · [TeX](MI-17/problem.tex) |
 | [MI-18](MI-18/README.md) | Bapat's q-permanent monotonicity conjecture | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](MI-18/problem.pdf) · [TeX](MI-18/problem.tex) |
 | [MI-20](MI-20/README.md) | Sharp subquadratic Lee constants for sums of matrices | **🔵 OPEN** | challenging | interesting to the community | [PDF](MI-20/problem.pdf) · [TeX](MI-20/problem.tex) |
-| [MI-24](MI-24/README.md) | Schatten norm complement involving Lin's positive definite quantity | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](MI-24/problem.pdf) · [TeX](MI-24/problem.tex) |
 | [MI-25](MI-25/README.md) | Dimension-independent Hlawka constants for Schatten norms | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](MI-25/problem.pdf) · [TeX](MI-25/problem.tex) |
 | [MI-27](MI-27/README.md) | Constant one in the logarithmic commutator inequality | **🔵 OPEN** | challenging | broadly interesting | [PDF](MI-27/problem.pdf) · [TeX](MI-27/problem.tex) |
 | [MI-28](MI-28/README.md) | Ghabries's determinant comparison for arbitrary nonnegative base powers | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](MI-28/problem.pdf) · [TeX](MI-28/problem.tex) |
@@ -38,6 +37,7 @@
 | [MI-21](MI-21/README.md) | Freewan–Hayajneh inequality for sums of weighted geometric means | **✅ SOLVED** | challenging | interesting to the community | [PDF](MI-21/problem.pdf) · [TeX](MI-21/problem.tex) |
 | [MI-22](MI-22/README.md) | Lemos–Soares singular-value log-majorization | **✅ SOLVED** | challenging | interesting to the community | [PDF](MI-22/problem.pdf) · [TeX](MI-22/problem.tex) |
 | [MI-23](MI-23/README.md) | Corrected generalized geometric-mean product conjecture | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-23/problem.pdf) · [TeX](MI-23/problem.tex) |
+| [MI-24](MI-24/README.md) | Schatten norm complement involving Lin's positive definite quantity | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-24/problem.pdf) · [TeX](MI-24/problem.tex) |
 | [MI-26](MI-26/README.md) | Concave unitary-orbit subadditivity without monotonicity | **✅ SOLVED** | challenging | interesting to the community | [PDF](MI-26/problem.pdf) · [TeX](MI-26/problem.tex) |
 | [MI-29](MI-29/README.md) | Modulus-order determinant comparison with an arbitrary base power | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-29/problem.pdf) · [TeX](MI-29/problem.tex) |
 
