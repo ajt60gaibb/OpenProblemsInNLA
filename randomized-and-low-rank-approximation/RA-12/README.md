@@ -8,8 +8,21 @@
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because an explicit threshold must control extremal tails uniformly over spectra; community impact is sharper distribution-level trace-estimation confidence bounds.  
 **Source:** Hallman, Conjecture 3 together with Theorem 6.  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-11  
 **Status:** Open  
+
+<!-- colbrook-transfer -->
+## Related auxiliary counterexamples — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the limited result below.**
+
+The submitted Gamma-density examples refute the upper-mode assertion in Hallman Conjecture 1 and the upper-inflection assertion in Conjecture 2, with legally distinct augmentation indices. These are counterexamples to auxiliary assertions.
+
+**Remaining question:** The complete relative Gaussian trace-tail probability chain in this entry is neither proved nor refuted. No revised sharp tail threshold is established; status remains Open.
+
+**Primary reference:** [complete authored PDF](../../references/colbrook-transfer-2026-09-11/manuscripts/04_gamma_auxiliary_counterexamples.pdf), [standalone TeX](../../references/colbrook-transfer-2026-09-11/manuscripts/04_gamma_auxiliary_counterexamples.tex), **Proposition 2.1 (with Proposition 3.1 for related evidence)**. [Independent proof review](../../references/colbrook-transfer-2026-09-11/verification/reviews/gamma-auxiliary-review.md) · [Authorship and submission record](../../references/colbrook-transfer-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
+
+<!-- /colbrook-transfer -->
 
 ## Problem statement
 

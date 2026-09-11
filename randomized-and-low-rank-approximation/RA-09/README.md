@@ -4,8 +4,21 @@
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because squared Frobenius transfer needs control of eigenvectors as well as eigenvalues; community impact is reusable low-rank approximation of matrix functions.  
 **Topic:** Low-rank approximation of matrix functions.  
-**Last checked:** 2026-09-10  
-**Status:** Partially resolved  
+**Last checked:** 2026-09-11  
+**Status:** Solved  
+
+<!-- colbrook-transfer -->
+## Resolution — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the exact target.**
+
+The ordered theorem transfers ordinary relative Frobenius residual error with no loss for the larger monotone subhomogeneous function class. Put $B=\widehat A_k$. Since $0\preceq B\preceq A$, $\|A-B\|_F^2=\|A\|_F^2-\|B\|_F^2-2\operatorname{tr}(B(A-B))\le\|A\|_F^2-\|B\|_F^2$. Thus the original stronger trace-deficit premise implies the proved residual premise, establishing the exact canonical conclusion. All specified eigenbasis choices and zero-tail cases are covered.
+
+The complete target is resolved. Its former difficulty rating is historical; the original mathematical statement and source evidence are retained below.
+
+**Primary reference:** [complete authored PDF](../../references/colbrook-transfer-2026-09-11/manuscripts/02_frobenius_function_transfer.pdf), [standalone TeX](../../references/colbrook-transfer-2026-09-11/manuscripts/02_frobenius_function_transfer.tex), **Theorem 1.1, with the trace-deficit reduction above**. [Independent proof review](../../references/colbrook-transfer-2026-09-11/verification/reviews/RA-09-review.md) · [Authorship and submission record](../../references/colbrook-transfer-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
+
+<!-- /colbrook-transfer -->
 
 Let $n\ge2$, $1\le k<n$, and $A,\widehat A\in\mathbb R^{n\times n}$ be symmetric with $A\succeq\widehat A\succeq0$. Let $f:[0,\infty)\to[0,\infty)$ be continuous, concave, and nondecreasing. For a positive semidefinite matrix $X=\sum_{i=1}^n\lambda_iq_iq_i^T$ with decreasing eigenvalues and orthonormal eigenvectors, write
 

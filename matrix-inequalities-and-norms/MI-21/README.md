@@ -6,10 +6,20 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-10
+**Status:** Solved  
+**Last checked:** 2026-09-11
 
 **Rating rationale:** The coupled power and weight parameters make extension beyond the proved cases challenging; positive definite aggregation and matrix-function estimates give community relevance.
+
+## Resolution — 2026-09-11
+
+**Negative result by Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent proof review: PASS.**
+
+Two rational positive definite $2\times2$ summands with $s=t=1/2$, $r=2$ and aggregate matrices $A=B=I$ violate the operator-norm inequality for every $p>0$. The left side has eigenvalue $1351000/1350907>1$, while the right side is one.
+
+The exact target is resolved. The original statement and source evidence are retained below; its former difficulty rating is historical.
+
+**Primary manuscript:** [complete proof PDF](solution.pdf), [standalone TeX](solution.tex), Theorem 1.1 and its proof; [authorship and scope](solution.md). The [independent review](../../references/colbrook-matrix-2026-09-11/verification/reviews/MI-21-review.md) checks the full original argument and records its hash. The draft was AI-assisted; this is independent agent verification, not external human peer review or formal certification. [Submission record](../../references/colbrook-matrix-2026-09-11/README.md).
 
 ## Problem statement
 

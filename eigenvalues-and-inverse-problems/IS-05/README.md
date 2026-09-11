@@ -6,10 +6,22 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
+**Last checked:** 2026-09-11  
 
 **Rating rationale:** Extreme reflects a sharp asymptotic rate tied to longstanding gaps in Hadamard constructions; community impact is a quantitative limit on nearly orthogonal sign matrices.
+
+## Partial bound — 2026-09-11
+
+**Partial bound by Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [Complete manuscript](solution.md) · [PDF](solution.pdf) · [LaTeX](solution.tex). **Theorems 1–2 and equations (4)–(8).**
+
+The odd-order obstruction proves $\alpha_*\le1/2$ by an all-orders Gram-matrix variance argument. Theorem 2 also strengthens the condition-number lower bound for $n\equiv2\pmod4$. Combined with the previously recorded construction bound, the interval is $17/92\le\alpha_*\le1/2$. The exact value of $\alpha_*$ and a matching exponent construction remain open; this entry continues to count as open.
+
+The complete argument received an independent Codex-agent **PASS** (partial result only) on 11 September 2026. The [review report](../../references/colbrook-additional-2026-09-11/verification/reviews/IS-05-review.md) records the exact scope and a hash of the original reviewed manuscript. The mathematical sections remain unchanged in the authored version. Original ChatGPT generation is disclosed; no external human peer review or formal proof certificate is asserted. [Submission and verification record](../../references/colbrook-additional-2026-09-11/README.md).
+
+The difficulty and importance ratings still apply to the surviving exact-exponent question.
+
+The review also checked [Alexeev–Jasper–Mixon, version 2](https://arxiv.org/html/2511.14653v2), dated 18 August 2026, §5, Problem 11; it retains the earlier construction exponent and obstruction.
 
 ## Context and notation
 
@@ -35,7 +47,7 @@ The constant $C$ may depend on $\alpha$, but not on dimension. This
 specifies the uniform asymptotic power exponent; logarithmic factors do not
 change the supremum. Orders admitting exact Hadamard matrices have
 $h(n)-1=0$, which are included without taking logarithms of zero.
-Current bounds give $17/92\leq\alpha_*\leq1$.
+Before the 2026-09-11 update above, the recorded bounds were $17/92\leq\alpha_*\leq1$.
 
 ## References
 

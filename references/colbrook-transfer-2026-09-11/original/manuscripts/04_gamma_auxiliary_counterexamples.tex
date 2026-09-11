@@ -1,0 +1,116 @@
+\documentclass[11pt]{article}
+\input{common_preamble}
+\title{Counterexamples to two auxiliary Gamma-density conjectures}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+We refute Conjectures~1 and~2 of Hallman's \emph{Extremal bounds for Gaussian trace estimation}, arXiv:2411.15454v1. The counterexamples use four independent Gamma variables with common shape $1/2$, two independent exponential variables, and an elementary convolution density. Its first derivative is positive beyond the conjectured mode bound, and its second derivative changes sign beyond the conjectured inflection-point bound. These are counterexamples to the auxiliary density-location conjectures. They do not by themselves refute the distinct extremal trace-tail conjectures numbered~3 and~4 in that paper.
+\end{abstract}
+
+\section{The distribution}
+Use the shape--rate convention: $\Gamma(\alpha,\beta)$ has mean $\alpha/\beta$ and variance $\alpha/\beta^2$. Let
+\[
+ G_1,G_2,G_3,G_4\ \text{be independent }\Gamma(1/2,1),
+ \qquad Z_1,Z_2\ \text{be independent }\Gamma(1,1),
+\]
+with all six variables mutually independent. Set
+\begin{equation}\label{eq:QY}
+ Q=G_1+G_2+\tfrac12(G_3+G_4),\qquad Y=Q+Z_1+Z_2.
+\end{equation}
+Then
+\[
+ \E Q=\frac32,\qquad \operatorname{Var}(Q)=\frac54,
+ \qquad Y\ \stackrel{d}=\ \Gamma(3,1)+\Gamma(1,2),
+\]
+where the two variables on the right are independent. Direct convolution gives, for $x>0$,
+\begin{align}\label{eq:density}
+ p(x)&=\int_0^x\frac{(x-y)^2}{2}e^{-(x-y)}\,2e^{-2y}\,dy\\
+ &=e^{-x}(x^2-2x+2)-2e^{-2x}.\nonumber
+\end{align}
+Consequently,
+\begin{align}
+ p'(x)&=-e^{-x}(x-2)^2+4e^{-2x},\label{eq:first}\\
+ p''(x)&=e^{-x}(x-2)(x-4)-8e^{-2x}.\label{eq:second}
+\end{align}
+
+\section{The mode conjecture}
+Hallman \cite[Theorem~2 and Conjecture~1]{Hallman2024} considers nonnegative sums $Q_\lambda=\sum_i\lambda_iG_i$ with common Gamma shape $\alpha$ and rate $\beta$, mean one, and scale $\max_i\lambda_i/\beta\le1/\mu$. Two independent exponentials of rate $\beta$ are added with distinct coefficient indices $j\ne k$. The conjectured upper bound for every resulting mode is $1+1/\mu$.
+
+For \eqref{eq:QY}, normalize by the mean of $Q$:
+\[
+ Q'=\tfrac23Q,
+ \qquad \lambda=(2/3,2/3,1/3,1/3),
+ \qquad \alpha=1/2,\quad\beta=1,\quad\mu=3/2.
+\]
+The mean of $Q'$ is one, and its scale is $2/3=1/\mu$, so it belongs to the stipulated family. Taking $j=1$ and $k=2$ gives the legally indexed augmented variable
+\[
+ Y'=Q'+\tfrac23 Z_1+\tfrac23 Z_2=\tfrac23Y.
+\]
+The proposed upper-mode bound $1+1/\mu=5/3$ for $Y'$ is equivalent to an upper-mode bound $5/2$ for $Y$.
+
+\begin{proposition}
+The unique positive mode of $Y$ exceeds $5/2$. Hence the upper bound in Hallman's Conjecture~1 is false.
+\end{proposition}
+\begin{proof}
+At the proposed bound,
+\[
+ p'(5/2)=e^{-5/2}\bigl(4e^{-5/2}-1/4\bigr)>0.
+\]
+For an elementary exact sign certificate, $e<3$ implies $e^{5/2}<9\sqrt3<16$, with the last inequality equivalent to $243<256$.
+
+We also verify that this is the increasing side of the unique mode, rather than relying only on one derivative value. For $0<x\le2$, strict convexity of the exponential gives $2e^{-x/2}>2-x$, so \eqref{eq:first} is positive. For $x>2$, its unique zero is determined by
+\[
+ x-2=2e^{-x/2}.
+\]
+The left side is strictly increasing and the right side strictly decreasing. The derivative is positive before this zero and negative afterward, so it is the unique mode. Since $p'(5/2)>0$, the mode exceeds $5/2$.
+\end{proof}
+
+Equivalently, the mode is $2+2W(e^{-1})$, where $W$ is the real inverse of $z\mapsto ze^z$ on $[0,\infty)$. Numerically,
+\[
+ \operatorname{mode}(Y)\approx2.55692908552,
+ \qquad\operatorname{mode}(Y')\approx1.70461939035>5/3.
+\]
+Only the upper half of Conjecture~1 is refuted here; no counterexample to its separately stated lower bound is claimed.
+
+\section{The inflection-point conjecture}
+Hallman \cite[Theorem~4 and Conjecture~2]{Hallman2024} fixes a scale bound $\lambda$ and variance $\phi^2$, and considers all inflection points of
+\[
+ Q_\lambda+\lambda_jZ_1+\lambda_kZ_2-\E Q_\lambda,
+ \qquad j\ne k.
+\]
+The proposed upper bound is $\lambda+\sqrt{\phi^2+\lambda^2}$. Use the unnormalized $Q$ in \eqref{eq:QY}, with coefficient vector $(1,1,1/2,1/2)$, $\alpha=1/2$, $\beta=1$, $\lambda=1$, and $\phi=\sqrt5/2$. All family constraints hold, including $\lambda\le\phi/\sqrt\alpha$. With $j=1$ and $k=2$, the centered augmented variable is $Y-3/2$.
+
+\begin{proposition}
+The density of $Y-3/2$ has an inflection point strictly larger than $5/2=1+\sqrt{5/4+1}$. Therefore Hallman's Conjecture~2 is false.
+\end{proposition}
+\begin{proof}
+The conjectured endpoint $5/2$ for $Y-3/2$ corresponds to $x=4$ for $Y$. But
+\[
+ p''(4)=-8e^{-8}<0,
+ \qquad p''(5)=e^{-10}(3e^5-8)>0.
+\]
+The second sign follows already from $e^5>1+5=6$. Thus $p''$ changes sign somewhere in $(4,5)$. More explicitly, for $x>4$ its zeros satisfy
+\[
+ (x-2)(x-4)e^x=8.
+\]
+The left side is strictly increasing from zero to infinity, so there is exactly one such zero, and it is a genuine inflection point. Subtracting the centering constant $3/2$ puts it strictly above $5/2$.
+\end{proof}
+Numerically, the upper inflection point of $Y$ is about $4.06635720605$, and that of $Y-3/2$ is about $2.56635720605$.
+
+\section{What these examples do and do not establish}
+All weights are positive and the common base shape is $1/2$, so the examples occur within the Gamma representation of one-sample Gaussian quadratic forms. The two exponential increments use distinct indices, even though the corresponding coefficients are equal. Both features are allowed in the definitions being refuted.
+
+The auxiliary quantities in Theorems~2 and~4 are suprema over broad families of augmented densities. The later Conjectures~3 and~4 instead concern particular final extremal trace-tail comparisons. Failure of an auxiliary bound does not logically imply failure of either final comparison. This note asserts no resolution of those two later conjectures, nor of a repository item that asks only for those final comparisons.
+
+The exact convolution, derivatives, normalization and sign certificates are reproduced in \texttt{verify\_counterexamples.py}. Decimal roots are included for orientation only. This note is a candidate submission requiring independent review; it does not claim verified priority over all subsequent work.
+
+\begin{thebibliography}{9}
+\bibitem{Hallman2024}
+E.~Hallman,
+\emph{Extremal bounds for Gaussian trace estimation},
+\href{https://arxiv.org/abs/2411.15454}{arXiv:2411.15454}, version~1, November~23, 2024.
+The relevant statements are Theorem~2 and Conjecture~1 on page~9, and Theorem~4 and Conjecture~2 on page~10 of the PDF.
+\end{thebibliography}
+\end{document}

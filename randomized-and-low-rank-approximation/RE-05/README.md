@@ -7,9 +7,24 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because arbitrary matrix subspaces need pure relative error with few queries; community impact spans structured least squares and matrix compression.  
-**Status:** Partially resolved  
+**Status:** Solved  
+
+<!-- colbrook-transfer -->
+## Resolution — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the exact target.**
+
+The nonadaptive two-sided algorithm achieves pure relative Frobenius error with $O(\sqrt{q(\log q+1/\varepsilon)}+\log q)$ queries at constant success. Fifteen independent copies with internal squared parameter $\varepsilon/9$ and the proved median selector give failure at most $e^{-4.8}<0.01$ and norm factor at most $1+\varepsilon$. This meets the exact canonical uniform query bound and arithmetic model.
+
+The complete target is resolved. Its former difficulty rating is historical; the original mathematical statement and source evidence are retained below.
+
+The manuscript acknowledges the same algorithm in an earlier public manuscript repository. The independent review now compares its available main source and supplement. No priority for the algorithm or resolution, or novelty of the logarithmic refinement, is claimed.
+
+**Primary reference:** [complete authored PDF](../../references/colbrook-transfer-2026-09-11/manuscripts/05_linear_family_relative_sketch.pdf), [standalone TeX](../../references/colbrook-transfer-2026-09-11/manuscripts/05_linear_family_relative_sketch.tex), **Theorem 2.1 and Proposition 5.1**. [Independent proof review](../../references/colbrook-transfer-2026-09-11/verification/reviews/RE-05-review.md) · [Authorship and submission record](../../references/colbrook-transfer-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
+
+<!-- /colbrook-transfer -->
 **Area:** matrix sketching and structured least squares  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-11  
 
 ## Context and notation
 

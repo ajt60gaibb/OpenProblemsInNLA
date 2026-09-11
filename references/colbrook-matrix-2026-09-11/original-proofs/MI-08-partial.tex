@@ -1,0 +1,56 @@
+\section{MI-08: fixed and adaptive orthogonal pinching have the same length}
+\label{sec:mi08}
+This section is partial progress on MI-08, not a determination of the length in every dimension. It resolves the comparison between the fixed and input-dependent versions in \cite[Questions 4.8--4.9]{BL2026} and determines additional exact dimensions.
+
+Let $\Delta(X)=\diag(x_{11},\ldots,x_{dd})$ for real $d\times d$ matrices. Let $f(d)$ be the least $q$ for which there are fixed orthogonal matrices $O_1,\ldots,O_q$ satisfying
+\[
+ \Delta(X)=\frac1q\sum_{i=1}^qO_iXO_i^T\quad\hbox{for every real }X.
+\]
+Let $a(d)$ be the least $q$ for which the same identity holds for every real $X$, allowing the matrices $O_i$ to depend on $X$. Finally, let
+\[
+ h(d)=\min\{q:\ \exists H\in\{-1,1\}^{q\times d},\ H^TH=qI_d\}.
+\]
+Such a $q$ exists, for example by the Sylvester construction of sign matrices of power-of-two order.
+
+\begin{theorem}\label{thm:mi08}
+For every positive integer $d$, one has
+\[
+ f(d)=a(d)=h(d).
+\]
+In particular, $f(d)=a(d)=12$ for $9\leq d\leq12$.
+\end{theorem}
+\begin{proof}
+If $H$ realizes $h(d)$, set $O_i=\diag(h_{i1},\ldots,h_{id})$. Orthogonality of the columns of $H$ gives
+\[
+ \frac1q\sum_iO_iXO_i^T=\Delta(X)
+\]
+entry by entry, for every real $X$. Thus $a(d)\leq f(d)\leq h(d)$.
+
+For the reverse inequality, choose $D=\diag(1,2,\ldots,d)$ and the skew-symmetric matrix $K$ with $k_{ij}=1$ for $i<j$ and $k_{ij}=-1$ for $i>j$. Set $X=D+K$. Suppose $q$ orthogonal matrices, even chosen specifically for this $X$, satisfy the required identity. Taking symmetric parts yields
+\[
+ \frac1q\sum_iO_iDO_i^T=D.
+\]
+Every term has the same Frobenius norm as $D$. Therefore
+\begin{align*}
+ \sum_i\norm{O_iDO_i^T-D}_F^2
+ &=2q\norm{D}_F^2-2\tr\left(D\sum_iO_iDO_i^T\right)=0.
+\end{align*}
+Each $O_i$ consequently commutes with $D$. Since the diagonal entries of $D$ are distinct, $O_i$ is a diagonal sign matrix. Taking skew-symmetric parts now shows that, for every $j\ne l$,
+\[
+ 0=\sum_i (O_i)_{jj}(O_i)_{ll}k_{jl}.
+\]
+All $k_{jl}$ are nonzero. The $q\times d$ matrix of these signs therefore has orthogonal columns, so $q\geq h(d)$. This proves $a(d)\geq h(d)$ and establishes the equality.
+
+For $d\geq3$, any admissible $q$ is divisible by four. Indeed, multiply rows by signs to make the first column all ones. The second and third columns are both balanced and orthogonal; the four possible sign pairs must each occur $q/4$ times. Also $q\geq d$ by rank. Thus $h(d)\geq12$ for $9\leq d\leq12$.
+
+For completeness, an order-twelve sign matrix can be constructed entirely explicitly. In the field $\mathbb F_{11}$, put $\chi(0)=0$, let $\chi(x)=1$ for nonzero squares, and let $\chi(x)=-1$ otherwise. Let $Q_{ij}=\chi(i-j)$ for $i,j\in\mathbb F_{11}$. Then $Q^T=-Q$, $Q\mathbf1=0$, and $QQ^T=11I-J$. The last identity can also be checked directly using the square residues $\{1,3,4,5,9\}$; the accompanying verifier does so with integer arithmetic. Hence
+\[
+ H=\begin{pmatrix}1&\mathbf1^T\\\mathbf1&Q-I\end{pmatrix}
+ \quad\hbox{satisfies}\quad HH^T=12I_{12}.
+\]
+Taking any $d$ columns gives $h(d)\leq12$ for $d\leq12$, proving the claimed values.
+\end{proof}
+
+\begin{remark}[What remains]
+The general value of $h(d)$ is not determined here. In particular, $h(4m)=4m$ is equivalent to the existence of a Hadamard matrix of order $4m$. The value $h(9)=12$ also rules out a universal dichotomy between $d$ and the next power of two. The adaptive comparison above uses all real matrices, including nonsymmetric ones, exactly as in the stated question; it is not a claim about a restriction to symmetric inputs only.
+\end{remark}

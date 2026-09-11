@@ -1,0 +1,75 @@
+\section{MI-06: no finite two-unitary constant for the arithmetic symmetric modulus}
+\label{sec:mi06}
+
+Define the arithmetic symmetric modulus by
+\[
+ \symmod(X)=\frac{|X|+|X^*|}{2}.
+\]
+The target proposes that for every $X,Y$ there are unitaries $U,V$ with
+\[
+ \symmod(X+Y)\leq\sqrt2\bigl(U\symmod(X)U^*+V\symmod(Y)V^*\bigr).
+\]
+The following result disproves that assertion and the more general finite-constant question in \cite[Conjecture 1.6 and equation (1.4)]{Zhang2026}.
+
+\begin{theorem}\label{thm:mi06}
+Even in dimension three, there is no finite nonnegative constant $C$ such that every pair $X,Y\in\M_3(\C)$ admits unitaries $U,V$ satisfying
+\begin{equation}\label{eq:mi06-target}
+ \symmod(X+Y)\leq C\bigl(U\symmod(X)U^*+V\symmod(Y)V^*\bigr).
+\end{equation}
+The failure is witnessed by real rank-one matrices.
+\end{theorem}
+
+\begin{proof}
+For $t>0$, let
+\[
+ X=e_1(e_1+te_2)^*
+ =\begin{pmatrix}1&t&0\\0&0&0\\0&0&0\end{pmatrix},\qquad
+ Y=-(e_1+te_3)e_1^*
+ =\begin{pmatrix}-1&0&0\\0&0&0\\-t&0&0\end{pmatrix}.
+\]
+Put $s=\sqrt{1+t^2}$. If $Z=uv^*$ has rank one, then
+\[
+ |Z|=\frac{\|u\|}{\|v\|}vv^*,\qquad
+ |Z^*|=\frac{\|v\|}{\|u\|}uu^*.
+\]
+Applying this identity shows that both $\symmod(X)$ and $\symmod(Y)$ have eigenvalues
+\[
+ a=\frac{s+1}{2},\qquad b=\frac{s-1}{2},\qquad0.
+\]
+On the other hand,
+\[
+ X+Y=t(e_1e_2^*-e_3e_1^*)
+\]
+has right and left moduli $t\diag(1,1,0)$ and $t\diag(1,0,1)$, respectively. Hence
+\begin{equation}\label{eq:mi06-sum}
+ \symmod(X+Y)=\diag(t,t/2,t/2)\geq(t/2)I_3.
+\end{equation}
+
+Fix arbitrary unitaries $U,V$. Choose a unit vector $w$ orthogonal to a top eigenvector of $U\symmod(X)U^*$ and to a top eigenvector of $V\symmod(Y)V^*$. Such a vector exists because the ambient dimension is three. The eigenvalue lists above imply
+\[
+ w^*\bigl(U\symmod(X)U^*+V\symmod(Y)V^*\bigr)w\leq 2b=s-1.
+\]
+Combining this with \eqref{eq:mi06-sum}, any domination \eqref{eq:mi06-target} would force
+\[
+ \frac t2\leq C(s-1),\qquad
+ C\geq\frac{t}{2(\sqrt{1+t^2}-1)}
+ =\frac{\sqrt{1+t^2}+1}{2t}.
+\]
+The final expression tends to $+\infty$ as $t\downarrow0$.
+\end{proof}
+
+\begin{corollary}[A small exact counterexample to $\sqrt2$]\label{cor:mi06-rational}
+Take $t=3/4$ in the preceding construction. Then
+\[
+ \spec\symmod(X)=\spec\symmod(Y)=\{9/8,1/8,0\},
+ \qquad \symmod(X+Y)=\diag(3/4,3/8,3/8).
+\]
+For arbitrary $U,V$, the quadratic form of the proposed right-hand side on the vector $w$ used above is at most $\sqrt2/4<3/8$. Thus the conjectured domination fails.
+\end{corollary}
+
+For direct verification, the two individual symmetric moduli in this example are rational matrices:
+\[
+ \symmod(X)=\begin{pmatrix}41/40&3/10&0\\3/10&9/40&0\\0&0&0\end{pmatrix},\qquad
+ \symmod(Y)=\begin{pmatrix}41/40&0&3/10\\0&0&0\\3/10&0&9/40\end{pmatrix}.
+\]
+This obstruction concerns order domination by two separately rotated summands. It does not contradict a unitarily invariant norm inequality for their sum, and it does not identify the arithmetic modulus with the quadratic symmetric modulus.

@@ -1,0 +1,29 @@
+name: Permanent problem IDs
+
+on:
+  pull_request:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate permanent problem IDs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Check registry against the published base
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.sha || github.event.before }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          python3 tools/validate_problem_ids.py --base-ref "refs/remotes/origin/$DEFAULT_BRANCH"
+          if [ -n "$BASE_REF" ] && [ "$BASE_REF" != "0000000000000000000000000000000000000000" ]; then
+            python3 tools/validate_problem_ids.py --base-ref "$BASE_REF"
+          fi
+      - name: Test permanent-ID safeguards
+        run: python3 -m unittest discover -s tests -p 'test_problem_ids.py' -v

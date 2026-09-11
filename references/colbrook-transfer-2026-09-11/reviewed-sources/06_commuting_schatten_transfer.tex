@@ -1,0 +1,157 @@
+\documentclass[11pt]{article}
+\input{common_preamble}
+\title{Sharp factor-two excess transfer for commuting positive semidefinite matrices}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For every finite Schatten norm, we prove a sharp factor-two bound on relative approximation excess when the positive semidefinite input, its approximation, and the selected truncation projector have a common orthonormal eigenbasis. This is a partial result for the nuclear norm: it does not resolve the corresponding question for arbitrary noncommuting positive semidefinite matrices.
+\end{abstract}
+
+\section{Statement}
+Let $f:[0,\infty)\to[0,\infty)$ be continuous and nondecreasing, with $f(x)/x$ nonincreasing on $(0,\infty)$. No assumption that $f(0)=0$ is made.
+Let $A,B\succeq0$ have a common orthonormal eigenbasis $q_1,\ldots,q_n$, ordered so that the eigenvalues of $A$ satisfy $a_1\ge\cdots\ge a_n\ge0$. Fix $1\le k<n$ and a set $S\subseteq\{1,\ldots,n\}$ of exactly $k$ indices, and suppose $b_i=0$ for $i\notin S$. Define
+\[
+ A=\sum_{i=1}^n a_iq_iq_i^T,\qquad
+ B=\sum_{i\in S}b_iq_iq_i^T,\qquad
+ P=\sum_{i\in S}q_iq_i^T,\qquad
+ C=\sum_{i\in S}f(b_i)q_iq_i^T.
+\]
+In particular, the selected projector $P$ also shares this eigenbasis. The definition of $C$ includes $f(0)$ at the padded zero eigenvalues indexed by $S$; it does not mean the full matrix $f(B)$ when $f(0)>0$.
+
+For $1\le p<\infty$, let $\norm{M}_{S_p}=(\sum_i\sigma_i(M)^p)^{1/p}$ and put
+\[
+ T_A=\sum_{i>k}a_i^p,\qquad
+ T_f=\sum_{i>k}f(a_i)^p.
+\]
+These are the optimal rank-$k$ Schatten $p$-errors raised to the power $p$.
+
+\begin{theorem}\label{thm:commuting}
+Suppose $\tau=a_{k+1}>0$ and set $c=f(\tau)/\tau$. Then
+\[
+ \norm{f(A)-C}_{S_p}^p-T_f
+ \le 2c^p\bigl(\norm{A-B}_{S_p}^p-T_A\bigr).
+\]
+Consequently, for every $\eta\ge0$,
+\[
+ \norm{A-B}_{S_p}^p\le(1+\eta)T_A
+ \quad\Longrightarrow\quad
+ \norm{f(A)-C}_{S_p}^p\le(1+2\eta)T_f.
+\]
+For every $\eps\ge0$, the norm-relative implication is
+\[
+ \norm{A-B}_{S_p}\le(1+\eps)T_A^{1/p}
+ \quad\Longrightarrow\quad
+ \norm{f(A)-C}_{S_p}\le(1+2\eps)T_f^{1/p}.
+\]
+For each fixed $p\in[1,\infty)$, both universal relative-excess constants two are optimal, even for operator-monotone power functions.
+\end{theorem}
+
+\section{Proof}
+For $0\le x<y$ with $y\ge\tau$, subhomogeneity and continuity give
+\[
+ 0\le f(y)-f(x)\le\frac{f(y)}{y}(y-x)\le c(y-x).
+\]
+Also $f(x)\ge cx$ for $x\le\tau$ and $f(x)\le cx$ for $x\ge\tau$. If $f(\tau)=0$, these inequalities and monotonicity force $f$ to vanish identically, and the theorem is immediate.
+
+\begin{lemma}\label{lem:scalar}
+For all $a,b\ge0$,
+\[
+ |f(a)-f(b)|^p\le c^p\bigl(|a-b|^p+(\tau^p-a^p)_+\bigr).
+\]
+\end{lemma}
+\begin{proof}
+If $\max(a,b)\ge\tau$, the pairwise Lipschitz inequality above suffices.
+If $0\le b\le a\le\tau$ and $a>0$, subhomogeneity gives
+\[
+ f(a)-f(b)\le f(\tau)(1-b/a).
+\]
+Writing $q=1-b/a\in[0,1]$, we have
+\[
+ |a-b|^p+\tau^p-a^p-\tau^pq^p
+ =(\tau^p-a^p)(1-q^p)\ge0,
+\]
+which proves this case.
+If $0\le a\le b\le\tau$ and $b>0$, then
+\[
+ f(b)-f(a)\le f(\tau)(1-a/b).
+\]
+With $q=1-a/b\in[0,1]$, the required inequality follows from
+\[
+ (\tau^p-b^p)q^p\le\tau^p-b^p\le\tau^p-a^p,
+ \qquad |a-b|^p=b^pq^p.
+\]
+The case $a=b=0$ is immediate; the other zero endpoints are included by continuity.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:commuting}]
+Simultaneous diagonalization gives the exact decomposition
+\[
+ \delta_A:=\norm{A-B}_{S_p}^p-T_A=L_A+R_A,
+\]
+where
+\[
+ L_A=\sum_{i\le k}a_i^p-\sum_{i\in S}a_i^p,\qquad
+ R_A=\sum_{i\in S}|a_i-b_i|^p.
+\]
+Define $L_f,R_f$ by the analogous formulas with $f(a_i),f(b_i)$; then
+$\delta_f:=\norm{f(A)-C}_{S_p}^p-T_f=L_f+R_f$.
+
+Match the selected indices outside $\{1,\ldots,k\}$ with the omitted indices in $\{1,\ldots,k\}$. Each matched pair consists of values $x\le\tau\le y$. Since $f(y)\le cy$ and $f(x)\ge cx$,
+\[
+ 0\le f(y)^p-f(x)^p\le c^p(y^p-x^p).
+\]
+Summing over these pairs gives $0\le L_f\le c^pL_A$. Since every omitted $y$ is at least $\tau$, the same matching also gives
+\[
+ L_A\ge\sum_{i\in S}(\tau^p-a_i^p)_+.
+\]
+Lemma~\ref{lem:scalar} now yields
+\[
+ R_f\le c^p(R_A+L_A),
+ \qquad
+ \delta_f\le c^p(R_A+2L_A)\le2c^p\delta_A.
+\]
+For the relative implications, use $c^pT_A\le T_f$. Finally, convexity of $t\mapsto t^p$ gives
+\[
+ (1+2\eps)^p\ge2(1+\eps)^p-1,
+\]
+which converts the bound on the $p$th power into the norm-relative bound.
+\end{proof}
+
+\section{Sharpness and scope}
+Fix $p\in[1,\infty)$. Let $N\ge1$, $0<b<1$, $0<r<1$, and take
+\[
+ A=I_{N+1}\oplus[0],\qquad k=1,\qquad
+ B=b\,e_{N+2}e_{N+2}^T,\qquad f(x)=x^r.
+\]
+Here $\tau=c=1$, $T_A=T_f=N$, and
+\[
+ \norm{A-B}_{S_p}^p=N+1+b^p,\qquad
+ \norm{f(A)-C}_{S_p}^p=N+1+b^{pr}.
+\]
+The ratio of $p$th-power excesses is
+\[
+ \frac{1+b^{pr}}{1+b^p}.
+\]
+Taking $b=e^{-L}$ and $r=L^{-2}$ as $L\to\infty$ makes this ratio tend to two. With the simultaneous choice $N=L$ for positive integers $L$, the ratio of norm-relative excesses is
+\[
+ \frac{(1+(1+b^{pr})/N)^{1/p}-1}
+ {(1+(1+b^p)/N)^{1/p}-1}\longrightarrow2,
+\]
+using $(1+x/N)^{1/p}-1\sim x/(pN)$ for bounded positive $x$. For $p=1$, the two ratios already coincide for every $N$.
+
+These powers are operator monotone. Indeed, for $0<r<1$,
+\[
+ x^r=\frac{\sin(\pi r)}{\pi}
+ \int_0^\infty t^{r-1}x(x+t)^{-1}\,dt.
+\]
+Spectral calculus extends this identity to positive semidefinite matrices, and for $t>0$ the map
+$X\mapsto X(X+tI)^{-1}=I-t(X+tI)^{-1}$ preserves their order. Integrating proves the assertion, including singular matrices.
+
+If $\tau=0$, the relative-error premise forces $A=B$. The selected space then contains $\range A$, and $f(A)-C$ has exactly $n-k$ remaining eigenvalues equal to $f(0)$. Its Schatten $p$-error is the optimal tail. The relative conclusions therefore hold in this case too; no scaled inequality with an undefined quotient $f(0)/0$ is asserted.
+
+For $p=2$, a stronger result allowing noncommuting matrices is proved in the companion Frobenius manuscript. For $p=1$, the present argument proves a sharp constant-two bound only with the specified simultaneous eigenbasis and selected projector. It does not settle existence of a universal constant for arbitrary noncommuting pairs. When this result is applied to a truncation $B=\widehat A_k$, the selected projector must preserve the stated common basis, including within repeated eigenspaces and at padded zero eigenvalues.
+
+\end{document}

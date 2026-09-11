@@ -1,0 +1,77 @@
+\section{MI-25, endpoint only: the trace-norm Hlawka constant is infinite}
+\label{sec:mi25}
+
+For a norm $\|\cdot\|$, define the three-summand defect and the sum of pairwise defects by
+\begin{align*}
+ N(X_1,X_2,X_3)&=\sum_{j=1}^3\|X_j\|-\|X_1+X_2+X_3\|,\\
+ D(X_1,X_2,X_3)&=\sum_{1\leq i<j\leq3}
+ \bigl(\|X_i\|+\|X_j\|-\|X_i+X_j\|\bigr).
+\end{align*}
+The full repository problem asks for the optimal dimension-independent constants $C_p$ in $N\leq C_pD$ for Schatten norms. The result below resolves \emph{only the endpoint $p=1$}, which was left open in \cite[Problem 7]{AK2012}. It does not determine $C_p$ for $1<p<\infty$.
+
+\begin{theorem}\label{thm:mi25}
+No finite constant $C_1$ controls the three-summand trace-norm defect by the sum of pairwise trace-norm defects. This failure already occurs for real $2\times3$ rank-one matrices, or for real square $3\times3$ matrices after zero padding.
+\end{theorem}
+
+\begin{proof}
+Let
+\[
+ u_1=\begin{pmatrix}1\\0\end{pmatrix},\qquad
+ u_2=\begin{pmatrix}-1/2\\\sqrt3/2\end{pmatrix},\qquad
+ u_3=\begin{pmatrix}-1/2\\-\sqrt3/2\end{pmatrix}.
+\]
+These unit vectors satisfy
+\[
+ \sum_ju_j=0,\qquad \sum_ju_ju_j^T=\frac32I_2,\qquad
+ u_i^Tu_j=-\frac12\quad(i\ne j).
+\]
+For $0<t<1$, put
+\[
+ v_j=\begin{pmatrix}\sqrt{1-t}\,u_j\\\sqrt t\end{pmatrix}\in\R^3,
+ \qquad X_j=u_jv_j^T\in\M_{2,3}(\R).
+\]
+Each $X_j$ has its only nonzero singular value equal to one. Furthermore,
+\[
+ \sum_jX_j=\begin{pmatrix}\frac32\sqrt{1-t}\,I_2&0\end{pmatrix},
+ \qquad\left\|\sum_jX_j\right\|_1=3\sqrt{1-t}.
+\]
+For $i\ne j$, write $U=(u_i\ u_j)$ and $V=(v_i\ v_j)$. The two Gram matrices are
+\[
+ U^TU=\begin{pmatrix}1&-1/2\\-1/2&1\end{pmatrix},\qquad
+ V^TV=\begin{pmatrix}1&(3t-1)/2\\(3t-1)/2&1\end{pmatrix}.
+\]
+They commute and are simultaneously diagonalized by $(1,1)^T$ and $(1,-1)^T$. The squared singular values of $UV^T=X_i+X_j$ are therefore
+\[
+ \frac{1+3t}{4},\qquad\frac{9(1-t)}4.
+\]
+It follows that every pair sum has trace norm
+\[
+ q(t)=\frac12\sqrt{1+3t}+\frac32\sqrt{1-t}.
+\]
+Consequently,
+\[
+ \frac{N(X_1,X_2,X_3)}{D(X_1,X_2,X_3)}
+ =\frac{1-\sqrt{1-t}}{2-q(t)}.
+\]
+The denominator is positive for $t>0$: strict concavity of the square root gives
+$\frac14\sqrt{1+3t}+\frac34\sqrt{1-t}<1$.
+Expansion at zero gives
+\[
+ 1-\sqrt{1-t}=\frac t2+O(t^2),\qquad
+ 2-q(t)=\frac34t^2+O(t^3).
+\]
+Thus the defect ratio is asymptotic to $2/(3t)$ and tends to $+\infty$.
+
+Alternatively, the divergence can be checked without Taylor expansions. If
+$g(t)=\sqrt{(1-t)(1+3t)}$, rationalization gives
+\[
+ 2-q(t)=\frac{6t^2}{(1+t+g(t))(2+q(t))}
+\]
+and hence
+\[
+ \frac{1-\sqrt{1-t}}{2-q(t)}
+ =\frac{(1+t+g(t))(2+q(t))}{6t(1+\sqrt{1-t})}
+ \sim\frac{2}{3t}.
+\]
+Appending a zero row leaves every singular value and every defect unchanged, giving the square-matrix assertion.
+\end{proof}

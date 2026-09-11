@@ -3,10 +3,20 @@
 **Topic:** Spectra of finite banded Toeplitz matrices.  
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Solved  
+**Last checked:** 2026-09-11  
 
 **Rating rationale:** Challenging reflects recovering a spectral implication after a gap in its original analytic proof; community impact is a structural criterion for real spectra of banded Toeplitz sections.
+
+## Resolution — 2026-09-11
+
+**Negative resolution by Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [Complete manuscript](solution.md) · [PDF](solution.pdf) · [LaTeX](solution.tex). **Theorem 1 and equations (1)–(8).**
+
+The integer-coefficient Laurent polynomial in Theorem 1 is real on a rigorously constructed star-shaped Jordan curve enclosing zero, while its $2\times2$ Toeplitz section has eigenvalues $-128\pm8i$. The proof checks continuity, injectivity and reality on the entire curve. It refutes the conjectured implication for every finite section; it does not refute the distinct limiting-spectrum statement.
+
+The complete argument received an independent Codex-agent **PASS** on 11 September 2026. The [review report](../../references/colbrook-additional-2026-09-11/verification/reviews/SP-06-review.md) records the exact scope and a hash of the original reviewed manuscript. The mathematical sections remain unchanged in the authored version. Original ChatGPT generation is disclosed; no external human peer review or formal proof certificate is asserted. [Submission and verification record](../../references/colbrook-additional-2026-09-11/README.md).
+
+The original statement, source references and prior audit notes are retained; the former difficulty rating is historical.
 
 ## Problem statement
 

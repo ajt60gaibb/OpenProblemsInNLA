@@ -1,0 +1,227 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=24mm]{geometry}
+\usepackage{microtype}
+\usepackage{booktabs,array,longtable}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue,pdfauthor={Matthew J. Colbrook}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Resolution / MI-04}
+\fancyhead[R]{\small 11 September 2026}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\M}{\mathbb M}
+\newcommand{\C}{\mathbb C}
+\newcommand{\R}{\mathbb R}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\spec}{\operatorname{spec}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\opnorm}[1]{\lVert #1\rVert_{\infty}}
+\newcommand{\schatten}[2]{\lVert #1\rVert_{#2}}
+\newcommand{\symmod}{\mathcal S}
+\newcommand{\maxmod}{\mathcal M}
+\newcommand{\draftnotice}{\begin{center}\small\textit{Proposed mathematical resolution. Complete proof supplied; not submitted or peer reviewed.}\end{center}}
+
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\allowdisplaybreaks[1]
+
+\title{MI-04: Resolution}
+\author{Matthew J. Colbrook\\
+\small Department of Applied Mathematics and Theoretical Physics\\
+\small University of Cambridge, Cambridge, United Kingdom\\
+\small\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+\textbf{Repository status: Solved.}
+The complete argument received an independent Codex-agent PASS review
+against the exact catalog target.
+The original draft was AI-assisted; the reviewed proof below is unchanged.
+This is independent agent verification, not external human peer review or
+formal proof certification. \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-2026-09-11/verification/reviews/MI-04-review.md}{Detailed review and scope}.
+\par\medskip
+% BEGIN REVIEWED PROOF
+\section{MI-04: a characterization of essentially Hermitian off-diagonal blocks}
+\label{sec:mi04}
+
+A matrix $X\in\M_n(\C)$ is \emph{essentially Hermitian} if
+$X=\alpha H+\beta I$ for some Hermitian $H$ and complex scalars $\alpha,\beta$.
+The target is the necessity assertion in the following theorem, corresponding to Bourin and Lee's Conjecture 3.3 \cite{BL2021}.
+
+\begin{theorem}\label{thm:mi04}
+For $X\in\M_n(\C)$, the following conditions are equivalent.
+\begin{enumerate}
+\item For every positive semidefinite completion
+$P=\begin{pmatrix}A&X\\X^*&B\end{pmatrix}$,
+\[
+ \opnorm{P}\leq\opnorm{A+B}.
+\]
+\item The same inequality holds for every such completion whose diagonal-block sum $A+B$ is a scalar multiple of $I$.
+\item For every Hermitian $T$, the largest and smallest eigenvalues of
+\[
+ K_X(T)=\begin{pmatrix}T&X\\X^*&-T\end{pmatrix}
+\]
+are negatives of one another.
+\item $X$ is essentially Hermitian.
+\end{enumerate}
+In particular, no invertibility or distinct-singular-value hypothesis on $X$ is required.
+\end{theorem}
+
+\subsection{Scalar-sum completions force extreme spectral symmetry}
+
+The implication (1)$\Rightarrow$(2) is immediate. Assume (2). Fix a Hermitian $T$ and write
+\[
+ a=\lambda_{\max}(K_X(T)),\qquad b=-\lambda_{\min}(K_X(T)).
+\]
+Since $\tr K_X(T)=0$, both $a$ and $b$ are nonnegative. The matrix
+\[
+ bI_{2n}+K_X(T)
+ =\begin{pmatrix}bI+T&X\\X^*&bI-T\end{pmatrix}
+\]
+is positive semidefinite, has diagonal-block sum $2bI$, and has norm $a+b$. Thus (2) gives $a\leq b$.
+
+Let $J=\diag(I,-I)$. Direct multiplication shows
+\[
+ K_X(-T)=J[-K_X(T)]J^*.
+\]
+Applying the same argument to $-T$ gives $b\leq a$. This proves (3).
+If ``positive'' is interpreted as positive definite, use $b+\eta$ in place of $b$ and let $\eta\downarrow0$; the same conclusion follows.
+
+\subsection{A second-order test forces symmetry of off-diagonal magnitudes}
+
+Assume (3). It continues to hold with $X$ replaced by $\varepsilon X$, for every $\varepsilon>0$, because
+\[
+ K_{\varepsilon X}(T)=\varepsilon K_X(T/\varepsilon).
+\]
+It is also invariant under unitary similarity of $X$.
+
+Choose any orthonormal basis and write $x_{ij}$ for the entries of $X$ in that basis. Let
+\[
+ D=\diag(1,d_2,\ldots,d_n),\qquad -1<d_j<1,
+\]
+and consider
+\[
+ K(\varepsilon)=\begin{pmatrix}D&\varepsilon X\\\varepsilon X^*&-D\end{pmatrix}.
+\]
+At $\varepsilon=0$, its largest and smallest eigenvalues are the simple eigenvalues $1$ and $-1$. For small $\varepsilon$, denote their continuations by $\lambda_+(\varepsilon)$ and $\lambda_-(\varepsilon)$. The elementary second-order perturbation formula gives, with $d_1=1$,
+\begin{align}
+ \lambda_+(\varepsilon)
+ &=1+\varepsilon^2\sum_{j=1}^n\frac{|x_{1j}|^2}{1+d_j}
+   +O(\varepsilon^3),\label{eq:mi04-plus}\\
+ \lambda_-(\varepsilon)
+ &=-1-\varepsilon^2\sum_{j=1}^n\frac{|x_{j1}|^2}{1+d_j}
+   +O(\varepsilon^3).\label{eq:mi04-minus}
+\end{align}
+For completeness, if $H_0u=\lambda_0u$ is a simple eigenpair of a Hermitian matrix, $\|u\|=1$, and $V$ is Hermitian, expand an eigenvector of $H_0+\varepsilon V$ as $u+\varepsilon w+O(\varepsilon^2)$ with $w\perp u$. In an orthonormal eigenbasis $(u_j)$ of $H_0$,
+\[
+ w=\sum_{u_j\perp u}\frac{u_j^*Vu}{\lambda_0-\lambda_j}u_j,
+\]
+and the coefficient of $\varepsilon^2$ in the eigenvalue is
+$u^*Vw=\sum_{u_j\perp u}|u_j^*Vu|^2/(\lambda_0-\lambda_j)$.
+Applying this to the off-diagonal perturbation gives \eqref{eq:mi04-plus}--\eqref{eq:mi04-minus}.
+
+Condition (3) implies $\lambda_+(\varepsilon)+\lambda_-(\varepsilon)=0$. Comparing the quadratic coefficients and canceling the $j=1$ terms gives
+\begin{equation}\label{eq:mi04-weights}
+ \sum_{j=2}^n\frac{|x_{1j}|^2-|x_{j1}|^2}{1+d_j}=0
+ \qquad\text{for every }(d_2,\ldots,d_n)\in(-1,1)^{n-1}.
+\end{equation}
+First take all $d_j=0$. Then change only $d_\ell$ to any nonzero number in $(-1,1)$. Subtracting the two identities proves
+\[
+ |x_{1\ell}|=|x_{\ell1}|\qquad(\ell\geq2).
+\]
+The basis was arbitrary, so
+\begin{equation}\label{eq:mi04-pair}
+ |u^*Xv|=|v^*Xu|
+ \quad\text{for all orthonormal pairs }u,v.
+\end{equation}
+
+\subsection{The pair condition implies normality and a collinear spectrum}
+
+Complete a unit vector $u$ to an orthonormal basis and sum the squares in \eqref{eq:mi04-pair}. Including the equal diagonal terms yields
+\[
+ \|X^*u\|^2=\|Xu\|^2.
+\]
+Thus $u^*(XX^*-X^*X)u=0$ for every $u$, and $X$ is normal.
+
+Use an orthonormal eigenbasis of $X$, with eigenvalues $z_1,\ldots,z_n$. If $n\leq2$, these eigenvalues lie on a line. For any triple of indices $i,j,k$ when $n\geq3$, let $\omega=e^{2\pi i/3}$ and set
+\[
+ u=\frac{e_i+e_j+e_k}{\sqrt3},\qquad
+ v=\frac{e_i+\omega e_j+\omega^2e_k}{\sqrt3}.
+\]
+These vectors are orthonormal. Equation \eqref{eq:mi04-pair} gives
+\[
+ |z_i+\omega z_j+\omega^2z_k|
+ =|z_i+\omega^2z_j+\omega z_k|.
+\]
+Writing $a=z_i-z_k$ and $b=z_j-z_k$, the difference of the squared sides is
+\[
+ |a+\omega b|^2-|a+\omega^2b|^2
+ =2\sqrt3\,\operatorname{Im}(a\overline b).
+\]
+It follows that every eigenvalue triple is collinear. If two eigenvalues are distinct, all the others lie on the line through those two; if none are distinct, $X$ is scalar. Since $X$ is normal, in either case $X=\alpha H+\beta I$ with $H$ Hermitian. This proves (3)$\Rightarrow$(4).
+
+\subsection{Converse and completion of the equivalence}
+
+Assume (4). Multiplying $X$ by a scalar of modulus one changes $K_X(T)$ only by unitary similarity. We may therefore write
+\[
+ X=H+ibI,\qquad H=H^*,\quad b\in\R.
+\]
+With the unitary matrix
+\[
+ Q=\frac1{\sqrt2}\begin{pmatrix}I&I\\ iI&-iI\end{pmatrix},
+\]
+direct multiplication gives
+\[
+ Q^*K_X(T)Q
+ =\begin{pmatrix}-bI&T-iH\\T+iH&bI\end{pmatrix}.
+\]
+A singular value decomposition of $T-iH$ reduces this matrix to $n$ blocks of the form
+$\begin{pmatrix}-b&\sigma_j\\\sigma_j&b\end{pmatrix}$.
+Its eigenvalues are therefore the pairs
+$\pm\sqrt{\sigma_j^2+b^2}$. In particular, (3) holds.
+
+Finally assume (3) and let
+$P=\begin{pmatrix}A&X\\X^*&B\end{pmatrix}\geq0$.
+Set $c=\opnorm{A+B}$. Because $A+B\leq cI$, the matrix
+\[
+ P'=\begin{pmatrix}A&X\\X^*&cI-A\end{pmatrix}
+ =P+\diag(0,cI-A-B)
+\]
+satisfies $P'\geq P\geq0$. Also
+\[
+ P'=\frac c2I_{2n}+K_X\left(A-\frac c2I\right).
+\]
+Positivity gives $\lambda_{\min}(K_X(A-cI/2))\geq-c/2$. By (3), its largest eigenvalue is at most $c/2$. Thus $P'\leq cI_{2n}$ and consequently $P\leq cI_{2n}$. This proves (1) and finishes the proof of Theorem~\ref{thm:mi04}.
+\hfill$\square$
+
+% END REVIEWED PROOF
+\begin{thebibliography}{1}
+
+\bibitem{BL2021}
+Jean-Christophe Bourin and Eun-Young Lee.
+\newblock Eigenvalue inequalities for positive block matrices with the inradius
+  of the numerical range.
+\newblock arXiv:2111.15180, 2021.
+\newblock Conjecture 3.3, printed page 6.
+\newblock URL: \url{https://arxiv.org/abs/2111.15180}.
+
+\end{thebibliography}
+
+\end{document}
