@@ -1,0 +1,261 @@
+% Reviewed source SHA256 (UTF-8/LF): 4ee1bf1535124dca3bf1d4325b1ebdafd51f76c6459b6be17cc8f0a0d0563940
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,microtype,booktabs}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Hess}{\operatorname{Hess}}
+\title{Positive semidefinite ranks of the five- and six-element subset-intersection matrices}
+\author{Matthew J. Colbrook\\\small Department of Applied Mathematics and Theoretical Physics\\\small University of Cambridge, Cambridge, United Kingdom\\\small\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}\date{11 September 2026}
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\hypersetup{pdfauthor={Matthew J. Colbrook}}
+\begin{document}\maketitle
+
+\noindent\textbf{Verified partial result for PF-01.} Theorem 1, Corollary 5 and equation (8). Exact ranks are settled for n=5,6; n>=7 remains open.
+The dated \href{https://github.com/MColbrook/OpenProblemsInNLA/blob/codex/colbrook-factorization-resolutions/references/colbrook-factorization-2026-09-11/verification/reviews/PF-01-review.md}{independent agent review} records the subsequent checks and supersedes original draft remarks about pending review. This is not external human peer review or formal certification.
+\par\medskip
+% BEGIN REVIEWED BODY
+
+\begin{abstract}
+The $10\times10$ matrix with rows indexed by two-element subsets $I\subset[5]$, columns indexed by three-element subsets $J\subset[5]$, and entries $|I\cap J|$ has real positive semidefinite rank exactly four. The lower bound uses elementary rank constraints on the Hessian of a $3\times3$ determinant. A hypothetical size-three factorization gives a cubic in a six-dimensional family; ten Hessian conditions and positivity reduce it to eight forms, each excluded by a small exact certificate. A two-layer graph construction also proves that the six-element instance has positive semidefinite rank four, and gives a general upper bound $\lceil2\sqrt{2\lfloor(n-1)/2\rfloor}\rceil$. These are partial results for catalog PF-01, not a resolution of its general exact-rank question; the five-element result also settles Problem 9.1 of Fawzi--Gouveia--Parrilo--Robinson--Thomas.
+\end{abstract}
+
+\section{Statement and a size-four factorization}
+Complement the column indices, so that rows and columns are both indexed by pairs in $[5]$. The resulting symmetric matrix is
+\[
+ D_{I,K}=2-|I\cap K|,\qquad |I|=|K|=2.
+\]
+Column permutation does not change positive semidefinite rank.
+
+\begin{theorem}\label{thm:main}
+The real positive semidefinite rank of $D$, and hence of the five-element subset-intersection matrix, is four.
+\end{theorem}
+
+Here is a self-contained upper bound. For $r=1,2,3,4$ put
+\[
+ h_r=\frac{e_1+\cdots+e_r-r e_{r+1}}{\sqrt{r(r+1)}}\in\mathbb R^5.
+\]
+These vectors are an orthonormal basis of $\mathbf1^\perp$. For a pair $I$ let $y_{I,r}=\langle h_r,\mathbf1_I\rangle/\sqrt2$ and arrange the four coordinates as
+\[
+ Z_I=\begin{pmatrix}y_{I,1}&y_{I,2}\\y_{I,3}&y_{I,4}\end{pmatrix}.
+\]
+Because $\mathbf1_I-\mathbf1_K\perp\mathbf1$,
+\[
+ \|Z_I-Z_K\|_F^2=\tfrac12\|\mathbf1_I-\mathbf1_K\|^2=2-|I\cap K|.
+\]
+Define real symmetric positive semidefinite matrices of order four by
+\[
+ A_I=\begin{pmatrix}Z_I\\I_2\end{pmatrix}
+       \begin{pmatrix}Z_I^{\mathsf T}&I_2\end{pmatrix},\qquad
+ B_K=\begin{pmatrix}I_2\\-Z_K^{\mathsf T}\end{pmatrix}
+       \begin{pmatrix}I_2&-Z_K\end{pmatrix}.
+\]
+Then $\tr(A_IB_K)=\|Z_I-Z_K\|_F^2=D_{I,K}$. The upper bound was already known geometrically~\cite{fgprt}; the displayed factors make it explicit.
+
+\section{Two elementary determinant facts}
+\begin{lemma}\label{lem:hessian}
+Let $L:\mathbb R^5\to\mathbb S^3$ be linear and $p(x)=\det L(x)$. If $p(x)=0$, then $\rank\Hess p(x)\leq4$. If $\rank L(x)\leq1$, the stronger bound $\rank\Hess p(x)\leq3$ holds.
+\end{lemma}
+\begin{proof}
+Congruence and invertible changes of coordinates preserve the relevant Hessian rank bounds. At $X=\operatorname{diag}(\alpha,\beta,0)$, the quadratic term in $\det(X+H)$ is
+\[
+ (\alpha H_{22}+\beta H_{11})H_{33}
+       -\alpha H_{23}^2-\beta H_{13}^2.
+\]
+It has rank at most four as a quadratic form on the six entries of $H\in\mathbb S^3$. When $\beta=0$ it has rank at most three; at $X=0$ it is zero. Every real symmetric singular matrix is congruent to one of these diagonal forms. Pulling back the quadratic form along $L$ cannot increase its rank.
+\end{proof}
+
+Write
+\[
+ e_3(x)=\sum_{i<j<k}x_ix_jx_k,\qquad
+ q(x)=2\sum_{i=1}^5x_i^2-\Bigl(\sum_{i=1}^5x_i\Bigr)^2.
+\]
+\begin{lemma}\label{lem:cubic}
+Suppose a homogeneous cubic $p$ has the following gradient pattern at every $v_{ij}=e_i+e_j$: the $i$th and $j$th derivatives vanish, and the other three derivatives are equal. Then
+\begin{equation}\label{eq:family}
+ p(x)=\lambda e_3(x)+q(x)\sum_{i=1}^5a_ix_i
+\end{equation}
+for real $\lambda,a_1,\ldots,a_5$. At $v_{ij}$ the common outside derivative is $\lambda-4(a_i+a_j)$, and
+\begin{equation}\label{eq:pointdet}
+ \det\Hess p(v_{ij})
+ =-96(a_i+a_j)\bigl(2(a_i+a_j)-\lambda\bigr)^2
+                      \bigl(4(a_i+a_j)-\lambda\bigr)^2.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Write the coefficients of $x_i^3$ and $x_i^2x_j$ as $a_i$ and $b_{ij}$. The two vanishing derivatives at $v_{ij}$ give
+\[
+ 3a_i+2b_{ij}+b_{ji}=0,\qquad
+ 3a_j+b_{ij}+2b_{ji}=0,
+\]
+so $b_{ij}=a_j-2a_i$. These are exactly the corresponding coefficients of $q(x)\sum_i a_ix_i$. Subtract this polynomial. The remaining cubic is multiaffine. Equality of its outside derivatives makes the coefficient of $x_ix_jx_k$ independent of $k$ for each fixed pair $\{i,j\}$. Since the graph of triples joined when they share a pair is connected, all these coefficients equal a common $\lambda$.
+
+The derivative formula follows by differentiation. For completeness, formula~\eqref{eq:pointdet} can be evaluated from a small block matrix. Relabel the pair as $\{1,2\}$, put $s=a_1+a_2$, $b=(a_3,a_4,a_5)^{\mathsf T}$ and $u=(1,1,1)^{\mathsf T}$. Its Hessian is
+\[
+ \begin{pmatrix}
+ 2s&-2s&(\lambda-2s-4a_1)u^{\mathsf T}\\
+ -2s&2s&(\lambda-2s-4a_2)u^{\mathsf T}\\
+ (\lambda-2s-4a_1)u&(\lambda-2s-4a_2)u&
+ (4s-2\lambda)I_3+(2\lambda-2s)uu^{\mathsf T}-4(bu^{\mathsf T}+ub^{\mathsf T})
+ \end{pmatrix}.
+\]
+Adding the first two rows and columns, followed by subtraction of outside rows and columns, gives~\eqref{eq:pointdet}. Equivalently, it follows by direct expansion of this $5\times5$ determinant; the accompanying script checks the symbolic identity without specializing any parameter.
+\end{proof}
+
+\section{Consequences of a hypothetical size-three factorization}
+Let $E$ be the $10\times5$ pair-incidence matrix. It has rank five, since the vectors $e_i+e_j$ span $\mathbb R^5$. Moreover
+\[
+ D=E\bigl(\tfrac12\mathbf1\mathbf1^{\mathsf T}-I_5\bigr)E^{\mathsf T},
+\]
+and the middle matrix is invertible. Thus $\rank D=5$, excluding factors of size at most two.
+
+Suppose that $D_{ij,kl}=\tr(A_{ij}B_{kl})$ with $A_{ij},B_{kl}\in\mathbb S^3_+$. Let $a$ and $b$ be the dimensions of the spans of the two factor families. They are at least five. Applying Sylvester's rank inequality to their coordinate factorization through the six-dimensional space $\mathbb S^3$ gives $a+b\leq11$. At least one span therefore has dimension five. By symmetry of $D$, interchange the families if necessary so that the row span has dimension five.
+
+The column space of its coordinate factor matrix equals $\operatorname{col}D=\operatorname{col}E$. Consequently there are five linearly independent matrices $X_1,\ldots,X_5\in\mathbb S^3$ such that
+\begin{equation}\label{eq:linear}
+ A_{ij}=X_i+X_j,\qquad
+ \tr(X_iB_{kl})=\begin{cases}0&i\in\{k,l\},\\1&i\notin\{k,l\}.
+ \end{cases}
+\end{equation}
+The second equality follows by injectivity of $E$ on its five coordinates.
+
+Every $A_{ij}$ and $B_{ij}$ is nonzero, because $D$ has no zero row or column. Since $D_{ij,ij}=0$, their ranges are orthogonal, and every $A_{ij}$ is singular. Define $p(x)=\det(\sum_i x_iX_i)$. This is not the zero polynomial. Indeed, $\sum_{i<j}A_{ij}=4\sum_iX_i$ is positive definite: if it had a kernel, all the $A_{ij}$ would be supported on a common space of dimension at most two and could not have a five-dimensional span. Hence
+\begin{equation}\label{eq:p1}
+ p(\mathbf1)>0.
+\end{equation}
+
+If $A_{ij}$ has rank two, its adjugate and $B_{ij}$ are nonzero positive semidefinite matrices on the same one-dimensional kernel. They are positive scalar multiples of one another. Equation~\eqref{eq:linear} then implies that the gradient of $p$ at $v_{ij}$ is zero in coordinates $i,j$ and strictly positive and constant in the other three coordinates. If $A_{ij}$ has rank one, its adjugate is zero and the entire gradient vanishes. Thus Lemma~\ref{lem:cubic} applies, and
+\begin{equation}\label{eq:positivity}
+ \lambda-4(a_i+a_j)\geq0\qquad(i\ne j).
+\end{equation}
+Equality in~\eqref{eq:positivity} occurs precisely when $A_{ij}$ has rank one, in which case Lemma~\ref{lem:hessian} requires $\rank\Hess p(v_{ij})\leq3$.
+
+Since all $p(v_{ij})$ vanish, Lemmas~\ref{lem:hessian} and~\ref{lem:cubic} give
+\begin{equation}\label{eq:finite}
+ a_i+a_j\in\{0,\lambda/4,\lambda/2\}.
+\end{equation}
+If $\lambda=0$, every pair sum is zero, so all $a_i=0$, contradicting $p\ne0$. Divide $p$ by the positive number $|\lambda|$, preserving all rank and sign conditions, so that $\lambda\in\{1,-1\}$.
+
+For $\lambda=1$, inequalities~\eqref{eq:positivity} reduce the pair sums to $\{0,1/4\}$. For $\lambda=-1$, they reduce the pair sums to $\{-1/2,-1/4\}$. If five real numbers have every pair sum in a two-element set, then at most two distinct values occur: three distinct values among three positions would, after adding a fourth position, give three different allowed sums. If both distinct values occurred at least twice, their two doubles and their mutual sum would again be three distinct allowed values. Hence either all values agree or one value is exceptional. Enumerating these possibilities gives exactly the eight rows of the following table, up to permutation of coordinates.
+
+\section{Eight exact obstructions}
+The indices in this table are one-based. A principal four-by-four Hessian minor uses the displayed index set $S$.
+\begin{center}\small
+\begin{tabular}{@{}cllll@{}}
+\toprule
+Case & $\lambda$ & $(a_1,\ldots,a_5)$ & Test & Exact value\\
+\midrule
+1 & $1$ & $(0,0,0,0,0)$ & $p(w)=0$, $w=(1,1,1,1,-2/3)$ & $\det\Hess p(w)=256/3$\\
+2 & $1$ & $(1,1,1,1,1)/8$ & $v_{12}$, $S=\{1,3,4,5\}$ & minor $=1/4$\\
+3 & $1$ & $(1,0,0,0,0)/4$ & $v_{12}$, $S=\{1,3,4,5\}$ & minor $=1$\\
+4 & $1$ & $(-1,1,1,1,1)/8$ & $v_{23}$, $S=\{1,2,4,5\}$ & minor $=9/4$\\
+5 & $-1$ & $(-1,-1,-1,-1,-1)/4$ & $p(w)=0$, $w=(1,1,1,0,5)$ & $\det\Hess p(w)=320$\\
+6 & $-1$ & $(-1,-1,-1,-1,-1)/8$ & $p(\mathbf1)$ & $-5/8$\\
+7 & $-1$ & $(0,-1,-1,-1,-1)/4$ & $v_{12}$, $S=\{1,3,4,5\}$ & minor $=-2$\\
+8 & $-1$ & $(-3,-1,-1,-1,-1)/8$ & $v_{23}$, $S=\{1,2,4,5\}$ & minor $=1/4$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Cases 1 and 5 violate the first assertion of Lemma~\ref{lem:hessian}. Case 6 violates~\eqref{eq:p1}. In each remaining row, the displayed pair satisfies $a_i+a_j=\lambda/4$, so $A_{ij}$ must have rank one. The nonzero four-by-four Hessian minor contradicts the second assertion of Lemma~\ref{lem:hessian}. Every candidate is excluded. This proves that a size-three factorization cannot exist, completing Theorem~\ref{thm:main}.
+
+All numbers in the table can be checked by substituting into~\eqref{eq:family} and differentiating twice. They are small rational certificates, not rounded numerical optimization output.
+
+\section{The six-element instance and a dimension-saving construction}
+For the six-element problem, complementing the column triples gives the $20\times20$ symmetric matrix
+\[
+ D^{(6)}_{I,K}=3-|I\cap K|,\qquad |I|=|K|=3.
+\]
+List first the triples containing $6$, written $S\cup\{6\}$ for pairs $S\subset[5]$, and then the triples avoiding $6$, written $[5]\setminus S$. In this order,
+\begin{equation}\label{eq:six-block}
+ D^{(6)}=\begin{pmatrix}D&3J-D\\3J-D&D\end{pmatrix},
+\end{equation}
+where $D$ is the five-element matrix and $J$ is the all-ones matrix.
+
+\begin{lemma}[Two-layer graph factors]\label{lem:two-layer}
+Let $Z_1,\ldots,Z_N\in\mathbb R^{a\times b}$ have the same squared Frobenius norm $q>0$, and put $D_{ij}=\|Z_i-Z_j\|_F^2$. For every $c\geq4q$, the matrix
+\[
+ \begin{pmatrix}D&cJ-D\\cJ-D&D\end{pmatrix}
+\]
+has a real positive semidefinite factorization of size $a+b$.
+\end{lemma}
+\begin{proof}
+Choose $t>0$ with $t+t^{-1}=c/q-2$, which is possible since $c/q-2\geq2$. For the first layer use
+\[
+ A_i^+=\binom{Z_i}{I_b}(Z_i^{\mathsf T}\ I_b),\qquad
+ B_j^+=\binom{I_a}{-Z_j^{\mathsf T}}(I_a\ -Z_j).
+\]
+For the second layer use
+\[
+ A_i^-=t^{-1}\binom{-Z_i}{tI_b}(-Z_i^{\mathsf T}\ tI_b),\qquad
+ B_j^-=t\binom{I_a}{t^{-1}Z_j^{\mathsf T}}(I_a\ t^{-1}Z_j).
+\]
+All are positive semidefinite. Within either layer their trace products are $D_{ij}$. Across the layers the products are
+\[
+ q(t+t^{-1})+2\langle Z_i,Z_j\rangle
+ =c-2q+2\langle Z_i,Z_j\rangle=c-D_{ij}.
+\]
+This verifies every block.
+\end{proof}
+
+\begin{corollary}\label{cor:six}
+The six-element subset-intersection matrix has real positive semidefinite rank exactly four.
+\end{corollary}
+\begin{proof}
+The matrices $Z_I$ in Section 1 have squared Frobenius norm
+\[
+ \|Z_I\|_F^2=\tfrac12\left(2-\frac45\right)=\frac35.
+\]
+Apply Lemma~\ref{lem:two-layer} with $q=3/5$, $c=3$, $a=b=2$, and $t=(3+\sqrt5)/2$. This gives size-four factors for~\eqref{eq:six-block}. Its leading principal submatrix is $D$, whose positive semidefinite rank is four by Theorem~\ref{thm:main}; this gives the matching lower bound.
+\end{proof}
+
+The same construction gives a general upper bound without solving the remaining exact-rank questions. Let $M^{(n)}$ be the matrix in PF-01, and suppose $n\geq3$. Define
+\[
+ d_n=2\left\lfloor\frac{n-1}{2}\right\rfloor.
+\]
+Then
+\begin{equation}\label{eq:general-upper}
+ \operatorname{rank}_{\mathrm{psd}}M^{(n)}
+ \leq\min_{a,b\in\mathbb Z_{>0},\ ab\geq d_n}(a+b)
+ =\left\lceil2\sqrt{d_n}\right\rceil.
+\end{equation}
+Indeed, for $n=2r+1$, complementing columns makes the entries $r-|I\cap K|$, for $r$-subsets of $[2r+1]$. Project their incidence vectors to $\mathbf1^\perp$, divide by $\sqrt2$, and reshape the $2r$ coordinates, padding with zeros if necessary, into $a\times b$ matrices. Their pairwise squared Frobenius distances are the required entries, and their common squared norm is
+\[
+ q_r=\frac{r(r+1)}{2(2r+1)}.
+\]
+The graph factors of Section 1, in rectangular form, give~\eqref{eq:general-upper}. For $n=2r+2$, split the $(r+1)$-subsets according to whether they contain $n$ and complement the subsets avoiding $n$. The resulting block matrix is
+\[
+ \begin{pmatrix}D&(r+1)J-D\\(r+1)J-D&D\end{pmatrix}.
+\]
+Lemma~\ref{lem:two-layer} applies because $r+1\geq4q_r$; equivalently, choose $t+t^{-1}=2+2/r$. Thus the even case uses the same $2r=n-2$ coordinates as the preceding odd case, not $n-1$ coordinates. Finally, the integer minimum in~\eqref{eq:general-upper} equals $\lceil2\sqrt{d_n}\rceil$: for a fixed sum $s$, the maximum integer product is $\lfloor s^2/4\rfloor$.
+
+The numerical table in~\cite[Section 4.2]{vgg} records upper bound six for $n=6,7$; the constructions here give four and five, respectively. For example, formula~\eqref{eq:general-upper} gives upper bound five at $n=7,8$. No matching lower bound five for either of those cases is asserted here.
+
+\section{Scope, monotonicity, and verification}
+Let $M^{(n)}$ be the general PF-01 family. There is an embedding of $M^{(n-1)}$ as a submatrix of $M^{(n)}$: for even $n$, add the new element to every selected row subset and not to the column subsets; for odd $n$, add it to the column subsets and not to the row subsets. Intersections do not change. Thus positive semidefinite rank is nondecreasing in $n$, and Theorem~\ref{thm:main} implies the lower bound four for every $n\geq5$. Together with Corollary~\ref{cor:six}, the exact ranks are determined here for $n=5,6$. The exact ranks for $n\geq7$ are not determined here. This is a partial resolution of the single family entry PF-01, not a claim that the family has been solved.
+
+The accompanying \texttt{verification/verify\_pf01\_n5.py} checks the full explicit size-four factorization, the ordinary rank, the six-dimensional cubic family, the unspecialized Hessian determinant identity, the two elementary determinant Hessian ranks, and all eight exact obstructions. The additional script \texttt{verification/verify\_pf01\_n6.py} checks all 400 trace products in the six-element factorization and the exact identity $t+t^{-1}=3$. The arguments above are complete proof drafts for $n=5,6$, together with the stated general upper bound; independent mathematical review and a priority check remain appropriate.
+
+\begin{thebibliography}{9}
+\bibitem{fgprt}
+H. Fawzi, J. Gouveia, P. A. Parrilo, R. Z. Robinson, and R. R. Thomas,
+\emph{Positive semidefinite rank}, Mathematical Programming \textbf{153} (2015), 133--177; arXiv:1407.4095, Problems 9.1 and 9.2.
+\url{https://arxiv.org/html/1407.4095}.
+\bibitem{vgg}
+A. Vandaele, F. Glineur, and N. Gillis,
+\emph{Algorithms for Positive Semidefinite Factorization}, Computational Optimization and Applications \textbf{71} (2018), 193--219; arXiv:1707.07953, Section 4.2.
+\url{https://arxiv.org/html/1707.07953}.
+\bibitem{catalog}
+A. Townsend, \emph{Open Problems in Numerical Linear Algebra}, problem PF-01,
+canonical statement accessed 11 September 2026.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/nonnegative-and-positive-factorizations/PF-01}.
+\end{thebibliography}
+\end{document}
+
+% END REVIEWED BODY

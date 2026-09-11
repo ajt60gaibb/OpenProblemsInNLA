@@ -7,9 +7,22 @@
 **Difficulty:** hard  
 **Importance:** interesting to specialist  
 **Rating rationale:** Hard because a single small exact factorization must be constructed or excluded using sharp nonnegative-rank tools; specialist importance reflects its role as a named distance-matrix benchmark.  
-**Status:** Open  
+**Status:** Solved  
 **Area:** exact factorization of Euclidean distance matrices  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-11  
+
+<!-- colbrook-factorization -->
+## Resolution — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the exact target.**
+
+The nine-point matrix $D_{ij}=(i-j)^2$ has nonnegative rank seven, so no exact six-term nonnegative factorization exists. A polygon-contact argument applied to both factors, together with Sylvester's rank inequality, proves the lower bound; an explicit seven-term integer factorization proves the upper bound.
+
+The complete target is resolved. Its former difficulty rating is historical; the original statement, references and dated audits remain below.
+
+**Primary reference:** [complete authored PDF](../../references/colbrook-factorization-2026-09-11/manuscripts/NR-04_nine_point_distance.pdf), [standalone TeX](../../references/colbrook-factorization-2026-09-11/manuscripts/NR-04_nine_point_distance.tex), **Theorem 1, with Theorem 4 for the lower bound**. [Independent proof review](../../references/colbrook-factorization-2026-09-11/verification/reviews/NR-04-review.md) · [Authorship and submission record](../../references/colbrook-factorization-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
+
+<!-- /colbrook-factorization -->
 
 ## Context and notation
 
