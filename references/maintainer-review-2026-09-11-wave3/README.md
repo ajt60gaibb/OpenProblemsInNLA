@@ -28,6 +28,19 @@ PRs #97, #101, #106 and #110 have passed the existing required numbering checks 
 
 All **203 previously published IDs** are preserved. This solution integration yields **60 solved**, **68 open**, **74 partially resolved** and **one solution claimed** entry. The 142 open/partially resolved targets remain in the catalog. No gap is filled and no solved entry is renumbered or removed. The permanent-ID registry and required workflow are unchanged.
 
-PRs #93 and #103 remain outside integration while their required fork workflow executions await explicit approval. The same execution-approval condition applies to #68, #83, #85 and #91 from the [preceding batch](../maintainer-review-2026-09-11-wave2/README.md). Their mathematical reviews do not substitute for required checks. See the [latest pending-revision audit](../maintainer-review-2026-09-11-wave2/audit-root/current-pending-revisions.md) for corrected #85 fingerprints and the one stale #83 reference-summary sentence.
+The six previously pending submissions #68, #83, #85, #91, #93 and #103
+are now included after explicit workflow-execution approval and successful
+required checks. See the [final six-PR integration record](final-six-integration.md)
+for the exact heads, preserved source checks, corrected historical summaries
+and AA-01's combined two-proof canonical page.
 
-The newly arrived PR #111 is being reviewed separately and is not included in the decisions or counts above. The user's working checkout and uncommitted research changes were preserved throughout; all integration took place in an isolated clone.
+Across the second and third batches, 18 PRs are accepted. The final integration
+retains **203 entries: 67 solved, 65 open, 70 partially resolved and one solution
+claimed**, with all 203 original IDs and paths unchanged. All 17 numbering tests
+pass. The earlier counts above describe the initial four-PR integration.
+
+The newer continuing audit task owns #111, #114, #116 and #118, which are outside
+this integration. Its #111 repair must account for our exact RA-20 counterexample:
+the proposed n=s=3 count is three rather than four. All supporting findings were
+passed to that task. The user's working checkout and uncommitted research changes
+were preserved throughout; integration used an isolated clone.
