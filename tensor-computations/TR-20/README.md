@@ -8,8 +8,18 @@
 **Importance:** interesting to specialist  
 **Rating rationale:** Challenging because general discriminant-degree formulas must account for degeneracies and the excluded isotropic locus; specialist importance concerns algebraic conditioning of rank-one Rayleigh–Ritz optimization.  
 **Source:** Borovik–Friedman–Hoşten–Pfeffer, Conjecture 3.18 in v2.  
-**Last checked:** 2026-09-10  
-**Status:** Open  
+**Last checked:** 2026-09-11  
+**Status:** Solved  
+
+<!-- colbrook-recovered-tensors -->
+## Resolution — 2026-09-11
+
+**Affirmative resolution by Matthew J. Colbrook**, DAMTP, University of Cambridge. Theorem 1 proves both displayed reduced-degree formulas for every $n\ge2$ in the exact complex bilinear Segre model, including boundary and multiplicity analysis.
+
+[Complete proof, Theorem 1 and §§2–8](../../references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-20.pdf) · [TeX](../../references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-20.tex) · [Independent PASS review](../../references/colbrook-recovered-tensors-2026-09-11/verification/reviews/TR-20-review.md) · [Authorship and provenance](../../references/colbrook-recovered-tensors-2026-09-11/README.md).
+
+The AI-assisted proof passed independent agent review, not external human peer review or formal certification. Ratings are historical; no priority claim is made.
+<!-- /colbrook-recovered-tensors -->
 
 ## Problem statement
 

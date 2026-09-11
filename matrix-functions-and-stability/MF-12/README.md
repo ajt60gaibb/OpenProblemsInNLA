@@ -7,8 +7,17 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because finite families must realize every exponent at every length; community impact connects switched dynamics and asymptotic matrix-product growth.  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-10  
+**Status:** Solved  
+**Last checked:** 2026-09-11  
+
+<!-- colbrook-jsr-growth -->
+## Resolution — 2026-09-11
+
+**Affirmative resolution.** Matthew J. Colbrook's [complete manuscript, Theorem 1 and its proof in §§2–5](../../references/colbrook-jsr-growth-2026-09-11/manuscripts/arbitrary_growth_exponents.pdf) constructs two distinct real matrices for every real $\alpha\ge0$, with joint spectral radius one and maximal length-$k$ product norm between positive constant multiples of $k^\alpha$ for every integer $k\ge1$. The matrices and dimension are fixed once the exponent is chosen. Six-dimensional pairs suffice for $0<\alpha<1$; every nonnegative rational exponent can be realized with dyadic-rational entries. The proof covers all switching words for the upper bound and every length for the lower bound, including small lengths. It asserts comparability, not convergence of the normalized growth sequence.
+
+The complete original proof passed [independent Codex-agent review](../../references/colbrook-jsr-growth-2026-09-11/verification/reviews/MF-12-review.md). [Authored TeX](../../references/colbrook-jsr-growth-2026-09-11/manuscripts/arbitrary_growth_exponents.tex) · [Submission, authorship and verification record](../../references/colbrook-jsr-growth-2026-09-11/README.md). The proof was developed with AI assistance; no external human peer review or formal verification is claimed. The original statement and prior evidence below are retained, and the ratings above are historical. This entry no longer contributes to the open count.
+
+<!-- /colbrook-jsr-growth -->
 
 ## Context and notation
 

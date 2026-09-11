@@ -7,8 +7,24 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because reducible families obstruct uniform perturbation estimates; community impact comes from conditioning and robustness of stability computations.  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-10  
+**Status:** Solved  
+**Last checked:** 2026-09-11  
+
+<!-- colbrook-jsr-growth -->
+## Resolution — 2026-09-11
+
+**Affirmative resolution.** Matthew J. Colbrook's [complete manuscript, Theorem 2 and Corollary 7](../../references/colbrook-jsr-growth-2026-09-11/manuscripts/uniform_growth_and_holder.pdf) proves the stronger uniform estimate
+
+$$
+|\widehat\rho(\mathcal M)-\widehat\rho(\mathcal N)|
+\le d(2d+1)L^{1-1/d}d_H(\mathcal M,\mathcal N)^{1/d}
+$$
+
+for any two nonempty compact real or complex matrix families in the spectral-norm ball of radius $L>0$. Choosing a common norm ball around a fixed family gives the exact local two-family assertion below, including reducible families and zero joint spectral radius. For $d=1$ the Lipschitz constant is one. The exponent $1/d$ is sharp in general; no Lipschitz lower-bound resolution of MF-06 is asserted.
+
+The complete original proof passed [independent Codex-agent review](../../references/colbrook-jsr-growth-2026-09-11/verification/reviews/MF-05-MF-07-review.md). [Authored TeX](../../references/colbrook-jsr-growth-2026-09-11/manuscripts/uniform_growth_and_holder.tex) · [Submission, authorship and verification record](../../references/colbrook-jsr-growth-2026-09-11/README.md). The proof was developed with AI assistance; no external human peer review or formal verification is claimed. The original statement and prior evidence below are retained, and the ratings above are historical. This entry no longer contributes to the open count.
+
+<!-- /colbrook-jsr-growth -->
 
 ## Context and notation
 
