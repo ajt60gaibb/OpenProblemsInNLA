@@ -59,15 +59,16 @@ def render(source):
         # leave only a few lines on a second page after the status audit.
         if identifier in {
             'AA-01', 'AC-13', 'AV-01', 'AV-02', 'AV-03', 'FR-01', 'FR-02', 'FR-04',
-            'FR-10', 'FR-11', 'IE-03', 'IE-06', 'IE-08', 'IE-11', 'IE-13', 'IE-19',
-            'IE-21', 'IE-22', 'IE-24', 'IE-25', 'IS-02', 'IS-03', 'IS-05', 'IV-02',
-            'IV-03', 'IV-04', 'IV-05', 'IV-06', 'KE-03', 'KE-04', 'KE-05', 'MD-06',
-            'MF-14', 'MF-15', 'MF-16', 'MF-17', 'MF-21', 'MI-03', 'MI-04', 'MI-06',
-            'MI-07', 'MI-08', 'MI-09', 'MI-19', 'MI-23', 'MI-29', 'NM-01', 'NM-03',
-            'PF-05', 'RA-02', 'RA-04', 'RA-06', 'RA-08', 'RA-09', 'RA-10', 'RA-11',
-            'RA-12', 'RA-14', 'RA-15', 'RA-17', 'RE-01', 'RE-02', 'RE-03', 'RE-06',
-            'SP-04', 'SP-05', 'SP-06', 'SP-07', 'SP-09', 'SP-12', 'TR-11', 'TR-20',
-            'TR-21', 'TR-24', 'TR-26', 'TR-30',
+            'FR-10', 'FR-11', 'IE-03', 'IE-06', 'IE-08', 'IE-11', 'IE-13', 'IE-14',
+            'IE-15', 'IE-17', 'IE-18', 'IE-19', 'IE-21', 'IE-22', 'IE-23', 'IE-24',
+            'IE-25', 'IS-02', 'IS-03', 'IS-05', 'IV-02', 'IV-03', 'IV-04', 'IV-05',
+            'IV-06', 'KE-03', 'KE-04', 'KE-05', 'MD-06', 'MF-14', 'MF-15', 'MF-16',
+            'MF-17', 'MF-21', 'MI-03', 'MI-04', 'MI-06', 'MI-07', 'MI-08', 'MI-09',
+            'MI-19', 'MI-23', 'MI-29', 'NM-01', 'NM-03', 'PF-05', 'RA-02', 'RA-04',
+            'RA-06', 'RA-08', 'RA-09', 'RA-10', 'RA-11', 'RA-12', 'RA-14', 'RA-15',
+            'RA-17', 'RE-01', 'RE-02', 'RE-03', 'RE-06', 'SP-04', 'SP-05', 'SP-06',
+            'SP-07', 'SP-09', 'SP-12', 'TR-11', 'TR-20', 'TR-21', 'TR-24', 'TR-26',
+            'TR-30',
         }:
             tex = re.sub(r"\\subsection\{References?(?:\s+and\s+status\s+check)?\}",
                          lambda m: "\\newpage\n" + m[0], tex, count=1)

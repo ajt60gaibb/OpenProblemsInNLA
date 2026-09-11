@@ -2,8 +2,18 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Solved
+**Last checked:** 2026-09-11
+
+<!-- colbrook-recovered -->
+## Independently reviewed resolution - 2026-09-11
+
+**Negative resolution.** Sections 1-4 give one exact full-column-rank $4\times3$ LSMR example for which both displayed errors increase from the first to the second nonzero iterate. The matrix-only spectral backward error satisfies $\mu(x_1)^2\le1979/2000<99/100<\mu(x_2)^2$, and the specified approximation also strictly increases. The right-hand side stays fixed. This settles the canonical spectral-norm formulation; the cited SISC paper uses a different default norm convention, so no Frobenius-error conclusion is inferred.
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [Complete manuscript](../../references/colbrook-recovered-2026-09-11/manuscripts/IE-17.pdf), [independent proof review](../../references/colbrook-recovered-2026-09-11/verification/reviews/IE-17-review.md), and [submission record](../../references/colbrook-recovered-2026-09-11/README.md). The supplied notes were reconstructed with substantial AI assistance. This is independent agent verification, not external human peer review or formal proof-assistant certification; no novelty or priority claim is made.
+
+The difficulty, importance and rating rationale below are historical assessments of the original open target. Original statements, references and dated audits are preserved.
+<!-- /colbrook-recovered -->
 
 **Rating rationale:** Challenging reflects monotonicity of an optimization-defined error along coupled Krylov iterates; community impact is a stopping and reliability guarantee for a widely used least-squares method.
 

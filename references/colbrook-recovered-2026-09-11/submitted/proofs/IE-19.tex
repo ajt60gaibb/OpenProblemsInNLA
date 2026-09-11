@@ -1,0 +1,76 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=26mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,booktabs,microtype}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\one}{\boldsymbol 1}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\tr}{\operatorname{tr}}
+\setlength{\emergencystretch}{3em}
+\allowdisplaybreaks[1]
+\title{An entrywise inverse-norm conjecture and its sharp replacement}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\noindent\textit{Reconstructed candidate proof draft. Independent mathematical review and source/priority verification are required. The IE identifiers are provisional labels recovered from earlier notes, not verified current repository identifiers.}
+
+
+\begin{abstract}
+A $3\times3$ positive strictly diagonally dominant matrix refutes the displayed entrywise inverse-norm inequality. Under the stated entrywise upper bounds, the sharp inverse infinity-norm infimum is $1/(\alpha+m)$, rather than the value at $S=\alpha I+m\one\one^T$. The conclusion concerns entrywise ordering, not a stronger order also comparing diagonal-dominance margins.
+\end{abstract}
+\section{Counterexample}
+Let $n\ge3$, $m>0$, $\alpha\ge(n-2)m$, and $S=\alpha I+m\one\one^T$. The target as recovered asks whether a symmetric, entrywise positive, diagonally dominant $J\le S$ entrywise must have $\norm{J^{-1}}_\infty\ge\norm{S^{-1}}_\infty$.
+
+For $n=3$, $m=\alpha=1$, take
+\[
+S=\begin{pmatrix}2&1&1\\1&2&1\\1&1&2\end{pmatrix},\qquad
+J=\begin{pmatrix}2&1/2&1/2\\1/2&2&1/2\\1/2&1/2&2\end{pmatrix}.
+\]
+All entries of $J$ are positive, $J\le S$ entrywise, and $J$ is strictly diagonally dominant. Yet
+\[
+S^{-1}=I-\tfrac14\one\one^T,\quad J^{-1}=\tfrac23I-\tfrac19\one\one^T,
+\qquad\boxed{\norm{J^{-1}}_\infty=\tfrac79<\tfrac54=\norm{S^{-1}}_\infty.}
+\]
+\section{Sharp infimum}
+\begin{theorem}
+For every admissible $n,m,\alpha$, over the stated class,
+\[\boxed{\inf_J\norm{J^{-1}}_\infty=\frac1{\alpha+m}.}\]
+Strict positivity of all entries prevents attainment.
+\end{theorem}
+\begin{proof}
+All such $J$ are positive definite, because
+\[
+x^TJx=\sum_i\left(J_{ii}-\sum_{j\ne i}J_{ij}\right)x_i^2
++\sum_{i<j}J_{ij}(x_i+x_j)^2.
+\]
+Every term is nonnegative, and for $n\ge3$, vanishing of all $x_i+x_j$ forces $x=0$. Cauchy--Schwarz applied to $J^{1/2}e_i,J^{-1/2}e_i$ gives $J_{ii}(J^{-1})_{ii}\ge1$. Equality would require $e_i$ to be an eigenvector, impossible with positive off-diagonal entries. With $D=\alpha+m$,
+\[
+\norm{J^{-1}}_\infty\ge(J^{-1})_{ii}>1/J_{ii}\ge1/D.
+\]
+For $0<\varepsilon\le m$, let $J_\varepsilon=(D-\varepsilon)I+\varepsilon\one\one^T$. Its diagonal is $D$, its off-diagonal entries are $\varepsilon$, and $D\ge(n-1)m\ge(n-1)\varepsilon$, so it belongs to the class. Direct inversion yields
+\[
+\norm{J_\varepsilon^{-1}}_\infty=
+\frac{D+(2n-3)\varepsilon}{(D-\varepsilon)(D+(n-1)\varepsilon)}\longrightarrow\frac1D.
+\]
+This proves both the value and nonattainment.
+\end{proof}
+The gap between the proposed value and the actual infimum is
+\[
+\norm{S^{-1}}_\infty-\frac1{\alpha+m}
+=\frac{(n-1)m(\alpha+2m)}{\alpha(\alpha+m)(\alpha+nm)}>0.
+\]
+\section{Scope, checks, and sources}
+The exact verifier checks both inverses and the class assumptions, and tests the parameterized inverse formula at rational parameters. The universal lower bound and limiting claim are analytic arguments. A stronger ordering involving dominance margins is a different question; this example is not claimed to satisfy it.
+
+Recovered references: OpenProblemsInNLA, provisionally IE-19, \emph{Sharp inverse norm bound from upper bounds on matrix entries}; originating preprint arXiv:1203.6812, Conjecture 8.1.\footnote{\url{https://arxiv.org/abs/1203.6812}. Bibliographic details and original-source conventions are recovered reference leads, not independently verified here.} The current repository statement was not retrieved. The result concerns the explicit formulation in Section 1 and must not be attributed to a different formulation without checking the source.
+
+\end{document}
