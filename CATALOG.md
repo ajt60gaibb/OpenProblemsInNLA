@@ -1,6 +1,6 @@
 # All problems and their status
 
-**142 problems with open targets:** 68 open and 74 partially resolved. **61 other retained entries**, excluded from the open count.
+**141 problems with open targets:** 67 open and 74 partially resolved. **62 other retained entries**, excluded from the open count.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -14,7 +14,6 @@ Each entry records its own literature-check date. Literature checks are bounded;
 | [IE-02](linear-systems-and-elimination/IE-02/README.md) | Is the ideal GMRES bound sharp for every Jordan block? | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-02/problem.pdf) · [TeX](linear-systems-and-elimination/IE-02/problem.tex) |
 | [IE-03](linear-systems-and-elimination/IE-03/README.md) | Cryer's Hadamard complete-pivoting conjecture | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](linear-systems-and-elimination/IE-03/problem.pdf) · [TeX](linear-systems-and-elimination/IE-03/problem.tex) |
 | [IE-04](linear-systems-and-elimination/IE-04/README.md) | Exponential smoothed tail bounds for partial pivoting | **🔵 OPEN** | extreme | broadly interesting | [PDF](linear-systems-and-elimination/IE-04/problem.pdf) · [TeX](linear-systems-and-elimination/IE-04/problem.tex) |
-| [IE-05](linear-systems-and-elimination/IE-05/README.md) | Exact extremizers for partial pivoting on orthogonal matrices | **🔵 OPEN** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-05/problem.pdf) · [TeX](linear-systems-and-elimination/IE-05/problem.tex) |
 | [IE-06](linear-systems-and-elimination/IE-06/README.md) | The square-root upper bound for Gaussian partial-pivoting growth | **🔵 OPEN** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-06/problem.pdf) · [TeX](linear-systems-and-elimination/IE-06/problem.tex) |
 | [IE-11](linear-systems-and-elimination/IE-11/README.md) | The exact fifth complete-pivoting growth factor | **🔵 OPEN** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-11/problem.pdf) · [TeX](linear-systems-and-elimination/IE-11/problem.tex) |
 | [IE-12](linear-systems-and-elimination/IE-12/README.md) | Near-quadratic solution cost at a prescribed backward error | **🟡 PARTIAL** | challenging | broadly interesting | [PDF](linear-systems-and-elimination/IE-12/problem.pdf) · [TeX](linear-systems-and-elimination/IE-12/problem.tex) |
@@ -30,6 +29,7 @@ Retained entries outside the open count:
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
 | [IE-01](linear-systems-and-elimination/IE-01/README.md) | Forsythe's conjecture beyond restart length two | **🟠 SOLUTION CLAIMED** | extreme | interesting to the community | [PDF](linear-systems-and-elimination/IE-01/problem.pdf) · [TeX](linear-systems-and-elimination/IE-01/problem.tex) |
+| [IE-05](linear-systems-and-elimination/IE-05/README.md) | Exact extremizers for partial pivoting on orthogonal matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-05/problem.pdf) · [TeX](linear-systems-and-elimination/IE-05/problem.tex) |
 | [IE-13](linear-systems-and-elimination/IE-13/README.md) | Sharp growth for unequal lower and upper bandwidths | **✅ SOLVED** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-13/problem.pdf) · [TeX](linear-systems-and-elimination/IE-13/problem.tex) |
 | [IE-14](linear-systems-and-elimination/IE-14/README.md) | Sharp growth for cyclic tridiagonal matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-14/problem.pdf) · [TeX](linear-systems-and-elimination/IE-14/problem.tex) |
 | [IE-17](linear-systems-and-elimination/IE-17/README.md) | Monotonic optimal backward error along LSMR | **✅ SOLVED** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-17/problem.pdf) · [TeX](linear-systems-and-elimination/IE-17/problem.tex) |

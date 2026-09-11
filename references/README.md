@@ -41,3 +41,5 @@ screen. Use [CATALOG.md](../CATALOG.md) for current counts and statuses.
 ## Independent maintainer review: third batch, 11 September 2026
 
 The [third-batch audit](maintainer-review-2026-09-11-wave3/README.md) records the independent proof, source, exact-check and PDF reviews of PRs #93, #97, #101, #103, #106 and #110, their precise scopes, permanent-ID preservation and integration decisions.
+
+- [IE-05 negative resolution by George Stepaniants, 11 September 2026](stepaniants-ie05-2026-09-11/README.md): an exact order-eight orthogonal partial-pivoting counterexample, with the complete proof, separately written rational checks and an independent full-target review.
