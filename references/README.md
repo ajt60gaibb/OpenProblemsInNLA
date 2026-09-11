@@ -13,6 +13,8 @@ category folders; the dated notes preserve the scope and limits of earlier check
 - [Literature coverage](SOURCES.md), including books, surveys, historical resolutions and source-access limits.
 - [Screened-out questions](SCREENED-OUT.md), including solution claims, duplicate targets and formulations needing clarification.
 
+- [Independent maintainer review of the second submission batch — September 11, 2026](maintainer-review-2026-09-11-wave2/README.md), with per-PR proof audits, exact-check evidence, scope limits and permanent-ID verification.
+
 ## Source screens
 
 The counts in these dated screens describe the collection at the time of each
