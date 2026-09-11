@@ -33,6 +33,12 @@ The public GitHub network was checked twice on 11 September 2026 before submissi
 
 The [machine-readable network inventory](verification/network-check.json) records every checked branch and its commit. The new submission branch is intentionally separate from earlier contributors' resolution PRs. Submission does not imply acceptance into upstream main.
 
+## Public submission
+
+The completed submission was pushed to `sgstepaniants:codex/stepaniants-aa01-md03-md04-resolutions` in [commit 7a732d7](https://github.com/sgstepaniants/OpenProblemsInNLA/commit/7a732d7532dbc7802266a6972a0c53f4da18453a). The correction-or-resolution reports are [AA-01, issue #65](https://github.com/ajt60gaibb/OpenProblemsInNLA/issues/65), [MD-03, issue #66](https://github.com/ajt60gaibb/OpenProblemsInNLA/issues/66), and [MD-04, issue #67](https://github.com/ajt60gaibb/OpenProblemsInNLA/issues/67).
+
+[Pull request #68](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/68) targets `ajt60gaibb/OpenProblemsInNLA:main`, links all three issue reports for closure on merge, and explicitly asks the maintainer to review and merge the contribution. Upstream review and acceptance are pending.
+
 ## Rebuilding
 
 Canonical pages are regenerated with the repository's existing Pandoc/XeLaTeX renderer:
