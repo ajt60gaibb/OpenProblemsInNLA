@@ -1,5 +1,7 @@
 # Randomized, low-rank, and related matrix-theory candidate screen
 
+**Final audit correction (2026-09-11):** The initial symmetric rank-two recommendation below is superseded by the [RA-20 negative resolution](ra20-resolution/README.md): its admitted n=s=3 case has ED degree three, not four. The original target and ID are retained as Solved (refuted); the other formula cases are not thereby established. The following screen is preserved as the preparation record.
+
 Checked 2026-09-11. These research notes preceded allocation; see the
 [admission record](README.md) for final IDs and decisions. Existing CATALOG.md, CONTRIBUTING.md,
 SCREENED-OUT.md, and the earlier expansion/screen records were checked for

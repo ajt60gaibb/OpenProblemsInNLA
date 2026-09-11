@@ -2,16 +2,13 @@
 
 [Catalog](../../CATALOG.md) · [Sources and status checks](../README.md)
 
-This search adds **14 canonical entries**: four open and ten partially resolved.
-The collection consequently has **167 open targets and 50 other retained
-entries**, with 217 permanent IDs. All 203 previously registered ID/path pairs
-and all existing problem statements are unchanged. Related norm bounds,
-dimension cases and equivalent formulations were grouped rather than counted
-separately.
-
-These counts include the reviewed resolutions published on `main` through
-`aaa88c4` before this addition was pushed. The initial local draft preceded
-those resolutions; the final indexes preserve their statuses.
+This search adds **14 canonical entries**: three Open, ten Partially resolved,
+and one retained **Solved (refuted)** entry. RA-20's proposed universal formula
+was disproved during independent review; its original statement and ID remain.
+The additions increase the open-target count by 13. Current aggregate totals
+are given in the generated catalog and include the latest resolutions on main.
+All 203 previously registered ID/path pairs and existing problem statements
+remain unchanged. Related parameter cases and equivalent formulations are grouped.
 
 ## Admissions
 
@@ -30,7 +27,7 @@ proofs or counterexamples. Each also has standalone LaTeX and PDF exports.
 | [MF-23](../../matrix-functions-and-stability/MF-23/README.md) | Complete Crouzeix conjecture | Crouzeix (2007); Åhag–Czyż–Virtanen, arXiv:2608.27346v3, September 9, 2026, equation (1.2). The complete matrix-valued target survives the recent scalar proof claims. |
 | [MF-24](../../matrix-functions-and-stability/MF-24/README.md) | Dimension-independent polynomial norm comparison from super-identical pseudospectra | Fortier Bourque–Ransford (2009), p.513 after Theorem 1.3; Ransford–Walsh, arXiv:2109.14472v2, Theorem 1.3 and Proposition 5.1, improve dimension-dependent constants. |
 | [RA-19](../../randomized-and-low-rank-approximation/RA-19/README.md) | Critical-point count for corank-one approximation with one fixed zero | Kubjas–Sodomaco–Tsigaridas, LAA 641 (2022), Conjecture 5.1 and Table 2; manuscript p.19. The nontrivial range is explicitly restricted to dimensions at least three. |
-| [RA-20](../../randomized-and-low-rank-approximation/RA-20/README.md) | Critical-point counts for symmetric rank-two approximation with diagonal zeros | Same paper, Conjecture 5.6 and Table 7; manuscript p.21. Four zero-pattern formulas are grouped; the full Frobenius metric and dimension exclusions are explicit. |
+| [RA-20](../../randomized-and-low-rank-approximation/RA-20/README.md) | Critical-point counts for symmetric rank-two approximation with diagonal zeros | Same paper, Conjecture 5.6 and Table 7; manuscript p.21. Four formulas and their original range are retained. The exact n=s=3 counterexample gives three critical points, not four; the joint conjecture is refuted. |
 | [MI-30](../../matrix-inequalities-and-norms/MI-30/README.md) | Product inequality for disjoint Wishart principal minors | Genest–Ouimet–Richards, EJP 29 (2024), Conjecture 1.1, equation (6); arbitrary determinant blocks and nonnegative real powers. The two-block case is known. |
 | [MI-31](../../matrix-inequalities-and-norms/MI-31/README.md) | Sharp parameter dependence for structured Gaussian operator norms | Latała–Strzelecka, Advances in Mathematics 501 (2026), Conjecture 5. The absolute constant remains conjectural after their proof of the older fixed-exponent comparison. |
 | [MI-32](../../matrix-inequalities-and-norms/MI-32/README.md) | Spectral norms of independent entries with regular moment growth | Latała–Świątkowski, EJP 27 (2022), Conjecture 4.3; includes weighted-sign Conjecture 1.2. Later bounds retain iterated logarithms. |
@@ -45,10 +42,14 @@ Higham leads. Searches around Bartlett did not establish a new attributable
 conjecture; adjacent random-matrix results are credited to their actual authors.
 
 The two zero-pattern entries disclose small-dimensional failures in the
-unqualified printed formulas. They preserve the source's intended families
-and its supporting table ranges. Neither the false endpoint nor each separate
-parameter case is counted as an additional open problem. The nonsymmetric
-rectangular formula in that paper has an unresolved table/label discrepancy
+unqualified printed formulas. Further independent review found that RA-20
+also fails at the admissible case n=s=3: the hollow symmetric determinant is
+2abc, whose three smooth coordinate-plane components each contribute one
+generic critical point. [The complete negative resolution and exact checks](ra20-resolution/README.md)
+replace the initial Open classification. The original target and permanent ID
+are retained without narrowing the dimension range. The other formulas and
+remaining dimensions are not claimed resolved separately. RA-19 remains Open.
+The nonsymmetric rectangular formula in the source has a table/label discrepancy
 and was withheld.
 
 IE-27 follows the original conjecture's **radius**, correcting a later
@@ -89,4 +90,4 @@ The permanent-ID validator was run against `origin/main` before index
 generation, and all 17 numbering-safeguard tests passed. The 14 LaTeX/PDF
 exports were rebuilt and their pages inspected. Page-break adjustments in
 the existing renderer keep reference lists and status notes together.
-Existing canonical pages and exports were not modified.
+Previously published canonical pages and exports were not modified. The RA-20 resolution, IE-27 section locator, and SP-15 reference were corrected during review, and their affected exports were rebuilt.

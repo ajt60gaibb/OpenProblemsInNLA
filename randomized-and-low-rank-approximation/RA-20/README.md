@@ -7,10 +7,18 @@
 **Topic:** Symmetric structured low-rank approximation  
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Open  
+**Status:** Solved  
 **Last checked:** 2026-09-11
 
-**Rating rationale:** Four linked formulas predict how diagonal constraints alter the algebraic complexity of rank-two approximation. A proof must handle the geometry of the constrained symmetric varieties uniformly in matrix order.
+**Rating rationale:** Historical rating of the proposed all-order formulas. The negative resolution below is elementary; it does not establish corrected formulas in the remaining cases.
+
+## Negative resolution - 2026-09-11
+
+The displayed universal conjecture is false: **$e_{3,3}=3$, whereas its formula gives $4$**. For $n=s=3$, write the off-diagonal entries as $(a,b,c)$. The determinant is $2abc$, so the variety is the union of three coordinate planes. Each smooth component has exactly one simple critical point for generic full-Frobenius data. Their intersections are singular and are excluded by the definition below.
+
+[Complete proof](solution.md) · [Proof PDF](solution.pdf) · [Standalone TeX](solution.tex) · [Independent audit and exact verification](../../references/research-expansion-2026-09-11/ra20-resolution/README.md).
+
+This counterexample was identified and independently checked during the Codex maintainer audit. It is automated-agent verification, not external human peer review or formal certification. The source's Table 7 repeats the value $4$; this is not a transcription error in the entry. The complete original target, including its dimension range and all four formulas, is retained below. No conclusion about corrected formulas or the other parameter cases is claimed, and no priority claim is made.
 
 ## Statement
 
@@ -39,10 +47,10 @@ All four zero counts form one target. The explicit $n\ge3$ restriction avoids a 
 
 ## Evidence and numerical significance
 
-The source's Table 7 gives matching computations through order ten. These do not constitute an all-dimension proof. The problem counts stationary candidates for symmetric Frobenius approximation with prescribed diagonal zeros. It concerns fixed rank two, unlike [corank-one approximation in general square matrices](../RA-19/README.md).
+The source's Table 7 reports values matching its formulas through order ten, but the $n=s=3$ value conflicts with the exact calculation above. The table therefore cannot establish the conjecture's validity. The problem counts stationary candidates for symmetric Frobenius approximation with prescribed diagonal zeros. It concerns fixed rank two, unlike [corank-one approximation in general square matrices](../RA-19/README.md).
 
 ## References and status check
 
 - K. Kubjas, L. Sodomaco and E. Tsigaridas, *Exact solutions in low-rank approximation with zeros*, Linear Algebra and its Applications 641 (2022), 67–97. [DOI](https://doi.org/10.1016/j.laa.2022.01.021); [current author manuscript](https://arxiv.org/abs/2010.15636v2), 29 January 2022. Conjecture 5.6 and Table 7, manuscript p.21; §2 and §5 supply the distance convention.
 
-On 2026-09-11, checked arXiv v2, publication lists and targeted searches for the paper title, symmetric zero patterns, Conjecture 5.6, Euclidean distance degree, and later proofs or counterexamples. No full resolution in the displayed range was found. Source formulas were compared with Table 7; the restriction excluding $n=2$ is stated above. The separate nonsymmetric formulas in Conjecture 5.2 have a table/label discrepancy and are not imported here. This is a bounded status check.
+The initial literature search on 2026-09-11 found no later resolution and compared the formulas with Table 7. The subsequent independent maintainer audit supplied the counterexample above, superseding the initial Open classification. Excluding $n=2$ does not remove the admissible counterexample $n=s=3$. The separate nonsymmetric formulas in Conjecture 5.2 have a table/label discrepancy and are not imported here. The permanent ID, original target and canonical path are retained.
