@@ -1,0 +1,294 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=26mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,microtype}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\F}{\mathbb F}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert_2}
+\newcommand{\opnorm}[2]{\left\lVert #1\right\rVert_{#2}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\ecc}{\operatorname{ecc}_2}
+\title{Uniform polynomial product bounds and sharp H\"older continuity of the joint spectral radius}
+\author{}\date{}
+\begin{document}
+\maketitle\vspace{-2em}
+\begin{abstract}
+For a bounded family of matrices of order $d$, with joint spectral radius one and individual spectral norms at most $L$, every product of length $n$ is bounded by $\Theta_d(Ln)^{d-1}$, where $\Theta_d$ depends only on $d$. The proposed proof uses an approximate extremal norm, a well-rounded coordinate system, and triangular comparison. Diagonal rescaling of a block triangular product is controlled by convex combinations of unitary conjugations. A quantitative comparison, valid at every length and every rescaling threshold, also gives approximate extremal norms with controlled eccentricity. Consequently, the joint spectral radius is uniformly H\"older continuous with exponent $1/d$ on norm-bounded sets of nonempty compact matrix families, over either $\R$ or $\C$, with explicit constant $d(2d+1)L^{1-1/d}$. The powers $d-1$ and $1/d$ are sharp in general.
+\end{abstract}
+
+\section{Statements and submission scope}
+Let $\F$ be $\R$ or $\C$. For a nonempty bounded family $\mathcal M\subset\F^{d\times d}$, write
+\[
+ a_n(\mathcal M)=\sup_{A_1,\ldots,A_n\in\mathcal M}
+                    \norm{A_n\cdots A_1},\qquad a_0(\mathcal M)=1,
+\]
+and $\rho(\mathcal M)=\lim_{n\to\infty}a_n(\mathcal M)^{1/n}$. The limit exists by submultiplicativity. All vector norms induce their corresponding matrix operator norms.
+
+Conjecture 3 of Epperlein and Wirth includes local H\"older continuity with exponent $1/d$ and a uniform polynomial estimate for families of joint spectral radius one.\footnote{J. Epperlein and F. Wirth, \emph{The joint spectral radius is pointwise H\"older continuous}, Linear Algebra and its Applications 704 (2025), 92--122; Conjecture 3, items (L1) and (L3). Preprint: \url{https://arxiv.org/abs/2311.18633}.} These are the apparent targets of repository entries MF-05 and MF-07, respectively. The proposed proof below establishes both source formulations. It does not establish the separate pointwise Lipschitz lower-bound conjecture associated with MF-06.
+
+\paragraph{Submission status.}
+This manuscript has not been independently reviewed or accepted by the repository. The current canonical problem files and an exhaustive open/closed issue and pull-request audit were not accessible in the preparation environment. The package therefore places submission on hold until those checks are completed. No priority claim is made over inaccessible material.
+
+For $d\geq2$, define the explicit, nonoptimal constant
+\[
+ \Theta_d=d\left(\frac{2ed^2}{d-1}\right)^{d-1},
+\]
+and put $\Theta_1=1$.
+
+\begin{theorem}[Uniform product bound]\label{thm:growth}
+Let $\mathcal M\subset\F^{d\times d}$ be nonempty and bounded, and let $L>0$ be any upper bound for $\sup_{A\in\mathcal M}\norm A$. Put $r=\rho(\mathcal M)$.
+If $r>0$, then for every $n\geq1$,
+\begin{equation}\label{eq:general-growth}
+ a_n(\mathcal M)\leq\Theta_d(Ln)^{d-1}r^{n-d+1}.
+\end{equation}
+If $r=0$, every product of length at least $d$ is zero.
+In particular, when $r=1$,
+\begin{equation}\label{eq:radius-one-growth}
+ a_n(\mathcal M)\leq\Theta_d(Ln)^{d-1}\qquad(n\geq1).
+\end{equation}
+\end{theorem}
+
+For two nonempty compact families, let $d_H$ denote Hausdorff distance induced by the spectral matrix norm.
+\begin{theorem}[Uniform H\"older estimate]\label{thm:holder}
+Let $\mathcal M,\mathcal N\subset\F^{d\times d}$ be nonempty compact families, both contained in the spectral-norm ball of radius $L>0$. Then
+\begin{equation}\label{eq:holder}
+ |\rho(\mathcal M)-\rho(\mathcal N)|
+ \leq d(2d+1)L^{1-1/d}d_H(\mathcal M,\mathcal N)^{1/d}.
+\end{equation}
+For $d=1$, the coefficient $d(2d+1)$ can be replaced by one. The case $L=0$ is trivial. No constant depends on the cardinality of either family.
+\end{theorem}
+
+\section{Two elementary tools}
+\begin{lemma}[A well-rounded approximate extremal norm]\label{lem:rounded}
+Let $\mathcal M$ and $L$ be as in Theorem~\ref{thm:growth}. For every $a>\rho(\mathcal M)$, there exist a unitary matrix $Q$ (orthogonal over $\R$), a diagonal matrix
+\[
+ D=\diag(\sigma_1,\ldots,\sigma_d),\qquad
+ \sigma_1\geq\cdots\geq\sigma_d>0,
+\]
+and a norm $w$ on $\F^d$ such that
+\begin{equation}\label{eq:rounding}
+ \norm z\leq w(z)\leq d\norm z,
+ \qquad \opnorm{B_A}{w}\leq a,
+ \qquad B_A=D^{-1}Q^*AQD,
+\end{equation}
+and
+\begin{equation}\label{eq:entry-old}
+ |(B_A)_{ij}|\leq L\frac{\sigma_j}{\sigma_i}
+ \quad(A\in\mathcal M).
+\end{equation}
+\end{lemma}
+\begin{proof}
+Define
+\[
+ v(x)=\sup_{k\geq0}\sup_{A_1,\ldots,A_k\in\mathcal M}
+               a^{-k}\norm{A_k\cdots A_1x}.
+\]
+Since $a>\rho(\mathcal M)$, the numbers $a^{-k}a_k(\mathcal M)$ are bounded. Thus $v$ is a finite norm, equivalent to the Euclidean norm. The $k=0$ term gives $v(x)\geq\norm x$, and appending a generator gives $v(Ax)\leq av(x)$.
+
+Choose a matrix $T$ whose columns lie in the $v$-unit ball and maximize $|\det T|$. Compactness gives a maximizer, and its determinant is nonzero because the ball has nonempty interior. Its columns have $v$-norm one. Replacing one column by any other vector of the unit ball shows, by multilinearity of the determinant, that every coordinate of $T^{-1}x$ has modulus at most one when $v(x)\leq1$. Consequently,
+\[
+ \lVert z\rVert_\infty\leq v(Tz)\leq\lVert z\rVert_1.
+\]
+Write a singular value decomposition $T=QDR^*$, with the singular values in decreasing order, and put $w(z)=\sqrt d\,v(QDz)$. Since $QD=TR$ and $R$ is unitary,
+\[
+ \frac{\norm z}{\sqrt d}\leq v(TRz)\leq\sqrt d\norm z.
+\]
+This proves the first part of \eqref{eq:rounding}; its operator-norm assertion follows from $v(Ax)\leq av(x)$. Finally, each entry of $Q^*AQ$ has modulus at most $L$, proving \eqref{eq:entry-old}.
+\end{proof}
+
+\begin{lemma}[Triangular damping]\label{lem:damping}
+Suppose $X$ is block lower triangular for a fixed ordered block decomposition, and
+\[
+ H=\diag(h_1I_1,\ldots,h_bI_b),\qquad
+ h_1\geq\cdots\geq h_b>0.
+\]
+Then
+\begin{equation}\label{eq:damping}
+ \norm{HXH^{-1}}\leq\norm X.
+\end{equation}
+\end{lemma}
+\begin{proof}
+For each cut $\ell=1,\ldots,b-1$, set $t_\ell=h_{\ell+1}/h_\ell\in(0,1]$ and let $S_\ell$ be $+I$ on the first $\ell$ blocks and $-I$ on the remaining blocks. The map
+\[
+ \Phi_\ell(Y)=\frac{1+t_\ell}{2}Y
+              +\frac{1-t_\ell}{2}S_\ell YS_\ell
+\]
+is a convex combination of unitary conjugations, so $\norm{\Phi_\ell(Y)}\leq\norm Y$. It multiplies blocks crossing the cut by $t_\ell$ and leaves all other blocks unchanged.
+
+Composing these maps multiplies a lower block $(i,j)$, $i\geq j$, by
+$\prod_{\ell=j}^{i-1}t_\ell=h_i/h_j$. Upper blocks of $X$ are zero. The composite applied to $X$ is therefore exactly $HXH^{-1}$, proving \eqref{eq:damping}. For a single block, the assertion is equality.
+\end{proof}
+
+\section{Quantitative triangular comparison}
+\begin{proposition}\label{prop:comparison}
+Under the hypotheses of Theorem~\ref{thm:growth}, for every $s\geq1$ and every integer $n\geq0$,
+\begin{equation}\label{eq:comparison}
+ a_n(\mathcal M)\leq d s^{d-1}
+                \left(r+\frac{2d^2L}{s}\right)^n.
+\end{equation}
+\end{proposition}
+\begin{proof}
+Fix $a>r$ and obtain $Q,D,w$ from Lemma~\ref{lem:rounded}. Split the coordinates into consecutive blocks at precisely those indices where $\sigma_i/\sigma_{i+1}>s$. Let $E_A$ be the strictly upper block part of $B_A$, and set $C_A=B_A-E_A$. Each $C_A$ is block lower triangular.
+
+Every entry belonging to $E_A$ crosses at least one gap greater than $s$. By \eqref{eq:entry-old}, its modulus is at most $L/s$. A $d\times d$ matrix with entries bounded by $L/s$ has spectral norm at most $dL/s$. Hence
+\[
+ \opnorm{E_A}{w}\leq d\norm{E_A}\leq\frac{d^2L}{s},
+ \qquad \opnorm{C_A}{w}\leq a+\frac{d^2L}{s}=:u.
+\]
+For every segment of $t\geq0$ generators,
+\begin{equation}\label{eq:C-old}
+ \norm{C_{A_t}\cdots C_{A_1}}\leq d u^t.
+\end{equation}
+The empty segment is the identity, and also satisfies this bound.
+
+Define $D'=\diag(\sigma'_1,\ldots,\sigma'_d)$ by $\sigma'_d=1$ and
+\[
+ \frac{\sigma'_i}{\sigma'_{i+1}}
+ =\min\left\{\frac{\sigma_i}{\sigma_{i+1}},s\right\}.
+\]
+Then
+\begin{equation}\label{eq:condition}
+ \norm{D'}\norm{D'^{-1}}\leq s^{d-1}.
+\end{equation}
+The diagonal matrix $H=D'^{-1}D$ is scalar on each block. Its block scalars are nonincreasing: within a block consecutive diagonal entries of $H$ have ratio one, while across a wide gap their ratio is $(\sigma_i/\sigma_{i+1})/s>1$.
+
+Put
+\[
+ C'_A=HC_AH^{-1},\quad E'_A=HE_AH^{-1},\quad
+ B'_A=C'_A+E'_A=D'^{-1}Q^*AQD'.
+\]
+The product of any $t$ of the $C_A$ is block lower triangular. Lemma~\ref{lem:damping} and \eqref{eq:C-old} therefore give
+\begin{equation}\label{eq:C-new}
+ \norm{C'_{A_t}\cdots C'_{A_1}}\leq d u^t
+ \qquad(t\geq0).
+\end{equation}
+It is essential here to apply damping to the whole product, rather than merely to individual factors.
+
+Every nonzero entry of $E'_A$ crosses a wide gap, which has been replaced by $s$ in $D'$. All other consecutive ratios in $D'$ are at least one. Directly from $B'_A=D'^{-1}Q^*AQD'$, this gives
+\begin{equation}\label{eq:E-new}
+ |(E'_A)_{ij}|\leq L/s,\qquad
+ \norm{E'_A}\leq dL/s=:v.
+\end{equation}
+
+Expand a fixed length-$n$ product of $B'_A=C'_A+E'_A$ by its $E'$ positions. A term with $k$ such positions has $k+1$ intervening $C'$-segments, possibly empty, of total length $n-k$. Its norm is at most $d^{k+1}u^{n-k}v^k$. Summing over the $\binom nk$ choices gives
+\begin{align*}
+ \norm{B'_{A_n}\cdots B'_{A_1}}
+ &\leq \sum_{k=0}^n\binom nk d^{k+1}u^{n-k}v^k\\
+ &=d(u+dv)^n
+ =d\left(a+\frac{2d^2L}{s}\right)^n.
+\end{align*}
+Undoing the similarity yields
+\[
+ a_n(\mathcal M)\leq d s^{d-1}
+                \left(a+\frac{2d^2L}{s}\right)^n.
+\]
+All coordinate-dependent quantities have disappeared from this bound. Letting $a\downarrow r$ proves \eqref{eq:comparison}. The argument also covers $n=0$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:growth}]
+For $d=1$, $r=\sup_{A\in\mathcal M}|A|$ and the assertions are immediate. Let $d\geq2$ and put $m=d-1$. If $r>0$, use
+\[
+ s=\frac{2d^2Ln}{mr}\geq1
+\]
+in Proposition~\ref{prop:comparison}. Since $r\leq L$ and $(1+m/n)^n\leq e^m$,
+\begin{align*}
+ a_n(\mathcal M)
+ &\leq d\left(\frac{2d^2Ln}{mr}\right)^m
+                  r^n(1+m/n)^n\\
+ &\leq d\left(\frac{2ed^2}{m}\right)^m
+                  (Ln)^m r^{n-m},
+\end{align*}
+which is \eqref{eq:general-growth}. If $r=0$, the same proposition gives
+\[
+ a_n(\mathcal M)\leq d(2d^2L)^n s^{d-1-n}\qquad(s\geq1).
+\]
+For $n\geq d$, let $s\to\infty$ to conclude $a_n(\mathcal M)=0$.
+\end{proof}
+
+\begin{remark}[Why principal blocks need not be contractive]
+No step asserts that a principal block has operator norm or joint spectral radius no larger than the full family in arbitrary coordinates. Such a shortcut is not available in general. The argument removes a quantitatively small upper block part in the old norm, bounds all truncated products, and only then changes coordinates using Lemma~\ref{lem:damping}. Related obstructions to principal-submatrix approaches are studied by Epperlein and Wirth.\footnote{J. Epperlein and F. Wirth, \emph{Auerbach bases, projection constants, and the joint spectral radius of principal submatrices}, preprint arXiv:2504.17505, 2025. \url{https://arxiv.org/abs/2504.17505}.}
+\end{remark}
+
+\section{Approximate extremal norms and H\"older continuity}
+For a vector norm $p$, define
+\[
+ \ecc(p)=\frac{\sup_{\norm x=1}p(x)}{\inf_{\norm x=1}p(x)}.
+\]
+\begin{corollary}\label{cor:ecc}
+Under the hypotheses of Theorem~\ref{thm:growth}, for every $0<\varepsilon\leq2d^2L$ there is a norm $p_\varepsilon$ satisfying
+\begin{equation}\label{eq:ecc}
+ \sup_{A\in\mathcal M}\opnorm A{p_\varepsilon}
+ \leq r+\varepsilon,
+ \qquad
+ \ecc(p_\varepsilon)\leq d\left(\frac{2d^2L}{\varepsilon}\right)^{d-1}.
+\end{equation}
+\end{corollary}
+\begin{proof}
+Put $s=2d^2L/\varepsilon\geq1$ and $h=r+\varepsilon$. Proposition~\ref{prop:comparison} gives $a_k(\mathcal M)\leq d s^{d-1}h^k$ for every $k\geq0$. Consequently,
+\[
+ p_\varepsilon(x)=\sup_{k\geq0}\sup_{A_1,\ldots,A_k\in\mathcal M}
+                     h^{-k}\norm{A_k\cdots A_1x}
+\]
+is a finite norm satisfying
+\[
+ \norm x\leq p_\varepsilon(x)\leq d s^{d-1}\norm x,
+ \qquad p_\varepsilon(Ax)\leq h p_\varepsilon(x).
+\]
+These are the required assertions. In particular, no norm-compactness argument or exact extremal norm at $r$ is required.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:holder}]
+Put $\delta=d_H(\mathcal M,\mathcal N)$. If $\delta=0$, compactness gives equality of the families. Suppose $0<\delta\leq L$ and choose
+\[
+ s=(L/\delta)^{1/d},\qquad
+ \varepsilon=2d^2L/s\leq2d^2L.
+\]
+For each $B\in\mathcal N$ there is $A\in\mathcal M$ with $\norm{B-A}\leq\delta$. Apply Corollary~\ref{cor:ecc} to $\mathcal M$. The norm $p_\varepsilon$ has eccentricity at most $d s^{d-1}$, so every perturbation $E$ satisfies $\opnorm E{p_\varepsilon}\leq d s^{d-1}\norm E$. Therefore
+\begin{align*}
+ \rho(\mathcal N)
+ &\leq\sup_{B\in\mathcal N}\opnorm B{p_\varepsilon}\\
+ &\leq\rho(\mathcal M)+2d^2L/s+d s^{d-1}\delta\\
+ &=\rho(\mathcal M)+d(2d+1)L^{1-1/d}\delta^{1/d}.
+\end{align*}
+Interchanging the families proves \eqref{eq:holder}. If $\delta\geq L$, both radii belong to $[0,L]$, so the claimed bound is immediate. For $d=1$, $\rho(\mathcal M)=\sup_{a\in\mathcal M}|a|$, a 1-Lipschitz function for Hausdorff distance.
+\end{proof}
+
+\section{Sharpness and verification boundaries}
+The growth exponent $d-1$ cannot be reduced uniformly: for the single Jordan block $J=I+N$ of order $d$ at eigenvalue one, the top-right entry of $J^n$ is $\binom n{d-1}$, asymptotic to $n^{d-1}/(d-1)!$.
+
+The H\"older exponent $1/d$ cannot be increased in general. Let $N$ be the nilpotent Jordan shift of order $d$, and let $E_{d1}$ have a one in position $(d,1)$ and zeros elsewhere. For $0<\delta\leq1$,
+\[
+ \rho(\{N\})=0,\qquad
+ \rho(\{N+\delta E_{d1}\})=\delta^{1/d},\qquad
+ d_H(\{N\},\{N+\delta E_{d1}\})=\delta.
+\]
+The characteristic polynomial of $N+\delta E_{d1}$ is $z^d-\delta$, and its spectral norm is at most one. A uniform exponent greater than $1/d$ would fail as $\delta\downarrow0$.
+
+The proof does not assume irreducibility, finitely many generators, an exact extremal norm, or previously established continuity of the joint spectral radius. Triangular damping is an exact convex-combination identity, and the product expansion treats every switching word. Numerical tests accompanying the manuscript check the damping identity and the rescaling estimates on real and complex examples. They are diagnostics, not proofs of the universal claims. No resolution of MF-06 or any other distinct problem is claimed here.
+
+\begin{thebibliography}{9}\raggedright
+\bibitem{EW}
+J. Epperlein and F. Wirth,
+\emph{The joint spectral radius is pointwise H\"older continuous},
+Linear Algebra and its Applications \textbf{704} (2025), 92--122.
+\href{https://doi.org/10.1016/j.laa.2024.09.016}{doi:10.1016/j.laa.2024.09.016}.
+Preprint: \url{https://arxiv.org/abs/2311.18633}.
+Targets: Conjecture 3 (L1) and (L3).
+\bibitem{EWprojection}
+J. Epperlein and F. Wirth,
+\emph{Auerbach bases, projection constants, and the joint spectral radius of principal submatrices},
+arXiv:2504.17505 (2025).
+\url{https://arxiv.org/abs/2504.17505}.
+\bibitem{repo}
+\emph{OpenProblemsInNLA}, matrix-functions-and-stability category, entries MF-05 and MF-07.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/matrix-functions-and-stability}.
+Category mapping checked on 11 September 2026; exhaustive issue/PR clearance remains pending in the package audit.
+\end{thebibliography}
+\end{document}

@@ -7,8 +7,19 @@
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
 **Rating rationale:** Challenging because divisibility alone gives no construction attaining the bound for every order; specialist importance concerns exact permanent values and discrete matrix constructions.  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-10
+**Status:** Partially resolved
+**Last checked:** 2026-09-11
+
+<!-- colbrook-arithmetic -->
+## Independently reviewed finite cases - 2026-09-11
+
+Complete exact certificates attain $2^{n-\lfloor\log_2(n+1)\rfloor}$ for every order $1\leq n\leq35$. Together with the proved universal divisibility bound, they establish the conjectured minimum at these orders, extending the cited order-20 construction range. The entire supplied matrices are checked with two coprime moduli and a proved uniqueness bound; cofactor dot products alone are not the evidence. Attainment for every order $n\geq36$ remains unresolved by this submission.
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [Complete manuscript](../../references/colbrook-arithmetic-2026-09-11/manuscripts/AC-11-12.pdf), [independent review](../../references/colbrook-arithmetic-2026-09-11/verification/reviews/AC-11-12-review.md), and [submission record](../../references/colbrook-arithmetic-2026-09-11/README.md). AI assistance is disclosed. Agent verification is not external human peer review or formal certification; no novelty or priority claim is made.
+
+The [fresh certificate checks](../../references/colbrook-arithmetic-2026-09-11/verification/fresh/README.md) complement the analytic review. The remaining universal target and its ratings are retained.
+
+<!-- /colbrook-arithmetic -->
 
 ## Problem statement
 

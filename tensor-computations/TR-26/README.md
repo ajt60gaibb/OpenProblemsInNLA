@@ -6,10 +6,20 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-10
+**Status:** Solved  
+**Last checked:** 2026-09-11
 
 **Rating rationale:** Separating the isotropic and nonisotropic degree contributions requires substantial algebraic analysis beyond the known total. The result mainly interests specialists in conditioning of constrained eigenvalue problems.
+
+<!-- colbrook-unclaimed -->
+## Resolution — 2026-09-11
+
+**Affirmative resolution by Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [The complete proof, Theorem 1 and Sections 2–7](../../references/colbrook-unclaimed-2026-09-11/manuscripts/TR-26.md) proves the reduced isotropic degree $2d$ and nonisotropic degree $6(d-1)$ for every $d\ge2$ in the exact fixed embedding and bilinear model below. It identifies the isotropic hyperplanes, proves irreducibility of the nonisotropic image, and establishes multiplicity one before subtracting degrees. The proof covers infinity, $d=2$ and the matrix-to-numerator kernel.
+
+[Manuscript PDF](../../references/colbrook-unclaimed-2026-09-11/manuscripts/TR-26.pdf) · [Independent complete-source PASS review](../../references/colbrook-unclaimed-2026-09-11/verification/reviews/TR-26-review.md) · [Authorship, provenance and submission record](../../references/colbrook-unclaimed-2026-09-11/README.md).
+
+This AI-assisted proof passed independent agent review; this is not external human peer review or formal verification. The difficulty, importance and rating rationale below are historical. The original target and dated status audit are retained. No priority claim is made.
+<!-- /colbrook-unclaimed -->
 
 ## Problem statement
 
