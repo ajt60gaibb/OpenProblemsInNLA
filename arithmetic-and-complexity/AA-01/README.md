@@ -7,8 +7,16 @@
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
 **Rating rationale:** Extreme because the existence of any accurate computation tree is a general decidability problem beyond checking a supplied algorithm; broad importance includes numerical stability, symbolic computation and automated algorithm design.  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Solved  
+**Last checked:** 2026-09-11  
+
+## Resolution — 2026-09-11
+
+**Affirmative resolution by George Stepaniants**, Department of Computing and Mathematical Sciences, California Institute of Technology. The [complete manuscript](solution.tex) ([PDF](solution.pdf)), **Theorem 2.1 and Corollary 7.1**, gives an always-halting decision algorithm for exactly the constant-free finite-tree model below.
+
+For each signed ordering of the input magnitudes, write the inputs in nonnegative gap coordinates and expand the transformed polynomial $q_T$. Accurate evaluability is equivalent to a uniform bound $W_T\le C_T|q_T|$, where $W_T$ is its coefficientwise absolute polynomial. The necessity proof couples actual executions, including error-dependent branches and stored values. A termwise evaluator proves sufficiency, including zeros and tied magnitudes. Finitely many real-quantifier-elimination tests decide the criterion and construct an evaluator on positive instances. No running-time bound or additional arithmetic primitive is assumed.
+
+A separate Codex agent checked the full proof against the original target and returned **PASS** on 11 September 2026: [independent review](../../references/stepaniants-2026-09-11/verification/reviews/AA-01-review.md). The draft was developed in a ChatGPT conversation. Verification is independent automated-agent review, not external human peer review or formal proof certification. The original statement and earlier literature checks are retained; the ratings above are historical. [Authorship, source record and submission details](../../references/stepaniants-2026-09-11/README.md).
 
 ## Problem statement
 
@@ -64,6 +72,6 @@ decidability, and follow-ups to the cited authors found no complete decision
 procedure or undecidability theorem for the displayed model. The recent talk
 does not separately specify every tree convention used here.
 
-## Status check — 2026-09-10
+## Earlier status check — 2026-09-10
 
 Rechecked [Demmel et al., §3.3.7](https://people.eecs.berkeley.edu/~demmel/Demmel_pubs_07_11_final/B15_ActaNumerica08.pdf) and [Demmel’s October 2025 Simons abstract](https://simons.berkeley.edu/events/when-accurate-efficient-expression-evaluation-linear-algebra-possible), and searched for later real-polynomial decision procedures. The broad real accurate-evaluation question remains explicitly open in the seminar abstract; no complete algorithm or undecidability theorem for the displayed finite-tree model was located. The complex-domain characterization and fixed-tree verification do not answer this existence question.

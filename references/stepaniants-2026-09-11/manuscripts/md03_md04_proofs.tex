@@ -1,0 +1,166 @@
+% Standalone LaTeX source; no external bibliography or figure files are needed.
+% Compile twice with: pdflatex md03_md04_proofs.tex
+% All theorem numbers in [GFL26] refer to arXiv:2609.11189v1.
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=27mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\hypersetup{
+  hidelinks,
+  pdftitle={MD-03 and MD-04: Proofs by Reference},
+  pdfsubject={Komlos and Beck--Fiala discrepancy; applications of arXiv:2609.11189v1},
+  pdfauthor={George Stepaniants}
+}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\setlength{\emergencystretch}{2em}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\DeclareMathOperator{\disc}{disc}
+\newcommand{\Cstar}{C_{\!*}}
+\newtheorem{theorem}{Theorem}
+
+\title{\textbf{MD-03 and MD-04: Proofs by Reference}\\[4pt]
+  \large Koml\'os and Beck--Fiala discrepancy}
+\author{George Stepaniants\\[0.3em]
+\small Department of Computing and Mathematical Sciences\\
+\small California Institute of Technology\\
+\small Pasadena, California, USA\\
+\small \href{mailto:gstepan@caltech.edu}{\texttt{gstepan@caltech.edu}}}
+\date{11 September 2026}
+
+\begin{document}
+\maketitle
+\vspace{-1.5em}
+
+\section*{Source and logical status}
+
+The problems are the matrix statements in
+\cite{MD03,MD04}. The cited mathematical input is Guo, Fang, and Lu,
+\emph{Vector Balancing via Directional Total Variation}
+\cite{GFL26}, specifically \textbf{Theorem~1.1, p.~1}, and
+\textbf{Corollary~1.2, p.~2}. Both give the requested estimates with
+\[
+  \boxed{\Cstar=3\sqrt{2\pi}.}
+\]
+
+\textbf{Qualification.}
+Reference~\cite{GFL26} is the preprint version submitted on
+10 September 2026. The conclusions below are conditional on the correctness
+of its cited results. This document supplies the complete applications of
+those results to the two problem statements; it is not an independent
+verification of the preprint's proof or a claim of a refereed resolution.
+The version and theorem locations were checked on 11 September 2026.
+A separate Codex agent independently reviewed this application note and
+its cited results on 11 September 2026.  This review is not human peer
+review or a formal verification certificate.
+
+For a real matrix $A\in\R^{m\times n}$, write
+\[
+ \disc(A):=\min_{\varepsilon\in\{-1,1\}^{n}}
+             \|A\varepsilon\|_{\infty},
+ \qquad
+ \|y\|_{\infty}:=\max_{1\leq i\leq m}|y_i|.
+\]
+The minimum is attained because its domain is a finite, nonempty set.
+
+\section{MD-03: the Koml\'os discrepancy statement}
+
+\begin{theorem}[MD-03, using {\cite[Theorem~1.1]{GFL26}}]
+Let $m,n\geq1$ be integers and let $A=(a_{ij})\in\R^{m\times n}$
+satisfy
+\begin{equation}\label{eq:komlos-hyp}
+  \sum_{i=1}^{m}a_{ij}^{2}\leq1
+  \qquad (1\leq j\leq n).
+\end{equation}
+Then, subject to the source qualification above, there exists
+$\varepsilon\in\{-1,1\}^{n}$ such that
+\begin{equation}\label{eq:komlos-conclusion}
+  \|A\varepsilon\|_{\infty}<\Cstar.
+\end{equation}
+In particular, the constant requested in MD-03 can be taken to be
+$C=\Cstar$, independently of $m,n$ and $A$.
+\end{theorem}
+
+\begin{proof}[Proof by citation]
+Let $v_j=A_{\cdot j}\in\R^m$. Condition~\eqref{eq:komlos-hyp} is exactly
+$\|v_j\|_2\leq1$. Apply \cite[Theorem~1.1, p.~1]{GFL26} to these $n$
+vectors. Its signed sum is $\sum_j\varepsilon_jv_j=A\varepsilon$, so its
+conclusion is \eqref{eq:komlos-conclusion}. The strict estimate implies
+the non-strict estimate asked for in \cite{MD03}.
+\end{proof}
+
+\section{MD-04: the Beck--Fiala discrepancy statement}
+
+\begin{theorem}[MD-04, using {\cite[Corollary~1.2]{GFL26}}]
+Let $m,n\geq1$ be integers, let $t$ be an integer with $1\leq t\leq m$,
+and let $A=(a_{ij})\in\{0,1\}^{m\times n}$ satisfy
+\begin{equation}\label{eq:bf-hyp}
+  \sum_{i=1}^{m}a_{ij}\leq t
+  \qquad (1\leq j\leq n).
+\end{equation}
+Then, subject to the source qualification above, there exists
+$\varepsilon\in\{-1,1\}^{n}$ such that
+\begin{equation}\label{eq:bf-conclusion}
+  \|A\varepsilon\|_{\infty}<\Cstar\sqrt{t}.
+\end{equation}
+Thus $C=\Cstar$ also meets the requirement of MD-04, independently of
+$m,n,t$ and $A$.
+\end{theorem}
+
+\begin{proof}[Proof by citation]
+For a $0$--$1$ column, its sum equals its number of nonzero entries.
+Consequently \eqref{eq:bf-hyp} is precisely the sparsity hypothesis of
+\cite[Corollary~1.2, p.~2]{GFL26}. That result gives
+$\disc(A)<3\sqrt{2\pi t}=\Cstar\sqrt t$.
+A signing attaining the defining minimum proves
+\eqref{eq:bf-conclusion}, and hence the non-strict inequality in
+\cite{MD04}.
+\end{proof}
+
+\paragraph{Attribution and scope.}
+George Stepaniants is the author of this application note.
+Both estimates are results asserted and proved in \cite{GFL26}; neither
+is a new result of this note. The Beck--Fiala estimate is already a
+stated corollary there, not a new corollary claimed here. The signings
+in the two statements assign a sign to every column. The problems
+\cite{MD03,MD04} ask for existence, so no algorithmic assertion is needed.
+
+\begin{thebibliography}{GFL26}
+
+\bibitem[GFL26]{GFL26}
+Shengtao Guo, Ethan X. Fang, and Junwei Lu.
+\newblock \emph{Vector Balancing via Directional Total Variation}.
+\newblock arXiv:2609.11189v1 [math.CO], 10 September 2026.
+\newblock Theorem~1.1, p.~1 (Koml\'os); Corollary~1.2, p.~2
+(Beck--Fiala).
+\newblock \href{https://arxiv.org/abs/2609.11189v1}{Versioned arXiv record};
+\href{https://arxiv.org/pdf/2609.11189v1}{versioned PDF}.
+\newblock Accessed 11 September 2026.
+
+\bibitem[MD03]{MD03}
+\texttt{MColbrook/OpenProblemsInNLA}.
+\newblock \emph{MD-03 --- The Koml\'os discrepancy conjecture}.
+\newblock Problem statement, \texttt{matrix-discrepancy-and-optimization/}
+\texttt{MD-03/README.md}.
+\newblock \href{https://github.com/MColbrook/OpenProblemsInNLA/blob/main/matrix-discrepancy-and-optimization/MD-03/README.md}{GitHub source}.
+\newblock Accessed 11 September 2026.
+
+\bibitem[MD04]{MD04}
+\texttt{MColbrook/OpenProblemsInNLA}.
+\newblock \emph{MD-04 --- The Beck--Fiala discrepancy conjecture}.
+\newblock Problem statement, \texttt{matrix-discrepancy-and-optimization/}
+\texttt{MD-04/README.md}.
+\newblock \href{https://github.com/MColbrook/OpenProblemsInNLA/blob/main/matrix-discrepancy-and-optimization/MD-04/README.md}{GitHub source}.
+\newblock Accessed 11 September 2026.
+
+\end{thebibliography}
+\end{document}
