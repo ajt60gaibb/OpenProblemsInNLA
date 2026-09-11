@@ -2,8 +2,11 @@
 """Regenerate GitHub indexes from canonical problem titles, ratings and status."""
 
 from collections import Counter
+import argparse
 from pathlib import Path
 import re
+
+from validate_problem_ids import CATEGORIES, default_base_ref, validate
 
 ROOT = Path(__file__).resolve().parents[1]
 STATUSES = {
@@ -12,18 +15,9 @@ STATUSES = {
     "Solved": "✅ SOLVED",
     "Solution claimed": "🟠 SOLUTION CLAIMED",
     "Needs verification": "⚪ NEEDS VERIFICATION",
+    "Withdrawn": "⚫ WITHDRAWN",
 }
 OPEN = {"Open", "Partially resolved"}
-CATEGORIES = [
-    "linear-systems-and-elimination", "eigenvalues-and-inverse-problems",
-    "matrix-functions-and-stability", "randomized-and-low-rank-approximation",
-    "tensor-computations", "nonnegative-and-positive-factorizations",
-    "matrix-inequalities-and-norms", "frames-and-matrix-designs",
-    "matrix-discrepancy-and-optimization", "arithmetic-and-complexity",
-    "intervals-and-absolute-value-equations",
-]
-
-
 def field(text, name):
     match = re.search(r"^\*\*" + name + r":\*\* (.+?)\s*$", text, re.M)
     if not match:
@@ -54,6 +48,11 @@ def table(entries, prefix=""):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--base-ref", default=default_base_ref(ROOT),
+                        help="Historical ref for permanent-ID validation (default: HEAD in a git checkout)")
+    args = parser.parse_args()
+    validate(ROOT, args.base_ref)  # Fail before writing any generated index.
     categories = []
     for slug in CATEGORIES:
         folder = ROOT / slug

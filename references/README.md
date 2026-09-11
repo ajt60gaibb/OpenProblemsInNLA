@@ -8,6 +8,7 @@ assessed. Canonical problem statements and current statuses live in the
 category folders; the dated notes preserve the scope and limits of earlier checks.
 
 - [Full status and rating audit — September 10, 2026](STATUS-AUDIT-2026-09-10.md), with an individual decision for every entry.
+- [Acceptance of reviewed submissions — September 11, 2026](SUBMISSION-ACCEPTANCE-2026-09-11.md), with the reviewed commits, scope, and permanent-numbering guarantee.
 - [Five resolutions by Matthew J. Colbrook — September 11, 2026](colbrook-2026-09-11/README.md), with independently reviewed proofs and supporting diagnostics.
 - [Literature coverage](SOURCES.md), including books, surveys, historical resolutions and source-access limits.
 - [Screened-out questions](SCREENED-OUT.md), including solution claims, duplicate targets and formulations needing clarification.

@@ -33,11 +33,38 @@ field or computational objective does not settle the displayed target.
 
 ## Editing an entry
 
-For your first pull request, fork the repository and create a branch. Add the new problem at `category/ID/README.md`, using a neighboring entry as a model. Include `Difficulty`, `Importance`, `Rating rationale`, `Status` and `Last checked`. Propose an unused ID; never recycle a published one. For an existing entry, edit its `README.md`, which is the source of truth.
+For your first pull request, fork the repository and create a branch. Add the new problem at `category/ID/README.md`, using a neighboring entry as a model. Include `Difficulty`, `Importance`, `Rating rationale`, `Status` and `Last checked`. Register a new ID as described below. For an existing entry, edit its `README.md`, which is the source of truth.
 Keep the mathematical target faithful to its source and distinguish a theorem
 from a conjecture or a preprint claim. Use the [rating rubric](README.md#ratings)
 and [status definitions](README.md#problem-status). Ratings assess the surviving
 open question; historical ratings on resolved entries are explicitly identified.
+
+## Permanent problem IDs
+
+Every published ID and its canonical README path are permanent. Never renumber,
+compact, recycle, or reassign them, even after a solution or category-listing
+change. Retain the original target and resolution on solved pages. For a
+withdrawal, retain the page as a tombstone with `Status: Withdrawn`, the original
+target, metadata and a dated explanation. Status changes affect the open count,
+not problem numbering. Replacing an existing target with an unrelated problem
+is also prohibited; this requires content review beyond automated ID checks.
+
+For a new entry, inspect [problem_ids.json](problem_ids.json), choose the next
+number above the largest registered number with that prefix, and explicitly
+append the ID/path pair to that JSON object, such as
+`"RA-18": "randomized-and-low-rank-approximation/RA-18/README.md"`.
+Never fill a numerical gap. Use at least two digits (`RA-01`, `RA-100`). Keep
+all existing registry mappings. Coordinate competing submissions for the same
+new number before merging.
+
+Run `python3 tools/validate_problem_ids.py --base-ref origin/main` against the
+published branch before submitting. CI compares the registry and canonical
+pages with the published default branch and also the pull request base or
+previous pushed commit when available, including protection on new branches.
+The first registry
+introduction also protects entries already present in that base tree. The
+validator checks HEAD by default in a git checkout; extracted source archives
+can only validate their current files without an explicit historical ref.
 
 ## Updating indexes and PDFs
 
@@ -45,7 +72,7 @@ The build tools require Python 3; PDF generation also requires Pandoc and XeLaTe
 After editing an entry, update the indexes and regenerate its documents:
 
 ```bash
-python3 tools/update_catalog.py
+python3 tools/update_catalog.py --base-ref origin/main
 python3 tools/render_problems.py IE-02
 ```
 
@@ -53,6 +80,9 @@ Replace `IE-02` with the changed problem's ID; several IDs may be supplied.
 Omit the IDs to render the whole collection. The index tool rebuilds `CATALOG.md`,
 category indexes and the README counts from canonical metadata, excluding solved,
 claimed and unverified entries from the open count.
+Withdrawn entries are retained outside that count as well. The index tool
+validates permanent IDs before writing any generated file. Run the safeguard
+tests with `python3 -m unittest discover -s tests -p 'test_problem_ids.py' -v`.
 
 Inspect the resulting PDF and include the Markdown, TeX and PDF changes together.
 Each exported TeX file can also be compiled on its own with XeLaTeX. The

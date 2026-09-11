@@ -33,7 +33,13 @@ Open a category, then a problem folder. Every problem has three files:
 - **`problem.pdf`** — a typeset document for reading, downloading, or printing.
 - **`problem.tex`** — standalone LaTeX source for the PDF.
 
-Shared definitions are included in each problem so it can be read independently. Problem IDs remain stable when categories or statuses change.
+Shared definitions are included in each problem so it can be read independently.
+**Published problem numbers are permanent.** Solving or withdrawing a problem
+changes its status and the open-problem count, never its ID. We retain its
+original statement and canonical page, including when category listings change.
+The append-only [ID registry](problem_ids.json) and automated checks prevent
+renumbering, removal, path reassignment, and reuse; new IDs extend their prefix's
+numbering without filling gaps. See [the contribution rules](CONTRIBUTING.md#permanent-problem-ids).
 
 Each problem gives its assumptions and quantifiers, one difficulty label, one
 importance rating, a brief set of references, and a literature-status check.
@@ -72,6 +78,7 @@ page records the outcome, date and exact resolution reference.
 | ✅ **SOLVED** | A published or independently verified result settles the exact target, affirmatively or by a counterexample. | No |
 | 🟠 **SOLUTION CLAIMED** | A primary manuscript claims a complete resolution; its full proof has not been independently verified here. | No |
 | ⚪ **NEEDS VERIFICATION** | A material statement or status issue prevents admission. This is not a claim that the problem is solved. | No |
+| ⚫ **WITHDRAWN** | A retained original entry explains why it was withdrawn; its ID and canonical page remain reserved. | No |
 
 We retain older-source entries when the exact question is supported and no
 resolution was found, but explicitly flag the limits of that evidence. An
