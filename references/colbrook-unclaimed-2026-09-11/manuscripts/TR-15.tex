@@ -1,0 +1,154 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+  11pt,
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=25mm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+% fallback for those not using the hyperref driver hyperxmp:
+\makeatletter
+\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
+\makeatother
+\hypersetup{
+  pdftitle={An exact counterexample to odd-order Hankel H-eigenvalue inheritance},
+  pdfauthor={Matthew J. Colbrook},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{An exact counterexample to odd-order Hankel H-eigenvalue
+inheritance}
+\author{Matthew J. Colbrook}
+\date{11 September 2026}
+
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\begin{document}
+\maketitle
+
+Department of Applied Mathematics and Theoretical Physics, University of
+Cambridge, Cambridge, United Kingdom. Email: m.colbrook@damtp.cam.ac.uk.
+
+This argument was developed with AI assistance at the author's request.
+Independent verification is recorded separately; no novelty or external
+human peer-review claim is made.
+
+\subsection{Counterexample}\label{counterexample}
+
+Use the canonical TR-15 parameters \(m=3\), \(q=2\) and \(n=2\), and the
+common generating vector \[
+(h_0,h_1,\ldots,h_6)=(2,0,1,0,2,0,-1).
+\] Let \(A\) be the order-three, dimension-three Hankel tensor and \(B\)
+the order-six, dimension-two Hankel tensor with entries \[
+A_{ijk}=h_{i+j+k-3},\qquad
+B_{i_1\cdots i_6}=h_{i_1+\cdots+i_6-6}.
+\] Their dimensions satisfy \(\dim A=q(n-1)+1\) and \(\dim B=n\), and
+both use all seven entries of the same generating vector.
+
+\textbf{Proposition.} Every real H-eigenvalue of \(A\) is strictly
+positive, but \(-1\) is a real H-eigenvalue of \(B\). Consequently the
+universal inheritance conjecture in TR-15 is false.
+
+\textbf{Proof.} For a real vector \(x=(x_1,x_2,x_3)\), the first
+coordinate of the order-three contraction is \[
+(Ax^2)_1=2x_1^2+x_2^2+2x_1x_3+2x_3^2
+=(x_1+x_3)^2+x_1^2+x_2^2+x_3^2.
+\] This is strictly positive for every nonzero real \(x\). If
+\((\lambda,x)\) is any real H-eigenpair, its first equation is
+\((Ax^2)_1=\lambda x_1^2\). Thus \(x_1\ne0\) and \(\lambda>0\). In
+particular there is no negative H-eigenvalue; no numerical enumeration
+of eigenpairs is involved.
+
+For \(v=(0,1)\), the only nonzero product in each component of \(Bv^5\)
+has its last five indices equal to two. Hence \[
+Bv^5=(h_5,h_6)=(0,-1)=-1\,(v_1^5,v_2^5).
+\] This gives the asserted negative H-eigenvalue with an exact nonzero
+real eigenvector. All parameters are admissible in the canonical
+conjecture, proving its negation. \(\square\)
+
+\subsection{The premise is not
+vacuous}\label{the-premise-is-not-vacuous}
+
+Although unnecessary for the counterexample, \(A\) does have real
+H-eigenvalues. Its remaining contractions are \[
+(Ax^2)_2=2x_1x_2+4x_2x_3,\qquad
+(Ax^2)_3=x_1^2+2x_2^2+4x_1x_3-x_3^2.
+\] Set \(x=(1,0,t)\) and \(\lambda=2+2t+2t^2\). The second
+eigen-equation is automatic and the third is equivalent to \[
+2t^4+2t^3+3t^2-4t-1=0.
+\] This polynomial is \(-1\) at zero and \(2\) at one, so it has a real
+root \(0<t<1\). At that root the displayed \(x,\lambda\) are an
+H-eigenpair and \(\lambda>0\).
+
+\subsection{Scope and provenance}\label{scope-and-provenance}
+
+This disproves inheritance from odd lower order in the precise
+H-eigenvalue sense. It does not contradict the even-lower-order theorem
+or inheritance from a positive-semidefinite associated Hankel matrix.
+Indeed the associated \(4\times4\) Hankel matrix has bottom-right entry
+\(h_6=-1\), so that stronger positive-semidefinite hypothesis fails. The
+tensor \(B\) also takes the value \(-1\) on the polynomial evaluation at
+\((0,1)\), consistently with its negative H-eigenvalue.
+
+The prior incomplete tensor archives contained only a qualitative
+counterexample summary, with no generating vector or proof. The explicit
+coefficients and proof above were derived anew in this research pass; no
+absent manuscript or code is represented as recovered.
+
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  W. Ding, L. Qi and Y. Wei, \emph{Inheritance properties and
+  sum-of-squares decomposition of Hankel tensors: theory and
+  algorithms}, BIT Numerical Mathematics 57 (2017), 169-190, final
+  Section 4, concluding odd-order inheritance conjecture; Section 2
+  fixes the common-vector conventions.
+  \href{https://www.polyu.edu.hk/ama/staff/new/qilq/BIT-DQW.pdf}{Author's
+  journal PDF}, \href{https://doi.org/10.1007/s10543-016-0622-0}{DOI}.
+\item
+  \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tensor-computations/TR-15/README.md}{Canonical
+  TR-15 statement}, checked 11 September 2026.
+\end{enumerate}
+
+\end{document}
