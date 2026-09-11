@@ -34,7 +34,7 @@ def render(source):
     with tempfile.TemporaryDirectory(prefix=f"nla-solution-{identifier}-") as work:
         work = Path(work)
         result = subprocess.run(
-            [os.environ.get("PANDOC", "pandoc"), "--from=markdown+tex_math_dollars+raw_tex",
+            [os.environ.get("PANDOC", "pandoc"), "--from=markdown+tex_math_dollars+tex_math_single_backslash+raw_tex",
              "--to=latex", "--standalone", "--top-level-division=section",
              "--template=" + str(TEMPLATE), "--metadata=id:" + identifier],
             input=markdown, text=True, encoding="utf-8", capture_output=True, check=True,

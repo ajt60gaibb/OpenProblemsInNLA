@@ -1,0 +1,185 @@
+% Standalone resolution manuscript generated from solution.md.
+% Compile with XeLaTeX; author and review metadata are maintained in Markdown.
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=24mm,headheight=15pt]{geometry}
+\usepackage{fontspec}
+\setmainfont{DejaVuSerif.ttf}[BoldFont=DejaVuSerif-Bold.ttf,ItalicFont=DejaVuSerif-Italic.ttf,BoldItalicFont=DejaVuSerif-BoldItalic.ttf]
+\setsansfont{DejaVuSans.ttf}[BoldFont=DejaVuSans-Bold.ttf,ItalicFont=DejaVuSans-Oblique.ttf]
+\setmonofont{DejaVuSansMono.ttf}
+\usepackage{amsmath,amssymb,unicode-math}
+\setmathfont{latinmodern-math.otf}
+\usepackage{xcolor,microtype,parskip,needspace,fancyhdr}
+\usepackage{bookmark}
+\usepackage{xurl}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue,pdftitle={A
+seven-dimensional counterexample to derivative
+realizability},pdfauthor={Matthew J. Colbrook},pdflang={en-GB}}
+\urlstyle{same}
+\setlength{\emergencystretch}{3em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\setcounter{secnumdepth}{0}
+\allowdisplaybreaks[1]
+\widowpenalty=10000
+\clubpenalty=10000
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily RESOLUTION / IS-03}
+\fancyhead[R]{\small\sffamily 11 September 2026}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\fontsize{8}{10}\selectfont Independent
+Codex-agent verification; no external human peer review or formal
+certification.}}
+\fancyfoot[R]{\footnotesize\thepage}
+\begin{document}
+{\raggedright\Large\bfseries A seven-dimensional counterexample to
+derivative realizability\par}
+\vspace{0.4em}
+{\normalsize\bfseries Matthew J. Colbrook\par}
+{\small Department of Applied Mathematics and Theoretical Physics,
+University of Cambridge, Cambridge, United Kingdom\par}
+{\small\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}\par}
+\vspace{0.6em}
+\textbf{Status of this manuscript:} Independently checked negative
+resolution (Codex-agent review).\\
+\textbf{Target:}
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/b4123194697bdf6f8f82518c1dd7d6c40a30c2e0/eigenvalues-and-inverse-problems/IS-03/README.md}{IS-03,
+original catalog snapshot}.\\
+\textbf{Reviewed:} 11 September 2026.
+
+The original proof draft was generated in a ChatGPT conversation. A
+separate Codex agent independently checked the complete argument against
+the exact target; its
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-additional-2026-09-11/verification/reviews/IS-03-review.md}{detailed
+review} records \textbf{PASS}. The mathematical sections below are
+unchanged from the reviewed draft. This is independent agent
+verification, not external human peer review or a formal proof
+certificate. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-additional-2026-09-11/README.md}{submission
+record} preserves the original manuscript and verification history.
+
+\section{The target and the
+counterexample}\label{the-target-and-the-counterexample}
+
+The repository asks whether, for every entrywise-nonnegative real matrix
+\(A\) of order \(n\ge5\), the monic polynomial \(p_A'(z)/n\) is the
+characteristic polynomial of an entrywise-nonnegative real matrix of
+order \(n-1\).\footnote{\emph{Open Problems in Numerical Linear
+  Algebra}, IS-03, ``Johnson's derivative-realizability conjecture,''
+  checked 11 September 2026.
+  \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/eigenvalues-and-inverse-problems/IS-03/README.md}{Canonical
+  entry}.}
+
+Let \(C_k\) denote the permutation matrix of a directed cycle of length
+\(k\), so that \(\det(zI-C_k)=z^k-1\). Set \[
+ A=\operatorname{diag}\left(\frac12,C_2,C_4\right)
+ =\begin{pmatrix}
+ \frac12&0&0&0&0&0&0\\
+ 0&0&1&0&0&0&0\\
+ 0&1&0&0&0&0&0\\
+ 0&0&0&0&1&0&0\\
+ 0&0&0&0&0&1&0\\
+ 0&0&0&0&0&0&1\\
+ 0&0&0&1&0&0&0
+ \end{pmatrix}.
+ \tag{1}
+\] This is an entrywise-nonnegative real \(7\times7\) matrix. Its
+characteristic polynomial is \[
+ \begin{aligned}
+ p(z)&=(z-\tfrac12)(z^2-1)(z^4-1)\\
+ &=z^7-\tfrac12z^6-z^5+\tfrac12z^4-z^3+\tfrac12z^2+z-\tfrac12.
+ \end{aligned}
+ \tag{2}
+\] Its normalized derivative is \[
+ q(z)=\frac{p'(z)}7
+ =z^6-\frac37z^5-\frac57z^4+\frac27z^3
+       -\frac37z^2+\frac17z+\frac17.
+ \tag{3}
+\]
+
+\textbf{Theorem 1.} There is no entrywise-nonnegative real \(6\times6\)
+matrix with characteristic polynomial \(q\). Consequently, the universal
+assertion in IS-03 is false.
+
+\section{Exact negative-moment
+certificate}\label{exact-negative-moment-certificate}
+
+Let \(\mu_1,\ldots,\mu_6\) be the roots of \(q\), counted with algebraic
+multiplicity, and put \(s_k=\sum_{i=1}^6\mu_i^k\). Newton's identities
+determine these numbers without computing the roots.
+
+For a monic degree-\(d\) polynomial \[
+ q(z)=z^d+c_1z^{d-1}+\cdots+c_d,
+\] the identities are \[
+ \begin{cases}
+ s_k+c_1s_{k-1}+\cdots+c_{k-1}s_1+kc_k=0,&1\le k\le d,\\
+ s_k+c_1s_{k-1}+\cdots+c_ds_{k-d}=0,&k>d.
+ \end{cases}
+ \tag{4}
+\] Applying (4) to (3) gives the following rational values: \[
+ \begin{aligned}
+ s_1&=\frac37,&s_2&=\frac{79}{49},&s_3&=\frac{48}{343},\\
+ s_4&=\frac{6731}{2401},&s_5&=\frac{5213}{16807},&
+ s_6&=\frac{219766}{117649}.
+ \end{aligned}
+ \tag{5}
+\] The next identity is particularly short: \[
+ 7s_7=3s_6+5s_5-2s_4+3s_3-s_2-s_1.
+ \tag{6}
+\] After expressing its right-hand side over the denominator
+\(117649=7^6\), its numerator is \[
+ 659298+182455-659638+49392-189679-50421=-8593.
+\] Therefore \[
+ \boxed{s_7=-\frac{8593}{823543}<0.}
+ \tag{7}
+\]
+
+\textbf{Proof of Theorem 1.} If an entrywise-nonnegative matrix \(B\)
+had characteristic polynomial \(q\), the trace identity for matrix
+powers, valid without diagonalizability, would give \[
+ \operatorname{tr}(B^7)=\sum_{i=1}^6\mu_i^7=s_7<0.
+\] But every entry of \(B^7\) is nonnegative, so its trace is
+nonnegative. This is a contradiction.
+
+\section{Scope and checks}\label{scope-and-checks}
+
+The counterexample satisfies the real field, entrywise nonnegativity,
+and order condition in the repository. Neither irreducibility nor zero
+trace is an assumption there. The example has positive trace and is
+reducible; these are permitted, not exceptions to the target. It does
+not contradict a result restricted to trace-zero matrices of orders five
+or six.
+
+The negative moment also precludes a realization after appending any
+number of zero eigenvalues, since zeros do not change \(s_7\). Thus no
+relaxation by zero padding repairs this particular example.
+
+The accompanying verification script checks (2)--(7) with exact rational
+arithmetic and independently computes the seventh power trace of the
+companion matrix of \(q\). The companion matrix is used only to check
+the certificate, not as a proposed nonnegative realization. These
+diagnostics are separate from the independent proof review linked above.
+
+The repository submission records \textbf{Solved}, with a
+negative-resolution notice and the independent Codex-agent PASS report
+linked above.
+
+\section{Sources}\label{sources}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \emph{Open Problems in Numerical Linear Algebra}, IS-03,
+  \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/eigenvalues-and-inverse-problems/IS-03/README.md}{canonical
+  statement}, checked 11 September 2026.
+\item
+  S. L. Hoover, D. McCormick, P. Paparella, and A. Thrall, \emph{On the
+  realizability of the critical points of a realizable list},
+  arXiv:1712.05454, Conjecture 1.2 and §6; \emph{Linear Algebra and its
+  Applications} 555 (2018), 301--313.
+  \href{https://arxiv.org/abs/1712.05454}{Manuscript};
+  \href{https://doi.org/10.1016/j.laa.2018.06.024}{publication}. This is
+  the primary reference identified by the repository for the conjecture,
+  not a source for the counterexample above.
+\end{enumerate}
+\end{document}

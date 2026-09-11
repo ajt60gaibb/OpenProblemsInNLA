@@ -52,6 +52,24 @@ historical and the entry no longer contributes to the open count.
 
 [Original statement and resolution](eigenvalues-and-inverse-problems/KE-03/README.md) · [Complete manuscript](eigenvalues-and-inverse-problems/KE-03/solution.md) · [Manuscript PDF](eigenvalues-and-inverse-problems/KE-03/solution.pdf) · [Independent review](references/colbrook-2026-09-11/verification/reviews/KE-03-review.md). **Theorem KE-03, sections 1–5.** The algorithm uses $O(\varepsilon^{-2}[1+\log(nK)])$ exact matrix-vector queries, with success probability at least $0.997$, for every input in the displayed model. It supplies both eigenvalue-location guarantees using the given condition bound $K$ and finite exact arithmetic between queries. The result bounds query count, not total runtime, bit complexity or floating-point error.
 
+### ✅ Three further resolutions by Matthew J. Colbrook — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Separate Codex agents checked the complete arguments against the exact catalog targets and returned PASS. Two reviewers covered the three full resolutions; a third checked the related partial bound below. Original AI provenance is preserved, and the verification level is explicitly independent agent review. [Detailed reports and submission record](references/colbrook-additional-2026-09-11/README.md).
+
+#### IS-03 — negative resolution
+
+[Original statement](eigenvalues-and-inverse-problems/IS-03/README.md) · [Complete manuscript](eigenvalues-and-inverse-problems/IS-03/solution.md) · [PDF](eigenvalues-and-inverse-problems/IS-03/solution.pdf) · [Independent PASS report](references/colbrook-additional-2026-09-11/verification/reviews/IS-03-review.md). **Theorem 1 and equations (1)–(7).** The nonnegative real order-seven matrix $A=\operatorname{diag}(1/2,C_2,C_4)$ has a normalized characteristic-polynomial derivative whose seventh power sum is $-8593/823543<0$. Every power of a nonnegative matrix has nonnegative trace, so the derivative cannot be realized at order six, or after any zero padding. Reducibility and positive trace are allowed in the original target. This refutes its universal assertion.
+
+#### SP-06 — negative resolution
+
+[Original statement](eigenvalues-and-inverse-problems/SP-06/README.md) · [Complete manuscript](eigenvalues-and-inverse-problems/SP-06/solution.md) · [PDF](eigenvalues-and-inverse-problems/SP-06/solution.pdf) · [Independent PASS report](references/colbrook-additional-2026-09-11/verification/reviews/SP-06-review.md). **Theorem 1 and equations (1)–(8).** The integer-coefficient Laurent polynomial in Theorem 1 is real on a rigorously constructed star-shaped Jordan curve enclosing zero, while its $2\times2$ Toeplitz section has eigenvalues $-128\pm8i$. The proof checks continuity, injectivity and reality on the entire curve. It refutes the conjectured implication for every finite section; it does not refute the distinct limiting-spectrum statement.
+
+#### IE-08 — affirmative resolution
+
+[Original statement](eigenvalues-and-inverse-problems/IE-08/README.md) · [Complete manuscript](eigenvalues-and-inverse-problems/IE-08/solution.md) · [PDF](eigenvalues-and-inverse-problems/IE-08/solution.pdf) · [Independent PASS report](references/colbrook-additional-2026-09-11/verification/reviews/IE-08-review.md). **Theorem 1, Lemmas 2–12 and the final four proof sections.** The end-to-end algorithm uses $O(n^3\log^c(n/\delta))$ arithmetic operations and $O(\log(n/\delta))$ mantissa bits, with universal constants, for every complex input with $\|A\|_2\le1$. With probability at least $0.99$ it returns an exactly upper triangular $T$ and a $Q$ satisfying both displayed residual bounds. The proof includes finite random sampling, deterministic work caps, global recursive conditioning and floating-point error control, without an input separation or diagonalizability assumption. It is an asymptotic existence result with conservative constants, not a production implementation.
+
+**Related partial result — IS-05 (still counted as open).** [Theorems 1–2](eigenvalues-and-inverse-problems/IS-05/solution.md), independently checked in a [separate PASS report](references/colbrook-additional-2026-09-11/verification/reviews/IS-05-review.md), prove the upper bound $\alpha_*\le1/2$ and an additional parity obstruction. The updated interval is $17/92\le\alpha_*\le1/2$; its exact value remains unresolved. [IS-05](eigenvalues-and-inverse-problems/IS-05/README.md) is **Partially resolved**, not Solved.
+
 ## Published resolutions of historical questions
 
 These questions were screened out before receiving current catalog folders;

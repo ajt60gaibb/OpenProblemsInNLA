@@ -6,10 +6,20 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Solved  
+**Last checked:** 2026-09-11  
 
 **Rating rationale:** Extreme reflects an end-to-end precision and complexity theorem for general Schur decomposition; broad impact is justified by this central eigenvalue-computation task.
+
+## Resolution — 2026-09-11
+
+**Affirmative resolution by Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [Complete manuscript](solution.md) · [PDF](solution.pdf) · [LaTeX](solution.tex). **Theorem 1, Lemmas 2–12 and the final four proof sections.**
+
+The end-to-end algorithm uses $O(n^3\log^c(n/\delta))$ arithmetic operations and $O(\log(n/\delta))$ mantissa bits, with universal constants, for every complex input with $\|A\|_2\le1$. With probability at least $0.99$ it returns an exactly upper triangular $T$ and a $Q$ satisfying both displayed residual bounds. The proof includes finite random sampling, deterministic work caps, global recursive conditioning and floating-point error control, without an input separation or diagonalizability assumption. It is an asymptotic existence result with conservative constants, not a production implementation.
+
+The complete argument received an independent Codex-agent **PASS** on 11 September 2026. The [review report](../../references/colbrook-additional-2026-09-11/verification/reviews/IE-08-review.md) records the exact scope and a hash of the original reviewed manuscript. The mathematical sections remain unchanged in the authored version. Original ChatGPT generation is disclosed; no external human peer review or formal proof certificate is asserted. [Submission and verification record](../../references/colbrook-additional-2026-09-11/README.md).
+
+The original statement, source references and prior audit notes are retained; the former difficulty rating is historical.
 
 ## Problem statement
 
