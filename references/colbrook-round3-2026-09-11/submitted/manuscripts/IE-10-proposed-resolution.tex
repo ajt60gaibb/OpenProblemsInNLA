@@ -1,0 +1,462 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  11pt,
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{setspace}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{amsmath,amssymb}
+\usepackage{microtype}
+\usepackage{xurl}
+\allowdisplaybreaks[1]
+\setlength{\emergencystretch}{2em}
+\AtBeginDocument{\hypersetup{colorlinks=true,linkcolor=black,urlcolor=black,citecolor=black}}
+
+\widowpenalty=10000
+
+\clubpenalty=10000
+
+\brokenpenalty=10000
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Conditioning of random cyclic-shift Krylov compressions},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Conditioning of random cyclic-shift Krylov compressions}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\setstretch{1.04}
+\subsection{1. Claim and scope}\label{claim-and-scope}
+
+This manuscript proposes an affirmative resolution of repository problem
+\textbf{IE-10}, with exactly its complex-sphere starting-vector
+model.\footnote{Source 1, the displayed probability target and
+  starting-vector model.} The original workshop question specifically
+mentions the cyclic shift; a counterexample for general nonnormal inputs
+does not address this case.\footnote{Source 2, Section 3.3, Problem 3.5
+  and its 20 August 2026 update.}
+
+\textbf{Theorem 1 (cyclic shift).} Let \(n\geq3\), let \(2\leq k<n\),
+and let \(C_n\) be the cyclic shift on \(\mathbb C^n\). Draw \(b\)
+uniformly from the complex unit sphere. Let \(Q\) have orthonormal
+columns spanning \[
+\operatorname{span}\{b,C_nb,\ldots,C_n^{k-1}b\},
+\qquad H_k=Q^*C_nQ.
+\] For a diagonalizable matrix define \[
+\kappa_V(H)=\inf_{H=VDV^{-1},\ D\text{ diagonal}}\|V\|_2\|V^{-1}\|_2,
+\] and set this quantity to infinity otherwise. Then \[
+\mathbb E\,\kappa_V(H_k)\leq17n^2k. \tag{1}
+\] Consequently, for every \(0<\eta<1\), \[
+\Pr\left\{\kappa_V(H_k)\leq\frac{17}{\eta}n^2k\right\}\geq1-\eta. \tag{2}
+\] In particular, \textbf{\(C=1700\) and \(c=3\)} satisfy the
+repository's uniform \(0.99\) target.
+
+Two probability arguments are given. Section 5 already proves the
+repository's existence claim, with the weaker constants
+\(C=2{,}000{,}000\) and \(c=5\), using discriminant avoidance and
+Cauchy's estimate. Sections 6--7 improve this to (1)--(2) by controlling
+the total variation of a rank-one root locus. Thus the affirmative
+answer does not rely solely on the sharper root-locus estimate.
+
+No assertion is made for real-sphere starts, arbitrary nonnormal input
+matrices, or finite-precision construction of an eigenbasis.
+
+\subsection{2. Exact weighted-polynomial
+model}\label{exact-weighted-polynomial-model}
+
+We work first with arbitrary distinct points \(\zeta_1,\ldots,\zeta_n\)
+on the unit circle. Write \[
+d=\min_{i\ne j}|\zeta_i-\zeta_j|>0,
+\] and let \(w_1,\ldots,w_n\) be independent exponential random
+variables of mean one. On the sample space
+\(\mathbb C^{\{\zeta_1,\ldots,\zeta_n\}}\), use \[
+\langle f,g\rangle_w=\sum_{j=1}^n w_j\overline{f(\zeta_j)}g(\zeta_j).
+\] Let \(\mathcal P_{k-1}\) be the evaluated polynomials of degree less
+than \(k\), let \(P_w\) be its orthogonal projection, and set \[
+H_w=P_wM_z\big|_{\mathcal P_{k-1}},\qquad (M_zf)(\zeta_j)=\zeta_jf(\zeta_j).
+\] Positive weights and distinct nodes make the evaluation map injective
+on this polynomial space. Since \(M_z\) is unitary, \(H_w\) is a
+contraction.
+
+The general estimate proved below is \[
+\mathbb E\,\kappa_V(H_w)\leq2k+\frac{64nk}{d}. \tag{3}
+\] Here and below an operator condition number is measured in its stated
+Hilbert-space norm, equivalently in any orthonormal coordinates.
+
+To obtain the cyclic model, diagonalize \(C_n\) by a unitary Fourier
+matrix. A uniformly distributed complex unit vector can be represented
+as \(g/\|g\|_2\), where the coordinates of \(g\) are independent
+standard complex Gaussians. This follows directly from the unitary
+invariance of the density proportional to \(\exp(-\|g\|_2^2)\). In polar
+coordinates, \(|g_j|^2\) are independent mean-one exponentials. The
+Krylov vectors in spectral coordinates are the evaluations of
+\(1,z,\ldots,z^{k-1}\) multiplied coordinatewise by \(g_j/\|g\|_2\).
+Their phases are removed by a diagonal unitary commuting with the
+spectral matrix. The common normalization of the weights does not change
+an orthogonal compression. Thus \(H_k\) is unitarily equivalent to
+\(H_w\) with the \(n\)th roots of unity as nodes. This also proves the
+almost-sure dimension assertion.
+
+For coefficient calculations put \[
+a_j=(1,\zeta_j,\ldots,\zeta_j^{k-1}),\qquad
+G=\sum_jw_ja_j^*a_j,\qquad F=\sum_jw_j\zeta_ja_j^*a_j.
+\] The coefficient representation of \(H_w\) is \(G^{-1}F\), with
+coefficient inner product \(x^*Gy\).
+
+\subsection{3. Conditioning is controlled by weight
+sensitivity}\label{conditioning-is-controlled-by-weight-sensitivity}
+
+\subsubsection{3.1 A conjugation that matches left and right coordinate
+magnitudes}\label{a-conjugation-that-matches-left-and-right-coordinate-magnitudes}
+
+Define an antilinear map on the full sample space by \[
+(Jf)(\zeta_j)=\zeta_j^{k-1}\overline{f(\zeta_j)}.
+\] It is an antiunitary involution. For a polynomial of degree less than
+\(k\), it reverses and conjugates the coefficients, so it preserves
+\(\mathcal P_{k-1}\). Hence \(J\) commutes with \(P_w\). Directly, \[
+JM_zJ=M_z^*,\qquad JH_wJ=H_w^*. \tag{4}
+\] Suppose \(\lambda_i\) is simple and \(r_i\) is a unit right
+eigenvector of \(H_w\). Then \(\ell_i=Jr_i\) is a unit left eigenvector,
+meaning \(H_w^*\ell_i=\overline{\lambda_i}\ell_i\). Put \[
+\alpha_i=\langle\ell_i,r_i\rangle_w,\qquad
+\kappa_i=\frac{1}{|\alpha_i|},\qquad
+p_{ij}=w_j|r_i(\zeta_j)|^2.
+\] Simplicity gives \(\alpha_i\ne0\). The number \(\kappa_i\) is the
+norm of the rank-one spectral projector. Also \[
+\sum_jp_{ij}=1,\qquad
+w_j|\ell_i(\zeta_j)|^2=p_{ij}. \tag{5}
+\]
+
+\subsubsection{3.2 An exact derivative
+identity}\label{an-exact-derivative-identity}
+
+Differentiate the generalized eigenvalue equation
+\(Fr_i=\lambda_iGr_i\). Multiplication by the generalized left
+eigenvector cancels the derivative of \(r_i\), giving \[
+\frac{\partial\lambda_i}{\partial w_j}
+=\frac{(\zeta_j-\lambda_i)\overline{\ell_i(\zeta_j)}r_i(\zeta_j)}{\alpha_i}.
+\] Therefore \[
+\sum_jw_j\left|\frac{\partial\lambda_i}{\partial w_j}\right|
+=\kappa_i\sum_jp_{ij}|\zeta_j-\lambda_i|. \tag{6}
+\] This identity is taken at simple-spectrum weight vectors; those
+vectors have full measure by Section 4.
+
+\textbf{Lemma 2 (deterministic sensitivity bound).} At every positive
+simple-spectrum weight vector, \[
+\kappa_i\leq
+\max\left\{2,\frac8d\sum_jw_j\left|\frac{\partial\lambda_i}{\partial w_j}\right|\right\}
+\leq2+\frac8d\sum_jw_j\left|\frac{\partial\lambda_i}{\partial w_j}\right|. \tag{7}
+\]
+
+\emph{Proof.} Each summand in
+\(\alpha_i=\sum_jw_j\overline{\ell_i(\zeta_j)}r_i(\zeta_j)\) has modulus
+\(p_{ij}\). The reverse triangle inequality implies \[
+|\alpha_i|\geq2\max_jp_{ij}-1.
+\] If \(\kappa_i>2\), then \(\max_jp_{ij}<3/4\). At most one node can
+lie at distance strictly less than \(d/2\) from \(\lambda_i\).
+Consequently at least one quarter of the probability mass in (5) is at
+distance at least \(d/2\), and \[
+\sum_jp_{ij}|\zeta_j-\lambda_i|\geq d/8.
+\] Now use (6). The case \(\kappa_i\leq2\) is immediate. \(\square\)
+
+\subsubsection{3.3 From individual projectors to an
+eigenbasis}\label{from-individual-projectors-to-an-eigenbasis}
+
+\textbf{Lemma 3 (balanced column scaling).} For any matrix with simple
+spectrum, \[
+\kappa_V(H)\leq\sum_{i=1}^k\kappa_i, \tag{8}
+\] where the \(\kappa_i\) are the norms of its rank-one spectral
+projectors.
+
+\emph{Proof.} Use orthonormal ambient coordinates. Let \(R\) have unit
+right eigenvectors as columns. The \(i\)th row of \(R^{-1}\) has norm
+\(\kappa_i\): it is the dual left eigenvector with pairing one. Define
+\(D=\operatorname{diag}(\sqrt{\kappa_1},\ldots,\sqrt{\kappa_k})\) and
+\(V=RD\). Then \[
+\|V\|_F^2=\sum_i\kappa_i,
+\qquad
+\|V^{-1}\|_F^2=\sum_i\frac{\kappa_i^2}{\kappa_i}=\sum_i\kappa_i.
+\] The operator norms are bounded by the Frobenius norms, and \(V\) is
+still an eigenbasis. \(\square\)
+
+\subsection{4. Simplicity and rank-one conditional
+pencils}\label{simplicity-and-rank-one-conditional-pencils}
+
+The discriminant in \(z\) of \[
+p(z,w)=\det(zG(w)-F(w))
+\] is a polynomial in the weights and is not identically zero. To see
+this, allow boundary weights supported positively on exactly \(k\)
+distinct nodes. The resulting \(G\) remains positive definite. The
+square evaluation matrix on those nodes is invertible, and \(G^{-1}F\)
+is similar to the diagonal matrix of those \(k\) distinct nodes. Its
+discriminant is nonzero. Thus the discriminant polynomial is nonzero,
+and its zero set in real weight space has measure zero.
+
+Fix an index \(j\) and condition on the other weights. For almost every
+such conditioning the discriminant, considered as a polynomial in
+\(t=w_j\), is not identically zero: at least one of its coefficient
+polynomials in the remaining weights is nonzero.
+
+Write \(a=a_j\) and \(\zeta=\zeta_j\). The conditional pencil is \[
+G(t)=G_0+ta^*a,\qquad F(t)=F_0+t\zeta a^*a.
+\] Because \(k<n\), the other \(n-1\) positive-weight nodes span the
+polynomial space, so \(G_0\succ0\). By the rank-one determinant
+identity, or multilinearity of the determinant, \[
+p(z,t)=\det(zG(t)-F(t))=p_0(z)+tp_1(z),\qquad
+\deg p_0,\deg p_1\leq k. \tag{9}
+\] Its leading coefficient in \(z\) is \(\det G(t)>0\) for real \(t>0\).
+Its discriminant \(\Delta(t)\) has degree at most \(2k-2\), since the
+discriminant is homogeneous of that degree in the coefficients of a
+degree-\(k\) polynomial and each coefficient in (9) is affine in \(t\).
+
+For positive real \(t\), every root lies in the closed unit disk. Except
+at the finitely many positive zeros of \(\Delta\), the roots admit
+locally analytic labels. All sums over the roots used below are
+independent of the chosen labeling.
+
+\subsection{5. A direct probability proof using discriminant
+avoidance}\label{a-direct-probability-proof-using-discriminant-avoidance}
+
+This section independently proves a polynomial bound sufficient for
+IE-10, without the length estimate of Section 6.
+
+\textbf{Proposition 4 (weaker uniform tail bound).} In the cyclic model,
+for \(0<\eta<1\), \[
+\Pr\left\{\kappa_V(H_k)\leq\frac{192}{\eta^2}n^3k^2\right\}\geq1-\eta. \tag{10}
+\] In particular, \(C=2{,}000{,}000\), \(c=5\) work at success
+probability \(0.99\).
+
+\emph{Proof.} Put \(\varepsilon=\eta/(16nk)\). For one conditional
+pencil, call a positive real \(t_0\) bad if \(t_0\leq2\varepsilon\) or
+if it is within distance \(2\varepsilon\) of a complex zero of
+\(\Delta\). There are at most \(2k-2\) such zeros, counted with
+multiplicity. A disk of radius \(2\varepsilon\) cuts the real line in an
+interval of length at most \(4\varepsilon\). Since the exponential
+density is bounded by one, the conditional bad probability is at most \[
+2\varepsilon+4(2k-2)\varepsilon\leq8k\varepsilon.
+\] The exceptional conditionings from Section 4 have probability zero.
+Union over the \(n\) coordinates therefore costs at most
+\(8nk\varepsilon=\eta/2\).
+
+At a good \(t_0\), every root is holomorphic on \(|t-t_0|<\varepsilon\).
+Indeed, the discriminant does not vanish there, and \(G(t)\) is
+invertible in \(\Re t>0\). For an eigenpair of the complex conditional
+pencil, set \[
+g=x^*G_0x>0,\quad m=x^*F_0x,\quad s=|ax|^2\geq0.
+\] The positive-weight representation of \(F_0\) gives \(|m|\leq g\).
+Multiplying the generalized eigenvalue equation by \(x^*\) gives \[
+z=\frac{m+t\zeta s}{g+ts}.
+\] Throughout the disk, \(\Re t>t_0/2\) and \(|t|<3t_0/2\), so \[
+|z|\leq\frac{g+(3t_0/2)s}{g+(t_0/2)s}\leq3.
+\] Cauchy's estimate yields, for every eigenvalue and every good
+coordinate, \[
+\left|\frac{\partial\lambda_i}{\partial w_j}\right|\leq3/\varepsilon. \tag{11}
+\]
+
+Let \(W=\sum_jw_j\). Since \(\mathbb EW=n\), Markov's inequality gives
+\[
+\Pr\{W>2n/\eta\}\leq\eta/2.
+\] On the joint good event, of probability at least \(1-\eta\),
+equations (7), (8), and (11) give \[
+\kappa_V(H_k)
+\leq k\max\left\{2,\frac{24W}{d\varepsilon}\right\}
+\leq\frac{768n^2k^2}{d\eta^2}.
+\] For cyclic nodes, \(d\geq4/n\); the bound dominates \(2k\) and proves
+(10). \(\square\)
+
+\subsection{6. Total variation of the conditional root
+locus}\label{total-variation-of-the-conditional-root-locus}
+
+\textbf{Lemma 5 (bounded root-locus length).} For almost every
+conditioning in Section 4, \[
+\sum_{i=1}^k\int_0^\infty|\lambda_i'(t)|\,dt\leq8k, \tag{12}
+\] where the integrals are taken over the simple-spectrum intervals.
+Values at the finite collision set are irrelevant.
+
+\emph{Proof.} If \(p_1\) vanishes identically, all roots are constant.
+Otherwise define the real polynomial \[
+q(x,y)=\Im\left(p_0(x+iy)\overline{p_1(x+iy)}\right),
+\qquad \deg q\leq2k.
+\] A moving root, away from a common root of \(p_0\) and \(p_1\),
+satisfies \[
+t=-\frac{p_0(z)}{p_1(z)}\in(0,\infty),\qquad q(\Re z,\Im z)=0. \tag{13}
+\] Common roots give constant branches. A moving branch can meet one
+only at an exceptional collision parameter, so these points do not
+affect the integrals.
+
+If \(q\) vanishes identically, the holomorphic rational function
+\(p_0/p_1\) is real valued on its domain and is therefore constant.
+Equation (9), together with the nonvanishing leading coefficient for
+positive \(t\), again implies that all roots are constant. We may
+therefore assume \(q\not\equiv0\).
+
+For all but finitely many real \(u\), the polynomial \(q(u,y)\) is
+nonzero and has at most \(2k\) real roots. Each moving-root point
+\(u+iy\) with \(p_1(u+iy)\ne0\) determines at most one parameter \(t\)
+through (13), and at a simple-spectrum parameter it belongs to only one
+root. Consequently, for almost every \(u\), the number of moving-root
+crossings of the vertical line \(\Re z=u\), counted with their parameter
+preimages, is at most \(2k\). The same statement holds for horizontal
+lines.
+
+For clarity, this crossing count bounds variation, not merely the
+set-theoretic image of a curve. On each simple-spectrum interval a root
+is analytic. Split each real or imaginary coordinate into its
+monotonicity intervals, ignoring constant coordinates, and apply
+one-dimensional change of variables on those intervals. Countably many
+intervals suffice; nonnegative integrands allow summation by Tonelli's
+theorem. Since all roots are in the closed unit disk, their real and
+imaginary coordinates are in \([-1,1]\). Thus \[
+\sum_i\int_0^\infty|\Re\lambda_i'(t)|\,dt
+\leq\int_{-1}^1 2k\,du=4k,
+\] and likewise \[
+\sum_i\int_0^\infty|\Im\lambda_i'(t)|\,dt\leq4k.
+\] The exceptional coordinate values corresponding to collisions,
+constant branches, or lines contained in \(q=0\) form a null set.
+Finally, \(|z'|\leq|\Re z'|+|\Im z'|\) gives (12). \(\square\)
+
+\subsection{7. Proof of the expectation
+bound}\label{proof-of-the-expectation-bound}
+
+Condition on all weights except \(w_j=t\). Its remaining density is
+\(e^{-t}\) on \((0,\infty)\). Lemma 5 gives \[
+\begin{aligned}
+\mathbb E\left[\sum_iw_j\left|\frac{\partial\lambda_i}{\partial w_j}\right|
+\,\middle|\,(w_\ell)_{\ell\ne j}\right]
+&=\int_0^\infty t e^{-t}\sum_i|\lambda_i'(t)|\,dt\\
+&\leq8k,
+\end{aligned} \tag{14}
+\] where we used only \(te^{-t}\leq1\). Exceptional conditionings have
+probability zero. Sum (14) over \(j\), and then use (7)--(8) and
+Tonelli's theorem: \[
+\mathbb E\,\kappa_V(H_w)
+\leq2k+\frac8d\mathbb E\sum_{i,j}w_j
+\left|\frac{\partial\lambda_i}{\partial w_j}\right|
+\leq2k+\frac{64nk}{d}.
+\] This proves (3). For the cyclic shift, \[
+d=2\sin(\pi/n)\geq\frac4n,
+\] using concavity of sine on \([0,\pi/2]\). Therefore \[
+\mathbb E\,\kappa_V(H_k)\leq2k+16n^2k\leq17n^2k.
+\] Markov's inequality proves Theorem 1.
+
+\textbf{Corollary 6 (one starting vector, all dimensions).} With the
+same random \(b\) used for every \(k\), no independence between the
+compressions is needed to conclude \[
+\Pr\left\{\kappa_V(H_k)\leq\frac{17}{2\eta}n^4
+\text{ for every }2\leq k<n\right\}\geq1-\eta.
+\] Indeed, the expectation of the sum of their condition numbers is at
+most \(17n^2\sum_{k=2}^{n-1}k\leq(17/2)n^4\).
+
+\subsection{8. Checks, limitations, and
+provenance}\label{checks-limitations-and-provenance}
+
+The accompanying code checks the weighted model against an orthonormal
+Krylov construction, the matched left/right magnitudes, the eigenvalue
+derivative identity, balanced column scaling, finite-difference
+derivatives, and sampled conditional root paths. A separate
+140-decimal-digit diagnostic includes weight ratios of \(10^{24}\),
+closely clustered nodes, and cyclic weights within \(10^{-35}\) of the
+defective uniform example. These stress tests are numerical, not
+interval certificates. An exact \(n=3\), \(k=2\) example with weights
+\((t,1,1)\) gives \[
+G=\begin{pmatrix}t+2&t-1\\t-1&t+2\end{pmatrix},\qquad
+F=\begin{pmatrix}t-1&t-1\\t+2&t-1\end{pmatrix},
+\] \[
+\det(zG-F)=3\big((2t+1)z^2+(1-t)z+(1-t)\big),
+\] with discriminant \(81(t-1)(t+1/3)\). This illustrates why an
+almost-sure argument must allow exceptional defective weights; the point
+\(t=1\) is not silently excluded by an unproved uniform deterministic
+bound.
+
+This example also permits an exact geometric check of Lemma 5. For
+\(0<t<1\), the roots lie on the circle \(|z+1|=1\) and each moves
+monotonically from angle \(\pm\pi/3\) to angle zero about its center.
+For \(t>1\), one root moves from zero to \(1\) and the other from zero
+to \(-1/2\). Indeed, \[
+\frac{dt}{dz}=\frac{3z(z+2)}{(2z^2-z-1)^2},
+\] which has the required sign on each real interval. The total
+root-path length is therefore \(2\pi/3+3/2<16=8k\). This is a check on
+one explicit pencil, not a substitute for the general crossing-count
+proof.
+
+The tests are diagnostics and exact algebraic checks, not an independent
+proof of the probability theorem. The proof uses randomness only in the
+starting vector through independent exponential spectral weights. It
+never substitutes an independent Haar subspace for the Krylov subspace.
+Both proofs retain the restrictions \(k<n\) and complex-sphere
+randomness.
+
+This is an AI-generated proposed argument, prepared for mathematical
+review on 11 September 2026. It has not been independently refereed or
+formally verified. No assertion of priority is made. The proposed
+repository status is \textbf{Solution claimed}, not independently
+established \textbf{Solved}.
+
+\subsection{Sources}\label{sources}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  OpenProblemsInNLA.
+  \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/eigenvalues-and-inverse-problems/IE-10/README.md}{IE-10:
+  Conditioning of a random Krylov compression of a cyclic shift}.
+  Problem statement and audit update of 10 September 2026. Accessed 11
+  September 2026.
+\item
+  Noah Amsel et
+  al.~\href{https://arxiv.org/html/2602.05394v3}{\emph{Linear Systems
+  and Eigenvalue Problems: Open Questions from a Simons Workshop}}.
+  arXiv:2602.05394v3, 21 August 2026. Section 3.3, Problem 3.5 and its
+  update. This source identifies the question and scope; it is not the
+  source of the proposed proof.
+\end{enumerate}
+
+\end{document}

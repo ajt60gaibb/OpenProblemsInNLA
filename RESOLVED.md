@@ -294,6 +294,12 @@ Eight exact targets passed independent agent review. Author: **Matthew J. Colbro
 
 The related order-five rook bound is outside the order-three/order-four target of [IE-15](linear-systems-and-elimination/IE-15/README.md), which remains Open.
 
+## Random cyclic Krylov compression - 2026-09-11
+
+**[IE-10](eigenvalues-and-inverse-problems/IE-10/README.md): Solved.** Theorem 1 proves $\mathbb E\kappa_V(H_k)\leq17n^2k$ for the exact complex-sphere cyclic-shift model. Markov\'s inequality gives the uniform $0.99$ target with $C=1700$ and $c=3$. Sections 5 and 6-7 give two probability proofs; real starts and arbitrary nonnormal inputs are outside the result.
+
+Author: **Matthew J. Colbrook**, University of Cambridge. [Complete proof](references/colbrook-round3-2026-09-11/manuscripts/IE-10.pdf), [independent review](references/colbrook-round3-2026-09-11/verification/reviews/IE-10-review.md), and [submission record](references/colbrook-round3-2026-09-11/README.md). AI generation is disclosed; agent verification is not external human peer review or formal certification. Original target and historical ratings are retained. The accompanying IS-04 prime-square construction remains partial for its all-orders target.
+
 ## Published resolutions of historical questions
 
 These questions were screened out before receiving current catalog folders;
