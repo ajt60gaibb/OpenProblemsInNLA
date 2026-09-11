@@ -15,9 +15,11 @@ catalog with **🟡 PARTIAL** and an explanation of what remains.
 
 ## Resolved catalog entries
 
-### MI-28 — determinant comparison for all nonnegative base powers
+### ✅ MI-28 — determinant comparison for all nonnegative base powers — George Stepaniants
 
-**Solved, 2026-09-11.** George Stepaniants, California Institute of Technology, proves $\det(A^k+|AB|^p)\ge\det(A^k+A^pB^p)$ for every complex positive definite pair, every dimension, $k\ge0$ and $0\le p\le2$. [Theorem 1 and Corollary 6](matrix-inequalities-and-norms/MI-28/solution.md) establish a stronger normalized log-majorization. The published $k\ge2$ range is credited to Ghabries, Abbas, Mourad and Assi; Furuta inequalities and a parameter interchange close the remaining range. [Proof PDF](matrix-inequalities-and-norms/MI-28/solution.pdf) · [Canonical target](matrix-inequalities-and-norms/MI-28/README.md).
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved, 2026-09-11.** The proof establishes $\det(A^k+|AB|^p)\ge\det(A^k+A^pB^p)$ for every complex positive definite pair, every dimension, $k\ge0$ and $0\le p\le2$. [Theorem 1 and Corollary 6](matrix-inequalities-and-norms/MI-28/solution.md) establish a stronger normalized log-majorization. The published $k\ge2$ range is credited to Ghabries, Abbas, Mourad and Assi; Furuta inequalities and a parameter interchange close the remaining range. [Proof PDF](matrix-inequalities-and-norms/MI-28/solution.pdf) · [Canonical target](matrix-inequalities-and-norms/MI-28/README.md).
 
 The complete analytic proof and source applications passed a separate [Codex-agent review](references/stepaniants-mi28-2026-09-11/verification/reviews/MI-28-review.md). AI assistance and the limits of automated verification are explicit; no external peer review or formal certificate is asserted. [Submission record](references/stepaniants-mi28-2026-09-11/README.md). No canonical parameter case remains unresolved; the original ID, statement, path and historical ratings are retained.
 
