@@ -6,10 +6,20 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-10
+**Status:** Solved  
+**Last checked:** 2026-09-11
 
 **Rating rationale:** Arbitrary base powers and indefinite Hermitian factors make extension of the squared-base theorem challenging; the comparison has specialist importance for determinant inequalities.
+
+## Resolution — 2026-09-11
+
+**Negative result by Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent proof review: PASS.**
+
+A rational positive definite $A$ and invertible indefinite Hermitian $B$ in dimension three, with $k=6$ and $p=8$, reverse the proposed determinant comparison. The exact right-minus-left gap is $21036678407451/156250000000000>0$. The known $k=2$ theorem and the variant $B>0$ are not contradicted.
+
+The exact target is resolved. The original statement and source evidence are retained below; its former difficulty rating is historical.
+
+**Primary manuscript:** [complete proof PDF](solution.pdf), [standalone TeX](solution.tex), Theorem 1.1 and its proof; [authorship and scope](solution.md). The [independent review](../../references/colbrook-matrix-2026-09-11/verification/reviews/MI-29-review.md) checks the full original argument and records its hash. The draft was AI-assisted; this is independent agent verification, not external human peer review or formal certification. [Submission record](../../references/colbrook-matrix-2026-09-11/README.md).
 
 ## Problem statement
 

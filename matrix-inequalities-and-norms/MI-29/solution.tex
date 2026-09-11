@@ -1,0 +1,128 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=24mm]{geometry}
+\usepackage{microtype}
+\usepackage{booktabs,array,longtable}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue,pdfauthor={Matthew J. Colbrook}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Resolution / MI-29}
+\fancyhead[R]{\small 11 September 2026}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\M}{\mathbb M}
+\newcommand{\C}{\mathbb C}
+\newcommand{\R}{\mathbb R}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\spec}{\operatorname{spec}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\opnorm}[1]{\lVert #1\rVert_{\infty}}
+\newcommand{\schatten}[2]{\lVert #1\rVert_{#2}}
+\newcommand{\symmod}{\mathcal S}
+\newcommand{\maxmod}{\mathcal M}
+\newcommand{\draftnotice}{\begin{center}\small\textit{Proposed mathematical resolution. Complete proof supplied; not submitted or peer reviewed.}\end{center}}
+
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\allowdisplaybreaks[1]
+
+\title{MI-29: Resolution}
+\author{Matthew J. Colbrook\\
+\small Department of Applied Mathematics and Theoretical Physics\\
+\small University of Cambridge, Cambridge, United Kingdom\\
+\small\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+\textbf{Repository status: Solved.}
+The complete argument received an independent Codex-agent PASS review
+against the exact catalog target.
+The original draft was AI-assisted; the reviewed proof below is unchanged.
+This is independent agent verification, not external human peer review or
+formal proof certification. \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-2026-09-11/verification/reviews/MI-29-review.md}{Detailed review and scope}.
+\par\medskip
+% BEGIN REVIEWED PROOF
+\section{MI-29: an exact counterexample to the arbitrary-exponent determinant extension}
+\label{sec:mi29}
+The repository's extension asks whether
+\begin{equation}\label{eq:mi29-target}
+ \det(A^k+|AB|^p)\geq\det(A^k+|BA|^p)
+\end{equation}
+holds for $A>0$, invertible Hermitian $B$, and $k,p\geq0$. The established $k=2$ inequality in \cite{GAM2020} is a different, more restricted assertion; the example below does not contradict it.
+
+\begin{theorem}
+Inequality \eqref{eq:mi29-target} is false for real matrices of order three, with $k=6$ and $p=8$. One may take
+\[
+ A=\diag\left(2,1,\frac12\right),\qquad
+ B=\frac15\begin{pmatrix}-1&2&0\\2&1&2\\0&2&1\end{pmatrix}.
+\]
+\end{theorem}
+\begin{proof}
+The matrix $A$ is positive definite, and $B$ is real symmetric with $\det B=-1/125$, so all hypotheses are met. Write $M=5B$ and
+\[
+ D=A^6,\qquad H=(MA^2M)^4,\qquad J=(AM^2A)^4.
+\]
+Since $|AB|^2=BA^2B$ and $|BA|^2=AB^2A$, the left- and right-hand sides of \eqref{eq:mi29-target} are respectively
+\[
+ \det(D+5^{-8}H),\qquad\det(D+5^{-8}J).
+\]
+In dimension three, expansion by multilinearity gives
+\[
+ \det(D+zK)=\det D+z\tr(\operatorname{adj}(D)K)
+   +z^2\tr(\operatorname{adj}(K)D)+z^3\det K.
+\]
+Here $\det H=\det J$. Direct rational matrix multiplication therefore yields the following two-coefficient certificate:
+\begin{equation}\label{eq:mi29-certificate}
+ \det(D+zJ)-\det(D+zH)
+ =\frac{2089017}{16}z-\frac{31188746592549}{1024}z^2.
+\end{equation}
+Substituting $z=5^{-8}$ into \eqref{eq:mi29-certificate} gives
+\[
+ \det(A^6+|BA|^8)-\det(A^6+|AB|^8)
+ =\frac{21036678407451}{156250000000000}>0,
+\]
+which is the reverse of the proposed inequality. In particular, the individual exact determinants are
+\[
+ \det(A^6+|AB|^8)=\frac{136990346414301954149}{61035156250000000000},
+\]
+\[
+ \det(A^6+|BA|^8)=\frac{4537743716162890657}{1907348632812500000}.
+\]
+The verifier checks both the polynomial certificate and these values independently.
+\end{proof}
+
+\begin{remark}[Hypothesis distinction]
+The counterexample uses an indefinite $B$, which is permitted by the stated Hermitian-input extension. It does not settle a version imposing $B>0$, nor does it alter the known $k=2$ theorem. The precise target statement should be retained in any repository status update.
+\end{remark}
+
+% END REVIEWED PROOF
+\begin{thebibliography}{1}
+
+\bibitem{GAM2020}
+Mohammad~M. Ghabries, Hassane Abbas, and Bassam Mourad.
+\newblock On some open questions concerning determinantal inequalities.
+\newblock {\em Linear Algebra and its Applications}, 596:169--183, 2020.
+\newblock The established $k=2$ case; not the arbitrary-$k$ repository
+  extension.
+\newblock \href {https://doi.org/10.1016/j.laa.2020.03.009}
+  {\path{doi:10.1016/j.laa.2020.03.009}}.
+
+\end{thebibliography}
+
+\end{document}

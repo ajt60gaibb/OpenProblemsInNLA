@@ -28,6 +28,108 @@ its assumptions and steps. It has not received external peer review or Lean
 formalization; no novelty claim is made. The former difficulty label remains
 historical and the entry no longer contributes to the open count.
 
+### ✅ Five resolutions by Matthew J. Colbrook — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Each complete proof passed a separate Codex-agent audit against its exact catalog target on 11 September 2026. Three independent review agents covered the five proofs, with one review per proof. The original drafts were generated in a ChatGPT conversation; the independent agent verification is documented, and no external human peer review or formal proof certificate is asserted. The original statements and historical ratings remain intact. [Review reports, authorship and submission history](references/colbrook-2026-09-11/README.md).
+
+#### IS-02 — negative resolution
+
+[Original statement and resolution](eigenvalues-and-inverse-problems/IS-02/README.md) · [Complete manuscript](eigenvalues-and-inverse-problems/IS-02/solution.md) · [Manuscript PDF](eigenvalues-and-inverse-problems/IS-02/solution.pdf) · [Independent review](references/colbrook-2026-09-11/verification/reviews/IS-02-review.md). **Theorem IS-02, sections 1–2.** The order-four counterexample is real symmetric, nonnegative and stochastic, has spectrum $\{1,1,0,-1\}$ and positive trace, and is spectrally unique up to permutation. It lies outside every segment in the proposed locus, disproving the universal necessary condition at an allowed dimension.
+
+#### SP-04 — negative resolution
+
+[Original statement and resolution](eigenvalues-and-inverse-problems/SP-04/README.md) · [Complete manuscript](eigenvalues-and-inverse-problems/SP-04/solution.md) · [Manuscript PDF](eigenvalues-and-inverse-problems/SP-04/solution.pdf) · [Independent review](references/colbrook-2026-09-11/verification/reviews/SP-04-review.md). **Theorem SP-04, sections 1–4.** The stationary pair with uniquely smallest absolute multiplier fails to minimize the Frobenius distance on a nonempty open set of real $3\times3$ data matrices with distinct singular values in $(7/4,44/25)$. Both determinant signs are allowed, and the open-set argument refutes the algebraic-generic formulation.
+
+#### SP-05 — affirmative resolution
+
+[Original statement and resolution](eigenvalues-and-inverse-problems/SP-05/README.md) · [Complete manuscript](eigenvalues-and-inverse-problems/SP-05/solution.md) · [Manuscript PDF](eigenvalues-and-inverse-problems/SP-05/solution.pdf) · [Independent review](references/colbrook-2026-09-11/verification/reviews/SP-05-review.md). **Theorem SP-05, sections 1–3.** For arbitrary real symmetric positive definite $A,B$, a nonzero real positive-semidefinite eigenmatrix attains the smallest eigenvalue of $X\mapsto AXB+BXA$. Section 3 derives the exact symmetric/skew-symmetric Rayleigh-quotient inequality in the original target, without commutativity, rank restrictions or a simple-eigenvalue assumption.
+
+#### KE-04 — affirmative resolution
+
+[Original statement and resolution](eigenvalues-and-inverse-problems/KE-04/README.md) · [Complete manuscript](eigenvalues-and-inverse-problems/KE-04/solution.md) · [Manuscript PDF](eigenvalues-and-inverse-problems/KE-04/solution.pdf) · [Independent review](references/colbrook-2026-09-11/verification/reviews/KE-04-review.md). **Theorem KE-04, sections 1–3.** Strict interval occupancy holds for every allowed pair of block Lanczos iterations and every indicated index, in exact arithmetic before the first loss of full block dimension. The quadratic-polynomial argument includes multiplicities and excludes coincident interval endpoints in the stated range.
+
+#### KE-03 — affirmative resolution
+
+[Original statement and resolution](eigenvalues-and-inverse-problems/KE-03/README.md) · [Complete manuscript](eigenvalues-and-inverse-problems/KE-03/solution.md) · [Manuscript PDF](eigenvalues-and-inverse-problems/KE-03/solution.pdf) · [Independent review](references/colbrook-2026-09-11/verification/reviews/KE-03-review.md). **Theorem KE-03, sections 1–5.** The algorithm uses $O(\varepsilon^{-2}[1+\log(nK)])$ exact matrix-vector queries, with success probability at least $0.997$, for every input in the displayed model. It supplies both eigenvalue-location guarantees using the given condition bound $K$ and finite exact arithmetic between queries. The result bounds query count, not total runtime, bit complexity or floating-point error.
+
+### ✅ Three further resolutions by Matthew J. Colbrook — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Separate Codex agents checked the complete arguments against the exact catalog targets and returned PASS. Two reviewers covered the three full resolutions; a third checked the related partial bound below. Original AI provenance is preserved, and the verification level is explicitly independent agent review. [Detailed reports and submission record](references/colbrook-additional-2026-09-11/README.md).
+
+#### IS-03 — negative resolution
+
+[Original statement](eigenvalues-and-inverse-problems/IS-03/README.md) · [Complete manuscript](eigenvalues-and-inverse-problems/IS-03/solution.md) · [PDF](eigenvalues-and-inverse-problems/IS-03/solution.pdf) · [Independent PASS report](references/colbrook-additional-2026-09-11/verification/reviews/IS-03-review.md). **Theorem 1 and equations (1)–(7).** The nonnegative real order-seven matrix $A=\operatorname{diag}(1/2,C_2,C_4)$ has a normalized characteristic-polynomial derivative whose seventh power sum is $-8593/823543<0$. Every power of a nonnegative matrix has nonnegative trace, so the derivative cannot be realized at order six, or after any zero padding. Reducibility and positive trace are allowed in the original target. This refutes its universal assertion.
+
+#### SP-06 — negative resolution
+
+[Original statement](eigenvalues-and-inverse-problems/SP-06/README.md) · [Complete manuscript](eigenvalues-and-inverse-problems/SP-06/solution.md) · [PDF](eigenvalues-and-inverse-problems/SP-06/solution.pdf) · [Independent PASS report](references/colbrook-additional-2026-09-11/verification/reviews/SP-06-review.md). **Theorem 1 and equations (1)–(8).** The integer-coefficient Laurent polynomial in Theorem 1 is real on a rigorously constructed star-shaped Jordan curve enclosing zero, while its $2\times2$ Toeplitz section has eigenvalues $-128\pm8i$. The proof checks continuity, injectivity and reality on the entire curve. It refutes the conjectured implication for every finite section; it does not refute the distinct limiting-spectrum statement.
+
+#### IE-08 — affirmative resolution
+
+[Original statement](eigenvalues-and-inverse-problems/IE-08/README.md) · [Complete manuscript](eigenvalues-and-inverse-problems/IE-08/solution.md) · [PDF](eigenvalues-and-inverse-problems/IE-08/solution.pdf) · [Independent PASS report](references/colbrook-additional-2026-09-11/verification/reviews/IE-08-review.md). **Theorem 1, Lemmas 2–12 and the final four proof sections.** The end-to-end algorithm uses $O(n^3\log^c(n/\delta))$ arithmetic operations and $O(\log(n/\delta))$ mantissa bits, with universal constants, for every complex input with $\|A\|_2\le1$. With probability at least $0.99$ it returns an exactly upper triangular $T$ and a $Q$ satisfying both displayed residual bounds. The proof includes finite random sampling, deterministic work caps, global recursive conditioning and floating-point error control, without an input separation or diagonalizability assumption. It is an asymptotic existence result with conservative constants, not a production implementation.
+
+**Related partial result — IS-05 (still counted as open).** [Theorems 1–2](eigenvalues-and-inverse-problems/IS-05/solution.md), independently checked in a [separate PASS report](references/colbrook-additional-2026-09-11/verification/reviews/IS-05-review.md), prove the upper bound $\alpha_*\le1/2$ and an additional parity obstruction. The updated interval is $17/92\le\alpha_*\le1/2$; its exact value remains unresolved. [IS-05](eigenvalues-and-inverse-problems/IS-05/README.md) is **Partially resolved**, not Solved.
+
+### ✅ Ten matrix-inequality resolutions by Matthew J. Colbrook — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Three independent Codex agents reviewed thirteen complete arguments, with one PASS report per argument. Ten resolve their exact targets and three establish the partial results below. [Authorship, exact scopes, original proofs and reviews](references/colbrook-matrix-2026-09-11/README.md). Verification is independent agent review; the original drafts were AI-assisted.
+
+#### MI-03 — affirmative result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-03/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-03/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-03-review.md). **Theorem 1.1 and its proof.** The sharp additive contraction constant is $c_k=k/4$ for every $k\ge2$, including every odd summand count. Exact dimension-two extremizers match the universal upper bound. 
+
+#### MI-04 — affirmative result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-04/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-04/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-04-review.md). **Theorem 1.1 and its proof.** The universal positive-block operator-norm property holds exactly when the off-diagonal block is essentially Hermitian. The proof applies in every finite dimension without invertibility or distinct-singular-value assumptions. 
+
+#### MI-06 — negative result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-06/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-06/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-06-review.md). **Theorem 1.1 and its proof.** No finite constant permits the proposed two-unitary Loewner-order domination for the arithmetic symmetric modulus, already in dimension three. A fixed rational example also refutes the proposed $\sqrt2$ constant. This concerns matrix order, not a separate norm triangle inequality. 
+
+#### MI-07 — negative result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-07/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-07/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-07-review.md). **Theorem 1.1 and its proof.** No finite two-unitary domination constant exists for the maximal symmetric modulus, already in dimension two. The rank-one family gives the necessary bound $C\ge\sqrt{1+t^2}/t$ for every $t>0$. 
+
+#### MI-19 — negative result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-19/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-19/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-19-review.md). **Theorem 1.1 and its proof.** A real order-four PSD Gram matrix, $q=7/8$ and the interior singleton $S=\{2\}$ give full minus restricted $q$-permanent equal to $-3235575/16384$. Inversions are counted in the full original ordering. The strict counterexample also persists under sufficiently small positive diagonal perturbations. 
+
+#### MI-21 — negative result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-21/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-21/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-21-review.md). **Theorem 1.1 and its proof.** Two rational positive definite $2\times2$ summands with $s=t=1/2$, $r=2$ and aggregate matrices $A=B=I$ violate the operator-norm inequality for every $p>0$. The left side has eigenvalue $1351000/1350907>1$, while the right side is one. 
+
+#### MI-22 — negative result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-22/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-22/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-22-review.md). **Theorem 1.1 and its proof.** Rational positive definite $3\times3$ matrices at $t=1/8$ violate the first singular-value inequality: the left operator norm exceeds 10900, while $\|AB\|_2<10200$. Exact rational root residuals and a proved operator-root error bound certify the actual principal powers. 
+
+#### MI-23 — negative result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-23/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-23/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-23-review.md). **Theorem 1.1 and its proof.** Rational positive definite $3\times3$ matrices with $r=s=1$, $p=2$ and $t=1/8$ violate the corrected eigenvalue log-majorization conjecture. An exact integer-power construction and rational norm separation establish failure of the first ordered eigenvalue inequality. 
+
+#### MI-26 — negative result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-26/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-26/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-26-review.md). **Theorem 1.1 and its proof.** The real-valued concave function $f(x)=x-x^2$ and two rational projections refute the two-unitary inequality; an explicit positive definite variant also works. The allowed condition is $f(0)\ge0$, without global nonnegativity or monotonicity. This does not refute the narrower nonnegative-valued function class. 
+
+#### MI-29 — negative result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-29/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-29/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-29-review.md). **Theorem 1.1 and its proof.** A rational positive definite $A$ and invertible indefinite Hermitian $B$ in dimension three, with $k=6$ and $p=8$, reverse the proposed determinant comparison. The exact right-minus-left gap is $21036678407451/156250000000000>0$. The known $k=2$ theorem and the variant $B>0$ are not contradicted. 
+
+#### Related partial results: MI-08, MI-09 and MI-25
+
+These three entries remain in the open count.
+
+#### MI-08 — partial result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-08/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-08/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-08-review.md). **Theorem 1.1 and its proof.** The fixed and adaptive orthogonal pinching lengths both equal the least row count $h(d)$ of a sign matrix $H$ with $H^TH=h(d)I_d$. In particular, the exact length is 12 for $9\le d\le12$. The general value of $h(d)$ is undetermined; the all-dimension optimization remains open and includes Hadamard-order existence questions.
+
+#### MI-09 — partial result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-09/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-09/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-09-review.md). **Theorem 1.1 and its proof.** For every $m\ge2$, the exact dimension-two operator-norm constant is $c_\infty^{\rm sym}(m,2)=\sqrt{6\sqrt3-9}$. This is also the sharp single constant valid simultaneously for every unitarily invariant norm on $M_2$. This does not determine each individual finite Schatten constant. The cases $1<p<\infty$ remain open; the previously established trace endpoint and higher-dimensional operator endpoint are retained.
+
+#### MI-25 — partial result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-25/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-25/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-25-review.md). **Theorem 1.1 and its proof.** The trace-norm endpoint has $C_1=\infty$: a real $2\times3$ rank-one family has defect ratio asymptotic to $2/(3t)$ as $t\downarrow0$. Zero-row padding gives the same failure on real $3\times3$ matrices. The remaining finite Schatten exponents $1<p<\infty$ are undetermined by this result; the known value $C_2=1$ is unchanged.
+
 ## Published resolutions of historical questions
 
 These questions were screened out before receiving current catalog folders;
@@ -43,7 +145,8 @@ IDs or admissions are created by this list. Sources and scope rechecked on
 ## Former catalog entries with complete-resolution claims
 
 The classification below concerns the strength of the available evidence, not a
-claim that an unrefereed proof is incorrect. Checked **2026-09-10**.
+claim that an unrefereed proof is incorrect. The records below were checked
+on **2026-09-10**.
 
 <a id="ie-01"></a>
 

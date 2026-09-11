@@ -1,0 +1,85 @@
+\section{MI-21: a rational counterexample to the geometric-mean norm conjecture}
+\label{sec:mi21}
+
+For positive definite matrices, write
+\[
+ A\#_tB=A^{1/2}(A^{-1/2}BA^{-1/2})^tA^{1/2},\qquad A\#B=A\#_{1/2}B.
+\]
+With $A=\sum_iA_i$ and $B=\sum_iB_i$, the target asserts
+\begin{equation}\label{eq:mi21-target}
+ \left\|\sum_i(A_i^s\#_tB_i^s)^r\right\|
+ \leq
+ \left\|\left(A^{(1-t)srp/2}B^{tsrp}A^{(1-t)srp/2}\right)^{1/p}\right\|
+\end{equation}
+for every unitarily invariant norm, $0\leq t\leq1$, and $p,r,s>0$ with $sr\geq1$ \cite[Conjecture 3]{FH2024}.
+
+\begin{theorem}\label{thm:mi21}
+Inequality \eqref{eq:mi21-target} is false already for two summands of order two, the operator norm, $s=t=1/2$, and $r=2$. The same counterexample works for every $p>0$ and has rational positive definite inputs satisfying $A=B=I_2$.
+\end{theorem}
+
+\begin{proof}
+Define the rational matrices
+\[
+ C=\diag\left(\frac{12}{37},\frac{21}{29}\right),\qquad
+ E=\diag\left(\frac{35}{37},\frac{20}{29}\right),\qquad
+ S=\frac1{17}\begin{pmatrix}15&8\\8&-15\end{pmatrix}.
+\]
+They satisfy $C,E>0$, $C^2+E^2=I_2$, and $S=S^*=S^{-1}$. Set
+\[
+ A_1=C^2,\quad A_2=E^2,\qquad
+ B_1=SE^2S,\quad B_2=SC^2S.
+\]
+All four inputs are rational and positive definite. Also
+$A_1+A_2=B_1+B_2=I_2$. Thus the matrix inside the norm on the right of \eqref{eq:mi21-target} is exactly $I_2$, for every $p>0$.
+
+Put $D=SES$ and $G=C\#D$. Symmetry and unitary covariance of the geometric mean imply
+\[
+ E\#(SCS)=SGS.
+\]
+For the chosen parameters, the left-hand matrix is therefore
+\[
+ L=G^2+SG^2S.
+\]
+We compute it exactly. For any $2\times2$ positive definite $C,D$, if
+\[
+ \delta=\sqrt{\det D/\det C},\qquad h=\tr(C^{-1}D)+2\delta,
+\]
+then
+\begin{equation}\label{eq:mi21-2by2}
+ C\#D=\frac{D+\delta C}{\sqrt h},\qquad
+ (C\#D)^2=\frac{(D+\delta C)^2}{h}.
+\end{equation}
+Indeed, applying the Cayley--Hamilton identity to $C^{-1/2}DC^{-1/2}$ shows that its positive square root is
+\[
+ \frac{C^{-1/2}DC^{-1/2}+\delta I}{\sqrt{\tr(C^{-1}D)+2\delta}}.
+\]
+Congruence by $C^{1/2}$ proves \eqref{eq:mi21-2by2}.
+
+In the present example,
+\[
+ \delta=\frac53,\qquad
+ h=\frac{61697295}{8682716},\qquad
+ D+\delta C=\frac1{310097}
+ \begin{pmatrix}443355&33000\\33000&605715\end{pmatrix}.
+\]
+Rational matrix multiplication in \eqref{eq:mi21-2by2} gives
+\[
+ G^2=\frac1{12158163}
+ \begin{pmatrix}3516940&616000\\616000&6547660\end{pmatrix},
+\]
+and hence
+\begin{equation}\label{eq:mi21-L}
+ L=\frac1{12158163}
+ \begin{pmatrix}8216600&-985600\\-985600&11912600\end{pmatrix}.
+\end{equation}
+For $w=(1,-4)^T$, direct multiplication yields
+\[
+ Lw=\frac{1351000}{1350907}w,
+ \qquad\frac{1351000}{1350907}=1+\frac{93}{1350907}>1.
+\]
+Therefore $\opnorm{L}>1=\opnorm{I_2}$, contradicting \eqref{eq:mi21-target}.
+\end{proof}
+
+\begin{remark}[Exact certificate and scope]
+The counterexample is not based on a rounded numerical eigenvalue. Every displayed matrix and every comparison after \eqref{eq:mi21-2by2} is rational. Its other eigenvalue is $7970200/12158163<1$. The parameter condition is met with $sr=1$. No claim is made here about the restricted parameter regimes already established in the cited paper.
+\end{remark}

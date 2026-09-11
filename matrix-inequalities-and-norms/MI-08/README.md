@@ -2,10 +2,20 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Status:** Open  
-**Last checked:** 2026-09-10
+**Status:** Partially resolved  
+**Last checked:** 2026-09-11
 
 **Rating rationale:** An exact all-dimension optimum imposes rigid real orthogonality constraints beyond a general upper bound; it would clarify matrix averaging and majorization decompositions.
+
+## Partial result — 2026-09-11
+
+**Partial result by Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent proof review: PASS for the stated partial result.**
+
+The fixed and adaptive orthogonal pinching lengths both equal the least row count $h(d)$ of a sign matrix $H$ with $H^TH=h(d)I_d$. In particular, the exact length is 12 for $9\le d\le12$.
+
+**Still open:** The general value of $h(d)$ is undetermined; the all-dimension optimization remains open and includes Hadamard-order existence questions. The ratings apply to this surviving question.
+
+**Primary manuscript:** [complete proof PDF](solution.pdf), [standalone TeX](solution.tex), Theorem 1.1 and its proof; [authorship and scope](solution.md). The [independent review](../../references/colbrook-matrix-2026-09-11/verification/reviews/MI-08-review.md) checks the full original argument and records its hash. The draft was AI-assisted; this is independent agent verification, not external human peer review or formal certification. [Submission record](../../references/colbrook-matrix-2026-09-11/README.md).
 
 ## Problem statement
 

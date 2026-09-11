@@ -1,0 +1,134 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=24mm]{geometry}
+\usepackage{microtype}
+\usepackage{booktabs,array,longtable}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue,pdfauthor={Matthew J. Colbrook}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Resolution / MI-07}
+\fancyhead[R]{\small 11 September 2026}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\M}{\mathbb M}
+\newcommand{\C}{\mathbb C}
+\newcommand{\R}{\mathbb R}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\spec}{\operatorname{spec}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\opnorm}[1]{\lVert #1\rVert_{\infty}}
+\newcommand{\schatten}[2]{\lVert #1\rVert_{#2}}
+\newcommand{\symmod}{\mathcal S}
+\newcommand{\maxmod}{\mathcal M}
+\newcommand{\draftnotice}{\begin{center}\small\textit{Proposed mathematical resolution. Complete proof supplied; not submitted or peer reviewed.}\end{center}}
+
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\allowdisplaybreaks[1]
+
+\title{MI-07: Resolution}
+\author{Matthew J. Colbrook\\
+\small Department of Applied Mathematics and Theoretical Physics\\
+\small University of Cambridge, Cambridge, United Kingdom\\
+\small\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+\textbf{Repository status: Solved.}
+The complete argument received an independent Codex-agent PASS review
+against the exact catalog target.
+The original draft was AI-assisted; the reviewed proof below is unchanged.
+This is independent agent verification, not external human peer review or
+formal proof certification. \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-2026-09-11/verification/reviews/MI-07-review.md}{Detailed review and scope}.
+\par\medskip
+% BEGIN REVIEWED PROOF
+\section{MI-07: no finite two-unitary constant for the maximal symmetric modulus}
+\label{sec:mi07}
+
+For a square matrix $Z$, define its maximal symmetric modulus by
+\[
+ \maxmod(Z)=\lim_{r\to\infty}\bigl(|Z|^r+|Z^*|^r\bigr)^{1/r},
+\]
+where $r$ runs through positive integers. This is the spectral-order join $|Z|\vee|Z^*|$. The target is the constant-one assertion of \cite[Conjecture 3.12]{BL2026}.
+
+\begin{theorem}\label{thm:mi07}
+There is no finite nonnegative constant $C$, even in dimension two, such that every $A,B\in\M_2(\C)$ admits unitaries $U,V$ with
+\begin{equation}\label{eq:mi07-target}
+ \maxmod(A+B)\leq C\bigl(U\maxmod(A)U^*+V\maxmod(B)V^*\bigr).
+\end{equation}
+In particular, the proposed constant $C=1$ is false.
+\end{theorem}
+
+\begin{proof}
+Let $t>0$ and take
+\[
+ A=e_1e_1^*=\begin{pmatrix}1&0\\0&0\end{pmatrix},\qquad
+ B=te_1e_2^*=\begin{pmatrix}0&t\\0&0\end{pmatrix}.
+\]
+Since $A$ is a projection,
+\[
+ (|A|^r+|A^*|^r)^{1/r}=2^{1/r}A,
+ \qquad\maxmod(A)=A.
+\]
+For $B$, the right and left moduli are $te_2e_2^*$ and $te_1e_1^*$, so
+\[
+ \maxmod(B)=tI_2.
+\]
+
+Put $s=\sqrt{1+t^2}$ and $v=(e_1+te_2)/s$. The rank-one matrix $A+B=e_1(e_1+te_2)^*$ has moduli
+\[
+ |A+B|=svv^*,\qquad |(A+B)^*|=se_1e_1^*.
+\]
+The matrix $R=vv^*+e_1e_1^*$ is positive definite because $v$ and $e_1$ are linearly independent. Consequently
+\[
+ \bigl(|A+B|^r+|(A+B)^*|^r\bigr)^{1/r}
+ =sR^{1/r}\longrightarrow sI_2,
+\]
+and therefore $\maxmod(A+B)=sI_2$.
+
+For arbitrary $U,V$, the matrix
+\[
+ U\maxmod(A)U^*+V\maxmod(B)V^*
+ =Ue_1e_1^*U^*+tI_2
+\]
+has eigenvalues $1+t$ and $t$. Taking a unit vector orthogonal to $Ue_1$ in \eqref{eq:mi07-target} forces
+\[
+ s\leq Ct,\qquad C\geq\frac{\sqrt{1+t^2}}{t}.
+\]
+This lower bound is unbounded as $t\downarrow0$. For $C=1$, it is already impossible for every $t>0$.
+\end{proof}
+
+\begin{remark}
+One may choose $t=1/2$ for a fixed explicit counterexample: $\maxmod(A+B)=(\sqrt5/2)I_2$, whereas every two-orbit sum on the right before multiplication by $C$ has eigenvalues $3/2$ and $1/2$. The proof also answers negatively the dimension-dependent finite-constant question preceding the conjecture \cite[Question 3.11]{BL2026}. The calculation uses the spectral-order join, not the usual pointwise maximum of entries or a different symmetric modulus.
+\end{remark}
+
+% END REVIEWED PROOF
+\begin{thebibliography}{1}
+
+\bibitem{BL2026}
+Jean-Christophe Bourin and Eun-Young Lee.
+\newblock Averages over matrix unitary orbits and spectral order.
+\newblock arXiv:2606.15624, 2026.
+\newblock Version consulted: v2; Question 3.11, Conjecture 3.12, and Questions
+  4.8--4.9.
+\newblock URL: \url{https://arxiv.org/abs/2606.15624}.
+
+\end{thebibliography}
+
+\end{document}

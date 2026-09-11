@@ -1,0 +1,130 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=24mm]{geometry}
+\usepackage{microtype}
+\usepackage{booktabs,array,longtable}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue,pdfauthor={Matthew J. Colbrook}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Resolution / MI-19}
+\fancyhead[R]{\small 11 September 2026}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\M}{\mathbb M}
+\newcommand{\C}{\mathbb C}
+\newcommand{\R}{\mathbb R}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\spec}{\operatorname{spec}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\opnorm}[1]{\lVert #1\rVert_{\infty}}
+\newcommand{\schatten}[2]{\lVert #1\rVert_{#2}}
+\newcommand{\symmod}{\mathcal S}
+\newcommand{\maxmod}{\mathcal M}
+\newcommand{\draftnotice}{\begin{center}\small\textit{Proposed mathematical resolution. Complete proof supplied; not submitted or peer reviewed.}\end{center}}
+
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\allowdisplaybreaks[1]
+
+\title{MI-19: Resolution}
+\author{Matthew J. Colbrook\\
+\small Department of Applied Mathematics and Theoretical Physics\\
+\small University of Cambridge, Cambridge, United Kingdom\\
+\small\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+\textbf{Repository status: Solved.}
+The complete argument received an independent Codex-agent PASS review
+against the exact catalog target.
+The original draft was AI-assisted; the reviewed proof below is unchanged.
+This is independent agent verification, not external human peer review or
+formal proof certification. \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-2026-09-11/verification/reviews/MI-19-review.md}{Detailed review and scope}.
+\par\medskip
+% BEGIN REVIEWED PROOF
+\section{MI-19: a rank-two counterexample to the subset inequality for the \texorpdfstring{$q$}{q}-permanent}
+\label{sec:mi19}
+For $A=(a_{ij})\in\M_n$ and $q\in\R$, use the inversion convention
+\[
+ \operatorname{per}_q(A)=\sum_{\sigma\in S_n}q^{\ell(\sigma)}\prod_{i=1}^n a_{i,\sigma(i)},\qquad
+ \ell(\sigma)=\#\{(i,j):i<j,\ \sigma(i)>\sigma(j)\}.
+\]
+For a subset $S\subseteq\{1,\ldots,n\}$, define the restricted sum
+\[
+ R_{q,S}(A)=\sum_{\substack{\sigma\in S_n\\\sigma(S)=S}}
+ q^{\ell(\sigma)}\prod_{i=1}^n a_{i,\sigma(i)}.
+\]
+The target is $\operatorname{per}_q(A)\geq R_{q,S}(A)$ for Hermitian positive semidefinite $A$ and $0\leq q\leq1$. This is the subset formulation recorded in \cite[Conjecture 3, equation (5.1)]{Fonseca2018}.
+
+\begin{theorem}
+The subset inequality is false for a real positive semidefinite matrix of order four and rank two. A counterexample is
+\[
+ A=\begin{pmatrix}
+ 170&1&167&170\\
+ 1&1&-2&1\\
+ 167&-2&173&167\\
+ 170&1&167&170
+ \end{pmatrix},\qquad q=\frac78,\qquad S=\{2\}.
+\]
+\end{theorem}
+\begin{proof}
+Positive semidefiniteness and rank two follow from
+\[
+ A=X^TX,\qquad X=\begin{pmatrix}13&0&13&13\\1&1&-2&1\end{pmatrix}.
+\]
+Expansion over the $24$ permutations gives
+\begin{align*}
+ \operatorname{per}_q(A)
+ &=115600q^6+4886140q^5+9568969q^4+4712758q^3\\
+ &\hspace{1.5em}-199231q^2+4886140q+4999700.
+\end{align*}
+The six permutations fixing the second index give
+\[
+ R_{q,\{2\}}(A)=4999700q^5+9482260q^4+4741130q^3+4741130q+4999700.
+\]
+Consequently the difference is the small polynomial
+\begin{align*}
+ \operatorname{per}_q(A)-R_{q,\{2\}}(A)
+ &=q(q+1)\bigl(115600q^4-229160q^3+315869q^2\\
+ &\hspace{8em}-344241q+145010\bigr).
+\end{align*}
+At $q=7/8$ this equals
+\[
+ -\frac{3235575}{16384}<0.
+\]
+All calculations are integer polynomial arithmetic. The accompanying verifier independently enumerates the permutations with the stated inversion convention.
+\end{proof}
+
+\begin{remark}[Positive definite variants and scope]
+The strict negative gap persists for $A+\varepsilon I_4$ for every sufficiently small positive $\varepsilon$, by continuity of the two polynomial expressions. Thus the obstruction is not dependent on allowing a singular input. No counterexample to the separate monotonicity problem MI-18 is asserted.
+\end{remark}
+
+% END REVIEWED PROOF
+\begin{thebibliography}{1}
+
+\bibitem{Fonseca2018}
+Carlos~M. da~Fonseca.
+\newblock The $\mu$-permanent revisited.
+\newblock arXiv:1804.02231, 2018.
+\newblock Conjecture 3, equation (5.1).
+\newblock URL: \url{https://arxiv.org/abs/1804.02231}.
+
+\end{thebibliography}
+
+\end{document}
