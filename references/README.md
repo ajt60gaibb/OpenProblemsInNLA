@@ -26,3 +26,5 @@ screen. Use [CATALOG.md](../CATALOG.md) for current counts and statuses.
 | [September 10 source screen](EXPANSION-TO-200-2026-09.md) | Forty-two admissions, source-fidelity checks and recent resolution claims. |
 
 - [Additional submissions by Matthew J. Colbrook, 11 September 2026](colbrook-additional-2026-09-11/README.md): independent reviews of three further complete resolutions (IS-03, SP-06, IE-08) and the partial IS-05 exponent bound, with authored manuscripts and reproducible diagnostics.
+
+- [Thirteen matrix-inequality submissions by Matthew J. Colbrook, 11 September 2026](colbrook-matrix-2026-09-11/README.md): ten complete resolutions and three partial results, each with an independent proof review.

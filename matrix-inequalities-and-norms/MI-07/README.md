@@ -2,10 +2,20 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Open  
-**Last checked:** 2026-09-10
+**Status:** Solved  
+**Last checked:** 2026-09-11
 
 **Rating rationale:** Combining spectral-order suprema with ordinary matrix-order domination requires new analysis; the immediate audience is operator-inequality specialists.
+
+## Resolution — 2026-09-11
+
+**Negative result by Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent proof review: PASS.**
+
+No finite two-unitary domination constant exists for the maximal symmetric modulus, already in dimension two. The rank-one family gives the necessary bound $C\ge\sqrt{1+t^2}/t$ for every $t>0$.
+
+The exact target is resolved. The original statement and source evidence are retained below; its former difficulty rating is historical.
+
+**Primary manuscript:** [complete proof PDF](solution.pdf), [standalone TeX](solution.tex), Theorem 1.1 and its proof; [authorship and scope](solution.md). The [independent review](../../references/colbrook-matrix-2026-09-11/verification/reviews/MI-07-review.md) checks the full original argument and records its hash. The draft was AI-assisted; this is independent agent verification, not external human peer review or formal certification. [Submission record](../../references/colbrook-matrix-2026-09-11/README.md).
 
 ## Problem statement
 

@@ -6,10 +6,20 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-10
+**Status:** Solved  
+**Last checked:** 2026-09-11
 
 **Rating rationale:** Removing monotonicity from a unitary-orbit comparison is challenging; spectral bounds for broad classes of matrix functions have community importance.
+
+## Resolution — 2026-09-11
+
+**Negative result by Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent proof review: PASS.**
+
+The real-valued concave function $f(x)=x-x^2$ and two rational projections refute the two-unitary inequality; an explicit positive definite variant also works. The allowed condition is $f(0)\ge0$, without global nonnegativity or monotonicity. This does not refute the narrower nonnegative-valued function class.
+
+The exact target is resolved. The original statement and source evidence are retained below; its former difficulty rating is historical.
+
+**Primary manuscript:** [complete proof PDF](solution.pdf), [standalone TeX](solution.tex), Theorem 1.1 and its proof; [authorship and scope](solution.md). The [independent review](../../references/colbrook-matrix-2026-09-11/verification/reviews/MI-26-review.md) checks the full original argument and records its hash. The draft was AI-assisted; this is independent agent verification, not external human peer review or formal certification. [Submission record](../../references/colbrook-matrix-2026-09-11/README.md).
 
 ## Problem statement
 

@@ -1,0 +1,152 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=24mm]{geometry}
+\usepackage{microtype}
+\usepackage{booktabs,array,longtable}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue,pdfauthor={Matthew J. Colbrook}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Partial result / MI-25}
+\fancyhead[R]{\small 11 September 2026}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\M}{\mathbb M}
+\newcommand{\C}{\mathbb C}
+\newcommand{\R}{\mathbb R}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\spec}{\operatorname{spec}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\opnorm}[1]{\lVert #1\rVert_{\infty}}
+\newcommand{\schatten}[2]{\lVert #1\rVert_{#2}}
+\newcommand{\symmod}{\mathcal S}
+\newcommand{\maxmod}{\mathcal M}
+\newcommand{\draftnotice}{\begin{center}\small\textit{Proposed mathematical resolution. Complete proof supplied; not submitted or peer reviewed.}\end{center}}
+
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\allowdisplaybreaks[1]
+
+\title{MI-25: Partial Result}
+\author{Matthew J. Colbrook\\
+\small Department of Applied Mathematics and Theoretical Physics\\
+\small University of Cambridge, Cambridge, United Kingdom\\
+\small\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+\textbf{Repository status: Partially resolved.}
+The complete argument received an independent Codex-agent PASS review
+for the stated partial result only.
+The original draft was AI-assisted; the reviewed proof below is unchanged.
+This is independent agent verification, not external human peer review or
+formal proof certification. \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-2026-09-11/verification/reviews/MI-25-review.md}{Detailed review and scope}.
+\par\medskip
+% BEGIN REVIEWED PROOF
+\section{MI-25, endpoint only: the trace-norm Hlawka constant is infinite}
+\label{sec:mi25}
+
+For a norm $\|\cdot\|$, define the three-summand defect and the sum of pairwise defects by
+\begin{align*}
+ N(X_1,X_2,X_3)&=\sum_{j=1}^3\|X_j\|-\|X_1+X_2+X_3\|,\\
+ D(X_1,X_2,X_3)&=\sum_{1\leq i<j\leq3}
+ \bigl(\|X_i\|+\|X_j\|-\|X_i+X_j\|\bigr).
+\end{align*}
+The full repository problem asks for the optimal dimension-independent constants $C_p$ in $N\leq C_pD$ for Schatten norms. The result below resolves \emph{only the endpoint $p=1$}, which was left open in \cite[Problem 7]{AK2012}. It does not determine $C_p$ for $1<p<\infty$.
+
+\begin{theorem}\label{thm:mi25}
+No finite constant $C_1$ controls the three-summand trace-norm defect by the sum of pairwise trace-norm defects. This failure already occurs for real $2\times3$ rank-one matrices, or for real square $3\times3$ matrices after zero padding.
+\end{theorem}
+
+\begin{proof}
+Let
+\[
+ u_1=\begin{pmatrix}1\\0\end{pmatrix},\qquad
+ u_2=\begin{pmatrix}-1/2\\\sqrt3/2\end{pmatrix},\qquad
+ u_3=\begin{pmatrix}-1/2\\-\sqrt3/2\end{pmatrix}.
+\]
+These unit vectors satisfy
+\[
+ \sum_ju_j=0,\qquad \sum_ju_ju_j^T=\frac32I_2,\qquad
+ u_i^Tu_j=-\frac12\quad(i\ne j).
+\]
+For $0<t<1$, put
+\[
+ v_j=\begin{pmatrix}\sqrt{1-t}\,u_j\\\sqrt t\end{pmatrix}\in\R^3,
+ \qquad X_j=u_jv_j^T\in\M_{2,3}(\R).
+\]
+Each $X_j$ has its only nonzero singular value equal to one. Furthermore,
+\[
+ \sum_jX_j=\begin{pmatrix}\frac32\sqrt{1-t}\,I_2&0\end{pmatrix},
+ \qquad\left\|\sum_jX_j\right\|_1=3\sqrt{1-t}.
+\]
+For $i\ne j$, write $U=(u_i\ u_j)$ and $V=(v_i\ v_j)$. The two Gram matrices are
+\[
+ U^TU=\begin{pmatrix}1&-1/2\\-1/2&1\end{pmatrix},\qquad
+ V^TV=\begin{pmatrix}1&(3t-1)/2\\(3t-1)/2&1\end{pmatrix}.
+\]
+They commute and are simultaneously diagonalized by $(1,1)^T$ and $(1,-1)^T$. The squared singular values of $UV^T=X_i+X_j$ are therefore
+\[
+ \frac{1+3t}{4},\qquad\frac{9(1-t)}4.
+\]
+It follows that every pair sum has trace norm
+\[
+ q(t)=\frac12\sqrt{1+3t}+\frac32\sqrt{1-t}.
+\]
+Consequently,
+\[
+ \frac{N(X_1,X_2,X_3)}{D(X_1,X_2,X_3)}
+ =\frac{1-\sqrt{1-t}}{2-q(t)}.
+\]
+The denominator is positive for $t>0$: strict concavity of the square root gives
+$\frac14\sqrt{1+3t}+\frac34\sqrt{1-t}<1$.
+Expansion at zero gives
+\[
+ 1-\sqrt{1-t}=\frac t2+O(t^2),\qquad
+ 2-q(t)=\frac34t^2+O(t^3).
+\]
+Thus the defect ratio is asymptotic to $2/(3t)$ and tends to $+\infty$.
+
+Alternatively, the divergence can be checked without Taylor expansions. If
+$g(t)=\sqrt{(1-t)(1+3t)}$, rationalization gives
+\[
+ 2-q(t)=\frac{6t^2}{(1+t+g(t))(2+q(t))}
+\]
+and hence
+\[
+ \frac{1-\sqrt{1-t}}{2-q(t)}
+ =\frac{(1+t+g(t))(2+q(t))}{6t(1+\sqrt{1-t})}
+ \sim\frac{2}{3t}.
+\]
+Appending a zero row leaves every singular value and every defect unchanged, giving the square-matrix assertion.
+\end{proof}
+
+% END REVIEWED PROOF
+\begin{thebibliography}{1}
+
+\bibitem{AK2012}
+Koenraad M.~R. Audenaert and Fuad Kittaneh.
+\newblock Problems and conjectures in matrix and operator inequalities.
+\newblock arXiv:1201.5232, 2012.
+\newblock Version consulted: v3; Problem 5, printed page 3, and Problem 7,
+  printed pages 12--13.
+\newblock URL: \url{https://arxiv.org/abs/1201.5232}.
+
+\end{thebibliography}
+
+\end{document}

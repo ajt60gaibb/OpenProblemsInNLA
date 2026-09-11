@@ -21,6 +21,9 @@ TEMPLATE = ROOT / "tools/solution-template.tex"
 def render(source):
     identifier = source.parent.name
     markdown = source.read_text(encoding="utf-8")
+    if re.search(r'^proof-source:', markdown, re.M):
+        from render_latex_solutions import render as render_latex
+        return render_latex(source)
 
     def absolute_link(match):
         target = match[1]

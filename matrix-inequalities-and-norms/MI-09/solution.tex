@@ -1,0 +1,245 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=24mm]{geometry}
+\usepackage{microtype}
+\usepackage{booktabs,array,longtable}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue,pdfauthor={Matthew J. Colbrook}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Partial result / MI-09}
+\fancyhead[R]{\small 11 September 2026}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\M}{\mathbb M}
+\newcommand{\C}{\mathbb C}
+\newcommand{\R}{\mathbb R}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\spec}{\operatorname{spec}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\opnorm}[1]{\lVert #1\rVert_{\infty}}
+\newcommand{\schatten}[2]{\lVert #1\rVert_{#2}}
+\newcommand{\symmod}{\mathcal S}
+\newcommand{\maxmod}{\mathcal M}
+\newcommand{\draftnotice}{\begin{center}\small\textit{Proposed mathematical resolution. Complete proof supplied; not submitted or peer reviewed.}\end{center}}
+
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\allowdisplaybreaks[1]
+
+\makeatletter
+\renewcommand{\@maketitle}{\newpage\null\begin{center}
+{\Large\@title\par}\vskip .8em
+{\normalsize\begin{tabular}[t]{c}\@author\end{tabular}\par}\vskip .5em
+{\small\@date}\end{center}\par\vskip .5em}
+\makeatother
+
+\title{MI-09: Partial Result}
+\author{Matthew J. Colbrook\\
+\small Department of Applied Mathematics and Theoretical Physics\\
+\small University of Cambridge, Cambridge, United Kingdom\\
+\small\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+\textbf{Repository status: Partially resolved.}
+The complete argument received an independent Codex-agent PASS review
+for the stated partial result only.
+The original draft was AI-assisted; the reviewed proof below is unchanged.
+This is independent agent verification, not external human peer review or
+formal proof certification. \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-2026-09-11/verification/reviews/MI-09-review.md}{Detailed review and scope}.
+\par\medskip
+% BEGIN REVIEWED PROOF
+\section{MI-09, dimension-two subproblem: an exact sharp universal norm constant}
+\label{sec:mi09}
+Write $\symmod(T)=(|T|+|T^*|)/2$. We determine the sharp constant uniform over all unitarily invariant norms in dimension two. This resolves the dimension-two question in \cite[Problem 1.11]{Zhang2026}, including its operator-norm case, but does not determine the separate optimal constants for every Schatten exponent and every matrix dimension in the broader MI-09 program.
+
+\begin{theorem}\label{thm:mi09}
+For every $m\geq2$, every $T_1,\ldots,T_m\in\M_2(\C)$, and every unitarily invariant norm $\|\!\|\!|\cdot|\!\|\!\|$,
+\[
+ \|\!\|\!|\symmod(\textstyle\sum_jT_j)|\!\|\!\|
+ \leq \sqrt{6\sqrt3-9}\,
+ \|\!\|\!|\textstyle\sum_j\symmod(T_j)|\!\|\!\|.
+\]
+The constant $\sqrt{6\sqrt3-9}=1.1799596795\ldots$ is optimal when the inequality is required for all such norms. It is already attained in the operator norm by two real rank-one matrices. In fact, the sharp numerical-radius inequality is
+\begin{equation}\label{eq:mi09-radius}
+ \opnorm{\symmod(T)}\leq\sqrt{6\sqrt3-9}\,w(T),\qquad T\in\M_2(\C),
+\end{equation}
+where $w(T)=\max_{\|v\|=1}|v^*Tv|$.
+\end{theorem}
+
+\subsection{Reduction to a numerical-radius inequality}
+For every matrix $Z$ and unit vector $v$, the polar decomposition and Cauchy--Schwarz give
+\[
+ |v^*Zv|\leq\sqrt{(v^*|Z|v)(v^*|Z^*|v)}\leq v^*\symmod(Z)v.
+\]
+Consequently, with $T=\sum_jT_j$ and $D=\sum_j\symmod(T_j)$,
+\[
+ w(T)\leq\opnorm{D}.
+\]
+Thus \eqref{eq:mi09-radius} implies the claimed operator-norm inequality. Also
+\[
+ \tr\symmod(T)=\|T\|_1\leq\sum_j\|T_j\|_1=\tr D.
+\]
+The largest-eigenvalue inequality and this trace inequality imply weak majorization of the two eigenvalues of $\symmod(T)$ by those of $\sqrt{6\sqrt3-9}\,D$. Hence the inequality holds for every unitarily invariant norm.
+
+\subsection{A normal form adapted to the symmetric modulus}
+For a nonzero $2\times2$ matrix, set $q=\|T\|_1/2$. The elementary two-dimensional square-root identity yields
+\begin{equation}\label{eq:mi09-mod-formula}
+ \symmod(T)=\frac{T^*T+TT^*+2|\det T|I}{2\|T\|_1}.
+\end{equation}
+Indeed, for a positive $2\times2$ matrix $P$, its positive square root equals
+$(P+\sqrt{\det P}\,I)/\sqrt{\tr P+2\sqrt{\det P}}$; the formula extends to singular matrices by continuity.
+
+Multiplication by a scalar of modulus one preserves both sides of \eqref{eq:mi09-radius}, as does unitary similarity. Make $\tr T=2h$ real and positive, and diagonalize $\symmod(T)$ in decreasing order. The off-diagonal entry in the numerator of \eqref{eq:mi09-mod-formula} is $2h(t_{12}+\overline{t_{21}})$, so $t_{21}=-\overline{t_{12}}$. A diagonal unitary similarity now gives
+\begin{equation}\label{eq:mi09-normal}
+ T=\begin{pmatrix}h+x+ik&b\\-b&h-x-ik\end{pmatrix},
+ \qquad h,x,b\geq0,\quad k\in\R.
+\end{equation}
+The ordering of the symmetric-modulus eigenvalues gives $x\geq0$. Cases with zero trace or a repeated symmetric-modulus eigenvalue follow by continuity from these generic cases.
+
+Let $u=h^2+x^2+k^2+b^2$. Direct calculation gives
+\[
+ q^2=\frac{u+|\det T|}{2},\qquad
+ \symmod(T)=\diag\left(q+\frac{hx}{q},q-\frac{hx}{q}\right).
+\]
+Moreover,
+\[
+ (q^2-x^2)(q^2-h^2-b^2)=q^2k^2.
+\]
+We have $h\leq q$ by $|\tr T|\leq\|T\|_1$, and $x\leq q$ follows from the displayed formula for $q^2$ (or by evaluating its quadratic equation at $x^2$). By homogeneity take $q=1$. By continuity we may assume $0<h,x<1$. Then
+\begin{equation}\label{eq:mi09-b}
+ b^2=1-h^2-\frac{k^2}{1-x^2},\qquad
+ \opnorm{\symmod(T)}=1+hx.
+\end{equation}
+For the normal form \eqref{eq:mi09-normal}, the numerical range is the filled ellipse
+\[
+ \{h+xs+i(ks+bt):s^2+t^2\leq1\}.
+\]
+This follows directly by writing the expectation of the real and imaginary Hermitian parts on a unit vector in $\C^2$.
+
+\subsection{A sharp lower bound for the numerical radius}
+Put
+\[
+ H=h^2,\quad X=x^2,\quad P=1-X,\quad Q=1-H,\quad
+ g=1-H-X,\quad z=k^2.
+\]
+First suppose $g\geq hx$. We claim
+\begin{equation}\label{eq:mi09-wlower}
+ w(T)^2\geq\frac{(1-H)(1-X)}{1-H-X}
+ =1+\frac{HX}{g}.
+\end{equation}
+The generic case has $g>0$. To prove the claim, set
+\[
+ M=\begin{pmatrix}X+z&kb\\kb&b^2\end{pmatrix},\qquad a=\begin{pmatrix}hx\\0\end{pmatrix}.
+\]
+The ellipse formula gives the elementary quadratic maximization identity
+\begin{equation}\label{eq:mi09-trust}
+ w(T)^2=H+\inf_{\lambda>\lambda_{\max}(M)}
+ \left\{\lambda+a^T(\lambda I-M)^{-1}a\right\}.
+\end{equation}
+Here the infimum may be attained only as a boundary limit. For completeness, completion of the square gives the upper bound in \eqref{eq:mi09-trust} for every $\lambda>\lambda_{\max}(M)$. Equality holds when $v=(\lambda I-M)^{-1}a$ has norm one. Its norm decreases continuously to zero as $\lambda\to\infty$. If it does not reach one before the lower endpoint, its endpoint value has norm at most one and is orthogonal to a top eigenvector; adding a suitable multiple of that eigenvector gives a unit vector achieving equality in the endpoint limit. This proves \eqref{eq:mi09-trust}, including that boundary case.
+
+Equation \eqref{eq:mi09-b} gives
+\[
+ \det(QI-M)=-\frac{HXz}{P}\leq0.
+\]
+Since $Q>X$ here, it follows that $\lambda_{\max}(M)\geq Q$. Write $\lambda=Q+d$ with $d>0$, and put
+\[
+ \Delta=\det(\lambda I-M)=d(g+d)+\frac{zX(d-H)}P>0.
+\]
+The expression inside the infimum, including $H$, becomes
+\[
+ f=1+d+\frac{HX(d+z/P)}{\Delta}.
+\]
+The following exact polynomial identity is the key estimate:
+\begin{align*}
+ g\Delta\left(f-1-\frac{HX}{g}\right)
+ ={}&d^2(g^2-HX+gd)\\
+ &+\frac{zX}{P}\bigl(gd^2-HQd+HQP\bigr).
+\end{align*}
+The first term is nonnegative because $g\geq hx$. Also
+$HQ\leq gP$, since $gP-HQ=g^2-HX\geq0$.
+If $0\leq d\leq P$, then
+$gd^2-HQd+HQP=gd^2+HQ(P-d)\geq0$.
+If $d\geq P$, then
+$gd^2-HQd+HQP=d(gd-HQ)+HQP\geq0$.
+Thus $f\geq1+HX/g$ for every admissible $\lambda$. Taking the infimum proves \eqref{eq:mi09-wlower}.
+
+Let $p=hx$. The condition $g\geq p$ implies $0\leq p\leq1/3$. Since $H+X\geq2p$, equation \eqref{eq:mi09-wlower} yields
+\[
+ \frac{\opnorm{\symmod(T)}^2}{w(T)^2}
+ \leq \frac{(1+p)^2g}{g+p^2}
+ \leq\frac{(1+p)^2(1-2p)}{(1-p)^2}.
+\]
+The last rational function on $[0,1/3]$ has its maximum at $p=2-\sqrt3$, where its value is $6\sqrt3-9$. This follows by differentiating: the only critical point in that interval solves $p^2-4p+1=0$.
+
+It remains to consider $g\leq hx$. Now $w(T)\geq h+x$, using the real part of $T$. If $p=hx\leq1/3$, then
+\[
+ (h+x)^2=H+X+2p\geq1+p,
+ \qquad\frac{(1+p)^2}{(h+x)^2}\leq1+p\leq\frac43.
+\]
+If $p\geq1/3$, then
+\[
+ \frac{(1+p)^2}{(h+x)^2}\leq\frac{(1+p)^2}{4p}\leq\frac43
+ \qquad(1/3\leq p\leq1).
+\]
+Since $4/3<6\sqrt3-9$, this proves \eqref{eq:mi09-radius} in all cases.
+
+\subsection{Two explicit rank-one summands attaining the bound}
+Let
+\[
+ p=2-\sqrt3,\qquad h=\sqrt p,\qquad b=\sqrt{1-p},\qquad
+ w=\frac{1-p}{\sqrt{1-2p}},\qquad z=\frac{h\sqrt{1-p}}{\sqrt{1-2p}}.
+\]
+Define the real matrices
+\[
+ T_1=\frac12\begin{pmatrix}w+2h&b+z\\-b-z&-w\end{pmatrix},\qquad
+ T_2=\frac12\begin{pmatrix}2h-w&b-z\\-b+z&w\end{pmatrix}.
+\]
+The identities $b^2+z^2=w^2$ and $bz=wh$ show that both determinants vanish. Directly, their nonzero singular values are $w+h$ and $w-h$, respectively. Applying \eqref{eq:mi09-mod-formula} gives
+\[
+ \symmod(T_1)=\frac{w+h}{2}I+\frac h2\diag(1,-1),\qquad
+ \symmod(T_2)=\frac{w-h}{2}I-\frac h2\diag(1,-1).
+\]
+Their sum is $wI$, whereas
+\[
+ T_1+T_2=\begin{pmatrix}2h&b\\-b&0\end{pmatrix},\qquad
+ \symmod(T_1+T_2)=\diag(1+p,1-p).
+\]
+Therefore
+\[
+ \frac{\opnorm{\symmod(T_1+T_2)}}{\opnorm{\symmod(T_1)+\symmod(T_2)}}
+ =\frac{1+p}{w}=\sqrt{6\sqrt3-9}.
+\]
+Padding with zero summands handles every $m\geq2$. This proves sharpness and completes the proof of Theorem~\ref{thm:mi09}.\hfill$\square$
+
+% END REVIEWED PROOF
+\begin{thebibliography}{1}
+
+\bibitem{Zhang2026}
+Teng Zhang.
+\newblock Operator symmetric moduli and sharp triangle inequalities.
+\newblock arXiv:2603.01046, 2026.
+\newblock Version consulted: v1; Conjecture 1.6, equation (1.4), Problems 1.11
+  and 1.17.
+\newblock URL: \url{https://arxiv.org/abs/2603.01046}.
+
+\end{thebibliography}
+
+\end{document}

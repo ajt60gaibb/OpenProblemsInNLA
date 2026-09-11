@@ -4,11 +4,11 @@ A collection of precise open problems drawn from books and research
 publications, with references and dated checks for subsequent solutions.
 
 <!-- catalog-summary -->
-**192 problems with open targets:** 106 open and 86 partially resolved. **10 other retained entries**, excluded from the open count.
+**182 problems with open targets:** 100 open and 82 partially resolved. **20 other retained entries**, excluded from the open count.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
-**[Browse all 192 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
+**[Browse all 182 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
 <!-- /catalog-summary -->
 
 ## Browse by category
@@ -21,7 +21,7 @@ Each entry records its own literature-check date. Literature checks are bounded;
 | [Randomized and low-rank approximation](randomized-and-low-rank-approximation/README.md) | 27 |
 | [Tensor computations](tensor-computations/README.md) | 26 |
 | [Nonnegative and positive factorizations](nonnegative-and-positive-factorizations/README.md) | 12 |
-| [Matrix inequalities and norms](matrix-inequalities-and-norms/README.md) | 28 |
+| [Matrix inequalities and norms](matrix-inequalities-and-norms/README.md) | 18 |
 | [Frames and matrix designs](frames-and-matrix-designs/README.md) | 11 |
 | [Matrix discrepancy and optimization](matrix-discrepancy-and-optimization/README.md) | 6 |
 | [Arithmetic and complexity](arithmetic-and-complexity/README.md) | 14 |

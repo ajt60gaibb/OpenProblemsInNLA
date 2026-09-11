@@ -70,6 +70,66 @@ historical and the entry no longer contributes to the open count.
 
 **Related partial result — IS-05 (still counted as open).** [Theorems 1–2](eigenvalues-and-inverse-problems/IS-05/solution.md), independently checked in a [separate PASS report](references/colbrook-additional-2026-09-11/verification/reviews/IS-05-review.md), prove the upper bound $\alpha_*\le1/2$ and an additional parity obstruction. The updated interval is $17/92\le\alpha_*\le1/2$; its exact value remains unresolved. [IS-05](eigenvalues-and-inverse-problems/IS-05/README.md) is **Partially resolved**, not Solved.
 
+### ✅ Ten matrix-inequality resolutions by Matthew J. Colbrook — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Three independent Codex agents reviewed thirteen complete arguments, with one PASS report per argument. Ten resolve their exact targets and three establish the partial results below. [Authorship, exact scopes, original proofs and reviews](references/colbrook-matrix-2026-09-11/README.md). Verification is independent agent review; the original drafts were AI-assisted.
+
+#### MI-03 — affirmative result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-03/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-03/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-03-review.md). **Theorem 1.1 and its proof.** The sharp additive contraction constant is $c_k=k/4$ for every $k\ge2$, including every odd summand count. Exact dimension-two extremizers match the universal upper bound. 
+
+#### MI-04 — affirmative result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-04/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-04/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-04-review.md). **Theorem 1.1 and its proof.** The universal positive-block operator-norm property holds exactly when the off-diagonal block is essentially Hermitian. The proof applies in every finite dimension without invertibility or distinct-singular-value assumptions. 
+
+#### MI-06 — negative result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-06/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-06/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-06-review.md). **Theorem 1.1 and its proof.** No finite constant permits the proposed two-unitary Loewner-order domination for the arithmetic symmetric modulus, already in dimension three. A fixed rational example also refutes the proposed $\sqrt2$ constant. This concerns matrix order, not a separate norm triangle inequality. 
+
+#### MI-07 — negative result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-07/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-07/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-07-review.md). **Theorem 1.1 and its proof.** No finite two-unitary domination constant exists for the maximal symmetric modulus, already in dimension two. The rank-one family gives the necessary bound $C\ge\sqrt{1+t^2}/t$ for every $t>0$. 
+
+#### MI-19 — negative result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-19/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-19/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-19-review.md). **Theorem 1.1 and its proof.** A real order-four PSD Gram matrix, $q=7/8$ and the interior singleton $S=\{2\}$ give full minus restricted $q$-permanent equal to $-3235575/16384$. Inversions are counted in the full original ordering. The strict counterexample also persists under sufficiently small positive diagonal perturbations. 
+
+#### MI-21 — negative result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-21/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-21/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-21-review.md). **Theorem 1.1 and its proof.** Two rational positive definite $2\times2$ summands with $s=t=1/2$, $r=2$ and aggregate matrices $A=B=I$ violate the operator-norm inequality for every $p>0$. The left side has eigenvalue $1351000/1350907>1$, while the right side is one. 
+
+#### MI-22 — negative result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-22/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-22/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-22-review.md). **Theorem 1.1 and its proof.** Rational positive definite $3\times3$ matrices at $t=1/8$ violate the first singular-value inequality: the left operator norm exceeds 10900, while $\|AB\|_2<10200$. Exact rational root residuals and a proved operator-root error bound certify the actual principal powers. 
+
+#### MI-23 — negative result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-23/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-23/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-23-review.md). **Theorem 1.1 and its proof.** Rational positive definite $3\times3$ matrices with $r=s=1$, $p=2$ and $t=1/8$ violate the corrected eigenvalue log-majorization conjecture. An exact integer-power construction and rational norm separation establish failure of the first ordered eigenvalue inequality. 
+
+#### MI-26 — negative result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-26/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-26/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-26-review.md). **Theorem 1.1 and its proof.** The real-valued concave function $f(x)=x-x^2$ and two rational projections refute the two-unitary inequality; an explicit positive definite variant also works. The allowed condition is $f(0)\ge0$, without global nonnegativity or monotonicity. This does not refute the narrower nonnegative-valued function class. 
+
+#### MI-29 — negative result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-29/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-29/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-29-review.md). **Theorem 1.1 and its proof.** A rational positive definite $A$ and invertible indefinite Hermitian $B$ in dimension three, with $k=6$ and $p=8$, reverse the proposed determinant comparison. The exact right-minus-left gap is $21036678407451/156250000000000>0$. The known $k=2$ theorem and the variant $B>0$ are not contradicted. 
+
+#### Related partial results: MI-08, MI-09 and MI-25
+
+These three entries remain in the open count.
+
+#### MI-08 — partial result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-08/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-08/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-08-review.md). **Theorem 1.1 and its proof.** The fixed and adaptive orthogonal pinching lengths both equal the least row count $h(d)$ of a sign matrix $H$ with $H^TH=h(d)I_d$. In particular, the exact length is 12 for $9\le d\le12$. The general value of $h(d)$ is undetermined; the all-dimension optimization remains open and includes Hadamard-order existence questions.
+
+#### MI-09 — partial result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-09/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-09/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-09-review.md). **Theorem 1.1 and its proof.** For every $m\ge2$, the exact dimension-two operator-norm constant is $c_\infty^{\rm sym}(m,2)=\sqrt{6\sqrt3-9}$. This is also the sharp single constant valid simultaneously for every unitarily invariant norm on $M_2$. This does not determine each individual finite Schatten constant. The cases $1<p<\infty$ remain open; the previously established trace endpoint and higher-dimensional operator endpoint are retained.
+
+#### MI-25 — partial result
+
+[Canonical entry](matrix-inequalities-and-norms/MI-25/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-25/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-25-review.md). **Theorem 1.1 and its proof.** The trace-norm endpoint has $C_1=\infty$: a real $2\times3$ rank-one family has defect ratio asymptotic to $2/(3t)$ as $t\downarrow0$. Zero-row padding gives the same failure on real $3\times3$ matrices. The remaining finite Schatten exponents $1<p<\infty$ are undetermined by this result; the known value $C_2=1$ is unchanged.
+
 ## Published resolutions of historical questions
 
 These questions were screened out before receiving current catalog folders;

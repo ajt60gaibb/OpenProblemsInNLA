@@ -1,0 +1,48 @@
+\section{MI-26: concavity alone does not give two-unitary subadditivity}
+\label{sec:mi26}
+
+The target asks whether, for every real-valued concave function $f$ on $[0,\infty)$ with $f(0)\geq0$ and every positive semidefinite $A,B$, there are unitaries $U,V$ such that
+\begin{equation}\label{eq:mi26-target}
+ f(A+B)\leq Uf(A)U^*+Vf(B)V^*.
+\end{equation}
+It is explicitly the removal of monotonicity that is at issue \cite[Problem 5]{AK2012}; see also \cite[Remark 3.13]{BL2011}.
+
+\begin{theorem}\label{thm:mi26}
+The assertion \eqref{eq:mi26-target} is false in dimension two. A counterexample is provided by the polynomial $f(t)=t-t^2$ and two real rank-one projections. It remains false when both inputs are required to be positive definite.
+\end{theorem}
+
+\begin{proof}
+The function $f(t)=t-t^2$ is concave on $[0,\infty)$ and satisfies $f(0)=0$. Let
+\[
+ P=\begin{pmatrix}1&0\\0&0\end{pmatrix},\qquad
+ Q=\frac1{25}\begin{pmatrix}9&12\\12&16\end{pmatrix}.
+\]
+Both matrices are orthogonal projections, so $f(P)=f(Q)=0$. However,
+\[
+ f(P+Q)=P+Q-(P+Q)^2=-(PQ+QP)
+ =\frac1{25}\begin{pmatrix}-18&-12\\-12&0\end{pmatrix}.
+\]
+Its eigenvalues are $6/25$ and $-24/25$; in particular $(1,-2)^T$ is an eigenvector for $6/25$. Thus $f(P+Q)\not\leq0$, whereas the right-hand side of \eqref{eq:mi26-target} is zero for every $U,V$.
+
+For positive definite inputs, take
+\[
+ A=P+\frac1{20}I_2,\qquad B=Q+\frac1{20}I_2.
+\]
+Each has eigenvalues $21/20$ and $1/20$, and consequently
+\[
+ \lambda_{\max}(f(A))=\lambda_{\max}(f(B))=\frac{19}{400}.
+\]
+The eigenvalues of $P+Q$ are $8/5$ and $2/5$. Thus $A+B$ has eigenvalues $17/10$ and $1/2$, giving
+\[
+ \lambda_{\max}(f(A+B))=\frac14.
+\]
+For every pair of unitaries,
+\[
+ Uf(A)U^*+Vf(B)V^*\leq\frac{19}{200}I_2.
+\]
+Since $1/4>19/200$, domination \eqref{eq:mi26-target} is again impossible.
+\end{proof}
+
+\begin{remark}[The function class matters]
+This counterexample uses a concave function that is real-valued, not nonnegative on the whole half-line. It does not contradict the theorem for nonnegative concave functions. In fact, a concave function that is nonnegative everywhere on $[0,\infty)$ must be nondecreasing: a negative secant slope, by concavity, would force the function eventually to become negative. The repository target and the cited open question allow real-valued concave functions, so $f(t)=t-t^2$ belongs to the stated class.
+\end{remark}
