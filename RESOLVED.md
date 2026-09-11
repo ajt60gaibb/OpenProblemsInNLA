@@ -15,6 +15,18 @@ catalog with **🟡 PARTIAL** and an explanation of what remains.
 
 ## Resolved catalog entries
 
+### ✅ Two randomly pivoted factorization resolutions by Matthew J. Colbrook — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. The complete shared manuscript passed separate independent agent audits for RA-02 and RA-03, with a separate exact-code review and fresh computations. AI assistance is disclosed. The original targets, IDs and historical ratings are retained. [Submission record](references/colbrook-random-pivoting-2026-09-11/README.md). No external human peer review, formal certification or priority determination is claimed.
+
+#### RA-02 — negative resolution
+
+[Original target](randomized-and-low-rank-approximation/RA-02/README.md) · [Complete proof](references/colbrook-random-pivoting-2026-09-11/manuscripts/sharp_random_pivoting.pdf) · [Independent review](references/colbrook-random-pivoting-2026-09-11/verification/reviews/RA-02-review.md). Theorem 1 and Corollary 3 disprove the existence of constants $C,p$ giving the displayed polynomial bound after exactly $r$ pivots. For every fixed $r\ge1$, real entrywise-positive positive-definite matrices of order $r+1$ approach the sharp expected trace-error ratio $2^r$ as a parameter tends to zero. Choose $r$ first and then the parameter; no limit uniform in $r$ is needed. The result does not address oversampling (RA-01).
+
+#### RA-03 — negative resolution
+
+[Original target](randomized-and-low-rank-approximation/RA-03/README.md) · [Complete proof](references/colbrook-random-pivoting-2026-09-11/manuscripts/sharp_random_pivoting.pdf) · [Independent review](references/colbrook-random-pivoting-2026-09-11/verification/reviews/RA-03-review.md). Section 2 gives the exact counterexample $A=\left(\begin{smallmatrix}2&1\\1&2\end{smallmatrix}\right)$: one pivot has expected squared Frobenius error $18/5$, while the best rank-one squared error is $1$. Thus the displayed $2^k$ bound is false already at $k=1$. Theorem 1 additionally proves that the known $4^r$ factor is sharp as a supremum at every rank, even on real entrywise-positive positive-definite inputs.
+
 ### ✅ MI-13 — Nobori's spectral-middle-factor commutator inequality
 
 [Original statement and complete proof](matrix-inequalities-and-norms/MI-13/README.md) · [PDF](matrix-inequalities-and-norms/MI-13/problem.pdf)
