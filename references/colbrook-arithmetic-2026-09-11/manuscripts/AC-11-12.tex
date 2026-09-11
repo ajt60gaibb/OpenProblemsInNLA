@@ -1,0 +1,393 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,longtable,array}
+\usepackage{microtype}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Exact finite cases of two sign-matrix permanent problems}}
+\usepackage{enumitem}
+\usepackage{fancyvrb}
+\setlength{\parskip}{0.45em}
+\setlength{\parindent}{0pt}
+\renewcommand{\arraystretch}{1.13}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\DeclareMathOperator{\per}{per}
+\DeclareMathOperator{\val}{v}
+\newcommand{\Om}{\Omega}
+% BEGIN INPUT results_generated.tex
+\newcommand{\MaxMinOrder}{35}
+\newcommand{\MaxRangeOrder}{10}
+\newcommand{\NewWitnessCount}{15}
+
+% END INPUT results_generated.tex
+\title{Exact finite cases of two\\sign-matrix permanent problems}
+\author{{\large Matthew J. Colbrook}\\[3pt]{\small Department of Applied Mathematics and Theoretical Physics}\\{\small University of Cambridge, Cambridge, United Kingdom}\\{\small\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}\\[5pt]{\small 11 September 2026}}
+\date{}
+\geometry{margin=24mm}
+\hypersetup{pdfauthor={Matthew J. Colbrook}}
+\setlength{\emergencystretch}{3em}
+\begin{document}
+\maketitle
+\noindent\textbf{Submission and verification update (11 September 2026).} Independently reviewed finite-case results: AC-11 through order 35 and AC-12 through order 10. Both universal targets remain partially resolved. The supplied work is AI-assisted. The analytic review and fresh exact certificate checks are recorded separately in the submission record. The dated reports supersede original pending-review remarks. Independent agent review is not external human peer review or formal certification; no novelty or priority claim is made. See the \href{https://github.com/MColbrook/OpenProblemsInNLA/tree/codex/colbrook-arithmetic-submissions/references/colbrook-arithmetic-2026-09-11}{submission record}.
+\par\medskip
+
+\vspace{-2em}
+\begin{abstract}
+Explicit integer certificates are supplied for two finite-parameter statements about permanents of sign matrices. For every order $1\leq n\leq\MaxMinOrder$, a matrix with permanent $2^{n-\lfloor\log_2(n+1)\rfloor}$ is given. The universal divisibility bound therefore identifies the least positive permanent for each of these orders. For every $1\leq n\leq\MaxRangeOrder$, an explicit catalogue and an exhaustive inclusion check show that every sign-matrix permanent is attained by a sign matrix whose entries below the diagonal are all $+1$. The range checks combine exact minor recurrences, symmetry reduction, and a proved completion bound; sampled witnesses alone are not used as evidence of completeness. Separate full-matrix checks use two coprime moduli and a deterministic uniqueness bound. The proofs, source code, matrices, and verification records are included. Neither all-orders problem is resolved, and priority for the additional finite cases is not asserted.
+\end{abstract}
+
+\section{Questions, notation, and certified scope}
+For an $n\times n$ matrix $A=(a_{ij})$, write
+\[
+ \per(A)=\sum_{\sigma\in S_n}\prod_{i=1}^n a_{i,\sigma(i)},\qquad
+ \Om_n=\{-1,+1\}^{n\times n}.
+\]
+Let
+\[
+ g(n)=n-\lfloor\log_2(n+1)\rfloor,\qquad q(n)=2^{g(n)},\qquad q(0)=1,
+\]
+and let $p_n$ be the least positive element of $\{\per(A):A\in\Om_n\}$. The positive value $n!$ is attained by the all-ones matrix, so $p_n$ is well-defined. Define
+\[
+ U_n=\{A\in\Om_n:a_{ij}=+1\text{ whenever }i>j\}.
+\]
+The below-diagonal entries in this definition are \emph{ones, not zeros}; negative diagonal entries are allowed.
+
+The all-orders questions $p_n=q(n)$ and $\per(\Om_n)=\per(U_n)$ are the repository entries AC-11 and AC-12, respectively.\footnote{OpenProblemsInNLA, entries AC-11 and AC-12, consulted 11 September 2026: \url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/arithmetic-and-complexity/AC-11} and the corresponding AC-12 directory.} The same questions are identified as Problems 3 and 4 in Section 6 of Ingram and Razborov.\footnote{DeVon Ingram and Alexander Razborov, \emph{On the Range of the Permanent of $(\pm1)$-Matrices}, arXiv:2507.09433, Section 6, Problems 3--4; \url{https://arxiv.org/html/2507.09433v1}.} Wanless gives attaining constructions through order 20.\footnote{Ian M. Wanless, \emph{Permanents of matrices of signed ones}, Linear and Multilinear Algebra 53(6) (2005), 427--433, Section 3, pp.\ 430--431. DOI: 10.1080/03081080500093990; \url{https://users.monash.edu.au/~iwanless/papers/wangconjLAMA.pdf}.} This earlier finite range is a reference point, not a basis for claiming that later cases in this note have never appeared elsewhere.
+
+\begin{theorem}[Finite minimum-permanent certificate]\label{thm:minimum}
+For every integer $1\leq n\leq\MaxMinOrder$, the supplied matrix $A_n$ lies in $\Om_n$ and satisfies $\per(A_n)=q(n)$. Consequently $p_n=q(n)$ for these orders.
+\end{theorem}
+
+\begin{theorem}[Finite range certificate]\label{thm:range}
+For every integer $1\leq n\leq\MaxRangeOrder$,
+\[
+ \{\per(A):A\in\Om_n\}=\{\per(B):B\in U_n\}.
+\]
+The data contain an explicit restricted-family witness for every absolute value in the common range.
+\end{theorem}
+
+Theorems~\ref{thm:minimum} and \ref{thm:range} are computer-assisted finite statements. The following sections give the mathematical reductions that make the computations certificates, rather than approximate or probabilistic evidence. Complete matrices are stored in \texttt{data/ac11}; the range catalogues are in \texttt{data/ac12}. The precise machine-readable scope is also recorded in \texttt{claims.json}.
+
+\section{The universal divisor and finite minima}
+The divisibility fact used here is established background; a proof is included to make the lower-bound part of Theorem~\ref{thm:minimum} self-contained.
+
+\begin{lemma}[Universal divisibility]\label{lem:divisor}
+For every $A\in\Om_n$, $q(n)$ divides $\per(A)$.
+\end{lemma}
+\begin{proof}
+Write $A=J-2D$, where $J$ is the all-ones matrix and $D$ is a zero-one matrix. Let $r_k(D)$ be the number of ways to choose $k$ entries equal to one in $D$ with distinct rows and distinct columns; set $r_0(D)=1$. Expanding each product in the permanent and then grouping by the $k$ selected entries from $D$ gives
+\begin{equation}\label{eq:rook}
+ \per(J-2D)=\sum_{k=0}^n(-2)^k(n-k)!\,r_k(D).
+\end{equation}
+Indeed, after choosing those $k$ nonattacking entries, the remaining rows can be bijected to the remaining columns in $(n-k)!$ ways.
+
+For a nonnegative integer $m$, let $s_2(m)$ be its binary digit sum. Counting the powers of two in $m!$ gives
+\[
+ \val_2(m!)=\sum_{j\geq1}\left\lfloor\frac{m}{2^j}\right\rfloor=m-s_2(m).
+\]
+Thus the coefficient of $r_k(D)$ in \eqref{eq:rook} has valuation
+\[
+ k+\val_2((n-k)!)=n-s_2(n-k).
+\]
+An integer with $t$ binary ones is at least $2^t-1$. Hence for $0\leq m\leq n$,
+\[
+ s_2(m)\leq\lfloor\log_2(n+1)\rfloor.
+\]
+Every coefficient in \eqref{eq:rook} is therefore divisible by $2^{g(n)}$. Since each $r_k(D)$ is an integer, so is the entire sum.
+\end{proof}
+
+It follows immediately that a positive permanent is at least $q(n)$. The only additional requirement for a particular order is a matrix attaining this bound. Each file \texttt{min$n$.txt} contains $n$, the claimed positive permanent, and all $n^2$ signed entries. Verification of its membership in $\Om_n$ and of the exact permanent therefore proves the corresponding finite case without needing an exhaustive search over matrices.
+
+\begin{table}[htbp]
+\centering\small
+% BEGIN INPUT minimum_tabular.tex
+\begin{tabular}{rrrl}
+\toprule
+Order $n$ & Exponent $g(n)$ & Attained permanent & Certificate status\\
+\midrule
+21 & 17 & 131,072 & exact full-matrix check passed \\
+22 & 18 & 262,144 & exact full-matrix check passed \\
+23 & 19 & 524,288 & exact full-matrix check passed \\
+24 & 20 & 1,048,576 & exact full-matrix check passed \\
+25 & 21 & 2,097,152 & exact full-matrix check passed \\
+26 & 22 & 4,194,304 & exact full-matrix check passed \\
+27 & 23 & 8,388,608 & exact full-matrix check passed \\
+28 & 24 & 16,777,216 & exact full-matrix check passed \\
+29 & 25 & 33,554,432 & exact full-matrix check passed \\
+30 & 26 & 67,108,864 & exact full-matrix check passed \\
+31 & 26 & 67,108,864 & exact full-matrix check passed \\
+32 & 27 & 134,217,728 & exact full-matrix check passed \\
+33 & 28 & 268,435,456 & exact full-matrix check passed \\
+34 & 29 & 536,870,912 & exact full-matrix check passed \\
+35 & 30 & 1,073,741,824 & exact full-matrix check passed \\
+\bottomrule
+\end{tabular}
+
+% END INPUT minimum_tabular.tex
+\caption{Supplied attaining matrices beyond the order-20 reference range. Matrices of orders 1--20 are also supplied and checked.}
+\label{tab:minima}
+\end{table}
+
+\section{Constructing an attaining last row}
+Let $H\in\{-1,+1\}^{(n-1)\times n}$, and put
+\[
+ C_j=\per(H\text{ with column }j\text{ deleted}),\qquad c_j=C_j/q(n-1).
+\]
+Lemma~\ref{lem:divisor} makes each $c_j$ integral. Appending a sign row $y=(y_1,\ldots,y_n)$ yields
+\begin{equation}\label{eq:lastrow}
+ \per\!\begin{pmatrix}H\\y\end{pmatrix}
+ =\sum_{j=1}^n y_j C_j
+ =q(n-1)\sum_{j=1}^n y_j c_j.
+\end{equation}
+The last row can therefore be found by the exact signed-sum problem
+\begin{equation}\label{eq:signedsum}
+ \sum_{j=1}^n y_j c_j=\frac{q(n)}{q(n-1)}.
+\end{equation}
+For $n\geq2$, the right-hand side is two except when $n=2^t-1$, in which case it is one. In particular, $q(30)=q(31)=2^{26}$; blindly doubling the target at order 31 would be incorrect.
+
+The search splits the indices into two halves, enumerates their signed sums, sorts one list, and finds a complementary sum by exact comparison. This meet-in-the-middle step takes $O(2^{\lceil n/2\rceil}\log(2^{\lfloor n/2\rfloor}))$ time and $O(2^{\lfloor n/2\rfloor})$ stored sums. The program checks an explicit bound before using signed 64-bit arithmetic in this step.
+
+The base rows are generated deterministically from the recorded pseudorandom seed and attempt number, then column-normalized so that the first base row is positive. This is a search device, not an assumption about the answer. Failed base matrices imply nothing about nonexistence. The certificates are the successful matrices themselves, not a probability estimate or an expectation that the procedure will continue to succeed at all orders.
+
+The scaled cofactor files allow the integer dot product in \eqref{eq:signedsum} to be inspected directly. That dot product alone does not certify that the recorded numbers really are the cofactors. For this reason, the package independently verifies the permanent of each complete matrix without reading the cofactor file.
+
+\section{Why the arithmetic checks are exact}
+\subsection{An independent subset recurrence}
+For a fixed row prefix $H$ and a column set $I$, let $D(I)$ be the permanent of the square submatrix using the first $|I|$ rows and columns $I$. Then
+\begin{equation}\label{eq:dp}
+ D(\varnothing)=1,\qquad
+ D(I)=\sum_{j\in I}H_{|I|,j}D(I\setminus\{j\}).
+\end{equation}
+This follows by expanding along the last row of that square minor. The Python implementation uses arbitrary-precision integers. The search implementation can store $D(I)/q(|I|)$; because successive $g(k)$ differ by zero or one, each update is an integer sum followed, when required, by an exact division by two. It checks divisibility and the range of every stored signed integer.
+
+For orders 21--28, the entire cofactor vector was recomputed using this subset recurrence and compared with the faster search computation. At small orders, direct sums over all permutations provide a further cross-check. These comparisons are separate from the complete-matrix certificate described below.
+
+\subsection{Polarization identity}
+\begin{lemma}\label{lem:polarization}
+For any $h\times h$ matrix $M$ over the rationals,
+\begin{equation}\label{eq:polarization}
+ \per(M)=2^{1-h}\!\sum_{\substack{\delta\in\{-1,+1\}^h\\\delta_1=1}}
+ \left(\prod_{i=1}^h\delta_i\right)
+ \prod_{j=1}^h\left(\sum_{i=1}^h\delta_iM_{ij}\right).
+\end{equation}
+\end{lemma}
+\begin{proof}
+First sum over all $2^h$ sign vectors. In an expanded monomial let row $i$ be selected $m_i$ times. Summation in $\delta_i$ kills the term unless $m_i+1$ is even, that is, unless $m_i$ is odd. Since $\sum_i m_i=h$, all $m_i$ must then equal one. The surviving terms are exactly the permutation products, each multiplied by $2^h$. Finally, the terms indexed by $\delta$ and $-\delta$ are equal: their two sign changes have total exponent $2h$. Fixing $\delta_1=1$ halves the sum and gives \eqref{eq:polarization}.
+\end{proof}
+
+When $h$ is even and the entries are signs, set
+\[
+ t_j=\frac12\sum_{i=1}^h\delta_iM_{ij}\in\mathbb Z.
+\]
+Equation~\eqref{eq:polarization} becomes
+\begin{equation}\label{eq:half}
+ \per(M)=2\sum_{\delta_1=1}\left(\prod_i\delta_i\right)\prod_j t_j.
+\end{equation}
+The same identity applies simultaneously to every $h$-column square minor of an $h\times n$ sign matrix.
+
+For an even number $m=n-1$ of base rows, the search obtains all $C_j/2$ by summing products with column $j$ omitted. If $m$ is odd, its first row is all ones; expansion along that row reduces the cofactors to $(n-2)$-row minors, where $n-2$ is even. In that case the summand for $C_j/2$ is
+\[
+ \sum_{k\ne j}\prod_{\ell\notin\{j,k\}}t_\ell.
+\]
+Products and their first derivatives compute these sums without division by any $t_j$, so zero column sums cause no problem.
+
+The fast cofactor routine deliberately performs arithmetic modulo $2^{128}$ using an \emph{unsigned} type. Intermediate wraparound is modular arithmetic, not undefined signed overflow. Its final accumulated value is $C_j/2$. For the supported search orders $n\leq35$,
+\[
+ |C_j|/2\leq34!/2<2^{127}.
+\]
+There is consequently a unique centered signed representative, which is recovered before exact rescaling. This bound explains the routine's order restriction; extending it without changing the arithmetic would require a new justification.
+
+\subsection{A full-matrix certificate with a uniqueness bound}
+The separate verifier transposes the supplied square matrix and never reads its cofactor vector. For even $n$ it uses \eqref{eq:half} directly. For odd $n\geq3$ it expands along the first row $b$ and applies \eqref{eq:half} to the remaining $h=n-1$ rows. The summand for half the permanent is then
+\[
+ \sum_j b_j\prod_{k\ne j}t_k.
+\]
+This weighted derivative can be accumulated with the recurrences
+\[
+ P_{j+1}=P_jt_j,\qquad Q_{j+1}=Q_jt_j+b_jP_j,
+ \qquad P_0=1,\ Q_0=0.
+\]
+Thus the verifier checks the complete matrix by a different input organization from the last-row search, although both fast methods use the proved polarization identity.
+
+Let $z=\per(A)/2$ and let $\widehat z$ be half the claimed permanent. The verifier computes $z$ modulo both
+\[
+ 2^{128}\quad\text{and}\quad P=2^{61}-1.
+\]
+Only the fact that $P$ is odd is needed for coprimality. The product modulus is $M=2^{128}P$. The program verifies, using arbitrary-precision integer arithmetic, that
+\begin{equation}\label{eq:crtbound}
+ M>n!/2+|\widehat z|.
+\end{equation}
+If the two residues agree with $\widehat z$, then $z-\widehat z$ is a multiple of $M$, while
+\[
+ |z-\widehat z|\leq n!/2+|\widehat z|<M.
+\]
+It follows that $z=\widehat z$. This is a deterministic exact certificate, not a random modular test. Order one is checked directly; malformed matrices and inconsistent claims are rejected.
+
+Together, Lemma~\ref{lem:divisor}, the supplied matrices, and these complete-matrix checks prove Theorem~\ref{thm:minimum}. No floating-point residual or tolerance enters that conclusion.
+
+\section{Certifying a complete permanent range}
+\subsection{Membership and inclusion are separate obligations}
+For a fixed order, let $S_n$ be the finite nonnegative set in the catalogue. Two checks are necessary:
+\[
+ S_n\subseteq\{|\per(B)|:B\in U_n\},\qquad
+ \{|\per(A)|:A\in\Om_n\}\subseteq S_n.
+\]
+The first check evaluates every supplied witness by the arbitrary-precision subset recurrence and checks every below-diagonal entry. The second is an exhaustive inclusion check with the coverage reductions proved below. Because $U_n\subseteq\Om_n$, the two checks imply equality of all three absolute-value sets.
+
+Both signed ranges are symmetric about zero. For $\Om_n$ this follows by negating any row. For $U_n$, negating the \emph{first} row preserves every below-diagonal condition. Hence absolute-value equality implies the signed equality in Theorem~\ref{thm:range}. This also gives the constructive lookup procedure implemented in \texttt{tools/realize.py}: select an absolute-value witness and, when needed, negate its first row.
+
+Some witnesses were located by sampling, bordering, or sign-preserving transformations. None of these procedures, by itself, proves inclusion of the unrestricted range. Their role is only to provide individually checkable membership witnesses.
+
+\subsection{Coverage of normalized representatives}
+Negating columns to make the first row positive and then negating rows to make the first column positive preserves the absolute permanent. The remaining core is an $(n-1)\times(n-1)$ zero-one array, with bit one representing a negative entry. Row and column permutations of the core preserve the normalization and the permanent.
+
+\begin{lemma}[Representative coverage]\label{lem:coverage}
+Every normalized sign matrix has, under core row and column permutations, a representative generated by the canonical and orderly routines in \texttt{spectrum.cpp}.
+\end{lemma}
+\begin{proof}
+Choose a lexicographically least row-major core in the finite permutation orbit. Read each row in the column order used by the binary mask comparison. Its row masks must be nondecreasing, since otherwise swapping two out-of-order rows lowers the core.
+
+Its columns must also be lexicographically ordered from top to bottom. If two columns are inverted, swap them. At their first differing row, the earlier differing bit decreases, whereas all earlier rows are unchanged; the row-major core decreases, a contradiction. After any fixed prefix of rows, columns with identical prefix patterns form consecutive blocks. Within each such block the next row must consist of zeros followed by ones. In the code's low-to-high bit convention, the ones occupy a lowest-bit prefix of each block. These are exactly the canonical transitions.
+
+The orderly routine imposes an additional necessary test. Immediately before an earlier row $r$ was selected, let $\mathcal P_r$ be the partition into identical-prefix column blocks. For any later row, move its ones to their lexicographically least positions inside those blocks. The resulting mask cannot be smaller than the mask of row $r$: otherwise put that later row at position $r$ and make the corresponding blockwise column permutation. All preceding rows remain unchanged and row $r$ decreases. Every global lexicographic minimum therefore passes every orderly test. The routines need not generate unique orbit representatives; coverage, rather than uniqueness, is the required property.
+\end{proof}
+
+The normalized row-multiset enumeration, the looser canonical enumeration, and the orderly enumeration were compared on overlapping finite orders. For example, at order 8 the canonical routine examined 836,488,618 representatives and the orderly routine examined 77,371,299; both gave 158 absolute values. These are enumeration counts, not counts of distinct permutation orbits.
+
+\subsection{A safe completion bound}
+\begin{lemma}[Prefix completion bound]\label{lem:completion}
+Suppose the first $k$ rows $H$ of an $n\times n$ sign matrix are fixed. For every completion $A$,
+\begin{equation}\label{eq:completion}
+ |\per(A)|\leq (n-k)!\sum_{\substack{I\subseteq[n]\\|I|=k}}|\per(H_{[:,I]})|.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Group permutation products by the set $I$ of columns assigned to the first $k$ rows. This gives the exact expansion
+\[
+ \per(A)=\sum_{|I|=k}\per(H_{[:,I]})\,
+ \per(A_{[k+1,n],I^c}).
+\]
+The second permanent in each product is a sum of $(n-k)!$ signs and has absolute value at most $(n-k)!$. The triangle inequality proves \eqref{eq:completion}.
+\end{proof}
+
+Suppose all multiples of $q(n)$ from zero through $L$ have explicit witnesses in $S_n$. If the right-hand side of \eqref{eq:completion} is at most $L$, then Lemma~\ref{lem:divisor} proves that every completion of the prefix already has its absolute permanent in $S_n$. The checker may safely discard the entire branch. It otherwise continues the representative traversal and checks every remaining leaf against $S_n$.
+
+For example, the order-9 catalogue contains every multiple of $64$ from zero through $14,848$. The complete inclusion run with this bound visited 22,406,026 nodes, certified 21,199,177 branches, and checked 447,415 remaining leaves explicitly. It returned no value outside the 506-element catalogue. All 506 restricted witnesses were separately evaluated exactly. Thus this is a finite proof, not an inference from how many random matrices were sampled.
+
+The order-10 catalogue has 1,933 absolute values and includes every multiple of $128$ from zero through $115,200$. Its complete inclusion run visited 708,191,216 nodes, certified 685,898,772 branches, and checked 8,776,490 remaining leaves. Every admitted value has an independently checked restricted witness.
+
+If zero is absent or no useful initial progression is available, the implementation simply does not use this pruning rule. Its validity is independent of whether a branch is common or rare. The search also supports collecting uncovered values, but only a completed inclusion certificate with every admitted value independently witnessed is used for a final range claim.
+
+\subsection{Restricted-family enumeration and catalogue sizes}
+For an independent restricted enumeration, negate the last column to make its bottom entry positive, and negate the first row to make the top-left entry positive. These operations preserve membership in $U_n$ and preserve the absolute permanent. For $n\geq2$, the bottom row and the first column are then positive, leaving
+\[
+ 2^{n(n+1)/2-2}
+\]
+normalized restricted choices. The bottom-up recurrence in \texttt{spectrum.cpp} exhausts these choices. At order 8 this is 17,179,869,184 matrices, and its range agrees with the unrestricted checks. Higher-order certificates need not exhaust $U_n$: explicit membership witnesses and unrestricted inclusion already suffice.
+
+\begin{table}[htbp]
+\centering\small
+% BEGIN INPUT range_tabular.tex
+\begin{tabular}{rrrl}
+\toprule
+Order & Absolute values & Signed values & Completeness certificate\\
+\midrule
+1 & 1 & 2 & exhaustive representatives \\
+2 & 2 & 3 & exhaustive representatives \\
+3 & 2 & 4 & exhaustive representatives \\
+4 & 5 & 9 & exhaustive representatives \\
+5 & 8 & 15 & exhaustive representatives \\
+6 & 16 & 31 & exhaustive representatives \\
+7 & 36 & 72 & exhaustive representatives \\
+8 & 158 & 315 & exhaustive representatives \\
+9 & 506 & 1,011 & witnesses + bounded exhaustive check \\
+10 & 1,933 & 3,865 & witnesses + bounded exhaustive check \\
+\bottomrule
+\end{tabular}
+
+% END INPUT range_tabular.tex
+\caption{Certified common ranges of $\Om_n$ and $U_n$. Zero, when present, is counted once in each column.}
+\label{tab:ranges}
+\end{table}
+
+The files list exact integers rather than normalized or rounded displays. Each catalogue line includes a matrix witnessing the stated absolute value; the actual permanent may have the opposite sign. The lookup routine checks that sign and corrects it by the allowed first-row operation.
+
+\section{Reproduction, review, and limitations}
+The package has two logically independent types of input data: minimum-permanent matrices and restricted range witnesses. The main reproduction command is
+\begin{Verbatim}[fontsize=\small]
+./reproduce.sh
+\end{Verbatim}
+It compiles the supplied C++17 programs, checks all spectral witnesses with Python integer arithmetic, checks the complete minimum-permanent matrices with the coprime-modulus verifier, and performs the unrestricted range-inclusion checks. It returns a nonzero exit status if a required check fails. GCC or Clang support for unsigned 128-bit arithmetic and the Boost multiprecision headers are required; the Python checks use only the standard library.
+
+The generation program and successful search parameters are included, but regeneration is not required to validate a supplied matrix. Likewise, a complete restricted enumeration is not required to validate a witness-plus-inclusion range certificate. The retained logs record actual completed checks; running times are observations from one environment, not complexity guarantees or performance promises.
+
+The cofactor dot-product tests do not alone verify the cofactor values, and an inclusion check supplied with an arbitrary unverified set does not alone prove a range equality. The reproduction script deliberately performs the corresponding complete-matrix and witness-membership checks. Tests also exercise incorrect permanent claims, malformed sign matrices, random small matrices, permutation sums through order 6, and multiple thread counts.
+
+No formal proof-assistant verification or independent peer review is asserted. The coverage arguments, exact-arithmetic bounds, data, and code are exposed for review and rerunning. The present conclusions stop at the stated finite orders. No all-orders attaining construction, induction, or general restricted-realization theorem is supplied. In particular, neither AC-11 nor AC-12 should be closed as solved on the basis of this note.
+
+\clearpage
+\appendix
+\section{An explicit order-21 certificate}
+For a concrete example independent of a compressed archive viewer, the following 21 sign strings are the rows of the supplied order-21 matrix. Each \texttt{+} means $+1$ and each \texttt{-} means $-1$.
+\begin{center}\small
+% BEGIN INPUT example21.tex
+\begin{BVerbatim}
++++++++++++++++++++++
++----+++++-+--+-+--++
++-+--+-++-----+++++-+
+--++++---+-+--+++-+-+
+++---+-+++---++-++---
+---+-++--++-+--------
++---+-++-----++++---+
++--+++----+-+--+-+--+
+--+-++--+-++---++---+
++--+--++-++++++++----
+---+++-+-------+-++-+
++--+--+-+++---++--++-
++-----+--+-+----+-+++
++--++++++-+++-++--++-
+-+-+--+-+-+++-+---+--
++-+-+-++-+--+-----+++
+----+--+++--++--+-+--
+-+--+++---+++---++---
+----++--+--+-++--+--+
+--+++-+--+-++--+-++++
+-+--++++-+---+---++++
+\end{BVerbatim}
+
+% END INPUT example21.tex
+\end{center}
+Its permanent is $131,072=2^{17}$. Deleting the last row and then column $j$ gives cofactors $C_j=65,536\,c_j$, where the scaled values, read left to right across the three displayed rows, are
+% BEGIN INPUT example_cofactors.tex
+\[
+\begin{array}{rrrrrrr}
+-27,478 & 22,691 & -6,146 & 19,969 & 27,150 & 5,952 & -34,570 \\ 
+-20,746 & -6,748 & -17,504 & 20,822 & 2,642 & 4,112 & 13,718 \\ 
+-9,851 & -5,316 & -14,926 & 22,867 & -15,222 & -29,023 & 1,769
+\end{array}
+\]
+
+% END INPUT example_cofactors.tex
+If $y$ is the last sign row displayed above, the exact dot product is $\sum_jy_jc_j=2$. The complete-matrix verifier independently recovers
+\[
+ \per(A)/2=65,536\pmod{2^{128}},\qquad
+ \per(A)/2=65,536\pmod{2^{61}-1}.
+\]
+The uniqueness bound in \eqref{eq:crtbound} proves the stated integer permanent, and Lemma~\ref{lem:divisor} proves that it is the least positive value at this order.
+
+\section*{Sources}
+\begingroup\footnotesize
+\begin{enumerate}[label=\arabic*.,leftmargin=1.8em,itemsep=0.35em]
+\item Ian M. Wanless. \emph{Permanents of matrices of signed ones}. Linear and Multilinear Algebra 53(6) (2005), 427--433. Section 3, pp.\ 430--431. DOI: 10.1080/03081080500093990. \url{https://users.monash.edu.au/~iwanless/papers/wangconjLAMA.pdf}.
+\item DeVon Ingram and Alexander Razborov. \emph{On the Range of the Permanent of $(\pm1)$-Matrices}. arXiv:2507.09433, Section 6, Problems 3 and 4. \url{https://arxiv.org/html/2507.09433v1}.
+\item OpenProblemsInNLA. AC-11, \emph{Minimum positive permanent of a sign matrix}. Consulted 11 September 2026. \url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/arithmetic-and-complexity/AC-11}.
+\item OpenProblemsInNLA. AC-12, \emph{Same permanent with negatives above the diagonal}. Consulted 11 September 2026. \url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/arithmetic-and-complexity/AC-12}.
+\end{enumerate}
+\endgroup
+\end{document}

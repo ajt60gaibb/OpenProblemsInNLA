@@ -7,8 +7,18 @@
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
 **Rating rationale:** Extreme because the guarantee must improve a general worst-case approximation barrier without increasing ranks; community importance reflects the central role of TT compression in numerical tensor methods.  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Solved  
+**Last checked:** 2026-09-11  
+
+<!-- colbrook-recovered-tensors -->
+## Resolution — 2026-09-11
+
+**Affirmative resolution by Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. A deterministic algorithm tests at most $n_1$ first-cut singular-subspace choices and TT-SVD completions. It returns a tensor within the prescribed ranks with squared error strictly less than $(d-1)E_*$ whenever $E_*>0$, and exactly reconstructs when $E_*=0$, in the canonical idealized arithmetic/SVD model. This settles the displayed pointwise target. It does not give a smaller uniform factor $c<d-1$ or a finite-precision bit-complexity guarantee; the fixed-format limiting example in Section 5 makes this distinction explicit.
+
+[Complete manuscript, Theorem 3 and Sections 2–4](../../references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-04.pdf) · [Standalone TeX](../../references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-04.tex) · [Independent complete-source PASS review](../../references/colbrook-recovered-tensors-2026-09-11/verification/reviews/TR-04-review.md) · [Authorship and provenance](../../references/colbrook-recovered-tensors-2026-09-11/README.md).
+
+The recovered AI-assisted proof passed independent agent review; this is not external human peer review or formal certification. The original target and dated source audit are retained. Difficulty, importance and rating rationale are historical. No novelty or priority claim is made.
+<!-- /colbrook-recovered-tensors -->
 
 ## Problem statement
 
