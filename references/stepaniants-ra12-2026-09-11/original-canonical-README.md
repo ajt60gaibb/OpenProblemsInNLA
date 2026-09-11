@@ -9,19 +9,7 @@
 **Rating rationale:** Challenging because an explicit threshold must control extremal tails uniformly over spectra; community impact is sharper distribution-level trace-estimation confidence bounds.  
 **Source:** Hallman, Conjecture 3 together with Theorem 6.  
 **Last checked:** 2026-09-11  
-**Status:** Solved
-
-## Affirmative resolution - 11 September 2026
-
-**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA. **Independent Codex-agent review: PASS.**
-
-[The complete proof](solution.md), **Theorem 1, Lemmas 2-4 and the final proof of Theorem 1**, proves both comparisons in the original probability chain for every nonzero real positive semidefinite matrix, every integer $m\ge1$, every effective rank $\mu$, and every $\varepsilon\ge2/(m\mu)$, including equality at the stated threshold. Each one-sided tail is compared separately. No case of the canonical target remains open; optimality of the threshold is not asserted.
-
-The proof chooses coefficient transfers whose smaller augmented scale is a minimum positive scale, applies an elementary Gamma-density mode bound and classical Gamma-convolution unimodality, and uses infinite divisibility for the Gamma endpoint. The primary unimodality input is Roosta-Khorasani and Székely, Appendix A, Theorem 4; the coefficient derivative is also credited to Hallman, Appendix A.1.
-
-[Proof PDF](solution.pdf) · [Standalone TeX](solution.tex) · [Independent proof review](../../references/stepaniants-ra12-2026-09-11/verification/RA-12-independent-review.md) · [Authorship, frozen sources and submission record](../../references/stepaniants-ra12-2026-09-11/README.md).
-
-The work was developed with substantial ChatGPT/Codex assistance. Verification is independent agent review, not external human peer review or formal certification. The original statement, ID and earlier results below are retained. The difficulty and importance ratings are historical; this solved entry no longer contributes to the open count.
+**Status:** Open  
 
 <!-- colbrook-transfer -->
 ## Related auxiliary counterexamples — 2026-09-11
@@ -30,13 +18,11 @@ The work was developed with substantial ChatGPT/Codex assistance. Verification i
 
 The submitted Gamma-density examples refute the upper-mode assertion in Hallman Conjecture 1 and the upper-inflection assertion in Conjecture 2, with legally distinct augmentation indices. These are counterexamples to auxiliary assertions.
 
-**Historical scope of the auxiliary submission:** These examples did not prove or refute the complete relative Gaussian trace-tail probability chain and did not establish a revised sharp tail threshold. They left RA-12 open at that stage. The full affirmative resolution above settles that remaining target while preserving these auxiliary counterexamples and their attribution.
+**Remaining question:** The complete relative Gaussian trace-tail probability chain in this entry is neither proved nor refuted. No revised sharp tail threshold is established; status remains Open.
 
 **Primary reference:** [complete authored PDF](../../references/colbrook-transfer-2026-09-11/manuscripts/04_gamma_auxiliary_counterexamples.pdf), [standalone TeX](../../references/colbrook-transfer-2026-09-11/manuscripts/04_gamma_auxiliary_counterexamples.tex), **Proposition 2.1 (with Proposition 3.1 for related evidence)**. [Independent proof review](../../references/colbrook-transfer-2026-09-11/verification/reviews/gamma-auxiliary-review.md) · [Authorship and submission record](../../references/colbrook-transfer-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
 
 <!-- /colbrook-transfer -->
-
-\newpage
 
 ## Problem statement
 
@@ -80,14 +66,10 @@ This would specify the tolerance range on which effective rank yields extremal, 
 1. Eric Hallman, [*Extremal bounds for Gaussian trace estimation*](https://arxiv.org/html/2411.15454v1#S5), arXiv:2411.15454v1 (2024), §5, Theorem 6 and Conjecture 3.
 2. Alice Cortinovis and Daniel Kressner, [*On Randomized Trace Estimates for Indefinite Matrices with an Application to Determinants*](https://doi.org/10.1007/s10208-021-09525-9), FoCM 22 (2022), 875–903, Theorem 1.
 
-## Historical status check
+## Status check
 
 Theorem 6 proves the comparisons beyond an unspecified threshold; Conjecture 3 supplies the explicit threshold above. On 2026-09-08 the [arXiv record](https://arxiv.org/abs/2411.15454) still listed only v1. Title, author, conjecture-number and 2025/2026 searches found no resolution. The author's [later XTrace paper](https://arxiv.org/abs/2512.02316) studies different estimators. This is a bounded check.
 
 ## Audit — 2026-09-10
 
 Rechecked [Hallman, Theorem 6 and Conjecture 3](https://arxiv.org/html/2411.15454v1); the record still lists only v1. Author, Gaussian-trace, and conjecture searches found no resolution. An unspecified larger threshold proves a weaker result and does not verify the displayed explicit threshold.
-
-## Resolution audit - 11 September 2026
-
-The complete proof passed independent Codex-agent review against the unchanged canonical target. A [public-network check](../../references/stepaniants-ra12-2026-09-11/verification/network-check-latest.json) at 19:20:50 UTC inspected all 21 branch heads across the parent repository and its four recursively reported public forks, canonical and ID-named text documents, and upstream issues, pull requests and comments. RA-12 remained Open on every checked branch; [PR 32](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/32) and [issue 31](https://github.com/ajt60gaibb/OpenProblemsInNLA/issues/31) concern the retained auxiliary counterexamples. No competing complete solution was found in this bounded public check; private, deleted and unpublished work was outside its scope.
