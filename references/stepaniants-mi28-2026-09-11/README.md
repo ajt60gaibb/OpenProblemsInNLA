@@ -44,4 +44,4 @@ The [dated public-network audit](verification/network-check.json) covers the par
 
 ## Submission
 
-Prepared on the separate branch `sgstepaniants:codex/stepaniants-mi28-determinant` from the published base, preserving the permanent ID, canonical path and original mathematical target. The resolution issue and new pull request will be linked here after creation.
+Prepared on the separate branch `sgstepaniants:codex/stepaniants-mi28-determinant` from the published base, preserving the permanent ID, canonical path and original mathematical target. [Resolution issue 84](https://github.com/ajt60gaibb/OpenProblemsInNLA/issues/84) follows the correction-or-resolution template. [Pull request 85](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/85) targets upstream `main` and explicitly asks the maintainer to review the complete proof, approve any required fork-workflow run and merge the resolution if accepted. Upstream acceptance is pending.
