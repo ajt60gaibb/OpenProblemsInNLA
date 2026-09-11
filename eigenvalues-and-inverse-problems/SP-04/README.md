@@ -2,10 +2,20 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Solution claimed  
+**Last checked:** 2026-09-11  
 
 **Rating rationale:** Challenging reflects a global root-selection rule across all dimensions and singular-value data; specialist impact is the exact projection onto a specific determinant constraint.
+
+## Resolution claim — 2026-09-11
+
+**Negative resolution claimed; submitted by Matthew Colbrook.** See the [complete manuscript](solution.md), **Theorem SP-04, sections 1–4** ([PDF](solution.pdf) · [LaTeX](solution.tex)), prepared 11 September 2026.
+
+The manuscript claims that the stationary pair with uniquely smallest absolute multiplier fails to minimize the Frobenius distance for an open set of real $3\times3$ data matrices with distinct singular values in $(7/4,44/25)$. Both determinant signs are allowed. The open-set argument addresses the algebraic-generic qualifier in the original target.
+
+The manuscript discloses generation in a ChatGPT conversation. Its full proof has not been independently verified here, and no publication or priority claim is made. [Supporting diagnostics](../../references/colbrook-2026-09-11/README.md) were rerun successfully; these are not an independent proof audit. This update checks the submitted claim against the displayed target; the dated literature checks below remain the record of the earlier search. The ratings above are historical, and this entry is excluded from the open count.
+
+## Original problem statement
 
 For $n\ge2$, define
 $$

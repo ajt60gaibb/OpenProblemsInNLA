@@ -2,10 +2,20 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Solution claimed  
+**Last checked:** 2026-09-11  
 
 **Rating rationale:** Challenging reflects a stronger strict interlacing law than general compression interlacing supplies; community impact is spectral information across block Krylov iterations.
+
+## Resolution claim — 2026-09-11
+
+**Affirmative resolution claimed; submitted by Matthew Colbrook.** See the [complete manuscript](solution.md), **Theorem KE-04, sections 1–3** ([PDF](solution.pdf) · [LaTeX](solution.tex)), prepared 11 September 2026.
+
+The manuscript claims strict interval occupancy for every allowed pair of block Lanczos iterations and every indicated index, in exact arithmetic before the first loss of full block dimension. Its quadratic-polynomial argument includes eigenvalue multiplicities and excludes coincident interval endpoints in the stated range.
+
+The manuscript discloses generation in a ChatGPT conversation. Its full proof has not been independently verified here, and no publication or priority claim is made. [Supporting diagnostics](../../references/colbrook-2026-09-11/README.md) were rerun successfully; these are not an independent proof audit. This update checks the submitted claim against the displayed target; the dated literature checks below remain the record of the earlier search. The ratings above are historical, and this entry is excluded from the open count.
+
+## Original problem statement
 
 Let $A\in\mathbb R^{n\times n}$ be symmetric and $V\in\mathbb R^{n\times p}$ have full column rank. Write
 $$

@@ -3,10 +3,18 @@
 **Topic:** Structured eigenvalue problems and semidefinite optimization.  
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Solution claimed  
+**Last checked:** 2026-09-11  
 
 **Rating rationale:** Challenging reflects a structured minimum-eigenvalue comparison for arbitrary positive definite pairs; community impact connects Kronecker eigenproblems and semidefinite optimization.
+
+## Resolution claim — 2026-09-11
+
+**Affirmative resolution claimed; submitted by Matthew Colbrook.** See the [complete manuscript](solution.md), **Theorem SP-05, sections 1–3** ([PDF](solution.pdf) · [LaTeX](solution.tex)), prepared 11 September 2026.
+
+For arbitrary real symmetric positive definite $A,B$, the manuscript claims a nonzero real positive-semidefinite eigenmatrix for the smallest eigenvalue of $X\mapsto AXB+BXA$. Section 3 derives the exact symmetric/skew-symmetric Rayleigh-quotient inequality below. No commutativity, rank restriction or simple-eigenvalue assumption is imposed.
+
+The manuscript discloses generation in a ChatGPT conversation. Its full proof has not been independently verified here, and no publication or priority claim is made. [Supporting diagnostics](../../references/colbrook-2026-09-11/README.md) were rerun successfully; these are not an independent proof audit. This update checks the submitted claim against the displayed target; the dated literature checks below remain the record of the earlier search. The ratings above are historical, and this entry is excluded from the open count.
 
 ## Problem statement
 

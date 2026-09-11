@@ -6,10 +6,18 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Solution claimed  
+**Last checked:** 2026-09-11  
 
 **Rating rationale:** Challenging reflects the geometry of isospectral stochastic families in arbitrary dimension; specialist impact concerns the narrow property of spectral uniqueness within that class.
+
+## Resolution claim — 2026-09-11
+
+**Negative resolution claimed; submitted by Matthew Colbrook.** See the [complete manuscript](solution.md), **Theorem IS-02, sections 1–2** ([PDF](solution.pdf) · [LaTeX](solution.tex)), prepared 11 September 2026.
+
+The manuscript gives a real symmetric nonnegative stochastic matrix of order four with spectrum $\{1,1,0,-1\}$ and positive trace. It claims spectral uniqueness up to permutation and exclusion from every segment in the proposed locus. This counterexample addresses the universal necessary condition at an allowed dimension; it does not claim an all-dimensional classification.
+
+The manuscript discloses generation in a ChatGPT conversation. Its full proof has not been independently verified here, and no publication or priority claim is made. [Supporting diagnostics](../../references/colbrook-2026-09-11/README.md) were rerun successfully; these are not an independent proof audit. This update checks the submitted claim against the displayed target; the dated literature checks below remain the record of the earlier search. The ratings above are historical, and this entry is excluded from the open count.
 
 ## Problem statement
 

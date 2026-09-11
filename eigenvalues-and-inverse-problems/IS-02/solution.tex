@@ -1,0 +1,229 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  10pt,
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
+  \setsansfont[]{DejaVu Sans}
+  \setmonofont[]{DejaVu Sans Mono}
+  \setmathfont[]{latinmodern-math.otf}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[a4paper,margin=24mm]{geometry}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+\babelprovide[main,import]{british}
+\ifPDFTeX
+\else
+\babelfont{rm}[]{DejaVu Serif}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage{needspace}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily PROPOSED RESOLUTION / IS-02}
+\fancyhead[R]{\small\sffamily 11 September 2026}
+\fancyfoot[L]{\footnotesize Not independently verified}
+\fancyfoot[R]{\footnotesize \thepage}
+\setlength{\headheight}{15pt}
+\setlength{\emergencystretch}{3em}
+\allowdisplaybreaks[1]
+\makeatletter
+\renewcommand{\maketitle}{%
+  \thispagestyle{fancy}%
+  \begin{flushleft}
+  {\Large\bfseries \@title\par}
+  \vspace{0.5em}
+  {\normalsize\sffamily Proposed resolution for mathematical review\par}
+  \end{flushleft}
+  \vspace{0.5em}
+}
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={IS-02: A counterexample to the spectral-uniqueness locus condition},
+  pdflang={en-GB},
+  colorlinks=true,
+  linkcolor={Maroon},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{IS-02: A counterexample to the spectral-uniqueness locus
+condition}
+\author{}
+\date{11 September 2026}
+
+\begin{document}
+\maketitle
+
+\textbf{Status of this manuscript:} Proposed resolution, not
+independently verified.\\
+\textbf{Outcome claimed:} Negative resolution claim.\\
+\textbf{Prepared:} 11 September 2026.\\
+\textbf{Target:}
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/b4123194697bdf6f8f82518c1dd7d6c40a30c2e0/eigenvalues-and-inverse-problems/IS-02/README.md}{Repository
+entry IS-02}, snapshot \texttt{b412319}.
+
+This is a proposed argument generated in a ChatGPT conversation and
+prepared for mathematical review. No independent referee report or
+formal proof certificate accompanies it. Supporting algebraic and
+numerical diagnostics are not a substitute for proof review. No
+publication or priority claim is made.
+
+\subsection{Theorem IS-02: proposed
+counterexample}\label{theorem-is-02-proposed-counterexample}
+
+For real symmetric entrywise nonnegative stochastic matrices, define
+spectral uniqueness to mean uniqueness up to simultaneous permutation of
+rows and columns among matrices with the same spectrum, including
+multiplicity. Put \[
+C_n=\frac{\mathbf 1\mathbf 1^T-I_n}{n-1}.
+\] The proposed necessary condition places every spectrally unique
+matrix with positive trace, for \(n\ge4\), in the union of \([I_n,C_n]\)
+and the segments \([I_n,V]\) and \([C_n,V]\) over vertices \(V\) of the
+symmetric stochastic polytope.
+
+\textbf{Claim.} The matrix \[
+A=\begin{pmatrix}
+0&1&0&0\\
+1&0&0&0\\
+0&0&1/2&1/2\\
+0&0&1/2&1/2
+\end{pmatrix}
+\] is a counterexample.
+
+\subsubsection{1. Spectral uniqueness}\label{spectral-uniqueness}
+
+The matrix is symmetric, nonnegative and stochastic. Its spectrum is
+\(\{1,1,0,-1\}\) and its trace is one. Let \(B\) be another real
+symmetric nonnegative stochastic matrix with this spectrum. For every
+real \(x\), \[
+x^T(I-B)x=\frac12\sum_{i,j}b_{ij}(x_i-x_j)^2.
+\] The kernel consists of vectors constant on each connected component
+of the graph with an edge \(ij\) when \(i\ne j\) and \(b_{ij}>0\). Thus
+the multiplicity of the eigenvalue one is the number of components, and
+\(B\) has exactly two components.
+
+Any connected component carrying the eigenvalue \(-1\) has even order.
+To see this, restrict a nonzero real eigenvector \(z\) with eigenvalue
+\(-1\) to such a component. Then \[
+0=z^T(I+B)z=\frac12\sum_{i,j}b_{ij}(z_i+z_j)^2.
+\] Along any edge, \(z_i=-z_j\). Connectivity implies that all
+coordinates have the same nonzero magnitude. The component is therefore
+bipartite, has no positive diagonal entries, and has no edges within
+either sign class. The total weight crossing from a sign class to the
+other is its number of vertices, by stochasticity. Symmetry makes the
+two crossing totals equal, so the two classes have equal cardinality.
+
+There are four vertices and two nonempty components. The component
+carrying \(-1\) must consequently have order two, and the other
+component also has order two. Every symmetric stochastic matrix of order
+two is \[
+B(t)=\begin{pmatrix}t&1-t\\1-t&t\end{pmatrix},
+\qquad \sigma(B(t))=\{1,2t-1\}.
+\] The two blocks of \(B\) must be \(B(0)\) and \(B(1/2)\). Therefore
+\(B\) is permutation-similar to \(A\), proving spectral uniqueness.
+
+\subsubsection{2. Exclusion from the asserted
+locus}\label{exclusion-from-the-asserted-locus}
+
+Let \(S=\begin{pmatrix}0&1\\1&0\end{pmatrix}\). The identity \[
+A=\tfrac12\operatorname{diag}(S,I_2)
+  +\tfrac12\operatorname{diag}(S,S)
+\] is a nontrivial convex combination of two distinct symmetric
+stochastic matrices. Hence \(A\) is not a vertex.
+
+If \(A=(1-t)I_4+tV\) with \(0\le t\le1\) and \(V\) a vertex, the zero
+entry \(A_{11}\) and nonnegativity force \(t=1\). This would give
+\(A=V\), which is impossible.
+
+If \(A=(1-t)C_4+tV\), the zero entry \(A_{13}\), together with
+\((C_4)_{13}=1/3\) and \(V_{13}\ge0\), again forces \(t=1\) and the same
+contradiction.
+
+Finally, writing \(A=(1-t)I_4+tC_4\), its zero \((1,3)\) entry forces
+\(t=0\), whereas \(A\ne I_4\). This excludes the remaining segment and
+completes the proposed negative resolution. \(\square\)
+
+\subsection{Scope and review notes}\label{scope-and-review-notes}
+
+The counterexample has n = 4, which is an allowed dimension. It uses
+entrywise nonnegativity, symmetry, row sums one, positive trace, and
+spectral uniqueness with multiplicities, exactly as in the entry. A
+counterexample in one allowed dimension refutes the universal necessary
+condition; a classification in all dimensions is not claimed.
+
+Review should check the component argument for spectral uniqueness and
+the distinction between vertices of the symmetric stochastic polytope
+and permutation matrices. The proof does not assume those two vertex
+notions coincide.
+
+The packaging pass checked the repository statement and contribution
+rules on 11 September 2026. It did not conduct a new exhaustive
+literature search or establish novelty.
+
+\subsection{Source references}\label{source-references}
+
+Alex Townsend, \emph{Open Problems in Numerical Linear Algebra} (2026),
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/b4123194697bdf6f8f82518c1dd7d6c40a30c2e0/eigenvalues-and-inverse-problems/IS-02/README.md}{entry
+IS-02}, repository snapshot \texttt{b412319}, accessed 11 September
+2026.
+
+Mourad and Abbas, Conjecture 5.1, p.~10 of the
+\href{https://arxiv.org/abs/1310.1273}{2013 manuscript};
+\href{https://doi.org/10.1080/03081087.2014.903590}{published article},
+\emph{Linear and Multilinear Algebra} 63 (2015), 869--881. These are the
+original-source locators given by the catalog.
+
+\end{document}

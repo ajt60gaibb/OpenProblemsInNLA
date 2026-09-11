@@ -1,8 +1,8 @@
 # All problems and their status
 
-**200 problems with open targets:** 114 open and 86 partially resolved. **2 other retained entries**, excluded from the open count.
+**195 problems with open targets:** 109 open and 86 partially resolved. **7 other retained entries**, excluded from the open count.
 
-Every listed entry was checked on **2026-09-10**. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
+Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
 [Categories](README.md) · [Status definitions](README.md#problem-status) · [Solved and claimed solutions](RESOLVED.md) · [Rating definitions](README.md#ratings)
 
@@ -48,18 +48,13 @@ Retained entries outside the open count:
 | [IE-08](eigenvalues-and-inverse-problems/IE-08/README.md) | A cubic-time Schur algorithm using logarithmic precision | **🔵 OPEN** | extreme | broadly interesting | [PDF](eigenvalues-and-inverse-problems/IE-08/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IE-08/problem.tex) |
 | [IE-10](eigenvalues-and-inverse-problems/IE-10/README.md) | Conditioning of a random Krylov compression of a cyclic shift | **🔵 OPEN** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/IE-10/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IE-10/problem.tex) |
 | [IS-01](eigenvalues-and-inverse-problems/IS-01/README.md) | Two permutation matrices generate the doubly stochastic spectral boundary | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-01/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-01/problem.tex) |
-| [IS-02](eigenvalues-and-inverse-problems/IS-02/README.md) | Where a symmetric stochastic matrix can be spectrally unique | **🔵 OPEN** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/IS-02/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-02/problem.tex) |
 | [IS-03](eigenvalues-and-inverse-problems/IS-03/README.md) | Johnson's derivative-realizability conjecture | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-03/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-03/problem.tex) |
 | [IS-04](eigenvalues-and-inverse-problems/IS-04/README.md) | A condition number of two for a sign matrix in every dimension | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-04/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-04/problem.tex) |
 | [IS-05](eigenvalues-and-inverse-problems/IS-05/README.md) | The optimal decay exponent for the conditioning of sign matrices | **🔵 OPEN** | extreme | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-05/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-05/problem.tex) |
 | [KE-02](eigenvalues-and-inverse-problems/KE-02/README.md) | Construct a separating diagonal perturbation in nearly linear time | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/KE-02/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/KE-02/problem.tex) |
-| [KE-03](eigenvalues-and-inverse-problems/KE-03/README.md) | Find a near-largest nonnormal eigenvalue using few matrix-vector products | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/KE-03/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/KE-03/problem.tex) |
-| [KE-04](eigenvalues-and-inverse-problems/KE-04/README.md) | Strict interlacing across block Lanczos iterations | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/KE-04/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/KE-04/problem.tex) |
 | [SP-01](eigenvalues-and-inverse-problems/SP-01/README.md) | The sharp generic threshold for spectral-subspace rotation | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-01/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-01/problem.tex) |
 | [SP-02](eigenvalues-and-inverse-problems/SP-02/README.md) | The sharp off-diagonal threshold for spectral-subspace rotation | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-02/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-02/problem.tex) |
 | [SP-03](eigenvalues-and-inverse-problems/SP-03/README.md) | The Euclidean distance degree of the real symplectic group | **🔵 OPEN** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/SP-03/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-03/problem.tex) |
-| [SP-04](eigenvalues-and-inverse-problems/SP-04/README.md) | The smallest-multiplier rule for nearest unit-absolute-determinant matrices | **🔵 OPEN** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/SP-04/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-04/problem.tex) |
-| [SP-05](eigenvalues-and-inverse-problems/SP-05/README.md) | Symmetric minimizer for a positive definite Jordan–Kronecker product | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-05/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-05/problem.tex) |
 | [SP-06](eigenvalues-and-inverse-problems/SP-06/README.md) | A real-valued symbol on a Jordan curve and real Toeplitz spectra | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-06/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-06/problem.tex) |
 | [SP-07](eigenvalues-and-inverse-problems/SP-07/README.md) | The sharp spectral-matching constant for normal matrices | **🔵 OPEN** | extreme | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-07/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-07/problem.tex) |
 | [SP-08](eigenvalues-and-inverse-problems/SP-08/README.md) | Rank-two maximizers of spectral spread on an entry interval | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-08/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-08/problem.tex) |
@@ -67,6 +62,16 @@ Retained entries outside the open count:
 | [SP-10](eigenvalues-and-inverse-problems/SP-10/README.md) | The graph complement conjecture for minimum symmetric rank | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-10/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-10/problem.tex) |
 | [SP-11](eigenvalues-and-inverse-problems/SP-11/README.md) | The delta conjecture for minimum symmetric rank | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-11/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-11/problem.tex) |
 | [SP-12](eigenvalues-and-inverse-problems/SP-12/README.md) | A chromatic lower bound for positive-semidefinite nullity with SAP | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/SP-12/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-12/problem.tex) |
+
+Retained entries outside the open count:
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [IS-02](eigenvalues-and-inverse-problems/IS-02/README.md) | Where a symmetric stochastic matrix can be spectrally unique | **🟠 SOLUTION CLAIMED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/IS-02/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-02/problem.tex) |
+| [KE-03](eigenvalues-and-inverse-problems/KE-03/README.md) | Find a near-largest nonnormal eigenvalue using few matrix-vector products | **🟠 SOLUTION CLAIMED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/KE-03/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/KE-03/problem.tex) |
+| [KE-04](eigenvalues-and-inverse-problems/KE-04/README.md) | Strict interlacing across block Lanczos iterations | **🟠 SOLUTION CLAIMED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/KE-04/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/KE-04/problem.tex) |
+| [SP-04](eigenvalues-and-inverse-problems/SP-04/README.md) | The smallest-multiplier rule for nearest unit-absolute-determinant matrices | **🟠 SOLUTION CLAIMED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/SP-04/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-04/problem.tex) |
+| [SP-05](eigenvalues-and-inverse-problems/SP-05/README.md) | Symmetric minimizer for a positive definite Jordan–Kronecker product | **🟠 SOLUTION CLAIMED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-05/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-05/problem.tex) |
 
 
 ## [Matrix functions and stability](matrix-functions-and-stability/README.md)

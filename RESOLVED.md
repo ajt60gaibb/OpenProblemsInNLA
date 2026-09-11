@@ -43,7 +43,33 @@ IDs or admissions are created by this list. Sources and scope rechecked on
 ## Former catalog entries with complete-resolution claims
 
 The classification below concerns the strength of the available evidence, not a
-claim that an unrefereed proof is incorrect. Checked **2026-09-10**.
+claim that an unrefereed proof is incorrect. The five new submissions were
+checked for scope on **2026-09-11**; the earlier records below were checked
+on **2026-09-10**.
+
+### 🟠 Five resolution claims submitted by Matthew Colbrook — 2026-09-11
+
+The five manuscripts below were prepared on 11 September 2026 and submitted by Matthew Colbrook. They disclose generation in a ChatGPT conversation and have not received independent proof verification here. Their scope was compared with the exact catalog targets, and the supplied diagnostics were rerun successfully; this is not an independent mathematical audit or a publication/priority claim. All five entries retain their original statements and historical ratings and are excluded from the open count. [Submission and diagnostic record](references/colbrook-2026-09-11/README.md).
+
+#### IS-02 — negative resolution claim
+
+[Original statement and claim notice](eigenvalues-and-inverse-problems/IS-02/README.md) · [Complete manuscript](eigenvalues-and-inverse-problems/IS-02/solution.md) · [Manuscript PDF](eigenvalues-and-inverse-problems/IS-02/solution.pdf). **Theorem IS-02, sections 1–2.** The manuscript gives a real symmetric nonnegative stochastic matrix of order four with spectrum $\{1,1,0,-1\}$ and positive trace. It claims spectral uniqueness up to permutation and exclusion from every segment in the proposed locus. This counterexample addresses the universal necessary condition at an allowed dimension; it does not claim an all-dimensional classification.
+
+#### SP-04 — negative resolution claim
+
+[Original statement and claim notice](eigenvalues-and-inverse-problems/SP-04/README.md) · [Complete manuscript](eigenvalues-and-inverse-problems/SP-04/solution.md) · [Manuscript PDF](eigenvalues-and-inverse-problems/SP-04/solution.pdf). **Theorem SP-04, sections 1–4.** The manuscript claims that the stationary pair with uniquely smallest absolute multiplier fails to minimize the Frobenius distance for an open set of real $3\times3$ data matrices with distinct singular values in $(7/4,44/25)$. Both determinant signs are allowed. The open-set argument addresses the algebraic-generic qualifier in the original target.
+
+#### SP-05 — affirmative resolution claim
+
+[Original statement and claim notice](eigenvalues-and-inverse-problems/SP-05/README.md) · [Complete manuscript](eigenvalues-and-inverse-problems/SP-05/solution.md) · [Manuscript PDF](eigenvalues-and-inverse-problems/SP-05/solution.pdf). **Theorem SP-05, sections 1–3.** For arbitrary real symmetric positive definite $A,B$, the manuscript claims a nonzero real positive-semidefinite eigenmatrix for the smallest eigenvalue of $X\mapsto AXB+BXA$. Section 3 derives the exact symmetric/skew-symmetric Rayleigh-quotient inequality in the original target. No commutativity, rank restriction or simple-eigenvalue assumption is imposed.
+
+#### KE-04 — affirmative resolution claim
+
+[Original statement and claim notice](eigenvalues-and-inverse-problems/KE-04/README.md) · [Complete manuscript](eigenvalues-and-inverse-problems/KE-04/solution.md) · [Manuscript PDF](eigenvalues-and-inverse-problems/KE-04/solution.pdf). **Theorem KE-04, sections 1–3.** The manuscript claims strict interval occupancy for every allowed pair of block Lanczos iterations and every indicated index, in exact arithmetic before the first loss of full block dimension. Its quadratic-polynomial argument includes eigenvalue multiplicities and excludes coincident interval endpoints in the stated range.
+
+#### KE-03 — affirmative resolution claim
+
+[Original statement and claim notice](eigenvalues-and-inverse-problems/KE-03/README.md) · [Complete manuscript](eigenvalues-and-inverse-problems/KE-03/solution.md) · [Manuscript PDF](eigenvalues-and-inverse-problems/KE-03/solution.pdf). **Theorem KE-03, sections 1–5.** The manuscript claims an algorithm using $O(\varepsilon^{-2}[1+\log(nK)])$ exact matrix-vector queries, with success probability at least $0.997$, for every input in the displayed model. It supplies both eigenvalue-location guarantees using the given condition bound $K$ and finite exact arithmetic between queries. This is a query-count claim; it does not bound total runtime, bit complexity or floating-point error.
 
 <a id="ie-01"></a>
 
