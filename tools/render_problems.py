@@ -82,6 +82,9 @@ def render(source):
         if identifier == "PF-05":
             # Keep the two equivalent conditions together after the new notice.
             tex = re.sub(r"\\(?:sub)*section\{Question\}", lambda m: "\\newpage\n" + m[0], tex, count=1)
+        if identifier == "RA-10":
+            # Keep the complete original implication together after its resolution.
+            tex = tex.replace("Does a universal constant", "\\newpage\nDoes a universal constant", 1)
         (source.parent / "problem.tex").write_text(tex)
         (work / "problem.tex").write_text(tex)
         for _ in range(2):
