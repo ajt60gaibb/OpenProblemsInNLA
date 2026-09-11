@@ -36,4 +36,4 @@ The check is limited to publicly accessible material at its stated time; it cann
 
 ## Submission
 
-Prepared on a separate branch from the published base, with the permanent IE-15 ID, canonical path and original target unchanged. The associated issue and new pull request are linked here after creation.
+Prepared on the separate branch `sgstepaniants:codex/stepaniants-ie15-rook-growth` from the published base, with the permanent IE-15 ID, canonical path and original target unchanged. [Resolution issue 82](https://github.com/ajt60gaibb/OpenProblemsInNLA/issues/82) follows the correction-or-resolution template. [Pull request 83](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/83) targets upstream `main`, links the related order-five contribution, and explicitly asks the maintainer to review and merge the full resolution. Upstream acceptance is pending.
