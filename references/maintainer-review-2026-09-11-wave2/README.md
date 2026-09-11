@@ -1,6 +1,7 @@
 # Independent maintainer review — second batch, 11 September 2026
 
-Ten PRs update 41 distinct existing catalog entries. Full mathematical arguments,
+The review now covers twelve PRs updating 44 distinct existing catalog entries.
+The initial ten were followed by #89 and #91 during the review. Full mathematical arguments,
 original target statements and the applicability of cited primary results were
 reviewed independently of the submissions' own PASS reports. Exact algebra and
 certificate checks supplement those arguments. No blocking mathematical error
@@ -25,10 +26,13 @@ diagnostics alone were never used to justify a universal theorem.
 | [#81](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/81) | [Krylov and sign matrices](audit-root/PR-81.md) | IE-10 solved; IS-04 prime-square family remains partial. |
 | [#83](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/83) | [Rook pivoting](audit-elimination/PR83-audit.md) and [current revision](audit-elimination/PR83-delta-a7afa4d.md) | Exact order-three/order-four growth 3 and 14/3. Preserve the separately attributed order-five evidence from #78. |
 | [#85](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/85) | [MI-28](audit-root/PR-85.md) | Full positive-definite determinant target, k>=0 and 0<=p<=2. |
+| [#89](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/89) | [Arithmetic and permanent certificates](audit-arithmetic/PR89-REVIEW.md) | AA-01 solved in its exact stated model; AC-11 partial through order 35; AC-12 partial through order 10. |
+| [#91](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/91) | [MI-24](audit-root/PR-91.md) | Full Schatten norm target by the published Heron comparison and convexity, including infinity. |
 
 ## Integration and permanent numbering
 
-This integration contains PRs #40, #47, #54, #62, #64, #78 and #81. Their reviewed
+The initial published integration, `16369809e6e600144bd350ab70b7473b652f46f1`,
+contains PRs #40, #47, #54, #62, #64, #78 and #81. Their reviewed
 heads are preserved as ancestors through ordinary merge commits. Shared indexes
 were regenerated and independent resolution/source records combined. Renderer
 changes were reconciled without removing existing published behavior.
@@ -41,7 +45,7 @@ integrated; the order-five supplementary example alone does not settle it.
 
 All **203 published IDs**, canonical paths, and original mathematical targets
 are preserved. No new ID is assigned, no historical gap filled, and no solved
-entry removed. The seven-PR integration adds 25 solved entries: 48 solved,
+entry removed. That seven-PR integration adds 25 solved entries: 48 solved,
 154 open or partially resolved, and one claimed solution, out of 203 retained
 entries. The append-only registry and required numbering workflow are unchanged.
 All 17 permanent-ID regression checks passed against published main.
@@ -63,3 +67,44 @@ source-access limitations, and the distinction between analytic arguments,
 exact certificates and supplementary numerical diagnostics. Local runtime and
 snapshot paths in archived reports identify the original audit environment;
 transient page images and build trees are kept in the local review archive.
+
+## Later contact-redaction revisions
+
+- [PR #68 revision a64f93f](audit-root/PR68-delta-a64f93f.md): mathematical bodies and complete PDF text preserved; all 13 re-rendered pages checked and all fingerprints match.
+- [PR #83 revision a7afa4d](audit-elimination/PR83-delta-a7afa4d.md): mathematical bodies preserved; all six reflowed proof pages checked and fingerprints match.
+- [PR #85 revision 6fb1041](audit-root/PR85-delta-6fb1041.md): mathematical bodies and complete PDF text preserved; all five proof pages checked. One historical PDF fingerprint is incorrect at `pre_email_redaction_record.pdfs[0].sha256`; an exact correction was [posted inline](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/85#pullrequestreview-5182448353). Its top-level current PDF fingerprint is correct. This is a provenance error, not a mathematical gap.
+
+The required workflows for those three PRs have not been approved by this
+review. They remain unmerged while execution approval is pending.
+
+## Current follow-up decisions
+
+PR #89 is included after all of its exact certificates passed. AA-01 gains solved
+status; AC-11 and AC-12 remain partial at their original targets. All 35 complete
+matrices, every exhaustive range inclusion through order 10, and all 5,528
+witness records passed fresh exact verification. The order-10 run covered
+708,191,216 nodes; all witness values were also independently recomputed by
+Ryser inclusion-exclusion. Missing historical AA-01 programs remain uncertified.
+All five final PDFs / 27 pages were visually checked and their text reproduced
+from unchanged TeX. See the [detailed report](audit-arithmetic/PR89-REVIEW.md),
+[additional independent analytic review](audit-arithmetic/root-mathematical-review.md),
+and [structural integration check](audit-arithmetic/integration-89.md).
+
+With #89, eight PRs are accepted in this batch: #40, #47, #54, #62, #64, #78,
+#81 and #89. The catalog retains **203 entries**: **49 solved**, **75 open**,
+**78 partially resolved**, and **one solution claimed**. Thus 153 targets remain
+open. All original IDs, paths and targets are preserved, and all 17 permanent-ID
+regression checks pass. The registry and required workflow remain unchanged.
+
+The latest upstream merges in [#68 at 15dc4c3](audit-root/PR68-current-15dc4c3.md)
+and [#85 at 5942bc2](audit-root/PR85-supplement-5942bc2.md) preserve their reviewed
+proofs and PDFs. #85 still needs three fingerprint corrections: the historical
+PDF digest already flagged, plus current renderer and submission-README digests
+made stale by its upstream merge. These are documentation findings; no
+mathematical or permanent-target check failed.
+
+PR #91 also passes its complete mathematical/source/PDF review, but remains
+outside this integration pending its required workflow execution approval.
+The same execution-approval hold applies to #68, #83 and #85. The latter also
+needs the documented fingerprint corrections before acceptance. No workflow
+approval or branch-protection bypass was performed for these four PRs.

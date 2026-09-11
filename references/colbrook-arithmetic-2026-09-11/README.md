@@ -1,0 +1,21 @@
+# Arithmetic submissions - 11 September 2026
+
+**Author: Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge, Cambridge, United Kingdom. Email: **m.colbrook@damtp.cam.ac.uk**. [Official affiliation](https://www.damtp.cam.ac.uk/user/mjc249/home.html), checked 11 September 2026. Authorship is recorded at the submitter's request. AI assistance is disclosed in the original package and here.
+
+| Entry | Result | Primary proof | Review |
+|---|---|---|---|
+| AA-01 | Solved: decidability in the exact finite-tree, constant-free, independent-error model | [Manuscript](manuscripts/AA-01.pdf) | [First](verification/reviews/AA-01-review.md), [second](verification/reviews/AA-01-second-review.md) |
+| AC-11 | Partially resolved: attaining minimum-positive permanent matrices at orders 1-35 | [Manuscript](manuscripts/AC-11-12.pdf) | [Analytic and certificate audit](verification/reviews/AC-11-12-review.md) |
+| AC-12 | Partially resolved: full permanent-range equality at orders 1-10 | [Manuscript](manuscripts/AC-11-12.pdf) | [Analytic and certificate audit](verification/reviews/AC-11-12-review.md) |
+
+Two separate agents reviewed the complete AA-01 proof against the canonical model and primary sources. The full equivalence and real-quantifier decision procedure pass. A third agent reviewed the permanent manuscript, all included TeX inputs, certificate algorithms and target scopes; the analytic PASS is conditional on the complete computations, documented separately in the [fresh checks](verification/fresh/README.md). All source identities are recorded using full UTF-8/LF hashes without trimming. Agent review is not external human peer review or formal proof-assistant verification; no novelty or priority claim is made.
+
+**Missing AA-01 experimental sources.** Only the complete TeX, an older PDF, an issue draft and two JSON logs survive. The programs described in the manuscript's experimental section are absent. Their reported run counts, compiled-operation budget and solver/compiler implementation claims have not been reproduced or certified here. The proof reviews explicitly exclude those empirical claims. The exported PDF is rebuilt from the complete reviewed TeX, including material added after the supplied PDF was compiled, and prominently states these limitations. No missing programs are represented as recovered or rerun.
+
+All 189 supplied files are retained byte-for-byte under [submitted](submitted/README.md), including ancillary previews and duplicate original archives. All 188 top-level checksum entries, 172 nested checksum entries and 187 file-manifest entries match; see [archive identity](bundle-sha256.json). The dated front matter supersedes original pending-review remarks without modifying the mathematical text. Included permanent tables are expanded verbatim into the standalone attributed TeX.
+
+The partial claims stop at order 35 for AC-11 and order 10 for AC-12. Neither universal problem is solved. The AC-11 comparison with Wanless's order-20 constructions is a comparison to that cited source, not an exhaustive literature-priority assertion. Original canonical statements, permanent IDs, references and dated audits are preserved.
+
+Rebuild authored manuscripts with `python references/colbrook-arithmetic-2026-09-11/verification/build_manuscripts.py` (XeLaTeX; `XELATEX` may specify its path). Rebuild the canonical PDFs with `python tools/render_problems.py AA-01 AC-11 AC-12`. The submitted finite-case package includes the original `reproduce.sh` for Bash/C++17/Boost/Python; run it in a separate working copy so the archive remains unchanged.
+
+[Final validation](verification/document-checks.json): all full-matrix certificates at orders 1-35 and all range-inclusion certificates at orders 1-10 pass, as do 5,528 exact witness checks and rejection tests. This discharges the analytic review's computation condition. Five PDFs compile without reported warnings and all 27 pages were visually inspected. Original mathematical bodies, canonical statements, links, 203 IDs and catalog idempotence pass. Local safeguard tests pass 15 cases; two require unavailable Windows symlink privileges (1314), and the full unchanged suite runs in Linux CI. This branch has 178 open targets, 1 Solution claimed and 24 Solved.

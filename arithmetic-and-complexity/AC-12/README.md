@@ -7,8 +7,19 @@
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
 **Rating rationale:** Challenging because equality of the full permanent ranges requires a uniform value-preserving construction or an obstruction; specialist importance concerns structural realization of discrete matrix invariants.  
-**Status:** Open  
-**Last checked:** 2026-09-10
+**Status:** Partially resolved
+**Last checked:** 2026-09-11
+
+<!-- colbrook-arithmetic -->
+## Independently reviewed finite cases - 2026-09-11
+
+Exact restricted-family witnesses and exhaustive unrestricted-range inclusion checks establish equality of the signed permanent ranges for every order $1\leq n\leq10$. Entries below the diagonal are $+1$, and negative diagonal entries are allowed, exactly as in the original target. Both witness membership and exhaustive inclusion are checked. The all-orders assertion, including orders $n\geq11$, remains unresolved.
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [Complete manuscript](../../references/colbrook-arithmetic-2026-09-11/manuscripts/AC-11-12.pdf), [independent review](../../references/colbrook-arithmetic-2026-09-11/verification/reviews/AC-11-12-review.md), and [submission record](../../references/colbrook-arithmetic-2026-09-11/README.md). AI assistance is disclosed. Agent verification is not external human peer review or formal certification; no novelty or priority claim is made.
+
+The [fresh certificate checks](../../references/colbrook-arithmetic-2026-09-11/verification/fresh/README.md) complement the analytic review. The remaining universal target and its ratings are retained.
+
+<!-- /colbrook-arithmetic -->
 
 ## Problem statement
 
