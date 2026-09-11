@@ -1,0 +1,379 @@
+---
+title: "IE-15: exact rook-pivoting growth factors in orders three and four"
+author: "George Stepaniants"
+affiliation: "Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA"
+date: "11 September 2026"
+document-kind: "Verified resolution"
+review-footer: "Independent Codex-agent review; not external human peer review or formal certification."
+---
+
+\pagestyle{plain}
+
+**Verification status: independent-agent PASS.** Developed with ChatGPT/Codex, with numerical searches used for discovery and an analytic proof of the universal bounds. A separate Codex agent audited the complete proof and independently checked the exact witnesses. This is not external human peer review or formal certification. [Detailed review](../../references/stepaniants-ie15-2026-09-11/verification/reviews/IE-15-review.md).
+
+All matrices are real and all arithmetic is exact. A rook pivot is any nonzero entry maximal in absolute value in its active row and active column. All admissible choices, including ties, are allowed, exactly as in canonical IE-15.
+
+If $S_1=A,\ldots,S_n$ are the active matrices for a path $\pi$, define
+
+$$
+\rho(A,\pi)=\frac{\max_{1\le k\le n}\|S_k\|_{\max}}{\|A\|_{\max}},
+\qquad \|M\|_{\max}=\max_{i,j}|M_{ij}|,
+$$
+
+and let $g_{\mathrm{RP}}(n)$ be the supremum of $\rho(A,\pi)$ over real nonsingular $A\in\mathbb R^{n\times n}$ and all its admissible rook paths.
+
+**Theorem 1 (exact small-order rook-pivoting growth).** For real nonsingular matrices and every admissible rook-pivoting path, with all ties allowed and growth measured over every active-matrix entry as in IE-15,
+
+$$
+\boxed{g_{\mathrm{RP}}(3)=3,\qquad g_{\mathrm{RP}}(4)=14/3.}
+$$
+
+Both maxima are attained by the rational matrices in Section 5.
+
+## 1. Normalization and elimination coordinates
+
+Fix any admissible path on a nonsingular matrix, divide the matrix by its initial maximum absolute entry, and apply the path's eventual row and column permutations at the outset. This reproduces the active matrices up to row and column permutations and lets us take all pivots in diagonal order. Gaussian elimination then gives
+
+$$
+A=LDR,
+$$
+
+where $L$ and $R$ are unit lower and unit upper triangular, respectively, and $D=\operatorname{diag}(p_1,\ldots,p_n)$. The rook conditions are exactly
+
+$$
+|L_{ij}|\le1\quad(i>j),\qquad |R_{ij}|\le1\quad(i<j).
+\tag{1}
+$$
+
+Indeed, the active pivot column and row at step $j$ are $p_j L_{ij}$ and $p_jR_{jk}$. All original entries satisfy $|A_{ij}|\le1$.
+
+Multiplying suitable original rows by $-1$ makes every $p_j$ positive, preserving all absolute-value conditions and growth. Specifically, if $S$ is diagonal with entries $\operatorname{sign}(p_j)$, then $SA=(SLS)(SD)R$. Next, a simultaneous row and column sign change $A\mapsto QAQ$ preserves the positive pivots and can arrange
+
+$$
+L_{ni}\ge0\qquad(1\le i<n).
+\tag{2}
+$$
+
+Finally, when bounding the positive last pivot, we may replace $A_{nn}$ by $1$. This leaves every earlier pivot and its active row and column unchanged, so rook admissibility persists. The final pivot only increases by $1-A_{nn}$, and the matrix stays nonsingular. Thus it suffices to bound the last pivot with $A_{nn}=1$.
+
+The first pivot obeys $0<p_1\le1$, and
+
+$$
+0<p_2\le1+p_1\le2,
+\tag{3}
+$$
+
+because $A_{22}=p_2+p_1L_{21}R_{12}$. Every entry after one elimination step is at most $1+p_1\le2$ in absolute value. Every entry after two steps is at most $1+p_1+p_2\le4$. These bounds follow directly by subtracting the corresponding rank-one updates, using (1).
+
+## 2. The order-three upper bound
+
+Use the normalization above with $n=3$, and write
+
+$$
+p=p_1,\quad q=p_2,\quad a=L_{21},\quad b=R_{12},
+\quad c=L_{31}\ge0,\quad e=L_{32}\ge0,
+\quad d=-R_{13},\quad f=-R_{23}.
+$$
+
+All six multipliers lie in $[-1,1]$, with $c,e\in[0,1]$. The last pivot is
+
+$$
+p_3=1+pcd+qef.
+$$
+
+Suppose $p_3>3$. Since $pcd\le1$ and $qef\le2$, this implies $pcd>0$ and $qef>1$. Consequently $d,f>0$ and both $qe>1$ and $qf>1$. But
+
+$$
+A_{23}=-qf-pad,\qquad A_{32}=qe+pcb.
+$$
+
+The bounds $|A_{23}|,|A_{32}|\le1$ force $a<0$ and $b<0$, respectively. This contradicts
+
+$$
+A_{22}=q+pab>q>1.
+$$
+
+Thus $p_3\le3$. Intermediate entries are bounded by two, so $g_{\mathrm{RP}}(3)\le3$.
+
+The same bound on the final two-step Schur value holds for a possibly singular order-three matrix provided its first two pivots are nonzero and admissible. If that final value is nonzero, the argument above applies after a last-row sign change; if it is zero, the bound is immediate. We will use this observation for an order-three submatrix in Section 4.
+
+\Needspace{20\baselineskip}
+
+## 3. A two-pivot scalar inequality
+
+Define
+
+$$
+h(c,d)=3cd+1+|c-d|.
+$$
+
+**Lemma.** Suppose
+
+$$
+0<p\le1,\quad q>0,\quad a,b\in[-1,1],
+\quad c_1,c_2\in[0,1],\quad d_1,d_2\in[-1,1],
+$$
+
+and
+
+$$
+|q+pab|\le1,\qquad
+|qd_2+pa d_1|\le1,\qquad
+|qc_2+pc_1b|\le1.
+\tag{4}
+$$
+
+Then
+
+$$
+p\,h(c_1,d_1)+q\,h(c_2,d_2)\le8.
+\tag{5}
+$$
+
+**Proof.** We use the following elementary inequalities on the indicated domains:
+
+$$
+0\le h(c,d)\le4,\qquad h(c,d)\le2+2c
+\quad(0\le c\le1,\ -1\le d\le1),
+\tag{6}
+$$
+
+$$
+h(c,d)\le2+2d\quad(d\ge0),\qquad
+h(c,d)\le2\quad(d\le0),
+\tag{7}
+$$
+
+$$
+h(c,d)\le2+2cd\quad(0\le c,d\le1).
+\tag{8}
+$$
+
+For completeness, convexity in either variable gives the upper bounds in (6) and (7) by evaluating the endpoints. When $d=-v\le0$, $h(c,d)=1+c+v-3cv$ lies between zero and two by the four corners of the unit square. For $d\ge0$, nonnegativity is immediate. Inequality (8) follows from $|c-d|\le1-cd$.
+
+If $q\le1$, (5) follows from $h\le4$. Hence assume $q>1$. The first condition in (4) implies $ab<0$ and
+
+$$
+q\le1+p|ab|\le1+p\le2.
+\tag{9}
+$$
+
+If $b>0$, then $a<0$ and the last condition in (4) gives $qc_2+pbc_1\le1$. Using (6),
+
+$$
+\begin{aligned}
+p h(c_1,d_1)+q h(c_2,d_2)
+&\le2(p+q)+2(pc_1+qc_2)\\
+&\le2\bigl(p+q+1+p(1-b)c_1\bigr)\\
+&\le2\bigl(p+q+1+p(1-b)\bigr)\\
+&\le4+4p\le8,
+\end{aligned}
+$$
+
+where the penultimate step uses $q\le1+pb$.
+
+It remains to consider $a>0$, $b<0$. If $d_2\le0$, then (6), (7), and (9) give
+
+$$
+p h(c_1,d_1)+q h(c_2,d_2)
+\le4p+2q\le2+6p\le8.
+$$
+
+If $d_2>0$ and $d_1\ge0$, then $qd_2+pa d_1\le1$. Using (7) in place of (6), the same calculation as above gives
+
+$$
+p h(c_1,d_1)+q h(c_2,d_2)
+\le2\bigl(p+q+1+p(1-a)\bigr)\le4+4p\le8,
+$$
+
+because $q\le1+pa$.
+
+The only remaining case is $d_1=-v<0<d_2$. Put $c=c_1$, $B=-b$, and
+
+$$
+U=1+pBc,\qquad V=1+pav.
+$$
+
+The last two conditions in (4) give $qc_2\le U$ and $qd_2\le V$. Since $0\le c_2,d_2\le1$,
+
+$$
+q c_2d_2\le\min\{q,U,V,UV/q\}.
+$$
+
+By (8), the left side of (5) is therefore at most
+
+$$
+p\,h(c,-v)+\Phi(q,U,V),\qquad
+\Phi(q,U,V)=2q+2\min\{q,U,V,UV/q\}.
+$$
+
+For positive arguments, $\Phi$ is nondecreasing in each argument. Monotonicity in $U,V$ follows termwise. To check the $q$ argument, put $u=\min(U,V)$, $w=\max(U,V)$: the formula for $\Phi$ is $4q$ when $q\le u$, $2q+2u$ when $u\le q\le w$, and $2q+2UV/q$ when $q\ge w$. In the last region its derivative is $2-2UV/q^2\ge0$, and the three pieces join continuously.
+
+Now $q\le2$, $U\le1+c$, $V\le1+v$, and $0\le p\,h(c,-v)\le h(c,-v)$. Hence
+
+$$
+\begin{aligned}
+p h(c_1,d_1)+q h(c_2,d_2)
+&\le h(c,-v)+\Phi(2,1+c,1+v)\\
+&=1+c+v-3cv+4+(1+c)(1+v)\\
+&=8-2(1-c)(1-v)\le8.
+\end{aligned}
+$$
+
+This proves every case of the lemma. $\square$
+
+## 4. The order-four upper bound
+
+Use Section 1 with $n=4$, positive pivots, $A_{44}=1$, and
+
+$$
+c_i=L_{4i}\in[0,1],\qquad d_i=-R_{i4}\in[-1,1],
+\qquad w_i=p_i c_i d_i\quad(i=1,2,3).
+$$
+
+Then
+
+$$
+p_4=1+w_1+w_2+w_3.
+\tag{10}
+$$
+
+Write $W=w_1+w_2$. The principal submatrix on indices $1,2,4$ has the same first two pivots and retains their rook admissibility, since deleting other rows and columns cannot violate those maximum conditions. Its final Schur value is $1+W$. The order-three result, including its possibly singular extension, gives
+
+$$
+W\le2.
+\tag{11}
+$$
+
+If $d_3\le0$ or $c_3=0$, then $w_3\le0$ and $p_4\le3$. We may therefore assume $c_3,d_3\in(0,1]$, and denote these two numbers temporarily by $C,D$.
+
+For $i=1,2$, put $u_i=L_{3i}$, $v_i=R_{i3}$. The original-entry inequalities $A_{33}\le1$, $-A_{34}\le1$, and $A_{43}\le1$ are
+
+$$
+p_3+\sum_{i=1}^2p_i u_i v_i\le1,
+\qquad p_3D+\sum_{i=1}^2p_i u_i d_i\le1,
+\qquad p_3C+\sum_{i=1}^2p_i c_i v_i\le1.
+$$
+
+\Needspace{9\baselineskip}
+
+Multiply these inequalities by $CD,C,D$, respectively, and add. Then
+
+$$
+3w_3\le CD+C+D-
+\sum_{i=1}^2p_i(CD u_iv_i+C d_i u_i+D c_i v_i).
+$$
+
+Since $|u_i|,|v_i|\le1$, define
+
+$$
+\mathcal B(C,D)=CD+C+D+
+\sum_{i=1}^2p_i\left[3c_id_i-
+\min_{-1\le u,v\le1}(CDuv+C d_i u+D c_i v)\right].
+$$
+
+We have
+
+$$
+3(W+w_3)\le\mathcal B(C,D).
+\tag{12}
+$$
+
+The bilinear minimum over $(u,v)$ is attained at the four corners of their square. Its negative is a maximum of four functions, each affine in $C$ when $D$ is fixed and affine in $D$ when $C$ is fixed. Thus $\mathcal B$ is convex separately in $C$ and $D$. Two applications of the one-variable endpoint bound show that its maximum on $[0,1]^2$ is bounded by its maximum at the four corners.
+
+Those corners have the following bounds, using (3) and (11):
+
+$$
+\mathcal B(0,0)=3W\le6,
+$$
+
+$$
+\mathcal B(1,0)=1+3W+\sum_{i=1}^2p_i|d_i|
+\le1+6+(p_1+p_2)\le10,
+$$
+
+$$
+\mathcal B(0,1)=1+3W+\sum_{i=1}^2p_i c_i\le10.
+$$
+
+For the remaining corner, the four elementary possibilities give
+
+$$
+\min_{-1\le u,v\le1}(uv+du+cv)=-1-|c-d|
+\quad(0\le c\le1,\ -1\le d\le1).
+$$
+
+Indeed the two opposite-sign corners give the right-hand side; the two same-sign corners are no smaller. Consequently
+
+$$
+\mathcal B(1,1)=3+p_1h(c_1,d_1)+p_2h(c_2,d_2)\le11.
+\tag{13}
+$$
+
+The last inequality is precisely the lemma, with $p=p_1$, $q=p_2$, $a=L_{21}$, and $b=R_{12}$. Its three assumptions (4) are the original bounds on $A_{22}$, $-A_{24}$, and $A_{42}$, respectively.
+
+Every corner is therefore at most eleven. Equations (10) and (12) yield
+
+$$
+p_4=1+(W+w_3)\le1+\frac{11}{3}=\frac{14}{3}.
+$$
+
+Entries at the earlier stages are bounded by one, two, and four, as shown in Section 1. Since $4<14/3$, this establishes the full growth bound $g_{\mathrm{RP}}(4)\le14/3$, including every intermediate entry and every admissible choice and tie.
+
+## 5. Matching exact examples
+
+For order three take
+
+$$
+A_3=\begin{pmatrix}1&0&-1\\0&1&-1\\1&1&1\end{pmatrix}.
+$$
+
+Its initial maximum absolute entry is one. Diagonal elimination gives
+
+$$
+S_2=\begin{pmatrix}1&-1\\1&2\end{pmatrix},\qquad S_3=(3).
+$$
+
+The first and second pivots are one and are maximal in their active rows and columns. Thus the path is admissible and has growth three. Its determinant is three, so the matrix is nonsingular.
+
+For order four take
+
+$$
+A_4=\begin{pmatrix}
+1&0&1&1\\
+0&1&1/3&-1\\
+-1/3&-1&1&-1\\
+-1&1&1&1
+\end{pmatrix}.
+$$
+
+Again the initial maximum absolute entry is one. Its successive active matrices under the diagonal path are
+
+$$
+S_2=\begin{pmatrix}
+1&1/3&-1\\
+-1&4/3&-2/3\\
+1&2&2
+\end{pmatrix},\qquad
+S_3=\begin{pmatrix}5/3&-5/3\\5/3&3\end{pmatrix},\qquad
+S_4=(14/3).
+$$
+
+Each selected pivot is maximal in its active row and column; the ties are expressly allowed by the problem. The pivot sequence is $1,1,5/3,14/3$, whose product is $70/9\ne0$. The growth is exactly $14/3$. Together with the universal upper bounds, these witnesses prove
+
+$$
+\boxed{g_{\mathrm{RP}}(3)=3,\qquad g_{\mathrm{RP}}(4)=14/3.}
+$$
+
+## Scope and computational evidence
+
+The upper bounds are analytic, not numerical optimization conclusions. Numerical constrained optimization was used only to discover the order-four witness and suggest the sharp bound. The proof includes all real nonsingular matrices, arbitrary admissible rook paths, all ties, all intermediate active entries, and matching attained lower bounds. No particular tie-breaking or pivot-search implementation is assumed.
+
+The standard-library Python script [`verify_witnesses.py`](../../references/stepaniants-ie15-2026-09-11/verification/verify_witnesses.py) checks both rational witnesses: nonsingularity, every selected pivot's row and column inequalities, all active matrices, and the attained growth. It uses `fractions.Fraction` throughout. These finite checks supplement the analytic upper-bound proof; they are not a substitute for it.
+
+## References
+
+1. [IE-15 — Exact small-order growth factors for rook pivoting](https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-15/README.md), *Open Problems in Numerical Linear Algebra*. This is the exact all-admissible-path target settled by Theorem 1.
+2. N. J. Higham, [*Accuracy and Stability of Numerical Algorithms*, second edition](https://doi.org/10.1137/1.9780898718027), SIAM (2002), Problem 9.18, p. 193. This is the historical small-order question cited by IE-15; no result in the book is used to prove the upper bounds here.
+3. A. Edelman and J. Urschel, [*Some New Results on the Maximum Growth Factor in Gaussian Elimination*](https://doi.org/10.1137/23M1571903), SIAM J. Matrix Anal. Appl. 45 (2024), [Section 6, primary manuscript](https://arxiv.org/html/2303.04892v4). Context for the rook-pivoting model and broader growth-factor problem.
+4. R. Shah and J. Urschel, [*Entry growth in Gaussian elimination*](https://arxiv.org/html/2608.19189v4), arXiv:2608.19189v4, August 2026. Context for general-order growth; the finite-order proof above is independent of its asymptotic results.
