@@ -4,11 +4,11 @@ A collection of precise open problems drawn from books and research
 publications, with references and dated checks for subsequent solutions.
 
 <!-- catalog-summary -->
-**148 problems with open targets:** 73 open and 75 partially resolved. **55 other retained entries**, excluded from the open count.
+**145 problems with open targets:** 71 open and 74 partially resolved. **58 other retained entries**, excluded from the open count.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
-**[Browse all 148 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
+**[Browse all 145 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
 <!-- /catalog-summary -->
 
 ## Browse by category
@@ -19,7 +19,7 @@ Each entry records its own literature-check date. Literature checks are bounded;
 | [Eigenvalues and inverse problems](eigenvalues-and-inverse-problems/README.md) | 14 |
 | [Matrix functions and stability](matrix-functions-and-stability/README.md) | 17 |
 | [Randomized and low-rank approximation](randomized-and-low-rank-approximation/README.md) | 22 |
-| [Tensor computations](tensor-computations/README.md) | 26 |
+| [Tensor computations](tensor-computations/README.md) | 23 |
 | [Nonnegative and positive factorizations](nonnegative-and-positive-factorizations/README.md) | 7 |
 | [Matrix inequalities and norms](matrix-inequalities-and-norms/README.md) | 18 |
 | [Frames and matrix designs](frames-and-matrix-designs/README.md) | 11 |

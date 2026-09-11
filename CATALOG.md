@@ -1,6 +1,6 @@
 # All problems and their status
 
-**148 problems with open targets:** 73 open and 75 partially resolved. **55 other retained entries**, excluded from the open count.
+**145 problems with open targets:** 71 open and 74 partially resolved. **58 other retained entries**, excluded from the open count.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -153,14 +153,12 @@ Retained entries outside the open count:
 | --- | --- | --- | --- | --- | --- |
 | [TR-04](tensor-computations/TR-04/README.md) | Improve the worst-case approximation factor for prescribed tensor-train ranks | **🔵 OPEN** | extreme | interesting to the community | [PDF](tensor-computations/TR-04/problem.pdf) · [TeX](tensor-computations/TR-04/problem.tex) |
 | [TR-05](tensor-computations/TR-05/README.md) | Infinite mean condition number in every identifiable tensor format | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](tensor-computations/TR-05/problem.pdf) · [TeX](tensor-computations/TR-05/problem.tex) |
-| [TR-06](tensor-computations/TR-06/README.md) | Finite mean angular condition number for identifiable tensor decomposition | **🔵 OPEN** | challenging | interesting to specialist | [PDF](tensor-computations/TR-06/problem.pdf) · [TeX](tensor-computations/TR-06/problem.tex) |
 | [TR-09](tensor-computations/TR-09/README.md) | Subquadratic overparameterization for iterative decomposition of smoothed tensors | **🔵 OPEN** | extreme | broadly interesting | [PDF](tensor-computations/TR-09/problem.pdf) · [TeX](tensor-computations/TR-09/problem.tex) |
 | [TR-10](tensor-computations/TR-10/README.md) | Border Comon's conjecture over the complex numbers | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](tensor-computations/TR-10/problem.pdf) · [TeX](tensor-computations/TR-10/problem.tex) |
 | [TR-11](tensor-computations/TR-11/README.md) | Generic identifiability of tensors at strictly subcritical ranks | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](tensor-computations/TR-11/problem.pdf) · [TeX](tensor-computations/TR-11/problem.tex) |
 | [TR-12](tensor-computations/TR-12/README.md) | Classification of perfect tensor formats with generic unique decomposition | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](tensor-computations/TR-12/problem.pdf) · [TeX](tensor-computations/TR-12/problem.tex) |
 | [TR-13](tensor-computations/TR-13/README.md) | Equality of ranks for generic odd-order Hankel tensors | **🔵 OPEN** | challenging | interesting to specialist | [PDF](tensor-computations/TR-13/problem.pdf) · [TeX](tensor-computations/TR-13/problem.tex) |
 | [TR-14](tensor-computations/TR-14/README.md) | Comon's exact-rank conjecture for Hankel tensors | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](tensor-computations/TR-14/problem.pdf) · [TeX](tensor-computations/TR-14/problem.tex) |
-| [TR-15](tensor-computations/TR-15/README.md) | Nonnegative H-eigenvalue inheritance from odd-order Hankel tensors | **🔵 OPEN** | challenging | interesting to specialist | [PDF](tensor-computations/TR-15/problem.pdf) · [TeX](tensor-computations/TR-15/problem.tex) |
 | [TR-16](tensor-computations/TR-16/README.md) | Monotonicity of the average number of critical rank-one approximations | **🔵 OPEN** | challenging | interesting to specialist | [PDF](tensor-computations/TR-16/problem.pdf) · [TeX](tensor-computations/TR-16/problem.tex) |
 | [TR-17](tensor-computations/TR-17/README.md) | Frobenius inner products minimize the algebraic complexity of rank-one approximation | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](tensor-computations/TR-17/problem.pdf) · [TeX](tensor-computations/TR-17/problem.tex) |
 | [TR-18](tensor-computations/TR-18/README.md) | Near-optimal type-2 bound for Gaussian sums of symmetric tensors | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](tensor-computations/TR-18/problem.pdf) · [TeX](tensor-computations/TR-18/problem.tex) |
@@ -171,12 +169,19 @@ Retained entries outside the open count:
 | [TR-23](tensor-computations/TR-23/README.md) | Irreducibility of asymptotic tensor-rank sublevel varieties | **🔵 OPEN** | extreme | interesting to specialist | [PDF](tensor-computations/TR-23/problem.pdf) · [TeX](tensor-computations/TR-23/problem.tex) |
 | [TR-24](tensor-computations/TR-24/README.md) | Degree-five, six, and nine generation of the Salmon tensor ideal | **🔵 OPEN** | extreme | interesting to specialist | [PDF](tensor-computations/TR-24/problem.pdf) · [TeX](tensor-computations/TR-24/problem.tex) |
 | [TR-25](tensor-computations/TR-25/README.md) | Cohen–Macaulay coordinate rings for every tensor border-rank variety | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](tensor-computations/TR-25/problem.pdf) · [TeX](tensor-computations/TR-25/problem.tex) |
-| [TR-26](tensor-computations/TR-26/README.md) | Degrees of the two Rayleigh–Ritz discriminant parts for rational normal curves | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](tensor-computations/TR-26/problem.pdf) · [TeX](tensor-computations/TR-26/problem.tex) |
 | [TR-27](tensor-computations/TR-27/README.md) | Border-rank deficiency forcing strict submultiplicativity at the tensor square | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](tensor-computations/TR-27/problem.pdf) · [TeX](tensor-computations/TR-27/problem.tex) |
 | [TR-28](tensor-computations/TR-28/README.md) | Entropy formula for the asymptotic subrank of Dicke tensors | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](tensor-computations/TR-28/problem.pdf) · [TeX](tensor-computations/TR-28/problem.tex) |
 | [TR-29](tensor-computations/TR-29/README.md) | Exact partially symmetric rank of products of generalized W tensors | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](tensor-computations/TR-29/problem.pdf) · [TeX](tensor-computations/TR-29/problem.tex) |
 | [TR-30](tensor-computations/TR-30/README.md) | Dimension of tensor loci with prescribed minimum border subrank | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](tensor-computations/TR-30/problem.pdf) · [TeX](tensor-computations/TR-30/problem.tex) |
 | [TR-31](tensor-computations/TR-31/README.md) | The four-exception conjecture for alternating tensor border-rank varieties | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](tensor-computations/TR-31/problem.pdf) · [TeX](tensor-computations/TR-31/problem.tex) |
+
+Retained entries outside the open count:
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [TR-06](tensor-computations/TR-06/README.md) | Finite mean angular condition number for identifiable tensor decomposition | **✅ SOLVED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-06/problem.pdf) · [TeX](tensor-computations/TR-06/problem.tex) |
+| [TR-15](tensor-computations/TR-15/README.md) | Nonnegative H-eigenvalue inheritance from odd-order Hankel tensors | **✅ SOLVED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-15/problem.pdf) · [TeX](tensor-computations/TR-15/problem.tex) |
+| [TR-26](tensor-computations/TR-26/README.md) | Degrees of the two Rayleigh–Ritz discriminant parts for rational normal curves | **✅ SOLVED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-26/problem.pdf) · [TeX](tensor-computations/TR-26/problem.tex) |
 
 
 ## [Nonnegative and positive factorizations](nonnegative-and-positive-factorizations/README.md)

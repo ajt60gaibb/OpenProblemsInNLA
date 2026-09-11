@@ -39,6 +39,22 @@ catalog with **🟡 PARTIAL** and an explanation of what remains.
 
 The original statements, permanent IDs and historical ratings remain retained. The archive's preparation-stage HOLD and access limitations are preserved as history; the current public eligibility audit and independent proof reviews support these three Solved classifications.
 
+### ✅ Three tensor resolutions by Matthew J. Colbrook — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Complete AI-assisted arguments passed separate independent Codex-agent reviews; TR-06 passed two. This is independent agent verification, not external human peer review or formal certification. The [submission record](references/colbrook-unclaimed-2026-09-11/README.md) separates the supplied summary-only archive from the complete arguments developed here. No novelty or priority claim is made. Original IDs, targets and historical ratings remain intact.
+
+#### TR-06 — affirmative resolution
+
+[Canonical target](tensor-computations/TR-06/README.md) · [Complete proof](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-06.md) · [PDF](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-06.pdf) · [Independent review](references/colbrook-unclaimed-2026-09-11/verification/reviews/TR-06-review.md) · [Second review](references/colbrook-unclaimed-2026-09-11/verification/reviews/TR-06-second-review.md). **Theorem and Sections 2–4.** The mean angular condition number is finite for every generically complex-identifiable format and rank in the original volume-Gaussian model. A bounded semialgebraic graph gives finite first-derivative integral on the unit link; conical scaling gives a finite Gaussian radial factor. This does not assert finite regular-condition means or higher moments.
+
+#### TR-15 — negative resolution
+
+[Canonical target](tensor-computations/TR-15/README.md) · [Complete proof](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-15.md) · [PDF](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-15.pdf) · [Independent review](references/colbrook-unclaimed-2026-09-11/verification/reviews/TR-15-review.md). **“Counterexample” and “The premise is not vacuous”.** The common generating vector $(2,0,1,0,2,0,-1)$ gives an order-three, dimension-three Hankel tensor whose real H-eigenvalues are all positive, and an order-six, dimension-two tensor with H-eigenvalue $-1$. This exactly refutes the odd-order inheritance conjecture; it does not contradict results requiring a positive-semidefinite associated Hankel matrix. The included standard-library checker verifies the contractions and positivity identity in exact integer arithmetic.
+
+#### TR-26 — affirmative resolution
+
+[Canonical target](tensor-computations/TR-26/README.md) · [Complete proof](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-26.md) · [PDF](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-26.pdf) · [Independent review](references/colbrook-unclaimed-2026-09-11/verification/reviews/TR-26-review.md). **Theorem 1 and Sections 2–7.** For every $d\ge2$ in the exact standard unweighted embedding, the reduced isotropic and nonisotropic Rayleigh–Ritz discriminants have degrees $2d$ and $6(d-1)$. The proof establishes distinct isotropic hyperplanes, irreducibility of the other part and generic discriminant multiplicity one, including $d=2$ and matrix-map degeneracies.
+
 ### ✅ MI-13 — Nobori's spectral-middle-factor commutator inequality
 
 [Original statement and complete proof](matrix-inequalities-and-norms/MI-13/README.md) · [PDF](matrix-inequalities-and-norms/MI-13/problem.pdf)

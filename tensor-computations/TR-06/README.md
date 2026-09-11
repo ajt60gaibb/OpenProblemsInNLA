@@ -7,8 +7,18 @@
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
 **Rating rationale:** Challenging because generic uniqueness does not supply the integrability estimates needed near degenerate decompositions; specialist importance reflects the particular angular condition number and volume-based input model.  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Solved  
+**Last checked:** 2026-09-11  
+
+<!-- colbrook-unclaimed -->
+## Resolution — 2026-09-11
+
+**Affirmative resolution.** Matthew J. Colbrook's [complete manuscript, theorem in §1 and proof in §§2–4](../../references/colbrook-unclaimed-2026-09-11/manuscripts/TR-06.md) proves finite mean angular condition number for every admissible format and every $r\ge3$ under the original generic complex identifiability assumption. The proof uses the exact volume-Gaussian input distribution and the derivative of the individually normalized summands. A bounded semialgebraic graph controls the angular derivative on the unit link; homogeneity then gives a finite radial integral. It does not assert a format-uniform bound or finite mean for the ordinary condition number.
+
+The complete source passed [independent Codex-agent proof review](../../references/colbrook-unclaimed-2026-09-11/verification/reviews/TR-06-review.md). [Authorship, AI assistance and verification record](../../references/colbrook-unclaimed-2026-09-11/README.md). No external human peer review or formal verification is asserted. The original target below is retained verbatim; the difficulty, importance and rating rationale above are historical. This entry no longer contributes to the open count.
+
+[Manuscript PDF](../../references/colbrook-unclaimed-2026-09-11/manuscripts/TR-06.pdf). [Second independent review](../../references/colbrook-unclaimed-2026-09-11/verification/reviews/TR-06-second-review.md). 
+<!-- /colbrook-unclaimed -->
 
 ## Context and notation
 
