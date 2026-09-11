@@ -3,9 +3,22 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because the required second-difference inequality goes beyond standard log-concavity; community impact is understanding average column-selection and Nyström error.  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-11  
 
-**Status:** Open  
+**Status:** Solved  
+
+<!-- colbrook-transfer -->
+## Resolution — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the exact target.**
+
+The sequence $(j+1)e_{j+1}/e_j$ is decreasing and discretely convex for every positive spectrum, including both endpoints. The exact second-difference certificate proves the full canonical conjecture.
+
+The complete target is resolved. Its former difficulty rating is historical; the original mathematical statement and source evidence are retained below.
+
+**Primary reference:** [complete authored PDF](../../references/colbrook-transfer-2026-09-11/manuscripts/01_volume_sampling_convexity.pdf), [standalone TeX](../../references/colbrook-transfer-2026-09-11/manuscripts/01_volume_sampling_convexity.tex), **Theorem 1.1**. [Independent proof review](../../references/colbrook-transfer-2026-09-11/verification/reviews/RA-07-review.md) · [Authorship and submission record](../../references/colbrook-transfer-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
+
+<!-- /colbrook-transfer -->
 
 For $n\geq3$ and positive real numbers $\lambda_1,\ldots,\lambda_n$, let
 $$

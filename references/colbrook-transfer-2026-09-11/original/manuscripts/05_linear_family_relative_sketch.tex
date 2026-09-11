@@ -1,0 +1,268 @@
+\documentclass[11pt]{article}
+\input{common_preamble}
+\title{A lower-tail proof for pure relative structured matrix learning}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+We give a self-contained proof that a known $q$-dimensional linear matrix family can be fitted to an unknown matrix with pure relative Frobenius error using nonadaptive, two-sided matrix--vector queries. The algorithm measures a high-leverage left subspace exactly and uses a Gaussian right sketch on its orthogonal complement. Only a lower bound on the sketched Gram matrix is required. A second-moment argument and an elementary matrix lower-tail estimate give a constant-success query bound of order $\sqrt{q(\log q+1/\eps)}+\log q$, with no additive error and no dependence on the ratio of the target norm to the optimal residual. A median-radius selector amplifies confidence for affine families. The constant-success argument also extends to closed convex subsets of a known affine family, subject to solving the sketched convex optimization problem.
+\end{abstract}
+
+\section{Prior work and precise status}
+Amsel et al.\ study structured approximation from two-sided matrix--vector queries and leave a pure relative-error question for linear families \cite{Amsel2026}. A public manuscript repository under the account \texttt{andotheror} subsequently announced the same spectral-splitting algorithm and the pure relative-error conclusion \cite{Prior2026}. Its displayed first-publication filenames are dated July~30, 2026. The proof below was derived independently, but \emph{no priority is claimed for the algorithm or for resolving the pure relative-error question}. The displayed prior query profile contains a squared logarithm. The argument here requires only a lower-tail estimate and gives a single logarithm in that term; comparison with the complete prior manuscript is still necessary before claiming a distinct improvement. The full prior manuscript and its deposit metadata were not available for that comparison.
+
+\section{Model, algorithm, and guarantee}
+Let $\mathcal L\subseteq\R^{m\times n}$ be a known $q$-dimensional linear subspace, $q\ge1$, with Frobenius-orthonormal basis $P_1,\ldots,P_q$. The unknown $A\in\R^{m\times n}$ is accessible through queries $x\mapsto Ax$ and $y\mapsto A^Ty$. One vector product counts as one query; a block product with $s$ columns counts as $s$ queries. All query directions below are fixed before observing any oracle response.
+
+Define the basis-invariant positive-semidefinite matrix
+\[
+ R=\sum_{i=1}^q P_iP_i^T,\qquad \tr R=q.
+\]
+Fix a threshold $t>0$. Let $U$ have orthonormal columns spanning the eigenspaces of $R$ with eigenvalues greater than $t$. Write $\Pi=UU^T$ and $r=\rank\Pi$. Then $r\le q/t$. Query $A^TU$ and $Ag_1,\ldots,Ag_s$, where the $g_j$ are independent $N(0,I_n)$ vectors. These responses determine the objective
+\begin{equation}\label{eq:objective}
+ \ell(B)=\norm{U^T(A-B)}_F^2+
+       \frac1s\sum_{j=1}^s\norm{(I-\Pi)(A-B)g_j}_2^2,
+ \qquad B\in\mathcal L.
+\end{equation}
+Return a least-squares minimizer $\widetilde B$; a fixed minimum-coefficient-norm minimizer specifies the algorithm even when the sketched Gram matrix is singular.
+
+\begin{theorem}\label{thm:main}
+For any $\eps>0$, if
+\begin{equation}\label{eq:samples}
+ s\ge\max\left\{8(1+2t)\log(20q),\frac{160t}{\eps}\right\},
+\end{equation}
+then with probability at least $9/10$,
+\begin{equation}\label{eq:relative}
+ \norm{A-\widetilde B}_F^2
+ \le(1+\eps)\min_{B\in\mathcal L}\norm{A-B}_F^2.
+\end{equation}
+In particular, writing $L_0=16\log(20q)+160/\eps$, the choice
+\[
+ t=\sqrt{q/L_0},\qquad
+ s=\left\lceil8\log(20q)+tL_0\right\rceil
+\]
+uses at most
+\begin{equation}\label{eq:universal}
+ 2\sqrt{qL_0}+8\log(20q)+1
+\end{equation}
+nonadaptive queries. The algorithm has polynomial-time dense preprocessing and least-squares postprocessing in an exact real-arithmetic model.
+\end{theorem}
+
+The parameter $\eps$ in this theorem is a squared-relative excess. A norm-relative guarantee follows with factor $\sqrt{1+\eps}\le1+\eps$. Conversely, a desired norm-relative factor $1+\varepsilon$ can be obtained by using squared parameter $2\varepsilon+\varepsilon^2$.
+
+If the range of $R$ is measured exactly, no Gaussian queries are needed: all matrices in $\mathcal L$ vanish on its left orthogonal complement, whose contribution to the objective is independent of $B$. More generally one can optimize over every spectral split. If $\lambda_1\ge\cdots\ge\lambda_m\ge0$ are the eigenvalues of $R$, a split after $r$ eigenvectors has residual leverage $t=\lambda_{r+1}$ and query bound
+\[
+ r+\left\lceil\max\{8(1+2t)\log(20q),160t/\eps\}\right\rceil,
+\]
+with the separate zero-residual-leverage branch just described. The transposed construction based on $\sum_iP_i^TP_i$ is also available. The better of these plans can be selected using only the known family.
+
+\section{The sketched Gram matrix}
+Put
+\[
+ T_i=(I-\Pi)P_i,\qquad
+ H_{i\ell}=\tr(T_i^TT_\ell),\qquad K=I_q-H.
+\]
+Both $H$ and $K$ are positive semidefinite, $H\preceq I_q$, and
+\begin{equation}\label{eq:leverage}
+ \sum_iT_iT_i^T=(I-\Pi)R(I-\Pi)\preceq tI_m.
+\end{equation}
+For a Gaussian vector $g$, let $M(g)$ be the $m\times q$ matrix with columns $T_i g$, and define
+\[
+ X(g)=K+M(g)^TM(g).
+\]
+Then $X(g)\succeq0$, $\E X(g)=I_q$, and the Gram matrix of \eqref{eq:objective} is
+\[
+ C=K+\frac1s\sum_{j=1}^sM(g_j)^TM(g_j)
+   =\frac1s\sum_{j=1}^sX(g_j).
+\]
+The projected basis is \emph{not} reorthonormalized: keeping the exact identity $K+H=I_q$ is essential.
+
+\begin{lemma}[Second moment]\label{lem:moment}
+The random Gram contribution satisfies
+\[
+ \E(X(g)-I_q)^2\preceq2tI_q,
+ \qquad \E X(g)^2\preceq(1+2t)I_q.
+\]
+\end{lemma}
+\begin{proof}
+For $a\in\R^q$, write $T=\sum_i a_iT_i$. Wick's formula for a standard real Gaussian vector gives
+\begin{align*}
+ a^T\E\bigl(M^TM-H\bigr)^2a
+ =\sum_\ell\bigl\{
+   \tr(T^TT_\ell T^TT_\ell)
+   +\tr(T^TT_\ell T_\ell^TT)\bigr\}.
+\end{align*}
+For every square real matrix $Z$, $\tr Z^2\le\norm Z_F^2$. Hence each of the two terms inside braces is at most $\norm{T^TT_\ell}_F^2$. Using \eqref{eq:leverage},
+\[
+ a^T\E\bigl(M^TM-H\bigr)^2a
+ \le2\tr\left(T^T\left(\sum_\ell T_\ell T_\ell^T\right)T\right)
+ \le2t\norm T_F^2\le2t\norm a_2^2.
+\]
+Here the last inequality follows from $H\preceq I_q$. Since $X-I_q=M^TM-H$ and $\E(X-I_q)=0$, the second assertion follows from the first.
+\end{proof}
+
+\begin{lemma}[A matrix lower-tail estimate]\label{lem:tail}
+Let $X_1,\ldots,X_s$ be independent positive-semidefinite $q\times q$ random matrices with $\E X_j=I_q$ and $\E X_j^2\preceq vI_q$. Then
+\[
+ \Prob\left\{\lambda_{\min}\left(\frac1s\sum_jX_j\right)\le\frac12\right\}
+ \le q\exp\left(-\frac{s}{8v}\right).
+\]
+\end{lemma}
+\begin{proof}
+For $x\ge0$ and $\theta>0$, the scalar inequality
+$e^{-\theta x}\le1-\theta x+\theta^2x^2/2$ gives by spectral calculus
+\[
+ \E e^{-\theta X_j}
+ \preceq(1-\theta+\theta^2v/2)I_q
+ \preceq e^{-\theta+\theta^2v/2}I_q.
+\]
+The Golden--Thompson trace inequality \cite{Golden1965} and conditioning yield the iteration
+\begin{align*}
+ \E\tr e^{-\theta\sum_{j=1}^sX_j}
+ &\le e^{-\theta+\theta^2v/2}
+       \E\tr e^{-\theta\sum_{j=1}^{s-1}X_j}\
+ &\le q\exp\bigl(s(-\theta+\theta^2v/2)\bigr).
+\end{align*}
+To justify the first step, apply Golden--Thompson to the last summand and condition on all preceding summands. The conditional expectation of its exponential is bounded by a scalar multiple of the identity; multiplication inside a trace by a positive-semidefinite matrix preserves that bound. No commutativity of the $X_j$ is needed.
+
+If $\lambda_{\min}(\sum_jX_j)\le s/2$, then the trace exponential is at least $e^{-\theta s/2}$. Markov's inequality therefore bounds the probability by
+\[
+ q\exp\bigl(s(-\theta/2+\theta^2v/2)\bigr).
+\]
+Choose $\theta=1/(2v)$. This is a standard matrix Laplace-transform argument in a particularly simple scalar-moment setting; see also \cite{Tropp2012}.
+\end{proof}
+
+Lemmas~\ref{lem:moment} and \ref{lem:tail} show
+\begin{equation}\label{eq:gramgood}
+ \Prob\{C\nsucceq I_q/2\}
+ \le q\exp\left(-\frac{s}{8(1+2t)}\right).
+\end{equation}
+
+\section{Centered regression error}
+Let $B_\star$ be the Frobenius projection of $A$ onto $\mathcal L$, and put $E=A-B_\star$. In particular $\ip{P_i}{E}_F=0$ for every $i$. In coefficient coordinates, the normal-equation offset at $B_\star$ is
+\[
+ z_i=\ip{U^TP_i}{U^TE}_F
+       +\frac1s\sum_{j=1}^s\ip{T_i g_j}{(I-\Pi)E g_j}_2.
+\]
+Its expectation is zero because the deterministic and expected random parts sum to $\ip{P_i}{E}_F$.
+
+\begin{lemma}\label{lem:noise}
+The offset satisfies
+\[
+ \E\norm z_2^2\le\frac{2t}{s}\norm E_F^2.
+\]
+\end{lemma}
+\begin{proof}
+For a real square matrix $Z$ and $g\sim N(0,I)$,
+\[
+ \operatorname{Var}(g^TZg)=\tr Z^2+\tr(ZZ^T)\le2\norm Z_F^2.
+\]
+Independence of the $g_j$, followed by \eqref{eq:leverage}, gives
+\begin{align*}
+ \E\norm z_2^2
+ &\le\frac2s\sum_i\norm{T_i^T(I-\Pi)E}_F^2\\
+ &=\frac2s\tr\left(E^T(I-\Pi)
+                  \left(\sum_iT_iT_i^T\right)(I-\Pi)E\right)\\
+ &\le\frac{2t}{s}\norm E_F^2.
+\end{align*}
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+On the event $C\succeq I_q/2$, the coefficient error $d$ of $\widetilde B-B_\star$ is $C^{-1}z$, so $\norm d_2\le2\norm z_2$. If $\norm E_F>0$, Lemma~\ref{lem:noise} and Markov's inequality imply
+\[
+ \Prob\{\norm d_2^2>\eps\norm E_F^2,\ C\succeq I_q/2\}
+ \le\frac{8t}{s\eps}.
+\]
+Together with \eqref{eq:gramgood}, the failure probability is at most
+\[
+ q\exp\left(-\frac{s}{8(1+2t)}\right)+\frac{8t}{s\eps}\le\frac1{10}
+\]
+under \eqref{eq:samples}. Pythagoras gives
+$\norm{A-\widetilde B}_F^2=\norm E_F^2+\norm d_2^2$.
+When $E=0$, the offset is identically zero, and recovery is exact on the same Gram event; no division by the optimal residual is needed.
+
+For the stated universal choice, $s\ge8(1+2t)\log(20q)$ and $s\ge160t/\eps$. Also $r\le q/t$, whence
+\[
+ r+s\le q/t+tL_0+8\log(20q)+1
+       =2\sqrt{qL_0}+8\log(20q)+1.
+\]
+The family orthonormalization, spectral decomposition, design formation, and least-squares solve use polynomially many real-arithmetic operations. This is not a bit-complexity or numerical backward-stability assertion.
+\end{proof}
+
+\section{Confidence amplification for affine families}
+The same theorem applies to a known affine family after subtracting its known offset from each oracle response. For linear or affine families, run an odd number $L$ of independent copies using parameter $\eps/9$. From their coefficient vectors, choose one whose median Euclidean distance to all $L$ vectors is smallest, including its distance zero to itself.
+
+\begin{proposition}\label{prop:amplification}
+If $L$ is odd and $L\ge\log(1/\delta)/0.32$, the selected estimate satisfies \eqref{eq:relative} with probability at least $1-\delta$. All query plans may be selected in advance.
+\end{proposition}
+\begin{proof}
+Each successful coefficient vector lies within
+$\rho=\sqrt{\eps}\norm E_F/3$ of the true coefficient vector. If a strict majority are successful, every successful vector has median distance at most $2\rho$. The selected vector therefore has a ball of radius at most $2\rho$ containing a strict majority of all vectors. That ball intersects the successful majority, so the selected vector lies within $3\rho$ of the truth. Pythagoras gives \eqref{eq:relative}. Independent successes have probability at least $0.9$ each; Hoeffding's inequality bounds the probability of at most half successes by $\exp(-2(0.9-0.5)^2L)=\exp(-0.32L)$.
+\end{proof}
+
+The selector requires only finitely many pairwise distances. It does not estimate $\norm A_F$, the optimal residual, or unknown population losses.
+
+\section{A closed-convex extension at constant success probability}
+Let $\mathcal K$ be a nonempty closed convex subset of a known $q$-dimensional affine matrix space. Translate its known affine offset. Use the same queries and minimize the sketched objective over $\mathcal K$. This is a query-complexity statement conditional on carrying out that optimization; arbitrary descriptions of convex sets need not permit polynomial-time optimization.
+
+\begin{proposition}\label{prop:convex}
+The sample bound \eqref{eq:samples} gives, with probability at least $9/10$,
+\[
+ \norm{A-\widetilde B}_F^2\le(1+\eps)
+                  \min_{B\in\mathcal K}\norm{A-B}_F^2.
+\]
+\end{proposition}
+\begin{proof}
+Let $B_\star$ now be the Frobenius projection onto $\mathcal K$, put $E=A-B_\star$, and write $d$ for the coefficient vector of $\widetilde B-B_\star$. Define $e_i=\ip{P_i}{E}_F$ and let $z$ be the sketched normal offset at $B_\star$ minus $e$. The centered calculation in Lemma~\ref{lem:noise} still gives $\E\norm z_2^2\le2t\norm E_F^2/s$; it did not require $E$ to be orthogonal to the containing affine space once the mean is subtracted.
+
+Population projection optimality gives $e^Td\le0$. Sketched first-order optimality, tested against $B_\star$, gives
+\[
+ d^TCd\le(e+z)^Td.
+\]
+On $C\succeq I_q/2$ these imply $\norm d_2\le2\norm z_2$. The population excess obeys the stronger estimate
+\begin{align*}
+ \norm{A-\widetilde B}_F^2-\norm E_F^2
+ &=\norm d_2^2-2e^Td\\
+ &\le\norm d_2^2-2d^TCd+2z^Td\\
+ &\le2z^Td\le4\norm z_2^2.
+\end{align*}
+The same Markov and Gram estimates prove the assertion. If $E=0$, the offset vanishes identically and the conclusion is exact on the Gram event.
+\end{proof}
+
+The median-radius amplification proposition is \emph{not} asserted for this constrained extension. For a general convex constraint, proximity to $B_\star$ alone does not upper-bound the population excess, because the normal term $-2e^Td$ need not vanish. A separate validation or confidence argument would be needed.
+
+\section{Reproducibility and limitations}
+The reference implementation uses only the two supplied oracle functions to access the target matrix. It exposes conservative proved plans separately from practical sample overrides, which carry no theorem-level guarantee. The verification programs check Gaussian fourth-moment identities, regression equations, exact-support recovery, zero-residual cases, the median-majority lemma, and coefficient-box constrained examples.
+
+The mathematical analysis is in exact real arithmetic. The numerical implementation orthonormalizes a supplied basis using a floating-point rank tolerance and solves normal equations; it is not certified backward stable. The present note supplies an independently checkable argument, not an independently reviewed resolution or a certified priority claim.
+
+\begin{thebibliography}{9}
+\bibitem{Amsel2026}
+N.~Amsel, P.~Avi, T.~Chen, F.~Duman Keles, C.~Hegde, C.~Musco, C.~Musco, and D.~Persson,
+\emph{Query Efficient Structured Matrix Learning},
+Proceedings of the Thirty Ninth Conference on Learning Theory,
+PMLR \textbf{336}, 158--194 (2026).
+\url{https://proceedings.mlr.press/v336/amsel26a.html}.
+Preprint: \href{https://arxiv.org/abs/2507.19290}{arXiv:2507.19290}.
+
+\bibitem{Prior2026}
+Public repository account \texttt{andotheror},
+\emph{Pure Relative Structured Matrix Learning with Square-Root Matvecs},
+public manuscript announcement and repository README (2026).
+\url{https://github.com/andotheror/matvec-structured-matrix-approx}.
+The displayed deposit identifier is
+\href{https://doi.org/10.5281/zenodo.21698599}{doi:10.5281/zenodo.21698599}.
+The account name is not treated as verified personal authorship. Full-manuscript and deposit-metadata comparison remains outstanding.
+
+\bibitem{Golden1965}
+S.~Golden, \emph{Lower Bounds for the Helmholtz Function},
+Physical Review \textbf{137}, B1127--B1128 (1965).
+\href{https://doi.org/10.1103/PhysRev.137.B1127}{doi:10.1103/PhysRev.137.B1127}.
+
+\bibitem{Tropp2012}
+J.~A.~Tropp, \emph{User-Friendly Tail Bounds for Sums of Random Matrices},
+Foundations of Computational Mathematics \textbf{12}, 389--434 (2012).
+\href{https://doi.org/10.1007/s10208-011-9099-z}{doi:10.1007/s10208-011-9099-z}.
+\end{thebibliography}
+\end{document}

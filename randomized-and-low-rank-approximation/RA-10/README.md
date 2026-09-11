@@ -4,8 +4,21 @@
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because a dimension-independent loss must survive removal of matrix ordering; community impact is transferring nuclear-error guarantees between matrix functions.  
 **Topic:** Low-rank approximation of matrix functions.  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-11  
 **Status:** Partially resolved  
+
+<!-- colbrook-transfer -->
+## Partial result — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the limited result below.**
+
+The sharp nuclear relative-excess factor is two when $A$, $B=\widehat A_k$ and the actual selected rank-$k$ projector have a simultaneous orthonormal eigenbasis. The finite-Schatten extension is also proved. Diagonal operator-monotone power examples show that any constant solving the full question must satisfy $C\ge2$.
+
+**Remaining question:** Existence of a finite universal constant for arbitrary noncommuting PSD pairs remains open. Commutation of $A$ and $\widehat A$ alone does not cover every truncation inside a repeated eigenspace. The separate scalar-concave nuclear counterexamples use functions outside the required operator-monotone class.
+
+**Primary reference:** [complete authored PDF](../../references/colbrook-transfer-2026-09-11/manuscripts/06_commuting_schatten_transfer.pdf), [standalone TeX](../../references/colbrook-transfer-2026-09-11/manuscripts/06_commuting_schatten_transfer.tex), **Theorem 1.1 and Section 3**. [Independent proof review](../../references/colbrook-transfer-2026-09-11/verification/reviews/RA-10-review.md) · [Authorship and submission record](../../references/colbrook-transfer-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
+
+<!-- /colbrook-transfer -->
 
 Does a universal constant $C\ge1$ exist with the following property? For every $n\ge2$, $1\le k<n$, real symmetric positive semidefinite matrices $A,\widehat A\in\mathbb R^{n\times n}$, $\varepsilon\ge0$, and continuous operator-monotone function $f:[0,\infty)\to[0,\infty)$,
 

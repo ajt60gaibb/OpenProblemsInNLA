@@ -1,0 +1,292 @@
+% Reviewed source SHA256 (UTF-8/LF): b71d409a3fea3720a83380bdfddc2cd5cdcdbf2381deba445e79b56ed53ca4fa
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype,booktabs,array}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\setlist{itemsep=3pt,topsep=5pt}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\range}{\operatorname{range}}
+\newcommand{\OPT}{\operatorname{OPT}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ip}[2]{\left\langle#1,#2\right\rangle}
+\newcommand{\psd}{\succeq}
+\newcommand{\pd}{\succ}
+\newcommand{\eps}{\varepsilon}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\allowdisplaybreaks[1]
+\hypersetup{pdfcreator={LaTeX},pdfauthor={Matthew J. Colbrook}}
+
+\title{Sharp Frobenius error transfer for monotone subhomogeneous matrix functions}
+\author{Matthew J. Colbrook\\\small Department of Applied Mathematics and Theoretical Physics\\\small University of Cambridge, Cambridge, United Kingdom\\\small\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}
+\date{11 September 2026}
+\newcommand{\fa}{f(a)}
+\newcommand{\fb}{f(b)}
+\newcommand{\TA}{T_A}
+\newcommand{\Tf}{T_f}
+\geometry{margin=22mm}
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\begin{document}
+\maketitle
+
+\noindent\textbf{Verified affirmative resolution of RA-09.} Theorem 1.1 proves ordered transfer; Theorem 1.2 gives the additional unordered Frobenius bound.
+Independent agent verification is not external human peer review or formal certification. Original draft remarks about review or source access reflect the input date; the dated \href{https://github.com/MColbrook/OpenProblemsInNLA/blob/codex/colbrook-transfer-resolutions/references/colbrook-transfer-2026-09-11/verification/reviews/RA-09-review.md}{independent review} records the subsequent checks.
+\par\medskip
+% BEGIN REVIEWED BODY
+\begin{abstract}
+Let $f:[0,\infty)\to[0,\infty)$ be continuous and nondecreasing, with $f(x)/x$ nonincreasing on $(0,\infty)$. This class includes every nonnegative nondecreasing concave function. We prove that ordinary relative Frobenius approximation error transfers from $A$ to $f(A)$ without loss whenever $0\preceq B\preceq A$ and $B$ has the prescribed low rank. No operator-monotonicity assumption or stronger trace-deficit hypothesis is needed. Without the order assumption, the relative excess increases by at most a factor of two, and this constant is optimal even for operator-monotone power functions. Both conclusions follow from scalar inequalities combined with the spectral decomposition of $A$; the ordered result additionally uses a harmonic constraint on the eigenvectors of $B$.
+\end{abstract}
+
+\section{Setting and main results}
+We consider real symmetric matrices; the proofs are unchanged for complex Hermitian matrices. Throughout, $f$ is continuous, nonnegative and nondecreasing on $[0,\infty)$, and
+\begin{equation}\label{eq:subhom}
+ x\longmapsto f(x)/x\quad\text{is nonincreasing on }(0,\infty).
+\end{equation}
+Every nonnegative nondecreasing concave function has these properties: for $0<x<y$, concavity gives $f(x)\ge (x/y)f(y)+(1-x/y)f(0)\ge(x/y)f(y)$. We do not assume $f(0)=0$.
+
+Let $A\succeq0$ have eigenvalues $a_1\ge\cdots\ge a_n\ge0$. Fix $1\le k<n$. Let $B\succeq0$ have rank at most $k$, and write
+\[
+ B=\sum_{j=1}^k b_jv_jv_j^T,\qquad
+ C=\sum_{j=1}^k f(b_j)v_jv_j^T,
+\]
+where the $v_j$ are orthonormal and zero eigenvalues are included when needed. In particular, $C$ is the canonical rank-$k$ truncation of $f(B)$ along the selected eigenvectors, rather than the full matrix $f(B)$ when $f(0)>0$. Define
+\[
+ \TA=\sum_{i>k}a_i^2,\qquad
+ \Tf=\sum_{i>k}f(a_i)^2.
+\]
+These are the squared optimal rank-$k$ Frobenius errors for $A$ and $f(A)$, respectively. When $\tau:=a_{k+1}>0$, put $c=f(\tau)/\tau$.
+
+\begin{theorem}[Ordered transfer]\label{thm:ordered}
+Suppose $0\preceq B\preceq A$ and $\tau>0$. Then
+\begin{equation}\label{eq:ordered}
+ \norm{f(A)-C}_F^2-\Tf
+ \le c^2\bigl(\norm{A-B}_F^2-\TA\bigr).
+\end{equation}
+Consequently, for every $\eta\ge0$,
+\[
+ \norm{A-B}_F^2\le(1+\eta)\TA
+ \quad\Longrightarrow\quad
+ \norm{f(A)-C}_F^2\le(1+\eta)\Tf.
+\]
+Equivalently, a relative factor $1+\eps$ stated in the norm, instead of its square, transfers with the same factor. The constant one in \eqref{eq:ordered} is optimal.
+\end{theorem}
+
+\begin{theorem}[Unordered transfer]\label{thm:unordered}
+Suppose only that $A,B\succeq0$ and $\rank B\le k$. If $\tau>0$, then
+\begin{equation}\label{eq:unordered}
+ \norm{f(A)-C}_F^2-\Tf
+ \le 2c^2\bigl(\norm{A-B}_F^2-\TA\bigr).
+\end{equation}
+Thus a squared relative excess $\eta$ becomes at most $2\eta$. In norm-relative notation,
+\[
+ \norm{A-B}_F\le(1+\eps)\sqrt{\TA}
+ \quad\Longrightarrow\quad
+ \norm{f(A)-C}_F\le(1+2\eps)\sqrt{\Tf}.
+\]
+The universal constant two is optimal in both conventions, even when $f$ is restricted to operator-monotone power functions.
+\end{theorem}
+
+The ordered conclusion answers the concave Frobenius transfer question in the setting of Persson, Meyer, and Musco \cite[Table~1 and Section~5]{PMM2025}. Their Theorem~2.5 gives an ordered operator-monotone result under a stronger trace-deficit assumption. Here the usual approximation error suffices, and the function class is larger. The unordered theorem addresses the relaxed $1+C\eps$ question from that work, for the Frobenius norm. No assertion about spectral or nuclear error transfer follows from these theorems.
+
+When starting with a higher-rank approximation $\widehat A$, take $B=\widehat A_k$. If $0\preceq\widehat A\preceq A$, then $B\preceq A$. The matrix $C$ uses the same leading eigenvectors, as in the canonical definition of $f(\widehat A)_k$ in \cite[Eq.~(2)]{PMM2025}. This convention matters when $f$ is constant on an interval: the statement is not a guarantee for independently chosen rotations inside a newly created plateau of $f(\widehat A)$.
+
+\section{Elementary consequences of subhomogeneity}
+If $0\le x<y$ and $y\ge\tau>0$, then
+\begin{equation}\label{eq:lip}
+ 0\le f(y)-f(x)\le \frac{f(y)}y(y-x)\le c(y-x).
+\end{equation}
+For $x=0$, the first upper bound follows by continuity. Also $f(x)\ge cx$ below $\tau$ and $f(x)\le cx$ above $\tau$. It follows that
+\begin{equation}\label{eq:tail}
+ c^2\TA\le\Tf.
+\end{equation}
+If $f(\tau)=0$, monotonicity makes $f$ vanish below $\tau$, and \eqref{eq:subhom} makes it vanish above $\tau$. All statements are then trivial. We henceforth assume $c>0$.
+
+\section{Proof of ordered transfer}
+\begin{lemma}[Ordered scalar certificate]\label{lem:orderedscalar}
+Set $h(a)=(c^2a^2-f(a)^2)_+$. For $a,b>0$,
+\begin{align}\label{eq:scalarordered}
+ h(a)+2f(b)f(a)-2c^2ba-f(b)^2+c^2b^2
+ \ge f(b)(f(b)-cb)_+\left(1-\frac ba\right).
+\end{align}
+\end{lemma}
+\begin{proof}
+If $b\ge\tau$, the right side vanishes. The left side is
+\[
+ c^2(a-b)^2-(f(a)-f(b))^2+(f(a)^2-c^2a^2)_+,
+\]
+which is nonnegative by \eqref{eq:lip}, since $\max(a,b)\ge\tau$.
+
+Suppose $b\le\tau$, and normalize by putting
+\[
+ d=\frac{f(b)}{cb}\ge1,\qquad z=\frac ab>0,\qquad
+ G=\frac{2f(b)f(a)+h(a)}{c^2b^2}.
+\]
+The assumptions imply
+\begin{equation}\label{eq:Gbranches}
+ G\ge\begin{cases}
+ 2d^2z,&0<z\le1,\\
+ 2d^2,&1\le z\le d,\\
+ 2dz,&z\ge d.
+ \end{cases}
+\end{equation}
+For the first branch, $f(a)\ge zf(b)$; for the second, $f(a)\ge f(b)$. For the third branch, if $a\le\tau$ then $f(a)\ge ca$, which proves the claim. If $a\ge\tau$, write $\phi=f(a)/(cb)\in[d,z]$. Then
+\[
+ G=z^2+2d\phi-\phi^2\ge\min\{z^2+d^2,2dz\}=2dz.
+\]
+Here the minimum of the concave quadratic occurs at an endpoint.
+
+Divide \eqref{eq:scalarordered} by $c^2b^2$ and use \eqref{eq:Gbranches}. The three lower bounds for the difference between its two sides factor as
+\begin{equation}\label{eq:branchcertificates}
+ \begin{cases}
+ \displaystyle\frac{d-1}{z}
+  \bigl(2(d+1)z^2-(2d+1)z+d\bigr),&0<z\le1,\\[5pt]
+ \displaystyle\frac{(d-z)(2z+d-1)}{z},&1\le z\le d,\\[5pt]
+ \displaystyle\frac{(d-1)(z-d)(2z-1)}{z},&z\ge d.
+ \end{cases}
+\end{equation}
+The quadratic in the first line has positive leading coefficient and discriminant $1-4d(d+1)<0$. The other two lines have only nonnegative factors in their stated ranges. This proves the lemma.
+\end{proof}
+
+\begin{lemma}[Harmonic eigenvector constraint]\label{lem:harmonic}
+If $A\succeq bvv^T$ with $b>0$ and $\norm v_2=1$, then $v\in\range A$ and
+\[
+ b\,v^TA^+v\le1,
+\]
+where $A^+$ is the Moore--Penrose inverse.
+\end{lemma}
+\begin{proof}
+For $x\in\ker A$, positivity of $A-bvv^T$ gives $0\le-b|x^Tv|^2$, so $v$ is orthogonal to $\ker A$. Congruence on the positive support of $A$ by $A^{-1/2}$ gives $I\succeq b(A^{-1/2}v)(A^{-1/2}v)^T$. Its single possibly nonzero eigenvalue is $b\norm{A^{-1/2}v}_2^2=bv^TA^+v$, proving the claim.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:ordered}]
+Let $u_i$ be an orthonormal eigenbasis of $A$. For each $b_j>0$, we have $A\succeq B\succeq b_jv_jv_j^T$. Average Lemma~\ref{lem:orderedscalar} over the positive eigenvalues $a_i$, using weights $|u_i^Tv_j|^2$. By Lemma~\ref{lem:harmonic}, the average of its right side is nonnegative. Hence
+\begin{align}\label{eq:average}
+ f(b_j)^2-c^2b_j^2-2f(b_j)v_j^Tf(A)v_j
+       +2c^2b_jv_j^TAv_j
+ \le v_j^Th(A)v_j.
+\end{align}
+If $b_j=0$, the same inequality holds directly because $f(A)\succeq f(0)I$ and $h(A)\succeq0$.
+
+Summing \eqref{eq:average} and using $\sum_jv_jv_j^T\preceq I$ gives
+\begin{align*}
+ \norm{f(A)-C}_F^2-c^2\norm{A-B}_F^2
+ &\le\tr\bigl(f(A)^2-c^2A^2\bigr)+\tr h(A)\\
+ &=\sum_{i=1}^n\bigl(f(a_i)^2-c^2a_i^2\bigr)_+\\
+ &=\Tf-c^2\TA.
+\end{align*}
+The last equality follows because the summands are nonpositive for $i\le k$ and nonnegative for $i>k$ before taking positive parts. This is \eqref{eq:ordered}. Equation~\eqref{eq:tail} gives its relative-error consequence. Taking $f(x)=x$ shows that one cannot replace its constant one by a smaller universal constant.
+\end{proof}
+
+\section{Proof of unordered transfer}
+\begin{lemma}[Unordered scalar certificate]\label{lem:unorderedscalar}
+Let $g$ satisfy the same assumptions as $f$, with $g(1)=1$. For all $a,b\ge0$,
+\begin{equation}\label{eq:scalarunordered}
+ g(b)^2-2g(b)g(a)-2b^2+4ab
+ \le H(a):=\max\{2a^2-g(a)^2,1\}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+If $a\ge1$, then $H(a)=2a^2-g(a)^2$, and subtracting the right side from the left side yields
+\[
+ (g(a)-g(b))^2-2(a-b)^2\le0
+\]
+by \eqref{eq:lip} with $\tau=c=1$. If $a\le1\le b$, the same inequality bounds the left side by $2a^2-g(a)^2\le1$.
+
+It remains to consider $0\le a,b\le1$. Put $u=g(a)$ and $v=g(b)$, so $a\le u\le1$ and $b\le v\le1$. If $a\le b$ and $b>0$, write $z=a/b$. Since $u\ge zv$, the left side of \eqref{eq:scalarunordered} is at most
+\[
+ (1-2z)(v^2-2b^2).
+\]
+For $z\le1/2$, this is at most one because $v\le1$. For $z\ge1/2$, it is at most $(2z-1)b^2\le1$ because $v\ge b$.
+
+If $b\le a$, then $u\ge\max(a,v)$. For $v\ge a$, the expression is at most
+\[
+ -v^2-2b^2+4ab\le-a^2-2b^2+4ab
+ =a^2-2(a-b)^2\le1.
+\]
+For $v\le a$, it is at most $v^2-2av-2b^2+4ab$. This convex quadratic on $v\in[b,a]$ is bounded by its endpoint values
+\[
+ 2ab-b^2=a^2-(a-b)^2,\qquad
+ -a^2-2b^2+4ab=a^2-2(a-b)^2,
+\]
+both at most one. The case $a=b=0$ follows either directly or by continuity.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:unordered}]
+Undo the normalization in Lemma~\ref{lem:unorderedscalar} by setting $g(x)=f(\tau x)/f(\tau)$. The resulting right side is
+\[
+ H_\tau(a)=\max\{2c^2a^2-f(a)^2,f(\tau)^2\}.
+\]
+It is constant for $a\le\tau$ and nondecreasing for $a\ge\tau$. Indeed, for $y\ge x\ge\tau$, \eqref{eq:lip} and $f(x)\le cx$, $f(y)\le cy$ imply
+\[
+ f(y)^2-f(x)^2\le c^2(y^2-x^2).
+\]
+Thus $2c^2a^2-f(a)^2$ is nondecreasing above $\tau$ and equals $f(\tau)^2$ at $\tau$.
+
+Average the rescaled scalar inequality over the eigenbasis of $A$ with the weights $|u_i^Tv_j|^2$, and sum over $j$. For the rank-$k$ projector $P=\sum_jv_jv_j^T$, the variational characterization of the sum of the largest eigenvalues gives
+\begin{align*}
+ &\sum_{j=1}^k\bigl(f(b_j)^2-2c^2b_j^2
+       -2f(b_j)v_j^Tf(A)v_j+4c^2b_jv_j^TAv_j\bigr)\\
+ &\hspace{20mm}\le\tr(PH_\tau(A))
+ \le\sum_{i=1}^k\bigl(2c^2a_i^2-f(a_i)^2\bigr).
+\end{align*}
+Expanding the two squared errors proves \eqref{eq:unordered}. Equation~\eqref{eq:tail} gives the squared relative-error conclusion. For the norm convention, note that
+\[
+ \sqrt{1+2((1+\eps)^2-1)}\le1+2\eps
+ \qquad(\eps\ge0).
+\]
+\end{proof}
+
+\section{Sharpness and degenerate cases}
+To show sharpness of two, fix $N\ge1$, $0<b<1$, and $0<p<1$, and take
+\[
+ A=I_{N+1}\oplus[0],\qquad k=1,\qquad
+ B=b\,e_{N+2}e_{N+2}^T,\qquad f(x)=x^p.
+\]
+Then $\tau=c=1$, $\TA=\Tf=N$, and
+\[
+ \norm{A-B}_F^2=N+1+b^2,\qquad
+ \norm{f(A)-C}_F^2=N+1+b^{2p}.
+\]
+The ratio of squared excesses is $(1+b^{2p})/(1+b^2)$, which approaches two as $b\downarrow0$ and $p\downarrow0$ with $b^p\to1$. The same is true for the ratio of norm-relative excesses after taking $N\to\infty$. One simultaneous choice is $N=L$, $b=e^{-L}$ and $p=L^{-2}$ as $L\to\infty$.
+
+These powers are operator monotone: for $0<p<1$, their scalar integral representation
+\[
+ x^p=\frac{\sin(\pi p)}\pi
+       \int_0^\infty t^{p-1}\,x(x+t)^{-1}\,dt
+\]
+extends by spectral calculus, and $X\mapsto X(X+tI)^{-1}=I-t(X+tI)^{-1}$ preserves the positive-semidefinite order. Thus the sharpness does not result from enlarging the function class beyond operator-monotone functions.
+
+If $\tau=0$, the relative-error hypothesis forces $A=B$, because $\TA=0$. The selected $k$-dimensional space contains $\range A$, and $f(A)-C$ consists exactly of $f(0)$ on the remaining $n-k$ dimensions. Its error is the optimal tail. The same argument treats $k=n$. We do not assert \eqref{eq:ordered} or \eqref{eq:unordered} with an undefined quotient $f(0)/0$; the relative-error conclusions themselves remain valid.
+
+\section{Verification and scope}
+The accompanying programs \texttt{verify\_frobenius\_transfer.py} and \texttt{verify\_relaxed\_transfer.py} check the displayed scalar factorizations symbolically and test the matrix inequalities on seeded examples, including nonconcave monotone subhomogeneous functions. These computations are diagnostics, not premises of the proofs. The inequalities above are deterministic and dimension independent.
+
+The manuscripts in this package are research candidates requiring independent mathematical review. The mathematical implications for the cited paper are explicit, but originality has not been certified by an exhaustive literature search or by the problem maintainers.
+
+\begin{thebibliography}{9}
+\bibitem{PMM2025}
+D.~Persson, R.~A.~Meyer, and C.~Musco,
+\emph{Algorithm-agnostic low-rank approximation of operator monotone matrix functions},
+SIAM Journal on Matrix Analysis and Applications \textbf{46}(1), 1--21 (2025).
+\href{https://doi.org/10.1137/23M1619435}{doi:10.1137/23M1619435}.
+Preprint: \href{https://arxiv.org/abs/2311.14023}{arXiv:2311.14023}, version~2, July~4, 2024.
+\end{thebibliography}
+\end{document}
+
+% END REVIEWED BODY

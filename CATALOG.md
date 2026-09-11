@@ -1,8 +1,8 @@
 # All problems and their status
 
-**200 problems with open targets:** 114 open and 86 partially resolved. **2 other retained entries**, excluded from the open count.
+**196 problems with open targets:** 113 open and 83 partially resolved. **6 other retained entries**, excluded from the open count.
 
-Every listed entry was checked on **2026-09-10**. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
+Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
 [Categories](README.md) · [Status definitions](README.md#problem-status) · [Solved and claimed solutions](RESOLVED.md) · [Rating definitions](README.md#ratings)
 
@@ -109,9 +109,6 @@ Retained entries outside the open count:
 | [RA-04](randomized-and-low-rank-approximation/RA-04/README.md) | Clustered singular-value gaps in randomized block Krylov approximation | **🔵 OPEN** | hard | interesting to specialist | [PDF](randomized-and-low-rank-approximation/RA-04/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-04/problem.tex) |
 | [RA-05](randomized-and-low-rank-approximation/RA-05/README.md) | Sharp joint rank and accuracy dependence for strong $\ell_p$ subspace coresets | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-05/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-05/problem.tex) |
 | [RA-06](randomized-and-low-rank-approximation/RA-06/README.md) | Sensitivity-dependent row sampling for $\ell_p$ embeddings when p exceeds two | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-06/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-06/problem.tex) |
-| [RA-07](randomized-and-low-rank-approximation/RA-07/README.md) | Convexity of the expected error of volume-sampled column subsets | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-07/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-07/problem.tex) |
-| [RA-08](randomized-and-low-rank-approximation/RA-08/README.md) | Concave-function transfer of spectral low-rank error | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-08/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-08/problem.tex) |
-| [RA-09](randomized-and-low-rank-approximation/RA-09/README.md) | Concave-function transfer of Frobenius low-rank error | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-09/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-09/problem.tex) |
 | [RA-10](randomized-and-low-rank-approximation/RA-10/README.md) | Constant-loss nuclear-error transfer without matrix ordering | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-10/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-10/problem.tex) |
 | [RA-11](randomized-and-low-rank-approximation/RA-11/README.md) | Optimal trace-estimation complexity using Kronecker matrix-vector queries | **🔵 OPEN** | extreme | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-11/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-11/problem.tex) |
 | [RA-12](randomized-and-low-rank-approximation/RA-12/README.md) | Relative-error threshold for extremal Gaussian trace bounds | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-12/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-12/problem.tex) |
@@ -123,12 +120,20 @@ Retained entries outside the open count:
 | [RE-01](randomized-and-low-rank-approximation/RE-01/README.md) | Constant-factor HSS approximation in polynomial time | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RE-01/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RE-01/problem.tex) |
 | [RE-02](randomized-and-low-rank-approximation/RE-02/README.md) | HSS approximation from a number of matvecs independent of depth | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RE-02/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RE-02/problem.tex) |
 | [RE-03](randomized-and-low-rank-approximation/RE-03/README.md) | Optimal matvec query complexity of HODLR approximation | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RE-03/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RE-03/problem.tex) |
-| [RE-05](randomized-and-low-rank-approximation/RE-05/README.md) | Pure relative error for approximation by a linear matrix family | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RE-05/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RE-05/problem.tex) |
 | [RE-06](randomized-and-low-rank-approximation/RE-06/README.md) | Nonadaptive queries for finite-family matrix approximation | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RE-06/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RE-06/problem.tex) |
 | [TR-01](randomized-and-low-rank-approximation/TR-01/README.md) | Optimal dimension for a rerandomized Hadamard embedding | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/TR-01/problem.pdf) · [TeX](randomized-and-low-rank-approximation/TR-01/problem.tex) |
 | [TR-03](randomized-and-low-rank-approximation/TR-03/README.md) | Sharp gap between volume sampling and the worst matrix with a prescribed spectrum | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/TR-03/problem.pdf) · [TeX](randomized-and-low-rank-approximation/TR-03/problem.tex) |
 | [TR-07](randomized-and-low-rank-approximation/TR-07/README.md) | Random column subsets of arbitrary fixed-sparsity matrices | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/TR-07/problem.pdf) · [TeX](randomized-and-low-rank-approximation/TR-07/problem.tex) |
 | [TR-08](randomized-and-low-rank-approximation/TR-08/README.md) | Sharp sparsity threshold for injectivity of a random sparse rectangular matrix | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/TR-08/problem.pdf) · [TeX](randomized-and-low-rank-approximation/TR-08/problem.tex) |
+
+Retained entries outside the open count:
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [RA-07](randomized-and-low-rank-approximation/RA-07/README.md) | Convexity of the expected error of volume-sampled column subsets | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-07/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-07/problem.tex) |
+| [RA-08](randomized-and-low-rank-approximation/RA-08/README.md) | Concave-function transfer of spectral low-rank error | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-08/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-08/problem.tex) |
+| [RA-09](randomized-and-low-rank-approximation/RA-09/README.md) | Concave-function transfer of Frobenius low-rank error | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-09/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-09/problem.tex) |
+| [RE-05](randomized-and-low-rank-approximation/RE-05/README.md) | Pure relative error for approximation by a linear matrix family | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RE-05/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RE-05/problem.tex) |
 
 
 ## [Tensor computations](tensor-computations/README.md)

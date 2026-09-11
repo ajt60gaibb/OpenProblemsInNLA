@@ -4,8 +4,21 @@
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because scalar concavity must control noncommuting spectral errors; community impact is reusing low-rank approximations across matrix functions.  
 **Topic:** Low-rank approximation of matrix functions.  
-**Last checked:** 2026-09-10  
-**Status:** Partially resolved  
+**Last checked:** 2026-09-11  
+**Status:** Solved  
+
+<!-- colbrook-transfer -->
+## Resolution — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the exact target.**
+
+A rational positive definite $6\times6$ matrix and its exact rank-three Nyström approximation attain the optimal input spectral error but violate transformed optimality for $f(x)=\min(x,1)$. At $t=1/65536$, the output ratio is at least $1+334583/15769728$. Since the input excess is zero, this also excludes every finite factor $1+C\varepsilon$ for that scalar-concave class.
+
+The complete target is resolved. Its former difficulty rating is historical; the original mathematical statement and source evidence are retained below.
+
+**Primary reference:** [complete authored PDF](../../references/colbrook-transfer-2026-09-11/manuscripts/03_concave_transfer_counterexamples.pdf), [standalone TeX](../../references/colbrook-transfer-2026-09-11/manuscripts/03_concave_transfer_counterexamples.tex), **Theorem 3.1**. [Independent proof review](../../references/colbrook-transfer-2026-09-11/verification/reviews/RA-08-review.md) · [Authorship and submission record](../../references/colbrook-transfer-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
+
+<!-- /colbrook-transfer -->
 
 Let $n\ge2$, $1\le k<n$, and $A,\widehat A\in\mathbb R^{n\times n}$ satisfy $A\succeq\widehat A\succeq0$, where the matrices are symmetric and $\succeq$ is the positive semidefinite ordering. Let $f:[0,\infty)\to[0,\infty)$ be continuous, concave, and nondecreasing.
 

@@ -1,0 +1,193 @@
+\documentclass[11pt]{article}
+\input{common_preamble}
+\title{Convexity of a volume-sampling error sequence}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+For positive numbers $\lambda_1,\ldots,\lambda_n$, let $e_j$ be their elementary symmetric polynomials, with $e_0=1$ and $e_{n+1}=0$. We prove that $(j+1)e_{j+1}/e_j$ is a decreasing convex sequence on $\{0,\ldots,n\}$. The proof reduces each second difference to the nonnegative quantity $s_1s_3-s_2^2$ for the reciprocal roots of a derivative of the generating polynomial. This proves Conjecture~1 of Derezi\'nski, Khanna, and Mahoney. We give a self-contained application to fixed-size determinantal sampling, remove the concentration loss from its stable-rank bound, and derive a slightly sharper explicit bound.
+\end{abstract}
+
+\section{The discrete inequality}
+For $0\le j\le n$, write
+\[
+ e_j=\sum_{\substack{S\subseteq\{1,\ldots,n\}\\|S|=j}}
+       \prod_{i\in S}\lambda_i,
+ \qquad F_j=(j+1)\frac{e_{j+1}}{e_j}.
+\]
+Here an empty product is one, and $e_{n+1}=0$. In particular $F_n=0$. The following theorem proves the convexity conjecture stated in \cite[Section~5, Conjecture~1]{DKM2020}.
+
+\begin{theorem}\label{thm:convex}
+If every $\lambda_i$ is positive, then $F_0>F_1>\cdots>F_n$ and
+\[
+ F_{k-1}-2F_k+F_{k+1}\ge0\qquad(1\le k\le n-1).
+\]
+More precisely, factor
+\[
+ Q(t):=\frac{d^{k-1}}{dt^{k-1}}\prod_{i=1}^n(1+\lambda_i t)
+     =Q(0)\prod_{a=1}^{n-k+1}(1+\mu_a t),
+ \qquad s_\ell=\sum_a\mu_a^\ell.
+\]
+All $\mu_a$ are positive, and
+\begin{equation}\label{eq:certificate}
+ F_{k-1}-2F_k+F_{k+1}
+ =\frac{2(s_1s_3-s_2^2)}{s_1(s_1^2-s_2)}
+ =\frac{2\sum_{a<b}\mu_a\mu_b(\mu_a-\mu_b)^2}
+        {s_1(s_1^2-s_2)}.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Put $P(t)=\prod_i(1+\lambda_i t)$. Since $P^{(j)}(0)=j!e_j$,
+\[
+ F_j=\frac{P^{(j+1)}(0)}{P^{(j)}(0)}.
+\]
+Every root of $P$ is strictly negative. Repeated applications of Rolle's theorem, including the usual multiplicities at repeated roots, show that every derivative of positive degree also has only strictly negative roots. Thus $Q$ has the stated factorization with positive $\mu_a$.
+
+The first three derivatives of this product at zero give
+\[
+ \frac{Q'(0)}{Q(0)}=s_1,\qquad
+ \frac{Q''(0)}{Q(0)}=s_1^2-s_2,\qquad
+ \frac{Q'''(0)}{Q(0)}=s_1^3-3s_1s_2+2s_3.
+\]
+Consequently
+\[
+ F_{k-1}=s_1,\qquad
+ F_k=\frac{s_1^2-s_2}{s_1},\qquad
+ F_{k+1}=\frac{s_1^3-3s_1s_2+2s_3}{s_1^2-s_2}.
+\]
+Subtracting gives the first identity in \eqref{eq:certificate}. Its denominator is positive because $Q$ has degree at least two and
+$s_1^2-s_2=2\sum_{a<b}\mu_a\mu_b>0$. The numerator satisfies
+\[
+ s_1s_3-s_2^2=\sum_{a<b}\mu_a\mu_b(\mu_a-\mu_b)^2\ge0.
+\]
+This proves convexity, including $k=n-1$: in that case $Q$ has degree two and $Q'''=0$.
+
+For monotonicity, use the same calculation with $Q=P^{(j)}$, for $0\le j\le n-1$. It gives $F_j-F_{j+1}=s_2/s_1>0$. When $Q$ has degree one, this identity still holds, with $F_{j+1}=F_n=0$.
+\end{proof}
+
+If all $\lambda_i$ equal $\lambda$, then $F_j=(n-j)\lambda$ and every second difference vanishes. Formula~\eqref{eq:certificate} also supplies an explicit nonnegative certificate in the general case; no limiting or probabilistic argument is needed for the theorem.
+
+\section{Determinantal sampling}
+Let $A\in\R^{m\times N}$ have rank $r$, and let $\lambda_1\ge\cdots\ge\lambda_r>0$ be the nonzero eigenvalues of $G=A^TA$. Define
+\[
+ \mathcal E(S)=\norm{A-P_SA}_F^2,
+\]
+where $P_S$ is the orthogonal projector onto the span of the columns indexed by $S$. For $0\le j\le r$, the fixed-size determinantal distribution assigns probability proportional to $\det(G_{S,S})$ to subsets with $|S|=j$.
+
+\begin{lemma}\label{lem:expectations}
+For fixed-size sampling of size $j$,
+\[
+ \E_j\mathcal E(S)=F_j=(j+1)e_{j+1}/e_j.
+\]
+For the random-size distribution
+\[
+ \Prob_\alpha(S)=\frac{\alpha^{-|S|}\det(G_{S,S})}{\det(I+G/\alpha)},
+ \qquad \alpha>0,
+\]
+write $K=|S|$. Then
+\begin{equation}\label{eq:dpp}
+ \mu(\alpha):=\E_\alpha K=\sum_{i=1}^r\frac{\lambda_i}{\lambda_i+\alpha},
+ \qquad \E_\alpha\mathcal E(S)=\alpha\mu(\alpha).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The principal-minor identity gives
+$\sum_{|S|=j}\det(G_{S,S})=e_j$.
+For $i\notin S$, the Gram determinant formula gives
+\[
+ \det(G_{S,S})\norm{(I-P_S)a_i}_2^2
+       =\det(G_{S\cup\{i\},S\cup\{i\}}).
+\]
+This also holds when $G_{S,S}$ is singular: adding one column cannot increase its rank to $j+1$, so both sides vanish. Summing over $S$ and $i$ counts every $(j+1)$-set exactly $j+1$ times, proving the fixed-size formula.
+
+Put $P(t)=\sum_{j=0}^r e_jt^j=\prod_{i=1}^r(1+\lambda_i t)$. The probability generating function of $K$ has normalizing factor $P(1/\alpha)$. Thus
+\[
+ \E_\alpha K=\frac{\alpha^{-1}P'(1/\alpha)}{P(1/\alpha)},\qquad
+ \E_\alpha\mathcal E(S)=\frac{P'(1/\alpha)}{P(1/\alpha)}.
+\]
+The logarithmic derivative of $P$ proves \eqref{eq:dpp}.
+\end{proof}
+
+\begin{corollary}\label{cor:jensen}
+Let $1\le k<r$. If $\mu(\alpha)\le k$, then
+\[
+ \E_k\mathcal E(S)\le\alpha\mu(\alpha)\le\alpha k.
+\]
+In particular, there is a unique $\alpha_k>0$ satisfying $\mu(\alpha_k)=k$, and
+\[
+ \E_k\mathcal E(S)\le\E_{\alpha_k}\mathcal E(S)=\alpha_k k.
+\]
+\end{corollary}
+
+\begin{proof}
+Let $F(x)$ be the piecewise-linear interpolation of the values $F_j$ on $[0,r]$. Theorem~\ref{thm:convex} makes $F$ convex and decreasing. Conditional on $K=j$, random-size sampling is the fixed-size distribution, so
+\[
+ F(k)\le F(\E K)\le\E F(K)=\E_\alpha\mathcal E(S).
+\]
+The remaining assertions follow from \eqref{eq:dpp} and the strict decrease of $\mu(\alpha)$ from $r$ to zero as $\alpha$ increases from zero to infinity.
+\end{proof}
+
+\section{Stable-rank bounds without a concentration loss}
+For $0\le s<r$, define the order-$s$ stable rank by
+\[
+ r_s=\frac{\sum_{i>s}\lambda_i}{\lambda_{s+1}},\qquad t_s=s+r_s.
+\]
+The optimal rank-$k$ squared Frobenius error is
+$T_k=\sum_{i>k}\lambda_i$.
+
+\begin{theorem}\label{thm:stable}
+For every integer $s<k<t_s$, fixed-size determinantal sampling satisfies
+\begin{align}
+ \frac{\E_k\mathcal E(S)}{T_k}
+ &\le \frac{k}{2(k-s)}
+      \left(1+\sqrt{1+\frac{4(k-s)\lambda_{s+1}}{T_k}}\right)\label{eq:directbound}\\
+ &\le \frac{k}{2(k-s)}
+      \left(1+\sqrt{1+\frac{4(k-s)}{t_s-k}}\right)\label{eq:stablebound}\\
+ &\le \frac{k}{k-s}\sqrt{1+\frac{2(k-s)}{t_s-k}}.\label{eq:oldphi}
+\end{align}
+No auxiliary $\eps$, lower bound on $k-s$, or concentration-loss multiplier is required.
+\end{theorem}
+
+\begin{proof}
+Write $\ell=k-s$, $\beta=\lambda_{s+1}$, and $T=T_k$. Since the eigenvalues are decreasing,
+\[
+ \mu(\alpha)\le s+\frac{\ell\beta}{\beta+\alpha}+\frac{T}{\alpha}.
+\]
+Choose
+\[
+ \alpha=\frac{T+\sqrt{T^2+4\ell\beta T}}{2\ell}.
+\]
+It solves $\ell\alpha^2=T(\alpha+\beta)$, so the preceding upper bound on $\mu(\alpha)$ equals $s+\ell=k$. Corollary~\ref{cor:jensen} gives $F_k\le k\alpha$, which is \eqref{eq:directbound}.
+
+Moreover,
+\[
+ T=\beta r_s-\sum_{i=s+1}^k\lambda_i
+       \ge\beta(r_s-\ell)=\beta(t_s-k)>0.
+\]
+This proves \eqref{eq:stablebound}. Finally,
+\[
+ \frac{1+\sqrt{1+4x}}2\le\sqrt{1+2x}\qquad(x\ge0)
+\]
+follows by squaring and using $\sqrt{1+4x}\le1+2x$. Substituting $x=(k-s)/(t_s-k)$ proves \eqref{eq:oldphi}.
+\end{proof}
+
+The final expression in \eqref{eq:oldphi} is the function $\Phi_s(k)$ appearing in \cite[Theorem~1]{DKM2020}. Theorem~\ref{thm:stable} therefore yields the loss-free version contemplated there, over the full range $s<k<t_s$, with the sharper intermediate bounds \eqref{eq:directbound} and \eqref{eq:stablebound}.
+
+For completeness, the classical worst-case bound $F_k\le(k+1)T_k$ follows directly from $e_{k+1}\le T_ke_k$: every $(k+1)$-set contains an index greater than $k$, and expanding $T_ke_k$ counts its product at least once. Thus one may take the minimum of $k+1$ and any applicable bound above.
+
+\section{Scope and verification}
+The polynomial theorem concerns positive numbers; a rank-deficient matrix is handled by using only its positive eigenvalues, as in Section~2. Fixed-size determinantal sampling is asserted only for sizes at most the rank. The endpoint $k=r$ has zero residual and needs no relative-error ratio.
+
+The accompanying script \texttt{verification/verify\_volume\_sampling.py} checks the second-difference identity symbolically, checks the polynomial inequalities in exact rational arithmetic, and checks the determinantal expectation identities on small matrices. These checks supplement, rather than replace, the proofs above.
+
+\begin{thebibliography}{9}
+\bibitem{DKM2020}
+M. Derezi\'nski, R. Khanna, and M. W. Mahoney.
+\newblock Improved guarantees and a multiple-descent curve for Column Subset Selection and the Nystr\"om method.
+\newblock \emph{arXiv:2002.09073}, version~3, 18 December 2020.
+\newblock \url{https://arxiv.org/abs/2002.09073}.
+\end{thebibliography}
+\end{document}

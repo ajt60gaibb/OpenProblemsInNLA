@@ -23,3 +23,5 @@ screen. Use [CATALOG.md](../CATALOG.md) for current counts and statuses.
 | [Additional candidate screen](ADDITIONAL-PROBLEMS-SCREEN.md) | Forty-three candidates, their source checks, duplicates and exclusion reasons. |
 | [Further literature screen](LITERATURE-EXPANSION-2026-09.md) | Twelve admissions and uncounted reserves. |
 | [September 10 source screen](EXPANSION-TO-200-2026-09.md) | Forty-two admissions, source-fidelity checks and recent resolution claims. |
+
+- [Transfer and sampling results by Matthew J. Colbrook, 11 September 2026](colbrook-transfer-2026-09-11/README.md): four independently reviewed resolutions, a commuting partial result and auxiliary Gamma counterexamples.
