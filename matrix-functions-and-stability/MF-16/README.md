@@ -4,8 +4,21 @@
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
 **Rating rationale:** Challenging because uniqueness must hold for words of unbounded length despite higher-dimensional failures; specialist impact reflects the surviving two-letter, order-two setting.  
-**Last checked:** 2026-09-10  
-**Status:** Partially resolved  
+**Last checked:** 2026-09-11  
+**Status:** Solved  
+
+<!-- colbrook-matrix-functions -->
+## Resolution — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the exact target.**
+
+The ordinary symmetric two-letter word $XBX^{12}BX=P$ has at least three distinct real symmetric positive definite solutions for explicit integer $B,P$. These are also Hermitian positive definite solutions, refuting the canonical universal uniqueness assertion in dimension two. An exact negative Jacobian determinant and two independent interval implementations certify the counterexample.
+
+The complete target is resolved. Its former difficulty rating is historical; the original statement, references and dated audits remain below.
+
+**Primary reference:** [complete authored PDF](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-16.pdf), [standalone TeX](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-16.tex), **Theorem 1; Theorem 4 gives three certified solutions, and Theorem 3 gives a family threshold**. [Independent proof review](../../references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-16-review.md) · [Authorship and submission record](../../references/colbrook-matrix-functions-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
+
+<!-- /colbrook-matrix-functions -->
 
 ## Problem statement
 

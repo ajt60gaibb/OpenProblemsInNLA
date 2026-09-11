@@ -1,0 +1,178 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref,microtype}
+\hypersetup{hidelinks}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\SPD}{\mathcal P_2}
+\newcommand{\diag}{\operatorname{diag}}
+\title{Nonuniqueness of a symmetric word equation in two-by-two positive definite matrices}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+The symmetric word equation $XBX^{12}BX=P$, with
+$B=\bigl[\begin{smallmatrix}1&4\\4&17\end{smallmatrix}\bigr]$ and an explicit integer matrix $P$, has at least three distinct real symmetric positive definite solutions. At $X_0=\diag(3,1)$ the Jacobian determinant in symmetric-matrix coordinates is exactly $-11785057051824$. Armstrong--Hillar's degree theorem therefore already proves nonuniqueness, disproving their Conjecture~11.5. Separate integer interval-arithmetic certificates establish two further roots without using the degree theorem. A factored Jacobian also gives a sharp classification within the family $XBX^rBX$: universal uniqueness holds for integer $1\le r\le6$, whereas counterexamples exist for every integer $r\ge7$.
+\end{abstract}
+
+\section{An explicit counterexample}
+Write $\SPD$ for the open cone of real symmetric positive definite $2\times2$ matrices. Coordinates on the space of symmetric matrices are always $(X_{11},X_{12},X_{22})$, with the same order in the domain and codomain. For fixed $B\in\SPD$, put $F_r(X)=XBX^rBX$.
+
+\begin{theorem}\label{thm:counter}
+Let
+\[
+B=\begin{pmatrix}1&4\\4&17\end{pmatrix},\qquad
+X_0=\begin{pmatrix}3&0\\0&1\end{pmatrix},\qquad
+P=\begin{pmatrix}4783113&6377496\\6377496&8503345\end{pmatrix}.
+\]
+Then $F_{12}(X_0)=P$ and the equation $F_{12}(X)=P$ has more than one solution in $\SPD$.
+\end{theorem}
+\begin{proof}
+The leading principal minors of $B$ are $1,1$, and those of $X_0$ are $3,3$. Direct multiplication gives the displayed $P$; in particular, $P_{11}>0$ and $\det P=3^{14}>0$. The word $XBX^{12}BX$ is an interlaced symmetric word in the sense of Armstrong and Hillar~\cite{AH}.
+
+For a symmetric perturbation $H$, the product rule gives
+\begin{align}
+DF_r(X)[H]={}&HBX^rBX+XBX^rBH \notag\\
+&+XB\left(\sum_{j=0}^{r-1}X^jHX^{r-1-j}\right)BX.\label{eq:derivative}
+\end{align}
+Applying \eqref{eq:derivative} to the three coordinate basis matrices yields
+\[
+J F_{12}(X_0)=
+\begin{pmatrix}
+22320618&31886832&1728\\
+27635000&36403996&6379944\\
+34012224&40389584&17010158
+\end{pmatrix},
+\]
+whose determinant is
+\begin{equation}\label{eq:negative}
+\det JF_{12}(X_0)=-11785057051824<0.
+\end{equation}
+Corollary~11.1 of~\cite{AH} states that a negative Jacobian determinant at a positive definite point of an interlaced symmetric word map implies another real positive definite solution with the same image. It applies directly to \eqref{eq:negative}.
+\end{proof}
+
+Theorem~\ref{thm:counter} is a counterexample to Conjecture~11.5 of~\cite{AH}, which asserts uniqueness of symmetric word equations in dimension two. This is not the previously studied word $XBX^2B^3X^2BX$, whose dimension-two uniqueness is established in~\cite{AH,LL}. The word and the dimension are both essential.
+
+\section{A factored Jacobian and a sharp family threshold}
+\begin{lemma}\label{lem:factor}
+Let $X=\diag(t,1)$, $t>0$, and $B=\bigl[\begin{smallmatrix}a&b\\b&c\end{smallmatrix}\bigr]\in\SPD$. For an integer $r\ge1$ put $p=t^r$ and $g=\sum_{j=0}^{r-1}t^j$. Then
+\begin{equation}\label{eq:factor}
+\det JF_r(X)=t^{r+1}(r+2)(ac-b^2)^2 H_r,
+\end{equation}
+where
+\begin{equation}\label{eq:H}
+H_r=(r+2)(a^2t^{r+1}+c^2+acgt)
+       -(r-2)b^2(gt+t^r+t).
+\end{equation}
+\end{lemma}
+\begin{proof}
+Formula \eqref{eq:derivative} gives the Jacobian
+\[
+\begin{pmatrix}
+(r+2)a^2pt+2b^2t & 2bt(agt+ap+c) & rb^2t^2\\
+(r+1)abp+bc & a^2pt+c^2+acgt+b^2(gt+p+t) & bt(ap+(r+1)c)\\
+rb^2p/t & 2b(ap+c(g+1)) & (r+2)c^2+2b^2p
+\end{pmatrix}.
+\]
+Expanding its determinant and collecting terms gives \eqref{eq:factor}--\eqref{eq:H}. This identity remains valid at $t=1$, since $g$ is a polynomial rather than a quotient.
+\end{proof}
+
+For the data of Theorem~\ref{thm:counter}, formula \eqref{eq:H} gives $H_{12}=-527992$ and hence
+\[
+\det JF_{12}(X_0)=3^{13}\cdot14\cdot(-527992),
+\]
+an additional short check on the integer determinant.
+
+\begin{theorem}\label{thm:threshold}
+For every integer $1\le r\le6$ and every $B,P\in\SPD$, the equation $XBX^rBX=P$ has exactly one solution in $\SPD$. For each integer $r\ge7$, some $B,P\in\SPD$ give more than one solution.
+\end{theorem}
+\begin{proof}
+An orthogonal change of basis diagonalizes $X$, and a positive scalar multiple puts it in the form $\diag(t,1)$. The change of coordinates acts identically on domain and codomain, so preserves the sign of the Jacobian determinant. Positive scaling also preserves its sign by homogeneity.
+
+For $r=1,2$, \eqref{eq:H} is positive. For $3\le r\le6$, use $b^2<ac$ and $r-2>0$ to obtain
+\begin{align*}
+H_r &> (r+2)(a^2t^{r+1}+c^2)
+      +ac\{4gt-(r-2)(t^r+t)\},\\
+4gt-(r-2)(t^r+t)
+ &= (6-r)(t+t^r)+4\sum_{j=2}^{r-1}t^j\ge0.
+\end{align*}
+Thus the Jacobian determinant is positive everywhere on $\SPD$. The degree-one theorem for interlaced symmetric word maps, Theorem~1.5 of~\cite{AH}, now implies existence and uniqueness: every value is regular, every inverse image contributes $+1$, and the total degree is one.
+
+Conversely fix $r\ge7$ and choose
+\[
+0<\varepsilon<\frac{r-6}{2(r-2)},\quad
+c=t^{(r+1)/2},\quad a=1,\quad b^2=(1-\varepsilon)c.
+\]
+These choices give $\det B=\varepsilon c>0$. From \eqref{eq:H},
+\[
+\frac{H_r}{ct^r}
+=(r+2)\left(2t^{(1-r)/2}+\frac{gt}{t^r}\right)
+ -(r-2)(1-\varepsilon)\left(\frac{gt}{t^r}+1+t^{1-r}\right).
+\]
+Since $gt/t^r\to1$ as $t\to\infty$, the limit is
+\[
+6-r+2(r-2)\varepsilon<0.
+\]
+Therefore $H_r<0$ for sufficiently large $t$. Lemma~\ref{lem:factor} and Corollary~11.1 of~\cite{AH} give nonuniqueness for $P=F_r(\diag(t,1))$.
+\end{proof}
+
+\section{Independent certification of three solutions}
+The following computer-assisted strengthening is not needed for the preceding analytic counterexample. It supplies explicit enclosures and an independent existence proof.
+
+\begin{theorem}\label{thm:three}
+The matrices $B,P$ in Theorem~\ref{thm:counter} admit at least three distinct solutions in $\SPD$ to $XBX^{12}BX=P$.
+\end{theorem}
+\begin{proof}[Certificate proof]
+Since $\det B=1$ and $\det P=3^{14}$, every positive definite solution has determinant $3$. Parameterize this surface by
+\[
+X(x,y)=\begin{pmatrix}x&y\\y&(3+y^2)/x\end{pmatrix},\qquad x>0.
+\]
+Define the two-component function
+\[
+f(x,y)=\bigl((F_{12}(X(x,y))-P)_{11},
+                 (F_{12}(X(x,y))-P)_{12}\bigr).
+\]
+A zero of $f$ with $x>0$ solves the full matrix equation: the determinants of $F_{12}(X)$ and $P$ both equal $3^{14}$, and their $(1,1)$ and $(1,2)$ entries agree, with the $(1,1)$ entry positive. Thus their remaining diagonal entries agree as well.
+
+Two disjoint boxes of radius $10^{-40}$ in the $(x,y)$ maximum norm are specified, with their full decimal centers, in the accompanying file \path{word_equation_interval_certificate.json}. For orientation only, their centers rounded to fourteen decimal places are
+\[
+\begin{split}
+(x_1,y_1)&\simeq(2.97299380819299,\phantom{-}0.01891127365428),\\
+(x_2,y_2)&\simeq(3.49434510663918,-0.33048510081377).
+\end{split}
+\]
+The verifier uses integer fixed-point interval arithmetic with 110 decimal places and outward rounding at every operation. For each box $Q=c+[-\delta,\delta]^2$, it computes a fixed invertible rational preconditioner $C$ from the midpoint of an interval enclosure of $Df(c)$, and verifies
+\begin{align*}
+c-Cf(c)+(I-CDf(Q))[-\delta,\delta]^2&\subset\operatorname{int}Q,\\
+\sup_{u\in Q}\|I-CDf(u)\|_\infty&<10^{-20}.
+\end{align*}
+Here every displayed set expression is replaced by a rigorous interval enclosure. By the mean-value theorem, $T(u)=u-Cf(u)$ maps $Q$ into itself and is a strict contraction. The contraction mapping theorem gives a unique zero of $f$ in each box. Both boxes have $x>0$, are disjoint from each other, and exclude $(3,0)$. Together with $X_0$, they certify three distinct positive definite solutions.
+\end{proof}
+
+\section{Reproducibility and scope}
+The supplied standard-library Python verifier \path{word_equation_certificate.py} differentiates the original product one letter at a time, checks positive definiteness by principal minors, and computes \eqref{eq:negative} by exact integer arithmetic. It does not use Lemma~\ref{lem:factor} to construct the Jacobian. The separate file \path{word_equation_interval_certificate.py} regenerates the two interval certificates using no floating-point arithmetic or external numerical library. The interval proof does not assume the degree theorem. An independent verifier, \path{word_equation_interval_independent.py}, repeats the existence proof with exact rational endpoints rather than fixed-point arithmetic and uses the Cayley--Hamilton recurrence $X^{k+1}=(\operatorname{tr}X)X^k-3X^{k-1}$ instead of the original product evaluation. It obtains the same two strict root-box inclusions. This verification requires only Python\,3; its output is recorded separately.
+
+The counterexample resolves the dimension-two universal uniqueness conjecture, not the existence theorem or the uniqueness of every individual word. The exponent threshold in Theorem~\ref{thm:threshold} is specific to the family $XBX^rBX$; it is not a claim about the shortest counterexample among all symmetric words. The results are submitted as complete solution claims pending external mathematical review.
+
+\begin{thebibliography}{9}
+\bibitem{AH}
+S. N. Armstrong and C. J. Hillar,
+\emph{Solvability of symmetric word equations in positive definite letters},
+J. London Math. Soc. \textbf{76} (2007), 777--796.
+\href{https://doi.org/10.1112/jlms/jdm070}{doi:10.1112/jlms/jdm070}.
+\href{https://arxiv.org/abs/math/0507306}{arXiv:math/0507306v4}.
+Theorem~1.5, Corollary~11.1, and Conjecture~11.5; arXiv manuscript pp.~3, 18, and 20.
+\bibitem{HJ}
+C. J. Hillar and C. R. Johnson,
+\emph{Symmetric word equations in two positive definite letters},
+Proc. Amer. Math. Soc. \textbf{132} (2004), 945--953.
+\href{https://doi.org/10.1090/S0002-9939-03-07163-6}{doi:10.1090/S0002-9939-03-07163-6}.
+\bibitem{LL}
+J. Lawson and Y. Lim,
+\emph{On the symmetric matrix word equation $XBX^2B^3X^2BX=A$},
+Linear Algebra Appl. \textbf{427} (2007), 77--86.
+\href{https://doi.org/10.1016/j.laa.2007.06.021}{doi:10.1016/j.laa.2007.06.021}.
+\end{thebibliography}
+\end{document}

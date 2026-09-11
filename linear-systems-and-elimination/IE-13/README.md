@@ -6,8 +6,18 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Solved
+**Last checked:** 2026-09-11
+
+<!-- colbrook-recovered -->
+## Independently reviewed resolution - 2026-09-11
+
+**Sharp growth classification.** Theorem 1 and Sections 2-4 prove $G(0,q)=1$ and $G(p,q)=h_{p+q}$ for $p\ge1$, where $h_t=0$ for $t\le0$ and $h_t=1+\sum_{r=1}^p h_{t-r}$ otherwise. The upper bound covers every complex input and admissible tie path, with growth over all active entries in the fixed original ordering. A real nonsingular matrix of order $2p+q+1$ attains it, including zero upper bandwidth.
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [Complete manuscript](../../references/colbrook-recovered-2026-09-11/manuscripts/IE-13.pdf), [independent proof review](../../references/colbrook-recovered-2026-09-11/verification/reviews/IE-13-review.md), and [submission record](../../references/colbrook-recovered-2026-09-11/README.md). The supplied notes were reconstructed with substantial AI assistance. This is independent agent verification, not external human peer review or formal proof-assistant certification; no novelty or priority claim is made.
+
+The difficulty, importance and rating rationale below are historical assessments of the original open target. Original statements, references and dated audits are preserved.
+<!-- /colbrook-recovered -->
 
 **Rating rationale:** Challenging reflects interacting fill-in and pivot choices across arbitrary unequal bandwidths; specialist impact is a sharp stability classification for banded elimination.
 

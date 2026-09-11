@@ -7,8 +7,21 @@
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
 **Rating rationale:** Challenging because zeros change the feasible infinitesimal motions and defeat the positive-entry argument; specialist importance is a precise uniqueness test for size-two PSD factors.  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-10  
+**Status:** Solved  
+**Last checked:** 2026-09-11  
+
+<!-- colbrook-factorization -->
+## Resolution — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the exact target.**
+
+For every real size-two positive semidefinite factorization of an ordinary-rank-three matrix, feasible straight-line infinitesimal rigidity is equivalent to uniqueness up to congruence. The zero-entry argument handles repeated or singular factors and zero rows and columns; the cited positive-entry theorem covers the remaining case. The feasible directions and equivalence group agree exactly with the canonical definitions.
+
+The complete target is resolved. Its former difficulty rating is historical; the original statement, references and dated audits remain below.
+
+**Primary reference:** [complete authored PDF](../../references/colbrook-factorization-2026-09-11/manuscripts/PF-05_rigidity_with_zeros.pdf), [standalone TeX](../../references/colbrook-factorization-2026-09-11/manuscripts/PF-05_rigidity_with_zeros.tex), **Theorem 1, with Theorem 8 for the zero-entry construction**. [Independent proof review](../../references/colbrook-factorization-2026-09-11/verification/reviews/PF-05-review.md) · [Authorship and submission record](../../references/colbrook-factorization-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
+
+<!-- /colbrook-factorization -->
 
 ## Context and notation
 

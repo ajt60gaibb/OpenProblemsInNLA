@@ -1,0 +1,15 @@
+# Independent integration audit: seven reviewed PRs
+
+Verdict: **PASS** for immutable integration `85973354df42637636e2556c33169b5c4f247caf`, against base `ab754fabe3d48dc8d6eab6bcffce583e46d2b88f`, covering only PRs 40, 47, 54, 62, 64, 78, and 81. This is an integration-preservation check, additional to the separate mathematical audits. No working-tree files were changed.
+
+All 566 contributed paths other than the six shared index/renderer files retain exactly the source PR's Git mode, type and blob. There are no deleted base files, no changes outside the union of these PRs, and no missing or changed proof, manuscript, canonical document or verification artifact. All 203 preexisting problem IDs retain their category paths and exact first-line headings. Comparing every original canonical README to the result finds no removed or replaced nonblank original line except the intended Status and Last checked fields. Thus the original targets and references remain intact.
+
+The result has 77 Open, 77 Partially resolved, 48 Solved and one Solution claimed entry. This agrees with the generated 154 open / 49 other count. IE-10 is explicitly Solved in its canonical page and at RESOLVED.md:299–301, under the heading “Random cyclic Krylov compression.” It is not absent from the resolution index.
+
+For the shared renderer, I computed each PR's actual delta against its merge base, then applied those changes to the current base. PRs 40 and 47 originate from the older `b412319...` base: treating all their differences from current main as new changes would mistakenly discard earlier reviewed formatting. The correctly accumulated page-break ID set equals the integrated set exactly, with no missing or extra IDs. PF-05's Question break and SF-01's References and status break occur once each; the earlier RE-05 and IE-20 special breaks also remain. The manuscript renderer is exactly the latest version shared by PRs 64, 78 and 81, with no nonblank lines lost from the versions submitted in PRs 40, 47 and 54. PR 62 did not contribute that script.
+
+Each actual inserted block in RESOLVED.md and references/README.md occurs exactly once in the integrated file. This checks all six new resolution sections and both contributed reference-index links without importing historical changes from the two older branch bases. Later PRs did not all add reference-index links; their absence from that shared listing is not a merge loss, and the supplied per-submission READMEs are byte-preserved.
+
+PRs 68, 83 and 85 are outside this frozen integration check. In particular, retaining IE-15 as Open is correct for this seven-PR merge: PR 78 contributes only an order-five lower bound, whereas the separately reviewed PR 83 exact order-three/four resolution has not been included.
+
+Evidence: `integration-85973354.json`, `integration-shared-checks.json`, and the read-only reproducible `check_integration.py` in this directory. Mathematical and PDF audits of PRs 78 and 83 are recorded separately in `PR78-audit.md` and `PR83-audit.md`.

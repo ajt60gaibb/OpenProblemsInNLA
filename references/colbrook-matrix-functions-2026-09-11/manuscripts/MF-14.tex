@@ -1,0 +1,139 @@
+% Reviewed source SHA256 (UTF-8/LF): 9d5bb0083bd8521be5264ff70d81e49ef55c006f42f4a0874b851271534718a7
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=26mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref,microtype}
+\hypersetup{hidelinks}
+\newtheorem{theorem}{Theorem}
+\newcommand{\C}{\mathbb C}
+\newcommand{\R}{\mathbb R}
+\title{An exact degree-42 coverage certificate for seven polynomial multiplications}
+\author{Matthew J. Colbrook\\\small Department of Applied Mathematics and Theoretical Physics\\\small University of Cambridge, Cambridge, United Kingdom\\\small\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}
+\date{11 September 2026}
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\hypersetup{pdfauthor={Matthew J. Colbrook}}
+\let\originalthebibliography\thebibliography
+\renewcommand{\thebibliography}[1]{\clearpage\originalthebibliography{#1}}
+\begin{document}
+\maketitle
+
+\noindent\textbf{Partially resolved} Only the complex degree-42 lower-bound direction is verified; maximality remains open.
+The dated \href{https://github.com/MColbrook/OpenProblemsInNLA/blob/codex/colbrook-matrix-function-resolutions/references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-14-review.md}{independent agent review} records the subsequent checks and supersedes original draft remarks about pending review. This is not external human peer review or formal certification.
+\par\medskip
+% BEGIN REVIEWED BODY
+
+\begin{abstract}
+A fixed seven-multiplication evaluation scheme has a coefficient map whose image is dense in the complex vector space of polynomials of degree at most 42. The scheme is the degree-42 pattern proposed by Jarlebring and Lorentzon; the contribution here is an exact full-rank Jacobian certificate at a small integer parameter point. A $43\times43$ minor has an explicitly computed nonzero integer determinant and residue $22531$ modulo $65521$. The supplied integer-arithmetic implementation verifies the certificate. This proves the lower-bound direction of the degree-42 conjecture, not maximality of 42 and not dense coverage over the real numbers.
+\end{abstract}
+
+\section{Model and scope}
+Let $\Pi_d(\C)$ be the vector space of univariate complex polynomials of degree at most $d$, identified with $\C^{d+1}$ through coefficients. A polynomial evaluation scheme begins with $1$ and $x$, forms products of linear combinations of previously available polynomials, and finally takes a linear combination of all available polynomials. Only polynomial--polynomial products are counted; scalar multiplication and addition are free. Upon substituting a matrix for $x$, the same scheme uses the stated number of matrix--matrix products.
+
+Jarlebring and Lorentzon \cite{JL}, equation~(5.7), give a seven-product pattern with intermediate degrees $2,4,6,10,16,26,42$ and numerical evidence of full coefficient rank. Their Conjecture~13 concerns the maximal completely covered degree for seven products. We certify the following one-sided statement exactly.
+
+\begin{theorem}\label{thm:coverage}
+The closure of the polynomials computable with at most seven polynomial multiplications contains $\Pi_{42}(\C)$. More specifically, the image of the fixed scheme in Section~\ref{sec:scheme} contains a nonempty Zariski-open subset of $\Pi_{42}(\C)$, and its ordinary Euclidean closure is all of $\Pi_{42}(\C)$.
+\end{theorem}
+
+A generic polynomial in $\Pi_{42}(\C)$ is therefore represented exactly by this scheme, and every polynomial in that space can be approximated arbitrarily closely in coefficient norm. The theorem does not imply that every polynomial is represented exactly, nor that degree 42 is the largest possible densely covered degree.
+
+\section{The seven-product scheme}\label{sec:scheme}
+Set $q_0=1$, $q_1=x$, and define
+\begin{align*}
+q_2={}&x\,x,\\
+q_3={}&(a_{22}x+q_2)(b_{22}x+q_2),\\
+q_4={}&(a_{32}x+q_3)(b_{32}x+q_2),\\
+q_5={}&(a_{42}x+a_{43}q_2+a_{44}q_3+q_4)
+       (b_{42}x+b_{43}q_2+q_3),\\
+q_6={}&(a_{52}x+a_{54}q_3+a_{55}q_4+q_5)
+       (b_{52}x+b_{53}q_2+b_{54}q_3+q_4),\\
+q_7={}&(a_{62}x+a_{63}q_2+a_{64}q_3+a_{65}q_4+a_{66}q_5+q_6)\\
+&\hspace{12mm}\cdot(b_{62}x+b_{63}q_2+b_{64}q_3+b_{65}q_4+q_5),\\
+q_8={}&(a_{72}x+a_{73}q_2+a_{74}q_3+a_{75}q_4+a_{76}q_5+a_{77}q_6+q_7)\\
+&\hspace{12mm}\cdot(b_{72}x+b_{73}q_2+b_{74}q_3+b_{75}q_4+b_{76}q_5+q_6).
+\end{align*}
+The output is
+\[
+p(x)=\sum_{i=0}^8 c_iq_i(x).
+\]
+There are 35 independent internal parameters $a_{ij},b_{ij}$ and 9 output coefficients $c_i$, hence 44 parameters in all. Every $q_j$ has degree at most its advertised degree for every choice of parameters. In particular, the coefficient map
+\[
+\Phi:\C^{44}\longrightarrow\C^{43},\qquad
+\theta\longmapsto ([x^0]p,\ldots,[x^{42}]p)
+\]
+is a polynomial map with integer coefficients.
+
+The parameter order is the order of first occurrence in the displayed scheme, reading each left factor before its right factor, followed by $c_0,\ldots,c_8$. Explicitly, the internal parameters are grouped as follows:
+\[
+\begin{gathered}
+(a_{22},b_{22});\quad(a_{32},b_{32});\quad
+(a_{42},a_{43},a_{44},b_{42},b_{43});\\
+(a_{52},a_{54},a_{55},b_{52},b_{53},b_{54});\\
+(a_{62},a_{63},a_{64},a_{65},a_{66},b_{62},b_{63},b_{64},b_{65});\\
+(a_{72},a_{73},a_{74},a_{75},a_{76},a_{77},b_{72},b_{73},b_{74},b_{75},b_{76}).
+\end{gathered}
+\]
+
+\section{The exact certificate}
+At the point $\theta_*$, set those six groups, respectively, equal to
+\[
+\begin{gathered}
+(2,2);\quad(-3,-2);\quad(0,0,2,-1,-3);\\
+(-2,0,-1,3,-1,1);\\
+(1,-3,2,-3,-3,1,-2,-1,1);\\
+(-2,-3,1,3,1,2,-1,-3,1,0,2),
+\end{gathered}
+\]
+and set
+\[
+(c_0,c_1,\ldots,c_8)=(1,0,-3,1,-2,0,-2,1,1).
+\]
+From the $43\times44$ Jacobian $D\Phi(\theta_*)$, delete only the $b_{22}$ column and retain all remaining columns in the order specified above. Call the resulting square matrix $J_*$. The exact certificate is
+\begin{equation}\label{eq:det}
+\det J_*=-8304099790447595998423664434512844589026004175807386862654720.
+\end{equation}
+In particular,
+\begin{equation}\label{eq:mod}
+\det J_*\equiv22531\pmod{65521},
+\end{equation}
+so the determinant is nonzero.
+
+Both \eqref{eq:det} and \eqref{eq:mod} are reproducible with the supplied standard-library verifier \path{polynomial_coverage_independent.py}. It evaluates the seven products as untruncated integer polynomials, differentiates in each parameter direction using the product rule, and computes the integer determinant by fraction-free Bareiss elimination. The earlier discovery implementation is not included in this package. The supplied verifier requires no external dependencies and uses neither approximate rank nor floating-point determinants.
+
+\section{Why a full-rank certificate proves complex dense coverage}
+\begin{proof}[Proof of Theorem~\ref{thm:coverage}]
+Equations \eqref{eq:det}--\eqref{eq:mod} prove that $D\Phi(\theta_*)$ has rank 43. Restricting the parameter $b_{22}$ to its fixed value 2 gives a map from $\C^{43}$ to $\C^{43}$ with nonsingular derivative at the remaining coordinates of $\theta_*$. The complex inverse function theorem implies that the image of this restricted map, and hence the image of $\Phi$, contains a Euclidean-open neighborhood of $\Phi(\theta_*)$.
+
+If a complex polynomial on $\C^{43}$ vanishes on the image of $\Phi$, it vanishes on that open neighborhood and is therefore identically zero. Thus $\Phi$ is dominant: its image is Zariski dense. Chevalley's theorem says that the image of a polynomial map is constructible. A dense constructible subset of the irreducible affine space $\C^{43}$ contains a nonempty Zariski-open subset. Such a subset is also Euclidean dense, since a proper complex algebraic subset has empty Euclidean interior. Therefore the Euclidean closure of $\Phi(\C^{44})$ is all of $\C^{43}$.
+
+Every value of $\Phi$ is computed by exactly the seven displayed products, which proves the claim about at most seven multiplications as well.
+\end{proof}
+
+Over $\R$, the same nonzero minor proves only that the real image contains a nonempty ordinary open set. It does not imply that the real image is dense; the scalar map $t\mapsto t^2$ is an elementary warning against that inference. No real dense-coverage statement is made here.
+
+\section{Reproduction and unresolved upper bound}
+From the package root, the dependency-free audit is
+\begin{verbatim}
+python code/polynomial_coverage_independent.py \
+    results/degree42_certificate.json \
+    --output results/degree42_independent_certificate.json --verify
+\end{verbatim}
+The input certificate records the parameter order, all integer parameter values, the 43 selected column indices, the finite-field coefficient vector, and the modular determinant. The independent report also records the complete integer coefficient vector and \eqref{eq:det}. Running with Python's optimization flag \texttt{-O} leaves all certificate checks enabled.
+
+An upper bound excluding dense coverage of degree 43 or greater is not supplied. In particular, counting the degrees of this one scheme or ruling out one addition chain would not prove maximality over all allowed schemes, including degenerating parameter limits. The present submission is an exact certification of a previously proposed lower-bound pattern. The full seven-multiplication maximal-degree problem remains unresolved by this note, and priority or completeness beyond this stated direction is not claimed.
+
+\begin{thebibliography}{9}
+\bibitem{JL}
+E. Jarlebring and G. Lorentzon,
+\emph{The polynomial set associated with a fixed number of matrix-matrix multiplications},
+SIAM Journal on Applied Algebra and Geometry \textbf{10}(3) (2026), 549--581.
+\href{https://doi.org/10.1137/25M1779036}{doi:10.1137/25M1779036}.
+\href{https://arxiv.org/abs/2504.01500}{arXiv:2504.01500v3}, August 13, 2025,
+equation~(5.7) and Conjecture~13, Section~5.4.
+\bibitem{Hartshorne}
+R. Hartshorne, \emph{Algebraic Geometry}, Springer, 1977.
+Chevalley's constructibility theorem; see also Exercise~II.3.19.
+\end{thebibliography}
+\end{document}
+
+% END REVIEWED BODY

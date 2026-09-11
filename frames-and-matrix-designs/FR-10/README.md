@@ -2,11 +2,21 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Status:** Open  
-**Last checked:** 2026-09-10
+**Status:** Partially resolved  
+**Last checked:** 2026-09-11
 
 **Rating rationale:** Closing the uniform logarithmic sampling gap is a longstanding restricted-isometry barrier comparable in scale to the cyclic Fourier problem, with consequences for sparse recovery and fast sketches.
 
+
+<!-- colbrook-frames -->
+## Reviewed submission - 2026-09-11
+
+Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge.
+
+Theorem 1 proves $m_*(2^d,k)/d\to C_k$ for $k=2,3,4$, with $C_2\approx5.2988$, $C_3\approx16.7002$ and $C_4\approx36.3872$ (exact relative-entropy formulas are in Theorem 1); $k=1$ needs one sample. Theorem 2 gives $m_*(N,k)\sim N\log N/h_+(1/2)$ for $k=N-o(N)$. Sampling is with replacement, distortion is $1/2$, and the results include success probability $0.9$. The uniform intermediate-sparsity target remains open.
+
+See the [manuscript](../../references/colbrook-frames-2026-09-11/manuscripts/sampling_thresholds.pdf), [independent agent review](../../references/colbrook-frames-2026-09-11/verification/reviews/sampling-review.md), and [reproducible submission record](../../references/colbrook-frames-2026-09-11/README.md). Independent agent review is not external human peer review or formal proof-assistant certification. Original problem, ratings and historical audits are retained below.
+<!-- /colbrook-frames -->
 
 Let $N=2^d$ with $d\ge1$ and index rows and columns by $\mathbb F_2^d$. The normalized Walsh matrix is
 $$

@@ -162,6 +162,156 @@ These three entries remain in the open count.
 
 **RA-13 (Open).** The centered augmented density has a genuine inflection point beyond the proposed auxiliary upper bound. Together with the mode example, this refutes the upper assertions of Hallman Conjectures 1 and 2. The complete absolute Gaussian trace-tail probability chain in this entry is neither proved nor refuted. Failure of an auxiliary sufficient condition does not refute the final tail comparisons; status remains Open. [Complete proof](references/colbrook-transfer-2026-09-11/manuscripts/04_gamma_auxiliary_counterexamples.pdf), Proposition 3.1 (with Proposition 2.1 for related evidence); [review](references/colbrook-transfer-2026-09-11/verification/reviews/gamma-auxiliary-review.md).
 
+### Five factorization resolutions by Matthew J. Colbrook — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Three separate Codex agents reviewed all seven arguments; five resolve full canonical targets and two provide partial family results. This is independent agent verification, not external peer review or formal certification. [Submission record and reproduction](references/colbrook-factorization-2026-09-11/README.md).
+
+**NM-03 (Solved).** The exact rational-input decision problem is NP-hard under polynomial-time many-one reductions, even for strictly positive symmetric positive-definite inputs. The proof supplies an inverse-polynomial additive squared-error gap and a polynomial-time rational perturbation to simple spectrum. Factors may be real, exactly as in the canonical question. NP membership and constant-relative-error hardness are not asserted.  [Complete proof](references/colbrook-factorization-2026-09-11/manuscripts/NM-03_rank_two_approximation_hardness.pdf), Theorem 1; Theorem 5 and Corollary 6 strengthen the construction; [review](references/colbrook-factorization-2026-09-11/verification/reviews/NM-03-review.md).
+
+**NM-04 (Solved).** The complete Rowland--Wu coefficient identity holds for every positive real rectangular matrix and all $m,n\ge1$. The proof identifies the coefficient sum with one determinant and constructs a null vector after scaling. Vanishing minors and the cases $m=1$ or $n=1$ are included. This proves the displayed coefficients, beyond the previously known algebraic-degree bound.  [Complete proof](references/colbrook-factorization-2026-09-11/manuscripts/NM-04_sinkhorn_identity.pdf), Theorem 1; [review](references/colbrook-factorization-2026-09-11/verification/reviews/NM-04-review.md).
+
+**NR-04 (Solved).** The nine-point matrix $D_{ij}=(i-j)^2$ has nonnegative rank seven, so no exact six-term nonnegative factorization exists. A polygon-contact argument applied to both factors, together with Sylvester's rank inequality, proves the lower bound; an explicit seven-term integer factorization proves the upper bound.  [Complete proof](references/colbrook-factorization-2026-09-11/manuscripts/NR-04_nine_point_distance.pdf), Theorem 1, with Theorem 4 for the lower bound; [review](references/colbrook-factorization-2026-09-11/verification/reviews/NR-04-review.md).
+
+**PF-02 (Solved).** A strictly positive integer $6\times6$ matrix has ordinary rank six and real positive semidefinite rank three, while its minimal-factor congruence quotient is disconnected. A continuous congruence-invariant orientation takes opposite signs on two explicit factorizations, proving actual disconnectedness in the required quotient topology. Further constructions cover every factor size $k\ge3$, including strictly positive rational examples by a nonquantitative perturbation argument.  [Complete proof](references/colbrook-factorization-2026-09-11/manuscripts/PF-02_disconnected_orbits.pdf), Theorem 1; Theorem 4 extends the counterexamples to every factor size; [review](references/colbrook-factorization-2026-09-11/verification/reviews/PF-02-review.md).
+
+**PF-05 (Solved).** For every real size-two positive semidefinite factorization of an ordinary-rank-three matrix, feasible straight-line infinitesimal rigidity is equivalent to uniqueness up to congruence. The zero-entry argument handles repeated or singular factors and zero rows and columns; the cited positive-entry theorem covers the remaining case. The feasible directions and equivalence group agree exactly with the canonical definitions.  [Complete proof](references/colbrook-factorization-2026-09-11/manuscripts/PF-05_rigidity_with_zeros.pdf), Theorem 1, with Theorem 8 for the zero-entry construction; [review](references/colbrook-factorization-2026-09-11/verification/reviews/PF-05-review.md).
+
+#### Related partial family results
+
+**NR-03 (Partially resolved).** The fixed three-bit quadratic correlation matrix has nonnegative rank exactly eight. Its ordinary-rank-seven parity null vector constrains both factors in a hypothetical seven-term factorization; nine distinguished entries then exclude such a factorization. The full prescribed-completion conjecture for every $n\ge4$ remains unresolved. The parity restriction is proved only for a hypothetical factorization whose inner dimension equals ordinary rank; it is not imposed on arbitrary wider factorizations. [Complete proof](references/colbrook-factorization-2026-09-11/manuscripts/NR-03_n3_exact_rank.pdf), Theorem 1 and Lemma 2; [review](references/colbrook-factorization-2026-09-11/verification/reviews/NR-03-review.md).
+
+**PF-01 (Partially resolved).** The real positive semidefinite rank is exactly four for $n=5$ and $n=6$. Explicit graph factors give the general bound $\operatorname{rank}_{\rm psd}M^{(n)}\le\lceil2\sqrt{2\lfloor(n-1)/2\rfloor}\rceil$, and submatrix monotonicity gives a lower bound of four for every $n\ge5$. The exact ranks as a function of $n$ remain undetermined for $n\ge7$. In particular, the new upper bound five at $n=7,8$ is not accompanied by a matching lower bound five. The finite orders remain part of this single family entry. [Complete proof](references/colbrook-factorization-2026-09-11/manuscripts/PF-01_subset_intersection.pdf), Theorem 1, Corollary 5 and equation (8); [review](references/colbrook-factorization-2026-09-11/verification/reviews/PF-01-review.md).
+
+### Three matrix-function resolutions by Matthew J. Colbrook — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Three separate Codex agents independently reviewed the six manuscripts. [Submission record and reproduction](references/colbrook-matrix-functions-2026-09-11/README.md).
+
+**MF-03 (Solved).** For every integer $m\ge1$, the normalized diagonal Padé denominator for $\cosh\sqrt z$ is nonzero on $|z|\le3$ and $|1-r_m(z)|\le2$ there. The bound is strict for $m\ge2$ and sharp for $m=1$ at $z=3$. The analytic tail argument and exact finite certificates cover every order.  [Complete proof](references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-03.pdf), Theorem 1; [review](references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-03-review.md).
+
+**MF-14 (Partially resolved).** A fixed seven-product scheme has a full-rank complex coefficient map, certified by a nonzero exact integer Jacobian minor. Its image contains a nonempty Zariski-open subset of $\mathbb C[x]_{\le42}$ and is Euclidean dense there. The upper bound excluding degree 43 and above is not proved. The maximal-degree equality remains open; neither exact representation of every polynomial nor real Euclidean dense coverage is asserted. [Complete proof](references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-14.pdf), Theorem 1 and equations (1)-(2); [review](references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-14-review.md).
+
+**MF-15 (Partially resolved).** The conventional critical exponent satisfies $\mathrm{CE}_n\ge2n-4$ for every $n\ge3$, already for rational entrywise nonnegative matrices with distinct positive eigenvalues. Combining this with the published upper bound gives $\mathrm{CE}_4=4$. The matching upper bound for every $n\ge5$, and hence the full family equality, remain unresolved. These are conventional matrix powers, not entrywise powers. [Complete proof](references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-15.pdf), Theorem 1 and Corollary 4; [review](references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-15-review.md).
+
+**MF-16 (Solved).** The ordinary symmetric two-letter word $XBX^{12}BX=P$ has at least three distinct real symmetric positive definite solutions for explicit integer $B,P$. These are also Hermitian positive definite solutions, refuting the canonical universal uniqueness assertion in dimension two. An exact negative Jacobian determinant and two independent interval implementations certify the counterexample.  [Complete proof](references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-16.pdf), Theorem 1; Theorem 4 gives three certified solutions, and Theorem 3 gives a family threshold; [review](references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-16-review.md).
+
+**MF-18 (Partially resolved; auxiliary result only).** For real $A,Q$ with $Q=Q^\top$, scalar regularization $i\eta I$, and a finite invertible stabilizing limit, the manuscript proves that the imaginary-part rank is half the number of odd unit-circle Jordan blocks. It also establishes semisimple regularity and an exact defective example. This does not settle the canonical general complex $C,D,R,P$ problem. Its simple-eigenvalue real subcase was already known; the defective extension is an auxiliary result outside the canonical simple-eigenvalue hypothesis. The existing partial status and general complex target are retained. [Complete proof](references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-18.pdf), Theorem 1 and Corollary 3; Section 8 exact defective example; [review](references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-18-review.md).
+
+**SF-01 (Solved).** Every exact Newton square-root iterate initialized at $X_0=A$ remains a real nonsingular H-matrix with positive diagonal. The theorem includes arbitrary positive scalar scaling and nonnegative affine initializations, with one diagonal-dominance weight for all iterates; it also proves the corresponding Halley preservation result.  [Complete proof](references/colbrook-matrix-functions-2026-09-11/manuscripts/SF-01.pdf), Theorem 1; Corollary 5 gives the Halley extension; [review](references/colbrook-matrix-functions-2026-09-11/verification/reviews/SF-01-review.md).
+
+## Reviewed interval and absolute-value submissions - 2026-09-11
+
+Seven exact targets are classified below. Independent agent review is not external peer review; the [submission record](references/colbrook-intervals-2026-09-11/README.md) preserves AI-draft provenance, authorship requested by Matthew J. Colbrook, full source hashes and fresh checks. No priority claim is made. Original IDs and historical ratings are retained. AV-03 and IV-01 are unchanged.
+
+### AV-01 - Affirmative complexity classification
+
+[Original statement](intervals-and-absolute-value-equations/AV-01/README.md). **Solved, recorded 2026-09-11.** Matthew J. Colbrook (University of Cambridge). Theorem 1 and the algorithm in Section 4 prove polynomial-time recognition of exactly $2^n$ distinct solutions to $Ax+|x|=b$ using $n+1$ rational LP feasibility tests. The result uses rational binary input, has no regularity or finiteness promise, and rejects infinite solution sets. It classifies the displayed decision problem in $\mathsf P$.
+
+[Complete manuscript](references/colbrook-intervals-2026-09-11/manuscripts/AV-01.pdf); [full independent agent review](references/colbrook-intervals-2026-09-11/verification/reviews/AV-01-review.md).
+
+### AV-02 - Hardness classification
+
+[Original statement](intervals-and-absolute-value-equations/AV-02/README.md). **Solved, recorded 2026-09-11.** Matthew J. Colbrook (University of Cambridge). Theorem 2 and Sections 2-3 give a polynomial-time many-one reduction from MAX-CUT to the threshold $c_2(A)\ge t$, using integer upper-triangular matrices with diagonal 2. All queried families are regular. This proves the requested promise-preserving Turing hardness, with equality in the yes case; the restricted rational triangular problem is NP-complete. The result does not assert $\mathsf P\ne\mathsf{NP}$.
+
+[Complete manuscript](references/colbrook-intervals-2026-09-11/manuscripts/AV-02.pdf); [full independent agent review](references/colbrook-intervals-2026-09-11/verification/reviews/AV-02-review.md).
+
+### IV-02 - Complexity classification
+
+[Original statement](intervals-and-absolute-value-equations/IV-02/README.md). **Solved, recorded 2026-09-11.** Matthew J. Colbrook (University of Cambridge). Theorem 1 proves NP-completeness of the upper determinant threshold and NP-hardness of exact determinant-range computation, even for regular independent-entry tridiagonal interval matrices. Section 5 supplies the exact-output upper bound: a polynomial algorithm for the full displayed target exists if and only if $\mathsf P=\mathsf{NP}$. No unconditional separation or strong NP-hardness is asserted.
+
+[Complete manuscript](references/colbrook-intervals-2026-09-11/manuscripts/IV-02_IV-04.pdf); [full independent agent review](references/colbrook-intervals-2026-09-11/verification/reviews/IV-02_IV-04-review.md).
+
+### IV-03 - Affirmative resolution
+
+[Original statement](intervals-and-absolute-value-equations/IV-03/README.md). **Solved, recorded 2026-09-11.** Matthew J. Colbrook (University of Cambridge). Theorem 1 proves that every interval member is inverse-M if and only if the $n^2$ vertices $C-D_iRD_j$ are inverse-M. These are contained in the displayed two-sign family, so the original $2n^2$ equivalence follows. The proof covers all real endpoints, every dimension, zero widths, zero entries and reducible matrices without assuming regularity.
+
+[Complete manuscript](references/colbrook-intervals-2026-09-11/manuscripts/IV-03.pdf); [full independent agent review](references/colbrook-intervals-2026-09-11/verification/reviews/IV-03-review.md).
+
+### IV-04 - Complexity classification
+
+[Original statement](intervals-and-absolute-value-equations/IV-04/README.md). **Solved, recorded 2026-09-11.** Matthew J. Colbrook (University of Cambridge). Theorem 2 proves NP-hardness of exact tridiagonal solution-hull computation even for a regular independent-entry matrix family and the point right-hand side $-e_n$. Section 5 covers the full exact-output convention, including empty solution sets and infinite endpoints, and makes polynomial-time existence equivalent to $\mathsf P=\mathsf{NP}$. It does not unconditionally rule out polynomial time.
+
+[Complete manuscript](references/colbrook-intervals-2026-09-11/manuscripts/IV-02_IV-04.pdf); [full independent agent review](references/colbrook-intervals-2026-09-11/verification/reviews/IV-02_IV-04-review.md).
+
+### IV-05 - Affirmative algorithmic resolution
+
+[Original statement](intervals-and-absolute-value-equations/IV-05/README.md). **Solved, recorded 2026-09-11.** Matthew J. Colbrook (University of Cambridge). Theorem 3 and Sections 3-5 give the exact coordinatewise solution hull using $2n$ rational LPs, each with $n$ variables and $2n$ inequalities, in polynomial binary input length. The construction uses precisely the inverse-M promise and arbitrary interval right-hand sides. Promise recognition is not needed; no solver for the general regular AV-03 problem is claimed.
+
+[Complete manuscript](references/colbrook-intervals-2026-09-11/manuscripts/IV-05.pdf); [full independent agent review](references/colbrook-intervals-2026-09-11/verification/reviews/IV-05-review.md).
+
+### IV-06 - Negative resolution
+
+[Original statement](intervals-and-absolute-value-equations/IV-06/README.md). **Solved, recorded 2026-09-11.** Matthew J. Colbrook (University of Cambridge). Theorem 1 gives a $3\times3$ independent-entry interval matrix with at least four components in its real eigenvalue set. Four exact integer eigenpairs at $-3,0,3,25$ and excluded separators $-1,1,12$ refute the universal at-most-$n$ conjecture. No symmetry assumption is introduced, and locating every component endpoint is unnecessary.
+
+[Complete manuscript](references/colbrook-intervals-2026-09-11/manuscripts/IV-06.pdf); [full independent agent review](references/colbrook-intervals-2026-09-11/verification/reviews/IV-06-review.md).
+
+## Reviewed discrepancy submission - 2026-09-11
+
+### MD-06 - negative resolution by Matthew J. Colbrook
+
+[Original statement](matrix-discrepancy-and-optimization/MD-06/README.md). **Solved.** **Negative resolution, Theorem 1.** For a uniformly random labelled simple cubic graph on an even number of vertices, the probability that every local minimum of the homogeneous Kuramoto energy is synchronized tends to **zero**, rather than one. With high probability a nonsynchronized local minimum has edge cosines at least $1/32$ and Hessian at least $(1/320)I$ on the mean-zero subspace. The full analytic argument and the primary random-graph inputs passed two independent agent reviews. The graph model, torus topology and quantification over every local minimum are unchanged.
+
+[Complete primary manuscript](references/colbrook-discrepancy-2026-09-11/manuscripts/MD-06.pdf); [submission and independent review record](references/colbrook-discrepancy-2026-09-11/README.md). Author: Matthew J. Colbrook, University of Cambridge. Verification is by independent agents, not external human peer review. Historical ratings and the original statement are preserved; no priority claim is made.
+
+## Recovered linear-system submissions - 2026-09-11
+
+Eight exact targets passed independent agent review. Author: **Matthew J. Colbrook**, University of Cambridge. [Submission record](references/colbrook-recovered-2026-09-11/README.md) documents the substantial AI assistance, reconstructed sources, full proof hashes and checks. Agent review is not external human peer review or formal certification; no priority claim is made. All original targets and historical ratings are retained.
+
+### IE-13 - Sharp growth classification
+
+[Original statement](linear-systems-and-elimination/IE-13/README.md). **Solved.** Theorem 1 and Sections 2-4 prove $G(0,q)=1$ and $G(p,q)=h_{p+q}$ for $p\ge1$, where $h_t=0$ for $t\le0$ and $h_t=1+\sum_{r=1}^p h_{t-r}$ otherwise. The upper bound covers every complex input and admissible tie path, with growth over all active entries in the fixed original ordering. A real nonsingular matrix of order $2p+q+1$ attains it, including zero upper bandwidth.
+
+[Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-13.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-13-review.md).
+
+### IE-14 - Sharp growth classification
+
+[Original statement](linear-systems-and-elimination/IE-14/README.md). **Solved.** Theorem 1 and Sections 2-4 prove $c_n=F_{n+1}+1$ for every $n\ge4$, with $F_0=0,F_1=1$. The bound covers complex cyclic tridiagonal matrices, every active entry and every permitted GEPP tie path in the original ordering. A rational matrix with both cyclic corners nonzero attains it at every order.
+
+[Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-14.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-14-review.md).
+
+### IE-17 - Negative resolution
+
+[Original statement](linear-systems-and-elimination/IE-17/README.md). **Solved.** Sections 1-4 give one exact full-column-rank $4\times3$ LSMR example for which both displayed errors increase from the first to the second nonzero iterate. The matrix-only spectral backward error satisfies $\mu(x_1)^2\le1979/2000<99/100<\mu(x_2)^2$, and the specified approximation also strictly increases. The right-hand side stays fixed. This settles the canonical spectral-norm formulation; the cited SISC paper uses a different default norm convention, so no Frobenius-error conclusion is inferred.
+
+[Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-17.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-17-review.md).
+
+### IE-18 - Negative resolution
+
+[Original statement](linear-systems-and-elimination/IE-18/README.md). **Solved.** Section 2 refutes the exact four-step identity using $M=\operatorname{diag}(1/10,1/2,3/5)$ and $v=(1,1,1)^T$: the squared norm ratio is $1920682/21289638243>1/14641$, the square of the proposed factor. Both $M$ and $I-M$ are positive definite. Section 3 proves unbounded underestimation over a parameter family. The separate asymptotic convergence question is not resolved.
+
+[Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-18.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-18-review.md).
+
+### IE-19 - Negative resolution and sharp replacement
+
+[Original statement](linear-systems-and-elimination/IE-19/README.md). **Solved.** Section 1 gives an admissible positive symmetric strictly diagonally dominant $3\times3$ matrix with inverse infinity norm $7/9$, below the proposed comparison value $5/4$. Theorem 1 in Section 2 proves that the exact infimum over the displayed class is $1/(\alpha+m)$ for every allowed parameter choice, and strict positivity prevents attainment. The order is entrywise; stronger comparisons of dominance margins are outside the result.
+
+[Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-19.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-19-review.md).
+
+### IE-21 - Affirmative resolution
+
+[Original statement](linear-systems-and-elimination/IE-21/README.md). **Solved.** Theorem 1 and Sections 2-5 prove the displayed Gaussian trimmed-second-moment limit in probability along every sequence $n\to\infty$ and $m/n\to\infty$, with exactly $\lfloor\theta m\rfloor$ retained rows and the variational least singular value. Explicit failure-probability and error bounds are included; no faster aspect-ratio growth assumption is added.
+
+[Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-21-22.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-21-22-review.md).
+
+### IE-22 - Affirmative sharp-constant resolution
+
+[Original statement](linear-systems-and-elimination/IE-22/README.md). **Solved.** Theorem 2 and Sections 6-7 prove the sharp constant $c_\theta=\sqrt{h_\theta}$. The upper bound is uniform over all unit-row matrices and even all $m\ge1$ for sufficiently large $n$, with squared normalized error $O_\theta(n^{-1/6})$. Theorem 1 supplies matching spherical realizations along every high-aspect-ratio sequence, proving the exact eventual-uniform optimality quantifiers.
+
+[Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-21-22.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-21-22-review.md).
+
+### IE-23 - Negative resolution
+
+[Original statement](linear-systems-and-elimination/IE-23/README.md). **Solved.** Theorem 1 gives a $2\times3$ full-row-rank matrix with distinct norm-minimizing right inverses for every $2<p<\infty$ over both fields. Their common induced norm is $2^{1/2-1/p}$. Sections 3-4 identify the complete minimizer sets, including a complex higher-dimensional family. The smallest matrix is attributed to Dokmanic and Gribonval\'s spectral-norm example; its extension to the displayed direct-inverse objective is checked. No conclusion about the separate product objective is claimed.
+
+[Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-23.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-23-review.md).
+
+The related order-five rook bound is outside the order-three/order-four target of [IE-15](linear-systems-and-elimination/IE-15/README.md), which remains Open.
+
+## Random cyclic Krylov compression - 2026-09-11
+
+**[IE-10](eigenvalues-and-inverse-problems/IE-10/README.md): Solved.** Theorem 1 proves $\mathbb E\kappa_V(H_k)\leq17n^2k$ for the exact complex-sphere cyclic-shift model. Markov\'s inequality gives the uniform $0.99$ target with $C=1700$ and $c=3$. Sections 5 and 6-7 give two probability proofs; real starts and arbitrary nonnormal inputs are outside the result.
+
+Author: **Matthew J. Colbrook**, University of Cambridge. [Complete proof](references/colbrook-round3-2026-09-11/manuscripts/IE-10.pdf), [independent review](references/colbrook-round3-2026-09-11/verification/reviews/IE-10-review.md), and [submission record](references/colbrook-round3-2026-09-11/README.md). AI generation is disclosed; agent verification is not external human peer review or formal certification. Original target and historical ratings are retained. The accompanying IS-04 prime-square construction remains partial for its all-orders target.
+
 ## Published resolutions of historical questions
 
 These questions were screened out before receiving current catalog folders;

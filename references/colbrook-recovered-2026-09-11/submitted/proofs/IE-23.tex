@@ -1,0 +1,70 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=26mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,booktabs,microtype}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\one}{\boldsymbol 1}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\tr}{\operatorname{tr}}
+\setlength{\emergencystretch}{3em}
+\allowdisplaybreaks[1]
+\title{Nonuniqueness of induced-norm-minimizing right inverses}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\noindent\textit{Reconstructed candidate proof draft. Independent mathematical review and source/priority verification are required. The IE identifiers are provisional labels recovered from earlier notes, not verified current repository identifiers.}
+
+
+\begin{abstract}
+The same $2\times3$ full-row-rank matrix has multiple right inverses minimizing its induced $\ell^p\to\ell^2$ norm for every $2<p<\infty$, over both fields. The complete minimizer set is a disk over the complex field and an interval over the reals. A complex higher-dimensional construction gives a ball of minimizers. The smallest matrix is attributed in the recovered notes to the motivating paper's spectral-norm example; its construction is not claimed as new.
+\end{abstract}
+\section{Pointwise orthogonality}
+For full-row-rank $A\in\C^{m\times n}$, $m<n$, consider
+\[\min_{AY=I_m}\norm Y_{p\to2},\qquad \norm Y_{p\to2}=\sup_{z\ne0}\norm{Yz}_2/\norm z_p.\]
+If $B=A^\dagger$, every right inverse is $Y=B+N$ with $AN=0$. Since $B=A^*(AA^*)^{-1}$, $B^*N=0$, and therefore
+\[\norm{Yz}_2^2=\norm{Bz}_2^2+\norm{Nz}_2^2.\]
+Thus $B$ minimizes the objective for every $p$. This is not the different product objective $\norm{YA}_{p\to2}$.
+\section{Smallest counterexample}
+\begin{theorem}
+Let
+\[
+A=\begin{pmatrix}1&1&0\\1&0&1\end{pmatrix},\quad
+B=\tfrac13\begin{pmatrix}1&1\\2&-1\\-1&2\end{pmatrix},\quad
+X=\begin{pmatrix}0&0\\1&0\\0&1\end{pmatrix}.
+\]
+Then $B=A^\dagger$, $AB=AX=I_2$, $B\ne X$, and for $2\le p\le\infty$,
+\[\boxed{\norm B_{p\to2}=\norm X_{p\to2}=\min_{AY=I_2}\norm Y_{p\to2}=2^{1/2-1/p}.}\]
+\end{theorem}
+\begin{proof}
+Direct multiplication gives $B^*B=\tfrac13\left(\begin{smallmatrix}2&-1\\-1&2\end{smallmatrix}\right)\preceq I_2$ and $X^*X=I_2$. The inequality $\norm z_2\le2^{1/2-1/p}\norm z_p$ gives both upper bounds. At $z=(1,-1)^T$ both matrices preserve Euclidean norm, so the bounds are attained. Pointwise orthogonality proves global optimality.
+\end{proof}
+When $m=1$, the right inverse is a single column, and its induced norm is its Euclidean norm for all $p$; orthogonality makes the minimum unique. Hence dimensions $2\times3$ are smallest.
+\section{Complete minimizer set}
+Every right inverse is $B+v(a,b)$, where $v=(-1,1,1)^T$. At norming vector $(1,-1)^T$, orthogonality forces $a=b=t$ for any minimizer. The Gram matrix of $Y=B+t v(1,1)$ has eigenvalue one on $(1,-1)^T$ and eigenvalue $1/3+6|t|^2$ on $(1,1)^T$. Both vectors have equal-modulus coordinates. Testing the latter forces $|t|\le1/3$. Conversely this condition gives $Y^*Y\preceq I_2$ and the same attained bound. Thus for every $2\le p\le\infty$, all minimizers are
+\[\boxed{B+t(-1,1,1)^T(1,1),\qquad |t|\le\tfrac13.}\]
+The real parameter interval is $[-1/3,1/3]$, and $X$ corresponds to $t=1/3$.
+\section{Every complex dimension}
+For $2\le m<n$, take $A=(\one\ \ I_m\ \ 0_{m\times(n-m-1)})$, $B=A^\dagger$. Then
+\[B^*B=I_m-\frac{\one\one^*}{m+1}\preceq I_m.\]
+The $m-1$ nonconstant Fourier vectors $(1,\omega^j,\ldots,\omega^{(m-1)j})^T$, $1\le j<m$, $\omega=e^{2\pi i/m}$, have flat coordinate moduli and span $\one^\perp$. The matrix $B$ preserves their Euclidean norms. Together with $\norm z_2\le m^{1/2-1/p}\norm z_p$, this proves optimum $m^{1/2-1/p}$ and makes those vectors norming vectors.
+
+For an optimal $Y=B+N$, orthogonality forces $N$ to vanish on every Fourier vector, hence on $\one^\perp$. Therefore $N=u\one^*$ with $u\in\ker A$. Its Gram matrix is
+\[Y^*Y=I_m+\left(\norm u_2^2-\frac1{m+1}\right)\one\one^*.\]
+Testing the flat vector $\one$ shows that $\norm u_2\le(m+1)^{-1/2}$ is necessary, and $Y^*Y\preceq I_m$ shows sufficiency. Thus the complete complex minimizer set is
+\[\boxed{B+u\one^*,\quad u\in\ker A,\quad \norm u_2\le(m+1)^{-1/2}.}\]
+This higher-dimensional statement uses complex Fourier vectors. The smallest counterexample is valid over either field.
+\section{Attribution and verification}
+The rational verifier checks the right-inverse, Gram, and kernel identities. Continuous parameter ranges and complete minimizer sets are analytic claims. The recovered notes attribute the smallest $A,B$ to Example 4.1 of Dokmani\'c and Gribonval for the spectral norm; that construction is not claimed as new, and the attribution should be checked before publication.
+
+Recovered references: OpenProblemsInNLA, provisionally IE-23; I. Dokmani\'c and R. Gribonval, \emph{Beyond Moore--Penrose, Part I: Generalized Inverses that Minimize Matrix Norms}, arXiv:1706.08349v2 (2017), Example 4.1, Corollary 4.2(3), Remark 4.1.\footnote{\url{https://arxiv.org/abs/1706.08349}. References retained as source leads; priority and exact source scope require checking.} The live repository statement was not independently retrieved during reconstruction.
+
+\end{document}

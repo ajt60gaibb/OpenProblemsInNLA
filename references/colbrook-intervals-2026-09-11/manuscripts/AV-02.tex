@@ -1,0 +1,128 @@
+% Full source/preamble SHA256 (UTF-8/LF): 78cb6e86e8d54140efdb96408f0e5019ca27ae1b964b79d3a21ea5b776777c3a d8e7a0de2ed1a1fd162b147211fe29c7b1d7bfbc0be7b827dcda4d9a2653d0d4
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,mathtools,booktabs,enumitem}
+\usepackage[margin=26mm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyvrb}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\setlist{nosep}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\adj}{\operatorname{adj}}
+\newcommand{\co}{\operatorname{conv}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\NP}{\mathsf{NP}}
+\newcommand{\PP}{\mathsf P}
+\newcommand{\header}[2]{\begin{center}{\Large\bfseries #1\par}\vspace{6pt}{\small #2\par}\end{center}\vspace{6pt}}
+\newcommand{\repo}[1]{\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/intervals-and-absolute-value-equations/#1}}
+
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\hypersetup{pdfauthor={Matthew J. Colbrook},pdftitle={Spectral inverse-norm threshold hardness}}
+
+\begin{document}
+\header{Hardness of a spectral-norm condition number for absolute value equations}{Repository AV-02. Claimed resolution; independent review pending.}
+\begin{center}Matthew J. Colbrook\\{\small Department of Applied Mathematics and Theoretical Physics\\University of Cambridge, Cambridge, United Kingdom\\\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}\\11 September 2026\end{center}
+\textbf{Independently reviewed resolution.} This is a complexity classification; it does not establish P unequal to NP.
+The dated \href{https://github.com/MColbrook/OpenProblemsInNLA/blob/codex/colbrook-package-submissions/references/colbrook-intervals-2026-09-11/verification/reviews/AV-02-review.md}{independent agent review} supersedes the original pending-review header. Agent review is not external human peer review or formal certification. The source archive describes these as AI-generated drafts; authorship is attributed at the submitter's request.
+\par\medskip
+% BEGIN REVIEWED BODY
+\begin{abstract}
+We prove NP-hardness, under a polynomial-time many-one reduction, of deciding whether the maximum spectral norm of $(A-\diag d)^{-1}$ over $d\in[-1,1]^n$ is at least a rational threshold. Hardness holds for integer upper-triangular $A$ with every diagonal entry equal to 2; the entire diagonal perturbation family is automatically regular. The decision problem restricted to rational upper-triangular matrices with this diagonal is NP-complete.
+\end{abstract}
+\section{Decision problem}
+For a matrix whose diagonal perturbation family is regular, define
+\[
+ c_2(A)=\max_{d\in[-1,1]^n}\|(A-D_d)^{-1}\|_2.
+\]
+The repository asks whether deciding $c_2(A)\ge t$ is NP-hard in the spectral norm \cite{repo,condition}. We use positive rational $t$; nonpositive thresholds are trivial.
+\begin{lemma}\label{lem:vertices}
+For every regular diagonal perturbation family, the maximum defining $c_2(A)$ is attained at a vertex $d\in\{-1,1\}^n$.
+\end{lemma}
+\begin{proof}
+Fix all coordinates except $d_i=t$, and write the matrix at $t=0$ as $M$. Sherman--Morrison gives
+\[
+ (M-te_ie_i^T)^{-1}=M^{-1}+\frac{t}{1-\alpha t}uv^T,
+ \quad \alpha=e_i^TM^{-1}e_i,
+ \quad u=M^{-1}e_i,\quad v^T=e_i^TM^{-1}.
+\]
+The denominator never vanishes on $[-1,1]$. The scalar function $t/(1-\alpha t)$ has derivative $1/(1-\alpha t)^2>0$. Thus every inverse on this segment is a convex combination of the two endpoint inverses. Convexity of a norm implies that one endpoint has at least as large a norm. Move to an endpoint one coordinate at a time. Notice that convexity in $t$ itself is not being asserted.
+\end{proof}
+\begin{theorem}\label{thm:hard}
+The decision problem $c_2(A)\ge t$ is NP-complete on rational upper-triangular matrices with diagonal entries all equal to 2. NP-hardness persists when $A$ and $t$ are integers of polynomial magnitude in the source graph size.
+\end{theorem}
+\section{Reduction from MAX-CUT}
+Use the standard NP-complete decision version of unweighted MAX-CUT \cite{maxcut}. Let $G$ have $v$ vertices and $m\ge1$ edges, and let $1\le k\le m$. Let $B\in\{-1,0,1\}^{v\times m}$ be an oriented incidence matrix. Set
+\[
+ N=1+v+m,\qquad K=12N^2,\qquad
+ A=\begin{pmatrix}
+ 2&K\one^T&0\\
+ 0&2I_v&KB\\
+ 0&0&2I_m
+ \end{pmatrix}.
+\]
+All perturbed diagonal entries lie in $[1,3]$. Every member of the family is therefore nonsingular.
+
+Let $a$, the diagonal entries of $X$, and the diagonal entries of $Y$ denote the reciprocals of the perturbed diagonal entries in the three blocks. They range independently over $[1/3,1]$. Direct block inversion gives
+\[
+ (A-D_d)^{-1}=
+ \begin{pmatrix}
+ a&-Ka\one^TX&K^2a\one^TXBY\\
+ 0&X&-KXBY\\
+ 0&0&Y
+ \end{pmatrix}.
+\]
+If $C$ denotes the maximum cut size, then
+\begin{equation}\label{eq:cut}
+ \max_{x\in[1/3,1]^v}\|x^TB\|_2=\frac23\sqrt C.
+\end{equation}
+Indeed, the squared norm is $\sum_{\{p,q\}\in E}(x_p-x_q)^2$. It is convex in each coordinate, hence has a maximizing box vertex. Each crossing edge then contributes $4/9$, and every other edge contributes zero.
+
+The largest possible norm of the upper-right block is consequently $\frac23K^2\sqrt C$, attained with $a=1$, $Y=I$, and a maximum-cut vertex $x$. The spectral norm of the whole inverse is at least the norm of this subblock. The remaining blocks together have norm at most
+\[
+ 1+K\sqrt v+K\sqrt{2m}\le3KN=36N^3,
+\]
+using $\|B\|_2\le\|B\|_F=\sqrt{2m}$. Hence
+\begin{equation}\label{eq:bounds}
+ 96N^4\sqrt C\ \le\ c_2(A)\ \le\ 96N^4\sqrt C+36N^3.
+\end{equation}
+
+Compute the integer
+\[
+ q=\left\lfloor\sqrt{144N^2k}\right\rfloor,\qquad t=8N^3q.
+\]
+Integer square root is computable in polynomial time. If $C\ge k$, the lower bound in \eqref{eq:bounds} gives $c_2(A)\ge t$. If $C\le k-1$, then
+\[
+ \sqrt k-\sqrt{k-1}=\frac1{\sqrt k+\sqrt{k-1}}\ge\frac1{2N}
+\]
+and $q>12N\sqrt k-1$. Therefore
+\[
+ t-96N^4\sqrt{k-1}>48N^3-8N^3=40N^3>36N^3.
+\]
+The upper bound in \eqref{eq:bounds} now gives $c_2(A)<t$. This is a polynomial-time many-one reduction. In particular it is stronger than Turing hardness. All entries of $A$ and the threshold have polynomial magnitude in $N$.
+\section{Membership in NP}
+For the specified upper-triangular class, regularity requires no certificate. By Lemma~\ref{lem:vertices}, a yes certificate is a sign vector $s$. Write $M=A-D_s$. For $t>0$,
+\[
+ \|M^{-1}\|_2\ge t
+ \quad\Longleftrightarrow\quad
+ t^2M^TM-I\ \hbox{is not positive definite}.
+\]
+The matrix on the right is rational. Sylvester's criterion tests positive definiteness by exact leading principal determinants in polynomial bit complexity. A zero determinant is correctly accepted as ``not positive definite.'' Thus the certificate can be checked without approximate eigenvalue calculations. This proves Theorem~\ref{thm:hard}.
+\begin{remark}
+No assertion is made here that the regularity promise can be recognized in NP for arbitrary input matrices. The NP-completeness statement is for the explicit upper-triangular diagonal-2 class, on which the promise is automatic. NP-hardness for the original promised problem follows immediately.
+\end{remark}
+\begin{thebibliography}{9}
+\bibitem{repo} OpenProblemsInNLA, problem AV-02. \repo{AV-02}.
+\bibitem{condition} M. Zamani and M. Hlad\'ik, \emph{Error bounds and a condition number for the absolute value equations}, Mathematical Programming 198 (2023), 85--113. \url{https://doi.org/10.1007/s10107-021-01756-6}.
+\bibitem{maxcut} \emph{MaxCut on Permutation Graphs is NP-complete}, primary research manuscript (2022), Theorem 1. \url{https://arxiv.org/abs/2202.13955}. The stronger restricted-graph result in particular implies the standard unweighted MAX-CUT hardness used here.
+\end{thebibliography}
+\end{document}
+
+% END REVIEWED BODY

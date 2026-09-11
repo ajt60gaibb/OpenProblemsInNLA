@@ -59,3 +59,7 @@ pdflatex -interaction=nonstopmode -halt-on-error -output-directory=/tmp referenc
 ```
 
 The [document-check record](verification/document-checks.json) records the final build, source hashes and preservation checks.
+
+## Integration with updated upstream
+
+After upstream advanced to `16369809e6e600144bd350ab70b7473b652f46f1`, the branch merged that published revision, retained its other resolutions, and regenerated the catalog from canonical metadata. All 203 permanent IDs and the original targets match current upstream; all 17 safeguard tests pass. The authored proof sources and PDFs remain byte-for-byte identical to their reviewed versions without contact email.

@@ -1,0 +1,86 @@
+      A 3 × 3 interval matrix with at least four real-eigenvalue
+                             components
+              Repository IV-06. Claimed counterexample; independent review pending.
+
+
+
+                                             Abstract
+         A two-parameter interval matrix with integer endpoints has at least four connected
+      components in its real eigenvalue set. Four exact eigenpairs and three exact excluded real
+      numbers provide a short certificate. This disproves the proposed bound of n components for
+      a general n × n interval matrix.
+
+
+1     Counterexample
+Consider the independent interval entries
+                                        
+                           25 a b
+                A(a, b) =  1 −1 0 ,               a ∈ [−166, −16],    b ∈ [9, 159].
+                                 
+                            1 0 1
+Let
+                 ΛR = {λ ∈ R : det(λI − A(a, b)) = 0 for some admissible a, b}.
+This is the real eigenvalue set in the conjecture recorded in IV-06 [1].
+Theorem 1. The set ΛR has at least four connected components, although the matrix dimension
+is three.
+
+Proof. Put a = −91 + d1 , b = 84 + d2 , where d1 , d2 ∈ [−75, 75] independently. Direct expansion
+gives
+                     p(λ; d1 , d2 ) = det(λI − A)
+                                 = (λ − 25)(λ2 + 6) − d1 (λ − 1) − d2 (λ + 1).
+For every fixed real λ, its exact range over the two parameters is
+                         (λ − 25)(λ2 + 6) + [−75, 75] |λ − 1| + |λ + 1| .
+                                                                          
+                                                                                                   (1)
+There is no interval overestimation: the determinant is affine in each of the two independent
+parameters and has no mixed term. Thus λ ∈ ΛR exactly when the interval in (1) contains zero.
+The following four eigenpairs certify four included real numbers. Each vector is nonzero, each
+parameter pair is in the interval, and direct integer multiplication verifies A(a, b)v = λv.
+                                   λ    a  b    vT
+                                  −3 −21 154 −4   2 1
+                                   0 −16   9 −1 −1 1
+                                   3 −146 29  4   1 2
+                                  25 −91 84 312 12 13
+At three intervening real numbers, (1) yields
+                                  λ exact determinant interval
+                                 −1               [−332, −32]
+                                  1               [−318, −18]
+                                 12            [−3750, −150].
+
+                                                    1
+None contains zero. Therefore
+
+                        −3 < |{z}
+                             −1 < 0 < |{z}      12 < 25
+                                       1 < 3 < |{z}
+                                ∈Λ
+                                / R           ∈Λ
+                                              / R           ∈Λ
+                                                            / R
+
+places the four included points in four distinct connected components: every connected subset
+of the real line containing two points must contain all points between them. This proves the
+theorem and disproves the proposed general bound.
+
+
+2    Scope and reproducibility
+Only two matrix entries vary, and their uncertainty is independent. All other entries are fixed
+integers. The argument proves at least four components; locating every component endpoint is
+unnecessary for the counterexample. It concerns the union of real eigenvalues of all admissible
+real matrices, not the complex spectral set and not an enclosure returned by an interval
+algorithm.
+The accompanying exact test script expands the characteristic polynomial, verifies all four
+integer eigenpairs, and computes the three determinant intervals using rational arithmetic. No
+floating-point eigenvalues are used in this certificate.
+
+
+References
+[1] OpenProblemsInNLA, problem IV-06, including its original conjecture ref-
+    erences.         https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/
+    intervals-and-absolute-value-equations/IV-06.
+
+
+
+
+                                              2
+

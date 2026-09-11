@@ -1,0 +1,147 @@
+% Full source/preamble SHA256 (UTF-8/LF): cac971f3f3ef4d54790ca095ace7ba393a2f4ebba00c2f5346a34f7756e5e338 d8e7a0de2ed1a1fd162b147211fe29c7b1d7bfbc0be7b827dcda4d9a2653d0d4
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,mathtools,booktabs,enumitem}
+\usepackage[margin=26mm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyvrb}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\setlist{nosep}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\adj}{\operatorname{adj}}
+\newcommand{\co}{\operatorname{conv}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\NP}{\mathsf{NP}}
+\newcommand{\PP}{\mathsf P}
+\newcommand{\header}[2]{\begin{center}{\Large\bfseries #1\par}\vspace{6pt}{\small #2\par}\end{center}\vspace{6pt}}
+\newcommand{\repo}[1]{\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/intervals-and-absolute-value-equations/#1}}
+
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\hypersetup{pdfauthor={Matthew J. Colbrook},pdftitle={An n-squared inverse-M interval vertex test}}
+
+\begin{document}
+\header{An $n^2$-vertex characterization of inverse-M interval matrices}{Repository IV-03. Claimed resolution; independent review pending.}
+\begin{center}Matthew J. Colbrook\\{\small Department of Applied Mathematics and Theoretical Physics\\University of Cambridge, Cambridge, United Kingdom\\\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}\\11 September 2026\end{center}
+\textbf{Independently reviewed resolution.} The exact catalog target is settled in the scope stated below.
+The dated \href{https://github.com/MColbrook/OpenProblemsInNLA/blob/codex/colbrook-package-submissions/references/colbrook-intervals-2026-09-11/verification/reviews/IV-03-review.md}{independent agent review} supersedes the original pending-review header. Agent review is not external human peer review or formal certification. The source archive describes these as AI-generated drafts; authorship is attributed at the submitter's request.
+\par\medskip
+% BEGIN REVIEWED BODY
+\begin{abstract}
+An interval matrix consists entirely of inverse-M matrices if and only if $n^2$ specified vertices are inverse-M matrices. This proves the proposed $2n^2$-vertex criterion and shows that half of those tests are unnecessary. The proof combines induction on principal submatrices, monotonicity of two-index Schur complements, and an adjugate lemma that rules out singularity without assuming regularity in advance. Zero entries, zero interval widths, and reducible matrices are allowed.
+\end{abstract}
+\section{Definitions and main theorem}
+A nonsingular M-matrix is a real matrix $B$ with nonpositive off-diagonal entries and $B^{-1}\ge0$. A matrix $A$ is inverse-M if it is nonsingular, $A\ge0$, and $A^{-1}$ has nonpositive off-diagonal entries. These definitions include reducible matrices.
+
+Let $\boldsymbol A=[L,U]=[C-R,C+R]$, where $R\ge0$. For $i=1,\ldots,n$, let $z^{(i)}$ have entry $-1$ at position $i$ and entry $1$ elsewhere, and put $D_i=\diag(z^{(i)})$. Define
+\[
+ V_{ij}=C-D_iRD_j\qquad(1\le i,j\le n).
+\]
+The repository's proposed polynomial criterion uses both signs of this expression \cite{repo,overview}; an exponential vertex characterization is known \cite{intervalproperty}.
+\begin{theorem}\label{thm:main}
+Every matrix in $\boldsymbol A$ is inverse-M if and only if every one of the $n^2$ matrices $V_{ij}$ is inverse-M.
+\end{theorem}
+The reverse implication is the substantive one. Since these $n^2$ vertices are among the proposed $2n^2$ tests, the theorem implies that proposed characterization as well.
+\section{Basic closure facts}
+\begin{lemma}\label{lem:closure}
+Every principal submatrix of a nonsingular M-matrix is a nonsingular M-matrix, and all its principal minors are positive. Every principal submatrix of an inverse-M matrix is inverse-M and has positive determinant. Every principal Schur complement of an inverse-M matrix is inverse-M, in particular entrywise nonnegative.
+\end{lemma}
+\begin{proof}
+Let $B$ be a nonsingular M-matrix. Set $w=B^{-1}\one>0$; strict positivity follows because a nonnegative invertible matrix has no zero row. The matrix $H=B\diag(w)$ has nonpositive off-diagonal entries and satisfies $H\one=\one$. Thus $H$ and all its principal submatrices are strictly row diagonally dominant with positive diagonal. Write any such submatrix as $D(I-K)$ with positive diagonal $D$, $K\ge0$, and $\|K\|_\infty<1$. The Neumann series gives a nonnegative inverse. The determinant is positive because $\det(I-tK)$ is continuous and nonzero for $0\le t\le1$, and is 1 at $t=0$. Positive diagonal scaling transfers these conclusions to the principal submatrices of $B$.
+
+Now let $A=B^{-1}$ and partition the indices as $S,T$. Jacobi's complementary principal-minor identity gives
+\[
+ \det A_{SS}=\frac{\det B_{TT}}{\det B}>0,
+\]
+with the empty determinant interpreted as 1. Moreover,
+\[
+ A_{SS}^{-1}=B_{SS}-B_{ST}B_{TT}^{-1}B_{TS}
+\]
+has nonpositive off-diagonal entries. Since $A_{SS}\ge0$, it is inverse-M. Finally,
+\[
+ A_{TT}-A_{TS}A_{SS}^{-1}A_{ST}=(B_{TT})^{-1}
+\]
+is inverse-M and nonnegative.
+\end{proof}
+\begin{lemma}[Adjugate completion]\label{lem:adj}
+Let $n\ge3$. If all nonempty proper principal minors of $A$ are positive and all off-diagonal entries of $\adj A$ are nonpositive, then $\det A>0$.
+\end{lemma}
+\begin{proof}
+Suppose first $\det A=0$. A nonzero principal minor of order $n-1$ implies $\rank A=n-1$. Thus $H=\adj A$ has rank one and strictly positive diagonal. Rank one implies
+\[
+ H_{12}H_{23}H_{31}=H_{11}H_{22}H_{33}>0,
+\]
+contradicting nonpositivity of the three off-diagonal factors.
+
+Suppose instead $\det A<0$, and put $B=A^{-1}$. Its diagonal is negative and its off-diagonal entries are nonnegative. Jacobi's identity implies that every nonempty principal minor of $B$ is negative, since its complementary principal minor in $A$ is positive, or equals 1 when the complement is empty. Choose any three indices and write the corresponding principal submatrix as
+\[
+ \begin{pmatrix}-a&p&q\\r&-b&s\\t&u&-c\end{pmatrix},
+ \qquad a,b,c>0,\quad p,q,r,s,t,u\ge0.
+\]
+Its negative principal minors of order two imply $pr>ab$, $qt>ac$, and $su>bc$. Its determinant is
+\[
+ -abc+a su+bqt+cpr+pst+qru>2abc>0,
+\]
+a contradiction. Both alternatives are impossible.
+\end{proof}
+\section{Proof of the vertex characterization}
+Assume all $V_{ij}$ are inverse-M. Each lower endpoint is nonnegative, since $(V_{ij})_{ij}=L_{ij}$. Thus $L\ge0$ and every $A$ in the interval is nonnegative.
+
+We induct on $n$. For $n=1$, the tested matrix is $L$, and positivity of $L$ suffices. For $n=2$, the vertex
+\[
+ V_{11}=\begin{pmatrix}L_{11}&U_{12}\\U_{21}&L_{22}\end{pmatrix}
+\]
+has positive determinant. Hence every interval member has
+\[
+ \det A=a_{11}a_{22}-a_{12}a_{21}
+ \ge L_{11}L_{22}-U_{12}U_{21}>0.
+\]
+Its inverse has nonpositive off-diagonal entries, proving the assertion.
+
+Let $n\ge3$. Every proper principal interval inherits the vertex hypothesis: the local test for indices $i,j$ is the corresponding principal submatrix of the global $V_{ij}$. Lemma~\ref{lem:closure} and induction imply that every proper principal submatrix of every $A\in\boldsymbol A$ is inverse-M. In particular all proper principal minors of every interval member are positive. This is an inductive proof, not an instruction to perform exponentially many algorithmic tests.
+
+Fix distinct $i,j$, and put $S=\{1,\ldots,n\}\setminus\{i,j\}$. Define
+\[
+ f_{ij}(A)=a_{ij}-A_{iS}A_{SS}^{-1}A_{Sj},\qquad
+ u=A_{iS}A_{SS}^{-1},\quad v=A_{SS}^{-1}A_{Sj}.
+\]
+Here $u\ge0$ and $v\ge0$. For example, in the proper principal inverse-M block on $\{i\}\cup S$, the off-diagonal block of its inverse is $-\alpha^{-1}u$, where the scalar Schur complement $\alpha>0$ by the ratio of positive principal determinants. Its nonpositivity proves $u\ge0$. The argument for $v$ uses the block on $S\cup\{j\}$.
+
+Throughout the box, ordinary matrix differentiation gives
+\[
+ \frac{\partial f_{ij}}{\partial a_{ij}}=1,\qquad
+ \frac{\partial f_{ij}}{\partial a_{ik}}=-v_k,\qquad
+ \frac{\partial f_{ij}}{\partial a_{kj}}=-u_k,\qquad
+ \frac{\partial f_{ij}}{\partial a_{k\ell}}=u_kv_\ell
+ \quad(k,\ell\in S).
+\]
+All other entries are irrelevant to $f_{ij}$. These signs show that its minimum is attained with $a_{ij}$ and $A_{SS}$ at their lower endpoints, and $A_{iS}$ and $A_{Sj}$ at their upper endpoints. These are exactly their values in $V_{ij}$. Consequently
+\[
+ f_{ij}(A)\ge f_{ij}(V_{ij})\ge0.
+\]
+The last inequality holds because $f_{ij}(V_{ij})$ is an off-diagonal entry of the two-index principal Schur complement of an inverse-M matrix; Lemma~\ref{lem:closure} makes that complement nonnegative.
+
+The adjugate identity
+\[
+ (\adj A)_{ij}=-\det(A_{SS})f_{ij}(A)
+\]
+now proves that every off-diagonal adjugate entry is nonpositive. This identity does not require $A$ itself to be invertible: it follows by eliminating the invertible block $A_{SS}$ and taking the appropriate cofactor of the resulting two-by-two block, or by polynomial continuity. Lemma~\ref{lem:adj} yields $\det A>0$. Hence $A^{-1}$ has nonpositive off-diagonal entries. Since $A\ge0$, it is inverse-M. The forward implication of Theorem~\ref{thm:main} is immediate because the test matrices belong to the interval.
+\section{Complexity and boundary cases}
+Form $n^2$ rational vertices. For each, check nonsingularity and entrywise nonnegativity, compute its inverse exactly, and check its off-diagonal signs. This takes $O(n^5)$ arithmetic operations using standard cubic inversion, with polynomial rational bit complexity. The arithmetic-operation count is not a claim of strongly polynomial bit complexity.
+
+No strict positivity of off-diagonal entries or interval widths was assumed. The proof explicitly treats possible singularity of an interior full matrix through Lemma~\ref{lem:adj}, rather than presuming regularity to justify inversion. Reducible and point intervals are included.
+\begin{thebibliography}{9}
+\bibitem{repo} OpenProblemsInNLA, problem IV-03. \repo{IV-03}.
+\bibitem{overview} M. Hlad\'ik, \emph{An overview of polynomially computable characteristics of special interval matrices}, Springer (2020), 295--310, Section 9. \url{https://doi.org/10.1007/978-3-030-31041-7_16}. Author version: \url{https://arxiv.org/abs/1711.08732}.
+\bibitem{intervalproperty} J. Garloff, A. Al-Saafin and M. Adm, \emph{Further Matrix Classes Possessing the Interval Property}, Reliable Computing 28 (2021), 56--70, Section 4. \url{https://reliable-computing.org/reliable-computing-28-pp-056-070.pdf}.
+\end{thebibliography}
+\end{document}
+
+% END REVIEWED BODY

@@ -1,0 +1,454 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=26mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,hyperref,microtype,booktabs}
+\hypersetup{hidelinks}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newcommand{\C}{\mathbb C}
+\newcommand{\R}{\mathbb R}
+\newcommand{\T}{\mathbb T}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\diag}{\operatorname{diag}}
+\title{Odd Jordan blocks determine the imaginary rank of a limiting matrix Riccati solution}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+Let $X_\eta$ be the stabilizing, positive-imaginary-part solution of
+$X_\eta+A^\top X_\eta^{-1}A=Q+i\eta I$, where $A$ is real, $Q$ is real symmetric, and $\eta>0$.
+Assume that $X_\eta$ has a finite invertible limit $X$.
+We prove that the rank of $\Ima X$ is one half the number of odd-sized Jordan blocks of
+$\lambda^2A^\top-\lambda Q+A$ on the unit circle. Blocks, not their algebraic multiplicities, are counted.
+The proof uses local Rellich eigenbranches, confluent interpolation of stable eigenvectors,
+and a positive Cauchy kernel furnished by the Stein identity.
+This gives the semisimple rank equality without an auxiliary regularity or non-splitting condition,
+and treats defective unit-circle eigenvalues as well.
+An exact three-by-three example has two Jordan blocks of size three and limiting imaginary rank one.
+The finite-invertible-limit assumption is essential to the scope of the result and is not asserted to hold universally.
+\end{abstract}
+
+\section{Setting and main result}
+Let $A\in\R^{n\times n}$ and $Q=Q^\top\in\R^{n\times n}$.
+For $\eta>0$, write $Q_\eta=Q+i\eta I$ and let $X_\eta=X_\eta^\top$ satisfy
+\begin{equation}\label{eq:riccati}
+X_\eta+A^\top X_\eta^{-1}A=Q_\eta,
+\qquad H_\eta=\Ima X_\eta>0,
+\qquad \rho(S_\eta)<1,\quad S_\eta=X_\eta^{-1}A.
+\end{equation}
+Here $\Ima Y=(Y-Y^*)/(2i)$. For a complex symmetric matrix this is a real symmetric matrix.
+Existence and uniqueness of this stabilizing solution for $\eta>0$ are established in
+\cite[Theorem~2.2 and Remark~2.1]{GKL}. Throughout the main result we assume
+\begin{equation}\label{eq:limit}
+X=\lim_{\eta\downarrow0}X_\eta\quad\text{exists as a finite invertible matrix}.
+\end{equation}
+Let
+\[
+P_\eta(\lambda)=\lambda^2A^\top-\lambda Q_\eta+A,\qquad P=P_0.
+\]
+A Jordan block of the regular quadratic polynomial $P$ means a finite elementary divisor,
+or, equivalently, the corresponding Jordan block in a strong linearization.
+Its size is the positive partial multiplicity at that eigenvalue.
+
+\begin{theorem}\label{thm:main}
+Assume \eqref{eq:riccati}--\eqref{eq:limit}.
+Let $b_{\rm odd}$ be the total number of odd-sized Jordan blocks of $P$ at eigenvalues
+$\lambda$ with $|\lambda|=1$, counting each block once.
+Then $b_{\rm odd}$ is even and
+\begin{equation}\label{eq:rank}
+\rank(\Ima X)=\frac{b_{\rm odd}}2.
+\end{equation}
+The same rank formula holds for $\Ima(X^{-1})$.
+In particular, $\Ima X=0$ if and only if all unit-circle Jordan blocks have even size.
+\end{theorem}
+
+Guo--Kuo--Lin \cite[Theorem~3.3]{GKL} prove that, if $2m$ is the total algebraic
+multiplicity on the unit circle, then $\rank(\Ima X)\le m$.
+They obtain equality under semisimplicity and an $O(\eta)$ regularity assumption,
+or under semisimplicity and a non-splitting condition on each repeated eigenvalue cluster.
+Theorem~\ref{thm:main} gives a finer blockwise count. In the semisimple case every block
+has size one, so it gives equality $\rank(\Ima X)=m$ directly.
+
+The algebraic perturbation facts used below are local. No globally single-valued Rellich
+eigenbasis on the entire unit circle is assumed. Local analytic Hermitian eigendecompositions
+and the identification of their zero orders with partial multiplicities are standard;
+see \cite[Theorem~1.1 and Section~5]{BN}.
+
+\section{The Stein identity and the stable graph}
+Taking imaginary parts in \eqref{eq:riccati}, using
+$\Ima(X_\eta^{-1})=-X_\eta^{-*}H_\eta X_\eta^{-1}$, gives
+\begin{equation}\label{eq:Stein}
+H_\eta-S_\eta^*H_\eta S_\eta=\eta I.
+\end{equation}
+Also, symmetry of $X_\eta$ gives the factorization
+\begin{equation}\label{eq:factor}
+P_\eta(\lambda)=(I-\lambda S_\eta^\top)X_\eta(S_\eta-\lambda I).
+\end{equation}
+The same factorization holds at $\eta=0$, with $S=X^{-1}A$.
+It shows that $P$ is regular; the two determinant factors are nonzero polynomials,
+and $X$ is invertible. It also shows that $P_\eta$ has exactly $n$ stable eigenvalues,
+counted with multiplicity, and the other $n$ eigenvalues are outside the unit disk
+on the extended plane. Zero and infinite eigenvalues are allowed.
+
+Use the linearization
+\[
+M_\eta=\begin{pmatrix}A&0\\Q_\eta&-I\end{pmatrix},
+\qquad L=\begin{pmatrix}0&I\\A^\top&0\end{pmatrix}.
+\]
+Its stable right deflating subspace is
+\begin{equation}\label{eq:graph}
+\mathcal W_\eta=\operatorname{range}\begin{pmatrix}I\\X_\eta\end{pmatrix},
+\end{equation}
+because
+\[
+M_\eta\begin{pmatrix}I\\X_\eta\end{pmatrix}
+=L\begin{pmatrix}I\\X_\eta\end{pmatrix}S_\eta.
+\]
+The columns on the right remain independent after multiplication by $L$, since the upper
+block of $L[I;X_\eta]$ is $X_\eta$.
+A finite eigenpair $P_\eta(\lambda)v=0$ lifts to the pencil eigenvector
+\begin{equation}\label{eq:lift}
+\zeta_\eta(\lambda,v)=\begin{pmatrix}v\\(Q_\eta-\lambda A^\top)v\end{pmatrix}.
+\end{equation}
+For a stable eigenvalue, its upper block $v$ is therefore a right eigenvector of $S_\eta$.
+If $S_\eta v_a=\lambda_a v_a$ and $S_\eta v_b=\lambda_b v_b$, then
+\eqref{eq:Stein} yields the exact identity
+\begin{equation}\label{eq:kernel}
+v_a^*H_\eta v_b=\frac{\eta\,v_a^*v_b}{1-\overline{\lambda_a}\lambda_b}.
+\end{equation}
+
+\section{Local branches and the number of stable roots}
+Fix a unit-circle eigenvalue $\lambda_0=e^{i\theta_0}$ and put
+\[
+T(t)=e^{i(\theta_0+t)}A^\top+e^{-i(\theta_0+t)}A-Q.
+\]
+For real $t$, $T(t)$ is Hermitian. By the local Rellich theorem,
+\begin{equation}\label{eq:Rellich}
+T(t)=U(t)\diag(d_1(t),\ldots,d_n(t))U(t)^{-1},
+\qquad U(\overline t)^*U(t)=I,
+\end{equation}
+where the functions extend holomorphically to a complex neighborhood of zero, and each
+$d_j$ is real on the real line. The second identity follows by analytic continuation
+from real $t$; $U(\overline t)^*$ denotes the holomorphic reflection of $U$.
+For a branch vanishing at zero, write
+\begin{equation}\label{eq:branch}
+d_j(t)=a_jt^{\ell_j}+O(t^{\ell_j+1}),\qquad a_j\in\R\setminus\{0\},\quad \ell_j\ge1.
+\end{equation}
+Regularity excludes an identically zero branch. The orders $\ell_j$ are exactly the
+positive partial multiplicities of $P$ at $\lambda_0$: multiplication by the nonvanishing
+scalar $e^{i(\theta_0+t)}$ and the local analytic change from $t$ to $\lambda$ preserve
+partial multiplicities, and \eqref{eq:Rellich} is an analytic equivalence to a diagonal matrix.
+
+Importantly, the regularization is scalar. Thus the same $U(t)$ diagonalizes
+$T(t)-i\eta I$, and the perturbed roots from branch $j$ solve $d_j(t)=i\eta$.
+Put $\varepsilon=\eta^{1/\ell_j}$. The roots have the form
+\begin{equation}\label{eq:rootexp}
+t_a=\varepsilon z_a+O(\varepsilon^2),\qquad a_jz_a^{\ell_j}=i.
+\end{equation}
+This follows by the analytic implicit function theorem after substituting $t=\varepsilon z$;
+the limiting roots $z_a$ are distinct and nonzero. All the resulting roots are simple
+within this branch for sufficiently small positive $\eta$.
+The corresponding $\lambda=e^{i(\theta_0+t)}$ is stable exactly when $\Ima t>0$.
+No $z_a$ is real. Counting the upper-half-plane roots of $a_jz^{\ell_j}=i$ gives
+\begin{equation}\label{eq:r}
+r_j=\begin{cases}
+\ell_j/2,&\ell_j\text{ even},\\
+(\ell_j+1)/2,&\ell_j\text{ odd and }a_j>0,\\
+(\ell_j-1)/2,&\ell_j\text{ odd and }a_j<0.
+\end{cases}
+\end{equation}
+Coincidences of roots belonging to different branches do not obstruct the construction:
+at a common root the corresponding columns of $U(t)$ are independent.
+
+\section{Confluent stable bases}
+We record explicitly the interpolation fact that controls the degenerating eigenvector bases.
+
+\begin{lemma}\label{lem:interpolation}
+Let $t_1,\ldots,t_r$ be distinct nodes with $t_a=\varepsilon z_a+O(\varepsilon^2)$,
+where the $z_a$ are distinct and $\varepsilon\downarrow0$.
+Set $V_\eta=(t_a^k)_{a=1,\ldots,r;\,k=0,\ldots,r-1}$.
+If $f(t)=\sum_{k\ge0}f_kt^k$ is a vector-valued holomorphic function, then
+\[
+[f(t_1),\ldots,f(t_r)]V_\eta^{-\top}\longrightarrow[f_0,\ldots,f_{r-1}].
+\]
+For a function holomorphic in two variables near $(0,0)$, applying these interpolation
+transformations in both variables gives a bounded coefficient matrix as both sets of
+nodes approach zero. The two sets may approach at different rates.
+\end{lemma}
+\begin{proof}
+The displayed columns are the coefficients of the degree-$r-1$ polynomial interpolating
+$f$ at the nodes. For a small fixed contour enclosing all nodes, the divided-difference
+formula bounds these coefficients uniformly and shows that they tend to the Taylor
+coefficients as the nodes coalesce. More explicitly, the Newton coefficients are contour
+integrals of $f(z)/\prod_{a=1}^{k+1}(z-t_a)$; they tend to $f_k$, and conversion from
+Newton to monomial coefficients tends to the identity. Applying the same contour formula
+successively in two variables proves the last assertion, uniformly and without a condition
+on relative rates. The result also holds for a uniformly holomorphic family converging
+to $f$, as used for the lifts below.
+\end{proof}
+
+For a branch $j$ with $r_j>0$, let $v_j(t)=U(t)e_j$, restrict \eqref{eq:rootexp} to its
+$r_j$ stable roots, and define
+\begin{align*}
+E_{j,\eta}&=[v_j(t_1),\ldots,v_j(t_{r_j})],\\
+B_{j,\eta}&=E_{j,\eta}V_{j,\eta}^{-\top},\qquad
+V_{j,\eta}=(t_a^k)_{a,k}.
+\end{align*}
+Apply the same transformation to the lifted vectors
+\[
+\zeta_{j,\eta}(t)=
+\begin{pmatrix}v_j(t)\\(Q+i\eta I-e^{i(\theta_0+t)}A^\top)v_j(t)\end{pmatrix}.
+\]
+The resulting $2n\times r_j$ matrix tends to the first $r_j$ Taylor coefficients of
+$\zeta_{j,0}(t)$. These coefficients form, up to an invertible triangular change of
+basis induced by $\lambda=e^{i(\theta_0+t)}$, the first $r_j$ vectors of the Jordan chain
+associated with this partial multiplicity. Indeed,
+\[
+(M_0-e^{i(\theta_0+t)}L)\zeta_{j,0}(t)
+=\begin{pmatrix}e^{i(\theta_0+t)}d_j(t)v_j(t)\\0\end{pmatrix}
+=O(t^{\ell_j}).
+\]
+The analytic equivalence \eqref{eq:Rellich} supplies a complete canonical system of root
+functions, so the full lifted chains are independent; any collection of their prefixes
+is independent as well. This is also the usual chain construction from the local Smith
+form of a regular matrix polynomial. The $i\eta I$ term in the lift contributes $i\eta$
+times the interpolated upper block, which tends to zero.
+
+The part of the pencil spectrum strictly inside the unit disk is separated from the
+boundary. Its full right deflating subspace has an analytic basis $W_{s,\eta}$ near zero,
+even when individual eigenvalues are defective. For example, a fixed shift off the spectrum
+reduces this assertion to an analytic Riesz projection of $(M_\eta-\sigma L)^{-1}L$.
+Adjoin to this basis all the normalized boundary blocks just constructed. The result is
+\begin{equation}\label{eq:W}
+W_\eta=\begin{pmatrix}B_\eta\\C_\eta\end{pmatrix}\longrightarrow
+W_0=\begin{pmatrix}B_0\\C_0\end{pmatrix},
+\qquad \rank W_0=n,\qquad \operatorname{range}W_\eta=\mathcal W_\eta.
+\end{equation}
+The rank follows from independence of the chain prefixes and direct sums between distinct
+pencil eigenvalues. There are $n$ columns because the stable dimension is $n$ for $\eta>0$.
+The graph property gives $C_\eta=X_\eta B_\eta$ and $B_\eta$ invertible. Taking limits yields
+$C_0=XB_0$. If $B_0u=0$ then $W_0u=0$, so $u=0$. Consequently
+\begin{equation}\label{eq:Binv}
+B_0\text{ is invertible}.
+\end{equation}
+This is the precise place where the finite limit in \eqref{eq:limit} is used.
+
+\section{The limiting Gram matrix}
+We compute $B_\eta^*H_\eta B_\eta$ in the basis of \eqref{eq:W}.
+The strictly stable block contributes zero in the limit. In fact its upper block satisfies
+$S_\eta B_{s,\eta}=B_{s,\eta}R_{s,\eta}$, with $R_{s,\eta}$ tending to a matrix with spectral
+radius strictly less than one. Restricting \eqref{eq:Stein} to this block gives
+\[
+G_{s,\eta}-R_{s,\eta}^*G_{s,\eta}R_{s,\eta}
+=\eta B_{s,\eta}^*B_{s,\eta},\qquad G_{s,\eta}=B_{s,\eta}^*H_\eta B_{s,\eta}.
+\]
+The inverse Stein operator is uniformly bounded near the limit, hence $G_{s,\eta}=O(\eta)$.
+All mixed blocks with this block tend to zero by positive semidefiniteness and the
+Cauchy--Schwarz inequality; the other blocks remain bounded by \eqref{eq:limit} and
+\eqref{eq:W}.
+
+Next consider two branches at the same $\theta_0$. Define the holomorphic row function
+$u_j(s)=v_j(\overline s)^*$. Since $u_i(t)v_j(t)=\delta_{ij}$, division by $t-s$ gives
+\begin{equation}\label{eq:numerator}
+u_i(s)v_j(t)=\delta_{ij}+(t-s)F_{ij}(s,t)
+\end{equation}
+for a holomorphic function $F_{ij}$. The denominator in \eqref{eq:kernel} is
+$1-e^{i(t-s)}$. It has a simple zero at $t=s$.
+Therefore, for different branches $i\ne j$, the entire Gram kernel is $\eta$ times a
+holomorphic function of $(s,t)$. Lemma~\ref{lem:interpolation} shows that its mixed block
+in the normalized basis is $O(\eta)$, even if the branches have different orders.
+For different boundary points the denominator is already nonzero near the two centers,
+so the same conclusion holds. For one branch, \eqref{eq:numerator} shows that its Gram
+block equals the transformed universal kernel
+\begin{equation}\label{eq:universal}
+K_{ab}=\frac{\eta}{1-e^{i(t_b-\overline{t_a})}}
+\end{equation}
+plus a block of order $O(\eta)$.
+
+It remains to calculate the rank contribution from \eqref{eq:universal}.
+Drop the branch index, put $\ell=\ell_j$, $r=r_j$, and suppose $r>0$.
+With $\varepsilon=\eta^{1/\ell}$ and $t_a=\varepsilon z_a+O(\varepsilon^2)$,
+\begin{equation}\label{eq:Ckernel}
+K=\varepsilon^{\ell-1}(C+O(\varepsilon)),
+\qquad C_{ab}=\frac{i}{z_b-\overline{z_a}}.
+\end{equation}
+The matrix $C$ is positive definite: it is the Gram matrix of the linearly independent
+functions $e^{iz_at}$ in $L^2(0,\infty)$, since all $\Ima z_a>0$ and
+\[
+\int_0^\infty e^{-i\overline{z_a}t}e^{iz_bt}\,dt
+=\frac{i}{z_b-\overline{z_a}}.
+\]
+Write
+\[
+V_\eta=\widehat V_\eta D_\varepsilon,
+\qquad (\widehat V_\eta)_{ak}=(t_a/\varepsilon)^k,
+\qquad D_\varepsilon=\diag(1,\varepsilon,\ldots,\varepsilon^{r-1}).
+\]
+Then $\widehat V_\eta$ tends to the invertible Vandermonde matrix $\widehat V=(z_a^k)$.
+The Gram block after the normalization $E_\eta V_\eta^{-\top}$ is
+\begin{align}
+\overline{V_\eta}^{-1}KV_\eta^{-\top}
+&=\varepsilon^{\ell-1}D_\varepsilon^{-1}
+   (D+O(\varepsilon))D_\varepsilon^{-1},\label{eq:scaledGram}\\
+D&=\overline{\widehat V}^{-1}C\widehat V^{-\top}>0.\notag
+\end{align}
+For indices $k,l=0,\ldots,r-1$, its $(k,l)$ entry is
+$\varepsilon^{\ell-1-k-l}(D_{kl}+O(\varepsilon))$.
+By \eqref{eq:r}, the smallest exponent is
+\[
+\ell+1-2r=
+\begin{cases}
+1,&\ell\text{ even},\\
+0,&\ell\text{ odd and }a_j>0,\\
+2,&\ell\text{ odd and }a_j<0.
+\end{cases}
+\]
+Hence an even branch or a negative odd branch has zero limiting block.
+A positive odd branch has exactly one surviving entry, the last diagonal entry
+$D_{r-1,r-1}>0$, and contributes rank one. When $r=0$ there is no block and no contribution.
+All remaining mixed blocks tend to zero, as already shown. Together with
+\eqref{eq:Binv}, this proves the intermediate formula
+\begin{equation}\label{eq:signedrank}
+\rank(\Ima X)=\#\{\text{unit-circle Rellich zero branches with odd order and }a_j>0\}.
+\end{equation}
+
+\section{Real symmetry and the half-count}
+For the global Hermitian trigonometric polynomial
+$\mathcal T(\theta)=e^{i\theta}A^\top+e^{-i\theta}A-Q$, reality gives
+\[
+\mathcal T(-\theta)=\overline{\mathcal T(\theta)}=\mathcal T(\theta)^\top.
+\]
+Thus its multiset of analytic eigenvalue germs at $-\theta_0$ is obtained from that
+at $\theta_0$ by $t\mapsto-t$. A branch of order $\ell$ and leading coefficient $a$
+is paired with a branch of order $\ell$ and coefficient $(-1)^\ell a$.
+At distinct conjugate unit-circle points this pairs the two collections of germs.
+At $\theta_0=0$ or $\pi$ the same statement holds within the collection at that point,
+using $2\pi$-periodicity. Odd-order germs cannot be fixed by this operation because their
+leading coefficient changes sign; their positive and negative counts are equal.
+Consequently the total number of positive odd branches is exactly $b_{\rm odd}/2$.
+Equation~\eqref{eq:signedrank} proves \eqref{eq:rank} and evenness of $b_{\rm odd}$.
+Finally
+\[
+\Ima(X^{-1})=-X^{-*}(\Ima X)X^{-1}
+\]
+is an invertible congruence up to sign, so its rank is the same. This completes the proof.
+
+\section{Semisimple regularity as a corollary}
+\begin{corollary}\label{cor:semisimple}
+Under the assumptions of Theorem~\ref{thm:main}, suppose all unit-circle eigenvalues are
+semisimple, of total algebraic multiplicity $2m$. Then
+\[
+\rank(\Ima X)=m,\qquad X_\eta-X=O(\eta),\qquad S_\eta-X^{-1}A=O(\eta).
+\]
+\end{corollary}
+\begin{proof}
+The rank conclusion follows from Theorem~\ref{thm:main}.
+Every vanishing branch now has $\ell=1$ and $a_j\ne0$.
+Its stable root, when it exists, is analytic in $\eta$ and is $O(\eta)$ from its limit,
+as is its lifted eigenvector. Thus the boundary blocks and the separated strictly stable
+block give $W_\eta=W_0+O(\eta)$ in \eqref{eq:W}.
+The invertibility of $B_0$ then yields
+$X_\eta=C_\eta B_\eta^{-1}=C_0B_0^{-1}+O(\eta)=X+O(\eta)$.
+The final assertion follows by inversion at the invertible matrix $X$.
+\end{proof}
+This proves directly that the auxiliary regularity assumption in
+\cite[Theorem~3.3(ii)]{GKL} is automatic under the other stated hypotheses.
+It also permits a repeated semisimple cluster to split in both directions.
+
+\section{An exact defective example}
+Consider
+\begin{equation}\label{eq:exampleAQ}
+A=\begin{pmatrix}-1&0&-1/2\\0&0&-1/2\\1/2&-1/2&0\end{pmatrix},
+\qquad
+Q=\begin{pmatrix}-2&0&0\\0&0&-1\\0&-1&-1\end{pmatrix}.
+\end{equation}
+Writing $c=\cos\theta$ and $s=\sin\theta$ gives
+\[
+\mathcal T(\theta)=
+\begin{pmatrix}2(1-c)&0&i s\\0&0&1-c\\-i s&1-c&1\end{pmatrix},
+\qquad
+\det P(\lambda)=\frac{(\lambda-1)^6}{4}.
+\]
+The two vanishing eigenbranches at zero have leading terms $\pm\theta^3/2$.
+To verify the orders and signs, eliminate the last row and column at eigenvalue zero;
+the Schur complement is
+\[
+\begin{pmatrix}(1-c)^2&-i s(1-c)\\i s(1-c)&-(1-c)^2\end{pmatrix}
+=\frac{\theta^3}{2}\begin{pmatrix}0&-i\\i&0\end{pmatrix}+O(\theta^4).
+\]
+In the eigenvalue equation the additional mass factor tends to the identity, so these
+are also the leading coefficients of the two small eigenvalues. Hence $P$ has exactly
+two Jordan blocks of size three at $1$.
+
+The stable solution has the finite limit
+\begin{equation}\label{eq:exampleX}
+X=\begin{pmatrix}-1&0&1/2\\0&0&-1/2\\1/2&-1/2&(-1+i)/2\end{pmatrix}.
+\end{equation}
+Here is a graph verification identifying the limit, rather than merely checking the
+unregularized equation. The positive branch has $v_+(0)=(1,i,0)^\top$ up to normalization,
+and its first derivative has third entry $i$, while its first two entries are immaterial
+modulo the two vectors $v_+(0)$ and $v_-(0)=(1,-i,0)^\top$.
+The positive branch contributes a chain prefix of length two and the negative branch
+one of length one. Their upper blocks therefore span $\C^3$.
+The normalized stable graph consequently has an invertible upper limit and determines
+$X$ by its limiting lower block. On $e_1,e_2$ the resulting map is $Q-A^\top$; on $e_3$ it is
+\[
+(Q-A^\top)e_3-A^\top(e_1+i e_2)
+=(1/2,-1/2,(-1+i)/2)^\top.
+\]
+This is precisely \eqref{eq:exampleX}.
+Independently, direct exact calculation gives
+\[
+\det X=\det A=1/4,\quad
+X+A^\top X^{-1}A=Q,\quad
+X^{-1}A=\begin{pmatrix}1&0&1\\0&1&i\\0&0&1\end{pmatrix},\quad
+\Ima X=\diag(0,0,1/2).
+\]
+Thus the limiting imaginary rank is one, not half the total unit-circle algebraic
+multiplicity (which would be three). It agrees with half the number of odd blocks.
+The exact identities and the Jordan structure are checked by
+\path{code/nano_rank_certificate.py}; optional QZ experiments are reported separately
+and are not used as a proof.
+
+\section{Scope, reproducibility, and review}
+The theorem is conditional on a finite invertible limiting solution. That assumption
+cannot simply be dropped. For example,
+\[
+A=\begin{pmatrix}0&1\\0&0\end{pmatrix},\quad Q=0,\qquad
+X_\eta=\begin{pmatrix}i\eta&0\\0&i(\eta+\eta^{-1})\end{pmatrix}
+\]
+satisfies \eqref{eq:riccati} with $\rho(S_\eta)=0$, but diverges as $\eta\downarrow0$.
+Here $\det P_0(\lambda)=-\lambda^2$ and there are no unit-circle eigenvalues.
+Neither semisimplicity nor absence of boundary eigenvalues alone guarantees the limit.
+
+The scalar regularization $i\eta I$ is also used essentially: it preserves the local
+Rellich eigenvectors and gives the scalar kernel in \eqref{eq:kernel}.
+A different positive-definite regularization may be reduced by congruence, but no claim
+about arbitrary singular or indefinite regularizations is made here.
+The manuscript gives an analytic proof, supplemented by exact checks of its defective
+example; a finite set of computations is not a verification of the general theorem.
+The most delicate steps for independent review are the normalized Jordan-chain basis
+and the two-variable interpolation argument for mixed blocks.
+External proof review, priority review, and matching to the canonical repository wording
+are still required before a catalog status change. This is an unreviewed solution claim,
+not an externally validated resolution.
+
+\begin{thebibliography}{9}
+\bibitem{GKL}
+C.-H. Guo, Y.-C. Kuo, and W.-W. Lin,
+\emph{On a nonlinear matrix equation arising in nano research},
+SIAM Journal on Matrix Analysis and Applications \textbf{33}(1) (2012), 235--262.
+\href{https://doi.org/10.1137/100814706}{doi:10.1137/100814706}.
+Author preprint:
+\url{https://uregina.ca/~chguo/simax81470.pdf}.
+\bibitem{BN}
+G. Barbarino and V. Noferini,
+\emph{On the Rellich eigendecomposition of para-Hermitian matrices and the sign
+characteristics of $*$-palindromic matrix polynomials},
+arXiv:2211.15539 (2022), Theorem~1.1 and Section~5.
+\url{https://arxiv.org/abs/2211.15539}.
+\end{thebibliography}
+\end{document}
