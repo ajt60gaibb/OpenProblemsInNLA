@@ -7,10 +7,20 @@
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
 **Topic:** interval linear algebra; determinants; computational complexity  
-**Last checked:** 2026-09-10  
-**Status:** Partially resolved  
+**Last checked:** 2026-09-11
+**Status:** Solved
 
 **Rating rationale:** Challenging reflects classifying exact determinant-range computation for a structured but dependency-sensitive interval family; specialist impact concerns this particular interval matrix class.
+
+<!-- colbrook-intervals -->
+## Independently reviewed resolution - 2026-09-11
+
+**Complexity classification.** Theorem 1 proves NP-completeness of the upper determinant threshold and NP-hardness of exact determinant-range computation, even for regular independent-entry tridiagonal interval matrices. Section 5 supplies the exact-output upper bound: a polynomial algorithm for the full displayed target exists if and only if $\mathsf P=\mathsf{NP}$. No unconditional separation or strong NP-hardness is asserted.
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. See the [complete manuscript](../../references/colbrook-intervals-2026-09-11/manuscripts/IV-02_IV-04.pdf), [independent agent review](../../references/colbrook-intervals-2026-09-11/verification/reviews/IV-02_IV-04-review.md) and [submission record](../../references/colbrook-intervals-2026-09-11/README.md). The source archive identifies the drafts as AI-generated; authorship is recorded at the submitter's request. This is agent verification, not external human peer review or formal proof-assistant certification.
+
+The difficulty, importance and rating rationale below are historical assessments of the original open target. The original statement and dated audits are preserved.
+<!-- /colbrook-intervals -->
 
 ## Problem statement
 
