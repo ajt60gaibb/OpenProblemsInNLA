@@ -2,7 +2,6 @@
 title: "MI-28: a determinant inequality for all nonnegative base powers"
 author: "George Stepaniants"
 affiliation: "Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA"
-email: "gstepan@caltech.edu"
 date: "11 September 2026"
 document-kind: "Verified resolution"
 review-footer: "Independent Codex-agent review; not external human peer review or formal certification."

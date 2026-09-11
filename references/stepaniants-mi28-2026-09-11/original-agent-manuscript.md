@@ -4,7 +4,6 @@
 Department of Computing and Mathematical Sciences  
 California Institute of Technology  
 Pasadena, California, USA  
-[gstepan@caltech.edu](mailto:gstepan@caltech.edu)  
 11 September 2026
 
 For positive definite matrices $A,B$, every $k\ge0$, and $0\le p\le2$, we prove
