@@ -15,9 +15,11 @@ catalog with **🟡 PARTIAL** and an explanation of what remains.
 
 ## Resolved catalog entries
 
-### ✅ RA-12 - the relative-error threshold for extremal Gaussian trace bounds
+### ✅ RA-12 — the relative-error threshold for extremal Gaussian trace bounds — George Stepaniants
 
-**Affirmative resolution recorded 2026-09-11.** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Affirmative resolution recorded 2026-09-11.**
 
 [Original statement and resolution](randomized-and-low-rank-approximation/RA-12/README.md) · [Complete proof](randomized-and-low-rank-approximation/RA-12/solution.md) · [Proof PDF](randomized-and-low-rank-approximation/RA-12/solution.pdf) · [Independent PASS report](references/stepaniants-ra12-2026-09-11/verification/RA-12-independent-review.md).
 
@@ -156,7 +158,7 @@ These three entries remain in the open count.
 
 **RA-10 (Partially resolved).** The sharp nuclear relative-excess factor is two when $A$, $B=\widehat A_k$ and the actual selected rank-$k$ projector have a simultaneous orthonormal eigenbasis. The finite-Schatten extension is also proved. Diagonal operator-monotone power examples show that any constant solving the full question must satisfy $C\ge2$. Existence of a finite universal constant for arbitrary noncommuting PSD pairs remains open. Commutation of $A$ and $\widehat A$ alone does not cover every truncation inside a repeated eigenspace. The separate scalar-concave nuclear counterexamples use functions outside the required operator-monotone class. [Complete proof](references/colbrook-transfer-2026-09-11/manuscripts/06_commuting_schatten_transfer.pdf), Theorem 1.1 and Section 3; [review](references/colbrook-transfer-2026-09-11/verification/reviews/RA-10-review.md).
 
-**RA-12 (Open).** The submitted Gamma-density examples refute the upper-mode assertion in Hallman Conjecture 1 and the upper-inflection assertion in Conjecture 2, with legally distinct augmentation indices. These are counterexamples to auxiliary assertions. The complete relative Gaussian trace-tail probability chain in this entry is neither proved nor refuted. No revised sharp tail threshold is established; status remains Open. [Complete proof](references/colbrook-transfer-2026-09-11/manuscripts/04_gamma_auxiliary_counterexamples.pdf), Proposition 2.1 (with Proposition 3.1 for related evidence); [review](references/colbrook-transfer-2026-09-11/verification/reviews/gamma-auxiliary-review.md).
+**RA-12 — historical auxiliary results (the canonical target is now Solved).** Matthew J. Colbrook's submitted Gamma-density examples refute the upper-mode assertion in Hallman Conjecture 1 and the upper-inflection assertion in Conjecture 2, with legally distinct augmentation indices. These are counterexamples to auxiliary assertions; they neither prove nor refute the complete relative Gaussian trace-tail probability chain and do not establish a revised sharp tail threshold. RA-12 remained open at that stage. George Stepaniants's complete proof of the canonical tail comparisons is now recorded above. [Complete auxiliary proof](references/colbrook-transfer-2026-09-11/manuscripts/04_gamma_auxiliary_counterexamples.pdf), Proposition 2.1 (with Proposition 3.1 for related evidence); [review](references/colbrook-transfer-2026-09-11/verification/reviews/gamma-auxiliary-review.md).
 
 **RA-13 (Open).** The centered augmented density has a genuine inflection point beyond the proposed auxiliary upper bound. Together with the mode example, this refutes the upper assertions of Hallman Conjectures 1 and 2. The complete absolute Gaussian trace-tail probability chain in this entry is neither proved nor refuted. Failure of an auxiliary sufficient condition does not refute the final tail comparisons; status remains Open. [Complete proof](references/colbrook-transfer-2026-09-11/manuscripts/04_gamma_auxiliary_counterexamples.pdf), Proposition 3.1 (with Proposition 2.1 for related evidence); [review](references/colbrook-transfer-2026-09-11/verification/reviews/gamma-auxiliary-review.md).
 
