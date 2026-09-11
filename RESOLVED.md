@@ -15,6 +15,13 @@ catalog with **🟡 PARTIAL** and an explanation of what remains.
 
 ## Resolved catalog entries
 
+### ✅ TR-17 and TR-27 — global Frobenius minimality and tensor-square rank
+
+**Resolutions by Matthew J. Colbrook recorded 2026-09-11.** Author affiliation: Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Two independent mathematical agents reviewed the complete sources, one per target; a separate agent reviewed and reran all three supplied verification programs. This is AI-assisted agent verification, not external human peer review or formal certification, and no priority claim is made. [Submission, source hashes and verification record](references/colbrook-tensor-metrics-rank-2026-09-11/README.md). Original statements, IDs and historical ratings are retained.
+
+- **[TR-17](tensor-computations/TR-17/README.md), affirmative:** [Theorem 1](references/colbrook-tensor-metrics-rank-2026-09-11/manuscripts/tr17_solution.pdf) proves that the Frobenius metric globally minimizes the Euclidean distance degree for every Segre–Veronese format in the target and every positive definite real symmetric metric, using the stated complex-bilinear and multiplicity conventions. Singular and nonreduced quadric sections are included. [Complete-source mathematical review: PASS](references/colbrook-tensor-metrics-rank-2026-09-11/verification/reviews/TR-17-review.md).
+- **[TR-27](tensor-computations/TR-27/README.md), negative:** [Theorem 1 and Section 4](references/colbrook-tensor-metrics-rank-2026-09-11/manuscripts/tr27_solution.pdf) exhibit a smooth irreducible nondegenerate curve in $\mathbb P^{11}$ with border rank 2, rank 3 and rank 9 at the Segre tensor square. This refutes the universal implication for projective varieties. The stronger construction permits any prescribed finite delay of strict submultiplicativity; it does not refute the known eventual-power saving or assert a counterexample restricted to Segre or Veronese varieties. [Complete-source mathematical review: PASS](references/colbrook-tensor-metrics-rank-2026-09-11/verification/reviews/TR-27-review.md).
+
 ### ✅ MI-13 — Nobori's spectral-middle-factor commutator inequality
 
 [Original statement and complete proof](matrix-inequalities-and-norms/MI-13/README.md) · [PDF](matrix-inequalities-and-norms/MI-13/problem.pdf)
