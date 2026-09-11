@@ -2,7 +2,7 @@
 
 [← All categories](../README.md) · [Full catalog](../CATALOG.md) · [Solved and claimed solutions](../RESOLVED.md)
 
-**13 problems with open targets.** 9 retained entries are excluded from the open count.
+**16 problems with open targets.** 9 retained entries are excluded from the open count.
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
@@ -18,6 +18,9 @@
 | [IE-20](IE-20/README.md) | Precision required for conjugate gradients to attain backward accuracy in n steps | **🔵 OPEN** | extreme | interesting to the community | [PDF](IE-20/problem.pdf) · [TeX](IE-20/problem.tex) |
 | [IE-24](IE-24/README.md) | RILU conditioning for the Neumann problem on smooth planar domains | **🔵 OPEN** | challenging | interesting to the community | [PDF](IE-24/problem.pdf) · [TeX](IE-24/problem.tex) |
 | [IE-25](IE-25/README.md) | Perturbed MILU conditioning for Neumann problems in two and three dimensions | **🔵 OPEN** | challenging | interesting to the community | [PDF](IE-25/problem.pdf) · [TeX](IE-25/problem.tex) |
+| [IE-26](IE-26/README.md) | Sharp stability bounds for perturbed Fourier interpolation | **🔵 OPEN** | challenging | interesting to the community | [PDF](IE-26/problem.pdf) · [TeX](IE-26/problem.tex) |
+| [IE-27](IE-27/README.md) | Spectral disk for a Radau stage preconditioner | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](IE-27/problem.pdf) · [TeX](IE-27/problem.tex) |
+| [IE-28](IE-28/README.md) | Positive diagonal preconditioning with a nilpotent stiff limit | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](IE-28/problem.pdf) · [TeX](IE-28/problem.tex) |
 | [KE-01](KE-01/README.md) | Exploit spectral outliers without losing input sparsity | **🔵 OPEN** | challenging | interesting to the community | [PDF](KE-01/problem.pdf) · [TeX](KE-01/problem.tex) |
 
 ## Retained entries outside the open count

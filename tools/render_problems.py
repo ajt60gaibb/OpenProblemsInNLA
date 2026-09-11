@@ -69,6 +69,7 @@ def render(source):
             'RA-15', 'RA-17', 'RE-01', 'RE-02', 'RE-03', 'RE-06', 'SP-04', 'SP-05',
             'SP-06', 'SP-07', 'SP-09', 'SP-12', 'TR-11', 'TR-20', 'TR-21', 'TR-24',
             'TR-26', 'TR-30',
+            'IE-27', 'MF-24', 'MI-30', 'MI-31', 'RA-20', 'SP-13', 'SP-14',
         }:
             tex = re.sub(r"\\subsection\{References?(?:\s+and\s+status\s+check)?\}",
                          lambda m: "\\newpage\n" + m[0], tex, count=1)
@@ -76,6 +77,9 @@ def render(source):
             tex = tex.replace(r"\subsection{References and status}", "\\newpage\n" + r"\subsection{References and status}", 1)
         if identifier == "IE-20":
             tex = tex.replace(r"Define \(P_{\rm CG}", "\\newpage\n" + r"Define \(P_{\rm CG}", 1)
+        if identifier in {"IE-28", "MI-32"}:
+            tex = re.sub(r"\\subsection\{(?:Numerical\s+significance\s+and\s+known\s+distinctions|Known\s+cases\s+and\s+numerical\s+significance)\}",
+                         lambda m: "\\newpage\n" + m[0], tex, count=1)
         if identifier == "RE-05":
             # The resolution notice makes the quantified question cross a page.
             tex = re.sub(r"\\(?:sub)*section\{Question\}", lambda m: "\\newpage\n" + m[0], tex, count=1)
