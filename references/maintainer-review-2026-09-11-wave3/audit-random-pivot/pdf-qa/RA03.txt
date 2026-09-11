@@ -1,0 +1,54 @@
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA RA-03
+Randomized and low-rank approximation
+Improve the randomized LU squared-error
+factor to 2𝑘
+Diﬀiculty: challenging Importance: interesting to specialist
+Status: Solved
+Rating rationale: Challenging because nonsymmetric residuals lose the trace identities behind
+Cholesky bounds; specialist impact is a sharper guarantee for one randomized LU rule.
+Topic: randomized LU; low-rank approximation
+Resolution — 2026-09-11
+Negative resolution by Matthew J. Colbrook , Department of Applied Mathematics and Theoretical
+Physics, University of Cambridge. Section 2 gives the exact counterexample 𝐴 = ( 2 1
+1 2 ): one pivot has
+expected squared Frobenius error 18/5, while the best rank-one squared error is 1. Thus the displayed
+2𝑘 bound is false already at 𝑘 = 1. Theorem 1 additionally proves that the known 4𝑟 factor is sharp as a
+supremum at every rank, even on real entrywise-positive positive-definite inputs.
+Complete manuscript · TeX · Independent complete-source P ASS review· Authorship, exact checks and
+provenance.
+Verification is independent agent review , not external human peer review or formal certification. AI
+assistance is disclosed; no priority claim is made. The original statement and audits remain below;
+ratings are historical.
+Problem statement
+For 𝐴 ∈ ℂ 𝑚×𝑛, define exact-arithmetic residuals 𝑆0 = 𝐴. At step 𝑡, choose (𝑖, 𝑗)with conditional proba-
+bility |(𝑆𝑡)𝑖𝑗|2/‖𝑆𝑡‖2
+𝐹 and update
+𝑆𝑡+1 = 𝑆 𝑡 − 𝑆𝑡(∶, 𝑗)𝑆𝑡(𝑖, ∶)
+(𝑆𝑡)𝑖𝑗
+.
+After a zero residual, keep subsequent residuals zero. Prove or refute, for every 𝑚, 𝑛 ≥ 1, every 𝐴, and
+every 1 ≤ 𝑘 ≤ min(𝑚, 𝑛),
+𝔼‖𝑆𝑘‖2
+𝐹 ≤ 2𝑘 ∑
+𝑗>𝑘
+𝜎𝑗(𝐴)2,
+where singular values decrease with 𝑗. The bound concerns the mean squared Frobenius error of this
+specified algorithm.
+References
+Gilles and Wilber, Low-Rank Approximation by Randomly Pivoted LU , Algorithm 1 and §3.1, Theorem 3,
+Eq. (10), and the following conjecture (pp. 7–8).
+Status check
+Their theorem gives 4𝑘; the conjecture explicitly replaces it by 2𝑘. Searches for the title, randomly pivoted
+LU 2^k , and improved RPLU error bounds found no later resolution. The arXiv submission history
+listed only v1 of January 29, 2026. The August 2026 RPCholesky theorem addresses a different pivot
+distribution and norm.
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-11 1
+
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA RA-03
+Audit — 2026-09-10
+Rechecked Algorithm 1, Theorem 3, and the following conjecture ; its record still lists v1. RPLU and
+improved-bound searches found no resolution. The theorem remains at 4𝑘, while the stated squared-
+error conjecture is 2𝑘.
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-11 2

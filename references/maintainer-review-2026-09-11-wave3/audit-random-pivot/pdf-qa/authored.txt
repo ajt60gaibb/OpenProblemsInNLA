@@ -1,0 +1,497 @@
+Sharp worst-case factors for randomly pivoted Cholesky and LU
+Matthew J. Colbrook ∗
+11 September 2026
+Authorship is recorded at the submitter’s request. This manuscript was developed with
+AI assistance. Independent agents checked the complete source against RA-02 and RA-
+03; exact veriﬁcation was rerun separately. This is not external human peer review or
+formal certiﬁcation, and no priority claim is made. The original archive’s eligibility hold
+and failed-access remarks are historical: the live repository checks and submission record
+accompany this authored edition.
+Abstract
+For every positive integer r, an explicit one-parameter family of real, entrywise-positive,
+positive-deﬁnite matrices of order r + 1 makes the expected trace error of r randomly piv-
+oted Cholesky steps approach 2r times the optimal rank- r trace error. The same family
+makes the expected squared Frobenius error of r randomly pivoted LU steps approach
+4r times the optimal rank- r squared Frobenius error. Thus both previously established
+universal factors are sharp as suprema. The same suprema hold on positive-deﬁnite corre-
+lation matrices when the dimension is unrestricted. In particular, a polynomial-in- r factor
+for same-rank RPCholesky and a 2r factor for same-rank RPLU are impossible without ad-
+ditional hypotheses. The proof combines scale-separated Cauchy–Binet expansions with
+an exact cancellation over pivot histories. A separate 2 × 2 rational example already
+disproves the literal 2r RPLU bound at r = 1 . Exact rational veriﬁcation certiﬁcates
+accompany the proof.
+1 Algorithms and results
+For a positive-semideﬁnite matrix A, write
+τr(A) =
+∑
+j>r
+λj(A), λ 1(A) ≥ · · · ≥λn(A) ≥ 0.
+Randomly pivoted Cholesky starts from R0 = A. Given a nonzero residual Rs, it chooses j
+with probability (Rs)jj / tr Rs and sets
+Rs+1 = Rs − (Rs):j(Rs)j:
+(Rs)jj
+. (1)
+The residual is positive semideﬁnite, so its trace is also its nuclear norm. The known universal
+bound is
+E tr Rr ≤ 2rτr(A) [1, Lemma 5.5] . (2)
+∗Department of Applied Mathematics and Theoretical Physics, University of Cambridge, Cambridge, United
+Kingdom. Email: m.colbrook@damtp.cam.ac.uk.
+1
+
+Randomly pivoted LU starts from B0 = A, now allowing a general rectangular complex matrix.
+It chooses (i, j ) with probability |(Bs)ij|2/ ∥Bs∥2
+F and sets
+Bs+1 = Bs − (Bs):j(Bs)i:
+(Bs)ij
+. (3)
+A zero entry has zero selection probability. If the residual becomes zero, the algorithm can
+stop. If Ar denotes a best rank- r approximation, the known bound is
+E ∥Br∥2
+F ≤ 4r ∥A − Ar∥2
+F [2, Theorem 3] . (4)
+Gilles and Wilber conjecture that the factor 4r can be replaced by 2r [2, discussion after The-
+orem 3]. The two questions addressed here are same-rank approximation questions: exactly
+r pivots are compared with the best rank- r error. They correspond to the polynomial-factor
+RPCholesky question and the 2r RPLU question catalogued as RA-02 and RA-03, respectively,
+in [ 3]. All algorithmic statements below are in exact arithmetic.
+For r ≥ 1, put n = r + 1. For 0 < t < 1, deﬁne
+L(t)ij =
+
+
+
+1, i = j,
+tj/ (i + j), i > j,
+0, i < j,
+1 ≤ i, j ≤ n,
+ϵ = tn2
+, D = diag(1, ϵ, . . . , ϵ n− 1), A r(t) = L(t)DL(t)T.
+(5)
+The matrix is positive deﬁnite for every t > 0. Its entries are positive: for each oﬀ-diagonal
+entry the contribution of the ﬁrst column of L is already positive. Rational t gives a rational
+matrix.
+Theorem 1 (Sharp lower-bound family) . Fix r ≥ 1. Apply r steps of the two algorithms to
+A = Ar(t) in (5). Then
+lim
+t↓0
+E tr Rr
+τr(A) = 2 r, lim
+t↓0
+E ∥Br∥2
+F
+∥A − Abestr ∥2
+F
+= 4 r, (6)
+where Abest
+r denotes a best rank- r approximation of A. Every square submatrix of Ar(t) is
+nonsingular for all suﬃciently small t > 0, with the threshold allowed to depend on r. Thus
+every ordered pivot history appearing in the proof has positive probability.
+Corollary 2 (Worst-case constants). For each r ≥ 1, the supremum of the RPCholesky ratio
+over all positive-semideﬁnite inputs with nonzero rank- r tail is 2r. The supremum of the
+RPLU squared-error ratio over all matrix inputs with nonzero rank- r error is 4r. Restricting
+the lower-bound examples to real positive-deﬁnite, entrywise-positive matrices does not change
+either supremum.
+Proof. The upper bounds are ( 2) and ( 4); Theorem 1 gives the matching lower bounds.
+Corollary 3 (Consequences for the proposed improvements) . There are no ﬁxed constants
+C > 0 and p ≥ 0 such that E tr Rr ≤ Cr pτr(A) for every r and every positive-semideﬁnite
+A. For RPLU, no bound of the form E ∥Br∥2
+F ≤ C2r ∥A − Ar∥2
+F holds with C independent
+of r. More generally, no factor q(r)2r, with q a ﬁxed nonnegative polynomial, can replace 4r
+uniformly.
+Proof. For the ﬁrst statement, choose r so that 2r− 1 > Cr p, and then use Theorem 1 with t
+suﬃciently small. For the second and third statements, a zero proposed factor is immediately
+impossible. Otherwise, 4r/ (2rq(r)) = 2 r/q (r) is unbounded; again choose r ﬁrst and then t.
+No limit uniform in r is needed.
+2
+
+2 A two-dimensional RPLU counterexample
+The literal factor- 2r inequality fails even at r = 1. Take
+A =
+(
+2 1
+1 2
+)
+. (7)
+Its singular values are 3 and 1, so the optimal rank-one squared Frobenius error is 1. The total
+squared entry norm is 10. Each diagonal pivot has probability 2/ 5 and leaves one nonzero
+residual entry of magnitude 3/ 2. Each oﬀ-diagonal pivot has probability 1/ 10 and leaves one
+nonzero residual entry of magnitude 3. Therefore
+E ∥B1∥2
+F = 2
+( 2
+5
+9
+4
+)
++ 2
+( 1
+10 9
+)
+= 18
+5 > 2 ∥A − A1∥2
+F . (8)
+This calculation requires no limiting argument and no numerical eigensolver.
+More generally, if every entry of a nonsingular 2 × 2 matrix is nonzero, a pivot at (i, j )
+leaves the complementary entry with magnitude |det A|/ |Aij|. Summing over the four pivot
+probabilities gives
+E ∥B1∥2
+F = 4|det A|2
+∥A∥2
+F
+, E ∥B1∥2
+F
+σ2(A)2 = 4σ1(A)2
+σ1(A)2 + σ2(A)2 .
+The latter ratio tends to 4 when the singular-value ratio tends to inﬁnity. The rest of the note
+establishes sharpness at every rank, not just at rank one.
+3 Preﬁx minors and scale separation
+Throughout the proof, r (and hence n) is ﬁxed and t ↓ 0. All implicit constants may depend on
+the ﬁxed dimension. A submatrix indexed by sets is ordered increasingly unless an appended
+row or column order is speciﬁed. For S ⊆ {1, . . . , n } with |S|= s, set
+Ms(S) = L[S, 1 :s], d s(S) =
+∑
+j∈{1,...,s }\ S
+j.
+An empty determinant is 1.
+Lemma 4 (Preﬁx-row minors) . For every such S,
+det Ms(S) = κs(S)tds(S)(1 + O(t)), κ s(S) ̸= 0. (9)
+For s ≥ 1, Ms(S) is invertible for suﬃciently small t, and
+Ms(S)− 1
+2 = O(t− s).
+Proof. Let P = S ∩ {1, . . . , s }, I = S \ {1, . . . , s }, and J = {1, . . . , s } \S. Thus |I|= |J|.
+Group the rows as (P, I ) and the columns as (P, J ). Multiply each column indexed by j ∈ J
+by t− j, leaving columns in P unchanged. The resulting matrix has a ﬁnite limit of the form
+(
+I F
+0 C
+)
+, C =
+[ 1
+i + j
+]
+i∈I, j ∈J
+,
+where F is ﬁnite. Indeed, L[P, P ] → I, L[I, P ] → 0, and the scaled L[I, J ] equals C exactly.
+In the block L[P, J ], no diagonal entry occurs because P and J are disjoint, so column scaling
+leaves bounded entries.
+3
+
+The Cauchy matrix C is nonsingular. For distinct increasing xa and yb with positive sums,
+the elementary Cauchy determinant identity is
+det
+[ 1
+xa + yb
+]m
+a,b =1
+=
+∏
+a<a′(xa′ − xa) ∏
+b<b′(yb′ − yb)∏
+a,b (xa + yb) ̸= 0.
+The empty block has determinant 1. Undoing the column scaling gives ( 9), including a possible
+sign from column ordering. The scaled matrix and its inverse remain bounded. Undoing the
+scaling in the inverse costs at most t− s, proving the norm bound.
+Lemma 5 (Dominance of the leading spectral scales) . For row and column sets I, J of
+cardinality s ≤ n − 1,
+det A[I, J ] ∼ ϵs(s− 1)/ 2 det Ms(I) det Ms(J). (10)
+For s = n, the corresponding equality is exact, with Mn = L and det L = 1 . Consequently,
+every square minor of A is nonzero for all suﬃciently small positive t.
+Proof. Cauchy–Binet gives
+det A[I, J ] =
+∑
+T ⊆{ 1,...,n }
+|T |=s
+det L[I, T ] det L[J, T ] ϵ
+∑
+j∈ T (j− 1).
+The smallest power of ϵ occurs uniquely at T = {1, . . . , s } and is s(s − 1)/ 2. All other powers
+are at least one larger. Since L(t) remains bounded, all minors in the ﬁnite sum remain
+bounded. Thus
+det A[I, J ] = ϵs(s− 1)/ 2 (det Ms(I) det Ms(J) + O(ϵ)) .
+Lemma 4 shows that the leading product has nonzero coeﬃcient and t-degree at most s(s + 1).
+Since ϵ = tn2
+and n2 > s (s + 1) for s ≤ n − 1, the remainder divided by that product tends
+to zero. If s = n, the sum has only one term. There are ﬁnitely many minors in a ﬁxed
+dimension, so their eventual nonvanishing holds simultaneously.
+4 Residual normalizers
+For |S|= s < n , let ls+1 = L[:, s + 1] and deﬁne
+cs(S) = Ms(S)− 1ls+1[S], w s(S) = ls+1 − L[:, 1 :s]cs(S), h s(S) = ∥ws(S)∥2
+2 . (11)
+For s = 0, the coeﬃcient vector is empty and w0(∅) = l1. The vector ws(S) vanishes on S.
+Lemma 6 (A binary limiting rule) . For each ﬁxed S of size s < n ,
+lim
+t↓0
+1
+hs(S) = 1{s+1 /∈S}. (12)
+Moreover, hs(S) ≥ 1/ 4 for all suﬃciently small t.
+Proof. Because L → I, its smallest singular value is at least 1/ 2 eventually. The vector ws(S)
+equals L times a vector whose ﬁrst s entries are − cs(S), whose (s + 1)st entry is 1, and whose
+remaining entries vanish. It follows that
+hs(S) ≥ 1
+4
+(
+1 + ∥cs(S)∥2
+2
+)
+. (13)
+4
+
+If s + 1 /∈ S, every entry of ls+1[S] is either zero or O(ts+1). Lemma 4 therefore gives
+cs(S) = O(t), so ws(S) → es+1 and hs(S) → 1.
+If s + 1 ∈ S, the row of Ms(S) indexed by s + 1 has norm O(t), whereas the same entry of
+ls+1[S] is exactly 1. The equation deﬁning cs(S) forces ∥cs(S)∥2 ≥ c/t for a positive constant
+c and small t. Equation ( 13) then gives hs(S) → ∞ . The empty-set case is included in the
+ﬁrst alternative.
+For equally sized row and column sets I, J , deﬁne the full, zero-padded interpolatory residual
+R(I, J ) = A − A[:, J ]A[I, J ]− 1A[I, :].
+For empty sets this means R(∅, ∅) = A. Its rows in I and columns in J vanish. After any
+nonzero-pivot history with selected row set I and column set J, Gaussian elimination gives
+this residual, independently of the order within the selected sets. In the Cholesky case I = J.
+Lemma 7 (Asymptotic normalizers) . For |I|= |J|= s < n , one has
+Ts(S) := tr R(S, S ) ∼ ϵshs(S), (14)
+Qs(I, J ) := ∥R(I, J )∥2
+F ∼ ϵ2shs(I)hs(J). (15)
+In particular,
+ϵs
+Ts(S) − → 1{s+1 /∈S}, (16)
+ϵ2s
+Qs(I, J ) − → 1{s+1 /∈I}1{s+1 /∈J}. (17)
+Proof. For i /∈ I and j / ∈ J, the bordered determinant identity, with i and j appended to the
+existing orders, gives
+R(I, J )ij = det A[(I, i ), (J, j )]
+det A[I, J ] .
+Apply Lemma 5 to numerator and denominator. The ratio of the powers of ϵ is ϵs. A second
+bordered determinant identity gives
+det L[(I, i ), 1 :s + 1] = det Ms(I) ws(I)i,
+and the analogous column identity gives det Ms(J) ws(J)j. Consequently,
+R(I, J )ij = ϵsws(I)iws(J)j(1 + o(1)). (18)
+The two components in this formula are nonzero for suﬃciently small t, by Lemma 4 applied
+to the bordered preﬁx minors. For a ﬁxed dimension, the relative o(1) is uniform over the
+ﬁnitely many relevant entries and sets.
+For principal residuals, the diagonal leading terms in ( 18) are ϵsws(S)2
+i . Summing them proves
+(14). Squaring and summing all entries proves ( 15). These are relative asymptotics even when
+a vector ws diverges: the maximum relative error tends to zero before the weighted ﬁnite sum
+is taken. Finally use Lemma 6; its lower bound on hs justiﬁes inversion also in the diverging
+cases.
+5
+
+5 Exact cancellation over pivot histories
+The next identities hold before taking any limit. Recall that n = r + 1. For a Cholesky
+history (j1, . . . , j r) of distinct indices, let Ss = {j1, . . . , j s}. For an LU history, deﬁne similarly
+Is = {i1, . . . , i s} and Js = {j1, . . . , j s}.
+Lemma 8 (History identities). For an (r + 1) × (r + 1) positive-deﬁnite input with all square
+minors nonzero, the expectations after r pivots satisfy
+E tr Rr = det A
+∑
+(j1,...,j r)
+r− 1∏
+s=0
+1
+Ts(Ss) , (19)
+E ∥Br∥2
+F = |det A|2 ∑
+(i1,...,i r)
+(j1,...,j r)
+r− 1∏
+s=0
+1
+Qs(Is, J s) . (20)
+The sums range over ordered lists of distinct indices; in the second sum row indices and column
+indices are separately distinct.
+Proof. In Cholesky, the product of the r pivot values is the principal determinant det A[Sr, S r].
+The probability of the history is this product divided by ∏r− 1
+s=0 Ts(Ss). Only one diagonal
+residual entry remains after r pivots, and its value is det A/ det A[Sr, S r]. The determinant
+factors cancel when probability is multiplied by ﬁnal trace.
+In LU, the product of the pivot values equals the determinant of the selected r × r block in the
+ordered row and column lists. Its squared modulus is the numerator of the history probability.
+The only remaining residual entry has squared modulus |det A|2/ |det A[Ir, J r]|2; permutations
+change only a sign before taking the modulus. Cancellation gives ( 20). Summing history
+contributions proves both identities. No independence of the LU row and column choices is
+being assumed.
+6 Counting the surviving histories
+First identify the optimal error scale. The determinant and inverse of the family satisfy
+det A = ϵr(r+1)/ 2, ϵ rA− 1 = L− T diag(ϵr, ϵ r− 1, . . . , 1)L− 1 − → eneT
+n . (21)
+The largest eigenvalue on the right-hand side tends to 1, whence
+λn(A)
+ϵr − → 1. (22)
+Since A has order r + 1 and is positive deﬁnite, τr(A) = λn(A) and
+A − Abest
+r
+
+2
+F
+= λn(A)2.
+Using ( 21) in the ﬁrst history identity gives
+E tr Rr
+λn(A) = ϵr
+λn(A)
+∑
+(j1,...,j r)
+r− 1∏
+s=0
+ϵs
+Ts(Ss) . (23)
+By Lemma 7, the product for a ﬁxed history tends to 1 precisely when
+s + 1 /∈ Ss (0 ≤ s ≤ r − 1), (24)
+and otherwise tends to 0. The condition at s = 0 is vacuous.
+6
+
+Condition ( 24) is equivalent to
+ju ∈ {1, . . . , u, n } \ {j1, . . . , j u− 1} (1 ≤ u ≤ r). (25)
+Indeed, choosing a label q ∈ {2, . . . , r } before position q violates (24) at s = q − 1. Conversely,
+if every such label is chosen no earlier than its own position, no preﬁx can contain its next
+label. Label n = r + 1 has no corresponding normalizer constraint, because the normalizers
+stop at s = r − 1.
+At position u, the allowed set before removing earlier choices has u + 1 elements. All u − 1
+earlier choices lie in it. Thus there are exactly two choices at every position, and exactly 2r
+surviving histories. The sum in ( 23) is ﬁnite for each ﬁxed r. Together with ( 22), this proves
+the Cholesky limit.
+For LU, the corresponding normalized identity is
+E ∥Br∥2
+F
+λn(A)2 = ϵ2r
+λn(A)2
+∑
+(i1,...,i r)
+(j1,...,j r)
+r− 1∏
+s=0
+ϵ2s
+Qs(Is, J s) . (26)
+Lemma 7 says that a summand tends to 1 exactly when both the row history and the column
+history satisfy ( 24); it otherwise tends to 0. Each list has 2r possibilities, giving 4r ordered
+pairs. This is a factorization of the limiting indicator and a combinatorial count, not a claim
+that the algorithm samples its row and column histories independently. Equation ( 22) now
+proves the LU limit and completes the proof of Theorem 1.
+7 Unit-diagonal inputs by row replication
+The examples of order r + 1 are not unit-diagonal. Nevertheless, requiring a unit diagonal
+does not improve either worst-case constant when arbitrary matrix dimensions are allowed.
+Proposition 9 (Correlation-matrix sharpness) . For each ﬁxed r ≥ 1, both suprema in Corol-
+lary 2 remain unchanged when inputs are restricted to real, entrywise-positive, positive-deﬁnite
+matrices with every diagonal entry equal to 1.
+Proof. First let A be any rational positive-deﬁnite matrix of order n with positive entries.
+Choose c > 0 rational so that mi = Aii/c is a positive integer for every i. Put N = ∑
+i mi.
+Partition the N row labels into groups of sizes m1, . . . , m n, and construct P ∈ RN × n by
+assigning each row in group i the vector eT
+i / √ mi. Then P TP = In, and
+C = c− 1P AP T
+is positive semideﬁnite, entrywise positive, and unit-diagonal. Its nonzero eigenvalues are
+those of A/c .
+The two pivoting processes on C exactly reproduce those on A after aggregating pivot labels
+by group. More precisely, if the current residual has the form c− 1P BP T, a Cholesky pivot in
+group i has aggregate probability
+miBii/ (cmi)
+tr B/c = Bii
+tr B .
+For LU, the aggregate probability of a row in group i and a column in group j is
+mimj|Bij|2/ (c2mimj)
+∥B∥2
+F /c 2 = |Bij|2
+∥B∥2
+F
+.
+7
+
+Substituting either pivot into its rank-one update shows that the new residual is c− 1P BnewP T.
+These assertions also respect zero pivot probabilities. Thus the trace error is scaled by 1/c
+and the squared Frobenius error by 1/c 2, exactly as are the respective optimal rank- r errors.
+Both expected-error ratios are unchanged.
+To obtain positive deﬁniteness, put
+Cδ = C + δIN
+1 + δ , δ > 0.
+This matrix is positive deﬁnite, entrywise positive, and unit-diagonal. Fix a ﬁnite stopping
+rank r for which the optimal error of C is positive. Every pivot history having positive
+probability for C has nonzero pivots at all of its steps. Along each such history, the pivot
+values, probabilities, and terminal residuals for Cδ converge to those for C, because the
+rank-one updates are rational functions whose denominators remain nonzero. There are only
+ﬁnitely many histories. Summing these convergent contributions and discarding all other,
+nonnegative contributions proves
+lim inf
+δ↓0
+Fr(Cδ) ≥ Fr(C),
+where Fr is either expected-error ratio. Here the optimal-error denominators converge to their
+positive values for C, by continuity of the eigenvalues. Full continuity of the LU expectation
+at zero pivot entries is not needed.
+Finally choose rational t in Theorem 1 to approach the desired sharp constant, apply the
+replication construction to Ar(t), and then take δ suﬃciently small. The known universal
+upper bounds complete the proof. The replicated dimension N is not bounded uniformly in
+t.
+8 Exact ﬁnite certiﬁcates and scope
+The limiting proof establishes a counterexample for every proposed smaller uniform factor.
+The accompanying code also supplies explicit ﬁnite rational certiﬁcates. These are useful
+because the matrices are deliberately ill-conditioned, making an ordinary double-precision
+eigensolve unreliable.
+Let v = L− Ten and ν = ∥v∥2
+2. From ( 21),
+ϵrA− 1 ⪰ vvT, λ n(A) ≤ ϵr
+ν .
+For 0 ≤ s ≤ r − 1, let Gs consist of all s-element subsets of {1, . . . , s, n }, and deﬁne the exact
+rational maxima
+ms = max
+S∈G s
+Ts(S)
+ϵs , q s = max
+I,J ∈G s
+Qs(I, J )
+ϵ2s .
+Every history counted in ( 25) has its sth preﬁx in Gs. Retaining only these histories in ( 23)
+and ( 26) gives
+E tr Rr
+λn(A) ≥ 2rν
+∏r− 1
+s=0 ms
+, E ∥Br∥2
+F
+λn(A)2 ≥ 4rν2
+∏r− 1
+s=0 qs
+. (27)
+For a ﬁnite certiﬁcate it suﬃces to verify that these retained pivot histories are valid; nonsin-
+gularity of their preﬁx and terminal blocks is checked exactly. Omitted histories contribute
+nonnegative error.
+The ﬁle exact_certificate.py evaluates ( 27) with Python Fraction arithmetic. The sep-
+arate ﬁle exact_enumeration.py recursively executes all actual rank-one pivot updates for
+8
+
+small dimensions, without using the history cancellation formula to compute expectations. It
+encloses the optimal error using
+ϵr
+tr(ϵrA− 1) ≤ λn(A) ≤ ϵr
+ν .
+Both endpoints and both error expectations are rational, so the resulting ratio enclosures are
+rigorous. Selected lower bounds at t = 1 / 100 are shown below; the displayed decimals are
+rounded downward, and the exact fractions are stored in the accompanying JSON records.
+r Certiﬁcate Cholesky ratio > 2r LU ratio > 4r
+2 All pivot updates 3.99995644 4 15.99965154 16
+3 All pivot updates 7.99957072 8 63.99313178 64
+8 Retained histories 255.85420697 256 65461.37522779 65536
+The rank-eight certiﬁcate uses n = 9 and ϵ = (1/ 100)81. The unusually small scales are part of
+an exact-arithmetic worst-case construction, not a proposed practical test in double precision.
+The small-dimensional family has unrestricted diagonal entries; Proposition 9 separately cov-
+ers the unit-diagonal setting in unrestricted dimension. No bounded-condition-number claim
+is made. These results do not resolve how many pivots beyond r suﬃce for a (1 + δ)-relative
+trace approximation, the separate oversampling question RA-01. In particular, after r + 1
+pivots the matrices in this note are recovered exactly. Zero-padding embeds the lower-bound
+family in any larger dimension without altering its nonzero-pivot process, but does not turn
+this same-rank result into an oversampling lower bound.
+References
+[1] Y. Chen, E. N. Epperly, J. A. Tropp, and R. J. Webber. Randomly pivoted Cholesky:
+Practical approximation of a kernel matrix with few entry evaluations . Communications
+on Pure and Applied Mathematics, 78(5):995–1041, 2025. doi:10.1002/cpa.22234. The uni-
+versal same-rank bound is Lemma 5.5.
+[2] M. A. Gilles and H. Wilber. Low-Rank Approximation by Randomly Pivoted LU .
+arXiv:2601.22344, 2026. https://arxiv.org/abs/2601.22344. The equation numbering
+here follows the author-posted full text dated 2 February 2026. The sampling rule is equa-
+tion (3), the bound is Theorem 3, and the proposed 2r improvement appears immediately
+after it.
+[3] Open Problems in Numerical Linear Algebra , randomized and low-rank approximation
+category, entries RA-02 and RA-03. https://github.com/ajt60gaibb/OpenProblems
+InNLA/tree/main/randomized-and-low-rank-approximation . The repository-audit
+record accompanying this note distinguishes the retrieved category listing from source-ﬁle
+and pull-request checks that could not be completed. The mathematical statements proved
+here are speciﬁed in full above and do not depend on a repository status label.
+9

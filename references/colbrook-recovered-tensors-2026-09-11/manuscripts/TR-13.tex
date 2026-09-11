@@ -1,0 +1,249 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\C}{\mathbb C}
+\newcommand{\brk}{\underline{R}}
+\DeclareMathOperator{\rank}{rank}
+\title{Generic ranks of odd-order Hankel tensors\newline from three compressed slices}
+\author{Matthew J. Colbrook\thanks{Department of Applied Mathematics and Theoretical Physics, University of Cambridge, Cambridge, United Kingdom. Email: m.colbrook@damtp.cam.ac.uk.}}
+\date{11 September 2026}
+\hypersetup{pdfauthor={Matthew J. Colbrook}}
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\begin{document}
+\maketitle
+\begin{center}\small Recovered candidate manuscript for TR-13. Not independently refereed.\end{center}
+\begin{quote}\small Authorship recorded at the submitter\textquotesingle s request. This recovered draft was generated with AI assistance. The complete original source passed independent agent review against the exact repository target. This is not external human peer review or formal certification; no priority claim is made. Original provenance, full-source review hashes and diagnostic results accompany this manuscript in the submission record.\end{quote}
+\begin{abstract}
+For every odd order $m\ge3$ and dimension $n\ge2$, the generic ordinary
+rank, symmetric rank, ordinary border rank, symmetric border rank and
+Vandermonde rank of a complex Hankel tensor all equal
+$\lceil(m(n-1)+1)/2\rceil$. The lower bound is certified by an explicit
+three-slice Koszul flattening after grouping the tensor factors. Its rank
+is established using a two-spike generator and a nilpotent-shift
+commutator. This addresses the generic odd-order statement in TR-13; no
+claim is made about equality of ranks for every Hankel tensor.
+\end{abstract}
+
+\section{Statement and notation}
+Use zero-based indices. For $h=(h_0,\ldots,h_D)\in\C^{D+1}$, where
+$D=m(n-1)$, write
+\[
+ H(h)_{i_1,\ldots,i_m}=h_{i_1+\cdots+i_m},
+ \qquad 0\le i_j<n.
+\]
+Let $R$, $R_{\rm sym}$, $\brk$, $\brk_{\rm sym}$ and $R_V$ denote ordinary
+rank, symmetric rank, ordinary border rank, symmetric border rank and
+Vandermonde rank. A Vandermonde summand is a scalar multiple of
+$(1,t,\ldots,t^{n-1})^{\otimes m}$, or its projective counterpart at
+infinity. The ordinary border rank is taken in the full tensor space.
+The conventions and the earlier even-order and cubic results are in
+Nie--Ye \cite{NY}; the remaining generic odd-order assertion is the
+canonical TR-13 target \cite{repo}.
+
+\begin{theorem}\label{thm:main}
+Fix an odd integer $m\ge3$ and an integer $n\ge2$. There is a nonempty
+Zariski-open subset of the Hankel tensor space on which
+\[
+ R(H)=R_{\rm sym}(H)=\brk(H)=\brk_{\rm sym}(H)=R_V(H)
+ =\left\lceil\frac{m(n-1)+1}{2}\right\rceil.
+\]
+\end{theorem}
+Put
+\[
+ m=2k+1,\quad \ell=n-1,\quad a=k\ell+1,\quad
+ s=\lfloor\ell/2\rfloor,\quad r=a+s.
+\]
+One checks separately for even and odd $\ell$ that
+$r=\lceil(D+1)/2\rceil$. The proof consists of a generic Vandermonde upper
+bound and a matching ordinary-border-rank lower bound.
+
+\section{An elementary three-slice rank certificate}
+\begin{lemma}\label{lem:koszul}
+Let $T\in\C^a\otimes\C^3\otimes\C^a$ have slices $M_0,M_1,M_2$ in
+its middle factor. Define the $3a\times3a$ matrix
+\[
+ K(T)=\begin{pmatrix}
+ -M_1&M_0&0\\
+ -M_2&0&M_0\\
+ 0&-M_2&M_1
+ \end{pmatrix}.
+\]
+Then $\brk(T)\ge\lceil\rank K(T)/2\rceil$.
+If $M_0$ is invertible, then
+\[
+ \rank K(T)=2a+
+ \rank\bigl(M_1M_0^{-1}M_2-M_2M_0^{-1}M_1\bigr).
+\]
+\end{lemma}
+\begin{proof}
+For a rank-one tensor, all slices have the form
+$M_j=c_j u v^{\mathsf T}$. The displayed block matrix is the tensor
+product, up to ordering, of the rank-one matrix $uv^{\mathsf T}$ and
+\[
+ \begin{pmatrix}-c_1&c_0&0\\-c_2&0&c_0\\0&-c_2&c_1\end{pmatrix},
+\]
+whose rank is at most two. By subadditivity, $\rank K(T)\le2R(T)$.
+Every $(2q+1)$-minor of $K$ is a polynomial in the tensor entries and
+vanishes on all tensors of rank at most $q$. It therefore vanishes on
+their closure. This proves the border-rank bound without any symmetry
+restriction on an approximating sequence.
+
+When $M_0$ is invertible, $(x,y,z)$ belongs to $\ker K$ exactly when
+\[
+ y=M_0^{-1}M_1x,\qquad z=M_0^{-1}M_2x,
+\]
+\[
+ (M_1M_0^{-1}M_2-M_2M_0^{-1}M_1)x=0.
+\]
+The formula follows by computing the nullity.
+\end{proof}
+
+\section{Compression of the Hankel tensor}
+Group the first $k$ factors, the middle factor, and the last $k$ factors.
+For every $u\in\{0,\ldots,k\ell\}$ choose once and for all a multi-index
+$I(u)\in\{0,\ldots,\ell\}^{k}$ with sum $u$. Such an index exists by
+successively allocating at most $\ell$ to each coordinate. Selecting the
+coordinates indexed by $I(u)$ is a linear map from the grouped factor
+$\C^{n^k}$ onto $\C^a$.
+
+Applying this map to both grouped factors gives a tensor of format
+$a\times n\times a$ with entries $h_{u+j+v}$. For $n\ge3$, select the
+middle coordinates $0,s,2s$, obtaining $T(h)\in\C^a\otimes\C^3\otimes\C^a$
+with slices
+\begin{equation}\label{eq:slices}
+ (M_j)_{uv}=h_{u+v+js},\qquad 0\le u,v<a,\quad j=0,1,2.
+\end{equation}
+Grouping and applying fixed linear maps send a rank-one original tensor
+to a rank-one tensor or zero. They are also continuous. Hence
+\begin{equation}\label{eq:compression}
+ \brk(H(h))\ge\brk(T(h)).
+\end{equation}
+This step does not require a structured decomposition of $H(h)$.
+
+\section{A two-spike generator}
+Assume $n\ge3$, so $s\ge1$. Choose
+\begin{equation}\label{eq:spikes}
+ h_{a-1}=h_{2a+s-1}=1,\qquad h_i=0\text{ for all other }i.
+\end{equation}
+Both indices lie in $\{0,\ldots,D\}$: the only nontrivial check is
+$2a+s-1\le D=2a-2+\ell$, which is equivalent to $s+1\le\ell$.
+The indices are distinct. Moreover $a\ge2s+1$, since $k\ge1$ and
+$2s\le\ell$.
+
+Let $J$ be the reversal matrix, $J_{uv}=1$ when $u+v=a-1$ and zero
+otherwise, and let $L$ be the lower shift $Le_i=e_{i+1}$ for $i<a-1$,
+$Le_{a-1}=0$. Define
+\[
+ E=\sum_{i=0}^{s-1}e_i e_{a-s+i}^{\mathsf T}.
+\]
+Substitution of \eqref{eq:spikes} into \eqref{eq:slices} gives
+\begin{equation}\label{eq:shift}
+ M_0=J,\qquad B:=JM_1=L^s,\qquad C:=JM_2=L^{2s}+E.
+\end{equation}
+For completeness, the first spike in $JM_j$ occurs at column minus row
+$-js$, giving $L^{js}$. The second spike cannot occur for $j=0$ or $j=1$;
+for $j=2$ it occurs at column minus row $a-s$, giving $E$.
+
+Since powers of $L$ commute, \eqref{eq:shift} yields
+\begin{align}\label{eq:comm}
+ CB-BC
+ &=EL^s-L^sE\nonumber\\
+ &=\sum_{i=0}^{s-1}\left(
+ e_i e_{a-2s+i}^{\mathsf T}
+ -e_{s+i}e_{a-s+i}^{\mathsf T}\right).
+\end{align}
+In the first $2s$ rows and last $2s$ columns the matrix in
+\eqref{eq:comm} is $\operatorname{diag}(I_s,-I_s)$; all other entries
+vanish. In particular its rank is exactly $2s$. As $M_0^{-1}=J$,
+Lemma~\ref{lem:koszul} gives
+\[
+ \rank K(T(h))=2a+2s=2r.
+\]
+Some $2r$-minor of $K(T(h))$ is thus a nonzero polynomial in $h$.
+It is nonzero on a nonempty Zariski-open set. On that set,
+\eqref{eq:compression} and Lemma~\ref{lem:koszul} imply
+\begin{equation}\label{eq:lower}
+ \brk(H(h))\ge r.
+\end{equation}
+The special generator is used only to certify a nonzero minor. It is
+not being assumed to lie in the eventual open set on which all five
+ranks agree.
+
+If $n=2$, then $s=0$ and $r=a=k+1$. Grouping $k$ factors against $k+1$
+factors and selecting one representative for each index sum produces
+an $a\times(a+1)$ ordinary matrix flattening. For the generator $h_k=1$
+and all other entries zero, its first $a$ columns form $J$. Thus its
+generic rank is $a$, proving \eqref{eq:lower} in the binary case as well.
+
+\section{Generic upper bound and conclusion}
+Consider the polynomial moment map
+\[
+ \mathcal M:\C^{2r}\longrightarrow\C^{D+1},\qquad
+ ((\lambda_j,t_j)_{j=1}^{r})\longmapsto
+ \left(\sum_{j=1}^{r}\lambda_jt_j^i\right)_{i=0}^{D}.
+\]
+At distinct nodes with every $\lambda_j\ne0$, its Jacobian columns are
+$v_D(t_j)$ and $\lambda_jv_D'(t_j)$, where
+$v_D(t)=(1,t,\ldots,t^D)^{\mathsf T}$.
+A linear functional annihilating all these columns corresponds to a
+polynomial $f$ of degree at most $D$ satisfying
+$f(t_j)=f'(t_j)=0$ for every $j$.
+As $2r\ge D+1$, such a polynomial is zero. The Jacobian therefore has
+full row rank $D+1$.
+
+It follows that $\mathcal M$ is dominant. Its image is constructible and
+contains a nonempty Zariski-open subset of $\C^{D+1}$; equivalently one
+may apply the standard dominance and constructibility facts for
+polynomial maps. For every $h$ in this image,
+\[
+ H(h)=\sum_{j=1}^{r}\lambda_j
+       (1,t_j,\ldots,t_j^{\ell})^{\otimes m},
+\]
+so $R_V(H(h))\le r$.
+Intersect this nonempty open set with the nonempty open set from
+\eqref{eq:lower}. Their intersection is nonempty because the Hankel
+parameter space is irreducible. On the intersection, the inequalities
+\[
+ \brk\le R\le R_{\rm sym}\le R_V,
+ \qquad
+ \brk\le\brk_{\rm sym}\le R_{\rm sym}
+\]
+force every displayed rank to equal $r$. This proves
+Theorem~\ref{thm:main}.
+
+\section{Scope and reproducibility}
+Theorem~\ref{thm:main} addresses the full generic statement for every
+admissible pair $(m,n)$ in TR-13. It also supplies a second proof for
+order three, which was already known \cite{NY}. It is not a proof of
+Comon's conjecture for all Hankel tensors (TR-14): the nonzero-minor and
+moment-map arguments both specify open sets and do not eliminate
+exceptional tensors.
+
+The accompanying exact-arithmetic script \texttt{code/verify\_tr13.py}
+checks the slice identities, the entire commutator, and its indicated
+nonzero minor over a parameter grid. For small formats it independently
+builds the full Koszul matrix and computes its rank, and verifies that
+rank-one inputs have Koszul rank at most two. No floating-point rank
+tolerance enters these checks. The parameter-uniform proof is the one
+above; the grid is only a diagnostic.
+
+\begin{thebibliography}{9}
+\bibitem{NY}
+J. Nie and K. Ye, \emph{Hankel Tensor Decompositions and Ranks},
+SIAM Journal on Matrix Analysis and Applications 40 (2019),
+\href{https://doi.org/10.1137/18M1168285}{doi:10.1137/18M1168285}.
+Author preprint, Sections 4--6, especially Question 6.1 and Conjecture 6.2:
+\url{https://arxiv.org/abs/1706.03631}.
+\bibitem{repo}
+OpenProblemsInNLA, \emph{TR-13: Equality of ranks for generic odd-order
+Hankel tensors}, canonical statement.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/tensor-computations/TR-13}.
+\end{thebibliography}
+\end{document}

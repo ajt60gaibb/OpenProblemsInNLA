@@ -1,0 +1,572 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\C}{\mathbb C}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\OO}{\mathcal O}
+\newcommand{\HH}{\mathcal H}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\Span}{Span}
+\title{Nonisotropic Rayleigh--Ritz discriminants\newline for rank-one matrices}
+\author{Matthew J. Colbrook\thanks{Department of Applied Mathematics and Theoretical Physics, University of Cambridge, Cambridge, United Kingdom. Email: m.colbrook@damtp.cam.ac.uk.}}
+\date{11 September 2026}
+\hypersetup{pdfauthor={Matthew J. Colbrook}}
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\begin{document}
+\maketitle
+\begin{center}\small Recovered candidate manuscript for TR-20. Not independently refereed.\end{center}
+\begin{quote}\small Authorship recorded at the submitter\textquotesingle s request. This recovered draft was generated with AI assistance. The complete original source passed independent agent review against the exact repository target. This is not external human peer review or formal certification; no priority claim is made. Original provenance, full-source review hashes and diagnostic results accompany this manuscript in the submission record.\end{quote}
+\begin{abstract}
+A logarithmic compactification of the critical-point correspondence
+on $\PP^{m-1}\times\PP^{n-1}$ gives a coefficient formula for its
+nonisotropic Rayleigh--Ritz discriminant. Its derivation counts
+ramification on a general parameter pencil, computes the boundary
+contributions by first-jet bundles, and gives an argument that the
+nonisotropic ramification maps generically one-to-one onto a reduced
+irreducible hypersurface. The formula yields
+$24\binom{n+1}{3}$ for $m=2$ and $24n^2\binom n2$ for $m=3$, for every
+$n\ge2$, as requested in TR-20. The degree calculation includes the
+isotropic boundary and its crossings. The global geometry and
+multiplicity arguments remain essential subjects for independent review.
+\end{abstract}
+
+\section{Statement and parameter space}
+All varieties and vector spaces in this note are over $\C$.
+Fix integers $m,n\ge2$, and put
+\[
+ X=\PP^{m-1}\times\PP^{n-1},\qquad k=m+n-2,\qquad L=\OO_X(2,2).
+\]
+Let $x,y$ denote the two hyperplane classes, and write
+$\ell=c_1(L)=2x+2y$. The Chow ring is
+$\mathbb Z[x,y]/(x^m,y^n)$, with integration given by taking the
+coefficient of $x^{m-1}y^{n-1}$.
+For homogeneous vectors $a,b$, set
+\[
+ q_a(a)=a^{\mathsf T}a,\qquad q_b(b)=b^{\mathsf T}b,\qquad Q=q_aq_b.
+\]
+The zero divisor of $Q$ is $D=D_a+D_b$, where
+$D_a=\{q_a=0\}\times\PP^{n-1}$ and
+$D_b=\PP^{m-1}\times\{q_b=0\}$. Each is smooth, though it has two
+connected components when its quadric lies in $\PP^1$. The two
+smooth divisors meet transversely. Put $Z=D_a\cap D_b$ and $U=X\setminus D$.
+
+For $P\in S:=H^0(X,L)$, consider $R_P=P/Q$ on $U$. Denote by
+$\Delta^{\rm ni}_{m,n}\subset\PP(S)$ the closure of the parameters
+having a critical point of $R_P$ on $U$ with singular Hessian.
+The same notation will be used for its pullback to the symmetric-matrix
+parameter space in the repository statement.
+
+\begin{theorem}\label{thm:general}
+For every $m,n\ge2$, $\Delta^{\rm ni}_{m,n}$ is an irreducible reduced
+hypersurface. Its degree is
+\begin{equation}\label{eq:general}
+\boxed{
+ [x^{m-1}y^{n-1}]
+ \frac{(k-2mx-2ny+8xy)(1-x)^m(1-y)^n}
+ {(1-2x)(1-2y)(1-2x-2y)^2},\quad k=m+n-2.
+}
+\end{equation}
+The rational expression is expanded as a formal power series at $(0,0)$.
+In particular, for all $n\ge2$,
+\begin{equation}\label{eq:requested}
+ \begin{split}
+ \deg\Delta^{\rm ni}_{2,n}&=4n(n^2-1)=24\binom{n+1}{3},\\
+ \deg\Delta^{\rm ni}_{3,n}&=12n^3(n-1)=24n^2\binom n2.
+ \end{split}
+\end{equation}
+\end{theorem}
+
+These are degrees of reduced hypersurfaces, not degrees of a
+ramification scheme with an unverified generic multiplicity. The
+formulas in \eqref{eq:requested} are Conjecture 3.18 of
+\cite{BFHP}, retained as TR-20 in \cite{repo}.
+
+The passage from the source's symmetric matrix $H$ to $P$ loses no
+parameters relevant to the problem. Indeed,
+\[
+ H\longmapsto P_H(a,b)=(a\otimes b)^{\mathsf T}H(a\otimes b)
+\]
+is a surjective linear map to $S$: products of Segre coordinates
+span every monomial of bidegree $(2,2)$. Under a surjective linear
+map, a homogeneous reduced irreducible polynomial stays reduced,
+irreducible and of the same degree. In coordinates adapted to the
+map, its pullback is the same polynomial with additional unused
+variables. This also includes the projective kernel as the vertex
+of the resulting cone. Thus it is sufficient to prove the theorem
+in $\PP(S)$. Write $M=\dim S-1$.
+
+\section{The logarithmic critical correspondence}
+Let
+\[
+ F=\Omega_X^1(\log D),\qquad E=F\otimes L.
+\]
+The normal-crossings assumption makes $F$ a vector bundle of rank $k$.
+Every $P\in S$ defines a global section
+\begin{equation}\label{eq:omega}
+ \omega_P=dP-P\,d\log Q\quad\hbox{of }E.
+\end{equation}
+For clarity, in a local frame of $L$, with representatives $p,q$, the
+formula means $dp-p\,dq/q$. If the frame changes so that
+$p\mapsto p/g$ and $q\mapsto q/g$, this expression is multiplied by
+$g^{-1}$, as required. On $U$, it equals $q\,d(p/q)$, so its zeros
+are exactly the critical points under study.
+
+Let $\Gamma\subset X\times\PP(S)$ be the zero scheme of the universal
+section of $E\boxtimes\OO_{\PP(S)}(1)$ given by \eqref{eq:omega}.
+We first record its geometry, including its boundary.
+
+\begin{lemma}\label{lem:jets}
+The line bundle $L$ is two-jet spanned at every point of $X$.
+The evaluation map $S\to E_\xi$ has rank $k$ for $\xi\notin Z$,
+and rank $k-1$ for $\xi\in Z$.
+\end{lemma}
+\begin{proof}
+In standard product affine coordinates, sections of $L$ include every
+monomial of total degree at most two. Coordinate and local frame
+changes act invertibly on the space of two-jets. Thus an arbitrary
+value, first derivative and symmetric second derivative can be
+prescribed at any point.
+
+Off $D$, the map in question is the differential of $P/Q$, up to a
+nonzero factor, and has rank $k$. At a point of $D_a\setminus D_b$,
+choose coordinates $(u,z_1,\ldots,z_{k-1})$ and a frame in which $q=u$.
+The logarithmic components of \eqref{eq:omega} are
+\[
+ up_u-p,\quad p_{z_1},\ldots,p_{z_{k-1}}.
+\]
+At $u=0$, these impose the $k$ independent first-jet conditions
+$p=p_z=0$. The same holds on $D_b\setminus D_a$.
+At a point of $Z$, use coordinates $(u,v,z_1,\ldots,z_{k-2})$ with
+$q=uv$. The components are
+\begin{equation}\label{eq:cross}
+ up_u-p,\quad vp_v-p,\quad p_{z_1},\ldots,p_{z_{k-2}}.
+\end{equation}
+At $u=v=0$ the first two components agree, giving exactly $k-1$
+independent conditions.
+\end{proof}
+
+\begin{lemma}\label{lem:incidence}
+The scheme $\Gamma$ is reduced and irreducible, is a local complete
+intersection of dimension $M$, and is the closure of its restriction
+over $U$. Its singular locus has dimension at most $M-3$.
+Its projection $\pi:\Gamma\to\PP(S)$ is dominant and generically finite.
+\end{lemma}
+\begin{proof}
+Over $U$, the incidence is the projectivization of a kernel bundle of
+codimension $k$, and is smooth and irreducible of dimension $M$.
+By Lemma~\ref{lem:jets}, its set-theoretic strata above
+$D\setminus Z$ and $Z$ have dimensions, respectively,
+\[
+ (k-1)+(M-k)=M-1,\qquad
+ (k-2)+(M-(k-1))=M-1.
+\]
+Every component of a zero scheme of $k$ equations in the smooth
+$(k+M)$-dimensional ambient space has dimension at least $M$.
+There can consequently be no component contained in the boundary.
+It follows that the underlying space is irreducible of codimension
+$k$. The equations are a regular sequence locally, so the scheme is
+Cohen--Macaulay; it is generically reduced on $U$, and hence reduced.
+
+Parameter derivatives already have full rank away from $Z$. At $Z$,
+their rank is $k-1$. In \eqref{eq:cross}, the differential of the
+missing difference is
+\[
+ p_u\,du-p_v\,dv.
+\]
+Thus $\Gamma$ is smooth unless both $p_u$ and $p_v$ vanish. These are
+two additional independent jet conditions on the stratum over $Z$.
+The singular locus therefore has dimension at most $M-3$.
+
+Finally, choose $\xi\in U$ and prescribe a critical two-jet of $P/Q$
+with nonsingular Hessian. At this incidence point, the differential
+of $\pi$ is an isomorphism. This proves dominance; equality of the
+dimensions then proves generic finiteness.
+\end{proof}
+
+A general projective line $\Lambda\subset\PP(S)$ avoids the image of
+the singular locus and the locus of positive-dimensional fibers.
+For the latter assertion, the non-quasi-finite locus is a proper
+closed subset of the irreducible $M$-dimensional $\Gamma$, and its
+fibers have dimension at least one. Its image has dimension at most
+$M-2$. Standard characteristic-zero Bertini applied to the pullbacks
+of general hyperplanes therefore gives a smooth projective curve
+\[
+ C=\Gamma\cap(X\times\Lambda),
+\]
+and a finite map $\pi_C:C\to\Lambda\simeq\PP^1$. Connectedness of $C$
+is not needed. We may also choose $\Lambda$ to avoid any of the
+additional codimension-at-least-two exceptional parameter sets
+identified below.
+
+\section{Total ramification on a pencil}
+Write $h$ for the hyperplane class on $\Lambda$. The curve $C$ is the
+regular zero scheme of $E\boxtimes\OO_{\PP^1}(1)$ in $X\times\PP^1$,
+so
+\begin{equation}\label{eq:curveclass}
+ [C]=c_k(E)+h\,c_{k-1}(E).
+\end{equation}
+The residue sequence for logarithmic differentials gives
+\[
+ c_1(F)=K_X+D=K_X+\ell,\qquad
+ c_1(E)=K_X+(k+1)\ell,
+\]
+where $K_X=-mx-ny$. Adjunction, followed by Riemann--Hurwitz for
+$\pi_C$, gives the total ramification degree
+\begin{align}
+ R_{\rm tot}
+ &=\deg K_C+2\deg\pi_C \notag\\
+ &=\int_X\bigl(2K_X+(k+1)\ell\bigr)c_{k-1}(E)
+       +k\,c_k(E).\label{eq:Rtotal}
+\end{align}
+Indeed, adjunction gives
+$K_C=(K_X+c_1(E)+(k-2)h)|_C$; multiplying by
+\eqref{eq:curveclass} and using $h^2=0$ yields \eqref{eq:Rtotal}.
+This count includes all ramification, with its local multiplicity.
+We next determine which part lies on the boundary.
+
+\section{Boundary ramification and first jets}
+The following local calculations also show why crossing the two
+isotropic factors does not create an extra ramification term.
+
+\begin{lemma}\label{lem:boundary}
+For a general pencil, every point of $C$ on $D\setminus Z$ is a simple
+ramification point of $\pi_C$, while every point of $C$ on $Z$ is
+unramified. The number of the former points is $\delta_a+\delta_b$,
+where
+\begin{equation}\label{eq:delta}
+ \delta_i=\int_{D_i}c_{k-1}\bigl(J^1(L|_{D_i})\bigr),\qquad i=a,b.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Let $s$ be a local parameter for the pencil, chosen to vanish at the
+parameter under consideration. At a point on just one boundary
+divisor, write $q=u$. The equations for $C$ are
+\[
+ up_u-p=0,\qquad p_z=0.
+\]
+On $u=0$ these state that $p$ restricted to the boundary has zero value
+and zero first derivative. For a general pencil its tangential Hessian
+is nonsingular. Solve $p_z=0$ by the implicit-function theorem, and
+write the resulting effective function as
+\[
+ \widetilde p(u,s)=A u+B s+\tfrac12\beta u^2
+        +O(us,s^2,u^3).
+\]
+Here $B\ne0$ is the transversality of the pencil to the ordinary-node
+condition, and $\beta\ne0$ is a Schur complement of its prescribed
+second jet. Both inequalities hold generically. The remaining
+equation is
+\[
+ u\widetilde p_u-\widetilde p
+    =-Bs+\tfrac12\beta u^2+O(us,s^2,u^3)=0.
+\]
+Consequently $s=(\beta/(2B))u^2+O(u^3)$, which is simple ramification.
+
+At a crossing point, use \eqref{eq:cross}. A general two-jet has
+$p_u=A\ne0$, $p_v=B\ne0$, and a nonsingular tangential Hessian
+$p_{zz}=H$; when $k=2$ this last block is empty, with determinant one.
+The derivative of \eqref{eq:cross} in $(u,v,z)$ is of block form
+\[
+ \begin{pmatrix}0&-B&0\\-A&0&0\\ *&*&H\end{pmatrix},
+\]
+which is invertible. Thus $s$ is a local coordinate on $C$ and the
+projection is unramified. The failed nonvanishing or Hessian
+conditions impose at least one additional independent condition on
+the corresponding boundary incidence, and have parameter image of
+codimension at least two. A general pencil avoids them.
+
+For the count, the equations $p=p_z=0$ on $D_i$ are the vanishing of
+the first jet of $P|_{D_i}$. On $D_i\times\PP^1$ this is the zero
+scheme of a section of
+$J^1(L|_{D_i})\boxtimes\OO_{\PP^1}(1)$, of rank $k$. First-jet
+spanning and two-jet spanning make its general zeros transverse with
+nonsingular tangential Hessian. Its top Chern number is precisely
+\eqref{eq:delta}. Such a first-jet zero lying on $Z$ imposes, compared
+with the crossing incidence, one extra normal-derivative condition;
+its parameter image has codimension at least two. Thus all these
+counted points lie on $D_i\setminus Z$, as asserted.
+\end{proof}
+
+\section{The reduced nonisotropic hypersurface}
+To turn a ramification count into the degree of a reduced image, one
+must verify both the generic local multiplicity and the generic
+number of ramification points above a parameter. We do so explicitly.
+
+\begin{lemma}\label{lem:ordinary}
+The Hessian-singular locus $\mathcal R$ in $\Gamma|_U$ is an irreducible
+divisor. Its general point has Hessian corank one, a kernel vector
+with nonzero components in both factors of $T_\xi X$, and nonzero
+third derivative in that kernel direction. At such a point $\pi$
+has a simple fold. Its image is an irreducible hypersurface.
+\end{lemma}
+\begin{proof}
+At a fixed $\xi\in U$, after imposing the critical-point conditions,
+the Hessian can be any symmetric $k\times k$ matrix by two-jet
+spanning. The singular symmetric matrices form an irreducible
+hypersurface, with general matrix of corank one. For example their
+irreducibility follows by writing every matrix of rank at most
+$k-1$ as $BB^{\mathsf T}$ over $\C$; the determinant has a nonzero
+differential at $\operatorname{diag}(0,1,\ldots,1)$, so its defining
+polynomial is reduced. Locally trivializing the jet maps over $U$
+therefore proves irreducibility of $\mathcal R$.
+
+Its general kernel line is general in $\PP(T_\xi X)$ and has nonzero
+components in both factors, since both factor dimensions are
+positive. A product of complex orthogonal changes of homogeneous
+coordinates moves any $\xi\in U$ to the origins of standard affine
+coordinates $(u_1,\ldots,u_{m-1},v_1,\ldots,v_{n-1})$, where
+\[
+ Q=(1+\textstyle\sum u_i^2)(1+\textstyle\sum v_j^2)
+\]
+in the usual frame. Sections of $L$ include the mixed cubic monomials
+$u_i^2v_j$ and $u_iv_j^2$. They have zero two-jet, and, for a kernel
+vector with both components nonzero, one of them has nonzero third
+derivative in that direction. We may thus vary this derivative
+without changing criticality or the Hessian. Its generic value is
+nonzero.
+
+For completeness, eliminate the transverse critical equations using
+the nonsingular Hessian block. The remaining scalar critical equation
+has zero first derivative in the kernel coordinate, nonzero second
+derivative there, and a nonzero parameter derivative in some
+direction because first jets are arbitrary. The implicit-function
+theorem gives the local normal form of a simple fold. In particular,
+the ramification image has codimension one and local ramification
+multiplicity one. Its closure is irreducible because $\mathcal R$ is.
+\end{proof}
+
+\begin{lemma}\label{lem:recover}
+Let $\xi=([a],[b])\in U$ and let $w=(w_a,w_b)\in T_\xi X$ have both
+components nonzero. The nonzero functional
+\[
+ N_{\xi,w}:S\longrightarrow\C,\qquad
+ P\longmapsto d(P/Q)_\xi(w)
+\]
+determines $\xi$ uniquely, up to a scalar multiple of the functional.
+\end{lemma}
+\begin{proof}
+Use the natural identification
+$S^*=\Sym^2\C^m\otimes\Sym^2\C^n$ and set
+\[
+ A=\frac{aa^{\mathsf T}}{q_a(a)},\qquad
+ B=\frac{bb^{\mathsf T}}{q_b(b)},\qquad
+ U_a=dA(w_a),\qquad U_b=dB(w_b).
+\]
+Then
+\begin{equation}\label{eq:normal}
+ N_{\xi,w}=U_a\otimes B+A\otimes U_b.
+\end{equation}
+The pairs $(A,U_a)$ and $(B,U_b)$ are linearly independent. Hence the
+flattening of this tensor has rank two, with column and row spaces
+$\Span\{A,U_a\}$ and $\Span\{B,U_b\}$.
+
+The first of these spaces contains a unique rank-one symmetric matrix
+up to scale, namely $A$. Indeed, represent $w_a$ by a vector $c$
+independent of $a$. The derivative $U_a$ is a nonzero multiple of
+$ac^{\mathsf T}+ca^{\mathsf T}$ plus a multiple of $aa^{\mathsf T}$.
+In the basis $(a,c)$, every combination with nonzero coefficient of
+$U_a$ has coefficient matrix
+\[
+ \begin{pmatrix}\alpha&\beta\\\beta&0\end{pmatrix},\qquad\beta\ne0,
+\]
+whose determinant is $-\beta^2$. It has rank two. The same argument
+recovers the unique rank-one matrix $B$ from the row space. The two
+recovered rank-one matrices determine $[a]$ and $[b]$ uniquely.
+\end{proof}
+
+\begin{proposition}\label{prop:birational}
+The map $\mathcal R\to\Delta^{\rm ni}_{m,n}$ is generically one-to-one.
+For a general parameter pencil, the number of its nonisotropic
+ramification points is therefore the degree of the reduced
+hypersurface $\Delta^{\rm ni}_{m,n}$.
+\end{proposition}
+\begin{proof}
+Consider an ordinary fold $(\xi,[P])$ and a generator $w$ of its
+Hessian kernel. Linearizing the critical equation gives
+\[
+ d(\dot P/Q)_\xi+\operatorname{Hess}_\xi(P/Q)\,\dot\xi=0.
+\]
+Its solvability condition is $N_{\xi,w}(\dot P)=0$. Thus the image
+tangent hyperplane has normal $N_{\xi,w}$. This functional annihilates
+$P$, so it indeed defines a normal covector at $[P]\in\PP(S)$.
+
+The non-ordinary part of $\mathcal R$ is a proper closed subset of
+its irreducible divisor (after replacing locally closed sets by
+closures), and its parameter image has dimension at most $M-2$.
+The same dimension bound holds for its boundary in $\Gamma$ and for
+positive-dimensional fibers. Take a general smooth point of the
+image hypersurface. Every ramification point from $\mathcal R$ above
+it is then an ordinary fold with a mixed kernel. All give the same
+normal to that smooth hypersurface. Lemma~\ref{lem:recover} shows
+that their $\xi$ must agree. There is consequently just one such
+point. A general line meets the smooth image transversely, and
+Lemma~\ref{lem:ordinary} gives multiplicity one at its unique fold.
+\end{proof}
+
+One can also distinguish the boundary discriminants from this
+hypersurface by their normals. At an ordinary first-jet zero on a
+boundary divisor, the image normal is the evaluation functional
+$\dot P\mapsto\dot P(\xi)$, a flattening-rank-one tensor
+$aa^{\mathsf T}\otimes bb^{\mathsf T}$. The mixed-kernel normal in
+\eqref{eq:normal} has rank two, so a boundary component cannot be the
+same hypersurface. This observation is consistent with, but not
+needed in addition to, the subtraction of ramification points below.
+
+Combining \eqref{eq:Rtotal}, Lemma~\ref{lem:boundary} and
+Proposition~\ref{prop:birational} proves
+\begin{equation}\label{eq:subtraction}
+ \deg\Delta^{\rm ni}_{m,n}=R_{\rm tot}-\delta_a-\delta_b.
+\end{equation}
+
+\section{Chern-class calculation}
+The logarithmic residue sequence and the Euler sequences for the two
+projective factors give
+\begin{equation}\label{eq:F}
+ c(F)=\frac{(1-x)^m(1-y)^n}{(1-2x)(1-2y)}.
+\end{equation}
+Write $F_i=c_i(F)$, and introduce the homogeneous classes
+\begin{align*}
+ C_0&=\sum_{i=0}^{k}F_i\ell^{k-i}=c_k(E),\\
+ A_0&=\sum_{i=0}^{k-1}(k-i)F_i\ell^{k-1-i}=c_{k-1}(E),\\
+ T_0&=\sum_{i=0}^{k-2}(k-1-i)F_i\ell^{k-2-i}.
+\end{align*}
+These are the homogeneous parts of degrees $k,k-1,k-2$ of,
+respectively, $c(F)/(1-\ell)$, $c(F)/(1-\ell)^2$ and
+$c(F)/(1-\ell)^2$.
+
+For a smooth variety $Y$ of dimension $k-1$ and a line bundle of
+first Chern class $\ell$, the first-jet sequence
+\[
+ 0\longrightarrow\Omega_Y^1\otimes L
+ \longrightarrow J^1L\longrightarrow L\longrightarrow0
+\]
+gives
+\begin{equation}\label{eq:jetformula}
+ c_{k-1}(J^1L)=\sum_{i=0}^{k-1}(k-i)c_i(\Omega_Y^1)\ell^{k-1-i}.
+\end{equation}
+The conormal sequence of $D_a$ in $X$ shows that
+\[
+ c(\Omega_{D_a}^1)=c(F)(1-2y)|_{D_a},
+\]
+and likewise $c(\Omega_{D_b}^1)=c(F)(1-2x)|_{D_b}$.
+Using their classes $2x,2y$ to push \eqref{eq:jetformula} to $X$,
+we obtain
+\begin{align*}
+ \delta_a&=\int_X 2x A_0-4xy T_0,\\
+ \delta_b&=\int_X 2y A_0-4xy T_0,\\
+ \delta_a+\delta_b&=\int_X\ell A_0-8xyT_0.
+\end{align*}
+Equations \eqref{eq:Rtotal} and \eqref{eq:subtraction} consequently give
+\[
+ \deg\Delta^{\rm ni}_{m,n}
+ =\int_X k C_0+(2K_X+k\ell)A_0+8xyT_0.
+\]
+Taking homogeneous parts and putting the three terms over the same
+denominator simplifies this to
+\[
+ [x^{m-1}y^{n-1}]
+ \frac{\bigl(k(1-\ell)+2K_X+k\ell+8xy\bigr)c(F)}{(1-\ell)^2}.
+\]
+Substituting $K_X=-mx-ny$, $\ell=2x+2y$ and \eqref{eq:F} proves
+\eqref{eq:general}.
+
+\section{Extraction of the two conjectured formulas}
+The following residue identity is useful. For every formal power
+series $f$ and integer $n\ge1$,
+\begin{equation}\label{eq:substitute}
+ [y^{n-1}](1-y)^n f(y)
+   =[z^{n-1}](1+z)^{-2}f\!\left(\frac{z}{1+z}\right).
+\end{equation}
+It follows by substituting $y=z/(1+z)$ into the coefficient residue;
+the Jacobian contributes $(1+z)^{-2}$.
+
+For $m=2$, taking the coefficient of $x$ in \eqref{eq:general} gives
+\[
+ \deg\Delta^{\rm ni}_{2,n}
+ =4[y^{n-1}]\frac{(n-1+2y)(1-y)^n}{(1-2y)^3}.
+\]
+By \eqref{eq:substitute}, this is
+\begin{align*}
+ 4[z^{n-1}]\frac{(n-1)+(n+1)z}{(1-z)^3}
+ &=4\left((n-1)\binom{n+1}{2}+(n+1)\binom n2\right)\\
+ &=4n(n^2-1).
+\end{align*}
+For $m=3$, use
+$(1-x)^3/(1-2x)=1-x+x^2+O(x^3)$ and put $c=1-2y$.
+The coefficient of $x^2$ in \eqref{eq:general} is
+\[
+ [y^{n-1}](1-y)^n\left(
+ \frac{12}{c^5}+\frac{12(n-1)}{c^4}
+ -\frac{4n+13}{c^3}+\frac{n+4}{c^2}\right).
+\]
+After \eqref{eq:substitute} and a common denominator, this becomes
+\[
+ [z^{n-1}]
+ \frac{(9n-9)+(13n+25)z+(73-5n)z^2+(7-17n)z^3}{(1-z)^5}.
+\]
+Its value is
+\begin{align*}
+ &(9n-9)\binom{n+3}{4}+(13n+25)\binom{n+2}{4}\\
+ &\hspace{12mm}+(73-5n)\binom{n+1}{4}+(7-17n)\binom n4
+ =12n^3(n-1).
+\end{align*}
+The last equality is a polynomial identity in $n$, with the ordinary
+zero convention for the binomial coefficients at $n=2,3$.
+This proves \eqref{eq:requested} for every $n\ge2$, not just for a
+finite set of interpolated dimensions.
+
+\section{Diagnostics and scope}
+The accompanying script \texttt{code/verify\_tr20.py} was rebuilt for
+this recovery package from the displayed formulas and the surviving
+calculation. It independently implements the Chern-class, adjunction and jet-bundle
+calculations and the final coefficient expression using exact integer
+arithmetic. It checks a grid of formats, the symbolic coefficient
+extractions, and the closed binomial identities. As an additional
+consistency check, the top Chern number $\int_X c_k(E)$ is compared with
+the Rayleigh--Ritz degree
+\[
+ \sum_{i=1}^{\min(m,n)}4^{i-1}\binom mi\binom ni
+\]
+from \cite[Corollary 5.3]{SSW}. Local boundary-model and normal-recovery
+identities are also tested. These calculations are reproducible
+diagnostics; they do not independently establish the global
+transversality, boundary multiplicity and generic-degree-one arguments.
+
+The problem uses ordinary Segre entry coordinates, a bilinear
+transpose, and the reduced nonisotropic discriminant. No Hermitian
+complex-analytic discriminant, altered inner product, or tensor-train
+rank larger than one is substituted. The two target formulas share
+one proof; the general coefficient expression is an additional claim.
+
+\begin{thebibliography}{9}
+\bibitem{BFHP}
+V. Borovik, H. Friedman, S. Ho\c{s}ten and M. Pfeffer,
+\emph{Numerical Algebraic Geometry for Energy Computations on Tensor
+Train Varieties}, arXiv:2512.06939v2, 18 June 2026, Section 3.2,
+especially Conjecture 3.18.
+\url{https://arxiv.org/abs/2512.06939v2}.
+\bibitem{SSW}
+F. Salizzoni, L. Sodomaco and J. Weigert,
+\emph{Nonlinear Rayleigh quotient optimization},
+arXiv:2510.17760, 2025, especially Corollary 5.3.
+\url{https://arxiv.org/abs/2510.17760}.
+\bibitem{Fulton}
+W. Fulton, \emph{Intersection Theory}, second edition,
+Springer, 1998. Chern classes, regular zero schemes and adjunction.
+\bibitem{repo}
+OpenProblemsInNLA, \emph{TR-20: Rayleigh--Ritz discriminant degrees for
+rank-one matrices}, canonical statement.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/tensor-computations/TR-20}.
+\end{thebibliography}
+\end{document}

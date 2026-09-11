@@ -7,8 +7,24 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because the constant must be uniform over all families of a given dimension; community impact spans transient growth and stability analysis.  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-10  
+**Status:** Solved  
+**Last checked:** 2026-09-11  
+
+<!-- colbrook-jsr-growth -->
+## Resolution — 2026-09-11
+
+**Affirmative resolution.** Matthew J. Colbrook's [complete manuscript, Theorem 1 and Proposition 5](../../references/colbrook-jsr-growth-2026-09-11/manuscripts/uniform_growth_and_holder.pdf) proves the displayed bound for every dimension and every nonempty compact complex matrix family of joint spectral radius one, with
+
+$$
+\Theta_1=1,\qquad
+\Theta_d=d\left(\frac{2ed^2}{d-1}\right)^{d-1}\quad(d\ge2).
+$$
+
+This constant is independent of the family and its cardinality. The proof covers every switching word and every positive length, without irreducibility or an exact extremal norm. The growth exponent $d-1$ is sharp in general; the displayed constant is not asserted optimal. The result also holds for nonempty bounded real or complex families.
+
+The complete original proof passed [independent Codex-agent review](../../references/colbrook-jsr-growth-2026-09-11/verification/reviews/MF-05-MF-07-review.md). [Authored TeX](../../references/colbrook-jsr-growth-2026-09-11/manuscripts/uniform_growth_and_holder.tex) · [Submission, authorship and verification record](../../references/colbrook-jsr-growth-2026-09-11/README.md). The proof was developed with AI assistance; no external human peer review or formal verification is claimed. The original statement and prior evidence below are retained, and the ratings above are historical. This entry no longer contributes to the open count.
+
+<!-- /colbrook-jsr-growth -->
 
 ## Context and notation
 
