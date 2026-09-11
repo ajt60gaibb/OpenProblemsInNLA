@@ -72,6 +72,9 @@ def render(source):
         }:
             tex = re.sub(r"\\subsection\{References?(?:\s+and\s+status\s+check)?\}",
                          lambda m: "\\newpage\n" + m[0], tex, count=1)
+        if identifier in {"SP-11", "SP-12"}:
+            # Keep the retained target after the literature-resolution notice.
+            tex = tex.replace(r"\subsection{Problem statement}", "\\newpage\n" + r"\subsection{Problem statement}", 1)
         if identifier == "SF-01":
             tex = tex.replace(r"\subsection{References and status}", "\\newpage\n" + r"\subsection{References and status}", 1)
         if identifier == "IE-20":

@@ -1,6 +1,6 @@
 # All problems and their status
 
-**142 problems with open targets:** 68 open and 74 partially resolved. **61 other retained entries**, excluded from the open count.
+**140 problems with open targets:** 68 open and 72 partially resolved. **63 other retained entries**, excluded from the open count.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -56,8 +56,6 @@ Retained entries outside the open count:
 | [SP-08](eigenvalues-and-inverse-problems/SP-08/README.md) | Rank-two maximizers of spectral spread on an entry interval | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-08/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-08/problem.tex) |
 | [SP-09](eigenvalues-and-inverse-problems/SP-09/README.md) | Unitary-orbit distance under finite block repetition | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/SP-09/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-09/problem.tex) |
 | [SP-10](eigenvalues-and-inverse-problems/SP-10/README.md) | The graph complement conjecture for minimum symmetric rank | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-10/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-10/problem.tex) |
-| [SP-11](eigenvalues-and-inverse-problems/SP-11/README.md) | The delta conjecture for minimum symmetric rank | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-11/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-11/problem.tex) |
-| [SP-12](eigenvalues-and-inverse-problems/SP-12/README.md) | A chromatic lower bound for positive-semidefinite nullity with SAP | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/SP-12/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-12/problem.tex) |
 
 Retained entries outside the open count:
 
@@ -72,6 +70,8 @@ Retained entries outside the open count:
 | [SP-04](eigenvalues-and-inverse-problems/SP-04/README.md) | The smallest-multiplier rule for nearest unit-absolute-determinant matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/SP-04/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-04/problem.tex) |
 | [SP-05](eigenvalues-and-inverse-problems/SP-05/README.md) | Symmetric minimizer for a positive definite Jordan–Kronecker product | **✅ SOLVED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-05/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-05/problem.tex) |
 | [SP-06](eigenvalues-and-inverse-problems/SP-06/README.md) | A real-valued symbol on a Jordan curve and real Toeplitz spectra | **✅ SOLVED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-06/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-06/problem.tex) |
+| [SP-11](eigenvalues-and-inverse-problems/SP-11/README.md) | The delta conjecture for minimum symmetric rank | **✅ SOLVED** | extreme | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-11/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-11/problem.tex) |
+| [SP-12](eigenvalues-and-inverse-problems/SP-12/README.md) | A chromatic lower bound for positive-semidefinite nullity with SAP | **✅ SOLVED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/SP-12/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-12/problem.tex) |
 
 
 ## [Matrix functions and stability](matrix-functions-and-stability/README.md)
