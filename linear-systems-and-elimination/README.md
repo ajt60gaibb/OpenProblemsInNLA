@@ -2,7 +2,7 @@
 
 [← All categories](../README.md) · [Full catalog](../CATALOG.md) · [Solved and claimed solutions](../RESOLVED.md)
 
-**21 problems with open targets.** 1 retained entries are excluded from the open count.
+**20 problems with open targets.** 2 retained entries are excluded from the open count.
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
@@ -15,7 +15,6 @@
 | [IE-12](IE-12/README.md) | Near-quadratic solution cost at a prescribed backward error | **🟡 PARTIAL** | challenging | broadly interesting | [PDF](IE-12/problem.pdf) · [TeX](IE-12/problem.tex) |
 | [IE-13](IE-13/README.md) | Sharp growth for unequal lower and upper bandwidths | **🔵 OPEN** | challenging | interesting to specialist | [PDF](IE-13/problem.pdf) · [TeX](IE-13/problem.tex) |
 | [IE-14](IE-14/README.md) | Sharp growth for cyclic tridiagonal matrices | **🔵 OPEN** | challenging | interesting to specialist | [PDF](IE-14/problem.pdf) · [TeX](IE-14/problem.tex) |
-| [IE-15](IE-15/README.md) | Exact small-order growth factors for rook pivoting | **🔵 OPEN** | hard | interesting to specialist | [PDF](IE-15/problem.pdf) · [TeX](IE-15/problem.tex) |
 | [IE-16](IE-16/README.md) | A sharp subset bound for worst-case normal GMRES | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](IE-16/problem.pdf) · [TeX](IE-16/problem.tex) |
 | [IE-17](IE-17/README.md) | Monotonic optimal backward error along LSMR | **🔵 OPEN** | challenging | interesting to the community | [PDF](IE-17/problem.pdf) · [TeX](IE-17/problem.tex) |
 | [IE-18](IE-18/README.md) | The exact four-step amplification of restarted Anderson acceleration | **🔵 OPEN** | challenging | interesting to the community | [PDF](IE-18/problem.pdf) · [TeX](IE-18/problem.tex) |
@@ -33,5 +32,6 @@
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
 | [IE-01](IE-01/README.md) | Forsythe's conjecture beyond restart length two | **🟠 SOLUTION CLAIMED** | extreme | interesting to the community | [PDF](IE-01/problem.pdf) · [TeX](IE-01/problem.tex) |
+| [IE-15](IE-15/README.md) | Exact small-order growth factors for rook pivoting | **✅ SOLVED** | hard | interesting to specialist | [PDF](IE-15/problem.pdf) · [TeX](IE-15/problem.tex) |
 
 Ratings are editorial; each entry explains both ratings and the scope of its status evidence. [Definitions](../README.md#problem-status).

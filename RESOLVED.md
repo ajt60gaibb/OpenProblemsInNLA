@@ -15,6 +15,12 @@ catalog with **🟡 PARTIAL** and an explanation of what remains.
 
 ## Resolved catalog entries
 
+### IE-15 — exact rook-pivoting growth in orders three and four
+
+**Solved, 2026-09-11.** George Stepaniants, California Institute of Technology, proves $g_{\mathrm{RP}}(3)=3$ and $g_{\mathrm{RP}}(4)=14/3$. [Theorem 1 and Sections 1–5](linear-systems-and-elimination/IE-15/solution.md) give universal bounds for real nonsingular matrices and all admissible rook paths, including ties and intermediate active entries, with explicit rational attaining matrices. [Proof PDF](linear-systems-and-elimination/IE-15/solution.pdf) · [Canonical target](linear-systems-and-elimination/IE-15/README.md).
+
+The complete analytic proof passed a separate [Codex-agent review](references/stepaniants-ie15-2026-09-11/verification/reviews/IE-15-review.md) and independent rational witness checks. AI assistance and the limits of automated review are explicit; no external human peer review or formal certification is asserted. [Submission record and public-branch check](references/stepaniants-ie15-2026-09-11/README.md). Existing issue 71 concerns order five and does not settle these two constants. The original ID, statement, path and historical ratings are retained.
+
 ### ✅ MI-13 — Nobori's spectral-middle-factor commutator inequality
 
 [Original statement and complete proof](matrix-inequalities-and-norms/MI-13/README.md) · [PDF](matrix-inequalities-and-norms/MI-13/problem.pdf)
