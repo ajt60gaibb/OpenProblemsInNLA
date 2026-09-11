@@ -1,5 +1,7 @@
 # Final integration of the six previously pending PRs
 
+Subsequent branch updates are documented in the [latest-head reconciliation](latest-head-reconciliation.md). Five updated heads are included; PR93's replacement head remains outside pending its new workflow approval. This report records the six original reviewed commits below.
+
 Integration commit before the final audit-record commit: `d65e757a425d0cf709ac4969399b37cbce7b684c`.
 Published comparison base: `87366c62d3b5c47d170f747b1cb40ab38d501013`.
 

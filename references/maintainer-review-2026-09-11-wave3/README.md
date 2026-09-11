@@ -1,5 +1,11 @@
 # Independent maintainer review — third batch, 11 September 2026
 
+**Latest disposition:** the [branch-update reconciliation](latest-head-reconciliation.md)
+records five accepted replacement heads and the still-pending replacement workflow
+for PR93. Its originally reviewed, approved proof is included, but the current PR
+remains open until that replacement gate clears. Earlier six-PR and eighteen-PR
+acceptance statements refer to the recorded original submission commits.
+
 This batch reviews six further solution PRs against their unchanged canonical targets. Complete arguments and primary-source applicability were checked independently of the contributors' embedded PASS reports. The review combines analytic mathematics, independently written exact checks, inspected certificate reruns and final PDF inspection. It is **AI-agent mathematical review, not proof-assistant certification, external human peer review or a determination of priority**.
 
 | PR and reviewed head | Detailed report | Supported result |
