@@ -1,0 +1,308 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,microtype}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\pos}{\operatorname{pos}}
+\newcommand{\Sink}{\operatorname{Sink}}
+\newcommand{\D}{\mathcal D}
+\newcommand{\one}{\mathbf 1}
+\title{A null vector for the Rowland--Wu determinant identity}
+\author{}\date{}
+\begin{document}\maketitle
+\begin{abstract}
+We prove the Rowland--Wu polynomial identity for every positive rectangular matrix. The principal-minor coefficient sum is a single determinant. For a matrix already scaled to row sums one and column sums $m/n$, that determinant has an explicit null vector whose coordinate on a minor of order $k$ is $(n/m)^k$. The proof is an elementary identity among minors of a Schur complement, obtained by differentiating a determinant in four rank-one directions. No nonvanishing-minor or genericity hypothesis is needed. We also obtain explicit coefficients for arbitrary positive target margins and prove their coefficient-sum and complementary-minor symmetries using the additive compound of a rank-one matrix.
+\end{abstract}
+
+\section{Statement and determinant reformulation}
+Let $A\in\mathbb R_{>0}^{m\times n}$, and put $x=\Sink(A)_{11}$, with row sums of $\Sink(A)$ equal to one and column sums equal to $m/n$. Set
+\[
+ \D=\{(R,C):R\subseteq\{2,\ldots,m\},\ C\subseteq\{2,\ldots,n\},\ |R|=|C|\},
+\]
+\[
+ \Delta_{R,C}=\det A_{\{1\}\cup R,\{1\}\cup C},\qquad
+ \Gamma_{R,C}=a_{11}\det A_{R,C}.
+\]
+Indices are in increasing order, and an empty determinant is one. For $s\in U$, let $\pos_s(U)$ be its position in the increasing list of $U$, starting at one. Fix any ordering of $\D$. The integer matrix $H$, indexed by $\D$, has diagonal entry
+\[
+ H_{(R,C),(R,C)}=|R|(m+n)-mn.
+\]
+For distinct $(R,C),(R',C')$, its nonzero entries are
+\begin{align*}
+ H_{(R,C),(R+s,C+t)}&=(-1)^{\pos_s(R+s)+\pos_t(C+t)}m,\\
+ H_{(R,C),(R-s,C-t)}&=-(-1)^{\pos_s(R)+\pos_t(C)}n,\\
+ H_{(R,C),(R,C-s+t)}&=(-1)^{\pos_s(C)+\pos_t(C-s+t)}m,\\
+ H_{(R,C),(R-s+t,C)}&=(-1)^{\pos_s(R)+\pos_t(R-s+t)}n.
+\end{align*}
+Here $+$ and $-$ indicate adjoining and deleting a single element, respectively, and only valid additions, deletions, and exchanges are included. All other entries are zero. This is exactly the matrix in catalog problem NM-04 and in Rowland--Wu Conjecture 2~\cite{rw,catalog}.
+
+\begin{theorem}\label{thm:main}
+For all $m,n\geq1$ and all positive $A$, the matrix
+\begin{equation}\label{eq:K}
+ K(A,x)=\diag(\Gamma)+\frac{x}{m}H\diag(\Delta)
+\end{equation}
+is singular. Consequently, writing $H_{\mathcal S}$ for its indicated principal submatrix,
+\[
+ \sum_{\mathcal S\subseteq\D}\det(m^{-1}H_{\mathcal S})
+ \prod_{(R,C)\in\mathcal S}\Delta_{R,C}
+ \prod_{(R,C)\notin\mathcal S}\Gamma_{R,C}\ x^{|\mathcal S|}=0.
+\]
+\end{theorem}
+The displayed sum is $\det K(A,x)$ by multilinearity in the columns: choosing the second term in the columns indexed by $\mathcal S$ leaves exactly the principal minor $H_{\mathcal S}$. This observation remains valid when any of the minors vanish.
+
+\section{Four elementary identities among minors}
+Let $T$ be a $p\times q$ matrix, let $R\subseteq\{1,\ldots,p\}$ and $C\subseteq\{1,\ldots,q\}$ have cardinality $k$, and write $f_{R,C}=\det T_{R,C}$. Define four signed sums of minors:
+\begin{align*}
+ (Lf)_{R,C}&=\sum_{s\in R,\ t\in C}
+ (-1)^{\pos_s(R)+\pos_t(C)}f_{R-s,C-t},\\
+ (Uf)_{R,C}&=\sum_{s\notin R,\ t\notin C}
+ (-1)^{\pos_s(R+s)+\pos_t(C+t)}f_{R+s,C+t},\\
+ (C_0f)_{R,C}&=\sum_{s\in C,\ t\notin C}
+ (-1)^{\pos_s(C)+\pos_t(C-s+t)}f_{R,C-s+t},\\
+ (R_0f)_{R,C}&=\sum_{s\in R,\ t\notin R}
+ (-1)^{\pos_s(R)+\pos_t(R-s+t)}f_{R-s+t,C}.
+\end{align*}
+Empty sums are zero. The letter $q$ here denotes only a matrix dimension, not a margin ratio. Let $J=\one_p\one_q^{\mathsf T}$, let $s(T)=\one_p^{\mathsf T}T\one_q$, and let $Df[Z]$ denote the derivative at $T$ of the particular minor $f_{R,C}$ in the matrix direction $Z$.
+
+\begin{lemma}\label{lem:four}
+For every $T,R,C$, including singular submatrices,
+\begin{align}
+ Df[J]&=(Lf)_{R,C},\label{eq:L}\\
+ Df[(T\one_q)\one_q^{\mathsf T}]&=k f_{R,C}+(C_0f)_{R,C},\label{eq:C}\\
+ Df[\one_p(\one_p^{\mathsf T}T)]&=k f_{R,C}+(R_0f)_{R,C},\label{eq:R}\\
+ Df[(T\one_q)(\one_p^{\mathsf T}T)]&=s(T)f_{R,C}-(Uf)_{R,C}.\label{eq:U}
+\end{align}
+\end{lemma}
+\begin{proof}
+Equation~\eqref{eq:L} is the cofactor derivative formula. For~\eqref{eq:C}, replace each selected column in turn by the sum of all columns of $T$. A replacement by another selected column has determinant zero; replacement by the original column contributes $f_{R,C}$; and replacement by an unselected column gives the stated exchange sign after ordering the columns. The row argument proves~\eqref{eq:R}.
+
+For~\eqref{eq:U}, set $V=T_{R,C}$. For every row index $i$ and column index $j$, the polynomial bordered-determinant identity is
+\[
+ T_{i,C}\operatorname{adj}(V)T_{R,j}
+ =T_{ij}\det V-
+ \det\begin{pmatrix}V&T_{R,j}\\ T_{i,C}&T_{ij}\end{pmatrix}.
+\]
+Sum over $i,j$. The left side is the derivative on the left of~\eqref{eq:U}. A bordered determinant is zero if $i\in R$ or $j\in C$. Otherwise ordering its last row and last column produces the sign
+$(-1)^{\pos_i(R+i)+\pos_j(C+j)}$, since the two reorderings together have even constant offset $2k+2$. This proves~\eqref{eq:U}.
+
+For $k=0$, the derivative of the empty determinant is zero. The first three identities are then immediate, while the last reduces to $0=s(T)-\sum_{i,j}T_{ij}$. Thus no adjugate of a zero-order matrix is needed.
+\end{proof}
+
+\section{Balanced matrices and the explicit null vector}
+Suppose first that $A$ is already balanced, and write
+\[
+ A=\begin{pmatrix}x&r^{\mathsf T}\\c&B\end{pmatrix},\qquad
+ \rho=\frac{m}{n},\qquad T=B-\frac{cr^{\mathsf T}}x.
+\]
+All vectors of ones below have the dimension required by their products. The row and column sums imply
+\begin{equation}\label{eq:margins}
+ T\one=\one-\frac cx,\qquad
+ \one^{\mathsf T}T=\rho\left(\one^{\mathsf T}-\frac{r^{\mathsf T}}x\right),\qquad
+ s(T)=m-\frac\rho x.
+\end{equation}
+For completeness, the last identity follows from
+\[
+ \one^{\mathsf T}B\one=m-1-\rho+x,
+ \quad \one^{\mathsf T}c=\rho-x,
+ \quad r^{\mathsf T}\one=1-x.
+\]
+Put $u=\one-T\one$ and $v^{\mathsf T}=\one^{\mathsf T}-\rho^{-1}\one^{\mathsf T}T$. Then
+\[
+ B=T+xuv^{\mathsf T},\qquad \Delta_{R,C}=x f_{R,C}.
+\]
+For $b_{R,C}=\det B_{R,C}$, multilinearity and the rank-one update give
+\begin{equation}\label{eq:rankone}
+ b_{R,C}=f_{R,C}+x Df[uv^{\mathsf T}].
+\end{equation}
+Indeed terms involving two replaced columns vanish. Expand the direction as
+\[
+ uv^{\mathsf T}=J-(T\one)\one^{\mathsf T}
+ -\rho^{-1}\one(\one^{\mathsf T}T)
+ +\rho^{-1}(T\one)(\one^{\mathsf T}T).
+\]
+Lemma~\ref{lem:four}, equation~\eqref{eq:margins}, and $m/\rho=n$ now give
+\begin{align}
+ b_{R,C}
+ &=x\left[\left(n-k-\frac{k}{\rho}\right)f_{R,C}
+ +(Lf)_{R,C}-(C_0f)_{R,C}
+ -\rho^{-1}(R_0f)_{R,C}-\rho^{-1}(Uf)_{R,C}\right].\label{eq:balance}
+\end{align}
+This identity also holds for the empty minor. Since $\Delta=xf$, multiplication by $m$ and rearrangement yield
+\begin{equation}\label{eq:master}
+ m b_{R,C}+[k(m+n)-mn]\Delta_{R,C}
+ +n(U\Delta)_{R,C}-m(L\Delta)_{R,C}
+ +m(C_0\Delta)_{R,C}+n(R_0\Delta)_{R,C}=0.
+\end{equation}
+
+Define the nonzero vector $w$, indexed by $\D$, by
+\[
+ w_{R,C}=\rho^{-|R|}=\left(\frac nm\right)^{|R|}.
+\]
+In $H\diag(\Delta)w$, an upward transition from order $k$ to order $k+1$ multiplies its coefficient $m$ by $\rho^{-1}$, giving $n$ after factoring out $w_{R,C}$. A downward transition multiplies $-n$ by $\rho$, giving $-m$. Exchange terms preserve $w$. Thus~\eqref{eq:master} is precisely
+\[
+ m\diag(b)w+H\diag(\Delta)w=0.
+\]
+Because $\Gamma=xb$, equation~\eqref{eq:K} therefore satisfies
+\[
+ \boxed{\ K(A,x)w=0.\ }
+\]
+This proves the theorem for a balanced matrix, including all vanishing-minor cases and the dimensions $m=1$ or $n=1$.
+
+\section{Undoing the diagonal scaling}
+For positive diagonal scalings $A'=D_\alpha A D_\beta$, both $\Delta_{R,C}$ and $\Gamma_{R,C}$ are multiplied by the same positive number
+\[
+ c_{R,C}=\alpha_1\beta_1\prod_{i\in R}\alpha_i\prod_{j\in C}\beta_j.
+\]
+Consequently, at any fixed scalar $z$,
+\[
+ K(A',z)=K(A,z)\diag(c).
+\]
+Take $A'=\Sink(A)$ and $z=x$. The preceding section gives $K(A',x)w=0$, so
+\[
+ K(A,x)\diag(c)w=0.
+\]
+The vector on the right is nonzero. Hence $K(A,x)$ is singular, proving Theorem~\ref{thm:main} in full. Equivalently, its determinant differs from that of the balanced matrix only by a nonzero diagonal-scaling factor.
+
+\section{Arbitrary target margins}
+The same argument supplies the generalized entries asked for in Rowland--Wu, Section 5~\cite{rw}. Let the positive row margins be $r_1,\ldots,r_m$, the positive column margins be $c_1,\ldots,c_n$, and let their common total be $\tau$. In this section $x$ is the $(1,1)$ entry of the corresponding Kruithof limit. Retain $\Delta,\Gamma,\D$ from Section 1. Define $G=G(r,c)$ by
+\[
+ G_{(R,C),(R,C)}=\sum_{i\in R}r_i+\sum_{j\in C}c_j-\tau,
+\]
+and by the same four signed transitions as before, but with the following weights:
+\begin{align*}
+ G_{(R,C),(R+s,C+t)}&=(-1)^{\pos_s(R+s)+\pos_t(C+t)},\\
+ G_{(R,C),(R-s,C-t)}&=-(-1)^{\pos_s(R)+\pos_t(C)}r_s c_t,\\
+ G_{(R,C),(R,C-s+t)}&=(-1)^{\pos_s(C)+\pos_t(C-s+t)}c_s,\\
+ G_{(R,C),(R-s+t,C)}&=(-1)^{\pos_s(R)+\pos_t(R-s+t)}r_s.
+\end{align*}
+All other off-diagonal entries are zero.
+\begin{theorem}\label{thm:margins}
+For every positive matrix and every pair of positive compatible margins,
+\[
+ \det\left(\diag(\Gamma)+\frac{x}{r_1c_1}G(r,c)\diag(\Delta)\right)=0.
+\]
+If the input matrix itself has the prescribed margins, the vector of all ones is a null vector of the displayed matrix.
+\end{theorem}
+\begin{proof}
+For an already balanced input write $A=\left(\begin{smallmatrix}x&h^{\mathsf T}\\g&B\end{smallmatrix}\right)$ and $T=B-gh^{\mathsf T}/x$. Let $r_-$ and $c_-$ be the margin vectors with their first coordinates deleted. Direct summation gives
+\[
+ T\one=r_--\frac{r_1}{x}g,\qquad
+ \one^{\mathsf T}T=c_-^{\mathsf T}-\frac{c_1}{x}h^{\mathsf T},\qquad
+ s(T)=\tau-\frac{r_1c_1}{x}.
+\]
+Consequently
+\[
+ B=T+\frac{x}{r_1c_1}(r_--T\one)(c_-^{\mathsf T}-\one^{\mathsf T}T).
+\]
+The weighted versions of Lemma~\ref{lem:four} follow by exactly the same cofactor and replacement arguments. In detail, $Df[r_-c_-^{\mathsf T}]$ is the lowering sum with weights $r_s c_t$; $Df[(T\one)c_-^{\mathsf T}]$ is the column-exchange sum with deleted-column weight $c_s$, plus $(\sum_{s\in C}c_s)f$; and $Df[r_-(\one^{\mathsf T}T)]$ is the row-exchange sum with deleted-row weight $r_s$, plus $(\sum_{s\in R}r_s)f$. The fourth derivative remains $s(T)f-Uf$.
+
+Insert these four expressions in the rank-one determinant update. The term $f$ cancels the contribution $-x(r_1c_1)^{-1}(r_1c_1/x)f$. Using $\Delta=xf$ gives, coordinate by coordinate,
+\[
+ r_1c_1\det B_{R,C}+(G\Delta)_{R,C}=0.
+\]
+Multiply by $x/(r_1c_1)$ to obtain the asserted null-vector identity. Finally undo the diagonal scaling as in Section 4: $\Delta$ and $\Gamma$ have identical covariance factors, so singularity is preserved.
+\end{proof}
+
+\section{An exterior-power explanation of the coefficient sums}
+Put $p=m-1$, $q=n-1$, $d=p+q$, and $N=\binom d p$. Assume $d\geq1$ for now. Set
+\[
+ u=(-\one_p,c_2,\ldots,c_n)^{\mathsf T},\qquad
+ v=(r_2,\ldots,r_m,\one_q)^{\mathsf T},\qquad E=uv^{\mathsf T}.
+\]
+Here $v^{\mathsf T}u=r_1-c_1$. For a linear map $E$ on $\mathbb R^d$, its \emph{additive $p$th compound} $E^{[p]}$ is the linear map on $\bigwedge^p\mathbb R^d$ defined by
+\[
+ E^{[p]}(z_1\wedge\cdots\wedge z_p)
+ =\sum_{j=1}^p z_1\wedge\cdots\wedge Ez_j\wedge\cdots\wedge z_p.
+\]
+For $p=0$ this map is zero on the one-dimensional zeroth exterior power. Associate $(R,C)\in\D$ with the $p$-element subset
+\[
+ S(R,C)=\bigl(\{1,\ldots,p\}\setminus\{i-1:i\in R\}\bigr)
+ \ \cup\ \{p+j-1:j\in C\}.
+\]
+This is a bijection with the standard exterior basis indices. Let $J$ be the diagonal sign matrix whose coordinate at an order-$k$ minor is
+\[
+ J_{R,C}=(-1)^{\sum_{i\in R}(i-1)+(p+1)k+k(k-1)/2}.
+\]
+In the exterior basis ordered by $S(R,C)$, the following identity holds:
+\begin{equation}\label{eq:compound}
+ \boxed{\quad G=J E^{[p]}J-r_1I.\quad}
+\end{equation}
+To check it, a diagonal compound entry is the sum of $E_{ii}$ over the selected indices. This gives $-\sum_{i\notin R,\ i\ne1}r_i+\sum_{j\in C}c_j$, which becomes the required diagonal after subtracting $r_1$. An off-diagonal compound entry replaces one selected index by one unselected index, with its exterior reordering sign. Replacements between the two blocks give the upward and downward transitions; replacements within a block give the row and column exchanges. Substitution of $J_{R,C}$ gives exactly the four signs and weights defining $G$.
+
+\begin{theorem}\label{thm:coeffsum}
+For $m+n\geq3$, put
+\[
+ N_1=\binom{m+n-3}{m-2},\qquad N_2=\binom{m+n-3}{m-1},
+\]
+where an out-of-range lower argument gives zero. Then
+\begin{equation}\label{eq:char}
+ \det(tI-G)=(t+c_1)^{N_1}(t+r_1)^{N_2}.
+\end{equation}
+In particular $G$ is invertible. If the principal-minor coefficients in Theorem~\ref{thm:margins} are normalized so that the coefficient on the full set $\D$ equals one, their sum by cardinality is
+\[
+ \boxed{\quad
+ \sum_{\mathcal S\subseteq\D}
+ \frac{\det((r_1c_1)^{-1}G_{\mathcal S})}
+ {\det((r_1c_1)^{-1}G)}\,z^{|\mathcal S|}
+ =(z-r_1)^{N_1}(z-c_1)^{N_2}.\quad}
+\]
+\end{theorem}
+\begin{proof}
+When $r_1\ne c_1$, the rank-one matrix $E$ has eigenvalues $r_1-c_1$ once and zero $d-1$ times. Its additive compound has eigenvalue $r_1-c_1$ on the exterior products containing the first eigenvector, with multiplicity $\binom{d-1}{p-1}=N_1$, and zero on those not containing it, with multiplicity $\binom{d-1}{p}=N_2$. Equation~\eqref{eq:compound} proves~\eqref{eq:char}. For $r_1=c_1$ the same identity follows by continuity; alternatively, writing the compound as $u\wedge\iota_v$ shows directly that its square is $(v^{\mathsf T}u)E^{[p]}=0$, so all its eigenvalues are zero.
+
+The principal-minor expansion gives the numerator sum as $\det(I+z(r_1c_1)^{-1}G)$. Divide by $\det((r_1c_1)^{-1}G)$ and apply~\eqref{eq:char} to obtain the displayed polynomial.
+\end{proof}
+The theorem gives the generalized-entry formula and proves the corresponding coefficient-sum assertion in Rowland--Wu Conjecture 34. It includes Conjecture 11 for square unit margins. The one-by-one case is direct: the normalized polynomial is $z-r_1=z-c_1$.
+
+\section{Complementary coefficient symmetry for square matrices}
+Let $m=n\geq2$ and all margins equal one, so $G=H/n$. Let $\kappa(R,C)$ complement both sets in $\{2,\ldots,n\}$, let $P_\kappa$ be its permutation matrix, and put
+\[
+ Q_{R,C}=(-1)^{\sum_{i\in R}i+\sum_{j\in C}j}.
+\]
+Here $Q$ denotes a diagonal sign matrix. From~\eqref{eq:compound}, or from $(u\wedge\iota_v)^2=0$, we have
+\[
+ (G+I)^2=0,\qquad G^{-1}=-G-2I.
+\]
+Checking the four transitions under set complementation also gives
+\[
+ QP_\kappa G P_\kappa Q=-G-2I=G^{-1}.
+\]
+For example complementation interchanges raising and lowering, and the two position sums change by the sum of the inserted row and column indices; the signs in $Q$ compensate for that change. Exchanges have the same complementary-position sign rule. The diagonal of the complemented matrix is $2(n-1-k)-n=-2-(2k-n)$.
+
+Since $N=\binom{2n-2}{n-1}$ is even, Theorem~\ref{thm:coeffsum} gives $\det G=1$. Jacobi's complementary principal-minor identity now yields
+\[
+ \det G_{\mathcal S}
+ =\det G\,\det(G^{-1})_{\D\setminus\mathcal S}
+ =\det G_{\kappa(\D\setminus\mathcal S)}.
+\]
+Thus the determinant coefficients also satisfy Rowland--Wu Conjecture 10. This assertion concerns the specified principal-minor coefficients, without requiring uniqueness among all possible representations by products of minors.
+
+\section{A nonzero specialization and the degree bound}
+The determinant in Theorem~\ref{thm:margins} can vanish identically as a polynomial in $z$ at degenerate inputs. Nevertheless it also gives a nonzero annihilating polynomial of degree at most $N$ for every positive input. This recovers the algebraic-degree conclusion also stated by Fang~\cite{fang}; the exact coefficient formula, rather than that bound alone, is the main result here.
+
+Let $F$ be the field generated by the entries of $A,r,c$. Choose a positive rational Cauchy matrix $C$, so every square minor of $C$ is nonzero, and replace $A$ by $A+\varepsilon C$. The determinant polynomial $P(\varepsilon,z)\in F[\varepsilon,z]$ is nonzero: its coefficient of $z^N$ is a nonzero constant times $\prod_{(R,C)\in\D}\Delta_{R,C}(A+\varepsilon C)$, and each factor has nonzero leading coefficient in $\varepsilon$. Divide $P$ by the largest common power $\varepsilon^\nu$ of its coefficients. The result $Q$ satisfies $Q(0,z)\ne0$ and has $z$-degree at most $N$.
+
+Let $x_\varepsilon$ be the corresponding Kruithof entry. We have $Q(\varepsilon,x_\varepsilon)=0$ for $\varepsilon>0$. For clarity, continuity of the scaled matrix follows directly from compactness and cross ratios. The scaled matrices belong to the compact transportation polytope with the fixed positive margins. In any subsequential limit a zero entry $s_{ij}=0$ would contradict a cross-ratio identity: choose $j'$ with $s_{ij'}>0$ and $i'$ with $s_{i'j}>0$, which exist by the margins, and pass to the limit in the identities for the perturbed matrices. Writing $A^{(\varepsilon)}=A+\varepsilon C$ and $S^{(\varepsilon)}$ for its scaled matrix, these identities are
+\[
+ s^{(\varepsilon)}_{ij}s^{(\varepsilon)}_{i'j'}=
+ \frac{a^{(\varepsilon)}_{ij}a^{(\varepsilon)}_{i'j'}}{a^{(\varepsilon)}_{ij'}a^{(\varepsilon)}_{i'j}}s^{(\varepsilon)}_{ij'}s^{(\varepsilon)}_{i'j}.
+\]
+The limiting input entries are all positive. Thus the limit is positive, has the same cross ratios as $A$, and is diagonally equivalent to $A$. Uniqueness of positive scaling identifies it with the Kruithof limit of $A$. Consequently $x_\varepsilon\to x_0$, and $Q(0,x_0)=0$. This supplies a nonzero polynomial over $F$ of degree at most $N$, even when the original determinant specializes to zero identically.
+
+\section{Scope and verification}
+The theorem establishes the exact coefficient identity in NM-04, not merely an upper bound on the algebraic degree. At inputs for which the displayed polynomial is identically zero because of vanishing minors, the identity is still valid. No claim that this particular polynomial is nonzero for every positive input is required or made.
+
+The accompanying exact-arithmetic verifier checks the four minor identities independently, constructs the matrix directly from all four cases in the catalog definition, checks its stated null vector on rational balanced matrices of several square and rectangular sizes, and checks covariance under positive diagonal scaling. The additional arbitrary-margin verifier checks the weighted null vector and the exterior-compound formula in square and rectangular dimensions. As an external check, \texttt{verification/verify\_nm04\_kruithof.py} applies the formula to the $4\times4$ Kruithof example in~\cite[Example 32]{rw}. Its primitive degree-20 polynomial agrees exactly with all four coefficients printed there and is irreducible over $\mathbb Q$; the complete polynomial is supplied in the certificate files. These computations do not substitute for the proof. Finite checks are supplementary; the proof above applies in every dimension. This manuscript is a complete solution draft, pending independent mathematical review.
+
+\begin{thebibliography}{9}
+\bibitem{rw} E. Rowland and J. Wu, \emph{The entries of the Sinkhorn limit of an $m\times n$ matrix}, arXiv:2409.02789v2, 25 May 2025, Conjecture 2.
+\url{https://arxiv.org/html/2409.02789v2}.
+\bibitem{fang} M. C. Fang, \emph{Closed Form of a Generalized Sinkhorn Limit}, arXiv:2506.06338v2, 17 June 2025. The algebraic-degree bound is stated there; our proof uses the explicit determinant formula.
+\url{https://arxiv.org/abs/2506.06338v2}.
+\bibitem{catalog} A. Townsend, \emph{Open Problems in Numerical Linear Algebra}, problem NM-04, canonical statement checked 10 September 2026 and accessed 11 September 2026.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/nonnegative-and-positive-factorizations/NM-04}.
+\end{thebibliography}
+\end{document}

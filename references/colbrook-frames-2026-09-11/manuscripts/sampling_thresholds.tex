@@ -1,0 +1,307 @@
+% Reviewed source SHA256 (UTF-8/LF): 1412478dd874f64675071687d89e1cb73a729e03a5c307844276138f79ad902e
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,booktabs,microtype}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\F}{\mathbb F}\newcommand{\R}{\mathbb R}\newcommand{\C}{\mathbb C}
+\newcommand{\E}{\mathbb E}\newcommand{\Prob}{\mathbb P}
+\newcommand{\Var}{\operatorname{Var}}\newcommand{\KL}{\operatorname{D}}
+\title{Sharp sampling thresholds in low-sparsity and full-sparsity regimes}
+\author{Matthew J. Colbrook\\\small Department of Applied Mathematics and Theoretical Physics\\\small University of Cambridge, Cambridge, United Kingdom\\\small\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}\date{11 September 2026}
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\hypersetup{pdfauthor={Matthew J. Colbrook}}
+\begin{document}\maketitle
+
+\noindent\textbf{Independently reviewed partial result.} These are fixed low-sparsity Walsh and full or nearly-full sampling regimes only. Theorem 2 uses complex vectors for complex unitary matrices and real vectors for real orthogonal matrices.
+The dated \href{https://github.com/MColbrook/OpenProblemsInNLA/blob/codex/colbrook-frames-submissions/references/colbrook-frames-2026-09-11/verification/reviews/sampling-review.md}{independent agent review} records the subsequent checks and supersedes original draft remarks about pending review. This is not external human peer review or formal certification.
+\par\medskip
+% BEGIN REVIEWED BODY
+
+\begin{abstract}
+We derive sharp leading constants for restricted isometry of uniformly sampled Walsh rows at sparsities two, three and four, with sampling with replacement and distortion $1/2$. For $N=2^d$, the respective critical sample sizes are asymptotic to $5.2988\,d$, $16.700\,d$ and $36.387\,d$. A balanced four-cell type argument handles the dependence between codimension-two affine-subspace events. We also give the sharp full-sparsity threshold for row sampling of any unitary matrix, and extend its leading constant to $s=N-o(N)$ for flat unitary matrices. These are partial regimes of FR-02 and FR-10; they do not determine the sample complexity throughout the full range of sparsities. The elementary occupancy and random-code arguments are not asserted to be historically new.
+\end{abstract}
+
+\section{Model and statements}
+Let $N=2^d$ and index the normalized Walsh matrix by $a,v\in\F_2^d$:
+\[
+ H_{a,v}=N^{-1/2}(-1)^{a\cdot v}.
+\]
+Choose $a_1,\ldots,a_m$ independently and uniformly, with replacement, and put
+$A_{i,v}=m^{-1/2}(-1)^{a_i\cdot v}$. Write
+\[
+ \delta_k(A)=\sup_{0<\|x\|_0\le k}
+ \left|\frac{\|Ax\|_2^2}{\|x\|_2^2}-1\right|,
+\]
+where the supremum is over real vectors. For a fixed $\tau\in(0,1)$, let $m_k(d;\tau)$ be the smallest positive integer $m$ for which
+$\Prob(\delta_k(A)\le1/2)\ge\tau$. All logarithms below are natural, and
+\[
+ \KL(q\Vert p)=q\log\frac qp+(1-q)\log\frac{1-q}{1-p}.
+\]
+
+\begin{theorem}\label{thm:low}
+For every fixed $\tau\in(0,1)$,
+\[
+ m_1(d;\tau)=1,\qquad
+ \frac{m_k(d;\tau)}d\longrightarrow C_k\quad(k=2,3,4),
+\]
+where
+\begin{align*}
+ C_2&=\frac{\log2}{\KL(3/4\Vert1/2)},\\
+ C_3&=\frac{2\log2}{\KL(7/16\Vert1/4)},\\
+ C_4&=\frac{2\log2}{\KL(3/8\Vert1/4)}.
+\end{align*}
+More precisely, for each $k=2,3,4$ and each $\eta>0$, the success probability tends to zero uniformly for $m\le(C_k-\eta)d$, and tends to one for $m\ge(C_k+\eta)d$.
+\end{theorem}
+
+In particular this addresses the fixed-sparsity cases $k=2,3,4$ of FR-10, including its specified success probability $0.9$. The general-sparsity problem remains different: known lower bounds for subsampled Hadamard matrices involve $k\log k\log(N/k)$, while sharper uniform upper bounds throughout the range require more than the fixed-dimensional arguments here~\cite{BLM,HR}.
+
+\begin{theorem}\label{thm:full}
+Let $U_N$ be any $N\times N$ unitary matrix and let $A$ consist of $m$ independently and uniformly selected rows, with replacement, scaled by $\sqrt{N/m}$. Fix $0<\delta<1$ and $0<\tau<1$. The smallest $m$ giving full-space distortion at most $\delta$ with probability at least $\tau$ satisfies
+\[
+ m_{\mathrm{full}}(N;\delta,\tau)\sim
+ \frac{N\log N}{h_+(\delta)},\qquad
+ h_+(\delta)=(1+\delta)\log(1+\delta)-\delta.
+\]
+If every entry of $U_N$ has modulus $N^{-1/2}$, the same asymptotic formula holds for $s$-sparse distortion whenever $s=N-o(N)$.
+\end{theorem}
+
+For the Fourier target FR-02 one substitutes $\delta=1/3$, $\tau=2/3$. For the Walsh target FR-10 one substitutes $\delta=1/2$, $\tau=0.9$. These assertions concern the sampling-with-replacement model; sampling without replacement has different full-sparsity behavior.
+
+\section{Balanced type counts on affine codimension-two subspaces}
+The following second-moment lemma is useful because unrestricted high-occupancy events can be too correlated.
+
+\begin{lemma}\label{lem:types}
+Fix $q\in(1/4,1)$ and define
+\[
+ I(q)=\KL(q\Vert1/4),\qquad
+ J(q)=\KL\left(\frac{1+2q}{3}\,\middle\Vert\,\frac12\right).
+\]
+Suppose $m\to\infty$, $m=O(\log N)$, and
+\[
+ \limsup\frac{m}{\log N}<\min\left\{\frac2{I(q)},\frac1{J(q)}\right\}.
+\]
+Then, with probability tending to one, some affine codimension-two subspace contains $qm+o(m)$ sampled rows, and each of its other three parallel cosets contains $(1-q)m/3+o(m)$ sampled rows.
+\end{lemma}
+\begin{proof}
+Choose an integer $k_0$ nearest $qm$ subject to $k_0\equiv m\pmod3$, and put $\ell=(m-k_0)/3$. For each two-dimensional subspace $V$ of the character space and each of its four affine label choices, consider the event that the distinguished cell has exactly $k_0$ samples and each other cell has exactly $\ell$ samples. There are
+\[
+ L=4{d\brack2}_2=\frac23(N-1)(N-2)
+\]
+such events, each having probability
+\[
+ p=\frac{m!}{k_0!\,\ell!^3}\,4^{-m}
+   =\exp\{-mI(q)+O(\log m)\}.
+\]
+Let $Z$ count them.
+
+Two events whose character subspaces intersect trivially are independent: the four relevant linear functionals of each uniformly sampled row are independent bits. If two distinct character subspaces share one nonzero character, each type event forces the number of rows with the favored value of that character to be
+\[
+ k=k_0+\ell=\frac{1+2q}{3}m+O(1).
+\]
+If the favored values disagree, the events are disjoint for sufficiently large $m$. If the favored values agree, conditioning on the entire common bit sequence makes the remaining two character sequences independent. Hence their joint probability is exactly
+\[
+ \frac{p^2}{s},\qquad
+ s=\binom mk 2^{-m}=\exp\{-mJ(q)+O(\log m)\}.
+\]
+Events for the same character subspace but different distinguished cells are also disjoint, since $k_0\ne\ell$ for large $m$.
+
+For a fixed two-dimensional character subspace, there are $3(N/2-2)$ other such subspaces meeting it in a line. Each has two compatible label choices. Thus each event has at most $3N$ potentially positively correlated partners. It follows that
+\[
+ \frac{\Var Z}{(\E Z)^2}\le\frac1{Lp}+\frac{3N}{Ls}.
+\]
+Both terms tend to zero by the strict hypotheses. Chebyshev's inequality now gives $\Prob(Z=0)\to0$.
+\end{proof}
+
+\begin{remark}
+The exact type restriction is substantive. It controls all three one-character marginals of each two-character event. Merely counting cells above an occupancy threshold does not give the same second-moment bound, because pairs sharing one character may concentrate their mass on that common marginal.
+\end{remark}
+
+\section{The two-sparse threshold}
+The case $k=1$ is immediate because every column of $A$ has norm one. For $v\ne0$ let
+\[
+ r_v=\frac1m\sum_{i=1}^m(-1)^{a_i\cdot v}.
+\]
+Every two-column Gram matrix has off-diagonal entry $r_v$ for an appropriate nonzero $v$, so $\delta_2(A)=\max_{v\ne0}|r_v|$. For each $v$, the count of negative signs is binomial with parameters $(m,1/2)$, and
+\[
+ p_m=\Prob(|r_v|>1/2)=\exp\{-m\KL(3/4\Vert1/2)+O(\log m)\}.
+\]
+Distinct nonzero $v,w$ are linearly independent over $\F_2$, so their complete sign sequences, and therefore their bad-event indicators, are independent. The union bound proves the upper threshold, and the variance bound $\Var Z\le\E Z$ for the number of bad nonzero characters proves the lower threshold. For $m<d$, the sampled rows have a nonzero common annihilating character, and $\delta_2(A)=1$ deterministically. These observations also make the lower threshold uniform over all smaller sample sizes, as required for the minimum in Theorem~\ref{thm:low}.
+
+\section{The three-sparse threshold}
+Every three-point support, after translating the frequency indices, has the form $\{0,a,b\}$ with $a,b$ linearly independent. Multiplying each measurement row by a sign does not change its Gram matrix, so at most $N^2$ translated Gram types need to be considered.
+
+\subsection{Upper bound for positive deviations}
+We first record a scalar moment-generating-function bound.
+
+\begin{lemma}\label{lem:mgf}
+If $\epsilon_1,\epsilon_2,\epsilon_3$ are independent uniform signs and $\sum x_j^2=1$, then for every $t\ge0$,
+\[
+ \E\exp\left(t\Bigl(\sum_{j=1}^3x_j\epsilon_j\Bigr)^2\right)
+ \le\frac14e^{3t}+\frac34e^{t/3}.
+\]
+\end{lemma}
+\begin{proof}
+For fixed $s\ge0$, the function $u\mapsto\log\cosh(s\sqrt u)$ is concave on $u\ge0$: its derivative is proportional to $\tanh v/v$, which is decreasing for $v>0$. If $G$ is a standard real Gaussian, the Gaussian exponential identity and independence give
+\[
+ \E_\epsilon e^{t(\sum x_j\epsilon_j)^2}
+ =\E_G\prod_{j=1}^3\cosh(\sqrt{2t}\,Gx_j)
+ \le\E_G\cosh(\sqrt{2t/3}\,G)^3.
+\]
+The last expression is the same moment-generating function with all $|x_j|=1/\sqrt3$. The square then equals $3$ with probability $1/4$ and $1/3$ with probability $3/4$.
+\end{proof}
+
+For a fixed unit vector on a three-point support, the squared measurement before the $m^{-1}$ normalization has the same law as the random variable in Lemma~\ref{lem:mgf}. An extra independent global sign converts $(1,\epsilon_a,\epsilon_b)$ into three independent signs without changing its square. Chernoff's inequality therefore gives
+\[
+ \Prob(\|Ax\|_2^2>1+u)\le
+ \exp\left\{-m\KL\left(\frac14+\frac{3u}{8}\,\middle\Vert\,\frac14\right)\right\}.
+\]
+At $u=1/2$ the exponent is $I_3:=\KL(7/16\Vert1/4)$.
+
+\subsection{Negative deviations and passage to all vectors}
+For $X=(\sum_{j=1}^3x_j\epsilon_j)^2$, we have $\E X=1$ and
+\[
+ \E X^2=3-2\sum_jx_j^4\le\frac73.
+\]
+Thus $1-X\le1$ and $\Var X\le4/3$. The one-sided Bernstein inequality gives
+\[
+ \Prob(\|Ax\|_2^2<1-u)
+ \le\exp\left\{-\frac{mu^2}{2(4/3+u/3)}\right\}.
+\]
+At $u=1/2$ its exponent is $1/12$, strictly larger than $I_3$. This inequality uses only an upper bound on $1-X$, not an incorrect two-sided bound $|1-X|\le1$.
+
+Each three-column Gram matrix has trace three and is positive semidefinite, so its difference from the identity has norm at most two. A net of mesh $1/m$ in the unit sphere has $O(m^3)$ points and approximates every quadratic value within $4/m$. Taking the union over the net and over at most $N^2$ Gram types proves
+\[
+ \Prob(\delta_3(A)>1/2)\le
+ N^2\operatorname{poly}(m)\exp\{-m(I_3-o(1))\}.
+\]
+It tends to zero when $m/\log N>2/I_3$ by a fixed amount.
+
+\subsection{Matching lower bound}
+For a codimension-two coset specified by $\chi_a=\alpha$, $\chi_b=\beta$, use the three-sparse unit vector with coefficients $(1,\alpha,\beta)/\sqrt3$ on $\{0,a,b\}$. Its squared row response equals three on that coset and $1/3$ elsewhere. If the coset frequency is $q$, its empirical energy is
+\[
+ \frac13+\frac83q.
+\]
+This exceeds $3/2$ precisely when $q>7/16$. At $q_3=7/16$ the rate $I(q_3)$ is $I_3$, and
+\[
+ 2J(q_3)<I(q_3).
+\]
+Indeed
+\[
+ 16\{I(q_3)-2J(q_3)\}
+ =\log\frac{7^7\,2^{32}}{3^3\,5^{20}}>0.
+\]
+For every $c<2/I_3$, continuity allows $q>q_3$ sufficiently close to $q_3$ that $cI(q)<2$ and $cJ(q)<1$. Lemma~\ref{lem:types} then gives a violating vector with probability tending to one whenever $m\le c\log N$ and $m\ge d$. Together with the deterministic failure for $m<d$, this proves the claimed uniform lower threshold.
+
+\section{The four-sparse threshold}
+A four-point support has affine rank two or three. Rank-two supports are affine planes, and after frequency translation contain all four characters of a two-dimensional binary space. Their Gram eigenvalues are exactly
+\[
+ \frac{4C_0}{m},\quad\frac{4C_1}{m},\quad\frac{4C_2}{m},\quad\frac{4C_3}{m},
+\]
+where the $C_j$ count samples in the four dual cosets. There are $O(N^2)$ such Gram types. The upper-tail rate at distortion $1/2$ is
+\[
+ I_4=\KL(3/8\Vert1/4).
+\]
+The lower-tail rate $\KL(1/8\Vert1/4)$ is strictly larger. Thus the union bound handles every affine-plane support once $m/\log N>2/I_4$.
+
+For affine-rank-three supports, translate to $\{0,a,b,c\}$ with $a,b,c$ independent. There are at most $N^3$ translated Gram types. Every fixed unit vector has squared response distributed as the square of a sum of four independent signs with real coefficients of squared sum one. Here
+\[
+ X\le4,\qquad \E X=1,\qquad
+ \Var X\le\frac32.
+\]
+The positive-deviation Bernstein exponent at $u=1/2$ is $1/16$, using $X-1\le3$; the negative-deviation exponent is $3/40$, using $1-X\le1$. A sphere net gives a bound
+\[
+ N^3\operatorname{poly}(m)\exp\{-m(1/16-o(1))\}
+\]
+for failure among all affine-rank-three supports. This tends to zero at the affine-plane threshold because
+\[
+ I_4<\frac1{24},\qquad \frac2{I_4}>48=3\cdot16.
+\]
+Supports of fewer than four points are contained in four-point supports and need no separate upper estimate.
+
+For the lower bound, a flat signed vector supported on all four characters of a plane has squared row response four on one coset and zero elsewhere. A coset frequency $q>3/8$ therefore violates the upper isometry inequality. At $q_4=3/8$,
+\[
+ 24\{I(q_4)-2J(q_4)\}
+ =\log\frac{2^{24}3^{42}}{5^5 7^{28}}>0.
+\]
+Lemma~\ref{lem:types}, followed by the same continuity and uniformity argument as for three-sparse vectors, supplies the matching lower threshold.
+
+\subsection{Exact checks on the rate comparisons}
+For completeness, the strict numerical-looking comparisons used above admit short rational certificates. From
+\[
+ \log\frac{1+t}{1-t}=2\sum_{j=0}^\infty\frac{t^{2j+1}}{2j+1}\quad(0<t<1),
+\]
+we obtain
+\[
+ \log(7/4)\le\frac{345}{616},\qquad
+ \log(4/3)\ge\frac{296}{1029},
+\]
+and hence
+\[
+ I_3\le\frac{40191}{482944}<\frac1{12}.
+\]
+Likewise $\log(3/2)\le73/180$ and $\log(6/5)\ge2/11$ give
+\[
+ I_4\le\frac{203}{5280}<\frac1{24}.
+\]
+The two inequalities involving $I-2J$ reduce to the displayed strict comparisons of positive integers. No floating-point test is needed in the proof.
+
+\section{Full and nearly full sparsity for a flat unitary}
+Let $C_j$ be the number of times row $j$ is sampled. Then
+\[
+ A^*A=U_N^*\operatorname{diag}\left(\frac{NC_j}{m}\right)U_N,
+\]
+so the full-space distortion is exactly
+\[
+ \max_j\left|\frac{NC_j}{m}-1\right|.
+\]
+Set $\lambda=m/N$ and
+\[
+ h_-(\delta)=(1-\delta)\log(1-\delta)+\delta.
+\]
+The binomial Chernoff bounds and a union bound give
+\[
+ \Prob(\delta_N(A)>\delta)\le
+ N e^{-\lambda h_+(\delta)}+N e^{-\lambda h_-(\delta)}.
+\]
+For $0<\delta<1$, $h_-(\delta)>h_+(\delta)$: the derivative of their difference is $-\log(1-\delta^2)>0$ and their difference vanishes at zero. This proves the upper threshold in Theorem~\ref{thm:full}.
+
+For the lower threshold, count rows for which $C_j>(1+\delta)\lambda$. When $1/2\le\lambda=O(\log N)$, a single binomial mass at the first integer above that threshold and Stirling's inequalities give, uniformly,
+\[
+ p_N:=\Prob(C_1>(1+\delta)\lambda)
+ \ge\exp\{-\lambda h_+(\delta)-O(\log(\lambda+2))\}.
+\]
+The high-occupancy indicators for distinct cells are negatively correlated. One elementary proof conditions on $C_i$: given $C_i=k$, the other count is binomial with parameters $(m-k,1/(N-1))$, so its upper-tail probability is decreasing in $k$. Its covariance with the increasing indicator for $C_i$ is therefore nonpositive. Consequently, if $Z$ counts overloaded rows,
+\[
+ \Var Z\le\E Z=Np_N,\qquad
+ \Prob(Z=0)\le\frac1{Np_N}.
+\]
+For $m\le(1-\eta)N\log N/h_+(\delta)$, this tends to zero uniformly over $m\ge N$. For $m<N$, full-space isometry fails by rank. This also justifies the assertion about the smallest sample size, without assuming that normalized finite-$m$ success probabilities are literally monotone.
+
+Now suppose $U_N$ is flat and $s=N-o(N)$. For each row $j$, truncate the conjugate of that row to any $s$ coordinate positions and normalize the resulting vector. The squared response of row $j$ to that $s$-sparse unit vector, after the sampling normalization, is $s/m$ per occurrence. Therefore upper restricted isometry implies
+\[
+ C_j\le\frac{(1+\delta)m}{s}\qquad\text{for every }j.
+\]
+In units of $\lambda=m/N$, this is a threshold $1+\delta_N'$ where
+\[
+ \delta_N'=\frac{(1+\delta)N}{s}-1\longrightarrow\delta.
+\]
+The same overload argument, uniformly for this convergent sequence of distortions, gives the full-sparsity lower leading constant. The full-space upper bound is also an $s$-sparse upper bound. For $m<s$ rank again forces failure, so the minimal-sample assertion is valid. This completes Theorem~\ref{thm:full}.
+
+\section{Scope and verification}
+The proofs establish sharp leading constants, not exact finite-dimensional sample counts. They leave open intermediate sparsities growing with $N$ in FR-02 and FR-10. The balanced type argument is related to random linear codes and generalized support weights; an exhaustive priority review of that literature has not been completed. These results should therefore be described as independently derived partial-regime theorems rather than as resolutions of the full repository targets or as unqualified first results.
+
+The accompanying script checks the rational inequalities, integer comparisons, pair-type probability identity, and small-dimensional exhaustive Walsh calculations. Simulations are supplementary and are not used as asymptotic proofs.
+
+\begin{thebibliography}{9}
+\bibitem{Repo} OpenProblemsInNLA, \emph{Frames and matrix designs}, entries FR-02 and FR-10. \url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/frames-and-matrix-designs}.
+\bibitem{HR} I. Haviv and O. Regev, \emph{The restricted isometry property of subsampled Fourier matrices}, Proceedings of SODA 2016. \url{https://doi.org/10.1137/1.9781611974331.ch22}.
+\bibitem{BLM} J. B\l{}asiok, P. Lopatto, K. Luh, J. Marcinek and S. Rao, \emph{An improved lower bound for sparse reconstruction from subsampled Walsh matrices}, preprint, 2019; revised 2023. \url{https://arxiv.org/abs/1903.12135}.
+\end{thebibliography}
+\end{document}
+
+% END REVIEWED BODY

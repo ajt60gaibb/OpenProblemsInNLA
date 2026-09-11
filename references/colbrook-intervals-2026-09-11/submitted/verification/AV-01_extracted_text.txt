@@ -1,0 +1,144 @@
+    Recognizing the maximum finite number of solutions of an
+                    absolute value equation
+                  Repository AV-01. Claimed resolution; independent review pending.
+
+
+
+                                                Abstract
+           For rational A ∈ Rn×n and b ∈ Rn , we give a polynomial-time test for whether Ax+|x| =
+       b has exactly 2n distinct solutions. The test uses n+1 rational linear-programming feasibility
+       problems. No nonsingularity or spectral-radius promise is required; infinite solution sets are
+       rejected. The proof characterizes the maximum finite solution count by the geometry of a
+       polytope with paired inequalities.
+
+
+1     Statement and relation to the problem
+Absolute values and inequalities are componentwise. Put Dd = diag(d) and
+
+                     P = {y : (A + I)y ≤ b, (A − I)y ≤ b},            u(y) = b − Ay.
+
+Thus y ∈ P if and only if u(y) ≥ |y|. The repository asks for polynomial-time recognition of
+exactly 2n solutions, including the possibility of singular systems and infinitely many solutions
+in negative instances [1]. Earlier sufficient assumptions include a spectral-radius restriction [2].
+Theorem 1. The following are equivalent:
+    1. Ax + |x| = b has exactly 2n distinct solutions.
+    2. b > 0, P is bounded, and ui (y) > 0 for every y ∈ P and i = 1, . . . , n.
+
+
+2     Necessity
+In the closed orthant indexed by s ∈ {−1, 1}n , the solution set is
+
+                                    {x : (A + Ds )x = b, Ds x ≥ 0}.
+
+It is convex. A finite such set contains at most one point. Count incidences between solutions
+and closed orthants. If there are exactly 2n solutions, each orthant contains exactly one solution,
+and each solution belongs to exactly one closed orthant. In particular all its coordinates are
+nonzero. Denote the solution by xs = Ds us , where us > 0. The matrix A + Ds is nonsingular:
+otherwise its nullspace would give a nonconstant line segment of solutions in the open orthant.
+Consequently Ns = I + ADs is nonsingular and Ns us = b.
+For d ∈ [−1, 1]n , let
+                                         q(d) = det(I + ADd ),
+and let ri (d) be the determinant obtained by replacing column i of I + ADd by b. Both
+polynomials are multiaffine, and ri does not depend on di . Cramer’s rule gives
+
+                                            ri (s) = q(s)(us )i .
+
+Flipping si leaves the left side unchanged, so the determinants at two adjacent cube vertices
+have the same sign. All cube vertices are connected by such flips. Their determinant average
+is q(0) = 1, hence every q(s) is positive. Every ri (s) is therefore positive as well. Multiaffine
+interpolation yields
+                             q(d) > 0,     ri (d) > 0 (d ∈ [−1, 1]n ).
+
+                                                     1
+At d = 0 this implies bi = ri (0) > 0. The continuous function
+
+                                        u(d) = (I + ADd )−1 b
+
+is strictly positive on the entire cube.
+For any y ∈ P , define u = b − Ay ≥ |y|. Set di = yi /ui when ui > 0, and set di = 0 when ui = 0
+(which also forces yi = 0). Then y = Dd u and (I + ADd )u = b, so u = u(d) > 0. Conversely,
+y = Dd u(d) is in P for every d in the cube. Thus
+
+                                   P = {Dd u(d) : d ∈ [−1, 1]n }.
+
+This is the continuous image of a compact set, and all the asserted slack inequalities hold.
+
+
+3    Sufficiency
+Assume condition 2. The origin satisfies all 2n inequalities strictly, so P is nonempty and full
+dimensional. In pair i, the inequalities are yi ≤ ui (y) and −yi ≤ ui (y). They cannot both be
+active at a feasible point, since that would force yi = ui (y) = 0.
+A vertex of a full-dimensional polytope requires n linearly independent active normals. At most
+one normal per pair can be active. Therefore each vertex has exactly one active inequality from
+each pair, and those n normals are independent. Its coordinates are nonzero, and it is an AVE
+solution.
+We show that the sign patterns of vertices are closed under flipping any one coordinate. Start
+at a vertex and retain its n − 1 active equations from all pairs except pair i. Their common
+nullspace is one dimensional. Choose the direction that strictly relaxes the omitted active
+inequality. A sufficiently small step in this direction is feasible. Boundedness gives a finite last
+feasible point on the resulting ray. At this endpoint some new inequality must become active.
+It cannot be the opposite of any retained inequality, since two members of a pair cannot be
+active together. It cannot be the inequality being strictly relaxed. It must therefore be the
+opposite member of pair i. Its normal is independent of the retained normals, since its value
+changes along the ray. Hence the endpoint is a vertex with exactly sign i flipped.
+A nonempty bounded polytope has a vertex. Repeated flips now produce a vertex in every open
+orthant. For each pattern, its active system is nonsingular, so there is at most one such vertex.
+Conversely, an AVE solution lies in P , is strict in sign, and satisfies one of these nonsingular
+active systems. It equals the corresponding vertex. There are exactly 2n solutions, proving
+Theorem 1.
+
+
+4    The algorithm and bit complexity
+First reject if any bi ≤ 0. Test feasibility of
+
+                        (A + I)r ≤ 0,       (A − I)r ≤ 0,       −1T Ar = 1.                     (1)
+
+Reject if feasible. Indeed, a recession vector satisfies −Ar ≥ |r|. For every nonzero such vector,
+−1T Ar ≥ ∥r∥1 > 0, so it can be scaled to satisfy the last equality. Conversely, any feasible
+vector in (1) is a nonzero recession vector. Since P is already nonempty, this is exactly the
+boundedness test.
+For each i, test feasibility of
+
+                          (A + I)y ≤ b,      (A − I)y ≤ b,      Ai,: y = bi .                   (2)
+
+                                                  2
+Reject if any of these n systems is feasible, and accept otherwise. On P , the final equality is
+precisely ui (y) = 0; all ui are nonnegative there. Theorem 1 proves correctness.
+There are n + 1 feasibility tests, each with n variables, 2n inequalities, and one equality. Their
+rational coefficients have polynomial encoding length in the input. Polynomial-time rational
+linear programming [3] therefore gives a polynomial bit-complexity algorithm. This statement
+concerns exact rational linear programming; floating-point implementations in the accompanying
+tests are only diagnostic.
+Remark 2. Boundedness is essential. For n = 1, A = 2, b = 1, one has P = (−∞, 1/3] and
+1 − 2y > 0 throughout P , but the equation has only one solution.
+
+
+5     An exact example beyond the spectral-radius restriction
+For                                             !
+                                  3 1 1
+                               A=        ,            b = (1, 2)T ,
+                                  5 −1 1
+the four solutions are
+
+          (10/73, 95/73)T ,   (−10/7, 5/7)T ,   (40/7, −95/7)T ,      (−40/13, −5/13)T .
+
+Direct substitution verifies each equation, and the four sign systems are nonsingular. Meanwhile
+|A| has spectral radius 6/5 > 1. This example illustrates that the theorem is not confined to
+the earlier spectral-radius subclass.
+
+
+References
+[1] OpenProblemsInNLA,      problem    AV-01.    https://github.com/ajt60gaibb/
+    OpenProblemsInNLA/tree/main/intervals-and-absolute-value-equations/AV-01.
+
+[2] M. Hladík, Absolute value equations with 2n solutions, Optimization Letters 20 (2026),
+    559–575. https://doi.org/10.1007/s11590-025-02251-z.
+
+[3] N. Karmarkar, A new polynomial-time algorithm for linear programming, Combinatorica 4
+    (1984), 373–395. https://doi.org/10.1007/BF02579150.
+
+
+
+
+                                                3
+

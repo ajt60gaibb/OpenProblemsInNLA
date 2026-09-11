@@ -13,6 +13,8 @@ category folders; the dated notes preserve the scope and limits of earlier check
 - [Literature coverage](SOURCES.md), including books, surveys, historical resolutions and source-access limits.
 - [Screened-out questions](SCREENED-OUT.md), including solution claims, duplicate targets and formulations needing clarification.
 
+- [Independent maintainer review of the second submission batch — September 11, 2026](maintainer-review-2026-09-11-wave2/README.md), with per-PR proof audits, exact-check evidence, scope limits and permanent-ID verification.
+
 ## Source screens
 
 The counts in these dated screens describe the collection at the time of each
@@ -31,3 +33,7 @@ screen. Use [CATALOG.md](../CATALOG.md) for current counts and statuses.
 - [Thirteen matrix-inequality submissions by Matthew J. Colbrook, 11 September 2026](colbrook-matrix-2026-09-11/README.md): ten complete resolutions and three partial results, each with an independent proof review.
 
 - [Transfer and sampling results by Matthew J. Colbrook, 11 September 2026](colbrook-transfer-2026-09-11/README.md): four independently reviewed resolutions, a commuting partial result and auxiliary Gamma counterexamples.
+
+- [Factorization submissions by Matthew J. Colbrook, 11 September 2026](colbrook-factorization-2026-09-11/README.md): five independently reviewed resolutions and two partial family results.
+
+- [Matrix-function submissions by Matthew J. Colbrook (2026-09-11)](colbrook-matrix-functions-2026-09-11/README.md): three independently reviewed resolutions, two partial results, and one auxiliary real-coefficient theorem.

@@ -2,11 +2,21 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Status:** Open  
-**Last checked:** 2026-09-10
+**Status:** Partially resolved  
+**Last checked:** 2026-09-11
 
 **Rating rationale:** The sharp uniform Fourier sampling rate is a longstanding barrier at the interface of harmonic analysis, sparse recovery and fast numerical sketches.
 
+
+<!-- colbrook-frames -->
+## Reviewed submission - 2026-09-11
+
+Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge.
+
+Theorem 2 establishes $m_*(N,s)\sim N\log N/h_+(1/3)$ for $s=N-o(N)$, where $h_+(t)=(1+t)\log(1+t)-t$, in the stated cyclic Fourier model with replacement and complex vectors. It includes $s=N$. This does not give the uniform rate over all sparsities; the Walsh low-sparsity constants do not transfer to arbitrary cyclic Fourier matrices.
+
+See the [manuscript](../../references/colbrook-frames-2026-09-11/manuscripts/sampling_thresholds.pdf), [independent agent review](../../references/colbrook-frames-2026-09-11/verification/reviews/sampling-review.md), and [reproducible submission record](../../references/colbrook-frames-2026-09-11/README.md). Independent agent review is not external human peer review or formal proof-assistant certification. Original problem, ratings and historical audits are retained below.
+<!-- /colbrook-frames -->
 
 Let $F_N\in\mathbb C^{N\times N}$ be the unitary cyclic discrete Fourier matrix,
 $$

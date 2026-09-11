@@ -1,0 +1,149 @@
+ Exact inverse-M interval solution hulls by 2n linear programs
+                   Repository IV-05. Claimed resolution; independent review pending.
+
+
+
+                                                 Abstract
+            For a rational interval matrix whose every member is inverse-M, and an arbitrary rational
+        interval right-hand side, we compute the exact solution hull using 2n linear programs with
+        n variables and 2n inequalities each. A complementary-parts linear program solves the
+        relevant absolute value equations. A sign argument using the inverse-M promise proves that
+        their solutions are attained coordinatewise hull endpoints. All claims are in exact rational
+        bit complexity; floating-point test code is supplementary only.
+
+
+1    Problem and notation
+Write
+                  A = [C − R, C + R],       R ≥ 0,       b = [bc − br , bc + br ],   br ≥ 0.
+Assume every A ∈ A is inverse-M: A ≥ 0, A is nonsingular, and A−1 has nonpositive off-diagonal
+entries. Its inverse is then a nonsingular M-matrix and has positive diagonal entries. The
+requested hull is the smallest coordinate box containing
+
+                               Σ = {x : Ax = b for some A ∈ A, b ∈ b}.
+
+This is the problem in IV-05 [1, 2]. The promise suffices for the algorithm; it can separately be
+checked by the criterion proposed in the accompanying IV-03 manuscript.
+
+
+2    A bijective absolute value map
+For a fixed sign vector σ ∈ {−1, 1}n , define
+
+                                         Hσ (x) = Cx − Dσ R|x|.
+
+Every selection matrix C − Dσ RDs , and indeed every matrix C − Dσ RDd for d ∈ [−1, 1]n ,
+belongs to A.
+Lemma 1. If every matrix in A is nonsingular, then Hσ is a bijection of Rn onto Rn .
+
+Proof. For x, y, write |x| − |y| = Dd (x − y), where di = (|xi | − |yi |)/(xi − yi ) when xi ̸= yi , and
+di = 0 otherwise. Each |di | ≤ 1. Thus
+
+                               Hσ (x) − Hσ (y) = (C − Dσ RDd )(x − y),
+
+which proves injectivity.
+Compactness of the regular interval family gives a uniform positive lower bound α on its
+smallest singular values. Hence ∥Hσ (x)∥ ≥ α∥x∥. For any b, the continuous squared residual
+∥Hσ (x) − b∥2 is coercive and has a global minimizer x.
+Put r = Hσ (x) − b, and suppose r =  ̸ 0. Let Js range over the finitely many selection matrices
+whose signs agree with all nonzero coordinates of x. Every convex combination of these matrices
+lies in the regular interval family. Therefore 0 is not in the compact convex hull of the vectors
+JsT r: an equality 0 = J¯T r would contradict nonsingularity of J. ¯ Let g ̸= 0 be the point in
+that convex hull nearest to 0. The projection inequality gives g T JsT r ≥ ∥g∥2 for every adjacent
+
+                                                     1
+selection. Take h = −g. For sufficiently small positive t, the point x + th lies in one such
+selection region and
+
+                     Hσ (x + th) = Hσ (x) + tJs h,          rT Js h ≤ −∥g∥2 < 0.
+
+The squared residual strictly decreases for sufficiently small t, a contradiction. Thus the
+minimum residual is zero, proving surjectivity.
+
+
+3    Solving the map by a linear program
+Fix σ and a rational b. Put
+
+                 P = C − Dσ R,        Q = C + Dσ R,           X = Q−1 ,    Y = P −1 .
+
+The matrices P, Q are inverse-M. Thus X, Y have positive diagonal and nonpositive off-diagonal
+entries. Consider the linear program in the free variable y ∈ Rn :
+
+                       min 1T y    subject to Xy ≥ 0,            Y (y + b) ≥ 0.                  (1)
+
+Lemma 2. The program (1) has an optimum. For every optimum, setting
+
+                            v = Xy,        u = Y (y + b),       x=u−v
+
+gives the unique solution of Hσ (x) = b.
+
+Proof. Lemma 1 supplies a root x. With u = x+ and v = x− , one has P u − Qv = b. Thus
+y = Qv is feasible in (1). For every feasible y, v = Xy ≥ 0 implies y = Qv ≥ 0. Consequently
+the objective is bounded below, and its feasible sublevel sets are compact. An optimum exists.
+At an optimum, write u = Y (y + b) ≥ 0, v = Xy ≥ 0. Suppose uk > 0 and vk > 0. Decrease yk
+slightly. The kth entries of u, v decrease by the positive diagonal coefficients Ykk , Xkk and remain
+nonnegative for a sufficiently small decrease. Every other entry weakly increases because the
+off-diagonal coefficients of X, Y are nonpositive. This gives a feasible strict objective decrease,
+a contradiction. Hence uk vk = 0 for every k.
+It follows that x = u − v has |x| = u + v. Since P u − Qv = b, we obtain Cx − Dσ R|x| = b. The
+root is unique by Lemma 1.
+
+
+4    The exact hull endpoints
+Theorem 3. For coordinate i, choose σi = 1 and σj = −1 for j ̸= i. The unique solution of
+
+                                        Hσ (x) = bc + Dσ br
+
+has xi = maxz∈Σ zi . Reversing all these signs gives xi = minz∈Σ zi . Consequently 2n instances
+of (1) compute the exact hull.
+
+Proof. Let bσ = bc + Dσ br , and let x solve the stated equation. For any true solution z with
+A′ z = b′ , rowwise interval evaluation gives
+                                                       
+                                       Dσ Hσ (z) − bσ ≤ 0.
+
+Indeed, a row with σj = 1 uses the minimum possible row product Cj,: z − Rj,: |z|, which is at
+most b′j and hence at most the upper right-hand-side endpoint. A row with σj = −1 uses the
+maximum possible row product, which is at least b′j and hence at least the lower endpoint.
+
+                                                  2
+Write w = Dσ (Hσ (z) − bσ ) ≤ 0. The secant identity from Lemma 1 yields
+
+                                z − x = M −1 Dσ w,       M ∈ A.
+
+For the upper-endpoint sign choice, row i of M −1 Dσ is entrywise nonnegative: its diagonal
+entry is positive, and each off-diagonal entry is a nonpositive entry of M −1 multiplied by −1.
+Thus zi ≤ xi . For the reversed sign choice that row is nonpositive, giving zi ≥ xi .
+The bounds are attained. Choose any signs s consistent with the nonzero coordinates of x.
+Then A∗ = C − Dσ RDs ∈ A, and
+
+                                     A∗ x = Hσ (x) = bσ ∈ b.
+
+Hence x ∈ Σ, proving both endpoint assertions.
+
+
+5    Exact complexity and limitations
+Each of the 2n programs has n variables and 2n inequalities. Exact inversion of the rational
+endpoint matrices P, Q produces polynomial-bit rational coefficients. Polynomial-time rational
+linear programming [3] and exact postprocessing therefore give polynomial bit complexity for
+the hull. The interval family is compact and regular, so the solution set is nonempty and
+bounded for every nonempty interval right-hand side.
+The argument does not supply a polynomial algorithm for general regular absolute value
+equations (AV-03). It uses the nonpositive off-diagonal signs of P −1 and Q−1 in the coordinate-
+decrease proof of complementarity. General regularity alone does not provide those signs. The
+bijectivity lemma alone is an existence result, not a general polynomial-time search algorithm.
+
+
+References
+[1] OpenProblemsInNLA,      problem    IV-05.    https://github.com/ajt60gaibb/
+    OpenProblemsInNLA/tree/main/intervals-and-absolute-value-equations/IV-05.
+
+[2] M. Hladík, An overview of polynomially computable characteristics of special interval matrices,
+    Springer (2020), 295–310, Section 9. https://doi.org/10.1007/978-3-030-31041-7_16.
+
+[3] N. Karmarkar, A new polynomial-time algorithm for linear programming, Combinatorica 4
+    (1984), 373–395. https://doi.org/10.1007/BF02579150.
+
+
+
+
+                                                3
+

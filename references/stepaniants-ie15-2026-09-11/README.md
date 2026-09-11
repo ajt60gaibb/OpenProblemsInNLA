@@ -41,3 +41,7 @@ Prepared on the separate branch `sgstepaniants:codex/stepaniants-ie15-rook-growt
 ## Author metadata correction
 
 At the author's request, the current submitted documents omit his email and retain his name, department and university. The preserved agent draft has the same contact-only redaction; its mathematical content is unchanged. The updated artifact fingerprints are recorded in the document checks.
+
+## Upstream integration
+
+The canonical entry incorporates upstream `main` at `16369809e6e600144bd350ab70b7473b652f46f1`. It retains Colbrook's complete attributed order-five note and verification links after the full resolution, with the note's earlier Open verdict identified as historical. The original target and all three mathematical proof files are unchanged. Only the canonical problem page was regenerated; both pages passed visual inspection. The [integration check](verification/reviews/IE-15-review.md#upstream-integration-check-11-september-2026) records this limited merge review.
