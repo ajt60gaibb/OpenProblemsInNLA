@@ -1,15 +1,19 @@
 ---
 title: "IS-02: A counterexample to the spectral-uniqueness locus condition"
+author: "Matthew J. Colbrook"
+affiliation: "Department of Applied Mathematics and Theoretical Physics, University of Cambridge, Cambridge, United Kingdom"
+email: "m.colbrook@damtp.cam.ac.uk"
+review-footer: "Independent Codex-agent verification; no external human peer review or formal certification."
 date: "11 September 2026"
 lang: "en-GB"
 ---
 
-**Status of this manuscript:** Proposed resolution, not independently verified.  
-**Outcome claimed:** Negative resolution claim.  
+**Status of this manuscript:** Independently checked resolution (Codex-agent review).  
+**Outcome:** Negative resolution.  
 **Prepared:** 11 September 2026.  
 **Target:** [Repository entry IS-02](https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/b4123194697bdf6f8f82518c1dd7d6c40a30c2e0/eigenvalues-and-inverse-problems/IS-02/README.md), snapshot `b412319`.
 
-This is a proposed argument generated in a ChatGPT conversation and prepared for mathematical review. No independent referee report or formal proof certificate accompanies it. Supporting algebraic and numerical diagnostics are not a substitute for proof review. No publication or priority claim is made.
+The original proof draft was generated in a ChatGPT conversation. A separate Codex agent independently checked the complete proof against the exact repository target on 11 September 2026; its [detailed review](../../references/colbrook-2026-09-11/verification/reviews/IS-02-review.md) records **PASS**. The theorem and proof text below are unchanged from the reviewed submission. This verification is an independent agent review, not external human peer review or a formal proof certificate.
 
 ## Theorem IS-02: proposed counterexample
 
@@ -70,7 +74,7 @@ Finally, writing $A=(1-t)I_4+tC_4$, its zero $(1,3)$ entry forces $t=0$, whereas
 
 The counterexample has n = 4, which is an allowed dimension. It uses entrywise nonnegativity, symmetry, row sums one, positive trace, and spectral uniqueness with multiplicities, exactly as in the entry. A counterexample in one allowed dimension refutes the universal necessary condition; a classification in all dimensions is not claimed.
 
-Review should check the component argument for spectral uniqueness and the distinction between vertices of the symmetric stochastic polytope and permutation matrices. The proof does not assume those two vertex notions coincide.
+The independent review checked the component argument for spectral uniqueness and the distinction between vertices of the symmetric stochastic polytope and permutation matrices. The proof does not assume those two vertex notions coincide.
 
 The packaging pass checked the repository statement and contribution rules on 11 September 2026. It did not conduct a new exhaustive literature search or establish novelty.
 

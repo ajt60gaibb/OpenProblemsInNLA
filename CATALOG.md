@@ -67,11 +67,11 @@ Retained entries outside the open count:
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [IS-02](eigenvalues-and-inverse-problems/IS-02/README.md) | Where a symmetric stochastic matrix can be spectrally unique | **🟠 SOLUTION CLAIMED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/IS-02/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-02/problem.tex) |
-| [KE-03](eigenvalues-and-inverse-problems/KE-03/README.md) | Find a near-largest nonnormal eigenvalue using few matrix-vector products | **🟠 SOLUTION CLAIMED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/KE-03/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/KE-03/problem.tex) |
-| [KE-04](eigenvalues-and-inverse-problems/KE-04/README.md) | Strict interlacing across block Lanczos iterations | **🟠 SOLUTION CLAIMED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/KE-04/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/KE-04/problem.tex) |
-| [SP-04](eigenvalues-and-inverse-problems/SP-04/README.md) | The smallest-multiplier rule for nearest unit-absolute-determinant matrices | **🟠 SOLUTION CLAIMED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/SP-04/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-04/problem.tex) |
-| [SP-05](eigenvalues-and-inverse-problems/SP-05/README.md) | Symmetric minimizer for a positive definite Jordan–Kronecker product | **🟠 SOLUTION CLAIMED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-05/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-05/problem.tex) |
+| [IS-02](eigenvalues-and-inverse-problems/IS-02/README.md) | Where a symmetric stochastic matrix can be spectrally unique | **✅ SOLVED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/IS-02/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-02/problem.tex) |
+| [KE-03](eigenvalues-and-inverse-problems/KE-03/README.md) | Find a near-largest nonnormal eigenvalue using few matrix-vector products | **✅ SOLVED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/KE-03/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/KE-03/problem.tex) |
+| [KE-04](eigenvalues-and-inverse-problems/KE-04/README.md) | Strict interlacing across block Lanczos iterations | **✅ SOLVED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/KE-04/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/KE-04/problem.tex) |
+| [SP-04](eigenvalues-and-inverse-problems/SP-04/README.md) | The smallest-multiplier rule for nearest unit-absolute-determinant matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/SP-04/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-04/problem.tex) |
+| [SP-05](eigenvalues-and-inverse-problems/SP-05/README.md) | Symmetric minimizer for a positive definite Jordan–Kronecker product | **✅ SOLVED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-05/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-05/problem.tex) |
 
 
 ## [Matrix functions and stability](matrix-functions-and-stability/README.md)

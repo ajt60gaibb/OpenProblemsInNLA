@@ -1,15 +1,19 @@
 ---
 title: "SP-04: A generic counterexample to the smallest-absolute-multiplier rule"
+author: "Matthew J. Colbrook"
+affiliation: "Department of Applied Mathematics and Theoretical Physics, University of Cambridge, Cambridge, United Kingdom"
+email: "m.colbrook@damtp.cam.ac.uk"
+review-footer: "Independent Codex-agent verification; no external human peer review or formal certification."
 date: "11 September 2026"
 lang: "en-GB"
 ---
 
-**Status of this manuscript:** Proposed resolution, not independently verified.  
-**Outcome claimed:** Negative resolution claim.  
+**Status of this manuscript:** Independently checked resolution (Codex-agent review).  
+**Outcome:** Negative resolution.  
 **Prepared:** 11 September 2026.  
 **Target:** [Repository entry SP-04](https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/b4123194697bdf6f8f82518c1dd7d6c40a30c2e0/eigenvalues-and-inverse-problems/SP-04/README.md), snapshot `b412319`.
 
-This is a proposed argument generated in a ChatGPT conversation and prepared for mathematical review. No independent referee report or formal proof certificate accompanies it. Supporting algebraic and numerical diagnostics are not a substitute for proof review. No publication or priority claim is made.
+The original proof draft was generated in a ChatGPT conversation. A separate Codex agent independently checked the complete proof against the exact repository target on 11 September 2026; its [detailed review](../../references/colbrook-2026-09-11/verification/reviews/SP-04-review.md) records **PASS**. The theorem and proof text below are unchanged from the reviewed submission. This verification is an independent agent review, not external human peer review or a formal proof certificate.
 
 ## Theorem SP-04: proposed generic counterexample
 
@@ -128,7 +132,7 @@ The same failure occurs for every real matrix with distinct singular values in $
 
 Both determinant signs are included, as required by the entry. The proof gives a unique least absolute multiplier and extends from diagonal data to an open set of matrices with distinct singular values. This addresses the stated algebraic-generic qualifier rather than only an exceptional example. No claim is made about a different projection problem restricted to determinant +1.
 
-The main review points are the reduction of every stationary matrix (not just a diagonal candidate), uniqueness of the smallest absolute multiplier, and the passage to an open set under left/right orthogonal transformations.
+The independent review checked the reduction of every stationary matrix (not just a diagonal candidate), uniqueness of the smallest absolute multiplier, and the passage to an open set under left/right orthogonal transformations.
 
 The packaging pass checked the repository statement and contribution rules on 11 September 2026. It did not conduct a new exhaustive literature search or establish novelty.
 

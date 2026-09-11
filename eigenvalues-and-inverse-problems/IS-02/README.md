@@ -6,18 +6,18 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Solution claimed  
+**Status:** Solved  
 **Last checked:** 2026-09-11  
 
 **Rating rationale:** Challenging reflects the geometry of isospectral stochastic families in arbitrary dimension; specialist impact concerns the narrow property of spectral uniqueness within that class.
 
-## Resolution claim — 2026-09-11
+## Resolution — 2026-09-11
 
-**Negative resolution claimed; submitted by Matthew Colbrook.** See the [complete manuscript](solution.md), **Theorem IS-02, sections 1–2** ([PDF](solution.pdf) · [LaTeX](solution.tex)), prepared 11 September 2026.
+**Negative resolution by Matthew J. Colbrook** (Department of Applied Mathematics and Theoretical Physics, University of Cambridge). See the [complete manuscript](solution.md), **Theorem IS-02, sections 1–2** ([PDF](solution.pdf) · [LaTeX](solution.tex)), prepared 11 September 2026.
 
-The manuscript gives a real symmetric nonnegative stochastic matrix of order four with spectrum $\{1,1,0,-1\}$ and positive trace. It claims spectral uniqueness up to permutation and exclusion from every segment in the proposed locus. This counterexample addresses the universal necessary condition at an allowed dimension; it does not claim an all-dimensional classification.
+The order-four counterexample is real symmetric, nonnegative and stochastic, has spectrum $\{1,1,0,-1\}$ and positive trace, and is spectrally unique up to permutation. It lies outside every segment in the proposed locus, disproving the universal necessary condition at an allowed dimension.
 
-The manuscript discloses generation in a ChatGPT conversation. Its full proof has not been independently verified here, and no publication or priority claim is made. [Supporting diagnostics](../../references/colbrook-2026-09-11/README.md) were rerun successfully; these are not an independent proof audit. This update checks the submitted claim against the displayed target; the dated literature checks below remain the record of the earlier search. The ratings above are historical, and this entry is excluded from the open count.
+The original proof draft was generated in a ChatGPT conversation. A separate Codex agent independently verified the full proof and its match to the exact target on 11 September 2026: [detailed PASS review](../../references/colbrook-2026-09-11/verification/reviews/IS-02-review.md). The review records a hash of the unchanged proof text. This is independent agent verification, not external human peer review or formal certification. [The submission history and diagnostic record](../../references/colbrook-2026-09-11/README.md) preserve the initial solution claim. The ratings above are historical, and the earlier literature checks below are retained.
 
 ## Problem statement
 

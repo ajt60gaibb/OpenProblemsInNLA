@@ -1,15 +1,19 @@
 ---
 title: "SP-05: A positive-semidefinite minimizing eigenmatrix"
+author: "Matthew J. Colbrook"
+affiliation: "Department of Applied Mathematics and Theoretical Physics, University of Cambridge, Cambridge, United Kingdom"
+email: "m.colbrook@damtp.cam.ac.uk"
+review-footer: "Independent Codex-agent verification; no external human peer review or formal certification."
 date: "11 September 2026"
 lang: "en-GB"
 ---
 
-**Status of this manuscript:** Proposed resolution, not independently verified.  
-**Outcome claimed:** Affirmative resolution claim.  
+**Status of this manuscript:** Independently checked resolution (Codex-agent review).  
+**Outcome:** Affirmative resolution.  
 **Prepared:** 11 September 2026.  
 **Target:** [Repository entry SP-05](https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/b4123194697bdf6f8f82518c1dd7d6c40a30c2e0/eigenvalues-and-inverse-problems/SP-05/README.md), snapshot `b412319`.
 
-This is a proposed argument generated in a ChatGPT conversation and prepared for mathematical review. No independent referee report or formal proof certificate accompanies it. Supporting algebraic and numerical diagnostics are not a substitute for proof review. No publication or priority claim is made.
+The original proof draft was generated in a ChatGPT conversation. A separate Codex agent independently checked the complete proof against the exact repository target on 11 September 2026; its [detailed review](../../references/colbrook-2026-09-11/verification/reviews/SP-05-review.md) records **PASS**. The theorem and proof text below are unchanged from the reviewed submission. This verification is an independent agent review, not external human peer review or a formal proof certificate.
 
 ## Theorem SP-05: proposed positive-semidefinite minimizer
 
@@ -95,7 +99,7 @@ The two eigenspaces are orthogonal and invariant for the sum. Since its global m
 
 The proof uses arbitrary real symmetric positive definite A and B, without a commutativity or rank restriction. It concerns the smallest eigenvalue of A tensor B + B tensor A, not a maximum-eigenvalue problem or an indefinite-input generalization.
 
-Review should check the congruence reduction for the inverse, use of positivity on the complex Hermitian cone, and the argument that the modulus of iW is real when W is real skew-symmetric. The proof does not assume a simple minimum eigenvalue.
+The independent review checked the congruence reduction for the inverse, use of positivity on the complex Hermitian cone, and the argument that the modulus of iW is real when W is real skew-symmetric. The proof does not assume a simple minimum eigenvalue.
 
 The packaging pass checked the repository statement and contribution rules on 11 September 2026. It did not conduct a new exhaustive literature search or establish novelty.
 

@@ -2,18 +2,18 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Solution claimed  
+**Status:** Solved  
 **Last checked:** 2026-09-11  
 
 **Rating rationale:** Challenging reflects a stronger strict interlacing law than general compression interlacing supplies; community impact is spectral information across block Krylov iterations.
 
-## Resolution claim — 2026-09-11
+## Resolution — 2026-09-11
 
-**Affirmative resolution claimed; submitted by Matthew Colbrook.** See the [complete manuscript](solution.md), **Theorem KE-04, sections 1–3** ([PDF](solution.pdf) · [LaTeX](solution.tex)), prepared 11 September 2026.
+**Affirmative resolution by Matthew J. Colbrook** (Department of Applied Mathematics and Theoretical Physics, University of Cambridge). See the [complete manuscript](solution.md), **Theorem KE-04, sections 1–3** ([PDF](solution.pdf) · [LaTeX](solution.tex)), prepared 11 September 2026.
 
-The manuscript claims strict interval occupancy for every allowed pair of block Lanczos iterations and every indicated index, in exact arithmetic before the first loss of full block dimension. Its quadratic-polynomial argument includes eigenvalue multiplicities and excludes coincident interval endpoints in the stated range.
+Strict interval occupancy holds for every allowed pair of block Lanczos iterations and every indicated index, in exact arithmetic before the first loss of full block dimension. The quadratic-polynomial argument includes multiplicities and excludes coincident interval endpoints in the stated range.
 
-The manuscript discloses generation in a ChatGPT conversation. Its full proof has not been independently verified here, and no publication or priority claim is made. [Supporting diagnostics](../../references/colbrook-2026-09-11/README.md) were rerun successfully; these are not an independent proof audit. This update checks the submitted claim against the displayed target; the dated literature checks below remain the record of the earlier search. The ratings above are historical, and this entry is excluded from the open count.
+The original proof draft was generated in a ChatGPT conversation. A separate Codex agent independently verified the full proof and its match to the exact target on 11 September 2026: [detailed PASS review](../../references/colbrook-2026-09-11/verification/reviews/KE-04-review.md). The review records a hash of the unchanged proof text. This is independent agent verification, not external human peer review or formal certification. [The submission history and diagnostic record](../../references/colbrook-2026-09-11/README.md) preserve the initial solution claim. The ratings above are historical, and the earlier literature checks below are retained.
 
 ## Original problem statement
 

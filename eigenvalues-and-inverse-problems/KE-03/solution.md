@@ -1,15 +1,19 @@
 ---
 title: "KE-03: Locating a near-largest eigenvalue in the exact-query model"
+author: "Matthew J. Colbrook"
+affiliation: "Department of Applied Mathematics and Theoretical Physics, University of Cambridge, Cambridge, United Kingdom"
+email: "m.colbrook@damtp.cam.ac.uk"
+review-footer: "Independent Codex-agent verification; no external human peer review or formal certification."
 date: "11 September 2026"
 lang: "en-GB"
 ---
 
-**Status of this manuscript:** Proposed resolution, not independently verified.  
-**Outcome claimed:** Affirmative resolution claim in the displayed exact-query model.  
+**Status of this manuscript:** Independently checked resolution (Codex-agent review).  
+**Outcome:** Affirmative resolution in the displayed exact-query model.  
 **Prepared:** 11 September 2026.  
 **Target:** [Repository entry KE-03](https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/b4123194697bdf6f8f82518c1dd7d6c40a30c2e0/eigenvalues-and-inverse-problems/KE-03/README.md), snapshot `b412319`.
 
-This is a proposed argument generated in a ChatGPT conversation and prepared for mathematical review. No independent referee report or formal proof certificate accompanies it. Supporting algebraic and numerical diagnostics are not a substitute for proof review. No publication or priority claim is made.
+The original proof draft was generated in a ChatGPT conversation. A separate Codex agent independently checked the complete proof against the exact repository target on 11 September 2026; its [detailed review](../../references/colbrook-2026-09-11/verification/reviews/KE-03-review.md) records **PASS**. The theorem and proof text below are unchanged from the reviewed submission. This verification is an independent agent review, not external human peer review or a formal proof certificate.
 
 ## Theorem KE-03: proposed exact-query algorithm
 
@@ -178,7 +182,7 @@ This proves the proposed query-complexity bound. Unrestricted intervening work i
 
 The input is any diagonalizable complex A with positive spectral radius and a supplied eigenvector-condition bound K. Only queries v -> Av are used. Intervening work is finite exact arithmetic, with unrestricted cost and precision, as allowed by the displayed target. No A* oracle or shifted-system oracle is used. This is not a floating-point stability, bit-complexity, or total-runtime result.
 
-Review should focus on simultaneous anti-concentration for complex eigenvector coordinates, adaptive use of the same Krylov sequence, shift-selection geometry, and finite-arithmetic termination. The supplied diagnostic code checks only the shift geometry, not an end-to-end stable implementation of the high-degree algorithm.
+The independent review checked simultaneous anti-concentration for complex eigenvector coordinates, adaptive use of the same Krylov sequence, shift-selection geometry, and finite-arithmetic termination. The supplied diagnostic code checks only the shift geometry, not an end-to-end stable implementation of the high-degree algorithm.
 
 The packaging pass checked the repository statement and contribution rules on 11 September 2026. It did not conduct a new exhaustive literature search or establish novelty.
 
