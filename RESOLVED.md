@@ -71,6 +71,14 @@ The original statements, permanent IDs and historical ratings remain retained. T
 
 [Canonical target](tensor-computations/TR-20/README.md) · [Complete proof](references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-20.pdf) · [Independent review](references/colbrook-recovered-tensors-2026-09-11/verification/reviews/TR-20-review.md). **Theorem 1 and Sections 2–8.** For every $n\ge2$, the reduced nonisotropic Rayleigh–Ritz discriminants in the original complex bilinear Segre model have degrees $24\binom{n+1}{3}$ for $2\times n$ matrices and $24n^2\binom n2$ for $3\times n$ matrices. The proof handles the logarithmic boundary and crossings, proves simple ramification and generic degree one onto the reduced irreducible image, and then extracts both formulas. Its general coefficient expression is additional to the two requested formulas.
 
+### ✅ MI-28 — determinant comparison for all nonnegative base powers — George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved, 2026-09-11.** The proof establishes $\det(A^k+|AB|^p)\ge\det(A^k+A^pB^p)$ for every complex positive definite pair, every dimension, $k\ge0$ and $0\le p\le2$. [Theorem 1 and Corollary 6](matrix-inequalities-and-norms/MI-28/solution.md) establish a stronger normalized log-majorization. The published $k\ge2$ range is credited to Ghabries, Abbas, Mourad and Assi; Furuta inequalities and a parameter interchange close the remaining range. [Proof PDF](matrix-inequalities-and-norms/MI-28/solution.pdf) · [Canonical target](matrix-inequalities-and-norms/MI-28/README.md).
+
+The complete analytic proof and source applications passed a separate [Codex-agent review](references/stepaniants-mi28-2026-09-11/verification/reviews/MI-28-review.md). AI assistance and the limits of automated verification are explicit; no external peer review or formal certificate is asserted. [Submission record](references/stepaniants-mi28-2026-09-11/README.md). No canonical parameter case remains unresolved; the original ID, statement, path and historical ratings are retained.
+
 ### ✅ MI-13 — Nobori's spectral-middle-factor commutator inequality
 
 [Original statement and complete proof](matrix-inequalities-and-norms/MI-13/README.md) · [PDF](matrix-inequalities-and-norms/MI-13/problem.pdf)
