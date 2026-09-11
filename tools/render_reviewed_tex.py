@@ -37,6 +37,9 @@ def render(item, folder):
     tex = tex.replace(r'\date{}', r'\date{11 September 2026}', 1)
     layout = '\\usepackage{xurl}\n\\setlength{\\emergencystretch}{3em}\n'
     layout += '\\hypersetup{pdfauthor={' + author + '}}\n'
+    if item.get('bibliography_new_page'):
+        layout += r'\let\originalthebibliography\thebibliography' + '\n'
+        layout += r'\renewcommand{\thebibliography}[1]{\clearpage\originalthebibliography{#1}}' + '\n'
     if 'margin_mm' in item:
         margin = int(item['margin_mm'])
         if not 20 <= margin <= 35:

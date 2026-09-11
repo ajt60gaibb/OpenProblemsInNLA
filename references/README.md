@@ -33,3 +33,5 @@ screen. Use [CATALOG.md](../CATALOG.md) for current counts and statuses.
 - [Transfer and sampling results by Matthew J. Colbrook, 11 September 2026](colbrook-transfer-2026-09-11/README.md): four independently reviewed resolutions, a commuting partial result and auxiliary Gamma counterexamples.
 
 - [Factorization submissions by Matthew J. Colbrook, 11 September 2026](colbrook-factorization-2026-09-11/README.md): five independently reviewed resolutions and two partial family results.
+
+- [Matrix-function submissions by Matthew J. Colbrook (2026-09-11)](colbrook-matrix-functions-2026-09-11/README.md): three independently reviewed resolutions, two partial results, and one auxiliary real-coefficient theorem.
