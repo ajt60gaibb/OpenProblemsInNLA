@@ -6,8 +6,18 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Solved
+**Last checked:** 2026-09-11
+
+<!-- colbrook-recovered -->
+## Independently reviewed resolution - 2026-09-11
+
+**Affirmative sharp-constant resolution.** Theorem 2 and Sections 6-7 prove the sharp constant $c_\theta=\sqrt{h_\theta}$. The upper bound is uniform over all unit-row matrices and even all $m\ge1$ for sufficiently large $n$, with squared normalized error $O_\theta(n^{-1/6})$. Theorem 1 supplies matching spherical realizations along every high-aspect-ratio sequence, proving the exact eventual-uniform optimality quantifiers.
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [Complete manuscript](../../references/colbrook-recovered-2026-09-11/manuscripts/IE-21-22.pdf), [independent proof review](../../references/colbrook-recovered-2026-09-11/verification/reviews/IE-21-22-review.md), and [submission record](../../references/colbrook-recovered-2026-09-11/README.md). The supplied notes were reconstructed with substantial AI assistance. This is independent agent verification, not external human peer review or formal proof-assistant certification; no novelty or priority claim is made.
+
+The difficulty, importance and rating rationale below are historical assessments of the original open target. Original statements, references and dated audits are preserved.
+<!-- /colbrook-recovered -->
 
 **Rating rationale:** Challenging reflects an optimal uniform extremum over matrices and deleted row sets; community impact is a sharp robustness limit for row-sampling methods.
 

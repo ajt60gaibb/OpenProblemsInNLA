@@ -6,8 +6,18 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Solved
+**Last checked:** 2026-09-11
+
+<!-- colbrook-recovered -->
+## Independently reviewed resolution - 2026-09-11
+
+**Affirmative resolution.** Theorem 1 and Sections 2-5 prove the displayed Gaussian trimmed-second-moment limit in probability along every sequence $n\to\infty$ and $m/n\to\infty$, with exactly $\lfloor\theta m\rfloor$ retained rows and the variational least singular value. Explicit failure-probability and error bounds are included; no faster aspect-ratio growth assumption is added.
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [Complete manuscript](../../references/colbrook-recovered-2026-09-11/manuscripts/IE-21-22.pdf), [independent proof review](../../references/colbrook-recovered-2026-09-11/verification/reviews/IE-21-22-review.md), and [submission record](../../references/colbrook-recovered-2026-09-11/README.md). The supplied notes were reconstructed with substantial AI assistance. This is independent agent verification, not external human peer review or formal proof-assistant certification; no novelty or priority claim is made.
+
+The difficulty, importance and rating rationale below are historical assessments of the original open target. Original statements, references and dated audits are preserved.
+<!-- /colbrook-recovered -->
 
 **Rating rationale:** Challenging reflects a sharp limit for the least singular value after adversarial row deletion; community impact includes random matrix theory and robust iterative solvers.
 

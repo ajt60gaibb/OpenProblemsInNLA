@@ -4,18 +4,18 @@ A collection of precise open problems drawn from books and research
 publications, with references and dated checks for subsequent solutions.
 
 <!-- catalog-summary -->
-**179 problems with open targets:** 99 open and 80 partially resolved. **24 other retained entries**, excluded from the open count.
+**171 problems with open targets:** 91 open and 80 partially resolved. **32 other retained entries**, excluded from the open count.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
-**[Browse all 179 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
+**[Browse all 171 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
 <!-- /catalog-summary -->
 
 ## Browse by category
 
 | Category | Problems |
 | --- | ---: |
-| [Linear systems and elimination](linear-systems-and-elimination/README.md) | 21 |
+| [Linear systems and elimination](linear-systems-and-elimination/README.md) | 13 |
 | [Eigenvalues and inverse problems](eigenvalues-and-inverse-problems/README.md) | 15 |
 | [Matrix functions and stability](matrix-functions-and-stability/README.md) | 23 |
 | [Randomized and low-rank approximation](randomized-and-low-rank-approximation/README.md) | 24 |

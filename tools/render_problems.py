@@ -59,6 +59,7 @@ def render(source):
         # leave only a few lines on a second page after the status audit.
         if identifier in {
             'AA-01', 'AC-13', 'AV-02', 'AV-03', 'FR-01', 'IE-24', 'IE-25', 'IE-03', 'IE-06',
+            'IE-14', 'IE-15', 'IE-17', 'IE-18', 'IE-23',
             'IS-02', 'IS-03', 'IS-05', 'IE-08', 'KE-03', 'KE-04', 'SP-05',
             'IE-11', 'IE-13', 'IE-19', 'IE-21', 'IE-22', 'IV-02', 'IV-04',
             'IV-05', 'IV-06', 'KE-05', 'MF-14', 'MF-15', 'MF-16', 'MF-17',

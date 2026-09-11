@@ -150,6 +150,60 @@ These three entries remain in the open count.
 
 **RA-13 (Open).** The centered augmented density has a genuine inflection point beyond the proposed auxiliary upper bound. Together with the mode example, this refutes the upper assertions of Hallman Conjectures 1 and 2. The complete absolute Gaussian trace-tail probability chain in this entry is neither proved nor refuted. Failure of an auxiliary sufficient condition does not refute the final tail comparisons; status remains Open. [Complete proof](references/colbrook-transfer-2026-09-11/manuscripts/04_gamma_auxiliary_counterexamples.pdf), Proposition 3.1 (with Proposition 2.1 for related evidence); [review](references/colbrook-transfer-2026-09-11/verification/reviews/gamma-auxiliary-review.md).
 
+## Recovered linear-system submissions - 2026-09-11
+
+Eight exact targets passed independent agent review. Author: **Matthew J. Colbrook**, University of Cambridge. [Submission record](references/colbrook-recovered-2026-09-11/README.md) documents the substantial AI assistance, reconstructed sources, full proof hashes and checks. Agent review is not external human peer review or formal certification; no priority claim is made. All original targets and historical ratings are retained.
+
+### IE-13 - Sharp growth classification
+
+[Original statement](linear-systems-and-elimination/IE-13/README.md). **Solved.** Theorem 1 and Sections 2-4 prove $G(0,q)=1$ and $G(p,q)=h_{p+q}$ for $p\ge1$, where $h_t=0$ for $t\le0$ and $h_t=1+\sum_{r=1}^p h_{t-r}$ otherwise. The upper bound covers every complex input and admissible tie path, with growth over all active entries in the fixed original ordering. A real nonsingular matrix of order $2p+q+1$ attains it, including zero upper bandwidth.
+
+[Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-13.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-13-review.md).
+
+### IE-14 - Sharp growth classification
+
+[Original statement](linear-systems-and-elimination/IE-14/README.md). **Solved.** Theorem 1 and Sections 2-4 prove $c_n=F_{n+1}+1$ for every $n\ge4$, with $F_0=0,F_1=1$. The bound covers complex cyclic tridiagonal matrices, every active entry and every permitted GEPP tie path in the original ordering. A rational matrix with both cyclic corners nonzero attains it at every order.
+
+[Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-14.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-14-review.md).
+
+### IE-17 - Negative resolution
+
+[Original statement](linear-systems-and-elimination/IE-17/README.md). **Solved.** Sections 1-4 give one exact full-column-rank $4\times3$ LSMR example for which both displayed errors increase from the first to the second nonzero iterate. The matrix-only spectral backward error satisfies $\mu(x_1)^2\le1979/2000<99/100<\mu(x_2)^2$, and the specified approximation also strictly increases. The right-hand side stays fixed. This settles the canonical spectral-norm formulation; the cited SISC paper uses a different default norm convention, so no Frobenius-error conclusion is inferred.
+
+[Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-17.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-17-review.md).
+
+### IE-18 - Negative resolution
+
+[Original statement](linear-systems-and-elimination/IE-18/README.md). **Solved.** Section 2 refutes the exact four-step identity using $M=\operatorname{diag}(1/10,1/2,3/5)$ and $v=(1,1,1)^T$: the squared norm ratio is $1920682/21289638243>1/14641$, the square of the proposed factor. Both $M$ and $I-M$ are positive definite. Section 3 proves unbounded underestimation over a parameter family. The separate asymptotic convergence question is not resolved.
+
+[Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-18.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-18-review.md).
+
+### IE-19 - Negative resolution and sharp replacement
+
+[Original statement](linear-systems-and-elimination/IE-19/README.md). **Solved.** Section 1 gives an admissible positive symmetric strictly diagonally dominant $3\times3$ matrix with inverse infinity norm $7/9$, below the proposed comparison value $5/4$. Theorem 1 in Section 2 proves that the exact infimum over the displayed class is $1/(\alpha+m)$ for every allowed parameter choice, and strict positivity prevents attainment. The order is entrywise; stronger comparisons of dominance margins are outside the result.
+
+[Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-19.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-19-review.md).
+
+### IE-21 - Affirmative resolution
+
+[Original statement](linear-systems-and-elimination/IE-21/README.md). **Solved.** Theorem 1 and Sections 2-5 prove the displayed Gaussian trimmed-second-moment limit in probability along every sequence $n\to\infty$ and $m/n\to\infty$, with exactly $\lfloor\theta m\rfloor$ retained rows and the variational least singular value. Explicit failure-probability and error bounds are included; no faster aspect-ratio growth assumption is added.
+
+[Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-21-22.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-21-22-review.md).
+
+### IE-22 - Affirmative sharp-constant resolution
+
+[Original statement](linear-systems-and-elimination/IE-22/README.md). **Solved.** Theorem 2 and Sections 6-7 prove the sharp constant $c_\theta=\sqrt{h_\theta}$. The upper bound is uniform over all unit-row matrices and even all $m\ge1$ for sufficiently large $n$, with squared normalized error $O_\theta(n^{-1/6})$. Theorem 1 supplies matching spherical realizations along every high-aspect-ratio sequence, proving the exact eventual-uniform optimality quantifiers.
+
+[Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-21-22.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-21-22-review.md).
+
+### IE-23 - Negative resolution
+
+[Original statement](linear-systems-and-elimination/IE-23/README.md). **Solved.** Theorem 1 gives a $2\times3$ full-row-rank matrix with distinct norm-minimizing right inverses for every $2<p<\infty$ over both fields. Their common induced norm is $2^{1/2-1/p}$. Sections 3-4 identify the complete minimizer sets, including a complex higher-dimensional family. The smallest matrix is attributed to Dokmanic and Gribonval\'s spectral-norm example; its extension to the displayed direct-inverse objective is checked. No conclusion about the separate product objective is claimed.
+
+[Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-23.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-23-review.md).
+
+The related order-five rook bound is outside the order-three/order-four target of [IE-15](linear-systems-and-elimination/IE-15/README.md), which remains Open.
+
 ## Published resolutions of historical questions
 
 These questions were screened out before receiving current catalog folders;
