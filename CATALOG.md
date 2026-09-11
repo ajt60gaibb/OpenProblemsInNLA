@@ -1,6 +1,6 @@
 # All problems and their status
 
-**171 problems with open targets:** 94 open and 77 partially resolved. **32 other retained entries**, excluded from the open count.
+**171 problems with open targets:** 92 open and 79 partially resolved. **32 other retained entries**, excluded from the open count.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -247,7 +247,7 @@ Retained entries outside the open count:
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
 | [FR-01](frames-and-matrix-designs/FR-01/README.md) | Polynomial-time deterministic restricted isometries with nearly linear row count | **🔵 OPEN** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-01/problem.pdf) · [TeX](frames-and-matrix-designs/FR-01/problem.tex) |
-| [FR-02](frames-and-matrix-designs/FR-02/README.md) | Sharp sample complexity for restricted isometries from the cyclic Fourier matrix | **🔵 OPEN** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-02/problem.pdf) · [TeX](frames-and-matrix-designs/FR-02/problem.tex) |
+| [FR-02](frames-and-matrix-designs/FR-02/README.md) | Sharp sample complexity for restricted isometries from the cyclic Fourier matrix | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-02/problem.pdf) · [TeX](frames-and-matrix-designs/FR-02/problem.tex) |
 | [FR-03](frames-and-matrix-designs/FR-03/README.md) | Uniform conditioning of large Paley-frame column subsets | **🔵 OPEN** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-03/problem.pdf) · [TeX](frames-and-matrix-designs/FR-03/problem.tex) |
 | [FR-04](frames-and-matrix-designs/FR-04/README.md) | Universal exponential deterioration of minimally redundant real phase-retrieval frames | **🔵 OPEN** | challenging | interesting to the community | [PDF](frames-and-matrix-designs/FR-04/problem.pdf) · [TeX](frames-and-matrix-designs/FR-04/problem.tex) |
 | [FR-05](frames-and-matrix-designs/FR-05/README.md) | Vanishing injectivity probability at 4d minus 5 complex phase measurements | **🔵 OPEN** | challenging | interesting to the community | [PDF](frames-and-matrix-designs/FR-05/problem.pdf) · [TeX](frames-and-matrix-designs/FR-05/problem.tex) |
@@ -255,7 +255,7 @@ Retained entries outside the open count:
 | [FR-07](frames-and-matrix-designs/FR-07/README.md) | Zauner's conjecture on maximal complex equiangular tight frames | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-07/problem.pdf) · [TeX](frames-and-matrix-designs/FR-07/problem.tex) |
 | [FR-08](frames-and-matrix-designs/FR-08/README.md) | Hadamard matrices at every admissible order | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-08/problem.pdf) · [TeX](frames-and-matrix-designs/FR-08/problem.tex) |
 | [FR-09](frames-and-matrix-designs/FR-09/README.md) | Complex equiangular tight frames with twice the dimension | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](frames-and-matrix-designs/FR-09/problem.pdf) · [TeX](frames-and-matrix-designs/FR-09/problem.tex) |
-| [FR-10](frames-and-matrix-designs/FR-10/README.md) | Sharp sampling complexity for Walsh restricted isometries | **🔵 OPEN** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-10/problem.pdf) · [TeX](frames-and-matrix-designs/FR-10/problem.tex) |
+| [FR-10](frames-and-matrix-designs/FR-10/README.md) | Sharp sampling complexity for Walsh restricted isometries | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-10/problem.pdf) · [TeX](frames-and-matrix-designs/FR-10/problem.tex) |
 | [FR-11](frames-and-matrix-designs/FR-11/README.md) | The minimum number of quadratic measurements for generalized phase retrieval | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](frames-and-matrix-designs/FR-11/problem.pdf) · [TeX](frames-and-matrix-designs/FR-11/problem.tex) |
 
 
