@@ -1,7 +1,7 @@
 # IE-15: exact rook-pivoting growth factors in orders three and four
 
 **Result:** \(g_{\mathrm{RP}}(3)=3\) and \(g_{\mathrm{RP}}(4)=14/3\).  
-**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology; gstepan@caltech.edu.  
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology.  
 **Date:** 11 September 2026.  
 **Verification status:** Developed with ChatGPT/Codex. Separate Codex agents independently audited the mathematical argument and exact witnesses and returned PASS. This is automated-agent review, not external human peer review or a formal proof certificate.
 

@@ -69,3 +69,7 @@ The packaged [independent witness checker](../independent_witnesses.py) is byte-
 No mathematical revision was required by this independent review.
 
 Signed: independent Codex agent `/root/prepare_manuscripts`, 11 September 2026.
+
+## Contact metadata correction (11 September 2026)
+
+At the author's request, the canonical manuscript and preserved agent draft now omit his email while retaining George Stepaniants, his department and university. The coordinating agent checked that deleting the sole contact metadata line from the previously reviewed Markdown produces the current Markdown exactly, and that the generated TeX after `\pagestyle{plain}` is byte-for-byte unchanged. The preserved draft's mathematical text is also byte-for-byte unchanged. The historical hashes above identify the prior reviewed versions; current source SHA-256 is `abe560be8d00a2a98fb4a11619d5e77926649172fbb07828e747500139e97620`, and current preserved-draft SHA-256 is `de3f2323a429b67124097accd23a066633dee2b02f86a75631d60e5551fd6fa2`. All six pages of the regenerated proof PDF were rendered and visually inspected. No mathematical change or new mathematical review is represented by this correction.

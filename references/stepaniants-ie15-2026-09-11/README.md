@@ -6,7 +6,7 @@
 
 ## Authorship and verification
 
-George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA; gstepan@caltech.edu. His current affiliation was checked against his [official Caltech profile](https://www.cms.caltech.edu/people/george-stepaniants) and [personal academic page](https://georgestepaniants.com/) on 11 September 2026. His announced Cambridge and NYU appointments start in October 2026 and are not presented as current affiliations.
+George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA. His current affiliation was checked against his [official Caltech profile](https://www.cms.caltech.edu/people/george-stepaniants) and [personal academic page](https://georgestepaniants.com/) on 11 September 2026. His announced Cambridge and NYU appointments start in October 2026 and are not presented as current affiliations.
 
 The work was developed with substantial ChatGPT/Codex assistance at the author's request. A solving agent discovered the rational order-four example through constrained numerical optimization and developed the analytic upper bound. The parent agent checked the full argument, and a separate agent independently audited the exact target, every proof step, the scalar inequality and both witnesses. [Independent PASS report](verification/reviews/IE-15-review.md) · [Independent alternative scalar proof](verification/reviews/scalar-lemma-independent-proof.md). The [original reviewed agent manuscript](original-agent-draft.md) is retained as provenance.
 
@@ -37,3 +37,7 @@ The check is limited to publicly accessible material at its stated time; it cann
 ## Submission
 
 Prepared on the separate branch `sgstepaniants:codex/stepaniants-ie15-rook-growth` from the published base, with the permanent IE-15 ID, canonical path and original target unchanged. [Resolution issue 82](https://github.com/ajt60gaibb/OpenProblemsInNLA/issues/82) follows the correction-or-resolution template. [Pull request 83](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/83) targets upstream `main`, links the related order-five contribution, and explicitly asks the maintainer to review and merge the full resolution. Upstream acceptance is pending.
+
+## Author metadata correction
+
+At the author's request, the current submitted documents omit his email and retain his name, department and university. The preserved agent draft has the same contact-only redaction; its mathematical content is unchanged. The updated artifact fingerprints are recorded in the document checks.

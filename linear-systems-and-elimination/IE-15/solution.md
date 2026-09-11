@@ -2,7 +2,6 @@
 title: "IE-15: exact rook-pivoting growth factors in orders three and four"
 author: "George Stepaniants"
 affiliation: "Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA"
-email: "gstepan@caltech.edu"
 date: "11 September 2026"
 document-kind: "Verified resolution"
 review-footer: "Independent Codex-agent review; not external human peer review or formal certification."
