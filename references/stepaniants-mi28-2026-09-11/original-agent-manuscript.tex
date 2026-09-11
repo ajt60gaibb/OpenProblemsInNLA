@@ -1,0 +1,413 @@
+% Standalone source. Compile twice with: pdflatex mi28_full_proof.tex
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=27mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  pdftitle={MI-28: A determinant inequality for all nonnegative base powers},
+  pdfauthor={George Stepaniants},
+  pdfsubject={A log-majorization proof using Furuta inequalities and parameter swapping}
+}
+\setlength{\parskip}{0.3em}
+\setlength{\emergencystretch}{2em}
+\setlist[enumerate]{itemsep=0.35em,topsep=0.4em}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\lm}{\prec_{\log}}
+\newcommand{\C}{\mathbb C}
+
+\title{\textbf{MI-28: A determinant inequality\\
+for all nonnegative base powers}\\[0.4em]
+\large Furuta inequalities and an interchange of the parameters}
+\author{George Stepaniants\\[0.3em]
+\small Department of Computing and Mathematical Sciences\\
+\small California Institute of Technology\\
+\small Pasadena, California, USA\\
+\small \href{mailto:gstepan@caltech.edu}{\texttt{gstepan@caltech.edu}}}
+\date{11 September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For positive definite matrices \(A,B\), every \(k\ge0\), and
+\(0\le p\le2\), we prove
+\[
+ \det(A^k+|AB|^p)\ge\det(A^k+A^pB^p).
+\]
+In fact, a log-majorization of the corresponding normalized matrices
+holds. The previously proved range \(k\ge2\) is due to
+Ghabries, Abbas, Mourad, and Assi. We treat the remaining base powers
+using a normalized order implication. Two applications of the Furuta
+inequality establish complementary parameter regions. The identity
+\(\lvert |AB|^{-1}B\rvert=A^{-1}\) interchanges the two parameters
+and closes the remaining range.
+\end{abstract}
+
+\noindent\textbf{Provenance and review.}
+This manuscript was prepared with assistance from OpenAI Codex.
+The accompanying review records identify the exact version checked
+by independent Codex agents. Such review is neither human peer review
+nor formal verification.
+
+\section{Statement and notation}
+
+Throughout, \(A,B\in\C^{n\times n}\) are positive definite,
+matrix powers are defined by spectral functional calculus, and
+\(\norm{\cdot}\) denotes the operator norm.
+For a matrix \(M\), write \(|M|=(M^*M)^{1/2}\).
+Eigenvalues of a positive definite matrix are listed in decreasing order.
+For positive vectors \(u,v\in(0,\infty)^n\), the notation
+\(u\lm v\) means
+\[
+ \prod_{i=1}^j u_i\le\prod_{i=1}^j v_i\quad(1\le j<n),
+ \qquad
+ \prod_{i=1}^n u_i=\prod_{i=1}^n v_i .
+\]
+
+\begin{theorem}\label{thm:main}
+For every \(A,B>0\), \(k\ge0\), and \(0\le p\le2\),
+\begin{equation}\label{eq:mainlog}
+ \lambda\!\left(A^{(p-k)/2}B^pA^{(p-k)/2}\right)
+ \lm
+ \lambda\!\left(A^{-k/2}|AB|^pA^{-k/2}\right).
+\end{equation}
+Consequently,
+\begin{equation}\label{eq:maindet}
+ \det(A^k+|AB|^p)\ge\det(A^k+A^pB^p).
+\end{equation}
+\end{theorem}
+
+Inequality~\eqref{eq:maindet} is the positive definite formulation
+of MI-28~\cite{MI28,GThesis}. Although \(A^k+A^pB^p\) need not be
+Hermitian, its determinant is positive: after factoring out \(A^k\),
+the remaining product \(A^{p-k}B^p\) is similar to the positive
+definite matrix on the left of~\eqref{eq:mainlog}.
+The range \(k\ge2\), \(0\le p\le2\) follows already from
+\cite[Lemma~2.5]{GAMA20}; we record the precise substitution in
+Section~\ref{sec:finish}.
+
+\section{Two order implications}
+
+We use the L\"owner--Heinz inequality
+\begin{equation}\label{eq:LH}
+ 0<X\le Y,\quad 0\le t\le1
+ \quad\Longrightarrow\quad X^t\le Y^t,
+\end{equation}
+and the following convention for the Furuta inequality~\cite{Furuta87}:
+if \(X\ge Y>0\), \(r\ge0\), \(a\ge0\), \(q\ge1\), and
+\((1+r)q\ge a+r\), then
+\begin{equation}\label{eq:Furuta}
+ (X^{r/2}Y^aX^{r/2})^{1/q}\le X^{(a+r)/q}.
+\end{equation}
+Both facts are also restated in
+\cite[Propositions~1--2]{Tanahashi99}. The \(r\) used here is twice
+the sandwich exponent in that reference.
+
+For \(k,p>0\), let \(\mathcal I(k,p)\) denote the assertion that,
+for every \(A,B>0\), with \(D=|AB|\),
+\begin{equation}\label{eq:imp}
+ D^p\le A^k\quad\Longrightarrow\quad B^p\le A^{k-p}.
+\end{equation}
+This notation describes a universal order implication.
+It makes no assumption that \(A\) and \(B\) commute.
+
+\begin{lemma}\label{lem:small}
+If \(k>0\) and \(k/(k+1)\le p\le1\), then \(\mathcal I(k,p)\)
+holds.
+\end{lemma}
+
+\begin{proof}
+Assume \(D^p\le A^k\). In~\eqref{eq:Furuta}, choose
+\[
+ X=A^k,\qquad Y=D^p,\qquad r=\frac2k,\qquad
+ a=\frac2p,\qquad q=2 .
+\]
+The condition \((1+r)q\ge a+r\) is exactly
+\(p\ge k/(k+1)\). Thus
+\[
+ (AD^2A)^{1/2}\le A^{1+k/p}.
+\]
+Since \(D^2=BA^2B\), we have \(AD^2A=(ABA)^2\), and its positive
+square root is \(ABA\). Congruence by \(A^{-1}\) gives
+\(B\le A^{k/p-1}\). Applying~\eqref{eq:LH} with exponent
+\(p\in(0,1]\) proves \(B^p\le A^{k-p}\).
+\end{proof}
+
+\begin{lemma}\label{lem:large}
+If \(k>0\) and \(1\le p\le2\), then \(\mathcal I(k,p)\) holds.
+\end{lemma}
+
+\begin{proof}
+Assume \(D^p\le A^k\), and set
+\[
+ C=ABA,\qquad s=\frac{p(k+2)}{k+p}.
+\]
+The hypotheses give \(1\le p\le s\le2\).
+Apply~\eqref{eq:Furuta} with
+\[
+ X=A^k,\qquad Y=D^p,\qquad r=\frac2k,\qquad
+ a=\frac2p,\qquad q=\frac2s.
+\]
+Here \(q\ge1\) and \((1+r)q=a+r\). Using \(AD^2A=C^2\), we obtain
+\begin{equation}\label{eq:Cbound}
+ C^s=(AD^2A)^{s/2}\le A^{k+2}.
+\end{equation}
+Because \(0<2/(k+2)\le1\), L\"owner--Heinz followed by inversion
+gives
+\begin{equation}\label{eq:Aminus}
+ A^{-2}\le C^{-2s/(k+2)}=C^{-2p/(k+p)}.
+\end{equation}
+
+For every invertible \(S\) and real \(p\), a singular-value
+decomposition gives
+\[
+ (SS^*)^p=S(S^*S)^{p-1}S^*.
+\]
+Apply this identity to \(S=A^{-1}C^{1/2}\), for which \(SS^*=B\):
+\[
+ B^p=A^{-1}C^{1/2}
+       (C^{1/2}A^{-2}C^{1/2})^{p-1}
+       C^{1/2}A^{-1}.
+\]
+Congruence in~\eqref{eq:Aminus}, followed by
+L\"owner--Heinz with \(0\le p-1\le1\), therefore yields
+\begin{align}
+ B^p
+ &\le A^{-1}C^{\,1+(p-1)(k-p)/(k+p)}A^{-1}\notag\\
+ &=A^{-1}C^{\,p(k-p+2)/(k+p)}A^{-1}.
+ \label{eq:Bbound}
+\end{align}
+The exponent of \(C\) in~\eqref{eq:Bbound} equals \(s\theta\), where
+\[
+ \theta=\frac{k-p+2}{k+2}\in[0,1].
+\]
+Applying L\"owner--Heinz to~\eqref{eq:Cbound} gives
+\(C^{s\theta}\le A^{k-p+2}\). Substitute this in~\eqref{eq:Bbound}
+to conclude \(B^p\le A^{k-p}\).
+\end{proof}
+
+\begin{remark}
+The argument after~\eqref{eq:Cbound} is a direct proof of the
+needed specialization of the negative-power Furuta inequality.
+In the convention of~\eqref{eq:Furuta}, the relevant parameters in
+\cite[Theorem~3]{Tanahashi99} are
+\[
+ X=A^{k+2},\quad Y=C^s,\quad
+ a=\frac{k+p}{p(k+2)},\quad q=\frac1p,\quad r=-\frac2{k+2}.
+\]
+The displayed proof above verifies that specialization using
+only L\"owner--Heinz and the singular-value identity.
+\end{remark}
+
+\section{Interchanging the parameters}
+
+\begin{lemma}\label{lem:swap}
+Let \(0<p\le k\). If \(\mathcal I(p,k)\) holds, then
+\(\mathcal I(k,p)\) holds.
+\end{lemma}
+
+\begin{proof}
+Assume \(D^p\le A^k\), where \(D=|AB|\), and define
+\[
+ \widetilde A=D^{-1},\qquad \widetilde B=B.
+\]
+The order of the factors is essential. Directly,
+\[
+ |\widetilde A\widetilde B|^2
+   =BD^{-2}B
+   =B(B^{-1}A^{-2}B^{-1})B
+   =A^{-2},
+\]
+so \(|\widetilde A\widetilde B|=A^{-1}\).
+Inverting the assumed order gives
+\[
+ |\widetilde A\widetilde B|^k=A^{-k}
+ \le D^{-p}=\widetilde A^p.
+\]
+Apply \(\mathcal I(p,k)\) to this pair:
+\begin{equation}\label{eq:swapped}
+ B^k\le \widetilde A^{p-k}=D^{k-p}.
+\end{equation}
+Since \(0<p/k\le1\), L\"owner--Heinz applied
+to~\eqref{eq:swapped} gives
+\[
+ B^p\le D^{p(k-p)/k}.
+\]
+Since \(0\le(k-p)/k\le1\), applying it also to \(D^p\le A^k\)
+gives
+\[
+ D^{p(k-p)/k}\le A^{k-p}.
+\]
+Together these inequalities prove \(\mathcal I(k,p)\).
+If \(p=k\), the second exponent is zero and its inequality is
+simply \(I\le I\); the argument still applies.
+\end{proof}
+
+\begin{corollary}\label{cor:allsmallk}
+For \(0<k\le2\) and \(0<p\le2\), the implication
+\(\mathcal I(k,p)\) holds.
+\end{corollary}
+
+\begin{proof}
+If \(p\ge1\), use Lemma~\ref{lem:large}.
+Suppose \(0<p<1\). If \(p\ge k/(k+1)\), use
+Lemma~\ref{lem:small}. In the remaining case,
+\[
+ p<\frac{k}{k+1}<k\le2.
+\]
+We establish the swapped implication \(\mathcal I(p,k)\).
+When \(k\le1\), its exponent \(k\) satisfies
+\[
+ \frac{p}{p+1}<p<k\le1,
+\]
+so Lemma~\ref{lem:small}, with the parameters interchanged,
+applies. When \(1\le k\le2\), Lemma~\ref{lem:large}, with the
+parameters interchanged, applies. Lemma~\ref{lem:swap} now proves
+\(\mathcal I(k,p)\).
+\end{proof}
+
+\section{Log-majorization and the determinant}\label{sec:finish}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+First take \(0<k\le2\), \(0<p\le2\), and write
+\[
+ H=A^{(p-k)/2}B^pA^{(p-k)/2},\qquad
+ Z=A^{-k/2}D^pA^{-k/2}.
+\]
+Both matrices are homogeneous of degree \(p\) in \(B\).
+Let \(c=\norm{Z}>0\), and replace \(B\) by \(c^{-1/p}B\).
+The resulting \(Z\) is at most \(I\), equivalently
+\(D^p\le A^k\) for the scaled pair.
+Corollary~\ref{cor:allsmallk} gives \(B^p\le A^{k-p}\).
+Congruence by \(A^{(p-k)/2}\) shows that the scaled \(H\) is
+at most \(I\). Scaling back proves
+\begin{equation}\label{eq:norm}
+ \norm{H}\le\norm{Z}.
+\end{equation}
+
+For every \(1\le j\le n\), apply~\eqref{eq:norm} to
+\(\bigwedge^j A\) and \(\bigwedge^j B\).
+These exterior powers are positive definite and preserve products,
+inverses, and spectral powers. In particular,
+\[
+ \left|(\bigwedge\nolimits^j A)(\bigwedge\nolimits^j B)\right|
+ =\bigwedge\nolimits^j |AB|.
+\]
+The operator norm of an exterior power of a positive definite matrix
+is the product of its \(j\) largest eigenvalues. We thus obtain
+all partial-product inequalities in~\eqref{eq:mainlog}.
+The full determinants agree:
+\begin{equation}\label{eq:equaldets}
+ \det H=\det Z=\det(A)^{p-k}\det(B)^p.
+\end{equation}
+This proves~\eqref{eq:mainlog} for \(0<k\le2\), \(0<p\le2\).
+
+For \(k\ge2\), use the previously established result
+\cite[Lemma~2.5]{GAMA20}. In its notation, for \(0\le t\le s\le K\),
+\[
+ \lambda(X^{K-t}Y^t)
+ \prec_{\mathrm{wlog}}
+ \lambda\!\left(
+ X^{K/2}(Y^{s/2}X^{-s}Y^{s/2})^{t/s}X^{K/2}\right).
+\]
+Take \(X=A^{-1}\), \(Y=B\), \(K=k\), \(s=2\), and \(t=p\).
+The two eigenvalue lists are exactly those of \(H\) and \(Z\);
+the product \(A^{p-k}B^p\) is similar to \(H\).
+Equation~\eqref{eq:equaldets} changes this weak log-majorization
+into the log-majorization~\eqref{eq:mainlog}.
+This invokes the original range \(0\le t\le s\le K\) without
+altering any of its parameter restrictions.
+
+When \(p=0\), the two matrices in~\eqref{eq:mainlog} are both
+\(A^{-k}\), so equality holds.
+For \(k=0\), \(p>0\), let \(k\downarrow0\) in the established
+range \(0<k\le2\). Functional calculus and the ordered eigenvalues
+are continuous on the positive definite cone, and each
+partial-product inequality and~\eqref{eq:equaldets} persists.
+Thus~\eqref{eq:mainlog} holds at every stated endpoint.
+
+Finally, log-majorization is ordinary majorization of the logarithms
+of the eigenvalues. Applying the convex function
+\(t\mapsto\log(1+e^t)\) gives
+\[
+ \det(I+H)\le\det(I+Z).
+\]
+Indeed, the corresponding inequality for the sums of this convex
+function is the standard convex-function characterization of
+majorization. Since \(A^{p-k}B^p\) is similar to \(H\),
+\begin{align*}
+ \det(A^k+A^pB^p)&=\det(A^k)\det(I+H),\\
+ \det(A^k+D^p)&=\det(A^k)\det(I+Z).
+\end{align*}
+Multiplying by the positive number \(\det(A^k)\) proves
+\eqref{eq:maindet}.
+\end{proof}
+
+\begin{remark}[Scope]
+The theorem treats every dimension and every parameter pair in
+the canonical positive definite statement of MI-28.
+For \(k>0\) and \(p>0\), the positive semidefinite extension follows
+by applying the determinant inequality to \(A+\varepsilon I\) and
+\(B+\varepsilon I\), then letting \(\varepsilon\downarrow0\).
+The positive definite formulation avoids conventions for zeroth
+powers of singular matrices.
+\end{remark}
+
+\Needspace{18\baselineskip}
+\begin{thebibliography}{9}
+
+\bibitem{MI28}
+\texttt{MColbrook/OpenProblemsInNLA}.
+\emph{MI-28: Ghabries's determinant comparison for arbitrary
+nonnegative base powers}.
+\url{https://github.com/MColbrook/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-28/README.md}.
+
+\bibitem{GThesis}
+M.~M.~Ghabries.
+\emph{Contributions to Matrix Inequalities and Some Applications}.
+PhD thesis, University of Angers and Lebanese University, 2022.
+Section~2.5 and final Open Problems, Problem~1, pp.~109--110.
+\url{https://www.researchgate.net/publication/361793582_Contributions_to_Matrix_Inequalities_and_Some_Applications}.
+
+\bibitem{GAMA20}
+M.~M.~Ghabries, H.~Abbas, B.~Mourad, and A.~Assi.
+\emph{A proof of a conjectured determinantal inequality}.
+Linear Algebra and its Applications \textbf{605} (2020), 21--28.
+Lemma~2.5 and Theorem~1.1.
+\url{https://doi.org/10.1016/j.laa.2020.07.013}.
+Author-uploaded full text:
+\url{https://www.researchgate.net/publication/342908148_A_proof_of_a_conjectured_determinantal_inequality}.
+
+\bibitem{Furuta87}
+T.~Furuta.
+\emph{\(A\ge B\ge O\) assures
+\((B^rA^pB^r)^{1/q}\ge B^{(p+2r)/q}\)
+for \(r\ge0\), \(p\ge0\), \(q\ge1\) with
+\((1+2r)q\ge p+2r\)}.
+Proceedings of the American Mathematical Society
+\textbf{101} (1987), 85--88.
+
+\bibitem{Tanahashi99}
+K.~Tanahashi.
+\emph{The Furuta inequality with negative powers}.
+Proceedings of the American Mathematical Society
+\textbf{127} (1999), 1683--1692.
+Propositions~1--2 and Theorem~3.
+\url{https://doi.org/10.1090/S0002-9939-99-04705-X}.
+Author-uploaded full text:
+\url{https://www.researchgate.net/publication/255605812_The_Furuta_inequality_with_negative_powers}.
+
+\end{thebibliography}
+\end{document}
