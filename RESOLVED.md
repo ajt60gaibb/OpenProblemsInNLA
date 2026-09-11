@@ -15,6 +15,62 @@ catalog with **🟡 PARTIAL** and an explanation of what remains.
 
 ## Resolved catalog entries
 
+### ✅ Two randomly pivoted factorization resolutions by Matthew J. Colbrook — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. The complete shared manuscript passed separate independent agent audits for RA-02 and RA-03, with a separate exact-code review and fresh computations. AI assistance is disclosed. The original targets, IDs and historical ratings are retained. [Submission record](references/colbrook-random-pivoting-2026-09-11/README.md). No external human peer review, formal certification or priority determination is claimed.
+
+#### RA-02 — negative resolution
+
+[Original target](randomized-and-low-rank-approximation/RA-02/README.md) · [Complete proof](references/colbrook-random-pivoting-2026-09-11/manuscripts/sharp_random_pivoting.pdf) · [Independent review](references/colbrook-random-pivoting-2026-09-11/verification/reviews/RA-02-review.md). Theorem 1 and Corollary 3 disprove the existence of constants $C,p$ giving the displayed polynomial bound after exactly $r$ pivots. For every fixed $r\ge1$, real entrywise-positive positive-definite matrices of order $r+1$ approach the sharp expected trace-error ratio $2^r$ as a parameter tends to zero. Choose $r$ first and then the parameter; no limit uniform in $r$ is needed. The result does not address oversampling (RA-01).
+
+#### RA-03 — negative resolution
+
+[Original target](randomized-and-low-rank-approximation/RA-03/README.md) · [Complete proof](references/colbrook-random-pivoting-2026-09-11/manuscripts/sharp_random_pivoting.pdf) · [Independent review](references/colbrook-random-pivoting-2026-09-11/verification/reviews/RA-03-review.md). Section 2 gives the exact counterexample $A=\left(\begin{smallmatrix}2&1\\1&2\end{smallmatrix}\right)$: one pivot has expected squared Frobenius error $18/5$, while the best rank-one squared error is $1$. Thus the displayed $2^k$ bound is false already at $k=1$. Theorem 1 additionally proves that the known $4^r$ factor is sharp as a supremum at every rank, even on real entrywise-positive positive-definite inputs.
+
+### Three joint-spectral-radius and growth resolutions by Matthew J. Colbrook — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Two separate Codex agents reviewed the two complete manuscripts against three exact canonical targets; all three received PASS. A third agent reviewed the computational evidence and fresh diagnostics. The proofs were developed with AI assistance; no external human peer review, formal certification or priority claim is asserted. [Submission record, preserved originals, public eligibility audit and reviews](references/colbrook-jsr-growth-2026-09-11/README.md).
+
+**MF-05 — affirmative resolution.** [Original target and resolution](matrix-functions-and-stability/MF-05/README.md) · [Complete proof, Theorem 2 and Corollary 7](references/colbrook-jsr-growth-2026-09-11/manuscripts/uniform_growth_and_holder.pdf) · [Independent review](references/colbrook-jsr-growth-2026-09-11/verification/reviews/MF-05-MF-07-review.md). For every pair of nonempty compact real or complex matrix families in a spectral-norm ball of radius $L>0$, the joint spectral radii differ by at most $d(2d+1)L^{1-1/d}d_H^{1/d}$. This proves the local two-family assertion, including reducible families and zero joint spectral radius. The exponent is sharp; MF-06 is unaffected.
+
+**MF-07 — affirmative resolution.** [Original target and resolution](matrix-functions-and-stability/MF-07/README.md) · [Complete proof, Theorem 1 and Proposition 5](references/colbrook-jsr-growth-2026-09-11/manuscripts/uniform_growth_and_holder.pdf) · [Independent review](references/colbrook-jsr-growth-2026-09-11/verification/reviews/MF-05-MF-07-review.md). Every product of length $k$ from a family of joint spectral radius one is bounded by $\Theta_d(Lk)^{d-1}$, where $\Theta_1=1$ and $\Theta_d=d(2ed^2/(d-1))^{d-1}$ for $d\ge2$. The constant depends only on dimension; arbitrary compact complex families and every switching word are covered. The exponent $d-1$ is sharp, while the stated constant is not claimed optimal.
+
+**MF-12 — affirmative resolution.** [Original target and resolution](matrix-functions-and-stability/MF-12/README.md) · [Complete proof, Theorem 1 and §§2–5](references/colbrook-jsr-growth-2026-09-11/manuscripts/arbitrary_growth_exponents.pdf) · [Independent review](references/colbrook-jsr-growth-2026-09-11/verification/reviews/MF-12-review.md). For every real $\alpha\ge0$, two fixed real matrices have joint spectral radius one and maximal length-$k$ product norm comparable to $k^\alpha$ at every positive integer length. Six-dimensional pairs suffice between exponents zero and one; rational exponents admit dyadic-rational entries. This is the finite-family, every-length result, not an infinite-family or subsequence construction.
+
+The original statements, permanent IDs and historical ratings remain retained. The archive's preparation-stage HOLD and access limitations are preserved as history; the current public eligibility audit and independent proof reviews support these three Solved classifications.
+
+### ✅ Three tensor resolutions by Matthew J. Colbrook — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Complete AI-assisted arguments passed separate independent Codex-agent reviews; TR-06 passed two. This is independent agent verification, not external human peer review or formal certification. The [submission record](references/colbrook-unclaimed-2026-09-11/README.md) separates the supplied summary-only archive from the complete arguments developed here. No novelty or priority claim is made. Original IDs, targets and historical ratings remain intact.
+
+#### TR-06 — affirmative resolution
+
+[Canonical target](tensor-computations/TR-06/README.md) · [Complete proof](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-06.md) · [PDF](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-06.pdf) · [Independent review](references/colbrook-unclaimed-2026-09-11/verification/reviews/TR-06-review.md) · [Second review](references/colbrook-unclaimed-2026-09-11/verification/reviews/TR-06-second-review.md). **Theorem and Sections 2–4.** The mean angular condition number is finite for every generically complex-identifiable format and rank in the original volume-Gaussian model. A bounded semialgebraic graph gives finite first-derivative integral on the unit link; conical scaling gives a finite Gaussian radial factor. This does not assert finite regular-condition means or higher moments.
+
+#### TR-15 — negative resolution
+
+[Canonical target](tensor-computations/TR-15/README.md) · [Complete proof](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-15.md) · [PDF](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-15.pdf) · [Independent review](references/colbrook-unclaimed-2026-09-11/verification/reviews/TR-15-review.md). **“Counterexample” and “The premise is not vacuous”.** The common generating vector $(2,0,1,0,2,0,-1)$ gives an order-three, dimension-three Hankel tensor whose real H-eigenvalues are all positive, and an order-six, dimension-two tensor with H-eigenvalue $-1$. This exactly refutes the odd-order inheritance conjecture; it does not contradict results requiring a positive-semidefinite associated Hankel matrix. The included standard-library checker verifies the contractions and positivity identity in exact integer arithmetic.
+
+#### TR-26 — affirmative resolution
+
+[Canonical target](tensor-computations/TR-26/README.md) · [Complete proof](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-26.md) · [PDF](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-26.pdf) · [Independent review](references/colbrook-unclaimed-2026-09-11/verification/reviews/TR-26-review.md). **Theorem 1 and Sections 2–7.** For every $d\ge2$ in the exact standard unweighted embedding, the reduced isotropic and nonisotropic Rayleigh–Ritz discriminants have degrees $2d$ and $6(d-1)$. The proof establishes distinct isotropic hyperplanes, irreducibility of the other part and generic discriminant multiplicity one, including $d=2$ and matrix-map degeneracies.
+
+### ✅ Three further tensor resolutions by Matthew J. Colbrook — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Three separate agents reviewed the complete recovered AI-assisted manuscripts and returned PASS for their exact canonical targets. Original IDs, targets, historical ratings and provenance remain intact. Verification is independent agent review, not external human peer review or formal certification. [Submission record](references/colbrook-recovered-tensors-2026-09-11/README.md). The already-pushed TR-06, TR-15 and TR-26 submissions are excluded from this batch.
+
+#### TR-04 — affirmative resolution
+
+[Canonical target](tensor-computations/TR-04/README.md) · [Complete proof](references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-04.pdf) · [Independent review](references/colbrook-recovered-tensors-2026-09-11/verification/reviews/TR-04-review.md). **Theorem 3 and Sections 2–4.** A deterministic algorithm tests at most $n_1$ first-cut singular-subspace choices and TT-SVD completions. It returns a tensor within the prescribed ranks with squared error strictly less than $(d-1)E_*$ whenever $E_*>0$, and exactly reconstructs when $E_*=0$, in the canonical idealized arithmetic/SVD model. This settles the displayed pointwise target. It does not give a smaller uniform factor $c<d-1$ or a finite-precision bit-complexity guarantee; the fixed-format limiting example in Section 5 makes this distinction explicit.
+
+#### TR-13 — affirmative resolution
+
+[Canonical target](tensor-computations/TR-13/README.md) · [Complete proof](references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-13.pdf) · [Independent review](references/colbrook-recovered-tensors-2026-09-11/verification/reviews/TR-13-review.md). **Theorem 1 and Sections 2–5.** For every odd $m\ge5$ and $n\ge2$, a nonempty Zariski-open set of complex Hankel tensors has ordinary rank, symmetric rank, ordinary border rank, symmetric border rank and Vandermonde rank all equal to $\lceil(m(n-1)+1)/2\rceil$. A compressed three-slice Koszul flattening gives the ordinary-border-rank lower bound, including arbitrary unstructured limiting sequences; a dominant moment map supplies the matching actual Vandermonde-rank upper bound. Exceptional Hankel tensors and the separate all-tensors question TR-14 are not settled.
+
+#### TR-20 — affirmative resolution
+
+[Canonical target](tensor-computations/TR-20/README.md) · [Complete proof](references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-20.pdf) · [Independent review](references/colbrook-recovered-tensors-2026-09-11/verification/reviews/TR-20-review.md). **Theorem 1 and Sections 2–8.** For every $n\ge2$, the reduced nonisotropic Rayleigh–Ritz discriminants in the original complex bilinear Segre model have degrees $24\binom{n+1}{3}$ for $2\times n$ matrices and $24n^2\binom n2$ for $3\times n$ matrices. The proof handles the logarithmic boundary and crossings, proves simple ramification and generic degree one onto the reduced irreducible image, and then extracts both formulas. Its general coefficient expression is additional to the two requested formulas.
+
 ### ✅ AA-01, MD-03 and MD-04 — submissions by George Stepaniants, 2026-09-11
 
 **Submission author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA. Two separate Codex agents independently reviewed the three exact targets and returned PASS. The drafts were supplied in a ChatGPT conversation. Verification is independent automated-agent review, not external human peer review or formal certification. [Authorship, complete manuscripts, review reports and duplicate-submission check](references/stepaniants-2026-09-11/README.md).
@@ -311,6 +367,12 @@ The related order-five rook bound is outside the order-three/order-four target o
 **[IE-10](eigenvalues-and-inverse-problems/IE-10/README.md): Solved.** Theorem 1 proves $\mathbb E\kappa_V(H_k)\leq17n^2k$ for the exact complex-sphere cyclic-shift model. Markov\'s inequality gives the uniform $0.99$ target with $C=1700$ and $c=3$. Sections 5 and 6-7 give two probability proofs; real starts and arbitrary nonnormal inputs are outside the result.
 
 Author: **Matthew J. Colbrook**, University of Cambridge. [Complete proof](references/colbrook-round3-2026-09-11/manuscripts/IE-10.pdf), [independent review](references/colbrook-round3-2026-09-11/verification/reviews/IE-10-review.md), and [submission record](references/colbrook-round3-2026-09-11/README.md). AI generation is disclosed; agent verification is not external human peer review or formal certification. Original target and historical ratings are retained. The accompanying IS-04 prime-square construction remains partial for its all-orders target.
+
+## Accurate polynomial evaluability - 2026-09-11
+
+**[AA-01](arithmetic-and-complexity/AA-01/README.md): Solved.** Theorem 1.1 gives an always-halting decision procedure for the exact constant-free finite-tree model in the statement. In every signed ordering chart $x_{\pi(i)}=\sigma_i(y_1+\cdots+y_i)$, the coefficientwise absolute majorant of $q(y)=p(x(y))$ must be bounded by $C|q(y)|$ on $y\geq0$. This finite real-quantifier criterion is necessary and sufficient; Sections 2-4 prove the equivalence and construct an evaluator when it holds. Both independent reviews cover comparisons, branching, stored-value reuse and arbitrary independent rounding errors.
+
+Author: **Matthew J. Colbrook**, University of Cambridge. [Complete proof](references/colbrook-arithmetic-2026-09-11/manuscripts/AA-01.pdf), [first review](references/colbrook-arithmetic-2026-09-11/verification/reviews/AA-01-review.md), [second review](references/colbrook-arithmetic-2026-09-11/verification/reviews/AA-01-second-review.md), and [submission record](references/colbrook-arithmetic-2026-09-11/README.md). AI assistance and missing experimental sources are disclosed. Agent review is not external human peer review or formal certification. Historical ratings and the exact original target are retained. The accompanying AC-11 and AC-12 finite cases remain partial.
 
 ## Published resolutions of historical questions
 

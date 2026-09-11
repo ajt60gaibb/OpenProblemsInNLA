@@ -17,7 +17,7 @@
 | [AC-09](AC-09/README.md) | Deterministic polynomial-time commutative Edmonds problem | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](AC-09/problem.pdf) · [TeX](AC-09/problem.tex) |
 | [AC-10](AC-10/README.md) | An explicit rational Valiant-rigid matrix family | **🔵 OPEN** | extreme | broadly interesting | [PDF](AC-10/problem.pdf) · [TeX](AC-10/problem.tex) |
 | [AC-11](AC-11/README.md) | The least positive permanent of a sign matrix | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](AC-11/problem.pdf) · [TeX](AC-11/problem.tex) |
-| [AC-12](AC-12/README.md) | Realizing every sign-matrix permanent with negative entries confined on or above the diagonal | **🔵 OPEN** | challenging | interesting to specialist | [PDF](AC-12/problem.pdf) · [TeX](AC-12/problem.tex) |
+| [AC-12](AC-12/README.md) | Realizing every sign-matrix permanent with negative entries confined on or above the diagonal | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](AC-12/problem.pdf) · [TeX](AC-12/problem.tex) |
 | [AC-13](AC-13/README.md) | Deterministic near-quadratic matrix multiplication verification | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](AC-13/problem.pdf) · [TeX](AC-13/problem.tex) |
 
 ## Retained entries outside the open count

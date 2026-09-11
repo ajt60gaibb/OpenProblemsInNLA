@@ -3,8 +3,18 @@
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
 **Rating rationale:** Challenging because the remaining odd orders require rank lower bounds beyond the proved even-order and cubic mechanisms; specialist importance reflects the restriction to generic Hankel tensors.  
-**Last checked:** 2026-09-10  
-**Status:** Open  
+**Last checked:** 2026-09-11  
+**Status:** Solved  
+
+<!-- colbrook-recovered-tensors -->
+## Resolution — 2026-09-11
+
+**Affirmative resolution by Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. For every odd $m\ge5$ and $n\ge2$, a nonempty Zariski-open set of complex Hankel tensors has ordinary rank, symmetric rank, ordinary border rank, symmetric border rank and Vandermonde rank all equal to $\lceil(m(n-1)+1)/2\rceil$. A compressed three-slice Koszul flattening gives the ordinary-border-rank lower bound, including arbitrary unstructured limiting sequences; a dominant moment map supplies the matching actual Vandermonde-rank upper bound. Exceptional Hankel tensors and the separate all-tensors question TR-14 are not settled.
+
+[Complete manuscript, Theorem 1 and Sections 2–5](../../references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-13.pdf) · [Standalone TeX](../../references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-13.tex) · [Independent complete-source PASS review](../../references/colbrook-recovered-tensors-2026-09-11/verification/reviews/TR-13-review.md) · [Authorship and provenance](../../references/colbrook-recovered-tensors-2026-09-11/README.md).
+
+The recovered AI-assisted proof passed independent agent review; this is not external human peer review or formal certification. The original target and dated source audit are retained. Difficulty, importance and rating rationale are historical. No novelty or priority claim is made.
+<!-- /colbrook-recovered-tensors -->
 
 ## Statement
 
