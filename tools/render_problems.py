@@ -66,7 +66,7 @@ def render(source):
             'MI-03', 'MI-04', 'MI-06', 'MI-07', 'MI-08', 'MI-09', 'MI-19', 'MI-23', 'MI-29',
             'RA-08', 'RA-09', 'RA-10', 'RA-11', 'RA-12', 'RA-14',
             'RA-15', 'RA-17', 'RE-01', 'RE-02', 'RE-03', 'RE-06',
-            'SP-04', 'SP-06', 'SP-07', 'SP-09', 'SP-12', 'TR-11', 'TR-20',
+            'SP-04', 'SP-06', 'SP-07', 'SP-09', 'SP-12', 'TR-11', 'TR-20', 'MD-06',
             'TR-21', 'TR-24', 'TR-26', 'TR-30',
         }:
             tex = re.sub(r"\\subsection\{References?(?:\s+and\s+status\s+check)?\}",
