@@ -49,6 +49,9 @@ def render(item, folder):
     url = item['review_base_url'].rstrip('/') + '/' + resolve('review').relative_to(ROOT).as_posix()
     notice = '\n\\noindent\\textbf{' + item['status'] + '} ' + item['notice']
     notice += '\nThe dated \\href{' + url + '}{independent agent review} records the subsequent checks and supersedes original draft remarks about pending review. This is not external human peer review or formal certification.\n\\par\\medskip\n'
+    if source.split(r'\maketitle', 1)[1].lstrip().startswith(r'\vspace{-2.5em}'):
+        # Balance the original title-spacing adjustment after the added notice.
+        notice += '\\vspace{2.5em}\n'
     tex = tex.replace(r'\maketitle', '\\maketitle\n' + notice + '% BEGIN REVIEWED BODY\n', 1)
     tex += '\n% END REVIEWED BODY\n'
     tex = '% Reviewed source SHA256 (UTF-8/LF): ' + digest + '\n' + tex

@@ -232,6 +232,14 @@ Seven exact targets are classified below. Independent agent review is not extern
 
 [Complete manuscript](references/colbrook-intervals-2026-09-11/manuscripts/IV-06.pdf); [full independent agent review](references/colbrook-intervals-2026-09-11/verification/reviews/IV-06-review.md).
 
+## Reviewed discrepancy submission - 2026-09-11
+
+### MD-06 - negative resolution by Matthew J. Colbrook
+
+[Original statement](matrix-discrepancy-and-optimization/MD-06/README.md). **Solved.** **Negative resolution, Theorem 1.** For a uniformly random labelled simple cubic graph on an even number of vertices, the probability that every local minimum of the homogeneous Kuramoto energy is synchronized tends to **zero**, rather than one. With high probability a nonsynchronized local minimum has edge cosines at least $1/32$ and Hessian at least $(1/320)I$ on the mean-zero subspace. The full analytic argument and the primary random-graph inputs passed two independent agent reviews. The graph model, torus topology and quantification over every local minimum are unchanged.
+
+[Complete primary manuscript](references/colbrook-discrepancy-2026-09-11/manuscripts/MD-06.pdf); [submission and independent review record](references/colbrook-discrepancy-2026-09-11/README.md). Author: Matthew J. Colbrook, University of Cambridge. Verification is by independent agents, not external human peer review. Historical ratings and the original statement are preserved; no priority claim is made.
+
 ## Published resolutions of historical questions
 
 These questions were screened out before receiving current catalog folders;

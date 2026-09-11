@@ -1,0 +1,533 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,microtype}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\T}{\mathbb T}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\Pp}{\mathbb P}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ip}[2]{\left\langle#1,#2\right\rangle}
+\newcommand{\asin}{\operatorname{arcsin}}
+\title{Random cubic graphs admit nonsynchronized stable Kuramoto equilibria}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\vspace{-2.5em}
+\begin{abstract}
+For a uniformly random labelled simple cubic graph on an even number of
+vertices, we give a proof claim that the probability that every local minimum
+of the homogeneous attractive Kuramoto energy is synchronized tends to zero.
+This is the opposite of the limit proposed in problem MD-06 of
+\emph{OpenProblemsInNLA} and Conjecture~3 of
+\emph{Randomstrasse101: Open Problems of 2024}.
+A two-by-two sign pattern on a cycle of length divisible by four, together
+with a decaying nonlinear profile on its outward binary trees, has uniformly
+positive edge cosines and an exponentially small boundary gradient.
+A Laplacian spectral gap converts this truncated profile into an exact local
+minimum. Fixed-length cycle counts and the spectral gap of random regular
+graphs then establish the claimed probability limit. The analytic argument
+does not depend on numerical optimization. Supplementary rational existence certificates and a symbolic finite
+construction are checked with exact arithmetic.
+\end{abstract}
+
+\noindent\textbf{Review status.} Complete negative-resolution proof claim;
+independent mathematical review is pending. No external peer review or formal
+proof-assistant verification is asserted.
+
+\section{Statement and scope}
+
+Let $G=(V,E)$ be a finite simple undirected graph, and let
+$\T=\R/(2\pi\mathbb Z)$. Define
+\begin{equation}\label{eq:energy}
+ E_G(\theta)=\sum_{\{u,v\}\in E}\bigl(1-\cos(\theta_u-\theta_v)\bigr),
+ \qquad \theta\in\T^{V}.
+\end{equation}
+A phase vector is \emph{synchronized} when all coordinates agree modulo
+$2\pi$. Local minima use the usual topology on the phase torus. Because a
+common phase rotation is a symmetry, a local minimum need not be strict on
+the entire torus.
+
+Write $L_G$ for the unweighted graph Laplacian, and $\lambda_2(L_G)$ for its
+second-smallest eigenvalue. For connected $G$, this eigenvalue is positive.
+The subspace $\one^\perp$ is the orthogonal complement of the constant vector
+in $\R^{V}$.
+
+\begin{theorem}\label{thm:main}
+Let $G_n$ be uniform over the labelled simple $3$-regular graphs on
+$\{1,\ldots,n\}$, for even $n\ge4$. Then
+\begin{equation}\label{eq:main}
+ \lim_{\substack{n\to\infty\\ n\ \mathrm{even}}}
+ \Pp\bigl(\text{every local minimum of }E_{G_n}
+                \text{ is synchronized}\bigr)=0.
+\end{equation}
+More strongly, with probability tending to one, there is a nonsynchronized
+critical point with all edge cosines bounded below by the same positive
+absolute constant. Its Hessian is positive definite on $\one^\perp$.
+\end{theorem}
+
+The graph model, energy, phase domain, and quantification over \emph{every}
+local minimum match the canonical MD-06 entry~\cite{repo}. Its source is
+Definition~2.1 and Conjecture~3 of Bandeira, Kireeva, Maillard, and
+R\"odder~\cite{randomstrasse}. Therefore, if independently verified,
+Theorem~\ref{thm:main} gives a full negative resolution, not just a family
+of exceptional finite graphs.
+
+Stable nonsynchronized patterns on finite cubic graphs are not new.
+DeVille and Ermentrout~\cite{deville} studied them analytically for specific
+graphs and numerically across finite graph samples. Their Section~IV
+explicitly identifies a vanishing probability of having no stable pattern
+as a trend suggested by their data. The argument below is directed at the
+asymptotic assertion for the uniform labelled simple model; no priority
+claim about finite examples or the numerical phenomenon is made.
+
+\section{An exact minimum from a small gradient}
+
+We work with real lifts of the angles. The energy and its derivatives are
+periodic in each coordinate. Direct differentiation gives
+\begin{align}
+ (\nabla E_G(\phi))_v
+   &=\sum_{w\sim v}\sin(\phi_v-\phi_w),\label{eq:gradient}\\
+ z^{\mathsf T}\nabla^2E_G(\phi)z
+   &=\sum_{\{u,v\}\in E}\cos(\phi_u-\phi_v)(z_u-z_v)^2.
+   \label{eq:hessian}
+\end{align}
+The gradient has zero coordinate sum, and the Hessian annihilates $\one$.
+
+\begin{lemma}[Small-gradient certificate]\label{lem:certificate}
+Suppose $G$ is connected, $\lambda_2(L_G)\ge\gamma>0$, and
+$\phi\in\R^V$ satisfies
+\begin{equation}\label{eq:certificate-hyp}
+ \cos(\phi_u-\phi_v)\ge c>0\quad(\{u,v\}\in E),
+ \qquad
+ \norm{\nabla E_G(\phi)}_2<\frac{c^2\gamma}{4\sqrt2}.
+\end{equation}
+There is $h_*\in\one^\perp$, with $\norm{h_*}_2<c/(2\sqrt2)$, such that
+$\theta_* =\phi+h_*$ is an exact critical point. Furthermore,
+\begin{align}
+ \cos((\theta_*)_u-(\theta_*)_v)&\ge c/2
+       &&(\{u,v\}\in E),\label{eq:positive-cos}\\
+ z^{\mathsf T}\nabla^2E_G(\theta_*)z
+       &\ge(c\gamma/2)\norm z_2^2
+       &&(z\in\one^\perp).\label{eq:positive-hessian}
+\end{align}
+Thus $\theta_*$ is a strict local minimum modulo common rotation and a local
+minimum on the phase torus.
+\end{lemma}
+
+\begin{proof}
+Set $\rho=c/(2\sqrt2)$ and
+$B=\{h\in\one^\perp:\norm h_2\le\rho\}$.
+For each edge and each $h\in B$,
+$|h_u-h_v|\le\sqrt2\norm h_2\le c/2$.
+Since cosine is $1$-Lipschitz, all weights in \eqref{eq:hessian} at
+$\phi+h$ are at least $c/2$. Throughout $B$ this implies
+\begin{equation}\label{eq:strongconvex}
+ z^{\mathsf T}\nabla^2E_G(\phi+h)z
+  \ge(c/2)z^{\mathsf T}L_Gz
+  \ge\mu\norm z_2^2\quad(z\in\one^\perp),\qquad \mu=c\gamma/2.
+\end{equation}
+The continuous function $h\mapsto E_G(\phi+h)$ attains a minimum on the
+compact set $B$. At a boundary point, $\norm h_2=\rho$, and
+\begin{align*}
+ \ip h{\nabla E_G(\phi+h)}
+ &=\ip h{\nabla E_G(\phi)}
+   +\int_0^1h^{\mathsf T}\nabla^2E_G(\phi+th)h\,dt\\
+ &\ge-\rho\norm{\nabla E_G(\phi)}_2+\mu\rho^2>0.
+\end{align*}
+A small move in the direction $-h$ decreases the energy, so a minimizer
+$h_*$ is in the relative interior of $B$. At this point the gradient is
+orthogonal to $\one^\perp$. It is also orthogonal to $\one$, hence zero.
+The weight bound and \eqref{eq:strongconvex} prove
+\eqref{eq:positive-cos}--\eqref{eq:positive-hessian} and strict local
+minimality on the slice. Any nearby perturbation splits into a mean-zero
+perturbation and a common rotation, proving local minimality on the torus.
+\end{proof}
+
+\section{A cycle with outward binary trees}
+
+\subsection{A scalar phase profile}
+
+For each integer $R\ge4$, define
+\begin{equation}\label{eq:F}
+ F_R(t)=3\asin t+2\sum_{j=1}^{R-1}\asin(t/2^j),\qquad 0\le t\le1.
+\end{equation}
+
+\begin{lemma}\label{lem:profile}
+There is a unique $t_R\in(0,1)$ satisfying $F_R(t_R)=2\pi$.
+The roots decrease with $R$, and $t_R>1/2$. Hence
+\begin{equation}\label{eq:c0}
+ c_0:=\sqrt{1-t_4^2}>0,\qquad \sqrt{1-t_R^2}\ge c_0\quad(R\ge4).
+\end{equation}
+Set
+\begin{equation}\label{eq:profile}
+ \delta_j=\asin(t_R/2^j),\qquad
+ a_j=\sum_{s=j}^{R-1}\delta_s\ (0\le j<R),\qquad a_R=0.
+\end{equation}
+Then
+\begin{equation}\label{eq:rootbalance}
+ 2a_0+\delta_0=2\pi,\qquad
+ \sin(2a_0)=-t_R,\qquad
+ \cos(2a_0)=\sqrt{1-t_R^2}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Each $F_R$ is continuous and strictly increasing, with $F_R(0)=0$.
+Moreover,
+\[
+ F_4(1)=\frac{11\pi}{6}+2\asin(1/4)+2\asin(1/8)
+       >\frac{11\pi}{6}+\frac34>2\pi,
+\]
+where the last inequality follows from $\pi<4$.
+Since $F_R\ge F_4$, existence and uniqueness follow by the intermediate
+value theorem. Increasing $R$ increases $F_R(t)$ for $t>0$, so the roots
+decrease.
+
+Convexity of arcsine on $[0,1]$ gives $\asin x\le\pi x/2$.
+Using $3\asin(1/2)=\pi/2$, we obtain
+\[
+ F_R(1/2)\le\frac\pi2+\pi\sum_{j=1}^{\infty}2^{-j-1}=\pi<2\pi.
+\]
+This proves $t_R>1/2$. Finally, the identity
+$F_R(t_R)=2a_0+\delta_0$ gives \eqref{eq:rootbalance}.
+\end{proof}
+
+\begin{remark}[Explicit constants]\label{rem:constants}
+The constant in \eqref{eq:c0} satisfies $c_0>1/16$. To see this, put
+$t_*=\sqrt{255}/16$. The elementary inequalities
+$\asin x\ge x+x^3/6$ and
+$\asin(1/16)<1/\sqrt{255}<1/15$ give
+\[
+ F_4(t_*)>
+ \frac{3\pi}{2}-\frac15+\frac{7t_*}{4}+\frac{t_*^3}{24}
+ >\frac{3\pi}{2}+\frac{151}{96}>2\pi.
+\]
+Here $t_*>99/100$, $t_*^3>97/100$, and
+$151/96>11/7>\pi/2$ were used. Thus $t_4<t_*$, proving the claim.
+Consequently, the final edge-cosine bound can be taken as $1/32$ and,
+when $\gamma=1/10$, the Hessian bound on $\one^\perp$ as $(1/320)I$.
+In that case the explicit choice
+$R=29+\lceil\log_2\ell\rceil$ satisfies \eqref{eq:chooseR}, since
+$32\ell/((1/16)^4(1/10)^2)=209\,715\,200\ell<2^{28}\ell$.
+These conservative constants are not needed for the probability limit.
+\end{remark}
+
+\begin{definition}\label{def:clean}
+A cycle $C$ in a cubic graph has a \emph{clean radius-$R$ neighborhood} when
+the subgraph induced by the vertices at distance at most $R$ from $C$ is
+unicyclic, with $C$ as its unique cycle.
+\end{definition}
+
+For a clean neighborhood of an $\ell$-cycle, every cycle vertex has one
+outward child. Each vertex at depth $1,\ldots,R-1$ has two children. The
+attached rooted trees are disjoint, and their depth-$j$ level has
+$\ell2^{j-1}$ vertices, for $1\le j\le R$.
+
+\begin{proposition}[Localized approximate equilibrium]\label{prop:localized}
+Let $C=(v_0,\ldots,v_{\ell-1})$ have length divisible by four and a clean
+radius-$R$ neighborhood in a cubic graph, where $R\ge4$. There is
+$\phi\in\R^V$ such that
+\begin{equation}\label{eq:localized-estimates}
+ \min_{\{u,v\}\in E}\cos(\phi_u-\phi_v)\ge c_0,
+ \qquad \norm{\nabla E_G(\phi)}_2^2=\ell t_R^2 2^{1-R}.
+\end{equation}
+On an opposite-sign cycle edge in the construction, the distance of its
+phase difference from $2\pi\mathbb Z$ is $\delta_0>\pi/6$.
+\end{proposition}
+
+\begin{proof}
+Give the cycle roots signs
+\[
+ (\varepsilon_0,\ldots,\varepsilon_{\ell-1})
+   =(+1,+1,-1,-1,+1,+1,-1,-1,\ldots).
+\]
+Every root has one same-sign and one opposite-sign cycle neighbor.
+Assign phase $\varepsilon_i a_j$ to each depth-$j$ vertex in the tree rooted
+at $v_i$, for $j<R$, including $j=0$ for the root. Give every other vertex
+phase zero, including all depth-$R$ vertices.
+
+At a root of sign $\varepsilon$, the three terms in the gradient are
+\[
+ 0,\qquad \sin(2\varepsilon a_0)=-\varepsilon t_R,
+ \qquad \sin\bigl(\varepsilon(a_0-a_1)\bigr)=\varepsilon t_R.
+\]
+They cancel. At a depth-$j$ vertex, $1\le j<R$, the parent contributes
+$-\varepsilon t_R/2^{j-1}$ and each of its two children contributes
+$\varepsilon t_R/2^j$. These also cancel. A depth-$R$ vertex has phase zero,
+one nonzero-phase parent, and two zero-phase neighbors. Its gradient is
+$-\varepsilon t_R/2^{R-1}$. Beyond depth $R$ every gradient coordinate is
+zero. The number of boundary vertices is $\ell2^{R-1}$, which proves the
+norm identity.
+
+Opposite-sign cycle edges have cosine
+$\cos(2a_0)=\sqrt{1-t_R^2}\ge c_0$; same-sign cycle edges have cosine one.
+A tree edge from depth $j$ to $j+1$ has cosine
+$\cos\delta_j\ge\cos\delta_0\ge c_0$. All other edges have phase difference
+zero. Lastly, a cross-sign cycle edge has difference
+$\pm(2\pi-\delta_0)$, where $\delta_0=\asin t_R>\pi/6$.
+\end{proof}
+
+\begin{theorem}[Deterministic obstruction]\label{thm:deterministic}
+Fix $\gamma>0$ and $\ell\in4\mathbb N$, and choose an integer $R\ge4$ with
+\begin{equation}\label{eq:chooseR}
+ 2^{R-1}>\frac{32\ell}{c_0^4\gamma^2}.
+\end{equation}
+Any connected cubic graph $G$ with $\lambda_2(L_G)\ge\gamma$ and a clean
+radius-$R$ neighborhood of an $\ell$-cycle has a nonsynchronized local
+minimum. At this minimum every edge cosine is at least $c_0/2$ and the
+Hessian on $\one^\perp$ is bounded below by $(c_0\gamma/2)I$.
+\end{theorem}
+
+\begin{proof}
+Proposition~\ref{prop:localized} and $t_R<1$ give
+\[
+ \norm{\nabla E_G(\phi)}_2=t_R\sqrt{\ell2^{1-R}}
+            <\frac{c_0^2\gamma}{4\sqrt2}.
+\]
+Apply Lemma~\ref{lem:certificate} with $c=c_0$. Every edge difference changes
+by less than $c_0/2\le1/2$. On a cross-sign cycle edge, the original distance
+from $2\pi\mathbb Z$ is $\delta_0>\pi/6>1/2$. Distance to a fixed closed
+set is $1$-Lipschitz, so the new difference is not a multiple of $2\pi$.
+The exact local minimum is therefore nonsynchronized. Its other properties
+are the conclusions of the certificate lemma.
+\end{proof}
+
+\section{Uniform random simple cubic graphs}
+
+We use two established results in their uniform labelled simple-graph forms.
+Bordenave's version of Friedman's theorem
+\cite[Theorem~1, printed p.~2]{bordenave} bounds the nontrivial adjacency
+eigenvalues of a random $d$-regular graph by
+$2\sqrt{d-1}+o(1)$ in absolute value, with probability tending to one.
+For $d=3$, since $3-2\sqrt2>1/10$, it follows that
+\begin{equation}\label{eq:gap-random}
+ \Pp\bigl(\lambda_2(L_{G_n})\ge1/10\bigr)\longrightarrow1.
+\end{equation}
+The event in \eqref{eq:gap-random} also implies connectivity.
+
+Let $C_\ell(G_n)$ count simple cycles of length $\ell$. Johnson's
+Poisson approximation \cite[Theorem~11, printed p.~12]{johnson} gives,
+for each fixed $\ell\ge3$,
+\begin{equation}\label{eq:poisson}
+ C_\ell(G_n)\xrightarrow{\ d\ }\operatorname{Poisson}(\mu_\ell),
+ \qquad \mu_\ell=\frac{2^\ell}{2\ell}.
+\end{equation}
+The simple-graph convention is stated in Section~2, printed p.~3, of that
+paper. In particular, $\Pp(C_\ell(G_n)=0)\to e^{-\mu_\ell}$.
+
+\begin{lemma}[Clean fixed neighborhoods]\label{lem:clean-random}
+For fixed $\ell\ge3$ and $R\ge1$, the probability that $G_n$ contains an
+$\ell$-cycle without a clean radius-$R$ neighborhood is
+$O_{\ell,R}(n^{-1})$.
+\end{lemma}
+
+\begin{proof}
+A radius-$R$ neighborhood of an $\ell$-cycle in a cubic graph has at most
+$M=\ell2^R$ vertices. If it is not unicyclic, it is connected and has at
+least two independent cycles. Repeatedly remove degree-one vertices. The
+remaining graph $H$ is nonempty, has minimum degree at least two, maximum
+degree at most three, at most $M$ vertices, and
+$e(H)-v(H)\ge1$. Removing a leaf preserves $e-v$.
+
+There are finitely many such isomorphism types, with a number depending
+only on $\ell,R$. For any fixed labelled embedding of one of these types,
+Johnson's Proposition~1(a), printed p.~3, gives
+\[
+ \Pp(H\subseteq G_n)\le c_1\,2^{e(H)} n^{-e(H)}
+\]
+for sufficiently large $n$. Its degree and size conditions hold because
+$d=3$ and $H$ is fixed. There are at most $n^{v(H)}$ embeddings of a type,
+so the union bound over all types is $O_{\ell,R}(n^{-1})$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Write $S_n$ for the event that every local minimum is synchronized.
+Fix any $\ell\in4\mathbb N$, set $\gamma=1/10$, and choose a fixed $R$
+satisfying \eqref{eq:chooseR}. The deterministic obstruction implies
+\begin{align*}
+ \Pp(S_n)
+ &\le \Pp\bigl(\lambda_2(L_{G_n})<1/10\bigr)
+  +O_{\ell,R}(n^{-1})+\Pp\bigl(C_\ell(G_n)=0\bigr).
+\end{align*}
+Indeed, if the gap condition holds, no $\ell$-cycle has a dirty neighborhood,
+and an $\ell$-cycle exists, then a nonsynchronized local minimum exists.
+Equations~\eqref{eq:gap-random}--\eqref{eq:poisson} yield
+\begin{equation}\label{eq:limsup}
+ \limsup_{\substack{n\to\infty\\n\ \mathrm{even}}}\Pp(S_n)
+       \le\exp\!\left(-\frac{2^\ell}{2\ell}\right).
+\end{equation}
+This is true for \emph{every fixed} multiple of four. Let $\ell$ tend to
+infinity after taking the limit superior; the right side tends to zero.
+This proves \eqref{eq:main}.
+
+The same bound applies to the event of having no nonsynchronized minimum
+with edge cosines at least $c_0/2$ and Hessian lower bound $(c_0/20)I$ on
+$\one^\perp$. The constants are independent of $\ell$, proving the stronger
+assertion.
+\end{proof}
+
+\begin{remark}[Quantifiers and scope]\label{rem:scope}
+The events in the union bound need not be independent. In each use of a
+random-graph limit, both $\ell$ and $R$ are fixed before $n$ tends to
+infinity. No estimates uniform in growing cycle length or neighborhood
+radius are required. The radius bound is conservative, so this proof does
+not supply a useful numerical threshold in $n$. Nor does it assert that a
+uniform random initial phase converges to a nonsynchronized minimum with
+probability tending to one: existence of a local minimum is the target.
+\end{remark}
+
+\section{Supplementary exact finite certificates}
+
+\subsection{Rational approximate phases}
+
+Two supplied rational approximate phase vectors, on connected simple cubic
+graphs with $20$ and $500$ vertices, satisfy the hypotheses of
+Lemma~\ref{lem:certificate}. The standalone verifier uses only integer and
+rational arithmetic for acceptance. It proves existence of nearby exact
+minima, not that the supplied rational vectors themselves are stationary.
+These finite checks are supplementary, not premises of the asymptotic proof.
+
+For a connected graph with $n$ vertices and diameter $D$,
+\begin{equation}\label{eq:diamgap}
+ \lambda_2(L_G)\ge\frac{2}{(n-1)D}>\frac1{nD}.
+\end{equation}
+To see this, for $z\in\one^\perp$ use a shortest path for each vertex pair:
+\[
+ n\norm z_2^2=\sum_{u<v}(z_u-z_v)^2
+ \le\frac{n(n-1)}2 D\sum_{\{u,v\}\in E}(z_u-z_v)^2.
+\]
+The verifier computes $D$ by exact breadth-first searches and uses
+$\gamma=1/(nD)$.
+
+For a rational edge difference $x$, it evaluates
+\[
+ S_N(x)=\sum_{j=0}^N\frac{(-1)^jx^{2j+1}}{(2j+1)!},\qquad
+ C_N(x)=\sum_{j=0}^N\frac{(-1)^jx^{2j}}{(2j)!}.
+\]
+Including the next zero Taylor coefficient, Lagrange's remainder theorem
+gives
+\[
+ |\sin x-S_N(x)|\le\frac{|x|^{2N+3}}{(2N+3)!},\qquad
+ |\cos x-C_N(x)|\le\frac{|x|^{2N+2}}{(2N+2)!}.
+\]
+These rational enclosures hold for every real $x$; they do not require an
+alternating-series monotonicity assumption. The supplied runs use $N=40$.
+Summing sine intervals at each vertex gives an upper bound $g_2$ on the
+squared gradient norm. The decisive test is the exact rational inequality
+\begin{equation}\label{eq:squaredtest}
+ g_2<\frac{c^4\gamma^2}{32}.
+\end{equation}
+A separate test finds an edge with original absolute real phase difference
+between $1$ and $5$. Its change is at most $c/2\le1/2$, so it stays strictly
+between $0$ and $2\pi$ in absolute value, since $2\pi>6$.
+
+\begin{center}
+\small
+\begin{tabular}{@{}rrrrl@{}}
+\toprule
+$n$ & $D$ & $c$ & $\gamma$ & verified conservative bound\\
+\midrule
+20 & 5 & $1/4$ & $1/100$ & $g_2<10^{-22}$\\
+500 & 12 & $1/8$ & $1/6000$ & $g_2<10^{-21}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The right sides of \eqref{eq:squaredtest} are, respectively,
+$1/81\,920\,000$ and $1/4\,718\,592\,000\,000$.
+All acceptance comparisons use \texttt{fractions.Fraction}; decimal log
+entries are descriptive only. Floating-point optimization and Newton
+refinement were used only to propose rational inputs to the verifier.
+
+\subsection{A symbolic finite realization}
+
+There is also a finite realization of the tree profile with an exactly zero
+gradient, requiring no perturbation argument. Start with the four cycle roots
+of signs $+,+,-,-$, and build their outward trees through depth $R-1$.
+At depth $R$, pair each prospective leaf of the first positive tree with a
+leaf of the first negative tree, and do the same for the other two trees.
+Identify each opposite-sign pair into a single vertex of phase zero.
+Every such vertex has two parents of opposite phases and therefore has zero
+net sine force. Match the resulting zero-phase vertices between the two
+pairing groups, giving each one a third edge.
+
+The resulting connected simple cubic graph has $3\cdot2^R$ vertices.
+The phase expressions are integer linear combinations of
+$\delta_0,\ldots,\delta_{R-1}$. Every edge difference is one of
+$0$, $\pm\delta_j$, or $\pm2a_0=\pm(2\pi-\delta_0)$.
+Consequently, each sine contribution is an exact rational multiple of $t_R$,
+and all gradient coordinates vanish. Every edge cosine is positive, so
+\eqref{eq:hessian} proves strict local minimality modulo rotation. The
+cross-root gap is $\delta_0>\pi/6$, so the state is nonsynchronized.
+
+The supplied \texttt{analytic\_gadget.py} constructs this graph and checks
+its degree, simplicity, connectivity, symbolic edge types, and all sine-flow
+balances using integers and rational numbers. At $R=4$ it has $48$ vertices
+and $72$ edges; the accompanying tests also check $R=5$. This example
+illustrates the same nonlinear profile but, like the other finite examples,
+is not a substitute for the random-graph argument.
+
+\section{Points for independent review}
+
+The proof has four distinct steps: a scalar equation supplies the positive
+cosine margin; the sign pattern and tree profile cancel all interior
+forces; compact-ball minimization corrects the boundary residual despite
+arbitrary exterior connections; and the fixed-cycle Poisson limit yields
+\eqref{eq:limsup}. In particular, numerical stationarity tolerances, finite
+examples, and unproved independence assumptions are not used to infer an
+asymptotic result. Independent review should check the analytic chain and
+the exact hypotheses of the two random-graph inputs, rather than only rerun
+the finite verifier.
+
+\begin{thebibliography}{9}
+\small
+\setlength{\itemsep}{4pt}
+\bibitem{repo}
+\emph{OpenProblemsInNLA}, canonical entry MD-06,
+``Global synchronization of a random cubic graph.''
+Entry checked September 11, 2026; its recorded source-check date is
+September 10, 2026.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/matrix-discrepancy-and-optimization/MD-06}{Repository entry MD-06}.
+
+\bibitem{randomstrasse}
+A.~S. Bandeira, A. Kireeva, A. Maillard, and A. R\"odder,
+\emph{Randomstrasse101: Open Problems of 2024},
+arXiv:2504.20539v1 (2025), Definition~2.1 and Conjecture~3, printed p.~3.
+\url{https://arxiv.org/abs/2504.20539v1}.
+
+\bibitem{deville}
+L. DeVille and B. Ermentrout,
+\emph{Phase-locked patterns of the Kuramoto model on 3-regular graphs},
+Chaos \textbf{26} (2016), 094820.
+DOI: \href{https://doi.org/10.1063/1.4961064}{10.1063/1.4961064}.
+Preprint: \url{https://arxiv.org/abs/1512.06140}.
+Relevant locators: Sections~I.E, II.A, III.G, and IV of the arXiv HTML version.
+
+\bibitem{bordenave}
+C. Bordenave,
+\emph{A new proof of Friedman's second eigenvalue theorem and its extension
+to random lifts}, arXiv:1502.04482.
+Theorem~1 and the labelled simple-graph model, printed p.~2.
+\url{https://arxiv.org/abs/1502.04482}.
+
+\bibitem{johnson}
+T. Johnson,
+\emph{Exchangeable pairs, switchings, and random regular graphs},
+arXiv:1112.0704v5.
+Section~2 and Proposition~1(a), printed p.~3;
+Theorem~11, printed p.~12.
+\url{https://arxiv.org/abs/1112.0704v5}.
+\end{thebibliography}
+\end{document}
