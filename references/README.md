@@ -31,3 +31,5 @@ screen. Use [CATALOG.md](../CATALOG.md) for current counts and statuses.
 - [Thirteen matrix-inequality submissions by Matthew J. Colbrook, 11 September 2026](colbrook-matrix-2026-09-11/README.md): ten complete resolutions and three partial results, each with an independent proof review.
 
 - [Transfer and sampling results by Matthew J. Colbrook, 11 September 2026](colbrook-transfer-2026-09-11/README.md): four independently reviewed resolutions, a commuting partial result and auxiliary Gamma counterexamples.
+
+- [Factorization submissions by Matthew J. Colbrook, 11 September 2026](colbrook-factorization-2026-09-11/README.md): five independently reviewed resolutions and two partial family results.

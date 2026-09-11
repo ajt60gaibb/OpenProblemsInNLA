@@ -8,8 +8,21 @@
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because rank two still requires a global complexity classification despite tractable special inputs; community importance comes from the basic gap between SVD approximation and constrained NMF.  
 **Topic:** low-rank approximation; computational complexity  
-**Last checked:** 2026-09-10  
-**Status:** Partially resolved  
+**Last checked:** 2026-09-11  
+**Status:** Solved  
+
+<!-- colbrook-factorization -->
+## Resolution — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the exact target.**
+
+The exact rational-input decision problem is NP-hard under polynomial-time many-one reductions, even for strictly positive symmetric positive-definite inputs. The proof supplies an inverse-polynomial additive squared-error gap and a polynomial-time rational perturbation to simple spectrum. Factors may be real, exactly as in the canonical question. NP membership and constant-relative-error hardness are not asserted.
+
+The complete target is resolved. Its former difficulty rating is historical; the original statement, references and dated audits remain below.
+
+**Primary reference:** [complete authored PDF](../../references/colbrook-factorization-2026-09-11/manuscripts/NM-03_rank_two_approximation_hardness.pdf), [standalone TeX](../../references/colbrook-factorization-2026-09-11/manuscripts/NM-03_rank_two_approximation_hardness.tex), **Theorem 1; Theorem 5 and Corollary 6 strengthen the construction**. [Independent proof review](../../references/colbrook-factorization-2026-09-11/verification/reviews/NM-03-review.md) · [Authorship and submission record](../../references/colbrook-factorization-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
+
+<!-- /colbrook-factorization -->
 
 ## Problem statement
 
