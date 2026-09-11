@@ -15,6 +15,16 @@ catalog with **🟡 PARTIAL** and an explanation of what remains.
 
 ## Resolved catalog entries
 
+### ✅ RA-12 - the relative-error threshold for extremal Gaussian trace bounds
+
+**Affirmative resolution recorded 2026-09-11.** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+[Original statement and resolution](randomized-and-low-rank-approximation/RA-12/README.md) · [Complete proof](randomized-and-low-rank-approximation/RA-12/solution.md) · [Proof PDF](randomized-and-low-rank-approximation/RA-12/solution.pdf) · [Independent PASS report](references/stepaniants-ra12-2026-09-11/verification/RA-12-independent-review.md).
+
+**Theorem 1, Lemmas 2-4 and the final theorem proof** establish both comparisons in the canonical Gaussian trace-tail chain for every permitted matrix, sample count, effective rank and $\varepsilon\ge2/(m\mu)$. The proof treats the two one-sided tails separately, including the stated endpoint; no case of RA-12 remains open. It uses an elementary mode bound, minimum-positive-coefficient transfers, the published unimodality theorem of Roosta-Khorasani and Székely, Hallman's coefficient-derivative method and Gamma infinite divisibility. The proof does not claim optimality of the threshold or resolve the different RA-13 target.
+
+A separate Codex agent independently reviewed the full proof and external theorem application. Substantial ChatGPT/Codex assistance and the exact frozen-source hashes are documented in the [submission record](references/stepaniants-ra12-2026-09-11/README.md). This is independent agent verification, not external human peer review or formal certification. The original RA-12 statement and historical ratings remain, and Matthew J. Colbrook's earlier auxiliary counterexamples retain their attribution and links.
+
 ### ✅ MI-13 — Nobori's spectral-middle-factor commutator inequality
 
 [Original statement and complete proof](matrix-inequalities-and-norms/MI-13/README.md) · [PDF](matrix-inequalities-and-norms/MI-13/problem.pdf)
