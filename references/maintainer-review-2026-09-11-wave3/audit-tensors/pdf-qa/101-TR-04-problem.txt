@@ -1,0 +1,64 @@
+OPENPROBLEMSINNUMERICALLINEARALGEBRA TR-04
+Tensorcomputations
+Improve the worst-case approximation factor
+for prescribed tensor-train ranks
+Diﬀiculty: extreme Importance: interestingtothecommunity
+Status: Solved
+Rating rationale: Extreme because the guarantee must improve a general worst-case approximation
+barrierwithoutincreasingranks;communityimportancereflectsthecentralroleofTTcompressionin
+numericaltensormethods.
+Resolution—2026-09-11
+AﬀirmativeresolutionbyMatthewJ.Colbrook,DepartmentofAppliedMathematicsandTheoretical
+Physics,UniversityofCambridge. Adeterministicalgorithmtestsatmost𝑛 first-cutsingular-subspace
+1
+choices and TT-SVD completions. It returns a tensor within the prescribed ranks with squared error
+strictly less than (𝑑−1)𝐸 whenever 𝐸 > 0, and exactly reconstructs when 𝐸 = 0, in the canonical
+∗ ∗ ∗
+idealizedarithmetic/SVDmodel. Thissettlesthedisplayedpointwisetarget. Itdoesnotgiveasmaller
+uniformfactor𝑐 <𝑑−1orafinite-precisionbit-complexityguarantee;thefixed-formatlimitingexample
+inSection5makesthisdistinctionexplicit.
+Complete manuscript, Theorem 3 and Sections 2–4 · Standalone TeX · Independent complete-source
+PASSreview·Authorshipandprovenance.
+The recovered AI-assisted proof passed independent agent review; this is not external human peer
+review or formal certification. The original target and dated source audit are retained. Diﬀiculty, im-
+portanceandratingrationalearehistorical. Nonoveltyorpriorityclaimismade.
+Problemstatement
+Let𝑑 ≥3,𝑛 ,…,𝑛 ≥2,andpositiveintegers𝑟 ,…,𝑟 begiven. Let𝑆 ⊂ℝ𝑛 1 ×⋯×𝑛 𝑑 consistoftensors
+1 𝑑 1 𝑑−1 𝑟
+whoseunfoldingseparatingmodes1,…,𝑗frommodes𝑗+1,…,𝑑hasrankatmost𝑟 ,forevery𝑗. Fora
+𝑗
+denseinputtensor𝐴,put
+𝐸 (𝐴,𝑟)= min‖𝐴−𝑌‖2.
+∗ 𝐹
+𝑌∈𝑆
+𝑟
+Findapolynomial-timealgorithmreturning𝑋 ∈𝑆 with
+𝑟
+‖𝐴−𝑋‖2 <(𝑑−1)𝐸 (𝐴,𝑟) whenever𝐸 (𝐴,𝑟)>0,
+𝐹 ∗ ∗
+andexactreconstructionwhen𝐸 (𝐴,𝑟) = 0;alternatively,establishacomplexityobstructiontosucha
+∗
+guarantee. Ranksmaynotbeincreased. Polynomialtimeismeasuredinthedenseinputsizeandrank
+parameters,intheidealizedarithmetic/SVDmodelusedforTT-SVD;abit-complexityformulationmust
+additionallyspecifyprecisionandoutputtolerances.
+This is the tensor-train case of the published tree-network question. The positive-error qualification
+corrects the impossible strict inequality at zero optimum. It asks for a uniformly valid algorithm, not
+anempiricalimprovementoraguaranteerestrictedtoparticularinputtensors.
+References
+I. V. Oseledets, Tensor-Train Decomposition, SIAM Journal on Scientific Computing 33 (2011), 2295–2317,
+Theorem 2.2 and Corollary 2.4. Amsel et al., workshop report, §6.1, Problem 6.1. Matthew Fahrbach
+andMehrdadGhadiri,ATightLowerBoundfortheApproximationGuaranteeofHigher-OrderSingularValue
+Decomposition, Theorems 1.2–1.3, concerns tightness of specific Tucker algorithms rather than a lower
+boundagainstalltensor-trainalgorithms.
+Editorialratings;aboundedsearchcannotcertifythataproblemremainsunsolved.
+Literaturecheck:2026-09-11 1
+
+OPENPROBLEMSINNUMERICALLINEARALGEBRA TR-04
+Statuscheck—2026-09-10
+Rechecked workshop v3, §6.1, Problem 6.1, which still requests a strict improvement or a complexity
+obstruction. Searchesfortensor-trainapproximationimprovementsin2026alsolocatedYuetal., ran-
+domized block Krylov TT approximation: its probabilistic error estimates and practical speedups do
+notgivethedisplayeduniversalimprovementatunchangedranks. Nofullresolutionwaslocated;the
+positive-optimumqualificationremainsessential.
+Editorialratings;aboundedsearchcannotcertifythataproblemremainsunsolved.
+Literaturecheck:2026-09-11 2

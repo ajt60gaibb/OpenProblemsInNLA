@@ -1,0 +1,856 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,microtype,enumitem}
+\usepackage[hidelinks,breaklinks=true]{hyperref}
+\usepackage{xurl}
+\usepackage{fancyvrb}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.38em}
+\setlist{nosep,leftmargin=*}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\NN}{\mathbb N}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\maj}[1]{#1^{\#}}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\poly}{\operatorname{poly}}
+\newcommand{\src}[1]{\textsuperscript{\ref{fn:#1}}}
+\hypersetup{pdftitle={A signed-gap decision criterion for accurate polynomial evaluation},pdfauthor={},pdfsubject={Proposed general resolution of OpenProblemsInNLA AA-01}}
+\hypersetup{pdfauthor={Matthew J. Colbrook}}
+\setlength{\emergencystretch}{3em}
+\begin{document}
+\begin{center}
+{\LARGE\bfseries A signed-gap decision criterion for\\[3pt] accurate polynomial evaluation}
+\par\medskip {\large Matthew J. Colbrook}\\[3pt]{\small Department of Applied Mathematics and Theoretical Physics}\\{\small University of Cambridge, Cambridge, United Kingdom}\\{\small\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}\\[5pt]{\small 11 September 2026}
+\end{center}
+\noindent\textbf{Submission and verification update (11 September 2026).} Independently reviewed resolution of the exact canonical finite-tree model. The supplied work is AI-assisted. Two independent agent reviews verify the mathematical argument. The experimental programs described in the original text were not retained: their reported counts, solver runs and compiled budgets have not been reproduced or certified here. Only two original JSON logs survive. This export uses the complete reviewed TeX, which includes material added after the supplied PDF was built. The dated reports supersede original pending-review remarks. Independent agent review is not external human peer review or formal certification; no novelty or priority claim is made. See the \href{https://github.com/MColbrook/OpenProblemsInNLA/tree/codex/colbrook-arithmetic-submissions/references/colbrook-arithmetic-2026-09-11}{submission record}.
+\par\medskip
+
+\vspace{0.3em}
+\begin{abstract}
+A finite criterion is proposed for the existence of accurate evaluation algorithms
+for real polynomials in the constant-free, independently rounded arithmetic model.
+For each ordering of the input magnitudes and each choice of their signs, write
+the inputs as signed cumulative sums of nonnegative gaps. Expand the given
+polynomial in these gaps. The criterion requires that the polynomial obtained
+by taking the absolute values of its coefficients be bounded by a constant times
+the absolute value of the polynomial itself, on the entire nonnegative orthant.
+The proof below establishes necessity by constructing a separated execution of
+an arbitrary finite branching program, then replaying it under multiplicative
+gap perturbations while holding every rounded value fixed. Polynomial
+interpolation yields coefficient domination. Sufficiency follows from direct
+evaluation in gap coordinates. The criterion is a finite collection of
+first-order sentences over the reals, so real quantifier elimination gives an
+always-halting decision procedure for AA-01. Stored values, exact negation,
+equality branches, nonhomogeneous polynomials, and boundary points are included.
+\end{abstract}
+
+\emph{Status.} This is a proposed general solution, not a finite-case result.
+The argument and its implementation checks have not been independently reviewed
+or formally verified. No assertion of publication priority is made.
+
+\section{Problem and criterion}
+
+The target is AA-01 in the arithmetic-and-complexity section of
+\emph{OpenProblemsInNLA}.\footnote{\label{fn:repo}OpenProblemsInNLA,
+``AA-01---Deciding accurate evaluability of real polynomials,'' statement checked
+11 September 2026;
+\href{https://raw.githubusercontent.com/ajt60gaibb/OpenProblemsInNLA/main/arithmetic-and-complexity/AA-01/README.md}{repository statement}.}
+The underlying accurate-evaluation question and the independent-error model
+were developed by Demmel, Dumitriu and Holtz,\footnote{\label{fn:ddh}J.~Demmel,
+I.~Dumitriu and O.~Holtz, \emph{Toward accurate polynomial evaluation in rounded
+arithmetic}, arXiv:math/0508350v2, 18 January 2006, especially Sections 2.2--2.7 and
+4.3; \url{https://arxiv.org/abs/math/0508350v2}.}
+and surveyed with Koev.\footnote{\label{fn:acta}J.~Demmel, I.~Dumitriu,
+O.~Holtz and P.~Koev, \emph{Accurate and efficient expression evaluation and
+linear algebra}, Acta Numerica 17 (2008), 87--145, especially Section 3.3.7;
+\url{https://doi.org/10.1017/S0962492906350015}.}
+The result here concerns the precise finite-tree, whole-real-space version
+specified next, not every variation of the broader question.
+
+Let $n\ge1$ and $p\in\Z[x_1,\ldots,x_n]$ with $p(0)=0$. Inputs are exact real
+numbers. A finite computation tree uses rounded binary operations
+\[
+ (a,b)\longmapsto (a+b)(1+\delta_j),\quad
+ (a-b)(1+\delta_j),\quad ab(1+\delta_j).
+\]
+Each arithmetic occurrence has its own arbitrary error. Exact negation,
+comparisons of available real values, branching, and stored-value reuse are
+permitted. No real constants are input nodes. Comparison outcomes control
+branches; they are not additional numeric inputs.
+An accurate tree $P$ must satisfy $P(x,0)=p(x)$ and
+\begin{equation}\label{eq:accuracy}
+ \forall\eta\in(0,1)\ \exists u\in(0,1)\ \forall x\in\R^n\
+ \forall\delta\in[-u,u]^{N(P)}:\qquad
+ \abs{P(x,\delta)-p(x)}\le\eta\abs{p(x)}.
+\end{equation}
+Here $N(P)$ counts the rounded nodes in the finite control-flow tree; unused
+errors do not matter. The tree is fixed as $\eta$ varies.
+
+\subsection{Signed-gap charts}
+
+For a permutation $\pi\in S_n$ and signs
+$\sigma=(\sigma_1,\ldots,\sigma_n)\in\{-1,1\}^n$, define the invertible
+integer linear map $L=L_{\pi,\sigma}$ by
+\begin{equation}\label{eq:chart}
+ (Ly)_{\pi(i)}=\sigma_i\sum_{j=1}^{i}y_j,
+ \qquad i=1,\ldots,n.
+\end{equation}
+The image of $\R_{\ge0}^n$ is a closed signed-order chamber. These
+$2^n n!$ images cover $\R^n$. For an input in this chamber,
+\begin{equation}\label{eq:gaps}
+ y_1=\abs{x_{\pi(1)}},\qquad
+ y_i=\abs{x_{\pi(i)}}-\abs{x_{\pi(i-1)}}\quad (i>1).
+\end{equation}
+Chambers may overlap at zero inputs or tied magnitudes. No generic-position
+assumption is made.
+
+For a polynomial $q(y)=\sum_\alpha c_\alpha y^\alpha$, always with collected
+coefficients, put
+\begin{equation}\label{eq:majorant}
+ \maj q(y)=\sum_\alpha\abs{c_\alpha}y^\alpha.
+\end{equation}
+In particular, $\maj q\ge0$ on the nonnegative orthant.
+
+\begin{theorem}[Signed-gap criterion]\label{thm:main}
+For the model above, the following statements are equivalent.
+\begin{enumerate}[label=\textnormal{(\roman*)}]
+\item An accurate finite computation tree for $p$ exists.
+\item For every signed-gap chart $L$, the polynomial $q=p\circ L$ satisfies
+\begin{equation}\label{eq:criterion}
+ \exists C\ge1\ \forall y\in\R_{\ge0}^n:\qquad
+ \maj q(y)\le C\abs{q(y)}.
+\end{equation}
+\item The following fixed type of evaluator is accurate: determine input signs
+and the ordering of their magnitudes exactly; compute the consecutive gaps;
+then evaluate the collected monomial expansion of $p\circ L$ on the selected
+chamber.
+\end{enumerate}
+Consequently, there is a Turing algorithm that always halts and decides AA-01.
+\end{theorem}
+
+A common $C$ may be used in (ii), since the family of charts is finite. The
+criterion is global: it includes all zero strata, arbitrarily different scales
+among gaps, and behavior at infinity. It does not merely test the real zero set.
+
+\section{Sufficiency and the decision procedure}
+
+\subsection{A constant-free canonical evaluator}
+
+The sign of a raw input $x_i$ can be found by comparing $x_i$ with its exact
+negation $-x_i$. Thus no constant zero is needed even for the sign tests.
+Its magnitude is then an available raw input or its exact negation. Exact
+comparisons sort these magnitudes; ties are settled by a fixed convention.
+For fixed $n$ this is a finite comparison tree.
+
+Keep the smallest magnitude as $\widehat y_1=y_1$. For $i>1$, subtract the two
+\emph{original magnitudes}, not previously computed gaps. Then
+\begin{equation}\label{eq:roundedgaps}
+ \widehat y_i=y_i(1+\epsilon_i),\qquad \abs{\epsilon_i}\le u.
+\end{equation}
+Zero gaps are computed as zero. For $u<1$ all computed gaps are nonnegative.
+
+On a selected chamber, expand $q=p\circ L$ over the integers before compiling
+the real-arithmetic evaluator. Because $L$ is linear and $p(0)=0$, every nonzero
+monomial has positive degree. Its computation therefore starts from an
+available gap rather than a constant one. Use multiplications to form powers
+and monomials, repeated additions to form positive integer multiples, exact
+negation for negative coefficients, and additions for the final sum. All
+repetitions have a fixed, finite length. For $p=0$, use $x_1-x_1$.
+
+For clarity, one may implement each positive integer multiple by adding
+separate occurrences of its monomial value; reusing that value is allowed.
+Unrolling this fixed evaluator for purposes of error analysis does not assign
+new independent errors to reused nodes: their existing errors simply occur
+more than once in the resulting symbolic expression.
+
+Every signed monomial contribution has its exact coefficient multiplied by a
+finite product of factors $1+\delta_j$, possibly with repeated factors. Let
+$R\ge1$ bound the number of factors in any such product, including the gap
+errors. It is finite and computable from the constructed evaluator. A
+coefficient represented by several additions is a positive weighted average
+of such products after division by its positive integer coefficient. Thus,
+for $0<u\le1/(2R)$, the relative perturbation of every monomial coefficient is
+at most
+\begin{equation}\label{eq:errorbound}
+ E(u)=(1+u)^R-1\le e^{Ru}-1\le2Ru.
+\end{equation}
+The same bound also controls $1-(1-u)^R$. Hence
+\begin{equation}\label{eq:forward}
+ \abs{\widetilde q(y,\delta)-q(y)}
+ \le 2Ru\,\maj q(y)
+ \le 2CRu\,\abs{q(y)}.
+\end{equation}
+Choose maxima of $C$ and $R$ over the finitely many chambers. Any
+$0<u\le\eta/(2CR)$ gives \eqref{eq:accuracy}; at zero errors the evaluator
+returns $p$ exactly. This proves (ii)$\Rightarrow$(iii), and
+(iii)$\Rightarrow$(i) is immediate.
+
+\subsection{Finite real-algebraic decision}
+
+For each chart the criterion is equivalent to the first-order sentence
+\begin{equation}\label{eq:QE}
+ \exists C\ \forall y_1\cdots\forall y_n:\quad
+ C\ge1\ \wedge\
+ \left[\left(\bigwedge_{i=1}^{n}y_i\ge0\right)
+ \Longrightarrow \maj q(y)^2\le C^2q(y)^2\right].
+\end{equation}
+One may place $C\ge1$ outside the universal quantifiers instead; this is the
+same sentence. All coefficients are integers. Squaring introduces no ambiguity
+because $C$ and $\maj q(y)$ are nonnegative on the domain.
+
+The decision algorithm expands the $2^n n!$ polynomials $q$, forms their
+coefficient majorants, and decides each sentence \eqref{eq:QE} by a complete
+real quantifier-elimination procedure. Such procedures are effective and
+terminating; cylindrical algebraic decomposition is one standard
+choice.\footnote{\label{fn:cad}D.~S.~Arnon, G.~E.~Collins and S.~McCallum,
+\emph{Cylindrical algebraic decomposition I: The basic algorithm}, SIAM Journal
+on Computing 13(4) (1984), 865--877;
+\url{https://doi.org/10.1137/0213054}. See also Collins's 1975 quantifier-elimination
+procedure cited there.}
+Return YES exactly when every sentence is true. No enumeration over unknown
+computation trees is needed. No useful running-time bound is asserted.
+
+When all answers are YES, a usable integer $C$ can also be obtained: test the
+universal conditions with $C=1,2,\ldots$ until all succeed. This subsequent
+search halts because a real bound can be increased to an integer. The
+canonical evaluator and the precision bound above can therefore be supplied
+as witnesses in addition to the decision.
+
+It remains to prove necessity; that is the substantive part of the argument.
+
+\section{Separated executions and replay}
+
+\subsection{Root provenance and separation}
+
+Fix any finite program in the stated model, not yet assumed accurate. During
+one execution, every available real quantity is an exact signed alias of
+one of two kinds of \emph{roots}: an original input, or the output of a rounded
+arithmetic node. Assignment and reuse do not create a new root. Exact
+negation changes its alias sign, not its root identity. This normalization is
+valid in the presence of branches: provenance is followed along the selected
+path. Put
+\begin{equation}\label{eq:constants}
+ M=n+N(P),\qquad 0<u\le\tfrac14,\qquad
+ \gamma=\frac{u}{64M},\qquad
+ \varepsilon=\frac{u\gamma}{16}=\frac{u^2}{1024M}.
+\end{equation}
+A bound on the number of rounded nodes on any one path would also suffice in
+place of $N(P)$.
+
+\begin{lemma}[A uniformly separated execution]\label{lem:sep}
+For each fixed input $x$, an execution can be chosen with every used error in
+$[-u/2,u/2]$ such that the following holds. For any two distinct roots with
+values $v,w$, at least one of which is a rounded root, either both values are
+zero or
+\begin{equation}\label{eq:sep}
+ \abs{v-w}\ge\gamma\max(\abs v,\abs w),\qquad
+ \abs{v+w}\ge\gamma\max(\abs v,\abs w).
+\end{equation}
+There is no separation requirement between two raw input roots.
+\end{lemma}
+
+\begin{proof}
+Choose errors in execution order. Just before a rounded node, its exact
+pre-rounding result $b$ and all earlier root values have been determined. Its
+new value is $v=sb$, where $s$ may be chosen freely in
+$I=[1-u/2,1+u/2]$, an interval of length $u$.
+
+If $b=0$, then $v=0$. Against a nonzero earlier root both inequalities hold
+with separation ratio one; a pair of zero values is exempt. Suppose $b\ne0$.
+For one earlier value $w$, first exclude the choices for which
+\[
+ \abs{sb-w}<\gamma\max(\abs{sb},\abs w).
+\]
+Since $s>0$, no choice is excluded if $r=w/b\le0$. Otherwise the excluded
+choices belong to
+\[
+ ( (1-\gamma)r,\ r/(1-\gamma) ).
+\]
+If this interval meets $I\subset[1/2,3/2]$, then
+$r\le(3/2)/(1-\gamma)\le2$, using $\gamma\le1/4$. Its length is at most
+\[
+ r\gamma\frac{2-\gamma}{1-\gamma}
+ \le\frac{16}{3}\gamma<6\gamma.
+\]
+Replacing $w$ by $-w$ bounds the choices excluded by the other inequality
+by a further $6\gamma$. There are at most $M$ earlier roots. The total excluded
+length is less than or equal to $12M\gamma=3u/16<u$. A valid $s\in I$ therefore
+exists. The resulting root is separated from every earlier root, while
+relations among earlier roots are unchanged.
+
+Continue along the branches selected by these values. Finiteness ensures
+termination. The choices made along the execution form a legal error vector;
+fill unused coordinates arbitrarily within their bounds. Adaptive selection
+in this proof imposes no restriction beyond the model's allowed error box.
+\end{proof}
+
+\subsection{Primitive forms under gap perturbations}
+
+\begin{lemma}[Relative preservation of primitive forms]\label{lem:primitive}
+Fix a chart $L$, $y\ge0$, and $t_i\in[1-\varepsilon,1+\varepsilon]$, where
+$0<\varepsilon<1$. Set
+\[
+ x=Ly,\qquad x'=L\diag(t_1,\ldots,t_n)y.
+\]
+For every form $\ell$ equal to $x_i$ or $x_i\pm x_j$,
+\begin{equation}\label{eq:primitive}
+ \abs{\ell(x')-\ell(x)}\le\varepsilon\abs{\ell(x)}.
+\end{equation}
+Consequently, its sign and its zero status are preserved. The same conclusion
+holds for any exact signed version of these forms.
+\end{lemma}
+
+\begin{proof}
+Under \eqref{eq:chart}, a raw input is a signed prefix sum of gaps. A sum or
+difference of two signed prefix sums is either a signed sum of those prefixes
+or a signed difference of nested prefixes. Therefore $\ell(Ly)$ is zero or
+has the form $\tau\sum_k a_ky_k$, where $\tau\in\{-1,1\}$ and
+$a_k\in\{0,1,2\}$. Nonnegativity of the gaps gives
+\[
+ \abs{\ell(x')-\ell(x)}
+ \le\sum_k a_ky_k\abs{t_k-1}
+ \le\varepsilon\sum_k a_ky_k
+ =\varepsilon\abs{\ell(x)}.
+\]
+This proof also applies at zero gaps and on chamber intersections.
+\end{proof}
+
+\begin{lemma}[Replay with fixed rounded roots]\label{lem:replay}
+Use the constants in \eqref{eq:constants}. Let $x=Ly$ and take a separated
+execution supplied by Lemma~\ref{lem:sep}, with output $V$. For every
+$t\in[1-\varepsilon,1+\varepsilon]^n$ and
+$x'=L\diag(t)y$, there is an execution at $x'$ with errors in $[-u,u]$ such that:
+\begin{enumerate}[label=\textnormal{(\alph*)}]
+\item every comparison has the same outcome and the same control path is followed;
+\item every rounded root has exactly its original numerical value;
+\item if $V'$ is the final output, then $\abs{V'-V}\le\varepsilon\abs V$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Proceed through the original execution, keeping the rounded roots fixed
+inductively. Raw input roots change according to Lemma~\ref{lem:primitive}.
+Exact signed aliases preserve these properties automatically.
+
+First consider any comparison reached along the path. If both compared roots
+are raw, its difference is a signed primitive form and its sign, including
+equality, is preserved. If both are rounded, their signed values have been
+held fixed. In the mixed case, write the values as a held signed rounded
+value $v$ and a signed raw value $r$. Unless both are zero, separation gives
+\[
+ \abs{v-r}\ge\gamma\max(\abs v,\abs r),\qquad
+ \abs{r'-r}\le\varepsilon\abs r.
+\]
+Since $\varepsilon<\gamma$, the comparison cannot change. If both are zero,
+the raw zero is preserved and equality remains true. Thus the next arithmetic
+node on the old path is also the next node on the new path.
+
+Let $b$ and $b'$ be its old and new exact pre-rounding results. We claim that
+$b=0$ implies $b'=0$, and otherwise
+\begin{equation}\label{eq:prechange}
+ \abs{b'/b-1}\le\theta:=\varepsilon/\gamma=u/16.
+\end{equation}
+Here is a complete accounting of the operand cases.
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Operand roots & Operation & Bound for nonzero $b$\\
+\midrule
+Both rounded & Any allowed operation & $0$\\
+Both raw & Addition or subtraction & $\varepsilon$\\
+Both raw & Multiplication & $2\varepsilon+\varepsilon^2$\\
+One raw, one rounded & Multiplication & $\varepsilon$\\
+One raw, one rounded & Addition or subtraction & $\varepsilon/\gamma$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The first line follows from the fixed-root induction. The second is
+Lemma~\ref{lem:primitive}, including repeated or oppositely signed aliases.
+For products, zero factors remain zero; otherwise each varying raw factor
+changes relatively by at most $\varepsilon$. In the last line, if not both
+operands are zero, separation bounds the nonzero sum or difference below by
+$\gamma$ times their maximum magnitude, whereas its change is at most
+$\varepsilon$ times that magnitude. A zero sum or difference in this mixed
+case can only arise from two zero operands, and is preserved. Since
+$\gamma<1/3$ and $\varepsilon<1$, every displayed bound is at most
+$\varepsilon/\gamma$. These observations prove \eqref{eq:prechange} and the
+zero assertion. They also show that a nonzero $b$ cannot become zero.
+
+Let $v=sb$ be the old rounded output, with $\abs{s-1}\le u/2$.
+If $b=b'=0$, retain $s$. Otherwise choose
+\begin{equation}\label{eq:news}
+ s'=\frac{v}{b'}=s\frac{b}{b'}.
+\end{equation}
+This makes the new rounded output exactly $v$. Its error is legal because
+\begin{equation}\label{eq:budget}
+ \abs{s'-1}\le\frac{u/2+\theta}{1-\theta}
+ \le\frac{9u}{16-u}\le\frac{4u}{7}<u,
+ \qquad 0<u\le\tfrac14.
+\end{equation}
+Thus the induction continues through all arithmetic and comparison nodes.
+An available final value is a signed rounded root, which is fixed, or a signed
+raw input, whose relative change is at most $\varepsilon$. This proves (c).
+\end{proof}
+
+The lemma does not assume that different occurrences of a reused quantity
+receive fresh errors. It preserves the stored root itself. Conversely, two
+separately computed arithmetic outputs are distinct roots, even if their
+exact zero-error expressions agree; their own multipliers can be chosen
+separately. Both features are essential to the stated model.
+
+\section{Necessity by interpolation}
+
+Now suppose that $P$ satisfies \eqref{eq:accuracy}. Use $\eta=1/4$ to choose
+one admissible $u$, shrinking it to at most $1/4$ if necessary. Fix the resulting
+$M,\gamma,\varepsilon$ in \eqref{eq:constants}. They do not depend on the input
+or the selected chart.
+
+For any $x=Ly$ and any $x'=L\diag(t)y$ with
+$t\in[1-\varepsilon,1+\varepsilon]^n$, combine a separated execution and its
+replay. Accuracy applies to both error vectors, so
+\[
+ \abs V\le\tfrac54\abs{p(x)},\qquad
+ \abs{p(x')}\le\tfrac43\abs{V'},\qquad
+ \abs{V'}\le(1+\varepsilon)\abs V.
+\]
+Since $\varepsilon<1/5$, this gives the uniform local bound
+\begin{equation}\label{eq:local}
+ \abs{p(L\diag(t)y)}\le2\abs{p(Ly)}
+ \quad\text{for every }y\ge0,\quad
+ t\in[1-\varepsilon,1+\varepsilon]^n.
+\end{equation}
+No division by $p(x)$ was used. In particular, the bound remains valid when
+$p(x)=0$.
+
+\begin{lemma}[Coefficient norm from a fixed box]\label{lem:interp}
+For fixed integers $n,D\ge1$ and $\varepsilon>0$, there is a finite constant
+$K=K(n,D,\varepsilon)$ such that every polynomial
+$Q(t)=\sum_{\alpha\in\{0,\ldots,D\}^n}b_\alpha t^\alpha$ satisfies
+\begin{equation}\label{eq:norm}
+ \sum_\alpha\abs{b_\alpha}
+ \le K\max_{t\in[1-\varepsilon,1+\varepsilon]^n}\abs{Q(t)}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Take the $D+1$ distinct nodes
+$r_j=1-\varepsilon+2\varepsilon j/D$, $j=0,\ldots,D$, and the invertible
+Vandermonde matrix $W=(r_i^{\,j})_{i,j=0}^{D}$. Values of $Q$ on their tensor
+product grid equal $(W^{\otimes n})b$, where $b$ is the vector of coefficients.
+Thus one may take the sum of the absolute values of all entries of
+$(W^{-1})^{\otimes n}$ as $K$. Multiplying the interpolation equations by
+this inverse and applying the triangle inequality proves \eqref{eq:norm}.
+\end{proof}
+
+If $p=0$, the criterion is immediate. Otherwise set $D=\deg p\ge1$. Fix a
+chart and write $q=p\circ L=\sum_\alpha c_\alpha y^\alpha$. For each fixed
+$y\ge0$, apply Lemma~\ref{lem:interp} to
+\[
+ Q_y(t)=q(y_1t_1,\ldots,y_nt_n)
+       =\sum_\alpha c_\alpha y^\alpha t^\alpha.
+\]
+The degree in each variable is at most $D$, so zero-padding the coefficient
+array is sufficient. Its coefficient norm is precisely $\maj q(y)$, including
+when some components of $y$ vanish. By \eqref{eq:local},
+\begin{equation}\label{eq:necessity}
+ \maj q(y)
+ \le K\max_{t\in[1-\varepsilon,1+\varepsilon]^n}\abs{Q_y(t)}
+ \le2K\abs{q(y)}\qquad (y\ge0).
+\end{equation}
+Increasing $2K$ to at least one gives \eqref{eq:criterion}. This proves
+(i)$\Rightarrow$(ii), completing Theorem~\ref{thm:main}.
+
+\begin{corollary}[A canonical family suffices]
+Whenever any accurate tree exists in this model, there is an accurate tree
+whose only branching determines signs and the ordering of raw input
+magnitudes. All subsequent arithmetic on the selected branch is a fixed
+monomial evaluation in its gap coordinates.
+\end{corollary}
+
+The proof does not require homogeneity, an induction on dominant terms, or an
+assumption that a leaf reached with nonzero rounding errors computes $p$ when
+its errors are formally set to zero. In particular, it never substitutes a
+zero-error identity for the behavior of a branch that need not be reached at
+zero errors.
+
+
+\begin{corollary}[A single uniform tolerance suffices]
+Suppose a fixed finite tree satisfies a uniform relative-error guarantee with
+some one tolerance $0<\eta_0<1$ and some one positive error bound $u$, on all
+real inputs and for every allowed error vector. Then the polynomial admits an
+accurate canonical evaluator in the full sense of \eqref{eq:accuracy}.
+\end{corollary}
+\begin{proof}
+Use the same separated execution and replay. Replace the factor two in
+\eqref{eq:local} by the finite factor
+$(1+\eta_0)(1+\varepsilon)/(1-\eta_0)$. The interpolation argument still
+establishes \eqref{eq:criterion}, and sufficiency supplies arbitrary accuracy.
+\end{proof}
+
+\section{Face-polynomial obstructions}\label{sec:faces}
+
+The coefficient-majorant criterion has an equivalent finite obstruction form.
+The auxiliary convex-geometric fact below is closely related to the usual
+face description of the closure of a finite exponential family; no novelty is
+claimed for that fact.\footnote{\label{fn:faces}J.~Rauh, T.~Kahle and N.~Ay,
+\emph{Support sets in exponential families and oriented matroid theory},
+arXiv:0906.5462v2, 16 September 2011, Section 2;
+\url{https://arxiv.org/abs/0906.5462v2}.}
+A proof is included to make the second criterion self-contained.
+
+Let $q(y)=\sum_{\alpha\in S}c_\alpha y^\alpha\ne0$, where $S$ is its finite
+support and each $c_\alpha\ne0$. For a nonempty face $F$ of the convex hull of
+$S$, including the whole convex hull, define its face polynomial by
+\[
+ q_F(y)=\sum_{\alpha\in S\cap F}c_\alpha y^\alpha.
+\]
+
+\begin{proposition}[Face criterion]\label{prop:faces}
+There is a finite constant $C$ with $\maj q\le C\abs q$ on $\R_{\ge0}^n$
+if and only if $q_F$ has no zero in $\R_{>0}^n$ for every nonempty face $F$.
+\end{proposition}
+\begin{proof}
+Suppose first that $q_F(z)=0$ for some $z>0$. Choose $v\in\R^n$ exposing
+$F$ as the maximizers of $\alpha\cdot v$ on $S$, with common maximum $b$.
+For the whole face one can take $v=0$. Along
+$y_i(s)=z_i\exp(sv_i)$, as $s\longrightarrow+\infty$,
+\[
+ e^{-sb}q(y(s))\longrightarrow q_F(z)=0,\qquad
+ e^{-sb}\maj q(y(s))\longrightarrow\maj{(q_F)}(z)>0.
+\]
+Thus $\abs{q(y(s))}/\maj q(y(s))\longrightarrow0$, ruling out domination.
+
+Conversely, failure of domination on the closed orthant implies failure on the
+positive orthant: a uniform bound on the latter would extend by continuity.
+Choose $y^{(k)}>0$ with $\abs{q(y^{(k)})}/\maj q(y^{(k)})\longrightarrow0$,
+put $z_k=\log y^{(k)}$ coordinatewise, and consider the positive weights
+\[
+ w_\alpha^{(k)}=
+ \frac{\abs{c_\alpha}\exp(\alpha\cdot z_k)}
+      {\sum_{\beta\in S}\abs{c_\beta}\exp(\beta\cdot z_k)}.
+\]
+Pass to a convergent subsequence in the probability simplex, with limit $w^*$.
+Its support $T=\{\alpha:w_\alpha^*>0\}$ is nonempty. Choose $\alpha_0\in T$,
+let $V$ be the span of $\alpha-\alpha_0$ for $\alpha\in T$, and decompose
+$z_k=u_k+v_k$ orthogonally, with $u_k\in V$, $v_k\in V^\perp$.
+For $\alpha\in T$,
+\[
+ (\alpha-\alpha_0)\cdot u_k
+ =\log\frac{w_\alpha^{(k)}\abs{c_{\alpha_0}}}
+                 {w_{\alpha_0}^{(k)}\abs{c_\alpha}}
+\]
+converges to a finite limit. A spanning subset of these linear functionals
+therefore implies $u_k\longrightarrow u^*\in V$. For $\beta\notin T$ the
+same log ratio tends to $-\infty$. Boundedness of $u_k$ gives
+$(\beta-\alpha_0)\cdot v_k\longrightarrow-\infty$.
+For one sufficiently large $k$, the vector $v_k$ is consequently constant on
+$T$ and strictly smaller on every outside support point. It exposes a face
+with $S\cap F=T$. If $T=S$, take the whole face.
+
+The limits on $T$ have the form
+\[
+ w_\alpha^*=
+ \frac{\abs{c_\alpha}\exp(\alpha\cdot u^*)}
+      {\sum_{\beta\in T}\abs{c_\beta}\exp(\beta\cdot u^*)}.
+\]
+Since $\sum_{\alpha\in T}\sgn(c_\alpha)w_\alpha^*=0$, the positive point
+$\exp(u^*)$ is a zero of $q_F$. This proves the converse.
+\end{proof}
+
+\begin{corollary}[Existential obstruction test]
+AA-01 has a negative answer exactly when some signed-gap polynomial has a
+nonempty face polynomial with a strictly positive real zero.
+\end{corollary}
+
+This also reduces the decision to finitely many existential real sentences,
+without requiring explicit enumeration of the faces. For a nonzero chart
+polynomial, quantify a point $z$, a normal $v$, a level $b$, and one selector
+$e_\alpha$ for each $\alpha\in S$. Impose $z_i>0$, together with
+\begin{gather*}
+ \bigwedge_{\alpha\in S}
+ \left[(e_\alpha=1\ \wedge\ \alpha\cdot v=b)
+ \ \vee\ (e_\alpha=0\ \wedge\ \alpha\cdot v<b)\right],\\
+ \sum_{\alpha\in S}e_\alpha\ge1,\qquad
+ \sum_{\alpha\in S}e_\alpha c_\alpha z^\alpha=0.
+\end{gather*}
+The strict inequality for an unselected support point is essential; an
+arbitrary subset of a face need not itself be a face. The sentence is true
+exactly when an obstruction exists. The zero polynomial has no obstruction
+and is treated separately.
+
+A negative certificate can consist of the chart, an integer exposing normal,
+and a positive real-algebraic zero of the selected face polynomial. The normal
+can be chosen rational by rational linear feasibility and then scaled to
+integers; the positive point can be chosen algebraic by real-algebraic
+sampling. Writing $b=\max_{\alpha\in S}\alpha\cdot v$, the monomial curve
+$y_i(t)=z_i t^{-v_i}$ has
+\[
+ q(y(t))=t^{-b}Q(t),\qquad \maj q(y(t))=t^{-b}H(t),
+ \qquad Q(0)=0<H(0),
+\]
+where $Q,H$ are polynomials. Thus its ratio obstruction is directly checkable.
+The included certificate checker supports rational positive points, not all
+real-algebraic encodings. The mathematical criterion is not so restricted.
+
+\section{Examples and exact certificates}
+
+\subsection{Difference of squares}
+
+For $p(x,y)=x^2-y^2$, in the chamber $0\le x\le y$ put $x=a$, $y=a+b$.
+Then $q=-2ab-b^2$ and $\maj q=-q$. The other signed-order chambers similarly
+have collected coefficients of one sign. Thus $C=1$ works. The familiar
+factorization $(x-y)(x+y)$ is also an accurate evaluator in this model.
+
+\subsection{A three-term sum}
+
+For $p=x+y+z$, choose $x=a$, $y=a+b$, $z=-(a+b+c)$ with $a,b,c\ge0$.
+Then $q=a-c$ and $\maj q=a+c$. At the interior gap point $(1,1,1)$ the former
+is zero and the latter is two, so the criterion fails. This agrees with the
+known obstruction for three-term addition in the independent-error
+model.\src{ddh}
+
+\subsection{A zero-set test is not enough}
+
+Consider the nonhomogeneous polynomial
+\[
+ p(x,y)=(x^2-y)^2+x^2y^2.
+\]
+It vanishes only at $(0,0)$: both squares must vanish, so $y=x^2$ and $xy=0$.
+In the chamber $0\le y\le x$, put $y=a$, $x=a+b$. Direct expansion gives
+\begin{align*}
+ q(a,b)={}&2a^4+6a^3b+7a^2b^2+4ab^3+b^4\\
+          &-2a^3-4a^2b-2ab^2+a^2.
+\end{align*}
+For $0<t<1$, take $a=t^2$ and $b=t-t^2$. Then
+\[
+ q(a,b)=t^6,\qquad \maj q(a,b)=t^6+4t^4,
+ \qquad\frac{\maj q(a,b)}{\abs{q(a,b)}}=1+\frac4{t^2}\longrightarrow\infty.
+\]
+Therefore no accurate finite tree exists, despite the particularly simple
+real zero set. This example also shows why testing only finite points away
+from zeros cannot replace the global inequality.
+
+\subsection{The Motzkin polynomial}
+
+Let
+\[
+ p(x,y,z)=x^4y^2+x^2y^4+z^6-3x^2y^2z^2.
+\]
+Accurate evaluability of this example with branching is already established
+in the original work; it is used here as a compatibility check, not as a new
+result about that polynomial.\src{ddh}
+Because $p$ is even in all three variables, it suffices to consider their six
+magnitude orderings. In the four orderings where $|z|$ is smallest or largest,
+the gap polynomial has nonnegative coefficients, and $C=1$ works.
+
+In either middle ordering, symmetry between $x$ and $y$ reduces to
+$x=a$, $z=a+b$, $y=a+b+c$. The resulting polynomial is
+\begin{align*}
+ q={}&4a^4b^2-4a^4bc+4a^4c^2
+       +12a^3b^3-6a^3b^2c+6a^3bc^2+4a^3c^3\\
+     &+13a^2b^4-2a^2b^3c+3a^2b^2c^2+4a^2bc^3+a^2c^4
+       +6ab^5+b^6.
+\end{align*}
+It has three negative coefficients, so sign inspection alone is insufficient.
+Nevertheless the following exact certificate proves $\maj q\le3q$ on
+$a,b,c\ge0$:
+\begin{align*}
+ 3q-\maj q={}&8a^4(b-c)^2+12a^3b(b-c)^2+4a^2b^2(b-c)^2\\
+ &+12a^3b^3+8a^3c^3+22a^2b^4+2a^2b^2c^2\\
+ &+8a^2bc^3+2a^2c^4+12ab^5+2b^6.
+\end{align*}
+Every summand is nonnegative. The same bound $C=3$ therefore works for all
+48 signed-order charts. The supplied symbolic test checks all of them,
+including the 16 signed charts requiring this certificate.
+
+\section{Model boundaries and audit points}
+
+The proof uses the following specific features rather than a stronger
+arithmetic model.
+
+\paragraph{Raw inputs and primitive differences.}
+Only input roots are changed in a replay; rounded roots are fixed. Consecutive
+magnitude gaps preserve all raw forms $x_i$ and $x_i\pm x_j$ relatively because
+these forms have coefficients of one sign in every chart. An arbitrary
+polynomial change of coordinates would not have this property.
+
+\paragraph{Independent occurrence errors.}
+At each newly computed rounded root the proof chooses a new multiplier.
+This is allowed even if two arithmetic occurrences have equal operands.
+Stored reuse is different: an alias is not rerounded and is held fixed.
+The method neither assumes nor models correctly rounded IEEE arithmetic,
+error-free transformations, or probabilistic independence.
+
+\paragraph{Exact comparisons and equality cases.}
+No comparison is assumed to compare exact symbolic polynomials for free.
+It compares available values. Separation handles mixed comparisons; primitive
+forms handle raw comparisons. Zeros, repeated operands, exact signed aliases,
+and tied magnitudes are included explicitly, not discarded as exceptional.
+
+\paragraph{Finiteness and whole-space uniformity.}
+A finite bound on the number of roots is essential to obtain a positive
+uniform $\gamma$. Accuracy must hold for all legal error choices at all real
+inputs. Restricted domains need not be closed under gap perturbations, and
+unbounded adaptive loops do not supply this finite root bound. Neither case
+is covered by the theorem.
+
+\paragraph{No extra exact operations or constants.}
+The argument is for binary $+,-,\times$ with relative errors and exact
+negation. No statement is made here for division, fused multiply-add, exact
+nontrivial scalings, arbitrary polynomial black boxes, or added nonzero
+constant inputs. The condition $p(0)=0$ ensures that the constructive direction
+needs no constant monomial. If an encoding permits zero input variables,
+$p=0$ is the only coefficient list satisfying that condition; with the literal
+requirement that an output be an available real quantity and no input nodes,
+there is no output-producing tree in that degenerate case. It can be decided
+separately without affecting the result for $n\ge1$.
+
+\section{Reproducibility and verification status}
+
+The companion package contains exact-arithmetic and real-solver checks. The
+separation/replay harness uses exact rational arithmetic throughout, with
+signed root aliases and conditional operations. Its recorded run covers
+100 programs, 2,200 separated executions, and 10,208 replays. All 74,008
+replayed rounded-node values were preserved exactly; all 46,464 comparison
+outcomes checked during replay agreed. Cases include zero pre-results,
+nonzero cancellation, reuse, exact negation, raw outputs, and equality
+branches. These finite tests do not prove the general lemmas.
+
+A second control-flow harness allows consecutive comparisons, genuinely
+variable numbers of arithmetic steps, and early returns. Its 70 finite trees
+produced 1,680 separated executions and 6,096 replays, preserving 12,771
+arithmetic values and 21,343 comparisons. It includes 44 trees whose selected
+arithmetic path lengths varied and a comparison-only path of length 150.
+
+The symbolic checks verify primitive-form coefficient signs through dimension
+four, the interpolation identities for the recorded finite examples, the
+multiplier-budget identity, the Motzkin certificates, the three-term-sum
+obstruction, and the isolated-zero asymptotic calculation. No floating-point
+tolerance is used for these checks.
+
+
+The constant-free compiler is checked on 148 branches from ten example
+polynomials. All 11,530 arithmetic instructions reference earlier roots and use
+only the permitted operations and signed aliases. Symbolic interpretation at
+zero errors recovers the original polynomial identically on every branch.
+There are also 6,240 exact-rational rounded evaluations checking the bound
+$\abs{\widetilde q-q}\le2Ru\,\maj q$; 3,424 of these use a proved coefficient
+bound and verify relative error at most $1/4$, with exact zero outputs whenever
+the target vanishes. The Motzkin compiler has global factor bound $R=36$, so
+together with $C=3$ it gives the explicit sufficient precision choice
+$u\le\eta/216$. No claim of optimal program size is made.
+
+The face-certificate checks cover two supplied negative examples and 72
+constructed rational certificates, split equally among full-face zeros,
+curves approaching the origin, and curves escaping to infinity. They check
+144 exact curve identities and reject 134 false or malformed certificates.
+These tests also guard against mistaking a nonfacial support subset for a face.
+
+The condition generator accepts an integer coefficient list and emits all
+chamber polynomials, their majorants, and real quantified sentences. It also
+emits a Wolfram Language script using \texttt{Resolve[..., Reals]}.\footnote{\label{fn:wolfram}
+Wolfram Research, \emph{Resolve---Wolfram Language Documentation},
+\url{https://reference.wolfram.com/language/ref/Resolve.html}, checked
+11 September 2026. The documentation specifies quantifier elimination for
+polynomial equations and inequalities over the reals.}
+A second generator emits the existential obstruction formulas of
+Section~\ref{sec:faces}. Both generated drivers require literal Boolean
+backend results and reject unresolved symbolic output.
+The generated Wolfram drivers were not executed. A separate implementation
+of the existential face test \emph{was} executed using Z3 4.13.3.0 and its
+\texttt{qfnra-nlsat} tactic through the documented C API.\footnote{\label{fn:z3}
+D.~Jovanovi\'c and L.~de Moura, \emph{Solving non-linear arithmetic},
+Microsoft Research technical report MSR-TR-2012-20, February 2012;
+\url{https://www.microsoft.com/en-us/research/publication/solving-non-linear-arithmetic/}.
+Z3, \emph{C API documentation};
+\url{https://z3prover.github.io/api/html/group__capi.html}, checked 11 September 2026.}
+Its primary regression suite made 228 chamber-obstruction queries and 84
+fixed-bound queries. All required queries returned the expected satisfiable
+or unsatisfiable result. Forty univariate cases agreed with independent exact
+real-root isolation. A deliberately restricted resource budget returned
+\texttt{UNKNOWN}, which the driver correctly retained as unresolved rather
+than treating it as a mathematical decision. Parser-error and nonfacial-subset
+regressions were also checked.
+
+A second solver suite submitted the negations of 12 scalar inequalities from
+the separation, replay, and local-bound estimates, with their full real-valued
+hypotheses. Every counterexample query was unsatisfiable. These results check
+universal scalar inequalities, not the program-level induction. They trust
+solver soundness and are not proof-assistant certificates.
+
+A model-export test checked 16 satisfying assignments independently, including
+18 irrational coordinate values and three multi-generator number fields.
+Nonrational coordinates are recorded by defining polynomials and rational
+isolating intervals. A checker that does not import Z3 verifies the intervals
+by exact root counting and the face identity by exact algebraic number-field
+arithmetic. It rejects 16 false target certificates and 13 malformed coordinate
+encodings. No decimal approximation is accepted as a zero certificate.
+
+A further positive-family check uses $p=F^2+FG+G^2$, where $F$ and $G$ are
+products of primitive forms $x_i$ and $x_i\pm x_j$. In any signed-gap chart,
+write $F=\pm U$ and $G=\pm V$, with $U,V$ coefficientwise nonnegative. The
+coefficient triangle inequality gives
+$\maj p\le U^2+UV+V^2$. Equal signs give $p=U^2+UV+V^2$; opposite signs give
+$3p-(U^2+UV+V^2)=2(U-V)^2\ge0$. Thus $C=3$ works. The suite verifies all 448
+chart certificates for 16 such polynomials, including 246 opposite-sign
+charts, and performs 64 additional solver queries. Forty binary homogeneous
+polynomials were also compared with exact removal of allowed linear factors
+and real-root isolation; all 320 chart queries agreed with that independent
+reference.
+
+The mathematical termination statement uses the standard decision procedure
+for real closed fields. It is not an empirical claim that arbitrary generated
+instances fit available memory or computation time. The supplied finite-budget
+driver can return unresolved. Its concrete solver decisions and independently
+checked negative witnesses support the implementation, not the universal
+mathematical equivalence by themselves.
+
+The proposed resolution rests on the complete mathematical argument in
+Sections 2--4, with the equivalent obstruction test in Section 5. The tests are diagnostic support, not a formal proof
+certificate or a substitute for independent mathematical review.
+
+\section*{Sources}
+\begingroup\small
+\begin{enumerate}[label=\arabic*.]
+\item OpenProblemsInNLA. \emph{AA-01---Deciding accurate evaluability of real
+polynomials}. Repository entry, checked 11 September 2026.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/arithmetic-and-complexity/AA-01}.
+\item J.~Demmel, I.~Dumitriu and O.~Holtz. \emph{Toward accurate polynomial
+evaluation in rounded arithmetic}. arXiv:math/0508350v2, 18 January 2006.
+\url{https://arxiv.org/abs/math/0508350v2}.
+\item J.~Demmel, I.~Dumitriu, O.~Holtz and P.~Koev. \emph{Accurate and efficient
+expression evaluation and linear algebra}. Acta Numerica 17 (2008), 87--145.
+\url{https://doi.org/10.1017/S0962492906350015}.
+\item D.~S.~Arnon, G.~E.~Collins and S.~McCallum. \emph{Cylindrical algebraic
+decomposition I: The basic algorithm}. SIAM Journal on Computing 13(4)
+(1984), 865--877. \url{https://doi.org/10.1137/0213054}.
+\item J.~Rauh, T.~Kahle and N.~Ay. \emph{Support sets in exponential families
+and oriented matroid theory}. arXiv:0906.5462v2, 16 September 2011.
+\url{https://arxiv.org/abs/0906.5462v2}.
+\item Wolfram Research. \emph{Resolve---Wolfram Language Documentation}.
+Checked 11 September 2026.
+\url{https://reference.wolfram.com/language/ref/Resolve.html}.
+\item D.~Jovanovi\'c and L.~de Moura. \emph{Solving non-linear arithmetic}.
+Microsoft Research technical report MSR-TR-2012-20, February 2012.
+\url{https://www.microsoft.com/en-us/research/publication/solving-non-linear-arithmetic/}.
+Z3. \emph{C API documentation}, checked 11 September 2026.
+\url{https://z3prover.github.io/api/html/group__capi.html}.
+\end{enumerate}
+\endgroup
+\end{document}

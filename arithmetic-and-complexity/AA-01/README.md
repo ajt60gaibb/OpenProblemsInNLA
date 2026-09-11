@@ -7,8 +7,19 @@
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
 **Rating rationale:** Extreme because the existence of any accurate computation tree is a general decidability problem beyond checking a supplied algorithm; broad importance includes numerical stability, symbolic computation and automated algorithm design.  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Solved
+**Last checked:** 2026-09-11
+
+<!-- colbrook-arithmetic -->
+## Independently reviewed resolution - 2026-09-11
+
+Theorem 1.1 gives an always-halting decision procedure for the exact constant-free finite-tree model in the statement. In every signed ordering chart $x_{\pi(i)}=\sigma_i(y_1+\cdots+y_i)$, the coefficientwise absolute majorant of $q(y)=p(x(y))$ must be bounded by $C|q(y)|$ on $y\geq0$. This finite real-quantifier criterion is necessary and sufficient; Sections 2-4 prove the equivalence and construct an evaluator when it holds. Both independent reviews cover comparisons, branching, stored-value reuse and arbitrary independent rounding errors.
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [Complete manuscript](../../references/colbrook-arithmetic-2026-09-11/manuscripts/AA-01.pdf), [independent review](../../references/colbrook-arithmetic-2026-09-11/verification/reviews/AA-01-review.md), and [submission record](../../references/colbrook-arithmetic-2026-09-11/README.md). AI assistance is disclosed. Agent verification is not external human peer review or formal certification; no novelty or priority claim is made.
+
+A [second independent proof review](../../references/colbrook-arithmetic-2026-09-11/verification/reviews/AA-01-second-review.md) also passes. The described experimental programs were not retained; their run counts and compiler/solver claims are not reproduced or certified here. The full mathematical proof, rather than those logs, supports the resolution. The ratings and rationale above are historical assessments of the original open target.
+
+<!-- /colbrook-arithmetic -->
 
 ## Problem statement
 
