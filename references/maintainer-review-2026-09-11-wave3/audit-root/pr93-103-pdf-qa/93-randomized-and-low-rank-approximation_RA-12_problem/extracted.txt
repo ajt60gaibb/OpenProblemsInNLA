@@ -1,0 +1,101 @@
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA RA-12
+Randomized and low-rank approximation
+Relative-error threshold for extremal Gaussian
+trace bounds
+Diﬀiculty: challenging Importance: interesting to the community
+Status: Solved
+Rating rationale: Challenging because an explicit threshold must control extremal tails uniformly over
+spectra; community impact is sharper distribution-level trace-estimation confidence bounds.
+Source: Hallman, Conjecture 3 together with Theorem 6.
+Aﬀirmative resolution - 11 September 2026
+Author: George Stepaniants, Department of Computing and Mathematical Sciences, California Institute
+of Technology , Pasadena, California, USA.Independent Codex-agent review: PASS.
+The complete proof , Theorem 1, Lemmas 2-4 and the final proof of Theorem 1 , proves both compar-
+isons in the original probability chain for every nonzero real positive semidefinite matrix, every integer
+𝑚 ≥ 1 , every effective rank 𝜇, and every 𝜀 ≥ 2/(𝑚𝜇), including equality at the stated threshold. Each
+one-sided tail is compared separately. No case of the canonical target remains open; optimality of the
+threshold is not asserted.
+The proof chooses coeﬀicient transfers whose smaller augmented scale is a minimum positive scale, ap-
+plies an elementary Gamma-density mode bound and classical Gamma-convolution unimodality , and
+uses infinite divisibility for the Gamma endpoint. The primary unimodality input is Roosta-Khorasani
+and Székely , Appendix A, Theorem 4; the coeﬀicient derivative is also credited to Hallman, Appendix
+A.1.
+Proof PDF · Standalone TeX · Independent proof review · Authorship, frozen sources and submission
+record.
+The work was developed with substantial ChatGPT/Codex assistance. Verification is independent agent
+review , not external human peer review or formal certification. The original statement, ID and earlier
+results below are retained. The diﬀiculty and importance ratings are historical; this solved entry no
+longer contributes to the open count.
+Related auxiliary counterexamples — 2026-09-11
+Author: Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University
+of Cambridge. Independent Codex-agent review: PASS for the limited result below.
+The submitted Gamma-density examples refute the upper-mode assertion in Hallman Conjecture 1
+and the upper-inflection assertion in Conjecture 2, with legally distinct augmentation indices. These
+are counterexamples to auxiliary assertions.
+Historical scope of the auxiliary submission: These examples did not prove or refute the complete
+relative Gaussian trace-tail probability chain and did not establish a revised sharp tail threshold. They
+left RA-12 open at that stage. The full aﬀirmative resolution above settles that remaining target while
+preserving these auxiliary counterexamples and their attribution.
+Primary reference: complete authored PDF , standalone TeX, Proposition 2.1 (with Proposition 3.1
+for related evidence) . Independent proof review · Authorship and submission record . Verification is
+independent agent review , not external human peer review or formal certification.
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-11 1
+
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA RA-12
+Problem statement
+For a real symmetric 𝑑 × 𝑑 matrix 𝐷 and integer 𝑚 ≥ 1, define the Gaussian trace estimator
+𝑇𝑚(𝐷) = 1
+𝑚
+𝑚
+∑
+𝑗=1
+𝑧𝑇
+𝑗 𝐷𝑧𝑗, 𝑧 1, … , 𝑧𝑚
+iid∼ 𝑁(0, 𝐼𝑑).
+Let 𝐴 ≠ 0 be any real symmetric positive semidefinite 𝑛 × 𝑛 matrix, with 𝑛 ≥ 1, and set
+𝜇 = tr(𝐴)
+‖𝐴‖2
+, 𝐵 𝜇 = 1
+𝜇 diag (𝐼⌊𝜇⌋, 𝜇 − ⌊𝜇⌋) .
+Here ‖ ⋅ ‖ 2 is the spectral norm, 𝜇 ≥ 1 , and a zero final diagonal entry may be retained. Let 𝑋 have
+the Gamma distribution with shape and rate both 𝑚𝜇/2. The shape/rate convention means that
+Gamma(𝛼, 𝛽)has density 𝛽𝛼𝑥𝛼−1𝑒−𝛽𝑥/Γ(𝛼)for 𝑥 > 0 .
+Conjecture. For every such 𝐴, every integer 𝑚 ≥ 1 , and every 𝜀 ≥ 2/(𝑚𝜇), the complete comparison
+chain holds:
+Pr(|𝑇𝑚(𝐴) −tr(𝐴)| ≥ 𝜀 tr(𝐴)) ≤Pr(|𝑇𝑚(𝐵𝜇) − 1| ≥ 𝜀)
+≤ Pr(|𝑋 − 1| ≥ 𝜀) .
+Each estimator uses Gaussian vectors of its own matrix dimension; only their distributions are com-
+pared.
+Why it matters in numerical linear algebra
+This would specify the tolerance range on which effective rank yields extremal, distribution-level con-
+fidence bounds for Gaussian trace estimation. It also applies to Frobenius-norm estimation through
+‖𝐶‖2
+𝐹 = tr(𝐶𝑇𝐶).
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-11 2
+
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA RA-12
+References
+1. Eric Hallman, Extremal bounds for Gaussian trace estimation , arXiv:2411.15454v1 (2024), §5, Theorem
+6 and Conjecture 3.
+2. Alice Cortinovis and Daniel Kressner, On Randomized T race Estimates for Indefinite Matrices with an
+Application to Determinants, FoCM 22 (2022), 875–903, Theorem 1.
+Historical status check
+Theorem 6 proves the comparisons beyond an unspecified threshold; Conjecture 3 supplies the explicit
+threshold above. On 2026-09-08 the arXiv record still listed only v1. Title, author, conjecture-number
+and 2025/2026 searches found no resolution. The author’s later XTrace paper studies different estima-
+tors. This is a bounded check.
+Audit — 2026-09-10
+Rechecked Hallman, Theorem 6 and Conjecture 3 ; the record still lists only v1. Author, Gaussian-trace,
+and conjecture searches found no resolution. An unspecified larger threshold proves a weaker result
+and does not verify the displayed explicit threshold.
+Resolution audit - 11 September 2026
+The complete proof passed independent Codex-agent review against the unchanged canonical target.
+A public-network check at 19:20:50 UTC inspected all 21 branch heads across the parent repository
+and its four recursively reported public forks, canonical and ID-named text documents, and upstream
+issues, pull requests and comments. RA-12 remained Open on every checked branch; PR 32 and issue
+31 concern the retained auxiliary counterexamples. No competing complete solution was found in this
+bounded public check; private, deleted and unpublished work was outside its scope.
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-11 3

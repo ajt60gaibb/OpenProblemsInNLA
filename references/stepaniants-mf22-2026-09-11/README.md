@@ -28,6 +28,8 @@ The [public-network snapshot](verification/network-check.json), completed at **2
 
 No MF-22 solution manuscript or matching full-resolution discussion was found. The sole broad-keyword discussion match concerned the unrelated IS-05 sign-matrix problem and was excluded after reading its full body. Root indexes are retained as MF-22 excerpts with complete-file hashes; the unrelated discussion is represented by its URL, title, complete-body hash and assessment. The complete local fetch is also hashed. Private, deleted, unpublished or unidentifiably named work is outside this audit.
 
+A [final pre-submission snapshot](verification/network-before-push.json), completed at **2026-09-11 23:09:31 UTC**, rechecked all **five repositories and 31 branch heads** after upstream advanced. Every MF-22 canonical page was still Open, and no full solution was found in the 83 distinct text documents or matching discussions read. The unrelated IS-05 discussion was again excluded after reading its full body.
+
 A bounded literature check read [the current arXiv record](https://arxiv.org/abs/2608.24151), which still lists only v1, and the [complete primary text](https://arxiv.org/html/2608.24151v1), particularly equation (5.22), §5.3 equation (5.32), Proposition 5.14, and the paragraph after Figure 9. Searches for the identifier, cubic spline family, Schrödinger Toeplitz conditioning and a later solution located no full resolution. These are bounded checks, not an exhaustive priority assertion.
 
 The portable read-only checker can be rerun using an authenticated GitHub CLI:
@@ -52,4 +54,4 @@ python3 tools/render_problems.py MF-22
 python3 references/stepaniants-mf22-2026-09-11/verification/check_submission.py
 ```
 
-The branch is based on upstream commit `aaa88c40fbf58e8cebc335021b3c5cd108c357e4`. All 203 permanent ID/path mappings and the original mathematical statement are preserved. The shared solution template makes its contact-email field optional, as required for this submission. The generated TeX files compile independently with XeLaTeX. The proof and canonical PDFs are rendered twice and every page is visually checked; the final validation record is linked above.
+The package was first checked against upstream commit `aaa88c40fbf58e8cebc335021b3c5cd108c357e4`, then integrated with `87366c6` before submission. The later integration preserves all six canonical and proof artifacts byte-for-byte and retains the newly accepted upstream resolutions. All 203 permanent ID/path mappings and the original mathematical statement are preserved. The shared solution template makes its contact-email field optional, as required for this submission. The generated TeX files compile independently with XeLaTeX. The proof and canonical PDFs are rendered twice and every page is visually checked; the final validation record is linked above.
