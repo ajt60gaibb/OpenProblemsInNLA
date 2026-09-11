@@ -150,6 +150,12 @@ These three entries remain in the open count.
 
 **RA-13 (Open).** The centered augmented density has a genuine inflection point beyond the proposed auxiliary upper bound. Together with the mode example, this refutes the upper assertions of Hallman Conjectures 1 and 2. The complete absolute Gaussian trace-tail probability chain in this entry is neither proved nor refuted. Failure of an auxiliary sufficient condition does not refute the final tail comparisons; status remains Open. [Complete proof](references/colbrook-transfer-2026-09-11/manuscripts/04_gamma_auxiliary_counterexamples.pdf), Proposition 3.1 (with Proposition 2.1 for related evidence); [review](references/colbrook-transfer-2026-09-11/verification/reviews/gamma-auxiliary-review.md).
 
+## Accurate polynomial evaluability - 2026-09-11
+
+**[AA-01](arithmetic-and-complexity/AA-01/README.md): Solved.** Theorem 1.1 gives an always-halting decision procedure for the exact constant-free finite-tree model in the statement. In every signed ordering chart $x_{\pi(i)}=\sigma_i(y_1+\cdots+y_i)$, the coefficientwise absolute majorant of $q(y)=p(x(y))$ must be bounded by $C|q(y)|$ on $y\geq0$. This finite real-quantifier criterion is necessary and sufficient; Sections 2-4 prove the equivalence and construct an evaluator when it holds. Both independent reviews cover comparisons, branching, stored-value reuse and arbitrary independent rounding errors.
+
+Author: **Matthew J. Colbrook**, University of Cambridge. [Complete proof](references/colbrook-arithmetic-2026-09-11/manuscripts/AA-01.pdf), [first review](references/colbrook-arithmetic-2026-09-11/verification/reviews/AA-01-review.md), [second review](references/colbrook-arithmetic-2026-09-11/verification/reviews/AA-01-second-review.md), and [submission record](references/colbrook-arithmetic-2026-09-11/README.md). AI assistance and missing experimental sources are disclosed. Agent review is not external human peer review or formal certification. Historical ratings and the exact original target are retained. The accompanying AC-11 and AC-12 finite cases remain partial.
+
 ## Published resolutions of historical questions
 
 These questions were screened out before receiving current catalog folders;

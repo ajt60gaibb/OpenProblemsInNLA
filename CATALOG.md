@@ -1,6 +1,6 @@
 # All problems and their status
 
-**179 problems with open targets:** 99 open and 80 partially resolved. **24 other retained entries**, excluded from the open count.
+**178 problems with open targets:** 97 open and 81 partially resolved. **25 other retained entries**, excluded from the open count.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -265,7 +265,6 @@ Retained entries outside the open count:
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [AA-01](arithmetic-and-complexity/AA-01/README.md) | Deciding accurate evaluability of real polynomials | **🔵 OPEN** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AA-01/problem.pdf) · [TeX](arithmetic-and-complexity/AA-01/problem.tex) |
 | [AC-01](arithmetic-and-complexity/AC-01/README.md) | Is the matrix multiplication exponent two? | **🔵 OPEN** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-01/problem.pdf) · [TeX](arithmetic-and-complexity/AC-01/problem.tex) |
 | [AC-02](arithmetic-and-complexity/AC-02/README.md) | Exact bilinear rank of the $3\times3$ matrix product | **🔵 OPEN** | extreme | interesting to the community | [PDF](arithmetic-and-complexity/AC-02/problem.pdf) · [TeX](arithmetic-and-complexity/AC-02/problem.tex) |
 | [AC-03](arithmetic-and-complexity/AC-03/README.md) | Border rank of the $3\times3$ matrix product | **🔵 OPEN** | extreme | interesting to the community | [PDF](arithmetic-and-complexity/AC-03/problem.pdf) · [TeX](arithmetic-and-complexity/AC-03/problem.tex) |
@@ -277,8 +276,14 @@ Retained entries outside the open count:
 | [AC-09](arithmetic-and-complexity/AC-09/README.md) | Deterministic polynomial-time commutative Edmonds problem | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-09/problem.pdf) · [TeX](arithmetic-and-complexity/AC-09/problem.tex) |
 | [AC-10](arithmetic-and-complexity/AC-10/README.md) | An explicit rational Valiant-rigid matrix family | **🔵 OPEN** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-10/problem.pdf) · [TeX](arithmetic-and-complexity/AC-10/problem.tex) |
 | [AC-11](arithmetic-and-complexity/AC-11/README.md) | The least positive permanent of a sign matrix | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](arithmetic-and-complexity/AC-11/problem.pdf) · [TeX](arithmetic-and-complexity/AC-11/problem.tex) |
-| [AC-12](arithmetic-and-complexity/AC-12/README.md) | Realizing every sign-matrix permanent with negative entries confined on or above the diagonal | **🔵 OPEN** | challenging | interesting to specialist | [PDF](arithmetic-and-complexity/AC-12/problem.pdf) · [TeX](arithmetic-and-complexity/AC-12/problem.tex) |
+| [AC-12](arithmetic-and-complexity/AC-12/README.md) | Realizing every sign-matrix permanent with negative entries confined on or above the diagonal | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](arithmetic-and-complexity/AC-12/problem.pdf) · [TeX](arithmetic-and-complexity/AC-12/problem.tex) |
 | [AC-13](arithmetic-and-complexity/AC-13/README.md) | Deterministic near-quadratic matrix multiplication verification | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-13/problem.pdf) · [TeX](arithmetic-and-complexity/AC-13/problem.tex) |
+
+Retained entries outside the open count:
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [AA-01](arithmetic-and-complexity/AA-01/README.md) | Deciding accurate evaluability of real polynomials | **✅ SOLVED** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AA-01/problem.pdf) · [TeX](arithmetic-and-complexity/AA-01/problem.tex) |
 
 
 ## [Intervals and absolute value equations](intervals-and-absolute-value-equations/README.md)

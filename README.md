@@ -4,11 +4,11 @@ A collection of precise open problems drawn from books and research
 publications, with references and dated checks for subsequent solutions.
 
 <!-- catalog-summary -->
-**179 problems with open targets:** 99 open and 80 partially resolved. **24 other retained entries**, excluded from the open count.
+**178 problems with open targets:** 97 open and 81 partially resolved. **25 other retained entries**, excluded from the open count.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
-**[Browse all 179 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
+**[Browse all 178 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
 <!-- /catalog-summary -->
 
 ## Browse by category
@@ -24,7 +24,7 @@ Each entry records its own literature-check date. Literature checks are bounded;
 | [Matrix inequalities and norms](matrix-inequalities-and-norms/README.md) | 18 |
 | [Frames and matrix designs](frames-and-matrix-designs/README.md) | 11 |
 | [Matrix discrepancy and optimization](matrix-discrepancy-and-optimization/README.md) | 6 |
-| [Arithmetic and complexity](arithmetic-and-complexity/README.md) | 14 |
+| [Arithmetic and complexity](arithmetic-and-complexity/README.md) | 13 |
 | [Intervals and absolute value equations](intervals-and-absolute-value-equations/README.md) | 9 |
 
 Open a category, then a problem folder. Every problem has three files:
