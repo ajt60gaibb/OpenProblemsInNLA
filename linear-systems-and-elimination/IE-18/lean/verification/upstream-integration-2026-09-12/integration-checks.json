@@ -1,0 +1,113 @@
+{
+  "problem": "IE-18",
+  "upstream_commit": "02b807770fca860ef810cc048d6849224b8f93e1",
+  "premerge_commit": "a324f6a2ef467c6d81f1ed616a434fc1a7d9947b",
+  "verified_proof_commit": "7b8512e21c50adc8597dcdbed32f2aec13c3b43e",
+  "prior_verified_checker_commit": "214c142d6bfe0f0c338808f188062acbbad0fb19",
+  "all_nine_proof_config_pins_unchanged": {
+    "NLA/IE18/Definitions.lean": "dc32a03d0ab95a1b3f41f864f90d30d56c3dd041330015caa059e253ff47b28d",
+    "Challenge.lean": "97ad7cf8e2c3077d4cc52f587c9702627f06c8d915005804f044fd60c66ffd59",
+    "NUMERICAL_TARGETS.md": "318f34ec1f88f111a83c1a6c869735ac2cc5640b5bdb34f89201e97607e9e890",
+    "NLA/IE18/Proof.lean": "0244e39c88101ab7a998bb0c5da56549d668d46ae068e4fc2ef5067fabdf4f73",
+    "Solution.lean": "d257fd0b3def07c4503f2e084407116661cac5e556d7fe46573c9f7f78c7c0c3",
+    "comparator.json": "7fd64ea1eb36dd9d29ae5888b0aeeb39fb96bd4bc12db7712cb6347098fcc1b6",
+    "lakefile.toml": "c17f59db14314e81e508eebcddb2517175071360bf305fe963054bfb1a00f557",
+    "lake-manifest.json": "b8ca3cb45073b21d3747c31a676c509b33f3c20623db200fe82ff682af5b2075",
+    "lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71"
+  },
+  "upstream_canonical_changes_equal_maintainer_formatter_only": true,
+  "merged_canonical_equals_formatted_entire_premerge_page": true,
+  "id_registry_equal_current_upstream": true,
+  "unchanged_checked_tool_hashes": {
+    "tools/lean/harness.py": "f81767a17973956fbe9e5765c664d4639cce15ddf8c106f70cdcb32151808c2f",
+    "tools/lean/source-lock.json": "b3833b07916e5db77579b9cc53ca582282f6a841f36d6a60d693e5b02d342b6b",
+    "tools/lean/bootstrap.sh": "4cb4d6e09ca5d186e1911e51160286fef20fb4d7f61180e07ed684a03d36de8c",
+    "tools/lean/verify.sh": "fb97ffb467b0e9acac302b2bdfc418da12b88e4ae307fb0d580c96fd6b63e997",
+    "tools/lean/selftest.sh": "1d0459179f9fc4ef30ba322b0cda7286c7a8394c1125a813770a9f10b1fccad9",
+    "tools/lean/validate_manifest.py": "31e473132c1e8a40c29f73eff01fbff0bafe85649da601d2f550cef164debeb1",
+    "tools/lean/test_harness.py": "ac862f474aed26b8502788b5185153a045626de673686afbf91fa9f12518b8ff",
+    "docs/lean/ci-toolchain/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+    "docs/lean/ci-toolchain/lakefile.toml": "188b28d1f7649234f9c96a63e42c21469b023ddac1be5f257a51a75530ee16cc",
+    "docs/lean/ci-toolchain/lake-manifest.json": "31fb5b12fe5424fc871b8f2508d2e1429d675d2512e3bdbfa0175e421f98e47f"
+  },
+  "changed_checker_surface_files": [
+    ".github/workflows/lean-verification.yml",
+    "tools/lean/HARNESS.md",
+    "tools/lean/projects.py"
+  ],
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "tools/format_math.py",
+        "--write",
+        "IE-18"
+      ],
+      "exit_code": 0,
+      "log": "format-write.log"
+    },
+    {
+      "command": [
+        "/tmp/nla-lean-formalization/venv/bin/python",
+        "tools/lean/validate_manifest.py",
+        "linear-systems-and-elimination/IE-18/lean"
+      ],
+      "exit_code": 0,
+      "log": "manifest.log"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/validate_problem_ids.py",
+        "--base-ref",
+        "origin/main"
+      ],
+      "exit_code": 0,
+      "log": "id-origin-main.log"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/validate_problem_ids.py",
+        "--base-ref",
+        "02b807770fca860ef810cc048d6849224b8f93e1"
+      ],
+      "exit_code": 0,
+      "log": "id-upstream-main.log"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/update_catalog.py",
+        "--base-ref",
+        "origin/main"
+      ],
+      "exit_code": 0,
+      "log": "catalog.log"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_problem_ids.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "id-tests.log"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/format_math.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log": "format-check.log"
+    }
+  ]
+}
