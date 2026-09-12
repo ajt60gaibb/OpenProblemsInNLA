@@ -1,0 +1,110 @@
+[
+  {
+    "name": "permanent-ids-origin",
+    "command": [
+      "python3",
+      "tools/validate_problem_ids.py",
+      "--base-ref",
+      "origin/main"
+    ],
+    "exit_code": 0,
+    "log": "permanent-ids-origin.log",
+    "log_sha256": "44cc74bfe8f011df4389835465a6043310e12828a092e8c74d318f50d26da3a0"
+  },
+  {
+    "name": "permanent-ids-upstream",
+    "command": [
+      "python3",
+      "tools/validate_problem_ids.py",
+      "--base-ref",
+      "nla-upstream/main"
+    ],
+    "exit_code": 0,
+    "log": "permanent-ids-upstream.log",
+    "log_sha256": "8b360e56c890760950e6bc4515be8cd45b3998088d5dce25b68a54a72a7e85c0"
+  },
+  {
+    "name": "manifest",
+    "command": [
+      "/tmp/nla-lean-formalization/venv/bin/python",
+      "tools/lean/validate_manifest.py",
+      "matrix-inequalities-and-norms/MI-03/lean"
+    ],
+    "exit_code": 0,
+    "log": "manifest.log",
+    "log_sha256": "acd348ab849a63056a72b45c57059083ad0a2326f81f7a3d8b29f25ccbb4d9d6"
+  },
+  {
+    "name": "format-write",
+    "command": [
+      "python3",
+      "tools/format_math.py",
+      "--write",
+      "MI-03"
+    ],
+    "exit_code": 0,
+    "log": "format-write.log",
+    "log_sha256": "a32da5fd664ba8ef7500d62d646c4b8763cd1adefdbd2afc5661b7dc1fea9bc6"
+  },
+  {
+    "name": "catalog",
+    "command": [
+      "python3",
+      "tools/update_catalog.py",
+      "--base-ref",
+      "origin/main"
+    ],
+    "exit_code": 0,
+    "log": "catalog.log",
+    "log_sha256": "422e0dafc91e6d6a00a9b519d6a64738dfbafac71159c0c753fd4a4771dd228b"
+  },
+  {
+    "name": "permanent-id-tests",
+    "command": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_problem_ids.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "log": "permanent-id-tests.log",
+    "log_sha256": "1337ceb9ff34a410deebf4ee857ea13cd37ad51c5eb993771232b23c3f9e41c6"
+  },
+  {
+    "name": "format-check",
+    "command": [
+      "python3",
+      "tools/format_math.py",
+      "--check"
+    ],
+    "exit_code": 0,
+    "log": "format-check.log",
+    "log_sha256": "a79bf13b65bde7baa6900939f581282565799e78e47c9e2426f83b5b4ccb5a9c"
+  },
+  {
+    "name": "render",
+    "command": [
+      "python3",
+      "tools/render_problems.py",
+      "MI-03"
+    ],
+    "exit_code": 0,
+    "log": "render.log",
+    "log_sha256": "4ed5b3b69bf89220cfe320747fd13309f5980479d9cbfffe808d7a64bf7e61d7"
+  },
+  {
+    "name": "pdfinfo",
+    "command": [
+      "pdfinfo",
+      "matrix-inequalities-and-norms/MI-03/problem.pdf"
+    ],
+    "exit_code": 0,
+    "log": "pdfinfo.log",
+    "log_sha256": "3e848ef053cc5d33b57e3e8f7da363bff52e41904ed29f6686d566286dbdf9c6"
+  }
+]

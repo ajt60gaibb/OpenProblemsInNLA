@@ -1,0 +1,132 @@
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA                                                             MI-03
+
+
+
+
+Matrix inequalities and norms
+
+
+Sharp additive triangle constant for an odd
+number of contractions
+Diﬀiculty: challenging       Importance: interesting to specialist
+Status: Lean verified
+
+Rating rationale: Sharpness for every odd summand count needs a new extremal construction or ob-
+struction; the payoff is concentrated in operator triangle inequalities.
+
+Resolution — 2026-09-11
+
+Aﬀirmative result by Matthew J. Colbrook, Department of Applied Mathematics and Theoretical
+Physics, University of Cambridge. Independent proof review: PASS.
+The sharp additive contraction constant is 𝑐𝑘 = 𝑘/4 for every 𝑘 ≥ 2, including every odd summand
+count. Exact dimension-two extremizers match the universal upper bound.
+The exact target is resolved. The original statement and source evidence are retained below; its former
+diﬀiculty rating is historical.
+Primary manuscript: complete proof PDF, standalone TeX, Theorem 1.1 and its proof; authorship and
+scope. The independent review checks the full original argument and records its hash. The draft was AI-
+assisted. That original review was informal; the later Lean verification is documented below. External
+human peer review is not claimed. Submission record.
+
+Lean proof and verification evidence - 2026-09-12
+
+The complete original odd-summand conjecture is Lean verified. The proof at revision 901ba5f proves
+that 𝑘/4 is the least member of the full admissible-constant set for every 𝑘 ≥ 2, then identifies its actual
+real infimum. This includes every odd 𝑘 ≥ 3, with all positive dimensions and every tuple of complex
+contractions. Genuine principal CFC moduli and Euclidean operator norms are used; no literature
+inequality is assumed as an unproved premise.
+Lean formalization: George Stepaniants, Department of Computing and Mathematical Sciences, Cal-
+ifornia Institute of Technology, Pasadena, California, USA, with AI-agent assistance. Matthew J. Col-
+brook retains authorship of the mathematical proof and result; Jean-Christophe Bourin and Eun-
+Young Lee retain the original conjecture and prior-bound credit.
+The eight checked exports, each with prefix NLA.MI03., are:
+ • modulus_semantics: genuine positive square root, square and norm identities.
+ • contraction_modulus: positive modulus defects for every complex contraction.
+ • positive_decomposition: the exact universal Gram-sum and positive-square identity.
+ • universal_upper_bound: admissibility of 𝑘/4 for every 𝑘 ≥ 2.
+ • root_of_unity_data: exact complex roots and their vanishing geometric sums.
+ • sharpness_witness: true moduli, unit operator norms and full sums of the two-dimensional extrem-
+   izers.
+ • sharp_constant: actual least admissible constant and infimum, for every 𝑘 ≥ 2.
+ • odd_contraction_conjecture: the complete original assertion.
+Two independent agents approved the statements and completed proof. Linux run 34722618003
+matched all eight declarations with the sandboxed Comparator and replayed the solution in Lean’s
+default kernel. The original artifacts and operational audit bind all 173 input files and both actual
+isolation/rejection-control suites. All 16 internal/public transitive axiom reports use exactly propext,
+Classical.choice and Quot.sound. The operational reviewer also served as final proof referee 1; these roles
+do not count as a third mathematical referee. External human peer review is not claimed.
+
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-12                                                                              1
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA                                                            MI-03
+
+
+
+
+The pins are Lean 4.33.1, LeanCert 621a43d and Mathlib 0df444a. LeanCert audits this exact proof’s ker-
+nel trust; there is no numerical interval certificate. Symbolic identities and all-𝑘 roots avoid numerical
+phase approximation or interval subdivision. The source’s extra three-dimensional Hermitian extrem-
+izers and rank classification are outside these exports; the complete original target is covered. See the
+project guide, manifest and dependency pins. From the immutable verified revision on a documented
+non-root Linux host, reproduce with:
+
+tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
+tools/lean/verify.sh \
+  matrix-inequalities-and-norms/MI-03/lean \
+  /absolute/path/to/nla-lean-tools
+
+
+Problem statement
+
+For each integer 𝑘 ≥ 2, let 𝑐𝑘 be the infimum of all 𝑐 ≥ 0 such that
+
+                                                    ∣ 𝑘   ∣          𝑘
+                                                    ∣∑ 𝐴𝑗 ∣ ⪯ 𝑐𝐼𝑛 + ∑ |𝐴𝑗 |
+                                                    ∣     ∣
+                                                    ∣𝑗=1 ∣          𝑗=1
+
+
+for every 𝑛 ≥ 1 and all 𝐴1 , … , 𝐴𝑘 ∈ ℂ𝑛×𝑛 satisfying ‖𝐴𝑗 ‖2 ≤ 1. Here |𝐴| = (𝐴∗ 𝐴)1/2 , ‖ ⋅ ‖2 denotes the
+operator norm, and 𝑋 ⪯ 𝑌 means 𝑌 − 𝑋 is positive semidefinite.
+Is 𝑐𝑘 = 𝑘/4 for every odd integer 𝑘 ≥ 3?
+
+Why it matters
+
+The scalar absolute-value triangle inequality fails in matrix order. The optimal additive correction quan-
+tifies that failure for uniformly bounded summands, in a form usable in positive block-matrix estimates.
+
+
+
+
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-12                                                                             2
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA                                                              MI-03
+
+
+
+
+References
+
+1. J.-C. Bourin and E.-Y. Lee, Diagonal and off-diagonal blocks of positive definite partitioned matrices,
+   arXiv:2307.02034v3 (15 December 2023), Corollary 4.4 and the conjecture immediately following
+   Remark 4.5. Primary text.
+2. E.-Y. Lee, How to compare the absolute values of operator sums and the sums of absolute values?, Operators
+   and Matrices 6(3) (2012), 613–619; §2 supplies related triangle inequalities. Primary paper, DOI.
+
+Status check — 2026-09-10
+
+Corollary 4.4 establishes 𝑐𝑘 ≤ 𝑘/4 for every 𝑘 and sharpness for even 𝑘; the source separately conjectures
+sharpness for all odd 𝑘 > 1. Its latest version remains v3. Searches included Bourin Lee contractions odd
+k constant k/4, three contractions 3/4 sharp conjecture, and Bourin contractions sharp 2025 2026. The 2026
+symmetric-modulus papers concern different inequalities. No resolution of this additive odd-summand
+problem was located.
+Audit update (2026-09-10): Rechecked the conjecture after Remark 4.5 in Bourin–Lee and searched for
+odd-summand sharpness results. The proved even-summand statement is outside the target, which
+already restricts to odd 𝑘. This is a bounded literature check, not a proof that no solution exists.
+
+
+
+
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-12                                                                               3
+
