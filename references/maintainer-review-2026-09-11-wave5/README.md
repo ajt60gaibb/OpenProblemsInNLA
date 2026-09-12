@@ -4,7 +4,7 @@ These reviews check the actual submitted proofs and primary sources independentl
 
 | PR | Original reviewed head | Result |
 | --- | --- | --- |
-| [93](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/93) | `d9e25009e3ce65cf864002354830bdcc286f7252` | PASS: remaining integration provenance; the independently reviewed RA-12 proof is already published and unchanged. |
+| [93](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/93) | `387e68814c3f68ca0bfc09dabfc3fea5a97c64c2` | PASS: remaining integration provenance; the independently reviewed RA-12 proof is already published and unchanged. |
 | [122](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/122) | `53dd2d078222d2346ffa20a05e602f9ae1766eef` | PASS: full complex Jordan-block GMRES equality and affine triangular-Toeplitz minimax theorem. |
 | [125](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/125) | `96c83a5e5c4be73194f47d01e68a0a8f2a062e87` | PASS: Hall's essential Delta proof and both SP-11/SP-12 application notes. |
 | [127](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/127) | `e5ad08c1a301d532ea200df8580224bb893b2240` | PASS: exact order-eight counterexample to the IE-05 extremizer equality. |
@@ -25,4 +25,4 @@ The independently transcribed matrices establish both positive-diagonal QR conve
 
 [PR125's completed merge record](pr125-merge-result.json) records its exact head and successful required CI. PR127's integration preserves the separately published IE-01 Lean verified status and the associated catalog support.
 
-PR93: [final provenance-delta review](PR93-final-delta-review.md), [dated verification evidence](PR93-final-delta-evidence.json), and [current integration checks](pr93-integration-checks.json). The replacement workflow ran and rejected the outdated branch because it lacked later published IDs. Integrating current main restores all 217 mappings and passes all 20 repository tests without weakening the safeguards. All 761 published canonical artifacts remain byte-identical; only the four dated RA-12 provenance files and these maintainer audit records are added. The earlier mathematical and PDF reviews continue to apply.
+PR93: [final provenance-delta review](PR93-final-delta-review.md), [dated verification evidence](PR93-final-delta-evidence.json), and [current integration checks](pr93-integration-checks.json). The replacement workflow ran and rejected the outdated branch because it lacked later published IDs. Integrating current main restores all 217 mappings and passes all 20 repository tests without weakening the safeguards. All 761 published canonical artifacts remain byte-identical; only the ten dated RA-12 provenance files and these maintainer audit records are added. The earlier mathematical and PDF reviews continue to apply.
