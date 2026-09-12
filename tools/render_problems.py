@@ -17,6 +17,25 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 TEMPLATE = ROOT / "tools/problem-template.tex"
+MATH_FILTER = ROOT / "tools/github_math.lua"
+MARKDOWN_READER = "markdown+tex_math_dollars+raw_tex"
+
+
+def plain_pdf_title(title):
+    """Remove math wrappers from PDF properties without stripping ordinary code."""
+    title = re.sub(r"\$`([^`\n]+)`\$", r"\1", title)
+    return title.replace("$", "").replace(r"\times", " × ")
+
+
+def restore_pdf_layout(identifier, body):
+    """Keep document commands out of the public mathematical statements."""
+    if identifier == "MF-22":
+        heading = "## Resolution: affirmative, 11 September 2026\n"
+        body = body.replace(heading, "\\pagestyle{plain}\n\n" + heading, 1)
+    if identifier in {"RA-12", "RA-13"}:
+        heading = "## Problem statement\n"
+        body = body.replace(heading, "\\newpage\n\n" + heading, 1)
+    return body
 
 
 def render(source):
@@ -25,7 +44,7 @@ def render(source):
     identifier, title = first.removeprefix("# ").split(" — ", 1)
     category = (source.parent.parent / "README.md").read_text().splitlines()[0][2:]
     # Keep mathematical titles legible in PDF properties as well as on the page.
-    pdf_title = title.replace("$", "").replace(r"\times", " × ")
+    pdf_title = plain_pdf_title(title)
     metadata = {"id": identifier, "title": title, "pdftitle": pdf_title, "category": category}
     for field, key in [("Difficulty", "difficulty"), ("Importance", "importance"), ("Status", "status"), ("Last checked", "checked")]:
         match = re.search(r"^\*\*" + field + r":\*\* (.+?)\s*$", body, re.M)
@@ -34,6 +53,7 @@ def render(source):
         metadata[key] = match[1]
         body = body[:match.start()] + body[match.end():]
     body = re.sub(r"<!-- navigation -->.*?<!-- /navigation -->", "", body, flags=re.S)
+    body = restore_pdf_layout(identifier, body)
     if identifier in {"IE-05", "SP-15", "MF-02"}:
         # Keep the unchanged original target together after its resolution notice.
         # This PDF-only layout instruction should not appear on the GitHub page.
@@ -54,7 +74,7 @@ def render(source):
         work = Path(work)
         (work / "metadata.json").write_text(json.dumps(metadata))
         result = subprocess.run(
-            [os.environ.get("PANDOC", "pandoc"), "--from=markdown+tex_math_dollars+raw_tex", "--to=latex", "--standalone", "--top-level-division=section", "--template=" + str(TEMPLATE), "--metadata-file=" + str(work / "metadata.json")],
+            [os.environ.get("PANDOC", "pandoc"), "--from=" + MARKDOWN_READER, "--lua-filter=" + str(MATH_FILTER), "--to=latex", "--standalone", "--top-level-division=section", "--template=" + str(TEMPLATE), "--metadata-file=" + str(work / "metadata.json")],
             input=body.strip(), text=True, capture_output=True, check=True,
         )
         tex = result.stdout

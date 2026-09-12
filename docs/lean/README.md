@@ -21,6 +21,8 @@ category/ID/lean/
   verification/
 ```
 
+CI compares registered projects with the published base as well as the current tree. Removing or renaming an entire `lean/` project fails selection instead of silently skipping its verification.
+
 Each project owns its dependency pins and metadata. Shared scripts live in `tools/lean/`; a genuinely reusable mathematical library can become a pinned dependency later. Do not begin with a large common proof import that hides the definitions needed to understand an individual target.
 
 ## Statements before proofs
@@ -51,7 +53,7 @@ Use the [review protocol](REVIEW.md), adapted from pinned [Tau Ceti rubrics](htt
 
 ## Metadata and promotion
 
-Every project includes a truthful `formalization.yaml` following the pinned [v0.4 standard](https://github.com/mathlib-initiative/formalization.yaml/tree/99c678e569c7c4c0772db297c5ddd5e4c9b6322e). Its authors are the formalization authors. List the original mathematical proof and problem source separately, retaining their authors and roles. Credit George Stepaniants with his Department of Computing and Mathematical Sciences, California Institute of Technology affiliation; do not add a contact email. Report automation, agent review, source deviations, theorem declarations, and actual verification scope without claiming human endorsement or measured costs that were not obtained.
+Every project includes a truthful `formalization.yaml` following the pinned [v0.4 standard](https://github.com/mathlib-initiative/formalization.yaml/tree/99c678e569c7c4c0772db297c5ddd5e4c9b6322e). Its authors are the formalization authors. List the original mathematical proof and problem source separately, retaining their authors and roles. For George Stepaniants’s contributions, use his Department of Computing and Mathematical Sciences, California Institute of Technology affiliation; do not add a contact email. Report automation, agent review, source deviations, theorem declarations, and actual verification scope without claiming human endorsement or measured costs that were not obtained.
 
 A complete problem PR includes successful build and Comparator logs, the actual transitive axiom report, all referee reports, exact source correspondence, and the manifest. Link an immutable proof revision from the canonical README and the existing `RESOLVED.md` entry. Include the affected Markdown, TeX, PDF, and regenerated indexes with the permanent-ID checks. Until all of those are verified, retain the current mathematical status and label the formalization's incomplete scope explicitly.
 

@@ -7,15 +7,17 @@
 
 **Rating rationale:** This longstanding all-order sign-design conjecture underlies optimal real transforms and has broad consequences in combinatorics, coding and experiment design.
 
-Is it true that, for every positive integer $m$, there exists a matrix
-$$
+Is it true that, for every positive integer $`m`$, there exists a matrix
+
+```math
 H\in\{-1,1\}^{4m\times4m}
 \quad\text{such that}\quad H^{T}H=4mI_{4m}?
-$$
-Such an $H$ is a real Hadamard matrix. The question concerns all admissible orders, rather than a particular currently unconstructed order.
+```
+
+Such an $`H`$ is a real Hadamard matrix. The question concerns all admissible orders, rather than a particular currently unconstructed order.
 
 ## Relevance
- The normalized matrix $H/\sqrt{4m}$ is an orthogonal transform with entries of equal magnitude. Thus this is an existence problem for perfectly conditioned, maximally flat real sign transforms. It differs from Cryer's complete-pivoting growth conjecture already in the collection, which asks about elimination on matrices that already exist.
+ The normalized matrix $`H/\sqrt{4m}`$ is an orthogonal transform with entries of equal magnitude. Thus this is an existence problem for perfectly conditioned, maximally flat real sign transforms. It differs from Cryer's complete-pivoting growth conjecture already in the collection, which asks about elimination on matrices that already exist.
 
 ## References
 

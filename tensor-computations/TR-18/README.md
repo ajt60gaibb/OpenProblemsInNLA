@@ -8,17 +8,21 @@
 
 ## Statement
 
-For a symmetric real tensor $T\in(\mathbb R^d)^{\otimes r}$, define
-$$
+For a symmetric real tensor $`T\in(\mathbb R^d)^{\otimes r}`$, define
+
+```math
 \|T\|_{\mathcal I_p}=\max_{\|x\|_p\le1}|\langle T,x^{\otimes r}\rangle|.
-$$
-For every integer $r\ge2$ and real $2\le p<\infty$, do constants $C_{r,p}>0$ and $a_{r,p}\ge0$ exist such that, for every $d\ge2$, $N\ge1$, and deterministic symmetric tensors $T_1,\ldots,T_N\in(\mathbb R^d)^{\otimes r}$,
-$$
+```
+
+For every integer $`r\ge2`$ and real $`2\le p<\infty`$, do constants $`C_{r,p}>0`$ and $`a_{r,p}\ge0`$ exist such that, for every $`d\ge2`$, $`N\ge1`$, and deterministic symmetric tensors $`T_1,\ldots,T_N\in(\mathbb R^d)^{\otimes r}`$,
+
+```math
 \mathbb E\left\|\sum_{i=1}^N g_iT_i\right\|_{\mathcal I_p}
 \le C_{r,p}\,d^{1/2-1/p}[\log(2+dN)]^{a_{r,p}}
 \left(\sum_{i=1}^N\|T_i\|_{\mathcal I_p}^{2}\right)^{1/2},
-$$
-where $g_i$ are independent real $N(0,1)$ random variables? Constants and logarithmic exponents must be independent of $d,N$ and the tensors. The explicit logarithmic form spells out the source's $\widetilde O_{r,p}$ notation.
+```
+
+where $`g_i`$ are independent real $`N(0,1)`$ random variables? Constants and logarithmic exponents must be independent of $`d,N`$ and the tensors. The explicit logarithmic form spells out the source's $`\widetilde O_{r,p}`$ notation.
 
 ## Relevance
 

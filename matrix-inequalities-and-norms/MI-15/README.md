@@ -10,16 +10,20 @@
 
 ## Problem statement
 
-For an integer $n\ge2$, let $x_{-(n-1)},\ldots,x_{n-1},y_{-(n-1)},\ldots,y_{n-1}$ be independent real variables. Form real Toeplitz matrices $X=(x_{i-j})_{i,j=1}^n$ and $Y=(y_{i-j})_{i,j=1}^n$, and the homogeneous quartic polynomial
+For an integer $`n\ge2`$, let $`x_{-(n-1)},\ldots,x_{n-1},y_{-(n-1)},\ldots,y_{n-1}`$ be independent real variables. Form real Toeplitz matrices $`X=(x_{i-j})_{i,j=1}^n`$ and $`Y=(y_{i-j})_{i,j=1}^n`$, and the homogeneous quartic polynomial
 
-$$F_n(x,y)=2\|X\|_F^2\|Y\|_F^2
--2\bigl(\operatorname{tr}(X^TY)\bigr)^2-\|XY-YX\|_F^2,$$
+```math
+F_n(x,y)=2\|X\|_F^2\|Y\|_F^2
+-2\bigl(\mathop{\mathrm{tr}}\nolimits(X^TY)\bigr)^2-\|XY-YX\|_F^2,
+```
 
-where $\|Z\|_F^2=\sum_{i,j}z_{ij}^2$ for real matrices. Is it true that for every $n\ge2$ there are a finite integer $N_n\ge0$ and homogeneous quadratic polynomials $q_{n,1},\ldots,q_{n,N_n}$ with real coefficients in these $4n-2$ variables such that
+where $`\|Z\|_F^2=\sum_{i,j}z_{ij}^2`$ for real matrices. Is it true that for every $`n\ge2`$ there are a finite integer $`N_n\ge0`$ and homogeneous quadratic polynomials $`q_{n,1},\ldots,q_{n,N_n}`$ with real coefficients in these $`4n-2`$ variables such that
 
-$$F_n(x,y)=\sum_{j=1}^{N_n}q_{n,j}(x,y)^2$$
+```math
+F_n(x,y)=\sum_{j=1}^{N_n}q_{n,j}(x,y)^2
+```
 
-as a polynomial identity? The polynomials may depend on $n$. Rational coefficients are not required.
+as a polynomial identity? The polynomials may depend on $`n`$. Rational coefficients are not required.
 
 ## Relevance
 

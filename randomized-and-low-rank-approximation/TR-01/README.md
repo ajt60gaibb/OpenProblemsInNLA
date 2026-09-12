@@ -14,19 +14,19 @@
 
 ## Problem statement
 
-Let $n$ be a power of two, $1\le r\le n$, and $0<\varepsilon<1/2$. Let $F$ be the normalized Walsh–Hadamard matrix, let $D_1,D_2$ have independent Rademacher diagonal entries, and let $S\in\mathbb R^{n\times k}$ select a uniformly random $k$-element subset of coordinates, independently. Set
+Let $`n`$ be a power of two, $`1\le r\le n`$, and $`0<\varepsilon<1/2`$. Let $`F`$ be the normalized Walsh–Hadamard matrix, let $`D_1,D_2`$ have independent Rademacher diagonal entries, and let $`S\in\mathbb R^{n\times k}`$ select a uniformly random $`k`$-element subset of coordinates, independently. Set
 
-$$
+```math
 \Omega=\sqrt{n/k}\,D_1FD_2FS.
-$$
+```
 
-Does a universal $C>0$ exist such that, for every fixed $r$-dimensional subspace $V\subseteq\mathbb R^n$, choosing $k=\min\{n,\lceil Cr/\varepsilon^2\rceil\}$ gives
+Does a universal $`C>0`$ exist such that, for every fixed $`r`$-dimensional subspace $`V\subseteq\mathbb R^n`$, choosing $`k=\min\{n,\lceil Cr/\varepsilon^2\rceil\}`$ gives
 
-$$
+```math
 \Pr\left\{(1-\varepsilon)\|x\|_2^2\le
 \|\Omega^Tx\|_2^2\le(1+\varepsilon)\|x\|_2^2
 \text{ for every }x\in V\right\}\ge0.99?
-$$
+```
 
 This fixes normalization, sampling without replacement, and a constant success probability in the workshop question. Results for a single randomization, three randomizations, or independently sampled sparse sketches do not establish this statement.
 
@@ -36,23 +36,23 @@ Amsel et al., [*Linear Systems and Eigenvalue Problems: Open Questions from a Si
 
 ## Resolution and status check — 2026-09-12
 
-Yuning Yang (School of Mathematics, Guangxi University) proves the result in *Subspace embeddings with the rerandomized SRHT* (Theorem 1, manuscript page 2, [manuscript PDF](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/manuscript.pdf)): for each power-of-two $n$, every $1\le r\le n$, and every fixed $r$-dimensional subspace $V$, represented by an orthonormal basis matrix $U\in\mathbb R^{n\times r}$ with $U^TU=I_r$, choosing
+Yuning Yang (School of Mathematics, Guangxi University) proves the result in *Subspace embeddings with the rerandomized SRHT* (Theorem 1, manuscript page 2, [manuscript PDF](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/manuscript.pdf)): for each power-of-two $`n`$, every $`1\le r\le n`$, and every fixed $`r`$-dimensional subspace $`V`$, represented by an orthonormal basis matrix $`U\in\mathbb R^{n\times r}`$ with $`U^TU=I_r`$, choosing
 
-$$
+```math
 k=\min\left\{n,\left\lceil Cr/\varepsilon^2\right\rceil\right\}
-$$
+```
 
 gives
 
-$$
+```math
 \Pr\left\{\|U^T\Omega\Omega^T U-I_r\|_2>\varepsilon\right\}\le0.01,
-$$
+```
 
-for two independent Rademacher sign diagonals, two normalized Walsh transforms, and a uniform $k$-subset coordinate sample without replacement. The theorem proves the *prescribed width itself* with full width cap and does not rely on a smaller alternative $k$. The same universal constant works for every power-of-two $n$, and there are no remaining parameter cases.
+for two independent Rademacher sign diagonals, two normalized Walsh transforms, and a uniform $`k`$-subset coordinate sample without replacement. The theorem proves the *prescribed width itself* with full width cap and does not rely on a smaller alternative $`k`$. The same universal constant works for every power-of-two $`n`$, and there are no remaining parameter cases.
 
-The proven range is $0<\varepsilon<1$, which strictly contains TR-01’s displayed range $0<\varepsilon<1/2$. This is therefore a complete affirmative resolution of the original target.
+The proven range is $`0<\varepsilon<1`$, which strictly contains TR-01’s displayed range $`0<\varepsilon<1/2`$. This is therefore a complete affirmative resolution of the original target.
 
-TR-01 is a prescribed-width strengthening of Problem 5.6 in the 2026 Simons workshop collection. It uses the same two-round Walsh/sign distribution and the same fixed-subspace OSE event, but TR-01 prescribes the specific width $k=\min\{n,\lceil Cr/\varepsilon^2\rceil\}$ rather than only asking for a width of order $O(r/\varepsilon^2)$. The manuscript proves this stronger prescribed-width formulation directly.
+TR-01 is a prescribed-width strengthening of Problem 5.6 in the 2026 Simons workshop collection. It uses the same two-round Walsh/sign distribution and the same fixed-subspace OSE event, but TR-01 prescribes the specific width $`k=\min\{n,\lceil Cr/\varepsilon^2\rceil\}`$ rather than only asking for a width of order $`O(r/\varepsilon^2)`$. The manuscript proves this stronger prescribed-width formulation directly.
 
 The pinned manuscript PDF retains an earlier acknowledgments paragraph saying that the prescribed-width extensions were not yet formalized. The pinned TeX source describes the current prescribed-width formalization, whose Lean files are also included in that revision. The mathematical theorem and proof source did not change in that update; the [independent artifact review](../../references/maintainer-review-2026-09-12-tr01/pr141-manuscript-pdf-qa.md) records the disclosure mismatch. The verification evidence below identifies the current prescribed-width declarations.
 

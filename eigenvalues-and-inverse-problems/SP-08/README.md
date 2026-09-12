@@ -13,25 +13,25 @@
 
 ## Problem statement
 
-For an integer $n\ge2$ and $a\in[-1,1)$, let
+For an integer $`n\ge2`$ and $`a\in[-1,1)`$, let
 
-$$
+```math
 \mathcal S_n[a,1]=\{A\in\mathbb R^{n\times n}:A=A^T,\ a\le A_{ij}\le1
 \text{ for all }i,j\}.
-$$
+```
 
-The spread of $A$ is $s(A)=\lambda_{\max}(A)-\lambda_{\min}(A)$.
-The Fallat–Xing conjecture asserts that there exists a matrix $B$ of rank
-exactly two, every entry of which belongs to $\{a,1\}$, such that
+The spread of $`A`$ is $`s(A)=\lambda_{\max}(A)-\lambda_{\min}(A)`$.
+The Fallat–Xing conjecture asserts that there exists a matrix $`B`$ of rank
+exactly two, every entry of which belongs to $`\{a,1\}`$, such that
 
-$$
+```math
 s(B)=\max_{A\in\mathcal S_n[a,1]}s(A).
-$$
+```
 
 All diagonal entries are free to vary within the same interval as the
 off-diagonal entries. The assertion concerns existence of a rank-two maximizer;
 it does not assert that every maximizer has rank two. The normalization
-$[a,1]$, $-1\le a<1$, is the source's reduction of the arbitrary nondegenerate
+$`[a,1]`$, $`-1\le a<1`$, is the source's reduction of the arbitrary nondegenerate
 real-interval problem. All dimensions and intervals form one problem.
 
 ## Why it matters
@@ -51,8 +51,8 @@ L. Gonzalez-Vega, J. R. Sendra, and J. Sendra,
 ## Earlier status check — 2026-09-08
 
 Version 1 of the 2025 paper is the latest listed version checked. It proves
-the conjecture for all $a\in(-1,1)$ when $2\le n\le7$, and for $a=0$
-when $2\le n\le8$ or $3$ divides $n$. The case $a=-1$ was already proved
+the conjecture for all $`a\in(-1,1)`$ when $`2\le n\le7`$, and for $`a=0`$
+when $`2\le n\le8`$ or $`3`$ divides $`n`$. The case $`a=-1`$ was already proved
 by Zhan. Its conclusion explicitly records a gap in the authors' attempted
 general proof. The [authors' supporting repository](https://github.com/rcorless/BohemianSpread)
 confirms the finite computational ranges. Searches for `Fallat Xing spread
@@ -62,4 +62,4 @@ and is not counted separately.
 
 ## Audit update — 2026-09-10
 
-Rechecked [Corless and collaborators](https://arxiv.org/html/2510.15919), especially the proved cases and conclusion. The conjecture holds for all displayed interval parameters through order seven, with additional $a=0$ dimensions, but the general all-orders statement remains open. Spread/rank-two searches found no subsequent completion. The status now explicitly records these substantive proved ranges rather than describing the entire entry simply as open.
+Rechecked [Corless and collaborators](https://arxiv.org/html/2510.15919), especially the proved cases and conclusion. The conjecture holds for all displayed interval parameters through order seven, with additional $`a=0`$ dimensions, but the general all-orders statement remains open. Spread/rank-two searches found no subsequent completion. The status now explicitly records these substantive proved ranges rather than describing the entire entry simply as open.

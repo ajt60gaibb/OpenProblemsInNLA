@@ -16,23 +16,23 @@
 
 Absolute values and vector inequalities are componentwise. All algorithmic questions use rational input in binary and the deterministic Turing model. Input length includes the matrix dimensions and the bit lengths of all rational coefficients.
 
-For a real square matrix $A$, define the diagonal perturbation family
+For a real square matrix $`A`$, define the diagonal perturbation family
 
-$$
-\mathcal D(A)=\{A-\operatorname{diag}(d):d\in[-1,1]^n\}.
-$$
+```math
+\mathcal D(A)=\{A-\mathop{\mathrm{diag}}\nolimits(d):d\in[-1,1]^n\}.
+```
 
-Call this family **regular** when every member is nonsingular. Only diagonal entries vary. This is precisely the entrywise interval matrix $[A-I_n,A+I_n]$.
+Call this family **regular** when every member is nonsingular. Only diagonal entries vary. This is precisely the entrywise interval matrix $`[A-I_n,A+I_n]`$.
 
 ## Problem statement
 
-Is there a deterministic algorithm and a polynomial $p$ such that, for every $n\ge1$, rational $A\in\mathbb Q^{n\times n}$ and $b\in\mathbb Q^n$ with regular $\mathcal D(A)$, the algorithm outputs the exact rational vector $x$ satisfying
+Is there a deterministic algorithm and a polynomial $`p`$ such that, for every $`n\ge1`$, rational $`A\in\mathbb Q^{n\times n}`$ and $`b\in\mathbb Q^n`$ with regular $`\mathcal D(A)`$, the algorithm outputs the exact rational vector $`x`$ satisfying
 
-$$
+```math
 Ax-|x|=b
-$$
+```
 
-within $p(\ell)$ bit operations, where $\ell$ is the binary input length?
+within $`p(\ell)`$ bit operations, where $`\ell`$ is the binary input length?
 
 The promise guarantees existence and uniqueness. No certificate of regularity is supplied or required, and behavior on inputs violating the promise is unrestricted. Polynomial dependence on coefficient bit length is allowed; this does not ask for a strongly polynomial algorithm.
 

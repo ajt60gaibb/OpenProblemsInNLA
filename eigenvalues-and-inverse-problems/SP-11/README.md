@@ -13,7 +13,7 @@
 
 ## Literature-dependent resolution - 2026-09-11
 
-**Solved.** Hall's **Corollaries 3.22 and 3.24**, based on **Theorem 3.20**, give a PSD SAP matrix with nullity at least $\delta(G)$. Forgetting PSD and SAP proves the exact unrestricted symmetric target $\operatorname{mr}(G)\le n-\delta(G)$ for every finite simple graph.
+**Solved.** Hall's **Corollaries 3.22 and 3.24**, based on **Theorem 3.20**, give a PSD SAP matrix with nullity at least $`\delta(G)`$. Forgetting PSD and SAP proves the exact unrestricted symmetric target $`\mathop{\mathrm{mr}}\nolimits(G)\le n-\delta(G)`$ for every finite simple graph.
 
 The all-graph theorem is due to **H. Tracy Hall**, [*The Delta Theorem*, arXiv:2601.01211v1](https://arxiv.org/html/2601.01211v1), submitted 3 January 2026. **George Stepaniants**, Department of Computing and Mathematical Sciences, California Institute of Technology, is the author of the [explanatory application note](solution.md); no new theorem discovery or priority is claimed. [Application PDF](solution.pdf) · [Standalone TeX](solution.tex).
 
@@ -23,17 +23,21 @@ The earlier status checks below are retained as historical records. The original
 
 ## Problem statement
 
-Let $G$ be any finite simple undirected graph on $n\ge1$ vertices, and let $\delta(G)$ be its minimum vertex degree. Let $\mathcal S(G)$ consist of the real symmetric $n\times n$ matrices whose off-diagonal nonzero entries occur exactly at edges of $G$, with unrestricted diagonal entries.
+Let $`G`$ be any finite simple undirected graph on $`n\ge1`$ vertices, and let $`\delta(G)`$ be its minimum vertex degree. Let $`\mathcal S(G)`$ consist of the real symmetric $`n\times n`$ matrices whose off-diagonal nonzero entries occur exactly at edges of $`G`$, with unrestricted diagonal entries.
 
-Must there exist $A\in\mathcal S(G)$ such that
-$$
+Must there exist $`A\in\mathcal S(G)`$ such that
+
+```math
 \dim\ker A\ge\delta(G)?
-$$
-Equivalently, with $\operatorname{mr}(G)=\min_{A\in\mathcal S(G)}\operatorname{rank}A$, is
-$$
-\operatorname{mr}(G)\le n-\delta(G)
-$$
-valid for every $G$?
+```
+
+Equivalently, with $`\mathop{\mathrm{mr}}\nolimits(G)=\min_{A\in\mathcal S(G)}\mathop{\mathrm{rank}}\nolimits A`$, is
+
+```math
+\mathop{\mathrm{mr}}\nolimits(G)\le n-\delta(G)
+```
+
+valid for every $`G`$?
 
 ## Relevance and ratings
 
@@ -50,4 +54,4 @@ valid for every $G$?
 
 ## Audit update — 2026-09-10
 
-**Partially resolved:** Barioli–Fallat–Gupta–Li, Theorem 2.11(a), proves the stronger bound $\nu(G)\ge\delta(G)$ for graphs of girth at least $11$ and minimum degree at least $4$. Parts (b)–(e) give further explicit girth and forbidden-subgraph regimes. These PSD/SAP witnesses also belong to the unrestricted symmetric class displayed here. The full primary manuscript, 2026 publication record and later-resolution searches were checked; no proof for all graphs was located.
+**Partially resolved:** Barioli–Fallat–Gupta–Li, Theorem 2.11(a), proves the stronger bound $`\nu(G)\ge\delta(G)`$ for graphs of girth at least $`11`$ and minimum degree at least $`4`$. Parts (b)–(e) give further explicit girth and forbidden-subgraph regimes. These PSD/SAP witnesses also belong to the unrestricted symmetric class displayed here. The full primary manuscript, 2026 publication record and later-resolution searches were checked; no proof for all graphs was located.

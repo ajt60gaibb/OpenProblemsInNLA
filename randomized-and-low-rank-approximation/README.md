@@ -8,10 +8,10 @@
 | --- | --- | --- | --- | --- | --- |
 | [RA-01](RA-01/README.md) | Optimal pivot count for RPCholesky trace approximation | **🔵 OPEN** | challenging | interesting to the community | [PDF](RA-01/problem.pdf) · [TeX](RA-01/problem.tex) |
 | [RA-04](RA-04/README.md) | Clustered singular-value gaps in randomized block Krylov approximation | **🔵 OPEN** | hard | interesting to specialist | [PDF](RA-04/problem.pdf) · [TeX](RA-04/problem.tex) |
-| [RA-05](RA-05/README.md) | Sharp joint rank and accuracy dependence for strong $\ell_p$ subspace coresets | **🔵 OPEN** | challenging | interesting to the community | [PDF](RA-05/problem.pdf) · [TeX](RA-05/problem.tex) |
-| [RA-06](RA-06/README.md) | Sensitivity-dependent row sampling for $\ell_p$ embeddings when p exceeds two | **🔵 OPEN** | challenging | interesting to the community | [PDF](RA-06/problem.pdf) · [TeX](RA-06/problem.tex) |
+| [RA-05](RA-05/README.md) | Sharp joint rank and accuracy dependence for strong $`\ell_p`$ subspace coresets | **🔵 OPEN** | challenging | interesting to the community | [PDF](RA-05/problem.pdf) · [TeX](RA-05/problem.tex) |
+| [RA-06](RA-06/README.md) | Sensitivity-dependent row sampling for $`\ell_p`$ embeddings when p exceeds two | **🔵 OPEN** | challenging | interesting to the community | [PDF](RA-06/problem.pdf) · [TeX](RA-06/problem.tex) |
 | [RA-11](RA-11/README.md) | Optimal trace-estimation complexity using Kronecker matrix-vector queries | **🔵 OPEN** | extreme | interesting to the community | [PDF](RA-11/problem.pdf) · [TeX](RA-11/problem.tex) |
-| [RA-14](RA-14/README.md) | Optimal query complexity of spectral rank-$k$ approximation | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](RA-14/problem.pdf) · [TeX](RA-14/problem.tex) |
+| [RA-14](RA-14/README.md) | Optimal query complexity of spectral rank-$`k`$ approximation | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](RA-14/problem.pdf) · [TeX](RA-14/problem.tex) |
 | [RA-15](RA-15/README.md) | Query complexity from Schatten to spectral norms | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](RA-15/problem.pdf) · [TeX](RA-15/problem.tex) |
 | [RA-16](RA-16/README.md) | Super-exponential decay of the zero-permanent probability | **🔵 OPEN** | extreme | interesting to the community | [PDF](RA-16/problem.pdf) · [TeX](RA-16/problem.tex) |
 | [RA-17](RA-17/README.md) | Minimum linear measurements for uniform recovery of real low-rank matrices | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](RA-17/problem.pdf) · [TeX](RA-17/problem.tex) |
@@ -30,7 +30,7 @@
 | --- | --- | --- | --- | --- | --- |
 | [KE-05](KE-05/README.md) | Spectral-gap-independent constants for randomized block polynomial interpolation | **✅ SOLVED** | challenging | interesting to the community | [PDF](KE-05/problem.pdf) · [TeX](KE-05/problem.tex) |
 | [RA-02](RA-02/README.md) | Polynomial trace-error factor after exactly the target rank of pivots | **✅ SOLVED** | challenging | interesting to the community | [PDF](RA-02/problem.pdf) · [TeX](RA-02/problem.tex) |
-| [RA-03](RA-03/README.md) | Improve the randomized LU squared-error factor to $2^k$ | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](RA-03/problem.pdf) · [TeX](RA-03/problem.tex) |
+| [RA-03](RA-03/README.md) | Improve the randomized LU squared-error factor to $`2^k`$ | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](RA-03/problem.pdf) · [TeX](RA-03/problem.tex) |
 | [RA-07](RA-07/README.md) | Convexity of the expected error of volume-sampled column subsets | **✅ SOLVED** | challenging | interesting to the community | [PDF](RA-07/problem.pdf) · [TeX](RA-07/problem.tex) |
 | [RA-08](RA-08/README.md) | Concave-function transfer of spectral low-rank error | **✅ SOLVED** | challenging | interesting to the community | [PDF](RA-08/problem.pdf) · [TeX](RA-08/problem.tex) |
 | [RA-09](RA-09/README.md) | Concave-function transfer of Frobenius low-rank error | **✅ SOLVED** | challenging | interesting to the community | [PDF](RA-09/problem.pdf) · [TeX](RA-09/problem.tex) |

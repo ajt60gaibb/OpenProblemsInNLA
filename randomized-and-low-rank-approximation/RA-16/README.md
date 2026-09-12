@@ -12,16 +12,20 @@
 
 ## Problem statement
 
-For each integer $n\ge1$, let $A_n=(a_{ij})\in\mathbb R^{n\times n}$ have independent entries with
-$\Pr(a_{ij}=1)=\Pr(a_{ij}=-1)=1/2$. Define
-$$
-\operatorname{per}A_n=\sum_{\sigma\in S_n}\prod_{i=1}^n a_{i,\sigma(i)}.
-$$
-Is it true that, for every real $c>0$, there exists $N_c$ such that
-$$
-\Pr(\operatorname{per}A_n=0)\le e^{-cn}\qquad\text{for every }n\ge N_c?
-$$
-Equivalently, $\lim_{n\to\infty}\Pr(\operatorname{per}A_n=0)^{1/n}=0$.
+For each integer $`n\ge1`$, let $`A_n=(a_{ij})\in\mathbb R^{n\times n}`$ have independent entries with
+$`\Pr(a_{ij}=1)=\Pr(a_{ij}=-1)=1/2`$. Define
+
+```math
+\mathop{\mathrm{per}}\nolimits A_n=\sum_{\sigma\in S_n}\prod_{i=1}^n a_{i,\sigma(i)}.
+```
+
+Is it true that, for every real $`c>0`$, there exists $`N_c`$ such that
+
+```math
+\Pr(\mathop{\mathrm{per}}\nolimits A_n=0)\le e^{-cn}\qquad\text{for every }n\ge N_c?
+```
+
+Equivalently, $`\lim_{n\to\infty}\Pr(\mathop{\mathrm{per}}\nolimits A_n=0)^{1/n}=0`$.
 This explicitly quantifies the source's phrase “super exponentially small.”
 
 ## Relevance and ratings

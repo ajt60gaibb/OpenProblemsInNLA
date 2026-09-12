@@ -13,13 +13,13 @@
 
 ## Problem statement
 
-Does there exist a single algorithm which, given a positive integer $d$, a matrix $A\in\mathbb Q^{d\times d}$, and vectors $u,v\in\mathbb Q^d$, always halts and correctly decides whether
+Does there exist a single algorithm which, given a positive integer $`d`$, a matrix $`A\in\mathbb Q^{d\times d}`$, and vectors $`u,v\in\mathbb Q^d`$, always halts and correctly decides whether
 
-$$
+```math
 u^{T}A^kv=0\qquad\text{for some integer }k\ge0?
-$$
+```
 
-All rational inputs are represented exactly, for example by binary integers for numerators and nonzero denominators. There is no a priori bound on $d$, on the entries, or on the hitting time $k$. The output sought is a yes/no answer; numerical near-zero detection does not suffice.
+All rational inputs are represented exactly, for example by binary integers for numerators and nonzero denominators. There is no a priori bound on $`d`$, on the entries, or on the hitting time $`k`$. The output sought is a yes/no answer; numerical near-zero detection does not suffice.
 
 This is the Skolem problem in its matrix-power form. Equivalently, one is given rational coefficients and initial values for a finite-order scalar linear recurrence and asks whether one of its terms vanishes. These equivalent formulations form one catalog entry.
 
@@ -34,4 +34,4 @@ Status check (2026-09-10): the 2026 survey still poses the general problem. The 
 
 ## Audit — 2026-09-10
 
-Independently rechecked [Luca–Ouaknine–Worrell, §1](https://arxiv.org/pdf/2607.15510), its current v1 record, and the [2026 survey's author abstract](https://people.mpi-sws.org/~joel/publications/skolem_and_positivity_survey26abs.html). The order-at-most-four decidability result gives a substantive exact subclass (in particular, $d\le4$ here), justifying Partially resolved; conditional decidability and density-one sets do not settle unrestricted inputs. Later Skolem-decidability searches found no unconditional general resolution. Both ratings are retained.
+Independently rechecked [Luca–Ouaknine–Worrell, §1](https://arxiv.org/pdf/2607.15510), its current v1 record, and the [2026 survey's author abstract](https://people.mpi-sws.org/~joel/publications/skolem_and_positivity_survey26abs.html). The order-at-most-four decidability result gives a substantive exact subclass (in particular, $`d\le4`$ here), justifying Partially resolved; conditional decidability and density-one sets do not settle unrestricted inputs. Later Skolem-decidability searches found no unconditional general resolution. Both ratings are retained.

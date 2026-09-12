@@ -39,7 +39,7 @@ jobs:
             python3 tools/lean/projects.py --base-ref "$BASE_REF" --github-output "$GITHUB_OUTPUT"
             python3 - "$BASE_REF" "$GITHUB_OUTPUT" <<'PY'
           import pathlib, subprocess, sys
-          changed = subprocess.check_output(['git','diff','--name-only',sys.argv[1],'HEAD','--'], text=True).splitlines()
+          changed = subprocess.check_output(['git','diff','--name-only','--no-renames','-z',sys.argv[1],'HEAD','--'], text=True).split('\0')
           needs_tools = any(p.startswith(('tools/lean/', 'docs/lean/ci-toolchain/')) or p == '.github/workflows/lean-verification.yml' for p in changed)
           with pathlib.Path(sys.argv[2]).open('a') as stream:
               stream.write('tools_changed=' + str(needs_tools).lower() + '\n')

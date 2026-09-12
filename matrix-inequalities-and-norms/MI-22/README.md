@@ -15,7 +15,7 @@
 
 **Negative result by Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent proof review: PASS.**
 
-Rational positive definite $3\times3$ matrices at $t=1/8$ violate the first singular-value inequality: the left operator norm exceeds 10900, while $\|AB\|_2<10200$. Exact rational root residuals and a proved operator-root error bound certify the actual principal powers.
+Rational positive definite $`3\times3`$ matrices at $`t=1/8`$ violate the first singular-value inequality: the left operator norm exceeds 10900, while $`\|AB\|_2<10200`$. Exact rational root residuals and a proved operator-root error bound certify the actual principal powers.
 
 The exact target is resolved. The original statement and source evidence are retained below; its former difficulty rating is historical.
 
@@ -23,14 +23,16 @@ The exact target is resolved. The original statement and source evidence are ret
 
 ## Problem statement
 
-Let $A,B\in\mathbb C^{n\times n}$ be positive definite and $t\in[0,1]$, and define $A\#_tB=A^{1/2}(A^{-1/2}BA^{-1/2})^tA^{1/2}$. Write $s_1(X)\ge\cdots\ge s_n(X)$ for the singular values of $X$.
+Let $`A,B\in\mathbb C^{n\times n}`$ be positive definite and $`t\in[0,1]`$, and define $`A\#_tB=A^{1/2}(A^{-1/2}BA^{-1/2})^tA^{1/2}`$. Write $`s_1(X)\ge\cdots\ge s_n(X)`$ for the singular values of $`X`$.
 
 Does
-$$
+
+```math
 \prod_{j=1}^k s_j\bigl(A^t(A\#_tB)B^{1-t}\bigr)
-\le\prod_{j=1}^k s_j(AB),\qquad 1\le k<n,
-$$
-hold for every positive integer $n$, every such $A,B,t$, with equality of the products for $k=n$? This is the assertion $s(A^t(A\#_tB)B^{1-t})\prec_{\log}s(AB)$. The positive semidefinite version in the sources is recovered by continuous regularization $A+\varepsilon I,B+\varepsilon I$; endpoints in $t$ can be stated directly.
+\le\prod_{j=1}^k s_j(AB),\qquad 1\le k< n,
+```
+
+hold for every positive integer $`n`$, every such $`A,B,t`$, with equality of the products for $`k=n`$? This is the assertion $`s(A^t(A\#_tB)B^{1-t})\prec_{\log}s(AB)`$. The positive semidefinite version in the sources is recovered by continuous regularization $`A+\varepsilon I,B+\varepsilon I`$; endpoints in $`t`$ can be stated directly.
 
 The question concerns the singular values of a product involving a matrix geometric mean. Such multiplicative bounds imply norm and determinant estimates useful in numerical treatment of positive definite matrices. An analogue for eigenvalue moduli has already been proved, but changes both sides of the comparison and does not answer this singular-value question.
 

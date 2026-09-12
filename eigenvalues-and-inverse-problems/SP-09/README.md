@@ -13,25 +13,25 @@
 
 ## Problem statement
 
-For $A,B\in\mathbb C^{n\times n}$, define the distance between their unitary
+For $`A,B\in\mathbb C^{n\times n}`$, define the distance between their unitary
 similarity orbits in the spectral norm by
 
-$$
+```math
 \delta_n(A,B)=\min_{U\in\mathbb C^{n\times n},\ U^*U=I_n}
 \|A-U^*BU\|_2.
-$$
+```
 
-For a positive integer $k$, write $A^{(k)}=I_k\otimes A$, the block diagonal
-matrix with $k$ copies of $A$. Is it true that, for every $n\ge3$, every
-finite integer $k\ge2$, and every pair of normal matrices
-$A,B\in\mathbb C^{n\times n}$,
+For a positive integer $`k`$, write $`A^{(k)}=I_k\otimes A`$, the block diagonal
+matrix with $`k`$ copies of $`A`$. Is it true that, for every $`n\ge3`$, every
+finite integer $`k\ge2`$, and every pair of normal matrices
+$`A,B\in\mathbb C^{n\times n}`$,
 
-$$
+```math
 \delta_{nk}\bigl(A^{(k)},B^{(k)}\bigr)=\delta_n(A,B)?
-$$
+```
 
-Normality means $AA^*=A^*A$ and $BB^*=B^*B$. The minimizing unitary on
-the left is unrestricted in dimension $nk$; it may mix different copies.
+Normality means $`AA^*=A^*A`$ and $`BB^*=B^*B`$. The minimizing unitary on
+the left is unrestricted in dimension $`nk`$; it may mix different copies.
 Thus the question asks whether block repetition can improve the best
 unitary-similarity fit between normal matrices.
 
@@ -57,7 +57,7 @@ arXiv:2508.13834v1 (2025), §3.5 and Propositions 3.15, 3.21, and 4.14.
 Theorem 5.3 of the source proves equality for normal matrices of order two.
 Theorem 5.1 establishes a strict decrease for some unrestricted matrices,
 so normality cannot simply be omitted. The example after Question 5.4 uses
-infinitely many copies and does not resolve the finite-$k$ question.
+infinitely many copies and does not resolve the finite-$`k`$ question.
 The direct follow-up 2508.13834v1 records the order-two result after Corollary 3.5. The corollary itself proves equality for self-adjoint matrices of every order.
 Its normal-element Propositions 3.15 and 3.21 concern zero orbit distance;
 its Proposition 4.14 counterexamples have no normality requirement. Neither

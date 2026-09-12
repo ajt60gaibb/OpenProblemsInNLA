@@ -9,7 +9,7 @@
 <!-- colbrook-recovered -->
 ## Independently reviewed resolution - 2026-09-11
 
-**Negative resolution and sharp replacement.** Section 1 gives an admissible positive symmetric strictly diagonally dominant $3\times3$ matrix with inverse infinity norm $7/9$, below the proposed comparison value $5/4$. Theorem 1 in Section 2 proves that the exact infimum over the displayed class is $1/(\alpha+m)$ for every allowed parameter choice, and strict positivity prevents attainment. The order is entrywise; stronger comparisons of dominance margins are outside the result.
+**Negative resolution and sharp replacement.** Section 1 gives an admissible positive symmetric strictly diagonally dominant $`3\times3`$ matrix with inverse infinity norm $`7/9`$, below the proposed comparison value $`5/4`$. Theorem 1 in Section 2 proves that the exact infimum over the displayed class is $`1/(\alpha+m)`$ for every allowed parameter choice, and strict positivity prevents attainment. The order is entrywise; stronger comparisons of dominance margins are outside the result.
 
 **Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [Complete manuscript](../../references/colbrook-recovered-2026-09-11/manuscripts/IE-19.pdf), [independent proof review](../../references/colbrook-recovered-2026-09-11/verification/reviews/IE-19-review.md), and [submission record](../../references/colbrook-recovered-2026-09-11/README.md). The supplied notes were reconstructed with substantial AI assistance. This is independent agent verification, not external human peer review or formal proof-assistant certification; no novelty or priority claim is made.
 
@@ -20,29 +20,29 @@ The difficulty, importance and rating rationale below are historical assessments
 
 ## Problem statement
 
-Let $n\ge3$, $m>0$, and $\alpha\ge(n-2)m$, and define
+Let $`n\ge3`$, $`m>0`$, and $`\alpha\ge(n-2)m`$, and define
 
-$$
+```math
 S=\alpha I_n+m\mathbf1\mathbf1^T,
 \qquad \mathbf1=(1,\ldots,1)^T\in\mathbb R^n.
-$$
+```
 
-For every real symmetric matrix $J$ satisfying
+For every real symmetric matrix $`J`$ satisfying
 
-$$
-0<J_{ij}\le S_{ij}\quad(1\le i,j\le n),
+```math
+0< J_{ij}\le S_{ij}\quad(1\le i,j\le n),
 \qquad J_{ii}\ge\sum_{j\ne i}J_{ij}\quad(1\le i\le n),
-$$
+```
 
 does the sharp bound
 
-$$
+```math
 \|J^{-1}\|_\infty\ge
 \frac{\alpha+2m(n-1)}{\alpha(\alpha+mn)}
 =\|S^{-1}\|_\infty
-$$
+```
 
-hold, with equality if and only if $J=S$? Here $\|M\|_\infty=\max_i\sum_j|M_{ij}|$. The hypotheses make $J$ nonsingular. The inequalities on entries are entrywise, not Loewner inequalities.
+hold, with equality if and only if $`J=S`$? Here $`\|M\|_\infty=\max_i\sum_j|M_{ij}|`$. The hypotheses make $`J`$ nonsingular. The inequalities on entries are entrywise, not Loewner inequalities.
 
 ## Why it matters
 
@@ -50,7 +50,7 @@ This would give an optimal lower bound on inverse amplification for a structured
 
 ## References
 
-- C. J. Hillar, S. Lin, and A. Wibisono, [Inverses of symmetric, diagonally dominant positive matrices and applications](https://arxiv.org/abs/1203.6812), §8, Conjecture 8.1, p. 17; the opening notation defines entrywise ordering. The parameter range for $S$ is inherited from Theorem 6.1 and the paragraph preceding Conjecture 8.1.
+- C. J. Hillar, S. Lin, and A. Wibisono, [Inverses of symmetric, diagonally dominant positive matrices and applications](https://arxiv.org/abs/1203.6812), §8, Conjecture 8.1, p. 17; the opening notation defines entrywise ordering. The parameter range for $`S`$ is inherited from Theorem 6.1 and the paragraph preceding Conjecture 8.1.
 - C. J. Hillar and A. Wibisono, [A Hadamard-type lower bound for symmetric diagonally dominant positive matrices](https://redwood.berkeley.edu/wp-content/uploads/2018/01/hillar2015hadamard.pdf), *Linear Algebra and its Applications* 472 (2015), 135–141, §3, Conjecture 3.4 and Theorem 3.5. This follow-up settles the separate determinant conjecture, not the inverse norm claim.
 
 ## Earlier status check — 2026-09-08
