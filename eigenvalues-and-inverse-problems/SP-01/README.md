@@ -11,7 +11,7 @@ Let $`A`$ be a self-adjoint, possibly unbounded operator on a separable complex 
 
 ```math
 P=E_A(\sigma),\qquad Q=E_{A+V}(O_{d/2}(\sigma)),\qquad
-O_r(S)=\{x\in\mathbb R:\mathop{\mathrm{dist}}\nolimits(x,S)<r\},
+O_r(S)=\{x\in\mathbb R:\mathop{\mathrm{dist}}\nolimits(x,S)< r\},
 ```
 
 where $`E_B`$ denotes the spectral projection measure of $`B`$.
