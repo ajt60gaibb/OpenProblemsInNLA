@@ -1,0 +1,458 @@
+theorem NLA.MI21.operatorNorm_isUnitaryInvariant_proved : ∀ (n : ℕ),
+  NLA.MI21.IsUnitaryInvariantNorm NLA.MI21.operatorNorm :=
+fun n =>
+  id
+    ⟨fun X => norm_nonneg X,
+      ⟨fun X => norm_eq_zero,
+        ⟨fun X Y => norm_add_le X Y,
+          ⟨fun z X => norm_smul z X, fun U V X hU₁ hU₂ hV₁ hV₂ =>
+            have hU := Unitary.mem_iff.mpr ⟨hU₁, hU₂⟩;
+            have hV := Unitary.mem_iff.mpr ⟨hV₁, hV₂⟩;
+            Eq.mpr (id (congrArg (fun _a => _a = ‖X‖) (CStarRing.norm_mul_mem_unitary (U * X) hV)))
+              (Eq.mpr (id (congrArg (fun _a => _a = ‖X‖) (CStarRing.norm_mem_unitary_mul X hU))) (Eq.refl ‖X‖))⟩⟩⟩⟩
+theorem NLA.MI21.geometricMean_eq_of_riccati : ∀ {n : ℕ} (A B K X : NLA.MI21.Mat n),
+  Matrix.PosDef A → Matrix.PosSemidef X → A * K = 1 → X * K * X = B → NLA.MI21.geometricMean A B (1 / 2) = X :=
+fun {n} A B K X hA hX hAK hXX =>
+  let H := CFC.rpow A (1 / 2);
+  let J := CFC.rpow A (-1 / 2);
+  have hHJ :=
+    have ht := CFC.rpow_mul_rpow_neg (1 / 2) (Matrix.PosDef.isStrictlyPositive hA);
+    Eq.mpr
+      (id
+        (congrFun'
+          (congrArg Eq
+            (congrArg (HMul.hMul (CFC.rpow A (1 / 2)))
+              (CFC.rpow.congr_simp A A (Eq.refl A) (-1 / 2) (-(1 / 2)) (neg_div 2 1))))
+          1))
+      ht;
+  have hJH :=
+    have ht := CFC.rpow_neg_mul_rpow (1 / 2) (Matrix.PosDef.isStrictlyPositive hA);
+    Eq.mpr
+      (id
+        (congrFun'
+          (congrArg Eq
+            (congrFun' (congrArg HMul.hMul (CFC.rpow.congr_simp A A (Eq.refl A) (-1 / 2) (-(1 / 2)) (neg_div 2 1)))
+              (CFC.rpow A (1 / 2))))
+          1))
+      ht;
+  have hIA :=
+    id
+      (Eq.mp
+        (congrFun'
+          (congrArg Eq
+            (congrArg (HMul.hMul (A ^ (-1))) (CFC.rpow_one A (Matrix.PosSemidef.nonneg (Matrix.PosDef.posSemidef hA)))))
+          1)
+        (CFC.rpow_neg_mul_rpow 1 (Matrix.PosDef.isStrictlyPositive hA)));
+  have hK :=
+    Trans.trans
+      (Eq.mpr (id (congrArg (fun _a => CFC.rpow A (-1) = CFC.rpow A (-1) * _a) hAK))
+        (Eq.mpr (id (congrArg (fun _a => CFC.rpow A (-1) = _a) (mul_one (CFC.rpow A (-1)))))
+          (Eq.refl (CFC.rpow A (-1)))))
+      (Eq.mpr (id (congrArg (fun _a => _a = K) (Eq.symm (mul_assoc (CFC.rpow A (-1)) A K))))
+        (Eq.mpr (id (congrArg (fun _a => _a * K = K) hIA))
+          (Eq.mpr (id (congrArg (fun _a => _a = K) (one_mul K))) (Eq.refl K))));
+  have hJJ :=
+    id
+      (Eq.mpr (id (congrArg (fun _a => _a = K) (Eq.symm (CFC.rpow_add (Matrix.PosDef.isUnit hA)))))
+        (Eq.mpr
+          (id
+            (congrFun'
+              (congrArg Eq
+                (congrArg (HPow.hPow A)
+                  (Mathlib.Meta.NormNum.IsInt.neg_to_eq
+                    (Mathlib.Meta.NormNum.IsRat.to_isInt
+                      (Mathlib.Meta.NormNum.isRat_add (Eq.refl HAdd.hAdd)
+                        (Mathlib.Meta.NormNum.isRat_div
+                          (Mathlib.Meta.NormNum.isRat_mul (Eq.refl HMul.hMul)
+                            (Mathlib.Meta.NormNum.IsInt.to_isRat
+                              (Mathlib.Meta.NormNum.isInt_neg (Eq.refl Neg.neg)
+                                (Mathlib.Meta.NormNum.IsNat.to_isInt (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one))
+                                (Eq.refl (Int.negOfNat 1))))
+                            (Mathlib.Meta.NormNum.IsNNRat.to_isRat
+                              (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                                (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                                  (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 2)))))
+                            (Eq.refl ((Int.negOfNat 1).mul (Int.ofNat 1))) (Eq.refl 2)))
+                        (Mathlib.Meta.NormNum.isRat_div
+                          (Mathlib.Meta.NormNum.isRat_mul (Eq.refl HMul.hMul)
+                            (Mathlib.Meta.NormNum.IsInt.to_isRat
+                              (Mathlib.Meta.NormNum.isInt_neg (Eq.refl Neg.neg)
+                                (Mathlib.Meta.NormNum.IsNat.to_isInt (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one))
+                                (Eq.refl (Int.negOfNat 1))))
+                            (Mathlib.Meta.NormNum.IsNNRat.to_isRat
+                              (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                                (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                                  (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 2)))))
+                            (Eq.refl ((Int.negOfNat 1).mul (Int.ofNat 1))) (Eq.refl 2)))
+                        (Eq.refl (Int.negOfNat 4)) (Eq.refl 4)))
+                    Nat.cast_one)))
+              K))
+          hK));
+  have hZ := Matrix.nonneg_iff_posSemidef.mp (conjugate_nonneg_of_nonneg (Matrix.PosSemidef.nonneg hX) CFC.rpow_nonneg);
+  have hZsq :=
+    Trans.trans
+      (of_eq_true
+        (Eq.trans
+          (congr
+            (congrArg Eq
+              (Eq.trans
+                (Eq.trans (congr (congrArg HMul.hMul (mul_assoc J X J)) (mul_assoc J X J))
+                  (mul_assoc J (X * J) (J * (X * J))))
+                (congrArg (HMul.hMul J) (mul_assoc X J (J * (X * J))))))
+            (Eq.trans
+              (Eq.trans
+                (congrFun'
+                  (congrArg HMul.hMul
+                    (congrArg (HMul.hMul J)
+                      (Eq.trans (mul_assoc X (J * J) X) (congrArg (HMul.hMul X) (mul_assoc J J X)))))
+                  J)
+                (mul_assoc J (X * (J * (J * X))) J))
+              (congrArg (HMul.hMul J)
+                (Eq.trans (mul_assoc X (J * (J * X)) J)
+                  (congrArg (HMul.hMul X)
+                    (Eq.trans (mul_assoc J (J * X) J) (congrArg (HMul.hMul J) (mul_assoc J X J))))))))
+          (eq_self (J * (X * (J * (J * (X * J))))))))
+      (Eq.mpr (id (congrArg (fun _a => J * (X * _a * X) * J = J * B * J) hJJ))
+        (Eq.mpr (id (congrArg (fun _a => J * _a * J = J * B * J) hXX)) (Eq.refl (J * B * J))));
+  have hsqrt := CFC.sqrt_unique hZsq (Matrix.PosSemidef.nonneg hZ);
+  id
+    (Eq.mpr (id (congrArg (fun _a => H * _a * H = X) (NLA.MI21.rpow_half_eq_sqrt (J * B * J))))
+      (Eq.mpr (id (congrArg (fun _a => H * _a * H = X) hsqrt))
+        (Trans.trans
+          (of_eq_true
+            (Eq.trans
+              (congr
+                (congrArg Eq
+                  (Eq.trans
+                    (Eq.trans (congrFun' (congrArg HMul.hMul (congrArg (HMul.hMul H) (mul_assoc J X J))) H)
+                      (mul_assoc H (J * (X * J)) H))
+                    (congrArg (HMul.hMul H)
+                      (Eq.trans (mul_assoc J (X * J) H) (congrArg (HMul.hMul J) (mul_assoc X J H))))))
+                (Eq.trans
+                  (Eq.trans (congrFun' (congrArg HMul.hMul (mul_assoc H J X)) (J * H)) (mul_assoc H (J * X) (J * H)))
+                  (congrArg (HMul.hMul H) (mul_assoc J X (J * H)))))
+              (eq_self (H * (J * (X * (J * H)))))))
+          (Eq.mpr (id (congrArg (fun _a => _a * X * (J * H) = X) hHJ))
+            (Eq.mpr (id (congrArg (fun _a => 1 * X * _a = X) hJH))
+              (Eq.mpr (id (congrArg (fun _a => _a * 1 = X) (one_mul X)))
+                (Eq.mpr (id (congrArg (fun _a => _a = X) (mul_one X))) (Eq.refl X))))))))
+theorem NLA.MI21.mean_squared_of_scaled_riccati : ∀ {n : ℕ} (A B K N : NLA.MI21.Mat n) (h : ℝ),
+  Matrix.PosDef A →
+    Matrix.PosSemidef N →
+      0 < h →
+        A * K = 1 →
+          N * K * N = ↑h • B → NLA.MI21.spectralPower (NLA.MI21.geometricMean A B (1 / 2)) 2 = (1 / ↑h) • N ^ 2 :=
+fun {n} A B K N h hA hN hh hAK hNN =>
+  let c := ↑(1 / √h);
+  have hc :=
+    id
+      (cast
+        (Eq.trans
+          (Eq.trans
+            (congr (congrArg LE.le (Eq.symm Nat.cast_zero)) (congrFun' (congrArg HDiv.hDiv (Eq.symm Nat.cast_one)) √h))
+            (congr (congrArg LE.le Nat.cast_zero) (congrFun' (congrArg HDiv.hDiv Nat.cast_one) √h)))
+          (Eq.symm
+            (Eq.trans
+              (Eq.trans
+                (congr (congrArg LE.le (Eq.symm Nat.cast_zero))
+                  (congrArg Complex.ofReal (congrFun' (congrArg HDiv.hDiv (Eq.symm Nat.cast_one)) √h)))
+                (Eq.trans
+                  (congrArg (fun x => x ≤ ↑(↑1 / √h))
+                    (Eq.trans Nat.cast_zero (Eq.symm (congrArg Complex.ofReal Nat.cast_zero))))
+                  Complex.real_le_real._simp_1))
+              (congr (congrArg LE.le Nat.cast_zero) (congrFun' (congrArg HDiv.hDiv Nat.cast_one) √h)))))
+        (div_nonneg
+          (Mathlib.Meta.NormNum.isNat_le_true (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_zero)
+            (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one) (Eq.refl true))
+          (Real.sqrt_nonneg h)));
+  have hc2 :=
+    have hr :=
+      Eq.mpr (id (congrArg (fun _a => _a = 1 / h) (one_div_pow (√h) 2)))
+        (Eq.mpr (id (congrArg (fun _a => 1 / _a = 1 / h) (Real.sq_sqrt (LT.lt.le hh)))) (Eq.refl (1 / h)));
+    id
+      (cast
+        (Eq.trans
+          (Eq.trans
+            (congr
+              (congrArg Eq
+                (congr (congrArg HMul.hMul (congrFun' (congrArg HDiv.hDiv (Eq.symm Nat.cast_one)) √h))
+                  (congrFun' (congrArg HDiv.hDiv (Eq.symm Nat.cast_one)) √h)))
+              (congrFun' (congrArg HDiv.hDiv (Eq.symm Nat.cast_one)) h))
+            (congr
+              (congrArg Eq
+                (congr (congrArg HMul.hMul (congrFun' (congrArg HDiv.hDiv Nat.cast_one) √h))
+                  (congrFun' (congrArg HDiv.hDiv Nat.cast_one) √h)))
+              (congrFun' (congrArg HDiv.hDiv Nat.cast_one) h)))
+          (Eq.symm
+            (Eq.trans
+              (Eq.trans
+                (congr
+                  (congrArg Eq
+                    (congr
+                      (congrArg HMul.hMul
+                        (congrArg Complex.ofReal (congrFun' (congrArg HDiv.hDiv (Eq.symm Nat.cast_one)) √h)))
+                      (congrArg Complex.ofReal (congrFun' (congrArg HDiv.hDiv (Eq.symm Nat.cast_one)) √h))))
+                  (congrFun' (congrArg HDiv.hDiv (Eq.symm Nat.cast_one)) ↑h))
+                (Eq.trans
+                  (congr (congrArg Eq (Complex.ofReal_mul._simp_1 (↑1 / √h) (↑1 / √h)))
+                    (Eq.trans
+                      (congrArg (fun x => x / ↑h)
+                        (Eq.trans Nat.cast_one (Eq.symm (congrArg Complex.ofReal Nat.cast_one))))
+                      (Complex.ofReal_div._simp_1 (↑1) h)))
+                  Complex.ofReal_inj._simp_1))
+              (congr
+                (congrArg Eq
+                  (congr (congrArg HMul.hMul (congrFun' (congrArg HDiv.hDiv Nat.cast_one) √h))
+                    (congrFun' (congrArg HDiv.hDiv Nat.cast_one) √h)))
+                (congrFun' (congrArg HDiv.hDiv Nat.cast_one) h)))))
+        (have this := Eq.mp (congrFun' (congrArg Eq (pow_two (1 / √h))) (1 / h)) hr;
+        this));
+  have hX := Matrix.PosSemidef.smul hN hc;
+  have hric :=
+    Trans.trans
+      (Trans.trans
+        (of_eq_true
+          (Eq.trans
+            (congrFun'
+              (congrArg Eq
+                (Eq.trans
+                  (Eq.trans (congrFun' (congrArg HMul.hMul (smul_mul_assoc c N K)) (c • N))
+                    (mul_smul_comm c (c • (N * K)) N))
+                  (Eq.trans (congrArg (HSMul.hSMul c) (smul_mul_assoc c (N * K) N)) (smul_smul c c (N * K * N)))))
+              ((c * c) • (N * K * N)))
+            (eq_self ((c * c) • (N * K * N)))))
+        (Eq.mpr (id (congrArg (fun _a => _a • (N * K * N) = (1 / ↑h) • ↑h • B) hc2))
+          (Eq.mpr (id (congrArg (fun _a => (1 / ↑h) • _a = (1 / ↑h) • ↑h • B) hNN)) (Eq.refl ((1 / ↑h) • ↑h • B)))))
+      (Eq.mpr (id (congrArg (fun _a => _a = B) (smul_smul (1 / ↑h) (↑h) B)))
+        (of_eq_true
+          (Eq.trans
+            (congrFun'
+              (congrArg Eq
+                (Eq.trans
+                  (congrFun'
+                    (congrArg HSMul.hSMul
+                      (Eq.trans (congrFun' (congrArg HMul.hMul (one_div ↑h)) ↑h)
+                        (inv_mul_cancel₀
+                          (of_eq_true
+                            (Eq.trans (congrArg Not (Eq.trans Complex.ofReal_eq_zero._simp_1 (eq_false (LT.lt.ne' hh))))
+                              not_false_eq_true)))))
+                    B)
+                  (one_smul ℂ B)))
+              B)
+            (eq_self B))));
+  have hp := NLA.MI21.spectralPower_nat (c • N) hX 2;
+  Eq.mpr
+    (id
+      (congrArg (fun _a => NLA.MI21.spectralPower _a 2 = (1 / ↑h) • N ^ 2)
+        (NLA.MI21.geometricMean_eq_of_riccati A B K (c • N) hA hX hAK hric)))
+    (Eq.mpr (id (congrArg (fun _a => _a = (1 / ↑h) • N ^ 2) hp))
+      (of_eq_true
+        (Eq.trans
+          (congr
+            (congrArg Eq
+              (Eq.trans (pow_two (c • N))
+                (Eq.trans (mul_smul_comm c (c • N) N)
+                  (Eq.trans (Eq.trans (congrArg (HSMul.hSMul c) (smul_mul_assoc c N N)) (smul_smul c c (N * N)))
+                    (congrFun' (congrArg HSMul.hSMul hc2) (N * N))))))
+            (congrArg (HSMul.hSMul (1 / ↑h)) (pow_two N)))
+          (eq_self ((1 / ↑h) • (N * N))))))
+theorem NLA.MI21.real_eigenvalue_le_operatorNorm : ∀ {n : ℕ} (A : NLA.MI21.Mat n) (v : Fin n → ℂ) (lam : ℝ),
+  0 ≤ lam → v ≠ 0 → Matrix.mulVec A v = ↑lam • v → lam ≤ NLA.MI21.operatorNorm A :=
+fun {n} A v lam hlam hv he =>
+  let x := WithLp.toLp 2 v;
+  have hx := fun h => hv (congrArg WithLp.ofLp h);
+  have hTx :=
+    of_eq_true
+      (Eq.trans (congrFun' (congrArg Eq (congrArg (WithLp.toLp 2) he)) (↑lam • WithLp.toLp 2 v))
+        (eq_self (↑lam • WithLp.toLp 2 v)));
+  have hb := ContinuousLinearMap.le_opNorm (Matrix.toEuclideanCLM A) x;
+  (mul_le_mul_iff_left₀ (norm_pos_iff.mpr hx)).mp
+    (Eq.mp (congrArg (fun _a => _a * ‖x‖ ≤ ‖Matrix.toEuclideanCLM A‖ * ‖x‖) (Complex.norm_of_nonneg hlam))
+      (Eq.mp (congrArg (fun _a => _a ≤ ‖Matrix.toEuclideanCLM A‖ * ‖x‖) (norm_smul (↑lam) x))
+        (Eq.mp (congrArg (fun _a => ‖_a‖ ≤ ‖Matrix.toEuclideanCLM A‖ * ‖x‖) hTx) hb)))
+theorem NLA.MI21.witness_eigenvalue_gt_one : 1 < NLA.MI21.witnessEigenvalue :=
+id
+  (have h0 :=
+    LeanCert.Validity.verify_strict_upper_bound_dyadic_checked (LeanCert.Core.Expr.const (Rat.divInt 1 1))
+      (Rat.divInt 0 1) (Rat.divInt 0 1) (le_refl (Rat.divInt 0 1)) (Rat.divInt 1351000 1350907) (-53) 10
+      (of_decide_eq_true (id (Eq.refl true))) NLA.MI21.witness_eigenvalue_gt_one._proof_1_7 ↑(Rat.divInt 0 1)
+      ⟨le_refl ↑(Rat.divInt 0 1), le_refl ↑(Rat.divInt 0 1)⟩;
+  Eq.mpr
+    (eq_of_heq
+      ((fun α self a a' e'_3 a_1 a'_1 e'_4 =>
+          Eq.casesOn (motive := fun a_2 x => a' = a_2 → e'_3 ≍ x → (a < a_1) ≍ (a' < a'_1)) e'_3
+            (fun h =>
+              Eq.ndrec (motive := fun a' => ∀ (e_3 : a = a'), e_3 ≍ Eq.refl a → (a < a_1) ≍ (a' < a'_1))
+                (fun e_3 h =>
+                  Eq.casesOn (motive := fun a_2 x => a'_1 = a_2 → e'_4 ≍ x → (a < a_1) ≍ (a < a'_1)) e'_4
+                    (fun h =>
+                      Eq.ndrec (motive := fun a' => ∀ (e_4 : a_1 = a'), e_4 ≍ Eq.refl a_1 → (a < a_1) ≍ (a < a'))
+                        (fun e_4 h => HEq.refl (a < a_1)) (Eq.symm h) e'_4)
+                    (Eq.refl a'_1) (HEq.refl e'_4))
+                (Eq.symm h) e'_3)
+            (Eq.refl a') (HEq.refl e'_3))
+        ℝ Real.instLT 1 (↑(↑1 / ↑1))
+        (Mathlib.Meta.NormNum.isNat_eq_true (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one)
+          (Mathlib.Meta.NormNum.isNat_ratCast
+            (Mathlib.Meta.NormNum.IsNNRat.to_isNat
+              (Mathlib.Meta.NormNum.isNNRat_div
+                (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                  (Mathlib.Meta.NormNum.isNat_mul (Eq.refl HMul.hMul)
+                    (Mathlib.Meta.NormNum.isNat_intCast 1 1 (Mathlib.Meta.NormNum.isNat_ofNat ℤ (Eq.refl 1)))
+                    (Mathlib.Meta.NormNum.IsNNRat.to_isNat
+                      (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                        (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                          (Mathlib.Meta.NormNum.isNat_intCast 1 1 (Mathlib.Meta.NormNum.isNat_ofNat ℤ (Eq.refl 1))))))
+                    (Eq.refl 1)))))))
+        (1351000 / 1350907) (↑(↑1351000 / ↑1350907))
+        (Mathlib.Meta.NormNum.isNNRat_eq_true
+          (Mathlib.Meta.NormNum.isNNRat_div
+            (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+              (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 1351000)))
+              (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 1350907))))
+              (Eq.refl (Nat.mul 1351000 1)) (Eq.refl 1350907)))
+          (Mathlib.Meta.NormNum.isNNRat_ratCast
+            (Mathlib.Meta.NormNum.isNNRat_div
+              (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+                (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                  (Mathlib.Meta.NormNum.isNat_intCast 1351000 1351000
+                    (Mathlib.Meta.NormNum.isNat_ofNat ℤ (Eq.refl 1351000))))
+                (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                  (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                    (Mathlib.Meta.NormNum.isNat_intCast 1350907 1350907
+                      (Mathlib.Meta.NormNum.isNat_ofNat ℤ (Eq.refl 1350907)))))
+                (Eq.refl (Nat.mul 1351000 1)) (Eq.refl 1350907)))))))
+    (Eq.mp
+      (congr (congrArg LT.lt (congrArg Rat.cast (Rat.divInt_eq_div 1 1)))
+        (congrArg Rat.cast (Rat.divInt_eq_div 1351000 1350907)))
+      h0))
+theorem NLA.MI21.witness_left_norm_lower_bound : NLA.MI21.witnessEigenvalue ≤
+  NLA.MI21.operatorNorm (NLA.MI21.leftMatrix NLA.MI21.witnessA NLA.MI21.witnessB (1 / 2) (1 / 2) 2) :=
+Eq.mpr (id (congrArg (fun _a => NLA.MI21.witnessEigenvalue ≤ NLA.MI21.operatorNorm _a) NLA.MI21.witness_left_matrix))
+  (NLA.MI21.real_eigenvalue_le_operatorNorm NLA.MI21.witnessL NLA.MI21.witnessVector NLA.MI21.witnessEigenvalue
+    (le_of_lt (lt_trans zero_lt_one NLA.MI21.witness_eigenvalue_gt_one)) NLA.MI21.witness_vector_ne_zero
+    NLA.MI21.witness_eigenvector)
+theorem NLA.MI21.counterexample_proved : ∀ (p : ℝ),
+  0 < p →
+    (∀ (i : Fin 2), Matrix.PosDef (NLA.MI21.witnessA i) ∧ Matrix.PosDef (NLA.MI21.witnessB i)) ∧
+      ∑ i, NLA.MI21.witnessA i = 1 ∧
+        ∑ i, NLA.MI21.witnessB i = 1 ∧
+          NLA.MI21.leftMatrix NLA.MI21.witnessA NLA.MI21.witnessB (1 / 2) (1 / 2) 2 = NLA.MI21.witnessL ∧
+            NLA.MI21.rightMatrix NLA.MI21.witnessA NLA.MI21.witnessB (1 / 2) (1 / 2) 2 p = 1 ∧
+              NLA.MI21.witnessVector ≠ 0 ∧
+                Matrix.mulVec NLA.MI21.witnessL NLA.MI21.witnessVector =
+                    ↑NLA.MI21.witnessEigenvalue • NLA.MI21.witnessVector ∧
+                  1 < NLA.MI21.witnessEigenvalue ∧
+                    NLA.MI21.witnessEigenvalue ≤
+                        NLA.MI21.operatorNorm
+                          (NLA.MI21.leftMatrix NLA.MI21.witnessA NLA.MI21.witnessB (1 / 2) (1 / 2) 2) ∧
+                      NLA.MI21.operatorNorm
+                            (NLA.MI21.rightMatrix NLA.MI21.witnessA NLA.MI21.witnessB (1 / 2) (1 / 2) 2 p) =
+                          1 ∧
+                        NLA.MI21.operatorNorm
+                            (NLA.MI21.rightMatrix NLA.MI21.witnessA NLA.MI21.witnessB (1 / 2) (1 / 2) 2 p) <
+                          NLA.MI21.operatorNorm
+                            (NLA.MI21.leftMatrix NLA.MI21.witnessA NLA.MI21.witnessB (1 / 2) (1 / 2) 2) :=
+fun p _hp =>
+  ⟨NLA.MI21.witness_inputs_posDef,
+    ⟨NLA.MI21.witness_sum_A,
+      ⟨NLA.MI21.witness_sum_B,
+        ⟨NLA.MI21.witness_left_matrix,
+          ⟨NLA.MI21.witness_right_matrix p,
+            ⟨NLA.MI21.witness_vector_ne_zero,
+              ⟨NLA.MI21.witness_eigenvector,
+                ⟨NLA.MI21.witness_eigenvalue_gt_one,
+                  ⟨NLA.MI21.witness_left_norm_lower_bound,
+                    ⟨NLA.MI21.witness_right_norm p,
+                      Eq.mpr
+                        (id
+                          (congrArg
+                            (fun _a =>
+                              _a <
+                                NLA.MI21.operatorNorm
+                                  (NLA.MI21.leftMatrix NLA.MI21.witnessA NLA.MI21.witnessB (1 / 2) (1 / 2) 2))
+                            (NLA.MI21.witness_right_norm p)))
+                        (lt_of_lt_of_le NLA.MI21.witness_eigenvalue_gt_one
+                          NLA.MI21.witness_left_norm_lower_bound)⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩
+theorem NLA.MI21.not_geometricMeanNormConjecture_proved : ¬NLA.MI21.GeometricMeanNormConjecture :=
+fun h =>
+  have hi :=
+    h 2 2
+      (Mathlib.Meta.NormNum.isNat_le_true (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 1))
+        (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 2)) (Eq.refl true))
+      (Mathlib.Meta.NormNum.isNat_le_true (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 1))
+        (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 2)) (Eq.refl true))
+      NLA.MI21.witnessA NLA.MI21.witnessB (fun i => (NLA.MI21.witness_inputs_posDef i).left)
+      (fun i => (NLA.MI21.witness_inputs_posDef i).right) (1 / 2) (1 / 2) 2 1
+      (Mathlib.Meta.NormNum.isRat_le_true
+        (Mathlib.Meta.NormNum.IsNNRat.to_isRat
+          (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_zero)))
+        (Mathlib.Meta.NormNum.IsNNRat.to_isRat
+          (Mathlib.Meta.NormNum.isNNRat_div
+            (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+              (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one))
+              (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 2))))
+              (Eq.refl (Nat.mul 1 1)) (Eq.refl 2))))
+        (Eq.refl true))
+      (Mathlib.Meta.NormNum.isRat_le_true
+        (Mathlib.Meta.NormNum.IsNNRat.to_isRat
+          (Mathlib.Meta.NormNum.isNNRat_div
+            (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+              (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one))
+              (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 2))))
+              (Eq.refl (Nat.mul 1 1)) (Eq.refl 2))))
+        (Mathlib.Meta.NormNum.IsNNRat.to_isRat
+          (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one)))
+        (Eq.refl true))
+      (Mathlib.Meta.NormNum.isNNRat_lt_true
+        (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_zero))
+        (Mathlib.Meta.NormNum.isNNRat_div
+          (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+            (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one))
+            (Mathlib.Meta.NormNum.isNNRat_inv_pos
+              (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 2))))
+            (Eq.refl (Nat.mul 1 1)) (Eq.refl 2)))
+        (Eq.refl true))
+      (Mathlib.Meta.NormNum.isNat_lt_true (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_zero)
+        (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 2)) (Eq.refl false))
+      (Mathlib.Meta.NormNum.isNat_lt_true (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_zero)
+        (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one) (Eq.refl false))
+      (Mathlib.Meta.NormNum.isNat_le_true (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one)
+        (Mathlib.Meta.NormNum.IsNNRat.to_isNat
+          (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+            (Mathlib.Meta.NormNum.isNNRat_div
+              (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+                (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one))
+                (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                  (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 2))))
+                (Eq.refl (Nat.mul 1 1)) (Eq.refl 2)))
+            (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 2)))
+            (Eq.refl (Nat.mul 1 2)) (Eq.refl 2)))
+        (Eq.refl true))
+      NLA.MI21.operatorNorm (NLA.MI21.operatorNorm_isUnitaryInvariant_proved 2);
+  And.casesOn
+    (NLA.MI21.counterexample_proved 1
+      (Mathlib.Meta.NormNum.isNat_lt_true (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_zero)
+        (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one) (Eq.refl false)))
+    fun left right =>
+    And.casesOn right fun left right =>
+      And.casesOn right fun left right =>
+        And.casesOn right fun left right =>
+          And.casesOn right fun left right =>
+            And.casesOn right fun left right =>
+              And.casesOn right fun left right =>
+                And.casesOn right fun left right =>
+                  And.casesOn right fun left right => And.casesOn right fun left hstrict => not_le_of_gt hstrict hi
+@[defeq] theorem NLA.MI21.operatorNorm_eq : ∀ {n : Nat} (X : NLA.MI21.Mat n),
+  @Eq.{1} Real (@NLA.MI21.operatorNorm n X)
+    (@Norm.norm.{0} (NLA.MI21.Mat n)
+      (@NormedRing.toNorm.{0} (NLA.MI21.Mat n)
+        (@Matrix.instL2OpNormedRing.{0, 0} Complex (Fin n) Complex.instRCLike (Fin.fintype n) (instDecidableEqFin n)))
+      X) :=
+fun {n : Nat} (X : NLA.MI21.Mat n) => @rfl.{1} Real (@NLA.MI21.operatorNorm n X)
+'NLA.MI21.operatorNorm_isUnitaryInvariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI21.counterexample' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI21.not_geometricMeanNormConjecture' depends on axioms: [propext, Classical.choice, Quot.sound]
