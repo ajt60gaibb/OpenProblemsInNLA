@@ -7,9 +7,16 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Status:** Partially resolved  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-12  
 
 **Rating rationale:** Challenging reflects an all-dimensions rank structure for global spread maximizers; community impact is an extremal spectral problem for entry-bounded symmetric matrices.
+
+## Further partial results — 12 September 2026
+
+Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) supplies [a signed-threshold reduction and exact certificates](../../references/holden-spectral-2026-09-12/SP-08/proof.md) proving maximum spreads $`\sqrt{73}`$, $`\sqrt{133}`$, and $`\sqrt{161}`$ for $`(n,a)=(8,1/2),(10,0),(11,0)`$, respectively. Explicit rank-two endpoint matrices attain each bound. These finite cases supplement the previously cited ranges; they do not prove the conjecture for all $`n`$ and $`a`$.
+
+The partial results passed an [independent informal Codex AI-agent audit](../../references/holden-spectral-2026-09-12/verification/SP-08-review.md), including exact certificate and coverage checks. Status remains Partially resolved; the remaining dimensions and interval parameters are unresolved. [Submission, certificate reproduction and verified affiliation](../../references/holden-spectral-2026-09-12/README.md). No novelty, external human peer review or formal verification is claimed.
+
 
 ## Problem statement
 

@@ -1,0 +1,35 @@
+{
+  "comparison": "Literal theorem headers through but excluding := by; no whitespace normalization.",
+  "count": 8,
+  "headers": {
+    "positive_powers_and_means": "theorem positive_powers_and_means {n : \u2115} (A B : Mat n)\n    (hA : A.PosDef) (hB : B.PosDef) (r t : \u211d) :\n    (spectralPower A r).PosDef \u2227 (generalizedMean A B r t).PosDef ",
+    "product_eigenvalue_semantics": "theorem product_eigenvalue_semantics {n : \u2115} (X Y : Mat n)\n    (hX : X.PosDef) (hY : Y.PosDef) :\n    let R := spectralPower Y (1 / 2)\n    let Rinv := spectralPower Y (-1 / 2)\n    let S := R * X * R\n    S.PosDef \u2227 R * Rinv = 1 \u2227 Rinv * R = 1 \u2227\n      R * (X * Y) * Rinv = S \u2227 (X * Y).charpoly = S.charpoly \u2227\n      HasOrderedPositiveEigenvalues (X * Y) ",
+    "squared_product_largest": "theorem squared_product_largest {n : \u2115} (hn : 1 \u2264 n) (X Y : Mat n)\n    (hX : X.PosDef) (hY : Y.PosDef) :\n    largestEigenvalue (X ^ (2 : \u2115) * Y ^ (2 : \u2115)) = operatorNorm (X * Y) ^ 2 ",
+    "operator_norm_bounds": "theorem operator_norm_bounds {n : \u2115} (X : Mat n) (i j : Fin n) :\n    Complex.normSq (X i j) \u2264 operatorNorm X ^ 2 \u2227\n      operatorNorm X ^ 2 \u2264 frobeniusSquared X ",
+    "witness_data": "theorem witness_data :\n    witnessD.PosDef \u2227 witnessT.PosDef \u2227 witnessA.PosDef \u2227 witnessB.PosDef \u2227\n      witnessG.PosDef \u2227 witnessH.PosDef \u2227\n      witnessT = witnessL * witnessPivots * witnessL.conjTranspose \u2227\n      spectralPower witnessA (1 / 2) = witnessD \u2227\n      spectralPower witnessA (-1 / 2) = witnessDInv \u2227\n      spectralPower witnessA (-1 / 2) * witnessB *\n        spectralPower witnessA (-1 / 2) = witnessT ^ (8 : \u2115) \u2227\n      generalizedMean witnessA witnessB 1 (1 / 8) = witnessG \u2227\n      generalizedMean witnessA witnessB 1 (7 / 8) = witnessH \u2227\n      leftProduct witnessA witnessB 1 1 2 (1 / 8) =\n        witnessG ^ (2 : \u2115) * witnessH ^ (2 : \u2115) \u2227\n      rightProduct witnessA witnessB 1 1 2 =\n        witnessA ^ (2 : \u2115) * witnessB ^ (2 : \u2115) ",
+    "witness_squared_gap": "theorem witness_squared_gap :\n    (witnessG * witnessH) 0 2 = (1260589125202 / 9 : \u2102) \u2227\n      frobeniusSquared (witnessA * witnessB) =\n        (2009446159144992718181231562721 / 107495424 : \u211d) \u2227\n      Complex.normSq ((witnessG * witnessH) 0 2) -\n        frobeniusSquared (witnessA * witnessB) = squaredGap \u2227\n      0 < squaredGap \u2227 operatorNorm (witnessA * witnessB) ^ 2 <\n        operatorNorm (witnessG * witnessH) ^ 2 ",
+    "counterexample": "theorem counterexample :\n    witnessA.PosDef \u2227 witnessB.PosDef \u2227\n      largestEigenvalue (rightProduct witnessA witnessB 1 1 2) <\n        largestEigenvalue (leftProduct witnessA witnessB 1 1 2 (1 / 8)) \u2227\n      \u00ac LogMajorized\n        (orderedEigenvalues (leftProduct witnessA witnessB 1 1 2 (1 / 8)))\n        (orderedEigenvalues (rightProduct witnessA witnessB 1 1 2)) ",
+    "not_generalizedGeometricMeanConjecture": "theorem not_generalizedGeometricMeanConjecture :\n    \u00ac GeneralizedGeometricMeanConjecture "
+  },
+  "comparator": {
+    "challenge_module": "Challenge",
+    "solution_module": "Solution",
+    "theorem_names": [
+      "NLA.MI23.positive_powers_and_means",
+      "NLA.MI23.product_eigenvalue_semantics",
+      "NLA.MI23.squared_product_largest",
+      "NLA.MI23.operator_norm_bounds",
+      "NLA.MI23.witness_data",
+      "NLA.MI23.witness_squared_gap",
+      "NLA.MI23.counterexample",
+      "NLA.MI23.not_generalizedGeometricMeanConjecture"
+    ],
+    "definition_names": [],
+    "permitted_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "verdict": "PASS"
+}

@@ -34,7 +34,7 @@ sparsity},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}KE-01}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ spectral outliers without losing input sparsity\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Open\par}
+{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -61,6 +61,31 @@ to the community\par}
 deflation with an input-sparsity cost guarantee; community impact spans
 sparse solvers, preconditioning, and regression.
 
+\subsection{Partial results --- Sidney Holden, 12 September
+2026}\label{partial-results-sidney-holden-12-september-2026}
+
+Sidney Holden (Center for Computational Biology, Flatiron Institute,
+Simons Foundation) gives a deterministic
+\(O(N\min\{n,k+1+\kappa\log(2/\varepsilon)\})\) solver in
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ke01-2026-09-12/report.pdf}{Theorem
+2.1}. Corollary 2.2 achieves this entry's target when \(k=0\),
+\(k\le\kappa\), \(N\le k^{\omega_0-1}\), or \(n\le2k\).
+
+Theorem 4.1 establishes the additive sparsity/outlier bound for
+explicitly sparse SPD matrices with an \textbf{exactly equal eigenvalue
+tail}. Corollary 5.1 covers an exactly flat singular tail with cost
+depending on the sum of squared row supports; that quantity can be
+quadratic in input sparsity. The counterexamples in Section 3 invalidate
+particular shortcuts, not all possible algorithms.
+
+\textbf{The general bounded-tail sparse-input target below remains
+open.} The restricted results passed a separate
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ke01-2026-09-12/independent-review.md}{independent
+informal Codex AI-agent audit}. This is not external human peer review
+or formal verification; no Lean verification was performed.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ke01-2026-09-12/README.md}{Source,
+attribution, verified affiliation and reproducibility record}.
+
 \subsection{Context and notation}\label{context-and-notation}
 
 All norms are Euclidean vector norms or their induced matrix norms.
@@ -69,26 +94,23 @@ All norms are Euclidean vector norms or their induced matrix norms.
 
 Let \(A\in\mathbb R^{n\times n}\) be nonsingular, with singular values
 \(\sigma_1\geq\cdots\geq\sigma_n>0\), and write
-\(N=\operatorname{nnz}(A)\) and \(\kappa_2(A)=\sigma_1/\sigma_n\). The
-input consists of its nonzero entries and their indices, \(b\ne0\),
-\(\varepsilon\in(0,1/2)\), \(k\in\{0,\ldots,n-1\}\), and
-\(\kappa\geq1\), with the promise \(\sigma_{k+1}/\sigma_n\leq\kappa\).
-Fix any exponent \(\omega_0>2\) for which square matrix multiplication
-has an \(O(m^{\omega_0})\) arithmetic algorithm.
+\(N=\mathop{\mathrm{nnz}}\nolimits(A)\) and
+\(\kappa_2(A)=\sigma_1/\sigma_n\). The input consists of its nonzero
+entries and their indices, \(b\ne0\), \(\varepsilon\in(0,1/2)\),
+\(k\in\{0,\ldots,n-1\}\), and \(\kappa\geq1\), with the promise
+\(\sigma_{k+1}/\sigma_n\leq\kappa\). Fix any exponent \(\omega_0>2\) for
+which square matrix multiplication has an \(O(m^{\omega_0})\) arithmetic
+algorithm.
 
 Does a randomized algorithm exist that, for every such input, produces
 \(\widehat x\) satisfying
 
-\[
-\|A\widehat x-b\|_2\leq\varepsilon\|b\|_2
-\]
+\[\|A\widehat x-b\|_2\leq\varepsilon\|b\|_2\]
 
 with probability at least \(0.99\), using at most
 
-\[
-C\bigl(k^{\omega_0}+N\kappa\bigr)
-\bigl[1+\log(n\kappa_2(A)/\varepsilon)\bigr]^q
-\]
+\[C\bigl(k^{\omega_0}+N\kappa\bigr)
+\bigl[1+\log(n\kappa_2(A)/\varepsilon)\bigr]^q\]
 
 exact arithmetic operations? Here \(C,q\) may depend on the chosen
 multiplication algorithm, but not on the input. Direct entry access is

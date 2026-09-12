@@ -1,0 +1,11 @@
+--- a/Main.lean
++++ b/Main.lean
+@@ -219,7 +219,7 @@ def runBuiltinKernel (solution : Export.ExportedEnv) : M (Option String) := do
+   let quotTargets := [`Quot.mk, `Quot.lift, `Quot.ind]
+   let kernelConstMap := quotTargets.foldl (init := origConstMap) (·.erase ·)
+   try
+-    kernelEnv ← kernelEnv.replay kernelConstMap
++    kernelEnv := (← Lean.Environment.replay kernelConstMap env).toKernelEnv
+     IO.println "Lean default kernel accepts the solution"
+   catch e =>
+     IO.println "Lean default kernel rejects the solution"
