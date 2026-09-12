@@ -6,11 +6,19 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Status:** Open  
+**Status:** Partially resolved  
 **Area:** algorithms for piecewise linear systems and complementarity  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-12  
 
 **Rating rationale:** Extreme reflects the longstanding polynomial-time barrier for P-matrix complementarity in an equivalent regular AVE form; broad impact spans optimization, complexity, and piecewise linear systems.
+
+## Partial resolution — 12 September 2026
+
+**Author:** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation.
+
+[Theorem H, Sections 2.1–2.5](../../references/holden-interval-ave-2026-09-12/manuscripts/AV-03/result.md) proves exact deterministic polynomial bit complexity under the original regularity promise when the rational input matrix is lower Hessenberg, including zero superdiagonal entries and zero solution coordinates. [Theorem F](../../references/holden-interval-ave-2026-09-12/manuscripts/AV-03/general_reductions.md) gives a second subclass with a lower-triangular leading subsystem whose diagonal entries have absolute value greater than one, and one feedback variable. The additional structural assumptions are essential: arbitrary dense regular matrices remain unresolved. The original binary-input model and mathematical target below are unchanged.
+
+The [exact optimized-handicap family formula](../../references/holden-interval-ave-2026-09-12/manuscripts/AV-03/optimized_handicap.md), exponential sign-region example and Newton-cycle certificates are supporting results; none proves an unrestricted complexity lower bound. These partial arguments passed a separate [independent Codex AI-agent review](../../references/holden-interval-ave-2026-09-12/verification/AV-03-review.md). [Submission record, verified affiliation and exact checks](../../references/holden-interval-ave-2026-09-12/README.md). AI assistance is disclosed; no historical priority, external human peer review or formal verification is claimed. No Lean verification was performed.
 
 ## Context and notation
 

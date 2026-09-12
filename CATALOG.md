@@ -1,6 +1,6 @@
 # All problems and their status
 
-**127 problems with open targets:** 56 open and 71 partially resolved. **90 other retained entries**, excluded from the open count.
+**127 problems with open targets:** 55 open and 72 partially resolved. **90 other retained entries**, excluded from the open count.
 
 **Resolution evidence:** 80 solved (published or independently audited); 10 Lean verified.
 
@@ -331,7 +331,7 @@ Retained entries outside the open count:
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [AV-03](intervals-and-absolute-value-equations/AV-03/README.md) | Polynomial-time solution under the regularity promise | **🔵 OPEN** | extreme | broadly interesting | [PDF](intervals-and-absolute-value-equations/AV-03/problem.pdf) · [TeX](intervals-and-absolute-value-equations/AV-03/problem.tex) |
+| [AV-03](intervals-and-absolute-value-equations/AV-03/README.md) | Polynomial-time solution under the regularity promise | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](intervals-and-absolute-value-equations/AV-03/problem.pdf) · [TeX](intervals-and-absolute-value-equations/AV-03/problem.tex) |
 | [IV-01](intervals-and-absolute-value-equations/IV-01/README.md) | Two-vertex certification of nonsingular sign regularity | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](intervals-and-absolute-value-equations/IV-01/problem.pdf) · [TeX](intervals-and-absolute-value-equations/IV-01/problem.tex) |
 
 Retained entries outside the open count:

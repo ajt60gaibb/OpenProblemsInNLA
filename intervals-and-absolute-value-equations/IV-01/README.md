@@ -8,9 +8,19 @@
 **Importance:** interesting to specialist  
 **Status:** Partially resolved  
 **Area:** structured matrices and interval linear algebra  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-12  
 
 **Rating rationale:** Challenging reflects extending two-vertex certification through zero minors in arbitrary dimension; specialist impact is the efficient recognition of structured interval matrix families.
+
+## Further partial resolution — 12 September 2026
+
+**Author:** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation.
+
+[Theorem G](../../references/holden-interval-ave-2026-09-12/manuscripts/IV-01/result.md) proves the full interval conclusion when the directed graph of nonzero fixed entries is acyclic and fixed zero entries occupy at most one checker parity. Its scaling argument uses Adm–Garloff's Theorem 3.3 with its original attribution. [Theorem V](../../references/holden-interval-ave-2026-09-12/manuscripts/IV-01/dimension_five_theorem.md) proves the full conclusion in dimension five if there are no fixed zeros and every fully fixed adjacent two-by-two block is nonsingular, allowing cyclic fixed graphs. For larger dimensions, Theorem V controls order three only.
+
+[The order-two reduction](../../references/holden-interval-ave-2026-09-12/manuscripts/IV-01/order_two_reduction.md) and the nonsingularity/cofactor lemma control orders one, two, and the two highest orders under the original hypotheses. The unrestricted remaining middle-minor signs are not settled. Neither sufficient condition above covers every interval in the original question, which remains unchanged below.
+
+These partial arguments passed a separate [independent Codex AI-agent review](../../references/holden-interval-ave-2026-09-12/verification/IV-01-review.md). [Submission record, verified affiliation and exact certificates](../../references/holden-interval-ave-2026-09-12/README.md). AI assistance is disclosed; finite certificates support examples rather than prove the universal theorem. No historical priority, external human peer review or formal verification is claimed. No Lean verification was performed.
 
 ## Problem statement
 

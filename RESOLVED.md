@@ -21,6 +21,16 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### AV-03 and IV-01 — further partial results — Sidney Holden
+
+**Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission record and verified affiliation](references/holden-interval-ave-2026-09-12/README.md).
+
+- [AV-03](intervals-and-absolute-value-equations/AV-03/README.md): [Theorem H](references/holden-interval-ave-2026-09-12/manuscripts/AV-03/result.md), Sections 2.1–2.5, and [Theorem F](references/holden-interval-ave-2026-09-12/manuscripts/AV-03/general_reductions.md) give exact polynomial-bit solvers for two structured subclasses. The arbitrary dense regular-AVE target remains open. [Independent review](references/holden-interval-ave-2026-09-12/verification/AV-03-review.md).
+- [IV-01](intervals-and-absolute-value-equations/IV-01/README.md): [Theorem G](references/holden-interval-ave-2026-09-12/manuscripts/IV-01/result.md) covers an acyclic fixed-entry graph condition, and [Theorem V](references/holden-interval-ave-2026-09-12/manuscripts/IV-01/dimension_five_theorem.md) covers dimension five with no fixed zeros and nonsingular fully fixed adjacent two-by-two blocks. The unrestricted interval question remains open. [Independent review](references/holden-interval-ave-2026-09-12/verification/IV-01-review.md).
+
+Both submissions passed independent informal Codex AI-agent reviews at their stated partial scopes. Neither is marked Solved. Finite exact checks, AI assistance and source provenance are documented; no external human peer review, formal verification or novelty claim is asserted. No Lean verification was performed. Original IDs, canonical paths, targets and prior-source attribution are retained.
+
+
 ### 🟡 TR-03 - the one-column spectral minimax identity - Sidney Holden
 
 **Partially resolved, 12 September 2026.** Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) proves $`R_{n,1}=1`$ for all $`n\ge3`$ and positive spectra in [Theorem 1, proved in Sections 2-3](references/holden-tr03-2026-09-12/one-column.pdf). A separate [independent Codex AI-agent audit](references/holden-tr03-2026-09-12/independent-review.md) passed the special-case proof. The original joint target for $`2\le k\le n-2`$ remains open; no full resolution, novelty, external human review or formal verification is claimed. No Lean verification was performed. [Original target](randomized-and-low-rank-approximation/TR-03/README.md) · [Proof source](references/holden-tr03-2026-09-12/one-column.tex) · [Attribution and submission record](references/holden-tr03-2026-09-12/README.md).
