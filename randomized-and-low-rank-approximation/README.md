@@ -2,7 +2,7 @@
 
 [← All categories](../README.md) · [Full catalog](../CATALOG.md) · [Solved and claimed solutions](../RESOLVED.md)
 
-**20 problems with open targets.** 10 retained entries are excluded from the open count.
+**19 problems with open targets.** 11 retained entries are excluded from the open count.
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
@@ -17,7 +17,6 @@
 | [RA-16](RA-16/README.md) | Super-exponential decay of the zero-permanent probability | **🔵 OPEN** | extreme | interesting to the community | [PDF](RA-16/problem.pdf) · [TeX](RA-16/problem.tex) |
 | [RA-17](RA-17/README.md) | Minimum linear measurements for uniform recovery of real low-rank matrices | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](RA-17/problem.pdf) · [TeX](RA-17/problem.tex) |
 | [RA-18](RA-18/README.md) | The Goreinov–Tyrtyshnikov–Zamarashkin conjecture on square-submatrix inverse norms | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](RA-18/problem.pdf) · [TeX](RA-18/problem.tex) |
-| [RA-19](RA-19/README.md) | Critical-point count for corank-one approximation with a fixed zero | **🔵 OPEN** | challenging | interesting to specialist | [PDF](RA-19/problem.pdf) · [TeX](RA-19/problem.tex) |
 | [RE-01](RE-01/README.md) | Constant-factor HSS approximation in polynomial time | **🔵 OPEN** | challenging | interesting to the community | [PDF](RE-01/problem.pdf) · [TeX](RE-01/problem.tex) |
 | [RE-02](RE-02/README.md) | HSS approximation from a number of matvecs independent of depth | **🔵 OPEN** | challenging | interesting to the community | [PDF](RE-02/problem.pdf) · [TeX](RE-02/problem.tex) |
 | [RE-03](RE-03/README.md) | Optimal matvec query complexity of HODLR approximation | **🔵 OPEN** | challenging | interesting to the community | [PDF](RE-03/problem.pdf) · [TeX](RE-03/problem.tex) |
@@ -39,6 +38,7 @@
 | [RA-10](RA-10/README.md) | Constant-loss nuclear-error transfer without matrix ordering | **✅ SOLVED** | challenging | interesting to the community | [PDF](RA-10/problem.pdf) · [TeX](RA-10/problem.tex) |
 | [RA-12](RA-12/README.md) | Relative-error threshold for extremal Gaussian trace bounds | **✅ SOLVED** | challenging | interesting to the community | [PDF](RA-12/problem.pdf) · [TeX](RA-12/problem.tex) |
 | [RA-13](RA-13/README.md) | Absolute-error threshold for extremal Gaussian trace bounds | **✅ SOLVED** | challenging | interesting to the community | [PDF](RA-13/problem.pdf) · [TeX](RA-13/problem.tex) |
+| [RA-19](RA-19/README.md) | Critical-point count for corank-one approximation with a fixed zero | **✅ SOLVED** | challenging | interesting to specialist | [PDF](RA-19/problem.pdf) · [TeX](RA-19/problem.tex) |
 | [RA-20](RA-20/README.md) | Critical-point counts for symmetric rank-two approximation with diagonal zeros | **✅ SOLVED** | challenging | interesting to specialist | [PDF](RA-20/problem.pdf) · [TeX](RA-20/problem.tex) |
 | [RE-05](RE-05/README.md) | Pure relative error for approximation by a linear matrix family | **✅ SOLVED** | challenging | interesting to the community | [PDF](RE-05/problem.pdf) · [TeX](RE-05/problem.tex) |
 

@@ -7,18 +7,10 @@
 **Topic:** Structured low-rank approximation and Euclidean distance degree  
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Solved  
+**Status:** Open  
 **Last checked:** 2026-09-11
 
 **Rating rationale:** The target is an exact formula for a constrained approximation problem in every dimension. It would quantify the algebraic complexity of enumerating candidate nearest singular matrices with a prescribed zero.
-
-## Resolution
-
-**Solved affirmatively, 11 September 2026.** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, proves the exact formula $\operatorname{EDdeg}(V_n)=5n-7$ for every integer $n\ge3$. The [Theorem and Sections 1-5](solution.md) give a quadratic spectral curve, an exact stationarity resultant of degree $5n-7$, and a bijection with the smooth-locus critical points. The argument proves the necessary generic nondegeneracy and reducedness, including a simultaneous exceptional-locus exclusion in every dimension. [Complete proof PDF](solution.pdf) · [Standalone XeLaTeX source](solution.tex).
-
-The proof uses the original complex bilinear distance, generic complex data, one fixed entry and the smooth-locus definition. The pre-existing dimension-two exception is retained. All cases of the displayed target are settled; counts of real critical points and other zero patterns are not asserted. Kubjas, Sodomaco and Tsigaridas retain credit for the conjecture and its finite supporting computations.
-
-The complete AI-assisted argument passed a separate [independent Codex-agent review](../../references/stepaniants-ra19-2026-09-11/verification/independent-review/review.md), including an independently implemented universal polynomial-identity check. A distinct [coordinating-agent audit](../../references/stepaniants-ra19-2026-09-11/verification/RA-19-root-math-review.md) also passed. These are informal automated reviews, not external human peer review or formal proof-assistant verification. The [submission record](../../references/stepaniants-ra19-2026-09-11/README.md) preserves exact reviewed-source hashes, source checks and the public eligibility audit. The difficulty, importance and rationale above are retained historical ratings of the original question.
 
 ## Statement
 
