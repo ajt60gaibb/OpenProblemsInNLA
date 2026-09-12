@@ -22,6 +22,6 @@
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [FR-12](FR-12/README.md) | Counting real Hadamard matrices | **✅ SOLVED** | extreme | interesting to the community | [PDF](FR-12/problem.pdf) · [TeX](FR-12/problem.tex) |
+| [FR-12](FR-12/README.md) | Counting real Hadamard matrices | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](FR-12/problem.pdf) · [TeX](FR-12/problem.tex) |
 
 Ratings are editorial; each entry explains both ratings and the scope of its status evidence. [Definitions](../README.md#problem-status).

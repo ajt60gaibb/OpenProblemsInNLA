@@ -6,10 +6,41 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Solved  
-**Last checked:** 2026-09-11
+**Status:** Lean verified
+**Last checked:** 2026-09-12
 
 **Rating rationale:** The four interacting exponents make this corrected conjecture challenging; its immediate consequences concern specialists in matrix means and log-majorization.
+
+## Lean proof and verification evidence - 2026-09-12
+
+**The complete corrected MI-23 conjecture is false, with a Lean-verified counterexample.** The rational complex positive-definite witness has $`r=s=1`$, $`p=2`$, $`t=1/8`$ and violates the first ordered eigenvalue inequality. The [proof at revision 17194f9](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/17194f9060609acae429e14d3dc3c4562b84f2bd/matrix-inequalities-and-norms/MI-23/lean) preserves every original dimension, both real $`r,s`$ regions, actual CFC matrix powers, all proper prefix products and equality of complete products.
+
+**Mathematical counterexample and informal proof:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Lean formalization:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, with AI-agent assistance.
+
+The eight [checked exports](https://github.com/sgstepaniants/OpenProblemsInNLA/blob/17194f9060609acae429e14d3dc3c4562b84f2bd/matrix-inequalities-and-norms/MI-23/lean/Solution.lean), each with prefix `NLA.MI23.`, are:
+
+- `positive_powers_and_means`: genuine CFC powers and generalized means are positive definite.
+- `product_eigenvalue_semantics`: complete characteristic roots with multiplicities, positivity, ordering, similarity and determinant product.
+- `squared_product_largest`: the actual largest root of $`X^2Y^2`$ equals $`\|XY\|_2^2`$.
+- `operator_norm_bounds`: entry and Frobenius bounds for the genuine Euclidean operator norm.
+- `witness_data`: admissibility and all actual CFC witness identities.
+- `witness_squared_gap`: the exact rational gap and strict operator-norm separation.
+- `counterexample`: failure of the original log-majorization relation at the admissible witness.
+- `not_generalizedGeometricMeanConjecture`: negation of the complete universal conjecture.
+
+Two independent agents reviewed the [frozen statements and completed proof](lean/reviews/). [Linux run 34716784038](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34716784038) matched all eight exports using the sandboxed Comparator and replayed the solution in Lean's default kernel. The [original artifacts and independent operational audit](lean/verification/linux-2026-09-12/) bind all 133 verified source inputs and both actual isolation and rejection-control suites. All 64 [internal/public transitive axiom reports](lean/verification/linux-2026-09-12/axiom-verification.json) contain only `propext`, `Classical.choice` and `Quot.sound`. These are independent agent reviews, without a claim of external human peer review.
+
+The proof pins **Lean 4.33.1**, [LeanCert 621a43d](https://github.com/alerad/leancert/tree/621a43d7cf21f87872392a01e874f2f1dbddc926) and [Mathlib 0df444a](https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474). Exact integer-power identities replace fractional-power approximation. One kernel-mode LeanCert certificate proves the positive rational gap and remains in the final norm and eigenvalue contradiction. See the [manifest](lean/formalization.yaml), [dependency pins](lean/lake-manifest.json) and [numerical targets](lean/NUMERICAL_TARGETS.md). From the verified revision on a documented [non-root Linux host](../../tools/lean/HARNESS.md), reproduce with:
+
+```
+tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
+tools/lean/verify.sh \
+  matrix-inequalities-and-norms/MI-23/lean \
+  /absolute/path/to/nla-lean-tools
+```
+
+This settles the corrected eigenvalue conjecture stated below. The earlier singular-value conjecture is a different target. The original problem and historical informal proof remain intact.
 
 ## Resolution — 2026-09-11
 
@@ -19,7 +50,7 @@ Rational positive definite $`3\times3`$ matrices with $`r=s=1`$, $`p=2`$ and $`t
 
 The exact target is resolved. The original statement and source evidence are retained below; its former difficulty rating is historical.
 
-**Primary manuscript:** [complete proof PDF](solution.pdf), [standalone TeX](solution.tex), Theorem 1.1 and its proof; [authorship and scope](solution.md). The [independent review](../../references/colbrook-matrix-2026-09-11/verification/reviews/MI-23-review.md) checks the full original argument and records its hash. The draft was AI-assisted; this is independent agent verification, not external human peer review or formal certification. [Submission record](../../references/colbrook-matrix-2026-09-11/README.md).
+**Primary manuscript:** [complete proof PDF](solution.pdf), [standalone TeX](solution.tex), Theorem 1.1 and its proof; [authorship and scope](solution.md). The [independent review](../../references/colbrook-matrix-2026-09-11/verification/reviews/MI-23-review.md) checks the full original argument and records its hash. The draft was AI-assisted; the 2026-09-11 review was independent agent verification, without external human peer review or formal certification. The later Lean verification above covers the complete corrected target. [Submission record](../../references/colbrook-matrix-2026-09-11/README.md).
 
 ## Problem statement
 

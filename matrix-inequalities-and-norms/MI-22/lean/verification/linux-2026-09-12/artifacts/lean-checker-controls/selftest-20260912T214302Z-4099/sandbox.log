@@ -1,0 +1,111 @@
+$ python3 /home/runner/work/_temp/nla-lean-tools/reproduction/checks/sandbox_probe_ci.py
+START sandbox mode: build
+START sandbox mode: export
+START sandbox negative case: unknown option
+START sandbox negative case: unexpected --rw
+START sandbox negative case: unexpected --rwx
+START sandbox negative case: relative --rwx
+MODE build: exit=0
+Running as unit: run-u2.service; invocation ID: 67993886b11d41a18dbc2ac9b894721f
+PASS outside .lake write-open: denied errno=30
+PASS outside .lake truncate: denied errno=30
+PASS outside .lake read-only truncate-open: denied errno=30
+PASS symlink from .lake to outside write: denied errno=30
+PASS outside .lake creation: denied errno=30
+PASS build .lake write: allowed
+PASS user namespace: private
+PASS pid namespace: private
+PASS mnt namespace: private
+PASS net namespace: private
+PASS ipc namespace: private
+PASS uts namespace: private
+PASS host parent: absent from private /proc
+PASS host parent signal lookup: denied errno=3
+PASS host loopback listener: unreachable errno=13
+PASS AF_UNIX socket creation: denied errno=97
+PASS effective capabilities: none
+PASS no_new_privs: set
+Sandbox UID: 1001
+PASS nested namespace write attempt: rejected exit=1
+bwrap: setting up uid map: Permission denied
+Finished with result: success
+Main processes terminated with: code=exited/status=0
+Service runtime: 70ms
+CPU time consumed: 71ms
+Memory peak: 256.0K
+Memory swap peak: 0B
+
+MODE export: exit=0
+Running as unit: run-u3.service; invocation ID: 326747cac4074bb89eb853621812c60a
+PASS outside .lake write-open: denied errno=30
+PASS outside .lake truncate: denied errno=30
+PASS outside .lake read-only truncate-open: denied errno=30
+PASS symlink from .lake to outside write: denied errno=30
+PASS outside .lake creation: denied errno=30
+PASS export .lake write-open: denied errno=30
+PASS export .lake truncate: denied errno=30
+PASS user namespace: private
+PASS pid namespace: private
+PASS mnt namespace: private
+PASS net namespace: private
+PASS ipc namespace: private
+PASS uts namespace: private
+PASS host parent: absent from private /proc
+PASS host parent signal lookup: denied errno=3
+PASS host loopback listener: unreachable errno=13
+PASS AF_UNIX socket creation: denied errno=97
+PASS effective capabilities: none
+PASS no_new_privs: set
+Sandbox UID: 1001
+PASS nested namespace write attempt: rejected exit=1
+bwrap: setting up uid map: Permission denied
+Finished with result: success
+Main processes terminated with: code=exited/status=0
+Service runtime: 70ms
+CPU time consumed: 71ms
+Memory peak: 256.0K
+Memory swap peak: 0B
+
+NEGATIVE unknown option: exit=2
+Running as unit: run-u4.service; invocation ID: 594a4252398c414fbd00b44ddd2c6885
+strict Comparator sandbox: unsupported Comparator Landrun option: --unrestricted-filesystem
+Finished with result: exit-code
+Main processes terminated with: code=exited/status=2
+Service runtime: 26ms
+CPU time consumed: 25ms
+Memory peak: 256.0K
+Memory swap peak: 0B
+
+NEGATIVE unexpected --rw: exit=2
+Running as unit: run-u5.service; invocation ID: da15989f6ce9413a8ae7205ff5b8a23b
+strict Comparator sandbox: only private /dev may be passed with --rw
+Finished with result: exit-code
+Main processes terminated with: code=exited/status=2
+Service runtime: 26ms
+CPU time consumed: 25ms
+Memory peak: 256.0K
+Memory swap peak: 0B
+
+NEGATIVE unexpected --rwx: exit=2
+Running as unit: run-u6.service; invocation ID: 8d95291d87a44893b5be06b07300d41c
+strict Comparator sandbox: only this project's existing .lake may be writable
+Finished with result: exit-code
+Main processes terminated with: code=exited/status=2
+Service runtime: 25ms
+CPU time consumed: 25ms
+Memory peak: 512.0K
+Memory swap peak: 0B
+
+NEGATIVE relative --rwx: exit=2
+Running as unit: run-u7.service; invocation ID: a27e9287f3594843849cc68bf1e0b69c
+strict Comparator sandbox: only this project's existing .lake may be writable
+Finished with result: exit-code
+Main processes terminated with: code=exited/status=2
+Service runtime: 25ms
+CPU time consumed: 25ms
+Memory peak: 256.0K
+Memory swap peak: 0B
+
+Outer and export fixture contents unchanged; only designated build fixture written.
+
+EXIT_STATUS=0

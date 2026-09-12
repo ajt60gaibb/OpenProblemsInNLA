@@ -1,0 +1,574 @@
+Finset.esymm_map_val.{u_1, u_2} {R : Type u_1} [CommSemiring R] {σ : Type u_2} (f : σ → R) (s : Finset σ) (n : Nat) :
+  @Eq R (@Multiset.esymm R inst✝ (@Multiset.map σ R f (@Finset.val σ s)) n)
+    (@Finset.sum (Finset σ) R (@Semiring.toAddCommMonoid R (@CommSemiring.toSemiring R inst✝))
+      (@Finset.powersetCard σ n s) fun t => @Finset.prod σ R (@CommSemiring.toCommMonoid R inst✝) t f)
+Polynomial.coeff_iterate_derivative.{u} {R : Type u} [Semiring R] {k : Nat} (p : @Polynomial R inst✝) (m : Nat) :
+  @Eq R
+    (@Polynomial.coeff R inst✝
+      (@Nat.iterate (@Polynomial R inst✝)
+        (@DFunLike.coe
+          (@LinearMap R R inst✝ inst✝ (@RingHom.id R (@Semiring.toNonAssocSemiring R inst✝)) (@Polynomial R inst✝)
+            (@Polynomial R inst✝) (@Semiring.toAddCommMonoid (@Polynomial R inst✝) (@Polynomial.semiring R inst✝))
+            (@Semiring.toAddCommMonoid (@Polynomial R inst✝) (@Polynomial.semiring R inst✝))
+            (@Polynomial.module R inst✝ R inst✝ (@Semiring.toModule R inst✝))
+            (@Polynomial.module R inst✝ R inst✝ (@Semiring.toModule R inst✝)))
+          (@Polynomial R inst✝) (fun x => @Polynomial R inst✝)
+          (@LinearMap.instFunLike R R (@Polynomial R inst✝) (@Polynomial R inst✝) inst✝ inst✝
+            (@Semiring.toAddCommMonoid (@Polynomial R inst✝) (@Polynomial.semiring R inst✝))
+            (@Semiring.toAddCommMonoid (@Polynomial R inst✝) (@Polynomial.semiring R inst✝))
+            (@Polynomial.module R inst✝ R inst✝ (@Semiring.toModule R inst✝))
+            (@Polynomial.module R inst✝ R inst✝ (@Semiring.toModule R inst✝))
+            (@RingHom.id R (@Semiring.toNonAssocSemiring R inst✝)))
+          (@Polynomial.derivative R inst✝))
+        k p)
+      m)
+    (@HSMul.hSMul Nat R R
+      (@instHSMul Nat R
+        (@NSMul.toSMul R
+          (@AddMonoid.toNSMul R
+            (@AddMonoidWithOne.toAddMonoid R
+              (@AddCommMonoidWithOne.toAddMonoidWithOne R
+                (@NonAssocSemiring.toAddCommMonoidWithOne R (@Semiring.toNonAssocSemiring R inst✝)))))))
+      ((@HAdd.hAdd Nat Nat Nat (@instHAdd Nat instAddNat) m k).descFactorial k)
+      (@Polynomial.coeff R inst✝ p (@HAdd.hAdd Nat Nat Nat (@instHAdd Nat instAddNat) m k)))
+Polynomial.natDegree_iterate_derivative.{u} {R : Type u} [Semiring R] (p : @Polynomial R inst✝) (k : Nat) :
+  @LE.le Nat instLENat
+    (@Polynomial.natDegree R inst✝
+      (@Nat.iterate (@Polynomial R inst✝)
+        (@DFunLike.coe
+          (@LinearMap R R inst✝ inst✝ (@RingHom.id R (@Semiring.toNonAssocSemiring R inst✝)) (@Polynomial R inst✝)
+            (@Polynomial R inst✝) (@Semiring.toAddCommMonoid (@Polynomial R inst✝) (@Polynomial.semiring R inst✝))
+            (@Semiring.toAddCommMonoid (@Polynomial R inst✝) (@Polynomial.semiring R inst✝))
+            (@Polynomial.module R inst✝ R inst✝ (@Semiring.toModule R inst✝))
+            (@Polynomial.module R inst✝ R inst✝ (@Semiring.toModule R inst✝)))
+          (@Polynomial R inst✝) (fun x => @Polynomial R inst✝)
+          (@LinearMap.instFunLike R R (@Polynomial R inst✝) (@Polynomial R inst✝) inst✝ inst✝
+            (@Semiring.toAddCommMonoid (@Polynomial R inst✝) (@Polynomial.semiring R inst✝))
+            (@Semiring.toAddCommMonoid (@Polynomial R inst✝) (@Polynomial.semiring R inst✝))
+            (@Polynomial.module R inst✝ R inst✝ (@Semiring.toModule R inst✝))
+            (@Polynomial.module R inst✝ R inst✝ (@Semiring.toModule R inst✝))
+            (@RingHom.id R (@Semiring.toNonAssocSemiring R inst✝)))
+          (@Polynomial.derivative R inst✝))
+        k p))
+    (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) (@Polynomial.natDegree R inst✝ p) k)
+def NLA.RA07.elementarySymmetric : {n : Nat} → (Fin n → Real) → Nat → Real :=
+fun {n} lam j =>
+  @Finset.sum (Finset (Fin n)) Real Real.instAddCommMonoid
+    (@Finset.powersetCard (Fin n) j (@Finset.univ (Fin n) (Fin.fintype n))) fun S =>
+    @Finset.prod (Fin n) Real Real.instCommMonoid S lam
+def NLA.RA07.errorSequence : {n : Nat} → (Fin n → Real) → Nat → Real :=
+fun {n} lam j =>
+  @HDiv.hDiv Real Real Real (@instHDiv Real (@DivInvMonoid.toDiv Real Real.instDivInvMonoid))
+    (@HMul.hMul Real Real Real (@instHMul Real Real.instMul)
+      (@Nat.cast Real Real.instNatCast
+        (@HAdd.hAdd Nat Nat Nat (@instHAdd Nat instAddNat) j (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+      (@NLA.RA07.elementarySymmetric n lam
+        (@HAdd.hAdd Nat Nat Nat (@instHAdd Nat instAddNat) j
+          (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+    (@NLA.RA07.elementarySymmetric n lam j)
+def NLA.RA07.generatingPolynomial : {n : Nat} → (Fin n → Real) → @Polynomial Real Real.semiring :=
+fun {n} lam =>
+  @Finset.prod (Fin n) (@Polynomial Real Real.semiring)
+    (@CommRing.toCommMonoid (@Polynomial Real Real.semiring) (@Polynomial.commRing Real Real.commRing))
+    (@Finset.univ (Fin n) (Fin.fintype n)) fun i =>
+    @HAdd.hAdd (@Polynomial Real Real.semiring) (@Polynomial Real Real.semiring) (@Polynomial Real Real.semiring)
+      (@instHAdd (@Polynomial Real Real.semiring) (@Polynomial.instAdd Real Real.semiring))
+      (@OfNat.ofNat (@Polynomial Real Real.semiring) (nat_lit 1)
+        (@One.toOfNat1 (@Polynomial Real Real.semiring) (@Polynomial.instOne Real Real.semiring)))
+      (@HMul.hMul (@Polynomial Real Real.semiring) (@Polynomial Real Real.semiring) (@Polynomial Real Real.semiring)
+        (@instHMul (@Polynomial Real Real.semiring) (@Polynomial.instMul Real Real.semiring))
+        (@DFunLike.coe
+          (@RingHom Real (@Polynomial Real Real.semiring) (@Semiring.toNonAssocSemiring Real Real.semiring)
+            (@Semiring.toNonAssocSemiring (@Polynomial Real Real.semiring) (@Polynomial.semiring Real Real.semiring)))
+          Real (fun x => @Polynomial Real Real.semiring)
+          (@RingHom.instFunLike Real (@Polynomial Real Real.semiring) (@Semiring.toNonAssocSemiring Real Real.semiring)
+            (@Semiring.toNonAssocSemiring (@Polynomial Real Real.semiring) (@Polynomial.semiring Real Real.semiring)))
+          (@Polynomial.C Real Real.semiring) (lam i))
+        (@Polynomial.X Real Real.semiring))
+def NLA.RA07.iteratedGeneratingDerivative : {n : Nat} → (Fin n → Real) → Nat → @Polynomial Real Real.semiring :=
+fun {n} lam d =>
+  @Nat.iterate (@Polynomial Real Real.semiring)
+    (@DFunLike.coe
+      (@LinearMap Real Real Real.semiring Real.semiring
+        (@RingHom.id Real (@Semiring.toNonAssocSemiring Real Real.semiring)) (@Polynomial Real Real.semiring)
+        (@Polynomial Real Real.semiring)
+        (@Semiring.toAddCommMonoid (@Polynomial Real Real.semiring) (@Polynomial.semiring Real Real.semiring))
+        (@Semiring.toAddCommMonoid (@Polynomial Real Real.semiring) (@Polynomial.semiring Real Real.semiring))
+        (@Polynomial.module Real Real.semiring Real Real.semiring (@Semiring.toModule Real Real.semiring))
+        (@Polynomial.module Real Real.semiring Real Real.semiring (@Semiring.toModule Real Real.semiring)))
+      (@Polynomial Real Real.semiring) (fun x => @Polynomial Real Real.semiring)
+      (@LinearMap.instFunLike Real Real (@Polynomial Real Real.semiring) (@Polynomial Real Real.semiring) Real.semiring
+        Real.semiring
+        (@Semiring.toAddCommMonoid (@Polynomial Real Real.semiring) (@Polynomial.semiring Real Real.semiring))
+        (@Semiring.toAddCommMonoid (@Polynomial Real Real.semiring) (@Polynomial.semiring Real Real.semiring))
+        (@Polynomial.module Real Real.semiring Real Real.semiring (@Semiring.toModule Real Real.semiring))
+        (@Polynomial.module Real Real.semiring Real Real.semiring (@Semiring.toModule Real Real.semiring))
+        (@RingHom.id Real (@Semiring.toNonAssocSemiring Real Real.semiring)))
+      (@Polynomial.derivative Real Real.semiring))
+    d (@NLA.RA07.generatingPolynomial n lam)
+def NLA.RA07.powerSum : {m : Nat} → (Fin m → Real) → Nat → Real :=
+fun {m} μ r =>
+  @Finset.sum (Fin m) Real Real.instAddCommMonoid (@Finset.univ (Fin m) (Fin.fintype m)) fun a =>
+    @HPow.hPow Real Nat Real (@instHPow Real Nat (@NPow.toPow Real (@Monoid.toNPow Real Real.instMonoid))) (μ a) r
+def NLA.RA07.pairGap : {m : Nat} → (Fin m → Real) → Real :=
+fun {m} μ =>
+  @Finset.sum (Fin m) Real Real.instAddCommMonoid (@Finset.univ (Fin m) (Fin.fintype m)) fun a =>
+    @Finset.sum (Fin m) Real Real.instAddCommMonoid
+      (@Finset.filter (Fin m) (fun b => @LT.lt (Fin m) (@instLTFin m) a b) (@Fin.decLt m a)
+        (@Finset.univ (Fin m) (Fin.fintype m)))
+      fun b =>
+      @HMul.hMul Real Real Real (@instHMul Real Real.instMul)
+        (@HMul.hMul Real Real Real (@instHMul Real Real.instMul) (μ a) (μ b))
+        (@HPow.hPow Real Nat Real (@instHPow Real Nat (@NPow.toPow Real (@Monoid.toNPow Real Real.instMonoid)))
+          (@HSub.hSub Real Real Real (@instHSub Real Real.instSub) (μ a) (μ b))
+          (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+def NLA.RA07.certificateDenominator : {m : Nat} → (Fin m → Real) → Real :=
+fun {m} μ =>
+  @HMul.hMul Real Real Real (@instHMul Real Real.instMul)
+    (@NLA.RA07.powerSum m μ (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+    (@HSub.hSub Real Real Real (@instHSub Real Real.instSub)
+      (@HPow.hPow Real Nat Real (@instHPow Real Nat (@NPow.toPow Real (@Monoid.toNPow Real Real.instMonoid)))
+        (@NLA.RA07.powerSum m μ (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+        (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@NLA.RA07.powerSum m μ (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+def NLA.RA07.ConvexityConjecture : Prop :=
+∀ (n : Nat),
+  @LE.le Nat instLENat (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) n →
+    ∀ (lam : Fin n → Real),
+      (∀ (i : Fin n),
+          @LT.lt Real Real.instLT (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero)) (lam i)) →
+        ∀ (j : Nat),
+          @LE.le Nat instLENat (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) j →
+            @LE.le Nat instLENat j
+                (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) n
+                  (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) →
+              @LE.le Real Real.instLE (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+                (@HAdd.hAdd Real Real Real (@instHAdd Real Real.instAdd)
+                  (@HSub.hSub Real Real Real (@instHSub Real Real.instSub)
+                    (@NLA.RA07.errorSequence n lam
+                      (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) j
+                        (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+                    (@HMul.hMul Real Real Real (@instHMul Real Real.instMul)
+                      (@OfNat.ofNat Real (nat_lit 2)
+                        (@instOfNatAtLeastTwo Real (nat_lit 2) Real.instNatCast NLA.RA07.ConvexityConjecture._proof_1))
+                      (@NLA.RA07.errorSequence n lam j)))
+                  (@NLA.RA07.errorSequence n lam
+                    (@HAdd.hAdd Nat Nat Nat (@instHAdd Nat instAddNat) j
+                      (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+theorem NLA.RA07.elementary_values : ∀ {n : Nat} (lam : Fin n → Real),
+  (∀ (i : Fin n), @LT.lt Real Real.instLT (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero)) (lam i)) →
+    And
+      (@Eq Real (@NLA.RA07.elementarySymmetric n lam (@OfNat.ofNat Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+        (@OfNat.ofNat Real (nat_lit 1) (@One.toOfNat1 Real Real.instOne)))
+      (And
+        (∀ (j : Nat),
+          @LT.lt Nat instLTNat n j →
+            @Eq Real (@NLA.RA07.elementarySymmetric n lam j)
+              (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero)))
+        (∀ (j : Nat),
+          @LE.le Nat instLENat j n →
+            @LT.lt Real Real.instLT (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+              (@NLA.RA07.elementarySymmetric n lam j))) :=
+fun {n} lam hlam =>
+  sorryAx
+    (∀ (tag : Lean.Name),
+      And
+        (@Eq Real (@NLA.RA07.elementarySymmetric n lam (@OfNat.ofNat Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+          (@OfNat.ofNat Real (nat_lit 1) (@One.toOfNat1 Real Real.instOne)))
+        (And
+          (∀ (j : Nat),
+            @LT.lt Nat instLTNat n j →
+              @Eq Real (@NLA.RA07.elementarySymmetric n lam j)
+                (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero)))
+          (∀ (j : Nat),
+            @LE.le Nat instLENat j n →
+              @LT.lt Real Real.instLT (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+                (@NLA.RA07.elementarySymmetric n lam j))))
+    false
+    ((((((((((((((Lean.Name.anonymous.str "Challenge").num
+                                                      (@OfNat.ofNat Nat (nat_lit 14) (instOfNatNat (nat_lit 14)))).num
+                                                  (@OfNat.ofNat Nat (nat_lit 59) (instOfNatNat (nat_lit 59)))).num
+                                              (@OfNat.ofNat Nat (nat_lit 14) (instOfNatNat (nat_lit 14)))).num
+                                          (@OfNat.ofNat Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))).num
+                                      (@OfNat.ofNat Nat (nat_lit 59) (instOfNatNat (nat_lit 59)))).num
+                                  (@OfNat.ofNat Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))).str
+                              "_sorry").str
+                          "_@").str
+                      "Challenge").num
+                  (@OfNat.ofNat Nat (nat_lit 2369996946) (instOfNatNat (nat_lit 2369996946)))).str
+              "_hygCtx").str
+          "_hyg").num
+      (@OfNat.ofNat Nat (nat_lit 83) (instOfNatNat (nat_lit 83))))
+theorem NLA.RA07.generating_derivative_values : ∀ {n : Nat} (lam : Fin n → Real) (j : Nat),
+  And
+    (@Eq Real (@Polynomial.coeff Real Real.semiring (@NLA.RA07.generatingPolynomial n lam) j)
+      (@NLA.RA07.elementarySymmetric n lam j))
+    (@Eq Real
+      (@Polynomial.eval Real Real.semiring (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+        (@NLA.RA07.iteratedGeneratingDerivative n lam j))
+      (@HMul.hMul Real Real Real (@instHMul Real Real.instMul) (@Nat.cast Real Real.instNatCast j.factorial)
+        (@NLA.RA07.elementarySymmetric n lam j))) :=
+fun {n} lam j =>
+  sorryAx
+    (∀ (tag : Lean.Name),
+      And
+        (@Eq Real (@Polynomial.coeff Real Real.semiring (@NLA.RA07.generatingPolynomial n lam) j)
+          (@NLA.RA07.elementarySymmetric n lam j))
+        (@Eq Real
+          (@Polynomial.eval Real Real.semiring (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+            (@NLA.RA07.iteratedGeneratingDerivative n lam j))
+          (@HMul.hMul Real Real Real (@instHMul Real Real.instMul) (@Nat.cast Real Real.instNatCast j.factorial)
+            (@NLA.RA07.elementarySymmetric n lam j))))
+    false
+    ((((((((((((((Lean.Name.anonymous.str "Challenge").num
+                                                      (@OfNat.ofNat Nat (nat_lit 20) (instOfNatNat (nat_lit 20)))).num
+                                                  (@OfNat.ofNat Nat (nat_lit 58) (instOfNatNat (nat_lit 58)))).num
+                                              (@OfNat.ofNat Nat (nat_lit 20) (instOfNatNat (nat_lit 20)))).num
+                                          (@OfNat.ofNat Nat (nat_lit 63) (instOfNatNat (nat_lit 63)))).num
+                                      (@OfNat.ofNat Nat (nat_lit 58) (instOfNatNat (nat_lit 58)))).num
+                                  (@OfNat.ofNat Nat (nat_lit 63) (instOfNatNat (nat_lit 63)))).str
+                              "_sorry").str
+                          "_@").str
+                      "Challenge").num
+                  (@OfNat.ofNat Nat (nat_lit 3482100465) (instOfNatNat (nat_lit 3482100465)))).str
+              "_hygCtx").str
+          "_hyg").num
+      (@OfNat.ofNat Nat (nat_lit 56) (instOfNatNat (nat_lit 56))))
+theorem NLA.RA07.positive_derivative_factorization : ∀ {n : Nat} (lam : Fin n → Real),
+  (∀ (i : Fin n), @LT.lt Real Real.instLT (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero)) (lam i)) →
+    ∀ (d : Nat),
+      @LE.le Nat instLENat d n →
+        And
+          (@LT.lt Real Real.instLT (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+            (@Polynomial.eval Real Real.semiring (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+              (@NLA.RA07.iteratedGeneratingDerivative n lam d)))
+          (And
+            (@Eq Nat (@Polynomial.natDegree Real Real.semiring (@NLA.RA07.iteratedGeneratingDerivative n lam d))
+              (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) n d))
+            (@Exists (Fin (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) n d) → Real) fun μ =>
+              And
+                (∀ (a : Fin (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) n d)),
+                  @LT.lt Real Real.instLT (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero)) (μ a))
+                (@Eq (@Polynomial Real Real.semiring) (@NLA.RA07.iteratedGeneratingDerivative n lam d)
+                  (@HMul.hMul (@Polynomial Real Real.semiring) (@Polynomial Real Real.semiring)
+                    (@Polynomial Real Real.semiring)
+                    (@instHMul (@Polynomial Real Real.semiring) (@Polynomial.instMul Real Real.semiring))
+                    (@DFunLike.coe
+                      (@RingHom Real (@Polynomial Real Real.semiring) (@Semiring.toNonAssocSemiring Real Real.semiring)
+                        (@Semiring.toNonAssocSemiring (@Polynomial Real Real.semiring)
+                          (@Polynomial.semiring Real Real.semiring)))
+                      Real (fun x => @Polynomial Real Real.semiring)
+                      (@RingHom.instFunLike Real (@Polynomial Real Real.semiring)
+                        (@Semiring.toNonAssocSemiring Real Real.semiring)
+                        (@Semiring.toNonAssocSemiring (@Polynomial Real Real.semiring)
+                          (@Polynomial.semiring Real Real.semiring)))
+                      (@Polynomial.C Real Real.semiring)
+                      (@Polynomial.eval Real Real.semiring
+                        (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+                        (@NLA.RA07.iteratedGeneratingDerivative n lam d)))
+                    (@NLA.RA07.generatingPolynomial (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) n d) μ))))) :=
+fun {n} lam hlam d hd =>
+  sorryAx
+    (∀ (tag : Lean.Name),
+      And
+        (@LT.lt Real Real.instLT (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+          (@Polynomial.eval Real Real.semiring (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+            (@NLA.RA07.iteratedGeneratingDerivative n lam d)))
+        (And
+          (@Eq Nat (@Polynomial.natDegree Real Real.semiring (@NLA.RA07.iteratedGeneratingDerivative n lam d))
+            (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) n d))
+          (@Exists (Fin (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) n d) → Real) fun μ =>
+            And
+              (∀ (a : Fin (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) n d)),
+                @LT.lt Real Real.instLT (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero)) (μ a))
+              (@Eq (@Polynomial Real Real.semiring) (@NLA.RA07.iteratedGeneratingDerivative n lam d)
+                (@HMul.hMul (@Polynomial Real Real.semiring) (@Polynomial Real Real.semiring)
+                  (@Polynomial Real Real.semiring)
+                  (@instHMul (@Polynomial Real Real.semiring) (@Polynomial.instMul Real Real.semiring))
+                  (@DFunLike.coe
+                    (@RingHom Real (@Polynomial Real Real.semiring) (@Semiring.toNonAssocSemiring Real Real.semiring)
+                      (@Semiring.toNonAssocSemiring (@Polynomial Real Real.semiring)
+                        (@Polynomial.semiring Real Real.semiring)))
+                    Real (fun x => @Polynomial Real Real.semiring)
+                    (@RingHom.instFunLike Real (@Polynomial Real Real.semiring)
+                      (@Semiring.toNonAssocSemiring Real Real.semiring)
+                      (@Semiring.toNonAssocSemiring (@Polynomial Real Real.semiring)
+                        (@Polynomial.semiring Real Real.semiring)))
+                    (@Polynomial.C Real Real.semiring)
+                    (@Polynomial.eval Real Real.semiring
+                      (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+                      (@NLA.RA07.iteratedGeneratingDerivative n lam d)))
+                  (@NLA.RA07.generatingPolynomial (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) n d) μ))))))
+    false
+    ((((((((((((((Lean.Name.anonymous.str "Challenge").num
+                                                      (@OfNat.ofNat Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))).num
+                                                  (@OfNat.ofNat Nat (nat_lit 39) (instOfNatNat (nat_lit 39)))).num
+                                              (@OfNat.ofNat Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))).num
+                                          (@OfNat.ofNat Nat (nat_lit 44) (instOfNatNat (nat_lit 44)))).num
+                                      (@OfNat.ofNat Nat (nat_lit 39) (instOfNatNat (nat_lit 39)))).num
+                                  (@OfNat.ofNat Nat (nat_lit 44) (instOfNatNat (nat_lit 44)))).str
+                              "_sorry").str
+                          "_@").str
+                      "Challenge").num
+                  (@OfNat.ofNat Nat (nat_lit 1789811762) (instOfNatNat (nat_lit 1789811762)))).str
+              "_hygCtx").str
+          "_hyg").num
+      (@OfNat.ofNat Nat (nat_lit 116) (instOfNatNat (nat_lit 116))))
+theorem NLA.RA07.power_sum_certificate : ∀ {m : Nat} (μ : Fin m → Real),
+  @LE.le Nat instLENat (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) m →
+    (∀ (a : Fin m), @LT.lt Real Real.instLT (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero)) (μ a)) →
+      And
+        (@LT.lt Real Real.instLT (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+          (@NLA.RA07.certificateDenominator m μ))
+        (And
+          (@Eq Real
+            (@HSub.hSub Real Real Real (@instHSub Real Real.instSub)
+              (@HMul.hMul Real Real Real (@instHMul Real Real.instMul)
+                (@NLA.RA07.powerSum m μ (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+                (@NLA.RA07.powerSum m μ (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))))
+              (@HPow.hPow Real Nat Real (@instHPow Real Nat (@NPow.toPow Real (@Monoid.toNPow Real Real.instMonoid)))
+                (@NLA.RA07.powerSum m μ (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+            (@NLA.RA07.pairGap m μ))
+          (@LE.le Real Real.instLE (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+            (@NLA.RA07.pairGap m μ))) :=
+fun {m} μ hm hμ =>
+  sorryAx
+    (∀ (tag : Lean.Name),
+      And
+        (@LT.lt Real Real.instLT (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+          (@NLA.RA07.certificateDenominator m μ))
+        (And
+          (@Eq Real
+            (@HSub.hSub Real Real Real (@instHSub Real Real.instSub)
+              (@HMul.hMul Real Real Real (@instHMul Real Real.instMul)
+                (@NLA.RA07.powerSum m μ (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+                (@NLA.RA07.powerSum m μ (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))))
+              (@HPow.hPow Real Nat Real (@instHPow Real Nat (@NPow.toPow Real (@Monoid.toNPow Real Real.instMonoid)))
+                (@NLA.RA07.powerSum m μ (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+            (@NLA.RA07.pairGap m μ))
+          (@LE.le Real Real.instLE (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+            (@NLA.RA07.pairGap m μ))))
+    false
+    ((((((((((((((Lean.Name.anonymous.str "Challenge").num
+                                                      (@OfNat.ofNat Nat (nat_lit 39) (instOfNatNat (nat_lit 39)))).num
+                                                  (@OfNat.ofNat Nat (nat_lit 24) (instOfNatNat (nat_lit 24)))).num
+                                              (@OfNat.ofNat Nat (nat_lit 39) (instOfNatNat (nat_lit 39)))).num
+                                          (@OfNat.ofNat Nat (nat_lit 29) (instOfNatNat (nat_lit 29)))).num
+                                      (@OfNat.ofNat Nat (nat_lit 24) (instOfNatNat (nat_lit 24)))).num
+                                  (@OfNat.ofNat Nat (nat_lit 29) (instOfNatNat (nat_lit 29)))).str
+                              "_sorry").str
+                          "_@").str
+                      "Challenge").num
+                  (@OfNat.ofNat Nat (nat_lit 417132786) (instOfNatNat (nat_lit 417132786)))).str
+              "_hygCtx").str
+          "_hyg").num
+      (@OfNat.ofNat Nat (nat_lit 67) (instOfNatNat (nat_lit 67))))
+theorem NLA.RA07.second_difference_certificate : ∀ {n : Nat},
+  @LE.le Nat instLENat (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) n →
+    ∀ (lam : Fin n → Real),
+      (∀ (i : Fin n),
+          @LT.lt Real Real.instLT (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero)) (lam i)) →
+        ∀ (j : Nat),
+          @LE.le Nat instLENat (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) j →
+            @LE.le Nat instLENat j
+                (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) n
+                  (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) →
+              @Exists
+                (Fin
+                    (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) n
+                      (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) j
+                        (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))) →
+                  Real)
+                fun μ =>
+                And
+                  (∀
+                    (a :
+                      Fin
+                        (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) n
+                          (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) j
+                            (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))),
+                    @LT.lt Real Real.instLT (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero)) (μ a))
+                  (And
+                    (@Eq (@Polynomial Real Real.semiring)
+                      (@NLA.RA07.iteratedGeneratingDerivative n lam
+                        (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) j
+                          (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+                      (@HMul.hMul (@Polynomial Real Real.semiring) (@Polynomial Real Real.semiring)
+                        (@Polynomial Real Real.semiring)
+                        (@instHMul (@Polynomial Real Real.semiring) (@Polynomial.instMul Real Real.semiring))
+                        (@DFunLike.coe
+                          (@RingHom Real (@Polynomial Real Real.semiring)
+                            (@Semiring.toNonAssocSemiring Real Real.semiring)
+                            (@Semiring.toNonAssocSemiring (@Polynomial Real Real.semiring)
+                              (@Polynomial.semiring Real Real.semiring)))
+                          Real (fun x => @Polynomial Real Real.semiring)
+                          (@RingHom.instFunLike Real (@Polynomial Real Real.semiring)
+                            (@Semiring.toNonAssocSemiring Real Real.semiring)
+                            (@Semiring.toNonAssocSemiring (@Polynomial Real Real.semiring)
+                              (@Polynomial.semiring Real Real.semiring)))
+                          (@Polynomial.C Real Real.semiring)
+                          (@Polynomial.eval Real Real.semiring
+                            (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+                            (@NLA.RA07.iteratedGeneratingDerivative n lam
+                              (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) j
+                                (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))))
+                        (@NLA.RA07.generatingPolynomial
+                          (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) n
+                            (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) j
+                              (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+                          μ)))
+                    (And
+                      (@LT.lt Real Real.instLT (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+                        (@NLA.RA07.certificateDenominator
+                          (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) n
+                            (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) j
+                              (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+                          μ))
+                      (@Eq Real
+                        (@HAdd.hAdd Real Real Real (@instHAdd Real Real.instAdd)
+                          (@HSub.hSub Real Real Real (@instHSub Real Real.instSub)
+                            (@NLA.RA07.errorSequence n lam
+                              (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) j
+                                (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+                            (@HMul.hMul Real Real Real (@instHMul Real Real.instMul)
+                              (@OfNat.ofNat Real (nat_lit 2) (@instOfNatAtLeastTwo Real (nat_lit 2) Real.instNatCast ⋯))
+                              (@NLA.RA07.errorSequence n lam j)))
+                          (@NLA.RA07.errorSequence n lam
+                            (@HAdd.hAdd Nat Nat Nat (@instHAdd Nat instAddNat) j
+                              (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+                        (@HDiv.hDiv Real Real Real (@instHDiv Real (@DivInvMonoid.toDiv Real Real.instDivInvMonoid))
+                          (@HMul.hMul Real Real Real (@instHMul Real Real.instMul)
+                            (@OfNat.ofNat Real (nat_lit 2) (@instOfNatAtLeastTwo Real (nat_lit 2) Real.instNatCast ⋯))
+                            (@NLA.RA07.pairGap
+                              (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) n
+                                (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) j
+                                  (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+                              μ))
+                          (@NLA.RA07.certificateDenominator
+                            (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) n
+                              (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) j
+                                (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+                            μ))))) :=
+fun {n} hn lam hlam j hj hjn =>
+  sorryAx
+    (∀ (tag : Lean.Name),
+      @Exists
+        (Fin
+            (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) n
+              (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) j
+                (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))) →
+          Real)
+        fun μ =>
+        And
+          (∀
+            (a :
+              Fin
+                (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) n
+                  (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) j
+                    (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))),
+            @LT.lt Real Real.instLT (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero)) (μ a))
+          (And
+            (@Eq (@Polynomial Real Real.semiring)
+              (@NLA.RA07.iteratedGeneratingDerivative n lam
+                (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) j
+                  (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+              (@HMul.hMul (@Polynomial Real Real.semiring) (@Polynomial Real Real.semiring)
+                (@Polynomial Real Real.semiring)
+                (@instHMul (@Polynomial Real Real.semiring) (@Polynomial.instMul Real Real.semiring))
+                (@DFunLike.coe
+                  (@RingHom Real (@Polynomial Real Real.semiring) (@Semiring.toNonAssocSemiring Real Real.semiring)
+                    (@Semiring.toNonAssocSemiring (@Polynomial Real Real.semiring)
+                      (@Polynomial.semiring Real Real.semiring)))
+                  Real (fun x => @Polynomial Real Real.semiring)
+                  (@RingHom.instFunLike Real (@Polynomial Real Real.semiring)
+                    (@Semiring.toNonAssocSemiring Real Real.semiring)
+                    (@Semiring.toNonAssocSemiring (@Polynomial Real Real.semiring)
+                      (@Polynomial.semiring Real Real.semiring)))
+                  (@Polynomial.C Real Real.semiring)
+                  (@Polynomial.eval Real Real.semiring
+                    (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+                    (@NLA.RA07.iteratedGeneratingDerivative n lam
+                      (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) j
+                        (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))))
+                (@NLA.RA07.generatingPolynomial
+                  (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) n
+                    (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) j
+                      (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+                  μ)))
+            (And
+              (@LT.lt Real Real.instLT (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+                (@NLA.RA07.certificateDenominator
+                  (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) n
+                    (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) j
+                      (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+                  μ))
+              (@Eq Real
+                (@HAdd.hAdd Real Real Real (@instHAdd Real Real.instAdd)
+                  (@HSub.hSub Real Real Real (@instHSub Real Real.instSub)
+                    (@NLA.RA07.errorSequence n lam
+                      (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) j
+                        (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+                    (@HMul.hMul Real Real Real (@instHMul Real Real.instMul)
+                      (@OfNat.ofNat Real (nat_lit 2)
+                        (@instOfNatAtLeastTwo Real (nat_lit 2) Real.instNatCast
+                          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+                            (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))
+                      (@NLA.RA07.errorSequence n lam j)))
+                  (@NLA.RA07.errorSequence n lam
+                    (@HAdd.hAdd Nat Nat Nat (@instHAdd Nat instAddNat) j
+                      (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+                (@HDiv.hDiv Real Real Real (@instHDiv Real (@DivInvMonoid.toDiv Real Real.instDivInvMonoid))
+                  (@HMul.hMul Real Real Real (@instHMul Real Real.instMul)
+                    (@OfNat.ofNat Real (nat_lit 2)
+                      (@instOfNatAtLeastTwo Real (nat_lit 2) Real.instNatCast
+                        (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+                          (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))
+                    (@NLA.RA07.pairGap
+                      (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) n
+                        (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) j
+                          (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+                      μ))
+                  (@NLA.RA07.certificateDenominator
+                    (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) n
+                      (@HSub.hSub Nat Nat Nat (@instHSub Nat instSubNat) j
+                        (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+                    μ))))))
+    false
+    ((((((((((((((Lean.Name.anonymous.str "Challenge").num
+                                                      (@OfNat.ofNat Nat (nat_lit 52) (instOfNatNat (nat_lit 52)))).num
+                                                  (@OfNat.ofNat Nat (nat_lit 55) (instOfNatNat (nat_lit 55)))).num
+                                              (@OfNat.ofNat Nat (nat_lit 52) (instOfNatNat (nat_lit 52)))).num
+                                          (@OfNat.ofNat Nat (nat_lit 60) (instOfNatNat (nat_lit 60)))).num
+                                      (@OfNat.ofNat Nat (nat_lit 55) (instOfNatNat (nat_lit 55)))).num
+                                  (@OfNat.ofNat Nat (nat_lit 60) (instOfNatNat (nat_lit 60)))).str
+                              "_sorry").str
+                          "_@").str
+                      "Challenge").num
+                  (@OfNat.ofNat Nat (nat_lit 2602355066) (instOfNatNat (nat_lit 2602355066)))).str
+              "_hygCtx").str
+          "_hyg").num
+      (@OfNat.ofNat Nat (nat_lit 160) (instOfNatNat (nat_lit 160))))
+theorem NLA.RA07.errorSequence_convex : NLA.RA07.ConvexityConjecture :=
+sorryAx (∀ (tag : Lean.Name), NLA.RA07.ConvexityConjecture) false
+  ((((((((((((((Lean.Name.anonymous.str "Challenge").num
+                                                    (@OfNat.ofNat Nat (nat_lit 55) (instOfNatNat (nat_lit 55)))).num
+                                                (@OfNat.ofNat Nat (nat_lit 57) (instOfNatNat (nat_lit 57)))).num
+                                            (@OfNat.ofNat Nat (nat_lit 55) (instOfNatNat (nat_lit 55)))).num
+                                        (@OfNat.ofNat Nat (nat_lit 62) (instOfNatNat (nat_lit 62)))).num
+                                    (@OfNat.ofNat Nat (nat_lit 57) (instOfNatNat (nat_lit 57)))).num
+                                (@OfNat.ofNat Nat (nat_lit 62) (instOfNatNat (nat_lit 62)))).str
+                            "_sorry").str
+                        "_@").str
+                    "Challenge").num
+                (@OfNat.ofNat Nat (nat_lit 1024762558) (instOfNatNat (nat_lit 1024762558)))).str
+            "_hygCtx").str
+        "_hyg").num
+    (@OfNat.ofNat Nat (nat_lit 9) (instOfNatNat (nat_lit 9))))
+'NLA.RA07.elementary_values' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.RA07.generating_derivative_values' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.RA07.positive_derivative_factorization' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.RA07.power_sum_certificate' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.RA07.second_difference_certificate' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.RA07.errorSequence_convex' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
