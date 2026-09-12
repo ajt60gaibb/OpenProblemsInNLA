@@ -1,6 +1,6 @@
 # MI-07 Lean formalization
 
-The completed proof gives a negative answer to the full original [MI-07 triangle conjecture](../README.md). Local Lean compilation, all 23 kernel-trust checks, and two independent final AI-agent proof reviews passed. **Authoritative Linux Comparator verification is pending. The canonical repository status remains Solved.** No Linux execution or Lean-verified catalog promotion is claimed by this package.
+The completed proof gives a negative answer to the full original [MI-07 triangle conjecture](../README.md). Local Lean compilation, all 23 kernel-trust checks, two independent final AI-agent proof reviews, and [actual Linux Comparator verification](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34709291624) passed. **Lean verified, 12 September 2026**, at immutable proof revision `f55777156432043de4201747a3759e0c6485e568`. The [independent operational audit and original artifacts](verification/linux-2026-09-12/) bind the actual seven-export run to the reviewed sources.
 
 The mathematical counterexample is by **Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Lean formalization: George Stepaniants**, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, with AI-agent assistance. The formalization code is licensed under [Apache 2.0](LICENSE). Mathematical authorship is not reassigned, and no external human peer review or source-author endorsement is claimed.
 
@@ -60,9 +60,15 @@ The immutable sources are the [canonical statement](https://github.com/ajt60gaib
 
 [FunctionalCalculus.lean](NLA/MI07/FunctionalCalculus.lean) proves reusable projection-power, scalar-power and positive-definite continuity bridges using actual Mathlib CFC and spectral APIs. [Proof.lean](NLA/MI07/Proof.lean) connects them to exact 2x2 matrix identities, all three limits and the all-unitary contradiction. The sole LeanCert computation is the rational point check `0 < 1/3`, with explicit kernel trust. Its [actual checked certificate and consumer](reviews/proof-certificates.log) show that it is retained in the final negation. No interval subdivision, approximate matrix square root, numerical eigenvalue list or search over unitary matrices is used.
 
-The local [3149-job build](reviews/proof-build.log) passed without warnings. All 23 internal/public kernel checks and [transitive axiom reports](reviews/proof-axioms.log) contain only `propext`, `Classical.choice`, and `Quot.sound`. No custom or native-execution axiom is permitted. Local macOS builds and source-level signature checks support, but do not replace, the pending actual Linux Comparator and default-kernel replay. Formal identity and kernel acceptance do not themselves replace the separate prose-to-Lean statement reviews.
+The local [3149-job build](reviews/proof-build.log) passed without warnings. All 23 internal/public kernel checks and [transitive axiom reports](reviews/proof-axioms.log) contain only `propext`, `Classical.choice`, and `Quot.sound`. No custom or native-execution axiom is permitted. The later actual Linux run separately matched the frozen declarations and replayed their exported closure through Lean's default kernel. Formal identity and kernel acceptance do not themselves replace the separate prose-to-Lean statement reviews.
 
-[comparator.json](comparator.json) selects exactly the seven frozen exports, allows only those three standard axioms, and contains no replaceable definition holes. [formalization.yaml](formalization.yaml) follows the pinned upstream v0.4 schema and records scope, alignment, attribution and the pending Linux gate.
+[comparator.json](comparator.json) selects exactly the seven frozen exports, allows only those three standard axioms, and contains no replaceable definition holes. [formalization.yaml](formalization.yaml) follows the pinned upstream v0.4 schema and records scope, alignment, attribution and the successful Linux check.
+
+## Authoritative Linux evidence
+
+[Run 34709291624](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34709291624) checked proof revision `f55777156432043de4201747a3759e0c6485e568`. It built and exported both Challenge and Solution, compared all seven selected declarations, checked their transitive axiom dependencies, and replayed the exported solution through Lean's default kernel. The separate checker job and the project job each executed the strict Linux sandbox probes, raw-kernel controls, Comparator controls, and rejection controls for `sorryAx` and native-execution axioms.
+
+The [operational review](verification/linux-2026-09-12/OPERATIONAL-REVIEW.md) checks all 89 inputs against the exact committed revision and both proof referees' frozen hashes. The archive retains the original [project ZIP](verification/linux-2026-09-12/lean-MI-07.zip), [checker ZIP](verification/linux-2026-09-12/lean-checker-controls.zip), GitHub metadata, full logs and machine-readable checks. The original ZIP SHA-256 values are `540cd1eb9eb9726bef4d7474039982614eaa70359eef9750fd6c0f141c3b1380` and `fed66a4de6e4a87d872843a282032107588c2d6eb8c8ec73a68e54c70c682439`, respectively. Seven deliberate Challenge placeholders remain confined to that comparison template and are not part of the solution.
 
 ## Reproduction
 
@@ -75,7 +81,7 @@ lake exe cache get
 lake build Solution
 ```
 
-After the unchanged project is committed, run authoritative verification on an isolated non-root Linux host satisfying the [shared harness prerequisites](../../../tools/lean/HARNESS.md). From the repository root:
+To reproduce the check, use the [verified source revision](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/f55777156432043de4201747a3759e0c6485e568) on an isolated non-root Linux host satisfying the [shared harness prerequisites](../../../tools/lean/HARNESS.md). From the repository root:
 
 ```sh
 python3 -m pip install -r tools/lean/requirements.txt
@@ -88,4 +94,4 @@ tools/lean/verify.sh \
   /absolute/path/to/nla-lean-tools
 ```
 
-The harness separately builds and exports the frozen Challenge and actual Solution, performs actual sandbox and negative controls, compares all seven declarations, and replays the solution through Lean's default kernel. Its source lock and notices retain checker provenance, including the Forsythe workflow reference. A successful real Linux execution and independent operational audit are still required before any canonical promotion to Lean verified.
+The harness separately builds and exports the frozen Challenge and actual Solution, performs actual sandbox and negative controls, compares all seven declarations, and replays the solution through Lean's default kernel. Its source lock and notices retain checker provenance, including the Forsythe workflow reference. The archived successful run includes fresh clones of all ten pinned dependencies, 8,690 downloaded Mathlib cache artifacts, and fresh project-module elaboration. It does not claim that every dependency was rebuilt from source or that a second independent kernel was used. The independent operational reviewer inspected those actual Linux results locally on macOS.
