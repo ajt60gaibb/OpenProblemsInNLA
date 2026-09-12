@@ -430,9 +430,22 @@ historical and the entry no longer contributes to the open count.
 
 [Canonical entry](matrix-inequalities-and-norms/MI-22/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-22/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-22-review.md). **Theorem 1.1 and its proof.** Rational positive definite $3\times3$ matrices at $t=1/8$ violate the first singular-value inequality: the left operator norm exceeds 10900, while $\|AB\|_2<10200$. Exact rational root residuals and a proved operator-root error bound certify the actual principal powers. 
 
-#### MI-23 — negative result
+#### MI-23 — negative result; Lean formalization by George Stepaniants
 
-[Canonical entry](matrix-inequalities-and-norms/MI-23/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-23/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-23-review.md). **Theorem 1.1 and its proof.** Rational positive definite $3\times3$ matrices with $r=s=1$, $p=2$ and $t=1/8$ violate the corrected eigenvalue log-majorization conjecture. An exact integer-power construction and rational norm separation establish failure of the first ordered eigenvalue inequality. 
+[Canonical entry](matrix-inequalities-and-norms/MI-23/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-23/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-23-review.md). **Theorem 1.1 and its proof.** Rational positive definite $3\times3$ matrices with $r=s=1$, $p=2$ and $t=1/8$ violate the corrected eigenvalue log-majorization conjecture. An exact integer-power construction and rational norm separation establish failure of the first ordered eigenvalue inequality.
+
+**Lean verified — 2026-09-12.** The complete corrected eigenvalue conjecture is refuted by the
+[eight checked exports](https://github.com/sgstepaniants/OpenProblemsInNLA/blob/17194f9060609acae429e14d3dc3c4562b84f2bd/matrix-inequalities-and-norms/MI-23/lean/Solution.lean).
+**Lean formalization: George Stepaniants, Department of Computing and Mathematical Sciences,
+California Institute of Technology, Pasadena, California, USA**, with AI-agent assistance.
+Matthew J. Colbrook retains authorship of the counterexample and informal proof. See the
+[canonical verification evidence](matrix-inequalities-and-norms/MI-23/README.md#lean-proof-and-verification-evidence---2026-09-12),
+[two statement and two final proof reviews](matrix-inequalities-and-norms/MI-23/lean/reviews/),
+[successful Linux run](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34716784038)
+and [independent operational audit](matrix-inequalities-and-norms/MI-23/lean/verification/linux-2026-09-12/OPERATIONAL-REVIEW.md).
+All 133 submitted input hashes, default-kernel replay, standard-three axioms and actual rejection
+controls were verified. No external human peer review is claimed.
+
 
 #### MI-26 — negative result; Lean formalization by George Stepaniants
 

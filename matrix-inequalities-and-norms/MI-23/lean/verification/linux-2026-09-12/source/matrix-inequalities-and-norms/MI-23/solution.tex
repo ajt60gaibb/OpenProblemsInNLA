@@ -1,0 +1,143 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=24mm]{geometry}
+\usepackage{microtype}
+\usepackage{booktabs,array,longtable}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue,pdfauthor={Matthew J. Colbrook}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Resolution / MI-23}
+\fancyhead[R]{\small 11 September 2026}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\M}{\mathbb M}
+\newcommand{\C}{\mathbb C}
+\newcommand{\R}{\mathbb R}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\spec}{\operatorname{spec}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\opnorm}[1]{\lVert #1\rVert_{\infty}}
+\newcommand{\schatten}[2]{\lVert #1\rVert_{#2}}
+\newcommand{\symmod}{\mathcal S}
+\newcommand{\maxmod}{\mathcal M}
+\newcommand{\draftnotice}{\begin{center}\small\textit{Proposed mathematical resolution. Complete proof supplied; not submitted or peer reviewed.}\end{center}}
+
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\allowdisplaybreaks[1]
+
+\title{MI-23: Resolution}
+\author{Matthew J. Colbrook\\
+\small Department of Applied Mathematics and Theoretical Physics\\
+\small University of Cambridge, Cambridge, United Kingdom\\
+\small\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+\textbf{Repository status: Solved.}
+The complete argument received an independent Codex-agent PASS review
+against the exact catalog target.
+The original draft was AI-assisted; the reviewed proof below is unchanged.
+This is independent agent verification, not external human peer review or
+formal proof certification. \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-2026-09-11/verification/reviews/MI-23-review.md}{Detailed review and scope}.
+\par\medskip
+% BEGIN REVIEWED PROOF
+\section{MI-23: an exact counterexample to the generalized geometric-mean conjecture}
+\label{sec:mi23}
+For positive definite matrices, write
+\[
+ A\#_{r,t}B=A^{r/2}(A^{-1/2}BA^{-1/2})^tA^{r/2}.
+\]
+Conjecture 2.1 of \cite{GAMA2021}, reproduced as MI-23, asserts
+\begin{equation}\label{eq:mi23-target}
+ \lambda\bigl((A\#_{r,t}B)^p(A\#_{s,1-t}B)^p\bigr)
+ \prec_{\log}\lambda\bigl(A^{p(r+s-1)}B^p\bigr)
+\end{equation}
+for $0\leq t\leq1$, $p\geq1$, and either $r,s\geq1$ or $r,s\leq0$. Products of two positive definite matrices have positive eigenvalues, which are decreasingly ordered here. The assertion fails already for $r=s=1$ and $p=2$.
+
+\begin{theorem}\label{thm:mi23}
+Let
+\[
+ D=\diag\left(16,\frac1{12},1\right),\qquad
+ T=\begin{pmatrix}2&1&2\\1&25&-10\\2&-10&10\end{pmatrix},
+ \qquad A=D^2,\qquad B=DT^8D.
+\]
+Then $A,B>0$, and \eqref{eq:mi23-target} is false at
+\[
+ r=s=1,\qquad p=2,\qquad t=\frac18.
+\]
+\end{theorem}
+\begin{proof}
+The leading principal minors of $T$ are $2$, $49$, and $150$. Thus $T>0$, and consequently $A,B>0$. Moreover,
+\[
+ A^{-1/2}BA^{-1/2}=T^8.
+\]
+Its positive eighth root is exactly $T$, not merely a numerical approximation. Hence the two geometric means are the rational matrices
+\[
+ G=A\#_{1,1/8}B=DTD,\qquad
+ H=A\#_{1,7/8}B=DT^7D.
+\]
+The first inequality in the proposed log-majorization would imply
+\[
+ \lambda_{\max}(G^2H^2)\leq\lambda_{\max}(A^2B^2).
+\]
+Since $G,H,A,B$ are positive definite,
+\[
+ \lambda_{\max}(G^2H^2)=\opnorm{GH}^2,
+ \qquad \lambda_{\max}(A^2B^2)=\opnorm{AB}^2.
+\]
+For example, $G^2H^2$ is similar to $HG^2H=(GH)^*(GH)$, which proves the first identity; the second is identical.
+
+Exact rational matrix multiplication gives
+\begin{align*}
+ (GH)_{13}&=\frac{1260589125202}{9}>140000000000,\\
+ \norm{AB}_F^2&=\frac{2009446159144992718181231562721}{107495424}
+ <(138000000000)^2.
+\end{align*}
+It follows that
+\[
+ \opnorm{GH}\geq |(GH)_{13}|>140000000000
+ >138000000000>\norm{AB}_F\geq\opnorm{AB},
+\]
+contradicting the required largest-eigenvalue inequality.
+For an alternative one-line rational certificate of the strict comparison,
+\[
+ ((GH)_{13})^2-\norm{AB}_F^2
+ =\frac{99434824489435745411095588895}{107495424}>0.
+\]
+\end{proof}
+
+\begin{remark}[Exactness and parameter scope]
+All input matrices and every displayed certificate are rational. The representation $B=DT^8D$ eliminates all fractional-power computations from the proof. This counterexample is outside the narrower interval $1/4\leq t\leq3/4$ established in \cite{GAMA2021} for $p=2$; it does not contradict that theorem. It disproves the stated conjecture for the full interval $0\leq t\leq1$.
+\end{remark}
+
+% END REVIEWED PROOF
+\begin{thebibliography}{1}
+
+\bibitem{GAMA2021}
+Mohammad~M. Ghabries, Hassane Abbas, Bassam Mourad, and Abdallah Assi.
+\newblock New log-majorization results concerning eigenvalues and singular
+  values and a complement of a norm inequality.
+\newblock arXiv:2105.13356, 2021.
+\newblock Conjectures 1.1 and 2.1.
+\newblock URL: \url{https://arxiv.org/abs/2105.13356}.
+
+\end{thebibliography}
+
+\end{document}
