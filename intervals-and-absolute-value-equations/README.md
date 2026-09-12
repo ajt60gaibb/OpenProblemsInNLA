@@ -6,7 +6,7 @@
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [AV-03](AV-03/README.md) | Polynomial-time solution under the regularity promise | **🔵 OPEN** | extreme | broadly interesting | [PDF](AV-03/problem.pdf) · [TeX](AV-03/problem.tex) |
+| [AV-03](AV-03/README.md) | Polynomial-time solution under the regularity promise | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](AV-03/problem.pdf) · [TeX](AV-03/problem.tex) |
 | [IV-01](IV-01/README.md) | Two-vertex certification of nonsingular sign regularity | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](IV-01/problem.pdf) · [TeX](IV-01/problem.tex) |
 
 ## Retained entries outside the open count
