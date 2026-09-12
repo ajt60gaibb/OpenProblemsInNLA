@@ -15,6 +15,17 @@ catalog with **🟡 PARTIAL** and an explanation of what remains.
 
 ## Resolved catalog entries
 
+### ✅ SP-11 and SP-12 — Hall's theorem; application notes by George Stepaniants
+
+**Application-note author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology. **Theorem author:** H. Tracy Hall.
+
+**Literature-dependent affirmative resolutions recorded 2026-09-11.** Hall's [*The Delta Theorem*, arXiv:2601.01211v1](https://arxiv.org/html/2601.01211v1), Theorem 3.20 and Corollary 3.22, proves the all-graph PSD/SAP bound $\nu(G)\ge\delta(G)$. The source is a preprint, submitted 3 January 2026; the complete essential proof and both deductions passed a separate [independent Codex-agent mathematical review](references/stepaniants-sp11-sp12-2026-09-11/verification/SP-11-SP-12-independent-review.md). This is automated-agent verification, not human peer review or formal certification.
+
+- **SP-11:** [Original target and resolution](eigenvalues-and-inverse-problems/SP-11/README.md) · [Application note](eigenvalues-and-inverse-problems/SP-11/solution.md) · [PDF](eigenvalues-and-inverse-problems/SP-11/solution.pdf). Forgetting PSD and SAP gives $\operatorname{mr}(G)\le n-\delta(G)$; Hall's Corollary 3.24 already states this ordinary Delta consequence.
+- **SP-12:** [Original target and resolution](eigenvalues-and-inverse-problems/SP-12/README.md) · [Application note](eigenvalues-and-inverse-problems/SP-12/solution.md) · [PDF](eigenvalues-and-inverse-problems/SP-12/solution.pdf). The supplied proof of induced-subgraph monotonicity, followed by a chromatic-critical subgraph reduction, gives $\nu(G)\ge\chi(G)-1$ for every finite simple graph.
+
+These are explanatory applications of Hall's theorem, with substantial AI assistance disclosed and no novelty or priority claim. The [submission record](references/stepaniants-sp11-sp12-2026-09-11/README.md) preserves the original six-file package, withdrawn unsupported artifact claims, current audit, and review. Both permanent IDs, original targets, and earlier attributed partial results are retained.
+
 ### ✅ IE-02 — ideal and worst-case GMRES coincide for every Jordan block — George Stepaniants
 
 **Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
