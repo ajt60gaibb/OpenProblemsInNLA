@@ -21,3 +21,7 @@ This audit **reviewed remote Linux execution**; it did not claim a local Lean or
 The three entire canonical problem directories, including proof sources, manifests, archived evidence, README, TeX and PDF, are retained from their reviewed heads. Integration reconciles the adjacent resolution entries and regenerates the shared indexes; all 217 permanent IDs and canonical paths remain unchanged. The resulting counts are 5 Lean verified, 84 Solved, 57 Open and 71 Partially resolved. All 77 repository tests and 12 harness tests passed locally after installing the declared metadata dependencies; the GitHub math check passed. All eight updated PDF pages were rendered and visually inspected.
 
 The formal status applies to each original conjecture's complete negative answer. It does not promote the additional IE-19 sharp-infimum theorem, MI-19 perturbation/all-q extensions, or IE-18 parameter-family/asymptotic questions to formally verified results. Mathematical counterexample credit remains with Matthew J. Colbrook; Lean formalization credit remains with George Stepaniants. The original evidence archives remain unchanged.
+
+## Subsequent RA-03 audit
+
+The separate [PR #157 audit](PR157/README.md) reviews the later RA-03 promotion against the main branch containing the three promotions above. It preserves their evidence and records the resulting six Lean-verified entries.
