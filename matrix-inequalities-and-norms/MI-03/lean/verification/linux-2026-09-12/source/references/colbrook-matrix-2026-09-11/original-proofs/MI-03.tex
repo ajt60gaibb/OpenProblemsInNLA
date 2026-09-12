@@ -1,0 +1,80 @@
+\section{MI-03: the contraction constant is $k/4$ for every $k\geq2$}
+\label{sec:mi03}
+
+For a matrix $X$, write $|X|=(X^*X)^{1/2}$. The target asks for the least dimension-independent constant $c_k$ such that
+\begin{equation}\label{eq:mi03-target}
+ \left|\sum_{j=1}^k A_j\right|\leq c_k I+\sum_{j=1}^k|A_j|
+\end{equation}
+for all complex square contractions $A_j$. Bourin and Lee prove the upper bound $k/4$ and its sharpness for even $k$, and conjecture sharpness for odd $k>1$ \cite[Corollary 4.4 and Remark 4.5]{BL2023}.
+
+\begin{theorem}\label{thm:mi03}
+For every integer $k\geq2$, the optimal constant in \eqref{eq:mi03-target} is $c_k=k/4$. Sharpness already occurs for complex $2\times2$ rank-one contractions. It also occurs for Hermitian $3\times3$ contractions.
+\end{theorem}
+
+\begin{proof}
+We first give a short proof of the upper bound. Put
+\[
+ R=\left|\sum_{j=1}^kA_j\right|,\qquad T=\sum_{j=1}^k|A_j|.
+\]
+For every vector $x$, the vector Cauchy--Schwarz inequality gives
+\[
+ \left\|\sum_j A_jx\right\|^2\leq k\sum_j\|A_jx\|^2.
+\]
+Consequently,
+\[
+ R^2\leq k\sum_j A_j^*A_j=k\sum_j|A_j|^2\leq kT,
+\]
+since $0\leq |A_j|\leq I$. It follows that
+\[
+ T+\frac{k}{4}I-R
+ \ \geq\ \frac1kR^2+\frac{k}{4}I-R
+ =\frac1k\left(R-\frac{k}{2}I\right)^2\geq0.
+\]
+This proves \eqref{eq:mi03-target} with $c_k=k/4$ without assuming that the summands are Hermitian.
+
+For sharpness, let $e_1=(1,0)^T$, let $\omega=e^{2\pi i/k}$, and define
+\[
+ v_j=\begin{pmatrix}1/2\\ (\sqrt3/2)\omega^j\end{pmatrix},
+ \qquad A_j=e_1v_j^*,\qquad 0\leq j<k.
+\]
+Each $v_j$ is a unit vector. Thus $A_j$ is a rank-one contraction of norm one and
+\[
+ |A_j|=v_jv_j^*.
+\]
+The identity $\sum_{j=0}^{k-1}\omega^j=0$ yields
+\[
+ \sum_{j=0}^{k-1} A_j=\frac{k}{2}e_1e_1^*,
+ \qquad \sum_{j=0}^{k-1}|A_j|
+ =\begin{pmatrix}k/4&0\\0&3k/4\end{pmatrix}.
+\]
+Hence
+\[
+ \left|\sum_{j=0}^{k-1} A_j\right|-\sum_{j=0}^{k-1}|A_j|
+ =\begin{pmatrix}k/4&0\\0&-3k/4\end{pmatrix}.
+\]
+Taking its quadratic form at $e_1$ forces $c_k\geq k/4$.
+
+For the Hermitian assertion, work in $\C^3$ and put
+\[
+ w_j=\frac12e_2+\frac{\sqrt3}{2}\omega^j e_3,
+ \qquad H_j=e_1w_j^*+w_je_1^*.
+\]
+The orthogonality of $e_1$ and $w_j$ implies
+$|H_j|=e_1e_1^*+w_jw_j^*$ and $\opnorm{H_j}=1$. Therefore
+\[
+ \sum_j|H_j|=\diag(k,k/4,3k/4),\qquad
+ \left|\sum_jH_j\right|=\diag(k/2,k/2,0).
+\]
+The quadratic-form difference at $e_2$ is again $k/4$.
+\end{proof}
+
+\begin{remark}[An explicit positive decomposition]
+The upper-bound argument can also be checked from the identity
+\begin{align*}
+ k\left(T+\frac{k}{4}I-R\right)
+ ={}&k\sum_j\bigl(|A_j|-|A_j|^2\bigr)
+   +\sum_{i<j}(A_i-A_j)^*(A_i-A_j)\\
+ &+\left(R-\frac{k}{2}I\right)^2.
+\end{align*}
+Every term on the right is positive semidefinite. This identity and the root-of-unity construction are exact; numerical verification is not needed for the proof.
+\end{remark}
