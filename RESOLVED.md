@@ -29,6 +29,14 @@ result is formalized in Lean.
 
 The proof uses the published weak-type triangular-truncation theorem with its original attribution, followed by Schur decomposition and elementary spectral-counting arguments. A separate [independent Codex-agent mathematical review](references/stepaniants-sp13-2026-09-11/verification/SP-13-independent-review.md) returned PASS for the complete target. Substantial AI assistance and the limits of informal automated review are disclosed; no external human peer review or formal verification is asserted. The [submission record](references/stepaniants-sp13-2026-09-11/README.md) preserves source and eligibility evidence. The permanent ID, original target, historical ratings and prior partial results remain unchanged.
 
+### ✅ SP-15 - infinitely many unitary classes with identical shifted singular values - George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved negatively, 12 September 2026 (UTC).** The [Theorem and Sections 1-4](eigenvalues-and-inverse-problems/SP-15/solution.md) prove that a single complete shifted-singular-value data fiber in complex dimension nine contains a smooth curve of pairwise non-unitarily-similar matrices. Every member is nilpotent with Jordan type $(3,3,3)$. No finite $M_9$ exists, which refutes the exact universal finiteness statement; no classification of other dimensions is asserted. [Proof PDF](eigenvalues-and-inverse-problems/SP-15/solution.pdf) · [Retained original target](eigenvalues-and-inverse-problems/SP-15/README.md).
+
+The full proof passed a separate [independent Codex-agent audit](references/stepaniants-sp15-2026-09-12/verification/independent-review-aa01/review.md), with an independent universal coefficient check. Substantial AI assistance and informal-review limits are explicit; no external human peer review or Lean verification is claimed. Fortier Bourque and Ransford retain credit for the question and generic finiteness theorem. Their theorem is compatible with this exceptional fiber. [Submission record, frozen sources and current public eligibility](references/stepaniants-sp15-2026-09-12/README.md). The permanent ID, original target, historical ratings and source history remain unchanged.
+
 ### ✅ IE-05 - the orthogonal partial-pivoting extremizer equality is false - George Stepaniants
 
 **Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.

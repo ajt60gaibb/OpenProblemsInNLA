@@ -1,0 +1,67 @@
+[
+  {
+    "check": "validate-origin",
+    "command": [
+      "python3",
+      "tools/validate_problem_ids.py",
+      "--base-ref",
+      "origin/main"
+    ],
+    "exit_code": 0,
+    "log": "validate-origin.txt"
+  },
+  {
+    "check": "validate-upstream",
+    "command": [
+      "python3",
+      "tools/validate_problem_ids.py",
+      "--base-ref",
+      "1f22006bdaa4659fcaa0bb775a887685cd3cc566"
+    ],
+    "exit_code": 0,
+    "log": "validate-upstream.txt"
+  },
+  {
+    "check": "catalog",
+    "command": [
+      "python3",
+      "tools/update_catalog.py",
+      "--base-ref",
+      "origin/main"
+    ],
+    "exit_code": 0,
+    "log": "catalog.txt"
+  },
+  {
+    "check": "id-tests",
+    "command": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_problem_ids.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "log": "id-tests.txt"
+  },
+  {
+    "check": "status-tests",
+    "command": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_problem_statuses.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "log": "status-tests.txt"
+  }
+]

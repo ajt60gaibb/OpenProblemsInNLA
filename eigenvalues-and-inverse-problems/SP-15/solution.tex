@@ -1,0 +1,362 @@
+% Standalone resolution manuscript generated from solution.md.
+% Compile with XeLaTeX; author and review metadata are maintained in Markdown.
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=24mm,headheight=15pt]{geometry}
+\usepackage{fontspec}
+\setmainfont{DejaVuSerif.ttf}[BoldFont=DejaVuSerif-Bold.ttf,ItalicFont=DejaVuSerif-Italic.ttf,BoldItalicFont=DejaVuSerif-BoldItalic.ttf]
+\setsansfont{DejaVuSans.ttf}[BoldFont=DejaVuSans-Bold.ttf,ItalicFont=DejaVuSans-Oblique.ttf]
+\setmonofont{DejaVuSansMono.ttf}
+\usepackage{amsmath,amssymb,unicode-math}
+\setmathfont{latinmodern-math.otf}
+\usepackage{xcolor,microtype,parskip,needspace,fancyhdr}
+\usepackage{bookmark}
+\usepackage{xurl}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue,pdftitle={SP-15:
+An infinite fiber of shifted singular-value data},pdfauthor={George
+Stepaniants},pdflang={en-GB}}
+\urlstyle{same}
+\setlength{\emergencystretch}{3em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\setcounter{secnumdepth}{0}
+\allowdisplaybreaks[1]
+\widowpenalty=10000
+\clubpenalty=10000
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily NEGATIVE RESOLUTION / SP-15}
+\fancyhead[R]{\small\sffamily 12 September 2026 (UTC)}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\fontsize{8}{10}\selectfont Substantial
+AI assistance; independent automated review is documented separately.}}
+\fancyfoot[R]{\footnotesize\thepage}
+\begin{document}
+{\raggedright\Large\bfseries SP-15: An infinite fiber of shifted
+singular-value data\par}
+\vspace{0.4em}
+{\normalsize\bfseries George Stepaniants\par}
+{\small Department of Computing and Mathematical Sciences, California
+Institute of Technology, Pasadena, California, USA\par}
+\vspace{0.6em}
+This manuscript answers the complete
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/eigenvalues-and-inverse-problems/SP-15/README.md}{SP-15
+question} negatively in dimension nine. The original question and
+generic finiteness theorem are due to Maxime Fortier Bourque and Thomas
+Ransford. The argument below is an existence proof of a continuous
+exceptional fiber, using an exact block determinant identity and the
+smooth constant-rank theorem.
+
+\textbf{Independent review.} A separate
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/stepaniants-sp15-2026-09-12/verification/independent-review-aa01/review.md}{Codex-agent
+mathematical audit} returned PASS for the complete negative resolution,
+with no mathematical correction. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/stepaniants-sp15-2026-09-12/README.md}{submission
+record} preserves the exact frozen source and signed reports.
+Substantial AI assistance is disclosed; this is informal automated
+review, not external human peer review or formal verification.
+
+\subsection{Exact target and
+conclusion}\label{exact-target-and-conclusion}
+
+SP-15 asks whether for each complex matrix order \(N\) there is a finite
+uniform bound on the number of unitary similarity classes sharing all
+the singular values of \(A-zI\), for every \(z\in\mathbb C\).
+
+\textbf{Theorem.} There is a nonconstant smooth one-parameter family of
+complex \(9\times9\) matrices whose members have the same singular
+values for every complex scalar shift, and no two distinct members are
+unitarily similar. Each member is nilpotent of index three, with Jordan
+type \((3,3,3)\). Consequently no integer \(M_9\) with the property
+required in SP-15 exists, and the proposed assertion for every \(N\) is
+false.
+
+The construction is an existence argument using a polynomial coefficient
+map and the constant-rank theorem. It does not require a numerical
+search, and does not assert a specific numerical choice of the fixed
+data fiber.
+
+\subsection{1. A three-block family and its shifted
+determinant}\label{a-three-block-family-and-its-shifted-determinant}
+
+Let \(r\geq1\), and let \(P,Q\in\mathbb C^{r\times r}\) be positive
+definite Hermitian matrices. Put \(X=P^{1/2}\), \(Y=Q^{1/2}\), where
+both roots are the positive definite Hermitian roots, and define
+
+\nopagebreak[4]
+\[
+A(P,Q)=\begin{pmatrix}0&X&0\\0&0&Y\\0&0&0\end{pmatrix}.
+\]
+
+For real \(t>0\) and \(z\in\mathbb C\), write \(s=t+|z|^2\) and
+\(K=s^2I_r+tP\). Direct block multiplication gives
+
+\nopagebreak[4]
+\[
+tI_{3r}+(A-zI_{3r})^*(A-zI_{3r})
+=\begin{pmatrix}
+sI_r&-\overline zX&0\\
+-zX^*&sI_r+P&-\overline zY\\
+0&-zY^*&sI_r+Y^*Y
+\end{pmatrix}.
+\]
+
+Eliminating the first block leaves a middle diagonal block
+
+\nopagebreak[4]
+\[
+sI_r+P-\frac{|z|^2}{s}P
+=sI_r+\frac tsP=\frac Ks.
+\]
+
+\Needspace{12\baselineskip}
+Both \(sI_r\) and \(K\) are positive definite. Taking the next Schur
+complement and using \(YY^*=Q\) gives
+
+\nopagebreak[4]
+\[
+\begin{aligned}
+&\det\bigl[tI_{3r}+(A-zI_{3r})^*(A-zI_{3r})\bigr]\\
+&\qquad=\det K\,
+\det\bigl[sI_r+Y^*(I_r-|z|^2sK^{-1})Y\bigr]\\
+&\qquad=\det K\,
+\det\bigl[sI_r+(I_r-|z|^2sK^{-1})Q\bigr]\\
+&\qquad=\det\bigl[sK+(K-|z|^2sI_r)Q\bigr]\\
+&\qquad=\det\bigl[s^3I_r+st(P+Q)+tPQ\bigr].
+\end{aligned}
+\]
+
+The second equality uses \(\det(sI+BC)=\det(sI+CB)\); the third
+multiplies the matrix inside the determinant on the left by \(K\). The
+final equality uses \(s-|z|^2=t\). No commutativity of \(P\) and \(Q\)
+is required.
+
+Define the two-variable polynomial
+
+\nopagebreak[4]
+\[
+F_{P,Q}(u,s)=\det\bigl[uI_r+s(P+Q)+PQ\bigr].
+\]
+
+The determinant identity becomes
+
+\nopagebreak[4]
+\[
+\det\bigl[tI_{3r}+(A(P,Q)-zI_{3r})^*(A(P,Q)-zI_{3r})\bigr]
+=t^r F_{P,Q}(s^3/t,s),\qquad t>0.
+\]
+
+Therefore equality of \(F_{P,Q}\) for two pairs implies equality of the
+Gram characteristic polynomials for every \(z\): for fixed \(z\), the
+displayed determinant polynomials agree for all \(t>0\), hence
+identically. Their roots are the negatives of the squared singular
+values, with multiplicities. Thus equal \(F\) implies equality of every
+shifted singular value, exactly as required by the definition in SP-15.
+
+\subsection{\texorpdfstring{2. The data consists of at most nine real
+numbers when
+\(r=3\)}{2. The data consists of at most nine real numbers when r=3}}\label{the-data-consists-of-at-most-nine-real-numbers-when-r3}
+
+The total degree of \(F_{P,Q}(u,s)\) is at most \(r\), and its \(u^r\)
+coefficient is identically one. All its coefficients are real. To see
+the latter point, for real \(u,s\) write
+
+\nopagebreak[4]
+\[
+uI_r+s(P+Q)+PQ=(P+sI_r)(Q+sI_r)+(u-s^2)I_r.
+\]
+
+Taking the conjugate transpose reverses the two Hermitian factors. The
+identity
+
+\nopagebreak[4]
+\[
+\det(BC+cI_r)=\det(CB+cI_r)
+\]
+
+shows that the determinant equals its complex conjugate. A polynomial
+which is real on all of \(\mathbb R^2\) has real coefficients.
+
+When \(r=3\), the monomials of total degree at most three are
+
+\nopagebreak[4]
+\[
+1,\ u,\ s,\ u^2,\ us,\ s^2,\ u^3,\ u^2s,\ us^2,\ s^3.
+\]
+
+There are ten monomials and the coefficient of \(u^3\) is fixed. Thus
+the other nine real coefficients give a map into \(\mathbb R^9\) which
+determines all shifted singular values of \(A(P,Q)\).
+
+\Needspace{22\baselineskip}
+\subsection{3. Ten parameters with no repeated unitary
+class}\label{ten-parameters-with-no-repeated-unitary-class}
+
+Take \(r=3\) and restrict to
+
+\nopagebreak[4]
+\[
+P=\operatorname{diag}(p_1,p_2,p_3),\qquad 0<p_1<p_2<p_3,
+\]
+
+and
+
+\nopagebreak[4]
+\[
+Q=\begin{pmatrix}
+q_1&a&b\\
+a&q_2&c+id\\
+b&c-id&q_3
+\end{pmatrix}>0,\qquad a>0,\quad b>0,
+\]
+
+where all ten parameters
+
+\nopagebreak[4]
+\[
+(p_1,p_2,p_3,q_1,q_2,q_3,a,b,c,d)
+\]
+
+are real. Their allowed set \(\Omega\) is a nonempty open subset of
+\(\mathbb R^{10}\). Strict positivity and all strict scalar inequalities
+are open conditions. For example, \(P=\operatorname{diag}(1,2,3)\) and
+\(Q\) with diagonal entries \(4\) and all off-diagonal entries \(1\)
+belong to this set.
+
+We claim that distinct points of \(\Omega\) give matrices \(A(P,Q)\) in
+distinct unitary similarity classes. Indeed, since \(X\) and \(Y\) are
+invertible,
+
+\nopagebreak[4]
+\[
+\ker A=\mathbb C^3\oplus0\oplus0,
+\qquad
+\ker A^2=\mathbb C^3\oplus\mathbb C^3\oplus0.
+\]
+
+If \(A(P',Q')=U^*A(P,Q)U\) with \(U\) unitary, then \(U\) preserves both
+of these coordinate subspaces. A unitary preserving this nested flag
+preserves its three orthogonal summands, so
+\(U=\operatorname{diag}(U_1,U_2,U_3)\). The two nonzero blocks then give
+
+\nopagebreak[4]
+\[
+X'=U_1^*XU_2,\qquad Y'=U_2^*YU_3.
+\]
+
+Consequently
+
+\nopagebreak[4]
+\[
+P'=U_2^*PU_2,\qquad Q'=U_2^*QU_2.
+\]
+
+The strict ordering of the diagonal entries of \(P\) and \(P'\) implies
+\(P'=P\) and \(p_j'=p_j\) for each \(j\). Their spectrum is simple, so
+\(U_2\) is diagonal unitary, say
+\(U_2=\operatorname{diag}(e^{i\theta_1},e^{i\theta_2},e^{i\theta_3})\).
+The \((1,2)\) and \((1,3)\) entries of \(Q\) and \(Q'\) are positive
+real numbers. The identities
+
+\nopagebreak[4]
+\[
+a'=e^{i(\theta_2-\theta_1)}a,\qquad
+b'=e^{i(\theta_3-\theta_1)}b
+\]
+
+force both phases to equal one. Hence \(U_2\) is scalar and \(Q'=Q\).
+This proves the claim, including all possible unitary intertwiners of
+the full \(9\times9\) matrices.
+
+\subsection{4. A positive-dimensional
+fiber}\label{a-positive-dimensional-fiber}
+
+Let \(\Phi:\Omega\to\mathbb R^9\) assign the nine non-leading
+coefficients of \(F_{P,Q}\). Every entry of \(P\) and \(Q\) is linear in
+the ten real parameters, so \(\Phi\) is a real polynomial map, in
+particular smooth.
+
+Let \(k\) be the maximum rank of \(D\Phi\) attained on \(\Omega\). This
+maximum exists because the nonempty set of attained ranks is a subset of
+\(\{0,1,\ldots,9\}\). Choose \(x_0\in\Omega\) at which the rank equals
+\(k\). If \(k>0\), a nonzero \(k\times k\) minor stays nonzero on a
+neighborhood of \(x_0\); the rank is at least \(k\) there, and is at
+most \(k\) by maximality. If \(k=0\), the rank is already identically
+zero on \(\Omega\). Thus in either case the derivative has constant rank
+\(k\) on a neighborhood of \(x_0\).
+
+By the constant-rank theorem, after smooth changes of coordinates on
+this neighborhood and on a neighborhood of \(\Phi(x_0)\), the map has
+the form
+
+\nopagebreak[4]
+\[
+(x_1,\ldots,x_{10})\longmapsto(x_1,\ldots,x_k,0,\ldots,0).
+\]
+
+In particular its fiber through \(x_0\) contains a smooth submanifold of
+dimension \(10-k\geq1\), and therefore contains an injective smooth
+curve parametrized by a nonempty open interval. All parameters on this
+curve lie in \(\Omega\), have the same polynomial \(F\), and correspond
+to distinct unitary classes by Section 3. Section 1 supplies equality of
+every singular value of every complex shift.
+
+The positive definite square-root map is smooth, so applying
+\((P,Q)\mapsto A(P,Q)\) to the curve gives the smooth family asserted in
+the theorem. Finally \(A^3=0\) and the upper-right block of \(A^2\) is
+the invertible matrix \(XY\), so its nilpotency index is three. Its
+kernel dimensions are \(3,6,9\), and hence its Jordan type is
+\((3,3,3)\).
+
+Taking arbitrarily many distinct points on this curve disproves every
+proposed finite bound \(M_9\). This is a counterexample to the full
+universal statement, and does not rely on a generic-finiteness
+assertion.
+
+\subsection{5. Scope, attribution, and primary
+sources}\label{scope-attribution-and-primary-sources}
+
+The question and generic finiteness theorem are due to Maxime Fortier
+Bourque and Thomas Ransford. Their result outside a closed measure-zero
+exceptional set is compatible with this exceptional nilpotent family.
+The proof settles the universal finiteness question negatively; it does
+not claim a classification in other dimensions or an explicit numerical
+point on the continuous fiber.
+
+The proof is independent of the matrix-theoretic conclusions cited
+below. Its only external general theorem is the standard smooth
+constant-rank theorem. The statement and proof explicitly supply its
+local constant-rank hypothesis.
+
+\begin{itemize}
+\tightlist
+\item
+  M. Fortier Bourque and T. Ransford,
+  \href{https://doi.org/10.1112/jlms/jdn085}{\emph{Super-identical
+  pseudospectra}}, \emph{Journal of the London Mathematical Society}
+  \textbf{79}(2), 511-528 (2009), Theorem 1.4 and Section 6.2. The
+  latter asks whether the exceptional set may be empty.
+\item
+  T. Ransford,
+  \href{https://www.impan.pl/shop/en/publication/transaction/download/product/86371}{\emph{Pseudospectra
+  and matrix behaviour}}, \emph{Banach Center Publications} \textbf{91},
+  327-338 (2010), Theorem 5.4 and its following discussion on printed
+  pages 336-337. \href{https://doi.org/10.4064/bc91-0-19}{DOI}.
+\item
+  G. Armentia, J. M. Gracia and F. E. Velasco,
+  \href{https://doi.org/10.1016/j.laa.2011.01.014}{\emph{Identical
+  pseudospectra of any geometric multiplicity}}, \emph{Linear Algebra
+  and its Applications} \textbf{436}(6), 1683-1688 (2012). Their
+  ordinary-similarity theorem is consistent with the fixed Jordan type
+  of the family above.
+\end{itemize}
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/stepaniants-sp15-2026-09-12/verification/identity-check.json}{exact
+diagnostic} checks five determinant evaluations, including complex
+shifts. Those finite checks are supporting diagnostics; the proof of the
+full quantified identity and of the continuous fiber is the analytic
+argument in Sections 1-4. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/stepaniants-sp15-2026-09-12/verification/network-check.json}{dated
+public eligibility check} and the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/stepaniants-sp15-2026-09-12/verification/eligibility-and-checks.md}{bounded
+source-search record} are separate from mathematical verification.
+\end{document}
