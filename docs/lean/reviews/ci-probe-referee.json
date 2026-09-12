@@ -1,20 +1,21 @@
 {
   "review": "Root CI sandbox-probe adaptation only; original harness authored by reviewer and excluded from independent review",
-  "decision": "approve limited adaptation; authoritative Linux execution pending",
+  "decision": "approve probe-only read/execute grant for nested attack; authoritative Linux execution pending",
   "source_sha256": "5ea755758af4966d6f3a857529f9da583662a8c7e906dcc0dc7b2a6978daf61e",
-  "derived_sha256": "49d190646f2e441bdf39b5cbca79f29d86afc1894f39f423a891df3dba80a20f",
-  "harness_sha256": "64905b4ea431a5f6b7305d44f9954b9c8e0cfaf3ccc419dae08b8b4b79be080c",
-  "test_harness_sha256": "cfb21aea633b7e708eebab4b8d8e58e4353e37dac98208e1c3f5f45b492af45a",
+  "derived_sha256": "31057195baf238807cacbb4126c5b07f02cec55a4e4437de5f3a755b3fada803",
+  "harness_sha256": "f81767a17973956fbe9e5765c664d4639cce15ddf8c106f70cdcb32151808c2f",
+  "test_harness_sha256": "ac862f474aed26b8502788b5185153a045626de673686afbf91fa9f12518b8ff",
   "assertions_and_control_flow_preserved_by_AST_comparison": true,
   "allowed_AST_differences": [
     "two --pty to --pipe option replacements",
     "two RuntimeMaxSec=40 service property insertions",
     "two subprocess.run timeout=45 keyword arguments",
-    "two flushed START diagnostic print statements"
+    "two flushed START diagnostic print statements",
+    "one probe-only --rox /usr/bin/bwrap permission pair"
   ],
+  "security_assessment": "The extra grant adds no write permission. It lets the adversarial nested bwrap program execute so original negative write checks are exercised. Comparator and strict adapter sources remain unchanged. No denial check is skipped or accepted in lieu of the original subprocess run.",
   "additional_driver_change_reviewed": "AF_UNIX-restricted user-service /usr/bin/true preflight, RuntimeMaxSec=40, caller /usr/bin/timeout --kill-after=5s 45s; nonzero failure aborts controls before proof checking",
   "all58_locked_sources_verified": true,
-  "portable_harness_tests": "12 passed",
   "actual_linux_result": "pending",
-  "root_cause_status": "Original PTY-based probe hung; sole causation by PTY not yet established from aggregate old logs"
+  "portable_harness_tests": "12 passed"
 }

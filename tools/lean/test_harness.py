@@ -52,6 +52,7 @@ class HarnessTests(unittest.TestCase):
 
     def test_ci_probe_adaptation_retains_assertions_and_adds_deadlines(self):
         source = ('assert required_isolation\n'
+                  'landrun_args = ["--best-effort", "--ro", "/", "--rw", "/dev"]\n'
                   '"--property=RestrictAddressFamilies=~AF_UNIX", "--pty"\n'
                   '                result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)\n'
                   'assert positive_controls\n'
@@ -68,6 +69,7 @@ class HarnessTests(unittest.TestCase):
         self.assertEqual(derived.count("RestrictAddressFamilies=~AF_UNIX"), 2)
         self.assertEqual(derived.count("RuntimeMaxSec=40"), 2)
         self.assertEqual(derived.count("timeout=45"), 2)
+        self.assertEqual(derived.count('"--rox", "/usr/bin/bwrap"'), 1)
         self.assertEqual([x for x in source.splitlines() if x.startswith("assert")],
                          [x for x in derived.splitlines() if x.startswith("assert")])
         path.write_text(source.replace('"--pty"', '"--pipe"', 1))

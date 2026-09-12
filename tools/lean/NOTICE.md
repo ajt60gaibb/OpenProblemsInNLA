@@ -30,6 +30,10 @@ systemd `--pty` options become `--pipe`, and service/caller deadlines are added.
 Every assertion and isolation property remains unchanged. The original source
 and its hash remain intact, and the derived source hash is checked and recorded.
 The derived copy also prints each case's start for noninteractive diagnostics.
+Its probe-only Landrun arguments permit execution of `/usr/bin/bwrap` so the
+nested escape control actually exercises namespace/write isolation on modern
+Landlock hosts. This does not change the Comparator sandbox or waive a denial
+assertion; the original host's best-effort Landlock behavior differed.
 
 NLA adds a generic committed-project snapshot driver, recorded tool/source
 hashes, configuration checks, and two additional negative controls for

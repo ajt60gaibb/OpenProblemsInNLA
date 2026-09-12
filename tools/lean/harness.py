@@ -201,7 +201,7 @@ def tool_environment(tool_dir: Path, receipt: dict) -> dict[str, str]:
 
 
 def ci_probe_source(tool_dir: Path) -> str:
-    """Adapt only systemd transport/deadlines; preserve every locked probe assertion."""
+    """Adapt probe execution to CI while preserving every locked isolation assertion."""
     source = (tool_dir / "reproduction/checks/sandbox_probe.py").read_text()
     replacements = [
         ('"--pty"', '"--pipe"', 2),
@@ -213,6 +213,8 @@ def ci_probe_source(tool_dir: Path) -> str:
          '\n                print(f"START sandbox mode: {mode}", flush=True)\n                result = subprocess.run(command', 1),
         ('\n            result = subprocess.run(command',
          '\n            print(f"START sandbox negative case: {label}", flush=True)\n            result = subprocess.run(command', 1),
+        ('landrun_args = ["--best-effort", "--ro", "/",',
+         'landrun_args = ["--best-effort", "--rox", "/usr/bin/bwrap", "--ro", "/",', 1),
     ]
     for before, after, count in replacements:
         if source.count(before) != count:

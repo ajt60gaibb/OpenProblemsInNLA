@@ -22,7 +22,7 @@ Neither entry point provides a fake sandbox or an authoritative macOS path.
 An ordinary `lake build Solution` on macOS remains a separate developer check.
 
 The original hash-locked sandbox probe is retained unchanged. A derived CI
-copy replaces only its two interactive systemd `--pty` transports with `--pipe`,
+copy replaces its two interactive systemd `--pty` transports with `--pipe`,
 adds a 40-second service deadline and a 45-second caller timeout, and preserves
 every sandbox assertion and the AF_UNIX restriction. The original PTY-based probe
 stalled on the hosted noninteractive runner. The derived copy's hash is recorded
@@ -30,6 +30,13 @@ in the bootstrap receipt and checked before use; an unexpected source shape,
 timeout or failed assertion fails verification. Each probe case prints its
 start immediately. A bounded user-service startup check first distinguishes
 a missing session from a failing sandbox control.
+
+For the probe only, Landrun explicitly permits execution of `/usr/bin/bwrap`
+so the nested-namespace escape attempt can run on hosts enforcing modern
+Landlock rules. Without that grant, the attack tool was denied at process
+startup, before exercising its intended write attempt. The real Comparator
+sandbox is unchanged; every outer-write and nested-write denial remains
+required. No escape assertion is skipped or replaced by the startup denial.
 
 The verifier takes a **committed**, unchanged, self-contained project. It
 copies ordinary tracked files directly from the repository's HEAD into a
