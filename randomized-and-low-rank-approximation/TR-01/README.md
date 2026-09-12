@@ -76,13 +76,11 @@ Lean toolchain and dependency pins are
 - [lean-toolchain](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/lean-toolchain) (`lean 4.33.0`)
 - [lake-manifest.json](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/lake-manifest.json) (mathlib `db584cd6d46c92f209a44c0f1c829460d327499d`)
 
-The pinned reproduction instructions are in [`lean/README.md`](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/README.md), and the verifier is [`lean/verify.py`](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/verify.py). From the `lean/` directory of that immutable revision, the principal commands are
+The pinned reproduction instructions are in [`lean/README.md`](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/README.md), and the verifier is [`lean/verify.py`](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/verify.py). From the `lean/` directory of that immutable revision, the principal commands are:
 
-```sh
-lake exe cache get
-python3 verify.py
-python3 verify.py --graph --semantic --fresh-kernel
-```
+- `lake exe cache get`
+- `python3 verify.py`
+- `python3 verify.py --graph --semantic --fresh-kernel`
 
 The archived public record reports successful proof compilation, statement-boundary checks, transitive axiom checks, semantic regressions, a cold project rebuild, and fresh kernel replay.
 
