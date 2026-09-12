@@ -1,0 +1,865 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=0.93in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype,booktabs,array,longtable}
+\usepackage{xcolor,hyperref,fancyhdr,enumitem}
+\definecolor{ink}{HTML}{183149}
+\definecolor{accent}{HTML}{176E86}
+\hypersetup{colorlinks=true,linkcolor=accent,citecolor=accent,urlcolor=accent,
+ pdftitle={RA-14: Bounds and a spectral-to-PCA reduction},
+ pdfauthor={Sidney Holden},pdfsubject={Partial research result; not a complete solution to RA-14}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{ink}{RA-14 \;|\; Spectral rank-$k$ approximation}}
+\fancyhead[R]{\small Research note}
+\fancyfoot[L]{\small\textcolor{ink}{Partial result --- September 12, 2026}}
+\fancyfoot[R]{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\setlength{\emergencystretch}{2em}
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Prb}{\mathbb P}
+\newcommand{\Id}{I}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\range}{\operatorname{range}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\qsp}{q_{\mathrm{sp}}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\St}{\operatorname{Stief}}
+\newcommand{\poly}{\operatorname{poly}}
+\newcommand{\K}{\mathcal K}
+\newcommand{\cgood}{\mathcal E}
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+\begin{titlepage}
+\vspace*{0.45in}
+{\large\sffamily\color{accent} OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}\par
+\vspace{0.3in}
+{\Huge\bfseries\color{ink} RA-14}\par
+\vspace{0.12in}
+{\LARGE\bfseries Bounds and a spectral-to-PCA reduction}\par
+\vspace{0.2in}
+{\large Exact two-sided matrix--vector queries}\par
+\vspace{0.38in}
+\begingroup
+\setlength{\fboxsep}{12pt}
+\noindent\colorbox{ink!6}{\parbox{\dimexpr\textwidth-24pt\relax}{
+\textbf{Status: partial research result, not a complete solution.}\par
+The proofs below give a universal rank lower bound, an exact padding reduction,
+and matching bounds in a sufficiently-large-dimension regime that allows the
+rank to grow. They do not characterize the query complexity for every
+simultaneous choice of dimension, rank, and accuracy.
+}}
+\endgroup
+\vspace{0.3in}
+\textbf{Main reduction.} On a symmetric input with positive leading eigenvalues
+and a suitable gap, an already valid spectral rank-$k$ approximation can be
+converted into a strong PCA approximation with at most
+\[
+ k\left\lceil\frac{10}{\sqrt\eps}\right\rceil
+\]
+additional matrix--vector products. A weighted graph inequality and a
+Fej\'er-type polynomial remove a logarithmic accuracy loss from a simpler
+subspace-angle argument.
+\vfill
+\textbf{Sidney Holden}\par
+{\small Biological Transport Networks, Center for Computational Biology\\
+Flatiron Institute, Simons Foundation}\par
+September 12, 2026\par
+\smallskip
+\small Generated mathematical research note. The reduction proofs are written
+out; the two cited complexity theorems are imported. No claim of priority,
+independent peer review, or machine-checked proof is made. The accompanying
+code is a numerical illustration, not an oracle lower-bound certificate.
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Problem, scope, and results}
+\label{sec:scope}
+
+For $n\ge2$, $1\le k<n$, and $0<\eps<1/2$, an unknown $A\in\R^{n\times n}$
+can be queried through either $Ax$ or $A^Tx$. Each vector product costs one
+query. Queries may be fully adaptive; other computation is free. The required
+output is $Z\in\R^{n\times k}$ with $Z^TZ=I_k$ and
+\begin{equation}
+ \Prb\!\left[\norm{A(I-ZZ^T)}_2\le(1+\eps)\sigma_{k+1}(A)\right]\ge0.99
+ \quad\text{for every }A.
+ \label{eq:target}
+\end{equation}
+The minimum worst-case query budget is $\qsp(n,k,\eps)$. This is the
+RA-14 formulation in the supplied repository \cite{RA14}. Algorithms are
+understood to be measurable, so the probabilities in the model are defined.
+
+All logarithms below are natural. Universal constants are independent of
+$n,k,\eps$. A block product with $b$ columns always costs $b$ vector queries.
+
+\begin{theorem}[Universal bounds and a large-rank regime]
+\label{thm:global}
+For a universal constant $C_{\rm up}>0$,
+\begin{equation}
+ k\ \le\ \qsp(n,k,\eps)\ \le\
+ \min\left\{n,\left\lceil C_{\rm up}\frac{k\log n}{\sqrt\eps}\right\rceil\right\}.
+ \label{eq:global}
+\end{equation}
+Consequently $\qsp(n,k,\eps)=\Theta(n)$ whenever $k\ge n/2$, uniformly in
+$\eps$. On the promised subclass $\rank(A)\le k$, exactly $k$ queries suffice
+and are necessary.
+\end{theorem}
+
+The lower bound and promised-subclass statement are proved in
+Section~\ref{sec:rank}. The $n$-query upper bound simply learns all columns.
+The Krylov upper bound is the spectral guarantee of Musco--Musco
+\cite[Algorithm 2 and Theorem 10]{MM15}, applied to $A^T$; the query accounting
+is given in Section~\ref{sec:upper}.
+
+\begin{theorem}[Matching bounds with polynomially large dimension]
+\label{thm:large}
+There exist universal constants $C_*,D,c_*>0$ such that
+\begin{equation}
+ n\ge C_*\left(\frac{k}{\eps}\right)^D
+ \quad\Longrightarrow\quad
+ c_*\frac{k\log n}{\sqrt\eps}
+ \ \le\ \qsp(n,k,\eps)
+ \ \le\ \left\lceil C_{\rm up}\frac{k\log n}{\sqrt\eps}\right\rceil.
+ \label{eq:largedim}
+\end{equation}
+In particular, this statement is not restricted to constant $k$.
+\end{theorem}
+
+The lower bound in Theorem~\ref{thm:large} is a deduction from the published
+PCA lower bound of Simchowitz--El Alaoui--Recht \cite{SAR18}, using the
+postprocessing theorem proved in Section~\ref{sec:filter}. The exponent $D$
+is not optimized or evaluated explicitly here. The dimension restriction is
+essential to what has actually been proved in this note.
+
+A further, rank-independent lower bound follows by exact padding:
+\begin{equation}
+ \qsp(n,k,\eps)\ge c_{\rm BN}\frac{\log(n-k+1)}{\sqrt\eps}
+ \quad\text{if }n-k+1\ge C_{\rm BN}\eps^{-2.01},
+ \label{eq:paddedBN}
+\end{equation}
+with universal constants and an enlarged universal threshold if necessary.
+This transfers the bounded hard instances of Bakshi--Narayanan
+\cite[Theorems 1.1, 5.2, and Section 6]{BN23}; the transfer itself is proved in
+Section~\ref{sec:padding}.
+
+\subsection*{What is not established}
+Equations~\eqref{eq:global}, \eqref{eq:largedim}, and \eqref{eq:paddedBN} do
+not match in all remaining parameter regimes. In particular, the proof does
+not justify placing an $n$-cap around the high-dimensional lower bound and
+then asserting it for every $n,k,\eps$. The upper bound permits that cap;
+the lower-bound construction still has a dimension hypothesis. This is the
+specific missing step, rather than a claim that the requested problem is
+impossible to solve.
+
+\section{A universal lower bound of \texorpdfstring{$k$}{k} queries}
+\label{sec:rank}
+
+The zero-error requirement on rank-$k$ inputs supplies a useful lower bound,
+but a proof must handle both oracle directions and arbitrary adaptivity.
+A random orthogonal projector alone is not an adequate construction when
+$k$ is close to $n$: one can learn its small complementary subspace instead.
+We use a nonsymmetric rank-$k$ family.
+
+\begin{lemma}[Unrevealed Gaussian block]
+\label{lem:gaussian}
+Let $H\in\R^{n\times k}$ have independent standard Gaussian entries.
+A deterministic adaptive procedure observes products $Hc$ and $H^Tx$.
+Let $C\subset\R^k$ and $X\subset\R^n$ be the spans of the respective query
+vectors, with dimensions $r$ and $s$. Conditional on the transcript,
+\begin{equation}
+ H=\bar H+P_{X^\perp}GP_{C^\perp},\qquad
+ \bar H=P_XH+HP_C-P_XHP_C,
+ \label{eq:gaussblock}
+\end{equation}
+where $\bar H$ is known and the remaining block is a fresh standard Gaussian
+map from $C^\perp$ to $X^\perp$. Equivalently, $G$ can be taken to have fresh
+independent standard Gaussian entries in fixed ambient coordinates.
+\end{lemma}
+
+\begin{proof}
+Initially the statement is the definition of $H$. Conditional on a transcript,
+the next query vector is fixed. A new column query depends, in the unrevealed
+block, only on its component in $C^\perp$. If that component is nonzero,
+choose it as the first vector of an orthonormal basis of $C^\perp$.
+The query reveals one column of an independent Gaussian matrix, leaving
+all other columns independent and unchanged. A row query has the same
+argument with the first row of the remaining block. A redundant query
+reveals nothing. These steps prove the assertion by induction, including
+adaptive choices of the next vector. The two known restrictions are $HP_C$
+and $P_XH$; inclusion--exclusion gives the displayed $\bar H$.
+\end{proof}
+
+\begin{lemma}[Independence of the row responses]
+\label{lem:rowrank}
+Before $k$ total nonredundant queries have been made,
+$\rank(H^TX)=\dim X=s$ almost surely.
+\end{lemma}
+
+\begin{proof}
+Consider a new row query $x\notin X$. Conditional on the preceding transcript,
+$H^Tx$ has a nondegenerate Gaussian component with full support in
+$C^\perp$, of dimension $k-r$. Since $r+s<k$, this dimension exceeds $s$.
+The affine support of the new answer cannot be contained in the span of the
+old $s$ row answers. Its probability of lying in that span is therefore zero.
+The rank increases by one. Column queries do not alter the already obtained
+row responses. Induction proves the claim.
+\end{proof}
+
+\begin{proposition}[Adaptive two-sided rank lower bound]
+\label{prop:ranklower}
+No algorithm making fewer than $k$ vector queries can satisfy
+\eqref{eq:target} on every rank-$k$ input.
+\end{proposition}
+
+\begin{proof}
+Set
+\begin{equation}
+ A=\begin{bmatrix}H^T\\0_{(n-k)\times n}\end{bmatrix}.
+ \label{eq:rankfamily}
+\end{equation}
+Almost surely, $\rank A=k$. An $A$ query reveals $H^Tx$; an $A^T$ query
+reveals $Hc$, where $c$ consists of the first $k$ coordinates of its input.
+Thus these are exactly the queries in Lemma~\ref{lem:gaussian}.
+Because $\sigma_{k+1}(A)=0$, success requires
+\[
+ \range Z=\range H.
+\]
+Fix the algorithm's random seed, and condition on its transcript after
+$q<k$ queries. Write $S=\range Z$, $N=X^\perp$. We have $r+s\le q<k$.
+
+If $N\not\subset S$, choose a nonzero $c\in C^\perp$. By
+\eqref{eq:gaussblock}, $Hc$ has a Gaussian distribution with affine support
+parallel to $N$. A proper intersection of that support with $S$ has
+probability zero. Hence $\Prb[\range H\subset S\mid\text{transcript}]=0$.
+
+If $N\subset S$, Lemma~\ref{lem:rowrank} gives
+$P_X\range H=X$. Consequently $\range H+N=\R^n$.
+The inclusions $\range H\subset S$ and $N\subset S$ would imply
+$S=\R^n$, contradicting $\dim S=k<n$. Success is again impossible.
+
+Thus success has probability zero for this input distribution after fixing
+any seed. Integrating over the seed gives the same conclusion for randomized
+algorithms. An algorithm succeeding with probability $0.99$ on every input
+would also succeed with that probability under this distribution, a
+contradiction.
+\end{proof}
+
+\begin{corollary}[Exact complexity under a rank promise]
+\label{cor:promise}
+On inputs promised to satisfy $\rank A\le k$, the query complexity is $k$.
+\end{corollary}
+\begin{proof}
+Take $k$ independent Gaussian vectors $g_j$ and query $A^Tg_j$.
+Their span equals the row space of $A$ almost surely. Orthonormalize and,
+if the actual rank is less than $k$, extend to a $k$-dimensional subspace.
+The residual is zero. Proposition~\ref{prop:ranklower} supplies necessity.
+\end{proof}
+
+\section{Upper bounds and vector-query accounting}
+\label{sec:upper}
+
+Querying $Ae_1,\ldots,Ae_n$ determines $A$. A singular-value decomposition
+then gives a right singular basis satisfying the target with equality.
+This proves the exact $n$-query cap without any spectral assumptions.
+
+For the faster upper bound, the right-sided version of block Krylov uses
+\[
+ \range\!\left[A^TG,(A^TA)A^TG,\ldots,(A^TA)^tA^TG\right],
+ \qquad G\in\R^{n\times k}\ \text{Gaussian}.
+\]
+The cited spectral theorem yields the $0.99$ guarantee for
+$t=O(\log n/\sqrt\eps)$, with the exact-column branch used when it is
+cheaper \cite{MM15}. A reorthogonalized implementation starts with $A^TG$
+and alternates products by $A$ and $A^T$ on each newly produced block.
+It also retains the images $AQ$ needed to form the small Ritz problem.
+At depth $t$ this costs at most
+\begin{equation}
+ k(2t+2)
+ \label{eq:uppercount}
+\end{equation}
+vector products, including compression. No block is charged as a single
+vector product. Selecting the top right singular vectors of the already
+known $AQ$ requires no further oracle access.
+
+The underlying polynomial analysis can be written using
+$\log(n/\eps)$. In the branch where $k\log n/\sqrt\eps<n$, one has
+$\log(1/\eps)\le2\log n$ after a universal constant adjustment.
+Outside that branch, learning all columns gives the desired cap.
+Thus the displayed global upper bound is genuinely finite-dimensional.
+
+Combining this cap with Proposition~\ref{prop:ranklower} gives
+$n/2\le\qsp\le n$ for $k\ge n/2$, proving the large-rank assertion of
+Theorem~\ref{thm:global}.
+
+\section{What a valid spectral approximation says about angles}
+\label{sec:angles}
+
+\begin{lemma}[Uniform overlap]
+\label{lem:angle}
+Let $V\in\R^{n\times k}$ be a top right singular basis of $A$, and let
+$a=\sigma_k(A)>0$. If $Z^TZ=I_k$ and
+$\norm{A(I-ZZ^T)}_2\le\tau<a$, then
+\begin{equation}
+ \sigma_{\min}(V^TZ)^2\ge1-\frac{\tau^2}{a^2}.
+ \label{eq:angle}
+\end{equation}
+\end{lemma}
+\begin{proof}
+For the leading left singular basis $U$ and diagonal singular block
+$\Sigma$, one has $V^T=\Sigma^{-1}U^TA$. Therefore
+$\norm{V^T(I-ZZ^T)}_2\le\tau/a$. Moreover,
+\[
+ V^TZZ^TV=I_k-V^T(I-ZZ^T)V
+ \succeq\left(1-\frac{\tau^2}{a^2}\right)I_k.
+\]
+The eigenvalues on the left are the squared singular values of $V^TZ$.
+\end{proof}
+
+\begin{example}[A sharp obstruction to direct PCA inference]
+\label{ex:sharp}
+Take $n=2k+1$, $a=1+2\eps$, $b=1$, $\tau=1+\eps$, and
+\[
+ A=\diag(aI_k,0_k,b),\qquad
+ Z=\begin{bmatrix}\alpha I_k\\\sqrt{1-\alpha^2}I_k\\0\end{bmatrix},
+ \quad \alpha^2=1-\left(\frac\tau a\right)^2.
+\]
+Then $Z^TZ=I_k$, $\sigma_{k+1}(A)=b$, and
+\begin{equation}
+ \norm{A(I-ZZ^T)}_2=\max\{b,a\sqrt{1-\alpha^2}\}=\tau.
+ \label{eq:sharpresidual}
+\end{equation}
+Thus the target is met exactly and the angle bound is sharp. However,
+\[
+ \frac{\tr(Z^TAZ)}{\sum_{i=1}^k\lambda_i(A)}=\alpha^2
+ =\frac{2\eps+3\eps^2}{1+4\eps+4\eps^2}\longrightarrow0.
+\]
+A spectral approximation need not itself capture nearly all of the leading
+PCA objective. A PCA lower bound therefore cannot simply be applied to the
+original output $Z$ without a further argument.
+\end{example}
+
+\section{Spectral approximation to PCA in \texorpdfstring{$O(k/\sqrt\eps)$}{O(k/sqrt(epsilon))} extra queries}
+\label{sec:filter}
+
+This section proves the main reduction. The starting block is already a
+valid spectral approximation; the postprocessor does not have to discover
+such a block from an arbitrary random initialization.
+
+\begin{theorem}[Deterministic warm-start postprocessing]
+\label{thm:warm}
+Let $M\in\R^{n\times n}$ be symmetric. Its top $k$ eigenvalues are positive,
+$\lambda_i\ge a$, and all remaining eigenvalues $\mu_j$ satisfy
+$|\mu_j|\le b$. Suppose $0<\eps<1/2$,
+\begin{equation}
+ a\ge(1+\tfrac32\eps)b,
+ \qquad Z^TZ=I_k,
+ \qquad \norm{M(I-ZZ^T)}_2\le(1+\eps)b.
+ \label{eq:warmassumptions}
+\end{equation}
+There is a deterministic postprocessor, requiring neither $a$ nor $b$, which
+uses at most $k\lceil10/\sqrt\eps\rceil$ further products with $M$ and returns
+$\widehat V^T\widehat V=I_k$ with
+\begin{equation}
+ \tr(\widehat V^TM\widehat V)
+ \ge\left(1-\frac\eps{200}\right)\sum_{i=1}^k\lambda_i.
+ \label{eq:warmconclusion}
+\end{equation}
+The same lower bound holds with $M$ replaced by $|M|$ in the objective.
+\end{theorem}
+
+\subsection{A weighted graph inequality}
+Assume $b>0$ and set $\tau=(1+\eps)b$. Work in an eigenbasis in which
+$M=\diag(\Lambda_1,\Lambda_2)$, where $\Lambda_1=\diag(\lambda_i)$ and
+$\Lambda_2=\diag(\mu_j)$. Since $a>\tau$, Lemma~\ref{lem:angle} says that
+the leading block of $Z$ is invertible. Its range is therefore the graph
+\[
+ \range Z=\range\begin{bmatrix}I_k\\F_0\end{bmatrix}
+\]
+for a matrix $F_0\in\R^{(n-k)\times k}$. A vector perpendicular to this graph
+has the form $(-F_0^Ty,y)$. Applying the residual bound to these vectors gives
+\begin{equation}
+ F_0(\Lambda_1^2-\tau^2I)F_0^T\preceq\tau^2I-\Lambda_2^2.
+ \label{eq:weightedgraph}
+\end{equation}
+Define the positive definite diagonal matrices
+$D_1=\Lambda_1^2-\tau^2I$ and $D_2=\tau^2I-\Lambda_2^2$.
+Equation~\eqref{eq:weightedgraph} is equivalent to
+\begin{equation}
+ F_0=D_2^{1/2}KD_1^{-1/2},\qquad \norm K_2\le1,
+ \qquad\norm K_F^2\le k.
+ \label{eq:contract}
+\end{equation}
+Unlike an unweighted angle bound, this controls the amount of leakage into
+each tail eigenvalue according to its distance from the residual threshold.
+
+\subsection{A polynomial and its elementary bounds}
+For an integer $m\ge1$, define the polynomial
+\begin{equation}
+ p_m(u)=\frac{T_m(u)-1}{u-1},\qquad p_m(1)=m^2,
+ \label{eq:fejer}
+\end{equation}
+where $T_m(\cos\theta)=\cos(m\theta)$ is the Chebyshev polynomial.
+The quotient has degree $m-1$. The trigonometric identity
+\begin{equation}
+ p_m(u)=m+2\sum_{j=1}^{m-1}(m-j)T_j(u)
+ \label{eq:fejerexpansion}
+\end{equation}
+implies that $p_m$ is positive and nondecreasing for $u\ge1$.
+For $-1\le u\le1$ it also gives
+\begin{equation}
+ 0\le p_m(u)\le\min\left\{m^2,\frac2{1-u}\right\},
+ \label{eq:fejertail}
+\end{equation}
+with the second bound omitted at $u=1$. Indeed,
+$p_m(\cos\theta)=\bigl(\sin(m\theta/2)/\sin(\theta/2)\bigr)^2$.
+The first bound follows by expressing the sine quotient as a sum of $m$
+unit complex numbers, and the second from $|T_m(u)-1|\le2$.
+For $u>1$,
+\begin{equation}
+ p_m(u)=\frac{\cosh(m\operatorname{arcosh}u)-1}{u-1}.
+ \label{eq:fejerhead}
+\end{equation}
+
+\subsection{Trace loss after filtering}
+Apply $p_m(M/b)$ to the starting block. Its range is the graph of
+\begin{equation}
+ F=p_m(\Lambda_2/b)F_0p_m(\Lambda_1/b)^{-1}.
+ \label{eq:filteredgraph}
+\end{equation}
+An orthonormal basis of this graph is
+$Y=[I;F](I+F^TF)^{-1/2}$. Put $C=(I+F^TF)^{-1}$. The trace loss satisfies
+\begin{align}
+ \sum_i\lambda_i-\tr(Y^TMY)
+ &=\tr\bigl((\Lambda_1-aI)F^TFC\bigr)
+   +\tr\bigl(F^T(aI-\Lambda_2)FC\bigr)\notag\\
+ &\le\sum_{i,j}(\lambda_i-\mu_j)|F_{ji}|^2.
+ \label{eq:traceloss}
+\end{align}
+For the first inequality use $0\preceq F^TFC\preceq F^TF$ and
+$\Lambda_1-aI\succeq0$; for the second term use $0\prec C\preceq I$ and
+$F^T(aI-\Lambda_2)F\succeq0$. No commutation of $\Lambda_1$ and $F^TF$ is
+assumed.
+
+Substituting \eqref{eq:contract} and \eqref{eq:filteredgraph} into
+\eqref{eq:traceloss}, and using $\norm K_F^2\le k$, bounds the loss by $k$
+times the largest scalar coefficient
+\begin{equation}
+ \mathcal B(\lambda,\mu)=
+ \frac{(\lambda-\mu)(\tau^2-\mu^2)}{\lambda^2-\tau^2}
+ \left(\frac{p_m(\mu/b)}{p_m(\lambda/b)}\right)^2,
+ \quad\lambda\ge a,\quad |\mu|\le b.
+ \label{eq:coefficient}
+\end{equation}
+For fixed $\mu$, $(\lambda-\mu)/(\lambda^2-\tau^2)$ is decreasing for
+$\lambda>\tau$, because the numerator of its derivative is
+\[
+ \mu^2-\tau^2-(\lambda-\mu)^2<0.
+\]
+The denominator polynomial is nondecreasing and positive. It is therefore
+safe to replace $\lambda$ by $a_0=(1+\frac32\eps)b$ when bounding
+\eqref{eq:coefficient} from above.
+
+\subsection{An explicit constant bound}
+Choose
+\begin{equation}
+ m=\left\lceil\frac{10}{\sqrt\eps}\right\rceil.
+ \label{eq:mchoice}
+\end{equation}
+Scale $b=1$ for the moment, write $e=\eps$, $s=1-\mu\in[0,2]$, and put
+$a_0=1+\frac32e$, $t_0=1+e$. The numerator in \eqref{eq:coefficient} is
+\[
+ N=p_m(\mu)^2(\tfrac32e+s)(e+s)(2+e-s).
+\]
+If $s\ge e$, inequality~\eqref{eq:fejertail} gives
+\[
+ N\le\frac4{s^2}\cdot\frac52s\cdot2s\cdot\frac52=50.
+\]
+If $s\le e$, then $m\sqrt e\le10+\sqrt e<11$, so
+\[
+ N\le\frac{25}{2}m^4e^2
+ <\frac{25}{2}\,11^4<200000.
+\]
+Thus $N<200000$ in both cases.
+
+For $0\le x\le1$, the power series gives $\cosh x\le1+x^2$.
+It follows that $\operatorname{arcosh}(1+\frac32e)\ge\sqrt e$.
+Also $a_0^2-t_0^2=e+\frac54e^2\ge e$. Consequently,
+\begin{equation}
+ p_m(a_0)^2(a_0^2-t_0^2)
+ \ge\frac{(\cosh10-1)^2}{(9/4)e}
+ >\frac{4\cdot10^8}{9e}.
+ \label{eq:denominator}
+\end{equation}
+The elementary numerical inequality used here has the exact certificate
+\[
+ \cosh10-1>
+ \sum_{j=1}^{7}\frac{10^{2j}}{(2j)!}
+ =\frac{5860808350}{567567}>10000.
+\]
+Combining numerator and denominator, then restoring $b$, proves
+\begin{equation}
+ \mathcal B(\lambda,\mu)<\frac{9}{2000}eb
+ <\frac{eb}{200}.
+ \label{eq:scalarfinal}
+\end{equation}
+Hence the filtered graph satisfies
+\[
+ \sum_i\lambda_i-\tr(Y^TMY)
+ \le\frac{k\eps b}{200}
+ \le\frac\eps{200}\sum_i\lambda_i.
+\]
+
+\subsection{Implementing the proof without spectral side information}
+The vector block $p_m(M/b)Z$ lies in
+\begin{equation}
+ \K_{m-1}(M,Z)=\range[Z,MZ,\ldots,M^{m-1}Z].
+ \label{eq:warmkrylov}
+\end{equation}
+The algorithm builds this space and returns its top $k$ algebraic Ritz
+vectors. The variational principle ensures that their trace is at least
+$\tr(Y^TMY)$. The algorithm does not evaluate $p_m$ or use the unknown $b$;
+the polynomial only proves that a sufficiently good subspace is present.
+
+To count products, orthogonalize successive frontier blocks. Each frontier
+has at most $k$ columns. Compute its image under $M$, retain that image for
+the compression, and use its component outside the current space as the
+next frontier. Process frontiers numbered $0$ through $m-1$, including the
+last image block needed for the Ritz matrix. At most $km$ products are used.
+If the space becomes invariant or fills $\R^n$, stop earlier. All needed
+entries of $Q^TMQ$ are already known.
+
+Finally, $|M|-M\succeq0$, giving the claim for $|M|$. If $b=0$, the residual
+in \eqref{eq:warmassumptions} is zero and $Z$ already spans the leading
+space; the same algorithm can stop after detecting invariance. This proves
+Theorem~\ref{thm:warm}.
+
+\section{The growing-rank lower bound in large dimension}
+\label{sec:SAR}
+
+\subsection{The imported theorem, with its dimension condition retained}
+We use the following consequence of \cite[Theorem 1, Proposition 2.1,
+and Theorem 2.2]{SAR18}. For $0<g\le1/2$, set
+\begin{equation}
+ \lambda=\frac{1+\sqrt{g(2-g)}}{1-g},\qquad
+ L=\lambda+\lambda^{-1},\qquad L-2=gL,
+ \qquad M=W+\lambda UU^T,
+ \label{eq:SARmodel}
+\end{equation}
+where $U$ is uniform in $\St(n,k)$ and $W$ is independent GOE, with
+off-diagonal variance $1/n$ and diagonal variance $2/n$. Define
+\begin{equation}
+ \cgood_\gamma=
+ \{\norm W_2+(1-\gamma)gL\le\lambda_k(M)\}
+ \cap\{\lambda_1(M)\le(1+\gamma)L\}.
+ \label{eq:goodevent}
+\end{equation}
+There are universal $c_0,c_2>0$ and polynomial dimension thresholds such that,
+under the law conditioned on $\cgood_{1/2}$, every fully adaptive algorithm
+using $T\le c_0k\log n/\sqrt g$ has probability at most $\exp(-n^{c_2})$ of
+returning an orthonormal $\widehat V$ satisfying
+\begin{equation}
+ \tr(\widehat V^T|M|\widehat V)
+ \ge(1-g/12)\sum_{i=1}^k\sigma_i(M).
+ \label{eq:SARtarget}
+\end{equation}
+For fixed $\gamma=1/20$ and failure probability $0.01$, a further polynomial
+threshold gives $\Prb(\cgood_{1/20})\ge0.99$. These results are imported,
+not re-proved here.
+
+\subsection{Checking every hypothesis of the postprocessor}
+Set $g=\min\{4\eps,1/2\}$, so $\eps\le g\le4\eps$. On
+$\cgood_{1/20}$, put $a=\lambda_k(M)$, $b=\sigma_{k+1}(M)$, and
+$w=\norm W_2$. Interlacing for the positive rank-$k$ perturbation gives
+$-w\le\lambda_j(M)\le w$ for all $j>k$. Also $a>w$ on this event, so the
+leading $k$ eigenvalues are positive and are exactly the leading singular
+values. Furthermore,
+\[
+ a-b\ge\frac{19}{20}gL,\qquad
+ a\le\lambda_1(M)\le\frac{21}{20}L,
+\]
+and consequently
+\begin{equation}
+ \frac ba\le1-\frac{19}{21}g.
+ \label{eq:SARgap}
+\end{equation}
+If $b=0$, the postprocessor's conclusion is immediate. Otherwise, when
+$\eps\le1/8$,
+\[
+ \frac ab\ge\frac1{1-76\eps/21}
+ \ge1+\frac{76}{21}\eps>1+\frac32\eps.
+\]
+When $\eps\ge1/8$,
+\[
+ \frac ab\ge\frac{42}{23}>\frac74\ge1+\frac32\eps.
+\]
+Thus any successful output of an RA-14 algorithm satisfies all hypotheses of
+Theorem~\ref{thm:warm}. Its postprocessed output meets
+\eqref{eq:SARtarget}, since $\eps/200<g/12$.
+
+\subsection{Probability and query budget}
+Suppose an RA-14 algorithm uses at most $q$ queries. On symmetric $M$, either
+oracle direction is just a product with $M$, so the same algorithm is
+admissible for the imported theorem. Append the deterministic postprocessor.
+The total budget is at most
+\begin{equation}
+ T=q+k\left\lceil\frac{10}{\sqrt\eps}\right\rceil.
+ \label{eq:composedbudget}
+\end{equation}
+Since $\cgood_{1/20}\subset\cgood_{1/2}$,
+\[
+ \Prb(\cgood_{1/20}\mid\cgood_{1/2})\ge0.99.
+\]
+The original approximation algorithm succeeds with probability at least
+$0.99$ for every fixed $M$, even when we condition on a particular generating
+pair $(W,U)$. Therefore the composed PCA success probability under the
+conditioned hard law is at least $0.99^2=0.9801$.
+
+For large enough dimension, this contradicts the imported theorem if the
+right side of \eqref{eq:composedbudget} is at most
+$c_0k\log n/\sqrt g$. Hence
+\begin{equation}
+ q>c_0\frac{k\log n}{\sqrt g}
+     -k\left\lceil\frac{10}{\sqrt\eps}\right\rceil.
+ \label{eq:subtract}
+\end{equation}
+Since $g\le4\eps$ and $\lceil10/\sqrt\eps\rceil\le11/\sqrt\eps$,
+a fixed universal condition $\log n\ge44/c_0$ absorbs the overhead and gives
+\[
+ q\ge\frac{c_0}{4}\frac{k\log n}{\sqrt\eps}.
+\]
+All imported dimension conditions are polynomial in $k$ and $1/g$.
+Together with the fixed threshold just used, they are implied by
+$n\ge C_*(k/\eps)^D$ for universal $C_*,D$. This completes the proof of
+Theorem~\ref{thm:large}.
+
+\begin{remark}[What the reduction does and does not remove]
+The postprocessor eliminates a possible $\log(1/\eps)$ overhead from a
+cruder angle-amplification proof. It does not eliminate the dimension
+hypothesis of the imported PCA construction. Nor does the subtraction in
+\eqref{eq:subtract} by itself prove a useful bound in every small dimension.
+\end{remark}
+
+\section{Exact padding: transferring a hard lower rank}
+\label{sec:padding}
+
+\begin{lemma}[Rank-padding extraction without loss]
+\label{lem:padding}
+Let $p\ge0$, let $B\in\R^{m\times m}$, and set
+$A=\diag(LI_p,B)$. Suppose $Z\in\R^{(p+m)\times(p+r)}$ has orthonormal
+columns and $\norm{A(I-ZZ^T)}_2\le\tau<L$. Then an orthonormal
+$U\in\R^{m\times r}$ can be computed from $Z$ without queries such that
+\begin{equation}
+ \norm{B(I-UU^T)}_2\le\tau.
+ \label{eq:paddingconclusion}
+\end{equation}
+\end{lemma}
+\begin{proof}
+Write $Z=[C;D]$, where $C$ has $p$ rows. If $C$ did not have full row rank,
+there would be a nonzero vector $(a,0)$ perpendicular to $\range Z$.
+Its norm is multiplied by $L$ under $A$, contradicting $\tau<L$.
+Thus $\dim\ker C=r$. Let $N$ have orthonormal columns spanning $\ker C$
+and put $U=DN$. Then
+$U^TU=N^TZ^TZN=I_r$.
+
+For $x\perp\range U$, we have $N^TD^Tx=0$ and hence
+$D^Tx\in\range C^T$. Choose $a$ with $C^Ta=-D^Tx$.
+The vector $(a,x)$ is perpendicular to $\range Z$, so
+\[
+ L^2\norm a^2+\norm{Bx}^2
+ \le\tau^2(\norm a^2+\norm x^2).
+\]
+Since $L>\tau$, this implies $\norm{Bx}\le\tau\norm x$.
+Taking the supremum over $x\perp\range U$ proves the result.
+The case $p=0$ is the same assertion with $U=Z$.
+\end{proof}
+
+\subsection{Application to the bounded rank-one hard family}
+Let $m=n-k+1$, $p=k-1$, and $r=1$. On the hard rank-one family used for
+\eqref{eq:paddedBN}, $\norm B_2<2$ and $\sigma_2(B)=1$. Use
+$A=\diag(4I_{k-1},B)$. Each query to $A$ or $A^T$ can be simulated using
+one query to the corresponding oracle for $B$; the other block is known.
+Also $\sigma_{k+1}(A)=\sigma_2(B)=1$.
+
+On every successful run, $\tau=1+\eps<4$, so
+Lemma~\ref{lem:padding} extracts a valid rank-one output for $B$ at the
+same accuracy and with no additional query. On a failure run the reduction
+may return an arbitrary unit vector if extraction is undefined. Thus the
+success guarantee is preserved, proving \eqref{eq:paddedBN} from the cited
+rank-one lower bound. This argument uses a known norm bound on the hard
+family; it does not assume that an arbitrary unbounded matrix can be scaled
+for free without access to its norm.
+
+\section{Why several tempting extensions are insufficient}
+\label{sec:gaps}
+
+\paragraph{Multiplying a rank-one lower bound by $k$.}
+A direct sum of $k$ visible hard blocks is not a direct-sum theorem for this
+oracle. A single query has components in all blocks and queries them all in
+parallel. For example, if each visible block is a rank-one orthogonal
+projector, one random product reveals a spanning vector of each block's
+range simultaneously. A proof against all adaptive algorithms needs an
+additional argument before a factor of $k$ is valid.
+
+\paragraph{Confusing a valid residual with a good PCA objective.}
+Example~\ref{ex:sharp} meets the spectral requirement while its captured
+PCA fraction tends to zero. The weighted postprocessing theorem repairs this
+specific obstruction; quoting a PCA theorem alone does not.
+
+\paragraph{Confusing subspace depth with vector-query count.}
+A lower bound on the number of block iterations is not automatically a
+lower bound multiplied by a chosen block size for every adaptive algorithm.
+Both the upper-bound implementation and the postprocessor above explicitly
+count individual vector products.
+
+\paragraph{Taking the minimum with $n$ on both sides.}
+An exact-learning algorithm supplies an upper cap. It does not convert a
+lower bound valid under $n\ge C_*(k/\eps)^D$ into a lower bound outside
+that region. Doing so would discard a quantified hypothesis of the proof.
+
+\subsection*{The remaining mathematical task}
+A complete answer to RA-14 needs matching, universally quantified bounds in
+the regimes not covered by Theorem~\ref{thm:large} or $k\ge n/2$.
+For example, the current argument does not resolve arbitrary intermediate
+powers of $k$ relative to $n$, nor accuracy regimes that violate the imported
+dimension threshold. This note supplies no replacement hard distribution or
+all-adaptive argument that closes those gaps. It also does not claim the
+known global upper bound is the sharp expression in every such regime.
+
+\section{Reproducible numerical checks}
+\label{sec:experiments}
+
+The package contains an oracle-counted implementation of the exact-column
+method, promised-rank recovery, right block Krylov, and the symmetric Ritz
+postprocessor. Dense residual norms and eigenvalues are computed only by
+validation code, not inside the oracle algorithms. The mathematical model
+uses exact real arithmetic; the code uses double precision.
+
+All 18 unit tests passed in the supplied run. They cover query accounting,
+rank-deficient cases, adaptive Gaussian completion identities, exact symbolic
+polynomial identities and constants, the sharp counterexample, padding,
+and the noncommuting weighted trace inequality. A finite set of tests does
+not verify a universal statement over adaptive algorithms.
+
+\subsection{Block Krylov trials, including observed failures}
+For $n=96$, $k=4$, and $\eps=0.1$, each row below summarizes 30 trials with
+independent random left and right orthogonal bases. The target residual
+ratio is $1.1$. No theorem-certified universal depth constant is inferred
+from these trials.
+
+\begin{center}
+\small
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Spectrum family & Depth & Queries & Successes & Worst ratio\\
+\midrule
+Flat spike & 2 & 24 & 12/30 & 1.199993\\
+Flat spike & 4 & 40 & 29/30 & 1.199745\\
+Flat spike & 8 & 72 & 30/30 & 1.000227\\
+Slow decay & 2 & 24 & 30/30 & 1.089883\\
+Slow decay & 4 & 40 & 30/30 & 1.020983\\
+Slow decay & 8 & 72 & 30/30 & 1.000000\\
+Large dynamic range & 2 & 24 & 30/30 & 1.001784\\
+Large dynamic range & 4 & 40 & 30/30 & 1.000000\\
+Large dynamic range & 8 & 72 & 30/30 & 1.000000\\
+\bottomrule
+\end{tabular}
+\end{center}
+The flat-spike family has four singular values equal to $1.2$ and a bulk
+from $1$ down to $0.05$. Slow decay uses $0.96^j$. The third family starts
+with $10^4,10^3,10,2$ and then decreases from $1$ to $0.01$.
+All failures are retained in \code{results/krylov\_trials.csv}.
+
+\subsection{Warm starts and scalar checks}
+Sixty rotated instances were generated from the contraction representation
+\eqref{eq:contract}, which ensures the starting residual bound. The
+postprocessor met its trace target in all 60 trials; the smallest final
+trace fraction was $0.9999999999999971$. No query budget was exceeded.
+These small examples often converge much more accurately than the proved
+bound, and some Krylov spaces fill the ambient space.
+
+Twenty scalar grids, with $\eps$ from $10^{-8}$ to $0.49$, tested
+\eqref{eq:coefficient}. The largest observed coefficient divided by $\eps$
+was approximately $3.472\cdot10^{-10}$, below the proved $1/200$ bound.
+The grid is only a numerical check; Section~\ref{sec:filter} supplies the
+continuous-domain proof. The maximum orthogonality error across the 270
+block-Krylov trials was $6.242\cdot10^{-15}$.
+
+\subsection{Commands and limitations}
+From the extracted package directory:
+\begin{verbatim}
+python -m pip install -r requirements.txt
+OPENBLAS_NUM_THREADS=1 python -m unittest discover -s tests -v
+OPENBLAS_NUM_THREADS=1 python run_experiments.py
+pdflatex -interaction=nonstopmode -halt-on-error report.tex
+pdflatex -interaction=nonstopmode -halt-on-error report.tex
+\end{verbatim}
+The recorded environment was Python 3.13.5, NumPy 2.3.5, and SymPy 1.14.0.
+Floating-point results can vary slightly with the numerical library. There
+is no formal verification in a proof assistant. The imported asymptotic
+constants are not estimated by the experiments.
+
+\section{Conclusion}
+The note proves the global rank lower bound and the $\Theta(n)$ regime
+$k\ge n/2$, and develops an exact padding transfer. Its main additional
+argument is a spectral-to-PCA postprocessor costing
+$k\lceil10/\sqrt\eps\rceil$ products. Combined with a published adaptive
+PCA lower bound, this gives matching $\Theta(k\log n/\sqrt\eps)$ bounds
+under a polynomial large-dimension hypothesis, with growing $k$ allowed.
+
+\textbf{This does not fully solve RA-14.} The unresolved part of this
+write-up is the simultaneous finite-parameter characterization outside
+those regimes. The source files, proof dependencies, numerical checks, and
+this limitation are included together so that the established reductions
+can be inspected without mistaking them for a complete answer.
+
+\begingroup
+\footnotesize
+\raggedright
+\setlength{\parskip}{0pt}
+\begin{thebibliography}{9}
+\setlength{\itemsep}{2pt}
+\bibitem{RA14}
+Open Problems in Numerical Linear Algebra.
+\emph{RA-14: Optimal query complexity of spectral rank-$k$ approximation}.
+Repository problem statement, accessed September 12, 2026.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/randomized-and-low-rank-approximation/RA-14}.
+
+\bibitem{MM15}
+Cameron Musco and Christopher Musco.
+\emph{Randomized Block Krylov Methods for Stronger and Faster Approximate
+Singular Value Decomposition}. 2015. arXiv:1504.05477.
+\url{https://arxiv.org/abs/1504.05477}.
+
+\bibitem{SAR18}
+Max Simchowitz, Ahmed El Alaoui, and Benjamin Recht.
+\emph{Tight Query Complexity Lower Bounds for PCA via Finite Sample
+Deformed Wigner Law}. STOC 2018; arXiv:1804.01221v2, 2020.
+\url{https://arxiv.org/abs/1804.01221}.
+
+\bibitem{BN23}
+Ainesh Bakshi and Shyam Narayanan.
+\emph{Krylov Methods are (nearly) Optimal for Low-Rank Approximation}.
+2023. arXiv:2304.03191v1.
+\url{https://arxiv.org/abs/2304.03191}.
+\end{thebibliography}
+\endgroup
+\end{document}
