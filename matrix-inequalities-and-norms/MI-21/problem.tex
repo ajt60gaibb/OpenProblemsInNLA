@@ -34,7 +34,7 @@ means},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MI-21}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ inequality for sums of weighted geometric means\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -70,8 +70,10 @@ Two rational positive definite \(2\times2\) summands with \(s=t=1/2\),
 inequality for every \(p>0\). The left side has eigenvalue
 \(1351000/1350907>1\), while the right side is one.
 
-The exact target is resolved. The original statement and source evidence
-are retained below; its former difficulty rating is historical.
+The exact target is resolved. The complete negative answer now has
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-21\#lean-proof-and-verification-evidence--2026-09-12}{Lean
+proof and verification evidence}. The original statement and source
+evidence are retained below; its former difficulty rating is historical.
 
 \textbf{Primary manuscript:}
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-21/solution.pdf}{complete
@@ -82,24 +84,119 @@ TeX}, Theorem 1.1 and its proof;
 and scope}. The
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-2026-09-11/verification/reviews/MI-21-review.md}{independent
 review} checks the full original argument and records its hash. The
-draft was AI-assisted; this is independent agent verification, not
-external human peer review or formal certification.
+draft was AI-assisted; the 2026-09-11 review was independent agent
+verification, without external human peer review or formal
+certification. The subsequent Lean verification below covers the
+complete negative answer.
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-2026-09-11/README.md}{Submission
 record}.
 
+\subsection{Lean proof and verification evidence ---
+2026-09-12}\label{lean-proof-and-verification-evidence-2026-09-12}
+
+\textbf{Mathematical counterexample:} Matthew J. Colbrook, Department of
+Applied Mathematics and Theoretical Physics, University of Cambridge.
+\textbf{Lean formalization:} George Stepaniants, Department of Computing
+and Mathematical Sciences, California Institute of Technology, Pasadena,
+California, USA, with AI-agent assistance.
+
+The
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/tree/06ade659dee260a18b79ce638383bf0a49125ecf/matrix-inequalities-and-norms/MI-21/lean}{proof
+at revision 06ade65} establishes the full negative answer. It preserves
+every original complex-matrix, dimension, parameter and unitarily
+invariant norm quantifier. The witness uses the genuine Euclidean
+operator norm, separately proved admissible, and actual spectral powers
+and weighted geometric means. All input positivity and numerical
+identities are proved. A nonzero eigenvector gives a strict norm
+violation for every \(p>0\); it does not replace the norm definition.
+
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/blob/06ade659dee260a18b79ce638383bf0a49125ecf/matrix-inequalities-and-norms/MI-21/lean/Solution.lean}{Solution.lean}
+exports:
+
+\begin{itemize}
+\tightlist
+\item
+  \textit{NLA.MI21.operatorNorm\_isUnitaryInvariant}: the actual complex
+  Euclidean operator norm satisfies every stipulated norm and two-sided
+  unitary-invariance property.
+\item
+  \textit{NLA.MI21.counterexample}: all admissible witness hypotheses,
+  genuine functional-calculus identities and the strict norm violation
+  for every positive outer parameter.
+\item
+  \textit{NLA.MI21.not\_geometricMeanNormConjecture}: negation of the
+  complete original universal assertion.
+\end{itemize}
+
+Two independent agents
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-21/lean/reviews}{reviewed
+the frozen statements and complete proof} against the original target.
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34709291489}{Linux
+run 34709291489} executed the actual sandboxed Lean4 Comparator on
+GitHub Actions Ubuntu 24.04, matched all three declarations and replayed
+the solution through Lean's default kernel. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-21/lean/verification/linux-2026-09-12}{original
+artifacts and independent operational audit} retain the complete
+81-input source identity, artifact digests and successful sandbox,
+raw-kernel and axiom-rejection controls. All 11 internal/public
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-21/lean/verification/proof-axioms.json}{transitive
+axiom reports} use only \textit{propext}, \textit{Classical.choice} and
+\textit{Quot.sound}. This catalog reviewed the remote Linux execution;
+local macOS re-elaborations are recorded separately. These are
+independent AI-agent reviews, not external human peer review or
+source-author endorsement. The statement referees establish
+correspondence with the original prose; Comparator checks formal
+identity and kernel trust.
+
+The proof pins \textbf{Lean 4.33.1},
+\href{https://github.com/alerad/leancert/tree/621a43d7cf21f87872392a01e874f2f1dbddc926}{LeanCert
+621a43d} and
+\href{https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474}{Mathlib
+0df444a}, with
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-21/lean/lake-manifest.json}{all
+dependency revisions locked}. A generic positive-square-root argument
+identifies the actual geometric means from two exact Riccati
+certificates. One kernel-mode LeanCert point certificate proves the
+strict scalar gap; no interval subdivision or numerical matrix-root
+approximation is needed. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-21/lean/formalization.yaml}{formalization
+manifest},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-21/lean/NUMERICAL_TARGETS.md}{numerical
+obligations} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-21/lean/README.md}{project
+guide} record scope and reproduction. The narrower parameter regimes
+already proved in the literature are not contradicted.
+
+From the verified proof revision, on an isolated non-root Linux host
+meeting the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tools/lean/HARNESS.md}{shared
+harness prerequisites}, run:
+
+\begin{verbatim}
+tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
+tools/lean/verify.sh \
+  matrix-inequalities-and-norms/MI-21/lean \
+  /absolute/path/to/nla-lean-tools
+\end{verbatim}
+
 \subsection{Problem statement}\label{problem-statement}
 
-For positive definite matrices, define \[
-A\#_tB=A^{1/2}(A^{-1/2}BA^{-1/2})^tA^{1/2}.
-\] Is the following true for all positive integers \(m,n\), all
+For positive definite matrices, define
+
+\[A\#_tB=A^{1/2}(A^{-1/2}BA^{-1/2})^tA^{1/2}.\]
+
+Is the following true for all positive integers \(m,n\), all
 \(A_i,B_i\in\mathbb C^{n\times n}\) positive definite, all
 \(t\in[0,1]\), and all real \(s,r,p>0\) with \(sr\ge1\)? Set
 \(A=\sum_iA_i\), \(B=\sum_iB_i\). For every unitarily invariant norm on
-\(n\times n\) matrices, does \[
-\left\|\sum_{i=1}^m(A_i^s\#_tB_i^s)^r\right\|
+\(n\times n\) matrices, does
+
+\[\left\|\sum_{i=1}^m(A_i^s\#_tB_i^s)^r\right\|
 \le
-\left\|\left(A^{(1-t)srp/2}B^{tsrp}A^{(1-t)srp/2}\right)^{1/p}\right\|
-\] hold? Here all real powers of positive definite matrices use spectral
+\left\|\left(A^{(1-t)srp/2}B^{tsrp}A^{(1-t)srp/2}\right)^{1/p}\right\|\]
+
+hold? Here all real powers of positive definite matrices use spectral
 functional calculus, and unitary invariance means \(\|UXV\|=\|X\|\) for
 unitary \(U,V\).
 

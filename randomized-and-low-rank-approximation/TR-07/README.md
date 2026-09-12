@@ -6,9 +6,19 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Rating rationale:** Challenging because arbitrary support intersections defeat existing sparse-matrix estimates; community impact is understanding limits of sparse sketches and column selection.  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-10  
+**Rating rationale:** Historical ratings for the original open target. Challenging because arbitrary support intersections defeat existing sparse-matrix estimates; community impact is understanding limits of sparse sketches and column selection.  
+**Status:** Solved  
+**Last checked:** 2026-09-12  
+
+## Resolution: affirmative, 12 September 2026
+
+**Author:** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation, New York, USA. [Official affiliation](https://www.simonsfoundation.org/people/sidney-holden/) verified 12 September 2026.
+
+[Theorem 1.1 and Corollary 1.2](solution.pdf) of *Random column subsets of fixed-sparsity matrices: an unrestricted theorem* prove the full statement below. The finite exponential tail bound covers arbitrary signs, repeated columns and unrestricted support intersections. Setting the aspect-ratio lower bound to $`1/(2C)`$ yields the exact asymptotic target. No growing-sparsity rate is claimed.
+
+A separate [independent Codex AI-agent audit](../../references/holden-tr07-2026-09-12/independent-review.md) returned PASS without mathematical corrections, satisfying the **Solved** policy. AI assistance was used for review and submission preparation; this is informal automated review, not human peer review or formal verification. No Lean verification was performed. [Proof source](solution.tex) · [Submission record](../../references/holden-tr07-2026-09-12/README.md).
+
+Huang, Rudelson and Tikhomirov retain conjecture and prior-result credit. The original target and ID remain unchanged; the earlier checks below are historical.
 
 ## Problem statement
 

@@ -32,16 +32,16 @@
 | --- | --- | --- | --- | --- | --- |
 | [MI-03](MI-03/README.md) | Sharp additive triangle constant for an odd number of contractions | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-03/problem.pdf) · [TeX](MI-03/problem.tex) |
 | [MI-04](MI-04/README.md) | A universal block-norm characterization of essentially Hermitian matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-04/problem.pdf) · [TeX](MI-04/problem.tex) |
-| [MI-06](MI-06/README.md) | Thompson-type domination for the arithmetic symmetric modulus | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-06/problem.pdf) · [TeX](MI-06/problem.tex) |
-| [MI-07](MI-07/README.md) | The triangle conjecture for the maximal symmetric modulus | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-07/problem.pdf) · [TeX](MI-07/problem.tex) |
+| [MI-06](MI-06/README.md) | Thompson-type domination for the arithmetic symmetric modulus | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](MI-06/problem.pdf) · [TeX](MI-06/problem.tex) |
+| [MI-07](MI-07/README.md) | The triangle conjecture for the maximal symmetric modulus | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](MI-07/problem.pdf) · [TeX](MI-07/problem.tex) |
 | [MI-13](MI-13/README.md) | Nobori's spectral-middle-factor commutator conjecture | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-13/problem.pdf) · [TeX](MI-13/problem.tex) |
 | [MI-19](MI-19/README.md) | A q-permanent inequality for subset-preserving permutations | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](MI-19/problem.pdf) · [TeX](MI-19/problem.tex) |
-| [MI-21](MI-21/README.md) | Freewan–Hayajneh inequality for sums of weighted geometric means | **✅ SOLVED** | challenging | interesting to the community | [PDF](MI-21/problem.pdf) · [TeX](MI-21/problem.tex) |
+| [MI-21](MI-21/README.md) | Freewan–Hayajneh inequality for sums of weighted geometric means | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](MI-21/problem.pdf) · [TeX](MI-21/problem.tex) |
 | [MI-22](MI-22/README.md) | Lemos–Soares singular-value log-majorization | **✅ SOLVED** | challenging | interesting to the community | [PDF](MI-22/problem.pdf) · [TeX](MI-22/problem.tex) |
 | [MI-23](MI-23/README.md) | Corrected generalized geometric-mean product conjecture | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-23/problem.pdf) · [TeX](MI-23/problem.tex) |
 | [MI-24](MI-24/README.md) | Schatten norm complement involving Lin's positive definite quantity | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-24/problem.pdf) · [TeX](MI-24/problem.tex) |
 | [MI-26](MI-26/README.md) | Concave unitary-orbit subadditivity without monotonicity | **✅ SOLVED** | challenging | interesting to the community | [PDF](MI-26/problem.pdf) · [TeX](MI-26/problem.tex) |
 | [MI-28](MI-28/README.md) | Ghabries's determinant comparison for arbitrary nonnegative base powers | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-28/problem.pdf) · [TeX](MI-28/problem.tex) |
-| [MI-29](MI-29/README.md) | Modulus-order determinant comparison with an arbitrary base power | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-29/problem.pdf) · [TeX](MI-29/problem.tex) |
+| [MI-29](MI-29/README.md) | Modulus-order determinant comparison with an arbitrary base power | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](MI-29/problem.pdf) · [TeX](MI-29/problem.tex) |
 
 Ratings are editorial; each entry explains both ratings and the scope of its status evidence. [Definitions](../README.md#problem-status).

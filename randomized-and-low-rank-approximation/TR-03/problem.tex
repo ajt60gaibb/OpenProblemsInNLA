@@ -34,7 +34,7 @@ spectrum},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}TR-03}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -52,7 +52,7 @@ spectrum\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Open\par}
+{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -60,24 +60,51 @@ to the community\par}
 eigenvector choice and optimal subset must be compared sharply;
 community impact is spectrum-sensitive Nyström and column selection.
 
+\subsection{Partial resolution: the one-column case, 12 September
+2026}\label{partial-resolution-the-one-column-case-12-september-2026}
+
+\textbf{Author:} Sidney Holden, Center for Computational Biology,
+Flatiron Institute, Simons Foundation, New York, USA.
+\href{https://www.simonsfoundation.org/people/sidney-holden/}{Official
+affiliation} verified 12 September 2026.
+
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-tr03-2026-09-12/one-column.pdf}{Theorem
+1 and Sections 2-3 of the note} prove \(x_1(\lambda)=y_1(\lambda)\) and
+therefore \(R_{n,1}=1\) for every \(n\ge3\) and every positive spectrum.
+The proof preserves the original real orthogonal model and max-min
+quantifier order: a zero-diagonal orthogonal basis for a trace-zero
+symmetric matrix equalizes all one-column residuals.
+
+A separate
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-tr03-2026-09-12/independent-review.md}{independent
+Codex AI-agent review} returned \textbf{PASS for this special case}. The
+joint dependence for \(2\le k\le n-2\), \(n\ge4\), remains unresolved;
+this is not a full solution. The elementary identity is recorded without
+a novelty or priority claim. The original target and ID are unchanged,
+and the historical checks below are retained. AI assistance was used for
+review and submission preparation; informal automated review is not
+external human peer review or formal verification. No Lean verification
+was performed.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-tr03-2026-09-12/one-column.tex}{Proof
+source} ·
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-tr03-2026-09-12/README.md}{Submission
+record}.
+
 \subsection{Problem statement}\label{problem-statement}
 
 For \(n\ge3\), \(1\le k\le n-2\), and \(\lambda\in(0,\infty)^n\), write
-\(K_V=V^T\operatorname{diag}(\lambda)V\), \(V\in O(n)\), and define
+\(K_V=V^T\mathop{\mathrm{diag}}\nolimits(\lambda)V\), \(V\in O(n)\), and
+define
 
-\[
-x_k(\lambda)=\max_{V\in O(n)}\min_{|I|=k}
-\operatorname{tr}\bigl(K_V-(K_V)_{:I}(K_V)_{II}^{-1}(K_V)_{I:}\bigr),
+\[x_k(\lambda)=\max_{V\in O(n)}\min_{|I|=k}
+\mathop{\mathrm{tr}}\nolimits\bigl(K_V-(K_V)_{:I}(K_V)_{II}^{-1}(K_V)_{I:}\bigr),
 \quad
-y_k(\lambda)=(k+1)\frac{e_{k+1}(\lambda)}{e_k(\lambda)},
-\]
+y_k(\lambda)=(k+1)\frac{e_{k+1}(\lambda)}{e_k(\lambda)},\]
 
 where \(e_j(\lambda)=\sum_{|I|=j}\prod_{i\in I}\lambda_i\). Determine,
 up to universal multiplicative constants, the dependence on \(n,k\) of
 
-\[
-R_{n,k}=\sup_{\lambda\in(0,\infty)^n}\frac{y_k(\lambda)}{x_k(\lambda)}.
-\]
+\[R_{n,k}=\sup_{\lambda\in(0,\infty)^n}\frac{y_k(\lambda)}{x_k(\lambda)}.\]
 
 Here \(y_k\) is the expected trace error when the selected subset has
 probability \(\det((K_V)_{II})/e_k(\lambda)\). The question compares

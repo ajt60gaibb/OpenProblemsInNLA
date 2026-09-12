@@ -1,0 +1,71 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=28mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\title{The one-column spectral minimax identity\\[3pt]\large A special case of TR-03, not a full resolution}
+\author{Research note prepared for mathematical review}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+\noindent\textbf{Status.} The argument below proves the $k=1$ case for every positive spectrum. It does not determine the joint dependence on $(n,k)$ requested in TR-03. This elementary identity may already be implicit in earlier work; no priority or novelty claim is made.
+
+\section{Statement}
+Let $n\ge3$ and $\lambda=(\lambda_1,\ldots,\lambda_n)\in(0,\infty)^n$. Put $\Lambda=\diag(\lambda)$ and $K_V=V^T\Lambda V$ for $V\in O(n)$. Define
+\[
+ x_1(\lambda)=\max_{V\in O(n)}\min_{1\le i\le n}
+ \tr\left(K_V-\frac{(K_V)_{:i}(K_V)_{i:}}{(K_V)_{ii}}\right),
+ \qquad y_1(\lambda)=\frac{2e_2(\lambda)}{e_1(\lambda)}.
+\]
+These are the $k=1$ quantities in the repository target~\cite{repo}.
+\begin{theorem}
+For every positive spectrum,
+\[
+ x_1(\lambda)=y_1(\lambda)
+ =\sum_{j=1}^n\lambda_j-
+   \frac{\sum_{j=1}^n\lambda_j^2}{\sum_{j=1}^n\lambda_j}.
+\]
+Consequently $R_{n,1}=\sup_{\lambda>0}y_1(\lambda)/x_1(\lambda)=1$.
+\end{theorem}
+
+\section{A zero-diagonal orthogonal basis}
+\begin{lemma}
+Every real symmetric matrix $H$ of trace zero has an orthonormal basis $v_1,\ldots,v_n$ satisfying $v_i^THv_i=0$ for every $i$.
+\end{lemma}
+\begin{proof}
+Induct on the dimension. The one-dimensional case is immediate. If $H=0$, every basis works. Otherwise trace zero implies the presence of a positive and a negative eigenvalue. A unit vector $v_1$ in the span of corresponding eigenvectors has zero Rayleigh quotient by continuity (or by choosing the squared component weights inversely proportional to the absolute eigenvalues). The compression of $H$ to $v_1^\perp$ is symmetric and has trace $\tr H-v_1^THv_1=0$. Apply induction to that compression and append $v_1$.
+\end{proof}
+
+\section{Proof of the identity}
+Write $S_1=\sum_j\lambda_j$, $S_2=\sum_j\lambda_j^2$ and $c=S_2/S_1$. For any orthogonal $V$ and $K=K_V$, the error of choosing column $i$ is
+\[
+ E_i(K)=S_1-\frac{(K^2)_{ii}}{K_{ii}}.
+\]
+The weights $K_{ii}/S_1$ are positive and sum to one. Hence
+\[
+ \min_i E_i(K)\le
+ \sum_i\frac{K_{ii}}{S_1}E_i(K)
+ =S_1-\frac{S_2}{S_1}=y_1(\lambda).
+\]
+This proves $x_1\le y_1$.
+
+For the reverse inequality, set $H=\Lambda^2-c\Lambda$. Its trace is zero. By the lemma, choose an orthogonal matrix $V$ whose columns have zero $H$-Rayleigh quotient. Since $(V^T\Lambda V)^2=V^T\Lambda^2V$, the resulting $K$ obeys
+\[
+ (K^2)_{ii}=cK_{ii}\qquad(1\le i\le n).
+\]
+Thus \emph{every} column has the same error $E_i(K)=S_1-c=y_1(\lambda)$. Therefore $x_1\ge y_1$, proving equality. The formula for $y_1$ follows from $2e_2=S_1^2-S_2$. Positivity of the spectrum and $n\ge3$ ensure $y_1>0$, so the ratio is well defined.
+
+\section{What remains}
+For $2\le k\le n-2$, neither this argument nor the accompanying numerical examples determine the sharp spectral minimax ratio. Simultaneous equalization of all $k$-column residuals is substantially different from equalizing the diagonal of a single trace-zero symmetric matrix. This note must not be submitted or counted as a resolution of the full TR-03 target.
+
+The script \texttt{verification/verify\_TR03.py} checks one radical-valued example exactly and constructs zero-diagonal bases for a fixed set of numerical spectra. These computations are illustrative; the proof above is independent of them.
+
+\begin{thebibliography}{9}
+\bibitem{repo} OpenProblemsInNLA, \emph{TR-03: Sharp gap between volume sampling and the worst matrix with a prescribed spectrum}, accessed 12 September 2026.\\
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/randomized-and-low-rank-approximation/TR-03}
+\end{thebibliography}
+\end{document}

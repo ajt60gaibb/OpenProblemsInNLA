@@ -1,0 +1,77 @@
+[
+  {
+    "name": "ids-origin-main",
+    "command": [
+      "python3",
+      "tools/validate_problem_ids.py",
+      "--base-ref",
+      "origin/main"
+    ],
+    "exit_code": 0,
+    "seconds": 2.686,
+    "log": "ids-origin-main.log"
+  },
+  {
+    "name": "ids-current-upstream",
+    "command": [
+      "python3",
+      "tools/validate_problem_ids.py",
+      "--base-ref",
+      "nla-upstream/main"
+    ],
+    "exit_code": 0,
+    "seconds": 3.088,
+    "log": "ids-current-upstream.log"
+  },
+  {
+    "name": "catalog",
+    "command": [
+      "python3",
+      "tools/update_catalog.py",
+      "--base-ref",
+      "origin/main"
+    ],
+    "exit_code": 0,
+    "seconds": 3.675,
+    "log": "catalog.log"
+  },
+  {
+    "name": "id-tests",
+    "command": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_problem_ids.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "seconds": 1.676,
+    "log": "id-tests.log"
+  },
+  {
+    "name": "format-check",
+    "command": [
+      "python3",
+      "tools/format_math.py",
+      "--check"
+    ],
+    "exit_code": 0,
+    "seconds": 0.329,
+    "log": "format-check.log"
+  },
+  {
+    "name": "manifest",
+    "command": [
+      "/tmp/nla-lean-formalization/venv/bin/python",
+      "tools/lean/validate_manifest.py",
+      "matrix-inequalities-and-norms/MI-07/lean"
+    ],
+    "exit_code": 0,
+    "seconds": 0.2,
+    "log": "manifest.log"
+  }
+]

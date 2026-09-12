@@ -6,8 +6,8 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Solved  
-**Last checked:** 2026-09-11
+**Status:** Lean verified
+**Last checked:** 2026-09-12
 
 **Rating rationale:** Arbitrary base powers and indefinite Hermitian factors make extension of the squared-base theorem challenging; the comparison has specialist importance for determinant inequalities.
 
@@ -17,9 +17,37 @@
 
 A rational positive definite $`A`$ and invertible indefinite Hermitian $`B`$ in dimension three, with $`k=6`$ and $`p=8`$, reverse the proposed determinant comparison. The exact right-minus-left gap is $`21036678407451/156250000000000>0`$. The known $`k=2`$ theorem and the variant $`B>0`$ are not contradicted.
 
-The exact target is resolved. The original statement and source evidence are retained below; its former difficulty rating is historical.
+The exact target is resolved. The complete negative answer now has [Lean proof and verification evidence](#lean-proof-and-verification-evidence--2026-09-12). The original statement and source evidence are retained below; its former difficulty rating is historical.
 
-**Primary manuscript:** [complete proof PDF](solution.pdf), [standalone TeX](solution.tex), Theorem 1.1 and its proof; [authorship and scope](solution.md). The [independent review](../../references/colbrook-matrix-2026-09-11/verification/reviews/MI-29-review.md) checks the full original argument and records its hash. The draft was AI-assisted; this is independent agent verification, not external human peer review or formal certification. [Submission record](../../references/colbrook-matrix-2026-09-11/README.md).
+**Primary manuscript:** [complete proof PDF](solution.pdf), [standalone TeX](solution.tex), Theorem 1.1 and its proof; [authorship and scope](solution.md). The [independent review](../../references/colbrook-matrix-2026-09-11/verification/reviews/MI-29-review.md) checks the full original argument and records its hash. The draft was AI-assisted; the 2026-09-11 review was independent agent verification, without external human peer review or formal certification. The later Lean verification below covers the complete negative answer. [Submission record](../../references/colbrook-matrix-2026-09-11/README.md).
+
+## Lean proof and verification evidence — 2026-09-12
+
+**Mathematical counterexample:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Lean formalization:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, with AI-agent assistance.
+
+The [proof at revision c0c5ece](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/c0c5eced77d2528f37d931200248fc54a190813e/matrix-inequalities-and-norms/MI-29/lean) establishes the complete negative answer with the actual continuous functional calculus and matrix modulus. Its exact admissible dimension-three witness at $`k=6,p=8`$ has right-minus-left determinant gap $`21036678407451/156250000000000>0`$. The final negation retains every positive dimension, every complex positive definite $`A`$, every invertible Hermitian $`B`$, and all nonnegative real exponents. Every witness hypothesis is proved; positivity or commutation of $`B`$ is not added.
+
+[Solution.lean](https://github.com/sgstepaniants/OpenProblemsInNLA/blob/c0c5eced77d2528f37d931200248fc54a190813e/matrix-inequalities-and-norms/MI-29/lean/Solution.lean) exports:
+
+- `NLA.MI29.spectralPower_natCast`: actual spectral powers agree with matrix natural powers, including exponent zero.
+- `NLA.MI29.modulus_power_eight`: the genuine square-root modulus, its positivity and the eighth-power reduction.
+- `NLA.MI29.comparison_positive_real`: both determinants are positive real numbers under the original hypotheses.
+- `NLA.MI29.counterexample`: the full admissible witness, analytic reductions, exact determinants and strict violation.
+- `NLA.MI29.not_modulusDeterminantConjecture`: negation of the complete original conjecture.
+
+Two independent agents [reviewed the frozen statements and complete proof](lean/reviews/) against the original target. [Linux run 34706412510](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34706412510) executed the actual sandboxed Comparator on GitHub Actions Ubuntu 24.04, matched all five declarations and replayed the solution through Lean's default kernel. The [archived logs and independent operational audit](lean/verification/linux-2026-09-12/) retain the immutable source hashes, original artifact digests and successful sandbox, raw-kernel and axiom-rejection controls. The [transitive axiom report](lean/reviews/proof-axioms.log) contains only `propext`, `Classical.choice` and `Quot.sound`. This catalog reviewed the remote Linux execution; local macOS proof reviews are recorded separately. These are independent AI-agent reviews, not external human peer review or source-author endorsement. Comparator checks formal identity and kernel trust; the statement referees separately reviewed correspondence with the original prose.
+
+The proof pins **Lean 4.33.1**, [LeanCert 621a43d](https://github.com/alerad/leancert/tree/621a43d7cf21f87872392a01e874f2f1dbddc926) and [Mathlib 0df444a](https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474), with [all dependency revisions locked](lean/lake-manifest.json). Generic CFC identities reduce the calculation to repeated squaring and exact three-dimensional determinants; one kernel-mode LeanCert rational point certificate supplies the strict scalar gap. The [formalization manifest](lean/formalization.yaml), [numerical targets](lean/NUMERICAL_TARGETS.md) and [project guide](lean/README.md) record scope and reproduction. The source's separate singular-input extension, established $`k=2`$ result and positive-$`B`$ variants are outside these exports.
+
+From a checkout of the verified proof revision, on an isolated non-root Linux host meeting the [shared harness prerequisites](../../tools/lean/HARNESS.md), run:
+
+```
+tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
+tools/lean/verify.sh \
+  matrix-inequalities-and-norms/MI-29/lean \
+  /absolute/path/to/nla-lean-tools
+```
 
 ## Problem statement
 
