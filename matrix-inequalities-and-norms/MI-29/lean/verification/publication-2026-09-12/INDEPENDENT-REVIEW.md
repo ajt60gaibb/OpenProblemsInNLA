@@ -1,6 +1,6 @@
 # MI-29 independent publication and PDF review
 
-**Document/PDF/integrity verdict: PASS at the hashes below. Upstream index integration remains required before the final publication handoff.** No mathematical or PDF correction is requested.
+**Final publication verdict: PASS. Documentation, all three PDF pages, proof integrity and current-upstream integration passed.** No mathematical or PDF correction is requested.
 
 Reviewer: OpenAI Codex agent `/root/leancert_examples`, independent of the publication-document author `/root/formal_review_standards`. I implemented the MI-29 formal proof, so this document review is not counted as a third independent mathematical referee. The two separately credited mathematical referees and the operational reviewer remain unchanged. I read the PDF skill for this read-only review; no rendering or document authoring was required.
 
@@ -33,3 +33,13 @@ I visually inspected all three existing final rendered pages. Page 1 has clear s
 `referee-2/independent-checks.json` records the nine protected hashes, original/current-main target identity, permanent registry identity, both artifact digests, exact receipt-set check, actual success/axiom evidence, and three visually inspected image hashes. `referee-2/remote-identity.json` records the fresh public API identity; the corresponding immutable current-main README, indexes and registry are retained. `referee-2/check.py` reproduces the integrity checks. `referee-2/pre-integration-harness-hashes.json` binds the complete current tooling/docs/workflow baseline.
 
 The report does not authorize a push; root will independently inspect the integration and perform publication.
+
+## Integration addendum — final PASS
+
+The previously identified index issue is resolved. A local checkpoint was created as `187b0823347020469afb790785c389fc90d877c2`, with author and committer name George Stepaniants and both email fields verified exactly empty by `git show`. Actual upstream main `587bd896f0e1006f4a4b7f38555e3a523ef85176` was fetched and merged. Only the generated README and CATALOG summaries conflicted. No mathematical conflict occurred. The summaries were regenerated with the repository tool after permanent-ID validation against both origin/main and the fetched upstream commit; no index or ID safeguards were weakened.
+
+All eight recorded validation commands passed. The permanent registry still contains 217 unchanged identities; all 17 permanent-ID tests pass. The manifest still passes schema/coverage for all five verified exports, the all-entry math formatter reports zero pages needing changes, and `git diff --check` passes. The generated counts are 57 Open, 71 Partially resolved, 83 Solved and 6 Lean verified, with 128 open targets and 89 other retained entries. All five previous upstream Lean-verified entries are preserved. Relative to fetched upstream, MI-29 is the only changed canonical problem page, and all other 216 canonical pages remain identical.
+
+All nine mathematical/configuration/pin files and all 63 harness/docs/workflow baseline files are unchanged before and after integration; the 63 shared files also equal fetched upstream. The exact MI-29 canonical target and following text, PDF, TeX and original archived Linux evidence remain byte-identical. Accordingly the existing visual review and actual Linux proof-revision evidence remain applicable. The integration introduced no proof edits and requires no numerical recomputation or PDF rerender.
+
+Complete before/after hashes, the exact upstream and checkpoint identities, existing/new verified-entry lists, final publication hashes and actual test logs are in `referee-2/integration/`. This completed review supports root's independent integration check and publication. No push or pull-request mutation was performed by this reviewer.

@@ -35,7 +35,7 @@
 | [MI-06](MI-06/README.md) | Thompson-type domination for the arithmetic symmetric modulus | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-06/problem.pdf) · [TeX](MI-06/problem.tex) |
 | [MI-07](MI-07/README.md) | The triangle conjecture for the maximal symmetric modulus | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-07/problem.pdf) · [TeX](MI-07/problem.tex) |
 | [MI-13](MI-13/README.md) | Nobori's spectral-middle-factor commutator conjecture | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-13/problem.pdf) · [TeX](MI-13/problem.tex) |
-| [MI-19](MI-19/README.md) | A q-permanent inequality for subset-preserving permutations | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-19/problem.pdf) · [TeX](MI-19/problem.tex) |
+| [MI-19](MI-19/README.md) | A q-permanent inequality for subset-preserving permutations | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](MI-19/problem.pdf) · [TeX](MI-19/problem.tex) |
 | [MI-21](MI-21/README.md) | Freewan–Hayajneh inequality for sums of weighted geometric means | **✅ SOLVED** | challenging | interesting to the community | [PDF](MI-21/problem.pdf) · [TeX](MI-21/problem.tex) |
 | [MI-22](MI-22/README.md) | Lemos–Soares singular-value log-majorization | **✅ SOLVED** | challenging | interesting to the community | [PDF](MI-22/problem.pdf) · [TeX](MI-22/problem.tex) |
 | [MI-23](MI-23/README.md) | Corrected generalized geometric-mean product conjecture | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-23/problem.pdf) · [TeX](MI-23/problem.tex) |
