@@ -1,0 +1,285 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\E}{\mathbb E}\newcommand{\PP}{\mathbb P}
+\newcommand{\R}{\mathbb R}\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\supp}{\operatorname{supp}}
+\title{Random proportional subsets of fixed-sparsity columns\\[3pt]\large A covariance--reservoir proof for TR-07}
+\author{Research draft prepared for mathematical review}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+Fix a column sparsity and a positive column-to-row sampling ratio. We give a proposed proof that, uniformly over all distributions on signed vectors of that sparsity, an independent sample has a positive fraction of arbitrarily small singular values, with exponentially high probability. A rank-perturbation coupling transfers the conclusion to a uniformly sampled set from any deterministic dictionary whose size is superlinear in the number of sampled columns. No restriction on intersections of column supports is imposed. The proof combines a covariance polynomial filter, finite conditional-sampling paths, and concentration of an eigenvalue count. Constants are explicit but extremely poor.
+\end{abstract}
+\noindent\textbf{Review status.} This is an unsubmitted proposed complete proof of the precise target in OpenProblemsInNLA TR-07. It has been self-audited, not independently refereed or formally verified. The accompanying finite tests are sanity checks, not a computer-assisted proof. No claim concerning the other repository problems is made here.
+
+\section{Statement and notation}
+For $k\ge s$, set
+\[
+ \mathcal V_{k,s}=\{u\in\{-1,0,1\}^k:|\supp u|=s\}.
+\]
+For a real $k\times r$ matrix $A$, with $r\le k$, and $\eta>0$, write
+\[
+ N_\eta(A)=\#\{j\in\{1,\dots,r\}:\sigma_j(A)\le\eta\}.
+\]
+All $r$ singular values are counted, including zeros. Matrix inequalities are in the positive-semidefinite order.
+
+\begin{theorem}[Independent sampling]\label{thm:iid}
+Fix an integer $s\ge1$, $0<\beta\le1$, and $\eta>0$. There are constants $\delta,c>0$ and $k_0$, depending only on $(s,\beta,\eta)$, such that the following holds. If $k\ge k_0$, $\beta k\le r\le k$, and $\mu$ is any probability distribution on $\mathcal V_{k,s}$, then the matrix $A$ of $r$ independent columns with law $\mu$ satisfies
+\[
+ \PP\{N_\eta(A)<\delta r\}\le 2e^{-cr}.
+\]
+The constants are uniform over $\mu$.
+\end{theorem}
+
+\begin{theorem}[Sampling a deterministic dictionary]\label{thm:distinct}
+Use the constants in Theorem~\ref{thm:iid}. Let $M\in\{-1,0,1\}^{k\times n}$ have exactly $s$ nonzero entries in each column, with $n\ge r$, $k\ge k_0$, and $\beta k\le r\le k$. If $I$ is a uniform $r$-element subset of $\{1,\dots,n\}$, then
+\begin{equation}\label{eq:finite}
+ \PP\{N_\eta(M_{:I})<\delta r/2\}
+ \le 2e^{-cr}+\frac{2(r-1)}{\delta n}.
+\end{equation}
+In particular, if $r_k\le k$, $k/r_k\to C\in[1,\infty)$ and $n_k/r_k\to\infty$, then for every such deterministic sequence $M_k$ and every $\eta>0$,
+\[
+ \PP\{\sigma_{\min}((M_k)_{:I_k})>\eta\}\longrightarrow0.
+\]
+\end{theorem}
+
+The last assertion is precisely the remaining target in TR-07~\cite{repo}, originating in Huang--Rudelson--Tikhomirov, Conjecture~7.1~\cite{hrt}. Their Theorem~1.3 includes an additional support-overlap assumption; none is used below.
+
+\section{Pruning low-incidence coordinates}
+\begin{lemma}\label{lem:prune}
+For every law $\mu$ on $\mathcal V_{k,s}$ there is a subset $G$ of its support with $\mu(G)\ge3/4$ such that the conditional law $\nu=\mu(\,\cdot\mid G)$ has the following property: each coordinate that occurs with positive $\nu$-probability occurs with probability at least $1/(4k)$.
+\end{lemma}
+\begin{proof}
+Start with the full support of $\mu$. If some coordinate has positive incident mass smaller than $1/(4k)$ in the remaining set, delete every remaining vector incident to that coordinate. All masses in this procedure are measured using the \emph{original}, unnormalized measure $\mu$. The chosen coordinate then has zero incident mass forever and is never charged again. At most $k$ coordinates are charged, each at a cost smaller than $1/(4k)$. Consequently, the total mass removed is at most $1/4$. At termination, every active coordinate has remaining unnormalized incident mass at least $1/(4k)$. Dividing by $\mu(G)\le1$ cannot decrease this lower bound.
+\end{proof}
+
+Throughout Sections~3--5, covariance matrices and their inverses are written on the active-coordinate subspace of such a law $\nu$. Sampled matrices retain their original $k$ rows by zero extension. Inner products, Gram matrices, and counts of all column singular values (including zeros) are unchanged. The number of active coordinates is at most $k$, while every vector still has exactly $s$ nonzero entries.
+
+\section{A covariance filter and conditional paths}
+Let $u$ have law $\nu$, and put
+\[
+ p_i=\PP\{u_i\ne0\},\qquad
+ D=\diag(p_i),\qquad \Sigma=\E uu^T,\qquad T=\Sigma D^{-1}.
+\]
+The diagonal matrix $D$ is invertible on the active coordinates. Notice that $\tr D=s$.
+
+\begin{lemma}[Average filtering error]\label{lem:filter}
+For every integer $L\ge1$,
+\begin{equation}\label{eq:filter}
+ \E\big\|(I-T/s)^L u\big\|_2^2\le\frac{s^2}{2L+1}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Cauchy--Schwarz on the support of a vector gives
+\[
+ uu^T\preceq s\diag(u_i^2),\qquad \Sigma\preceq sD.
+\]
+Thus $R=D^{-1/2}\Sigma D^{-1/2}$ is symmetric with $0\preceq R\preceq sI$. Since $T=D^{1/2}RD^{-1/2}$, direct multiplication, not an operator-norm bound for the generally nonnormal matrix $T$, gives
+\begin{align*}
+ \E\big\|(I-T/s)^L u\big\|_2^2
+ &=\tr\big((I-T/s)^L\Sigma((I-T/s)^L)^T\big)\\
+ &=\tr\big(DR(I-R/s)^{2L}\big).
+\end{align*}
+For $0\le\lambda\le s$,
+\[
+ 0\le\lambda(1-\lambda/s)^{2L}\le\frac{s}{2L+1}.
+\]
+Functional calculus and $\tr D=s$ prove~\eqref{eq:filter}.
+\end{proof}
+
+We next realize powers of $T/s$ by paths whose endpoints remain signed sample vectors. Given a current state $v$ equal to a vector in $\mathcal V_{k,s}$ (its sign may have been reversed), select $i$ uniformly from its $s$ support coordinates. Independently draw $w$ with law $\nu$ conditioned on $w_i\ne0$, and set the new state to $v_iw_iw$. Then
+\begin{equation}\label{eq:transition}
+ \E[v_iw_iw\mid v]
+ =\frac1s\sum_{i\in\supp v}\frac{v_i}{p_i}\E[u_i u]
+ =\frac Ts v.
+\end{equation}
+The new state has norm $\sqrt s$. Iteration yields, for the signed endpoint $Z_j$ of a length-$j$ path started at $u$,
+\begin{equation}\label{eq:paths}
+ \E[Z_j\mid u]=(T/s)^j u,\qquad \|Z_j\|_2=\sqrt s.
+\end{equation}
+No symmetry assumption on $\nu$ is needed: the accumulated sign belongs to the state, not to the sampling law.
+
+\begin{lemma}[Finite ideal reconstruction]\label{lem:ideal}
+Fix $\varepsilon>0$, and choose
+\begin{equation}\label{eq:LM}
+ L=\left\lceil\frac{4s^2}{\varepsilon^2}\right\rceil,\qquad
+ b=\left\lceil\frac{8s(2^L-1)^2}{\varepsilon^2}\right\rceil,
+ \qquad M=b\frac{L(L+1)}2.
+\end{equation}
+Using exactly $M$ conditional transitions, there is a random vector $Y$ in the span of the sampled endpoint vectors for which
+\[
+ \PP\{\|u-Y\|_2\le\varepsilon\}\ge3/4.
+\]
+Here the probability averages over both $u\sim\nu$ and the paths. It is not asserted separately for every possible $u$.
+\end{lemma}
+\begin{proof}
+Put $a_j=(-1)^{j+1}\binom Lj$. For each $h\in\{1,\dots,b\}$ independently, run one independent path of each length $j\in\{1,\dots,L\}$ from $u$, and denote its endpoint by $Z_{j,h}$. Define
+\[
+ Y_h=\sum_{j=1}^L a_jZ_{j,h},\qquad Y=\frac1b\sum_{h=1}^bY_h.
+\]
+There are $M$ transitions in total, and $Y$ is a linear combination of at most $bL$ endpoint sample vectors. By~\eqref{eq:paths},
+\[
+ \E[Y\mid u]=\big[I-(I-T/s)^L\big]u.
+\]
+Also $\|Y_h\|_2\le\sqrt s\sum_{j=1}^L|a_j|=\sqrt s(2^L-1)$. Conditional independence across $h$ implies
+\[
+ \E\|Y-\E[Y\mid u]\|_2^2\le \frac{s(2^L-1)^2}{b}.
+\]
+The bias and centered error are orthogonal in mean square. Lemma~\ref{lem:filter} therefore gives
+\[
+ \E\|u-Y\|_2^2
+ \le\frac{s^2}{2L+1}+\frac{s(2^L-1)^2}{b}
+ \le\frac{\varepsilon^2}{4}.
+\]
+Markov's inequality proves the assertion.
+\end{proof}
+
+\section{Realizing ideal paths in an independent reservoir}
+Let $q$ independent columns have law $\nu$, with
+\begin{equation}\label{eq:qregime}
+ q\ge\beta k/3,\qquad q\ge4M.
+\end{equation}
+Set aside $m_0=\lfloor q/2\rfloor$ columns as centers. The remaining $q-m_0$ columns are the reservoir. Partition its first $M\ell$ columns into $M$ fixed disjoint chunks, where
+\[
+ \ell=\left\lfloor\frac{q-m_0}{M}\right\rfloor\ge\frac q{4M}.
+\]
+For one center, implement the conditional transitions of Lemma~\ref{lem:ideal} in a fixed order. Each transition has a fresh chunk. After its support coordinate $i$ is chosen, scan that chunk and select its first vector with nonzero $i$-th coordinate. Declare failure if there is none.
+
+\begin{lemma}[Uniform path realization]\label{lem:reservoir}
+For each center the probability that this procedure completes and produces a reconstruction error at most $\varepsilon$ is at least
+\begin{equation}\label{eq:theta}
+ \theta=\frac34 a^M>0,\qquad
+ a=1-\exp\left(-\frac{\beta}{48M}\right).
+\end{equation}
+The same chunks may be reused for different centers. No independence of the resulting center-success events is asserted or required.
+\end{lemma}
+\begin{proof}
+Conditional on all past steps for the current center, the current chunk is an independent sequence with law $\nu$. If coordinate $i$ is requested, its hit probability is
+\[
+ h_i=1-(1-p_i)^\ell
+ \ge1-e^{-\ell/(4k)}\ge a.
+\]
+For any set $B$ of vectors, the law of the first hit satisfies
+\[
+ \PP\{\text{hit and selected vector lies in }B\}
+ =h_i\,\nu(B\mid u_i\ne0).
+\]
+Thus the one-step successful \emph{subprobability} transition kernel is $h_i$ times the ideal conditional kernel, and is bounded below by $a$ times it. Successively composing these nonnegative kernels shows that the all-hit subprobability law of all paths, including their auxiliary support choices, dominates $a^M$ times the ideal joint path law. This domination also holds after averaging over the independent center $u\sim\nu$. Apply it to the event in Lemma~\ref{lem:ideal} to obtain~\eqref{eq:theta}.
+
+Conditioning on all hits does \emph{not} in general preserve the ideal joint law; hit probabilities can depend on previously selected states. The kernel domination, rather than such a conditional-independence claim, is what is used. For each fixed center the chunks are independent and fresh along its procedure. Reusing those chunks for another center does not alter this marginal argument.
+\end{proof}
+
+\section{Approximate dependence gives many small singular values}
+\begin{lemma}[Simultaneous reconstruction]\label{lem:subspace}
+Suppose $A$ contains $m$ distinct center columns, and each can be approximated to Euclidean error at most $\varepsilon$ using a common collection of reservoir columns disjoint from all the centers. If $\varepsilon=\eta/2$, then $N_\eta(A)\ge m/2$.
+\end{lemma}
+\begin{proof}
+Put the $m$ coefficient vectors of the dependence witnesses into a matrix $V$: its block on the selected centers is $I_m$, its reservoir block is $-X$ for some coefficient matrix $X$, and its other rows vanish. Hence
+\[
+ V^TV=I_m+X^TX\succeq I_m,\qquad \|AV\|_F^2\le m\varepsilon^2.
+\]
+Set $Q=V(V^TV)^{-1/2}$. Then $Q^TQ=I_m$ and $\|AQ\|_F^2\le m\varepsilon^2$. The minimum principle for sums of eigenvalues gives
+\[
+ \sum_{j=1}^m\lambda_j(A^TA)\le\tr(Q^TA^TAQ)
+ \le m\varepsilon^2=\frac{m\eta^2}{4},
+\]
+where eigenvalues are in increasing order. Were fewer than $m/2$ of all the eigenvalues at most $\eta^2$, more than $m/2$ of the first $m$ would exceed $\eta^2$, contradicting this bound. No bound on the reconstruction coefficients $X$ was needed.
+\end{proof}
+
+Let $A_\nu$ be the $q$-column matrix above and $Z$ the number of successful centers in the reservoir construction, including its auxiliary randomness. Lemmas~\ref{lem:reservoir} and~\ref{lem:subspace} give
+\[
+ \E N_\eta(A_\nu)\ge\frac12\E Z\ge\frac{\theta m_0}{2}
+ \ge\frac{\theta q}{6}.
+\]
+The left side averages only over the actual sampled columns. Auxiliary randomness has been integrated out.
+
+Changing one column of a matrix changes its Gram matrix by rank at most two, and therefore changes $N_\eta$ by at most two. The bounded-differences inequality, with $q$ coordinate bounds equal to two, yields
+\begin{equation}\label{eq:concentration}
+ \PP\{N_\eta(A_\nu)<\theta q/12\}
+ \le \exp\left(-\frac{\theta^2q}{288}\right).
+\end{equation}
+For completeness the concentration and rank-count facts used here are recalled in the appendix.
+
+\section{Completion of independent sampling}
+\begin{proof}[Proof of Theorem~\ref{thm:iid}]
+Choose $\varepsilon=\eta/2$, then $L,b,M,a,\theta$ as in~\eqref{eq:LM} and~\eqref{eq:theta}. Set
+\[
+ \delta=\frac\theta{36},\qquad c=\frac{\theta^2}{864},\qquad
+ k_0=\max\left\{s,\left\lceil\frac{12M+3}{\beta}\right\rceil\right\}.
+\]
+Apply Lemma~\ref{lem:prune} to $\mu$. Generate each column by first choosing its good/bad label, then independently choosing a value from $\nu$ or from the complementary conditional law. The good labels are independent Bernoulli variables of parameter at least $3/4$. With $q=\lfloor r/2\rfloor$, the probability that fewer than $q$ of the $r$ columns are good is at most $e^{-r/8}$, by bounded differences (or the elementary Bernoulli tail bound).
+
+Conditional on any label sequence with enough good columns, the first $q$ good values are independent with law $\nu$. Moreover $q\ge r/3\ge\beta k/3$ and $q\ge4M$. Equation~\eqref{eq:concentration} applies to their column submatrix. Appending columns cannot decrease the number of Gram eigenvalues below a fixed threshold, by principal-submatrix interlacing. Consequently
+\begin{align*}
+ \PP\{N_\eta(A)<\delta r\}
+ &\le e^{-r/8}+e^{-\theta^2q/288}\\
+ &\le e^{-r/8}+e^{-\theta^2r/864}\le2e^{-cr}.
+\end{align*}
+All constants depend only on the stated parameters.
+\end{proof}
+
+\section{From independent indices to a uniform subset}
+\begin{proof}[Proof of Theorem~\ref{thm:distinct}]
+Let $J_1,\dots,J_r$ be independent uniform indices in $\{1,\dots,n\}$. Construct distinct indices $I_1,\dots,I_r$ in order: use $I_t=J_t$ if $J_t$ is not among $I_1,\dots,I_{t-1}$; otherwise choose $I_t$ uniformly among unused indices, using fresh randomness. Given the past, for any unused index $i$,
+\[
+ \PP\{I_t=i\mid I_1,\dots,I_{t-1}\}
+ =\frac1n+\frac{t-1}{n}\frac1{n-t+1}
+ =\frac1{n-t+1}.
+\]
+Thus $(I_t)$ is a uniformly ordered sample without replacement. If $H$ is the number of positions at which $I_t\ne J_t$, then
+\[
+ \E H=\sum_{t=1}^r\frac{t-1}{n}=\frac{r(r-1)}{2n}.
+\]
+The two sampled matrices differ in at most $H$ columns. Their Gram matrices differ by rank at most $2H$, so
+\[
+ N_\eta(M_{:I})\ge N_\eta(M_{:J})-2H.
+\]
+By Theorem~\ref{thm:iid}, the first count on the right is at least $\delta r$ except on an event of probability $2e^{-cr}$. Markov's inequality gives
+\[
+ \PP\{H>\delta r/4\}\le\frac{2(r-1)}{\delta n}.
+\]
+This proves~\eqref{eq:finite}. For the asymptotic assertion choose $\beta=1/(2C)$, valid for all sufficiently large $k$. Then $r_k\to\infty$, $r_k/n_k\to0$, and eventually $\delta r_k/2\ge1$. Both terms on the right of~\eqref{eq:finite} tend to zero.
+\end{proof}
+
+\section{Scope and constants}
+The proof establishes an asymptotic statement with a positive fraction $\delta(s,\beta,\eta)$ of small singular values. It does not give a useful numerical sparsity threshold: $b$ is exponential in $L$, and $a^M$ can be extraordinarily small. In particular, replacing fixed $s$ by an arbitrary growing sequence $s_k$ in the conclusion is not justified. This manuscript does not resolve the separate growing-sparsity target TR-08.
+
+The proof does not impose a bound on row degrees, a bound on pairwise support intersections, a sign-symmetry hypothesis, or independence between success events for different centers. Independence is used only for the original sample columns, for fresh chunks along one center's paths, and for the variance estimate in the ideal construction.
+
+\appendix
+\section{Linear-algebra and concentration facts}
+\paragraph{Rank perturbations and threshold counts.}
+If real symmetric matrices $G,H$ of the same order obey $\rank(G-H)\le d$, their numbers of eigenvalues in $(-\infty,t]$ differ by at most $d$. Indeed, intersect the spectral subspace of $G$ for that interval with $\ker(G-H)$; the intersection loses at most $d$ dimensions, and its vectors have $H$-Rayleigh quotient at most $t$. The minimum principle gives one inequality; reverse $G,H$ for the other. If $B=A+ue_j^T$, then
+\[
+ B^TB-A^TA=A^Tue_j^T+e_ju^TA+\|u\|^2e_je_j^T,
+\]
+whose image is contained in the span of $A^Tu$ and $e_j$, so its rank is at most two. The analogous bound for $h$ changed columns is $2h$. For a column submatrix, extend coefficient vectors by zero to obtain the principal-submatrix count inequality directly from the same minimum principle.
+
+\paragraph{Minimum sum principle.}
+If $G$ has increasingly ordered eigenvalues $\lambda_1,\ldots,\lambda_r$ and $Q^TQ=I_m$, diagonalizing $G$ writes $\tr(Q^TGQ)=\sum_i\lambda_iw_i$, where $0\le w_i\le1$ and $\sum_iw_i=m$. This is at least $\sum_{i=1}^m\lambda_i$.
+
+\paragraph{Bounded differences.}
+For independent random variables $X_1,\ldots,X_q$, suppose changing only $X_i$ changes a real-valued function $F$ by at most $d_i$. The Doob martingale differences, after conditioning on the past, have mean zero and lie in an interval of length at most $d_i$. The elementary exponential bound for a centered variable in an interval of length $d$ is $\E e^{tZ}\le e^{t^2d^2/8}$; it follows by convexity of the exponential and the two-point bound, or by integrating the bound $\frac{d^2}{dt^2}\log\E e^{tZ}\le d^2/4$. Iterating conditional expectations and optimizing the exponential Markov inequality gives
+\[
+ \PP\{F-\E F\le-t\}\le
+ \exp\left(-\frac{2t^2}{\sum_i d_i^2}\right).
+\]
+Use $d_i=2$ and $t=\theta q/12$ in~\eqref{eq:concentration}; use $d_i=1$ and $t=r/4$ for the good-label count.
+
+\begin{thebibliography}{9}
+\bibitem{repo} OpenProblemsInNLA, \emph{TR-07: Random column subsets of arbitrary fixed-sparsity matrices}, public problem page, accessed 12 September 2026.\\
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/randomized-and-low-rank-approximation/TR-07}
+\bibitem{hrt} H. Huang, M. Rudelson, and K. Tikhomirov, \emph{Well-invertible column subsets of sparse matrices are rare}, arXiv:2607.05384v2, 2026, Theorem 1.3 and Conjecture 7.1.\\
+\url{https://arxiv.org/html/2607.05384v2}
+\end{thebibliography}
+\end{document}
