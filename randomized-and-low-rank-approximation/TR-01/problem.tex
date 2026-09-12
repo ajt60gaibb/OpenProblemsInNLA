@@ -68,7 +68,8 @@ weaker-width selection. This retained entry is excluded from the open
 count.
 \end{quote}
 
-\subsection{Problem statement}\label{problem-statement}
+\hypertarget{problem-statement}{%
+\subsection{Problem statement}\label{problem-statement}}
 
 Let \(n\) be a power of two, \(1\le r\le n\), and \(0<\varepsilon<1/2\).
 Let \(F\) be the normalized Walsh--Hadamard matrix, let \(D_1,D_2\) have
@@ -95,7 +96,8 @@ success probability in the workshop question. Results for a single
 randomization, three randomizations, or independently sampled sparse
 sketches do not establish this statement.
 
-\subsection{References}\label{references}
+\hypertarget{references}{%
+\subsection{References}\label{references}}
 
 Amsel et al., \href{https://arxiv.org/html/2602.05394v3}{\emph{Linear
 Systems and Eigenvalue Problems: Open Questions from a Simons
@@ -105,15 +107,15 @@ baseline, Joel A. Tropp,
 Subsampled Randomized Hadamard Transform}}, \emph{Advances in Adaptive
 Data Analysis} 3 (2011), 115--126, Theorem 3.1.
 
+\hypertarget{resolution-and-status-check-2026-09-12}{%
 \subsection{Resolution and status check ---
-2026-09-12}\label{resolution-and-status-check-2026-09-12}
+2026-09-12}\label{resolution-and-status-check-2026-09-12}}
 
-The affine preprint \emph{Subspace embeddings with the rerandomized
-SRHT} (Theorem 1, manuscript page 2,
-\href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/manuscript.pdf}{arXiv-style
-full text}) proves that for each power-of-two \(n\), every
-\(1\le r\le n\), and every fixed \(r\)-dimensional subspace \(V\),
-choosing
+The manuscript \emph{Subspace embeddings with the rerandomized SRHT}
+(Theorem 1, manuscript page 2,
+\href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/manuscript.pdf}{manuscript
+PDF}) proves that for each power-of-two \(n\), every \(1\le r\le n\),
+and every fixed \(r\)-dimensional subspace \(V\), choosing
 
 \[
 k=\min\left\{n,\left\lceil Cr/\varepsilon^2\right\rceil\right\}
@@ -122,7 +124,7 @@ k=\min\left\{n,\left\lceil Cr/\varepsilon^2\right\rceil\right\}
 gives
 
 \[
-\Pr\left\{\|V^T\Omega^T\Omega V-I_r\|_2>\varepsilon\right\}\le0.01,
+\Pr\left\{\|V^T\Omega\Omega^T V-I_r\|_2>\varepsilon\right\}\le0.01,
 \]
 
 for two independent Rademacher sign diagonals, two normalized Walsh
@@ -136,13 +138,16 @@ The proven range is \(0<\varepsilon<1\), which strictly contains TR-01's
 displayed range \(0<\varepsilon<1/2\). This is therefore a complete
 affirmative resolution of the original target.
 
-The current statement is the TR-01 target at prescribed width; the
-original 2026 Simons problem version (Problem 5.6) is the same
-probabilistic target on fixed \(V\), and the manuscript explicitly
-records the comparison of the workshop and current versions.
+TR-01 is a prescribed-width strengthening of Problem 5.6 in the 2026
+Simons workshop collection. It uses the same two-round Walsh/sign
+distribution and the same fixed-subspace OSE event, but TR-01 prescribes
+the specific width \(k=\min\{n,\lceil Cr/\varepsilon^2\rceil\}\) rather
+than only asking for a width of order \(O(r/\varepsilon^2)\). The
+manuscript proves this stronger prescribed-width formulation directly.
 
+\hypertarget{lean-proof-and-verification-evidence}{%
 \subsection{Lean proof and verification
-evidence}\label{lean-proof-and-verification-evidence}
+evidence}\label{lean-proof-and-verification-evidence}}
 
 The public Lean repository is
 \href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/tree/ed21181197ac839eac95f549404f94e7e3aa6e10}{OpenProblemsInNLA\_TR-01@ed211811},
@@ -161,7 +166,7 @@ The canonical result declarations are
   \textit{Problem56.PaperV7.main\_prescribed\_width\_ose}
 \end{itemize}
 
-The manuscript and Lean correspondence are reviewed in
+The submitted manuscript and correspondence evidence are available at
 
 \begin{itemize}
 \tightlist
@@ -187,7 +192,28 @@ Lean toolchain and dependency pins are
   (mathlib \textit{db584cd6d46c92f209a44c0f1c829460d327499d})
 \end{itemize}
 
-Reproducible checks are listed in the immutable validation record:
+The pinned reproduction instructions are in
+\href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/README.md}{\textit{lean/README.md}},
+and the verifier is
+\href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/verify.py}{\textit{lean/verify.py}}.
+From the \textit{lean/} directory of that immutable revision, the
+principal commands are:
+
+\begin{itemize}
+\tightlist
+\item
+  \textit{lake exe cache get}
+\item
+  \textit{python3 verify.py}
+\item
+  \textit{python3 verify.py -\/-graph -\/-semantic -\/-fresh-kernel}
+\end{itemize}
+
+The archived public record reports successful proof compilation,
+statement-boundary checks, transitive axiom checks, semantic
+regressions, a cold project rebuild, and fresh kernel replay.
+
+Reproducible checks are recorded in the immutable validation artifacts:
 
 \begin{itemize}
 \tightlist
@@ -202,8 +228,7 @@ Reproducible checks are listed in the immutable validation record:
 \item
   \href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/audit/semantic_regressions.json}{semantic\_regressions.json}
 \item
-  \href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/build/verification.json}{delivery\_check.json
-  (build log)}
+  \href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/audit/final_binding_review.json}{final\_binding\_review.json}
 \end{itemize}
 
 The axiom audit is in the immutable artifact
@@ -223,6 +248,10 @@ with accepted transitive axioms only
 No \textit{sorry}, \textit{admit}, or custom mathematical axioms appear
 in the certified target graph.
 
-The catalog checked the statement correspondence and public verification
-records and did not rerun Lean locally for this upstream submission.
+The submitted verification package includes an independent
+manuscript-to-Lean statement-correspondence review and the public
+verification records linked above. This pull request does not claim that
+the OpenProblemsInNLA maintainers reran Lean locally; the
+formal-verification status is supported by the immutable public proof
+and audit record submitted for maintainer review.
 \end{document}
