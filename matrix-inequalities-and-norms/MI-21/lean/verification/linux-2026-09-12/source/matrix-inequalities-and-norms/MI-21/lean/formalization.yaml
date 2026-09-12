@@ -1,0 +1,136 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/99c678e569c7c4c0772db297c5ddd5e4c9b6322e/schema/v0.4.schema.json
+version: v0.4
+project:
+  name: 'MI-21: a counterexample to the weighted geometric-mean norm conjecture'
+  description: Proves admissibility of the genuine Euclidean operator norm, exact CFC geometric-mean
+    identities at positive definite complex matrices, a strict counterexample for every positive
+    outer parameter, and the full original universal conjecture's negation.
+  authors:
+  - George Stepaniants
+  affiliations:
+    George Stepaniants: Department of Computing and Mathematical Sciences, California Institute
+      of Technology, Pasadena, California, USA
+  responsible_maintainers:
+  - George Stepaniants
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+- title: MI-21 — Freewan–Hayajneh inequality for sums of weighted geometric means
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/e7252e5307781a7c897bca6cb124f6ab838f6809/matrix-inequalities-and-norms/MI-21/README.md
+  type: web-post
+  location: Problem statement
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: Full all-dimension complex positive definite target attributed to Freewan and Hayajneh,
+    including every unitarily invariant norm and all original real parameters.
+- title: 'MI-21: Resolution'
+  authors:
+  - Matthew J. Colbrook
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/e7252e5307781a7c897bca6cb124f6ab838f6809/matrix-inequalities-and-norms/MI-21/solution.tex
+  type: manuscript
+  location: Theorem 1.1 and its complete proof
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: The exact rational order-two witness has s=t=1/2, r=2 and both aggregate sums equal to
+    the identity. The actual norm violation holds for every real p>0 and refutes the complete
+    original question.
+related_formalizations:
+- id: https://github.com/sgstepaniants/Forsythe/tree/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof
+  relationship: other
+  note: Statement-first, kernel LeanCert and Comparator workflow reference. Shared checker reuse
+    is credited in tools/lean/NOTICE.md; no Forsythe mathematical result is assumed by this proof.
+- id: https://github.com/jaumededios/Schiffer/tree/2938e277969c329caf154e48a3d8823f3635c7f1
+  relationship: other
+  note: Proof organization studied; no source code copied or imported.
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: Multiple agents; two independent statement reviews before proof; actual Mathlib
+      CFC, matrix positivity and Euclidean operator APIs; two independent final proof reviews
+      with fresh separate target artifacts; explicit kernel LeanCert for one rational point.
+    prompting_notes: Retain every norm and parameter quantifier. Prove genuine CFC mean identities
+      through positive-root uniqueness and two independently checked scaled Riccati certificates;
+      cancel the scalar square root analytically and use one nonzero eigenvector to bound the
+      actual operator norm.
+  notes: AI-assisted formalization requested by George Stepaniants. No external human peer review,
+    source-author endorsement, unrecorded exact model identity or measured monetary cost is claimed.
+status:
+  scope: Complete negative answer to canonical MI-21. The three complete exports pass local Lean
+    compilation and standard-axiom checks; two independent statement referees and two independent
+    final proof referees approved the unchanged mathematical boundary. Authoritative Linux Comparator
+    remains pending, and the canonical status remains Solved. No successful Linux run or Lean-verified
+    catalog promotion is claimed.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: &id001
+  - propext
+  - Classical.choice
+  - Quot.sound
+  main_results:
+  - declaration: NLA.MI21.operatorNorm_isUnitaryInvariant
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI21.counterexample
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI21.not_geometricMeanNormConjecture
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+fidelity:
+  divergences: Finite matrix and family indices use Fin and are zero-based. The target preserves
+    complex positive definite inputs, real spectral powers and the original noncommuting factor
+    order. The full norm class is spelled out by all complex norm axioms and independent left/right
+    unitary invariance; the genuine Euclidean operator norm is separately proved admissible. A
+    positive-root/Riccati uniqueness argument replaces the manuscript's calculation shortcut while
+    proving the same actual CFC identities. A nonzero eigenvector proves a norm lower bound; it
+    does not define or replace the norm. The witness is valid for every p>0; p=1 suffices for
+    the full negation. Known narrower positive parameter regimes are not contradicted.
+review:
+  status: agent-reviewed; Linux-Comparator-pending
+  reviewers:
+  - 'OpenAI Codex agent /root: independent statement referee 1 and final proof referee 1'
+  - 'OpenAI Codex agent /root/leancert_examples: independent statement referee 2 and final proof
+    referee 2'
+  notes: Both statement approvals precede proof implementation and bind the unchanged Definitions,
+    Challenge, numerical targets and source mapping. Both final referees read the complete mathematical
+    proof, independently re-elaborated Definitions, Proof and Solution into fresh local artifact
+    prefixes, checked all 11 standard-three-axiom/kernel reports, and independently reconstructed
+    both current common-scale Riccati certificates. Raw evidence is in reviews/proof-referee-1-root-evidence/
+    and reviews/proof-referee-2-evidence/. The proof implementer is not counted as an independent
+    referee. Relevant pinned Tau Ceti rubrics were adapted to this canonical target. Three deliberate
+    Challenge placeholders remain isolated and are excluded from proof sorry counts. Source-level
+    signatures match; actual isolated Linux Comparator, default-kernel replay and controls are
+    pending. Stage-one notes and the initial proof handoff remain historical records, superseded
+    on review status by the two final proof reports.
+alignment:
+- source: Every unitarily invariant complex matrix norm in the original statement; actual Euclidean
+    operator norm is an admissible witness
+  declarations:
+  - NLA.MI21.operatorNorm_isUnitaryInvariant
+- source: 'Colbrook Theorem 1.1: all positive definite inputs, aggregate identities, actual CFC
+    left and right expressions, eigenvector norm bound and strict violation for every p>0'
+  declarations:
+  - NLA.MI21.counterexample
+- source: Full negation of the original universally quantified matrix/parameter/norm assertion
+  declarations:
+  - NLA.MI21.not_geometricMeanNormConjecture
+acknowledgements: 'Mathlib, LeanCert, Lean Comparator, the formalization.yaml maintainers, Schiffer
+  and Forsythe. Informal mathematical proof: Matthew J. Colbrook, Department of Applied Mathematics
+  and Theoretical Physics, University of Cambridge. Formalization: George Stepaniants with AI-agent
+  assistance.'
+toolchain:
+  lean: leanprover/lean4:v4.33.1
+  leancert: 621a43d7cf21f87872392a01e874f2f1dbddc926
+  mathlib: 0df444a360eaa60ab8c11dca51a86af692955474
+  dependency_manifest: lake-manifest.json

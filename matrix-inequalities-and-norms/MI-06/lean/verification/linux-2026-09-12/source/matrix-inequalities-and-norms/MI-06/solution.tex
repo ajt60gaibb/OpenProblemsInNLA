@@ -1,0 +1,150 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=24mm]{geometry}
+\usepackage{microtype}
+\usepackage{booktabs,array,longtable}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue,pdfauthor={Matthew J. Colbrook}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Resolution / MI-06}
+\fancyhead[R]{\small 11 September 2026}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\M}{\mathbb M}
+\newcommand{\C}{\mathbb C}
+\newcommand{\R}{\mathbb R}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\spec}{\operatorname{spec}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\opnorm}[1]{\lVert #1\rVert_{\infty}}
+\newcommand{\schatten}[2]{\lVert #1\rVert_{#2}}
+\newcommand{\symmod}{\mathcal S}
+\newcommand{\maxmod}{\mathcal M}
+\newcommand{\draftnotice}{\begin{center}\small\textit{Proposed mathematical resolution. Complete proof supplied; not submitted or peer reviewed.}\end{center}}
+
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\allowdisplaybreaks[1]
+
+\title{MI-06: Resolution}
+\author{Matthew J. Colbrook\\
+\small Department of Applied Mathematics and Theoretical Physics\\
+\small University of Cambridge, Cambridge, United Kingdom\\
+\small\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+\textbf{Repository status: Solved.}
+The complete argument received an independent Codex-agent PASS review
+against the exact catalog target.
+The original draft was AI-assisted; the reviewed proof below is unchanged.
+This is independent agent verification, not external human peer review or
+formal proof certification. \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-2026-09-11/verification/reviews/MI-06-review.md}{Detailed review and scope}.
+\par\medskip
+% BEGIN REVIEWED PROOF
+\section{MI-06: no finite two-unitary constant for the arithmetic symmetric modulus}
+\label{sec:mi06}
+
+Define the arithmetic symmetric modulus by
+\[
+ \symmod(X)=\frac{|X|+|X^*|}{2}.
+\]
+The target proposes that for every $X,Y$ there are unitaries $U,V$ with
+\[
+ \symmod(X+Y)\leq\sqrt2\bigl(U\symmod(X)U^*+V\symmod(Y)V^*\bigr).
+\]
+The following result disproves that assertion and the more general finite-constant question in \cite[Conjecture 1.6 and equation (1.4)]{Zhang2026}.
+
+\begin{theorem}\label{thm:mi06}
+Even in dimension three, there is no finite nonnegative constant $C$ such that every pair $X,Y\in\M_3(\C)$ admits unitaries $U,V$ satisfying
+\begin{equation}\label{eq:mi06-target}
+ \symmod(X+Y)\leq C\bigl(U\symmod(X)U^*+V\symmod(Y)V^*\bigr).
+\end{equation}
+The failure is witnessed by real rank-one matrices.
+\end{theorem}
+
+\begin{proof}
+For $t>0$, let
+\[
+ X=e_1(e_1+te_2)^*
+ =\begin{pmatrix}1&t&0\\0&0&0\\0&0&0\end{pmatrix},\qquad
+ Y=-(e_1+te_3)e_1^*
+ =\begin{pmatrix}-1&0&0\\0&0&0\\-t&0&0\end{pmatrix}.
+\]
+Put $s=\sqrt{1+t^2}$. If $Z=uv^*$ has rank one, then
+\[
+ |Z|=\frac{\|u\|}{\|v\|}vv^*,\qquad
+ |Z^*|=\frac{\|v\|}{\|u\|}uu^*.
+\]
+Applying this identity shows that both $\symmod(X)$ and $\symmod(Y)$ have eigenvalues
+\[
+ a=\frac{s+1}{2},\qquad b=\frac{s-1}{2},\qquad0.
+\]
+On the other hand,
+\[
+ X+Y=t(e_1e_2^*-e_3e_1^*)
+\]
+has right and left moduli $t\diag(1,1,0)$ and $t\diag(1,0,1)$, respectively. Hence
+\begin{equation}\label{eq:mi06-sum}
+ \symmod(X+Y)=\diag(t,t/2,t/2)\geq(t/2)I_3.
+\end{equation}
+
+Fix arbitrary unitaries $U,V$. Choose a unit vector $w$ orthogonal to a top eigenvector of $U\symmod(X)U^*$ and to a top eigenvector of $V\symmod(Y)V^*$. Such a vector exists because the ambient dimension is three. The eigenvalue lists above imply
+\[
+ w^*\bigl(U\symmod(X)U^*+V\symmod(Y)V^*\bigr)w\leq 2b=s-1.
+\]
+Combining this with \eqref{eq:mi06-sum}, any domination \eqref{eq:mi06-target} would force
+\[
+ \frac t2\leq C(s-1),\qquad
+ C\geq\frac{t}{2(\sqrt{1+t^2}-1)}
+ =\frac{\sqrt{1+t^2}+1}{2t}.
+\]
+The final expression tends to $+\infty$ as $t\downarrow0$.
+\end{proof}
+
+\begin{corollary}[A small exact counterexample to $\sqrt2$]\label{cor:mi06-rational}
+Take $t=3/4$ in the preceding construction. Then
+\[
+ \spec\symmod(X)=\spec\symmod(Y)=\{9/8,1/8,0\},
+ \qquad \symmod(X+Y)=\diag(3/4,3/8,3/8).
+\]
+For arbitrary $U,V$, the quadratic form of the proposed right-hand side on the vector $w$ used above is at most $\sqrt2/4<3/8$. Thus the conjectured domination fails.
+\end{corollary}
+
+For direct verification, the two individual symmetric moduli in this example are rational matrices:
+\[
+ \symmod(X)=\begin{pmatrix}41/40&3/10&0\\3/10&9/40&0\\0&0&0\end{pmatrix},\qquad
+ \symmod(Y)=\begin{pmatrix}41/40&0&3/10\\0&0&0\\3/10&0&9/40\end{pmatrix}.
+\]
+This obstruction concerns order domination by two separately rotated summands. It does not contradict a unitarily invariant norm inequality for their sum, and it does not identify the arithmetic modulus with the quadratic symmetric modulus.
+
+% END REVIEWED PROOF
+\begin{thebibliography}{1}
+
+\bibitem{Zhang2026}
+Teng Zhang.
+\newblock Operator symmetric moduli and sharp triangle inequalities.
+\newblock arXiv:2603.01046, 2026.
+\newblock Version consulted: v1; Conjecture 1.6, equation (1.4), Problems 1.11
+  and 1.17.
+\newblock URL: \url{https://arxiv.org/abs/2603.01046}.
+
+\end{thebibliography}
+
+\end{document}

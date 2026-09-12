@@ -1,0 +1,347 @@
+# All problems and their status
+
+**128 problems with open targets:** 57 open and 71 partially resolved. **89 other retained entries**, excluded from the open count.
+
+**Resolution evidence:** 84 solved (published or independently audited); 5 Lean verified.
+
+Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
+
+[Categories](README.md) · [Status definitions](README.md#problem-status) · [Solved and claimed solutions](RESOLVED.md) · [Rating definitions](README.md#ratings)
+
+
+## [Linear systems and elimination](linear-systems-and-elimination/README.md)
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [IE-03](linear-systems-and-elimination/IE-03/README.md) | Cryer's Hadamard complete-pivoting conjecture | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](linear-systems-and-elimination/IE-03/problem.pdf) · [TeX](linear-systems-and-elimination/IE-03/problem.tex) |
+| [IE-06](linear-systems-and-elimination/IE-06/README.md) | The square-root upper bound for Gaussian partial-pivoting growth | **🔵 OPEN** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-06/problem.pdf) · [TeX](linear-systems-and-elimination/IE-06/problem.tex) |
+| [IE-11](linear-systems-and-elimination/IE-11/README.md) | The exact fifth complete-pivoting growth factor | **🔵 OPEN** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-11/problem.pdf) · [TeX](linear-systems-and-elimination/IE-11/problem.tex) |
+| [IE-12](linear-systems-and-elimination/IE-12/README.md) | Near-quadratic solution cost at a prescribed backward error | **🟡 PARTIAL** | challenging | broadly interesting | [PDF](linear-systems-and-elimination/IE-12/problem.pdf) · [TeX](linear-systems-and-elimination/IE-12/problem.tex) |
+| [IE-16](linear-systems-and-elimination/IE-16/README.md) | A sharp subset bound for worst-case normal GMRES | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-16/problem.pdf) · [TeX](linear-systems-and-elimination/IE-16/problem.tex) |
+| [IE-20](linear-systems-and-elimination/IE-20/README.md) | Precision required for conjugate gradients to attain backward accuracy in n steps | **🔵 OPEN** | extreme | interesting to the community | [PDF](linear-systems-and-elimination/IE-20/problem.pdf) · [TeX](linear-systems-and-elimination/IE-20/problem.tex) |
+| [IE-24](linear-systems-and-elimination/IE-24/README.md) | RILU conditioning for the Neumann problem on smooth planar domains | **🔵 OPEN** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-24/problem.pdf) · [TeX](linear-systems-and-elimination/IE-24/problem.tex) |
+| [IE-25](linear-systems-and-elimination/IE-25/README.md) | Perturbed MILU conditioning for Neumann problems in two and three dimensions | **🔵 OPEN** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-25/problem.pdf) · [TeX](linear-systems-and-elimination/IE-25/problem.tex) |
+| [IE-27](linear-systems-and-elimination/IE-27/README.md) | Spectral disk for a Radau stage preconditioner | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-27/problem.pdf) · [TeX](linear-systems-and-elimination/IE-27/problem.tex) |
+| [IE-28](linear-systems-and-elimination/IE-28/README.md) | Positive diagonal preconditioning with a nilpotent stiff limit | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-28/problem.pdf) · [TeX](linear-systems-and-elimination/IE-28/problem.tex) |
+| [KE-01](linear-systems-and-elimination/KE-01/README.md) | Exploit spectral outliers without losing input sparsity | **🔵 OPEN** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/KE-01/problem.pdf) · [TeX](linear-systems-and-elimination/KE-01/problem.tex) |
+
+Retained entries outside the open count:
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [IE-01](linear-systems-and-elimination/IE-01/README.md) | Forsythe's conjecture beyond restart length two | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](linear-systems-and-elimination/IE-01/problem.pdf) · [TeX](linear-systems-and-elimination/IE-01/problem.tex) |
+| [IE-02](linear-systems-and-elimination/IE-02/README.md) | Is the ideal GMRES bound sharp for every Jordan block? | **✅ SOLVED** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-02/problem.pdf) · [TeX](linear-systems-and-elimination/IE-02/problem.tex) |
+| [IE-04](linear-systems-and-elimination/IE-04/README.md) | Exponential smoothed tail bounds for partial pivoting | **✅ SOLVED** | extreme | broadly interesting | [PDF](linear-systems-and-elimination/IE-04/problem.pdf) · [TeX](linear-systems-and-elimination/IE-04/problem.tex) |
+| [IE-05](linear-systems-and-elimination/IE-05/README.md) | Exact extremizers for partial pivoting on orthogonal matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-05/problem.pdf) · [TeX](linear-systems-and-elimination/IE-05/problem.tex) |
+| [IE-13](linear-systems-and-elimination/IE-13/README.md) | Sharp growth for unequal lower and upper bandwidths | **✅ SOLVED** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-13/problem.pdf) · [TeX](linear-systems-and-elimination/IE-13/problem.tex) |
+| [IE-14](linear-systems-and-elimination/IE-14/README.md) | Sharp growth for cyclic tridiagonal matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-14/problem.pdf) · [TeX](linear-systems-and-elimination/IE-14/problem.tex) |
+| [IE-15](linear-systems-and-elimination/IE-15/README.md) | Exact small-order growth factors for rook pivoting | **✅ SOLVED** | hard | interesting to specialist | [PDF](linear-systems-and-elimination/IE-15/problem.pdf) · [TeX](linear-systems-and-elimination/IE-15/problem.tex) |
+| [IE-17](linear-systems-and-elimination/IE-17/README.md) | Monotonic optimal backward error along LSMR | **✅ SOLVED** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-17/problem.pdf) · [TeX](linear-systems-and-elimination/IE-17/problem.tex) |
+| [IE-18](linear-systems-and-elimination/IE-18/README.md) | The exact four-step amplification of restarted Anderson acceleration | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-18/problem.pdf) · [TeX](linear-systems-and-elimination/IE-18/problem.tex) |
+| [IE-19](linear-systems-and-elimination/IE-19/README.md) | Sharp inverse norm bound from upper bounds on matrix entries | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-19/problem.pdf) · [TeX](linear-systems-and-elimination/IE-19/problem.tex) |
+| [IE-21](linear-systems-and-elimination/IE-21/README.md) | Sharp row-deletion singular-value limit for spherical random matrices | **✅ SOLVED** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-21/problem.pdf) · [TeX](linear-systems-and-elimination/IE-21/problem.tex) |
+| [IE-22](linear-systems-and-elimination/IE-22/README.md) | Optimal uniform row-deletion singular-value constant | **✅ SOLVED** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-22/problem.pdf) · [TeX](linear-systems-and-elimination/IE-22/problem.tex) |
+| [IE-23](linear-systems-and-elimination/IE-23/README.md) | Uniqueness of the right inverse minimizing an induced p-to-2 norm | **✅ SOLVED** | hard | interesting to specialist | [PDF](linear-systems-and-elimination/IE-23/problem.pdf) · [TeX](linear-systems-and-elimination/IE-23/problem.tex) |
+| [IE-26](linear-systems-and-elimination/IE-26/README.md) | Sharp stability bounds for perturbed Fourier interpolation | **✅ SOLVED** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-26/problem.pdf) · [TeX](linear-systems-and-elimination/IE-26/problem.tex) |
+
+
+## [Eigenvalues and inverse problems](eigenvalues-and-inverse-problems/README.md)
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [IE-07](eigenvalues-and-inverse-problems/IE-07/README.md) | Deterministic regularization of the nonsymmetric eigenproblem | **🔵 OPEN** | extreme | broadly interesting | [PDF](eigenvalues-and-inverse-problems/IE-07/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IE-07/problem.tex) |
+| [IS-01](eigenvalues-and-inverse-problems/IS-01/README.md) | Two permutation matrices generate the doubly stochastic spectral boundary | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-01/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-01/problem.tex) |
+| [IS-04](eigenvalues-and-inverse-problems/IS-04/README.md) | A condition number of two for a sign matrix in every dimension | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-04/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-04/problem.tex) |
+| [IS-05](eigenvalues-and-inverse-problems/IS-05/README.md) | The optimal decay exponent for the conditioning of sign matrices | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-05/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-05/problem.tex) |
+| [KE-02](eigenvalues-and-inverse-problems/KE-02/README.md) | Construct a separating diagonal perturbation in nearly linear time | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/KE-02/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/KE-02/problem.tex) |
+| [SP-01](eigenvalues-and-inverse-problems/SP-01/README.md) | The sharp generic threshold for spectral-subspace rotation | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-01/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-01/problem.tex) |
+| [SP-02](eigenvalues-and-inverse-problems/SP-02/README.md) | The sharp off-diagonal threshold for spectral-subspace rotation | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-02/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-02/problem.tex) |
+| [SP-03](eigenvalues-and-inverse-problems/SP-03/README.md) | The Euclidean distance degree of the real symplectic group | **🔵 OPEN** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/SP-03/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-03/problem.tex) |
+| [SP-07](eigenvalues-and-inverse-problems/SP-07/README.md) | The sharp spectral-matching constant for normal matrices | **🔵 OPEN** | extreme | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-07/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-07/problem.tex) |
+| [SP-08](eigenvalues-and-inverse-problems/SP-08/README.md) | Rank-two maximizers of spectral spread on an entry interval | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-08/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-08/problem.tex) |
+| [SP-09](eigenvalues-and-inverse-problems/SP-09/README.md) | Unitary-orbit distance under finite block repetition | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/SP-09/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-09/problem.tex) |
+| [SP-10](eigenvalues-and-inverse-problems/SP-10/README.md) | The graph complement conjecture for minimum symmetric rank | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-10/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-10/problem.tex) |
+| [SP-14](eigenvalues-and-inverse-problems/SP-14/README.md) | Widom's canonical distribution conjecture for Toeplitz eigenvalues | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-14/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-14/problem.tex) |
+
+Retained entries outside the open count:
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [IE-08](eigenvalues-and-inverse-problems/IE-08/README.md) | A cubic-time Schur algorithm using logarithmic precision | **✅ SOLVED** | extreme | broadly interesting | [PDF](eigenvalues-and-inverse-problems/IE-08/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IE-08/problem.tex) |
+| [IE-10](eigenvalues-and-inverse-problems/IE-10/README.md) | Conditioning of a random Krylov compression of a cyclic shift | **✅ SOLVED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/IE-10/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IE-10/problem.tex) |
+| [IS-02](eigenvalues-and-inverse-problems/IS-02/README.md) | Where a symmetric stochastic matrix can be spectrally unique | **✅ SOLVED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/IS-02/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-02/problem.tex) |
+| [IS-03](eigenvalues-and-inverse-problems/IS-03/README.md) | Johnson's derivative-realizability conjecture | **✅ SOLVED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-03/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-03/problem.tex) |
+| [KE-03](eigenvalues-and-inverse-problems/KE-03/README.md) | Find a near-largest nonnormal eigenvalue using few matrix-vector products | **✅ SOLVED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/KE-03/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/KE-03/problem.tex) |
+| [KE-04](eigenvalues-and-inverse-problems/KE-04/README.md) | Strict interlacing across block Lanczos iterations | **✅ SOLVED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/KE-04/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/KE-04/problem.tex) |
+| [SP-04](eigenvalues-and-inverse-problems/SP-04/README.md) | The smallest-multiplier rule for nearest unit-absolute-determinant matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/SP-04/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-04/problem.tex) |
+| [SP-05](eigenvalues-and-inverse-problems/SP-05/README.md) | Symmetric minimizer for a positive definite Jordan–Kronecker product | **✅ SOLVED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-05/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-05/problem.tex) |
+| [SP-06](eigenvalues-and-inverse-problems/SP-06/README.md) | A real-valued symbol on a Jordan curve and real Toeplitz spectra | **✅ SOLVED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-06/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-06/problem.tex) |
+| [SP-11](eigenvalues-and-inverse-problems/SP-11/README.md) | The delta conjecture for minimum symmetric rank | **✅ SOLVED** | extreme | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-11/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-11/problem.tex) |
+| [SP-12](eigenvalues-and-inverse-problems/SP-12/README.md) | A chromatic lower bound for positive-semidefinite nullity with SAP | **✅ SOLVED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/SP-12/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-12/problem.tex) |
+| [SP-13](eigenvalues-and-inverse-problems/SP-13/README.md) | Trace-norm-small perturbations preserve Hermitian spectral distributions | **✅ SOLVED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-13/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-13/problem.tex) |
+| [SP-15](eigenvalues-and-inverse-problems/SP-15/README.md) | Finitely many unitary classes with prescribed shifted singular values | **✅ SOLVED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-15/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-15/problem.tex) |
+
+
+## [Matrix functions and stability](matrix-functions-and-stability/README.md)
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [MF-01](matrix-functions-and-stability/MF-01/README.md) | Optimal sign approximation with a multiplication budget | **🔵 OPEN** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-01/problem.pdf) · [TeX](matrix-functions-and-stability/MF-01/problem.tex) |
+| [MF-04](matrix-functions-and-stability/MF-04/README.md) | Finiteness for nonnegative rational matrix families | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-04/problem.pdf) · [TeX](matrix-functions-and-stability/MF-04/problem.tex) |
+| [MF-08](matrix-functions-and-stability/MF-08/README.md) | NP-hardness of unrestricted static output-feedback stabilization | **🔵 OPEN** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-08/problem.pdf) · [TeX](matrix-functions-and-stability/MF-08/problem.tex) |
+| [MF-09](matrix-functions-and-stability/MF-09/README.md) | Decidability of strict stability for rational matrix families | **🔵 OPEN** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-09/problem.pdf) · [TeX](matrix-functions-and-stability/MF-09/problem.tex) |
+| [MF-10](matrix-functions-and-stability/MF-10/README.md) | Algebraicity of joint spectral radii from rational input | **🔵 OPEN** | extreme | interesting to the community | [PDF](matrix-functions-and-stability/MF-10/problem.pdf) · [TeX](matrix-functions-and-stability/MF-10/problem.tex) |
+| [MF-11](matrix-functions-and-stability/MF-11/README.md) | Temporal regularity of marginal matrix-product growth | **🔵 OPEN** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-11/problem.pdf) · [TeX](matrix-functions-and-stability/MF-11/problem.tex) |
+| [MF-13](matrix-functions-and-stability/MF-13/README.md) | Symmetric maximizers for Lyapunov operators of order six | **🔵 OPEN** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-13/problem.pdf) · [TeX](matrix-functions-and-stability/MF-13/problem.tex) |
+| [MF-14](matrix-functions-and-stability/MF-14/README.md) | Degree coverage with seven matrix multiplications | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-14/problem.pdf) · [TeX](matrix-functions-and-stability/MF-14/problem.tex) |
+| [MF-15](matrix-functions-and-stability/MF-15/README.md) | Critical exponent for generalized doubly nonnegative matrices | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-15/problem.pdf) · [TeX](matrix-functions-and-stability/MF-15/problem.tex) |
+| [MF-17](matrix-functions-and-stability/MF-17/README.md) | Optimal uniform growth after inversion of an exponentially stable generator | **🔵 OPEN** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-17/problem.pdf) · [TeX](matrix-functions-and-stability/MF-17/problem.tex) |
+| [MF-19](matrix-functions-and-stability/MF-19/README.md) | Decidability of zero hitting by rational matrix powers | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-19/problem.pdf) · [TeX](matrix-functions-and-stability/MF-19/problem.tex) |
+| [MF-20](matrix-functions-and-stability/MF-20/README.md) | Decidability of zero hitting by a matrix exponential | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-20/problem.pdf) · [TeX](matrix-functions-and-stability/MF-20/problem.tex) |
+| [MF-23](matrix-functions-and-stability/MF-23/README.md) | Complete Crouzeix conjecture | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-23/problem.pdf) · [TeX](matrix-functions-and-stability/MF-23/problem.tex) |
+| [MF-24](matrix-functions-and-stability/MF-24/README.md) | A dimension-independent polynomial norm bound from super-identical pseudospectra | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-24/problem.pdf) · [TeX](matrix-functions-and-stability/MF-24/problem.tex) |
+
+Retained entries outside the open count:
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [MF-02](matrix-functions-and-stability/MF-02/README.md) | Multiplication overhead of cubic sign compositions | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-02/problem.pdf) · [TeX](matrix-functions-and-stability/MF-02/problem.tex) |
+| [MF-03](matrix-functions-and-stability/MF-03/README.md) | A uniform disk bound for wave-kernel Padé approximants | **✅ SOLVED** | hard | interesting to specialist | [PDF](matrix-functions-and-stability/MF-03/problem.pdf) · [TeX](matrix-functions-and-stability/MF-03/problem.tex) |
+| [MF-05](matrix-functions-and-stability/MF-05/README.md) | Local Hölder continuity of the joint spectral radius | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-05/problem.pdf) · [TeX](matrix-functions-and-stability/MF-05/problem.tex) |
+| [MF-06](matrix-functions-and-stability/MF-06/README.md) | A pointwise Lipschitz lower bound for the joint spectral radius | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-06/problem.pdf) · [TeX](matrix-functions-and-stability/MF-06/problem.tex) |
+| [MF-07](matrix-functions-and-stability/MF-07/README.md) | Uniform polynomial bounds for products at joint spectral radius one | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-07/problem.pdf) · [TeX](matrix-functions-and-stability/MF-07/problem.tex) |
+| [MF-12](matrix-functions-and-stability/MF-12/README.md) | Realizing arbitrary polynomial growth exponents by finite matrix families | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-12/problem.pdf) · [TeX](matrix-functions-and-stability/MF-12/problem.tex) |
+| [MF-16](matrix-functions-and-stability/MF-16/README.md) | Uniqueness of positive definite solutions of two-letter word equations in order two | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-16/problem.pdf) · [TeX](matrix-functions-and-stability/MF-16/problem.tex) |
+| [MF-18](matrix-functions-and-stability/MF-18/README.md) | Imaginary-part rank in a limiting Green-function matrix equation | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-18/problem.pdf) · [TeX](matrix-functions-and-stability/MF-18/problem.tex) |
+| [MF-21](matrix-functions-and-stability/MF-21/README.md) | The uniform expansion threshold for Toeplitz symbols with higher-order zeros | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-21/problem.pdf) · [TeX](matrix-functions-and-stability/MF-21/problem.tex) |
+| [MF-22](matrix-functions-and-stability/MF-22/README.md) | Polynomial conditioning of the cubic C1 spline Schrödinger Toeplitz family | **✅ SOLVED** | hard | interesting to specialist | [PDF](matrix-functions-and-stability/MF-22/problem.pdf) · [TeX](matrix-functions-and-stability/MF-22/problem.tex) |
+| [SF-01](matrix-functions-and-stability/SF-01/README.md) | Preservation of real H-matrix structure by Newton square-root iterates | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/SF-01/problem.pdf) · [TeX](matrix-functions-and-stability/SF-01/problem.tex) |
+
+
+## [Randomized and low-rank approximation](randomized-and-low-rank-approximation/README.md)
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [RA-01](randomized-and-low-rank-approximation/RA-01/README.md) | Optimal pivot count for RPCholesky trace approximation | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-01/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-01/problem.tex) |
+| [RA-04](randomized-and-low-rank-approximation/RA-04/README.md) | Clustered singular-value gaps in randomized block Krylov approximation | **🔵 OPEN** | hard | interesting to specialist | [PDF](randomized-and-low-rank-approximation/RA-04/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-04/problem.tex) |
+| [RA-05](randomized-and-low-rank-approximation/RA-05/README.md) | Sharp joint rank and accuracy dependence for strong $`\ell_p`$ subspace coresets | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-05/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-05/problem.tex) |
+| [RA-06](randomized-and-low-rank-approximation/RA-06/README.md) | Sensitivity-dependent row sampling for $`\ell_p`$ embeddings when p exceeds two | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-06/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-06/problem.tex) |
+| [RA-11](randomized-and-low-rank-approximation/RA-11/README.md) | Optimal trace-estimation complexity using Kronecker matrix-vector queries | **🔵 OPEN** | extreme | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-11/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-11/problem.tex) |
+| [RA-14](randomized-and-low-rank-approximation/RA-14/README.md) | Optimal query complexity of spectral rank-$`k`$ approximation | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](randomized-and-low-rank-approximation/RA-14/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-14/problem.tex) |
+| [RA-15](randomized-and-low-rank-approximation/RA-15/README.md) | Query complexity from Schatten to spectral norms | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-15/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-15/problem.tex) |
+| [RA-16](randomized-and-low-rank-approximation/RA-16/README.md) | Super-exponential decay of the zero-permanent probability | **🔵 OPEN** | extreme | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-16/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-16/problem.tex) |
+| [RA-17](randomized-and-low-rank-approximation/RA-17/README.md) | Minimum linear measurements for uniform recovery of real low-rank matrices | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-17/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-17/problem.tex) |
+| [RA-18](randomized-and-low-rank-approximation/RA-18/README.md) | The Goreinov–Tyrtyshnikov–Zamarashkin conjecture on square-submatrix inverse norms | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-18/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-18/problem.tex) |
+| [RE-01](randomized-and-low-rank-approximation/RE-01/README.md) | Constant-factor HSS approximation in polynomial time | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RE-01/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RE-01/problem.tex) |
+| [RE-02](randomized-and-low-rank-approximation/RE-02/README.md) | HSS approximation from a number of matvecs independent of depth | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RE-02/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RE-02/problem.tex) |
+| [RE-03](randomized-and-low-rank-approximation/RE-03/README.md) | Optimal matvec query complexity of HODLR approximation | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RE-03/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RE-03/problem.tex) |
+| [RE-06](randomized-and-low-rank-approximation/RE-06/README.md) | Nonadaptive queries for finite-family matrix approximation | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RE-06/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RE-06/problem.tex) |
+| [TR-03](randomized-and-low-rank-approximation/TR-03/README.md) | Sharp gap between volume sampling and the worst matrix with a prescribed spectrum | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/TR-03/problem.pdf) · [TeX](randomized-and-low-rank-approximation/TR-03/problem.tex) |
+| [TR-07](randomized-and-low-rank-approximation/TR-07/README.md) | Random column subsets of arbitrary fixed-sparsity matrices | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/TR-07/problem.pdf) · [TeX](randomized-and-low-rank-approximation/TR-07/problem.tex) |
+| [TR-08](randomized-and-low-rank-approximation/TR-08/README.md) | Sharp sparsity threshold for injectivity of a random sparse rectangular matrix | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/TR-08/problem.pdf) · [TeX](randomized-and-low-rank-approximation/TR-08/problem.tex) |
+
+Retained entries outside the open count:
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [KE-05](randomized-and-low-rank-approximation/KE-05/README.md) | Spectral-gap-independent constants for randomized block polynomial interpolation | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/KE-05/problem.pdf) · [TeX](randomized-and-low-rank-approximation/KE-05/problem.tex) |
+| [RA-02](randomized-and-low-rank-approximation/RA-02/README.md) | Polynomial trace-error factor after exactly the target rank of pivots | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-02/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-02/problem.tex) |
+| [RA-03](randomized-and-low-rank-approximation/RA-03/README.md) | Improve the randomized LU squared-error factor to $`2^k`$ | **✅ SOLVED** | challenging | interesting to specialist | [PDF](randomized-and-low-rank-approximation/RA-03/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-03/problem.tex) |
+| [RA-07](randomized-and-low-rank-approximation/RA-07/README.md) | Convexity of the expected error of volume-sampled column subsets | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-07/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-07/problem.tex) |
+| [RA-08](randomized-and-low-rank-approximation/RA-08/README.md) | Concave-function transfer of spectral low-rank error | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-08/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-08/problem.tex) |
+| [RA-09](randomized-and-low-rank-approximation/RA-09/README.md) | Concave-function transfer of Frobenius low-rank error | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-09/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-09/problem.tex) |
+| [RA-10](randomized-and-low-rank-approximation/RA-10/README.md) | Constant-loss nuclear-error transfer without matrix ordering | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-10/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-10/problem.tex) |
+| [RA-12](randomized-and-low-rank-approximation/RA-12/README.md) | Relative-error threshold for extremal Gaussian trace bounds | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-12/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-12/problem.tex) |
+| [RA-13](randomized-and-low-rank-approximation/RA-13/README.md) | Absolute-error threshold for extremal Gaussian trace bounds | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-13/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-13/problem.tex) |
+| [RA-19](randomized-and-low-rank-approximation/RA-19/README.md) | Critical-point count for corank-one approximation with a fixed zero | **✅ SOLVED** | challenging | interesting to specialist | [PDF](randomized-and-low-rank-approximation/RA-19/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-19/problem.tex) |
+| [RA-20](randomized-and-low-rank-approximation/RA-20/README.md) | Critical-point counts for symmetric rank-two approximation with diagonal zeros | **✅ SOLVED** | challenging | interesting to specialist | [PDF](randomized-and-low-rank-approximation/RA-20/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-20/problem.tex) |
+| [RE-05](randomized-and-low-rank-approximation/RE-05/README.md) | Pure relative error for approximation by a linear matrix family | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RE-05/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RE-05/problem.tex) |
+| [TR-01](randomized-and-low-rank-approximation/TR-01/README.md) | Optimal dimension for a rerandomized Hadamard embedding | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/TR-01/problem.pdf) · [TeX](randomized-and-low-rank-approximation/TR-01/problem.tex) |
+
+
+## [Tensor computations](tensor-computations/README.md)
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [TR-05](tensor-computations/TR-05/README.md) | Infinite mean condition number in every identifiable tensor format | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](tensor-computations/TR-05/problem.pdf) · [TeX](tensor-computations/TR-05/problem.tex) |
+| [TR-09](tensor-computations/TR-09/README.md) | Subquadratic overparameterization for iterative decomposition of smoothed tensors | **🔵 OPEN** | extreme | broadly interesting | [PDF](tensor-computations/TR-09/problem.pdf) · [TeX](tensor-computations/TR-09/problem.tex) |
+| [TR-10](tensor-computations/TR-10/README.md) | Border Comon's conjecture over the complex numbers | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](tensor-computations/TR-10/problem.pdf) · [TeX](tensor-computations/TR-10/problem.tex) |
+| [TR-11](tensor-computations/TR-11/README.md) | Generic identifiability of tensors at strictly subcritical ranks | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](tensor-computations/TR-11/problem.pdf) · [TeX](tensor-computations/TR-11/problem.tex) |
+| [TR-12](tensor-computations/TR-12/README.md) | Classification of perfect tensor formats with generic unique decomposition | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](tensor-computations/TR-12/problem.pdf) · [TeX](tensor-computations/TR-12/problem.tex) |
+| [TR-14](tensor-computations/TR-14/README.md) | Comon's exact-rank conjecture for Hankel tensors | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](tensor-computations/TR-14/problem.pdf) · [TeX](tensor-computations/TR-14/problem.tex) |
+| [TR-16](tensor-computations/TR-16/README.md) | Monotonicity of the average number of critical rank-one approximations | **🔵 OPEN** | challenging | interesting to specialist | [PDF](tensor-computations/TR-16/problem.pdf) · [TeX](tensor-computations/TR-16/problem.tex) |
+| [TR-18](tensor-computations/TR-18/README.md) | Near-optimal type-2 bound for Gaussian sums of symmetric tensors | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](tensor-computations/TR-18/problem.pdf) · [TeX](tensor-computations/TR-18/problem.tex) |
+| [TR-19](tensor-computations/TR-19/README.md) | Exact best-rank-one approximation ratios for general tensor formats | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](tensor-computations/TR-19/problem.pdf) · [TeX](tensor-computations/TR-19/problem.tex) |
+| [TR-21](tensor-computations/TR-21/README.md) | A Seginer theorem for arbitrary independent identically distributed tensor entries | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](tensor-computations/TR-21/problem.pdf) · [TeX](tensor-computations/TR-21/problem.tex) |
+| [TR-22](tensor-computations/TR-22/README.md) | Discreteness from below of asymptotic tensor rank | **🔵 OPEN** | extreme | interesting to the community | [PDF](tensor-computations/TR-22/problem.pdf) · [TeX](tensor-computations/TR-22/problem.tex) |
+| [TR-23](tensor-computations/TR-23/README.md) | Irreducibility of asymptotic tensor-rank sublevel varieties | **🔵 OPEN** | extreme | interesting to specialist | [PDF](tensor-computations/TR-23/problem.pdf) · [TeX](tensor-computations/TR-23/problem.tex) |
+| [TR-24](tensor-computations/TR-24/README.md) | Degree-five, six, and nine generation of the Salmon tensor ideal | **🔵 OPEN** | extreme | interesting to specialist | [PDF](tensor-computations/TR-24/problem.pdf) · [TeX](tensor-computations/TR-24/problem.tex) |
+| [TR-25](tensor-computations/TR-25/README.md) | Cohen–Macaulay coordinate rings for every tensor border-rank variety | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](tensor-computations/TR-25/problem.pdf) · [TeX](tensor-computations/TR-25/problem.tex) |
+| [TR-28](tensor-computations/TR-28/README.md) | Entropy formula for the asymptotic subrank of Dicke tensors | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](tensor-computations/TR-28/problem.pdf) · [TeX](tensor-computations/TR-28/problem.tex) |
+| [TR-29](tensor-computations/TR-29/README.md) | Exact partially symmetric rank of products of generalized W tensors | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](tensor-computations/TR-29/problem.pdf) · [TeX](tensor-computations/TR-29/problem.tex) |
+| [TR-30](tensor-computations/TR-30/README.md) | Dimension of tensor loci with prescribed minimum border subrank | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](tensor-computations/TR-30/problem.pdf) · [TeX](tensor-computations/TR-30/problem.tex) |
+| [TR-31](tensor-computations/TR-31/README.md) | The four-exception conjecture for alternating tensor border-rank varieties | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](tensor-computations/TR-31/problem.pdf) · [TeX](tensor-computations/TR-31/problem.tex) |
+
+Retained entries outside the open count:
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [TR-04](tensor-computations/TR-04/README.md) | Improve the worst-case approximation factor for prescribed tensor-train ranks | **✅ SOLVED** | extreme | interesting to the community | [PDF](tensor-computations/TR-04/problem.pdf) · [TeX](tensor-computations/TR-04/problem.tex) |
+| [TR-06](tensor-computations/TR-06/README.md) | Finite mean angular condition number for identifiable tensor decomposition | **✅ SOLVED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-06/problem.pdf) · [TeX](tensor-computations/TR-06/problem.tex) |
+| [TR-13](tensor-computations/TR-13/README.md) | Equality of ranks for generic odd-order Hankel tensors | **✅ SOLVED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-13/problem.pdf) · [TeX](tensor-computations/TR-13/problem.tex) |
+| [TR-15](tensor-computations/TR-15/README.md) | Nonnegative H-eigenvalue inheritance from odd-order Hankel tensors | **✅ SOLVED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-15/problem.pdf) · [TeX](tensor-computations/TR-15/problem.tex) |
+| [TR-17](tensor-computations/TR-17/README.md) | Frobenius inner products minimize the algebraic complexity of rank-one approximation | **✅ SOLVED** | challenging | interesting to the community | [PDF](tensor-computations/TR-17/problem.pdf) · [TeX](tensor-computations/TR-17/problem.tex) |
+| [TR-20](tensor-computations/TR-20/README.md) | Rayleigh–Ritz discriminant degrees for rank-one matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-20/problem.pdf) · [TeX](tensor-computations/TR-20/problem.tex) |
+| [TR-26](tensor-computations/TR-26/README.md) | Degrees of the two Rayleigh–Ritz discriminant parts for rational normal curves | **✅ SOLVED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-26/problem.pdf) · [TeX](tensor-computations/TR-26/problem.tex) |
+| [TR-27](tensor-computations/TR-27/README.md) | Border-rank deficiency forcing strict submultiplicativity at the tensor square | **✅ SOLVED** | extreme | interesting to the community | [PDF](tensor-computations/TR-27/problem.pdf) · [TeX](tensor-computations/TR-27/problem.tex) |
+
+
+## [Nonnegative and positive factorizations](nonnegative-and-positive-factorizations/README.md)
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [NM-01](nonnegative-and-positive-factorizations/NM-01/README.md) | Polynomial-time minimum-volume decision under sufficient scattering | **🔵 OPEN** | challenging | interesting to the community | [PDF](nonnegative-and-positive-factorizations/NM-01/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/NM-01/problem.tex) |
+| [NR-01](nonnegative-and-positive-factorizations/NR-01/README.md) | Exact nonnegative rank of regular polygon slack matrices | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](nonnegative-and-positive-factorizations/NR-01/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/NR-01/problem.tex) |
+| [NR-02](nonnegative-and-positive-factorizations/NR-02/README.md) | Additivity for Cartesian-product slack matrices | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](nonnegative-and-positive-factorizations/NR-02/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/NR-02/problem.tex) |
+| [NR-03](nonnegative-and-positive-factorizations/NR-03/README.md) | Full nonnegative rank of the quadratic correlation matrix | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](nonnegative-and-positive-factorizations/NR-03/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/NR-03/problem.tex) |
+| [PF-01](nonnegative-and-positive-factorizations/PF-01/README.md) | Exact positive semidefinite rank of subset-intersection matrices | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](nonnegative-and-positive-factorizations/PF-01/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-01/problem.tex) |
+| [PF-03](nonnegative-and-positive-factorizations/PF-03/README.md) | Rational factors for rational completely positive boundary matrices | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](nonnegative-and-positive-factorizations/PF-03/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-03/problem.tex) |
+| [PF-04](nonnegative-and-positive-factorizations/PF-04/README.md) | The maximum cp-rank in order six | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](nonnegative-and-positive-factorizations/PF-04/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-04/problem.tex) |
+
+Retained entries outside the open count:
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [NM-03](nonnegative-and-positive-factorizations/NM-03/README.md) | Complexity of globally optimal nonnegative rank-two approximation | **✅ SOLVED** | challenging | interesting to the community | [PDF](nonnegative-and-positive-factorizations/NM-03/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/NM-03/problem.tex) |
+| [NM-04](nonnegative-and-positive-factorizations/NM-04/README.md) | The Rowland–Wu polynomial identity for Sinkhorn limits | **✅ SOLVED** | challenging | interesting to the community | [PDF](nonnegative-and-positive-factorizations/NM-04/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/NM-04/problem.tex) |
+| [NR-04](nonnegative-and-positive-factorizations/NR-04/README.md) | The nonnegative rank of the nine-point distance matrix | **✅ SOLVED** | hard | interesting to specialist | [PDF](nonnegative-and-positive-factorizations/NR-04/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/NR-04/problem.tex) |
+| [PF-02](nonnegative-and-positive-factorizations/PF-02/README.md) | Connectedness of minimal positive semidefinite factorization orbits | **✅ SOLVED** | challenging | interesting to the community | [PDF](nonnegative-and-positive-factorizations/PF-02/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-02/problem.tex) |
+| [PF-05](nonnegative-and-positive-factorizations/PF-05/README.md) | Infinitesimal rigidity detects unique size-two factors in the presence of zeros | **✅ SOLVED** | challenging | interesting to specialist | [PDF](nonnegative-and-positive-factorizations/PF-05/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-05/problem.tex) |
+
+
+## [Matrix inequalities and norms](matrix-inequalities-and-norms/README.md)
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [MI-01](matrix-inequalities-and-norms/MI-01/README.md) | Audenaert's two-row Schatten norm-compression conjecture | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-inequalities-and-norms/MI-01/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-01/problem.tex) |
+| [MI-02](matrix-inequalities-and-norms/MI-02/README.md) | Bourin's crossed-Heinz inequality | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-02/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-02/problem.tex) |
+| [MI-05](matrix-inequalities-and-norms/MI-05/README.md) | The Marcus–de Oliveira determinantal conjecture | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-inequalities-and-norms/MI-05/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-05/problem.tex) |
+| [MI-08](matrix-inequalities-and-norms/MI-08/README.md) | Minimum number of orthogonal conjugations for diagonal pinching | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-08/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-08/problem.tex) |
+| [MI-09](matrix-inequalities-and-norms/MI-09/README.md) | Sharp Schatten triangle constants for the arithmetic symmetric modulus | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-09/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-09/problem.tex) |
+| [MI-10](matrix-inequalities-and-norms/MI-10/README.md) | Chollet's permanent inequality for Hadamard products | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-10/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-10/problem.tex) |
+| [MI-11](matrix-inequalities-and-norms/MI-11/README.md) | Lieb's permanental dominance conjecture | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-11/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-11/problem.tex) |
+| [MI-12](matrix-inequalities-and-norms/MI-12/README.md) | Marcus's inequality for the permanent of block permanents | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-12/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-12/problem.tex) |
+| [MI-14](matrix-inequalities-and-norms/MI-14/README.md) | The complex Lu–Wenzel spectral conjecture | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-14/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-14/problem.tex) |
+| [MI-15](matrix-inequalities-and-norms/MI-15/README.md) | A sum-of-squares representation for the Toeplitz commutator form | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-15/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-15/problem.tex) |
+| [MI-16](matrix-inequalities-and-norms/MI-16/README.md) | The maximum permanent on a positive-semidefinite unitary orbit | **🔵 OPEN** | extreme | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-16/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-16/problem.tex) |
+| [MI-17](matrix-inequalities-and-norms/MI-17/README.md) | The Lih–Wang permanent inequality toward the flat matrix | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-17/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-17/problem.tex) |
+| [MI-18](matrix-inequalities-and-norms/MI-18/README.md) | Bapat's q-permanent monotonicity conjecture | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-18/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-18/problem.tex) |
+| [MI-20](matrix-inequalities-and-norms/MI-20/README.md) | Sharp subquadratic Lee constants for sums of matrices | **🔵 OPEN** | challenging | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-20/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-20/problem.tex) |
+| [MI-25](matrix-inequalities-and-norms/MI-25/README.md) | Dimension-independent Hlawka constants for Schatten norms | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-25/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-25/problem.tex) |
+| [MI-27](matrix-inequalities-and-norms/MI-27/README.md) | Constant one in the logarithmic commutator inequality | **🔵 OPEN** | challenging | broadly interesting | [PDF](matrix-inequalities-and-norms/MI-27/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-27/problem.tex) |
+| [MI-30](matrix-inequalities-and-norms/MI-30/README.md) | Product inequality for disjoint principal minors of Wishart matrices | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-30/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-30/problem.tex) |
+| [MI-31](matrix-inequalities-and-norms/MI-31/README.md) | Sharp parameter dependence for structured Gaussian operator norms | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-31/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-31/problem.tex) |
+| [MI-32](matrix-inequalities-and-norms/MI-32/README.md) | Spectral norms of independent entries with regular moment growth | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-32/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-32/problem.tex) |
+
+Retained entries outside the open count:
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [MI-03](matrix-inequalities-and-norms/MI-03/README.md) | Sharp additive triangle constant for an odd number of contractions | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-03/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-03/problem.tex) |
+| [MI-04](matrix-inequalities-and-norms/MI-04/README.md) | A universal block-norm characterization of essentially Hermitian matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-04/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-04/problem.tex) |
+| [MI-06](matrix-inequalities-and-norms/MI-06/README.md) | Thompson-type domination for the arithmetic symmetric modulus | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-06/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-06/problem.tex) |
+| [MI-07](matrix-inequalities-and-norms/MI-07/README.md) | The triangle conjecture for the maximal symmetric modulus | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-07/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-07/problem.tex) |
+| [MI-13](matrix-inequalities-and-norms/MI-13/README.md) | Nobori's spectral-middle-factor commutator conjecture | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-13/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-13/problem.tex) |
+| [MI-19](matrix-inequalities-and-norms/MI-19/README.md) | A q-permanent inequality for subset-preserving permutations | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-19/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-19/problem.tex) |
+| [MI-21](matrix-inequalities-and-norms/MI-21/README.md) | Freewan–Hayajneh inequality for sums of weighted geometric means | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-21/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-21/problem.tex) |
+| [MI-22](matrix-inequalities-and-norms/MI-22/README.md) | Lemos–Soares singular-value log-majorization | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-22/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-22/problem.tex) |
+| [MI-23](matrix-inequalities-and-norms/MI-23/README.md) | Corrected generalized geometric-mean product conjecture | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-23/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-23/problem.tex) |
+| [MI-24](matrix-inequalities-and-norms/MI-24/README.md) | Schatten norm complement involving Lin's positive definite quantity | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-24/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-24/problem.tex) |
+| [MI-26](matrix-inequalities-and-norms/MI-26/README.md) | Concave unitary-orbit subadditivity without monotonicity | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-26/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-26/problem.tex) |
+| [MI-28](matrix-inequalities-and-norms/MI-28/README.md) | Ghabries's determinant comparison for arbitrary nonnegative base powers | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-28/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-28/problem.tex) |
+| [MI-29](matrix-inequalities-and-norms/MI-29/README.md) | Modulus-order determinant comparison with an arbitrary base power | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-29/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-29/problem.tex) |
+
+
+## [Frames and matrix designs](frames-and-matrix-designs/README.md)
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [FR-01](frames-and-matrix-designs/FR-01/README.md) | Polynomial-time deterministic restricted isometries with nearly linear row count | **🔵 OPEN** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-01/problem.pdf) · [TeX](frames-and-matrix-designs/FR-01/problem.tex) |
+| [FR-02](frames-and-matrix-designs/FR-02/README.md) | Sharp sample complexity for restricted isometries from the cyclic Fourier matrix | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-02/problem.pdf) · [TeX](frames-and-matrix-designs/FR-02/problem.tex) |
+| [FR-03](frames-and-matrix-designs/FR-03/README.md) | Uniform conditioning of large Paley-frame column subsets | **🔵 OPEN** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-03/problem.pdf) · [TeX](frames-and-matrix-designs/FR-03/problem.tex) |
+| [FR-04](frames-and-matrix-designs/FR-04/README.md) | Universal exponential deterioration of minimally redundant real phase-retrieval frames | **🔵 OPEN** | challenging | interesting to the community | [PDF](frames-and-matrix-designs/FR-04/problem.pdf) · [TeX](frames-and-matrix-designs/FR-04/problem.tex) |
+| [FR-05](frames-and-matrix-designs/FR-05/README.md) | Vanishing injectivity probability at 4d minus 5 complex phase measurements | **🔵 OPEN** | challenging | interesting to the community | [PDF](frames-and-matrix-designs/FR-05/problem.pdf) · [TeX](frames-and-matrix-designs/FR-05/problem.tex) |
+| [FR-06](frames-and-matrix-designs/FR-06/README.md) | Nonexistence of a complete set of mutually unbiased bases in dimension six | **🔵 OPEN** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-06/problem.pdf) · [TeX](frames-and-matrix-designs/FR-06/problem.tex) |
+| [FR-07](frames-and-matrix-designs/FR-07/README.md) | Zauner's conjecture on maximal complex equiangular tight frames | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-07/problem.pdf) · [TeX](frames-and-matrix-designs/FR-07/problem.tex) |
+| [FR-08](frames-and-matrix-designs/FR-08/README.md) | Hadamard matrices at every admissible order | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-08/problem.pdf) · [TeX](frames-and-matrix-designs/FR-08/problem.tex) |
+| [FR-09](frames-and-matrix-designs/FR-09/README.md) | Complex equiangular tight frames with twice the dimension | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](frames-and-matrix-designs/FR-09/problem.pdf) · [TeX](frames-and-matrix-designs/FR-09/problem.tex) |
+| [FR-10](frames-and-matrix-designs/FR-10/README.md) | Sharp sampling complexity for Walsh restricted isometries | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-10/problem.pdf) · [TeX](frames-and-matrix-designs/FR-10/problem.tex) |
+| [FR-11](frames-and-matrix-designs/FR-11/README.md) | The minimum number of quadratic measurements for generalized phase retrieval | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](frames-and-matrix-designs/FR-11/problem.pdf) · [TeX](frames-and-matrix-designs/FR-11/problem.tex) |
+
+Retained entries outside the open count:
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [FR-12](frames-and-matrix-designs/FR-12/README.md) | Counting real Hadamard matrices | **✅ SOLVED** | extreme | interesting to the community | [PDF](frames-and-matrix-designs/FR-12/problem.pdf) · [TeX](frames-and-matrix-designs/FR-12/problem.tex) |
+
+
+## [Matrix discrepancy and optimization](matrix-discrepancy-and-optimization/README.md)
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [MD-01](matrix-discrepancy-and-optimization/MD-01/README.md) | The sharp Lovász-theta constant for dense random graphs | **🔵 OPEN** | challenging | broadly interesting | [PDF](matrix-discrepancy-and-optimization/MD-01/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-01/problem.tex) |
+| [MD-02](matrix-discrepancy-and-optimization/MD-02/README.md) | The sharp Lovász-theta constant for random circulant graphs | **🔵 OPEN** | challenging | interesting to the community | [PDF](matrix-discrepancy-and-optimization/MD-02/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-02/problem.tex) |
+| [MD-05](matrix-discrepancy-and-optimization/MD-05/README.md) | The sharp universal Spencer discrepancy constant | **🔵 OPEN** | extreme | interesting to the community | [PDF](matrix-discrepancy-and-optimization/MD-05/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-05/problem.tex) |
+
+Retained entries outside the open count:
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [MD-03](matrix-discrepancy-and-optimization/MD-03/README.md) | The Komlós discrepancy conjecture | **✅ SOLVED** | extreme | broadly interesting | [PDF](matrix-discrepancy-and-optimization/MD-03/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-03/problem.tex) |
+| [MD-04](matrix-discrepancy-and-optimization/MD-04/README.md) | The Beck–Fiala discrepancy conjecture | **✅ SOLVED** | extreme | broadly interesting | [PDF](matrix-discrepancy-and-optimization/MD-04/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-04/problem.tex) |
+| [MD-06](matrix-discrepancy-and-optimization/MD-06/README.md) | Global synchronization of a random cubic graph | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-discrepancy-and-optimization/MD-06/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-06/problem.tex) |
+
+
+## [Arithmetic and complexity](arithmetic-and-complexity/README.md)
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [AC-01](arithmetic-and-complexity/AC-01/README.md) | Is the matrix multiplication exponent two? | **🔵 OPEN** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-01/problem.pdf) · [TeX](arithmetic-and-complexity/AC-01/problem.tex) |
+| [AC-02](arithmetic-and-complexity/AC-02/README.md) | Exact bilinear rank of the $`3\times3`$ matrix product | **🔵 OPEN** | extreme | interesting to the community | [PDF](arithmetic-and-complexity/AC-02/problem.pdf) · [TeX](arithmetic-and-complexity/AC-02/problem.tex) |
+| [AC-03](arithmetic-and-complexity/AC-03/README.md) | Border rank of the $`3\times3`$ matrix product | **🔵 OPEN** | extreme | interesting to the community | [PDF](arithmetic-and-complexity/AC-03/problem.pdf) · [TeX](arithmetic-and-complexity/AC-03/problem.tex) |
+| [AC-04](arithmetic-and-complexity/AC-04/README.md) | Minimal asymptotic rank of the small Coppersmith–Winograd tensor | **🔵 OPEN** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-04/problem.pdf) · [TeX](arithmetic-and-complexity/AC-04/problem.tex) |
+| [AC-05](arithmetic-and-complexity/AC-05/README.md) | Strassen's asymptotic rank conjecture for tight tensors | **🔵 OPEN** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-05/problem.pdf) · [TeX](arithmetic-and-complexity/AC-05/problem.tex) |
+| [AC-06](arithmetic-and-complexity/AC-06/README.md) | Explicit tensors with quadratic border rank | **🔵 OPEN** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-06/problem.pdf) · [TeX](arithmetic-and-complexity/AC-06/problem.tex) |
+| [AC-07](arithmetic-and-complexity/AC-07/README.md) | Scholz–Brauer inequality for multiplication chains | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](arithmetic-and-complexity/AC-07/problem.pdf) · [TeX](arithmetic-and-complexity/AC-07/problem.tex) |
+| [AC-08](arithmetic-and-complexity/AC-08/README.md) | Knuth–Stolarsky lower bound for addition chains | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](arithmetic-and-complexity/AC-08/problem.pdf) · [TeX](arithmetic-and-complexity/AC-08/problem.tex) |
+| [AC-09](arithmetic-and-complexity/AC-09/README.md) | Deterministic polynomial-time commutative Edmonds problem | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-09/problem.pdf) · [TeX](arithmetic-and-complexity/AC-09/problem.tex) |
+| [AC-10](arithmetic-and-complexity/AC-10/README.md) | An explicit rational Valiant-rigid matrix family | **🔵 OPEN** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-10/problem.pdf) · [TeX](arithmetic-and-complexity/AC-10/problem.tex) |
+| [AC-11](arithmetic-and-complexity/AC-11/README.md) | The least positive permanent of a sign matrix | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](arithmetic-and-complexity/AC-11/problem.pdf) · [TeX](arithmetic-and-complexity/AC-11/problem.tex) |
+| [AC-12](arithmetic-and-complexity/AC-12/README.md) | Realizing every sign-matrix permanent with negative entries confined on or above the diagonal | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](arithmetic-and-complexity/AC-12/problem.pdf) · [TeX](arithmetic-and-complexity/AC-12/problem.tex) |
+| [AC-13](arithmetic-and-complexity/AC-13/README.md) | Deterministic near-quadratic matrix multiplication verification | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AC-13/problem.pdf) · [TeX](arithmetic-and-complexity/AC-13/problem.tex) |
+
+Retained entries outside the open count:
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [AA-01](arithmetic-and-complexity/AA-01/README.md) | Deciding accurate evaluability of real polynomials | **✅ SOLVED** | extreme | broadly interesting | [PDF](arithmetic-and-complexity/AA-01/problem.pdf) · [TeX](arithmetic-and-complexity/AA-01/problem.tex) |
+
+
+## [Intervals and absolute value equations](intervals-and-absolute-value-equations/README.md)
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [AV-03](intervals-and-absolute-value-equations/AV-03/README.md) | Polynomial-time solution under the regularity promise | **🔵 OPEN** | extreme | broadly interesting | [PDF](intervals-and-absolute-value-equations/AV-03/problem.pdf) · [TeX](intervals-and-absolute-value-equations/AV-03/problem.tex) |
+| [IV-01](intervals-and-absolute-value-equations/IV-01/README.md) | Two-vertex certification of nonsingular sign regularity | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](intervals-and-absolute-value-equations/IV-01/problem.pdf) · [TeX](intervals-and-absolute-value-equations/IV-01/problem.tex) |
+
+Retained entries outside the open count:
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [AV-01](intervals-and-absolute-value-equations/AV-01/README.md) | Recognizing the maximum finite number of solutions | **✅ SOLVED** | challenging | interesting to specialist | [PDF](intervals-and-absolute-value-equations/AV-01/problem.pdf) · [TeX](intervals-and-absolute-value-equations/AV-01/problem.tex) |
+| [AV-02](intervals-and-absolute-value-equations/AV-02/README.md) | Hardness of the spectral-norm condition number | **✅ SOLVED** | challenging | interesting to specialist | [PDF](intervals-and-absolute-value-equations/AV-02/problem.pdf) · [TeX](intervals-and-absolute-value-equations/AV-02/problem.tex) |
+| [IV-02](intervals-and-absolute-value-equations/IV-02/README.md) | Exact determinant ranges of general tridiagonal interval matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](intervals-and-absolute-value-equations/IV-02/problem.pdf) · [TeX](intervals-and-absolute-value-equations/IV-02/problem.tex) |
+| [IV-03](intervals-and-absolute-value-equations/IV-03/README.md) | Polynomial-size vertex test for inverse M-matrix intervals | **✅ SOLVED** | challenging | interesting to specialist | [PDF](intervals-and-absolute-value-equations/IV-03/problem.pdf) · [TeX](intervals-and-absolute-value-equations/IV-03/problem.tex) |
+| [IV-04](intervals-and-absolute-value-equations/IV-04/README.md) | Exact solution hulls for tridiagonal interval systems | **✅ SOLVED** | challenging | interesting to the community | [PDF](intervals-and-absolute-value-equations/IV-04/problem.pdf) · [TeX](intervals-and-absolute-value-equations/IV-04/problem.tex) |
+| [IV-05](intervals-and-absolute-value-equations/IV-05/README.md) | Exact solution hulls for inverse M-matrix intervals | **✅ SOLVED** | challenging | interesting to specialist | [PDF](intervals-and-absolute-value-equations/IV-05/problem.pdf) · [TeX](intervals-and-absolute-value-equations/IV-05/problem.tex) |
+| [IV-06](intervals-and-absolute-value-equations/IV-06/README.md) | Number of components of a real interval eigenvalue set | **✅ SOLVED** | challenging | interesting to specialist | [PDF](intervals-and-absolute-value-equations/IV-06/problem.pdf) · [TeX](intervals-and-absolute-value-equations/IV-06/problem.tex) |

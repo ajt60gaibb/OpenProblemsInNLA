@@ -1,0 +1,145 @@
+def CFC.abs.{u_2} : {A : Type u_2} →
+  [inst : NonUnitalRing.{u_2} A] →
+    [inst_1 : StarRing.{u_2} A] →
+      [inst_2 : TopologicalSpace.{u_2} A] →
+        [inst_3 : Module.{0, u_2} Real A] →
+          [inst_4 : SMulCommClass.{0, u_2, u_2} Real A A] →
+            [inst_5 : IsScalarTower.{0, u_2, u_2} Real A A] →
+              [NonUnitalContinuousFunctionalCalculus.{0, u_2} Real A IsSelfAdjoint.{u_2}] →
+                [inst_7 : PartialOrder.{u_2} A] →
+                  [StarOrderedRing.{u_2} A] → [NonnegSpectrumClass.{0, u_2} Real A] → A → A :=
+fun {A} [NonUnitalRing.{u_2} A] [StarRing.{u_2} A] [TopologicalSpace.{u_2} A] [Module.{0, u_2} Real A]
+    [SMulCommClass.{0, u_2, u_2} Real A A] [IsScalarTower.{0, u_2, u_2} Real A A]
+    [NonUnitalContinuousFunctionalCalculus.{0, u_2} Real A IsSelfAdjoint.{u_2}] [PartialOrder.{u_2} A]
+    [StarOrderedRing.{u_2} A] [NonnegSpectrumClass.{0, u_2} Real A] a =>
+  CFC.sqrt.{u_2} (HMul.hMul.{u_2, u_2, u_2} (star.{u_2} a) a)
+@[reducible] def Matrix.instPreOrder.{u_1, u_2} : {𝕜 : Type u_1} →
+  {n : Type u_2} → [RCLike.{u_1} 𝕜] → Preorder.{max u_1 u_2} (Matrix.{u_2, u_2, u_1} n n 𝕜) :=
+fun {𝕜} {n} [RCLike.{u_1} 𝕜] => Preorder.mk.{max u_1 u_2} ⋯ ⋯ ⋯
+def Matrix.PosSemidef.{u_2, u_3} : {n : Type u_2} →
+  {R : Type u_3} →
+    [inst : Ring.{u_3} R] → [PartialOrder.{u_3} R] → [StarRing.{u_3} R] → Matrix.{u_2, u_2, u_3} n n R → Prop :=
+fun {n} {R} [Ring.{u_3} R] [PartialOrder.{u_3} R] [StarRing.{u_3} R] M =>
+  And (Matrix.IsHermitian.{u_3, u_2} M)
+    (∀ (x : Finsupp.{u_2, u_3} n R),
+      LE.le.{u_3} 0
+        (Finsupp.sum.{u_2, u_3, u_3} x fun i xi =>
+          Finsupp.sum.{u_2, u_3, u_3} x fun j xj =>
+            HMul.hMul.{u_3, u_3, u_3} (HMul.hMul.{u_3, u_3, u_3} (star.{u_3} xi) (M i j)) xj))
+@[reducible] def Matrix.unitaryGroup.{u, v} : (n : Type u) →
+  [inst : DecidableEq.{u + 1} n] →
+    [inst_1 : Fintype.{u} n] →
+      (α : Type v) → [inst_2 : CommRing.{v} α] → [StarRing.{v} α] → Submonoid.{max v u} (Matrix.{u, u, v} n n α) :=
+fun n [DecidableEq.{u + 1} n] [Fintype.{u} n] α [CommRing.{v} α] [StarRing.{v} α] =>
+  unitary.{max v u} (Matrix.{u, u, v} n n α)
+Matrix.le_iff.{u_1, u_2} {𝕜 : Type u_1} {n : Type u_2} [RCLike.{u_1} 𝕜] {A B : Matrix.{u_2, u_2, u_1} n n 𝕜} :
+  Iff (LE.le.{max u_1 u_2} A B) (Matrix.PosSemidef.{u_2, u_1} (HSub.hSub.{max u_1 u_2, max u_1 u_2, max u_1 u_2} B A))
+Matrix.posSemidef_iff_dotProduct_mulVec.{u_2, u_3} {n : Type u_2} {R : Type u_3} [Ring.{u_3} R] [PartialOrder.{u_3} R]
+  [StarRing.{u_3} R] [Fintype.{u_2} n] {M : Matrix.{u_2, u_2, u_3} n n R} :
+  Iff (Matrix.PosSemidef.{u_2, u_3} M)
+    (And (Matrix.IsHermitian.{u_3, u_2} M)
+      (∀ (x : n → R), LE.le.{u_3} 0 (dotProduct.{u_3, u_2} (star.{max u_2 u_3} x) (Matrix.mulVec.{u_3, u_2, u_2} M x))))
+Matrix.mem_unitaryGroup_iff.{u, v} {n : Type u} [DecidableEq.{u + 1} n] [Fintype.{u} n] {α : Type v} [CommRing.{v} α]
+  [StarRing.{v} α] {A : Matrix.{u, u, v} n n α} :
+  Iff (Membership.mem.{max u v, max u v} (Matrix.unitaryGroup.{u, v} n α) A)
+    (Eq.{max (u + 1) (v + 1)} (HMul.hMul.{max u v, max u v, max u v} A (star.{max u v} A)) 1)
+def Complex.normSq : MonoidWithZeroHom.{0, 0} Complex Real :=
+MonoidWithZeroHom.mk.{0, 0}
+  (ZeroHom.mk.{0, 0} (fun z => HAdd.hAdd.{0, 0, 0} (HMul.hMul.{0, 0, 0} z.re z.re) (HMul.hMul.{0, 0, 0} z.im z.im))
+    Complex.normSq._proof_1)
+  Complex.normSq._proof_2 ⋯
+def NLA.MI06.matrixModulus : {n : Nat} →
+  Matrix.{0, 0, 0} (Fin n) (Fin n) Complex → Matrix.{0, 0, 0} (Fin n) (Fin n) Complex :=
+fun {n} X => CFC.abs.{0} X
+def NLA.MI06.symmetricModulus : {n : Nat} →
+  Matrix.{0, 0, 0} (Fin n) (Fin n) Complex → Matrix.{0, 0, 0} (Fin n) (Fin n) Complex :=
+fun {n} X =>
+  HSMul.hSMul.{0, 0, 0} (1 / 2)
+    (HAdd.hAdd.{0, 0, 0} (NLA.MI06.matrixModulus X) (NLA.MI06.matrixModulus (Matrix.conjTranspose.{0, 0, 0} X)))
+def NLA.MI06.unitaryConjugate : {n : Nat} →
+  (Subtype.{1} fun x => Membership.mem.{0, 0} (Matrix.unitaryGroup.{0, 0} (Fin n) Complex) x) →
+    Matrix.{0, 0, 0} (Fin n) (Fin n) Complex → Matrix.{0, 0, 0} (Fin n) (Fin n) Complex :=
+fun {n} U H => HMul.hMul.{0, 0, 0} (HMul.hMul.{0, 0, 0} (↑U) H) (Matrix.conjTranspose.{0, 0, 0} ↑U)
+def NLA.MI06.DominationConjecture : Prop :=
+∀ (n : Nat),
+  LE.le.{0} 1 n →
+    ∀ (A B : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex),
+      Exists.{1} fun U =>
+        Exists.{1} fun V =>
+          LE.le.{0} (NLA.MI06.symmetricModulus (HAdd.hAdd.{0, 0, 0} A B))
+            (HSMul.hSMul.{0, 0, 0} (↑(Real.sqrt 2))
+              (HAdd.hAdd.{0, 0, 0} (NLA.MI06.unitaryConjugate U (NLA.MI06.symmetricModulus A))
+                (NLA.MI06.unitaryConjugate V (NLA.MI06.symmetricModulus B))))
+def NLA.MI06.squaredLength : {n : Nat} → (Fin n → Complex) → Real :=
+fun {n} w => Finset.sum.{0, 0} Finset.univ.{0} fun i => Complex.normSq (w i)
+def NLA.MI06.quadraticForm : {n : Nat} → Matrix.{0, 0, 0} (Fin n) (Fin n) Complex → (Fin n → Complex) → Real :=
+fun {n} H w => (dotProduct.{0, 0} (star.{0} w) (Matrix.mulVec.{0, 0, 0} H w)).re
+def NLA.MI06.rankOne : {n : Nat} → (Fin n → Complex) → Matrix.{0, 0, 0} (Fin n) (Fin n) Complex :=
+fun {n} w => Matrix.vecMulVec.{0, 0, 0} w (star.{0} w)
+NLA.MI06.modulus_eq_sqrt {n : Nat} (X : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) :
+  And (Eq.{1} (NLA.MI06.matrixModulus X) (CFC.sqrt.{0} (HMul.hMul.{0, 0, 0} (Matrix.conjTranspose.{0, 0, 0} X) X)))
+    (Matrix.PosSemidef.{0, 0} (NLA.MI06.matrixModulus X))
+NLA.MI06.witness_moduli :
+  And (Eq.{1} (NLA.MI06.matrixModulus NLA.MI06.witnessA) NLA.MI06.rightModulusA)
+    (And (Eq.{1} (NLA.MI06.matrixModulus (Matrix.conjTranspose.{0, 0, 0} NLA.MI06.witnessA)) NLA.MI06.axialModulus)
+      (And (Eq.{1} (NLA.MI06.matrixModulus NLA.MI06.witnessB) NLA.MI06.axialModulus)
+        (And (Eq.{1} (NLA.MI06.matrixModulus (Matrix.conjTranspose.{0, 0, 0} NLA.MI06.witnessB)) NLA.MI06.leftModulusB)
+          (And
+            (Eq.{1} (NLA.MI06.matrixModulus (HAdd.hAdd.{0, 0, 0} NLA.MI06.witnessA NLA.MI06.witnessB))
+              NLA.MI06.rightModulusSum)
+            (And
+              (Eq.{1}
+                (NLA.MI06.matrixModulus
+                  (Matrix.conjTranspose.{0, 0, 0} (HAdd.hAdd.{0, 0, 0} NLA.MI06.witnessA NLA.MI06.witnessB)))
+                NLA.MI06.leftModulusSum)
+              (And (Eq.{1} (NLA.MI06.symmetricModulus NLA.MI06.witnessA) NLA.MI06.symmetricA)
+                (And (Eq.{1} (NLA.MI06.symmetricModulus NLA.MI06.witnessB) NLA.MI06.symmetricB)
+                  (And
+                    (Eq.{1} (NLA.MI06.symmetricModulus (HAdd.hAdd.{0, 0, 0} NLA.MI06.witnessA NLA.MI06.witnessB))
+                      NLA.MI06.symmetricSum)
+                    (And
+                      (Eq.{1} NLA.MI06.symmetricA
+                        (HSub.hSub.{0, 0, 0}
+                          (HAdd.hAdd.{0, 0, 0} (HSMul.hSMul.{0, 0, 0} (1 / 8) 1)
+                            (HSMul.hSMul.{0, 0, 0} (1 / 10) (NLA.MI06.rankOne NLA.MI06.directionA)))
+                          (HSMul.hSMul.{0, 0, 0} (1 / 8) NLA.MI06.missingA)))
+                      (Eq.{1} NLA.MI06.symmetricB
+                        (HSub.hSub.{0, 0, 0}
+                          (HAdd.hAdd.{0, 0, 0} (HSMul.hSMul.{0, 0, 0} (1 / 8) 1)
+                            (HSMul.hSMul.{0, 0, 0} (1 / 10) (NLA.MI06.rankOne NLA.MI06.directionB)))
+                          (HSMul.hSMul.{0, 0, 0} (1 / 8) NLA.MI06.missingB))))))))))))
+NLA.MI06.two_vector_orthogonal (a b : Fin 3 → Complex) :
+  Exists.{1} fun w =>
+    And (LT.lt.{0} 0 (NLA.MI06.squaredLength w))
+      (And (Eq.{1} (dotProduct.{0, 0} (star.{0} a) w) 0) (Eq.{1} (dotProduct.{0, 0} (star.{0} b) w) 0))
+NLA.MI06.witness_quadratic_bounds
+  (U V : Subtype.{1} fun x => Membership.mem.{0, 0} (Matrix.unitaryGroup.{0, 0} (Fin 3) Complex) x) :
+  Exists.{1} fun w =>
+    And (LT.lt.{0} 0 (NLA.MI06.squaredLength w))
+      (And (Eq.{1} (dotProduct.{0, 0} (star.{0} (Matrix.mulVec.{0, 0, 0} (↑U) NLA.MI06.directionA)) w) 0)
+        (And (Eq.{1} (dotProduct.{0, 0} (star.{0} (Matrix.mulVec.{0, 0, 0} (↑V) NLA.MI06.directionB)) w) 0)
+          (And
+            (LE.le.{0} (HMul.hMul.{0, 0, 0} (3 / 8) (NLA.MI06.squaredLength w))
+              (NLA.MI06.quadraticForm
+                (NLA.MI06.symmetricModulus (HAdd.hAdd.{0, 0, 0} NLA.MI06.witnessA NLA.MI06.witnessB)) w))
+            (And
+              (LE.le.{0}
+                (NLA.MI06.quadraticForm (NLA.MI06.unitaryConjugate U (NLA.MI06.symmetricModulus NLA.MI06.witnessA)) w)
+                (HMul.hMul.{0, 0, 0} (1 / 8) (NLA.MI06.squaredLength w)))
+              (LE.le.{0}
+                (NLA.MI06.quadraticForm (NLA.MI06.unitaryConjugate V (NLA.MI06.symmetricModulus NLA.MI06.witnessB)) w)
+                (HMul.hMul.{0, 0, 0} (1 / 8) (NLA.MI06.squaredLength w)))))))
+NLA.MI06.counterexample
+  (U V : Subtype.{1} fun x => Membership.mem.{0, 0} (Matrix.unitaryGroup.{0, 0} (Fin 3) Complex) x) :
+  Not
+    (LE.le.{0} (NLA.MI06.symmetricModulus (HAdd.hAdd.{0, 0, 0} NLA.MI06.witnessA NLA.MI06.witnessB))
+      (HSMul.hSMul.{0, 0, 0} (↑(Real.sqrt 2))
+        (HAdd.hAdd.{0, 0, 0} (NLA.MI06.unitaryConjugate U (NLA.MI06.symmetricModulus NLA.MI06.witnessA))
+          (NLA.MI06.unitaryConjugate V (NLA.MI06.symmetricModulus NLA.MI06.witnessB)))))
+NLA.MI06.not_dominationConjecture : Not NLA.MI06.DominationConjecture
+'NLA.MI06.modulus_eq_sqrt' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.MI06.witness_moduli' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.MI06.two_vector_orthogonal' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.MI06.witness_quadratic_bounds' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.MI06.counterexample' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.MI06.not_dominationConjecture' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]

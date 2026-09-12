@@ -1,0 +1,57 @@
+[
+  {
+    "command": [
+      "/tmp/nla-lean-formalization/venv/bin/python",
+      "tools/lean/validate_manifest.py",
+      "/private/tmp/nla-lean-mi06-worktree/matrix-inequalities-and-norms/MI-06/lean"
+    ],
+    "exit_code": 0,
+    "accepted": true,
+    "acceptance_rule": "zero exit",
+    "log": "check-1.log",
+    "log_sha256": "c954cf1b99ef2790375521bfde2261036029dc670bbc0190521f09d6eacc816e"
+  },
+  {
+    "command": [
+      "python3",
+      "tools/validate_problem_ids.py",
+      "--base-ref",
+      "origin/main"
+    ],
+    "exit_code": 0,
+    "accepted": true,
+    "acceptance_rule": "zero exit",
+    "log": "check-2.log",
+    "log_sha256": "44cc74bfe8f011df4389835465a6043310e12828a092e8c74d318f50d26da3a0"
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--no-index",
+      "--check",
+      "/dev/null",
+      "/private/tmp/nla-lean-mi06-worktree/matrix-inequalities-and-norms/MI-06/lean/formalization.yaml"
+    ],
+    "exit_code": 1,
+    "accepted": true,
+    "acceptance_rule": "no whitespace diagnostics; no-index exit 1 means added-file difference",
+    "log": "check-3.log",
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--no-index",
+      "--check",
+      "/dev/null",
+      "/private/tmp/nla-lean-mi06-worktree/matrix-inequalities-and-norms/MI-06/lean/README.md"
+    ],
+    "exit_code": 1,
+    "accepted": true,
+    "acceptance_rule": "no whitespace diagnostics; no-index exit 1 means added-file difference",
+    "log": "check-4.log",
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

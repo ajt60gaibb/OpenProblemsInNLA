@@ -34,7 +34,7 @@ power},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MI-29}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ determinant comparison with an arbitrary base power\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to specialist\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -72,8 +72,10 @@ determinant comparison. The exact right-minus-left gap is
 \(21036678407451/156250000000000>0\). The known \(k=2\) theorem and the
 variant \(B>0\) are not contradicted.
 
-The exact target is resolved. The original statement and source evidence
-are retained below; its former difficulty rating is historical.
+The exact target is resolved. The complete negative answer now has
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-29\#lean-proof-and-verification-evidence--2026-09-12}{Lean
+proof and verification evidence}. The original statement and source
+evidence are retained below; its former difficulty rating is historical.
 
 \textbf{Primary manuscript:}
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-29/solution.pdf}{complete
@@ -84,16 +86,114 @@ TeX}, Theorem 1.1 and its proof;
 and scope}. The
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-2026-09-11/verification/reviews/MI-29-review.md}{independent
 review} checks the full original argument and records its hash. The
-draft was AI-assisted; this is independent agent verification, not
-external human peer review or formal certification.
+draft was AI-assisted; the 2026-09-11 review was independent agent
+verification, without external human peer review or formal
+certification. The later Lean verification below covers the complete
+negative answer.
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-2026-09-11/README.md}{Submission
 record}.
 
+\subsection{Lean proof and verification evidence ---
+2026-09-12}\label{lean-proof-and-verification-evidence-2026-09-12}
+
+\textbf{Mathematical counterexample:} Matthew J. Colbrook, Department of
+Applied Mathematics and Theoretical Physics, University of Cambridge.
+\textbf{Lean formalization:} George Stepaniants, Department of Computing
+and Mathematical Sciences, California Institute of Technology, Pasadena,
+California, USA, with AI-agent assistance.
+
+The
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/tree/c0c5eced77d2528f37d931200248fc54a190813e/matrix-inequalities-and-norms/MI-29/lean}{proof
+at revision c0c5ece} establishes the complete negative answer with the
+actual continuous functional calculus and matrix modulus. Its exact
+admissible dimension-three witness at \(k=6,p=8\) has right-minus-left
+determinant gap \(21036678407451/156250000000000>0\). The final negation
+retains every positive dimension, every complex positive definite \(A\),
+every invertible Hermitian \(B\), and all nonnegative real exponents.
+Every witness hypothesis is proved; positivity or commutation of \(B\)
+is not added.
+
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/blob/c0c5eced77d2528f37d931200248fc54a190813e/matrix-inequalities-and-norms/MI-29/lean/Solution.lean}{Solution.lean}
+exports:
+
+\begin{itemize}
+\tightlist
+\item
+  \textit{NLA.MI29.spectralPower\_natCast}: actual spectral powers agree
+  with matrix natural powers, including exponent zero.
+\item
+  \textit{NLA.MI29.modulus\_power\_eight}: the genuine square-root
+  modulus, its positivity and the eighth-power reduction.
+\item
+  \textit{NLA.MI29.comparison\_positive\_real}: both determinants are
+  positive real numbers under the original hypotheses.
+\item
+  \textit{NLA.MI29.counterexample}: the full admissible witness,
+  analytic reductions, exact determinants and strict violation.
+\item
+  \textit{NLA.MI29.not\_modulusDeterminantConjecture}: negation of the
+  complete original conjecture.
+\end{itemize}
+
+Two independent agents
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-29/lean/reviews}{reviewed
+the frozen statements and complete proof} against the original target.
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34706412510}{Linux
+run 34706412510} executed the actual sandboxed Comparator on GitHub
+Actions Ubuntu 24.04, matched all five declarations and replayed the
+solution through Lean's default kernel. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-29/lean/verification/linux-2026-09-12}{archived
+logs and independent operational audit} retain the immutable source
+hashes, original artifact digests and successful sandbox, raw-kernel and
+axiom-rejection controls. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-29/lean/reviews/proof-axioms.log}{transitive
+axiom report} contains only \textit{propext}, \textit{Classical.choice}
+and \textit{Quot.sound}. This catalog reviewed the remote Linux
+execution; local macOS proof reviews are recorded separately. These are
+independent AI-agent reviews, not external human peer review or
+source-author endorsement. Comparator checks formal identity and kernel
+trust; the statement referees separately reviewed correspondence with
+the original prose.
+
+The proof pins \textbf{Lean 4.33.1},
+\href{https://github.com/alerad/leancert/tree/621a43d7cf21f87872392a01e874f2f1dbddc926}{LeanCert
+621a43d} and
+\href{https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474}{Mathlib
+0df444a}, with
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-29/lean/lake-manifest.json}{all
+dependency revisions locked}. Generic CFC identities reduce the
+calculation to repeated squaring and exact three-dimensional
+determinants; one kernel-mode LeanCert rational point certificate
+supplies the strict scalar gap. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-29/lean/formalization.yaml}{formalization
+manifest},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-29/lean/NUMERICAL_TARGETS.md}{numerical
+targets} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-29/lean/README.md}{project
+guide} record scope and reproduction. The source's separate
+singular-input extension, established \(k=2\) result and positive-\(B\)
+variants are outside these exports.
+
+From a checkout of the verified proof revision, on an isolated non-root
+Linux host meeting the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tools/lean/HARNESS.md}{shared
+harness prerequisites}, run:
+
+\begin{verbatim}
+tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
+tools/lean/verify.sh \
+  matrix-inequalities-and-norms/MI-29/lean \
+  /absolute/path/to/nla-lean-tools
+\end{verbatim}
+
 \subsection{Problem statement}\label{problem-statement}
 
-Does the inequality \[
-\det(A^k+|AB|^p)\ge\det(A^k+|BA|^p)
-\] hold for every integer \(n\ge1\), every positive definite
+Does the inequality
+
+\[\det(A^k+|AB|^p)\ge\det(A^k+|BA|^p)\]
+
+hold for every integer \(n\ge1\), every positive definite
 \(A\in\mathbb C^{n\times n}\), every invertible Hermitian
 \(B\in\mathbb C^{n\times n}\), and every pair of real parameters
 \(k,p\ge0\)? Here \(|X|=(X^*X)^{1/2}\), all powers of positive definite
