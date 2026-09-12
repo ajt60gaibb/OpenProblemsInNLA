@@ -1,0 +1,1713 @@
+def NLA.MI06.DominationConjecture : Prop :=
+∀ (n : Nat),
+  @LE.le Nat instLENat (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) n →
+    ∀ (A B : Matrix (Fin n) (Fin n) Complex),
+      ∃ U V,
+        @LE.le (Matrix (Fin n) (Fin n) Complex)
+          (@Preorder.toLE (Matrix (Fin n) (Fin n) Complex) (@Matrix.instPreOrder Complex (Fin n) Complex.instRCLike))
+          (@NLA.MI06.symmetricModulus n
+            (@HAdd.hAdd (Matrix (Fin n) (Fin n) Complex) (Matrix (Fin n) (Fin n) Complex)
+              (Matrix (Fin n) (Fin n) Complex)
+              (@instHAdd (Matrix (Fin n) (Fin n) Complex) (@Matrix.add (Fin n) (Fin n) Complex Complex.instAdd)) A B))
+          (@HSMul.hSMul Complex (Matrix (Fin n) (Fin n) Complex) (Matrix (Fin n) (Fin n) Complex)
+            (@instHSMul Complex (Matrix (Fin n) (Fin n) Complex)
+              (@Matrix.smul (Fin n) (Fin n) Complex Complex (@instSMulOfMul Complex Complex.instMul)))
+            (↑(Real.sqrt
+                (@OfNat.ofNat Real (nat_lit 2)
+                  (@instOfNatAtLeastTwo Real (nat_lit 2) Real.instNatCast NLA.MI06.symmetricModulus._proof_1))))
+            (@HAdd.hAdd (Matrix (Fin n) (Fin n) Complex) (Matrix (Fin n) (Fin n) Complex)
+              (Matrix (Fin n) (Fin n) Complex)
+              (@instHAdd (Matrix (Fin n) (Fin n) Complex) (@Matrix.add (Fin n) (Fin n) Complex Complex.instAdd))
+              (@NLA.MI06.unitaryConjugate n U (@NLA.MI06.symmetricModulus n A))
+              (@NLA.MI06.unitaryConjugate n V (@NLA.MI06.symmetricModulus n B))))
+def NLA.MI06.matrixModulus : {n : Nat} → Matrix (Fin n) (Fin n) Complex → Matrix (Fin n) (Fin n) Complex :=
+fun {n} X =>
+  @CFC.abs (Matrix (Fin n) (Fin n) Complex)
+    (@Matrix.instNonUnitalRing (Fin n) Complex (Fin.fintype n)
+      (@NonUnitalCommRing.toNonUnitalRing Complex Complex.instNonUnitalCommRing))
+    (@Matrix.instStarRing (Fin n) Complex (Fin.fintype n)
+      (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+        (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+          (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))
+      Complex.instStarRing)
+    (@instTopologicalSpaceMatrix (Fin n) (Fin n) Complex
+      (@UniformSpace.toTopologicalSpace Complex
+        (@PseudoMetricSpace.toUniformSpace Complex
+          (@SeminormedRing.toPseudoMetricSpace Complex
+            (@SeminormedCommRing.toSeminormedRing Complex
+              (@NormedCommRing.toSeminormedCommRing Complex
+                (@CommCStarAlgebra.toNormedCommRing Complex instCommCStarAlgebraComplex)))))))
+    (@Matrix.module (Fin n) (Fin n) Real Complex Real.semiring Complex.instAddCommMonoid
+      (@NormedSpace.toModule Real Complex Real.normedField
+        (@NonUnitalSeminormedRing.toSeminormedAddCommGroup Complex
+          (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing Complex
+            (@SeminormedCommRing.toNonUnitalSeminormedCommRing Complex
+              (@NormedCommRing.toSeminormedCommRing Complex
+                (@CommCStarAlgebra.toNormedCommRing Complex instCommCStarAlgebraComplex)))))
+        (@InnerProductSpace.toNormedSpace Real Complex Real.instRCLike
+          (@NonUnitalSeminormedRing.toSeminormedAddCommGroup Complex
+            (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing Complex
+              (@SeminormedCommRing.toNonUnitalSeminormedCommRing Complex
+                (@NormedCommRing.toSeminormedCommRing Complex
+                  (@CommCStarAlgebra.toNormedCommRing Complex instCommCStarAlgebraComplex)))))
+          instInnerProductSpaceRealComplex)))
+    (@NLA.MI06.matrixModulus._proof_1 n) (@NLA.MI06.matrixModulus._proof_2 n) (@NLA.MI06.matrixModulus._proof_7 n)
+    (@Matrix.instPartialOrder Complex (Fin n) Complex.instRCLike) (@NLA.MI06.matrixModulus._proof_8 n)
+    (@NLA.MI06.matrixModulus._proof_9 n) X
+def NLA.MI06.symmetricModulus : {n : Nat} → Matrix (Fin n) (Fin n) Complex → Matrix (Fin n) (Fin n) Complex :=
+fun {n} X =>
+  @HSMul.hSMul Complex (Matrix (Fin n) (Fin n) Complex) (Matrix (Fin n) (Fin n) Complex)
+    (@instHSMul Complex (Matrix (Fin n) (Fin n) Complex)
+      (@Matrix.smul (Fin n) (Fin n) Complex Complex (@instSMulOfMul Complex Complex.instMul)))
+    (@HDiv.hDiv Complex Complex Complex (@instHDiv Complex (@DivInvMonoid.toDiv Complex Complex.instDivInvMonoid))
+      (@OfNat.ofNat Complex (nat_lit 1) (@One.toOfNat1 Complex Complex.instOne))
+      (@OfNat.ofNat Complex (nat_lit 2)
+        (@instOfNatAtLeastTwo Complex (nat_lit 2) Complex.instNatCast NLA.MI06.symmetricModulus._proof_1)))
+    (@HAdd.hAdd (Matrix (Fin n) (Fin n) Complex) (Matrix (Fin n) (Fin n) Complex) (Matrix (Fin n) (Fin n) Complex)
+      (@instHAdd (Matrix (Fin n) (Fin n) Complex) (@Matrix.add (Fin n) (Fin n) Complex Complex.instAdd))
+      (@NLA.MI06.matrixModulus n X)
+      (@NLA.MI06.matrixModulus n
+        (@Matrix.conjTranspose (Fin n) (Fin n) Complex
+          (@InvolutiveStar.toStar Complex
+            (@StarAddMonoid.toInvolutiveStar Complex
+              (@AddCommMonoid.toAddMonoid Complex
+                (@NonUnitalNonAssocSemiring.toAddCommMonoid Complex
+                  (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                    (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                      (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))))
+              (@StarRing.toStarAddMonoid Complex
+                (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                  (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                    (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))
+                Complex.instStarRing)))
+          X)))
+def NLA.MI06.squaredLength : {n : Nat} → (Fin n → Complex) → Real :=
+fun {n} w =>
+  ∑ i,
+    @DFunLike.coe
+      (@MonoidWithZeroHom Complex Real (@instMulZeroOneClassOfSemiring Complex Complex.instSemiring)
+        (@instMulZeroOneClassOfSemiring Real Real.semiring))
+      Complex (fun x => Real)
+      (@MonoidWithZeroHom.funLike Complex Real (@instMulZeroOneClassOfSemiring Complex Complex.instSemiring)
+        (@instMulZeroOneClassOfSemiring Real Real.semiring))
+      Complex.normSq (w i)
+def NLA.MI06.quadraticForm : {n : Nat} → Matrix (Fin n) (Fin n) Complex → (Fin n → Complex) → Real :=
+fun {n} H w =>
+  (@dotProduct (Fin n) Complex (Fin.fintype n) Complex.instMul Complex.instAddCommMonoid
+      (@star (Fin n → Complex)
+        (@Pi.instStarForall (Fin n) (fun a => Complex) fun i =>
+          @InvolutiveStar.toStar Complex
+            (@StarAddMonoid.toInvolutiveStar Complex
+              (@AddCommMonoid.toAddMonoid Complex
+                (@NonUnitalNonAssocSemiring.toAddCommMonoid Complex
+                  (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                    (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                      (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))))
+              (@StarRing.toStarAddMonoid Complex
+                (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                  (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                    (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))
+                Complex.instStarRing)))
+        w)
+      (@Matrix.mulVec (Fin n) (Fin n) Complex
+        (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+          (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+            (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))
+        (Fin.fintype n) H w)).re
+@NLA.MI06.modulus_eq_sqrt : ∀ {n : Nat} (X : Matrix (Fin n) (Fin n) Complex),
+  And
+    (@Eq (Matrix (Fin n) (Fin n) Complex) (@NLA.MI06.matrixModulus n X)
+      (@CFC.sqrt (Matrix (Fin n) (Fin n) Complex) (@Matrix.instPartialOrder Complex (Fin n) Complex.instRCLike)
+        (@Matrix.instNonUnitalRing (Fin n) Complex (Fin.fintype n)
+          (@NonUnitalCommRing.toNonUnitalRing Complex Complex.instNonUnitalCommRing))
+        (@instTopologicalSpaceMatrix (Fin n) (Fin n) Complex
+          (@UniformSpace.toTopologicalSpace Complex
+            (@PseudoMetricSpace.toUniformSpace Complex
+              (@SeminormedRing.toPseudoMetricSpace Complex
+                (@SeminormedCommRing.toSeminormedRing Complex
+                  (@NormedCommRing.toSeminormedCommRing Complex
+                    (@CommCStarAlgebra.toNormedCommRing Complex instCommCStarAlgebraComplex)))))))
+        (@Matrix.instStarRing (Fin n) Complex (Fin.fintype n)
+          (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+            (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+              (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))
+          Complex.instStarRing)
+        (@Matrix.module (Fin n) (Fin n) Real Complex Real.semiring Complex.instAddCommMonoid
+          (@NormedSpace.toModule Real Complex Real.normedField
+            (@NonUnitalSeminormedRing.toSeminormedAddCommGroup Complex
+              (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing Complex
+                (@SeminormedCommRing.toNonUnitalSeminormedCommRing Complex
+                  (@NormedCommRing.toSeminormedCommRing Complex
+                    (@CommCStarAlgebra.toNormedCommRing Complex instCommCStarAlgebraComplex)))))
+            (@InnerProductSpace.toNormedSpace Real Complex Real.instRCLike
+              (@NonUnitalSeminormedRing.toSeminormedAddCommGroup Complex
+                (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing Complex
+                  (@SeminormedCommRing.toNonUnitalSeminormedCommRing Complex
+                    (@NormedCommRing.toSeminormedCommRing Complex
+                      (@CommCStarAlgebra.toNormedCommRing Complex instCommCStarAlgebraComplex)))))
+              instInnerProductSpaceRealComplex)))
+        (@Algebra.to_smulCommClass Real (Matrix (Fin n) (Fin n) Complex) Real.instCommSemiring
+          (@Matrix.semiring (Fin n) Complex Complex.instSemiring (Fin.fintype n) (instDecidableEqFin n))
+          (@Matrix.instAlgebra (Fin n) Real Complex (Fin.fintype n) (instDecidableEqFin n) Real.instCommSemiring
+            Complex.instSemiring
+            (@NormedAlgebra.toAlgebra Real Complex Real.normedField
+              (@SeminormedCommRing.toSeminormedRing Complex
+                (@NormedCommRing.toSeminormedCommRing Complex
+                  (@CommCStarAlgebra.toNormedCommRing Complex instCommCStarAlgebraComplex)))
+              (@RCLike.toNormedAlgebra Complex Complex.instRCLike))))
+        (@IsScalarTower.right Real (Matrix (Fin n) (Fin n) Complex) Real.instCommSemiring
+          (@Matrix.semiring (Fin n) Complex Complex.instSemiring (Fin.fintype n) (instDecidableEqFin n))
+          (@Matrix.instAlgebra (Fin n) Real Complex (Fin.fintype n) (instDecidableEqFin n) Real.instCommSemiring
+            Complex.instSemiring
+            (@NormedAlgebra.toAlgebra Real Complex Real.normedField
+              (@SeminormedCommRing.toSeminormedRing Complex
+                (@NormedCommRing.toSeminormedCommRing Complex
+                  (@CommCStarAlgebra.toNormedCommRing Complex instCommCStarAlgebraComplex)))
+              (@RCLike.toNormedAlgebra Complex Complex.instRCLike))))
+        (@Matrix.instStarOrderedRing Complex (Fin n) Complex.instRCLike (Fin.fintype n))
+        (@ContinuousFunctionalCalculus.toNonUnital Real (Matrix (Fin n) (Fin n) Complex)
+          (@IsSelfAdjoint (Matrix (Fin n) (Fin n) Complex)
+            (@Matrix.instStar (Fin n) Complex
+              (@InvolutiveStar.toStar Complex
+                (@StarAddMonoid.toInvolutiveStar Complex
+                  (@AddCommMonoid.toAddMonoid Complex
+                    (@NonUnitalNonAssocSemiring.toAddCommMonoid Complex
+                      (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                        (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                          (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex
+                            (@CommRing.toNonUnitalCommRing Complex
+                              (@Field.toCommRing Complex
+                                (@NormedField.toField Complex
+                                  (@DenselyNormedField.toNormedField Complex
+                                    (@RCLike.toDenselyNormedField Complex Complex.instRCLike))))))))))
+                  (@StarRing.toStarAddMonoid Complex
+                    (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                      (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                        (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex
+                          (@CommRing.toNonUnitalCommRing Complex
+                            (@Field.toCommRing Complex
+                              (@NormedField.toField Complex
+                                (@DenselyNormedField.toNormedField Complex
+                                  (@RCLike.toDenselyNormedField Complex Complex.instRCLike))))))))
+                    (@RCLike.toStarRing Complex Complex.instRCLike))))))
+          (@Field.toSemifield Real Real.instField) instStarRingReal Real.metricSpace
+          (@IsTopologicalRing.toIsTopologicalSemiring Real
+            (@UniformSpace.toTopologicalSpace Real
+              (@PseudoMetricSpace.toUniformSpace Real (@MetricSpace.toPseudoMetricSpace Real Real.metricSpace)))
+            (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Real
+              (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Real (@CommRing.toNonUnitalCommRing Real Real.commRing)))
+            instIsTopologicalRingReal)
+          instContinuousStarReal
+          (@Matrix.instRing (Fin n) Complex (Fin.fintype n) (instDecidableEqFin n) Complex.instRing)
+          (@Matrix.instStarRing (Fin n) Complex (Fin.fintype n)
+            (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+              (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))
+            Complex.instStarRing)
+          (@instTopologicalSpaceMatrix (Fin n) (Fin n) Complex
+            (@UniformSpace.toTopologicalSpace Complex
+              (@PseudoMetricSpace.toUniformSpace Complex
+                (@SeminormedRing.toPseudoMetricSpace Complex
+                  (@SeminormedCommRing.toSeminormedRing Complex
+                    (@NormedCommRing.toSeminormedCommRing Complex
+                      (@CommCStarAlgebra.toNormedCommRing Complex instCommCStarAlgebraComplex)))))))
+          (@Matrix.instAlgebra (Fin n) Real Complex (Fin.fintype n) (instDecidableEqFin n)
+            (@Semifield.toCommSemiring Real (@Field.toSemifield Real Real.instField))
+            (@Ring.toSemiring Complex Complex.instRing)
+            (@NormedAlgebra.toAlgebra Real Complex Real.normedField
+              (@SeminormedCommRing.toSeminormedRing Complex
+                (@NormedCommRing.toSeminormedCommRing Complex
+                  (@CommCStarAlgebra.toNormedCommRing Complex instCommCStarAlgebraComplex)))
+              (@RCLike.toNormedAlgebra Complex Complex.instRCLike)))
+          (@Matrix.IsHermitian.instContinuousFunctionalCalculus (Fin n) Complex Complex.instRCLike (Fin.fintype n)
+            (instDecidableEqFin n)))
+        (@Matrix.instNonnegSpectrumClass Complex (Fin n) Complex.instRCLike (Fin.fintype n))
+        (@HMul.hMul (Matrix (Fin n) (Fin n) Complex) (Matrix (Fin n) (Fin n) Complex) (Matrix (Fin n) (Fin n) Complex)
+          (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid (Fin n) (Fin n) (Fin n) Complex (Fin.fintype n) Complex.instMul
+            Complex.instAddCommMonoid)
+          (@Matrix.conjTranspose (Fin n) (Fin n) Complex
+            (@InvolutiveStar.toStar Complex
+              (@StarAddMonoid.toInvolutiveStar Complex
+                (@AddCommMonoid.toAddMonoid Complex
+                  (@NonUnitalNonAssocSemiring.toAddCommMonoid Complex
+                    (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                      (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                        (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))))
+                (@StarRing.toStarAddMonoid Complex
+                  (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                    (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                      (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))
+                  Complex.instStarRing)))
+            X)
+          X)))
+    (@Matrix.PosSemidef (Fin n) Complex Complex.instRing Complex.partialOrder Complex.instStarRing
+      (@NLA.MI06.matrixModulus n X))
+NLA.MI06.witness_moduli : And
+  (@Eq
+    (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+      (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+    (@NLA.MI06.matrixModulus (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) NLA.MI06.witnessA)
+    NLA.MI06.rightModulusA)
+  (And
+    (@Eq
+      (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+        (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+      (@NLA.MI06.matrixModulus (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+        (@Matrix.conjTranspose (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+          (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex
+          (@InvolutiveStar.toStar Complex
+            (@StarAddMonoid.toInvolutiveStar Complex
+              (@AddCommMonoid.toAddMonoid Complex
+                (@NonUnitalNonAssocSemiring.toAddCommMonoid Complex
+                  (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                    (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                      (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))))
+              (@StarRing.toStarAddMonoid Complex
+                (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                  (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                    (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))
+                Complex.instStarRing)))
+          NLA.MI06.witnessA))
+      NLA.MI06.axialModulus)
+    (And
+      (@Eq
+        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+          (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+        (@NLA.MI06.matrixModulus (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) NLA.MI06.witnessB)
+        NLA.MI06.axialModulus)
+      (And
+        (@Eq
+          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+          (@NLA.MI06.matrixModulus (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+            (@Matrix.conjTranspose (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex
+              (@InvolutiveStar.toStar Complex
+                (@StarAddMonoid.toInvolutiveStar Complex
+                  (@AddCommMonoid.toAddMonoid Complex
+                    (@NonUnitalNonAssocSemiring.toAddCommMonoid Complex
+                      (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                        (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                          (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))))
+                  (@StarRing.toStarAddMonoid Complex
+                    (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                      (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                        (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))
+                    Complex.instStarRing)))
+              NLA.MI06.witnessB))
+          NLA.MI06.leftModulusB)
+        (And
+          (@Eq
+            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+            (@NLA.MI06.matrixModulus (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+              (@HAdd.hAdd
+                (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                  (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                  (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                  (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                (@instHAdd
+                  (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                    (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                  (@Matrix.add (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                    (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex Complex.instAdd))
+                NLA.MI06.witnessA NLA.MI06.witnessB))
+            NLA.MI06.rightModulusSum)
+          (And
+            (@Eq
+              (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+              (@NLA.MI06.matrixModulus (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                (@Matrix.conjTranspose (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                  (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex
+                  (@InvolutiveStar.toStar Complex
+                    (@StarAddMonoid.toInvolutiveStar Complex
+                      (@AddCommMonoid.toAddMonoid Complex
+                        (@NonUnitalNonAssocSemiring.toAddCommMonoid Complex
+                          (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                            (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                              (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))))
+                      (@StarRing.toStarAddMonoid Complex
+                        (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                          (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                            (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))
+                        Complex.instStarRing)))
+                  (@HAdd.hAdd
+                    (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                      (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                    (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                      (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                    (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                      (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                    (@instHAdd
+                      (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                        (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                      (@Matrix.add (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                        (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex Complex.instAdd))
+                    NLA.MI06.witnessA NLA.MI06.witnessB)))
+              NLA.MI06.leftModulusSum)
+            (And
+              (@Eq
+                (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                  (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                (@NLA.MI06.symmetricModulus (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) NLA.MI06.witnessA)
+                NLA.MI06.symmetricA)
+              (And
+                (@Eq
+                  (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                    (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                  (@NLA.MI06.symmetricModulus (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                    NLA.MI06.witnessB)
+                  NLA.MI06.symmetricB)
+                (And
+                  (@Eq
+                    (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                      (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                    (@NLA.MI06.symmetricModulus (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                      (@HAdd.hAdd
+                        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                          (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                          (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                          (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                        (@instHAdd
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                          (@Matrix.add (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex Complex.instAdd))
+                        NLA.MI06.witnessA NLA.MI06.witnessB))
+                    NLA.MI06.symmetricSum)
+                  (And
+                    (@Eq
+                      (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                        (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                      NLA.MI06.symmetricA
+                      (@HSub.hSub
+                        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                          (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                          (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                          (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                        (@instHSub
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                          (@Matrix.sub (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex Complex.instSub))
+                        (@HAdd.hAdd
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                          (@instHAdd
+                            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                            (@Matrix.add (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex Complex.instAdd))
+                          (@HSMul.hSMul Complex
+                            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                            (@instHSMul Complex
+                              (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                              (@Matrix.smul (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex Complex
+                                (@instSMulOfMul Complex Complex.instMul)))
+                            (@HDiv.hDiv Complex Complex Complex
+                              (@instHDiv Complex (@DivInvMonoid.toDiv Complex Complex.instDivInvMonoid))
+                              (@OfNat.ofNat Complex (nat_lit 1) (@One.toOfNat1 Complex Complex.instOne))
+                              (@OfNat.ofNat Complex (nat_lit 8)
+                                (@instOfNatAtLeastTwo Complex (nat_lit 8) Complex.instNatCast
+                                  (@Nat.instAtLeastTwoHAddOfNat
+                                    (@OfNat.ofNat Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))
+                                    (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))))))
+                            (@OfNat.ofNat
+                              (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                              (nat_lit 1)
+                              (@One.toOfNat1
+                                (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                  (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                                (@Matrix.one (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex
+                                  (instDecidableEqFin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                  Complex.instZero Complex.instOne))))
+                          (@HSMul.hSMul Complex
+                            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                            (@instHSMul Complex
+                              (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                              (@Matrix.smul (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex Complex
+                                (@instSMulOfMul Complex Complex.instMul)))
+                            (@HDiv.hDiv Complex Complex Complex
+                              (@instHDiv Complex (@DivInvMonoid.toDiv Complex Complex.instDivInvMonoid))
+                              (@OfNat.ofNat Complex (nat_lit 1) (@One.toOfNat1 Complex Complex.instOne))
+                              (@OfNat.ofNat Complex (nat_lit 10)
+                                (@instOfNatAtLeastTwo Complex (nat_lit 10) Complex.instNatCast
+                                  (@Nat.instAtLeastTwoHAddOfNat
+                                    (@OfNat.ofNat Nat (nat_lit 9) (instOfNatNat (nat_lit 9)))
+                                    (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 8) (instOfNatNat (nat_lit 8))))))))
+                            (@NLA.MI06.rankOne (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                              NLA.MI06.directionA)))
+                        (@HSMul.hSMul Complex
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                          (@instHSMul Complex
+                            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                            (@Matrix.smul (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex Complex
+                              (@instSMulOfMul Complex Complex.instMul)))
+                          (@HDiv.hDiv Complex Complex Complex
+                            (@instHDiv Complex (@DivInvMonoid.toDiv Complex Complex.instDivInvMonoid))
+                            (@OfNat.ofNat Complex (nat_lit 1) (@One.toOfNat1 Complex Complex.instOne))
+                            (@OfNat.ofNat Complex (nat_lit 8)
+                              (@instOfNatAtLeastTwo Complex (nat_lit 8) Complex.instNatCast
+                                (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))
+                                  (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))))))
+                          NLA.MI06.missingA)))
+                    (@Eq
+                      (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                        (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                      NLA.MI06.symmetricB
+                      (@HSub.hSub
+                        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                          (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                          (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                          (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                        (@instHSub
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                          (@Matrix.sub (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex Complex.instSub))
+                        (@HAdd.hAdd
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                          (@instHAdd
+                            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                            (@Matrix.add (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex Complex.instAdd))
+                          (@HSMul.hSMul Complex
+                            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                            (@instHSMul Complex
+                              (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                              (@Matrix.smul (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex Complex
+                                (@instSMulOfMul Complex Complex.instMul)))
+                            (@HDiv.hDiv Complex Complex Complex
+                              (@instHDiv Complex (@DivInvMonoid.toDiv Complex Complex.instDivInvMonoid))
+                              (@OfNat.ofNat Complex (nat_lit 1) (@One.toOfNat1 Complex Complex.instOne))
+                              (@OfNat.ofNat Complex (nat_lit 8)
+                                (@instOfNatAtLeastTwo Complex (nat_lit 8) Complex.instNatCast
+                                  (@Nat.instAtLeastTwoHAddOfNat
+                                    (@OfNat.ofNat Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))
+                                    (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))))))
+                            (@OfNat.ofNat
+                              (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                              (nat_lit 1)
+                              (@One.toOfNat1
+                                (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                  (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                                (@Matrix.one (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex
+                                  (instDecidableEqFin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                  Complex.instZero Complex.instOne))))
+                          (@HSMul.hSMul Complex
+                            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                            (@instHSMul Complex
+                              (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                              (@Matrix.smul (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex Complex
+                                (@instSMulOfMul Complex Complex.instMul)))
+                            (@HDiv.hDiv Complex Complex Complex
+                              (@instHDiv Complex (@DivInvMonoid.toDiv Complex Complex.instDivInvMonoid))
+                              (@OfNat.ofNat Complex (nat_lit 1) (@One.toOfNat1 Complex Complex.instOne))
+                              (@OfNat.ofNat Complex (nat_lit 10)
+                                (@instOfNatAtLeastTwo Complex (nat_lit 10) Complex.instNatCast
+                                  (@Nat.instAtLeastTwoHAddOfNat
+                                    (@OfNat.ofNat Nat (nat_lit 9) (instOfNatNat (nat_lit 9)))
+                                    (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 8) (instOfNatNat (nat_lit 8))))))))
+                            (@NLA.MI06.rankOne (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                              NLA.MI06.directionB)))
+                        (@HSMul.hSMul Complex
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                          (@instHSMul Complex
+                            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                            (@Matrix.smul (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex Complex
+                              (@instSMulOfMul Complex Complex.instMul)))
+                          (@HDiv.hDiv Complex Complex Complex
+                            (@instHDiv Complex (@DivInvMonoid.toDiv Complex Complex.instDivInvMonoid))
+                            (@OfNat.ofNat Complex (nat_lit 1) (@One.toOfNat1 Complex Complex.instOne))
+                            (@OfNat.ofNat Complex (nat_lit 8)
+                              (@instOfNatAtLeastTwo Complex (nat_lit 8) Complex.instNatCast
+                                (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))
+                                  (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))))))
+                          NLA.MI06.missingB))))))))))))
+NLA.MI06.two_vector_orthogonal : ∀ (a b : Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) → Complex),
+  ∃ w,
+    And
+      (@LT.lt Real Real.instLT (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+        (@NLA.MI06.squaredLength (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) w))
+      (And
+        (@Eq Complex
+          (@dotProduct (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex
+            (Fin.fintype (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex.instMul
+            Complex.instAddCommMonoid
+            (@star (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) → Complex)
+              (@Pi.instStarForall (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) (fun a => Complex)
+                fun i =>
+                @InvolutiveStar.toStar Complex
+                  (@StarAddMonoid.toInvolutiveStar Complex
+                    (@AddCommMonoid.toAddMonoid Complex
+                      (@NonUnitalNonAssocSemiring.toAddCommMonoid Complex
+                        (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                          (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                            (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))))
+                    (@StarRing.toStarAddMonoid Complex
+                      (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                        (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                          (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))
+                      Complex.instStarRing)))
+              a)
+            w)
+          (@OfNat.ofNat Complex (nat_lit 0) (@Zero.toOfNat0 Complex Complex.instZero)))
+        (@Eq Complex
+          (@dotProduct (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex
+            (Fin.fintype (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex.instMul
+            Complex.instAddCommMonoid
+            (@star (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) → Complex)
+              (@Pi.instStarForall (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) (fun a => Complex)
+                fun i =>
+                @InvolutiveStar.toStar Complex
+                  (@StarAddMonoid.toInvolutiveStar Complex
+                    (@AddCommMonoid.toAddMonoid Complex
+                      (@NonUnitalNonAssocSemiring.toAddCommMonoid Complex
+                        (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                          (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                            (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))))
+                    (@StarRing.toStarAddMonoid Complex
+                      (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                        (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                          (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))
+                      Complex.instStarRing)))
+              b)
+            w)
+          (@OfNat.ofNat Complex (nat_lit 0) (@Zero.toOfNat0 Complex Complex.instZero))))
+NLA.MI06.witness_quadratic_bounds : ∀
+  (U V :
+    ↥(@Matrix.unitaryGroup (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+        (instDecidableEqFin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+        (Fin.fintype (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex Complex.commRing
+        Complex.instStarRing)),
+  ∃ w,
+    And
+      (@LT.lt Real Real.instLT (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+        (@NLA.MI06.squaredLength (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) w))
+      (And
+        (@Eq Complex
+          (@dotProduct (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex
+            (Fin.fintype (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex.instMul
+            Complex.instAddCommMonoid
+            (@star (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) → Complex)
+              (@Pi.instStarForall (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) (fun a => Complex)
+                fun i =>
+                @InvolutiveStar.toStar Complex
+                  (@StarAddMonoid.toInvolutiveStar Complex
+                    (@AddCommMonoid.toAddMonoid Complex
+                      (@NonUnitalNonAssocSemiring.toAddCommMonoid Complex
+                        (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                          (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                            (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))))
+                    (@StarRing.toStarAddMonoid Complex
+                      (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                        (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                          (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))
+                      Complex.instStarRing)))
+              (@Matrix.mulVec (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex
+                (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                  (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                    (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))
+                (Fin.fintype (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                (@Subtype.val
+                  (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                    (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                  (fun x =>
+                    @Membership.mem
+                      (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                        (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                      (@Submonoid
+                        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                          (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                        (@MulZeroOneClass.toMulOneClass
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                          (@instMulZeroOneClassOfSemiring
+                            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                            (@Matrix.semiring (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex
+                              (@CommSemiring.toSemiring Complex (@CommRing.toCommSemiring Complex Complex.commRing))
+                              (Fin.fintype (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (instDecidableEqFin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))))))
+                      (@SetLike.instMembership
+                        (@Submonoid
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                          (@MulZeroOneClass.toMulOneClass
+                            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                            (@instMulZeroOneClassOfSemiring
+                              (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                              (@Matrix.semiring (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex
+                                (@CommSemiring.toSemiring Complex (@CommRing.toCommSemiring Complex Complex.commRing))
+                                (Fin.fintype (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                (instDecidableEqFin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))))))
+                        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                          (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                        (@Submonoid.instSetLike
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                          (@MulZeroOneClass.toMulOneClass
+                            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                            (@instMulZeroOneClassOfSemiring
+                              (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                              (@Matrix.semiring (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex
+                                (@CommSemiring.toSemiring Complex (@CommRing.toCommSemiring Complex Complex.commRing))
+                                (Fin.fintype (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                (instDecidableEqFin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))))))))
+                      (@Matrix.unitaryGroup (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                        (instDecidableEqFin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                        (Fin.fintype (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex Complex.commRing
+                        Complex.instStarRing)
+                      x)
+                  U)
+                NLA.MI06.directionA))
+            w)
+          (@OfNat.ofNat Complex (nat_lit 0) (@Zero.toOfNat0 Complex Complex.instZero)))
+        (And
+          (@Eq Complex
+            (@dotProduct (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex
+              (Fin.fintype (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex.instMul
+              Complex.instAddCommMonoid
+              (@star (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) → Complex)
+                (@Pi.instStarForall (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) (fun a => Complex)
+                  fun i =>
+                  @InvolutiveStar.toStar Complex
+                    (@StarAddMonoid.toInvolutiveStar Complex
+                      (@AddCommMonoid.toAddMonoid Complex
+                        (@NonUnitalNonAssocSemiring.toAddCommMonoid Complex
+                          (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                            (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                              (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))))
+                      (@StarRing.toStarAddMonoid Complex
+                        (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                          (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                            (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))
+                        Complex.instStarRing)))
+                (@Matrix.mulVec (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                  (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex
+                  (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                    (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                      (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))
+                  (Fin.fintype (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                  (@Subtype.val
+                    (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                      (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                    (fun x =>
+                      @Membership.mem
+                        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                          (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                        (@Submonoid
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                          (@MulZeroOneClass.toMulOneClass
+                            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                            (@instMulZeroOneClassOfSemiring
+                              (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                              (@Matrix.semiring (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex
+                                (@CommSemiring.toSemiring Complex (@CommRing.toCommSemiring Complex Complex.commRing))
+                                (Fin.fintype (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                (instDecidableEqFin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))))))
+                        (@SetLike.instMembership
+                          (@Submonoid
+                            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                            (@MulZeroOneClass.toMulOneClass
+                              (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                              (@instMulZeroOneClassOfSemiring
+                                (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                  (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                                (@Matrix.semiring (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                  Complex
+                                  (@CommSemiring.toSemiring Complex (@CommRing.toCommSemiring Complex Complex.commRing))
+                                  (Fin.fintype (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                  (instDecidableEqFin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))))))
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                          (@Submonoid.instSetLike
+                            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                            (@MulZeroOneClass.toMulOneClass
+                              (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                              (@instMulZeroOneClassOfSemiring
+                                (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                  (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                                (@Matrix.semiring (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                  Complex
+                                  (@CommSemiring.toSemiring Complex (@CommRing.toCommSemiring Complex Complex.commRing))
+                                  (Fin.fintype (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                                  (instDecidableEqFin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))))))))
+                        (@Matrix.unitaryGroup (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                          (instDecidableEqFin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                          (Fin.fintype (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex
+                          Complex.commRing Complex.instStarRing)
+                        x)
+                    V)
+                  NLA.MI06.directionB))
+              w)
+            (@OfNat.ofNat Complex (nat_lit 0) (@Zero.toOfNat0 Complex Complex.instZero)))
+          (And
+            (@LE.le Real Real.instLE
+              (@HMul.hMul Real Real Real (@instHMul Real Real.instMul)
+                (@HDiv.hDiv Real Real Real (@instHDiv Real (@DivInvMonoid.toDiv Real Real.instDivInvMonoid))
+                  (@OfNat.ofNat Real (nat_lit 3)
+                    (@instOfNatAtLeastTwo Real (nat_lit 3) Real.instNatCast
+                      (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                        (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))))
+                  (@OfNat.ofNat Real (nat_lit 8)
+                    (@instOfNatAtLeastTwo Real (nat_lit 8) Real.instNatCast
+                      (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))
+                        (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))))))
+                (@NLA.MI06.squaredLength (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) w))
+              (@NLA.MI06.quadraticForm (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                (@NLA.MI06.symmetricModulus (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                  (@HAdd.hAdd
+                    (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                      (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                    (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                      (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                    (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                      (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                    (@instHAdd
+                      (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                        (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+                      (@Matrix.add (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+                        (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex Complex.instAdd))
+                    NLA.MI06.witnessA NLA.MI06.witnessB))
+                w))
+            (And
+              (@LE.le Real Real.instLE
+                (@NLA.MI06.quadraticForm (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                  (@NLA.MI06.unitaryConjugate (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) U
+                    (@NLA.MI06.symmetricModulus (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                      NLA.MI06.witnessA))
+                  w)
+                (@HMul.hMul Real Real Real (@instHMul Real Real.instMul)
+                  (@HDiv.hDiv Real Real Real (@instHDiv Real (@DivInvMonoid.toDiv Real Real.instDivInvMonoid))
+                    (@OfNat.ofNat Real (nat_lit 1) (@One.toOfNat1 Real Real.instOne))
+                    (@OfNat.ofNat Real (nat_lit 8)
+                      (@instOfNatAtLeastTwo Real (nat_lit 8) Real.instNatCast
+                        (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))
+                          (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))))))
+                  (@NLA.MI06.squaredLength (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) w)))
+              (@LE.le Real Real.instLE
+                (@NLA.MI06.quadraticForm (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                  (@NLA.MI06.unitaryConjugate (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) V
+                    (@NLA.MI06.symmetricModulus (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                      NLA.MI06.witnessB))
+                  w)
+                (@HMul.hMul Real Real Real (@instHMul Real Real.instMul)
+                  (@HDiv.hDiv Real Real Real (@instHDiv Real (@DivInvMonoid.toDiv Real Real.instDivInvMonoid))
+                    (@OfNat.ofNat Real (nat_lit 1) (@One.toOfNat1 Real Real.instOne))
+                    (@OfNat.ofNat Real (nat_lit 8)
+                      (@instOfNatAtLeastTwo Real (nat_lit 8) Real.instNatCast
+                        (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))
+                          (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))))))
+                  (@NLA.MI06.squaredLength (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) w)))))))
+NLA.MI06.counterexample : ∀
+  (U V :
+    ↥(@Matrix.unitaryGroup (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+        (instDecidableEqFin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+        (Fin.fintype (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex Complex.commRing
+        Complex.instStarRing)),
+  Not
+    (@LE.le
+      (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+        (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+      (@Preorder.toLE
+        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+          (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+        (@Matrix.instPreOrder Complex (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+          Complex.instRCLike))
+      (@NLA.MI06.symmetricModulus (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+        (@HAdd.hAdd
+          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+          (@instHAdd
+            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+            (@Matrix.add (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex Complex.instAdd))
+          NLA.MI06.witnessA NLA.MI06.witnessB))
+      (@HSMul.hSMul Complex
+        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+          (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+          (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+        (@instHSMul Complex
+          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+          (@Matrix.smul (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex Complex
+            (@instSMulOfMul Complex Complex.instMul)))
+        (↑(Real.sqrt
+            (@OfNat.ofNat Real (nat_lit 2)
+              (@instOfNatAtLeastTwo Real (nat_lit 2) Real.instNatCast
+                (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+                  (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))))
+        (@HAdd.hAdd
+          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+            (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+          (@instHAdd
+            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex)
+            (@Matrix.add (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+              (Fin (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))) Complex Complex.instAdd))
+          (@NLA.MI06.unitaryConjugate (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) U
+            (@NLA.MI06.symmetricModulus (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) NLA.MI06.witnessA))
+          (@NLA.MI06.unitaryConjugate (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) V
+            (@NLA.MI06.symmetricModulus (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) NLA.MI06.witnessB)))))
+NLA.MI06.not_dominationConjecture : Not NLA.MI06.DominationConjecture
+PROJECT PROOF EDGE: NLA.MI06.not_dominationConjecture -> NLA.MI06.not_dominationConjecture_proved
+PROJECT PROOF EDGE: NLA.MI06.not_dominationConjecture_proved -> NLA.MI06.DominationConjecture
+PROJECT PROOF EDGE: NLA.MI06.not_dominationConjecture_proved -> NLA.MI06.symmetricModulus
+PROJECT PROOF EDGE: NLA.MI06.not_dominationConjecture_proved -> NLA.MI06.witnessA
+PROJECT PROOF EDGE: NLA.MI06.not_dominationConjecture_proved -> NLA.MI06.witnessB
+PROJECT PROOF EDGE: NLA.MI06.not_dominationConjecture_proved -> NLA.MI06.symmetricModulus._proof_1
+PROJECT PROOF EDGE: NLA.MI06.not_dominationConjecture_proved -> NLA.MI06.unitaryConjugate
+PROJECT PROOF EDGE: NLA.MI06.not_dominationConjecture_proved -> NLA.MI06.counterexample_proved
+PROJECT PROOF EDGE: NLA.MI06.counterexample_proved -> NLA.MI06.symmetricModulus
+PROJECT PROOF EDGE: NLA.MI06.counterexample_proved -> NLA.MI06.witnessA
+PROJECT PROOF EDGE: NLA.MI06.counterexample_proved -> NLA.MI06.witnessB
+PROJECT PROOF EDGE: NLA.MI06.counterexample_proved -> NLA.MI06.unitaryConjugate
+PROJECT PROOF EDGE: NLA.MI06.counterexample_proved -> NLA.MI06.squaredLength
+PROJECT PROOF EDGE: NLA.MI06.counterexample_proved -> NLA.MI06.directionA
+PROJECT PROOF EDGE: NLA.MI06.counterexample_proved -> NLA.MI06.directionB
+PROJECT PROOF EDGE: NLA.MI06.counterexample_proved -> NLA.MI06.quadraticForm
+PROJECT PROOF EDGE: NLA.MI06.counterexample_proved -> NLA.MI06.witness_quadratic_bounds_proved
+PROJECT PROOF EDGE: NLA.MI06.counterexample_proved -> _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_mono
+PROJECT PROOF EDGE: NLA.MI06.counterexample_proved -> _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_add
+PROJECT PROOF EDGE: NLA.MI06.counterexample_proved -> _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_smul
+PROJECT PROOF EDGE: NLA.MI06.counterexample_proved -> _private.NLA.MI06.Proof.0.NLA.MI06.scalar_coefficient_gap
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.scalar_coefficient_gap -> _private.NLA.MI06.Proof.0.NLA.MI06.sqrt_two_lt_three_halves
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.sqrt_two_lt_three_halves -> _private.NLA.MI06.Proof.0.NLA.MI06.scalar_squared_gap
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.scalar_squared_gap -> _private.NLA.MI06.Proof.0.NLA.MI06.scalar_squared_gap._proof_1_7
+ACTUAL RETAINED CERTIFICATE: have h0 :=
+  LeanCert.Validity.verify_strict_upper_bound_dyadic_checked
+    (LeanCert.Core.Expr.const
+      (Rat.divInt (@OfNat.ofNat Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+        (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1)))))
+    (Rat.divInt (@OfNat.ofNat Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+      (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1))))
+    (Rat.divInt (@OfNat.ofNat Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+      (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1))))
+    (@le_refl Rat Rat.instPreorder
+      (Rat.divInt (@OfNat.ofNat Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+        (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1)))))
+    (Rat.divInt (@OfNat.ofNat Int (nat_lit 9) (@instOfNat (nat_lit 9)))
+      (@OfNat.ofNat Int (nat_lit 4) (@instOfNat (nat_lit 4))))
+    (@Neg.neg Int Int.instNegInt (@OfNat.ofNat Int (nat_lit 53) (@instOfNat (nat_lit 53))))
+    (@OfNat.ofNat Nat (nat_lit 10) (instOfNatNat (nat_lit 10)))
+    (@of_decide_eq_true
+      (@LE.le Int Int.instLEInt (@Neg.neg Int Int.instNegInt (@OfNat.ofNat Int (nat_lit 53) (@instOfNat (nat_lit 53))))
+        (@OfNat.ofNat Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      ((@Neg.neg Int Int.instNegInt (@OfNat.ofNat Int (nat_lit 53) (@instOfNat (nat_lit 53)))).decLe
+        (@OfNat.ofNat Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (@id
+        (@Eq Bool
+          (@decide
+            (@LE.le Int Int.instLEInt
+              (@Neg.neg Int Int.instNegInt (@OfNat.ofNat Int (nat_lit 53) (@instOfNat (nat_lit 53))))
+              (@OfNat.ofNat Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+            ((@Neg.neg Int Int.instNegInt (@OfNat.ofNat Int (nat_lit 53) (@instOfNat (nat_lit 53)))).decLe
+              (@OfNat.ofNat Int (nat_lit 0) (@instOfNat (nat_lit 0)))))
+          true)
+        (@Eq.refl Bool true)))
+    NLA.MI06.scalar_squared_gap._proof_1_7✝
+    (@Rat.cast Real Real.instRatCast
+      (Rat.divInt (@OfNat.ofNat Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+        (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1)))))
+    (@And.intro
+      (@LE.le Real (@Preorder.toLE Real Real.instPreorder)
+        (@Rat.cast Real Real.instRatCast
+          (Rat.divInt (@OfNat.ofNat Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+            (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1)))))
+        (@Rat.cast Real Real.instRatCast
+          (Rat.divInt (@OfNat.ofNat Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+            (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1))))))
+      (@LE.le Real (@Preorder.toLE Real Real.instPreorder)
+        (@Rat.cast Real Real.instRatCast
+          (Rat.divInt (@OfNat.ofNat Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+            (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1)))))
+        (@Rat.cast Real Real.instRatCast
+          (Rat.divInt (@OfNat.ofNat Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+            (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1))))))
+      (@le_refl Real Real.instPreorder
+        (@Rat.cast Real Real.instRatCast
+          (Rat.divInt (@OfNat.ofNat Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+            (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1))))))
+      (@le_refl Real Real.instPreorder
+        (@Rat.cast Real Real.instRatCast
+          (Rat.divInt (@OfNat.ofNat Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+            (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1)))))));
+@Eq.mpr
+  (@LT.lt Real Real.instLT
+    (@OfNat.ofNat Real (nat_lit 2)
+      (@instOfNatAtLeastTwo Real (nat_lit 2) Real.instNatCast
+        (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+          (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))
+    (@HDiv.hDiv Real Real Real (@instHDiv Real (@DivInvMonoid.toDiv Real Real.instDivInvMonoid))
+      (@OfNat.ofNat Real (nat_lit 9)
+        (@instOfNatAtLeastTwo Real (nat_lit 9) Real.instNatCast
+          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 8) (instOfNatNat (nat_lit 8)))
+            (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))))))
+      (@OfNat.ofNat Real (nat_lit 4)
+        (@instOfNatAtLeastTwo Real (nat_lit 4) Real.instNatCast
+          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+            (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))))))
+  (@LT.lt Real Real.instLT
+    (@Rat.cast Real Real.instRatCast
+      (@HDiv.hDiv Rat Rat Rat (@instHDiv Rat Rat.instDiv)
+        (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+        (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1))))))
+    (@Rat.cast Real Real.instRatCast
+      (@HDiv.hDiv Rat Rat Rat (@instHDiv Rat Rat.instDiv)
+        (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 9) (@instOfNat (nat_lit 9))))
+        (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 4) (@instOfNat (nat_lit 4)))))))
+  (@eq_of_heq Prop
+    (@LT.lt Real Real.instLT
+      (@OfNat.ofNat Real (nat_lit 2)
+        (@instOfNatAtLeastTwo Real (nat_lit 2) Real.instNatCast
+          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+            (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))
+      (@HDiv.hDiv Real Real Real (@instHDiv Real (@DivInvMonoid.toDiv Real Real.instDivInvMonoid))
+        (@OfNat.ofNat Real (nat_lit 9)
+          (@instOfNatAtLeastTwo Real (nat_lit 9) Real.instNatCast
+            (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 8) (instOfNatNat (nat_lit 8)))
+              (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))))))
+        (@OfNat.ofNat Real (nat_lit 4)
+          (@instOfNatAtLeastTwo Real (nat_lit 4) Real.instNatCast
+            (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+              (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))))))
+    (@LT.lt Real Real.instLT
+      (@Rat.cast Real Real.instRatCast
+        (@HDiv.hDiv Rat Rat Rat (@instHDiv Rat Rat.instDiv)
+          (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+          (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1))))))
+      (@Rat.cast Real Real.instRatCast
+        (@HDiv.hDiv Rat Rat Rat (@instHDiv Rat Rat.instDiv)
+          (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 9) (@instOfNat (nat_lit 9))))
+          (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 4) (@instOfNat (nat_lit 4)))))))
+    ((fun α self a a' e'_3 a_1 a'_1 e'_4 =>
+        @Eq.casesOn α a
+          (fun a_2 x =>
+            @Eq α a' a_2 →
+              @HEq (@Eq α a a') e'_3 (@Eq α a a_2) x → @HEq Prop (@LT.lt α self a a_1) Prop (@LT.lt α self a' a'_1))
+          a' e'_3
+          (fun h =>
+            @Eq.ndrec α a
+              (fun a' =>
+                ∀ (e_3 : @Eq α a a'),
+                  @HEq (@Eq α a a') e_3 (@Eq α a a) (@Eq.refl α a) →
+                    @HEq Prop (@LT.lt α self a a_1) Prop (@LT.lt α self a' a'_1))
+              (fun e_3 h =>
+                @Eq.casesOn α a_1
+                  (fun a_2 x =>
+                    @Eq α a'_1 a_2 →
+                      @HEq (@Eq α a_1 a'_1) e'_4 (@Eq α a_1 a_2) x →
+                        @HEq Prop (@LT.lt α self a a_1) Prop (@LT.lt α self a a'_1))
+                  a'_1 e'_4
+                  (fun h =>
+                    @Eq.ndrec α a_1
+                      (fun a' =>
+                        ∀ (e_4 : @Eq α a_1 a'),
+                          @HEq (@Eq α a_1 a') e_4 (@Eq α a_1 a_1) (@Eq.refl α a_1) →
+                            @HEq Prop (@LT.lt α self a a_1) Prop (@LT.lt α self a a'))
+                      (fun e_4 h => @HEq.refl Prop (@LT.lt α self a a_1)) a'_1 (@Eq.symm α a'_1 a_1 h) e'_4)
+                  (@Eq.refl α a'_1) (@HEq.refl (@Eq α a_1 a'_1) e'_4))
+              a' (@Eq.symm α a' a h) e'_3)
+          (@Eq.refl α a') (@HEq.refl (@Eq α a a') e'_3))
+      Real Real.instLT
+      (@OfNat.ofNat Real (nat_lit 2)
+        (@instOfNatAtLeastTwo Real (nat_lit 2) Real.instNatCast
+          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+            (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))
+      (@Rat.cast Real Real.instRatCast
+        (@HDiv.hDiv Rat Rat Rat (@instHDiv Rat Rat.instDiv)
+          (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+          (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1))))))
+      (@Mathlib.Meta.NormNum.isNat_eq_true Real
+        (@AddGroupWithOne.toAddMonoidWithOne Real (@Ring.toAddGroupWithOne Real Real.instRing))
+        (@OfNat.ofNat Real (nat_lit 2)
+          (@instOfNatAtLeastTwo Real (nat_lit 2) Real.instNatCast
+            (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+              (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))
+        (@Rat.cast Real Real.instRatCast
+          (@HDiv.hDiv Rat Rat Rat (@instHDiv Rat Rat.instDiv)
+            (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+            (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1))))))
+        (nat_lit 2)
+        (@Mathlib.Meta.NormNum.isNat_ofNat Real
+          (@AddGroupWithOne.toAddMonoidWithOne Real (@Ring.toAddGroupWithOne Real Real.instRing))
+          (@OfNat.ofNat Real (nat_lit 2)
+            (@instOfNatAtLeastTwo Real (nat_lit 2) Real.instNatCast
+              (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+                (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))
+          (nat_lit 2)
+          (@Eq.refl Real
+            (@OfNat.ofNat Real (nat_lit 2)
+              (@instOfNatAtLeastTwo Real (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast Real
+                  (@AddGroupWithOne.toAddMonoidWithOne Real (@Ring.toAddGroupWithOne Real Real.instRing)))
+                (Mathlib.Meta.NormNum.instAtLeastTwo (nat_lit 0))))))
+        (@Mathlib.Meta.NormNum.isNat_ratCast Real Real.instDivisionRing
+          (@HDiv.hDiv Rat Rat Rat (@instHDiv Rat Rat.instDiv)
+            (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+            (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1)))))
+          (nat_lit 2)
+          (@Mathlib.Meta.NormNum.IsNNRat.to_isNat Rat
+            (@DivisionSemiring.toSemiring Rat
+              (@Semifield.toDivisionSemiring Rat (@Field.toSemifield Rat Rat.instField)))
+            (@HDiv.hDiv Rat Rat Rat (@instHDiv Rat Rat.instDiv)
+              (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+              (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1)))))
+            (nat_lit 2)
+            (@Mathlib.Meta.NormNum.isNNRat_div Rat
+              (@Semifield.toDivisionSemiring Rat (@Field.toSemifield Rat Rat.instField))
+              (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+              (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1)))) (nat_lit 2)
+              (nat_lit 1)
+              (@Mathlib.Meta.NormNum.IsNat.to_isNNRat Rat
+                (@DivisionSemiring.toSemiring Rat
+                  (@Semifield.toDivisionSemiring Rat (@Field.toSemifield Rat Rat.instField)))
+                (@HMul.hMul Rat Rat Rat
+                  (@instHMul Rat
+                    (@Distrib.toMul Rat
+                      (@instDistribOfSemiring Rat
+                        (@DivisionSemiring.toSemiring Rat
+                          (@Semifield.toDivisionSemiring Rat (@Field.toSemifield Rat Rat.instField))))))
+                  (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+                  (@Inv.inv Rat
+                    (@InvOneClass.toInv Rat
+                      (@DivInvOneMonoid.toInvOneClass Rat
+                        (@DivisionMonoid.toDivInvOneMonoid Rat
+                          (@GroupWithZero.toDivisionMonoid Rat
+                            (@DivisionSemiring.toGroupWithZero Rat
+                              (@Semifield.toDivisionSemiring Rat (@Field.toSemifield Rat Rat.instField)))))))
+                    (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1))))))
+                (nat_lit 2)
+                (@Mathlib.Meta.NormNum.isNat_mul Rat Rat.semiring
+                  (@HMul.hMul Rat Rat Rat
+                    (@instHMul Rat (@Distrib.toMul Rat (@instDistribOfSemiring Rat Rat.semiring))))
+                  (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+                  (@Inv.inv Rat
+                    (@InvOneClass.toInv Rat
+                      (@DivInvOneMonoid.toInvOneClass Rat
+                        (@DivisionMonoid.toDivInvOneMonoid Rat
+                          (@GroupWithZero.toDivisionMonoid Rat
+                            (@DivisionSemiring.toGroupWithZero Rat
+                              (@Semifield.toDivisionSemiring Rat (@Field.toSemifield Rat Rat.instField)))))))
+                    (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1)))))
+                  (nat_lit 2) (nat_lit 1) (nat_lit 2)
+                  (@Eq.refl (Rat → Rat → Rat)
+                    (@HMul.hMul Rat Rat Rat
+                      (@instHMul Rat (@Distrib.toMul Rat (@instDistribOfSemiring Rat Rat.semiring)))))
+                  (@Mathlib.Meta.NormNum.isNat_intCast Rat (@DivisionRing.toRing Rat Rat.instDivisionRing)
+                    (@OfNat.ofNat Int (nat_lit 2) (@instOfNat (nat_lit 2))) (nat_lit 2)
+                    (@Mathlib.Meta.NormNum.isNat_ofNat Int
+                      (@AddGroupWithOne.toAddMonoidWithOne Int (@Ring.toAddGroupWithOne Int Int.instRing))
+                      (@OfNat.ofNat Int (nat_lit 2) (@instOfNat (nat_lit 2))) (nat_lit 2)
+                      (@Eq.refl Int (@OfNat.ofNat Int (nat_lit 2) (@instOfNat (nat_lit 2))))))
+                  (@Mathlib.Meta.NormNum.IsNNRat.to_isNat Rat
+                    (@DivisionSemiring.toSemiring Rat
+                      (@Semifield.toDivisionSemiring Rat (@Field.toSemifield Rat Rat.instField)))
+                    (@Inv.inv Rat
+                      (@InvOneClass.toInv Rat
+                        (@DivInvOneMonoid.toInvOneClass Rat
+                          (@DivisionMonoid.toDivInvOneMonoid Rat
+                            (@GroupWithZero.toDivisionMonoid Rat
+                              (@DivisionSemiring.toGroupWithZero Rat
+                                (@Semifield.toDivisionSemiring Rat (@Field.toSemifield Rat Rat.instField)))))))
+                      (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1)))))
+                    (nat_lit 1)
+                    (@Mathlib.Meta.NormNum.isNNRat_inv_pos Rat
+                      (@Semifield.toDivisionSemiring Rat (@Field.toSemifield Rat Rat.instField)) Rat.instCharZero
+                      (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1))))
+                      (nat_lit 0) (nat_lit 1)
+                      (@Mathlib.Meta.NormNum.IsNat.to_isNNRat Rat
+                        (@DivisionSemiring.toSemiring Rat
+                          (@Semifield.toDivisionSemiring Rat (@Field.toSemifield Rat Rat.instField)))
+                        (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1))))
+                        (nat_lit 1)
+                        (@Mathlib.Meta.NormNum.isNat_intCast Rat (@DivisionRing.toRing Rat Rat.instDivisionRing)
+                          (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1))) (nat_lit 1)
+                          (@Mathlib.Meta.NormNum.isNat_ofNat Int
+                            (@AddGroupWithOne.toAddMonoidWithOne Int (@Ring.toAddGroupWithOne Int Int.instRing))
+                            (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1))) (nat_lit 1)
+                            (@Eq.refl Int (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1)))))))))
+                  (@Eq.refl Nat (nat_lit 2))))))))
+      (@HDiv.hDiv Real Real Real (@instHDiv Real (@DivInvMonoid.toDiv Real Real.instDivInvMonoid))
+        (@OfNat.ofNat Real (nat_lit 9)
+          (@instOfNatAtLeastTwo Real (nat_lit 9) Real.instNatCast
+            (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 8) (instOfNatNat (nat_lit 8)))
+              (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))))))
+        (@OfNat.ofNat Real (nat_lit 4)
+          (@instOfNatAtLeastTwo Real (nat_lit 4) Real.instNatCast
+            (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+              (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))))))
+      (@Rat.cast Real Real.instRatCast
+        (@HDiv.hDiv Rat Rat Rat (@instHDiv Rat Rat.instDiv)
+          (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 9) (@instOfNat (nat_lit 9))))
+          (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 4) (@instOfNat (nat_lit 4))))))
+      (@Mathlib.Meta.NormNum.isNNRat_eq_true Real
+        (@DivisionSemiring.toSemiring Real
+          (@Semifield.toDivisionSemiring Real (@Field.toSemifield Real Real.instField)))
+        (@HDiv.hDiv Real Real Real (@instHDiv Real (@DivInvMonoid.toDiv Real Real.instDivInvMonoid))
+          (@OfNat.ofNat Real (nat_lit 9)
+            (@instOfNatAtLeastTwo Real (nat_lit 9) Real.instNatCast
+              (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 8) (instOfNatNat (nat_lit 8)))
+                (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))))))
+          (@OfNat.ofNat Real (nat_lit 4)
+            (@instOfNatAtLeastTwo Real (nat_lit 4) Real.instNatCast
+              (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))))))
+        (@Rat.cast Real Real.instRatCast
+          (@HDiv.hDiv Rat Rat Rat (@instHDiv Rat Rat.instDiv)
+            (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 9) (@instOfNat (nat_lit 9))))
+            (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 4) (@instOfNat (nat_lit 4))))))
+        (nat_lit 9) (nat_lit 4)
+        (@Mathlib.Meta.NormNum.isNNRat_div Real
+          (@Semifield.toDivisionSemiring Real (@Field.toSemifield Real Real.instField))
+          (@OfNat.ofNat Real (nat_lit 9)
+            (@instOfNatAtLeastTwo Real (nat_lit 9) Real.instNatCast
+              (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 8) (instOfNatNat (nat_lit 8)))
+                (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))))))
+          (@OfNat.ofNat Real (nat_lit 4)
+            (@instOfNatAtLeastTwo Real (nat_lit 4) Real.instNatCast
+              (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))))
+          (nat_lit 9) (nat_lit 4)
+          (@Mathlib.Meta.NormNum.isNNRat_mul Real
+            (@DivisionSemiring.toSemiring Real
+              (@Semifield.toDivisionSemiring Real (@Field.toSemifield Real Real.instField)))
+            (@HMul.hMul Real Real Real
+              (@instHMul Real (@Distrib.toMul Real (@instDistribOfSemiring Real Real.semiring))))
+            (@OfNat.ofNat Real (nat_lit 9)
+              (@instOfNatAtLeastTwo Real (nat_lit 9) Real.instNatCast
+                (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 8) (instOfNatNat (nat_lit 8)))
+                  (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))))))
+            (@Inv.inv Real
+              (@InvOneClass.toInv Real
+                (@DivInvOneMonoid.toInvOneClass Real
+                  (@DivisionMonoid.toDivInvOneMonoid Real
+                    (@GroupWithZero.toDivisionMonoid Real
+                      (@DivisionSemiring.toGroupWithZero Real
+                        (@Semifield.toDivisionSemiring Real (@Field.toSemifield Real Real.instField)))))))
+              (@OfNat.ofNat Real (nat_lit 4)
+                (@instOfNatAtLeastTwo Real (nat_lit 4) Real.instNatCast
+                  (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                    (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))))))
+            (nat_lit 9) (nat_lit 1) (nat_lit 9) (nat_lit 1) (nat_lit 4) (nat_lit 4) (nat_lit 1)
+            (@Eq.refl (Real → Real → Real)
+              (@HMul.hMul Real Real Real
+                (@instHMul Real (@Distrib.toMul Real (@instDistribOfSemiring Real Real.semiring)))))
+            (@Mathlib.Meta.NormNum.IsNat.to_isNNRat Real
+              (@DivisionSemiring.toSemiring Real
+                (@Semifield.toDivisionSemiring Real (@Field.toSemifield Real Real.instField)))
+              (@OfNat.ofNat Real (nat_lit 9)
+                (@instOfNatAtLeastTwo Real (nat_lit 9) Real.instNatCast
+                  (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 8) (instOfNatNat (nat_lit 8)))
+                    (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))))))
+              (nat_lit 9)
+              (@Mathlib.Meta.NormNum.isNat_ofNat Real
+                (@AddGroupWithOne.toAddMonoidWithOne Real (@Ring.toAddGroupWithOne Real Real.instRing))
+                (@OfNat.ofNat Real (nat_lit 9)
+                  (@instOfNatAtLeastTwo Real (nat_lit 9) Real.instNatCast
+                    (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 8) (instOfNatNat (nat_lit 8)))
+                      (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))))))
+                (nat_lit 9)
+                (@Eq.refl Real
+                  (@OfNat.ofNat Real (nat_lit 9)
+                    (@instOfNatAtLeastTwo Real (nat_lit 9)
+                      (@AddMonoidWithOne.toNatCast Real
+                        (@AddGroupWithOne.toAddMonoidWithOne Real (@Ring.toAddGroupWithOne Real Real.instRing)))
+                      (Mathlib.Meta.NormNum.instAtLeastTwo (nat_lit 7)))))))
+            (@Mathlib.Meta.NormNum.isNNRat_inv_pos Real
+              (@Semifield.toDivisionSemiring Real (@Field.toSemifield Real Real.instField))
+              (@FloorSemiring.instCharZero Real Real.semiring Real.partialOrder
+                (@FloorRing.toFloorSemiring Real Real.instRing Real.linearOrder Real.instFloorRing))
+              (@OfNat.ofNat Real (nat_lit 4)
+                (@instOfNatAtLeastTwo Real (nat_lit 4) Real.instNatCast
+                  (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                    (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))))
+              (nat_lit 3) (nat_lit 1)
+              (@Mathlib.Meta.NormNum.IsNat.to_isNNRat Real
+                (@DivisionSemiring.toSemiring Real
+                  (@Semifield.toDivisionSemiring Real (@Field.toSemifield Real Real.instField)))
+                (@OfNat.ofNat Real (nat_lit 4)
+                  (@instOfNatAtLeastTwo Real (nat_lit 4) Real.instNatCast
+                    (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                      (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))))
+                (nat_lit 4)
+                (@Mathlib.Meta.NormNum.isNat_ofNat Real
+                  (@AddGroupWithOne.toAddMonoidWithOne Real (@Ring.toAddGroupWithOne Real Real.instRing))
+                  (@OfNat.ofNat Real (nat_lit 4)
+                    (@instOfNatAtLeastTwo Real (nat_lit 4) Real.instNatCast
+                      (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                        (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))))
+                  (nat_lit 4)
+                  (@Eq.refl Real
+                    (@OfNat.ofNat Real (nat_lit 4)
+                      (@instOfNatAtLeastTwo Real (nat_lit 4)
+                        (@AddMonoidWithOne.toNatCast Real
+                          (@AddGroupWithOne.toAddMonoidWithOne Real (@Ring.toAddGroupWithOne Real Real.instRing)))
+                        (Mathlib.Meta.NormNum.instAtLeastTwo (nat_lit 2))))))))
+            (@Eq.refl Nat (Nat.mul (nat_lit 9) (nat_lit 1))) (@Eq.refl Nat (nat_lit 4))))
+        (@Mathlib.Meta.NormNum.isNNRat_ratCast Real Real.instDivisionRing
+          (@FloorSemiring.instCharZero Real (@Ring.toSemiring Real (@DivisionRing.toRing Real Real.instDivisionRing))
+            Real.partialOrder (@FloorRing.toFloorSemiring Real Real.instRing Real.linearOrder Real.instFloorRing))
+          (@HDiv.hDiv Rat Rat Rat (@instHDiv Rat Rat.instDiv)
+            (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 9) (@instOfNat (nat_lit 9))))
+            (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 4) (@instOfNat (nat_lit 4)))))
+          (nat_lit 9) (nat_lit 4)
+          (@Mathlib.Meta.NormNum.isNNRat_div Rat
+            (@Semifield.toDivisionSemiring Rat (@Field.toSemifield Rat Rat.instField))
+            (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 9) (@instOfNat (nat_lit 9))))
+            (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 4) (@instOfNat (nat_lit 4)))) (nat_lit 9)
+            (nat_lit 4)
+            (@Mathlib.Meta.NormNum.isNNRat_mul Rat
+              (@DivisionSemiring.toSemiring Rat
+                (@Semifield.toDivisionSemiring Rat (@Field.toSemifield Rat Rat.instField)))
+              (@HMul.hMul Rat Rat Rat (@instHMul Rat (@Distrib.toMul Rat (@instDistribOfSemiring Rat Rat.semiring))))
+              (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 9) (@instOfNat (nat_lit 9))))
+              (@Inv.inv Rat
+                (@InvOneClass.toInv Rat
+                  (@DivInvOneMonoid.toInvOneClass Rat
+                    (@DivisionMonoid.toDivInvOneMonoid Rat
+                      (@GroupWithZero.toDivisionMonoid Rat
+                        (@DivisionSemiring.toGroupWithZero Rat
+                          (@Semifield.toDivisionSemiring Rat (@Field.toSemifield Rat Rat.instField)))))))
+                (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 4) (@instOfNat (nat_lit 4)))))
+              (nat_lit 9) (nat_lit 1) (nat_lit 9) (nat_lit 1) (nat_lit 4) (nat_lit 4) (nat_lit 1)
+              (@Eq.refl (Rat → Rat → Rat)
+                (@HMul.hMul Rat Rat Rat (@instHMul Rat (@Distrib.toMul Rat (@instDistribOfSemiring Rat Rat.semiring)))))
+              (@Mathlib.Meta.NormNum.IsNat.to_isNNRat Rat
+                (@DivisionSemiring.toSemiring Rat
+                  (@Semifield.toDivisionSemiring Rat (@Field.toSemifield Rat Rat.instField)))
+                (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 9) (@instOfNat (nat_lit 9)))) (nat_lit 9)
+                (@Mathlib.Meta.NormNum.isNat_intCast Rat (@DivisionRing.toRing Rat Rat.instDivisionRing)
+                  (@OfNat.ofNat Int (nat_lit 9) (@instOfNat (nat_lit 9))) (nat_lit 9)
+                  (@Mathlib.Meta.NormNum.isNat_ofNat Int
+                    (@AddGroupWithOne.toAddMonoidWithOne Int (@Ring.toAddGroupWithOne Int Int.instRing))
+                    (@OfNat.ofNat Int (nat_lit 9) (@instOfNat (nat_lit 9))) (nat_lit 9)
+                    (@Eq.refl Int (@OfNat.ofNat Int (nat_lit 9) (@instOfNat (nat_lit 9)))))))
+              (@Mathlib.Meta.NormNum.isNNRat_inv_pos Rat
+                (@Semifield.toDivisionSemiring Rat (@Field.toSemifield Rat Rat.instField)) Rat.instCharZero
+                (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 4) (@instOfNat (nat_lit 4)))) (nat_lit 3)
+                (nat_lit 1)
+                (@Mathlib.Meta.NormNum.IsNat.to_isNNRat Rat
+                  (@DivisionSemiring.toSemiring Rat
+                    (@Semifield.toDivisionSemiring Rat (@Field.toSemifield Rat Rat.instField)))
+                  (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 4) (@instOfNat (nat_lit 4)))) (nat_lit 4)
+                  (@Mathlib.Meta.NormNum.isNat_intCast Rat (@DivisionRing.toRing Rat Rat.instDivisionRing)
+                    (@OfNat.ofNat Int (nat_lit 4) (@instOfNat (nat_lit 4))) (nat_lit 4)
+                    (@Mathlib.Meta.NormNum.isNat_ofNat Int
+                      (@AddGroupWithOne.toAddMonoidWithOne Int (@Ring.toAddGroupWithOne Int Int.instRing))
+                      (@OfNat.ofNat Int (nat_lit 4) (@instOfNat (nat_lit 4))) (nat_lit 4)
+                      (@Eq.refl Int (@OfNat.ofNat Int (nat_lit 4) (@instOfNat (nat_lit 4))))))))
+              (@Eq.refl Nat (Nat.mul (nat_lit 9) (nat_lit 1))) (@Eq.refl Nat (nat_lit 4))))))))
+  (@Eq.mp
+    (@LT.lt Real Real.instLT
+      (LeanCert.Core.Expr.eval
+        (fun x =>
+          @Rat.cast Real Real.instRatCast
+            (Rat.divInt (@OfNat.ofNat Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+              (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1)))))
+        (LeanCert.Core.Expr.const
+          (Rat.divInt (@OfNat.ofNat Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+            (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1))))))
+      (@Rat.cast Real Real.instRatCast
+        (Rat.divInt (@OfNat.ofNat Int (nat_lit 9) (@instOfNat (nat_lit 9)))
+          (@OfNat.ofNat Int (nat_lit 4) (@instOfNat (nat_lit 4))))))
+    (@LT.lt Real Real.instLT
+      (@Rat.cast Real Real.instRatCast
+        (@HDiv.hDiv Rat Rat Rat (@instHDiv Rat Rat.instDiv)
+          (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+          (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1))))))
+      (@Rat.cast Real Real.instRatCast
+        (@HDiv.hDiv Rat Rat Rat (@instHDiv Rat Rat.instDiv)
+          (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 9) (@instOfNat (nat_lit 9))))
+          (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 4) (@instOfNat (nat_lit 4)))))))
+    (@congr Real Prop
+      (@LT.lt Real Real.instLT
+        (LeanCert.Core.Expr.eval
+          (fun x =>
+            @Rat.cast Real Real.instRatCast
+              (Rat.divInt (@OfNat.ofNat Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+                (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1)))))
+          (LeanCert.Core.Expr.const
+            (Rat.divInt (@OfNat.ofNat Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+              (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1)))))))
+      (@LT.lt Real Real.instLT
+        (@Rat.cast Real Real.instRatCast
+          (@HDiv.hDiv Rat Rat Rat (@instHDiv Rat Rat.instDiv)
+            (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+            (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1)))))))
+      (@Rat.cast Real Real.instRatCast
+        (Rat.divInt (@OfNat.ofNat Int (nat_lit 9) (@instOfNat (nat_lit 9)))
+          (@OfNat.ofNat Int (nat_lit 4) (@instOfNat (nat_lit 4)))))
+      (@Rat.cast Real Real.instRatCast
+        (@HDiv.hDiv Rat Rat Rat (@instHDiv Rat Rat.instDiv)
+          (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 9) (@instOfNat (nat_lit 9))))
+          (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 4) (@instOfNat (nat_lit 4))))))
+      (@congrArg Real (Real → Prop)
+        (LeanCert.Core.Expr.eval
+          (fun x =>
+            @Rat.cast Real Real.instRatCast
+              (Rat.divInt (@OfNat.ofNat Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+                (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1)))))
+          (LeanCert.Core.Expr.const
+            (Rat.divInt (@OfNat.ofNat Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+              (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1))))))
+        (@Rat.cast Real Real.instRatCast
+          (@HDiv.hDiv Rat Rat Rat (@instHDiv Rat Rat.instDiv)
+            (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+            (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1))))))
+        (@LT.lt Real Real.instLT)
+        (@congrArg Rat Real
+          (Rat.divInt (@OfNat.ofNat Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+            (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1))))
+          (@HDiv.hDiv Rat Rat Rat (@instHDiv Rat Rat.instDiv)
+            (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+            (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1)))))
+          (@Rat.cast Real Real.instRatCast)
+          (Rat.divInt_eq_div (@OfNat.ofNat Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+            (@OfNat.ofNat Int (nat_lit 1) (@instOfNat (nat_lit 1))))))
+      (@congrArg Rat Real
+        (Rat.divInt (@OfNat.ofNat Int (nat_lit 9) (@instOfNat (nat_lit 9)))
+          (@OfNat.ofNat Int (nat_lit 4) (@instOfNat (nat_lit 4))))
+        (@HDiv.hDiv Rat Rat Rat (@instHDiv Rat Rat.instDiv)
+          (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 9) (@instOfNat (nat_lit 9))))
+          (@Int.cast Rat Rat.instIntCast (@OfNat.ofNat Int (nat_lit 4) (@instOfNat (nat_lit 4)))))
+        (@Rat.cast Real Real.instRatCast)
+        (Rat.divInt_eq_div (@OfNat.ofNat Int (nat_lit 9) (@instOfNat (nat_lit 9)))
+          (@OfNat.ofNat Int (nat_lit 4) (@instOfNat (nat_lit 4))))))
+    h0)
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_smul -> NLA.MI06.quadraticForm
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_add -> NLA.MI06.quadraticForm
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_mono -> NLA.MI06.quadraticForm
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_mono -> _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_nonneg
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_mono -> _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_sub
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_sub -> NLA.MI06.quadraticForm
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> NLA.MI06.squaredLength
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> NLA.MI06.directionA
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> NLA.MI06.directionB
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> NLA.MI06.quadraticForm
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> NLA.MI06.symmetricModulus
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> NLA.MI06.witnessA
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> NLA.MI06.witnessB
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> NLA.MI06.unitaryConjugate
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> NLA.MI06.two_vector_orthogonal_proved
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> NLA.MI06.symmetricSum
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_sum
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_mono
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> _private.NLA.MI06.Proof.0.NLA.MI06.symmetricSum_lower_bound
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_one
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_smul
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> NLA.MI06.symmetricA
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_A
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> _private.NLA.MI06.Proof.0.NLA.MI06.upper_bound_of_decomposition
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> NLA.MI06.missingA
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> _private.NLA.MI06.Proof.0.NLA.MI06.missingA_posSemidef
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> _private.NLA.MI06.Proof.0.NLA.MI06.symmetricA_decomposition
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> NLA.MI06.symmetricB
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_B
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> NLA.MI06.missingB
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> _private.NLA.MI06.Proof.0.NLA.MI06.missingB_posSemidef
+PROJECT PROOF EDGE: NLA.MI06.witness_quadratic_bounds_proved -> _private.NLA.MI06.Proof.0.NLA.MI06.symmetricB_decomposition
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricB_decomposition -> NLA.MI06.symmetricB
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricB_decomposition -> NLA.MI06.rankOne
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricB_decomposition -> NLA.MI06.directionB
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricB_decomposition -> NLA.MI06.missingB
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricB_decomposition -> NLA.MI06.symmetricA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricB_decomposition -> NLA.MI06.symmetricA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricB_decomposition -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricB_decomposition -> NLA.MI06.symmetricA._proof_3
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricB_decomposition -> NLA.MI06.rightModulusA._proof_2
+PROJECT PROOF EDGE: NLA.MI06.directionB -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: NLA.MI06.symmetricB -> NLA.MI06.symmetricA._proof_1
+PROJECT PROOF EDGE: NLA.MI06.symmetricB -> NLA.MI06.symmetricA._proof_2
+PROJECT PROOF EDGE: NLA.MI06.symmetricB -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: NLA.MI06.symmetricB -> NLA.MI06.symmetricA._proof_3
+PROJECT PROOF EDGE: NLA.MI06.symmetricB -> NLA.MI06.rightModulusA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.missingB_posSemidef -> _private.NLA.MI06.Proof.0.NLA.MI06.diagonal_table_posSemidef
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_B -> NLA.MI06.symmetricModulus
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_B -> NLA.MI06.witnessB
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_B -> NLA.MI06.symmetricB
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_B -> NLA.MI06.symmetricModulus._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_B -> NLA.MI06.matrixModulus
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_B -> NLA.MI06.symmetricModulus.eq_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_B -> NLA.MI06.axialModulus
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_B -> _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessB
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_B -> NLA.MI06.leftModulusB
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_B -> _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessB_adjoint
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_B -> NLA.MI06.rightModulusA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_B -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_B -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_B -> NLA.MI06.rightModulusA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_B -> NLA.MI06.rightModulusA._proof_3
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_B -> NLA.MI06.symmetricA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_B -> NLA.MI06.symmetricA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_B -> NLA.MI06.symmetricA._proof_3
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessB_adjoint -> _private.NLA.MI06.Proof.0.NLA.MI06.modulus_of_positive_square
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessB_adjoint -> NLA.MI06.witnessB
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessB_adjoint -> NLA.MI06.leftModulusB
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessB_adjoint -> _private.NLA.MI06.Proof.0.NLA.MI06.leftModulusB_posSemidef
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessB_adjoint -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessB_adjoint -> NLA.MI06.rightModulusA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessB_adjoint -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessB_adjoint -> NLA.MI06.rightModulusA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessB_adjoint -> NLA.MI06.rightModulusA._proof_3
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.leftModulusB_posSemidef -> NLA.MI06.leftModulusB
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.leftModulusB_posSemidef -> NLA.MI06.rankOne
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.leftModulusB_posSemidef -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.leftModulusB_posSemidef -> NLA.MI06.rightModulusA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.leftModulusB_posSemidef -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.leftModulusB_posSemidef -> NLA.MI06.rightModulusA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.leftModulusB_posSemidef -> NLA.MI06.rightModulusA._proof_3
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.leftModulusB_posSemidef -> _private.NLA.MI06.Proof.0.NLA.MI06.rankOne_posSemidef
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.leftModulusB_posSemidef -> _private.NLA.MI06.Proof.0.NLA.MI06.leftModulusB_posSemidef._simp_1_3
+PROJECT PROOF EDGE: NLA.MI06.leftModulusB -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: NLA.MI06.leftModulusB -> NLA.MI06.rightModulusA._proof_1
+PROJECT PROOF EDGE: NLA.MI06.leftModulusB -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: NLA.MI06.leftModulusB -> NLA.MI06.rightModulusA._proof_2
+PROJECT PROOF EDGE: NLA.MI06.leftModulusB -> NLA.MI06.rightModulusA._proof_3
+PROJECT PROOF EDGE: NLA.MI06.witnessB -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: NLA.MI06.witnessB -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessB -> _private.NLA.MI06.Proof.0.NLA.MI06.modulus_of_positive_square
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessB -> NLA.MI06.witnessB
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessB -> NLA.MI06.axialModulus
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessB -> _private.NLA.MI06.Proof.0.NLA.MI06.axialModulus_posSemidef
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessB -> NLA.MI06.rightModulusA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessB -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessB -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.axialModulus_posSemidef -> _private.NLA.MI06.Proof.0.NLA.MI06.diagonal_table_posSemidef
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.axialModulus_posSemidef -> NLA.MI06.rightModulusA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.axialModulus_posSemidef -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.axialModulus_posSemidef -> _private.NLA.MI06.Proof.0.NLA.MI06.axialModulus_posSemidef._simp_1_1
+PROJECT PROOF EDGE: NLA.MI06.axialModulus -> NLA.MI06.rightModulusA._proof_1
+PROJECT PROOF EDGE: NLA.MI06.axialModulus -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: NLA.MI06.symmetricModulus.eq_1 -> NLA.MI06.symmetricModulus
+PROJECT PROOF EDGE: NLA.MI06.symmetricModulus -> NLA.MI06.symmetricModulus._proof_1
+PROJECT PROOF EDGE: NLA.MI06.symmetricModulus -> NLA.MI06.matrixModulus
+PROJECT PROOF EDGE: NLA.MI06.matrixModulus -> NLA.MI06.matrixModulus._proof_1
+PROJECT PROOF EDGE: NLA.MI06.matrixModulus -> NLA.MI06.matrixModulus._proof_2
+PROJECT PROOF EDGE: NLA.MI06.matrixModulus -> NLA.MI06.matrixModulus._proof_7
+PROJECT PROOF EDGE: NLA.MI06.matrixModulus -> NLA.MI06.matrixModulus._proof_8
+PROJECT PROOF EDGE: NLA.MI06.matrixModulus -> NLA.MI06.matrixModulus._proof_9
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricA_decomposition -> NLA.MI06.symmetricA
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricA_decomposition -> NLA.MI06.rankOne
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricA_decomposition -> NLA.MI06.directionA
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricA_decomposition -> NLA.MI06.missingA
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricA_decomposition -> NLA.MI06.symmetricA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricA_decomposition -> NLA.MI06.symmetricA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricA_decomposition -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricA_decomposition -> NLA.MI06.symmetricA._proof_3
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricA_decomposition -> NLA.MI06.rightModulusA._proof_2
+PROJECT PROOF EDGE: NLA.MI06.directionA -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: NLA.MI06.symmetricA -> NLA.MI06.symmetricA._proof_1
+PROJECT PROOF EDGE: NLA.MI06.symmetricA -> NLA.MI06.symmetricA._proof_2
+PROJECT PROOF EDGE: NLA.MI06.symmetricA -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: NLA.MI06.symmetricA -> NLA.MI06.symmetricA._proof_3
+PROJECT PROOF EDGE: NLA.MI06.symmetricA -> NLA.MI06.rightModulusA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.missingA_posSemidef -> _private.NLA.MI06.Proof.0.NLA.MI06.diagonal_table_posSemidef
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.upper_bound_of_decomposition -> NLA.MI06.rankOne
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.upper_bound_of_decomposition -> NLA.MI06.quadraticForm
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.upper_bound_of_decomposition -> NLA.MI06.unitaryConjugate
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.upper_bound_of_decomposition -> NLA.MI06.squaredLength
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.upper_bound_of_decomposition -> _private.NLA.MI06.Proof.0.NLA.MI06.unitaryConjugate_sub
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.upper_bound_of_decomposition -> _private.NLA.MI06.Proof.0.NLA.MI06.unitaryConjugate_add
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.upper_bound_of_decomposition -> _private.NLA.MI06.Proof.0.NLA.MI06.unitaryConjugate_smul
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.upper_bound_of_decomposition -> _private.NLA.MI06.Proof.0.NLA.MI06.unitaryConjugate_one
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.upper_bound_of_decomposition -> _private.NLA.MI06.Proof.0.NLA.MI06.unitaryConjugate_rankOne
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.upper_bound_of_decomposition -> _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_sub
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.upper_bound_of_decomposition -> _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_add
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.upper_bound_of_decomposition -> _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_smul
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.upper_bound_of_decomposition -> _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_one
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.upper_bound_of_decomposition -> _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_rankOne_zero
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.upper_bound_of_decomposition -> _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_nonneg
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.upper_bound_of_decomposition -> _private.NLA.MI06.Proof.0.NLA.MI06.unitaryConjugate_posSemidef
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_rankOne_zero -> NLA.MI06.quadraticForm
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_rankOne_zero -> NLA.MI06.rankOne
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.quadraticForm_one -> NLA.MI06.quadraticForm
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.unitaryConjugate_rankOne -> NLA.MI06.unitaryConjugate
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.unitaryConjugate_rankOne -> NLA.MI06.rankOne
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.unitaryConjugate_rankOne -> _private.NLA.MI06.Proof.0.NLA.MI06.unitaryConjugate_rankOne._simp_1_3
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.unitaryConjugate_one -> NLA.MI06.unitaryConjugate
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.unitaryConjugate_smul -> NLA.MI06.unitaryConjugate
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.unitaryConjugate_add -> NLA.MI06.unitaryConjugate
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.unitaryConjugate_sub -> NLA.MI06.unitaryConjugate
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_A -> NLA.MI06.symmetricModulus
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_A -> NLA.MI06.witnessA
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_A -> NLA.MI06.symmetricA
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_A -> NLA.MI06.symmetricModulus._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_A -> NLA.MI06.matrixModulus
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_A -> NLA.MI06.symmetricModulus.eq_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_A -> NLA.MI06.rightModulusA
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_A -> _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessA
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_A -> NLA.MI06.axialModulus
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_A -> _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessA_adjoint
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_A -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_A -> NLA.MI06.rightModulusA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_A -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_A -> NLA.MI06.rightModulusA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_A -> NLA.MI06.rightModulusA._proof_3
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_A -> NLA.MI06.symmetricA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_A -> NLA.MI06.symmetricA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_A -> NLA.MI06.symmetricA._proof_3
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessA_adjoint -> _private.NLA.MI06.Proof.0.NLA.MI06.modulus_of_positive_square
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessA_adjoint -> NLA.MI06.witnessA
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessA_adjoint -> NLA.MI06.axialModulus
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessA_adjoint -> _private.NLA.MI06.Proof.0.NLA.MI06.axialModulus_posSemidef
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessA_adjoint -> NLA.MI06.rightModulusA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessA_adjoint -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessA_adjoint -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: NLA.MI06.witnessA -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: NLA.MI06.witnessA -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessA -> _private.NLA.MI06.Proof.0.NLA.MI06.modulus_of_positive_square
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessA -> NLA.MI06.witnessA
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessA -> NLA.MI06.rightModulusA
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessA -> _private.NLA.MI06.Proof.0.NLA.MI06.rightModulusA_posSemidef
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessA -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessA -> NLA.MI06.rightModulusA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessA -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessA -> NLA.MI06.rightModulusA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_witnessA -> NLA.MI06.rightModulusA._proof_3
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.rightModulusA_posSemidef -> NLA.MI06.rightModulusA
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.rightModulusA_posSemidef -> NLA.MI06.rankOne
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.rightModulusA_posSemidef -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.rightModulusA_posSemidef -> NLA.MI06.rightModulusA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.rightModulusA_posSemidef -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.rightModulusA_posSemidef -> NLA.MI06.rightModulusA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.rightModulusA_posSemidef -> NLA.MI06.rightModulusA._proof_3
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.rightModulusA_posSemidef -> _private.NLA.MI06.Proof.0.NLA.MI06.rankOne_posSemidef
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.rightModulusA_posSemidef -> _private.NLA.MI06.Proof.0.NLA.MI06.rightModulusA_posSemidef._simp_1_3
+PROJECT PROOF EDGE: NLA.MI06.rightModulusA -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: NLA.MI06.rightModulusA -> NLA.MI06.rightModulusA._proof_1
+PROJECT PROOF EDGE: NLA.MI06.rightModulusA -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: NLA.MI06.rightModulusA -> NLA.MI06.rightModulusA._proof_2
+PROJECT PROOF EDGE: NLA.MI06.rightModulusA -> NLA.MI06.rightModulusA._proof_3
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricSum_lower_bound -> NLA.MI06.symmetricSum
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricSum_lower_bound -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricSum_lower_bound -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricSum_lower_bound -> NLA.MI06.symmetricSum._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricSum_lower_bound -> _private.NLA.MI06.Proof.0.NLA.MI06.diagonal_table_posSemidef
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricSum_lower_bound -> _private.NLA.MI06.Proof.0.NLA.MI06.symmetricSum_lower_bound._simp_1_2
+PROJECT PROOF EDGE: NLA.MI06.symmetricSum -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: NLA.MI06.symmetricSum -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: NLA.MI06.symmetricSum -> NLA.MI06.symmetricSum._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_sum -> NLA.MI06.symmetricModulus
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_sum -> NLA.MI06.witnessA
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_sum -> NLA.MI06.witnessB
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_sum -> NLA.MI06.symmetricSum
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_sum -> NLA.MI06.symmetricModulus._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_sum -> NLA.MI06.matrixModulus
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_sum -> NLA.MI06.symmetricModulus.eq_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_sum -> NLA.MI06.rightModulusSum
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_sum -> _private.NLA.MI06.Proof.0.NLA.MI06.modulus_sum
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_sum -> NLA.MI06.leftModulusSum
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_sum -> _private.NLA.MI06.Proof.0.NLA.MI06.modulus_sum_adjoint
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_sum -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_sum -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.symmetricModulus_sum -> NLA.MI06.symmetricSum._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_sum_adjoint -> _private.NLA.MI06.Proof.0.NLA.MI06.modulus_of_positive_square
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_sum_adjoint -> NLA.MI06.witnessA
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_sum_adjoint -> NLA.MI06.witnessB
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_sum_adjoint -> NLA.MI06.leftModulusSum
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_sum_adjoint -> _private.NLA.MI06.Proof.0.NLA.MI06.leftModulusSum_posSemidef
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_sum_adjoint -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_sum_adjoint -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.leftModulusSum_posSemidef -> _private.NLA.MI06.Proof.0.NLA.MI06.diagonal_table_posSemidef
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.leftModulusSum_posSemidef -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.leftModulusSum_posSemidef -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.leftModulusSum_posSemidef -> _private.NLA.MI06.Proof.0.NLA.MI06.leftModulusSum_posSemidef._simp_1_1
+PROJECT PROOF EDGE: NLA.MI06.leftModulusSum -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: NLA.MI06.leftModulusSum -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_sum -> _private.NLA.MI06.Proof.0.NLA.MI06.modulus_of_positive_square
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_sum -> NLA.MI06.witnessA
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_sum -> NLA.MI06.witnessB
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_sum -> NLA.MI06.rightModulusSum
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_sum -> _private.NLA.MI06.Proof.0.NLA.MI06.rightModulusSum_posSemidef
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_sum -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.modulus_sum -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.rightModulusSum_posSemidef -> _private.NLA.MI06.Proof.0.NLA.MI06.diagonal_table_posSemidef
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.rightModulusSum_posSemidef -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.rightModulusSum_posSemidef -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.rightModulusSum_posSemidef -> _private.NLA.MI06.Proof.0.NLA.MI06.rightModulusSum_posSemidef._simp_1_1
+PROJECT PROOF EDGE: NLA.MI06.rightModulusSum -> NLA.MI06.witnessA._proof_1
+PROJECT PROOF EDGE: NLA.MI06.rightModulusSum -> NLA.MI06.witnessA._proof_2
+PROJECT PROOF EDGE: NLA.MI06.two_vector_orthogonal_proved -> NLA.MI06.squaredLength
+PROJECT PROOF EDGE: NLA.MI06.two_vector_orthogonal_proved -> _private.NLA.MI06.Proof.0.NLA.MI06.squaredLength_pos
+PROJECT PROOF EDGE: _private.NLA.MI06.Proof.0.NLA.MI06.squaredLength_pos -> NLA.MI06.squaredLength
+PROJECT PROOF EDGE: NLA.MI06.DominationConjecture -> NLA.MI06.symmetricModulus
+PROJECT PROOF EDGE: NLA.MI06.DominationConjecture -> NLA.MI06.symmetricModulus._proof_1
+PROJECT PROOF EDGE: NLA.MI06.DominationConjecture -> NLA.MI06.unitaryConjugate
+PASS: inspected 90 reachable project declarations from the public negation
+'NLA.MI06.not_dominationConjecture' depends on axioms: [propext, Classical.choice, Quot.sound]

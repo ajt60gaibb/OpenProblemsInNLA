@@ -34,7 +34,7 @@ modulus},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MI-06}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,13 +51,103 @@ domination for the arithmetic symmetric modulus\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to specialist\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
 \textbf{Rating rationale:} The arithmetic modulus lacks the useful order
 structure of the quadratic modulus; a solution would advance a focused
 family of operator triangle estimates.
+
+\subsection{Lean proof and verification evidence ---
+2026-09-12}\label{lean-proof-and-verification-evidence-2026-09-12}
+
+\textbf{The original MI-06 assertion with factor \(\sqrt2\) is false,
+with a complete Lean-verified counterexample.} At the rational pair
+
+\[A=\begin{pmatrix}1&3/4&0\\0&0&0\\0&0&0\end{pmatrix},\qquad
+B=\begin{pmatrix}-1&0&0\\0&0&0\\-3/4&0&0\end{pmatrix},\]
+
+all six genuine matrix moduli are proved exactly. For every complex
+unitary pair, a nonzero common orthogonal vector gives a left quadratic
+form at least \((3/8)\|w\|_2^2\) and a right quadratic form at most
+\((\sqrt2/4)\|w\|_2^2\). The strict scalar gap follows from the
+kernel-checked LeanCert certificate \(2<9/4\). The
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/tree/43b3dc65116633a68c32ec582fd093f3adc95597/matrix-inequalities-and-norms/MI-06/lean}{proof
+at revision 43b3dc6} retains the full original complex-matrix and
+all-unitary target.
+
+\textbf{Mathematical counterexample and informal proof:} Matthew J.
+Colbrook, Department of Applied Mathematics and Theoretical Physics,
+University of Cambridge. \textbf{Lean formalization:} George
+Stepaniants, Department of Computing and Mathematical Sciences,
+California Institute of Technology, Pasadena, California, USA, with
+AI-agent assistance.
+
+The six checked declarations in
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/blob/43b3dc65116633a68c32ec582fd093f3adc95597/matrix-inequalities-and-norms/MI-06/lean/Solution.lean}{Solution.lean}
+are:
+
+\begin{itemize}
+\tightlist
+\item
+  \textit{NLA.MI06.modulus\_eq\_sqrt}: the genuine positive square-root
+  modulus.
+\item
+  \textit{NLA.MI06.witness\_moduli}: six exact moduli, their averages
+  and rank-one decompositions.
+\item
+  \textit{NLA.MI06.two\_vector\_orthogonal}: a nonzero common orthogonal
+  vector in complex dimension three.
+\item
+  \textit{NLA.MI06.witness\_quadratic\_bounds}: homogeneous bounds for
+  every complex unitary pair.
+\item
+  \textit{NLA.MI06.counterexample}: the fixed pair defeats all unitary
+  choices.
+\item
+  \textit{NLA.MI06.not\_dominationConjecture}: negation of the complete
+  original assertion.
+\end{itemize}
+
+Two independent agents reviewed the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-06/lean/reviews}{frozen
+statements and completed proof}.
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34711237623}{Linux
+run 34711237623} matched all six exports with the sandboxed Comparator
+and replayed them through Lean's default kernel. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-06/lean/verification/linux-2026-09-12}{original
+artifacts and independent operational audit} retain all 117 source
+hashes, isolation checks and rejection controls. All 52
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-06/lean/reviews/proof-build.log}{transitive
+axiom reports} contain only \textit{propext}, \textit{Classical.choice}
+and \textit{Quot.sound}. These are independent agent reviews, not
+external human peer review.
+
+The proof pins \textbf{Lean 4.33.1},
+\href{https://github.com/alerad/leancert/tree/621a43d7cf21f87872392a01e874f2f1dbddc926}{LeanCert
+621a43d} and
+\href{https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474}{Mathlib
+0df444a}. See the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-06/lean/formalization.yaml}{manifest},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-06/lean/lake-manifest.json}{dependency
+pins} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-06/lean/NUMERICAL_TARGETS.md}{numerical
+targets}. On a documented
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tools/lean/HARNESS.md}{non-root
+Linux host}, reproduce from the verified revision with:
+
+\begin{verbatim}
+tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
+tools/lean/verify.sh \
+  matrix-inequalities-and-norms/MI-06/lean \
+  /absolute/path/to/nla-lean-tools
+\end{verbatim}
+
+The stronger no-finite-constant theorem in the original manuscript is
+outside these six formal exports. The original informal proof and its
+historical audit remain below.
 
 \subsection{Resolution --- 2026-09-11}\label{resolution-2026-09-11}
 
@@ -83,8 +173,10 @@ TeX}, Theorem 1.1 and its proof;
 and scope}. The
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-2026-09-11/verification/reviews/MI-06-review.md}{independent
 review} checks the full original argument and records its hash. The
-draft was AI-assisted; this is independent agent verification, not
-external human peer review or formal certification.
+draft was AI-assisted; the 2026-09-11 review was independent agent
+verification, without external human peer review or formal
+certification. The later Lean verification above covers the complete
+original factor-\(\sqrt2\) target.
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-2026-09-11/README.md}{Submission
 record}.
 
