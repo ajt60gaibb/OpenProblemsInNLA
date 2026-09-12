@@ -69,6 +69,7 @@ def render(source):
             'RA-14', 'RA-15', 'RA-17', 'RE-01', 'RE-02', 'RE-03', 'RE-06', 'SP-04',
             'SP-05', 'SP-06', 'SP-07', 'SP-09', 'SP-12', 'TR-11', 'TR-20', 'TR-21',
             'TR-24', 'TR-26', 'TR-30',
+            'IE-27', 'MF-24', 'MI-30', 'MI-31', 'SP-13', 'SP-14',
         }:
             tex = re.sub(r"\\subsection\{References?(?:\s+and\s+status\s+check)?\}",
                          lambda m: "\\newpage\n" + m[0], tex, count=1)

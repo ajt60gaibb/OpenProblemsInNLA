@@ -2,7 +2,7 @@
 
 [← All categories](../README.md) · [Full catalog](../CATALOG.md) · [Solved and claimed solutions](../RESOLVED.md)
 
-**15 problems with open targets.** 8 retained entries are excluded from the open count.
+**17 problems with open targets.** 8 retained entries are excluded from the open count.
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
@@ -21,6 +21,8 @@
 | [MF-19](MF-19/README.md) | Decidability of zero hitting by rational matrix powers | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](MF-19/problem.pdf) · [TeX](MF-19/problem.tex) |
 | [MF-20](MF-20/README.md) | Decidability of zero hitting by a matrix exponential | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](MF-20/problem.pdf) · [TeX](MF-20/problem.tex) |
 | [MF-21](MF-21/README.md) | The uniform expansion threshold for Toeplitz symbols with higher-order zeros | **🔵 OPEN** | challenging | interesting to specialist | [PDF](MF-21/problem.pdf) · [TeX](MF-21/problem.tex) |
+| [MF-23](MF-23/README.md) | Complete Crouzeix conjecture | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](MF-23/problem.pdf) · [TeX](MF-23/problem.tex) |
+| [MF-24](MF-24/README.md) | A dimension-independent polynomial norm bound from super-identical pseudospectra | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](MF-24/problem.pdf) · [TeX](MF-24/problem.tex) |
 
 ## Retained entries outside the open count
 
