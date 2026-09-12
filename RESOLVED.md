@@ -15,6 +15,14 @@ catalog with **🟡 PARTIAL** and an explanation of what remains.
 
 ## Resolved catalog entries
 
+### ✅ IE-02 — ideal and worst-case GMRES coincide for every Jordan block — George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved affirmatively, 2026-09-11.** [Theorem 1](linear-systems-and-elimination/IE-02/solution.md) proves the exact complex equality for every $n\ge2$, $1\le k<n$, and $\lambda\ne0$. Theorem 6 establishes the stronger affine triangular-Toeplitz minimax result, using finite Carathéodory–Fejér interpolation and scalar spectral factorization to preserve all complex orthogonality conditions in one extremal vector. [Proof PDF](linear-systems-and-elimination/IE-02/solution.pdf) · [Canonical target](linear-systems-and-elimination/IE-02/README.md).
+
+The complete analytic proof passed a separate [independent Codex-agent review](references/stepaniants-ie02-2026-09-11/verification/IE-02-independent-review.md). AI assistance and automated-review limits are disclosed; no external human peer review or formal certification is asserted. [Submission record and public eligibility check](references/stepaniants-ie02-2026-09-11/README.md). All original target quantifiers, the permanent ID and historical ratings are retained.
+
 ### RA-20 - symmetric rank-two critical-point formula refuted
 
 **Negative resolution recorded 2026-09-11 during the Codex maintainer audit.** For the retained [original target](randomized-and-low-rank-approximation/RA-20/README.md), the admissible case n=s=3 has exactly three generic smooth-locus critical points, whereas the displayed formula predicts four. The hollow symmetric determinant is 2abc; the three coordinate planes each contribute one simple critical point. [Complete proof](randomized-and-low-rank-approximation/RA-20/solution.md) · [Independent reconstruction and exact checks](references/research-expansion-2026-09-11/ra20-resolution/README.md). This refutes the joint universal conjecture without narrowing it. The other formulas and parameter ranges remain unclaimed. The ID and canonical path are retained; verification is by automated agents, not external human peer review or formal certification.

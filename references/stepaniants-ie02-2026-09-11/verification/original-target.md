@@ -6,18 +6,10 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Solved  
-**Last checked:** 2026-09-11  
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10  
 
-**Rating rationale:** Historical assessment retained: challenging because the remaining Jordan-block minimax cases require control of multiple extremal singular vectors; specialist impact reflects a structural test case for GMRES theory.
-
-## Resolution — 2026-09-11
-
-**Solved affirmatively.** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, proves the displayed equality for every $n\ge2$, $1\le k<n$, and nonzero complex $\lambda$, with complex polynomials and starting vectors. No divisibility or eigenvalue-regime case remains open.
-
-[Theorem 1 and its proof](solution.md) establish the exact original target. The stronger Theorem 6 proves affine minimax equality for triangular Toeplitz matrices: finite Carathéodory–Fejér interpolation describes the maximal singular subspace, and scalar spectral factorization preserves every complex GMRES orthogonality equation in one unit vector. [Proof PDF](solution.pdf) · [Standalone XeLaTeX source](solution.tex).
-
-The complete AI-assisted proof passed a separate [independent Codex-agent review](../../references/stepaniants-ie02-2026-09-11/verification/IE-02-independent-review.md). This is automated-agent verification, without a claim of external human peer review or formal certification. [Submission record, preserved source and public eligibility check](../../references/stepaniants-ie02-2026-09-11/README.md). The original problem statement and permanent ID remain unchanged; the earlier special cases and status checks below are retained as history.
+**Rating rationale:** Challenging because the remaining Jordan-block minimax cases require control of multiple extremal singular vectors; specialist impact reflects a structural test case for GMRES theory.
 
 ## Problem statement
 

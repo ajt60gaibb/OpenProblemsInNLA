@@ -46,3 +46,7 @@ The [third-batch audit](maintainer-review-2026-09-11-wave3/README.md) records th
 ## Independent maintainer review: fourth batch, 11 September 2026
 
 The [fourth-batch audit](maintainer-review-2026-09-11-wave4/README.md) records independent reviews of PRs #111, #114, #116, #118 and #120, including the RA-20 counterexample and preservation of original targets and IDs.
+
+## Independent maintainer review: follow-up submissions, 11 September 2026
+
+The [follow-up audit](maintainer-review-2026-09-11-wave5/README.md) records independent mathematical, primary-source and PDF reviews of subsequent submissions, with exact reviewed heads and permanent-ID preservation checks.
