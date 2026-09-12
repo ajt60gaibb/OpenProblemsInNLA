@@ -25,6 +25,11 @@ def render(source):
         from render_latex_solutions import render as render_latex
         return render_latex(source)
 
+    if identifier == "SP-13":
+        # PDF-only layout: keep the reviewed Markdown free of page commands.
+        markdown = markdown.replace("This manuscript proves", "\\pagestyle{plain}\n\nThis manuscript proves", 1)
+        markdown = markdown.replace("## References\n", "\\newpage\n\n## References\n", 1)
+
     def absolute_link(match):
         target = match[1]
         if re.match(r"[a-z]+:", target) or target.startswith("#"):

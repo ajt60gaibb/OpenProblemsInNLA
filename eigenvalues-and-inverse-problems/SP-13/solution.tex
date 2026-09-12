@@ -1,0 +1,318 @@
+% Standalone resolution manuscript generated from solution.md.
+% Compile with XeLaTeX; author and review metadata are maintained in Markdown.
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=24mm,headheight=15pt]{geometry}
+\usepackage{fontspec}
+\setmainfont{DejaVuSerif.ttf}[BoldFont=DejaVuSerif-Bold.ttf,ItalicFont=DejaVuSerif-Italic.ttf,BoldItalicFont=DejaVuSerif-BoldItalic.ttf]
+\setsansfont{DejaVuSans.ttf}[BoldFont=DejaVuSans-Bold.ttf,ItalicFont=DejaVuSans-Oblique.ttf]
+\setmonofont{DejaVuSansMono.ttf}
+\usepackage{amsmath,amssymb,unicode-math}
+\setmathfont{latinmodern-math.otf}
+\usepackage{xcolor,microtype,parskip,needspace,fancyhdr}
+\usepackage{bookmark}
+\usepackage{xurl}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue,pdftitle={SP-13:
+Trace-norm-small perturbations preserve Hermitian spectral
+distributions},pdfauthor={George Stepaniants},pdflang={en-GB}}
+\urlstyle{same}
+\setlength{\emergencystretch}{3em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\setcounter{secnumdepth}{0}
+\allowdisplaybreaks[1]
+\widowpenalty=10000
+\clubpenalty=10000
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily RESOLUTION / SP-13}
+\fancyhead[R]{\small\sffamily 11 September 2026}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\fontsize{8}{10}\selectfont AI-assisted
+proof; the exact-source reviews and their limits are documented in the
+submission record.}}
+\fancyfoot[R]{\footnotesize\thepage}
+\begin{document}
+{\raggedright\Large\bfseries SP-13: Trace-norm-small perturbations
+preserve Hermitian spectral distributions\par}
+\vspace{0.4em}
+{\normalsize\bfseries George Stepaniants\par}
+{\small Department of Computing and Mathematical Sciences, California
+Institute of Technology, Pasadena, California, USA.\par}
+\vspace{0.6em}
+\pagestyle{plain}
+
+This manuscript proves the complete Barbarino-Serra-Capizzano trace-norm
+perturbation conjecture. It was developed with substantial ChatGPT/Codex
+assistance at the author's request. A separate
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/stepaniants-sp13-2026-09-11/verification/SP-13-independent-review.md}{independent
+Codex-agent mathematical review} returned PASS for the complete target;
+a
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/stepaniants-sp13-2026-09-11/verification/SP-13-root-math-review.md}{coordinating-agent
+audit} also found no gap. No external human peer review, formal
+proof-assistant verification, or priority determination is asserted. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/stepaniants-sp13-2026-09-11/README.md}{submission
+record} preserves the frozen source, original target and verification
+evidence.
+
+\subsection{1. Exact target}\label{exact-target}
+
+For \(A_n\in\mathbb C^{n\times n}\) and measurable
+\(f:[0,1]\to\mathbb R\), the notation \(\{A_n\}\sim_\lambda f\) means
+
+\[\lim_{n\to\infty}\frac1n\sum_{j=1}^n F(\lambda_j(A_n))
+=\int_0^1 F(f(t))\,dt\qquad(F\in C_c(\mathbb C)).\]
+
+The functions are continuous, complex-valued, and compactly supported.
+Eigenvalues have algebraic multiplicity. The trace norm is
+\(\|X\|_* = \sum_j\sigma_j(X)\); \(X^*\) is the conjugate transpose.
+
+\textbf{Theorem.} Suppose \(H_n=H_n^*\), \(\{H_n\}\sim_\lambda f\), and
+\(E_n\in\mathbb C^{n\times n}\) satisfies \(\|E_n\|_*/n\to0\). Then
+
+\[\{H_n+E_n\}\sim_\lambda f.\]
+
+There is no spectral-norm boundedness assumption on either sequence and
+no normality assumption on \(H_n+E_n\). This is the complete canonical
+SP-13 target and Conjecture 1 in Section 6, printed page 29, of
+Barbarino--Serra-Capizzano {[}BSC20{]}.
+
+\subsection{2. The external weak-type
+theorem}\label{the-external-weak-type-theorem}
+
+For a finite matrix \(X\) and \(s>0\), set
+
+\[n_X(s)=\#\{j:\sigma_j(X)>s\},\qquad
+\|X\|_{1,\infty}=\sup_{s>0}s\,n_X(s).\]
+
+Let \(\mathcal T_+(X)\) retain the strictly upper-triangular entries of
+\(X\) and replace all other entries by zero.
+
+\textbf{Published weak-type estimate.} There is an absolute constant
+\(C\) such that, for every matrix size and every complex matrix \(X\),
+
+\[n_{\mathcal T_+(X)}(s)\le \frac{C\|X\|_*}{s}\qquad(s>0).\tag{1}\]
+
+This is the finite-matrix specialization of Randrianantoanina {[}R02,
+Theorem 4.8, printed page 23{]}. The source defines the weak-\(L^1\)
+quasi-norm on printed page 12 by the distribution function used above.
+Its theorem applies to an arbitrary finite family of mutually orthogonal
+projections and has an \textbf{absolute} constant. Take the algebra
+\(M_n(\mathbb C)\) with its ordinary, unnormalized matrix trace, and its
+rank-one coordinate projections. The source uses strictly
+lower-triangular truncation; reversing the order of the projections
+gives \(\mathcal T_+\). Thus (1) is uniform in \(n\) and imposes neither
+positivity nor self-adjointness on \(X\).
+
+Theorem 4.8 is explicitly attributed there to Dodds--Dodds--de
+Pagter--Sukochev {[}DDPS99, Theorem 1.4{]}, and {[}R02{]} also supplies
+a proof from its noncommutative Hilbert-transform estimate. We use this
+published result; we do not claim it as a new theorem or replace it by
+the weaker logarithmic trace-norm bound.
+
+\subsection{3. Two elementary spectral
+facts}\label{two-elementary-spectral-facts}
+
+For arbitrary matrices \(X,Y\) and \(a,b>0\),
+
+\[n_{X+Y}(a+b)\le n_X(a)+n_Y(b).\tag{2}\]
+
+Indeed, remove the singular components of \(X\) larger than \(a\), and
+of \(Y\) larger than \(b\). The remaining sum has spectral norm at most
+\(a+b\), while the removed sum has rank at most the right side. The
+min-max characterization of singular values proves (2). Also
+
+\[n_X(a)\le\frac{\|X\|_*}{a}.\tag{3}\]
+
+\textbf{Lemma.} Let \(A_n,B_n\) be Hermitian matrices of size \(n\). If
+
+\[\frac{n_{A_n-B_n}(s)}n\longrightarrow0\qquad\text{for every fixed }s>0,\tag{4}\]
+
+then for every \(g\in C_c(\mathbb R)\),
+
+\[\frac1n\operatorname{tr}g(A_n)-\frac1n\operatorname{tr}g(B_n)\longrightarrow0.\tag{5}\]
+
+No bound on \(\|A_n\|\) or \(\|B_n\|\) is required.
+
+\textbf{Proof.} Fix \(s>0\). Split the Hermitian matrix \(A_n-B_n\) by
+its spectral decomposition into \(R_n+S_n\), where \(R_n\) contains the
+eigenvalues with absolute value greater than \(s\). Then
+
+\[\operatorname{rank}R_n=n_{A_n-B_n}(s)=o(n),\qquad\|S_n\|\le s.\]
+
+For Hermitian matrices differing by rank at most \(r\), their eigenvalue
+counting functions differ by at most \(r\) at every real threshold. This
+follows from the min-max principle by restricting a trial subspace to
+the kernel of the rank-\(r\) difference. Consequently, for
+\(g\in C_c^1(\mathbb R)\), integration by parts against the finite
+eigenvalue counting measures gives
+
+\[\left|\operatorname{tr}g(A_n)-\operatorname{tr}g(B_n+S_n)\right|
+\le \operatorname{rank}R_n\int_{\mathbb R}|g'(x)|\,dx.\tag{6}\]
+
+The eigenvalues of \(B_n+S_n\) and \(B_n\), arranged in increasing
+order, differ by at most \(s\), again by min-max. With
+
+\[\omega_g(s)=\sup_{|x-y|\le s}|g(x)-g(y)|,\]
+
+their normalized trace difference is at most \(\omega_g(s)\). Thus the
+limsup of the absolute value in (5) is at most \(\omega_g(s)\).
+Compactly supported continuous functions are uniformly continuous, so
+letting \(s\downarrow0\) proves (5) for \(g\in C_c^1(\mathbb R)\). Every
+\(g\in C_c(\mathbb R)\) can be uniformly approximated by such functions;
+each normalized trace changes by at most the uniform error. This proves
+the lemma, also for complex-valued \(g\). \(\square\)
+
+\subsection{4. Schur decomposition and the finite-dimensional
+estimates}\label{schur-decomposition-and-the-finite-dimensional-estimates}
+
+Fix \(n\), write \(H=H_n\), \(E=E_n\), and let \(q=\|E\|_*\). Take any
+unitary Schur decomposition
+
+\[U^*(H+E)U=T=D+iJ+N,\]
+
+where \(D\) and \(J\) are real diagonal matrices and \(N\) is strictly
+upper triangular. The diagonal entries of \(D+iJ\) are exactly the
+eigenvalues of \(H+E\), counted with algebraic multiplicity. Set
+
+\[G=U^*HU,\qquad Z=U^*EU,\qquad
+K=\operatorname{Im}T=\frac{T-T^*}{2i}.\]
+
+Because \(G\) is Hermitian,
+
+\[K=\operatorname{Im}Z,\qquad \|K\|_*\le\|Z\|_*=q.\tag{7}\]
+
+For a strictly upper-triangular entry, \(K_{ij}=N_{ij}/(2i)\). Therefore
+
+\[N=2i\,\mathcal T_+(K).\]
+
+The dimension-independent estimate (1) yields
+
+\[n_N(s)\le\frac{2Cq}{s}.\tag{8}\]
+
+Applying (2) to \((N+N^*)/2\) gives
+
+\[n_{\operatorname{Re}N}(s)\le2n_N(s)\le\frac{4Cq}{s}.\tag{9}\]
+
+Taking Hermitian parts in \(G+Z=D+iJ+N\) gives
+
+\[D-G=\operatorname{Re}Z-\operatorname{Re}N.\]
+
+Since \(\|\operatorname{Re}Z\|_*\le q\), equations (2), (3), and (9)
+show, for every \(s>0\),
+
+\[n_{D-G}(s)
+\le n_{\operatorname{Re}Z}(s/2)+n_{\operatorname{Re}N}(s/2)
+\le\frac{(2+8C)q}{s}.\tag{10}\]
+
+Finally, the diagonal of \(K\) is \(J\), and
+
+\[\sum_{j=1}^n|J_{jj}|\le\|K\|_*\le q.\tag{11}\]
+
+For clarity, the first inequality needs no bound on a triangular
+projection: if \(S\) is the diagonal matrix with entries
+\(\operatorname{sgn}(K_{jj})\), then \(\|S\|\le1\) and
+\(\sum_j|K_{jj}|=\operatorname{tr}(SK)\le\|K\|_*\). Equivalently it is
+trace-norm contractivity of diagonal pinching.
+
+All estimates (7)--(11) hold for every finite \(n\), independently of
+\(H\), the Schur ordering, diagonalizability, or the spectral norm of
+\(E\).
+
+\subsection{5. Passage to the prescribed test
+functions}\label{passage-to-the-prescribed-test-functions}
+
+Return to the sequences, so \(q_n/n\to0\). By (10), for every fixed
+\(s>0\),
+
+\[\frac{n_{D_n-U_n^*H_nU_n}(s)}n\longrightarrow0.\]
+
+The lemma implies that \(D_n\) and \(H_n\) have asymptotically equal
+normalized traces for all \(g\in C_c(\mathbb R)\). In particular, for a
+prescribed \(F\in C_c(\mathbb C)\), the restriction \(g(x)=F(x)\) to the
+real axis belongs to \(C_c(\mathbb R)\), and
+
+\[\frac1n\sum_jF((D_n)_{jj})-\frac1n\sum_jF(\lambda_j(H_n))\longrightarrow0.\tag{12}\]
+
+Write \(d_{nj}=(D_n)_{jj}\) and \(y_{nj}=(J_n)_{jj}\). Equation (11)
+implies
+
+\[\#\{j:|y_{nj}|>s\}\le\frac{q_n}{s}.\]
+
+Every continuous compactly supported function on \(\mathbb C\) is
+uniformly continuous on the whole plane. Defining its modulus
+\(\omega_F(s)\) using Euclidean distance in \(\mathbb C\), we obtain
+
+\[\begin{aligned}
+&\left|\frac1n\sum_jF(d_{nj}+iy_{nj})-\frac1n\sum_jF(d_{nj})\right|\\
+&\hspace{2em}\le\omega_F(s)+2\|F\|_\infty\frac{q_n}{ns}.
+\end{aligned}\tag{13}\]
+
+For every fixed \(s>0\) the second term tends to zero. Then
+\(s\downarrow0\) makes the first term tend to zero. The values
+\(d_{nj}+iy_{nj}\) are the eigenvalues of \(H_n+E_n\) with their
+algebraic multiplicities. Combining (12), (13), and the assumed spectral
+distribution of \(H_n\) proves
+
+\[\lim_{n\to\infty}\frac1n\sum_jF(\lambda_j(H_n+E_n))
+=\int_0^1F(f(t))\,dt.\]
+
+This holds for every \(F\in C_c(\mathbb C)\) and is exactly the asserted
+conclusion. \(\square\)
+
+\subsection{6. Scope and attribution}\label{scope-and-attribution}
+
+The proof allows arbitrary complex perturbations and arbitrary real
+measurable symbols on the canonical domain. Its only smallness
+assumption is \(q_n/n\to0\). Large exceptional singular values and
+eigenvalues are handled by rank bounds and compactly supported test
+functions, so no uniform spectral bound enters implicitly.
+
+The published weak-type theorem retains its attribution to
+Randrianantoanina and Dodds, Dodds, de Pagter and Sukochev. Barbarino
+and Serra-Capizzano retain credit for the conjecture and preceding
+perturbation results. This proof applies the dimension-independent
+triangular-truncation estimate to the imaginary Hermitian part of a
+Schur form.
+
+\newpage
+
+\subsection{References}\label{references}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{{[}BSC20{]}} G. Barbarino and S. Serra-Capizzano,
+  \emph{Non-Hermitian perturbations of Hermitian matrix-sequences and
+  applications to the spectral analysis of the numerical approximation
+  of partial differential equations}, Numerical Linear Algebra with
+  Applications 27 (2020), e2286.
+  \href{https://doi.org/10.1002/nla.2286}{DOI},
+  \href{https://giovannibarbarino.github.io/doc/articles/NHperturbation.pdf}{author
+  PDF}. Conjecture 1, Section 6, printed page 29; the
+  spectral-distribution convention appears on printed page 2.
+\item
+  \textbf{{[}R02{]}} N. Randrianantoanina, \emph{Spectral subspaces and
+  non-commutative Hilbert transforms}, Colloquium Mathematicum 91
+  (2002), 9--27. \href{https://doi.org/10.4064/cm91-1-2}{DOI},
+  \href{https://www.impan.pl/shop/en/publication/transaction/download/product/87479}{publisher
+  PDF}. Theorem 4.8, printed page 23, and its proof on page 24;
+  weak-\(L^1\) definition on printed page 12.
+\item
+  \textbf{{[}DDPS99{]}} P. G. Dodds, T. K. Dodds, B. de Pagter and F. A.
+  Sukochev, \emph{Lipschitz continuity of the absolute value in preduals
+  of semifinite factors}, Integral Equations and Operator Theory 34
+  (1999), 28--44. Theorem 1.4 is the result cited by {[}R02, Theorem
+  4.8{]}; the application above uses the statement and proof actually
+  checked in {[}R02{]}.
+\item
+  \textbf{{[}B18{]}} G. Barbarino, \emph{Conjectures on Perturbations of
+  Hermitian Sequences},
+  \href{https://arxiv.org/abs/1808.05555v1}{arXiv:1808.05555v1}, 2018.
+  Context for equivalent formulations, not an additional assumption.
+\item
+  \textbf{{[}BG25{]}} G. Barbarino and C. Garoni, \emph{GLT sequences
+  and normal matrices}, Electronic Journal of Linear Algebra 41 (2025),
+  1--20.
+  \href{https://journals.uwyo.edu/index.php/ela/article/download/8929/6949/23285}{Primary
+  PDF}. Theorem 3.2, contextual comparison only.
+\end{itemize}
+\end{document}

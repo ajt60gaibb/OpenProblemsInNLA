@@ -7,22 +7,10 @@
 **Topic:** Non-Hermitian perturbations and spectral distributions  
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Solved
+**Status:** Partially resolved  
 **Last checked:** 2026-09-11
 
-**Historical ratings:** The difficulty and importance describe the original open question.
-
 **Rating rationale:** Removing all spectral-norm bounds requires control of nonnormal spectra under potentially large perturbations. The result would extend spectral analysis of discretization matrices and preconditioners with unbounded coefficients.
-
-## Resolution
-
-**Solved affirmatively, 11 September 2026.** The [Theorem in Section 1, proved in Sections 2-5](solution.md) establishes the complete displayed conjecture: arbitrary complex perturbations with trace norm $o(n)$ preserve the prescribed Hermitian spectral distribution, without spectral-norm bounds on either sequence and without normality of the perturbed matrices. [Proof PDF](solution.pdf) · [Standalone TeX](solution.tex).
-
-**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
-
-The proof applies the published dimension-independent weak-type triangular-truncation estimate of Randrianantoanina, Theorem 4.8, printed page 23 ([DOI](https://doi.org/10.4064/cm91-1-2)), to a Schur decomposition. Elementary singular-value counting and Hermitian rank-perturbation estimates then prove convergence for every original compactly supported continuous test function. The published weak-type theorem and the Barbarino-Serra-Capizzano conjecture retain their original attribution.
-
-The full argument passed a separate [independent Codex-agent mathematical review](../../references/stepaniants-sp13-2026-09-11/verification/SP-13-independent-review.md) and a [coordinating-agent audit](../../references/stepaniants-sp13-2026-09-11/verification/SP-13-root-math-review.md). It was developed with substantial ChatGPT/Codex assistance. This is informal automated-agent review, not external human peer review or Lean/formal verification. The [submission record](../../references/stepaniants-sp13-2026-09-11/README.md) preserves the exact source, primary-source checks and bounded public eligibility audit. The original statement and the preceding partial-results history are retained below.
 
 ## Statement
 
