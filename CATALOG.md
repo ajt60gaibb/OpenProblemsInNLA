@@ -1,8 +1,8 @@
 # All problems and their status
 
-**139 problems with open targets:** 65 open and 74 partially resolved. **78 other retained entries**, excluded from the open count.
+**138 problems with open targets:** 64 open and 74 partially resolved. **79 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 77 solved (published or independently audited); 1 Lean verified.
+**Resolution evidence:** 78 solved (published or independently audited); 1 Lean verified.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -22,7 +22,6 @@ Each entry records its own literature-check date. Literature checks are bounded;
 | [IE-20](linear-systems-and-elimination/IE-20/README.md) | Precision required for conjugate gradients to attain backward accuracy in n steps | **🔵 OPEN** | extreme | interesting to the community | [PDF](linear-systems-and-elimination/IE-20/problem.pdf) · [TeX](linear-systems-and-elimination/IE-20/problem.tex) |
 | [IE-24](linear-systems-and-elimination/IE-24/README.md) | RILU conditioning for the Neumann problem on smooth planar domains | **🔵 OPEN** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-24/problem.pdf) · [TeX](linear-systems-and-elimination/IE-24/problem.tex) |
 | [IE-25](linear-systems-and-elimination/IE-25/README.md) | Perturbed MILU conditioning for Neumann problems in two and three dimensions | **🔵 OPEN** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-25/problem.pdf) · [TeX](linear-systems-and-elimination/IE-25/problem.tex) |
-| [IE-26](linear-systems-and-elimination/IE-26/README.md) | Sharp stability bounds for perturbed Fourier interpolation | **🔵 OPEN** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-26/problem.pdf) · [TeX](linear-systems-and-elimination/IE-26/problem.tex) |
 | [IE-27](linear-systems-and-elimination/IE-27/README.md) | Spectral disk for a Radau stage preconditioner | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-27/problem.pdf) · [TeX](linear-systems-and-elimination/IE-27/problem.tex) |
 | [IE-28](linear-systems-and-elimination/IE-28/README.md) | Positive diagonal preconditioning with a nilpotent stiff limit | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-28/problem.pdf) · [TeX](linear-systems-and-elimination/IE-28/problem.tex) |
 | [KE-01](linear-systems-and-elimination/KE-01/README.md) | Exploit spectral outliers without losing input sparsity | **🔵 OPEN** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/KE-01/problem.pdf) · [TeX](linear-systems-and-elimination/KE-01/problem.tex) |
@@ -43,6 +42,7 @@ Retained entries outside the open count:
 | [IE-21](linear-systems-and-elimination/IE-21/README.md) | Sharp row-deletion singular-value limit for spherical random matrices | **✅ SOLVED** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-21/problem.pdf) · [TeX](linear-systems-and-elimination/IE-21/problem.tex) |
 | [IE-22](linear-systems-and-elimination/IE-22/README.md) | Optimal uniform row-deletion singular-value constant | **✅ SOLVED** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-22/problem.pdf) · [TeX](linear-systems-and-elimination/IE-22/problem.tex) |
 | [IE-23](linear-systems-and-elimination/IE-23/README.md) | Uniqueness of the right inverse minimizing an induced p-to-2 norm | **✅ SOLVED** | hard | interesting to specialist | [PDF](linear-systems-and-elimination/IE-23/problem.pdf) · [TeX](linear-systems-and-elimination/IE-23/problem.tex) |
+| [IE-26](linear-systems-and-elimination/IE-26/README.md) | Sharp stability bounds for perturbed Fourier interpolation | **✅ SOLVED** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-26/problem.pdf) · [TeX](linear-systems-and-elimination/IE-26/problem.tex) |
 
 
 ## [Eigenvalues and inverse problems](eigenvalues-and-inverse-problems/README.md)

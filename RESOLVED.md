@@ -21,6 +21,14 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### ✅ IE-26 — both sharp perturbed Fourier stability bounds — George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Affirmative resolution recorded 2026-09-12.** [Theorem 1](linear-systems-and-elimination/IE-26/solution.md) proves the original Lebesgue bound with one absolute constant for every $0<\alpha<1/2$, and the normalized square Fourier inverse-norm bound without a logarithmic factor for each fixed $1/4<\alpha<1/2$. Both apply to every $N\ge2$ and every admissible perturbed grid. [Proof PDF](linear-systems-and-elimination/IE-26/solution.pdf) · [Retained target](linear-systems-and-elimination/IE-26/README.md). The second-bound endpoint is not asserted.
+
+The entire argument passed a separate [independent Codex-agent audit](references/stepaniants-ie26-2026-09-12/verification/independent-review/IE-26-independent-review.md), with no mathematical correction. The coordinating contributor's check is identified separately. Substantial AI assistance is disclosed; informal automated review does not establish external human peer review or formal verification. Austin–Trefethen and later authors retain credit for the conjectures and previous results; Laugesen's weak Hilbert-transform theorem supplies the sole external harmonic-analysis inequality. [Submission, source hashes, and verification record](references/stepaniants-ie26-2026-09-12/README.md).
+
 ### ✅ IE-05 - the orthogonal partial-pivoting extremizer equality is false - George Stepaniants
 
 **Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.

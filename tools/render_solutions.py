@@ -43,6 +43,13 @@ def render(source):
             input=markdown, text=True, encoding="utf-8", capture_output=True, check=True,
         )
         tex = result.stdout
+        if identifier == "IE-26":
+            # PDF-only layout keeps the reviewed Markdown body unchanged.
+            # The text font lacks the source's Unicode end-of-proof mark.
+            tex = tex.replace("∎", r"\ensuremath{\blacksquare}")
+            tex = tex.replace(r"\subsection{", "\\Needspace{12\\baselineskip}\n" + r"\subsection{")
+            tex = tex.replace(r"\subsection{2. Interlacing", "\\newpage\n" + r"\subsection{2. Interlacing", 1)
+            tex = tex.replace(r"\[", "\\nopagebreak[4]\n" + r"\[")
         (source.parent / "solution.tex").write_text(tex, encoding="utf-8")
         (work / "solution.tex").write_text(tex, encoding="utf-8")
         for _ in range(2):

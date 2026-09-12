@@ -7,20 +7,10 @@
 **Topic:** Conditioning of Fourier matrices and interpolation operators  
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Solved  
-**Last checked:** 2026-09-12
+**Status:** Open  
+**Last checked:** 2026-09-11
 
 **Rating rationale:** The conjectures ask for sharp dimension dependence under a fixed relative perturbation of every sampling point. They concern the sensitivity of Fourier coefficient recovery and interpolation, with consequences for spectral computation and nonuniform sampling.
-
-## Resolution — 12 September 2026
-
-**Solved affirmatively.** [Theorem 1 and Sections 2–7 of the complete proof](solution.md) establish both original bounds: the Lebesgue estimate with one absolute constant for every $0<\alpha<1/2$, and the normalized square Fourier inverse-norm estimate without a logarithmic loss for each fixed $1/4<\alpha<1/2$. Every $N\ge2$ and every allowed collection of shifts is included. The second constant may depend on $\alpha$; no endpoint assertion at $\alpha=1/4$ is made.
-
-**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA. [Proof PDF](solution.pdf) · [Standalone TeX](solution.tex).
-
-The full argument passed a separate [independent Codex-agent mathematical review](../../references/stepaniants-ie26-2026-09-12/verification/independent-review/IE-26-independent-review.md), bound to the exact frozen source. The coordinating agent contributed before freeze and is recorded separately, not as the independent reviewer. Substantial AI assistance is disclosed; no external human peer review or formal verification is asserted.
-
-Austin and Trefethen retain credit for the conjectures and prior analysis, with the related thesis and later results cited below. The periodic Hilbert-transform weak $(1,1)$ inequality is the external analytic input; the proof supplies the remaining grid and matrix estimates. The [submission and verification record](../../references/stepaniants-ie26-2026-09-12/README.md) contains exact provenance and the bounded public eligibility check. The original target, earlier evidence and references remain below. The ratings above describe the former open question.
 
 ## Statement
 
