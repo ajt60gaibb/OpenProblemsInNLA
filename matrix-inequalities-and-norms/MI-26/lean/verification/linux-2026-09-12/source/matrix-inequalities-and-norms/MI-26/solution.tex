@@ -1,0 +1,131 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=24mm]{geometry}
+\usepackage{microtype}
+\usepackage{booktabs,array,longtable}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue,pdfauthor={Matthew J. Colbrook}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Resolution / MI-26}
+\fancyhead[R]{\small 11 September 2026}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\M}{\mathbb M}
+\newcommand{\C}{\mathbb C}
+\newcommand{\R}{\mathbb R}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\spec}{\operatorname{spec}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\abs}[1]{\lvert #1\rvert}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\opnorm}[1]{\lVert #1\rVert_{\infty}}
+\newcommand{\schatten}[2]{\lVert #1\rVert_{#2}}
+\newcommand{\symmod}{\mathcal S}
+\newcommand{\maxmod}{\mathcal M}
+\newcommand{\draftnotice}{\begin{center}\small\textit{Proposed mathematical resolution. Complete proof supplied; not submitted or peer reviewed.}\end{center}}
+
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\allowdisplaybreaks[1]
+
+\title{MI-26: Resolution}
+\author{Matthew J. Colbrook\\
+\small Department of Applied Mathematics and Theoretical Physics\\
+\small University of Cambridge, Cambridge, United Kingdom\\
+\small\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}
+\date{11 September 2026}
+\begin{document}
+\maketitle
+\textbf{Repository status: Solved.}
+The complete argument received an independent Codex-agent PASS review
+against the exact catalog target.
+The original draft was AI-assisted; the reviewed proof below is unchanged.
+This is independent agent verification, not external human peer review or
+formal proof certification. \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-2026-09-11/verification/reviews/MI-26-review.md}{Detailed review and scope}.
+\par\medskip
+% BEGIN REVIEWED PROOF
+\section{MI-26: concavity alone does not give two-unitary subadditivity}
+\label{sec:mi26}
+
+The target asks whether, for every real-valued concave function $f$ on $[0,\infty)$ with $f(0)\geq0$ and every positive semidefinite $A,B$, there are unitaries $U,V$ such that
+\begin{equation}\label{eq:mi26-target}
+ f(A+B)\leq Uf(A)U^*+Vf(B)V^*.
+\end{equation}
+It is explicitly the removal of monotonicity that is at issue \cite[Problem 5]{AK2012}; see also \cite[Remark 3.13]{BL2011}.
+
+\begin{theorem}\label{thm:mi26}
+The assertion \eqref{eq:mi26-target} is false in dimension two. A counterexample is provided by the polynomial $f(t)=t-t^2$ and two real rank-one projections. It remains false when both inputs are required to be positive definite.
+\end{theorem}
+
+\begin{proof}
+The function $f(t)=t-t^2$ is concave on $[0,\infty)$ and satisfies $f(0)=0$. Let
+\[
+ P=\begin{pmatrix}1&0\\0&0\end{pmatrix},\qquad
+ Q=\frac1{25}\begin{pmatrix}9&12\\12&16\end{pmatrix}.
+\]
+Both matrices are orthogonal projections, so $f(P)=f(Q)=0$. However,
+\[
+ f(P+Q)=P+Q-(P+Q)^2=-(PQ+QP)
+ =\frac1{25}\begin{pmatrix}-18&-12\\-12&0\end{pmatrix}.
+\]
+Its eigenvalues are $6/25$ and $-24/25$; in particular $(1,-2)^T$ is an eigenvector for $6/25$. Thus $f(P+Q)\not\leq0$, whereas the right-hand side of \eqref{eq:mi26-target} is zero for every $U,V$.
+
+For positive definite inputs, take
+\[
+ A=P+\frac1{20}I_2,\qquad B=Q+\frac1{20}I_2.
+\]
+Each has eigenvalues $21/20$ and $1/20$, and consequently
+\[
+ \lambda_{\max}(f(A))=\lambda_{\max}(f(B))=\frac{19}{400}.
+\]
+The eigenvalues of $P+Q$ are $8/5$ and $2/5$. Thus $A+B$ has eigenvalues $17/10$ and $1/2$, giving
+\[
+ \lambda_{\max}(f(A+B))=\frac14.
+\]
+For every pair of unitaries,
+\[
+ Uf(A)U^*+Vf(B)V^*\leq\frac{19}{200}I_2.
+\]
+Since $1/4>19/200$, domination \eqref{eq:mi26-target} is again impossible.
+\end{proof}
+
+\begin{remark}[The function class matters]
+This counterexample uses a concave function that is real-valued, not nonnegative on the whole half-line. It does not contradict the theorem for nonnegative concave functions. In fact, a concave function that is nonnegative everywhere on $[0,\infty)$ must be nondecreasing: a negative secant slope, by concavity, would force the function eventually to become negative. The repository target and the cited open question allow real-valued concave functions, so $f(t)=t-t^2$ belongs to the stated class.
+\end{remark}
+
+% END REVIEWED PROOF
+\begin{thebibliography}{1}
+
+\bibitem{AK2012}
+Koenraad M.~R. Audenaert and Fuad Kittaneh.
+\newblock Problems and conjectures in matrix and operator inequalities.
+\newblock arXiv:1201.5232, 2012.
+\newblock Version consulted: v3; Problem 5, printed page 3, and Problem 7,
+  printed pages 12--13.
+\newblock URL: \url{https://arxiv.org/abs/1201.5232}.
+
+\bibitem{BL2011}
+Jean-Christophe Bourin and Eun-Young Lee.
+\newblock Unitary orbits of {Hermitian} operators with convex or concave
+  functions.
+\newblock arXiv:1109.2384, 2011.
+\newblock Remark 3.13.
+\newblock URL: \url{https://arxiv.org/abs/1109.2384}.
+
+\end{thebibliography}
+
+\end{document}
