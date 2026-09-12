@@ -12,7 +12,7 @@
 
 **Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the exact target.**
 
-The ordinary symmetric two-letter word $XBX^{12}BX=P$ has at least three distinct real symmetric positive definite solutions for explicit integer $B,P$. These are also Hermitian positive definite solutions, refuting the canonical universal uniqueness assertion in dimension two. An exact negative Jacobian determinant and two independent interval implementations certify the counterexample.
+The ordinary symmetric two-letter word $`XBX^{12}BX=P`$ has at least three distinct real symmetric positive definite solutions for explicit integer $`B,P`$. These are also Hermitian positive definite solutions, refuting the canonical universal uniqueness assertion in dimension two. An exact negative Jacobian determinant and two independent interval implementations certify the counterexample.
 
 The complete target is resolved. Its former difficulty rating is historical; the original statement, references and dated audits remain below.
 
@@ -22,19 +22,19 @@ The complete target is resolved. Its former difficulty rating is historical; the
 
 ## Problem statement
 
-A word $W(X,B)$ is a finite product of letters from $\{X,B\}$. It is symmetric if its sequence of letters equals its reversal. Require at least one occurrence of $X$.
+A word $`W(X,B)`$ is a finite product of letters from $`\{X,B\}`$. It is symmetric if its sequence of letters equals its reversal. Require at least one occurrence of $`X`$.
 
-For every such symmetric word $W$ and every pair of Hermitian positive definite matrices $B,P\in\mathbb C^{2\times2}$, is there exactly one Hermitian positive definite matrix $X\in\mathbb C^{2\times2}$ satisfying
+For every such symmetric word $`W`$ and every pair of Hermitian positive definite matrices $`B,P\in\mathbb C^{2\times2}`$, is there exactly one Hermitian positive definite matrix $`X\in\mathbb C^{2\times2}`$ satisfying
 
-$$
+```math
 W(X,B)=P?
-$$
+```
 
 Products are evaluated in the written order. Existence is known; uniqueness is the open assertion. This is the ordinary two-letter word case of the surviving order-two conjecture, with no real powers or additional fixed letters included in the statement.
 
 ## Why it matters
 
-The question concerns whether a structured nonlinear matrix equation has a single positive definite solution branch. The elementary word $XBX$ connects this family with matrix geometric means and Riccati equations.
+The question concerns whether a structured nonlinear matrix equation has a single positive definite solution branch. The elementary word $`XBX`$ connects this family with matrix geometric means and Riccati equations.
 
 ## References
 
@@ -48,7 +48,7 @@ On 2026-09-08, searched the titles, “symmetric word equations”, “Conjectur
 
 ## Audit — 2026-09-10
 
-Rechecked [Armstrong–Hillar, Theorem 11.4 and Conjecture 11.5](https://arxiv.org/pdf/math/0507306). The nontrivial word $XBX^2B^3X^2BX$ is settled in order two, but arbitrary words remain open. Title and order-two uniqueness searches found no full resolution. Existence alone is not the reason for the partial-resolution tag.
+Rechecked [Armstrong–Hillar, Theorem 11.4 and Conjecture 11.5](https://arxiv.org/pdf/math/0507306). The nontrivial word $`XBX^2B^3X^2BX`$ is settled in order two, but arbitrary words remain open. Title and order-two uniqueness searches found no full resolution. Existence alone is not the reason for the partial-resolution tag.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

@@ -10,19 +10,23 @@
 
 ## Problem statement
 
-For every integer $n\ge2$ and $X\in\mathbb C^{n\times n}$ with $\|X\|_F=1$, consider the complex-linear operator
+For every integer $`n\ge2`$ and $`X\in\mathbb C^{n\times n}`$ with $`\|X\|_F=1`$, consider the complex-linear operator
 
-$$T_X:\mathbb C^{n\times n}\longrightarrow\mathbb C^{n\times n},
-\qquad T_X(Y)=[X^*,[X,Y]],\qquad [P,Q]=PQ-QP.$$
+```math
+T_X:\mathbb C^{n\times n}\longrightarrow\mathbb C^{n\times n},
+\qquad T_X(Y)=[X^*,[X,Y]],\qquad [P,Q]=PQ-QP.
+```
 
-Use the inner product $\langle Y,Z\rangle_F=\operatorname{tr}(Y^*Z)$. The operator is Hermitian positive semidefinite; list its $n^2$ eigenvalues, including multiplicities, as $\lambda_1(T_X)\ge\cdots\ge\lambda_{n^2}(T_X)\ge0$. Is
+Use the inner product $`\langle Y,Z\rangle_F=\mathop{\mathrm{tr}}\nolimits(Y^*Z)`$. The operator is Hermitian positive semidefinite; list its $`n^2`$ eigenvalues, including multiplicities, as $`\lambda_1(T_X)\ge\cdots\ge\lambda_{n^2}(T_X)\ge0`$. Is
 
-$$\sum_{i=1}^{2k}\lambda_i(T_X)\le 2k+2
-\qquad\text{for every integer }1\le k\le\lfloor n^2/2\rfloor?$$
+```math
+\sum_{i=1}^{2k}\lambda_i(T_X)\le 2k+2
+\qquad\text{for every integer }1\le k\le\lfloor n^2/2\rfloor?
+```
 
 ## Relevance
 
-This bounds sums of squared singular values of the commutator map $Y\mapsto XY-YX$. Such a map is a basic Sylvester operator. The conjecture strengthens a bound on its largest singular value to simultaneous bounds on its singular spectrum.
+This bounds sums of squared singular values of the commutator map $`Y\mapsto XY-YX`$. Such a map is a basic Sylvester operator. The conjecture strengthens a bound on its largest singular value to simultaneous bounds on its singular spectrum.
 
 ## References
 
@@ -32,7 +36,7 @@ This bounds sums of squared singular values of the commutator map $Y\mapsto XY-Y
 
 ## Status check — 2026-09-10
 
-Both arXiv sources remain v1. The published survey retains the conjecture and records the normal, rank-one, and $n=2,3$ cases. Liu's record claims the additional class $X^2=0$ and scalar translates; its abstract does not claim the unrestricted assertion. That record's displayed publication date and July 2026 creation metadata differ, so no priority date is inferred from it. Searches used `Lu-Wenzel conjecture proof 2026`, `Lu Wenzel conjecture solved`, and `Lu-Wenzel spectral conjecture`. No general resolution was located. Equivalent majorization and fundamental-commutator formulations, and the real restriction, are grouped in this entry.
+Both arXiv sources remain v1. The published survey retains the conjecture and records the normal, rank-one, and $`n=2,3`$ cases. Liu's record claims the additional class $`X^2=0`$ and scalar translates; its abstract does not claim the unrestricted assertion. That record's displayed publication date and July 2026 creation metadata differ, so no priority date is inferred from it. Searches used `Lu-Wenzel conjecture proof 2026`, `Lu Wenzel conjecture solved`, and `Lu-Wenzel spectral conjecture`. No general resolution was located. Equivalent majorization and fundamental-commutator formulations, and the real restriction, are grouped in this entry.
 
 **Audit update (2026-09-10):** Rechecked the 2024 survey’s Conjecture 4.14 and special-case discussion, and searched for later Lu–Wenzel spectral results. The normal, rank-one and low-order cases are within the displayed target; the square-zero preprint claims only another restricted class. This is a bounded literature check, not a proof that no solution exists.
 

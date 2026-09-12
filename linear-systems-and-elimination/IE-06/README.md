@@ -13,22 +13,22 @@
 
 ## Context and notation
 
-All elimination in this problem is in exact arithmetic. Write $\|A\|_{\max}=\max_{ij}|a_{ij}|$. A pivoting path creates successive active Schur complements $S_1=A,S_2,\ldots,S_n$, with row/column permutations as appropriate. Its element-growth factor is
+All elimination in this problem is in exact arithmetic. Write $`\|A\|_{\max}=\max_{ij}|a_{ij}|`$. A pivoting path creates successive active Schur complements $`S_1=A,S_2,\ldots,S_n`$, with row/column permutations as appropriate. Its element-growth factor is
 
-$$
+```math
 \rho(A)=\frac{\max_{1\leq j\leq n}\|S_j\|_{\max}}{\|A\|_{\max}}.
-$$
+```
 
 Partial pivoting chooses a largest-magnitude entry in the active first column; complete pivoting chooses one anywhere in the active matrix. If ties occur, a universal statement includes every admissible tie choice; a supremum includes all admissible paths. These conventions remove implementation-dependent ambiguity. Matrices are nonsingular unless otherwise stated.
 
 ## Problem statement
 
-Let $G_n\in\mathbb R^{n\times n}$ have independent $N(0,1)$ entries. Is the following precise square-root upper-bound conjecture true?
+Let $`G_n\in\mathbb R^{n\times n}`$ have independent $`N(0,1)`$ entries. Is the following precise square-root upper-bound conjecture true?
 
-$$
+```math
 \text{For every }\eta>0,\qquad
 \lim_{n\to\infty}\Pr\{\rho_{\mathrm{PP}}(G_n)>n^{1/2+\eta}\}=0.
-$$
+```
 
 Here growth is measured over the exact-arithmetic Schur complements as defined above. This formulation asks only for the conjectured upper exponent; it does not add an unsupported matching lower-bound assertion or a limiting-distribution claim. It is also distinct from [IE-04](../IE-04/README.md), which requires a uniform result after perturbing every deterministic center and prescribes an exponential tail.
 

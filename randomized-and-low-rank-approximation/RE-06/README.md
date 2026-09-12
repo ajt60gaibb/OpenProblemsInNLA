@@ -13,29 +13,29 @@
 
 ## Context and notation
 
-Use exact real arithmetic, with comparisons, standard Gaussian sampling, and exact SVDs available as primitives; charge an SVD of an $a\times b$ matrix $O(ab\min(a,b))$ operations. This states the idealized arithmetic model used here, rather than a finite precision or bit complexity claim. A matrix–vector query returns either $Av$ or $A^\mathsf Tv$ for one chosen real vector $v$; both types count toward the total. Randomized guarantees are for every fixed input, with probability or expectation over the algorithm's randomness.
+Use exact real arithmetic, with comparisons, standard Gaussian sampling, and exact SVDs available as primitives; charge an SVD of an $`a\times b`$ matrix $`O(ab\min(a,b))`$ operations. This states the idealized arithmetic model used here, rather than a finite precision or bit complexity claim. A matrix–vector query returns either $`Av`$ or $`A^\mathsf Tv`$ for one chosen real vector $`v`$; both types count toward the total. Randomized guarantees are for every fixed input, with probability or expectation over the algorithm's randomness.
 
 ## Problem statement
 
-Let $n\ge1$, let $\mathcal F\subset\mathbb R^{n\times n}$ be explicitly given with $M=|\mathcal F|\ge2$, and let $A\in\mathbb R^{n\times n}$ be accessible only through matrix–vector queries. Set $t=\log(2M)$.
+Let $`n\ge1`$, let $`\mathcal F\subset\mathbb R^{n\times n}`$ be explicitly given with $`M=|\mathcal F|\ge2`$, and let $`A\in\mathbb R^{n\times n}`$ be accessible only through matrix–vector queries. Set $`t=\log(2M)`$.
 
 ### Question
 
-Do absolute constants $C>0$, integer $b\ge0$, and a uniform randomized algorithm exist that, for every $0<\varepsilon<1/2$, choose all query vectors and all choices between $A$ and $A^\mathsf T$ before receiving any oracle answers, make at most
+Do absolute constants $`C>0`$, integer $`b\ge0`$, and a uniform randomized algorithm exist that, for every $`0<\varepsilon<1/2`$, choose all query vectors and all choices between $`A`$ and $`A^\mathsf T`$ before receiving any oracle answers, make at most
 
-$$
+```math
 C\sqrt t\,\varepsilon^{-2}
 \bigl[1+\log(2+t)+\log(1/\varepsilon)\bigr]^b
-$$
+```
 
-queries, and return $B\in\mathcal F$ such that
+queries, and return $`B\in\mathcal F`$ such that
 
-$$
+```math
 \Pr\!\left[\|A-B\|_F\le(3+\varepsilon)
 \min_{D\in\mathcal F}\|A-D\|_F\right]\ge0.99?
-$$
+```
 
-Query choices may depend on $\mathcal F,\varepsilon$ and randomness. Only oracle calls are charged; candidate processing and processing of the answers are unrestricted.
+Query choices may depend on $`\mathcal F,\varepsilon`$ and randomness. Only oracle calls are charged; candidate processing and processing of the answers are unrestricted.
 
 ## References
 

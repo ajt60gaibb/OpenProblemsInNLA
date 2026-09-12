@@ -13,23 +13,27 @@
 
 ## Problem statement
 
-Fix integers $k\geq3$, $n_1,\ldots,n_k\geq1$, and $r\geq1$. In
-$V=\mathbb C^{n_1}\otimes\cdots\otimes\mathbb C^{n_k}$, let
-$$
+Fix integers $`k\geq3`$, $`n_1,\ldots,n_k\geq1`$, and $`r\geq1`$. In
+$`V=\mathbb C^{n_1}\otimes\cdots\otimes\mathbb C^{n_k}`$, let
+
+```math
 X_r=\overline{\left\{
 \sum_{\ell=1}^{r}v_{1,\ell}\otimes\cdots\otimes v_{k,\ell}:
 v_{i,\ell}\in\mathbb C^{n_i}
 \right\}}^{\,\mathrm{Zar}}.
-$$
-Let $S=\mathbb C[V]$ be the polynomial ring in the tensor entries, let $I(X_r)$ be its vanishing ideal, and let $A_r=S/I(X_r)$.
+```
 
-Is $A_r$ Cohen–Macaulay for every such format and rank threshold?
+Let $`S=\mathbb C[V]`$ be the polynomial ring in the tensor entries, let $`I(X_r)`$ be its vanishing ideal, and let $`A_r=S/I(X_r)`$.
 
-Explicitly, if $\mathfrak m$ is the ideal of positive-degree elements of $A_r$, the requested equality is
-$$
-\operatorname{depth}(A_r)_{\mathfrak m}
+Is $`A_r`$ Cohen–Macaulay for every such format and rank threshold?
+
+Explicitly, if $`\mathfrak m`$ is the ideal of positive-degree elements of $`A_r`$, the requested equality is
+
+```math
+\mathop{\mathrm{depth}}\nolimits(A_r)_{\mathfrak m}
 =\dim(A_r)_{\mathfrak m}.
-$$
+```
+
 Depth is the maximum length of a regular sequence in the maximal ideal: each successive element is a non-zero-divisor after quotienting by its predecessors. Dimension is Krull dimension. This is Oeding's conjecture that all secant varieties of Segre products are arithmetically Cohen–Macaulay. The zero tensor is retained by using the affine cone.
 
 ## Why it matters
@@ -43,4 +47,4 @@ These are the algebraic sets underlying low-border-rank tensor approximation. Co
 
 ### Status check — 2026-09-10
 
-Checked Oeding v2, including Theorems 3.1–3.2 and Proposition 3.5, and Jagiełła–Jelisiejew v2, Conjecture 3.32, with targeted later-resolution searches. Oeding proves substantive tensor cases, including the fourth secant of $\mathbb P^2\times\mathbb P^2\times\mathbb P^n$ for $n\ge3$, rather than only the matrix or rank-one cases. The June 2026 source still treats the all-format conjecture as open. Inheritance results require extra hypotheses and do not establish it universally. No full proof or counterexample was located.
+Checked Oeding v2, including Theorems 3.1–3.2 and Proposition 3.5, and Jagiełła–Jelisiejew v2, Conjecture 3.32, with targeted later-resolution searches. Oeding proves substantive tensor cases, including the fourth secant of $`\mathbb P^2\times\mathbb P^2\times\mathbb P^n`$ for $`n\ge3`$, rather than only the matrix or rank-one cases. The June 2026 source still treats the all-format conjecture as open. Inheritance results require extra hypotheses and do not establish it universally. No full proof or counterexample was located.

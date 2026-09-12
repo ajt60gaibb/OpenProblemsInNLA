@@ -12,25 +12,25 @@
 
 ## Context and notation
 
-The joint spectral radius of a nonempty compact set $\mathcal M\subset\mathbb C^{d\times d}$ is
+The joint spectral radius of a nonempty compact set $`\mathcal M\subset\mathbb C^{d\times d}`$ is
 
-$$
+```math
 \widehat\rho(\mathcal M)=\lim_{k\to\infty}
 \max_{A_1,\ldots,A_k\in\mathcal M}\|A_k\cdots A_1\|_2^{1/k}.
-$$
+```
 
 This definition also applies to finite real matrix sets. The ordinary spectral
-radius of one matrix is written $\rho(A)$.
+radius of one matrix is written $`\rho(A)`$.
 
 ## Problem statement
 
 Does a Turing machine exist which, on every input consisting of a
-finite nonempty list of matrices in $\mathbb Q^{d\times d}$, encoded by binary
+finite nonempty list of matrices in $`\mathbb Q^{d\times d}`$, encoded by binary
 integer numerators and positive denominators, halts and correctly decides whether
 
-$$
+```math
 \widehat\rho(\mathcal M)<1?
-$$
+```
 
 Dimension and list length are part of the input. No separation from the threshold
 is promised. The question asks for termination and correctness, without a
@@ -43,7 +43,7 @@ Jungers,
 §2.2.3, Open Question 1, printed p. 29 of the author manuscript. Blondel and Tsitsiklis,
 [The boundedness of all products of a pair of matrices is undecidable](https://www.sciencedirect.com/science/article/abs/pii/S0167691100000499),
 Systems & Control Letters 41 (2000), 135–140, §2, proves undecidability of
-the non-strict test $\widehat\rho\le1$. That theorem does not answer the
+the non-strict test $`\widehat\rho\le1`$. That theorem does not answer the
 strict test.
 
 The screen included “joint spectral radius” with “strict”, “decidability”,

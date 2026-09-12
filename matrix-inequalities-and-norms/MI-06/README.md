@@ -11,7 +11,7 @@
 
 **Negative result by Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent proof review: PASS.**
 
-No finite constant permits the proposed two-unitary Loewner-order domination for the arithmetic symmetric modulus, already in dimension three. A fixed rational example also refutes the proposed $\sqrt2$ constant. This concerns matrix order, not a separate norm triangle inequality.
+No finite constant permits the proposed two-unitary Loewner-order domination for the arithmetic symmetric modulus, already in dimension three. A fixed rational example also refutes the proposed $`\sqrt2`$ constant. This concerns matrix order, not a separate norm triangle inequality.
 
 The exact target is resolved. The original statement and source evidence are retained below; its former difficulty rating is historical.
 
@@ -19,15 +19,19 @@ The exact target is resolved. The original statement and source evidence are ret
 
 ## Problem statement
 
-For $X\in\mathbb C^{n\times n}$, define $|X|=(X^*X)^{1/2}$ and
+For $`X\in\mathbb C^{n\times n}`$, define $`|X|=(X^*X)^{1/2}`$ and
 
-$$S(X)=\frac{|X|+|X^*|}{2}.$$
+```math
+S(X)=\frac{|X|+|X^*|}{2}.
+```
 
-For every $n\ge1$ and every $X,Y\in\mathbb C^{n\times n}$, do there exist unitary $U,V\in\mathbb C^{n\times n}$ such that
+For every $`n\ge1`$ and every $`X,Y\in\mathbb C^{n\times n}`$, do there exist unitary $`U,V\in\mathbb C^{n\times n}`$ such that
 
-$$S(X+Y)\preceq\sqrt2\bigl(U S(X)U^*+V S(Y)V^*\bigr)?$$
+```math
+S(X+Y)\preceq\sqrt2\bigl(U S(X)U^*+V S(Y)V^*\bigr)?
+```
 
-Here $P\preceq Q$ means $Q-P$ is positive semidefinite. The conjectured universal factor $\sqrt2$ is already known to be necessary.
+Here $`P\preceq Q`$ means $`Q-P`$ is positive semidefinite. The conjectured universal factor $`\sqrt2`$ is already known to be necessary.
 
 ## Why it matters
 

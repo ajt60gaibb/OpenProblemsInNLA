@@ -8,15 +8,19 @@
 
 ## Statement
 
-For every $m\ge3$, $n\ge2$, and $h\in\mathbb C^{m(n-1)+1}$, form the symmetric tensor
-$$
+For every $`m\ge3`$, $`n\ge2`$, and $`h\in\mathbb C^{m(n-1)+1}`$, form the symmetric tensor
+
+```math
 H_{i_1\ldots i_m}=h_{i_1+\cdots+i_m-m},\qquad 1\le i_j\le n.
-$$
-Is $R(H)=R_{\rm sym}(H)$ always true? Here $R(H)$ is the least integer $r\ge0$ admitting
-$$
+```
+
+Is $`R(H)=R_{\rm sym}(H)`$ always true? Here $`R(H)`$ is the least integer $`r\ge0`$ admitting
+
+```math
 H=\sum_{j=1}^r u_{j,1}\otimes\cdots\otimes u_{j,m},\quad u_{j,k}\in\mathbb C^n,
-$$
-whereas $R_{\rm sym}(H)$ is the least $r$ admitting $H=\sum_{j=1}^r c_jv_j^{\otimes m}$, with $c_j\in\mathbb C$ and $v_j\in\mathbb C^n$. Empty sums represent zero. No genericity or Vandermonde restriction is imposed.
+```
+
+whereas $`R_{\rm sym}(H)`$ is the least $`r`$ admitting $`H=\sum_{j=1}^r c_jv_j^{\otimes m}`$, with $`c_j\in\mathbb C`$ and $`v_j\in\mathbb C^n`$. Empty sums represent zero. No genericity or Vandermonde restriction is imposed.
 
 ## Relevance
 

@@ -13,15 +13,15 @@
 
 ## Problem statement
 
-Let $\overline{\mathbb Q}_{\mathbb R}$ denote the real algebraic numbers. Is there a single algorithm which, given $d\ge1$, $A\in\overline{\mathbb Q}_{\mathbb R}^{d\times d}$, $u,v\in\overline{\mathbb Q}_{\mathbb R}^d$, and an interval $I=[a,b]$ with rational $0\le a\le b$ or $I=[a,\infty)$ with rational $a\ge0$, always halts and decides whether
+Let $`\overline{\mathbb Q}_{\mathbb R}`$ denote the real algebraic numbers. Is there a single algorithm which, given $`d\ge1`$, $`A\in\overline{\mathbb Q}_{\mathbb R}^{d\times d}`$, $`u,v\in\overline{\mathbb Q}_{\mathbb R}^d`$, and an interval $`I=[a,b]`$ with rational $`0\le a\le b`$ or $`I=[a,\infty)`$ with rational $`a\ge0`$, always halts and decides whether
 
-$$
+```math
 u^T e^{tA}v=0\qquad\text{for some }t\in I?
-$$
+```
 
-An algebraic real input is represented exactly by an integer polynomial and a rational isolating interval. The exponential is $e^{tA}=\sum_{j\ge0}(tA)^j/j!$. The witness time is a real number, not necessarily rational or algebraic. There is no diagonalizability assumption.
+An algebraic real input is represented exactly by an integer polynomial and a rational isolating interval. The exponential is $`e^{tA}=\sum_{j\ge0}(tA)^j/j!`$. The witness time is a real number, not necessarily rational or algebraic. There is no diagonalizability assumption.
 
-This is the continuous Skolem problem in matrix form. The equivalent scalar formulation asks whether the solution of a homogeneous linear differential equation with constant algebraic coefficients and algebraic initial data has a zero in $I$. Bounded and unbounded intervals are included in the same entry.
+This is the continuous Skolem problem in matrix form. The equivalent scalar formulation asks whether the solution of a homogeneous linear differential equation with constant algebraic coefficients and algebraic initial data has a zero in $`I`$. Bounded and unbounded intervals are included in the same entry.
 
 The problem is hyperplane reachability for a continuous linear dynamical system. Exact tangential contact can defeat simple sign-change detection, making the distinction between certified zero testing and numerical sampling important for matrix-exponential computations.
 
@@ -34,4 +34,4 @@ Status check (2026-09-10): the original full statement and current arXiv record 
 
 ## Audit — 2026-09-10
 
-Independently rechecked [Chonev–Ouaknine–Worrell, §1 and Theorem 7](https://arxiv.org/pdf/1506.00695). Added the exact unconditional subclass supporting Partially resolved: $d\le2$, $I=[0,\infty)$, proved in P. C. Bell, J.-C. Delvenne, R. M. Jungers and V. D. Blondel, [*The continuous Skolem-Pisot problem*](https://perso.uclouvain.be/vincent.blondel/publications/10BDJ.pdf), *Theoretical Computer Science* 411 (2010), 3625–3634, Theorem 10. The Schanuel-conditional result and reductions to a bounded problem are separate evidence of progress. The [2026 survey's author abstract](https://people.mpi-sws.org/~joel/publications/skolem_and_positivity_survey26abs.html) and targeted later searches yielded no unconditional general resolution. Both ratings are retained.
+Independently rechecked [Chonev–Ouaknine–Worrell, §1 and Theorem 7](https://arxiv.org/pdf/1506.00695). Added the exact unconditional subclass supporting Partially resolved: $`d\le2`$, $`I=[0,\infty)`$, proved in P. C. Bell, J.-C. Delvenne, R. M. Jungers and V. D. Blondel, [*The continuous Skolem-Pisot problem*](https://perso.uclouvain.be/vincent.blondel/publications/10BDJ.pdf), *Theoretical Computer Science* 411 (2010), 3625–3634, Theorem 10. The Schanuel-conditional result and reductions to a bounded problem are separate evidence of progress. The [2026 survey's author abstract](https://people.mpi-sws.org/~joel/publications/skolem_and_positivity_survey26abs.html) and targeted later searches yielded no unconditional general resolution. Both ratings are retained.

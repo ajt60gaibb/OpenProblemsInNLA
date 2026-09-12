@@ -1,0 +1,34 @@
+# PR153: bounded native-reduction source analysis
+
+**Conclusion: no correctness blocker demonstrated on this precise pathway.** For the pinned Comparator and Lean 4.33.1 implementation, the genuine `Lean.reduceBool`/`Lean.reduceNat` declarations are rejected through their forbidden `Lean.trustCompiler` dependency. Independently, native evaluation during the fresh replay cannot obtain an IR declaration: the interpreter fails before invoking a native function, and that exception makes Comparator reject the replay. Explicit rejection or trusted binding of these two primitive names is reasonable defense in depth, but is not necessary to repair a demonstrated acceptance gap in this exact configuration.
+
+Scope: source reasoning only, by Codex agent `/root/audit_inequalities`, 2026-09-12. No candidate code, native-reduction test, or exploit example was written or executed. This is not a general claim about arbitrary Lean environments, future versions, or all possible checker vulnerabilities. Required final CI separately exercises ordinary native-axiom rejection.
+
+## Exact sources
+
+Lean source commit: `819816b2e0a3bf405af45ae5c7af2491d8f5bee6`, the commit recorded by the retained Lean 4.33.1 toolchain receipt. The files were fetched directly from the primary `leanprover/lean4` repository at this commit. Comparator source is the lock-bound Forsythe copy at `8d1b0c0545a77b40245e84705aa7d273e6c81e62`.
+
+Primary Lean files are retained in `/private/tmp/nla-review-inequalities/pr153-native-source/`: `Environment.lean`, `Replay.lean`, `CompilerM.lean`, `ir_interpreter.cpp`, `Init-Core.lean`, `kernel_environment.cpp`, and `kernel_exception.h`. The kernel dispatch source is `/private/tmp/nla-review-tensors/pr153-lean4331-type-checker.cpp`. Comparator sources are under `/private/tmp/nla-review-tensors/pr153-pinned-tools/.tools/comparator/`.
+
+## Why the axiom check alone is not the complete argument
+
+In [Init/Core.lean](https://github.com/leanprover/lean4/blob/819816b2e0a3bf405af45ae5c7af2491d8f5bee6/src/Init/Core.lean), lines 2374–2418, the genuine opaque primitive bodies deliberately reference `Lean.trustCompiler`. Comparator's `runForUsedConsts` traverses opaque bodies, and `checkAxioms` rejects that axiom before replay because it is not permitted. This covers authentic uses of the genuine primitives.
+
+However, the kernel's `reduce_native` dispatch in `type_checker.cpp:614–635` recognizes the two names directly, without checking their source-body identity or a trustCompiler marker. They are absent from Comparator's explicit primitive comparison list. Therefore the genuine-body axiom dependency alone is not a sufficient general argument about all submitted `ConstantInfo` data. The decisive additional restriction here is the fresh replay environment.
+
+## Why fresh replay cannot evaluate native code through this dispatch
+
+1. Comparator `Main.lean:210–226` creates `Lean.mkEmptyEnvironment` and passes the submitted constant map to `Lean.Environment.replay`. [Environment.lean:1530–1545](https://github.com/leanprover/lean4/blob/819816b2e0a3bf405af45ae5c7af2491d8f5bee6/src/Lean/Environment.lean) creates empty constants/module indices and initial extension states. [Replay.lean:58–101 and 176–189](https://github.com/leanprover/lean4/blob/819816b2e0a3bf405af45ae5c7af2491d8f5bee6/src/Lean/Replay.lean) adds kernel declarations with `addDeclCore`; it does not import candidate modules, compile declarations, or populate compiler IR.
+2. [CompilerM.lean:83–118](https://github.com/leanprover/lean4/blob/819816b2e0a3bf405af45ae5c7af2491d8f5bee6/src/Lean/Compiler/IR/CompilerM.lean) initializes the IR declaration map empty. `findInterpDecl` at lines 145–154 consults module IR/import entries when a module index exists, otherwise only this environment's IR map. Fresh replay has neither populated source of IR. Kernel-to-elaborator conversion at `Environment.lean:644–647` wraps that kernel environment; it does not import the checker's modules into it.
+3. [ir_interpreter.cpp:1170–1171](https://github.com/leanprover/lean4/blob/819816b2e0a3bf405af45ae5c7af2491d8f5bee6/src/library/ir_interpreter.cpp) passes the converted environment to `run_boxed`. `call_boxed` at line 1065 calls `lookup_symbol` unconditionally before even handling a nullary constant. `lookup_symbol` requires `get_decl` at lines 835, 843, and 847, including both branches that find an existing global native-symbol cache entry. `get_decl` at lines 872–877 consults the environment's IR and throws if it is absent. Global linked symbols do not independently satisfy this prerequisite.
+4. Per-interpreter caches do not defeat that restriction. `with_interpreter` at lines 431–443 reuses a running interpreter only for the identical environment and options objects; otherwise it creates a new interpreter because the caches contain environment data. A fresh replay environment cannot borrow a differently populated interpreter's local symbol/constant cache. The process-wide native-symbol cache still follows the mandatory `get_decl` path above.
+
+The source therefore supports failure before any result is obtained from the questioned native dispatch. It does not imply that the kernel never enters the interpreter wrapper: the wrapper can be entered and then reject the missing IR declaration.
+
+## Exception propagation is rejection, not fallback acceptance
+
+The missing-IR branch throws a C++ `lean::exception`. Neither `run_boxed`, `run_boxed_kernel`, nor `reduce_native` converts it to a successful value or a “no reduction” result. [kernel/environment.cpp:287–295](https://github.com/leanprover/lean4/blob/819816b2e0a3bf405af45ae5c7af2491d8f5bee6/src/kernel/environment.cpp) wraps declaration checking with `catch_kernel_exceptions`. [kernel/kernel_exception.h:161–222](https://github.com/leanprover/lean4/blob/819816b2e0a3bf405af45ae5c7af2491d8f5bee6/src/kernel/kernel_exception.h) catches an ordinary C++ exception and returns `Except.error (Kernel.Exception.other ...)`.
+
+`Replay.addDecl` at lines 59–62 converts that error to a thrown IO error, and `replayConstant` at lines 135–136 adds declaration context and rethrows it. Comparator's `runBuiltinKernel` catches the replay error and returns a rejection string; `verifyMatch` then throws if any kernel result is an error. There is no silent fallback accepting a value after the attempted native reduction fails.
+
+This reasoning depends on keeping the exact fresh, uncompiled, unimported replay construction and the separately trusted checker/toolchain. A future change that imports modules, injects compiler IR, or reuses an elaboration environment must reopen this analysis. Binding or rejecting the two primitive names explicitly could make that invariant easier to audit in a follow-up; such hardening must receive its own source review and tests rather than being described as already exercised by historical controls.

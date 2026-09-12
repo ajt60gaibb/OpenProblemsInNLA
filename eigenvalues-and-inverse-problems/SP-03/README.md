@@ -7,30 +7,37 @@
 
 **Rating rationale:** Challenging reflects an all-ranks algebraic critical-point count with only low-rank computations; specialist impact concerns the algebraic complexity of symplectic matrix nearness.
 
-For each $m\ge1$, set
-$$
+For each $`m\ge1`$, set
+
+```math
 J=\begin{pmatrix}0&I_m\\-I_m&0\end{pmatrix},\qquad
-\operatorname{Sp}_{2m}(\mathbb C)=
+\mathop{\mathrm{Sp}}\nolimits_{2m}(\mathbb C)=
 \{X\in\mathbb C^{2m\times2m}:X^TJX=J\}.
-$$
-For a generic data matrix $U\in\mathbb C^{2m\times2m}$, let $D_m$ be the number of complex critical points on this variety of
-$$
-f_U(X)=\operatorname{tr}\bigl((X-U)^T(X-U)\bigr).
-$$
-This is the complexification of squared real Frobenius distance; the transpose is not a conjugate transpose. Equivalently, count the solutions $X$ of $X^TJX=J$ and
-$$
-\operatorname{tr}\bigl((U-X)^TXH\bigr)=0
+```
+
+For a generic data matrix $`U\in\mathbb C^{2m\times2m}`$, let $`D_m`$ be the number of complex critical points on this variety of
+
+```math
+f_U(X)=\mathop{\mathrm{tr}}\nolimits\bigl((X-U)^T(X-U)\bigr).
+```
+
+This is the complexification of squared real Frobenius distance; the transpose is not a conjugate transpose. Equivalently, count the solutions $`X`$ of $`X^TJX=J`$ and
+
+```math
+\mathop{\mathrm{tr}}\nolimits\bigl((U-X)^TXH\bigr)=0
 \quad\text{for every }H\in\mathbb C^{2m\times2m}
 \text{ satisfying }H^TJ+JH=0.
-$$
+```
+
 “Generic” means outside a proper Zariski-closed set where the finite critical-point count can change. Is
-$$
+
+```math
 D_m=2^{m^2}+2^{\,2m-1}
 \qquad\text{for every }m\ge1?
-$$
+```
 
 ## Relevance
- $D_m$ measures the algebraic complexity of finding the nearest real symplectic matrix. This is a structured matrix nearness problem, relevant when numerical approximations should preserve a symplectic form. The standard Frobenius inner product and the displayed $J$ are part of the problem.
+ $`D_m`$ measures the algebraic complexity of finding the nearest real symplectic matrix. This is a structured matrix nearness problem, relevant when numerical approximations should preserve a symplectic form. The standard Frobenius inner product and the displayed $`J`$ are part of the problem.
 
 ## References
 
@@ -38,7 +45,7 @@ $$
 - Z. Lai, L.-H. Lim, and K. Ye, *Euclidean Distance Degree in Manifold Optimization*, SIAM Journal on Optimization 35 (2025), 2402–2422, related ED-degree results for flag, Grassmann, and Stiefel models ([journal](https://doi.org/10.1137/25M1735032)).
 
 ## Status check — 2026-09-08
- The source computed $D_1=4$, $D_2=24$, and $D_3=544$, and explicitly proposed the displayed pattern. It did not assert a proof. Searches for “symplectic group”, “Euclidean distance degree”, “ED degree”, “544”, and 2024–2026 found no proof, counterexample, or additional general formula. The 2025 related article's abstract treats different manifold families. No recent explicit reaffirmation of this exact formula was located.
+ The source computed $`D_1=4`$, $`D_2=24`$, and $`D_3=544`$, and explicitly proposed the displayed pattern. It did not assert a proof. Searches for “symplectic group”, “Euclidean distance degree”, “ED degree”, “544”, and 2024–2026 found no proof, counterexample, or additional general formula. The 2025 related article's abstract treats different manifold families. No recent explicit reaffirmation of this exact formula was located.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

@@ -12,14 +12,14 @@
 
 ## Problem statement
 
-Fix an integer $s\ge2$ and $C\ge1$. Suppose $r_k\le k$, $k/r_k\to C$, and $n_k/r_k\to\infty$. For every deterministic sequence $M_k\in\{-1,0,1\}^{k\times n_k}$ with exactly $s$ nonzero entries per column, and a uniformly random $r_k$-element column set $I_k$, prove or disprove
+Fix an integer $`s\ge2`$ and $`C\ge1`$. Suppose $`r_k\le k`$, $`k/r_k\to C`$, and $`n_k/r_k\to\infty`$. For every deterministic sequence $`M_k\in\{-1,0,1\}^{k\times n_k}`$ with exactly $`s`$ nonzero entries per column, and a uniformly random $`r_k`$-element column set $`I_k`$, prove or disprove
 
-$$
+```math
 \forall\eta>0,\qquad
 \Pr\{\sigma_{\min}((M_k)_{:I_k})>\eta\}\longrightarrow0.
-$$
+```
 
-Here $\sigma_{\min}(B)=\inf_{\|x\|_2=1}\|Bx\|_2$. There is no hypothesis controlling intersections of column supports.
+Here $`\sigma_{\min}(B)=\inf_{\|x\|_2=1}\|Bx\|_2`$. There is no hypothesis controlling intersections of column supports.
 
 ## Reference
 

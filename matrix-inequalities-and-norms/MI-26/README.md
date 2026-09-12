@@ -15,7 +15,7 @@
 
 **Negative result by Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent proof review: PASS.**
 
-The real-valued concave function $f(x)=x-x^2$ and two rational projections refute the two-unitary inequality; an explicit positive definite variant also works. The allowed condition is $f(0)\ge0$, without global nonnegativity or monotonicity. This does not refute the narrower nonnegative-valued function class.
+The real-valued concave function $`f(x)=x-x^2`$ and two rational projections refute the two-unitary inequality; an explicit positive definite variant also works. The allowed condition is $`f(0)\ge0`$, without global nonnegativity or monotonicity. This does not refute the narrower nonnegative-valued function class.
 
 The exact target is resolved. The original statement and source evidence are retained below; its former difficulty rating is historical.
 
@@ -23,16 +23,20 @@ The exact target is resolved. The original statement and source evidence are ret
 
 ## Problem statement
 
-For every integer $n\ge1$, positive semidefinite matrices $A,B\in\mathbb C^{n\times n}$, and real-valued concave function $f:[0,\infty)\to\mathbb R$ with $f(0)\ge0$, must there exist unitary matrices $U,V\in\mathbb C^{n\times n}$ such that
-$$
+For every integer $`n\ge1`$, positive semidefinite matrices $`A,B\in\mathbb C^{n\times n}`$, and real-valued concave function $`f:[0,\infty)\to\mathbb R`$ with $`f(0)\ge0`$, must there exist unitary matrices $`U,V\in\mathbb C^{n\times n}`$ such that
+
+```math
 f(A+B)\preceq Uf(A)U^*+Vf(B)V^*?
-$$
-Here $X\preceq Y$ means $Y-X$ is positive semidefinite, $U^*U=UU^*=I$, and $f(A)$ is defined by applying $f$ to the eigenvalues in a spectral decomposition of $A$. Concavity means
-$$
+```
+
+Here $`X\preceq Y`$ means $`Y-X`$ is positive semidefinite, $`U^*U=UU^*=I`$, and $`f(A)`$ is defined by applying $`f`$ to the eigenvalues in a spectral decomposition of $`A`$. Concavity means
+
+```math
 f(\theta x+(1-\theta)y)\ge\theta f(x)+(1-\theta)f(y)
 \quad (x,y\ge0,\ 0\le\theta\le1).
-$$
-The function is not assumed nonnegative on its entire domain; adding that assumption would change the problem. The unitaries may depend on $A,B,f$.
+```
+
+The function is not assumed nonnegative on its entire domain; adding that assumption would change the problem. The unitaries may depend on $`A,B,f`$.
 
 The requested inequality is an order comparison between sums of matrix functions up to changes of orthonormal basis. Such comparisons yield spectral and norm bounds for nonlinear transformations of positive semidefinite matrices.
 

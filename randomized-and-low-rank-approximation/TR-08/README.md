@@ -12,21 +12,21 @@
 
 ## Problem statement
 
-Let $k\to\infty$ through multiples of 100, $n_k\ge k^{1+c}$ for fixed $c>0$, and $1\le s_k\le k$. Independently for each column of $M_k\in\mathbb R^{k\times n_k}$, choose $s_k$ distinct row locations uniformly and put independent signs $\pm1/\sqrt{s_k}$ there. Independently select a uniform $k/100$-element column set $I_k$.
+Let $`k\to\infty`$ through multiples of 100, $`n_k\ge k^{1+c}`$ for fixed $`c>0`$, and $`1\le s_k\le k`$. Independently for each column of $`M_k\in\mathbb R^{k\times n_k}`$, choose $`s_k`$ distinct row locations uniformly and put independent signs $`\pm1/\sqrt{s_k}`$ there. Independently select a uniform $`k/100`$-element column set $`I_k`$.
 
-Determine necessary and sufficient asymptotic conditions on $s_k$ for the existence of an absolute $a>0$ such that
+Determine necessary and sufficient asymptotic conditions on $`s_k`$ for the existence of an absolute $`a>0`$ such that
 
-$$
+```math
 \Pr\{\sigma_{\min}((M_k)_{:I_k})\ge a\}=1-o(1).
-$$
+```
 
 Probability includes both random constructions. The requested threshold concerns a lower singular-value bound, not an upper distortion estimate.
 
 ## Precision of the target
 
-A complete resolution should give an explicit asymptotic criterion on the sparsity sequence $(s_k)$ that is equivalent to the displayed probability bound for some fixed positive $a$. Separate necessary and sufficient estimates are partial progress whenever a gap between them leaves this property undecided. There is no blanket allowance to ignore constant or logarithmic factors: they need to be resolved insofar as they affect whether the property holds. Optimizing the numerical value of $a$ is not required.
+A complete resolution should give an explicit asymptotic criterion on the sparsity sequence $`(s_k)`$ that is equivalent to the displayed probability bound for some fixed positive $`a`$. Separate necessary and sufficient estimates are partial progress whenever a gap between them leaves this property undecided. There is no blanket allowance to ignore constant or logarithmic factors: they need to be resolved insofar as they affect whether the property holds. Optimizing the numerical value of $`a`$ is not required.
 
-The paragraph following Problem 7.2 in the source suggests a natural intermediate goal: establish whether there is a critical logarithmic exponent $\alpha_*>0$ and determine its value. The proposed separation is failure of the displayed property for $s_k=O((\log k)^{\alpha_*-\varepsilon})$ and success for $s_k=\Omega((\log k)^{\alpha_*+\varepsilon})$, for every fixed $\varepsilon>0$ in the admissible sparsity range. Such a result need not settle the behavior at $s_k=(\log k)^{\alpha_*+o(1)}$, including possible constant or $\log\log k$ corrections. It is therefore a milestone toward the full target, rather than a replacement for it; existence of such an exponent is not assumed.
+The paragraph following Problem 7.2 in the source suggests a natural intermediate goal: establish whether there is a critical logarithmic exponent $`\alpha_*>0`$ and determine its value. The proposed separation is failure of the displayed property for $`s_k=O((\log k)^{\alpha_*-\varepsilon})`$ and success for $`s_k=\Omega((\log k)^{\alpha_*+\varepsilon})`$, for every fixed $`\varepsilon>0`$ in the admissible sparsity range. Such a result need not settle the behavior at $`s_k=(\log k)^{\alpha_*+o(1)}`$, including possible constant or $`\log\log k`$ corrections. It is therefore a milestone toward the full target, rather than a replacement for it; existence of such an exponent is not assumed.
 
 ## Reference
 

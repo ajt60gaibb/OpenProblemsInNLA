@@ -68,6 +68,11 @@ a source build. This changes build cost, not the statement, proof, axiom
 policy or sandbox. Network is used during public dependency preparation;
 the proof build and export run without network. The driver does not read
 or copy credentials and removes authentication environment variables.
+The sandbox restricts writes and network access but mounts the host filesystem
+read-only. Candidate code can read host-readable files and include their contents
+in logs; it does not provide host-file confidentiality. Use an isolated,
+credential-free Linux runner for authoritative checks.
+
 As in Comparator's published trust model, the infrastructure, Challenge,
 Lakefile, dependencies and toolchain must be trusted separately.
 
