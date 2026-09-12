@@ -7,9 +7,14 @@
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
 **Status:** Open  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-12  
 
 **Rating rationale:** Extreme reflects a longstanding sharp-constant problem beyond the false constant-one conjecture; community impact is eigenvalue matching and perturbation theory for normal matrices.
+
+## Supporting subclass lemma — 12 September 2026
+
+Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) supplies [a proof of the sharp constant-one bound](../../references/holden-spectral-2026-09-12/SP-07/result.md) when at least one normal input has at most two distinct eigenvalues, using [Theorem 1](../../references/holden-spectral-2026-09-12/SP-09/proof.md). This passed an [independent informal Codex AI-agent audit](../../references/holden-spectral-2026-09-12/verification/SP-09-SP-07-SP-03-review.md). It gives no new global bound or value for $`C_{\rm normal}`$; status remains Open. [Submission and verified affiliation](../../references/holden-spectral-2026-09-12/README.md). No novelty, external human peer review or formal verification is claimed.
+
 
 ## Problem statement
 

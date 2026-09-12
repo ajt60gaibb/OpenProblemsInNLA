@@ -1,6 +1,6 @@
 # All problems and their status
 
-**127 problems with open targets:** 55 open and 72 partially resolved. **90 other retained entries**, excluded from the open count.
+**127 problems with open targets:** 54 open and 73 partially resolved. **90 other retained entries**, excluded from the open count.
 
 **Resolution evidence:** 79 solved (published or independently audited); 11 Lean verified.
 
@@ -53,7 +53,7 @@ Retained entries outside the open count:
 | [IS-01](eigenvalues-and-inverse-problems/IS-01/README.md) | Two permutation matrices generate the doubly stochastic spectral boundary | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-01/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-01/problem.tex) |
 | [IS-04](eigenvalues-and-inverse-problems/IS-04/README.md) | A condition number of two for a sign matrix in every dimension | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-04/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-04/problem.tex) |
 | [IS-05](eigenvalues-and-inverse-problems/IS-05/README.md) | The optimal decay exponent for the conditioning of sign matrices | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-05/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-05/problem.tex) |
-| [KE-02](eigenvalues-and-inverse-problems/KE-02/README.md) | Construct a separating diagonal perturbation in nearly linear time | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/KE-02/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/KE-02/problem.tex) |
+| [KE-02](eigenvalues-and-inverse-problems/KE-02/README.md) | Construct a separating diagonal perturbation in nearly linear time | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/KE-02/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/KE-02/problem.tex) |
 | [SP-01](eigenvalues-and-inverse-problems/SP-01/README.md) | The sharp generic threshold for spectral-subspace rotation | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-01/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-01/problem.tex) |
 | [SP-02](eigenvalues-and-inverse-problems/SP-02/README.md) | The sharp off-diagonal threshold for spectral-subspace rotation | **🔵 OPEN** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-02/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-02/problem.tex) |
 | [SP-03](eigenvalues-and-inverse-problems/SP-03/README.md) | The Euclidean distance degree of the real symplectic group | **🔵 OPEN** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/SP-03/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-03/problem.tex) |

@@ -21,6 +21,17 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### KE-02, SP-08 and SP-09 — spectral partial results — Sidney Holden
+
+**Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-spectral-2026-09-12/README.md).
+
+- [KE-02](eigenvalues-and-inverse-problems/KE-02/README.md): [Theorems A and B and Section 5](references/holden-spectral-2026-09-12/KE-02/proof.md) give deterministic diagonal separation for weak coupling, constant-diagonal/equal-magnitude tridiagonal matrices at every coupling strength, and every order-two input. General tridiagonal inputs remain open. [Independent review](references/holden-spectral-2026-09-12/verification/KE-02-review.md).
+- [SP-08](eigenvalues-and-inverse-problems/SP-08/README.md): [exact finite spread results](references/holden-spectral-2026-09-12/SP-08/proof.md) cover (n,a) = (8,1/2), (10,0), (11,0), with rank-two endpoint maximizers. The all-dimensions/all-parameters target remains open. [Independent review](references/holden-spectral-2026-09-12/verification/SP-08-review.md).
+- [SP-09](eigenvalues-and-inverse-problems/SP-09/README.md): [Theorem 1 and its corollary](references/holden-spectral-2026-09-12/SP-09/proof.md) prove finite-amplification invariance when at least one normal spectrum has at most two points. Both spectra having at least three distinct values remains open. [Independent review](references/holden-spectral-2026-09-12/verification/SP-09-SP-07-SP-03-review.md).
+
+Separate informal Codex AI-agent audits passed these partial scopes. None is Solved; no Lean verification, external human peer review or novelty claim is asserted. The same submission records an audited SP-03 reduction and SP-07 subclass lemma, with both statuses retained as Open. Original targets, IDs, paths and prior-source credit are preserved; the open count does not decrease.
+
+
 ### AV-03 and IV-01 — further partial results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission record and verified affiliation](references/holden-interval-ave-2026-09-12/README.md).
