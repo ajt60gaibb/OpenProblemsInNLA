@@ -1,8 +1,8 @@
 # All problems and their status
 
-**139 problems with open targets:** 65 open and 74 partially resolved. **78 other retained entries**, excluded from the open count.
+**138 problems with open targets:** 64 open and 74 partially resolved. **79 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 77 solved (published or independently audited); 1 Lean verified.
+**Resolution evidence:** 78 solved (published or independently audited); 1 Lean verified.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -277,7 +277,12 @@ Retained entries outside the open count:
 | [FR-09](frames-and-matrix-designs/FR-09/README.md) | Complex equiangular tight frames with twice the dimension | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](frames-and-matrix-designs/FR-09/problem.pdf) · [TeX](frames-and-matrix-designs/FR-09/problem.tex) |
 | [FR-10](frames-and-matrix-designs/FR-10/README.md) | Sharp sampling complexity for Walsh restricted isometries | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-10/problem.pdf) · [TeX](frames-and-matrix-designs/FR-10/problem.tex) |
 | [FR-11](frames-and-matrix-designs/FR-11/README.md) | The minimum number of quadratic measurements for generalized phase retrieval | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](frames-and-matrix-designs/FR-11/problem.pdf) · [TeX](frames-and-matrix-designs/FR-11/problem.tex) |
-| [FR-12](frames-and-matrix-designs/FR-12/README.md) | Counting real Hadamard matrices | **🔵 OPEN** | extreme | interesting to the community | [PDF](frames-and-matrix-designs/FR-12/problem.pdf) · [TeX](frames-and-matrix-designs/FR-12/problem.tex) |
+
+Retained entries outside the open count:
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [FR-12](frames-and-matrix-designs/FR-12/README.md) | Counting real Hadamard matrices | **✅ SOLVED** | extreme | interesting to the community | [PDF](frames-and-matrix-designs/FR-12/problem.pdf) · [TeX](frames-and-matrix-designs/FR-12/problem.tex) |
 
 
 ## [Matrix discrepancy and optimization](matrix-discrepancy-and-optimization/README.md)

@@ -4,13 +4,13 @@ A collection of precise open problems drawn from books and research
 publications, with references and dated checks for subsequent solutions.
 
 <!-- catalog-summary -->
-**139 problems with open targets:** 65 open and 74 partially resolved. **78 other retained entries**, excluded from the open count.
+**138 problems with open targets:** 64 open and 74 partially resolved. **79 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 77 solved (published or independently audited); 1 Lean verified.
+**Resolution evidence:** 78 solved (published or independently audited); 1 Lean verified.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
-**[Browse all 139 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
+**[Browse all 138 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
 <!-- /catalog-summary -->
 
 ## Browse by category
@@ -24,7 +24,7 @@ Each entry records its own literature-check date. Literature checks are bounded;
 | [Tensor computations](tensor-computations/README.md) | 18 |
 | [Nonnegative and positive factorizations](nonnegative-and-positive-factorizations/README.md) | 7 |
 | [Matrix inequalities and norms](matrix-inequalities-and-norms/README.md) | 19 |
-| [Frames and matrix designs](frames-and-matrix-designs/README.md) | 12 |
+| [Frames and matrix designs](frames-and-matrix-designs/README.md) | 11 |
 | [Matrix discrepancy and optimization](matrix-discrepancy-and-optimization/README.md) | 3 |
 | [Arithmetic and complexity](arithmetic-and-complexity/README.md) | 13 |
 | [Intervals and absolute value equations](intervals-and-absolute-value-equations/README.md) | 2 |
