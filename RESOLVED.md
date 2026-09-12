@@ -556,11 +556,13 @@ Eight exact targets passed independent agent review. Author: **Matthew J. Colbro
 
 [Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-17.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-17-review.md).
 
-### IE-18 - Negative resolution
+### IE-18 — Negative resolution by Matthew J. Colbrook; Lean formalization by George Stepaniants
 
 [Original statement](linear-systems-and-elimination/IE-18/README.md). **Solved.** Section 2 refutes the exact four-step identity using $M=\operatorname{diag}(1/10,1/2,3/5)$ and $v=(1,1,1)^T$: the squared norm ratio is $1920682/21289638243>1/14641$, the square of the proposed factor. Both $M$ and $I-M$ are positive definite. Section 3 proves unbounded underestimation over a parameter family. The separate asymptotic convergence question is not resolved.
 
 [Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-18.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-18-review.md).
+
+**Lean verified — 2026-09-12 (original negative target).** Mathematical counterexample: **Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Lean formalization: **George Stepaniants**, Department of Computing and Mathematical Sciences, California Institute of Technology. [Proof and verification evidence](linear-systems-and-elimination/IE-18/README.md#lean-proof-and-verification-evidence--2026-09-12) cover the actual residual certificate, admissible counterexample and full original negation through `NLA.IE18.not_fourStepConjecture`, at [immutable revision `7b8512e`](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/7b8512e21c50adc8597dcdbed32f2aec13c3b43e/linear-systems-and-elimination/IE-18/lean). [Linux Comparator and kernel checks passed](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34703657954) with only the standard three axioms. The stronger parameter family and separate asymptotic question are outside the formalized claims.
 
 ### IE-19 - Negative resolution and sharp replacement
 

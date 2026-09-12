@@ -4,7 +4,7 @@ This project proves a negative answer to the [original IE-18 identity](../README
 
 Formalization: **George Stepaniants**, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, with AI-agent assistance. Original mathematical counterexample and informal proof: **Matthew J. Colbrook**. [formalization.yaml](formalization.yaml) records the sources, roles and automation.
 
-The complete proof builds under pinned Lean 4.33.1. Two independent final proof referees re-elaborated the source successfully. All eight audited internal results and exports pass `#assert_trust kernel` and report exactly `propext`, `Classical.choice`, and `Quot.sound`. Authoritative Linux Comparator remains pending; the catalog status is still `Solved`.
+The complete proof builds under pinned Lean 4.33.1. Two independent final proof referees re-elaborated the source successfully. All eight audited internal results and exports pass `#assert_trust kernel` and report exactly `propext`, `Classical.choice`, and `Quot.sound`. [Authoritative Linux Comparator passed on 12 September 2026](verification/linux-2026-09-12/OPERATIONAL-REVIEW.md) at immutable revision `7b8512e21c50adc8597dcdbed32f2aec13c3b43e`. The catalog entry now records `Lean verified` for the complete original negative target.
 
 ## Reviewed statements and proof
 
@@ -38,4 +38,4 @@ tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
 tools/lean/verify.sh linear-systems-and-elimination/IE-18/lean /absolute/path/to/nla-lean-tools
 ```
 
-The project must be committed and unchanged. The harness checks fresh inputs in the real Linux sandbox, runs positive and negative controls, and applies [Comparator](comparator.json). Formal identity and kernel acceptance supplement independent English-to-Lean fidelity review. A successful Linux result and immutable proof links are required before catalog promotion.
+The project must be committed and unchanged. The harness checks fresh inputs in the real Linux sandbox, runs positive and negative controls, and applies [Comparator](comparator.json). Formal identity and kernel acceptance supplement independent English-to-Lean fidelity review. The [retained Linux result and raw logs](verification/linux-2026-09-12/) bind the successful run to the immutable proof revision. The remote Ubuntu run used fresh project inputs and the matching official Mathlib dependency cache; the Mac-based referee checks are recorded separately.
