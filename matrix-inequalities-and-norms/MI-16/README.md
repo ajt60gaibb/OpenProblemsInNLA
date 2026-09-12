@@ -3,10 +3,18 @@
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
 **Provenance:** explicit exact extremal problem; no conjectured optimizer is supplied  
-**Status:** Open  
-**Last checked:** 2026-09-10
+**Status:** Partially resolved
+**Last checked:** 2026-09-12
 
 **Rating rationale:** An exact formula for arbitrary spectra would resolve a longstanding permanent optimization barrier and inform prescribed-spectrum matrix optimization.
+
+## Exact formula for one-exceptional-eigenvalue spectra — 12 September 2026
+
+**Author:** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](../../references/holden-matrix-2026-09-12/README.md).
+
+The [Theorem and its proof](../../references/holden-matrix-2026-09-12/MI-16/result.md) determine the maximum for every spectrum $`(\alpha,\beta,\ldots,\beta)`$ with $`\alpha,\beta\ge0`$ in every order, including $`\alpha<\beta`$. It compares finitely many explicit support-size polynomials and supplies maximizers. The formula for arbitrary spectra remains open.
+
+A separate [independent Codex AI-agent audit](../../references/holden-matrix-2026-09-12/verification/MI-16-review.md) passed this limited scope. This is informal automated review; no complete resolution, historical novelty, external human peer review or formal verification is claimed. No Lean verification was performed.
 
 ## Problem statement
 
