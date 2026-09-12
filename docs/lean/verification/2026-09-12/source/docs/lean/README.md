@@ -56,5 +56,3 @@ Every project includes a truthful `formalization.yaml` following the pinned [v0.
 A complete problem PR includes successful build and Comparator logs, the actual transitive axiom report, all referee reports, exact source correspondence, and the manifest. Link an immutable proof revision from the canonical README and the existing `RESOLVED.md` entry. Include the affected Markdown, TeX, PDF, and regenerated indexes with the permanent-ID checks. Until all of those are verified, retain the current mathematical status and label the formalization's incomplete scope explicitly.
 
 The infrastructure PR itself changes no problem status and verifies no mathematical target. Existing external Lean verifications remain credited and should not be silently replaced.
-
-The shared checker passed its [dated Linux operational audit](verification/2026-09-12/OPERATIONAL-REVIEW.md) at immutable commit `214c142d6bfe0f0c338808f188062acbbad0fb19`. The retained archive, logs, source snapshots and hashes cover actual sandbox, raw-kernel, Comparator and rejection controls. This fixture result supports the infrastructure; every problem still needs its own fresh verification run.
