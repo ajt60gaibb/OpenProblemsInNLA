@@ -34,7 +34,7 @@ the randomized LU squared-error factor to
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RA-03}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ the randomized LU squared-error factor to \(2^k\)\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to specialist\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -59,6 +59,91 @@ to specialist\par}
 lose the trace identities behind Cholesky bounds; specialist impact is a
 sharper guarantee for one randomized LU rule.\\
 \textbf{Topic:} randomized LU; low-rank approximation
+
+\subsection{Lean proof and verification evidence ---
+2026-09-12}\label{lean-proof-and-verification-evidence-2026-09-12}
+
+\textbf{The original RA-03 conjecture is false, with a complete
+Lean-verified counterexample.} The
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/tree/973f95969701601dcae7b30683b175843baa9c22/randomized-and-low-rank-approximation/RA-03/lean}{proof
+at revision 973f959} proves that
+\(A=\left(\begin{smallmatrix}2&1\\1&2\end{smallmatrix}\right)\) has
+expected squared Frobenius residual \(18/5>2\) after one pivot, whereas
+its actual rank-one singular-value tail is \(1\). The formal statement
+retains arbitrary complex rectangular inputs, the joint conditional
+entry probabilities, zero absorption, the genuine Frobenius norm and all
+admissible ranks. Its exact witness refutes the full original universal
+bound.
+
+\textbf{Mathematical counterexample and informal proof:} Matthew J.
+Colbrook, Department of Applied Mathematics and Theoretical Physics,
+University of Cambridge. \textbf{Lean formalization:} George
+Stepaniants, Department of Computing and Mathematical Sciences,
+California Institute of Technology, Pasadena, California, USA, with
+AI-agent assistance.
+
+The checked declarations in
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/blob/973f95969701601dcae7b30683b175843baa9c22/randomized-and-low-rank-approximation/RA-03/lean/Solution.lean}{Solution.lean}
+are:
+
+\begin{itemize}
+\tightlist
+\item
+  \textit{NLA.RA03.frobeniusSq\_eq\_norm\_sq}: the actual squared
+  Frobenius norm.
+\item
+  \textit{NLA.RA03.process\_isProbability}: normalization of every
+  conditional law and complete-history law.
+\item
+  \textit{NLA.RA03.counterexample}: the exact witness, ordered singular
+  values, four pivot updates and strict violation.
+\item
+  \textit{NLA.RA03.not\_squaredErrorConjecture}: negation of the
+  complete original conjecture.
+\end{itemize}
+
+Two independent agents
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-03/lean/reviews}{reviewed
+the frozen statements and complete proof} against the original target.
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34704564047}{Run
+34704564047} executed the real sandboxed Comparator on GitHub Actions
+Ubuntu 24.04, matched all four declarations and replayed the solution
+through Lean's default kernel. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-03/lean/verification/linux-2026-09-12}{archived
+logs and independent operational audit} retain the exact source hashes,
+original artifact digests and actual rejection controls for
+\textit{sorry} and native-execution axioms. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-03/lean/reviews/proof-referee-2-evidence/axioms.log}{transitive
+axiom log} contains only \textit{propext}, \textit{Classical.choice} and
+\textit{Quot.sound}. The operational audit inspected the downloaded
+Linux evidence locally on macOS; it did not rerun Linux locally. These
+are independent agent reviews, not external human peer review.
+
+The proof pins \textbf{Lean 4.33.1},
+\href{https://github.com/alerad/leancert/tree/621a43d7cf21f87872392a01e874f2f1dbddc926}{LeanCert
+621a43d} and
+\href{https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474}{Mathlib
+0df444a}. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-03/lean/formalization.yaml}{manifest},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-03/lean/lake-manifest.json}{dependency
+pins} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-03/lean/NUMERICAL_TARGETS.md}{numerical
+targets} record the scope and implementation. From a checkout of the
+verified revision, with the documented
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tools/lean/HARNESS.md}{non-root
+Linux prerequisites}, reproduce the check with:
+
+\begin{verbatim}
+tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
+tools/lean/verify.sh \
+  randomized-and-low-rank-approximation/RA-03/lean \
+  /absolute/path/to/nla-lean-tools
+\end{verbatim}
+
+The shared manuscript's stronger sharp all-rank \(4^r\) result and its
+Cholesky results remain separately informally reviewed; they are outside
+these four Lean exports.
 
 \subsection{Resolution --- 2026-09-11}\label{resolution-2026-09-11}
 
@@ -81,10 +166,11 @@ complete-source PASS review} ·
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-random-pivoting-2026-09-11/README.md}{Authorship,
 exact checks and provenance}.
 
-Verification is independent agent review, not external human peer review
-or formal certification. AI assistance is disclosed; no priority claim
-is made. The original statement and audits remain below; ratings are
-historical.
+The 2026-09-11 verification was independent agent review, without
+external human peer review or formal certification. The later Lean
+verification above covers the complete negative answer to the original
+conjecture. AI assistance is disclosed; no priority claim is made. The
+original statement and audits remain below; ratings are historical.
 
 \subsection{Problem statement}\label{problem-statement}
 
@@ -92,17 +178,13 @@ For \(A\in\mathbb C^{m\times n}\), define exact-arithmetic residuals
 \(S_0=A\). At step \(t\), choose \((i,j)\) with conditional probability
 \(|(S_t)_{ij}|^2/\|S_t\|_F^2\) and update
 
-\[
-S_{t+1}=S_t-\frac{S_t(:,j)S_t(i,:)}{(S_t)_{ij}}.
-\]
+\[S_{t+1}=S_t-\frac{S_t(:,j)S_t(i,:)}{(S_t)_{ij}}.\]
 
 After a zero residual, keep subsequent residuals zero. Prove or refute,
 for every \(m,n\geq1\), every \(A\), and every \(1\leq k\leq\min(m,n)\),
 
-\[
-\mathbb E\|S_k\|_F^2\leq2^k
-\sum_{j>k}\sigma_j(A)^2,
-\]
+\[\mathbb E\|S_k\|_F^2\leq2^k
+\sum_{j>k}\sigma_j(A)^2,\]
 
 where singular values decrease with \(j\). The bound concerns the mean
 squared Frobenius error of this specified algorithm.

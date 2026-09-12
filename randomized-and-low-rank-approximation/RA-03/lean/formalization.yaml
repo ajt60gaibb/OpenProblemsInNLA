@@ -1,0 +1,154 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/99c678e569c7c4c0772db297c5ddd5e4c9b6322e/schema/v0.4.schema.json
+version: v0.4
+project:
+  name: 'RA-03: a counterexample to the randomized LU squared-error bound'
+  description: Proves the genuine finite randomized LU process and its normalized history
+    law, derives the actual singular-value tail and expected squared Frobenius error at an
+    exact matrix witness, and refutes the full original universal bound.
+  authors:
+  - George Stepaniants
+  affiliations:
+    George Stepaniants: Department of Computing and Mathematical Sciences, California Institute
+      of Technology, Pasadena, California, USA
+  responsible_maintainers:
+  - George Stepaniants
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+- title: RA-03 — Improve the randomized LU squared-error factor to 2^k
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/e7252e5307781a7c897bca6cb124f6ab838f6809/randomized-and-low-rank-approximation/RA-03/README.md
+  type: web-post
+  location: Problem statement
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: Canonical randomized LU conjecture attributed to Gilles and Wilber, Algorithm 1 and
+    the conjecture after Theorem 3.
+- title: Sharp worst-case factors for randomly pivoted Cholesky and LU
+  authors:
+  - Matthew J. Colbrook
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/e7252e5307781a7c897bca6cb124f6ab838f6809/references/colbrook-random-pivoting-2026-09-11/manuscripts/sharp_random_pivoting.tex
+  type: manuscript
+  location: Section 2, a two-dimensional RPLU counterexample
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: The exact order-two, one-step counterexample completely refutes the canonical factor-2^k
+    assertion. The stronger all-rank sharp factor-4^r theorem and Cholesky results are outside
+    this formalization.
+related_formalizations:
+- id: https://github.com/sgstepaniants/Forsythe/tree/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof
+  relationship: other
+  note: Statement-first, kernel LeanCert and Comparator workflow reference. Shared checker
+    reuse is credited in tools/lean/NOTICE.md; no Forsythe mathematical result is assumed
+    by this proof.
+- id: https://github.com/jaumededios/Schiffer/tree/2938e277969c329caf154e48a3d8823f3635c7f1
+  relationship: other
+  note: Proof organization studied; no source code copied or imported.
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: Multiple agents, two independent statement reviews before proof, analytic
+      normalization of the full history law, exact matrix updates, actual Euclidean adjoint/characteristic-polynomial/singular-value
+      bridges, and explicit kernel LeanCert for one rational point.
+    prompting_notes: Preserve complex rectangular inputs, joint conditional entry sampling,
+      zero absorption and all admissible ranks. Prove generic normalization and expectation
+      recurrence by a finite equivalence and induction, computing only four updates and a
+      two-root spectrum at the witness.
+  notes: AI-assisted formalization requested by George Stepaniants. No external human peer
+    review, source-author endorsement, unrecorded exact model identity or measured monetary
+    cost is claimed.
+status:
+  scope: Complete negative answer to the canonical RA-03 universal randomized LU bound. Local
+    Lean compilation, standard-axiom checks and two independent final proof reviews passed.
+    The actual Linux Comparator run 34704564047 on 2026-09-12 accepted all four exports at
+    immutable proof commit 973f95969701601dcae7b30683b175843baa9c22, including default-kernel
+    replay and actual sandbox and negative controls. Independently audited raw evidence is
+    retained in verification/linux-2026-09-12/. The canonical status is Lean verified.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms:
+  - propext
+  - Classical.choice
+  - Quot.sound
+  main_results:
+  - declaration: NLA.RA03.frobeniusSq_eq_norm_sq
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.RA03.process_isProbability
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.RA03.counterexample
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.RA03.not_squaredErrorConjecture
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+fidelity:
+  divergences: The finite expectation sums every complete pivot history with the product of
+    its actual conditional masses. An absorbing label implements the zero-residual convention;
+    zero-entry updates are totalized only on zero-mass choices. The explicitly scoped Frobenius
+    norm is connected to the sum of squared complex moduli. The actual Mathlib singular-value
+    sequence is decreasing and zero-based, so paper indices j>k become [k,min(m,n)). No matrix
+    class, probability law or norm is replaced.
+review:
+  status: agent-reviewed; Linux-Comparator-passed
+  reviewers:
+  - 'OpenAI Codex agent /root: independent statement referee 1 and final proof referee 1'
+  - 'OpenAI Codex agent /root/leancert_examples: independent statement referee 2 and final
+    proof referee 2'
+  notes: Both statement reports bind the frozen definitions and Challenge and precede proof
+    implementation. Both final proof referees independently re-elaborated Definitions, Proof
+    and Solution with fresh local proof artifacts. The proof implementer does not count as
+    an independent referee. Relevant Tau Ceti rubrics are adapted to this canonical target.
+    Four deliberate Challenge placeholders are excluded from proof sorry counts and never
+    imported by Solution. The independent operational audit by agent formal_review_standards
+    checked run 34704564047, original artifact digests, all source hashes and actual control
+    outcomes. GitHub Actions ran Linux remotely; the operational reviewer inspected evidence
+    locally on macOS. Formal identity does not replace informal fidelity review.
+  verification_run: https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34704564047
+  verified_proof_commit: 973f95969701601dcae7b30683b175843baa9c22
+  evidence: verification/linux-2026-09-12/OPERATIONAL-REVIEW.md
+alignment:
+- source: Canonical norm and fully normalized joint conditional process
+  declarations:
+  - NLA.RA03.frobeniusSq_eq_norm_sq
+  - NLA.RA03.process_isProbability
+- source: Colbrook Section 2, four exact updates, actual singular tail and expectation 18/5
+  declarations:
+  - NLA.RA03.counterexample
+- source: Complete negative answer to the original all-dimension and all-rank bound
+  declarations:
+  - NLA.RA03.not_squaredErrorConjecture
+acknowledgements: 'Mathlib, LeanCert, Lean Comparator, the formalization.yaml maintainers,
+  Schiffer and Forsythe. Informal proof: Matthew J. Colbrook. Formalization: George Stepaniants
+  with AI-agent assistance.'
+toolchain:
+  lean: leanprover/lean4:v4.33.1
+  leancert: 621a43d7cf21f87872392a01e874f2f1dbddc926
+  mathlib: 0df444a360eaa60ab8c11dca51a86af692955474
+  dependency_manifest: lake-manifest.json

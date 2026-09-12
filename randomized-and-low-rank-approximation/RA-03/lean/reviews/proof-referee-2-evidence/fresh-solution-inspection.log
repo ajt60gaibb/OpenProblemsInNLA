@@ -1,0 +1,28 @@
+'NLA.RA03.frobeniusSq_eq_norm_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA03.process_isProbability' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA03.counterexample' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA03.not_squaredErrorConjecture' depends on axioms: [propext, Classical.choice, Quot.sound]
+theorem NLA.RA03.frobeniusSq_eq_norm_sq : ∀ {m n : ℕ} (A : Matrix (Fin m) (Fin n) ℂ),
+  NLA.RA03.frobeniusSq A = ‖A‖ ^ 2 :=
+fun {m n} A => NLA.RA03.frobeniusSq_eq_norm_sq_proved A
+theorem NLA.RA03.process_isProbability : ∀ {m n : ℕ} (A : Matrix (Fin m) (Fin n) ℂ) (k : ℕ),
+  (∀ (p : NLA.RA03.Pivot m n), 0 ≤ NLA.RA03.pivotMass A p) ∧
+    ∑ p, NLA.RA03.pivotMass A p = 1 ∧
+      (∀ (h : Fin k → NLA.RA03.Pivot m n), 0 ≤ NLA.RA03.historyMass A h) ∧ ∑ h, NLA.RA03.historyMass A h = 1 :=
+fun {m n} A k => NLA.RA03.process_isProbability_proved A k
+theorem NLA.RA03.counterexample : NLA.RA03.witness ≠ 0 ∧
+  (∀ (i j : Fin 2), NLA.RA03.witness i j ≠ 0) ∧
+    NLA.RA03.frobeniusSq NLA.RA03.witness = 10 ∧
+      NLA.RA03.witness.conjTranspose * NLA.RA03.witness = NLA.RA03.witnessGram ∧
+        NLA.RA03.singularValue NLA.RA03.witness 0 = 3 ∧
+          NLA.RA03.singularValue NLA.RA03.witness 1 = 1 ∧
+            (∀ (i j : Fin 2), NLA.RA03.pivotMass NLA.RA03.witness (some (i, j)) = NLA.RA03.witnessPivotMass i j) ∧
+              (∀ (i j : Fin 2),
+                  NLA.RA03.frobeniusSq (NLA.RA03.pivotResidual NLA.RA03.witness (i, j)) =
+                    NLA.RA03.witnessPivotError i j) ∧
+                NLA.RA03.expectedError NLA.RA03.witness 1 = 18 / 5 ∧
+                  NLA.RA03.singularTailSq NLA.RA03.witness 1 = 1 ∧
+                    2 ^ 1 * NLA.RA03.singularTailSq NLA.RA03.witness 1 < NLA.RA03.expectedError NLA.RA03.witness 1 :=
+NLA.RA03.counterexample_proved
+theorem NLA.RA03.not_squaredErrorConjecture : ¬NLA.RA03.SquaredErrorConjecture :=
+NLA.RA03.not_squaredErrorConjecture_proved

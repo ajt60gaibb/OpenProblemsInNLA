@@ -1,6 +1,6 @@
 # MI-21 Lean formalization
 
-The complete proof refutes the full [canonical MI-21 conjecture](../README.md). Local compilation, standard-axiom checks, **two independent statement reviews and two independent final proof reviews passed**. **Linux Comparator verification is pending; the canonical status remains Solved.**
+The complete proof refutes the full [canonical MI-21 conjecture](../README.md). Local compilation, standard-axiom checks, **two independent statement reviews and two independent final proof reviews passed**. **Actual [Linux run 34709291489](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34709291489) accepted all three declarations at immutable [proof revision 06ade65](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/06ade659dee260a18b79ce638383bf0a49125ecf/matrix-inequalities-and-norms/MI-21/lean). The canonical status is Lean verified.** The [independent operational audit and original artifacts](verification/linux-2026-09-12/) record exact source and dependency identity, real rejection controls and default-kernel replay.
 
 Mathematical counterexample and informal proof: **Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Formalization: **George Stepaniants**, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, with AI-agent assistance. New formalization code is under [Apache 2.0](LICENSE). No external human peer review or source-author endorsement is claimed.
 
@@ -59,7 +59,7 @@ The proof implementer does not count as an independent referee. Relevant Tau Cet
 
 The local [3147-job build](verification/proof-build.log) and both independent final re-elaborations passed. Every one of the eight audited internal declarations and three public exports uses only `propext`, `Classical.choice`, and `Quot.sound`; see the [axiom record](verification/proof-axioms.json). The proof chain contains no theorem holes and never imports Challenge. Its three deliberate placeholders specify the independent statement boundary and are excluded from proof sorry counts.
 
-[comparator.json](comparator.json) selects exactly those three frozen Challenge exports, has no replaceable definition holes, and permits only the standard three axioms. [formalization.yaml](formalization.yaml) uses the pinned real v0.4 schema. [Frozen input hashes](verification/proof-freeze.json) and [source-level identity checks](verification/proof-statement-identity.json) support review; actual Linux Comparator verification remains required.
+[comparator.json](comparator.json) selects exactly those three frozen Challenge exports, has no replaceable definition holes, and permits only the standard three axioms. [formalization.yaml](formalization.yaml) uses the pinned real v0.4 schema. [Frozen input hashes](verification/proof-freeze.json) and [source-level identity checks](verification/proof-statement-identity.json) support review and are now supplemented by the successfully audited actual Linux Comparator run.
 
 ## Reproduction
 
@@ -72,7 +72,7 @@ lake exe cache get
 lake build Solution
 ```
 
-For authoritative verification, run the repository's [Linux harness](../../../tools/lean/HARNESS.md) on genuine Linux after the unchanged project is committed. From the repository root:
+To reproduce the authoritative verification, check out proof revision `06ade659dee260a18b79ce638383bf0a49125ecf` and run the repository's [Linux harness](../../../tools/lean/HARNESS.md) on genuine Linux. From the repository root:
 
 ```
 python3 -m pip install -r tools/lean/requirements.txt
@@ -85,4 +85,4 @@ tools/lean/verify.sh \
   /absolute/path/to/nla-lean-tools
 ```
 
-The harness separately compiles Challenge and Solution, uses real Comparator with default-kernel replay, and records hashes and sandbox/control outcomes. The local macOS builds reused pinned dependency artifacts and do not stand in for that remote verification. A successful Linux run and independent operational audit must be recorded before a Lean-verified catalog promotion.
+The harness separately compiles Challenge and Solution, uses real Comparator with default-kernel replay, and records hashes and sandbox/control outcomes. The retained successful run executed remotely on GitHub Actions Ubuntu 24.04, and its original artifacts were independently audited locally on macOS. All ten dependencies were freshly cloned at their pinned revisions. The matching Mathlib cache supplied 8,690 files; the project's own Definitions, Challenge, Proof and Solution were freshly elaborated in 2,710-job and 3,147-job build graphs. This is fresh project verification with cache reuse, not a complete dependency rebuild. All 81 committed project inputs matched the receipt, all three exports matched, and all 11 internal/public reports contained only the standard three axioms. Local macOS re-elaboration and English-to-Lean review remain separate evidence from the actual Linux check.
