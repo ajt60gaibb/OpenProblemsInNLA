@@ -7,10 +7,18 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Topic:** sparse linear systems; randomized preconditioning  
-**Last checked:** 2026-09-10  
-**Status:** Open  
+**Last checked:** 2026-09-12  
+**Status:** Partially resolved  
 
 **Rating rationale:** Challenging reflects combining spectral deflation with an input-sparsity cost guarantee; community impact spans sparse solvers, preconditioning, and regression.
+
+## Partial results — Sidney Holden, 12 September 2026
+
+Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) gives a deterministic $`O(N\min\{n,k+1+\kappa\log(2/\varepsilon)\})`$ solver in [Theorem 2.1](../../references/holden-ke01-2026-09-12/report.pdf). Corollary 2.2 achieves this entry's target when $`k=0`$, $`k\le\kappa`$, $`N\le k^{\omega_0-1}`$, or $`n\le2k`$.
+
+Theorem 4.1 establishes the additive sparsity/outlier bound for explicitly sparse SPD matrices with an **exactly equal eigenvalue tail**. Corollary 5.1 covers an exactly flat singular tail with cost depending on the sum of squared row supports; that quantity can be quadratic in input sparsity. The counterexamples in Section 3 invalidate particular shortcuts, not all possible algorithms.
+
+**The general bounded-tail sparse-input target below remains open.** The restricted results passed a separate [independent informal Codex AI-agent audit](../../references/holden-ke01-2026-09-12/independent-review.md). This is not external human peer review or formal verification; no Lean verification was performed. [Source, attribution, verified affiliation and reproducibility record](../../references/holden-ke01-2026-09-12/README.md).
 
 ## Context and notation
 

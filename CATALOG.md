@@ -1,6 +1,6 @@
 # All problems and their status
 
-**127 problems with open targets:** 55 open and 72 partially resolved. **90 other retained entries**, excluded from the open count.
+**127 problems with open targets:** 54 open and 73 partially resolved. **90 other retained entries**, excluded from the open count.
 
 **Resolution evidence:** 76 solved (published or independently audited); 14 Lean verified.
 
@@ -23,7 +23,7 @@ Each entry records its own literature-check date. Literature checks are bounded;
 | [IE-25](linear-systems-and-elimination/IE-25/README.md) | Perturbed MILU conditioning for Neumann problems in two and three dimensions | **🔵 OPEN** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-25/problem.pdf) · [TeX](linear-systems-and-elimination/IE-25/problem.tex) |
 | [IE-27](linear-systems-and-elimination/IE-27/README.md) | Spectral disk for a Radau stage preconditioner | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-27/problem.pdf) · [TeX](linear-systems-and-elimination/IE-27/problem.tex) |
 | [IE-28](linear-systems-and-elimination/IE-28/README.md) | Positive diagonal preconditioning with a nilpotent stiff limit | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-28/problem.pdf) · [TeX](linear-systems-and-elimination/IE-28/problem.tex) |
-| [KE-01](linear-systems-and-elimination/KE-01/README.md) | Exploit spectral outliers without losing input sparsity | **🔵 OPEN** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/KE-01/problem.pdf) · [TeX](linear-systems-and-elimination/KE-01/problem.tex) |
+| [KE-01](linear-systems-and-elimination/KE-01/README.md) | Exploit spectral outliers without losing input sparsity | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/KE-01/problem.pdf) · [TeX](linear-systems-and-elimination/KE-01/problem.tex) |
 
 Retained entries outside the open count:
 

@@ -1,0 +1,664 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=25mm,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,array,enumitem,needspace}
+\usepackage{xcolor,fancyhdr,xurl,hyperref}
+\definecolor{inkblue}{RGB}{25,53,81}
+\hypersetup{colorlinks=true,linkcolor=inkblue,citecolor=inkblue,urlcolor=inkblue,
+ pdftitle={KE-01: bounds, a flat-tail special case, and the remaining sparsity gap},
+ pdfauthor={Sidney Holden},
+ pdfsubject={Partial results; not a solution of general KE-01}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textsc{KE-01 \;|\; Partial results}}
+\fancyhead[R]{\small 12 September 2026}
+\fancyfoot[C]{\thepage}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{1.1em}
+\setlist{nosep,leftmargin=1.6em}
+\setcounter{tocdepth}{2}
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\nnz}{\operatorname{nnz}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\range}{\operatorname{range}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\spec}{\operatorname{spec}}
+\newcommand{\softO}{\widetilde O}
+\newcommand{\cond}{\kappa_2}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\ip}[2]{\left\langle #1,#2\right\rangle}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\status}{\textbf{Status: the general KE-01 bound is not proved in this report.}}
+
+\begin{document}
+\begin{titlepage}
+\vspace*{12mm}
+{\color{inkblue}\Large\textsc{Numerical linear algebra \; / \; KE-01}}\par
+\vspace{12mm}
+{\LARGE\bfseries Exact-arithmetic bounds, a flat-tail special case, and the remaining sparsity gap\par}
+\vspace{8mm}
+{\large A mathematical research note and reproducibility package}\par
+\vspace{4mm}
+{\large Sidney Holden}\par
+{\small Center for Computational Biology, Flatiron Institute,\\
+Simons Foundation, New York, USA}\par
+\vspace{3mm}
+12 September 2026\par
+\vspace{11mm}
+\noindent\fcolorbox{inkblue}{white}{\begin{minipage}{0.91\textwidth}
+\vspace{2mm}\status\par
+This package contains a complete proof of a restricted flat-tail theorem, a general baseline bound, counterexamples to several proposed shortcuts, and exact rational verification code. It is not a complete solution of the user's requested open problem.
+\vspace{2mm}
+\end{minipage}}
+\vspace{10mm}
+\begin{abstract}
+For a sparse nonsingular matrix with at most $k$ singular-value outliers and tail condition number at most $\kappa$, conjugate gradients on the implicit normal equations gives a deterministic $O(N[k+1+\kappa\log(2/\eps)])$ arithmetic bound. We give its residual-norm proof and identify regimes where it already meets KE-01. We then prove an input-sparsity bound for explicitly sparse positive definite matrices whose spectral tail is \emph{exactly constant}, including an exact algebraic recovery of the unknown tail value. Sparse sketches and an inner preconditioned solve avoid a dense ambient-dimensional basis. A normal-equations corollary covers exactly flat singular tails when row supports are small. Explicit Gram-fill and sketch examples show why these arguments do not establish the general target. All computational checks use rational arithmetic; they verify finite identities and examples, not asymptotic complexity or the full conjecture.
+\end{abstract}
+\vfill
+\noindent\small The restricted theorem is assembled from cited standard primitives and the derivations below. No claim of priority or independent peer review is made. External sources were accessed on 12 September 2026. Prepared with ChatGPT assistance; authorship supplied by Sidney Holden. Affiliation verified against the official Simons Foundation profile. Independent informal AI review is documented in the accompanying submission record.
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{The target and the distinction that matters}
+\label{sec:target}
+Let $A\in\R^{n\times n}$ be nonsingular, with singular values
+$\sigma_1\ge\cdots\ge\sigma_n>0$, and let $N=\nnz(A)$. The input is a sparse entry list, $b\ne0$, $0<\eps<1/2$, $0\le k<n$, and $\kappa\ge1$, with
+\begin{equation}
+ \sigma_{k+1}/\sigma_n\le\kappa. \label{eq:tail-promise}
+\end{equation}
+Fix an attained arithmetic matrix-multiplication exponent $\omega_0>2$. The requested guarantee is probability at least $0.99$ of
+\begin{equation}
+ \norm{A\widehat x-b}_2\le\eps\norm b_2,\qquad
+ T\le C\bigl(k^{\omega_0}+N\kappa\bigr)
+       \bigl[1+\log(n\cond(A)/\eps)\bigr]^q. \label{eq:target}
+\end{equation}
+Here $C,q$ must be independent of the input. This is the formulation in the linked KE-01 entry, corresponding to workshop Problem 2.5~\cite{ke01,workshop}.
+
+The distinction is \emph{not} whether one can approximately solve the system. The distinction is whether the outlier cost can be made additive, of order $k^{\omega_0}$, without paying $Nk$, an ambient $n^2$ cost, or an uncontrolled per-iteration dense-core cost. Direct entry access is allowed; consequently a lower bound for a matrix--vector oracle alone would not settle this problem.
+
+All costs below count exact field operations and, where needed, bounded-cost indexing and comparisons. Bit complexity and floating-point stability are separate issues. A very small positive pivot is not an arithmetic-cost obstruction in this model. Conversely, exact arithmetic does not permit silently using a free eigenvalue or spectral-subspace oracle.
+
+For an SPD matrix $H$, write $\norm v_H=(v^\top Hv)^{1/2}$. ``SPD'' means symmetric positive definite and ``PSD'' means symmetric positive semidefinite. The order $X\preceq Y$ means $Y-X$ is PSD. The notation $\softO$ used in this note suppresses only fixed powers of logarithms in dimension, condition number, and inverse accuracy, not arbitrary $n^{o(1)}$ factors.
+
+\paragraph{What is established.}
+The general bound in Section~\ref{sec:cg} and the restricted theorem in Section~\ref{sec:flat} are proved. Section~\ref{sec:cor} gives a precisely scoped nonsymmetric corollary. Section~\ref{sec:missing} states a sufficient algorithmic primitive for the remaining problem; that primitive is \emph{not} constructed here. The counterexamples are failures of particular deductions, not lower bounds against all algorithms.
+
+\section{A general deterministic baseline}
+\label{sec:cg}
+\subsection{The correct norm transfer}
+Put
+\[
+ H=A^\top A,\qquad c=A^\top b,\qquad x_*=A^{-1}b.
+\]
+Then $H$ is SPD and $Hx_*=c$. For every $x$,
+\begin{equation}
+ \norm{x-x_*}_H^2
+ =(x-x_*)^\top A^\top A(x-x_*)
+ =\norm{Ax-b}_2^2,
+ \qquad \norm{x_*}_H=\norm b_2. \label{eq:energy-identity}
+\end{equation}
+Thus the ordinary relative \emph{energy-error} guarantee for CG on $H$ is exactly the required physical-residual guarantee for $A$. There is no extra global condition-number factor in this identity.
+
+CG from $x_0=0$ minimizes the $H$-norm error over
+\[
+ \mathcal K_t(H,c)=\operatorname{span}\{c,Hc,\ldots,H^{t-1}c\}.
+\]
+Equivalently, if $\Pi_t$ denotes the polynomials of degree at most $t$, then
+\begin{equation}
+ \frac{\norm{x_t-x_*}_H}{\norm{x_*}_H}
+ \le \min_{p\in\Pi_t,\;p(0)=1}\max_{\lambda\in\spec(H)}|p(\lambda)|.
+ \label{eq:cg-polynomial}
+\end{equation}
+For completeness, $x\in\mathcal K_t$ has the form $q(H)c$ with $\deg q<t$, so its error is $-[1-Hq(H)]x_*$. Conversely every admissible $p$ has this form because $(1-p(z))/z$ is a polynomial of degree less than $t$. Diagonalizing the SPD matrix bounds the energy norm by $\max_i|p(\lambda_i)|$. Minimization of the strictly convex quadratic $\tfrac12x^\top Hx-c^\top x$ on the Krylov space yields the stated error minimum. The standard CG recurrence computes that minimum using conjugate directions~\cite{hs}.
+
+\subsection{Deflation polynomial and Chebyshev tail}
+\begin{theorem}[General baseline]
+\label{thm:baseline}
+Under the hypotheses of Section~\ref{sec:target}, exact CGLS returns an $\eps$-relative physical-residual solution deterministically in
+\begin{equation}
+ O\!\left(N\min\{n,\,k+1+\kappa\log(2/\eps)\}\right)
+ \label{eq:baseline}
+\end{equation}
+arithmetic operations. If the actual singular tail is constant, at most $k+1$ iterations suffice for an exact solution.
+\end{theorem}
+\begin{proof}
+Let $\lambda_i=\sigma_i^2$, $a=\lambda_n$ and $d=\lambda_{k+1}$. Set
+\[
+ D_k(z)=\prod_{j=1}^k\left(1-\frac z{\lambda_j}\right),
+\]
+where an empty product is one. This polynomial vanishes at the outlier eigenvalues. For $z\in[a,d]$, every factor lies in $[0,1]$, so $|D_k(z)|\le1$.
+
+First suppose $a<d$. Let $T_m$ be the degree-$m$ Chebyshev polynomial and define
+\[
+ Q_m(z)=
+ \frac{T_m((d+a-2z)/(d-a))}{T_m((d+a)/(d-a))}.
+\]
+Then $Q_m(0)=1$ and
+\begin{equation}
+ \max_{z\in[a,d]}|Q_m(z)|
+ \le 2\left(\frac{\sqrt{d/a}-1}{\sqrt{d/a}+1}\right)^m
+ \le 2\left(\frac{\kappa-1}{\kappa+1}\right)^m.
+ \label{eq:cheb}
+\end{equation}
+The first inequality follows directly from $|T_m(t)|\le1$ on $[-1,1]$ and
+$T_m(t)=\tfrac12[(t+\sqrt{t^2-1})^m+(t-\sqrt{t^2-1})^m]$ for $t>1$.
+
+The polynomial $p(z)=D_k(z)Q_m(z)$ has degree at most $k+m$, equals one at zero, vanishes at every outlier, and satisfies the tail bound~\eqref{eq:cheb}. For $\kappa>1$,
+\[
+ \log\frac{\kappa+1}{\kappa-1}\ge\frac2\kappa.
+\]
+For example, with $u=1/\kappa$, the left side is
+$2\int_0^u(1-t^2)^{-1}\,dt\ge2u$. Therefore
+\[
+ m=\left\lceil\frac\kappa2\log\frac2\eps\right\rceil
+\]
+is sufficient in~\eqref{eq:cg-polynomial}.
+
+If $a=d$, the polynomial $(1-z/a)D_k(z)$ vanishes on the entire spectrum. Its degree is at most $k+1$, so CG terminates exactly by that iteration. Exact CG also terminates in at most $n$ steps for every SPD $H$. Formula~\eqref{eq:energy-identity} transfers the error bound to the required norm.
+
+No matrix $H$ is formed. Each iteration uses one product by $A$ and one by $A^\top$, plus $O(n)$ scalar/vector work. Nonsingularity implies $N\ge n$, so the iteration cost is $O(N)$, proving~\eqref{eq:baseline}.
+\end{proof}
+
+\subsection{An implementable recurrence}
+The following is the CGLS recurrence, with a stopping rule in the norm requested by KE-01:
+\begin{align*}
+ x&=0,& r&=b,& s&=A^\top r,& p&=s,& \gamma&=s^\top s;\\
+ q&=Ap,& \alpha&=\gamma/(q^\top q),&
+ x&\leftarrow x+\alpha p,& r&\leftarrow r-\alpha q;\\
+ s&\leftarrow A^\top r,& \gamma_+&=s^\top s,&
+ p&\leftarrow s+(\gamma_+/\gamma)p,& \gamma&\leftarrow\gamma_+.
+\end{align*}
+Stop as soon as $r^\top r\le\eps^2b^\top b$. In exact arithmetic the maintained $r$ equals $b-Ax$. Until convergence, $s\ne0$ because $A^\top$ is nonsingular, and the CG denominators are positive. The code caps the loop at $n$ unless an explicit smaller cap is requested.
+
+The proof's spectral values are used only for analysis. The recurrence neither knows nor estimates them. A residual test suffices; it is not necessary to compute the displayed logarithmic iteration cap inside the algorithm.
+
+\subsection{Regimes already covered by this baseline}
+\begin{corollary}
+\label{cor:regimes}
+The requested asymptotic form is attainable on each of the following input regimes: $k=0$; $k\le\kappa$; $1\le k$ and $N\le k^{\omega_0-1}$; or $n\le2k$.
+\end{corollary}
+\begin{proof}
+For $k=0$,~\eqref{eq:baseline} is $O(N\kappa\log(2/\eps))$. If $k\le\kappa$, the $Nk$ term is absorbed by $N\kappa$. If $N\le k^{\omega_0-1}$, then $Nk\le k^{\omega_0}$. Finally, for $n\le2k$, a dense exact solve costs $O(n^{\omega_0})=O(k^{\omega_0})$; the input can be read and the dense array initialized within the target since $N\le n^2$ and $\omega_0>2$.
+\end{proof}
+
+These cases do not cover all intermediate sparse regimes. For instance, let $N=\Theta(n)$, $\kappa=1$, and $k=\lfloor n^a\rfloor$ with $0<a<1/\omega_0$. Then the target is $\softO(n)$, whereas the displayed baseline is $O(n^{1+a})$. Polynomially bounded diagonal entries can realize these parameter scales with $\log\cond(A)=O(\log n)$. This comparison is only a gap between \emph{upper bounds}. Diagonal systems themselves are directly solvable in $O(N)$, and this example proves no lower bound on KE-01.
+
+\section{Why several direct shortcuts do not prove the target}
+\label{sec:shortcuts}
+\subsection{Sparse input can have a completely dense normal matrix}
+\begin{proposition}[Gram fill with one outlier]
+\label{prop:fill}
+For every $n\ge3$ there is an $n\times n$ matrix with $2n-1$ nonzeros, a single singular-value outlier, and $\sigma_2/\sigma_n\le\sqrt{(n+1)/n}$, for which every entry of $A^\top A$ is nonzero.
+\end{proposition}
+\begin{proof}
+Take
+\begin{equation}
+ A_n=\begin{pmatrix}n&\mathbf1^\top\\0&I_{n-1}\end{pmatrix},\qquad
+ H_n=A_n^\top A_n=
+ \begin{pmatrix}n^2&n\mathbf1^\top\\n\mathbf1&I_{n-1}+\mathbf1\mathbf1^\top\end{pmatrix}.
+ \label{eq:fill-example}
+\end{equation}
+Here $\mathbf1\in\R^{n-1}$ is the all-ones vector. The nonzero counts are $2n-1$ and $n^2$, respectively. The subspace consisting of vectors $(0,v)$ with $\mathbf1^\top v=0$ has eigenvalue one, with dimension $n-2$.
+
+On the remaining two-dimensional invariant subspace, the characteristic polynomial is
+\[
+ f(t)=t^2-(n^2+n)t+n^2.
+\]
+Both roots $\lambda_-\le\lambda_+$ are positive; $f(1)=1-n<0$ shows $\lambda_-<1<\lambda_+$. Moreover,
+\[
+ \lambda_-\lambda_+=n^2,\qquad
+ \lambda_+\le n^2+n,
+ \qquad \lambda_-\ge\frac{n}{n+1}.
+\]
+Consequently $\sigma_2=1$ and
+$\sigma_2/\sigma_n\le\sqrt{(n+1)/n}$. Also $\cond(A_n)\le n+1$. Thus the example obeys the KE-01 promise with $k=1$ and, for example, $\kappa=2$.
+\end{proof}
+
+Explicitly forming $A^\top A$ therefore cannot generally be charged to $O(N)$. This does \emph{not} say the triangular systems~\eqref{eq:fill-example} are difficult; they can be solved in $O(N)$. It rules out a sparsity-preserving claim about that specific transformation.
+
+\subsection{An identity-matrix obstruction for regularized sketches}
+\begin{proposition}[Unit-column sketch]
+\label{prop:sketch}
+Let $S\in\R^{s\times n}$ with $s<n$, and suppose every column of $S$ has Euclidean norm one. For $A=I_n$, the matrix
+$A^\top S^\top SA+I=S^\top S+I$ has an eigenvalue at least $1+n/s$, whereas $A^\top A+I=2I$.
+\end{proposition}
+\begin{proof}
+The matrix $S^\top S$ has trace $n$ and rank at most $s$. Its largest eigenvalue is at least $n/s$. Adding $I$ gives the assertion. There are also at least $n-s$ eigenvalues equal to one after the shift.
+\end{proof}
+
+Thus the conclusion
+\[
+ A^\top S^\top SA+\sigma_{k+1}^2I
+ \preceq C\bigl(A^\top A+\sigma_{k+1}^2I\bigr)
+\]
+with a dimension-independent $C$ does not follow merely from using a normalized sparse sketch with $s\ll n$. This already fails for $A=I$ and any allowed $k$, where $\sigma_{k+1}=1$. One can attain equality in the eigenvalue lower bound by taking disjoint signed rows with $n/s$ nonzeros each when $s$ divides $n$.
+
+Regularized sketching results typically use a Frobenius-tail scale, such as
+$k^{-1}\sum_{i>k}\sigma_i^2$, rather than simply $\sigma_{k+1}^2$; see the precise regularization in~\cite[Corollary 13]{ds}. For an identity tail, those quantities differ by a factor of order $n/k$. The proposition concerns this particular deduction, not all distributions or all forms of preconditioning.
+
+\subsection{An exact rank-one Nystr\"om calculation}
+\begin{proposition}[Nystr\"om residual for a spike]
+\label{prop:nystrom}
+Let $H=I+(L-1)uu^\top$, with $\norm u=1$ and $L\ge1$. Let $\Omega\in\R^{n\times s}$ have orthonormal columns and
+$t=\norm{\Omega^\top u}^2\in(0,1)$. For
+\[
+ \mathcal N=H\Omega(\Omega^\top H\Omega)^{-1}\Omega^\top H,
+\]
+one has
+\begin{equation}
+ \norm{H-\mathcal N}_2=\frac{L}{1+(L-1)t}. \label{eq:nystrom-error}
+\end{equation}
+\end{proposition}
+\begin{proof}
+Let $w$ be the normalized projection of $u$ onto $\range(\Omega)$ and let $z$ be the normalized remaining component. Then
+$u=\sqrt t\,w+\sqrt{1-t}\,z$. On the span of $w,z$, write $H$ as
+\[
+ \begin{pmatrix}
+  1+(L-1)t &(L-1)\sqrt{t(1-t)}\\
+  (L-1)\sqrt{t(1-t)}&1+(L-1)(1-t)
+ \end{pmatrix}.
+\]
+Its determinant is $L$. Nystr\"om elimination of the $w$ coordinate leaves the scalar Schur complement $L/[1+(L-1)t]$ on $z$. The residual is zero on $\range(\Omega)$ and is the identity on $(\range(\Omega)+\operatorname{span}\{u\})^\perp$. Since the displayed scalar is at least one, it is the residual's spectral norm.
+\end{proof}
+
+As $L\to\infty$, the residual norm tends to $1/t$. With overlap $t=s/n$, that limit is $n/s$, despite the unit spectral tail of $H$. This invalidates a putative constant additive spectral-error bound for this one-pass construction. It is \emph{not} a lower bound on a preconditioned condition number or on CG iterations: those conclusions require separate analysis, and a large additive residual alone does not imply them.
+
+\section{A complete restricted theorem: explicitly sparse SPD, exactly flat tail}
+\label{sec:flat}
+\begin{theorem}[Sparse flat-tail solve]
+\label{thm:flat}
+Let $M\in\R^{n\times n}$ be given explicitly as a sparse SPD matrix. Suppose its eigenvalues satisfy
+\[
+ \mu_1\ge\cdots\ge\mu_n>0,\qquad \mu_{k+1}=\mu_n,
+ \qquad 0\le k<n.
+\]
+The common value need not be supplied. For $b\ne0$ and $0<\eps<1/2$, there is a randomized exact-arithmetic algorithm returning
+$\norm{M\widehat x-b}_2\le\eps\norm b_2$ with probability at least $0.99$, at arithmetic cost
+\begin{equation}
+ C\bigl(\nnz(M)+k^{\omega_0}\bigr)
+ \bigl[1+\log(n\cond(M)/\eps)\bigr]^q. \label{eq:flat-cost}
+\end{equation}
+The bound applies to every random outcome; unsuccessful sketches do not trigger an unbounded retry loop.
+\end{theorem}
+
+The hypothesis is stronger than a bounded-width tail: the tail is \emph{exactly equal}. The input is also the SPD matrix $M$ itself, not merely a sparse factor whose Gram matrix is $M$. These distinctions are essential.
+
+\subsection{Recovering the unknown shift without an eigenvalue oracle}
+Put $\alpha=\mu_n$. Then
+\begin{equation}
+ M=\alpha I+R,\qquad R\succeq0,\qquad \rank(R)\le k.
+ \label{eq:flat-decomp}
+\end{equation}
+If $k=0$, read $\alpha=M_{11}$ and return $b/\alpha$. If $n\le2k$, a dense exact solve has cost $O(k^{\omega_0})$. Assume from now on that $k\ge1$ and $n\ge2k+1$.
+
+\begin{lemma}[Algebraic shift recovery]
+\label{lem:shift}
+Under~\eqref{eq:flat-decomp}, $\alpha$ can be recovered exactly in
+$\softO(\nnz(M)+k^{\omega_0})$ arithmetic operations.
+\end{lemma}
+\begin{proof}
+Take any principal block $B$ of order $m=2k+1$, for instance the leading block. Since $B=\alpha I+R_B$ and $\rank(R_B)\le k$, the characteristic polynomial
+$p(z)=\det(zI-B)$ has $\alpha$ as a root of multiplicity at least $k+1$. Every other root has multiplicity at most $k$, because the total degree not accounted for by $\alpha$ is at most $k$.
+
+Set $p_0=p$ and, for $j=0,\ldots,k-1$, compute
+\[
+ p_{j+1}=\operatorname{monic}\gcd(p_j,p_j').
+\]
+Over a field of characteristic zero, this operation decreases every positive root multiplicity by one and removes simple roots. Therefore
+\[
+ p_k(z)=(z-\alpha)^d\quad\hbox{for some }d\ge1,
+ \qquad
+ \alpha=-\frac{[z^{d-1}]p_k}{d}.
+\]
+No extraction of a general polynomial root is needed.
+
+The block can be extracted in $O(\nnz(M)+k^2)$ work by a scan of the sparse input. The characteristic polynomial has an $O(m^{\omega_0})$ arithmetic algorithm for any specified matrix-multiplication algorithm~\cite[Theorem 1.1]{np}. The $k$ polynomial gcd computations also fit the claimed bound. To see this without an exponent-attainment assumption, choose a fixed $\theta>0$ with $2+\theta<\omega_0$. Over $\R$, a sufficiently high fixed-order Toom--Cook multiplication has cost $O(m^{1+\theta})$; fast polynomial gcd then costs $O(m^{1+\theta}\operatorname{polylog}m)$. Repeating it $k$ times gives $O(k^{2+\theta}\operatorname{polylog}k)$, which is within the asserted bound. These polynomial-arithmetic primitives and their compatibility with fixed multiplication exponents are discussed in~\cite[Section 1.1]{np}.
+\end{proof}
+
+The argument works even when the chosen principal block completely misses the support of the outlier component, and even when $\rank(R)<k$. In the former case $B=\alpha I$ and the high-multiplicity root is still recovered. Once $\alpha$ is known, forming $R=M-\alpha I$ costs $O(\nnz(M)+n)$ and
+\[
+ \nnz(R)\le\nnz(M)+n=O(\nnz(M)).
+\]
+For an SPD input, all diagonal entries are nonzero, so $\nnz(M)\ge n$.
+
+\subsection{The sparse-embedding primitive}
+We use a standard oblivious subspace embedding (OSE): for a fixed subspace of dimension at most $k$, a random map to
+\[
+ s=O\bigl(k[1+\log(k/\delta)]^8\bigr)
+\]
+coordinates with
+$\beta=O([1+\log(k/\delta)]^3)$ nonzeros per column preserves all squared norms between $1/2$ and $3/2$, with probability at least $1-\delta$. This follows by fixing a constant distortion in Nelson--Nguyen's OSNAP theorem~\cite[Theorem 9]{osnap}. Its nonzeros can be generated and applied in polylogarithmic work per input coordinate/nonzero.
+
+The usual normalization uses entries $\pm1/\sqrt\beta$. No square-root operation is necessary here. In the first sketch, only rank matters, so use the unnormalized signs. In the second sketch, compute with an unnormalized sign matrix $T$ and scale its Gram matrix by $1/\beta$. All implemented algebra then uses only field operations and integer constants.
+
+\subsection{A sparse exact Nystr\"om representation}
+Draw an OSE for $\range(R)$ with failure probability $1/200$, and let $\Omega\in\R^{n\times s}$ be the transpose of its unnormalized sign matrix. Each row of $\Omega$ has at most $\beta$ nonzeros. On the good event, $\Omega^\top$ is injective on $\range(R)$.
+
+Compute
+\begin{equation}
+ F_0=R\Omega,\qquad W_0=\Omega^\top R\Omega. \label{eq:first-sketch}
+\end{equation}
+Store $F_0$ as a sparse entry list rather than as a dense $n\times s$ array. Each nonzero of $R$ contributes to at most $\beta$ entries, so
+\begin{equation}
+ \nnz(F_0)\le\beta\nnz(R). \label{eq:F-sparse}
+\end{equation}
+The products can be assembled in $\softO(\beta\nnz(R))$ and
+$\softO(\beta^2\nnz(R)+s^2)$ work, respectively. Sorting and combining duplicate sparse entries adds only logarithms. Initializing a dense $n\times s$ intermediate is unnecessary and is not included in the algorithm.
+
+The PSD matrix $W_0$ has rank $r=\rank(R)\le k$ on the good event. Select $r$ principal indices $J$ for which $W=W_0[J,J]$ is SPD, and set
+\[
+ \Omega_J=\Omega[:,J],\qquad F=R\Omega_J=F_0[:,J].
+\]
+Then
+\begin{equation}
+ R=FW^{-1}F^\top. \label{eq:exact-nystrom}
+\end{equation}
+To prove this identity, write $B=R^{1/2}\Omega_J$. The good event implies that $B$ has full column rank $r$ and that its range equals $\range(R^{1/2})$. Thus $B(B^\top B)^{-1}B^\top$ is the orthogonal projector onto that range. Multiplying on both sides by $R^{1/2}$ gives~\eqref{eq:exact-nystrom}. The square root is only a proof device; it is never computed.
+
+\subsection{Fast principal rank selection, including singular sketches}
+\begin{lemma}[PSD principal rank profile]
+\label{lem:rankprofile}
+For an explicitly given PSD matrix $W_0$ of order $s$, a set $J$ with $|J|=\rank(W_0)$ and $W_0[J,J]$ SPD can be found in $O(s^{\omega_0})$ arithmetic operations.
+\end{lemma}
+\begin{proof}
+Recursively partition
+\[
+ W_0=\begin{pmatrix}A&B\\B^\top&D\end{pmatrix}
+\]
+into roughly equal sizes. Select a principal basis $I$ of $A$ by recursion. Positivity implies $\range(B)\subseteq\range(A)$: if $Av=0$, the quadratic form on $(v,tw)$ cannot remain nonnegative for both signs of sufficiently small $t$ unless $v^\top Bw=0$.
+
+If $I$ is nonempty, define
+\[
+ C=A[I,I],\qquad E=B[I,:],\qquad D_*=D-E^\top C^{-1}E.
+\]
+The matrix $D_*$ is PSD. Eliminating the coordinates $I$ leaves a zero block on the remaining upper coordinates, with zero cross terms, together with $D_*$. In particular,
+\[
+ \rank(W_0)=|I|+\rank(D_*).
+\]
+Recursing on $D_*$ and adjoining its selected indices to $I$ yields the desired SPD principal block. If $I$ is empty then $A=0$ and positivity gives $B=0$, so recurse directly on $D$.
+
+Fast block inversion of the SPD matrix $C$ and fast products cost $O(s^{\omega_0})$ at a recursion node. Padding rectangular products by zeros is sufficient. The recurrence is
+$T(s)\le2T(\lceil s/2\rceil)+O(s^{\omega_0})$, giving the asserted bound. The base case tests a nonnegative scalar for zero. No spectral decomposition or square roots are used.
+\end{proof}
+
+This step must not be replaced in an asymptotic proof by an unqualified cubic rank computation when the chosen $\omega_0$ is below three. The verification code uses ordinary exact dense kernels, but the theorem uses the fast kernels described in the proof.
+
+\subsection{The inner SPD solve and its error transfer}
+Suppose $r>0$; the case $R=0$ simply returns $b/\alpha$. Define
+\begin{equation}
+ K=\alpha W+F^\top F,\qquad g=F^\top b. \label{eq:core}
+\end{equation}
+The Woodbury identity gives
+\begin{equation}
+ M^{-1}b=\alpha^{-1}(b-FK^{-1}g). \label{eq:woodbury}
+\end{equation}
+The large Gram matrix $F^\top F$ is kept implicit for iterative products, not formed by an ambient-dimension dense multiplication.
+
+Independently choose another OSE for $\range(F)$, again with failure probability $1/200$. Let $T$ be its unnormalized sign matrix, with $\beta_2$ nonzeros per column, and form
+\[
+ G=TF,\qquad P=\alpha W+\beta_2^{-1}G^\top G.
+\]
+On its good event,
+\begin{equation}
+ \tfrac12F^\top F\preceq\beta_2^{-1}G^\top G\preceq\tfrac32F^\top F,
+ \qquad \tfrac12K\preceq P\preceq\tfrac32K. \label{eq:core-sandwich}
+\end{equation}
+The map $P^{-1}$ is formed exactly with fast dense kernels. The eigenvalues of $P^{-1/2}KP^{-1/2}$ lie in $[2/3,2]$, so its condition number is at most three. Preconditioned CG (PCG) therefore returns $\widehat z$ satisfying
+\begin{equation}
+ \norm{\widehat z-z_*}_K\le\delta\norm{z_*}_K,
+ \qquad z_*=K^{-1}g,
+ \label{eq:inner-error}
+\end{equation}
+in $O(\log(2/\delta))$ iterations from zero. This uses the same CG polynomial argument as Section~\ref{sec:cg} after a fixed SPD change of variables; no change-of-variables square root is needed in the recurrence.
+
+The inner accuracy cannot be chosen arbitrarily if the outer requirement is a Euclidean residual. We now bound the necessary value explicitly. Since $K\succeq F^\top F$,
+\[
+ FK^{-1}F^\top\preceq I,\qquad
+ \norm{z_*}_K^2=b^\top FK^{-1}F^\top b\le\norm b_2^2.
+\]
+Put $e_z=\widehat z-z_*$ and
+$\widehat x=\alpha^{-1}(b-F\widehat z)$. Formula~\eqref{eq:woodbury} gives
+\[
+ \norm{M\widehat x-b}_2
+ =\alpha^{-1}\norm{MF e_z}_2
+ \le\frac{\norm M_2}{\alpha}\norm{e_z}_K
+ \le\delta\frac{\norm M_2}{\alpha}\norm b_2.
+\]
+The computable quantity
+\begin{equation}
+ U=\alpha+\tr(R)
+ \quad\hbox{satisfies}\quad
+ \norm M_2\le U\le n\norm M_2,
+ \qquad U/\alpha\le n\cond(M). \label{eq:U}
+\end{equation}
+Taking
+\begin{equation}
+ \delta=\eps\alpha/U \label{eq:inner-delta}
+\end{equation}
+therefore proves the required physical-residual accuracy.
+
+The number of iterations can be capped independently of whether the random sketches succeeded. For condition number at most three, the CG factor
+$(\sqrt3-1)/(\sqrt3+1)$ is less than $1/2$, so
+\[
+ t=\left\lceil\log_2\frac{2U}{\eps\alpha}\right\rceil
+\]
+is enough on the good event. Run at most $\min\{r,t\}$ steps, with early termination on exact convergence. The integer $t$ can be obtained by a doubling loop in $O(t)$ field operations; no exact logarithm oracle is needed.
+
+\subsection{Cost, probability, and termination}
+Let $N_M=\nnz(M)$ and $\ell=1+\log(200k)$ in the nontrivial branch. Up to fixed logarithmic factors, the construction has the following accounting:
+\begin{center}
+\begin{tabular}{p{0.51\textwidth}p{0.37\textwidth}}
+\toprule
+Operation & Arithmetic cost\\
+\midrule
+Recover $\alpha$ and form $R$ & $\softO(N_M+k^{\omega_0})$\\
+Generate sparse sketches & $\softO(n)$\\
+Form sparse $F_0$ and small $W_0$ & $\softO(N_M+k^2)$\\
+Select principal rank profile & $\softO(k^{\omega_0})$\\
+Form $G$ and $P$, invert $P$ & $\softO(N_M+k^{\omega_0})$\\
+One core product $v\mapsto Kv$ & $O(\nnz(F)+r^2)$\\
+One application of $P^{-1}$ & $O(r^2)$\\
+Reconstruct and check $\widehat x$ & $O(\nnz(F)+N_M)$\\
+\bottomrule
+\end{tabular}
+\end{center}
+For example, the first Gram construction costs $O(\beta^2\nnz(R)+s^2)$ before sparse aggregation, and $s=O(k\ell^8)$, $\beta=O(\ell^3)$. The second sketch has at most $O(k\ell^8)$ rows. Its dense small Gram can be formed by padding to that order and using fast multiplication, so it costs $\softO(k^{\omega_0})$, not $O(nk^2)$.
+
+Each inner PCG iteration costs $\softO(N_M+k^2)$. There are $O(\log(n\cond(M)/\eps))$ such iterations, and $k^2\le k^{\omega_0}$ for $k\ge1$. All logarithms in these steps are bounded by fixed powers of the logarithm in~\eqref{eq:flat-cost}. If $\omega_0>3$, ordinary cubic dense kernels are already within the claimed $k^{\omega_0}$ bound.
+
+Conditional on the first sketch, the second sketch is independent and preserves the fixed subspace $\range(F)$ with failure probability at most $1/200$. A union bound therefore gives overall success probability at least $1-1/200-1/200=0.99$.
+
+On a bad first sketch, $W_0$ remains PSD, the selected principal block is still SPD, and the selected rank is no larger than $k$; only the exact reconstruction identity may fail. On a bad second sketch, $P$ is still SPD because $\alpha W\succ0$. The algorithm has the same bounded setup and capped iteration count on those events. If no columns are selected, it returns $b/\alpha$. One may check the actual output residual and report failure, but the arithmetic bound never depends on retrying until a sketch succeeds. This completes the proof of Theorem~\ref{thm:flat}.
+
+\section{A limited corollary for general nonsymmetric inputs}
+\label{sec:cor}
+\begin{corollary}[Exactly flat singular tail and small row supports]
+\label{cor:rows}
+Let $A$ be a nonsingular sparse matrix with $\sigma_{k+1}=\sigma_n$. Write $w_i=\nnz(A[i,:])$ and
+\[
+ W_A=\sum_{i=1}^n w_i^2.
+\]
+There is a randomized exact-arithmetic solver attaining the residual target with probability at least $0.99$ at cost
+\begin{equation}
+ \softO\bigl(W_A+k^{\omega_0}\bigr), \label{eq:row-cost}
+\end{equation}
+where the hidden factors are fixed powers of $1+\log(n\cond(A)/\eps)$. In particular, the KE-01 bound holds on this subclass when the maximum row support is bounded by a fixed polylogarithm of $n$.
+\end{corollary}
+\begin{proof}
+Form $H=A^\top A$ by summing sparse row outer products, and form $c=A^\top b$. The arithmetic and sparse-aggregation work is $\softO(W_A)$; moreover $\nnz(H)\le W_A$. The matrix $H$ is SPD and has exactly flat eigenvalue tail $\alpha=\sigma_n^2$, so Theorem~\ref{thm:flat} applies.
+
+It remains to use the correct stopping accuracy. After recovering $\alpha$, ask the SPD solver for
+\[
+ \norm{H\widehat x-c}_2\le\eta\norm c_2,
+ \qquad \eta=\frac{\eps\alpha}{\tr H}.
+\]
+In the dense $n\le2k$ branch, an exact solve suffices instead. Let $r=A\widehat x-b$. Since $A^\top r=H\widehat x-c$,
+\[
+ \norm r_2\le\frac{\norm{H\widehat x-c}_2}{\sigma_n}
+ \le\eta\cond(A)\norm b_2.
+\]
+Because $\tr H/\alpha\ge\cond(A)^2\ge\cond(A)$, this is at most $\eps\norm b_2$. Also
+\[
+ \cond(H)=\cond(A)^2,\qquad
+ 1/\eta\le n\cond(A)^2/\eps,
+\]
+so the logarithms remain of the stated size.
+
+Finally $W_A\le(\max_iw_i)N$. A fixed polylogarithmic row-support bound makes~\eqref{eq:row-cost} equal to $\softO(N+k^{\omega_0})$.
+\end{proof}
+
+The Gram-fill example has $W_A=n^2+n-1$ but $N=2n-1$. Thus this route has a genuine accounting limitation on general sparse inputs. The corollary does not replace $W_A$ by $N$ without its row-support condition, and it does not handle arbitrary $\kappa>1$.
+
+\section{The unproved step for the general target}
+\label{sec:missing}
+\subsection{Why exact flatness cannot simply be relaxed}
+For $n\ge2$ and any $\zeta>0$, take
+\[
+ M_\zeta=\diag\left(1,1+\frac\zeta{n-1},\ldots,1+\zeta\right).
+\]
+Then $\cond(M_\zeta)=1+\zeta$ can be arbitrarily close to one, but
+\[
+ \rank(M_\zeta-\lambda_{\min}(M_\zeta)I)=n-1.
+\]
+Consequently the exact low-rank identity~\eqref{eq:flat-decomp} disappears discontinuously when equality of the tail eigenvalues is replaced by a narrow interval. There is no argument here that replaces a bounded-width tail by a flat one within the desired cost. This diagonal family is easy to solve; it is a counterexample to that rank inference, not an instance of computational hardness.
+
+\subsection{One sufficient primitive}
+\begin{proposition}[A sufficient preconditioning guarantee]
+\label{prop:sufficient}
+Suppose that for every KE-01 input, with probability at least $0.99$, one could construct in $\softO(N+k^{\omega_0})$ operations a fixed SPD preconditioner $P$ such that
+\begin{equation}
+ H\preceq P\preceq C_0\kappa^2H,\qquad H=A^\top A, \label{eq:missing-primitive}
+\end{equation}
+and apply the exact linear map $P^{-1}$ in $\softO(N)$ operations. Suppose the setup and application bounds hold also on unsuccessful random outcomes. Then KE-01 would follow.
+\end{proposition}
+\begin{proof}
+The preconditioned matrix has condition number at most $C_0\kappa^2$. PCG on $Hx=A^\top b$ needs $O(\kappa\log(2/\eps))$ iterations for the relative $H$-energy error. Each product by $H$ costs $O(N)$ implicitly, and each preconditioner call costs $\softO(N)$. The energy identity~\eqref{eq:energy-identity} yields exactly the desired physical residual. Add the setup cost and cap the iteration count according to this guarantee. Abort with an arbitrary output on any detected breakdown; this cannot occur on the successful event.
+\end{proof}
+
+This is a sufficient route, not a necessary characterization of all possible solvers. In particular, it is not a theorem that such a preconditioner must exist or that it is necessary to find one explicitly.
+
+The per-application requirement must be audited. A bound $\softO(N+k^2)$ instead of $\softO(N)$ introduces a term $k^2\kappa$ after outer iteration, and that term is not uniformly bounded by $k^{\omega_0}+N\kappa$. Likewise, an explicit dense $n\times k$ basis can entail $nk$ output/storage work and $Nk$ construction work. Calling these objects ``low rank'' or ``implicit'' does not itself remove those costs. Using a changing approximate inverse inside CG also needs an inexact-iteration analysis rather than the fixed-preconditioner proof above.
+
+\paragraph{Precise remaining gap.}
+This report does not construct a general bounded-tail solver, or a primitive such as~\eqref{eq:missing-primitive}, with all setup, data-access, and repeated-application costs inside~\eqref{eq:target}. Its exact-flat method depends on a sparse matrix $R$ of algebraic rank at most $k$; that object is not supplied by the general singular-value promise. No impossibility theorem is proved either.
+
+\section{Audit of the closest sources}
+\label{sec:sources}
+\paragraph{Problem formulation.}
+The repository's KE-01 statement was checked against the workshop formulation~\cite{ke01,workshop}. The analysis here uses its explicit residual criterion, sparse entry input, attained $\omega_0$, and input-independent logarithmic exponent. A published-status label is not a proof of either possibility or impossibility.
+
+\paragraph{Dense predecessor.}
+Derezi\'nski--Sidford~\cite[Theorems 3 and 29]{ds} give low-rank-tail solvers with an ambient $d^2$ contribution, together with dependence on averaged tail conditioning in the general theorem. Their constant-tail regression guarantee has the form
+$\softO((\nnz(A)+d^2)\log(1/\eps))+O(k^\omega)$.
+For square sparse inputs, that $d^2=n^2$ term cannot merely be relabeled $N$. The regularized and wide-factor primitives motivate parts of Section~\ref{sec:flat}; the sparse rank representation and the error transfer used here are proved explicitly.
+
+\paragraph{Newer sparse-factor result.}
+Liu--Nguyen--Peng--Yang~\cite[Theorem 1.1]{lnpy} assume a full-column-rank $m\times d$ factor, row support at most $s$, short rational data, polynomial bounds on norms and global conditioning, and constant spectral-tail ratio. Their stated bit bound includes
+\[
+ m^{o(1)}\softO\left(ms+\sqrt{d/k}\,k^2+k^{\omega+\eta}\right)
+\]
+for fixed $\eta>0$, with absolute Euclidean solution error. These restrictions and overheads do not establish~\eqref{eq:target}: $ms$ need not equal actual input sparsity, $m^{o(1)}$ need not be polylogarithmic, and the middle term is not uniformly absorbed. Merely requiring a factor is \emph{not} itself an obstacle here, since KE-01 already supplies $A$, a factor of $A^\top A$.
+
+\paragraph{Related coordinate-descent work.}
+Lok--Rebrova~\cite[Theorem 1.7 and Section 1.2]{lr} analyze subspace-constrained coordinate descent with outlier-insensitive convergence for PSD systems. Their construction stores a dense auxiliary matrix whose dimensions are the system size and the approximation rank. The reviewed guarantees do not supply the specific sparse setup and application bounds missing above.
+
+The source audit is not a claim that every possible relevant result has been excluded. It records the exact sources and theorem statements used for this attempt.
+
+\section{Reproducibility and what the tests establish}
+\label{sec:tests}
+The package includes ordinary Python/SymPy verification code using rational numbers throughout. There are no floating-point tolerances in the checks. The recorded run used Python 3.13.5, SymPy 1.14.0, and pseudorandom seed 20260912.
+
+\begin{center}
+\begin{tabular}{p{0.67\textwidth}r}
+\toprule
+Exact check & Count\\
+\midrule
+CGLS matrices with prescribed rational singular values & 66\\
+Squared Chebyshev-bound inequalities checked & 209\\
+Flat-tail factorization/shift-recovery cases & 8\\
+Core PCG iterates with energy and physical-error checks & 28\\
+Sparse-input / dense-Gram examples & 5\\
+Rank-one Nystr\"om residual identities & 9\\
+Unit-column row-sketch examples & 3\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Additional edge checks include $k=0$, an overestimated rank parameter, zero actual outlier rank, a principal block that misses the outlier support, an indefinite matrix rejected by the PSD rank-profile verifier, and the rank discontinuity under an arbitrarily narrow nonconstant tail.
+
+The CGLS matrices are generated with rational orthogonal rotations and prescribed rational singular values, including nonsymmetric cases. Tests check exact termination, physical residuals, and the squared version of~\eqref{eq:cheb}. The flat-tail tests recover $\alpha$ via polynomial gcds, check~\eqref{eq:exact-nystrom} and~\eqref{eq:woodbury}, and test both the core spectral sandwich and the physical-error transfer along exact PCG iterates.
+
+The small sketches in the tests are \emph{algebraic test fixtures}, not parameterized implementations of the quantitative OSNAP theorem. Some rank fixtures are regenerated until a full-rank sample appears, solely to test the subsequent identity. The bounded-work probability guarantee in Theorem~\ref{thm:flat} comes from the cited OSE theorem and the capped construction, not from those experiments. The executable rank-profile and dense solves use ordinary SymPy kernels, not fast matrix multiplication. No measured runtime is evidence for the asymptotic bounds.
+
+\paragraph{Commands.}
+From the extracted package directory:
+\begin{verbatim}
+python -m pip install -r code/requirements.txt
+python code/verify_exact.py
+python code/solve_json.py code/example_instance.json
+\end{verbatim}
+The first verifier writes \texttt{results/exact\_checks.json} and
+\texttt{results/cgls\_cases.csv}. An alternative results directory can be supplied with \texttt{--out}. The standalone JSON solver implements only the \emph{baseline} exact CGLS method, not the requested KE-01 asymptotic algorithm. It accepts zero-based COO indices and rational values as strings. The bundled three-dimensional example returns $(-3/25,2,3)$ with exactly zero residual.
+
+To rebuild the report with a standard TeX Live installation:
+\begin{verbatim}
+cd report
+pdflatex -interaction=nonstopmode -halt-on-error report.tex
+pdflatex -interaction=nonstopmode -halt-on-error report.tex
+\end{verbatim}
+A checksum manifest covers the deliverable files. Python's rational arithmetic may incur substantial integer bit growth on large examples, so the code is a correctness reference, not a large-scale numerical solver.
+
+\section{Conclusion}
+The general system is solved by the baseline algorithm, but its arithmetic bound retains the term $Nk$. The exact-flat sparse-SPD theorem removes that term on a restricted class, and the row-support corollary translates it to a restricted class of nonsymmetric inputs. Neither result establishes the uniform $k^{\omega_0}+N\kappa$ target for every sparse nonsingular matrix satisfying only the stated tail-ratio promise.
+
+The specific mathematical work still needed is a way to exploit the \emph{numerical} outlier structure without assuming an algebraically low-rank sparse update and without introducing an ambient dense or repeatedly paid outlier cost. The report provides no proof that this is impossible. It also provides no proof that the proposed sufficient preconditioning primitive is available. Accordingly, \textbf{the requested complete solution has not been obtained in this attempt}.
+
+\begin{thebibliography}{9}
+\addcontentsline{toc}{section}{References}
+\bibitem{ke01}
+OpenProblemsInNLA, \emph{KE-01: Exploit spectral outliers without losing input sparsity}. Entry accessed 12 September 2026.
+\url{https://raw.githubusercontent.com/ajt60gaibb/OpenProblemsInNLA/main/linear-systems-and-elimination/KE-01/README.md}.
+
+\bibitem{workshop}
+N.~Amsel et al., \emph{Linear Systems and Eigenvalue Problems: Open Questions from a Simons Workshop}. arXiv:2602.05394v3, 2026. Definition 2.4 and Problem 2.5.
+\url{https://arxiv.org/html/2602.05394v3}.
+
+\bibitem{hs}
+M.~R.~Hestenes and E.~Stiefel, \emph{Methods of conjugate gradients for solving linear systems}. Journal of Research of the National Bureau of Standards 49 (1952), 409--436. DOI: 10.6028/jres.049.044.
+\url{https://nvlpubs.nist.gov/nistpubs/jres/049/6/v49.n06.a08.pdf}.
+
+\bibitem{ds}
+M.~Derezi\'nski and A.~Sidford, \emph{Approaching Optimality for Solving Dense Linear Systems with Low-Rank Structure}. SODA 2026, 925--938. Full manuscript: arXiv:2507.11724. Theorems 3 and 29; Corollary 13; Lemma 15.
+\url{https://arxiv.org/html/2507.11724}.
+
+\bibitem{lnpy}
+Y.~P.~Liu, H.-A.~Nguyen, R.~Peng, and J.~Yang, \emph{Faster Solvers for Sparse Systems with Large Spectral Outliers}. Author-hosted manuscript, 2026. Theorem 1.1. Accessed 12 September 2026.
+\url{https://yangpliu.github.io/pdf/faster-solvers-sparse-spectral-outliers.pdf}.
+
+\bibitem{osnap}
+J.~Nelson and H.~L.~Nguyen, \emph{OSNAP: Faster numerical linear algebra algorithms via sparser subspace embeddings}. arXiv:1211.1002; FOCS 2013. Theorem 9 in the linked manuscript.
+\url{https://arxiv.org/pdf/1211.1002}.
+
+\bibitem{np}
+V.~Neiger and C.~Pernet, \emph{Deterministic computation of the characteristic polynomial in the time of matrix multiplication}. arXiv:2010.04662v2, 2021. Theorem 1.1 and Section 1.1.
+\url{https://arxiv.org/html/2010.04662}.
+
+\bibitem{lr}
+J.~Lok and E.~Rebrova, \emph{Subspace-Constrained Randomized Coordinate Descent for Linear Systems with Good Low-Rank Matrix Approximations}. SIAM Journal on Matrix Analysis and Applications 47(3) (2026), 1495--1529. DOI: 10.1137/25M177446X. Manuscript: arXiv:2506.09394v3.
+\url{https://arxiv.org/html/2506.09394v3}.
+\end{thebibliography}
+\end{document}

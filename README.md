@@ -4,7 +4,7 @@ A collection of precise open problems drawn from books and research
 publications, with references and dated checks for subsequent solutions.
 
 <!-- catalog-summary -->
-**127 problems with open targets:** 55 open and 72 partially resolved. **90 other retained entries**, excluded from the open count.
+**127 problems with open targets:** 54 open and 73 partially resolved. **90 other retained entries**, excluded from the open count.
 
 **Resolution evidence:** 76 solved (published or independently audited); 14 Lean verified.
 
