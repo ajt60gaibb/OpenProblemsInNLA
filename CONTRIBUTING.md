@@ -62,6 +62,9 @@ protected inline math beginning with `\displaystyle`, for example
 ``$`\displaystyle \|A\|_2 \le 1.`$``. GitHub currently leaves indented
 `math` fences as literal code. The PDF renderer restores these standalone
 paragraphs as display equations.
+If an italic or bold phrase ends with a formula, close the emphasis before
+the formula; GitHub can miss math immediately followed by the closing marker.
+Use fenced code blocks for literal examples.
 
 The [GitHub math documentation](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions)
 describes the protected delimiters and fenced blocks.

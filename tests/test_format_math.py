@@ -90,6 +90,12 @@ class GitHubMathFormattingTests(unittest.TestCase):
         inline_code = "`Example:\n\\newpage\n`\n"
         self.assertEqual(format_markdown(inline_code, "RA-12"), inline_code)
 
+    def test_math_at_emphasis_boundary_requires_manual_separation(self):
+        with self.assertRaisesRegex(ValueError, "closing emphasis"):
+            format_markdown(r"*Title ending in $x$*.")
+        self.assertEqual(format_markdown(r"*Title ending in* $x$."),
+                         r"*Title ending in* $`x`$.")
+
     def test_unclosed_display_and_unknown_operators_fail(self):
         with self.assertRaises(ValueError):
             format_markdown("$$\na=b")

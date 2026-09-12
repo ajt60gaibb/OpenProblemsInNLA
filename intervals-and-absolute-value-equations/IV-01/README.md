@@ -15,7 +15,7 @@
 ## Problem statement
 
 For $`\epsilon\in\{-1,1\}^n`$, call a real $`n\times n`$ matrix $`M`$
-**nonsingular sign regular with signature $`\epsilon`$** if $`\det M\ne0`$ and
+**nonsingular sign regular with signature** $`\epsilon`$ if $`\det M\ne0`$ and
 every minor of order $`k`$ has determinant $`d`$ satisfying $`\epsilon_k d\ge0`$,
 for every $`1\le k\le n`$.
 

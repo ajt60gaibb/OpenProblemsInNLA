@@ -91,9 +91,9 @@ with equality whenever $`4\mid n`$, so any universal $`\alpha`$ must satisfy $`\
    [Preprint](https://arxiv.org/abs/2303.07492).
 7. R. Sengupta and M. Pautov, *On the submatrices with the best-bounded inverses*, arXiv: 2604.05944v5 (2026).
    [Preprint](https://arxiv.org/html/2604.05944v5).
-8. Y. Nesterenko, *Submatrices with the best-bounded inverses: Studying $`\mathbb R^{n\times2}`$ and $`\mathbb C^{n\times2}`$*, arXiv: 2408.16631v1 (2024).
+8. Y. Nesterenko, *Submatrices with the best-bounded inverses: Studying $`\mathbb R^{n\times2}`$ and* $`\mathbb C^{n\times2}`$, arXiv: 2408.16631v1 (2024).
    [Preprint](https://arxiv.org/html/2408.16631v1).
-9. Y. Nesterenko, *Submatrices with the best-bounded inverses: an asymptotically tight upper bound for $`\mathbb C^{n\times2}`$*, arXiv: 2604.24087v1 (2026).
+9. Y. Nesterenko, *Submatrices with the best-bounded inverses: an asymptotically tight upper bound for* $`\mathbb C^{n\times2}`$, arXiv: 2604.24087v1 (2026).
    [Preprint](https://arxiv.org/html/2604.24087v1).
 
 ## Status check — 2026-09-11

@@ -32,9 +32,9 @@ These are optimal line configurations at redundancy two: their coherence attains
 
 ## References
 
-1. A. Glazyrin, *New constructions of optimal arrangements of $`2d`$ lines in $`\mathbb C^d`$*, August 2026, Conjecture 1 (attributed to Fallon and Iverson), and Sections 2–5 for constructions. [Paper](https://arxiv.org/abs/2608.16116).
+1. A. Glazyrin, *New constructions of optimal arrangements of $`2d`$ lines in* $`\mathbb C^d`$, August 2026, Conjecture 1 (attributed to Fallon and Iverson), and Sections 2–5 for constructions. [Paper](https://arxiv.org/abs/2608.16116).
 
-2. K. Fallon and J. W. Iverson, *On the optimal arrangement of $`2d`$ lines in $`\mathbb C^d`$*, Information and Inference 14(2) (2025), iaaf008. [Published paper](https://doi.org/10.1093/imaiai/iaaf008).
+2. K. Fallon and J. W. Iverson, *On the optimal arrangement of $`2d`$ lines in* $`\mathbb C^d`$, Information and Inference 14(2) (2025), iaaf008. [Published paper](https://doi.org/10.1093/imaiai/iaaf008).
 
 ## Status check — 2026-09-10
 

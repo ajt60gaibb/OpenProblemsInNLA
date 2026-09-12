@@ -14,7 +14,7 @@
 
 ## Negative resolution - 2026-09-11
 
-The displayed universal conjecture is false: **$`e_{3,3}=3`$, whereas its formula gives $`4`$**. For $`n=s=3`$, write the off-diagonal entries as $`(a,b,c)`$. The determinant is $`2abc`$, so the variety is the union of three coordinate planes. Each smooth component has exactly one simple critical point for generic full-Frobenius data. Their intersections are singular and are excluded by the definition below.
+The displayed universal conjecture is false: **$`e_{3,3}=3`$, whereas its formula gives** $`4`$. For $`n=s=3`$, write the off-diagonal entries as $`(a,b,c)`$. The determinant is $`2abc`$, so the variety is the union of three coordinate planes. Each smooth component has exactly one simple critical point for generic full-Frobenius data. Their intersections are singular and are excluded by the definition below.
 
 [Complete proof](solution.md) · [Proof PDF](solution.pdf) · [Standalone TeX](solution.tex) · [Independent audit and exact verification](../../references/research-expansion-2026-09-11/ra20-resolution/README.md).
 

@@ -193,6 +193,8 @@ def format_markdown(text, identifier=None):
     pieces = []
     previous = 0
     for span in math_spans(text):
+        if not span.display and re.match(r"[*_]", text[span.end:]):
+            raise ValueError("Move the closing emphasis marker before the final math expression")
         pieces.append(text[previous:span.start])
         body = safe_angles(safe_operators(span.body))
         if span.display:
