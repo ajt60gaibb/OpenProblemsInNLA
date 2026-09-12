@@ -21,6 +21,16 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### MI-15 and MI-16 — matrix partial results — Sidney Holden
+
+**Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-matrix-2026-09-12/README.md).
+
+- [MI-15](matrix-inequalities-and-norms/MI-15/README.md): [Sections 1–5](references/holden-matrix-2026-09-12/MI-15/proof.md) prove exact SOS certificates in orders 8–12. The all-order assertion remains open. [Independent review](references/holden-matrix-2026-09-12/verification/MI-15-review.md).
+- [MI-16](matrix-inequalities-and-norms/MI-16/README.md): the [Theorem](references/holden-matrix-2026-09-12/MI-16/result.md) gives the exact orbit maximum for every one-exceptional-eigenvalue spectrum. Arbitrary spectra remain open. [Independent review](references/holden-matrix-2026-09-12/verification/MI-16-review.md).
+
+The same submission includes audited MI-20 projective reductions and MI-27 projection-equivalence and coefficient-sharpness lemmas; both remain Open because their requested answers are not supplied. Three separate informal Codex AI-agent reviews passed the stated scopes. No full resolution, novelty, external human peer review or formal verification is asserted. No Lean verification was performed. The open-target count does not decrease; IDs, paths, targets and prior-source credit are retained.
+
+
 ### KE-02, SP-08 and SP-09 — spectral partial results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-spectral-2026-09-12/README.md).

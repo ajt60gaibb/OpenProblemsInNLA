@@ -16,7 +16,7 @@
 | [MI-12](MI-12/README.md) | Marcus's inequality for the permanent of block permanents | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](MI-12/problem.pdf) · [TeX](MI-12/problem.tex) |
 | [MI-14](MI-14/README.md) | The complex Lu–Wenzel spectral conjecture | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](MI-14/problem.pdf) · [TeX](MI-14/problem.tex) |
 | [MI-15](MI-15/README.md) | A sum-of-squares representation for the Toeplitz commutator form | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](MI-15/problem.pdf) · [TeX](MI-15/problem.tex) |
-| [MI-16](MI-16/README.md) | The maximum permanent on a positive-semidefinite unitary orbit | **🔵 OPEN** | extreme | interesting to the community | [PDF](MI-16/problem.pdf) · [TeX](MI-16/problem.tex) |
+| [MI-16](MI-16/README.md) | The maximum permanent on a positive-semidefinite unitary orbit | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](MI-16/problem.pdf) · [TeX](MI-16/problem.tex) |
 | [MI-17](MI-17/README.md) | The Lih–Wang permanent inequality toward the flat matrix | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](MI-17/problem.pdf) · [TeX](MI-17/problem.tex) |
 | [MI-18](MI-18/README.md) | Bapat's q-permanent monotonicity conjecture | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](MI-18/problem.pdf) · [TeX](MI-18/problem.tex) |
 | [MI-20](MI-20/README.md) | Sharp subquadratic Lee constants for sums of matrices | **🔵 OPEN** | challenging | interesting to the community | [PDF](MI-20/problem.pdf) · [TeX](MI-20/problem.tex) |

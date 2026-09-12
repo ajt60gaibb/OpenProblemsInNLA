@@ -7,9 +7,17 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Status:** Open  
-**Last checked:** 2026-09-10
+**Last checked:** 2026-09-12
 
 **Rating rationale:** Determining a sharp two-parameter function after the proposed formula failed is challenging; matrix-sum bounds affect norm estimates used across NLA.
+
+## Audited dual and projective reductions — 12 September 2026
+
+**Author:** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](../../references/holden-matrix-2026-09-12/README.md).
+
+[Sections 1–4](../../references/holden-matrix-2026-09-12/MI-20/result.md) give the known positive dual formulation (Qiu, Proposition 3.1), a fixed-dimension binary projection reduction, and an all-summands projective dilation preserving the supremum over dimensions. These lemmas do not determine $`C_p(m)`$ for the requested parameter range; the target remains Open.
+
+A separate [independent Codex AI-agent audit](../../references/holden-matrix-2026-09-12/verification/MI-20-MI-27-review.md) passed this limited scope. This is informal automated review; no complete resolution, historical novelty, external human peer review or formal verification is claimed. No Lean verification was performed.
 
 ## Problem statement
 

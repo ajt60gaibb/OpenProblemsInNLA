@@ -4,9 +4,17 @@
 **Importance:** interesting to specialist  
 **Provenance:** explicit conjecture  
 **Status:** Partially resolved  
-**Last checked:** 2026-09-10
+**Last checked:** 2026-09-12
 
 **Rating rationale:** All-order algebraic certification needs more than known nonnegativity; its direct application is a specific Toeplitz commutator form.
+
+## Finite-order SOS certificates — 12 September 2026
+
+**Author:** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](../../references/holden-matrix-2026-09-12/README.md).
+
+Sections 1–5 of the [proof](../../references/holden-matrix-2026-09-12/MI-15/proof.md) establish sum-of-squares representations for orders $`n=8,9,10,11,12`$, with at most $`2(n-1)^2`$ homogeneous quadratic squares. The five rational Gram certificates passed exact polynomial-identity and integer positive-definiteness checks. The assertion for every order remains open.
+
+A separate [independent Codex AI-agent audit](../../references/holden-matrix-2026-09-12/verification/MI-15-review.md) passed this limited scope. This is informal automated review; no complete resolution, historical novelty, external human peer review or formal verification is claimed. No Lean verification was performed.
 
 ## Problem statement
 
