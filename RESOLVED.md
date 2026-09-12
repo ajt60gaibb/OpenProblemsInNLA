@@ -378,9 +378,11 @@ historical and the entry no longer contributes to the open count.
 
 [Canonical entry](matrix-inequalities-and-norms/MI-04/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-04/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-04-review.md). **Theorem 1.1 and its proof.** The universal positive-block operator-norm property holds exactly when the off-diagonal block is essentially Hermitian. The proof applies in every finite dimension without invertibility or distinct-singular-value assumptions. 
 
-#### MI-06 — negative result
+#### MI-06 — negative result by Matthew J. Colbrook; Lean formalization by George Stepaniants
 
 [Canonical entry](matrix-inequalities-and-norms/MI-06/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-06/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-06-review.md). **Theorem 1.1 and its proof.** No finite constant permits the proposed two-unitary Loewner-order domination for the arithmetic symmetric modulus, already in dimension three. A fixed rational example also refutes the proposed $\sqrt2$ constant. This concerns matrix order, not a separate norm triangle inequality. 
+
+**Lean verified — 2026-09-12:** the complete original factor-$\sqrt2$ assertion is negated by six checked exports at [revision 43b3dc6](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/43b3dc65116633a68c32ec582fd093f3adc95597/matrix-inequalities-and-norms/MI-06/lean), verified in [Linux run 34711237623](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34711237623). The [independent reviews and retained evidence](matrix-inequalities-and-norms/MI-06/lean/README.md) cover the actual CFC moduli, every complex unitary pair, the nonzero orthogonal vector, the homogeneous quadratic bounds and the retained kernel LeanCert certificate. **Formalization: George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA**, with AI-agent assistance. Mathematical counterexample and informal proof remain attributed to Matthew J. Colbrook. The stronger no-finite-constant source theorem is outside these six exports.
 
 #### MI-07 — negative result by Matthew J. Colbrook; Lean formalization by George Stepaniants
 

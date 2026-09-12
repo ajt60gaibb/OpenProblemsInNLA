@@ -32,7 +32,7 @@
 | --- | --- | --- | --- | --- | --- |
 | [MI-03](MI-03/README.md) | Sharp additive triangle constant for an odd number of contractions | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-03/problem.pdf) · [TeX](MI-03/problem.tex) |
 | [MI-04](MI-04/README.md) | A universal block-norm characterization of essentially Hermitian matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-04/problem.pdf) · [TeX](MI-04/problem.tex) |
-| [MI-06](MI-06/README.md) | Thompson-type domination for the arithmetic symmetric modulus | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-06/problem.pdf) · [TeX](MI-06/problem.tex) |
+| [MI-06](MI-06/README.md) | Thompson-type domination for the arithmetic symmetric modulus | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](MI-06/problem.pdf) · [TeX](MI-06/problem.tex) |
 | [MI-07](MI-07/README.md) | The triangle conjecture for the maximal symmetric modulus | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](MI-07/problem.pdf) · [TeX](MI-07/problem.tex) |
 | [MI-13](MI-13/README.md) | Nobori's spectral-middle-factor commutator conjecture | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-13/problem.pdf) · [TeX](MI-13/problem.tex) |
 | [MI-19](MI-19/README.md) | A q-permanent inequality for subset-preserving permutations | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](MI-19/problem.pdf) · [TeX](MI-19/problem.tex) |

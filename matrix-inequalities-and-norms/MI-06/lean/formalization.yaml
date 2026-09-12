@@ -1,0 +1,192 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/99c678e569c7c4c0772db297c5ddd5e4c9b6322e/schema/v0.4.schema.json
+version: v0.4
+project:
+  name: 'MI-06: a counterexample to arithmetic symmetric-modulus domination'
+  description: >-
+    Proves the genuine CFC square-root modulus identities, an exact rational
+    three-dimensional witness, a nonzero common orthogonal vector for arbitrary
+    complex constraints, all-unitary quadratic bounds, and the full negation of
+    the original universal factor-sqrt(2) PSD domination conjecture.
+  authors:
+    - George Stepaniants
+  affiliations:
+    George Stepaniants: Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA
+  responsible_maintainers:
+    - George Stepaniants
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+  - title: MI-06 — Thompson-type domination for the arithmetic symmetric modulus
+    id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/02b807770fca860ef810cc048d6849224b8f93e1/matrix-inequalities-and-norms/MI-06/README.md
+    type: web-post
+    location: Problem statement
+    relationship: formalizes
+    author_endorsement: not-contacted
+    note: The original question concerns every positive dimension and every pair of arbitrary complex matrices, with existential complex unitaries and ordinary PSD order.
+  - title: 'MI-06: Resolution'
+    authors:
+      - Matthew J. Colbrook
+    id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/02b807770fca860ef810cc048d6849224b8f93e1/matrix-inequalities-and-norms/MI-06/solution.tex
+    type: manuscript
+    location: Corollary 1.2 and its justification following Theorem 1.1
+    relationship: formalizes
+    author_endorsement: not-contacted
+    note: The fixed parameter t=3/4 refutes the full original sqrt(2) target. The source's stronger no-finite-constant theorem is explicitly outside the formal scope.
+related_formalizations:
+  - id: https://github.com/sgstepaniants/Forsythe/tree/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof
+    relationship: other
+    note: Statement-first, explicit kernel LeanCert and Comparator workflow reference. Shared checker reuse is credited in tools/lean/NOTICE.md. No Forsythe mathematical result is assumed.
+  - id: https://github.com/jaumededios/Schiffer/tree/2938e277969c329caf154e48a3d8823f3635c7f1
+    relationship: other
+    note: Project organization reference used by the formalization campaign; no mathematical source code is copied or imported here.
+automation:
+  methods:
+    - method: agent
+      framework: OpenAI Codex
+      tool_setup: >-
+        Multiple agents; two independent statement approvals before proof;
+        pinned Mathlib CFC, PSD, unitary and finite-rank APIs; two independent
+        final proof reviews with fresh separate target artifacts; explicit
+        kernel LeanCert for one exact rational point inequality.
+      prompting_notes: >-
+        Preserve the complete complex-matrix and all-unitary target. Prove all
+        six actual CFC moduli by positive-root uniqueness and exact Gram identities.
+        Use rank-one decompositions and a nonzero vector in a two-constraint kernel
+        to eliminate numerical eigensolvers, unitary searches and normalization.
+        Retain the kernel LeanCert certificate 2<9/4 in the final contradiction.
+  notes: AI-assisted formalization requested by George Stepaniants. No external human peer review, source-author endorsement, unrecorded exact model identity or measured monetary cost is claimed.
+status:
+  scope: >-
+    Complete negative answer to the original universal sqrt(2) assertion in
+    canonical MI-06. All six exports passed local Lean compilation, standard-axiom
+    checks, two independent statement reviews and two independent final proof
+    reviews. Actual Linux run 34711237623 at immutable revision
+    43b3dc65116633a68c32ec582fd093f3adc95597 passed formal statement comparison,
+    default-kernel export replay and real sandbox/rejection controls. An independent
+    operational audit verified all 117 input hashes and the original artifacts.
+    Canonical status is Lean verified on 2026-09-12. The stronger no-finite-constant
+    source theorem remains outside this six-export formalization.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: &standard_axioms
+    - propext
+    - Classical.choice
+    - Quot.sound
+  main_results:
+    - declaration: NLA.MI06.modulus_eq_sqrt
+      file: Solution.lean
+      sorry_count: 0
+      axioms: *standard_axioms
+      comparator_config: comparator.json
+      literature_dependencies: []
+    - declaration: NLA.MI06.witness_moduli
+      file: Solution.lean
+      sorry_count: 0
+      axioms: *standard_axioms
+      comparator_config: comparator.json
+      literature_dependencies: []
+    - declaration: NLA.MI06.two_vector_orthogonal
+      file: Solution.lean
+      sorry_count: 0
+      axioms: *standard_axioms
+      comparator_config: comparator.json
+      literature_dependencies: []
+    - declaration: NLA.MI06.witness_quadratic_bounds
+      file: Solution.lean
+      sorry_count: 0
+      axioms: *standard_axioms
+      comparator_config: comparator.json
+      literature_dependencies: []
+    - declaration: NLA.MI06.counterexample
+      file: Solution.lean
+      sorry_count: 0
+      axioms: *standard_axioms
+      comparator_config: comparator.json
+      literature_dependencies: []
+    - declaration: NLA.MI06.not_dominationConjecture
+      file: Solution.lean
+      sorry_count: 0
+      axioms: *standard_axioms
+      comparator_config: comparator.json
+      literature_dependencies: []
+fidelity:
+  divergences: >-
+    Finite matrix indices use zero-based Fin. The complete original conjecture
+    retains arbitrary complex inputs and genuine complex unitaries. Its matrix
+    modulus is actual CFC.abs; PSD order is the actual Mathlib matrix order.
+    The witness happens to be real rational, a valid complex input. Exact
+    positive-root certificates and rank-one decompositions replace eigenvalue
+    calculations. A homogeneous positive-length vector replaces the source's
+    normalized vector without weakening the contradiction. The original sqrt(2)
+    target is fully negated; the stronger source theorem excluding every finite
+    constant is not exported.
+review:
+  status: agent-reviewed; Linux-Comparator-verified
+  reviewers:
+    - 'OpenAI Codex agent /root/solved_statement_inventory: independent statement referee 1 and final proof referee 1'
+    - 'OpenAI Codex agent /root: independent statement referee 2 and final proof referee 2'
+  notes: >-
+    Both statement approvals preceded implementation and bind unchanged Definitions,
+    Challenge and NUMERICAL_TARGETS. Both independent final referees read the entire
+    proof and recompiled Definitions, Proof and Solution into separate fresh local
+    artifact prefixes, checked all 52 standard-three-axiom/kernel reports and the
+    substantive retained kernel certificate. Referee 1 also recompiled Challenge,
+    explicitly inspected actual instances and reran the exact rational reconstruction.
+    The implementer /root/formal_review_standards is not counted as its own referee.
+    The pinned Tau Ceti rubrics were adapted to this canonical project. Six deliberate
+    Challenge placeholders remain isolated and are excluded from proof sorry counts.
+    Local checks ran on macOS arm64 with reused dependency artifacts at ten checked
+    clean pins. Actual Linux run 34711237623 at 43b3dc65116633a68c32ec582fd093f3adc95597
+    subsequently passed both genuine sandbox/control suites, six-export Comparator
+    matching and default-kernel replay. All 52 actual axiom reports use only the
+    standard three axioms. Independent operational reviewer /root/leancert_examples
+    verified every original artifact digest and all 117 source inputs. The run used
+    ten fresh dependency checkouts and 8690 official Mathlib cache files, with the
+    project and required non-cached LeanCert modules freshly built. Historical freeze
+    and handoff notes remain unchanged; current Linux status is recorded in the
+    retained operational audit. Formal identity checks supplement, rather than
+    replace, the independent English-to-Lean fidelity reviews.
+  statement_reports:
+    - file: reviews/statement-referee-1.md
+      sha256: e1e8af4ece9a6b1a52b1458141a4b3916e5f68d27c41ef5254188e6e7f6d1ed6
+    - file: reviews/statement-referee-2.md
+      sha256: fed44f1b753919b466b675f2dc9b4d2fb38df6617d67a0855b5747aef6c17bd5
+  proof_reports:
+    - file: reviews/proof-referee-1.md
+      sha256: 6a12e8ccb1cc02a2b083ac42b4688eff1da948be8317808e1b149e9801c800c4
+    - file: reviews/proof-referee-2.md
+      sha256: 35373f2167259c1685bcee57cfe678953d4e58dabb699521474a604b57fe8cdb
+  evidence: >-
+    reviews/proof-referee-1.md, reviews/proof-referee-2.md,
+    verification/linux-2026-09-12/OPERATIONAL-REVIEW.md and its original artifacts;
+    actual run https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34711237623
+alignment:
+  - source: The genuine positive matrix modulus for every complex square matrix
+    declarations:
+      - NLA.MI06.modulus_eq_sqrt
+  - source: Colbrook's t=3/4 witness; all six actual moduli, three averages and two rank-one decompositions
+    declarations:
+      - NLA.MI06.witness_moduli
+  - source: Nonzero common orthogonal vector for any two complex vectors in dimension three, including dependent constraints
+    declarations:
+      - NLA.MI06.two_vector_orthogonal
+  - source: Homogeneous lower and upper quadratic bounds for every pair of genuine complex unitaries
+    declarations:
+      - NLA.MI06.witness_quadratic_bounds
+  - source: Corollary 1.2; the fixed rational pair defeats every complex unitary pair at coefficient sqrt(2)
+    declarations:
+      - NLA.MI06.counterexample
+  - source: Full negation of the original universally quantified complex-matrix assertion
+    declarations:
+      - NLA.MI06.not_dominationConjecture
+acknowledgements: >-
+  Mathlib, LeanCert, Lean Comparator, the formalization.yaml maintainers, Schiffer
+  and Forsythe. Informal mathematical proof: Matthew J. Colbrook, Department of
+  Applied Mathematics and Theoretical Physics, University of Cambridge.
+  Formalization: George Stepaniants with AI-agent assistance.
+toolchain:
+  lean: leanprover/lean4:v4.33.1
+  leancert: 621a43d7cf21f87872392a01e874f2f1dbddc926
+  mathlib: 0df444a360eaa60ab8c11dca51a86af692955474
+  dependency_manifest: lake-manifest.json
