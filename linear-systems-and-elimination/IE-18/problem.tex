@@ -34,7 +34,7 @@ acceleration},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-18}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ exact four-step amplification of restarted Anderson acceleration\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -59,7 +59,7 @@ to the community\par}
 2026-09-11}\label{independently-reviewed-resolution---2026-09-11}
 
 \textbf{Negative resolution.} Section 2 refutes the exact four-step
-identity using \(M=\operatorname{diag}(1/10,1/2,3/5)\) and
+identity using \(M=\mathop{\mathrm{diag}}\nolimits(1/10,1/2,3/5)\) and
 \(v=(1,1,1)^T\): the squared norm ratio is
 \(1920682/21289638243>1/14641\), the square of the proposed factor. Both
 \(M\) and \(I-M\) are positive definite. Section 3 proves unbounded
@@ -82,6 +82,11 @@ The difficulty, importance and rating rationale below are historical
 assessments of the original open target. Original statements, references
 and dated audits are preserved.
 
+The complete negative answer to the original identity now has
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-18\#lean-proof-and-verification-evidence--2026-09-12}{Lean
+proof and verification evidence}. The stronger parameter-family result
+and separate asymptotic question are outside that formalization.
+
 \textbf{Rating rationale:} Challenging reflects a global maximization of
 a nonlinear homogeneous residual map in arbitrary dimension; community
 impact is an exact convergence factor for restarted Anderson
@@ -89,17 +94,21 @@ acceleration.
 
 Let \(n\ge2\) and let \(M\in\mathbb R^{n\times n}\) be nonzero and
 symmetric, with \(1\notin\sigma(M)\). Put \(A=I-M\). Define the
-positively homogeneous map \[
-R(v)=M\left(v-\frac{v^TAv}{\|Av\|_2^2}Av\right)\quad(v\ne0),\qquad R(0)=0.
-\] Two steps of restarted Anderson acceleration with memory one applied
-to \(x=Mx+b\) propagate the residual by \(R\). If \(m_1,\ldots,m_n\) are
-the eigenvalues of \(M\), is \[
-\max_{v\ne0}\frac{\|R(R(v))\|_2}{\|v\|_2}
+positively homogeneous map
+
+\[R(v)=M\left(v-\frac{v^TAv}{\|Av\|_2^2}Av\right)\quad(v\ne0),\qquad R(0)=0.\]
+
+Two steps of restarted Anderson acceleration with memory one applied to
+\(x=Mx+b\) propagate the residual by \(R\). If \(m_1,\ldots,m_n\) are
+the eigenvalues of \(M\), is
+
+\[\max_{v\ne0}\frac{\|R(R(v))\|_2}{\|v\|_2}
 =
 \max_{i\ne j}
-\left(\frac{m_im_j(m_j-m_i)}{|m_i(m_i-1)|+|m_j(m_j-1)|}\right)^2?
-\] A term with zero denominator is defined as zero: under the
-assumptions this can occur only when \(m_i=m_j=0\).
+\left(\frac{m_im_j(m_j-m_i)}{|m_i(m_i-1)|+|m_j(m_j-1)|}\right)^2?\]
+
+A term with zero denominator is defined as zero: under the assumptions
+this can occur only when \(m_i=m_j=0\).
 
 The conjecture says that a largest four-step residual amplification is
 attained using only two orthogonal eigenvectors, irrespective of the
@@ -137,4 +146,72 @@ general-dimensional identity is still conjectural; the order-two case
 alone does not justify a substantive partial-status label. Targeted
 searches for this four-step amplification conjecture found no later
 resolution.
+
+\subsection{Lean proof and verification evidence ---
+2026-09-12}\label{lean-proof-and-verification-evidence-2026-09-12}
+
+\textbf{Mathematical counterexample:} Matthew J. Colbrook, Department of
+Applied Mathematics and Theoretical Physics, University of Cambridge.
+\textbf{Lean formalization:} George Stepaniants, Department of Computing
+and Mathematical Sciences, California Institute of Technology, Pasadena,
+California, USA, with AI-agent assistance.
+
+The
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/tree/7b8512e21c50adc8597dcdbed32f2aec13c3b43e/linear-systems-and-elimination/IE-18/lean}{immutable
+proof revision} contains the actual residual, Euclidean norm, spectrum
+and eigenvalue-maximum definitions.
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/blob/7b8512e21c50adc8597dcdbed32f2aec13c3b43e/linear-systems-and-elimination/IE-18/lean/Solution.lean}{Solution.lean}
+exports:
+
+\begin{itemize}
+\tightlist
+\item
+  \textit{NLA.IE18.residual\_certificate}: both actual residual-map
+  evaluations, nonzero denominators, coefficients and exact squared norm
+  ratio.
+\item
+  \textit{NLA.IE18.counterexample}: the admissible positive definite
+  witness, actual spectral maximum and strict violation of the claimed
+  greatest amplification.
+\item
+  \textit{NLA.IE18.not\_fourStepConjecture}: negation of the full
+  original universal identity, for all dimensions at least two and all
+  nonzero real symmetric matrices with one excluded from the spectrum.
+\end{itemize}
+
+All witness hypotheses are proved. The maximum uses the actual
+eigenvalues with multiplicity and distinct indices; the residual map and
+zero convention are preserved. The squared-ratio comparison with
+\((1/121)^2\) implies the strict unsquared violation. The stronger
+parameter family and separate asymptotic question are outside the
+formalized claims.
+
+The toolchain is Lean \textbf{4.33.1}, with
+\href{https://github.com/alerad/leancert/tree/621a43d7cf21f87872392a01e874f2f1dbddc926}{LeanCert
+at \textit{621a43d7cf21}},
+\href{https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474}{Mathlib
+at \textit{0df444a360ea}}, and
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/blob/7b8512e21c50adc8597dcdbed32f2aec13c3b43e/linear-systems-and-elimination/IE-18/lean/lake-manifest.json}{all
+dependency revisions locked}. LeanCert certifies one exact rational
+comparison in kernel mode. All eight audited internal/public
+declarations have only \textit{propext}, \textit{Classical.choice}, and
+\textit{Quot.sound} in their transitive axiom closure.
+
+The catalog reviewed the
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34703657954}{successful
+Ubuntu Linux run}: fresh project builds, sandbox/rejection controls,
+exact Challenge/Solution matching and default-kernel replay passed for
+all exports. The official Mathlib compiled cache was used.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-18/lean/verification/linux-2026-09-12}{The
+audit, original artifact and raw logs},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-18/lean/reviews}{independent
+statement and proof reviews}, and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-18/lean/formalization.yaml}{formalization
+metadata} are retained. These are AI-agent reviews of remote Linux
+verification, distinct from local Mac builds or human peer review.
+
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-18/lean/README.md\#reproduction-and-evidence}{Reproduction
+commands} use the immutable proof revision and the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tools/lean/HARNESS.md}{shared
+harness} on a non-root Linux host.
 \end{document}

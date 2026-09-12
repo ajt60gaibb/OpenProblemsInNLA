@@ -1,0 +1,139 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/99c678e569c7c4c0772db297c5ddd5e4c9b6322e/schema/v0.4.schema.json
+version: "v0.4"
+project:
+  name: "MI-19: a counterexample to the subset q-permanent inequality"
+  description: >-
+    Proves an actual complex Hermitian positive semidefinite Gram witness,
+    evaluates its full and subset-preserving permutation sums, and refutes
+    the complete original universal inequality by an exact strict gap.
+  authors: [George Stepaniants]
+  affiliations:
+    George Stepaniants: >-
+      Department of Computing and Mathematical Sciences, California Institute
+      of Technology, Pasadena, California, USA
+  responsible_maintainers: [George Stepaniants]
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+  - title: "MI-19 — A q-permanent inequality for subset-preserving permutations"
+    id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/5adea969c17391693978ada2674d25bb5c3daeb1/matrix-inequalities-and-norms/MI-19/README.md
+    type: web-post
+    location: Problem statement
+    relationship: formalizes
+    author_endorsement: not-contacted
+    note: >-
+      Canonical target; original conjecture attributed to R. B. Bapat and
+      A. K. Lal, with the subset formulation cited through C. M. da Fonseca.
+  - title: "MI-19: a rank-two counterexample to the subset inequality for the q-permanent"
+    authors: [Matthew J. Colbrook]
+    id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/5adea969c17391693978ada2674d25bb5c3daeb1/matrix-inequalities-and-norms/MI-19/solution.tex
+    type: manuscript
+    location: Theorem 1.1 and its proof
+    relationship: formalizes
+    author_endorsement: not-contacted
+    note: >-
+      The PSD counterexample and exact strict gap are formalized. Exact rank
+      two, all-q polynomial identities and the optional positive-definite
+      perturbation are not claimed as formalized results. They are unnecessary
+      for the complete negative answer to the original yes/no question.
+related_formalizations:
+  - id: https://github.com/sgstepaniants/Forsythe/tree/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof
+    relationship: other
+    note: >-
+      Statement-first, kernel LeanCert and Comparator workflow reference.
+      Shared checker reuse is credited in tools/lean/NOTICE.md; no Forsythe
+      mathematical result is assumed by this proof.
+  - id: https://github.com/jaumededios/Schiffer/tree/2938e277969c329caf154e48a3d8823f3635c7f1
+    relationship: other
+    note: Proof organization studied; no source code copied or imported.
+automation:
+  methods:
+    - method: agent
+      framework: OpenAI Codex
+      tool_setup: >-
+        Multiple agents, two independent statement reviews before proof,
+        exact complex Gram algebra, Mathlib's proved recursive permutation
+        equivalence, and explicit kernel-mode LeanCert for one rational point.
+      prompting_notes: >-
+        Preserve complex PSD and the full original inversion ordering for all
+        permutations and all setwise-preserving subsets. Reduce computation
+        by a proved six-pair inversion formula without narrowing the target.
+  notes: >-
+    AI-assisted formalization requested by George Stepaniants. No external
+    human peer review, source-author endorsement, unrecorded exact model
+    identity or measured monetary cost is claimed.
+status:
+  scope: >-
+    Complete negative answer to the canonical MI-19 universal conjecture.
+    Local Lean compilation, standard-axiom checks and two independent final
+    proof reviews passed. Fresh Linux Comparator and default-kernel replay
+    passed on 2026-09-12 at proof revision
+    cd44ce9bcb84ebc79a1aa934918d1f76b2a9c6e7, run 34703363593.
+    The canonical status is Lean verified. The recorded mathematical files
+    and dependency pins are unchanged by the subsequent publication update.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: [propext, Classical.choice, Quot.sound]
+  main_results:
+    - declaration: NLA.MI19.counterexample
+      file: Solution.lean
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+      comparator_config: comparator.json
+      literature_dependencies: []
+    - declaration: NLA.MI19.not_subsetConjecture
+      file: Solution.lean
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+      comparator_config: comparator.json
+      literature_dependencies: []
+fidelity:
+  divergences: >-
+    Fin n uses zero-based positions, so the original interior singleton {2}
+    becomes {1:Fin 4}. The genuine complex partial order compares real parts
+    and requires equal imaginary parts; both witness sums are proved real.
+    No real-only, entrywise-positive, initial-segment or positive-definite
+    restriction is added to the universal statement. Optional stronger
+    source results listed above are outside the advertised scope.
+review:
+  status: agent-reviewed; Linux-Comparator-passed
+  reviewers:
+    - "OpenAI Codex agent /root: independent statement referee 1 and final proof referee 1"
+    - "OpenAI Codex agent /root/leancert_examples: independent statement referee 2"
+    - "OpenAI Codex agent /root/formal_review_standards: independent final proof referee 2 and actual Linux operational audit"
+  notes: >-
+    Both statement reports bind the frozen mathematical definitions and
+    Challenge signatures and precede implementation. Both final proof
+    referees independently re-elaborated the actual proof and exports.
+    The proof implementer does not count as an independent referee. Relevant
+    Tau Ceti rubric angles are adapted to this project's canonical target.
+    The two deliberate Challenge placeholders are excluded from proof sorry
+    counts and never imported by Solution. Linux run
+    https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34703363593
+    accepted both selected exports with no definition holes and only the
+    standard three permitted axioms. All sandbox and rejection controls
+    executed successfully; pinned dependency sources were freshly cloned
+    and the matching upstream mathlib cache was used. The original artifact
+    ZIP digests and all 37 proof-revision input hashes were independently
+    checked against GitHub and the immutable commit. The complete record is
+    verification/linux-2026-09-12/OPERATIONAL-REVIEW.md, with raw logs,
+    result receipt, archives and EVIDENCE-MANIFEST.json in that directory.
+    Historical pending-Linux reviews remain archived without alteration.
+    Formal statement identity does not replace informal fidelity review.
+alignment:
+  - source: Canonical definitions and original universal inequality
+    declarations: [NLA.MI19.qPermanent, NLA.MI19.restrictedQPermanent, NLA.MI19.SubsetConjecture]
+  - source: Colbrook Theorem 1.1, Gram witness and strict gap at q=7/8
+    declarations: [NLA.MI19.counterexample]
+  - source: Complete negative answer to the canonical target
+    declarations: [NLA.MI19.not_subsetConjecture]
+acknowledgements: >-
+  Mathlib, LeanCert, Lean Comparator, the formalization.yaml maintainers,
+  Schiffer and Forsythe. Informal proof: Matthew J. Colbrook. Formalization:
+  George Stepaniants with AI-agent assistance.
+toolchain:
+  lean: leanprover/lean4:v4.33.1
+  leancert: 621a43d7cf21f87872392a01e874f2f1dbddc926
+  mathlib: 0df444a360eaa60ab8c11dca51a86af692955474
+  dependency_manifest: lake-manifest.json
