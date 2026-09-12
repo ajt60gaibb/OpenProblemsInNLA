@@ -2,7 +2,7 @@
 
 [← All categories](../README.md) · [Full catalog](../CATALOG.md) · [Solved and claimed solutions](../RESOLVED.md)
 
-**17 problems with open targets.** 6 retained entries are excluded from the open count.
+**16 problems with open targets.** 7 retained entries are excluded from the open count.
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
@@ -18,7 +18,6 @@
 | [MF-14](MF-14/README.md) | Degree coverage with seven matrix multiplications | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](MF-14/problem.pdf) · [TeX](MF-14/problem.tex) |
 | [MF-15](MF-15/README.md) | Critical exponent for generalized doubly nonnegative matrices | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](MF-15/problem.pdf) · [TeX](MF-15/problem.tex) |
 | [MF-17](MF-17/README.md) | Optimal uniform growth after inversion of an exponentially stable generator | **🔵 OPEN** | challenging | interesting to the community | [PDF](MF-17/problem.pdf) · [TeX](MF-17/problem.tex) |
-| [MF-18](MF-18/README.md) | Imaginary-part rank in a limiting Green-function matrix equation | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](MF-18/problem.pdf) · [TeX](MF-18/problem.tex) |
 | [MF-19](MF-19/README.md) | Decidability of zero hitting by rational matrix powers | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](MF-19/problem.pdf) · [TeX](MF-19/problem.tex) |
 | [MF-20](MF-20/README.md) | Decidability of zero hitting by a matrix exponential | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](MF-20/problem.pdf) · [TeX](MF-20/problem.tex) |
 | [MF-21](MF-21/README.md) | The uniform expansion threshold for Toeplitz symbols with higher-order zeros | **🔵 OPEN** | challenging | interesting to specialist | [PDF](MF-21/problem.pdf) · [TeX](MF-21/problem.tex) |
@@ -33,6 +32,7 @@
 | [MF-07](MF-07/README.md) | Uniform polynomial bounds for products at joint spectral radius one | **✅ SOLVED** | challenging | interesting to the community | [PDF](MF-07/problem.pdf) · [TeX](MF-07/problem.tex) |
 | [MF-12](MF-12/README.md) | Realizing arbitrary polynomial growth exponents by finite matrix families | **✅ SOLVED** | challenging | interesting to the community | [PDF](MF-12/problem.pdf) · [TeX](MF-12/problem.tex) |
 | [MF-16](MF-16/README.md) | Uniqueness of positive definite solutions of two-letter word equations in order two | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MF-16/problem.pdf) · [TeX](MF-16/problem.tex) |
+| [MF-18](MF-18/README.md) | Imaginary-part rank in a limiting Green-function matrix equation | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MF-18/problem.pdf) · [TeX](MF-18/problem.tex) |
 | [SF-01](SF-01/README.md) | Preservation of real H-matrix structure by Newton square-root iterates | **✅ SOLVED** | challenging | interesting to specialist | [PDF](SF-01/problem.pdf) · [TeX](SF-01/problem.tex) |
 
 Ratings are editorial; each entry explains both ratings and the scope of its status evidence. [Definitions](../README.md#problem-status).
