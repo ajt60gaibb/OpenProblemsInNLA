@@ -101,6 +101,10 @@ does not change mathematical status automatically.
 
 ## Lean verification
 
+For in-repository formalizations, follow the [per-problem Lean workflow](docs/lean/README.md)
+and [independent referee protocol](docs/lean/REVIEW.md). Shared scripts select
+changed projects, validate their manifests, and run the pinned Linux checker.
+
 Use `**Status:** Lean verified` only for a complete resolution of the original
 target with reviewed Lean verification evidence. `Solved` remains appropriate
 for a published result or a complete argument that has passed an independent

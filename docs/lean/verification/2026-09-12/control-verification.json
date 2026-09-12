@@ -1,0 +1,97 @@
+{
+  "sandbox": {
+    "result": "pass",
+    "executed_modes": [
+      "build",
+      "export"
+    ],
+    "assertions_checked": {
+      "MODE build: exit=0": 1,
+      "MODE export: exit=0": 1,
+      "PASS outside .lake write-open: denied errno=30": 2,
+      "PASS outside .lake truncate: denied errno=30": 2,
+      "PASS outside .lake read-only truncate-open: denied errno=30": 2,
+      "PASS symlink from .lake to outside write: denied errno=30": 2,
+      "PASS outside .lake creation: denied errno=30": 2,
+      "PASS build .lake write: allowed": 1,
+      "PASS export .lake write-open: denied errno=30": 1,
+      "PASS export .lake truncate: denied errno=30": 1,
+      "PASS host parent: absent from private /proc": 2,
+      "PASS host parent signal lookup: denied errno=3": 2,
+      "PASS host loopback listener: unreachable errno=13": 2,
+      "PASS AF_UNIX socket creation: denied errno=97": 2,
+      "PASS effective capabilities: none": 2,
+      "PASS no_new_privs: set": 2,
+      "Sandbox UID: 1001": 2,
+      "PASS nested namespace write attempt: rejected exit=1": 2,
+      "bwrap: setting up uid map: Permission denied": 2,
+      "NEGATIVE unknown option: exit=2": 1,
+      "NEGATIVE unexpected --rw: exit=2": 1,
+      "NEGATIVE unexpected --rwx: exit=2": 1,
+      "NEGATIVE relative --rwx: exit=2": 1,
+      "Outer and export fixture contents unchanged; only designated build fixture written.": 1,
+      "EXIT_STATUS=0": 1,
+      "PASS user namespace: private": 2,
+      "PASS pid namespace: private": 2,
+      "PASS mnt namespace: private": 2,
+      "PASS net namespace: private": 2,
+      "PASS ipc namespace: private": 2,
+      "PASS uts namespace: private": 2
+    },
+    "nested_limit": "Nested bwrap executes but its UID-map setup is denied; the inner write payload is not reached."
+  },
+  "raw_kernel": {
+    "result": "pass",
+    "cases": [
+      "honest inductive/quotient acceptance",
+      "invalid True.intro proof of False rejected by kernel",
+      "tampered exported Quot.lift rejected by quotient post-check"
+    ]
+  },
+  "comparator": {
+    "result": "pass",
+    "cases": [
+      {
+        "case": "simple_match",
+        "expected_exit": 0,
+        "checked_failure_phase": "Your solution is okay!"
+      },
+      {
+        "case": "simple_mismatch",
+        "expected_exit": 1,
+        "checked_failure_phase": "Challenge and solution constant kind don't match: 'comm'"
+      },
+      {
+        "case": "simple_axiom_issue",
+        "expected_exit": 1,
+        "checked_failure_phase": "Illegal axiom detected: 'helper'"
+      },
+      {
+        "case": "simple_kind_mismatch",
+        "expected_exit": 1,
+        "checked_failure_phase": "Illegal axiom detected: 'helper'"
+      },
+      {
+        "case": "type_mismatch",
+        "expected_exit": 1,
+        "checked_failure_phase": "Challenge and solution theorem statement do not match: 'checked'"
+      }
+    ]
+  },
+  "negative_sorry": {
+    "result": "pass",
+    "phase": "Illegal axiom detected: 'sorryAx'",
+    "expected_exit": 1
+  },
+  "negative_native": {
+    "result": "pass",
+    "phase": "Illegal axiom detected: 'checked._native.native_decide.ax_1_1'",
+    "expected_exit": 1
+  },
+  "portable_tests": {
+    "root_project_and_metadata": 20,
+    "harness": 12,
+    "result": "pass in actual Linux select job"
+  },
+  "scope": "Operational inspection of actual logs and checked harness; not a mathematical problem verification or an independent source-code review of the reviewer-authored original driver."
+}
