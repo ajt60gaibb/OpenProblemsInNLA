@@ -7,10 +7,26 @@
 **Topic:** Block Toeplitz systems and discretization stability  
 **Difficulty:** hard  
 **Importance:** interesting to specialist  
-**Status:** Open  
-**Last checked:** 2026-09-10
+**Status:** Solved  
+**Last checked:** 2026-09-11
 
-**Rating rationale:** The fixed explicit band structure makes this a hard asymptotic question, but available symbol criteria leave the relevant regime undecided; its immediate importance is to specialists in structured discretization stability.
+**Rating rationale:** Historical ratings retained. The fixed explicit band structure makes this a hard asymptotic question, but available symbol criteria leave the relevant regime undecided; its immediate importance is to specialists in structured discretization stability.
+
+\pagestyle{plain}
+
+## Resolution: affirmative, 11 September 2026
+
+**George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology**, proves that for every fixed $\rho>0$ there are $K_\rho>0$ and $n_\rho$ such that
+
+$$
+\kappa_2(H_n(\rho))\le K_\rho n\qquad(n\ge n_\rho).
+$$
+
+Thus the original question is answered affirmatively with exponent $\alpha_\rho=1$. The result includes eventual invertibility, the parameter $\rho=\sqrt{10}$, and the exact uncorrected Toeplitz boundary entries. The original ID, full statement, and historical ratings are retained below.
+
+The precise locator is the **Theorem in Section 1, proved in Sections 2–4** of the [complete manuscript](solution.md). [Proof PDF](solution.pdf) · [Standalone TeX](solution.tex). The proof derives a four-state recurrence, excludes all numerator cancellation, and bounds its finite Green matrix to obtain a linear inverse bound.
+
+A separate [independent Codex-agent mathematical review](../../references/stepaniants-mf22-2026-09-11/verification/MF-22-independent-review.md) returned **PASS** for the complete target. The [submission record](../../references/stepaniants-mf22-2026-09-11/README.md) documents substantial ChatGPT/Codex assistance, exact symbolic checks, the public branch/fork audit, and verification limits. This is independent automated-agent review, not external human peer review or formal proof certification. The source authors retain credit for the family, the root classification and the question.
 
 ## Statement
 
@@ -49,7 +65,7 @@ The parameter remains fixed as $n\to\infty$; no uniform-in-$\rho$ bound or parti
 
 ## Numerical significance
 
-These matrices arise from cubic splines with $C^1$ continuity in time for a space-time Schrödinger discretization. The source proves a determinant-root classification of the associated polynomial symbol but expressly leaves polynomial growth of these condition numbers open. A bound would explain the numerical stability seen for this intermediate spline regularity.
+These matrices arise from cubic splines with $C^1$ continuity in time for a space-time Schrödinger discretization. The source proves a determinant-root classification of the associated polynomial symbol but expressly leaves polynomial growth of these condition numbers open. The linear bound recorded above explains the numerical stability seen for this intermediate spline regularity.
 
 ## References and status check
 
@@ -57,3 +73,5 @@ These matrices arise from cubic splines with $C^1$ continuity in time for a spac
 - M. Ferrari and S. Gómez, *A matrix-based approach to the stability of a space-time isogeometric method for the linear Schrödinger equation*, [arXiv:2506.18859v2](https://arxiv.org/abs/2506.18859v2) (5 May 2026), abstract and introduction. Its analyzed method uses splines of maximal regularity, a different case from cubic $C^1$ splines.
 
 On 2026-09-10, checked the complete August 2026 source, its version history, and targeted identifier/title/correction searches. Only v1 was listed, and no later proof or counterexample was found. This short, bounded follow-up search does not establish exhaustive openness. The source's more general claim involving only determinant-root counts is not needed for this particular, explicitly stated family.
+
+The 2026-09-11 submission audit checked five public repositories and all 30 public branch heads, where MF-22 remained Open, and found no prior full solution in the checked documents or discussions. The [dated audit](../../references/stepaniants-mf22-2026-09-11/verification/network-check.json) records the scope and its limits. The source still listed only v1.

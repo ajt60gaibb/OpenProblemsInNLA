@@ -3,8 +3,12 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because local minimality of ED degree must be strengthened to a global comparison across all positive definite metrics; community importance concerns weighted approximation and partially symmetric tensor models.  
-**Last checked:** 2026-09-10  
-**Status:** Partially resolved  
+**Last checked:** 2026-09-11  
+**Status:** Solved  
+
+<!-- colbrook-tensor-metrics-rank -->
+**Affirmative resolution recorded 2026-09-11.** Matthew J. Colbrook's [complete manuscript, Theorem 1](../../references/colbrook-tensor-metrics-rank-2026-09-11/manuscripts/tr17_solution.pdf) ([LaTeX source](../../references/colbrook-tensor-metrics-rank-2026-09-11/manuscripts/tr17_solution.tex)) proves the stated global inequality for every permitted Segre–Veronese format and every positive definite real symmetric bilinear form, with the complex-bilinear critical-point and multiplicity convention below. The proof gives nonnegative weights for a Chern–Schwartz–MacPherson coefficient comparison and proves the needed signed Euler-characteristic positivity even for singular or nonreduced quadric sections. No genericity restriction on the metric is imposed. The full original source passed an [independent mathematical agent review](../../references/colbrook-tensor-metrics-rank-2026-09-11/verification/reviews/TR-17-review.md). [Submission and verification record](../../references/colbrook-tensor-metrics-rank-2026-09-11/README.md). This is documented AI-assisted verification, not external human peer review; no priority claim is made. The original target and former difficulty and importance ratings are retained below as historical context.
+<!-- /colbrook-tensor-metrics-rank -->
 
 ## Statement
 

@@ -1,0 +1,133 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={MF-23 - Complete
+Crouzeix
+conjecture},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MF-23}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Matrix functions and stability\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Complete
+Crouzeix conjecture\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} broadly
+interesting\par}
+{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Topic:} Matrix-valued polynomial functional calculus
+
+\textbf{Rating rationale:} The uniform bound must survive arbitrary
+matrix amplification, beyond the scalar functional calculus; it would
+give sharp bounds for block matrix functions and connect numerical-range
+estimates to dilation and similarity theory.
+
+\subsection{Context and notation}\label{context-and-notation}
+
+All matrices are complex, and all norms are Euclidean operator norms.
+For \(A\in\mathbb C^{n\times n}\) define
+
+\[
+W(A)=\{x^*Ax:x\in\mathbb C^n,\ x^*x=1\}.
+\]
+
+If \(F(z)=[f_{ij}(z)]_{i,j=1}^m\) has polynomial entries, let
+\(F(A)=[f_{ij}(A)]_{i,j=1}^m\), an \(mn\times mn\) block matrix.
+
+\subsection{Problem statement}\label{problem-statement}
+
+Prove or disprove that, for every \(n,m\geq1\), every
+\(A\in\mathbb C^{n\times n}\) and every matrix polynomial
+\(F\in\mathbb C^{m\times m}[z]\),
+
+\[
+\|F(A)\|_2\leq 2\max_{z\in W(A)}\|F(z)\|_2.
+\]
+
+This is the complete, rather than scalar, numerical-range spectral-set
+question. It controls simultaneous polynomial functions and hence block
+approximation errors with one constant independent of matrix and block
+sizes.
+
+\subsection{References}\label{references}
+
+\begin{itemize}
+\tightlist
+\item
+  Michel Crouzeix,
+  \href{https://doi.org/10.1016/j.jfa.2006.10.013}{\emph{Numerical range
+  and functional calculus in Hilbert space}}, \emph{Journal of
+  Functional Analysis} \textbf{244}(2), 668--690 (2007). Original source
+  for the complete conjecture, as explicitly attributed in the next
+  source.
+\item
+  Per Åhag, Rafał Czyż and Jani Virtanen,
+  \href{https://arxiv.org/html/2608.27346v3}{\emph{Square Functions,
+  Complete Crouzeix Conjecture in Dimension Three, and the
+  Clouâtre--Ostermann--Ransford conjecture}, arXiv:2608.27346v3},
+  \textbf{9 September 2026}, Introduction, equation \textbf{(1.2)} and
+  \textbf{Theorem 1.1}. This current version states the exact target and
+  explicitly distinguishes it from the scalar proofs. It claims the
+  complete bound for \(n\leq3\). Its counterexample reduction leaves
+  only \(2\times2\) matrix polynomials to check when \(n=4\).
+\item
+  Michel Crouzeix and César Palencia,
+  \href{https://doi.org/10.1137/17M1116672}{\emph{The numerical range is
+  a \((1+\sqrt2)\)-spectral set}}, \emph{SIAM Journal on Matrix Analysis
+  and Applications} \textbf{38}(2), 649--655 (2017). The complete
+  universal upper bound is \(1+\sqrt2\).
+\end{itemize}
+
+\subsection{Scope and status check}\label{scope-and-status-check}
+
+The target is source-stated, not an editorial extension of the scalar
+conjecture. The August 2026 scalar proof claims by Jin and by
+Lorist--Schwenninger do not settle it: the September 9 primary
+manuscript explicitly addresses this distinction. The \(n=3\) result is
+a recent preprint claim; the full displayed target remains unresolved
+even if that claim is accepted. Searches through the check date for
+complete Crouzeix proofs, matrix-valued Crouzeix inequalities and later
+versions found no full solution. The version was inspected as both HTML
+and PDF; the inequality is on PDF page 2, immediately before Theorem
+1.1.
+\end{document}
