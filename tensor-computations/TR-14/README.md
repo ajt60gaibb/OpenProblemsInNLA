@@ -3,8 +3,20 @@
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
 **Rating rationale:** Challenging because exceptional Hankel tensors require a uniform comparison of structured and unrestricted exact decompositions; specialist importance reflects this particular structured tensor class.  
-**Last checked:** 2026-09-10  
-**Status:** Partially resolved  
+**Last checked:** 2026-09-12  
+**Status:** Solved  
+
+## Resolution: affirmative, 12 September 2026
+
+Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation, proves the complete displayed target in [Theorem 1.1, Sections 2–5](solution.pdf): ordinary and symmetric rank agree for every complex Hankel tensor of every order $`m\ge3`$ and dimension $`n\ge2`$, including zero and exceptional tensors. No genericity or Vandermonde restriction is imposed. The stronger formula for nonzero tensors is
+
+```math
+R(H)=R_{\rm sym}(H)=\min\{D-r+2,(m-1)r-(m-2)s\},\qquad D=m(n-1),
+```
+
+where $`r`$ is the middle Hankel catalecticant rank and $`s`$ counts distinct projective roots of a smallest-degree binary apolar polynomial. The balanced case is independent of its choice. [Proof source](solution.tex) · [Submission, provenance and verified affiliation](../../references/holden-tr14-2026-09-12/README.md).
+
+The complete argument passed a separate [independent Codex AI-agent audit](../../references/holden-tr14-2026-09-12/independent-review.md). This is informal automated review, not external human peer review or formal verification. No Lean verification was performed. The original target and prior-source credit are retained below; ratings above are historical assessments of that target.
 
 ## Statement
 

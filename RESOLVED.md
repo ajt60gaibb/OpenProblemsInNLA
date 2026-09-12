@@ -21,6 +21,13 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### ✅ TR-14 — exact rank of complex Hankel tensors — Sidney Holden
+
+**Solved affirmatively, 12 September 2026.** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Theorem 1.1, Sections 2–5](tensor-computations/TR-14/solution.pdf) proves ordinary/symmetric rank equality for every complex Hankel tensor in the original target, including exceptional data, together with an exact formula. [Retained target](tensor-computations/TR-14/README.md) · [Proof source](tensor-computations/TR-14/solution.tex) · [Submission and verified affiliation](references/holden-tr14-2026-09-12/README.md).
+
+The complete proof passed a separate [independent Codex AI-agent audit](references/holden-tr14-2026-09-12/independent-review.md). Supplementary exact computations were reproduced. This is informal automated review, not external human peer review or formal verification; no Lean verification was performed. Nie and Ye retain credit for the original conjecture and earlier cases. IDs, canonical paths and the original statement are unchanged.
+
+
 ### KE-02, SP-08 and SP-09 — spectral partial results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-spectral-2026-09-12/README.md).
