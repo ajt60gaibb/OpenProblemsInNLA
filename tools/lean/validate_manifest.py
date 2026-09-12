@@ -15,7 +15,9 @@ ALLOWED_AXIOMS = {"propext", "Classical.choice", "Quot.sound"}
 
 def validate(project: Path, schema: dict) -> None:
     metadata = yaml.safe_load((project / "formalization.yaml").read_text())
-    jsonschema.Draft202012Validator(schema).validate(metadata)
+    validator = jsonschema.validators.validator_for(schema)
+    validator.check_schema(schema)
+    validator(schema).validate(metadata)
     if metadata.get("version") != "v0.4":
         raise ValueError("Use the pinned v0.4 manifest schema explicitly")
     config = json.loads((project / "comparator.json").read_text())
