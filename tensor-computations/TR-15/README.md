@@ -9,7 +9,7 @@
 <!-- colbrook-unclaimed -->
 ## Resolution — 2026-09-11
 
-**Negative resolution.** Matthew J. Colbrook's [complete manuscript, Counterexample proposition and proof](../../references/colbrook-unclaimed-2026-09-11/manuscripts/TR-15.md) disproves the universal conjecture with $m=3$, $q=2$, $n=2$ and the common generating vector $h=(2,0,1,0,2,0,-1)$. Every real H-eigenvalue of the order-three, dimension-three tensor $A$ is strictly positive, whereas the order-six, dimension-two tensor $B$ has the exact H-eigenpair $(-1,(0,1))$. The manuscript also proves that $A$ has a real H-eigenpair, so its premise is nonvacuous. The counterexample meets the original odd-lower-order assumptions; it does not contradict the separate even-lower-order theorem or results requiring a positive-semidefinite associated Hankel matrix.
+**Negative resolution.** Matthew J. Colbrook's [complete manuscript, Counterexample proposition and proof](../../references/colbrook-unclaimed-2026-09-11/manuscripts/TR-15.md) disproves the universal conjecture with $`m=3`$, $`q=2`$, $`n=2`$ and the common generating vector $`h=(2,0,1,0,2,0,-1)`$. Every real H-eigenvalue of the order-three, dimension-three tensor $`A`$ is strictly positive, whereas the order-six, dimension-two tensor $`B`$ has the exact H-eigenpair $`(-1,(0,1))`$. The manuscript also proves that $`A`$ has a real H-eigenpair, so its premise is nonvacuous. The counterexample meets the original odd-lower-order assumptions; it does not contradict the separate even-lower-order theorem or results requiring a positive-semidefinite associated Hankel matrix.
 
 The complete source passed [independent Codex-agent proof review](../../references/colbrook-unclaimed-2026-09-11/verification/reviews/TR-15-review.md). [Authorship, AI assistance and verification record](../../references/colbrook-unclaimed-2026-09-11/README.md). No external human peer review or formal verification is asserted. The original target below is retained verbatim; the difficulty, importance and rating rationale above are historical. This entry no longer contributes to the open count.
 
@@ -18,19 +18,23 @@ The complete source passed [independent Codex-agent proof review](../../referenc
 
 ## Statement
 
-For every odd $m\ge3$, integer $q\ge2$, dimension $n\ge2$, and vector $h\in\mathbb R^{qm(n-1)+1}$, define Hankel tensors $A$ and $B$ with this same generating vector. Their orders and dimensions are
-$$
-\operatorname{order}(A)=m,\quad\dim(A)=q(n-1)+1,
-\qquad \operatorname{order}(B)=qm,\quad\dim(B)=n.
-$$
-An order-$s$, dimension-$N$ Hankel tensor has entry $h_{i_1+\cdots+i_s-s}$, with each index in $\{1,\ldots,N\}$.
+For every odd $`m\ge3`$, integer $`q\ge2`$, dimension $`n\ge2`$, and vector $`h\in\mathbb R^{qm(n-1)+1}`$, define Hankel tensors $`A`$ and $`B`$ with this same generating vector. Their orders and dimensions are
 
-For a real order-$s$ tensor $C$, an H-eigenvalue is a real $\lambda$ admitting a real nonzero vector $x$ such that, for every $i$,
-$$
+```math
+\mathop{\mathrm{order}}\nolimits(A)=m,\quad\dim(A)=q(n-1)+1,
+\qquad \mathop{\mathrm{order}}\nolimits(B)=qm,\quad\dim(B)=n.
+```
+
+An order-$`s`$, dimension-$`N`$ Hankel tensor has entry $`h_{i_1+\cdots+i_s-s}`$, with each index in $`\{1,\ldots,N\}`$.
+
+For a real order-$`s`$ tensor $`C`$, an H-eigenvalue is a real $`\lambda`$ admitting a real nonzero vector $`x`$ such that, for every $`i`$,
+
+```math
 \sum_{i_2,\ldots,i_s=1}^N C_{i i_2\cdots i_s}x_{i_2}\cdots x_{i_s}
 =\lambda x_i^{s-1}.
-$$
-Conjecture: if $A$ has no negative H-eigenvalues, then $B$ has no negative H-eigenvalues.
+```
+
+Conjecture: if $`A`$ has no negative H-eigenvalues, then $`B`$ has no negative H-eigenvalues.
 
 ## Relevance
 

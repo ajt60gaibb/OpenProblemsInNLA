@@ -13,14 +13,16 @@
 
 ## Problem statement
 
-An addition chain for a positive integer $n$ is a sequence
-$1=a_0<a_1<\cdots<a_r=n$ in which every $a_i$ with $i>0$ is a sum of two earlier
-terms, which may coincide. Let $\ell(n)$ be its minimum possible length $r$.
+An addition chain for a positive integer $`n`$ is a sequence
+$`1=a_0< a_1<\cdots< a_r=n`$ in which every $`a_i`$ with $`i>0`$ is a sum of two earlier
+terms, which may coincide. Let $`\ell(n)`$ be its minimum possible length $`r`$.
 Is
 
-$$\ell(2^n-1)\le n+\ell(n)-1\qquad(n\ge1)?$$
+```math
+\ell(2^n-1)\le n+\ell(n)-1\qquad(n\ge1)?
+```
 
-The case $n=1$ uses $\ell(1)=0$. A chain implements a computation of $A^n$ by
+The case $`n=1`$ uses $`\ell(1)=0`$. A chain implements a computation of $`A^n`$ by
 matrix multiplications; the question is about this multiplication-only model,
 not every possible matrix-function algorithm.
 

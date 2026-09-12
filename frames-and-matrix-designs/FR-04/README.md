@@ -13,24 +13,28 @@
 
 Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge.
 
-Theorems 1 and 3 prove a sharp weighted planar inequality and the general bound $\omega_n(A)\le\sqrt{4\|A\|_F^2/(nM)}\sin(\pi/(2M))$, $M=m-n+2$. For $m=2n-1$ this is $O(L(A)n^{-3/2})$. The polynomial order was already known; this self-contained weighted argument does not establish exponential deterioration. The displayed conjecture remains Open.
+Theorems 1 and 3 prove a sharp weighted planar inequality and the general bound $`\omega_n(A)\le\sqrt{4\|A\|_F^2/(nM)}\sin(\pi/(2M))`$, $`M=m-n+2`$. For $`m=2n-1`$ this is $`O(L(A)n^{-3/2})`$. The polynomial order was already known; this self-contained weighted argument does not establish exponential deterioration. The displayed conjecture remains Open.
 
 See the [manuscript](../../references/colbrook-frames-2026-09-11/manuscripts/planar_projection_bound.pdf), [independent agent review](../../references/colbrook-frames-2026-09-11/verification/reviews/FR-04-review.md), and [reproducible submission record](../../references/colbrook-frames-2026-09-11/README.md). Independent agent review is not external human peer review or formal proof-assistant certification. Original problem, ratings and historical audits are retained below.
 <!-- /colbrook-frames -->
 
-For $n\geq2$, let $A\in\mathbb R^{(2n-1)\times n}$ be full spark: every choice of $n$ rows is linearly independent. Write $a_i^T$ for its rows and define
-$$
+For $`n\geq2`$, let $`A\in\mathbb R^{(2n-1)\times n}`$ be full spark: every choice of $`n`$ rows is linearly independent. Write $`a_i^T`$ for its rows and define
+
+```math
 L(A)=\max_{1\leq i\leq2n-1}\|a_i\|_2,\qquad
 \omega(A)=\min_{\substack{T\subseteq\{1,\ldots,2n-1\}\\|T|=n}}
 \sigma_{\min}(A_T).
-$$
-Do absolute constants $C>0$ and $0<\beta<1$ exist such that
-$$
-\omega(A)\leq C L(A)\beta^n
-$$
-for every $n\geq2$ and every such $A$?
+```
 
-For a full-spark matrix at this row count, the displayed definition is equivalent to the Balan–Wang definition taking the minimum over row sets whose complements fail to span $\mathbb R^n$. It measures a worst-conditioned square subproblem in inversion of the phaseless map $x\mapsto |Ax|$. The conjecture says that clever deterministic measurement design cannot avoid exponential deterioration at minimal real redundancy.
+Do absolute constants $`C>0`$ and $`0<\beta<1`$ exist such that
+
+```math
+\omega(A)\leq C L(A)\beta^n
+```
+
+for every $`n\geq2`$ and every such $`A`$?
+
+For a full-spark matrix at this row count, the displayed definition is equivalent to the Balan–Wang definition taking the minimum over row sets whose complements fail to span $`\mathbb R^n`$. It measures a worst-conditioned square subproblem in inversion of the phaseless map $`x\mapsto |Ax|`$. The conjecture says that clever deterministic measurement design cannot avoid exponential deterioration at minimal real redundancy.
 
 ## References
 
@@ -40,7 +44,7 @@ For a full-spark matrix at this row count, the displayed definition is equivalen
 
 ## Status check — 2026-09-10
 
-Searched “Balan Wang exponential conjecture solved”, “phase retrieval stability omega 2026”, and checked the latest abstract of arXiv:2607.06249. The July 2026 result proves $\omega(A_n)=4^{-n+o_P(n)}$ for independent standard Gaussian entries. A probabilistic result for this ensemble does not prove the uniform inequality over all full-spark matrices. The separate Gaussian-base question should therefore be excluded, while this deterministic conjecture remains open in the screened literature.
+Searched “Balan Wang exponential conjecture solved”, “phase retrieval stability omega 2026”, and checked the latest abstract of arXiv:2607.06249. The July 2026 result proves $`\omega(A_n)=4^{-n+o_P(n)}`$ for independent standard Gaussian entries. A probabilistic result for this ensemble does not prove the uniform inequality over all full-spark matrices. The separate Gaussian-base question should therefore be excluded, while this deterministic conjecture remains open in the screened literature.
 
 **Audit update (2026-09-10):** Rechecked Conjecture 20 and Shmalo’s July 2026 Gaussian asymptotic, then searched for universal Balan–Wang bounds. A high-probability ensemble theorem is not a deterministic bound for every full-spark matrix, so the target remains open. This is a bounded literature check, not a proof that no solution exists.
 

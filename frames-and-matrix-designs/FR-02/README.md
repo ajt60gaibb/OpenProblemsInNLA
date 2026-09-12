@@ -13,27 +13,31 @@
 
 Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge.
 
-Theorem 2 establishes $m_*(N,s)\sim N\log N/h_+(1/3)$ for $s=N-o(N)$, where $h_+(t)=(1+t)\log(1+t)-t$, in the stated cyclic Fourier model with replacement and complex vectors. It includes $s=N$. This does not give the uniform rate over all sparsities; the Walsh low-sparsity constants do not transfer to arbitrary cyclic Fourier matrices.
+Theorem 2 establishes $`m_*(N,s)\sim N\log N/h_+(1/3)`$ for $`s=N-o(N)`$, where $`h_+(t)=(1+t)\log(1+t)-t`$, in the stated cyclic Fourier model with replacement and complex vectors. It includes $`s=N`$. This does not give the uniform rate over all sparsities; the Walsh low-sparsity constants do not transfer to arbitrary cyclic Fourier matrices.
 
 See the [manuscript](../../references/colbrook-frames-2026-09-11/manuscripts/sampling_thresholds.pdf), [independent agent review](../../references/colbrook-frames-2026-09-11/verification/reviews/sampling-review.md), and [reproducible submission record](../../references/colbrook-frames-2026-09-11/README.md). Independent agent review is not external human peer review or formal proof-assistant certification. Original problem, ratings and historical audits are retained below.
 <!-- /colbrook-frames -->
 
-Let $F_N\in\mathbb C^{N\times N}$ be the unitary cyclic discrete Fourier matrix,
-$$
-(F_N)_{j\ell}=N^{-1/2}\exp(-2\pi\mathrm i j\ell/N),\quad0\leq j,\ell<N.
-$$
-Choose $r_1,\ldots,r_m$ independently and uniformly from $\{0,\ldots,N-1\}$, allowing repetitions, and form $A=\sqrt{N/m}(F_N)_{(r_1,\ldots,r_m),:}$. Put
-$$
-\delta_s(A)=\sup_{\substack{x\in\mathbb C^N\setminus\{0\}\\|\operatorname{supp}(x)|\leq s}}
+Let $`F_N\in\mathbb C^{N\times N}`$ be the unitary cyclic discrete Fourier matrix,
+
+```math
+(F_N)_{j\ell}=N^{-1/2}\exp(-2\pi\mathrm i j\ell/N),\quad0\leq j,\ell< N.
+```
+
+Choose $`r_1,\ldots,r_m`$ independently and uniformly from $`\{0,\ldots,N-1\}`$, allowing repetitions, and form $`A=\sqrt{N/m}(F_N)_{(r_1,\ldots,r_m),:}`$. Put
+
+```math
+\delta_s(A)=\sup_{\substack{x\in\mathbb C^N\setminus\{0\}\\|\mathop{\mathrm{supp}}\nolimits(x)|\leq s}}
 \left|\frac{\|Ax\|_2^2}{\|x\|_2^2}-1\right|,
 \qquad
 m_*(N,s)=\min\{m\geq1:\Pr[\delta_s(A)\leq1/3]\geq2/3\}.
-$$
-Determine the order of $m_*(N,s)$, within absolute multiplicative constants, uniformly for integers $N\geq2$ and $2\leq s\leq N$. In particular, identify the logarithmic factors that are necessary rather than artifacts of current upper bounds.
+```
 
-The problem fixes the group to cyclic Fourier, the sampling to independent rows with replacement, and the success and distortion thresholds to constants. Results for Walsh–Hadamard matrices do not automatically give the same sharp answer for every cyclic $N$. This distinction matters because lower bounds can depend on subgroup structure.
+Determine the order of $`m_*(N,s)`$, within absolute multiplicative constants, uniformly for integers $`N\geq2`$ and $`2\leq s\leq N`$. In particular, identify the logarithmic factors that are necessary rather than artifacts of current upper bounds.
 
-Fast multiplication by Fourier sketches is valuable in large least-squares and sparse recovery computations. The source asks how many Fourier rows suffice for a fixed restricted-isometry tolerance. Haviv–Regev's upper bound is $O(s\log^2(s)\log N)$ at fixed tolerance; known lower bounds leave a logarithmic gap in general.
+The problem fixes the group to cyclic Fourier, the sampling to independent rows with replacement, and the success and distortion thresholds to constants. Results for Walsh–Hadamard matrices do not automatically give the same sharp answer for every cyclic $`N`$. This distinction matters because lower bounds can depend on subgroup structure.
+
+Fast multiplication by Fourier sketches is valuable in large least-squares and sparse recovery computations. The source asks how many Fourier rows suffice for a fixed restricted-isometry tolerance. Haviv–Regev's upper bound is $`O(s\log^2(s)\log N)`$ at fixed tolerance; known lower bounds leave a logarithmic gap in general.
 
 ## References
 

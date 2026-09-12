@@ -13,34 +13,34 @@
 
 ## Context and notation
 
-For a Hermitian positive-semidefinite $A\in\mathbb C^{n\times n}$, define
-the exact-arithmetic RPCholesky residuals by $R_0=A$. Conditional on
-$R_t\ne0$, select $j$ with probability $(R_t)_{jj}/\operatorname{tr}(R_t)$
+For a Hermitian positive-semidefinite $`A\in\mathbb C^{n\times n}`$, define
+the exact-arithmetic RPCholesky residuals by $`R_0=A`$. Conditional on
+$`R_t\ne0`$, select $`j`$ with probability $`(R_t)_{jj}/\mathop{\mathrm{tr}}\nolimits(R_t)`$
 and set
 
-$$
+```math
 R_{t+1}=R_t-\frac{R_t(:,j)R_t(j,:)}{(R_t)_{jj}}.
-$$
+```
 
-If $R_t=0$, keep all subsequent residuals zero. Eigenvalues are ordered
-$\lambda_1(A)\geq\cdots\geq\lambda_n(A)\geq0$, and
-$\tau_r(A)=\sum_{j>r}\lambda_j(A)$. This is the pivot rule in Chen,
+If $`R_t=0`$, keep all subsequent residuals zero. Eigenvalues are ordered
+$`\lambda_1(A)\geq\cdots\geq\lambda_n(A)\geq0`$, and
+$`\tau_r(A)=\sum_{j>r}\lambda_j(A)`$. This is the pivot rule in Chen,
 Epperly, Tropp, and Webber, [*Randomly pivoted Cholesky: Practical
 approximation of a kernel matrix with few entry evaluations*](https://doi.org/10.1002/cpa.22234),
 Algorithm 1; their Lemma 5.5 gives the current comparison
-$\mathbb E\operatorname{tr}(R_r)\leq2^r\tau_r(A)$.
+$`\mathbb E\mathop{\mathrm{tr}}\nolimits(R_r)\leq2^r\tau_r(A)`$.
 
 ## Problem statement
 
-Does there exist a universal constant $C\geq1$ such that, for every
-$n\geq1$, every Hermitian positive-semidefinite $A\in\mathbb C^{n\times n}$,
-every integer $1\leq r\leq n$, and every $0<\varepsilon<1$, RPCholesky
+Does there exist a universal constant $`C\geq1`$ such that, for every
+$`n\geq1`$, every Hermitian positive-semidefinite $`A\in\mathbb C^{n\times n}`$,
+every integer $`1\leq r\leq n`$, and every $`0<\varepsilon<1`$, RPCholesky
 satisfies
 
-$$
-\mathbb E\operatorname{tr}(R_k)\leq(1+\varepsilon)\tau_r(A),
+```math
+\mathbb E\mathop{\mathrm{tr}}\nolimits(R_k)\leq(1+\varepsilon)\tau_r(A),
 \qquad k=\min\{n,\lceil Cr/\varepsilon\rceil\}?
-$$
+```
 
 The expectation is over the algorithm's adaptive pivots. The constant must
 be independent of dimension, spectrum, rank, and tolerance. The target
@@ -57,7 +57,7 @@ Caltech dissertation (2025), §11.1, p. 181.
 ## Status check
 
 The August 2026 paper proves the larger bound
-$k\geq r/\varepsilon+2r\sqrt{\log r}+r\log(1/\varepsilon)+2.3r$
+$`k\geq r/\varepsilon+2r\sqrt{\log r}+r\log(1/\varepsilon)+2.3r`$
 and explicitly conjectures the displayed improvement. Searches for the
 paper's title, `RPCholesky optimal r epsilon`, and `RPCholesky conjecture`
 found no subsequent resolution. The arXiv record listed only v1, posted
@@ -66,4 +66,4 @@ excluded as resolved by this later preprint.
 
 ## Audit — 2026-09-10
 
-Rechecked the [August 2026 conjecture after (1.5)](https://arxiv.org/html/2608.20633v1) and its current arXiv record, still v1. Optimal-pivot and RPCholesky follow-up searches found no resolution. The proved extra rank-dependent term does not establish the uniform $O(r/\varepsilon)$ target.
+Rechecked the [August 2026 conjecture after (1.5)](https://arxiv.org/html/2608.20633v1) and its current arXiv record, still v1. Optimal-pivot and RPCholesky follow-up searches found no resolution. The proved extra rank-dependent term does not establish the uniform $`O(r/\varepsilon)`$ target.

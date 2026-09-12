@@ -13,21 +13,21 @@
 
 ## Context and notation
 
-A symmetric matrix $A$ is **completely positive** if $A=BB^\mathsf T$ for an entrywise nonnegative real matrix $B$ with finitely many columns. Let $\mathcal{CP}_n$ be the cone of these matrices of order $n$. Its **cp-rank**, $\operatorname{cpr}(A)$, is the minimum number of columns in such a factor, with $\operatorname{cpr}(0)=0$. Boundaries and interiors use the usual Euclidean topology on the vector space of real symmetric matrices.
+A symmetric matrix $`A`$ is **completely positive** if $`A=BB^\mathsf T`$ for an entrywise nonnegative real matrix $`B`$ with finitely many columns. Let $`\mathcal{CP}_n`$ be the cone of these matrices of order $`n`$. Its **cp-rank**, $`\mathop{\mathrm{cpr}}\nolimits(A)`$, is the minimum number of columns in such a factor, with $`\mathop{\mathrm{cpr}}\nolimits(0)=0`$. Boundaries and interiors use the usual Euclidean topology on the vector space of real symmetric matrices.
 
 ## Problem statement
 
 Is every real completely positive matrix of order six a sum of at most nine nonnegative rank-one matrices? Equivalently, is
 
-$$
-\max_{A\in\mathcal{CP}_6}\operatorname{cpr}(A)=9,
-$$
+```math
+\max_{A\in\mathcal{CP}_6}\mathop{\mathrm{cpr}}\nolimits(A)=9,
+```
 
-or, equivalently, does each $A\in\mathcal{CP}_6$ admit $A=BB^\mathsf T$ with $B\in\mathbb R_{\ge0}^{6\times9}$, allowing zero columns?
+or, equivalently, does each $`A\in\mathcal{CP}_6`$ admit $`A=BB^\mathsf T`$ with $`B\in\mathbb R_{\ge0}^{6\times9}`$, allowing zero columns?
 
 The lower bound nine is established. Order six is the unresolved case of the original Drew–Johnson–Loewy bound: order five satisfies it, whereas counterexamples exist in higher orders. It is included as the specific remaining case identified in the literature, rather than as one item in a dimension-by-dimension list.
 
-A known reduction places a matrix attaining the order-six maximum on the boundary of $\mathcal{CP}_6$, with full ordinary rank and at least one zero entry. This reduction does not establish the nine-column bound.
+A known reduction places a matrix attaining the order-six maximum on the boundary of $`\mathcal{CP}_6`$, with full ordinary rank and at least one zero entry. This reduction does not establish the nine-column bound.
 
 ## References
 

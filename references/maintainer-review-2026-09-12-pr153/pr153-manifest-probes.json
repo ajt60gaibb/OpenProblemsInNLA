@@ -1,0 +1,84 @@
+{
+  "scope": "Metadata consistency and result-file containment only; no proof truth or sandbox claim.",
+  "schema_sha256": "25ff6b25ca4511635aff4443cf20480c15e59dddf19591c730950b442ea54fce",
+  "all_expectations_met": true,
+  "cases": [
+    {
+      "case": "ordinary valid consistent metadata",
+      "accepted": true,
+      "expected_accept": true,
+      "expectation_met": true,
+      "error": null
+    },
+    {
+      "case": "parent traversal source",
+      "accepted": false,
+      "expected_accept": false,
+      "expectation_met": true,
+      "error": "ValueError: Result source is absent or outside project: ../outside.lean"
+    },
+    {
+      "case": "absolute external source",
+      "accepted": false,
+      "expected_accept": false,
+      "expectation_met": true,
+      "error": "ValueError: Result source is absent or outside project: /private/tmp/nla-pr153-manifest-iu_ap1xw/outside.lean"
+    },
+    {
+      "case": "symlink source escape",
+      "accepted": false,
+      "expected_accept": false,
+      "expectation_met": true,
+      "error": "ValueError: Result source is absent or outside project: alias.lean"
+    },
+    {
+      "case": "absent source",
+      "accepted": false,
+      "expected_accept": false,
+      "expectation_met": true,
+      "error": "ValueError: Result source is absent or outside project: absent.lean"
+    },
+    {
+      "case": "boolean false instead of integer zero",
+      "accepted": false,
+      "expected_accept": false,
+      "expectation_met": true,
+      "error": "ValidationError: False is not of type 'integer'"
+    },
+    {
+      "case": "missing completed status",
+      "accepted": false,
+      "expected_accept": false,
+      "expectation_met": true,
+      "error": "ValueError: Completed project metadata must report zero proof-development sorries"
+    },
+    {
+      "case": "duplicate result declaration",
+      "accepted": false,
+      "expected_accept": false,
+      "expectation_met": true,
+      "error": "ValueError: Every advertised result must be selected exactly once by Comparator"
+    },
+    {
+      "case": "result absent from comparator",
+      "accepted": false,
+      "expected_accept": false,
+      "expectation_met": true,
+      "error": "ValueError: Every advertised result must be selected exactly once by Comparator"
+    },
+    {
+      "case": "wrong comparator reference",
+      "accepted": false,
+      "expected_accept": false,
+      "expectation_met": true,
+      "error": "ValueError: Every result must refer to the checked comparator.json"
+    },
+    {
+      "case": "custom result axiom",
+      "accepted": false,
+      "expected_accept": false,
+      "expectation_met": true,
+      "error": "ValueError: Unverified result metadata: Result"
+    }
+  ]
+}

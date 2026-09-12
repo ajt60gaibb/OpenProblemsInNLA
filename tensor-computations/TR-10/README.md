@@ -8,11 +8,13 @@
 
 ## Statement
 
-For every integer order $d\ge3$, dimension $n\ge2$, and symmetric tensor $T\in\operatorname{Sym}^d(\mathbb C^n)$, is
-$$
+For every integer order $`d\ge3`$, dimension $`n\ge2`$, and symmetric tensor $`T\in\mathop{\mathrm{Sym}}\nolimits^d(\mathbb C^n)`$, is
+
+```math
 \underline R(T)=\underline R_{\mathrm{sym}}(T)?
-$$
-Here $R(T)$ is the least number of summands in a decomposition $T=\sum_{j=1}^r v_{j,1}\otimes\cdots\otimes v_{j,d}$, with complex vectors. Symmetric rank restricts each summand to $c_jv_j^{\otimes d}$. The border rank $\underline R(T)$ is the least $r$ for which a sequence of tensors of rank at most $r$ converges to $T$ in the entrywise Euclidean topology. Symmetric border rank instead uses symmetric tensors of symmetric rank at most $r$.
+```
+
+Here $`R(T)`$ is the least number of summands in a decomposition $`T=\sum_{j=1}^r v_{j,1}\otimes\cdots\otimes v_{j,d}`$, with complex vectors. Symmetric rank restricts each summand to $`c_jv_j^{\otimes d}`$. The border rank $`\underline R(T)`$ is the least $`r`$ for which a sequence of tensors of rank at most $`r`$ converges to $`T`$ in the entrywise Euclidean topology. Symmetric border rank instead uses symmetric tensors of symmetric rank at most $`r`$.
 
 ## Relevance
 

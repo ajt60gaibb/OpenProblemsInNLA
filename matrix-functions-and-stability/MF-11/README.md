@@ -12,22 +12,22 @@
 
 ## Context and notation
 
-The joint spectral radius of a nonempty compact set $\mathcal M\subset\mathbb C^{d\times d}$ is
+The joint spectral radius of a nonempty compact set $`\mathcal M\subset\mathbb C^{d\times d}`$ is
 
-$$
+```math
 \widehat\rho(\mathcal M)=\lim_{k\to\infty}
 \max_{A_1,\ldots,A_k\in\mathcal M}\|A_k\cdots A_1\|_2^{1/k}.
-$$
+```
 
 This definition also applies to finite real matrix sets. The ordinary spectral
-radius of one matrix is written $\rho(A)$.
+radius of one matrix is written $`\rho(A)`$.
 
-For a compact nonempty $\mathcal M\subset\mathbb R^{d\times d}$ with
-$\widehat\rho(\mathcal M)=1$, define its maximal product norm at length $k$ by
+For a compact nonempty $`\mathcal M\subset\mathbb R^{d\times d}`$ with
+$`\widehat\rho(\mathcal M)=1`$, define its maximal product norm at length $`k`$ by
 
-$$
+```math
 g_{\mathcal M}(k)=\max_{A_1,\ldots,A_k\in\mathcal M}\|A_k\cdots A_1\|_2.
-$$
+```
 
 This problem concerns growth within one family over time. [MF-07](../MF-07/README.md) instead requests
 a dimension-dependent bound uniform across families.
@@ -36,19 +36,19 @@ a dimension-dependent bound uniform across families.
 
 Does every family in this notation satisfy both
 
-$$
+```math
 \exists c>0\ \forall k,\ell\ge1:\quad
 g_{\mathcal M}(k+\ell)\ge c\,g_{\mathcal M}(k)
-$$
+```
 
 and
 
-$$
+```math
 \forall \ell\ge1\ \exists C_\ell>0\ \forall k\ge1:\quad
 g_{\mathcal M}(\ell k)\le C_\ell\,g_{\mathcal M}(k)?
-$$
+```
 
-Constants may depend on $\mathcal M$.
+Constants may depend on $`\mathcal M`$.
 
 ## Reference and status evidence
 

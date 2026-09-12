@@ -13,32 +13,34 @@
 
 ## Resolution — 2026-09-11
 
-**Solved (affirmative exact values): $g_{\mathrm{RP}}(3)=3$ and $g_{\mathrm{RP}}(4)=14/3$.** George Stepaniants's [complete proof](solution.md), **Theorem 1 and Sections 1–5**, gives universal upper bounds and explicit rational matrices attaining both values. It covers real nonsingular matrices, every admissible rook path, all ties, and every intermediate active entry. [Proof PDF](solution.pdf) · [Standalone TeX](solution.tex).
+**Solved (affirmative exact values): $`g_{\mathrm{RP}}(3)=3`$ and $`g_{\mathrm{RP}}(4)=14/3`$.** George Stepaniants's [complete proof](solution.md), **Theorem 1 and Sections 1–5**, gives universal upper bounds and explicit rational matrices attaining both values. It covers real nonsingular matrices, every admissible rook path, all ties, and every intermediate active entry. [Proof PDF](solution.pdf) · [Standalone TeX](solution.tex).
 
 The complete argument passed an [independent Codex-agent review](../../references/stepaniants-ie15-2026-09-11/verification/reviews/IE-15-review.md), including a separate analytic check of its central scalar inequality and exact rational witness checks. It was developed with ChatGPT/Codex; verification is independent agent review, not external human peer review or formal certification. [Authorship, scope, reproduction and branch check](../../references/stepaniants-ie15-2026-09-11/README.md). The original statement, ID, path, historical ratings and earlier audits below are retained.
 
 <!-- colbrook-recovered -->
 ## Related order-five bound - 2026-09-11
 
-Matthew J. Colbrook submitted a recovered rational $5\times5$ matrix with an admissible rook path of growth $893/131$. The [complete construction](../../references/colbrook-recovered-2026-09-11/submitted/research/rook_partial.md), [exact rerun](../../references/colbrook-recovered-2026-09-11/verification/fresh-rook-results.json), and [independent review](../../references/colbrook-recovered-2026-09-11/verification/reviews/rook-review.md) verify this finite lower bound, with ties allowed. This order-five note alone did not determine either requested order-three or order-four constant. The complete resolution above now settles both constants; the order-five construction is retained as a separate related result. See the [submission record](../../references/colbrook-recovered-2026-09-11/README.md) for the Cambridge affiliation, AI-assistance disclosure and verification limits.
+Matthew J. Colbrook submitted a recovered rational $`5\times5`$ matrix with an admissible rook path of growth $`893/131`$. The [complete construction](../../references/colbrook-recovered-2026-09-11/submitted/research/rook_partial.md), [exact rerun](../../references/colbrook-recovered-2026-09-11/verification/fresh-rook-results.json), and [independent review](../../references/colbrook-recovered-2026-09-11/verification/reviews/rook-review.md) verify this finite lower bound, with ties allowed. This order-five note alone did not determine either requested order-three or order-four constant. The complete resolution above now settles both constants; the order-five construction is retained as a separate related result. See the [submission record](../../references/colbrook-recovered-2026-09-11/README.md) for the Cambridge affiliation, AI-assistance disclosure and verification limits.
 <!-- /colbrook-recovered -->
 
 ## Problem statement
 
-All arithmetic is exact and matrices are real and nonsingular. At each step of Gaussian elimination with rook pivoting, select a nonzero entry maximal in absolute value both in its row and in its column of the active matrix. Move it to the active $(1,1)$ position by row and column interchanges, and form the trailing Schur complement.
+All arithmetic is exact and matrices are real and nonsingular. At each step of Gaussian elimination with rook pivoting, select a nonzero entry maximal in absolute value both in its row and in its column of the active matrix. Move it to the active $`(1,1)`$ position by row and column interchanges, and form the trailing Schur complement.
 
-For an admissible path $\pi$ on $A\in\mathbb R^{n\times n}$, let $S_1=A,\ldots,S_n$ be the active matrices and define
+For an admissible path $`\pi`$ on $`A\in\mathbb R^{n\times n}`$, let $`S_1=A,\ldots,S_n`$ be the active matrices and define
 
-$$
+```math
 \rho(A,\pi)=\frac{\max_{1\le k\le n}\|S_k\|_{\max}}{\|A\|_{\max}},
 \qquad \|M\|_{\max}=\max_{i,j}|m_{ij}|,
-$$
-$$
+```
+
+
+```math
 g_{\mathrm{RP}}(n)=\sup_{\substack{A\in\mathbb R^{n\times n}\\\det A\ne0}}\
 \sup_{\pi\text{ permitted by rook pivoting}}\rho(A,\pi).
-$$
+```
 
-Determine the two exact constants $g_{\mathrm{RP}}(3)$ and $g_{\mathrm{RP}}(4)$, with matching upper and lower bounds. All admissible rook choices and ties are included. The source singles out dimensions at most four; $g_{\mathrm{RP}}(1)=1$ and $g_{\mathrm{RP}}(2)=2$ are known. The two unknown constants are counted as one problem.
+Determine the two exact constants $`g_{\mathrm{RP}}(3)`$ and $`g_{\mathrm{RP}}(4)`$, with matching upper and lower bounds. All admissible rook choices and ties are included. The source singles out dimensions at most four; $`g_{\mathrm{RP}}(1)=1`$ and $`g_{\mathrm{RP}}(2)=2`$ are known. The two unknown constants are counted as one problem.
 
 Rook pivoting balances pivot-search cost and growth control. Sharp small-order constants would sharpen its finite-dimensional stability theory. General asymptotic growth estimates do not determine them; IE-11 concerns a different pivoting rule.
 

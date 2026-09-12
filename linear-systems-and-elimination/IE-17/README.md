@@ -8,7 +8,7 @@
 <!-- colbrook-recovered -->
 ## Independently reviewed resolution - 2026-09-11
 
-**Negative resolution.** Sections 1-4 give one exact full-column-rank $4\times3$ LSMR example for which both displayed errors increase from the first to the second nonzero iterate. The matrix-only spectral backward error satisfies $\mu(x_1)^2\le1979/2000<99/100<\mu(x_2)^2$, and the specified approximation also strictly increases. The right-hand side stays fixed. This settles the canonical spectral-norm formulation; the cited SISC paper uses a different default norm convention, so no Frobenius-error conclusion is inferred.
+**Negative resolution.** Sections 1-4 give one exact full-column-rank $`4\times3`$ LSMR example for which both displayed errors increase from the first to the second nonzero iterate. The matrix-only spectral backward error satisfies $`\mu(x_1)^2\le1979/2000<99/100<\mu(x_2)^2`$, and the specified approximation also strictly increases. The right-hand side stays fixed. This settles the canonical spectral-norm formulation; the cited SISC paper uses a different default norm convention, so no Frobenius-error conclusion is inferred.
 
 **Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [Complete manuscript](../../references/colbrook-recovered-2026-09-11/manuscripts/IE-17.pdf), [independent proof review](../../references/colbrook-recovered-2026-09-11/verification/reviews/IE-17-review.md), and [submission record](../../references/colbrook-recovered-2026-09-11/README.md). The supplied notes were reconstructed with substantial AI assistance. This is independent agent verification, not external human peer review or formal proof-assistant certification; no novelty or priority claim is made.
 
@@ -17,19 +17,23 @@ The difficulty, importance and rating rationale below are historical assessments
 
 **Rating rationale:** Challenging reflects monotonicity of an optimization-defined error along coupled Krylov iterates; community impact is a stopping and reliability guarantee for a widely used least-squares method.
 
-Let $A\in\mathbb R^{m\times n}$ and $b\in\mathbb R^m$. In exact arithmetic, start LSMR at $x_0=0$: equivalently, $x_k$ minimizes $\|A^T(b-Ax)\|_2$ over $\mathcal K_k(A^TA,A^Tb)$. Work up to its exact termination and use its minimum-length iterate if necessary. Let $r=b-Ax$ and define the matrix-only normwise backward error
-$$
+Let $`A\in\mathbb R^{m\times n}`$ and $`b\in\mathbb R^m`$. In exact arithmetic, start LSMR at $`x_0=0`$: equivalently, $`x_k`$ minimizes $`\|A^T(b-Ax)\|_2`$ over $`\mathcal K_k(A^TA,A^Tb)`$. Work up to its exact termination and use its minimum-length iterate if necessary. Let $`r=b-Ax`$ and define the matrix-only normwise backward error
+
+```math
 \mu(x)=\min\{\|E\|_2:(A+E)^T((A+E)x-b)=0\}.
-$$
-For $x\ne0$, put $K_x=[A^T,\,(\|r\|_2/\|x\|_2)I]^T$, $v_x=[r^T,0^T]^T$, and
-$$
+```
+
+For $`x\ne0`$, put $`K_x=[A^T,\,(\|r\|_2/\|x\|_2)I]^T`$, $`v_x=[r^T,0^T]^T`$, and
+
+```math
 \widetilde\mu(x)=\frac{\|K_xK_x^{\dagger}v_x\|_2}{\|x\|_2}.
-$$
-Here $\dagger$ is the Moore–Penrose inverse; at an exact least-squares solution set both errors to zero.
+```
 
-Are both sequences $\mu(x_k)$ and $\widetilde\mu(x_k)$ nonincreasing, for successive nonzero LSMR iterates? These two closely related claims are counted together, as in the source. The right-hand side $b$ is kept fixed in the backward-error model.
+Here $`\dagger`$ is the Moore–Penrose inverse; at an exact least-squares solution set both errors to zero.
 
-A positive answer would justify backward-error stopping decisions without a later iteration making the current iterate less backward accurate. The known monotonicity of $\|r_k\|_2$ and $\|A^Tr_k\|_2$ does not establish this statement.
+Are both sequences $`\mu(x_k)`$ and $`\widetilde\mu(x_k)`$ nonincreasing, for successive nonzero LSMR iterates? These two closely related claims are counted together, as in the source. The right-hand side $`b`$ is kept fixed in the backward-error model.
+
+A positive answer would justify backward-error stopping decisions without a later iteration making the current iterate less backward accurate. The known monotonicity of $`\|r_k\|_2`$ and $`\|A^Tr_k\|_2`$ does not establish this statement.
 
 ## References
 

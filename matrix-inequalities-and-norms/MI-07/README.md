@@ -11,7 +11,7 @@
 
 **Negative result by Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent proof review: PASS.**
 
-No finite two-unitary domination constant exists for the maximal symmetric modulus, already in dimension two. The rank-one family gives the necessary bound $C\ge\sqrt{1+t^2}/t$ for every $t>0$.
+No finite two-unitary domination constant exists for the maximal symmetric modulus, already in dimension two. The rank-one family gives the necessary bound $`C\ge\sqrt{1+t^2}/t`$ for every $`t>0`$.
 
 The exact target is resolved. The original statement and source evidence are retained below; its former difficulty rating is historical.
 
@@ -19,13 +19,17 @@ The exact target is resolved. The original statement and source evidence are ret
 
 ## Problem statement
 
-For a complex square matrix $X$, let $|X|=(X^*X)^{1/2}$ and define its maximal symmetric modulus by the finite-dimensional limit
+For a complex square matrix $`X`$, let $`|X|=(X^*X)^{1/2}`$ and define its maximal symmetric modulus by the finite-dimensional limit
 
-$$M(X)=\lim_{r\to\infty}\bigl(|X|^r+|X^*|^r\bigr)^{1/r},\qquad r\in\mathbb N.$$
+```math
+M(X)=\lim_{r\to\infty}\bigl(|X|^r+|X^*|^r\bigr)^{1/r},\qquad r\in\mathbb N.
+```
 
-This is the supremum of $|X|$ and $|X^*|$ in Olson's spectral order. For every $n\ge1$ and every $A,B\in\mathbb C^{n\times n}$, must there exist unitary $U,V$ of order $n$ satisfying
+This is the supremum of $`|X|`$ and $`|X^*|`$ in Olson's spectral order. For every $`n\ge1`$ and every $`A,B\in\mathbb C^{n\times n}`$, must there exist unitary $`U,V`$ of order $`n`$ satisfying
 
-$$M(A+B)\preceq U M(A)U^*+V M(B)V^*?$$
+```math
+M(A+B)\preceq U M(A)U^*+V M(B)V^*?
+```
 
 The order in this displayed inequality is ordinary positive-semidefinite order.
 
