@@ -21,6 +21,11 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### 🟡 TR-03 - the one-column spectral minimax identity - Sidney Holden
+
+**Partially resolved, 12 September 2026.** Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) proves $`R_{n,1}=1`$ for all $`n\ge3`$ and positive spectra in [Theorem 1, proved in Sections 2-3](references/holden-tr03-2026-09-12/one-column.pdf). A separate [independent Codex AI-agent audit](references/holden-tr03-2026-09-12/independent-review.md) passed the special-case proof. The original joint target for $`2\le k\le n-2`$ remains open; no full resolution, novelty, external human review or formal verification is claimed. No Lean verification was performed. [Original target](randomized-and-low-rank-approximation/TR-03/README.md) · [Proof source](references/holden-tr03-2026-09-12/one-column.tex) · [Attribution and submission record](references/holden-tr03-2026-09-12/README.md).
+
+
 
 ### ✅ RA-19 - the one-zero corank-one critical-point count - George Stepaniants
 
