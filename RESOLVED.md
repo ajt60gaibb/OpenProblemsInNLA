@@ -135,7 +135,24 @@ The complete proof passed a separate [independent Codex-agent mathematical audit
 
 **Negative resolution recorded 2026-09-12 (UTC).** [Lemma 1 and Theorem 1](frames-and-matrix-designs/FR-12/solution.md) give an injective matching-indexed doubling construction and the lower bound $H(2^k)\ge2^{2^k(k-1)(k-2)/8}$ for every $k\ge2$. This disproves the proposed $2^{O(n\log n)}$ upper bound for labeled real Hadamard matrices. [Proof PDF](frames-and-matrix-designs/FR-12/solution.pdf) · [Original canonical target](frames-and-matrix-designs/FR-12/README.md).
 
-The complete argument passed a separate [independent Codex-agent mathematical and source-scope audit](references/stepaniants-fr12-2026-09-12/REVIEW.md). Substantial AI assistance is disclosed; this is informal agent review, not human peer review or formal verification. Ferber, Jain and Zhao retain credit for the conjecture and prior upper bounds. The Hadamard existence conjecture and optimal counting order are not settled. [Submission record and eligibility audit](references/stepaniants-fr12-2026-09-12/README.md).
+The complete argument passed a separate [independent Codex-agent mathematical and source-scope audit](references/stepaniants-fr12-2026-09-12/REVIEW.md). Substantial AI assistance is disclosed. That original review was informal; the later formal verification is documented below. External human peer review is not claimed. Ferber, Jain and Zhao retain credit for the conjecture and prior upper bounds. The Hadamard existence conjecture and optimal counting order are not settled. [Submission record and eligibility audit](references/stepaniants-fr12-2026-09-12/README.md).
+
+**Lean verified - 2026-09-12.** The full original counting conjecture is refuted by
+[seven checked exports](https://github.com/sgstepaniants/OpenProblemsInNLA/blob/3e20bae9a07b1a33db8fdfb18bdebb9e590071a9/frames-and-matrix-designs/FR-12/lean/Solution.lean).
+**Mathematical proof and Lean formalization: George Stepaniants, Department of Computing and
+Mathematical Sciences, California Institute of Technology, Pasadena, California, USA**, with
+substantial AI-agent assistance. The formal permutation-indexed injection proves
+$m!H(m)^2\le H(2m)$ and the identical source power-of-two lower bound; the stronger informal
+$(2m-1)!!$ recurrence is outside the exports. Ferber, Jain and Zhao retain the original
+conjecture and prior-upper-bound credit. See the
+[canonical verification evidence](frames-and-matrix-designs/FR-12/README.md#lean-proof-and-verification-evidence---2026-09-12),
+[two statement and two final proof reviews](frames-and-matrix-designs/FR-12/lean/reviews/),
+[successful Linux run](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34718277411)
+and [independent operational audit](frames-and-matrix-designs/FR-12/lean/verification/linux-2026-09-12/OPERATIONAL-REVIEW.md).
+All 137 submitted input hashes, actual default-kernel replay, standard-three axioms and real
+rejection controls were checked. LeanCert audits kernel trust; no numerical interval
+certificate or external human peer review is claimed.
+
 
 ### ✅ MF-06 - pointwise Lipschitz lower stability of the joint spectral radius - George Stepaniants
 

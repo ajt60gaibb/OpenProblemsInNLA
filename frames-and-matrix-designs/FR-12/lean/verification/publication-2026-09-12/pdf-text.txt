@@ -1,0 +1,141 @@
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA                                                                FR-12
+
+
+
+
+Frames and matrix designs
+
+
+Counting real Hadamard matrices
+Diﬀiculty: extreme       Importance: interesting to the community
+Status: Lean verified
+
+Topic: Enumeration of orthogonal sign matrices
+Rating rationale: Known general upper bounds still have a quadratic exponent, while the conjecture
+asks for an exponent of order 𝑛 log 𝑛. The question concerns the abundance of exact flat orthogonal
+transforms, with connections to structured matrix constructions and elimination.
+
+Negative resolution - 2026-09-12
+
+Author: George Stepaniants, Department of Computing and Mathematical Sciences, California Institute
+of Technology, Pasadena, California, USA.
+The counting conjecture is false. The complete proof, Lemma 1 and Theorem 1, constructs an injection
+from two labeled order-𝑚 Hadamard matrices and a perfect matching of 2𝑚 row labels. It gives
+
+                                                                                𝑘
+                        𝐻(2𝑚) ≥ (2𝑚 − 1)!! 𝐻(𝑚)2 ,                𝐻(2𝑘 ) ≥ 2 2 (𝑘−1)(𝑘−2)/8   (𝑘 ≥ 2).
+
+The resulting exponent has order 𝑛(log 𝑛)2 along powers of two, contradicting every bound 2𝐶𝑛 log2 𝑛
+with fixed 𝐶. Proof PDF · Standalone proof TeX.
+The full argument passed a separate independent Codex-agent mathematical and source-scope review.
+The submission record preserves the supplied source, exact checks, document conversion and bounded
+public fork/branch/PR and literature search. Substantial AI assistance is disclosed. That review was
+informal and did not assert external human peer review or formal verification; the later Lean verification
+is documented below.
+Ferber, Jain and Zhao retain attribution for the conjecture and prior upper bound. This result does not
+settle existence at every admissible order or determine a matching upper bound for the count. The
+original statement and historical context below are retained; the diﬀiculty and importance ratings are
+historical.
+
+Lean proof and verification evidence - 2026-09-12
+
+The complete original counting conjecture has a Lean-verified negative answer. The proof at revi-
+sion 3e20bae counts actual labeled real Hadamard matrices, proves the count finite, and refutes every
+proposed positive real constant. Mathematical proof and Lean formalization: George Stepaniants,
+Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena,
+California, USA, with substantial AI-agent assistance.
+The formal construction uses top-to-bottom pairings indexed by a permutation and proves
+
+                                             𝑚! 𝐻(𝑚)2 ≤ 𝐻(2𝑚)               (𝑚 ≥ 1).
+
+This smaller family yields the identical quantitative power-of-two lower bound above and the full origi-
+nal negation. The stronger informal factor (2𝑚−1)!! is outside the Lean exports. The formal count has
+no quotient, normalization or assumed family size; in positive dimension its matrix predicate is proved
+equivalent to Mathlib’s Matrix.IsHadamard.
+The seven checked exports, each with prefix NLA.FR12., are:
+ • counting_semantics: genuine finite counting and the Mathlib Hadamard bridge.
+ • injective_doubling: every constructed output is Hadamard and the map is injective.
+ • factorial_doubling: the cardinality recurrence for every positive order.
+
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-12                                                                                 1
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA                                                            FR-12
+
+
+
+
+ • power_two_nonempty: existence at every power of two, including order one.
+ • power_two_lower_bound: the exact source lower bound at every 𝐾 ≥ 2.
+ • counterexample: a strict violation for every positive real proposed constant.
+ • not_countingConjecture: negation of the complete original universal assertion.
+Two independent agents approved the statements and completed proof. Linux run 34718277411
+matched all seven exports with the sandboxed Comparator and replayed the solution in Lean’s default
+kernel. The original artifacts and independent operational audit bind all 137 input files and both
+actual isolation/rejection-control suites. All 14 internal/public transitive axiom checks use only propext,
+Classical.choice and Quot.sound. These are independent agent reviews; external human peer review is
+not claimed.
+The pins are Lean 4.33.1, LeanCert 621a43d and Mathlib 0df444a. LeanCert audits the exact proof’s
+kernel trust; there is no numerical interval certificate. Symbolic injection and direct exponential induc-
+tion avoid large enumerations or approximate logarithms. See the manifest, dependency pins and exact
+targets. From the immutable verified revision on a documented non-root Linux host, reproduce with:
+
+tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
+tools/lean/verify.sh \
+  frames-and-matrix-designs/FR-12/lean \
+  /absolute/path/to/nla-lean-tools
+
+Statement
+For each positive integer 𝑛, let
+
+                                         𝐻(𝑛) = #{𝐴 ∈ {−1, 1}𝑛×𝑛 ∶ 𝐴𝐴T = 𝑛𝐼𝑛 }.
+
+Conjecture. There is an absolute constant 𝐶 > 0 such that
+
+                                                        𝐻(𝑛) ≤ 2𝐶𝑛 log2 𝑛
+
+for every positive integer 𝑛 divisible by four.
+The count is of individual matrices with their row and column labels. Matrices related by signed per-
+mutations are not identified. The statement does not require that a Hadamard matrix exist at every
+such order.
+
+Known bounds and numerical significance
+                                                                                      2
+Ferber, Jain and Zhao prove that some absolute 𝑐𝐻 > 0 gives 𝐻(𝑛) ≤ 2(1−𝑐𝐻 )𝑛 /2 for every suﬀiciently
+large multiple of four. Whenever 𝐻(𝑛) > 0, distinct row permutations of one Hadamard matrix give
+𝐻(𝑛) ≥ 𝑛!. Thus the conjectured exponent has the smallest possible order along orders admitting such
+matrices.
+Dividing a Hadamard matrix by √𝑛 produces an orthogonal transformation whose entries all have the
+same magnitude. The enumeration asks how many exact sign designs can underlie these transforms.
+Peca-Medlin’s work connects Hadamard enumeration for butterfly constructions to structured orthog-
+onal matrices and Gaussian elimination. This is distinct from the Hadamard existence conjecture and
+from bounds on elimination growth for a given matrix.
+
+References and status check
+ • A. Ferber, V. Jain and Y. Zhao, On the number of Hadamard matrices via anti-concentration, Combina-
+   torics, Probability and Computing 31 (2022), 455–477. DOI; published PDF. Conjecture 1.3 on p.456
+   is the displayed target; Theorem 1.2 gives the upper bound. The arXiv record also supplies the
+   earlier manuscript, where the conjecture has different numbering.
+
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-12                                                                             2
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA                                                          FR-12
+
+
+
+
+ • BIRS workshop 24w5204 report (2024), Conjecture 28, restates the enumeration target.
+ • J. Peca-Medlin, Complete pivoting growth of butterfly matrices and butterfly Hadamard matrices (2026).
+   DOI, §3 before Proposition 3.1, discusses the general count as conjectural and enumerates specific
+   butterfly constructions.
+On 2026-09-11, checked the published statement and later restatements, and searched the exact title, the
+authors’ names, Hadamard enumeration, upper bounds, and 2025–2026 proof/counterexample combi-
+nations. No full resolution was located. The butterfly counts apply to restricted families and do not
+settle this all-matrix upper bound. This is a bounded literature check.
+
+
+
+
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-12                                                                           3
+
