@@ -1,0 +1,131 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={RA-19 - Critical-point
+count for corank-one approximation with a fixed
+zero},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RA-19}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Randomized and low-rank approximation\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Critical-point
+count for corank-one approximation with a fixed zero\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to specialist\par}
+{\sffamily\small\bfseries\color{accent}Status: Open\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Topic:} Structured low-rank approximation and Euclidean distance
+degree
+
+\textbf{Rating rationale:} The target is an exact formula for a
+constrained approximation problem in every dimension. It would quantify
+the algebraic complexity of enumerating candidate nearest singular
+matrices with a prescribed zero.
+
+\subsection{Statement}\label{statement}
+
+For \(n\ge3\), let
+
+\[V_n=\{X\in\mathbb C^{n\times n}:\det X=0,\ x_{11}=0\}.\]
+
+For generic \(U\in\mathbb C^{n\times n}\), consider the bilinear squared
+distance
+
+\[d_U(X)=\sum_{i,j=1}^n(x_{ij}-u_{ij})^2.\]
+
+Its critical points on the smooth locus of \(V_n\) satisfy
+\(\mathrm d(d_U)_X[Z]=0\) for every tangent vector \(Z\in T_XV_n\).
+Their finite number for generic \(U\), meaning outside a proper
+algebraic exceptional set, is the \emph{Euclidean distance degree}
+\(\operatorname{EDdeg}(V_n)\). There is no complex conjugation in this
+definition; over the reals the objective is squared Frobenius distance.
+
+\textbf{Conjecture (Kubjas--Sodomaco--Tsigaridas, Conjecture 5.1,
+nontrivial dimensions).}
+
+\[\operatorname{EDdeg}(V_n)=5n-7\qquad\text{for every }n\ge3.\]
+
+The dimension restriction is explicit here: at \(n=2\), the equations
+reduce to \(x_{11}=0\) and \(x_{12}x_{21}=0\), a union of two linear
+spaces with ED degree two. The printed conjecture omits a lower bound on
+\(n\), while its supporting table begins at three. That exceptional
+endpoint is not asserted to satisfy the formula.
+
+\subsection{Evidence and numerical
+significance}\label{evidence-and-numerical-significance}
+
+Table 2 of the source reports \(8,13,18,23,28,33,38,43\) for
+\(n=3,\ldots,10\), using numerical critical-point computations checked
+against symbolic ideal degrees. These finite computations support the
+conjecture but do not establish the formula for arbitrary \(n\).
+
+Truncated SVD solves unconstrained Frobenius approximation, but a fixed
+zero changes its critical equations. This target concerns corank-one
+approximation in general square matrices; the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-20/README.md}{symmetric
+rank-two zero-pattern problem} has different geometry and rank
+constraints.
+
+\subsection{References and status
+check}\label{references-and-status-check}
+
+\begin{itemize}
+\tightlist
+\item
+  K. Kubjas, L. Sodomaco and E. Tsigaridas, \emph{Exact solutions in
+  low-rank approximation with zeros}, Linear Algebra and its
+  Applications 641 (2022), 67--97.
+  \href{https://doi.org/10.1016/j.laa.2022.01.021}{DOI};
+  \href{https://arxiv.org/abs/2010.15636v2}{current author manuscript},
+  29 January 2022. Conjecture 5.1 and Table 2, manuscript p.19; §2
+  defines the critical-point and ED-degree conventions.
+\end{itemize}
+
+On 2026-09-11, checked the current arXiv version, the authors'
+publication lists, and targeted title, conjecture-number, ED-degree,
+proof and 2026 searches. No later proof or counterexample for \(n\ge3\)
+was located. The formulation and table were checked in arXiv v2; a
+separate publisher PDF was not obtained. The scope correction at \(n=2\)
+is disclosed above. This is a bounded literature check.
+\end{document}

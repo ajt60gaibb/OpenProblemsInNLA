@@ -1,0 +1,200 @@
+% Standalone resolution manuscript generated from solution.md.
+% Compile with XeLaTeX; author and review metadata are maintained in Markdown.
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=24mm,headheight=15pt]{geometry}
+\usepackage{fontspec}
+\setmainfont{DejaVuSerif.ttf}[BoldFont=DejaVuSerif-Bold.ttf,ItalicFont=DejaVuSerif-Italic.ttf,BoldItalicFont=DejaVuSerif-BoldItalic.ttf]
+\setsansfont{DejaVuSans.ttf}[BoldFont=DejaVuSans-Bold.ttf,ItalicFont=DejaVuSans-Oblique.ttf]
+\setmonofont{DejaVuSansMono.ttf}
+\usepackage{amsmath,amssymb,unicode-math}
+\setmathfont{latinmodern-math.otf}
+\usepackage{xcolor,microtype,parskip,needspace,fancyhdr}
+\usepackage{bookmark}
+\usepackage{xurl}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue,pdftitle={MI-24:
+the Schatten norm complement follows by convexity},pdfauthor={George
+Stepaniants},pdflang={en-GB}}
+\urlstyle{same}
+\setlength{\emergencystretch}{3em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\setcounter{secnumdepth}{0}
+\allowdisplaybreaks[1]
+\widowpenalty=10000
+\clubpenalty=10000
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily Verified resolution / MI-24}
+\fancyhead[R]{\small\sffamily 11 September 2026}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\fontsize{8}{10}\selectfont Independent
+Codex-agent review; not external human peer review or formal
+certification.}}
+\fancyfoot[R]{\footnotesize\thepage}
+\begin{document}
+{\raggedright\Large\bfseries MI-24: the Schatten norm complement follows
+by convexity\par}
+\vspace{0.4em}
+{\normalsize\bfseries George Stepaniants\par}
+{\small Department of Computing and Mathematical Sciences, California
+Institute of Technology, Pasadena, California, USA\par}
+\vspace{0.6em}
+\pagestyle{plain}
+
+The full Schatten norm inequality in MI-24 follows from the published
+Heron norm inequality of Dinh, Dumitru, and Franco, a positive matrix
+comparison already used by Ghabries, Abbas, Mourad, and Assi, and the
+triangle inequality. The last step is a general convexity observation:
+if one endpoint of a segment has norm at most the midpoint's norm, then
+the other endpoint has norm at least the midpoint's norm.
+
+\textbf{Verification status: independent-agent PASS.} Developed with
+substantial ChatGPT/Codex assistance. A separate agent checked the
+complete argument and its primary-source application.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/stepaniants-mi24-2026-09-11/verification/reviews/MI-24-review.md}{Detailed
+independent review}. This is independent automated review, not external
+human peer review or formal verification.
+
+\subsection{The full statement}\label{the-full-statement}
+
+Let \(A,B\in\mathbb C^{n\times n}\) be positive definite, where
+\(n\ge1\), and define
+
+\[
+\begin{aligned}
+G&=A^{1/2}(A^{-1/2}BA^{-1/2})^{1/2}A^{1/2},\\
+L&=A^{1/2}(B^{1/2}A^{-1}B^{1/2})^{1/2}A^{1/2}.
+\end{aligned}
+\]
+
+All square roots are the positive definite square roots. For
+\(1\le p<\infty\), write \(\|M\|_p=(\operatorname{tr}|M|^p)^{1/p}\),
+where \(|M|=(M^*M)^{1/2}\); \(\|M\|_\infty\) is the largest singular
+value.
+
+\subsubsection{Theorem 1}\label{theorem-1}
+
+For every such pair and every \(1\le p\le\infty\),
+
+\[
+\boxed{\|A+B+G+L\|_p\le\|A+B+2L\|_p.}
+\]
+
+This resolves the complete target of
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-24/README.md}{MI-24},
+equivalently
+\href{https://arxiv.org/html/2105.13356v1\#S4}{Ghabries--Abbas--Mourad--Assi,
+Conjecture 4.1}, including the previously unproved exponents. Neither
+commutativity nor symmetry of \(L(A,B)\) in its arguments is assumed.
+
+\subsection{The two comparisons}\label{the-two-comparisons}
+
+Put \(H=A+B\) and \(K=A^{1/2}B^{1/2}+B^{1/2}A^{1/2}\). The published
+Heron norm inequality of
+\href{https://trunghoamath.wordpress.com/wp-content/uploads/2017/06/p_t_q_t-4-2.pdf}{Dinh--Dumitru--Franco,
+Theorem 4}, p.~2 of the author manuscript, gives
+
+\[
+\|H+2G\|_p\le\|H+K\|_p \qquad(1\le p<\infty). \tag{1}
+\]
+
+The same inequality at \(p=\infty\) follows by letting \(p\to\infty\) in
+finite dimension. This is the only non-elementary external theorem
+needed below; it is also recalled in equation (22) and its following
+paragraph in
+\href{https://arxiv.org/html/2105.13356v1\#S4}{Ghabries--Abbas--Mourad--Assi}.
+
+The second comparison is
+
+\[
+K\preceq G+L. \tag{2}
+\]
+
+For completeness, it has the following direct proof. Set
+\(R=A^{-1/2}B^{1/2}\) and take its polar decomposition \(R=U|R|\), where
+\(U\) is unitary. Since \(|R^*|=U|R|U^*\),
+
+\[
+|R^*|+|R|-R-R^*=(U-I)|R|(U^*-I)\succeq0.
+\]
+
+Congruence by \(A^{1/2}\) gives (2), because
+
+\[
+\begin{aligned}
+A^{1/2}|R^*|A^{1/2}&=G,&
+A^{1/2}|R|A^{1/2}&=L,\\
+A^{1/2}(R+R^*)A^{1/2}&=K.
+\end{aligned}
+\]
+
+Moreover, \(H+K=(A^{1/2}+B^{1/2})^2\succeq0\). Hence (2) implies
+
+\[
+0\preceq H+K\preceq H+G+L.
+\]
+
+The min--max principle orders every eigenvalue of these positive
+semidefinite matrices, so
+
+\[
+\|H+K\|_p\le\|H+G+L\|_p \qquad(1\le p\le\infty). \tag{3}
+\]
+
+This also reproduces the particular comparison in
+Ghabries--Abbas--Mourad--Assi, Corollary 4.1, without requiring their
+block-matrix proof as an additional premise.
+
+\subsection{The convexity step}\label{the-convexity-step}
+
+\textbf{Proof of Theorem 1.} Fix any \(p\in[1,\infty]\) and set
+
+\[
+X=H+2G,\qquad Y=H+G+L,\qquad Z=H+2L.
+\]
+
+Equations (1) and (3) give \(\|X\|_p\le\|Y\|_p\). Also \(X+Z=2Y\). The
+triangle inequality therefore gives
+
+\[
+2\|Y\|_p=\|X+Z\|_p
+\le\|X\|_p+\|Z\|_p
+\le\|Y\|_p+\|Z\|_p.
+\]
+
+Subtracting \(\|Y\|_p\) proves \(\|Y\|_p\le\|Z\|_p\), as claimed.
+\(\square\)
+
+The proof covers all parameters and dimensions in the canonical
+statement. Its contribution is the convexity deduction connecting the
+two existing comparisons; no new proof of the published Heron inequality
+or historical priority certification is claimed.
+
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Dinh--Dumitru--Franco (2017).} T. H. Dinh, R. Dumitru, and J.
+  A. Franco. \emph{On a conjecture of Bhatia, Lim and Yamazaki}. Linear
+  Algebra and its Applications \textbf{532} (2017), 140--145. Theorem 4,
+  equation (4), p.~2 of the
+  \href{https://trunghoamath.wordpress.com/wp-content/uploads/2017/06/p_t_q_t-4-2.pdf}{author
+  manuscript}. \href{https://doi.org/10.1016/j.laa.2017.06.040}{DOI:
+  10.1016/j.laa.2017.06.040}.
+\item
+  \textbf{Ghabries--Abbas--Mourad--Assi (2021/2022).} M. M. Ghabries, H.
+  Abbas, B. Mourad, and A. Assi. \emph{New log-majorization results
+  concerning eigenvalues and singular values and a complement of a norm
+  inequality}. Section 4: equation (22), Corollary 4.1, Theorem 4.2 and
+  Conjecture 4.1, pp.~11--13 of
+  \href{https://arxiv.org/abs/2105.13356v1}{arXiv:2105.13356v1}.
+  \href{https://doi.org/10.1080/03081087.2022.2059050}{Journal DOI:
+  10.1080/03081087.2022.2059050}.
+\item
+  \textbf{MI-24.} ajt60gaibb/OpenProblemsInNLA. \emph{Schatten norm
+  complement involving Lin's positive definite quantity}.
+  \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-24/README.md}{Canonical
+  problem statement}. The original mathematical target and permanent
+  identifier are retained.
+\end{enumerate}
+\end{document}

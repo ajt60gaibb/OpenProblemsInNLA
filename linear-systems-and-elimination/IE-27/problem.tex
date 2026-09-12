@@ -1,0 +1,154 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={IE-27 - Spectral
+disk for a Radau stage
+preconditioner},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-27}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Linear systems and elimination\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Spectral
+disk for a Radau stage preconditioner\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to specialist\par}
+{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Topic:} Preconditioning and eigenvalue localization
+
+\textbf{Rating rationale:} The conjecture requires a sharp enclosure for
+a nonnormal matrix family at every Runge--Kutta order and positive
+shift. It would explain mesh- and time-step-independent spectral
+clustering of a practical preconditioner.
+
+\subsection{Statement}\label{statement}
+
+Let \(q\ge2\), and let \(A_q\in\mathbb R^{q\times q}\) be the Butcher
+matrix of the \(q\)-stage Radau IIA method. Explicitly, if
+\(0<c_1<\cdots<c_q=1\) are the roots in \([0,1]\) of
+\(P_q(2t-1)-P_{q-1}(2t-1)\), where \(P_j\) is the degree-\(j\) Legendre
+polynomial normalized by \(P_j(1)=1\), and \(\ell_j\) are their Lagrange
+cardinal polynomials, then
+
+\[ (A_q)_{ij}=\int_0^{c_i}\ell_j(t)\,dt.\]
+
+Take the exact factorization \(A_q^{-1}=L_qU_q\) without pivoting, with
+\(L_q\) lower triangular and \(U_q\) upper triangular with unit
+diagonal. Write \(\widehat U_q=U_q-I_q\), and assume
+\(\|\widehat U_q\|_2<1\).
+
+For \(n\ge1\), let \(M,K\in\mathbb R^{n\times n}\) be symmetric positive
+definite mass and stiffness matrices from a finite-element
+discretization of a coercive self-adjoint second-order elliptic
+operator, and let \(\tau>0\). Define
+
+\[\mathcal A=A_q^{-1}\otimes M+\tau I_q\otimes K,
+\qquad\mathcal P_L=L_q\otimes M+\tau I_q\otimes K.\]
+
+\textbf{Conjecture.} Every generalized eigenvalue \(\nu\in\mathbb C\) of
+\(\mathcal Ax=\nu\mathcal P_Lx\) satisfies
+
+\[|\nu-1|\le\|\widehat U_q\|_2.\]
+
+The quantifiers are uniform over the stage number, admissible spatial
+discretization and positive time step. This states the symmetric
+elliptic setting used by the later spectral analysis explicitly. The
+original Conjecture 1 says ``positive definite'' finite-element
+matrices, and also discusses convection; this page does not silently
+identify nonsymmetric positive definiteness with the symmetric setting.
+
+\subsection{Equivalent small matrices and known
+cases}\label{equivalent-small-matrices-and-known-cases}
+
+The Kronecker structure reduces the spectrum to matrices
+
+\[X_{q,\mu}=I_q+(I_q+\mu L_q^{-1})^{-1}\widehat U_q,
+\qquad \mu\in\sigma(\tau M^{-1}K)\subset(0,\infty).\]
+
+In particular, proving \(\rho(X_{q,\mu}-I_q)\le\|\widehat U_q\|_2\) for
+every \(\mu>0\) proves the displayed conjecture for all admissible
+discretizations. The source proves the two-stage case. At least \(n\)
+eigenvalues equal one because \(\widehat U_q\otimes I_n\) has nullity at
+least \(n\); this established part of the original conjecture is not an
+additional target. Numerical spectra at larger stage counts support the
+enclosure, but do not settle all \(q\) and \(\mu\).
+
+\newpage
+\subsection{References and status
+check}\label{references-and-status-check}
+
+\begin{itemize}
+\tightlist
+\item
+  O. Axelsson, I. Dravins and M. Neytcheva, \emph{Stage-parallel
+  preconditioners for implicit Runge--Kutta methods of arbitrarily high
+  order, linear problems}, Numerical Linear Algebra with Applications
+  31(1) (2024), e2532; first published 19 September 2023.
+  \href{https://doi.org/10.1002/nla.2532}{DOI and full text};
+  \href{https://www.diva-portal.org/smash/get/diva2\%3A1740890/FULLTEXT01.pdf}{institutional
+  PDF}. §5.1, Conjecture 1, equations (17)--(18), and Theorem 1.
+\item
+  M. Outrata, \emph{On recent advances of spectral analysis for systems
+  arising from fully-implicit RK methods}, Proceedings in Applied
+  Mathematics and Mechanics (2026), e70082.
+  \href{https://doi.org/10.1002/pamm.70082}{DOI};
+  \href{https://arxiv.org/html/2510.21241v1}{author preprint
+  arXiv:2510.21241v1}. §2.1, after equation (7), recalls the open
+  general-stage conjecture; §2.3, equation (23), gives the small-matrix
+  equivalence. The preprint says ``diameter'' at that point, whereas the
+  original conjecture unambiguously specifies \textbf{radius}; the
+  display follows the original.
+\end{itemize}
+
+On 2026-09-11, checked the original published conjecture and its
+two-stage theorem, Outrata's 2025 preprint and 2026 publication record,
+and searches for the title, Radau spectral-disk conjecture,
+stage-parallel preconditioner proofs and counterexamples. No proof or
+counterexample for arbitrary stage count was located. Later symbolic
+spectral reductions are not a general proof of this particular disk
+radius. The check is bounded. This is distinct from the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-28/README.md}{diagonal
+nilpotent-preconditioner existence question} and from the repository's
+Krylov convergence and elimination-growth targets.
+\end{document}
