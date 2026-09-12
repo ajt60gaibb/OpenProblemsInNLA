@@ -111,6 +111,28 @@ The complete analytic proof passed a separate [independent Codex-agent review](r
 
 The proof passed a separate [Codex-agent full-target review](references/stepaniants-ie05-2026-09-11/independent-review.md), including independently reconstructed exact orthogonality, QR signs, all pivots and all active maxima. Substantial AI assistance and the limits of automated review are explicit. This settles the finite-order extremizer equality and leaves the true supremum and the distinct asymptotic leading constant undetermined. Peca-Medlin's conjecture and prior element-growth analysis retain their attribution. [Submission record and public-source check](references/stepaniants-ie05-2026-09-11/README.md).
 
+<a id="tr-01"></a>
+
+### 🏆 TR-01 — optimal dimension for a rerandomized Hadamard embedding — Yuning Yang
+
+[Original target and resolution](randomized-and-low-rank-approximation/TR-01/README.md) · [TR-01 statement and result PDF](randomized-and-low-rank-approximation/TR-01/problem.pdf)
+
+**Lean verified, 2026-09-12.** The manuscript for v7, *Subspace embeddings with the rerandomized SRHT* (Theorem 1, [manuscript PDF](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/manuscript.pdf)), proves the exact TR-01 target at prescribed width for the two-round rerandomized SRHT law, with full width cap and constant success probability $0.99$, for every power-of-two $n$, every $1\le r\le n$, and every fixed target subspace $V\subseteq\mathbb R^n$. For any orthonormal basis matrix $U\in\mathbb R^{n\times r}$ of $V$, Theorem 1 proves
+
+$$
+\Pr\left\{\|U^T\Omega\Omega^T U-I_r\|_2\le\varepsilon\right\}\ge0.99.
+$$
+
+The manuscript range is $\varepsilon\in(0,1)$, which strictly contains TR-01’s $\varepsilon\in(0,1/2)$. The canonical assumptions match the original statement’s target model and quantifiers, and there is no remaining open parameter case.
+
+The public Lean repository is immutable revision [`ed211811`](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/tree/ed21181197ac839eac95f549404f94e7e3aa6e10), with toolchain `lean 4.33.0`, `mathlib` commit `db584cd6d46c92f209a44c0f1c829460d327499d`. The submitted verification package identifies the corresponding Lean declarations
+
+- `Problem56.PaperV7.certified_main`
+- `Problem56.PaperV7.certified_explicit_main`
+- `Problem56.PaperV7.main_prescribed_width_ose`
+
+and includes an independent manuscript-to-Lean statement-correspondence review. Reproducible evidence is linked from the canonical TR-01 page and the immutable public revision. The axiom audit accepts only `propext`, `Classical.choice`, and `Quot.sound`. The catalog’s [independent Lean audit](references/maintainer-review-2026-09-12-tr01/pr141-lean-review.md) records its own executed checks and the archived evidence reviewed. Separate agents checked the complete mathematical argument, exact original target and publication artifacts. See the canonical TR-01 page for the reproduction commands, complete evidence, and the disclosed mismatch in the pinned PDF’s older formalization acknowledgment.
+
 <a id="ie-01"></a>
 
 ### 🏆 IE-01 — Forsythe's conjecture beyond restart length two

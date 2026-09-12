@@ -2,7 +2,7 @@
 
 [← All categories](../README.md) · [Full catalog](../CATALOG.md) · [Solved and claimed solutions](../RESOLVED.md)
 
-**18 problems with open targets.** 12 retained entries are excluded from the open count.
+**17 problems with open targets.** 13 retained entries are excluded from the open count.
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
@@ -20,7 +20,6 @@
 | [RE-02](RE-02/README.md) | HSS approximation from a number of matvecs independent of depth | **🔵 OPEN** | challenging | interesting to the community | [PDF](RE-02/problem.pdf) · [TeX](RE-02/problem.tex) |
 | [RE-03](RE-03/README.md) | Optimal matvec query complexity of HODLR approximation | **🔵 OPEN** | challenging | interesting to the community | [PDF](RE-03/problem.pdf) · [TeX](RE-03/problem.tex) |
 | [RE-06](RE-06/README.md) | Nonadaptive queries for finite-family matrix approximation | **🔵 OPEN** | challenging | interesting to the community | [PDF](RE-06/problem.pdf) · [TeX](RE-06/problem.tex) |
-| [TR-01](TR-01/README.md) | Optimal dimension for a rerandomized Hadamard embedding | **🔵 OPEN** | challenging | interesting to the community | [PDF](TR-01/problem.pdf) · [TeX](TR-01/problem.tex) |
 | [TR-03](TR-03/README.md) | Sharp gap between volume sampling and the worst matrix with a prescribed spectrum | **🔵 OPEN** | challenging | interesting to the community | [PDF](TR-03/problem.pdf) · [TeX](TR-03/problem.tex) |
 | [TR-07](TR-07/README.md) | Random column subsets of arbitrary fixed-sparsity matrices | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](TR-07/problem.pdf) · [TeX](TR-07/problem.tex) |
 | [TR-08](TR-08/README.md) | Sharp sparsity threshold for injectivity of a random sparse rectangular matrix | **🔵 OPEN** | challenging | interesting to the community | [PDF](TR-08/problem.pdf) · [TeX](TR-08/problem.tex) |
@@ -41,5 +40,6 @@
 | [RA-19](RA-19/README.md) | Critical-point count for corank-one approximation with a fixed zero | **✅ SOLVED** | challenging | interesting to specialist | [PDF](RA-19/problem.pdf) · [TeX](RA-19/problem.tex) |
 | [RA-20](RA-20/README.md) | Critical-point counts for symmetric rank-two approximation with diagonal zeros | **✅ SOLVED** | challenging | interesting to specialist | [PDF](RA-20/problem.pdf) · [TeX](RA-20/problem.tex) |
 | [RE-05](RE-05/README.md) | Pure relative error for approximation by a linear matrix family | **✅ SOLVED** | challenging | interesting to the community | [PDF](RE-05/problem.pdf) · [TeX](RE-05/problem.tex) |
+| [TR-01](TR-01/README.md) | Optimal dimension for a rerandomized Hadamard embedding | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](TR-01/problem.pdf) · [TeX](TR-01/problem.tex) |
 
 Ratings are editorial; each entry explains both ratings and the scope of its status evidence. [Definitions](../README.md#problem-status).

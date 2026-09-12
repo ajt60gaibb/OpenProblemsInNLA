@@ -1,0 +1,84 @@
+{
+  "status": "PASS",
+  "checked_inputs": 191,
+  "axiom_reports": 393,
+  "graph_targets": 407,
+  "graph_evidence": "fresh",
+  "fresh_kernel_run": true,
+  "semantic_cases_run": true,
+  "source_commit": "e71f836451e1485c06ff478be97ac83f0ac44687",
+  "commands": {
+    "build": {
+      "command": [
+        "lake",
+        "build",
+        "Problem56.PaperV7.Certification",
+        "Problem56.PaperV7.BoundaryChecks"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 3.8111344579956494,
+      "log": "build/build.log",
+      "log_sha256": "fdcf664c00724856e987b508616525d4dcb8e3ff7ff39f220b7a0ec5f85dbbde"
+    },
+    "boundary": {
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "Problem56/PaperV7/BoundaryChecks.lean"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 5.679151292017195,
+      "log": "build/boundary.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "axioms": {
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "Problem56/PaperV7/AxiomAudit.lean"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 5.160602749965619,
+      "log": "build/axioms.log",
+      "log_sha256": "42006b56d1d2677c9dc1ac381a380c9dded1f0e39e9cfa307c9ccd7690575315"
+    },
+    "graph": {
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "Problem56/PaperV7/CombinedAudit.lean"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 14.505941874987911,
+      "log": "build/graph.log",
+      "log_sha256": "6a98009229f020f308bc9a82db6b88ffb5d72701e92ff337ccba621b7a569e82"
+    },
+    "semantic": {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
+        "audit/semantic_regressions.py"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 36.317406166985165,
+      "log": "build/semantic.log",
+      "log_sha256": "438afd1a46705d04c93f8202225359eab77282ed52dbd988289e56fd31ee548f"
+    },
+    "fresh_kernel": {
+      "command": [
+        "lake",
+        "env",
+        "leanchecker",
+        "--fresh",
+        "-v",
+        "Problem56.PaperV7.Certification"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 700.2856235000072,
+      "log": "build/fresh_kernel.log",
+      "log_sha256": "9cf7040f2ff4025740b55798dd72e3109f22980d1d21db7cc119db9896a4b3b2"
+    }
+  }
+}
