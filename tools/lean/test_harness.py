@@ -50,6 +50,30 @@ class HarnessTests(unittest.TestCase):
         self.assertEqual(lock["commit"], "8d1b0c0545a77b40245e84705aa7d273e6c81e62")
         self.assertEqual(len(lock["files"]), 58)
 
+    def test_ci_probe_adaptation_retains_assertions_and_adds_deadlines(self):
+        source = ('assert required_isolation\n'
+                  '"--property=RestrictAddressFamilies=~AF_UNIX", "--pty"\n'
+                  '                result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)\n'
+                  'assert positive_controls\n'
+                  '"--property=RestrictAddressFamilies=~AF_UNIX", "--pty"\n'
+                  '            result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)\n'
+                  'assert negative_controls\n')
+        path = self.root / "reproduction/checks/sandbox_probe.py"
+        path.parent.mkdir(parents=True)
+        path.write_text(source)
+        derived = harness.ci_probe_source(self.root)
+        self.assertEqual(path.read_text(), source)
+        self.assertEqual(derived.count('"--pipe"'), 2)
+        self.assertNotIn('"--pty"', derived)
+        self.assertEqual(derived.count("RestrictAddressFamilies=~AF_UNIX"), 2)
+        self.assertEqual(derived.count("RuntimeMaxSec=40"), 2)
+        self.assertEqual(derived.count("timeout=45"), 2)
+        self.assertEqual([x for x in source.splitlines() if x.startswith("assert")],
+                         [x for x in derived.splitlines() if x.startswith("assert")])
+        path.write_text(source.replace('"--pty"', '"--pipe"', 1))
+        with self.assertRaisesRegex(harness.HarnessError, "reviewed CI adaptation"):
+            harness.ci_probe_source(self.root)
+
     def test_standard_config_and_stricter_axiom_subset(self):
         self.assertEqual(harness.validate_project(self.project), self.config)
         self.config["permitted_axioms"] = []

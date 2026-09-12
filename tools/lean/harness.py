@@ -106,6 +106,8 @@ def linux_requirements() -> None:
             raise HarnessError(f"missing prerequisite: {name}")
     if not Path("/usr/bin/bwrap").is_file():
         raise HarnessError("missing /usr/bin/bwrap (Bubblewrap)")
+    if not Path("/usr/bin/timeout").is_file():
+        raise HarnessError("missing /usr/bin/timeout (GNU coreutils)")
 
 
 def clean_environment() -> dict[str, str]:
@@ -198,6 +200,27 @@ def tool_environment(tool_dir: Path, receipt: dict) -> dict[str, str]:
     return env
 
 
+def ci_probe_source(tool_dir: Path) -> str:
+    """Adapt only systemd transport/deadlines; preserve every locked probe assertion."""
+    source = (tool_dir / "reproduction/checks/sandbox_probe.py").read_text()
+    replacements = [
+        ('"--pty"', '"--pipe"', 2),
+        ('"--property=RestrictAddressFamilies=~AF_UNIX"',
+         '"--property=RestrictAddressFamilies=~AF_UNIX", "--property=RuntimeMaxSec=40"', 2),
+        ('subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)',
+         'subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, timeout=45)', 2),
+        ('\n                result = subprocess.run(command',
+         '\n                print(f"START sandbox mode: {mode}", flush=True)\n                result = subprocess.run(command', 1),
+        ('\n            result = subprocess.run(command',
+         '\n            print(f"START sandbox negative case: {label}", flush=True)\n            result = subprocess.run(command', 1),
+    ]
+    for before, after, count in replacements:
+        if source.count(before) != count:
+            raise HarnessError("pinned sandbox probe does not match the reviewed CI adaptation")
+        source = source.replace(before, after)
+    return source
+
+
 def bootstrap(tool_dir: Path) -> None:
     linux_requirements()
     for name in ["elan", "go", "cc"]:
@@ -209,6 +232,8 @@ def bootstrap(tool_dir: Path) -> None:
     logdir = tool_dir / "logs/bootstrap"
     env = clean_environment()
     fetch_sources(tool_dir, lock)
+    ci_probe = tool_dir / "reproduction/checks/sandbox_probe_ci.py"
+    ci_probe.write_text(ci_probe_source(tool_dir))
     (tool_dir / ".verification-tmp").mkdir(exist_ok=True)
     (tool_dir / ".tools/bin").mkdir(exist_ok=True)
     (tool_dir / ".tools/cache").mkdir(exist_ok=True)
@@ -232,6 +257,7 @@ def bootstrap(tool_dir: Path) -> None:
            logdir / "comparator-build.log", cwd=tool_dir / ".tools/comparator", env=env)
     verify_sources(tool_dir, lock)
     receipt = {"source_lock_sha256": digest(LOCK), "forsythe_commit": lock["commit"],
+               "ci_sandbox_probe_sha256": digest(ci_probe),
                "lean_toolchain": lock["lean_toolchain"], "lean_prefix": prefix,
                "lean_version": lean_version, "go_version": go_version,
                "platform": platform.platform(), "executables": {}}
@@ -363,6 +389,10 @@ def validated_tools(tool_dir: Path) -> tuple[dict, dict[str, str]]:
     receipt = read_json(tool_dir / "bootstrap.json")
     if receipt["source_lock_sha256"] != digest(LOCK):
         raise HarnessError("tool bootstrap used a different source lock")
+    ci_probe = regular_path(tool_dir / "reproduction/checks/sandbox_probe_ci.py")
+    if (ci_probe.read_text() != ci_probe_source(tool_dir)
+            or digest(ci_probe) != receipt.get("ci_sandbox_probe_sha256")):
+        raise HarnessError("modified or unrecorded noninteractive sandbox probe")
     if set(receipt["executables"]) != {".tools/comparator/.lake/build/bin/comparator",
                                        ".tools/lean4export/.lake/build/bin/lean4export",
                                        ".tools/bin/landrun"}:
@@ -381,7 +411,11 @@ def validated_tools(tool_dir: Path) -> tuple[dict, dict[str, str]]:
 
 def run_controls(tool_dir: Path, logdir: Path, env: dict[str, str]) -> None:
     # Fail before any solution work if this Linux host cannot supply the real sandbox.
-    logged(["python3", str(tool_dir / "reproduction/checks/sandbox_probe.py")],
+    startup = systemd(["/usr/bin/true"], tool_dir, env)
+    startup[1:1] = ["-p", "RuntimeMaxSec=40"]
+    logged(["/usr/bin/timeout", "--kill-after=5s", "45s", *startup],
+           logdir / "user-service.log", cwd=tool_dir, env=env)
+    logged(["python3", str(tool_dir / "reproduction/checks/sandbox_probe_ci.py")],
            logdir / "sandbox.log", cwd=tool_dir, env=env)
     logged(["bash", str(tool_dir / "reproduction/checks/run_replay.sh")],
            logdir / "kernel-controls.log", cwd=tool_dir, env=env,
