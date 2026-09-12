@@ -2,7 +2,7 @@
 
 **128 problems with open targets:** 57 open and 71 partially resolved. **89 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 87 solved (published or independently audited); 2 Lean verified.
+**Resolution evidence:** 86 solved (published or independently audited); 3 Lean verified.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -252,7 +252,7 @@ Retained entries outside the open count:
 | [MI-06](matrix-inequalities-and-norms/MI-06/README.md) | Thompson-type domination for the arithmetic symmetric modulus | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-06/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-06/problem.tex) |
 | [MI-07](matrix-inequalities-and-norms/MI-07/README.md) | The triangle conjecture for the maximal symmetric modulus | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-07/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-07/problem.tex) |
 | [MI-13](matrix-inequalities-and-norms/MI-13/README.md) | Nobori's spectral-middle-factor commutator conjecture | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-13/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-13/problem.tex) |
-| [MI-19](matrix-inequalities-and-norms/MI-19/README.md) | A q-permanent inequality for subset-preserving permutations | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-19/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-19/problem.tex) |
+| [MI-19](matrix-inequalities-and-norms/MI-19/README.md) | A q-permanent inequality for subset-preserving permutations | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-19/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-19/problem.tex) |
 | [MI-21](matrix-inequalities-and-norms/MI-21/README.md) | Freewan–Hayajneh inequality for sums of weighted geometric means | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-21/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-21/problem.tex) |
 | [MI-22](matrix-inequalities-and-norms/MI-22/README.md) | Lemos–Soares singular-value log-majorization | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-22/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-22/problem.tex) |
 | [MI-23](matrix-inequalities-and-norms/MI-23/README.md) | Corrected generalized geometric-mean product conjecture | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-23/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-23/problem.tex) |

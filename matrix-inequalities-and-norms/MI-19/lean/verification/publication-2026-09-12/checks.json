@@ -1,0 +1,41 @@
+{
+  "recorded_utc": "2026-09-12T16:15:30.389188+00:00",
+  "scope": "Publication-only updates after actual Linux proof acceptance; no proof, statement, pin, PDF, commit or push changes by this agent.",
+  "checks": [
+    {
+      "command": "python3 tools/validate_problem_ids.py --base-ref origin/main",
+      "exit_code": 0,
+      "result": "Validated 217 permanent problem IDs against origin/main"
+    },
+    {
+      "command": "python3 tools/update_catalog.py --base-ref origin/main",
+      "exit_code": 0,
+      "result": "Indexed 217 entries: Lean verified=3, Open=57, Partially resolved=71, Solved=86"
+    },
+    {
+      "command": "python3 -m unittest discover -s tests -p 'test_problem_ids.py' -v",
+      "exit_code": 0,
+      "result": "All 17 tests passed"
+    },
+    {
+      "command": "python tools/lean/validate_manifest.py matrix-inequalities-and-norms/MI-19/lean",
+      "python_environment": "/tmp/nla-lean-formalization/venv/bin/python",
+      "exit_code": 0,
+      "result": "Manifest schema and comparator coverage: PASS (2 declarations)"
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0,
+      "result": "PASS after expressing the changed metadata line without trailing whitespace"
+    }
+  ],
+  "publication_sha256": {
+    "matrix-inequalities-and-norms/MI-19/lean/README.md": "d99c9f69d87191f0518948507376e359c8b5963fbfd749829d6f6ae8d1e8fc2b",
+    "matrix-inequalities-and-norms/MI-19/lean/formalization.yaml": "405396f05327bc5b6578f8fe1a98c77baadc17fc8f4b75b4c25766d77472c957",
+    "matrix-inequalities-and-norms/MI-19/README.md": "abbcfbfb8b4d933a77744e55a990b4736a18fc6d507682f7efda92f0b8b75c47",
+    "RESOLVED.md": "8c7fc0a4833f854ebb0e52d82debba687d8746b1d19782b8aaac828638d4401f",
+    "README.md": "416b090a3e8b3cab0fd1af6fbe9079be30d1b9d5855594bf1c8a87971981ca53",
+    "CATALOG.md": "bd48eaca7a85564bd0fa934d55bcbbec2112511e7b420021036f0844b0471094",
+    "matrix-inequalities-and-norms/README.md": "4bc9333800fb4c49d733c188026634e65983d100da926215b61244987976a317"
+  }
+}
