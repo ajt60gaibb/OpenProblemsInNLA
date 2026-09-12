@@ -12,26 +12,26 @@
 
 ## Context and notation
 
-The joint spectral radius of a nonempty compact set $\mathcal M\subset\mathbb C^{d\times d}$ is
+The joint spectral radius of a nonempty compact set $`\mathcal M\subset\mathbb C^{d\times d}`$ is
 
-$$
+```math
 \widehat\rho(\mathcal M)=\lim_{k\to\infty}
 \max_{A_1,\ldots,A_k\in\mathcal M}\|A_k\cdots A_1\|_2^{1/k}.
-$$
+```
 
 This definition also applies to finite real matrix sets. The ordinary spectral
-radius of one matrix is written $\rho(A)$.
+radius of one matrix is written $`\rho(A)`$.
 
 ## Problem statement
 
 Does every finite nonempty set
-$\mathcal M\subset\mathbb Q_{\ge0}^{d\times d}$, for every positive integer
-$d$, admit a positive integer $k$ and matrices
-$A_1,\ldots,A_k\in\mathcal M$ such that
+$`\mathcal M\subset\mathbb Q_{\ge0}^{d\times d}`$, for every positive integer
+$`d`$, admit a positive integer $`k`$ and matrices
+$`A_1,\ldots,A_k\in\mathcal M`$ such that
 
-$$
+```math
 \widehat\rho(\mathcal M)=\rho(A_k\cdots A_1)^{1/k}?
-$$
+```
 
 The entries must be nonnegative rationals; unrestricted real entries change the
 status. This asks whether a finite product realizes the asymptotic growth rate.

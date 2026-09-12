@@ -13,26 +13,32 @@
 
 ## Problem statement
 
-Let $n\geq2$ and let $d_1,\ldots,d_n$ be positive integers with $k=d_1+\cdots+d_n$. In $(\mathbb C^n)^{\otimes k}$, define the Dicke tensor
-$$
+Let $`n\geq2`$ and let $`d_1,\ldots,d_n`$ be positive integers with $`k=d_1+\cdots+d_n`$. In $`(\mathbb C^n)^{\otimes k}`$, define the Dicke tensor
+
+```math
 D_{\mathbf d}=
 \sum_{\substack{(i_1,\ldots,i_k)\in\{1,\ldots,n\}^{k}\\
 |\{j:i_j=a\}|=d_a\ \text{for all }a}}
 e_{i_1}\otimes\cdots\otimes e_{i_k}.
-$$
-For any tensor $T\in V_1\otimes\cdots\otimes V_k$, its subrank $Q(T)$ is the largest integer $s$ for which there are linear maps $L_j:V_j\to\mathbb C^s$ satisfying
-$$
+```
+
+For any tensor $`T\in V_1\otimes\cdots\otimes V_k`$, its subrank $`Q(T)`$ is the largest integer $`s`$ for which there are linear maps $`L_j:V_j\to\mathbb C^s`$ satisfying
+
+```math
 (L_1\otimes\cdots\otimes L_k)T=\sum_{a=1}^{s}e_a^{\otimes k}.
-$$
-Let $\widetilde Q(T)=\lim_{m\to\infty}Q(T^{\boxtimes m})^{1/m}$, where powers group corresponding modes.
+```
+
+Let $`\widetilde Q(T)=\lim_{m\to\infty}Q(T^{\boxtimes m})^{1/m}`$, where powers group corresponding modes.
 
 Does every Dicke tensor satisfy
-$$
+
+```math
 \widetilde Q(D_{\mathbf d})
 =2^{H(d_1/k,\ldots,d_n/k)},\qquad
 H(p_1,\ldots,p_n)=-\sum_{a=1}^np_a\log_2p_a?
-$$
-The maps in the subrank definition are arbitrary complex linear maps, independently chosen in each mode. No symmetry or coordinate-selection constraint is imposed. Multiplying $D_{\mathbf d}$ by a nonzero scalar does not change the question, so this agrees with the symmetric-tensor convention for the monomial $x_1^{d_1}\cdots x_n^{d_n}$.
+```
+
+The maps in the subrank definition are arbitrary complex linear maps, independently chosen in each mode. No symmetry or coordinate-selection constraint is imposed. Multiplying $`D_{\mathbf d}`$ by a nonzero scalar does not change the question, so this agrees with the symmetric-tensor convention for the monomial $`x_1^{d_1}\cdots x_n^{d_n}`$.
 
 ## Why it matters
 
@@ -46,4 +52,4 @@ Subrank measures how many independent scalar computations a tensor can perform a
 
 ### Status check — 2026-09-10
 
-Checked the source formulation and the explicit 2025 restatement, Conjecture 4.26, with targeted Dicke-tensor/subrank/entropy searches through 2026. The formula is established for $n=2$ and for $d_1=\cdots=d_n=1$, substantive parameter families within this target. The all-multiplicity statement remains conjectural in the survey, and no full later resolution was located. Asymptotic-rank computations and lower bounds on subrank do not by themselves establish the requested equality.
+Checked the source formulation and the explicit 2025 restatement, Conjecture 4.26, with targeted Dicke-tensor/subrank/entropy searches through 2026. The formula is established for $`n=2`$ and for $`d_1=\cdots=d_n=1`$, substantive parameter families within this target. The all-multiplicity statement remains conjectural in the survey, and no full later resolution was located. Asymptotic-rank computations and lower bounds on subrank do not by themselves establish the requested equality.

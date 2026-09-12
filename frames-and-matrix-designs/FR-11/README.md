@@ -16,26 +16,30 @@
 
 Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge.
 
-The construction theorem and its proof give twelve explicit integral symmetric $7\times7$ matrices, with maximum absolute entry 144, that recover every real signal including zero up to sign. Thus $m_{\mathbb R}(7)\le12$ in the unrestricted self-adjoint model. No matching lower bound or all-dimension/all-field formula is established. The manuscript also proves quantitative separation and exact-arithmetic decoding; floating-point decoder tests are finite diagnostics, with a separately documented scaling correction.
+The construction theorem and its proof give twelve explicit integral symmetric $`7\times7`$ matrices, with maximum absolute entry 144, that recover every real signal including zero up to sign. Thus $`m_{\mathbb R}(7)\le12`$ in the unrestricted self-adjoint model. No matching lower bound or all-dimension/all-field formula is established. The manuscript also proves quantitative separation and exact-arithmetic decoding; floating-point decoder tests are finite diagnostics, with a separately documented scaling correction.
 
 See the [manuscript](../../references/colbrook-frames-2026-09-11/manuscripts/twelve_measurements.pdf), [independent agent review](../../references/colbrook-frames-2026-09-11/verification/reviews/FR-11-review.md), and [reproducible submission record](../../references/colbrook-frames-2026-09-11/README.md). Independent agent review is not external human peer review or formal proof-assistant certification. Original problem, ratings and historical audits are retained below.
 <!-- /colbrook-frames -->
 
 ## Problem statement
 
-Fix a field $\mathbb F\in\{\mathbb R,\mathbb C\}$ and an integer $d\ge2$.
-For self-adjoint matrices $A_1,\ldots,A_m\in\mathbb F^{d\times d}$ define
-$$
+Fix a field $`\mathbb F\in\{\mathbb R,\mathbb C\}`$ and an integer $`d\ge2`$.
+For self-adjoint matrices $`A_1,\ldots,A_m\in\mathbb F^{d\times d}`$ define
+
+```math
 \Phi_A(x)=(x^*A_1x,\ldots,x^*A_mx)\in\mathbb R^m.
-$$
-Call the family phase retrievable if, for every $x,y\in\mathbb F^d$,
-$$
+```
+
+Call the family phase retrievable if, for every $`x,y\in\mathbb F^d`$,
+
+```math
 \Phi_A(x)=\Phi_A(y)
 \quad\Longrightarrow\quad
 x=cy\text{ for some }c\in\mathbb F\text{ with }|c|=1.
-$$
-Let $m_{\mathbb F}(d)$ be the smallest $m$ for which such a family exists.
-Determine $m_{\mathbb F}(d)$ exactly for all $d\ge2$ and both fields.
+```
+
+Let $`m_{\mathbb F}(d)`$ be the smallest $`m`$ for which such a family exists.
+Determine $`m_{\mathbb F}(d)`$ exactly for all $`d\ge2`$ and both fields.
 The matrices may be indefinite and have any rank. Recovery must hold for every signal, including zero. In the real case the ambiguity is only sign. The source's real and complex versions are grouped as one problem here.
 
 ## Relevance and ratings

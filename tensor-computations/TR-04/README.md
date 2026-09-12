@@ -13,7 +13,7 @@
 <!-- colbrook-recovered-tensors -->
 ## Resolution — 2026-09-11
 
-**Affirmative resolution by Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. A deterministic algorithm tests at most $n_1$ first-cut singular-subspace choices and TT-SVD completions. It returns a tensor within the prescribed ranks with squared error strictly less than $(d-1)E_*$ whenever $E_*>0$, and exactly reconstructs when $E_*=0$, in the canonical idealized arithmetic/SVD model. This settles the displayed pointwise target. It does not give a smaller uniform factor $c<d-1$ or a finite-precision bit-complexity guarantee; the fixed-format limiting example in Section 5 makes this distinction explicit.
+**Affirmative resolution by Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. A deterministic algorithm tests at most $`n_1`$ first-cut singular-subspace choices and TT-SVD completions. It returns a tensor within the prescribed ranks with squared error strictly less than $`(d-1)E_*`$ whenever $`E_*>0`$, and exactly reconstructs when $`E_*=0`$, in the canonical idealized arithmetic/SVD model. This settles the displayed pointwise target. It does not give a smaller uniform factor $`c<d-1`$ or a finite-precision bit-complexity guarantee; the fixed-format limiting example in Section 5 makes this distinction explicit.
 
 [Complete manuscript, Theorem 3 and Sections 2–4](../../references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-04.pdf) · [Standalone TeX](../../references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-04.tex) · [Independent complete-source PASS review](../../references/colbrook-recovered-tensors-2026-09-11/verification/reviews/TR-04-review.md) · [Authorship and provenance](../../references/colbrook-recovered-tensors-2026-09-11/README.md).
 
@@ -22,20 +22,20 @@ The recovered AI-assisted proof passed independent agent review; this is not ext
 
 ## Problem statement
 
-Let $d\ge3$, $n_1,\ldots,n_d\ge2$, and positive integers $r_1,\ldots,r_{d-1}$ be given. Let $S_r\subset\mathbb R^{n_1\times\cdots\times n_d}$ consist of tensors whose unfolding separating modes $1,\ldots,j$ from modes $j+1,\ldots,d$ has rank at most $r_j$, for every $j$. For a dense input tensor $A$, put
+Let $`d\ge3`$, $`n_1,\ldots,n_d\ge2`$, and positive integers $`r_1,\ldots,r_{d-1}`$ be given. Let $`S_r\subset\mathbb R^{n_1\times\cdots\times n_d}`$ consist of tensors whose unfolding separating modes $`1,\ldots,j`$ from modes $`j+1,\ldots,d`$ has rank at most $`r_j`$, for every $`j`$. For a dense input tensor $`A`$, put
 
-$$
+```math
 E_*(A,r)=\min_{Y\in S_r}\|A-Y\|_F^2.
-$$
+```
 
-Find a polynomial-time algorithm returning $X\in S_r$ with
+Find a polynomial-time algorithm returning $`X\in S_r`$ with
 
-$$
+```math
 \|A-X\|_F^2<(d-1)E_*(A,r)
 \qquad\text{whenever }E_*(A,r)>0,
-$$
+```
 
-and exact reconstruction when $E_*(A,r)=0$; alternatively, establish a complexity obstruction to such a guarantee. Ranks may not be increased. Polynomial time is measured in the dense input size and rank parameters, in the idealized arithmetic/SVD model used for TT-SVD; a bit-complexity formulation must additionally specify precision and output tolerances.
+and exact reconstruction when $`E_*(A,r)=0`$; alternatively, establish a complexity obstruction to such a guarantee. Ranks may not be increased. Polynomial time is measured in the dense input size and rank parameters, in the idealized arithmetic/SVD model used for TT-SVD; a bit-complexity formulation must additionally specify precision and output tolerances.
 
 This is the tensor-train case of the published tree-network question. The positive-error qualification corrects the impossible strict inequality at zero optimum. It asks for a uniformly valid algorithm, not an empirical improvement or a guarantee restricted to particular input tensors.
 

@@ -15,7 +15,7 @@
 <!-- colbrook-intervals -->
 ## Independently reviewed resolution - 2026-09-11
 
-**Complexity classification.** Theorem 1 proves NP-completeness of the upper determinant threshold and NP-hardness of exact determinant-range computation, even for regular independent-entry tridiagonal interval matrices. Section 5 supplies the exact-output upper bound: a polynomial algorithm for the full displayed target exists if and only if $\mathsf P=\mathsf{NP}$. No unconditional separation or strong NP-hardness is asserted.
+**Complexity classification.** Theorem 1 proves NP-completeness of the upper determinant threshold and NP-hardness of exact determinant-range computation, even for regular independent-entry tridiagonal interval matrices. Section 5 supplies the exact-output upper bound: a polynomial algorithm for the full displayed target exists if and only if $`\mathsf P=\mathsf{NP}`$. No unconditional separation or strong NP-hardness is asserted.
 
 **Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. See the [complete manuscript](../../references/colbrook-intervals-2026-09-11/manuscripts/IV-02_IV-04.pdf), [independent agent review](../../references/colbrook-intervals-2026-09-11/verification/reviews/IV-02_IV-04-review.md) and [submission record](../../references/colbrook-intervals-2026-09-11/README.md). The source archive identifies the drafts as AI-generated; authorship is recorded at the submitter's request. This is agent verification, not external human peer review or formal proof-assistant certification.
 
@@ -24,35 +24,35 @@ The difficulty, importance and rating rationale below are historical assessments
 
 ## Problem statement
 
-For $n\geq2$, let the input consist of $3n-2$ closed real intervals with
-rational endpoints: diagonal intervals $[\underline a_i,\overline a_i]$
-for $1\leq i\leq n$, upper-diagonal intervals
-$[\underline b_i,\overline b_i]$, and lower-diagonal intervals
-$[\underline c_i,\overline c_i]$ for $1\leq i<n$.
+For $`n\geq2`$, let the input consist of $`3n-2`$ closed real intervals with
+rational endpoints: diagonal intervals $`[\underline a_i,\overline a_i]`$
+for $`1\leq i\leq n`$, upper-diagonal intervals
+$`[\underline b_i,\overline b_i]`$, and lower-diagonal intervals
+$`[\underline c_i,\overline c_i]`$ for $`1\leq i<n`$.
 All lower endpoints are at most their upper endpoints. Define
 
-$$
+```math
 \mathcal T=\{T\in\mathbb R^{n\times n}:
 T_{ii}\in[\underline a_i,\overline a_i],\quad
 T_{i,i+1}\in[\underline b_i,\overline b_i],\quad
 T_{i+1,i}\in[\underline c_i,\overline c_i],\quad
 T_{ij}=0\text{ if }|i-j|>1\}.
-$$
+```
 
 All uncertain entries vary independently. Does a deterministic algorithm
 exist that returns the two exact rational numbers
 
-$$
+```math
 d_- = \min_{T\in\mathcal T}\det T,
 \qquad
 d_+ = \max_{T\in\mathcal T}\det T
-$$
+```
 
 in time polynomial in the total binary input length? The target is the
-exact range $[d_-,d_+]$, including instances containing singular matrices
+exact range $`[d_-,d_+]`$, including instances containing singular matrices
 and intervals crossing zero. Rational output is appropriate because the
 determinant is affine in each entry separately and its extrema are attained
-at endpoint matrices. The polynomial bound must be uniform in $n$.
+at endpoint matrices. The polynomial bound must be uniform in $`n`$.
 
 ## References
 
@@ -77,8 +77,8 @@ and [*A Symbolic Algorithm for Solving Doubly Bordered k-Tridiagonal Interval Li
 both published in 2023, use different generalized arithmetic (§2.2,
 pp. 3–4). Their multiplication centers the result at the product of
 midpoints and takes the smaller distance to the standard product endpoints.
-Consequently it sends $[1,2]$ and $[2,3]$ to $[2,11/2]$, while independent
-products range over $[2,6]$. Their symbolic determinant algorithms therefore
+Consequently it sends $`[1,2]`$ and $`[2,3]`$ to $`[2,11/2]`$, while independent
+products range over $`[2,6]`$. Their symbolic determinant algorithms therefore
 do not establish exact ranges in the sense defined above.
 
 ## Audit update — 2026-09-10

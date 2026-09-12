@@ -26,14 +26,14 @@ The complete target is resolved. Its former difficulty rating is historical; the
 
 ## Problem statement
 
-Given an arbitrary $X\in\mathbb Q_+^{m\times n}$ and
-$\tau\in\mathbb Q_{\geq0}$, determine the complexity of deciding whether
+Given an arbitrary $`X\in\mathbb Q_+^{m\times n}`$ and
+$`\tau\in\mathbb Q_{\geq0}`$, determine the complexity of deciding whether
 
-$$
+```math
 \exists W\in\mathbb R_+^{m\times2},\ H\in\mathbb R_+^{2\times n}:
 \quad\sum_{i=1}^m\sum_{j=1}^n
 \left(X_{ij}-\sum_{k=1}^2W_{ik}H_{kj}\right)^2\leq\tau.
-$$
+```
 
 In particular, is there a deterministic algorithm polynomial in the total
 binary input length, or is this decision problem NP-hard under polynomial-time
@@ -43,8 +43,8 @@ factors may have real entries; only the data and threshold must be rational.
 Their inner dimension is at most two, with a zero factor column permitted.
 
 This fixes an exact decision interpretation of the literature's global
-rank-two NMF optimization question. There is no promise that $X$ itself
-has rank two. When a rank-two truncated SVD of $X$ is nonnegative, a best
+rank-two NMF optimization question. There is no promise that $`X`$ itself
+has rank two. When a rank-two truncated SVD of $`X`$ is nonnegative, a best
 nonnegative rank-two approximation is obtainable from it. Arbitrary input
 can fall outside this tractable special case, and alternating nonnegative
 least squares need not find a global optimum.

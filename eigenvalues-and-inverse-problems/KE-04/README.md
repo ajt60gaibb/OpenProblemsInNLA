@@ -17,18 +17,22 @@ The original proof draft was generated in a ChatGPT conversation. A separate Cod
 
 ## Original problem statement
 
-Let $A\in\mathbb R^{n\times n}$ be symmetric and $V\in\mathbb R^{n\times p}$ have full column rank. Write
-$$
-\mathcal K_j=\operatorname{range}[V,AV,\ldots,A^{j-1}V],
-$$
-and let $s$ be the largest integer with $\dim\mathcal K_s=sp$. For $1\le j\le s$, choose an orthonormal basis $Q_j$ of $\mathcal K_j$ and order the eigenvalues of $T_j=Q_j^TAQ_j$ as
-$\theta_1^{(j)}\le\cdots\le\theta_{jp}^{(j)}$, with multiplicity.
+Let $`A\in\mathbb R^{n\times n}`$ be symmetric and $`V\in\mathbb R^{n\times p}`$ have full column rank. Write
 
-For every $1\le k<j\le s$ and $1\le i\le(k-1)p$, must the open interval
-$$
+```math
+\mathcal K_j=\mathop{\mathrm{range}}\nolimits[V,AV,\ldots,A^{j-1}V],
+```
+
+and let $`s`$ be the largest integer with $`\dim\mathcal K_s=sp`$. For $`1\le j\le s`$, choose an orthonormal basis $`Q_j`$ of $`\mathcal K_j`$ and order the eigenvalues of $`T_j=Q_j^TAQ_j`$ as
+$`\theta_1^{(j)}\le\cdots\le\theta_{jp}^{(j)}`$, with multiplicity.
+
+For every $`1\le k<j\le s`$ and $`1\le i\le(k-1)p`$, must the open interval
+
+```math
 (\theta_i^{(k)},\theta_{i+p}^{(k)})
-$$
-contain an eigenvalue of $T_j$? The statement concerns exact arithmetic before the first loss of full block dimension. Although Lanczos supplies compatible block tridiagonal representations, the spectra do not depend on the chosen bases.
+```
+
+contain an eigenvalue of $`T_j`$? The statement concerns exact arithmetic before the first loss of full block dimension. Although Lanczos supplies compatible block tridiagonal representations, the spectra do not depend on the chosen bases.
 
 This would extend a scalar Lanczos property used to interpret later Ritz values and distinguish genuine eigenvalue approximation from clusters created by finite precision.
 

@@ -8,15 +8,19 @@
 
 ## Statement
 
-Let $d\ge3$, $n_1,\ldots,n_d\ge2$, and suppose the dimension-count value
-$$
+Let $`d\ge3`$, $`n_1,\ldots,n_d\ge2`$, and suppose the dimension-count value
+
+```math
 r_*={\prod_{i=1}^d n_i\over 1+\sum_{i=1}^d(n_i-1)}
-$$
-is an integer. Such a format is called perfect. The conjecture asserts that a generic tensor in $\bigotimes_{i=1}^d\mathbb C^{n_i}$ has a unique minimal-length decomposition as a sum of rank-one tensors if and only if, after permuting factors, the format is
-$$
+```
+
+is an integer. Such a format is called perfect. The conjecture asserts that a generic tensor in $`\bigotimes_{i=1}^d\mathbb C^{n_i}`$ has a unique minimal-length decomposition as a sum of rank-one tensors if and only if, after permuting factors, the format is
+
+```math
 (2,k,k)\ (k\ge2),\qquad(3,4,5),\qquad(2,2,2,3).
-$$
-Generic means on a nonempty Zariski-open subset of the entire tensor space. Rank one means $v_1\otimes\cdots\otimes v_d$ with nonzero complex factors. Two decompositions are the same when their rank-one tensor summands agree after permutation; reciprocal rescalings within a summand create no new decomposition. No symmetry constraints are imposed.
+```
+
+Generic means on a nonempty Zariski-open subset of the entire tensor space. Rank one means $`v_1\otimes\cdots\otimes v_d`$ with nonzero complex factors. Two decompositions are the same when their rank-one tensor summands agree after permutation; reciprocal rescalings within a summand create no new decomposition. No symmetry constraints are imposed.
 
 ## Relevance
 

@@ -13,7 +13,7 @@
 <!-- colbrook-arithmetic -->
 ## Independently reviewed finite cases - 2026-09-11
 
-Complete exact certificates attain $2^{n-\lfloor\log_2(n+1)\rfloor}$ for every order $1\leq n\leq35$. Together with the proved universal divisibility bound, they establish the conjectured minimum at these orders, extending the cited order-20 construction range. The entire supplied matrices are checked with two coprime moduli and a proved uniqueness bound; cofactor dot products alone are not the evidence. Attainment for every order $n\geq36$ remains unresolved by this submission.
+Complete exact certificates attain $`2^{n-\lfloor\log_2(n+1)\rfloor}`$ for every order $`1\leq n\leq35`$. Together with the proved universal divisibility bound, they establish the conjectured minimum at these orders, extending the cited order-20 construction range. The entire supplied matrices are checked with two coprime moduli and a proved uniqueness bound; cofactor dot products alone are not the evidence. Attainment for every order $`n\geq36`$ remains unresolved by this submission.
 
 **Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [Complete manuscript](../../references/colbrook-arithmetic-2026-09-11/manuscripts/AC-11-12.pdf), [independent review](../../references/colbrook-arithmetic-2026-09-11/verification/reviews/AC-11-12-review.md), and [submission record](../../references/colbrook-arithmetic-2026-09-11/README.md). AI assistance is disclosed. Agent verification is not external human peer review or formal certification; no novelty or priority claim is made.
 
@@ -23,18 +23,22 @@ The [fresh certificate checks](../../references/colbrook-arithmetic-2026-09-11/v
 
 ## Problem statement
 
-For $n\ge1$, let $\Omega_n=\{-1,1\}^{n\times n}$ and define
-$$
-\operatorname{per}A=\sum_{\sigma\in S_n}\prod_{i=1}^n a_{i,\sigma(i)},
+For $`n\ge1`$, let $`\Omega_n=\{-1,1\}^{n\times n}`$ and define
+
+```math
+\mathop{\mathrm{per}}\nolimits A=\sum_{\sigma\in S_n}\prod_{i=1}^n a_{i,\sigma(i)},
 \qquad
-p_n=\min\{\operatorname{per}A:A\in\Omega_n,\ \operatorname{per}A>0\}.
-$$
-The set in this minimum is nonempty, since the all-ones matrix has permanent $n!$.
+p_n=\min\{\mathop{\mathrm{per}}\nolimits A:A\in\Omega_n,\ \mathop{\mathrm{per}}\nolimits A>0\}.
+```
+
+The set in this minimum is nonempty, since the all-ones matrix has permanent $`n!`$.
 Is Kräuter's proposed formula
-$$
+
+```math
 p_n=2^{\,n-\lfloor\log_2(n+1)\rfloor}
-$$
-valid for every $n$? The problem asks for attainability of the divisibility lower bound, with no rank restriction on $A$.
+```
+
+valid for every $`n`$? The problem asks for attainability of the divisibility lower bound, with no rank restriction on $`A`$.
 
 ## Relevance and ratings
 
@@ -43,9 +47,9 @@ This is an extremal question about a basic multilinear matrix function on discre
 ## References
 
 - I. M. Wanless, [*Permanents of matrices of signed ones*](https://users.monash.edu.au/~iwanless/papers/wangconjLAMA.pdf), Linear and Multilinear Algebra **53** (2005), 427–433, §3, for attaining constructions through order twenty.
-- D. Ingram and A. Razborov, *On the range of the permanent of $(\pm1)$-matrices*, Linear Algebra Appl. 743 (2026), 271–285. The precise question is §6, Problem 3 in [arXiv:2507.09433v1](https://arxiv.org/html/2507.09433v1); the [published introduction](https://doi.org/10.1016/j.laa.2026.04.027) gives the displayed unified formula.
+- D. Ingram and A. Razborov, *On the range of the permanent of $`(\pm1)`$-matrices*, Linear Algebra Appl. 743 (2026), 271–285. The precise question is §6, Problem 3 in [arXiv:2507.09433v1](https://arxiv.org/html/2507.09433v1); the [published introduction](https://doi.org/10.1016/j.laa.2026.04.027) gives the displayed unified formula.
 - M. V. Budrevich and A. E. Guterman, *Kräuter conjecture on permanents is true*, J. Combin. Theory A 162 (2019), 306–343 ([paper](https://arxiv.org/abs/1810.04439); [journal](https://doi.org/10.1016/j.jcta.2018.11.009)), for a different, resolved rank-dependent upper-bound conjecture.
 
 ## Status check — 2026-09-10
 
-Checked [Ingram–Razborov’s August 2026 published introduction](https://doi.org/10.1016/j.laa.2026.04.027), which explicitly retains the minimum-positive-value conjecture, and its [preprint §6, Problem 3](https://arxiv.org/html/2507.09433v1). [Wanless (2005), §3, pp. 430–431](https://users.monash.edu.au/~iwanless/papers/wangconjLAMA.pdf), supplies attaining matrices for every $n\le20$, a proved parameter range of this target. Exact-title and minimum-positive-permanent searches found no general resolution. The [2019 Kräuter theorem](https://arxiv.org/abs/1810.04439) proves a rank-dependent upper bound; [Hunter–Kwan–Sauermann](https://arxiv.org/abs/2509.22577) proves exponential range cardinality. Neither establishes general attainment of the lower bound.
+Checked [Ingram–Razborov’s August 2026 published introduction](https://doi.org/10.1016/j.laa.2026.04.027), which explicitly retains the minimum-positive-value conjecture, and its [preprint §6, Problem 3](https://arxiv.org/html/2507.09433v1). [Wanless (2005), §3, pp. 430–431](https://users.monash.edu.au/~iwanless/papers/wangconjLAMA.pdf), supplies attaining matrices for every $`n\le20`$, a proved parameter range of this target. Exact-title and minimum-positive-permanent searches found no general resolution. The [2019 Kräuter theorem](https://arxiv.org/abs/1810.04439) proves a rank-dependent upper bound; [Hunter–Kwan–Sauermann](https://arxiv.org/abs/2509.22577) proves exponential range cardinality. Neither establishes general attainment of the lower bound.

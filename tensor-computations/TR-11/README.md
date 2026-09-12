@@ -8,21 +8,23 @@
 
 ## Statement
 
-Let $d\ge3$, $n_1\ge\cdots\ge n_d\ge2$, and define
-$$
+Let $`d\ge3`$, $`n_1\ge\cdots\ge n_d\ge2`$, and define
+
+```math
 r_*={\prod_{i=1}^d n_i\over 1+\sum_{i=1}^d(n_i-1)},\qquad
 b=\prod_{i=2}^d n_i-\sum_{i=2}^d(n_i-1).
-$$
-For every integer $1\le r<r_*$, a generic rank-$r$ tensor in $\bigotimes_{i=1}^d\mathbb C^{n_i}$ is conjectured to have a unique expression as a sum of $r$ nonzero rank-one tensors, except in these cases:
+```
 
-1. $n_1>b$ and $r\ge b$.
-2. Format $(4,4,3)$, rank $5$.
-3. Format $(n,n,2,2)$, rank $2n-1$, with $n\ge2$.
-4. Format $(4,4,4)$, rank $6$.
-5. Format $(6,6,3)$, rank $8$.
-6. Format $(2,2,2,2,2)$, rank $5$.
+For every integer $`1\le r<r_*`$, a generic rank-$`r`$ tensor in $`\bigotimes_{i=1}^d\mathbb C^{n_i}`$ is conjectured to have a unique expression as a sum of $`r`$ nonzero rank-one tensors, except in these cases:
 
-A rank-one summand is $v_1\otimes\cdots\otimes v_d$. Uniqueness identifies decompositions whose tensor summands differ only by permutation. Generic means outside a proper Zariski-closed subset of the Zariski closure of tensors of rank at most $r$, restricted to tensors of actual rank $r$. The number $r_*$ is a rational dimension-count value, not an assumed actual generic rank.
+1. $`n_1>b`$ and $`r\ge b`$.
+2. Format $`(4,4,3)`$, rank $`5`$.
+3. Format $`(n,n,2,2)`$, rank $`2n-1`$, with $`n\ge2`$.
+4. Format $`(4,4,4)`$, rank $`6`$.
+5. Format $`(6,6,3)`$, rank $`8`$.
+6. Format $`(2,2,2,2,2)`$, rank $`5`$.
+
+A rank-one summand is $`v_1\otimes\cdots\otimes v_d`$. Uniqueness identifies decompositions whose tensor summands differ only by permutation. Generic means outside a proper Zariski-closed subset of the Zariski closure of tensors of rank at most $`r`$, restricted to tensors of actual rank $`r`$. The number $`r_*`$ is a rational dimension-count value, not an assumed actual generic rank.
 
 ## Relevance
 

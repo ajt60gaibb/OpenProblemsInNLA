@@ -12,7 +12,7 @@
 
 **Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the exact target.**
 
-The ordered theorem transfers ordinary relative Frobenius residual error with no loss for the larger monotone subhomogeneous function class. Put $B=\widehat A_k$. Since $0\preceq B\preceq A$, $\|A-B\|_F^2=\|A\|_F^2-\|B\|_F^2-2\operatorname{tr}(B(A-B))\le\|A\|_F^2-\|B\|_F^2$. Thus the original stronger trace-deficit premise implies the proved residual premise, establishing the exact canonical conclusion. All specified eigenbasis choices and zero-tail cases are covered.
+The ordered theorem transfers ordinary relative Frobenius residual error with no loss for the larger monotone subhomogeneous function class. Put $`B=\widehat A_k`$. Since $`0\preceq B\preceq A`$, $`\|A-B\|_F^2=\|A\|_F^2-\|B\|_F^2-2\mathop{\mathrm{tr}}\nolimits(B(A-B))\le\|A\|_F^2-\|B\|_F^2`$. Thus the original stronger trace-deficit premise implies the proved residual premise, establishing the exact canonical conclusion. All specified eigenbasis choices and zero-tail cases are covered.
 
 The complete target is resolved. Its former difficulty rating is historical; the original mathematical statement and source evidence are retained below.
 
@@ -20,30 +20,30 @@ The complete target is resolved. Its former difficulty rating is historical; the
 
 <!-- /colbrook-transfer -->
 
-Let $n\ge2$, $1\le k<n$, and $A,\widehat A\in\mathbb R^{n\times n}$ be symmetric with $A\succeq\widehat A\succeq0$. Let $f:[0,\infty)\to[0,\infty)$ be continuous, concave, and nondecreasing. For a positive semidefinite matrix $X=\sum_{i=1}^n\lambda_iq_iq_i^T$ with decreasing eigenvalues and orthonormal eigenvectors, write
+Let $`n\ge2`$, $`1\le k<n`$, and $`A,\widehat A\in\mathbb R^{n\times n}`$ be symmetric with $`A\succeq\widehat A\succeq0`$. Let $`f:[0,\infty)\to[0,\infty)`$ be continuous, concave, and nondecreasing. For a positive semidefinite matrix $`X=\sum_{i=1}^n\lambda_iq_iq_i^T`$ with decreasing eigenvalues and orthonormal eigenvectors, write
 
-$$
+```math
 X_k=\sum_{i=1}^k\lambda_iq_iq_i^T,
 \quad f(X)=\sum_{i=1}^nf(\lambda_i)q_iq_i^T,
 \quad f(X)_k=\sum_{i=1}^kf(\lambda_i)q_iq_i^T.
-$$
+```
 
 Use the same eigenvectors for the two truncations, with any choices inside repeated eigenspaces. Is the implication
 
-$$
+```math
 \|A\|_F^2-\|\widehat A_k\|_F^2
 \le(1+\varepsilon)\|A-A_k\|_F^2
-$$
+```
 
-$$
+```math
 \Longrightarrow\quad
 \|f(A)-f(\widehat A)_k\|_F^2
 \le(1+\varepsilon)\|f(A)-f(A)_k\|_F^2
-$$
+```
 
-valid for every such input, every eigendecomposition choice, and every $\varepsilon\ge0$? Here $\|M\|_F^2=\sum_{i,j}|M_{ij}|^2$. The premise is intentionally the difference of squared norms, not merely a relative-error bound for $\widehat A_k$.
+valid for every such input, every eigendecomposition choice, and every $`\varepsilon\ge0`$? Here $`\|M\|_F^2=\sum_{i,j}|M_{ij}|^2`$. The premise is intentionally the difference of squared norms, not merely a relative-error bound for $`\widehat A_k`$.
 
-The problem asks whether a reusable approximation to $A$ provides near-optimal Frobenius approximation to a larger class of matrix functions.
+The problem asks whether a reusable approximation to $`A`$ provides near-optimal Frobenius approximation to a larger class of matrix functions.
 
 ## References
 

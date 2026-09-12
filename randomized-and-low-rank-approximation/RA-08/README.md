@@ -12,7 +12,7 @@
 
 **Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the exact target.**
 
-A rational positive definite $6\times6$ matrix and its exact rank-three Nyström approximation attain the optimal input spectral error but violate transformed optimality for $f(x)=\min(x,1)$. At $t=1/65536$, the output ratio is at least $1+334583/15769728$. Since the input excess is zero, this also excludes every finite factor $1+C\varepsilon$ for that scalar-concave class.
+A rational positive definite $`6\times6`$ matrix and its exact rank-three Nyström approximation attain the optimal input spectral error but violate transformed optimality for $`f(x)=\min(x,1)`$. At $`t=1/65536`$, the output ratio is at least $`1+334583/15769728`$. Since the input excess is zero, this also excludes every finite factor $`1+C\varepsilon`$ for that scalar-concave class.
 
 The complete target is resolved. Its former difficulty rating is historical; the original mathematical statement and source evidence are retained below.
 
@@ -20,29 +20,29 @@ The complete target is resolved. Its former difficulty rating is historical; the
 
 <!-- /colbrook-transfer -->
 
-Let $n\ge2$, $1\le k<n$, and $A,\widehat A\in\mathbb R^{n\times n}$ satisfy $A\succeq\widehat A\succeq0$, where the matrices are symmetric and $\succeq$ is the positive semidefinite ordering. Let $f:[0,\infty)\to[0,\infty)$ be continuous, concave, and nondecreasing.
+Let $`n\ge2`$, $`1\le k<n`$, and $`A,\widehat A\in\mathbb R^{n\times n}`$ satisfy $`A\succeq\widehat A\succeq0`$, where the matrices are symmetric and $`\succeq`$ is the positive semidefinite ordering. Let $`f:[0,\infty)\to[0,\infty)`$ be continuous, concave, and nondecreasing.
 
-For $X=\sum_{i=1}^n\lambda_iq_iq_i^T$ with orthonormal $q_i$ and $\lambda_1\ge\cdots\ge\lambda_n\ge0$, set
+For $`X=\sum_{i=1}^n\lambda_iq_iq_i^T`$ with orthonormal $`q_i`$ and $`\lambda_1\ge\cdots\ge\lambda_n\ge0`$, set
 
-$$
+```math
 X_k=\sum_{i=1}^k\lambda_iq_iq_i^T,
 \quad f(X)=\sum_{i=1}^nf(\lambda_i)q_iq_i^T,
 \quad f(X)_k=\sum_{i=1}^kf(\lambda_i)q_iq_i^T.
-$$
+```
 
-Use the same eigenvectors for the two truncations, allowing any choice within repeated eigenspaces. For every $\varepsilon\ge0$, does
+Use the same eigenvectors for the two truncations, allowing any choice within repeated eigenspaces. For every $`\varepsilon\ge0`$, does
 
-$$
+```math
 \|A-\widehat A_k\|_2\le(1+\varepsilon)\|A-A_k\|_2
-$$
+```
 
 imply
 
-$$
+```math
 \|f(A)-f(\widehat A)_k\|_2\le(1+\varepsilon)\|f(A)-f(A)_k\|_2?
-$$
+```
 
-Here $\|\cdot\|_2$ is the spectral norm. The question concerns every such matrix pair, function, and choice of eigendecompositions. It would allow spectral approximation guarantees to pass through a wider family of scalar functions without requiring matrix-vector products with $f(A)$.
+Here $`\|\cdot\|_2`$ is the spectral norm. The question concerns every such matrix pair, function, and choice of eigendecompositions. It would allow spectral approximation guarantees to pass through a wider family of scalar functions without requiring matrix-vector products with $`f(A)`$.
 
 ## References
 

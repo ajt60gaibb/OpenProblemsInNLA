@@ -14,21 +14,21 @@
 
 ## Statement
 
-Let $\mathbb T=\{z\in\mathbb C:|z|=1\}$ and $a\in C(\mathbb T;\mathbb C)$. Define
+Let $`\mathbb T=\{z\in\mathbb C:|z|=1\}`$ and $`a\in C(\mathbb T;\mathbb C)`$. Define
 
-$$
+```math
 a_k=\frac1{2\pi}\int_0^{2\pi}a(e^{it})e^{-ikt}\,dt,
 \qquad T_n(a)=(a_{j-k})_{j,k=0}^{n-1}.
-$$
+```
 
-Say that $a$ extends analytically to an inner annulus if, for some $0<r<1$, there is a holomorphic function on $r<|z|<1$ extending continuously to $|z|=1$ with boundary value $a$. Define extension to an outer annulus analogously using $1<|z|<R$ for some $R>1$.
+Say that $`a`$ extends analytically to an inner annulus if, for some $`0<r<1`$, there is a holomorphic function on $`r<|z|<1`$ extending continuously to $`|z|=1`$ with boundary value $`a`$. Define extension to an outer annulus analogously using $`1<|z|<R`$ for some $`R>1`$.
 
-**Conjecture (Widom).** If $a$ has neither such inner nor such outer extension, then for every continuous compactly supported $F:\mathbb C\to\mathbb C$,
+**Conjecture (Widom).** If $`a`$ has neither such inner nor such outer extension, then for every continuous compactly supported $`F:\mathbb C\to\mathbb C`$,
 
-$$
+```math
 \lim_{n\to\infty}\frac1n\sum_{j=1}^n F(\lambda_j(T_n(a)))
 =\frac1{2\pi}\int_0^{2\pi}F(a(e^{it}))\,dt.
-$$
+```
 
 Eigenvalues are counted with algebraic multiplicity. This conclusion is called *canonical eigenvalue distribution*. The conjecture asserts that failure requires a one-sided analytic extension; it does not assert failure for every symbol that has one.
 

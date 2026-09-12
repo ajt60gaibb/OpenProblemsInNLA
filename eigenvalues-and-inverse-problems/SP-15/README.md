@@ -16,7 +16,7 @@
 
 **Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
 
-**Solved negatively, 12 September 2026 (UTC).** The [Theorem and Sections 1-4 of the complete proof](solution.md) establish a continuous family of complex $9\times9$ matrices with the same singular values of every complex scalar shift, with no two distinct family members unitarily similar. Each matrix has nilpotent Jordan type $(3,3,3)$. Thus no finite $M_9$ exists, refuting the universal finiteness statement below. This does not assert a classification of the remaining dimensions.
+**Solved negatively, 12 September 2026 (UTC).** The [Theorem and Sections 1-4 of the complete proof](solution.md) establish a continuous family of complex $`9\times9`$ matrices with the same singular values of every complex scalar shift, with no two distinct family members unitarily similar. Each matrix has nilpotent Jordan type $`(3,3,3)`$. Thus no finite $`M_9`$ exists, refuting the universal finiteness statement below. This does not assert a classification of the remaining dimensions.
 
 [Proof PDF](solution.pdf) · [Standalone proof TeX](solution.tex) · [Independent mathematical review](../../references/stepaniants-sp15-2026-09-12/verification/independent-review-aa01/review.md) · [Submission and eligibility record](../../references/stepaniants-sp15-2026-09-12/README.md).
 
@@ -26,30 +26,30 @@ The full proof passed a separate independent Codex-agent audit. Substantial AI a
 
 ## Context and notation
 
-For a complex $N\times N$ matrix $M$, write
-$s_1(M)\geq\cdots\geq s_N(M)$ for its singular values. Say $A\sim_{\rm sip} B$
+For a complex $`N\times N`$ matrix $`M`$, write
+$`s_1(M)\geq\cdots\geq s_N(M)`$ for its singular values. Say $`A\sim_{\rm sip} B`$
 if
 
-$$
+```math
 s_j(A-zI)=s_j(B-zI)
 \qquad(z\in\mathbb C,\ 1\leq j\leq N).
-$$
+```
 
 This is equality of *super-identical pseudospectral* data: it includes every
 singular value of every scalar shift.
 
 ## Problem statement
 
-Is it true that for every $N\geq1$ there is an integer $M_N\geq1$ such that
-every family $A_1,\ldots,A_{M_N+1}\in\mathbb C^{N\times N}$ with
-$A_i\sim_{\rm sip}A_j$ for all $i,j$ contains a pair satisfying
+Is it true that for every $`N\geq1`$ there is an integer $`M_N\geq1`$ such that
+every family $`A_1,\ldots,A_{M_N+1}\in\mathbb C^{N\times N}`$ with
+$`A_i\sim_{\rm sip}A_j`$ for all $`i,j`$ contains a pair satisfying
 
-$$
+```math
 A_j=U^*A_iU\quad\text{for some }i<j\text{ and }U^*U=I?
-$$
+```
 
-Equivalently, is every such data fiber a union of at most $M_N$ unitary similarity
-classes, with a bound depending only on $N$?
+Equivalently, is every such data fiber a union of at most $`M_N`$ unitary similarity
+classes, with a bound depending only on $`N`$?
 
 ## References
 
@@ -58,14 +58,14 @@ classes, with a bound depending only on $N$?
 - G. Armentia, J. M. Gracia and F. E. Velasco, [*Identical pseudospectra of any geometric multiplicity*](https://doi.org/10.1016/j.laa.2011.01.014), *Linear Algebra and its Applications* **436**(6), 1683–1688 (2012). Their similarity theorem for super-identical pseudospectra gives ordinary similarity, which allows nonunitary changes of basis and does not answer the displayed question.
 - T. Ransford and N. Walsh, [*A four-mean theorem and its application to pseudospectra*, arXiv:2109.14472v2](https://arxiv.org/pdf/2109.14472v2), 9 July 2022, Theorems 1.3–1.4. Polynomial-norm comparisons and similarity-conditioning bounds do not establish finiteness of the unitary classes; the related norm question is retained in [MF-24](../../matrix-functions-and-stability/MF-24/README.md).
 
-The original low-dimensional results give $M_2=1$ and $M_3=2$; $M_1=1$ is
+The original low-dimensional results give $`M_2=1`$ and $`M_3=2`$; $`M_1=1`$ is
 immediate. The unresolved question concerns exceptional data fibers in higher
 dimensions, rather than generic matrices.
 
 ## Scope and status check
 
 The quantifiers above are an explicit restatement of the source question about
-the exceptional set, with $M_N$ counting classes instead of the source's
+the exceptional set, with $`M_N`$ counting classes instead of the source's
 pigeonhole family size. The source is older: current openness rests on bounded
 later-literature searches, not a recent explicit reaffirmation. Searches through
 2026-09-11 for super-identical pseudospectra, finite unitary classes, the

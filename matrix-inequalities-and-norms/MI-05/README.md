@@ -9,11 +9,13 @@
 
 ## Problem statement
 
-For every integer $n\ge1$, let $A,B\in\mathbb C^{n\times n}$ be normal matrices, meaning $AA^*=A^*A$ and $BB^*=B^*B$. List their eigenvalues with algebraic multiplicity as $a_1,\ldots,a_n$ and $b_1,\ldots,b_n$. Is
+For every integer $`n\ge1`$, let $`A,B\in\mathbb C^{n\times n}`$ be normal matrices, meaning $`AA^*=A^*A`$ and $`BB^*=B^*B`$. List their eigenvalues with algebraic multiplicity as $`a_1,\ldots,a_n`$ and $`b_1,\ldots,b_n`$. Is
 
-$$\det(A+B)\in\operatorname{conv}\left\{\prod_{i=1}^n(a_i+b_{\sigma(i)}):\sigma\in S_n\right\}?$$
+```math
+\det(A+B)\in\mathop{\mathrm{conv}}\nolimits\left\{\prod_{i=1}^n(a_i+b_{\sigma(i)}):\sigma\in S_n\right\}?
+```
 
-Here $S_n$ is the permutation group and the convex hull is taken in $\mathbb C\cong\mathbb R^2$.
+Here $`S_n`$ is the permutation group and the convex hull is taken in $`\mathbb C\cong\mathbb R^2`$.
 
 ## Why it matters
 

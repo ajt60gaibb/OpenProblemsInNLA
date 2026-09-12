@@ -16,7 +16,7 @@
 <!-- colbrook-intervals -->
 ## Independently reviewed resolution - 2026-09-11
 
-**Affirmative algorithmic resolution.** Theorem 3 and Sections 3-5 give the exact coordinatewise solution hull using $2n$ rational LPs, each with $n$ variables and $2n$ inequalities, in polynomial binary input length. The construction uses precisely the inverse-M promise and arbitrary interval right-hand sides. Promise recognition is not needed; no solver for the general regular AV-03 problem is claimed.
+**Affirmative algorithmic resolution.** Theorem 3 and Sections 3-5 give the exact coordinatewise solution hull using $`2n`$ rational LPs, each with $`n`$ variables and $`2n`$ inequalities, in polynomial binary input length. The construction uses precisely the inverse-M promise and arbitrary interval right-hand sides. Promise recognition is not needed; no solver for the general regular AV-03 problem is claimed.
 
 **Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. See the [complete manuscript](../../references/colbrook-intervals-2026-09-11/manuscripts/IV-05.pdf), [independent agent review](../../references/colbrook-intervals-2026-09-11/verification/reviews/IV-05-review.md) and [submission record](../../references/colbrook-intervals-2026-09-11/README.md). The source archive identifies the drafts as AI-generated; authorship is recorded at the submitter's request. This is agent verification, not external human peer review or formal proof-assistant certification.
 
@@ -25,26 +25,26 @@ The difficulty, importance and rating rationale below are historical assessments
 
 ## Problem statement
 
-For arbitrary $n\ge1$, the input consists of rational matrices $L\le U$ and rational vectors $l\le u$, with entrywise inequalities. Let
+For arbitrary $`n\ge1`$, the input consists of rational matrices $`L\le U`$ and rational vectors $`l\le u`$, with entrywise inequalities. Let
 
-$$
+```math
 \mathcal A=\{A\in\mathbb R^{n\times n}:L\le A\le U\},\qquad
 \mathcal b=\{b\in\mathbb R^n:l\le b\le u\}.
-$$
+```
 
-Assume as a promise that every $A\in\mathcal A$ is an inverse M-matrix: $A^{-1}$ has nonpositive off-diagonal entries and is a nonsingular M-matrix. Here a nonsingular M-matrix means an invertible real matrix with nonpositive off-diagonal entries and entrywise nonnegative inverse. The entries of $A$ and $b$ vary independently.
+Assume as a promise that every $`A\in\mathcal A`$ is an inverse M-matrix: $`A^{-1}`$ has nonpositive off-diagonal entries and is a nonsingular M-matrix. Here a nonsingular M-matrix means an invertible real matrix with nonpositive off-diagonal entries and entrywise nonnegative inverse. The entries of $`A`$ and $`b`$ vary independently.
 
 Is there a deterministic algorithm that returns the exact rational endpoints of
 
-$$
+```math
 \prod_{i=1}^n
 \left[\min_{A\in\mathcal A,\ b\in\mathcal b}(A^{-1}b)_i,
       \max_{A\in\mathcal A,\ b\in\mathcal b}(A^{-1}b)_i\right]
-$$
+```
 
 in time polynomial in the binary input length? Behavior outside the promise is unrestricted, and checking the promise is not part of the requested algorithm. This is the precise bit-complexity formulation of the source's efficient interval-system solution-hull question.
 
-The promise makes the solution set nonempty and compact. The aim is its smallest coordinatewise enclosure. Computing the interval hull of $A^{-1}$ separately is already easier in this matrix class; multiplying that enclosure by $\mathcal b$ need not capture the dependence among entries of the inverse.
+The promise makes the solution set nonempty and compact. The aim is its smallest coordinatewise enclosure. Computing the interval hull of $`A^{-1}`$ separately is already easier in this matrix class; multiplying that enclosure by $`\mathcal b`$ need not capture the dependence among entries of the inverse.
 
 ## References
 

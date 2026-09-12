@@ -13,7 +13,7 @@
 
 ## Resolution — 2026-09-11
 
-**Solved affirmatively.** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, proves the displayed equality for every $n\ge2$, $1\le k<n$, and nonzero complex $\lambda$, with complex polynomials and starting vectors. No divisibility or eigenvalue-regime case remains open.
+**Solved affirmatively.** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, proves the displayed equality for every $`n\ge2`$, $`1\le k<n`$, and nonzero complex $`\lambda`$, with complex polynomials and starting vectors. No divisibility or eigenvalue-regime case remains open.
 
 [Theorem 1 and its proof](solution.md) establish the exact original target. The stronger Theorem 6 proves affine minimax equality for triangular Toeplitz matrices: finite Carathéodory–Fejér interpolation describes the maximal singular subspace, and scalar spectral factorization preserves every complex GMRES orthogonality equation in one unit vector. [Proof PDF](solution.pdf) · [Standalone XeLaTeX source](solution.tex).
 
@@ -21,15 +21,15 @@ The complete AI-assisted proof passed a separate [independent Codex-agent review
 
 ## Problem statement
 
-For $n\geq2$ and $\lambda\in\mathbb C\setminus\{0\}$, let $J_n(\lambda)=\lambda I+N$, where $N_{i,i+1}=1$ and all other entries of $N$ vanish. Let $\mathcal P_k=\{p\in\mathbb C[z]:\deg p\leq k,\ p(0)=1\}$. Define
+For $`n\geq2`$ and $`\lambda\in\mathbb C\setminus\{0\}`$, let $`J_n(\lambda)=\lambda I+N`$, where $`N_{i,i+1}=1`$ and all other entries of $`N`$ vanish. Let $`\mathcal P_k=\{p\in\mathbb C[z]:\deg p\leq k,\ p(0)=1\}`$. Define
 
-$$
+```math
 \psi_k(J)=\max_{\|v\|_2=1}\min_{p\in\mathcal P_k}\|p(J)v\|_2,
 \qquad
 \phi_k(J)=\min_{p\in\mathcal P_k}\|p(J)\|_2.
-$$
+```
 
-Prove or disprove $\psi_k(J_n(\lambda))=\phi_k(J_n(\lambda))$ for every $1\leq k<n$. The maximum describes the slowest possible GMRES residual reduction, whereas the minimum over operator norms is the ideal bound. The familiar inequality $\psi_k\leq\phi_k$ does not answer the question. A single Jordan block is a published structural test case, not a claim about all nonnormal matrices.
+Prove or disprove $`\psi_k(J_n(\lambda))=\phi_k(J_n(\lambda))`$ for every $`1\leq k<n`$. The maximum describes the slowest possible GMRES residual reduction, whereas the minimum over operator norms is the ideal bound. The familiar inequality $`\psi_k\leq\phi_k`$ does not answer the question. A single Jordan block is a published structural test case, not a claim about all nonnormal matrices.
 
 ## References
 
@@ -41,4 +41,4 @@ Searches for `Jordan block ideal GMRES equality proved 2026` and `site:arxiv.org
 
 ## Audit update — 2026-09-10
 
-Rechecked the [author copy of Tichý–Liesen–Faber](https://www.karlin.mff.cuni.cz/~ptichy/download/public/TiLiFa2007.pdf), especially §§3–5: Corollary 4.4 proves equality whenever $k$ divides $n$, with additional eigenvalue regimes proved elsewhere in those sections. These are substantive parts of the displayed target. The [2025/2026 approximation paper](https://arxiv.org/html/2506.09687) and targeted Jordan-block/ideal-GMRES searches did not supply the remaining cases; its doubling construction changes the input matrix.
+Rechecked the [author copy of Tichý–Liesen–Faber](https://www.karlin.mff.cuni.cz/~ptichy/download/public/TiLiFa2007.pdf), especially §§3–5: Corollary 4.4 proves equality whenever $`k`$ divides $`n`$, with additional eigenvalue regimes proved elsewhere in those sections. These are substantive parts of the displayed target. The [2025/2026 approximation paper](https://arxiv.org/html/2506.09687) and targeted Jordan-block/ideal-GMRES searches did not supply the remaining cases; its doubling construction changes the input matrix.

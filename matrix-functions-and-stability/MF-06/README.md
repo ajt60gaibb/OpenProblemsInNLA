@@ -14,7 +14,7 @@
 
 **Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
 
-**The full pointwise lower-Lipschitz assertion holds.** The [complete proof](solution.md), Theorem (1) and Sections 3-6, covers every fixed nonempty compact complex matrix family in every finite dimension, including reducible families with unbounded normalized products. For that fixed reference there are constants $C,r>0$ such that every nonempty compact family within Hausdorff distance $r$ satisfies the original lower bound below.
+**The full pointwise lower-Lipschitz assertion holds.** The [complete proof](solution.md), Theorem (1) and Sections 3-6, covers every fixed nonempty compact complex matrix family in every finite dimension, including reducible families with unbounded normalized products. For that fixed reference there are constants $`C,r>0`$ such that every nonempty compact family within Hausdorff distance $`r`$ satisfies the original lower bound below.
 
 The proof establishes a product-bounded exterior-power family at a maximal critical degree and transfers a robust one-sided estimate back to the original family. The nearby family may be arbitrary; it need not preserve the reference's invariant subspaces. [Proof PDF](solution.pdf) · [Standalone proof TeX](solution.tex).
 
@@ -24,34 +24,34 @@ Epperlein and Wirth retain attribution for the target. The Barabanov/Wirth extre
 
 ## Context and notation
 
-Let $\mathcal H_d$ denote the nonempty compact subsets of
-$\mathbb C^{d\times d}$. Use the spectral norm and its Hausdorff distance
+Let $`\mathcal H_d`$ denote the nonempty compact subsets of
+$`\mathbb C^{d\times d}`$. Use the spectral norm and its Hausdorff distance
 
-$$
+```math
 d_H(\mathcal M,\mathcal N)=\max\left\{
 \sup_{A\in\mathcal M}\inf_{B\in\mathcal N}\|A-B\|_2,
 \sup_{B\in\mathcal N}\inf_{A\in\mathcal M}\|A-B\|_2\right\}.
-$$
+```
 
 The joint spectral radius is
 
-$$
+```math
 \widehat\rho(\mathcal M)=\lim_{k\to\infty}
 \max_{A_1,\ldots,A_k\in\mathcal M}\|A_k\cdots A_1\|_2^{1/k}.
-$$
+```
 
 These definitions also apply to finite real matrix sets. The ordinary spectral
-radius of one matrix is written $\rho(A)$.
+radius of one matrix is written $`\rho(A)`$.
 
 ## Problem statement
 
-For every $d\ge1$ and $\mathcal M\in\mathcal H_d$, do
-there exist $r,C>0$ such that
+For every $`d\ge1`$ and $`\mathcal M\in\mathcal H_d`$, do
+there exist $`r,C>0`$ such that
 
-$$
+```math
 \widehat\rho(\mathcal N)\ge\widehat\rho(\mathcal M)-C d_H(\mathcal M,\mathcal N)
 \quad\text{if }d_H(\mathcal M,\mathcal N)<r?
-$$
+```
 
 ## Reference and status evidence
 

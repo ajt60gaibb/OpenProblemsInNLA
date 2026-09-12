@@ -15,56 +15,56 @@
 ## Context and notation
 
 All matrices are complex and all norms are spectral norms. Write
-$s_1(M)\geq\cdots\geq s_N(M)$ for the singular values of $M$. Define
+$`s_1(M)\geq\cdots\geq s_N(M)`$ for the singular values of $`M`$. Define
 
-$$
+```math
 A\sim_{\rm sip}B\quad\Longleftrightarrow\quad
 s_j(A-zI)=s_j(B-zI)\quad(z\in\mathbb C,\ 1\leq j\leq N).
-$$
+```
 
 Define the sharp comparison constant
 
-$$
+```math
 C_N=\sup\left\{
 \frac{\|p(A)\|_2}{\|p(B)\|_2}:
 A,B\in\mathbb C^{N\times N},\ A\sim_{\rm sip}B,
 p\in\mathbb C[z],\ p(B)\ne0
 \right\}.
-$$
+```
 
 As recorded in [SP-15](../../eigenvalues-and-inverse-problems/SP-15/README.md), super-identical pseudospectral data also imply ordinary similarity, so
-$p(A)=0$ if and only if $p(B)=0$.
+$`p(A)=0`$ if and only if $`p(B)=0`$.
 
 ## Problem statement
 
-Determine whether $\sup_{N\geq1}C_N<\infty$. Equivalently, does there exist an
-absolute constant $C$ such that
+Determine whether $`\sup_{N\geq1}C_N<\infty`$. Equivalently, does there exist an
+absolute constant $`C`$ such that
 
-$$
+```math
 \|p(A)\|_2\leq C\|p(B)\|_2
-$$
+```
 
 for every dimension, every super-identical-pseudospectral pair and every
-polynomial? Determining the sharp $C_N$ is the closely related quantitative
+polynomial? Determining the sharp $`C_N`$ is the closely related quantitative
 question, retained here rather than split into another entry.
 
 ## References
 
-- Fortier Bourque and Ransford, [*Super-identical pseudospectra*](https://doi.org/10.1112/jlms/jdn085), **p. 513, immediately after Theorem 1.3**, explicitly ask both whether their $\sqrt N$ bound is optimal and whether a dimension-independent bound exists. The sharp-constant notation above is editorial; the boundedness question is source-stated.
+- Fortier Bourque and Ransford, [*Super-identical pseudospectra*](https://doi.org/10.1112/jlms/jdn085), **p. 513, immediately after Theorem 1.3**, explicitly ask both whether their $`\sqrt N`$ bound is optimal and whether a dimension-independent bound exists. The sharp-constant notation above is editorial; the boundedness question is source-stated.
 - Thomas Ransford and Nathan Walsh, [*A four-mean theorem and its application to pseudospectra*, arXiv:2109.14472v2](https://arxiv.org/pdf/2109.14472v2), **9 July 2022**, **Theorem 1.3**, prove
 
-  $$
+  ```math
   \|p(A)\|_2<\sqrt{N-2}\,\|p(B)\|_2\qquad(N\geq4)
-  $$
+  ```
 
-  unless both sides vanish. **Proposition 5.1** and its following argument show sharpness for $N=4$: $C_4=\sqrt2$. **Theorem 1.4** concerns unbounded condition numbers of similarity transforms in fixed dimension, a different quantity.
+  unless both sides vanish. **Proposition 5.1** and its following argument show sharpness for $`N=4`$: $`C_4=\sqrt2`$. **Theorem 1.4** concerns unbounded condition numbers of similarity transforms in fixed dimension, a different quantity.
 
-Thus $C_N\leq\sqrt{N-2}$ for $N\geq4$. The small-dimensional unitary/transpose
-classification gives $C_1=C_2=C_3=1$.
+Thus $`C_N\leq\sqrt{N-2}`$ for $`N\geq4`$. The small-dimensional unitary/transpose
+classification gives $`C_1=C_2=C_3=1`$.
 
 ## Scope and status check
 
-The unknown absolute constant, not the superseded $\sqrt N$ sharpness guess, is
+The unknown absolute constant, not the superseded $`\sqrt N`$ sharpness guess, is
 the admission target. This comparison does not follow just from ordinary
 similarity, since a badly conditioned similarity can change norms substantially.
 Searches through 2026-09-11 for super-identical polynomial norm bounds,

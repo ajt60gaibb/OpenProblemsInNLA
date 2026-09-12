@@ -14,36 +14,36 @@
 ## Context and notation
 
 All factorizations are over the real numbers. For
-$X\in\mathbb R_{\ge0}^{m\times n}$, define
+$`X\in\mathbb R_{\ge0}^{m\times n}`$, define
 
-$$
-\operatorname{rank}_+(X)=\min\{r\ge0:X=WH,\quad
+```math
+\mathop{\mathrm{rank}}\nolimits_+(X)=\min\{r\ge0:X=WH,\quad
 W\in\mathbb R_{\ge0}^{m\times r},\ H\in\mathbb R_{\ge0}^{r\times n}\}.
-$$
+```
 
 ## Problem statement
 
-Let $P\subset\mathbb R^d$ and $Q\subset\mathbb R^e$ be full-dimensional
-polytopes with $d,e\ge1$. Let $S\in\mathbb R_{\ge0}^{m\times n}$ and
-$T\in\mathbb R_{\ge0}^{p\times q}$ be their slack matrices: rows correspond
+Let $`P\subset\mathbb R^d`$ and $`Q\subset\mathbb R^e`$ be full-dimensional
+polytopes with $`d,e\ge1`$. Let $`S\in\mathbb R_{\ge0}^{m\times n}`$ and
+$`T\in\mathbb R_{\ge0}^{p\times q}`$ be their slack matrices: rows correspond
 to all facets in irredundant inequality descriptions, columns to all vertices,
 and each entry is the right-hand side minus the left-hand side of that facet
-inequality at that vertex. Construct $C\in\mathbb R_{\ge0}^{(m+p)\times nq}$
-by giving it one column for each pair $(i,j)$ of vertices:
+inequality at that vertex. Construct $`C\in\mathbb R_{\ge0}^{(m+p)\times nq}`$
+by giving it one column for each pair $`(i,j)`$ of vertices:
 
-$$
+```math
 C[:,(i,j)]=\begin{pmatrix}S[:,i]\\T[:,j]\end{pmatrix}.
-$$
+```
 
 ### Question
 
 Is
 
-$$
-\operatorname{rank}_+(C)=\operatorname{rank}_+(S)+\operatorname{rank}_+(T)
-$$
+```math
+\mathop{\mathrm{rank}}\nolimits_+(C)=\mathop{\mathrm{rank}}\nolimits_+(S)+\mathop{\mathrm{rank}}\nolimits_+(T)
+```
 
-always true? The hypotheses that $S,T$ are polytope slack matrices are part of
+always true? The hypotheses that $`S,T`$ are polytope slack matrices are part of
 the question. Through the slack-factorization theorem, this also asks whether
 the minimum number of inequalities in an extended formulation is additive
 under Cartesian products.

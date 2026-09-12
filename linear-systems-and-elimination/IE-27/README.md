@@ -14,20 +14,26 @@
 
 ## Statement
 
-Let $q\ge2$, and let $A_q\in\mathbb R^{q\times q}$ be the Butcher matrix of the $q$-stage Radau IIA method. Explicitly, if $0<c_1<\cdots<c_q=1$ are the roots in $[0,1]$ of $P_q(2t-1)-P_{q-1}(2t-1)$, where $P_j$ is the degree-$j$ Legendre polynomial normalized by $P_j(1)=1$, and $\ell_j$ are their Lagrange cardinal polynomials, then
+Let $`q\ge2`$, and let $`A_q\in\mathbb R^{q\times q}`$ be the Butcher matrix of the $`q`$-stage Radau IIA method. Explicitly, if $`0<c_1<\cdots<c_q=1`$ are the roots in $`[0,1]`$ of $`P_q(2t-1)-P_{q-1}(2t-1)`$, where $`P_j`$ is the degree-$`j`$ Legendre polynomial normalized by $`P_j(1)=1`$, and $`\ell_j`$ are their Lagrange cardinal polynomials, then
 
-$$ (A_q)_{ij}=\int_0^{c_i}\ell_j(t)\,dt.$$
+```math
+ (A_q)_{ij}=\int_0^{c_i}\ell_j(t)\,dt.
+```
 
-Take the exact factorization $A_q^{-1}=L_qU_q$ without pivoting, with $L_q$ lower triangular and $U_q$ upper triangular with unit diagonal. Write $\widehat U_q=U_q-I_q$, and assume $\|\widehat U_q\|_2<1$.
+Take the exact factorization $`A_q^{-1}=L_qU_q`$ without pivoting, with $`L_q`$ lower triangular and $`U_q`$ upper triangular with unit diagonal. Write $`\widehat U_q=U_q-I_q`$, and assume $`\|\widehat U_q\|_2<1`$.
 
-For $n\ge1$, let $M,K\in\mathbb R^{n\times n}$ be symmetric positive definite mass and stiffness matrices from a finite-element discretization of a coercive self-adjoint second-order elliptic operator, and let $\tau>0$. Define
+For $`n\ge1`$, let $`M,K\in\mathbb R^{n\times n}`$ be symmetric positive definite mass and stiffness matrices from a finite-element discretization of a coercive self-adjoint second-order elliptic operator, and let $`\tau>0`$. Define
 
-$$\mathcal A=A_q^{-1}\otimes M+\tau I_q\otimes K,
-\qquad\mathcal P_L=L_q\otimes M+\tau I_q\otimes K.$$
+```math
+\mathcal A=A_q^{-1}\otimes M+\tau I_q\otimes K,
+\qquad\mathcal P_L=L_q\otimes M+\tau I_q\otimes K.
+```
 
-**Conjecture.** Every generalized eigenvalue $\nu\in\mathbb C$ of $\mathcal Ax=\nu\mathcal P_Lx$ satisfies
+**Conjecture.** Every generalized eigenvalue $`\nu\in\mathbb C`$ of $`\mathcal Ax=\nu\mathcal P_Lx`$ satisfies
 
-$$|\nu-1|\le\|\widehat U_q\|_2.$$
+```math
+|\nu-1|\le\|\widehat U_q\|_2.
+```
 
 The quantifiers are uniform over the stage number, admissible spatial discretization and positive time step. This states the symmetric elliptic setting used by the later spectral analysis explicitly. The original Conjecture 1 says “positive definite” finite-element matrices, and also discusses convection; this page does not silently identify nonsymmetric positive definiteness with the symmetric setting.
 
@@ -35,10 +41,12 @@ The quantifiers are uniform over the stage number, admissible spatial discretiza
 
 The Kronecker structure reduces the spectrum to matrices
 
-$$X_{q,\mu}=I_q+(I_q+\mu L_q^{-1})^{-1}\widehat U_q,
-\qquad \mu\in\sigma(\tau M^{-1}K)\subset(0,\infty).$$
+```math
+X_{q,\mu}=I_q+(I_q+\mu L_q^{-1})^{-1}\widehat U_q,
+\qquad \mu\in\sigma(\tau M^{-1}K)\subset(0,\infty).
+```
 
-In particular, proving $\rho(X_{q,\mu}-I_q)\le\|\widehat U_q\|_2$ for every $\mu>0$ proves the displayed conjecture for all admissible discretizations. The source proves the two-stage case. At least $n$ eigenvalues equal one because $\widehat U_q\otimes I_n$ has nullity at least $n$; this established part of the original conjecture is not an additional target. Numerical spectra at larger stage counts support the enclosure, but do not settle all $q$ and $\mu$.
+In particular, proving $`\rho(X_{q,\mu}-I_q)\le\|\widehat U_q\|_2`$ for every $`\mu>0`$ proves the displayed conjecture for all admissible discretizations. The source proves the two-stage case. At least $`n`$ eigenvalues equal one because $`\widehat U_q\otimes I_n`$ has nullity at least $`n`$; this established part of the original conjecture is not an additional target. Numerical spectra at larger stage counts support the enclosure, but do not settle all $`q`$ and $`\mu`$.
 
 ## References and status check
 

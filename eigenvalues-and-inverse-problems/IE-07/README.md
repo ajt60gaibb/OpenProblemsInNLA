@@ -13,22 +13,22 @@
 
 ## Problem statement
 
-For a matrix $M$ with simple spectrum, define
+For a matrix $`M`$ with simple spectrum, define
 
-$$
-\operatorname{gap}(M)=\min_{i\ne j}|\lambda_i(M)-\lambda_j(M)|,
+```math
+\mathop{\mathrm{gap}}\nolimits(M)=\min_{i\ne j}|\lambda_i(M)-\lambda_j(M)|,
 \qquad
 \kappa_V(M)=\inf_{M=VDV^{-1},\ D\text{ diagonal}}\|V\|_2\|V^{-1}\|_2.
-$$
+```
 
-For every $n\geq2$, $A\in\mathbb C^{n\times n}$ with $\|A\|_2\leq1$, and $0<\delta<1/2$, construct deterministically a matrix $E$ such that
+For every $`n\geq2`$, $`A\in\mathbb C^{n\times n}`$ with $`\|A\|_2\leq1`$, and $`0<\delta<1/2`$, construct deterministically a matrix $`E`$ such that
 
-$$
+```math
 \|E\|_2\leq\delta,\qquad A+E\text{ has simple spectrum},\qquad
-\frac{\kappa_V(A+E)}{\operatorname{gap}(A+E)}\leq C(n/\delta)^c,
-$$
+\frac{\kappa_V(A+E)}{\mathop{\mathrm{gap}}\nolimits(A+E)}\leq C(n/\delta)^c,
+```
 
-using $O(n^3\log^d(n/\delta))$ exact arithmetic operations, for universal constants $C,c,d$. The task is to find the perturbation, not merely prove its existence.
+using $`O(n^3\log^d(n/\delta))`$ exact arithmetic operations, for universal constants $`C,c,d`$. The task is to find the perturbation, not merely prove its existence.
 
 ## References
 
@@ -36,7 +36,7 @@ Banks, Garza-Vargas, Kulkarni, and Srivastava, [*Pseudospectral Shattering, the 
 
 ## Earlier status check — 2026-09-08
 
-Searches for `deterministic pseudospectral shattering 2026` found randomized and exponential-bound deterministic results, not the stated algorithm. The normalization and exponent orientation here are explicit: Problem 3.1's printed $(\delta/n)^c$ contradicts its own preceding motivation; $(n/\delta)^c$ is the intended polynomial upper bound.
+Searches for `deterministic pseudospectral shattering 2026` found randomized and exponential-bound deterministic results, not the stated algorithm. The normalization and exponent orientation here are explicit: Problem 3.1's printed $`(\delta/n)^c`$ contradicts its own preceding motivation; $`(n/\delta)^c`$ is the intended polynomial upper bound.
 
 ## Audit update — 2026-09-10
 

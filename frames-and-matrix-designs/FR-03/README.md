@@ -8,25 +8,31 @@
 **Rating rationale:** Uniform conditioning for this explicit arithmetic frame beyond square-root sparsity is a major deterministic sensing barrier linking number theory and numerical reconstruction.
 
 
-For a prime $p\equiv1\pmod4$, let $Q$ be the nonzero quadratic residues modulo $p$, and set $N=(p+1)/2$. Define $\Phi_p\in\mathbb C^{N\times(p+1)}$ with row labels $\{0\}\cup Q$ and column labels $\{0,\ldots,p-1,\infty\}$ by
-$$
+For a prime $`p\equiv1\pmod4`$, let $`Q`$ be the nonzero quadratic residues modulo $`p`$, and set $`N=(p+1)/2`$. Define $`\Phi_p\in\mathbb C^{N\times(p+1)}`$ with row labels $`\{0\}\cup Q`$ and column labels $`\{0,\ldots,p-1,\infty\}`$ by
+
+```math
 (\Phi_p)_{0j}=p^{-1/2},\qquad
 (\Phi_p)_{rj}=\sqrt{2/p}\exp(-2\pi\mathrm i rj/p)
 \quad(r\in Q,\ 0\leq j<p),
-$$
-and $(\Phi_p)_{0,\infty}=1$, $(\Phi_p)_{r,\infty}=0$ for $r\in Q$. All columns have Euclidean norm one.
+```
 
-Do constants $0<\varepsilon<1/2$, $c>0$, $C<\infty$, and $p_0$ exist such that, for every prime $p\geq p_0$ with $p\equiv1\pmod4$ and every column subset $S$ with
-$$
+and $`(\Phi_p)_{0,\infty}=1`$, $`(\Phi_p)_{r,\infty}=0`$ for $`r\in Q`$. All columns have Euclidean norm one.
+
+Do constants $`0<\varepsilon<1/2`$, $`c>0`$, $`C<\infty`$, and $`p_0`$ exist such that, for every prime $`p\geq p_0`$ with $`p\equiv1\pmod4`$ and every column subset $`S`$ with
+
+```math
 1\leq |S|\leq \lfloor c p^{1/2+\varepsilon}\rfloor,
-$$
+```
+
 the column submatrix satisfies
-$$
+
+```math
 \kappa_2((\Phi_p)_S)
 =\frac{\sigma_{\max}((\Phi_p)_S)}
 {\sigma_{\min}((\Phi_p)_S)}\leq C?
-$$
-The condition number is infinite when the columns are dependent. Constants must be independent of both $p$ and $S$.
+```
+
+The condition number is infinite when the columns are dependent. Constants must be independent of both $`p`$ and $`S`$.
 
 This is the bounded-condition-number formulation of the Paley-frame conjecture in Randomstrasse 101, Conjecture 29. It asks for uniform conditioning beyond the square-root sparsity scale, rather than conditioning of a random subset. The explicit frame would provide deterministic measurement matrices with stable sparse least-squares subproblems. The general deterministic restricted-isometry construction problem does not require this particular matrix, so neither problem duplicates the other.
 
