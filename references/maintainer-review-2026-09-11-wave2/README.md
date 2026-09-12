@@ -107,3 +107,12 @@ These four submissions remain outside integration while the required fork
 workflow execution approval is pending. No workflow approval or protection
 bypass was performed. The [third review batch](../maintainer-review-2026-09-11-wave3/README.md)
 records the subsequent submissions, evidence and integration decisions.
+
+## Final disposition of the pending submissions
+
+PRs #68, #83, #85 and #91 were subsequently integrated after their explicitly
+authorized required workflow runs passed. The three #85 fingerprints are corrected,
+the #83 reference summary is now historical, and AA-01 retains both its #68 and
+#89 proof records at the same original ID. The [final integration record](../maintainer-review-2026-09-11-wave3/final-six-integration.md)
+supersedes the earlier pending-workflow notes and records all six later merges,
+including #93 and #103, plus the final numbering and source-preservation checks.

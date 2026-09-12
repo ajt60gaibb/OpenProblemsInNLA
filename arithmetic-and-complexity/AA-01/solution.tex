@@ -1,0 +1,824 @@
+% Compile with: pdflatex AA-01_proposed_proof.tex (run twice).
+% Standalone source: no external bibliography, figures, or custom fonts needed.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=27mm,headheight=14pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{fancyhdr}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  pdftitle={AA-01: A proposed decision procedure for accurate polynomial evaluation},
+  pdfsubject={Self-contained proof candidate for the constant-free finite-tree model},
+  pdfauthor={George Stepaniants; prepared with ChatGPT}
+}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small AA-01: proposed proof}
+\fancyhead[R]{\small Constant-free finite-tree model}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\setlength{\parskip}{0.3em}
+\setlength{\emergencystretch}{2em}
+\setlist[enumerate]{itemsep=0.35em,topsep=0.4em}
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\N}{\mathbb N}
+\newcommand{\NN}{\mathbb N_0}
+\newcommand{\Sn}{\mathfrak S_n}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\coefnorm}[1]{\left\lVert#1\right\rVert_{\mathrm{coef}}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\rnd}{\operatorname{rnd}}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\YES}{\mathsf{YES}}
+\newcommand{\NO}{\mathsf{NO}}
+\newcommand{\QE}{\mathsf{QE}}
+
+\title{\textbf{AA-01: A proposed decision procedure\\
+for accurate polynomial evaluation}\\[0.5em]
+\large Exact real inputs, independently rounded arithmetic,\\
+exact comparisons, and no constant inputs}
+\author{George Stepaniants\\[0.3em]
+\small Department of Computing and Mathematical Sciences\\
+\small California Institute of Technology\\
+\small Pasadena, California, USA}
+\date{11 September 2026}
+
+\begin{document}
+\maketitle
+\thispagestyle{plain}
+
+\begin{abstract}
+We give a proof candidate for an affirmative answer to AA-01 in its
+constant-free, finite-computation-tree formulation.  The proposed
+characterization uses the finitely many regions determined by input signs
+and the ordering of input absolute values.  After changing to nonnegative
+gap coordinates on each region, accurate evaluability is equivalent to a
+uniform bound of the coefficientwise absolute polynomial by the absolute
+value of the polynomial itself.  Each bound is a first-order sentence over
+the reals, so effective real quantifier elimination gives a halting
+decision procedure.  The necessity argument couples two nearby executions
+while preserving error-dependent branches and all stored rounded values.
+The sufficiency argument constructs an evaluator using only exact
+sign/order branching and rounded evaluation in the gap coordinates.
+\end{abstract}
+
+\noindent\textbf{Verification status.}
+This is a research proof candidate developed in the accompanying
+conversation with ChatGPT.  A separate Codex agent independently reviewed
+the proof on 11 September 2026.  This review is not human peer review or
+a formal verification certificate.  All model-specific lemmas are proved below; the only external
+algorithmic theorem used is effective quantifier elimination over the
+reals.  The references supply the problem, background, and that external
+theorem, not a prior verification of the proposed characterization.
+
+\section{The precise problem and computation model}\label{sec:model}
+
+Fix an integer $n\ge1$.  The input to the decision problem is the finite
+integer coefficient list of a polynomial
+\[
+ p\in\Z[x_1,\ldots,x_n],\qquad p(0)=0.
+\]
+The model is the one specified in AA-01~\cite{AA01}.  Background on accurate
+evaluation in traditional rounded arithmetic is given in
+\cite{DDH06,DDHK08}.
+
+An evaluator is a finite arithmetic computation tree with real-valued
+registers and branching control flow.  Its initial numerical quantities
+are exactly the input coordinates $x_1,\ldots,x_n$.  Each binary arithmetic
+node performs one of $+$, $-$, or multiplication and returns
+\begin{equation}\label{eq:rounding}
+ (a\circ b)(1+\delta_j),\qquad \circ\in\{+,-,\cdot\}.
+\end{equation}
+Every execution of a distinct arithmetic node has its own independent
+error parameter.  Here ``independent'' imposes no probability distribution:
+it means that the errors are separately and arbitrarily selectable within
+the prescribed interval.  Equal operands at different nodes need not
+produce equal errors.
+
+Negation, copying, storage, and comparisons of available numerical
+quantities are exact.  A comparison chooses control flow; its Boolean
+outcome is not an additional numerical constant available to arithmetic.
+The output is an available numerical quantity.  There are no constant
+input nodes and no additional exact arithmetic operations.  In
+particular, exact multiplication by an integer is not a primitive.
+Previously computed values may be reused without being recomputed.
+The tree is finite, including all its branches.  Arithmetic is over the
+reals, without overflow or underflow.
+
+Number all rounded nodes in the tree by $1,\ldots,N(P)$.  Errors assigned
+to nodes on unused branches are ignored.  Write $P(x,\delta)$ for the
+resulting output.
+
+\begin{definition}[Accuracy]\label{def:accuracy}
+A tree $P$ accurately evaluates $p$ if $P(x,0)=p(x)$ for all $x\in\R^n$
+and
+\begin{equation}\label{eq:accuracy}
+\begin{gathered}
+ \forall\eta\in(0,1)\ \exists u\in(0,1)\quad
+ \forall x\in\R^n\ \forall\delta\in[-u,u]^{N(P)}:\\
+ \abs{P(x,\delta)-p(x)}\le\eta\abs{p(x)}.
+\end{gathered}
+\end{equation}
+The same tree must work for every $\eta$.  The precision bound $u$ may
+depend on $p$, $P$, and $\eta$, but not on $x$.
+\end{definition}
+
+The question is whether an ordinary Turing algorithm always halts and
+decides whether such a tree exists.  The Turing decision procedure and the
+rounded evaluator are different machines: the former may perform exact
+symbolic integer computations and invoke a real-algebraic decision
+algorithm.
+
+\section{The proposed finite characterization}\label{sec:criterion}
+
+For $\pi\in\Sn$ and $s=(s_1,\ldots,s_n)\in\{-1,1\}^n$, define
+$T=T_{\pi,s}:\R^n\to\R^n$ by
+\begin{equation}\label{eq:T}
+ (Ty)_{\pi(i)}=s_i\sum_{j=i}^n y_j,\qquad 1\le i\le n.
+\end{equation}
+This is an invertible integer linear map.  Its inverse on its closed
+signed-order region is
+\begin{equation}\label{eq:gaps}
+ y_i=\abs{x_{\pi(i)}}-\abs{x_{\pi(i+1)}}\quad(1\le i<n),
+ \qquad y_n=\abs{x_{\pi(n)}}.
+\end{equation}
+For $y\in(0,\infty)^n$, the image satisfies
+\[
+ \sgn(x_{\pi(i)})=s_i,
+ \qquad \abs{x_{\pi(1)}}>\cdots>\abs{x_{\pi(n)}}>0.
+\]
+The $2^n n!$ closed regions $T_{\pi,s}[0,\infty)^n$ cover $\R^n$.
+For zero coordinates choose either sign, and for ties choose any order.
+
+Expand, after collecting like monomials,
+\begin{equation}\label{eq:qW}
+ q_T(y)=p(Ty)=\sum_{\alpha\in\NN^n}a_{T,\alpha}y^\alpha,
+ \qquad
+ W_T(y)=\sum_{\alpha\in\NN^n}\abs{a_{T,\alpha}}y^\alpha.
+\end{equation}
+The sums are finite, their coefficients are integers, and their constant
+terms are zero.  We use the polynomial convention $y_i^0=1$, including
+when $y_i=0$.
+
+\Needspace{13\baselineskip}
+\begin{theorem}[Signed-order gap criterion]\label{thm:main}
+For the model of Section~\ref{sec:model}, the following are equivalent.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item\label{item:accurate} The polynomial $p$ has an accurate finite tree.
+\item\label{item:dominated} For every $T=T_{\pi,s}$, there is $C_T>0$ such that
+\begin{equation}\label{eq:criterion}
+ W_T(y)\le C_T\abs{q_T(y)}\qquad\text{for all }y\in[0,\infty)^n.
+\end{equation}
+\end{enumerate}
+When these conditions hold, an accurate evaluator can be constructed whose
+only comparisons determine the exact signs and the ordering of the
+absolute values of the original inputs.
+\end{theorem}
+
+Necessity is proved in Sections~\ref{sec:geometry}--\ref{sec:necessity};
+sufficiency is proved in Section~\ref{sec:sufficiency}.  The halting
+decision procedure follows in Section~\ref{sec:decision}.
+The zero polynomial will be dealt with explicitly and causes no exception
+to the criterion.
+
+\section{Geometry of a signed-order region}\label{sec:geometry}
+
+Write $S_i(y)=\sum_{j=i}^n y_j$.  Up to sign and permutation, the raw
+inputs are the nested tail sums $S_1(y),\ldots,S_n(y)$.
+
+\begin{lemma}[Relative perturbations of raw quantities]\label{lem:geometry}
+Fix $T=T_{\pi,s}$, $0<\varepsilon<1$, and $y,y'\in(0,\infty)^n$ with
+\begin{equation}\label{eq:close}
+ \abs{y_i'-y_i}\le\varepsilon y_i\qquad(1\le i\le n).
+\end{equation}
+Let $x=Ty$ and $x'=Ty'$.  Then:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item Every signed raw input $r=\sigma x_i$, $\sigma\in\{-1,1\}$,
+and its counterpart $r'=\sigma x_i'$ satisfy
+\begin{equation}\label{eq:rawperturb}
+ \abs{r'-r}\le\varepsilon\abs r.
+\end{equation}
+\item A sum or difference $L$ of two signed raw inputs is either
+identically zero on the region, or is nonzero throughout the open region
+and satisfies
+\begin{equation}\label{eq:linearperturb}
+ \abs{L(x')-L(x)}\le\varepsilon\abs{L(x)}.
+\end{equation}
+In particular, comparisons between signed raw inputs have the same
+outcomes at $x$ and $x'$.
+\item A product $a$ of two signed raw inputs and its counterpart $a'$
+satisfy
+\begin{equation}\label{eq:productperturb}
+ \abs{a'-a}\le(2\varepsilon+\varepsilon^2)\abs a
+ \le3\varepsilon\abs a.
+\end{equation}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+For any $b_i\ge0$, condition~\eqref{eq:close} implies
+\[
+ \abs{\sum_i b_i y_i'-\sum_i b_i y_i}
+ \le\sum_i b_i\abs{y_i'-y_i}
+ \le\varepsilon\sum_i b_i y_i.
+\]
+This proves (a).  A sum or difference of two signed tail sums is either
+zero or, up to an overall sign, a nonzero linear form with nonnegative
+coefficients: $S_i+S_j$ has this property, and, for $i<j$,
+$S_i-S_j=\sum_{k=i}^{j-1}y_k$ does too.  The displayed inequality proves
+(b), including preservation of signs and exact equality cases.
+
+For (c), write the two perturbed factors as $r(1+\theta)$ and
+$t(1+\phi)$, with $\abs\theta,\abs\phi\le\varepsilon$, using (a).
+Their relative product change is
+$\theta+\phi+\theta\phi$, whose absolute value is at most
+$2\varepsilon+\varepsilon^2$.
+\end{proof}
+
+\section{Coupling executions, including error-dependent branches}
+\label{sec:coupling}
+
+The next lemma permits each rounded value to be selected away from the
+finitely many signed raw inputs.
+
+\begin{lemma}[Avoiding finitely many relative neighborhoods]
+\label{lem:avoid}
+Let $0<u<1/4$, $n\ge1$, and $\tau=u/(32n)$.  Let $\mathcal R$ be a set
+of at most $2n$ nonzero real numbers.  For every $a\in\R$, there is
+$\delta\in[-u/4,u/4]$ such that
+\begin{equation}\label{eq:separation}
+ \abs{a(1+\delta)-r}>\tau\abs r
+ \qquad(r\in\mathcal R).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+If $a=0$, every $\delta$ works because $\tau<1$ and $r\ne0$.
+Suppose $a\ne0$, and put $I=[-u/4,u/4]$, an interval of length $u/2$.
+For a fixed $r$, its forbidden set is
+\[
+ F_r=\{\delta\in I:\abs{a(1+\delta)-r}\le\tau\abs r\}.
+\]
+It is an interval intersected with $I$ and has length at most
+$2\tau\abs r/\abs a$.  If it is nonempty, some $\delta\in I$ gives
+\[
+ (1-\tau)\abs r\le\abs{a(1+\delta)}
+ \le(1+u/4)\abs a.
+\]
+Hence
+\[
+ \operatorname{length}(F_r)
+ \le2\tau\frac{1+u/4}{1-\tau}<3\tau.
+\]
+For the last inequality, $u/4<1/16$ and $\tau<1/128$, so the factor
+multiplying $\tau$ is less than $272/127<3$.
+The union of all forbidden intervals has length at most
+\[
+ 6n\tau=\frac{3u}{16}<\frac u2.
+\]
+It cannot cover $I$.  A point of its complement satisfies every strict
+inequality in~\eqref{eq:separation}.
+\end{proof}
+
+\begin{lemma}[Deterministic coupling]\label{lem:coupling}
+Fix a finite tree $P$ in the prescribed model and $0<u<1/4$.  Set
+\begin{equation}\label{eq:parameters}
+ \tau=\frac{u}{32n},\qquad
+ \varepsilon=\frac{u\tau}{16}=\frac{u^2}{512n}.
+\end{equation}
+Suppose $x=Ty$, $x'=Ty'$ for one common map $T$, where $y,y'>0$ and
+\eqref{eq:close} holds.  There are error assignments
+\[
+ \delta,\delta'\in[-u,u]^{N(P)}
+\]
+with the following properties:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item the two executions follow exactly the same control-flow path;
+\item every rounded node on that path produces the same numerical value
+in the two executions;
+\item if their outputs are $z=P(x,\delta)$ and $z'=P(x',\delta')$, then
+\begin{equation}\label{eq:outputcoupling}
+ \abs{z'}\le(1+\varepsilon)\abs z.
+\end{equation}
+\end{enumerate}
+The parameter $\varepsilon$ depends only on $n$ and $u$, not on the size
+of $P$.
+\end{lemma}
+
+\begin{proof}
+Every available numerical quantity has one of two provenance types:
+it is an exact signed copy of an original input coordinate, or an exact
+signed copy of a value previously produced by rounded arithmetic.
+Copies and negations preserve these types.  They are provenance labels,
+not claims that differently labelled values can never coincide.
+
+We construct the two executions simultaneously, assigning an error when
+a rounded node is reached.  For every rounded value $v$ produced in the
+execution on $x$, maintain
+\begin{equation}\label{eq:invariant}
+ \abs{v-r}>\tau\abs r
+ \qquad\text{for all }r\in\mathcal R_x
+ :=\{x_1,-x_1,\ldots,x_n,-x_n\}.
+\end{equation}
+All targets are nonzero because $y>0$.  The same separation holds for
+$-v$, since $\mathcal R_x$ is symmetric under negation.  We also maintain
+that the counterpart of every such rounded value is numerically identical
+in the second execution.  Signed raw inputs instead have the naturally
+perturbed counterparts from Lemma~\ref{lem:geometry}.
+
+Consider corresponding arithmetic nodes, with exact results $a,a'$
+before the new rounding.  The following cases exhaust all their operands.
+
+\smallskip
+\noindent\emph{Both operands have rounded provenance.}
+The operands match exactly, so $a'=a$, including when $a=0$.
+
+\smallskip
+\noindent\emph{Both operands have raw-input provenance.}
+For addition or subtraction, Lemma~\ref{lem:geometry}(b) gives either
+$a=a'=0$ or a relative change bounded by $\varepsilon$.
+For multiplication, both factors are nonzero and part (c) bounds the
+relative change by $3\varepsilon$.
+
+\smallskip
+\noindent\emph{One operand has each provenance type, with multiplication.}
+Write them as a matched value $v$ and a signed raw input $r$.
+If $v=0$, then $a=a'=0$.  Otherwise,~\eqref{eq:rawperturb} bounds the
+relative change by $\varepsilon$.
+
+\smallskip
+\noindent\emph{One operand has each provenance type, with addition or
+subtraction.}
+Up to an overall sign, $a=v\pm r$, where $v$ is a signed copy of a prior
+rounded value.  The invariant gives
+\[
+ \abs a>\tau\abs r,
+ \qquad
+ \abs{a'-a}\le\varepsilon\abs r.
+\]
+In particular, $a\ne0$, and
+\begin{equation}\label{eq:mixedchange}
+ \frac{\abs{a'-a}}{\abs a}
+ <\frac{\varepsilon}{\tau}=\frac u{16}.
+\end{equation}
+
+Thus every zero case has $a'=0$, and every nonzero case has
+\begin{equation}\label{eq:centerchange}
+ a'=a(1+\theta),\qquad\abs\theta\le u/16.
+\end{equation}
+Here the raw-input cases use $3\varepsilon\le u/16$, which follows from
+\eqref{eq:parameters} and $u<1/4$, $n\ge1$.
+
+By Lemma~\ref{lem:avoid}, choose the new error $\delta_j\in[-u/4,u/4]$
+so that the first execution's new value
+$v_{\mathrm{new}}=a(1+\delta_j)$ satisfies~\eqref{eq:invariant}.
+If $a=0$, choose $\delta_j'=0$ in the second execution; both new values
+are zero.  If $a\ne0$, set
+\begin{equation}\label{eq:matcherror}
+ \delta_j'=\frac{1+\delta_j}{1+\theta}-1.
+\end{equation}
+Then
+\[
+ a'(1+\delta_j')=a(1+\delta_j),
+ \qquad
+ \abs{\delta_j'}
+ \le\frac{u/4+u/16}{1-u/16}
+ =\frac{5u}{16-u}<u.
+\]
+The new rounded values match and the invariant is preserved.
+
+It remains to check each comparison, since its operands may depend on
+rounding errors.  Two quantities of rounded provenance match in both
+executions, so their comparison is identical, including equality.
+Comparisons between signed raw inputs are preserved by
+Lemma~\ref{lem:geometry}.  For a mixed comparison, its difference $v-r$
+has absolute value greater than $\tau\abs r$, whereas the perturbation
+of $r$ has absolute value at most $\varepsilon\abs r$.  Since
+$\varepsilon<\tau$, its strict sign cannot change, and equality cannot
+occur in either execution.  This also covers signed copies of rounded
+values by symmetry of the target set.
+
+Starting with the input registers, these arguments inductively preserve
+the path through exact comparisons, negations, copies, and rounded nodes.
+They do not recompute stored quantities or assign new errors to a reuse.
+The path is finite.  The chosen errors can therefore be extended to full
+vectors for the two finite trees by assigning zero to every unused node.
+The independent-error convention makes these legal assignments, even
+though they were constructed successively.
+
+The common output location either has rounded provenance, in which case
+$z'=z$, or is a signed raw-input selection, in which case
+\eqref{eq:rawperturb} gives~\eqref{eq:outputcoupling}.
+The argument also includes paths with no rounded nodes.
+\end{proof}
+
+\begin{remark}\label{rem:no-leaf}
+The lemma does not assert that an individual leaf's zero-error expression
+equals $p$ on all inputs.  It compares two actual executions with their
+selected errors.  Nor does it assume that a leaf is reachable at zero
+error.  These distinctions are essential when branching depends on
+rounded intermediate values.
+\end{remark}
+
+\section{Necessity of the criterion}\label{sec:necessity}
+
+\begin{proposition}[Local control under gap perturbations]
+\label{prop:local}
+If $P$ accurately evaluates $p$, then there is $\varepsilon>0$ such that,
+for every $T$ and all $y,y'>0$ satisfying~\eqref{eq:close},
+\begin{equation}\label{eq:local}
+ \abs{p(Ty')}\le2\abs{p(Ty)}.
+\end{equation}
+The same $\varepsilon$ works for every $T$ and every $y$.
+\end{proposition}
+
+\begin{proof}
+Use~\eqref{eq:accuracy} with $\eta=1/4$.  By shrinking its precision
+bound, take $0<u<1/4$.  Use the $\varepsilon$ in
+Lemma~\ref{lem:coupling}.  For the coupled outputs $z,z'$,
+\[
+ \abs{z-p(Ty)}\le\tfrac14\abs{p(Ty)},
+ \qquad
+ \abs{z'-p(Ty')}\le\tfrac14\abs{p(Ty')}.
+\]
+Therefore
+\begin{align*}
+ \abs{p(Ty')}
+ &\le\tfrac43\abs{z'}
+ \le\tfrac43(1+\varepsilon)\abs z\\
+ &\le\tfrac53(1+\varepsilon)\abs{p(Ty)}
+ \le2\abs{p(Ty)}.
+\end{align*}
+The last inequality follows, for example, from
+$\varepsilon=u^2/(512n)<1/8192<1/5$.
+No division by $p(Ty)$ is used, so zeros are included.
+\end{proof}
+
+We next give an explicit interpolation proof of the finite-dimensional
+coefficient bound needed below.
+
+\begin{lemma}[Coefficient extraction on a fixed box]\label{lem:coefficients}
+Fix $n\ge1$, an integer $d\ge0$, and $0<\varepsilon<1$.  There is a
+finite constant $K=K(n,d,\varepsilon)>0$ such that every real polynomial
+$R(t_1,\ldots,t_n)$ of total degree at most $d$ satisfies
+\begin{equation}\label{eq:coefbound}
+ \coefnorm R
+ :=\sum_\alpha\abs{\operatorname{coeff}_\alpha R}
+ \le K\sup_{t\in[1-\varepsilon,1+\varepsilon]^n}\abs{R(t)}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For $d=0$, take $K=1$.  For $d\ge1$, choose $d+1$ distinct points
+$t_0,\ldots,t_d$ in $[1-\varepsilon,1+\varepsilon]$ and define the
+univariate Lagrange polynomials
+\[
+ L_j(t)=\prod_{\substack{0\le k\le d\\k\ne j}}
+ \frac{t-t_k}{t_j-t_k}.
+\]
+Successive univariate interpolation in each coordinate gives
+\[
+ R(t)=\sum_{j_1=0}^d\cdots\sum_{j_n=0}^d
+ R(t_{j_1},\ldots,t_{j_n})\prod_{i=1}^n L_{j_i}(t_i).
+\]
+This applies because the degree in each separate variable is at most
+$d$.  The coefficient norm is subadditive.  Because the factors in the
+product involve distinct variables, the coefficient norm of that
+product is $\prod_i\coefnorm{L_{j_i}}$.  Thus~\eqref{eq:coefbound} holds
+with the finite positive constant
+\[
+ K=\left(\sum_{j=0}^d\coefnorm{L_j}\right)^n.
+\]
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}, necessity]
+Suppose $p$ has an accurate tree.  If $p=0$, then $q_T=W_T=0$ for every
+$T$, and the criterion is immediate.  Otherwise let $d=\deg p$ and use
+$\varepsilon$ from Proposition~\ref{prop:local}.
+
+Fix $T$ and $y\in(0,\infty)^n$.  For
+$t\in[1-\varepsilon,1+\varepsilon]^n$, the point
+$y'=t\odot y=(t_1y_1,\ldots,t_ny_n)$ satisfies~\eqref{eq:close}.
+Consequently,
+\begin{equation}\label{eq:boxbound}
+ \sup_{t\in[1-\varepsilon,1+\varepsilon]^n}
+ \abs{q_T(t\odot y)}\le2\abs{q_T(y)}.
+\end{equation}
+Apply Lemma~\ref{lem:coefficients} to the polynomial in $t$
+\[
+ R_y(t)=q_T(t\odot y)
+ =\sum_\alpha a_{T,\alpha}y^\alpha t^\alpha.
+\]
+Since $y>0$, its coefficient norm is exactly $W_T(y)$.
+Equation~\eqref{eq:boxbound} yields
+\[
+ W_T(y)\le2K\abs{q_T(y)}.
+\]
+Both sides are continuous functions of $y$, so the same inequality holds
+on the closure $[0,\infty)^n$.  This proves~\eqref{eq:criterion}, with
+$C_T=2K$, for each $T$.
+\end{proof}
+
+\section{Constructing an accurate evaluator}\label{sec:sufficiency}
+
+For completeness, the following evaluation bound explicitly retains all
+error factors introduced by stored-value reuse.
+
+\begin{lemma}[Termwise evaluation with relative input errors]
+\label{lem:termwise}
+Let
+\[
+ q(y)=\sum_{\alpha\ne0}a_\alpha y^\alpha\in\Z[y_1,\ldots,y_n]
+\]
+be nonzero with zero constant term.  Suppose the available nonnegative
+data have the form $\widehat y_i=y_i(1+\xi_i)$, with $y_i\ge0$ and
+$\abs{\xi_i}\le u<1$.  There is a fixed constant-free arithmetic
+program for $q$, using these data, with output $\widehat q$ and an integer
+$L\ge0$ such that
+\begin{equation}\label{eq:termwise}
+ \abs{\widehat q-q(y)}
+ \le\bigl((1+u)^L-1\bigr)
+ \sum_{\alpha\ne0}\abs{a_\alpha}y^\alpha.
+\end{equation}
+Here the same bound $u$ applies to all its new arithmetic errors, and
+$L$ depends only on the chosen program and $q$.
+\end{lemma}
+
+\begin{proof}
+For every nonzero coefficient, form $y^\alpha$ by multiplying its
+$\abs\alpha=\sum_i\alpha_i\ge1$ factors, beginning with its first
+factor rather than with a constant $1$.  To implement its integer
+coefficient, take $\abs{a_\alpha}$ occurrences of this computed monomial
+in a sum and use exact negation if $a_\alpha<0$.  Then add all these
+signed occurrences, starting with the first one rather than a constant
+$0$.  This is a finite program; large coefficients affect its size, not
+its existence.  Reuse of the computed monomial is permitted.
+
+Substitute each input factor $y_i(1+\xi_i)$ into this program and expand
+only the additions, including their rounding factors.  If $\zeta$ lists
+all input-error and arithmetic-error variables, its output has the form
+\begin{equation}\label{eq:occurrences}
+ \widehat q
+ =\sum_{r=1}^{M}\sigma_r y^{\alpha(r)}
+       \prod_j(1+\zeta_j)^{e_{rj}},
+ \qquad \sigma_r\in\{-1,1\},\quad e_{rj}\in\NN.
+\end{equation}
+There are exactly $\abs{a_\alpha}$ occurrences with exponent $\alpha$,
+and all these occurrences have sign $\sgn(a_\alpha)$.  In particular,
+\[
+ \sum_{r=1}^M\sigma_r y^{\alpha(r)}=q(y),
+ \qquad
+ \sum_{r=1}^M y^{\alpha(r)}
+ =\sum_\alpha\abs{a_\alpha}y^\alpha.
+\]
+The exponents $e_{rj}$ retain multiplicities of shared input errors and
+shared stored values; no independent error is assigned to a reuse.
+The expansion~\eqref{eq:occurrences} follows directly because no
+multiplication of two sums is required in the chosen program.
+
+Let $L=\max_r\sum_j e_{rj}$.  When $\abs{\zeta_j}\le u<1$, each error
+product lies between $(1-u)^L$ and $(1+u)^L$.  Furthermore,
+\[
+ 1-(1-u)^L\le(1+u)^L-1,
+\]
+by the binomial theorem (also when $L=0$).  Thus every error product in
+\eqref{eq:occurrences} differs from $1$ by at most $(1+u)^L-1$.
+Subtract $q(y)$ and use the triangle inequality to obtain
+\eqref{eq:termwise}.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}, sufficiency]
+Assume~\eqref{eq:criterion}.  If $p=0$, the single rounded subtraction
+$x_1-x_1$ returns zero for every error and is an accurate evaluator.
+Suppose $p\ne0$.
+
+First determine the sign of each $x_i$ by exactly comparing $x_i$ with
+$-x_i$.  Assign sign $+1$ when $x_i=0$.  Form the absolute values by
+copying or exact negation, and sort them by exact comparisons; break ties
+by a fixed index rule.  For fixed $n$, this can be implemented by a finite
+comparison tree.  No arithmetic constant is used: the signs in this
+description specify copying or negation, not multiplication by a stored
+number $1$ or $-1$.
+
+This selects $T=T_{\pi,s}$ with $x=Ty$ and $y\ge0$ as
+in~\eqref{eq:gaps}.  Compute the first $n-1$ gaps by rounded subtraction
+of the exact signed raw inputs.  Keep the smallest absolute input as the
+last gap.  Hence the available values are
+\[
+ \widehat y_i=y_i(1+\xi_i)\quad(i<n),
+ \qquad \widehat y_n=y_n,
+\]
+where each $\xi_i$ is its own rounded-node error.  In particular, zero
+gaps are exactly zero.
+
+On this branch, apply Lemma~\ref{lem:termwise} to $q_T$, treating the
+last input error as zero.  For a finite branch-dependent integer $L_T$,
+\[
+ \abs{P(x,\delta)-p(x)}
+ =\abs{\widehat q_T-q_T(y)}
+ \le\bigl((1+u)^{L_T}-1\bigr)W_T(y)
+ \le C_T\bigl((1+u)^{L_T}-1\bigr)\abs{p(x)}.
+\]
+There are only finitely many branches.  Set
+\[
+ C_* =\max_T C_T,\qquad L_* =\max_T L_T.
+\]
+For every $\eta\in(0,1)$, there is $u\in(0,1)$ such that
+$C_*((1+u)^{L_*}-1)\le\eta$, by continuity at $u=0$.
+If $L_*=0$, the bound is already zero.
+This proves~\eqref{eq:accuracy} uniformly in $x$ and all allowed errors.
+
+At $\delta=0$, the gap computations and subsequent polynomial
+computations are exact, so $P(x,0)=p(x)$.  At any zero of $p$, the same
+bound forces the output to be zero for every allowed error.  Equivalently,
+$W_T(y)=0$ there, so every contributing monomial has a zero gap factor
+and remains zero under the prescribed arithmetic.
+
+The construction, including the branch tests and the finite arithmetic
+on each branch, depends only on $p$.  It does not depend on $\eta$, $u$,
+or the values of the constants $C_T$.  Thus it is one fixed tree valid
+for every requested accuracy, as required.
+\end{proof}
+
+\section{The halting decision procedure}\label{sec:decision}
+
+We invoke the standard effective form of real quantifier elimination:
+there is a Turing algorithm that decides every first-order sentence over
+$\R$ whose atomic formulas are polynomial equalities and inequalities
+with rational coefficients.  For a primary reference giving a complete
+formally verified quantifier-elimination algorithm, see~\cite{KTP23}.
+That verification concerns the external quantifier-elimination algorithm,
+not the new coupling argument in this manuscript.
+
+\begin{corollary}[Proposed affirmative answer to AA-01]
+\label{cor:decision}
+There is an always-halting Turing algorithm which, from the integer
+coefficient list of $p$ with $p(0)=0$, decides whether an accurate finite
+tree exists in the stated model.  On a positive instance it can also
+output the finite evaluator constructed in Section~\ref{sec:sufficiency}.
+\end{corollary}
+
+\begin{proof}
+Use the following algorithm.
+\begin{enumerate}[label=\arabic*.]
+\item If $p=0$, return $\YES$ and, when requested, the tree that computes
+$x_1-x_1$.
+\item Enumerate the finite set of pairs
+$(\pi,s)\in\Sn\times\{-1,1\}^n$.
+For each pair, symbolically substitute~\eqref{eq:T} into $p$, expand and
+collect its integer coefficients, and construct $q_T,W_T$
+from~\eqref{eq:qW}.
+\item For each pair decide the closed first-order sentence
+\begin{equation}\label{eq:QE}
+ \exists C\;\Bigl(C>0\ \wedge\
+ \forall y_1\cdots\forall y_n\;
+ \Bigl[
+  \bigl(\bigwedge_{i=1}^n y_i\ge0\bigr)
+  \Longrightarrow
+  W_T(y)^2\le C^2 q_T(y)^2
+ \Bigr]\Bigr).
+\end{equation}
+If any sentence is false, return $\NO$.
+\item Otherwise return $\YES$ and construct the sign/order tree and its
+branch evaluators as in Section~\ref{sec:sufficiency}.
+\end{enumerate}
+All symbolic operations are finite operations on integer coefficient
+lists.  Sentence~\eqref{eq:QE} involves only integer-coefficient
+polynomials in $C,y_1,\ldots,y_n$, so its decision terminates.  There are
+only $2^n n!$ such sentences.  The whole algorithm therefore terminates.
+
+For $y\ge0$ we have $W_T(y)\ge0$.  Since $C>0$, the squared inequality
+in~\eqref{eq:QE} is equivalent to~\eqref{eq:criterion}; this includes
+points where $q_T(y)=0$.  Correctness follows in both directions from
+Theorem~\ref{thm:main}.
+
+Neither the decision procedure nor the evaluator construction requires
+knowing the size of a putative accurate tree.  Also, the quantified
+constant $C$ is used only in the symbolic decision test and the analysis;
+it is not a numerical constant input to the evaluator.
+\end{proof}
+
+\Needspace{9\baselineskip}
+\section{Boundary cases, examples, and scope}\label{sec:scope}
+\begin{example}[An allowable input difference]
+For $p(x)=x_i-x_j$, each $q_T$ is either zero or, up to an overall sign,
+a linear form with nonnegative coefficients.  Thus
+$W_T(y)=\abs{q_T(y)}$ on $y\ge0$ and the criterion accepts $p$.
+The single rounded subtraction is already an accurate evaluator.
+\end{example}
+
+\begin{example}[Three-input summation]
+Take $p=x_1+x_2+x_3$ and the signed-order substitution
+\[
+ x_1=y_1+y_2+y_3,\qquad
+ x_2=-(y_2+y_3),\qquad x_3=-y_3.
+\]
+Then $q_T=y_1-y_3$ and $W_T=y_1+y_3$.  At $y=(1,1,1)$, the former
+vanishes while the latter is $2$.  Sentence~\eqref{eq:QE} is therefore
+false for this region, so the criterion rejects the polynomial.  This
+agrees with the impossibility example discussed in~\cite{DDH06,DDHK08}.
+\end{example}
+
+\begin{example}[Bounded cancellation is permitted]
+Let $p(x)=x^5-x^3+x$.  In either one-variable sign region,
+\[
+ W(y)=y^5+y^3+y,\qquad
+ \abs{q(y)}=y(y^4-y^2+1),\qquad y\ge0.
+\]
+The factor $y^4-y^2+1$ is strictly positive, because it equals
+$(y^2-1/2)^2+3/4$.  Moreover,
+\[
+ 3\abs{q(y)}-W(y)=2y(y^2-1)^2\ge0.
+\]
+Thus $C=3$ works, even though the polynomial has a negative coefficient.
+The fractions in the positivity identity belong only to this proof, not
+to the evaluator's constant inputs.
+\end{example}
+
+\paragraph{Closed regions and zeros.}
+Necessity is first proved on strictly ordered, nonzero inputs, then
+extended by continuity to the entire nonnegative orthant of gap
+coordinates.  Sufficiency uses those closed-region inequalities, so it
+covers tied magnitudes, zero coordinates, the origin, and zeros of $p$.
+No omission of a lower-dimensional set is made.
+
+\paragraph{Stored values and error-dependent comparisons.}
+The necessity proof couples actual register values and explicitly checks
+every provenance type of comparison.  In particular, it does not turn a
+stored-value program into a formula with newly independent errors at
+reused occurrences.  The formal expansion used for the deliberately
+constructed evaluator in Lemma~\ref{lem:termwise} retains shared error
+variables and their multiplicities.
+
+\paragraph{Limits of the stated result.}
+The theorem concerns whole-space polynomial evaluation in the exact model
+of Section~\ref{sec:model}.  It does not assert a characterization for
+arbitrary restricted domains, additional arithmetic primitives, nonzero
+constant inputs, numerical access to comparison outcomes, deterministic
+rounding rules tying errors at repeated operands, or bit-level
+floating-point algorithms.  Those changes alter premises of the coupling
+argument.  No complexity or practical-efficiency bound is claimed.
+
+\paragraph{Logical dependencies.}
+The substantive new step is Lemma~\ref{lem:coupling}.  It implies
+Proposition~\ref{prop:local}; polynomial interpolation then proves
+necessity.  A direct termwise construction proves sufficiency.  The
+standard real-quantifier-elimination theorem yields the final Turing
+decision procedure.  The manuscript supplies all these model-specific
+steps but remains a proposed proof pending human peer review or formal
+verification.
+
+\Needspace{22\baselineskip}
+\begin{thebibliography}{9}
+
+\bibitem{AA01}
+A.~Townsend,
+\emph{Open Problems in Numerical Linear Algebra},
+AA-01: ``Deciding accurate evaluability of real polynomials,''
+statement in the MColbrook repository used in the accompanying
+conversation.
+\url{https://github.com/MColbrook/OpenProblemsInNLA/blob/main/arithmetic-and-complexity/AA-01/README.md}.
+
+\bibitem{DDH06}
+J.~Demmel, I.~Dumitriu, and O.~Holtz,
+\emph{Toward accurate polynomial evaluation in rounded arithmetic},
+in \emph{Foundations of Computational Mathematics: Santander 2005},
+Cambridge University Press, 2006, pp.~36--105.
+ArXiv version 2, 18 January 2006:
+\url{https://arxiv.org/abs/math/0508350v2}.
+
+\bibitem{DDHK08}
+J.~Demmel, I.~Dumitriu, O.~Holtz, and P.~Koev,
+\emph{Accurate and efficient expression evaluation and linear algebra},
+Acta Numerica \textbf{17} (2008), 87--145.
+Definitions~3.3--3.4 and Section~3.3, especially Section~3.3.7.
+\url{https://doi.org/10.1017/S0962492906350015}.
+
+\bibitem{KTP23}
+K.~Kosaian, Y.~K.~Tan, and A.~Platzer,
+\emph{A First Complete Algorithm for Real Quantifier Elimination in
+Isabelle/HOL},
+CPP 2023.
+\url{https://doi.org/10.1145/3573105.3575672}.
+Preprint:
+\url{https://arxiv.org/abs/2209.10978v2}.
+
+\end{thebibliography}
+\end{document}

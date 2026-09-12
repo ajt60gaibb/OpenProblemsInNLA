@@ -8,7 +8,17 @@
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because signed eigenvalue contributions require uniform extremal tail comparisons; community impact is rigorous trace estimates for indefinite matrices.  
 **Last checked:** 2026-09-11  
-**Status:** Open  
+**Status:** Solved
+
+## Resolution - 2026-09-11
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved affirmatively.** The [complete proof, Sections 1-8](solution.md) establishes both probability comparisons for every nonzero real symmetric matrix, including indefinite and zero-trace matrices, every positive sample count, and the stated non-strict threshold. Equations (1)-(2) give a stronger normalized one-sided comparison; Section 8 converts it to the exact retained target. [Proof PDF](solution.pdf) · [Standalone XeLaTeX source](solution.tex).
+
+A separate [independent Codex-agent review](../../references/stepaniants-ra13-2026-09-11/verification/RA-13-independent-review.md) passed the complete proof and checked Kwaśnicki's published bell-shape theorem and Hallman's coefficient derivative directly. The new inflection identity and grouped transfers are supplied in the manuscript. Substantial ChatGPT/Codex assistance is disclosed; this is independent agent verification, not external human peer review or formal certification. [Submission record and public-status audit](../../references/stepaniants-ra13-2026-09-11/README.md).
+
+The original target and ID are retained below. The difficulty and importance labels record the historical open question. The auxiliary counterexamples below retain their original author and limited scope.
 
 <!-- colbrook-transfer -->
 ## Related auxiliary counterexamples — 2026-09-11
@@ -17,11 +27,13 @@
 
 The centered augmented density has a genuine inflection point beyond the proposed auxiliary upper bound. Together with the mode example, this refutes the upper assertions of Hallman Conjectures 1 and 2.
 
-**Remaining question:** The complete absolute Gaussian trace-tail probability chain in this entry is neither proved nor refuted. Failure of an auxiliary sufficient condition does not refute the final tail comparisons; status remains Open.
+**Historical scope:** This auxiliary result neither proved nor refuted the complete absolute Gaussian trace-tail probability chain. Failure of an auxiliary sufficient condition does not refute the final tail comparisons. The full target is now resolved by the separate proof above; the auxiliary counterexamples and their attribution remain unchanged.
 
 **Primary reference:** [complete authored PDF](../../references/colbrook-transfer-2026-09-11/manuscripts/04_gamma_auxiliary_counterexamples.pdf), [standalone TeX](../../references/colbrook-transfer-2026-09-11/manuscripts/04_gamma_auxiliary_counterexamples.tex), **Proposition 3.1 (with Proposition 2.1 for related evidence)**. [Independent proof review](../../references/colbrook-transfer-2026-09-11/verification/reviews/gamma-auxiliary-review.md) · [Authorship and submission record](../../references/colbrook-transfer-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
 
 <!-- /colbrook-transfer -->
+
+\newpage
 
 ## Problem statement
 
