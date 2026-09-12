@@ -1,0 +1,22 @@
+{
+  "spectralPower_natCast": {
+    "literal_signature_match_ignoring_whitespace": true,
+    "signature": "{n : \u2115} (A : Matrix (Fin n) (Fin n) \u2102)\n    (hA : A.PosSemidef) (r : \u2115) :\n    spectralPower A (r : \u211d) = A ^ r"
+  },
+  "modulus_power_eight": {
+    "literal_signature_match_ignoring_whitespace": true,
+    "signature": "{n : \u2115} (X : Matrix (Fin n) (Fin n) \u2102) :\n    matrixModulus X = CFC.sqrt (X.conjTranspose * X) \u2227\n    (matrixModulus X).PosSemidef \u2227\n    spectralPower (matrixModulus X) 8 = (X.conjTranspose * X) ^ (4 : \u2115)"
+  },
+  "comparison_positive_real": {
+    "literal_signature_match_ignoring_whitespace": true,
+    "signature": "{n : \u2115} (hn : 1 \u2264 n)\n    (A B : Matrix (Fin n) (Fin n) \u2102) (hA : A.PosDef)\n    (hB : B.IsHermitian) (hBinv : IsUnit B)\n    (k p : \u211d) (hk : 0 \u2264 k) (hp : 0 \u2264 p) :\n    (leftDet A B k p).im = 0 \u2227 0 < (leftDet A B k p).re \u2227\n    (rightDet A B k p).im = 0 \u2227 0 < (rightDet A B k p).re"
+  },
+  "counterexample": {
+    "literal_signature_match_ignoring_whitespace": true,
+    "signature": ":\n    witnessA.PosDef \u2227 witnessB.IsHermitian \u2227 IsUnit witnessB \u2227\n    witnessB.det = (-1 / 125 : \u2102) \u2227\n    \u00ac witnessB.PosSemidef \u2227 \u00ac (-witnessB).PosSemidef \u2227\n    spectralPower witnessA 6 = witnessA ^ (6 : \u2115) \u2227\n    spectralPower (matrixModulus (witnessA * witnessB)) 8 =\n      (witnessB * witnessA ^ (2 : \u2115) * witnessB) ^ (4 : \u2115) \u2227\n    spectralPower (matrixModulus (witnessB * witnessA)) 8 =\n      (witnessA * witnessB ^ (2 : \u2115) * witnessA) ^ (4 : \u2115) \u2227\n    leftDet witnessA witnessB 6 8 =\n      (136990346414301954149 / 61035156250000000000 : \u2102) \u2227\n    rightDet witnessA witnessB 6 8 =\n      (4537743716162890657 / 1907348632812500000 : \u2102) \u2227\n    rightDet witnessA witnessB 6 8 - leftDet witnessA witnessB 6 8 =\n      (21036678407451 / 156250000000000 : \u2102) \u2227\n    leftDet witnessA witnessB 6 8 < rightDet witnessA witnessB 6 8"
+  },
+  "not_modulusDeterminantConjecture": {
+    "literal_signature_match_ignoring_whitespace": true,
+    "signature": ": \u00ac ModulusDeterminantConjecture"
+  }
+}

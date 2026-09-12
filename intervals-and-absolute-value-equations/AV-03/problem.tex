@@ -34,7 +34,7 @@ promise},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}AV-03}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ solution under the regularity promise\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} broadly
 interesting\par}
-{\sffamily\small\bfseries\color{accent}Status: Open\par}
+{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -63,6 +63,37 @@ polynomial-time barrier for P-matrix complementarity in an equivalent
 regular AVE form; broad impact spans optimization, complexity, and
 piecewise linear systems.
 
+\subsection{Partial resolution --- 12 September
+2026}\label{partial-resolution-12-september-2026}
+
+\textbf{Author:} Sidney Holden, Center for Computational Biology,
+Flatiron Institute, Simons Foundation.
+
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-interval-ave-2026-09-12/manuscripts/AV-03/result.md}{Theorem
+H, Sections 2.1--2.5} proves exact deterministic polynomial bit
+complexity under the original regularity promise when the rational input
+matrix is lower Hessenberg, including zero superdiagonal entries and
+zero solution coordinates.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-interval-ave-2026-09-12/manuscripts/AV-03/general_reductions.md}{Theorem
+F} gives a second subclass with a lower-triangular leading subsystem
+whose diagonal entries have absolute value greater than one, and one
+feedback variable. The additional structural assumptions are essential:
+arbitrary dense regular matrices remain unresolved. The original
+binary-input model and mathematical target below are unchanged.
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-interval-ave-2026-09-12/manuscripts/AV-03/optimized_handicap.md}{exact
+optimized-handicap family formula}, exponential sign-region example and
+Newton-cycle certificates are supporting results; none proves an
+unrestricted complexity lower bound. These partial arguments passed a
+separate
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-interval-ave-2026-09-12/verification/AV-03-review.md}{independent
+Codex AI-agent review}.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-interval-ave-2026-09-12/README.md}{Submission
+record, verified affiliation and exact checks}. AI assistance is
+disclosed; no historical priority, external human peer review or formal
+verification is claimed. No Lean verification was performed.
+
 \subsection{Context and notation}\label{context-and-notation}
 
 Absolute values and vector inequalities are componentwise. All
@@ -72,9 +103,7 @@ lengths of all rational coefficients.
 
 For a real square matrix \(A\), define the diagonal perturbation family
 
-\[
-\mathcal D(A)=\{A-\operatorname{diag}(d):d\in[-1,1]^n\}.
-\]
+\[\mathcal D(A)=\{A-\mathop{\mathrm{diag}}\nolimits(d):d\in[-1,1]^n\}.\]
 
 Call this family \textbf{regular} when every member is nonsingular. Only
 diagonal entries vary. This is precisely the entrywise interval matrix
@@ -87,9 +116,7 @@ every \(n\ge1\), rational \(A\in\mathbb Q^{n\times n}\) and
 \(b\in\mathbb Q^n\) with regular \(\mathcal D(A)\), the algorithm
 outputs the exact rational vector \(x\) satisfying
 
-\[
-Ax-|x|=b
-\]
+\[Ax-|x|=b\]
 
 within \(p(\ell)\) bit operations, where \(\ell\) is the binary input
 length?
