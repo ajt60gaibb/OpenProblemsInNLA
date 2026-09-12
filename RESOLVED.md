@@ -21,6 +21,13 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### ✅ IE-16 - normal-GMRES subset bound - Sidney Holden
+
+**Solved negatively, 12 September 2026.** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Theorem 1.1, Sections 2-3](linear-systems-and-elimination/IE-16/solution.pdf) gives nine distinct nonzero complex points at degree four with full-set/subset ratio greater than 13/10 > 4/π, disproving the original universal bound. Theorem 1.2, Sections 4-5, additionally rules out every finite dimension-independent replacement constant. [Retained original target](linear-systems-and-elimination/IE-16/README.md) · [Proof source](linear-systems-and-elimination/IE-16/solution.tex).
+
+The complete argument passed a separate [independent Codex AI-agent informal audit](references/holden-ie16-2026-09-12/INDEPENDENT-REVIEW.md), including exact checks of all 126 subsets and independent rational calculations. No external human peer review or formal verification is claimed. No Lean verification was performed. The original ID, canonical path and target are retained. [Attribution, verified affiliation and submission record](references/holden-ie16-2026-09-12/README.md).
+
+
 ### AV-03 and IV-01 — further partial results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission record and verified affiliation](references/holden-interval-ave-2026-09-12/README.md).
