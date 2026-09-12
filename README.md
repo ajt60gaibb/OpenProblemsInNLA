@@ -4,27 +4,27 @@ A collection of precise open problems drawn from books and research
 publications, with references and dated checks for subsequent solutions.
 
 <!-- catalog-summary -->
-**138 problems with open targets:** 65 open and 73 partially resolved. **79 other retained entries**, excluded from the open count.
+**129 problems with open targets:** 58 open and 71 partially resolved. **88 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 78 solved (published or independently audited); 1 Lean verified.
+**Resolution evidence:** 87 solved (published or independently audited); 1 Lean verified.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
-**[Browse all 138 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
+**[Browse all 129 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
 <!-- /catalog-summary -->
 
 ## Browse by category
 
 | Category | Problems |
 | --- | ---: |
-| [Linear systems and elimination](linear-systems-and-elimination/README.md) | 13 |
-| [Eigenvalues and inverse problems](eigenvalues-and-inverse-problems/README.md) | 14 |
-| [Matrix functions and stability](matrix-functions-and-stability/README.md) | 17 |
-| [Randomized and low-rank approximation](randomized-and-low-rank-approximation/README.md) | 20 |
+| [Linear systems and elimination](linear-systems-and-elimination/README.md) | 11 |
+| [Eigenvalues and inverse problems](eigenvalues-and-inverse-problems/README.md) | 13 |
+| [Matrix functions and stability](matrix-functions-and-stability/README.md) | 14 |
+| [Randomized and low-rank approximation](randomized-and-low-rank-approximation/README.md) | 18 |
 | [Tensor computations](tensor-computations/README.md) | 18 |
 | [Nonnegative and positive factorizations](nonnegative-and-positive-factorizations/README.md) | 7 |
 | [Matrix inequalities and norms](matrix-inequalities-and-norms/README.md) | 19 |
-| [Frames and matrix designs](frames-and-matrix-designs/README.md) | 12 |
+| [Frames and matrix designs](frames-and-matrix-designs/README.md) | 11 |
 | [Matrix discrepancy and optimization](matrix-discrepancy-and-optimization/README.md) | 3 |
 | [Arithmetic and complexity](arithmetic-and-complexity/README.md) | 13 |
 | [Intervals and absolute value equations](intervals-and-absolute-value-equations/README.md) | 2 |

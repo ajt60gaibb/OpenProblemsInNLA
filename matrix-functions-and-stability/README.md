@@ -2,7 +2,7 @@
 
 [← All categories](../README.md) · [Full catalog](../CATALOG.md) · [Solved and claimed solutions](../RESOLVED.md)
 
-**16 problems with open targets.** 9 retained entries are excluded from the open count.
+**14 problems with open targets.** 11 retained entries are excluded from the open count.
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |

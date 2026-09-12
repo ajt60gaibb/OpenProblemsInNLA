@@ -1,8 +1,8 @@
 # All problems and their status
 
-**138 problems with open targets:** 65 open and 73 partially resolved. **79 other retained entries**, excluded from the open count.
+**129 problems with open targets:** 58 open and 71 partially resolved. **88 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 78 solved (published or independently audited); 1 Lean verified.
+**Resolution evidence:** 87 solved (published or independently audited); 1 Lean verified.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -14,7 +14,6 @@ Each entry records its own literature-check date. Literature checks are bounded;
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
 | [IE-03](linear-systems-and-elimination/IE-03/README.md) | Cryer's Hadamard complete-pivoting conjecture | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](linear-systems-and-elimination/IE-03/problem.pdf) · [TeX](linear-systems-and-elimination/IE-03/problem.tex) |
-| [IE-04](linear-systems-and-elimination/IE-04/README.md) | Exponential smoothed tail bounds for partial pivoting | **🔵 OPEN** | extreme | broadly interesting | [PDF](linear-systems-and-elimination/IE-04/problem.pdf) · [TeX](linear-systems-and-elimination/IE-04/problem.tex) |
 | [IE-06](linear-systems-and-elimination/IE-06/README.md) | The square-root upper bound for Gaussian partial-pivoting growth | **🔵 OPEN** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-06/problem.pdf) · [TeX](linear-systems-and-elimination/IE-06/problem.tex) |
 | [IE-11](linear-systems-and-elimination/IE-11/README.md) | The exact fifth complete-pivoting growth factor | **🔵 OPEN** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-11/problem.pdf) · [TeX](linear-systems-and-elimination/IE-11/problem.tex) |
 | [IE-12](linear-systems-and-elimination/IE-12/README.md) | Near-quadratic solution cost at a prescribed backward error | **🟡 PARTIAL** | challenging | broadly interesting | [PDF](linear-systems-and-elimination/IE-12/problem.pdf) · [TeX](linear-systems-and-elimination/IE-12/problem.tex) |
@@ -22,7 +21,6 @@ Each entry records its own literature-check date. Literature checks are bounded;
 | [IE-20](linear-systems-and-elimination/IE-20/README.md) | Precision required for conjugate gradients to attain backward accuracy in n steps | **🔵 OPEN** | extreme | interesting to the community | [PDF](linear-systems-and-elimination/IE-20/problem.pdf) · [TeX](linear-systems-and-elimination/IE-20/problem.tex) |
 | [IE-24](linear-systems-and-elimination/IE-24/README.md) | RILU conditioning for the Neumann problem on smooth planar domains | **🔵 OPEN** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-24/problem.pdf) · [TeX](linear-systems-and-elimination/IE-24/problem.tex) |
 | [IE-25](linear-systems-and-elimination/IE-25/README.md) | Perturbed MILU conditioning for Neumann problems in two and three dimensions | **🔵 OPEN** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-25/problem.pdf) · [TeX](linear-systems-and-elimination/IE-25/problem.tex) |
-| [IE-26](linear-systems-and-elimination/IE-26/README.md) | Sharp stability bounds for perturbed Fourier interpolation | **🔵 OPEN** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-26/problem.pdf) · [TeX](linear-systems-and-elimination/IE-26/problem.tex) |
 | [IE-27](linear-systems-and-elimination/IE-27/README.md) | Spectral disk for a Radau stage preconditioner | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-27/problem.pdf) · [TeX](linear-systems-and-elimination/IE-27/problem.tex) |
 | [IE-28](linear-systems-and-elimination/IE-28/README.md) | Positive diagonal preconditioning with a nilpotent stiff limit | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-28/problem.pdf) · [TeX](linear-systems-and-elimination/IE-28/problem.tex) |
 | [KE-01](linear-systems-and-elimination/KE-01/README.md) | Exploit spectral outliers without losing input sparsity | **🔵 OPEN** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/KE-01/problem.pdf) · [TeX](linear-systems-and-elimination/KE-01/problem.tex) |
@@ -33,6 +31,7 @@ Retained entries outside the open count:
 | --- | --- | --- | --- | --- | --- |
 | [IE-01](linear-systems-and-elimination/IE-01/README.md) | Forsythe's conjecture beyond restart length two | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](linear-systems-and-elimination/IE-01/problem.pdf) · [TeX](linear-systems-and-elimination/IE-01/problem.tex) |
 | [IE-02](linear-systems-and-elimination/IE-02/README.md) | Is the ideal GMRES bound sharp for every Jordan block? | **✅ SOLVED** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-02/problem.pdf) · [TeX](linear-systems-and-elimination/IE-02/problem.tex) |
+| [IE-04](linear-systems-and-elimination/IE-04/README.md) | Exponential smoothed tail bounds for partial pivoting | **✅ SOLVED** | extreme | broadly interesting | [PDF](linear-systems-and-elimination/IE-04/problem.pdf) · [TeX](linear-systems-and-elimination/IE-04/problem.tex) |
 | [IE-05](linear-systems-and-elimination/IE-05/README.md) | Exact extremizers for partial pivoting on orthogonal matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-05/problem.pdf) · [TeX](linear-systems-and-elimination/IE-05/problem.tex) |
 | [IE-13](linear-systems-and-elimination/IE-13/README.md) | Sharp growth for unequal lower and upper bandwidths | **✅ SOLVED** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-13/problem.pdf) · [TeX](linear-systems-and-elimination/IE-13/problem.tex) |
 | [IE-14](linear-systems-and-elimination/IE-14/README.md) | Sharp growth for cyclic tridiagonal matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-14/problem.pdf) · [TeX](linear-systems-and-elimination/IE-14/problem.tex) |
@@ -43,6 +42,7 @@ Retained entries outside the open count:
 | [IE-21](linear-systems-and-elimination/IE-21/README.md) | Sharp row-deletion singular-value limit for spherical random matrices | **✅ SOLVED** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-21/problem.pdf) · [TeX](linear-systems-and-elimination/IE-21/problem.tex) |
 | [IE-22](linear-systems-and-elimination/IE-22/README.md) | Optimal uniform row-deletion singular-value constant | **✅ SOLVED** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-22/problem.pdf) · [TeX](linear-systems-and-elimination/IE-22/problem.tex) |
 | [IE-23](linear-systems-and-elimination/IE-23/README.md) | Uniqueness of the right inverse minimizing an induced p-to-2 norm | **✅ SOLVED** | hard | interesting to specialist | [PDF](linear-systems-and-elimination/IE-23/problem.pdf) · [TeX](linear-systems-and-elimination/IE-23/problem.tex) |
+| [IE-26](linear-systems-and-elimination/IE-26/README.md) | Sharp stability bounds for perturbed Fourier interpolation | **✅ SOLVED** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-26/problem.pdf) · [TeX](linear-systems-and-elimination/IE-26/problem.tex) |
 
 
 ## [Eigenvalues and inverse problems](eigenvalues-and-inverse-problems/README.md)
@@ -62,7 +62,6 @@ Retained entries outside the open count:
 | [SP-09](eigenvalues-and-inverse-problems/SP-09/README.md) | Unitary-orbit distance under finite block repetition | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/SP-09/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-09/problem.tex) |
 | [SP-10](eigenvalues-and-inverse-problems/SP-10/README.md) | The graph complement conjecture for minimum symmetric rank | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-10/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-10/problem.tex) |
 | [SP-14](eigenvalues-and-inverse-problems/SP-14/README.md) | Widom's canonical distribution conjecture for Toeplitz eigenvalues | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-14/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-14/problem.tex) |
-| [SP-15](eigenvalues-and-inverse-problems/SP-15/README.md) | Finitely many unitary classes with prescribed shifted singular values | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-15/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-15/problem.tex) |
 
 Retained entries outside the open count:
 
@@ -80,6 +79,7 @@ Retained entries outside the open count:
 | [SP-11](eigenvalues-and-inverse-problems/SP-11/README.md) | The delta conjecture for minimum symmetric rank | **✅ SOLVED** | extreme | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-11/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-11/problem.tex) |
 | [SP-12](eigenvalues-and-inverse-problems/SP-12/README.md) | A chromatic lower bound for positive-semidefinite nullity with SAP | **✅ SOLVED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/SP-12/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-12/problem.tex) |
 | [SP-13](eigenvalues-and-inverse-problems/SP-13/README.md) | Trace-norm-small perturbations preserve Hermitian spectral distributions | **✅ SOLVED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-13/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-13/problem.tex) |
+| [SP-15](eigenvalues-and-inverse-problems/SP-15/README.md) | Finitely many unitary classes with prescribed shifted singular values | **✅ SOLVED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-15/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-15/problem.tex) |
 
 
 ## [Matrix functions and stability](matrix-functions-and-stability/README.md)
@@ -87,7 +87,6 @@ Retained entries outside the open count:
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
 | [MF-01](matrix-functions-and-stability/MF-01/README.md) | Optimal sign approximation with a multiplication budget | **🔵 OPEN** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-01/problem.pdf) · [TeX](matrix-functions-and-stability/MF-01/problem.tex) |
-| [MF-02](matrix-functions-and-stability/MF-02/README.md) | Multiplication overhead of cubic sign compositions | **🔵 OPEN** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-02/problem.pdf) · [TeX](matrix-functions-and-stability/MF-02/problem.tex) |
 | [MF-04](matrix-functions-and-stability/MF-04/README.md) | Finiteness for nonnegative rational matrix families | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-04/problem.pdf) · [TeX](matrix-functions-and-stability/MF-04/problem.tex) |
 | [MF-08](matrix-functions-and-stability/MF-08/README.md) | NP-hardness of unrestricted static output-feedback stabilization | **🔵 OPEN** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-08/problem.pdf) · [TeX](matrix-functions-and-stability/MF-08/problem.tex) |
 | [MF-09](matrix-functions-and-stability/MF-09/README.md) | Decidability of strict stability for rational matrix families | **🔵 OPEN** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-09/problem.pdf) · [TeX](matrix-functions-and-stability/MF-09/problem.tex) |
@@ -99,7 +98,6 @@ Retained entries outside the open count:
 | [MF-17](matrix-functions-and-stability/MF-17/README.md) | Optimal uniform growth after inversion of an exponentially stable generator | **🔵 OPEN** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-17/problem.pdf) · [TeX](matrix-functions-and-stability/MF-17/problem.tex) |
 | [MF-19](matrix-functions-and-stability/MF-19/README.md) | Decidability of zero hitting by rational matrix powers | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-19/problem.pdf) · [TeX](matrix-functions-and-stability/MF-19/problem.tex) |
 | [MF-20](matrix-functions-and-stability/MF-20/README.md) | Decidability of zero hitting by a matrix exponential | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-20/problem.pdf) · [TeX](matrix-functions-and-stability/MF-20/problem.tex) |
-| [MF-21](matrix-functions-and-stability/MF-21/README.md) | The uniform expansion threshold for Toeplitz symbols with higher-order zeros | **🔵 OPEN** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-21/problem.pdf) · [TeX](matrix-functions-and-stability/MF-21/problem.tex) |
 | [MF-23](matrix-functions-and-stability/MF-23/README.md) | Complete Crouzeix conjecture | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-23/problem.pdf) · [TeX](matrix-functions-and-stability/MF-23/problem.tex) |
 | [MF-24](matrix-functions-and-stability/MF-24/README.md) | A dimension-independent polynomial norm bound from super-identical pseudospectra | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-24/problem.pdf) · [TeX](matrix-functions-and-stability/MF-24/problem.tex) |
 
@@ -107,6 +105,7 @@ Retained entries outside the open count:
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
+| [MF-02](matrix-functions-and-stability/MF-02/README.md) | Multiplication overhead of cubic sign compositions | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-02/problem.pdf) · [TeX](matrix-functions-and-stability/MF-02/problem.tex) |
 | [MF-03](matrix-functions-and-stability/MF-03/README.md) | A uniform disk bound for wave-kernel Padé approximants | **✅ SOLVED** | hard | interesting to specialist | [PDF](matrix-functions-and-stability/MF-03/problem.pdf) · [TeX](matrix-functions-and-stability/MF-03/problem.tex) |
 | [MF-05](matrix-functions-and-stability/MF-05/README.md) | Local Hölder continuity of the joint spectral radius | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-05/problem.pdf) · [TeX](matrix-functions-and-stability/MF-05/problem.tex) |
 | [MF-06](matrix-functions-and-stability/MF-06/README.md) | A pointwise Lipschitz lower bound for the joint spectral radius | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-06/problem.pdf) · [TeX](matrix-functions-and-stability/MF-06/problem.tex) |
@@ -114,6 +113,7 @@ Retained entries outside the open count:
 | [MF-12](matrix-functions-and-stability/MF-12/README.md) | Realizing arbitrary polynomial growth exponents by finite matrix families | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-12/problem.pdf) · [TeX](matrix-functions-and-stability/MF-12/problem.tex) |
 | [MF-16](matrix-functions-and-stability/MF-16/README.md) | Uniqueness of positive definite solutions of two-letter word equations in order two | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-16/problem.pdf) · [TeX](matrix-functions-and-stability/MF-16/problem.tex) |
 | [MF-18](matrix-functions-and-stability/MF-18/README.md) | Imaginary-part rank in a limiting Green-function matrix equation | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-18/problem.pdf) · [TeX](matrix-functions-and-stability/MF-18/problem.tex) |
+| [MF-21](matrix-functions-and-stability/MF-21/README.md) | The uniform expansion threshold for Toeplitz symbols with higher-order zeros | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-21/problem.pdf) · [TeX](matrix-functions-and-stability/MF-21/problem.tex) |
 | [MF-22](matrix-functions-and-stability/MF-22/README.md) | Polynomial conditioning of the cubic C1 spline Schrödinger Toeplitz family | **✅ SOLVED** | hard | interesting to specialist | [PDF](matrix-functions-and-stability/MF-22/problem.pdf) · [TeX](matrix-functions-and-stability/MF-22/problem.tex) |
 | [SF-01](matrix-functions-and-stability/SF-01/README.md) | Preservation of real H-matrix structure by Newton square-root iterates | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/SF-01/problem.pdf) · [TeX](matrix-functions-and-stability/SF-01/problem.tex) |
 
@@ -122,7 +122,6 @@ Retained entries outside the open count:
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [KE-05](randomized-and-low-rank-approximation/KE-05/README.md) | Spectral-gap-independent constants for randomized block polynomial interpolation | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/KE-05/problem.pdf) · [TeX](randomized-and-low-rank-approximation/KE-05/problem.tex) |
 | [RA-01](randomized-and-low-rank-approximation/RA-01/README.md) | Optimal pivot count for RPCholesky trace approximation | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-01/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-01/problem.tex) |
 | [RA-04](randomized-and-low-rank-approximation/RA-04/README.md) | Clustered singular-value gaps in randomized block Krylov approximation | **🔵 OPEN** | hard | interesting to specialist | [PDF](randomized-and-low-rank-approximation/RA-04/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-04/problem.tex) |
 | [RA-05](randomized-and-low-rank-approximation/RA-05/README.md) | Sharp joint rank and accuracy dependence for strong $\ell_p$ subspace coresets | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-05/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-05/problem.tex) |
@@ -133,7 +132,6 @@ Retained entries outside the open count:
 | [RA-16](randomized-and-low-rank-approximation/RA-16/README.md) | Super-exponential decay of the zero-permanent probability | **🔵 OPEN** | extreme | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-16/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-16/problem.tex) |
 | [RA-17](randomized-and-low-rank-approximation/RA-17/README.md) | Minimum linear measurements for uniform recovery of real low-rank matrices | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-17/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-17/problem.tex) |
 | [RA-18](randomized-and-low-rank-approximation/RA-18/README.md) | The Goreinov–Tyrtyshnikov–Zamarashkin conjecture on square-submatrix inverse norms | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-18/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-18/problem.tex) |
-| [RA-19](randomized-and-low-rank-approximation/RA-19/README.md) | Critical-point count for corank-one approximation with a fixed zero | **🔵 OPEN** | challenging | interesting to specialist | [PDF](randomized-and-low-rank-approximation/RA-19/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-19/problem.tex) |
 | [RE-01](randomized-and-low-rank-approximation/RE-01/README.md) | Constant-factor HSS approximation in polynomial time | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RE-01/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RE-01/problem.tex) |
 | [RE-02](randomized-and-low-rank-approximation/RE-02/README.md) | HSS approximation from a number of matvecs independent of depth | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RE-02/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RE-02/problem.tex) |
 | [RE-03](randomized-and-low-rank-approximation/RE-03/README.md) | Optimal matvec query complexity of HODLR approximation | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RE-03/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RE-03/problem.tex) |
@@ -147,6 +145,7 @@ Retained entries outside the open count:
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
+| [KE-05](randomized-and-low-rank-approximation/KE-05/README.md) | Spectral-gap-independent constants for randomized block polynomial interpolation | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/KE-05/problem.pdf) · [TeX](randomized-and-low-rank-approximation/KE-05/problem.tex) |
 | [RA-02](randomized-and-low-rank-approximation/RA-02/README.md) | Polynomial trace-error factor after exactly the target rank of pivots | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-02/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-02/problem.tex) |
 | [RA-03](randomized-and-low-rank-approximation/RA-03/README.md) | Improve the randomized LU squared-error factor to $2^k$ | **✅ SOLVED** | challenging | interesting to specialist | [PDF](randomized-and-low-rank-approximation/RA-03/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-03/problem.tex) |
 | [RA-07](randomized-and-low-rank-approximation/RA-07/README.md) | Convexity of the expected error of volume-sampled column subsets | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-07/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-07/problem.tex) |
@@ -155,6 +154,7 @@ Retained entries outside the open count:
 | [RA-10](randomized-and-low-rank-approximation/RA-10/README.md) | Constant-loss nuclear-error transfer without matrix ordering | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-10/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-10/problem.tex) |
 | [RA-12](randomized-and-low-rank-approximation/RA-12/README.md) | Relative-error threshold for extremal Gaussian trace bounds | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-12/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-12/problem.tex) |
 | [RA-13](randomized-and-low-rank-approximation/RA-13/README.md) | Absolute-error threshold for extremal Gaussian trace bounds | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-13/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-13/problem.tex) |
+| [RA-19](randomized-and-low-rank-approximation/RA-19/README.md) | Critical-point count for corank-one approximation with a fixed zero | **✅ SOLVED** | challenging | interesting to specialist | [PDF](randomized-and-low-rank-approximation/RA-19/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-19/problem.tex) |
 | [RA-20](randomized-and-low-rank-approximation/RA-20/README.md) | Critical-point counts for symmetric rank-two approximation with diagonal zeros | **✅ SOLVED** | challenging | interesting to specialist | [PDF](randomized-and-low-rank-approximation/RA-20/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-20/problem.tex) |
 | [RE-05](randomized-and-low-rank-approximation/RE-05/README.md) | Pure relative error for approximation by a linear matrix family | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RE-05/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RE-05/problem.tex) |
 
@@ -277,7 +277,12 @@ Retained entries outside the open count:
 | [FR-09](frames-and-matrix-designs/FR-09/README.md) | Complex equiangular tight frames with twice the dimension | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](frames-and-matrix-designs/FR-09/problem.pdf) · [TeX](frames-and-matrix-designs/FR-09/problem.tex) |
 | [FR-10](frames-and-matrix-designs/FR-10/README.md) | Sharp sampling complexity for Walsh restricted isometries | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-10/problem.pdf) · [TeX](frames-and-matrix-designs/FR-10/problem.tex) |
 | [FR-11](frames-and-matrix-designs/FR-11/README.md) | The minimum number of quadratic measurements for generalized phase retrieval | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](frames-and-matrix-designs/FR-11/problem.pdf) · [TeX](frames-and-matrix-designs/FR-11/problem.tex) |
-| [FR-12](frames-and-matrix-designs/FR-12/README.md) | Counting real Hadamard matrices | **🔵 OPEN** | extreme | interesting to the community | [PDF](frames-and-matrix-designs/FR-12/problem.pdf) · [TeX](frames-and-matrix-designs/FR-12/problem.tex) |
+
+Retained entries outside the open count:
+
+| ID | Problem | Status | Difficulty | Impact | Read / source |
+| --- | --- | --- | --- | --- | --- |
+| [FR-12](frames-and-matrix-designs/FR-12/README.md) | Counting real Hadamard matrices | **✅ SOLVED** | extreme | interesting to the community | [PDF](frames-and-matrix-designs/FR-12/problem.pdf) · [TeX](frames-and-matrix-designs/FR-12/problem.tex) |
 
 
 ## [Matrix discrepancy and optimization](matrix-discrepancy-and-optimization/README.md)
