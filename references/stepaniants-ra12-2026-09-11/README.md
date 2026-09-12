@@ -49,3 +49,7 @@ The existing submission branch now retains accepted upstream changes from `87366
 ## Accepted proof and later integration — 12 September 2026 UTC
 
 The complete proof and solved canonical entry from reviewed commit `c797aee` are already accepted on `main`; the earlier acceptance-pending wording above is historical. The latest maintainer review of [PR 93](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/93) gives mathematical PASS and explains that only later integration-provenance files remain pending, with the fork workflow still requiring execution approval. The [new dated integration record](verification/main-integration-2026-09-12-bfaa1d0.md) and [read-only verifier](verification/verify_integration_bfaa1d0.py) document the ordinary merge of accepted main `bfaa1d0`, preservation of all 217 incoming canonical entries and the unchanged proof/PDF bytes, and current safeguard checks. No mathematical correction, new PDF rendering, workflow approval, or upstream self-merge is performed by this integration.
+
+## Current-main integration and verification levels — 12 September 2026
+
+The [9a697fd integration record](verification/main-integration-2026-09-12-9a697fd.md) preserves the latest accepted main, including its separate Solved and Lean verified evidence levels. All 217 canonical pages and all RA-12 proof/PDF bytes are unchanged from accepted main; this remains a provenance-only update. The earlier integration notes and checkers remain unchanged historical records for their named commits.

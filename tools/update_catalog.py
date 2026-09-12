@@ -13,6 +13,7 @@ STATUSES = {
     "Open": "🔵 OPEN",
     "Partially resolved": "🟡 PARTIAL",
     "Solved": "✅ SOLVED",
+    "Lean verified": "🏆 LEAN VERIFIED",
     "Solution claimed": "🟠 SOLUTION CLAIMED",
     "Needs verification": "⚪ NEEDS VERIFICATION",
     "Withdrawn": "⚫ WITHDRAWN",
@@ -68,6 +69,8 @@ def main():
     overview = (f'**{total_open} problems with open targets:** {counts["Open"]} open and '
                 f'{counts["Partially resolved"]} partially resolved. '
                 f'**{total - total_open} other retained entries**, excluded from the open count.\n\n'
+                f'**Resolution evidence:** {counts["Solved"]} solved (published or independently audited); '
+                f'{counts["Lean verified"]} Lean verified.\n\n'
                 f'{date_note} Literature checks are bounded; ratings are editorial. '
                 '“Impact” uses the canonical `Importance` field.\n\n')
     catalog = ["# All problems and their status\n\n" + overview +

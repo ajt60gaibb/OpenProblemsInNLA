@@ -1,0 +1,132 @@
+% Standalone resolution manuscript generated from solution.md.
+% Compile with XeLaTeX; author and review metadata are maintained in Markdown.
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=24mm,headheight=15pt]{geometry}
+\usepackage{fontspec}
+\setmainfont{DejaVuSerif.ttf}[BoldFont=DejaVuSerif-Bold.ttf,ItalicFont=DejaVuSerif-Italic.ttf,BoldItalicFont=DejaVuSerif-BoldItalic.ttf]
+\setsansfont{DejaVuSans.ttf}[BoldFont=DejaVuSans-Bold.ttf,ItalicFont=DejaVuSans-Oblique.ttf]
+\setmonofont{DejaVuSansMono.ttf}
+\usepackage{amsmath,amssymb,unicode-math}
+\setmathfont{latinmodern-math.otf}
+\usepackage{xcolor,microtype,parskip,needspace,fancyhdr}
+\usepackage{bookmark}
+\usepackage{xurl}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue,pdftitle={SP-11:
+The delta bound from Hall's theorem},pdfauthor={George
+Stepaniants},pdflang={en-GB}}
+\urlstyle{same}
+\setlength{\emergencystretch}{3em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\setcounter{secnumdepth}{0}
+\allowdisplaybreaks[1]
+\widowpenalty=10000
+\clubpenalty=10000
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily APPLICATION NOTE / SP-11}
+\fancyhead[R]{\small\sffamily 11 September 2026}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\fontsize{8}{10}\selectfont Hall's
+theorem; AI-assisted application note and independent automated-agent
+review.}}
+\fancyfoot[R]{\footnotesize\thepage}
+\begin{document}
+{\raggedright\Large\bfseries SP-11: The delta bound from Hall's
+theorem\par}
+\vspace{0.4em}
+{\normalsize\bfseries George Stepaniants\par}
+{\small Department of Computing and Mathematical Sciences, California
+Institute of Technology, Pasadena, California, USA.\par}
+\vspace{0.6em}
+\pagestyle{plain}
+
+\textbf{Literature-dependent resolution.} The all-graph theorem used
+here is due to H. Tracy Hall. This application note was prepared with
+substantial ChatGPT/Codex assistance. A separate
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/stepaniants-sp11-sp12-2026-09-11/verification/SP-11-SP-12-independent-review.md}{independent
+Codex-agent review} checked this deduction and the essential proof of
+Hall's theorem and returned \textbf{PASS}. This is automated-agent
+mathematical review, not external human peer review, formal
+verification, or a claim that the cited preprint has been refereed.
+
+\subsection{Statement and notation}\label{statement-and-notation}
+
+Let \(G\) be a finite simple undirected graph on \(n\ge1\) vertices, and
+let \(\mathcal S(G)\) be the real symmetric \(n\times n\) matrices whose
+off-diagonal nonzero entries occur exactly at the edges of \(G\).
+Diagonal entries are unrestricted. Writing \(\delta(G)\) for the minimum
+vertex degree, the target is
+
+\[
+\operatorname{mr}(G):=\min_{A\in\mathcal S(G)}\operatorname{rank}A
+\le n-\delta(G).
+\]
+
+Define \(\nu(G)\) as the maximum nullity among positive-semidefinite
+\(A\in\mathcal S(G)\) satisfying the strong Arnold property (SAP): the
+only real symmetric \(X\) with
+
+\[
+AX=0,\qquad A\circ X=0,\qquad I_n\circ X=0
+\]
+
+is \(X=0\), where \(\circ\) denotes entrywise product.
+
+\subsection{External theorem}\label{external-theorem}
+
+Hall's \textbf{Corollary 3.22}, based on \textbf{Theorem 3.20}, proves
+
+\[\nu(G)\ge\delta(G)\]
+
+for every finite simple graph {[}H{]}. The source is arXiv:2601.01211v1,
+submitted 3 January 2026; the current record still listed only v1 when
+checked on 11 September 2026. The theorem is used as an external input
+here. The independent review records its full essential proof audit and
+the nonessential wording issues in the source. In particular, the matrix
+in the definitions and Gram construction is positive
+\textbf{semidefinite}, despite the word ``definite'' in the abstract.
+
+\subsection{Deduction: affirmative answer to
+SP-11}\label{deduction-affirmative-answer-to-sp-11}
+
+Choose a positive-semidefinite SAP matrix \(A\in\mathcal S(G)\) with
+nullity at least \(\delta(G)\), as provided by {[}H{]}. Forgetting the
+extra PSD and SAP conditions leaves an admissible matrix for SP-11.
+Rank-nullity gives
+
+\[
+\operatorname{mr}(G)\le\operatorname{rank}A
+=n-\operatorname{nullity}A\le n-\delta(G).
+\]
+
+This is exactly the requested inequality. No connectedness assumption,
+prescribed edge weights, or diagonal restriction is introduced. When
+\(\delta(G)=0\), the bound also holds trivially. \(\square\)
+
+\subsection{Attribution and scope}\label{attribution-and-scope}
+
+The substantive all-graph existence theorem belongs to Hall. His
+\textbf{Corollary 3.24} explicitly states the ordinary Delta Conjecture
+as a consequence. George Stepaniants is the author of this explanatory
+application note, not the discoverer of that theorem. No novelty or
+priority claim is made.
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/stepaniants-sp11-sp12-2026-09-11/README.md}{submission
+record} preserves the original reconstructed note, the independent
+review, and the dated public-network audit. Unsupported earlier claims
+about unavailable artifacts and graph-atlas computations remain
+withdrawn; they are not evidence for this resolution.
+
+\subsection{References}\label{references}
+
+{[}H{]} H. Tracy Hall, \emph{The Delta Theorem: A dimension bound for
+faithful orthogonal graph representations}, arXiv:2601.01211v1, 3
+January 2026, Theorem 3.20 and Corollaries 3.22-3.24.
+\href{https://arxiv.org/html/2601.01211v1}{Versioned primary text} ·
+\href{https://arxiv.org/abs/2601.01211}{Current arXiv record}.
+
+{[}R11{]} \emph{Open Problems in Numerical Linear Algebra},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/eigenvalues-and-inverse-problems/SP-11/README.md}{SP-11:
+original canonical target}.
+\end{document}
