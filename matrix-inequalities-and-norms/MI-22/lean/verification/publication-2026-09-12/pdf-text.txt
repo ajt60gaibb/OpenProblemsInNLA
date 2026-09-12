@@ -1,0 +1,124 @@
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA                                                           MI-22
+
+
+
+
+Matrix inequalities and norms
+
+
+Lemos–Soares singular-value log-majorization
+Diﬀiculty: challenging       Importance: interesting to the community
+Status: Lean verified
+
+Rating rationale: Controlling every partial product of singular values is challenging despite the proved
+eigenvalue-modulus analogue; the resulting norm comparisons are relevant across matrix analysis.
+
+Resolution — 2026-09-11
+
+Negative result by Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics,
+University of Cambridge. Independent proof review: PASS.
+Rational positive definite 3 × 3 matrices at 𝑡 = 1/8 violate the first singular-value inequality: the left
+operator norm exceeds 10900, while ‖𝐴𝐵‖2 < 10200. Exact rational root residuals and a proved operator-
+root error bound certify the actual principal powers.
+The exact target is resolved. The original statement and source evidence are retained below; its former
+diﬀiculty rating is historical.
+Primary manuscript: complete proof PDF, standalone TeX, Theorem 1.1 and its proof; authorship and
+scope. The independent review checks the full original argument and records its hash. The draft was AI-
+assisted; this is independent agent verification, not external human peer review or formal certification.
+Submission record.
+
+Lean proof and verification evidence — 2026-09-12
+
+Lean formalization: George Stepaniants, Department of Computing and Mathematical Sciences, Cal-
+ifornia Institute of Technology, Pasadena, California, USA, with AI-agent assistance. Matthew J. Col-
+brook retains credit for the original negative resolution and mathematical method.
+The immutable Solution proves the complete original universal statement false. All complex positive-
+definite inputs, all positive dimensions, every 𝑡 ∈ [0, 1], every proper singular-value prefix and full-
+product equality remain in the reviewed definitions. The formal counterexample uses the disclosed ex-
+act rational adaptation 𝐵 = 𝐷𝑇 8 𝐷 and 𝑡 = 1/8. Its actual left operator norm exceeds 11000 and its actual
+𝐴𝐵 norm is below 10500. Colbrook’s printed integer 𝐵, root-residual theorem and original 10900/10200
+bounds remain informal source results; they are not claimed as this formalization’s witness.
+The eight checked declarations, in namespace NLA.MI22, are:
+ • singular_values_semantics
+ • spectral_power_semantics
+ • euclidean_norm_bounds
+ • witness_rational_data
+ • witness_principal_powers
+ • witness_operator_gap
+ • counterexample
+ • not_weightedLogMajorizationConjecture
+They prove genuine Mathlib CFC powers, descending singular values with multiplicities, Euclidean
+operator-norm bridges, every rational witness obligation, and the actual first-prefix reversal, followed
+by the full negation. Two independent agents reviewed the frozen statements and complete proof.
+Linux run 34720684925 matched all eight exports with Lean4 Comparator and replayed the solution
+through Lean’s default kernel. The independent operational audit retains the original artifacts, com-
+plete 177-input identity and both exercised sandbox/rejection control suites. All 17 internal/public
+axiom reports use only propext, Classical.choice and Quot.sound; the solution contains no admissions or
+native execution trust.
+
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-12                                                                            1
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA                                                            MI-22
+
+
+
+
+This catalog reviewed the actual remote Linux execution and separately retained local macOS re-
+elaborations. Ten pinned dependency checkouts were fresh; the oﬀicial Mathlib cache was used, so a
+complete dependency-source rebuild is not claimed. The reviews are by independent AI agents, not ex-
+ternal human peer review or source-author endorsement. Statement referees establish correspondence
+with the prose; Comparator checks formal identity and kernel trust.
+The proof pins Lean 4.33.1, Mathlib 0df444a and LeanCert 621a43d. LeanCert certifies only the retained
+strict scalar comparison 10500 < 11000, in explicit kernel mode on a singleton. Exact matrix algebra
+and true root/norm proofs cover all other obligations, without interval subdivision. The project guide,
+source correspondence, locked dependencies and formalization manifest record the full scope.
+From the verified revision, on an isolated non-root Linux host satisfying the shared harness prerequi-
+sites, run:
+
+tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
+tools/lean/verify.sh \
+  matrix-inequalities-and-norms/MI-22/lean \
+  /absolute/path/to/nla-lean-tools
+
+
+Problem statement
+
+Let 𝐴, 𝐵 ∈ ℂ𝑛×𝑛 be positive definite and 𝑡 ∈ [0, 1], and define 𝐴#𝑡 𝐵 = 𝐴1/2 (𝐴−1/2 𝐵𝐴−1/2 )𝑡 𝐴1/2 . Write
+𝑠1 (𝑋) ≥ ⋯ ≥ 𝑠𝑛 (𝑋) for the singular values of 𝑋.
+Does
+
+                                    𝑘                             𝑘
+                                  ∏ 𝑠𝑗 (𝐴𝑡 (𝐴#𝑡 𝐵)𝐵1−𝑡 ) ≤ ∏ 𝑠𝑗 (𝐴𝐵),                 1 ≤ 𝑘 < 𝑛,
+                                  𝑗=1                            𝑗=1
+
+
+hold for every positive integer 𝑛, every such 𝐴, 𝐵, 𝑡, with equality of the products for 𝑘 = 𝑛? This is the
+assertion 𝑠(𝐴𝑡 (𝐴#𝑡 𝐵)𝐵1−𝑡 ) ≺log 𝑠(𝐴𝐵). The positive semidefinite version in the sources is recovered by
+continuous regularization 𝐴 + 𝜀𝐼, 𝐵 + 𝜀𝐼; endpoints in 𝑡 can be stated directly.
+The question concerns the singular values of a product involving a matrix geometric mean. Such mul-
+tiplicative bounds imply norm and determinant estimates useful in numerical treatment of positive
+definite matrices. An analogue for eigenvalue moduli has already been proved, but changes both sides
+of the comparison and does not answer this singular-value question.
+
+References
+
+1. M. M. Ghabries, H. Abbas, B. Mourad and A. Assi, New log-majorization results concerning eigenvalues
+   and singular values and a complement of a norm inequality, Linear Multilinear Algebra 71 (2023), 1228–
+   1243; preprint Conjecture 1.1, p. 3, and §3. Full preprint; published article.
+2. J. Shi, Z. Wang and C. Wei, Log-majorizations of Lemos–Soares type for the metric geometric and spectral
+   geometric means, Ann. Funct. Anal. 17 (2026), article 53, p. 3, equation (1.2) and the following
+   open-status statement. Publisher; publicly indexed full-text mirror.
+Status check (2026-09-10): the original arXiv record lists v1. The July 14, 2026 paper reproduces pre-
+cisely this inequality as (1.2) on p. 3 and explicitly says that it is still open. The publisher PDF was
+inaccessible, but the indexed primary-paper text in the public mirror exposed this passage and the later
+discussion distinguishing the new partial results. Searches for “Lemos Soares singular log-majorization
+conjecture”, the exact later title, and 2025/2026 found no subsequent announced full resolution. This is
+a bounded search, not certification of openness.
+
+
+
+
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-12                                                                             2
+

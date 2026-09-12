@@ -1,0 +1,116 @@
+def NLA.MI22.spectralPower : {n : ℕ} → NLA.MI22.Mat n → ℝ → NLA.MI22.Mat n :=
+fun {n} A t => CFC.rpow A t
+def NLA.MI22.weightedMean : {n : ℕ} → NLA.MI22.Mat n → NLA.MI22.Mat n → ℝ → NLA.MI22.Mat n :=
+fun {n} A B t =>
+  NLA.MI22.spectralPower A (1 / 2) *
+      NLA.MI22.spectralPower (NLA.MI22.spectralPower A (-1 / 2) * B * NLA.MI22.spectralPower A (-1 / 2)) t *
+    NLA.MI22.spectralPower A (1 / 2)
+def NLA.MI22.leftProduct : {n : ℕ} → NLA.MI22.Mat n → NLA.MI22.Mat n → ℝ → NLA.MI22.Mat n :=
+fun {n} A B t => NLA.MI22.spectralPower A t * NLA.MI22.weightedMean A B t * NLA.MI22.spectralPower B (1 - t)
+def NLA.MI22.singularValue : {n : ℕ} → NLA.MI22.Mat n → ℕ → ℝ :=
+fun {n} A j => (Matrix.toEuclideanLin A).singularValues j
+def NLA.MI22.singularPrefix : {n : ℕ} → NLA.MI22.Mat n → ℕ → ℝ :=
+fun {n} A k => ∏ j ∈ Finset.range k, NLA.MI22.singularValue A j
+def NLA.MI22.SingularLogMajorized : {n : ℕ} → NLA.MI22.Mat n → NLA.MI22.Mat n → Prop :=
+fun {n} X Y =>
+  (∀ (k : ℕ), 1 ≤ k → k < n → NLA.MI22.singularPrefix X k ≤ NLA.MI22.singularPrefix Y k) ∧
+    NLA.MI22.singularPrefix X n = NLA.MI22.singularPrefix Y n
+def NLA.MI22.WeightedLogMajorizationConjecture : Prop :=
+∀ (n : ℕ),
+  1 ≤ n →
+    ∀ (A B : NLA.MI22.Mat n),
+      Matrix.PosDef A →
+        Matrix.PosDef B → ∀ (t : ℝ), 0 ≤ t → t ≤ 1 → NLA.MI22.SingularLogMajorized (NLA.MI22.leftProduct A B t) (A * B)
+def NLA.MI22.operatorNorm : {n : ℕ} → NLA.MI22.Mat n → ℝ :=
+fun {n} A => ‖Matrix.toEuclideanCLM A‖
+def NLA.MI22.frobeniusSquared : {n : ℕ} → NLA.MI22.Mat n → ℝ :=
+fun {n} A => ∑ i, ∑ j, Complex.normSq (A i j)
+def NLA.MI22.witnessVector : EuclideanSpace ℂ (Fin 3) :=
+!₂[0, 4 / 5, -3 / 5]
+def NLA.MI22.witnessTestValue : ℝ :=
+(((Matrix.toEuclideanCLM NLA.MI22.witnessN) NLA.MI22.witnessVector).ofLp 0).re
+def LinearMap.singularValues.{u_1, u_2, u_3} : {𝕜 : Type u_1} →
+  [inst : RCLike 𝕜] →
+    {E : Type u_2} →
+      [inst_1 : NormedAddCommGroup E] →
+        [inst_2 : InnerProductSpace 𝕜 E] →
+          [FiniteDimensional 𝕜 E] →
+            {F : Type u_3} →
+              [inst_4 : NormedAddCommGroup F] →
+                [inst_5 : InnerProductSpace 𝕜 F] → [FiniteDimensional 𝕜 F] → (E →ₗ[𝕜] F) → ℕ →₀ ℝ :=
+fun {𝕜} [RCLike 𝕜] {E} [NormedAddCommGroup E] [InnerProductSpace 𝕜 E] [FiniteDimensional 𝕜 E] {F} [NormedAddCommGroup F]
+    [InnerProductSpace 𝕜 F] [FiniteDimensional 𝕜 F] T =>
+  Finsupp.embDomain Fin.valEmbedding (Finsupp.ofSupportFinite (fun i => √(⋯.eigenvalues ⋯ i)) ⋯)
+NLA.MI22.singular_values_semantics {n : ℕ} (hn : 1 ≤ n) (A : NLA.MI22.Mat n) :
+  (∀ (j : ℕ), 0 ≤ NLA.MI22.singularValue A j) ∧
+    Antitone (NLA.MI22.singularValue A) ∧
+      (∀ (j : ℕ), n ≤ j → NLA.MI22.singularValue A j = 0) ∧
+        (∀ (i : Fin n), NLA.MI22.singularValue A ↑i = √(⋯.eigenvalues ⋯ i)) ∧
+          NLA.MI22.singularValue A 0 = NLA.MI22.operatorNorm A
+NLA.MI22.spectral_power_semantics {n : ℕ} (A : NLA.MI22.Mat n) (hA : Matrix.PosDef A) (r : ℝ) :
+  NLA.MI22.spectralPower A r =
+    (↑⋯.eigenvectorUnitary * Matrix.diagonal fun i => ↑(⋯.eigenvalues i ^ r)) * (↑⋯.eigenvectorUnitary).conjTranspose
+NLA.MI22.euclidean_norm_bounds {n : ℕ} (A : NLA.MI22.Mat n) :
+  NLA.MI22.operatorNorm A ^ 2 ≤ NLA.MI22.frobeniusSquared A ∧
+    ∀ (x : EuclideanSpace ℂ (Fin n)) (i : Fin n), ‖((Matrix.toEuclideanCLM A) x).ofLp i‖ ≤ NLA.MI22.operatorNorm A * ‖x‖
+NLA.MI22.witness_rational_data :
+  NLA.MI22.witnessT = NLA.MI22.witnessLDL * NLA.MI22.witnessPivots * Matrix.conjTranspose NLA.MI22.witnessLDL ∧
+    NLA.MI22.witnessA = Matrix.diagonal ![256, 1 / 256, 1] ∧
+      Matrix.PosDef NLA.MI22.witnessT ∧
+        Matrix.PosDef NLA.MI22.witnessA ∧
+          Matrix.PosDef NLA.MI22.witnessB ∧
+            ‖NLA.MI22.witnessVector‖ = 1 ∧
+              (Matrix.trace NLA.MI22.witnessB).re < 4 ^ 8 ∧
+                44000 < NLA.MI22.witnessTestValue ∧
+                  NLA.MI22.frobeniusSquared (NLA.MI22.witnessA * NLA.MI22.witnessB) < 10500 ^ 2
+NLA.MI22.witness_principal_powers :
+  NLA.MI22.spectralPower NLA.MI22.witnessA (1 / 2) = NLA.MI22.witnessD ∧
+    NLA.MI22.spectralPower NLA.MI22.witnessA (-1 / 2) = NLA.MI22.witnessDInv ∧
+      NLA.MI22.spectralPower NLA.MI22.witnessA (1 / 8) = NLA.MI22.witnessAOneEighth ∧
+        NLA.MI22.spectralPower NLA.MI22.witnessA (5 / 8) = NLA.MI22.witnessAFiveEighths ∧
+          NLA.MI22.spectralPower (NLA.MI22.witnessDInv * NLA.MI22.witnessB * NLA.MI22.witnessDInv) (1 / 8) =
+              NLA.MI22.witnessT ∧
+            NLA.MI22.weightedMean NLA.MI22.witnessA NLA.MI22.witnessB (1 / 8) =
+                NLA.MI22.witnessD * NLA.MI22.witnessT * NLA.MI22.witnessD ∧
+              Matrix.PosDef NLA.MI22.witnessRoot ∧
+                NLA.MI22.witnessRoot ^ 8 = NLA.MI22.witnessB ∧
+                  NLA.MI22.spectralPower NLA.MI22.witnessB (7 / 8) * NLA.MI22.witnessRoot = NLA.MI22.witnessB ∧
+                    NLA.MI22.leftProduct NLA.MI22.witnessA NLA.MI22.witnessB (1 / 8) * NLA.MI22.witnessRoot =
+                        NLA.MI22.witnessN ∧
+                      NLA.MI22.operatorNorm NLA.MI22.witnessRoot < 4
+NLA.MI22.witness_operator_gap :
+  NLA.MI22.operatorNorm (NLA.MI22.witnessA * NLA.MI22.witnessB) < 10500 ∧
+    11000 < NLA.MI22.operatorNorm (NLA.MI22.leftProduct NLA.MI22.witnessA NLA.MI22.witnessB (1 / 8))
+NLA.MI22.counterexample :
+  Matrix.PosDef NLA.MI22.witnessA ∧
+    Matrix.PosDef NLA.MI22.witnessB ∧
+      0 ≤ 1 / 8 ∧
+        1 / 8 ≤ 1 ∧
+          NLA.MI22.singularValue (NLA.MI22.witnessA * NLA.MI22.witnessB) 0 <
+              NLA.MI22.singularValue (NLA.MI22.leftProduct NLA.MI22.witnessA NLA.MI22.witnessB (1 / 8)) 0 ∧
+            ¬NLA.MI22.SingularLogMajorized (NLA.MI22.leftProduct NLA.MI22.witnessA NLA.MI22.witnessB (1 / 8))
+                (NLA.MI22.witnessA * NLA.MI22.witnessB)
+NLA.MI22.not_weightedLogMajorizationConjecture : ¬NLA.MI22.WeightedLogMajorizationConjecture
+'NLA.MI22.Mat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI22.spectralPower' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI22.weightedMean' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI22.leftProduct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI22.singularValue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI22.singularPrefix' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI22.SingularLogMajorized' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI22.WeightedLogMajorizationConjecture' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI22.operatorNorm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI22.frobeniusSquared' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI22.witnessD' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI22.witnessDInv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI22.witnessA' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI22.witnessT' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI22.witnessLDL' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI22.witnessPivots' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI22.witnessB' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI22.witnessAOneEighth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI22.witnessAFiveEighths' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI22.witnessRoot' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI22.witnessN' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI22.witnessVector' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI22.witnessTestValue' depends on axioms: [propext, Classical.choice, Quot.sound]
