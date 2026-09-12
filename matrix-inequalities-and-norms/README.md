@@ -40,7 +40,7 @@
 | [MI-22](MI-22/README.md) | Lemos–Soares singular-value log-majorization | **✅ SOLVED** | challenging | interesting to the community | [PDF](MI-22/problem.pdf) · [TeX](MI-22/problem.tex) |
 | [MI-23](MI-23/README.md) | Corrected generalized geometric-mean product conjecture | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-23/problem.pdf) · [TeX](MI-23/problem.tex) |
 | [MI-24](MI-24/README.md) | Schatten norm complement involving Lin's positive definite quantity | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-24/problem.pdf) · [TeX](MI-24/problem.tex) |
-| [MI-26](MI-26/README.md) | Concave unitary-orbit subadditivity without monotonicity | **✅ SOLVED** | challenging | interesting to the community | [PDF](MI-26/problem.pdf) · [TeX](MI-26/problem.tex) |
+| [MI-26](MI-26/README.md) | Concave unitary-orbit subadditivity without monotonicity | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](MI-26/problem.pdf) · [TeX](MI-26/problem.tex) |
 | [MI-28](MI-28/README.md) | Ghabries's determinant comparison for arbitrary nonnegative base powers | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-28/problem.pdf) · [TeX](MI-28/problem.tex) |
 | [MI-29](MI-29/README.md) | Modulus-order determinant comparison with an arbitrary base power | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MI-29/problem.pdf) · [TeX](MI-29/problem.tex) |
 

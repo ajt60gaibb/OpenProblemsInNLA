@@ -2,7 +2,7 @@
 
 **128 problems with open targets:** 57 open and 71 partially resolved. **89 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 83 solved (published or independently audited); 6 Lean verified.
+**Resolution evidence:** 82 solved (published or independently audited); 7 Lean verified.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -257,7 +257,7 @@ Retained entries outside the open count:
 | [MI-22](matrix-inequalities-and-norms/MI-22/README.md) | Lemos–Soares singular-value log-majorization | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-22/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-22/problem.tex) |
 | [MI-23](matrix-inequalities-and-norms/MI-23/README.md) | Corrected generalized geometric-mean product conjecture | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-23/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-23/problem.tex) |
 | [MI-24](matrix-inequalities-and-norms/MI-24/README.md) | Schatten norm complement involving Lin's positive definite quantity | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-24/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-24/problem.tex) |
-| [MI-26](matrix-inequalities-and-norms/MI-26/README.md) | Concave unitary-orbit subadditivity without monotonicity | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-26/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-26/problem.tex) |
+| [MI-26](matrix-inequalities-and-norms/MI-26/README.md) | Concave unitary-orbit subadditivity without monotonicity | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-26/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-26/problem.tex) |
 | [MI-28](matrix-inequalities-and-norms/MI-28/README.md) | Ghabries's determinant comparison for arbitrary nonnegative base powers | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-28/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-28/problem.tex) |
 | [MI-29](matrix-inequalities-and-norms/MI-29/README.md) | Modulus-order determinant comparison with an arbitrary base power | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-29/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-29/problem.tex) |
 

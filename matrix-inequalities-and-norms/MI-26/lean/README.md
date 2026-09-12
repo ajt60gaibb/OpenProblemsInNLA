@@ -1,9 +1,13 @@
 # MI-26: formal counterexample to concave unitary-orbit subadditivity
 
-The complete canonical MI-26 assertion has a local Lean proof with two independent
-statement approvals and two independent final proof approvals. **Authoritative
-Linux Comparator, default-kernel replay and isolation/rejection controls remain
-pending.** The canonical problem status remains **Solved**.
+The complete canonical MI-26 assertion is Lean verified. Its unchanged proof at
+[revision 81176af](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/81176af27e570b59ba1e1a0745e28944e7d57c03/matrix-inequalities-and-norms/MI-26/lean)
+passed two independent statement reviews, two independent final proof reviews,
+and actual sandboxed Linux Comparator/default-kernel verification in
+[run 34713045511](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34713045511).
+The [independent operational audit and original artifacts](verification/linux-2026-09-12/)
+bind all seven exports and the complete 118-file input set. The canonical status
+is **Lean verified** as of 12 September 2026.
 
 **Mathematical counterexample and informal proof:** Matthew J. Colbrook,
 Department of Applied Mathematics and Theoretical Physics, University of Cambridge.
@@ -63,7 +67,7 @@ the problem's mathematical objects.
 
 ## Reproduction and current checks
 
-```sh
+```
 lake build Solution
 ```
 
@@ -73,13 +77,16 @@ The pinned project uses Lean `v4.33.1`, LeanCert
 [lake-manifest.json](lake-manifest.json). `Proof.lean` and `Solution.lean` explicitly
 select `leancert.trust "kernel"`. All **15** internal/exported trust and axiom
 checks passed with exactly `propext`, `Classical.choice`, and `Quot.sound`.
-The local build reported **3147 jobs** without warnings. Matching dependency
-artifacts were reused on macOS arm64; this is not a full dependency rebuild or an
-authoritative Linux run.
+The local build reported **3147 jobs** without warnings. The local development build reused matching dependency artifacts on macOS arm64.
+The later authoritative Linux run cloned all ten packages at their exact revisions
+and downloaded 8690 official Mathlib cache files, then built the project sources.
+This is a fresh dependency/project checkout with disclosed dependency cache reuse,
+not a claim that every Mathlib module was rebuilt from source.
 
-After committing this candidate, run from the repository root on supported Linux:
+From the verified revision, run from the repository root on a documented non-root
+Linux host:
 
-```sh
+```
 tools/lean/bootstrap.sh /tmp/nla-mi26-tools
 tools/lean/selftest.sh /tmp/nla-mi26-tools
 tools/lean/verify.sh matrix-inequalities-and-norms/MI-26/lean /tmp/nla-mi26-tools
@@ -87,22 +94,32 @@ tools/lean/verify.sh matrix-inequalities-and-norms/MI-26/lean /tmp/nla-mi26-tool
 
 The shared GitHub workflow performs these checks with pinned tools, a fresh
 tracked-source snapshot, the real sandbox, all seven statement comparisons and
-rejection controls. Its actual MI-26 results will be recorded before promotion.
+rejection controls. The actual MI-26 run and its separate checker job both passed the observed
+namespace, filesystem/network, honest/invalid kernel replay, Comparator mismatch,
+sorry and native-proof rejection controls. The operational report records the
+precise scope: the nested bubblewrap attempt was denied at UID-map creation
+before its inner write, and no general sandbox-security guarantee is inferred.
 Comparator checks the formal Challenge/Solution boundary and kernel proof;
 independent referees separately review correspondence to the informal problem.
 
 - [Statement referee 1](reviews/statement-referee-1.md) and [statement referee 2](reviews/statement-referee-2.md) approved the unchanged boundary before proof work.
 - [Final proof referee 1](reviews/proof-referee-1.md) and [final proof referee 2](reviews/proof-referee-2.md) independently inspected and freshly re-elaborated the actual source and certificate consumers.
 - [Proof completion](reviews/proof-completion.md), [frozen identities](verification/proof-freeze.json), [local build](verification/proof-build.log), and [axiom audit](verification/proof-axioms.json) retain the evidence.
-- [formalization.yaml](formalization.yaml) follows the pinned schema-v0.4 standard and records authorship, exact scope, automation, theorem coverage and pending Linux status.
+- [Linux operational review](verification/linux-2026-09-12/OPERATIONAL-REVIEW.md) and [evidence manifest](verification/linux-2026-09-12/EVIDENCE-MANIFEST.json) retain the original ZIPs, complete source snapshots, raw logs and independently checked digests.
+- [formalization.yaml](formalization.yaml) follows the pinned schema-v0.4 standard and records authorship, exact scope, automation, theorem coverage and the successful immutable Linux revision and run.
 
 The implementer `/root/leancert_examples` is not counted as its own referee.
 The independent reviewers are `/root/solved_statement_inventory` and `/root`,
 using the project's adapted Tau Ceti rubrics. Seven deliberate Challenge
 placeholders are isolated from every proof import and excluded from solution
 sorry counts. Historical statement/proof-freeze notes retain the status at their
-creation; the final referee reports and this guide supply the current local-review
-status. No proof or statement bytes were changed while preparing this package.
+creation; the final referee reports, operational audit and this guide supply the current
+verification status. No proof, statement, toolchain, dependency or Comparator configuration bytes were
+changed for publication. Of the 118 verified inputs, only this project README and
+its formalization manifest now describe the completed checks; all 116 remaining
+inputs remain byte-identical. Immutable original snapshots retain their then-pending
+metadata, so the successful Linux run is not misrepresented as a new run over the
+publication wrappers.
 
 Shared checker reuse from [Forsythe](https://github.com/sgstepaniants/Forsythe/tree/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof)
 is credited in [tools/lean/NOTICE.md](../../../tools/lean/NOTICE.md). The campaign also
