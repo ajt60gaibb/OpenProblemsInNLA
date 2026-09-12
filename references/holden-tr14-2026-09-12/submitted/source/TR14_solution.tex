@@ -1,0 +1,901 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm}
+\usepackage{microtype,booktabs,array,enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyvrb}
+\hypersetup{pdftitle={Exact Rank of Complex Hankel Tensors},pdfsubject={An exact-rank formula for TR-14}}
+\setlength{\parskip}{0.35em}
+\setlength{\parindent}{0pt}
+\setlength{\emergencystretch}{2em}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Rk}{\operatorname{R}}
+\newcommand{\SR}{\operatorname{R}_{\mathrm{sym}}}
+\newcommand{\VR}{\operatorname{R}_{\mathrm V}}
+\newcommand{\BR}{\underline{\operatorname{R}}}
+\newcommand{\BSR}{\underline{\operatorname{R}}_{\mathrm{sym}}}
+\newcommand{\BVR}{\underline{\operatorname{R}}_{\mathrm V}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Stab}{\operatorname{Stab}}
+\newcommand{\Ann}{\operatorname{Ann}}
+\newcommand{\spanC}{\operatorname{span}_{\C}}
+\newcommand{\rad}{\operatorname{rad}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\Spec}{\operatorname{Spec}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\Id}{\operatorname{Id}}
+\newcommand{\Pq}{\C[t]_{\le q}}
+\newcommand{\ceil}[1]{\left\lceil #1\right\rceil}
+\newcommand{\floor}[1]{\left\lfloor #1\right\rfloor}
+\title{Exact Rank of Complex Hankel Tensors}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\vspace{-2.5em}
+\begin{abstract}
+Let $H_{i_1\cdots i_m}=h_{i_1+\cdots+i_m}$ for $0\le i_j\le n-1$, over $\C$.
+Write $D=m(n-1)$, and let $r$ be the rank of the middle Hankel catalecticant.
+For $H\ne0$, choose a homogeneous binary apolar polynomial of smallest degree $r$,
+and let $s$ be its number of distinct projective zeros.
+We prove the exact formula
+\[
+\Rk(H)=\SR(H)=\min\{D-r+2,\ (m-1)r-(m-2)s\}.
+\]
+When the smallest-degree apolar polynomial is not unique, the first term is $r$,
+so the formula is independent of this choice. This proves the universal exact-rank
+equality requested in TR-14, including exceptional and mixed-multiplicity tensors.
+The lower bound uses a contextual product-space inequality: an annihilating
+Frobenius functional excludes nilpotents from the auxiliary stabilizer algebras,
+leaving finitely many support partitions. The upper bounds are explicit symmetric
+interpolation constructions. We also prove that all three border ranks equal $r$,
+and that the maximum ordinary and symmetric Hankel ranks are
+$(m-1)(n-1)+1$.
+\end{abstract}
+
+\section{Statement and conventions}
+
+Throughout, the field is $\C$, $m\ge3$, $n\ge2$, $q=n-1$, and $D=mq$.
+Tensor indices are zero-based. Thus the tensor considered here is exactly the
+one in TR-14 after subtracting one from each index. Ordinary rank permits
+arbitrary decomposable summands; symmetric rank permits only scalar multiples
+of $v^{\otimes m}$. The question imposes neither a genericity assumption nor a
+Vandermonde restriction.\footnote{Open Problems in Numerical Linear Algebra,
+TR-14, ``Comon's exact-rank conjecture for Hankel tensors,'' accessed September 12,
+2026. \url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/tensor-computations/TR-14}.}
+
+The problem originates in Nie--Ye, Conjecture 6.3.\footnote{J.~Nie and K.~Ye,
+\emph{Hankel Tensor Decompositions and Ranks}, SIAM J. Matrix Anal. Appl.
+40 (2019), 486--516. \url{https://doi.org/10.1137/18M1168285}.}
+The generic odd-order question is distinct: the repository's TR-13 manuscript
+uses a compressed Koszul flattening and explicitly leaves exceptional tensors
+outside its conclusion.\footnote{M.~J.~Colbrook, repository manuscript for TR-13,
+September 11, 2026. \url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/tensor-computations/TR-13}.}
+The exact lower bound below does not follow by specialization from a generic
+rank statement.
+
+Define the homogeneous moment functional
+\[
+ L_D(X^{D-j}Y^j)=h_j,\qquad 0\le j\le D.
+\]
+Equivalently, in the affine chart $X=1$, set $L(t^j)=h_j$ for $j\le D$.
+Identifying a mode with $\Pq$, the tensor is the multilinear form
+\begin{equation}\label{eq:moment}
+ H(p_1,\ldots,p_m)=L(p_1\cdots p_m).
+\end{equation}
+Using dual spaces for this interpretation does not change either rank.
+Vandermonde rank $\VR$ additionally requires each symmetric factor to lie on
+$\{(1,t,\ldots,t^q):t\in\C\}\cup\{(0,\ldots,0,1)\}$, up to scaling.
+Border rank, with any of these three restrictions, is the least rank bound
+whose complex algebraic closure contains the tensor; equivalently, it permits
+limits of tensors with that rank bound.
+The associated binary form is
+\[
+ F(x,y)=\sum_{j=0}^D\binom Dj h_j x^{D-j}y^j.
+\]
+For $0\le d\le D$, define the apolar kernel
+\begin{equation}\label{eq:apolarkernel}
+ I_d=\left\{\sum_{i=0}^d g_iX^{d-i}Y^i:
+              \sum_{i=0}^d g_i h_{i+j}=0\quad(0\le j\le D-d)\right\}.
+\end{equation}
+This is the usual degree-$d$ apolar kernel of $F$.
+For $d>D$, put $I_d=\C[X,Y]_d$.
+The spaces $I_d$ form a homogeneous ideal, directly from the displayed equations.
+
+For $H\ne0$, let $r$ be the smallest degree for which $I_r\ne0$ and choose
+$0\ne G\in I_r$. Let $s$ be the number of distinct zeros of $G$ in $\mathbb P^1$,
+counted without multiplicity. Section~\ref{sec:momentalgebra} proves
+\begin{equation}\label{eq:middle}
+ r=\rank C_h,\qquad
+ C_h=(h_{i+j})_{\substack{0\le i\le\lfloor D/2\rfloor\\
+                         0\le j\le\lceil D/2\rceil}}.
+\end{equation}
+Thus the invariants in the next theorem are computable by exact linear algebra
+and a univariate greatest common divisor.
+
+\begin{theorem}[Exact rank formula; resolution of TR-14]\label{thm:main}
+For every nonzero complex Hankel tensor of order $m\ge3$ and dimension $n\ge2$,
+\begin{equation}\label{eq:main}
+ \boxed{\displaystyle
+ \Rk(H)=\SR(H)=
+ \min\bigl\{D-r+2,\ (m-1)r-(m-2)s\bigr\}.}
+\end{equation}
+If $I_r$ has dimension greater than one, then $D=2r-2$ and both ranks are $r$,
+regardless of the choice of $G$. The zero tensor has both ranks zero.
+\end{theorem}
+
+The proof has three ingredients. The minimal apolar polynomial gives a
+nondegenerate finite moment algebra. Two symmetric constructions give the
+upper bounds in \eqref{eq:main}. A product-space argument gives a matching
+lower bound for an arbitrary minimum-length \emph{ordinary} decomposition.
+That last argument, not a restriction of a full-algebra rank bound, is the
+part that treats $r>n$ and multiple repeated support points.
+
+\section{The finite moment algebra}\label{sec:momentalgebra}
+
+A linear change in $(X,Y)$ acts invertibly on each degree-$q$ mode in
+\eqref{eq:moment}. It therefore preserves ordinary and symmetric tensor rank,
+and preserves the projective multiplicities of $G$. Choose such a change so
+that $G$ has no zero at infinity. After scaling,
+\[
+ g(t)=G(1,t)=t^r+g_{r-1}t^{r-1}+\cdots+g_0
+\]
+is monic of degree $r$.
+Write
+\begin{equation}\label{eq:gfact}
+ g(t)=\prod_{a=1}^s(t-\alpha_a)^{\ell_a},\qquad
+ \ell_a\ge1,\quad \sum_a\ell_a=r.
+\end{equation}
+
+\begin{lemma}[Moment algebra]\label{lem:moment}
+The algebra $A=\C[t]/(g)$ has a functional $\lambda:A\to\C$ such that
+\begin{equation}\label{eq:lambda}
+ \lambda([t^j])=h_j\quad(0\le j\le D).
+\end{equation}
+The pairing $(a,b)\mapsto\lambda(ab)$ is nondegenerate. Moreover,
+$r\le\lfloor D/2\rfloor+1$, and \eqref{eq:middle} holds.
+\end{lemma}
+\begin{proof}
+At degree $d=\lfloor D/2\rfloor+1$, the linear map in
+\eqref{eq:apolarkernel} has $d+1$ columns and $D-d+1$ rows, with more columns
+than rows. This proves the bound on $r$.
+Define $\lambda$ on the basis $1,t,\ldots,t^{r-1}$ by the first $r$ moments.
+The recurrence
+\[
+ h_{j+r}+g_{r-1}h_{j+r-1}+\cdots+g_0h_j=0
+ \quad(0\le j\le D-r)
+\]
+then proves \eqref{eq:lambda} successively through degree $D$.
+
+The radical of the pairing,
+$J=\{a\in A:\lambda(aA)=0\}$, is an ideal. If $J\ne0$, then
+$A/J\simeq\C[t]/(g')$ for a monic proper divisor $g'$ of $g$.
+The functional descends to this quotient. Equation~\eqref{eq:lambda} implies
+that $g'$ gives a recurrence for all the required moments, so its
+homogenization is a nonzero element of $I_{\deg g'}$.
+This contradicts the minimality of $r$. Hence the pairing is nondegenerate.
+
+Both polynomial spaces of degrees $\lfloor D/2\rfloor$ and
+$\lceil D/2\rceil$ surject onto $A$, because both degrees are at least $r-1$.
+The middle catalecticant is the pullback of this nondegenerate pairing through
+these two surjections. Its rank is therefore $r$. The rank is unchanged on
+returning to the original binary coordinates.
+\end{proof}
+
+A functional with the nondegeneracy property in Lemma~\ref{lem:moment} is called
+\emph{Frobenius}. The Chinese remainder decomposition is
+\begin{equation}\label{eq:crt}
+ A\simeq\prod_{a=1}^s A_a,
+ \qquad A_a=\C[z_a]/(z_a^{\ell_a}),\quad z_a=t-\alpha_a.
+\end{equation}
+Every restriction $\lambda_a$ is Frobenius.
+For a nonempty subset $J\subseteq\{1,\ldots,s\}$, let
+$A_J=\prod_{a\in J}A_a$ and $r_J=\sum_{a\in J}\ell_a$.
+Polynomial reduction gives
+\begin{equation}\label{eq:restrictiondimensions}
+ \dim \im(\C[t]_{\le q}\longrightarrow A_J)=\min\{n,r_J\}.
+\end{equation}
+Also,
+\begin{equation}\label{eq:allbutone}
+ \spanC\{[p_1]\cdots[p_{m-1}]:\deg p_i\le q\}=A,
+\end{equation}
+because $(m-1)q\ge r-1$ and products span every polynomial of degree at most
+$(m-1)q$.
+
+\begin{lemma}[Choice of the minimal apolar polynomial]\label{lem:unique}
+If $D\ge2r-1$, then $I_r$ is one-dimensional. If $D=2r-2$, then
+$\dim I_r=2$.
+\end{lemma}
+\begin{proof}
+In the first case, polynomials of degree at most $D-r$ surject onto $A$.
+For $b\in I_r$, the equations $\lambda([b][t^j])=0$ for $j\le D-r$ and
+nondegeneracy give $[b]=0$. Since $\deg b\le r$, $b$ is a multiple of $g$.
+In the second case, polynomials of degree at most $r-2$ give $r-1$ independent
+functionals on $A$. Reduction of polynomials of degree at most $r$ onto $A$
+has one-dimensional kernel, so the apolar kernel has dimension two.
+\end{proof}
+
+\section{Two symmetric upper bounds}\label{sec:upper}
+
+\begin{proposition}[Local interpolation upper bound]\label{prop:localupper}
+With \eqref{eq:gfact},
+\begin{equation}\label{eq:localupper}
+ \SR(H)\le\sum_{a=1}^s\bigl((m-1)(\ell_a-1)+1\bigr)
+          =(m-1)r-(m-2)s.
+\end{equation}
+\end{proposition}
+\begin{proof}
+In $A_a=\C[z]/(z^\ell)$, write
+\[
+ \lambda_a(f)=[z^{\ell-1}]\,u(z)f(z),\qquad u(0)\ne0.
+\]
+Such $u$ exists uniquely, and its constant coefficient is nonzero because
+$\lambda_a$ is Frobenius. Choose an $m$th root $w$ of $u$ modulo $z^\ell$;
+this exists by the finite binomial expansion, after choosing an $m$th root
+of $u(0)$.
+Set $N=(m-1)(\ell-1)+1$. For polynomials $f_i$ of degree at most $\ell-1$,
+\begin{equation}\label{eq:fourier}
+ [z^{\ell-1}]\prod_{i=1}^m f_i(z)
+ =\frac1N\sum_{\zeta^N=1}\zeta^{-(\ell-1)}
+                    \prod_{i=1}^m f_i(\zeta).
+\end{equation}
+Indeed, among integers between $0$ and $m(\ell-1)$, the only one congruent
+to $\ell-1$ modulo $N$ is $\ell-1$ itself.
+Apply \eqref{eq:fourier} to
+$f_i=w(z)p_i(\alpha_a+z)\bmod z^\ell$.
+Each summand uses the same linear functional of $p_i$ in every mode, hence is
+symmetric rank one. Summing the local decompositions gives \eqref{eq:localupper}.
+The case $\ell=1$ has $N=1$ and is included.
+\end{proof}
+
+\begin{proposition}[Binary interpolation upper bound]\label{prop:binaryupper}
+Every nonzero tensor under consideration satisfies
+\begin{equation}\label{eq:binaryupper}
+ \SR(H)\le\VR(H)\le D-r+2.
+\end{equation}
+\end{proposition}
+\begin{proof}
+Put $v=D-r+2\ge r$. Let $\tau:A\to\C$ take the coefficient of $t^{r-1}$
+in the remainder modulo $g$. This is Frobenius: for a nonzero polynomial of
+degree $d<r$, multiplication by $t^{r-1-d}$ produces a nonzero top coefficient.
+Thus $\lambda(a)=\tau(ua)$ for a unique unit $u\in A$.
+Choose the degree-at-most-$r-1$ representative $b(t)$ of $u^{-1}$.
+For $0\le j\le r-2$,
+\[
+ L(t^j b(t))=\lambda([t^j b])=\tau([t^j])=0.
+\]
+Consequently the degree-$v$ homogenization $B(X,Y)=X^v b(Y/X)$ is apolar.
+It is coprime to $G$: its residue modulo $g$ is a unit, and $G$ has no zero
+at infinity.
+
+Choose a homogeneous $Q$ of degree $v-r$ so that $GQ$ and $B$ are coprime
+and $Q$ does not vanish at infinity. The pencil
+$B+cGQ$ has a squarefree member with no root at infinity. To see this directly,
+a repeated finite zero would be a critical point of the nonconstant rational
+function $B/(GQ)$; in characteristic zero there are only finitely many
+critical values. Exclude these finitely many values and $c=0$.
+
+Let the resulting affine polynomial have distinct roots
+$\beta_1,\ldots,\beta_v$. Solve the invertible Vandermonde system for weights
+$\gamma_a$ matching $h_0,\ldots,h_{v-1}$. Apolarity gives the recurrence
+which then matches every remaining moment through degree $D$. Hence
+\[
+ H=\sum_{a=1}^v\gamma_a(1,\beta_a,\ldots,\beta_a^q)^{\otimes m}.
+\]
+Zero weights may be discarded. For $r=1$, the same argument uses an empty
+set of conditions $0\le j\le-1$; alternatively Lemma~\ref{lem:moment}
+immediately gives rank one.
+\end{proof}
+
+\begin{proposition}[Vandermonde rank dichotomy]\label{prop:vandermonde}
+The exact Vandermonde rank is
+\[
+ \VR(H)=\begin{cases}
+ r,&G\text{ is squarefree},\\
+ D-r+2,&G\text{ is not squarefree}.
+ \end{cases}
+\]
+This is independent of the choice of $G$ in the balanced case $D=2r-2$.
+\end{proposition}
+\begin{proof}
+A Vandermonde decomposition with $d$ distinct projective nodes gives a
+squarefree polynomial in $I_d$: take the product of the linear forms vanishing
+at the nodes. Conversely, a squarefree apolar polynomial yields a decomposition
+on its nodes by the Vandermonde recurrence construction, after moving infinity
+away from the nodes. Thus $\VR(H)$ is the smallest squarefree apolar degree.
+
+For $r\le d<D-r+2$, every $b\in I_d$ satisfies
+$\lambda([b][t^j])=0$ for $j\le D-d$, and $D-d\ge r-1$.
+Nondegeneracy forces $[b]=0$, so in homogeneous notation
+$I_d=G\,\C[X,Y]_{d-r}$. If $G$ is not squarefree, none of these polynomials
+is squarefree; Proposition~\ref{prop:binaryupper} attains degree $D-r+2$.
+If $G$ is squarefree, degree $r$ is already attainable and minimal by definition
+of $r$. When $D=2r-2$, both alternatives give $r$.
+\end{proof}
+
+The familiar binary interpolation construction is thus sufficient for the
+first bound; no genericity is used. The local construction supplies the
+potentially smaller second bound even when $r>n$.
+
+\section{A product-space inequality with a Frobenius constraint}\label{sec:product}
+
+For subspaces $U,V$ of a commutative algebra, $UV$ denotes the linear span of
+all products $uv$. Empty products of subspaces mean $\C1$.
+For a subspace $W$, define
+\[
+ \Stab(W)=\{b:bW\subseteq W\}.
+\]
+It is a unital subalgebra.
+The following transformation lemma is the commutative finite-dimensional
+specialization of Beck--Lecouvey, Lemma 4.2.\footnote{V.~Beck and C.~Lecouvey,
+\emph{Additive combinatorics methods in associative algebras}, Confluentes
+Math. 9 (2017), no. 1, 3--27, Lemma 4.2.
+\url{https://doi.org/10.5802/cml.34}.}
+
+\begin{lemma}[Linear transformation lemma]\label{lem:transform}
+Let $B$ be a finite-dimensional commutative complex algebra. If $U,V\subseteq B$
+contain units, then for every unit $a\in U$ there are a unital subalgebra
+$K_a\subseteq B$ and a subspace $T_a$ such that
+\begin{equation}\label{eq:transform}
+ aV\subseteq T_a\subseteq UV,\qquad K_aT_a=T_a,\qquad
+ \dim T_a+\dim K_a\ge\dim U+\dim V.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Scaling reduces to $a=1\in U$ and $1\in V$. Induct on $\dim U$.
+For a unit $e\in V$, put
+\[
+ U_e=U\cap Ve^{-1},\qquad V_e=V+Ue.
+\]
+Then $1\in U_e\cap V_e$, $U_eV_e\subseteq UV$, and
+$\dim U_e+\dim V_e=\dim U+\dim V$.
+If some $U_e\ne U$, apply induction to $(U_e,V_e)$.
+Otherwise $Ue\subseteq V$ for every unit $e\in V$.
+Units span $V$ (the nonunits form finitely many proper residue hyperplanes),
+so $UV=V$. The algebra $K=\C[U]$ satisfies $KV=V$ and $\dim K\ge\dim U$;
+take $T=V$. This also covers the initial case $\dim U=1$.
+Undoing the unit scalings gives \eqref{eq:transform}.
+\end{proof}
+
+A general product-space Kneser inequality cannot simply be invoked in an
+arbitrary nonreduced algebra. The next lemma proves exactly the contextual
+version needed here and supplies the missing finiteness argument.
+
+\begin{lemma}[Contextual product inequality]\label{lem:context}
+Let $B=A\times\C^R$, where $A$ is a finite-dimensional commutative complex
+algebra. Let $\Lambda:B\to\C$ restrict to a Frobenius functional on $A$.
+Suppose $U_1,\ldots,U_m\subseteq B$ contain $1$, and set $W=U_1\cdots U_m$.
+Assume
+\begin{equation}\label{eq:contextassumptions}
+ \Lambda(W)=0,\qquad
+ \pi_A\left(\prod_{k\ne i}U_k\right)=A
+ \quad\text{for every }i.
+\end{equation}
+For $W_j=U_1\cdots U_j$ and $j\ge2$,
+\begin{equation}\label{eq:knesercontext}
+ \dim W_j\ge\dim W_{j-1}+\dim U_j-\dim\Stab(W_j).
+\end{equation}
+Moreover, $\Stab(W)$ is reduced.
+\end{lemma}
+\begin{proof}
+Fix $j$, put $U=U_j$, $V=W_{j-1}$, and
+$Q=U_{j+1}\cdots U_m$.
+Apply Lemma~\ref{lem:transform} to a unit $a\in U$, obtaining $K_a,T_a$.
+If $z\in K_a$ is nilpotent, its $\C^R$ component is zero. Since
+$zT_a\subseteq T_a$,
+\[
+ z\,aVQ\subseteq T_aQ\subseteq UVQ=W.
+\]
+Consequently
+\[
+ \Lambda_A(z_Aa_A\,\pi_A(VQ))=0.
+\]
+Here $\pi_A(VQ)=A$ by \eqref{eq:contextassumptions}, and $a_A$ is a unit.
+Nondegeneracy of the Frobenius pairing forces $z_A=0$, hence $z=0$.
+Thus \emph{every auxiliary algebra $K_a$ is reduced}.
+
+There are only finitely many reduced unital subalgebras of $B$.
+Indeed, a reduced finite-dimensional complex algebra is a product of copies
+of $\C$. Its primitive idempotents map to idempotents of $B$.
+In each local factor of $B$ an idempotent is either $0$ or $1$.
+Such subalgebras are therefore specified by partitions of the finite set of
+local factors of $B$.
+
+Let $d=\dim U$ and choose a basis $x_1=1,x_2,\ldots,x_d$ of $U$.
+For $c\in\C$, set
+\[
+ a(c)=x_1+cx_2+\cdots+c^{d-1}x_d.
+\]
+All but finitely many $a(c)$ are units: each residue coordinate is a polynomial
+with constant term $1$. Finiteness of the possible $K_{a(c)}$ gives $d$ distinct
+values $c_1,\ldots,c_d$ with a common auxiliary algebra $K$.
+The corresponding $a(c_i)$ form a basis of $U$ by the Vandermonde determinant.
+It follows that
+\[
+ UV=\sum_{i=1}^d a(c_i)V=\sum_{i=1}^dT_{a(c_i)},\qquad KUV=UV.
+\]
+The first equality with the $T$-spaces follows by the two inclusions in
+\eqref{eq:transform}. Therefore $K\subseteq\Stab(UV)$, and
+\[
+ \dim UV+\dim\Stab(UV)
+ \ge\dim T_{a(c_1)}+\dim K\ge\dim U+\dim V.
+\]
+This proves \eqref{eq:knesercontext}.
+
+Finally, if $z\in\Stab(W)$ is nilpotent, then $z_{\C^R}=0$ and
+$\Lambda_A(z_A\pi_A(W))=0$. The projection $\pi_A(W)=A$, since every $U_i$
+contains $1$ and \eqref{eq:contextassumptions} holds.
+Again nondegeneracy gives $z=0$, proving that $\Stab(W)$ is reduced.
+\end{proof}
+
+\begin{corollary}[Trivial-stabilizer bound]\label{cor:trivial}
+Under the hypotheses of Lemma~\ref{lem:context}, if $\Stab(W)=\C1$, then
+\begin{equation}\label{eq:trivial}
+ \dim W\ge\sum_{i=1}^m\dim U_i-(m-1).
+\end{equation}
+\end{corollary}
+\begin{proof}
+Every $\Stab(W_j)$ is contained in $\Stab(W)$, because multiplication by the
+remaining factors preserves its stabilizing action. Its dimension is therefore
+one. Sum \eqref{eq:knesercontext} for $j=2,\ldots,m$.
+\end{proof}
+
+\section{Lower bound for an arbitrary ordinary decomposition}\label{sec:lower}
+
+\begin{proposition}[Exact ordinary-rank lower bound]\label{prop:lower}
+For the moment tensor in \eqref{eq:moment},
+\begin{equation}\label{eq:lower}
+ \Rk(H)\ge\min\{D-r+2,\ (m-1)r-(m-2)s\}.
+\end{equation}
+\end{proposition}
+\begin{proof}
+Let $R=\Rk(H)$ and take a minimum-length ordinary decomposition,
+\begin{equation}\label{eq:ordinary}
+ H(p_1,\ldots,p_m)=\sum_{b=1}^R\prod_{i=1}^m\beta_{b,i}(p_i),
+ \qquad \beta_{b,i}\in(\Pq)^*\setminus\{0\}.
+\end{equation}
+Its $R$ decomposable tensors are linearly independent. Otherwise a nonzero
+linear relation would eliminate one summand after rescaling the others,
+contradicting minimality.
+
+Set $B=A\times\C^R$ and introduce the graph subspaces
+\[
+ \widetilde U_i=
+ \{([p],\beta_{1,i}(p),\ldots,\beta_{R,i}(p)):p\in\Pq\}\subseteq B.
+\]
+Define
+\[
+ \widetilde\Lambda(a,c_1,\ldots,c_R)=\lambda(a)-\sum_{b=1}^R c_b.
+\]
+Equation~\eqref{eq:ordinary} says
+$\widetilde\Lambda(\widetilde U_1\cdots\widetilde U_m)=0$.
+Choose a unit $u_i\in\widetilde U_i$ for every $i$.
+This is possible by avoiding the finitely many hyperplanes
+$p(\alpha_a)=0$ and $\beta_{b,i}(p)=0$.
+Now put
+\begin{equation}\label{eq:normalize}
+ U_i=u_i^{-1}\widetilde U_i,\qquad
+ \Lambda(x)=\widetilde\Lambda(u_1\cdots u_mx),\qquad
+ W=U_1\cdots U_m.
+\end{equation}
+Then $1\in U_i$, $\Lambda(W)=0$, the restriction $\Lambda_A$ is Frobenius,
+and each coefficient of $\Lambda$ on a $\C$ factor is nonzero.
+Equation~\eqref{eq:allbutone}, multiplied by units, verifies every surjectivity
+hypothesis in \eqref{eq:contextassumptions}.
+
+In addition,
+\begin{equation}\label{eq:ontoB}
+ \pi_{\C^R}(W)=\C^R.
+\end{equation}
+Indeed, the coordinate functionals of the unnormalized product-evaluation map
+are the linearly independent decomposable tensors in \eqref{eq:ordinary}.
+The map is therefore onto; normalization is just invertible coordinate scaling.
+
+By Lemma~\ref{lem:context}, $K=\Stab(W)$ is reduced. Write its primitive
+idempotents as $e_1,\ldots,e_t$, so
+\[
+ B=\prod_{j=1}^t B_j,\qquad B_j=e_jB=A_j\times\C^{R_j},\qquad
+ W=\bigoplus_{j=1}^t W^{(j)},\quad W^{(j)}=e_jW.
+\]
+Each $A_j$ is a product of some of the local factors in \eqref{eq:crt}.
+Write $r_j=\dim A_j$ and let $s_j$ count those local factors.
+No $A_j$ is zero. Otherwise \eqref{eq:ontoB} would give
+$W^{(j)}=B_j=\C^{R_j}$, contradicting $\Lambda(W^{(j)})=0$ and the nonzero
+coordinate coefficients of $\Lambda$. Hence
+\begin{equation}\label{eq:partitions}
+ r_j\ge1,\quad s_j\ge1,\quad t\le s,\quad
+ \sum_j r_j=r,\quad\sum_jR_j=R.
+\end{equation}
+
+Put $U_i^{(j)}=e_jU_i$. These spaces contain the identity $e_j$ of $B_j$,
+and their product is $W^{(j)}$. The contextual hypotheses pass to $B_j$.
+The stabilizer of $W^{(j)}$ inside $B_j$ is exactly $\C e_j$:
+an additional stabilizer, extended by zero to the other blocks, would be an
+element of $K$ not constant on its $j$th primitive block.
+By \eqref{eq:restrictiondimensions} and normalization by units,
+\[
+ \dim U_i^{(j)}\ge\min\{n,r_j\}.
+\]
+Corollary~\ref{cor:trivial} now yields
+\[
+ \dim W^{(j)}\ge m\min\{n,r_j\}-m+1.
+\]
+On the other hand, the nonzero functional $\Lambda|_{B_j}$ annihilates
+$W^{(j)}$, so $\dim W^{(j)}\le r_j+R_j-1$. Therefore
+\begin{equation}\label{eq:blockbound}
+ \boxed{\displaystyle R_j\ge m\min\{n,r_j\}-r_j-m+2.}
+\end{equation}
+
+There are two possibilities. If some $r_j\ge n$, then
+\[
+ R\ge R_j\ge mn-r_j-m+2=D-r_j+2\ge D-r+2.
+\]
+If every $r_j<n$, sum \eqref{eq:blockbound} and use \eqref{eq:partitions}:
+\[
+ R\ge\sum_j((m-1)r_j-(m-2))
+   =(m-1)r-(m-2)t
+   \ge(m-1)r-(m-2)s.
+\]
+In either case \eqref{eq:lower} follows.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Propositions~\ref{prop:localupper} and \ref{prop:binaryupper} give the upper
+bound for $\SR(H)$, Proposition~\ref{prop:lower} gives the identical lower
+bound for $\Rk(H)$, and always $\Rk(H)\le\SR(H)$.
+If $I_r$ is not one-dimensional, Lemma~\ref{lem:unique} gives $D=2r-2$.
+Then $D-r+2=r$ while $(m-1)r-(m-2)s\ge r$, so the result is independent of $G$.
+\end{proof}
+
+\begin{remark}[Why the mixed-root case is included]
+The idempotents in the argument partition whole local factors of $A$, not
+individual derivative coordinates. Thus a repeated root cannot be silently
+split into reduced points. The graph subspaces record arbitrary mode-dependent
+factors $\beta_{b,i}$; none is assumed symmetric or Vandermonde.
+The algebra $A$ can be larger than a mode space. Only products of all but one
+mode are required to surject onto $A$, as verified in \eqref{eq:allbutone}.
+\end{remark}
+
+\section{Border ranks and a fixed Koszul identity}\label{sec:border}
+
+\begin{theorem}[All border ranks]\label{thm:border}
+For every complex Hankel tensor,
+\begin{equation}\label{eq:border}
+ \BR(H)=\BSR(H)=\BVR(H)=\rank C_h=r.
+\end{equation}
+\end{theorem}
+\begin{proof}
+The zero tensor is immediate. For a nonzero tensor, work in the monic
+coordinates of Section~\ref{sec:momentalgebra} for the upper bound.
+Perturb $g$ to squarefree monic polynomials $g_\varepsilon$ of degree $r$.
+Keep the first $r$ moments fixed and extend them through degree $D$ by the
+$g_\varepsilon$ recurrence. The resulting moments converge to the original
+ones, and the Vandermonde system gives a length-at-most-$r$ Vandermonde
+decomposition for each perturbation. This proves $\BVR(H)\le r$.
+It remains to prove the unrestricted border-rank lower bound.
+
+For even $m=2k$, group the modes into two groups of $k$. For each possible
+index sum choose one representative multi-index in each group.
+The corresponding submatrix of the flattening is $C_h$, so its rank gives
+$\BR(H)\ge r$.
+
+Now suppose $m=2k+1$. Put
+\[
+ a=kq+1,\quad b=\lfloor q/2\rfloor,\quad c=\lceil q/2\rceil,
+ \quad p_1=a+b,\quad p_2=a+c.
+\]
+Group the modes as $k,1,k$. In the two outer groups, extract one coordinate
+for each sum $0,\ldots,kq$. In the middle mode, extract coordinates $0,b,q$.
+These are linear maps, even when $q=1$ and two extracted coordinates coincide.
+The resulting $a\times3\times a$ tensor has slices
+\[
+ M_j=(h_{u+v+j})_{0\le u,v<a},\qquad j=0,b,q.
+\]
+Its three-slice Koszul matrix is
+\begin{equation}\label{eq:K}
+ \mathcal K=\begin{pmatrix}
+ 0&M_q&-M_b\\-M_q&0&M_0\\M_b&-M_0&0
+ \end{pmatrix}.
+\end{equation}
+On an arbitrary rank-one $a\times3\times a$ tensor this matrix has rank at
+most two: it is the tensor product of a $3\times3$ skew matrix of rank two
+and a rank-one matrix. Therefore
+$\rank\mathcal K\le2\BR(H)$, by linearity and closedness of matrix-rank bounds.
+
+Here $C_h$ is $p_1\times p_2$. For $x\in\C^{p_1}$ and $y\in\C^{p_2}$,
+define the $(3a)\times(p_1+p_2)$ matrix $E$ by
+\begin{equation}\label{eq:E}
+ E(x,y)=\bigl((x_{i+b})_{i=0}^{a-1},\
+                  (-x_i+y_{i+c})_{i=0}^{a-1},\
+                  (-y_i)_{i=0}^{a-1}\bigr).
+\end{equation}
+A direct block multiplication, using $b+c=q$, gives the identity
+\begin{equation}\label{eq:identity}
+ \boxed{\displaystyle
+ \mathcal K=E\begin{pmatrix}0&C_h\\-C_h^{\mathsf T}&0\end{pmatrix}E^{\mathsf T}.}
+\end{equation}
+It holds for every moment vector, not only a generic one.
+
+The matrix $E$ has full column rank. If $E(x,y)=0$, then
+$x_i=0$ for $i\ge b$, and $y_i=0$ for $i<a$.
+For $i<b$, the middle equations give $x_i=y_{i+c}=0$, since $i+c<q\le a$.
+Thus $x=0$. All remaining $y$ coordinates are then zero by the same middle
+equations, because $a\ge c$.
+Consequently \eqref{eq:identity} gives
+$\rank\mathcal K=2\rank C_h=2r$.
+This proves $\BR(H)\ge r$ also for odd order, and proves \eqref{eq:border}.
+\end{proof}
+
+\section{Consequences and examples}\label{sec:examples}
+
+\begin{corollary}[Reduced support]
+If $G$ is squarefree, then all ordinary, symmetric, and Vandermonde exact and
+border ranks equal $r$.
+\end{corollary}
+\begin{proof}
+Here $s=r$, so Theorem~\ref{thm:main} gives exact rank $r$.
+The same distinct-root recurrence gives a Vandermonde decomposition of length
+$r$, and Theorem~\ref{thm:border} gives the lower bound.
+\end{proof}
+
+\begin{corollary}[A single support point]
+If $G$ has just one projective zero, then
+\[
+ \Rk(H)=\SR(H)=\min\{D-r+2,\ (m-1)(r-1)+1\}.
+\]
+In particular, if $h_k\ne0$ and $h_j=0$ for all $j>k$, with $k\le D/2$, then
+$r=k+1$, $s=1$, and
+\[
+ \Rk(H)=\SR(H)=\min\{D-k+1,\ (m-1)k+1\}.
+\]
+\end{corollary}
+\begin{proof}
+The first assertion substitutes $s=1$. In the second, $t^{k+1}$ gives a
+recurrence and the $(k+1)\times(k+1)$ leading Hankel block is anti-triangular
+with nonzero anti-diagonal $h_k$. Hence its rank is $k+1$, giving the stated
+minimal polynomial and rank.
+\end{proof}
+
+\begin{corollary}[Maximum Hankel rank]\label{cor:max}
+For fixed $m,n$,
+\[
+ \max_{H\ \mathrm{Hankel}}\Rk(H)
+ =\max_{H\ \mathrm{Hankel}}\SR(H)=(m-1)(n-1)+1.
+\]
+\end{corollary}
+\begin{proof}
+If $r\le n$, the second term of \eqref{eq:main} is at most
+$(m-1)n-(m-2)=(m-1)q+1$, since $s\ge1$.
+If $r\ge n$, the first term is at most $D-n+2=(m-1)q+1$.
+The moment sequence $h_q=1$, $h_j=0$ for $j\ne q$, has $r=n$, $s=1$ and
+attains the bound.
+\end{proof}
+
+\begin{example}[A mixed repeated-root case with $r>n$]\label{ex:mixed}
+Take $m=5$, $n=3$, and
+\[
+ L(f)=f'(0)+f(1)+f(2),\qquad
+ h_j=\mathbf1_{\{j=1\}}+1+2^j\quad(0\le j\le10).
+\]
+The minimal polynomial is $g(t)=t^2(t-1)(t-2)$, so $r=4$, $s=3$.
+The formula gives
+\[
+ \Rk(H)=\SR(H)=\min\{8,7\}=7,
+ \qquad \BR(H)=4.
+\]
+The upper bound is visible in the exact decomposition
+\[
+ H=\frac15\sum_{\zeta^5=1}\zeta^{-1}(1,\zeta,0)^{\otimes5}
+       +(1,1,1)^{\otimes5}+(1,2,4)^{\otimes5}.
+\]
+The lower bound is Proposition~\ref{prop:lower}; it does not assume that an
+ordinary decomposition has the displayed form. This example distinguishes
+exact rank, border rank, and the degree-eight binary interpolation bound.
+\end{example}
+
+\begin{example}[Two repeated support points above the mode dimension]
+Take $m=5$, $n=3$, and $L(f)=f'(0)+f'(1)$.
+Then $g=t^2(t-1)^2$, $r=4$, $s=2$. The local construction gives ten terms,
+whereas the binary construction gives eight. Theorem~\ref{thm:main} proves
+that both exact ranks are eight.
+\end{example}
+
+\begin{example}[Rank substantially below Vandermonde rank]
+For $m\ge3$, $n=3$, let $h_1=h_{2m}=1$ and all other moments vanish.
+The associated form in three tensor variables is
+$m x^{m-1}y+z^m$.
+Its projective apolar support has one double point and one simple point:
+$r=3$, $s=2$. Thus
+\[
+ \Rk(H)=\SR(H)=m+1,
+ \qquad \BR(H)=3.
+\]
+Its binary Vandermonde rank is $2m-1$, by Proposition~\ref{prop:vandermonde}. Equality of ordinary and symmetric rank therefore does not mean
+that an optimal decomposition must stay on the rational normal curve.
+\end{example}
+
+\begin{example}[A table of exact values]
+Each row specifies a Frobenius moment functional by the multiplicities of its
+minimal apolar support. The balanced row is independent of that choice.
+\begin{center}
+\begin{tabular}{@{}rrrrrrr@{}}
+\toprule
+$m$&$n$&$r$&$s$&$D-r+2$&$(m-1)r-(m-2)s$&$\Rk=\SR$\\
+\midrule
+3&3&3&1&5&5&5\\
+3&4&5&4&6&6&6\\
+4&3&4&2&6&8&6\\
+5&3&4&3&8&7&7\\
+5&3&4&2&8&10&8\\
+5&3&6&1&6&21&6\\
+7&4&5&4&18&10&10\\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{example}
+
+\section{An exact rank algorithm}\label{sec:algorithm}
+
+For exact rational or algebraic input, no root approximation is required.
+Form the matrices
+\[
+ C_d=(h_{i+j})_{\substack{0\le j\le D-d\\0\le i\le d}}
+ \qquad(d=1,\ldots,\lfloor D/2\rfloor+1).
+\]
+The first matrix with nonzero kernel gives $r$ and coefficients
+$(g_0,\ldots,g_r)$ of $G=\sum g_iX^{r-i}Y^i$.
+Let $g(t)=\sum g_it^i$, and let $e=\deg g$ in the original coordinates.
+The number of distinct projective zeros is
+\begin{equation}\label{eq:gcdcount}
+ s=e-\deg\gcd(g,g')+\mathbf1_{\{e<r\}}.
+\end{equation}
+For a nonzero constant $g$, the first two terms are zero.
+The final indicator counts the possible root at infinity only once, irrespective
+of its multiplicity. Return the minimum in \eqref{eq:main}.
+
+The supplied \texttt{code/hankel\_rank.py} implements these operations in
+SymPy using exact rational arithmetic. It reports the two upper bounds, the
+apolar polynomial, the ordinary and symmetric ranks, and the common border
+rank. It rejects floating-point input rather than deciding exact rank with a
+numerical tolerance. Rank computation does not require factoring $G$ into
+linear factors.
+
+The companion \texttt{code/binary\_certificate.py} constructs a minimal
+Vandermonde decomposition implicitly, without approximating its algebraic roots.
+Its output consists of a squarefree monic polynomial $P$, a polynomial $U$,
+and a vector of polynomials $f$, all over $\mathbb Q$, with
+\[
+ H=\sum_{P(\beta)=0}\frac{U(\beta)}{P'(\beta)}f(\beta)^{\otimes m}.
+\]
+The top-coefficient identity for Lagrange interpolation verifies this sum by
+polynomial remainders in $\mathbb Q[t]/(P)$. A rational projective shear handles
+roots initially at infinity. These Vandermonde certificates are optimal for
+ordinary and symmetric rank precisely when their length agrees with
+\eqref{eq:main}; the output explicitly labels this distinction.
+
+An optimal symmetric decomposition can also be constructed. If the second
+term of \eqref{eq:main} is smaller, use the Chinese remainder and root-of-unity
+construction in Proposition~\ref{prop:localupper}. If the first term is smaller,
+use the squarefree apolar pencil in Proposition~\ref{prop:binaryupper}.
+Any zero or redundant summands would contradict the lower bound, so a
+length-achieving construction is minimal.
+
+\section{Verification scope}\label{sec:verification}
+
+The mathematical proof of the universal statement is Sections~2--5.
+The finite computations supplied with this manuscript are reproducibility
+checks, not a replacement for that proof. They check exact catalecticant and
+apolar calculations, local Fourier interpolation identities, complete
+small-dimensional tensor reconstructions, a mixed-root graph-algebra example,
+and the fixed identity \eqref{eq:identity} across many dimensions and moment
+patterns. Finite-field checks are labeled as such and do not purport to prove
+the complex-field theorem by testing.
+
+The argument has not been independently peer reviewed or formalized in a proof
+assistant. In particular, a successful run of the verification scripts is not
+a certificate for an arbitrary claimed mathematical proof. The companion
+\texttt{PROOF\_AUDIT.md} identifies the dependencies and checks the
+surjectivity, nilpotent exclusion, and support-partition steps explicitly.
+
+\appendix
+\section{An independent lower-bound check for terminal moment sequences}
+
+This appendix provides an elementary verification of the single-support
+formula without the contextual product-space argument.
+
+\begin{lemma}[Terminal-sequence substitution bound]\label{lem:terminal}
+Let $m\ge2$, $q\ge1$, $q\le k\le mq$, and let $T$ have entries
+$h_{i_1+\cdots+i_m}$, $0\le i_j\le q$, where $h_k\ne0$ and $h_j=0$ for $j>k$.
+Then $\Rk(T)\ge mq-k+1$.
+\end{lemma}
+\begin{proof}
+Induct on $m$. For $m=2$, an anti-triangular submatrix of size $2q-k+1$
+has nonzero anti-diagonal $h_k$.
+For general $m$, if $k>(m-1)q$, the first-mode flattening contains an
+anti-triangular minor of size $mq-k+1$: use row indices
+$i=k-(m-1)q,\ldots,q$ and column sums $k-q,\ldots,(m-1)q$.
+
+It remains that $q\le k\le(m-1)q$. The first-mode flattening has full row
+rank $q+1$, using rows $0,\ldots,q$ and column sums $k-q,\ldots,k$.
+In a minimum decomposition, choose $q+1$ independent first-mode factors and
+their dual basis $p_0,\ldots,p_q$ in $\C[t]_{\le q}$.
+At least one $p_a$ has $p_a(0)\ne0$. Contraction with that polynomial kills
+$q$ of the chosen summands and gives an $(m-1)$-mode Hankel tensor with moments
+$h'_j=\sum_{u=0}^q(p_a)_u h_{j+u}$.
+It has $h'_k=(p_a)_0h_k\ne0$ and $h'_j=0$ for $j>k$.
+Induction gives its rank at least $(m-1)q-k+1$; restoring the $q$ killed
+summands gives $mq-k+1$.
+\end{proof}
+
+For $1\le k\le q$, all entries with a mode index above $k$ vanish. Restrict
+each mode to indices $0,\ldots,k$ and apply Lemma~\ref{lem:terminal} with
+$q'=k$; this gives $(m-1)k+1$. The case $k=0$ has rank one directly.
+For $k\ge q$, the lemma supplies $D-k+1$. When $k\le D/2$, these lower bounds
+match the two branches of the single-support formula and the symmetric upper
+bounds in Section~3. Thus no contextual product inequality is needed for this
+check, including the extremal example in Corollary~\ref{cor:max}.
+
+\section{Source notes}
+
+The contextual inequality in Lemma~\ref{lem:context}, and its use with the graph
+of an unrestricted decomposition, are the essential arguments of this
+manuscript. The linear transformation in Lemma~\ref{lem:transform} is credited
+to Beck--Lecouvey. Its finiteness conclusion here is not assumed from a theorem
+requiring finitely many subalgebras of the ambient nonreduced algebra; it is
+proved by excluding nilpotents from each auxiliary algebra.
+
+For $r\le n$, the lower bound reduces to the familiar commutative
+Alder--Strassen-type expression. The general multilinear algebra lower bound
+provides a useful comparison, but is not used to pass a rank bound through a
+restriction.\footnote{M.~Bl\"aser, H.~Mayer, and D.~Shringi,
+\emph{On the Multilinear Complexity of Associative Algebras}, STACS 2023,
+Article 12, Theorem 19. \url{https://doi.org/10.4230/LIPIcs.STACS.2023.12}.}
+
+\begin{thebibliography}{9}
+\bibitem{TR14}
+Open Problems in Numerical Linear Algebra.
+\emph{TR-14: Comon's exact-rank conjecture for Hankel tensors}.
+Repository page, last checked there September 10, 2026; accessed September 12, 2026.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/tensor-computations/TR-14}.
+
+\bibitem{NY}
+J.~Nie and K.~Ye.
+\emph{Hankel Tensor Decompositions and Ranks}.
+SIAM J. Matrix Anal. Appl. \textbf{40} (2019), 486--516.
+\url{https://doi.org/10.1137/18M1168285}.
+Author preprint: \url{https://arxiv.org/abs/1706.03631}.
+
+\bibitem{BL}
+V.~Beck and C.~Lecouvey.
+\emph{Additive combinatorics methods in associative algebras}.
+Confluentes Math. \textbf{9} (2017), no. 1, 3--27.
+\url{https://doi.org/10.5802/cml.34}.
+Author preprint: \url{https://arxiv.org/abs/1504.02287}.
+
+\bibitem{TR13}
+M.~J.~Colbrook.
+\emph{TR-13: Equality of ranks for generic odd-order Hankel tensors}.
+Repository manuscript, September 11, 2026.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/tensor-computations/TR-13}.
+The repository describes this as recovered AI-assisted work, not external
+human peer review or formal certification.
+
+\bibitem{BMS}
+M.~Bl\"aser, H.~Mayer, and D.~Shringi.
+\emph{On the Multilinear Complexity of Associative Algebras}.
+40th International Symposium on Theoretical Aspects of Computer Science,
+LIPIcs \textbf{254} (2023), Article 12, 12:1--12:18.
+\url{https://doi.org/10.4230/LIPIcs.STACS.2023.12}.
+\end{thebibliography}
+\end{document}
