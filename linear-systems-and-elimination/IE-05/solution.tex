@@ -1,0 +1,405 @@
+% Standalone resolution manuscript generated from solution.md.
+% Compile with XeLaTeX; author and review metadata are maintained in Markdown.
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=24mm,headheight=15pt]{geometry}
+\usepackage{fontspec}
+\setmainfont{DejaVuSerif.ttf}[BoldFont=DejaVuSerif-Bold.ttf,ItalicFont=DejaVuSerif-Italic.ttf,BoldItalicFont=DejaVuSerif-BoldItalic.ttf]
+\setsansfont{DejaVuSans.ttf}[BoldFont=DejaVuSans-Bold.ttf,ItalicFont=DejaVuSans-Oblique.ttf]
+\setmonofont{DejaVuSansMono.ttf}
+\usepackage{amsmath,amssymb,unicode-math}
+\setmathfont{latinmodern-math.otf}
+\usepackage{xcolor,microtype,parskip,needspace,fancyhdr}
+\usepackage{longtable,booktabs,array}
+\newcounter{none} % Pandoc's unnumbered tables
+\usepackage{bookmark}
+\usepackage{xurl}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue,pdftitle={IE-05:
+An order-eight counterexample to the orthogonal extremizer
+conjecture},pdfauthor={George Stepaniants},pdflang={en-GB}}
+\urlstyle{same}
+\setlength{\emergencystretch}{3em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\setcounter{secnumdepth}{0}
+\allowdisplaybreaks[1]
+\widowpenalty=10000
+\clubpenalty=10000
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily RESOLUTION / IE-05}
+\fancyhead[R]{\small\sffamily 11 September 2026}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\fontsize{8}{10}\selectfont AI-assisted
+proof; independent automated-agent review documented in the submission
+record.}}
+\fancyfoot[R]{\footnotesize\thepage}
+\begin{document}
+{\raggedright\Large\bfseries IE-05: An order-eight counterexample to the
+orthogonal extremizer conjecture\par}
+\vspace{0.4em}
+{\normalsize\bfseries George Stepaniants\par}
+{\small Department of Computing and Mathematical Sciences, California
+Institute of Technology, Pasadena, California, USA.\par}
+\vspace{0.6em}
+\pagestyle{plain}
+\setlength{\abovedisplayskip}{6pt}
+\setlength{\belowdisplayskip}{6pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+
+This manuscript gives a negative resolution of the exact extremizer
+equality in IE-05. It was developed with substantial ChatGPT/Codex
+assistance at the author's request. A separate
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/stepaniants-ie05-2026-09-11/independent-review.md}{independent
+Codex-agent review} returned \textbf{PASS for the complete canonical
+target}, with exact rational checks of every pivot and active entry.
+This is automated-agent review, not external human peer review or formal
+proof-assistant verification.
+
+\subsection{Theorem}\label{theorem}
+
+Let \(L_8\) be the unit lower triangular matrix with every entry below
+the diagonal equal to \(-1\), and let \(Q_8\) be its orthogonal factor
+in the QR factorization with positive diagonal in the triangular factor.
+There is an explicit real orthogonal matrix \(\widetilde Q\in O(8)\) for
+which partial pivoting, choosing the first available row in every tie,
+gives
+
+\nopagebreak[4]
+
+\[
+\rho_{\mathrm{PP}}(\widetilde Q)=\frac{5272}{63}
+>\sqrt{\frac{17948132}{2601}}
+=\rho_{\mathrm{PP}}(Q_8).
+\]
+
+In particular, the equality proposed in IE-05 is false. The supremum
+over all orthogonal matrices and admissible partial-pivoting paths is
+strictly greater than the proposed value already at order eight.
+
+All computations below are in exact arithmetic. The proof supplies
+integer matrices, rational squared norms and exact pivot paths. Decimal
+approximations are unnecessary for the comparison.
+
+\subsection{1. The matrix and its QR
+convention}\label{the-matrix-and-its-qr-convention}
+
+Put
+
+\nopagebreak[4]
+
+\[
+\widetilde L=L_8+e_8e_2^T.
+\]
+
+Thus the only modification is that the entry in row \(8\), column \(2\)
+is changed from \(-1\) to \(0\). Define
+
+\nopagebreak[4]
+
+\[
+H=
+\begin{pmatrix}
+ 1&-1&-3&-21&-41&-101&-325&63\\
+-1& 3& 1& 17& 71& 291&1179&31\\
+-1&-1&13&-19&-56&-196&-752&16\\
+-1&-1&-3&189&-28&-98&-376&8\\
+-1&-1&-3&-51&581&-49&-188&4\\
+-1&-1&-3&-51&-213&1507&-94&2\\
+-1&-1&-3&-51&-213&-873&2589&1\\
+-1& 1&-5&-55&-183&-683&-2683&1
+\end{pmatrix}
+\]
+
+and
+
+\nopagebreak[4]
+
+\[
+D=\operatorname{diag}(8,16,240,47640,472430,3644970,16148136,5272).
+\]
+
+Direct integer multiplication gives
+
+\nopagebreak[4]
+
+\[
+H^TH=D.
+\]
+
+Consequently
+
+\nopagebreak[4]
+
+\[
+\widetilde Q=HD^{-1/2}
+\]
+
+is exactly orthogonal. To identify its QR convention and elimination
+multipliers, define the upper triangular matrix
+
+\nopagebreak[4]
+
+\[
+T=
+\begin{pmatrix}
+1&-1&-3&-21&-41&-101&-325&63\\
+0&2&-2&-4&30&190&854&94\\
+0&0&8&-44&-67&-107&-223&173\\
+0&0&0&120&-106&-116&-70&338\\
+0&0&0&0&397&-183&48&672\\
+0&0&0&0&0&1190&190&1342\\
+0&0&0&0&0&0&3063&2683\\
+0&0&0&0&0&0&0&5272
+\end{pmatrix}.
+\]
+
+Another direct integer multiplication gives
+
+\nopagebreak[4]
+
+\[
+H=\widetilde L T.
+\]
+
+Therefore
+
+\nopagebreak[4]
+
+\[
+\widetilde L=\widetilde Q\,(D^{1/2}T^{-1}).
+\]
+
+The second factor is upper triangular with positive diagonal, so
+\(\widetilde Q\) is precisely the orthogonal factor in the specified
+positive-diagonal QR factorization of \(\widetilde L\).
+
+\subsection{2. An admissible partial-pivoting
+path}\label{an-admissible-partial-pivoting-path}
+
+The factorization
+
+\nopagebreak[4]
+
+\[
+\widetilde Q=\widetilde L\,(TD^{-1/2})
+\]
+
+is its no-exchange LU factorization, with positive nonzero diagonal in
+the upper factor. After eliminating columns \(1,\ldots,k-1\), the active
+first-column entries are
+
+\nopagebreak[4]
+
+\[
+(\widetilde S_k)_{i,k}
+=\widetilde L_{i,k}\,(TD^{-1/2})_{k,k},
+\qquad i=k,\ldots,8.
+\]
+
+Because \(\widetilde L_{k,k}=1\) and every strict-lower entry of
+\(\widetilde L\) is \(-1\) or \(0\), the diagonal entry is a
+largest-magnitude entry in the active first column. It is also its first
+available row. Thus the stipulated tie rule makes no row exchanges at
+any step. The elimination multipliers are exactly the strict-lower
+entries of \(\widetilde L\).
+
+More explicitly, if \(I_k=\{k,k+1,\ldots,8\}\), then the active Schur
+complement is
+
+\nopagebreak[4]
+
+\[
+\widetilde S_k
+=\widetilde L_{I_k,I_k}T_{I_k,I_k}D_{I_k,I_k}^{-1/2}.
+\]
+
+This formula reduces every squared entry comparison to rational
+arithmetic.
+
+\subsection{3. Exact growth of the
+counterexample}\label{exact-growth-of-the-counterexample}
+
+The largest absolute entries of the eight columns of \(H\) are,
+respectively,
+
+\nopagebreak[4]
+
+\[
+(1,3,13,189,581,1507,2683,63).
+\]
+
+Dividing their squares by the corresponding diagonal entries of \(D\)
+shows that the largest squared entry of \(\widetilde Q\) is
+
+\nopagebreak[4]
+
+\[
+\|\widetilde Q\|_{\max}^2=\frac{63^2}{5272}.
+\]
+
+Using the Schur-complement formula from Section 2 gives the following
+exact table. Each entry in its second column is
+\(\sqrt{5272}\,\|\widetilde S_k\|_{\max}\); the third column identifies
+an entry attaining the maximum in the original row and column numbering.
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}lrl@{}}
+\toprule\noalign{}
+Stage \(k\) & \(\sqrt{5272}\,\|\widetilde S_k\|_{\max}\) & Location \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & \(63\) & \((1,8)\) \\
+2 & \(94\) & \((2,8)\) \\
+3 & \(173\) & \((3,8)\) \\
+4 & \(338\) & \((4,8)\) \\
+5 & \(672\) & \((5,8)\) \\
+6 & \(1342\) & \((6,8)\) \\
+7 & \(2683\) & \((7,8)\) \\
+8 & \(5272\) & \((8,8)\) \\
+\end{longtable}
+}
+
+These values can be verified directly from the displayed integer
+matrices: form \(\widetilde L_{I_k,I_k}T_{I_k,I_k}\), square each entry
+in column \(j\), and divide by \(D_{jj}\). In particular the maximum
+over all stages occurs at the final pivot and equals \(\sqrt{5272}\).
+Hence
+
+\nopagebreak[4]
+
+\[
+\rho_{\mathrm{PP}}(\widetilde Q)
+=\frac{\sqrt{5272}}{63/\sqrt{5272}}
+=\frac{5272}{63}.
+\]
+
+\subsection{4. Exact comparison with the specified
+candidate}\label{exact-comparison-with-the-specified-candidate}
+
+For completeness, the candidate \(Q_8\) also has an integer-column
+description:
+
+\nopagebreak[4]
+
+\[
+H_0=
+\begin{pmatrix}
+1&-5&-8&-12&-16&-16&0&64\\
+-1&13&-4&-6&-8&-8&0&32\\
+-1&-3&51&-3&-4&-4&0&16\\
+-1&-3&-11&169&-2&-2&0&8\\
+-1&-3&-11&-43&511&-1&0&4\\
+-1&-3&-11&-43&-171&1365&0&2\\
+-1&-3&-11&-43&-171&-683&1&1\\
+-1&-3&-11&-43&-171&-683&-1&1
+\end{pmatrix},
+\]
+
+\nopagebreak[4]
+
+\[
+D_0=\operatorname{diag}(8,248,3286,36146,349184,2796544,2,5462).
+\]
+
+Direct multiplication gives \(H_0^TH_0=D_0\), while \(T_0=L_8^{-1}H_0\)
+is upper triangular with positive diagonal
+
+\nopagebreak[4]
+
+\[
+(1,8,31,106,341,1024,1,5462).
+\]
+
+Thus \(Q_8=H_0D_0^{-1/2}\) has exactly the prescribed QR convention. Its
+no-exchange path is again the partial-pivoting path with the first
+available row chosen in a tie.
+
+The largest absolute entries of the columns of \(H_0\) are
+
+\nopagebreak[4]
+
+\[
+(1,13,51,169,511,1365,1,64),
+\]
+
+so exact squared comparisons give
+
+\nopagebreak[4]
+
+\[
+\|Q_8\|_{\max}^2=\frac{51^2}{3286},
+\]
+
+attained at \((3,3)\). The corresponding active maxima are
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Stage \(k\) & \(\|S_k^{(0)}\|_{\max}\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & \(51/\sqrt{3286}\) \\
+2 & \(96/\sqrt{5462}\) \\
+3 & \(176/\sqrt{5462}\) \\
+4 & \(344/\sqrt{5462}\) \\
+5 & \(684/\sqrt{5462}\) \\
+6 & \(1366/\sqrt{5462}\) \\
+7 & \(2731/\sqrt{5462}\) \\
+8 & \(5462/\sqrt{5462}\) \\
+\end{longtable}
+}
+
+The table follows either by direct no-exchange elimination of \(H_0\)
+with the fixed positive column scalings, or by
+
+\nopagebreak[4]
+
+\[
+S_k^{(0)}=(L_8)_{I_k,I_k}(T_0)_{I_k,I_k}(D_0)_{I_k,I_k}^{-1/2}.
+\]
+
+Therefore
+
+\nopagebreak[4]
+
+\[
+\rho_{\mathrm{PP}}(Q_8)^2
+=\frac{5462\cdot3286}{2601}
+=\frac{17948132}{2601}.
+\]
+
+Finally, the squared growth factors differ by the strictly positive
+rational number
+
+\nopagebreak[4]
+
+\[
+\left(\frac{5272}{63}\right)^2
+-\frac{17948132}{2601}
+=\frac{117335164}{1147041}>0.
+\]
+
+Both growth factors are positive, so the claimed strict inequality
+follows. This proves the theorem. \(\square\)
+
+\subsection{Scope and attribution}\label{scope-and-attribution}
+
+This counterexample refutes the exact extremizer equality asked in
+IE-05. It does not determine the true orthogonal supremum in dimension
+eight or in general, and it does not refute a separate assertion about
+the asymptotic exponential rate or its leading constant.
+
+The extremizer conjecture and the cited element-growth analysis are due
+to John Peca-Medlin,
+\href{https://arxiv.org/html/2308.16146v2}{\emph{Growth factors of
+orthogonal matrices and local behavior of Gaussian elimination with
+partial and complete pivoting}, arXiv:2308.16146v2}, Section 3.2 and
+Appendix B; published in \href{https://doi.org/10.1137/23M1597733}{SIAM
+Journal on Matrix Analysis and Applications 45 (2024), 1599--1620}. The
+proof above is self-contained: it does not invoke the paper's extremal
+assertions to certify either growth factor.
+\end{document}

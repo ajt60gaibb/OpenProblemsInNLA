@@ -34,6 +34,10 @@ def render(source):
         metadata[key] = match[1]
         body = body[:match.start()] + body[match.end():]
     body = re.sub(r"<!-- navigation -->.*?<!-- /navigation -->", "", body, flags=re.S)
+    if identifier == "IE-05":
+        # Keep the unchanged original target together after its resolution notice.
+        # This PDF-only layout instruction should not appear on the GitHub page.
+        body = body.replace("## Context and notation\n", "\\newpage\n\n## Context and notation\n", 1)
     # GitHub-relative links become usable links in a downloaded PDF or TeX file.
     def absolute_link(match):
         target = match[1]

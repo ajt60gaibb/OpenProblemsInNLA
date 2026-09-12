@@ -6,10 +6,24 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Solved  
+**Last checked:** 2026-09-11  
 
-**Rating rationale:** Challenging reflects a global extremal problem with pivot-path constraints in every dimension; specialist impact concerns sharp constants on the orthogonal subclass.
+**Rating rationale (historical):** Challenging reflects a global extremal problem with pivot-path constraints in every dimension; specialist impact concerns sharp constants on the orthogonal subclass.
+
+## Negative resolution - 2026-09-11
+
+**Solved.** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, gives an exact order-eight counterexample in the [complete proof](solution.md), **Theorem and Sections 1-4**. Let $\widetilde L=L_8+e_8e_2^T$, changing only its $(8,2)$ entry from $-1$ to $0$, and take its positive-diagonal QR factor $\widetilde Q$. Under the stipulated first-available-row tie rule,
+
+$$
+\rho_{\mathrm{PP}}(\widetilde Q)=\frac{5272}{63}
+>\sqrt{\frac{17948132}{2601}}
+=\rho_{\mathrm{PP}}(Q_8).
+$$
+
+The proof prints exact integer-column descriptions of both orthogonal matrices and verifies all active Schur-complement maxima. This disproves the universal extremizer equality. It does not determine the true orthogonal supremum or refute the separate asymptotic leading-constant conjecture. [Proof PDF](solution.pdf) · [Standalone TeX](solution.tex).
+
+A separate [Codex-agent mathematical review](../../references/stepaniants-ie05-2026-09-11/independent-review.md) returned **PASS**, with independently written rational checks of both QR conventions, all pivot ties, all 408 active entries and the positive squared growth gap. Substantial ChatGPT/Codex assistance is disclosed; this is automated-agent review, not external human peer review or formal certification. [Authorship, reproducible certificates, source checks and public-branch audit](../../references/stepaniants-ie05-2026-09-11/README.md). The original ID, path, statement, historical ratings and earlier checks below are retained. Peca-Medlin retains credit for the conjecture and cited element-growth analysis.
 
 ## Context and notation
 
