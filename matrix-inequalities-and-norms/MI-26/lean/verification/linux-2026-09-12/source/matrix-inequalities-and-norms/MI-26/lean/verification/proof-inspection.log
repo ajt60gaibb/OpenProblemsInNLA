@@ -1,0 +1,187 @@
+theorem NLA.MI26.witness_positive : 0 < 6 / 5 :=
+have h0 :=
+  LeanCert.Validity.verify_strict_upper_bound_dyadic_checked (LeanCert.Core.Expr.const (Rat.divInt 0 1))
+    (Rat.divInt 0 1) (Rat.divInt 0 1) (le_refl (Rat.divInt 0 1)) (Rat.divInt 6 5) (-53) 10
+    (of_decide_eq_true (id (Eq.refl true))) NLA.MI26.witness_positive._proof_1_7 ↑(Rat.divInt 0 1)
+    ⟨le_refl ↑(Rat.divInt 0 1), le_refl ↑(Rat.divInt 0 1)⟩;
+Eq.mpr
+  (eq_of_heq
+    ((fun α self a a' e'_3 a_1 a'_1 e'_4 =>
+        Eq.casesOn (motive := fun a_2 x => a' = a_2 → e'_3 ≍ x → (a < a_1) ≍ (a' < a'_1)) e'_3
+          (fun h =>
+            Eq.ndrec (motive := fun a' => ∀ (e_3 : a = a'), e_3 ≍ Eq.refl a → (a < a_1) ≍ (a' < a'_1))
+              (fun e_3 h =>
+                Eq.casesOn (motive := fun a_2 x => a'_1 = a_2 → e'_4 ≍ x → (a < a_1) ≍ (a < a'_1)) e'_4
+                  (fun h =>
+                    Eq.ndrec (motive := fun a' => ∀ (e_4 : a_1 = a'), e_4 ≍ Eq.refl a_1 → (a < a_1) ≍ (a < a'))
+                      (fun e_4 h => HEq.refl (a < a_1)) (Eq.symm h) e'_4)
+                  (Eq.refl a'_1) (HEq.refl e'_4))
+              (Eq.symm h) e'_3)
+          (Eq.refl a') (HEq.refl e'_3))
+      ℝ Real.instLT 0 (↑(↑0 / ↑1))
+      (Mathlib.Meta.NormNum.isNat_eq_true (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_zero)
+        (Mathlib.Meta.NormNum.isNat_ratCast
+          (Mathlib.Meta.NormNum.IsNNRat.to_isNat
+            (Mathlib.Meta.NormNum.isNNRat_div
+              (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                (Mathlib.Meta.NormNum.isNat_mul (Eq.refl HMul.hMul)
+                  (Mathlib.Meta.NormNum.isNat_intCast 0 0 (Mathlib.Meta.NormNum.isNat_ofNat ℤ (Eq.refl 0)))
+                  (Mathlib.Meta.NormNum.IsNNRat.to_isNat
+                    (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                      (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                        (Mathlib.Meta.NormNum.isNat_intCast 1 1 (Mathlib.Meta.NormNum.isNat_ofNat ℤ (Eq.refl 1))))))
+                  (Eq.refl 0)))))))
+      (6 / 5) (↑(↑6 / ↑5))
+      (Mathlib.Meta.NormNum.isNNRat_eq_true
+        (Mathlib.Meta.NormNum.isNNRat_div
+          (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+            (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 6)))
+            (Mathlib.Meta.NormNum.isNNRat_inv_pos
+              (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 5))))
+            (Eq.refl (Nat.mul 6 1)) (Eq.refl 5)))
+        (Mathlib.Meta.NormNum.isNNRat_ratCast
+          (Mathlib.Meta.NormNum.isNNRat_div
+            (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+              (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                (Mathlib.Meta.NormNum.isNat_intCast 6 6 (Mathlib.Meta.NormNum.isNat_ofNat ℤ (Eq.refl 6))))
+              (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                  (Mathlib.Meta.NormNum.isNat_intCast 5 5 (Mathlib.Meta.NormNum.isNat_ofNat ℤ (Eq.refl 5)))))
+              (Eq.refl (Nat.mul 6 1)) (Eq.refl 5)))))))
+  (Eq.mp
+    (congr (congrArg LT.lt (congrArg Rat.cast (Rat.divInt_eq_div 0 1))) (congrArg Rat.cast (Rat.divInt_eq_div 6 5))) h0)
+theorem NLA.MI26.counterexample_proved : ∀ (U V : ↥(Matrix.unitaryGroup (Fin 2) ℂ)),
+  ¬NLA.MI26.functionalCalculus NLA.MI26.witnessFunction (NLA.MI26.witnessP + NLA.MI26.witnessQ) ≤
+      NLA.MI26.unitaryConjugate U (NLA.MI26.functionalCalculus NLA.MI26.witnessFunction NLA.MI26.witnessP) +
+        NLA.MI26.unitaryConjugate V (NLA.MI26.functionalCalculus NLA.MI26.witnessFunction NLA.MI26.witnessQ) :=
+fun U V h =>
+  have hq :=
+    Matrix.PosSemidef.dotProduct_mulVec_nonneg
+      (Eq.mp
+        (Eq.trans
+          (Eq.trans
+            (congrArg (LE.le NLA.MI26.witnessImage)
+              (Eq.trans
+                (congr
+                  (congrArg HAdd.hAdd
+                    (Eq.trans (congrFun' (congrArg HMul.hMul (mul_zero ↑U)) (↑U).conjTranspose)
+                      (zero_mul (↑U).conjTranspose)))
+                  (Eq.trans (congrFun' (congrArg HMul.hMul (mul_zero ↑V)) (↑V).conjTranspose)
+                    (zero_mul (↑V).conjTranspose)))
+                (add_zero 0)))
+            NLA.MI26.counterexample_proved._simp_1_2)
+          (congrArg Matrix.PosSemidef (zero_sub NLA.MI26.witnessImage)))
+        (Eq.mp
+          (congrArg (fun _a => NLA.MI26.witnessImage ≤ NLA.MI26.unitaryConjugate U 0 + NLA.MI26.unitaryConjugate V _a)
+            NLA.MI26.witness_image_Q)
+          (Eq.mp
+            (congrArg
+              (fun _a =>
+                NLA.MI26.witnessImage ≤
+                  NLA.MI26.unitaryConjugate U _a +
+                    NLA.MI26.unitaryConjugate V
+                      (NLA.MI26.functionalCalculus NLA.MI26.witnessFunction NLA.MI26.witnessQ))
+              NLA.MI26.witness_image_P)
+            (Eq.mp
+              (congrArg
+                (fun _a =>
+                  _a ≤
+                    NLA.MI26.unitaryConjugate U
+                        (NLA.MI26.functionalCalculus NLA.MI26.witnessFunction NLA.MI26.witnessP) +
+                      NLA.MI26.unitaryConjugate V
+                        (NLA.MI26.functionalCalculus NLA.MI26.witnessFunction NLA.MI26.witnessQ))
+                NLA.MI26.witness_image_sum)
+              h))))
+      NLA.MI26.witnessVector;
+  have hr :=
+    (Complex.nonneg_iff.mp
+        (Eq.mp (congrArg (fun _a => 0 ≤ -_a) NLA.MI26.witness_quadratic)
+          (Eq.mp
+            (congrArg (fun _a => 0 ≤ _a)
+              (dotProduct_neg (star NLA.MI26.witnessVector) (NLA.MI26.witnessImage.mulVec NLA.MI26.witnessVector)))
+            (Eq.mp
+              (congrArg (fun _a => 0 ≤ star NLA.MI26.witnessVector ⬝ᵥ _a)
+                (Matrix.neg_mulVec NLA.MI26.witnessVector NLA.MI26.witnessImage))
+              hq)))).left;
+  have heq :=
+    of_eq_true
+      (Eq.trans
+        (Eq.trans
+          (congr
+            (congrArg Eq
+              (Eq.trans
+                (congrArg Complex.re
+                  (Mathlib.Meta.NormNum.IsRat.neg_to_eq
+                    (Mathlib.Meta.NormNum.isRat_neg (Eq.refl Neg.neg)
+                      (Mathlib.Meta.NormNum.IsNNRat.to_isRat
+                        (Mathlib.Meta.NormNum.isNNRat_div
+                          (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+                            (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℂ (Eq.refl 6)))
+                            (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                              (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℂ (Eq.refl 5))))
+                            (Eq.refl (Nat.mul 6 1)) (Eq.refl 5))))
+                      (Eq.refl (Int.negOfNat 6)))
+                    (Eq.refl 6) (Eq.refl 5)))
+                (Eq.trans
+                  (congrArg Neg.neg
+                    (Eq.trans
+                      (Eq.trans
+                        (congrArg Complex.re
+                          (Mathlib.Meta.NormNum.IsNNRat.to_eq
+                            (Mathlib.Meta.NormNum.isNNRat_div
+                              (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+                                (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℂ (Eq.refl 6)))
+                                (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                                  (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                                    (Mathlib.Meta.NormNum.isNat_ofNat ℂ (Eq.refl 5))))
+                                (Eq.refl (Nat.mul 6 1)) (Eq.refl 5)))
+                            (Eq.refl 6) (Eq.refl 5)))
+                        (Complex.div_ofNat_re 6 5))
+                      (Mathlib.Meta.NormNum.IsNNRat.to_eq
+                        (Mathlib.Meta.NormNum.isNNRat_div
+                          (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+                            (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 6)))
+                            (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                              (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 5))))
+                            (Eq.refl (Nat.mul 6 1)) (Eq.refl 5)))
+                        (Eq.refl 6) (Eq.refl 5))))
+                  (Mathlib.Meta.NormNum.IsRat.neg_to_eq
+                    (Mathlib.Meta.NormNum.isRat_neg (Eq.refl Neg.neg)
+                      (Mathlib.Meta.NormNum.IsNNRat.to_isRat
+                        (Mathlib.Meta.NormNum.isNNRat_div
+                          (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+                            (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 6)))
+                            (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                              (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 5))))
+                            (Eq.refl (Nat.mul 6 1)) (Eq.refl 5))))
+                      (Eq.refl (Int.negOfNat 6)))
+                    (Eq.refl 6) (Eq.refl 5)))))
+            (Mathlib.Meta.NormNum.IsRat.neg_to_eq
+              (Mathlib.Meta.NormNum.isRat_neg (Eq.refl Neg.neg)
+                (Mathlib.Meta.NormNum.IsNNRat.to_isRat
+                  (Mathlib.Meta.NormNum.isNNRat_div
+                    (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+                      (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 6)))
+                      (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                        (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 5))))
+                      (Eq.refl (Nat.mul 6 1)) (Eq.refl 5))))
+                (Eq.refl (Int.negOfNat 6)))
+              (Eq.refl 6) (Eq.refl 5)))
+          (eq_self (-(6 / 5))))
+        (eq_true True.intro));
+  not_le_of_gt (neg_neg_of_pos NLA.MI26.witness_positive) (Eq.mp (congrArg (fun _a => 0 ≤ _a) heq) hr)
+theorem NLA.MI26.not_subadditivityConjecture_proved : ¬NLA.MI26.SubadditivityConjecture :=
+fun h =>
+  Exists.casesOn
+    (h 2 (of_decide_eq_true (id (Eq.refl true))) NLA.MI26.witnessP NLA.MI26.witnessQ NLA.MI26.witnessP_posSemidef
+      NLA.MI26.witnessQ_posSemidef NLA.MI26.witnessFunction NLA.MI26.witness_function_admissible)
+    fun U h => Exists.casesOn h fun V hUV => NLA.MI26.counterexample_proved U V hUV
+theorem NLA.MI26.functionalCalculus_eq_spectral_proved : ∀ {n : ℕ} (A : Matrix (Fin n) (Fin n) ℂ) (hA : A.IsHermitian)
+  (f : ℝ → ℝ),
+  NLA.MI26.functionalCalculus f A =
+    (↑hA.eigenvectorUnitary * Matrix.diagonal fun i => ↑(f (hA.eigenvalues i))) *
+      (↑hA.eigenvectorUnitary).conjTranspose :=
+fun {n} A hA f => id (Matrix.IsHermitian.cfc_eq hA f)
+'NLA.MI26.witness_positive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI26.counterexample' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MI26.not_subadditivityConjecture' depends on axioms: [propext, Classical.choice, Quot.sound]

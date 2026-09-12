@@ -1,0 +1,282 @@
+def ConcaveOn.{u_1, u_2, u_5} : (𝕜 : Type u_1) →
+  {E : Type u_2} →
+    {β : Type u_5} →
+      [Semiring.{u_1} 𝕜] →
+        [PartialOrder.{u_1} 𝕜] →
+          [AddCommMonoid.{u_2} E] →
+            [AddCommMonoid.{u_5} β] →
+              [PartialOrder.{u_5} β] → [SMul.{u_1, u_2} 𝕜 E] → [SMul.{u_1, u_5} 𝕜 β] → Set.{u_2} E → (E → β) → Prop :=
+fun 𝕜 {E} {β} [Semiring.{u_1} 𝕜] [PartialOrder.{u_1} 𝕜] [AddCommMonoid.{u_2} E] [AddCommMonoid.{u_5} β]
+    [PartialOrder.{u_5} β] [SMul.{u_1, u_2} 𝕜 E] [SMul.{u_1, u_5} 𝕜 β] s f =>
+  And (Convex.{u_1, u_2} 𝕜 s)
+    (∀ ⦃x : E⦄,
+      Membership.mem.{u_2, u_2} s x →
+        ∀ ⦃y : E⦄,
+          Membership.mem.{u_2, u_2} s y →
+            ∀ ⦃a b : 𝕜⦄,
+              LE.le.{u_1} 0 a →
+                LE.le.{u_1} 0 b →
+                  Eq.{u_1 + 1} (HAdd.hAdd.{u_1, u_1, u_1} a b) 1 →
+                    LE.le.{u_5}
+                      (HAdd.hAdd.{u_5, u_5, u_5} (HSMul.hSMul.{u_1, u_5, u_5} a (f x))
+                        (HSMul.hSMul.{u_1, u_5, u_5} b (f y)))
+                      (f
+                        (HAdd.hAdd.{u_2, u_2, u_2} (HSMul.hSMul.{u_1, u_2, u_2} a x)
+                          (HSMul.hSMul.{u_1, u_2, u_2} b y))))
+protected def Matrix.IsHermitian.cfc.{u_1, u_2} : {n : Type u_1} →
+  {𝕜 : Type u_2} →
+    [inst : RCLike.{u_2} 𝕜] →
+      [Fintype.{u_1} n] →
+        [DecidableEq.{u_1 + 1} n] →
+          {A : Matrix.{u_1, u_1, u_2} n n 𝕜} →
+            Matrix.IsHermitian.{u_2, u_1} A → (Real → Real) → Matrix.{u_1, u_1, u_2} n n 𝕜 :=
+fun {n} {𝕜} [RCLike.{u_2} 𝕜] [Fintype.{u_1} n] [DecidableEq.{u_1 + 1} n] {A} hA f =>
+  ((Unitary.conjStarAlgAut.{u_2, max u_1 u_2} 𝕜 (Matrix.{u_1, u_1, u_2} n n 𝕜))
+      (Matrix.IsHermitian.eigenvectorUnitary.{u_2, u_1} hA))
+    (Matrix.diagonal.{u_2, u_1}
+      (Function.comp.{u_1 + 1, 1, u_2 + 1} RCLike.ofReal.{u_2}
+        (Function.comp.{u_1 + 1, 1, 1} f (Matrix.IsHermitian.eigenvalues.{u_2, u_1} hA))))
+Matrix.IsHermitian.cfc_eq.{u_1, u_2} {n : Type u_1} {𝕜 : Type u_2} [RCLike.{u_2} 𝕜] [Fintype.{u_1} n]
+  [DecidableEq.{u_1 + 1} n] {A : Matrix.{u_1, u_1, u_2} n n 𝕜} (hA : Matrix.IsHermitian.{u_2, u_1} A)
+  (f : Real → Real) : Eq.{max (u_1 + 1) (u_2 + 1)} (cfc.{0, max u_1 u_2} f A) (Matrix.IsHermitian.cfc.{u_1, u_2} hA f)
+def Matrix.PosSemidef.{u_2, u_3} : {n : Type u_2} →
+  {R : Type u_3} →
+    [inst : Ring.{u_3} R] → [PartialOrder.{u_3} R] → [StarRing.{u_3} R] → Matrix.{u_2, u_2, u_3} n n R → Prop :=
+fun {n} {R} [Ring.{u_3} R] [PartialOrder.{u_3} R] [StarRing.{u_3} R] M =>
+  And (Matrix.IsHermitian.{u_3, u_2} M)
+    (∀ (x : Finsupp.{u_2, u_3} n R),
+      LE.le.{u_3} 0
+        (Finsupp.sum.{u_2, u_3, u_3} x fun i xi =>
+          Finsupp.sum.{u_2, u_3, u_3} x fun j xj =>
+            HMul.hMul.{u_3, u_3, u_3} (HMul.hMul.{u_3, u_3, u_3} (star.{u_3} xi) (M i j)) xj))
+@[reducible] def Matrix.unitaryGroup.{u, v} : (n : Type u) →
+  [inst : DecidableEq.{u + 1} n] →
+    [inst_1 : Fintype.{u} n] →
+      (α : Type v) → [inst_2 : CommRing.{v} α] → [StarRing.{v} α] → Submonoid.{max v u} (Matrix.{u, u, v} n n α) :=
+fun n [DecidableEq.{u + 1} n] [Fintype.{u} n] α [CommRing.{v} α] [StarRing.{v} α] =>
+  unitary.{max v u} (Matrix.{u, u, v} n n α)
+Matrix.le_iff.{u_1, u_2} {𝕜 : Type u_1} {n : Type u_2} [RCLike.{u_1} 𝕜] {A B : Matrix.{u_2, u_2, u_1} n n 𝕜} :
+  Iff (LE.le.{max u_1 u_2} A B) (Matrix.PosSemidef.{u_2, u_1} (HSub.hSub.{max u_1 u_2, max u_1 u_2, max u_1 u_2} B A))
+Matrix.mem_unitaryGroup_iff.{u, v} {n : Type u} [DecidableEq.{u + 1} n] [Fintype.{u} n] {α : Type v} [CommRing.{v} α]
+  [StarRing.{v} α] {A : Matrix.{u, u, v} n n α} :
+  Iff (Membership.mem.{max u v, max u v} (Matrix.unitaryGroup.{u, v} n α) A)
+    (Eq.{max (u + 1) (v + 1)} (HMul.hMul.{max u v, max u v, max u v} A (star.{max u v} A)) 1)
+Matrix.PosSemidef.eigenvalues_nonneg.{u_2, u_3} {n : Type u_2} {𝕜 : Type u_3} [Fintype.{u_2} n] [RCLike.{u_3} 𝕜]
+  {A : Matrix.{u_2, u_2, u_3} n n 𝕜} [DecidableEq.{u_2 + 1} n] (hA : Matrix.PosSemidef.{u_2, u_3} A) (i : n) :
+  LE.le.{0} 0 (Matrix.IsHermitian.eigenvalues.{u_3, u_2} ⋯ i)
+Matrix.PosSemidef.dotProduct_mulVec_nonneg.{u_2, u_3} {n : Type u_2} {R : Type u_3} [Ring.{u_3} R]
+  [PartialOrder.{u_3} R] [StarRing.{u_3} R] [Fintype.{u_2} n] {M : Matrix.{u_2, u_2, u_3} n n R}
+  (hM : Matrix.PosSemidef.{u_2, u_3} M) (x : n → R) :
+  LE.le.{u_3} 0 (dotProduct.{u_3, u_2} (star.{max u_2 u_3} x) (Matrix.mulVec.{u_3, u_2, u_2} M x))
+def NLA.MI26.AdmissibleFunction : (Real → Real) → Prop :=
+fun f => And (ConcaveOn.{0, 0, 0} Real (Set.Ici.{0} 0) f) (LE.le.{0} 0 (f 0))
+def NLA.MI26.unitaryConjugate : {n : Nat} →
+  (Subtype.{1} fun x => Membership.mem.{0, 0} (Matrix.unitaryGroup.{0, 0} (Fin n) Complex) x) →
+    Matrix.{0, 0, 0} (Fin n) (Fin n) Complex → Matrix.{0, 0, 0} (Fin n) (Fin n) Complex :=
+fun {n} U H => HMul.hMul.{0, 0, 0} (HMul.hMul.{0, 0, 0} (↑U) H) (Matrix.conjTranspose.{0, 0, 0} ↑U)
+theorem NLA.MI26.admissibleFunction_iff : ∀ (f : Real → Real),
+  Iff (NLA.MI26.AdmissibleFunction f)
+    (And (LE.le.{0} 0 (f 0))
+      (∀ (x y θ : Real),
+        LE.le.{0} 0 x →
+          LE.le.{0} 0 y →
+            LE.le.{0} 0 θ →
+              LE.le.{0} θ 1 →
+                LE.le.{0}
+                  (HAdd.hAdd.{0, 0, 0} (HMul.hMul.{0, 0, 0} θ (f x))
+                    (HMul.hMul.{0, 0, 0} (HSub.hSub.{0, 0, 0} 1 θ) (f y)))
+                  (f
+                    (HAdd.hAdd.{0, 0, 0} (HMul.hMul.{0, 0, 0} θ x)
+                      (HMul.hMul.{0, 0, 0} (HSub.hSub.{0, 0, 0} 1 θ) y))))) :=
+fun f => NLA.MI26.admissibleFunction_iff_proved f
+theorem NLA.MI26.functionalCalculus_eq_spectral : ∀ {n : Nat} (A : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+  (hA : Matrix.IsHermitian.{0, 0} A) (f : Real → Real),
+  Eq.{1} (NLA.MI26.functionalCalculus f A)
+    (HMul.hMul.{0, 0, 0}
+      (HMul.hMul.{0, 0, 0} (↑(Matrix.IsHermitian.eigenvectorUnitary.{0, 0} hA))
+        (Matrix.diagonal.{0, 0} fun i => ↑(f (Matrix.IsHermitian.eigenvalues.{0, 0} hA i))))
+      (Matrix.conjTranspose.{0, 0, 0} ↑(Matrix.IsHermitian.eigenvectorUnitary.{0, 0} hA))) :=
+fun {n} A hA f => NLA.MI26.functionalCalculus_eq_spectral_proved A hA f
+theorem NLA.MI26.functionalCalculus_congr_nonneg : ∀ {n : Nat} (A : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex),
+  Matrix.PosSemidef.{0, 0} A →
+    ∀ (f g : Real → Real),
+      Set.EqOn.{0, 0} f g (Set.Ici.{0} 0) →
+        Eq.{1} (NLA.MI26.functionalCalculus f A) (NLA.MI26.functionalCalculus g A) :=
+fun {n} A hA f g hfg => NLA.MI26.functionalCalculus_congr_nonneg_proved A hA f g hfg
+theorem NLA.MI26.quadratic_cfc : ∀ {n : Nat} (A : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex),
+  Matrix.IsHermitian.{0, 0} A →
+    Eq.{1} (NLA.MI26.functionalCalculus NLA.MI26.witnessFunction A) (HSub.hSub.{0, 0, 0} A (HPow.hPow.{0, 0, 0} A 2)) :=
+fun {n} A hA => NLA.MI26.quadratic_cfc_proved A hA
+theorem NLA.MI26.witness_data : And (NLA.MI26.AdmissibleFunction NLA.MI26.witnessFunction)
+  (And (Eq.{1} (NLA.MI26.witnessFunction 0) 0)
+    (And (Eq.{1} (NLA.MI26.witnessFunction 2) (-2))
+      (And (Matrix.PosSemidef.{0, 0} NLA.MI26.witnessP)
+        (And (Matrix.PosSemidef.{0, 0} NLA.MI26.witnessQ)
+          (And (Eq.{1} (HPow.hPow.{0, 0, 0} NLA.MI26.witnessP 2) NLA.MI26.witnessP)
+            (And (Eq.{1} (HPow.hPow.{0, 0, 0} NLA.MI26.witnessQ 2) NLA.MI26.witnessQ)
+              (And (Eq.{1} (NLA.MI26.functionalCalculus NLA.MI26.witnessFunction NLA.MI26.witnessP) 0)
+                (And (Eq.{1} (NLA.MI26.functionalCalculus NLA.MI26.witnessFunction NLA.MI26.witnessQ) 0)
+                  (And
+                    (Eq.{1}
+                      (NLA.MI26.functionalCalculus NLA.MI26.witnessFunction
+                        (HAdd.hAdd.{0, 0, 0} NLA.MI26.witnessP NLA.MI26.witnessQ))
+                      NLA.MI26.witnessImage)
+                    (And (Ne.{1} NLA.MI26.witnessVector 0)
+                      (And
+                        (Eq.{1}
+                          (dotProduct.{0, 0} (star.{0} NLA.MI26.witnessVector)
+                            (Matrix.mulVec.{0, 0, 0} NLA.MI26.witnessImage NLA.MI26.witnessVector))
+                          (6 / 5))
+                        (LT.lt.{0} 0 (6 / 5))))))))))))) :=
+NLA.MI26.witness_data_proved
+theorem NLA.MI26.counterexample : ∀
+  (U V : Subtype.{1} fun x => Membership.mem.{0, 0} (Matrix.unitaryGroup.{0, 0} (Fin 2) Complex) x),
+  Not
+    (LE.le.{0}
+      (NLA.MI26.functionalCalculus NLA.MI26.witnessFunction (HAdd.hAdd.{0, 0, 0} NLA.MI26.witnessP NLA.MI26.witnessQ))
+      (HAdd.hAdd.{0, 0, 0}
+        (NLA.MI26.unitaryConjugate U (NLA.MI26.functionalCalculus NLA.MI26.witnessFunction NLA.MI26.witnessP))
+        (NLA.MI26.unitaryConjugate V (NLA.MI26.functionalCalculus NLA.MI26.witnessFunction NLA.MI26.witnessQ)))) :=
+fun U V => NLA.MI26.counterexample_proved U V
+theorem NLA.MI26.not_subadditivityConjecture : Not NLA.MI26.SubadditivityConjecture :=
+NLA.MI26.not_subadditivityConjecture_proved
+def NLA.MI26.functionalCalculus : {n : Nat} →
+  (Real → Real) → Matrix.{0, 0, 0} (Fin n) (Fin n) Complex → Matrix.{0, 0, 0} (Fin n) (Fin n) Complex :=
+fun {n} f A =>
+  @cfc.{0, 0} Real (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+    (@IsSelfAdjoint.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+      (@Matrix.instStar.{0, 0} (Fin n) Complex
+        (@InvolutiveStar.toStar.{0} Complex
+          (@StarAddMonoid.toInvolutiveStar.{0} Complex
+            (@AddCommMonoid.toAddMonoid.{0} Complex
+              (@NonUnitalNonAssocSemiring.toAddCommMonoid.{0} Complex
+                (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+                  (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+                    (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex
+                      (@CommRing.toNonUnitalCommRing.{0} Complex
+                        (@Field.toCommRing.{0} Complex
+                          (@NormedField.toField.{0} Complex
+                            (@DenselyNormedField.toNormedField.{0} Complex
+                              (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))))
+            (@StarRing.toStarAddMonoid.{0} Complex
+              (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+                (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+                  (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex
+                    (@CommRing.toNonUnitalCommRing.{0} Complex
+                      (@Field.toCommRing.{0} Complex
+                        (@NormedField.toField.{0} Complex
+                          (@DenselyNormedField.toNormedField.{0} Complex
+                            (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+              (@RCLike.toStarRing.{0} Complex Complex.instRCLike))))))
+    Real.instCommSemiring instStarRingReal Real.metricSpace NLA.MI26.functionalCalculus._proof_1 instContinuousStarReal
+    (@instTopologicalSpaceMatrix.{0, 0, 0} (Fin n) (Fin n) Complex
+      (@UniformSpace.toTopologicalSpace.{0} Complex
+        (@PseudoMetricSpace.toUniformSpace.{0} Complex
+          (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+            (@SeminormedCommRing.toSeminormedRing.{0} Complex
+              (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))))
+    (@Matrix.instRing.{0, 0} (Fin n) Complex (Fin.fintype n) (instDecidableEqFin n) Complex.instRing)
+    (@Matrix.instStarRing.{0, 0} (Fin n) Complex (Fin.fintype n)
+      (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+        (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+          (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing)))
+      Complex.instStarRing)
+    (@Matrix.instAlgebra.{0, 0, 0} (Fin n) Real Complex (Fin.fintype n) (instDecidableEqFin n) Real.instCommSemiring
+      (@Ring.toSemiring.{0} Complex Complex.instRing)
+      (@NormedAlgebra.toAlgebra.{0, 0} Real Complex Real.normedField
+        (@SeminormedCommRing.toSeminormedRing.{0} Complex
+          (@NormedCommRing.toSeminormedCommRing.{0} Complex
+            (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))
+        (@RCLike.toNormedAlgebra.{0} Complex Complex.instRCLike)))
+    ⋯ f A
+def NLA.MI26.SubadditivityConjecture : Prop :=
+∀ (n : Nat),
+  @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) n →
+    ∀ (A B : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex),
+      @Matrix.PosSemidef.{0, 0} (Fin n) Complex Complex.instRing Complex.partialOrder Complex.instStarRing A →
+        @Matrix.PosSemidef.{0, 0} (Fin n) Complex Complex.instRing Complex.partialOrder Complex.instStarRing B →
+          ∀ (f : Real → Real),
+            NLA.MI26.AdmissibleFunction f →
+              @Exists.{1}
+                (@Subtype.{1} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) fun x =>
+                  @Membership.mem.{0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                    (@Submonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                      (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                        (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                          (@Matrix.semiring.{0, 0} (Fin n) Complex
+                            (@CommSemiring.toSemiring.{0} Complex
+                              (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                            (Fin.fintype n) (instDecidableEqFin n)))))
+                    (@SetLike.instMembership.{0, 0}
+                      (@Submonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                        (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                          (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                            (@Matrix.semiring.{0, 0} (Fin n) Complex
+                              (@CommSemiring.toSemiring.{0} Complex
+                                (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                              (Fin.fintype n) (instDecidableEqFin n)))))
+                      (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                      (@Submonoid.instSetLike.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                        (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                          (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                            (@Matrix.semiring.{0, 0} (Fin n) Complex
+                              (@CommSemiring.toSemiring.{0} Complex
+                                (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                              (Fin.fintype n) (instDecidableEqFin n))))))
+                    (@Matrix.unitaryGroup.{0, 0} (Fin n) (instDecidableEqFin n) (Fin.fintype n) Complex Complex.commRing
+                      Complex.instStarRing)
+                    x)
+                fun U =>
+                @Exists.{1}
+                  (@Subtype.{1} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) fun x =>
+                    @Membership.mem.{0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                      (@Submonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                        (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                          (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                            (@Matrix.semiring.{0, 0} (Fin n) Complex
+                              (@CommSemiring.toSemiring.{0} Complex
+                                (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                              (Fin.fintype n) (instDecidableEqFin n)))))
+                      (@SetLike.instMembership.{0, 0}
+                        (@Submonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                          (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                            (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                              (@Matrix.semiring.{0, 0} (Fin n) Complex
+                                (@CommSemiring.toSemiring.{0} Complex
+                                  (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                                (Fin.fintype n) (instDecidableEqFin n)))))
+                        (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                        (@Submonoid.instSetLike.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                          (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                            (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                              (@Matrix.semiring.{0, 0} (Fin n) Complex
+                                (@CommSemiring.toSemiring.{0} Complex
+                                  (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                                (Fin.fintype n) (instDecidableEqFin n))))))
+                      (@Matrix.unitaryGroup.{0, 0} (Fin n) (instDecidableEqFin n) (Fin.fintype n) Complex
+                        Complex.commRing Complex.instStarRing)
+                      x)
+                  fun V =>
+                  @LE.le.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                    (@Preorder.toLE.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                      (@Matrix.instPreOrder.{0, 0} Complex (Fin n) Complex.instRCLike))
+                    (@NLA.MI26.functionalCalculus n f
+                      (@HAdd.hAdd.{0, 0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                        (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                        (@instHAdd.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                          (@Matrix.add.{0, 0, 0} (Fin n) (Fin n) Complex Complex.instAdd))
+                        A B))
+                    (@HAdd.hAdd.{0, 0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                      (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                      (@instHAdd.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                        (@Matrix.add.{0, 0, 0} (Fin n) (Fin n) Complex Complex.instAdd))
+                      (@NLA.MI26.unitaryConjugate n U (@NLA.MI26.functionalCalculus n f A))
+                      (@NLA.MI26.unitaryConjugate n V (@NLA.MI26.functionalCalculus n f B)))
+'NLA.MI26.admissibleFunction_iff' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.MI26.functionalCalculus_eq_spectral' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.MI26.functionalCalculus_congr_nonneg' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.MI26.quadratic_cfc' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.MI26.witness_data' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.MI26.counterexample' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.MI26.not_subadditivityConjecture' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]

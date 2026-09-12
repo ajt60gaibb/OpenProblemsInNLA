@@ -6,10 +6,48 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Solved  
-**Last checked:** 2026-09-11
+**Status:** Lean verified
+
+**Last checked:** 2026-09-12
 
 **Rating rationale:** Removing monotonicity from a unitary-orbit comparison is challenging; spectral bounds for broad classes of matrix functions have community importance.
+
+## Lean proof and verification evidence - 2026-09-12
+
+**The complete original MI-26 assertion is false, with a Lean-verified counterexample.** The real-valued concave function $`f(x)=x-x^2`$ and the rational projections
+
+```math
+P=\begin{pmatrix}1&0\\0&0\end{pmatrix},\qquad
+Q=\frac1{25}\begin{pmatrix}9&12\\12&16\end{pmatrix}
+```
+
+have $`f(P)=f(Q)=0`$, while the genuine spectral matrix function satisfies $`w^*f(P+Q)w=6/5>0`$ for $`w=(1,-2)^{\mathsf T}`$. Every pair of complex unitary conjugates on the right is therefore zero. The [proof at revision 81176af](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/81176af27e570b59ba1e1a0745e28944e7d57c03/matrix-inequalities-and-norms/MI-26/lean) preserves the original complex PSD inputs and complete real-valued function class.
+
+**Mathematical counterexample and informal proof:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Lean formalization:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, with AI-agent assistance.
+
+The seven checked declarations in [Solution.lean](https://github.com/sgstepaniants/OpenProblemsInNLA/blob/81176af27e570b59ba1e1a0745e28944e7d57c03/matrix-inequalities-and-norms/MI-26/lean/Solution.lean) are:
+
+- `NLA.MI26.admissibleFunction_iff`: the exact original scalar concavity and value-at-zero conditions.
+- `NLA.MI26.functionalCalculus_eq_spectral`: genuine CFC equals the finite spectral formula without a continuity premise.
+- `NLA.MI26.functionalCalculus_congr_nonneg`: half-line extensions do not change PSD matrix functions.
+- `NLA.MI26.quadratic_cfc`: the witness function gives the actual matrix polynomial $`A-A^2`$.
+- `NLA.MI26.witness_data`: rational projections, exact CFC values and the positive quadratic form.
+- `NLA.MI26.counterexample`: the fixed pair defeats every pair of complex unitaries.
+- `NLA.MI26.not_subadditivityConjecture`: negation of the complete original assertion.
+
+Two independent agents reviewed the [frozen statements and completed proof](lean/reviews/). [Linux run 34713045511](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34713045511) matched all seven exports with the sandboxed Comparator and replayed the solution through Lean's default kernel. The [original artifacts and independent operational audit](lean/verification/linux-2026-09-12/) retain all 118 source hashes, isolation checks and rejection controls. All 15 [transitive axiom checks](lean/verification/proof-axioms.json) use only `propext`, `Classical.choice` and `Quot.sound`. The explicit kernel LeanCert certificate $`0<6/5`$ remains in the final contradiction. These are independent agent reviews, not external human peer review.
+
+The proof pins **Lean 4.33.1**, [LeanCert 621a43d](https://github.com/alerad/leancert/tree/621a43d7cf21f87872392a01e874f2f1dbddc926) and [Mathlib 0df444a](https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474). See the [manifest](lean/formalization.yaml), [dependency pins](lean/lake-manifest.json) and [numerical targets](lean/NUMERICAL_TARGETS.md). On a documented [non-root Linux host](../../tools/lean/HARNESS.md), reproduce from the verified revision with:
+
+```
+tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
+tools/lean/verify.sh \
+  matrix-inequalities-and-norms/MI-26/lean \
+  /absolute/path/to/nla-lean-tools
+```
+
+The optional positive-definite variant in the informal source is outside these seven exports. The narrower globally nonnegative-valued function class is not refuted. The complete original PSD target and its historical informal proof remain below.
 
 ## Resolution — 2026-09-11
 
@@ -19,7 +57,7 @@ The real-valued concave function $`f(x)=x-x^2`$ and two rational projections ref
 
 The exact target is resolved. The original statement and source evidence are retained below; its former difficulty rating is historical.
 
-**Primary manuscript:** [complete proof PDF](solution.pdf), [standalone TeX](solution.tex), Theorem 1.1 and its proof; [authorship and scope](solution.md). The [independent review](../../references/colbrook-matrix-2026-09-11/verification/reviews/MI-26-review.md) checks the full original argument and records its hash. The draft was AI-assisted; this is independent agent verification, not external human peer review or formal certification. [Submission record](../../references/colbrook-matrix-2026-09-11/README.md).
+**Primary manuscript:** [complete proof PDF](solution.pdf), [standalone TeX](solution.tex), Theorem 1.1 and its proof; [authorship and scope](solution.md). The [independent review](../../references/colbrook-matrix-2026-09-11/verification/reviews/MI-26-review.md) checks the full original argument and records its hash. The draft was AI-assisted; the 2026-09-11 review was independent agent verification, without external human peer review or formal certification. The later Lean verification above covers the complete original PSD target. [Submission record](../../references/colbrook-matrix-2026-09-11/README.md).
 
 ## Problem statement
 

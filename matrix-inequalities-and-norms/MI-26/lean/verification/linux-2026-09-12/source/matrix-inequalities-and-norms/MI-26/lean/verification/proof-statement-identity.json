@@ -1,0 +1,22 @@
+{
+  "verdict": "PASS",
+  "method": "Exact source-level declaration signatures, whitespace normalized; actual Linux Comparator remains a separate gate",
+  "exports": [
+    "NLA.MI26.admissibleFunction_iff",
+    "NLA.MI26.functionalCalculus_eq_spectral",
+    "NLA.MI26.functionalCalculus_congr_nonneg",
+    "NLA.MI26.quadratic_cfc",
+    "NLA.MI26.witness_data",
+    "NLA.MI26.counterexample",
+    "NLA.MI26.not_subadditivityConjecture"
+  ],
+  "signatures": {
+    "admissibleFunction_iff": "(f : \u211d \u2192 \u211d) : AdmissibleFunction f \u2194 (0 \u2264 f 0 \u2227 \u2200 x y \u03b8 : \u211d, 0 \u2264 x \u2192 0 \u2264 y \u2192 0 \u2264 \u03b8 \u2192 \u03b8 \u2264 1 \u2192 \u03b8 * f x + (1 - \u03b8) * f y \u2264 f (\u03b8 * x + (1 - \u03b8) * y))",
+    "functionalCalculus_eq_spectral": "{n : \u2115} (A : Matrix (Fin n) (Fin n) \u2102) (hA : A.IsHermitian) (f : \u211d \u2192 \u211d) : functionalCalculus f A = (hA.eigenvectorUnitary : Matrix (Fin n) (Fin n) \u2102) * Matrix.diagonal (fun i => (f (hA.eigenvalues i) : \u2102)) * (hA.eigenvectorUnitary : Matrix (Fin n) (Fin n) \u2102).conjTranspose",
+    "functionalCalculus_congr_nonneg": "{n : \u2115} (A : Matrix (Fin n) (Fin n) \u2102) (hA : A.PosSemidef) (f g : \u211d \u2192 \u211d) (hfg : Set.EqOn f g (Set.Ici 0)) : functionalCalculus f A = functionalCalculus g A",
+    "quadratic_cfc": "{n : \u2115} (A : Matrix (Fin n) (Fin n) \u2102) (hA : A.IsHermitian) : functionalCalculus witnessFunction A = A - A ^ 2",
+    "witness_data": ": AdmissibleFunction witnessFunction \u2227 witnessFunction 0 = 0 \u2227 witnessFunction 2 = -2 \u2227 witnessP.PosSemidef \u2227 witnessQ.PosSemidef \u2227 witnessP ^ 2 = witnessP \u2227 witnessQ ^ 2 = witnessQ \u2227 functionalCalculus witnessFunction witnessP = 0 \u2227 functionalCalculus witnessFunction witnessQ = 0 \u2227 functionalCalculus witnessFunction (witnessP + witnessQ) = witnessImage \u2227 witnessVector \u2260 0 \u2227 star witnessVector \u2b1d\u1d65 (witnessImage *\u1d65 witnessVector) = (6 / 5 : \u2102) \u2227 (0 : \u211d) < 6 / 5",
+    "counterexample": "(U V : Matrix.unitaryGroup (Fin 2) \u2102) : \u00ac (functionalCalculus witnessFunction (witnessP + witnessQ) \u2264 unitaryConjugate U (functionalCalculus witnessFunction witnessP) + unitaryConjugate V (functionalCalculus witnessFunction witnessQ))",
+    "not_subadditivityConjecture": ": \u00ac SubadditivityConjecture"
+  }
+}
