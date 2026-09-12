@@ -1,0 +1,425 @@
+def NLA.MI07.matrixModulus : {n : Nat} →
+  (X : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) → Matrix.{0, 0, 0} (Fin n) (Fin n) Complex :=
+fun {n : Nat} (X : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) =>
+  @CFC.abs.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+    (@Matrix.instNonUnitalRing.{0, 0} (Fin n) Complex (Fin.fintype n)
+      (@NonUnitalCommRing.toNonUnitalRing.{0} Complex Complex.instNonUnitalCommRing))
+    (@Matrix.instStarRing.{0, 0} (Fin n) Complex (Fin.fintype n)
+      (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+        (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+          (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing)))
+      Complex.instStarRing)
+    (@instTopologicalSpaceMatrix.{0, 0, 0} (Fin n) (Fin n) Complex
+      (@UniformSpace.toTopologicalSpace.{0} Complex
+        (@PseudoMetricSpace.toUniformSpace.{0} Complex
+          (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+            (@SeminormedCommRing.toSeminormedRing.{0} Complex
+              (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))))
+    (@Matrix.module.{0, 0, 0, 0} (Fin n) (Fin n) Real Complex Real.semiring Complex.instAddCommMonoid
+      (@NormedSpace.toModule.{0, 0} Real Complex Real.normedField
+        (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+          (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+            (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+              (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+        (@InnerProductSpace.toNormedSpace.{0, 0} Real Complex Real.instRCLike
+          (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+            (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+              (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+                (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                  (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+          instInnerProductSpaceRealComplex)))
+    (@NLA.MI07.matrixModulus._proof_1 n) (@NLA.MI07.matrixModulus._proof_2 n) (@NLA.MI07.matrixModulus._proof_7 n)
+    (@Matrix.instPartialOrder.{0, 0} Complex (Fin n) Complex.instRCLike) (@NLA.MI07.matrixModulus._proof_8 n)
+    (@NLA.MI07.matrixModulus._proof_9 n) X
+def NLA.MI07.rootSequence : {n : Nat} →
+  (X : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) → (r : Nat) → Matrix.{0, 0, 0} (Fin n) (Fin n) Complex :=
+fun {n : Nat} (X : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) (r : Nat) =>
+  @CFC.rpow.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+    (@Matrix.instPartialOrder.{0, 0} Complex (Fin n) Complex.instRCLike)
+    (@Matrix.instRing.{0, 0} (Fin n) Complex (Fin.fintype n) (instDecidableEqFin n) Complex.instRing)
+    (@Matrix.instStarRing.{0, 0} (Fin n) Complex (Fin.fintype n)
+      (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+        (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+          (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing)))
+      Complex.instStarRing)
+    (@instTopologicalSpaceMatrix.{0, 0, 0} (Fin n) (Fin n) Complex
+      (@UniformSpace.toTopologicalSpace.{0} Complex
+        (@PseudoMetricSpace.toUniformSpace.{0} Complex
+          (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+            (@SeminormedCommRing.toSeminormedRing.{0} Complex
+              (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))))
+    (@NLA.MI07.matrixModulus._proof_8 n)
+    (@Matrix.instAlgebra.{0, 0, 0} (Fin n) Real Complex (Fin.fintype n) (instDecidableEqFin n) Real.instCommSemiring
+      (@Ring.toSemiring.{0} Complex Complex.instRing)
+      (@NormedAlgebra.toAlgebra.{0, 0} Real Complex Real.normedField
+        (@SeminormedCommRing.toSeminormedRing.{0} Complex
+          (@NormedCommRing.toSeminormedCommRing.{0} Complex
+            (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))
+        (@RCLike.toNormedAlgebra.{0} Complex Complex.instRCLike)))
+    (@NLA.MI07.rootSequence._proof_1 n) (@NLA.MI07.matrixModulus._proof_9 n)
+    (@HAdd.hAdd.{0, 0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+      (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+      (@instHAdd.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+        (@Matrix.add.{0, 0, 0} (Fin n) (Fin n) Complex Complex.instAdd))
+      (@HPow.hPow.{0, 0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) Nat (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+        (@instHPow.{0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) Nat
+          (@NPow.toPow.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+            (@Monoid.toNPow.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+              (@Semiring.toMonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@Matrix.semiring.{0, 0} (Fin n) Complex Complex.instSemiring (Fin.fintype n)
+                  (instDecidableEqFin n))))))
+        (@NLA.MI07.matrixModulus n X)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) r
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+      (@HPow.hPow.{0, 0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) Nat (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+        (@instHPow.{0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) Nat
+          (@NPow.toPow.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+            (@Monoid.toNPow.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+              (@Semiring.toMonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@Matrix.semiring.{0, 0} (Fin n) Complex Complex.instSemiring (Fin.fintype n)
+                  (instDecidableEqFin n))))))
+        (@NLA.MI07.matrixModulus n
+          (@Matrix.conjTranspose.{0, 0, 0} (Fin n) (Fin n) Complex
+            (@InvolutiveStar.toStar.{0} Complex
+              (@StarAddMonoid.toInvolutiveStar.{0} Complex
+                (@AddCommMonoid.toAddMonoid.{0} Complex
+                  (@NonUnitalNonAssocSemiring.toAddCommMonoid.{0} Complex
+                    (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+                      (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+                        (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing)))))
+                (@StarRing.toStarAddMonoid.{0} Complex
+                  (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+                    (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+                      (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing)))
+                  Complex.instStarRing)))
+            X))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) r
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+    (@Inv.inv.{0} Real Real.instInv
+      (@Nat.cast.{0} Real Real.instNatCast
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) r
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+def NLA.MI07.maximalModulus : {n : Nat} →
+  (X : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) → Matrix.{0, 0, 0} (Fin n) (Fin n) Complex :=
+fun {n : Nat} (X : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) =>
+  @Filter.limUnder.{0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+    (@instTopologicalSpaceMatrix.{0, 0, 0} (Fin n) (Fin n) Complex
+      (@UniformSpace.toTopologicalSpace.{0} Complex
+        (@PseudoMetricSpace.toUniformSpace.{0} Complex
+          (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+            (@SeminormedCommRing.toSeminormedRing.{0} Complex
+              (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))))
+    Nat (@NLA.MI07.maximalModulus._proof_1 n) (@Filter.atTop.{0} Nat Nat.instPreorder) (@NLA.MI07.rootSequence n X)
+def NLA.MI07.spectralNorm : {n : Nat} → (X : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) → Real :=
+fun {n : Nat} (X : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) =>
+  @Norm.norm.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+    (@NormedRing.toNorm.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+      (@Matrix.instL2OpNormedRing.{0, 0} Complex (Fin n) Complex.instRCLike (Fin.fintype n) (instDecidableEqFin n)))
+    X
+def NLA.MI07.unitaryConjugate : {n : Nat} →
+  (U :
+      @Subtype.{1} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) fun (x : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) =>
+        @Membership.mem.{0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+          (@Submonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+            (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+              (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@Matrix.semiring.{0, 0} (Fin n) Complex
+                  (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                  (Fin.fintype n) (instDecidableEqFin n)))))
+          (@SetLike.instMembership.{0, 0}
+            (@Submonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+              (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                  (@Matrix.semiring.{0, 0} (Fin n) Complex
+                    (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                    (Fin.fintype n) (instDecidableEqFin n)))))
+            (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+            (@Submonoid.instSetLike.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+              (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                  (@Matrix.semiring.{0, 0} (Fin n) Complex
+                    (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                    (Fin.fintype n) (instDecidableEqFin n))))))
+          (@Matrix.unitaryGroup.{0, 0} (Fin n) (instDecidableEqFin n) (Fin.fintype n) Complex Complex.commRing
+            Complex.instStarRing)
+          x) →
+    (H : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) → Matrix.{0, 0, 0} (Fin n) (Fin n) Complex :=
+fun {n : Nat}
+    (U :
+      @Subtype.{1} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) fun (x : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) =>
+        @Membership.mem.{0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+          (@Submonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+            (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+              (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@Matrix.semiring.{0, 0} (Fin n) Complex
+                  (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                  (Fin.fintype n) (instDecidableEqFin n)))))
+          (@SetLike.instMembership.{0, 0}
+            (@Submonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+              (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                  (@Matrix.semiring.{0, 0} (Fin n) Complex
+                    (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                    (Fin.fintype n) (instDecidableEqFin n)))))
+            (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+            (@Submonoid.instSetLike.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+              (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                  (@Matrix.semiring.{0, 0} (Fin n) Complex
+                    (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                    (Fin.fintype n) (instDecidableEqFin n))))))
+          (@Matrix.unitaryGroup.{0, 0} (Fin n) (instDecidableEqFin n) (Fin.fintype n) Complex Complex.commRing
+            Complex.instStarRing)
+          x)
+    (H : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) =>
+  @HMul.hMul.{0, 0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+    (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+    (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin n) (Fin n) (Fin n) Complex (Fin.fintype n)
+      Complex.instMul Complex.instAddCommMonoid)
+    (@HMul.hMul.{0, 0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+      (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+      (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin n) (Fin n) (Fin n) Complex (Fin.fintype n)
+        Complex.instMul Complex.instAddCommMonoid)
+      (@Subtype.val.{1} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+        (fun (x : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) =>
+          @Membership.mem.{0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+            (@Submonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+              (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                  (@Matrix.semiring.{0, 0} (Fin n) Complex
+                    (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                    (Fin.fintype n) (instDecidableEqFin n)))))
+            (@SetLike.instMembership.{0, 0}
+              (@Submonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                  (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                    (@Matrix.semiring.{0, 0} (Fin n) Complex
+                      (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                      (Fin.fintype n) (instDecidableEqFin n)))))
+              (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+              (@Submonoid.instSetLike.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                  (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                    (@Matrix.semiring.{0, 0} (Fin n) Complex
+                      (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                      (Fin.fintype n) (instDecidableEqFin n))))))
+            (@Matrix.unitaryGroup.{0, 0} (Fin n) (instDecidableEqFin n) (Fin.fintype n) Complex Complex.commRing
+              Complex.instStarRing)
+            x)
+        U)
+      H)
+    (@Matrix.conjTranspose.{0, 0, 0} (Fin n) (Fin n) Complex
+      (@InvolutiveStar.toStar.{0} Complex
+        (@StarAddMonoid.toInvolutiveStar.{0} Complex
+          (@AddCommMonoid.toAddMonoid.{0} Complex
+            (@NonUnitalNonAssocSemiring.toAddCommMonoid.{0} Complex
+              (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+                (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+                  (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing)))))
+          (@StarRing.toStarAddMonoid.{0} Complex
+            (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+              (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+                (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing)))
+            Complex.instStarRing)))
+      (@Subtype.val.{1} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+        (fun (x : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) =>
+          @Membership.mem.{0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+            (@Submonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+              (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                  (@Matrix.semiring.{0, 0} (Fin n) Complex
+                    (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                    (Fin.fintype n) (instDecidableEqFin n)))))
+            (@SetLike.instMembership.{0, 0}
+              (@Submonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                  (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                    (@Matrix.semiring.{0, 0} (Fin n) Complex
+                      (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                      (Fin.fintype n) (instDecidableEqFin n)))))
+              (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+              (@Submonoid.instSetLike.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                  (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                    (@Matrix.semiring.{0, 0} (Fin n) Complex
+                      (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                      (Fin.fintype n) (instDecidableEqFin n))))))
+            (@Matrix.unitaryGroup.{0, 0} (Fin n) (instDecidableEqFin n) (Fin.fintype n) Complex Complex.commRing
+              Complex.instStarRing)
+            x)
+        U))
+def NLA.MI07.TriangleConjecture : Prop :=
+∀ (n : Nat),
+  @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) n →
+    ∀ (A B : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex),
+      @Exists.{1}
+        (@Subtype.{1} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) fun (x : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) =>
+          @Membership.mem.{0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+            (@Submonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+              (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                  (@Matrix.semiring.{0, 0} (Fin n) Complex
+                    (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                    (Fin.fintype n) (instDecidableEqFin n)))))
+            (@SetLike.instMembership.{0, 0}
+              (@Submonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                  (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                    (@Matrix.semiring.{0, 0} (Fin n) Complex
+                      (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                      (Fin.fintype n) (instDecidableEqFin n)))))
+              (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+              (@Submonoid.instSetLike.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                  (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                    (@Matrix.semiring.{0, 0} (Fin n) Complex
+                      (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                      (Fin.fintype n) (instDecidableEqFin n))))))
+            (@Matrix.unitaryGroup.{0, 0} (Fin n) (instDecidableEqFin n) (Fin.fintype n) Complex Complex.commRing
+              Complex.instStarRing)
+            x)
+        fun
+          (U :
+            @Subtype.{1} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+              fun (x : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) =>
+              @Membership.mem.{0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@Submonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                  (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                    (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                      (@Matrix.semiring.{0, 0} (Fin n) Complex
+                        (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                        (Fin.fintype n) (instDecidableEqFin n)))))
+                (@SetLike.instMembership.{0, 0}
+                  (@Submonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                    (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                      (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                        (@Matrix.semiring.{0, 0} (Fin n) Complex
+                          (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                          (Fin.fintype n) (instDecidableEqFin n)))))
+                  (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                  (@Submonoid.instSetLike.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                    (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                      (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                        (@Matrix.semiring.{0, 0} (Fin n) Complex
+                          (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                          (Fin.fintype n) (instDecidableEqFin n))))))
+                (@Matrix.unitaryGroup.{0, 0} (Fin n) (instDecidableEqFin n) (Fin.fintype n) Complex Complex.commRing
+                  Complex.instStarRing)
+                x) =>
+        @Exists.{1}
+          (@Subtype.{1} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) fun (x : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) =>
+            @Membership.mem.{0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+              (@Submonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                  (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                    (@Matrix.semiring.{0, 0} (Fin n) Complex
+                      (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                      (Fin.fintype n) (instDecidableEqFin n)))))
+              (@SetLike.instMembership.{0, 0}
+                (@Submonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                  (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                    (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                      (@Matrix.semiring.{0, 0} (Fin n) Complex
+                        (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                        (Fin.fintype n) (instDecidableEqFin n)))))
+                (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@Submonoid.instSetLike.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                  (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                    (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                      (@Matrix.semiring.{0, 0} (Fin n) Complex
+                        (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                        (Fin.fintype n) (instDecidableEqFin n))))))
+              (@Matrix.unitaryGroup.{0, 0} (Fin n) (instDecidableEqFin n) (Fin.fintype n) Complex Complex.commRing
+                Complex.instStarRing)
+              x)
+          fun
+            (V :
+              @Subtype.{1} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                fun (x : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) =>
+                @Membership.mem.{0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                  (@Submonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                    (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                      (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                        (@Matrix.semiring.{0, 0} (Fin n) Complex
+                          (@CommSemiring.toSemiring.{0} Complex (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                          (Fin.fintype n) (instDecidableEqFin n)))))
+                  (@SetLike.instMembership.{0, 0}
+                    (@Submonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                      (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                        (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                          (@Matrix.semiring.{0, 0} (Fin n) Complex
+                            (@CommSemiring.toSemiring.{0} Complex
+                              (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                            (Fin.fintype n) (instDecidableEqFin n)))))
+                    (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                    (@Submonoid.instSetLike.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                      (@MulZeroOneClass.toMulOneClass.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                        (@instMulZeroOneClassOfSemiring.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                          (@Matrix.semiring.{0, 0} (Fin n) Complex
+                            (@CommSemiring.toSemiring.{0} Complex
+                              (@CommRing.toCommSemiring.{0} Complex Complex.commRing))
+                            (Fin.fintype n) (instDecidableEqFin n))))))
+                  (@Matrix.unitaryGroup.{0, 0} (Fin n) (instDecidableEqFin n) (Fin.fintype n) Complex Complex.commRing
+                    Complex.instStarRing)
+                  x) =>
+          @LE.le.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+            (@Preorder.toLE.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+              (@Matrix.instPreOrder.{0, 0} Complex (Fin n) Complex.instRCLike))
+            (@NLA.MI07.maximalModulus n
+              (@HAdd.hAdd.{0, 0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@instHAdd.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                  (@Matrix.add.{0, 0, 0} (Fin n) (Fin n) Complex Complex.instAdd))
+                A B))
+            (@HAdd.hAdd.{0, 0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+              (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+              (@instHAdd.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@Matrix.add.{0, 0, 0} (Fin n) (Fin n) Complex Complex.instAdd))
+              (@NLA.MI07.unitaryConjugate n U (@NLA.MI07.maximalModulus n A))
+              (@NLA.MI07.unitaryConjugate n V (@NLA.MI07.maximalModulus n B)))
+NLA.MI07.modulus_eq_sqrt {n : ℕ} (X : Matrix (Fin n) (Fin n) ℂ) :
+  NLA.MI07.matrixModulus X = CFC.sqrt (X.conjTranspose * X) ∧ (NLA.MI07.matrixModulus X).PosSemidef
+NLA.MI07.maximalModulus_eq_of_tendsto {n : ℕ} (X L : Matrix (Fin n) (Fin n) ℂ)
+  (h : Filter.Tendsto (NLA.MI07.rootSequence X) Filter.atTop (nhds L)) : NLA.MI07.maximalModulus X = L
+NLA.MI07.root_limit_iff_spectralNorm {n : ℕ} (X L : Matrix (Fin n) (Fin n) ℂ) :
+  Filter.Tendsto (NLA.MI07.rootSequence X) Filter.atTop (nhds L) ↔
+    Filter.Tendsto (fun r => NLA.MI07.spectralNorm (NLA.MI07.rootSequence X r - L)) Filter.atTop (nhds 0)
+NLA.MI07.witness_moduli :
+  NLA.MI07.witnessA.PosSemidef ∧
+    NLA.MI07.directionProjector.PosSemidef ∧
+      NLA.MI07.spanningSum.PosDef ∧
+        NLA.MI07.witnessA ^ 2 = NLA.MI07.witnessA ∧
+          NLA.MI07.directionProjector ^ 2 = NLA.MI07.directionProjector ∧
+            NLA.MI07.matrixModulus NLA.MI07.witnessA = NLA.MI07.witnessA ∧
+              NLA.MI07.matrixModulus NLA.MI07.witnessA.conjTranspose = NLA.MI07.witnessA ∧
+                NLA.MI07.matrixModulus NLA.MI07.witnessB = (5 / 12) • (1 - NLA.MI07.witnessA) ∧
+                  NLA.MI07.matrixModulus NLA.MI07.witnessB.conjTranspose = (5 / 12) • NLA.MI07.witnessA ∧
+                    NLA.MI07.matrixModulus (NLA.MI07.witnessA + NLA.MI07.witnessB) =
+                        (13 / 12) • NLA.MI07.directionProjector ∧
+                      NLA.MI07.matrixModulus (NLA.MI07.witnessA + NLA.MI07.witnessB).conjTranspose =
+                        (13 / 12) • NLA.MI07.witnessA
+NLA.MI07.witness_root_limits :
+  Filter.Tendsto (NLA.MI07.rootSequence NLA.MI07.witnessA) Filter.atTop (nhds NLA.MI07.witnessA) ∧
+    Filter.Tendsto (NLA.MI07.rootSequence NLA.MI07.witnessB) Filter.atTop (nhds ((5 / 12) • 1)) ∧
+      Filter.Tendsto (NLA.MI07.rootSequence (NLA.MI07.witnessA + NLA.MI07.witnessB)) Filter.atTop (nhds ((13 / 12) • 1))
+NLA.MI07.counterexample :
+  NLA.MI07.maximalModulus NLA.MI07.witnessA = NLA.MI07.witnessA ∧
+    NLA.MI07.maximalModulus NLA.MI07.witnessB = (5 / 12) • 1 ∧
+      NLA.MI07.maximalModulus (NLA.MI07.witnessA + NLA.MI07.witnessB) = (13 / 12) • 1 ∧
+        (NLA.MI07.maximalModulus (NLA.MI07.witnessA + NLA.MI07.witnessB)).trace = 13 / 6 ∧
+          ∀ (U V : ↥(Matrix.unitaryGroup (Fin 2) ℂ)),
+            (NLA.MI07.unitaryConjugate U (NLA.MI07.maximalModulus NLA.MI07.witnessA) +
+                    NLA.MI07.unitaryConjugate V (NLA.MI07.maximalModulus NLA.MI07.witnessB)).trace =
+                11 / 6 ∧
+              (NLA.MI07.unitaryConjugate U (NLA.MI07.maximalModulus NLA.MI07.witnessA) +
+                        NLA.MI07.unitaryConjugate V (NLA.MI07.maximalModulus NLA.MI07.witnessB) -
+                      NLA.MI07.maximalModulus (NLA.MI07.witnessA + NLA.MI07.witnessB)).trace =
+                  -1 / 3 ∧
+                ¬NLA.MI07.maximalModulus (NLA.MI07.witnessA + NLA.MI07.witnessB) ≤
+                    NLA.MI07.unitaryConjugate U (NLA.MI07.maximalModulus NLA.MI07.witnessA) +
+                      NLA.MI07.unitaryConjugate V (NLA.MI07.maximalModulus NLA.MI07.witnessB)
+NLA.MI07.not_triangleConjecture : ¬NLA.MI07.TriangleConjecture

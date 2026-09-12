@@ -1,0 +1,163 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/99c678e569c7c4c0772db297c5ddd5e4c9b6322e/schema/v0.4.schema.json
+version: v0.4
+project:
+  name: 'MI-07: a counterexample to the triangle conjecture for the maximal symmetric modulus'
+  description: Proves genuine complex matrix moduli, positive-integer CFC root-sequence limits at
+    all witness matrices, the true spectral-norm topology bridge, an all-unitary trace obstruction,
+    and the full original constant-one conjecture negation.
+  authors:
+  - George Stepaniants
+  affiliations:
+    George Stepaniants: Department of Computing and Mathematical Sciences, California Institute of
+      Technology, Pasadena, California, USA
+  responsible_maintainers:
+  - George Stepaniants
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+- title: MI-07 — The triangle conjecture for the maximal symmetric modulus
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/e7252e5307781a7c897bca6cb124f6ab838f6809/matrix-inequalities-and-norms/MI-07/README.md
+  type: web-post
+  location: Problem statement
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: For every positive dimension and arbitrary complex A,B, asks for existence of arbitrary complex
+    unitaries U,V giving ordinary PSD domination at constant one. The maximal modulus uses its actual
+    positive-integer root limit.
+- title: 'MI-07: Resolution'
+  authors:
+  - Matthew J. Colbrook
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/e7252e5307781a7c897bca6cb124f6ab838f6809/matrix-inequalities-and-norms/MI-07/solution.tex
+  type: manuscript
+  location: Theorem 1.1 and its proof, specialized to t=5/12 for the original constant-one target
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: The rational specialization of the source family proves the complete original negative answer.
+    The stronger source theorem excluding every finite domination constant is outside this formalization.
+related_formalizations:
+- id: https://github.com/sgstepaniants/Forsythe/tree/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof
+  relationship: other
+  note: Statement-first, kernel LeanCert and Comparator workflow reference. Shared checker reuse
+    is credited in tools/lean/NOTICE.md. No Forsythe mathematical result is assumed.
+- id: https://github.com/jaumededios/Schiffer/tree/2938e277969c329caf154e48a3d8823f3635c7f1
+  relationship: other
+  note: Proof organization studied; no source code copied or imported.
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: Multiple agents; two independent statement approvals before proof implementation
+      and two independent final proof reviews; genuine Mathlib CFC, projection spectrum, Hermitian
+      spectral representation, positivity, topology, trace and unitary APIs.
+    prompting_notes: Retain all original complex-matrix and unitary quantifiers. Prove every invoked
+      actual root limit before identifying its totalized limit. Preserve the singular projection
+      nullspace for positive exponents; apply exponent-zero continuity only to a positive definite
+      matrix. Minimize computations to exact 2x2 algebra and one kernel LeanCert rational point certificate.
+  notes: AI-assisted formalization requested by George Stepaniants. No external human peer review,
+    source-author endorsement, unrecorded exact model identity or measured monetary cost is claimed.
+status:
+  scope: Complete negative answer to the canonical original constant-one MI-07 conjecture. Local
+    Lean compilation, all 23 kernel trust/standard-axiom checks and two independent final proof reviews
+    passed. The authoritative Linux Comparator run is pending; the canonical repository status remains
+    Solved. No successful Linux execution or Lean-verified catalog promotion is claimed.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: &id001
+  - propext
+  - Classical.choice
+  - Quot.sound
+  main_results:
+  - declaration: NLA.MI07.modulus_eq_sqrt
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI07.maximalModulus_eq_of_tendsto
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI07.root_limit_iff_spectralNorm
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI07.witness_moduli
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI07.witness_root_limits
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI07.counterexample
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI07.not_triangleConjecture
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+fidelity:
+  divergences: Finite indices are zero-based and the positive integer root index is r+1. Modulus
+    is actual CFC.abs and every outer power is genuine CFC.rpow. The totalized Filter.limUnder is
+    identified only from proved convergence at every invoked witness matrix; no convergence assumption
+    weakens the original conjecture. The generic norm bridge uses the actual L2 operator norm and
+    ordinary finite-dimensional topology. The singular projection uses strictly positive exponent
+    identities, not its unital exponent-zero value. Ordinary PSD order and every arbitrary complex
+    unitary are retained. Generic convergence for unrelated matrices and the source stronger no-finite-constant
+    theorem are not claimed.
+review:
+  status: agent-reviewed; Linux-Comparator-pending
+  reviewers:
+  - 'OpenAI Codex agent /root/solved_statement_inventory: independent statement referee 1 and final
+    proof referee 1'
+  - 'OpenAI Codex agent /root: independent statement referee 2 and final proof referee 2'
+  notes: The two statement reviews bind Definitions, Challenge and numerical targets before proof
+    implementation. Both final proof reviewers independently re-elaborated the actual Definitions,
+    FunctionalCalculus, Proof and Solution into fresh local artifacts; their raw commands, axiom
+    audits, exact reconstructions and actual certificate inspections are retained. The proof implementer
+    does not count as an independent referee. Relevant Tau Ceti rubrics are adapted to this complete
+    canonical target. Seven deliberate Challenge placeholders are excluded from proof-development
+    sorry counts and are never imported by Solution. All seven source-level signatures match; this
+    does not replace the pending real Linux Comparator, actual sandbox controls and default-kernel
+    replay. Historical statement-stage notes remain as chronological evidence. Mechanical formal
+    identity does not replace prose-to-Lean fidelity review.
+  evidence: reviews/proof-referee-1.md and reviews/proof-referee-2.md
+alignment:
+- source: Canonical modulus as positive square root of the ordered Gram matrix
+  declarations:
+  - NLA.MI07.modulus_eq_sqrt
+- source: Actual positive-integer limit and genuine spectral-norm topology
+  declarations:
+  - NLA.MI07.maximalModulus_eq_of_tendsto
+  - NLA.MI07.root_limit_iff_spectralNorm
+- source: 'Colbrook Theorem 1.1 family at t=5/12: exact polar identities and actual root limits'
+  declarations:
+  - NLA.MI07.witness_moduli
+  - NLA.MI07.witness_root_limits
+- source: Full all-unitary trace obstruction and negation of the complete original constant-one conjecture
+  declarations:
+  - NLA.MI07.counterexample
+  - NLA.MI07.not_triangleConjecture
+acknowledgements: 'Mathlib, LeanCert, Lean Comparator, formalization.yaml maintainers, Schiffer and
+  Forsythe. Informal mathematical counterexample: Matthew J. Colbrook, Department of Applied Mathematics
+  and Theoretical Physics, University of Cambridge. Formalization: George Stepaniants with AI-agent
+  assistance.'
+toolchain:
+  lean: leanprover/lean4:v4.33.1
+  leancert: 621a43d7cf21f87872392a01e874f2f1dbddc926
+  mathlib: 0df444a360eaa60ab8c11dca51a86af692955474
+  dependency_manifest: lake-manifest.json
