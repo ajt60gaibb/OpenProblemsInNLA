@@ -57,6 +57,13 @@ def render(source):
                               r"Both \(sI_r\) and \(K\) are positive definite.", 1)
             heading = r"\\subsection\{3\.\s+Ten\s+parameters\s+with\s+no\s+repeated\s+unitary\s+class\}"
             tex = re.sub(heading, lambda match: r"\Needspace{22\baselineskip}" + "\n" + match[0], tex, count=1)
+        if identifier == "IE-26":
+            # PDF-only layout keeps the reviewed Markdown body unchanged.
+            # The text font lacks the source's Unicode end-of-proof mark.
+            tex = tex.replace("∎", r"\ensuremath{\blacksquare}")
+            tex = tex.replace(r"\subsection{", "\\Needspace{12\\baselineskip}\n" + r"\subsection{")
+            tex = tex.replace(r"\subsection{2. Interlacing", "\\newpage\n" + r"\subsection{2. Interlacing", 1)
+            tex = tex.replace(r"\[", "\\nopagebreak[4]\n" + r"\[")
         (source.parent / "solution.tex").write_text(tex, encoding="utf-8")
         (work / "solution.tex").write_text(tex, encoding="utf-8")
         for _ in range(2):

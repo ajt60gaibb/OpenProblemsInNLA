@@ -14,7 +14,6 @@
 | [IE-20](IE-20/README.md) | Precision required for conjugate gradients to attain backward accuracy in n steps | **🔵 OPEN** | extreme | interesting to the community | [PDF](IE-20/problem.pdf) · [TeX](IE-20/problem.tex) |
 | [IE-24](IE-24/README.md) | RILU conditioning for the Neumann problem on smooth planar domains | **🔵 OPEN** | challenging | interesting to the community | [PDF](IE-24/problem.pdf) · [TeX](IE-24/problem.tex) |
 | [IE-25](IE-25/README.md) | Perturbed MILU conditioning for Neumann problems in two and three dimensions | **🔵 OPEN** | challenging | interesting to the community | [PDF](IE-25/problem.pdf) · [TeX](IE-25/problem.tex) |
-| [IE-26](IE-26/README.md) | Sharp stability bounds for perturbed Fourier interpolation | **🔵 OPEN** | challenging | interesting to the community | [PDF](IE-26/problem.pdf) · [TeX](IE-26/problem.tex) |
 | [IE-27](IE-27/README.md) | Spectral disk for a Radau stage preconditioner | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](IE-27/problem.pdf) · [TeX](IE-27/problem.tex) |
 | [IE-28](IE-28/README.md) | Positive diagonal preconditioning with a nilpotent stiff limit | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](IE-28/problem.pdf) · [TeX](IE-28/problem.tex) |
 | [KE-01](KE-01/README.md) | Exploit spectral outliers without losing input sparsity | **🔵 OPEN** | challenging | interesting to the community | [PDF](KE-01/problem.pdf) · [TeX](KE-01/problem.tex) |
@@ -36,5 +35,6 @@
 | [IE-21](IE-21/README.md) | Sharp row-deletion singular-value limit for spherical random matrices | **✅ SOLVED** | challenging | interesting to the community | [PDF](IE-21/problem.pdf) · [TeX](IE-21/problem.tex) |
 | [IE-22](IE-22/README.md) | Optimal uniform row-deletion singular-value constant | **✅ SOLVED** | challenging | interesting to the community | [PDF](IE-22/problem.pdf) · [TeX](IE-22/problem.tex) |
 | [IE-23](IE-23/README.md) | Uniqueness of the right inverse minimizing an induced p-to-2 norm | **✅ SOLVED** | hard | interesting to specialist | [PDF](IE-23/problem.pdf) · [TeX](IE-23/problem.tex) |
+| [IE-26](IE-26/README.md) | Sharp stability bounds for perturbed Fourier interpolation | **✅ SOLVED** | challenging | interesting to the community | [PDF](IE-26/problem.pdf) · [TeX](IE-26/problem.tex) |
 
 Ratings are editorial; each entry explains both ratings and the scope of its status evidence. [Definitions](../README.md#problem-status).

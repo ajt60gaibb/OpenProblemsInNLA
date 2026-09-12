@@ -61,6 +61,14 @@ The complete argument passed a separate [independent Codex-agent review](referen
 
 Cheon-Kim-Kim (2020) retain credit for prior constant-factor optimality, and Chen-Chow (2014) and Polar Express for the classical cubic construction. Uniform order already follows from the prior estimates by a short synthesis; this self-contained note supplies the explicit $T_{\min}\le m$ comparison and makes no first-discovery claim. The exact minimum, optimal leading constant and same-budget error comparison remain unanswered. The full proof passed a separate [independent mathematical and scope audit](references/stepaniants-mf02-2026-09-12/verification/independent-review/MF-02-independent-review.md). AI assistance and the limits of automated review are explicit in the [submission record](references/stepaniants-mf02-2026-09-12/README.md); no formal verification or external human peer review is asserted.
 
+### ✅ IE-26 — both sharp perturbed Fourier stability bounds — George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Affirmative resolution recorded 2026-09-12.** [Theorem 1](linear-systems-and-elimination/IE-26/solution.md) proves the original Lebesgue bound with one absolute constant for every $0<\alpha<1/2$, and the normalized square Fourier inverse-norm bound without a logarithmic factor for each fixed $1/4<\alpha<1/2$. Both apply to every $N\ge2$ and every admissible perturbed grid. [Proof PDF](linear-systems-and-elimination/IE-26/solution.pdf) · [Retained target](linear-systems-and-elimination/IE-26/README.md). The second-bound endpoint is not asserted.
+
+The entire argument passed a separate [independent Codex-agent audit](references/stepaniants-ie26-2026-09-12/verification/independent-review/IE-26-independent-review.md), with no mathematical correction. The coordinating contributor's check is identified separately. Substantial AI assistance is disclosed; informal automated review does not establish external human peer review or formal verification. Austin–Trefethen and later authors retain credit for the conjectures and previous results; Laugesen's weak Hilbert-transform theorem supplies the sole external harmonic-analysis inequality. [Submission, source hashes, and verification record](references/stepaniants-ie26-2026-09-12/README.md).
+
 ### ✅ IE-05 - the orthogonal partial-pivoting extremizer equality is false - George Stepaniants
 
 **Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.

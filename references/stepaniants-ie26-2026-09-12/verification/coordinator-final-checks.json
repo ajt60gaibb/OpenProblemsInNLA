@@ -1,0 +1,93 @@
+{
+  "verdict": "PASS",
+  "scope": "Publication conversion, original target, IDs, existing safeguard tests, and PDF text; no formal mathematical certification",
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "references/stepaniants-ie26-2026-09-12/verification/check_submission.py"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"verdict\": \"PASS\",\n  \"scope\": \"provenance and conversion; not a theorem proof\",\n  \"frozen_proof_sha256\": \"5ce6d660bb1b22f0c4dec439934e883b3e014708e49a63de2dba2760c939d295\",\n  \"unchanged_core_bytes\": 16618,\n  \"unchanged_original_target_and_history\": true,\n  \"ordered_formula_counts\": {\n    \"solution\": 272,\n    \"problem\": 37\n  },\n  \"permanent_ids\": 217,\n  \"frozen_files\": 28,\n  \"local_links\": \"PASS\",\n  \"author_and_affiliation\": \"PASS\",\n  \"contact_email_scan\": \"PASS\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python3",
+        "tools/validate_problem_ids.py",
+        "--base-ref",
+        "origin/main"
+      ],
+      "exit_code": 0,
+      "stdout": "Validated 217 permanent problem IDs against origin/main\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python3",
+        "tools/validate_problem_ids.py",
+        "--base-ref",
+        "1f22006bdaa4659fcaa0bb775a887685cd3cc566"
+      ],
+      "exit_code": 0,
+      "stdout": "Validated 217 permanent problem IDs against 1f22006bdaa4659fcaa0bb775a887685cd3cc566\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_problem_ids.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_append_only_and_large_suffixes (test_problem_ids.PermanentIDTests) ... ok\ntest_cannot_fill_historical_gap (test_problem_ids.PermanentIDTests) ... ok\ntest_cannot_reassign_registered_path (test_problem_ids.PermanentIDTests) ... ok\ntest_cannot_remove_page_and_registry_record_together (test_problem_ids.PermanentIDTests) ... ok\ntest_committed_branch_renumber_detected_against_published_branch (test_problem_ids.PermanentIDTests) ... ok\ntest_current_registry_and_status_changes (test_problem_ids.PermanentIDTests) ... ok\ntest_duplicate_heading_id (test_problem_ids.PermanentIDTests) ... ok\ntest_duplicate_json_keys (test_problem_ids.PermanentIDTests) ... ok\ntest_first_registry_protects_already_published_ids (test_problem_ids.PermanentIDTests) ... ok\ntest_heading_rename_and_malformed_ids (test_problem_ids.PermanentIDTests) ... ok\ntest_indexer_does_not_write_when_validation_fails (test_problem_ids.PermanentIDTests) ... ok\ntest_invalid_base_is_not_silently_ignored (test_problem_ids.PermanentIDTests) ... ok\ntest_missing_registered_page (test_problem_ids.PermanentIDTests) ... ok\ntest_paths_cannot_escape_or_alias (test_problem_ids.PermanentIDTests) ... ok\ntest_symlinked_canonical_page (test_problem_ids.PermanentIDTests) ... ok\ntest_symlinked_registry (test_problem_ids.PermanentIDTests) ... ok\ntest_unregistered_entry (test_problem_ids.PermanentIDTests) ... ok\n\n----------------------------------------------------------------------\nRan 17 tests in 0.803s\n\nOK\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_problem_statuses.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_promotion_preserves_counts_and_canonical_identity (test_problem_statuses.ProblemStatusTests) ... ok\ntest_read_problem_accepts_lean_verified (test_problem_statuses.ProblemStatusTests) ... ok\ntest_read_problem_rejects_unknown_status (test_problem_statuses.ProblemStatusTests) ... ok\n\n----------------------------------------------------------------------\nRan 3 tests in 0.281s\n\nOK\n"
+    },
+    {
+      "command": [
+        "git",
+        "-c",
+        "core.whitespace=-blank-at-eol",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "pdf_text_checks": [
+    {
+      "file": "linear-systems-and-elimination/IE-26/solution.pdf",
+      "sha256": "dd55cc943beb4acbfa3102d5c74f580496edb1f3071add369107318a896b66bc",
+      "text_author_affiliation_contact_check": "PASS"
+    },
+    {
+      "file": "linear-systems-and-elimination/IE-26/problem.pdf",
+      "sha256": "97cf89b65d5096cb67f2ff7d6ba64c78be2244b457eb4b7db054b3fee5233461",
+      "text_author_affiliation_contact_check": "PASS"
+    }
+  ]
+}
