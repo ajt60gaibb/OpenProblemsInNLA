@@ -24,7 +24,7 @@
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [IE-01](IE-01/README.md) | Forsythe's conjecture beyond restart length two | **🟠 SOLUTION CLAIMED** | extreme | interesting to the community | [PDF](IE-01/problem.pdf) · [TeX](IE-01/problem.tex) |
+| [IE-01](IE-01/README.md) | Forsythe's conjecture beyond restart length two | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](IE-01/problem.pdf) · [TeX](IE-01/problem.tex) |
 | [IE-02](IE-02/README.md) | Is the ideal GMRES bound sharp for every Jordan block? | **✅ SOLVED** | challenging | interesting to specialist | [PDF](IE-02/problem.pdf) · [TeX](IE-02/problem.tex) |
 | [IE-04](IE-04/README.md) | Exponential smoothed tail bounds for partial pivoting | **✅ SOLVED** | extreme | broadly interesting | [PDF](IE-04/problem.pdf) · [TeX](IE-04/problem.tex) |
 | [IE-13](IE-13/README.md) | Sharp growth for unequal lower and upper bandwidths | **✅ SOLVED** | challenging | interesting to specialist | [PDF](IE-13/problem.pdf) · [TeX](IE-13/problem.tex) |

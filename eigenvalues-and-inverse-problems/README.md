@@ -2,7 +2,7 @@
 
 [← All categories](../README.md) · [Full catalog](../CATALOG.md) · [Solved and claimed solutions](../RESOLVED.md)
 
-**17 problems with open targets.** 9 retained entries are excluded from the open count.
+**15 problems with open targets.** 11 retained entries are excluded from the open count.
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
@@ -18,8 +18,6 @@
 | [SP-08](SP-08/README.md) | Rank-two maximizers of spectral spread on an entry interval | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](SP-08/problem.pdf) · [TeX](SP-08/problem.tex) |
 | [SP-09](SP-09/README.md) | Unitary-orbit distance under finite block repetition | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](SP-09/problem.pdf) · [TeX](SP-09/problem.tex) |
 | [SP-10](SP-10/README.md) | The graph complement conjecture for minimum symmetric rank | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](SP-10/problem.pdf) · [TeX](SP-10/problem.tex) |
-| [SP-11](SP-11/README.md) | The delta conjecture for minimum symmetric rank | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](SP-11/problem.pdf) · [TeX](SP-11/problem.tex) |
-| [SP-12](SP-12/README.md) | A chromatic lower bound for positive-semidefinite nullity with SAP | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](SP-12/problem.pdf) · [TeX](SP-12/problem.tex) |
 | [SP-13](SP-13/README.md) | Trace-norm-small perturbations preserve Hermitian spectral distributions | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](SP-13/problem.pdf) · [TeX](SP-13/problem.tex) |
 | [SP-14](SP-14/README.md) | Widom's canonical distribution conjecture for Toeplitz eigenvalues | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](SP-14/problem.pdf) · [TeX](SP-14/problem.tex) |
 | [SP-15](SP-15/README.md) | Finitely many unitary classes with prescribed shifted singular values | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](SP-15/problem.pdf) · [TeX](SP-15/problem.tex) |
@@ -37,5 +35,7 @@
 | [SP-04](SP-04/README.md) | The smallest-multiplier rule for nearest unit-absolute-determinant matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](SP-04/problem.pdf) · [TeX](SP-04/problem.tex) |
 | [SP-05](SP-05/README.md) | Symmetric minimizer for a positive definite Jordan–Kronecker product | **✅ SOLVED** | challenging | interesting to the community | [PDF](SP-05/problem.pdf) · [TeX](SP-05/problem.tex) |
 | [SP-06](SP-06/README.md) | A real-valued symbol on a Jordan curve and real Toeplitz spectra | **✅ SOLVED** | challenging | interesting to the community | [PDF](SP-06/problem.pdf) · [TeX](SP-06/problem.tex) |
+| [SP-11](SP-11/README.md) | The delta conjecture for minimum symmetric rank | **✅ SOLVED** | extreme | interesting to the community | [PDF](SP-11/problem.pdf) · [TeX](SP-11/problem.tex) |
+| [SP-12](SP-12/README.md) | A chromatic lower bound for positive-semidefinite nullity with SAP | **✅ SOLVED** | challenging | interesting to specialist | [PDF](SP-12/problem.pdf) · [TeX](SP-12/problem.tex) |
 
 Ratings are editorial; each entry explains both ratings and the scope of its status evidence. [Definitions](../README.md#problem-status).

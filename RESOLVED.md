@@ -7,11 +7,17 @@ with a prominent status, the resolution reference, its date and exact scope.
 They do not contribute to the open count. A counterexample is a solution to a
 conjecture's truth question; it is recorded as a negative resolution.
 
-**✅ SOLVED** means the exact target has a published or independently verified
-resolution. **🟠 SOLUTION CLAIMED** means a primary manuscript reports a full
-resolution whose proof has not been independently verified here. Neither status
-is counted as open. A partial result leaves the surviving target in the open
-catalog with **🟡 PARTIAL** and an explanation of what remains.
+Complete resolutions have three evidence levels: **🟠 SOLUTION CLAIMED**,
+**✅ SOLVED**, and **🏆 LEAN VERIFIED**. `Solution claimed` means a primary
+manuscript reports a full resolution whose proof has not been independently
+verified here. `Solved` means the exact target has a published result or an
+independently audited argument; an AI-agent audit is informal review and does
+not establish formal verification. `Lean verified` adds a kernel-checked Lean
+proof, reviewed correspondence to the original target, and a
+[reproducible verification record](CONTRIBUTING.md#lean-verification).
+None of these statuses is counted as open. A partial result leaves the
+surviving target in the open catalog with **🟡 PARTIAL**, even if that partial
+result is formalized in Lean.
 
 ## Resolved catalog entries
 
@@ -23,6 +29,28 @@ catalog with **🟡 PARTIAL** and an explanation of what remains.
 
 The complete analytic proof passed a separate [independent Codex-agent review](references/stepaniants-ie04-2026-09-11/verification/IE-04-independent-review.md). Finite exact interval and rational checks are supplementary. AI assistance and automated-review limits are disclosed; no external human peer review or formal certification is asserted. [Submission record and public eligibility audit](references/stepaniants-ie04-2026-09-11/README.md). All original target quantifiers, the permanent ID and historical ratings are retained.
 
+
+
+<a id="ie-01"></a>
+
+### 🏆 IE-01 — Forsythe's conjecture beyond restart length two
+
+[Original statement and resolution](linear-systems-and-elimination/IE-01/README.md) · [PDF](linear-systems-and-elimination/IE-01/problem.pdf)
+
+**Complete classification; Lean verified status recorded 2026-09-11.** Colbrook, Stepaniants and Townsend's [September 2026 paper, v2, Theorem 1.1](https://arxiv.org/html/2609.04659v2) proves convergence for restart length three and gives nonterminating diagonal SPD counterexamples in dimension $s+4$ for every $s\ge4$. This settles the entire original target. The paper also proves the positive case $s=2$.
+
+The authors' [Lean proof](https://github.com/sgstepaniants/Forsythe/tree/main/lean-proof), described in Appendix D, formalizes the classification including the analytic and numerical premises. Its [verification record](https://github.com/sgstepaniants/Forsythe/blob/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof/VERIFICATION.md) documents successful Comparator statement checks and Lean kernel replay for all five exports, with only the standard axioms `propext`, `Classical.choice` and `Quot.sound`. This catalog checked the formal statement scope and public verification evidence; it did not rerun Lean or Comparator locally. This supersedes the former **Solution claimed** label. The stable ID and original statement remain, and the entry stays outside the open count.
+
+### ✅ SP-11 and SP-12 — Hall's theorem; application notes by George Stepaniants
+
+**Application-note author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology. **Theorem author:** H. Tracy Hall.
+
+**Literature-dependent affirmative resolutions recorded 2026-09-11.** Hall's [*The Delta Theorem*, arXiv:2601.01211v1](https://arxiv.org/html/2601.01211v1), Theorem 3.20 and Corollary 3.22, proves the all-graph PSD/SAP bound $\nu(G)\ge\delta(G)$. The source is a preprint, submitted 3 January 2026; the complete essential proof and both deductions passed a separate [independent Codex-agent mathematical review](references/stepaniants-sp11-sp12-2026-09-11/verification/SP-11-SP-12-independent-review.md). This is automated-agent verification, not human peer review or formal certification.
+
+- **SP-11:** [Original target and resolution](eigenvalues-and-inverse-problems/SP-11/README.md) · [Application note](eigenvalues-and-inverse-problems/SP-11/solution.md) · [PDF](eigenvalues-and-inverse-problems/SP-11/solution.pdf). Forgetting PSD and SAP gives $\operatorname{mr}(G)\le n-\delta(G)$; Hall's Corollary 3.24 already states this ordinary Delta consequence.
+- **SP-12:** [Original target and resolution](eigenvalues-and-inverse-problems/SP-12/README.md) · [Application note](eigenvalues-and-inverse-problems/SP-12/solution.md) · [PDF](eigenvalues-and-inverse-problems/SP-12/solution.pdf). The supplied proof of induced-subgraph monotonicity, followed by a chromatic-critical subgraph reduction, gives $\nu(G)\ge\chi(G)-1$ for every finite simple graph.
+
+These are explanatory applications of Hall's theorem, with substantial AI assistance disclosed and no novelty or priority claim. The [submission record](references/stepaniants-sp11-sp12-2026-09-11/README.md) preserves the original six-file package, withdrawn unsupported artifact claims, current audit, and review. Both permanent IDs, original targets, and earlier attributed partial results are retained.
 
 ### ✅ IE-02 — ideal and worst-case GMRES coincide for every Jordan block — George Stepaniants
 
@@ -488,14 +516,6 @@ The classification below concerns the strength of the available evidence, not a
 claim that an unrefereed proof is incorrect. The records below were checked
 on **2026-09-10**.
 
-<a id="ie-01"></a>
-
-### 🟠 IE-01 — Forsythe's conjecture beyond restart length two
-
-[Original statement and resolution](linear-systems-and-elimination/IE-01/README.md) · [PDF](linear-systems-and-elimination/IE-01/problem.pdf)
-
-Colbrook, Stepaniants and Townsend's [September 2026 preprint, v2, Theorem 1.1](https://arxiv.org/html/2609.04659v2), reports convergence for restart length three and counterexamples for every restart length at least four. This covers the entire former entry. Removed from the open count on September 8; the stable page is restored with the claim prominently displayed. The full proof has not been independently audited by this catalog.
-
 <a id="tr-02"></a>
 
 ### 🟠 TR-02 — Greedy cross approximation of the fermionic kernel
@@ -527,7 +547,7 @@ every rejected candidate.
 ## Recording a new resolution
 
 1. Keep the original problem ID, folder and statement. Do not delete or reuse the ID.
-2. Set `**Status:** Solved` or `**Status:** Solution claimed` on its canonical page. Add a prominent resolution notice, a primary reference and theorem/page locator, the resolution date, the outcome (affirmative, negative or classification), and a comparison with the original assumptions and quantifiers.
+2. Set `**Status:** Solution claimed`, `**Status:** Solved`, or `**Status:** Lean verified` on its canonical page according to the evidence. Add a prominent resolution notice, a primary reference and theorem/page locator, the resolution date, the outcome (affirmative, negative or classification), and a comparison with the original assumptions and quantifiers. Identify the actual review level; for `Lean verified`, include the [required formal-verification evidence](CONTRIBUTING.md#lean-verification).
 3. For a partial result, use `Partially resolved` and state the exact remaining cases. A weaker bound, a different algorithm, or a different input model does not settle the target.
-4. Add the resolution here, regenerate the catalog indexes with `python3 tools/update_catalog.py`, and regenerate the affected TeX/PDF with `python3 tools/render_problems.py ID`.
+4. Add the resolution here, validate IDs with `python3 tools/validate_problem_ids.py --base-ref origin/main`, regenerate the catalog indexes with `python3 tools/update_catalog.py --base-ref origin/main`, and regenerate the affected TeX/PDF with `python3 tools/render_problems.py ID`. Run `python3 -m unittest discover -s tests -p 'test_problem_ids.py' -v`.
 5. Submit a pull request. An issue being closed is not, by itself, evidence that a mathematical problem is solved. If a claim is withdrawn or a gap is found, retain the history and revise the status using the new evidence.

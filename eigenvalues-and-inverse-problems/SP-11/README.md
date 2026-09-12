@@ -6,10 +6,20 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-10
+**Status:** Solved
+**Last checked:** 2026-09-11
 
-**Rating rationale:** Extreme reflects the longstanding all-graph gap between a local degree constraint and an exact matrix-realization guarantee. Community impact comes from controlling achievable eigenvalue multiplicity across symmetric sparsity patterns.
+**Rating rationale (historical):** Extreme reflects the longstanding all-graph gap between a local degree constraint and an exact matrix-realization guarantee. Community impact comes from controlling achievable eigenvalue multiplicity across symmetric sparsity patterns.
+
+## Literature-dependent resolution - 2026-09-11
+
+**Solved.** Hall's **Corollaries 3.22 and 3.24**, based on **Theorem 3.20**, give a PSD SAP matrix with nullity at least $\delta(G)$. Forgetting PSD and SAP proves the exact unrestricted symmetric target $\operatorname{mr}(G)\le n-\delta(G)$ for every finite simple graph.
+
+The all-graph theorem is due to **H. Tracy Hall**, [*The Delta Theorem*, arXiv:2601.01211v1](https://arxiv.org/html/2601.01211v1), submitted 3 January 2026. **George Stepaniants**, Department of Computing and Mathematical Sciences, California Institute of Technology, is the author of the [explanatory application note](solution.md); no new theorem discovery or priority is claimed. [Application PDF](solution.pdf) · [Standalone TeX](solution.tex).
+
+A separate [Codex-agent review](../../references/stepaniants-sp11-sp12-2026-09-11/verification/SP-11-SP-12-independent-review.md) checked the full essential proof in Hall's preprint and the exact deduction and returned **PASS**. The source remains a preprint; this is independent automated-agent review, not external human peer review or formal verification. Substantial ChatGPT/Codex assistance and the review's precise limits are disclosed in the [submission record](../../references/stepaniants-sp11-sp12-2026-09-11/README.md).
+
+The earlier status checks below are retained as historical records. The original ID, target, path, historical ratings and attributed partial results remain unchanged. Unsupported prior artifact and graph-atlas claims remain withdrawn.
 
 ## Problem statement
 
