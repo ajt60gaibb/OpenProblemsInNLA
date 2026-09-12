@@ -1,0 +1,138 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/99c678e569c7c4c0772db297c5ddd5e4c9b6322e/schema/v0.4.schema.json
+version: "v0.4"
+project:
+  name: "IE-19: negative resolution of the sharp inverse norm conjecture"
+  description: >-
+    Proves an admissible real symmetric order-three counterexample using actual
+    matrix inverses and the maximum absolute row-sum norm, then refutes the
+    complete original universal conjecture including its equality clause.
+  authors:
+    - George Stepaniants
+  affiliations:
+    George Stepaniants: >-
+      Department of Computing and Mathematical Sciences, California Institute
+      of Technology, Pasadena, California, USA
+  responsible_maintainers:
+    - George Stepaniants
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+  - title: "IE-19 — Sharp inverse norm bound from upper bounds on matrix entries"
+    id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/5adea969c17391693978ada2674d25bb5c3daeb1/linear-systems-and-elimination/IE-19/README.md
+    type: web-post
+    location: Problem statement
+    relationship: formalizes
+    author_endorsement: not-contacted
+    note: >-
+      Canonical retained target. The original conjecture is attributed there
+      to C. J. Hillar, S. Lin and A. Wibisono; the repository restatement is not
+      reattributed to the formalization author.
+  - title: An entrywise inverse-norm conjecture and its sharp replacement
+    authors:
+      - Matthew J. Colbrook
+    id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/5adea969c17391693978ada2674d25bb5c3daeb1/references/colbrook-recovered-2026-09-11/manuscripts/IE-19.tex
+    type: manuscript
+    location: Section 1, Counterexample
+    relationship: formalizes
+    author_endorsement: not-contacted
+    note: >-
+      Formalizes the complete negative resolution in Section 1. The additional
+      sharp infimum and nonattainment theorem in Section 2 is not formalized.
+      Repository authorization does not imply source-author endorsement.
+related_formalizations:
+  - id: https://github.com/sgstepaniants/Forsythe/tree/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof
+    relationship: other
+    note: >-
+      Reference for statement separation, pinned dependencies, explicit kernel
+      LeanCert and Comparator workflow. Shared checker reuse is credited in
+      tools/lean/NOTICE.md; no Forsythe mathematical theorem is assumed here.
+  - id: https://github.com/jaumededios/Schiffer/tree/2938e277969c329caf154e48a3d8823f3635c7f1
+    relationship: other
+    note: >-
+      Proof organization was studied. No mathematical source code from that
+      project is copied or imported.
+automation:
+  methods:
+    - method: agent
+      framework: OpenAI Codex
+      tool_setup: >-
+        Multiple agents; exact target definitions and two independent statement
+        reviews before implementation; Mathlib finite matrix proofs; LeanCert
+        in explicit kernel mode for the single rational scalar inequality.
+      prompting_notes: >-
+        Preserve the full canonical question, use actual matrix inversion and
+        row-sum norm, minimize computation without narrowing the target, and
+        retain original informal authorship separately from formalization credit.
+  notes: >-
+    AI-assisted formalization requested by George Stepaniants. No external human
+    peer review, formalization-author endorsement by the informal source author,
+    unrecorded model identity, or measured monetary cost is claimed.
+status:
+  scope: >-
+    Complete negative answer to the original IE-19 yes/no conjecture. Local
+    Lean 4.33.1 compilation and transitive standard-axiom checks have passed.
+    Two independent final proof reviews have passed. Authoritative Linux
+    Comparator verification is pending; the catalog status remains Solved.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: [propext, Classical.choice, Quot.sound]
+  main_results:
+    - declaration: NLA.IE19.counterexample
+      file: Solution.lean
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+      comparator_config: comparator.json
+      literature_dependencies: []
+    - declaration: NLA.IE19.not_lowerBoundConjecture
+      file: Solution.lean
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+      comparator_config: comparator.json
+      literature_dependencies: []
+    - declaration: NLA.IE19.not_sharpConjecture
+      file: Solution.lean
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+      comparator_config: comparator.json
+      literature_dependencies: []
+fidelity:
+  divergences: >-
+    Fin n uses zero-based positions. The maximum row-sum norm is an explicit
+    finite NNReal supremum coerced to the reals, rather than Mathlib's default
+    entrywise matrix norm. No invertibility or strict-dominance premise is added
+    to the universal target. The concrete inverses are proved genuine. The
+    optional sharp-infimum replacement in the informal manuscript is excluded.
+review:
+  status: agent-reviewed; Linux-Comparator-pending
+  reviewers:
+    - "OpenAI Codex agent /root/leancert_examples: statement referee 1; later proof implementer"
+    - "OpenAI Codex agent /root/solved_statement_inventory: statement referee 2"
+    - "OpenAI Codex agent /root/solved_statement_inventory: independent final proof referee 1"
+    - "OpenAI Codex agent /root/formal_review_standards: independent final proof referee 2"
+  notes: >-
+    The two statement reports bind the frozen Definitions, Challenge and
+    NUMERICAL_TARGETS bytes and precede implementation. The proof implementer
+    does not count as an independent final proof referee. Both final referees
+    independently re-elaborated the proof and exports successfully. Reports adapt the
+    Tau Ceti correctness, scope, quality, reuse, API, naming, placement,
+    documentation, generality and attribution angles. Comparator checks formal
+    identity and kernel acceptance, not English-to-Lean fidelity; its Linux
+    verification is not yet claimed. The three intentional Challenge placeholders
+    are excluded from proof-development sorry counts and never imported by Solution.
+alignment:
+  - source: "Canonical IE-19 Problem statement, hypotheses and displayed bound"
+    declarations: [NLA.IE19.Admissible, NLA.IE19.rowSumNorm, NLA.IE19.comparisonBound]
+  - source: "Colbrook Section 1, explicit matrices and strict inverse norm gap"
+    declarations: [NLA.IE19.counterexample]
+  - source: "Canonical universal inequality and equality-characterized conjecture"
+    declarations: [NLA.IE19.not_lowerBoundConjecture, NLA.IE19.not_sharpConjecture]
+acknowledgements: >-
+  Mathlib, LeanCert, Lean Comparator, the formalization.yaml maintainers, and
+  the Schiffer and Forsythe examples. Informal mathematical proof: Matthew J.
+  Colbrook. Formalization: George Stepaniants with AI-agent assistance.
+toolchain:
+  lean: leanprover/lean4:v4.33.1
+  leancert: 621a43d7cf21f87872392a01e874f2f1dbddc926
+  mathlib: 0df444a360eaa60ab8c11dca51a86af692955474
+  dependency_manifest: lake-manifest.json
