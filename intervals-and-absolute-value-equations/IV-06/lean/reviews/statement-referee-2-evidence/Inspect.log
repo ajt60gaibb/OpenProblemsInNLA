@@ -1,0 +1,183 @@
+def NLA.IV06.EntrywiseLE : {n : ℕ} → NLA.IV06.RealMatrix n → NLA.IV06.RealMatrix n → Prop :=
+fun {n} L U => ∀ (i j : Fin n), LE.le.{0} (L i j) (U i j)
+def NLA.IV06.InIntervalFamily : {n : ℕ} →
+  NLA.IV06.RealMatrix n → NLA.IV06.RealMatrix n → NLA.IV06.RealMatrix n → Prop :=
+fun {n} L U A => NLA.IV06.EntrywiseLE L A ∧ NLA.IV06.EntrywiseLE A U
+def NLA.IV06.HasRealEigenvalue : {n : ℕ} → NLA.IV06.RealMatrix n → ℝ → Prop :=
+fun {n} A lam => ∃ v, Ne.{1} v 0 ∧ Eq.{1} (Matrix.mulVec.{0, 0, 0} A v) (HSMul.hSMul.{0, 0, 0} lam v)
+def NLA.IV06.realEigenvalueSet : {n : ℕ} → NLA.IV06.RealMatrix n → NLA.IV06.RealMatrix n → Set.{0} ℝ :=
+fun {n} L U => Set.ofPred.{0} fun lam => ∃ A, NLA.IV06.InIntervalFamily L U A ∧ NLA.IV06.HasRealEigenvalue A lam
+def NLA.IV06.characteristicDet : {n : ℕ} → NLA.IV06.RealMatrix n → ℝ → ℝ :=
+fun {n} A lam => Matrix.det.{0, 0} (HSub.hSub.{0, 0, 0} (HSMul.hSMul.{0, 0, 0} lam 1) A)
+def NLA.IV06.componentCard : Set.{0} ℝ → Cardinal.{0} :=
+fun S => Cardinal.mk.{0} (ConnectedComponents.{0} ↑S)
+def NLA.IV06.ComponentBoundConjecture : Prop :=
+∀ (n : ℕ),
+  LE.le.{0} 1 n →
+    ∀ (L U : NLA.IV06.RealMatrix n),
+      NLA.IV06.EntrywiseLE L U → LE.le.{1} (NLA.IV06.componentCard (NLA.IV06.realEigenvalueSet L U)) ↑n
+def NLA.IV06.family : ℝ → ℝ → NLA.IV06.RealMatrix 3 :=
+fun a b =>
+  Matrix.of.{0, 0, 0}
+    (Matrix.vecCons.{0} (Matrix.vecCons.{0} 25 (Matrix.vecCons.{0} a (Matrix.vecCons.{0} b Matrix.vecEmpty.{0})))
+      (Matrix.vecCons.{0} (Matrix.vecCons.{0} 1 (Matrix.vecCons.{0} (-1) (Matrix.vecCons.{0} 0 Matrix.vecEmpty.{0})))
+        (Matrix.vecCons.{0} (Matrix.vecCons.{0} 1 (Matrix.vecCons.{0} 0 (Matrix.vecCons.{0} 1 Matrix.vecEmpty.{0})))
+          Matrix.vecEmpty.{0})))
+def NLA.IV06.lower : NLA.IV06.RealMatrix 3 :=
+NLA.IV06.family (-166) 9
+def NLA.IV06.upper : NLA.IV06.RealMatrix 3 :=
+NLA.IV06.family (-16) 159
+def NLA.IV06.includedValue : Fin 4 → ℝ :=
+Matrix.vecCons.{0} (-3) (Matrix.vecCons.{0} 0 (Matrix.vecCons.{0} 3 (Matrix.vecCons.{0} 25 Matrix.vecEmpty.{0})))
+def NLA.IV06.includedA : Fin 4 → ℝ :=
+Matrix.vecCons.{0} (-21)
+  (Matrix.vecCons.{0} (-16) (Matrix.vecCons.{0} (-146) (Matrix.vecCons.{0} (-91) Matrix.vecEmpty.{0})))
+def NLA.IV06.includedB : Fin 4 → ℝ :=
+Matrix.vecCons.{0} 154 (Matrix.vecCons.{0} 9 (Matrix.vecCons.{0} 29 (Matrix.vecCons.{0} 84 Matrix.vecEmpty.{0})))
+def NLA.IV06.includedVector : Fin 4 → Fin 3 → ℝ :=
+Matrix.vecCons.{0} (Matrix.vecCons.{0} (-4) (Matrix.vecCons.{0} 2 (Matrix.vecCons.{0} 1 Matrix.vecEmpty.{0})))
+  (Matrix.vecCons.{0} (Matrix.vecCons.{0} (-1) (Matrix.vecCons.{0} (-1) (Matrix.vecCons.{0} 1 Matrix.vecEmpty.{0})))
+    (Matrix.vecCons.{0} (Matrix.vecCons.{0} 4 (Matrix.vecCons.{0} 1 (Matrix.vecCons.{0} 2 Matrix.vecEmpty.{0})))
+      (Matrix.vecCons.{0} (Matrix.vecCons.{0} 312 (Matrix.vecCons.{0} 12 (Matrix.vecCons.{0} 13 Matrix.vecEmpty.{0})))
+        Matrix.vecEmpty.{0})))
+def NLA.IV06.separator : Fin 3 → ℝ :=
+Matrix.vecCons.{0} (-1) (Matrix.vecCons.{0} 1 (Matrix.vecCons.{0} 12 Matrix.vecEmpty.{0}))
+def NLA.IV06.determinantLower : Fin 3 → ℝ :=
+Matrix.vecCons.{0} (-332) (Matrix.vecCons.{0} (-318) (Matrix.vecCons.{0} (-3750) Matrix.vecEmpty.{0}))
+def NLA.IV06.determinantUpper : Fin 3 → ℝ :=
+Matrix.vecCons.{0} (-32) (Matrix.vecCons.{0} (-18) (Matrix.vecCons.{0} (-150) Matrix.vecEmpty.{0}))
+def ConnectedComponents.{u} : (α : Type u) → [TopologicalSpace.{u} α] → Type u :=
+fun α [TopologicalSpace.{u} α] => Quotient.{u + 1} (connectedComponentSetoid.{u} α)
+@[instance_reducible] def connectedComponentSetoid.{u_3} : (α : Type u_3) →
+  [TopologicalSpace.{u_3} α] → Setoid.{u_3 + 1} α :=
+fun α [TopologicalSpace.{u_3} α] =>
+  Setoid.mk.{u_3 + 1} (fun x y => Eq.{u_3 + 1} (connectedComponent.{u_3} x) (connectedComponent.{u_3} y)) ⋯
+def connectedComponent.{u} : {α : Type u} → [TopologicalSpace.{u} α] → α → Set.{u} α :=
+fun {α} [TopologicalSpace.{u} α] x =>
+  Set.sUnion.{u} (Set.ofPred.{u} fun s => IsPreconnected.{u} s ∧ Membership.mem.{u, u} s x)
+def ConnectedComponents.mk.{u} : {α : Type u} → [inst : TopologicalSpace.{u} α] → α → ConnectedComponents.{u} α :=
+fun {α} [TopologicalSpace.{u} α] => Quotient.mk''.{u + 1}
+ConnectedComponents.coe_eq_coe'.{u} {α : Type u} [TopologicalSpace.{u} α] {x y : α} :
+  Eq.{u + 1} (ConnectedComponents.mk.{u} x) (ConnectedComponents.mk.{u} y) ↔
+    Membership.mem.{u, u} (connectedComponent.{u} y) x
+mem_connectedComponent.{u} {α : Type u} [TopologicalSpace.{u} α] {x : α} :
+  Membership.mem.{u, u} (connectedComponent.{u} x) x
+isPreconnected_connectedComponent.{u} {α : Type u} [TopologicalSpace.{u} α] {x : α} :
+  IsPreconnected.{u} (connectedComponent.{u} x)
+IsPreconnected.image.{u, v} {α : Type u} {β : Type v} [TopologicalSpace.{u} α] [TopologicalSpace.{v} β] {s : Set.{u} α}
+  (H : IsPreconnected.{u} s) (f : α → β) (hf : ContinuousOn.{u, v} f s) : IsPreconnected.{v} (Set.image.{u, v} f s)
+continuous_subtype_val.{u} {X : Type u} [TopologicalSpace.{u} X] {p : X → Prop} : Continuous.{u, u} Subtype.val.{u + 1}
+IsPreconnected.Icc_subset.{v} {α : Type v} [LinearOrder.{v} α] [TopologicalSpace.{v} α] [OrderClosedTopology.{v} α]
+  {s : Set.{v} α} (hs : IsPreconnected.{v} s) {a b : α} (ha : Membership.mem.{v, v} s a)
+  (hb : Membership.mem.{v, v} s b) : Set.Icc.{v} a b ⊆ s
+Matrix.exists_mulVec_eq_zero_iff.{u_1, u_4} {n : Type u_1} [Fintype.{u_1} n] {A : Type u_4} [CommRing.{u_4} A]
+  [IsDomain.{u_4} A] {M : Matrix.{u_1, u_1, u_4} n n A} [DecidableEq.{u_1 + 1} n] :
+  (∃ v, Ne.{(max u_1 u_4) + 1} v 0 ∧ Eq.{max (u_1 + 1) (u_4 + 1)} (Matrix.mulVec.{u_4, u_1, u_1} M v) 0) ↔
+    Eq.{u_4 + 1} (Matrix.det.{u_4, u_1} M) 0
+Cardinal.mk_le_of_injective.{u} {α β : Type u} {f : α → β} (hf : Function.Injective.{u + 1, u + 1} f) :
+  LE.le.{u + 1} (Cardinal.mk.{u} α) (Cardinal.mk.{u} β)
+Cardinal.mk_fin (n : ℕ) : Eq.{2} (Cardinal.mk.{0} (Fin n)) ↑n
+Matrix.det_isEmpty.{v, u_2} {n : Type u_2} [DecidableEq.{u_2 + 1} n] [Fintype.{u_2} n] {R : Type v} [CommRing.{v} R]
+  [IsEmpty.{u_2 + 1} n] {A : Matrix.{u_2, u_2, v} n n R} : Eq.{v + 1} (Matrix.det.{v, u_2} A) 1
+UniformSpace.toTopologicalSpace.{0}
+instTopologicalSpaceSubtype.{0}
+OrderTopology.to_orderClosedTopology.{0}
+def NLA.IV06.HasRealEigenvalue : {n : Nat} → (A : NLA.IV06.RealMatrix n) → (lam : Real) → Prop :=
+fun {n : Nat} (A : NLA.IV06.RealMatrix n) (lam : Real) =>
+  @Exists.{1} (Fin n → Real) fun (v : Fin n → Real) =>
+    And
+      (@Ne.{1} (Fin n → Real) v
+        (@OfNat.ofNat.{0} (Fin n → Real) (nat_lit 0)
+          (@Zero.toOfNat0.{0} (Fin n → Real)
+            (@Pi.instZero.{0, 0} (Fin n) (fun (a : Fin n) => Real) fun (i : Fin n) => Real.instZero))))
+      (@Eq.{1} (Fin n → Real)
+        (@Matrix.mulVec.{0, 0, 0} (Fin n) (Fin n) Real
+          (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Real
+            (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Real
+              (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Real
+                (@CommRing.toNonUnitalCommRing.{0} Real Real.commRing))))
+          (Fin.fintype n) A v)
+        (@HSMul.hSMul.{0, 0, 0} Real (Fin n → Real) (Fin n → Real)
+          (@instHSMul.{0, 0} Real (Fin n → Real)
+            (@Function.hasSMul.{0, 0, 0} (Fin n) Real Real (@instSMulOfMul.{0} Real Real.instMul)))
+          lam v))
+def NLA.IV06.characteristicDet : {n : Nat} → (A : NLA.IV06.RealMatrix n) → (lam : Real) → Real :=
+fun {n : Nat} (A : NLA.IV06.RealMatrix n) (lam : Real) =>
+  @Matrix.det.{0, 0} (Fin n) (instDecidableEqFin n) (Fin.fintype n) Real Real.commRing
+    (@HSub.hSub.{0, 0, 0} (NLA.IV06.RealMatrix n) (NLA.IV06.RealMatrix n) (NLA.IV06.RealMatrix n)
+      (@instHSub.{0} (NLA.IV06.RealMatrix n) (@Matrix.sub.{0, 0, 0} (Fin n) (Fin n) Real Real.instSub))
+      (@HSMul.hSMul.{0, 0, 0} Real (NLA.IV06.RealMatrix n) (NLA.IV06.RealMatrix n)
+        (@instHSMul.{0, 0} Real (NLA.IV06.RealMatrix n)
+          (@Matrix.smul.{0, 0, 0, 0} (Fin n) (Fin n) Real Real (@instSMulOfMul.{0} Real Real.instMul)))
+        lam
+        (@OfNat.ofNat.{0} (NLA.IV06.RealMatrix n) (nat_lit 1)
+          (@One.toOfNat1.{0} (NLA.IV06.RealMatrix n)
+            (@Matrix.one.{0, 0} (Fin n) Real (instDecidableEqFin n) Real.instZero Real.instOne))))
+      A)
+def NLA.IV06.componentCard : (S : Set.{0} Real) → Cardinal.{0} :=
+fun (S : Set.{0} Real) =>
+  Cardinal.mk.{0}
+    (@ConnectedComponents.{0} (@Set.Elem.{0} Real S)
+      (@instTopologicalSpaceSubtype.{0} Real
+        (fun (x : Real) => @Membership.mem.{0, 0} Real (Set.{0} Real) (@Set.instMembership.{0} Real) S x)
+        (@UniformSpace.toTopologicalSpace.{0} Real
+          (@PseudoMetricSpace.toUniformSpace.{0} Real Real.pseudoMetricSpace))))
+def NLA.IV06.ComponentBoundConjecture : Prop :=
+∀ (n : Nat),
+  @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) n →
+    ∀ (L U : NLA.IV06.RealMatrix n),
+      @NLA.IV06.EntrywiseLE n L U →
+        @LE.le.{1} Cardinal.{0} Cardinal.instLE.{0} (NLA.IV06.componentCard (@NLA.IV06.realEigenvalueSet n L U))
+          (@Nat.cast.{1} Cardinal.{0} Cardinal.instNatCast.{0} n)
+NLA.IV06.eigenvalue_determinant_semantics (n : ℕ) (A : NLA.IV06.RealMatrix n) (lam : ℝ) :
+  NLA.IV06.HasRealEigenvalue A lam ↔ Eq.{1} (NLA.IV06.characteristicDet A lam) 0
+NLA.IV06.family_and_determinant_semantics :
+  NLA.IV06.EntrywiseLE NLA.IV06.lower NLA.IV06.upper ∧
+    (∀ (A : NLA.IV06.RealMatrix 3),
+        NLA.IV06.InIntervalFamily NLA.IV06.lower NLA.IV06.upper A ↔
+          ∃ a b,
+            Membership.mem.{0, 0} (Set.Icc.{0} (-166) (-16)) a ∧
+              Membership.mem.{0, 0} (Set.Icc.{0} 9 159) b ∧ Eq.{1} A (NLA.IV06.family a b)) ∧
+      ∀ (a b lam : ℝ),
+        Eq.{1} (NLA.IV06.characteristicDet (NLA.IV06.family a b) lam)
+          (HSub.hSub.{0, 0, 0}
+            (HSub.hSub.{0, 0, 0}
+              (HMul.hMul.{0, 0, 0} (HSub.hSub.{0, 0, 0} lam 25) (HSub.hSub.{0, 0, 0} (HPow.hPow.{0, 0, 0} lam 2) 1))
+              (HMul.hMul.{0, 0, 0} a (HSub.hSub.{0, 0, 0} lam 1)))
+            (HMul.hMul.{0, 0, 0} b (HAdd.hAdd.{0, 0, 0} lam 1)))
+NLA.IV06.witness_eigenpairs (i : Fin 4) :
+  NLA.IV06.InIntervalFamily NLA.IV06.lower NLA.IV06.upper
+      (NLA.IV06.family (NLA.IV06.includedA i) (NLA.IV06.includedB i)) ∧
+    Ne.{1} (NLA.IV06.includedVector i) 0 ∧
+      Eq.{1}
+          (Matrix.mulVec.{0, 0, 0} (NLA.IV06.family (NLA.IV06.includedA i) (NLA.IV06.includedB i))
+            (NLA.IV06.includedVector i))
+          (HSMul.hSMul.{0, 0, 0} (NLA.IV06.includedValue i) (NLA.IV06.includedVector i)) ∧
+        Membership.mem.{0, 0} (NLA.IV06.realEigenvalueSet NLA.IV06.lower NLA.IV06.upper) (NLA.IV06.includedValue i)
+NLA.IV06.witness_separators :
+  (∀ (A : NLA.IV06.RealMatrix 3),
+      NLA.IV06.InIntervalFamily NLA.IV06.lower NLA.IV06.upper A →
+        ∀ (j : Fin 3),
+          LE.le.{0} (NLA.IV06.determinantLower j) (NLA.IV06.characteristicDet A (NLA.IV06.separator j)) ∧
+            LE.le.{0} (NLA.IV06.characteristicDet A (NLA.IV06.separator j)) (NLA.IV06.determinantUpper j)) ∧
+    (∀ (j : Fin 3), LT.lt.{0} (NLA.IV06.determinantUpper j) 0) ∧
+      ∀ (j : Fin 3), NLA.IV06.separator j ∉ NLA.IV06.realEigenvalueSet NLA.IV06.lower NLA.IV06.upper
+NLA.IV06.connected_component_intervals (S : Set.{0} ℝ) (x y : ↑S)
+  (h : Eq.{1} (ConnectedComponents.mk.{0} x) (ConnectedComponents.mk.{0} y)) : Set.Icc.{0} ↑x ↑y ⊆ S
+NLA.IV06.four_components :
+  (∃ f,
+      (∀ (i : Fin 4), Eq.{1} (↑(f i)) (NLA.IV06.includedValue i)) ∧
+        Function.Injective.{1, 1} fun i => ConnectedComponents.mk.{0} (f i)) ∧
+    LE.le.{1} 4 (NLA.IV06.componentCard (NLA.IV06.realEigenvalueSet NLA.IV06.lower NLA.IV06.upper))
+NLA.IV06.counterexample :
+  NLA.IV06.EntrywiseLE NLA.IV06.lower NLA.IV06.upper ∧
+    LT.lt.{1} 3 (NLA.IV06.componentCard (NLA.IV06.realEigenvalueSet NLA.IV06.lower NLA.IV06.upper))
+NLA.IV06.not_componentBoundConjecture : ¬NLA.IV06.ComponentBoundConjecture
+'NLA.IV06.ComponentBoundConjecture' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.IV06.characteristicDet' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.IV06.componentCard' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.IV06.eigenvalue_determinant_semantics' depends on axioms: [propext,
+ sorryAx.{u},
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'NLA.IV06.not_componentBoundConjecture' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
