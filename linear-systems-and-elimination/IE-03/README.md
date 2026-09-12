@@ -13,23 +13,23 @@
 
 ## Context and notation
 
-All elimination in this problem is in exact arithmetic. Write $\|A\|_{\max}=\max_{ij}|a_{ij}|$. A pivoting path creates successive active Schur complements $S_1=A,S_2,\ldots,S_n$, with row/column permutations as appropriate. Its element-growth factor is
+All elimination in this problem is in exact arithmetic. Write $`\|A\|_{\max}=\max_{ij}|a_{ij}|`$. A pivoting path creates successive active Schur complements $`S_1=A,S_2,\ldots,S_n`$, with row/column permutations as appropriate. Its element-growth factor is
 
-$$
+```math
 \rho(A)=\frac{\max_{1\leq j\leq n}\|S_j\|_{\max}}{\|A\|_{\max}}.
-$$
+```
 
 Partial pivoting chooses a largest-magnitude entry in the active first column; complete pivoting chooses one anywhere in the active matrix. If ties occur, a universal statement includes every admissible tie choice; a supremum includes all admissible paths. These conventions remove implementation-dependent ambiguity. Matrices are nonsingular unless otherwise stated.
 
 ## Problem statement
 
-A real Hadamard matrix of order $n$ is a matrix $H\in\{-1,1\}^{n\times n}$ satisfying $HH^T=nI$. Prove or disprove that, for every Hadamard matrix and every complete-pivoting path,
+A real Hadamard matrix of order $`n`$ is a matrix $`H\in\{-1,1\}^{n\times n}`$ satisfying $`HH^T=nI`$. Prove or disprove that, for every Hadamard matrix and every complete-pivoting path,
 
-$$
+```math
 \rho(H)=n.
-$$
+```
 
-The quantified input is an existing Hadamard matrix; this question does not ask whether Hadamard matrices exist in every order divisible by four. Since $\|H\|_{\max}=1$, the requested upper bound says that no entry in any active Schur complement can exceed $n$ in absolute value. The final pivot already supplies the matching lower bound. Permuting or resigning rows and columns does not remove the need to account for all allowed pivot paths.
+The quantified input is an existing Hadamard matrix; this question does not ask whether Hadamard matrices exist in every order divisible by four. Since $`\|H\|_{\max}=1`$, the requested upper bound says that no entry in any active Schur complement can exceed $`n`$ in absolute value. The final pivot already supplies the matching lower bound. Permuting or resigning rows and columns does not remove the need to account for all allowed pivot paths.
 
 ## References
 

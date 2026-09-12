@@ -12,23 +12,23 @@
 
 ## Problem statement
 
-For $m\in\mathbb N_0$ and $0<\delta<1$, put
+For $`m\in\mathbb N_0`$ and $`0<\delta<1`$, put
 
-$$
+```math
 I_\delta=[-1,-\delta]\cup[\delta,1].
-$$
+```
 
-Let $\mathcal P_m$ consist of real polynomials computed from $1,x$ by
-straight-line programs using at most $m$ nonscalar multiplications; real linear
+Let $`\mathcal P_m`$ consist of real polynomials computed from $`1,x`$ by
+straight-line programs using at most $`m`$ nonscalar multiplications; real linear
 combinations cost nothing. Define
 
-$$
+```math
 E_m(\delta)=\inf_{p\in\mathcal P_m}
-\max_{x\in I_\delta}|p(x)-\operatorname{sign}(x)|.
-$$
+\max_{x\in I_\delta}|p(x)-\mathop{\mathrm{sign}}\nolimits(x)|.
+```
 
-Determine matching asymptotic upper and lower bounds for $E_m(\delta)$, with
-the dependence on both $m$ and $\delta$ explicit. Infima avoid assuming
+Determine matching asymptotic upper and lower bounds for $`E_m(\delta)`$, with
+the dependence on both $`m`$ and $`\delta`$ explicit. Infima avoid assuming
 attainment. The arithmetic model concerns a single polynomial identity valid for
 matrices of every size.
 

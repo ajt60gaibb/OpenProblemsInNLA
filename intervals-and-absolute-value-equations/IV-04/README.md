@@ -16,7 +16,7 @@
 <!-- colbrook-intervals -->
 ## Independently reviewed resolution - 2026-09-11
 
-**Complexity classification.** Theorem 2 proves NP-hardness of exact tridiagonal solution-hull computation even for a regular independent-entry matrix family and the point right-hand side $-e_n$. Section 5 covers the full exact-output convention, including empty solution sets and infinite endpoints, and makes polynomial-time existence equivalent to $\mathsf P=\mathsf{NP}$. It does not unconditionally rule out polynomial time.
+**Complexity classification.** Theorem 2 proves NP-hardness of exact tridiagonal solution-hull computation even for a regular independent-entry matrix family and the point right-hand side $`-e_n`$. Section 5 covers the full exact-output convention, including empty solution sets and infinite endpoints, and makes polynomial-time existence equivalent to $`\mathsf P=\mathsf{NP}`$. It does not unconditionally rule out polynomial time.
 
 **Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. See the [complete manuscript](../../references/colbrook-intervals-2026-09-11/manuscripts/IV-02_IV-04.pdf), [independent agent review](../../references/colbrook-intervals-2026-09-11/verification/reviews/IV-02_IV-04-review.md) and [submission record](../../references/colbrook-intervals-2026-09-11/README.md). The source archive identifies the drafts as AI-generated; authorship is recorded at the submitter's request. This is agent verification, not external human peer review or formal proof-assistant certification.
 
@@ -25,17 +25,17 @@ The difficulty, importance and rating rationale below are historical assessments
 
 ## Problem statement
 
-The input is an $n\times n$ tridiagonal interval matrix $\mathcal T$, $n\ge1$, and an interval vector $\mathcal b\subset\mathbb R^n$, all with rational endpoints. Thus $T_{ij}=0$ for $|i-j|>1$, and the remaining entries of $T$ and all entries of $b$ range independently through their supplied closed intervals. Define the united solution set
+The input is an $`n\times n`$ tridiagonal interval matrix $`\mathcal T`$, $`n\ge1`$, and an interval vector $`\mathcal b\subset\mathbb R^n`$, all with rational endpoints. Thus $`T_{ij}=0`$ for $`|i-j|>1`$, and the remaining entries of $`T`$ and all entries of $`b`$ range independently through their supplied closed intervals. Define the united solution set
 
-$$
+```math
 \Sigma(\mathcal T,\mathcal b)=\{x\in\mathbb R^n:\exists T\in\mathcal T\ \exists b\in\mathcal b,\ Tx=b\}.
-$$
+```
 
 Does a deterministic algorithm compute its exact coordinatewise interval hull in time polynomial in the total binary input length? It must report an empty solution set when appropriate; otherwise it must return
 
-$$
+```math
 \left[\inf_{x\in\Sigma}x_i,\ \sup_{x\in\Sigma}x_i\right],\qquad i=1,\ldots,n,
-$$
+```
 
 with infinite endpoints explicitly represented. Finite endpoints are returned exactly as rationals. No regularity promise is imposed: intervals crossing zero and singular members are included. The input/output convention makes the source's request for a polynomial exact-hull algorithm precise; the target is the smallest box, rather than an arbitrary enclosure.
 

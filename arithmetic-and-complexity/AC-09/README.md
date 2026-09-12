@@ -8,16 +8,20 @@
 
 **Status:** Partially resolved  
 
-The input consists of positive integers $n,s$ and matrices $A_1,\ldots,A_s\in\mathbb Q^{n\times n}$, with rational entries represented by signed binary numerators and positive binary denominators. Does there exist a deterministic algorithm, running in a number of bit operations bounded by a polynomial in the total binary input length, that decides whether
-$$
+The input consists of positive integers $`n,s`$ and matrices $`A_1,\ldots,A_s\in\mathbb Q^{n\times n}`$, with rational entries represented by signed binary numerators and positive binary denominators. Does there exist a deterministic algorithm, running in a number of bit operations bounded by a polynomial in the total binary input length, that decides whether
+
+```math
 \det\!\left(\sum_{i=1}^s x_iA_i\right)
-$$
-is the zero polynomial in the commuting indeterminates $x_1,\ldots,x_s$ over $\mathbb Q$?
+```
+
+is the zero polynomial in the commuting indeterminates $`x_1,\ldots,x_s`$ over $`\mathbb Q`$?
 
 Equivalently, decide whether the rational linear space
-$$
+
+```math
 \left\{\sum_{i=1}^s c_iA_i:\ c_1,\ldots,c_s\in\mathbb Q\right\}
-$$
+```
+
 contains a nonsingular matrix. No prescribed matrix structure is assumed.
 
 This is exact rank and nonsingularity testing for a parametrized matrix space. Random evaluation gives a randomized route; the problem asks whether randomness can be eliminated while retaining polynomial running time.

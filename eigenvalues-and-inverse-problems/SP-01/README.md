@@ -7,14 +7,16 @@
 
 **Rating rationale:** Challenging reflects a sharp perturbation threshold without geometric separation assumptions beyond a spectral gap; community impact is the stability of spectral subspaces.
 
-Let $A$ be a self-adjoint, possibly unbounded operator on a separable complex Hilbert space. Suppose $\sigma(A)=\sigma\cup\Sigma$, where the two nonempty closed sets satisfy $d=\operatorname{dist}(\sigma,\Sigma)>0$. For a bounded self-adjoint perturbation $V$, set
-$$
-P=E_A(\sigma),\qquad Q=E_{A+V}(O_{d/2}(\sigma)),\qquad
-O_r(S)=\{x\in\mathbb R:\operatorname{dist}(x,S)<r\},
-$$
-where $E_B$ denotes the spectral projection measure of $B$.
+Let $`A`$ be a self-adjoint, possibly unbounded operator on a separable complex Hilbert space. Suppose $`\sigma(A)=\sigma\cup\Sigma`$, where the two nonempty closed sets satisfy $`d=\mathop{\mathrm{dist}}\nolimits(\sigma,\Sigma)>0`$. For a bounded self-adjoint perturbation $`V`$, set
 
-Does $\|V\|<d/2$ always imply $\|P-Q\|<1$? All norms are operator norms. Equivalently, is the optimal universal constant $c_{\mathrm{opt}}=1/2$ for guaranteeing that the maximal angle $\arcsin\|P-Q\|$ is strictly below $\pi/2$?
+```math
+P=E_A(\sigma),\qquad Q=E_{A+V}(O_{d/2}(\sigma)),\qquad
+O_r(S)=\{x\in\mathbb R:\mathop{\mathrm{dist}}\nolimits(x,S)< r\},
+```
+
+where $`E_B`$ denotes the spectral projection measure of $`B`$.
+
+Does $`\|V\|< d/2`$ always imply $`\|P-Q\|<1`$? All norms are operator norms. Equivalently, is the optimal universal constant $`c_{\mathrm{opt}}=1/2`$ for guaranteeing that the maximal angle $`\arcsin\|P-Q\|`$ is strictly below $`\pi/2`$?
 
 The two spectral sets may interlace: no ordering or disjoint-convex-hull hypothesis is imposed. The source's operator formulation is retained; Hermitian matrix invariant-subspace perturbation is its finite-dimensional setting. This problem concerns subspace orientation after perturbation, beyond preservation of a spectral gap.
 
@@ -24,7 +26,7 @@ The two spectral sets may interlace: no ordering or disjoint-convex-hull hypothe
 
 ## Status check — 2026-09-08
 
- The 2021 generic theorem retains the sufficient constant $c_{\mathrm{crit}}=0.4548399\ldots$; its sharp theorem at a larger threshold assumes extra spectral separation. The 2018 paper's solved optimization problem determines an upper angle bound, not the conjectured threshold. Searches for “subspace perturbation”, “optimal constant”, “1/2”, “Seelmann”, “conjecture”, and 2024–2026 found no resolution. No recent explicit reaffirmation of the exact endpoint conjecture was located; the status evidence is bounded.
+ The 2021 generic theorem retains the sufficient constant $`c_{\mathrm{crit}}=0.4548399\ldots`$; its sharp theorem at a larger threshold assumes extra spectral separation. The 2018 paper's solved optimization problem determines an upper angle bound, not the conjectured threshold. Searches for “subspace perturbation”, “optimal constant”, “1/2”, “Seelmann”, “conjecture”, and 2024–2026 found no resolution. No recent explicit reaffirmation of the exact endpoint conjecture was located; the status evidence is bounded.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

@@ -16,7 +16,7 @@
 
 **Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the exact target.**
 
-The nine-point matrix $D_{ij}=(i-j)^2$ has nonnegative rank seven, so no exact six-term nonnegative factorization exists. A polygon-contact argument applied to both factors, together with Sylvester's rank inequality, proves the lower bound; an explicit seven-term integer factorization proves the upper bound.
+The nine-point matrix $`D_{ij}=(i-j)^2`$ has nonnegative rank seven, so no exact six-term nonnegative factorization exists. A polygon-contact argument applied to both factors, together with Sylvester's rank inequality, proves the lower bound; an explicit seven-term integer factorization proves the upper bound.
 
 The complete target is resolved. Its former difficulty rating is historical; the original statement, references and dated audits remain below.
 
@@ -27,24 +27,24 @@ The complete target is resolved. Its former difficulty rating is historical; the
 ## Context and notation
 
 All factorizations are over the real numbers. For
-$X\in\mathbb R_{\ge0}^{m\times n}$, define
+$`X\in\mathbb R_{\ge0}^{m\times n}`$, define
 
-$$
-\operatorname{rank}_+(X)=\min\{r\ge0:X=WH,\quad
+```math
+\mathop{\mathrm{rank}}\nolimits_+(X)=\min\{r\ge0:X=WH,\quad
 W\in\mathbb R_{\ge0}^{m\times r},\ H\in\mathbb R_{\ge0}^{r\times n}\}.
-$$
+```
 
 ## Problem statement
 
-Let $D\in\mathbb R_{\ge0}^{9\times9}$ have entries
-$D_{ij}=(i-j)^2$ for $1\le i,j\le9$.
+Let $`D\in\mathbb R_{\ge0}^{9\times9}`$ have entries
+$`D_{ij}=(i-j)^2`$ for $`1\le i,j\le9`$.
 
 ### Question
 
 Does there exist an exact factorization
-$D=WH$ with $W\in\mathbb R_{\ge0}^{9\times6}$ and
-$H\in\mathbb R_{\ge0}^{6\times9}$? Equivalently, is
-$\operatorname{rank}_+(D)=6$ or $7$?
+$`D=WH`$ with $`W\in\mathbb R_{\ge0}^{9\times6}`$ and
+$`H\in\mathbb R_{\ge0}^{6\times9}`$? Equivalently, is
+$`\mathop{\mathrm{rank}}\nolimits_+(D)=6`$ or $`7`$?
 
 ## References
 

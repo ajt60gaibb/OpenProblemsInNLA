@@ -7,8 +7,8 @@
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
 | [AC-01](AC-01/README.md) | Is the matrix multiplication exponent two? | **🔵 OPEN** | extreme | broadly interesting | [PDF](AC-01/problem.pdf) · [TeX](AC-01/problem.tex) |
-| [AC-02](AC-02/README.md) | Exact bilinear rank of the $3\times3$ matrix product | **🔵 OPEN** | extreme | interesting to the community | [PDF](AC-02/problem.pdf) · [TeX](AC-02/problem.tex) |
-| [AC-03](AC-03/README.md) | Border rank of the $3\times3$ matrix product | **🔵 OPEN** | extreme | interesting to the community | [PDF](AC-03/problem.pdf) · [TeX](AC-03/problem.tex) |
+| [AC-02](AC-02/README.md) | Exact bilinear rank of the $`3\times3`$ matrix product | **🔵 OPEN** | extreme | interesting to the community | [PDF](AC-02/problem.pdf) · [TeX](AC-02/problem.tex) |
+| [AC-03](AC-03/README.md) | Border rank of the $`3\times3`$ matrix product | **🔵 OPEN** | extreme | interesting to the community | [PDF](AC-03/problem.pdf) · [TeX](AC-03/problem.tex) |
 | [AC-04](AC-04/README.md) | Minimal asymptotic rank of the small Coppersmith–Winograd tensor | **🔵 OPEN** | extreme | broadly interesting | [PDF](AC-04/problem.pdf) · [TeX](AC-04/problem.tex) |
 | [AC-05](AC-05/README.md) | Strassen's asymptotic rank conjecture for tight tensors | **🔵 OPEN** | extreme | broadly interesting | [PDF](AC-05/problem.pdf) · [TeX](AC-05/problem.tex) |
 | [AC-06](AC-06/README.md) | Explicit tensors with quadratic border rank | **🔵 OPEN** | extreme | broadly interesting | [PDF](AC-06/problem.pdf) · [TeX](AC-06/problem.tex) |

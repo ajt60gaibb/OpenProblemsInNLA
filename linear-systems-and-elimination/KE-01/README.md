@@ -18,32 +18,32 @@ All norms are Euclidean vector norms or their induced matrix norms.
 
 ## Problem statement
 
-Let $A\in\mathbb R^{n\times n}$ be nonsingular, with singular values
-$\sigma_1\geq\cdots\geq\sigma_n>0$, and write $N=\operatorname{nnz}(A)$
-and $\kappa_2(A)=\sigma_1/\sigma_n$.
-The input consists of its nonzero entries and their indices, $b\ne0$,
-$\varepsilon\in(0,1/2)$, $k\in\{0,\ldots,n-1\}$, and $\kappa\geq1$, with the promise
-$\sigma_{k+1}/\sigma_n\leq\kappa$. Fix any exponent $\omega_0>2$ for which
-square matrix multiplication has an $O(m^{\omega_0})$ arithmetic algorithm.
+Let $`A\in\mathbb R^{n\times n}`$ be nonsingular, with singular values
+$`\sigma_1\geq\cdots\geq\sigma_n>0`$, and write $`N=\mathop{\mathrm{nnz}}\nolimits(A)`$
+and $`\kappa_2(A)=\sigma_1/\sigma_n`$.
+The input consists of its nonzero entries and their indices, $`b\ne0`$,
+$`\varepsilon\in(0,1/2)`$, $`k\in\{0,\ldots,n-1\}`$, and $`\kappa\geq1`$, with the promise
+$`\sigma_{k+1}/\sigma_n\leq\kappa`$. Fix any exponent $`\omega_0>2`$ for which
+square matrix multiplication has an $`O(m^{\omega_0})`$ arithmetic algorithm.
 
 Does a randomized algorithm exist that, for every such input, produces
-$\widehat x$ satisfying
+$`\widehat x`$ satisfying
 
-$$
+```math
 \|A\widehat x-b\|_2\leq\varepsilon\|b\|_2
-$$
+```
 
-with probability at least $0.99$, using at most
+with probability at least $`0.99`$, using at most
 
-$$
+```math
 C\bigl(k^{\omega_0}+N\kappa\bigr)
 \bigl[1+\log(n\kappa_2(A)/\varepsilon)\bigr]^q
-$$
+```
 
-exact arithmetic operations? Here $C,q$ may depend on the chosen multiplication
+exact arithmetic operations? Here $`C,q`$ may depend on the chosen multiplication
 algorithm, but not on the input. Direct entry access is allowed. The display
 makes the workshop's suppressed logarithms and accuracy convention explicit;
-$\omega_0$ avoids assuming that the infimum defining the multiplication
+$`\omega_0`$ avoids assuming that the infimum defining the multiplication
 exponent is attained.
 
 ## References
@@ -59,10 +59,10 @@ Theorems 3 and 29, gives the dense-input predecessor.
 Searches for `sparse outlying singular values solver 2026`
 and `spectral outliers linear systems 2026` found the newer Liu, Nguyen, Peng,
 and Yang [*Faster Solvers for Sparse Systems with Large Spectral Outliers*](https://yangpliu.github.io/pdf/faster-solvers-sparse-spectral-outliers.pdf).
-Its Theorem 1.1 assumes an explicitly given factor $B$ in $B^TBx=b$, bounded
+Its Theorem 1.1 assumes an explicitly given factor $`B`$ in $`B^TBx=b`$, bounded
 spectral tail, polynomial conditioning, and short rational input. For an
-$m\times d$ factor with at most $s$ nonzeros per row, its bit bound includes
-$m^{o(1)}\widetilde O(ms+\sqrt{d/k}\,k^2+k^{\omega+\eta})$. These input
+$`m\times d`$ factor with at most $`s`$ nonzeros per row, its bit bound includes
+$`m^{o(1)}\widetilde O(ms+\sqrt{d/k}\,k^2+k^{\omega+\eta})`$. These input
 restrictions and extra terms do not establish the requested general bound.
 The workshop's August update records this as partial progress on Problem 2.9.
 

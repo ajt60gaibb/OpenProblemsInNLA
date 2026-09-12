@@ -13,22 +13,26 @@
 
 ## Problem statement
 
-For an integer $d\geq3$, put
-$$
+For an integer $`d\geq3`$, put
+
+```math
 W_d=\sum_{j=1}^{d}
 e_1^{\otimes(j-1)}\otimes e_2\otimes
-e_1^{\otimes(d-j)}\in\operatorname{Sym}^d(\mathbb C^2).
-$$
-Given any $k\geq2$ and $d_1,\ldots,d_k\geq3$, set
-$T_{\mathbf d}=W_{d_1}\otimes\cdots\otimes W_{d_k}$.
-Determine the exact smallest integer $s$ such that
-$$
+e_1^{\otimes(d-j)}\in\mathop{\mathrm{Sym}}\nolimits^d(\mathbb C^2).
+```
+
+Given any $`k\geq2`$ and $`d_1,\ldots,d_k\geq3`$, set
+$`T_{\mathbf d}=W_{d_1}\otimes\cdots\otimes W_{d_k}`$.
+Determine the exact smallest integer $`s`$ such that
+
+```math
 T_{\mathbf d}=\sum_{\ell=1}^{s}
 (v_{1,\ell})^{\otimes d_1}\otimes\cdots\otimes
 (v_{k,\ell})^{\otimes d_k},
 \qquad v_{j,\ell}\in\mathbb C^2.
-$$
-This minimum is the partially symmetric rank with the $k$ blocks of orders $d_1,\ldots,d_k$ fixed. It is not the border rank and not the rank obtained after grouping modes from different blocks. The harmless nonzero scalar relating the displayed $W_d$ to the polynomial $x^{d-1}y$ can be absorbed into a decomposition.
+```
+
+This minimum is the partially symmetric rank with the $`k`$ blocks of orders $`d_1,\ldots,d_k`$ fixed. It is not the border rank and not the rank obtained after grouping modes from different blocks. The harmless nonzero scalar relating the displayed $`W_d`$ to the polynomial $`x^{d-1}y`$ can be absorbed into a decomposition.
 
 ## Why it matters
 
@@ -42,4 +46,4 @@ These explicit tensors are benchmarks for the difference between exact, border, 
 
 ### Status check — 2026-09-10
 
-Checked the 2025 source question and Canino–Casarotti–Santarsiero v1, Theorem 1.1 and the ensuing sharpness discussion, with targeted W-product-rank searches through 2026. The December 2025 paper gives the upper bound $2^{k-1}(d_1+\cdots+d_k-2k+2)$ and explicit decompositions. Equality is known for $k=2,d_1=d_2=3$, where the rank is eight, so a nontrivial parameter case is resolved. The construction alone does not prove minimality for other tuples. No general exact formula was located.
+Checked the 2025 source question and Canino–Casarotti–Santarsiero v1, Theorem 1.1 and the ensuing sharpness discussion, with targeted W-product-rank searches through 2026. The December 2025 paper gives the upper bound $`2^{k-1}(d_1+\cdots+d_k-2k+2)`$ and explicit decompositions. Equality is known for $`k=2,d_1=d_2=3`$, where the rank is eight, so a nontrivial parameter case is resolved. The construction alone does not prove minimality for other tuples. No general exact formula was located.

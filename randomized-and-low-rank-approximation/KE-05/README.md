@@ -10,12 +10,14 @@
 
 **Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
 
-The answer to the displayed uniform-probability question is **no**. The [exact target and Sections 1-5 of the complete proof](solution.md) give deterministic admissible blocks with $b=2$, $d=3$,
-$$
-\Lambda_1=2I_2,\qquad \Lambda_2=\operatorname{diag}(\varepsilon,2\varepsilon),
-\qquad \Lambda_3=\operatorname{diag}(0,1).
-$$
-Along $\varepsilon_m=1/(m+5)$, the probability that $\chi_{\rm mono}\chi_{\rm coef}$ is below any fixed finite constant tends to zero. This contradicts the requested bound already at $\delta=1/2$. The proof uses the literal recurrence and all prescribed root orderings; no input depends on the sampled Gaussian matrices.
+The answer to the displayed uniform-probability question is **no**. The [exact target and Sections 1-5 of the complete proof](solution.md) give deterministic admissible blocks with $`b=2`$, $`d=3`$,
+
+```math
+\Lambda_1=2I_2,\qquad \Lambda_2=\mathop{\mathrm{diag}}\nolimits(\varepsilon,2\varepsilon),
+\qquad \Lambda_3=\mathop{\mathrm{diag}}\nolimits(0,1).
+```
+
+Along $`\varepsilon_m=1/(m+5)`$, the probability that $`\chi_{\rm mono}\chi_{\rm coef}`$ is below any fixed finite constant tends to zero. This contradicts the requested bound already at $`\delta=1/2`$. The proof uses the literal recurrence and all prescribed root orderings; no input depends on the sampled Gaussian matrices.
 
 [Proof PDF](solution.pdf) · [Standalone proof TeX](solution.tex) · [Independent mathematical review](../../references/stepaniants-ke05-2026-09-12/independent-review.md) · [Submission and public-source audit](../../references/stepaniants-ke05-2026-09-12/README.md).
 
@@ -23,26 +25,33 @@ The complete proof passed a separate Codex-agent informal audit. Substantial AI 
 
 ## Original statement (retained)
 
-Fix integers $b\ge1$, $d\ge2$. Let $\Lambda_1,\ldots,\Lambda_d\in\mathbb R^{b\times b}$ be diagonal with pairwise disjoint spectra. Draw all entries of $\Omega_1,\ldots,\Omega_d\in\mathbb R^{b\times b}$ independently from $N(0,1)$ and put $B_i=\Omega_i^{-1}\Lambda_i\Omega_i$. Let $a$ and $c$ be the smallest and largest diagonal entries in the entire family.
+Fix integers $`b\ge1`$, $`d\ge2`$. Let $`\Lambda_1,\ldots,\Lambda_d\in\mathbb R^{b\times b}`$ be diagonal with pairwise disjoint spectra. Draw all entries of $`\Omega_1,\ldots,\Omega_d\in\mathbb R^{b\times b}`$ independently from $`N(0,1)`$ and put $`B_i=\Omega_i^{-1}\Lambda_i\Omega_i`$. Let $`a`$ and $`c`$ be the smallest and largest diagonal entries in the entire family.
 
-For each $k\in\{1,\ldots,d\}$, reorder the triples $(B_i,\Lambda_i,\Omega_i)$ into the order $(k,1,\ldots,k-1,k+1,\ldots,d)$ and use superscript $(k)$ for that ordering. In descending order $i=d,d-1,\ldots,1$, compute
-$$
+For each $`k\in\{1,\ldots,d\}`$, reorder the triples $`(B_i,\Lambda_i,\Omega_i)`$ into the order $`(k,1,\ldots,k-1,k+1,\ldots,d)`$ and use superscript $`(k)`$ for that ordering. In descending order $`i=d,d-1,\ldots,1`$, compute
+
+```math
 S_{i,i}^{(k)}=I_b,\qquad
 S_{i,j}^{(k)}=B_i^{(k)}S_{i,j-1}^{(k)}-S_{i,j-1}^{(k)}\widehat B_j^{(k)}
 \quad(j=i+1,\ldots,d),
-$$
-$$
+```
+
+
+```math
 \widehat\Omega_i^{(k)}=\Omega_i^{(k)}S_{i,d}^{(k)},\qquad
 \widehat B_i^{(k)}=(\widehat\Omega_i^{(k)})^{-1}\Lambda_i^{(k)}\widehat\Omega_i^{(k)}.
-$$
+```
+
 All norms below are spectral norms. Define
-$$
+
+```math
 \chi_{\rm mono}^{(k)}=
 \max_{2\le i\le d}\left\{
 1,\frac{\|aI-\widehat B_i^{(k)}\|_2}{\|aI-\Lambda_i^{(k)}\|_2},
 \frac{\|cI-\widehat B_i^{(k)}\|_2}{\|cI-\Lambda_i^{(k)}\|_2}\right\},
-$$
-$$
+```
+
+
+```math
 \chi_{\rm coef}^{(k)}=
 \|(S_{1,d}^{(k)})^{-1}\|_2^{1/(d-1)}
 \min_{\substack{2\le i\le d\ ,\ \lambda\in\sigma(\Lambda_1^{(k)})\\
@@ -50,13 +59,16 @@ $$
 \qquad
 \chi_{\rm mono}=\max_k\chi_{\rm mono}^{(k)},\quad
 \chi_{\rm coef}=\max_k\chi_{\rm coef}^{(k)}.
-$$
-The inverses exist almost surely, as shown in the source. If an endpoint ratio is $0/0$, set it to 1; its matrix is necessarily a scalar matrix and the surrounding maximum already includes 1.
+```
 
-Is the family of random variables $\chi_{\rm mono}\chi_{\rm coef}$ uniformly bounded in probability over all admissible diagonal data? Precisely, for each $0<\delta<1$, does there exist a finite $C(b,d,\delta)$ such that, for every fixed admissible $(\Lambda_1,\ldots,\Lambda_d)$,
-$$
+The inverses exist almost surely, as shown in the source. If an endpoint ratio is $`0/0`$, set it to 1; its matrix is necessarily a scalar matrix and the surrounding maximum already includes 1.
+
+Is the family of random variables $`\chi_{\rm mono}\chi_{\rm coef}`$ uniformly bounded in probability over all admissible diagonal data? Precisely, for each $`0<\delta<1`$, does there exist a finite $`C(b,d,\delta)`$ such that, for every fixed admissible $`(\Lambda_1,\ldots,\Lambda_d)`$,
+
+```math
 \Pr\{\chi_{\rm mono}\chi_{\rm coef}\le C(b,d,\delta)\}\ge1-\delta?
-$$
+```
+
 The constant must be independent of the eigenvalues and all gaps within and between their blocks. Probability is taken separately for each fixed input, not for one draw required to work simultaneously for every spectrum. This quantifies the source's “with high probability” statement with its explicitly allowed failure-probability dependence.
 
 These constants control matrix-polynomial interpolation in the convergence analysis of randomized small-block Lanczos. The bound would explain robustness to clusters much larger than the starting block. The scalar-block case is already bounded deterministically; noncommutativity is the unresolved obstacle.

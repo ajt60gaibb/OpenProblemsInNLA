@@ -15,7 +15,7 @@
 
 **Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the exact target.**
 
-Every exact Newton square-root iterate initialized at $X_0=A$ remains a real nonsingular H-matrix with positive diagonal. The theorem includes arbitrary positive scalar scaling and nonnegative affine initializations, with one diagonal-dominance weight for all iterates; it also proves the corresponding Halley preservation result.
+Every exact Newton square-root iterate initialized at $`X_0=A`$ remains a real nonsingular H-matrix with positive diagonal. The theorem includes arbitrary positive scalar scaling and nonnegative affine initializations, with one diagonal-dominance weight for all iterates; it also proves the corresponding Halley preservation result.
 
 The complete target is resolved. Its former difficulty rating is historical; the original statement, references and dated audits remain below.
 
@@ -25,21 +25,21 @@ The complete target is resolved. Its former difficulty rating is historical; the
 
 ## Problem statement
 
-For a real square matrix $Y=(y_{ij})$, define its comparison matrix by
-$\mathcal M(Y)_{ii}=|y_{ii}|$ and
-$\mathcal M(Y)_{ij}=-|y_{ij}|$ for $i\ne j$.
-Call $Y$ a nonsingular H-matrix when
-$\mathcal M(Y)=sI-B$ for some entrywise nonnegative $B$ and real
-$s>\rho(B)$.
+For a real square matrix $`Y=(y_{ij})`$, define its comparison matrix by
+$`\mathcal M(Y)_{ii}=|y_{ii}|`$ and
+$`\mathcal M(Y)_{ij}=-|y_{ij}|`$ for $`i\ne j`$.
+Call $`Y`$ a nonsingular H-matrix when
+$`\mathcal M(Y)=sI-B`$ for some entrywise nonnegative $`B`$ and real
+$`s>\rho(B)`$.
 
-Let $n\ge1$ and let $A\in\mathbb R^{n\times n}$ be a nonsingular H-matrix
-with $a_{ii}>0$ for every $i$. Consider the exact-arithmetic recurrence
+Let $`n\ge1`$ and let $`A\in\mathbb R^{n\times n}`$ be a nonsingular H-matrix
+with $`a_{ii}>0`$ for every $`i`$. Consider the exact-arithmetic recurrence
 
-$$
+```math
 X_0=A,\qquad X_{k+1}=\tfrac12(X_k+X_k^{-1}A),\qquad k\ge0.
-$$
+```
 
-Is every $X_k$ a nonsingular H-matrix with strictly positive diagonal?
+Is every $`X_k`$ a nonsingular H-matrix with strictly positive diagonal?
 The known existence of these iterates and their convergence to the principal
 square root do not themselves establish the requested structure at every step.
 
@@ -62,4 +62,4 @@ open-problem evidence found for this assertion remains the 2008 book.
 
 ## Audit — 2026-09-10
 
-Rechecked the [2026 M-matrix paper, §§4 and 4.2](https://arxiv.org/html/2605.21679): its normalized nonsingular M-matrix class has structure-preserving Newton iterates starting from $A$. This is a substantive subfamily of the displayed target. Searches for Higham's Problem 6.25 and H-matrix iterate preservation found no general answer; the surviving H-matrix question still has historical evidence.
+Rechecked the [2026 M-matrix paper, §§4 and 4.2](https://arxiv.org/html/2605.21679): its normalized nonsingular M-matrix class has structure-preserving Newton iterates starting from $`A`$. This is a substantive subfamily of the displayed target. Searches for Higham's Problem 6.25 and H-matrix iterate preservation found no general answer; the surviving H-matrix question still has historical evidence.

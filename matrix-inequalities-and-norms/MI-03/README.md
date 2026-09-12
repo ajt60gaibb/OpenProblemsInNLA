@@ -11,7 +11,7 @@
 
 **Affirmative result by Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent proof review: PASS.**
 
-The sharp additive contraction constant is $c_k=k/4$ for every $k\ge2$, including every odd summand count. Exact dimension-two extremizers match the universal upper bound.
+The sharp additive contraction constant is $`c_k=k/4`$ for every $`k\ge2`$, including every odd summand count. Exact dimension-two extremizers match the universal upper bound.
 
 The exact target is resolved. The original statement and source evidence are retained below; its former difficulty rating is historical.
 
@@ -19,13 +19,15 @@ The exact target is resolved. The original statement and source evidence are ret
 
 ## Problem statement
 
-For each integer $k\ge2$, let $c_k$ be the infimum of all $c\ge0$ such that
+For each integer $`k\ge2`$, let $`c_k`$ be the infimum of all $`c\ge0`$ such that
 
-$$\left|\sum_{j=1}^k A_j\right|\preceq cI_n+\sum_{j=1}^k|A_j|$$
+```math
+\left|\sum_{j=1}^k A_j\right|\preceq cI_n+\sum_{j=1}^k|A_j|
+```
 
-for every $n\ge1$ and all $A_1,\ldots,A_k\in\mathbb C^{n\times n}$ satisfying $\|A_j\|_2\le1$. Here $|A|=(A^*A)^{1/2}$, $\|\cdot\|_2$ denotes the operator norm, and $X\preceq Y$ means $Y-X$ is positive semidefinite.
+for every $`n\ge1`$ and all $`A_1,\ldots,A_k\in\mathbb C^{n\times n}`$ satisfying $`\|A_j\|_2\le1`$. Here $`|A|=(A^*A)^{1/2}`$, $`\|\cdot\|_2`$ denotes the operator norm, and $`X\preceq Y`$ means $`Y-X`$ is positive semidefinite.
 
-Is $c_k=k/4$ for every odd integer $k\ge3$?
+Is $`c_k=k/4`$ for every odd integer $`k\ge3`$?
 
 ## Why it matters
 
@@ -38,9 +40,9 @@ The scalar absolute-value triangle inequality fails in matrix order. The optimal
 
 ## Status check — 2026-09-10
 
-Corollary 4.4 establishes $c_k\le k/4$ for every $k$ and sharpness for even $k$; the source separately conjectures sharpness for all odd $k>1$. Its latest version remains v3. Searches included `Bourin Lee contractions odd k constant k/4`, `three contractions 3/4 sharp conjecture`, and `Bourin contractions sharp 2025 2026`. The 2026 symmetric-modulus papers concern different inequalities. No resolution of this additive odd-summand problem was located.
+Corollary 4.4 establishes $`c_k\le k/4`$ for every $`k`$ and sharpness for even $`k`$; the source separately conjectures sharpness for all odd $`k>1`$. Its latest version remains v3. Searches included `Bourin Lee contractions odd k constant k/4`, `three contractions 3/4 sharp conjecture`, and `Bourin contractions sharp 2025 2026`. The 2026 symmetric-modulus papers concern different inequalities. No resolution of this additive odd-summand problem was located.
 
-**Audit update (2026-09-10):** Rechecked the conjecture after Remark 4.5 in Bourin–Lee and searched for odd-summand sharpness results. The proved even-summand statement is outside the target, which already restricts to odd $k$. This is a bounded literature check, not a proof that no solution exists.
+**Audit update (2026-09-10):** Rechecked the conjecture after Remark 4.5 in Bourin–Lee and searched for odd-summand sharpness results. The proved even-summand statement is outside the target, which already restricts to odd $`k`$. This is a bounded literature check, not a proof that no solution exists.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

@@ -11,7 +11,7 @@
 
 **Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the stated partial results.**
 
-A fixed seven-product scheme has a full-rank complex coefficient map, certified by a nonzero exact integer Jacobian minor. Its image contains a nonempty Zariski-open subset of $\mathbb C[x]_{\le42}$ and is Euclidean dense there.
+A fixed seven-product scheme has a full-rank complex coefficient map, certified by a nonzero exact integer Jacobian minor. Its image contains a nonempty Zariski-open subset of $`\mathbb C[x]_{\le42}`$ and is Euclidean dense there.
 
 The upper bound excluding degree 43 and above is not proved. The maximal-degree equality remains open; neither exact representation of every polynomial nor real Euclidean dense coverage is asserted. The entry remains in the open count. Its difficulty and importance ratings continue to describe the surviving canonical target.
 
@@ -21,11 +21,13 @@ The upper bound excluding degree 43 and above is not proved. The maximal-degree 
 
 ## Problem statement
 
-Start with the scalar polynomials $1,x\in\mathbb C[x]$. Allow arbitrarily many complex linear combinations of already computed polynomials and at most seven multiplications of two already computed polynomials. Let $\mathcal P_7\subseteq\mathbb C[x]_{\le128}$ be the set of possible outputs.
+Start with the scalar polynomials $`1,x\in\mathbb C[x]`$. Allow arbitrarily many complex linear combinations of already computed polynomials and at most seven multiplications of two already computed polynomials. Let $`\mathcal P_7\subseteq\mathbb C[x]_{\le128}`$ be the set of possible outputs.
 
-Identify a polynomial with its coefficient vector in $\mathbb C^{129}$ and let $\overline{\mathcal P_7}^{\,Z}$ be its Zariski closure: the common zero set of all polynomial equations in the coefficients that vanish throughout $\mathcal P_7$. Is
+Identify a polynomial with its coefficient vector in $`\mathbb C^{129}`$ and let $`\overline{\mathcal P_7}^{\,Z}`$ be its Zariski closure: the common zero set of all polynomial equations in the coefficients that vanish throughout $`\mathcal P_7`$. Is
 
-$$\max\{d\in\{0,\ldots,128\}:\mathbb C[x]_{\le d}\subseteq\overline{\mathcal P_7}^{\,Z}\}=42?$$
+```math
+\max\{d\in\{0,\ldots,128\}:\mathbb C[x]_{\le d}\subseteq\overline{\mathcal P_7}^{\,Z}\}=42?
+```
 
 The target concerns closure and the complex coefficient field. Exact representability of every polynomial is a stronger assertion.
 

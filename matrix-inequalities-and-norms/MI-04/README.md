@@ -19,13 +19,15 @@ The exact target is resolved. The original statement and source evidence are ret
 
 ## Problem statement
 
-Let $n\ge1$ and $X\in\mathbb C^{n\times n}$. Suppose that for every pair of Hermitian $A,B\in\mathbb C^{n\times n}$ for which
+Let $`n\ge1`$ and $`X\in\mathbb C^{n\times n}`$. Suppose that for every pair of Hermitian $`A,B\in\mathbb C^{n\times n}`$ for which
 
-$$H=\begin{bmatrix}A&X\\X^*&B\end{bmatrix}\succeq0,$$
+```math
+H=\begin{bmatrix}A&X\\X^*&B\end{bmatrix}\succeq0,
+```
 
-one has $\|H\|_2\le\|A+B\|_2$, where $\|\cdot\|_2$ is the operator norm. Must there exist a Hermitian $K$ and scalars $\alpha,\beta\in\mathbb C$ with $X=\alpha K+\beta I_n$?
+one has $`\|H\|_2\le\|A+B\|_2`$, where $`\|\cdot\|_2`$ is the operator norm. Must there exist a Hermitian $`K`$ and scalars $`\alpha,\beta\in\mathbb C`$ with $`X=\alpha K+\beta I_n`$?
 
-Such an $X$ is called essentially Hermitian; equivalently its numerical range $\{v^*Xv:\|v\|_2=1\}$ lies in an affine line.
+Such an $`X`$ is called essentially Hermitian; equivalently its numerical range $`\{v^*Xv:\|v\|_2=1\}`$ lies in an affine line.
 
 ## Why it matters
 

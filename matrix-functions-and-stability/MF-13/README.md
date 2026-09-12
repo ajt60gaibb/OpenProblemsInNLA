@@ -8,16 +8,16 @@
 
 ## Problem statement
 
-For each real matrix $A\in\mathbb R^{6\times6}$, define $L_A(X)=AX+XA^T$. Write $\|X\|_F=(\operatorname{tr}(X^TX))^{1/2}$. Is it true that
+For each real matrix $`A\in\mathbb R^{6\times6}`$, define $`L_A(X)=AX+XA^T`$. Write $`\|X\|_F=(\mathop{\mathrm{tr}}\nolimits(X^TX))^{1/2}`$. Is it true that
 
-$$
+```math
 \max_{X\in\mathbb R^{6\times6},\ \|X\|_F=1}\|L_A(X)\|_F
 =
 \max_{X=X^T,\ \|X\|_F=1}\|L_A(X)\|_F
 \qquad\text{for every }A\in\mathbb R^{6\times6}?
-$$
+```
 
-This concerns the **largest** singular value of the Lyapunov operator, with no stability assumption on $A$.
+This concerns the **largest** singular value of the Lyapunov operator, with no stability assumption on $`A`$.
 
 ## Why it matters
 

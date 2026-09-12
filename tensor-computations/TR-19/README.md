@@ -7,25 +7,25 @@
 **Last checked:** 2026-09-10  
 **Status:** Partially resolved  
 
-For integers $d\ge3$ and $2\le n_1\le\cdots\le n_d$, let $V=\mathbb R^{n_1\times\cdots\times n_d}$. For $T\in V$, define
+For integers $`d\ge3`$ and $`2\le n_1\le\cdots\le n_d`$, let $`V=\mathbb R^{n_1\times\cdots\times n_d}`$. For $`T\in V`$, define
 
-$$
+```math
 \|T\|_F^2=\sum_{i_1=1}^{n_1}\cdots\sum_{i_d=1}^{n_d}T_{i_1\ldots i_d}^2,
-$$
+```
 
-$$
+```math
 \|T\|_\sigma=\max_{\substack{x_j\in\mathbb R^{n_j}\\\|x_j\|_2=1,\ 1\le j\le d}}
 \left|\sum_{i_1=1}^{n_1}\cdots\sum_{i_d=1}^{n_d}
 T_{i_1\ldots i_d}\prod_{j=1}^d(x_j)_{i_j}\right|.
-$$
+```
 
 Determine, as a function of the dimensions, the exact value
 
-$$
+```math
 \tau(n_1,\ldots,n_d)=\min_{T\in V\setminus\{0\}}\frac{\|T\|_\sigma}{\|T\|_F}.
-$$
+```
 
-Equivalently, determine the largest constant $\tau$ for which $\tau\|T\|_F\le\|T\|_\sigma$ holds for every tensor in that format. The target is the sharp constant for general formats, not merely another upper or lower bound. All formats constitute one problem.
+Equivalently, determine the largest constant $`\tau`$ for which $`\tau\|T\|_F\le\|T\|_\sigma`$ holds for every tensor in that format. The target is the sharp constant for general formats, not merely another upper or lower bound. All formats constitute one problem.
 
 This ratio measures the worst-case amount of tensor energy accessible to a best rank-one approximation and is relevant to convergence analyses of successive rank-one approximation methods.
 

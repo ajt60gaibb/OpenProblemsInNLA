@@ -14,52 +14,56 @@
 
 ## Statement
 
-For a real random variable $Z$ and $r>0$, write
-$\|Z\|_{L_r}=(\mathbb E|Z|^r)^{1/r}$. Fix $\alpha\ge1$. Let
-$X=(X_{ij})\in\mathbb R^{n\times n}$ have independent mean-zero entries
+For a real random variable $`Z`$ and $`r>0`$, write
+$`\|Z\|_{L_r}=(\mathbb E|Z|^r)^{1/r}`$. Fix $`\alpha\ge1`$. Let
+$`X=(X_{ij})\in\mathbb R^{n\times n}`$ have independent mean-zero entries
 with finite absolute moments of every order, satisfying
 
-$$\|X_{ij}\|_{L_{2r}}\le\alpha\|X_{ij}\|_{L_r}
-\qquad(1\le i,j\le n,\ r\ge1).$$
+```math
+\|X_{ij}\|_{L_{2r}}\le\alpha\|X_{ij}\|_{L_r}
+\qquad(1\le i,j\le n,\ r\ge1).
+```
 
-Set $[n]=\{1,\ldots,n\}$ and
+Set $`[n]=\{1,\ldots,n\}`$ and
 
-$$
+```math
 M(X)=\max_i\left(\sum_j\mathbb E X_{ij}^2\right)^{1/2}
 +\max_j\left(\sum_i\mathbb E X_{ij}^2\right)^{1/2},
-$$
+```
 
-$$
+```math
 D(X)=\max_{1\le k\le n}\;
 \min_{\substack{I\subseteq[n]\\|I|\le k}}
 \sup_{\substack{s,t\in\mathbb R^n\\\|s\|_2,\|t\|_2\le1}}
 \left\|\sum_{\substack{i\notin I\\j\notin I}}X_{ij}s_it_j
 \right\|_{L_{\ln(k+1)}}.
-$$
+```
 
-**Conjecture (Latała–Świątkowski).** For every $\alpha\ge1$ there is a
-constant $C_\alpha>0$ such that, for every $n\ge1$ and every such matrix,
+**Conjecture (Latała–Świątkowski).** For every $`\alpha\ge1`$ there is a
+constant $`C_\alpha>0`$ such that, for every $`n\ge1`$ and every such matrix,
 
-$$\mathbb E\|X\|_2\le C_\alpha\bigl(M(X)+D(X)\bigr),$$
+```math
+\mathbb E\|X\|_2\le C_\alpha\bigl(M(X)+D(X)\bigr),
+```
 
-where $\|X\|_2$ is the spectral norm. The constant is independent of the
-dimension and entry laws. The same deterministic index set $I$ deletes both
+where $`\|X\|_2`$ is the spectral norm. The constant is independent of the
+dimension and entry laws. The same deterministic index set $`I`$ deletes both
 rows and columns; the supremum is outside the random-variable moment.
-The definition includes $L_{\ln2}$ when $k=1$, using the displayed moment
+The definition includes $`L_{\ln2}`$ when $`k=1`$, using the displayed moment
 functional even though its exponent is below one.
 
-The reverse inequality up to a constant depending only on $\alpha$ is
+The reverse inequality up to a constant depending only on $`\alpha`$ is
 proved, so the target is equivalent to the source's two-sided comparison.
 No identical-distribution or symmetry assumption is imposed on the entries.
 
 ## Known cases and numerical significance
 
 The source proves the Gaussian-mixture case under the same moment condition.
-Weighted signs $X_{ij}=a_{ij}\varepsilon_{ij}$, with independent fair
-$\varepsilon_{ij}\in\{-1,1\}$, satisfy the condition with $\alpha=1$ and
+Weighted signs $`X_{ij}=a_{ij}\varepsilon_{ij}`$, with independent fair
+$`\varepsilon_{ij}\in\{-1,1\}`$, satisfy the condition with $`\alpha=1`$ and
 form the source's earlier Conjecture 1.2. Latała proves this case when
-$a_{ij}\in\{0,1\}$ and proves the general weighted-sign estimate with an
-additional factor of order $\log\log\log n$. Meller's 2026 result gives
+$`a_{ij}\in\{0,1\}`$ and proves the general weighted-sign estimate with an
+additional factor of order $`\log\log\log n`$. Meller's 2026 result gives
 an iterated-logarithm loss for a wider class of symmetric entries; it does
 not remove that loss. These cases remain grouped in this entry.
 
@@ -72,7 +76,7 @@ of a matrix that simpler variance-only bounds can miss.
 ## References and status check
 
 - R. Latała and W. Świątkowski, *Norms of randomized circulant matrices*, Electronic Journal of Probability 27 (2022), paper 80, 1–23. [DOI](https://doi.org/10.1214/22-EJP799); [current arXiv v2](https://arxiv.org/pdf/2106.03139v2), dated 2022-05-27. Conjecture 4.3 on preprint p.25, with condition (25) on p.24, states the target. Theorem 4.1 supplies the lower bound; Proposition 4.4 and the paragraph before it cover Gaussian mixtures. Conjecture 1.2 on p.2 is the weighted-sign special case.
-- R. Latała, *On the spectral norm of Rademacher matrices*. [DOI](https://doi.org/10.1090/tran/9637); [current arXiv v2](https://arxiv.org/html/2405.13656v2), dated 2025-08-18. Equations (1.2)–(1.3), Theorem 1.1, and Theorem 1.9 give the weighted-sign conjecture and the stated partial results. This paper uses the comparable truncated logarithm $\max\{1,\ln k\}$ in place of $\ln(k+1)$.
+- R. Latała, *On the spectral norm of Rademacher matrices*. [DOI](https://doi.org/10.1090/tran/9637); [current arXiv v2](https://arxiv.org/html/2405.13656v2), dated 2025-08-18. Equations (1.2)–(1.3), Theorem 1.1, and Theorem 1.9 give the weighted-sign conjecture and the stated partial results. This paper uses the comparable truncated logarithm $`\max\{1,\ln k\}`$ in place of $`\ln(k+1)`$.
 - R. Meller, *Spectral norm of matrices with independent entries up to polyloglog*, [arXiv:2512.23673v2](https://arxiv.org/html/2512.23673v2), dated 2026-01-29, introduction, equation (3), and Theorem 1.1. It explicitly identifies the remaining logarithmic gap and Conjecture 4.3.
 
 On 2026-09-11, checked the original paper's current version, both later

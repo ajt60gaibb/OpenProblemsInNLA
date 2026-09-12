@@ -13,14 +13,18 @@
 
 ## Problem statement
 
-For a complex tensor $T\in V_1\otimes\cdots\otimes V_k$, let $R(T)$ be the smallest number of decomposable tensors whose sum is $T$, with $R(0)=0$. The Kronecker power $T^{\boxtimes m}$ groups corresponding factors and lies in $V_1^{\otimes m}\otimes\cdots\otimes V_k^{\otimes m}$. Define
-$$
+For a complex tensor $`T\in V_1\otimes\cdots\otimes V_k`$, let $`R(T)`$ be the smallest number of decomposable tensors whose sum is $`T`$, with $`R(0)=0`$. The Kronecker power $`T^{\boxtimes m}`$ groups corresponding factors and lies in $`V_1^{\otimes m}\otimes\cdots\otimes V_k^{\otimes m}`$. Define
+
+```math
 \widetilde R(T)=\lim_{m\to\infty}R(T^{\boxtimes m})^{1/m}.
-$$
-For every fixed order $k\geq3$ and fixed positive dimensions $d_1,\ldots,d_k$, is
-$$
+```
+
+For every fixed order $`k\geq3`$ and fixed positive dimensions $`d_1,\ldots,d_k`$, is
+
+```math
 \{\widetilde R(T):T\in\mathbb C^{d_1}\otimes\cdots\otimes\mathbb C^{d_k}\}
-$$
+```
+
 a finite set?
 
 Equivalently, in each fixed format, must every convergent sequence of attainable asymptotic ranks eventually be constant? The equivalence uses the already established closedness and discreteness from above. This asks for discreteness from below as posed in §5 of the source, in its explicitly discussed fixed-format form. There is no requirement that the finitely many values be integers, or that an algorithm compute them.
