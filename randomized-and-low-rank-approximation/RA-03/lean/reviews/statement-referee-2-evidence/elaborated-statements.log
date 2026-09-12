@@ -1,0 +1,64 @@
+theorem NLA.RA03.frobeniusSq_eq_norm_sq : ∀ {m n : Nat} (A : Matrix.{0, 0, 0} (Fin m) (Fin n) Complex),
+  @Eq.{1} Real (@NLA.RA03.frobeniusSq m n A)
+    (@HPow.hPow.{0, 0, 0} Real Nat Real
+      (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid)))
+      (@Norm.norm.{0} (Matrix.{0, 0, 0} (Fin m) (Fin n) Complex)
+        (@NormedAddCommGroup.toNorm.{0} (Matrix.{0, 0, 0} (Fin m) (Fin n) Complex)
+          (@Matrix.frobeniusNormedAddCommGroup.{0, 0, 0} (Fin m) (Fin n) Complex (Fin.fintype m) (Fin.fintype n)
+            Complex.instNormedAddCommGroup))
+        A)
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) :=
+fun {m n : Nat} (A : Matrix.{0, 0, 0} (Fin m) (Fin n) Complex) =>
+  sorryAx.{0}
+    (∀ (tag : Lean.Name),
+      @Eq.{1} Real (@NLA.RA03.frobeniusSq m n A)
+        (@HPow.hPow.{0, 0, 0} Real Nat Real
+          (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid)))
+          (@Norm.norm.{0} (Matrix.{0, 0, 0} (Fin m) (Fin n) Complex)
+            (@NormedAddCommGroup.toNorm.{0} (Matrix.{0, 0, 0} (Fin m) (Fin n) Complex)
+              (@Matrix.frobeniusNormedAddCommGroup.{0, 0, 0} (Fin m) (Fin n) Complex (Fin.fintype m) (Fin.fintype n)
+                Complex.instNormedAddCommGroup))
+            A)
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+    Bool.false
+    (Lean.Name.num
+      (Lean.Name.str
+        (Lean.Name.str
+          (Lean.Name.num
+            (Lean.Name.str
+              (Lean.Name.str
+                (Lean.Name.str
+                  (Lean.Name.num
+                    (Lean.Name.num
+                      (Lean.Name.num
+                        (Lean.Name.num
+                          (Lean.Name.num
+                            (Lean.Name.num (Lean.Name.str Lean.Name.anonymous "Challenge")
+                              (@OfNat.ofNat.{0} Nat (nat_lit 12) (instOfNatNat (nat_lit 12))))
+                            (@OfNat.ofNat.{0} Nat (nat_lit 34) (instOfNatNat (nat_lit 34))))
+                          (@OfNat.ofNat.{0} Nat (nat_lit 12) (instOfNatNat (nat_lit 12))))
+                        (@OfNat.ofNat.{0} Nat (nat_lit 39) (instOfNatNat (nat_lit 39))))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 34) (instOfNatNat (nat_lit 34))))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 39) (instOfNatNat (nat_lit 39))))
+                  "_sorry")
+                "_@")
+              "Challenge")
+            (@OfNat.ofNat.{0} Nat (nat_lit 841467940) (instOfNatNat (nat_lit 841467940))))
+          "_hygCtx")
+        "_hyg")
+      (@OfNat.ofNat.{0} Nat (nat_lit 36) (instOfNatNat (nat_lit 36))))
+theorem NLA.RA03.process_isProbability : ∀ {m n : ℕ} (A : Matrix (Fin m) (Fin n) ℂ) (k : ℕ),
+  (∀ (p : NLA.RA03.Pivot m n), 0 ≤ NLA.RA03.pivotMass A p) ∧
+    ∑ p, NLA.RA03.pivotMass A p = 1 ∧
+      (∀ (h : Fin k → NLA.RA03.Pivot m n), 0 ≤ NLA.RA03.historyMass A h) ∧ ∑ h, NLA.RA03.historyMass A h = 1 :=
+fun {m n} A k => sorry
+def NLA.RA03.SquaredErrorConjecture : Prop :=
+∀ (m n : ℕ),
+  1 ≤ m →
+    1 ≤ n →
+      ∀ (A : Matrix (Fin m) (Fin n) ℂ) (k : ℕ),
+        1 ≤ k → k ≤ min m n → NLA.RA03.expectedError A k ≤ 2 ^ k * NLA.RA03.singularTailSq A k
+def NLA.RA03.singularValue : {m n : ℕ} → Matrix (Fin m) (Fin n) ℂ → ℕ → ℝ :=
+fun {m n} A j => (Matrix.toEuclideanLin A).singularValues j
+def NLA.RA03.singularTailSq : {m n : ℕ} → Matrix (Fin m) (Fin n) ℂ → ℕ → ℝ :=
+fun {m n} A k => ∑ j ∈ Finset.Ico k (min m n), NLA.RA03.singularValue A j ^ 2
