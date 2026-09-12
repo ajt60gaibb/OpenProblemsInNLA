@@ -1,0 +1,157 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={MI-30 - Product
+inequality for disjoint principal minors of Wishart
+matrices},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MI-30}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Matrix inequalities and norms\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Product
+inequality for disjoint principal minors of Wishart matrices\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to specialist\par}
+{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Topic:} Random Gram determinants and Gaussian product
+inequalities
+
+\textbf{Rating rationale:} The two-block result does not yield the
+general joint inequality, which couples arbitrarily many determinant
+powers. The main audience studies random Gram matrices, covariance
+determinants, and Gaussian volume inequalities.
+
+\subsection{Statement}\label{statement}
+
+Let \(d,p_1,\ldots,p_d\) be positive integers, set
+\(p=\sum_{i=1}^d p_i\), and choose a real number \(\alpha>p-1\) and a
+real symmetric positive definite matrix
+\(\Sigma\in\mathbb R^{p\times p}\).
+
+Let \(X\sim W_p(\alpha,\Sigma)\) mean that \(X\) has density
+proportional to
+
+\[
+(\det X)^{(\alpha-p-1)/2}
+\exp\!\left[-\tfrac12\operatorname{tr}(\Sigma^{-1}X)\right]
+\]
+
+on the cone of real symmetric positive definite matrices, with respect
+to Lebesgue measure on their independent entries. Partition
+\(X=(X_{ij})_{i,j=1}^d\) so that \(X_{ij}\) has size \(p_i\times p_j\).
+
+\textbf{Conjecture (Genest--Ouimet--Richards).} For every such choice
+and every \(\nu_1,\ldots,\nu_d\ge0\),
+
+\[
+\mathbb E\left[\prod_{i=1}^d(\det X_{ii})^{\nu_i}\right]
+\ge
+\prod_{i=1}^d\mathbb E\left[(\det X_{ii})^{\nu_i}\right].
+\]
+
+All displayed expectations are finite. Degrees of freedom and exponents
+need not be integers. All block counts and block sizes belong to this
+one conjecture.
+
+\subsection{Known cases and numerical
+significance}\label{known-cases-and-numerical-significance}
+
+The conjecture is proved for \(d=2\). Block-diagonal \(\Sigma\) makes
+the diagonal blocks independent and gives equality. Results for negative
+determinant powers address a different exponent regime.
+
+For integer \(\alpha\ge p\), one may write \(X=Y^{\mathsf T}Y\), where
+\(Y\) has \(\alpha\) independent Gaussian rows with covariance
+\(\Sigma\). Then \(\det X_{ii}\) is the squared volume generated by the
+columns in block \(i\). The problem compares joint volume moments with
+the corresponding product of marginal moments, linking it to random Gram
+matrices and volume methods.
+
+\newpage
+\subsection{References and status
+check}\label{references-and-status-check}
+
+\begin{itemize}
+\tightlist
+\item
+  C. Genest, F. Ouimet and D. Richards, \emph{On the Gaussian product
+  inequality conjecture for disjoint principal minors of Wishart random
+  matrices}, Electronic Journal of Probability 29 (2024), paper 166.
+  \href{https://doi.org/10.1214/24-EJP1222}{DOI};
+  \href{https://arxiv.org/html/2311.00202v3}{current arXiv v3}, dated
+  2024-10-01. Conjecture 1.1, equation (6), states the target;
+  Definition 2.4 defines the distribution; Remarks 1.2--1.3 record the
+  two-block case and moment finiteness.
+\item
+  C. Genest, F. Ouimet and D. Richards, \emph{An explicit Wishart moment
+  formula for the product of two disjoint principal minors}, Proceedings
+  of the AMS 153 (2025), 1299--1311.
+  \href{https://doi.org/10.1090/proc/17077}{DOI};
+  \href{https://arxiv.org/html/2409.14512}{full text}. This proves the
+  two-block case.
+\item
+  R. E. Gaunt and F. Ouimet, \emph{On Wilks' problem: Exact recursive
+  formulas via Stein's method for the joint moments of disjoint
+  principal minors of Wishart random matrices},
+  \href{https://arxiv.org/html/2607.03984}{arXiv:2607.03984} (2026). Its
+  moment recursions do not assert the displayed inequality for all real
+  exponents.
+\item
+  F. Ouimet and D. Greaves, \emph{A proof of the strong Gaussian product
+  inequality conjecture} (2026),
+  \href{https://www.researchgate.net/profile/Frederic-Ouimet/publication/410720385_A_proof_of_the_strong_Gaussian_product_inequality_conjecture/links/6a67b848f475b23f400ec34e/A-proof-of-the-strong-Gaussian-product-inequality-conjecture.pdf}{author-posted
+  manuscript}, Theorem 2.1. This claims a scalar Gaussian-coordinate
+  product inequality; the introduction separately identifies Wishart
+  extensions. Its stated result does not cover arbitrary determinant
+  blocks. This entry does not assess that manuscript's proof.
+\end{itemize}
+
+On 2026-09-11, checked the source's current version, these later papers
+and \href{https://sites.google.com/site/fouimet26/research}{Ouimet's
+publication list}, and searched the exact title, Wishart product
+inequalities, Conjecture 1.1, and 2025--2026 proof/counterexample
+combinations. No full resolution of the displayed determinant-block
+target was found. This is a bounded status check.
+\end{document}

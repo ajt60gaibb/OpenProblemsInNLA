@@ -7,13 +7,91 @@ with a prominent status, the resolution reference, its date and exact scope.
 They do not contribute to the open count. A counterexample is a solution to a
 conjecture's truth question; it is recorded as a negative resolution.
 
-**✅ SOLVED** means the exact target has a published or independently verified
-resolution. **🟠 SOLUTION CLAIMED** means a primary manuscript reports a full
-resolution whose proof has not been independently verified here. Neither status
-is counted as open. A partial result leaves the surviving target in the open
-catalog with **🟡 PARTIAL** and an explanation of what remains.
+Complete resolutions have three evidence levels: **🟠 SOLUTION CLAIMED**,
+**✅ SOLVED**, and **🏆 LEAN VERIFIED**. `Solution claimed` means a primary
+manuscript reports a full resolution whose proof has not been independently
+verified here. `Solved` means the exact target has a published result or an
+independently audited argument; an AI-agent audit is informal review and does
+not establish formal verification. `Lean verified` adds a kernel-checked Lean
+proof, reviewed correspondence to the original target, and a
+[reproducible verification record](CONTRIBUTING.md#lean-verification).
+None of these statuses is counted as open. A partial result leaves the
+surviving target in the open catalog with **🟡 PARTIAL**, even if that partial
+result is formalized in Lean.
 
 ## Resolved catalog entries
+
+### ✅ IE-05 - the orthogonal partial-pivoting extremizer equality is false - George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Negative resolution recorded 2026-09-11.** The [Theorem and Sections 1-4](linear-systems-and-elimination/IE-05/solution.md) give an exact real orthogonal counterexample at order eight. The positive-diagonal QR factor of $L_8+e_8e_2^T$ has partial-pivoting growth $5272/63$, strictly above the prescribed candidate's $\sqrt{17948132/2601}$. Both use the first available row in ties, so the counterexample also belongs to the supremum over all admissible paths. [Proof PDF](linear-systems-and-elimination/IE-05/solution.pdf) · [Canonical target](linear-systems-and-elimination/IE-05/README.md).
+
+The proof passed a separate [Codex-agent full-target review](references/stepaniants-ie05-2026-09-11/independent-review.md), including independently reconstructed exact orthogonality, QR signs, all pivots and all active maxima. Substantial AI assistance and the limits of automated review are explicit. This settles the finite-order extremizer equality and leaves the true supremum and the distinct asymptotic leading constant undetermined. Peca-Medlin's conjecture and prior element-growth analysis retain their attribution. [Submission record and public-source check](references/stepaniants-ie05-2026-09-11/README.md).
+
+<a id="ie-01"></a>
+
+### 🏆 IE-01 — Forsythe's conjecture beyond restart length two
+
+[Original statement and resolution](linear-systems-and-elimination/IE-01/README.md) · [PDF](linear-systems-and-elimination/IE-01/problem.pdf)
+
+**Complete classification; Lean verified status recorded 2026-09-11.** Colbrook, Stepaniants and Townsend's [September 2026 paper, v2, Theorem 1.1](https://arxiv.org/html/2609.04659v2) proves convergence for restart length three and gives nonterminating diagonal SPD counterexamples in dimension $s+4$ for every $s\ge4$. This settles the entire original target. The paper also proves the positive case $s=2$.
+
+The authors' [Lean proof](https://github.com/sgstepaniants/Forsythe/tree/main/lean-proof), described in Appendix D, formalizes the classification including the analytic and numerical premises. Its [verification record](https://github.com/sgstepaniants/Forsythe/blob/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof/VERIFICATION.md) documents successful Comparator statement checks and Lean kernel replay for all five exports, with only the standard axioms `propext`, `Classical.choice` and `Quot.sound`. This catalog checked the formal statement scope and public verification evidence; it did not rerun Lean or Comparator locally. This supersedes the former **Solution claimed** label. The stable ID and original statement remain, and the entry stays outside the open count.
+
+### ✅ SP-11 and SP-12 — Hall's theorem; application notes by George Stepaniants
+
+**Application-note author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology. **Theorem author:** H. Tracy Hall.
+
+**Literature-dependent affirmative resolutions recorded 2026-09-11.** Hall's [*The Delta Theorem*, arXiv:2601.01211v1](https://arxiv.org/html/2601.01211v1), Theorem 3.20 and Corollary 3.22, proves the all-graph PSD/SAP bound $\nu(G)\ge\delta(G)$. The source is a preprint, submitted 3 January 2026; the complete essential proof and both deductions passed a separate [independent Codex-agent mathematical review](references/stepaniants-sp11-sp12-2026-09-11/verification/SP-11-SP-12-independent-review.md). This is automated-agent verification, not human peer review or formal certification.
+
+- **SP-11:** [Original target and resolution](eigenvalues-and-inverse-problems/SP-11/README.md) · [Application note](eigenvalues-and-inverse-problems/SP-11/solution.md) · [PDF](eigenvalues-and-inverse-problems/SP-11/solution.pdf). Forgetting PSD and SAP gives $\operatorname{mr}(G)\le n-\delta(G)$; Hall's Corollary 3.24 already states this ordinary Delta consequence.
+- **SP-12:** [Original target and resolution](eigenvalues-and-inverse-problems/SP-12/README.md) · [Application note](eigenvalues-and-inverse-problems/SP-12/solution.md) · [PDF](eigenvalues-and-inverse-problems/SP-12/solution.pdf). The supplied proof of induced-subgraph monotonicity, followed by a chromatic-critical subgraph reduction, gives $\nu(G)\ge\chi(G)-1$ for every finite simple graph.
+
+These are explanatory applications of Hall's theorem, with substantial AI assistance disclosed and no novelty or priority claim. The [submission record](references/stepaniants-sp11-sp12-2026-09-11/README.md) preserves the original six-file package, withdrawn unsupported artifact claims, current audit, and review. Both permanent IDs, original targets, and earlier attributed partial results are retained.
+
+### ✅ IE-02 — ideal and worst-case GMRES coincide for every Jordan block — George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved affirmatively, 2026-09-11.** [Theorem 1](linear-systems-and-elimination/IE-02/solution.md) proves the exact complex equality for every $n\ge2$, $1\le k<n$, and $\lambda\ne0$. Theorem 6 establishes the stronger affine triangular-Toeplitz minimax result, using finite Carathéodory–Fejér interpolation and scalar spectral factorization to preserve all complex orthogonality conditions in one extremal vector. [Proof PDF](linear-systems-and-elimination/IE-02/solution.pdf) · [Canonical target](linear-systems-and-elimination/IE-02/README.md).
+
+The complete analytic proof passed a separate [independent Codex-agent review](references/stepaniants-ie02-2026-09-11/verification/IE-02-independent-review.md). AI assistance and automated-review limits are disclosed; no external human peer review or formal certification is asserted. [Submission record and public eligibility check](references/stepaniants-ie02-2026-09-11/README.md). All original target quantifiers, the permanent ID and historical ratings are retained.
+
+### RA-20 - symmetric rank-two critical-point formula refuted
+
+**Negative resolution recorded 2026-09-11 during the Codex maintainer audit.** For the retained [original target](randomized-and-low-rank-approximation/RA-20/README.md), the admissible case n=s=3 has exactly three generic smooth-locus critical points, whereas the displayed formula predicts four. The hollow symmetric determinant is 2abc; the three coordinate planes each contribute one simple critical point. [Complete proof](randomized-and-low-rank-approximation/RA-20/solution.md) · [Independent reconstruction and exact checks](references/research-expansion-2026-09-11/ra20-resolution/README.md). This refutes the joint universal conjecture without narrowing it. The other formulas and parameter ranges remain unclaimed. The ID and canonical path are retained; verification is by automated agents, not external human peer review or formal certification.
+
+### ✅ MF-22 — cubic C1 spline Schrödinger Toeplitz conditioning — George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology.
+
+**Solved affirmatively, 2026-09-11.** The [Theorem in Section 1 and proof in Sections 2–4](matrix-functions-and-stability/MF-22/solution.md) establish eventual invertibility and $\kappa_2(H_n(\rho))\le K_\rho n$ for every fixed real $\rho>0$. This answers the exact pure Toeplitz question with exponent one, including $\rho=\sqrt{10}$ and all stated boundary entries. [Proof PDF](matrix-functions-and-stability/MF-22/solution.pdf) · [Original canonical target](matrix-functions-and-stability/MF-22/README.md).
+
+The full proof passed a separate [Codex-agent mathematical review](references/stepaniants-mf22-2026-09-11/verification/MF-22-independent-review.md), with an independent checker confirming 31 exact polynomial identities. The [submission record](references/stepaniants-mf22-2026-09-11/README.md) documents substantial AI assistance, the exact reviewed source, public branch/fork checks, and verification limits. This is automated-agent review, not external human peer review or formal verification. The original authors retain credit for the family, root classification and question; the original ID, statement, path and historical ratings remain unchanged.
+
+### ✅ RA-13 - absolute-error Gaussian trace-tail threshold - George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved affirmatively, 2026-09-11.** [Sections 1-8 of the complete proof](randomized-and-low-rank-approximation/RA-13/solution.md) establish both canonical probability comparisons for every nonzero real symmetric matrix, including indefinite matrices, every positive sample count, and the stated threshold endpoint. The argument proves a stronger one-sided comparison for centered signed Gamma sums, then applies it to both signs and takes an infinite-divisibility limit. [Proof PDF](randomized-and-low-rank-approximation/RA-13/solution.pdf) · [Original target](randomized-and-low-rank-approximation/RA-13/README.md).
+
+The full proof passed a separate [independent Codex-agent review](references/stepaniants-ra13-2026-09-11/verification/RA-13-independent-review.md), including the published bell-shape theorem, new inflection identity, grouped transfers and endpoint limits. AI assistance and the limits of automated review are explicit. Kwaśnicki's and Hallman's external results retain attribution; Colbrook's earlier auxiliary counterexamples remain valid and separately credited. [Submission record and public-status audit](references/stepaniants-ra13-2026-09-11/README.md). The permanent ID, original statement and historical ratings are retained.
+
+### ✅ MF-18 — general complex Green-function imaginary rank — George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved affirmatively, 2026-09-11.** [Theorem 1 and Sections 1-4](matrix-functions-and-stability/MF-18/solution.md) prove that the imaginary part of the finite nonsingular stabilizing limit has rank exactly half the number of simple unit-circle eigenvalues of the quadratic matrix polynomial. The proof covers the full complex $C,D,R,P$ assumptions, singular coefficient matrices, roots at $1$ or $-1$, and arbitrary strictly stable Jordan blocks. [Proof PDF](matrix-functions-and-stability/MF-18/solution.pdf) · [Original canonical target](matrix-functions-and-stability/MF-18/README.md).
+
+The complete proof passed a separate [Codex-agent mathematical review](references/stepaniants-mf18-2026-09-11/verification/MF-18-independent-review.md). The [submission record](references/stepaniants-mf18-2026-09-11/README.md) documents substantial AI assistance, the exact reviewed source, public branch/fork checks, and verification limits. The earlier Guo-Kuo-Lin results and Matthew J. Colbrook's distinct real-coefficient defective extension retain their credit. The original ID, statement, path and historical ratings are preserved.
+
+### ✅ TR-17 and TR-27 — global Frobenius minimality and tensor-square rank
+
+**Resolutions by Matthew J. Colbrook recorded 2026-09-11.** Author affiliation: Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Two independent mathematical agents reviewed the complete sources, one per target; a separate agent reviewed and reran all three supplied verification programs. This is AI-assisted agent verification, not external human peer review or formal certification, and no priority claim is made. [Submission, source hashes and verification record](references/colbrook-tensor-metrics-rank-2026-09-11/README.md). Original statements, IDs and historical ratings are retained.
+
+- **[TR-17](tensor-computations/TR-17/README.md), affirmative:** [Theorem 1](references/colbrook-tensor-metrics-rank-2026-09-11/manuscripts/tr17_solution.pdf) proves that the Frobenius metric globally minimizes the Euclidean distance degree for every Segre–Veronese format in the target and every positive definite real symmetric metric, using the stated complex-bilinear and multiplicity conventions. Singular and nonreduced quadric sections are included. [Complete-source mathematical review: PASS](references/colbrook-tensor-metrics-rank-2026-09-11/verification/reviews/TR-17-review.md).
+- **[TR-27](tensor-computations/TR-27/README.md), negative:** [Theorem 1 and Section 4](references/colbrook-tensor-metrics-rank-2026-09-11/manuscripts/tr27_solution.pdf) exhibit a smooth irreducible nondegenerate curve in $\mathbb P^{11}$ with border rank 2, rank 3 and rank 9 at the Segre tensor square. This refutes the universal implication for projective varieties. The stronger construction permits any prescribed finite delay of strict submultiplicativity; it does not refute the known eventual-power saving or assert a counterexample restricted to Segre or Veronese varieties. [Complete-source mathematical review: PASS](references/colbrook-tensor-metrics-rank-2026-09-11/verification/reviews/TR-27-review.md).
 
 ### ✅ Two randomly pivoted factorization resolutions by Matthew J. Colbrook — 2026-09-11
 
@@ -71,6 +149,22 @@ The original statements, permanent IDs and historical ratings remain retained. T
 
 [Canonical target](tensor-computations/TR-20/README.md) · [Complete proof](references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-20.pdf) · [Independent review](references/colbrook-recovered-tensors-2026-09-11/verification/reviews/TR-20-review.md). **Theorem 1 and Sections 2–8.** For every $n\ge2$, the reduced nonisotropic Rayleigh–Ritz discriminants in the original complex bilinear Segre model have degrees $24\binom{n+1}{3}$ for $2\times n$ matrices and $24n^2\binom n2$ for $3\times n$ matrices. The proof handles the logarithmic boundary and crossings, proves simple ramification and generic degree one onto the reduced irreducible image, and then extracts both formulas. Its general coefficient expression is additional to the two requested formulas.
 
+### ✅ MI-28 — determinant comparison for all nonnegative base powers — George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved, 2026-09-11.** The proof establishes $\det(A^k+|AB|^p)\ge\det(A^k+A^pB^p)$ for every complex positive definite pair, every dimension, $k\ge0$ and $0\le p\le2$. [Theorem 1 and Corollary 6](matrix-inequalities-and-norms/MI-28/solution.md) establish a stronger normalized log-majorization. The published $k\ge2$ range is credited to Ghabries, Abbas, Mourad and Assi; Furuta inequalities and a parameter interchange close the remaining range. [Proof PDF](matrix-inequalities-and-norms/MI-28/solution.pdf) · [Canonical target](matrix-inequalities-and-norms/MI-28/README.md).
+
+The complete analytic proof and source applications passed a separate [Codex-agent review](references/stepaniants-mi28-2026-09-11/verification/reviews/MI-28-review.md). AI assistance and the limits of automated verification are explicit; no external peer review or formal certificate is asserted. [Submission record](references/stepaniants-mi28-2026-09-11/README.md). No canonical parameter case remains unresolved; the original ID, statement, path and historical ratings are retained.
+
+### ✅ MI-24 — the full Schatten norm complement — George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved, 2026-09-11.** The proof establishes the full comparison $\|A+B+G+L\|_p\le\|A+B+2L\|_p$ for every complex positive definite pair, every dimension and all $1\le p\le\infty$. [Theorem 1](matrix-inequalities-and-norms/MI-24/solution.md) combines the published Dinh–Dumitru–Franco Heron inequality, a positive matrix comparison, and the triangle inequality. [Proof PDF](matrix-inequalities-and-norms/MI-24/solution.pdf) · [Canonical target](matrix-inequalities-and-norms/MI-24/README.md).
+
+The complete argument passed a separate [Codex-agent review](references/stepaniants-mi24-2026-09-11/verification/reviews/MI-24-review.md). AI assistance, the existing published inputs and the limits of automated review are explicit. [Submission record and public-branch check](references/stepaniants-mi24-2026-09-11/README.md). The original ID, statement, path and historical ratings are retained.
+
 ### ✅ RA-12 — the relative-error threshold for extremal Gaussian trace bounds — George Stepaniants
 
 **Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
@@ -82,6 +176,34 @@ The original statements, permanent IDs and historical ratings remain retained. T
 **Theorem 1, Lemmas 2-4 and the final theorem proof** establish both comparisons in the canonical Gaussian trace-tail chain for every permitted matrix, sample count, effective rank and $\varepsilon\ge2/(m\mu)$. The proof treats the two one-sided tails separately, including the stated endpoint; no case of RA-12 remains open. It uses an elementary mode bound, minimum-positive-coefficient transfers, the published unimodality theorem of Roosta-Khorasani and Székely, Hallman's coefficient-derivative method and Gamma infinite divisibility. The proof does not claim optimality of the threshold or resolve the different RA-13 target.
 
 A separate Codex agent independently reviewed the full proof and external theorem application. Substantial ChatGPT/Codex assistance and the exact frozen-source hashes are documented in the [submission record](references/stepaniants-ra12-2026-09-11/README.md). This is independent agent verification, not external human peer review or formal certification. The original RA-12 statement and historical ratings remain, and Matthew J. Colbrook's earlier auxiliary counterexamples retain their attribution and links.
+
+### ✅ RA-10 - constant-loss nuclear-error transfer - George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved, 2026-09-11.** The universal constant $C=11$ proves the full nuclear-error transfer implication for arbitrary real PSD approximation pairs and every permitted nonnegative continuous operator-monotone function. [Theorem 1 and Lemma 2](randomized-and-low-rank-approximation/RA-10/solution.md) cover all ranks, selected eigenspaces, ties, $f(0)>0$ and zero-tail cases. [Proof PDF](randomized-and-low-rank-approximation/RA-10/solution.pdf) · [Canonical target](randomized-and-low-rank-approximation/RA-10/README.md).
+
+The proof passed a separate [Codex-agent mathematical review](references/stepaniants-ra10-2026-09-11/verification/RA-10-independent-review.md). Substantial AI assistance and the limits of automated review are explicit; no external human peer review or formal certification is asserted. Matthew J. Colbrook's earlier commuting result and lower bound $C\ge2$ retain their attribution below. [Submission record and public-branch check](references/stepaniants-ra10-2026-09-11/README.md).
+
+### ✅ IE-15 — exact rook-pivoting growth in orders three and four — George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved, 2026-09-11.** The proof establishes $g_{\mathrm{RP}}(3)=3$ and $g_{\mathrm{RP}}(4)=14/3$. [Theorem 1 and Sections 1–5](linear-systems-and-elimination/IE-15/solution.md) give universal bounds for real nonsingular matrices and all admissible rook paths, including ties and intermediate active entries, with explicit rational attaining matrices. [Proof PDF](linear-systems-and-elimination/IE-15/solution.pdf) · [Canonical target](linear-systems-and-elimination/IE-15/README.md).
+
+The complete analytic proof passed a separate [Codex-agent review](references/stepaniants-ie15-2026-09-11/verification/reviews/IE-15-review.md) and independent rational witness checks. AI assistance and the limits of automated review are explicit; no external human peer review or formal certification is asserted. [Submission record and public-branch check](references/stepaniants-ie15-2026-09-11/README.md). Existing issue 71 concerns order five and does not settle these two constants. The original ID, statement, path and historical ratings are retained.
+
+### ✅ AA-01, MD-03 and MD-04 — submissions by George Stepaniants, 2026-09-11
+
+**Submission author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA. Two separate Codex agents independently reviewed the three exact targets and returned PASS. The drafts were supplied in a ChatGPT conversation. Verification is independent automated-agent review, not external human peer review or formal certification. [Authorship, complete manuscripts, review reports and duplicate-submission check](references/stepaniants-2026-09-11/README.md).
+
+**AA-01 (Solved, affirmative) — George Stepaniants.** [Original target and resolution](arithmetic-and-complexity/AA-01/README.md) · [Complete proof](arithmetic-and-complexity/AA-01/solution.pdf), **Theorem 2.1 and Corollary 7.1** · [Independent review](references/stepaniants-2026-09-11/verification/reviews/AA-01-review.md). Stepaniants's signed-order gap characterization gives a finite family of real-quantifier-elimination tests deciding accurate evaluability and constructs an evaluator on positive instances. It covers the exact constant-free finite-tree model, including stored reuse, error-dependent branches, all real inputs and zeros.
+
+**MD-03 (Solved, affirmative) — application note by George Stepaniants.** [Original target and resolution](matrix-discrepancy-and-optimization/MD-03/README.md). **Shengtao Guo, Ethan X. Fang and Junwei Lu**, [arXiv:2609.11189v1](https://arxiv.org/abs/2609.11189v1), **Theorem 1.1, p. 1**, prove the universal Komlós bound with $C=3\sqrt{2\pi}$. Stepaniants's [application note](references/stepaniants-2026-09-11/manuscripts/md03_md04_proofs.pdf), Theorem 1, identifies the matrix columns with the source vectors.
+
+**MD-04 (Solved, affirmative) — application note by George Stepaniants.** [Original target and resolution](matrix-discrepancy-and-optimization/MD-04/README.md). **Guo, Fang and Lu, Corollary 1.2, p. 2**, prove $\operatorname{disc}(A)<3\sqrt{2\pi t}$ at every allowed sparsity. Stepaniants's [application note](references/stepaniants-2026-09-11/manuscripts/md03_md04_proofs.pdf), Theorem 2, records the exact match. The [discrepancy review](references/stepaniants-2026-09-11/verification/reviews/MD-03-MD-04-review.md) checks the substantive source proof as well as both applications. The source remains a preprint, discloses Odin AI use, and retains full theorem attribution to Guo, Fang and Lu.
+
+All three original statements, canonical paths, IDs and historical ratings/audits remain visible. The three surviving targets were open in the published base and all other public branches when checked before this submission.
 
 ### ✅ MI-13 — Nobori's spectral-middle-factor commutator inequality
 
@@ -212,11 +334,11 @@ These three entries remain in the open count.
 
 #### Related partial result and auxiliary counterexamples
 
-**RA-10 (Partially resolved).** The sharp nuclear relative-excess factor is two when $A$, $B=\widehat A_k$ and the actual selected rank-$k$ projector have a simultaneous orthonormal eigenbasis. The finite-Schatten extension is also proved. Diagonal operator-monotone power examples show that any constant solving the full question must satisfy $C\ge2$. Existence of a finite universal constant for arbitrary noncommuting PSD pairs remains open. Commutation of $A$ and $\widehat A$ alone does not cover every truncation inside a repeated eigenspace. The separate scalar-concave nuclear counterexamples use functions outside the required operator-monotone class. [Complete proof](references/colbrook-transfer-2026-09-11/manuscripts/06_commuting_schatten_transfer.pdf), Theorem 1.1 and Section 3; [review](references/colbrook-transfer-2026-09-11/verification/reviews/RA-10-review.md).
+**RA-10 - historical partial result (the canonical target is now Solved).** Matthew J. Colbrook proved that the sharp nuclear relative-excess factor is two when $A$, $B=\widehat A_k$ and the actual selected rank-$k$ projector have a simultaneous orthonormal eigenbasis. The finite-Schatten extension is also proved. Diagonal operator-monotone power examples show that any constant solving the full question must satisfy $C\ge2$. Existence of a finite universal constant for arbitrary noncommuting PSD pairs was open at that stage; George Stepaniants's complete proof with $C=11$ is now recorded above. Commutation of $A$ and $\widehat A$ alone does not cover every truncation inside a repeated eigenspace. The separate scalar-concave nuclear counterexamples use functions outside the required operator-monotone class. [Complete proof](references/colbrook-transfer-2026-09-11/manuscripts/06_commuting_schatten_transfer.pdf), Theorem 1.1 and Section 3; [review](references/colbrook-transfer-2026-09-11/verification/reviews/RA-10-review.md).
 
 **RA-12 — historical auxiliary results (the canonical target is now Solved).** Matthew J. Colbrook's submitted Gamma-density examples refute the upper-mode assertion in Hallman Conjecture 1 and the upper-inflection assertion in Conjecture 2, with legally distinct augmentation indices. These are counterexamples to auxiliary assertions; they neither prove nor refute the complete relative Gaussian trace-tail probability chain and do not establish a revised sharp tail threshold. RA-12 remained open at that stage. George Stepaniants's complete proof of the canonical tail comparisons is now recorded above. [Complete auxiliary proof](references/colbrook-transfer-2026-09-11/manuscripts/04_gamma_auxiliary_counterexamples.pdf), Proposition 2.1 (with Proposition 3.1 for related evidence); [review](references/colbrook-transfer-2026-09-11/verification/reviews/gamma-auxiliary-review.md).
 
-**RA-13 (Open).** The centered augmented density has a genuine inflection point beyond the proposed auxiliary upper bound. Together with the mode example, this refutes the upper assertions of Hallman Conjectures 1 and 2. The complete absolute Gaussian trace-tail probability chain in this entry is neither proved nor refuted. Failure of an auxiliary sufficient condition does not refute the final tail comparisons; status remains Open. [Complete proof](references/colbrook-transfer-2026-09-11/manuscripts/04_gamma_auxiliary_counterexamples.pdf), Proposition 3.1 (with Proposition 2.1 for related evidence); [review](references/colbrook-transfer-2026-09-11/verification/reviews/gamma-auxiliary-review.md).
+**RA-13 (Solved separately; auxiliary counterexamples retained).** The centered augmented density has a genuine inflection point beyond the proposed auxiliary upper bound. Together with the mode example, this refutes the upper assertions of Hallman Conjectures 1 and 2. These auxiliary examples neither prove nor refute the complete absolute Gaussian trace-tail probability chain. George Stepaniants's [separate proof](randomized-and-low-rank-approximation/RA-13/solution.md) now establishes the canonical comparisons; Colbrook's auxiliary counterexamples remain valid. [Complete proof](references/colbrook-transfer-2026-09-11/manuscripts/04_gamma_auxiliary_counterexamples.pdf), Proposition 3.1 (with Proposition 2.1 for related evidence); [review](references/colbrook-transfer-2026-09-11/verification/reviews/gamma-auxiliary-review.md).
 
 ### Five factorization resolutions by Matthew J. Colbrook — 2026-09-11
 
@@ -250,7 +372,7 @@ These three entries remain in the open count.
 
 **MF-16 (Solved).** The ordinary symmetric two-letter word $XBX^{12}BX=P$ has at least three distinct real symmetric positive definite solutions for explicit integer $B,P$. These are also Hermitian positive definite solutions, refuting the canonical universal uniqueness assertion in dimension two. An exact negative Jacobian determinant and two independent interval implementations certify the counterexample.  [Complete proof](references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-16.pdf), Theorem 1; Theorem 4 gives three certified solutions, and Theorem 3 gives a family threshold; [review](references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-16-review.md).
 
-**MF-18 (Partially resolved; auxiliary result only).** For real $A,Q$ with $Q=Q^\top$, scalar regularization $i\eta I$, and a finite invertible stabilizing limit, the manuscript proves that the imaginary-part rank is half the number of odd unit-circle Jordan blocks. It also establishes semisimple regularity and an exact defective example. This does not settle the canonical general complex $C,D,R,P$ problem. Its simple-eigenvalue real subcase was already known; the defective extension is an auxiliary result outside the canonical simple-eigenvalue hypothesis. The existing partial status and general complex target are retained. [Complete proof](references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-18.pdf), Theorem 1 and Corollary 3; Section 8 exact defective example; [review](references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-18-review.md).
+**MF-18 (Solved separately; auxiliary result retained).** For real $A,Q$ with $Q=Q^\top$, scalar regularization $i\eta I$, and a finite invertible stabilizing limit, the manuscript proves that the imaginary-part rank is half the number of odd unit-circle Jordan blocks. It also establishes semisimple regularity and an exact defective example. This does not settle the canonical general complex $C,D,R,P$ problem. Its simple-eigenvalue real subcase was already known; the defective extension is an auxiliary result outside the canonical simple-eigenvalue hypothesis. The full canonical complex target is now solved by [George Stepaniants](matrix-functions-and-stability/MF-18/solution.md). Colbrook's distinct real-coefficient defective extension remains valid and separately credited. [Complete proof](references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-18.pdf), Theorem 1 and Corollary 3; Section 8 exact defective example; [review](references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-18-review.md).
 
 **SF-01 (Solved).** Every exact Newton square-root iterate initialized at $X_0=A$ remains a real nonsingular H-matrix with positive diagonal. The theorem includes arbitrary positive scalar scaling and nonnegative affine initializations, with one diagonal-dominance weight for all iterates; it also proves the corresponding Halley preservation result.  [Complete proof](references/colbrook-matrix-functions-2026-09-11/manuscripts/SF-01.pdf), Theorem 1; Corollary 5 gives the Halley extension; [review](references/colbrook-matrix-functions-2026-09-11/verification/reviews/SF-01-review.md).
 
@@ -360,7 +482,7 @@ Eight exact targets passed independent agent review. Author: **Matthew J. Colbro
 
 [Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-23.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-23-review.md).
 
-The related order-five rook bound is outside the order-three/order-four target of [IE-15](linear-systems-and-elimination/IE-15/README.md), which remains Open.
+The related order-five rook bound is outside the order-three/order-four target of [IE-15](linear-systems-and-elimination/IE-15/README.md). That target was open when the order-five result was recorded; George Stepaniants's complete order-three/order-four resolution is now recorded above.
 
 ## Random cyclic Krylov compression - 2026-09-11
 
@@ -391,14 +513,6 @@ IDs or admissions are created by this list. Sources and scope rechecked on
 The classification below concerns the strength of the available evidence, not a
 claim that an unrefereed proof is incorrect. The records below were checked
 on **2026-09-10**.
-
-<a id="ie-01"></a>
-
-### 🟠 IE-01 — Forsythe's conjecture beyond restart length two
-
-[Original statement and resolution](linear-systems-and-elimination/IE-01/README.md) · [PDF](linear-systems-and-elimination/IE-01/problem.pdf)
-
-Colbrook, Stepaniants and Townsend's [September 2026 preprint, v2, Theorem 1.1](https://arxiv.org/html/2609.04659v2), reports convergence for restart length three and counterexamples for every restart length at least four. This covers the entire former entry. Removed from the open count on September 8; the stable page is restored with the claim prominently displayed. The full proof has not been independently audited by this catalog.
 
 <a id="tr-02"></a>
 
@@ -431,7 +545,7 @@ every rejected candidate.
 ## Recording a new resolution
 
 1. Keep the original problem ID, folder and statement. Do not delete or reuse the ID.
-2. Set `**Status:** Solved` or `**Status:** Solution claimed` on its canonical page. Add a prominent resolution notice, a primary reference and theorem/page locator, the resolution date, the outcome (affirmative, negative or classification), and a comparison with the original assumptions and quantifiers.
+2. Set `**Status:** Solution claimed`, `**Status:** Solved`, or `**Status:** Lean verified` on its canonical page according to the evidence. Add a prominent resolution notice, a primary reference and theorem/page locator, the resolution date, the outcome (affirmative, negative or classification), and a comparison with the original assumptions and quantifiers. Identify the actual review level; for `Lean verified`, include the [required formal-verification evidence](CONTRIBUTING.md#lean-verification).
 3. For a partial result, use `Partially resolved` and state the exact remaining cases. A weaker bound, a different algorithm, or a different input model does not settle the target.
-4. Add the resolution here, regenerate the catalog indexes with `python3 tools/update_catalog.py`, and regenerate the affected TeX/PDF with `python3 tools/render_problems.py ID`.
+4. Add the resolution here, validate IDs with `python3 tools/validate_problem_ids.py --base-ref origin/main`, regenerate the catalog indexes with `python3 tools/update_catalog.py --base-ref origin/main`, and regenerate the affected TeX/PDF with `python3 tools/render_problems.py ID`. Run `python3 -m unittest discover -s tests -p 'test_problem_ids.py' -v`.
 5. Submit a pull request. An issue being closed is not, by itself, evidence that a mathematical problem is solved. If a claim is withdrawn or a gap is found, retain the history and revise the status using the new evidence.

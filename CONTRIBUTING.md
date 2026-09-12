@@ -79,7 +79,7 @@ python3 tools/render_problems.py IE-02
 Replace `IE-02` with the changed problem's ID; several IDs may be supplied.
 Omit the IDs to render the whole collection. The index tool rebuilds `CATALOG.md`,
 category indexes and the README counts from canonical metadata, excluding solved,
-claimed and unverified entries from the open count.
+Lean-verified, claimed and unverified entries from the open count.
 Withdrawn entries are retained outside that count as well. The index tool
 validates permanent IDs before writing any generated file. Run the safeguard
 tests with `python3 -m unittest discover -s tests -p 'test_problem_ids.py' -v`.
@@ -98,3 +98,44 @@ retain the original ID and statement, explain exactly what is settled, and cite
 the resolution. Do not increase the open count with solved problems, unsupported
 claims, duplicate formulations or unverified candidates. Closing a GitHub issue
 does not change mathematical status automatically.
+
+## Lean verification
+
+Use `**Status:** Lean verified` only for a complete resolution of the original
+target with reviewed Lean verification evidence. `Solved` remains appropriate
+for a published result or a complete argument that has passed an independent
+informal audit, including an AI-agent audit. Record who or what performed that
+audit and link the report; finding no mistake does not establish formal
+verification or external human peer review.
+
+For promotion to `Lean verified`, add a **Lean proof and verification evidence**
+section to the canonical README containing:
+
+1. A stable link to the proof source at an immutable revision, the Lean
+   toolchain version, and pinned dependency versions (including mathlib when
+   used).
+2. The exact theorem declaration names and a comparison of their definitions,
+   assumptions, quantifiers and conclusions with the original problem. All
+   premises needed to settle the target must be proved or be assumptions
+   already present in that target.
+3. Reproduction commands and a dated successful verification log covering
+   those declarations and their dependencies. State whether this catalog
+   reran the checks or reviewed a public verification record; do not imply a
+   local rerun when none occurred.
+4. A transitive axiom report (for example, `#print axioms` for every target
+   theorem). Accept only Lean's standard foundational axioms `propext`,
+   `Classical.choice` and `Quot.sound`, or a subset. No `sorryAx`, unproved
+   custom axioms, or additional trust in native execution may support the
+   target theorem. A build succeeding on its own is insufficient evidence.
+
+Lean's documentation explains [proof validation and statement matching](https://lean-lang.org/doc/reference/latest/ValidatingProofs/)
+and [transitive axiom checks](https://lean-lang.org/doc/reference/latest/Axioms/).
+
+Link this evidence from the resolution notice and [resolution archive](RESOLVED.md).
+A public source and log may support the status after review; merely mentioning
+a Lean formalization does not. If a source revision changes, recheck the
+correspondence and verification evidence before attaching the status to it.
+Lean verification of a special case, a conditional reduction or supporting
+lemmas does not promote the whole problem: retain `Partially resolved` (or
+`Solved` if a complete informal resolution exists) and describe the formalized
+scope. Keep all IDs, paths and original targets unchanged.
