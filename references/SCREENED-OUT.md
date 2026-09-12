@@ -99,10 +99,11 @@ The exact n-step CG precision question was subsequently admitted as IE-20;
 the former generic reserve is superseded. Broad GMRES explanations, block
 rounding analyses and unspecified MRRR conditions in
 [workshop §§2.5–2.6 and §3.4](https://arxiv.org/html/2602.05394v3) remain research
-directions without a selected quantified target. Forsythe's former IE-01 and
+directions without a selected quantified target. Forsythe's retained IE-01 and
 Higham's complex-symmetric growth question are recorded with their current
-evidence classification in [RESOLVED.md](../RESOLVED.md), rather than repeating
-the older chapter's overstrong “resolved” label for the Forsythe preprint.
+evidence classification in [RESOLVED.md](../RESOLVED.md). On September 11, 2026,
+IE-01 was upgraded to **Lean verified** after checking the paper's Lean formalization
+and public verification record; the earlier preprint-only assessment is superseded.
 
 ## Inverse spectra
 

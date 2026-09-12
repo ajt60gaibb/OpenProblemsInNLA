@@ -55,7 +55,7 @@ class PermanentIDTests(unittest.TestCase):
 
     def test_current_registry_and_status_changes(self):
         path = self.root / CATEGORY / "RA-01" / "README.md"
-        for status in ["Solved", "Withdrawn", "Partially resolved"]:
+        for status in ["Solved", "Lean verified", "Withdrawn", "Partially resolved"]:
             path.write_text(f"# RA-01 — Original problem\n\n**Status:** {status}\n")
             self.assertEqual(validate(self.root), 2)
         self.assertNotIn("Withdrawn", update_catalog.OPEN)
