@@ -1,0 +1,751 @@
+COMMAND ["/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean", "-o", "/tmp/nla-lean-formalization/referee-fr12-1/build/Inspect.olean", "-i", "/tmp/nla-lean-formalization/referee-fr12-1/build/Inspect.ilean", "/private/tmp/nla-lean-fr12-worktree/frames-and-matrix-designs/FR-12/lean/reviews/statement-referee-1-evidence/Inspect.lean"]
+def NLA.FR12.IsRealHadamard : {n : Nat} → NLA.FR12.Mat n → Prop :=
+fun {n} A =>
+  And
+    (∀ (i j : Fin n),
+      Or (@Eq.{1} Real (A i j) (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)))
+        (@Eq.{1} Real (A i j)
+          (@Neg.neg.{0} Real Real.instNeg (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)))))
+    (@Eq.{1} (Matrix.{0, 0, 0} (Fin n) (Fin n) Real)
+      (@HMul.hMul.{0, 0, 0} (NLA.FR12.Mat n) (Matrix.{0, 0, 0} (Fin n) (Fin n) Real)
+        (Matrix.{0, 0, 0} (Fin n) (Fin n) Real)
+        (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin n) (Fin n) (Fin n) Real (Fin.fintype n)
+          Real.instMul Real.instAddCommMonoid)
+        A (@Matrix.transpose.{0, 0, 0} (Fin n) (Fin n) Real A))
+      (@HSMul.hSMul.{0, 0, 0} Real (NLA.FR12.Mat n) (NLA.FR12.Mat n)
+        (@instHSMul.{0, 0} Real (NLA.FR12.Mat n)
+          (@Matrix.smul.{0, 0, 0, 0} (Fin n) (Fin n) Real Real (@instSMulOfMul.{0} Real Real.instMul)))
+        (@Nat.cast.{0} Real Real.instNatCast n)
+        (@OfNat.ofNat.{0} (NLA.FR12.Mat n) (nat_lit 1)
+          (@One.toOfNat1.{0} (NLA.FR12.Mat n)
+            (@Matrix.one.{0, 0} (Fin n) Real (instDecidableEqFin n) Real.instZero Real.instOne)))))
+def NLA.FR12.HadamardMatrices : Nat → Type :=
+fun n => @Subtype.{1} (NLA.FR12.Mat n) fun A => @NLA.FR12.IsRealHadamard n A
+def NLA.FR12.hadamardCount : Nat → Nat :=
+fun n => Nat.card.{0} (NLA.FR12.HadamardMatrices n)
+def NLA.FR12.CountingConjecture : Prop :=
+∃ C,
+  And (@LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) C)
+    (∀ (n : Nat),
+      @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) n →
+        @Dvd.dvd.{0} Nat Nat.instDvd (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) n →
+          @LE.le.{0} Real Real.instLE (@Nat.cast.{0} Real Real.instNatCast (NLA.FR12.hadamardCount n))
+            (@HPow.hPow.{0, 0, 0} Real Real Real (@instHPow.{0, 0} Real Real Real.instPow)
+              (@OfNat.ofNat.{0} Real (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast NLA.FR12.CountingConjecture._proof_1))
+              (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+                (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) C
+                  (@Nat.cast.{0} Real Real.instNatCast n))
+                (@HDiv.hDiv.{0, 0, 0} Real Real Real
+                  (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+                  (Real.log (@Nat.cast.{0} Real Real.instNatCast n))
+                  (Real.log
+                    (@OfNat.ofNat.{0} Real (nat_lit 2)
+                      (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast
+                        NLA.FR12.CountingConjecture._proof_1)))))))
+def NLA.FR12.doublingMatrix : {m : Nat} →
+  NLA.FR12.Mat m →
+    NLA.FR12.Mat m →
+      Equiv.Perm.{1} (Fin m) → NLA.FR12.Mat (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m) :=
+fun {m} A B σ =>
+  @DFunLike.coe.{1, 1, 1}
+    (Equiv.{1, 1} (Matrix.{0, 0, 0} (Sum.{0, 0} (Fin m) (Fin m)) (Sum.{0, 0} (Fin m) (Fin m)) Real)
+      (Matrix.{0, 0, 0} (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m))
+        (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m)) Real))
+    (Matrix.{0, 0, 0} (Sum.{0, 0} (Fin m) (Fin m)) (Sum.{0, 0} (Fin m) (Fin m)) Real)
+    (fun x =>
+      Matrix.{0, 0, 0} (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m))
+        (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m)) Real)
+    (@EquivLike.toFunLike.{1, 1, 1}
+      (Equiv.{1, 1} (Matrix.{0, 0, 0} (Sum.{0, 0} (Fin m) (Fin m)) (Sum.{0, 0} (Fin m) (Fin m)) Real)
+        (Matrix.{0, 0, 0} (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m))
+          (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m)) Real))
+      (Matrix.{0, 0, 0} (Sum.{0, 0} (Fin m) (Fin m)) (Sum.{0, 0} (Fin m) (Fin m)) Real)
+      (Matrix.{0, 0, 0} (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m))
+        (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m)) Real)
+      (@Equiv.instEquivLike.{1, 1} (Matrix.{0, 0, 0} (Sum.{0, 0} (Fin m) (Fin m)) (Sum.{0, 0} (Fin m) (Fin m)) Real)
+        (Matrix.{0, 0, 0} (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m))
+          (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m)) Real)))
+    (@Matrix.reindex.{0, 0, 0, 0, 0} (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m))
+      (Sum.{0, 0} (Fin m) (Fin m)) (Sum.{0, 0} (Fin m) (Fin m))
+      (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m)) Real (@finSumFinEquiv m m)
+      (@finSumFinEquiv m m))
+    (@Matrix.fromBlocks.{0, 0, 0, 0, 0} (Fin m) (Fin m) (Fin m) (Fin m) Real A B
+      (@Matrix.submatrix.{0, 0, 0, 0, 0} (Fin m) (Fin m) (Fin m) (Fin m) Real A
+        (@DFunLike.coe.{1, 1, 1} (Equiv.Perm.{1} (Fin m)) (Fin m) (fun x => Fin m)
+          (@EquivLike.toFunLike.{1, 1, 1} (Equiv.Perm.{1} (Fin m)) (Fin m) (Fin m)
+            (@Equiv.instEquivLike.{1, 1} (Fin m) (Fin m)))
+          σ)
+        (@id.{1} (Fin m)))
+      (@Neg.neg.{0} (Matrix.{0, 0, 0} (Fin m) (Fin m) Real) (@Matrix.neg.{0, 0, 0} (Fin m) (Fin m) Real Real.instNeg)
+        (@Matrix.submatrix.{0, 0, 0, 0, 0} (Fin m) (Fin m) (Fin m) (Fin m) Real B
+          (@DFunLike.coe.{1, 1, 1} (Equiv.Perm.{1} (Fin m)) (Fin m) (fun x => Fin m)
+            (@EquivLike.toFunLike.{1, 1, 1} (Equiv.Perm.{1} (Fin m)) (Fin m) (Fin m)
+              (@Equiv.instEquivLike.{1, 1} (Fin m) (Fin m)))
+            σ)
+          (@id.{1} (Fin m)))))
+def NLA.FR12.doublingMap : (m : Nat) →
+  Prod.{0, 0} (NLA.FR12.HadamardMatrices m) (Prod.{0, 0} (NLA.FR12.HadamardMatrices m) (Equiv.Perm.{1} (Fin m))) →
+    NLA.FR12.Mat (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m) :=
+fun m x =>
+  @NLA.FR12.doublingMatrix m
+    (@Subtype.val.{1} (NLA.FR12.Mat m) (fun A => @NLA.FR12.IsRealHadamard m A)
+      (@Prod.fst.{0, 0} (NLA.FR12.HadamardMatrices m)
+        (Prod.{0, 0} (NLA.FR12.HadamardMatrices m) (Equiv.Perm.{1} (Fin m))) x))
+    (@Subtype.val.{1} (NLA.FR12.Mat m) (fun A => @NLA.FR12.IsRealHadamard m A)
+      (@Prod.fst.{0, 0} (NLA.FR12.HadamardMatrices m) (Equiv.Perm.{1} (Fin m))
+        (@Prod.snd.{0, 0} (NLA.FR12.HadamardMatrices m)
+          (Prod.{0, 0} (NLA.FR12.HadamardMatrices m) (Equiv.Perm.{1} (Fin m))) x)))
+    (@Prod.snd.{0, 0} (NLA.FR12.HadamardMatrices m) (Equiv.Perm.{1} (Fin m))
+      (@Prod.snd.{0, 0} (NLA.FR12.HadamardMatrices m)
+        (Prod.{0, 0} (NLA.FR12.HadamardMatrices m) (Equiv.Perm.{1} (Fin m))) x))
+NLA.FR12.counting_semantics (n : Nat) :
+  And (Finite.{1} (NLA.FR12.HadamardMatrices n))
+    (@LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) n →
+      ∀ (A : NLA.FR12.Mat n),
+        Iff (@NLA.FR12.IsRealHadamard n A)
+          (@Matrix.IsHadamard.{0, 0} (Fin n) Real (Fin.fintype n) (instDecidableEqFin n) Real.semiring instStarRingReal
+            A))
+NLA.FR12.injective_doubling (m : Nat)
+  (hm : @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) m) :
+  And
+    (∀
+      (x :
+        Prod.{0, 0} (NLA.FR12.HadamardMatrices m) (Prod.{0, 0} (NLA.FR12.HadamardMatrices m) (Equiv.Perm.{1} (Fin m)))),
+      @NLA.FR12.IsRealHadamard (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m)
+        (NLA.FR12.doublingMap m x))
+    (@Function.Injective.{1, 1}
+      (Prod.{0, 0} (NLA.FR12.HadamardMatrices m) (Prod.{0, 0} (NLA.FR12.HadamardMatrices m) (Equiv.Perm.{1} (Fin m))))
+      (NLA.FR12.Mat (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m)) (NLA.FR12.doublingMap m))
+NLA.FR12.factorial_doubling (m : Nat)
+  (hm : @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) m) :
+  @LE.le.{0} Nat instLENat
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) m.factorial
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+        (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+        (NLA.FR12.hadamardCount m) (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+    (NLA.FR12.hadamardCount
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) m))
+NLA.FR12.power_two_nonempty (k : Nat) :
+  @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+    (NLA.FR12.hadamardCount
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+        (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) k))
+NLA.FR12.power_two_lower_bound (k : Nat) :
+  @LE.le.{0} Real Real.instLE
+    (@HPow.hPow.{0, 0, 0} Real Real Real (@instHPow.{0, 0} Real Real Real.instPow)
+      (@OfNat.ofNat.{0} Real (nat_lit 2) (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast ⋯))
+      (@HDiv.hDiv.{0, 0, 0} Real Real Real (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+        (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+          (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+            (@HPow.hPow.{0, 0, 0} Real Nat Real
+              (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid)))
+              (@OfNat.ofNat.{0} Real (nat_lit 2) (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast ⋯))
+              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) k
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+            (@Nat.cast.{0} Real Real.instNatCast k))
+          (@HAdd.hAdd.{0, 0, 0} Real Real Real (@instHAdd.{0} Real Real.instAdd) (@Nat.cast.{0} Real Real.instNatCast k)
+            (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))))
+        (@OfNat.ofNat.{0} Real (nat_lit 8) (@instOfNatAtLeastTwo.{0} Real (nat_lit 8) Real.instNatCast ⋯))))
+    (@Nat.cast.{0} Real Real.instNatCast
+      (NLA.FR12.hadamardCount
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+          (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) k
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))))
+NLA.FR12.counterexample (C : Real)
+  (hC : @LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) C) :
+  ∃ k,
+    @LT.lt.{0} Real Real.instLT
+      (@HPow.hPow.{0, 0, 0} Real Real Real (@instHPow.{0, 0} Real Real Real.instPow)
+        (@OfNat.ofNat.{0} Real (nat_lit 2) (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast ⋯))
+        (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+          (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) C
+            (@Nat.cast.{0} Real Real.instNatCast
+              (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) k
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))))
+          (@HDiv.hDiv.{0, 0, 0} Real Real Real (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+            (Real.log
+              (@Nat.cast.{0} Real Real.instNatCast
+                (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                  (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                  (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) k
+                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))))
+            (Real.log
+              (@OfNat.ofNat.{0} Real (nat_lit 2) (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast ⋯))))))
+      (@Nat.cast.{0} Real Real.instNatCast
+        (NLA.FR12.hadamardCount
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+            (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) k
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))))
+NLA.FR12.not_countingConjecture : Not NLA.FR12.CountingConjecture
+structure Matrix.IsHadamard.{u_2, u_3} {n : Type u_2} {R : Type u_3} [Fintype.{u_2} n] [DecidableEq.{u_2 + 1} n]
+  [Semiring.{u_3} R]
+  [@StarRing.{u_3} R
+      (@NonAssocSemiring.toNonUnitalNonAssocSemiring.{u_3} R (@Semiring.toNonAssocSemiring.{u_3} R inst✝))]
+  (A : Matrix.{u_2, u_2, u_3} n n R) : Prop
+number of parameters: 7
+fields:
+  Matrix.IsHadamard.apply_mem.{u_2,
+    u_3} : ∀ (i j : n),
+      @Membership.mem.{u_3, u_3} R
+        (@Submonoid.{u_3} R (@Monoid.toMulOneClass.{u_3} R (@Semiring.toMonoid.{u_3} R inst✝¹)))
+        (@SetLike.instMembership.{u_3, u_3}
+          (@Submonoid.{u_3} R (@Monoid.toMulOneClass.{u_3} R (@Semiring.toMonoid.{u_3} R inst✝¹))) R
+          (@Submonoid.instSetLike.{u_3} R (@Monoid.toMulOneClass.{u_3} R (@Semiring.toMonoid.{u_3} R inst✝¹))))
+        (@unitary.{u_3} R (@Semiring.toMonoid.{u_3} R inst✝¹)
+          (@StarRing.toStarMul.{u_3} R
+            (@NonAssocSemiring.toNonUnitalNonAssocSemiring.{u_3} R (@Semiring.toNonAssocSemiring.{u_3} R inst✝¹))
+            inst✝))
+        (A i j)
+  Matrix.IsHadamard.mul_conjTranspose.{u_2,
+    u_3} : @Eq.{max (u_2 + 1) (u_3 + 1)} (Matrix.{u_2, u_2, u_3} n n R)
+      (@HMul.hMul.{max u_2 u_3, max u_2 u_3, max u_2 u_3} (Matrix.{u_2, u_2, u_3} n n R) (Matrix.{u_2, u_2, u_3} n n R)
+        (Matrix.{u_2, u_2, u_3} n n R)
+        (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{u_3, u_2, u_2, u_2} n n n R inst✝³
+          (@Distrib.toMul.{u_3} R (@instDistribOfSemiring.{u_3} R inst✝¹)) (@Semiring.toAddCommMonoid.{u_3} R inst✝¹))
+        A
+        (@Matrix.conjTranspose.{u_3, u_2, u_2} n n R
+          (@InvolutiveStar.toStar.{u_3} R
+            (@StarAddMonoid.toInvolutiveStar.{u_3} R
+              (@AddCommMonoid.toAddMonoid.{u_3} R
+                (@NonUnitalNonAssocSemiring.toAddCommMonoid.{u_3} R
+                  (@NonAssocSemiring.toNonUnitalNonAssocSemiring.{u_3} R
+                    (@Semiring.toNonAssocSemiring.{u_3} R inst✝¹))))
+              (@StarRing.toStarAddMonoid.{u_3} R
+                (@NonAssocSemiring.toNonUnitalNonAssocSemiring.{u_3} R (@Semiring.toNonAssocSemiring.{u_3} R inst✝¹))
+                inst✝)))
+          A))
+      (@HSMul.hSMul.{u_3, max u_2 u_3, max u_2 u_3} R (Matrix.{u_2, u_2, u_3} n n R) (Matrix.{u_2, u_2, u_3} n n R)
+        (@instHSMul.{u_3, max u_2 u_3} R (Matrix.{u_2, u_2, u_3} n n R)
+          (@Matrix.smul.{u_3, u_2, u_2, u_3} n n R R
+            (@instSMulOfMul.{u_3} R (@Distrib.toMul.{u_3} R (@instDistribOfSemiring.{u_3} R inst✝¹)))))
+        (@Nat.cast.{u_3} R
+          (@AddMonoidWithOne.toNatCast.{u_3} R
+            (@AddCommMonoidWithOne.toAddMonoidWithOne.{u_3} R
+              (@NonAssocSemiring.toAddCommMonoidWithOne.{u_3} R (@Semiring.toNonAssocSemiring.{u_3} R inst✝¹))))
+          (@Fintype.card.{u_2} n inst✝³))
+        (@OfNat.ofNat.{max u_2 u_3} (Matrix.{u_2, u_2, u_3} n n R) (nat_lit 1)
+          (@One.toOfNat1.{max u_2 u_3} (Matrix.{u_2, u_2, u_3} n n R)
+            (@Matrix.one.{u_3, u_2} n R inst✝²
+              (@MulZeroClass.toZero.{u_3} R (@instMulZeroClassOfSemiring.{u_3} R inst✝¹))
+              (@AddMonoidWithOne.toOne.{u_3} R
+                (@AddCommMonoidWithOne.toAddMonoidWithOne.{u_3} R
+                  (@NonAssocSemiring.toAddCommMonoidWithOne.{u_3} R (@Semiring.toNonAssocSemiring.{u_3} R inst✝¹))))))))
+  Matrix.IsHadamard.conjTranspose_mul.{u_2,
+    u_3} : @Eq.{max (u_2 + 1) (u_3 + 1)} (Matrix.{u_2, u_2, u_3} n n R)
+      (@HMul.hMul.{max u_2 u_3, max u_2 u_3, max u_2 u_3} (Matrix.{u_2, u_2, u_3} n n R) (Matrix.{u_2, u_2, u_3} n n R)
+        (Matrix.{u_2, u_2, u_3} n n R)
+        (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{u_3, u_2, u_2, u_2} n n n R inst✝³
+          (@Distrib.toMul.{u_3} R (@instDistribOfSemiring.{u_3} R inst✝¹)) (@Semiring.toAddCommMonoid.{u_3} R inst✝¹))
+        (@Matrix.conjTranspose.{u_3, u_2, u_2} n n R
+          (@InvolutiveStar.toStar.{u_3} R
+            (@StarAddMonoid.toInvolutiveStar.{u_3} R
+              (@AddCommMonoid.toAddMonoid.{u_3} R
+                (@NonUnitalNonAssocSemiring.toAddCommMonoid.{u_3} R
+                  (@NonAssocSemiring.toNonUnitalNonAssocSemiring.{u_3} R
+                    (@Semiring.toNonAssocSemiring.{u_3} R inst✝¹))))
+              (@StarRing.toStarAddMonoid.{u_3} R
+                (@NonAssocSemiring.toNonUnitalNonAssocSemiring.{u_3} R (@Semiring.toNonAssocSemiring.{u_3} R inst✝¹))
+                inst✝)))
+          A)
+        A)
+      (@HSMul.hSMul.{u_3, max u_2 u_3, max u_2 u_3} R (Matrix.{u_2, u_2, u_3} n n R) (Matrix.{u_2, u_2, u_3} n n R)
+        (@instHSMul.{u_3, max u_2 u_3} R (Matrix.{u_2, u_2, u_3} n n R)
+          (@Matrix.smul.{u_3, u_2, u_2, u_3} n n R R
+            (@instSMulOfMul.{u_3} R (@Distrib.toMul.{u_3} R (@instDistribOfSemiring.{u_3} R inst✝¹)))))
+        (@Nat.cast.{u_3} R
+          (@AddMonoidWithOne.toNatCast.{u_3} R
+            (@AddCommMonoidWithOne.toAddMonoidWithOne.{u_3} R
+              (@NonAssocSemiring.toAddCommMonoidWithOne.{u_3} R (@Semiring.toNonAssocSemiring.{u_3} R inst✝¹))))
+          (@Fintype.card.{u_2} n inst✝³))
+        (@OfNat.ofNat.{max u_2 u_3} (Matrix.{u_2, u_2, u_3} n n R) (nat_lit 1)
+          (@One.toOfNat1.{max u_2 u_3} (Matrix.{u_2, u_2, u_3} n n R)
+            (@Matrix.one.{u_3, u_2} n R inst✝²
+              (@MulZeroClass.toZero.{u_3} R (@instMulZeroClassOfSemiring.{u_3} R inst✝¹))
+              (@AddMonoidWithOne.toOne.{u_3} R
+                (@AddCommMonoidWithOne.toAddMonoidWithOne.{u_3} R
+                  (@NonAssocSemiring.toAddCommMonoidWithOne.{u_3} R (@Semiring.toNonAssocSemiring.{u_3} R inst✝¹))))))))
+constructor:
+  Matrix.IsHadamard.mk.{u_2, u_3} {n : Type u_2} {R : Type u_3} [Fintype.{u_2} n] [DecidableEq.{u_2 + 1} n]
+    [Semiring.{u_3} R]
+    [@StarRing.{u_3} R
+        (@NonAssocSemiring.toNonUnitalNonAssocSemiring.{u_3} R (@Semiring.toNonAssocSemiring.{u_3} R inst✝))]
+    {A : Matrix.{u_2, u_2, u_3} n n R}
+    (apply_mem :
+      ∀ (i j : n),
+        @Membership.mem.{u_3, u_3} R
+          (@Submonoid.{u_3} R (@Monoid.toMulOneClass.{u_3} R (@Semiring.toMonoid.{u_3} R inst✝)))
+          (@SetLike.instMembership.{u_3, u_3}
+            (@Submonoid.{u_3} R (@Monoid.toMulOneClass.{u_3} R (@Semiring.toMonoid.{u_3} R inst✝))) R
+            (@Submonoid.instSetLike.{u_3} R (@Monoid.toMulOneClass.{u_3} R (@Semiring.toMonoid.{u_3} R inst✝))))
+          (@unitary.{u_3} R (@Semiring.toMonoid.{u_3} R inst✝)
+            (@StarRing.toStarMul.{u_3} R
+              (@NonAssocSemiring.toNonUnitalNonAssocSemiring.{u_3} R (@Semiring.toNonAssocSemiring.{u_3} R inst✝))
+              inst✝¹))
+          (A i j))
+    (mul_conjTranspose :
+      @Eq.{max (u_2 + 1) (u_3 + 1)} (Matrix.{u_2, u_2, u_3} n n R)
+        (@HMul.hMul.{max u_2 u_3, max u_2 u_3, max u_2 u_3} (Matrix.{u_2, u_2, u_3} n n R)
+          (Matrix.{u_2, u_2, u_3} n n R) (Matrix.{u_2, u_2, u_3} n n R)
+          (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{u_3, u_2, u_2, u_2} n n n R inst✝²
+            (@Distrib.toMul.{u_3} R (@instDistribOfSemiring.{u_3} R inst✝)) (@Semiring.toAddCommMonoid.{u_3} R inst✝))
+          A
+          (@Matrix.conjTranspose.{u_3, u_2, u_2} n n R
+            (@InvolutiveStar.toStar.{u_3} R
+              (@StarAddMonoid.toInvolutiveStar.{u_3} R
+                (@AddCommMonoid.toAddMonoid.{u_3} R
+                  (@NonUnitalNonAssocSemiring.toAddCommMonoid.{u_3} R
+                    (@NonAssocSemiring.toNonUnitalNonAssocSemiring.{u_3} R
+                      (@Semiring.toNonAssocSemiring.{u_3} R inst✝))))
+                (@StarRing.toStarAddMonoid.{u_3} R
+                  (@NonAssocSemiring.toNonUnitalNonAssocSemiring.{u_3} R (@Semiring.toNonAssocSemiring.{u_3} R inst✝))
+                  inst✝¹)))
+            A))
+        (@HSMul.hSMul.{u_3, max u_2 u_3, max u_2 u_3} R (Matrix.{u_2, u_2, u_3} n n R) (Matrix.{u_2, u_2, u_3} n n R)
+          (@instHSMul.{u_3, max u_2 u_3} R (Matrix.{u_2, u_2, u_3} n n R)
+            (@Matrix.smul.{u_3, u_2, u_2, u_3} n n R R
+              (@instSMulOfMul.{u_3} R (@Distrib.toMul.{u_3} R (@instDistribOfSemiring.{u_3} R inst✝)))))
+          (@Nat.cast.{u_3} R
+            (@AddMonoidWithOne.toNatCast.{u_3} R
+              (@AddCommMonoidWithOne.toAddMonoidWithOne.{u_3} R
+                (@NonAssocSemiring.toAddCommMonoidWithOne.{u_3} R (@Semiring.toNonAssocSemiring.{u_3} R inst✝))))
+            (@Fintype.card.{u_2} n inst✝²))
+          (@OfNat.ofNat.{max u_2 u_3} (Matrix.{u_2, u_2, u_3} n n R) (nat_lit 1)
+            (@One.toOfNat1.{max u_2 u_3} (Matrix.{u_2, u_2, u_3} n n R)
+              (@Matrix.one.{u_3, u_2} n R inst✝³
+                (@MulZeroClass.toZero.{u_3} R (@instMulZeroClassOfSemiring.{u_3} R inst✝))
+                (@AddMonoidWithOne.toOne.{u_3} R
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{u_3} R
+                    (@NonAssocSemiring.toAddCommMonoidWithOne.{u_3} R
+                      (@Semiring.toNonAssocSemiring.{u_3} R inst✝)))))))))
+    (conjTranspose_mul :
+      @Eq.{max (u_2 + 1) (u_3 + 1)} (Matrix.{u_2, u_2, u_3} n n R)
+        (@HMul.hMul.{max u_2 u_3, max u_2 u_3, max u_2 u_3} (Matrix.{u_2, u_2, u_3} n n R)
+          (Matrix.{u_2, u_2, u_3} n n R) (Matrix.{u_2, u_2, u_3} n n R)
+          (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{u_3, u_2, u_2, u_2} n n n R inst✝²
+            (@Distrib.toMul.{u_3} R (@instDistribOfSemiring.{u_3} R inst✝)) (@Semiring.toAddCommMonoid.{u_3} R inst✝))
+          (@Matrix.conjTranspose.{u_3, u_2, u_2} n n R
+            (@InvolutiveStar.toStar.{u_3} R
+              (@StarAddMonoid.toInvolutiveStar.{u_3} R
+                (@AddCommMonoid.toAddMonoid.{u_3} R
+                  (@NonUnitalNonAssocSemiring.toAddCommMonoid.{u_3} R
+                    (@NonAssocSemiring.toNonUnitalNonAssocSemiring.{u_3} R
+                      (@Semiring.toNonAssocSemiring.{u_3} R inst✝))))
+                (@StarRing.toStarAddMonoid.{u_3} R
+                  (@NonAssocSemiring.toNonUnitalNonAssocSemiring.{u_3} R (@Semiring.toNonAssocSemiring.{u_3} R inst✝))
+                  inst✝¹)))
+            A)
+          A)
+        (@HSMul.hSMul.{u_3, max u_2 u_3, max u_2 u_3} R (Matrix.{u_2, u_2, u_3} n n R) (Matrix.{u_2, u_2, u_3} n n R)
+          (@instHSMul.{u_3, max u_2 u_3} R (Matrix.{u_2, u_2, u_3} n n R)
+            (@Matrix.smul.{u_3, u_2, u_2, u_3} n n R R
+              (@instSMulOfMul.{u_3} R (@Distrib.toMul.{u_3} R (@instDistribOfSemiring.{u_3} R inst✝)))))
+          (@Nat.cast.{u_3} R
+            (@AddMonoidWithOne.toNatCast.{u_3} R
+              (@AddCommMonoidWithOne.toAddMonoidWithOne.{u_3} R
+                (@NonAssocSemiring.toAddCommMonoidWithOne.{u_3} R (@Semiring.toNonAssocSemiring.{u_3} R inst✝))))
+            (@Fintype.card.{u_2} n inst✝²))
+          (@OfNat.ofNat.{max u_2 u_3} (Matrix.{u_2, u_2, u_3} n n R) (nat_lit 1)
+            (@One.toOfNat1.{max u_2 u_3} (Matrix.{u_2, u_2, u_3} n n R)
+              (@Matrix.one.{u_3, u_2} n R inst✝³
+                (@MulZeroClass.toZero.{u_3} R (@instMulZeroClassOfSemiring.{u_3} R inst✝))
+                (@AddMonoidWithOne.toOne.{u_3} R
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{u_3} R
+                    (@NonAssocSemiring.toAddCommMonoidWithOne.{u_3} R
+                      (@Semiring.toNonAssocSemiring.{u_3} R inst✝))))))))) :
+    @Matrix.IsHadamard.{u_2, u_3} n R inst✝² inst✝³ inst✝ inst✝¹ A
+Matrix.IsHadamard.of_mul_conjTranspose.{u_2, u_3} {n : Type u_2} {R : Type u_3} [Fintype.{u_2} n]
+  [DecidableEq.{u_2 + 1} n] [CommRing.{u_3} R]
+  [@StarRing.{u_3} R
+      (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{u_3} R
+        (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{u_3} R
+          (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{u_3} R (@CommRing.toNonUnitalCommRing.{u_3} R inst✝))))]
+  {A : Matrix.{u_2, u_2, u_3} n n R}
+  (hentry :
+    ∀ (i j : n),
+      @Membership.mem.{u_3, u_3} R
+        (@Submonoid.{u_3} R
+          (@Monoid.toMulOneClass.{u_3} R
+            (@Semiring.toMonoid.{u_3} R (@CommSemiring.toSemiring.{u_3} R (@CommRing.toCommSemiring.{u_3} R inst✝)))))
+        (@SetLike.instMembership.{u_3, u_3}
+          (@Submonoid.{u_3} R
+            (@Monoid.toMulOneClass.{u_3} R
+              (@Semiring.toMonoid.{u_3} R (@CommSemiring.toSemiring.{u_3} R (@CommRing.toCommSemiring.{u_3} R inst✝)))))
+          R
+          (@Submonoid.instSetLike.{u_3} R
+            (@Monoid.toMulOneClass.{u_3} R
+              (@Semiring.toMonoid.{u_3} R
+                (@CommSemiring.toSemiring.{u_3} R (@CommRing.toCommSemiring.{u_3} R inst✝))))))
+        (@unitary.{u_3} R
+          (@Semiring.toMonoid.{u_3} R (@CommSemiring.toSemiring.{u_3} R (@CommRing.toCommSemiring.{u_3} R inst✝)))
+          (@StarRing.toStarMul.{u_3} R
+            (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{u_3} R
+              (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{u_3} R
+                (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{u_3} R (@CommRing.toNonUnitalCommRing.{u_3} R inst✝))))
+            inst✝¹))
+        (A i j))
+  (hmul :
+    @Eq.{max (u_2 + 1) (u_3 + 1)} (Matrix.{u_2, u_2, u_3} n n R)
+      (@HMul.hMul.{max u_2 u_3, max u_2 u_3, max u_2 u_3} (Matrix.{u_2, u_2, u_3} n n R) (Matrix.{u_2, u_2, u_3} n n R)
+        (Matrix.{u_2, u_2, u_3} n n R)
+        (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{u_3, u_2, u_2, u_2} n n n R inst✝²
+          (@Distrib.toMul.{u_3} R
+            (@instDistribOfSemiring.{u_3} R
+              (@CommSemiring.toSemiring.{u_3} R (@CommRing.toCommSemiring.{u_3} R inst✝))))
+          (@Semiring.toAddCommMonoid.{u_3} R
+            (@CommSemiring.toSemiring.{u_3} R (@CommRing.toCommSemiring.{u_3} R inst✝))))
+        A
+        (@Matrix.conjTranspose.{u_3, u_2, u_2} n n R
+          (@InvolutiveStar.toStar.{u_3} R
+            (@StarAddMonoid.toInvolutiveStar.{u_3} R
+              (@AddCommMonoid.toAddMonoid.{u_3} R
+                (@NonUnitalNonAssocSemiring.toAddCommMonoid.{u_3} R
+                  (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{u_3} R
+                    (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{u_3} R
+                      (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{u_3} R
+                        (@CommRing.toNonUnitalCommRing.{u_3} R inst✝))))))
+              (@StarRing.toStarAddMonoid.{u_3} R
+                (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{u_3} R
+                  (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{u_3} R
+                    (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{u_3} R
+                      (@CommRing.toNonUnitalCommRing.{u_3} R inst✝))))
+                inst✝¹)))
+          A))
+      (@HSMul.hSMul.{u_3, max u_2 u_3, max u_2 u_3} R (Matrix.{u_2, u_2, u_3} n n R) (Matrix.{u_2, u_2, u_3} n n R)
+        (@instHSMul.{u_3, max u_2 u_3} R (Matrix.{u_2, u_2, u_3} n n R)
+          (@Matrix.smul.{u_3, u_2, u_2, u_3} n n R R
+            (@instSMulOfMul.{u_3} R
+              (@Distrib.toMul.{u_3} R
+                (@instDistribOfSemiring.{u_3} R
+                  (@CommSemiring.toSemiring.{u_3} R (@CommRing.toCommSemiring.{u_3} R inst✝)))))))
+        (@Nat.cast.{u_3} R
+          (@AddMonoidWithOne.toNatCast.{u_3} R
+            (@AddGroupWithOne.toAddMonoidWithOne.{u_3} R
+              (@Ring.toAddGroupWithOne.{u_3} R (@CommRing.toRing.{u_3} R inst✝))))
+          (@Fintype.card.{u_2} n inst✝²))
+        (@OfNat.ofNat.{max u_2 u_3} (Matrix.{u_2, u_2, u_3} n n R) (nat_lit 1)
+          (@One.toOfNat1.{max u_2 u_3} (Matrix.{u_2, u_2, u_3} n n R)
+            (@Matrix.one.{u_3, u_2} n R inst✝³
+              (@MulZeroClass.toZero.{u_3} R
+                (@instMulZeroClassOfSemiring.{u_3} R
+                  (@CommSemiring.toSemiring.{u_3} R (@CommRing.toCommSemiring.{u_3} R inst✝))))
+              (@AddMonoidWithOne.toOne.{u_3} R
+                (@AddGroupWithOne.toAddMonoidWithOne.{u_3} R
+                  (@Ring.toAddGroupWithOne.{u_3} R (@CommRing.toRing.{u_3} R inst✝)))))))))
+  (hcard :
+    @IsRegular.{u_3} R
+      (@Distrib.toMul.{u_3} R
+        (@instDistribOfSemiring.{u_3} R (@CommSemiring.toSemiring.{u_3} R (@CommRing.toCommSemiring.{u_3} R inst✝))))
+      (@Nat.cast.{u_3} R
+        (@AddMonoidWithOne.toNatCast.{u_3} R
+          (@AddGroupWithOne.toAddMonoidWithOne.{u_3} R
+            (@Ring.toAddGroupWithOne.{u_3} R (@CommRing.toRing.{u_3} R inst✝))))
+        (@Fintype.card.{u_2} n inst✝²))) :
+  @Matrix.IsHadamard.{u_2, u_3} n R inst✝² inst✝³
+    (@CommSemiring.toSemiring.{u_3} R (@CommRing.toCommSemiring.{u_3} R inst✝)) inst✝¹ A
+def Matrix.reindex.{v, u_1, u_2, u_3, u_4} : {l : Type u_1} →
+  {m : Type u_2} →
+    {n : Type u_3} →
+      {o : Type u_4} →
+        {α : Type v} →
+          Equiv.{u_2 + 1, u_1 + 1} m l →
+            Equiv.{u_3 + 1, u_4 + 1} n o →
+              Equiv.{max (max (v + 1) (u_3 + 1)) (u_2 + 1), max (max (v + 1) (u_4 + 1)) (u_1 + 1)}
+                (Matrix.{u_2, u_3, v} m n α) (Matrix.{u_1, u_4, v} l o α) :=
+fun {l} {m} {n} {o} {α} eₘ eₙ =>
+  @Equiv.mk.{max (max (u_2 + 1) (u_3 + 1)) (v + 1), max (max (u_1 + 1) (u_4 + 1)) (v + 1)} (Matrix.{u_2, u_3, v} m n α)
+    (Matrix.{u_1, u_4, v} l o α)
+    (fun M =>
+      @Matrix.submatrix.{v, u_1, u_2, u_3, u_4} l m n o α M
+        (@DFunLike.coe.{max (u_1 + 1) (u_2 + 1), u_1 + 1, u_2 + 1} (Equiv.{u_1 + 1, u_2 + 1} l m) l (fun x => m)
+          (@EquivLike.toFunLike.{max (u_1 + 1) (u_2 + 1), u_1 + 1, u_2 + 1} (Equiv.{u_1 + 1, u_2 + 1} l m) l m
+            (@Equiv.instEquivLike.{u_1 + 1, u_2 + 1} l m))
+          (@Equiv.symm.{u_2 + 1, u_1 + 1} m l eₘ))
+        (@DFunLike.coe.{max (u_3 + 1) (u_4 + 1), u_4 + 1, u_3 + 1} (Equiv.{u_4 + 1, u_3 + 1} o n) o (fun x => n)
+          (@EquivLike.toFunLike.{max (u_3 + 1) (u_4 + 1), u_4 + 1, u_3 + 1} (Equiv.{u_4 + 1, u_3 + 1} o n) o n
+            (@Equiv.instEquivLike.{u_4 + 1, u_3 + 1} o n))
+          (@Equiv.symm.{u_3 + 1, u_4 + 1} n o eₙ)))
+    (fun M =>
+      @Matrix.submatrix.{v, u_2, u_1, u_4, u_3} m l o n α M
+        (@DFunLike.coe.{max (u_1 + 1) (u_2 + 1), u_2 + 1, u_1 + 1} (Equiv.{u_2 + 1, u_1 + 1} m l) m (fun x => l)
+          (@EquivLike.toFunLike.{max (u_1 + 1) (u_2 + 1), u_2 + 1, u_1 + 1} (Equiv.{u_2 + 1, u_1 + 1} m l) m l
+            (@Equiv.instEquivLike.{u_2 + 1, u_1 + 1} m l))
+          eₘ)
+        (@DFunLike.coe.{max (u_3 + 1) (u_4 + 1), u_3 + 1, u_4 + 1} (Equiv.{u_3 + 1, u_4 + 1} n o) n (fun x => o)
+          (@EquivLike.toFunLike.{max (u_3 + 1) (u_4 + 1), u_3 + 1, u_4 + 1} (Equiv.{u_3 + 1, u_4 + 1} n o) n o
+            (@Equiv.instEquivLike.{u_3 + 1, u_4 + 1} n o))
+          eₙ))
+    ⋯ ⋯
+@[defeq] theorem Matrix.reindex_apply.{v, u_1, u_2, u_3, u_4} : ∀ {l : Type u_1} {m : Type u_2} {n : Type u_3}
+  {o : Type u_4} {α : Type v} (eₘ : Equiv.{u_2 + 1, u_1 + 1} m l) (eₙ : Equiv.{u_3 + 1, u_4 + 1} n o)
+  (M : Matrix.{u_2, u_3, v} m n α),
+  @Eq.{max (max (u_1 + 1) (u_4 + 1)) (v + 1)} (Matrix.{u_1, u_4, v} l o α)
+    (@DFunLike.coe.{max (max (max (max (u_1 + 1) (u_2 + 1)) (u_3 + 1)) (u_4 + 1)) (v + 1),
+          max (max (u_2 + 1) (u_3 + 1)) (v + 1), max (max (u_1 + 1) (u_4 + 1)) (v + 1)}
+      (Equiv.{max (max (v + 1) (u_3 + 1)) (u_2 + 1), max (max (v + 1) (u_4 + 1)) (u_1 + 1)} (Matrix.{u_2, u_3, v} m n α)
+        (Matrix.{u_1, u_4, v} l o α))
+      (Matrix.{u_2, u_3, v} m n α) (fun x => Matrix.{u_1, u_4, v} l o α)
+      (@EquivLike.toFunLike.{max (max (max (max (u_1 + 1) (u_2 + 1)) (u_3 + 1)) (u_4 + 1)) (v + 1),
+            max (max (u_2 + 1) (u_3 + 1)) (v + 1), max (max (u_1 + 1) (u_4 + 1)) (v + 1)}
+        (Equiv.{max (max (v + 1) (u_3 + 1)) (u_2 + 1), max (max (v + 1) (u_4 + 1)) (u_1 + 1)}
+          (Matrix.{u_2, u_3, v} m n α) (Matrix.{u_1, u_4, v} l o α))
+        (Matrix.{u_2, u_3, v} m n α) (Matrix.{u_1, u_4, v} l o α)
+        (@Equiv.instEquivLike.{max (max (u_2 + 1) (u_3 + 1)) (v + 1), max (max (u_1 + 1) (u_4 + 1)) (v + 1)}
+          (Matrix.{u_2, u_3, v} m n α) (Matrix.{u_1, u_4, v} l o α)))
+      (@Matrix.reindex.{v, u_1, u_2, u_3, u_4} l m n o α eₘ eₙ) M)
+    (@Matrix.submatrix.{v, u_1, u_2, u_3, u_4} l m n o α M
+      (@DFunLike.coe.{max (u_1 + 1) (u_2 + 1), u_1 + 1, u_2 + 1} (Equiv.{u_1 + 1, u_2 + 1} l m) l (fun x => m)
+        (@EquivLike.toFunLike.{max (u_1 + 1) (u_2 + 1), u_1 + 1, u_2 + 1} (Equiv.{u_1 + 1, u_2 + 1} l m) l m
+          (@Equiv.instEquivLike.{u_1 + 1, u_2 + 1} l m))
+        (@Equiv.symm.{u_2 + 1, u_1 + 1} m l eₘ))
+      (@DFunLike.coe.{max (u_3 + 1) (u_4 + 1), u_4 + 1, u_3 + 1} (Equiv.{u_4 + 1, u_3 + 1} o n) o (fun x => n)
+        (@EquivLike.toFunLike.{max (u_3 + 1) (u_4 + 1), u_4 + 1, u_3 + 1} (Equiv.{u_4 + 1, u_3 + 1} o n) o n
+          (@Equiv.instEquivLike.{u_4 + 1, u_3 + 1} o n))
+        (@Equiv.symm.{u_3 + 1, u_4 + 1} n o eₙ))) :=
+fun {l} {m} {n} {o} {α} eₘ eₙ M =>
+  @rfl.{max (max (u_1 + 1) (u_4 + 1)) (v + 1)} (Matrix.{u_1, u_4, v} l o α)
+    (@DFunLike.coe.{max (max (max (max (u_1 + 1) (u_2 + 1)) (u_3 + 1)) (u_4 + 1)) (v + 1),
+          max (max (u_2 + 1) (u_3 + 1)) (v + 1), max (max (u_1 + 1) (u_4 + 1)) (v + 1)}
+      (Equiv.{max (max (v + 1) (u_3 + 1)) (u_2 + 1), max (max (v + 1) (u_4 + 1)) (u_1 + 1)} (Matrix.{u_2, u_3, v} m n α)
+        (Matrix.{u_1, u_4, v} l o α))
+      (Matrix.{u_2, u_3, v} m n α) (fun x => Matrix.{u_1, u_4, v} l o α)
+      (@EquivLike.toFunLike.{max (max (max (max (u_1 + 1) (u_2 + 1)) (u_3 + 1)) (u_4 + 1)) (v + 1),
+            max (max (u_2 + 1) (u_3 + 1)) (v + 1), max (max (u_1 + 1) (u_4 + 1)) (v + 1)}
+        (Equiv.{max (max (v + 1) (u_3 + 1)) (u_2 + 1), max (max (v + 1) (u_4 + 1)) (u_1 + 1)}
+          (Matrix.{u_2, u_3, v} m n α) (Matrix.{u_1, u_4, v} l o α))
+        (Matrix.{u_2, u_3, v} m n α) (Matrix.{u_1, u_4, v} l o α)
+        (@Equiv.instEquivLike.{max (max (u_2 + 1) (u_3 + 1)) (v + 1), max (max (u_1 + 1) (u_4 + 1)) (v + 1)}
+          (Matrix.{u_2, u_3, v} m n α) (Matrix.{u_1, u_4, v} l o α)))
+      (@Matrix.reindex.{v, u_1, u_2, u_3, u_4} l m n o α eₘ eₙ) M)
+def finSumFinEquiv : {m n : Nat} →
+  Equiv.{1, 1} (Sum.{0, 0} (Fin m) (Fin n))
+    (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m n)) :=
+fun {m n} =>
+  @Equiv.mk.{1, 1} (Sum.{0, 0} (Fin m) (Fin n))
+    (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m n))
+    (@Sum.elim.{0, 0, 1} (Fin m) (Fin n) (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m n))
+      (@Fin.castAdd m n) (@Fin.natAdd n m))
+    (fun i =>
+      @Fin.addCases.{1} m n (fun x => Sum.{0, 0} (Fin m) (Fin n)) (@Sum.inl.{0, 0} (Fin m) (Fin n))
+        (@Sum.inr.{0, 0} (Fin m) (Fin n)) i)
+    ⋯ ⋯
+finSumFinEquiv_apply_left {m n : Nat} (i : Fin m) :
+  @Eq.{1} (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m n))
+    (@DFunLike.coe.{1, 1, 1}
+      (Equiv.{1, 1} (Sum.{0, 0} (Fin m) (Fin n))
+        (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m n)))
+      (Sum.{0, 0} (Fin m) (Fin n)) (fun x => Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m n))
+      (@EquivLike.toFunLike.{1, 1, 1}
+        (Equiv.{1, 1} (Sum.{0, 0} (Fin m) (Fin n))
+          (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m n)))
+        (Sum.{0, 0} (Fin m) (Fin n)) (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m n))
+        (@Equiv.instEquivLike.{1, 1} (Sum.{0, 0} (Fin m) (Fin n))
+          (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m n))))
+      (@finSumFinEquiv m n) (@Sum.inl.{0, 0} (Fin m) (Fin n) i))
+    (@Fin.castAdd m n i)
+finSumFinEquiv_apply_right {m n : Nat} (i : Fin n) :
+  @Eq.{1} (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m n))
+    (@DFunLike.coe.{1, 1, 1}
+      (Equiv.{1, 1} (Sum.{0, 0} (Fin m) (Fin n))
+        (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m n)))
+      (Sum.{0, 0} (Fin m) (Fin n)) (fun x => Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m n))
+      (@EquivLike.toFunLike.{1, 1, 1}
+        (Equiv.{1, 1} (Sum.{0, 0} (Fin m) (Fin n))
+          (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m n)))
+        (Sum.{0, 0} (Fin m) (Fin n)) (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m n))
+        (@Equiv.instEquivLike.{1, 1} (Sum.{0, 0} (Fin m) (Fin n))
+          (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m n))))
+      (@finSumFinEquiv m n) (@Sum.inr.{0, 0} (Fin m) (Fin n) i))
+    (@Fin.natAdd n m i)
+Matrix.fromBlocks_apply₁₁.{u_1, u_2, u_3, u_4, u_12} {l : Type u_1} {m : Type u_2} {n : Type u_3} {o : Type u_4}
+  {α : Type u_12} (A : Matrix.{u_3, u_1, u_12} n l α) (B : Matrix.{u_3, u_2, u_12} n m α)
+  (C : Matrix.{u_4, u_1, u_12} o l α) (D : Matrix.{u_4, u_2, u_12} o m α) (i : n) (j : l) :
+  @Eq.{u_12 + 1} α
+    (@Matrix.fromBlocks.{u_1, u_2, u_3, u_4, u_12} l m n o α A B C D (@Sum.inl.{u_3, u_4} n o i)
+      (@Sum.inl.{u_1, u_2} l m j))
+    (A i j)
+Matrix.fromBlocks_apply₁₂.{u_1, u_2, u_3, u_4, u_12} {l : Type u_1} {m : Type u_2} {n : Type u_3} {o : Type u_4}
+  {α : Type u_12} (A : Matrix.{u_3, u_1, u_12} n l α) (B : Matrix.{u_3, u_2, u_12} n m α)
+  (C : Matrix.{u_4, u_1, u_12} o l α) (D : Matrix.{u_4, u_2, u_12} o m α) (i : n) (j : m) :
+  @Eq.{u_12 + 1} α
+    (@Matrix.fromBlocks.{u_1, u_2, u_3, u_4, u_12} l m n o α A B C D (@Sum.inl.{u_3, u_4} n o i)
+      (@Sum.inr.{u_1, u_2} l m j))
+    (B i j)
+Matrix.fromBlocks_apply₂₁.{u_1, u_2, u_3, u_4, u_12} {l : Type u_1} {m : Type u_2} {n : Type u_3} {o : Type u_4}
+  {α : Type u_12} (A : Matrix.{u_3, u_1, u_12} n l α) (B : Matrix.{u_3, u_2, u_12} n m α)
+  (C : Matrix.{u_4, u_1, u_12} o l α) (D : Matrix.{u_4, u_2, u_12} o m α) (i : o) (j : l) :
+  @Eq.{u_12 + 1} α
+    (@Matrix.fromBlocks.{u_1, u_2, u_3, u_4, u_12} l m n o α A B C D (@Sum.inr.{u_3, u_4} n o i)
+      (@Sum.inl.{u_1, u_2} l m j))
+    (C i j)
+Matrix.fromBlocks_apply₂₂.{u_1, u_2, u_3, u_4, u_12} {l : Type u_1} {m : Type u_2} {n : Type u_3} {o : Type u_4}
+  {α : Type u_12} (A : Matrix.{u_3, u_1, u_12} n l α) (B : Matrix.{u_3, u_2, u_12} n m α)
+  (C : Matrix.{u_4, u_1, u_12} o l α) (D : Matrix.{u_4, u_2, u_12} o m α) (i : o) (j : m) :
+  @Eq.{u_12 + 1} α
+    (@Matrix.fromBlocks.{u_1, u_2, u_3, u_4, u_12} l m n o α A B C D (@Sum.inr.{u_3, u_4} n o i)
+      (@Sum.inr.{u_1, u_2} l m j))
+    (D i j)
+protected def Nat.card.{u_3} : Type u_3 → Nat :=
+fun α =>
+  @DFunLike.coe.{u_3 + 2, u_3 + 2, 1}
+    (@MonoidWithZeroHom.{u_3 + 1, 0} Cardinal.{u_3} Nat
+      (@instMulZeroOneClassOfSemiring.{u_3 + 1} Cardinal.{u_3}
+        (@CommSemiring.toSemiring.{u_3 + 1} Cardinal.{u_3} Cardinal.commSemiring.{u_3}))
+      Nat.instMulZeroOneClass)
+    Cardinal.{u_3} (fun x => Nat)
+    (@MonoidWithZeroHom.funLike.{u_3 + 1, 0} Cardinal.{u_3} Nat
+      (@instMulZeroOneClassOfSemiring.{u_3 + 1} Cardinal.{u_3}
+        (@CommSemiring.toSemiring.{u_3 + 1} Cardinal.{u_3} Cardinal.commSemiring.{u_3}))
+      Nat.instMulZeroOneClass)
+    Cardinal.toNat.{u_3} (Cardinal.mk.{u_3} α)
+Nat.card_eq_zero_of_infinite.{u_1} {α : Type u_1} [Infinite.{u_1 + 1} α] :
+  @Eq.{1} Nat (Nat.card.{u_1} α) (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+Nat.card_pos_iff.{u_1} {α : Type u_1} :
+  Iff (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) (Nat.card.{u_1} α))
+    (And (Nonempty.{u_1 + 1} α) (Finite.{u_1 + 1} α))
+Nat.card_le_card_of_injective.{u, v} {α : Type u} {β : Type v} [Finite.{v + 1} β] (f : α → β)
+  (hf : @Function.Injective.{u + 1, v + 1} α β f) : @LE.le.{0} Nat instLENat (Nat.card.{u} α) (Nat.card.{v} β)
+Nat.card_prod.{u_3, u_4} (α : Type u_3) (β : Type u_4) :
+  @Eq.{1} Nat (Nat.card.{max u_4 u_3} (Prod.{u_3, u_4} α β))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (Nat.card.{u_3} α) (Nat.card.{u_4} β))
+Fintype.card_perm.{u_1} {α : Type u_1} [DecidableEq.{u_1 + 1} α] [Fintype.{u_1} α] :
+  @Eq.{1} Nat
+    (@Fintype.card.{u_1} (Equiv.Perm.{u_1 + 1} α) (@Equiv.instFintype.{u_1, u_1} α α inst✝ inst✝ inst✝¹ inst✝¹))
+    (@Fintype.card.{u_1} α inst✝¹).factorial
+Nat.factorial_mul_pow_sub_le_factorial {n m : Nat} (hnm : @LE.le.{0} Nat instLENat n m) :
+  @LE.le.{0} Nat instLENat
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) n.factorial
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat)) n
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) m n)))
+    m.factorial
+Real.log_pow (x : Real) (n : Nat) :
+  @Eq.{1} Real
+    (Real.log
+      (@HPow.hPow.{0, 0, 0} Real Nat Real
+        (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid))) x n))
+    (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) (@Nat.cast.{0} Real Real.instNatCast n)
+      (Real.log x))
+Real.rpow_lt_rpow_of_exponent_lt {x y z : Real}
+  (hx : @LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)) x)
+  (hyz : @LT.lt.{0} Real Real.instLT y z) :
+  @LT.lt.{0} Real Real.instLT (@HPow.hPow.{0, 0, 0} Real Real Real (@instHPow.{0, 0} Real Real Real.instPow) x y)
+    (@HPow.hPow.{0, 0, 0} Real Real Real (@instHPow.{0, 0} Real Real Real.instPow) x z)
+def Real.logb : Real → Real → Real :=
+fun b x =>
+  @HDiv.hDiv.{0, 0, 0} Real Real Real (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+    (Real.log x) (Real.log b)
+'NLA.FR12.IsRealHadamard' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.FR12.HadamardMatrices' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.FR12.hadamardCount' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.FR12.CountingConjecture' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.FR12.doublingMatrix' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.FR12.doublingMap' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.FR12.counting_semantics' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.FR12.injective_doubling' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.FR12.factorial_doubling' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.FR12.power_two_nonempty' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.FR12.power_two_lower_bound' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.FR12.counterexample' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.FR12.not_countingConjecture' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+NLA.FR12.power_two_lower_bound (k : Nat) :
+  @LE.le.{0} Real Real.instLE
+    (@HPow.hPow.{0, 0, 0} Real Real Real (@instHPow.{0, 0} Real Real Real.instPow)
+      (@OfNat.ofNat.{0} Real (nat_lit 2)
+        (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast
+          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+            (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))
+      (@HDiv.hDiv.{0, 0, 0} Real Real Real (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+        (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+          (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+            (@HPow.hPow.{0, 0, 0} Real Nat Real
+              (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid)))
+              (@OfNat.ofNat.{0} Real (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast
+                  (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+                    (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))
+              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) k
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+            (@Nat.cast.{0} Real Real.instNatCast k))
+          (@HAdd.hAdd.{0, 0, 0} Real Real Real (@instHAdd.{0} Real Real.instAdd) (@Nat.cast.{0} Real Real.instNatCast k)
+            (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))))
+        (@OfNat.ofNat.{0} Real (nat_lit 8)
+          (@instOfNatAtLeastTwo.{0} Real (nat_lit 8) Real.instNatCast
+            (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))
+              (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))))))))
+    (@Nat.cast.{0} Real Real.instNatCast
+      (NLA.FR12.hadamardCount
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+          (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) k
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))))
+def NLA.FR12.CountingConjecture : Prop :=
+@Exists.{1} Real fun (C : Real) =>
+  And (@LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) C)
+    (∀ (n : Nat),
+      @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) n →
+        @Dvd.dvd.{0} Nat Nat.instDvd (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) n →
+          @LE.le.{0} Real Real.instLE (@Nat.cast.{0} Real Real.instNatCast (NLA.FR12.hadamardCount n))
+            (@HPow.hPow.{0, 0, 0} Real Real Real (@instHPow.{0, 0} Real Real Real.instPow)
+              (@OfNat.ofNat.{0} Real (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast NLA.FR12.CountingConjecture._proof_1))
+              (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+                (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) C
+                  (@Nat.cast.{0} Real Real.instNatCast n))
+                (@HDiv.hDiv.{0, 0, 0} Real Real Real
+                  (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+                  (Real.log (@Nat.cast.{0} Real Real.instNatCast n))
+                  (Real.log
+                    (@OfNat.ofNat.{0} Real (nat_lit 2)
+                      (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast
+                        NLA.FR12.CountingConjecture._proof_1)))))))
+def NLA.FR12.doublingMatrix : {m : Nat} →
+  (A B : NLA.FR12.Mat m) →
+    (σ : Equiv.Perm.{1} (Fin m)) → NLA.FR12.Mat (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m) :=
+fun {m : Nat} (A B : NLA.FR12.Mat m) (σ : Equiv.Perm.{1} (Fin m)) =>
+  @DFunLike.coe.{1, 1, 1}
+    (Equiv.{1, 1} (Matrix.{0, 0, 0} (Sum.{0, 0} (Fin m) (Fin m)) (Sum.{0, 0} (Fin m) (Fin m)) Real)
+      (Matrix.{0, 0, 0} (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m))
+        (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m)) Real))
+    (Matrix.{0, 0, 0} (Sum.{0, 0} (Fin m) (Fin m)) (Sum.{0, 0} (Fin m) (Fin m)) Real)
+    (fun (x : Matrix.{0, 0, 0} (Sum.{0, 0} (Fin m) (Fin m)) (Sum.{0, 0} (Fin m) (Fin m)) Real) =>
+      Matrix.{0, 0, 0} (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m))
+        (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m)) Real)
+    (@EquivLike.toFunLike.{1, 1, 1}
+      (Equiv.{1, 1} (Matrix.{0, 0, 0} (Sum.{0, 0} (Fin m) (Fin m)) (Sum.{0, 0} (Fin m) (Fin m)) Real)
+        (Matrix.{0, 0, 0} (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m))
+          (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m)) Real))
+      (Matrix.{0, 0, 0} (Sum.{0, 0} (Fin m) (Fin m)) (Sum.{0, 0} (Fin m) (Fin m)) Real)
+      (Matrix.{0, 0, 0} (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m))
+        (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m)) Real)
+      (@Equiv.instEquivLike.{1, 1} (Matrix.{0, 0, 0} (Sum.{0, 0} (Fin m) (Fin m)) (Sum.{0, 0} (Fin m) (Fin m)) Real)
+        (Matrix.{0, 0, 0} (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m))
+          (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m)) Real)))
+    (@Matrix.reindex.{0, 0, 0, 0, 0} (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m))
+      (Sum.{0, 0} (Fin m) (Fin m)) (Sum.{0, 0} (Fin m) (Fin m))
+      (Fin (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) m m)) Real (@finSumFinEquiv m m)
+      (@finSumFinEquiv m m))
+    (@Matrix.fromBlocks.{0, 0, 0, 0, 0} (Fin m) (Fin m) (Fin m) (Fin m) Real A B
+      (@Matrix.submatrix.{0, 0, 0, 0, 0} (Fin m) (Fin m) (Fin m) (Fin m) Real A
+        (@DFunLike.coe.{1, 1, 1} (Equiv.Perm.{1} (Fin m)) (Fin m) (fun (x : Fin m) => Fin m)
+          (@EquivLike.toFunLike.{1, 1, 1} (Equiv.Perm.{1} (Fin m)) (Fin m) (Fin m)
+            (@Equiv.instEquivLike.{1, 1} (Fin m) (Fin m)))
+          σ)
+        (@id.{1} (Fin m)))
+      (@Neg.neg.{0} (Matrix.{0, 0, 0} (Fin m) (Fin m) Real) (@Matrix.neg.{0, 0, 0} (Fin m) (Fin m) Real Real.instNeg)
+        (@Matrix.submatrix.{0, 0, 0, 0, 0} (Fin m) (Fin m) (Fin m) (Fin m) Real B
+          (@DFunLike.coe.{1, 1, 1} (Equiv.Perm.{1} (Fin m)) (Fin m) (fun (x : Fin m) => Fin m)
+            (@EquivLike.toFunLike.{1, 1, 1} (Equiv.Perm.{1} (Fin m)) (Fin m) (Fin m)
+              (@Equiv.instEquivLike.{1, 1} (Fin m) (Fin m)))
+            σ)
+          (@id.{1} (Fin m)))))
