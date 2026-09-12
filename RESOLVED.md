@@ -21,6 +21,15 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### ✅ TR-07 — unrestricted fixed-sparsity column subsets — Sidney Holden
+
+**Author:** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation, New York, USA.
+
+**Solved affirmatively, 12 September 2026.** [Theorem 1.1 and Corollary 1.2](randomized-and-low-rank-approximation/TR-07/solution.pdf) prove the full deterministic signed fixed-sparsity target, including arbitrary support intersections and repeated columns. The least singular value tends to zero in probability for every fixed positive threshold under the original aspect-ratio and redundancy assumptions. [Proof source](randomized-and-low-rank-approximation/TR-07/solution.tex) · [Retained target](randomized-and-low-rank-approximation/TR-07/README.md).
+
+The complete argument passed a separate [independent Codex AI-agent audit](references/holden-tr07-2026-09-12/independent-review.md), with no mathematical corrections. AI assistance was used for review and submission preparation; informal automated review is not external human peer review or formal verification. No Lean verification was performed. Huang, Rudelson and Tikhomirov retain credit for the conjecture and prior structural-subclass result. The original ID, path and mathematical target remain unchanged. [Submission record and verified affiliation](references/holden-tr07-2026-09-12/README.md).
+
+
 
 ### ✅ RA-19 - the one-zero corank-one critical-point count - George Stepaniants
 
