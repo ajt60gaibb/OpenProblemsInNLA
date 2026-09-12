@@ -382,9 +382,12 @@ historical and the entry no longer contributes to the open count.
 
 [Canonical entry](matrix-inequalities-and-norms/MI-06/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-06/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-06-review.md). **Theorem 1.1 and its proof.** No finite constant permits the proposed two-unitary Loewner-order domination for the arithmetic symmetric modulus, already in dimension three. A fixed rational example also refutes the proposed $\sqrt2$ constant. This concerns matrix order, not a separate norm triangle inequality. 
 
-#### MI-07 — negative result
+#### MI-07 — negative result by Matthew J. Colbrook; Lean formalization by George Stepaniants
 
 [Canonical entry](matrix-inequalities-and-norms/MI-07/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-07/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-07-review.md). **Theorem 1.1 and its proof.** No finite two-unitary domination constant exists for the maximal symmetric modulus, already in dimension two. The rank-one family gives the necessary bound $C\ge\sqrt{1+t^2}/t$ for every $t>0$. 
+
+**Lean verified — 2026-09-12. Lean formalization:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, with AI-agent assistance. Mathematical counterexample credit remains with Matthew J. Colbrook. The [seven checked exports](https://github.com/sgstepaniants/OpenProblemsInNLA/blob/f55777156432043de4201747a3759e0c6485e568/matrix-inequalities-and-norms/MI-07/lean/Solution.lean) prove the actual complex moduli, three root-sequence limits, genuine spectral-norm bridge, all-unitary trace obstruction and full original constant-one conjecture negation. [Linux run 34709291624](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34709291624) matched all frozen declarations and replayed the exported solution through Lean's default kernel with only `propext`, `Classical.choice` and `Quot.sound`. The [proof and verification evidence](matrix-inequalities-and-norms/MI-07/README.md#lean-proof-and-verification-evidence--2026-09-12) retain two independent mathematical reviews, the operational audit and original artifacts. The stronger no-finite-constant theorem and generic convergence for unrelated matrices are outside the formalized scope; the original informal record above remains historical.
+
 
 #### MI-19 — Negative result by Matthew J. Colbrook; Lean formalization by George Stepaniants
 
