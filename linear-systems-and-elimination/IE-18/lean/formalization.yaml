@@ -1,0 +1,137 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/99c678e569c7c4c0772db297c5ddd5e4c9b6322e/schema/v0.4.schema.json
+version: "v0.4"
+project:
+  name: "IE-18: a counterexample to the four-step Anderson identity"
+  description: >-
+    Derives the actual two residual-map executions and the maximum over the
+    genuine Hermitian eigenvalue list, then refutes the complete original
+    universal maximum identity by an admissible strict counterexample.
+  authors: [George Stepaniants]
+  affiliations:
+    George Stepaniants: >-
+      Department of Computing and Mathematical Sciences, California Institute
+      of Technology, Pasadena, California, USA
+  responsible_maintainers: [George Stepaniants]
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+  - title: "IE-18 — The exact four-step amplification of restarted Anderson acceleration"
+    id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/5adea969c17391693978ada2674d25bb5c3daeb1/linear-systems-and-elimination/IE-18/README.md
+    type: web-post
+    location: Problem statement
+    relationship: formalizes
+    author_endorsement: not-contacted
+    note: >-
+      Canonical residual-map formulation of the identity attributed to
+      Krzysik, De Sterck and Smith, Conjecture 10 and equation (24).
+  - title: "IE-18: counterexamples to the exact four-step identity"
+    authors: [Matthew J. Colbrook]
+    id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/5adea969c17391693978ada2674d25bb5c3daeb1/references/colbrook-recovered-2026-09-11/manuscripts/IE-18.tex
+    type: manuscript
+    location: Section 2, positive definite counterexample
+    relationship: formalizes
+    author_endorsement: not-contacted
+    note: >-
+      The concrete strict counterexample fully refutes the canonical identity.
+      The stronger parameter-family result and separate asymptotic convergence
+      question are not claimed as formally verified.
+related_formalizations:
+  - id: https://github.com/sgstepaniants/Forsythe/tree/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof
+    relationship: other
+    note: >-
+      Statement-first, kernel LeanCert and Comparator workflow reference.
+      Shared checker reuse is credited in tools/lean/NOTICE.md; no Forsythe
+      mathematical result is assumed by this proof.
+  - id: https://github.com/jaumededios/Schiffer/tree/2938e277969c329caf154e48a3d8823f3635c7f1
+    relationship: other
+    note: Proof organization studied; no source code copied or imported.
+automation:
+  methods:
+    - method: agent
+      framework: OpenAI Codex
+      tool_setup: >-
+        Multiple agents, two independent statement reviews before proof,
+        exact rational residual algebra, Mathlib diagonal spectrum and actual
+        Hermitian eigenvalue range, explicit kernel LeanCert for one scalar.
+      prompting_notes: >-
+        Preserve the complete maximum identity and the actual Euclidean norm.
+        Prove spectral upper bound and attainment without computing a chosen
+        eigenbasis. Compare the squared norm ratio with the second square of
+        the proposed factor, then prove the unsquared inequality.
+  notes: >-
+    AI-assisted formalization requested by George Stepaniants. No external
+    human peer review, source-author endorsement, unrecorded exact model
+    identity or measured monetary cost is claimed.
+status:
+  scope: >-
+    Complete negative answer to the canonical IE-18 universal identity.
+    Local Lean compilation, standard-axiom checks and two independent final
+    proof reviews passed. Authoritative Linux Comparator accepted all three
+    exports on 12 September 2026 at commit
+    7b8512e21c50adc8597dcdbed32f2aec13c3b43e; run 34703657954. The canonical
+    original negative target is Lean verified. The stronger parameter-family
+    and separate asymptotic results remain outside this formal scope.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: [propext, Classical.choice, Quot.sound]
+  main_results:
+    - declaration: NLA.IE18.residual_certificate
+      file: Solution.lean
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+      comparator_config: comparator.json
+      literature_dependencies: []
+    - declaration: NLA.IE18.counterexample
+      file: Solution.lean
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+      comparator_config: comparator.json
+      literature_dependencies: []
+    - declaration: NLA.IE18.not_fourStepConjecture
+      file: Solution.lean
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+      comparator_config: comparator.json
+      literature_dependencies: []
+fidelity:
+  divergences: >-
+    IsGreatest expresses the original maximum as attainment and an upper bound
+    on all nonzero-vector norm ratios. Real Euclidean norm is explicitly the
+    square root of the coordinate square sum. The finite maximum uses actual
+    Hermitian eigenvalues with multiplicity and distinct indices; real division
+    retains the zero-denominator convention. Positivity and diagonal form are
+    proved about the witness, not restrictions on the universal assertion.
+review:
+  status: agent-reviewed; Linux-Comparator-passed
+  reviewers:
+    - "OpenAI Codex agent /root: independent statement referee 1 and final proof referee 1"
+    - "OpenAI Codex agent /root/formal_review_standards: independent statement referee 2 and final proof referee 2"
+  notes: >-
+    Both statement reports bind the frozen mathematical definitions and
+    Challenge signatures and precede implementation. Both final proof
+    referees independently re-elaborated the actual proof and exports.
+    The proof implementer does not count as an independent referee. Relevant
+    Tau Ceti rubric angles are adapted to this project's canonical target.
+    The three deliberate Challenge placeholders are excluded from proof sorry
+    counts and never imported by Solution. Actual Ubuntu Linux Comparator
+    passed on the reviewed mathematical bytes. The retained operational audit
+    distinguishes that remote execution from local source reviews and records
+    official Mathlib cache use. Formal identity does not replace informal
+    fidelity review.
+alignment:
+  - source: Canonical residual map, norm and full universal maximum identity
+    declarations: [NLA.IE18.residualMap, NLA.IE18.amplification, NLA.IE18.FourStepConjecture]
+  - source: Colbrook Section 2, exact residual and squared norm certificate
+    declarations: [NLA.IE18.residual_certificate]
+  - source: Actual spectral maximum and complete negative answer
+    declarations: [NLA.IE18.counterexample, NLA.IE18.not_fourStepConjecture]
+acknowledgements: >-
+  Mathlib, LeanCert, Lean Comparator, the formalization.yaml maintainers,
+  Schiffer and Forsythe. Informal proof: Matthew J. Colbrook. Formalization:
+  George Stepaniants with AI-agent assistance.
+toolchain:
+  lean: leanprover/lean4:v4.33.1
+  leancert: 621a43d7cf21f87872392a01e874f2f1dbddc926
+  mathlib: 0df444a360eaa60ab8c11dca51a86af692955474
+  dependency_manifest: lake-manifest.json

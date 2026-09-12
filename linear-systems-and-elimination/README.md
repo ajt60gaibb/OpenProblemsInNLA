@@ -30,7 +30,7 @@
 | [IE-14](IE-14/README.md) | Sharp growth for cyclic tridiagonal matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](IE-14/problem.pdf) · [TeX](IE-14/problem.tex) |
 | [IE-15](IE-15/README.md) | Exact small-order growth factors for rook pivoting | **✅ SOLVED** | hard | interesting to specialist | [PDF](IE-15/problem.pdf) · [TeX](IE-15/problem.tex) |
 | [IE-17](IE-17/README.md) | Monotonic optimal backward error along LSMR | **✅ SOLVED** | challenging | interesting to the community | [PDF](IE-17/problem.pdf) · [TeX](IE-17/problem.tex) |
-| [IE-18](IE-18/README.md) | The exact four-step amplification of restarted Anderson acceleration | **✅ SOLVED** | challenging | interesting to the community | [PDF](IE-18/problem.pdf) · [TeX](IE-18/problem.tex) |
+| [IE-18](IE-18/README.md) | The exact four-step amplification of restarted Anderson acceleration | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](IE-18/problem.pdf) · [TeX](IE-18/problem.tex) |
 | [IE-19](IE-19/README.md) | Sharp inverse norm bound from upper bounds on matrix entries | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](IE-19/problem.pdf) · [TeX](IE-19/problem.tex) |
 | [IE-21](IE-21/README.md) | Sharp row-deletion singular-value limit for spherical random matrices | **✅ SOLVED** | challenging | interesting to the community | [PDF](IE-21/problem.pdf) · [TeX](IE-21/problem.tex) |
 | [IE-22](IE-22/README.md) | Optimal uniform row-deletion singular-value constant | **✅ SOLVED** | challenging | interesting to the community | [PDF](IE-22/problem.pdf) · [TeX](IE-22/problem.tex) |
