@@ -1,0 +1,118 @@
+theorem NLA.MI22.numerical_separation : 10500 < 11000 :=
+have h0 :=
+  LeanCert.Validity.verify_strict_upper_bound_dyadic_checked (LeanCert.Core.Expr.const (Rat.divInt 10500 1))
+    (Rat.divInt 0 1) (Rat.divInt 0 1) (le_refl (Rat.divInt 0 1)) (Rat.divInt 11000 1) (-53) 10
+    (of_decide_eq_true (id (Eq.refl true))) NLA.MI22.numerical_separation._proof_1_7 ↑(Rat.divInt 0 1)
+    ⟨le_refl ↑(Rat.divInt 0 1), le_refl ↑(Rat.divInt 0 1)⟩;
+h0
+theorem NLA.MI22.counterexample_proved : Matrix.PosDef NLA.MI22.witnessA ∧
+  Matrix.PosDef NLA.MI22.witnessB ∧
+    0 ≤ 1 / 8 ∧
+      1 / 8 ≤ 1 ∧
+        NLA.MI22.singularValue (NLA.MI22.witnessA * NLA.MI22.witnessB) 0 <
+            NLA.MI22.singularValue (NLA.MI22.leftProduct NLA.MI22.witnessA NLA.MI22.witnessB (1 / 8)) 0 ∧
+          ¬NLA.MI22.SingularLogMajorized (NLA.MI22.leftProduct NLA.MI22.witnessA NLA.MI22.witnessB (1 / 8))
+              (NLA.MI22.witnessA * NLA.MI22.witnessB) :=
+have hgap :=
+  Eq.mpr
+    (id
+      (congrArg
+        (fun _a => _a < NLA.MI22.singularValue (NLA.MI22.leftProduct NLA.MI22.witnessA NLA.MI22.witnessB (1 / 8)) 0)
+        (NLA.MI22.singularValue_zero_eq_operatorNorm
+          (Mathlib.Meta.NormNum.isNat_le_true (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 1))
+            (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 3)) (Eq.refl true))
+          (NLA.MI22.witnessA * NLA.MI22.witnessB))))
+    (Eq.mpr
+      (id
+        (congrArg (fun _a => NLA.MI22.operatorNorm (NLA.MI22.witnessA * NLA.MI22.witnessB) < _a)
+          (NLA.MI22.singularValue_zero_eq_operatorNorm
+            (Mathlib.Meta.NormNum.isNat_le_true (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 1))
+              (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 3)) (Eq.refl true))
+            (NLA.MI22.leftProduct NLA.MI22.witnessA NLA.MI22.witnessB (1 / 8)))))
+      (LT.lt.trans NLA.MI22.witness_operator_gap_proved.left
+        (LT.lt.trans NLA.MI22.numerical_separation NLA.MI22.witness_operator_gap_proved.right)));
+⟨NLA.MI22.witnessA_posDef,
+  ⟨NLA.MI22.witnessB_posDef,
+    ⟨Mathlib.Meta.NormNum.isRat_le_true
+        (Mathlib.Meta.NormNum.IsNNRat.to_isRat
+          (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_zero)))
+        (Mathlib.Meta.NormNum.IsNNRat.to_isRat
+          (Mathlib.Meta.NormNum.isNNRat_div
+            (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+              (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one))
+              (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 8))))
+              (Eq.refl (Nat.mul 1 1)) (Eq.refl 8))))
+        (Eq.refl true),
+      ⟨Mathlib.Meta.NormNum.isRat_le_true
+          (Mathlib.Meta.NormNum.IsNNRat.to_isRat
+            (Mathlib.Meta.NormNum.isNNRat_div
+              (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+                (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one))
+                (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                  (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 8))))
+                (Eq.refl (Nat.mul 1 1)) (Eq.refl 8))))
+          (Mathlib.Meta.NormNum.IsNNRat.to_isRat
+            (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one)))
+          (Eq.refl true),
+        ⟨hgap, fun h =>
+          have hfirst :=
+            h.left 1
+              (Mathlib.Meta.NormNum.isNat_le_true (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 1))
+                (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 1)) (Eq.refl true))
+              (Mathlib.Meta.NormNum.isNat_lt_true (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 1))
+                (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 3)) (Eq.refl false));
+          not_le_of_gt hgap
+            (Eq.mp
+              (congr
+                (congrArg LE.le
+                  (Eq.trans
+                    (Finset.prod_range_succ
+                      (NLA.MI22.singularValue (NLA.MI22.leftProduct NLA.MI22.witnessA NLA.MI22.witnessB (1 / 8))) 0)
+                    (Eq.trans
+                      (congrFun'
+                        (congrArg HMul.hMul
+                          (Finset.prod_range_zero
+                            (NLA.MI22.singularValue
+                              (NLA.MI22.leftProduct NLA.MI22.witnessA NLA.MI22.witnessB (1 / 8)))))
+                        (NLA.MI22.singularValue (NLA.MI22.leftProduct NLA.MI22.witnessA NLA.MI22.witnessB (1 / 8)) 0))
+                      (one_mul
+                        (NLA.MI22.singularValue (NLA.MI22.leftProduct NLA.MI22.witnessA NLA.MI22.witnessB (1 / 8))
+                          0)))))
+                (Eq.trans (Finset.prod_range_succ (NLA.MI22.singularValue (NLA.MI22.witnessA * NLA.MI22.witnessB)) 0)
+                  (Eq.trans
+                    (congrFun'
+                      (congrArg HMul.hMul
+                        (Finset.prod_range_zero (NLA.MI22.singularValue (NLA.MI22.witnessA * NLA.MI22.witnessB))))
+                      (NLA.MI22.singularValue (NLA.MI22.witnessA * NLA.MI22.witnessB) 0))
+                    (one_mul (NLA.MI22.singularValue (NLA.MI22.witnessA * NLA.MI22.witnessB) 0)))))
+              hfirst)⟩⟩⟩⟩⟩
+theorem NLA.MI22.not_weightedLogMajorizationConjecture_proved : ¬NLA.MI22.WeightedLogMajorizationConjecture :=
+fun h =>
+  NLA.MI22.counterexample_proved.right.right.right.right.right
+    (h 3
+      (Mathlib.Meta.NormNum.isNat_le_true (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 1))
+        (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 3)) (Eq.refl true))
+      NLA.MI22.witnessA NLA.MI22.witnessB NLA.MI22.witnessA_posDef NLA.MI22.witnessB_posDef (1 / 8)
+      (Mathlib.Meta.NormNum.isRat_le_true
+        (Mathlib.Meta.NormNum.IsNNRat.to_isRat
+          (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_zero)))
+        (Mathlib.Meta.NormNum.IsNNRat.to_isRat
+          (Mathlib.Meta.NormNum.isNNRat_div
+            (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+              (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one))
+              (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 8))))
+              (Eq.refl (Nat.mul 1 1)) (Eq.refl 8))))
+        (Eq.refl true))
+      (Mathlib.Meta.NormNum.isRat_le_true
+        (Mathlib.Meta.NormNum.IsNNRat.to_isRat
+          (Mathlib.Meta.NormNum.isNNRat_div
+            (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+              (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one))
+              (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 8))))
+              (Eq.refl (Nat.mul 1 1)) (Eq.refl 8))))
+        (Mathlib.Meta.NormNum.IsNNRat.to_isRat
+          (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one)))
+        (Eq.refl true)))
