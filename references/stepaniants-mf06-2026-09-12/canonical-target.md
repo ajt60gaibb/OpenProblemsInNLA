@@ -7,20 +7,8 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because the sharp one-sided perturbation rate must survive reducibility; community impact is reliable lower stability estimates under data perturbation.  
-**Status:** Solved  
-**Last checked:** 2026-09-12  
-
-## Affirmative resolution - 2026-09-12
-
-**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
-
-**The full pointwise lower-Lipschitz assertion holds.** The [complete proof](solution.md), Theorem (1) and Sections 3-6, covers every fixed nonempty compact complex matrix family in every finite dimension, including reducible families with unbounded normalized products. For that fixed reference there are constants $C,r>0$ such that every nonempty compact family within Hausdorff distance $r$ satisfies the original lower bound below.
-
-The proof establishes a product-bounded exterior-power family at a maximal critical degree and transfers a robust one-sided estimate back to the original family. The nearby family may be arbitrary; it need not preserve the reference's invariant subspaces. [Proof PDF](solution.pdf) · [Standalone proof TeX](solution.tex).
-
-The complete clarified proof passed a separate [independent Codex-agent mathematical audit](../../references/stepaniants-mf06-2026-09-12/REVIEW.md). The [submission record](../../references/stepaniants-mf06-2026-09-12/README.md) contains the exact sources, source clarification, supplementary checks, document inspection and bounded public-network/source audit. Substantial AI assistance is disclosed; this is informal agent review, not external human peer review or formal verification.
-
-Epperlein and Wirth retain attribution for the target. The Barabanov/Wirth extremal-norm theorem and Chitour-Mason-Sigalotti nonresonance theory retain credit; the proof supplies its needed paired-tensor arguments in full. The result is pointwise at a fixed family and does not claim a two-sided Lipschitz estimate uniform over two varying families. The original definitions, statement, historical partial status evidence and ratings below are retained.
+**Status:** Partially resolved  
+**Last checked:** 2026-09-10  
 
 ## Context and notation
 
