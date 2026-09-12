@@ -77,6 +77,13 @@ The entire argument passed a separate [independent Codex-agent audit](references
 
 The complete argument passed a separate [independent Codex-agent mathematical audit](references/stepaniants-ke05-2026-09-12/independent-review.md). Substantial AI assistance and informal-review limits are explicit; no external human peer review or formal verification is asserted. Shao retains credit for the conjecture and framework. The example uses interlaced block spectra, which the canonical target permits; it does not settle a different ordered-interval variant or disprove block Lanczos convergence. The [submission record](references/stepaniants-ke05-2026-09-12/README.md) documents exact verification, source checks and public eligibility. The permanent ID, original statement and historical ratings remain intact.
 
+### ✅ FR-12 - the Hadamard counting conjecture is false - George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Negative resolution recorded 2026-09-12 (UTC).** [Lemma 1 and Theorem 1](frames-and-matrix-designs/FR-12/solution.md) give an injective matching-indexed doubling construction and the lower bound $H(2^k)\ge2^{2^k(k-1)(k-2)/8}$ for every $k\ge2$. This disproves the proposed $2^{O(n\log n)}$ upper bound for labeled real Hadamard matrices. [Proof PDF](frames-and-matrix-designs/FR-12/solution.pdf) · [Original canonical target](frames-and-matrix-designs/FR-12/README.md).
+
+The complete argument passed a separate [independent Codex-agent mathematical and source-scope audit](references/stepaniants-fr12-2026-09-12/REVIEW.md). Substantial AI assistance is disclosed; this is informal agent review, not human peer review or formal verification. Ferber, Jain and Zhao retain credit for the conjecture and prior upper bounds. The Hadamard existence conjecture and optimal counting order are not settled. [Submission record and eligibility audit](references/stepaniants-fr12-2026-09-12/README.md).
 
 ### ✅ IE-05 - the orthogonal partial-pivoting extremizer equality is false - George Stepaniants
 
