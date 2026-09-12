@@ -254,9 +254,23 @@ The original statements, permanent IDs and historical ratings remain retained. T
 
 [Canonical target](tensor-computations/TR-06/README.md) · [Complete proof](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-06.md) · [PDF](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-06.pdf) · [Independent review](references/colbrook-unclaimed-2026-09-11/verification/reviews/TR-06-review.md) · [Second review](references/colbrook-unclaimed-2026-09-11/verification/reviews/TR-06-second-review.md). **Theorem and Sections 2–4.** The mean angular condition number is finite for every generically complex-identifiable format and rank in the original volume-Gaussian model. A bounded semialgebraic graph gives finite first-derivative integral on the unit link; conical scaling gives a finite Gaussian radial factor. This does not assert finite regular-condition means or higher moments.
 
-#### TR-15 — negative resolution
+#### TR-15 — negative resolution; Lean formalization by George Stepaniants
 
 [Canonical target](tensor-computations/TR-15/README.md) · [Complete proof](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-15.md) · [PDF](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-15.pdf) · [Independent review](references/colbrook-unclaimed-2026-09-11/verification/reviews/TR-15-review.md). **“Counterexample” and “The premise is not vacuous”.** The common generating vector $(2,0,1,0,2,0,-1)$ gives an order-three, dimension-three Hankel tensor whose real H-eigenvalues are all positive, and an order-six, dimension-two tensor with H-eigenvalue $-1$. This exactly refutes the odd-order inheritance conjecture; it does not contradict results requiring a positive-semidefinite associated Hankel matrix. The included standard-library checker verifies the contractions and positivity identity in exact integer arithmetic.
+
+**Lean verified — 2026-09-12.** The full original inheritance conjecture is refuted, with a
+proved nonvacuous lower premise, by the
+[seven checked exports](https://github.com/sgstepaniants/OpenProblemsInNLA/blob/6a2d0868e8b7905dbd5c04d4beaae8cf43288e1f/tensor-computations/TR-15/lean/Solution.lean).
+**Lean formalization: George Stepaniants, Department of Computing and Mathematical Sciences,
+California Institute of Technology, Pasadena, California, USA**, with AI-agent assistance.
+Matthew J. Colbrook retains authorship of the counterexample and informal proof. See the
+[canonical verification evidence](tensor-computations/TR-15/README.md#lean-proof-and-verification-evidence---2026-09-12),
+[two statement and two final proof reviews](tensor-computations/TR-15/lean/reviews/),
+[successful Linux run](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34716902324)
+and [independent operational audit](tensor-computations/TR-15/lean/verification/linux-2026-09-12/OPERATIONAL-REVIEW.md).
+All 135 submitted input hashes, default-kernel replay, standard-three axioms and actual rejection
+controls were verified. No external human peer review is claimed.
+
 
 #### TR-26 — affirmative resolution
 
