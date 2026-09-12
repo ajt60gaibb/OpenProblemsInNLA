@@ -21,6 +21,11 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### KE-01 — partial sparse-solver results — Sidney Holden
+
+**Partially resolved, 12 September 2026.** [Theorem 2.1 and Corollary 2.2](references/holden-ke01-2026-09-12/report.pdf) give a sparse CGLS baseline and four regimes attaining the target. Theorem 4.1 treats exactly flat SPD tails; Corollary 5.1 retains a potentially larger row-support cost for nonsymmetric input. **General KE-01 remains open.** The restricted claims passed a separate [independent informal AI-agent audit](references/holden-ke01-2026-09-12/independent-review.md); no Lean verification or external human peer review is asserted. [Retained original target](linear-systems-and-elimination/KE-01/README.md) · [Author, verified affiliation, source and checks](references/holden-ke01-2026-09-12/README.md).
+
+
 ### AV-03 and IV-01 — further partial results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission record and verified affiliation](references/holden-interval-ave-2026-09-12/README.md).

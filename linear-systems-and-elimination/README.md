@@ -16,7 +16,7 @@
 | [IE-25](IE-25/README.md) | Perturbed MILU conditioning for Neumann problems in two and three dimensions | **🔵 OPEN** | challenging | interesting to the community | [PDF](IE-25/problem.pdf) · [TeX](IE-25/problem.tex) |
 | [IE-27](IE-27/README.md) | Spectral disk for a Radau stage preconditioner | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](IE-27/problem.pdf) · [TeX](IE-27/problem.tex) |
 | [IE-28](IE-28/README.md) | Positive diagonal preconditioning with a nilpotent stiff limit | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](IE-28/problem.pdf) · [TeX](IE-28/problem.tex) |
-| [KE-01](KE-01/README.md) | Exploit spectral outliers without losing input sparsity | **🔵 OPEN** | challenging | interesting to the community | [PDF](KE-01/problem.pdf) · [TeX](KE-01/problem.tex) |
+| [KE-01](KE-01/README.md) | Exploit spectral outliers without losing input sparsity | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](KE-01/problem.pdf) · [TeX](KE-01/problem.tex) |
 
 ## Retained entries outside the open count
 
