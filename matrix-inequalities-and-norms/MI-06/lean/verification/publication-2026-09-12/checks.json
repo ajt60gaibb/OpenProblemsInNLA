@@ -1,0 +1,92 @@
+[
+  {
+    "command": [
+      "python3",
+      "tools/format_math.py",
+      "--write",
+      "MI-06"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.066,
+    "log": "format-write.log"
+  },
+  {
+    "command": [
+      "python3",
+      "tools/validate_problem_ids.py",
+      "--base-ref",
+      "origin/main"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 2.712,
+    "log": "ids-origin-main.log"
+  },
+  {
+    "command": [
+      "python3",
+      "tools/validate_problem_ids.py",
+      "--base-ref",
+      "nla-upstream/main"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 2.898,
+    "log": "ids-upstream.log"
+  },
+  {
+    "command": [
+      "python3",
+      "tools/update_catalog.py",
+      "--base-ref",
+      "origin/main"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 2.972,
+    "log": "catalog.log"
+  },
+  {
+    "command": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_problem_ids.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 1.252,
+    "log": "id-tests.log"
+  },
+  {
+    "command": [
+      "python3",
+      "tools/format_math.py",
+      "--check"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.192,
+    "log": "format-check.log"
+  },
+  {
+    "command": [
+      "/tmp/nla-lean-formalization/venv/bin/python",
+      "tools/lean/validate_manifest.py",
+      "matrix-inequalities-and-norms/MI-06/lean"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.159,
+    "log": "manifest.log"
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.03,
+    "log": "diff-check.log"
+  }
+]

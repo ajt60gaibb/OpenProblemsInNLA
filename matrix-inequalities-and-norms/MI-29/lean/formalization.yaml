@@ -1,0 +1,155 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/99c678e569c7c4c0772db297c5ddd5e4c9b6322e/schema/v0.4.schema.json
+version: v0.4
+project:
+  name: 'MI-29: a counterexample to the modulus-order determinant comparison'
+  description: Proves genuine continuous-functional-calculus bridges, positive-real determinant
+    semantics, an admissible exact complex-matrix witness, and the negation of the full original
+    conjecture with arbitrary nonnegative real exponents.
+  authors:
+  - George Stepaniants
+  affiliations:
+    George Stepaniants: Department of Computing and Mathematical Sciences, California Institute
+      of Technology, Pasadena, California, USA
+  responsible_maintainers:
+  - George Stepaniants
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+- title: MI-29 — Modulus-order determinant comparison with an arbitrary base power
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/e7252e5307781a7c897bca6cb124f6ab838f6809/matrix-inequalities-and-norms/MI-29/README.md
+  type: web-post
+  location: Problem statement
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: 'Canonical complex-matrix conjecture attributed to M. M. Ghabries: A positive definite,
+    B invertible Hermitian, and arbitrary real k,p at least zero.'
+- title: 'MI-29: Resolution'
+  authors:
+  - Matthew J. Colbrook
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/e7252e5307781a7c897bca6cb124f6ab838f6809/matrix-inequalities-and-norms/MI-29/solution.tex
+  type: manuscript
+  location: Theorem 1.1 and its proof
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: The rational dimension-three witness at k=6,p=8 refutes the complete canonical target.
+    Separate singular-input extensions, the established k=2 case, and positive-B variants are
+    outside this formalization.
+related_formalizations:
+- id: https://github.com/sgstepaniants/Forsythe/tree/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof
+  relationship: other
+  note: Statement-first, kernel LeanCert and Comparator workflow reference. Shared checker reuse
+    is credited in tools/lean/NOTICE.md; no Forsythe mathematical result is assumed by this proof.
+- id: https://github.com/jaumededios/Schiffer/tree/2938e277969c329caf154e48a3d8823f3635c7f1
+  relationship: other
+  note: Proof organization studied; no source code copied or imported.
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: Multiple agents, two independent statement reviews before proof, actual Mathlib
+      CFC/order/invertibility interfaces, exact matrix certificates, and explicit kernel LeanCert
+      for one rational point.
+    prompting_notes: Keep all complex matrices and nonnegative real exponents in the original
+      target. Derive actual modulus eighth powers analytically, use repeated squaring and exact
+      3-by-3 determinants, and prove every witness hypothesis as a conclusion.
+  notes: AI-assisted formalization requested by George Stepaniants. No external human peer review,
+    source-author endorsement, unrecorded exact model identity or measured monetary cost is claimed.
+status:
+  scope: Complete negative answer to canonical MI-29. Local Lean compilation, standard-axiom checks
+    and two independent final proof reviews passed. Actual Linux run 34706412510 on 2026-09-12
+    accepted all five declarations at immutable proof commit c0c5eced77d2528f37d931200248fc54a190813e,
+    including default-kernel replay and actual sandbox and rejection controls. Independently
+    audited original artifacts and logs are retained in verification/linux-2026-09-12/.
+    The canonical status is Lean verified.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: &id001
+  - propext
+  - Classical.choice
+  - Quot.sound
+  main_results:
+  - declaration: NLA.MI29.spectralPower_natCast
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI29.modulus_power_eight
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI29.comparison_positive_real
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI29.counterexample
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI29.not_modulusDeterminantConjecture
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+fidelity:
+  divergences: Finite indices are zero-based. Spectral powers use actual unital CFC.rpow, including
+    exponent zero; matrix modulus is actual CFC.abs, with its square-root identity proved. ComplexOrder
+    compares real parts at equal imaginary parts, and the generic positive-real determinant theorem
+    justifies the comparison. No positivity restriction on B, integer-only exponent restriction,
+    commutation, assumed spectral data, or extra numerical hypothesis is introduced. The source
+    singular-input extension and restricted k=2 or positive-B statements are not asserted.
+review:
+  status: agent-reviewed; Linux-Comparator-passed
+  reviewers:
+  - 'OpenAI Codex agent /root: independent statement referee 1 and final proof referee 1'
+  - 'OpenAI Codex agent /root/formal_review_standards: independent statement referee 2 and final
+    proof referee 2'
+  notes: Both statement reports bind the frozen definitions and Challenge and precede proof implementation.
+    Both final proof referees independently re-elaborated the actual Definitions, Proof and Solution
+    locally on macOS; their raw logs and axiom audits are retained in verification/referee-1/
+    and verification/referee-2/. The proof implementer does not count as an independent referee.
+    Relevant Tau Ceti rubrics are adapted to this canonical target. Five deliberate Challenge
+    placeholders are excluded from proof sorry counts and never imported by Solution. Source-level
+    signature identity has been checked; the actual isolated Linux Comparator, sandbox and negative
+    controls passed in run 34706412510. The independent operational audit checked both original
+    artifact digests, the exact 70-input set and all executed control and export phases. Linux
+    ran remotely on GitHub Actions; its evidence was reviewed locally on macOS.
+    Historical statement-stage records are preserved and superseded on
+    proof completion by the final proof reviews. Mechanical formal identity does not replace informal
+    fidelity review.
+  verification_run: https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34706412510
+  verified_proof_commit: c0c5eced77d2528f37d931200248fc54a190813e
+  evidence: verification/linux-2026-09-12/OPERATIONAL-REVIEW.md
+alignment:
+- source: Canonical spectral functional calculus, matrix modulus and zeroth-power convention
+  declarations:
+  - NLA.MI29.spectralPower_natCast
+  - NLA.MI29.modulus_power_eight
+- source: Canonical interpretation of both determinants as positive real numbers
+  declarations:
+  - NLA.MI29.comparison_positive_real
+- source: 'Colbrook Theorem 1.1: admissible witness, actual CFC reductions, exact determinant
+    values and strict reversed comparison'
+  declarations:
+  - NLA.MI29.counterexample
+- source: Complete negative answer to the original all-dimension, all-matrix and all-real-exponent
+    conjecture
+  declarations:
+  - NLA.MI29.not_modulusDeterminantConjecture
+acknowledgements: 'Mathlib, LeanCert, Lean Comparator, the formalization.yaml maintainers, Schiffer
+  and Forsythe. Informal mathematical proof: Matthew J. Colbrook, Department of Applied Mathematics
+  and Theoretical Physics, University of Cambridge. Formalization: George Stepaniants with AI-agent
+  assistance.'
+toolchain:
+  lean: leanprover/lean4:v4.33.1
+  leancert: 621a43d7cf21f87872392a01e874f2f1dbddc926
+  mathlib: 0df444a360eaa60ab8c11dca51a86af692955474
+  dependency_manifest: lake-manifest.json

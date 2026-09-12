@@ -1,0 +1,79 @@
+{
+  "published_base": "ab754fabe3d48dc8d6eab6bcffce583e46d2b88f",
+  "current_upstream": "02b807770fca860ef810cc048d6849224b8f93e1",
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "tools/format_math.py",
+        "--write",
+        "MI-29"
+      ],
+      "exit_code": 0,
+      "log": "check-1.log"
+    },
+    {
+      "command": [
+        "/tmp/nla-lean-formalization/venv/bin/python",
+        "tools/lean/validate_manifest.py",
+        "matrix-inequalities-and-norms/MI-29/lean"
+      ],
+      "exit_code": 0,
+      "log": "check-2.log"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/validate_problem_ids.py",
+        "--base-ref",
+        "origin/main"
+      ],
+      "exit_code": 0,
+      "log": "check-3.log"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/validate_problem_ids.py",
+        "--base-ref",
+        "02b807770fca860ef810cc048d6849224b8f93e1"
+      ],
+      "exit_code": 0,
+      "log": "check-4.log"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/update_catalog.py",
+        "--base-ref",
+        "origin/main"
+      ],
+      "exit_code": 0,
+      "log": "check-5.log"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_problem_ids.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "check-6.log"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/format_math.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log": "check-7.log"
+    }
+  ]
+}

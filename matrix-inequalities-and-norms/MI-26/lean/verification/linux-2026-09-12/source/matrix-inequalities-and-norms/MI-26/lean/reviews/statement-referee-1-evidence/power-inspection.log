@@ -1,0 +1,445 @@
+theorem NLA.MI26.quadratic_cfc : ∀ {n : Nat} (A : Matrix (Fin n) (Fin n) Complex),
+  @Matrix.IsHermitian Complex (Fin n)
+      (@InvolutiveStar.toStar Complex
+        (@StarAddMonoid.toInvolutiveStar Complex
+          (@AddCommMonoid.toAddMonoid Complex
+            (@NonUnitalNonAssocSemiring.toAddCommMonoid Complex
+              (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                  (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))))
+          (@StarRing.toStarAddMonoid Complex
+            (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+              (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))
+            Complex.instStarRing)))
+      A →
+    @Eq (Matrix (Fin n) (Fin n) Complex) (@NLA.MI26.functionalCalculus n NLA.MI26.witnessFunction A)
+      (@HSub.hSub (Matrix (Fin n) (Fin n) Complex) (Matrix (Fin n) (Fin n) Complex) (Matrix (Fin n) (Fin n) Complex)
+        (@instHSub (Matrix (Fin n) (Fin n) Complex) (@Matrix.sub (Fin n) (Fin n) Complex Complex.instSub)) A
+        (@HPow.hPow (Matrix (Fin n) (Fin n) Complex) Nat (Matrix (Fin n) (Fin n) Complex)
+          (@instHPow (Matrix (Fin n) (Fin n) Complex) Nat
+            (@NPow.toPow (Matrix (Fin n) (Fin n) Complex)
+              (@Monoid.toNPow (Matrix (Fin n) (Fin n) Complex)
+                (@Semiring.toMonoid (Matrix (Fin n) (Fin n) Complex)
+                  (@Matrix.semiring (Fin n) Complex Complex.instSemiring (Fin.fintype n) (instDecidableEqFin n))))))
+          A (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))) :=
+fun {n} A hA =>
+  sorryAx
+    (∀ (tag : Lean.Name),
+      @Eq (Matrix (Fin n) (Fin n) Complex) (@NLA.MI26.functionalCalculus n NLA.MI26.witnessFunction A)
+        (@HSub.hSub (Matrix (Fin n) (Fin n) Complex) (Matrix (Fin n) (Fin n) Complex) (Matrix (Fin n) (Fin n) Complex)
+          (@instHSub (Matrix (Fin n) (Fin n) Complex) (@Matrix.sub (Fin n) (Fin n) Complex Complex.instSub)) A
+          (@HPow.hPow (Matrix (Fin n) (Fin n) Complex) Nat (Matrix (Fin n) (Fin n) Complex)
+            (@instHPow (Matrix (Fin n) (Fin n) Complex) Nat
+              (@NPow.toPow (Matrix (Fin n) (Fin n) Complex)
+                (@Monoid.toNPow (Matrix (Fin n) (Fin n) Complex)
+                  (@Semiring.toMonoid (Matrix (Fin n) (Fin n) Complex)
+                    (@Matrix.semiring (Fin n) Complex Complex.instSemiring (Fin.fintype n) (instDecidableEqFin n))))))
+            A (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))))
+    false
+    ((((((((((((((Lean.Name.anonymous.str "Challenge").num
+                                                      (@OfNat.ofNat Nat (nat_lit 45) (instOfNatNat (nat_lit 45)))).num
+                                                  (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))).num
+                                              (@OfNat.ofNat Nat (nat_lit 45) (instOfNatNat (nat_lit 45)))).num
+                                          (@OfNat.ofNat Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))).num
+                                      (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))).num
+                                  (@OfNat.ofNat Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))).str
+                              "_sorry").str
+                          "_@").str
+                      "Challenge").num
+                  (@OfNat.ofNat Nat (nat_lit 3280429028) (instOfNatNat (nat_lit 3280429028)))).str
+              "_hygCtx").str
+          "_hyg").num
+      (@OfNat.ofNat Nat (nat_lit 35) (instOfNatNat (nat_lit 35))))
+def NLA.MI26.witnessFunction : Real → Real :=
+fun t =>
+  @HSub.hSub Real Real Real (@instHSub Real Real.instSub) t
+    (@HPow.hPow Real Nat Real (@instHPow Real Nat (@NPow.toPow Real (@Monoid.toNPow Real Real.instMonoid))) t
+      (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+theorem NLA.MI26.witness_data : And (NLA.MI26.AdmissibleFunction NLA.MI26.witnessFunction)
+  (And
+    (@Eq Real (NLA.MI26.witnessFunction (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero)))
+      (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero)))
+    (And
+      (@Eq Real
+        (NLA.MI26.witnessFunction
+          (@OfNat.ofNat Real (nat_lit 2) (@instOfNatAtLeastTwo Real (nat_lit 2) Real.instNatCast ⋯)))
+        (@Neg.neg Real Real.instNeg
+          (@OfNat.ofNat Real (nat_lit 2) (@instOfNatAtLeastTwo Real (nat_lit 2) Real.instNatCast ⋯))))
+      (And
+        (@Matrix.PosSemidef (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex Complex.instRing
+          Complex.partialOrder Complex.instStarRing NLA.MI26.witnessP)
+        (And
+          (@Matrix.PosSemidef (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex Complex.instRing
+            Complex.partialOrder Complex.instStarRing NLA.MI26.witnessQ)
+          (And
+            (@Eq
+              (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+              (@HPow.hPow
+                (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                  (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                Nat
+                (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                  (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                (@instHPow
+                  (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                    (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                  Nat
+                  (@NPow.toPow
+                    (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                      (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                    (@Monoid.toNPow
+                      (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                        (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                      (@Semiring.toMonoid
+                        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                          (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                        (@Matrix.semiring (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex
+                          Complex.instSemiring (Fin.fintype (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                          (instDecidableEqFin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))))))
+                NLA.MI26.witnessP (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+              NLA.MI26.witnessP)
+            (And
+              (@Eq
+                (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                  (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                (@HPow.hPow
+                  (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                    (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                  Nat
+                  (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                    (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                  (@instHPow
+                    (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                      (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                    Nat
+                    (@NPow.toPow
+                      (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                        (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                      (@Monoid.toNPow
+                        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                          (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                        (@Semiring.toMonoid
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                          (@Matrix.semiring (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex
+                            Complex.instSemiring (Fin.fintype (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                            (instDecidableEqFin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))))))
+                  NLA.MI26.witnessQ (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                NLA.MI26.witnessQ)
+              (And
+                (@Eq
+                  (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                    (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                  (@NLA.MI26.functionalCalculus (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                    NLA.MI26.witnessFunction NLA.MI26.witnessP)
+                  (@OfNat.ofNat
+                    (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                      (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                    (nat_lit 0)
+                    (@Zero.toOfNat0
+                      (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                        (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                      (@Matrix.zero (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                        (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex Complex.instZero))))
+                (And
+                  (@Eq
+                    (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                      (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                    (@NLA.MI26.functionalCalculus (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                      NLA.MI26.witnessFunction NLA.MI26.witnessQ)
+                    (@OfNat.ofNat
+                      (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                        (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                      (nat_lit 0)
+                      (@Zero.toOfNat0
+                        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                          (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                        (@Matrix.zero (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                          (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex Complex.instZero))))
+                  (And
+                    (@Eq
+                      (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                        (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                      (@NLA.MI26.functionalCalculus (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                        NLA.MI26.witnessFunction
+                        (@HAdd.hAdd
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                          (@instHAdd
+                            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                            (@Matrix.add (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex Complex.instAdd))
+                          NLA.MI26.witnessP NLA.MI26.witnessQ))
+                      NLA.MI26.witnessImage)
+                    (And
+                      (@Ne (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) → Complex)
+                        NLA.MI26.witnessVector
+                        (@OfNat.ofNat (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) → Complex)
+                          (nat_lit 0)
+                          (@Zero.toOfNat0 (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) → Complex)
+                            (@Pi.instZero (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                              (fun a => Complex) fun i => Complex.instZero))))
+                      (And
+                        (@Eq Complex
+                          (@dotProduct (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex
+                            (Fin.fintype (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex.instMul
+                            Complex.instAddCommMonoid
+                            (@star (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) → Complex)
+                              (@Pi.instStarForall (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                                (fun a => Complex) fun i =>
+                                @InvolutiveStar.toStar Complex
+                                  (@StarAddMonoid.toInvolutiveStar Complex
+                                    (@AddCommMonoid.toAddMonoid Complex
+                                      (@NonUnitalNonAssocSemiring.toAddCommMonoid Complex
+                                        (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                                          (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                                            (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex
+                                              Complex.instNonUnitalCommRing)))))
+                                    (@StarRing.toStarAddMonoid Complex
+                                      (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                                        (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                                          (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex
+                                            Complex.instNonUnitalCommRing)))
+                                      Complex.instStarRing)))
+                              NLA.MI26.witnessVector)
+                            (@Matrix.mulVec (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex
+                              (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                                (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                                  (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex
+                                    Complex.instNonUnitalCommRing)))
+                              (Fin.fintype (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                              NLA.MI26.witnessImage NLA.MI26.witnessVector))
+                          (@HDiv.hDiv Complex Complex Complex
+                            (@instHDiv Complex (@DivInvMonoid.toDiv Complex Complex.instDivInvMonoid))
+                            (@OfNat.ofNat Complex (nat_lit 6)
+                              (@instOfNatAtLeastTwo Complex (nat_lit 6) Complex.instNatCast ⋯))
+                            (@OfNat.ofNat Complex (nat_lit 5)
+                              (@instOfNatAtLeastTwo Complex (nat_lit 5) Complex.instNatCast ⋯))))
+                        (@LT.lt Real Real.instLT (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+                          (@HDiv.hDiv Real Real Real (@instHDiv Real (@DivInvMonoid.toDiv Real Real.instDivInvMonoid))
+                            (@OfNat.ofNat Real (nat_lit 6) (@instOfNatAtLeastTwo Real (nat_lit 6) Real.instNatCast ⋯))
+                            (@OfNat.ofNat Real (nat_lit 5)
+                              (@instOfNatAtLeastTwo Real (nat_lit 5) Real.instNatCast ⋯))))))))))))))) :=
+sorryAx
+  (∀ (tag : Lean.Name),
+    And (NLA.MI26.AdmissibleFunction NLA.MI26.witnessFunction)
+      (And
+        (@Eq Real (NLA.MI26.witnessFunction (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero)))
+          (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero)))
+        (And
+          (@Eq Real
+            (NLA.MI26.witnessFunction
+              (@OfNat.ofNat Real (nat_lit 2)
+                (@instOfNatAtLeastTwo Real (nat_lit 2) Real.instNatCast
+                  (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+                    (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))))))
+            (@Neg.neg Real Real.instNeg
+              (@OfNat.ofNat Real (nat_lit 2)
+                (@instOfNatAtLeastTwo Real (nat_lit 2) Real.instNatCast
+                  (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+                    (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))))
+          (And
+            (@Matrix.PosSemidef (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex Complex.instRing
+              Complex.partialOrder Complex.instStarRing NLA.MI26.witnessP)
+            (And
+              (@Matrix.PosSemidef (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex
+                Complex.instRing Complex.partialOrder Complex.instStarRing NLA.MI26.witnessQ)
+              (And
+                (@Eq
+                  (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                    (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                  (@HPow.hPow
+                    (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                      (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                    Nat
+                    (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                      (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                    (@instHPow
+                      (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                        (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                      Nat
+                      (@NPow.toPow
+                        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                          (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                        (@Monoid.toNPow
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                          (@Semiring.toMonoid
+                            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                            (@Matrix.semiring (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex
+                              Complex.instSemiring
+                              (Fin.fintype (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                              (instDecidableEqFin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))))))
+                    NLA.MI26.witnessP (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                  NLA.MI26.witnessP)
+                (And
+                  (@Eq
+                    (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                      (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                    (@HPow.hPow
+                      (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                        (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                      Nat
+                      (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                        (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                      (@instHPow
+                        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                          (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                        Nat
+                        (@NPow.toPow
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                          (@Monoid.toNPow
+                            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                            (@Semiring.toMonoid
+                              (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                                (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                              (@Matrix.semiring (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex
+                                Complex.instSemiring
+                                (Fin.fintype (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                                (instDecidableEqFin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))))))
+                      NLA.MI26.witnessQ (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                    NLA.MI26.witnessQ)
+                  (And
+                    (@Eq
+                      (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                        (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                      (@NLA.MI26.functionalCalculus (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                        NLA.MI26.witnessFunction NLA.MI26.witnessP)
+                      (@OfNat.ofNat
+                        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                          (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                        (nat_lit 0)
+                        (@Zero.toOfNat0
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                          (@Matrix.zero (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex Complex.instZero))))
+                    (And
+                      (@Eq
+                        (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                          (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                        (@NLA.MI26.functionalCalculus (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                          NLA.MI26.witnessFunction NLA.MI26.witnessQ)
+                        (@OfNat.ofNat
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                          (nat_lit 0)
+                          (@Zero.toOfNat0
+                            (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                            (@Matrix.zero (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                              (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex
+                              Complex.instZero))))
+                      (And
+                        (@Eq
+                          (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                            (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                          (@NLA.MI26.functionalCalculus (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                            NLA.MI26.witnessFunction
+                            (@HAdd.hAdd
+                              (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                                (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                              (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                                (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                              (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                                (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                              (@instHAdd
+                                (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                                  (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                                (@Matrix.add (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                                  (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex
+                                  Complex.instAdd))
+                              NLA.MI26.witnessP NLA.MI26.witnessQ))
+                          NLA.MI26.witnessImage)
+                        (And
+                          (@Ne (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) → Complex)
+                            NLA.MI26.witnessVector
+                            (@OfNat.ofNat (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) → Complex)
+                              (nat_lit 0)
+                              (@Zero.toOfNat0 (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) → Complex)
+                                (@Pi.instZero (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                                  (fun a => Complex) fun i => Complex.instZero))))
+                          (And
+                            (@Eq Complex
+                              (@dotProduct (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex
+                                (Fin.fintype (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex.instMul
+                                Complex.instAddCommMonoid
+                                (@star (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) → Complex)
+                                  (@Pi.instStarForall (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                                    (fun a => Complex) fun i =>
+                                    @InvolutiveStar.toStar Complex
+                                      (@StarAddMonoid.toInvolutiveStar Complex
+                                        (@AddCommMonoid.toAddMonoid Complex
+                                          (@NonUnitalNonAssocSemiring.toAddCommMonoid Complex
+                                            (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                                              (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                                                (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex
+                                                  Complex.instNonUnitalCommRing)))))
+                                        (@StarRing.toStarAddMonoid Complex
+                                          (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                                            (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                                              (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex
+                                                Complex.instNonUnitalCommRing)))
+                                          Complex.instStarRing)))
+                                  NLA.MI26.witnessVector)
+                                (@Matrix.mulVec (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                                  (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex
+                                  (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                                    (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                                      (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex
+                                        Complex.instNonUnitalCommRing)))
+                                  (Fin.fintype (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                                  NLA.MI26.witnessImage NLA.MI26.witnessVector))
+                              (@HDiv.hDiv Complex Complex Complex
+                                (@instHDiv Complex (@DivInvMonoid.toDiv Complex Complex.instDivInvMonoid))
+                                (@OfNat.ofNat Complex (nat_lit 6)
+                                  (@instOfNatAtLeastTwo Complex (nat_lit 6) Complex.instNatCast
+                                    (@Nat.instAtLeastTwoHAddOfNat
+                                      (@OfNat.ofNat Nat (nat_lit 5) (instOfNatNat (nat_lit 5)))
+                                      (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))))
+                                (@OfNat.ofNat Complex (nat_lit 5)
+                                  (@instOfNatAtLeastTwo Complex (nat_lit 5) Complex.instNatCast
+                                    (@Nat.instAtLeastTwoHAddOfNat
+                                      (@OfNat.ofNat Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                                      (@Nat.instNeZeroSucc
+                                        (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))))))))
+                            (@LT.lt Real Real.instLT (@OfNat.ofNat Real (nat_lit 0) (@Zero.toOfNat0 Real Real.instZero))
+                              (@HDiv.hDiv Real Real Real
+                                (@instHDiv Real (@DivInvMonoid.toDiv Real Real.instDivInvMonoid))
+                                (@OfNat.ofNat Real (nat_lit 6)
+                                  (@instOfNatAtLeastTwo Real (nat_lit 6) Real.instNatCast
+                                    (@Nat.instAtLeastTwoHAddOfNat
+                                      (@OfNat.ofNat Nat (nat_lit 5) (instOfNatNat (nat_lit 5)))
+                                      (@Nat.instNeZeroSucc (@OfNat.ofNat Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))))
+                                (@OfNat.ofNat Real (nat_lit 5)
+                                  (@instOfNatAtLeastTwo Real (nat_lit 5) Real.instNatCast
+                                    (@Nat.instAtLeastTwoHAddOfNat
+                                      (@OfNat.ofNat Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                                      (@Nat.instNeZeroSucc
+                                        (@OfNat.ofNat Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))))))))))))))))))))
+  false
+  ((((((((((((((Lean.Name.anonymous.str "Challenge").num
+                                                    (@OfNat.ofNat Nat (nat_lit 61) (instOfNatNat (nat_lit 61)))).num
+                                                (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))).num
+                                            (@OfNat.ofNat Nat (nat_lit 61) (instOfNatNat (nat_lit 61)))).num
+                                        (@OfNat.ofNat Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))).num
+                                    (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))).num
+                                (@OfNat.ofNat Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))).str
+                            "_sorry").str
+                        "_@").str
+                    "Challenge").num
+                (@OfNat.ofNat Nat (nat_lit 2915768393) (instOfNatNat (nat_lit 2915768393)))).str
+            "_hygCtx").str
+        "_hyg").num
+    (@OfNat.ofNat Nat (nat_lit 145) (instOfNatNat (nat_lit 145))))
