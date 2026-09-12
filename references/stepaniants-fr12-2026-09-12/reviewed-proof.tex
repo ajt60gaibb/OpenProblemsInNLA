@@ -1,0 +1,157 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,microtype}
+\usepackage[margin=27mm]{geometry}
+\usepackage{booktabs,xurl,hyperref,fancyhdr}
+\hypersetup{hidelinks,pdftitle={FR-12: A matching-indexed doubling counterexample},pdfauthor={AI-assisted research note prepared for George Stepaniants}}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small FR-12 / Hadamard enumeration}\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}\setlength{\parskip}{4pt}\setlength{\emergencystretch}{2em}
+\newtheorem{theorem}{Theorem}\newtheorem{lemma}{Lemma}\newtheorem{corollary}{Corollary}
+\newcommand{\HH}{\mathcal H}
+\title{\textbf{FR-12: A matching-indexed\\doubling counterexample}}
+\author{AI-assisted research note\\\small Prepared for George Stepaniants}
+\date{11 September 2026 (America/New\_York)}
+\begin{document}\maketitle
+\begin{abstract}
+Let $H(n)$ count labeled real Hadamard matrices of order $n$. An injective
+construction gives $H(2m)\ge(2m-1)!!H(m)^2$. Iteration yields
+$H(2^k)\ge 2^{2^k(k-1)(k-2)/8}$ for $k\ge2$.
+Consequently no absolute constant $C$ satisfies $H(n)\le2^{Cn\log_2 n}$
+at every order divisible by four. This refutes the exact counting target of
+FR-12; it does not address existence at every admissible order.
+\end{abstract}
+\noindent\textbf{Review status.} Complete analytic argument, self-checked in this
+research session. The accompanying finite checker is supplementary, not a
+universal proof certificate. No separate independent-agent review, external
+human peer review, formal verification, or historical priority certification
+is claimed. No repository status has been changed.
+
+\section{Exact target}
+Write
+\[
+ \HH_n=\{A\in\{-1,1\}^{n\times n}:AA^{\mathsf T}=nI_n\},
+ \qquad H(n)=|\HH_n|.
+\]
+Rows and columns are labeled; signed permutations are \emph{not} quotiented
+out. The target in FR-12~\cite{catalog}, attributed to
+Ferber--Jain--Zhao~\cite{FJZ}, is whether an absolute $C>0$ gives
+\begin{equation}\label{eq:target}
+ H(n)\le 2^{Cn\log_2 n}\qquad(4\mid n).
+\end{equation}
+We count actual matrices, so no assumption about automorphism groups or
+sizes of equivalence classes enters the argument.
+
+\begin{lemma}[Injective doubling]\label{lem:doubling}
+For every positive integer $m$,
+\begin{equation}\label{eq:recurrence}
+ H(2m)\ge \frac{(2m)!}{2^m m!}\,H(m)^2=(2m-1)!!\,H(m)^2.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Let $\mathfrak M_{2m}$ denote the perfect matchings of the labeled positions
+$\{1,\ldots,2m\}$. Given a matching, write each pair as $(u_i,v_i)$ with
+$u_i<v_i$, and order its pairs by $u_1<\cdots<u_m$.
+For $A,B\in\HH_m$, define a $2m\times2m$ sign matrix $C$ by
+\begin{equation}\label{eq:construction}
+ C_{u_i,\cdot}=(A_{i,\cdot},B_{i,\cdot}),\qquad
+ C_{v_i,\cdot}=(A_{i,\cdot},-B_{i,\cdot}),\quad 1\le i\le m.
+\end{equation}
+Each row has squared norm $2m$. The inner product of the two rows in one
+pair is $m-m=0$. For two different pairs $i\ne j$, all four possible inner
+products vanish, since they have the form
+\[
+ \langle A_{i,\cdot},A_{j,\cdot}\rangle
+ \mathbin{\pm}\langle B_{i,\cdot},B_{j,\cdot}\rangle=0.
+\]
+Thus $C\in\HH_{2m}$.
+
+The map $(A,B,\mathcal M)\mapsto C$ is injective. Indeed, distinct rows of
+$A$ are distinct vectors: equality of two rows would contradict their
+orthogonality. It follows that, among the rows of $C$, equality of the
+\emph{first $m$ coordinates} partitions the $2m$ row positions into exactly
+the pairs of $\mathcal M$. Hence $C$ recovers the matching. Its canonical
+pair ordering then recovers $A$ from these first halves. For each pair,
+the last $m$ coordinates of the smaller-indexed row recover the corresponding
+row of $B$. This also fixes every sign, so no residual multiplicity remains.
+
+Finally, $|\mathfrak M_{2m}|=(2m)!/(2^m m!)$: list all positions in an order,
+pair successive positions, and divide by the $2^m$ orders within pairs and
+the $m!$ orders of the pairs. Counting the domain of the injection proves
+\eqref{eq:recurrence}.
+\end{proof}
+
+\begin{theorem}[A super-$n\log n$ exponent]\label{thm:main}
+For every integer $k\ge2$,
+\begin{equation}\label{eq:bound}
+ \boxed{H(2^k)\ge 2^{\,2^k(k-1)(k-2)/8}.}
+\end{equation}
+In particular, the assertion \eqref{eq:target} is false.
+\end{theorem}
+\begin{proof}
+Hadamard matrices exist at every power of two, by applying
+\eqref{eq:construction} recursively starting with an order-one sign matrix.
+Consequently the logarithms below are defined. Put
+\[
+ a_k=2^{-k}\log_2 H(2^k).
+\]
+For $k\ge2$, let $m=2^{k-1}$, so $m$ is even. The matching factor satisfies
+\[
+ (2m-1)!!=\prod_{j=1}^m(2j-1)\ge m!
+ \ge (m/2)^{m/2}.
+\]
+The last inequality retains just the largest $m/2$ factors in $m!$ and
+bounds each from below by $m/2$. Taking logarithms of
+\eqref{eq:recurrence} and dividing by $2m$ gives
+\[
+ a_k\ge a_{k-1}+\frac{\log_2m-1}{4}
+       =a_{k-1}+\frac{k-2}{4}.
+\]
+Since $a_1\ge0$, summation yields
+\[
+ a_k\ge\frac14\sum_{j=2}^k(j-2)
+      =\frac{(k-1)(k-2)}8,
+\]
+which proves \eqref{eq:bound}.
+If \eqref{eq:target} held, applying it at $n=2^k$ would give $a_k\le Ck$.
+This contradicts the displayed quadratic lower bound for sufficiently large
+$k$. All these $n$ are divisible by four.
+\end{proof}
+
+\section{Checks, attribution, and scope}
+The supplementary script checks the equivalent row-permutation formulation:
+form $\left(\begin{smallmatrix}A&B\\A&-B\end{smallmatrix}\right)$, then
+permute its $2m$ rows. Every output has exactly $2^m m!$ preimages in that
+formulation. The matching-indexed construction in Lemma~\ref{lem:doubling}
+removes this multiplicity explicitly.
+\begin{center}
+\begin{tabular}{rrrrr}\toprule
+$m$ & $H(m)$ & Input triples & Distinct outputs & Fiber size\\\midrule
+1 & 2 & 8 & 4 & 2\\
+2 & 8 & 1536 & 192 & 8\\\bottomrule
+\end{tabular}
+\end{center}
+Those finite cases, and exact integer checks of the iterated lower bound
+through $k=10$, are not used to infer an asymptotic statement. The analytic
+injection and its iteration establish the result for every $k$.
+
+The construction uses only power-of-two orders. It neither resolves the
+Hadamard existence conjecture nor supplies a matching upper bound on $H(n)$.
+The original counting question and the published upper bounds remain
+attributed to their sources. The accompanying audit states the observed
+public branch scope and the limits of the duplicate/literature search.
+
+\begin{thebibliography}{9}\raggedright
+\bibitem{FJZ}
+A. Ferber, V. Jain, and Y. Zhao,
+\emph{On the number of Hadamard matrices via anti-concentration},
+Combinatorics, Probability and Computing 31 (2022), 455--477.
+\href{https://doi.org/10.1017/S0963548321000377}{doi:10.1017/S0963548321000377}.
+Published Conjecture 1.3; Conjecture 1.4 in
+\href{https://arxiv.org/abs/1808.07222}{arXiv:1808.07222v1}.
+\bibitem{catalog}
+\emph{Open Problems in Numerical Linear Algebra}, entry FR-12,
+\texttt{ajt60gaibb/OpenProblemsInNLA}, snapshot
+\texttt{1f22006bdaa4659fcaa0bb775a887685cd3cc566}.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/1f22006bdaa4659fcaa0bb775a887685cd3cc566/frames-and-matrix-designs/FR-12/README.md}.
+\end{thebibliography}
+\end{document}

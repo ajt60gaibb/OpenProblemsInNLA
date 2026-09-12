@@ -7,10 +7,28 @@
 **Topic:** Enumeration of orthogonal sign matrices  
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Status:** Open  
-**Last checked:** 2026-09-11
+**Status:** Solved  
+**Last checked:** 2026-09-12
 
 **Rating rationale:** Known general upper bounds still have a quadratic exponent, while the conjecture asks for an exponent of order $n\log n$. The question concerns the abundance of exact flat orthogonal transforms, with connections to structured matrix constructions and elimination.
+
+## Negative resolution - 2026-09-12
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**The counting conjecture is false.** The [complete proof](solution.md), Lemma 1 and Theorem 1, constructs an injection from two labeled order-$m$ Hadamard matrices and a perfect matching of $2m$ row labels. It gives
+
+$$
+H(2m)\ge(2m-1)!!\,H(m)^2,
+\qquad
+H(2^k)\ge 2^{\,2^k(k-1)(k-2)/8}\quad(k\ge2).
+$$
+
+The resulting exponent has order $n(\log n)^2$ along powers of two, contradicting every bound $2^{C n\log_2 n}$ with fixed $C$. [Proof PDF](solution.pdf) · [Standalone proof TeX](solution.tex).
+
+The full argument passed a separate [independent Codex-agent mathematical and source-scope review](../../references/stepaniants-fr12-2026-09-12/REVIEW.md). The [submission record](../../references/stepaniants-fr12-2026-09-12/README.md) preserves the supplied source, exact checks, document conversion and bounded public fork/branch/PR and literature search. Substantial AI assistance is disclosed; this is informal automated review, not external human peer review or formal verification.
+
+Ferber, Jain and Zhao retain attribution for the conjecture and prior upper bound. This result does not settle existence at every admissible order or determine a matching upper bound for the count. The original statement and historical context below are retained; the difficulty and importance ratings are historical.
 
 ## Statement
 

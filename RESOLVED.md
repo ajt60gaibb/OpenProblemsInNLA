@@ -21,6 +21,88 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+
+### ✅ RA-19 - the one-zero corank-one critical-point count - George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved affirmatively, 2026-09-11.** The [Theorem and Sections 1-5](randomized-and-low-rank-approximation/RA-19/solution.md) prove $\operatorname{EDdeg}(V_n)=5n-7$ for every integer $n\ge3$ in the original complex bilinear smooth-locus model. The exact quadratic spectral curve and stationarity resultant give the degree; a generic critical-point bijection, reducedness argument and all-dimension exceptional-locus witness make it the number of distinct critical points. [Proof PDF](randomized-and-low-rank-approximation/RA-19/solution.pdf) · [Original canonical target](randomized-and-low-rank-approximation/RA-19/README.md).
+
+The complete argument passed a separate [independent Codex-agent review](references/stepaniants-ra19-2026-09-11/verification/independent-review/review.md), with reviewer-written universal polynomial checks, and a distinct coordinating audit. Substantial AI assistance and automated-review limitations are documented in the [submission record](references/stepaniants-ra19-2026-09-11/README.md). No external human peer review or formal certification is asserted. Kubjas, Sodomaco and Tsigaridas retain attribution for their conjecture and finite evidence. The permanent ID, full original statement, historical ratings and dimension-two scope correction remain unchanged.
+
+### ✅ SP-13 - trace-norm perturbations preserve Hermitian spectral distributions - George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved affirmatively, 11 September 2026.** The [Theorem in Section 1 and proof in Sections 2-5](eigenvalues-and-inverse-problems/SP-13/solution.md) establish the full Barbarino-Serra-Capizzano conjecture with arbitrary complex perturbations of trace norm $o(n)$. Neither matrix sequence requires a spectral-norm bound; the perturbed matrices need not be normal, and every original compactly supported continuous complex test function is covered. [Proof PDF](eigenvalues-and-inverse-problems/SP-13/solution.pdf) · [Original target](eigenvalues-and-inverse-problems/SP-13/README.md).
+
+The proof uses the published weak-type triangular-truncation theorem with its original attribution, followed by Schur decomposition and elementary spectral-counting arguments. A separate [independent Codex-agent mathematical review](references/stepaniants-sp13-2026-09-11/verification/SP-13-independent-review.md) returned PASS for the complete target. Substantial AI assistance and the limits of informal automated review are disclosed; no external human peer review or formal verification is asserted. The [submission record](references/stepaniants-sp13-2026-09-11/README.md) preserves source and eligibility evidence. The permanent ID, original target, historical ratings and prior partial results remain unchanged.
+
+### ✅ SP-15 - infinitely many unitary classes with identical shifted singular values - George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved negatively, 12 September 2026 (UTC).** The [Theorem and Sections 1-4](eigenvalues-and-inverse-problems/SP-15/solution.md) prove that a single complete shifted-singular-value data fiber in complex dimension nine contains a smooth curve of pairwise non-unitarily-similar matrices. Every member is nilpotent with Jordan type $(3,3,3)$. No finite $M_9$ exists, which refutes the exact universal finiteness statement; no classification of other dimensions is asserted. [Proof PDF](eigenvalues-and-inverse-problems/SP-15/solution.pdf) · [Retained original target](eigenvalues-and-inverse-problems/SP-15/README.md).
+
+The full proof passed a separate [independent Codex-agent audit](references/stepaniants-sp15-2026-09-12/verification/independent-review-aa01/review.md), with an independent universal coefficient check. Substantial AI assistance and informal-review limits are explicit; no external human peer review or Lean verification is claimed. Fortier Bourque and Ransford retain credit for the question and generic finiteness theorem. Their theorem is compatible with this exceptional fiber. [Submission record, frozen sources and current public eligibility](references/stepaniants-sp15-2026-09-12/README.md). The permanent ID, original target, historical ratings and source history remain unchanged.
+
+### ✅ MF-02 - uniform constant-factor cubic-composition overhead - George Stepaniants
+
+**Expository proof-note author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Canonical asymptotic-order resolution recorded 2026-09-12.** The [Theorem in Section 1](matrix-functions-and-stability/MF-02/solution.md) proves $T_{\min}(m,\delta)=\Theta(m+1)$ uniformly for every $0<\delta<1$, with $\lfloor m/2\rfloor\le T_{\min}\le m$ for $m\ge2$ and both small-budget values equal to one. [Proof PDF](matrix-functions-and-stability/MF-02/solution.pdf) · [Retained canonical target](matrix-functions-and-stability/MF-02/README.md).
+
+Cheon-Kim-Kim (2020) retain credit for prior constant-factor optimality, and Chen-Chow (2014) and Polar Express for the classical cubic construction. Uniform order already follows from the prior estimates by a short synthesis; this self-contained note supplies the explicit $T_{\min}\le m$ comparison and makes no first-discovery claim. The exact minimum, optimal leading constant and same-budget error comparison remain unanswered. The full proof passed a separate [independent mathematical and scope audit](references/stepaniants-mf02-2026-09-12/verification/independent-review/MF-02-independent-review.md). AI assistance and the limits of automated review are explicit in the [submission record](references/stepaniants-mf02-2026-09-12/README.md); no formal verification or external human peer review is asserted.
+
+### ✅ IE-26 — both sharp perturbed Fourier stability bounds — George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Affirmative resolution recorded 2026-09-12.** [Theorem 1](linear-systems-and-elimination/IE-26/solution.md) proves the original Lebesgue bound with one absolute constant for every $0<\alpha<1/2$, and the normalized square Fourier inverse-norm bound without a logarithmic factor for each fixed $1/4<\alpha<1/2$. Both apply to every $N\ge2$ and every admissible perturbed grid. [Proof PDF](linear-systems-and-elimination/IE-26/solution.pdf) · [Retained target](linear-systems-and-elimination/IE-26/README.md). The second-bound endpoint is not asserted.
+
+The entire argument passed a separate [independent Codex-agent audit](references/stepaniants-ie26-2026-09-12/verification/independent-review/IE-26-independent-review.md), with no mathematical correction. The coordinating contributor's check is identified separately. Substantial AI assistance is disclosed; informal automated review does not establish external human peer review or formal verification. Austin–Trefethen and later authors retain credit for the conjectures and previous results; Laugesen's weak Hilbert-transform theorem supplies the sole external harmonic-analysis inequality. [Submission, source hashes, and verification record](references/stepaniants-ie26-2026-09-12/README.md).
+
+### ✅ KE-05 - spectrum-uniform interpolation constants are unbounded - George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Negative resolution recorded 2026-09-12 (UTC).** The [exact target and Sections 1-5](randomized-and-low-rank-approximation/KE-05/solution.md) exhibit admissible deterministic $2\times2$ blocks with $d=3$ for which $\chi_{\rm mono}\chi_{\rm coef}$ diverges in probability as two eigenvalues approach zero. Hence no finite uniform constant exists even for failure probability $1/2$. [Proof PDF](randomized-and-low-rank-approximation/KE-05/solution.pdf) · [Original canonical target](randomized-and-low-rank-approximation/KE-05/README.md).
+
+The complete argument passed a separate [independent Codex-agent mathematical audit](references/stepaniants-ke05-2026-09-12/independent-review.md). Substantial AI assistance and informal-review limits are explicit; no external human peer review or formal verification is asserted. Shao retains credit for the conjecture and framework. The example uses interlaced block spectra, which the canonical target permits; it does not settle a different ordered-interval variant or disprove block Lanczos convergence. The [submission record](references/stepaniants-ke05-2026-09-12/README.md) documents exact verification, source checks and public eligibility. The permanent ID, original statement and historical ratings remain intact.
+
+
+### ✅ MF-21 - the higher-order Toeplitz expansion threshold - George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Affirmative resolution recorded 2026-09-12 (UTC).** [Theorem 1 and Sections 2-5](matrix-functions-and-stability/MF-21/solution.md) establish the complete three-part threshold for every integer $m\ge3$: one smooth coefficient family gives uniform expansions through order $2m-1$, the stated high-index order-$2m$ expansion, and failure of that last order uniformly over all eigenvalues. [Proof PDF](matrix-functions-and-stability/MF-21/solution.pdf) · [Original canonical target](matrix-functions-and-stability/MF-21/README.md).
+
+The complete proof passed a separate [independent Codex-agent mathematical audit](references/stepaniants-mf21-2026-09-12/independent-review.md). Substantial AI assistance and informal-review limits are explicit; no external human peer review or formal verification is asserted. The original conjecture, prior special cases, and the external inverse-kernel theorem retain their source attribution. The [submission record](references/stepaniants-mf21-2026-09-12/README.md) records frozen-source comparison, exact checks, document inspection, and public eligibility. The permanent ID, original statement and historical ratings remain unchanged.
+
+
+### ✅ FR-12 - the Hadamard counting conjecture is false - George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Negative resolution recorded 2026-09-12 (UTC).** [Lemma 1 and Theorem 1](frames-and-matrix-designs/FR-12/solution.md) give an injective matching-indexed doubling construction and the lower bound $H(2^k)\ge2^{2^k(k-1)(k-2)/8}$ for every $k\ge2$. This disproves the proposed $2^{O(n\log n)}$ upper bound for labeled real Hadamard matrices. [Proof PDF](frames-and-matrix-designs/FR-12/solution.pdf) · [Original canonical target](frames-and-matrix-designs/FR-12/README.md).
+
+The complete argument passed a separate [independent Codex-agent mathematical and source-scope audit](references/stepaniants-fr12-2026-09-12/REVIEW.md). Substantial AI assistance is disclosed; this is informal agent review, not human peer review or formal verification. Ferber, Jain and Zhao retain credit for the conjecture and prior upper bounds. The Hadamard existence conjecture and optimal counting order are not settled. [Submission record and eligibility audit](references/stepaniants-fr12-2026-09-12/README.md).
+
+### ✅ MF-06 - pointwise Lipschitz lower stability of the joint spectral radius - George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Affirmative resolution recorded 2026-09-12 (UTC).** [Theorem (1), Lemmas 1-5 and Section 6](matrix-functions-and-stability/MF-06/solution.md) prove the full lower-Lipschitz perturbation bound for every fixed nonempty compact complex matrix family in all dimensions. The maximal critical exterior-power reduction handles reducible reference families with unbounded normalized products; the perturbing family may be arbitrary. [Proof PDF](matrix-functions-and-stability/MF-06/solution.pdf) · [Retained canonical target](matrix-functions-and-stability/MF-06/README.md).
+
+The full clarified argument passed a separate [independent Codex-agent mathematical audit](references/stepaniants-mf06-2026-09-12/REVIEW.md). Substantial AI assistance is disclosed; this is informal agent review, not human peer review or formal verification. Epperlein and Wirth retain target attribution, and Barabanov/Wirth extremal norms and Chitour-Mason-Sigalotti nonresonance theory retain credit. The constants depend on the fixed reference family; a two-sided Lipschitz bound uniform over two varying families is not asserted. [Submission record and eligibility audit](references/stepaniants-mf06-2026-09-12/README.md).
+### ✅ IE-04 — the uniform exponential GEPP tail is false — George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved negatively, 2026-09-11.** The [complete proof's theorem, equation (2), and robustness lemma](linear-systems-and-elimination/IE-04/solution.md) give an explicit full entrywise box of strict-pivot matrices with growth greater than $(3/2)^{n-1}/2$, and Gaussian probability at least $2^{-n^2(n^2+n+5)}$. With the admissible center $I_n$ and noise level one, this contradicts the displayed IE-04 tail for every proposed universal pair of constants at sufficiently large $x$. The proof covers all dimensions needed for the contradiction and does not claim a replacement optimal tail or a sharp high-probability exponent. [Proof PDF](linear-systems-and-elimination/IE-04/solution.pdf) · [Original target](linear-systems-and-elimination/IE-04/README.md).
+
+The complete analytic proof passed a separate [independent Codex-agent review](references/stepaniants-ie04-2026-09-11/verification/IE-04-independent-review.md). Finite exact interval and rational checks are supplementary. AI assistance and automated-review limits are disclosed; no external human peer review or formal certification is asserted. [Submission record and public eligibility audit](references/stepaniants-ie04-2026-09-11/README.md). All original target quantifiers, the permanent ID and historical ratings are retained.
+
 ### ✅ IE-05 - the orthogonal partial-pivoting extremizer equality is false - George Stepaniants
 
 **Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.

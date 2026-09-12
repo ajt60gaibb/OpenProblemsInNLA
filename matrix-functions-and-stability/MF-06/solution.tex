@@ -1,0 +1,323 @@
+% Generated from the accompanying solution.md by build_solution.py.
+% Standalone build: xelatex solution.tex (run twice).
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,mathtools,microtype}
+\usepackage[margin=27mm,headheight=14pt]{geometry}
+\usepackage{booktabs,xurl,hyperref,fancyhdr,needspace}
+\hypersetup{hidelinks,pdftitle={MF-06: A pointwise Lipschitz lower bound for the joint spectral radius},pdfauthor={George Stepaniants}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small MF-06 / Joint spectral radius}
+\fancyfoot[C]{\thepage}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlength{\emergencystretch}{2em}
+\setcounter{secnumdepth}{0}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\title{\textbf{MF-06: A pointwise Lipschitz lower bound\\for the joint spectral radius}}
+\author{George Stepaniants\\[3pt]\small Department of Computing and Mathematical Sciences\\\small California Institute of Technology\\\small Pasadena, California, USA}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+This manuscript proves the pointwise one-sided Lipschitz lower bound for the joint spectral radius at every fixed nonempty compact complex matrix family. A product-bounded critical exterior power provides the reduction for reducible reference families whose products are unbounded. The perturbing family need not preserve any invariant subspace of the reference family.
+
+\textbf{Assistance and independent review.} Prepared with substantial assistance from Codex. A separate Codex agent independently audited the complete clarified proof and reported PASS on 12 September 2026. The \href{../../references/stepaniants-mf06-2026-09-12/REVIEW.md}{signed independent review} identifies the exact archived source, its hypotheses, and the complete canonical scope. This is an independent informal AI-agent audit, not external human peer review or formal verification. Supplementary exact checks support finite algebraic transcription and do not replace the all-family proof.
+
+\section{1. The exact target}\label{the-exact-target}
+
+For a nonempty compact family \(\mathcal M\subseteq\mathbb C^{d\times d}\), let \(\widehat\rho(\mathcal M)\) be its joint spectral radius and let \(d_H\) be Hausdorff distance induced by the spectral norm. The claimed theorem is:
+
+\textbf{Theorem.} For every \(d\ge1\) and every such fixed \(\mathcal M\), there exist \(C,r>0\) such that every nonempty compact \(\mathcal N\subseteq\mathbb C^{d\times d}\) with \(d_H(\mathcal M,\mathcal N)<r\) satisfies
+
+\[
+\widehat\rho(\mathcal N)\ge\widehat\rho(\mathcal M)-C d_H(\mathcal M,\mathcal N).
+\tag{1}
+\]
+
+The constants need not be uniform as the reference family varies. No finiteness of either family and no periodic attainment of the radius are assumed. When \(\widehat\rho(\mathcal M)=0\), the assertion follows immediately from nonnegativity. In the remaining proof divide both families by the fixed positive reference radius, so \(\widehat\rho(\mathcal M)=1\). Rescaling at the end preserves the linear form of (1).
+
+The target is Epperlein--Wirth, \href{https://arxiv.org/html/2311.18633v2}{\emph{The joint spectral radius is pointwise Hölder continuous}, arXiv:2311.18633v2}, Conjecture 3(P2). Their \S{}3 recalls the standard fact used below: a compact irreducible family of positive radius admits an extremal norm (indeed a Barabanov norm). Apart from that fact, elementary finite-dimensional norm and exterior-algebra facts, and the existence/formula for JSR, the arguments are supplied below. The later \href{https://arxiv.org/html/2504.17505v1}{principal-submatrix paper} is not used as a compression monotonicity theorem.
+
+\section{2. Preliminary triangular and product-bounded facts}\label{preliminary-triangular-and-product-bounded-facts}
+
+For a compact family put
+
+\[
+a_n(\mathcal F)=\max_{F_1,\ldots,F_n\in\mathcal F}\|F_n\cdots F_1\|_2,
+\qquad a_0=1.
+\]
+
+If \(\widehat\rho(\mathcal F)<q\), then \(a_n(\mathcal F)\le Kq^n\) for a finite \(K\): this follows directly from \(a_n^{1/n}\to\widehat\rho(\mathcal F)\), absorbing finitely many initial values in \(K\). A family is called \textbf{product bounded} here when \(\sup_n a_n<\infty\).
+
+\textbf{Triangular fact.} The JSR of a finite block upper-triangular compact family is the maximum of the JSRs of its diagonal block families, with every block tied to the same original generator.
+
+For clarity, the diagonal compressions of each product give the lower bound. For the upper bound, choose \(q>0\) above all the diagonal JSRs and bound each diagonal product by \(Kq^n\). In a product on \(r\) blocks, an off-diagonal term contains at most \(r-1\) strict block transitions. Their matrices are uniformly bounded; all other factors form at most \(r\) diagonal products. There are at most a constant times \((n+1)^{r-1}\) such terms. Absorbing the finitely many powers \(q^{-j}\) gives an upper bound \(K'(n+1)^{r-1}q^n\) for the full product. Take \(n\)th roots and then let \(q\) decrease to the largest diagonal radius. This argument does not allow independent switching of paired blocks.
+
+\section{3. Lower Lipschitz continuity at a product-bounded reference family}\label{lower-lipschitz-continuity-at-a-product-bounded-reference-family}
+
+\textbf{Lemma~1.} A compact product-bounded family of JSR one satisfies (1).
+
+\textbf{Proof.} Define the extremal norm
+
+\[
+v(x)=\sup_{n\ge0}\max_{A_1,\ldots,A_n\in\mathcal M}
+\|A_n\cdots A_1x\|_2.
+\]
+
+It is finite and definite and all reference generators contract it. Set
+
+\[
+g_n(x)=\max_{A_1,\ldots,A_n\in\mathcal M}v(A_n\cdots A_1x),
+\qquad p(x)=\lim_{n\to\infty}g_n(x).
+\]
+
+Deleting the leftmost applied contraction shows \(g_{n+1}\le g_n\). The bound \(|g_n(x)-g_n(y)|\le v(x-y)\) implies that the limit is a continuous seminorm and convergence is uniform on compact sets, by a finite-net argument. The recurrence \(g_{n+1}(x)=\max_Ag_n(Ax)\) and compactness therefore give
+
+\[
+p(x)=\max_{A\in\mathcal M}p(Ax).
+\tag{2}
+\]
+
+Let \(S=\ker p\). This is invariant. On a fixed basis of \(S\), all \(g_n\) tend to zero; equivalence of the coordinate norm and \(v\) then shows that the maximal restricted product operator norm tends to zero. At some finite length it is strictly below one, so the restricted JSR is below one by submultiplicativity. The same argument excludes \(S=\mathbb C^d\), as the full JSR is one. The seminorm induces a norm on the nonzero quotient, satisfying (2).
+
+\Needspace{6\baselineskip}
+Choose a fixed complement and write the generators as
+
+\[
+A=\begin{pmatrix}U_A&V_A\\0&B_A\end{pmatrix}.
+\]
+
+Use the quotient norm for the second coordinate. The stable first coordinate admits a norm with \(\|U_A\|\le q<1\) for all \(A\): the supremum of \(q^{-n}\) times restricted product norms applied to a vector constructs one, after choosing \(q\) above the restricted radius. Let \(K\) bound \(\|V_A\|\), and put
+
+\[
+H=\frac{K+1}{1-q},\qquad L=H+1.
+\]
+
+If \(S=0\), omit the first block; the same estimates can be used with its vector always zero. Fixed norm equivalence bounds each block of a matched perturbation by \(t=c_0\delta\), where \(\delta=d_H(\mathcal M,\mathcal N)\) and \(c_0\) is independent of \(\mathcal N\).
+
+For a vector with component norms \(a,b\) satisfying \(a\le Hb\) and \(b>0\), select a reference generator using (2) so that \(\|B_Az\|=b\), and then one nearby member of \(\mathcal N\). The new component norms obey
+
+\[
+b'\ge(1-Lt)b,\qquad
+a'\le(qH+K+Lt)b=(H-1+Lt)b.
+\]
+
+For \(t\le L^{-2}\) one has \(H-1+Lt\le H(1-Lt)\), so the cone is preserved. Also \(H\ge1\) and \(L\ge2\), making \(1-Lt>0\). Starting with first component zero and quotient norm one constructs a legal perturbed trajectory whose quotient norm is at least \((1-Lt)^n\) at every length. Norm equivalence and \(n\)th roots give \(\widehat\rho(\mathcal N)\ge1-Lc_0\delta\). This proves the lemma. The choices may depend on the current vector, which is allowed when proving existence of a product attaining a lower growth bound. No periodic word is used.\unskip\nobreak\hfill\(\square\)
+
+\section{4. An elementary nonresonance lemma}\label{an-elementary-nonresonance-lemma}
+
+\textbf{Lemma~2 (scalar summation).} Let \(n\ge1\) and \(K,F\ge0\). Suppose \(x_1,\ldots,x_n\ge0\), \(x_i\le K\), and
+
+\[
+x_ix_j\le Fq^{|i-j|}\quad(i\ne j),\qquad 0<q<1.
+\]
+
+Then, independently of \(n\),
+
+\[
+\sum_{i=1}^n x_i\le K+\sqrt{K^2+\frac{4Fq}{(1-q)^2}}.
+\tag{3}
+\]
+
+\textbf{Proof.} For every cut \(h\),
+
+\[
+\left(\sum_{i\le h}x_i\right)\left(\sum_{j>h}x_j\right)
+\le F\sum_{i\le h<j}q^{j-i}\le\frac{Fq}{(1-q)^2}=:G.
+\]
+
+Let \(X=\sum x_i\) and take the first cut whose prefix sum is at least \(X/2\). This prefix lies between \(X/2\) and \(X/2+K\), so its complementary sum is at least \(X/2-K\). If \(X/2-K\ge0\), their product is at least \(X^2/4-KX/2\). If \(X/2-K<0\), the same lower bound is nonpositive and still valid. Thus \(X^2/4-KX/2\le G\), whose positive root is (3). The case \(X=0\) is immediate.\unskip\nobreak\hfill\(\square\)
+
+\textbf{Lemma~3 (two blocks).} Let a compact family consist of
+
+\[
+A=\begin{pmatrix}B_A&D_A\\0&C_A\end{pmatrix}.
+\]
+
+Assume the two diagonal families are product bounded. If the \textbf{paired} tensor-product family
+
+\[
+\{B_A\otimes C_A:A\in\mathcal M\}
+\]
+
+has JSR strictly below one, then the whole family is product bounded.
+
+\textbf{Proof.} Let \(K_B,K_C\ge1\) bound all diagonal products, including empty ones. Let \(D_0\) bound every off-diagonal generator. Choose \(0<q<1\) above the paired tensor JSR, and \(K_q\ge1\) such that every length-\(\ell\) word satisfies
+
+\[
+\|B_\ell\cdots B_1\|_2\,\|C_\ell\cdots C_1\|_2
+\le K_q q^\ell.
+\tag{4}
+\]
+
+This follows because the spectral norm of a Kronecker product is the product of the spectral norms and the generators are paired at every time.
+
+For an arbitrary full word of length \(n\), its upper-right block is
+
+\[
+\sum_{i=1}^n B_n\cdots B_{i+1}D_iC_{i-1}\cdots C_1.
+\]
+
+Put
+
+\[
+x_i=\|B_n\cdots B_{i+1}\|_2\,
+\|C_{i-1}\cdots C_1\|_2\le K_BK_C.
+\]
+
+For \(i<j\), split the first product at \(j\) and the second at \(i\). Product boundedness yields
+
+\[
+x_i\le K_B^2K_C\|B_{j-1}\cdots B_{i+1}\|_2,
+\qquad
+x_j\le K_BK_C^2\|C_{j-1}\cdots C_{i+1}\|_2.
+\]
+
+The intervening factors are from the same original word. By (4),
+
+\[
+x_ix_j\le K_B^3K_C^3K_q q^{j-i-1}
+=Fq^{j-i},\qquad F=K_B^3K_C^3K_q/q.
+\]
+
+Lemma~2 bounds \(\sum x_i\) independently of the word and its length. The off-diagonal block norm is at most \(D_0\sum x_i\). The diagonal blocks were already uniformly bounded, proving the result.\unskip\nobreak\hfill\(\square\)
+
+\textbf{Lemma~4 (finitely many blocks).} Let a compact family have a fixed finite block upper-triangular form with diagonal blocks \(D_{1,A},\ldots,D_{r,A}\). Suppose every diagonal family is product bounded and, for every distinct \(i,j\), the paired family \(\{D_{i,A}\otimes D_{j,A}:A\in\mathcal M\}\) has JSR below one. Then the full family is product bounded.
+
+\textbf{Proof.} Induct on \(r\). The case \(r=1\) is the hypothesis. Group the first \(r-1\) blocks into \(G_A\), which is product bounded by induction. The family \(\{G_A\otimes D_{r,A}\}\) is block upper triangular, after a fixed coordinate identification, with diagonal families \(\{D_{i,A}\otimes D_{r,A}\}\) for \(i<r\). The triangular fact in \S{}2 shows that its JSR is below one. Lemma~3 applied to the two blocks \(G_A,D_{r,A}\) completes the induction. Pairing is maintained throughout.\unskip\nobreak\hfill\(\square\)
+
+\section{5. Every normalized family has a critical product-bounded exterior power}\label{every-normalized-family-has-a-critical-product-bounded-exterior-power}
+
+For \(0\le j\le d\), let \(\Lambda^j A\) denote the induced map on the \(j\)th exterior power equipped with its standard Hilbert norm; \(\Lambda^0 A\) is the scalar identity. Exterior powers respect products and satisfy
+
+\[
+\|\Lambda^j P\|_2\le\|P\|_2^j.
+\tag{5}
+\]
+
+Write \(\Lambda^j\mathcal M=\{\Lambda^j A:A\in\mathcal M\}\). In particular \(\widehat\rho(\Lambda^j\mathcal M)\le\widehat\rho(\mathcal M)^j=1\) for \(j\ge1\).
+
+\textbf{Lemma~5 (critical exterior power).} If \(\widehat\rho(\mathcal M)=1\), there is an integer \(1\le k\le d\) such that \(\Lambda^k\mathcal M\) has JSR one and is product bounded.
+
+\textbf{Proof.} A maximal common invariant flag puts the reference family, by a fixed similarity, into block upper-triangular form with irreducible diagonal families \(A_{1},\ldots,A_r\) of respective dimensions \(d_1,\ldots,d_r\). Similarity does not affect JSR or product boundedness, and its exterior powers are also fixed similarities.
+
+By the triangular fact, every diagonal radius is at most one. A diagonal family of radius strictly below one is product bounded by the preliminary exponential bound. A diagonal irreducible family of radius one has an extremal norm, hence is product bounded in the spectral norm by finite-dimensional norm equivalence. Choose \(K_i\ge1\) bounding all products in diagonal family~\(i\).
+
+For each integer vector \(a=(a_1,\ldots,a_r)\) with \(0\le a_i\le d_i\), define its degree \(|a|=\sum_i a_i\) and the paired tensor family
+
+\[
+\mathcal F_a=
+\left\{\bigotimes_{i=1}^r\Lambda^{a_i} A_i:A\in\mathcal M\right\}.
+\]
+
+All factors in one tensor come from the same original generator. For a word of length \(n\), write its diagonal block products as \(P_1,\ldots,P_r\). The corresponding product in \(\mathcal F_a\) is
+
+\[
+P_a=\bigotimes_{i=1}^r\Lambda^{a_i}P_i,
+\qquad \|P_a\|_2\le\prod_iK_i^{a_i}.
+\tag{6}
+\]
+
+Thus each allocation family \(\mathcal F_a\) is product bounded.
+
+The usual decomposition of \(\Lambda^j(V_1\oplus\cdots\oplus V_r)\) into tensor products \(\bigotimes_i\Lambda^{a_i}V_i\), \(|a|=j\), gives a block upper-triangular form for \(\Lambda^j A\), in an ordering refining cumulative block occupation. Its diagonal blocks are exactly those of \(\mathcal F_a\). Indeed, an original strict upper-block transition moves an exterior factor to an earlier original block; if the input and output allocations agree, no such strict move can occur. Reordering the finitely many allocation subspaces once gives an ordinary triangular block form. Therefore
+
+\[
+\widehat\rho(\Lambda^j\mathcal M)
+=\max_{|a|=j}\widehat\rho(\mathcal F_a).
+\tag{7}
+\]
+
+Choose the \textbf{largest} \(k\in\{1,\ldots,d\}\) for which \(\widehat\rho(\Lambda^k\mathcal M)=1\). Such a \(k\) exists because \(k=1\) qualifies. For every \(j>k\) the exterior radius is strictly below one, using (5).
+
+\Needspace{9\baselineskip}
+Consider two distinct degree-\(k\) allocations \(a,b\). Put \(c_i=\max(a_i,b_i)\) and \(e_i=\min(a_i,b_i)\). Then \(|c|>k\), while all their coordinates remain within the allowed bounds. For every common original word, multiplicativity of the Hilbert tensor norm gives the exact identity
+
+\[
+\|P_a\|_2\|P_b\|_2=\|P_c\|_2\|P_e\|_2
+\le\left(\prod_iK_i^{e_i}\right)\|P_c\|_2.
+\tag{8}
+\]
+
+The equality simply reorders, for each block \(i\), the two factors \(\|\Lambda^{a_i}P_i\|_2\) and \(\|\Lambda^{b_i}P_i\|_2\); it remains valid when some factor is zero. The degree-zero exterior factor is one.
+
+Take maximal norms over common words and then \(n\)th roots in (8). The paired tensor family of the two allocation blocks obeys
+
+\[
+\widehat\rho\left(
+\left\{\left(\bigotimes_i\Lambda^{a_i}A_i\right)
+\otimes\left(\bigotimes_i\Lambda^{b_i}A_i\right):A\in\mathcal M\right\}
+\right)
+\le\widehat\rho(\mathcal F_c)
+\le\widehat\rho(\Lambda^{|c|}\mathcal M)<1.
+\tag{9}
+\]
+
+Thus the triangular representation of \(\Lambda^k\mathcal M\) has product-bounded diagonal allocation families and strictly subunit paired tensor radii for every distinct pair. Lemma~4 proves that the full exterior-power family is product bounded. Its radius is one by the choice of \(k\).\unskip\nobreak\hfill\(\square\)
+
+\section{6. Transfer back to the original family}\label{transfer-back-to-the-original-family}
+
+Apply Lemma~5 and fix its \(k\). For matrices \(A,B\) of norm at most \(L_0\), the tensor telescoping identity, restricted to the antisymmetric subspace, gives
+
+\[
+\|\Lambda^k A-\Lambda^k B\|_2
+\le kL_0^{k-1}\|A-B\|_2.
+\tag{10}
+\]
+
+Take \(L_0=1+\max_{A\in\mathcal M}\|A\|_2\). When \(\delta=d_H(\mathcal M,\mathcal N)<1\), all nearby generators have norm at most \(L_0\). Matching in both directions in (10) proves
+
+\[
+d_H(\Lambda^k\mathcal M,\Lambda^k\mathcal N)
+\le kL_0^{k-1}\delta.
+\tag{11}
+\]
+
+The image families remain nonempty and compact, even if the exterior map is not injective. Lemma~1 now applies to the fixed product-bounded radius-one family \(\Lambda^k\mathcal M\). For sufficiently small \(\delta\) it gives
+
+\[
+\widehat\rho(\Lambda^k\mathcal N)\ge1-C_0kL_0^{k-1}\delta.
+\]
+
+On the other hand, (5) on every word implies
+
+\[
+\widehat\rho(\Lambda^k\mathcal N)\le\widehat\rho(\mathcal N)^k.
+\]
+
+Choose the neighborhood so \(C_1\delta<1\), where \(C_1=C_0kL_0^{k-1}\). Consequently
+
+\[
+\widehat\rho(\mathcal N)
+\ge(1-C_1\delta)^{1/k}\ge1-C_1\delta.
+\]
+
+This is the normalized form of (1). Rescaling both families by the original positive reference radius completes the proposed proof in every complex dimension. The zero-radius case was handled separately. No periodic attainment, principal-block monotonicity for arbitrary perturbations, or stable-kernel assumption on the original family was used.
+
+\section{7. Scope of verification and attribution}\label{scope-of-verification-and-attribution}
+
+The complete proof above, including Lemmas 1--5 and the transfer in Section~6, passed a separate independent informal Codex-agent review of the clarified source. The reviewer reconstructed the product-bounded case as well as the exterior-power extension; the earlier partial review was not used as a premise. The source-bound review records the earlier partial argument, the first full draft, and the explicit nonnegative-parameter clarification in Lemma~2.
+
+The target conjecture and the cited joint-spectral-radius context are due to Epperlein and Wirth. The compact irreducible-family extremal-norm theorem, including its Barabanov-norm background, is standard and is attributed through the primary source cited in Section~1.
+
+Nonresonance as a mechanism for product boundedness is prior theory of \href{https://doi.org/10.1016/j.sysconle.2012.04.005}{Chitour, Mason, and Sigalotti (2012)}: see Definition~6 and Proposition~9 on pages 749--750, Theorem~10 on page 750, and the discrete-time treatment in Section~6 and Theorem~20 on page 754. Their Appendix Lemma~28 on page 757 already supplies closely related combinatorial control of sums from paired contraction. Lemmas 2--4 here give the self-contained formulation used in this proof; no novelty is claimed for that general mechanism.
+
+\href{https://arxiv.org/html/0909.2800v1}{Morris, Lemma~3.2}, gives a related second-exterior spectral-gap criterion for the rank-one property under an assumption of relative product boundedness. Lemma~5 above instead establishes product boundedness for a maximal critical exterior degree. The cited nonresonance and second-exterior results provide context; the proofs needed for the stated reduction are supplied in Sections 4--6. No general principal-compression monotonicity theorem is used.
+
+The conclusion is pointwise at a fixed reference family; the constants may depend on that family and its dimension. It does not assert a two-sided estimate uniform over two varying families. This manuscript claims no historical-priority certification, external human peer review, or formal proof. Any exact finite checker supports transcription of finite algebraic identities and is not the basis for the all-family claims.
+
+\section{8. References and source locators}\label{references-and-source-locators}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  J. Epperlein and F. Wirth, \emph{The joint spectral radius is pointwise Hölder continuous}, \href{https://arxiv.org/html/2311.18633v2}{arXiv:2311.18633v2}. Section~2, Conjecture 3(P2), and Section~3's extremal-norm background.
+\item
+  Y. Chitour, P. Mason, and M. Sigalotti, \emph{On the marginal instability of linear switched systems}, Systems \& Control Letters \textbf{61} (2012), 747--757. \href{https://doi.org/10.1016/j.sysconle.2012.04.005}{doi:10.1016/j.sysconle.2012.04.005}; \href{https://www.ljll.fr/sigalotti/doc/chitour_mason_sigalotti-SCL.pdf}{author-hosted published PDF}. Definition~6, Proposition~9, Theorems 10 and 20, and Appendix Lemma~28.
+\item
+  I. D. Morris, \emph{Criteria for the stability of the finiteness property and for the uniqueness of Barabanov norms}, \href{https://arxiv.org/html/0909.2800v1}{arXiv:0909.2800v1}, Lemma~3.2, page 10.
+\end{enumerate}
+
+\end{document}

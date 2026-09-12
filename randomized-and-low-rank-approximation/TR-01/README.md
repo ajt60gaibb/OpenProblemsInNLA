@@ -82,7 +82,10 @@ The pinned reproduction instructions are in [`lean/README.md`](https://github.co
 
 - `lake exe cache get`
 - `python3 verify.py`
+- `lake build Problem56.PaperV6.AuditTools`
 - `python3 verify.py --graph --semantic --fresh-kernel`
+
+The explicit `AuditTools` build supplies the auxiliary module needed by `--graph` on a clean checkout.
 
 The archived public record reports successful proof compilation, statement-boundary checks, transitive axiom checks, semantic regressions, a cold project rebuild, and fresh kernel replay.
 

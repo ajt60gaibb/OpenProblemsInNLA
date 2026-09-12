@@ -25,6 +25,11 @@ def render(source):
         from render_latex_solutions import render as render_latex
         return render_latex(source)
 
+    if identifier == "SP-13":
+        # PDF-only layout: keep the reviewed Markdown free of page commands.
+        markdown = markdown.replace("This manuscript proves", "\\pagestyle{plain}\n\nThis manuscript proves", 1)
+        markdown = markdown.replace("## References\n", "\\newpage\n\n## References\n", 1)
+
     def absolute_link(match):
         target = match[1]
         if re.match(r"[a-z]+:", target) or target.startswith("#"):
@@ -43,6 +48,22 @@ def render(source):
             input=markdown, text=True, encoding="utf-8", capture_output=True, check=True,
         )
         tex = result.stdout
+        if identifier == "SP-15":
+            tex = tex.replace("\n\\[\n", "\n\\nopagebreak[4]\n\\[\n")
+            # Keep the frozen proof unchanged in Markdown while preventing
+            # the Schur-complement lead-in and the parameter pair from splitting.
+            tex = tex.replace(r"Both \(sI_r\) and \(K\) are positive definite.",
+                              r"\Needspace{12\baselineskip}" + "\n" +
+                              r"Both \(sI_r\) and \(K\) are positive definite.", 1)
+            heading = r"\\subsection\{3\.\s+Ten\s+parameters\s+with\s+no\s+repeated\s+unitary\s+class\}"
+            tex = re.sub(heading, lambda match: r"\Needspace{22\baselineskip}" + "\n" + match[0], tex, count=1)
+        if identifier == "IE-26":
+            # PDF-only layout keeps the reviewed Markdown body unchanged.
+            # The text font lacks the source's Unicode end-of-proof mark.
+            tex = tex.replace("∎", r"\ensuremath{\blacksquare}")
+            tex = tex.replace(r"\subsection{", "\\Needspace{12\\baselineskip}\n" + r"\subsection{")
+            tex = tex.replace(r"\subsection{2. Interlacing", "\\newpage\n" + r"\subsection{2. Interlacing", 1)
+            tex = tex.replace(r"\[", "\\nopagebreak[4]\n" + r"\[")
         (source.parent / "solution.tex").write_text(tex, encoding="utf-8")
         (work / "solution.tex").write_text(tex, encoding="utf-8")
         for _ in range(2):

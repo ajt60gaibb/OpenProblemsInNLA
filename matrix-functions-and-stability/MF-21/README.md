@@ -6,10 +6,20 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Open  
-**Last checked:** 2026-09-10
+**Status:** Solved  
+**Last checked:** 2026-09-12
 
 **Rating rationale:** Matching bulk asymptotics with extreme eigenvalues at the exact breakdown order is challenging; the detailed expansion threshold is mainly important to structured spectral specialists.
+
+## Affirmative resolution - 12 September 2026 (UTC)
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+[Theorem 1 and Sections 2-5 of the complete proof](solution.md) establish all three assertions below for every integer $m\ge3$, using the same smooth coefficient functions with $d_0=g_m$. The expansion is uniform over every eigenvalue through order $2m-1$, extends to order $2m$ above the stated logarithmic-squared index cutoff, and fails to extend uniformly to all indices at that order. The matrix, grid normalization, parameter quantifiers and cutoff are unchanged.
+
+[Proof PDF](solution.pdf) · [Standalone proof TeX](solution.tex) · [Independent mathematical review](../../references/stepaniants-mf21-2026-09-12/independent-review.md) · [Submission and public-source audit](../../references/stepaniants-mf21-2026-09-12/README.md).
+
+The complete proof passed a separate Codex-agent informal audit. It derives the bulk expansion from an exact boundary determinant and proves the final obstruction using a classical uniform inverse-kernel limit and a trace identity. Barrera, Böttcher, Grudsky, Maximenko and the cited later authors retain credit for the conjecture and prior cases; Böttcher-Widom and their cited predecessors retain credit for the inverse-kernel theorem. Substantial AI assistance is disclosed. This is neither external human peer review nor formal verification. The original statement, permanent ID, references and dated history are retained below; the ratings are historical.
 
 ## Statement
 
@@ -53,3 +63,7 @@ On 2026-09-10, checked the original full preprint, the seven-diagonal follow-up'
 ## Audit — 2026-09-10
 
 Independently rechecked [Conjecture 8.4](https://arxiv.org/pdf/1710.05243), [the seven-diagonal paper's Theorems 2.3–2.6](https://arxiv.org/pdf/2111.07196), and [Böttcher's survey](https://doi.org/10.1007/s10958-025-07833-x). Corrected the status to Open: the proved $m=2$ analogue lies outside the displayed range, and the $m=3$ local and second-order formulas do not establish the three-part threshold assertion. The [March 2026 eigenvalue-superposition paper](https://doi.org/10.1007/s10958-026-08227-3) assumes simple-loop symbols, excluding these higher-order zeros. Title and conjecture searches found no complete resolution. Challenging difficulty and specialist importance are retained.
+
+## Resolution audit - 2026-09-12
+
+The independent audit checked the complete all-$m$ argument, including the coalescing characteristic roots, normalized determinant remainder, upper-endpoint cancellation, eigenvalue indexing, all three expansion orders, and dominated trace limit. The primary-source and public branch/fork/PR checks found no existing full resolution at the recorded time; the linked submission record gives the precise scope and limitations of that search.

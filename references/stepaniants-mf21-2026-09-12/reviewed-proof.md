@@ -1,0 +1,397 @@
+# MF-21: the regular expansion threshold for every higher-order zero
+
+George Stepaniants  
+Department of Computing and Mathematical Sciences  
+California Institute of Technology, Pasadena, California, USA  
+12 September 2026
+
+Private proof candidate. The argument below addresses the complete three-part canonical target for every integer $m\ge3$. It was developed with AI assistance; independent mathematical review is pending. No publication or canonical status change is asserted here.
+
+## 1. Exact conclusion and the coefficient functions
+
+Fix an integer $m\ge3$, and put
+
+$$
+g(\theta)=(2-2\cos\theta)^m,\qquad A_n=T_n(g),\qquad h=(n+2)^{-1},\qquad x_{n,j}=j\pi h.
+$$
+
+Let the eigenvalues of $A_n$, in increasing order and counted with multiplicity, be $\lambda_{n,j}$.
+
+**Theorem 1.** There are real $C^\infty$ functions $d_0,\ldots,d_{2m}$ on $[0,\pi]$, with $d_0=g$, such that all three assertions of MF-21 hold. In particular,
+
+$$
+\left|\lambda_{n,j}-\sum_{k=0}^{p}d_k(x_{n,j})h^k\right|\le C_p h^{p+1}
+\quad(0\le p\le2m-1,\ 1\le j\le n)
+\tag{1}
+$$
+
+for sufficiently large $n$; the same estimate for $p=2m$ holds for $j\ge\lceil(\log(n+2))^2\rceil$; and the latter estimate cannot hold for every $j$. Constants and lower bounds on $n$ may depend on $m,p$, but not on $n,j$.
+
+Here is a constructive definition of the functions. Write
+
+$$
+\omega_\ell=e^{2\pi i\ell/m},\qquad 1\le\ell\le m-1.
+$$
+
+For $0<\theta\le\pi$, let $r_\ell(\theta)$ be the root inside the unit circle of
+
+$$
+2-r-r^{-1}=\omega_\ell(2-2\cos\theta).
+\tag{2}
+$$
+
+Define the real phase by
+
+$$
+\psi(\theta)=\sum_{\ell=1}^{m-1}\arg(1-r_\ell(\theta)e^{-i\theta}),\qquad
+\eta(\theta)=\theta+2\psi(\theta),
+\tag{3}
+$$
+
+where each argument is the principal argument in $(-\pi/2,\pi/2)$. Its extension to $\theta=0$ will be established below. Extend $g,\eta$ smoothly to a neighborhood of $[0,\pi]$, and, for sufficiently small real $h$, let $Y(x,h)$ be the solution near $x$ of
+
+$$
+Y=x+h\eta(Y).
+\tag{4}
+$$
+
+The coefficients are
+
+$$
+d_k(x)=\frac{1}{k!}\left.\frac{\partial^k}{\partial h^k}g(Y(x,h))\right|_{h=0}.
+\tag{5}
+$$
+
+They do not depend on the extension, the matrix size, or the eigenvalue index.
+
+## 2. Stable roots and a normalized exact boundary determinant
+
+**Lemma 2.** The functions $r_\ell$ extend smoothly to $[0,\pi]$, with $r_\ell(0)=1$. They are nonzero and satisfy, for some $c>0$,
+
+$$
+|r_\ell(\theta)|\le e^{-c\theta}\quad(0\le\theta\le\pi).
+\tag{6}
+$$
+
+The phase in (3) is smooth and has endpoint values
+
+$$
+\psi(0)=\frac{(m-1)\pi}{4},\quad \psi(\pi)=0,\quad
+\eta(0)=\frac{(m-1)\pi}{2},\quad \eta(\pi)=\pi.
+\tag{7}
+$$
+
+*Proof.* A root on the unit circle in (2) would make its left side real and nonnegative. This is impossible because $\omega_\ell\ne1$, including the case $\omega_\ell=-1$. The reciprocal quadratic has exactly one root inside. Its roots are simple away from $\theta=0$: a double root could occur only when the right side is (0) or (4).
+
+Set
+
+$$
+\kappa_\ell=e^{i(\pi\ell/m-\pi/2)}.
+$$
+
+The quadratic formula, with its square-root branch chosen near zero, gives
+
+$$
+r_\ell(\theta)=1-\kappa_\ell\theta+O(\theta^2),\qquad
+\Re\kappa_\ell>0.
+\tag{8}
+$$
+
+The square root has a factor $\theta$ times an analytic nonvanishing function; this also proves smoothness at zero. The roots never vanish. Compactness, (8), and $|r_\ell|<1$ away from zero prove (6). All logarithmic derivatives $r_\ell'/r_\ell$ are bounded.
+
+For positive $\theta$, every factor in (3) has positive real part. At zero it is $\theta$ times a smooth nonzero function, with limit
+
+$$
+\kappa_\ell+i
+=2\sin\left(\frac{\pi\ell}{2m}\right)e^{i\pi\ell/(2m)}.
+$$
+
+Thus each argument extends smoothly and its limiting value is $\pi\ell/(2m)$. Summing proves the first value in (7). The multiset of stable roots is closed under conjugation; at $\theta=\pi$, the factors $1+r_\ell$ occur in conjugate pairs, with any real factor positive. Their principal arguments sum to zero. This proves the remaining statements. $\square$
+
+For $0<\theta<\pi$, define
+
+$$
+F_n(\theta)=(n+1)\theta-2\psi(\theta)=(n+2)\theta-\eta(\theta).
+\tag{9}
+$$
+
+**Lemma 3.** There are real smooth functions $E_n$ on ((0,\pi]) such that (g(\theta)) is an eigenvalue of (A_n) precisely when
+
+$$
+\sin F_n(\theta)+E_n(\theta)=0\qquad(0<\theta<\pi).
+\tag{10}
+$$
+
+For constants $C,c>0$ depending only on $m$,
+
+$$
+|E_n(\theta)|\le C e^{-cn\theta},\qquad
+|E_n'(\theta)|\le C(n+1)e^{-cn\theta}.
+\tag{11}
+$$
+
+Moreover $E_n(\pi)=0$, and therefore
+
+$$
+|E_n(\theta)|\le C(n+1)(\pi-\theta)e^{-cn\pi/2}
+\qquad(\pi/2\le\theta\le\pi).
+\tag{12}
+$$
+
+*Proof.* The Laurent polynomial $g$ is $(2-z-z^{-1})^m$. At the spectral parameter $g(\theta)$, its $2m$ distinct characteristic roots are
+
+$$
+\mathcal Z=(r_1,\ldots,r_{m-1},z,z^{-1},q_1,\ldots,q_{m-1}),\qquad
+z=e^{i\theta},\quad q_\ell=r_\ell^{-1}.
+$$
+
+An eigenvector is a solution of the corresponding order-$2m$ recurrence, with ghost values zero at $1-m,\ldots,0,n+1,\ldots,n+m$. Shifting these indices by $m-1$, its boundary determinant is
+
+$$
+D_n(\theta)=\det\begin{pmatrix}
+ (w^k)_{0\le k\le m-1,\ w\in\mathcal Z}\\
+ (w^{n+m+k})_{0\le k\le m-1,\ w\in\mathcal Z}
+\end{pmatrix}.
+\tag{13}
+$$
+
+The ghost-value criterion is equivalent to the finite eigenvalue equation. Indeed, the characteristic roots form a basis for recurrence solutions. A solution vanishing both in the interior and at the ghost values has at least $2m$ consecutive zeros and is identically zero. Hence the kernels of the boundary matrix and the eigenvalue matrix have equal dimensions.
+
+For an ordered root list $U$, put $V(U)=\prod_{a<b}(U_b-U_a)$. Laplace expansion in the bottom $m$ rows gives
+
+$$
+D_n=\sum_{|S|=m}\sigma_S V(S)V(S^c)
+             \left(\prod_{w\in S}w\right)^{n+m},\qquad \sigma_S\in\{-1,1\},
+\tag{14}
+$$
+
+with each sublist in the inherited order. Write $R=(r_1,\ldots,r_{m-1})$, $O=(q_1,\ldots,q_{m-1})$,
+
+$$
+Q=\prod_{\ell=1}^{m-1}q_\ell>0,\qquad
+f=\prod_{\ell=1}^{m-1}(1-r_\ell z^{-1})=|f|e^{i\psi}.
+$$
+
+Exactly two subsets have maximal product modulus $Q$: $S_+=\{z\}\cup O$ and $S_-=\{z^{-1}\}\cup O$. Their signs are opposite. For some sign $\sigma$, their coefficient products are
+
+$$
+\sigma V(R)V(O)Q z^{-(m-1)}\overline f^{2},\qquad
+-\sigma V(R)V(O)Q z^{m-1}f^2.
+\tag{15}
+$$
+
+For example, this follows by multiplying $V(z,O)=V(O)\prod(q_\ell-z)$ and $V(R,z^{-1})=V(R)\prod(z^{-1}-r_\ell)$. Their contribution to (14) is consequently
+
+$$
+\mathcal N_n(\theta)\sin F_n(\theta),\qquad
+\mathcal N_n=2i\sigma V(R)V(O)Q^{n+m+1}|f|^2.
+\tag{16}
+$$
+
+This normalizer is nonzero for $0<\theta\le\pi$. Every other subset has
+
+$$
+\left|b_S(\theta)\right|:=\left|\frac{\prod_{w\in S}w}{Q}\right|
+\le \max_\ell|r_\ell(\theta)|\le e^{-c\theta}.
+\tag{17}
+$$
+
+To see the first inequality, if a subset has both oscillatory roots, it omits at least one exterior root; if it has neither, it contains at least one interior root; and if it has exactly one, it replaces at least one exterior root by an interior root. Each replacement only decreases the modulus further.
+
+Divide every remaining term of (14) by (16). This expresses $E_n$ as a finite sum
+
+$$
+E_n(\theta)=\sum_{S\ne S_+,S_-}a_S(\theta)b_S(\theta)^{n+m},
+\qquad
+a_S=\frac{\sigma_S V(S)V(S^c)}{2i\sigma V(R)V(O)Q|f|^2}.
+\tag{18}
+$$
+
+All $a_S$ and their first derivatives are bounded on $[0,\pi]$. At zero, every pairwise root difference has a simple zero: the $2m$ first derivatives of the roots are the distinct numbers $-\kappa_\ell,\kappa_\ell,i,-i$. Thus both the numerator and denominator of $a_S$ vanish to exactly order $m(m-1)$, with nonzero leading coefficients. Their quotient extends smoothly. At $\pi$, the denominator has no zero: the interior roots and the exterior roots are separately distinct, and $f\ne0$. Some numerators vanish there because $z=z^{-1}$, which causes no singularity.
+
+Every $b_S$ is smooth, nonzero, and has bounded logarithmic derivative. Differentiating (18) and using (17) proves (11), after changing constants. The quotient $D_n/\mathcal N_n$ is real for real $\theta$: conjugation permutes the two oscillatory roots, and permutes the interior and exterior lists by the same permutation. Hence $\overline D_n=-D_n$, while $V(R)V(O)$, $Q$, and $|f|^2$ are real, so $\overline{\mathcal N_n}=-\mathcal N_n$. This proves that $E_n$ is real.
+
+At $\pi$, the two oscillatory columns in (13) coincide, so $D_n(\pi)=0$, whereas $\mathcal N_n(\pi)\ne0$ and $\sin F_n(\pi)=\sin((n+1)\pi)=0$. Therefore $E_n(\pi)=0$. Integrating the derivative bound over $[\theta,\pi]$ proves (12). $\square$
+
+## 3. Root indexing and a uniform exponentially small phase error
+
+All eigenvalues of $A_n$ lie strictly between (0) and $4^m$. For nonzero $v$, its quadratic form is the integral of $g$ times the squared modulus of a nonzero trigonometric polynomial; both $g$ and $4^m-g$ are positive almost everywhere. Hence there are exactly $n$ eigenangles in $(0,\pi)$, counted with multiplicity.
+
+**Lemma 4.** There is an integer $J\ge1$, depending only on $m$, such that for all sufficiently large $n$ and all $J\le j\le n$, the $j$-th eigenangle $\theta_{n,j}=g^{-1}(\lambda_{n,j})$ is simple and satisfies
+
+$$
+|\theta_{n,j}-Y(x_{n,j},h)|\le \frac{C e^{-cj}}{n+2},\qquad
+0<\theta_{n,j},Y(x_{n,j},h)\le C\frac{j}{n+2}.
+\tag{19}
+$$
+
+*Proof.* Boundedness of $\eta'$ gives, for large $n$,
+
+$$
+\frac{n+2}{2}\le F_n'(\theta)\le2(n+2),\qquad
+F_n(0)=-\frac{(m-1)\pi}{2},\quad F_n(\pi)=(n+1)\pi.
+\tag{20}
+$$
+
+Let $I_{n,k}$ be the interval on which $|F_n(\theta)-k\pi|\le\pi/4$, for $J\le k\le n$. Choose $J$ large enough. On the whole range $F_n\ge J\pi-\pi/4$, boundedness of $\eta$ implies $n\theta\ge c_1J-C_1$. Thus (11) makes $|E_n|<1/4$ and $|E_n'|<(n+2)/8$ throughout this range, uniformly for all sufficiently large $n$.
+
+At the two endpoints of $I_{n,k}$, the sine has opposite signs and magnitude $1/\sqrt2$. On $I_{n,k}$, its derivative has constant sign and magnitude at least $(n+2)/(2\sqrt2)$, so the derivative of (10)'s left side has that same sign. There is exactly one root in each $I_{n,k}$, and it is a simple zero of the determinant. The corresponding eigenspace has dimension one: otherwise the boundary matrix in (13) would have nullity at least two, making its determinant derivative zero. Since $A_n$ is symmetric, this eigenvalue also has algebraic multiplicity one.
+
+Between these intervals, and below the final interval $|F_n-(n+1)\pi|\le\pi/4$, the magnitude of the sine is at least $1/\sqrt2$; there are no roots there. The final interval needs a different argument because $\theta=\pi$ is an artificial determinant root. There, $\theta\ge\pi/2$ for large $n$, and (20) and the elementary lower bound for sine give
+
+$$
+|\sin F_n(\theta)|\ge c_2(n+2)(\pi-\theta).
+$$
+
+Equation (12) is strictly smaller for every $\theta<\pi$, once $n$ is large. Thus there is no eigenangle in this final interval.
+
+We have found exactly one simple eigenangle in each interval $I_{n,k}$, $k=J,\ldots,n$, and none between or above them. Counting downwards from the largest eigenvalue therefore identifies the root in $I_{n,k}$ as precisely the $k$-th eigenangle; no assertion about the roots below this range was needed.
+
+At that root, (11) and $|F_n-j\pi|\le\pi/4$ imply
+
+$$
+|F_n(\theta_{n,j})-j\pi|\le C e^{-cn\theta_{n,j}}\le C e^{-c'j}.
+$$
+
+Here $n\theta_{n,j}\ge c_3j-C_3$, by boundedness of $\eta$. The exact root $F_n(y)=j\pi$ is $y=Y(x_{n,j},h)$. Applying (20) proves the first bound in (19). The upper bounds follow from $F_n=(n+2)\theta-\eta(\theta)$, boundedness of $\eta$, and $j\ge J$. $\square$
+
+We also require elementary estimates covering the few remaining eigenvalues. Let $N=n+2m$, and let $C_N$ be the circulant matrix with eigenvalues $g(2\pi\ell/N)$, $0\le\ell<N$. Its leading $n\times n$ principal submatrix is $A_n$, because no Fourier coefficient of bandwidth $m$ wraps into that block. Its increasingly ordered eigenvalues are
+
+$$
+\mu_{N,j}=g\left(\frac{2\pi\lfloor j/2\rfloor}{N}\right),\qquad 1\le j\le N.
+$$
+
+Cauchy interlacing gives
+
+$$
+\mu_{N,j}\le\lambda_{n,j}\le\mu_{N,j+2m}.
+\tag{21}
+$$
+
+Consequently $\lambda_{n,j}\le C_m(j+2m)^{2m}n^{-2m}$. Also, for $j\ge2$, using $2\sin(t/2)\ge2t/\pi$ on $[0,\pi]$,
+
+$$
+\lambda_{n,j}\ge\left(\frac{4\lfloor j/2\rfloor}{n+2m}\right)^{2m}
+\ge\left(\frac{4j}{3(n+2m)}\right)^{2m}.
+\tag{22}
+$$
+
+## 4. The expansions through the claimed threshold
+
+The implicit function theorem applied uniformly on the compact interval in (4) gives smooth $Y$, so for any fixed $p$,
+
+$$
+g(Y(x,h))=\sum_{k=0}^p d_k(x)h^k+O(h^{p+1})
+\tag{23}
+$$
+
+uniformly in $x\in[0,\pi]$. Since $g$ vanishes to order $2m$ at zero, repeated differentiation in $h$ shows
+
+$$
+d_k(x)=O(x^{2m-k})\quad(0\le k\le2m),\qquad d_0=g.
+\tag{24}
+$$
+
+Indeed, every term in the $k$-th derivative is a bounded smooth factor times $g^{(s)}(x)$ for $s\le k$, and $g^{(s)}(x)=O(x^{2m-s})$. For $k=0$ the same conclusion is immediate.
+
+For $j\ge J$, the mean value theorem, $g'(\theta)=O(\theta^{2m-1})$, and (19) yield
+
+$$
+|\lambda_{n,j}-g(Y(x_{n,j},h))|
+\le C h^{2m}j^{2m-1}e^{-cj}\le C h^{2m}.
+\tag{25}
+$$
+
+For $j<J$, (21) gives $\lambda_{n,j}=O(h^{2m})$, and (24) gives $\sum_{k=0}^{2m-1}d_k(x_{n,j})h^k=O(h^{2m})$, uniformly over this fixed finite set. Combining these observations with (23) at $p=2m-1$ proves (1) at that order for every $j$. Subtracting the omitted terms, whose coefficients are bounded on $[0,\pi]$, proves every lower order in (1), with the same $d_k$.
+
+If $j\ge\lceil(\log(n+2))^2\rceil$, the first bound in (25) is $O(h^{2m+1})$: exponential decay beats the displayed polynomial uniformly in that range. Equation (23) with $p=2m$ now proves Part 2 of the target.
+
+## 5. A trace obstruction to extending order $2m$ to the lowest indices
+
+We use a classical inverse-kernel limit, rather than an unproved formula for each extreme eigenvalue. For $A_n=T_n(|1-z|^{2m})$, the known limit is
+
+$$
+n^{1-2m}(A_n^{-1})_{\lceil nx\rceil,\lceil ny\rceil}\longrightarrow G_m(x,y)
+\quad\hbox{in }L^\infty([0,1]^2),
+\tag{26}
+$$
+
+with endpoint indices interpreted in $\{1,\ldots,n\}$. The continuous Green kernel is that of $(-1)^m d^{2m}/dx^{2m}$ with derivatives of orders $0,\ldots,m-1$ vanishing at both endpoints. The precise input (26), including the explicit kernel, is recorded in Böttcher–Widom [BW], §2, pp. 3–4, in the paragraph preceding (13); its formula (5) gives, when $x+y\ge1$,
+
+$$
+G_m(x,y)=\frac{x^m y^m}{((m-1)!)^2}
+\int_{\max(x,y)}^1\frac{(t-x)^{m-1}(t-y)^{m-1}}{t^{2m}}\,dt.
+\tag{27}
+$$
+
+The kernel is invariant under $(x,y)\mapsto(1-x,1-y)$. Substituting $u=1-x/t$ in (27) at $y=x\ge1/2$, and then using this symmetry, gives on all of $[0,1]$
+
+$$
+G_m(x,x)=\frac{x^{2m-1}(1-x)^{2m-1}}{(2m-1)((m-1)!)^2}.
+\tag{28}
+$$
+
+The essential-uniform convergence in (26) also controls the diagonal: the approximating kernel is constant on each grid square, and continuity of $G_m$ bounds the difference between an interior point of such a square and its diagonal. Thus integrating the diagonal yields
+
+$$
+\lim_{n\to\infty}(n+2)^{-2m}\operatorname{tr}(A_n^{-1})
+=\int_0^1G_m(x,x)\,dx
+=\frac{((2m-1)!)^2}{(4m-1)!(2m-1)((m-1)!)^2}
+\in\mathbb Q.
+\tag{29}
+$$
+
+Suppose, contrary to Part 3, that the estimate of order $2m$ were uniform for every $j$. For each fixed $j$, (23) then gives
+
+$$
+\lambda_{n,j}=g(Y(\pi jh,h))+O(h^{2m+1}).
+$$
+
+From (4) and (7), $Y(\pi jh,h)/h\to\pi j+(m-1)\pi/2$. Hence, writing $a=(m-1)/2$,
+
+$$
+h^{-2m}\lambda_{n,j}\longrightarrow \pi^{2m}(j+a)^{2m}.
+\tag{30}
+$$
+
+The inverse terms $h^{2m}/\lambda_{n,j}$, extended as zero for $j>n$, are bounded by $C_m j^{-2m}$ for $j\ge2$, by (22). The $j=1$ term is eventually bounded by (30). Dominated convergence for the counting measure therefore gives a second value for (29):
+
+$$
+\lim_{n\to\infty}h^{2m}\operatorname{tr}(A_n^{-1})
+=\pi^{-2m}\sum_{j=1}^{\infty}(j+a)^{-2m}.
+\tag{31}
+$$
+
+This number is not rational. If $m=2r+1\ge3$, the sum before multiplication by $\pi^{-2m}$ is
+
+$$
+\zeta(2m)-\sum_{\ell=1}^{r}\ell^{-2m}.
+\tag{32}
+$$
+
+If $m=2r\ge4$, it is
+
+$$
+(2^{2m}-1)\zeta(2m)-\sum_{\ell=0}^{r-1}(\ell+1/2)^{-2m}.
+\tag{33}
+$$
+
+Euler's formula makes $\zeta(2m)/\pi^{2m}$ rational. In both (32) and (33), the subtracted finite sum is a nonzero positive rational number. Thus (31) has the form $u-v/\pi^{2m}$, where $u,v\in\mathbb Q$ and $v>0$. Transcendence of $\pi$ implies this is irrational. This contradicts (29), proving Part 3 and completing Theorem 1. $\square$
+
+The contradiction does not rely on an interchange of a merely pointwise spectral limit without domination; the uniform tail majorant was supplied explicitly by (22). It also does not infer a general-$m$ statement from the $m=2$ or $m=3$ cases.
+
+## 6. Sources, attribution, and verification scope
+
+The target is Conjecture 8.4 of Barrera, Böttcher, Grudsky, and Maximenko [BBGM], p. 26. Their Theorem 1.2 establishes the analogous $m=2$ threshold. The later seven-diagonal work [BGSV] treats $m=3$; the 2026 survey [B26], section “Beyond the simple-loop class,” distinguishes these results from broader local expansions. These contributions retain their original attribution.
+
+The only substantive external Toeplitz theorem used above is the established uniform inverse-kernel limit (26), with the kernel formula (27). The determinant argument and its error estimates, endpoint counting, all-order Taylor construction, and trace contradiction are proved here. Cauchy interlacing, the finite-dimensional implicit function theorem, Euler's even-zeta formula, and transcendence of $\pi$ are standard mathematical inputs. No numerical calculation is a premise of the proof.
+
+This is a proposed full resolution pending independent review. The initial bounded source search checked the original conjecture, the seven-diagonal preprint, the 2026 survey, and targeted later-work searches; it found no full resolution of the three parts for every $m\ge3$. That bounded search is not a proof of openness. The coordinating agent will perform the separate public branch/fork eligibility check before any submission. This private note makes no claim of formal verification, peer review, or priority certification.
+
+**[BBGM]** M. Barrera, A. Böttcher, S. M. Grudsky, and E. A. Maximenko, *Eigenvalues of even very nice Toeplitz matrices can be unexpectedly erratic*, Operator Theory: Advances and Applications 268 (2018), 51–77. [arXiv:1710.05243](https://arxiv.org/abs/1710.05243), Conjecture 8.4 and Theorem 1.2; [DOI](https://doi.org/10.1007/978-3-319-75996-8_2).
+
+**[BW]** A. Böttcher and H. Widom, *From Toeplitz eigenvalues through Green's kernels to higher-order Wirtinger–Sobolev inequalities*, Operator Theory: Advances and Applications 171 (2006), 73–87. [arXiv:math/0412269](https://arxiv.org/abs/math/0412269), formula (5), §2 paragraph preceding (13), and (13); [DOI](https://doi.org/10.1007/978-3-7643-7980-3_4).
+
+**[BGSV]** M. Barrera, S. Grudsky, V. Stukopin, and I. Voronin, *Asymptotics of the eigenvalues of seven-diagonal Toeplitz matrices of a special form*, Advances in Operator Theory 9 (2024), 79. [arXiv:2111.07196](https://arxiv.org/abs/2111.07196), Theorems 2.3–2.6; [DOI](https://doi.org/10.1007/s43036-024-00374-1).
+
+**[B26]** A. Böttcher, *Ten years with Sergei Grudsky in the eigenvalue bulk of Toeplitz matrices*, Journal of Mathematical Sciences 298 (2026), 363–376. [DOI](https://doi.org/10.1007/s10958-025-07833-x), section “Beyond the simple-loop class.”

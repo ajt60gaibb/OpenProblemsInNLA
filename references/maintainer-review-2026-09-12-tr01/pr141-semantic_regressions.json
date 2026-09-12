@@ -1,0 +1,100 @@
+[
+  {
+    "name": "old_selected_width_rejected",
+    "source": "import Problem56.PaperV7.Certification\nimport Problem56.TargetBoundary\n#check_public_type Problem56.main_universal_ose : Problem56.PaperV7.Reference.MainPrescribedWidthExpected\n",
+    "command": [
+      "lake",
+      "env",
+      "lean",
+      "/var/folders/yr/766r3vcd65n38k3xsp24d0xm0000gq/T/v7-semantic-h6fbejjj/Case.lean"
+    ],
+    "returncode": 1,
+    "expected": "type rejection",
+    "output": "/var/folders/yr/766r3vcd65n38k3xsp24d0xm0000gq/T/v7-semantic-h6fbejjj/Case.lean:3:19: error: public type differs from frozen target\n",
+    "pass": true
+  },
+  {
+    "name": "old_half_density_transfer_rejected",
+    "source": "import Problem56.PaperV7.Certification\nimport Problem56.TargetBoundary\nexample : Problem56.PaperV7.Reference.SpectralTransferExpected := @Problem56.two_projection_spectral_transfer\n",
+    "command": [
+      "lake",
+      "env",
+      "lean",
+      "/var/folders/yr/766r3vcd65n38k3xsp24d0xm0000gq/T/v7-semantic-h6fbejjj/Case.lean"
+    ],
+    "returncode": 1,
+    "expected": "type rejection",
+    "output": "/var/folders/yr/766r3vcd65n38k3xsp24d0xm0000gq/T/v7-semantic-h6fbejjj/Case.lean:3:66: error: Type mismatch\n  @Problem56.two_projection_spectral_transfer\nhas type\n  \u2200 {\u03b1 : Type ?u.3} [inst : Fintype \u03b1] [inst_1 : DecidableEq \u03b1] {r p : \u2115} (X : Matrix \u03b1 (Fin r) \u211d) (E : Matrix \u03b1 \u03b1 \u211d),\n    Problem56.OrthonormalFrame X \u2192\n      Problem56.IsOrthogonalProjection E \u2192\n        \u2200 (\u03b4 \u03b8 : \u211d),\n          1 \u2264 p \u2192\n            0 < \u03b4 \u2227 \u03b4 \u2264 1 / 2 \u2192\n              0 < \u03b8 \u2227 \u03b8 \u2264 1 / 2 \u2192\n                have A := (X * X.transpose - \u03b4 \u2022 1) * (E - \u03b8 \u2022 1);\n                have a2 := \u03b4 * (1 - \u03b4) * \u03b8 * (1 - \u03b8);\n                (A ^ (2 * p)).trace \u2265 -2 * \u2191r * a2 ^ p \u2227\n                  \u2200 (\u03b7 : \u211d),\n                    0 < \u03b7 \u2192\n                      \u03b7 < 1 \u2192\n                        \u03b4 \u2264 \u03b8 * \u03b7 ^ 2 / 64 \u2192\n                          (if Problem56.euclideanOperatorNorm (\u03b8\u207b\u00b9 \u2022 (X.transpose * E * X) - 1) > \u03b7 then\n                              (\u03b8 * \u03b7 / 2) ^ (2 * p)\n                            else 0) \u2264\n                            (A ^ (2 * p)).trace + 2 * \u2191r * a2 ^ p\nbut is expected to have type\n  Problem56.PaperV7.Reference.SpectralTransferExpected\n",
+    "pass": true
+  },
+  {
+    "name": "old_half_density_trace_rejected",
+    "source": "import Problem56.PaperV7.Certification\nimport Problem56.TargetBoundary\nexample : Problem56.PaperV7.Reference.SignedTraceExpected := @Problem56.signed_trace_proposition\n",
+    "command": [
+      "lake",
+      "env",
+      "lean",
+      "/var/folders/yr/766r3vcd65n38k3xsp24d0xm0000gq/T/v7-semantic-h6fbejjj/Case.lean"
+    ],
+    "returncode": 1,
+    "expected": "type rejection",
+    "output": "/var/folders/yr/766r3vcd65n38k3xsp24d0xm0000gq/T/v7-semantic-h6fbejjj/Case.lean:3:61: error: Type mismatch\n  @Problem56.signed_trace_proposition\nhas type\n  \u2200 {m r p : \u2115} (V : Matrix (Problem56.WalshIndex m) (Fin r) \u211d),\n    Problem56.OrthonormalFrame V \u2192\n      \u2200 (\u03b8 : \u211d),\n        2 \u2264 p \u2192\n          0 < \u03b8 \u2227 \u03b8 \u2264 1 / 2 \u2192\n            \u2191r \u2264 \u2191(Problem56.walshCard m) * \u03b8 \u2192\n              2 * (4 * p + 1) ^ 1000 \u2264 r \u2192\n                |Problem56.signBernoulliExpectation \u03b8 fun d\u2081 d\u2082 e =>\n                      (((Problem56.randomProjection d\u2081 d\u2082 V - (\u2191r / \u2191(Problem56.walshCard m)) \u2022 1) *\n                            (Problem56.bernoulliProjection e - \u03b8 \u2022 1)) ^\n                          (2 * p)).trace| \u2264\n                  \u2191Problem56.K\u2080 ^ p * (\u2191r / \u2191(Problem56.walshCard m) * \u03b8) ^ p\nbut is expected to have type\n  Problem56.PaperV7.Reference.SignedTraceExpected\n",
+    "pass": true
+  },
+  {
+    "name": "old_selected_small_rank_tail_rejected",
+    "source": "import Problem56.PaperV7.Certification\nimport Problem56.TargetBoundary\nexample : Problem56.PaperV7.Reference.SmallRankExpected := @Problem56.small_rank_second_moment\n",
+    "command": [
+      "lake",
+      "env",
+      "lean",
+      "/var/folders/yr/766r3vcd65n38k3xsp24d0xm0000gq/T/v7-semantic-h6fbejjj/Case.lean"
+    ],
+    "returncode": 1,
+    "expected": "type rejection",
+    "output": "/var/folders/yr/766r3vcd65n38k3xsp24d0xm0000gq/T/v7-semantic-h6fbejjj/Case.lean:3:59: error: Type mismatch\n  @Problem56.small_rank_second_moment\nhas type\n  \u2200 {m r k : \u2115} (V : Matrix (Problem56.WalshIndex m) (Fin r) \u211d),\n    Problem56.OrthonormalFrame V \u2192\n      1 \u2264 k \u2227 k \u2264 Problem56.walshCard m \u2192\n        (Problem56.uniformExpectation fun sample =>\n              Problem56.frobeniusNormSq\n                (Problem56.fixedSampleGram (Problem56.transformedFrame sample.1 sample.2.1 V) sample.2.2 - 1)) \u2264\n            \u2191r * (\u2191r + 1) / \u2191k \u2227\n          \u2200 (\u03b5 : \u211d),\n            0 < \u03b5 \u2192\n              \u03b5 < 1 \u2192\n                1 \u2264 r \u2192\n                  r \u2264 Problem56.walshCard m \u2192\n                    have k\u2080 := (Problem56.walshCard m).min \u2308200 * \u2191r ^ 2 / \u03b5 ^ 2\u2309\u208a;\n                    Problem56.frameFailureProbability \u03b5 V \u2264 1 / 100\nbut is expected to have type\n  Problem56.PaperV7.Reference.SmallRankExpected\n",
+    "pass": true
+  },
+  {
+    "name": "wrong_main_constant_rejected",
+    "source": "import Problem56.PaperV7.Certification\nimport Problem56.TargetBoundary\n#check_public_type Problem56.PaperV7.certified_main : False\n",
+    "command": [
+      "lake",
+      "env",
+      "lean",
+      "/var/folders/yr/766r3vcd65n38k3xsp24d0xm0000gq/T/v7-semantic-h6fbejjj/Case.lean"
+    ],
+    "returncode": 1,
+    "expected": "type rejection",
+    "output": "/var/folders/yr/766r3vcd65n38k3xsp24d0xm0000gq/T/v7-semantic-h6fbejjj/Case.lean:3:19: error: public type differs from frozen target\n",
+    "pass": true
+  },
+  {
+    "name": "current_exact_boundary",
+    "source": "import Problem56.PaperV7.Certification\nimport Problem56.TargetBoundary\n#check_public_type Problem56.PaperV7.certified_main : Problem56.PaperV7.Reference.MainPrescribedWidthExpected\n#check_public_type Problem56.PaperV7.certified_sampling : Problem56.PaperV7.Reference.GeneralSamplingExpected\n",
+    "command": [
+      "lake",
+      "env",
+      "lean",
+      "/var/folders/yr/766r3vcd65n38k3xsp24d0xm0000gq/T/v7-semantic-h6fbejjj/Case.lean"
+    ],
+    "returncode": 0,
+    "expected": "success",
+    "output": "",
+    "pass": true
+  },
+  {
+    "name": "full_sample_endpoint_and_epsilon_extension",
+    "source": "import Problem56.PaperV7.Certification\nimport Problem56.TargetBoundary\nopen Problem56 Problem56.PaperV7\nexample (V : Matrix (WalshIndex 0) (Fin 1) \u211d) (hV : OrthonormalFrame V) :\n    frameFailureProbability (k := walshCard 0) (3/4) V = 0 :=\n  frameFailureProbability_full_sample V hV _ (by norm_num)\nexample {m r k : \u2115} (V : Matrix (WalshIndex m) (Fin r) \u211d)\n    (hV : OrthonormalFrame V) (hk : 1 \u2264 k \u2227 k \u2264 walshCard m) :\n    frameFailureProbability (k := k) 2 V \u2264 (r : \u211d) * (r+1) / ((k : \u211d)*2^2) :=\n  small_rank_failure_bound V hV hk 2 (by norm_num)\n",
+    "command": [
+      "lake",
+      "env",
+      "lean",
+      "/var/folders/yr/766r3vcd65n38k3xsp24d0xm0000gq/T/v7-semantic-h6fbejjj/Case.lean"
+    ],
+    "returncode": 0,
+    "expected": "success",
+    "output": "",
+    "pass": true
+  }
+]

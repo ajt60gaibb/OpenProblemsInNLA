@@ -48,7 +48,7 @@ Evidence: `/private/tmp/nla-review-inequalities/pr141-source/` and `/private/tmp
 
 ## Corrected artifact addendum
 
-Reviewed the parent's uncommitted repairs on branch head `2c7655f234bbb3b3134133ebae34eb479e9469e1`; the hashes below, rather than the unchanged branch HEAD alone, identify the corrected snapshot. All three corrected canonical PDF pages were rendered to scratch and inspected in full. There is no clipping, overlap, broken glyph, or illegible expression. The axiom list continues onto page 3; its continuation is clear. All 28 Markdown math expressions match TeX in order, ignoring whitespace only. Extracted PDF text has zero replacement characters and zero out-of-bounds characters.
+Reviewed the parent's final staged corrections on integration branch head `9e6bff5711603467878e8a74f525a7d53d635cbd`; the hashes below, rather than HEAD alone, identify the corrected snapshot. This refresh supersedes the earlier three-page render with PDF hash `646231648d987ebb85c82ec2ddd61853b461a8749da481ad8688edc16a2c959b`. All three final canonical PDF pages were rendered to scratch and inspected in full. There is no clipping, overlap, broken glyph, or illegible expression. The axiom list follows its introduction on page 3; the continuation is clear. All 28 Markdown math expressions match TeX in order, ignoring whitespace only. Extracted PDF text has zero replacement characters and zero out-of-bounds characters.
 
 The original problem and references blocks remain byte-identical to the reviewed main snapshot. Both historical audit paragraphs are retained. The basis matrix is now explicitly orthonormal and appears consistently as `U` in the canonical and RESOLVED Gram expressions. Author attribution is present. The cold-build failure and successful recovery now have separate accurately labeled immutable links. The external PDF disclosure caveat is present and legible. The new catalog-review paragraph clearly attributes the informal reviews to Codex agents and defers exact executed Lean checks to the dedicated audit.
 
@@ -56,9 +56,11 @@ Of 35 corrected link occurrences, all 17 immutable public proof links bind to ex
 
 | Corrected artifact | SHA-256 |
 | --- | --- |
-| README.md | `8ba2a5fbf9935787b5171a5945715bc795e6f50b3cd1783661448cb24c464122` |
-| problem.tex | `10ae690b9ee4bd31c6d2cc46095cea203ef0a3c76d9f5dc80c329855ba7c5555` |
-| problem.pdf | `646231648d987ebb85c82ec2ddd61853b461a8749da481ad8688edc16a2c959b` |
-| RESOLVED.md | `3a6bdf2b1ec8c6413ef247f0d9df8cbc3232f53e81e8df26bb9b09a606c3f5c8` |
+| README.md | `b6788ea2e8d4d89b7c653bbeb269e74c1ef1e99e99ddd27dd8f7b724b1186705` |
+| problem.tex | `68bfce33579403cdf18f9e420c8e5c74767b4235f4d8af1d519005b3eb0aca56` |
+| problem.pdf | `e78c846f0ef58de4b5409d135d9641849ad1a9f3ed18ada17e2d3cefa2182229` |
+| RESOLVED.md | `be6456a24344eacb86c81975b8a69b75907e6bd30c6bf03e8949e596ba8c172d` |
 
-Corrected snapshot, three renders, text, and `checks.json` are in `/private/tmp/nla-review-inequalities/pr141-corrected/`. Checker: `/private/tmp/nla-review-inequalities/check_pr141_corrected.py`. Only scratch files were written. Any later canonical text or PDF modification requires updating this artifact binding. The formal auditor has separately flagged a possible missing prerequisite build for the optional graph command; that reproduction issue belongs to its verification findings and may require a further documentation update.
+Corrected snapshot, three renders, text, and `checks.json` are in `/private/tmp/nla-review-inequalities/pr141-corrected/`. Checker: `/private/tmp/nla-review-inequalities/check_pr141_corrected.py`. Only scratch files were written. Any later canonical text or PDF modification requires updating this artifact binding. The RESOLVED hash identifies the integrated file snapshot; this audit concerns its TR-01 section rather than every unrelated resolution.
+
+The final recipe now includes `lake build Problem56.PaperV6.AuditTools` before the advanced verifier command and explains why `--graph` needs this helper on a clean checkout. Both the command and its explanation are present and legible on PDF page 2. The parent reports the dedicated Lean auditor reproduced the missing-module failure and confirmed the helper build fixes it; this packaging audit verifies accurate inclusion, without claiming to have independently rerun Lean. Cold-build, literal-endpoint, and allowed-axiom results are owned by that audit; fresh graph/kernel results and its catalog report remain separate publication prerequisites.

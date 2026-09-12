@@ -7,10 +7,22 @@
 **Topic:** Inverse determination from complete pseudospectral data  
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-11
+**Status:** Solved
+**Last checked:** 2026-09-12
 
 **Rating rationale:** Generic finiteness follows from invariant theory, but the exceptional fibers resist that argument; the question measures how much complete pseudospectral data can identify a nonnormal matrix.
+
+## Negative resolution - George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved negatively, 12 September 2026 (UTC).** The [Theorem and Sections 1-4 of the complete proof](solution.md) establish a continuous family of complex $9\times9$ matrices with the same singular values of every complex scalar shift, with no two distinct family members unitarily similar. Each matrix has nilpotent Jordan type $(3,3,3)$. Thus no finite $M_9$ exists, refuting the universal finiteness statement below. This does not assert a classification of the remaining dimensions.
+
+[Proof PDF](solution.pdf) · [Standalone proof TeX](solution.tex) · [Independent mathematical review](../../references/stepaniants-sp15-2026-09-12/verification/independent-review-aa01/review.md) · [Submission and eligibility record](../../references/stepaniants-sp15-2026-09-12/README.md).
+
+The full proof passed a separate independent Codex-agent audit. Substantial AI assistance is disclosed; this is informal automated review, not external human peer review or Lean verification. The proof uses an exact block determinant identity and a polynomial dimension argument, with the standard constant-rank theorem. Its finite diagnostic checks are not the proof. Fortier Bourque and Ransford retain credit for the question and generic finiteness theorem, which is compatible with this exceptional fiber.
+
+**Retained historical material.** The original ratings, context, exact target, references and dated pre-resolution status-search text are preserved below. The earlier generic result is unchanged; the older references to an unresolved question describe the pre-resolution record.
 
 ## Context and notation
 
