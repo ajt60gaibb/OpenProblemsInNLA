@@ -21,6 +21,14 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### ✅ MF-06 - pointwise Lipschitz lower stability of the joint spectral radius - George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Affirmative resolution recorded 2026-09-12 (UTC).** [Theorem (1), Lemmas 1-5 and Section 6](matrix-functions-and-stability/MF-06/solution.md) prove the full lower-Lipschitz perturbation bound for every fixed nonempty compact complex matrix family in all dimensions. The maximal critical exterior-power reduction handles reducible reference families with unbounded normalized products; the perturbing family may be arbitrary. [Proof PDF](matrix-functions-and-stability/MF-06/solution.pdf) · [Retained canonical target](matrix-functions-and-stability/MF-06/README.md).
+
+The full clarified argument passed a separate [independent Codex-agent mathematical audit](references/stepaniants-mf06-2026-09-12/REVIEW.md). Substantial AI assistance is disclosed; this is informal agent review, not human peer review or formal verification. Epperlein and Wirth retain target attribution, and Barabanov/Wirth extremal norms and Chitour-Mason-Sigalotti nonresonance theory retain credit. The constants depend on the fixed reference family; a two-sided Lipschitz bound uniform over two varying families is not asserted. [Submission record and eligibility audit](references/stepaniants-mf06-2026-09-12/README.md).
+
 ### ✅ IE-05 - the orthogonal partial-pivoting extremizer equality is false - George Stepaniants
 
 **Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
