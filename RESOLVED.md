@@ -21,6 +21,14 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### ✅ RA-19 - the one-zero corank-one critical-point count - George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved affirmatively, 2026-09-11.** The [Theorem and Sections 1-5](randomized-and-low-rank-approximation/RA-19/solution.md) prove $\operatorname{EDdeg}(V_n)=5n-7$ for every integer $n\ge3$ in the original complex bilinear smooth-locus model. The exact quadratic spectral curve and stationarity resultant give the degree; a generic critical-point bijection, reducedness argument and all-dimension exceptional-locus witness make it the number of distinct critical points. [Proof PDF](randomized-and-low-rank-approximation/RA-19/solution.pdf) · [Original canonical target](randomized-and-low-rank-approximation/RA-19/README.md).
+
+The complete argument passed a separate [independent Codex-agent review](references/stepaniants-ra19-2026-09-11/verification/independent-review/review.md), with reviewer-written universal polynomial checks, and a distinct coordinating audit. Substantial AI assistance and automated-review limitations are documented in the [submission record](references/stepaniants-ra19-2026-09-11/README.md). No external human peer review or formal certification is asserted. Kubjas, Sodomaco and Tsigaridas retain attribution for their conjecture and finite evidence. The permanent ID, full original statement, historical ratings and dimension-two scope correction remain unchanged.
+
 ### ✅ IE-05 - the orthogonal partial-pivoting extremizer equality is false - George Stepaniants
 
 **Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.

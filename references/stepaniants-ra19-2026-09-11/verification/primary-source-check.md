@@ -1,0 +1,9 @@
+# RA-19 primary-source scope check
+
+The original conjecture is Kubjas, Sodomaco and Tsigaridas, *Exact solutions in low-rank approximation with zeros*, Linear Algebra and its Applications 641 (2022), 67-97, DOI [10.1016/j.laa.2022.01.021](https://doi.org/10.1016/j.laa.2022.01.021). The [arXiv record](https://arxiv.org/abs/2010.15636) was checked and still identifies version 2, dated 29 January 2022, as the current author manuscript.
+
+Conjecture 5.1 and Table 2 on printed page 19 of [version 2](https://arxiv.org/pdf/2010.15636v2) concern general complex square matrices with a single prescribed zero and corank one. The source formula is 5(n-1)-2. Section 2, including printed page 4, uses the bilinear squared distance without complex conjugation and counts critical points on the smooth locus for generic data. The canonical target already explicitly restricts n to at least three, consistent with the first row in Table 2 and the exceptional reducible order-two variety.
+
+The discovery agent read the exact canonical page and source statement. The independent reviewer separately read and visually inspected printed pages 4 and 19. The coordinating agent also checked those conventions and the conjecture. These are separate source checks, not evidence of an external human review. The full author PDF was not republished in this submission; its exact privately inspected bytes have SHA-256 `d1eab00e8975a5b36adaea8456bc105622114a8a917d59c73190accc861d673c` (365,000 bytes).
+
+Targeted title, conjecture-number, single-zero, ED-degree and later-proof searches found no subsequent full proof during this bounded check. The source's finite orders 3-10 and the submission's supplementary finite examples are not premises of the all-dimension argument. The separate public branch/fork/discussion check is recorded in `network-check.json`.

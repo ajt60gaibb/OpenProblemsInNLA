@@ -96,6 +96,9 @@ def render(source):
         if identifier == "AA-01":
             # Keep the unchanged target together after both attributed proofs.
             tex = re.sub(r"\\(?:sub)*section\{Problem statement\}", lambda m: "\\newpage\n" + m[0], tex, count=1)
+        if identifier == "RA-19":
+            # Keep the complete retained target and its endpoint explanation together.
+            tex = tex.replace(r"\subsection{Statement}", "\\newpage\n" + r"\subsection{Statement}", 1)
         (source.parent / "problem.tex").write_text(tex)
         (work / "problem.tex").write_text(tex)
         for _ in range(2):
