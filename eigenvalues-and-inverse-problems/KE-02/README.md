@@ -7,10 +7,17 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Topic:** Hermitian eigenproblems; deterministic regularization  
-**Last checked:** 2026-09-10  
-**Status:** Open  
+**Last checked:** 2026-09-12  
+**Status:** Partially resolved  
 
 **Rating rationale:** Challenging reflects derandomizing eigenvalue separation within a nearly linear cost; community impact is deterministic preprocessing for Hermitian eigensolvers.
+
+## Partial result — 12 September 2026
+
+Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) gives two deterministic constructions in [Theorems A and B](../../references/holden-spectral-2026-09-12/KE-02/proof.md). Writing $`T=\mathrm{diag}(t_i)+R`$ and $`\eta=\max_i\sum_{j\ne i}|R_{ij}|`$, Theorem A covers $`\eta\le\delta/[2(n-1)]`$ with gap at least $`\delta/(n-1)`$ in $`O(n\log n)`$ operations. Theorem B covers every constant-diagonal tridiagonal input with equal off-diagonal magnitudes, allowing arbitrary complex phases and every coupling strength, with gap at least $`\delta/n^3\ge(\delta/n)^3`$ in $`O(n)`$ operations. Section 5 also covers every order-two input. Each construction returns a real diagonal perturbation of norm at most $`\delta`$ in the original arithmetic model.
+
+These subclasses passed an [independent informal Codex AI-agent audit](../../references/holden-spectral-2026-09-12/verification/KE-02-review.md). The all-dimensional Toeplitz starting class suggested in the workshop is included, supporting Partially resolved. Arbitrary normalized Hermitian tridiagonal inputs outside these classes remain open. [Submission and verified affiliation](../../references/holden-spectral-2026-09-12/README.md); no novelty, external human peer review or formal verification is claimed.
+
 
 ## Context and notation
 

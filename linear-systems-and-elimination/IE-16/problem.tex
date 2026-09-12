@@ -34,7 +34,7 @@ GMRES},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-16}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,23 +51,66 @@ sharp subset bound for worst-case normal GMRES\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+{\sffamily\small\bfseries\color{accent}Status: Solved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
-\textbf{Rating rationale:} Challenging reflects extending a discrete
-real approximation principle to complex spectra with a sharp constant;
-community impact concerns usable worst-case GMRES bounds for normal
-matrices.
+\textbf{Historical rating rationale:} Challenging reflects extending a
+discrete real approximation principle to complex spectra with a sharp
+constant; community impact concerns usable worst-case GMRES bounds for
+normal matrices.
+
+\subsection{Resolution: negative, 12 September
+2026}\label{resolution-negative-12-september-2026}
+
+\textbf{Author:} Sidney Holden, Center for Computational Biology,
+Flatiron Institute, Simons Foundation.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ie16-2026-09-12/README.md}{Verified
+affiliation and submission record}.
+
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-16/solution.pdf}{Theorem
+1.1, proved in Sections 2-3 of the manuscript} disproves the displayed
+universal inequality. With \(\omega=e^{2\pi i/3}\), take the nine
+distinct nonzero points \(L=\{\omega^a+10^{-3}\omega^b:0\le a,b\le2\}\)
+and \(k=4\). Then
+
+\[M_4(L)=\frac{3003003000}{1001003001001}>\frac{299}{100000},
+\qquad \max_{S\subseteq L,\ |S|=5}M_4(S)<\frac{23}{10000}.\]
+
+The ratio is therefore greater than \(13/10>4/\pi\). Here \(n=9\) and
+\(1\le4\le n-2\), so all original assumptions and quantifiers are
+addressed by this counterexample. Theorem 1.2 (Sections 4-5)
+additionally proves that no finite dimension-independent replacement
+constant exists. The finite counterexample alone settles IE-16
+negatively; no case of the original universal truth question remains
+open.
+
+The complete proof passed a separate
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ie16-2026-09-12/INDEPENDENT-REVIEW.md}{independent
+Codex AI-agent informal audit}. The supplied exact-arithmetic verifier
+passed all 126 subset checks, and reviewer-written rational checks
+passed independently. This is not external human peer review or formal
+verification. No Lean verification was performed.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-16/solution.tex}{Proof
+source} ·
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ie16-2026-09-12/submitted/README.md}{Exact
+verifier and certificates}.
+
+\subsection{Original problem
+(retained)}\label{original-problem-retained}
 
 Let \(L\subset\mathbb C\setminus\{0\}\) consist of \(n\ge3\) distinct
-points. For a nonempty \(S\subseteq L\), define \[
-M_k(S)=\min_{p\in\mathbb C[z],\ \deg p\le k,\ p(0)=1}\max_{z\in S}|p(z)|.
-\] Is it true, simultaneously for every such \(L\) and
-\(1\le k\le n-2\), that \[
-M_k(L)\le\frac4\pi\max_{S\subseteq L,\ |S|=k+1}M_k(S)?
-\] The constant is required to be independent of dimension, degree, and
-the locations of the points.
+points. For a nonempty \(S\subseteq L\), define
+
+\[M_k(S)=\min_{p\in\mathbb C[z],\ \deg p\le k,\ p(0)=1}\max_{z\in S}|p(z)|.\]
+
+Is it true, simultaneously for every such \(L\) and \(1\le k\le n-2\),
+that
+
+\[M_k(L)\le\frac4\pi\max_{S\subseteq L,\ |S|=k+1}M_k(S)?\]
+
+The constant is required to be independent of dimension, degree, and the
+locations of the points.
 
 For a normal matrix with spectrum \(L\), \(M_k(L)\) is the largest
 relative residual norm attainable at GMRES step \(k\), over unit initial

@@ -1,0 +1,236 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/99c678e569c7c4c0772db297c5ddd5e4c9b6322e/schema/v0.4.schema.json
+version: v0.4
+project:
+  name: 'MI-22: Lemos–Soares singular-value log-majorization counterexample'
+  description: Complete negative resolution of the canonical complex positive-definite weighted singular-value
+    log-majorization statement, using an exact rational adaptation and proved genuine CFC, singular-value
+    and Euclidean-norm semantics.
+  authors:
+  - George Stepaniants
+  affiliations:
+    George Stepaniants: Department of Computing and Mathematical Sciences, California Institute of Technology,
+      Pasadena, California, USA
+  responsible_maintainers:
+  - George Stepaniants
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+- title: MI-22 — Lemos–Soares singular-value log-majorization
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/8b3d1157b73cd526bb4d0c2fd2dd1666d41812dc/matrix-inequalities-and-norms/MI-22/README.md
+  type: web-post
+  location: Complete original canonical problem statement
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: All positive dimensions, all complex positive-definite A,B and every t in [0,1], including every
+    proper singular-value prefix inequality and equality at the full dimension.
+- title: 'MI-22: a certified operator-norm counterexample to the weighted log-majorization'
+  authors:
+  - Matthew J. Colbrook
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/8b3d1157b73cd526bb4d0c2fd2dd1666d41812dc/references/colbrook-matrix-2026-09-11/original-proofs/MI-22.tex
+  type: manuscript
+  location: Complete theorem and counterexample method; see SOURCE_CORRESPONDENCE.md for the disclosed
+    changed witness
+  relationship: adapts
+  author_endorsement: not-contacted
+  note: The original negative resolution and mathematical method remain Colbrook’s. This formalization
+    preserves his diagonal A but defines a different rational B=D T^8 D using an exact dyadic adaptation
+    of his root approximation R. It does not claim to formalize the printed integer B, source root-error
+    theorem, residual bounds or original 10900/10200 thresholds.
+related_formalizations:
+- id: https://github.com/sgstepaniants/Forsythe/tree/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof
+  relationship: other
+  note: Campaign workflow example for statement-first structure, kernel-only LeanCert and the shared Comparator
+    pipeline; no Forsythe mathematical theorem is assumed.
+- id: https://github.com/jaumededios/Schiffer/tree/2938e277969c329caf154e48a3d8823f3635c7f1
+  relationship: other
+  note: Campaign reference for separating actual targets and mathematical definitions from proof implementation;
+    no Schiffer theorem is imported.
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: Multiple agents; two independent statement approvals before implementation, pinned Mathlib
+      and LeanCert, then two independent final proof reviews with separate-prefix source elaboration and
+      actual dependency/certificate inspection.
+    prompting_notes: Keep the full complex positive-definite universal target, actual CFC powers, ordered
+      singular values with multiplicities, true Euclidean norms and the complete log-majorization definition.
+      Use the disclosed exact rational B=D T^8 D, exact LDL and three squarings; leave the other root
+      as the actual CFC root and prove L Y=N in the original factor order. Prove every positivity and
+      numerical certificate as a conclusion. Retain the explicit kernel LeanCert point inequality 10500<11000
+      in the final strict reversal.
+  notes: AI-assisted formalization requested by George Stepaniants. Implementation agent /root/leancert_examples
+    is not an independent referee. No human review, source-author endorsement, historical priority, unrecorded
+    model identity or measured cost is claimed.
+status:
+  scope: Complete negative resolution of the full canonical complex positive-definite singular-value log-majorization
+    conjecture. All eight exports have two independent statement approvals and two independent final proof
+    approvals. Actual Linux run 34720684925 at immutable 26f526cf8b6232af9528b30616076dc7a2c66ac6 passed
+    sandboxed Comparator, Lean default-kernel replay, standard-three axioms and both real control suites;
+    a separate independent operational audit passed. The canonical publication package records Lean verified.
+    Final repository publication review remains separate.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: &id001
+  - propext
+  - Classical.choice
+  - Quot.sound
+  main_results:
+  - declaration: NLA.MI22.singular_values_semantics
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI22.spectral_power_semantics
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI22.euclidean_norm_bounds
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI22.witness_rational_data
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI22.witness_principal_powers
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI22.witness_operator_gap
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI22.counterexample
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI22.not_weightedLogMajorizationConjecture
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+fidelity:
+  divergences: No narrowing of the original target. The witness B differs from Colbrook’s printed integer
+    B and is explicitly defined by an exact eighth-power congruence; source thresholds change to 10500
+    and 11000. All principal-power, positivity, actual norm and ordered singular-value bridges are proved
+    rather than assumed. Every original complex input quantifier, all real t in [0,1], every proper prefix
+    and full-product equality remain in the conjecture. A first-prefix violation at n=3,t=1/8 refutes
+    the entire conjunction. The original printed witness and root-error lemma are not advertised as formalized.
+review:
+  status: agent-reviewed; actual Linux Comparator/default-kernel verification and independent operational
+    audit passed
+  reviewers:
+  - 'OpenAI Codex agent /root/solved_statement_inventory: independent statement referee 1 and final proof
+    referee 1'
+  - 'OpenAI Codex agent /root: independent statement referee 2 and final proof referee 2'
+  - 'OpenAI Codex agent /root/formal_review_standards: independent operational referee for actual Linux
+    run 34720684925; not an implementer or final mathematical referee'
+  notes: Both statement reports precede implementation; all mathematical statements, targets, source correspondence
+    and pins remain unchanged. Both final referees checked the complete actual proof and fresh compiled
+    dependencies, with 17 internal/public standard-three reports and 195 project declarations inspected.
+    Referee 1 independently parsed and reconstructed 48 actual Lean rational-table entries and printed
+    the auxiliary kernel Boolean checker proof. The retained LeanCert task is only 10500<11000 on [0,0],
+    explicitly kernel checked and consumed in the full negation; other matrix and analytic obligations
+    use exact Lean proofs. The only authorized build change appended the Solution lean_lib, with the exact
+    original lakefile archived and defaultTargets Challenge retained; complete proof command is lake build
+    Solution. The eight Challenge placeholders remain isolated from Solution. Candidate packaging archives
+    the original frozen README and updates only the current README among the 104 proof-freeze inputs;
+    all other 103 and eight original sources remain unchanged. Historical statement-stage language in
+    the frozen numerical/source-mapping documents is preserved and labeled historical. Local macOS checks
+    reused ten clean pinned dependency caches; they are not Linux Comparator runs or complete dependency-source
+    rebuilds. Relevant Tau Ceti standards are adapted to NLA; no official endorsement is claimed. Actual
+    Linux verification now passed and was independently audited from original artifacts and complete source
+    identities. Ten fresh pinned dependency clones and official Mathlib cache use are disclosed; all actual
+    project modules were freshly elaborated. Both actual sandbox/control suites and kernel rejection fixtures
+    were inspected. Current publication documentation changes only README.md and formalization.yaml among
+    the 177 verified inputs, preserving the other 175, all eight original source targets/mathematical
+    manuscripts and all 304 original Linux evidence files. Exact candidate metadata is archived; no repeated
+    verification or claim of a complete dependency-source rebuild is made. The current canonical README
+    and generated problem TeX/PDF add the verification notice and status; their original reviewed versions
+    remain in the immutable Linux source archive. The other five informal-proof/source-review inputs remain
+    byte-identical, and the original problem-statement/reference text is unchanged.
+  statement_reports:
+  - file: reviews/statement-referee-1.md
+    sha256: 13556154d85fefbf81b0171bf7ff9028478b2c15327c67c78f3dc7fd18a4129a
+  - file: reviews/statement-referee-2.md
+    sha256: abc0e176440936638ae20ce0b105bc823b125a3fb7eaeaf13f95ff3e14eda1f7
+  proof_reports:
+  - file: reviews/proof-referee-1.md
+    sha256: 250b98be84248ba8dcb1c9be0a1d60743b88d0aadf5919ac6baf601a6f9597c3
+  - file: reviews/proof-referee-2.md
+    sha256: b97c55e0d2667efa9b297039db26801f66af3a9cd80a8a2de39d45c1ce6a6e77
+  proof_freeze:
+    file: verification/proof-freeze.json
+    sha256: f1c267a6aa600074d3b054863926d5f9cdbf6b0eadb83912a912277ac54018a0
+  linux_verification:
+    status: passed
+    repository: sgstepaniants/OpenProblemsInNLA
+    commit: 26f526cf8b6232af9528b30616076dc7a2c66ac6
+    run_id: 34720684925
+    run_url: https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34720684925
+    theorem_count: 8
+    verified_input_count: 177
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    definition_exceptions: []
+    receipt: verification/linux-2026-09-12/artifacts/lean-MI-22/verify-20260912T214303Z-4163/result.json
+    comparator_log: verification/linux-2026-09-12/artifacts/lean-MI-22/verify-20260912T214303Z-4163/comparator.log
+    operational_review: verification/linux-2026-09-12/OPERATIONAL-REVIEW.md
+    operational_review_sha256: 792d6d49b4a4c8fae6fb489c93c55269c18b7b58adfa640ab2568a0b0c8f9e9e
+    evidence_manifest: verification/linux-2026-09-12/EVIDENCE-MANIFEST.json
+    evidence_manifest_sha256: 1247b0cb6deb563d8f32e05f0831432554e68b3536eef5f6b1abae6278a3c18a
+    bound_evidence_files: 303
+    total_evidence_files: 304
+    note: Actual remote Linux execution, reviewed from original artifacts and Git blobs; not a claimed
+      local Linux rerun. All ten dependencies freshly cloned at pinned revisions; official Mathlib cache
+      decompressed 8690 files. All eight matches and default-kernel replay accepted, all 17 internal/public
+      standard-three reports inspected, both actual sandbox/negative control suites passed. LeanCert kernel
+      point 10500<11000 is materially consumed; no root/norm approximation or additional interval certificate
+      is claimed.
+alignment:
+- declaration: NLA.MI22.singular_values_semantics
+  scope: Generic nonnegativity, descending order, zero extension, full adjoint-composition eigenvalue
+    square-root semantics and first-value/operator-norm identity for actual Mathlib singular values.
+- declaration: NLA.MI22.spectral_power_semantics
+  scope: Principal spectral meaning of genuine CFC powers for every complex positive-definite matrix and
+    every real exponent.
+- declaration: NLA.MI22.euclidean_norm_bounds
+  scope: Actual Euclidean operator-norm squared Frobenius upper bound and action-coordinate bound for
+    every complex matrix and every Euclidean vector.
+- declaration: NLA.MI22.witness_rational_data
+  scope: All exact LDL, diagonal, positivity, unit-vector, trace, tested coordinate and full squared Frobenius
+    certificates for the disclosed rational adaptation, as conclusions.
+- declaration: NLA.MI22.witness_principal_powers
+  scope: Every genuine principal-power identity, positivity of the actual root, the original-order noncommuting
+    product reduction L Y=N and the actual root-norm bound.
+- declaration: NLA.MI22.witness_operator_gap
+  scope: Strict actual operator-norm bounds below 10500 for AB and above 11000 for the canonical left
+    product.
+- declaration: NLA.MI22.counterexample
+  scope: Full original admissibility at n=3,t=1/8, strict first-singular-value reversal and failure of
+    full singular-value log-majorization.
+- declaration: NLA.MI22.not_weightedLogMajorizationConjecture
+  scope: Unconditional negation of the full original universal complex positive-definite/all-dimensions/all-parameters
+    conjecture, with every prefix and full-product equality retained.
+acknowledgements: Matthew J. Colbrook for the original negative resolution and mathematical strategy;
+  Mathlib and LeanCert contributors for genuine CFC, singular-value, matrix positivity, norm and certificate
+  APIs. The code credits its campaign MI-23/MI-29 organization and re-proves every helper on this project’s
+  definitions; no neighboring theorem is imported as an unproved premise. The shared Comparator and sandbox
+  harness retain their licenses and attribution.

@@ -1,0 +1,48 @@
+@[reducible] def NLA.TR15.Tensor : ℕ → ℕ → Type :=
+fun s N => (Fin s → Fin N) → ℝ
+def NLA.TR15.generatorIndex : {s N : ℕ} → (Fin s → Fin N) → Fin (s * (N - 1) + 1) :=
+fun {s N} indices => ⟨∑ j, ↑(indices j), ⋯⟩
+def NLA.TR15.hankelTensor : (s N : ℕ) → (Fin (s * (N - 1) + 1) → ℝ) → NLA.TR15.Tensor s N :=
+fun s N h indices => h (NLA.TR15.generatorIndex indices)
+def NLA.TR15.prependIndex : {s N : ℕ} → Fin N → (Fin (s - 1) → Fin N) → Fin s → Fin N :=
+fun {s N} i indices j => if hj : ↑j = 0 then i else indices ⟨↑j - 1, ⋯⟩
+def NLA.TR15.contraction : {s N : ℕ} → NLA.TR15.Tensor s N → (Fin N → ℝ) → Fin N → ℝ :=
+fun {s N} T x i => ∑ indices, T (NLA.TR15.prependIndex i indices) * ∏ j, x (indices j)
+def NLA.TR15.IsHEigenpair : {s N : ℕ} → NLA.TR15.Tensor s N → ℝ → (Fin N → ℝ) → Prop :=
+fun {s N} T eigenvalue x => x ≠ 0 ∧ ∀ (i : Fin N), NLA.TR15.contraction T x i = eigenvalue * x i ^ (s - 1)
+def NLA.TR15.HasNoNegativeHEigenvalues : {s N : ℕ} → NLA.TR15.Tensor s N → Prop :=
+fun {s N} T => ∀ (eigenvalue : ℝ) (x : Fin N → ℝ), NLA.TR15.IsHEigenpair T eigenvalue x → 0 ≤ eigenvalue
+def NLA.TR15.lowerTensor : (m q n : ℕ) → (Fin (q * m * (n - 1) + 1) → ℝ) → NLA.TR15.Tensor m (q * (n - 1) + 1) :=
+fun m q n h => NLA.TR15.hankelTensor m (q * (n - 1) + 1) fun i => h (Fin.cast ⋯ i)
+def NLA.TR15.upperTensor : (m q n : ℕ) → (Fin (q * m * (n - 1) + 1) → ℝ) → NLA.TR15.Tensor (q * m) n :=
+fun m q n h => NLA.TR15.hankelTensor (q * m) n h
+def NLA.TR15.Admissible : ℕ → ℕ → ℕ → Prop :=
+fun m q n => Odd m ∧ 3 ≤ m ∧ 2 ≤ q ∧ 2 ≤ n
+def NLA.TR15.InheritanceConjecture : Prop :=
+∀ (m q n : ℕ),
+  NLA.TR15.Admissible m q n →
+    ∀ (h : Fin (q * m * (n - 1) + 1) → ℝ),
+      NLA.TR15.HasNoNegativeHEigenvalues (NLA.TR15.lowerTensor m q n h) →
+        NLA.TR15.HasNoNegativeHEigenvalues (NLA.TR15.upperTensor m q n h)
+NLA.TR15.lower_contractions (x : Fin 3 → ℝ) :
+  NLA.TR15.contraction NLA.TR15.witnessLower x =
+    ![(x 0 + x 2) ^ 2 + x 0 ^ 2 + x 1 ^ 2 + x 2 ^ 2, 2 * x 0 * x 1 + 4 * x 1 * x 2,
+      x 0 ^ 2 + 2 * x 1 ^ 2 + 4 * x 0 * x 2 - x 2 ^ 2]
+NLA.TR15.upper_contraction : NLA.TR15.contraction NLA.TR15.witnessUpper NLA.TR15.witnessUpperVector = ![0, -1]
+NLA.TR15.lower_eigenvalues_pos (eigenvalue : ℝ) (x : Fin 3 → ℝ)
+  (h : NLA.TR15.IsHEigenpair NLA.TR15.witnessLower eigenvalue x) : 0 < eigenvalue
+NLA.TR15.lower_eigenpair_exists :
+  ∃ t,
+    0 < t ∧
+      t < 1 ∧
+        NLA.TR15.rootPolynomial t = 0 ∧
+          NLA.TR15.IsHEigenpair NLA.TR15.witnessLower (NLA.TR15.lowerEigenvalue t) (NLA.TR15.lowerEigenvector t)
+NLA.TR15.upper_negative_eigenpair :
+  NLA.TR15.IsHEigenpair NLA.TR15.witnessUpper (-1) NLA.TR15.witnessUpperVector ∧ -1 < 0
+NLA.TR15.counterexample :
+  NLA.TR15.Admissible 3 2 2 ∧
+    NLA.TR15.HasNoNegativeHEigenvalues NLA.TR15.witnessLower ∧ ¬NLA.TR15.HasNoNegativeHEigenvalues NLA.TR15.witnessUpper
+NLA.TR15.not_inheritanceConjecture : ¬NLA.TR15.InheritanceConjecture
+intermediate_value_Ioo.{u, u_1} {α : Type u} [TopologicalSpace α] [ConditionallyCompleteLinearOrder α] [OrderTopology α]
+  [DenselyOrdered α] {δ : Type u_1} [LinearOrder δ] [TopologicalSpace δ] [OrderClosedTopology δ] {a b : α} (hab : a ≤ b)
+  {f : α → δ} (hf : ContinuousOn f (Set.Icc a b)) : Set.Ioo (f a) (f b) ⊆ f '' Set.Ioo a b

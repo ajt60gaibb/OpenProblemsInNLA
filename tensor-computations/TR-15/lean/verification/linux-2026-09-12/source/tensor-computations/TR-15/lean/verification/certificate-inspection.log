@@ -1,0 +1,192 @@
+theorem NLA.TR15.negative_eigenvalue_certificate : -1 < 0 :=
+have h0 :=
+  LeanCert.Validity.verify_strict_upper_bound_dyadic_checked (LeanCert.Core.Expr.const (Rat.divInt 1 1)).neg
+    (Rat.divInt 0 1) (Rat.divInt 0 1) (le_refl (Rat.divInt 0 1)) (Rat.divInt 0 1) (-53) 10
+    (of_decide_eq_true (id (Eq.refl true))) NLA.TR15.negative_eigenvalue_certificate._proof_1_7 ↑(Rat.divInt 0 1)
+    ⟨le_refl ↑(Rat.divInt 0 1), le_refl ↑(Rat.divInt 0 1)⟩;
+Eq.mpr
+  (eq_of_heq
+    ((fun α self a a' e'_3 a_1 a'_1 e'_4 =>
+        Eq.casesOn (motive := fun a_2 x => a' = a_2 → e'_3 ≍ x → (a < a_1) ≍ (a' < a'_1)) e'_3
+          (fun h =>
+            Eq.ndrec (motive := fun a' => ∀ (e_3 : a = a'), e_3 ≍ Eq.refl a → (a < a_1) ≍ (a' < a'_1))
+              (fun e_3 h =>
+                Eq.casesOn (motive := fun a_2 x => a'_1 = a_2 → e'_4 ≍ x → (a < a_1) ≍ (a < a'_1)) e'_4
+                  (fun h =>
+                    Eq.ndrec (motive := fun a' => ∀ (e_4 : a_1 = a'), e_4 ≍ Eq.refl a_1 → (a < a_1) ≍ (a < a'))
+                      (fun e_4 h => HEq.refl (a < a_1)) (Eq.symm h) e'_4)
+                  (Eq.refl a'_1) (HEq.refl e'_4))
+              (Eq.symm h) e'_3)
+          (Eq.refl a') (HEq.refl e'_3))
+      ℝ Real.instLT (-1) (-↑(↑1 / ↑1))
+      (Mathlib.Meta.NormNum.isInt_eq_true
+        (Mathlib.Meta.NormNum.isInt_neg (Eq.refl Neg.neg)
+          (Mathlib.Meta.NormNum.IsNat.to_isInt (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one))
+          (Eq.refl (Int.negOfNat 1)))
+        (Mathlib.Meta.NormNum.isInt_neg (Eq.refl Neg.neg)
+          (Mathlib.Meta.NormNum.IsNat.to_isInt
+            (Mathlib.Meta.NormNum.isNat_ratCast
+              (Mathlib.Meta.NormNum.IsNNRat.to_isNat
+                (Mathlib.Meta.NormNum.isNNRat_div
+                  (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                    (Mathlib.Meta.NormNum.isNat_mul (Eq.refl HMul.hMul)
+                      (Mathlib.Meta.NormNum.isNat_intCast 1 1 (Mathlib.Meta.NormNum.isNat_ofNat ℤ (Eq.refl 1)))
+                      (Mathlib.Meta.NormNum.IsNNRat.to_isNat
+                        (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                          (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                            (Mathlib.Meta.NormNum.isNat_intCast 1 1 (Mathlib.Meta.NormNum.isNat_ofNat ℤ (Eq.refl 1))))))
+                      (Eq.refl 1)))))))
+          (Eq.refl (Int.negOfNat 1))))
+      0 (↑(↑0 / ↑1))
+      (Mathlib.Meta.NormNum.isNat_eq_true (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_zero)
+        (Mathlib.Meta.NormNum.isNat_ratCast
+          (Mathlib.Meta.NormNum.IsNNRat.to_isNat
+            (Mathlib.Meta.NormNum.isNNRat_div
+              (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                (Mathlib.Meta.NormNum.isNat_mul (Eq.refl HMul.hMul)
+                  (Mathlib.Meta.NormNum.isNat_intCast 0 0 (Mathlib.Meta.NormNum.isNat_ofNat ℤ (Eq.refl 0)))
+                  (Mathlib.Meta.NormNum.IsNNRat.to_isNat
+                    (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                      (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                        (Mathlib.Meta.NormNum.isNat_intCast 1 1 (Mathlib.Meta.NormNum.isNat_ofNat ℤ (Eq.refl 1))))))
+                  (Eq.refl 0)))))))))
+  (Eq.mp
+    (congr (congrArg LT.lt (congrArg Neg.neg (congrArg Rat.cast (Rat.divInt_eq_div 1 1))))
+      (congrArg Rat.cast (Rat.divInt_eq_div 0 1)))
+    h0)
+theorem NLA.TR15.upper_negative_eigenpair_proved : NLA.TR15.IsHEigenpair NLA.TR15.witnessUpper (-1)
+    NLA.TR15.witnessUpperVector ∧
+  -1 < 0 :=
+⟨⟨fun hz =>
+    have this := congrFun hz 1;
+    False.elim
+      (Eq.mp
+        (Eq.trans (Eq.trans (congrFun' (congrArg Eq (Matrix.cons_val_fin_one 1 ![] 0)) 0) one_ne_zero._simp_1)
+          (eq_false not_false))
+        this),
+    fun i =>
+    Eq.mpr
+      (id (congrArg (fun _a => _a i = -1 * NLA.TR15.witnessUpperVector i ^ (6 - 1)) NLA.TR15.upper_contraction_proved))
+      (List.Mem.casesOn (motive := fun a x =>
+        List.finRange 2 = a → Fintype.complete i ≍ x → ![0, -1] i = -1 * NLA.TR15.witnessUpperVector i ^ (6 - 1))
+        (Fintype.complete i)
+        (fun as h =>
+          List.cons.noConfusion h fun head_eq =>
+            Eq.ndrec (motive := fun i =>
+              ∀ (this : i ∈ Fintype.elems),
+                (fun x1 x2 => (fun i => i) x1 :: x2) ⟨1, Nat.le_refl 2⟩ [] ≍ as →
+                  this ≍ List.Mem.head as → ![0, -1] i = -1 * NLA.TR15.witnessUpperVector i ^ (6 - 1))
+              (fun this tail_eq =>
+                Eq.ndrec (motive := fun as =>
+                  this ≍ List.Mem.head as →
+                    ![0, -1] ((fun i => i) ⟨0, Nat.le_of_lt (Nat.le_refl 2)⟩) =
+                      -1 * NLA.TR15.witnessUpperVector ((fun i => i) ⟨0, Nat.le_of_lt (Nat.le_refl 2)⟩) ^ (6 - 1))
+                  (fun h =>
+                    of_eq_true
+                      (Eq.trans
+                        (Eq.trans
+                          (congrArg (Eq 0)
+                            (Eq.trans
+                              (congrArg (HMul.hMul (-1))
+                                (Eq.trans
+                                  (congrArg (HPow.hPow 0)
+                                    (Mathlib.Meta.NormNum.IsNat.to_eq
+                                      (Mathlib.Meta.NormNum.isNat_natSub
+                                        (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 6))
+                                        (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 1)) (Eq.refl 5))
+                                      (Eq.refl 5)))
+                                  (zero_pow
+                                    (Mathlib.Meta.NormNum.isNat_eq_false
+                                      (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 5))
+                                      (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 0)) (Eq.refl false)))))
+                              (mul_zero (-1))))
+                          (eq_self 0))
+                        (eq_true True.intro)))
+                  (eq_of_heq tail_eq))
+              (eq_of_heq head_eq) (Fintype.complete i))
+        (fun b {as} a h =>
+          List.cons.noConfusion h fun head_eq =>
+            Eq.ndrec (motive := fun b =>
+              (fun x1 x2 => (fun i => i) x1 :: x2) ⟨1, Nat.le_refl 2⟩ [] ≍ as →
+                Fintype.complete i ≍ List.Mem.tail b a → ![0, -1] i = -1 * NLA.TR15.witnessUpperVector i ^ (6 - 1))
+              (fun tail_eq =>
+                Eq.ndrec (motive := fun {as} =>
+                  ∀ (a : List.Mem i as),
+                    Fintype.complete i ≍ List.Mem.tail ((fun i => i) ⟨0, Nat.le_of_lt (Nat.le_refl 2)⟩) a →
+                      ![0, -1] i = -1 * NLA.TR15.witnessUpperVector i ^ (6 - 1))
+                  (fun a h =>
+                    List.Mem.casesOn (motive := fun a_1 x =>
+                      (fun x1 x2 => (fun i => i) x1 :: x2) ⟨1, Nat.le_refl 2⟩ [] = a_1 →
+                        a ≍ x → ![0, -1] i = -1 * NLA.TR15.witnessUpperVector i ^ (6 - 1))
+                      a
+                      (fun as h =>
+                        List.cons.noConfusion h fun head_eq =>
+                          Eq.ndrec (motive := fun i =>
+                            ∀ (a : List.Mem i ((fun x1 x2 => (fun i => i) x1 :: x2) ⟨1, Nat.le_refl 2⟩ [])),
+                              [] ≍ as →
+                                a ≍ List.Mem.head as → ![0, -1] i = -1 * NLA.TR15.witnessUpperVector i ^ (6 - 1))
+                            (fun a tail_eq =>
+                              Eq.ndrec (motive := fun as =>
+                                a ≍ List.Mem.head as →
+                                  ![0, -1] ((fun i => i) ⟨1, Nat.le_refl 2⟩) =
+                                    -1 * NLA.TR15.witnessUpperVector ((fun i => i) ⟨1, Nat.le_refl 2⟩) ^ (6 - 1))
+                                (fun h =>
+                                  of_eq_true
+                                    (Eq.trans
+                                      (Eq.trans
+                                        (congr (congrArg Eq (Matrix.cons_val_fin_one (-1) ![] 0))
+                                          (Eq.trans
+                                            (congrArg (HMul.hMul (-1))
+                                              (Eq.trans
+                                                (congr (congrArg HPow.hPow (Matrix.cons_val_fin_one 1 ![] 0))
+                                                  (Mathlib.Meta.NormNum.IsNat.to_eq
+                                                    (Mathlib.Meta.NormNum.isNat_natSub
+                                                      (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 6))
+                                                      (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 1)) (Eq.refl 5))
+                                                    (Eq.refl 5)))
+                                                (one_pow 5)))
+                                            (mul_one (-1))))
+                                        (eq_self (-1)))
+                                      (eq_true True.intro)))
+                                (eq_of_heq tail_eq))
+                            (eq_of_heq head_eq) a)
+                      (fun b {as} a_1 h =>
+                        List.cons.noConfusion h fun head_eq =>
+                          Eq.ndrec (motive := fun b =>
+                            [] ≍ as →
+                              a ≍ List.Mem.tail b a_1 → ![0, -1] i = -1 * NLA.TR15.witnessUpperVector i ^ (6 - 1))
+                            (fun tail_eq =>
+                              Eq.ndrec (motive := fun {as} =>
+                                ∀ (a_2 : List.Mem i as),
+                                  a ≍ List.Mem.tail ((fun i => i) ⟨1, Nat.le_refl 2⟩) a_2 →
+                                    ![0, -1] i = -1 * NLA.TR15.witnessUpperVector i ^ (6 - 1))
+                                (fun a_2 h =>
+                                  List.Mem.casesOn (motive := fun a x =>
+                                    [] = a → a_2 ≍ x → ![0, -1] i = -1 * NLA.TR15.witnessUpperVector i ^ (6 - 1)) a_2
+                                    (fun as h => False.elim (noConfusion_of_Nat List.ctorIdx h))
+                                    (fun b {as} a h => False.elim (noConfusion_of_Nat List.ctorIdx h)) (Eq.refl [])
+                                    (HEq.refl a_2))
+                                (eq_of_heq tail_eq) a_1)
+                            (eq_of_heq head_eq))
+                      (Eq.refl ((fun x1 x2 => (fun i => i) x1 :: x2) ⟨1, Nat.le_refl 2⟩ [])) (HEq.refl a))
+                  (eq_of_heq tail_eq) a)
+              (eq_of_heq head_eq))
+        (Eq.refl (List.finRange 2)) (HEq.refl (Fintype.complete i)))⟩,
+  NLA.TR15.negative_eigenvalue_certificate⟩
+theorem NLA.TR15.counterexample_proved : NLA.TR15.Admissible 3 2 2 ∧
+  NLA.TR15.HasNoNegativeHEigenvalues NLA.TR15.witnessLower ∧
+    ¬NLA.TR15.HasNoNegativeHEigenvalues NLA.TR15.witnessUpper :=
+⟨⟨Exists.intro 1 rfl,
+    ⟨Mathlib.Meta.NormNum.isNat_le_true (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 3))
+        (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 3)) (Eq.refl true),
+      ⟨Mathlib.Meta.NormNum.isNat_le_true (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 2))
+          (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 2)) (Eq.refl true),
+        Mathlib.Meta.NormNum.isNat_le_true (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 2))
+          (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 2)) (Eq.refl true)⟩⟩⟩,
+  ⟨fun eigenvalue x h => LT.lt.le (NLA.TR15.lower_eigenvalues_pos_proved eigenvalue x h), fun h =>
+    not_le_of_gt NLA.TR15.upper_negative_eigenpair_proved.right
+      (h (-1) NLA.TR15.witnessUpperVector NLA.TR15.upper_negative_eigenpair_proved.left)⟩⟩
+theorem NLA.TR15.not_inheritanceConjecture_proved : ¬NLA.TR15.InheritanceConjecture :=
+fun h =>
+  NLA.TR15.counterexample_proved.right.right
+    (h 3 2 2 NLA.TR15.counterexample_proved.left NLA.TR15.witnessGenerator NLA.TR15.counterexample_proved.right.left)

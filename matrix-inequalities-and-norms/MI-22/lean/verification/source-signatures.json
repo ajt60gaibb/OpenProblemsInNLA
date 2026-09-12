@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "count": 8,
+  "scope": "Exact normalized source signatures, not Linux Comparator",
+  "signatures": {
+    "singular_values_semantics": "{n : \u2115} (hn : 1 \u2264 n) (A : Mat n) : (\u2200 j : \u2115, 0 \u2264 singularValue A j) \u2227 Antitone (singularValue A) \u2227 (\u2200 j : \u2115, n \u2264 j \u2192 singularValue A j = 0) \u2227 (\u2200 i : Fin n, singularValue A i = Real.sqrt ((Matrix.toEuclideanLin A).isSymmetric_adjoint_comp_self.eigenvalues (by simp) i)) \u2227 singularValue A 0 = operatorNorm A",
+    "spectral_power_semantics": "{n : \u2115} (A : Mat n) (hA : A.PosDef) (r : \u211d) : spectralPower A r = (hA.isHermitian.eigenvectorUnitary : Mat n) * Matrix.diagonal (fun i => (((hA.isHermitian.eigenvalues i) ^ r : \u211d) : \u2102)) * (hA.isHermitian.eigenvectorUnitary : Mat n).conjTranspose",
+    "euclidean_norm_bounds": "{n : \u2115} (A : Mat n) : operatorNorm A ^ 2 \u2264 frobeniusSquared A \u2227 (\u2200 x : EuclideanSpace \u2102 (Fin n), \u2200 i : Fin n, \u2016(Matrix.toEuclideanCLM (n := Fin n) (\ud835\udd5c := \u2102) A x) i\u2016 \u2264 operatorNorm A * \u2016x\u2016)",
+    "witness_rational_data": ": witnessT = witnessLDL * witnessPivots * witnessLDL.conjTranspose \u2227 witnessA = Matrix.diagonal (![256, 1 / 256, 1] : Fin 3 \u2192 \u2102) \u2227 witnessT.PosDef \u2227 witnessA.PosDef \u2227 witnessB.PosDef \u2227 \u2016witnessVector\u2016 = 1 \u2227 witnessB.trace.re < (4 : \u211d) ^ (8 : \u2115) \u2227 44000 < witnessTestValue \u2227 frobeniusSquared (witnessA * witnessB) < (10500 : \u211d) ^ (2 : \u2115)",
+    "witness_principal_powers": ": spectralPower witnessA (1 / 2) = witnessD \u2227 spectralPower witnessA (-1 / 2) = witnessDInv \u2227 spectralPower witnessA (1 / 8) = witnessAOneEighth \u2227 spectralPower witnessA (5 / 8) = witnessAFiveEighths \u2227 spectralPower (witnessDInv * witnessB * witnessDInv) (1 / 8) = witnessT \u2227 weightedMean witnessA witnessB (1 / 8) = witnessD * witnessT * witnessD \u2227 witnessRoot.PosDef \u2227 witnessRoot ^ (8 : \u2115) = witnessB \u2227 spectralPower witnessB (7 / 8) * witnessRoot = witnessB \u2227 leftProduct witnessA witnessB (1 / 8) * witnessRoot = witnessN \u2227 operatorNorm witnessRoot < 4",
+    "witness_operator_gap": ": operatorNorm (witnessA * witnessB) < 10500 \u2227 11000 < operatorNorm (leftProduct witnessA witnessB (1 / 8))",
+    "counterexample": ": witnessA.PosDef \u2227 witnessB.PosDef \u2227 (0 : \u211d) \u2264 1 / 8 \u2227 (1 / 8 : \u211d) \u2264 1 \u2227 singularValue (witnessA * witnessB) 0 < singularValue (leftProduct witnessA witnessB (1 / 8)) 0 \u2227 \u00ac SingularLogMajorized (leftProduct witnessA witnessB (1 / 8)) (witnessA * witnessB)",
+    "not_weightedLogMajorizationConjecture": ": \u00ac WeightedLogMajorizationConjecture"
+  }
+}

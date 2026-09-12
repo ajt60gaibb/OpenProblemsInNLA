@@ -51,7 +51,7 @@ real Hadamard matrices\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -76,11 +76,9 @@ proof}, Lemma 1 and Theorem 1, constructs an injection from two labeled
 order-\(m\) Hadamard matrices and a perfect matching of \(2m\) row
 labels. It gives
 
-\[
-H(2m)\ge(2m-1)!!\,H(m)^2,
+\[H(2m)\ge(2m-1)!!\,H(m)^2,
 \qquad
-H(2^k)\ge 2^{\,2^k(k-1)(k-2)/8}\quad(k\ge2).
-\]
+H(2^k)\ge 2^{\,2^k(k-1)(k-2)/8}\quad(k\ge2).\]
 
 The resulting exponent has order \(n(\log n)^2\) along powers of two,
 contradicting every bound \(2^{C n\log_2 n}\) with fixed \(C\).
@@ -95,8 +93,9 @@ Codex-agent mathematical and source-scope review}. The
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/stepaniants-fr12-2026-09-12/README.md}{submission
 record} preserves the supplied source, exact checks, document conversion
 and bounded public fork/branch/PR and literature search. Substantial AI
-assistance is disclosed; this is informal automated review, not external
-human peer review or formal verification.
+assistance is disclosed. That review was informal and did not assert
+external human peer review or formal verification; the later Lean
+verification is documented below.
 
 Ferber, Jain and Zhao retain attribution for the conjecture and prior
 upper bound. This result does not settle existence at every admissible
@@ -104,13 +103,103 @@ order or determine a matching upper bound for the count. The original
 statement and historical context below are retained; the difficulty and
 importance ratings are historical.
 
+\subsection{Lean proof and verification evidence -
+2026-09-12}\label{lean-proof-and-verification-evidence---2026-09-12}
+
+\textbf{The complete original counting conjecture has a Lean-verified
+negative answer.} The
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/tree/3e20bae9a07b1a33db8fdfb18bdebb9e590071a9/frames-and-matrix-designs/FR-12/lean}{proof
+at revision 3e20bae} counts actual labeled real Hadamard matrices,
+proves the count finite, and refutes every proposed positive real
+constant. \textbf{Mathematical proof and Lean formalization:} George
+Stepaniants, Department of Computing and Mathematical Sciences,
+California Institute of Technology, Pasadena, California, USA, with
+substantial AI-agent assistance.
+
+The formal construction uses top-to-bottom pairings indexed by a
+permutation and proves
+
+\[m!\,H(m)^2\le H(2m)\qquad(m\ge1).\]
+
+This smaller family yields the identical quantitative power-of-two lower
+bound above and the full original negation. \textbf{The stronger
+informal factor \((2m-1)!!\) is outside the Lean exports.} The formal
+count has no quotient, normalization or assumed family size; in positive
+dimension its matrix predicate is proved equivalent to Mathlib's
+\textit{Matrix.IsHadamard}.
+
+The seven
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/blob/3e20bae9a07b1a33db8fdfb18bdebb9e590071a9/frames-and-matrix-designs/FR-12/lean/Solution.lean}{checked
+exports}, each with prefix \textit{NLA.FR12.}, are:
+
+\begin{itemize}
+\tightlist
+\item
+  \textit{counting\_semantics}: genuine finite counting and the Mathlib
+  Hadamard bridge.
+\item
+  \textit{injective\_doubling}: every constructed output is Hadamard and
+  the map is injective.
+\item
+  \textit{factorial\_doubling}: the cardinality recurrence for every
+  positive order.
+\item
+  \textit{power\_two\_nonempty}: existence at every power of two,
+  including order one.
+\item
+  \textit{power\_two\_lower\_bound}: the exact source lower bound at
+  every \(K\ge2\).
+\item
+  \textit{counterexample}: a strict violation for every positive real
+  proposed constant.
+\item
+  \textit{not\_countingConjecture}: negation of the complete original
+  universal assertion.
+\end{itemize}
+
+Two independent agents approved the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/frames-and-matrix-designs/FR-12/lean/reviews}{statements
+and completed proof}.
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34718277411}{Linux
+run 34718277411} matched all seven exports with the sandboxed Comparator
+and replayed the solution in Lean's default kernel. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/frames-and-matrix-designs/FR-12/lean/verification/linux-2026-09-12}{original
+artifacts and independent operational audit} bind all 137 input files
+and both actual isolation/rejection-control suites. All 14
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/frames-and-matrix-designs/FR-12/lean/verification/linux-2026-09-12/axiom-verification.json}{internal/public
+transitive axiom checks} use only \textit{propext},
+\textit{Classical.choice} and \textit{Quot.sound}. These are independent
+agent reviews; external human peer review is not claimed.
+
+The pins are \textbf{Lean 4.33.1},
+\href{https://github.com/alerad/leancert/tree/621a43d7cf21f87872392a01e874f2f1dbddc926}{LeanCert
+621a43d} and
+\href{https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474}{Mathlib
+0df444a}. LeanCert audits the exact proof's kernel trust; there is
+\textbf{no numerical interval certificate}. Symbolic injection and
+direct exponential induction avoid large enumerations or approximate
+logarithms. See the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/frames-and-matrix-designs/FR-12/lean/formalization.yaml}{manifest},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/frames-and-matrix-designs/FR-12/lean/lake-manifest.json}{dependency
+pins} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/frames-and-matrix-designs/FR-12/lean/NUMERICAL_TARGETS.md}{exact
+targets}. From the immutable verified revision on a documented
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tools/lean/HARNESS.md}{non-root
+Linux host}, reproduce with:
+
+\begin{verbatim}
+tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
+tools/lean/verify.sh \
+  frames-and-matrix-designs/FR-12/lean \
+  /absolute/path/to/nla-lean-tools
+\end{verbatim}
+
 \subsection{Statement}\label{statement}
 
 For each positive integer \(n\), let
 
-\[
-H(n)=\#\{A\in\{-1,1\}^{n\times n}:AA^{\mathsf T}=nI_n\}.
-\]
+\[H(n)=\#\{A\in\{-1,1\}^{n\times n}:AA^{\mathsf T}=nI_n\}.\]
 
 \textbf{Conjecture.} There is an absolute constant \(C>0\) such that
 
@@ -140,6 +229,7 @@ butterfly constructions to structured orthogonal matrices and Gaussian
 elimination. This is distinct from the Hadamard existence conjecture and
 from bounds on elimination growth for a given matrix.
 
+\newpage
 \subsection{References and status
 check}\label{references-and-status-check}
 

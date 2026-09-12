@@ -1,0 +1,34 @@
+{
+  "count": 8,
+  "exact_headers": {
+    "singular_values_semantics": "theorem singular_values_semantics {n : \u2115} (hn : 1 \u2264 n) (A : Mat n) :\n    (\u2200 j : \u2115, 0 \u2264 singularValue A j) \u2227\n    Antitone (singularValue A) \u2227\n    (\u2200 j : \u2115, n \u2264 j \u2192 singularValue A j = 0) \u2227\n    (\u2200 i : Fin n, singularValue A i =\n      Real.sqrt ((Matrix.toEuclideanLin A).isSymmetric_adjoint_comp_self.eigenvalues\n        (by simp) i)) \u2227\n    singularValue A 0 = operatorNorm A ",
+    "spectral_power_semantics": "theorem spectral_power_semantics {n : \u2115} (A : Mat n) (hA : A.PosDef) (r : \u211d) :\n    spectralPower A r =\n      (hA.isHermitian.eigenvectorUnitary : Mat n) *\n        Matrix.diagonal (fun i => (((hA.isHermitian.eigenvalues i) ^ r : \u211d) : \u2102)) *\n        (hA.isHermitian.eigenvectorUnitary : Mat n).conjTranspose ",
+    "euclidean_norm_bounds": "theorem euclidean_norm_bounds {n : \u2115} (A : Mat n) :\n    operatorNorm A ^ 2 \u2264 frobeniusSquared A \u2227\n    (\u2200 x : EuclideanSpace \u2102 (Fin n), \u2200 i : Fin n,\n      \u2016(Matrix.toEuclideanCLM (n := Fin n) (\ud835\udd5c := \u2102) A x) i\u2016 \u2264\n        operatorNorm A * \u2016x\u2016) ",
+    "witness_rational_data": "theorem witness_rational_data :\n    witnessT = witnessLDL * witnessPivots * witnessLDL.conjTranspose \u2227\n    witnessA = Matrix.diagonal (![256, 1 / 256, 1] : Fin 3 \u2192 \u2102) \u2227\n    witnessT.PosDef \u2227 witnessA.PosDef \u2227 witnessB.PosDef \u2227\n    \u2016witnessVector\u2016 = 1 \u2227\n    witnessB.trace.re < (4 : \u211d) ^ (8 : \u2115) \u2227\n    44000 < witnessTestValue \u2227\n    frobeniusSquared (witnessA * witnessB) < (10500 : \u211d) ^ (2 : \u2115) ",
+    "witness_principal_powers": "theorem witness_principal_powers :\n    spectralPower witnessA (1 / 2) = witnessD \u2227\n    spectralPower witnessA (-1 / 2) = witnessDInv \u2227\n    spectralPower witnessA (1 / 8) = witnessAOneEighth \u2227\n    spectralPower witnessA (5 / 8) = witnessAFiveEighths \u2227\n    spectralPower (witnessDInv * witnessB * witnessDInv) (1 / 8) = witnessT \u2227\n    weightedMean witnessA witnessB (1 / 8) = witnessD * witnessT * witnessD \u2227\n    witnessRoot.PosDef \u2227 witnessRoot ^ (8 : \u2115) = witnessB \u2227\n    spectralPower witnessB (7 / 8) * witnessRoot = witnessB \u2227\n    leftProduct witnessA witnessB (1 / 8) * witnessRoot = witnessN \u2227\n    operatorNorm witnessRoot < 4 ",
+    "witness_operator_gap": "theorem witness_operator_gap :\n    operatorNorm (witnessA * witnessB) < 10500 \u2227\n    11000 < operatorNorm (leftProduct witnessA witnessB (1 / 8)) ",
+    "counterexample": "theorem counterexample :\n    witnessA.PosDef \u2227 witnessB.PosDef \u2227\n    (0 : \u211d) \u2264 1 / 8 \u2227 (1 / 8 : \u211d) \u2264 1 \u2227\n    singularValue (witnessA * witnessB) 0 <\n      singularValue (leftProduct witnessA witnessB (1 / 8)) 0 \u2227\n    \u00ac SingularLogMajorized (leftProduct witnessA witnessB (1 / 8))\n      (witnessA * witnessB) ",
+    "not_weightedLogMajorizationConjecture": "theorem not_weightedLogMajorizationConjecture : \u00ac WeightedLogMajorizationConjecture "
+  },
+  "comparator": {
+    "challenge_module": "Challenge",
+    "solution_module": "Solution",
+    "theorem_names": [
+      "NLA.MI22.singular_values_semantics",
+      "NLA.MI22.spectral_power_semantics",
+      "NLA.MI22.euclidean_norm_bounds",
+      "NLA.MI22.witness_rational_data",
+      "NLA.MI22.witness_principal_powers",
+      "NLA.MI22.witness_operator_gap",
+      "NLA.MI22.counterexample",
+      "NLA.MI22.not_weightedLogMajorizationConjecture"
+    ],
+    "definition_names": [],
+    "permitted_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "scope": "Frozen statement signatures only; no proof completion or Linux Comparator claim."
+}
