@@ -7,8 +7,16 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because the adversarial eigenvector choice and optimal subset must be compared sharply; community impact is spectrum-sensitive Nyström and column selection.  
-**Status:** Open  
-**Last checked:** 2026-09-10  
+**Status:** Partially resolved  
+**Last checked:** 2026-09-12  
+
+## Partial resolution: the one-column case, 12 September 2026
+
+**Author:** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation, New York, USA. [Official affiliation](https://www.simonsfoundation.org/people/sidney-holden/) verified 12 September 2026.
+
+[Theorem 1 and Sections 2-3 of the note](../../references/holden-tr03-2026-09-12/one-column.pdf) prove $`x_1(\lambda)=y_1(\lambda)`$ and therefore $`R_{n,1}=1`$ for every $`n\ge3`$ and every positive spectrum. The proof preserves the original real orthogonal model and max-min quantifier order: a zero-diagonal orthogonal basis for a trace-zero symmetric matrix equalizes all one-column residuals.
+
+A separate [independent Codex AI-agent review](../../references/holden-tr03-2026-09-12/independent-review.md) returned **PASS for this special case**. The joint dependence for $`2\le k\le n-2`$, $`n\ge4`$, remains unresolved; this is not a full solution. The elementary identity is recorded without a novelty or priority claim. The original target and ID are unchanged, and the historical checks below are retained. AI assistance was used for review and submission preparation; informal automated review is not external human peer review or formal verification. No Lean verification was performed. [Proof source](../../references/holden-tr03-2026-09-12/one-column.tex) · [Submission record](../../references/holden-tr03-2026-09-12/README.md).
 
 ## Problem statement
 

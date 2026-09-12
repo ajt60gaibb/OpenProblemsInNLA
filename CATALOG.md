@@ -1,6 +1,6 @@
 # All problems and their status
 
-**127 problems with open targets:** 57 open and 70 partially resolved. **90 other retained entries**, excluded from the open count.
+**127 problems with open targets:** 56 open and 71 partially resolved. **90 other retained entries**, excluded from the open count.
 
 **Resolution evidence:** 80 solved (published or independently audited); 10 Lean verified.
 
@@ -136,7 +136,7 @@ Retained entries outside the open count:
 | [RE-02](randomized-and-low-rank-approximation/RE-02/README.md) | HSS approximation from a number of matvecs independent of depth | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RE-02/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RE-02/problem.tex) |
 | [RE-03](randomized-and-low-rank-approximation/RE-03/README.md) | Optimal matvec query complexity of HODLR approximation | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RE-03/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RE-03/problem.tex) |
 | [RE-06](randomized-and-low-rank-approximation/RE-06/README.md) | Nonadaptive queries for finite-family matrix approximation | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RE-06/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RE-06/problem.tex) |
-| [TR-03](randomized-and-low-rank-approximation/TR-03/README.md) | Sharp gap between volume sampling and the worst matrix with a prescribed spectrum | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/TR-03/problem.pdf) · [TeX](randomized-and-low-rank-approximation/TR-03/problem.tex) |
+| [TR-03](randomized-and-low-rank-approximation/TR-03/README.md) | Sharp gap between volume sampling and the worst matrix with a prescribed spectrum | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/TR-03/problem.pdf) · [TeX](randomized-and-low-rank-approximation/TR-03/problem.tex) |
 | [TR-08](randomized-and-low-rank-approximation/TR-08/README.md) | Sharp sparsity threshold for injectivity of a random sparse rectangular matrix | **🔵 OPEN** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/TR-08/problem.pdf) · [TeX](randomized-and-low-rank-approximation/TR-08/problem.tex) |
 
 Retained entries outside the open count:

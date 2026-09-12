@@ -20,7 +20,7 @@
 | [RE-02](RE-02/README.md) | HSS approximation from a number of matvecs independent of depth | **🔵 OPEN** | challenging | interesting to the community | [PDF](RE-02/problem.pdf) · [TeX](RE-02/problem.tex) |
 | [RE-03](RE-03/README.md) | Optimal matvec query complexity of HODLR approximation | **🔵 OPEN** | challenging | interesting to the community | [PDF](RE-03/problem.pdf) · [TeX](RE-03/problem.tex) |
 | [RE-06](RE-06/README.md) | Nonadaptive queries for finite-family matrix approximation | **🔵 OPEN** | challenging | interesting to the community | [PDF](RE-06/problem.pdf) · [TeX](RE-06/problem.tex) |
-| [TR-03](TR-03/README.md) | Sharp gap between volume sampling and the worst matrix with a prescribed spectrum | **🔵 OPEN** | challenging | interesting to the community | [PDF](TR-03/problem.pdf) · [TeX](TR-03/problem.tex) |
+| [TR-03](TR-03/README.md) | Sharp gap between volume sampling and the worst matrix with a prescribed spectrum | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](TR-03/problem.pdf) · [TeX](TR-03/problem.tex) |
 | [TR-08](TR-08/README.md) | Sharp sparsity threshold for injectivity of a random sparse rectangular matrix | **🔵 OPEN** | challenging | interesting to the community | [PDF](TR-08/problem.pdf) · [TeX](TR-08/problem.tex) |
 
 ## Retained entries outside the open count
