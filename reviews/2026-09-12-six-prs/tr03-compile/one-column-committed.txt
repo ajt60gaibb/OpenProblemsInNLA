@@ -1,0 +1,96 @@
+                The one-column spectral minimax identity
+                      A special case of TR-03, not a full resolution
+
+                                        Sidney Holden
+                      Center for Computational Biology, Flatiron Institute
+                              Simons Foundation, New York, USA
+
+                                     12 September 2026
+
+
+Status. The argument below proves the k = 1 case for every positive spectrum. It does not
+determine the joint dependence on (n, k) requested in TR-03. This elementary identity may
+already be implicit in earlier work; no priority or novelty claim is made.
+
+
+1    Statement
+Let n ≥ 3 and λ = (λ1 , . . . , λn ) ∈ (0, ∞)n . Put Λ = diag(λ) and KV = V T ΛV for V ∈ O(n).
+Deﬁne                                   (                        )
+                                                 (KV ):i (KV )i:              2e2 (λ)
+           x1 (λ) = max min tr KV −                                , y1 (λ) =         .
+                   V ∈O(n) 1≤i≤n                    (KV )ii                    e1 (λ)
+These are the k = 1 quantities in the repository target [1].
+
+Theorem 1. For every positive spectrum,
+                                                              ∑n
+                                                  ∑
+                                                  n                   2
+                                                                 j=1 λj
+                              x1 (λ) = y1 (λ) =         λj − ∑n           .
+                                                  j=1            j=1 λj
+
+
+Consequently Rn,1 = supλ>0 y1 (λ)/x1 (λ) = 1.
+
+
+2    A zero-diagonal orthogonal basis
+Lemma 2. Every real symmetric matrix H of trace zero has an orthonormal basis v1 , . . . , vn
+satisfying viT Hvi = 0 for every i.
+
+Proof. Induct on the dimension. The one-dimensional case is immediate. If H = 0, every
+basis works. Otherwise trace zero implies the presence of a positive and a negative eigenvalue.
+A unit vector v1 in the span of corresponding eigenvectors has zero Rayleigh quotient by
+continuity (or by choosing the squared component weights inversely proportional to the
+absolute eigenvalues). The compression of H to v1⊥ is symmetric and has trace tr H −
+v1T Hv1 = 0. Apply induction to that compression and append v1 .
+
+
+3    Proof of the identity
+            ∑             ∑   2
+Write S1 = j λj , S2 =     j λj and c = S2 /S1 . For any orthogonal V and K = KV , the error
+of choosing column i is
+                                                        (K 2 )ii
+                                    Ei (K) = S1 −                .
+                                                         Kii
+
+                                                  1
+The weights Kii /S1 are positive and sum to one. Hence
+                                     ∑ Kii                    S2
+                      min Ei (K) ≤            Ei (K) = S1 −      = y1 (λ).
+                        i
+                                     i
+                                         S1                   S1
+
+This proves x1 ≤ y1 .
+    For the reverse inequality, set H = Λ2 − cΛ. Its trace is zero. By the lemma, choose
+an orthogonal matrix V whose columns have zero H-Rayleigh quotient. Since (V T ΛV )2 =
+V T Λ2 V , the resulting K obeys
+
+                               (K 2 )ii = cKii       (1 ≤ i ≤ n).
+
+Thus every column has the same error Ei (K) = S1 − c = y1 (λ). Therefore x1 ≥ y1 , proving
+equality. The formula for y1 follows from 2e2 = S12 − S2 . Positivity of the spectrum and
+n ≥ 3 ensure y1 > 0, so the ratio is well deﬁned.
+
+
+4    What remains
+For 2 ≤ k ≤ n−2, neither this argument nor the accompanying numerical examples determine
+the sharp spectral minimax ratio. Simultaneous equalization of all k-column residuals is
+substantially diﬀerent from equalizing the diagonal of a single trace-zero symmetric matrix.
+This note must not be submitted or counted as a resolution of the full TR-03 target.
+    The script references/holden-tr03-2026-09-12/verify_TR03.py checks one radical-
+valued example exactly and constructs zero-diagonal bases for a ﬁxed set of numerical spectra.
+These computations are illustrative; the proof above is independent of them.
+
+
+References
+[1] OpenProblemsInNLA, TR-03: Sharp gap between volume sampling and the worst matrix
+    with a prescribed spectrum, accessed 12 September 2026.
+    https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/randomized-and
+   -low-rank-approximation/TR-03
+
+
+
+
+                                                 2
+

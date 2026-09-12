@@ -1,0 +1,148 @@
+theorem NLA.MI07.scalar_gap_positive : 0 < 1 / 3 :=
+have h0 :=
+  LeanCert.Validity.verify_strict_upper_bound_dyadic_checked (LeanCert.Core.Expr.const (Rat.divInt 0 1))
+    (Rat.divInt 0 1) (Rat.divInt 0 1) (le_refl (Rat.divInt 0 1)) (Rat.divInt 1 3) (-53) 10
+    (of_decide_eq_true (id (Eq.refl true))) NLA.MI07.scalar_gap_positive._proof_1_7 ↑(Rat.divInt 0 1)
+    ⟨le_refl ↑(Rat.divInt 0 1), le_refl ↑(Rat.divInt 0 1)⟩;
+Eq.mpr
+  (eq_of_heq
+    ((fun α self a a' e'_3 a_1 a'_1 e'_4 =>
+        Eq.casesOn (motive := fun a_2 x => a' = a_2 → e'_3 ≍ x → (a < a_1) ≍ (a' < a'_1)) e'_3
+          (fun h =>
+            Eq.ndrec (motive := fun a' => ∀ (e_3 : a = a'), e_3 ≍ Eq.refl a → (a < a_1) ≍ (a' < a'_1))
+              (fun e_3 h =>
+                Eq.casesOn (motive := fun a_2 x => a'_1 = a_2 → e'_4 ≍ x → (a < a_1) ≍ (a < a'_1)) e'_4
+                  (fun h =>
+                    Eq.ndrec (motive := fun a' => ∀ (e_4 : a_1 = a'), e_4 ≍ Eq.refl a_1 → (a < a_1) ≍ (a < a'))
+                      (fun e_4 h => HEq.refl (a < a_1)) (Eq.symm h) e'_4)
+                  (Eq.refl a'_1) (HEq.refl e'_4))
+              (Eq.symm h) e'_3)
+          (Eq.refl a') (HEq.refl e'_3))
+      ℝ Real.instLT 0 (↑(↑0 / ↑1))
+      (Mathlib.Meta.NormNum.isNat_eq_true (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_zero)
+        (Mathlib.Meta.NormNum.isNat_ratCast
+          (Mathlib.Meta.NormNum.IsNNRat.to_isNat
+            (Mathlib.Meta.NormNum.isNNRat_div
+              (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                (Mathlib.Meta.NormNum.isNat_mul (Eq.refl HMul.hMul)
+                  (Mathlib.Meta.NormNum.isNat_intCast 0 0 (Mathlib.Meta.NormNum.isNat_ofNat ℤ (Eq.refl 0)))
+                  (Mathlib.Meta.NormNum.IsNNRat.to_isNat
+                    (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                      (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                        (Mathlib.Meta.NormNum.isNat_intCast 1 1 (Mathlib.Meta.NormNum.isNat_ofNat ℤ (Eq.refl 1))))))
+                  (Eq.refl 0)))))))
+      (1 / 3) (↑(↑1 / ↑3))
+      (Mathlib.Meta.NormNum.isNNRat_eq_true
+        (Mathlib.Meta.NormNum.isNNRat_div
+          (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+            (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one))
+            (Mathlib.Meta.NormNum.isNNRat_inv_pos
+              (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 3))))
+            (Eq.refl (Nat.mul 1 1)) (Eq.refl 3)))
+        (Mathlib.Meta.NormNum.isNNRat_ratCast
+          (Mathlib.Meta.NormNum.isNNRat_div
+            (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+              (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                (Mathlib.Meta.NormNum.isNat_intCast 1 1 (Mathlib.Meta.NormNum.isNat_ofNat ℤ (Eq.refl 1))))
+              (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                  (Mathlib.Meta.NormNum.isNat_intCast 3 3 (Mathlib.Meta.NormNum.isNat_ofNat ℤ (Eq.refl 3)))))
+              (Eq.refl (Nat.mul 1 1)) (Eq.refl 3)))))))
+  (Eq.mp
+    (congr (congrArg LT.lt (congrArg Rat.cast (Rat.divInt_eq_div 0 1))) (congrArg Rat.cast (Rat.divInt_eq_div 1 3))) h0)
+theorem NLA.MI07.no_unitary_domination : ∀ (U V : ↥(Matrix.unitaryGroup (Fin 2) ℂ)),
+  ¬NLA.MI07.maximalModulus (NLA.MI07.witnessA + NLA.MI07.witnessB) ≤
+      NLA.MI07.unitaryConjugate U (NLA.MI07.maximalModulus NLA.MI07.witnessA) +
+        NLA.MI07.unitaryConjugate V (NLA.MI07.maximalModulus NLA.MI07.witnessB) :=
+fun U V h =>
+  have ht := Matrix.PosSemidef.trace_nonneg (Matrix.le_iff.mp h);
+  have hre := (Complex.nonneg_iff.mp (Eq.mp (congrArg (fun _a => 0 ≤ _a) (NLA.MI07.obstruction_trace U V)) ht)).left;
+  have hr :=
+    Eq.mpr
+      (eq_of_heq
+        ((fun α self a a_1 a' e'_4 =>
+            Eq.casesOn (motive := fun a_2 x => a' = a_2 → e'_4 ≍ x → (a ≤ a_1) ≍ (a ≤ a')) e'_4
+              (fun h =>
+                Eq.ndrec (motive := fun a' => ∀ (e_4 : a_1 = a'), e_4 ≍ Eq.refl a_1 → (a ≤ a_1) ≍ (a ≤ a'))
+                  (fun e_4 h => HEq.refl (a ≤ a_1)) (Eq.symm h) e'_4)
+              (Eq.refl a') (HEq.refl e'_4))
+          ℝ Real.instLE 0 (-(1 / 3)) (-1 / 3).re
+          (of_eq_true
+            (Eq.trans
+              (Eq.trans
+                (congr
+                  (congrArg Eq
+                    (Mathlib.Meta.NormNum.IsRat.neg_to_eq
+                      (Mathlib.Meta.NormNum.isRat_neg (Eq.refl Neg.neg)
+                        (Mathlib.Meta.NormNum.IsNNRat.to_isRat
+                          (Mathlib.Meta.NormNum.isNNRat_div
+                            (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+                              (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one))
+                              (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                                (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                                  (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 3))))
+                              (Eq.refl (Nat.mul 1 1)) (Eq.refl 3))))
+                        (Eq.refl (Int.negOfNat 1)))
+                      Nat.cast_one (Eq.refl 3)))
+                  (Eq.trans
+                    (congrArg Complex.re
+                      (Mathlib.Meta.NormNum.IsRat.neg_to_eq
+                        (Mathlib.Meta.NormNum.isRat_div
+                          (Mathlib.Meta.NormNum.isRat_mul (Eq.refl HMul.hMul)
+                            (Mathlib.Meta.NormNum.IsInt.to_isRat
+                              (Mathlib.Meta.NormNum.isInt_neg (Eq.refl Neg.neg)
+                                (Mathlib.Meta.NormNum.IsNat.to_isInt (Mathlib.Meta.NormNum.isNat_ofNat ℂ Nat.cast_one))
+                                (Eq.refl (Int.negOfNat 1))))
+                            (Mathlib.Meta.NormNum.IsNNRat.to_isRat
+                              (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                                (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                                  (Mathlib.Meta.NormNum.isNat_ofNat ℂ (Eq.refl 3)))))
+                            (Eq.refl ((Int.negOfNat 1).mul (Int.ofNat 1))) (Eq.refl 3)))
+                        Nat.cast_one (Eq.refl 3)))
+                    (Eq.trans
+                      (congrArg Neg.neg
+                        (Eq.trans
+                          (Eq.trans
+                            (congrArg Complex.re
+                              (Mathlib.Meta.NormNum.IsNNRat.to_eq
+                                (Mathlib.Meta.NormNum.isNNRat_div
+                                  (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+                                    (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                                      (Mathlib.Meta.NormNum.isNat_ofNat ℂ Nat.cast_one))
+                                    (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                                      (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                                        (Mathlib.Meta.NormNum.isNat_ofNat ℂ (Eq.refl 3))))
+                                    (Eq.refl (Nat.mul 1 1)) (Eq.refl 3)))
+                                Nat.cast_one (Eq.refl 3)))
+                            (Complex.div_ofNat_re 1 3))
+                          (Eq.trans (one_div 3)
+                            (Mathlib.Meta.NormNum.IsNNRat.to_eq
+                              (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                                (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                                  (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 3))))
+                              Nat.cast_one (Eq.refl 3)))))
+                      (Mathlib.Meta.NormNum.IsRat.neg_to_eq
+                        (Mathlib.Meta.NormNum.isRat_neg (Eq.refl Neg.neg)
+                          (Mathlib.Meta.NormNum.IsNNRat.to_isRat
+                            (Mathlib.Meta.NormNum.isNNRat_div
+                              (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+                                (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                                  (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one))
+                                (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                                  (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                                    (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 3))))
+                                (Eq.refl (Nat.mul 1 1)) (Eq.refl 3))))
+                          (Eq.refl (Int.negOfNat 1)))
+                        Nat.cast_one (Eq.refl 3)))))
+                (eq_self (-(1 / 3))))
+              (eq_true True.intro)))))
+      hre;
+  not_le_of_gt (neg_lt_zero.mpr NLA.MI07.scalar_gap_positive) hr
+theorem NLA.MI07.not_triangleConjecture_proved : ¬NLA.MI07.TriangleConjecture :=
+fun h =>
+  Exists.casesOn
+    (h 2
+      (Mathlib.Meta.NormNum.isNat_le_true (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 1))
+        (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 2)) (Eq.refl true))
+      NLA.MI07.witnessA NLA.MI07.witnessB)
+    fun U h => Exists.casesOn h fun V hUV => NLA.MI07.no_unitary_domination U V hUV

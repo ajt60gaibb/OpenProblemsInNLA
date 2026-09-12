@@ -1,0 +1,335 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\hypersetup{pdftitle={Random column subsets of fixed-sparsity matrices: an unrestricted theorem},pdfauthor={Research draft for independent mathematical review},pdfsubject={A complete proposed analytic proof of TR-07}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\spanof}{\operatorname{span}}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\title{Random column subsets of fixed-sparsity matrices:\\an unrestricted theorem}
+\author{Research draft for independent mathematical review}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+For every fixed column sparsity, aspect ratio, and positive singular-value threshold, we prove that a uniformly sampled proportional-size column subset of any sufficiently redundant signed sparse dictionary has a positive fraction of singular values below that threshold, except with exponentially small probability. No hypothesis is imposed on intersections of column supports. The argument combines a covariance polynomial filter, finite signed conditional trajectories, and a common reservoir of sampled columns. A simultaneous-witness lemma converts reconstruction events into a lower bound for an eigenvalue count. A collision coupling transfers its expectation to sampling without replacement, after which a transposition martingale supplies concentration. This gives an affirmative answer to the exact target TR-07 in OpenProblemsInNLA, corresponding to the nontrivial regime of Huang--Rudelson--Tikhomirov's Conjecture~7.1. The proof is analytic; no finite computation is a premise.
+\end{abstract}
+
+\section{Statement and explicit constants}
+For integers $k\ge s\ge1$, write
+\[
+ \mathcal V_{k,s}=\{u\in\{-1,0,1\}^k:|\supp u|=s\}.
+\]
+For a real $k\times r$ matrix $A$ and $\eta>0$, set
+\[
+ N_\eta(A)=\#\{j\in\{1,\ldots,r\}:\lambda_j(A^TA)\le\eta^2\},
+\]
+where the eigenvalues are counted with multiplicity, including zeros. Thus, when $r\le k$, this is the number of its $r$ singular values at most $\eta$. Throughout, eigenvalues of a symmetric matrix are ordered increasingly.
+
+\begin{theorem}[Uniform finite statement]\label{thm:finite}
+Fix $s\ge1$, $0<\beta\le1$, and $\eta>0$. There are constants $0<\rho<1$ and $k_0\in\mathbb N$, depending only on $(s,\beta,\eta)$, with the following property. If
+\[
+ k\ge k_0,\qquad \beta k\le r\le k,\qquad n\ge r/\rho,
+\]
+if $M\in\{-1,0,1\}^{k\times n}$ has exactly $s$ nonzero entries per column, and if $I$ is a uniform $r$-element subset of $\{1,\ldots,n\}$, then
+\begin{equation}\label{eq:main}
+ \Prob\{N_\eta(M_{:I})<\rho r/4\}
+ \le \exp(-\rho^2r/8).
+\end{equation}
+The constants are uniform over every choice of signs and column supports.
+\end{theorem}
+
+Here is one explicit, very inefficient choice. Put
+\begin{align}
+ \varepsilon&=\eta/2,&
+ L&=\left\lceil\frac{4s^2}{\varepsilon^2}\right\rceil,&
+ S_L&=2^L-1,\notag\\
+ b&=\left\lceil\frac{8sS_L^2}{\varepsilon^2}\right\rceil,&
+ J_0&=bL,&
+ a&=\frac{\beta}{16J_0+\beta},\label{eq:constants}\\
+ \rho&=\frac{3}{32}a^{J_0},&
+ k_0&=\max\left\{s,\left\lceil\frac{4J_0}{\beta}\right\rceil\right\}.\notag
+\end{align}
+All these quantities are finite and positive where appropriate, and are chosen before $k,r,n$, or $M$. In particular, $r\ge4J_0\ge4$ under the theorem's hypotheses.
+
+\begin{corollary}[TR-07]\label{cor:target}
+Fix an integer $s\ge2$ and a finite constant $C\ge1$. Suppose that $r_k\le k$, $k/r_k\to C$, and $n_k/r_k\to\infty$. For every deterministic sequence
+\[
+ M_k\in\{-1,0,1\}^{k\times n_k}
+\]
+with exactly $s$ nonzero entries per column, and a uniform $r_k$-element column set $I_k$, one has, for every $\eta>0$,
+\[
+ \Prob\left\{\inf_{\norm{x}_2=1}\norm{(M_k)_{:I_k}x}_2>\eta\right\}\longrightarrow0.
+\]
+There is no condition on intersections of column supports.
+\end{corollary}
+\begin{proof}[Deduction from Theorem~\ref{thm:finite}]
+Fix $\eta>0$ and use $\beta=1/(2C)$. For all sufficiently large $k$, one has $r_k\ge\beta k$, $k\ge k_0$, $n_k\ge r_k/\rho$, and $\rho r_k/4\ge1$. The event in the corollary is then contained in $\{N_\eta((M_k)_{:I_k})<\rho r_k/4\}$. Its probability is at most $\exp(-\rho^2r_k/8)$, which tends to zero.
+\end{proof}
+
+Corollary~\ref{cor:target} is the canonical statement of TR-07~\cite{Townsend}. It is the $r_k\le k$ regime of Conjecture~7.1 in~\cite{HRT}. If the latter is considered with $r_k>k$, the infimum definition of the least singular value is zero by dimension; the other indices are covered by the same argument. The proof below does not invoke the support-overlap theorem of~\cite{HRT}.
+
+\section{Two deterministic facts about small singular values}
+\begin{lemma}[Simultaneous witnesses]\label{lem:witness}
+Suppose a matrix $A$ contains $m$ designated center columns and a disjoint set of reservoir columns. Suppose each center can be approximated to Euclidean error at most $\varepsilon=\eta/2$ by a linear combination of reservoir columns. Then
+\[
+ N_\eta(A)\ge m/2.
+\]
+The linear combinations may share reservoir columns and may have arbitrarily large coefficients.
+\end{lemma}
+\begin{proof}
+The assertion is immediate for $m=0$. Otherwise, collect the $m$ dependence coefficient vectors into a matrix $V$, with a coefficient $1$ at the corresponding center and minus the reconstruction coefficients at the reservoir positions. After permuting column coordinates, the block of $V$ at the selected centers is $I_m$, its reservoir block is $-X$, and all other rows vanish. Therefore
+\[
+ V^TV=I_m+X^TX\succeq I_m,\qquad \norm{AV}_F^2\le m\varepsilon^2.
+\]
+Set $Q=V(V^TV)^{-1/2}$. Then $Q^TQ=I_m$, and
+\[
+ \norm{AQ}_F^2\le\norm{AV}_F^2\le m\eta^2/4.
+\]
+The minimum principle for sums of eigenvalues gives
+\begin{equation}\label{eq:kyfan}
+ \sum_{j=1}^m\lambda_j(A^TA)
+ \le\tr(Q^TA^TAQ)\le m\eta^2/4.
+\end{equation}
+To see the minimum principle directly, diagonalize $A^TA$ and write its trace against the orthogonal projection $QQ^T$ as $\sum_j\lambda_jw_j$, where $0\le w_j\le1$ and $\sum_jw_j=m$. This is minimized by assigning weight one to the first $m$ eigenvalues. If $N_\eta(A)<m/2$, more than $m/2$ of the first $m$ eigenvalues exceed $\eta^2$, contradicting~\eqref{eq:kyfan}.
+\end{proof}
+
+\begin{lemma}[Column replacement is one-Lipschitz]\label{lem:lipschitz}
+If two matrices with the same number of columns differ in at most $h$ column positions, then
+\[
+ |N_\eta(A)-N_\eta(B)|\le h.
+\]
+Also, $N_\eta$ is invariant under column permutations.
+\end{lemma}
+\begin{proof}
+Deleting a column replaces the Gram matrix by a principal submatrix. The interlacing inequalities imply that the count in $(-\infty,\eta^2]$ can decrease by either zero or one. If $A$ and $B$ share all but $h$ columns, delete the exceptional positions from both to obtain a common matrix $C$. Each of $N_\eta(A)$ and $N_\eta(B)$ belongs to $[N_\eta(C),N_\eta(C)+h]$. Permuting columns conjugates the Gram matrix by a permutation matrix.
+\end{proof}
+
+\section{A finite reconstruction using conditional trajectories}
+\begin{lemma}[Pruning]\label{lem:prune}
+For every probability law $\mu$ on $\mathcal V_{k,s}$ there is a subset $G$ of its support with $g:=\mu(G)\ge3/4$ such that every active coordinate satisfies
+\begin{equation}\label{eq:rawincidence}
+ \mu\{u\in G:u_i\ne0\}\ge\frac1{4k}.
+\end{equation}
+Here active means that the quantity on the left is nonzero.
+\end{lemma}
+\begin{proof}
+Begin with the full support. If a coordinate has positive remaining incident mass less than $1/(4k)$, delete every remaining vector incident to that coordinate. Always measure mass using the original, unnormalized law $\mu$. Once charged, a coordinate has no incident vectors left and is never charged again. There are at most $k$ charges, each less than $1/(4k)$. Thus at most $1/4$ of the total mass is removed, and the terminal set has the asserted property.
+\end{proof}
+
+Let $\nu=\mu(\cdot\mid G)$. Restrict all covariance operators below to the active coordinate subspace, and write
+\[
+ p_i=\nu\{u_i\ne0\},\quad D=\diag(p_i),\quad
+ \Sigma=\E_\nu uu^T,\quad T=\Sigma D^{-1}.
+\]
+Only $D$ is inverted. It is positive definite on this subspace; $\Sigma$ is allowed to be singular. Zero extension to the original $k$ coordinates leaves every vector norm unchanged. Since every vector has $s$ nonzero entries,
+\begin{equation}\label{eq:traceD}
+ \tr D=s.
+\end{equation}
+
+\begin{lemma}[Averaged covariance filter]\label{lem:filter}
+For every integer $L\ge1$,
+\begin{equation}\label{eq:filter}
+ \E_\nu\norm{(I-T/s)^Lu}_2^2\le\frac{s^2}{2L+1}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+For every deterministic $u\in\mathcal V_{k,s}$ and every $x$,
+\[
+ (u^Tx)^2\le s\sum_{i\in\supp u}x_i^2.
+\]
+Averaging gives $\Sigma\preceq sD$. Consequently
+\[
+ R=D^{-1/2}\Sigma D^{-1/2},\qquad 0\preceq R\preceq sI,
+ \qquad T=D^{1/2}RD^{-1/2}.
+\]
+Direct substitution and cyclicity of trace yield
+\begin{align*}
+ \E_\nu\norm{(I-T/s)^Lu}_2^2
+ &=\tr\big((I-T/s)^L\Sigma((I-T/s)^L)^T\big)\\
+ &=\tr\big(DR(I-R/s)^{2L}\big).
+\end{align*}
+For $0\le\lambda\le s$, differentiation, or maximization of $t(1-t)^{2L}$ on $[0,1]$, gives
+\[
+ 0\le\lambda(1-\lambda/s)^{2L}
+ \le \frac{s}{2L+1}.
+\]
+The spectral theorem and~\eqref{eq:traceD} prove~\eqref{eq:filter}. In particular, no Euclidean operator-norm contraction of the generally nonnormal matrix $I-T/s$ is being assumed.
+\end{proof}
+
+A signed conditional transition starts from a state $v$ that is a signed copy of a vector in $G$. Choose $i$ uniformly from its $s$ support coordinates, sample $w$ from $\nu$ conditional on $w_i\ne0$, and replace $v$ by $v_iw_iw$. The new state is again a signed copy of a vector in $G$, has norm $\sqrt{s}$, and satisfies
+\begin{equation}\label{eq:transition}
+ \E[v_iw_iw\mid v]
+ =\frac1s\sum_{i\in\supp v}\frac{v_i}{p_i}\E_\nu[u_iu]
+ =\frac{T}{s}v.
+\end{equation}
+The sign of a state is carried in the coefficients; the law $\nu$ need not be sign symmetric.
+
+\begin{lemma}[Finite ideal reconstruction]\label{lem:ideal}
+Use $\varepsilon,L,b,J_0$ from~\eqref{eq:constants}. Given $u\sim\nu$, run $b$ independent length-$L$ conditional trajectories from $u$, independent conditional on $u$. There is a linear combination $Y$ of their $J_0=bL$ visited sample vectors such that
+\begin{equation}\label{eq:idealprob}
+ \Prob_{\rm ideal}\{\norm{u-Y}_2\le\varepsilon\}\ge3/4.
+\end{equation}
+The probability averages over both the center and the trajectories.
+\end{lemma}
+\begin{proof}
+Let $v_{h,j}$ denote the state after step $j$ of trajectory $h$, with $v_{h,0}=u$. Iteration of~\eqref{eq:transition} gives
+\[
+ \E[v_{h,j}\mid u]=(T/s)^ju.
+\]
+For $c_j=(-1)^{j+1}\binom Lj$, put
+\[
+ Y_h=\sum_{j=1}^Lc_jv_{h,j},\qquad Y=\frac1b\sum_{h=1}^bY_h.
+\]
+Each signed state is a signed sampled vector, so $Y$ belongs to the claimed span. The binomial identity gives
+\[
+ \E[Y\mid u]=\big[I-(I-T/s)^L\big]u.
+\]
+Also $\norm{Y_h}_2\le\sqrt{s}\sum_j|c_j|=\sqrt{s}S_L$. Conditional independence of the trajectories, not of successive states within a trajectory, gives
+\[
+ \E\norm{Y-\E[Y\mid u]}_2^2\le\frac{sS_L^2}{b}.
+\]
+The conditional centered error is orthogonal in mean square to the bias. Lemma~\ref{lem:filter} therefore implies
+\begin{equation}\label{eq:idealerror}
+ \E\norm{u-Y}_2^2
+ \le\frac{s^2}{2L+1}+\frac{sS_L^2}{b}
+ \le\frac{\varepsilon^2}{4}.
+\end{equation}
+Markov's inequality proves~\eqref{eq:idealprob}. This construction uses exactly $bL$ transitions; separate trajectories for each of the different powers are unnecessary.
+\end{proof}
+
+\section{Finding reconstructions in an independent sample}
+\begin{proposition}[Uniform expectation bound]\label{prop:iid}
+Let $\mu$ be any law on $\mathcal V_{k,s}$. Let $A$ have $r$ independent columns with law $\mu$, where $k\ge k_0$ and $\beta k\le r\le k$. Then
+\begin{equation}\label{eq:iidmean}
+ \E N_\eta(A)\ge\rho r,
+\end{equation}
+with $\rho$ from~\eqref{eq:constants}.
+\end{proposition}
+\begin{proof}
+Use Lemma~\ref{lem:prune}. Designate the first $m=\lfloor r/2\rfloor$ columns as centers and the remaining columns as a reservoir. Partition the first $J_0\ell$ reservoir columns into $J_0$ fixed disjoint chunks of size
+\[
+ \ell=\left\lfloor\frac{r-m}{J_0}\right\rfloor\ge\frac{r}{4J_0},
+\]
+since $r\ge4J_0$. For any one center, declare failure if it is outside $G$. Otherwise attempt the $b$ trajectories of Lemma~\ref{lem:ideal} in a fixed order, using one fresh chunk for each transition. Once its requested coordinate $i$ has been chosen, take the first vector $w$ in that chunk satisfying $w\in G$ and $w_i\ne0$. Declare failure if none exists.
+
+Write $\pi_i=\mu\{w\in G:w_i\ne0\}=gp_i$. Every requested coordinate is active, so $\pi_i\ge1/(4k)$. Its chunk-hit probability is
+\[
+ h_i=1-(1-\pi_i)^\ell
+ \ge\frac{\ell\pi_i}{1+\ell\pi_i}
+ \ge\frac{\beta}{16J_0+\beta}=a.
+\]
+For the first inequality, $(1-p)^\ell\le(1+\ell p)^{-1}$ for $0\le p\le1$: for $p<1$ use $(1-p)^{-\ell}\ge1+\ell p/(1-p)\ge1+\ell p$, and for $p=1$ the assertion is immediate.
+
+For any set $B$ of vectors, the first-hit formula is exactly
+\begin{equation}\label{eq:firsthit}
+ \Prob\{\text{hit, selected vector}\in B\mid i\}
+ =h_i\,\nu(B\mid w_i\ne0).
+\end{equation}
+Indeed, summing the probabilities that positions $1,\ldots,\ell$ supply the first acceptable vector gives this identity. Given the past for this particular center, its next chunk is an independent sequence with law $\mu$. Thus each successful transition kernel, including the uniform support-coordinate choice, is at least $a$ times the ideal transition kernel. Composing these nonnegative kernels over all $J_0$ transitions proves that the law of completed trajectories dominates $a^{J_0}$ times the ideal law.
+
+The center itself has law $g\nu$ when restricted to $G$. Therefore, by~\eqref{eq:idealprob}, the probability that this center produces a completed reconstruction of error at most $\varepsilon$ is at least
+\begin{equation}\label{eq:success}
+ g a^{J_0}\cdot\frac34\ge\frac9{16}a^{J_0}.
+\end{equation}
+This is domination of the unnormalized successful law. Conditioning on all hits need not preserve the ideal trajectory law; that incorrect assertion is not used.
+
+Reuse the same reservoir chunks for all centers. Analyze each center's marginal probability as above, without conditioning on any other center's outcomes. Let $Z$ be the number of successes, with their auxiliary coordinate-choice randomness included. Linearity of expectation and~\eqref{eq:success} give
+\[
+ \E Z\ge\frac9{16}a^{J_0}m.
+\]
+For every realization, all successful centers are reconstructed using only the common reservoir, which is disjoint from every center. Lemma~\ref{lem:witness} applies simultaneously, so $N_\eta(A)\ge Z/2$. No independence among the center-success events is needed. Since $m\ge r/3$,
+\[
+ \E N_\eta(A)\ge\frac12\E Z
+ \ge\frac{3}{32}a^{J_0}r=\rho r.
+\]
+The auxiliary randomness has disappeared from the left side, which depends only on the actual $r$ sampled columns.
+\end{proof}
+
+\section{Sampling without replacement and concentration}
+\begin{lemma}[Expectation comparison]\label{lem:coupling}
+Let $M$ be any real matrix with $n$ columns and let $r\le n$. If $J_1,\ldots,J_r$ are independent uniform column indices and $I$ is a uniform $r$-element subset, then
+\begin{equation}\label{eq:coupling}
+ \E N_\eta(M_{:I})\ge
+ \E N_\eta(M_{:J})-\frac{r(r-1)}{2n}.
+\end{equation}
+Repeated indices in $M_{:J}$ mean repeated columns, not a set.
+\end{lemma}
+\begin{proof}
+Construct distinct indices $I_1,\ldots,I_r$ in order. Keep $I_t=J_t$ if $J_t$ is unused among $I_1,\ldots,I_{t-1}$; otherwise choose $I_t$ uniformly among unused indices, using fresh randomness. Given the entire past, for each unused $i$,
+\[
+ \Prob\{I_t=i\mid\text{past}\}
+ =\frac1n+\frac{t-1}{n}\frac1{n-t+1}
+ =\frac1{n-t+1}.
+\]
+Thus $(I_t)$ is uniformly sampled without replacement. If $H=\#\{t:I_t\ne J_t\}$, then
+\[
+ \E H=\sum_{t=1}^r\frac{t-1}{n}=\frac{r(r-1)}{2n}.
+\]
+Lemma~\ref{lem:lipschitz} gives $N_\eta(M_{:I})\ge N_\eta(M_{:J})-H$ in every realization. Take expectations.
+\end{proof}
+
+\begin{lemma}[Concentration for a uniform subset]\label{lem:concentration}
+Let $F$ be a real function of $r$-element subsets of $\{1,\ldots,n\}$. Suppose $|F(S)-F(S')|\le1$ whenever $S,S'$ differ by exchanging one element. If $I$ is a uniform $r$-element subset, then for $t>0$,
+\begin{equation}\label{eq:concentration}
+ \Prob\{F(I)-\E F(I)\le-t\}\le\exp(-2t^2/r).
+\end{equation}
+\end{lemma}
+\begin{proof}
+Reveal a uniformly ordered sample $I_1,\ldots,I_r$ without replacement, and use its Doob martingale. Fix a revealed prefix before time $j$ and two possible next values $a,b$. Couple uniform completions after $a$ and after $b$ by transposing the labels $a,b$ in the remaining sample. If the completion after $a$ contains $b$, the resulting final subsets agree. Otherwise they differ by exchanging $a$ and $b$. The corresponding conditional expectations of $F$ differ by at most one. Hence each martingale increment, conditional on the past, is centered and belongs to an interval of length at most one.
+
+For completeness, a centered bounded random variable $X$ in an interval of length one obeys $\E e^{\lambda X}\le e^{\lambda^2/8}$. Indeed, if $\phi(\lambda)=\log\E e^{\lambda X}$, then $\phi(0)=\phi'(0)=0$ and $\phi''(\lambda)$ is a variance under the exponentially tilted law, bounded by $1/4$ because its support still lies in that interval. Integrating twice gives the bound. Applying it conditionally and iterating yields
+\[
+ \E e^{-\lambda(F(I)-\E F(I))}\le e^{r\lambda^2/8}.
+\]
+Exponential Markov and $\lambda=4t/r$ prove~\eqref{eq:concentration}.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:finite}]
+Give the $n$ column indices of $M$ equal mass and let $\mu$ be the resulting distribution of column vectors. It is a probability law on $\mathcal V_{k,s}$, irrespective of repeated column values. Proposition~\ref{prop:iid} and Lemma~\ref{lem:coupling} imply
+\[
+ \E N_\eta(M_{:I})\ge\rho r-\frac{r(r-1)}{2n}
+ \ge\rho r/2,
+\]
+because $n\ge r/\rho$. By Lemma~\ref{lem:lipschitz}, the function $F(I)=N_\eta(M_{:I})$ satisfies the hypothesis of Lemma~\ref{lem:concentration}. Apply that lemma with $t=\rho r/4$. The result is
+\[
+ \Prob\{N_\eta(M_{:I})<\rho r/4\}
+ \le\exp\!\left(-\frac{2(\rho r/4)^2}{r}\right)
+ =\exp(-\rho^2r/8),
+\]
+as claimed.
+\end{proof}
+
+\section*{Scope, provenance, and verification status}
+The theorem covers every fixed $s$, including $s=1$, with arbitrary signs, repeated columns, and unrestricted support intersections. It does not establish a sharp rate as $s$ grows with $k$. Its constants are intentionally inefficient. In the asymptotic corollary, $s,C,\eta$ are fixed first; no exchange of these quantifiers is used.
+
+An earlier recovered draft contained a covariance--reservoir argument. The present version rederives that argument and simplifies it: successive powers use a single trajectory; pruning is implemented by direct rejection inside the original reservoir; changing one column is treated with the sharp one-Lipschitz count bound; and concentration is proved directly for sampling without replacement. The last change strengthens the former collision-error probability estimate to the exponential bound~\eqref{eq:main}. The original draft is preserved separately in the bundle.
+
+The accompanying standard-library rational tests check finite identities and small instances, including a counterexample to treating the all-hit conditional law as the ideal law. They are implementation checks, not an exhaustive verification of the universal theorem. This manuscript has not been independently human-refereed or checked in a proof assistant. The exact target and publicly visible repository status were checked on 12 September 2026; complete historical issue coverage and publication priority are not asserted. Nothing has been submitted to the repository.
+
+\begin{thebibliography}{9}
+\bibitem{HRT}
+H. Huang, M. Rudelson, and K. Tikhomirov,
+\emph{Well-invertible column subsets of sparse matrices are rare},
+arXiv:2607.05384v2 (2026), Theorem 1.3 and Conjecture 7.1.
+\url{https://arxiv.org/html/2607.05384v2}.
+\bibitem{Townsend}
+A. Townsend, \emph{Open Problems in Numerical Linear Algebra}, entry TR-07,
+``Random column subsets of arbitrary fixed-sparsity matrices.''
+Canonical statement accessed 12 September 2026.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/randomized-and-low-rank-approximation/TR-07}.
+\end{thebibliography}
+\end{document}

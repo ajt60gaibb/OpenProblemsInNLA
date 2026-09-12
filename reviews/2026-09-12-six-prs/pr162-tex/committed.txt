@@ -1,0 +1,521 @@
+Random column subsets of ﬁxed-sparsity matrices:
+an unrestricted theorem
+Sidney Holden
+Center for Computational Biology, Flatiron Institute
+Simons Foundation, New York, USA
+
+12 September 2026
+
+Abstract
+For every ﬁxed column sparsity, aspect ratio, and positive singular-value threshold, we
+prove that a uniformly sampled proportional-size column subset of any suﬃciently redundant signed sparse dictionary has a positive fraction of singular values below that threshold,
+except with exponentially small probability. No hypothesis is imposed on intersections of
+column supports. The argument combines a covariance polynomial ﬁlter, ﬁnite signed conditional trajectories, and a common reservoir of sampled columns. A simultaneous-witness
+lemma converts reconstruction events into a lower bound for an eigenvalue count. A collision
+coupling transfers its expectation to sampling without replacement, after which a transposition martingale supplies concentration. This gives an aﬃrmative answer to the exact target
+TR-07 in OpenProblemsInNLA, corresponding to the nontrivial regime of Huang–Rudelson–
+Tikhomirov’s Conjecture 7.1. The proof is analytic; no ﬁnite computation is a premise.
+
+1
+
+Statement and explicit constants
+
+For integers k ≥ s ≥ 1, write
+Vk,s = {u ∈ {−1, 0, 1}k : | supp u| = s}.
+For a real k × r matrix A and η > 0, set
+Nη (A) = #{j ∈ {1, . . . , r} : λj (AT A) ≤ η 2 },
+where the eigenvalues are counted with multiplicity, including zeros. Thus, when r ≤ k, this is
+the number of its r singular values at most η. Throughout, eigenvalues of a symmetric matrix
+are ordered increasingly.
+Theorem 1.1 (Uniform ﬁnite statement). Fix s ≥ 1, 0 < β ≤ 1, and η > 0. There are
+constants 0 < ρ < 1 and k0 ∈ N, depending only on (s, β, η), with the following property. If
+k ≥ k0 ,
+
+βk ≤ r ≤ k,
+
+n ≥ r/ρ,
+
+if M ∈ {−1, 0, 1}k×n has exactly s nonzero entries per column, and if I is a uniform r-element
+subset of {1, . . . , n}, then
+P{Nη (M:I ) < ρr/4} ≤ exp(−ρ2 r/8).
+The constants are uniform over every choice of signs and column supports.
+
+1
+
+(1)
+
+Here is one explicit, very ineﬃcient choice. Put
+&
+
+ε = η/2,
+&
+
+'
+
+8sSL2
+b=
+,
+ε2
+3
+ρ = a J0 ,
+32
+
+'
+
+4s2
+L=
+,
+ε2
+
+SL = 2L − 1,
+
+J0 = bL,
+
+a=
+ 
+
+k0 = max s,
+
+4J0
+β
+
+
+
+β
+16J0 + β
+
+,
+
+(2)
+
+.
+
+All these quantities are ﬁnite and positive where appropriate, and are chosen before k, r, n, or
+M . In particular, r ≥ 4J0 ≥ 4 under the theorem’s hypotheses.
+Corollary 1.2 (TR-07). Fix an integer s ≥ 2 and a ﬁnite constant C ≥ 1. Suppose that rk ≤ k,
+k/rk → C, and nk /rk → ∞. For every deterministic sequence
+Mk ∈ {−1, 0, 1}k×nk
+with exactly s nonzero entries per column, and a uniform rk -element column set Ik , one has,
+for every η > 0,
+(
+)
+P
+
+inf ∥(Mk ):Ik x∥2 > η
+
+∥x∥2 =1
+
+−→ 0.
+
+There is no condition on intersections of column supports.
+Deduction from Theorem 1.1. Fix η > 0 and use β = 1/(2C). For all suﬃciently large k, one
+has rk ≥ βk, k ≥ k0 , nk ≥ rk /ρ, and ρrk /4 ≥ 1. The event in the corollary is then contained in
+{Nη ((Mk ):Ik ) < ρrk /4}. Its probability is at most exp(−ρ2 rk /8), which tends to zero.
+Corollary 1.2 is the canonical statement of TR-07 [2]. It is the rk ≤ k regime of Conjecture 7.1
+in [1]. If the latter is considered with rk > k, the inﬁmum deﬁnition of the least singular value
+is zero by dimension; the other indices are covered by the same argument. The proof below
+does not invoke the support-overlap theorem of [1].
+
+2
+
+Two deterministic facts about small singular values
+
+Lemma 2.1 (Simultaneous witnesses). Suppose a matrix A contains m designated center
+columns and a disjoint set of reservoir columns. Suppose each center can be approximated
+to Euclidean error at most ε = η/2 by a linear combination of reservoir columns. Then
+Nη (A) ≥ m/2.
+The linear combinations may share reservoir columns and may have arbitrarily large coeﬃcients.
+Proof. The assertion is immediate for m = 0. Otherwise, collect the m dependence coeﬃcient
+vectors into a matrix V , with a coeﬃcient 1 at the corresponding center and minus the reconstruction coeﬃcients at the reservoir positions. After permuting column coordinates, the block
+of V at the selected centers is Im , its reservoir block is −X, and all other rows vanish. Therefore
+V T V = Im + X T X ⪰ Im ,
+
+∥AV ∥2F ≤ mε2 .
+
+Set Q = V (V T V )−1/2 . Then QT Q = Im , and
+∥AQ∥2F ≤ ∥AV ∥2F ≤ mη 2 /4.
+
+2
+
+The minimum principle for sums of eigenvalues gives
+m
+X
+
+λj (AT A) ≤ tr(QT AT AQ) ≤ mη 2 /4.
+
+(3)
+
+j=1
+
+To see the minimum principle directly, diagonalize AT A and write its trace against the orthogP
+P
+onal projection QQT as j λj wj , where 0 ≤ wj ≤ 1 and j wj = m. This is minimized by
+assigning weight one to the ﬁrst m eigenvalues. If Nη (A) < m/2, more than m/2 of the ﬁrst m
+eigenvalues exceed η 2 , contradicting (3).
+Lemma 2.2 (Column replacement is one-Lipschitz). If two matrices with the same number of
+columns diﬀer in at most h column positions, then
+|Nη (A) − Nη (B)| ≤ h.
+Also, Nη is invariant under column permutations.
+Proof. Deleting a column replaces the Gram matrix by a principal submatrix. The interlacing
+inequalities imply that the count in (−∞, η 2 ] can decrease by either zero or one. If A and B
+share all but h columns, delete the exceptional positions from both to obtain a common matrix
+C. Each of Nη (A) and Nη (B) belongs to [Nη (C), Nη (C) + h]. Permuting columns conjugates
+the Gram matrix by a permutation matrix.
+
+3
+
+A ﬁnite reconstruction using conditional trajectories
+
+Lemma 3.1 (Pruning). For every probability law µ on Vk,s there is a subset G of its support
+with g := µ(G) ≥ 3/4 such that every active coordinate satisﬁes
+µ{u ∈ G : ui ̸= 0} ≥
+
+1
+.
+4k
+
+(4)
+
+Here active means that the quantity on the left is nonzero.
+Proof. Begin with the full support. If a coordinate has positive remaining incident mass less
+than 1/(4k), delete every remaining vector incident to that coordinate. Always measure mass
+using the original, unnormalized law µ. Once charged, a coordinate has no incident vectors left
+and is never charged again. There are at most k charges, each less than 1/(4k). Thus at most
+1/4 of the total mass is removed, and the terminal set has the asserted property.
+Let ν = µ(· | G). Restrict all covariance operators below to the active coordinate subspace,
+and write
+pi = ν{ui ̸= 0}, D = diag(pi ), Σ = Eν uuT , T = ΣD−1 .
+Only D is inverted. It is positive deﬁnite on this subspace; Σ is allowed to be singular. Zero
+extension to the original k coordinates leaves every vector norm unchanged. Since every vector
+has s nonzero entries,
+tr D = s.
+(5)
+Lemma 3.2 (Averaged covariance ﬁlter). For every integer L ≥ 1,
+Eν (I − T /s)L u
+
+3
+
+2
+2
+
+≤
+
+s2
+.
+2L + 1
+
+(6)
+
+Proof. For every deterministic u ∈ Vk,s and every x,
+(uT x)2 ≤ s
+
+X
+
+x2i .
+
+i∈supp u
+
+Averaging gives Σ ⪯ sD. Consequently
+R = D−1/2 ΣD−1/2 ,
+
+0 ⪯ R ⪯ sI,
+
+T = D1/2 RD−1/2 .
+
+Direct substitution and cyclicity of trace yield
+Eν (I − T /s)L u
+
+2
+2
+
+= tr (I − T /s)L Σ((I − T /s)L )T
+
+
+
+
+
+= tr DR(I − R/s)2L .
+For 0 ≤ λ ≤ s, diﬀerentiation, or maximization of t(1 − t)2L on [0, 1], gives
+s
+0 ≤ λ(1 − λ/s)2L ≤
+.
+2L + 1
+The spectral theorem and (5) prove (6). In particular, no Euclidean operator-norm contraction
+of the generally nonnormal matrix I − T /s is being assumed.
+A signed conditional transition starts from a state v that is a signed copy of a vector in G.
+Choose i uniformly from its s support coordinates, sample w from ν conditional on wi ̸= 0, and
+√
+replace v by vi wi w. The new state is again a signed copy of a vector in G, has norm s, and
+satisﬁes
+1 X vi
+T
+E[vi wi w | v] =
+(7)
+Eν [ui u] = v.
+s i∈supp v pi
+s
+The sign of a state is carried in the coeﬃcients; the law ν need not be sign symmetric.
+Lemma 3.3 (Finite ideal reconstruction). Use ε, L, b, J0 from (2). Given u ∼ ν, run b independent length-L conditional trajectories from u, independent conditional on u. There is a linear
+combination Y of their J0 = bL visited sample vectors such that
+Pideal {∥u − Y ∥2 ≤ ε} ≥ 3/4.
+
+(8)
+
+The probability averages over both the center and the trajectories.
+Proof. Let vh,j denote the state after step j of trajectory h, with vh,0 = u. Iteration of (7) gives
+E[vh,j | u] = (T /s)j u.
+
+
+
+For cj = (−1)j+1 Lj , put
+Yh =
+
+L
+X
+
+b
+1X
+Y =
+Yh .
+b h=1
+
+cj vh,j ,
+
+j=1
+
+Each signed state is a signed sampled vector, so Y belongs to the claimed span. The binomial
+identity gives
+
+
+E[Y | u] = I − (I − T /s)L u.
+√ P
+√
+Also ∥Yh ∥2 ≤ s j |cj | = sSL . Conditional independence of the trajectories, not of successive
+states within a trajectory, gives
+sSL2
+.
+b
+The conditional centered error is orthogonal in mean square to the bias. Lemma 3.2 therefore
+implies
+s2
+sS 2
+ε2
+E ∥u − Y ∥22 ≤
++ L ≤ .
+(9)
+2L + 1
+b
+4
+Markov’s inequality proves (8). This construction uses exactly bL transitions; separate trajectories for each of the diﬀerent powers are unnecessary.
+E ∥Y − E[Y | u]∥22 ≤
+
+4
+
+4
+
+Finding reconstructions in an independent sample
+
+Proposition 4.1 (Uniform expectation bound). Let µ be any law on Vk,s . Let A have r
+independent columns with law µ, where k ≥ k0 and βk ≤ r ≤ k. Then
+ENη (A) ≥ ρr,
+
+(10)
+
+with ρ from (2).
+Proof. Use Lemma 3.1. Designate the ﬁrst m = ⌊r/2⌋ columns as centers and the remaining
+columns as a reservoir. Partition the ﬁrst J0 ℓ reservoir columns into J0 ﬁxed disjoint chunks of
+size
+
+
+r
+r−m
+≥
+,
+ℓ=
+J0
+4J0
+since r ≥ 4J0 . For any one center, declare failure if it is outside G. Otherwise attempt the b
+trajectories of Lemma 3.3 in a ﬁxed order, using one fresh chunk for each transition. Once its
+requested coordinate i has been chosen, take the ﬁrst vector w in that chunk satisfying w ∈ G
+and wi ̸= 0. Declare failure if none exists.
+Write πi = µ{w ∈ G : wi ̸= 0} = gpi . Every requested coordinate is active, so πi ≥ 1/(4k).
+Its chunk-hit probability is
+hi = 1 − (1 − πi )ℓ ≥
+
+β
+ℓπi
+≥
+= a.
+1 + ℓπi
+16J0 + β
+
+For the ﬁrst inequality, (1 − p)ℓ ≤ (1 + ℓp)−1 for 0 ≤ p ≤ 1: for p < 1 use (1 − p)−ℓ ≥
+1 + ℓp/(1 − p) ≥ 1 + ℓp, and for p = 1 the assertion is immediate.
+For any set B of vectors, the ﬁrst-hit formula is exactly
+P{hit, selected vector ∈ B | i} = hi ν(B | wi ̸= 0).
+
+(11)
+
+Indeed, summing the probabilities that positions 1, . . . , ℓ supply the ﬁrst acceptable vector gives
+this identity. Given the past for this particular center, its next chunk is an independent sequence
+with law µ. Thus each successful transition kernel, including the uniform support-coordinate
+choice, is at least a times the ideal transition kernel. Composing these nonnegative kernels over
+all J0 transitions proves that the law of completed trajectories dominates aJ0 times the ideal
+law.
+The center itself has law gν when restricted to G. Therefore, by (8), the probability that
+this center produces a completed reconstruction of error at most ε is at least
+3
+9
+≥ aJ0 .
+(12)
+4
+16
+This is domination of the unnormalized successful law. Conditioning on all hits need not preserve
+the ideal trajectory law; that incorrect assertion is not used.
+Reuse the same reservoir chunks for all centers. Analyze each center’s marginal probability as
+above, without conditioning on any other center’s outcomes. Let Z be the number of successes,
+with their auxiliary coordinate-choice randomness included. Linearity of expectation and (12)
+give
+9
+EZ ≥ aJ0 m.
+16
+For every realization, all successful centers are reconstructed using only the common reservoir,
+which is disjoint from every center. Lemma 2.1 applies simultaneously, so Nη (A) ≥ Z/2. No
+independence among the center-success events is needed. Since m ≥ r/3,
+gaJ0 ·
+
+1
+3
+ENη (A) ≥ EZ ≥ aJ0 r = ρr.
+2
+32
+The auxiliary randomness has disappeared from the left side, which depends only on the actual
+r sampled columns.
+5
+
+5
+
+Sampling without replacement and concentration
+
+Lemma 5.1 (Expectation comparison). Let M be any real matrix with n columns and let r ≤ n.
+If J1 , . . . , Jr are independent uniform column indices and I is a uniform r-element subset, then
+ENη (M:I ) ≥ ENη (M:J ) −
+
+r(r − 1)
+.
+2n
+
+(13)
+
+Repeated indices in M:J mean repeated columns, not a set.
+Proof. Construct distinct indices I1 , . . . , Ir in order. Keep It = Jt if Jt is unused among
+I1 , . . . , It−1 ; otherwise choose It uniformly among unused indices, using fresh randomness. Given
+the entire past, for each unused i,
+P{It = i | past} =
+
+1 t−1
+1
+1
++
+=
+.
+n
+n n−t+1
+n−t+1
+
+Thus (It ) is uniformly sampled without replacement. If H = #{t : It ̸= Jt }, then
+EH =
+
+r
+X
+t−1
+t=1
+
+n
+
+=
+
+r(r − 1)
+.
+2n
+
+Lemma 2.2 gives Nη (M:I ) ≥ Nη (M:J ) − H in every realization. Take expectations.
+Lemma 5.2 (Concentration for a uniform subset). Let F be a real function of r-element subsets
+of {1, . . . , n}. Suppose |F (S) − F (S ′ )| ≤ 1 whenever S, S ′ diﬀer by exchanging one element. If
+I is a uniform r-element subset, then for t > 0,
+P{F (I) − EF (I) ≤ −t} ≤ exp(−2t2 /r).
+
+(14)
+
+Proof. Reveal a uniformly ordered sample I1 , . . . , Ir without replacement, and use its Doob
+martingale. Fix a revealed preﬁx before time j and two possible next values a, b. Couple
+uniform completions after a and after b by transposing the labels a, b in the remaining sample.
+If the completion after a contains b, the resulting ﬁnal subsets agree. Otherwise they diﬀer by
+exchanging a and b. The corresponding conditional expectations of F diﬀer by at most one.
+Hence each martingale increment, conditional on the past, is centered and belongs to an interval
+of length at most one.
+For completeness, a centered bounded random variable X in an interval of length one obeys
+2
+λX
+Ee
+≤ eλ /8 . Indeed, if ϕ(λ) = log EeλX , then ϕ(0) = ϕ′ (0) = 0 and ϕ′′ (λ) is a variance
+under the exponentially tilted law, bounded by 1/4 because its support still lies in that interval.
+Integrating twice gives the bound. Applying it conditionally and iterating yields
+Ee−λ(F (I)−EF (I)) ≤ erλ /8 .
+2
+
+Exponential Markov and λ = 4t/r prove (14).
+Proof of Theorem 1.1. Give the n column indices of M equal mass and let µ be the resulting
+distribution of column vectors. It is a probability law on Vk,s , irrespective of repeated column
+values. Proposition 4.1 and Lemma 5.1 imply
+ENη (M:I ) ≥ ρr −
+
+r(r − 1)
+≥ ρr/2,
+2n
+
+because n ≥ r/ρ. By Lemma 2.2, the function F (I) = Nη (M:I ) satisﬁes the hypothesis of
+Lemma 5.2. Apply that lemma with t = ρr/4. The result is
+2(ρr/4)2
+P{Nη (M:I ) < ρr/4} ≤ exp −
+r
+as claimed.
+6
+
+!
+
+= exp(−ρ2 r/8),
+
+Scope, provenance, and veriﬁcation status
+The theorem covers every ﬁxed s, including s = 1, with arbitrary signs, repeated columns, and
+unrestricted support intersections. It does not establish a sharp rate as s grows with k. Its
+constants are intentionally ineﬃcient. In the asymptotic corollary, s, C, η are ﬁxed ﬁrst; no
+exchange of these quantiﬁers is used.
+An earlier recovered draft contained a covariance–reservoir argument. The present version
+rederives that argument and simpliﬁes it: successive powers use a single trajectory; pruning is
+implemented by direct rejection inside the original reservoir; changing one column is treated
+with the sharp one-Lipschitz count bound; and concentration is proved directly for sampling
+without replacement. The last change strengthens the former collision-error probability estimate
+to the exponential bound (1). The original draft is preserved separately in the bundle.
+The accompanying standard-library rational tests check ﬁnite identities and small instances,
+including a counterexample to treating the all-hit conditional law as the ideal law. They are
+implementation checks, not an exhaustive veriﬁcation of the universal theorem. On 12 September 2026 a separate Codex AI-agent reviewer returned PASS for the full canonical target, with
+no mathematical corrections. The detailed audit and the original reviewed source are preserved
+in the repository submission record, references/holden-tr07-2026-09-12. AI assistance was used
+for review and submission preparation. This is informal automated review, not external human
+peer review or formal veriﬁcation; no Lean veriﬁcation was performed. The permanent target
+is unchanged. The author aﬃliation was veriﬁed against the oﬃcial Simons Foundation proﬁle
+on the same date. Publication priority is not asserted.
+
+References
+[1] H. Huang, M. Rudelson, and K. Tikhomirov, Well-invertible column subsets of sparse
+matrices are rare, arXiv:2607.05384v2 (2026), Theorem 1.3 and Conjecture 7.1. https:
+//arxiv.org/html/2607.05384v2.
+[2] A. Townsend, Open Problems in Numerical Linear Algebra, entry TR-07, “Random column
+subsets of arbitrary ﬁxed-sparsity matrices.” Canonical statement accessed 12 September
+2026. https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/randomized-a
+nd-low-rank-approximation/TR-07.
+
+7
+
+

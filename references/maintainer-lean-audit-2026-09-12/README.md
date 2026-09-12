@@ -25,3 +25,7 @@ The formal status applies to each original conjecture's complete negative answer
 ## Subsequent RA-03 audit
 
 The separate [PR #157 audit](PR157/README.md) reviews the later RA-03 promotion against the main branch containing the three promotions above. It preserves their evidence and records the resulting six Lean-verified entries.
+
+## Subsequent MI-26 audit
+
+The [PR #169 audit](PR169/README.md) records independent review and authenticated kernel evidence for the later MI-26 promotion, integrated after the six contributions in PR #168.
