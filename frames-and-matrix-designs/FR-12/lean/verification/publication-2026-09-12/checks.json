@@ -1,0 +1,110 @@
+[
+  {
+    "name": "permanent-ids-origin",
+    "command": [
+      "python3",
+      "tools/validate_problem_ids.py",
+      "--base-ref",
+      "origin/main"
+    ],
+    "exit_code": 0,
+    "output": "Validated 217 permanent problem IDs against origin/main\n",
+    "capture": "Actual preceding exec_command tool result"
+  },
+  {
+    "name": "permanent-ids-upstream",
+    "command": [
+      "python3",
+      "tools/validate_problem_ids.py",
+      "--base-ref",
+      "nla-upstream/main"
+    ],
+    "exit_code": 0,
+    "output": "Validated 217 permanent problem IDs against nla-upstream/main\n",
+    "capture": "Actual preceding exec_command tool result"
+  },
+  {
+    "name": "manifest",
+    "command": [
+      "/tmp/nla-lean-formalization/venv/bin/python",
+      "tools/lean/validate_manifest.py",
+      "frames-and-matrix-designs/FR-12/lean"
+    ],
+    "exit_code": 0,
+    "output": "Manifest schema and comparator coverage: PASS (7 declarations)\n",
+    "capture": "Actual preceding exec_command tool result"
+  },
+  {
+    "name": "format-write",
+    "command": [
+      "python3",
+      "tools/format_math.py",
+      "--write",
+      "FR-12"
+    ],
+    "exit_code": 0,
+    "log": "format-write.log",
+    "log_sha256": "a32da5fd664ba8ef7500d62d646c4b8763cd1adefdbd2afc5661b7dc1fea9bc6"
+  },
+  {
+    "name": "catalog",
+    "command": [
+      "python3",
+      "tools/update_catalog.py",
+      "--base-ref",
+      "origin/main"
+    ],
+    "exit_code": 0,
+    "log": "catalog.log",
+    "log_sha256": "422e0dafc91e6d6a00a9b519d6a64738dfbafac71159c0c753fd4a4771dd228b"
+  },
+  {
+    "name": "permanent-id-tests",
+    "command": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_problem_ids.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "log": "permanent-id-tests.log",
+    "log_sha256": "6e8dbbcdd0ea83ca5f8fec30f6f69f4120c207dbbda9a578a2de673ff6659fb9"
+  },
+  {
+    "name": "format-check",
+    "command": [
+      "python3",
+      "tools/format_math.py",
+      "--check"
+    ],
+    "exit_code": 0,
+    "log": "format-check.log",
+    "log_sha256": "a79bf13b65bde7baa6900939f581282565799e78e47c9e2426f83b5b4ccb5a9c"
+  },
+  {
+    "name": "render",
+    "command": [
+      "python3",
+      "tools/render_problems.py",
+      "FR-12"
+    ],
+    "exit_code": 0,
+    "log": "render.log",
+    "log_sha256": "056062dc2802deb878bfc24de03ccfff0b74405c5d09aebff42747556a72b616"
+  },
+  {
+    "name": "pdfinfo",
+    "command": [
+      "pdfinfo",
+      "frames-and-matrix-designs/FR-12/problem.pdf"
+    ],
+    "exit_code": 0,
+    "log": "pdfinfo.log",
+    "log_sha256": "55ec647c036293841d1364c85f60112820bd0f64b261572637df2c76cb91a3be"
+  }
+]

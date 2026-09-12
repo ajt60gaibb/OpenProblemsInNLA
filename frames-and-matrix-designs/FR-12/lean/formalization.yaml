@@ -1,0 +1,212 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/99c678e569c7c4c0772db297c5ddd5e4c9b6322e/schema/v0.4.schema.json
+version: v0.4
+project:
+  name: 'FR-12: a labeled Hadamard counting counterexample'
+  description: Proves a complete negative answer to the original labeled real Hadamard counting conjecture.
+    A genuine finite matrix subtype and an injective restricted doubling construction give m! H(m)^2 ≤
+    H(2m), the exact source power-of-two lower bound, and a counterexample for every positive real constant.
+  authors:
+  - George Stepaniants
+  affiliations:
+    George Stepaniants: Department of Computing and Mathematical Sciences, California Institute of Technology,
+      Pasadena, California, USA
+  responsible_maintainers:
+  - George Stepaniants
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+- title: FR-12 — Counting real Hadamard matrices
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/8b3d1157b73cd526bb4d0c2fd2dd1666d41812dc/frames-and-matrix-designs/FR-12/README.md
+  type: web-post
+  location: Complete original Statement
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: Retains the individual labeled sign-matrix count, arbitrary positive real C, every positive natural
+    dimension divisible by four and the genuine base-two logarithm. The original source is informally
+    Solved. Its complete target now has actual independently audited Linux Lean verification at revision
+    3e20bae9a07b1a33db8fdfb18bdebb9e590071a9.
+- title: 'FR-12: A matching-indexed doubling counterexample'
+  authors:
+  - George Stepaniants
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/8b3d1157b73cd526bb4d0c2fd2dd1666d41812dc/frames-and-matrix-designs/FR-12/solution.md
+  type: manuscript
+  location: Exact target, Lemma 1 and Theorem 1
+  relationship: adapts
+  author_endorsement: participated
+  note: George supplied the mathematical manuscript and requested its formalization. This records source-author
+    participation, not external human peer review or endorsement of a completed Linux result. The formal
+    construction uses only top-to-bottom matchings, giving m! instead of the source’s stronger (2m−1)!!
+    recurrence; it still proves the identical quantitative lower bound and full original negation. Direct
+    induction on real exponentials avoids logarithms of the count.
+- title: On the number of Hadamard matrices via anti-concentration
+  authors:
+  - Asaf Ferber
+  - Vishesh Jain
+  - Yufei Zhao
+  id: https://doi.org/10.1017/S0963548321000377
+  type: article
+  location: Published Conjecture 1.3 and Theorem 1.2
+  relationship: background
+  author_endorsement: not-contacted
+  note: Original counting conjecture and published upper-bound attribution. No unproved external theorem
+    is assumed by the Lean proof.
+related_formalizations:
+- id: https://github.com/sgstepaniants/Forsythe/tree/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof
+  relationship: other
+  note: Campaign reference for statement-first organization, explicit kernel LeanCert trust auditing and
+    the shared pinned Comparator/exporter workflow. Reuse and licenses are retained in tools/lean/NOTICE.md.
+    No Forsythe mathematical theorem is assumed.
+- id: https://github.com/jaumededios/Schiffer/tree/2938e277969c329caf154e48a3d8823f3635c7f1
+  relationship: other
+  note: Organizational example studied in the campaign. No Schiffer mathematical theorem or proof source
+    is imported.
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: Multiple agents; two independent statement approvals before implementation, exact pinned
+      Mathlib matrix/cardinality/factorial/real-power APIs, two independent final referees with separate
+      fresh artifact prefixes, and actual LeanCert kernel trust assertions.
+    prompting_notes: Preserve the complete original all-dimension and all-positive-real-constant conjecture.
+      Prove actual finite subtype semantics and injectivity, not assumed family cardinalities. Restrict
+      only the constructed matching family to m! choices, retain the exact source lower bound, and use
+      direct exponential induction and Archimedean choice. Avoid large enumeration, approximate logarithms
+      or decorative interval certificates.
+  notes: Substantial AI assistance requested by George Stepaniants. The implementation agent /root is
+    not counted as an independent referee. Independent reviewers are /root/formal_review_standards and
+    /root/leancert_examples. No external human peer review, official Tau Ceti endorsement, unrecorded
+    model identity, monetary-cost measurement or historical-priority certification is claimed.
+status:
+  scope: Complete negative answer to the original canonical labeled real Hadamard counting conjecture.
+    All seven exports passed two independent statement reviews, two independent final proof reviews and
+    actual Linux sandboxed Comparator/default-kernel verification in run 34718277411 on 2026-09-12 at
+    unchanged proof revision 3e20bae9a07b1a33db8fdfb18bdebb9e590071a9. The independent operational audit
+    binds all 137 inputs, original artifact digests, fourteen standard-three axiom checks and both actual
+    isolation/rejection-control suites. Canonical status is Lean verified. The stronger all-matching recurrence
+    and existence at every admissible order are outside the formal scope.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: &id001
+  - propext
+  - Classical.choice
+  - Quot.sound
+  main_results:
+  - declaration: NLA.FR12.counting_semantics
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.FR12.injective_doubling
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.FR12.factorial_doubling
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.FR12.power_two_nonempty
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.FR12.power_two_lower_bound
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.FR12.counterexample
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.FR12.not_countingConjecture
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+fidelity:
+  divergences: The count is the actual labeled real sign-matrix subtype, with an unconditional finiteness
+    proof; no quotient or normalization is used. The n=0 definition extends the count harmlessly while
+    the conjecture retains only positive dimensions. A restricted top/bottom matching injection proves
+    m! H(m)^2 ≤ H(2m), not the stronger informal (2m−1)!! factor. The exact source lower bound and complete
+    original target negation remain unchanged. The index K=k+2 avoids truncated natural subtraction; the
+    inner exponent is natural and outer exponent real. The sole public source-signature variation is alpha-renaming
+    the unused hn binder to _hn in counting_semantics, retaining its premise. The frozen Challenge itself
+    is unchanged.
+review:
+  status: agent-reviewed; Linux-Comparator-and-default-kernel-verified
+  reviewers:
+  - 'OpenAI Codex agent /root/formal_review_standards: independent statement referee 1 and final proof
+    referee 1'
+  - 'OpenAI Codex agent /root/leancert_examples: independent statement referee 2 and final proof referee
+    2'
+  notes: Both independent statement approvals preceded implementation. Both final referees read the complete
+    original source and proof, freshly re-elaborated eight modules/inspection commands, and audited actual
+    mathematical types and dependencies. All fourteen source and seven additional public kernel assertions
+    per referee passed; each traversed all 49 reached project declarations. The standard-three transitive
+    axioms are propext, Classical.choice and Quot.sound. The seven deliberate Challenge placeholders remain
+    isolated. LeanCert performs actual kernel trust auditing only; no interval certificate is claimed.
+    Local macOS reviews used ten clean exact pinned dependency caches. Actual Linux run 34718277411 at
+    revision 3e20bae9a07b1a33db8fdfb18bdebb9e590071a9 matched all seven exports, replayed the solution
+    in the default kernel and passed both real control sets. Independent agent /root/formal_review_standards
+    audited original ZIP bytes, complete raw logs, all 137 inputs, ten fresh dependency clones and 8690
+    official Mathlib cache artifacts; no full dependency-source rebuild is claimed. The nested Bubblewrap
+    executable was denied UID-map creation before its inner write. Operational report SHA256 017e2a22ac88d153a311c7ef344fe0ac0b8d415f926d046da649e210585c53ac
+    and outer evidence manifest a9dfe074bd299c6826ffe7367f30c5154cf58440a4f88071b8a61ff27eda8aa1 bind
+    255 files plus the outer manifest, including every nested manifest. Publication changes only this
+    manifest and project README among the 137 verified inputs; all 135 others and all 256 operational
+    evidence files remain identical. The historical statement-stage README, phase labels, metadata snapshots
+    and all four review report hashes are preserved. Relevant Tau Ceti rubrics are adapted to NLA scope;
+    no external human peer review, official endorsement or historical-priority certification is claimed.
+  statement_reports:
+  - file: reviews/statement-referee-1.md
+    sha256: 1f5dacc0d57302b09a2c25c71372c1527d01b3f0b247a9183b1130e4a45fd2fe
+  - file: reviews/statement-referee-2.md
+    sha256: d288c647cedf362609a2630c8072ba66331e04d572ca11632cf6065110581e54
+  proof_reports:
+  - file: reviews/proof-referee-1.md
+    sha256: b0f455ab34b6d79a0f7fd5c9560a5e1b67eb4bf4a2a6d85772d87e6549428d6f
+  - file: reviews/proof-referee-2.md
+    sha256: 253962587f197745f234aec95b4a3570b3f4f0e4d55feb37bdca6372d62490a9
+  proof_freeze:
+    file: reviews/proof-freeze.json
+    sha256: c65d4deaa3e02af8c20a584dd81b944dbdc72f262e326630e115e5fc9070aa87
+  linux_verification:
+    status: passed; independently audited
+    note: Actual run https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34718277411 at 3e20bae9a07b1a33db8fdfb18bdebb9e590071a9.
+      All seven exports, fourteen standard-three reports, actual default-kernel replay and both control
+      sets passed. See verification/linux-2026-09-12/OPERATIONAL-REVIEW.md and EVIDENCE-MANIFEST.json.
+      Original project ZIP SHA256 8e64089e94c2953d4fae093162b41a3f36540f1888b6f6cd48a11c1dc9a5cc19; control
+      ZIP SHA256 fdc1eddcbe4c3be6e7747fb87de935597b11706a2eadcec35f6a40226028140a.
+alignment:
+- declaration: NLA.FR12.counting_semantics
+  scope: Finiteness of the exact labeled real Hadamard subtype for every dimension and equivalence to
+    Mathlib IsHadamard in positive dimension.
+- declaration: NLA.FR12.injective_doubling
+  scope: Hadamard validity and injectivity of the exact two-matrix/permutation construction for every
+    positive order.
+- declaration: NLA.FR12.factorial_doubling
+  scope: The exact full-subtype cardinalities satisfy m! H(m)^2 ≤ H(2m) for every m≥1.
+- declaration: NLA.FR12.power_two_nonempty
+  scope: Actual nonempty labeled Hadamard matrix sets at every power-of-two order, including order one.
+- declaration: NLA.FR12.power_two_lower_bound
+  scope: The exact source lower bound H(2^(k+2)) ≥ 2^(2^(k+2) k(k+1)/8) for every natural k.
+- declaration: NLA.FR12.counterexample
+  scope: Every positive real proposed constant has a strict counterexample at some positive power-of-two
+    multiple of four.
+- declaration: NLA.FR12.not_countingConjecture
+  scope: Unconditional negation of the complete original all-dimension labeled-matrix counting conjecture.
+acknowledgements: George Stepaniants for the supplied proof; Ferber, Jain and Zhao for the original conjecture
+  and prior upper bound; Mathlib and LeanCert contributors for proved matrix, finite-cardinality, factorial,
+  real-analysis and kernel-audit APIs. Shared Comparator/exporter and Landrun reuse is separately credited
+  with its licenses. No external mathematical theorem is assumed as a custom axiom.

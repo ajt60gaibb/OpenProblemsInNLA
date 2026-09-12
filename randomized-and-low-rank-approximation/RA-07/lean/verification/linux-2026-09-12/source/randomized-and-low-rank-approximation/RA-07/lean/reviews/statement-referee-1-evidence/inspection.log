@@ -1,0 +1,93 @@
+def NLA.RA07.elementarySymmetric : {n : ℕ} → (Fin n → ℝ) → ℕ → ℝ :=
+fun {n} lam j => ∑ S ∈ Finset.powersetCard j Finset.univ, S.prod lam
+'NLA.RA07.elementarySymmetric' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.RA07.errorSequence : {n : ℕ} → (Fin n → ℝ) → ℕ → ℝ :=
+fun {n} lam j => ↑(j + 1) * NLA.RA07.elementarySymmetric lam (j + 1) / NLA.RA07.elementarySymmetric lam j
+'NLA.RA07.errorSequence' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.RA07.generatingPolynomial : {n : ℕ} → (Fin n → ℝ) → Polynomial ℝ :=
+fun {n} lam => ∏ i, (1 + Polynomial.C (lam i) * Polynomial.X)
+'NLA.RA07.generatingPolynomial' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.RA07.iteratedGeneratingDerivative : {n : ℕ} → (Fin n → ℝ) → ℕ → Polynomial ℝ :=
+fun {n} lam d => (⇑Polynomial.derivative)^[d] (NLA.RA07.generatingPolynomial lam)
+'NLA.RA07.iteratedGeneratingDerivative' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.RA07.powerSum : {m : ℕ} → (Fin m → ℝ) → ℕ → ℝ :=
+fun {m} μ r => ∑ a, μ a ^ r
+'NLA.RA07.powerSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.RA07.pairGap : {m : ℕ} → (Fin m → ℝ) → ℝ :=
+fun {m} μ => ∑ a, ∑ b with a < b, μ a * μ b * (μ a - μ b) ^ 2
+'NLA.RA07.pairGap' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.RA07.certificateDenominator : {m : ℕ} → (Fin m → ℝ) → ℝ :=
+fun {m} μ => NLA.RA07.powerSum μ 1 * (NLA.RA07.powerSum μ 1 ^ 2 - NLA.RA07.powerSum μ 2)
+'NLA.RA07.certificateDenominator' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.RA07.ConvexityConjecture : Prop :=
+∀ (n : ℕ),
+  3 ≤ n →
+    ∀ (lam : Fin n → ℝ),
+      (∀ (i : Fin n), 0 < lam i) →
+        ∀ (j : ℕ),
+          2 ≤ j →
+            j ≤ n - 1 →
+              0 ≤
+                NLA.RA07.errorSequence lam (j - 1) - 2 * NLA.RA07.errorSequence lam j +
+                  NLA.RA07.errorSequence lam (j + 1)
+'NLA.RA07.ConvexityConjecture' depends on axioms: [propext, Classical.choice, Quot.sound]
+theorem NLA.RA07.elementary_values : ∀ {n : ℕ} (lam : Fin n → ℝ),
+  (∀ (i : Fin n), 0 < lam i) →
+    NLA.RA07.elementarySymmetric lam 0 = 1 ∧
+      (∀ (j : ℕ), n < j → NLA.RA07.elementarySymmetric lam j = 0) ∧ ∀ j ≤ n, 0 < NLA.RA07.elementarySymmetric lam j :=
+⋯
+'NLA.RA07.elementary_values' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+theorem NLA.RA07.generating_derivative_values : ∀ {n : ℕ} (lam : Fin n → ℝ) (j : ℕ),
+  (NLA.RA07.generatingPolynomial lam).coeff j = NLA.RA07.elementarySymmetric lam j ∧
+    Polynomial.eval 0 (NLA.RA07.iteratedGeneratingDerivative lam j) =
+      ↑j.factorial * NLA.RA07.elementarySymmetric lam j :=
+⋯
+'NLA.RA07.generating_derivative_values' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+theorem NLA.RA07.positive_derivative_factorization : ∀ {n : ℕ} (lam : Fin n → ℝ),
+  (∀ (i : Fin n), 0 < lam i) →
+    ∀ d ≤ n,
+      0 < Polynomial.eval 0 (NLA.RA07.iteratedGeneratingDerivative lam d) ∧
+        (NLA.RA07.iteratedGeneratingDerivative lam d).natDegree = n - d ∧
+          ∃ μ,
+            (∀ (a : Fin (n - d)), 0 < μ a) ∧
+              NLA.RA07.iteratedGeneratingDerivative lam d =
+                Polynomial.C (Polynomial.eval 0 (NLA.RA07.iteratedGeneratingDerivative lam d)) *
+                  NLA.RA07.generatingPolynomial μ :=
+⋯
+'NLA.RA07.positive_derivative_factorization' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+theorem NLA.RA07.power_sum_certificate : ∀ {m : ℕ} (μ : Fin m → ℝ),
+  2 ≤ m →
+    (∀ (a : Fin m), 0 < μ a) →
+      0 < NLA.RA07.certificateDenominator μ ∧
+        NLA.RA07.powerSum μ 1 * NLA.RA07.powerSum μ 3 - NLA.RA07.powerSum μ 2 ^ 2 = NLA.RA07.pairGap μ ∧
+          0 ≤ NLA.RA07.pairGap μ :=
+⋯
+'NLA.RA07.power_sum_certificate' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+theorem NLA.RA07.second_difference_certificate : ∀ {n : ℕ},
+  3 ≤ n →
+    ∀ (lam : Fin n → ℝ),
+      (∀ (i : Fin n), 0 < lam i) →
+        ∀ (j : ℕ),
+          2 ≤ j →
+            j ≤ n - 1 →
+              ∃ μ,
+                (∀ (a : Fin (n - (j - 1))), 0 < μ a) ∧
+                  NLA.RA07.iteratedGeneratingDerivative lam (j - 1) =
+                      Polynomial.C (Polynomial.eval 0 (NLA.RA07.iteratedGeneratingDerivative lam (j - 1))) *
+                        NLA.RA07.generatingPolynomial μ ∧
+                    0 < NLA.RA07.certificateDenominator μ ∧
+                      NLA.RA07.errorSequence lam (j - 1) - 2 * NLA.RA07.errorSequence lam j +
+                          NLA.RA07.errorSequence lam (j + 1) =
+                        2 * NLA.RA07.pairGap μ / NLA.RA07.certificateDenominator μ :=
+⋯
+'NLA.RA07.second_difference_certificate' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+theorem NLA.RA07.errorSequence_convex : NLA.RA07.ConvexityConjecture :=
+⋯
+'NLA.RA07.errorSequence_convex' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+Finset.mem_powersetCard.{u_1} {α : Type u_1} {n : ℕ} {s t : Finset α} : s ∈ Finset.powersetCard n t ↔ s ⊆ t ∧ s.card = n
+Finset.esymm_map_val.{u_1, u_2} {R : Type u_1} [CommSemiring R] {σ : Type u_2} (f : σ → R) (s : Finset σ) (n : ℕ) :
+  (Multiset.map f s.val).esymm n = ∑ t ∈ Finset.powersetCard n s, t.prod f
+Polynomial.coeff_iterate_derivative.{u} {R : Type u} [Semiring R] {k : ℕ} (p : Polynomial R) (m : ℕ) :
+  ((⇑Polynomial.derivative)^[k] p).coeff m = (m + k).descFactorial k • p.coeff (m + k)
+Polynomial.natDegree_iterate_derivative.{u} {R : Type u} [Semiring R] (p : Polynomial R) (k : ℕ) :
+  ((⇑Polynomial.derivative)^[k] p).natDegree ≤ p.natDegree - k

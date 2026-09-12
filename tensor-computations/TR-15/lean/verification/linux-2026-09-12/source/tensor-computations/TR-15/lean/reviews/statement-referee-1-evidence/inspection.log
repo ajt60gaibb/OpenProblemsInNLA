@@ -1,0 +1,279 @@
+@[reducible] def NLA.TR15.Tensor : ℕ → ℕ → Type :=
+fun s N => (Fin s → Fin N) → ℝ
+'NLA.TR15.Tensor' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+def NLA.TR15.generatorIndex : {s N : ℕ} →
+  (Fin s → Fin N) → Fin (HAdd.hAdd.{0, 0, 0} (HMul.hMul.{0, 0, 0} s (HSub.hSub.{0, 0, 0} N 1)) 1) :=
+fun {s N} indices => ⟨∑ j, ↑(indices j), ⋯⟩
+'NLA.TR15.generatorIndex' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+def NLA.TR15.hankelTensor : (s N : ℕ) →
+  (Fin (HAdd.hAdd.{0, 0, 0} (HMul.hMul.{0, 0, 0} s (HSub.hSub.{0, 0, 0} N 1)) 1) → ℝ) → NLA.TR15.Tensor s N :=
+fun s N h indices => h (NLA.TR15.generatorIndex indices)
+'NLA.TR15.hankelTensor' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+def NLA.TR15.prependIndex : {s N : ℕ} → Fin N → (Fin (HSub.hSub.{0, 0, 0} s 1) → Fin N) → Fin s → Fin N :=
+fun {s N} i indices j => if hj : Eq.{1} (↑j) 0 then i else indices ⟨HSub.hSub.{0, 0, 0} (↑j) 1, ⋯⟩
+'NLA.TR15.prependIndex' depends on axioms: [propext, Quot.sound.{u}]
+def NLA.TR15.contraction : {s N : ℕ} → NLA.TR15.Tensor s N → (Fin N → ℝ) → Fin N → ℝ :=
+fun {s N} T x i => ∑ indices, HMul.hMul.{0, 0, 0} (T (NLA.TR15.prependIndex i indices)) (∏ j, x (indices j))
+'NLA.TR15.contraction' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+def NLA.TR15.IsHEigenpair : {s N : ℕ} → NLA.TR15.Tensor s N → ℝ → (Fin N → ℝ) → Prop :=
+fun {s N} T eigenvalue x =>
+  Ne.{1} x 0 ∧
+    ∀ (i : Fin N),
+      Eq.{1} (NLA.TR15.contraction T x i)
+        (HMul.hMul.{0, 0, 0} eigenvalue (HPow.hPow.{0, 0, 0} (x i) (HSub.hSub.{0, 0, 0} s 1)))
+'NLA.TR15.IsHEigenpair' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+def NLA.TR15.HasNoNegativeHEigenvalues : {s N : ℕ} → NLA.TR15.Tensor s N → Prop :=
+fun {s N} T => ∀ (eigenvalue : ℝ) (x : Fin N → ℝ), NLA.TR15.IsHEigenpair T eigenvalue x → LE.le.{0} 0 eigenvalue
+'NLA.TR15.HasNoNegativeHEigenvalues' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+def NLA.TR15.lowerTensor : (m q n : ℕ) →
+  (Fin (HAdd.hAdd.{0, 0, 0} (HMul.hMul.{0, 0, 0} (HMul.hMul.{0, 0, 0} q m) (HSub.hSub.{0, 0, 0} n 1)) 1) → ℝ) →
+    NLA.TR15.Tensor m (HAdd.hAdd.{0, 0, 0} (HMul.hMul.{0, 0, 0} q (HSub.hSub.{0, 0, 0} n 1)) 1) :=
+fun m q n h =>
+  NLA.TR15.hankelTensor m (HAdd.hAdd.{0, 0, 0} (HMul.hMul.{0, 0, 0} q (HSub.hSub.{0, 0, 0} n 1)) 1) fun i =>
+    h (Fin.cast ⋯ i)
+'NLA.TR15.lowerTensor' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+def NLA.TR15.upperTensor : (m q n : ℕ) →
+  (Fin (HAdd.hAdd.{0, 0, 0} (HMul.hMul.{0, 0, 0} (HMul.hMul.{0, 0, 0} q m) (HSub.hSub.{0, 0, 0} n 1)) 1) → ℝ) →
+    NLA.TR15.Tensor (HMul.hMul.{0, 0, 0} q m) n :=
+fun m q n h => NLA.TR15.hankelTensor (HMul.hMul.{0, 0, 0} q m) n h
+'NLA.TR15.upperTensor' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+def NLA.TR15.Admissible : ℕ → ℕ → ℕ → Prop :=
+fun m q n => Odd.{0} m ∧ LE.le.{0} 3 m ∧ LE.le.{0} 2 q ∧ LE.le.{0} 2 n
+'NLA.TR15.Admissible' depends on axioms: [propext]
+def NLA.TR15.InheritanceConjecture : Prop :=
+∀ (m q n : ℕ),
+  NLA.TR15.Admissible m q n →
+    ∀ (h : Fin (HAdd.hAdd.{0, 0, 0} (HMul.hMul.{0, 0, 0} (HMul.hMul.{0, 0, 0} q m) (HSub.hSub.{0, 0, 0} n 1)) 1) → ℝ),
+      NLA.TR15.HasNoNegativeHEigenvalues (NLA.TR15.lowerTensor m q n h) →
+        NLA.TR15.HasNoNegativeHEigenvalues (NLA.TR15.upperTensor m q n h)
+'NLA.TR15.InheritanceConjecture' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+def NLA.TR15.witnessGenerator : Fin 7 → ℝ :=
+Matrix.vecCons.{0} 2
+  (Matrix.vecCons.{0} 0
+    (Matrix.vecCons.{0} 1
+      (Matrix.vecCons.{0} 0
+        (Matrix.vecCons.{0} 2 (Matrix.vecCons.{0} 0 (Matrix.vecCons.{0} (-1) Matrix.vecEmpty.{0}))))))
+'NLA.TR15.witnessGenerator' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+def NLA.TR15.witnessLower : NLA.TR15.Tensor 3 3 :=
+NLA.TR15.lowerTensor 3 2 2 NLA.TR15.witnessGenerator
+'NLA.TR15.witnessLower' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+def NLA.TR15.witnessUpper : NLA.TR15.Tensor 6 2 :=
+NLA.TR15.upperTensor 3 2 2 NLA.TR15.witnessGenerator
+'NLA.TR15.witnessUpper' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+def NLA.TR15.witnessUpperVector : Fin 2 → ℝ :=
+Matrix.vecCons.{0} 0 (Matrix.vecCons.{0} 1 Matrix.vecEmpty.{0})
+'NLA.TR15.witnessUpperVector' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+def NLA.TR15.rootPolynomial : ℝ → ℝ :=
+fun t =>
+  HSub.hSub.{0, 0, 0}
+    (HSub.hSub.{0, 0, 0}
+      (HAdd.hAdd.{0, 0, 0}
+        (HAdd.hAdd.{0, 0, 0} (HMul.hMul.{0, 0, 0} 2 (HPow.hPow.{0, 0, 0} t 4))
+          (HMul.hMul.{0, 0, 0} 2 (HPow.hPow.{0, 0, 0} t 3)))
+        (HMul.hMul.{0, 0, 0} 3 (HPow.hPow.{0, 0, 0} t 2)))
+      (HMul.hMul.{0, 0, 0} 4 t))
+    1
+'NLA.TR15.rootPolynomial' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+def NLA.TR15.lowerEigenvalue : ℝ → ℝ :=
+fun t =>
+  HAdd.hAdd.{0, 0, 0} (HAdd.hAdd.{0, 0, 0} 2 (HMul.hMul.{0, 0, 0} 2 t))
+    (HMul.hMul.{0, 0, 0} 2 (HPow.hPow.{0, 0, 0} t 2))
+'NLA.TR15.lowerEigenvalue' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+def NLA.TR15.lowerEigenvector : ℝ → Fin 3 → ℝ :=
+fun t => Matrix.vecCons.{0} 1 (Matrix.vecCons.{0} 0 (Matrix.vecCons.{0} t Matrix.vecEmpty.{0}))
+'NLA.TR15.lowerEigenvector' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+NLA.TR15.lower_contractions : ∀ (x : Fin 3 → ℝ),
+  Eq.{1} (NLA.TR15.contraction NLA.TR15.witnessLower x)
+    (Matrix.vecCons.{0}
+      (HAdd.hAdd.{0, 0, 0}
+        (HAdd.hAdd.{0, 0, 0}
+          (HAdd.hAdd.{0, 0, 0} (HPow.hPow.{0, 0, 0} (HAdd.hAdd.{0, 0, 0} (x 0) (x 2)) 2) (HPow.hPow.{0, 0, 0} (x 0) 2))
+          (HPow.hPow.{0, 0, 0} (x 1) 2))
+        (HPow.hPow.{0, 0, 0} (x 2) 2))
+      (Matrix.vecCons.{0}
+        (HAdd.hAdd.{0, 0, 0} (HMul.hMul.{0, 0, 0} (HMul.hMul.{0, 0, 0} 2 (x 0)) (x 1))
+          (HMul.hMul.{0, 0, 0} (HMul.hMul.{0, 0, 0} 4 (x 1)) (x 2)))
+        (Matrix.vecCons.{0}
+          (HSub.hSub.{0, 0, 0}
+            (HAdd.hAdd.{0, 0, 0}
+              (HAdd.hAdd.{0, 0, 0} (HPow.hPow.{0, 0, 0} (x 0) 2) (HMul.hMul.{0, 0, 0} 2 (HPow.hPow.{0, 0, 0} (x 1) 2)))
+              (HMul.hMul.{0, 0, 0} (HMul.hMul.{0, 0, 0} 4 (x 0)) (x 2)))
+            (HPow.hPow.{0, 0, 0} (x 2) 2))
+          Matrix.vecEmpty.{0})))
+'NLA.TR15.lower_contractions' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+NLA.TR15.upper_contraction : Eq.{1} (NLA.TR15.contraction NLA.TR15.witnessUpper NLA.TR15.witnessUpperVector)
+  (Matrix.vecCons.{0} 0 (Matrix.vecCons.{0} (-1) Matrix.vecEmpty.{0}))
+'NLA.TR15.upper_contraction' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+NLA.TR15.lower_eigenvalues_pos : ∀ (eigenvalue : ℝ) (x : Fin 3 → ℝ),
+  NLA.TR15.IsHEigenpair NLA.TR15.witnessLower eigenvalue x → LT.lt.{0} 0 eigenvalue
+'NLA.TR15.lower_eigenvalues_pos' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+NLA.TR15.lower_eigenpair_exists : ∃ t,
+  LT.lt.{0} 0 t ∧
+    LT.lt.{0} t 1 ∧
+      Eq.{1} (NLA.TR15.rootPolynomial t) 0 ∧
+        NLA.TR15.IsHEigenpair NLA.TR15.witnessLower (NLA.TR15.lowerEigenvalue t) (NLA.TR15.lowerEigenvector t)
+'NLA.TR15.lower_eigenpair_exists' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+NLA.TR15.upper_negative_eigenpair : NLA.TR15.IsHEigenpair NLA.TR15.witnessUpper (-1) NLA.TR15.witnessUpperVector ∧
+  LT.lt.{0} (-1) 0
+'NLA.TR15.upper_negative_eigenpair' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+NLA.TR15.counterexample : NLA.TR15.Admissible 3 2 2 ∧
+  NLA.TR15.HasNoNegativeHEigenvalues NLA.TR15.witnessLower ∧ ¬NLA.TR15.HasNoNegativeHEigenvalues NLA.TR15.witnessUpper
+'NLA.TR15.counterexample' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+NLA.TR15.not_inheritanceConjecture : ¬NLA.TR15.InheritanceConjecture
+'NLA.TR15.not_inheritanceConjecture' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+@[implicit_reducible] protected def Fin.cast : {n m : ℕ} → Eq.{1} n m → Fin n → Fin m :=
+fun {n m} eq i => ⟨↑i, ⋯⟩
+@[defeq] theorem Pi.zero_apply.{u_1, u_5} : ∀ {ι : Type u_1} {M : ι → Type u_5} [inst : (i : ι) → Zero.{u_5} (M i)]
+  (i : ι), Eq.{u_5 + 1} (0 i) 0 :=
+fun {ι} {M} [(i : ι) → Zero.{u_5} (M i)] i => rfl.{u_5 + 1}
+@intermediate_value_Ioo.{u_1,
+    u_2} : ∀ {α : Type u_1} [inst : TopologicalSpace.{u_1} α] [inst_1 : ConditionallyCompleteLinearOrder.{u_1} α]
+  [OrderTopology.{u_1} α] [DenselyOrdered.{u_1} α] {δ : Type u_2} [inst_4 : LinearOrder.{u_2} δ]
+  [inst_5 : TopologicalSpace.{u_2} δ] [OrderClosedTopology.{u_2} δ] {a b : α},
+  LE.le.{u_1} a b →
+    ∀ {f : α → δ},
+      ContinuousOn.{u_1, u_2} f (Set.Icc.{u_1} a b) →
+        Set.Ioo.{u_2} (f a) (f b) ⊆ Set.image.{u_1, u_2} f (Set.Ioo.{u_1} a b)
+def NLA.TR15.contraction : {s N : Nat} → (T : NLA.TR15.Tensor s N) → (x : Fin N → Real) → Fin N → Real :=
+fun {s N : Nat} (T : NLA.TR15.Tensor s N) (x : Fin N → Real) (i : Fin N) =>
+  @Finset.sum.{0, 0}
+    (Fin
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) s
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) →
+      Fin N)
+    Real Real.instAddCommMonoid
+    (@Finset.univ.{0}
+      (Fin
+          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) s
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) →
+        Fin N)
+      (@Pi.instFintype.{0, 0}
+        (Fin
+          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) s
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+        (fun
+            (a :
+              Fin
+                (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) s
+                  (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))) =>
+          Fin N)
+        (instDecidableEqFin
+          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) s
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+        (Fin.fintype
+          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) s
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+        fun
+          (a :
+            Fin
+              (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) s
+                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))) =>
+        Fin.fintype N))
+    fun
+      (indices :
+        Fin
+            (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) s
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) →
+          Fin N) =>
+    @HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) (T (@NLA.TR15.prependIndex s N i indices))
+      (@Finset.prod.{0, 0}
+        (Fin
+          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) s
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+        Real Real.instCommMonoid
+        (@Finset.univ.{0}
+          (Fin
+            (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) s
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+          (Fin.fintype
+            (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) s
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+        fun
+          (j :
+            Fin
+              (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) s
+                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))) =>
+        x (indices j))
+def NLA.TR15.IsHEigenpair : {s N : Nat} → (T : NLA.TR15.Tensor s N) → (eigenvalue : Real) → (x : Fin N → Real) → Prop :=
+fun {s N : Nat} (T : NLA.TR15.Tensor s N) (eigenvalue : Real) (x : Fin N → Real) =>
+  And
+    (@Ne.{1} (Fin N → Real) x
+      (@OfNat.ofNat.{0} (Fin N → Real) (nat_lit 0)
+        (@Zero.toOfNat0.{0} (Fin N → Real)
+          (@Pi.instZero.{0, 0} (Fin N) (fun (a : Fin N) => Real) fun (i : Fin N) => Real.instZero))))
+    (∀ (i : Fin N),
+      @Eq.{1} Real (@NLA.TR15.contraction s N T x i)
+        (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) eigenvalue
+          (@HPow.hPow.{0, 0, 0} Real Nat Real
+            (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid))) (x i)
+            (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) s
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))))
+def NLA.TR15.HasNoNegativeHEigenvalues : {s N : Nat} → (T : NLA.TR15.Tensor s N) → Prop :=
+fun {s N : Nat} (T : NLA.TR15.Tensor s N) =>
+  ∀ (eigenvalue : Real) (x : Fin N → Real),
+    @NLA.TR15.IsHEigenpair s N T eigenvalue x →
+      @LE.le.{0} Real Real.instLE (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) eigenvalue
+def NLA.TR15.lowerTensor : (m q n : Nat) →
+  (h :
+      Fin
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+              (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) q m)
+              (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) n
+                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) →
+        Real) →
+    NLA.TR15.Tensor m
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) q
+          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) n
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) :=
+fun (m q n : Nat)
+    (h :
+      Fin
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+              (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) q m)
+              (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) n
+                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) →
+        Real) =>
+  NLA.TR15.hankelTensor m
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) q
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) n
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+    fun
+      (i :
+        Fin
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) m
+              (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+                (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+                  (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) q
+                    (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) n
+                      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))) =>
+    h
+      (@Fin.cast
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) m
+            (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) q
+                  (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) n
+                    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) q m)
+            (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) n
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+        (NLA.TR15.lowerTensor._proof_1 m q n) i)

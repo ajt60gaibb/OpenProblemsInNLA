@@ -1,0 +1,92 @@
+[
+  {
+    "command": [
+      "python3",
+      "tools/format_math.py",
+      "--write",
+      "RA-07"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.035,
+    "log": "format-write.log"
+  },
+  {
+    "command": [
+      "python3",
+      "tools/validate_problem_ids.py",
+      "--base-ref",
+      "origin/main"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 2.297,
+    "log": "ids-origin-main.log"
+  },
+  {
+    "command": [
+      "python3",
+      "tools/validate_problem_ids.py",
+      "--base-ref",
+      "nla-upstream/main"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 2.424,
+    "log": "ids-upstream.log"
+  },
+  {
+    "command": [
+      "python3",
+      "tools/update_catalog.py",
+      "--base-ref",
+      "origin/main"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 2.27,
+    "log": "catalog.log"
+  },
+  {
+    "command": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_problem_ids.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.923,
+    "log": "id-tests.log"
+  },
+  {
+    "command": [
+      "python3",
+      "tools/format_math.py",
+      "--check"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.181,
+    "log": "format-check.log"
+  },
+  {
+    "command": [
+      "/tmp/nla-lean-formalization/venv/bin/python",
+      "tools/lean/validate_manifest.py",
+      "randomized-and-low-rank-approximation/RA-07/lean"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.104,
+    "log": "manifest.log"
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.056,
+    "log": "diff-check.log"
+  }
+]

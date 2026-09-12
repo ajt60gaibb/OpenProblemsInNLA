@@ -1,0 +1,196 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/99c678e569c7c4c0772db297c5ddd5e4c9b6322e/schema/v0.4.schema.json
+version: v0.4
+project:
+  name: 'TR-15: odd-order Hankel H-eigenvalue inheritance counterexample'
+  description: Formalizes the full negative answer to the canonical inheritance conjecture with actual
+    ordered tensor contractions, real nonzero H-eigenpairs, universal lower positivity, an explicit upper
+    negative pair and unconditional lower-pair existence from the intermediate value theorem.
+  authors:
+  - George Stepaniants
+  affiliations:
+    George Stepaniants: Department of Computing and Mathematical Sciences, California Institute of Technology,
+      Pasadena, California, USA
+  responsible_maintainers:
+  - George Stepaniants
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+- title: TR-15 — Nonnegative H-eigenvalue inheritance from odd-order Hankel tensors
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/8b3d1157b73cd526bb4d0c2fd2dd1666d41812dc/tensor-computations/TR-15/README.md
+  type: web-post
+  location: Complete original odd-lower-order inheritance implication
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: All odd m≥3, integers q≥2 and n≥2, and all real common generators of length qm(n−1)+1. Actual
+    lower order/dimension m and q(n−1)+1, and upper order/dimension qm and n, are retained.
+- title: An exact counterexample to odd-order Hankel H-eigenvalue inheritance
+  authors:
+  - Matthew J. Colbrook
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/8b3d1157b73cd526bb4d0c2fd2dd1666d41812dc/references/colbrook-unclaimed-2026-09-11/manuscripts/TR-15.md
+  type: manuscript
+  location: Complete counterexample proposition, proof and nonvacuity argument
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: The full mathematical source is preserved and attributed to Colbrook. The formalization includes
+    both the canonical negative resolution and the source’s unconditional existence of a real lower H-eigenpair.
+    Context concerning other inheritance or strong-Hankel theorems is not an exported result.
+related_formalizations:
+- id: https://github.com/sgstepaniants/Forsythe/tree/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof
+  relationship: other
+  note: Workflow reference for statement-first organization, explicit kernel LeanCert audit and the shared
+    Comparator pipeline. Checker reuse is credited in tools/lean/NOTICE.md; no Forsythe mathematical theorem
+    is assumed.
+- id: https://github.com/jaumededios/Schiffer/tree/2938e277969c329caf154e48a3d8823f3635c7f1
+  relationship: other
+  note: Campaign workflow reference for separating exact targets from proof implementation; no Schiffer
+    mathematical result or source code is imported.
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: Multiple agents; two independent statement approvals before any proof; pinned Mathlib
+      finite-product, finite-sum and intermediate-value APIs; two independent final proof reviews with
+      separate-prefix re-elaboration and actual proof-term inspection.
+    prompting_notes: Preserve all original tensor orders, dimensions, generating-vector lengths, signed
+      powers and nonzero real vectors. Derive contraction coefficients from every ordered tuple. Prove
+      universal positivity from the first component sum of squares; reduce the upper contraction to its
+      sole surviving tuple. Prove actual nonvacuity through IVT instead of root isolation. Use an explicit
+      retained kernel LeanCert certificate for the negative eigenvalue sign.
+  notes: AI-assisted formalization requested by George Stepaniants. Implementation agent /root/leancert_examples
+    is not counted as an independent referee. No human peer review, source-author endorsement, unrecorded
+    model identity or measured monetary cost is claimed.
+status:
+  scope: Complete negative answer to the original canonical TR-15 implication, plus unconditional existence
+    of a real lower H-eigenpair. All seven exports passed two independent statement reviews, two independent
+    final proof reviews and actual Linux sandboxed Comparator/default-kernel verification in run 34716902324
+    on 2026-09-12 at unchanged proof revision 6a2d0868e8b7905dbd5c04d4beaae8cf43288e1f. The independent
+    operational audit binds all 135 inputs, original artifact digests and both actual isolation/rejection-control
+    suites. Canonical status is Lean verified.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: &id001
+  - propext
+  - Classical.choice
+  - Quot.sound
+  main_results:
+  - declaration: NLA.TR15.lower_contractions
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR15.upper_contraction
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR15.lower_eigenvalues_pos
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR15.lower_eigenpair_exists
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR15.upper_negative_eigenpair
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR15.counterexample
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR15.not_inheritanceConjecture
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+fidelity:
+  divergences: No restriction of the original target. Zero-based Fin indices encode the exact original
+    generator sums; finite bounds and equal generator lengths are proved rather than assumed. Contractions
+    include every ordered tuple and signed coordinate factors. H-eigenpairs use real eigenvalues, nonzero
+    real vectors and every component equation. The universal target retains every odd m≥3, all q≥2,n≥2
+    and all real generators, without associated-matrix PSD, strong-Hankel or eigenpair-existence assumptions.
+    Total definitions outside the admissible domain do not affect the target. Actual IVT supplies a separate
+    nonvacuity conclusion; it is not an extra premise.
+review:
+  status: agent-reviewed; Linux-Comparator-and-default-kernel-verified
+  reviewers:
+  - 'OpenAI Codex agent /root/solved_statement_inventory: independent statement referee 1'
+  - 'OpenAI Codex agent /root: independent statement referee 2 and final proof referee 2'
+  - 'OpenAI Codex agent /root/formal_review_standards: independent final proof referee 1'
+  notes: Both statement approvals precede implementation and bind unchanged Definitions, Challenge, numerical
+    targets and source correspondence. Both final referees freshly re-elaborated the actual proof in separate
+    object prefixes and inspected the tensor, IVT and retained LeanCert certificate semantics. All 15
+    internal/public declarations have exactly propext, Classical.choice and Quot.sound as transitive axioms;
+    all kernel trust checks passed. The seven deliberate Challenge placeholders remain isolated. The kernel-mode
+    minus-one sign certificate remains in the negative pair and complete conjecture contradiction. Local
+    macOS checks used clean exact pinned caches. Actual Linux run 34716902324 at revision 6a2d0868e8b7905dbd5c04d4beaae8cf43288e1f
+    matched all seven exports, replayed the solution in the default kernel and passed both real control
+    sets. Independent agent /root/solved_statement_inventory audited original ZIP bytes, raw logs, all
+    135 inputs, ten fresh dependency clones and 8690 official Mathlib cache artifacts. No full dependency-source
+    rebuild is claimed. The nested Bubblewrap executable was denied UID-map creation before its inner
+    write. Operational report SHA256 904179c04b6793dee1fada9a7459982569d7f63a40dc371298915aa342871afe
+    and outer evidence manifest df02ced673f90b753f9e49ec00dbd294b535603358c884a4b15e7db2ce0e9b8d bind
+    253 files plus itself, including the nested source manifest. Publication changes only this manifest
+    and project README among the 135 verified inputs; all 133 others and all 254 operational evidence
+    files remain identical. Historical phase labels, metadata snapshots and the archived statement-stage
+    README are preserved. Relevant Tau Ceti rubrics are adapted to NLA scope; no external human review
+    or source-author endorsement is claimed.
+  statement_reports:
+  - file: reviews/statement-referee-1.md
+    sha256: 2b26253a61ababaf0d5a6a544483c72c744abbd48e48455f559764b5027a5d51
+  - file: reviews/statement-referee-2.md
+    sha256: 6e12a146c65d8d7037206f7eee7bdf4de0a0a1572a8a5273cc1ac14a9c65d9d9
+  proof_reports:
+  - file: reviews/proof-referee-1.md
+    sha256: b482f8f3a8a5239fafbc975dbbfefef68592e6f0745cbf5f59ddf538e83b2ef7
+  - file: reviews/proof-referee-2.md
+    sha256: fee10255f62ca164320349da89c2d839662af1289ee389c11d6d8d52583c370b
+  proof_freeze:
+    file: reviews/proof-freeze.json
+    sha256: 1263937a8aeef77192d2eaf434457c36abefc77a7aefbd25fdf0dbd854ed7f6c
+  linux_verification:
+    status: passed; independently audited
+    note: Actual run https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34716902324 at 6a2d0868e8b7905dbd5c04d4beaae8cf43288e1f.
+      All seven exports, 15 standard-three reports, actual default-kernel replay and both control sets
+      passed. See verification/linux-2026-09-12/OPERATIONAL-REVIEW.md and EVIDENCE-MANIFEST.json. Original
+      project ZIP SHA256 56172cc54a3e98496b29f46cf14d698c739f2df08883fb27cf241a4d4ac91256; control ZIP
+      SHA256 e068281270afa36c340a6cb646d0aa711f0232b08e016356e4ad4106aa1eb57d.
+alignment:
+- declaration: NLA.TR15.lower_contractions
+  scope: Exact contraction of the actual order-three, dimension-three Hankel tensor at every real vector,
+    including all ordered summands and all components.
+- declaration: NLA.TR15.upper_contraction
+  scope: Exact full order-six contraction at the explicit nonzero vector (0,1), reduced by proving all
+    other ordered terms vanish.
+- declaration: NLA.TR15.lower_eigenvalues_pos
+  scope: Strict positivity of every real lower H-eigenvalue from the actual eigenpair equations and a
+    positive sum of squares; no existence premise.
+- declaration: NLA.TR15.lower_eigenpair_exists
+  scope: An actual root of 2t⁴+2t³+3t²−4t−1 strictly inside (0,1), supplied by IVT, and a genuine nonzero
+    lower H-eigenpair.
+- declaration: NLA.TR15.upper_negative_eigenpair
+  scope: The actual order-six Hankel tensor has the exact real negative H-eigenpair (−1,(0,1)), with retained
+    kernel LeanCert strict negativity.
+- declaration: NLA.TR15.counterexample
+  scope: The full admissible m=3,q=2,n=2 instance satisfies the original lower nonnegative-eigenvalue
+    premise and violates the higher conclusion.
+- declaration: NLA.TR15.not_inheritanceConjecture
+  scope: Negation of the complete original inheritance conjecture, retaining all odd lower orders, all
+    q≥2,n≥2 and every real common generator.
+acknowledgements: Matthew J. Colbrook for the original counterexample and proof; Mathlib and LeanCert
+  contributors for genuine finite tensor arithmetic, intermediate value theorem and checked certificate
+  APIs. The shared pinned Comparator/exporter and Landrun workflow retains its licenses and attribution.
+  No external literature assertion is inserted as an unproved axiom.

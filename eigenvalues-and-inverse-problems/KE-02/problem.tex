@@ -34,7 +34,7 @@ time},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}KE-02}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ a separating diagonal perturbation in nearly linear time\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Open\par}
+{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -60,6 +60,33 @@ to the community\par}
 \textbf{Rating rationale:} Challenging reflects derandomizing eigenvalue
 separation within a nearly linear cost; community impact is
 deterministic preprocessing for Hermitian eigensolvers.
+
+\subsection{Partial result --- 12 September
+2026}\label{partial-result-12-september-2026}
+
+Sidney Holden (Center for Computational Biology, Flatiron Institute,
+Simons Foundation) gives two deterministic constructions in
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-spectral-2026-09-12/KE-02/proof.md}{Theorems
+A and B}. Writing \(T=\mathrm{diag}(t_i)+R\) and
+\(\eta=\max_i\sum_{j\ne i}|R_{ij}|\), Theorem A covers
+\(\eta\le\delta/[2(n-1)]\) with gap at least \(\delta/(n-1)\) in
+\(O(n\log n)\) operations. Theorem B covers every constant-diagonal
+tridiagonal input with equal off-diagonal magnitudes, allowing arbitrary
+complex phases and every coupling strength, with gap at least
+\(\delta/n^3\ge(\delta/n)^3\) in \(O(n)\) operations. Section 5 also
+covers every order-two input. Each construction returns a real diagonal
+perturbation of norm at most \(\delta\) in the original arithmetic
+model.
+
+These subclasses passed an
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-spectral-2026-09-12/verification/KE-02-review.md}{independent
+informal Codex AI-agent audit}. The all-dimensional Toeplitz starting
+class suggested in the workshop is included, supporting Partially
+resolved. Arbitrary normalized Hermitian tridiagonal inputs outside
+these classes remain open.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-spectral-2026-09-12/README.md}{Submission
+and verified affiliation}; no novelty, external human peer review or
+formal verification is claimed.
 
 \subsection{Context and notation}\label{context-and-notation}
 
@@ -70,9 +97,7 @@ All norms are Euclidean vector norms or their induced matrix norms.
 For a Hermitian matrix \(H\) with eigenvalues listed with multiplicity,
 define
 
-\[
-\operatorname{gap}(H)=\min_{i\ne j}|\lambda_i(H)-\lambda_j(H)|.
-\]
+\[\mathop{\mathrm{gap}}\nolimits(H)=\min_{i\ne j}|\lambda_i(H)-\lambda_j(H)|.\]
 
 Do universal constants \(a,c_0,C,q>0\) and a deterministic algorithm
 exist with the following property? For every \(n\geq2\), Hermitian
@@ -80,11 +105,9 @@ tridiagonal \(T\in\mathbb C^{n\times n}\) with \(\|T\|_2\leq1\), and
 \(\delta\in(0,1/2)\), the algorithm receives the three diagonals and
 returns a real diagonal matrix \(D\) such that
 
-\[
-\|D\|_2\leq\delta,
+\[\|D\|_2\leq\delta,
 \qquad
-\operatorname{gap}(T+D)\geq c_0(\delta/n)^a,
-\]
+\mathop{\mathrm{gap}}\nolimits(T+D)\geq c_0(\delta/n)^a,\]
 
 using at most \(Cn[1+\log(n/\delta)]^q\) exact arithmetic operations and
 comparisons? Square roots of nonnegative real numbers are allowed at

@@ -3,9 +3,14 @@
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
 **Status:** Open  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-12  
 
 **Rating rationale:** Challenging reflects an all-ranks algebraic critical-point count with only low-rank computations; specialist impact concerns the algebraic complexity of symplectic matrix nearness.
+
+## Supporting algebraic reduction — 12 September 2026
+
+Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) gives [a skew-multiplier reduction](../../references/holden-spectral-2026-09-12/SP-03/proof.md) to a saturated quartic system on the regular locus and proves that generic critical points avoid the singular denominator. An [independent informal Codex AI-agent audit](../../references/holden-spectral-2026-09-12/verification/SP-09-SP-07-SP-03-review.md) passed this reduction. It does not count new generic critical points; the rederived $`D_1=4`$ is already due to Baaijens and Draisma. The all-ranks formula remains open and status stays Open. [Submission and verified affiliation](../../references/holden-spectral-2026-09-12/README.md). No novelty, external human peer review or formal verification is claimed.
+
 
 For each $`m\ge1`$, set
 

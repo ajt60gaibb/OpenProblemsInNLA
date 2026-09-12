@@ -6,10 +6,20 @@
 
 **Difficulty:** challenging  
 **Importance:** broadly interesting  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-10  
+**Status:** Solved  
+**Last checked:** 2026-09-12  
 
-**Rating rationale:** Challenging reflects the remaining removal of a dimension-dependent logarithm from an established general algorithm; broad impact follows from a condition-independent cost bound for arbitrary linear systems.
+**Rating rationale (historical):** Challenging reflects the remaining removal of a dimension-dependent logarithm from an established general algorithm; broad impact follows from a condition-independent cost bound for arbitrary linear systems.
+
+## Resolution: affirmative, 12 September 2026
+
+**Author:** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Verified affiliation and submission record](../../references/holden-ie12-2026-09-12/README.md).
+
+[Theorem 1, proved in Sections 2–6](solution.pdf) gives a randomized exact-real algorithm with deterministic worst-case cost $`O(n^2\varepsilon^{-3})`$ and $`O(n^2)`$ scalar storage. For every original input it always returns a nonzero vector and achieves the original A-only backward error at most $`5\varepsilon/8`$ with probability greater than $`0.997`$. Thus it settles the complete target with $`q=3`$, uniformly in dimension, conditioning and right-hand side. [Proof source](solution.tex).
+
+The argument passed a separate [independent Codex AI-agent audit](../../references/holden-ie12-2026-09-12/independent-review.md), including exact component-test reproduction. This is informal automated review, not external human peer review or formal verification. The supplied draft was prepared with ChatGPT assistance; no Lean verification was performed.
+
+Entrywise randomized rounding and weighted-pattern matrix products cancel the logarithmic iteration overhead in total arithmetic cost. This does not assert dimension-independent black-box convergence, finite-precision stability, bit complexity or practical speed. The original target and prior-source attribution below are retained; the earlier status discussion is historical.
 
 ## Problem statement
 

@@ -21,6 +21,32 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### KE-02, SP-08 and SP-09 — spectral partial results — Sidney Holden
+
+**Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-spectral-2026-09-12/README.md).
+
+- [KE-02](eigenvalues-and-inverse-problems/KE-02/README.md): [Theorems A and B and Section 5](references/holden-spectral-2026-09-12/KE-02/proof.md) give deterministic diagonal separation for weak coupling, constant-diagonal/equal-magnitude tridiagonal matrices at every coupling strength, and every order-two input. General tridiagonal inputs remain open. [Independent review](references/holden-spectral-2026-09-12/verification/KE-02-review.md).
+- [SP-08](eigenvalues-and-inverse-problems/SP-08/README.md): [exact finite spread results](references/holden-spectral-2026-09-12/SP-08/proof.md) cover (n,a) = (8,1/2), (10,0), (11,0), with rank-two endpoint maximizers. The all-dimensions/all-parameters target remains open. [Independent review](references/holden-spectral-2026-09-12/verification/SP-08-review.md).
+- [SP-09](eigenvalues-and-inverse-problems/SP-09/README.md): [Theorem 1 and its corollary](references/holden-spectral-2026-09-12/SP-09/proof.md) prove finite-amplification invariance when at least one normal spectrum has at most two points. Both spectra having at least three distinct values remains open. [Independent review](references/holden-spectral-2026-09-12/verification/SP-09-SP-07-SP-03-review.md).
+
+Separate informal Codex AI-agent audits passed these partial scopes. None is Solved; no Lean verification, external human peer review or novelty claim is asserted. The same submission records an audited SP-03 reduction and SP-07 subclass lemma, with both statuses retained as Open. Original targets, IDs, paths and prior-source credit are preserved; the open count does not decrease.
+
+### ✅ IE-12 — quadratic-cost backward-error solution — Sidney Holden
+
+**Solved affirmatively, 12 September 2026.** Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) proves the full normalized exact-real entry-access target in [Theorem 1 and Sections 2–6](linear-systems-and-elimination/IE-12/solution.pdf): deterministic worst-case cost $`O(n^2\varepsilon^{-3})`$, nonzero output on every outcome, and A-only backward error at most $`5\varepsilon/8`$ with probability greater than $`0.997`$. [Retained original target](linear-systems-and-elimination/IE-12/README.md) · [Proof source](linear-systems-and-elimination/IE-12/solution.tex).
+
+The full argument passed a separate [independent Codex AI-agent audit](references/holden-ie12-2026-09-12/independent-review.md). ChatGPT assistance in the submitted draft and informal automated review are disclosed; no external human peer review, formal verification, practical-speed result or priority certificate is asserted. No Lean verification was performed. The original problem, permanent ID and prior-source attribution are preserved. [Submission record and verified affiliation](references/holden-ie12-2026-09-12/README.md).
+
+### ✅ IE-16 - normal-GMRES subset bound - Sidney Holden
+
+**Solved negatively, 12 September 2026.** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Theorem 1.1, Sections 2-3](linear-systems-and-elimination/IE-16/solution.pdf) gives nine distinct nonzero complex points at degree four with full-set/subset ratio greater than 13/10 > 4/π, disproving the original universal bound. Theorem 1.2, Sections 4-5, additionally rules out every finite dimension-independent replacement constant. [Retained original target](linear-systems-and-elimination/IE-16/README.md) · [Proof source](linear-systems-and-elimination/IE-16/solution.tex).
+
+The complete argument passed a separate [independent Codex AI-agent informal audit](references/holden-ie16-2026-09-12/INDEPENDENT-REVIEW.md), including exact checks of all 126 subsets and independent rational calculations. No external human peer review or formal verification is claimed. No Lean verification was performed. The original ID, canonical path and target are retained. [Attribution, verified affiliation and submission record](references/holden-ie16-2026-09-12/README.md).
+
+### KE-01 — partial sparse-solver results — Sidney Holden
+
+**Partially resolved, 12 September 2026.** [Theorem 2.1 and Corollary 2.2](references/holden-ke01-2026-09-12/report.pdf) give a sparse CGLS baseline and four regimes attaining the target. Theorem 4.1 treats exactly flat SPD tails; Corollary 5.1 retains a potentially larger row-support cost for nonsymmetric input. **General KE-01 remains open.** The restricted claims passed a separate [independent informal AI-agent audit](references/holden-ke01-2026-09-12/independent-review.md); no Lean verification or external human peer review is asserted. [Retained original target](linear-systems-and-elimination/KE-01/README.md) · [Author, verified affiliation, source and checks](references/holden-ke01-2026-09-12/README.md).
+
 ### AV-03 and IV-01 — further partial results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission record and verified affiliation](references/holden-interval-ave-2026-09-12/README.md).
@@ -109,7 +135,24 @@ The complete proof passed a separate [independent Codex-agent mathematical audit
 
 **Negative resolution recorded 2026-09-12 (UTC).** [Lemma 1 and Theorem 1](frames-and-matrix-designs/FR-12/solution.md) give an injective matching-indexed doubling construction and the lower bound $H(2^k)\ge2^{2^k(k-1)(k-2)/8}$ for every $k\ge2$. This disproves the proposed $2^{O(n\log n)}$ upper bound for labeled real Hadamard matrices. [Proof PDF](frames-and-matrix-designs/FR-12/solution.pdf) · [Original canonical target](frames-and-matrix-designs/FR-12/README.md).
 
-The complete argument passed a separate [independent Codex-agent mathematical and source-scope audit](references/stepaniants-fr12-2026-09-12/REVIEW.md). Substantial AI assistance is disclosed; this is informal agent review, not human peer review or formal verification. Ferber, Jain and Zhao retain credit for the conjecture and prior upper bounds. The Hadamard existence conjecture and optimal counting order are not settled. [Submission record and eligibility audit](references/stepaniants-fr12-2026-09-12/README.md).
+The complete argument passed a separate [independent Codex-agent mathematical and source-scope audit](references/stepaniants-fr12-2026-09-12/REVIEW.md). Substantial AI assistance is disclosed. That original review was informal; the later formal verification is documented below. External human peer review is not claimed. Ferber, Jain and Zhao retain credit for the conjecture and prior upper bounds. The Hadamard existence conjecture and optimal counting order are not settled. [Submission record and eligibility audit](references/stepaniants-fr12-2026-09-12/README.md).
+
+**Lean verified - 2026-09-12.** The full original counting conjecture is refuted by
+[seven checked exports](https://github.com/sgstepaniants/OpenProblemsInNLA/blob/3e20bae9a07b1a33db8fdfb18bdebb9e590071a9/frames-and-matrix-designs/FR-12/lean/Solution.lean).
+**Mathematical proof and Lean formalization: George Stepaniants, Department of Computing and
+Mathematical Sciences, California Institute of Technology, Pasadena, California, USA**, with
+substantial AI-agent assistance. The formal permutation-indexed injection proves
+$m!H(m)^2\le H(2m)$ and the identical source power-of-two lower bound; the stronger informal
+$(2m-1)!!$ recurrence is outside the exports. Ferber, Jain and Zhao retain the original
+conjecture and prior-upper-bound credit. See the
+[canonical verification evidence](frames-and-matrix-designs/FR-12/README.md#lean-proof-and-verification-evidence---2026-09-12),
+[two statement and two final proof reviews](frames-and-matrix-designs/FR-12/lean/reviews/),
+[successful Linux run](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34718277411)
+and [independent operational audit](frames-and-matrix-designs/FR-12/lean/verification/linux-2026-09-12/OPERATIONAL-REVIEW.md).
+All 137 submitted input hashes, actual default-kernel replay, standard-three axioms and real
+rejection controls were checked. LeanCert audits kernel trust; no numerical interval
+certificate or external human peer review is claimed.
+
 
 ### ✅ MF-06 - pointwise Lipschitz lower stability of the joint spectral radius - George Stepaniants
 
@@ -254,9 +297,23 @@ The original statements, permanent IDs and historical ratings remain retained. T
 
 [Canonical target](tensor-computations/TR-06/README.md) · [Complete proof](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-06.md) · [PDF](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-06.pdf) · [Independent review](references/colbrook-unclaimed-2026-09-11/verification/reviews/TR-06-review.md) · [Second review](references/colbrook-unclaimed-2026-09-11/verification/reviews/TR-06-second-review.md). **Theorem and Sections 2–4.** The mean angular condition number is finite for every generically complex-identifiable format and rank in the original volume-Gaussian model. A bounded semialgebraic graph gives finite first-derivative integral on the unit link; conical scaling gives a finite Gaussian radial factor. This does not assert finite regular-condition means or higher moments.
 
-#### TR-15 — negative resolution
+#### TR-15 — negative resolution; Lean formalization by George Stepaniants
 
 [Canonical target](tensor-computations/TR-15/README.md) · [Complete proof](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-15.md) · [PDF](references/colbrook-unclaimed-2026-09-11/manuscripts/TR-15.pdf) · [Independent review](references/colbrook-unclaimed-2026-09-11/verification/reviews/TR-15-review.md). **“Counterexample” and “The premise is not vacuous”.** The common generating vector $(2,0,1,0,2,0,-1)$ gives an order-three, dimension-three Hankel tensor whose real H-eigenvalues are all positive, and an order-six, dimension-two tensor with H-eigenvalue $-1$. This exactly refutes the odd-order inheritance conjecture; it does not contradict results requiring a positive-semidefinite associated Hankel matrix. The included standard-library checker verifies the contractions and positivity identity in exact integer arithmetic.
+
+**Lean verified — 2026-09-12.** The full original inheritance conjecture is refuted, with a
+proved nonvacuous lower premise, by the
+[seven checked exports](https://github.com/sgstepaniants/OpenProblemsInNLA/blob/6a2d0868e8b7905dbd5c04d4beaae8cf43288e1f/tensor-computations/TR-15/lean/Solution.lean).
+**Lean formalization: George Stepaniants, Department of Computing and Mathematical Sciences,
+California Institute of Technology, Pasadena, California, USA**, with AI-agent assistance.
+Matthew J. Colbrook retains authorship of the counterexample and informal proof. See the
+[canonical verification evidence](tensor-computations/TR-15/README.md#lean-proof-and-verification-evidence---2026-09-12),
+[two statement and two final proof reviews](tensor-computations/TR-15/lean/reviews/),
+[successful Linux run](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34716902324)
+and [independent operational audit](tensor-computations/TR-15/lean/verification/linux-2026-09-12/OPERATIONAL-REVIEW.md).
+All 135 submitted input hashes, default-kernel replay, standard-three axioms and actual rejection
+controls were verified. No external human peer review is claimed.
+
 
 #### TR-26 — affirmative resolution
 
@@ -430,9 +487,22 @@ historical and the entry no longer contributes to the open count.
 
 [Canonical entry](matrix-inequalities-and-norms/MI-22/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-22/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-22-review.md). **Theorem 1.1 and its proof.** Rational positive definite $3\times3$ matrices at $t=1/8$ violate the first singular-value inequality: the left operator norm exceeds 10900, while $\|AB\|_2<10200$. Exact rational root residuals and a proved operator-root error bound certify the actual principal powers. 
 
-#### MI-23 — negative result
+#### MI-23 — negative result; Lean formalization by George Stepaniants
 
-[Canonical entry](matrix-inequalities-and-norms/MI-23/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-23/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-23-review.md). **Theorem 1.1 and its proof.** Rational positive definite $3\times3$ matrices with $r=s=1$, $p=2$ and $t=1/8$ violate the corrected eigenvalue log-majorization conjecture. An exact integer-power construction and rational norm separation establish failure of the first ordered eigenvalue inequality. 
+[Canonical entry](matrix-inequalities-and-norms/MI-23/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-23/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-23-review.md). **Theorem 1.1 and its proof.** Rational positive definite $3\times3$ matrices with $r=s=1$, $p=2$ and $t=1/8$ violate the corrected eigenvalue log-majorization conjecture. An exact integer-power construction and rational norm separation establish failure of the first ordered eigenvalue inequality.
+
+**Lean verified — 2026-09-12.** The complete corrected eigenvalue conjecture is refuted by the
+[eight checked exports](https://github.com/sgstepaniants/OpenProblemsInNLA/blob/17194f9060609acae429e14d3dc3c4562b84f2bd/matrix-inequalities-and-norms/MI-23/lean/Solution.lean).
+**Lean formalization: George Stepaniants, Department of Computing and Mathematical Sciences,
+California Institute of Technology, Pasadena, California, USA**, with AI-agent assistance.
+Matthew J. Colbrook retains authorship of the counterexample and informal proof. See the
+[canonical verification evidence](matrix-inequalities-and-norms/MI-23/README.md#lean-proof-and-verification-evidence---2026-09-12),
+[two statement and two final proof reviews](matrix-inequalities-and-norms/MI-23/lean/reviews/),
+[successful Linux run](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34716784038)
+and [independent operational audit](matrix-inequalities-and-norms/MI-23/lean/verification/linux-2026-09-12/OPERATIONAL-REVIEW.md).
+All 133 submitted input hashes, default-kernel replay, standard-three axioms and actual rejection
+controls were verified. No external human peer review is claimed.
+
 
 #### MI-26 — negative result; Lean formalization by George Stepaniants
 
@@ -464,7 +534,7 @@ These three entries remain in the open count.
 
 **Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Three separate Codex agents reviewed the six submitted arguments; the following four resolve exact catalog targets. Verification is independent agent review, not external peer review or formal certification. [Submission record, provenance and reproduction](references/colbrook-transfer-2026-09-11/README.md).
 
-**RA-07 (Solved).** The sequence $(j+1)e_{j+1}/e_j$ is decreasing and discretely convex for every positive spectrum, including both endpoints. The exact second-difference certificate proves the full canonical conjecture.  [Complete proof](references/colbrook-transfer-2026-09-11/manuscripts/01_volume_sampling_convexity.pdf), Theorem 1.1; [review](references/colbrook-transfer-2026-09-11/verification/reviews/RA-07-review.md).
+**RA-07 (Lean verified; formalization by George Stepaniants).** The sequence $(j+1)e_{j+1}/e_j$ is decreasing and discretely convex for every positive spectrum, including both endpoints. The exact second-difference certificate proves the full canonical conjecture.  [Complete proof](references/colbrook-transfer-2026-09-11/manuscripts/01_volume_sampling_convexity.pdf), Theorem 1.1; [review](references/colbrook-transfer-2026-09-11/verification/reviews/RA-07-review.md). **Lean verification — 2026-09-12:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, with AI-agent assistance. Matthew J. Colbrook retains mathematical authorship. The six [formal exports](randomized-and-low-rank-approximation/RA-07/lean/Solution.lean) prove the complete original scalar convexity target for every positive spectrum and every canonical index; the source’s additional monotonicity and sampling applications are outside their scope. Two independent statement reviews, two independent final proof reviews and [Linux run 34715563781](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34715563781) verify the unchanged proof at [revision bf144a8](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/bf144a8ea84992d64f79f4425b18352843376286/randomized-and-low-rank-approximation/RA-07/lean); [original evidence and independent operational audit](randomized-and-low-rank-approximation/RA-07/lean/verification/linux-2026-09-12/) are retained. LeanCert audits kernel trust for this exact proof, without a numerical interval certificate.
 
 **RA-08 (Solved).** A rational positive definite $6\times6$ matrix and its exact rank-three Nyström approximation attain the optimal input spectral error but violate transformed optimality for $f(x)=\min(x,1)$. At $t=1/65536$, the output ratio is at least $1+334583/15769728$. Since the input excess is zero, this also excludes every finite factor $1+C\varepsilon$ for that scalar-concave class.  [Complete proof](references/colbrook-transfer-2026-09-11/manuscripts/03_concave_transfer_counterexamples.pdf), Theorem 3.1; [review](references/colbrook-transfer-2026-09-11/verification/reviews/RA-08-review.md).
 
