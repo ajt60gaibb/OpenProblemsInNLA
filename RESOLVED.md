@@ -21,6 +21,12 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### ✅ IE-12 — quadratic-cost backward-error solution — Sidney Holden
+
+**Solved affirmatively, 12 September 2026.** Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) proves the full normalized exact-real entry-access target in [Theorem 1 and Sections 2–6](linear-systems-and-elimination/IE-12/solution.pdf): deterministic worst-case cost $`O(n^2\varepsilon^{-3})`$, nonzero output on every outcome, and A-only backward error at most $`5\varepsilon/8`$ with probability greater than $`0.997`$. [Retained original target](linear-systems-and-elimination/IE-12/README.md) · [Proof source](linear-systems-and-elimination/IE-12/solution.tex).
+
+The full argument passed a separate [independent Codex AI-agent audit](references/holden-ie12-2026-09-12/independent-review.md). ChatGPT assistance in the submitted draft and informal automated review are disclosed; no external human peer review, formal verification, practical-speed result or priority certificate is asserted. No Lean verification was performed. The original problem, permanent ID and prior-source attribution are preserved. [Submission record and verified affiliation](references/holden-ie12-2026-09-12/README.md).
+
 ### AV-03 and IV-01 — further partial results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission record and verified affiliation](references/holden-interval-ave-2026-09-12/README.md).
