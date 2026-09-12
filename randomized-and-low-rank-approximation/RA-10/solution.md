@@ -1,0 +1,365 @@
+---
+title: "RA-10: constant-loss nuclear-error transfer without matrix ordering"
+author: "George Stepaniants"
+affiliation: "Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA"
+date: "11 September 2026"
+document-kind: "Verified resolution"
+review-footer: "Independent Codex-agent review; not external human peer review or formal certification."
+lang: "en-GB"
+---
+
+\pagestyle{plain}
+
+*11 September 2026*
+
+**Verification status: independent-agent PASS.** This manuscript was developed with substantial ChatGPT/Codex assistance. A separate Codex agent independently checked the complete mathematical argument and the exact canonical target. [Detailed independent review](../../references/stepaniants-ra10-2026-09-11/verification/RA-10-independent-review.md). This is independent automated-agent review, not external human peer review or formal verification. No historical priority or optimality of the constant is claimed. The [submission record](../../references/stepaniants-ra10-2026-09-11/README.md) preserves the frozen reviewed draft and its hashes.
+
+## 1. Statement and notation
+
+For a real symmetric matrix $M$, write $M_+$ for its positive part and $\|M\|_*$ for its nuclear norm. If $P$ is an orthogonal projection and $B=PBP$ is positive semidefinite, write $f(B)_P$ for the matrix obtained by applying $f$ on $\operatorname{range}(P)$ and setting its action on $\ker(P)$ to zero. In particular, $f(B)_P=f(B)$ when $f(0)=0$. The selected projection $P$ is retained even when $B$ has rank smaller than $\operatorname{rank}(P)$.
+
+**Theorem 1.** The exact statement of [RA-10](README.md) holds with the universal constant $C=11$. More explicitly, let $n\ge2$, $1\le k<n$, let $A$ and $\widehat A$ be real symmetric positive semidefinite matrices, and choose any ordered orthonormal eigenbasis of $\widehat A$. Let $P$ project onto its first $k$ vectors and let $B=\widehat A_k$. For every continuous operator-monotone $f:[0,\infty)\to[0,\infty)$ and $\varepsilon\ge0$,
+
+$$
+\|A-B\|_*\le(1+\varepsilon)\|A-A_k\|_*
+$$
+
+implies
+
+$$
+\|f(A)-f(\widehat A)_k\|_*
+\le(1+11\varepsilon)\|f(A)-f(A)_k\|_*.
+$$
+
+Both truncations of $\widehat A$ use the same selected eigenvectors. No matrix ordering, commutation, invertibility, spectral simplicity, or strict gap at $k$ is assumed.
+
+Put $a_1\ge\cdots\ge a_n\ge0$ for the eigenvalues of $A$ and $\tau=\sum_{i>k}a_i$. The quantity
+
+$$
+e(B)=\|A-B\|_*-\tau
+$$
+
+is nonnegative by the best-rank-$k$ approximation property of the nuclear norm. We first prove the estimate for the ridge atoms $f_s(x)=x/(s+x)$, $s>0$. The proof only uses finite-dimensional matrix algebra, standard eigenvalue comparison, and the positive integral representation of operator-monotone functions.
+
+\newpage
+
+## 2. A compression estimate for ridge functions
+
+**Lemma 2.** Let $A\succeq0$, let $P$ be an orthogonal projection of rank $k$, and put $C=PAP$. Let $H$ be the restriction of $C$ to $\operatorname{range}(P)$. For arbitrary $s,c>0$, set
+
+$$
+D=C-A,\qquad
+ d=\operatorname{tr}\bigl((cI_k-H)_+\bigr),\qquad
+ g=\frac1{s+c}.
+$$
+
+Then
+
+$$
+\operatorname{tr}\bigl((f_s(C)-f_s(A))_+\bigr)
+\le2g\bigl[\operatorname{tr}(D_+)+d\bigr].\tag{1}
+$$
+
+This lemma does not require the eigenvalues of $C$ to match any eigenvalues of $A$.
+
+**Proof.** First suppose $H\succ0$. In the orthogonal decomposition $\operatorname{range}(P)\oplus\ker(P)$, write
+
+$$
+A=\begin{bmatrix}H&E\\E^T&F\end{bmatrix},
+\qquad C=\begin{bmatrix}H&0\\0&0\end{bmatrix}.
+$$
+
+Positivity of $A$ gives $F\succeq E^TH^{-1}E$. Put $Z=f_s(C)-f_s(A)$. Let $v=(u,w)$ be a unit eigenvector of $Z$ with positive eigenvalue $\lambda$. Since $0\preceq f_s(A)$ and $f_s(C)\prec I$, we have $0<\lambda<1$. Define
+
+$$
+\mu=\frac{\lambda}{1+\lambda},\qquad 0<\mu<\frac12.
+$$
+
+The resolvent identity $Z=s[(sI+A)^{-1}-(sI+C)^{-1}]$ and $Zv=\lambda v$ give
+
+$$
+(sI+A)^{-1}v=(sI+C)^{-1}v+\frac\lambda s v.
+$$
+
+Multiplying by $sI+A$ and using the two block rows yields
+
+$$
+Ew=-\mu(sI+H)u,\tag{2}
+$$
+
+$$
+E^T(sI+\mu H)(sI+H)^{-1}u+(F+\mu sI)w=0.\tag{3}
+$$
+
+Taking the inner product of (3) with $w$ and substituting (2) gives
+
+$$
+w^TFw=\mu s(\|u\|^2-\|w\|^2)+\mu^2u^THu.\tag{4}
+$$
+
+On the other hand, the Schur-complement inequality and (2) give
+
+$$
+\begin{aligned}
+w^TFw
+&\ge\mu^2u^T(sI+H)H^{-1}(sI+H)u\\
+&=\mu^2u^THu+2\mu^2s\|u\|^2
+  +\mu^2s^2u^TH^{-1}u.
+\end{aligned}
+$$
+
+Comparing with (4), and dividing by $\mu s>0$, proves
+
+$$
+\|w\|^2\le(1-2\mu)\|u\|^2-\mu s\,u^TH^{-1}u.
+$$
+
+Because $\|u\|^2+\|w\|^2=1$, it follows that
+
+$$
+\|u\|^2\ge\frac1{2(1-\mu)}.\tag{5}
+$$
+
+A direct calculation from (2) and (4) gives
+
+$$
+v^TDv=\mu s+\mu(2-\mu)u^THu.\tag{6}
+$$
+
+Let $\Delta=(cI_k-H)_+$, so $H\succeq cI_k-\Delta$. By (5)-(6),
+
+$$
+\begin{aligned}
+v^TDv
+&\ge\mu s+\frac{\mu(2-\mu)c}{2(1-\mu)}
+       -\mu(2-\mu)u^T\Delta u\\
+&\ge\frac{\lambda(s+c)}2-\mu(2-\mu)u^T\Delta u.
+\end{aligned}\tag{7}
+$$
+
+\Needspace{6\baselineskip}
+
+The second inequality follows because the difference between its two scalar terms is
+
+$$
+\frac{\mu\,[s(1-2\mu)+c(1-\mu)]}{2(1-\mu)}\ge0.
+$$
+
+Take an orthonormal basis of the positive eigenspace of $Z$ and sum (7). For its orthogonal projection $Q$, the variational formula $\operatorname{tr}(D_+)=\max_{0\preceq R\preceq I}\operatorname{tr}(RD)$ gives $\operatorname{tr}(QD)\le\operatorname{tr}(D_+)$. Also $0<\mu(2-\mu)<1$ for each positive eigenvalue, and the $P$-components $u$ of these orthonormal vectors satisfy $\sum uu^T\preceq I_k$. Therefore
+
+$$
+\frac{s+c}{2}\operatorname{tr}(Z_+)
+\le\operatorname{tr}(D_+)+\operatorname{tr}(\Delta).
+$$
+
+This is (1).
+
+If $H$ is singular, apply the proved case to $A_r=A+rP$ and $C_r=C+rP$, $r>0$. Their difference remains $D$, and $A_r\succeq0$. For fixed $s>0$, all resolvents and positive-part traces are continuous as $r$ decreases to zero, and $\operatorname{tr}((cI-H-rI)_+)$ tends to $d$. Taking that limit proves (1) without an invertibility assumption. $\square$
+
+## 3. Matching the leading spectrum
+
+Assume $\tau>0$, so $c=a_k>0$, and continue to write $g=1/(s+c)$. Let $B_0$ be any positive semidefinite matrix supported on a rank-$k$ projection $P$, whose eigenvalues on that subspace are $a_1,\ldots,a_k$. Its eigenvectors are arbitrary. Define
+
+$$
+\begin{gathered}
+e_0=\|A-B_0\|_*-\tau,\qquad C=PAP,\qquad
+H=C\big|_{\operatorname{range}(P)},\\
+L=\sum_{i\le k}a_i-\operatorname{tr}H,\qquad
+R=\|B_0-C\|_*.
+\end{gathered}
+$$
+
+The compression eigenvalues $h_1\ge\cdots\ge h_k$ satisfy $0\le h_i\le a_i$ by the min-max principle. Thus $L\ge0$. Pinching $A-B_0$ into the $P$ and $I-P$ blocks cannot increase its nuclear norm, and the complementary $A$ block is positive semidefinite. Consequently
+
+$$
+e_0\ge R+L.\tag{8}
+$$
+
+Put $e_C=\|A-C\|_*-\tau$. The triangle inequality gives
+
+$$
+e_C\le e_0+R.\tag{9}
+$$
+
+The trace identity $\|M\|_*=2\operatorname{tr}(M_+)-\operatorname{tr}M$ for symmetric $M$, applied to $C-A$, gives
+
+$$
+e_C=L+2\operatorname{tr}((C-A)_+).\tag{10}
+$$
+
+Moreover,
+
+$$
+d=\operatorname{tr}((cI_k-H)_+)
+ =\sum_i(c-h_i)_+\le\sum_i(a_i-h_i)=L.\tag{11}
+$$
+
+Let $\tau_s=\sum_{i>k}f_s(a_i)$, and define
+
+$$
+L_s=\sum_{i\le k}f_s(a_i)-\operatorname{tr}f_s(H).
+$$
+
+\Needspace{8\baselineskip}
+
+For $a\ge c$ and $b\ge0$, the exact scalar identity
+
+$$
+|f_s(a)-f_s(b)|
+=\frac{s|a-b|}{(s+a)(s+b)}\le g|a-b|\tag{12}
+$$
+
+holds. Since $h_i\le a_i$, it implies $0\le L_s\le gL$.
+
+By Lemma 2, (10)-(11), and the trace-positive-part identity,
+
+$$
+\begin{aligned}
+\|f_s(A)-f_s(C)\|_*-\tau_s
+&=L_s+2\operatorname{tr}((f_s(C)-f_s(A))_+)\\
+&\le gL+4g\bigl[\operatorname{tr}((C-A)_+)+d\bigr]\\
+&\le g(2e_C+3L).
+\end{aligned}\tag{13}
+$$
+
+On $\operatorname{range}(P)$, $B_0\succeq cI_k$ and $H\succeq0$. The resolvent identity and the ideal property of the nuclear norm imply
+
+$$
+\begin{aligned}
+\|f_s(B_0)-f_s(C)\|_*
+&=\bigl\|s(sI+B_0)^{-1}(B_0-C)(sI+C)^{-1}\bigr\|_*\\
+&\le gR.
+\end{aligned}\tag{14}
+$$
+
+Here the calculation is performed on $\operatorname{range}(P)$; both matrix-function differences vanish on its orthogonal complement. The factors have operator norms at most $1/(s+c)$ and $1/s$, respectively. No commutation of $B_0$ and $C$ is used.
+
+Combining (8)-(9) and (13)-(14),
+
+$$
+\begin{aligned}
+\|f_s(A)-f_s(B_0)\|_*-\tau_s
+&\le g(2e_C+3L+R)\\
+&\le g(2e_0+3R+3L)\\
+&\le5g e_0.
+\end{aligned}\tag{15}
+$$
+
+## 4. Arbitrary selected approximants
+
+Return to $B=\widehat A_k$ and its prescribed projection $P$. Let $b_1\ge\cdots\ge b_k\ge0$ be its selected eigenvalues. In the same selected eigenvectors define $B_0$ with eigenvalues $a_1,\ldots,a_k$, and put
+
+$$
+r=\sum_{i\le k}|a_i-b_i|=\|B_0-B\|_*.
+$$
+
+The eigenvalue perturbation inequality for Hermitian matrices in the nuclear norm gives
+
+$$
+r+\tau\le\|A-B\|_*,\qquad\text{hence }r\le e(B).\tag{16}
+$$
+
+This is the standard inequality $\sum_i|\lambda_i(X)-\lambda_i(Y)|\le\|X-Y\|_*$ for ordered Hermitian eigenvalues; the remaining $n-k$ eigenvalues of $B$ are zero. For completeness, put $J=X-Y$, $J_-=(-J)_+$, and $U=X+J_-=Y+J_+$. Then $U\succeq X,Y$. The min-max principle gives $u_i\ge\max(x_i,y_i)$ for their ordered eigenvalues, so
+
+$$
+\begin{aligned}
+\sum_i|x_i-y_i|
+&\le2\operatorname{tr}U-\operatorname{tr}X-\operatorname{tr}Y\\
+&=\operatorname{tr}J_++\operatorname{tr}J_-=\|X-Y\|_*.
+\end{aligned}
+$$
+
+This proves the inequality, including all repeated-eigenvalue cases. Also,
+
+$$
+e_0\le e(B)+r.\tag{17}
+$$
+
+Because $B_0$ and $B$ use the same eigenvectors, (12) gives
+
+$$
+\|f_s(B_0)-f_s(B)\|_*\le gr.\tag{18}
+$$
+
+\Needspace{7\baselineskip}
+
+Equations (15)-(18) prove the absolute excess bound
+
+$$
+\begin{aligned}
+\|f_s(A)-f_s(B)\|_*-\tau_s
+&\le5g\,[e(B)+r]+gr\\
+&\le11g\,e(B).
+\end{aligned}\tag{19}
+$$
+
+Each tail eigenvalue is at most $c$, so
+
+$$
+\tau_s=\sum_{i>k}\frac{a_i}{s+a_i}
+\ge\frac\tau{s+c}=g\tau.\tag{20}
+$$
+
+Thus, whenever $e(B)\le\varepsilon\tau$,
+
+$$
+\|f_s(A)-f_s(B)\|_*\le(1+11\varepsilon)\tau_s.\tag{21}
+$$
+
+In particular, (21) is uniform in $s>0$ and uses the actual selected eigenspaces.
+
+## 5. Positive integral combinations and boundary cases
+
+We use the standard positive integral representation of continuous nonnegative operator-monotone functions on $[0,\infty)$:
+
+$$
+f(x)=\alpha+\beta x+\int_{(0,\infty)}\frac{x}{s+x}\,d\nu(s),\tag{22}
+$$
+
+where $\alpha=f(0)\ge0$, $\beta\ge0$, $\nu$ is a positive measure and $\int_{(0,\infty)}(1+s)^{-1}\,d\nu(s)<\infty$. One primary reference is P. Chansangiam, *Integral Representations and Decompositions of Operator Monotone Functions on the Nonnegative Reals*, [arXiv:1304.7936v1](https://arxiv.org/pdf/1304.7936v1), Proposition 1.1, p. 2. It represents $f(x)$ as the integral of $x(1+s)/(x+s)$ against a finite positive measure $m$ on the compactified half-line $[0,\infty]$. Its endpoint atoms give $\alpha=m(\{0\})$ and $\beta=m(\{\infty\})$; on $(0,\infty)$, set $d\nu(s)=(1+s)\,dm(s)$, which gives (22) and its stated integrability. Continuity at zero gives the stated extension there. The original target requires monotonicity for all real symmetric sizes; realification of complex Hermitian matrices gives the equivalent hypothesis for the usual representation theorem.
+
+For fixed finite-dimensional $A$ and $B$, (22) may be applied spectrally. The resulting matrix integrals converge absolutely: each positive matrix integrand has nuclear norm bounded by the finite sum of its scalar spectral values, whose integrals are finite. By the triangle inequality for the integral,
+
+$$
+\begin{aligned}
+\|f(A)-f(B)_P\|_*
+&\le\alpha(n-k)+\beta\|A-B\|_*\\
+&\quad+\int_{(0,\infty)}\|f_s(A)-f_s(B)\|_*\,d\nu(s).
+\end{aligned}
+$$
+
+The best-rank-$k$ tail of $f(A)$ is exactly
+
+$$
+\tau_f=\alpha(n-k)+\beta\tau
+       +\int_{(0,\infty)}\tau_s\,d\nu(s).
+$$
+
+If $\tau>0$, apply (19)-(20), or equivalently (21), to every ridge atom. The linear term satisfies the original bound with constant one; the constant term contributes exactly $\alpha(n-k)$. Since $\varepsilon\ge0$,
+
+$$
+\|f(A)-f(B)_P\|_*\le(1+11\varepsilon)\tau_f.
+$$
+
+\Needspace{12\baselineskip}
+
+Finally, if $\tau=0$, the hypothesis forces $\|A-B\|_*=0$, so $A=B$ and $\operatorname{range}(A)\subseteq\operatorname{range}(P)$. The selected functional-calculus truncation is $f(B)_P=f(A)P$, and
+
+$$
+f(A)-f(B)_P=f(0)(I-P).
+$$
+
+Its nuclear norm is $(n-k)f(0)$, exactly the best-rank-$k$ tail of $f(A)$. This handles all zero-tail, zero-matrix and rank-deficient cases without division by a vanishing quantity. As $f(B)_P=f(\widehat A)_k$ by the fixed selected eigenvectors, Theorem 1 follows. $\square$
+
+\begingroup
+\sloppy
+
+## References and scope
+
+1. D. Persson, R. A. Meyer and C. Musco, *Algorithm-agnostic low-rank approximation of operator monotone matrix functions*, SIAM Journal on Matrix Analysis and Applications **46** (2025), 1-21; [arXiv:2311.14023v2](https://arxiv.org/html/2311.14023v2), Section 1.2 and the closing paragraph of Section 5. Their ordered result and counterexamples to constant one are credited; the present target is the unordered nuclear-norm question.
+2. P. Chansangiam, *Integral Representations and Decompositions of Operator Monotone Functions on the Nonnegative Reals*, [arXiv:1304.7936v1](https://arxiv.org/pdf/1304.7936v1) (30 April 2013), Proposition 1.1, p. 2; Theorem 1.2 gives the equivalent weighted-harmonic-mean formulation.
+3. The [canonical RA-10 entry](README.md) and Matthew J. Colbrook's independently reviewed [commuting partial result](../../references/colbrook-transfer-2026-09-11/manuscripts/06_commuting_schatten_transfer.pdf) are retained in the repository. That result proves the necessary lower bound $C\ge2$. The present proof claims only existence with $C=11$, not sharpness or a Frobenius/Schatten generalization.
+
+\endgroup
+
+The substantive new estimate is Lemma 2. The sharper isospectral ridge inequality and square inequality explored in earlier notes are not premises of this proof. No numerical search is used to establish the theorem.

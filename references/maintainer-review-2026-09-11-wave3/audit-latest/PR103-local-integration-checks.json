@@ -1,0 +1,65 @@
+{
+  "pr": 103,
+  "head": "494438ee01cde9ad5706537b026d85b9aab03b1b",
+  "status": "PASS",
+  "commands": [
+    {
+      "command": [
+        "python3",
+        "references/stepaniants-ra10-2026-09-11/verification/verify_main_integration.py"
+      ],
+      "exit_code": 0,
+      "stdout": "PASS: RA-10 \u2014 12 unchanged reviewed artifacts; original reference README retained; 202 incoming canonical pages; 1260 incoming proof/evidence blobs; 203 permanent IDs; current fingerprints.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python3",
+        "tools/validate_problem_ids.py",
+        "--base-ref",
+        "87366c62d3b5c47d170f747b1cb40ab38d501013"
+      ],
+      "exit_code": 0,
+      "stdout": "Validated 203 permanent problem IDs against 87366c62d3b5c47d170f747b1cb40ab38d501013\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python3",
+        "tools/update_catalog.py",
+        "--base-ref",
+        "87366c62d3b5c47d170f747b1cb40ab38d501013"
+      ],
+      "exit_code": 0,
+      "stdout": "Indexed 203 entries: Open=68, Partially resolved=73, Solution claimed=1, Solved=61\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_problem_ids.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_append_only_and_large_suffixes (test_problem_ids.PermanentIDTests.test_append_only_and_large_suffixes) ... ok\ntest_cannot_fill_historical_gap (test_problem_ids.PermanentIDTests.test_cannot_fill_historical_gap) ... ok\ntest_cannot_reassign_registered_path (test_problem_ids.PermanentIDTests.test_cannot_reassign_registered_path) ... ok\ntest_cannot_remove_page_and_registry_record_together (test_problem_ids.PermanentIDTests.test_cannot_remove_page_and_registry_record_together) ... ok\ntest_committed_branch_renumber_detected_against_published_branch (test_problem_ids.PermanentIDTests.test_committed_branch_renumber_detected_against_published_branch) ... ok\ntest_current_registry_and_status_changes (test_problem_ids.PermanentIDTests.test_current_registry_and_status_changes) ... ok\ntest_duplicate_heading_id (test_problem_ids.PermanentIDTests.test_duplicate_heading_id) ... ok\ntest_duplicate_json_keys (test_problem_ids.PermanentIDTests.test_duplicate_json_keys) ... ok\ntest_first_registry_protects_already_published_ids (test_problem_ids.PermanentIDTests.test_first_registry_protects_already_published_ids) ... ok\ntest_heading_rename_and_malformed_ids (test_problem_ids.PermanentIDTests.test_heading_rename_and_malformed_ids) ... ok\ntest_indexer_does_not_write_when_validation_fails (test_problem_ids.PermanentIDTests.test_indexer_does_not_write_when_validation_fails) ... ok\ntest_invalid_base_is_not_silently_ignored (test_problem_ids.PermanentIDTests.test_invalid_base_is_not_silently_ignored) ... ok\ntest_missing_registered_page (test_problem_ids.PermanentIDTests.test_missing_registered_page) ... ok\ntest_paths_cannot_escape_or_alias (test_problem_ids.PermanentIDTests.test_paths_cannot_escape_or_alias) ... ok\ntest_symlinked_canonical_page (test_problem_ids.PermanentIDTests.test_symlinked_canonical_page) ... ok\ntest_symlinked_registry (test_problem_ids.PermanentIDTests.test_symlinked_registry) ... ok\ntest_unregistered_entry (test_problem_ids.PermanentIDTests.test_unregistered_entry) ... ok\n\n----------------------------------------------------------------------\nRan 17 tests in 0.712s\n\nOK\n"
+    },
+    {
+      "command": [
+        "git",
+        "status",
+        "--porcelain"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "worktree_clean_after_generation": true
+}
