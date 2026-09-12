@@ -1,0 +1,15 @@
+# Maintainer review of RA-03 Lean promotion, 12 September 2026
+
+**Verdict: accept PR #157 as a complete Lean-verified negative resolution of RA-03.** Three independent Codex AI agents reviewed the source, mathematical correspondence, proof path and publication evidence. This is an AI-agent review, not external human peer review.
+
+- [Probability law and original-target fidelity](probability-review.md)
+- [Spectral bridge, proof and exact witness](spectral-review.md)
+- [Metadata, publication scope and PDF review](publication-review.md)
+
+The reviewed PR head is `a49725405f153f8756610f52ce6cbc6463c51616`. The coordinating reviewer also read the actual Definitions, Challenge, Proof and Solution files and checked the original [Gilles–Wilber paper](https://arxiv.org/html/2601.22344v1), Algorithm 1, equations (1), (3), (10), and the conjecture following Theorem 3. The formal target uses the specified joint entry sampling and cross update, genuine squared Frobenius norm, all complex rectangular inputs and all admissible ranks. Normalization is proved for the complete history law; the singular-value tail uses the actual Euclidean linear map.
+
+For the matrix with rows `(2,1)` and `(1,2)`, the four pivot probabilities are `2/5, 1/10, 1/10, 2/5`; the corresponding squared residual errors are `9/4, 9, 9, 9/4`. Their weighted sum is `18/5`. The actual singular values are `3,1`, so the rank-one squared tail is `1`, and the conjectured upper bound is `2`. This strict violation refutes the complete universal assertion. The stronger sharp all-rank `4^r` and Cholesky results are not among the four formalized exports.
+
+The coordinator downloaded [current upstream Linux run 34706967525](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/34706967525). GitHub's commit API confirms that its checked merge revision has the published base and reviewed PR head as parents. All 121 recorded project-input hashes match both the PR and the integration tree. The [evidence receipt](upstream-evidence.json) records these identities and log digests. The actual logs show four matching exports, no definition holes, fresh proof elaboration, only `propext`, `Classical.choice`, `Quot.sound`, and successful default-kernel replay. Invalid proofs, statement mismatches, quotient mismatches, `sorryAx` and native-execution axioms were rejected by the corresponding controls; sandbox controls passed. This audit reviewed remote Linux execution and does not claim a local Lean rerun.
+
+Integration onto `587bd896f0e1006f4a4b7f38555e3a523ef85176` retains the entire RA-03 directory from its reviewed head. Only generated summary conflicts needed reconciliation. The original statement, all 217 permanent IDs and canonical paths remain unchanged. Counts are 6 Lean verified, 83 Solved, 57 Open and 71 Partially resolved. All 77 repository tests and 12 harness tests pass; permanent-ID, manifest/export-coverage and GitHub-math checks pass. Both pages of the updated PDF were rendered and visually inspected. Mathematical credit remains with Matthew J. Colbrook and formalization credit with George Stepaniants.
