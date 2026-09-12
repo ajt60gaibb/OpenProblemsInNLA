@@ -7,9 +7,16 @@
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
 **Status:** Partially resolved  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-12  
 
 **Rating rationale:** Challenging reflects preservation of a nontrivial spectral-norm orbit distance under larger unitary mixing; specialist impact concerns finite matrix amplification and operator-algebraic nearness.
+
+## Further partial result — 12 September 2026
+
+Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) proves in [Theorem 1 and its amplification corollary](../../references/holden-spectral-2026-09-12/SP-09/proof.md) that the spectral-norm unitary-orbit distance equals the bottleneck spectral-matching distance when at least one normal input has at most two distinct eigenvalues. The explicit matching-capacity conditions are unchanged by finite block repetition, proving the displayed equality for this subclass, with arbitrary multiplicities and an arbitrary normal spectrum for the other input.
+
+The argument passed an [independent informal Codex AI-agent audit](../../references/holden-spectral-2026-09-12/verification/SP-09-SP-07-SP-03-review.md). Status remains Partially resolved: normal pairs with at least three distinct eigenvalues in each spectrum remain unresolved. [Submission and verified affiliation](../../references/holden-spectral-2026-09-12/README.md). No novelty, external human peer review or formal verification is claimed.
+
 
 ## Problem statement
 
