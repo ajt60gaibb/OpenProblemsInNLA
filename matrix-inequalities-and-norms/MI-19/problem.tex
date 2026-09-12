@@ -34,7 +34,7 @@ permutations},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MI-19}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ q-permanent inequality for subset-preserving permutations\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to specialist\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -74,6 +74,12 @@ small positive diagonal perturbations.
 The exact target is resolved. The original statement and source evidence
 are retained below; its former difficulty rating is historical.
 
+\textbf{Lean verification --- 2026-09-12:} the complete negative target
+passed independent statement and proof reviews, followed by Linux
+Comparator and kernel checks.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-19\#lean-proof-and-verification-evidence--2026-09-12}{Proof
+and verification evidence}.
+
 \textbf{Primary manuscript:}
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-19/solution.pdf}{complete
 proof PDF},
@@ -83,25 +89,110 @@ TeX}, Theorem 1.1 and its proof;
 and scope}. The
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-2026-09-11/verification/reviews/MI-19-review.md}{independent
 review} checks the full original argument and records its hash. The
-draft was AI-assisted; this is independent agent verification, not
-external human peer review or formal certification.
+draft was AI-assisted; that informal audit was independent agent
+verification, not external human peer review or formal certification.
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-2026-09-11/README.md}{Submission
 record}.
+
+\subsection{Lean proof and verification evidence ---
+2026-09-12}\label{lean-proof-and-verification-evidence-2026-09-12}
+
+\textbf{Mathematical counterexample:} Matthew J. Colbrook, Department of
+Applied Mathematics and Theoretical Physics, University of Cambridge.
+\textbf{Lean formalization:} George Stepaniants, Department of Computing
+and Mathematical Sciences, California Institute of Technology, Pasadena,
+California, USA.
+
+The
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/blob/cd44ce9bcb84ebc79a1aa934918d1f76b2a9c6e7/matrix-inequalities-and-norms/MI-19/lean/NLA/MI19/Proof.lean}{Lean
+proof} and
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/blob/cd44ce9bcb84ebc79a1aa934918d1f76b2a9c6e7/matrix-inequalities-and-norms/MI-19/lean/Solution.lean}{public
+declarations} are fixed at
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/tree/cd44ce9bcb84ebc79a1aa934918d1f76b2a9c6e7/matrix-inequalities-and-norms/MI-19/lean}{proof
+revision cd44ce9}. The selected declarations are:
+
+\begin{itemize}
+\tightlist
+\item
+  \textit{NLA.MI19.counterexample};
+\item
+  \textit{NLA.MI19.not\_subsetConjecture}.
+\end{itemize}
+
+The second theorem negates the complete original statement: every
+\(n\ge2\), every complex Hermitian PSD matrix, every real \(q\in[0,1]\),
+and every nonempty proper subset, with setwise preservation and
+inversion counts in the full original ordering. All witness hypotheses
+are proved. The actual complex PSD order-four Gram witness has \(q=7/8\)
+and the interior singleton, giving full minus restricted q-permanent
+\(-3235575/16384\). Exact rank, all-q polynomial identities, and the
+positive-diagonal-perturbation extension are not among the formalized
+claims.
+
+The toolchain is Lean 4.33.1, with
+\href{https://github.com/alerad/leancert/commit/621a43d7cf21f87872392a01e874f2f1dbddc926}{LeanCert
+621a43d} and
+\href{https://github.com/leanprover-community/mathlib4/commit/0df444a360eaa60ab8c11dca51a86af692955474}{mathlib
+0df444a};
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/blob/cd44ce9bcb84ebc79a1aa934918d1f76b2a9c6e7/matrix-inequalities-and-norms/MI-19/lean/lake-manifest.json}{all
+dependencies are locked}. LeanCert checks one exact scalar inequality in
+kernel mode. Both public theorems and the five audited internal
+declarations have only \textit{propext}, \textit{Classical.choice}, and
+\textit{Quot.sound} in their transitive axiom closure.
+
+The catalog reviewed
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34703363593/job/103578942995}{successful
+Linux verification on 12 September 2026}: fresh problem builds, real
+sandbox isolation controls, exact Challenge/Solution comparison with no
+definition holes, the standard-three axiom whitelist, and Lean
+default-kernel replay. The pinned mathlib dependency cache was used.
+Both requested theorems passed; sorry, custom-axiom, statement-mismatch,
+invalid-kernel-proof, and native-trust rejection controls also executed
+successfully. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-19/lean/verification/linux-2026-09-12/OPERATIONAL-REVIEW.md}{operational
+audit},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-19/lean/verification/linux-2026-09-12/artifacts/lean-MI-19/verify-20260912T155027Z-3941/comparator.log}{Comparator
+log}, and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-19/lean/verification/linux-2026-09-12/artifacts/lean-MI-19/verify-20260912T155027Z-3941/result.json}{result
+receipt} retain the dated evidence and exact source hashes.
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-19/lean/README.md}{project
+guide},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-19/lean/formalization.yaml}{formalization
+manifest}, and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-19/lean/reviews}{independent
+reviews} document attribution, fidelity, and scope. These are
+independent AI-agent reviews, not external human peer review. On a Linux
+host satisfying the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tools/lean/HARNESS.md}{verification
+prerequisites}, run the following from the repository root at the pinned
+proof revision:
+
+\begin{verbatim}
+tools/lean/bootstrap.sh /tmp/nla-lean-tools
+tools/lean/verify.sh \
+  matrix-inequalities-and-norms/MI-19/lean /tmp/nla-lean-tools
+\end{verbatim}
 
 \subsection{Problem statement}\label{problem-statement}
 
 Let \(n\ge2\), let \(A=(a_{ij})\in\mathbb C^{n\times n}\) be Hermitian
-positive semidefinite, and let \(q\in[0,1]\). Define \[
-\operatorname{inv}(\sigma)=\#\{(i,j):i<j,\ \sigma(i)>\sigma(j)\},\qquad
-P_q(A)=\sum_{\sigma\in S_n}q^{\operatorname{inv}(\sigma)}
-\prod_{i=1}^n a_{i,\sigma(i)},
-\] with \(0^0=1\). Is it true that every nonempty proper subset
-\(S\subset\{1,\ldots,n\}\) satisfies \[
-P_q(A)\ge
+positive semidefinite, and let \(q\in[0,1]\). Define
+
+\[\mathop{\mathrm{inv}}\nolimits(\sigma)=\#\{(i,j):i< j,\ \sigma(i)>\sigma(j)\},\qquad
+P_q(A)=\sum_{\sigma\in S_n}q^{\mathop{\mathrm{inv}}\nolimits(\sigma)}
+\prod_{i=1}^n a_{i,\sigma(i)},\]
+
+with \(0^0=1\). Is it true that every nonempty proper subset
+\(S\subset\{1,\ldots,n\}\) satisfies
+
+\[P_q(A)\ge
 \sum_{\substack{\sigma\in S_n\\ \sigma(S)=S}}
-q^{\operatorname{inv}(\sigma)}\prod_{i=1}^n a_{i,\sigma(i)}?
-\] Here \(\sigma(S)=S\) means setwise preservation. The inversion counts
-on the right are taken in the full ordering \(1,\ldots,n\).
+q^{\mathop{\mathrm{inv}}\nolimits(\sigma)}\prod_{i=1}^n a_{i,\sigma(i)}?\]
+
+Here \(\sigma(S)=S\) means setwise preservation. The inversion counts on
+the right are taken in the full ordering \(1,\ldots,n\).
 
 \subsection{Relevance and ratings}\label{relevance-and-ratings}
 

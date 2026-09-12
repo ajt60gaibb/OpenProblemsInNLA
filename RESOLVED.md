@@ -384,9 +384,11 @@ historical and the entry no longer contributes to the open count.
 
 [Canonical entry](matrix-inequalities-and-norms/MI-07/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-07/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-07-review.md). **Theorem 1.1 and its proof.** No finite two-unitary domination constant exists for the maximal symmetric modulus, already in dimension two. The rank-one family gives the necessary bound $C\ge\sqrt{1+t^2}/t$ for every $t>0$. 
 
-#### MI-19 — negative result
+#### MI-19 — Negative result by Matthew J. Colbrook; Lean formalization by George Stepaniants
 
 [Canonical entry](matrix-inequalities-and-norms/MI-19/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-19/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-19-review.md). **Theorem 1.1 and its proof.** A real order-four PSD Gram matrix, $q=7/8$ and the interior singleton $S=\{2\}$ give full minus restricted $q$-permanent equal to $-3235575/16384$. Inversions are counted in the full original ordering. The strict counterexample also persists under sufficiently small positive diagonal perturbations. 
+
+**Lean verified — 2026-09-12.** Mathematical counterexample: **Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Lean formalization: **George Stepaniants**, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA. [Proof and verification evidence](matrix-inequalities-and-norms/MI-19/README.md#lean-proof-and-verification-evidence--2026-09-12) cover the complete negative target through `NLA.MI19.counterexample` and `NLA.MI19.not_subsetConjecture`, at [proof revision cd44ce9](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/cd44ce9bcb84ebc79a1aa934918d1f76b2a9c6e7/matrix-inequalities-and-norms/MI-19/lean). [Linux Comparator and kernel checks passed](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34703363593) with only the standard three axioms. The optional perturbation extension is not part of the formalized claims.
 
 #### MI-21 — negative result
 
