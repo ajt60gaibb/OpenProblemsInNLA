@@ -34,7 +34,7 @@ tensors},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}TR-15}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ H-eigenvalue inheritance from odd-order Hankel tensors\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to specialist\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -59,6 +59,97 @@ to specialist\par}
 positivity lacks the even-order polynomial-positivity argument;
 specialist importance lies in transferring spectral certificates within
 Hankel representations.
+
+\subsection{Lean proof and verification evidence -
+2026-09-12}\label{lean-proof-and-verification-evidence---2026-09-12}
+
+\textbf{The complete odd-order inheritance conjecture is false, with a
+Lean-verified counterexample.} The
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/tree/6a2d0868e8b7905dbd5c04d4beaae8cf43288e1f/tensor-computations/TR-15/lean}{proof
+at revision 6a2d086} uses \(m=3\), \(q=2\), \(n=2\) and the shared
+generator \(h=(2,0,1,0,2,0,-1)\). Every real H-eigenvalue of the lower
+tensor is strictly positive, while the upper tensor has the exact
+H-eigenpair \((-1,(0,1))\).
+
+\textbf{Mathematical counterexample and informal proof:} Matthew J.
+Colbrook, Department of Applied Mathematics and Theoretical Physics,
+University of Cambridge. \textbf{Lean formalization:} George
+Stepaniants, Department of Computing and Mathematical Sciences,
+California Institute of Technology, Pasadena, California, USA, with
+AI-agent assistance.
+
+The definitions retain every original odd \(m\ge3\), integer \(q\ge2\),
+dimension \(n\ge2\) and real common generator. They use the actual
+Hankel entries, every ordered contraction tuple, signed coordinate
+powers and nonzero real H-eigenvectors. The seven
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/blob/6a2d0868e8b7905dbd5c04d4beaae8cf43288e1f/tensor-computations/TR-15/lean/Solution.lean}{checked
+exports}, each with prefix \textit{NLA.TR15.}, are:
+
+\begin{itemize}
+\tightlist
+\item
+  \textit{lower\_contractions}: all three exact component polynomials
+  for every real vector.
+\item
+  \textit{upper\_contraction}: the actual order-six contraction at
+  \((0,1)\).
+\item
+  \textit{lower\_eigenvalues\_pos}: positivity of every lower real
+  H-eigenvalue.
+\item
+  \textit{lower\_eigenpair\_exists}: a genuine nonzero lower pair from
+  the intermediate value theorem.
+\item
+  \textit{upper\_negative\_eigenpair}: the complete upper pair and
+  strict negative eigenvalue.
+\item
+  \textit{counterexample}: original admissibility, the lower premise and
+  failure of the upper conclusion.
+\item
+  \textit{not\_inheritanceConjecture}: negation of the complete
+  universal inheritance assertion.
+\end{itemize}
+
+Lower positivity follows from the first contraction, a strictly positive
+sum of squares. The upper contraction has one surviving ordered tuple.
+An actual intermediate-value root supplies the lower pair; its existence
+is proved without adding a premise or a strong-Hankel hypothesis.
+
+Two independent agents approved the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tensor-computations/TR-15/lean/reviews}{statements
+and completed proof}.
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34716902324}{Linux
+run 34716902324} matched all seven exports with the sandboxed Comparator
+and replayed the solution in Lean's default kernel. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tensor-computations/TR-15/lean/verification/linux-2026-09-12}{original
+artifacts and independent audit} bind all 135 input hashes and both
+actual isolation/rejection-control suites. All 15
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tensor-computations/TR-15/lean/verification/linux-2026-09-12/axiom-verification.json}{internal/public
+transitive axiom reports} use only \textit{propext},
+\textit{Classical.choice} and \textit{Quot.sound}. These are independent
+agent reviews, without a claim of external human peer review.
+
+The proof pins \textbf{Lean 4.33.1},
+\href{https://github.com/alerad/leancert/tree/621a43d7cf21f87872392a01e874f2f1dbddc926}{LeanCert
+621a43d} and
+\href{https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474}{Mathlib
+0df444a}. The kernel-mode LeanCert certificate \(-1<0\) remains in the
+final negative-pair contradiction. See the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tensor-computations/TR-15/lean/formalization.yaml}{manifest},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tensor-computations/TR-15/lean/lake-manifest.json}{dependency
+pins} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tensor-computations/TR-15/lean/NUMERICAL_TARGETS.md}{exact
+targets}. From the verified revision on a documented
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tools/lean/HARNESS.md}{non-root
+Linux host}, reproduce with:
+
+\begin{verbatim}
+tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
+tools/lean/verify.sh \
+  tensor-computations/TR-15/lean \
+  /absolute/path/to/nla-lean-tools
+\end{verbatim}
 
 \subsection{Resolution --- 2026-09-11}\label{resolution-2026-09-11}
 
@@ -79,8 +170,10 @@ The complete source passed
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-unclaimed-2026-09-11/verification/reviews/TR-15-review.md}{independent
 Codex-agent proof review}.
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-unclaimed-2026-09-11/README.md}{Authorship,
-AI assistance and verification record}. No external human peer review or
-formal verification is asserted. The original target below is retained
+AI assistance and verification record}. The 2026-09-11 review did not
+assert external human peer review or formal verification. The later Lean
+verification above covers the complete original implication and proves
+the premise is nonvacuous. The original target below is retained
 verbatim; the difficulty, importance and rating rationale above are
 historical. This entry no longer contributes to the open count.
 
@@ -92,18 +185,21 @@ PDF}.
 For every odd \(m\ge3\), integer \(q\ge2\), dimension \(n\ge2\), and
 vector \(h\in\mathbb R^{qm(n-1)+1}\), define Hankel tensors \(A\) and
 \(B\) with this same generating vector. Their orders and dimensions are
-\[
-\operatorname{order}(A)=m,\quad\dim(A)=q(n-1)+1,
-\qquad \operatorname{order}(B)=qm,\quad\dim(B)=n.
-\] An order-\(s\), dimension-\(N\) Hankel tensor has entry
+
+\[\mathop{\mathrm{order}}\nolimits(A)=m,\quad\dim(A)=q(n-1)+1,
+\qquad \mathop{\mathrm{order}}\nolimits(B)=qm,\quad\dim(B)=n.\]
+
+An order-\(s\), dimension-\(N\) Hankel tensor has entry
 \(h_{i_1+\cdots+i_s-s}\), with each index in \(\{1,\ldots,N\}\).
 
 For a real order-\(s\) tensor \(C\), an H-eigenvalue is a real
 \(\lambda\) admitting a real nonzero vector \(x\) such that, for every
-\(i\), \[
-\sum_{i_2,\ldots,i_s=1}^N C_{i i_2\cdots i_s}x_{i_2}\cdots x_{i_s}
-=\lambda x_i^{s-1}.
-\] Conjecture: if \(A\) has no negative H-eigenvalues, then \(B\) has no
+\(i\),
+
+\[\sum_{i_2,\ldots,i_s=1}^N C_{i i_2\cdots i_s}x_{i_2}\cdots x_{i_s}
+=\lambda x_i^{s-1}.\]
+
+Conjecture: if \(A\) has no negative H-eigenvalues, then \(B\) has no
 negative H-eigenvalues.
 
 \subsection{Relevance}\label{relevance}
