@@ -41,15 +41,11 @@ The nodes are distinct. For $`y\in\mathbb C^m`$, let $`T_Ny`$ be the unique trig
 
 1. There is an absolute $`C>0`$ such that, for every $`N\ge2`$, $`0<\alpha<1/2`$, and admissible $`s`$,
 
-   ```math
-   \Lambda_N(s)\le C\frac{N^{2\alpha}-1}{\alpha(1-2\alpha)}.
-   ```
+   $$\Lambda_N(s)\le C\frac{N^{2\alpha}-1}{\alpha(1-2\alpha)}.$$
 
 2. For every fixed $`1/4<\alpha<1/2`$, there is $`C_\alpha>0`$, independent of $`N`$ and $`s`$, such that
 
-   ```math
-   \Gamma_N(s)\le C_\alpha N^{4\alpha-1}.
-   ```
+   $`\displaystyle \Gamma_N(s)\le C_\alpha N^{4\alpha-1}.`$
 
 These are kept together as one perturbed-grid stability target. The first is the source's conjectured replacement in equation (12); the second is its conjecture on p.2119. The normalized matrix makes the discrete norm convention explicit, following equation (1.6) of Chen–Lin–Zhang. The second statement does not assert an endpoint bound at $`\alpha=1/4`$. The first has the usual logarithmic limit as $`\alpha\downarrow0`$.
 
