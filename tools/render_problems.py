@@ -34,6 +34,9 @@ def render(source):
         metadata[key] = match[1]
         body = body[:match.start()] + body[match.end():]
     body = re.sub(r"<!-- navigation -->.*?<!-- /navigation -->", "", body, flags=re.S)
+    if identifier == "MF-02":
+        # Keep the full retained target after its scoped resolution notice.
+        body = body.replace("## Context and notation\n", "\\newpage\n\n## Context and notation\n", 1)
     if identifier == "IE-05":
         # Keep the unchanged original target together after its resolution notice.
         # This PDF-only layout instruction should not appear on the GitHub page.
