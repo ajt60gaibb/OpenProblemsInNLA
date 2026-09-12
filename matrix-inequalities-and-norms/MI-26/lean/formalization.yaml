@@ -1,0 +1,198 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/99c678e569c7c4c0772db297c5ddd5e4c9b6322e/schema/v0.4.schema.json
+version: v0.4
+project:
+  name: 'MI-26: a counterexample to concave unitary-orbit subadditivity'
+  description: Proves the original function-class equivalence, genuine finite-spectrum CFC and half-line
+    extension bridges, exact polynomial identities for two rational projections, their positive quadratic-form
+    obstruction, and the full negation of the universal complex PSD unitary-orbit assertion.
+  authors:
+  - George Stepaniants
+  affiliations:
+    George Stepaniants: Department of Computing and Mathematical Sciences, California Institute of Technology,
+      Pasadena, California, USA
+  responsible_maintainers:
+  - George Stepaniants
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+- title: MI-26 — Concave unitary-orbit subadditivity without monotonicity
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/587bd896f0e1006f4a4b7f38555e3a523ef85176/matrix-inequalities-and-norms/MI-26/README.md
+  type: web-post
+  location: Problem statement
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: The canonical problem quantifies over every positive dimension, arbitrary complex PSD matrices,
+    real-valued concave functions on the nonnegative half-line with f(0) at least zero, and existence
+    of two complex unitaries. Global nonnegativity and monotonicity are absent.
+- title: 'MI-26: Resolution'
+  authors:
+  - Matthew J. Colbrook
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/587bd896f0e1006f4a4b7f38555e3a523ef85176/matrix-inequalities-and-norms/MI-26/solution.tex
+  type: manuscript
+  location: Theorem 1.1 and its proof
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: The polynomial f(x)=x-x² and two rational projections refute the complete original PSD assertion.
+    The source’s additional positive-definite variant is outside the seven formal exports. Neither the
+    source nor this formalization refutes the narrower globally nonnegative-valued function class.
+related_formalizations:
+- id: https://github.com/sgstepaniants/Forsythe/tree/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof
+  relationship: other
+  note: Statement-first, explicit kernel LeanCert and Comparator workflow reference. Shared checker reuse
+    is credited in tools/lean/NOTICE.md. No Forsythe mathematical result is assumed.
+- id: https://github.com/jaumededios/Schiffer/tree/2938e277969c329caf154e48a3d8823f3635c7f1
+  relationship: other
+  note: Project-organization reference for the formalization campaign; no Schiffer mathematical result
+    or source code is imported.
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: Multiple agents; two independent statement approvals before proof implementation; pinned
+      Mathlib CFC, PSD, unitary and finite-spectrum APIs; two independent final proof reviews with fresh
+      separate artifacts; one explicit kernel LeanCert point inequality.
+    prompting_notes: Preserve the complete real-valued function class and complex PSD/all-unitary quantifiers.
+      Prove the unrestricted-function spectral formula without a continuity premise, and prove half-line
+      extension independence. Reduce the witness CFC to an exact matrix polynomial and eliminate the entire
+      unitary search using two zero right-hand terms. Retain kernel LeanCert for 0<6/5 in the final order
+      contradiction.
+  notes: AI-assisted formalization requested by George Stepaniants. No external human peer review, source-author
+    endorsement, unrecorded exact model identity or measured monetary cost is claimed.
+status:
+  scope: Complete negative answer to the canonical MI-26 assertion. All seven exports passed local Lean
+    compilation, exactly standard-three axiom checks, two independent statement reviews and two independent
+    final proof reviews. The unchanged proof at revision 81176af27e570b59ba1e1a0745e28944e7d57c03 passed
+    actual sandboxed Linux Comparator, default-kernel replay and isolation/rejection controls in run 34713045511
+    on 2026-09-12. An independent operational audit binds every one of the 118 verified input files and
+    original artifact digests. Canonical status is Lean verified; the optional positive-definite source
+    variant is outside the formal scope.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: &id001
+  - propext
+  - Classical.choice
+  - Quot.sound
+  main_results:
+  - declaration: NLA.MI26.admissibleFunction_iff
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI26.functionalCalculus_eq_spectral
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI26.functionalCalculus_congr_nonneg
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI26.quadratic_cfc
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI26.witness_data
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI26.counterexample
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI26.not_subadditivityConjecture
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+fidelity:
+  divergences: Finite matrix indices use zero-based Fin. An unrestricted real extension represents the
+    original half-line function; the generic extension-independence theorem proves that negative arguments
+    cannot affect PSD inputs. Genuine CFC equals the source’s full finite spectral formula even without
+    global continuity. All original quantifiers and the real-valued function class are preserved; no nonnegative-valued,
+    monotonicity, continuity, positive-definiteness or real-only-matrix premise is added. The counterexample
+    uses a real rational pair valid over the complex field. The exact polynomial and quadratic-form reduction
+    replaces spectral and unitary searches without weakening the full canonical negation. The optional
+    positive-definite variant remains outside the formal scope.
+review:
+  status: agent-reviewed; Linux-Comparator-and-default-kernel-verified
+  reviewers:
+  - 'OpenAI Codex agent /root/solved_statement_inventory: independent statement referee 1 and final proof
+    referee 1'
+  - 'OpenAI Codex agent /root: independent statement referee 2 and final proof referee 2'
+  notes: Both statement approvals preceded implementation and bind unchanged Definitions, Challenge and
+    NUMERICAL_TARGETS. Both final referees read the actual proof and freshly re-elaborated target source
+    into separate artifact prefixes, checked all 15 standard-three/kernel declarations, all seven signatures,
+    the genuine CFC and function-class semantics, and substantive use of the retained LeanCert certificate.
+    The implementer /root/leancert_examples is not counted as its own referee. The pinned Tau Ceti rubrics
+    were adapted to this canonical project. Seven deliberate Challenge placeholders remain isolated and
+    are excluded from proof sorry counts. Local checks used matching dependency artifacts at ten checked
+    clean pins on macOS arm64. Actual Linux run 34713045511 at revision 81176af27e570b59ba1e1a0745e28944e7d57c03
+    passed all seven Comparator comparisons, default-kernel replay and both observed control sets. Independent
+    agent /root/solved_statement_inventory audited complete original ZIPs, raw logs, 118 input hashes,
+    ten fresh dependency clones with 8690 official Mathlib cache files, and the exact pinned tools. The
+    nested bubblewrap probe was denied at UID-map creation before its inner write; no general sandbox
+    guarantee is claimed. See verification/linux-2026-09-12/OPERATIONAL-REVIEW.md (SHA256 9eae3acf9521e1dff4e9f4d8344ae3c7086687ed5655d973c8d939de4b9b09e0)
+    and EVIDENCE-MANIFEST.json (SHA256 b06d99aa56964189dc9fbe1eea14dbfca2189b333f7cd43ee7f349fc033106fd).
+    The exact artifact digests are 98d4e1f8da04f506f1482d602f403041b786a1d8c1d74d323ac683e15f9716d9 and
+    09d085df17b70fe398d9de55ebc1c02c271c4ed8ed532c80272db5a8cb153a90. Publication changes only this manifest
+    and the project README among the 118 verified inputs; the remaining 116 and all proof/configuration/pin
+    bytes stay identical. Source snapshots retain their historical metadata. Historical statement/proof-freeze
+    notes retain their original phase labels and are superseded on current verification status by the
+    final reports and operational audit.
+  statement_reports:
+  - file: reviews/statement-referee-1.md
+    sha256: c06e27fc583b7abdf6f7c8e7832278f029cf0fefaf937453406faea2eba3a9d7
+  - file: reviews/statement-referee-2.md
+    sha256: aa91612934d87a6132e3a07636d5c5bef3917366ee3a358690b79e7651fb9a42
+  proof_reports:
+  - file: reviews/proof-referee-1.md
+    sha256: 463da0d03abdf5f842571c30f4df7406f1d1d5c3885739a295806eb7b056f8de
+  - file: reviews/proof-referee-2.md
+    sha256: 3706e0c62af0e43f7fd39e991ecb5ed8db5d3185d32cbce95ae34ff57e28451b
+alignment:
+- source: Exact original scalar concavity formula and the value at zero
+  declarations:
+  - NLA.MI26.admissibleFunction_iff
+- source: Complete spectral meaning of genuine CFC for arbitrary real functions on complex Hermitian matrices,
+    with no continuity hypothesis
+  declarations:
+  - NLA.MI26.functionalCalculus_eq_spectral
+- source: Independence of a half-line function from its values on negative real arguments at every PSD
+    matrix
+  declarations:
+  - NLA.MI26.functionalCalculus_congr_nonneg
+- source: Genuine CFC agrees with the quadratic matrix polynomial on every complex Hermitian matrix
+  declarations:
+  - NLA.MI26.quadratic_cfc
+- source: 'Colbrook Theorem 1.1: all admissibility conditions, rational projections, actual CFC values
+    and the exact positive quadratic form'
+  declarations:
+  - NLA.MI26.witness_data
+- source: 'Colbrook Theorem 1.1: the fixed rational pair defeats every pair of complex unitaries in ordinary
+    PSD order'
+  declarations:
+  - NLA.MI26.counterexample
+- source: Complete negation of the canonical universal complex-matrix and real-valued concave-function
+    assertion
+  declarations:
+  - NLA.MI26.not_subadditivityConjecture
+acknowledgements: 'Mathlib, LeanCert, Lean Comparator, the formalization.yaml maintainers, Schiffer and
+  Forsythe. Informal mathematical proof: Matthew J. Colbrook, Department of Applied Mathematics and Theoretical
+  Physics, University of Cambridge. Formalization: George Stepaniants with AI-agent assistance.'
+toolchain:
+  lean: leanprover/lean4:v4.33.1
+  leancert: 621a43d7cf21f87872392a01e874f2f1dbddc926
+  mathlib: 0df444a360eaa60ab8c11dca51a86af692955474
+  dependency_manifest: lake-manifest.json

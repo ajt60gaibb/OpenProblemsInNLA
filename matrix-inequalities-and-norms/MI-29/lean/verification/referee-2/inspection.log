@@ -1,0 +1,190 @@
+theorem NLA.MI29.scalar_gap_positive : 0 < 21036678407451 / 156250000000000 :=
+have h0 :=
+  LeanCert.Validity.verify_strict_upper_bound_dyadic_checked (LeanCert.Core.Expr.const (Rat.divInt 0 1))
+    (Rat.divInt 0 1) (Rat.divInt 0 1) (le_refl (Rat.divInt 0 1)) (Rat.divInt 21036678407451 156250000000000) (-53) 10
+    (of_decide_eq_true (id (Eq.refl true))) NLA.MI29.scalar_gap_positive._proof_1_7 ↑(Rat.divInt 0 1)
+    ⟨le_refl ↑(Rat.divInt 0 1), le_refl ↑(Rat.divInt 0 1)⟩;
+Eq.mpr
+  (eq_of_heq
+    ((fun α self a a' e'_3 a_1 a'_1 e'_4 =>
+        Eq.casesOn (motive := fun a_2 x => a' = a_2 → e'_3 ≍ x → (a < a_1) ≍ (a' < a'_1)) e'_3
+          (fun h =>
+            Eq.ndrec (motive := fun a' => ∀ (e_3 : a = a'), e_3 ≍ Eq.refl a → (a < a_1) ≍ (a' < a'_1))
+              (fun e_3 h =>
+                Eq.casesOn (motive := fun a_2 x => a'_1 = a_2 → e'_4 ≍ x → (a < a_1) ≍ (a < a'_1)) e'_4
+                  (fun h =>
+                    Eq.ndrec (motive := fun a' => ∀ (e_4 : a_1 = a'), e_4 ≍ Eq.refl a_1 → (a < a_1) ≍ (a < a'))
+                      (fun e_4 h => HEq.refl (a < a_1)) (Eq.symm h) e'_4)
+                  (Eq.refl a'_1) (HEq.refl e'_4))
+              (Eq.symm h) e'_3)
+          (Eq.refl a') (HEq.refl e'_3))
+      ℝ Real.instLT 0 (↑(↑0 / ↑1))
+      (Mathlib.Meta.NormNum.isNat_eq_true (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_zero)
+        (Mathlib.Meta.NormNum.isNat_ratCast
+          (Mathlib.Meta.NormNum.IsNNRat.to_isNat
+            (Mathlib.Meta.NormNum.isNNRat_div
+              (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                (Mathlib.Meta.NormNum.isNat_mul (Eq.refl HMul.hMul)
+                  (Mathlib.Meta.NormNum.isNat_intCast 0 0 (Mathlib.Meta.NormNum.isNat_ofNat ℤ (Eq.refl 0)))
+                  (Mathlib.Meta.NormNum.IsNNRat.to_isNat
+                    (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                      (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                        (Mathlib.Meta.NormNum.isNat_intCast 1 1 (Mathlib.Meta.NormNum.isNat_ofNat ℤ (Eq.refl 1))))))
+                  (Eq.refl 0)))))))
+      (21036678407451 / 156250000000000) (↑(↑21036678407451 / ↑156250000000000))
+      (Mathlib.Meta.NormNum.isNNRat_eq_true
+        (Mathlib.Meta.NormNum.isNNRat_div
+          (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+            (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 21036678407451)))
+            (Mathlib.Meta.NormNum.isNNRat_inv_pos
+              (Mathlib.Meta.NormNum.IsNat.to_isNNRat (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 156250000000000))))
+            (Eq.refl (Nat.mul 21036678407451 1)) (Eq.refl 156250000000000)))
+        (Mathlib.Meta.NormNum.isNNRat_ratCast
+          (Mathlib.Meta.NormNum.isNNRat_div
+            (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+              (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                (Mathlib.Meta.NormNum.isNat_intCast 21036678407451 21036678407451
+                  (Mathlib.Meta.NormNum.isNat_ofNat ℤ (Eq.refl 21036678407451))))
+              (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                  (Mathlib.Meta.NormNum.isNat_intCast 156250000000000 156250000000000
+                    (Mathlib.Meta.NormNum.isNat_ofNat ℤ (Eq.refl 156250000000000)))))
+              (Eq.refl (Nat.mul 21036678407451 1)) (Eq.refl 156250000000000)))))))
+  (Eq.mp
+    (congr (congrArg LT.lt (congrArg Rat.cast (Rat.divInt_eq_div 0 1)))
+      (congrArg Rat.cast (Rat.divInt_eq_div 21036678407451 156250000000000)))
+    h0)
+theorem NLA.MI29.witness_strict_violation : NLA.MI29.leftDet NLA.MI29.witnessA NLA.MI29.witnessB 6 8 <
+  NLA.MI29.rightDet NLA.MI29.witnessA NLA.MI29.witnessB 6 8 :=
+sub_pos.mp
+  (Eq.mpr (id (congrArg (fun _a => 0 < _a) NLA.MI29.determinant_gap_exact))
+    (Complex.pos_iff.mpr
+      ⟨Eq.mpr
+          (eq_of_heq
+            ((fun α self a a_1 a' e'_4 =>
+                Eq.casesOn (motive := fun a_2 x => a' = a_2 → e'_4 ≍ x → (a < a_1) ≍ (a < a')) e'_4
+                  (fun h =>
+                    Eq.ndrec (motive := fun a' => ∀ (e_4 : a_1 = a'), e_4 ≍ Eq.refl a_1 → (a < a_1) ≍ (a < a'))
+                      (fun e_4 h => HEq.refl (a < a_1)) (Eq.symm h) e'_4)
+                  (Eq.refl a') (HEq.refl e'_4))
+              ℝ Real.instLT 0 (21036678407451 / 156250000000000).re (21036678407451 / 156250000000000)
+              (of_eq_true
+                (Eq.trans
+                  (Eq.trans
+                    (congr
+                      (congrArg Eq
+                        (Eq.trans
+                          (Eq.trans
+                            (congrArg Complex.re
+                              (Mathlib.Meta.NormNum.IsNNRat.to_eq
+                                (Mathlib.Meta.NormNum.isNNRat_div
+                                  (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+                                    (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                                      (Mathlib.Meta.NormNum.isNat_ofNat ℂ (Eq.refl 21036678407451)))
+                                    (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                                      (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                                        (Mathlib.Meta.NormNum.isNat_ofNat ℂ (Eq.refl 156250000000000))))
+                                    (Eq.refl (Nat.mul 21036678407451 1)) (Eq.refl 156250000000000)))
+                                (Eq.refl 21036678407451) (Eq.refl 156250000000000)))
+                            (Complex.div_ofNat_re 21036678407451 156250000000000))
+                          (Mathlib.Meta.NormNum.IsNNRat.to_eq
+                            (Mathlib.Meta.NormNum.isNNRat_div
+                              (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+                                (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                                  (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 21036678407451)))
+                                (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                                  (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                                    (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 156250000000000))))
+                                (Eq.refl (Nat.mul 21036678407451 1)) (Eq.refl 156250000000000)))
+                            (Eq.refl 21036678407451) (Eq.refl 156250000000000))))
+                      (Mathlib.Meta.NormNum.IsNNRat.to_eq
+                        (Mathlib.Meta.NormNum.isNNRat_div
+                          (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+                            (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                              (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 21036678407451)))
+                            (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                              (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                                (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 156250000000000))))
+                            (Eq.refl (Nat.mul 21036678407451 1)) (Eq.refl 156250000000000)))
+                        (Eq.refl 21036678407451) (Eq.refl 156250000000000)))
+                    (eq_self (21036678407451 / 156250000000000)))
+                  (eq_true True.intro)))))
+          NLA.MI29.scalar_gap_positive,
+        of_eq_true
+          (Eq.trans
+            (Eq.trans
+              (congrArg (Eq 0)
+                (Eq.trans
+                  (Eq.trans
+                    (congrArg Complex.im
+                      (Mathlib.Meta.NormNum.IsNNRat.to_eq
+                        (Mathlib.Meta.NormNum.isNNRat_div
+                          (Mathlib.Meta.NormNum.isNNRat_mul (Eq.refl HMul.hMul)
+                            (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                              (Mathlib.Meta.NormNum.isNat_ofNat ℂ (Eq.refl 21036678407451)))
+                            (Mathlib.Meta.NormNum.isNNRat_inv_pos
+                              (Mathlib.Meta.NormNum.IsNat.to_isNNRat
+                                (Mathlib.Meta.NormNum.isNat_ofNat ℂ (Eq.refl 156250000000000))))
+                            (Eq.refl (Nat.mul 21036678407451 1)) (Eq.refl 156250000000000)))
+                        (Eq.refl 21036678407451) (Eq.refl 156250000000000)))
+                    (Complex.div_ofNat_im 21036678407451 156250000000000))
+                  (zero_div 156250000000000)))
+              (eq_self 0))
+            (eq_true True.intro))⟩))
+theorem NLA.MI29.not_modulusDeterminantConjecture_proved : ¬NLA.MI29.ModulusDeterminantConjecture :=
+fun h =>
+  have hle :=
+    h 3
+      (Mathlib.Meta.NormNum.isNat_le_true (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 1))
+        (Mathlib.Meta.NormNum.isNat_ofNat ℕ (Eq.refl 3)) (Eq.refl true))
+      NLA.MI29.witnessA NLA.MI29.witnessB NLA.MI29.witnessA_posDef NLA.MI29.witnessB_hermitian NLA.MI29.witnessB_isUnit
+      6 8
+      (Mathlib.Meta.NormNum.isNat_le_true (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_zero)
+        (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 6)) (Eq.refl true))
+      (Mathlib.Meta.NormNum.isNat_le_true (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_zero)
+        (Mathlib.Meta.NormNum.isNat_ofNat ℝ (Eq.refl 8)) (Eq.refl true));
+  not_le_of_gt NLA.MI29.witness_strict_violation hle
+theorem NLA.MI29.spectralPower_natCast : ∀ {n : ℕ} (A : Matrix (Fin n) (Fin n) ℂ),
+  A.PosSemidef → ∀ (r : ℕ), NLA.MI29.spectralPower A ↑r = A ^ r :=
+fun {n} A hA r => NLA.MI29.spectralPower_natCast_proved A hA r
+theorem NLA.MI29.modulus_power_eight : ∀ {n : ℕ} (X : Matrix (Fin n) (Fin n) ℂ),
+  NLA.MI29.matrixModulus X = CFC.sqrt (X.conjTranspose * X) ∧
+    (NLA.MI29.matrixModulus X).PosSemidef ∧
+      NLA.MI29.spectralPower (NLA.MI29.matrixModulus X) 8 = (X.conjTranspose * X) ^ 4 :=
+fun {n} X => NLA.MI29.modulus_power_eight_proved X
+theorem NLA.MI29.comparison_positive_real : ∀ {n : ℕ},
+  1 ≤ n →
+    ∀ (A B : Matrix (Fin n) (Fin n) ℂ),
+      A.PosDef →
+        B.IsHermitian →
+          IsUnit B →
+            ∀ (k p : ℝ),
+              0 ≤ k →
+                0 ≤ p →
+                  (NLA.MI29.leftDet A B k p).im = 0 ∧
+                    0 < (NLA.MI29.leftDet A B k p).re ∧
+                      (NLA.MI29.rightDet A B k p).im = 0 ∧ 0 < (NLA.MI29.rightDet A B k p).re :=
+fun {n} hn A B hA hB hBinv k p hk hp => NLA.MI29.comparison_positive_real_proved hn A B hA hB hBinv k p hk hp
+theorem NLA.MI29.counterexample : NLA.MI29.witnessA.PosDef ∧
+  NLA.MI29.witnessB.IsHermitian ∧
+    IsUnit NLA.MI29.witnessB ∧
+      NLA.MI29.witnessB.det = -1 / 125 ∧
+        ¬NLA.MI29.witnessB.PosSemidef ∧
+          ¬(-NLA.MI29.witnessB).PosSemidef ∧
+            NLA.MI29.spectralPower NLA.MI29.witnessA 6 = NLA.MI29.witnessA ^ 6 ∧
+              NLA.MI29.spectralPower (NLA.MI29.matrixModulus (NLA.MI29.witnessA * NLA.MI29.witnessB)) 8 =
+                  (NLA.MI29.witnessB * NLA.MI29.witnessA ^ 2 * NLA.MI29.witnessB) ^ 4 ∧
+                NLA.MI29.spectralPower (NLA.MI29.matrixModulus (NLA.MI29.witnessB * NLA.MI29.witnessA)) 8 =
+                    (NLA.MI29.witnessA * NLA.MI29.witnessB ^ 2 * NLA.MI29.witnessA) ^ 4 ∧
+                  NLA.MI29.leftDet NLA.MI29.witnessA NLA.MI29.witnessB 6 8 =
+                      136990346414301954149 / 61035156250000000000 ∧
+                    NLA.MI29.rightDet NLA.MI29.witnessA NLA.MI29.witnessB 6 8 =
+                        4537743716162890657 / 1907348632812500000 ∧
+                      NLA.MI29.rightDet NLA.MI29.witnessA NLA.MI29.witnessB 6 8 -
+                            NLA.MI29.leftDet NLA.MI29.witnessA NLA.MI29.witnessB 6 8 =
+                          21036678407451 / 156250000000000 ∧
+                        NLA.MI29.leftDet NLA.MI29.witnessA NLA.MI29.witnessB 6 8 <
+                          NLA.MI29.rightDet NLA.MI29.witnessA NLA.MI29.witnessB 6 8 :=
+NLA.MI29.counterexample_proved
+theorem NLA.MI29.not_modulusDeterminantConjecture : ¬NLA.MI29.ModulusDeterminantConjecture :=
+NLA.MI29.not_modulusDeterminantConjecture_proved

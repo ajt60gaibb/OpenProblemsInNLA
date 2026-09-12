@@ -1,0 +1,2153 @@
+def NLA.MI21.spectralPower : {n : Nat} → (A : NLA.MI21.Mat n) → (r : Real) → NLA.MI21.Mat n :=
+fun {n : Nat} (A : NLA.MI21.Mat n) (r : Real) =>
+  @CFC.rpow.{0} (NLA.MI21.Mat n) (@Matrix.instPartialOrder.{0, 0} Complex (Fin n) Complex.instRCLike)
+    (@Matrix.instRing.{0, 0} (Fin n) Complex (Fin.fintype n) (instDecidableEqFin n) Complex.instRing)
+    (@Matrix.instStarRing.{0, 0} (Fin n) Complex (Fin.fintype n)
+      (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+        (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+          (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing)))
+      Complex.instStarRing)
+    (@instTopologicalSpaceMatrix.{0, 0, 0} (Fin n) (Fin n) Complex
+      (@UniformSpace.toTopologicalSpace.{0} Complex
+        (@PseudoMetricSpace.toUniformSpace.{0} Complex
+          (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+            (@SeminormedCommRing.toSeminormedRing.{0} Complex
+              (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))))
+    (@NLA.MI21.spectralPower._proof_1 n)
+    (@Matrix.instAlgebra.{0, 0, 0} (Fin n) Real Complex (Fin.fintype n) (instDecidableEqFin n) Real.instCommSemiring
+      (@Ring.toSemiring.{0} Complex Complex.instRing)
+      (@NormedAlgebra.toAlgebra.{0, 0} Real Complex Real.normedField
+        (@SeminormedCommRing.toSeminormedRing.{0} Complex
+          (@NormedCommRing.toSeminormedCommRing.{0} Complex
+            (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))
+        (@RCLike.toNormedAlgebra.{0} Complex Complex.instRCLike)))
+    (@NLA.MI21.spectralPower._proof_3 n) (@NLA.MI21.spectralPower._proof_4 n) A r
+def NLA.MI21.geometricMean : {n : Nat} → (A B : NLA.MI21.Mat n) → (t : Real) → NLA.MI21.Mat n :=
+fun {n : Nat} (A B : NLA.MI21.Mat n) (t : Real) =>
+  @HMul.hMul.{0, 0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) (NLA.MI21.Mat n)
+    (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+    (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin n) (Fin n) (Fin n) Complex (Fin.fintype n)
+      Complex.instMul Complex.instAddCommMonoid)
+    (@HMul.hMul.{0, 0, 0} (NLA.MI21.Mat n) (NLA.MI21.Mat n) (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+      (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin n) (Fin n) (Fin n) Complex (Fin.fintype n)
+        Complex.instMul Complex.instAddCommMonoid)
+      (@NLA.MI21.spectralPower n A
+        (@HDiv.hDiv.{0, 0, 0} Real Real Real (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+          (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))
+          (@OfNat.ofNat.{0} Real (nat_lit 2)
+            (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast NLA.MI21.geometricMean._proof_1))))
+      (@NLA.MI21.spectralPower n
+        (@HMul.hMul.{0, 0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) (NLA.MI21.Mat n)
+          (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+          (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin n) (Fin n) (Fin n) Complex (Fin.fintype n)
+            Complex.instMul Complex.instAddCommMonoid)
+          (@HMul.hMul.{0, 0, 0} (NLA.MI21.Mat n) (NLA.MI21.Mat n) (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+            (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin n) (Fin n) (Fin n) Complex (Fin.fintype n)
+              Complex.instMul Complex.instAddCommMonoid)
+            (@NLA.MI21.spectralPower n A
+              (@HDiv.hDiv.{0, 0, 0} Real Real Real
+                (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+                (@Neg.neg.{0} Real Real.instNeg
+                  (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)))
+                (@OfNat.ofNat.{0} Real (nat_lit 2)
+                  (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast NLA.MI21.geometricMean._proof_1))))
+            B)
+          (@NLA.MI21.spectralPower n A
+            (@HDiv.hDiv.{0, 0, 0} Real Real Real
+              (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+              (@Neg.neg.{0} Real Real.instNeg (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)))
+              (@OfNat.ofNat.{0} Real (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast NLA.MI21.geometricMean._proof_1)))))
+        t))
+    (@NLA.MI21.spectralPower n A
+      (@HDiv.hDiv.{0, 0, 0} Real Real Real (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+        (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))
+        (@OfNat.ofNat.{0} Real (nat_lit 2)
+          (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast NLA.MI21.geometricMean._proof_1))))
+def NLA.MI21.IsUnitaryInvariantNorm : {n : Nat} → (ν : NLA.MI21.Mat n → Real) → Prop :=
+fun {n : Nat} (ν : NLA.MI21.Mat n → Real) =>
+  And
+    (∀ (X : NLA.MI21.Mat n),
+      @LE.le.{0} Real Real.instLE (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) (ν X))
+    (And
+      (∀ (X : NLA.MI21.Mat n),
+        Iff (@Eq.{1} Real (ν X) (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)))
+          (@Eq.{1} (NLA.MI21.Mat n) X
+            (@OfNat.ofNat.{0} (NLA.MI21.Mat n) (nat_lit 0)
+              (@Zero.toOfNat0.{0} (NLA.MI21.Mat n) (@Matrix.zero.{0, 0, 0} (Fin n) (Fin n) Complex Complex.instZero)))))
+      (And
+        (∀ (X Y : NLA.MI21.Mat n),
+          @LE.le.{0} Real Real.instLE
+            (ν
+              (@HAdd.hAdd.{0, 0, 0} (NLA.MI21.Mat n) (NLA.MI21.Mat n) (NLA.MI21.Mat n)
+                (@instHAdd.{0} (NLA.MI21.Mat n) (@Matrix.add.{0, 0, 0} (Fin n) (Fin n) Complex Complex.instAdd)) X Y))
+            (@HAdd.hAdd.{0, 0, 0} Real Real Real (@instHAdd.{0} Real Real.instAdd) (ν X) (ν Y)))
+        (And
+          (∀ (z : Complex) (X : NLA.MI21.Mat n),
+            @Eq.{1} Real
+              (ν
+                (@HSMul.hSMul.{0, 0, 0} Complex (NLA.MI21.Mat n) (NLA.MI21.Mat n)
+                  (@instHSMul.{0, 0} Complex (NLA.MI21.Mat n)
+                    (@Matrix.smul.{0, 0, 0, 0} (Fin n) (Fin n) Complex Complex
+                      (@instSMulOfMul.{0} Complex Complex.instMul)))
+                  z X))
+              (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+                (@Norm.norm.{0} Complex Complex.instNorm z) (ν X)))
+          (∀ (U V X : NLA.MI21.Mat n),
+            @Eq.{1} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@HMul.hMul.{0, 0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) (NLA.MI21.Mat n)
+                  (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                  (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin n) (Fin n) (Fin n) Complex
+                    (Fin.fintype n) Complex.instMul Complex.instAddCommMonoid)
+                  (@Matrix.conjTranspose.{0, 0, 0} (Fin n) (Fin n) Complex
+                    (@InvolutiveStar.toStar.{0} Complex
+                      (@StarAddMonoid.toInvolutiveStar.{0} Complex
+                        (@AddCommMonoid.toAddMonoid.{0} Complex
+                          (@NonUnitalNonAssocSemiring.toAddCommMonoid.{0} Complex
+                            (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+                              (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+                                (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex
+                                  Complex.instNonUnitalCommRing)))))
+                        (@StarRing.toStarAddMonoid.{0} Complex
+                          (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+                            (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+                              (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex
+                                Complex.instNonUnitalCommRing)))
+                          Complex.instStarRing)))
+                    U)
+                  U)
+                (@OfNat.ofNat.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) (nat_lit 1)
+                  (@One.toOfNat1.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                    (@Matrix.one.{0, 0} (Fin n) Complex (instDecidableEqFin n) Complex.instZero Complex.instOne))) →
+              @Eq.{1} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                  (@HMul.hMul.{0, 0, 0} (NLA.MI21.Mat n) (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                    (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                    (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin n) (Fin n) (Fin n) Complex
+                      (Fin.fintype n) Complex.instMul Complex.instAddCommMonoid)
+                    U
+                    (@Matrix.conjTranspose.{0, 0, 0} (Fin n) (Fin n) Complex
+                      (@InvolutiveStar.toStar.{0} Complex
+                        (@StarAddMonoid.toInvolutiveStar.{0} Complex
+                          (@AddCommMonoid.toAddMonoid.{0} Complex
+                            (@NonUnitalNonAssocSemiring.toAddCommMonoid.{0} Complex
+                              (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+                                (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+                                  (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex
+                                    Complex.instNonUnitalCommRing)))))
+                          (@StarRing.toStarAddMonoid.{0} Complex
+                            (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+                              (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+                                (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex
+                                  Complex.instNonUnitalCommRing)))
+                            Complex.instStarRing)))
+                      U))
+                  (@OfNat.ofNat.{0} (NLA.MI21.Mat n) (nat_lit 1)
+                    (@One.toOfNat1.{0} (NLA.MI21.Mat n)
+                      (@Matrix.one.{0, 0} (Fin n) Complex (instDecidableEqFin n) Complex.instZero Complex.instOne))) →
+                @Eq.{1} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                    (@HMul.hMul.{0, 0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) (NLA.MI21.Mat n)
+                      (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                      (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin n) (Fin n) (Fin n) Complex
+                        (Fin.fintype n) Complex.instMul Complex.instAddCommMonoid)
+                      (@Matrix.conjTranspose.{0, 0, 0} (Fin n) (Fin n) Complex
+                        (@InvolutiveStar.toStar.{0} Complex
+                          (@StarAddMonoid.toInvolutiveStar.{0} Complex
+                            (@AddCommMonoid.toAddMonoid.{0} Complex
+                              (@NonUnitalNonAssocSemiring.toAddCommMonoid.{0} Complex
+                                (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+                                  (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+                                    (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex
+                                      Complex.instNonUnitalCommRing)))))
+                            (@StarRing.toStarAddMonoid.{0} Complex
+                              (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+                                (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+                                  (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex
+                                    Complex.instNonUnitalCommRing)))
+                              Complex.instStarRing)))
+                        V)
+                      V)
+                    (@OfNat.ofNat.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) (nat_lit 1)
+                      (@One.toOfNat1.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                        (@Matrix.one.{0, 0} (Fin n) Complex (instDecidableEqFin n) Complex.instZero Complex.instOne))) →
+                  @Eq.{1} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                      (@HMul.hMul.{0, 0, 0} (NLA.MI21.Mat n) (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                        (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                        (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin n) (Fin n) (Fin n) Complex
+                          (Fin.fintype n) Complex.instMul Complex.instAddCommMonoid)
+                        V
+                        (@Matrix.conjTranspose.{0, 0, 0} (Fin n) (Fin n) Complex
+                          (@InvolutiveStar.toStar.{0} Complex
+                            (@StarAddMonoid.toInvolutiveStar.{0} Complex
+                              (@AddCommMonoid.toAddMonoid.{0} Complex
+                                (@NonUnitalNonAssocSemiring.toAddCommMonoid.{0} Complex
+                                  (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+                                    (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+                                      (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex
+                                        Complex.instNonUnitalCommRing)))))
+                              (@StarRing.toStarAddMonoid.{0} Complex
+                                (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+                                  (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+                                    (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex
+                                      Complex.instNonUnitalCommRing)))
+                                Complex.instStarRing)))
+                          V))
+                      (@OfNat.ofNat.{0} (NLA.MI21.Mat n) (nat_lit 1)
+                        (@One.toOfNat1.{0} (NLA.MI21.Mat n)
+                          (@Matrix.one.{0, 0} (Fin n) Complex (instDecidableEqFin n) Complex.instZero
+                            Complex.instOne))) →
+                    @Eq.{1} Real
+                      (ν
+                        (@HMul.hMul.{0, 0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) (NLA.MI21.Mat n)
+                          (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                          (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin n) (Fin n) (Fin n) Complex
+                            (Fin.fintype n) Complex.instMul Complex.instAddCommMonoid)
+                          (@HMul.hMul.{0, 0, 0} (NLA.MI21.Mat n) (NLA.MI21.Mat n)
+                            (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                            (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin n) (Fin n) (Fin n) Complex
+                              (Fin.fintype n) Complex.instMul Complex.instAddCommMonoid)
+                            U X)
+                          V))
+                      (ν X)))))
+def NLA.MI21.operatorNorm : {n : Nat} → (A : NLA.MI21.Mat n) → Real :=
+fun {n : ⋯} (A : ⋯) =>
+  @Norm.norm.{0}
+    (@ContinuousLinearMap.{0, 0, 0, 0} Complex Complex
+      (@DivisionSemiring.toSemiring.{0} Complex
+        (@Semifield.toDivisionSemiring.{0} Complex
+          (@Field.toSemifield.{0} Complex
+            (@NormedField.toField.{0} Complex
+              (@DenselyNormedField.toNormedField.{0} Complex
+                (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+      (@DivisionSemiring.toSemiring.{0} Complex
+        (@Semifield.toDivisionSemiring.{0} Complex
+          (@Field.toSemifield.{0} Complex
+            (@NormedField.toField.{0} Complex
+              (@DenselyNormedField.toNormedField.{0} Complex
+                (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+      (@RingHom.id.{0} Complex
+        (@Semiring.toNonAssocSemiring.{0} Complex
+          (@DivisionSemiring.toSemiring.{0} Complex
+            (@Semifield.toDivisionSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex
+                (@NormedField.toField.{0} Complex
+                  (@DenselyNormedField.toNormedField.{0} Complex
+                    (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+      (EuclideanSpace.{0, 0} Complex (Fin n))
+      (@PiLp.topologicalSpace.{0, 0}
+        (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+          (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+            (@AddMonoidWithOne.toNatCast.{0} ENNReal
+              (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+            PiLp.innerProductSpace._proof_1))
+        (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+        @UniformSpace.toTopologicalSpace.{0} Complex
+          (@PseudoMetricSpace.toUniformSpace.{0} Complex
+            (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+              (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                  (@NormedField.toNormedCommRing.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+      (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+        (@WithLp.instAddCommGroup.{0}
+          (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+            (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+              (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+              PiLp.innerProductSpace._proof_1))
+          ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+          (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+            @Ring.toAddCommGroup.{0} Complex
+              (@DivisionRing.toRing.{0} Complex
+                (@Field.toDivisionRing.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+      (EuclideanSpace.{0, 0} Complex (Fin n))
+      (@PiLp.topologicalSpace.{0, 0}
+        (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+          (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+            (@AddMonoidWithOne.toNatCast.{0} ENNReal
+              (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+            PiLp.innerProductSpace._proof_1))
+        (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+        @UniformSpace.toTopologicalSpace.{0} Complex
+          (@PseudoMetricSpace.toUniformSpace.{0} Complex
+            (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+              (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                  (@NormedField.toNormedCommRing.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+      (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+        (@WithLp.instAddCommGroup.{0}
+          (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+            (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+              (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+              PiLp.innerProductSpace._proof_1))
+          ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+          (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+            @Ring.toAddCommGroup.{0} Complex
+              (@DivisionRing.toRing.{0} Complex
+                (@Field.toDivisionRing.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+      (@WithLp.instModule.{0, 0}
+        (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+          (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+            (@AddMonoidWithOne.toNatCast.{0} ENNReal
+              (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+            PiLp.innerProductSpace._proof_1))
+        Complex ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+        (@DivisionSemiring.toSemiring.{0} Complex
+          (@Semifield.toDivisionSemiring.{0} Complex
+            (@Field.toSemifield.{0} Complex
+              (@NormedField.toField.{0} Complex
+                (@DenselyNormedField.toNormedField.{0} Complex
+                  (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+        (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+          @Ring.toAddCommGroup.{0} Complex
+            (@DivisionRing.toRing.{0} Complex
+              (@Field.toDivisionRing.{0} Complex
+                (@NormedField.toField.{0} Complex
+                  (@DenselyNormedField.toNormedField.{0} Complex
+                    (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+        (@Pi.Function.module.{0, 0, 0} (Fin n) Complex Complex
+          (@DivisionSemiring.toSemiring.{0} Complex
+            (@Semifield.toDivisionSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex
+                (@NormedField.toField.{0} Complex
+                  (@DenselyNormedField.toNormedField.{0} Complex
+                    (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+          (@Semiring.toAddCommMonoid.{0} Complex
+            (@Ring.toSemiring.{0} Complex
+              (@DivisionRing.toRing.{0} Complex
+                (@Field.toDivisionRing.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+          (@Semiring.toModule.{0} Complex
+            (@DivisionSemiring.toSemiring.{0} Complex
+              (@Semifield.toDivisionSemiring.{0} Complex
+                (@Field.toSemifield.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))))
+      (@WithLp.instModule.{0, 0}
+        (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+          (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+            (@AddMonoidWithOne.toNatCast.{0} ENNReal
+              (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+            PiLp.innerProductSpace._proof_1))
+        Complex ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+        (@DivisionSemiring.toSemiring.{0} Complex
+          (@Semifield.toDivisionSemiring.{0} Complex
+            (@Field.toSemifield.{0} Complex
+              (@NormedField.toField.{0} Complex
+                (@DenselyNormedField.toNormedField.{0} Complex
+                  (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+        (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+          @Ring.toAddCommGroup.{0} Complex
+            (@DivisionRing.toRing.{0} Complex
+              (@Field.toDivisionRing.{0} Complex
+                (@NormedField.toField.{0} Complex
+                  (@DenselyNormedField.toNormedField.{0} Complex
+                    (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+        (@Pi.Function.module.{0, 0, 0} (Fin n) Complex Complex
+          (@DivisionSemiring.toSemiring.{0} Complex
+            (@Semifield.toDivisionSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex
+                (@NormedField.toField.{0} Complex
+                  (@DenselyNormedField.toNormedField.{0} Complex
+                    (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+          (@Semiring.toAddCommMonoid.{0} Complex
+            (@Ring.toSemiring.{0} Complex
+              (@DivisionRing.toRing.{0} Complex
+                (@Field.toDivisionRing.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+          (@Semiring.toModule.{0} Complex
+            (@DivisionSemiring.toSemiring.{0} Complex
+              (@Semifield.toDivisionSemiring.{0} Complex
+                (@Field.toSemifield.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))))
+    (@ContinuousLinearMap.hasOpNorm.{0, 0, 0, 0} Complex Complex (EuclideanSpace.{0, 0} Complex (Fin n))
+      (EuclideanSpace.{0, 0} Complex (Fin n))
+      (@PiLp.seminormedAddCommGroup.{0, 0}
+        (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+          (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+            (@AddMonoidWithOne.toNatCast.{0} ENNReal
+              (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+            PiLp.innerProductSpace._proof_1))
+        (Fin n) (fun (x : Fin n) => Complex) fact_one_le_two_ennreal (Fin.fintype n) fun (i : Fin n) =>
+        @NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+          (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+            (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+              (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+      (@PiLp.seminormedAddCommGroup.{0, 0}
+        (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+          (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+            (@AddMonoidWithOne.toNatCast.{0} ENNReal
+              (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+            PiLp.innerProductSpace._proof_1))
+        (Fin n) (fun (x : Fin n) => Complex) fact_one_le_two_ennreal (Fin.fintype n) fun (i : Fin n) =>
+        @NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+          (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+            (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+              (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+      (@DenselyNormedField.toNontriviallyNormedField.{0} Complex Complex.instDenselyNormedField)
+      (@DenselyNormedField.toNontriviallyNormedField.{0} Complex Complex.instDenselyNormedField)
+      (@PiLp.normedSpace.{0, 0, 0}
+        (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+          (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+            (@AddMonoidWithOne.toNatCast.{0} ENNReal
+              (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+            PiLp.innerProductSpace._proof_1))
+        Complex (Fin n) (fun (x : Fin n) => Complex) fact_one_le_two_ennreal (Fin.fintype n)
+        (@NontriviallyNormedField.toNormedField.{0} Complex
+          (@DenselyNormedField.toNontriviallyNormedField.{0} Complex Complex.instDenselyNormedField))
+        (fun (i : Fin n) =>
+          @NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+            (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+              (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+                (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                  (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+        fun (i : Fin n) =>
+        @NonUnitalCStarAlgebra.toNormedSpace.{0} Complex
+          (@NonUnitalCommCStarAlgebra.toNonUnitalCStarAlgebra.{0} Complex
+            (@CommCStarAlgebra.toNonUnitalCommCStarAlgebra.{0} Complex instCommCStarAlgebraComplex)))
+      (@PiLp.normedSpace.{0, 0, 0}
+        (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+          (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+            (@AddMonoidWithOne.toNatCast.{0} ENNReal
+              (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+            PiLp.innerProductSpace._proof_1))
+        Complex (Fin n) (fun (x : Fin n) => Complex) fact_one_le_two_ennreal (Fin.fintype n)
+        (@NontriviallyNormedField.toNormedField.{0} Complex
+          (@DenselyNormedField.toNontriviallyNormedField.{0} Complex Complex.instDenselyNormedField))
+        (fun (i : Fin n) =>
+          @NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+            (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+              (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+                (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                  (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+        fun (i : Fin n) =>
+        @NonUnitalCStarAlgebra.toNormedSpace.{0} Complex
+          (@NonUnitalCommCStarAlgebra.toNonUnitalCStarAlgebra.{0} Complex
+            (@CommCStarAlgebra.toNonUnitalCommCStarAlgebra.{0} Complex instCommCStarAlgebraComplex)))
+      (@RingHom.id.{0} Complex
+        (@Semiring.toNonAssocSemiring.{0} Complex
+          (@DivisionSemiring.toSemiring.{0} Complex
+            (@Semifield.toDivisionSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex
+                (@NormedField.toField.{0} Complex
+                  (@DenselyNormedField.toNormedField.{0} Complex
+                    (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))))
+    (@DFunLike.coe.{1, 1, 1}
+      (@StarAlgEquiv.{0, 0, 0} Complex (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+        (@ContinuousLinearMap.{0, 0, 0, 0} Complex Complex
+          (@DivisionSemiring.toSemiring.{0} Complex
+            (@Semifield.toDivisionSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex
+                (@NormedField.toField.{0} Complex
+                  (@DenselyNormedField.toNormedField.{0} Complex
+                    (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+          (@DivisionSemiring.toSemiring.{0} Complex
+            (@Semifield.toDivisionSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex
+                (@NormedField.toField.{0} Complex
+                  (@DenselyNormedField.toNormedField.{0} Complex
+                    (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+          (@RingHom.id.{0} Complex
+            (@Semiring.toNonAssocSemiring.{0} Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Complex (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Complex
+              (@PseudoMetricSpace.toUniformSpace.{0} Complex
+                (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                  (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@NormedField.toNormedCommRing.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Complex (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Complex
+              (@PseudoMetricSpace.toUniformSpace.{0} Complex
+                (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                  (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@NormedField.toNormedCommRing.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Complex ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+            (@DivisionSemiring.toSemiring.{0} Complex
+              (@Semifield.toDivisionSemiring.{0} Complex
+                (@Field.toSemifield.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Complex
+                (@DivisionRing.toRing.{0} Complex
+                  (@Field.toDivisionRing.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Complex Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Complex
+                (@Ring.toSemiring.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+              (@Semiring.toModule.{0} Complex
+                (@DivisionSemiring.toSemiring.{0} Complex
+                  (@Semifield.toDivisionSemiring.{0} Complex
+                    (@Field.toSemifield.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Complex ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+            (@DivisionSemiring.toSemiring.{0} Complex
+              (@Semifield.toDivisionSemiring.{0} Complex
+                (@Field.toSemifield.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Complex
+                (@DivisionRing.toRing.{0} Complex
+                  (@Field.toDivisionRing.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Complex Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Complex
+                (@Ring.toSemiring.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+              (@Semiring.toModule.{0} Complex
+                (@DivisionSemiring.toSemiring.{0} Complex
+                  (@Semifield.toDivisionSemiring.{0} Complex
+                    (@Field.toSemifield.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))))
+        (@Matrix.add.{0, 0, 0} (Fin n) (Fin n) Complex
+          (@Distrib.toAdd.{0} Complex
+            (@instDistribOfSemiring.{0} Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))))
+        (@ContinuousLinearMap.add.{0, 0, 0, 0} Complex Complex
+          (@DivisionSemiring.toSemiring.{0} Complex
+            (@Semifield.toDivisionSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex
+                (@NormedField.toField.{0} Complex
+                  (@DenselyNormedField.toNormedField.{0} Complex
+                    (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+          (@DivisionSemiring.toSemiring.{0} Complex
+            (@Semifield.toDivisionSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex
+                (@NormedField.toField.{0} Complex
+                  (@DenselyNormedField.toNormedField.{0} Complex
+                    (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+          (@RingHom.id.{0} Complex
+            (@Semiring.toNonAssocSemiring.{0} Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Complex (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Complex
+              (@PseudoMetricSpace.toUniformSpace.{0} Complex
+                (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                  (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@NormedField.toNormedCommRing.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Complex (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Complex
+              (@PseudoMetricSpace.toUniformSpace.{0} Complex
+                (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                  (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@NormedField.toNormedCommRing.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Complex ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+            (@DivisionSemiring.toSemiring.{0} Complex
+              (@Semifield.toDivisionSemiring.{0} Complex
+                (@Field.toSemifield.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Complex
+                (@DivisionRing.toRing.{0} Complex
+                  (@Field.toDivisionRing.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Complex Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Complex
+                (@Ring.toSemiring.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+              (@Semiring.toModule.{0} Complex
+                (@DivisionSemiring.toSemiring.{0} Complex
+                  (@Semifield.toDivisionSemiring.{0} Complex
+                    (@Field.toSemifield.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Complex ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+            (@DivisionSemiring.toSemiring.{0} Complex
+              (@Semifield.toDivisionSemiring.{0} Complex
+                (@Field.toSemifield.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Complex
+                (@DivisionRing.toRing.{0} Complex
+                  (@Field.toDivisionRing.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Complex Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Complex
+                (@Ring.toSemiring.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+              (@Semiring.toModule.{0} Complex
+                (@DivisionSemiring.toSemiring.{0} Complex
+                  (@Semifield.toDivisionSemiring.{0} Complex
+                    (@Field.toSemifield.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))))
+          (@NLA.MI21.operatorNorm._proof_1 n))
+        (@Matrix.instMulOfFintypeOfAddCommMonoid.{0, 0} (Fin n) Complex (Fin.fintype n)
+          (@Distrib.toMul.{0} Complex
+            (@instDistribOfSemiring.{0} Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@Semiring.toAddCommMonoid.{0} Complex
+            (@DivisionSemiring.toSemiring.{0} Complex
+              (@Semifield.toDivisionSemiring.{0} Complex
+                (@Field.toSemifield.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+        (@ContinuousLinearMap.instMul.{0, 0} Complex
+          (@DivisionSemiring.toSemiring.{0} Complex
+            (@Semifield.toDivisionSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex
+                (@NormedField.toField.{0} Complex
+                  (@DenselyNormedField.toNormedField.{0} Complex
+                    (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+          (EuclideanSpace.{0, 0} Complex (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Complex
+              (@PseudoMetricSpace.toUniformSpace.{0} Complex
+                (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                  (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@NormedField.toNormedCommRing.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Complex ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+            (@DivisionSemiring.toSemiring.{0} Complex
+              (@Semifield.toDivisionSemiring.{0} Complex
+                (@Field.toSemifield.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Complex
+                (@DivisionRing.toRing.{0} Complex
+                  (@Field.toDivisionRing.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Complex Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Complex
+                (@Ring.toSemiring.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+              (@Semiring.toModule.{0} Complex
+                (@DivisionSemiring.toSemiring.{0} Complex
+                  (@Semifield.toDivisionSemiring.{0} Complex
+                    (@Field.toSemifield.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))))
+        (@Matrix.smul.{0, 0, 0, 0} (Fin n) (Fin n) Complex Complex
+          (@instSMulOfMul.{0} Complex
+            (@Distrib.toMul.{0} Complex
+              (@instDistribOfSemiring.{0} Complex
+                (@DivisionSemiring.toSemiring.{0} Complex
+                  (@Semifield.toDivisionSemiring.{0} Complex
+                    (@Field.toSemifield.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))))
+        (@ContinuousLinearMap.instSMul.{0, 0, 0, 0, 0} Complex Complex
+          (@DivisionSemiring.toSemiring.{0} Complex
+            (@Semifield.toDivisionSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex
+                (@NormedField.toField.{0} Complex
+                  (@DenselyNormedField.toNormedField.{0} Complex
+                    (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+          (@DivisionSemiring.toSemiring.{0} Complex
+            (@Semifield.toDivisionSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex
+                (@NormedField.toField.{0} Complex
+                  (@DenselyNormedField.toNormedField.{0} Complex
+                    (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+          (@RingHom.id.{0} Complex
+            (@Semiring.toNonAssocSemiring.{0} Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Complex (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Complex
+              (@PseudoMetricSpace.toUniformSpace.{0} Complex
+                (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                  (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@NormedField.toNormedCommRing.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Complex (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Complex
+              (@PseudoMetricSpace.toUniformSpace.{0} Complex
+                (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                  (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@NormedField.toNormedCommRing.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Complex ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+            (@DivisionSemiring.toSemiring.{0} Complex
+              (@Semifield.toDivisionSemiring.{0} Complex
+                (@Field.toSemifield.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Complex
+                (@DivisionRing.toRing.{0} Complex
+                  (@Field.toDivisionRing.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Complex Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Complex
+                (@Ring.toSemiring.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+              (@Semiring.toModule.{0} Complex
+                (@DivisionSemiring.toSemiring.{0} Complex
+                  (@Semifield.toDivisionSemiring.{0} Complex
+                    (@Field.toSemifield.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Complex ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+            (@DivisionSemiring.toSemiring.{0} Complex
+              (@Semifield.toDivisionSemiring.{0} Complex
+                (@Field.toSemifield.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Complex
+                (@DivisionRing.toRing.{0} Complex
+                  (@Field.toDivisionRing.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Complex Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Complex
+                (@Ring.toSemiring.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+              (@Semiring.toModule.{0} Complex
+                (@DivisionSemiring.toSemiring.{0} Complex
+                  (@Semifield.toDivisionSemiring.{0} Complex
+                    (@Field.toSemifield.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))))
+          Complex
+          (@DistribMulAction.toDistribSMul.{0, 0} Complex (EuclideanSpace.{0, 0} Complex (Fin n))
+            (@Semiring.toMonoid.{0} Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+            (@SubNegMonoid.toAddMonoid.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+              (@AddGroup.toSubNegMonoid.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+                (@AddCommGroup.toAddGroup.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+                  (@WithLp.instAddCommGroup.{0}
+                    (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                      (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                        (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                          (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                        PiLp.innerProductSpace._proof_1))
+                    ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+                    (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+                      @Ring.toAddCommGroup.{0} Complex
+                        (@DivisionRing.toRing.{0} Complex
+                          (@Field.toDivisionRing.{0} Complex
+                            (@NormedField.toField.{0} Complex
+                              (@DenselyNormedField.toNormedField.{0} Complex
+                                (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))))
+            (@WithLp.instDistribMulAction.{0, 0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              Complex ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+              (@Semiring.toMonoid.{0} Complex
+                (@DivisionSemiring.toSemiring.{0} Complex
+                  (@Semifield.toDivisionSemiring.{0} Complex
+                    (@Field.toSemifield.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+              (@Pi.distribMulAction.{0, 0, 0} (Fin n) (fun (x : Fin n) => Complex) Complex
+                (@Semiring.toMonoid.{0} Complex
+                  (@DivisionSemiring.toSemiring.{0} Complex
+                    (@Semifield.toDivisionSemiring.{0} Complex
+                      (@Field.toSemifield.{0} Complex
+                        (@NormedField.toField.{0} Complex
+                          (@DenselyNormedField.toNormedField.{0} Complex
+                            (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+                (fun (i : Fin n) =>
+                  @SubNegMonoid.toAddMonoid.{0} ((fun (x : Fin n) => Complex) i)
+                    ((fun (i : Fin n) =>
+                        @AddGroup.toSubNegMonoid.{0} ((fun (x : Fin n) => Complex) i)
+                          ((fun (i : Fin n) =>
+                              @AddCommGroup.toAddGroup.{0} ((fun (x : Fin n) => Complex) i)
+                                ((fun (i : Fin n) =>
+                                    @Ring.toAddCommGroup.{0} Complex
+                                      (@DivisionRing.toRing.{0} Complex
+                                        (@Field.toDivisionRing.{0} Complex
+                                          (@NormedField.toField.{0} Complex
+                                            (@DenselyNormedField.toNormedField.{0} Complex
+                                              (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+                                  i))
+                            i))
+                      i))
+                fun (i : Fin n) =>
+                @Module.toDistribMulAction.{0, 0} Complex Complex
+                  (@DivisionSemiring.toSemiring.{0} Complex
+                    (@Semifield.toDivisionSemiring.{0} Complex
+                      (@Field.toSemifield.{0} Complex
+                        (@NormedField.toField.{0} Complex
+                          (@DenselyNormedField.toNormedField.{0} Complex
+                            (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+                  (@Semiring.toAddCommMonoid.{0} Complex
+                    (@DivisionSemiring.toSemiring.{0} Complex
+                      (@Semifield.toDivisionSemiring.{0} Complex
+                        (@Field.toSemifield.{0} Complex
+                          (@NormedField.toField.{0} Complex
+                            (@DenselyNormedField.toNormedField.{0} Complex
+                              (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+                  (@Semiring.toModule.{0} Complex
+                    (@DivisionSemiring.toSemiring.{0} Complex
+                      (@Semifield.toDivisionSemiring.{0} Complex
+                        (@Field.toSemifield.{0} Complex
+                          (@NormedField.toField.{0} Complex
+                            (@DenselyNormedField.toNormedField.{0} Complex
+                              (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))))
+          (@NLA.MI21.operatorNorm._proof_2 n) (@NLA.MI21.operatorNorm._proof_3 n))
+        (@Matrix.instStar.{0, 0} (Fin n) Complex
+          (@InvolutiveStar.toStar.{0} Complex
+            (@StarAddMonoid.toInvolutiveStar.{0} Complex
+              (@AddCommMonoid.toAddMonoid.{0} Complex
+                (@NonUnitalNonAssocSemiring.toAddCommMonoid.{0} Complex
+                  (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+                    (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+                      (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex
+                        (@CommRing.toNonUnitalCommRing.{0} Complex
+                          (@Field.toCommRing.{0} Complex
+                            (@NormedField.toField.{0} Complex
+                              (@DenselyNormedField.toNormedField.{0} Complex
+                                (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))))
+              (@StarRing.toStarAddMonoid.{0} Complex
+                (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+                  (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+                    (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex
+                      (@CommRing.toNonUnitalCommRing.{0} Complex
+                        (@Field.toCommRing.{0} Complex
+                          (@NormedField.toField.{0} Complex
+                            (@DenselyNormedField.toNormedField.{0} Complex
+                              (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+                (@RCLike.toStarRing.{0} Complex Complex.instRCLike)))))
+        (@ContinuousLinearMap.instStarId.{0, 0} Complex (EuclideanSpace.{0, 0} Complex (Fin n)) Complex.instRCLike
+          (@PiLp.normedAddCommGroup.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Complex) fact_one_le_two_ennreal (Fin.fintype n) fun (i : Fin n) =>
+            @NonUnitalNormedRing.toNormedAddCommGroup.{0} Complex
+              (@NonUnitalNormedCommRing.toNonUnitalNormedRing.{0} Complex
+                (@NormedCommRing.toNonUnitalNormedCommRing.{0} Complex
+                  (@NormedField.toNormedCommRing.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+          (@PiLp.innerProductSpace.{0, 0, 0} Complex Complex.instRCLike (Fin n) (Fin.fintype n)
+            (fun (x : Fin n) => Complex)
+            (fun (i : Fin n) =>
+              @NonUnitalNormedRing.toNormedAddCommGroup.{0} Complex
+                (@NonUnitalNormedCommRing.toNonUnitalNormedRing.{0} Complex
+                  (@NormedCommRing.toNonUnitalNormedCommRing.{0} Complex
+                    (@NormedField.toNormedCommRing.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            fun (i : Fin n) => @RCLike.innerProductSpace.{0} Complex Complex.instRCLike)
+          (@NLA.MI21.operatorNorm._proof_4 n)))
+      (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+      (fun (x : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) =>
+        @ContinuousLinearMap.{0, 0, 0, 0} Complex Complex
+          (@DivisionSemiring.toSemiring.{0} Complex
+            (@Semifield.toDivisionSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex
+                (@NormedField.toField.{0} Complex
+                  (@DenselyNormedField.toNormedField.{0} Complex
+                    (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+          (@DivisionSemiring.toSemiring.{0} Complex
+            (@Semifield.toDivisionSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex
+                (@NormedField.toField.{0} Complex
+                  (@DenselyNormedField.toNormedField.{0} Complex
+                    (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+          (@RingHom.id.{0} Complex
+            (@Semiring.toNonAssocSemiring.{0} Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Complex (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Complex
+              (@PseudoMetricSpace.toUniformSpace.{0} Complex
+                (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                  (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@NormedField.toNormedCommRing.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Complex (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Complex
+              (@PseudoMetricSpace.toUniformSpace.{0} Complex
+                (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                  (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@NormedField.toNormedCommRing.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Complex ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+            (@DivisionSemiring.toSemiring.{0} Complex
+              (@Semifield.toDivisionSemiring.{0} Complex
+                (@Field.toSemifield.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Complex
+                (@DivisionRing.toRing.{0} Complex
+                  (@Field.toDivisionRing.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Complex Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Complex
+                (@Ring.toSemiring.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+              (@Semiring.toModule.{0} Complex
+                (@DivisionSemiring.toSemiring.{0} Complex
+                  (@Semifield.toDivisionSemiring.{0} Complex
+                    (@Field.toSemifield.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Complex ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+            (@DivisionSemiring.toSemiring.{0} Complex
+              (@Semifield.toDivisionSemiring.{0} Complex
+                (@Field.toSemifield.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Complex
+                (@DivisionRing.toRing.{0} Complex
+                  (@Field.toDivisionRing.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Complex Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Complex
+                (@Ring.toSemiring.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+              (@Semiring.toModule.{0} Complex
+                (@DivisionSemiring.toSemiring.{0} Complex
+                  (@Semifield.toDivisionSemiring.{0} Complex
+                    (@Field.toSemifield.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))))
+      (@StarAlgEquiv.instFunLike.{0, 0, 0} Complex (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+        (@ContinuousLinearMap.{0, 0, 0, 0} Complex Complex
+          (@DivisionSemiring.toSemiring.{0} Complex
+            (@Semifield.toDivisionSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex
+                (@NormedField.toField.{0} Complex
+                  (@DenselyNormedField.toNormedField.{0} Complex
+                    (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+          (@DivisionSemiring.toSemiring.{0} Complex
+            (@Semifield.toDivisionSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex
+                (@NormedField.toField.{0} Complex
+                  (@DenselyNormedField.toNormedField.{0} Complex
+                    (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+          (@RingHom.id.{0} Complex
+            (@Semiring.toNonAssocSemiring.{0} Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Complex (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Complex
+              (@PseudoMetricSpace.toUniformSpace.{0} Complex
+                (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                  (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@NormedField.toNormedCommRing.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Complex (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Complex
+              (@PseudoMetricSpace.toUniformSpace.{0} Complex
+                (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                  (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@NormedField.toNormedCommRing.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Complex ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+            (@DivisionSemiring.toSemiring.{0} Complex
+              (@Semifield.toDivisionSemiring.{0} Complex
+                (@Field.toSemifield.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Complex
+                (@DivisionRing.toRing.{0} Complex
+                  (@Field.toDivisionRing.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Complex Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Complex
+                (@Ring.toSemiring.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+              (@Semiring.toModule.{0} Complex
+                (@DivisionSemiring.toSemiring.{0} Complex
+                  (@Semifield.toDivisionSemiring.{0} Complex
+                    (@Field.toSemifield.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Complex ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+            (@DivisionSemiring.toSemiring.{0} Complex
+              (@Semifield.toDivisionSemiring.{0} Complex
+                (@Field.toSemifield.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Complex
+                (@DivisionRing.toRing.{0} Complex
+                  (@Field.toDivisionRing.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Complex Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Complex
+                (@Ring.toSemiring.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+              (@Semiring.toModule.{0} Complex
+                (@DivisionSemiring.toSemiring.{0} Complex
+                  (@Semifield.toDivisionSemiring.{0} Complex
+                    (@Field.toSemifield.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))))
+        (@Matrix.add.{0, 0, 0} (Fin n) (Fin n) Complex
+          (@Distrib.toAdd.{0} Complex
+            (@instDistribOfSemiring.{0} Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))))
+        (@ContinuousLinearMap.add.{0, 0, 0, 0} Complex Complex
+          (@DivisionSemiring.toSemiring.{0} Complex
+            (@Semifield.toDivisionSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex
+                (@NormedField.toField.{0} Complex
+                  (@DenselyNormedField.toNormedField.{0} Complex
+                    (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+          (@DivisionSemiring.toSemiring.{0} Complex
+            (@Semifield.toDivisionSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex
+                (@NormedField.toField.{0} Complex
+                  (@DenselyNormedField.toNormedField.{0} Complex
+                    (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+          (@RingHom.id.{0} Complex
+            (@Semiring.toNonAssocSemiring.{0} Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Complex (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Complex
+              (@PseudoMetricSpace.toUniformSpace.{0} Complex
+                (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                  (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@NormedField.toNormedCommRing.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Complex (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Complex
+              (@PseudoMetricSpace.toUniformSpace.{0} Complex
+                (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                  (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@NormedField.toNormedCommRing.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Complex ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+            (@DivisionSemiring.toSemiring.{0} Complex
+              (@Semifield.toDivisionSemiring.{0} Complex
+                (@Field.toSemifield.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Complex
+                (@DivisionRing.toRing.{0} Complex
+                  (@Field.toDivisionRing.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Complex Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Complex
+                (@Ring.toSemiring.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+              (@Semiring.toModule.{0} Complex
+                (@DivisionSemiring.toSemiring.{0} Complex
+                  (@Semifield.toDivisionSemiring.{0} Complex
+                    (@Field.toSemifield.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Complex ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+            (@DivisionSemiring.toSemiring.{0} Complex
+              (@Semifield.toDivisionSemiring.{0} Complex
+                (@Field.toSemifield.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Complex
+                (@DivisionRing.toRing.{0} Complex
+                  (@Field.toDivisionRing.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Complex Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Complex
+                (@Ring.toSemiring.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+              (@Semiring.toModule.{0} Complex
+                (@DivisionSemiring.toSemiring.{0} Complex
+                  (@Semifield.toDivisionSemiring.{0} Complex
+                    (@Field.toSemifield.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))))
+          (@NLA.MI21.operatorNorm._proof_1 n))
+        (@Matrix.instMulOfFintypeOfAddCommMonoid.{0, 0} (Fin n) Complex (Fin.fintype n)
+          (@Distrib.toMul.{0} Complex
+            (@instDistribOfSemiring.{0} Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@Semiring.toAddCommMonoid.{0} Complex
+            (@DivisionSemiring.toSemiring.{0} Complex
+              (@Semifield.toDivisionSemiring.{0} Complex
+                (@Field.toSemifield.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+        (@ContinuousLinearMap.instMul.{0, 0} Complex
+          (@DivisionSemiring.toSemiring.{0} Complex
+            (@Semifield.toDivisionSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex
+                (@NormedField.toField.{0} Complex
+                  (@DenselyNormedField.toNormedField.{0} Complex
+                    (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+          (EuclideanSpace.{0, 0} Complex (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Complex
+              (@PseudoMetricSpace.toUniformSpace.{0} Complex
+                (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                  (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@NormedField.toNormedCommRing.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Complex ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+            (@DivisionSemiring.toSemiring.{0} Complex
+              (@Semifield.toDivisionSemiring.{0} Complex
+                (@Field.toSemifield.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Complex
+                (@DivisionRing.toRing.{0} Complex
+                  (@Field.toDivisionRing.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Complex Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Complex
+                (@Ring.toSemiring.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+              (@Semiring.toModule.{0} Complex
+                (@DivisionSemiring.toSemiring.{0} Complex
+                  (@Semifield.toDivisionSemiring.{0} Complex
+                    (@Field.toSemifield.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))))
+        (@Matrix.smul.{0, 0, 0, 0} (Fin n) (Fin n) Complex Complex
+          (@instSMulOfMul.{0} Complex
+            (@Distrib.toMul.{0} Complex
+              (@instDistribOfSemiring.{0} Complex
+                (@DivisionSemiring.toSemiring.{0} Complex
+                  (@Semifield.toDivisionSemiring.{0} Complex
+                    (@Field.toSemifield.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))))
+        (@ContinuousLinearMap.instSMul.{0, 0, 0, 0, 0} Complex Complex
+          (@DivisionSemiring.toSemiring.{0} Complex
+            (@Semifield.toDivisionSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex
+                (@NormedField.toField.{0} Complex
+                  (@DenselyNormedField.toNormedField.{0} Complex
+                    (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+          (@DivisionSemiring.toSemiring.{0} Complex
+            (@Semifield.toDivisionSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex
+                (@NormedField.toField.{0} Complex
+                  (@DenselyNormedField.toNormedField.{0} Complex
+                    (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+          (@RingHom.id.{0} Complex
+            (@Semiring.toNonAssocSemiring.{0} Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Complex (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Complex
+              (@PseudoMetricSpace.toUniformSpace.{0} Complex
+                (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                  (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@NormedField.toNormedCommRing.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Complex (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Complex
+              (@PseudoMetricSpace.toUniformSpace.{0} Complex
+                (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                  (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@NormedField.toNormedCommRing.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Complex ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+            (@DivisionSemiring.toSemiring.{0} Complex
+              (@Semifield.toDivisionSemiring.{0} Complex
+                (@Field.toSemifield.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Complex
+                (@DivisionRing.toRing.{0} Complex
+                  (@Field.toDivisionRing.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Complex Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Complex
+                (@Ring.toSemiring.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+              (@Semiring.toModule.{0} Complex
+                (@DivisionSemiring.toSemiring.{0} Complex
+                  (@Semifield.toDivisionSemiring.{0} Complex
+                    (@Field.toSemifield.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Complex ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+            (@DivisionSemiring.toSemiring.{0} Complex
+              (@Semifield.toDivisionSemiring.{0} Complex
+                (@Field.toSemifield.{0} Complex
+                  (@NormedField.toField.{0} Complex
+                    (@DenselyNormedField.toNormedField.{0} Complex
+                      (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Complex
+                (@DivisionRing.toRing.{0} Complex
+                  (@Field.toDivisionRing.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Complex Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Complex
+                (@Ring.toSemiring.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+              (@Semiring.toModule.{0} Complex
+                (@DivisionSemiring.toSemiring.{0} Complex
+                  (@Semifield.toDivisionSemiring.{0} Complex
+                    (@Field.toSemifield.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))))
+          Complex
+          (@DistribMulAction.toDistribSMul.{0, 0} Complex (EuclideanSpace.{0, 0} Complex (Fin n))
+            (@Semiring.toMonoid.{0} Complex
+              (@DivisionSemiring.toSemiring.{0} Complex
+                (@Semifield.toDivisionSemiring.{0} Complex
+                  (@Field.toSemifield.{0} Complex
+                    (@NormedField.toField.{0} Complex
+                      (@DenselyNormedField.toNormedField.{0} Complex
+                        (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+            (@SubNegMonoid.toAddMonoid.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+              (@AddGroup.toSubNegMonoid.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+                (@AddCommGroup.toAddGroup.{0} (EuclideanSpace.{0, 0} Complex (Fin n))
+                  (@WithLp.instAddCommGroup.{0}
+                    (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                      (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                        (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                          (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                        PiLp.innerProductSpace._proof_1))
+                    ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+                    (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+                      @Ring.toAddCommGroup.{0} Complex
+                        (@DivisionRing.toRing.{0} Complex
+                          (@Field.toDivisionRing.{0} Complex
+                            (@NormedField.toField.{0} Complex
+                              (@DenselyNormedField.toNormedField.{0} Complex
+                                (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))))))
+            (@WithLp.instDistribMulAction.{0, 0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              Complex ((i : Fin n) → (fun (x : Fin n) => Complex) i)
+              (@Semiring.toMonoid.{0} Complex
+                (@DivisionSemiring.toSemiring.{0} Complex
+                  (@Semifield.toDivisionSemiring.{0} Complex
+                    (@Field.toSemifield.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Complex) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Complex
+                  (@DivisionRing.toRing.{0} Complex
+                    (@Field.toDivisionRing.{0} Complex
+                      (@NormedField.toField.{0} Complex
+                        (@DenselyNormedField.toNormedField.{0} Complex
+                          (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike))))))
+              (@Pi.distribMulAction.{0, 0, 0} (Fin n) (fun (x : Fin n) => Complex) Complex
+                (@Semiring.toMonoid.{0} Complex
+                  (@DivisionSemiring.toSemiring.{0} Complex
+                    (@Semifield.toDivisionSemiring.{0} Complex
+                      (@Field.toSemifield.{0} Complex
+                        (@NormedField.toField.{0} Complex
+                          (@DenselyNormedField.toNormedField.{0} Complex
+                            (@RCLike.toDenselyNormedField.{0} Complex Complex.instRCLike)))))))
+                (fun (i : ⋯) =>
+                  @SubNegMonoid.toAddMonoid.{0} ((fun (x : Fin n) => Complex) i)
+                    ((fun (i : ⋯) => @AddGroup.toSubNegMonoid.{0} ((fun (x : ⋯) => Complex) ⋯) ⋯) ⋯))
+                ⋯)))
+          ⋯ ⋯)
+        ⋯ ⋯)
+      ⋯ ⋯)
+def NLA.MI21.leftMatrix : {m n : Nat} → (A B : Fin m → NLA.MI21.Mat n) → (s t r : Real) → NLA.MI21.Mat n :=
+fun {m n : Nat} (A B : Fin m → NLA.MI21.Mat n) (s t r : Real) =>
+  @Finset.sum.{0, 0} (Fin m) (NLA.MI21.Mat n)
+    (@Matrix.addCommMonoid.{0, 0, 0} (Fin n) (Fin n) Complex Complex.instAddCommMonoid)
+    (@Finset.univ.{0} (Fin m) (Fin.fintype m)) fun (i : Fin m) =>
+    @NLA.MI21.spectralPower n
+      (@NLA.MI21.geometricMean n (@NLA.MI21.spectralPower n (A i) s) (@NLA.MI21.spectralPower n (B i) s) t) r
+def NLA.MI21.rightMatrix : {m n : Nat} → (A B : Fin m → NLA.MI21.Mat n) → (s t r p : Real) → NLA.MI21.Mat n :=
+fun {m n : Nat} (A B : Fin m → NLA.MI21.Mat n) (s t r p : Real) =>
+  @NLA.MI21.spectralPower n
+    (@HMul.hMul.{0, 0, 0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) (NLA.MI21.Mat n)
+      (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+      (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin n) (Fin n) (Fin n) Complex (Fin.fintype n)
+        Complex.instMul Complex.instAddCommMonoid)
+      (@HMul.hMul.{0, 0, 0} (NLA.MI21.Mat n) (NLA.MI21.Mat n) (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+        (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin n) (Fin n) (Fin n) Complex (Fin.fintype n)
+          Complex.instMul Complex.instAddCommMonoid)
+        (@NLA.MI21.spectralPower n
+          (@Finset.sum.{0, 0} (Fin m) (NLA.MI21.Mat n)
+            (@Matrix.addCommMonoid.{0, 0, 0} (Fin n) (Fin n) Complex Complex.instAddCommMonoid)
+            (@Finset.univ.{0} (Fin m) (Fin.fintype m)) fun (i : Fin m) => A i)
+          (@HDiv.hDiv.{0, 0, 0} Real Real Real (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+            (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+              (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+                (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+                  (@HSub.hSub.{0, 0, 0} Real Real Real (@instHSub.{0} Real Real.instSub)
+                    (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)) t)
+                  s)
+                r)
+              p)
+            (@OfNat.ofNat.{0} Real (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast NLA.MI21.geometricMean._proof_1))))
+        (@NLA.MI21.spectralPower n
+          (@Finset.sum.{0, 0} (Fin m) (NLA.MI21.Mat n)
+            (@Matrix.addCommMonoid.{0, 0, 0} (Fin n) (Fin n) Complex Complex.instAddCommMonoid)
+            (@Finset.univ.{0} (Fin m) (Fin.fintype m)) fun (i : Fin m) => B i)
+          (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+            (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+              (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) t s) r)
+            p)))
+      (@NLA.MI21.spectralPower n
+        (@Finset.sum.{0, 0} (Fin m) (NLA.MI21.Mat n)
+          (@Matrix.addCommMonoid.{0, 0, 0} (Fin n) (Fin n) Complex Complex.instAddCommMonoid)
+          (@Finset.univ.{0} (Fin m) (Fin.fintype m)) fun (i : Fin m) => A i)
+        (@HDiv.hDiv.{0, 0, 0} Real Real Real (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+          (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+            (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+              (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+                (@HSub.hSub.{0, 0, 0} Real Real Real (@instHSub.{0} Real Real.instSub)
+                  (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)) t)
+                s)
+              r)
+            p)
+          (@OfNat.ofNat.{0} Real (nat_lit 2)
+            (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast NLA.MI21.geometricMean._proof_1)))))
+    (@HDiv.hDiv.{0, 0, 0} Real Real Real (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+      (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)) p)
+def NLA.MI21.GeometricMeanNormConjecture : Prop :=
+∀ (m n : Nat),
+  @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) m →
+    @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) n →
+      ∀ (A B : Fin m → NLA.MI21.Mat n),
+        (∀ (i : Fin m),
+            @Matrix.PosDef.{0, 0} (Fin n) Complex Complex.instRing Complex.partialOrder Complex.instStarRing (A i)) →
+          (∀ (i : Fin m),
+              @Matrix.PosDef.{0, 0} (Fin n) Complex Complex.instRing Complex.partialOrder Complex.instStarRing (B i)) →
+            ∀ (t s r p : Real),
+              @LE.le.{0} Real Real.instLE (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))
+                  t →
+                @LE.le.{0} Real Real.instLE t
+                    (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)) →
+                  @LT.lt.{0} Real Real.instLT
+                      (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) s →
+                    @LT.lt.{0} Real Real.instLT
+                        (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) r →
+                      @LT.lt.{0} Real Real.instLT
+                          (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) p →
+                        @LE.le.{0} Real Real.instLE
+                            (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))
+                            (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) s r) →
+                          ∀ (ν : NLA.MI21.Mat n → Real),
+                            @NLA.MI21.IsUnitaryInvariantNorm n ν →
+                              @LE.le.{0} Real Real.instLE (ν (@NLA.MI21.leftMatrix m n A B s t r))
+                                (ν (@NLA.MI21.rightMatrix m n A B s t r p))
+NLA.MI21.operatorNorm_isUnitaryInvariant (n : ℕ) : NLA.MI21.IsUnitaryInvariantNorm NLA.MI21.operatorNorm
+NLA.MI21.counterexample (p : ℝ) (hp : 0 < p) :
+  (∀ (i : Fin 2), Matrix.PosDef (NLA.MI21.witnessA i) ∧ Matrix.PosDef (NLA.MI21.witnessB i)) ∧
+    ∑ i, NLA.MI21.witnessA i = 1 ∧
+      ∑ i, NLA.MI21.witnessB i = 1 ∧
+        NLA.MI21.leftMatrix NLA.MI21.witnessA NLA.MI21.witnessB (1 / 2) (1 / 2) 2 = NLA.MI21.witnessL ∧
+          NLA.MI21.rightMatrix NLA.MI21.witnessA NLA.MI21.witnessB (1 / 2) (1 / 2) 2 p = 1 ∧
+            NLA.MI21.witnessVector ≠ 0 ∧
+              Matrix.mulVec NLA.MI21.witnessL NLA.MI21.witnessVector =
+                  ↑NLA.MI21.witnessEigenvalue • NLA.MI21.witnessVector ∧
+                1 < NLA.MI21.witnessEigenvalue ∧
+                  NLA.MI21.witnessEigenvalue ≤
+                      NLA.MI21.operatorNorm
+                        (NLA.MI21.leftMatrix NLA.MI21.witnessA NLA.MI21.witnessB (1 / 2) (1 / 2) 2) ∧
+                    NLA.MI21.operatorNorm
+                          (NLA.MI21.rightMatrix NLA.MI21.witnessA NLA.MI21.witnessB (1 / 2) (1 / 2) 2 p) =
+                        1 ∧
+                      NLA.MI21.operatorNorm
+                          (NLA.MI21.rightMatrix NLA.MI21.witnessA NLA.MI21.witnessB (1 / 2) (1 / 2) 2 p) <
+                        NLA.MI21.operatorNorm
+                          (NLA.MI21.leftMatrix NLA.MI21.witnessA NLA.MI21.witnessB (1 / 2) (1 / 2) 2)
+NLA.MI21.not_geometricMeanNormConjecture : ¬NLA.MI21.GeometricMeanNormConjecture
