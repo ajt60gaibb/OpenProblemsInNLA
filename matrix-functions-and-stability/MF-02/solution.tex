@@ -1,0 +1,380 @@
+% Standalone resolution manuscript generated from solution.md.
+% Compile with XeLaTeX; author and review metadata are maintained in Markdown.
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=24mm,headheight=15pt]{geometry}
+\usepackage{fontspec}
+\setmainfont{DejaVuSerif.ttf}[BoldFont=DejaVuSerif-Bold.ttf,ItalicFont=DejaVuSerif-Italic.ttf,BoldItalicFont=DejaVuSerif-BoldItalic.ttf]
+\setsansfont{DejaVuSans.ttf}[BoldFont=DejaVuSans-Bold.ttf,ItalicFont=DejaVuSans-Oblique.ttf]
+\setmonofont{DejaVuSansMono.ttf}
+\usepackage{amsmath,amssymb,unicode-math}
+\setmathfont{latinmodern-math.otf}
+\usepackage{xcolor,microtype,parskip,needspace,fancyhdr}
+\usepackage{bookmark}
+\usepackage{xurl}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue,pdftitle={MF-02:
+A uniform constant-factor bound for cubic composition
+overhead},pdfauthor={George Stepaniants},pdflang={en-GB}}
+\urlstyle{same}
+\setlength{\emergencystretch}{3em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\setcounter{secnumdepth}{0}
+\allowdisplaybreaks[1]
+\widowpenalty=10000
+\clubpenalty=10000
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily RESEARCH MANUSCRIPT / MF-02}
+\fancyhead[R]{\small\sffamily 12 September 2026}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\fontsize{8}{10}\selectfont AI-assisted
+manuscript; exact review and source-attribution evidence is retained in
+the submission record.}}
+\fancyfoot[R]{\footnotesize\thepage}
+\begin{document}
+{\raggedright\Large\bfseries MF-02: A uniform constant-factor bound for
+cubic composition overhead\par}
+\vspace{0.4em}
+{\normalsize\bfseries George Stepaniants\par}
+{\small Department of Computing and Mathematical Sciences, California
+Institute of Technology, Pasadena, California, USA.\par}
+\vspace{0.6em}
+\pagestyle{plain}
+\setlength{\abovedisplayskip}{6pt}
+\setlength{\belowdisplayskip}{6pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+
+This manuscript establishes a uniform constant-factor asymptotic bound
+for the stage count in MF-02. The classical cubic iteration and the
+prior constant-factor optimality results are credited in Section 6. The
+explicit estimate proved here is at most one cubic stage per allowed
+unrestricted multiplication. The exact smallest stage count and the
+stronger same-budget optimization question remain open.
+
+Prepared with substantial ChatGPT/Codex assistance at the author's
+request. A separate
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/stepaniants-mf02-2026-09-12/verification/independent-review/MF-02-independent-review.md}{independent
+mathematical review} returned PASS for the theorem and the canonical
+uniform asymptotic-order scope. A second
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/stepaniants-mf02-2026-09-12/verification/source-review/REVIEW.md}{independent
+source and scope review} confirms the attribution and the distinction
+between the canonical asymptotic target and the stronger source
+questions. This is an informal automated-agent audit, not external human
+peer review or formal verification.
+
+\subsection{1. Exact target and result}\label{exact-target-and-result}
+
+Let \(I_\delta=[-1,-\delta]\cup[\delta,1]\), where \(0<\delta<1\). Let
+\(\mathcal P_m\) be the real polynomials computed from \(1,x\), using
+arbitrary real linear combinations and at most \(m\) nonscalar
+multiplications. Define \[
+E_m(\delta)=\inf_{p\in\mathcal P_m}
+ \max_{x\in I_\delta}|p(x)-\operatorname{sign}(x)|.
+\] For \(T\ge0\), let \[
+C_T(\delta)=\inf_{a_t,b_t\in\mathbb R}
+ \max_{x\in I_\delta}
+ |(q_T\circ\cdots\circ q_1)(x)-\operatorname{sign}(x)|,
+\qquad q_t(x)=a_tx+b_tx^3.
+\] At \(T=0\) the composition is \(x\). The canonical MF-02 target asks
+for the asymptotic dependence on both \(m,\delta\) of \[
+T_{\min}(m,\delta)=
+\inf\{T\in\mathbb N_0:C_T(\delta)\le E_m(\delta)\}.
+\]
+
+\textbf{Theorem.} For every \(0<\delta<1\), \[
+T_{\min}(0,\delta)=T_{\min}(1,\delta)=1.
+\] For every integer \(m\ge2\), \[
+\left\lfloor\frac m2\right\rfloor
+\le T_{\min}(m,\delta)\le m.
+\tag{1}
+\] Consequently, \[
+\frac{m+1}{4}\le T_{\min}(m,\delta)\le m+1
+\qquad(m\in\mathbb N_0,\ 0<\delta<1).
+\tag{2}
+\] Thus the asymptotic order is \(\Theta(m+1)\), with absolute constants
+uniform over the entire gap range, including gaps depending on \(m\).
+
+This theorem gives a constant-factor asymptotic comparison. It does not
+give an exact formula for \(T_{\min}\), an optimal leading constant, or
+the value of \(E_m\). The uniform two-sided order in (2) determines the
+canonical asymptotic dependence on both parameters. The broader source
+question about the exact smallest \(T\), and the comparison at the same
+multiplication budget, remain unanswered by (1).
+
+\Needspace{12\baselineskip}
+
+\subsection{2. A degree-only lower
+bound}\label{a-degree-only-lower-bound}
+
+Put \[
+r_\delta=\frac{1-\delta}{1+\delta}\in(0,1).
+\]
+
+\textbf{Lemma 1.} If \(p\in\mathbb R[x]\) has degree at most \(D\),
+where \(D\ge1\) is an integer, then \[
+\max_{x\in I_\delta}|p(x)-\operatorname{sign}(x)|
+\ge r_\delta^D.
+\tag{3}
+\]
+
+We first recall and prove the needed Chebyshev comparison. Let \(T_D\)
+be the degree-\(D\) Chebyshev polynomial, characterized by \[
+T_D(\cos\theta)=\cos(D\theta).
+\] If \(R\) is a real polynomial of degree at most \(D\) with
+\(|R|\le1\) on \([-1,1]\), then \[
+|R(t)|\le |T_D(t)|\qquad(|t|>1).
+\tag{4}
+\] For \(t_0>1\), suppose otherwise. Replacing \(R\) by \(-R\) if
+necessary, set \(c=R(t_0)/T_D(t_0)>1\). At the \(D+1\) points
+\(\cos(j\pi/D)\), the polynomial \(R-cT_D\) has strict alternating
+signs, because \(|R|\le1<c\). It has at least \(D\) distinct roots in
+\((-1,1)\), as well as the root \(t_0\), contradicting its degree. The
+polynomial is not identically zero because \(c>1\). The case \(t_0<-1\)
+follows by replacing \(R(t)\) with \(R(-t)\) and using
+\(T_D(-t)=(-1)^DT_D(t)\).
+
+To prove (3), let the error of \(p\) be \(e\). If \(e\ge1\), the
+assertion follows. The value \(e=0\) is impossible: agreement with \(1\)
+throughout the interval \([\delta,1]\) would force \(p\equiv1\),
+contradicting agreement with \(-1\) on the other interval. Hence
+consider \(0<e<1\). The odd part \[
+o(x)=\frac{p(x)-p(-x)}2
+\] also has error at most \(e\), so \(1-e\le o(x)\le1+e\) on
+\([\delta,1]\). As \(o\) is odd, \(o(x)^2=B(x^2)\) for a real polynomial
+\(B\) of degree at most \(D\), and \(B(0)=0\). The polynomial \[
+H(t)=\frac{1+e^2-B(t)}{2e}
+\] has absolute value at most \(1\) on \([\delta^2,1]\). Map this
+interval affinely to \([-1,1]\); the image of \(t=0\) is \[
+-\frac{1+\delta^2}{1-\delta^2}.
+\] By (4), \[
+\frac{1+e^2}{2e}=H(0)
+\le T_D\!\left(\frac{1+\delta^2}{1-\delta^2}\right)
+=\frac{r_\delta^{-D}+r_\delta^D}{2}.
+\tag{5}
+\] The last equality follows from \(T_D(\cosh s)=\cosh(Ds)\) and \[
+\frac{1+\delta^2}{1-\delta^2}
+=\cosh\!\left(\log\frac{1+\delta}{1-\delta}\right).
+\] The function \(e\mapsto(e+e^{-1})/2\) is strictly decreasing on
+\((0,1)\). Thus (5) gives \(e\ge r_\delta^D\), as claimed.
+
+Every polynomial in \(\mathcal P_m\) has degree at most \(2^m\): the
+largest available degree starts at \(1\), linear combinations never
+increase it, and each multiplication at most doubles it. This remains
+true with stored-value reuse and an arbitrary number of free linear
+combinations. Consequently, \[
+E_m(\delta)\ge r_\delta^{\,2^m}>0.
+\tag{6}
+\] Likewise each length-\(T\) cubic composition has degree at most
+\(3^T\), including degenerate stages, so \[
+C_T(\delta)\ge r_\delta^{\,3^T}>0.
+\tag{7}
+\] Taking infima in these pointwise inequalities does not require
+attainment.
+
+\Needspace{12\baselineskip}
+
+\subsection{3. One cubic step squares the interval error
+ratio}\label{one-cubic-step-squares-the-interval-error-ratio}
+
+For \(0<a<1\), set \[
+A=1+a+a^2,\qquad
+M=\frac{2A^{3/2}}{3\sqrt3},\qquad
+g_a(x)=\frac{x(A-x^2)}M,
+\] and define \[
+\phi(a)=\frac{3\sqrt3\,a(1+a)}
+                  {2(1+a+a^2)^{3/2}}.
+\tag{8}
+\] The polynomial \(g_a\) has the allowed form \(ux+vx^3\). It maps
+\([a,1]\) into \([\phi(a),1]\). Indeed its unique critical point in that
+interval is \(\sqrt{A/3}\): \[
+A-3a^2=(1-a)(1+2a)>0,\qquad
+3-A=(1-a)(a+2)>0.
+\] At this point \(x(A-x^2)=M\), while the two endpoint values are both
+\(a(1+a)\). The derivative is positive before the critical point and
+negative after it. In particular \(0<\phi(a)<1\).
+
+\textbf{Lemma 2.} For every \(0<a<1\), \[
+\phi(a)\ge\frac{2a}{1+a^2},\qquad
+\frac{1-\phi(a)}{1+\phi(a)}
+\le \left(\frac{1-a}{1+a}\right)^2.
+\tag{9}
+\]
+
+All quantities in the first comparison are positive. After cancelling
+\(a\) and squaring, it is equivalent to \[
+27(1+a)^2(1+a^2)^2-16(1+a+a^2)^3\ge0.
+\] The exact identity \[
+27(1+a)^2(1+a^2)^2-16(1+a+a^2)^3
+=(1-a)^2(11a^4+28a^3+30a^2+28a+11)
+\tag{10}
+\] proves it. Since \(v\mapsto(1-v)/(1+v)\) is decreasing for \(v>0\),
+the first comparison gives the second, using \[
+\frac{1-2a/(1+a^2)}{1+2a/(1+a^2)}
+=\left(\frac{1-a}{1+a}\right)^2.
+\]
+
+Starting with \(a_0=\delta\), let \(a_{t+1}=\phi(a_t)\). For \(T\ge1\),
+the composition \[
+G_T=g_{a_{T-1}}\circ\cdots\circ g_{a_0}
+\] maps \([\delta,1]\) into \([a_T,1]\) and is odd. Scale its output by
+\(2/(1+a_T)\), absorbing that scalar into the two coefficients of the
+last cubic stage. The resulting allowed length-\(T\) composition has
+error at most \[
+\frac{1-a_T}{1+a_T}\le r_\delta^{\,2^T}.
+\] Thus \[
+C_T(\delta)\le r_\delta^{\,2^T}\qquad(T\ge1).
+\tag{11}
+\] No additional composition stage is used for the final scaling.
+Coefficients may depend on \(T,\delta\), as permitted by the target.
+Each stage requires at most two nonscalar multiplications.
+
+\Needspace{12\baselineskip}
+
+\subsection{4. Strict improvement survives taking
+infima}\label{strict-improvement-survives-taking-infima}
+
+\textbf{Lemma 3.} For fixed \(\delta\in(0,1)\), the sequence
+\(C_T(\delta)\) is strictly decreasing in \(T\).
+
+First \(C_0(\delta)=1-\delta\), and (11) implies \[
+C_1(\delta)\le r_\delta^2<1-\delta=C_0(\delta).
+\tag{12}
+\] For \(T\ge1\), (7) and (11) give \(0<C_T(\delta)<1\). Take any
+allowed length-\(T\) composition \(P\) with error \(e<1\). It is odd and
+satisfies \(P([\delta,1])\subset[1-e,1+e]\). Set \(a=(1-e)/(1+e)\), so
+that \[
+\frac{P([\delta,1])}{1+e}\subset[a,1].
+\] The polynomial in the single variable \(z\), \[
+h_e(z)=\frac{2}{1+\phi(a)}
+       g_a\!\left(\frac{z}{1+e}\right),
+\] is one allowed cubic stage. Its composition with \(P\) has error at
+most \[
+\frac{1-\phi(a)}{1+\phi(a)}
+\le\left(\frac{1-a}{1+a}\right)^2=e^2.
+\] Choose a sequence of length-\(T\) compositions whose errors tend to
+\(C_T(\delta)\); the errors are eventually less than \(1\). It follows
+that \[
+C_{T+1}(\delta)\le C_T(\delta)^2<C_T(\delta).
+\tag{13}
+\] This argument handles potentially unattained infima directly.
+
+\Needspace{12\baselineskip}
+
+\subsection{5. Proof of the theorem and
+interpretation}\label{proof-of-the-theorem-and-interpretation}
+
+For \(m\ge1\), combine (6) and (11) with \(T=m\): \[
+C_m(\delta)\le r_\delta^{\,2^m}\le E_m(\delta).
+\tag{14}
+\] Hence the admissible set in the definition of \(T_{\min}\) is
+nonempty and \(T_{\min}(m,\delta)\le m\).
+
+For \(m\ge2\), put \(k=\lfloor m/2\rfloor\ge1\). Every length-\(k\)
+cubic composition is computed using at most \(2k\le m\) multiplications,
+so \[
+E_m(\delta)\le C_k(\delta).
+\] If \(T<k\), Lemma 3 yields \[
+C_T(\delta)>C_k(\delta)\ge E_m(\delta).
+\] Thus \(T_{\min}(m,\delta)\ge k\), establishing (1).
+
+At \(m=0\), Lemma 1 with \(D=1\) and the linear polynomial
+\(2x/(1+\delta)\) show \[
+E_0(\delta)=r_\delta.
+\] Every polynomial computable with one multiplication has degree at
+most two. Its odd part is linear, so the same lower bound proves
+\(E_1(\delta)=r_\delta\). Since \(C_0(\delta)=1-\delta>r_\delta\) and
+\(C_1(\delta)\le r_\delta^2<r_\delta\), the asserted two endpoint values
+follow. Finally, for \(m\ge2\), \(\lfloor m/2\rfloor\ge(m+1)/4\), and
+the two small cases satisfy (2) as well.
+
+The comparison uses at most \(2m\) matrix products for \(m\ge1\),
+because an allowed cubic stage costs at most two. This is an upper
+guarantee on multiplication overhead, not an assertion that factor two
+is optimal or always necessary. The estimate remains uniform when
+\(\delta\) tends to either endpoint at any rate with \(m\).
+
+\Needspace{12\baselineskip}
+
+\subsection{6. Attribution, scope, and
+verification}\label{attribution-scope-and-verification}
+
+The scaled cubic and its endpoint recurrence are due to Chen and Chow
+(2014), Section 3, equations (3.3)-(3.6), printed pages 9-10; their
+Theorems 3.1-3.2, printed page 11, analyze its convergence. Polar
+Express, version 5, Appendix F, equation (17), gives the same cubic and
+final centering. Its Theorem 3.1, equations (8)-(10), establishes
+optimality within the fixed-degree composition class, with the Chen-Chow
+antecedent credited in Section 3.2 and Appendix B. The construction in
+Section 3 is not a new iteration.
+
+Cheon, Kim and Kim (2020) already establish constant-factor
+asymptotically optimal fixed-degree composition complexity, including
+the cubic case. Their relevant locators are Section 2.1, printed page 9;
+Lemma 3, page 14; Theorem 3, page 15; Table 1, page 17; and Section 3.4,
+pages 17-18. A short synthesis of their global Lemma 3 and the classical
+Chebyshev degree bound already gives the uniform constant-factor order
+for the canonical quantity; the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/stepaniants-mf02-2026-09-12/verification/source-review/REVIEW.md}{independent
+source review} supplies that synthesis explicitly. No first-discovery or
+novelty claim is made for that order or the underlying method.
+
+This self-contained note supplies the explicit comparison in (14), hence
+at most one cubic stage per allowed unrestricted multiplication. The
+source review did not find that specific comparison in the inspected
+publications, but that limited search is not a priority certification.
+The result determines the constant-factor asymptotic order of the
+canonical MF-02 quantity uniformly in both parameters. The exact
+minimum, the optimal leading constant, and the stronger source question
+comparing the two errors at the same multiplication budget remain
+unanswered. The complete original target and historical references are
+retained on the canonical page.
+
+Section 2 proves the Chebyshev comparison and Section 3 proves the cubic
+interval estimate. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/stepaniants-mf02-2026-09-12/verification/independent-review/MF-02-independent-review.md}{independent
+mathematical review} reconstructs the complete argument, including the
+potentially unattained infima and both endpoint cases. Its
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/stepaniants-mf02-2026-09-12/verification/independent-review/exact_algebra_check.py}{exact
+checker} confirms 17 rational polynomial and coefficient-sign checks.
+These computations supplement the proof. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/stepaniants-mf02-2026-09-12/README.md}{submission
+record} retains both reviews and their exact source fingerprints.
+Neither automated-agent review nor these checks constitute external
+human peer review or formal verification.
+
+\subsubsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  N. Amsel et al., \emph{Linear Systems and Eigenvalue Problems: Open
+  Questions from a Simons Workshop}, arXiv:2602.05394v3, Section 6.3,
+  Problem 6.5 and equations (21)-(22).
+  \href{https://arxiv.org/html/2602.05394v3\#S6.SS3}{Primary source}.
+\item
+  E. H. Rubensson, E. Jarlebring and G. Lorentzon, \emph{Recursive
+  expansion of the matrix step function using polynomials of degree
+  eight}, arXiv:2606.24701v1, Section 7.
+  \href{https://arxiv.org/html/2606.24701v1}{Primary source}.
+\item
+  J. Chen and E. Chow, \emph{A Stable Scaling of Newton-Schulz for
+  Improving the Sign Function Computation of a Hermitian Matrix},
+  ANL/MCS-P5059-0114, 2014, Section 3, equations (3.3)-(3.6) and
+  Theorems 3.1-3.2.
+  \href{https://www.mcs.anl.gov/papers/P5059-0114.pdf}{Primary author
+  report}.
+\item
+  N. Amsel, D. Persson, C. Musco and R. M. Gower, \emph{The Polar
+  Express: Optimal Matrix Sign Methods and Their Application to the Muon
+  Algorithm}, arXiv:2505.16932v5, 4 May 2026, Theorem 3.1 and Appendix
+  F, equation (17). \href{https://arxiv.org/html/2505.16932v5}{Primary
+  source}.
+\item
+  J. H. Cheon, D. Kim and D. Kim, \emph{Efficient Homomorphic Comparison
+  Methods with Optimal Complexity}, ASIACRYPT 2020, 221-256, Lemma 3,
+  Theorem 3, Table 1 and Section 3.4.
+  \href{https://doi.org/10.1007/978-3-030-64834-3_8}{DOI};
+  \href{https://eprint.iacr.org/2019/1234.pdf}{author manuscript}.
+\end{enumerate}
+\end{document}

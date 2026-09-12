@@ -2,12 +2,11 @@
 
 [← All categories](../README.md) · [Full catalog](../CATALOG.md) · [Solved and claimed solutions](../RESOLVED.md)
 
-**17 problems with open targets.** 8 retained entries are excluded from the open count.
+**16 problems with open targets.** 9 retained entries are excluded from the open count.
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
 | [MF-01](MF-01/README.md) | Optimal sign approximation with a multiplication budget | **🔵 OPEN** | challenging | interesting to the community | [PDF](MF-01/problem.pdf) · [TeX](MF-01/problem.tex) |
-| [MF-02](MF-02/README.md) | Multiplication overhead of cubic sign compositions | **🔵 OPEN** | challenging | interesting to the community | [PDF](MF-02/problem.pdf) · [TeX](MF-02/problem.tex) |
 | [MF-04](MF-04/README.md) | Finiteness for nonnegative rational matrix families | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](MF-04/problem.pdf) · [TeX](MF-04/problem.tex) |
 | [MF-06](MF-06/README.md) | A pointwise Lipschitz lower bound for the joint spectral radius | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](MF-06/problem.pdf) · [TeX](MF-06/problem.tex) |
 | [MF-08](MF-08/README.md) | NP-hardness of unrestricted static output-feedback stabilization | **🔵 OPEN** | extreme | broadly interesting | [PDF](MF-08/problem.pdf) · [TeX](MF-08/problem.tex) |
@@ -28,6 +27,7 @@
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
+| [MF-02](MF-02/README.md) | Multiplication overhead of cubic sign compositions | **✅ SOLVED** | challenging | interesting to the community | [PDF](MF-02/problem.pdf) · [TeX](MF-02/problem.tex) |
 | [MF-03](MF-03/README.md) | A uniform disk bound for wave-kernel Padé approximants | **✅ SOLVED** | hard | interesting to specialist | [PDF](MF-03/problem.pdf) · [TeX](MF-03/problem.tex) |
 | [MF-05](MF-05/README.md) | Local Hölder continuity of the joint spectral radius | **✅ SOLVED** | challenging | interesting to the community | [PDF](MF-05/problem.pdf) · [TeX](MF-05/problem.tex) |
 | [MF-07](MF-07/README.md) | Uniform polynomial bounds for products at joint spectral radius one | **✅ SOLVED** | challenging | interesting to the community | [PDF](MF-07/problem.pdf) · [TeX](MF-07/problem.tex) |

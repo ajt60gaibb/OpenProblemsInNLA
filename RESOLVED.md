@@ -53,6 +53,14 @@ The complete analytic proof passed a separate [independent Codex-agent review](r
 
 The complete argument passed a separate [independent Codex-agent review](references/stepaniants-ra19-2026-09-11/verification/independent-review/review.md), with reviewer-written universal polynomial checks, and a distinct coordinating audit. Substantial AI assistance and automated-review limitations are documented in the [submission record](references/stepaniants-ra19-2026-09-11/README.md). No external human peer review or formal certification is asserted. Kubjas, Sodomaco and Tsigaridas retain attribution for their conjecture and finite evidence. The permanent ID, full original statement, historical ratings and dimension-two scope correction remain unchanged.
 
+### ✅ MF-02 - uniform constant-factor cubic-composition overhead - George Stepaniants
+
+**Expository proof-note author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Canonical asymptotic-order resolution recorded 2026-09-12.** The [Theorem in Section 1](matrix-functions-and-stability/MF-02/solution.md) proves $T_{\min}(m,\delta)=\Theta(m+1)$ uniformly for every $0<\delta<1$, with $\lfloor m/2\rfloor\le T_{\min}\le m$ for $m\ge2$ and both small-budget values equal to one. [Proof PDF](matrix-functions-and-stability/MF-02/solution.pdf) · [Retained canonical target](matrix-functions-and-stability/MF-02/README.md).
+
+Cheon-Kim-Kim (2020) retain credit for prior constant-factor optimality, and Chen-Chow (2014) and Polar Express for the classical cubic construction. Uniform order already follows from the prior estimates by a short synthesis; this self-contained note supplies the explicit $T_{\min}\le m$ comparison and makes no first-discovery claim. The exact minimum, optimal leading constant and same-budget error comparison remain unanswered. The full proof passed a separate [independent mathematical and scope audit](references/stepaniants-mf02-2026-09-12/verification/independent-review/MF-02-independent-review.md). AI assistance and the limits of automated review are explicit in the [submission record](references/stepaniants-mf02-2026-09-12/README.md); no formal verification or external human peer review is asserted.
+
 ### ✅ IE-05 - the orthogonal partial-pivoting extremizer equality is false - George Stepaniants
 
 **Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
