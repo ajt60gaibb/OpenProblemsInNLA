@@ -6,7 +6,6 @@
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [KE-05](KE-05/README.md) | Spectral-gap-independent constants for randomized block polynomial interpolation | **🔵 OPEN** | challenging | interesting to the community | [PDF](KE-05/problem.pdf) · [TeX](KE-05/problem.tex) |
 | [RA-01](RA-01/README.md) | Optimal pivot count for RPCholesky trace approximation | **🔵 OPEN** | challenging | interesting to the community | [PDF](RA-01/problem.pdf) · [TeX](RA-01/problem.tex) |
 | [RA-04](RA-04/README.md) | Clustered singular-value gaps in randomized block Krylov approximation | **🔵 OPEN** | hard | interesting to specialist | [PDF](RA-04/problem.pdf) · [TeX](RA-04/problem.tex) |
 | [RA-05](RA-05/README.md) | Sharp joint rank and accuracy dependence for strong $\ell_p$ subspace coresets | **🔵 OPEN** | challenging | interesting to the community | [PDF](RA-05/problem.pdf) · [TeX](RA-05/problem.tex) |
@@ -30,6 +29,7 @@
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
+| [KE-05](KE-05/README.md) | Spectral-gap-independent constants for randomized block polynomial interpolation | **✅ SOLVED** | challenging | interesting to the community | [PDF](KE-05/problem.pdf) · [TeX](KE-05/problem.tex) |
 | [RA-02](RA-02/README.md) | Polynomial trace-error factor after exactly the target rank of pivots | **✅ SOLVED** | challenging | interesting to the community | [PDF](RA-02/problem.pdf) · [TeX](RA-02/problem.tex) |
 | [RA-03](RA-03/README.md) | Improve the randomized LU squared-error factor to $2^k$ | **✅ SOLVED** | challenging | interesting to specialist | [PDF](RA-03/problem.pdf) · [TeX](RA-03/problem.tex) |
 | [RA-07](RA-07/README.md) | Convexity of the expected error of volume-sampled column subsets | **✅ SOLVED** | challenging | interesting to the community | [PDF](RA-07/problem.pdf) · [TeX](RA-07/problem.tex) |
