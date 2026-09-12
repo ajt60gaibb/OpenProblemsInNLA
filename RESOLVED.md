@@ -21,6 +21,15 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### ✅ KE-05 - spectrum-uniform interpolation constants are unbounded - George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Negative resolution recorded 2026-09-12 (UTC).** The [exact target and Sections 1-5](randomized-and-low-rank-approximation/KE-05/solution.md) exhibit admissible deterministic $2\times2$ blocks with $d=3$ for which $\chi_{\rm mono}\chi_{\rm coef}$ diverges in probability as two eigenvalues approach zero. Hence no finite uniform constant exists even for failure probability $1/2$. [Proof PDF](randomized-and-low-rank-approximation/KE-05/solution.pdf) · [Original canonical target](randomized-and-low-rank-approximation/KE-05/README.md).
+
+The complete argument passed a separate [independent Codex-agent mathematical audit](references/stepaniants-ke05-2026-09-12/independent-review.md). Substantial AI assistance and informal-review limits are explicit; no external human peer review or formal verification is asserted. Shao retains credit for the conjecture and framework. The example uses interlaced block spectra, which the canonical target permits; it does not settle a different ordered-interval variant or disprove block Lanczos convergence. The [submission record](references/stepaniants-ke05-2026-09-12/README.md) documents exact verification, source checks and public eligibility. The permanent ID, original statement and historical ratings remain intact.
+
+
 ### ✅ IE-05 - the orthogonal partial-pivoting extremizer equality is false - George Stepaniants
 
 **Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.

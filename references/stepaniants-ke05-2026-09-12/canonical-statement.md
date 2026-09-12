@@ -3,25 +3,8 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because almost-sure invertibility does not yield spectrum-uniform probabilistic constants; community impact is explaining cluster robustness of block Lanczos.  
-**Status:** Solved  
-**Last checked:** 2026-09-12  
-
-## Negative resolution - 12 September 2026 (UTC)
-
-**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
-
-The answer to the displayed uniform-probability question is **no**. The [exact target and Sections 1-5 of the complete proof](solution.md) give deterministic admissible blocks with $b=2$, $d=3$,
-$$
-\Lambda_1=2I_2,\qquad \Lambda_2=\operatorname{diag}(\varepsilon,2\varepsilon),
-\qquad \Lambda_3=\operatorname{diag}(0,1).
-$$
-Along $\varepsilon_m=1/(m+5)$, the probability that $\chi_{\rm mono}\chi_{\rm coef}$ is below any fixed finite constant tends to zero. This contradicts the requested bound already at $\delta=1/2$. The proof uses the literal recurrence and all prescribed root orderings; no input depends on the sampled Gaussian matrices.
-
-[Proof PDF](solution.pdf) · [Standalone proof TeX](solution.tex) · [Independent mathematical review](../../references/stepaniants-ke05-2026-09-12/independent-review.md) · [Submission and public-source audit](../../references/stepaniants-ke05-2026-09-12/README.md).
-
-The complete proof passed a separate Codex-agent informal audit. Substantial AI assistance is disclosed; this is neither external human peer review nor formal verification. Shao retains credit for the original conjecture and interpolation framework. The counterexample uses interlaced block spectra and a repeated eigenvalue within one block, both permitted by the original hypotheses. It does not address a different question imposing ordered spectral intervals or refute cluster-robust block Lanczos convergence itself. The original statement, permanent ID, references and dated history remain below; the ratings are historical.
-
-## Original statement (retained)
+**Status:** Open  
+**Last checked:** 2026-09-10  
 
 Fix integers $b\ge1$, $d\ge2$. Let $\Lambda_1,\ldots,\Lambda_d\in\mathbb R^{b\times b}$ be diagonal with pairwise disjoint spectra. Draw all entries of $\Omega_1,\ldots,\Omega_d\in\mathbb R^{b\times b}$ independently from $N(0,1)$ and put $B_i=\Omega_i^{-1}\Lambda_i\Omega_i$. Let $a$ and $c$ be the smallest and largest diagonal entries in the entire family.
 
@@ -72,10 +55,6 @@ These constants control matrix-polynomial interpolation in the convergence analy
 ## Audit — 2026-09-10
 
 Rechecked [Shao's May 2026 Conjecture 1](https://arxiv.org/html/2507.10144v2) and current version history. It still requires independence of gaps inside and between blocks. Cluster-robustness and later-author searches found no resolution. The scalar-block baseline does not resolve noncommuting block interpolation.
-
-## Resolution audit - 2026-09-12
-
-The independent review checked the full algebra, almost-sure nonsingularity of every prescribed ordering, and the deterministic-input probability quantifiers. A fresh public fork/branch/PR audit and primary-source search found no prior resolution of KE-05 at the recorded time; its exact scope and limits are in the linked submission record. All original mathematical hypotheses remain unchanged.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
