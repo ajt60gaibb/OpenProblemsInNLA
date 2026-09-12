@@ -1,0 +1,197 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/99c678e569c7c4c0772db297c5ddd5e4c9b6322e/schema/v0.4.schema.json
+version: v0.4
+project:
+  name: 'MI-23: generalized geometric-mean log-majorization counterexample'
+  description: Formalizes the complete negative answer to the corrected canonical conjecture using
+    complex positive-definite matrices, genuine CFC real powers, full characteristic-root lists
+    and exact log-majorization. Proved spectral and Euclidean norm bridges connect a small exact
+    rational certificate to the original target.
+  authors:
+  - George Stepaniants
+  affiliations:
+    George Stepaniants: Department of Computing and Mathematical Sciences, California Institute
+      of Technology, Pasadena, California, USA
+  responsible_maintainers:
+  - George Stepaniants
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+- title: MI-23 — Corrected generalized geometric-mean product conjecture
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/8b3d1157b73cd526bb4d0c2fd2dd1666d41812dc/matrix-inequalities-and-norms/MI-23/README.md
+  type: web-post
+  location: Complete corrected eigenvalue log-majorization conjecture
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: All positive dimensions, all complex positive-definite A,B and all real r,s,p,t with p≥1,
+    0≤t≤1 and either r,s≥1 or r,s≤0. This is the corrected eigenvalue statement, not the earlier
+    singular-value conjecture.
+- title: 'MI-23: Resolution'
+  authors:
+  - Matthew J. Colbrook
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/8b3d1157b73cd526bb4d0c2fd2dd1666d41812dc/matrix-inequalities-and-norms/MI-23/solution.tex
+  type: manuscript
+  location: Complete exact positive-definite counterexample and its norm certificate
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: Original counterexample and informal mathematical proof remain attributed to Colbrook. The
+    formalization proves all CFC, product-spectrum and norm bridges required to turn the exact rational
+    witness into a full negative answer.
+related_formalizations:
+- id: https://github.com/sgstepaniants/Forsythe/tree/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof
+  relationship: other
+  note: Workflow reference for statement-first organization, explicit kernel LeanCert audit and
+    the shared Comparator pipeline. Checker reuse is credited in tools/lean/NOTICE.md. No Forsythe
+    mathematical result is assumed.
+- id: https://github.com/jaumededios/Schiffer/tree/2938e277969c329caf154e48a3d8823f3635c7f1
+  relationship: other
+  note: Campaign reference for separating numerical targets from proof implementation; no Schiffer
+    mathematical result or code is imported.
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: Multiple agents; two independent statement approvals before implementation; pinned
+      Mathlib actual CFC, Hermitian spectrum and Euclidean operator-norm APIs; two independent final
+      proof reviews with separate-prefix source elaboration and proof-term inspection.
+    prompting_notes: Preserve the full complex PD target and every real parameter region. Prove
+      complete ordered-root semantics, actual fractional-power identities and norm bridges. Use
+      exact small matrix addition-chain certificates and one retained LeanCert kernel point inequality
+      instead of approximate eigensolvers or interval searches.
+  notes: AI-assisted formalization requested by George Stepaniants. Implementation agent /root/formal_review_standards
+    is not counted as an independent referee. No human peer review, source-author endorsement, unrecorded
+    model identity or measured monetary cost is claimed.
+status:
+  scope: Complete negative answer to canonical MI-23. All eight exports passed local source elaboration,
+    standard-three transitive axiom and kernel trust checks, two independent statement reviews and
+    two independent final proof reviews. Actual Linux sandboxed Comparator, default-kernel replay,
+    negative controls and independent operational audit are still pending. Canonical status remains
+    Solved.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: &id001
+  - propext
+  - Classical.choice
+  - Quot.sound
+  main_results:
+  - declaration: NLA.MI23.positive_powers_and_means
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI23.product_eigenvalue_semantics
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI23.squared_product_largest
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI23.operator_norm_bounds
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI23.witness_data
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI23.witness_squared_gap
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI23.counterexample
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI23.not_generalizedGeometricMeanConjecture
+    file: Solution.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+fidelity:
+  divergences: No narrowing of the original target. Fin-indexed complex matrices represent every
+    original dimension. Real-part mapping in the actual characteristic-root list is supported by
+    a proved reverse complex-root multiset equality, positivity and dimension theorem for all positive-definite
+    products. Log-majorization retains every proper nonempty prefix inequality and full product
+    equality; only its first necessary inequality is needed to refute it. CFC real powers retain
+    both parameter regions, negative and zero exponents and t endpoints. The r=s=1,p=2,t=1/8 rational
+    witness negates the full universal assertion. Exact algebra replaces approximate fractional-power
+    or eigenvalue calculations.
+review:
+  status: agent-reviewed; local Lean checks passed; Linux Comparator pending
+  reviewers:
+  - 'OpenAI Codex agent /root/leancert_examples: independent statement referee 1'
+  - 'OpenAI Codex agent /root: independent statement referee 2 and final proof referee 2'
+  - 'OpenAI Codex agent /root/solved_statement_inventory: independent final proof referee 1'
+  notes: Both statement approvals precede implementation and bind unchanged definitions, Challenge
+    and numerical targets. Both final referees independently re-elaborated the proof into fresh
+    object prefixes and inspected actual matrix/CFC/spectral semantics and certificate consumption.
+    Sixty-four distinct implementation/public declarations pass kernel trust assertions with exactly
+    propext, Classical.choice and Quot.sound; independent inspections repeat the eight public checks.
+    The single LeanCert sign certificate uses kernel trust and is retained in the full negation.
+    The eight deliberate Challenge placeholders are excluded from proof-development sorry counts
+    and never imported by Solution. Local macOS reviews reuse exact clean dependency caches; no
+    actual project-specific Linux run or full dependency-source rebuild is claimed. Tau Ceti rubrics
+    are adapted to NLA scope. Historical metadata and all review evidence remain byte-identical;
+    the old frozen README is archived as verification/linux-candidate-2026-09-12/frozen-local-proof-README.md.
+    Only the current README changes among the 25 proof-freeze inputs; all 24 others remain unchanged.
+  statement_reports:
+  - file: reviews/statement-referee-1.md
+    sha256: 836617b6949c6669fcd7c3cc87e575621474a0974432f2a607e5d497dc10b4dd
+  - file: reviews/statement-referee-2.md
+    sha256: 6189771ad2354c5416d204e32c8e930da05752cc7f0a05cc34d03ba21746b20e
+  proof_reports:
+  - file: reviews/proof-referee-1.md
+    sha256: 37985a31879f155da1b52d1cb9c955bb844d16edc862ccca327b3f0aaade8da1
+  - file: reviews/proof-referee-2.md
+    sha256: 707f40dc07f789e0a201ebf2c158c86897e047ae898e7b776854f92d0f94ff02
+  proof_freeze:
+    file: reviews/proof-freeze.json
+    sha256: 18fbf9a74e6006ca2b4159be62730c6df4faf38d472250b8ca1e7e54bf392ecb
+  linux_verification:
+    status: pending
+    note: No project-specific Linux run, Comparator/default-kernel result or operational verdict
+      is advertised at candidate packaging.
+alignment:
+- declaration: NLA.MI23.positive_powers_and_means
+  scope: Genuine positive definiteness of all real CFC powers and generalized means, including zero
+    and negative exponents.
+- declaration: NLA.MI23.product_eigenvalue_semantics
+  scope: Explicit invertible similarity for every complex positive-definite product, with actual
+    root multiplicities, reality, positivity, dimension, order and determinant product.
+- declaration: NLA.MI23.squared_product_largest
+  scope: Actual first characteristic-polynomial root of X²Y² equals the squared genuine Euclidean
+    operator norm of XY for all positive dimensions.
+- declaration: NLA.MI23.operator_norm_bounds
+  scope: Generic exact entry lower bound and complete Frobenius upper bound for the genuine Euclidean
+    operator norm.
+- declaration: NLA.MI23.witness_data
+  scope: All witness positive-definiteness, LDL and true CFC half/eighth-power identifications,
+    with the actual target products.
+- declaration: NLA.MI23.witness_squared_gap
+  scope: Exact GH entry, complete Frobenius sum, positive rational gap and strict actual operator-norm
+    separation.
+- declaration: NLA.MI23.counterexample
+  scope: Actual largest-root violation and failure of the complete original log-majorization relation
+    for an admissible complex PD witness.
+- declaration: NLA.MI23.not_generalizedGeometricMeanConjecture
+  scope: Full negation of the canonical conjecture with every original dimension, matrix and real-parameter
+    quantifier retained.
+acknowledgements: Matthew J. Colbrook for the original counterexample and proof; Mathlib and LeanCert
+  contributors for the actual CFC, spectral, norm and checked-certificate APIs. Campaign MI-29/MI-21
+  patterns are credited in source. Shared Comparator/exporter and Landrun licenses and attribution
+  are retained in the repository. No literature dependency is inserted as an unproved axiom.

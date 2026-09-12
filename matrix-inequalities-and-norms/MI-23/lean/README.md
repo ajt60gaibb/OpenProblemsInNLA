@@ -1,11 +1,14 @@
 # MI-23: Lean formalization of the generalized-mean counterexample
 
-The complete eight-export proof has passed local Lean elaboration, 64 distinct
-transitive kernel-trust/axiom checks, two independent statement reviews before
-implementation, and two independent final proof reviews. It is a reviewed Linux
-candidate. Actual Linux sandboxed Comparator, default-kernel replay, negative
-controls and operational audit are pending. The canonical problem remains
-**Solved**; no Lean-verified repository status is claimed by this candidate.
+The complete corrected conjecture has a **Lean-verified negative answer** as of
+12 September 2026. Its unchanged proof at
+[revision 17194f9](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/17194f9060609acae429e14d3dc3c4562b84f2bd/matrix-inequalities-and-norms/MI-23/lean)
+passed two independent statement reviews before implementation, two independent
+final proof reviews, and actual Linux sandboxed Comparator/default-kernel
+verification in [run 34716784038](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34716784038).
+The [independent operational audit and original artifacts](verification/linux-2026-09-12/)
+bind all eight exports and the complete 133-file verified input set. The
+[canonical entry](../README.md) records the complete formal scope and status.
 `Challenge.lean` retains eight intentional statement placeholders and is never
 imported by `Solution.lean` or its proof dependencies.
 
@@ -62,8 +65,8 @@ conjecture's negation from its first proper prefix-product inequality.
 The project pins Lean 4.33.1, LeanCert `621a43d7cf21f87872392a01e874f2f1dbddc926`
 and Mathlib `0df444a360eaa60ab8c11dca51a86af692955474`. Its local initial dependency
 cache is a separate APFS copy of the already pinned MI-06 dependencies; no MI-06
-mathematical module is imported. `comparator.json` reserves the eight reviewed
-exports and standard-three-axiom whitelist for later real Linux verification.
+mathematical module is imported. `comparator.json` selected the eight reviewed exports and the standard-three-axiom
+whitelist in the actual successful Linux verification.
 [The formalization manifest](formalization.yaml) uses actual schema v0.4 and
 records current scope and attribution. [Numerical targets](NUMERICAL_TARGETS.md)
 record the original correspondence before implementation.
@@ -73,15 +76,26 @@ Both independent phases are retained: [statement referee 1](reviews/statement-re
 [final referee 1](reviews/proof-referee-1.md), and
 [final referee 2](reviews/proof-referee-2.md). Each final report includes its own
 fresh source re-elaboration and proof-term inspection evidence. These local
-macOS checks reused the ten verified clean pinned dependency caches; they do not
-claim full dependency-source rebuilds or an actual project-specific Linux run.
+macOS checks reused the ten verified clean pinned dependency caches. The later
+Linux job freshly cloned all ten dependencies at their exact revisions and used
+8690 official Mathlib cache artifacts before building the project sources. It
+does not claim a rebuild of every dependency from source. The actual job and
+the separate checker job both passed real isolation and rejection controls;
+the nested Bubblewrap probe was denied at UID-map creation before its inner
+write. No general sandbox-security guarantee follows from those finite probes.
 
 The [proof freeze](reviews/proof-freeze.json) and
 [implementation gate](reviews/implementation-gate.json) retain their exact
 historical bytes and phase labels. The prior README is preserved unchanged as
 [the frozen local-proof README](verification/linux-candidate-2026-09-12/frozen-local-proof-README.md).
-Only the current README changes among the 25 proof-freeze inputs; the remaining
-24 and all prior reviews/evidence are preserved during packaging. Review follows
+At candidate packaging, only the current README changed among the 25
+proof-freeze inputs. Publication changes only this README and the current
+formalization manifest among the 133 Linux-verified inputs; the other 131,
+including every mathematical source, configuration, dependency pin and prior
+review, remain byte-identical. All 249 retained Linux evidence files are
+unchanged, including their historical metadata snapshots. The successful run
+is bound to the immutable proof revision, rather than claimed as a new run
+over these publication wrappers. Review follows
 the repository's [Tau Ceti adaptation](../../../docs/lean/REVIEW.md) and
 [verification protocol](../../../docs/lean/README.md).
 
@@ -89,5 +103,18 @@ The project reuses the campaign's explicit `CFC.rpow`, Euclidean-map norm and
 statement-first organization from MI-29/MI-21 and Mathlib's actual APIs. The
 shared checker is credited in `tools/lean/NOTICE.md`; Schiffer and Forsythe were
 workflow references, not mathematical assumptions. Source authorship, formalization
-authorship, independent agent review and eventual mechanical verification remain
+authorship, independent agent review and mechanical verification remain
 distinct. No external human peer review or source-author endorsement is claimed.
+
+The full [Linux evidence manifest](verification/linux-2026-09-12/EVIDENCE-MANIFEST.json)
+retains both original ZIPs, raw logs, all input hashes, checked tool sources and
+the independent operational report. From the immutable verified revision on a
+documented [non-root Linux host](../../../tools/lean/HARNESS.md), run:
+
+```
+tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
+tools/lean/verify.sh \
+  matrix-inequalities-and-norms/MI-23/lean \
+  /absolute/path/to/nla-lean-tools
+```
