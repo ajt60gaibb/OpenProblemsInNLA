@@ -2,14 +2,14 @@
 version: v0.4
 project:
   name: 'RA-07: convexity of the elementary-symmetric error sequence'
-  description: Proves the complete canonical discrete-convexity assertion for (j+1)e_(j+1)/e_j over
-    every positive real spectrum. Actual subset sums, polynomial derivatives, full root multiplicities
-    and an exact nonnegative pair certificate connect the proof to the original ratios.
+  description: Proves the complete canonical discrete-convexity assertion for (j+1)e_(j+1)/e_j over every
+    positive real spectrum. Actual subset sums, polynomial derivatives, full root multiplicities and an
+    exact nonnegative pair certificate connect the proof to the original ratios.
   authors:
   - George Stepaniants
   affiliations:
-    George Stepaniants: Department of Computing and Mathematical Sciences, California Institute of
-      Technology, Pasadena, California, USA
+    George Stepaniants: Department of Computing and Mathematical Sciences, California Institute of Technology,
+      Pasadena, California, USA
   responsible_maintainers:
   - George Stepaniants
   license: Apache-2.0
@@ -22,9 +22,9 @@ sources:
   location: Original scalar discrete-convexity question
   relationship: formalizes
   author_endorsement: not-contacted
-  note: The complete target quantifies all dimensions n≥3, every strictly positive real tuple, and
-    every index 2≤j≤n−1. The sampling interpretation motivates the scalar question; its expectation
-    identity is not an additional formal export.
+  note: The complete target quantifies all dimensions n≥3, every strictly positive real tuple, and every
+    index 2≤j≤n−1. The sampling interpretation motivates the scalar question; its expectation identity
+    is not an additional formal export.
 - title: Convexity of a volume-sampling error sequence
   authors:
   - Matthew J. Colbrook
@@ -33,42 +33,43 @@ sources:
   location: Theorem 1.1 and its full convexity proof
   relationship: formalizes
   author_endorsement: not-contacted
-  note: Formalizes the complete original convexity assertion. The manuscript’s strict monotonicity,
-    extra index-one assertion, determinantal expectation identity, Jensen application and stable-rank
-    bounds are outside the six advertised results. Mathematical proof attribution remains Colbrook.
+  note: Formalizes the complete original convexity assertion. The manuscript’s strict monotonicity, extra
+    index-one assertion, determinantal expectation identity, Jensen application and stable-rank bounds
+    are outside the six advertised results. Mathematical proof attribution remains Colbrook.
 related_formalizations:
 - id: https://github.com/sgstepaniants/Forsythe/tree/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof
   relationship: other
-  note: Reference for statement-first proof organization, explicit kernel LeanCert auditing and the
-    shared Comparator workflow. Checker reuse is credited in tools/lean/NOTICE.md. No Forsythe mathematical
-    theorem is assumed.
+  note: Reference for statement-first proof organization, explicit kernel LeanCert auditing and the shared
+    Comparator workflow. Checker reuse is credited in tools/lean/NOTICE.md. No Forsythe mathematical theorem
+    is assumed.
 - id: https://github.com/jaumededios/Schiffer/tree/2938e277969c329caf154e48a3d8823f3635c7f1
   relationship: other
-  note: Campaign reference for separating statements and analytic proofs. No Schiffer mathematical
-    result or source code is imported.
+  note: Campaign reference for separating statements and analytic proofs. No Schiffer mathematical result
+    or source code is imported.
 automation:
   methods:
   - method: agent
     framework: OpenAI Codex
-    tool_setup: Multiple agents; two independent statement approvals before proof implementation;
-      pinned Mathlib polynomial, finite-sum and Gauss–Lucas APIs; two independent final proof reviews
-      with fresh separate-prefix re-elaboration; explicit LeanCert kernel trust assertions.
-    prompting_notes: Preserve all positive spectra, all dimensions and original indices, repeated
-      roots and endpoint cases. Prove actual derivative degree, real splitting and full-multiplicity
-      factorization rather than assuming them. Replace repeated root isolation with actual Mathlib
-      Gauss–Lucas and exact algebra. Prove both pair identities and all denominator signs. This purely
-      algebraic and analytic argument has no interval calculation; LeanCert audits kernel trust, with
-      no claimed numerical certificate.
+    tool_setup: Multiple agents; two independent statement approvals before proof implementation; pinned
+      Mathlib polynomial, finite-sum and Gauss–Lucas APIs; two independent final proof reviews with fresh
+      separate-prefix re-elaboration; explicit LeanCert kernel trust assertions.
+    prompting_notes: Preserve all positive spectra, all dimensions and original indices, repeated roots
+      and endpoint cases. Prove actual derivative degree, real splitting and full-multiplicity factorization
+      rather than assuming them. Replace repeated root isolation with actual Mathlib Gauss–Lucas and exact
+      algebra. Prove both pair identities and all denominator signs. This purely algebraic and analytic
+      argument has no interval calculation; LeanCert audits kernel trust, with no claimed numerical certificate.
   notes: AI-assisted formalization requested by George Stepaniants. The implementation agent is /root/solved_statement_inventory
     and is not counted as an independent referee. No external human peer review, source-author endorsement,
     unrecorded model identity, or measured monetary cost is claimed.
 status:
-  scope: Complete affirmative answer to the original canonical RA-07 scalar convexity question. All
-    six exports passed local Lean elaboration, standard-three transitive axiom and kernel-trust checks,
-    two independent statement reviews and two independent final proof reviews. Actual non-root Linux
-    sandboxed Comparator, separate default-kernel replay, negative controls and operational audit
-    are still pending for this candidate. Canonical status remains Solved. This metadata does not
-    certify the source’s additional sampling or monotonicity results.
+  scope: Complete affirmative answer to the original canonical RA-07 scalar convexity question. All six
+    exports passed local Lean elaboration, standard-three transitive axiom and kernel-trust checks, two
+    independent statement reviews and two independent final proof reviews. The unchanged proof at revision
+    bf144a8ea84992d64f79f4425b18352843376286 passed actual non-root Linux sandboxed Comparator, separate
+    default-kernel replay and isolation/rejection controls in run 34715563781 on 2026-09-12. An independent
+    operational audit binds all 123 input files and original artifact digests. Canonical status is Lean
+    verified. The source’s additional sampling and monotonicity results are outside these six formal exports.
+    LeanCert supplies kernel trust auditing; no numerical interval certificate is claimed.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: &id001
@@ -113,17 +114,16 @@ status:
     comparator_config: comparator.json
     literature_dependencies: []
 fidelity:
-  divergences: Zero-based Fin labels represent the same original subsets, and the exact sequence is
-    defined by ordinary real division. Actual finite subset sums prove e_0=1, oversized values zero
-    and admissible denominator positivity. Mathlib Gauss–Lucas replaces the source’s Rolle argument,
-    followed by actual real splitting and full root-multiset factorization; no real-rootedness, degree
-    or factorization premise is added. Every original dimension, positive spectrum, repeated-root
-    case and endpoint is included. The factor count for index j is n−(j−1), including two factors
-    at j=n−1. The source’s additional index-one convexity, strict monotonicity, expectation identity
-    and sampling consequences are outside the formal exports; this does not restrict the canonical
-    target.
+  divergences: Zero-based Fin labels represent the same original subsets, and the exact sequence is defined
+    by ordinary real division. Actual finite subset sums prove e_0=1, oversized values zero and admissible
+    denominator positivity. Mathlib Gauss–Lucas replaces the source’s Rolle argument, followed by actual
+    real splitting and full root-multiset factorization; no real-rootedness, degree or factorization premise
+    is added. Every original dimension, positive spectrum, repeated-root case and endpoint is included.
+    The factor count for index j is n−(j−1), including two factors at j=n−1. The source’s additional index-one
+    convexity, strict monotonicity, expectation identity and sampling consequences are outside the formal
+    exports; this does not restrict the canonical target.
 review:
-  status: agent-reviewed; local Lean checks passed; Linux Comparator pending
+  status: agent-reviewed; Linux-Comparator-and-default-kernel-verified
   reviewers:
   - 'OpenAI Codex agent /root/formal_review_standards: independent statement referee 1'
   - 'OpenAI Codex agent /root: independent statement referee 2 and final proof referee 2'
@@ -131,15 +131,21 @@ review:
   notes: Both statement approvals precede implementation and bind unchanged mathematical definitions,
     Challenge and numerical targets. Both final referees freshly re-elaborated the actual implementation
     in separate artifact prefixes and inspected the complete proof, actual Mathlib semantics and retained
-    mathematical dependencies. Twelve distinct source declarations pass kernel trust assertions and
-    have exactly the three standard axioms; independent inspections repeat the six public checks.
-    The six deliberate Challenge placeholders are isolated and excluded from proof-development sorry
-    counts. Local macOS checks reused dependency artifacts at ten verified clean pins. No Linux execution,
-    isolated Comparator result, interval certificate or full dependency-source rebuild is claimed.
-    The pinned Tau Ceti rubrics were adapted to the complete canonical target. Historical freeze/review
-    records retain their phase labels and hashes; the old statement-stage README is preserved at verification/linux-candidate-2026-09-12/frozen-statement-stage-README.md.
-    Only the current README changes among the 38 frozen project inputs; the remaining 37 and all original
-    sources, proofs, configuration and prior evidence remain byte-identical.
+    mathematical dependencies. Twelve distinct source declarations pass kernel trust assertions and have
+    exactly the three standard axioms; independent inspections repeat the six public checks. The six deliberate
+    Challenge placeholders are isolated and excluded from proof-development sorry counts. Local macOS
+    checks reused dependency artifacts at ten verified clean pins. Actual Linux run 34715563781 at revision
+    bf144a8ea84992d64f79f4425b18352843376286 passed all six comparisons, default-kernel replay and both
+    observed control sets. Independent agent /root/formal_review_standards audited complete original ZIPs,
+    raw logs, every one of the 123 inputs, ten fresh dependency clones with 8690 official Mathlib cache
+    files, and the exact pinned tools. The nested bubblewrap probe was denied at UID-map creation before
+    its inner write; no general sandbox-security guarantee is claimed. No interval certificate or full
+    dependency-source rebuild is claimed. The pinned Tau Ceti rubrics were adapted to the complete canonical
+    target. Historical freeze/review records retain their phase labels and hashes; the old statement-stage
+    README remains at verification/linux-candidate-2026-09-12/frozen-statement-stage-README.md. Publication
+    changes only the current README and this manifest among the 123 verified inputs; all remaining 121
+    and all 239 retained Linux evidence files remain byte-identical. Original snapshots retain historical
+    pending metadata. No external human peer review or source-author endorsement is claimed.
   statement_reports:
   - file: reviews/statement-referee-1.md
     sha256: 54481c9106ca42702d1932eda6471e000c7aeb1b046f58a2061318b08ec0478e
@@ -154,27 +160,36 @@ review:
     file: verification/proof-freeze.json
     sha256: ecd94daf2dee9fe4625e09f1a08026eb75ac8a14bea6efb688921a3e78eb6b4a
   linux_verification:
-    status: pending
-    note: No project-specific Linux run or operational verdict is advertised at candidate packaging.
+    status: verified
+    note: 'Run https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34715563781 at immutable
+      revision bf144a8ea84992d64f79f4425b18352843376286 succeeded. Independent audit: verification/linux-2026-09-12/OPERATIONAL-REVIEW.md
+      (SHA256 13b7c580ce72e1778366fbfb55e9276428cea6b803587409dd9c4dca551654a8). EVIDENCE-MANIFEST.json
+      SHA256 d3d823f86c97f236bdf31b96aff2c1fe6ea0a7ba2afa4995fd7d6b7e5ea870d8 binds 237 files; its own
+      file and one nested source manifest give 239 retained files. The nested source manifest is already
+      bound by the actual Linux receipt and additionally recorded in verification/publication-2026-09-12/evidence-count-supplement.json.
+      The original outer manifest is unchanged. Original RA-07 ZIP SHA256 6dc4290003ad74023d07c6d174cabf322b0fa5d0d4cec079cee56f6a61a1bd92;
+      checker ZIP SHA256 cd5cdf75cb93cce76a00b2e6b5c922ed32e2e9c6f5d64330b82c5b8d47cd2b1d. All six selected
+      statements matched and the proof replayed in Lean’s default kernel; semantic fidelity is supplied
+      separately by the two independent final proof reviews.'
 alignment:
 - declaration: NLA.RA07.elementary_values
   scope: 'Actual elementary subset sums: empty and oversized cases, and positivity through the dimension.'
 - declaration: NLA.RA07.generating_derivative_values
-  scope: Actual generating-polynomial coefficients and iterated derivative values j! e_j for every
-    natural index.
+  scope: Actual generating-polynomial coefficients and iterated derivative values j! e_j for every natural
+    index.
 - declaration: NLA.RA07.positive_derivative_factorization
   scope: Unconditional factorization of every actual derivative of order d≤n, exact degree n−d, positive
     scale and positive reciprocal-root factors with multiplicity.
 - declaration: NLA.RA07.power_sum_certificate
-  scope: Strict denominator positivity and the exact nonnegative unordered-pair identity for every
-    positive tuple of length at least two.
+  scope: Strict denominator positivity and the exact nonnegative unordered-pair identity for every positive
+    tuple of length at least two.
 - declaration: NLA.RA07.second_difference_certificate
   scope: The actual original ratios at every canonical index equal 2 pairGap / certificateDenominator
     for an actual derivative factorization.
 - declaration: NLA.RA07.errorSequence_convex
-  scope: Complete affirmative canonical theorem for all n≥3, all strictly positive real tuples and
-    every 2≤j≤n−1.
+  scope: Complete affirmative canonical theorem for all n≥3, all strictly positive real tuples and every
+    2≤j≤n−1.
 acknowledgements: Matthew J. Colbrook for the mathematical source proof; Mathlib and LeanCert contributors
-  for the proved polynomial, root-geometry, finite-sum and kernel-audit APIs. The project uses the
-  shared pinned Lean Comparator/exporter and Landrun workflow; its licenses and attribution are retained
-  in the repository. No external literature result is used as an unproved axiom.
+  for the proved polynomial, root-geometry, finite-sum and kernel-audit APIs. The project uses the shared
+  pinned Lean Comparator/exporter and Landrun workflow; its licenses and attribution are retained in the
+  repository. No external literature result is used as an unproved axiom.

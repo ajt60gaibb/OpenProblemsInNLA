@@ -1,0 +1,126 @@
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA                                                                   RA-07
+
+
+
+
+Randomized and low-rank approximation
+
+
+Convexity of the expected error of
+volume-sampled column subsets
+Diﬀiculty: challenging       Importance: interesting to the community
+Status: Lean verified
+
+Rating rationale: Challenging because the required second-difference inequality goes beyond standard
+log-concavity; community impact is understanding average column-selection and Nyström error.
+
+Lean proof and verification evidence — 2026-09-12
+The complete original discrete-convexity assertion is Lean verified. The proof at revision bf144a8
+covers every 𝑛 ≥ 3, strictly positive real tuple and 2 ≤ 𝑗 ≤ 𝑛 − 1, including repeated eigenvalues and
+both endpoint indices, without ordering or factorization assumptions.
+Mathematical proof: Matthew J. Colbrook, Department of Applied Mathematics and Theoretical
+Physics, University of Cambridge. Lean formalization: George Stepaniants, Department of Comput-
+ing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, with
+AI-agent assistance.
+The actual generating-polynomial derivative of order 𝑗 − 1 has 𝑛 − 𝑗 + 1 ≥ 2 positive reciprocal-root
+factors 𝜇𝑎 , with multiplicity. The proof derives
+
+                                                         2 ∑𝑎<𝑏 𝜇𝑎 𝜇𝑏 (𝜇𝑎 − 𝜇𝑏 )2
+                    𝑓 (𝑗 − 1) − 2𝑓 (𝑗) + 𝑓 (𝑗 + 1) =                                  ≥ 0,   𝑠𝑟 = ∑ 𝜇𝑟𝑎 ,
+                                                                𝑠1 (𝑠21 − 𝑠2 )                     𝑎
+
+including strict positivity of the denominator. The six checked exports, each with prefix NLA.RA07.,
+are:
+ • elementary_values: actual subset-sum conventions and positivity.
+ • generating_derivative_values: actual coeﬀicients and factorial-scaled derivatives.
+ • positive_derivative_factorization: exact degree, real splitting and every root multiplicity.
+ • power_sum_certificate: positive denominator and exact nonnegative pair identity.
+ • second_difference_certificate: that identity for every original ratio and index.
+ • errorSequence_convex: the complete aﬀirmative canonical theorem.
+Separate pairs of independent agents approved the statements and proof. Linux run 34715563781
+matched all six exports with the sandboxed Comparator and replayed the solution in Lean’s default
+kernel. The operational audit and original artifacts bind 123 inputs and the isolation/rejection controls.
+Twelve transitive axiom checks use only propext, Classical.choice and Quot.sound. No external human
+peer review is claimed.
+The pins are Lean 4.33.1, LeanCert 621a43d and Mathlib 0df444a. LeanCert audits kernel trust; there is
+no numerical interval certificate or approximate root computation. See the manifest, dependency pins
+and exact targets. From the verified revision on a non-root Linux host:
+
+tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
+tools/lean/verify.sh \
+  randomized-and-low-rank-approximation/RA-07/lean \
+  /absolute/path/to/nla-lean-tools
+
+The source’s additional monotonicity, index-one, sampling-expectation and application claims are out-
+side these six exports. The complete original scalar convexity target and its historical informal proof
+remain below.
+
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-12                                                                                    1
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA                                                            RA-07
+
+
+
+
+Resolution — 2026-09-11
+
+Author: Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University
+of Cambridge. Independent Codex-agent review: PASS for the exact target.
+The sequence (𝑗 + 1)𝑒𝑗+1 /𝑒𝑗 is decreasing and discretely convex for every positive spectrum, including
+both endpoints. The exact second-difference certificate proves the full canonical conjecture.
+The complete target is resolved. Its former diﬀiculty rating is historical; the original mathematical state-
+ment and source evidence are retained below.
+Primary reference: complete authored PDF, standalone TeX, Theorem 1.1. Independent proof review
+· Authorship and submission record. The 2026-09-11 verification was independent agent review, with-
+out external human peer review or formal certification. The later Lean verification above covers the
+complete canonical scalar convexity target.
+For 𝑛 ≥ 3 and positive real numbers 𝜆1 , … , 𝜆𝑛 , let
+
+                                     𝑒𝑗 (𝜆) =      ∑      ∏ 𝜆𝑖 ,        𝑒0 = 1,       𝑒𝑛+1 = 0.
+                                                𝑆⊆{1,…,𝑛} 𝑖∈𝑆
+                                                  |𝑆|=𝑗
+
+
+Define 𝑓 (𝑗) = (𝑗 + 1)𝑒𝑗+1 (𝜆)/𝑒𝑗 (𝜆) for 1 ≤ 𝑗 ≤ 𝑛. Is 𝑓 discretely convex, that is,
+
+                                  𝑓 (𝑗 − 1) − 2𝑓 (𝑗) + 𝑓 (𝑗 + 1) ≥ 0          (2 ≤ 𝑗 ≤ 𝑛 − 1),
+
+for every such 𝑛 and positive tuple 𝜆?
+For a matrix 𝐴 with positive eigenvalues 𝜆𝑖 of 𝐴𝑇 𝐴, sample a set 𝑆 of 𝑗 columns with probability pro-
+portional to det(𝐴𝑇
+                  𝑆 𝐴𝑆 ). Its expected squared Frobenius projection error is
+
+
+                                                    𝔼‖(𝐼 − 𝑃𝐴𝑆 )𝐴‖2𝐹 = 𝑓 (𝑗),
+
+where 𝑃𝐴𝑆 is the orthogonal projector onto the selected column span. Thus the conjecture asserts a
+diminishing marginal improvement in the average reconstruction error of these fixed-size determinan-
+tal samples. It is distinct from optimizing a worst-case approximation factor over all matrices with a
+prescribed spectrum.
+
+References
+
+1. M. Dereziński, R. Khanna, and M. W. Mahoney, Improved guarantees and a multiple-descent curve for
+   Column Subset Selection and the Nyström method, NeurIPS 2020, arXiv:2002.09073. Section 5, Conjec-
+   ture 1 is exactly the discrete-convexity statement. Paper.
+2. A. Deshpande, L. Rademacher, S. S. Vempala, and G. Wang, Matrix Approximation and Projective
+   Clustering via Volume Sampling, Theory of Computing 2 (2006), Article 12, pp. 225–247. See the
+   volume-sampling matrix approximation results. Paper.
+
+Status check — 2026-09-08
+
+Searched “Derezinski Khanna Mahoney Conjecture 1 convexity”, “elementary symmetric ratio 𝑘 + 1
+convexity DPP”, and the exact 2020 paper title with 2025/2026. Checked the current arXiv record. No
+proof or counterexample was found. Standard Newton inequalities imply other ratio inequalities but
+are not cited as a resolution of this second-difference inequality.
+
+Audit — 2026-09-10
+
+Rechecked Dereziński–Khanna–Mahoney, §5, Conjecture 1; the current record remains v3 of December
+2020. Volume-sampling convexity and elementary-symmetric-ratio searches found no resolution. This
+remains historical explicit conjecture evidence, supplemented by a bounded follow-up search.
+
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-12                                                                              2
+

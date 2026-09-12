@@ -1,9 +1,13 @@
 # RA-07 Lean formalization
 
-The complete original discrete-convexity theorem is implemented and has passed
-two independent statement reviews, two independent final proof reviews and
-local Lean checks. **Actual Linux Comparator, separate default-kernel replay
-and their operational audit are pending.** The canonical status remains `Solved`.
+The complete original discrete-convexity theorem is **Lean verified** as of
+12 September 2026. Its unchanged proof at
+[revision bf144a8](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/bf144a8ea84992d64f79f4425b18352843376286/randomized-and-low-rank-approximation/RA-07/lean)
+passed two independent statement reviews, two independent final proof reviews,
+and actual sandboxed Linux Comparator/default-kernel verification in
+[run 34715563781](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34715563781).
+The [independent operational audit and original artifacts](verification/linux-2026-09-12/)
+bind all six exports and the complete 123-file verified input set.
 
 Formalization: **George Stepaniants**, Department of Computing and Mathematical
 Sciences, California Institute of Technology, Pasadena, California, USA.
@@ -105,13 +109,16 @@ manifest's proof-development sorry counts; Solution does not import Challenge.
   [source correspondence](SOURCE_MAP.md) and
   [v0.4 formalization metadata](formalization.yaml).
 
-These checks used fresh target artifacts on macOS and matching dependency
-caches at ten verified clean pins. They are not the pending Linux operational
-check or a claim that all dependency sources were rebuilt. The relevant
+The local referee checks used fresh target artifacts on macOS and matching
+dependency caches at ten verified clean pins. The later authoritative Linux run
+cloned all ten dependencies at their exact revisions and downloaded/decompressed
+8690 official Mathlib cache files before building the RA-07 sources. No user
+project build cache was reused; this is not a claim that every dependency module
+was rebuilt from source. The relevant
 [pinned referee standards](../../../docs/lean/REVIEW.md) were adapted to the
 complete original scope and actual mathematical definitions.
 
-## Reproduction and remaining gate
+## Reproduction and actual Linux evidence
 
 From this project directory, with its pinned toolchain and dependencies:
 
@@ -123,11 +130,11 @@ lake env lean Solution.lean
 
 The explicit targets include the completed proof; the package's preserved
 default target is its statement Challenge. Compilation is a local check.
-After the candidate has an immutable Git revision, the repository's
-[shared Linux workflow](../../../docs/lean/README.md) must build and export
-both environments, compare all six statements, replay them in Lean's default
-kernel, and run the real isolation/rejection controls. From a correctly
-configured non-root Linux checkout, run these shared commands from the repository root:
+The repository's [shared Linux workflow](../../../docs/lean/README.md) built
+and exported both environments, compared all six statements, replayed the
+solution in Lean's default kernel, and ran the real isolation/rejection controls.
+From the immutable verified revision on a correctly configured non-root Linux
+host, run these shared commands from the repository root:
 
 ```
 ./tools/lean/bootstrap.sh /tmp/nla-ra07-tools
@@ -137,13 +144,25 @@ configured non-root Linux checkout, run these shared commands from the repositor
   /tmp/nla-ra07-tools
 ```
 
-Those commands have **not run for this RA-07 candidate**. Their successful
-artifacts need an independent operational audit before catalog promotion.
+The actual RA-07 job and the separate checker job both passed. Their original
+ZIPs, raw logs, complete verified sources, exact input/tool hashes and independent
+audit are retained in [the Linux evidence directory](verification/linux-2026-09-12/),
+bound by its [evidence manifest](verification/linux-2026-09-12/EVIDENCE-MANIFEST.json).
+The operational report distinguishes the observed controls precisely: the nested
+bubblewrap executable ran, but UID-map creation was denied before its inner write.
+No general sandbox-security guarantee is inferred from those finite controls.
 
 Historical statement/proof records retain their original phase labels and
 hashes. The exact old statement-stage README is retained in
 [the candidate evidence](verification/linux-candidate-2026-09-12/frozen-statement-stage-README.md).
-Only this current README changes among the 38 proof-freeze inputs; all 37
-remaining inputs, mathematical files, configuration, prior review evidence
-and canonical sources remain unchanged. The current README and manifest
-report the completed local gates and the pending Linux gate.
+The original candidate had changed only its current README among the 38
+proof-freeze inputs. Publication now changes only this README and the current
+formalization manifest among the 123 Linux-verified inputs; all other 121,
+including every mathematical file, configuration, pin and prior review, remain
+byte-identical. All 239 retained Linux evidence files are unchanged. Their source
+snapshots retain the then-pending metadata: the successful run is bound to the
+immutable proof revision and is not represented as a new run over these updated
+publication wrappers. The canonical original target and Colbrook source files
+remain unchanged.
+
+The [publication evidence supplement](verification/publication-2026-09-12/evidence-count-supplement.json) records the exact 239-file retention count. The original outer manifest binds 237 files; its own file and one nested source manifest complete the total. The nested manifest is already hash-bound by the actual Linux input receipt, and its bytes are additionally recorded in the supplement. The original operational audit and outer manifest remain unchanged.
