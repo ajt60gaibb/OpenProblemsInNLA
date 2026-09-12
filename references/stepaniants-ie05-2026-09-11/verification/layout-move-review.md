@@ -1,0 +1,13 @@
+# IE-05 final layout and eligibility addendum
+
+Checked on 11 September 2026 by the separate Codex agent responsible for the independent IE-05 mathematical review. **PASS.** This is a presentation and provenance addendum; the earlier signed mathematical and conversion reviews remain unchanged.
+
+The final canonical README removes exactly the ten bytes `\newpage` followed by two newlines before **Context and notation**. The renderer now inserts those same bytes only for IE-05 at that same point, keeping the layout instruction out of the GitHub page. The complete original mathematical target and every other README character remain unchanged.
+
+The [executable comparison](check_layout_move.py) reconstructs the prior README and renderer, checks their recorded hashes, and intercepts the actual old and new renderer functions at their Pandoc calls. It verifies byte-identical effective input (4,894 bytes, SHA-256 `4289f4bf3a3a8b593979a129aa7e0866c3b23a4c1666c1c0ce9c5dd0d16d4340`) and metadata (329 bytes, SHA-256 `5eb04363c217e4c2e64e0fb98daeaf11a1814a46b1cca141a6cec32a16c59a46`). No Pandoc, TeX compiler, canonical write or PDF rebuild is performed by this check. Its [recorded output](layout-move-check.json) also checks the unchanged solution Markdown/TeX/PDF and canonical TeX/PDF hashes. The previously completed six-page visual inspection therefore applies to exactly the same PDFs.
+
+The prior canonical README has 4,876 bytes and SHA-256 `84a2f7d2ed2f903346858961e4281f2b25b683f374a16145ad4b59a774ea841b`. The final README has 4,866 bytes and SHA-256 `8dda07df642a6ef407d9c8e5fa07839b57ef2ba81cd41b230f367353fef67dea`. These are distinct historical source versions; neither earlier review nor its fingerprint has been silently rewritten. The [pre-layout manifest](document-checks-before-layout-move.json) is retained byte-for-byte.
+
+A final [public-network eligibility refresh](network-before-push.json), completed at **2026-09-11 23:51:45 UTC**, inspected five repositories, 33 branch heads, 176 distinct text documents and 26 PR review bodies. Every IE-05 canonical page remained Open; no prior full resolution was found. The only discussion search match concerned the unrelated IE-08 problem. The refresh is copied unchanged, 9,112 bytes, SHA-256 `747218c6f5e34a104d66aa3c1da9c646117880fc090e90ad26585263de10925b`. The original earlier audit remains preserved separately. This is a bounded public audit; private, deleted, unpublished and unidentifiably named material remains outside its scope.
+
+No proof, exact certificate, mathematical review, generated TeX or PDF changed in this final step. No additional solved problem, issue or pull request is claimed.

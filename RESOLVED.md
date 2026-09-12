@@ -33,6 +33,17 @@ The complete analytic proof passed a separate [independent Codex-agent review](r
 
 <a id="ie-01"></a>
 
+
+### ✅ IE-05 - the orthogonal partial-pivoting extremizer equality is false - George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Negative resolution recorded 2026-09-11.** The [Theorem and Sections 1-4](linear-systems-and-elimination/IE-05/solution.md) give an exact real orthogonal counterexample at order eight. The positive-diagonal QR factor of $L_8+e_8e_2^T$ has partial-pivoting growth $5272/63$, strictly above the prescribed candidate's $\sqrt{17948132/2601}$. Both use the first available row in ties, so the counterexample also belongs to the supremum over all admissible paths. [Proof PDF](linear-systems-and-elimination/IE-05/solution.pdf) · [Canonical target](linear-systems-and-elimination/IE-05/README.md).
+
+The proof passed a separate [Codex-agent full-target review](references/stepaniants-ie05-2026-09-11/independent-review.md), including independently reconstructed exact orthogonality, QR signs, all pivots and all active maxima. Substantial AI assistance and the limits of automated review are explicit. This settles the finite-order extremizer equality and leaves the true supremum and the distinct asymptotic leading constant undetermined. Peca-Medlin's conjecture and prior element-growth analysis retain their attribution. [Submission record and public-source check](references/stepaniants-ie05-2026-09-11/README.md).
+
+<a id="ie-01"></a>
+
 ### 🏆 IE-01 — Forsythe's conjecture beyond restart length two
 
 [Original statement and resolution](linear-systems-and-elimination/IE-01/README.md) · [PDF](linear-systems-and-elimination/IE-01/problem.pdf)

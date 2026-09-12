@@ -6,6 +6,7 @@ These reviews check the actual submitted proofs and primary sources independentl
 | --- | --- | --- |
 | [122](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/122) | `53dd2d078222d2346ffa20a05e602f9ae1766eef` | PASS: full complex Jordan-block GMRES equality and affine triangular-Toeplitz minimax theorem. |
 | [125](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/125) | `96c83a5e5c4be73194f47d01e68a0a8f2a062e87` | PASS: Hall's essential Delta proof and both SP-11/SP-12 application notes. |
+| [127](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/127) | `e5ad08c1a301d532ea200df8580224bb893b2240` | PASS: exact order-eight counterexample to the IE-05 extremizer equality. |
 
 PR122: [complete mathematical review](pr122-review.md), [independent preservation checker](pr122-preservation-check.py), [176-case results](pr122-preservation-check.json), [seven-page PDF/source QA](pr122-pdf-qa.md), and [integration checks](pr122-integration-checks.json).
 
@@ -16,3 +17,9 @@ PR125: [complete mathematical/source review](PR125-review.md), [source hashes](P
 The review reconstructs the shared-variable leading-monomial argument, faithful PSD Gram construction and SAP implication in Hall's pinned preprint. Both applications preserve the exact real-symmetric graph patterns and all-graph quantifiers. The submersion argument includes rank-zero and disconnected cases. Hall retains theorem credit; Stepaniants receives application-note credit. The primary source remains a preprint, and its nonessential wording issues are documented in the review. Finite symbolic diagnostics supplement the analytic audit.
 
 [PR122's completed merge record](pr122-merge-result.json) identifies the exact integrated head and successful required CI run.
+
+PR127: [complete mathematical review](pr127-review.md), [independent exact checker](pr127-exact-check.py), [exact results](pr127-exact-check.json), [six-page PDF/source QA](pr127-pdf-qa.md), [recovered-variant review](PR127-recovery-review.md), and [integration checks](pr127-integration-checks.json).
+
+The independently transcribed matrices establish both positive-diagonal QR conventions, all first-available-row pivot decisions and every active entry. The exact positive squared growth gap refutes the complete original extremizer equality; no true supremum or asymptotic leading constant is claimed. A mislabeled supporting JSON field was renamed to identify diag(T), the integer upper factor, correctly. Its numerical values and all proof/publication files are unchanged; the relation checker was rerun and the two current manifest hashes refreshed. Historical snapshots and raw recovered sources are preserved.
+
+[PR125's completed merge record](pr125-merge-result.json) records its exact head and successful required CI. PR127's integration preserves the separately published IE-01 Lean verified status and the associated catalog support.
