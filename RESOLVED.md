@@ -21,6 +21,12 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### ✅ IE-12 — quadratic-cost backward-error solution — Sidney Holden
+
+**Solved affirmatively, 12 September 2026.** Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) proves the full normalized exact-real entry-access target in [Theorem 1 and Sections 2–6](linear-systems-and-elimination/IE-12/solution.pdf): deterministic worst-case cost $`O(n^2\varepsilon^{-3})`$, nonzero output on every outcome, and A-only backward error at most $`5\varepsilon/8`$ with probability greater than $`0.997`$. [Retained original target](linear-systems-and-elimination/IE-12/README.md) · [Proof source](linear-systems-and-elimination/IE-12/solution.tex).
+
+The full argument passed a separate [independent Codex AI-agent audit](references/holden-ie12-2026-09-12/independent-review.md). ChatGPT assistance in the submitted draft and informal automated review are disclosed; no external human peer review, formal verification, practical-speed result or priority certificate is asserted. No Lean verification was performed. The original problem, permanent ID and prior-source attribution are preserved. [Submission record and verified affiliation](references/holden-ie12-2026-09-12/README.md).
+
 ### ✅ IE-16 - normal-GMRES subset bound - Sidney Holden
 
 **Solved negatively, 12 September 2026.** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Theorem 1.1, Sections 2-3](linear-systems-and-elimination/IE-16/solution.pdf) gives nine distinct nonzero complex points at degree four with full-set/subset ratio greater than 13/10 > 4/π, disproving the original universal bound. Theorem 1.2, Sections 4-5, additionally rules out every finite dimension-independent replacement constant. [Retained original target](linear-systems-and-elimination/IE-16/README.md) · [Proof source](linear-systems-and-elimination/IE-16/solution.tex).
@@ -30,7 +36,6 @@ The complete argument passed a separate [independent Codex AI-agent informal aud
 ### KE-01 — partial sparse-solver results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** [Theorem 2.1 and Corollary 2.2](references/holden-ke01-2026-09-12/report.pdf) give a sparse CGLS baseline and four regimes attaining the target. Theorem 4.1 treats exactly flat SPD tails; Corollary 5.1 retains a potentially larger row-support cost for nonsymmetric input. **General KE-01 remains open.** The restricted claims passed a separate [independent informal AI-agent audit](references/holden-ke01-2026-09-12/independent-review.md); no Lean verification or external human peer review is asserted. [Retained original target](linear-systems-and-elimination/KE-01/README.md) · [Author, verified affiliation, source and checks](references/holden-ke01-2026-09-12/README.md).
-
 
 ### AV-03 and IV-01 — further partial results — Sidney Holden
 
