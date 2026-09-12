@@ -68,8 +68,7 @@ weaker-width selection. This retained entry is excluded from the open
 count.
 \end{quote}
 
-\hypertarget{problem-statement}{%
-\subsection{Problem statement}\label{problem-statement}}
+\subsection{Problem statement}\label{problem-statement}
 
 Let \(n\) be a power of two, \(1\le r\le n\), and \(0<\varepsilon<1/2\).
 Let \(F\) be the normalized Walsh--Hadamard matrix, let \(D_1,D_2\) have
@@ -96,8 +95,7 @@ success probability in the workshop question. Results for a single
 randomization, three randomizations, or independently sampled sparse
 sketches do not establish this statement.
 
-\hypertarget{references}{%
-\subsection{References}\label{references}}
+\subsection{References}\label{references}
 
 Amsel et al., \href{https://arxiv.org/html/2602.05394v3}{\emph{Linear
 Systems and Eigenvalue Problems: Open Questions from a Simons
@@ -107,15 +105,16 @@ baseline, Joel A. Tropp,
 Subsampled Randomized Hadamard Transform}}, \emph{Advances in Adaptive
 Data Analysis} 3 (2011), 115--126, Theorem 3.1.
 
-\hypertarget{resolution-and-status-check-2026-09-12}{%
 \subsection{Resolution and status check ---
-2026-09-12}\label{resolution-and-status-check-2026-09-12}}
+2026-09-12}\label{resolution-and-status-check-2026-09-12}
 
-The manuscript \emph{Subspace embeddings with the rerandomized SRHT}
-(Theorem 1, manuscript page 2,
+Yuning Yang (School of Mathematics, Guangxi University) proves the
+result in \emph{Subspace embeddings with the rerandomized SRHT} (Theorem
+1, manuscript page 2,
 \href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/manuscript.pdf}{manuscript
-PDF}) proves that for each power-of-two \(n\), every \(1\le r\le n\),
-and every fixed \(r\)-dimensional subspace \(V\), choosing
+PDF}): for each power-of-two \(n\), every \(1\le r\le n\), and every
+fixed \(r\)-dimensional subspace \(V\), represented by an orthonormal
+basis matrix \(U\in\mathbb R^{n\times r}\) with \(U^TU=I_r\), choosing
 
 \[
 k=\min\left\{n,\left\lceil Cr/\varepsilon^2\right\rceil\right\}
@@ -124,7 +123,7 @@ k=\min\left\{n,\left\lceil Cr/\varepsilon^2\right\rceil\right\}
 gives
 
 \[
-\Pr\left\{\|V^T\Omega\Omega^T V-I_r\|_2>\varepsilon\right\}\le0.01,
+\Pr\left\{\|U^T\Omega\Omega^T U-I_r\|_2>\varepsilon\right\}\le0.01,
 \]
 
 for two independent Rademacher sign diagonals, two normalized Walsh
@@ -145,9 +144,17 @@ the specific width \(k=\min\{n,\lceil Cr/\varepsilon^2\rceil\}\) rather
 than only asking for a width of order \(O(r/\varepsilon^2)\). The
 manuscript proves this stronger prescribed-width formulation directly.
 
-\hypertarget{lean-proof-and-verification-evidence}{%
+The pinned manuscript PDF retains an earlier acknowledgments paragraph
+saying that the prescribed-width extensions were not yet formalized. The
+pinned TeX source describes the current prescribed-width formalization,
+whose Lean files are also included in that revision. The mathematical
+theorem and proof source did not change in that update; the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/maintainer-review-2026-09-12-tr01/pr141-manuscript-pdf-qa.md}{independent
+artifact review} records the disclosure mismatch. The verification
+evidence below identifies the current prescribed-width declarations.
+
 \subsection{Lean proof and verification
-evidence}\label{lean-proof-and-verification-evidence}}
+evidence}\label{lean-proof-and-verification-evidence}
 
 The public Lean repository is
 \href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/tree/ed21181197ac839eac95f549404f94e7e3aa6e10}{OpenProblemsInNLA\_TR-01@ed211811},
@@ -222,7 +229,11 @@ Reproducible checks are recorded in the immutable validation artifacts:
   (PASS)
 \item
   \href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/audit/cold_rebuild.json}{cold\_rebuild.json}
-  (rebuild log and source hashes)
+  (initial failed boundary-client check, retained as history)
+\item
+  \href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/audit/cold_recovery.json}{cold\_recovery.json}
+  (successful recovery after correcting the checking client's universe
+  annotation)
 \item
   \href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/audit/fresh_kernel_replay.json}{fresh\_kernel\_replay.json}
 \item
@@ -248,10 +259,34 @@ with accepted transitive axioms only
 No \textit{sorry}, \textit{admit}, or custom mathematical axioms appear
 in the certified target graph.
 
-The submitted verification package includes an independent
-manuscript-to-Lean statement-correspondence review and the public
-verification records linked above. This pull request does not claim that
-the OpenProblemsInNLA maintainers reran Lean locally; the
-formal-verification status is supported by the immutable public proof
-and audit record submitted for maintainer review.
+The catalog's independent review on 12 September 2026 records the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/maintainer-review-2026-09-12-tr01/pr141-review.md}{complete
+mathematical audit},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/maintainer-review-2026-09-12-tr01/pr141-statement-review.md}{statement
+comparison},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/maintainer-review-2026-09-12-tr01/pr141-lean-review.md}{Lean
+verification audit}, and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/maintainer-review-2026-09-12-tr01/pr141-pdf-qa.md}{PDF/source
+checks}. The Lean audit distinguishes checks rerun locally from archived
+contributor records. The manuscript acknowledges AI assistance; these
+independent catalog reviews were performed by Codex agents.
+
+\subsection{Historical status check ---
+2026-09-10}\label{historical-status-check-2026-09-10}
+
+Searches included \textit{"rerandomized SRHT" counterexample},
+\textit{"rerandomized" "subspace" Hadamard}, and
+\textit{"Hadamard" "two" "2026" embedding conjecture}. No resolution
+of the displayed two-round assertion was located. The September 2026
+SparseStack result in the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/SCREENED-OUT.md\#screened-items-that-are-not-counted}{screening
+notes} concerns another distribution.
+
+\subsection{Audit --- 2026-09-10}\label{audit-2026-09-10}
+
+Rechecked \href{https://arxiv.org/html/2602.05394v3}{workshop Problem
+5.6}. The precise two-round Hadamard distribution remains unproved
+there. Rerandomized-Hadamard and later embedding searches found no
+resolution; guarantees for independent sparse entries or additional
+randomizations do not settle this distribution.
 \end{document}

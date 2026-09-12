@@ -36,7 +36,7 @@ Amsel et al., [*Linear Systems and Eigenvalue Problems: Open Questions from a Si
 
 ## Resolution and status check — 2026-09-12
 
-The manuscript *Subspace embeddings with the rerandomized SRHT* (Theorem 1, manuscript page 2, [manuscript PDF](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/manuscript.pdf)) proves that for each power-of-two $n$, every $1\le r\le n$, and every fixed $r$-dimensional subspace $V$, choosing
+Yuning Yang (School of Mathematics, Guangxi University) proves the result in *Subspace embeddings with the rerandomized SRHT* (Theorem 1, manuscript page 2, [manuscript PDF](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/manuscript.pdf)): for each power-of-two $n$, every $1\le r\le n$, and every fixed $r$-dimensional subspace $V$, represented by an orthonormal basis matrix $U\in\mathbb R^{n\times r}$ with $U^TU=I_r$, choosing
 
 $$
 k=\min\left\{n,\left\lceil Cr/\varepsilon^2\right\rceil\right\}
@@ -45,7 +45,7 @@ $$
 gives
 
 $$
-\Pr\left\{\|V^T\Omega\Omega^T V-I_r\|_2>\varepsilon\right\}\le0.01,
+\Pr\left\{\|U^T\Omega\Omega^T U-I_r\|_2>\varepsilon\right\}\le0.01,
 $$
 
 for two independent Rademacher sign diagonals, two normalized Walsh transforms, and a uniform $k$-subset coordinate sample without replacement. The theorem proves the *prescribed width itself* with full width cap and does not rely on a smaller alternative $k$. The same universal constant works for every power-of-two $n$, and there are no remaining parameter cases.
@@ -53,6 +53,8 @@ for two independent Rademacher sign diagonals, two normalized Walsh transforms, 
 The proven range is $0<\varepsilon<1$, which strictly contains TR-01’s displayed range $0<\varepsilon<1/2$. This is therefore a complete affirmative resolution of the original target.
 
 TR-01 is a prescribed-width strengthening of Problem 5.6 in the 2026 Simons workshop collection. It uses the same two-round Walsh/sign distribution and the same fixed-subspace OSE event, but TR-01 prescribes the specific width $k=\min\{n,\lceil Cr/\varepsilon^2\rceil\}$ rather than only asking for a width of order $O(r/\varepsilon^2)$. The manuscript proves this stronger prescribed-width formulation directly.
+
+The pinned manuscript PDF retains an earlier acknowledgments paragraph saying that the prescribed-width extensions were not yet formalized. The pinned TeX source describes the current prescribed-width formalization, whose Lean files are also included in that revision. The mathematical theorem and proof source did not change in that update; the [independent artifact review](../../references/maintainer-review-2026-09-12-tr01/pr141-manuscript-pdf-qa.md) records the disclosure mismatch. The verification evidence below identifies the current prescribed-width declarations.
 
 ## Lean proof and verification evidence
 
@@ -87,7 +89,8 @@ The archived public record reports successful proof compilation, statement-bound
 Reproducible checks are recorded in the immutable validation artifacts:
 
 - [delivery_check.json](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/audit/delivery_check.json) (PASS)
-- [cold_rebuild.json](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/audit/cold_rebuild.json) (rebuild log and source hashes)
+- [cold_rebuild.json](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/audit/cold_rebuild.json) (initial failed boundary-client check, retained as history)
+- [cold_recovery.json](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/audit/cold_recovery.json) (successful recovery after correcting the checking client’s universe annotation)
 - [fresh_kernel_replay.json](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/audit/fresh_kernel_replay.json)
 - [semantic_regressions.json](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/audit/semantic_regressions.json)
 - [final_binding_review.json](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/audit/final_binding_review.json)
@@ -100,7 +103,15 @@ The axiom audit is in the immutable artifact [`AxiomAudit.lean`](https://github.
 
 No `sorry`, `admit`, or custom mathematical axioms appear in the certified target graph.
 
-The submitted verification package includes an independent manuscript-to-Lean statement-correspondence review and the public verification records linked above. This pull request does not claim that the OpenProblemsInNLA maintainers reran Lean locally; the formal-verification status is supported by the immutable public proof and audit record submitted for maintainer review.
+The catalog’s independent review on 12 September 2026 records the [complete mathematical audit](../../references/maintainer-review-2026-09-12-tr01/pr141-review.md), [statement comparison](../../references/maintainer-review-2026-09-12-tr01/pr141-statement-review.md), [Lean verification audit](../../references/maintainer-review-2026-09-12-tr01/pr141-lean-review.md), and [PDF/source checks](../../references/maintainer-review-2026-09-12-tr01/pr141-pdf-qa.md). The Lean audit distinguishes checks rerun locally from archived contributor records. The manuscript acknowledges AI assistance; these independent catalog reviews were performed by Codex agents.
+
+## Historical status check — 2026-09-10
+
+Searches included `"rerandomized SRHT" counterexample`, `"rerandomized" "subspace" Hadamard`, and `"Hadamard" "two" "2026" embedding conjecture`. No resolution of the displayed two-round assertion was located. The September 2026 SparseStack result in the [screening notes](../../references/SCREENED-OUT.md#screened-items-that-are-not-counted) concerns another distribution.
+
+## Audit — 2026-09-10
+
+Rechecked [workshop Problem 5.6](https://arxiv.org/html/2602.05394v3). The precise two-round Hadamard distribution remains unproved there. Rerandomized-Hadamard and later embedding searches found no resolution; guarantees for independent sparse entries or additional randomizations do not settle this distribution.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Solved and claimed solutions](../../RESOLVED.md#tr-01) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
