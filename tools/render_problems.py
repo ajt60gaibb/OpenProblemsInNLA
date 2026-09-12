@@ -38,6 +38,9 @@ def render(source):
         # Keep the unchanged original target together after its resolution notice.
         # This PDF-only layout instruction should not appear on the GitHub page.
         body = body.replace("## Context and notation\n", "\\newpage\n\n## Context and notation\n", 1)
+    if identifier == "SP-13":
+        # Keep the retained target together after the full resolution notice.
+        body = body.replace("## Statement\n", "\\newpage\n\n## Statement\n", 1)
     # GitHub-relative links become usable links in a downloaded PDF or TeX file.
     def absolute_link(match):
         target = match[1]
@@ -73,7 +76,7 @@ def render(source):
             'RA-14', 'RA-15', 'RA-17', 'RE-01', 'RE-02', 'RE-03', 'RE-06', 'SP-04',
             'SP-05', 'SP-06', 'SP-07', 'SP-09', 'SP-12', 'TR-11', 'TR-20', 'TR-21',
             'TR-24', 'TR-26', 'TR-30',
-            'IE-27', 'MF-24', 'MI-30', 'MI-31', 'SP-13', 'SP-14',
+            'IE-27', 'MF-24', 'MI-30', 'MI-31', 'SP-14',
         }:
             tex = re.sub(r"\\subsection\{References?(?:\s+and\s+status\s+check)?\}",
                          lambda m: "\\newpage\n" + m[0], tex, count=1)

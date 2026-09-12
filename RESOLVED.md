@@ -21,6 +21,14 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### ✅ SP-13 - trace-norm perturbations preserve Hermitian spectral distributions - George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved affirmatively, 11 September 2026.** The [Theorem in Section 1 and proof in Sections 2-5](eigenvalues-and-inverse-problems/SP-13/solution.md) establish the full Barbarino-Serra-Capizzano conjecture with arbitrary complex perturbations of trace norm $o(n)$. Neither matrix sequence requires a spectral-norm bound; the perturbed matrices need not be normal, and every original compactly supported continuous complex test function is covered. [Proof PDF](eigenvalues-and-inverse-problems/SP-13/solution.pdf) · [Original target](eigenvalues-and-inverse-problems/SP-13/README.md).
+
+The proof uses the published weak-type triangular-truncation theorem with its original attribution, followed by Schur decomposition and elementary spectral-counting arguments. A separate [independent Codex-agent mathematical review](references/stepaniants-sp13-2026-09-11/verification/SP-13-independent-review.md) returned PASS for the complete target. Substantial AI assistance and the limits of informal automated review are disclosed; no external human peer review or formal verification is asserted. The [submission record](references/stepaniants-sp13-2026-09-11/README.md) preserves source and eligibility evidence. The permanent ID, original target, historical ratings and prior partial results remain unchanged.
+
 ### ✅ IE-05 - the orthogonal partial-pivoting extremizer equality is false - George Stepaniants
 
 **Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
