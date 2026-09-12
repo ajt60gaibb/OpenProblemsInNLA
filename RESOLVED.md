@@ -29,11 +29,6 @@ result is formalized in Lean.
 
 The complete analytic proof passed a separate [independent Codex-agent review](references/stepaniants-ie04-2026-09-11/verification/IE-04-independent-review.md). Finite exact interval and rational checks are supplementary. AI assistance and automated-review limits are disclosed; no external human peer review or formal certification is asserted. [Submission record and public eligibility audit](references/stepaniants-ie04-2026-09-11/README.md). All original target quantifiers, the permanent ID and historical ratings are retained.
 
-
-
-<a id="ie-01"></a>
-
-
 ### ✅ IE-05 - the orthogonal partial-pivoting extremizer equality is false - George Stepaniants
 
 **Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.

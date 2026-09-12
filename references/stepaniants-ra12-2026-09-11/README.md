@@ -41,3 +41,15 @@ python3 -m unittest discover -s tests -p 'test_problem_ids.py' -v
 The generated TeX files compile independently. The shared solution template makes contact information optional. The final [document checks](verification/document-checks.json) record the preserved hashes, proof-core and original-target identities, author metadata, builds and visual inspection. The mathematical review uses no numerical experiment as a universal proof.
 
 This package is published on `sgstepaniants:codex/stepaniants-ra12-gamma-tails`, an isolated branch from upstream main `16369809e6e600144bd350ab70b7473b652f46f1`. [Resolution issue 92](https://github.com/ajt60gaibb/OpenProblemsInNLA/issues/92) follows the correction-or-resolution template, and the new [pull request 93](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/93) targets `ajt60gaibb/OpenProblemsInNLA:main` and explicitly requests maintainer review and merge. Acceptance is pending. The reviewed artifact commit is `d8b18adf0f5355dfee2264a66d8287131446f972`. Catalog regeneration and all permanent-ID safeguard checks passed as recorded in the document checks.
+
+## Integration with accepted main — 11 September 2026
+
+The existing submission branch now retains accepted upstream changes from `87366c6` through a non-rewriting merge. The [dated integration record](verification/main-integration-2026-09-11-87366c6.md) documents unchanged reviewed proof files, preserved author attribution and mathematical targets, regenerated indexes, and passing ID/tests. Historical source hashes and reviews above are retained.
+
+## Accepted proof and later integration — 12 September 2026 UTC
+
+The complete proof and solved canonical entry from reviewed commit `c797aee` are already accepted on `main`; the earlier acceptance-pending wording above is historical. The latest maintainer review of [PR 93](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/93) gives mathematical PASS and explains that only later integration-provenance files remain pending, with the fork workflow still requiring execution approval. The [new dated integration record](verification/main-integration-2026-09-12-bfaa1d0.md) and [read-only verifier](verification/verify_integration_bfaa1d0.py) document the ordinary merge of accepted main `bfaa1d0`, preservation of all 217 incoming canonical entries and the unchanged proof/PDF bytes, and current safeguard checks. No mathematical correction, new PDF rendering, workflow approval, or upstream self-merge is performed by this integration.
+
+## Current-main integration and verification levels — 12 September 2026
+
+The [9a697fd integration record](verification/main-integration-2026-09-12-9a697fd.md) preserves the latest accepted main, including its separate Solved and Lean verified evidence levels. All 217 canonical pages and all RA-12 proof/PDF bytes are unchanged from accepted main; this remains a provenance-only update. The earlier integration notes and checkers remain unchanged historical records for their named commits.
