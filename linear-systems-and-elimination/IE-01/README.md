@@ -11,7 +11,7 @@
 
 ## Original problem statement
 
-Let $`A\in\mathbb R^{n\times n}`$ be symmetric positive definite, $`b,x_0\in\mathbb R^n`$, and $`3\leq s<n`$. At each restart, perform exactly $`s`$ exact-arithmetic conjugate-gradient steps, starting from the last iterate, and discard the previous search directions. Denote the iterate after restart cycle $`j`$ by $`x_j`$. Suppose this process never terminates exactly, and put
+Let $`A\in\mathbb R^{n\times n}`$ be symmetric positive definite, $`b,x_0\in\mathbb R^n`$, and $`3\leq s< n`$. At each restart, perform exactly $`s`$ exact-arithmetic conjugate-gradient steps, starting from the last iterate, and discard the previous search directions. Denote the iterate after restart cycle $`j`$ by $`x_j`$. Suppose this process never terminates exactly, and put
 
 ```math
 r_j=b-Ax_j,\qquad y_j=r_j/\|r_j\|_2.
@@ -27,7 +27,7 @@ Faber, Liesen, and Tichý, [*On the Forsythe conjecture*](https://doi.org/10.100
 
 M. J. Colbrook, G. Stepaniants, and A. Townsend, *A Complete Resolution of Forsythe's Conjecture for Restarted Conjugate Gradients*, [arXiv:2609.04659v2](https://arxiv.org/abs/2609.04659v2), submitted September 4 and revised September 7, 2026, **Theorem 1.1**.
 
-Theorem 1.1 proves termination or separate convergence of the even and odd normalized residuals for $`s=2,3`$. For each $`s\ge4`$, it constructs a diagonal positive definite matrix of dimension exactly $`s+4`$ and a nonterminating iteration whose even normalized residuals do not converge. Thus the original target is affirmative at $`s=3`$ and negative at every $`s\ge4`$, with no remaining cases. The real SPD, exact-arithmetic and residual-normalization conventions match the original statement, and the counterexamples satisfy $`s<n`$. Together with Akaike's classical $`s=1`$ theorem, this gives the sharp threshold $`s\in\{1,2,3\}`$.
+Theorem 1.1 proves termination or separate convergence of the even and odd normalized residuals for $`s=2,3`$. For each $`s\ge4`$, it constructs a diagonal positive definite matrix of dimension exactly $`s+4`$ and a nonterminating iteration whose even normalized residuals do not converge. Thus the original target is affirmative at $`s=3`$ and negative at every $`s\ge4`$, with no remaining cases. The real SPD, exact-arithmetic and residual-normalization conventions match the original statement, and the counterexamples satisfy $`s< n`$. Together with Akaike's classical $`s=1`$ theorem, this gives the sharp threshold $`s\in\{1,2,3\}`$.
 
 ## Lean proof and verification evidence
 

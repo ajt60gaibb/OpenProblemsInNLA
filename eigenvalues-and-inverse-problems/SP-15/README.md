@@ -45,7 +45,7 @@ every family $`A_1,\ldots,A_{M_N+1}\in\mathbb C^{N\times N}`$ with
 $`A_i\sim_{\rm sip}A_j`$ for all $`i,j`$ contains a pair satisfying
 
 ```math
-A_j=U^*A_iU\quad\text{for some }i<j\text{ and }U^*U=I?
+A_j=U^*A_iU\quad\text{for some }i< j\text{ and }U^*U=I?
 ```
 
 Equivalently, is every such data fiber a union of at most $`M_N`$ unitary similarity

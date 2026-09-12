@@ -20,7 +20,7 @@ The complete target is resolved. Its former difficulty rating is historical; the
 
 <!-- /colbrook-transfer -->
 
-Let $`n\ge2`$, $`1\le k<n`$, and $`A,\widehat A\in\mathbb R^{n\times n}`$ satisfy $`A\succeq\widehat A\succeq0`$, where the matrices are symmetric and $`\succeq`$ is the positive semidefinite ordering. Let $`f:[0,\infty)\to[0,\infty)`$ be continuous, concave, and nondecreasing.
+Let $`n\ge2`$, $`1\le k< n`$, and $`A,\widehat A\in\mathbb R^{n\times n}`$ satisfy $`A\succeq\widehat A\succeq0`$, where the matrices are symmetric and $`\succeq`$ is the positive semidefinite ordering. Let $`f:[0,\infty)\to[0,\infty)`$ be continuous, concave, and nondecreasing.
 
 For $`X=\sum_{i=1}^n\lambda_iq_iq_i^T`$ with orthonormal $`q_i`$ and $`\lambda_1\ge\cdots\ge\lambda_n\ge0`$, set
 

@@ -21,10 +21,10 @@ w_{pq}=\frac{\mathop{\mathrm{length}}\nolimits(C_p\cap C_q\cap\Omega)}h,
 
 and set other weights to zero. Define the Purvis–Burkhalter Neumann matrix by $`a_p=\sum_qw_{pq}`$, $`A_{pp}=a_p`$, and $`A_{pq}=-w_{pq}`$ for $`p\ne q`$. Write $`L`$ for its strictly lower triangular part.
 
-For $`0<r<1`$, the source's relaxed incomplete LU preconditioner uses $`E=\mathop{\mathrm{diag}}\nolimits(e_1,\ldots,e_{N_h})`$, where $`e_1=a_1`$ and, in increasing order,
+For $`0< r<1`$, the source's relaxed incomplete LU preconditioner uses $`E=\mathop{\mathrm{diag}}\nolimits(e_1,\ldots,e_{N_h})`$, where $`e_1=a_1`$ and, in increasing order,
 
 ```math
-e_p=a_p-\sum_{\substack{q<p\\w_{pq}>0}}
+e_p=a_p-\sum_{\substack{q< p\\w_{pq}>0}}
 \frac{w_{pq}}{e_q}
 \left(w_{pq}+(1-r)\sum_{\substack{s>q\\s\ne p}}w_{qs}\right),
 \qquad M=(L+E)E^{-1}(E+L^T).
@@ -32,7 +32,7 @@ e_p=a_p-\sum_{\substack{q<p\\w_{pq}>0}}
 
 This is Definition 4 written with numbered grid points; sums contain only neighboring cells. Define $`\kappa_+(M^{-1}A)`$ as the largest divided by the smallest **positive** eigenvalue of $`M^{-1/2}AM^{-1/2}`$, excluding the Neumann zero eigenvalue.
 
-**Conjecture.** There are constants $`c_\Omega,K_\Omega,h_\Omega>0`$, independent of $`h`$, such that with $`r=c_\Omega h^2`$, for all $`0<h<h_\Omega`$ the pivots are positive and
+**Conjecture.** There are constants $`c_\Omega,K_\Omega,h_\Omega>0`$, independent of $`h`$, such that with $`r=c_\Omega h^2`$, for all $`0< h< h_\Omega`$ the pivots are positive and
 
 ```math
 \kappa_+(M^{-1}A)\le K_\Omega h^{-1}.

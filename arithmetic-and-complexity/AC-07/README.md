@@ -14,7 +14,7 @@
 ## Problem statement
 
 An addition chain for a positive integer $`n`$ is a sequence
-$`1=a_0<a_1<\cdots<a_r=n`$ in which every $`a_i`$ with $`i>0`$ is a sum of two earlier
+$`1=a_0< a_1<\cdots< a_r=n`$ in which every $`a_i`$ with $`i>0`$ is a sum of two earlier
 terms, which may coincide. Let $`\ell(n)`$ be its minimum possible length $`r`$.
 Is
 

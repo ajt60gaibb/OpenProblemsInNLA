@@ -24,14 +24,14 @@ The difficulty, importance and rating rationale below are historical assessments
 
 ## Problem statement
 
-Let $`C_n\in\mathbb C^{n\times n}`$ be the cyclic shift, $`C_ne_j=e_{j+1}`$ for $`j<n`$ and $`C_ne_n=e_1`$. Draw $`b`$ uniformly from the complex unit sphere. For $`2\leq k<n`$, let $`Q`$ have orthonormal columns spanning
+Let $`C_n\in\mathbb C^{n\times n}`$ be the cyclic shift, $`C_ne_j=e_{j+1}`$ for $`j< n`$ and $`C_ne_n=e_1`$. Draw $`b`$ uniformly from the complex unit sphere. For $`2\leq k< n`$, let $`Q`$ have orthonormal columns spanning
 
 ```math
 \mathcal K_k(C_n,b)=\mathop{\mathrm{span}}\nolimits\{b,C_nb,\ldots,C_n^{k-1}b\},
 \qquad H=Q^*C_nQ.
 ```
 
-This subspace has dimension $`k`$ almost surely. Define $`\kappa_V(H)=\inf_{H=VDV^{-1},\ D\text{ diagonal}}\|V\|_2\|V^{-1}\|_2`$, and set it to $`+\infty`$ if $`H`$ is not diagonalizable. Do universal constants $`C,c>0`$ exist such that, for every $`n\geq3`$ and $`2\leq k<n`$, with the same constants,
+This subspace has dimension $`k`$ almost surely. Define $`\kappa_V(H)=\inf_{H=VDV^{-1},\ D\text{ diagonal}}\|V\|_2\|V^{-1}\|_2`$, and set it to $`+\infty`$ if $`H`$ is not diagonalizable. Do universal constants $`C,c>0`$ exist such that, for every $`n\geq3`$ and $`2\leq k< n`$, with the same constants,
 
 ```math
 \Pr\{\kappa_V(H)\leq Cn^c\}\geq0.99?

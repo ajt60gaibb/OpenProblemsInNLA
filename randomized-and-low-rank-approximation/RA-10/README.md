@@ -32,7 +32,7 @@ The sharp nuclear relative-excess factor is two when $`A`$, $`B=\widehat A_k`$ a
 
 <!-- /colbrook-transfer -->
 
-Does a universal constant $`C\ge1`$ exist with the following property? For every $`n\ge2`$, $`1\le k<n`$, real symmetric positive semidefinite matrices $`A,\widehat A\in\mathbb R^{n\times n}`$, $`\varepsilon\ge0`$, and continuous operator-monotone function $`f:[0,\infty)\to[0,\infty)`$,
+Does a universal constant $`C\ge1`$ exist with the following property? For every $`n\ge2`$, $`1\le k< n`$, real symmetric positive semidefinite matrices $`A,\widehat A\in\mathbb R^{n\times n}`$, $`\varepsilon\ge0`$, and continuous operator-monotone function $`f:[0,\infty)\to[0,\infty)`$,
 
 ```math
 \|A-\widehat A_k\|_*\le(1+\varepsilon)\|A-A_k\|_*

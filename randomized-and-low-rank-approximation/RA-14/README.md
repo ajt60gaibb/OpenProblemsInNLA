@@ -13,7 +13,7 @@
 
 ## Problem statement
 
-Let $`n\ge2`$, $`1\le k<n`$, and $`0<\varepsilon<1/2`$. An unknown matrix $`A\in\mathbb R^{n\times n}`$ is available through exact products $`Ax`$ and $`A^Tx`$, with one such product counting as one query. An algorithm may choose each real query vector adaptively using all earlier answers and its random bits. Arithmetic and other computation between queries are unrestricted; matrix entries are not otherwise accessible.
+Let $`n\ge2`$, $`1\le k< n`$, and $`0<\varepsilon<1/2`$. An unknown matrix $`A\in\mathbb R^{n\times n}`$ is available through exact products $`Ax`$ and $`A^Tx`$, with one such product counting as one query. An algorithm may choose each real query vector adaptively using all earlier answers and its random bits. Arithmetic and other computation between queries are unrestricted; matrix entries are not otherwise accessible.
 
 Let $`q_{\mathrm{sp}}(n,k,\varepsilon)`$ be the smallest integer $`q`$ for which an algorithm using at most $`q`$ queries returns a matrix $`Z\in\mathbb R^{n\times k}`$ with $`Z^TZ=I_k`$ such that, for every input $`A`$,
 

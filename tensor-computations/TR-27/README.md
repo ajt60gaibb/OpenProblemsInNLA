@@ -22,9 +22,9 @@ Let $`V`$ be a finite-dimensional complex vector space and let $`X\subset\mathbb
 Embed $`X\times X`$ in $`\mathbb P(V\otimes V)`$ by the Segre map $`([x],[y])\mapsto[x\otimes y]`$. Is it always true that
 
 ```math
-\underline R_X(p)<R_X(p)
+\underline R_X(p)< R_X(p)
 \quad\Longrightarrow\quad
-R_{X\times X}(p\otimes p)<R_X(p)^2?
+R_{X\times X}(p\otimes p)< R_X(p)^2?
 ```
 
 Here $`p\otimes p`$ denotes the projective point represented by the tensor square of any representative of $`p`$. The product variety is precisely the Segre image just defined. For tensor-rank examples, this is the ordinary tensor product with both sets of modes retained; it does not silently merge corresponding modes into a Kronecker product.

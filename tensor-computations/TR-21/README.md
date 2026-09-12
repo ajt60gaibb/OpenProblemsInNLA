@@ -30,7 +30,7 @@ F(T)=\max_{1\leq k\leq r}\mathbb E
 T_{i_1,\ldots,i_{k-1},a,i_{k+1},\ldots,i_r}^{\,2}\right)^{1/2}.
 ```
 
-Do constants $`0<c_r\leq C_r<\infty`$, depending only on the order $`r`$, exist such that
+Do constants $`0< c_r\leq C_r<\infty`$, depending only on the order $`r`$, exist such that
 
 ```math
 c_rF(T)\leq\mathbb E\|T\|_{\mathrm{inj}}\leq C_rF(T)

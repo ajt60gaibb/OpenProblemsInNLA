@@ -29,6 +29,10 @@ jobs:
         run: python3 -m unittest discover -s tests -p 'test_problem_ids.py' -v
       - name: Test problem status and catalog counts
         run: python3 -m unittest discover -s tests -p 'test_problem_statuses.py' -v
+      - name: Install Pandoc for math-conversion tests
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends pandoc
       - name: Check GitHub mathematics formatting
         run: |
           python3 tools/format_math.py --check

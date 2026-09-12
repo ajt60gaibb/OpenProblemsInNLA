@@ -26,7 +26,7 @@ For $`\varepsilon>0`$, define $`E=\mathop{\mathrm{diag}}\nolimits(e_1,\ldots,e_{
 ```math
 e_1=a_1,\qquad
 e_p=(1+\varepsilon)a_p-
-\sum_{\substack{q<p\\w_{pq}>0}}
+\sum_{\substack{q< p\\w_{pq}>0}}
 \frac{w_{pq}}{e_q}\sum_{s>q}w_{qs}\quad(p>1),
 ```
 
@@ -38,7 +38,7 @@ When the pivots are positive, let $`\kappa_+(M^{-1}A)`$ be the ratio of the larg
 
 ```math
 \kappa_+(M^{-1}A)\le K_\Omega h^{-1}
-\qquad(0<h<h_\Omega).
+\qquad(0< h< h_\Omega).
 ```
 
 The existence quantifier spells out the source's choice of “some moderate constant”; it does not impose an invented interval for that constant. The authors suggest the practical choice $`c_\Omega=1`$.

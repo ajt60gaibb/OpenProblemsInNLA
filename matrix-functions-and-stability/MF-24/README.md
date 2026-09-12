@@ -53,9 +53,7 @@ question, retained here rather than split into another entry.
 - Fortier Bourque and Ransford, [*Super-identical pseudospectra*](https://doi.org/10.1112/jlms/jdn085), **p. 513, immediately after Theorem 1.3**, explicitly ask both whether their $`\sqrt N`$ bound is optimal and whether a dimension-independent bound exists. The sharp-constant notation above is editorial; the boundedness question is source-stated.
 - Thomas Ransford and Nathan Walsh, [*A four-mean theorem and its application to pseudospectra*, arXiv:2109.14472v2](https://arxiv.org/pdf/2109.14472v2), **9 July 2022**, **Theorem 1.3**, prove
 
-  ```math
-  \|p(A)\|_2<\sqrt{N-2}\,\|p(B)\|_2\qquad(N\geq4)
-  ```
+  $`\displaystyle \|p(A)\|_2<\sqrt{N-2}\,\|p(B)\|_2\qquad(N\geq4)`$
 
   unless both sides vanish. **Proposition 5.1** and its following argument show sharpness for $`N=4`$: $`C_4=\sqrt2`$. **Theorem 1.4** concerns unbounded condition numbers of similarity transforms in fixed dimension, a different quantity.
 

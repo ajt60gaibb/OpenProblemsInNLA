@@ -29,7 +29,7 @@ Does
 
 ```math
 \prod_{j=1}^k s_j\bigl(A^t(A\#_tB)B^{1-t}\bigr)
-\le\prod_{j=1}^k s_j(AB),\qquad 1\le k<n,
+\le\prod_{j=1}^k s_j(AB),\qquad 1\le k< n,
 ```
 
 hold for every positive integer $`n`$, every such $`A,B,t`$, with equality of the products for $`k=n`$? This is the assertion $`s(A^t(A\#_tB)B^{1-t})\prec_{\log}s(AB)`$. The positive semidefinite version in the sources is recovered by continuous regularization $`A+\varepsilon I,B+\varepsilon I`$; endpoints in $`t`$ can be stated directly.

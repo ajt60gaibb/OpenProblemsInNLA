@@ -27,7 +27,7 @@ For each integer $`n\ge3`$, define the $`n\times n`$ nonnegative matrix
 
 ```math
 S_n(i,j)=\cos(\pi/n)-\cos\bigl((2i+1-2j)\pi/n\bigr),
-\qquad 0\le i,j<n.
+\qquad 0\le i,j< n.
 ```
 
 It is the slack matrix obtained from the vertices of the regular $`n`$-gon on
@@ -40,8 +40,8 @@ With $`k=\lceil\log_2 n\rceil`$, is it true for every $`n\ge3`$ that
 ```math
 \mathop{\mathrm{rank}}\nolimits_+(S_n)=
 \begin{cases}
-2k-1,&2^{k-1}<n\le 2^{k-1}+2^{k-2},\\
-2k,&2^{k-1}+2^{k-2}<n\le2^k?
+2k-1,&2^{k-1}< n\le 2^{k-1}+2^{k-2},\\
+2k,&2^{k-1}+2^{k-2}< n\le2^k?
 \end{cases}
 ```
 

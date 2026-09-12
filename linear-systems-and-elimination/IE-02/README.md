@@ -13,7 +13,7 @@
 
 ## Resolution — 2026-09-11
 
-**Solved affirmatively.** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, proves the displayed equality for every $`n\ge2`$, $`1\le k<n`$, and nonzero complex $`\lambda`$, with complex polynomials and starting vectors. No divisibility or eigenvalue-regime case remains open.
+**Solved affirmatively.** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, proves the displayed equality for every $`n\ge2`$, $`1\le k< n`$, and nonzero complex $`\lambda`$, with complex polynomials and starting vectors. No divisibility or eigenvalue-regime case remains open.
 
 [Theorem 1 and its proof](solution.md) establish the exact original target. The stronger Theorem 6 proves affine minimax equality for triangular Toeplitz matrices: finite Carathéodory–Fejér interpolation describes the maximal singular subspace, and scalar spectral factorization preserves every complex GMRES orthogonality equation in one unit vector. [Proof PDF](solution.pdf) · [Standalone XeLaTeX source](solution.tex).
 
@@ -29,7 +29,7 @@ For $`n\geq2`$ and $`\lambda\in\mathbb C\setminus\{0\}`$, let $`J_n(\lambda)=\la
 \phi_k(J)=\min_{p\in\mathcal P_k}\|p(J)\|_2.
 ```
 
-Prove or disprove $`\psi_k(J_n(\lambda))=\phi_k(J_n(\lambda))`$ for every $`1\leq k<n`$. The maximum describes the slowest possible GMRES residual reduction, whereas the minimum over operator norms is the ideal bound. The familiar inequality $`\psi_k\leq\phi_k`$ does not answer the question. A single Jordan block is a published structural test case, not a claim about all nonnormal matrices.
+Prove or disprove $`\psi_k(J_n(\lambda))=\phi_k(J_n(\lambda))`$ for every $`1\leq k< n`$. The maximum describes the slowest possible GMRES residual reduction, whereas the minimum over operator norms is the ideal bound. The familiar inequality $`\psi_k\leq\phi_k`$ does not answer the question. A single Jordan block is a published structural test case, not a claim about all nonnormal matrices.
 
 ## References
 

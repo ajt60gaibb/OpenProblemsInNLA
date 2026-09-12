@@ -26,7 +26,7 @@ Let $`A\in\mathbb R^{n\times n}`$ be symmetric and $`V\in\mathbb R^{n\times p}`$
 and let $`s`$ be the largest integer with $`\dim\mathcal K_s=sp`$. For $`1\le j\le s`$, choose an orthonormal basis $`Q_j`$ of $`\mathcal K_j`$ and order the eigenvalues of $`T_j=Q_j^TAQ_j`$ as
 $`\theta_1^{(j)}\le\cdots\le\theta_{jp}^{(j)}`$, with multiplicity.
 
-For every $`1\le k<j\le s`$ and $`1\le i\le(k-1)p`$, must the open interval
+For every $`1\le k< j\le s`$ and $`1\le i\le(k-1)p`$, must the open interval
 
 ```math
 (\theta_i^{(k)},\theta_{i+p}^{(k)})

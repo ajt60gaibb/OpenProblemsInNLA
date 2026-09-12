@@ -23,7 +23,7 @@ where $`P_F`$ is the Euclidean orthogonal projector. A strong row coreset consis
 
 holds simultaneously for every $`F`$ of dimension at most $`k`$.
 
-Determine the optimal worst-case coreset size as a joint function of $`k`$ and $`\varepsilon`$, up to logarithmic factors. In particular, do constants $`C_p,c_p>0`$ exist such that, for all $`n,d`$, integers $`1\leq k<d`$, all input matrices $`A`$, and all $`0<\varepsilon<1/2`$, such a coreset exists with
+Determine the optimal worst-case coreset size as a joint function of $`k`$ and $`\varepsilon`$, up to logarithmic factors. In particular, do constants $`C_p,c_p>0`$ exist such that, for all $`n,d`$, integers $`1\leq k< d`$, all input matrices $`A`$, and all $`0<\varepsilon<1/2`$, such a coreset exists with
 
 ```math
 |\mathop{\mathrm{supp}}\nolimits(w)|\leq

@@ -13,7 +13,7 @@
 
 ## Problem statement
 
-For integers $`1\le r<n`$, let $`U\in\mathbb R^{n\times r}`$ satisfy $`U^TU=I_r`$.
+For integers $`1\le r< n`$, let $`U\in\mathbb R^{n\times r}`$ satisfy $`U^TU=I_r`$.
 Write $`U_I=U(I,:)`$ for $`I\subseteq\{1,\ldots,n\}`$ with $`|I|=r`$, and let $`\|\cdot\|_2`$ denote the spectral norm.
 
 **Conjecture** (Goreinov–Tyrtyshnikov–Zamarashkin [1, Eq. (2.6)]).
@@ -61,7 +61,7 @@ The classical bound $`\sqrt{r(n-r)+1}`$ also holds over $`\mathbb C`$ [3].
 
 ```math
 t_{\mathbb C}(r,n)\le\alpha\sqrt n,
-\qquad 1\le r<n.
+\qquad 1\le r< n.
 ```
 
 The dependence on $`r,n`$ and the best possible $`\alpha`$ remain to be determined.

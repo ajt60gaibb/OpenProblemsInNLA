@@ -17,7 +17,7 @@ For a permutation $`\sigma\in S_n`$, let
 
 ```math
 \mathop{\mathrm{inv}}\nolimits(\sigma)=
-\#\{(i,j):1\le i<j\le n,\ \sigma(i)>\sigma(j)\}.
+\#\{(i,j):1\le i< j\le n,\ \sigma(i)>\sigma(j)\}.
 ```
 
 For real $`q`$ and $`A=(a_{ij})\in\mathbb C^{n\times n}`$, define
@@ -27,10 +27,10 @@ P_q(A)=\sum_{\sigma\in S_n}q^{\mathop{\mathrm{inv}}\nolimits(\sigma)}
 \prod_{i=1}^n a_{i,\sigma(i)},\qquad 0^0=1.
 ```
 
-Is it true that, for every $`n\ge2`$, every non-diagonal Hermitian PSD matrix $`A`$ with $`a_{ii}>0`$ for all $`i`$, and every $`-1\le q_1<q_2\le1`$,
+Is it true that, for every $`n\ge2`$, every non-diagonal Hermitian PSD matrix $`A`$ with $`a_{ii}>0`$ for all $`i`$, and every $`-1\le q_1< q_2\le1`$,
 
 ```math
-P_{q_1}(A)<P_{q_2}(A)?
+P_{q_1}(A)< P_{q_2}(A)?
 ```
 
 The expression is real for Hermitian $`A`$. The order of rows and columns in the inversion statistic is fixed.

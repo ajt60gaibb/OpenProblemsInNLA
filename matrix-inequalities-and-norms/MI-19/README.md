@@ -26,7 +26,7 @@ The exact target is resolved. The original statement and source evidence are ret
 Let $`n\ge2`$, let $`A=(a_{ij})\in\mathbb C^{n\times n}`$ be Hermitian positive semidefinite, and let $`q\in[0,1]`$. Define
 
 ```math
-\mathop{\mathrm{inv}}\nolimits(\sigma)=\#\{(i,j):i<j,\ \sigma(i)>\sigma(j)\},\qquad
+\mathop{\mathrm{inv}}\nolimits(\sigma)=\#\{(i,j):i< j,\ \sigma(i)>\sigma(j)\},\qquad
 P_q(A)=\sum_{\sigma\in S_n}q^{\mathop{\mathrm{inv}}\nolimits(\sigma)}
 \prod_{i=1}^n a_{i,\sigma(i)},
 ```

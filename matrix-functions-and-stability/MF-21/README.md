@@ -41,15 +41,11 @@ R_{p,n,j}=\lambda_{n,j}-\sum_{k=0}^p
 
 1. For every integer $`0\le p\le2m-1`$, there are constants $`D_p>0`$ and $`N_p\in\mathbb N`$ such that
 
-   ```math
-   |R_{p,n,j}|\le D_p(n+2)^{-p-1}\qquad(n\ge N_p,\ 1\le j\le n).
-   ```
+   $`\displaystyle |R_{p,n,j}|\le D_p(n+2)^{-p-1}\qquad(n\ge N_p,\ 1\le j\le n).`$
 
 2. There are constants $`D_{2m}>0`$ and $`N_{2m}\in\mathbb N`$ such that
 
-   ```math
-   |R_{2m,n,j}|\le D_{2m}(n+2)^{-2m-1}
-   ```
+   $`\displaystyle |R_{2m,n,j}|\le D_{2m}(n+2)^{-2m-1}`$
 
    whenever $`n\ge N_{2m}`$ and $`\lceil(\log(n+2))^2\rceil\le j\le n`$.
 3. No constants $`D>0,N\in\mathbb N`$ make the bound $`|R_{2m,n,j}|\le D(n+2)^{-2m-1}`$ valid for every $`n\ge N`$ and every $`1\le j\le n`$.

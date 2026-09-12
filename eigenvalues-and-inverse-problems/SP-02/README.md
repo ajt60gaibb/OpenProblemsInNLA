@@ -13,7 +13,7 @@ Let $`A`$ be a self-adjoint, possibly unbounded operator on a separable complex 
 PVP=0,\qquad (I-P)V(I-P)=0.
 ```
 
-Writing $`O_r(S)=\{x\in\mathbb R:\mathop{\mathrm{dist}}\nolimits(x,S)<r\}`$ and $`Q=E_{A+V}(O_{d/2}(\sigma))`$, does
+Writing $`O_r(S)=\{x\in\mathbb R:\mathop{\mathrm{dist}}\nolimits(x,S)< r\}`$ and $`Q=E_{A+V}(O_{d/2}(\sigma))`$, does
 
 ```math
 \|V\|<\frac{\sqrt3}{2}d\quad\Longrightarrow\quad\|P-Q\|<1

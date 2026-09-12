@@ -14,7 +14,7 @@
 
 ## Statement
 
-Let $`q\ge2`$, and let $`A_q\in\mathbb R^{q\times q}`$ be the Butcher matrix of the $`q`$-stage Radau IIA method. Explicitly, if $`0<c_1<\cdots<c_q=1`$ are the roots in $`[0,1]`$ of $`P_q(2t-1)-P_{q-1}(2t-1)`$, where $`P_j`$ is the degree-$`j`$ Legendre polynomial normalized by $`P_j(1)=1`$, and $`\ell_j`$ are their Lagrange cardinal polynomials, then
+Let $`q\ge2`$, and let $`A_q\in\mathbb R^{q\times q}`$ be the Butcher matrix of the $`q`$-stage Radau IIA method. Explicitly, if $`0< c_1<\cdots< c_q=1`$ are the roots in $`[0,1]`$ of $`P_q(2t-1)-P_{q-1}(2t-1)`$, where $`P_j`$ is the degree-$`j`$ Legendre polynomial normalized by $`P_j(1)=1`$, and $`\ell_j`$ are their Lagrange cardinal polynomials, then
 
 ```math
  (A_q)_{ij}=\int_0^{c_i}\ell_j(t)\,dt.

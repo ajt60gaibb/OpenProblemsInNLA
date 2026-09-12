@@ -13,7 +13,7 @@ For a prime $`p\equiv1\pmod4`$, let $`Q`$ be the nonzero quadratic residues modu
 ```math
 (\Phi_p)_{0j}=p^{-1/2},\qquad
 (\Phi_p)_{rj}=\sqrt{2/p}\exp(-2\pi\mathrm i rj/p)
-\quad(r\in Q,\ 0\leq j<p),
+\quad(r\in Q,\ 0\leq j< p),
 ```
 
 and $`(\Phi_p)_{0,\infty}=1`$, $`(\Phi_p)_{r,\infty}=0`$ for $`r\in Q`$. All columns have Euclidean norm one.

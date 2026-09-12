@@ -13,7 +13,7 @@
 
 For every $`m\ge2`$, the exact dimension-two operator-norm constant is $`c_\infty^{\rm sym}(m,2)=\sqrt{6\sqrt3-9}`$. This is also the sharp single constant valid simultaneously for every unitarily invariant norm on $`M_2`$.
 
-**Still open:** This does not determine each individual finite Schatten constant. The cases $`1<p<\infty`$ remain open; the previously established trace endpoint and higher-dimensional operator endpoint are retained. The ratings apply to this surviving question.
+**Still open:** This does not determine each individual finite Schatten constant. The cases $`1< p<\infty`$ remain open; the previously established trace endpoint and higher-dimensional operator endpoint are retained. The ratings apply to this surviving question.
 
 **Primary manuscript:** [complete proof PDF](solution.pdf), [standalone TeX](solution.tex), Theorem 1.1 and its proof; [authorship and scope](solution.md). The [independent review](../../references/colbrook-matrix-2026-09-11/verification/reviews/MI-09-review.md) checks the full original argument and records its hash. The draft was AI-assisted; this is independent agent verification, not external human peer review or formal certification. [Submission record](../../references/colbrook-matrix-2026-09-11/README.md).
 

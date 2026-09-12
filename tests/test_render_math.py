@@ -107,6 +107,25 @@ class PandocMathTests(unittest.TestCase):
                 github = prefix + f"{indent}```math\n{indent}{formula}\n{indent}```" + suffix
                 self.assert_same_equations_and_tex(ordinary, github)
 
+    def test_standalone_displaystyle_is_promoted_inside_nested_lists(self):
+        formula = r"\Lambda_N(s)\le C\frac{N^{2\alpha}-1}{\alpha(1-2\alpha)}."
+        for prefix, indent in [("1. For every index:\n\n", "   "),
+                               ("- Outer item:\n\n  - Inner item:\n\n", "    ")]:
+            with self.subTest(indent=indent):
+                suffix = f"\n\n{indent}The same constants apply.\n"
+                ordinary = prefix + f"{indent}$$\n{indent}{formula}\n{indent}$$" + suffix
+                github = prefix + f"{indent}$`\\displaystyle {formula}`$" + suffix
+                self.assert_same_equations_and_tex(ordinary, github)
+
+    def test_displaystyle_with_prose_remains_inline(self):
+        for sentence in [r"Assume $\displaystyle \|A\|_2\le1$.",
+                         r"$\displaystyle \|A\|_2\le1$ is the hypothesis."]:
+            github = re.sub(r"\$([^$]+)\$", lambda match: "$`" + match[1] + "`$", sentence)
+            self.assert_same_equations_and_tex(sentence, github)
+
+    def test_standalone_inline_without_displaystyle_is_not_promoted(self):
+        self.assert_same_equations_and_tex(r"$\|A\|_2\le1$", r"$`\|A\|_2\le1`$")
+
     def test_currency_and_literal_code_are_untouched(self):
         markdown = (r"Cost is \$5 and \$10; a literal `\|A\|_2` is code." + "\n\n" +
                     '``$`x`$`` and `$x$` are code examples.\n\n' +

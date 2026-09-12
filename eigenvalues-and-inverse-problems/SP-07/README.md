@@ -48,10 +48,10 @@ R. Bhatia, [*Perturbation Bounds for Matrix Eigenvalues*](https://epubs.siam.org
 ## Earlier status check — 2026-09-08
 
 The cited sources distinguish the unresolved sharp constant from Holbrook's
-counterexample to one. They give $`1<C_{\rm normal}<3`$. A. Parusiński and A. Rainer,
+counterexample to one. They give $`1< C_{\rm normal}<3`$. A. Parusiński and A. Rainer,
 [*Eigenvalue stability of Hermitian and normal matrices*](https://arxiv.org/abs/2603.23056),
 v1 (2026), Proposition 3.4, still states the classical universal bound with
-$`1<C<3`$; it does not determine the sharp constant. Searches for
+$`1< C<3`$; it does not determine the sharp constant. Searches for
 `sharp spectral variation constant normal matrices`, `spectral variation best
 possible constant`, and 2025/2026 follow-ups found no exact value. The explicit
 open-question sources are historical; the recent bound is context, not an

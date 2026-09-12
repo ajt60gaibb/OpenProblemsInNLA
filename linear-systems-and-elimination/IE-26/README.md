@@ -41,7 +41,7 @@ The nodes are distinct. For $`y\in\mathbb C^m`$, let $`T_Ny`$ be the unique trig
 
 1. There is an absolute $`C>0`$ such that, for every $`N\ge2`$, $`0<\alpha<1/2`$, and admissible $`s`$,
 
-   $$\Lambda_N(s)\le C\frac{N^{2\alpha}-1}{\alpha(1-2\alpha)}.$$
+   $`\displaystyle \Lambda_N(s)\le C\frac{N^{2\alpha}-1}{\alpha(1-2\alpha)}.`$
 
 2. For every fixed $`1/4<\alpha<1/2`$, there is $`C_\alpha>0`$, independent of $`N`$ and $`s`$, such that
 

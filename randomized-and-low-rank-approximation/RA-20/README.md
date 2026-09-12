@@ -33,7 +33,7 @@ For generic symmetric $`U\in\mathbb C^{n\times n}`$, let $`e_{n,s}`$ be the numb
 
 ```math
 d_U(X)=\sum_i(x_{ii}-u_{ii})^2+
-2\sum_{i<j}(x_{ij}-u_{ij})^2.
+2\sum_{i< j}(x_{ij}-u_{ij})^2.
 ```
 
 Generic means outside a proper algebraic exceptional set. A point is critical if the differential vanishes on its tangent space. Thus $`e_{n,s}`$ is the Euclidean distance degree for the bilinear extension of the **full Frobenius metric**; the off-diagonal terms have weight two, and complex conjugation is absent.

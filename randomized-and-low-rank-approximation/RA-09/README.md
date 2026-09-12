@@ -20,7 +20,7 @@ The complete target is resolved. Its former difficulty rating is historical; the
 
 <!-- /colbrook-transfer -->
 
-Let $`n\ge2`$, $`1\le k<n`$, and $`A,\widehat A\in\mathbb R^{n\times n}`$ be symmetric with $`A\succeq\widehat A\succeq0`$. Let $`f:[0,\infty)\to[0,\infty)`$ be continuous, concave, and nondecreasing. For a positive semidefinite matrix $`X=\sum_{i=1}^n\lambda_iq_iq_i^T`$ with decreasing eigenvalues and orthonormal eigenvectors, write
+Let $`n\ge2`$, $`1\le k< n`$, and $`A,\widehat A\in\mathbb R^{n\times n}`$ be symmetric with $`A\succeq\widehat A\succeq0`$. Let $`f:[0,\infty)\to[0,\infty)`$ be continuous, concave, and nondecreasing. For a positive semidefinite matrix $`X=\sum_{i=1}^n\lambda_iq_iq_i^T`$ with decreasing eigenvalues and orthonormal eigenvectors, write
 
 ```math
 X_k=\sum_{i=1}^k\lambda_iq_iq_i^T,

@@ -57,8 +57,8 @@ there exist $`r,C>0`$ such that
 \le C d_H(\mathcal M,\mathcal N)^{1/d}
 ```
 
-whenever $`d_H(\mathcal M,\mathcal M_0)<r`$ and
-$`d_H(\mathcal N,\mathcal M_0)<r`$?
+whenever $`d_H(\mathcal M,\mathcal M_0)< r`$ and
+$`d_H(\mathcal N,\mathcal M_0)< r`$?
 
 ## Reference and status evidence
 

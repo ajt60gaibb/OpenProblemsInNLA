@@ -50,7 +50,7 @@ there exist $`r,C>0`$ such that
 
 ```math
 \widehat\rho(\mathcal N)\ge\widehat\rho(\mathcal M)-C d_H(\mathcal M,\mathcal N)
-\quad\text{if }d_H(\mathcal M,\mathcal N)<r?
+\quad\text{if }d_H(\mathcal M,\mathcal N)< r?
 ```
 
 ## Reference and status evidence

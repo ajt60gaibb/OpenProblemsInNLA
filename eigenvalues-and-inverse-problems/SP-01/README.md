@@ -16,7 +16,7 @@ O_r(S)=\{x\in\mathbb R:\mathop{\mathrm{dist}}\nolimits(x,S)< r\},
 
 where $`E_B`$ denotes the spectral projection measure of $`B`$.
 
-Does $`\|V\|<d/2`$ always imply $`\|P-Q\|<1`$? All norms are operator norms. Equivalently, is the optimal universal constant $`c_{\mathrm{opt}}=1/2`$ for guaranteeing that the maximal angle $`\arcsin\|P-Q\|`$ is strictly below $`\pi/2`$?
+Does $`\|V\|< d/2`$ always imply $`\|P-Q\|<1`$? All norms are operator norms. Equivalently, is the optimal universal constant $`c_{\mathrm{opt}}=1/2`$ for guaranteeing that the maximal angle $`\arcsin\|P-Q\|`$ is strictly below $`\pi/2`$?
 
 The two spectral sets may interlace: no ordering or disjoint-convex-hull hypothesis is imposed. The source's operator formulation is retained; Hermitian matrix invariant-subspace perturbation is its finite-dimensional setting. This problem concerns subspace orientation after perturbation, beyond preservation of a spectral gap.
 

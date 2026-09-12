@@ -12,6 +12,20 @@ function Math(math)
   end
 end
 
+function Para(paragraph)
+  -- GitHub needs protected inline syntax for displays nested inside lists.
+  -- Math filters run before block filters, so wrapper backticks are gone here.
+  if #paragraph.content == 1 then
+    local math = paragraph.content[1]
+    if math.tag == "Math" and math.mathtype == "InlineMath" then
+      local display = math.text:match("^\\displaystyle%s+(.*)$")
+      if display then
+        return pandoc.Para({pandoc.Math("DisplayMath", display)})
+      end
+    end
+  end
+end
+
 function CodeBlock(block)
   if #block.classes == 1 and block.classes[1] == "math" then
     return pandoc.Para({pandoc.Math("DisplayMath", block.text)})

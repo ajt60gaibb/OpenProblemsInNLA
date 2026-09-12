@@ -21,7 +21,7 @@ See the [manuscript](../../references/colbrook-frames-2026-09-11/manuscripts/sam
 Let $`F_N\in\mathbb C^{N\times N}`$ be the unitary cyclic discrete Fourier matrix,
 
 ```math
-(F_N)_{j\ell}=N^{-1/2}\exp(-2\pi\mathrm i j\ell/N),\quad0\leq j,\ell<N.
+(F_N)_{j\ell}=N^{-1/2}\exp(-2\pi\mathrm i j\ell/N),\quad0\leq j,\ell< N.
 ```
 
 Choose $`r_1,\ldots,r_m`$ independently and uniformly from $`\{0,\ldots,N-1\}`$, allowing repetitions, and form $`A=\sqrt{N/m}(F_N)_{(r_1,\ldots,r_m),:}`$. Put

@@ -15,7 +15,7 @@ r_*={\prod_{i=1}^d n_i\over 1+\sum_{i=1}^d(n_i-1)},\qquad
 b=\prod_{i=2}^d n_i-\sum_{i=2}^d(n_i-1).
 ```
 
-For every integer $`1\le r<r_*`$, a generic rank-$`r`$ tensor in $`\bigotimes_{i=1}^d\mathbb C^{n_i}`$ is conjectured to have a unique expression as a sum of $`r`$ nonzero rank-one tensors, except in these cases:
+For every integer $`1\le r< r_*`$, a generic rank-$`r`$ tensor in $`\bigotimes_{i=1}^d\mathbb C^{n_i}`$ is conjectured to have a unique expression as a sum of $`r`$ nonzero rank-one tensors, except in these cases:
 
 1. $`n_1>b`$ and $`r\ge b`$.
 2. Format $`(4,4,3)`$, rank $`5`$.

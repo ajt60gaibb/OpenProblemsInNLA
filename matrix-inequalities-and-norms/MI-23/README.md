@@ -36,7 +36,7 @@ Is it true, for every $`n\ge1`$, every such $`A,B`$, every $`p\ge1`$, $`t\in[0,1
 \prec_{\log}\lambda\bigl(A^{p(r+s-1)}B^p\bigr)?
 ```
 
-The eigenvalues of these products are positive real numbers, ordered decreasingly: each product is similar to a positive definite matrix. For positive decreasing vectors $`x,y\in\mathbb R^n`$, $`x\prec_{\log}y`$ means $`\prod_{j=1}^kx_j\le\prod_{j=1}^ky_j`$ for $`1\le k<n`$, with equality at $`k=n`$.
+The eigenvalues of these products are positive real numbers, ordered decreasingly: each product is similar to a positive definite matrix. For positive decreasing vectors $`x,y\in\mathbb R^n`$, $`x\prec_{\log}y`$ means $`\prod_{j=1}^kx_j\le\prod_{j=1}^ky_j`$ for $`1\le k< n`$, with equality at $`k=n`$.
 
 This compares nonlinear matrix-mean products with products of powers of the input matrices. It would give simultaneous multiplicative control for every partial product of ordered eigenvalues and strengthen norm estimates used with positive definite matrix functions.
 

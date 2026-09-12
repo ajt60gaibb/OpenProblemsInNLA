@@ -28,7 +28,7 @@ For $`n\geq2`$, let the input consist of $`3n-2`$ closed real intervals with
 rational endpoints: diagonal intervals $`[\underline a_i,\overline a_i]`$
 for $`1\leq i\leq n`$, upper-diagonal intervals
 $`[\underline b_i,\overline b_i]`$, and lower-diagonal intervals
-$`[\underline c_i,\overline c_i]`$ for $`1\leq i<n`$.
+$`[\underline c_i,\overline c_i]`$ for $`1\leq i< n`$.
 All lower endpoints are at most their upper endpoints. Define
 
 ```math

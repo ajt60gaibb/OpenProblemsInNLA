@@ -30,7 +30,7 @@ S=\alpha I_n+m\mathbf1\mathbf1^T,
 For every real symmetric matrix $`J`$ satisfying
 
 ```math
-0<J_{ij}\le S_{ij}\quad(1\le i,j\le n),
+0< J_{ij}\le S_{ij}\quad(1\le i,j\le n),
 \qquad J_{ii}\ge\sum_{j\ne i}J_{ij}\quad(1\le i\le n),
 ```
 

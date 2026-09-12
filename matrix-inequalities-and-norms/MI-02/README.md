@@ -15,7 +15,7 @@ For every integer $`n\ge1`$, positive definite $`A,B\in\mathbb C^{n\times n}`$, 
 |||A^tB^{1-t}+B^tA^{1-t}|||\le|||A+B|||?
 ```
 
-Powers use the spectral functional calculus. A norm is unitarily invariant when $`|||UXV|||=|||X|||`$ for all unitary $`U,V`$. The positive definite formulation avoids ambiguity at exponent zero; for $`0<t<1`$ it includes the positive semidefinite case by continuity.
+Powers use the spectral functional calculus. A norm is unitarily invariant when $`|||UXV|||=|||X|||`$ for all unitary $`U,V`$. The positive definite formulation avoids ambiguity at exponent zero; for $`0< t<1`$ it includes the positive semidefinite case by continuity.
 
 ## Why it matters
 

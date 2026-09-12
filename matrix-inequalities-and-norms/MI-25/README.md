@@ -17,7 +17,7 @@
 
 The trace-norm endpoint has $`C_1=\infty`$: a real $`2\times3`$ rank-one family has defect ratio asymptotic to $`2/(3t)`$ as $`t\downarrow0`$. Zero-row padding gives the same failure on real $`3\times3`$ matrices.
 
-**Still open:** The remaining finite Schatten exponents $`1<p<\infty`$ are undetermined by this result; the known value $`C_2=1`$ is unchanged. The ratings apply to this surviving question.
+**Still open:** The remaining finite Schatten exponents $`1< p<\infty`$ are undetermined by this result; the known value $`C_2=1`$ is unchanged. The ratings apply to this surviving question.
 
 **Primary manuscript:** [complete proof PDF](solution.pdf), [standalone TeX](solution.tex), Theorem 1.1 and its proof; [authorship and scope](solution.md). The [independent review](../../references/colbrook-matrix-2026-09-11/verification/reviews/MI-25-review.md) checks the full original argument and records its hash. The draft was AI-assisted; this is independent agent verification, not external human peer review or formal certification. [Submission record](../../references/colbrook-matrix-2026-09-11/README.md).
 

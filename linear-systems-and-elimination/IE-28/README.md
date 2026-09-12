@@ -14,7 +14,7 @@
 
 ## Statement
 
-Let $`s\ge2`$ be an integer and $`0<c_1<\cdots<c_s\le1`$ be real collocation nodes. Let
+Let $`s\ge2`$ be an integer and $`0< c_1<\cdots< c_s\le1`$ be real collocation nodes. Let
 
 ```math
 \ell_j(t)=\prod_{k\ne j}\frac{t-c_k}{c_j-c_k},
@@ -52,7 +52,7 @@ K(z)=z(I_s-zD)^{-1}(A-D).
 
 Its limit as $`|z|\to\infty`$ is $`I_s-D^{-1}A`$. The conjecture thus asks whether the stiff-limit iteration can terminate in at most $`s`$ steps using a positive diagonal preconditioner, which permits independent stage solves. It does not assert uniform contraction for finite $`z`$ or absence of transient nonnormal growth.
 
-The case $`s=2`$ has an elementary verification. Write $`a=c_1<b=c_2`$ and choose
+The case $`s=2`$ has an elementary verification. Write $`a=c_1< b=c_2`$ and choose
 
 ```math
 d_1=\frac{a(2b-a)}{2(b-a)+\sqrt{2ab}},\qquad d_2=\frac{ab}{2d_1}.

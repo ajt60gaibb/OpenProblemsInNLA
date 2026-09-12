@@ -45,7 +45,7 @@ a dimension-dependent bound uniform across families.
 
 For every real $`\alpha\ge0`$, do there exist a positive integer
 $`d`$, a finite nonempty $`\mathcal M\subset\mathbb R^{d\times d}`$ with
-$`\widehat\rho(\mathcal M)=1`$, and constants $`0<c\le C<\infty`$ such that
+$`\widehat\rho(\mathcal M)=1`$, and constants $`0< c\le C<\infty`$ such that
 
 ```math
 c k^\alpha\le g_{\mathcal M}(k)\le C k^\alpha

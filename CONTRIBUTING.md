@@ -54,6 +54,15 @@ fenced `math` blocks, separated from surrounding prose by blank lines:
 GitHub currently rejects `\operatorname`. Use
 `\mathop{\mathrm{rank}}\nolimits ` for the same operator spacing and script
 placement; keep a space after `\nolimits` before an alphabetic argument.
+Write `x< y` with a space after `<` before a letter: GitHub can otherwise
+interpret the rest of a displayed formula as an HTML tag.
+
+For an equation inside a list, use a separate indented paragraph containing
+protected inline math beginning with `\displaystyle`, for example
+``$`\displaystyle \|A\|_2 \le 1.`$``. GitHub currently leaves indented
+`math` fences as literal code. The PDF renderer restores these standalone
+paragraphs as display equations.
+
 The [GitHub math documentation](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions)
 describes the protected delimiters and fenced blocks.
 
