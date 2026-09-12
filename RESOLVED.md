@@ -15,6 +15,14 @@ catalog with **🟡 PARTIAL** and an explanation of what remains.
 
 ## Resolved catalog entries
 
+### ✅ RA-13 - absolute-error Gaussian trace-tail threshold - George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved affirmatively, 2026-09-11.** [Sections 1-8 of the complete proof](randomized-and-low-rank-approximation/RA-13/solution.md) establish both canonical probability comparisons for every nonzero real symmetric matrix, including indefinite matrices, every positive sample count, and the stated threshold endpoint. The argument proves a stronger one-sided comparison for centered signed Gamma sums, then applies it to both signs and takes an infinite-divisibility limit. [Proof PDF](randomized-and-low-rank-approximation/RA-13/solution.pdf) · [Original target](randomized-and-low-rank-approximation/RA-13/README.md).
+
+The full proof passed a separate [independent Codex-agent review](references/stepaniants-ra13-2026-09-11/verification/RA-13-independent-review.md), including the published bell-shape theorem, new inflection identity, grouped transfers and endpoint limits. AI assistance and the limits of automated review are explicit. Kwaśnicki's and Hallman's external results retain attribution; Colbrook's earlier auxiliary counterexamples remain valid and separately credited. [Submission record and public-status audit](references/stepaniants-ra13-2026-09-11/README.md). The permanent ID, original statement and historical ratings are retained.
+
 ### ✅ MF-18 — general complex Green-function imaginary rank — George Stepaniants
 
 **Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
@@ -275,7 +283,7 @@ These three entries remain in the open count.
 
 **RA-12 — historical auxiliary results (the canonical target is now Solved).** Matthew J. Colbrook's submitted Gamma-density examples refute the upper-mode assertion in Hallman Conjecture 1 and the upper-inflection assertion in Conjecture 2, with legally distinct augmentation indices. These are counterexamples to auxiliary assertions; they neither prove nor refute the complete relative Gaussian trace-tail probability chain and do not establish a revised sharp tail threshold. RA-12 remained open at that stage. George Stepaniants's complete proof of the canonical tail comparisons is now recorded above. [Complete auxiliary proof](references/colbrook-transfer-2026-09-11/manuscripts/04_gamma_auxiliary_counterexamples.pdf), Proposition 2.1 (with Proposition 3.1 for related evidence); [review](references/colbrook-transfer-2026-09-11/verification/reviews/gamma-auxiliary-review.md).
 
-**RA-13 (Open).** The centered augmented density has a genuine inflection point beyond the proposed auxiliary upper bound. Together with the mode example, this refutes the upper assertions of Hallman Conjectures 1 and 2. The complete absolute Gaussian trace-tail probability chain in this entry is neither proved nor refuted. Failure of an auxiliary sufficient condition does not refute the final tail comparisons; status remains Open. [Complete proof](references/colbrook-transfer-2026-09-11/manuscripts/04_gamma_auxiliary_counterexamples.pdf), Proposition 3.1 (with Proposition 2.1 for related evidence); [review](references/colbrook-transfer-2026-09-11/verification/reviews/gamma-auxiliary-review.md).
+**RA-13 (Solved separately; auxiliary counterexamples retained).** The centered augmented density has a genuine inflection point beyond the proposed auxiliary upper bound. Together with the mode example, this refutes the upper assertions of Hallman Conjectures 1 and 2. These auxiliary examples neither prove nor refute the complete absolute Gaussian trace-tail probability chain. George Stepaniants's [separate proof](randomized-and-low-rank-approximation/RA-13/solution.md) now establishes the canonical comparisons; Colbrook's auxiliary counterexamples remain valid. [Complete proof](references/colbrook-transfer-2026-09-11/manuscripts/04_gamma_auxiliary_counterexamples.pdf), Proposition 3.1 (with Proposition 2.1 for related evidence); [review](references/colbrook-transfer-2026-09-11/verification/reviews/gamma-auxiliary-review.md).
 
 ### Five factorization resolutions by Matthew J. Colbrook — 2026-09-11
 
