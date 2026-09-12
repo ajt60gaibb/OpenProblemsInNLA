@@ -6,10 +6,14 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-10
+**Status:** Solved  
+**Last checked:** 2026-09-11
 
 **Rating rationale:** Forcing a saving at exactly two copies for every projective variety goes beyond the known eventual-power mechanism and presents a general structural barrier. The relationship between degeneration and repeated decomposition matters to the tensor-complexity community.
+
+<!-- colbrook-tensor-metrics-rank -->
+**Negative resolution recorded 2026-09-11.** Matthew J. Colbrook's [complete manuscript, Theorem 1 and Section 4](../../references/colbrook-tensor-metrics-rank-2026-09-11/manuscripts/tr27_solution.pdf) ([LaTeX source](../../references/colbrook-tensor-metrics-rank-2026-09-11/manuscripts/tr27_solution.tex)) constructs a smooth, irreducible, reduced, nondegenerate complex projective curve $X\subset\mathbb P^{11}$ and a point $p$ with $\underline R_X(p)=2$, $R_X(p)=3$, and $R_{X\times X}(p\otimes p)=9$. This refutes the exact universal implication below, using the specified Segre product with unrestricted complex coefficients. More generally, the construction delays strict submultiplicativity for any prescribed finite number of powers; the variety depends on that prescribed delay. It does not refute versions restricted to Segre or Veronese varieties or the known eventual-power saving. The full original source passed an [independent mathematical agent review](../../references/colbrook-tensor-metrics-rank-2026-09-11/verification/reviews/TR-27-review.md). [Submission and verification record](../../references/colbrook-tensor-metrics-rank-2026-09-11/README.md). This is documented AI-assisted verification, not external human peer review; no priority claim is made. The original target and former difficulty and importance ratings are retained below as historical context.
+<!-- /colbrook-tensor-metrics-rank -->
 
 ## Problem statement
 
