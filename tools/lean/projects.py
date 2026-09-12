@@ -7,21 +7,49 @@ from pathlib import Path, PurePosixPath
 import subprocess
 
 
-def discover(root: Path) -> list[dict[str, str]]:
-    registry = json.loads((root / "problem_ids.json").read_text())
+def registered_projects(registry: dict[str, str]) -> list[dict[str, str]]:
     result = []
     for problem_id, canonical in sorted(registry.items()):
         relative = PurePosixPath(canonical).parent / "lean"
         if relative.is_absolute() or ".." in relative.parts:
             raise ValueError(f"Invalid registry path: {canonical}")
-        project = root / relative
+        result.append({"id": problem_id, "project": relative.as_posix()})
+    return result
+
+
+def discover(root: Path) -> list[dict[str, str]]:
+    registry = json.loads((root / "problem_ids.json").read_text())
+    result = []
+    for entry in registered_projects(registry):
+        project = root / entry["project"]
         # Even a source-only draft must be selected, so missing metadata or build
         # inputs fail validation instead of silently skipping verification.
         if project.exists() or project.is_symlink():
             if project.is_symlink() or not project.is_dir():
-                raise ValueError(f"Lean project must be an ordinary directory: {relative}")
-            result.append({"id": problem_id, "project": relative.as_posix()})
+                raise ValueError(f"Lean project must be an ordinary directory: {entry['project']}")
+            result.append(entry)
     return result
+
+
+def discover_at_ref(root: Path, ref: str) -> list[dict[str, str]]:
+    registry = json.loads(subprocess.check_output(
+        ["git", "show", f"{ref}:problem_ids.json"], cwd=root, text=True))
+    paths = subprocess.check_output(
+        ["git", "ls-tree", "-r", "--name-only", "-z", ref],
+        cwd=root, text=True).split("\0")
+    return [entry for entry in registered_projects(registry) if any(
+        path == entry["project"] or path.startswith(entry["project"] + "/")
+        for path in paths)]
+
+
+def require_retained_projects(projects: list[dict[str, str]],
+                              base_projects: list[dict[str, str]]) -> None:
+    current_paths = {entry["project"] for entry in projects}
+    missing = [entry["project"] for entry in base_projects
+               if entry["project"] not in current_paths]
+    if missing:
+        raise ValueError("Registered Lean projects removed or renamed; verification cannot "
+                         "be skipped: " + ", ".join(missing))
 
 
 def select(projects: list[dict[str, str]], changed: list[str]) -> list[dict[str, str]]:
@@ -44,9 +72,10 @@ def main() -> None:
     args = parser.parse_args()
     projects = discover(args.root)
     if not args.all:
+        require_retained_projects(projects, discover_at_ref(args.root, args.base_ref))
         changed = subprocess.check_output(
-            ["git", "diff", "--name-only", "--no-renames", args.base_ref, "HEAD", "--"],
-            cwd=args.root, text=True).splitlines()
+            ["git", "diff", "--name-only", "--no-renames", "-z", args.base_ref, "HEAD", "--"],
+            cwd=args.root, text=True).split("\0")
         projects = select(projects, changed)
     encoded = json.dumps({"include": projects}, separators=(",", ":"))
     print(encoded)
