@@ -43,6 +43,15 @@ def render(source):
             input=markdown, text=True, encoding="utf-8", capture_output=True, check=True,
         )
         tex = result.stdout
+        if identifier == "SP-15":
+            tex = tex.replace("\n\\[\n", "\n\\nopagebreak[4]\n\\[\n")
+            # Keep the frozen proof unchanged in Markdown while preventing
+            # the Schur-complement lead-in and the parameter pair from splitting.
+            tex = tex.replace(r"Both \(sI_r\) and \(K\) are positive definite.",
+                              r"\Needspace{12\baselineskip}" + "\n" +
+                              r"Both \(sI_r\) and \(K\) are positive definite.", 1)
+            heading = r"\\subsection\{3\.\s+Ten\s+parameters\s+with\s+no\s+repeated\s+unitary\s+class\}"
+            tex = re.sub(heading, lambda match: r"\Needspace{22\baselineskip}" + "\n" + match[0], tex, count=1)
         (source.parent / "solution.tex").write_text(tex, encoding="utf-8")
         (work / "solution.tex").write_text(tex, encoding="utf-8")
         for _ in range(2):
