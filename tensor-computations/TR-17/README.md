@@ -12,18 +12,22 @@
 
 ## Statement
 
-Fix integers $k\ge1$, $n_j\ge2$, $d_j\ge1$, with $\sum_jd_j\ge3$. Set
-$$
-W_{\mathbb R}=\bigotimes_{j=1}^k\operatorname{Sym}^{d_j}(\mathbb R^{n_j}),\qquad
-X=\{c\,v_1^{\otimes d_1}\otimes\cdots\otimes v_k^{\otimes d_k}:c\in\mathbb C,\ v_j\in\mathbb C^{n_j}\}\subset W_{\mathbb C}.
-$$
-For a positive definite symmetric real bilinear form $Q$ on $W_{\mathbb R}$, extend it complex-bilinearly. Define $\operatorname{ED}_Q(X)$ to be the number of complex critical points on the smooth nonzero part of $X$ of $Z\mapsto Q(A-Z,A-Z)$, for Zariski-generic $A\in W_{\mathbb C}$, with algebraic multiplicities.
+Fix integers $`k\ge1`$, $`n_j\ge2`$, $`d_j\ge1`$, with $`\sum_jd_j\ge3`$. Set
 
-Let $Q_F$ be the restriction of the entrywise Frobenius inner product from the full tensor product, with standard Euclidean inner products on the factors. Is
-$$
-\operatorname{ED}_Q(X)\ge\operatorname{ED}_{Q_F}(X)
-$$
-true for every such $Q$? The bilinear complexification uses no complex conjugates; the Frobenius restriction includes the usual repeated-entry weights on symmetric tensors.
+```math
+W_{\mathbb R}=\bigotimes_{j=1}^k\mathop{\mathrm{Sym}}\nolimits^{d_j}(\mathbb R^{n_j}),\qquad
+X=\{c\,v_1^{\otimes d_1}\otimes\cdots\otimes v_k^{\otimes d_k}:c\in\mathbb C,\ v_j\in\mathbb C^{n_j}\}\subset W_{\mathbb C}.
+```
+
+For a positive definite symmetric real bilinear form $`Q`$ on $`W_{\mathbb R}`$, extend it complex-bilinearly. Define $`\mathop{\mathrm{ED}}\nolimits_Q(X)`$ to be the number of complex critical points on the smooth nonzero part of $`X`$ of $`Z\mapsto Q(A-Z,A-Z)`$, for Zariski-generic $`A\in W_{\mathbb C}`$, with algebraic multiplicities.
+
+Let $`Q_F`$ be the restriction of the entrywise Frobenius inner product from the full tensor product, with standard Euclidean inner products on the factors. Is
+
+```math
+\mathop{\mathrm{ED}}\nolimits_Q(X)\ge\mathop{\mathrm{ED}}\nolimits_{Q_F}(X)
+```
+
+true for every such $`Q`$? The bilinear complexification uses no complex conjugates; the Frobenius restriction includes the usual repeated-entry weights on symmetric tensors.
 
 ## Relevance
 

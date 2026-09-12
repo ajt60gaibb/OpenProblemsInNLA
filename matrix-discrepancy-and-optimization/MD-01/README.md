@@ -8,13 +8,15 @@
 **Rating rationale:** A sharp expectation constant requires new random SDP analysis beyond order bounds; it connects matrix optimization with probabilistic combinatorics.
 
 
-Let $G_n$ be the simple random graph on $n$ labelled vertices in which each unordered pair is an edge independently with probability $1/2$. For a graph $G$, define its Lovász number by
-$$
-\vartheta(G)=\max\{\langle J,X\rangle:X\in\mathbb R^{n\times n},\ X=X^T\succeq0,\ \operatorname{tr}X=1,\ X_{ij}=0\text{ for }\{i,j\}\in E(G)\},
-$$
-where $J$ is the all-ones matrix and $\langle J,X\rangle=\sum_{i,j}X_{ij}$.
+Let $`G_n`$ be the simple random graph on $`n`$ labelled vertices in which each unordered pair is an edge independently with probability $`1/2`$. For a graph $`G`$, define its Lovász number by
 
-**Conjecture.** $\displaystyle\lim_{n\to\infty}\mathbb E\vartheta(G_n)/\sqrt n=1$.
+```math
+\vartheta(G)=\max\{\langle J,X\rangle:X\in\mathbb R^{n\times n},\ X=X^T\succeq0,\ \mathop{\mathrm{tr}}\nolimits X=1,\ X_{ij}=0\text{ for }\{i,j\}\in E(G)\},
+```
+
+where $`J`$ is the all-ones matrix and $`\langle J,X\rangle=\sum_{i,j}X_{ij}`$.
+
+**Conjecture.** $`\displaystyle\lim_{n\to\infty}\mathbb E\vartheta(G_n)/\sqrt n=1`$.
 
 This asks for the leading constant of a random semidefinite matrix optimization problem. It is an expectation statement; convergence in probability is not substituted for it.
 

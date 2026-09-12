@@ -7,25 +7,29 @@
 
 **Rating rationale:** This half-century-old dominance problem unifies many generalized matrix functions; its reach is substantial within matrix and representation theory.
 
-Let $n\ge1$, let $A=(a_{ij})\in\mathbb C^{n\times n}$ be Hermitian positive semidefinite, let $G$ be any subgroup of the symmetric group $S_n$, and let $\chi$ be the character of any nonzero finite-dimensional complex representation of $G$. Thus $\chi(e)>0$, where $e$ is the identity. Define
-$$
+Let $`n\ge1`$, let $`A=(a_{ij})\in\mathbb C^{n\times n}`$ be Hermitian positive semidefinite, let $`G`$ be any subgroup of the symmetric group $`S_n`$, and let $`\chi`$ be the character of any nonzero finite-dimensional complex representation of $`G`$. Thus $`\chi(e)>0`$, where $`e`$ is the identity. Define
+
+```math
 f_\chi(A)=\frac{1}{\chi(e)}
 \sum_{\sigma\in G}\chi(\sigma)\prod_{i=1}^n a_{i,\sigma(i)},
 \qquad
-\operatorname{per}A=\sum_{\sigma\in S_n}\prod_{i=1}^n a_{i,\sigma(i)}.
-$$
+\mathop{\mathrm{per}}\nolimits A=\sum_{\sigma\in S_n}\prod_{i=1}^n a_{i,\sigma(i)}.
+```
+
 Does the inequality
-$$
-f_\chi(A)\le\operatorname{per}A
-$$
-hold for every such $n,A,G,\chi$? The character expression is real for Hermitian $A$, so the comparison is an ordinary real inequality.
+
+```math
+f_\chi(A)\le\mathop{\mathrm{per}}\nolimits A
+```
+
+hold for every such $`n,A,G,\chi`$? The character expression is real for Hermitian $`A`$, so the comparison is an ordinary real inequality.
 
 ## Relevance
  Generalized matrix functions include the determinant and immanants. The conjecture seeks a common upper bound across these structured matrix polynomials on the positive-semidefinite cone. It is part of matrix computation and matrix inequality theory, with links to symmetry reductions of tensor powers.
 
 ## References
 
-- E. H. Lieb, *Proofs of some Conjectures on Permanents*, Journal of Mathematics and Mechanics 16 (1966), 127–134, Conjecture $\alpha$ on p.127 ([publisher's first page](https://iumj.s3-us-west-2.amazonaws.com/abstracts/16008_abs.pdf)).
+- E. H. Lieb, *Proofs of some Conjectures on Permanents*, Journal of Mathematics and Mechanics 16 (1966), 127–134, Conjecture $`\alpha`$ on p.127 ([publisher's first page](https://iumj.s3-us-west-2.amazonaws.com/abstracts/16008_abs.pdf)).
 - I. M. Wanless, *Lieb's permanental dominance conjecture* (2022), Conjecture 1, §2 implication diagram, and §3 partial results ([primary manuscript](https://arxiv.org/pdf/2202.01867)).
 - A. Rico, D. Grinko, R. Krebs, and L. H. Zaw, *Entanglement Structure and Matrix Inequalities from Isotypic Measurements*, Physical Review Letters 137 (2026), 100203; abstract describes immanant inequalities for orders three and four ([journal](https://doi.org/10.1103/nvk2-h8d5)).
 

@@ -16,7 +16,7 @@
 
 ## Resolution
 
-**Solved affirmatively, 11 September 2026.** The [Theorem in Section 1, proved in Sections 2-5](solution.md) establishes the complete displayed conjecture: arbitrary complex perturbations with trace norm $o(n)$ preserve the prescribed Hermitian spectral distribution, without spectral-norm bounds on either sequence and without normality of the perturbed matrices. [Proof PDF](solution.pdf) · [Standalone TeX](solution.tex).
+**Solved affirmatively, 11 September 2026.** The [Theorem in Section 1, proved in Sections 2-5](solution.md) establishes the complete displayed conjecture: arbitrary complex perturbations with trace norm $`o(n)`$ preserve the prescribed Hermitian spectral distribution, without spectral-norm bounds on either sequence and without normality of the perturbed matrices. [Proof PDF](solution.pdf) · [Standalone TeX](solution.tex).
 
 **Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
 
@@ -26,25 +26,27 @@ The full argument passed a separate [independent Codex-agent mathematical review
 
 ## Statement
 
-For a sequence $A_n\in\mathbb C^{n\times n}$ and a measurable function $f:[0,1]\to\mathbb R$, write $\{A_n\}\sim_\lambda f$ if
+For a sequence $`A_n\in\mathbb C^{n\times n}`$ and a measurable function $`f:[0,1]\to\mathbb R`$, write $`\{A_n\}\sim_\lambda f`$ if
 
-$$
+```math
 \lim_{n\to\infty}\frac1n\sum_{j=1}^n F(\lambda_j(A_n))
 =\int_0^1 F(f(t))\,dt
 \qquad\text{for every }F\in C_c(\mathbb C),
-$$
+```
 
-where $C_c(\mathbb C)$ denotes the continuous complex-valued functions of compact support, and eigenvalues are counted with algebraic multiplicity. Define the trace norm by $\|E\|_*:=\sum_j\sigma_j(E)$.
+where $`C_c(\mathbb C)`$ denotes the continuous complex-valued functions of compact support, and eigenvalues are counted with algebraic multiplicity. Define the trace norm by $`\|E\|_*:=\sum_j\sigma_j(E)`$.
 
-**Conjecture (Barbarino–Serra-Capizzano).** For every Hermitian sequence $H_n=H_n^*$ with $\{H_n\}\sim_\lambda f$, and every sequence $E_n\in\mathbb C^{n\times n}$ satisfying $\|E_n\|_*/n\to0$, one has
+**Conjecture (Barbarino–Serra-Capizzano).** For every Hermitian sequence $`H_n=H_n^*`$ with $`\{H_n\}\sim_\lambda f`$, and every sequence $`E_n\in\mathbb C^{n\times n}`$ satisfying $`\|E_n\|_*/n\to0`$, one has
 
-$$\{H_n+E_n\}\sim_\lambda f.$$
+```math
+\{H_n+E_n\}\sim_\lambda f.
+```
 
-Neither sequence is assumed uniformly bounded in spectral norm; $H_n+E_n$ need not be normal. The unit interval is a distributional normalization of the source's general finite-measure symbol domain.
+Neither sequence is assumed uniformly bounded in spectral norm; $`H_n+E_n`$ need not be normal. The unit interval is a distributional normalization of the source's general finite-measure symbol domain.
 
 ## Known cases and numerical significance
 
-The conclusion is proved if $\|E_n\|_F=o(\sqrt n)$, and also if $\|E_n\|_*=o(n)$ and $\sup_n\|E_n\|_2<\infty$. Here $\|\cdot\|_F$ and $\|\cdot\|_2$ denote Frobenius and spectral norms. The conjecture retains the trace-norm assumption while removing the latter uniform bound. It concerns the limiting empirical distribution, not individual-eigenvalue matching.
+The conclusion is proved if $`\|E_n\|_F=o(\sqrt n)`$, and also if $`\|E_n\|_*=o(n)`$ and $`\sup_n\|E_n\|_2<\infty`$. Here $`\|\cdot\|_F`$ and $`\|\cdot\|_2`$ denote Frobenius and spectral norms. The conjecture retains the trace-norm assumption while removing the latter uniform bound. It concerns the limiting empirical distribution, not individual-eigenvalue matching.
 
 Spectral symbols describe large matrix sequences arising in PDE discretization and preconditioning. The source's equivalent GLT and diagonal formulations are grouped with this target rather than assigned separate IDs.
 

@@ -13,22 +13,24 @@
 
 ## Context and notation
 
-An addition chain for a positive integer $n$ is a sequence
-$1=a_0<a_1<\cdots<a_r=n$ in which every $a_i$ with $i>0$ is a sum of two earlier
-terms, which may coincide. Let $\ell(n)$ be its minimum possible length $r$.
+An addition chain for a positive integer $`n`$ is a sequence
+$`1=a_0< a_1<\cdots< a_r=n`$ in which every $`a_i`$ with $`i>0`$ is a sum of two earlier
+terms, which may coincide. Let $`\ell(n)`$ be its minimum possible length $`r`$.
 
-The case $n=1$ uses $\ell(1)=0$.
+The case $`n=1`$ uses $`\ell(1)=0`$.
 
 ## Problem statement
 
-Let $\nu(n)$ be the number of
-ones in the binary expansion of a positive integer $n$. Is
+Let $`\nu(n)`$ be the number of
+ones in the binary expansion of a positive integer $`n`$. Is
 
-$$\ell(n)\ge \lfloor\log_2 n\rfloor+
- \lceil\log_2\nu(n)\rceil\qquad(n\ge1)?$$
+```math
+\ell(n)\ge \lfloor\log_2 n\rfloor+
+ \lceil\log_2\nu(n)\rceil\qquad(n\ge1)?
+```
 
 These rounding conventions are part of the statement. This would constrain
-multiplication chains for $A^n$ and complements the upper bound in [AC-07](../AC-07/README.md).
+multiplication chains for $`A^n`$ and complements the upper bound in [AC-07](../AC-07/README.md).
 
 ## References and status
 

@@ -13,21 +13,25 @@
 
 ## Problem statement
 
-Let $\mathbb F$ be an algebraically closed field, let $k\geq3$, and let $d_1,\ldots,d_k$ be positive integers. Write
-$V=\mathbb F^{d_1}\otimes\cdots\otimes\mathbb F^{d_k}$.
-For $T\in V$, let $R(T)$ be its tensor rank, and define its asymptotic rank by
-$$
-\widetilde R(T)=\lim_{m\to\infty}R(T^{\boxtimes m})^{1/m},
-$$
-where $\boxtimes$ groups corresponding modes of tensor powers; put $\widetilde R(0)=0$.
+Let $`\mathbb F`$ be an algebraically closed field, let $`k\geq3`$, and let $`d_1,\ldots,d_k`$ be positive integers. Write
+$`V=\mathbb F^{d_1}\otimes\cdots\otimes\mathbb F^{d_k}`$.
+For $`T\in V`$, let $`R(T)`$ be its tensor rank, and define its asymptotic rank by
 
-For every real $a\geq0$, is the set
-$$
+```math
+\widetilde R(T)=\lim_{m\to\infty}R(T^{\boxtimes m})^{1/m},
+```
+
+where $`\boxtimes`$ groups corresponding modes of tensor powers; put $`\widetilde R(0)=0`$.
+
+For every real $`a\geq0`$, is the set
+
+```math
 V_{\leq a}=\{T\in V:\widetilde R(T)\leq a\}
-$$
+```
+
 an irreducible algebraic variety?
 
-The source proves that these sets are Zariski closed. The open assertion is that none can be written as the union of two proper Zariski-closed subsets. All fields, formats, and thresholds above are quantified; $0\in V_{\leq a}$ avoids the empty-set convention for irreducibility.
+The source proves that these sets are Zariski closed. The open assertion is that none can be written as the union of two proper Zariski-closed subsets. All fields, formats, and thresholds above are quantified; $`0\in V_{\leq a}`$ avoids the empty-set convention for irreducibility.
 
 ## Why it matters
 

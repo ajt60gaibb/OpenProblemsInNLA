@@ -39,6 +39,41 @@ from a conjecture or a preprint claim. Use the [rating rubric](README.md#ratings
 and [status definitions](README.md#problem-status). Ratings assess the surviving
 open question; historical ratings on resolved entries are explicitly identified.
 
+## Mathematics in GitHub descriptions
+
+Use protected inline math, for example ``$`\|A\|_2`$``, so Markdown preserves
+norm bars, set braces and matrix row separators. Put display equations in
+fenced `math` blocks, separated from surrounding prose by blank lines:
+
+````markdown
+```math
+\|A\|_2 = \max_{\|x\|_2=1}\|Ax\|_2.
+```
+````
+
+GitHub currently rejects `\operatorname`. Use
+`\mathop{\mathrm{rank}}\nolimits ` for the same operator spacing and script
+placement; keep a space after `\nolimits` before an alphabetic argument.
+Write `x< y` with a space after `<` before a letter: GitHub can otherwise
+interpret the rest of a displayed formula as an HTML tag.
+
+For an equation inside a list, use a separate indented paragraph containing
+protected inline math beginning with `\displaystyle`, for example
+``$`\displaystyle \|A\|_2 \le 1.`$``. GitHub currently leaves indented
+`math` fences as literal code. The PDF renderer restores these standalone
+paragraphs as display equations.
+If an italic or bold phrase ends with a formula, close the emphasis before
+the formula; GitHub can miss math immediately followed by the closing marker.
+Use fenced code blocks for literal examples.
+
+The [GitHub math documentation](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions)
+describes the protected delimiters and fenced blocks.
+
+Run `python3 tools/format_math.py --write IE-02` to normalize an entry, then
+review its diff. `python3 tools/format_math.py --check` checks every registered
+description and also runs in CI. Keep PDF layout commands in the renderer.
+The PDF renderer accepts this GitHub notation as mathematics.
+
 ## Permanent problem IDs
 
 Every published ID and its canonical README path are permanent. Never renumber,
@@ -85,6 +120,10 @@ validates permanent IDs before writing any generated file. Run the safeguard
 tests with `python3 -m unittest discover -s tests -p 'test_problem_ids.py' -v`.
 
 Inspect the resulting PDF and include the Markdown, TeX and PDF changes together.
+For changes limited to Markdown delimiters or equivalent operator typography,
+retain the existing TeX/PDF when their mathematical content is unchanged and
+verify the renderer's math conversion instead. Changes to content or PDF layout
+still require regeneration and visual inspection.
 Each exported TeX file can also be compiled on its own with XeLaTeX. The
 [shared typesetting template](tools/problem-template.tex) controls appearance;
 the renderer supports `PANDOC` and `XELATEX` executable overrides.

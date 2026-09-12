@@ -12,23 +12,23 @@
 
 **Affirmative resolution by Matthew J. Colbrook** (Department of Applied Mathematics and Theoretical Physics, University of Cambridge). See the [complete manuscript](solution.md), **Theorem SP-05, sections 1–3** ([PDF](solution.pdf) · [LaTeX](solution.tex)), prepared 11 September 2026.
 
-For arbitrary real symmetric positive definite $A,B$, a nonzero real positive-semidefinite eigenmatrix attains the smallest eigenvalue of $X\mapsto AXB+BXA$. Section 3 derives the exact symmetric/skew-symmetric Rayleigh-quotient inequality in the original target, without commutativity, rank restrictions or a simple-eigenvalue assumption.
+For arbitrary real symmetric positive definite $`A,B`$, a nonzero real positive-semidefinite eigenmatrix attains the smallest eigenvalue of $`X\mapsto AXB+BXA`$. Section 3 derives the exact symmetric/skew-symmetric Rayleigh-quotient inequality in the original target, without commutativity, rank restrictions or a simple-eigenvalue assumption.
 
 The original proof draft was generated in a ChatGPT conversation. A separate Codex agent independently verified the full proof and its match to the exact target on 11 September 2026: [detailed PASS review](../../references/colbrook-2026-09-11/verification/reviews/SP-05-review.md). The review records a hash of the unchanged proof text. This is independent agent verification, not external human peer review or formal certification. [The submission history and diagnostic record](../../references/colbrook-2026-09-11/README.md) preserve the initial solution claim. The ratings above are historical, and the earlier literature checks below are retained.
 
 ## Problem statement
 
-Let $n\ge 2$ and let $A,B\in\mathbb R^{n\times n}$ be symmetric positive definite. Let $T\in\mathbb R^{n^2\times n^2}$ be the commutation matrix defined by $T\operatorname{vec}(X)=\operatorname{vec}(X^T)$, where $\operatorname{vec}$ stacks columns. Is it always true that
+Let $`n\ge 2`$ and let $`A,B\in\mathbb R^{n\times n}`$ be symmetric positive definite. Let $`T\in\mathbb R^{n^2\times n^2}`$ be the commutation matrix defined by $`T\mathop{\mathrm{vec}}\nolimits(X)=\mathop{\mathrm{vec}}\nolimits(X^T)`$, where $`\mathop{\mathrm{vec}}\nolimits`$ stacks columns. Is it always true that
 
-$$
+```math
 \min_{\substack{u\in\mathbb R^{n^2}\setminus\{0\}\\Tu=u}}
 \frac{u^T(A\otimes B)u}{u^Tu}
 \;\le\;
 \min_{\substack{w\in\mathbb R^{n^2}\setminus\{0\}\\Tw=-w}}
 \frac{w^T(A\otimes B)w}{w^Tw}?
-$$
+```
 
-Equivalently, must the smallest eigenvalue of $A\otimes B+B\otimes A$ have an eigenvector $\operatorname{vec}(X)$ with $X=X^T\ne0$?
+Equivalently, must the smallest eigenvalue of $`A\otimes B+B\otimes A`$ have an eigenvector $`\mathop{\mathrm{vec}}\nolimits(X)`$ with $`X=X^T\ne0`$?
 
 ## Why it matters
 

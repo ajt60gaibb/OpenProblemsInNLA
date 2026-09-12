@@ -13,19 +13,21 @@
 
 ## Context and notation
 
-Over $\mathbb C$, the tensor rank $R(T)$ is the minimum number of pure tensors in an exact sum for $T$.
+Over $`\mathbb C`$, the tensor rank $`R(T)`$ is the minimum number of pure tensors in an exact sum for $`T`$.
 
 ## Problem statement
 
-A tensor $T\in(\mathbb C^d)^{\otimes3}$ is *concise* if each of its
-three matrix flattenings has rank $d$. It is *tight* if some choice of bases
-admits injective functions $a,b,c:\{1,\ldots,d\}\to\mathbb Z$ with
-$a(i)+b(j)+c(k)=0$ whenever the coefficient $T_{ijk}$ is nonzero. Is
+A tensor $`T\in(\mathbb C^d)^{\otimes3}`$ is *concise* if each of its
+three matrix flattenings has rank $`d`$. It is *tight* if some choice of bases
+admits injective functions $`a,b,c:\{1,\ldots,d\}\to\mathbb Z`$ with
+$`a(i)+b(j)+c(k)=0`$ whenever the coefficient $`T_{ijk}`$ is nonzero. Is
 
-$$\lim_{m\to\infty}R(T^{\otimes m})^{1/m}=d$$
+```math
+\lim_{m\to\infty}R(T^{\otimes m})^{1/m}=d
+```
 
-for every positive integer $d$ and every concise tight $T$? Tensor powers use
-corresponding-factor grouping; rank is over $\mathbb C$.
+for every positive integer $`d`$ and every concise tight $`T`$? Tensor powers use
+corresponding-factor grouping; rank is over $`\mathbb C`$.
 
 ## Why it matters
 

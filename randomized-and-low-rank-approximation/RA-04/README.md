@@ -7,35 +7,43 @@
 
 **Status:** Open  
 
-Let $A\in\mathbb R^{n\times d}$ have singular values $\sigma_1\geq\sigma_2\geq\cdots$. Fix integers $1\leq b\leq k$, set $t=\lceil k/b\rceil$, and set $k'=bt\leq\operatorname{rank}(A)$. Define
-$$
+Let $`A\in\mathbb R^{n\times d}`$ have singular values $`\sigma_1\geq\sigma_2\geq\cdots`$. Fix integers $`1\leq b\leq k`$, set $`t=\lceil k/b\rceil`$, and set $`k'=bt\leq\mathop{\mathrm{rank}}\nolimits(A)`$. Define
+
+```math
 \Delta_{k'}^{(b)}=\min_{1\leq i\leq k'-b}
 \frac{\sigma_i^2-\sigma_{i+b}^2}{\sigma_i^2},
-$$
-with the empty minimum set to one, and suppose this gap is positive. Draw $G\in\mathbb R^{n\times b}$ with independent standard Gaussian entries. In exact arithmetic, let $Z$ be an orthonormal basis of
-$$
-\operatorname{range}[G,(AA^T)G,\ldots,(AA^T)^{q-1}G],
-\qquad \widehat A=Z[Z^TA]_k,
-$$
-where $[B]_k$ denotes a best rank-$k$ approximation obtained by truncating the SVD of $B$.
+```
 
-Does an absolute constant $C$ exist such that, for every such input and every $0<\varepsilon,\delta<1/2$, taking
-$$
+with the empty minimum set to one, and suppose this gap is positive. Draw $`G\in\mathbb R^{n\times b}`$ with independent standard Gaussian entries. In exact arithmetic, let $`Z`$ be an orthonormal basis of
+
+```math
+\mathop{\mathrm{range}}\nolimits[G,(AA^T)G,\ldots,(AA^T)^{q-1}G],
+\qquad \widehat A=Z[Z^TA]_k,
+```
+
+where $`[B]_k`$ denotes a best rank-$`k`$ approximation obtained by truncating the SVD of $`B`$.
+
+Does an absolute constant $`C`$ exist such that, for every such input and every $`0<\varepsilon,\delta<1/2`$, taking
+
+```math
 q=\left\lceil C\left[
 \frac{t}{\sqrt\varepsilon}\log\frac{2}{\Delta_{k'}^{(b)}}+
 \frac1{\sqrt\varepsilon}\log\frac{n}{\delta\varepsilon}
 \right]\right\rceil
-$$
-gives, with probability at least $1-\delta$, both
-$$
+```
+
+gives, with probability at least $`1-\delta`$, both
+
+```math
 \|A-\widehat A\|_\xi\leq(1+\varepsilon)\|A-[A]_k\|_\xi
 \quad(\xi=2,F),
-$$
-and $|\|A v_i\|_2^2-\sigma_i^2|\leq\varepsilon\sigma_{k+1}^2$ for the ordered top $k$ right singular vectors $v_i$ of $\widehat A$? Here $\sigma_{k+1}=0$ if necessary. The factor two makes the logarithm meaningful at a unit gap.
+```
+
+and $`|\|A v_i\|_2^2-\sigma_i^2|\leq\varepsilon\sigma_{k+1}^2`$ for the ordered top $`k`$ right singular vectors $`v_i`$ of $`\widehat A`$? Here $`\sigma_{k+1}=0`$ if necessary. The factor two makes the logarithm meaningful at a unit gap.
 
 This is the gap-independent algorithmic component of the authors' concluding conjecture. They also conjecture the corresponding improvement in their gap-dependent theorem and random Krylov matrix conditioning theorem; those are not separately counted here. The displayed parameter regime is where the source's spectral-gap expression is finite and defined.
 
-The existing theorem instead depends logarithmically on every consecutive gap and a leading spectral condition number. The proposed bound would explain why a block can accommodate clusters of up to $b$ singular values. It does not ask for a finite-precision extension.
+The existing theorem instead depends logarithmically on every consecutive gap and a leading spectral condition number. The proposed bound would explain why a block can accommodate clusters of up to $`b`$ singular values. It does not ask for a finite-precision extension.
 
 ## References
 

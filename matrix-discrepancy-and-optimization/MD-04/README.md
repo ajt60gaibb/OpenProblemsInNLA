@@ -10,7 +10,7 @@
 
 ## Resolution — 2026-09-11
 
-**Affirmative resolution by Shengtao Guo, Ethan X. Fang and Junwei Lu**, [*Vector Balancing via Directional Total Variation*, arXiv:2609.11189v1](https://arxiv.org/abs/2609.11189v1), submitted 10 September 2026, **Corollary 1.2, p. 2**. It proves the displayed target with $C=3\sqrt{2\pi}$ for every allowed $m,n,t$, including the smaller sparsities left unresolved by the earlier results. Since a $0$–$1$ column has squared Euclidean norm equal to its number of nonzero entries, apply Theorem 1.1 to $A/\sqrt t$ and multiply the strict discrepancy bound by $\sqrt t$. Every column receives a sign.
+**Affirmative resolution by Shengtao Guo, Ethan X. Fang and Junwei Lu**, [*Vector Balancing via Directional Total Variation*, arXiv:2609.11189v1](https://arxiv.org/abs/2609.11189v1), submitted 10 September 2026, **Corollary 1.2, p. 2**. It proves the displayed target with $`C=3\sqrt{2\pi}`$ for every allowed $`m,n,t`$, including the smaller sparsities left unresolved by the earlier results. Since a $`0`$–$`1`$ column has squared Euclidean norm equal to its number of nonzero entries, apply Theorem 1.1 to $`A/\sqrt t`$ and multiply the strict discrepancy bound by $`\sqrt t`$. Every column receives a sign.
 
 **Application note by George Stepaniants**, Department of Computing and Mathematical Sciences, California Institute of Technology: [proof by reference](solution.md), **Theorem 2** ([PDF](../../references/stepaniants-2026-09-11/manuscripts/md03_md04_proofs.pdf) · [LaTeX](../../references/stepaniants-2026-09-11/manuscripts/md03_md04_proofs.tex)). Stepaniants authors the explanatory note; both the theorem and its Beck–Fiala corollary are credited to Guo, Fang and Lu.
 
@@ -18,18 +18,22 @@ A separate Codex agent checked the application and substantive source proof and 
 
 ## Problem statement
 
-Does a finite universal constant $C>0$ exist such that the following holds for every pair of positive integers $m,n$, every integer $t$ with $1\leq t\leq m$, and every matrix $A=(a_{ij})\in\{0,1\}^{m\times n}$?
+Does a finite universal constant $`C>0`$ exist such that the following holds for every pair of positive integers $`m,n`$, every integer $`t`$ with $`1\leq t\leq m`$, and every matrix $`A=(a_{ij})\in\{0,1\}^{m\times n}`$?
 If
-$$
-\sum_{i=1}^m a_{ij}\leq t\qquad(1\leq j\leq n),
-$$
-then some signing $x\in\{-1,1\}^n$ satisfies
-$$
-\|Ax\|_\infty\leq C\sqrt t.
-$$
-The constant must be independent of $m,n,t$. All columns are available when choosing the signing. The zero-sparsity case is trivial and excluded from the quantifiers.
 
-The matrix is the incidence matrix of a set system: each element belongs to at most $t$ sets, and the signing should balance every set. The problem asks whether column sparsity alone controls the simultaneous row error at its conjectured square-root scale. It is a special case of the Komlós conjecture after column normalization, but an independent classical source-stated conjecture for incidence matrices.
+```math
+\sum_{i=1}^m a_{ij}\leq t\qquad(1\leq j\leq n),
+```
+
+then some signing $`x\in\{-1,1\}^n`$ satisfies
+
+```math
+\|Ax\|_\infty\leq C\sqrt t.
+```
+
+The constant must be independent of $`m,n,t`$. All columns are available when choosing the signing. The zero-sparsity case is trivial and excluded from the quantifiers.
+
+The matrix is the incidence matrix of a set system: each element belongs to at most $`t`$ sets, and the signing should balance every set. The problem asks whether column sparsity alone controls the simultaneous row error at its conjectured square-root scale. It is a special case of the Komlós conjecture after column normalization, but an independent classical source-stated conjecture for incidence matrices.
 
 ## References
 
@@ -39,7 +43,7 @@ The matrix is the incidence matrix of a set system: each element belongs to at m
 
 ## Earlier status check — 2026-09-10
 
-checked 2607.14238v1 (2026-07-15), 2508.03961v2 (2025-09-09), and searches “Beck Fiala conjecture solved 2026 logarithmic sparsity” and “Online Beck Fiala Down to Logarithmic Sparsity”. The 2026 work reaches sparsities $t\geq(\log n)^{1+o(1)}$ in its notation translated to $n$ columns; it does not establish the assertion for all sparsities. Online lower bounds concern a more restrictive information model. No full resolution or withdrawal was found.
+checked 2607.14238v1 (2026-07-15), 2508.03961v2 (2025-09-09), and searches “Beck Fiala conjecture solved 2026 logarithmic sparsity” and “Online Beck Fiala Down to Logarithmic Sparsity”. The 2026 work reaches sparsities $`t\geq(\log n)^{1+o(1)}`$ in its notation translated to $`n`$ columns; it does not establish the assertion for all sparsities. Online lower bounds concern a more restrictive information model. No full resolution or withdrawal was found.
 
 **Audit update (2026-09-10):** Rechecked the July 2026 online/offline paper and searched for unrestricted Beck–Fiala results. It proves the offline target in a substantial sparsity regime, which is part of the displayed family, but leaves smaller sparsities unresolved. This is a bounded literature check, not a proof that no solution exists.
 

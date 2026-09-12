@@ -15,12 +15,12 @@
 
 **Affirmative resolution.** Matthew J. Colbrook's [complete manuscript, Theorem 2 and Corollary 7](../../references/colbrook-jsr-growth-2026-09-11/manuscripts/uniform_growth_and_holder.pdf) proves the stronger uniform estimate
 
-$$
+```math
 |\widehat\rho(\mathcal M)-\widehat\rho(\mathcal N)|
 \le d(2d+1)L^{1-1/d}d_H(\mathcal M,\mathcal N)^{1/d}
-$$
+```
 
-for any two nonempty compact real or complex matrix families in the spectral-norm ball of radius $L>0$. Choosing a common norm ball around a fixed family gives the exact local two-family assertion below, including reducible families and zero joint spectral radius. For $d=1$ the Lipschitz constant is one. The exponent $1/d$ is sharp in general; no Lipschitz lower-bound resolution of MF-06 is asserted.
+for any two nonempty compact real or complex matrix families in the spectral-norm ball of radius $`L>0`$. Choosing a common norm ball around a fixed family gives the exact local two-family assertion below, including reducible families and zero joint spectral radius. For $`d=1`$ the Lipschitz constant is one. The exponent $`1/d`$ is sharp in general; no Lipschitz lower-bound resolution of MF-06 is asserted.
 
 The complete original proof passed [independent Codex-agent review](../../references/colbrook-jsr-growth-2026-09-11/verification/reviews/MF-05-MF-07-review.md). [Authored TeX](../../references/colbrook-jsr-growth-2026-09-11/manuscripts/uniform_growth_and_holder.tex) · [Submission, authorship and verification record](../../references/colbrook-jsr-growth-2026-09-11/README.md). The proof was developed with AI assistance; no external human peer review or formal verification is claimed. The original statement and prior evidence below are retained, and the ratings above are historical. This entry no longer contributes to the open count.
 
@@ -28,37 +28,37 @@ The complete original proof passed [independent Codex-agent review](../../refere
 
 ## Context and notation
 
-Let $\mathcal H_d$ denote the nonempty compact subsets of
-$\mathbb C^{d\times d}$. Use the spectral norm and its Hausdorff distance
+Let $`\mathcal H_d`$ denote the nonempty compact subsets of
+$`\mathbb C^{d\times d}`$. Use the spectral norm and its Hausdorff distance
 
-$$
+```math
 d_H(\mathcal M,\mathcal N)=\max\left\{
 \sup_{A\in\mathcal M}\inf_{B\in\mathcal N}\|A-B\|_2,
 \sup_{B\in\mathcal N}\inf_{A\in\mathcal M}\|A-B\|_2\right\}.
-$$
+```
 
 The joint spectral radius is
 
-$$
+```math
 \widehat\rho(\mathcal M)=\lim_{k\to\infty}
 \max_{A_1,\ldots,A_k\in\mathcal M}\|A_k\cdots A_1\|_2^{1/k}.
-$$
+```
 
 These definitions also apply to finite real matrix sets. The ordinary spectral
-radius of one matrix is written $\rho(A)$.
+radius of one matrix is written $`\rho(A)`$.
 
 ## Problem statement
 
-For every $d\ge1$ and $\mathcal M_0\in\mathcal H_d$, do
-there exist $r,C>0$ such that
+For every $`d\ge1`$ and $`\mathcal M_0\in\mathcal H_d`$, do
+there exist $`r,C>0`$ such that
 
-$$
+```math
 |\widehat\rho(\mathcal M)-\widehat\rho(\mathcal N)|
 \le C d_H(\mathcal M,\mathcal N)^{1/d}
-$$
+```
 
-whenever $d_H(\mathcal M,\mathcal M_0)<r$ and
-$d_H(\mathcal N,\mathcal M_0)<r$?
+whenever $`d_H(\mathcal M,\mathcal M_0)< r`$ and
+$`d_H(\mathcal N,\mathcal M_0)< r`$?
 
 ## Reference and status evidence
 

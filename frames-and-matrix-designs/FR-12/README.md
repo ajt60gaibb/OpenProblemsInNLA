@@ -10,21 +10,21 @@
 **Status:** Solved  
 **Last checked:** 2026-09-12
 
-**Rating rationale:** Known general upper bounds still have a quadratic exponent, while the conjecture asks for an exponent of order $n\log n$. The question concerns the abundance of exact flat orthogonal transforms, with connections to structured matrix constructions and elimination.
+**Rating rationale:** Known general upper bounds still have a quadratic exponent, while the conjecture asks for an exponent of order $`n\log n`$. The question concerns the abundance of exact flat orthogonal transforms, with connections to structured matrix constructions and elimination.
 
 ## Negative resolution - 2026-09-12
 
 **Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
 
-**The counting conjecture is false.** The [complete proof](solution.md), Lemma 1 and Theorem 1, constructs an injection from two labeled order-$m$ Hadamard matrices and a perfect matching of $2m$ row labels. It gives
+**The counting conjecture is false.** The [complete proof](solution.md), Lemma 1 and Theorem 1, constructs an injection from two labeled order-$`m`$ Hadamard matrices and a perfect matching of $`2m`$ row labels. It gives
 
-$$
+```math
 H(2m)\ge(2m-1)!!\,H(m)^2,
 \qquad
 H(2^k)\ge 2^{\,2^k(k-1)(k-2)/8}\quad(k\ge2).
-$$
+```
 
-The resulting exponent has order $n(\log n)^2$ along powers of two, contradicting every bound $2^{C n\log_2 n}$ with fixed $C$. [Proof PDF](solution.pdf) · [Standalone proof TeX](solution.tex).
+The resulting exponent has order $`n(\log n)^2`$ along powers of two, contradicting every bound $`2^{C n\log_2 n}`$ with fixed $`C`$. [Proof PDF](solution.pdf) · [Standalone proof TeX](solution.tex).
 
 The full argument passed a separate [independent Codex-agent mathematical and source-scope review](../../references/stepaniants-fr12-2026-09-12/REVIEW.md). The [submission record](../../references/stepaniants-fr12-2026-09-12/README.md) preserves the supplied source, exact checks, document conversion and bounded public fork/branch/PR and literature search. Substantial AI assistance is disclosed; this is informal automated review, not external human peer review or formal verification.
 
@@ -32,29 +32,31 @@ Ferber, Jain and Zhao retain attribution for the conjecture and prior upper boun
 
 ## Statement
 
-For each positive integer $n$, let
+For each positive integer $`n`$, let
 
-$$
+```math
 H(n)=\#\{A\in\{-1,1\}^{n\times n}:AA^{\mathsf T}=nI_n\}.
-$$
+```
 
-**Conjecture.** There is an absolute constant $C>0$ such that
+**Conjecture.** There is an absolute constant $`C>0`$ such that
 
-$$H(n)\le 2^{C n\log_2 n}$$
+```math
+H(n)\le 2^{C n\log_2 n}
+```
 
-for every positive integer $n$ divisible by four.
+for every positive integer $`n`$ divisible by four.
 
 The count is of individual matrices with their row and column labels. Matrices related by signed permutations are not identified. The statement does not require that a Hadamard matrix exist at every such order.
 
 ## Known bounds and numerical significance
 
-Ferber, Jain and Zhao prove that some absolute $c_H>0$ gives
-$H(n)\le 2^{(1-c_H)n^2/2}$ for every sufficiently large multiple of four.
-Whenever $H(n)>0$, distinct row permutations of one Hadamard matrix give
-$H(n)\ge n!$. Thus the conjectured exponent has the smallest possible order
+Ferber, Jain and Zhao prove that some absolute $`c_H>0`$ gives
+$`H(n)\le 2^{(1-c_H)n^2/2}`$ for every sufficiently large multiple of four.
+Whenever $`H(n)>0`$, distinct row permutations of one Hadamard matrix give
+$`H(n)\ge n!`$. Thus the conjectured exponent has the smallest possible order
 along orders admitting such matrices.
 
-Dividing a Hadamard matrix by $\sqrt n$ produces an orthogonal transformation
+Dividing a Hadamard matrix by $`\sqrt n`$ produces an orthogonal transformation
 whose entries all have the same magnitude. The enumeration asks how many
 exact sign designs can underlie these transforms. Peca-Medlin's work connects
 Hadamard enumeration for butterfly constructions to structured orthogonal

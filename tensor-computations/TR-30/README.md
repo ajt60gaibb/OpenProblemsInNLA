@@ -13,22 +13,26 @@
 
 ## Problem statement
 
-Let $\mathbb F$ be an algebraically closed field, let $k\geq3$, and fix positive integers $n_1,\ldots,n_k$ and $1\leq r\leq\min_jn_j$. For
-$T\in V=\mathbb F^{n_1}\otimes\cdots\otimes\mathbb F^{n_k}$,
-say that $\underline Q(T)\geq r$ when
-$$
+Let $`\mathbb F`$ be an algebraically closed field, let $`k\geq3`$, and fix positive integers $`n_1,\ldots,n_k`$ and $`1\leq r\leq\min_jn_j`$. For
+$`T\in V=\mathbb F^{n_1}\otimes\cdots\otimes\mathbb F^{n_k}`$,
+say that $`\underline Q(T)\geq r`$ when
+
+```math
 \sum_{a=1}^r e_a^{\otimes k}\in
 \overline{\{(L_1\otimes\cdots\otimes L_k)T:
-L_j\in\operatorname{Hom}(\mathbb F^{n_j},\mathbb F^r)\}}^{\,\mathrm{Zar}}.
-$$
-Thus $\underline Q(T)$ is border subrank, defined through degeneration to a diagonal unit tensor.
+L_j\in\mathop{\mathrm{Hom}}\nolimits(\mathbb F^{n_j},\mathbb F^r)\}}^{\,\mathrm{Zar}}.
+```
+
+Thus $`\underline Q(T)`$ is border subrank, defined through degeneration to a diagonal unit tensor.
 
 Determine, for every such field and tuple of integers, the dimension
-$$
+
+```math
 \dim X_r^{(n_1,\ldots,n_k)},\qquad
 X_r^{(n_1,\ldots,n_k)}
 =\{T\in V:\underline Q(T)\geq r\}.
-$$
+```
+
 The dimension of this constructible locus means the Krull dimension of its Zariski closure in the affine tensor space. This convention does not assert that the locus itself is closed. The requested output is its exact dimension as a function of the parameters; determining only an asymptotic order or only the generic subrank does not complete the question.
 
 ## Why it matters
@@ -46,4 +50,4 @@ Border subrank measures how many independent diagonal computations a tensor can 
 
 ### Status check — 2026-09-10
 
-Checked the 2025 source question, Biaggi–Chang–Draisma–Rupniewski v2, and targeted dimension searches through 2026. There is a proved exact range: by Pielasa–Šafránek–Shatsila, Theorem 3.7, let $g=\min\{n_1,\ldots,n_k,\lfloor(\sum_i n_i-k+1)^{1/(k-1)}\rfloor\}$. Generic tensors have ordinary subrank $g$ over every infinite field. Since border subrank is at least ordinary subrank, $X_r$ contains a dense open subset and has dimension $\prod_i n_i$ whenever $r\le g$. This deduction resolves that range, not the remaining dimensions. Draisma’s abstract for the September 14–16, 2026 conference announces sharp bounds for equal-format tensors of maximal border subrank; the abstract supplies no proof or all-format formula. No complete resolution was located.
+Checked the 2025 source question, Biaggi–Chang–Draisma–Rupniewski v2, and targeted dimension searches through 2026. There is a proved exact range: by Pielasa–Šafránek–Shatsila, Theorem 3.7, let $`g=\min\{n_1,\ldots,n_k,\lfloor(\sum_i n_i-k+1)^{1/(k-1)}\rfloor\}`$. Generic tensors have ordinary subrank $`g`$ over every infinite field. Since border subrank is at least ordinary subrank, $`X_r`$ contains a dense open subset and has dimension $`\prod_i n_i`$ whenever $`r\le g`$. This deduction resolves that range, not the remaining dimensions. Draisma’s abstract for the September 14–16, 2026 conference announces sharp bounds for equal-format tensors of maximal border subrank; the abstract supplies no proof or all-format formula. No complete resolution was located.

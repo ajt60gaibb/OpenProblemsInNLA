@@ -12,7 +12,7 @@
 
 **Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the exact target.**
 
-The sequence $(j+1)e_{j+1}/e_j$ is decreasing and discretely convex for every positive spectrum, including both endpoints. The exact second-difference certificate proves the full canonical conjecture.
+The sequence $`(j+1)e_{j+1}/e_j`$ is decreasing and discretely convex for every positive spectrum, including both endpoints. The exact second-difference certificate proves the full canonical conjecture.
 
 The complete target is resolved. Its former difficulty rating is historical; the original mathematical statement and source evidence are retained below.
 
@@ -20,24 +20,30 @@ The complete target is resolved. Its former difficulty rating is historical; the
 
 <!-- /colbrook-transfer -->
 
-For $n\geq3$ and positive real numbers $\lambda_1,\ldots,\lambda_n$, let
-$$
+For $`n\geq3`$ and positive real numbers $`\lambda_1,\ldots,\lambda_n`$, let
+
+```math
 e_j(\lambda)=\sum_{\substack{S\subseteq\{1,\ldots,n\}\\|S|=j}}
 \prod_{i\in S}\lambda_i,
 \qquad e_0=1,\quad e_{n+1}=0.
-$$
-Define $f(j)=(j+1)e_{j+1}(\lambda)/e_j(\lambda)$ for $1\leq j\leq n$. Is $f$ discretely convex, that is,
-$$
+```
+
+Define $`f(j)=(j+1)e_{j+1}(\lambda)/e_j(\lambda)`$ for $`1\leq j\leq n`$. Is $`f`$ discretely convex, that is,
+
+```math
 f(j-1)-2f(j)+f(j+1)\geq0
 \qquad(2\leq j\leq n-1),
-$$
-for every such $n$ and positive tuple $\lambda$?
+```
 
-For a matrix $A$ with positive eigenvalues $\lambda_i$ of $A^TA$, sample a set $S$ of $j$ columns with probability proportional to $\det(A_S^TA_S)$. Its expected squared Frobenius projection error is
-$$
+for every such $`n`$ and positive tuple $`\lambda`$?
+
+For a matrix $`A`$ with positive eigenvalues $`\lambda_i`$ of $`A^TA`$, sample a set $`S`$ of $`j`$ columns with probability proportional to $`\det(A_S^TA_S)`$. Its expected squared Frobenius projection error is
+
+```math
 \mathbb E\|(I-P_{A_S})A\|_F^2=f(j),
-$$
-where $P_{A_S}$ is the orthogonal projector onto the selected column span. Thus the conjecture asserts a diminishing marginal improvement in the average reconstruction error of these fixed-size determinantal samples. It is distinct from optimizing a worst-case approximation factor over all matrices with a prescribed spectrum.
+```
+
+where $`P_{A_S}`$ is the orthogonal projector onto the selected column span. Thus the conjecture asserts a diminishing marginal improvement in the average reconstruction error of these fixed-size determinantal samples. It is distinct from optimizing a worst-case approximation factor over all matrices with a prescribed spectrum.
 
 ## References
 
@@ -46,7 +52,7 @@ where $P_{A_S}$ is the orthogonal projector onto the selected column span. Thus 
 
 ## Status check — 2026-09-08
 
-Searched “Derezinski Khanna Mahoney Conjecture 1 convexity”, “elementary symmetric ratio $k+1$ convexity DPP”, and the exact 2020 paper title with 2025/2026. Checked the current arXiv record. No proof or counterexample was found. Standard Newton inequalities imply other ratio inequalities but are not cited as a resolution of this second-difference inequality.
+Searched “Derezinski Khanna Mahoney Conjecture 1 convexity”, “elementary symmetric ratio $`k+1`$ convexity DPP”, and the exact 2020 paper title with 2025/2026. Checked the current arXiv record. No proof or counterexample was found. Standard Newton inequalities imply other ratio inequalities but are not cited as a resolution of this second-difference inequality.
 
 ## Audit — 2026-09-10
 

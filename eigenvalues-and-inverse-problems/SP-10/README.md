@@ -13,16 +13,19 @@
 
 ## Problem statement
 
-For a finite simple undirected graph $G$ with vertex set $\{1,\ldots,n\}$, $n\ge1$, define
-$$
+For a finite simple undirected graph $`G`$ with vertex set $`\{1,\ldots,n\}`$, $`n\ge1`$, define
+
+```math
 \mathcal S(G)=\{A\in\mathbb R^{n\times n}:A=A^T,\ \mathcal G(A)=G\},
 \qquad
-\operatorname{mr}(G)=\min_{A\in\mathcal S(G)}\operatorname{rank}A.
-$$
-Here $\mathcal G(A)$ has an edge $\{i,j\}$ exactly when $i\ne j$ and $a_{ij}\ne0$. Diagonal entries are unrestricted. Let $G^c$ have exactly the complementary edges between distinct vertices. Does every such graph satisfy
-$$
-\operatorname{mr}(G)+\operatorname{mr}(G^c)\le n+2?
-$$
+\mathop{\mathrm{mr}}\nolimits(G)=\min_{A\in\mathcal S(G)}\mathop{\mathrm{rank}}\nolimits A.
+```
+
+Here $`\mathcal G(A)`$ has an edge $`\{i,j\}`$ exactly when $`i\ne j`$ and $`a_{ij}\ne0`$. Diagonal entries are unrestricted. Let $`G^c`$ have exactly the complementary edges between distinct vertices. Does every such graph satisfy
+
+```math
+\mathop{\mathrm{mr}}\nolimits(G)+\mathop{\mathrm{mr}}\nolimits(G^c)\le n+2?
+```
 
 ## Relevance and ratings
 
@@ -37,7 +40,7 @@ $$
 
 ## Status check
 
- The 2026 paper resolves a weak version with a coefficient strictly below $2$ in front of $n$, not the displayed coefficient $1$. Searches for “graph complement conjecture”, “minimum rank”, “solved”, “proof”, and 2025–2026 found no general resolution. The source's May 2025 arXiv version and the 2026 journal record were checked. No positive-semidefinite or strong-Arnold variant is separately counted here.
+ The 2026 paper resolves a weak version with a coefficient strictly below $`2`$ in front of $`n`$, not the displayed coefficient $`1`$. Searches for “graph complement conjecture”, “minimum rank”, “solved”, “proof”, and 2025–2026 found no general resolution. The source's May 2025 arXiv version and the 2026 journal record were checked. No positive-semidefinite or strong-Arnold variant is separately counted here.
 
 ## Audit update — 2026-09-10
 

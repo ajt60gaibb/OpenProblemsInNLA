@@ -18,25 +18,25 @@ All norms are Euclidean vector norms or their induced matrix norms.
 
 ## Problem statement
 
-For a Hermitian matrix $H$ with eigenvalues listed with multiplicity, define
+For a Hermitian matrix $`H`$ with eigenvalues listed with multiplicity, define
 
-$$
-\operatorname{gap}(H)=\min_{i\ne j}|\lambda_i(H)-\lambda_j(H)|.
-$$
+```math
+\mathop{\mathrm{gap}}\nolimits(H)=\min_{i\ne j}|\lambda_i(H)-\lambda_j(H)|.
+```
 
-Do universal constants $a,c_0,C,q>0$ and a deterministic algorithm exist with
-the following property? For every $n\geq2$, Hermitian tridiagonal
-$T\in\mathbb C^{n\times n}$ with $\|T\|_2\leq1$, and
-$\delta\in(0,1/2)$, the algorithm receives the three diagonals and returns
-a real diagonal matrix $D$ such that
+Do universal constants $`a,c_0,C,q>0`$ and a deterministic algorithm exist with
+the following property? For every $`n\geq2`$, Hermitian tridiagonal
+$`T\in\mathbb C^{n\times n}`$ with $`\|T\|_2\leq1`$, and
+$`\delta\in(0,1/2)`$, the algorithm receives the three diagonals and returns
+a real diagonal matrix $`D`$ such that
 
-$$
+```math
 \|D\|_2\leq\delta,
 \qquad
-\operatorname{gap}(T+D)\geq c_0(\delta/n)^a,
-$$
+\mathop{\mathrm{gap}}\nolimits(T+D)\geq c_0(\delta/n)^a,
+```
 
-using at most $Cn[1+\log(n/\delta)]^q$ exact arithmetic operations and
+using at most $`Cn[1+\log(n/\delta)]^q`$ exact arithmetic operations and
 comparisons? Square roots of nonnegative real numbers are allowed at unit
 cost; extracting bits from exact real inputs is not.
 

@@ -8,13 +8,15 @@
 **Rating rationale:** The Fourier-constrained random optimization problem needs sharper analysis than current order bounds; it matters to structured matrix optimization and sampling.
 
 
-For each $n\ge2$, partition $\mathbb Z_n\setminus\{0\}$ into classes $\{s,-s\}$ (a singleton when $s=-s$). Select each class independently with probability $1/2$ and let $S$ be their union. Form the simple undirected graph $G_n$ on $\mathbb Z_n$ with $\{i,j\}$ an edge exactly when $i-j\in S$.
+For each $`n\ge2`$, partition $`\mathbb Z_n\setminus\{0\}`$ into classes $`\{s,-s\}`$ (a singleton when $`s=-s`$). Select each class independently with probability $`1/2`$ and let $`S`$ be their union. Form the simple undirected graph $`G_n`$ on $`\mathbb Z_n`$ with $`\{i,j\}`$ an edge exactly when $`i-j\in S`$.
 
-For any graph on $n$ vertices put
-$$
-\vartheta(G)=\max\Bigl\{\sum_{i,j}X_{ij}:X\in\mathbb R^{n\times n},\ X=X^T\succeq0,\ \operatorname{tr}X=1,\ X_{ij}=0\text{ if }\{i,j\}\in E(G)\Bigr\}.
-$$
-**Conjecture.** $\displaystyle\lim_{n\to\infty}\mathbb E\vartheta(G_n)/\sqrt n=1$.
+For any graph on $`n`$ vertices put
+
+```math
+\vartheta(G)=\max\Bigl\{\sum_{i,j}X_{ij}:X\in\mathbb R^{n\times n},\ X=X^T\succeq0,\ \mathop{\mathrm{tr}}\nolimits X=1,\ X_{ij}=0\text{ if }\{i,j\}\in E(G)\Bigr\}.
+```
+
+**Conjecture.** $`\displaystyle\lim_{n\to\infty}\mathbb E\vartheta(G_n)/\sqrt n=1`$.
 
 Cyclic symmetry reduces this semidefinite program to a linear program involving the discrete Fourier matrix, connecting its typical optimum with structured sampling.
 
@@ -25,7 +27,7 @@ Cyclic symmetry reduces this semidefinite program to a linear program involving 
 
 ## Status check — 2026-09-10
 
-The 2026 collection retains the conjecture and cites the 2025 partial bounds, including an upper bound of order $\sqrt{n\log\log n}$. Searches for subsequent sharp asymptotics and resolutions found none. Independent edge sampling on all vertex pairs is the different ensemble in MD-01.
+The 2026 collection retains the conjecture and cites the 2025 partial bounds, including an upper bound of order $`\sqrt{n\log\log n}`$. Searches for subsequent sharp asymptotics and resolutions found none. Independent edge sampling on all vertex pairs is the different ensemble in MD-01.
 
 **Audit update (2026-09-10):** Rechecked the 2026 Conjecture 18 and the SampTA paper, then searched for sharp random-circulant asymptotics. Added the published DOI; the remaining logarithmic upper-bound factor does not settle the limit. This is a bounded literature check, not a proof that no solution exists.
 

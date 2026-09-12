@@ -12,9 +12,9 @@
 
 **Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the stated partial results.**
 
-The conventional critical exponent satisfies $\mathrm{CE}_n\ge2n-4$ for every $n\ge3$, already for rational entrywise nonnegative matrices with distinct positive eigenvalues. Combining this with the published upper bound gives $\mathrm{CE}_4=4$.
+The conventional critical exponent satisfies $`\mathrm{CE}_n\ge2n-4`$ for every $`n\ge3`$, already for rational entrywise nonnegative matrices with distinct positive eigenvalues. Combining this with the published upper bound gives $`\mathrm{CE}_4=4`$.
 
-The matching upper bound for every $n\ge5$, and hence the full family equality, remain unresolved. These are conventional matrix powers, not entrywise powers. The entry remains in the open count. Its difficulty and importance ratings continue to describe the surviving canonical target.
+The matching upper bound for every $`n\ge5`$, and hence the full family equality, remain unresolved. These are conventional matrix powers, not entrywise powers. The entry remains in the open count. Its difficulty and importance ratings continue to describe the surviving canonical target.
 
 **Primary reference:** [complete authored PDF](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-15.pdf), [standalone TeX](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-15.tex), **Theorem 1 and Corollary 4**. [Independent proof review](../../references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-15-review.md) · [Authorship and submission record](../../references/colbrook-matrix-functions-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
 
@@ -22,28 +22,28 @@ The matching upper bound for every $n\ge5$, and hence the full family equality, 
 
 ## Problem statement
 
-For $n\ge3$, let $\mathcal G_n$ consist of the matrices $A\in\mathbb R^{n\times n}$ that are entrywise nonnegative, diagonalizable, and have only nonnegative real eigenvalues. Symmetry is not assumed. If
+For $`n\ge3`$, let $`\mathcal G_n`$ consist of the matrices $`A\in\mathbb R^{n\times n}`$ that are entrywise nonnegative, diagonalizable, and have only nonnegative real eigenvalues. Symmetry is not assumed. If
 
-$$
-A=S\operatorname{diag}(\lambda_1,\ldots,\lambda_n)S^{-1},
-$$
+```math
+A=S\mathop{\mathrm{diag}}\nolimits(\lambda_1,\ldots,\lambda_n)S^{-1},
+```
 
-define the conventional matrix power, for $t>0$, by
+define the conventional matrix power, for $`t>0`$, by
 
-$$
-A^t=S\operatorname{diag}(\lambda_1^t,\ldots,\lambda_n^t)S^{-1},
+```math
+A^t=S\mathop{\mathrm{diag}}\nolimits(\lambda_1^t,\ldots,\lambda_n^t)S^{-1},
 \qquad 0^t=0.
-$$
+```
 
 Let
 
-$$
+```math
 \mathrm{CE}_n=\inf\bigl\{c\ge0:
 A^t\text{ is entrywise nonnegative for every }A\in\mathcal G_n
 \text{ and every real }t>c\bigr\}.
-$$
+```
 
-Is $\mathrm{CE}_n=2(n-2)$ for every integer $n\ge3$?
+Is $`\mathrm{CE}_n=2(n-2)`$ for every integer $`n\ge3`$?
 
 ## Why it matters
 
@@ -51,16 +51,16 @@ This asks for the exact dimension-dependent threshold beyond which spectral matr
 
 ## References
 
-- X. Han, C. R. Johnson, and P. Paparella, [The critical exponent for generalized doubly nonnegative matrices](https://arxiv.org/abs/1407.7059), *Linear and Multilinear Algebra* 65 (2017), 1035–1044, §1 for definitions, Theorem 3.3 for an upper bound, Corollary 4.5 for $n=3$, and Question 4.7 for the displayed formula. The conjectural $n=4$ case is Conjecture 4.6.
+- X. Han, C. R. Johnson, and P. Paparella, [The critical exponent for generalized doubly nonnegative matrices](https://arxiv.org/abs/1407.7059), *Linear and Multilinear Algebra* 65 (2017), 1035–1044, §1 for definitions, Theorem 3.3 for an upper bound, Corollary 4.5 for $`n=3`$, and Question 4.7 for the displayed formula. The conjectural $`n=4`$ case is Conjecture 4.6.
 - D. Guillot, A. Khare, and B. Rajaratnam, [The critical exponent conjecture for powers of doubly nonnegative matrices](https://arxiv.org/abs/1303.4701), *Linear Algebra and its Applications* 439 (2013), 2422–2427, abstract and main theorem: resolution of the symmetric case.
 
 ## Status check
 
-On 2026-09-08, checked the latest listed arXiv version and searched “generalized doubly nonnegative”, “critical exponent”, “2(n-2)”, “conjecture”, and 2025–2026. No resolution of Question 4.7 was located. The source proves existence of a finite threshold and $\mathrm{CE}_3=2$. The solved symmetric doubly nonnegative problem has threshold $n-2$ and concerns a smaller class; results for entrywise (Hadamard) powers concern a different operation. The special case $n=4$ and related integrality questions are included within this single target, not counted separately. No recent explicit reaffirmation was found.
+On 2026-09-08, checked the latest listed arXiv version and searched “generalized doubly nonnegative”, “critical exponent”, “2(n-2)”, “conjecture”, and 2025–2026. No resolution of Question 4.7 was located. The source proves existence of a finite threshold and $`\mathrm{CE}_3=2`$. The solved symmetric doubly nonnegative problem has threshold $`n-2`$ and concerns a smaller class; results for entrywise (Hadamard) powers concern a different operation. The special case $`n=4`$ and related integrality questions are included within this single target, not counted separately. No recent explicit reaffirmation was found.
 
 ## Audit — 2026-09-10
 
-Rechecked [Han–Johnson–Paparella, Corollary 4.5 and Question 4.7](https://arxiv.org/pdf/1407.7059). The $n=3$ equality is proved; the all-dimensions formula remains posed. Generalized-DN critical-exponent searches found no later resolution. The [published record](https://doi.org/10.1080/03081087.2016.1223009) confirms the 2017 article; symmetric and entrywise-power theorems do not settle it.
+Rechecked [Han–Johnson–Paparella, Corollary 4.5 and Question 4.7](https://arxiv.org/pdf/1407.7059). The $`n=3`$ equality is proved; the all-dimensions formula remains posed. Generalized-DN critical-exponent searches found no later resolution. The [published record](https://doi.org/10.1080/03081087.2016.1223009) confirms the 2017 article; symmetric and entrywise-power theorems do not settle it.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
