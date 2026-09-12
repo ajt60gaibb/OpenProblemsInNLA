@@ -384,9 +384,11 @@ historical and the entry no longer contributes to the open count.
 
 [Canonical entry](matrix-inequalities-and-norms/MI-07/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-07/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-07-review.md). **Theorem 1.1 and its proof.** No finite two-unitary domination constant exists for the maximal symmetric modulus, already in dimension two. The rank-one family gives the necessary bound $C\ge\sqrt{1+t^2}/t$ for every $t>0$. 
 
-#### MI-19 — negative result
+#### MI-19 — Negative result by Matthew J. Colbrook; Lean formalization by George Stepaniants
 
 [Canonical entry](matrix-inequalities-and-norms/MI-19/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-19/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-19-review.md). **Theorem 1.1 and its proof.** A real order-four PSD Gram matrix, $q=7/8$ and the interior singleton $S=\{2\}$ give full minus restricted $q$-permanent equal to $-3235575/16384$. Inversions are counted in the full original ordering. The strict counterexample also persists under sufficiently small positive diagonal perturbations. 
+
+**Lean verified — 2026-09-12.** Mathematical counterexample: **Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Lean formalization: **George Stepaniants**, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA. [Proof and verification evidence](matrix-inequalities-and-norms/MI-19/README.md#lean-proof-and-verification-evidence--2026-09-12) cover the complete negative target through `NLA.MI19.counterexample` and `NLA.MI19.not_subsetConjecture`, at [proof revision cd44ce9](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/cd44ce9bcb84ebc79a1aa934918d1f76b2a9c6e7/matrix-inequalities-and-norms/MI-19/lean). [Linux Comparator and kernel checks passed](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34703363593) with only the standard three axioms. The optional perturbation extension is not part of the formalized claims.
 
 #### MI-21 — negative result
 
@@ -404,11 +406,9 @@ historical and the entry no longer contributes to the open count.
 
 [Canonical entry](matrix-inequalities-and-norms/MI-26/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-26/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-26-review.md). **Theorem 1.1 and its proof.** The real-valued concave function $f(x)=x-x^2$ and two rational projections refute the two-unitary inequality; an explicit positive definite variant also works. The allowed condition is $f(0)\ge0$, without global nonnegativity or monotonicity. This does not refute the narrower nonnegative-valued function class. 
 
-#### MI-29 — Lean-verified negative result — formalization by George Stepaniants
+#### MI-29 — negative result
 
-[Canonical entry](matrix-inequalities-and-norms/MI-29/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-29/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-29-review.md). **Theorem 1.1 and its proof.** A rational positive definite $A$ and invertible indefinite Hermitian $B$ in dimension three, with $k=6$ and $p=8$, reverse the proposed determinant comparison. The exact right-minus-left gap is $21036678407451/156250000000000>0$. The known $k=2$ theorem and the variant $B>0$ are not contradicted.
-
-**Lean verified, 2026-09-12. Lean formalization:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, with AI-agent assistance. Matthew J. Colbrook retains mathematical proof credit. The [five checked exports](https://github.com/sgstepaniants/OpenProblemsInNLA/blob/c0c5eced77d2528f37d931200248fc54a190813e/matrix-inequalities-and-norms/MI-29/lean/Solution.lean) establish the genuine CFC and modulus bridges, positive-real determinant semantics, the exact admissible witness and the negation of the complete original all-real-exponent conjecture. [Linux run 34706412510](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34706412510) matched the frozen declarations and replayed the solution through Lean's default kernel, with only `propext`, `Classical.choice` and `Quot.sound`. Two independent mathematical referees and an independent operational audit are retained with the [proof and verification evidence](matrix-inequalities-and-norms/MI-29/README.md#lean-proof-and-verification-evidence--2026-09-12). The separate singular-input extension, established $k=2$ case and positive-$B$ variants are outside these exports. The original informal proof and its review record remain separately credited.
+[Canonical entry](matrix-inequalities-and-norms/MI-29/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-29/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-29-review.md). **Theorem 1.1 and its proof.** A rational positive definite $A$ and invertible indefinite Hermitian $B$ in dimension three, with $k=6$ and $p=8$, reverse the proposed determinant comparison. The exact right-minus-left gap is $21036678407451/156250000000000>0$. The known $k=2$ theorem and the variant $B>0$ are not contradicted. 
 
 #### Related partial results: MI-08, MI-09 and MI-25
 
@@ -558,17 +558,21 @@ Eight exact targets passed independent agent review. Author: **Matthew J. Colbro
 
 [Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-17.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-17-review.md).
 
-### IE-18 - Negative resolution
+### IE-18 — Negative resolution by Matthew J. Colbrook; Lean formalization by George Stepaniants
 
 [Original statement](linear-systems-and-elimination/IE-18/README.md). **Solved.** Section 2 refutes the exact four-step identity using $M=\operatorname{diag}(1/10,1/2,3/5)$ and $v=(1,1,1)^T$: the squared norm ratio is $1920682/21289638243>1/14641$, the square of the proposed factor. Both $M$ and $I-M$ are positive definite. Section 3 proves unbounded underestimation over a parameter family. The separate asymptotic convergence question is not resolved.
 
 [Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-18.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-18-review.md).
 
-### IE-19 - Negative resolution and sharp replacement
+**Lean verified — 2026-09-12 (original negative target).** Mathematical counterexample: **Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Lean formalization: **George Stepaniants**, Department of Computing and Mathematical Sciences, California Institute of Technology. [Proof and verification evidence](linear-systems-and-elimination/IE-18/README.md#lean-proof-and-verification-evidence--2026-09-12) cover the actual residual certificate, admissible counterexample and full original negation through `NLA.IE18.not_fourStepConjecture`, at [immutable revision `7b8512e`](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/7b8512e21c50adc8597dcdbed32f2aec13c3b43e/linear-systems-and-elimination/IE-18/lean). [Linux Comparator and kernel checks passed](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34703657954) with only the standard three axioms. The stronger parameter family and separate asymptotic question are outside the formalized claims.
 
-[Original statement](linear-systems-and-elimination/IE-19/README.md). **Solved.** Section 1 gives an admissible positive symmetric strictly diagonally dominant $3\times3$ matrix with inverse infinity norm $7/9$, below the proposed comparison value $5/4$. Theorem 1 in Section 2 proves that the exact infimum over the displayed class is $1/(\alpha+m)$ for every allowed parameter choice, and strict positivity prevents attainment. The order is entrywise; stronger comparisons of dominance margins are outside the result.
+### 🏆 IE-19 — Negative resolution by Matthew J. Colbrook; Lean formalization by George Stepaniants
 
-[Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-19.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-19-review.md).
+[Original statement](linear-systems-and-elimination/IE-19/README.md). **Lean verified, 2026-09-12.** The exact original lower-bound and sharp conjectures are false: the admissible $3\times3$ matrix with diagonal entries $2$ and off-diagonal entries $1/2$, at $m=\alpha=1$, has inverse infinity norm $7/9<5/4$. The [Lean proof at revision 531941c](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/531941ca0062049ccf03d3f2df418ea805ac4036/linear-systems-and-elimination/IE-19/lean) exports `NLA.IE19.counterexample`, `NLA.IE19.not_lowerBoundConjecture`, and `NLA.IE19.not_sharpConjecture`. Independent agents reviewed the statement and complete proof; [Linux run 34703188616](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34703188616) matched all three declarations with Comparator and replayed the solution through Lean's default kernel, permitting only `propext`, `Classical.choice`, and `Quot.sound`. The [permanent verification archive](linear-systems-and-elimination/IE-19/lean/verification/linux-2026-09-12/) retains the original artifacts, logs and independent operational review; the canonical page gives pinned dependencies and reproduction commands.
+
+**Mathematical proof:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Lean formalization:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA. The manuscript's further sharp-infimum and nonattainment results remain informally reviewed and are outside this Lean certificate. The stable problem ID and original target are retained.
+
+[Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-19.pdf); [independent mathematical review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-19-review.md); [independent formalization reviews](linear-systems-and-elimination/IE-19/lean/reviews/).
 
 ### IE-21 - Affirmative resolution
 

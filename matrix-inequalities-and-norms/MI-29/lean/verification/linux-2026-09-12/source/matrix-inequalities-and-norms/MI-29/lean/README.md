@@ -1,6 +1,6 @@
 # MI-29 Lean formalization
 
-The completed proof gives a negative answer to the full [canonical MI-29 conjecture](../README.md). Local compilation, kernel-trust checks, and two independent final AI-agent proof reviews passed. **The actual [Linux run 34706412510](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34706412510) accepted all five declarations at immutable [proof revision c0c5ece](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/c0c5eced77d2528f37d931200248fc54a190813e/matrix-inequalities-and-norms/MI-29/lean). The canonical status is Lean verified.** The [independent operational audit and original artifacts](verification/linux-2026-09-12/) record the exact source and dependency hashes, real sandbox controls, negative tests and default-kernel replay.
+The completed proof gives a negative answer to the full [canonical MI-29 conjecture](../README.md). Local compilation, kernel-trust checks, and two independent final AI-agent proof reviews passed. **Linux Comparator verification is pending; the canonical status remains Solved.**
 
 The mathematical counterexample is by **Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Formalization: George Stepaniants**, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, with AI-agent assistance. The new formalization code is licensed under [Apache 2.0](LICENSE); this does not reassign the informal proof's authorship. No external human peer review or source-author endorsement is claimed.
 
@@ -38,11 +38,11 @@ The immutable informal sources are the [canonical statement](https://github.com/
 
 [Definitions](NLA/MI29/Definitions.lean) and [Challenge](Challenge.lean) were frozen before implementation and approved by [statement referee 1](reviews/statement-referee-1.md) and [statement referee 2](reviews/statement-referee-2.md). The five deliberate Challenge placeholders specify the verification interface; `Solution` does not import Challenge and its proof dependency chain contains no placeholders.
 
-[Final proof referee 1](reviews/proof-referee-1.md) and [final proof referee 2](reviews/proof-referee-2.md) independently inspected and re-elaborated the actual completed proof. Their [first](verification/referee-1/) and [second](verification/referee-2/) command, numerical reconstruction, and axiom records remain available. They applied relevant Tau Ceti correctness, fidelity, scope, quality, reuse, and attribution rubrics. These are independent AI-agent reviews, not an official Tau Ceti service verdict. Source-level identity checks are supplemented by the successfully audited isolated Linux Comparator run.
+[Final proof referee 1](reviews/proof-referee-1.md) and [final proof referee 2](reviews/proof-referee-2.md) independently inspected and re-elaborated the actual completed proof. Their [first](verification/referee-1/) and [second](verification/referee-2/) command, numerical reconstruction, and axiom records remain available. They applied relevant Tau Ceti correctness, fidelity, scope, quality, reuse, and attribution rubrics. These are independent AI-agent reviews, not an official Tau Ceti service verdict. Source-level identity checks supplement the still-required isolated Linux Comparator run.
 
 [Proof.lean](NLA/MI29/Proof.lean) uses generic Mathlib CFC lemmas, verified repeated-square matrices, and exact determinant expansion. Only one rational point comparison uses the minimal LeanCert point-inequality module in explicit kernel mode. That certificate is used by the strict counterexample and final negation. No interval subdivision, approximate matrix square root, numerical eigenvalue search, or native-execution trust is used. All five exports and the audited internal certificates depend only on `propext`, `Classical.choice`, and `Quot.sound`.
 
-[comparator.json](comparator.json) selects exactly the five frozen Challenge exports, permits only those three standard axioms, and has no replaceable definition holes. [formalization.yaml](formalization.yaml) follows the pinned upstream v0.4 schema and records scope, source alignment, attribution, and the successful Linux gate.
+[comparator.json](comparator.json) selects exactly the five frozen Challenge exports, permits only those three standard axioms, and has no replaceable definition holes. [formalization.yaml](formalization.yaml) follows the pinned upstream v0.4 schema and records scope, source alignment, attribution, and the pending Linux gate.
 
 ## Reproduction
 
@@ -68,4 +68,4 @@ tools/lean/verify.sh \
   /absolute/path/to/nla-lean-tools
 ```
 
-The harness separately builds the frozen Challenge and Solution, runs the real Comparator with default-kernel replay, and records source hashes and control results. The retained successful run executed remotely on GitHub Actions Ubuntu 24.04; its evidence was independently audited locally on macOS. All ten dependencies were freshly cloned at their pinned revisions. The official matching Mathlib cache was used, while the project's own mathematical modules were freshly elaborated. Mechanical formal identity and kernel acceptance supplement the independent English-to-Lean reviews.
+The harness separately builds the frozen Challenge and Solution, runs the real Comparator with default-kernel replay, and records source hashes and control results. A successful Linux run and its independent operational audit must be recorded before changing the canonical status to Lean verified.
