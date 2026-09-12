@@ -1,0 +1,1237 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsthm}
+\usepackage{newtxtext,newtxmath}
+\usepackage{microtype}
+\usepackage{booktabs,array,longtable}
+\usepackage{enumitem}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\usepackage{bookmark}
+\usepackage{mathtools}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5.5pt plus 1pt minus 1pt}
+\setlength{\emergencystretch}{2em}
+\setlist{nosep,leftmargin=1.5em}
+\allowdisplaybreaks[2]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\E}{\mathbb E}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\range}{\operatorname{range}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\K}{\mathcal K}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\st}{\,:\,}
+\hypersetup{pdftitle={RA-04: Clustered-gap Krylov bounds},pdfauthor={Sidney Holden},pdfsubject={Partial results, explicit proofs, and remaining proof obligation}}
+
+\begin{document}
+\begin{center}
+{\Large\bfseries RA-04: Clustered-gap Krylov bounds}
+\\[6pt]
+Sidney Holden\\
+{\small Center for Computational Biology, Flatiron Institute, Simons Foundation}\\
+{\small Affiliation verified from the \href{https://www.simonsfoundation.org/people/sidney-holden/}{official staff profile}, 12 September 2026}
+\end{center}
+\vspace{1mm}
+
+\textbf{Status. The general assertion in RA-04 is not proved or disproved in this report.}
+The results below establish the requested iteration order for exactly repeated
+$b$-sized leading clusters, for arbitrary admissible spectra with
+$t=\lceil k/b\rceil=2$, for all admissible spectra with $\Delta\leq1/k'$, and for several
+endpoint or exact-rank cases. Two weaker bounds are proved for every
+admissible input. The missing step for the
+unrestricted assertion is stated explicitly, rather than used as an assumption
+inside a purported proof.
+
+\textbf{Abstract.}
+A useful object for clustered-gap analysis is the graph of a Krylov subspace
+over its leading eigenspace, not the smallest singular value of its raw
+monomial representation. Elementary interpolation and Gaussian small-ball
+estimates give quantitative graph bounds. A scalar filter recovers the
+general $k'-b+1$ dependence. A truncated fractional-moment argument reduces
+it to $t\log(2k'/\Delta)$, proving the requested order when
+$\Delta\leq1/k'$. Exact repeated clusters and arbitrary spectra with
+$t=2$ admit the requested dependence for every positive clustered gap. A separate three-dimensional
+example rules out a scale-free lower bound for a normalized raw monomial
+Krylov matrix; this example does not refute RA-04. Exact symbolic checks and
+reproducible numerical experiments accompany the proofs.
+
+\begingroup
+\small
+\setlength{\parskip}{0pt}
+\tableofcontents
+\endgroup
+\newpage
+
+\section{Statement and scope}
+\label{sec:scope}
+
+Let $A\in\R^{n\times d}$, put $M=AA^T$, and order the eigenvalues of $M$ as
+$\lambda_1\geq\cdots\geq\lambda_n\geq0$. Thus $\lambda_i=\sigma_i(A)^2$,
+with zeros appended when needed. Set
+\[
+  1\leq b\leq k,\qquad t=\lceil k/b\rceil,\qquad m=bt=k'
+  \leq\rank(A),
+\]
+and define
+\begin{equation}
+ \Delta=\min_{1\leq i\leq m-b}
+ \frac{\lambda_i-\lambda_{i+b}}{\lambda_i}>0.
+ \label{eq:gap}
+\end{equation}
+For $m=b$ the minimum is empty and $\Delta=1$.
+Let $G\in\R^{n\times b}$ have independent standard normal entries, and let
+\begin{equation}
+ \K_q(M,G)=\range[\,G,MG,\ldots,M^{q-1}G\,].
+ \label{eq:krylov}
+\end{equation}
+If $Z$ is an orthonormal basis of this space, the output is
+$\widehat A=Z[Z^TA]_k$, where the bracket denotes an SVD truncation.
+
+RA-04 asks whether a universal constant $C$ makes
+\begin{equation}
+ q=\left\lceil \frac{C}{\sqrt\varepsilon}
+ \left[t\log\frac2\Delta+\log\frac{n}{\delta\varepsilon}\right]
+ \right\rceil
+ \label{eq:target-q}
+\end{equation}
+sufficient, for $0<\varepsilon,\delta<1/2$, to guarantee probability at least
+$1-\delta$ for
+\begin{align}
+ \norm{A-\widehat A}_\xi
+ &\leq (1+\varepsilon)\norm{A-[A]_k}_\xi,
+ &&\xi\in\{2,F\},\label{eq:approx-target}\\
+ \abs{\norm{Av_i}_2^2-\lambda_i}
+ &\leq\varepsilon\lambda_{k+1},
+ &&1\leq i\leq k,\label{eq:pca-target}
+\end{align}
+where the $v_i$ are the ordered top $k$ \emph{right} singular vectors of
+$\widehat A$. These are the precise algorithm and guarantees considered
+here.\footnote{Open Problems in Numerical Linear Algebra, RA-04,
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/randomized-and-low-rank-approximation/RA-04}{``Clustered singular-value gaps in randomized block Krylov approximation''},
+accessed September 12, 2026. The entry distinguishes this algorithmic question
+from separate raw-matrix conditioning conjectures.}
+All mathematical results below concern exact arithmetic.
+
+The distinction between what is proved and what remains is summarized below.
+Here and throughout, a constant in a restricted-case conclusion is uniform
+in all the parameters still allowed to vary in that case.
+
+\begin{center}
+\small
+\begin{tabular}{p{0.45\textwidth}p{0.45\textwidth}}
+\toprule
+Regime or statement & Result in this report\\
+\midrule
+Every input satisfying \eqref{eq:gap} & Two bounds: a larger $m-b+1$ term,
+or an extra $t\log m$ term; Theorems~\ref{thm:general} and~\ref{thm:fractional-q}.\\[2pt]
+$\Delta\leq1/m$, arbitrary $b,t$ & The requested order;
+Corollary~\ref{cor:smallgap}.\\[2pt]
+Exactly $t$ leading levels, each repeated $b$ times & The requested order
+\eqref{eq:target-q}; Theorem~\ref{thm:clusters}.\\[2pt]
+$t=2$, with arbitrary leading eigenvalues & The requested order
+\eqref{eq:target-q}; Theorem~\ref{thm:t2}.\\[2pt]
+$b=k$ & A Gaussian starting-block proof; Corollary~\ref{cor:t1}.\\[2pt]
+$\rank(A)=m$ & Exact optimal approximation at $q\geq t+1$ almost surely;
+Proposition~\ref{prop:rankexact}.\\[2pt]
+Arbitrary $b,t$ and arbitrary clustered spectra & No proof of
+\eqref{eq:target-q}, and no counterexample, is established.\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The general $m-b+1$ bound is a reconstruction of the earlier type of
+small-block interpolation argument, not a claim that this order is new.
+Meyer, Musco, and Musco analyze this regime in their Theorem 4.5 and
+Appendix E.\footnote{R. A. Meyer, C. Musco, and C. Musco,
+\href{https://arxiv.org/abs/2305.02535}{\emph{On the Unreasonable Effectiveness of Single Vector Krylov Methods for Low-Rank Approximation}},
+SODA 2024, pp.~811--845, Theorem 4.5 and Appendices E--F.}
+No novelty priority is asserted for the other results in this report either.
+
+\section{A basis-invariant reduction}
+\label{sec:reduction}
+
+Write an orthogonal eigendecomposition
+\[
+ M=U\diag(\Lambda,\Lambda_\perp)U^T,
+ \qquad \Lambda=\diag(\lambda_1,\ldots,\lambda_m).
+\]
+By orthogonal invariance of a standard Gaussian matrix,
+\[
+ U^TG=\begin{bmatrix}H\\T\end{bmatrix},
+ \qquad H\in\R^{m\times b},\quad T\in\R^{(n-m)\times b},
+\]
+again has independent standard normal entries. Work in these coordinates
+until returning to the original matrix at the end of an argument.
+
+\begin{definition}[Graph certificate]
+A graph certificate at depth $q_0$ is a matrix
+\begin{equation}
+ Y=U\begin{bmatrix}I_m\\F\end{bmatrix}
+ \quad\text{whose columns lie in }\K_{q_0}(M,G).
+ \label{eq:graph}
+\end{equation}
+Its graph size is $L=1+\norm{F}_2^2$.
+\end{definition}
+
+\begin{lemma}[Graph size controls leading-subspace overlap]
+\label{lem:graph-good}
+If \eqref{eq:graph} holds, then for every $1\leq j\leq m$ there is an
+orthonormal $Q\in\R^{n\times j}$ in the same Krylov space such that
+\[
+ \norm{(U_j^TQ)^{-1}}_2^2\leq 1+\norm{F}_2^2.
+\]
+\end{lemma}
+\begin{proof}
+Let $E_j$ consist of the first $j$ columns of $I_m$, put $F_j=FE_j$, and set
+\[
+ Q=YE_j(I_j+F_j^TF_j)^{-1/2}.
+\]
+The identity $Y^TY=I_m+F^TF$ gives $Q^TQ=I_j$. Moreover,
+$U_j^TQ=(I_j+F_j^TF_j)^{-1/2}$. Therefore
+\[
+ \norm{(U_j^TQ)^{-1}}_2^2
+ =\norm{I_j+F_j^TF_j}_2
+ \leq1+\norm{F}_2^2.
+\]
+This proof also handles a target rank $k$ not divisible by $b$.
+\end{proof}
+
+For completeness, the one imported algorithmic result is stated explicitly.
+The property in the preceding lemma is usually called a
+\emph{$(k,L)$-good starting block}.
+
+\begin{theorem}[Imported Krylov convergence theorem]
+\label{thm:transfer}
+There is a universal $C_0$ with the following property. Suppose the column
+space of a starting matrix $B$ contains an orthonormal $Q\in\R^{n\times k}$ satisfying
+$\norm{(U_k^TQ)^{-1}}_2^2\leq L$. If
+\[
+ s\geq\max\left\{2,
+ \left\lceil\frac{C_0}{\sqrt\varepsilon}
+       \log\frac{nL}{\varepsilon}\right\rceil\right\},
+\]
+then the projected SVD obtained from $\K_s(M,B)$ has the approximation and
+right-component guarantees \eqref{eq:approx-target}--\eqref{eq:pca-target}.
+\end{theorem}
+
+This is the convergence transfer stated as Imported Theorem 3.2 in
+Chen et al.; their Problem 1.1 explicitly uses right singular vectors.
+Their theorem invokes the good-start analysis of Meyer, Musco, and Musco,
+Appendix F.\footnote{T. Chen, E. N. Epperly, R. A. Meyer, C. Musco, and A. Rao,
+\href{https://arxiv.org/html/2508.06486v2}{\emph{Does block size matter in randomized block Krylov low-rank approximation?}},
+arXiv:2508.06486v2, Problem 1.1 and Imported Theorem 3.2;
+SODA 2026, pp.~1026--1046,
+\href{https://doi.org/10.1137/1.9781611978971.42}{doi:10.1137/1.9781611978971.42}.}
+The proof of this imported convergence theorem is not rederived here.
+In particular, no inference from a left-component guarantee alone is being
+silently substituted for the right-component condition.
+
+If $B=[G,MG,\ldots,M^{q_0-1}G]$, multiplication of the displayed powers gives
+\begin{equation}
+ \K_s(M,B)=\K_{s+q_0-1}(M,G).
+ \label{eq:simulation}
+\end{equation}
+Consequently, a graph certificate with
+\begin{equation}
+ \log L\leq C_1\left(t\log\frac2\Delta+\log\frac n\delta\right)
+ \quad\text{and}\quad
+ q_0\leq C_2\left(t\log\frac2\Delta+\log\frac n\delta\right)
+ \label{eq:desired-graph-size}
+\end{equation}
+with probability $1-\delta$ would prove RA-04. The logarithms absorb fixed
+integer offsets, since $\varepsilon,\delta<1/2$ and $\log(2/\Delta)\geq\log2$.
+
+For a square simulated head block, define
+\begin{equation}
+ K_H=[H,\Lambda H,\ldots,\Lambda^{t-1}H],\qquad
+ K_T=[T,\Lambda_\perp T,\ldots,\Lambda_\perp^{t-1}T].
+ \label{eq:khkt}
+\end{equation}
+When $K_H$ is invertible the canonical graph is
+\begin{equation}
+ F=K_TK_H^{-1}.
+ \label{eq:canonical-graph}
+\end{equation}
+For every invertible coefficient-basis change $R$, this expression satisfies
+$(K_TR)(K_HR)^{-1}=K_TK_H^{-1}$. Thus it is unaffected by changing from
+monomials to a different basis of scalar polynomials. A smallest singular
+value of $K_H$ alone has no such invariance.
+
+\section{Elementary probability and separation facts}
+\label{sec:lemmas}
+
+\begin{lemma}[Gaussian estimates]
+\label{lem:gaussian}
+Let $g$ be a standard real normal variable, let $X\in\R^{a\times b}$ be a
+standard Gaussian matrix, and let $S\in\R^{b\times b}$ be a standard
+Gaussian matrix. For $u,R>0$,
+\begin{align}
+ \Prob\{|g|\leq u\}&\leq u,\label{eq:smallball}\\
+ \E\norm{X}_F^2&=ab,\label{eq:gauss-moment}\\
+ \Prob\{\norm{S^{-1}}_2>R\}&\leq\frac{b^{3/2}}{R}.
+ \label{eq:gauss-inverse}
+\end{align}
+The inverse exists almost surely.
+\end{lemma}
+\begin{proof}
+The density of $g$ is at most $1/\sqrt{2\pi}$, so the probability of an
+interval of length $2u$ is at most $\sqrt{2/\pi}\,u\leq u$.
+The second assertion follows by summing the unit second moments of all entries.
+
+For the last assertion, let $s_i^T$ be row $i$ of $S$, and let
+$d_i$ be its distance to the span of the other rows. The $i$th column of
+$S^{-1}$ has norm $d_i^{-1}$: it is orthogonal to all the other rows and has
+inner product one with $s_i$. Hence
+\[
+ \norm{S^{-1}}_2\leq\norm{S^{-1}}_F
+ \leq\sqrt b\max_i d_i^{-1}.
+\]
+Conditioned on the other rows, $d_i$ has the distribution of $|g|$.
+Their span has dimension $b-1$ almost surely, since a Gaussian matrix has
+full row rank almost surely. The union bound and \eqref{eq:smallball} give
+\[
+ \Prob\{\norm{S^{-1}}_2>R\}
+ \leq\sum_{i=1}^b\Prob\{d_i<\sqrt b/R\}
+ \leq b^{3/2}/R.
+\]
+The full-rank assertion follows, for example, because the determinant is a
+nonzero polynomial and a Gaussian law is absolutely continuous.
+\end{proof}
+
+\begin{lemma}[A relative window contains at most $b$ leading eigenvalues]
+\label{lem:packing}
+For every $i\leq m$, the interval
+\begin{equation}
+ I_i=[(1-\Delta/2)\lambda_i,(1+\Delta/2)\lambda_i]
+ \label{eq:window}
+\end{equation}
+contains at most $b$ of $\lambda_1,\ldots,\lambda_m$, counting multiplicities.
+Thus there is a deterministic set $J_i\subseteq\{1,\ldots,m\}$ of size $b$
+containing $i$ and all the indices in this window.
+For $j\notin J_i$,
+\begin{equation}
+ \frac{\lambda_i}{|\lambda_j-\lambda_i|}\leq\frac2\Delta,
+ \qquad
+ \frac{\lambda_j}{|\lambda_j-\lambda_i|}\leq\frac3\Delta.
+ \label{eq:far-ratios}
+\end{equation}
+\end{lemma}
+\begin{proof}
+The assertion is immediate when $m=b$. Otherwise, $b+1$ eigenvalues in
+$I_i$ would yield some $a\leq m-b$ with
+\[
+ \frac{\lambda_{a+b}}{\lambda_a}
+ \geq\frac{1-\Delta/2}{1+\Delta/2}>1-\Delta,
+\]
+contradicting \eqref{eq:gap}. Fill the window indices to a set of size $b$
+by any fixed rule depending only on the eigenvalues.
+
+For an excluded index, $|\lambda_j-\lambda_i|>(\Delta/2)\lambda_i$, proving
+the first inequality. If $\lambda_j>\lambda_i$, then
+\[
+ \frac{\lambda_j}{\lambda_j-\lambda_i}
+ =1+\frac{\lambda_i}{\lambda_j-\lambda_i}
+ \leq1+\frac2\Delta\leq\frac3\Delta.
+\]
+If $\lambda_j<\lambda_i$, replace the numerator by $\lambda_i$ and use the
+first bound. The same inequalities remain valid at $m=b$, when there are
+no excluded indices.
+\end{proof}
+
+\begin{lemma}[The square head Krylov matrix is generically invertible]
+\label{lem:generic}
+Under \eqref{eq:gap}, $K_H$ in \eqref{eq:khkt} is invertible almost surely.
+\end{lemma}
+\begin{proof}
+Its determinant is a polynomial in the entries of $H$. To show this
+polynomial is not identically zero, set row $i$ of $H$ equal to
+$e_{1+((i-1)\bmod b)}^T$. Permuting rows and columns makes $K_H$ block diagonal,
+with one $t\times t$ scalar Vandermonde block for each residue class modulo
+$b$. The nodes in class $r$ are
+$\lambda_r,\lambda_{r+b},\ldots,\lambda_{r+(t-1)b}$, and are strictly
+decreasing by \eqref{eq:gap}. Every block is invertible. Absolute continuity
+of the Gaussian distribution finishes the proof.
+\end{proof}
+
+Generic invertibility is only an almost-sure existence statement. It does
+not give the uniform high-probability graph bound
+\eqref{eq:desired-graph-size}.
+
+\section{A general clustered-gap bound with a larger leading term}
+\label{sec:general}
+
+\begin{theorem}[General scalar-filter bound]
+\label{thm:general}
+Put $d_0=m-b$. For every admissible input, with probability at least
+$1-\delta$ there is a graph certificate at depth $q_0=d_0+1$ with
+\begin{equation}
+ L\leq1+\frac{8nbm^3}{\delta^3}
+                   \left(\frac3\Delta\right)^{2d_0}.
+ \label{eq:general-L}
+\end{equation}
+In particular, a universal constant $C$ makes
+\begin{equation}
+ q\geq\left\lceil\frac C{\sqrt\varepsilon}
+ \left[(m-b+1)\log\frac3\Delta+
+             \log\frac n{\delta\varepsilon}\right]\right\rceil
+ \label{eq:general-q}
+\end{equation}
+sufficient for \eqref{eq:approx-target}--\eqref{eq:pca-target}.
+\end{theorem}
+\begin{proof}
+For each $i\leq m$, use $J_i$ from Lemma~\ref{lem:packing}. Let $c_i$ be a
+unit vector orthogonal to the $b-1$ Gaussian rows $h_j^T$ with
+$j\in J_i\setminus\{i\}$. Choose it measurably from those rows alone.
+When $b=1$ take $c_i=1$. The scalar
+\[
+ \alpha_i=h_i^Tc_i
+\]
+is standard normal conditioned on all rows other than $i$. Independence
+between different $\alpha_i$ is neither asserted nor needed.
+
+Define the scalar polynomial
+\begin{equation}
+ p_i(x)=\prod_{j\notin J_i}
+              \frac{x-\lambda_j}{\lambda_i-\lambda_j}.
+ \label{eq:scalar-filter}
+\end{equation}
+All its denominators are nonzero, and its degree is $d_0$. Let
+\[
+ y_i=p_i(M)Gc_i/\alpha_i.
+\]
+The $i$th leading coordinate of $U^Ty_i$ equals one. A different leading
+coordinate is zero either because its index is in $J_i$ and its Gaussian
+row annihilates $c_i$, or because its index is outside $J_i$ and the
+polynomial vanishes. Thus $Y=[y_1,\ldots,y_m]$ has the form
+\eqref{eq:graph} and lies in $\K_{d_0+1}(M,G)$.
+
+Every tail eigenvalue $x$ belongs to $[0,\lambda_m]$. For $j\leq m$,
+$|x-\lambda_j|\leq\lambda_j$. Equation~\eqref{eq:far-ratios} therefore gives
+\begin{equation}
+ \max_{0\leq x\leq\lambda_m}|p_i(x)|
+ \leq \left(\frac3\Delta\right)^{d_0}=:\rho.
+ \label{eq:scalar-tail-bound}
+\end{equation}
+By the scalar small-ball bound and a union bound,
+\[
+ \Prob\left\{\min_i|\alpha_i|<\frac{\delta}{2m}\right\}\leq\delta/2.
+\]
+Markov's inequality gives
+\[
+ \Prob\left\{\norm{T}_F^2>\frac{2nb}{\delta}\right\}\leq\delta/2.
+\]
+On the intersection of the complementary events,
+\begin{align*}
+ \norm{F}_2^2\leq\norm{F}_F^2
+ &=\sum_{i=1}^m
+    \norm{p_i(\Lambda_\perp)Tc_i/\alpha_i}_2^2\\
+ &\leq m\rho^2\norm{T}_F^2\left(\frac{2m}{\delta}\right)^2
+ \leq\frac{8nbm^3}{\delta^3}\rho^2.
+\end{align*}
+This proves \eqref{eq:general-L}.
+
+Because $b,m\leq n$, the prefactor $nbm^3$ is at most $n^5$. Taking
+logarithms in \eqref{eq:general-L}, applying
+Lemma~\ref{lem:graph-good} and Theorem~\ref{thm:transfer}, and using
+\eqref{eq:simulation} proves \eqref{eq:general-q}.
+\end{proof}
+
+This proof tolerates exact repetitions among the leading eigenvalues and
+requires no consecutive-gap or leading-condition-number assumption.
+Its limitation is the polynomial degree $m-b=b(t-1)$, which gives the wrong
+leading dependence when both $b$ and $t$ are allowed to grow. It does not
+establish the unrestricted target \eqref{eq:target-q}.
+
+\section{An all-input bound with one extra logarithmic factor}
+\label{sec:fractional}
+
+The scalar-filter construction pays for $b(t-1)$ individual zeros. A
+recursive vector-polynomial argument avoids this factor of $b$, at the
+cost of an extra $t\log m$ term. In particular, it proves the full requested
+order in the additional regime $\Delta\leq1/m$.
+
+For this section write
+\begin{equation}
+ E_{\lambda,H}(x)=[I_b,xI_b,\ldots,x^{t-1}I_b]K_H^{-1}.
+ \label{eq:evaluation}
+\end{equation}
+This is a $b\times m$ matrix polynomial. Its $i$th column is the vector
+polynomial with tangential values $h_j^Tp_i(\lambda_j)=\mathbf1_{i=j}$.
+
+\begin{lemma}[Recursive leave-one-out identity]
+\label{lem:recursive-loo}
+For $t\geq2$, fix $i$, take $J_i$ from Lemma~\ref{lem:packing}, and put
+$S_i=\{1,\ldots,m\}\setminus J_i$, of size $(t-1)b$.
+Almost surely there is a vector polynomial $P_i$ of degree at most $t-1$,
+chosen from all rows other than $i$, such that
+\[
+ h_j^TP_i(\lambda_j)=0\quad(j\ne i),\qquad
+ z_i=P_i(\lambda_i),\qquad \norm{z_i}_2=1.
+\]
+Let $E_{S_i}(x)$ denote the interpolation evaluation matrix for the
+subproblem with nodes and Gaussian rows indexed by $S_i$, and put
+$D_i=\diag((\lambda_j-\lambda_i)^{-1}:j\in S_i)$. Then
+\begin{equation}
+ P_i(x)=z_i-(x-\lambda_i)E_{S_i}(x)D_iH_{S_i}z_i,
+ \label{eq:recursive-loo}
+\end{equation}
+so in particular
+\begin{equation}
+ \norm{P_i(0)}_2\leq
+ 1+\frac2\Delta\norm{E_{S_i}(0)}_2\norm{H_{S_i}}_F.
+ \label{eq:recursive-bound}
+\end{equation}
+With $\alpha_i=h_i^Tz_i$, column $i$ of $E_{\lambda,H}(0)$ equals
+$P_i(0)/\alpha_i$, and $\alpha_i$ is standard normal conditioned on all
+other rows.
+\end{lemma}
+\begin{proof}
+Deleting row $i$ of the almost surely invertible $K_H$ leaves a matrix of
+rank $m-1$. Choose a nonzero vector in its one-dimensional nullspace,
+measurably using only the other rows, and regard its $t$ coefficient blocks
+as a vector polynomial $P_i$.
+
+Any sorted subset of the head nodes inherits a $b$-step relative gap of
+at least $\Delta$: if its indices are $j_1<j_2<\cdots$, then
+$j_{r+b}\geq j_r+b$, and the assertion follows from monotonicity of the
+original sequence. Thus the square $(t-1)$-step head matrix on $S_i$ is
+invertible almost surely by Lemma~\ref{lem:generic}.
+
+If $P_i(\lambda_i)=0$, write $P_i(x)=(x-\lambda_i)Q_i(x)$. At every
+$j\in S_i$ the factor $\lambda_j-\lambda_i$ is nonzero, so
+$h_j^TQ_i(\lambda_j)=0$. The subproblem's invertibility would force
+$Q_i=0$, a contradiction. Consequently $z_i\ne0$, and $P_i$ can be
+normalized as stated without using $h_i$.
+
+Now write $P_i(x)=z_i+(x-\lambda_i)Q_i(x)$. For $j\in S_i$,
+\[
+ h_j^TQ_i(\lambda_j)
+ =-\frac{h_j^Tz_i}{\lambda_j-\lambda_i}.
+\]
+Uniqueness of the degree-$(t-2)$ subproblem interpolant gives
+$Q_i(x)=-E_{S_i}(x)D_iH_{S_i}z_i$, proving
+\eqref{eq:recursive-loo}. Since $\lambda_i\norm{D_i}_2\leq2/\Delta$,
+\eqref{eq:recursive-bound} follows. The final assertions follow by
+conditioning on all other rows and using tangential interpolation
+uniqueness in the original problem.
+\end{proof}
+
+\begin{theorem}[A truncated fractional-moment bound]
+\label{thm:fractional-point}
+Let $0<\eta<1/2$ and define
+\begin{equation}
+ R_\eta=\sqrt{2mb+4\log(2/\eta)},\qquad
+ B_\eta=\frac4{\eta^2}(6m)^{2t}
+                  \left(\frac{2R_\eta}{\Delta}\right)^{t-1}.
+ \label{eq:fractional-B}
+\end{equation}
+Then
+\begin{equation}
+ \Prob\{\norm{E_{\lambda,H}(0)}_2\leq B_\eta\}\geq1-\eta,
+ \qquad
+ \log B_\eta=O\!\left(t\log\frac{2m}{\Delta}
+                             +\log\frac2\eta\right),
+ \label{eq:fractional-point}
+\end{equation}
+with universal implied constants, for every admissible head spectrum.
+\end{theorem}
+\begin{proof}
+For a standard normal scalar $g$, set $c_* =\E|g|^{-1/2}<3$.
+Indeed the integral on $|g|\leq1$ is at most $4/\sqrt{2\pi}<2$,
+and the integral on $|g|>1$ is at most one.
+
+Fix $R\geq1$ and a dimension cap $m$. For an $s$-step subproblem of size
+$bs\leq m$ with relative gap at least $\Delta$, put
+\[
+ a_s(R)=\E\left[\norm{E(0)}_2^{1/2}
+                     \mathbf1_{\{\norm{H}_F\leq R\}}\right].
+\]
+For the recurrence, take the supremum of this expectation over all such
+spectra, so the same $a_s(R)$ bounds every subproblem. At $s=1$,
+$E(0)=H^{-1}$. The norm of its $i$th column is the reciprocal of the
+absolute value of a standard normal scalar conditioned on all other
+rows. The inequalities
+\[
+ \norm{E(0)}_2^{1/2}\leq\norm{E(0)}_F^{1/2}
+             \leq\sum_i\norm{E(0)e_i}_2^{1/2}
+\]
+therefore give $a_1(R)\leq3b\leq3m$.
+
+For $s\geq2$, use Lemma~\ref{lem:recursive-loo} for each column. Condition
+on every row except $i$. The indicator of $\norm{H}_F\leq R$ can first
+be bounded by the indicator of $\norm{H_{-i}}_F\leq R$ and then by that
+of $\norm{H_{S_i}}_F\leq R$. On this latter event,
+\eqref{eq:recursive-bound} and $(u+v)^{1/2}\leq u^{1/2}+v^{1/2}$ give
+\[
+ \E\left[\norm{E(0)e_i}_2^{1/2}
+          \mathbf1_{\{\norm{H}_F\leq R\}}\right]
+ \leq3\left[1+\left(\frac{2R}{\Delta}\right)^{1/2}a_{s-1}(R)\right].
+\]
+Here the subproblem rows remain an ordinary Gaussian matrix; no
+independence between its inverse and its entries is assumed. Summing over
+at most $m$ columns proves the uniform recurrence
+\[
+ a_s(R)\leq3m\left[1+
+                  \left(\frac{2R}{\Delta}\right)^{1/2}a_{s-1}(R)\right].
+\]
+Induction, using $R\geq1$ and $\Delta\leq1$, yields
+\begin{equation}
+ a_s(R)\leq(6m)^s
+                    \left(\frac{2R}{\Delta}\right)^{(s-1)/2}.
+ \label{eq:fractional-moment}
+\end{equation}
+This truncation is important: it avoids asserting an independence that
+would be false, and it avoids multiplying the failure exponent by $t$.
+
+For $X=\norm{H}_F^2$, independence and the Gaussian integral give
+$\E e^{X/4}=2^{mb/2}$. Consequently
+\[
+ \Prob\{X>2mb+4\log(2/\eta)\}
+ \leq 2^{mb/2}e^{-mb/2}\,\eta/2\leq\eta/2.
+\]
+Apply Markov's inequality to the truncated half moment in
+\eqref{eq:fractional-moment} with $R=R_\eta$ and $s=t$:
+\[
+ \Prob\{\norm{E(0)}_2>B_\eta,\ \norm{H}_F\leq R_\eta\}
+ \leq\frac{(6m)^t(2R_\eta/\Delta)^{(t-1)/2}}
+              {\sqrt{B_\eta}}=\eta/2.
+\]
+Together these prove the probability bound.
+
+For the logarithmic claim, let $x=\log(2/\eta)$. Since $b,t\leq m$,
+\[
+ R_\eta\leq2m+2\sqrt{x},\qquad
+ (t-1)\log R_\eta
+ \leq(t-1)\log(2m)+\sqrt{x}.
+\]
+Taking logarithms in \eqref{eq:fractional-B} and using
+$\sqrt{x}\leq x+1$ proves \eqref{eq:fractional-point}.
+\end{proof}
+
+\begin{theorem}[All-input clustered-gap iteration bound]
+\label{thm:fractional-q}
+There is a universal constant $C$ such that, for every input in RA-04,
+\begin{equation}
+ q\geq\left\lceil\frac C{\sqrt\varepsilon}
+ \left[t\log\frac{2m}{\Delta}
+                     +\log\frac n{\delta\varepsilon}\right]\right\rceil
+ \label{eq:fractional-q}
+\end{equation}
+is sufficient for \eqref{eq:approx-target}--\eqref{eq:pca-target}
+with probability at least $1-\delta$.
+\end{theorem}
+\begin{proof}
+For $0\leq x<\lambda_m$, translation of the interpolation polynomial gives
+$E_{\lambda,H}(x)=E_{\lambda-x,H}(0)$. The shifted positive spectrum has
+$b$-step relative gaps at least $\Delta$. Apply
+Theorem~\ref{thm:fractional-point} at the $t$ interior Chebyshev points
+\[
+ x_j=\frac{\lambda_m}{2}
+      \left(1+\cos\frac{(2j-1)\pi}{2t}\right)
+\]
+with $\eta=\delta/(2t)$ for each point. A union bound and the elementary
+matrix-polynomial interpolation inequality proved in
+Lemma~\ref{lem:zero-eval} give, with probability at least $1-\delta/2$,
+\[
+ \sup_{0\leq x\leq\lambda_m}\norm{E_{\lambda,H}(x)}_2
+       \leq(2t-1)B_{\delta/(2t)}.
+\]
+Independently of any possible dependence among these head events,
+$\norm{T}_F^2\leq2nb/\delta$ fails with probability at most $\delta/2$.
+The canonical graph at depth $t$ therefore satisfies
+\begin{equation}
+ L\leq1+\frac{2nb}{\delta}(2t-1)^2B_{\delta/(2t)}^2
+ \label{eq:fractional-L}
+\end{equation}
+with probability at least $1-\delta$. Its logarithm is
+$O(t\log(2m/\Delta)+\log(n/\delta))$. Apply the graph reduction and
+Theorem~\ref{thm:transfer}.
+\end{proof}
+
+\begin{corollary}[The requested order when $\Delta\leq1/m$]
+\label{cor:smallgap}
+RA-04's requested iteration count is sufficient, with a universal constant,
+for all its inputs satisfying $\Delta\leq1/m$.
+\end{corollary}
+\begin{proof}
+In this regime
+$\log(2m/\Delta)\leq2\log(2/\Delta)$, so
+\eqref{eq:fractional-q} implies \eqref{eq:target-q} after increasing the
+universal constant.
+\end{proof}
+
+Theorem~\ref{thm:fractional-q} is not the full requested bound: at a
+constant clustered gap it contains $t\log m$, rather than $t$ alone.
+For unrestricted inputs one may use the better of
+\eqref{eq:general-q} and \eqref{eq:fractional-q}; the choice depends only on
+the deterministic problem parameters. The two bounds need not be realized
+on the same Gaussian event.
+
+\section{The requested order for exact \texorpdfstring{$b$}{b}-sized clusters}
+\label{sec:clusters}
+
+\begin{theorem}[Exactly repeated leading clusters]
+\label{thm:clusters}
+Suppose
+\begin{equation}
+ \lambda_{(r-1)b+1}=\cdots=\lambda_{rb}=\mu_r,
+ \qquad \mu_1>\cdots>\mu_t>0.
+ \label{eq:exactclusters}
+\end{equation}
+No additional hypothesis is imposed on the tail, including on repetitions
+of $\mu_t$ there. With probability at least $1-\delta$, a graph certificate
+exists at depth $q_0=t$ with
+\begin{equation}
+ L\leq1+\frac{8nt^3b^4}{\delta^3}
+                  \Delta^{-2(t-1)}.
+ \label{eq:cluster-L}
+\end{equation}
+Consequently, \eqref{eq:target-q} is sufficient for
+\eqref{eq:approx-target}--\eqref{eq:pca-target}, with a universal constant.
+\end{theorem}
+\begin{proof}
+Partition $H$ into $t$ square row blocks $H_r\in\R^{b\times b}$.
+Use the scalar Lagrange polynomials
+\[
+ \ell_r(x)=\prod_{s\ne r}\frac{x-\mu_s}{\mu_r-\mu_s}.
+\]
+Each has degree $t-1$, and $\ell_r(\mu_s)=\mathbf1_{r=s}$.
+Almost surely every $H_r$ is invertible. The matrices
+\[
+ Y_r=\ell_r(M)GH_r^{-1},\qquad
+ Y=[Y_1,\ldots,Y_t]
+\]
+therefore have leading block $I_m$, and their columns lie in
+$\K_t(M,G)$.
+
+For $x\in[0,\mu_t]$, $|x-\mu_s|\leq\mu_s$.
+If $s<r$, then
+$\mu_s-\mu_r\geq\mu_s-\mu_{s+1}\geq\Delta\mu_s$.
+If $s>r$, then
+$\mu_r-\mu_s\geq\mu_r-\mu_{r+1}\geq\Delta\mu_r\geq\Delta\mu_s$.
+Consequently,
+\begin{equation}
+ |\ell_r(x)|\leq\Delta^{-(t-1)}
+ \quad(0\leq x\leq\mu_t).
+ \label{eq:cluster-lagrange}
+\end{equation}
+This also holds for $t=1$ by the empty-product convention.
+
+Lemma~\ref{lem:gaussian} and the union bound imply
+\[
+ \Prob\left\{\max_r\norm{H_r^{-1}}_2>
+                      \frac{2tb^{3/2}}{\delta}\right\}\leq\delta/2.
+\]
+Intersect this with $\norm{T}_F^2\leq2nb/\delta$, whose failure probability
+is at most $\delta/2$. The tail block is the horizontal concatenation of
+$\ell_r(\Lambda_\perp)TH_r^{-1}$, so
+\begin{align*}
+ \norm{F}_2^2
+ &\leq\sum_{r=1}^t\norm{\ell_r(\Lambda_\perp)TH_r^{-1}}_F^2\\
+ &\leq t\Delta^{-2(t-1)}\frac{2nb}{\delta}
+                           \left(\frac{2tb^{3/2}}{\delta}\right)^2,
+\end{align*}
+which is \eqref{eq:cluster-L}.
+
+Since $t^3b^4=bm^3\leq n^4$, the logarithm of this bound is
+$O(t\log(2/\Delta)+\log(n/\delta))$ with an absolute implied constant.
+The graph reduction proves the algorithmic conclusion.
+\end{proof}
+
+\begin{corollary}[Endpoints]
+\label{cor:t1}
+For $b=1$, Theorem~\ref{thm:clusters} applies to every admissible spectrum,
+since its clusters are singletons. For $b=k$ and $t=1$, no equality among the
+leading eigenvalues is needed: the graph $GH^{-1}=U[I_b;TH^{-1}]$ gives
+\eqref{eq:cluster-L} directly and proves the requested order.
+\end{corollary}
+
+The exact-cluster argument cannot be extended to a nonzero-width cluster by
+simply assigning a common label to its eigenvalues. At distinct nodes,
+$\ell_r(\lambda_j)$ is no longer the required block indicator. That loss of
+an exact interpolation identity is a genuine missing step, not a small
+notational modification.
+
+\section{The requested order for arbitrary spectra when \texorpdfstring{$t=2$}{t=2}}
+\label{sec:t2}
+
+The next result does not require exact repetitions or an a priori partition
+into separated clusters. The only spectral assumption is \eqref{eq:gap}.
+
+\begin{theorem}[Two-step simulated block]
+\label{thm:t2}
+Suppose $m=2b$ and $\Delta>0$. With probability at least $1-\delta$, the
+canonical graph at depth $q_0=2$ satisfies
+\begin{equation}
+ L\leq 1+\frac{4000\,n^{12}}{\delta^6\Delta^2}.
+ \label{eq:t2-L}
+\end{equation}
+Thus there is a universal constant $C$ such that
+\begin{equation}
+ q\geq\left\lceil\frac C{\sqrt\varepsilon}
+       \left[\log\frac2\Delta+\log\frac n{\delta\varepsilon}\right]
+       \right\rceil
+ \label{eq:t2-q}
+\end{equation}
+gives all the guarantees in RA-04. In particular,
+\eqref{eq:target-q} holds whenever $\lceil k/b\rceil=2$.
+\end{theorem}
+\begin{proof}
+Use the sets $J_i$ from Lemma~\ref{lem:packing}, and let
+$S_i=\{1,\ldots,m\}\setminus J_i$. Both sets have size $b$.
+Write $H_{S_i}$ for the square Gaussian matrix consisting of those rows.
+
+Delete row $i$ from $K_H=[H,\Lambda H]$. Almost surely the remaining matrix
+has rank $m-1$, by Lemma~\ref{lem:generic}. Its nullspace is represented by a
+nonzero vector-valued linear polynomial
+\[
+ P_i(x)=a_i+xc_i\in\R^b,
+ \qquad h_j^TP_i(\lambda_j)=0\quad(j\ne i).
+\]
+Choose this nullspace representative measurably using only the other rows.
+Let $z_i=P_i(\lambda_i)$.
+
+First, $z_i\ne0$ almost surely. Otherwise $a_i=-\lambda_i c_i$ and, for
+$j\in S_i$,
+\[
+ 0=(\lambda_j-\lambda_i)h_j^Tc_i.
+\]
+All these scalar factors are nonzero and $H_{S_i}$ is invertible almost
+surely, so $c_i=0$ and then $a_i=0$, a contradiction. We may therefore
+normalize the chosen representative so that $\norm{z_i}_2=1$.
+
+For $j\in S_i$, the same nullspace equations now give
+\[
+ h_j^Tc_i=-\frac{h_j^Tz_i}{\lambda_j-\lambda_i}.
+\]
+With
+\[
+ D_i=\diag\left(\frac1{\lambda_j-\lambda_i}:j\in S_i\right),
+\]
+we obtain the exact identities
+\begin{align}
+ c_i&=-H_{S_i}^{-1}D_iH_{S_i}z_i,\label{eq:t2-slope}\\
+ P_i(x)&=\left[I_b-(x-\lambda_i)H_{S_i}^{-1}D_iH_{S_i}\right]z_i.
+ \label{eq:t2-extrapolation}
+\end{align}
+For $0\leq x\leq\lambda_m$ we have $|x-\lambda_i|\leq\lambda_i$.
+Equation~\eqref{eq:far-ratios} therefore implies the uniform estimate
+\begin{equation}
+ \norm{P_i(x)}_2\leq
+       1+\frac2\Delta\norm{H_{S_i}^{-1}}_2\norm{H_{S_i}}_2.
+ \label{eq:t2-P-bound}
+\end{equation}
+
+The scalar $\alpha_i=h_i^Tz_i$ is standard normal conditional on the other
+rows, because $z_i$ has unit norm and is independent of row $i$.
+The polynomial $P_i(x)/\alpha_i$ is the unique vector-valued polynomial
+whose head evaluations are the $i$th coordinate vector. Thus, at a tail
+node $x$ with Gaussian row $g^T$, column $i$ of the graph has value
+$g^TP_i(x)/\alpha_i$.
+
+Consider the following three events, with $M_0,R_0,a_0$ as specified:
+\begin{align*}
+ \norm{G}_F^2&\leq M_0:=3nb/\delta,\\
+ \max_i\norm{H_{S_i}^{-1}}_2&\leq R_0:=3mb^{3/2}/\delta,\\
+ \min_i|\alpha_i|&\geq a_0:=\delta/(3m).
+\end{align*}
+Markov's inequality, \eqref{eq:gauss-inverse}, and
+\eqref{eq:smallball}, respectively, bound their failure probabilities by
+$\delta/3$ each. The sets $S_i$ are determined by the spectrum, not by $H$,
+so the square-Gaussian inverse estimate applies to every one of them.
+No independence between these three events is needed.
+
+On their intersection, \eqref{eq:t2-P-bound} gives
+\[
+ \sup_{i,x}\norm{P_i(x)}_2\leq
+ B_0:=1+\frac{2R_0\sqrt{M_0}}\Delta.
+\]
+Summing the squared column bounds for the tail matrix yields
+\begin{equation}
+ \norm{F}_2^2\leq\norm{F}_F^2
+ \leq mM_0a_0^{-2}B_0^2
+ =\frac{27nbm^3}{\delta^3}
+       \left(1+\frac{6mb^{3/2}}{\delta\Delta}
+                         \sqrt{\frac{3nb}\delta}\right)^2.
+ \label{eq:t2-unsimplified}
+\end{equation}
+To simplify, use $b,m\leq n$, $\delta<1$, and $\Delta\leq1$. Then
+\[
+ mM_0a_0^{-2}\leq27n^5\delta^{-3},\qquad
+ B_0\leq12n^{7/2}\delta^{-3/2}\Delta^{-1}.
+\]
+The product is at most $3888n^{12}\delta^{-6}\Delta^{-2}$, proving
+\eqref{eq:t2-L} with the rounded constant $4000$.
+Taking logarithms and applying the graph reduction proves
+\eqref{eq:t2-q}.
+\end{proof}
+
+The essential feature of \eqref{eq:t2-slope} is that a linear vector
+polynomial has only one unknown slope vector. After deleting a row, its
+slope is controlled by one square Gaussian submatrix at spectrally far
+indices. For degree $t-1>1$, division by $x-\lambda_i$ leaves a vector
+polynomial of degree $t-2$, rather than a single vector. The displayed
+argument then no longer closes with one square-Gaussian inverse bound.
+
+\section{Exact recovery when the rank equals \texorpdfstring{$k'$}{k-prime}}
+\label{sec:rankexact}
+
+\begin{proposition}
+\label{prop:rankexact}
+If $\rank(A)=m=bt$ and \eqref{eq:gap} holds, then at every $q\geq t+1$
+the output $\widehat A$ is a best rank-$k$ approximation of $A$ almost
+surely. Its ordered right singular vectors satisfy
+$\norm{Av_i}_2^2=\lambda_i$ for $i\leq k$.
+\end{proposition}
+\begin{proof}
+In the eigenbasis, the tail of $M$ is zero. Therefore
+\[
+ U^T[MG,M^2G,\ldots,M^tG]
+ =\begin{bmatrix}\Lambda K_H\\0\end{bmatrix}.
+\]
+Both $\Lambda$ and $K_H$ are invertible almost surely. The columns in this
+display span $\range(A)$ and are contained in $\K_{t+1}(M,G)$.
+Consequently $ZZ^TA=A$. Multiplication by the isometry $Z$ preserves the
+nonzero singular structure of $Z^TA$, so its SVD truncation is an optimal
+rank-$k$ approximation of $A$, with the asserted right-component energies.
+\end{proof}
+
+This includes the zero-tail-error case $\rank(A)=k$. The assumptions then
+force $m=k$, hence $b$ divides $k$. No division by $\lambda_{k+1}=0$ is used
+in the argument.
+
+\section{A counterexample to a stronger raw-conditioning assertion}
+\label{sec:raw}
+
+\begin{proposition}[Raw monomial conditioning is not gap-only]
+\label{prop:raw}
+Fix $b=1$ and $m=t=3$. There is a family with $\lambda_1=1$ and
+$\Delta=1/2$ for which the smallest singular value of $K_H$ converges to
+zero in probability. In particular, there is no strictly positive,
+spectrum-uniform lower bound for that singular value depending only on
+$m,b,\Delta$, and a fixed failure probability.
+\end{proposition}
+\begin{proof}
+For $0<\eta\leq1/2$, take
+\[
+ \Lambda_\eta=\diag(1,\eta,\eta/2),\qquad
+ H=(g_1,g_2,g_3)^T.
+\]
+Then
+\[
+ K_\eta=\diag(g_1,g_2,g_3)
+ \begin{bmatrix}
+ 1&1&1\\
+ 1&\eta&\eta^2\\
+ 1&\eta/2&\eta^2/4
+ \end{bmatrix},\qquad
+ \Delta=\min\{1-\eta,1/2\}=1/2.
+\]
+For the unit vector $c=(0,-1,1)^T/\sqrt2$,
+\[
+ K_\eta c=\frac1{\sqrt2}
+ \begin{bmatrix}
+ 0\\g_2(\eta^2-\eta)\\g_3(\eta^2/4-\eta/2)
+ \end{bmatrix}.
+\]
+Consequently
+\begin{equation}
+ \sigma_{\min}(K_\eta)
+ \leq\frac\eta{\sqrt2}\sqrt{g_2^2+g_3^2/4},\qquad
+ \E\sigma_{\min}(K_\eta)^2\leq\frac58\eta^2.
+ \label{eq:raw-bound}
+\end{equation}
+For every fixed $a>0$, Markov's inequality gives
+$\Prob\{\sigma_{\min}(K_\eta)\geq a\}\leq5\eta^2/(8a^2)\to0$.
+\end{proof}
+
+\textbf{This is not a counterexample to RA-04.}
+It concerns the coordinates of a particular monomial basis. The algorithm
+uses its span. In fact, $b=1$ is covered by
+Theorem~\ref{thm:clusters}, and the scalar Lagrange tail bounds there remain
+uniform for this family. The proposition explains why discarding a
+condition-number factor from a raw-matrix lower bound is not, by itself,
+a valid route to the algorithmic result.
+
+\section{The remaining quantitative question}
+\label{sec:remaining}
+
+Recall the interpolation evaluation matrix $E_{\lambda,H}(x)$ in
+\eqref{eq:evaluation}.
+Its $i$th column is the vector polynomial whose tangential head evaluations
+are $h_j^Tp_i(\lambda_j)=\mathbf1_{j=i}$.
+At a tail node $x_j$, with Gaussian row $g_j^T$, the canonical graph row is
+$g_j^TE_{\lambda,H}(x_j)$.
+
+\begin{proposition}[A sufficient interpolation estimate]
+\label{prop:conditional}
+Suppose universal constants $a,c>0$ existed such that, for every admissible
+head spectrum and every $0<\eta<1/2$,
+\begin{equation}
+ \Prob_H\left\{
+ \sup_{0\leq x\leq\lambda_m}\norm{E_{\lambda,H}(x)}_2
+ \leq\left(\frac{cm}{\eta}\right)^a
+                 \left(\frac2\Delta\right)^{ct}
+ \right\}\geq1-\eta.
+ \tag{IE}\label{eq:IE}
+\end{equation}
+Then RA-04 would follow.
+\end{proposition}
+\begin{proof}
+Apply \eqref{eq:IE} with $\eta=\delta/2$ and intersect its event with
+$\norm{T}_F^2\leq2nb/\delta$. The latter has failure probability at most
+$\delta/2$. Row by row,
+\[
+ \norm{F}_F^2
+ \leq\norm{T}_F^2\sup_{0\leq x\leq\lambda_m}
+                              \norm{E_{\lambda,H}(x)}_2^2.
+\]
+The logarithm of the right-hand side is
+$O(t\log(2/\Delta)+\log(n/\delta))$. The graph has depth $q_0=t$, so
+Theorem~\ref{thm:transfer} and \eqref{eq:simulation} give the claimed order.
+\end{proof}
+
+Estimate \eqref{eq:IE} is \emph{not proved here for arbitrary $b,t$}.
+It is a sufficient condition, not an equivalent reformulation of RA-04:
+the algorithm may benefit from additional Krylov powers even if a
+square-depth interpolation estimate is poor.
+
+There is a useful reduction of the uniform-in-$x$ issue to a single
+extrapolation point.
+
+\begin{lemma}[Zero evaluation suffices up to polynomial factors]
+\label{lem:zero-eval}
+Suppose a bound of the form on the right-hand side of \eqref{eq:IE} holds
+only for $\norm{E_{\lambda,H}(0)}_2$, uniformly over positive head spectra.
+Then \eqref{eq:IE} follows after changing the universal constants.
+\end{lemma}
+\begin{proof}
+A common shift of the nodes corresponds to translating a vector polynomial.
+Uniqueness of interpolation therefore gives
+\[
+ E_{\lambda,H}(x)=E_{\lambda-x,H}(0)
+ \qquad(0\leq x<\lambda_m).
+\]
+The shifted spectrum is positive and its $b$-step relative gaps satisfy
+\[
+ \frac{(\lambda_i-x)-(\lambda_{i+b}-x)}{\lambda_i-x}
+ =\frac{\lambda_i-\lambda_{i+b}}{\lambda_i-x}\geq\Delta.
+\]
+Apply the asserted zero-evaluation bound at the $t$ points
+\[
+ x_j=\frac{\lambda_m}{2}
+       \left(1+\cos\frac{(2j-1)\pi}{2t}\right),\qquad1\leq j\leq t,
+\]
+with failure probability $\eta/t$ for each. A union bound controls all
+these evaluations by
+$(cmt/\eta)^a(2/\Delta)^{ct}$.
+
+For any matrix polynomial $P$ of degree at most $t-1$ on $[-1,1]$, its
+Chebyshev expansion $P(y)=\sum_{r=0}^{t-1}C_rT_r(y)$ has coefficients
+\[
+ C_0=\frac1t\sum_jP(y_j),\qquad
+ C_r=\frac2t\sum_jP(y_j)\cos(r\theta_j)\quad(r\geq1),
+\]
+where $y_j=\cos\theta_j$ and $\theta_j=(2j-1)\pi/(2t)$.
+These identities follow from discrete cosine orthogonality. If
+$N=\max_j\norm{P(y_j)}_2$, then
+$\norm{C_0}_2\leq N$ and $\norm{C_r}_2\leq2N$, whence
+\[
+ \sup_{-1\leq y\leq1}\norm{P(y)}_2\leq(2t-1)N.
+\]
+Apply this to $P(y)=E_{\lambda,H}(\lambda_m(1+y)/2)$. Since $t\leq m$,
+the extra factor $(2t-1)t^a$ is polynomial in $m$ and is absorbed into
+new universal exponents in \eqref{eq:IE}.
+\end{proof}
+
+\subsection{Why several tempting replacements do not prove the estimate}
+
+A scalar root count alone is insufficient. A degree-$t-1$ scalar polynomial
+can be small near $t-1$ roots, and each such neighborhood may contain $b$
+leading eigenvalues. Thus as many as $b(t-1)$ head rows can be affected.
+Passing from a root count to a uniform Gaussian subspace estimate is exactly
+the quantitative issue.
+
+Nor can a general jointly Gaussian smallest-singular-value theorem be
+applied without verifying its hypotheses. For example, Nie's relevant
+anti-concentration theorem assumes a nontrivial small-ball estimate for
+\emph{every} unit bilinear form.\footnote{Z. Nie,
+\href{https://arxiv.org/html/2111.05553v2}{\emph{Matrix anti-concentration inequalities with applications}},
+arXiv:2111.05553v2, Theorem 1.6; STOC 2022.}
+A diagonal Gaussian matrix is invertible almost surely but has
+$e_1^TZe_2=0$ identically. Exact-cluster reductions can produce just such
+block-decoupled structures. Almost-sure invertibility is not a verification
+of that stronger premise.
+
+Finally, scalar Lagrange products do not carry over by simply replacing
+nodes with noncommuting matrices. In the right-coefficient convention,
+\[
+ \Phi(xI)=(xI-B_2)(xI-B_3)
+        =x^2I-x(B_2+B_3)+B_2B_3
+\]
+satisfies $\Phi(B_2)=0$ but
+\[
+ \Phi(B_3)=B_2B_3-B_3B_2.
+\]
+For
+\[
+ B_2=\begin{bmatrix}1&0\\0&2\end{bmatrix},\qquad
+ B_3=\begin{bmatrix}3&1\\0&4\end{bmatrix},
+\]
+this last matrix is $\left[\begin{smallmatrix}0&-1\\0&0\end{smallmatrix}\right]$,
+not zero, despite disjoint real spectra. A matrix-polynomial representation
+is therefore not by itself a norm bound for the needed interpolants.
+Shao's structural analysis is a relevant formulation of these
+matrix-interpolation issues, with remaining random quantities stated
+conjecturally.\footnote{N. Shao,
+\href{https://arxiv.org/abs/2507.10144}{\emph{A structural bound for cluster robustness of randomized small-block Lanczos}},
+arXiv:2507.10144v2, May 30, 2026, Sections 2--3. The version was inspected
+through its PDF because the available HTML rendering omitted mathematical
+expressions.}
+
+\section{Reproducible checks and their limits}
+\label{sec:checks}
+
+The accompanying scripts separate exact identity checks from floating-point
+experiments. Their results are stored as JSON and CSV, with seeds and
+parameters. None of these finite tests is a substitute for
+\eqref{eq:IE} or a proof of the unrestricted assertion.
+
+\subsection{Exact rational and symbolic identities}
+
+The script \texttt{tests/exact\_checks.py} uses SymPy rational arithmetic.
+All seven test groups passed. They verify: an explicit residue-class
+Vandermonde full-rank witness; the exact-cluster graph and its Krylov
+membership; the general scalar-filter graph and its head identity;
+all six leave-one-out identities in a $b=3,t=2$ fixture;
+23 general recursive identities across three further rational fixtures;
+the raw-conditioning test-vector identity; and the noncommuting product
+counterexample.
+
+For example, the generic witness has determinant $-1{,}382{,}400$.
+The exact-cluster fixture has graph tail Frobenius norm squared
+$7{,}811{,}469{,}433/288{,}000{,}000$.
+These rational fixtures are deliberately not described as Gaussian samples.
+The probability arguments remain the analytic proofs in the preceding sections.
+
+\subsection{Numerical graph and approximation checks}
+
+The second script performs 50 $t=2$ tests, with $b\in\{1,2,4,8,16\}$,
+and checks \eqref{eq:t2-P-bound} at 21 tail points for every interpolation
+column. The largest observed ratio of a column norm to its deterministic
+bound was $0.513813$. Twelve additional single-tail graph probes used
+120-decimal-digit arithmetic. Their relative linear-solve residuals were
+between approximately $10^{-128}$ and $3\cdot10^{-125}$; these are backward
+residuals, not certified forward-error bounds.
+
+The randomized block Krylov experiment uses two-pass reorthogonalization
+and numerical-rank detection in binary64 arithmetic. It records 117
+combinations of case, seed, and depth, directly computing all three requested
+error measures, including the energies of the \emph{right} singular vectors.
+For $\varepsilon=0.1$, the following is the smallest \emph{tested} depth at
+which all three selected seeds satisfied all three nonzero-tail criteria.
+It is not a high-probability theorem or an estimate of the universal constant.
+
+\begin{center}
+\small
+\begin{tabular}{lrrrrr}
+\toprule
+Case & $n$ & $b$ & $k$ & $m$ & Tested depth\\
+\midrule
+Exact $b$-fold clusters &160&4&24&24&16\\
+Near $b$-fold clusters &160&4&24&24&16\\
+$t=2$, unaligned spectrum &128&8&14&16&6\\
+Nondivisible target rank &96&4&15&16&10\\
+Mixed multiplicities &96&3&12&12&10\\
+Scalar block &60&1&6&6&16\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The exact-rank fixture provides an explicit reminder about arithmetic.
+For $n=80$, $b=4$, and $k=m=24$, the mathematical theorem gives exact recovery
+at $q=7$. In binary64, the three measured spectral residuals at $q=7$ were
+about $4.09\cdot10^{-13}$, $2.48\cdot10^{-10}$, and $2.51\cdot10^{-12}$.
+The middle seed passed the script's $10^{-10}$ absolute tolerance only at
+$q=8$. A finite-precision discrepancy is therefore retained in the results,
+not hidden as an exact-arithmetic success.
+
+The raw-conditioning experiment uses 100-decimal-digit arithmetic and
+fixed values $(g_1,g_2,g_3)=(0.7,-1.3,0.5)$. At $\eta=10^{-4},10^{-12},10^{-24}$,
+the measured smallest singular values were approximately
+$1.650\cdot10^{-5},1.650\cdot10^{-13},1.650\cdot10^{-25}$, respectively,
+while $\Delta$ remained $1/2$. Proposition~\ref{prop:raw}, rather than this
+finite sequence, establishes the limiting counterexample.
+
+\subsection{Reproduction}
+
+From the package root, run
+\begin{verbatim}
+python -m pip install -r requirements.txt
+python tests/exact_checks.py --output results/exact_checks.json
+python tests/numerical_checks.py --output-dir results
+\end{verbatim}
+The scripts require Python 3.11 or later. Recorded versions are NumPy 2.3.5,
+SymPy 1.14.0, and mpmath 1.3.0; the supplied environment used Python 3.13.5.
+Results may differ slightly across floating-point libraries.
+The LaTeX source is \texttt{src/report.tex}; \texttt{build.sh} recompiles the
+PDF when a suitable TeX installation is available.
+
+\section{Conclusion}
+
+The graph bounds \eqref{eq:cluster-L} and \eqref{eq:t2-L} yield the requested
+iteration order in their stated regimes. The all-input bound \eqref{eq:fractional-q} retains only an extra
+$t\log m$ term, while \eqref{eq:general-q} is sometimes sharper.
+Corollary~\ref{cor:smallgap} proves the requested order whenever
+$\Delta\leq1/m$. The raw-conditioning example invalidates one stronger
+auxiliary route without invalidating the algorithmic assertion.
+
+For arbitrary growing $b$ and $t$ with nonzero-width leading clusters and
+$\Delta>1/m$, the required quantitative control has not been obtained. The sufficient
+interpolation estimate \eqref{eq:IE}, or a different argument exploiting
+additional Krylov powers, remains an unproved obligation in this report.
+Accordingly, the package is a collection of proved partial results and
+checks, not a complete solution of RA-04.
+
+\section*{Sources}
+\addcontentsline{toc}{section}{Sources}
+\begin{enumerate}[label={[\arabic*]},leftmargin=2em,itemsep=7pt]
+\item Open Problems in Numerical Linear Algebra.
+\emph{RA-04: Clustered singular-value gaps in randomized block Krylov approximation}.
+Repository entry, accessed September 12, 2026.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/randomized-and-low-rank-approximation/RA-04}.
+Used for the precise target, rank padding, and right-singular-vector convention.
+\item T. Chen, E. N. Epperly, R. A. Meyer, C. Musco, and A. Rao.
+\emph{Does block size matter in randomized block Krylov low-rank approximation?}
+SODA 2026, pp.~1026--1046. arXiv:2508.06486v2.
+\url{https://arxiv.org/abs/2508.06486};
+\url{https://doi.org/10.1137/1.9781611978971.42}.
+Used for the explicitly imported good-start convergence transfer.
+\item R. A. Meyer, C. Musco, and C. Musco.
+\emph{On the Unreasonable Effectiveness of Single Vector Krylov Methods for Low-Rank Approximation}.
+SODA 2024, pp.~811--845. arXiv:2305.02535v3.
+\url{https://arxiv.org/abs/2305.02535}.
+Used for the relation to earlier small-block bounds and the convergence-transfer provenance.
+\item N. Shao. \emph{A structural bound for cluster robustness of randomized small-block Lanczos}.
+arXiv:2507.10144v2, May 30, 2026.
+\url{https://arxiv.org/abs/2507.10144}.
+Used for the comparison with matrix-polynomial interpolation and its unresolved random factors.
+\item Z. Nie. \emph{Matrix anti-concentration inequalities with applications}.
+STOC 2022; arXiv:2111.05553v2.
+\url{https://arxiv.org/abs/2111.05553}.
+Used only to identify the hypothesis that an attempted small-ball argument must verify.
+\end{enumerate}
+
+\end{document}
