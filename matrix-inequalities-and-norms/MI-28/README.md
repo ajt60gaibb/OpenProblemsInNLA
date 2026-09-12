@@ -6,10 +6,16 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-10
+**Status:** Solved  
+**Last checked:** 2026-09-11
 
-**Rating rationale:** The intermediate base powers resist the available determinantal comparisons, making the problem challenging; the immediate application is to specialist matrix-function inequalities.
+**Rating rationale (historical):** The intermediate base powers resist the available determinantal comparisons, making the problem challenging; the immediate application is to specialist matrix-function inequalities.
+
+## Resolution — 2026-09-11
+
+**Solved (affirmative).** George Stepaniants's [complete proof](solution.md), **Theorem 1 and Corollary 6**, proves the displayed determinant inequality for every dimension, every complex positive definite pair, all $k\ge0$ and all $0\le p\le2$. It proves the stronger log-majorization of the corresponding normalized matrices. The proof credits Ghabries–Abbas–Mourad–Assi's published result for $k\ge2$ and establishes the remaining range using Furuta inequalities and a parameter interchange. [Proof PDF](solution.pdf) · [Standalone TeX](solution.tex).
+
+The full analytic argument passed a [separate Codex-agent review](../../references/stepaniants-mi28-2026-09-11/verification/reviews/MI-28-review.md), including every exponent restriction, the noncommuting factor order, exterior powers, endpoints and exact source substitutions. It was developed with ChatGPT/Codex; the verification is independent agent review, not external human peer review or formal certification. [Authorship, source checks, reproduction and public-branch audit](../../references/stepaniants-mi28-2026-09-11/README.md). The original ID, path, target, historical ratings and earlier status check below are retained.
 
 ## Problem statement
 

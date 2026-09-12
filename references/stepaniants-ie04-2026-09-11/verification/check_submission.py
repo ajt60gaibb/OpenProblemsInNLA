@@ -67,8 +67,13 @@ old_target = old('linear-systems-and-elimination/IE-04/README.md')
 assert old_target == (VER / 'original-target.md').read_bytes()
 original_body = old_target.decode().split('## Context and notation\n', 1)[1]
 assert original_body == (CAN / 'README.md').read_text().split('## Context and notation\n', 1)[1]
-assert old('problem_ids.json') == (ROOT / 'problem_ids.json').read_bytes()
-assert len(json.loads((ROOT / 'problem_ids.json').read_text())) == 203
+original_registry = json.loads(old('problem_ids.json'))
+current_registry = json.loads((ROOT / 'problem_ids.json').read_text())
+assert len(original_registry) == 203
+assert all(current_registry.get(identifier) == path
+           for identifier, path in original_registry.items()), 'An original ID mapping changed'
+# Later published entries may be appended. The repository validator separately
+# checks the full registry against the current published base.
 assert '**Status:** Solved' in (CAN / 'README.md').read_text()
 author = 'George Stepaniants'
 affiliation = 'Department of Computing and Mathematical Sciences, California Institute of Technology'

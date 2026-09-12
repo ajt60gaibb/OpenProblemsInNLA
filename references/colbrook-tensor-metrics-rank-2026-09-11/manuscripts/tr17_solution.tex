@@ -1,0 +1,284 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\C}{\mathbb C}
+\newcommand{\R}{\mathbb R}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\ED}{\operatorname{ED}}
+\newcommand{\csm}{c_{\mathrm{SM}}}
+\newcommand{\grad}{\nabla}
+\newcommand{\length}{\operatorname{length}}
+\title{Global Frobenius minimality for the ED degree of Segre--Veronese cones}
+\author{Matthew J. Colbrook\thanks{Department of Applied Mathematics and Theoretical Physics, University of Cambridge, Cambridge, United Kingdom. Email: m.colbrook@damtp.cam.ac.uk.}}
+\date{11 September 2026}
+\hypersetup{pdfauthor={Matthew J. Colbrook}}
+\usepackage{xurl}
+\begin{document}
+\maketitle
+
+
+\begin{quote}\small
+Authorship is recorded at the submitter's request. AI assistance is disclosed. An independent agent reviewed this complete mathematical source against the original repository targets; a separate agent checked the accompanying computations. This is not external human peer review or formal certification, and no priority claim is made. The original proposed manuscripts have now passed independent review; reports and live eligibility checks accompany this attributed edition.
+\end{quote}
+\begin{abstract}
+For every Segre--Veronese cone and every positive definite real inner product on its ambient partially symmetric tensor space, its Euclidean distance degree is at least the degree for the Frobenius inner product. The argument uses a basis of Chern--Schwartz--MacPherson classes indexed by product-linear sections. Every corresponding signed Euler characteristic is at least one: a positive multihomogeneous form has a coercive dehomogenization, while a logarithmic differential on a resolution counts its critical points without boundary zeros. The ED degree is a linear combination of these integers with nonnegative coefficients. For the Frobenius form all the integers equal one. This proves the inequality in repository problem TR-17, equivalently Conjecture 3.9 of Kozhasov--Muniz--Qi--Sodomaco.
+\end{abstract}
+
+\section{Statement and notation}
+Fix $k\geq1$, $n_j\geq2$, and $d_j\geq1$. Set $m_j=n_j-1$, $N=\sum_jm_j$, and
+\[
+ M=\prod_{j=1}^k\PP^{m_j},\qquad
+ W_{\R}=\bigotimes_{j=1}^k\operatorname{Sym}^{d_j}(\R^{n_j}).
+\]
+Let $\nu_{\mathbf d}:M\hookrightarrow\PP(W_{\C})$ be the Segre--Veronese embedding, with image $Y$, and let $X\subset W_{\C}$ be its affine cone. We use the entrywise Frobenius inner product $Q_F$ restricted from the full tensor product; thus the usual repeated-entry weights are included on symmetric tensors. A real bilinear form is extended \emph{complex-bilinearly}, not sesquilinearly.
+
+\begin{theorem}\label{thm:main}
+For every positive definite symmetric real bilinear form $Q$ on $W_{\R}$,
+\[
+ \boxed{\ED_Q(X)\ \geq\ \ED_{Q_F}(X).}
+\]
+Here $\ED_Q(X)$ counts critical points on the smooth nonzero part of the cone of $Z\mapsto Q(A-Z,A-Z)$ for Zariski-generic $A\in W_{\C}$, with algebraic multiplicities. In particular, the assertion holds for all formats $\sum_jd_j\geq3$ in TR-17.
+\end{theorem}
+
+The target is stated in~\cite{repo}; its antecedent is~\cite[Conjecture 3.9]{KMQS}. The known local minimum and special global cases are not used to infer the global assertion. The proof below applies directly to an arbitrary positive definite $Q$.
+
+Write $h_j$ for the hyperplane class from the $j$th factor. We identify classes in $A_*(M)$ with polynomials times $[M]$ in
+\[
+ A^*(M)=\mathbb Z[h_1,\ldots,h_k]/(h_1^{m_1+1},\ldots,h_k^{m_k+1}),
+ \qquad L=\sum_jd_jh_j.
+\]
+For multi-indices, $\alpha\leq\mathbf m$ means componentwise inequality, $|\alpha|=\sum_j\alpha_j$, and $h^\alpha=\prod_jh_j^{\alpha_j}$. Integration over $M$ extracts the coefficient of $h^{\mathbf m}$.
+
+The quadratic form restricts to the real multihomogeneous polynomial
+\begin{equation}\label{eq:q}
+ q(x_1,\ldots,x_k)
+ =Q(x_1^{\otimes d_1}\otimes\cdots\otimes x_k^{\otimes d_k},
+      x_1^{\otimes d_1}\otimes\cdots\otimes x_k^{\otimes d_k})
+\end{equation}
+of multidegree $(2d_1,\ldots,2d_k)$. It is strictly positive whenever all $x_j$ are real and nonzero. Let $D$ denote the \emph{reduced support} of its zero divisor on $M$, and put $U=M\setminus D$. Nonreducedness and singularities of the zero divisor are allowed throughout.
+
+\section{Positive forms and affine-section Euler characteristics}
+We first establish the strict positivity needed in the proof. This is a statement about multihomogeneous forms, independent of ED degrees.
+
+\begin{lemma}\label{lem:positive}
+Let $P=\prod_{j=1}^s\PP^{a_j}$ with $a_j\geq1$, $a=\sum_ja_j$, and let $f$ be a real multihomogeneous polynomial of positive even multidegrees $b_j$. Assume $f(x)>0$ for every tuple of real nonzero vectors. For general real linear forms $\ell_j$ on the factors, set
+\[
+ V=P\setminus\bigl(\{f=0\}\cup\bigcup_j\{\ell_j=0\}\bigr).
+\]
+Then
+\[
+ (-1)^a\chi(V)\geq1.
+\]
+Here and below $\chi$ is the topological Euler characteristic of the complex algebraic variety; it agrees with the compactly supported Euler characteristic in this setting.
+\end{lemma}
+\begin{proof}
+\emph{A real critical point and dominance.}
+For any nonzero real $\ell_j$, consider the rational function
+\[
+ F=\frac{f}{\prod_j\ell_j^{b_j}}
+\]
+on the affine chart defined by $\ell_j(x_j)=1$. On this chart $F=f$ and is positive and coercive. Indeed, compactness of the product of unit spheres gives a constant $c>0$ with
+\[
+ f(x_1,\ldots,x_s)\geq c\prod_j\|x_j\|^{b_j}
+ \quad\hbox{for all real }x_j.
+\]
+On each affine hyperplane $\ell_j=1$ the norm is bounded below by a positive constant. Thus $F(x)\to\infty$ whenever $\max_j\|x_j\|\to\infty$ in the product chart, so $F$ is coercive and attains a minimum there. At such a minimum, $f\neq0$ and the derivative of $F$ vanishes.
+
+Define the block-gradient map
+\[
+ \Phi_f:P\setminus\{f=0\}\longrightarrow\prod_j(\PP^{a_j})^*,
+ \qquad [x]\longmapsto\bigl([\grad_{x_j}f(x)]\bigr)_j.
+\]
+It is a morphism on this open set: Euler's identities
+$x_j\cdot\grad_{x_j}f=b_jf$ ensure that no block gradient vanishes there. Multihomogeneity makes each projective block independent of the chosen representatives. The critical-point equations for $F$ are precisely
+\begin{equation}\label{eq:gradient-fiber}
+ [\grad_{x_j}f(x)]=[\ell_j]\quad\hbox{for every }j.
+\end{equation}
+For example, the constrained derivative on $\ell_j(x_j)=1$ gives a scalar multiple of $\ell_j$, and Euler's identity fixes that scalar to $b_jf$. Conversely,~\eqref{eq:gradient-fiber}, together with $f\neq0$, implies $\ell_j(x_j)\neq0$ by Euler's identity and gives $dF=0$.
+
+The minimum just obtained gives a preimage under $\Phi_f$ of every real tuple $([\ell_j])_j$. Such tuples are Zariski dense in the target. Thus $\Phi_f$ is dominant. Domain and target have the same dimension, so a general fiber is nonempty and finite. In particular, for general real $\ell_j$ the zeros of $d\log F$ in $V$ form a finite nonempty scheme. Finite zeros are sufficient below; no assertion that all of them are real is needed.
+
+\emph{No zeros at the boundary.}
+Take a projective embedded log resolution $\pi:\widetilde P\to P$ of the divisor $\{f=0\}$, isomorphic over its complement. Let $E$ be the reduced inverse image of that divisor. Every component of $E$ has positive multiplicity in $\pi^*\operatorname{div}(f)$. Choose the $\ell_j$ generally enough that their pullback divisors $B_j=\pi^*\{\ell_j=0\}$ are smooth, are transverse to all strata of $E$ and to one another, and contain no component of $E$. These conditions follow from Bertini for the pulled-back base-point-free linear systems; there are only finitely many strata and components to consider. The conditions can be imposed simultaneously with finiteness of~\eqref{eq:gradient-fiber}, and general real choices exist.
+
+The reduced divisor $B=E\cup\bigcup_jB_j$ has simple normal crossings. Since a general $\ell_j$ does not vanish identically on the image of any component of $E$, its pullback has order zero along each such component. Therefore
+\[
+ \operatorname{div}(\pi^*F)=\sum_i\mu_iE_i-\sum_jb_jB_j,
+ \qquad \mu_i>0.
+\]
+The logarithmic differential
+\[
+ \eta=d\log(\pi^*F)\in H^0\bigl(\widetilde P,\Omega^1_{\widetilde P}(\log B)\bigr)
+\]
+has a nonzero residue on \emph{every} boundary component: $\mu_i$ on $E_i$ and $-b_j$ on $B_j$. In local normal-crossing coordinates, a section vanishes only when all its coefficients in the basis $dz_i/z_i$, $dz_t$ vanish. At a boundary point at least one of these coefficients is the corresponding nonzero residue. Thus $\eta$ has no zeros on $B$.
+
+\emph{Counting the zeros.}
+The vector bundle $\Omega^1_{\widetilde P}(\log B)$ has rank $a$. Its section $\eta$ has a finite nonempty zero scheme, entirely in $V$. The degree of its top Chern class is the length of this scheme, and hence is at least one. The logarithmic Chern class formula~\cite[(7.4)]{AH}, together with proper functoriality of CSM classes, gives the logarithmic Gauss--Bonnet identity
+\[
+ \int_{\widetilde P}c_a\bigl(\Omega^1_{\widetilde P}(\log B)\bigr)
+   =(-1)^a\chi(\widetilde P\setminus B)
+   =(-1)^a\chi(V).
+\]
+This proves the assertion, including when the original divisor is singular or nonreduced.
+\end{proof}
+
+When a factor of a product-linear section is $\PP^0$, substitute a fixed nonzero real vector for it and omit that factor from Lemma~\ref{lem:positive}. When every factor is $\PP^0$, the complement is a single point, since a positive form does not vanish there, and its Euler characteristic is one.
+
+\section{A basis for the CSM class of the complement}
+Write $\csm(U)=C_U(h)\cap[M]$. Define integers $g_\alpha$, $0\leq\alpha\leq\mathbf m$, by the expansion
+\begin{equation}\label{eq:basis}
+ C_U(h)=\sum_{\alpha\leq\mathbf m}
+ g_\alpha(-1)^{|\alpha|}h^\alpha
+ \prod_{j=1}^k(1+h_j)^{m_j-\alpha_j}.
+\end{equation}
+These polynomials form an integral basis: their leading terms are $(-1)^{|\alpha|}h^\alpha$ and the change-of-basis matrix is triangular with diagonal entries $\pm1$.
+
+\begin{proposition}\label{prop:g-positive}
+For the complement of the zero divisor of the positive form~\eqref{eq:q}, every $g_\alpha$ in~\eqref{eq:basis} satisfies $g_\alpha\geq1$.
+\end{proposition}
+\begin{proof}
+Choose a general real product-linear section
+$M_\alpha=\prod_j\PP^{\alpha_j}\subset M$ and one general real hyperplane in each positive-dimensional factor. Let $U_\alpha$ be the complement in $M_\alpha$ of these hyperplanes and $D\cap M_\alpha$. The standard general-section rule for CSM classes gives
+\begin{equation}\label{eq:section}
+ \chi(U_\alpha)=
+ [h^\alpha]\,
+ \frac{C_U(h)}{\prod_j(1+h_j)^{m_j-\alpha_j+1}}.
+\end{equation}
+The factors corresponding to $\alpha_j=0$ are harmless, since only the constant coefficient in $h_j$ is extracted.
+
+Here~\eqref{eq:section} can be obtained directly from the logarithmic formula, without any transversality assumption on $D$. Resolve $D$ as in Lemma~\ref{lem:positive}. Each general linear cut in the $j$th factor pulls back to a smooth divisor transverse to the boundary and all previous cuts, of class $h_j$ pulled back to the resolution. Logarithmic adjunction for a cut contributes $h_j/(1+h_j)$ to the pushforward CSM class. Removing one additional transverse hyperplane contributes $1/(1+h_j)$. Applying the projection formula for the proper resolution gives
+\[
+ \frac{h^{\mathbf m-\alpha}}{\prod_j(1+h_j)^{m_j-\alpha_j+1}}
+ \csm(U)
+\]
+as the pushforward of the relevant section-complement class. Integrating yields~\eqref{eq:section}. Generic real cuts may be chosen since the good choices form a nonempty Zariski-open subset of the real-defined parameter space.
+
+Substitute~\eqref{eq:basis} into~\eqref{eq:section}. For a term indexed by $\beta\leq\alpha$, the remaining coefficient to be extracted is
+\[
+ \prod_j[h_j^{\alpha_j-\beta_j}](1+h_j)^{\alpha_j-\beta_j-1}.
+\]
+If $\beta_j<\alpha_j$ for some $j$, the polynomial in that factor has degree one less than the requested exponent, so the coefficient is zero. For $\beta=\alpha$, the coefficient is one. Terms with $\beta\not\leq\alpha$ do not contribute. It follows that
+\begin{equation}\label{eq:g-euler}
+ g_\alpha=(-1)^{|\alpha|}\chi(U_\alpha).
+\end{equation}
+The restricted form is positive on the real product section and has the same positive even degree in every remaining factor. Lemma~\ref{lem:positive}, together with the zero-dimensional convention, now gives $g_\alpha\geq1$.
+\end{proof}
+
+\section{Nonnegative coefficients for the ED degree}
+For $\beta\geq0$ define the integer
+\begin{equation}\label{eq:weights}
+ B_\beta(\mathbf d)=
+ (-1)^{|\beta|}[h^\beta]\,
+ \frac{\prod_j(1+h_j)^{\beta_j}}{1+\sum_jd_jh_j}.
+\end{equation}
+This definition is an identity in truncated formal power series and does not depend on the ambient dimensions once $\beta$ is fixed.
+
+\begin{lemma}\label{lem:weights}
+If $d_j\geq1$ for every $j$, then
+\begin{equation}\label{eq:positive-weight}
+ B_\beta(\mathbf d)
+ =[h^\beta]\prod_j(L-h_j)^{\beta_j}\ \geq\ 0.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Expanding the numerator and denominator in~\eqref{eq:weights} gives
+\[
+ B_\beta(\mathbf d)=
+ \sum_{\ell\leq\beta}(-1)^{|\ell|}
+ \left(\prod_j\binom{\beta_j}{\ell_j}\right)
+ [h^{\beta-\ell}]L^{|\beta|-|\ell|}.
+\]
+The same expression results from expanding $\prod_j(L-h_j)^{\beta_j}$ and extracting $h^\beta$. This proves the identity. Each factor
+\[
+ L-h_j=(d_j-1)h_j+\sum_{i\neq j}d_ih_i
+\]
+has nonnegative coefficients, so their product does also. In particular, $B_{\mathbf0}=1$.
+\end{proof}
+
+We use the smooth-projective ED formula of Aluffi--Harris~\cite[Theorem 8.1 and (7.3)]{AH}. After a real linear change of ambient coordinates taking $Q$ to the standard form, it applies to $Y$ and says
+\begin{equation}\label{eq:ed-csm}
+ \ED_Q(X)=(-1)^N\int_M\frac{\csm(U)}{1+L}.
+\end{equation}
+Indeed, the formula is $(-1)^N\chi(Y\setminus(\mathcal Q\cup H))$ for a general hyperplane $H$, where $\mathcal Q$ is the quadric of $Q$. Its pullback is the zero divisor of $q$, and $H$ pulls back to class $L$. The formula requires smoothness of $Y$, but places \emph{no} smoothness or reducedness assumption on $Y\cap\mathcal Q$. Positivity also ensures $Y\not\subset\mathcal Q$.
+
+Substitution of~\eqref{eq:basis} in~\eqref{eq:ed-csm}, followed by $\beta=\mathbf m-\alpha$, yields the exact identity
+\begin{equation}\label{eq:ed-sum}
+ \ED_Q(X)=\sum_{\alpha\leq\mathbf m}
+ g_\alpha B_{\mathbf m-\alpha}(\mathbf d).
+\end{equation}
+Proposition~\ref{prop:g-positive} and Lemma~\ref{lem:weights} therefore imply
+\begin{equation}\label{eq:lower}
+ \ED_Q(X)\geq\sum_{\beta\leq\mathbf m}B_\beta(\mathbf d).
+\end{equation}
+
+\section{The Frobenius value and the conclusion}
+For the Frobenius form,
+\[
+ q_F(x)=\prod_{j=1}^k\left(\sum_{t=0}^{m_j}x_{jt}^{\,2}\right)^{d_j}.
+\]
+Its reduced zero divisor is the union of the pullbacks of the nondegenerate quadrics in the individual projective factors. Write $U_{F,j}$ for the complement of the quadric in $\PP^{m_j}$. The smooth-divisor CSM formula gives
+\[
+ \csm(U_{F,j})=
+ \frac{(1+h_j)^{m_j+1}}{1+2h_j}\cap[\PP^{m_j}].
+\]
+This is valid also for $m_j=1$, when the quadric consists of two distinct points. In the truncated ring $\mathbb Z[h_j]/(h_j^{m_j+1})$ the elementary identity
+\begin{equation}\label{eq:frob-basis}
+ \frac{(1+h_j)^{m_j+1}}{1+2h_j}
+ =\sum_{a=0}^{m_j}(-h_j)^a(1+h_j)^{m_j-a}
+\end{equation}
+holds, by a finite geometric sum. Since $U_F=\prod_jU_{F,j}$, multiplicativity of CSM classes gives exactly expansion~\eqref{eq:basis} with
+\[
+ g_\alpha(Q_F)=1\qquad\hbox{for all }\alpha\leq\mathbf m.
+\]
+Consequently~\eqref{eq:ed-sum} gives
+\[
+ \ED_{Q_F}(X)=\sum_{\beta\leq\mathbf m}B_\beta(\mathbf d).
+\]
+Comparison with~\eqref{eq:lower} proves Theorem~\ref{thm:main}.
+
+\begin{corollary}\label{cor:gap}
+There is an exact nonnegative expression for the excess over the Frobenius ED degree:
+\[
+ \ED_Q(X)-\ED_{Q_F}(X)=
+ \sum_{\alpha\leq\mathbf m}(g_\alpha-1)
+ [h^{\mathbf m-\alpha}]
+ \prod_j(L-h_j)^{m_j-\alpha_j}.
+\]
+Every summand is a nonnegative integer. Equality holds if and only if $g_\alpha=1$ for every index for which the associated coefficient is positive.
+\end{corollary}
+
+\section{Checks and scope}
+For one factor the coefficients are $B_b(d)=(d-1)^b$, recovering the familiar Frobenius value $\sum_{b=0}^{n-1}(d-1)^b$. For two unsymmetrized factors the coefficient $B_{(b_1,b_2)}(1,1)$ is one when $b_1=b_2$ and zero otherwise, giving $\min(n_1,n_2)$. For three two-dimensional unsymmetrized factors the sum equals six.
+
+The accompanying exact-arithmetic script independently checks the coefficient identity, the Frobenius basis expansion, and equality of the resulting sum with the direct Frobenius CSM formula in a range of small formats. These finite checks do not replace the general proof. A separate SymPy script checks saturated critical-point schemes and all projective charts in four examples, including a non-Morse triple critical point and a nonreduced divisor supported on tangent conics. Scheme lengths include algebraic multiplicities; the accompanying verification note specifies these checks. In particular, no random sampling of $Q$, local perturbation argument, or generic smoothness assumption on $D$ is used to claim the global result.
+
+Only positivity of the restricted form $q$ on real product points is needed for Proposition~\ref{prop:g-positive}. Positive definiteness on the ambient tensor space is the hypothesis of TR-17 and guarantees that condition. Complex isotropic points are never removed from consideration except by the explicit divisor-complement formula; the ED degree throughout is a complex algebraic count, not an expected or real-only count.
+
+\begin{thebibliography}{9}
+\bibitem{repo}
+OpenProblemsInNLA, ``TR-17---Frobenius inner products minimize the algebraic complexity of rank-one approximation,'' problem statement, checked September 11, 2026.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/tensor-computations/TR-17}.
+
+\bibitem{KMQS}
+K. Kozhasov, A. Muniz, Y. Qi, and L. Sodomaco,
+``On the minimal algebraic complexity of the rank-one approximation problem for general inner products,''
+\emph{Mathematics of Computation}, DOI: 10.1090/mcom/4176.
+Conjecture 3.9. \url{https://arxiv.org/abs/2309.15105}.
+
+\bibitem{AH}
+P. Aluffi and C. Harris,
+``The Euclidean distance degree of smooth complex projective varieties,''
+\emph{Algebra \& Number Theory} \textbf{12} (2018), no.~8, 2005--2032.
+Theorem 8.1, (7.3), and (7.4).
+\url{https://arxiv.org/abs/1708.00024}.
+\end{thebibliography}
+\end{document}
