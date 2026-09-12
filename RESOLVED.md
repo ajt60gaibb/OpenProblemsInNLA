@@ -93,6 +93,15 @@ The complete argument passed a separate [independent Codex-agent mathematical an
 
 The full clarified argument passed a separate [independent Codex-agent mathematical audit](references/stepaniants-mf06-2026-09-12/REVIEW.md). Substantial AI assistance is disclosed; this is informal agent review, not human peer review or formal verification. Epperlein and Wirth retain target attribution, and Barabanov/Wirth extremal norms and Chitour-Mason-Sigalotti nonresonance theory retain credit. The constants depend on the fixed reference family; a two-sided Lipschitz bound uniform over two varying families is not asserted. [Submission record and eligibility audit](references/stepaniants-mf06-2026-09-12/README.md).
 
+### ✅ MF-21 - the higher-order Toeplitz expansion threshold - George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Affirmative resolution recorded 2026-09-12 (UTC).** [Theorem 1 and Sections 2-5](matrix-functions-and-stability/MF-21/solution.md) establish the complete three-part threshold for every integer $m\ge3$: one smooth coefficient family gives uniform expansions through order $2m-1$, the stated high-index order-$2m$ expansion, and failure of that last order uniformly over all eigenvalues. [Proof PDF](matrix-functions-and-stability/MF-21/solution.pdf) · [Original canonical target](matrix-functions-and-stability/MF-21/README.md).
+
+The complete proof passed a separate [independent Codex-agent mathematical audit](references/stepaniants-mf21-2026-09-12/independent-review.md). Substantial AI assistance and informal-review limits are explicit; no external human peer review or formal verification is asserted. The original conjecture, prior special cases, and the external inverse-kernel theorem retain their source attribution. The [submission record](references/stepaniants-mf21-2026-09-12/README.md) records frozen-source comparison, exact checks, document inspection, and public eligibility. The permanent ID, original statement and historical ratings remain unchanged.
+
+
 ### ✅ IE-05 - the orthogonal partial-pivoting extremizer equality is false - George Stepaniants
 
 **Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
