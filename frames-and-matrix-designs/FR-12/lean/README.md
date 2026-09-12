@@ -1,10 +1,14 @@
 # FR-12 Lean formalization
 
-The complete original labeled real Hadamard counting conjecture is refuted by
-the implemented proof. All seven exports passed local Lean checks, two
-independent statement reviews and two independent final proof reviews.
-**Actual Linux Comparator, separate default-kernel replay and their operational
-audit are pending.** The canonical status remains **Solved**.
+The complete original labeled real Hadamard counting conjecture has a
+**Lean-verified negative answer** as of 12 September 2026. The unchanged proof at
+[revision 3e20bae](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/3e20bae9a07b1a33db8fdfb18bdebb9e590071a9/frames-and-matrix-designs/FR-12/lean)
+passed two independent statement reviews before implementation, two independent
+final proof reviews, and actual Linux sandboxed Comparator/default-kernel
+verification in [run 34718277411](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34718277411).
+The [independent operational audit and original artifacts](verification/linux-2026-09-12/)
+bind all seven exports and the complete 137-file verified input set. The
+[canonical entry](../README.md) records the complete verified scope and status.
 
 **Mathematical proof and formalization:** George Stepaniants, Department of
 Computing and Mathematical Sciences, California Institute of Technology,
@@ -123,14 +127,18 @@ placeholders are isolated and excluded from proof-development sorry counts.
   [dependency pins](lake-manifest.json) and
   [candidate preservation evidence](verification/linux-candidate-2026-09-12/).
 
-The author's 2157-job build and the independent fresh-source checks are local
-macOS runs with matching compiled dependency reuse at ten clean pinned Git
-revisions. They do not claim all Mathlib dependencies were rebuilt from source
-or that the Linux verifier ran. The relevant
-[pinned Tau Ceti standards](../../../docs/lean/REVIEW.md) were applied within
-the scope of this complete original target.
+The author's 2157-job build and the independent fresh-source reviews were
+local macOS runs with matching compiled dependency reuse at ten clean pinned
+Git revisions. The later Linux job freshly cloned all ten dependencies at
+their exact revisions and used 8690 official Mathlib cache artifacts before
+building the project source. Neither phase claims to rebuild every dependency
+from source. Both the project job and separate checker job passed actual
+isolation and rejection controls. The nested Bubblewrap executable was denied
+UID-map creation before its inner write; that probe is not a general sandbox
+security guarantee. The relevant [pinned Tau Ceti standards](../../../docs/lean/REVIEW.md)
+were applied within the scope of this complete original target.
 
-## Reproduction and pending Linux gate
+## Reproduction and verified Linux gate
 
 From this directory with its exact toolchain and manifest:
 
@@ -140,7 +148,7 @@ lake build Solution
 lake env lean Solution.lean
 ```
 
-After the candidate has an immutable Git revision, use the repository's
+From the immutable verified revision, use the repository's
 [shared workflow](../../../docs/lean/README.md) on a correctly configured
 [non-root Linux host](../../../tools/lean/HARNESS.md). From the repository root:
 
@@ -152,17 +160,22 @@ tools/lean/verify.sh \
   /absolute/path/to/nla-lean-tools
 ```
 
-The actual run must build/export the independently checked Challenge and
-Solution, compare all seven declarations with no definition exceptions, replay
-the proof through Lean's default kernel, and pass the real isolation and
-rejection controls. [Comparator](comparator.json) permits only the three
-standard axioms. No FR-12 Linux run or operational PASS is claimed yet.
+The actual successful run built and exported the independently checked
+Challenge and Solution, compared all seven declarations with no definition
+exceptions, replayed the proof through Lean's default kernel, and passed the
+real isolation and rejection controls. [Comparator](comparator.json) permits
+only the three standard axioms. The [complete Linux evidence manifest](verification/linux-2026-09-12/EVIDENCE-MANIFEST.json)
+retains both original artifact ZIPs, complete raw logs, every submitted input
+hash, checked tool sources and the independent operational report. It binds
+255 files plus itself, including every nested manifest.
 
-The exact historical README is archived at
+The exact historical README remains archived at
 [the frozen statement-stage copy](verification/linux-candidate-2026-09-12/frozen-statement-stage-README.md).
-Only this current README changes among the 74 proof-freeze inputs; the other
-73, all four original sources, all mathematical statements/proofs, pins,
-configuration and both statement/final review reports remain unchanged.
-The current manifest and candidate records describe completed local gates and
-pending Linux verification. Canonical status remains Solved until actual
-verification evidence receives its separate operational and publication review.
+At candidate packaging, only this README changed among the 74 proof-freeze
+inputs. Publication changes only this README and the current formalization
+manifest among the 137 Linux-verified input files. All other 135 mathematical
+sources, statements, configurations, pins and prior review/evidence inputs
+remain identical, as do all 256 retained operational evidence files. Original
+phase labels and metadata snapshots remain intact. The successful run is bound
+to the immutable proof revision; no new run over these publication wrappers
+is claimed. The original canonical target and informal manuscript are unchanged.

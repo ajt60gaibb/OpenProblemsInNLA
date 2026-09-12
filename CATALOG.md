@@ -2,7 +2,7 @@
 
 **127 problems with open targets:** 55 open and 72 partially resolved. **90 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 79 solved (published or independently audited); 11 Lean verified.
+**Resolution evidence:** 78 solved (published or independently audited); 12 Lean verified.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -282,7 +282,7 @@ Retained entries outside the open count:
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [FR-12](frames-and-matrix-designs/FR-12/README.md) | Counting real Hadamard matrices | **✅ SOLVED** | extreme | interesting to the community | [PDF](frames-and-matrix-designs/FR-12/problem.pdf) · [TeX](frames-and-matrix-designs/FR-12/problem.tex) |
+| [FR-12](frames-and-matrix-designs/FR-12/README.md) | Counting real Hadamard matrices | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](frames-and-matrix-designs/FR-12/problem.pdf) · [TeX](frames-and-matrix-designs/FR-12/problem.tex) |
 
 
 ## [Matrix discrepancy and optimization](matrix-discrepancy-and-optimization/README.md)
