@@ -15,27 +15,27 @@
 
 **Negative resolution by Matthew J. Colbrook** (Department of Applied Mathematics and Theoretical Physics, University of Cambridge). See the [complete manuscript](solution.md), **Theorem IS-02, sections 1–2** ([PDF](solution.pdf) · [LaTeX](solution.tex)), prepared 11 September 2026.
 
-The order-four counterexample is real symmetric, nonnegative and stochastic, has spectrum $\{1,1,0,-1\}$ and positive trace, and is spectrally unique up to permutation. It lies outside every segment in the proposed locus, disproving the universal necessary condition at an allowed dimension.
+The order-four counterexample is real symmetric, nonnegative and stochastic, has spectrum $`\{1,1,0,-1\}`$ and positive trace, and is spectrally unique up to permutation. It lies outside every segment in the proposed locus, disproving the universal necessary condition at an allowed dimension.
 
 The original proof draft was generated in a ChatGPT conversation. A separate Codex agent independently verified the full proof and its match to the exact target on 11 September 2026: [detailed PASS review](../../references/colbrook-2026-09-11/verification/reviews/IS-02-review.md). The review records a hash of the unchanged proof text. This is independent agent verification, not external human peer review or formal certification. [The submission history and diagnostic record](../../references/colbrook-2026-09-11/README.md) preserve the initial solution claim. The ratings above are historical, and the earlier literature checks below are retained.
 
 ## Problem statement
 
-For $n\geq4$, put
-$\mathcal S_n=\{A\in\mathbb R^{n\times n}:A=A^T,\ A\geq0,\ A\mathbf1=\mathbf1\}$
-and $C_n=(\mathbf1\mathbf1^T-I)/(n-1)$. A matrix $A\in\mathcal S_n$
-is *spectrally unique* if every $B\in\mathcal S_n$ with the same eigenvalues,
-including multiplicities, satisfies $B=R^TAR$ for a permutation matrix $R$.
-Let $[X,Y]=\{(1-t)X+tY:0\leq t\leq1\}$.
+For $`n\geq4`$, put
+$`\mathcal S_n=\{A\in\mathbb R^{n\times n}:A=A^T,\ A\geq0,\ A\mathbf1=\mathbf1\}`$
+and $`C_n=(\mathbf1\mathbf1^T-I)/(n-1)`$. A matrix $`A\in\mathcal S_n`$
+is *spectrally unique* if every $`B\in\mathcal S_n`$ with the same eigenvalues,
+including multiplicities, satisfies $`B=R^TAR`$ for a permutation matrix $`R`$.
+Let $`[X,Y]=\{(1-t)X+tY:0\leq t\leq1\}`$.
 
 Prove or disprove the following necessary condition: every spectrally unique
-$A\in\mathcal S_n$ with $\operatorname{tr}A>0$ belongs to
+$`A\in\mathcal S_n`$ with $`\mathop{\mathrm{tr}}\nolimits A>0`$ belongs to
 
-$$
+```math
 [I,C_n]\ \cup\!
-\bigcup_{V\in\operatorname{vert}(\mathcal S_n)}
+\bigcup_{V\in\mathop{\mathrm{vert}}\nolimits(\mathcal S_n)}
 \bigl([I,V]\cup[C_n,V]\bigr).
-$$
+```
 
 Here a vertex is an extreme point of the indicated convex polytope; it need
 not be a permutation matrix. Only the stated implication is asserted.

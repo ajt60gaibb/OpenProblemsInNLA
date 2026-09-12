@@ -8,15 +8,17 @@
 **Rating rationale:** All-dimension SIC existence is a central structured-design barrier connecting frame theory, quantum information and arithmetic geometry.
 
 
-For every integer $d\geq2$, do there exist $d^2$ unit vectors $\phi_1,\ldots,\phi_{d^2}\in\mathbb C^d$ satisfying
-$$
+For every integer $`d\geq2`$, do there exist $`d^2`$ unit vectors $`\phi_1,\ldots,\phi_{d^2}\in\mathbb C^d`$ satisfying
+
+```math
 |\phi_i^*\phi_j|^2=\frac1{d+1}\quad(i\ne j),
 \qquad
 \sum_{i=1}^{d^2}\phi_i\phi_i^*=dI_d?
-$$
-This is existence of an equiangular tight frame with $d^2$ vectors in $\mathbb C^d$, equivalently a symmetric informationally complete positive operator-valued measure after dividing the rank-one projectors by $d$. The statement concerns existence in every dimension. It does not impose additional Weyl–Heisenberg or order-three symmetry.
+```
 
-These frames attain the optimal coherence for $d^2$ unit vectors and lead to highly symmetric Gram matrices. Their construction is a concrete structured matrix design and conditioning problem with applications to state reconstruction. Exact all-dimension existence remains substantially stronger than numerical constructions in many individual dimensions.
+This is existence of an equiangular tight frame with $`d^2`$ vectors in $`\mathbb C^d`$, equivalently a symmetric informationally complete positive operator-valued measure after dividing the rank-one projectors by $`d`$. The statement concerns existence in every dimension. It does not impose additional Weyl–Heisenberg or order-three symmetry.
+
+These frames attain the optimal coherence for $`d^2`$ unit vectors and lead to highly symmetric Gram matrices. Their construction is a concrete structured matrix design and conditioning problem with applications to state reconstruction. Exact all-dimension existence remains substantially stronger than numerical constructions in many individual dimensions.
 
 ## References
 

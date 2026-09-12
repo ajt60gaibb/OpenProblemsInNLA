@@ -13,18 +13,19 @@
 
 ## Context and notation
 
-Over $\mathbb C$, the tensor rank $R(T)$ is the minimum number of pure tensors in an exact sum for $T$.
+Over $`\mathbb C`$, the tensor rank $`R(T)`$ is the minimum number of pure tensors in an exact sum for $`T`$.
 
 ## Problem statement
 
-Let $e_0,e_1,e_2$ be the standard basis of $\mathbb C^3$ and set
+Let $`e_0,e_1,e_2`$ be the standard basis of $`\mathbb C^3`$ and set
 
-$$T=\sum_{i=1}^{2}(e_0\otimes e_i\otimes e_i+
- e_i\otimes e_0\otimes e_i+e_i\otimes e_i\otimes e_0).$$
+```math
+T=\sum_{i=1}^{2}(e_0\otimes e_i\otimes e_i+
+ e_i\otimes e_0\otimes e_i+e_i\otimes e_i\otimes e_0).
+```
 
-For a tensor $S$, define $\widetilde R(S)=\lim_{k\to\infty}
-R(S^{\otimes k})^{1/k}$, grouping corresponding factors when taking powers.
-Is $\widetilde R(T)=3$?
+For a tensor $`S`$, define $`\widetilde R(S)=\lim_{k\to\infty} R(S^{\otimes k})^{1/k}`$, grouping corresponding factors when taking powers.
+Is $`\widetilde R(T)=3`$?
 
 ## Why it matters
 
@@ -36,8 +37,8 @@ of its size parameter.
 
 Bläser, [2013](https://theoryofcomputing.org/articles/gs005/gs005.pdf),
 Problem 9.8. Alman–Li, [2026](https://arxiv.org/abs/2605.21738),
-Theorems 1.2–1.3, relates the target to $\omega=2$ and establishes the partial
-upper bound $\widetilde R(T)<3.931$. Searches for “small Coppersmith Winograd
+Theorems 1.2–1.3, relates the target to $`\omega=2`$ and establishes the partial
+upper bound $`\widetilde R(T)<3.931`$. Searches for “small Coppersmith Winograd
 asymptotic rank 2026 3” located that improvement, not equality. Border-rank
 results for a fixed tensor power do not alone determine this limit.
 **Admitted: no resolution located.**

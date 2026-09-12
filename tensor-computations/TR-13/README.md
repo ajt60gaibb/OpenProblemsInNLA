@@ -9,7 +9,7 @@
 <!-- colbrook-recovered-tensors -->
 ## Resolution — 2026-09-11
 
-**Affirmative resolution by Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. For every odd $m\ge5$ and $n\ge2$, a nonempty Zariski-open set of complex Hankel tensors has ordinary rank, symmetric rank, ordinary border rank, symmetric border rank and Vandermonde rank all equal to $\lceil(m(n-1)+1)/2\rceil$. A compressed three-slice Koszul flattening gives the ordinary-border-rank lower bound, including arbitrary unstructured limiting sequences; a dominant moment map supplies the matching actual Vandermonde-rank upper bound. Exceptional Hankel tensors and the separate all-tensors question TR-14 are not settled.
+**Affirmative resolution by Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. For every odd $`m\ge5`$ and $`n\ge2`$, a nonempty Zariski-open set of complex Hankel tensors has ordinary rank, symmetric rank, ordinary border rank, symmetric border rank and Vandermonde rank all equal to $`\lceil(m(n-1)+1)/2\rceil`$. A compressed three-slice Koszul flattening gives the ordinary-border-rank lower bound, including arbitrary unstructured limiting sequences; a dominant moment map supplies the matching actual Vandermonde-rank upper bound. Exceptional Hankel tensors and the separate all-tensors question TR-14 are not settled.
 
 [Complete manuscript, Theorem 1 and Sections 2–5](../../references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-13.pdf) · [Standalone TeX](../../references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-13.tex) · [Independent complete-source PASS review](../../references/colbrook-recovered-tensors-2026-09-11/verification/reviews/TR-13-review.md) · [Authorship and provenance](../../references/colbrook-recovered-tensors-2026-09-11/README.md).
 
@@ -18,19 +18,25 @@ The recovered AI-assisted proof passed independent agent review; this is not ext
 
 ## Statement
 
-Fix an odd integer $m\ge5$ and $n\ge2$. A complex Hankel tensor $H$ of order $m$ and dimension $n$ has entries
-$$
+Fix an odd integer $`m\ge5`$ and $`n\ge2`$. A complex Hankel tensor $`H`$ of order $`m`$ and dimension $`n`$ has entries
+
+```math
 H_{i_1\ldots i_m}=h_{i_1+\cdots+i_m-m},\qquad 1\le i_j\le n,
-$$
-for $h\in\mathbb C^{m(n-1)+1}$. Is there a nonempty Zariski-open subset of this Hankel tensor space on which
-$$
+```
+
+for $`h\in\mathbb C^{m(n-1)+1}`$. Is there a nonempty Zariski-open subset of this Hankel tensor space on which
+
+```math
 R(H)=R_{\rm sym}(H)=\underline R(H)=\underline R_{\rm sym}(H)=R_V(H)?
-$$
-Here $R$ is the minimum number of arbitrary complex rank-one tensor summands; $R_{\rm sym}$ restricts summands to complex multiples of $v^{\otimes m}$. Each underlined border rank is the least integer $r$ admitting a sequence of complex tensors of the corresponding rank at most $r$ converging entrywise to $H$. $R_V$ further restricts $v$ to
-$$
+```
+
+Here $`R`$ is the minimum number of arbitrary complex rank-one tensor summands; $`R_{\rm sym}`$ restricts summands to complex multiples of $`v^{\otimes m}`$. Each underlined border rank is the least integer $`r`$ admitting a sequence of complex tensors of the corresponding rank at most $`r`$ converging entrywise to $`H`$. $`R_V`$ further restricts $`v`$ to
+
+```math
 v(a,b)=(a^{n-1},a^{n-2}b,\ldots,b^{n-1}),\quad (a,b)\ne(0,0).
-$$
-Thus limits defining symmetric border rank stay in the symmetric tensor space; limits defining ordinary border rank need not. Generically $R_V=\lceil(m(n-1)+1)/2\rceil$.
+```
+
+Thus limits defining symmetric border rank stay in the symmetric tensor space; limits defining ordinary border rank need not. Generically $`R_V=\lceil(m(n-1)+1)/2\rceil`$.
 
 ## Relevance
 

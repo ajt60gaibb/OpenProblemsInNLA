@@ -9,21 +9,25 @@
 **Rating rationale:** Determining the best constant across all sign matrices and all orders is a longstanding extremal discrepancy barrier; it sharpens a central matrix-balancing theorem.
 
 
-For each positive integer $n$, define
-$$
+For each positive integer $`n`$, define
+
+```math
 d_n=\frac{1}{\sqrt n}
 \max_{A\in\{-1,1\}^{n\times n}}
 \min_{x\in\{-1,1\}^n}\|Ax\|_\infty.
-$$
+```
+
 Determine the exact value of
-$$
+
+```math
 C_*=\sup_{n\geq1}d_n.
-$$
-Thus $C_*$ is the smallest real constant for which every square sign matrix $A$ admits a column signing $x$ with $\|Ax\|_\infty\leq C_*\sqrt n$.
+```
 
-The question concerns the sharp worst-case error in simultaneous signed sums. In matrix form it asks how far a square sign matrix can keep all sign vectors from the coordinate cube of radius $C\sqrt n$.
+Thus $`C_*`$ is the smallest real constant for which every square sign matrix $`A`$ admits a column signing $`x`$ with $`\|Ax\|_\infty\leq C_*\sqrt n`$.
 
-The source also poses $\limsup_{n\to\infty}d_n>1$ as a related asymptotic conjecture. It is recorded here as context rather than counted as another entry.
+The question concerns the sharp worst-case error in simultaneous signed sums. In matrix form it asks how far a square sign matrix can keep all sign vectors from the coordinate cube of radius $`C\sqrt n`$.
+
+The source also poses $`\limsup_{n\to\infty}d_n>1`$ as a related asymptotic conjecture. It is recorded here as context rather than counted as another entry.
 
 ## References
 

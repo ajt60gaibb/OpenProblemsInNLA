@@ -2,6 +2,10 @@
 import importlib.util
 import json
 from pathlib import Path
+import re
+import shutil
+import subprocess
+import sys
 import tempfile
 import unittest
 import yaml
@@ -40,6 +44,9 @@ class ProjectSelectionTests(unittest.TestCase):
     def test_unrelated_document_does_not_rebuild_proofs(self):
         self.assertEqual(projects.select(self.projects, ["README.md"]), [])
 
+    def test_control_fixture_toolchain_does_not_rebuild_problem_projects(self):
+        self.assertEqual(projects.select(self.projects, ["docs/lean/ci-toolchain/lean-toolchain"]), [])
+
     def test_discovery_uses_registry_and_detects_incomplete_project(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -76,6 +83,140 @@ class ProjectSelectionTests(unittest.TestCase):
             project.symlink_to(root / "elsewhere", target_is_directory=True)
             with self.assertRaises(ValueError):
                 projects.discover(root)
+
+class ProjectSelectionGitTests(unittest.TestCase):
+    """Exercise the CLI against real base/head trees, including Git path quoting."""
+
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary.cleanup)
+        self.root = Path(self.temporary.name) / "repo"
+        self.root.mkdir()
+        self.output = Path(self.temporary.name) / "github-output"
+        self.git("init", "-q")
+        registry = {"IE-19": "linear/IE-19/README.md",
+                    "MI-19": "matrix/MI-19/README.md",
+                    "MI-20": "matrix/MI-20/README.md"}
+        (self.root / "problem_ids.json").write_text(json.dumps(registry))
+        for identifier, canonical in registry.items():
+            readme = self.root / canonical
+            readme.parent.mkdir(parents=True)
+            readme.write_text(f"# {identifier}\n\n**Status:** Lean verified\n")
+            if identifier != "MI-20":
+                project = readme.parent / "lean"
+                project.mkdir()
+                for name in ["Challenge.lean", "Solution.lean"]:
+                    (project / name).write_text("-- source-presence fixture\n")
+        self.commit("base fixture")
+        self.base = self.git("rev-parse", "HEAD").strip()
+
+    def git(self, *args):
+        return subprocess.check_output(["git", "-C", str(self.root), *args],
+                                       text=True, stderr=subprocess.STDOUT)
+
+    def commit(self, message):
+        self.git("add", "-A")
+        self.git("-c", "user.name=Lean selector test", "-c", "user.email=test@localhost",
+                 "commit", "-qm", message)
+
+    def run_selection(self, base=None):
+        self.output.write_text("")
+        return subprocess.run(
+            [sys.executable, str(ROOT / "tools/lean/projects.py"), "--root", str(self.root),
+             "--base-ref", base or self.base, "--github-output", str(self.output)],
+            text=True, capture_output=True)
+
+    def selected_ids(self, result):
+        self.assertEqual(result.returncode, 0, result.stderr)
+        return [entry["id"] for entry in json.loads(result.stdout)["include"]]
+
+    def run_tools_changed(self, base=None):
+        workflow = yaml.safe_load((ROOT / ".github/workflows/lean-verification.yml").read_text())
+        step = next(step for step in workflow["jobs"]["select"]["steps"]
+                    if step.get("id") == "projects")
+        detector = re.search(r"<<'PY'\n(.*?)\nPY(?:\n|$)", step["run"], re.S)
+        self.assertIsNotNone(detector, "workflow must retain its inline shared-tool detector")
+        self.output.write_text("")
+        result = subprocess.run([sys.executable, "-", base or self.base, str(self.output)],
+                                input=detector.group(1), cwd=self.root,
+                                text=True, capture_output=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        return self.output.read_text()
+
+    def test_unicode_quoted_and_newline_filenames_select_project(self):
+        for name in ["Δ.lean", 'quoted"name.lean', "line\nbreak.lean"]:
+            with self.subTest(name=name):
+                base = self.git("rev-parse", "HEAD").strip()
+                (self.root / "linear/IE-19/lean" / name).write_text("-- changed proof input\n")
+                self.commit("proof input with special filename")
+                self.assertEqual(self.selected_ids(self.run_selection(base)), ["IE-19"])
+
+    def test_complete_project_deletion_fails_selection(self):
+        shutil.rmtree(self.root / "linear/IE-19/lean")
+        self.commit("remove project while retaining its canonical page")
+        result = self.run_selection()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("linear/IE-19/lean", result.stderr)
+        self.assertIn("removed or renamed", result.stderr)
+        self.assertEqual(self.output.read_text(), "")
+
+    def test_complete_project_rename_fails_selection(self):
+        (self.root / "linear/IE-19/lean").rename(self.root / "linear/IE-19/lean-archive")
+        self.commit("rename project away from its registered location")
+        result = self.run_selection()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("linear/IE-19/lean", result.stderr)
+        self.assertIn("removed or renamed", result.stderr)
+        self.assertEqual(self.output.read_text(), "")
+
+    def test_partial_project_deletion_still_selects_project(self):
+        (self.root / "linear/IE-19/lean/Solution.lean").unlink()
+        self.commit("remove one proof input")
+        self.assertEqual(self.selected_ids(self.run_selection()), ["IE-19"])
+
+    def test_renamed_file_selects_both_surviving_projects(self):
+        (self.root / "linear/IE-19/lean/Solution.lean").rename(
+            self.root / "matrix/MI-19/lean/Moved.lean")
+        self.commit("move a proof input between projects")
+        self.assertEqual(self.selected_ids(self.run_selection()), ["IE-19", "MI-19"])
+
+    def test_new_source_only_project_for_existing_id_is_selected(self):
+        project = self.root / "matrix/MI-20/lean"
+        project.mkdir()
+        (project / "Draft.lean").write_text("-- incomplete new formalization\n")
+        self.commit("add source-only project")
+        self.assertEqual(self.selected_ids(self.run_selection()), ["MI-20"])
+
+    def test_workflow_unicode_quoted_newline_tool_changes_request_controls(self):
+        directory = self.root / "tools/lean"
+        directory.mkdir(parents=True)
+        for name in ["Δ.py", 'quoted"name.py', "line\nbreak.py"]:
+            with self.subTest(name=name):
+                base = self.git("rev-parse", "HEAD").strip()
+                (directory / name).write_text("# shared control fixture\n")
+                self.commit("shared tool with special filename")
+                self.assertEqual(self.run_tools_changed(base), "tools_changed=true\n")
+
+    def test_workflow_renamed_away_tool_requests_controls(self):
+        tool = self.root / "tools/lean/helper.py"
+        tool.parent.mkdir(parents=True)
+        tool.write_text("# identical contents for rename detection\n")
+        self.commit("shared tool before rename")
+        base = self.git("rev-parse", "HEAD").strip()
+        archive = self.root / "archive/helper.py"
+        archive.parent.mkdir()
+        tool.rename(archive)
+        self.commit("rename shared tool outside control directory")
+        self.assertEqual(self.run_tools_changed(base), "tools_changed=true\n")
+
+    def test_workflow_control_fixture_toolchain_requests_only_controls(self):
+        pin = self.root / "docs/lean/ci-toolchain/lean-toolchain"
+        pin.parent.mkdir(parents=True)
+        pin.write_text("control fixture toolchain\n")
+        self.commit("control fixture pin change")
+        self.assertEqual(self.run_tools_changed(), "tools_changed=true\n")
+        self.assertEqual(self.selected_ids(self.run_selection()), [])
+
 
 class ManifestTests(unittest.TestCase):
     def setUp(self):

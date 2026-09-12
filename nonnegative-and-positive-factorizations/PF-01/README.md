@@ -16,9 +16,9 @@
 
 **Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the stated partial scope.**
 
-The real positive semidefinite rank is exactly four for $n=5$ and $n=6$. Explicit graph factors give the general bound $\operatorname{rank}_{\rm psd}M^{(n)}\le\lceil2\sqrt{2\lfloor(n-1)/2\rfloor}\rceil$, and submatrix monotonicity gives a lower bound of four for every $n\ge5$.
+The real positive semidefinite rank is exactly four for $`n=5`$ and $`n=6`$. Explicit graph factors give the general bound $`\mathop{\mathrm{rank}}\nolimits_{\rm psd}M^{(n)}\le\lceil2\sqrt{2\lfloor(n-1)/2\rfloor}\rceil`$, and submatrix monotonicity gives a lower bound of four for every $`n\ge5`$.
 
-**Remaining question:** The exact ranks as a function of $n$ remain undetermined for $n\ge7$. In particular, the new upper bound five at $n=7,8$ is not accompanied by a matching lower bound five. The finite orders remain part of this single family entry. The ratings assess that surviving question.
+**Remaining question:** The exact ranks as a function of $`n`$ remain undetermined for $`n\ge7`$. In particular, the new upper bound five at $`n=7,8`$ is not accompanied by a matching lower bound five. The finite orders remain part of this single family entry. The ratings assess that surviving question.
 
 **Primary reference:** [complete authored PDF](../../references/colbrook-factorization-2026-09-11/manuscripts/PF-01_subset_intersection.pdf), [standalone TeX](../../references/colbrook-factorization-2026-09-11/manuscripts/PF-01_subset_intersection.tex), **Theorem 1, Corollary 5 and equation (8)**. [Independent proof review](../../references/colbrook-factorization-2026-09-11/verification/reviews/PF-01-review.md) · [Authorship and submission record](../../references/colbrook-factorization-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
 
@@ -26,36 +26,36 @@ The real positive semidefinite rank is exactly four for $n=5$ and $n=6$. Explici
 
 ## Context and notation
 
-Write $\mathbb S_+^k$ for the cone of real symmetric positive semidefinite $k\times k$ matrices. For an entrywise nonnegative matrix $M\in\mathbb R_+^{p\times q}$, its **real positive semidefinite rank** is
+Write $`\mathbb S_+^k`$ for the cone of real symmetric positive semidefinite $`k\times k`$ matrices. For an entrywise nonnegative matrix $`M\in\mathbb R_+^{p\times q}`$, its **real positive semidefinite rank** is
 
-$$
-\operatorname{rank}_{\rm psd}(M)
+```math
+\mathop{\mathrm{rank}}\nolimits_{\rm psd}(M)
 =\min\{k\ge1:\ \exists A_1,\ldots,A_p,B_1,\ldots,B_q\in\mathbb S_+^k,\quad
-M_{ij}=\operatorname{tr}(A_iB_j)\ \text{for all }i,j\}.
-$$
+M_{ij}=\mathop{\mathrm{tr}}\nolimits(A_iB_j)\ \text{for all }i,j\}.
+```
 
-This definition concerns a family of matrix factors indexed by the rows and columns of $M$.
+This definition concerns a family of matrix factors indexed by the rows and columns of $`M`$.
 
 ## Problem statement
 
-For each integer $n\ge5$, let $\mathcal I_n$ and $\mathcal J_n$ consist of the subsets of $\{1,\ldots,n\}$ of cardinalities $\lfloor n/2\rfloor$ and $\lceil n/2\rceil$, respectively. Define the nonnegative matrix
+For each integer $`n\ge5`$, let $`\mathcal I_n`$ and $`\mathcal J_n`$ consist of the subsets of $`\{1,\ldots,n\}`$ of cardinalities $`\lfloor n/2\rfloor`$ and $`\lceil n/2\rceil`$, respectively. Define the nonnegative matrix
 
-$$
+```math
 M^{(n)}\in\mathbb R_+^{\mathcal I_n\times\mathcal J_n},
 \qquad M^{(n)}_{I,J}=|I\cap J|.
-$$
+```
 
 ### Question
 
-Determine $\operatorname{rank}_{\rm psd}(M^{(n)})$ exactly as a function of $n$, with real symmetric factors as defined above. The family is one problem; its individual orders are not separate catalog entries.
+Determine $`\mathop{\mathrm{rank}}\nolimits_{\rm psd}(M^{(n)})`$ exactly as a function of $`n`$, with real symmetric factors as defined above. The family is one problem; its individual orders are not separate catalog entries.
 
 The source supplies the bounds
 
-$$
+```math
 \left\lceil\frac{\sqrt{1+8n}-1}{2}\right\rceil
-\le \operatorname{rank}_{\rm psd}(M^{(n)})
+\le \mathop{\mathrm{rank}}\nolimits_{\rm psd}(M^{(n)})
 \le 2\lceil\sqrt n\rceil.
-$$
+```
 
 These matrices provide structured benchmarks for algorithms seeking small positive semidefinite factorizations.
 

@@ -13,7 +13,7 @@
 
 ## Literature-dependent resolution - 2026-09-11
 
-**Solved.** Hall's **Corollary 3.22**, based on **Theorem 3.20**, gives $\nu(H)\ge\delta(H)$ for every graph $H$. Induced-subgraph monotonicity and a vertex-critical subgraph of chromatic number $\chi(G)$ then prove the exact target $\nu(G)\ge\chi(G)-1$. The application note supplies the complete monotonicity and coloring argument, including rank-zero and disconnected cases.
+**Solved.** Hall's **Corollary 3.22**, based on **Theorem 3.20**, gives $`\nu(H)\ge\delta(H)`$ for every graph $`H`$. Induced-subgraph monotonicity and a vertex-critical subgraph of chromatic number $`\chi(G)`$ then prove the exact target $`\nu(G)\ge\chi(G)-1`$. The application note supplies the complete monotonicity and coloring argument, including rank-zero and disconnected cases.
 
 The all-graph theorem is due to **H. Tracy Hall**, [*The Delta Theorem*, arXiv:2601.01211v1](https://arxiv.org/html/2601.01211v1), submitted 3 January 2026. **George Stepaniants**, Department of Computing and Mathematical Sciences, California Institute of Technology, is the author of the [explanatory application note](solution.md); no new theorem discovery or priority is claimed. [Application PDF](solution.pdf) · [Standalone TeX](solution.tex).
 
@@ -23,24 +23,29 @@ The earlier status checks below are retained as historical records. The original
 
 ## Problem statement
 
-Let $G$ be a finite simple undirected graph on $n\ge1$ vertices. Let $\mathcal S(G)$ be the real symmetric matrices whose off-diagonal nonzero entries occur exactly at edges of $G$, with unrestricted diagonal.
+Let $`G`$ be a finite simple undirected graph on $`n\ge1`$ vertices. Let $`\mathcal S(G)`$ be the real symmetric matrices whose off-diagonal nonzero entries occur exactly at edges of $`G`$, with unrestricted diagonal.
 
-A matrix $A\in\mathcal S(G)$ has the **strong Arnold property (SAP)** if the only real symmetric matrix $X$ satisfying
-$$
+A matrix $`A\in\mathcal S(G)`$ has the **strong Arnold property (SAP)** if the only real symmetric matrix $`X`$ satisfying
+
+```math
 AX=0,\qquad A\circ X=0,\qquad I_n\circ X=0
-$$
-is $X=0$, where $\circ$ is the entrywise product. Define
-$$
+```
+
+is $`X=0`$, where $`\circ`$ is the entrywise product. Define
+
+```math
 \nu(G)=\max\{\dim\ker A:A\in\mathcal S(G),\ A\succeq0,\ A\text{ has SAP}\}.
-$$
-Writing $\chi(G)$ for the minimum number of colors in a proper vertex coloring, does every $G$ satisfy
-$$
+```
+
+Writing $`\chi(G)`$ for the minimum number of colors in a proper vertex coloring, does every $`G`$ satisfy
+
+```math
 \nu(G)\ge\chi(G)-1?
-$$
+```
 
 ## Relevance and ratings
 
- The conclusion asserts the existence of a positive-semidefinite matrix, with an exact prescribed sparsity pattern, of rank at most $n-\chi(G)+1$ and with an additional nondegeneracy property. Equivalently it constrains structured Gram matrix construction. This is adjacent to core NLA through matrix realization and inverse eigenvalue theory.
+ The conclusion asserts the existence of a positive-semidefinite matrix, with an exact prescribed sparsity pattern, of rank at most $`n-\chi(G)+1`$ and with an additional nondegeneracy property. Equivalently it constrains structured Gram matrix construction. This is adjacent to core NLA through matrix realization and inverse eigenvalue theory.
 
 ## References
 
@@ -57,4 +62,4 @@ The 2026 counterexamples to a Colin de Verdière conjecture about Laplace eigenv
 
 ## Audit update — 2026-09-10
 
-**Partially resolved:** the inequality holds for quasi-line graphs, meaning each vertex neighborhood is the union of two cliques. This follows by combining Chudnovsky–Fradkin Theorem 1.1 with the proved inequality $\nu(G)\ge\eta(G)-1$ recalled immediately before Conjecture 4.1, where $\eta$ is the largest clique-minor order. This is an implication of two established results, not a claim that the general conjecture is proved. Both full primary texts, the 2026 publication record, and targeted later searches were checked; no general resolution was located.
+**Partially resolved:** the inequality holds for quasi-line graphs, meaning each vertex neighborhood is the union of two cliques. This follows by combining Chudnovsky–Fradkin Theorem 1.1 with the proved inequality $`\nu(G)\ge\eta(G)-1`$ recalled immediately before Conjecture 4.1, where $`\eta`$ is the largest clique-minor order. This is an implication of two established results, not a claim that the general conjecture is proved. Both full primary texts, the 2026 publication record, and targeted later searches were checked; no general resolution was located.

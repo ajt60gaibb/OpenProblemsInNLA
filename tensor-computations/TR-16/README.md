@@ -8,21 +8,27 @@
 
 ## Statement
 
-For integers $p\ge3$ and $2\le n_1\le\cdots\le n_p$, let $G\in\bigotimes_{i=1}^p\mathbb R^{n_i}$ have independent standard normal entries. Let $X$ be the smooth manifold of nonzero real rank-one tensors in this space, and let $N(G)$ be the number of critical points on $X$ of
-$$
+For integers $`p\ge3`$ and $`2\le n_1\le\cdots\le n_p`$, let $`G\in\bigotimes_{i=1}^p\mathbb R^{n_i}`$ have independent standard normal entries. Let $`X`$ be the smooth manifold of nonzero real rank-one tensors in this space, and let $`N(G)`$ be the number of critical points on $`X`$ of
+
+```math
 Z\longmapsto\|G-Z\|_F^2.
-$$
-Each critical tensor is counted once, regardless of how its vector factors are scaled. Define $a(n_1,\ldots,n_p)=\mathbb E[N(G)]$; the critical-point count is finite almost surely.
+```
+
+Each critical tensor is counted once, regardless of how its vector factors are scaled. Define $`a(n_1,\ldots,n_p)=\mathbb E[N(G)]`$; the critical-point count is finite almost surely.
 
 If
-$$
+
+```math
 n_p-1>\sum_{i=1}^{p-1}(n_i-1),
-$$
+```
+
 is it always true that
-$$
+
+```math
 a(n_1,\ldots,n_{p-1},n_p)
 \le a(n_1,\ldots,n_{p-1},n_p-1)?
-$$
+```
+
 The expectation on the right uses a standard Gaussian tensor in the smaller space.
 
 ## Relevance

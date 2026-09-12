@@ -13,24 +13,30 @@
 
 ## Problem statement
 
-Let $V=\mathbb C^4\otimes\mathbb C^4\otimes\mathbb C^4$, with coordinates $t_{ijk}$, and let
-$$
+Let $`V=\mathbb C^4\otimes\mathbb C^4\otimes\mathbb C^4`$, with coordinates $`t_{ijk}`$, and let
+
+```math
 X=\overline{\left\{
 \sum_{\ell=1}^{4}a_\ell\otimes b_\ell\otimes c_\ell:
 a_\ell,b_\ell,c_\ell\in\mathbb C^4
 \right\}}^{\,\mathrm{Zar}}\subset V.
-$$
-Thus $X$ is the affine cone over the fourth secant variety of the Segre embedding of $\mathbb P^3\times\mathbb P^3\times\mathbb P^3$. Its points are exactly the tensors of complex border rank at most four.
+```
+
+Thus $`X`$ is the affine cone over the fourth secant variety of the Segre embedding of $`\mathbb P^3\times\mathbb P^3\times\mathbb P^3`$. Its points are exactly the tensors of complex border rank at most four.
 
 Let
-$$
+
+```math
 I=I(X)=\{f\in\mathbb C[t_{ijk}]: f(T)=0\text{ for every }T\in X\}
-$$
-be its homogeneous prime ideal. For each integer $a\geq0$, let $I_a$ be the vector space of homogeneous degree-$a$ polynomials in $I$. Is
-$$
+```
+
+be its homogeneous prime ideal. For each integer $`a\geq0`$, let $`I_a`$ be the vector space of homogeneous degree-$`a`$ polynomials in $`I`$. Is
+
+```math
 I=\langle I_5\cup I_6\cup I_9\rangle
-$$
-as an ideal of $\mathbb C[t_{ijk}]$?
+```
+
+as an ideal of $`\mathbb C[t_{ijk}]`$?
 
 The angle brackets mean all finite polynomial combinations of elements of these three homogeneous spaces. This is the revised Salmon conjecture in the degree-generation form explicitly stated by Friedland–Gross, §1. It asks for equality of ideals, not merely equality of zero sets or equality after taking radicals. It does not prescribe an unverified number of generators or identify the full homogeneous pieces with particular proposed representation modules.
 

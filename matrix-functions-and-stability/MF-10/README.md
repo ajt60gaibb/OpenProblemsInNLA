@@ -12,25 +12,25 @@
 
 ## Context and notation
 
-The joint spectral radius of a nonempty compact set $\mathcal M\subset\mathbb C^{d\times d}$ is
+The joint spectral radius of a nonempty compact set $`\mathcal M\subset\mathbb C^{d\times d}`$ is
 
-$$
+```math
 \widehat\rho(\mathcal M)=\lim_{k\to\infty}
 \max_{A_1,\ldots,A_k\in\mathcal M}\|A_k\cdots A_1\|_2^{1/k}.
-$$
+```
 
 This definition also applies to finite real matrix sets. The ordinary spectral
-radius of one matrix is written $\rho(A)$.
+radius of one matrix is written $`\rho(A)`$.
 
 ## Problem statement
 
-Is it true that, for every $d\ge1$ and every finite nonempty
-$\mathcal M\subset\mathbb Q^{d\times d}$, there exists a nonzero polynomial
-$p\in\mathbb Z[t]$ such that
+Is it true that, for every $`d\ge1`$ and every finite nonempty
+$`\mathcal M\subset\mathbb Q^{d\times d}`$, there exists a nonzero polynomial
+$`p\in\mathbb Z[t]`$ such that
 
-$$
+```math
 p\bigl(\widehat\rho(\mathcal M)\bigr)=0?
-$$
+```
 
 The claim is about the value being algebraic; it does not assert a uniform
 procedure for finding its minimal polynomial.
