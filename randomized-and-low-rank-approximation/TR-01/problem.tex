@@ -34,7 +34,7 @@ embedding},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}TR-01}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ dimension for a rerandomized Hadamard embedding\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Open\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -59,6 +59,14 @@ to the community\par}
 randomizations must remove the embedding logarithm uniformly over
 subspaces; community impact is fast sketching for least squares and
 low-rank methods.
+
+\begin{quote}
+\textbf{LEAN VERIFIED --- complete affirmative resolution.} TR-01 is
+resolved by the v7 manuscript theorem with full two-randomization
+rerandomized SRHT statement at prescribed width. The result is not a
+weaker-width selection. This retained entry is excluded from the open
+count.
+\end{quote}
 
 \subsection{Problem statement}\label{problem-statement}
 
@@ -97,21 +105,124 @@ baseline, Joel A. Tropp,
 Subsampled Randomized Hadamard Transform}}, \emph{Advances in Adaptive
 Data Analysis} 3 (2011), 115--126, Theorem 3.1.
 
-\subsection{Status check}\label{status-check}
+\subsection{Resolution and status check ---
+2026-09-12}\label{resolution-and-status-check-2026-09-12}
 
-Searches included \textit{"rerandomized SRHT" counterexample},
-\textit{"rerandomized" "subspace" Hadamard}, and
-\textit{"Hadamard" "two" "2026" embedding conjecture}. No resolution
-of the displayed two-round assertion was located. The September 2026
-SparseStack result in the
-\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/SCREENED-OUT.md\#screened-items-that-are-not-counted}{screening
-notes} concerns another distribution.
+The affine preprint \emph{Subspace embeddings with the rerandomized
+SRHT} (Theorem 1, manuscript page 2,
+\href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/manuscript.pdf}{arXiv-style
+full text}) proves that for each power-of-two \(n\), every
+\(1\le r\le n\), and every fixed \(r\)-dimensional subspace \(V\),
+choosing
 
-\subsection{Audit --- 2026-09-10}\label{audit-2026-09-10}
+\[
+k=\min\left\{n,\left\lceil Cr/\varepsilon^2\right\rceil\right\}
+\]
 
-Rechecked \href{https://arxiv.org/html/2602.05394v3}{workshop Problem
-5.6}. The precise two-round Hadamard distribution remains unproved
-there. Rerandomized-Hadamard and later embedding searches found no
-resolution; guarantees for independent sparse entries or additional
-randomizations do not settle this distribution.
+gives
+
+\[
+\Pr\left\{\|V^T\Omega^T\Omega V-I_r\|_2>\varepsilon\right\}\le0.01,
+\]
+
+for two independent Rademacher sign diagonals, two normalized Walsh
+transforms, and a uniform \(k\)-subset coordinate sample without
+replacement. The theorem proves the \emph{prescribed width itself} with
+full width cap and does not rely on a smaller alternative \(k\). The
+same universal constant works for every power-of-two \(n\), and there
+are no remaining parameter cases.
+
+The proven range is \(0<\varepsilon<1\), which strictly contains TR-01's
+displayed range \(0<\varepsilon<1/2\). This is therefore a complete
+affirmative resolution of the original target.
+
+The current statement is the TR-01 target at prescribed width; the
+original 2026 Simons problem version (Problem 5.6) is the same
+probabilistic target on fixed \(V\), and the manuscript explicitly
+records the comparison of the workshop and current versions.
+
+\subsection{Lean proof and verification
+evidence}\label{lean-proof-and-verification-evidence}
+
+The public Lean repository is
+\href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/tree/ed21181197ac839eac95f549404f94e7e3aa6e10}{OpenProblemsInNLA\_TR-01@ed211811},
+and the v7 Lean entry point is
+\textit{lean/Problem56/PaperV7/Certification.lean}.
+
+The canonical result declarations are
+
+\begin{itemize}
+\tightlist
+\item
+  \textit{Problem56.PaperV7.certified\_main}
+\item
+  \textit{Problem56.PaperV7.certified\_explicit\_main}
+\item
+  \textit{Problem56.PaperV7.main\_prescribed\_width\_ose}
+\end{itemize}
+
+The manuscript and Lean correspondence are reviewed in
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/manuscript.pdf}{manuscript.pdf}
+\item
+  \href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/manuscript.tex}{manuscript.tex}
+\item
+  \href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/audit/final_candidate_correspondence.md}{\textit{final\_candidate\_correspondence.md}}
+\item
+  \href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/audit/final_candidate_correspondence.json}{\textit{final\_candidate\_correspondence.json}}
+\end{itemize}
+
+Lean toolchain and dependency pins are
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/lean-toolchain}{lean-toolchain}
+  (\textit{lean 4.33.0})
+\item
+  \href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/lake-manifest.json}{lake-manifest.json}
+  (mathlib \textit{db584cd6d46c92f209a44c0f1c829460d327499d})
+\end{itemize}
+
+Reproducible checks are listed in the immutable validation record:
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/audit/delivery_check.json}{delivery\_check.json}
+  (PASS)
+\item
+  \href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/audit/cold_rebuild.json}{cold\_rebuild.json}
+  (rebuild log and source hashes)
+\item
+  \href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/audit/fresh_kernel_replay.json}{fresh\_kernel\_replay.json}
+\item
+  \href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/audit/semantic_regressions.json}{semantic\_regressions.json}
+\item
+  \href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/build/verification.json}{delivery\_check.json
+  (build log)}
+\end{itemize}
+
+The axiom audit is in the immutable artifact
+\href{https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/Problem56/PaperV7/AxiomAudit.lean}{\textit{AxiomAudit.lean}},
+with accepted transitive axioms only
+
+\begin{itemize}
+\tightlist
+\item
+  \textit{propext}
+\item
+  \textit{Classical.choice}
+\item
+  \textit{Quot.sound}
+\end{itemize}
+
+No \textit{sorry}, \textit{admit}, or custom mathematical axioms appear
+in the certified target graph.
+
+The catalog checked the statement correspondence and public verification
+records and did not rerun Lean locally for this upstream submission.
 \end{document}
