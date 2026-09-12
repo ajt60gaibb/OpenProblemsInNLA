@@ -15,8 +15,11 @@ def discover(root: Path) -> list[dict[str, str]]:
         if relative.is_absolute() or ".." in relative.parts:
             raise ValueError(f"Invalid registry path: {canonical}")
         project = root / relative
-        if any((project / name).exists() for name in
-               ("lean-toolchain", "lakefile.toml", "lakefile.lean", "formalization.yaml")):
+        # Even a source-only draft must be selected, so missing metadata or build
+        # inputs fail validation instead of silently skipping verification.
+        if project.exists() or project.is_symlink():
+            if project.is_symlink() or not project.is_dir():
+                raise ValueError(f"Lean project must be an ordinary directory: {relative}")
             result.append({"id": problem_id, "project": relative.as_posix()})
     return result
 

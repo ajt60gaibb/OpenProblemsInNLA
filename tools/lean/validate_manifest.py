@@ -13,14 +13,31 @@ import yaml
 ALLOWED_AXIOMS = {"propext", "Classical.choice", "Quot.sound"}
 
 
+def unique_pairs(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"Duplicate metadata/configuration key: {key!r}")
+        result[key] = value
+    return result
+
+
+class UniqueSafeLoader(yaml.SafeLoader):
+    def construct_mapping(self, node, deep=False):
+        self.flatten_mapping(node)
+        return unique_pairs((self.construct_object(key, deep=deep),
+                             self.construct_object(value, deep=deep))
+                            for key, value in node.value)
+
+
 def validate(project: Path, schema: dict) -> None:
-    metadata = yaml.safe_load((project / "formalization.yaml").read_text())
+    metadata = yaml.load((project / "formalization.yaml").read_text(), Loader=UniqueSafeLoader)
     validator = jsonschema.validators.validator_for(schema)
     validator.check_schema(schema)
     validator(schema).validate(metadata)
     if metadata.get("version") != "v0.4":
         raise ValueError("Use the pinned v0.4 manifest schema explicitly")
-    config = json.loads((project / "comparator.json").read_text())
+    config = json.loads((project / "comparator.json").read_text(), object_pairs_hook=unique_pairs)
     names = config.get("theorem_names", [])
     if not names or len(names) != len(set(names)):
         raise ValueError("Comparator must select distinct, nonempty target declarations")

@@ -1,5 +1,4 @@
 """Regression checks for project selection and truthful metadata coverage."""
-import copy
 import importlib.util
 import json
 from pathlib import Path
@@ -58,6 +57,26 @@ class ProjectSelectionTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 projects.discover(root)
 
+    def test_source_only_project_cannot_skip_verification(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "problem_ids.json").write_text('{"IE-19":"linear/IE-19/README.md"}')
+            project = root / "linear/IE-19/lean"
+            project.mkdir(parents=True)
+            (project / "Challenge.lean").write_text("-- incomplete source-only draft\n")
+            self.assertEqual(projects.discover(root), [self.projects[0]])
+
+    def test_symlinked_project_is_rejected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "problem_ids.json").write_text('{"IE-19":"linear/IE-19/README.md"}')
+            (root / "elsewhere").mkdir()
+            project = root / "linear/IE-19/lean"
+            project.parent.mkdir(parents=True)
+            project.symlink_to(root / "elsewhere", target_is_directory=True)
+            with self.assertRaises(ValueError):
+                projects.discover(root)
+
 class ManifestTests(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
@@ -85,6 +104,27 @@ class ManifestTests(unittest.TestCase):
 
     def test_valid_consistent_metadata(self):
         self.run_check()
+
+    def test_duplicate_yaml_status_is_rejected(self):
+        (self.root / "formalization.yaml").write_text(
+            "status:\n  sorry_count: 1\n" + yaml.safe_dump(self.metadata))
+        (self.root / "comparator.json").write_text(json.dumps(self.config))
+        with self.assertRaisesRegex(ValueError, "Duplicate.*status"):
+            manifest.validate(self.root, SCHEMA)
+
+    def test_duplicate_nested_yaml_key_is_rejected(self):
+        (self.root / "formalization.yaml").write_text(
+            yaml.safe_dump(self.metadata).replace("sorry_count: 0", "sorry_count: 1\n  sorry_count: 0", 1))
+        (self.root / "comparator.json").write_text(json.dumps(self.config))
+        with self.assertRaisesRegex(ValueError, "Duplicate.*sorry_count"):
+            manifest.validate(self.root, SCHEMA)
+
+    def test_duplicate_comparator_key_is_rejected(self):
+        (self.root / "formalization.yaml").write_text(yaml.safe_dump(self.metadata))
+        (self.root / "comparator.json").write_text(
+            '{"permitted_axioms":["sorryAx"],' + json.dumps(self.config)[1:])
+        with self.assertRaisesRegex(ValueError, "Duplicate.*permitted_axioms"):
+            manifest.validate(self.root, SCHEMA)
 
     def test_missing_required_schema_field(self):
         del self.metadata["sources"]
