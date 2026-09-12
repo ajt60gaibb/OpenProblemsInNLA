@@ -1,0 +1,394 @@
+% Standalone resolution manuscript generated from solution.md.
+% Compile with XeLaTeX; author and review metadata are maintained in Markdown.
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=24mm,headheight=15pt]{geometry}
+\usepackage{fontspec}
+\setmainfont{DejaVuSerif.ttf}[BoldFont=DejaVuSerif-Bold.ttf,ItalicFont=DejaVuSerif-Italic.ttf,BoldItalicFont=DejaVuSerif-BoldItalic.ttf]
+\setsansfont{DejaVuSans.ttf}[BoldFont=DejaVuSans-Bold.ttf,ItalicFont=DejaVuSans-Oblique.ttf]
+\setmonofont{DejaVuSansMono.ttf}
+\usepackage{amsmath,amssymb,unicode-math}
+\setmathfont{latinmodern-math.otf}
+\usepackage{xcolor,microtype,parskip,needspace,fancyhdr}
+\usepackage{bookmark}
+\usepackage{xurl}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue,pdftitle={IE-04:
+A rare-event obstruction to the uniform exponential GEPP
+tail},pdfauthor={George Stepaniants},pdflang={en-GB}}
+\urlstyle{same}
+\setlength{\emergencystretch}{3em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\setcounter{secnumdepth}{0}
+\allowdisplaybreaks[1]
+\widowpenalty=10000
+\clubpenalty=10000
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily RESOLUTION / IE-04}
+\fancyhead[R]{\small\sffamily 11 September 2026}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\fontsize{8}{10}\selectfont AI-assisted
+proof; independent automated-agent review documented in the submission
+record.}}
+\fancyfoot[R]{\footnotesize\thepage}
+\begin{document}
+{\raggedright\Large\bfseries IE-04: A rare-event obstruction to the
+uniform exponential GEPP tail\par}
+\vspace{0.4em}
+{\normalsize\bfseries George Stepaniants\par}
+{\small Department of Computing and Mathematical Sciences, California
+Institute of Technology, Pasadena, California, USA.\par}
+
+\vspace{0.6em}
+\pagestyle{plain}
+\setlength{\abovedisplayskip}{6pt}
+\setlength{\belowdisplayskip}{6pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+
+This manuscript gives a negative resolution of the complete IE-04
+inequality. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/stepaniants-ie04-2026-09-11/verification/IE-04-independent-review.md}{independent
+complete-proof review} returned PASS on the recovered source. This is
+AI-assisted work with independent automated-agent review; no external
+human peer review, formal proof-assistant certification, or novelty
+determination is claimed. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/stepaniants-ie04-2026-09-11/README.md}{submission
+record} preserves the supplied draft, exact checks, and public
+eligibility evidence.
+
+\subsection{Statement and conclusion}\label{statement-and-conclusion}
+
+IE-04 asks for universal \(c_1,c_2>0\) such that, for every admissible
+dimension, deterministic center, noise level, and \(x\geq1\),
+
+\nopagebreak[4]
+
+\[
+\Pr\{\rho_{\rm PP}(\bar A+\sigma G)>x(n/\sigma)^{c_1}\}
+\leq 2^{-c_2x},
+\tag{1}
+\]
+
+where \(\|\bar A\|_2\leq1\), \(0<\sigma\leq1\), and \(G\) has
+independent real standard normal entries {[}1{]}. The growth factor is
+the largest absolute entry among all active Schur complements, divided
+by the largest absolute input entry. Elimination is in exact arithmetic.
+
+\textbf{Theorem.} For every \(n\geq2\) and either \(C=0\) or \(C=I_n\),
+a standard Gaussian matrix \(G\) satisfies
+
+\nopagebreak[4]
+
+\[
+\Pr\!\left\{\rho_{\rm PP}(C+G)>
+\frac12\left(\frac32\right)^{n-1}\right\}
+\geq 2^{-n^2(n^2+n+5)}
+\geq 2^{-3n^4}.
+\tag{2}
+\]
+
+Consequently, (1) is false for every choice of positive constants
+\(c_1,c_2\). The case \(\bar A=I_n\), \(\sigma=1\) already contradicts
+it. This deterministic center is nonsingular and has spectral norm one.
+
+The point is the requirement of an exponential tail in \textbf{every}
+\(x\geq1\). An exponentially large growth factor has at least an
+inverse-exponential-in-a-polynomial-of-\(n\) probability; the proposed
+right-hand side at the corresponding \(x\) is much smaller. This does
+not deny a polynomial growth bound with high probability, or settle a
+different tail estimate restricted to a smaller range of \(x\).
+
+\subsection{A strictly pivoted high-growth
+matrix}\label{a-strictly-pivoted-high-growth-matrix}
+
+Define \(W_n=(w_{ij})\) by
+
+\nopagebreak[4]
+
+\[
+w_{ij}=\begin{cases}
+1,&j=n,\\
+1,&j<n\text{ and }i=j,\\
+-1/2,&j<n\text{ and }i>j,\\
+0,&j<n\text{ and }i<j.
+\end{cases}
+\tag{3}
+\]
+
+For example, its order-four instance is
+
+\nopagebreak[4]
+
+\[
+W_4=\begin{pmatrix}
+1&0&0&1\\
+-1/2&1&0&1\\
+-1/2&-1/2&1&1\\
+-1/2&-1/2&-1/2&1
+\end{pmatrix}.
+\]
+
+At elimination step \(k<n\), the pivot is \(1\) and every competitor in
+the pivot column is \(-1/2\). Thus partial pivoting uniquely chooses the
+current row. The other nonfinal columns keep the same triangular
+pattern. In the final column, all remaining entries have a common value
+\(c_k\), and a step changes this to \(c_k-(-1/2)c_k=(3/2)c_k\). Hence
+
+\nopagebreak[4]
+
+\[
+c_k=\left(\frac32\right)^{k-1},\qquad
+\rho_{\rm PP}(W_n)=c_n.
+\tag{4}
+\]
+
+In particular, \(W_n\) is nonsingular. All entries of every exact active
+matrix have absolute value at most \(2^n\).
+
+\subsection{Quantitative robustness on a full entrywise
+box}\label{quantitative-robustness-on-a-full-entrywise-box}
+
+Set
+
+\nopagebreak[4]
+
+\[
+B_n=2^{n+2},\qquad \delta_n=2^{-(n^2+n+1)}.
+\tag{5}
+\]
+
+These constants satisfy
+
+\nopagebreak[4]
+
+\[
+B_n^{n-1}\delta_n=\frac18.
+\tag{6}
+\]
+
+\textbf{Lemma.} Every real matrix \(A\) with
+\(\|A-W_n\|_{\max}\leq\delta_n\) is nonsingular, has a unique no-swap
+partial-pivoting path, and satisfies
+
+\nopagebreak[4]
+
+\[
+\rho_{\rm PP}(A)>\frac{c_n}{2}.
+\tag{7}
+\]
+
+\textbf{Proof.} Denote the active Schur complements of \(W_n\) and \(A\)
+by \(S_k\) and \(T_k\). We prove by induction that the same no-swap path
+is selected and
+
+\nopagebreak[4]
+
+\[
+e_k:=\|T_k-S_k\|_{\max}\leq B_n^{k-1}\delta_n\leq\frac18.
+\tag{8}
+\]
+
+The initial claim follows from the box condition. Suppose it holds at
+step \(k<n\); retain the original global indices on the active entries.
+The perturbed pivot has value at least \(1-e_k\geq7/8\), while every
+competing entry has absolute value at most \(1/2+e_k\leq5/8\). The pivot
+is therefore strictly largest and positive.
+
+Write \(b=-1/2\) for the unperturbed elimination multiplier in a
+remaining row, and \(q=(T_k)_{ik}/(T_k)_{kk}\) for its perturbed value.
+For \(e=e_k\leq1/8\),
+
+\nopagebreak[4]
+
+\[
+|q|\leq\frac{1/2+e}{1-e}\leq\frac57<1,
+\qquad
+|q-b|\leq\frac{(3/2)e}{1-e}\leq2e.
+\tag{9}
+\]
+
+For each remaining \((i,j)\), subtracting the two exact update formulas
+gives
+
+\nopagebreak[4]
+
+\[
+\begin{aligned}
+(T_{k+1}-S_{k+1})_{ij}
+={}&(T_k-S_k)_{ij}
+-q(T_k-S_k)_{kj}\\
+&-(q-b)(S_k)_{kj}.
+\end{aligned}
+\tag{10}
+\]
+
+Using \(|(S_k)_{kj}|\leq2^n\) and (9),
+
+\nopagebreak[4]
+
+\[
+e_{k+1}\leq (2+2^{n+1})e_k\leq B_ne_k.
+\tag{11}
+\]
+
+This proves the induction, including the strict pivot selection at every
+nonfinal step. The final scalar Schur complement is at least
+\(c_n-1/8>0\), so all pivots are nonzero and \(A\) is nonsingular. Also
+\(\|A\|_{\max}\leq1+\delta_n\leq9/8\). Consequently,
+
+\nopagebreak[4]
+
+\[
+\rho_{\rm PP}(A)\geq\frac{c_n-1/8}{1+\delta_n}
+\geq\frac{8c_n-1}{9}\geq\frac{7c_n}{9}>\frac{c_n}{2},
+\tag{12}
+\]
+
+where \(c_n\geq1\) was used. This proves the lemma. Notice that the
+statement concerns the entire box, not sampled perturbations, and uses
+no unspecified continuity radius.
+
+\Needspace{10\baselineskip}
+
+\subsection{Gaussian probability of the
+box}\label{gaussian-probability-of-the-box}
+
+Fix \(C\in\{0,I_n\}\) and set \(A=C+G\). Define the event
+
+\nopagebreak[4]
+
+\[
+E_n=\{\,|G_{ij}-(w_{ij}-C_{ij})|\leq\delta_n
+\text{ for every }i,j\,\}.
+\tag{13}
+\]
+
+On \(E_n\), the matrix \(A=C+G\) belongs to the box around \(W_n\) in
+the lemma. For the smoothed counterexample we use \(C=I_n\), so
+\(\bar A=I_n\) and \(\sigma=1\). This obeys \(\|\bar A\|_2=1\) and even
+a requirement that the deterministic center be nonsingular. The matrix
+\(W_n\) is only the center of the high-growth event in input space;
+there is no requirement that \(\|W_n\|_2\leq1\). The case \(C=0\) gives
+an additional pure-Gaussian statement but is not needed for the
+counterexample.
+
+Each interval in (13) lies within \([-2,2]\), because
+\(|w_{ij}-C_{ij}|\leq1\) for both choices of \(C\), and
+\(\delta_n\leq1/8\). The standard normal density there is bounded below
+by
+
+\nopagebreak[4]
+
+\[
+\frac{e^{-2}}{\sqrt{2\pi}}>\frac1{32}.
+\tag{14}
+\]
+
+For instance, \(e<3\) and \(\pi<4\) imply that the left side exceeds
+\(1/27\). Each interval has length \(2\delta_n\), and the entries are
+independent. It follows that
+
+\nopagebreak[4]
+
+\[
+\Pr(E_n)\geq\left(\frac{\delta_n}{16}\right)^{n^2}
+=2^{-n^2(n^2+n+5)}.
+\tag{15}
+\]
+
+The lemma gives \(E_n\subseteq\{\rho_{\rm PP}(C+G)>c_n/2\}\). Finally,
+\(n^2(n^2+n+5)\leq3n^4\) for \(n\geq2\): subtracting gives
+\(n^2(2n^2-n-5)>0\). This proves (2).
+
+\Needspace{10\baselineskip}
+
+\subsection{Contradiction for arbitrary proposed
+constants}\label{contradiction-for-arbitrary-proposed-constants}
+
+Let \(c_1,c_2>0\) be arbitrary. Put
+
+\nopagebreak[4]
+
+\[
+x_n=\frac{(3/2)^{n-1}}{2n^{c_1}},
+\qquad K_n=n^2(n^2+n+5).
+\tag{16}
+\]
+
+Exponential growth dominates every fixed power of \(n\), so \(x_n\geq1\)
+and \(c_2x_n>K_n\) for all sufficiently large \(n\). More explicitly,
+
+\nopagebreak[4]
+
+\[
+\log\frac{x_n}{K_n}
+=(n-1)\log(3/2)-(c_1+4)\log n-\log2
+-\log(1+1/n+5/n^2)\longrightarrow+\infty.
+\tag{17}
+\]
+
+For such \(n\), (2) with \(C=I_n\) yields
+
+\nopagebreak[4]
+
+\[
+\Pr\{\rho_{\rm PP}(I_n+G)>x_nn^{c_1}\}
+\geq2^{-K_n}>2^{-c_2x_n},
+\tag{18}
+\]
+
+contradicting (1) in an admissible instance. Thus no pair of universal
+positive constants can satisfy the displayed IE-04 inequality.
+
+\Needspace{9\baselineskip}
+
+\subsection{Verification, scope, and
+provenance}\label{verification-scope-and-provenance}
+
+This is an analytic proof for every dimension and every proposed pair of
+constants. The accompanying \texttt{verify\_bounds.py} supplies
+additional exact checks: the default run certifies the \textbf{whole}
+entrywise box for each \(n=2,\ldots,16\) by outward-rounded dyadic
+interval arithmetic, verifies the scalar bounds for \(n=2,\ldots,256\),
+and gives illustrative exact contradiction dimensions for several
+selected constants. These finite checks do not replace the universal
+argument above. They require only Python's standard library.
+
+\begin{verbatim}
+python verify_bounds.py
+\end{verbatim}
+
+\texttt{certificate.json} and \texttt{verification.txt} record the
+successful run. The earlier interrupted work contained the
+high-growth/small-box proof outline; this explicit version, including
+the constants and all inequalities, was completed and checked during
+recovery. The argument was developed with substantial ChatGPT/Codex
+assistance at the author's request. A separate independent Codex-agent
+review returned PASS for the complete canonical target; the signed
+report is preserved in the submission record. No external human peer
+review, formal proof-assistant certification, or novelty/priority
+determination is claimed.
+
+The conclusion concerns precisely (1), with its unrestricted \(x\geq1\).
+It does not produce an alternative optimal smoothed tail, resolve growth
+expectations, or identify a sharp high-probability polynomial exponent.
+The historical motivation appears in {[}2{]}, Conjecture 16; the
+canonical repository formulation is the target certified here.
+
+\Needspace{12\baselineskip}
+
+\subsection{References}\label{references}
+
+{[}1{]} OpenProblemsInNLA, IE-04, canonical statement, displayed
+smoothed probability inequality and growth convention; accessed during
+the recovery session.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/linear-systems-and-elimination/IE-04}{Repository
+entry}.
+
+{[}2{]} D. A. Spielman and S.-H. Teng, \emph{Smoothed Analysis of
+Algorithms and Heuristics: Progress and Open Questions}, in
+\emph{Foundations of Computational Mathematics, Santander 2005} (2006),
+274--342. Section P6, Conjecture 16, page 52 of the
+\href{https://www.cs.yale.edu/homes/spielman/PAPERS/focmSmoothed.pdf}{author
+PDF}. DOI: 10.1017/CBO9780511721571.010.
+\end{document}

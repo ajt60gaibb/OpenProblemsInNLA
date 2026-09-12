@@ -6,23 +6,10 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Status:** Solved  
-**Last checked:** 2026-09-11  
+**Status:** Open  
+**Last checked:** 2026-09-10  
 
 **Rating rationale:** Extreme reflects a uniform tail bound over adversarial matrix centers, beyond current average-case analysis; broad impact is justified by explaining the stability of a standard dense solver.
-
-## Resolution — 11 September 2026
-
-**Solved negatively.** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, gives a counterexample to the displayed universal exponential tail. The [complete proof's theorem, equation (2), and robustness lemma](solution.md) show that, for every $n\ge2$,
-
-$$
-\Pr\!\left\{\rho_{\mathrm{PP}}(I_n+G)>\tfrac12(3/2)^{n-1}\right\}
-\ge 2^{-n^2(n^2+n+5)}.
-$$
-
-For any proposed $c_1,c_2>0$, take $\bar A=I_n$, $\sigma=1$ and $x=(3/2)^{n-1}/(2n^{c_1})$. Sufficiently large $n$ give an admissible $x\ge1$ and violate the proposed upper bound. This covers the exact real Gaussian model and every proposed universal pair; the event has strict pivot choices and nonsingular matrices. The conclusion uses the unrestricted range of $x$ and does not address a different tail restricted to smaller $x$.
-
-[Proof PDF](solution.pdf) · [Standalone source](solution.tex) · [Independent complete-proof review](../../references/stepaniants-ie04-2026-09-11/verification/IE-04-independent-review.md) · [Submission and verification record](../../references/stepaniants-ie04-2026-09-11/README.md). AI assistance and automated-review limits are disclosed. The permanent ID, original statement, and historical ratings below are retained.
 
 ## Context and notation
 
