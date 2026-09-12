@@ -1,0 +1,124 @@
+def NLA.MI29.spectralPower : {n : Nat} →
+  (A : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) → (r : Real) → Matrix.{0, 0, 0} (Fin n) (Fin n) Complex :=
+fun {n : Nat} (A : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) (r : Real) =>
+  @CFC.rpow.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+    (@Matrix.instPartialOrder.{0, 0} Complex (Fin n) Complex.instRCLike)
+    (@Matrix.instRing.{0, 0} (Fin n) Complex (Fin.fintype n) (instDecidableEqFin n) Complex.instRing)
+    (@Matrix.instStarRing.{0, 0} (Fin n) Complex (Fin.fintype n)
+      (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+        (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+          (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing)))
+      Complex.instStarRing)
+    (@instTopologicalSpaceMatrix.{0, 0, 0} (Fin n) (Fin n) Complex
+      (@UniformSpace.toTopologicalSpace.{0} Complex
+        (@PseudoMetricSpace.toUniformSpace.{0} Complex
+          (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+            (@SeminormedCommRing.toSeminormedRing.{0} Complex
+              (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))))
+    (@NLA.MI29.spectralPower._proof_1 n)
+    (@Matrix.instAlgebra.{0, 0, 0} (Fin n) Real Complex (Fin.fintype n) (instDecidableEqFin n) Real.instCommSemiring
+      (@Ring.toSemiring.{0} Complex Complex.instRing)
+      (@NormedAlgebra.toAlgebra.{0, 0} Real Complex Real.normedField
+        (@SeminormedCommRing.toSeminormedRing.{0} Complex
+          (@NormedCommRing.toSeminormedCommRing.{0} Complex
+            (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))
+        (@RCLike.toNormedAlgebra.{0} Complex Complex.instRCLike)))
+    (@NLA.MI29.spectralPower._proof_3 n) (@NLA.MI29.spectralPower._proof_4 n) A r
+def NLA.MI29.matrixModulus : {n : Nat} →
+  (X : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) → Matrix.{0, 0, 0} (Fin n) (Fin n) Complex :=
+fun {n : Nat} (X : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex) =>
+  @CFC.abs.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+    (@Matrix.instNonUnitalRing.{0, 0} (Fin n) Complex (Fin.fintype n)
+      (@NonUnitalCommRing.toNonUnitalRing.{0} Complex Complex.instNonUnitalCommRing))
+    (@Matrix.instStarRing.{0, 0} (Fin n) Complex (Fin.fintype n)
+      (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+        (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+          (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing)))
+      Complex.instStarRing)
+    (@instTopologicalSpaceMatrix.{0, 0, 0} (Fin n) (Fin n) Complex
+      (@UniformSpace.toTopologicalSpace.{0} Complex
+        (@PseudoMetricSpace.toUniformSpace.{0} Complex
+          (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+            (@SeminormedCommRing.toSeminormedRing.{0} Complex
+              (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))))
+    (@Matrix.module.{0, 0, 0, 0} (Fin n) (Fin n) Real Complex Real.semiring Complex.instAddCommMonoid
+      (@NormedSpace.toModule.{0, 0} Real Complex Real.normedField
+        (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+          (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+            (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+              (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+        (@InnerProductSpace.toNormedSpace.{0, 0} Real Complex Real.instRCLike
+          (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+            (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+              (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+                (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                  (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+          instInnerProductSpaceRealComplex)))
+    (@NLA.MI29.matrixModulus._proof_1 n) (@NLA.MI29.matrixModulus._proof_2 n) (@NLA.MI29.matrixModulus._proof_6 n)
+    (@Matrix.instPartialOrder.{0, 0} Complex (Fin n) Complex.instRCLike) (@NLA.MI29.spectralPower._proof_1 n)
+    (@NLA.MI29.spectralPower._proof_4 n) X
+def NLA.MI29.ModulusDeterminantConjecture : Prop :=
+∀ (n : Nat),
+  @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) n →
+    ∀ (A B : Matrix.{0, 0, 0} (Fin n) (Fin n) Complex),
+      @Matrix.PosDef.{0, 0} (Fin n) Complex Complex.instRing Complex.partialOrder Complex.instStarRing A →
+        @Matrix.IsHermitian.{0, 0} Complex (Fin n)
+            (@InvolutiveStar.toStar.{0} Complex
+              (@StarAddMonoid.toInvolutiveStar.{0} Complex
+                (@AddCommMonoid.toAddMonoid.{0} Complex
+                  (@NonUnitalNonAssocSemiring.toAddCommMonoid.{0} Complex
+                    (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+                      (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+                        (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing)))))
+                (@StarRing.toStarAddMonoid.{0} Complex
+                  (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+                    (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+                      (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing)))
+                  Complex.instStarRing)))
+            B →
+          @IsUnit.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+              (@Semiring.toMonoid.{0} (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+                (@Matrix.semiring.{0, 0} (Fin n) Complex Complex.instSemiring (Fin.fintype n) (instDecidableEqFin n)))
+              B →
+            ∀ (k p : Real),
+              @LE.le.{0} Real Real.instLE (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))
+                  k →
+                @LE.le.{0} Real Real.instLE (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))
+                    p →
+                  @LE.le.{0} Complex
+                    (@Preorder.toLE.{0} Complex (@PartialOrder.toPreorder.{0} Complex Complex.partialOrder))
+                    (@NLA.MI29.rightDet n A B k p) (@NLA.MI29.leftDet n A B k p)
+theorem NLA.MI29.spectralPower_natCast : ∀ {n : ℕ} (A : Matrix (Fin n) (Fin n) ℂ),
+  A.PosSemidef → ∀ (r : ℕ), NLA.MI29.spectralPower A ↑r = A ^ r :=
+fun {n} A hA r => sorry
+theorem NLA.MI29.modulus_power_eight : ∀ {n : ℕ} (X : Matrix (Fin n) (Fin n) ℂ),
+  NLA.MI29.matrixModulus X = CFC.sqrt (X.conjTranspose * X) ∧
+    (NLA.MI29.matrixModulus X).PosSemidef ∧
+      NLA.MI29.spectralPower (NLA.MI29.matrixModulus X) 8 = (X.conjTranspose * X) ^ 4 :=
+fun {n} X => sorry
+theorem NLA.MI29.comparison_positive_real : ∀ {n : ℕ},
+  1 ≤ n →
+    ∀ (A B : Matrix (Fin n) (Fin n) ℂ),
+      A.PosDef →
+        B.IsHermitian →
+          IsUnit B →
+            ∀ (k p : ℝ),
+              0 ≤ k →
+                0 ≤ p →
+                  (NLA.MI29.leftDet A B k p).im = 0 ∧
+                    0 < (NLA.MI29.leftDet A B k p).re ∧
+                      (NLA.MI29.rightDet A B k p).im = 0 ∧ 0 < (NLA.MI29.rightDet A B k p).re :=
+fun {n} hn A B hA hB hBinv k p hk hp => sorry
+CFC.rpow_natCast.{u_1} {A : Type u_1} [PartialOrder A] [Ring A] [StarRing A] [TopologicalSpace A] [StarOrderedRing A]
+  [Algebra ℝ A] [ContinuousFunctionalCalculus ℝ A IsSelfAdjoint] [NonnegSpectrumClass ℝ A] (a : A) (n : ℕ)
+  (ha : 0 ≤ a := by cfc_tac) : a ^ ↑n = a ^ n
+CFC.abs_sq.{u_2} {A : Type u_2} [Ring A] [TopologicalSpace A] [StarRing A] [PartialOrder A] [StarOrderedRing A]
+  [Algebra ℝ A] [NonnegSpectrumClass ℝ A] [IsTopologicalRing A] [T2Space A]
+  [ContinuousFunctionalCalculus ℝ A IsSelfAdjoint] (a : A) : CFC.abs a ^ 2 = star a * a
+Matrix.isStrictlyPositive_iff_posDef.{u_1, u_2} {𝕜 : Type u_1} {n : Type u_2} [RCLike 𝕜] [Fintype n] [DecidableEq n]
+  {x : Matrix n n 𝕜} : IsStrictlyPositive x ↔ x.PosDef
+Matrix.PosDef.det_pos.{u_2, u_3} {n : Type u_2} {𝕜 : Type u_3} [Fintype n] [RCLike 𝕜] {A : Matrix n n 𝕜} [DecidableEq n]
+  (hA : A.PosDef) : 0 < A.det
