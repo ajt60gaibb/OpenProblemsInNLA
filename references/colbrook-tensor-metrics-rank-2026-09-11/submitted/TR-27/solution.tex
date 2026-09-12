@@ -1,0 +1,240 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage{booktabs}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\C}{\mathbb C}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\rk}{\operatorname{R}}
+\newcommand{\brk}{\underline{\operatorname{R}}}
+\newcommand{\Span}{\operatorname{span}}
+\title{Border rank two does not force a tensor-square rank saving}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\vspace{-2.5em}
+\begin{center}\small Proposed resolution; pending independent mathematical review.\end{center}
+\begin{abstract}
+An explicit smooth, irreducible, nondegenerate curve $X\subset\PP^{11}$ and a point $p$ satisfy
+$\brk_X(p)=2$, $\rk_X(p)=3$, and $\rk_{X\times X}(p\otimes p)=9$.
+Thus the implication in repository problem TR-27 is false for its stated class of projective varieties.
+More generally, for every $r\geq3$ and every $m\geq2$, a smooth projected rational normal curve has a point of border rank two and rank $r$ whose first $m$ tensor powers have ranks $r,r^2,\ldots,r^m$.
+The proof is elementary: a projection preserves independence of small sets of distinct curve points while identifying a high-rank tangent vector with a sum of $r$ curve points.
+All tensor products retain their separate factors.
+\end{abstract}
+
+\section{The claim being answered}
+For a reduced irreducible nondegenerate projective variety $X\subset\PP(V)$ over $\C$, let $\rk_X(p)$ be the smallest number of points of $X$ whose span contains $p$. Border rank $\brk_X(p)$ is defined by Zariski closure of these rank loci. Scalars in linear combinations are unrestricted. For $k\geq1$, write $X^{\times k}$ for its Segre-embedded product in $\PP(V^{\otimes k})$.
+
+Problem TR-27 asks whether
+\begin{equation}\label{eq:claim}
+ \brk_X(p)<\rk_X(p)\quad\Longrightarrow\quad
+ \rk_{X\times X}(p\otimes p)<\rk_X(p)^2
+\end{equation}
+always holds. The same implication is Conjecture 1.1 of Ballico--Bernardi--Gesmundo--Oneto--Ventura~\cite{BBGOV}, and is restated as Conjecture 4.9 in~\cite{OV}. The construction below disproves precisely this general-variety statement. It does not assert a counterexample when $X$ is required to be a Segre or a Veronese variety.
+
+\begin{theorem}\label{thm:main}
+Let $r\geq3$ and $m\geq2$ be integers, and put $D=r^m+r$. There are a smooth rational nondegenerate curve $X\subset\PP^{D-1}$ and a point $p$ such that
+\[
+ \brk_X(p)=2,\qquad \rk_X(p)=r,\qquad
+ \rk_{X^{\times k}}(p^{\otimes k})=r^k\quad(1\leq k\leq m).
+\]
+In particular, $r=3$, $m=2$, and $D=12$ give a counterexample to~\eqref{eq:claim}.
+\end{theorem}
+
+\section{Two elementary independence lemmas}
+Let $E_D=\C^{D+1}$ with basis $e_0,\ldots,e_D$. Write
+\[
+ c_D(t)=\sum_{j=0}^D t^j e_j\quad(t\in\C),\qquad c_D(\infty)=e_D.
+\]
+The projective points $[c_D(t)]$ form the rational normal curve $C_D$. Distinct points of $C_D$ are linearly independent whenever their number is at most $D+1$. This follows from the Vandermonde determinant, including the usual last-coordinate version when one point is at infinity.
+
+\begin{lemma}\label{lem:tangent}
+For $D\geq2$, $\rk_{C_D}([e_1])=D$.
+\end{lemma}
+\begin{proof}
+Suppose $e_1$ were a linear combination of $\ell\leq D-1$ distinct curve vectors, with parameter set $S\subset\PP^1$. Define
+\[
+ f(T)=T\prod_{a\in S\setminus\{0,\infty\}}(T-a).
+\]
+Then $f'(0)\neq0$. Every finite parameter in $S$ is a root of $f$.
+If $\infty\notin S$, then $\deg f\leq\ell+1\leq D$; if $\infty\in S$, then $\deg f\leq\ell\leq D-1$.
+Write $f(T)=\sum_{j=0}^D f_jT^j$. The linear functional $L_f(e_j)=f_j$ annihilates every curve vector in the putative decomposition: for finite $a$, $L_f(c_D(a))=f(a)$, while $L_f(c_D(\infty))=f_D=0$ when infinity occurs. But $L_f(e_1)=f_1=f'(0)\neq0$, a contradiction.
+
+For the upper bound, summation over the $D$th roots of unity gives
+\[
+ e_1=\frac1D\sum_{\zeta^D=1}\zeta^{-1}c_D(\zeta).
+\]
+Indeed, for $0\leq j\leq D$, the sum of $\zeta^{j-1}$ is nonzero only at $j=1$.
+\end{proof}
+
+\begin{lemma}\label{lem:product}
+Suppose that every set of at most $K$ distinct points of $X\subset\PP(V)$ is linearly independent. If $\rk_X(p)=r$ and $r^k-1\leq K$, then
+\[
+ \rk_{X^{\times k}}(p^{\otimes k})=r^k.
+\]
+\end{lemma}
+\begin{proof}
+An $r$-term expression for $p$ gives the upper bound by expansion. Suppose, for a contradiction, that a representative $v$ of $p$ satisfies
+\begin{equation}\label{eq:short}
+ v^{\otimes k}=\sum_{\ell=1}^{L}\lambda_\ell
+ x_{1\ell}\otimes\cdots\otimes x_{k\ell},\qquad L\leq r^k-1,
+\end{equation}
+where $[x_{j\ell}]\in X$. For each factor $j$, collect the distinct projective points that occur in that factor and choose one representative for each. Denote this set of representatives by $A_j$. It has at most $L\leq K$ elements, so is linearly independent.
+
+Contract~\eqref{eq:short} in all factors except $j$ with any functional $\varphi\in V^*$ satisfying $\varphi(v)=1$. It follows that $v\in\Span A_j$. In the unique expansion of $v$ in the basis $A_j$, at least $r$ coefficients are nonzero, since otherwise $\rk_X(p)<r$.
+
+The products of the bases $A_1,\ldots,A_k$ form a basis of their tensor-product span. In this basis, $v^{\otimes k}$ has at least $r^k$ nonzero coordinates: its support is the Cartesian product of the nonzero supports of the $k$ expansions of $v$. The right-hand side of~\eqref{eq:short} uses at most $L$ such basis vectors, even after repeated products are combined. This is impossible for $L<r^k$.
+\end{proof}
+
+\section{The projected curve}
+Choose pairwise distinct nonzero complex numbers $a_1,\ldots,a_r$; the choices $a_i=i$ suffice. Set
+\[
+ b=\sum_{i=1}^r c_D(a_i),\qquad z=e_1-b,
+ \qquad V=E_D/\C z,
+\]
+and let $\pi:E_D\to V$ be the quotient map. Lemma~\ref{lem:tangent} and subadditivity of rank give
+\begin{equation}\label{eq:center-rank}
+ D=\rk_{C_D}([e_1])\leq\rk_{C_D}([z])+\rk_{C_D}([b])
+ \leq\rk_{C_D}([z])+r.
+\end{equation}
+Consequently $\rk_{C_D}([z])\geq D-r=r^m$; in particular, $z\neq0$ and $[z]\notin C_D$. The restriction of projective projection to $C_D$ is therefore a morphism. Let $X$ be its image, with its reduced structure. It is closed and irreducible because $C_D$ is projective and irreducible. It is nondegenerate because $C_D$ spans $\PP(E_D)$ and $\pi$ is surjective.
+
+\begin{proposition}\label{prop:independence}
+Every set of at most $K=r^m-1$ distinct points of $X$ is linearly independent.
+\end{proposition}
+\begin{proof}
+Choose lifts $u_1,\ldots,u_s$ on $C_D$ of $s\leq K$ distinct image points. The lifts are distinct. A linear dependence among their images would give
+\[
+ \sum_{i=1}^s\alpha_i u_i=\lambda z.
+\]
+If $\lambda\neq0$, this expresses $z$ using at most $s\leq r^m-1$ curve points, contrary to~\eqref{eq:center-rank}. If $\lambda=0$, independence of at most $D+1$ distinct rational-normal-curve points forces every $\alpha_i=0$. Thus no nontrivial dependence exists.
+\end{proof}
+
+Now let $p=[\pi(e_1)]$. Since $\pi(z)=0$,
+\begin{equation}\label{eq:p-decomp}
+ \pi(e_1)=\pi(b)=\sum_{i=1}^r\pi(c_D(a_i)).
+\end{equation}
+The $r$ image points in this sum are distinct and independent. Distinctness also follows directly from~\eqref{eq:center-rank}: identifying two curve points would put $z$ in their span and give rank at most two. In particular, the sum in~\eqref{eq:p-decomp} is nonzero.
+
+This expression has minimal length $r$. Otherwise a shorter expression and~\eqref{eq:p-decomp} would give two different expressions in the span of at most $2r-1$ distinct points of $X$. Because $2r-1\leq r^m-1=K$, Proposition~\ref{prop:independence} makes that union independent. Uniqueness of basis coordinates would force all $r$ original points to appear in the shorter expression, a contradiction. Thus $\rk_X(p)=r$.
+
+For border rank, as $t\to0$ we have
+\[
+ \frac{\pi(c_D(t))-\pi(c_D(0))}{t}
+ =\pi(e_1)+\sum_{j=2}^D t^{j-1}\pi(e_j)\longrightarrow\pi(e_1).
+\]
+For all sufficiently small nonzero $t$ this is a nonzero vector of $X$-rank at most two. Its projective limit is $p$, so $\brk_X(p)\leq2$. Since $p\notin X$ and $X$ is closed, the border rank is not one. Therefore $\brk_X(p)=2$.
+
+Finally, for $1\leq k\leq m$ we have $r^k-1\leq K$. Applying Lemma~\ref{lem:product} proves all rank equalities in Theorem~\ref{thm:main}.
+
+\subsection{The curve is smooth}
+For completeness, the construction is not relying on singularities of $X$. In fact,
+\begin{equation}\label{eq:brank-center}
+ \brk_{C_D}([z])=r+2.
+\end{equation}
+The upper bound is the sum of a tangent vector, of border rank two, and $r$ curve vectors. To prove the lower bound, note that $D\geq2r+2$ and form the $(r+2)\times(r+2)$ Hankel matrix
+\[
+ H=(z_{i+j})_{0\leq i,j\leq r+1},\qquad
+ z_j=\delta_{j1}-\sum_{\nu=1}^r a_\nu^j.
+\]
+Every curve vector maps to a matrix of rank at most one under this linear map, including the point at infinity. Hence a nonzero $(r+2)$-minor is a border-rank lower bound.
+
+Put $u(a)=(1,a,\ldots,a^{r+1})^\mathsf T$ and
+\[
+ B=\big[u(0)\ \ u'(0)\ \ u(a_1)\ \cdots\ u(a_r)\big],\qquad
+ M=\begin{bmatrix}0&1\\1&0\end{bmatrix}\oplus(-I_r).
+\]
+Directly, $H=BMB^\mathsf T$. The square matrix $B$ is invertible: a polynomial of degree at most $r+1$ in the kernel of $B^\mathsf T$ would have a double zero at zero and zeros at all $a_i$, and hence would be divisible by a polynomial of degree $r+2$. It must be zero. Thus $H$ is invertible, proving~\eqref{eq:brank-center}.
+
+In particular, the projection center lies on neither a secant nor a tangent line of $C_D$. The projection is injective on $C_D$ and its differential is injective at every point: a failure of either assertion would place the center on the corresponding secant or tangent line. A proper injective immersion of this smooth complex projective curve is an embedding. Thus $X$ is a smooth rational curve, as claimed.
+
+\section{An explicit counterexample in twelve coordinates}
+Take $r=3$, $m=2$, $D=12$, and $a_1=1,a_2=2,a_3=3$. For $0\leq j\leq12$, set $S_j=1+2^j+3^j$, and use the coordinate index set
+\[
+ J=\{0,2,3,4,5,6,7,8,9,10,11,12\}.
+\]
+Here $z_1=1-S_1=-5$. A quotient map with kernel $\C z$ is
+\[
+ P:E_{12}\longrightarrow\C^{12},\qquad
+ (P(v))_j=5v_j-S_jv_1\quad(j\in J).
+\]
+It has rank twelve since its columns with indices in $J$ form $5I_{12}$, and $P(z)=0$.
+The curve is the image of the following explicit homogeneous parametrization:
+\begin{equation}\label{eq:explicit-curve}
+ [s:t]\longmapsto
+ \left[\left(5s^{12-j}t^j-S_js^{11}t\right)_{j\in J}\right].
+\end{equation}
+The common-factor-free, base-point-free property also follows from the quotient construction. Directly, at $s=0$ the last coordinate is $5t^{12}\neq0$; on the chart $s=1$, vanishing of the first coordinate forces $t=5/3$, at which the $j=2$ coordinate is $-85/9\neq0$.
+
+On this affine chart write $g(t)=(5t^j-S_jt)_{j\in J}$. A representative of the required point is
+\begin{align*}
+ v&=P(e_1)=(-S_j)_{j\in J}\\
+  &=(-3,-14,-36,-98,-276,-794,-2316,-6818,\\
+  &\hspace{25mm}-20196,-60074,-179196,-535538).
+\end{align*}
+The identities
+\[
+ g'(0)=v,\qquad g(1)+g(2)+g(3)=v
+\]
+exhibit, respectively, its border-two degeneration and its three-term expression. The preceding proofs give
+\[
+ \boxed{\brk_X([v])=2,\qquad\rk_X([v])=3,\qquad
+ \rk_{X\times X}([v\otimes v])=9.}
+\]
+An explicit nine-term decomposition is
+\[
+ v\otimes v=\sum_{a=1}^{3}\sum_{b=1}^{3} g(a)\otimes g(b).
+\]
+The lower bound applies to arbitrary complex decompositions on the whole curve, not only to decompositions using these three parameter values.
+
+The $5\times5$ center Hankel determinant, using coordinates $z_0,\ldots,z_8$, equals $5184$. This provides an additional exact check that the center has border rank at least five and that the example is a smooth projection.
+
+\section{Why there is no conflict with eventual strict submultiplicativity}
+The known eventual-power statement in~\cite[Section 1]{BBGOV} concerns sufficiently large powers, not the square. There is an elementary eventual-saving bound for the present examples. Put
+\[
+ q(t)=\pi(c_D(t)-c_D(0))=tv+t^2\pi(e_2)+\cdots+t^D\pi(e_D).
+\]
+For an integer $k\geq1$, set $L=k(D-1)+1$. Extracting the coefficient of $t^k$ by a roots-of-unity sum gives
+\[
+ v^{\otimes k}=\frac1L\sum_{\zeta^L=1}\zeta^{-k}q(\zeta)^{\otimes k}.
+\]
+The degrees of $q(t)^{\otimes k}$ lie between $k$ and $kD$, so no other exponent is congruent to $k$ modulo $L$. Each $q(\zeta)$ is a difference of two curve vectors. Therefore
+\[
+ \rk_{X^{\times k}}(p^{\otimes k})\leq\bigl(k(D-1)+1\bigr)2^k.
+\]
+For fixed $D$ and $r>2$, this is less than $r^k$ for all sufficiently large $k$. For the explicit $D=12$ example, it already proves a saving at $k=13$, since
+$144\cdot2^{13}=1{,}179{,}648<3^{13}=1{,}594{,}323$.
+Thus the examples delay a saving; they do not prevent one at every power.
+
+\section{Verification and scope}
+The exact-arithmetic script \texttt{verify.py} checks the coordinates, quotient rank and kernel, Hankel determinant, nine-term expression, and interpolation identities. It does not replace the universal independence and rank lower-bound proofs.
+
+This counterexample answers the universal implication in TR-27. Arbitrary finite delay strengthens the same result; it is not a second problem claimed solved. The Segre and Veronese cases are not settled here.
+
+\begin{thebibliography}{9}
+\bibitem{repo}
+OpenProblemsInNLA, ``TR-27---Border-rank deficiency forcing strict submultiplicativity at the tensor square,'' problem statement, checked September 11, 2026.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/tensor-computations/TR-27}.
+
+\bibitem{BBGOV}
+E. Ballico, A. Bernardi, F. Gesmundo, A. Oneto, and E. Ventura,
+``Geometric conditions for strict submultiplicativity of rank and border rank,''
+\emph{Annali di Matematica Pura ed Applicata} \textbf{200} (2021), 187--210.
+Conjecture 1.1. \url{https://arxiv.org/abs/1909.03811}.
+
+\bibitem{OV}
+A. Oneto and E. Ventura, ``Ranks of tensors: geometry and applications,''
+\emph{Bollettino dell'Unione Matematica Italiana} \textbf{18} (2025), 751--778.
+Conjecture 4.9. \url{https://doi.org/10.1007/s40574-025-00472-9}.
+\end{thebibliography}
+\end{document}

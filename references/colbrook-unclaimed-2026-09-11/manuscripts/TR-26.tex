@@ -1,0 +1,452 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+  11pt,
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=25mm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+% fallback for those not using the hyperref driver hyperxmp:
+\makeatletter
+\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
+\makeatother
+\hypersetup{
+  pdfauthor={Matthew J. Colbrook},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{Matthew J. Colbrook}
+\date{}
+
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\begin{document}
+
+\section{The two Rayleigh--Ritz discriminant degrees of the standard
+rational normal
+curve}\label{the-two-rayleighritz-discriminant-degrees-of-the-standard-rational-normal-curve}
+
+Matthew J. Colbrook\\
+Department of Applied Mathematics and Theoretical Physics\\
+University of Cambridge, United Kingdom\\
+11 September 2026
+
+\textbf{Development and review status.} This proposed manuscript was
+developed with AI assistance. The developing agent's proof checks are
+not an independent final verification. A separate review of this exact
+complete source is required before acceptance. No claim of novelty,
+external peer review, or formal verification is made.
+
+\subsection{Abstract}\label{abstract}
+
+For the standard unweighted rational normal curve of degree \(d\ge2\),
+we prove that the reduced isotropic part of its Rayleigh--Ritz
+discriminant has degree \(2d\) and its reduced nonisotropic part has
+degree \(6(d-1)\). The argument identifies the critical correspondence
+with a binary Wronskian, establishes the irreducibility of the
+nonisotropic image, and proves that every component occurs with
+multiplicity one in the binary discriminant. It includes the smallest
+degree, the points at infinity, and the kernel of the map from symmetric
+matrices to binary numerators.
+
+\subsection{1. Statement}\label{statement}
+
+Let \[
+ C_d=\{[a^d:a^{d-1}b:\cdots:b^d]:[a:b]\in\mathbb P^1\}
+ \subset\mathbb P^d,\qquad d\ge2.
+\] All spaces and algebraic sets in this note are over \(\mathbb C\).
+Transposes do not conjugate. For a symmetric matrix \(H\) of order
+\(d+1\), consider \[
+ \rho_H(z)=\frac{z^\top Hz}{z^\top z}
+\] on the part of \(C_d\) with nonzero denominator. Let \(\mathcal R\)
+be the Zariski closure of its critical-point correspondence in
+\(C_d\times\mathbb P(\operatorname{Sym}_{d+1}(\mathbb C))\). For
+homogeneous generators \(g_i\) of the ideal of \(\mathcal R\), put \[
+ \mathcal B=\{(z,H)\in\mathcal R:
+       \operatorname{rank}(\partial g_i/\partial z_j)\le d-1\}.
+\] With \(Q=\{z^\top z=0\}\) and projection \(\pi\) to matrix space,
+define \[
+ \Sigma_{\rm iso}=\pi(\mathcal B\cap Q),\qquad
+ \Sigma_{\rm noniso}=\overline{\pi(\mathcal B\setminus Q)}.
+\] Degrees refer to the reduced projective algebraic sets, including all
+their components.
+
+\textbf{Theorem 1.} Both sets are hypersurfaces. The isotropic set is a
+union of \(2d\) distinct hyperplanes, the nonisotropic set is
+irreducible, and \[
+ \deg\Sigma_{\rm iso}=2d,\qquad
+ \deg\Sigma_{\rm noniso}=6(d-1).
+\]
+
+This is the precise target of repository problem TR-26 and Conjecture
+3.14 of {[}1{]}. Proposition 3.10 of {[}1{]} states the total
+discriminant degree \(8d-6\). Our proof derives both the total degree
+and the reduced component degrees, including the required multiplicity
+assertions.
+
+\subsection{2. Binary forms and the exact
+correspondence}\label{binary-forms-and-the-exact-correspondence}
+
+Put \(m=2d\) and \(V=H^0(\mathbb P^1,\mathcal O(m))\). The denominator
+pulled back to the parameter line is \[
+ D(a,b)=\sum_{i=0}^{d}a^{m-2i}b^{2i}.
+\] The linear map \[
+ T:\operatorname{Sym}_{d+1}(\mathbb C)\longrightarrow V,\qquad
+ H\longmapsto N_H=z^\top Hz
+\] is surjective. In fact, the coefficient of \(a^{m-k}b^k\) depends
+only on the entries on the antidiagonal \(i+j=k\), indexing from zero.
+Each \(0\le k\le2d\) occurs, and these antidiagonals are disjoint.
+Diagonal entries have coefficient one and off-diagonal entries have
+coefficient two, both nonzero over \(\mathbb C\).
+
+In the chart \(a=1\), \[
+ D(t)=1+t^2+\cdots+t^m=\frac{t^{m+2}-1}{t^2-1}.
+\] Its roots are precisely the \((m+2)\)-th roots of unity other than
+\(1,-1\). Thus there are \(m\) distinct roots, all finite and nonzero.
+Neither coordinate endpoint of \(\mathbb P^1\) is a zero. Write
+\(Z=\{D=0\}\).
+
+For \(N\in V\), define the binary form \[
+ F_N(a,b)=\frac{N_bD_a-N_aD_b}{m}.
+\] It has homogeneous degree \(2m-2\) and depends linearly on \(N\).
+Euler's identity gives \[
+ F_N(1,t)=N'(t)D(t)-N(t)D'(t).
+ \tag{1}
+\] On \(D\ne0\), its zero set is therefore the critical set of \(N/D\).
+
+\textbf{Lemma 2.} Over either numerator projective space or matrix
+projective space, the closure of the critical-point correspondence is
+exactly the equation \(F_N(p)=0\). It is a smooth irreducible projective
+hyperplane bundle over \(\mathbb P^1\).
+
+\textbf{Proof.} For every \(p\in\mathbb P^1\), the functional
+\(N\mapsto F_N(p)\) is nonzero. When \(D(p)\ne0\), freely prescribing
+\(N(p)\) and \(N'(p)\) in a local coordinate proves this. At a root of
+\(D\), equation (1) gives \(F_N(p)=-D'(p)N(p)\), with \(D'(p)\ne0\).
+
+The resulting surjective bundle map from the trivial bundle with fiber
+\(V\) to \(\mathcal O(2m-2)\) has a locally free kernel. Its
+projectivization is the stated smooth irreducible incidence. Its part
+over \(\mathbb P^1\setminus Z\) is dense, so it is exactly the closure
+of the critical correspondence. Surjectivity of \(T\) proves the same
+facts directly in matrix space. Finally, the rational normal
+parametrization is an isomorphism from \(\mathbb P^1\) onto \(C_d\).
+\(\square\)
+
+\textbf{Lemma 3.} Under that parametrization, the set \(\mathcal B\) in
+Theorem 1 is the set \[
+ F_N(p)=0,\qquad \partial_tF_N(p)=0
+ \tag{2}
+\] in any local coordinate and local trivialization at \(p\).
+
+\textbf{Proof.} The smooth curve has \(d-1\) locally independent normal
+equations in an affine chart of \(\mathbb P^d\). By Lemma 2, adjoining
+the equation \(F_N(t)=0\) gives the local ideal of the correspondence.
+Holding the matrix parameters fixed, its Jacobian has rank \(d\) if
+\(\partial_tF_N\ne0\), and rank \(d-1\) otherwise. This calculation is
+independent of the choice of generators: on their common zero set, the
+differentials of any ideal-generating set span the same conormal
+subspace.
+
+In homogeneous coordinates the radial vector lies in the Jacobian kernel
+by Euler's identity. Dehomogenization removes that direction without
+changing the rank, giving exactly the threshold used in Theorem 1. A
+change of local trivialization multiplies \(F_N\) by a unit, so on
+\(F_N=0\) the derivative condition is unchanged. This proves (2),
+including at infinity and when \(F_N\) is identically zero. \(\square\)
+
+We first compute the two images in \(\mathbb P(V)=\mathbb P^m\) and
+return to matrix space in Section 7.
+
+\subsection{3. The isotropic
+hyperplanes}\label{the-isotropic-hyperplanes}
+
+Fix \(r\in Z\) and use a local coordinate \(s\) with \(r=0\). Write \[
+ D=d_1s+d_2s^2+\cdots,\quad d_1\ne0,\qquad
+ N=n_0+n_1s+n_2s^2+\cdots.
+\] At \(r\), the equation \(F_N(r)=0\) is equivalent to \(n_0=0\). Under
+this condition, \[
+ F_N=(n_2d_1-n_1d_2)s^2+O(s^3).
+ \tag{3}
+\] Thus every pair in the correspondence above an isotropic point is
+ramified. Its image is precisely the hyperplane \[
+ L_r=\{[N]\in\mathbb P(V):N(r)=0\}.
+\] Evaluation at distinct points gives nonproportional linear
+functionals on the full space of binary forms. Hence these \(m\)
+hyperplanes are distinct, and \[
+ \Sigma_{\rm iso}=\bigcup_{r\in Z}L_r,\qquad
+ \deg\Sigma_{\rm iso}=m.
+ \tag{4}
+\] This is a set equality for every numerator, not merely a generic
+assertion.
+
+\subsection{4. The nonisotropic image}\label{the-nonisotropic-image}
+
+Let \(U=\mathbb P^1\setminus Z\). With \(f=N/D\), define \[
+ Y=\{(p,[N])\in U\times\mathbb P(V):f'(p)=f''(p)=0\}.
+ \tag{5}
+\] Since \(F_N=D^2f'\), these are exactly the conditions (2) on \(U\).
+
+We use the following elementary interpolation fact. For distinct points
+with prescribed jets of total length \(\ell\), the restriction map from
+\(H^0(\mathbb P^1,\mathcal O(m))\) is surjective if \(m\ge\ell-1\).
+Choose a projective coordinate whose infinity avoids the specified
+points. The assertion is then polynomial Hermite interpolation, or the
+Chinese remainder theorem modulo the corresponding powers of distinct
+linear factors. A section of degree at most \(\ell-1\) already realizes
+every prescription.
+
+The two conditions in (5) are independent linear conditions: the full
+2-jet of \(N\) is arbitrary, and division by nonzero \(D\) is invertible
+on jets. Consequently \(Y\) is a projective bundle with fiber
+\(\mathbb P^{m-2}\) over \(U\), and is irreducible of dimension \(m-1\).
+
+The only \(N\) with \(F_N\equiv0\) are \(N=cD\), because a rational
+function with identically zero derivative is constant in characteristic
+zero. Every other \(N\) has a finite fiber in (5), as a nonzero binary
+form has finitely many roots. The incidence is not supported over
+\(N=cD\): for example, a numerator vanishing to order exactly three at a
+point of \(U\) lies in (5) and is not proportional to \(D\). The
+projection is thus generically finite onto its image. Its closure \(S\)
+is an irreducible hypersurface of dimension \(m-1\) in \(\mathbb P^m\).
+
+By Lemma 3, \(S\) is exactly the reduced nonisotropic image in numerator
+space.
+
+For each \(r\in Z\), one has \(S\ne L_r\). Choose \(p\in U\).
+Length-four interpolation provides an \(N\) with vanishing value and
+first two derivatives at \(p\), but with \(N(r)\ne0\). Its image belongs
+to \(S\setminus L_r\). Since both are irreducible hypersurfaces, they
+are distinct. In particular, no isotropic hyperplane is a component of
+the nonisotropic closure.
+
+\subsection{5. Generic multiple-root
+patterns}\label{generic-multiple-root-patterns}
+
+\textbf{Lemma 4.} A general point of \(S\) has exactly one multiple root
+of \(F_N\); it is exactly double and nonisotropic. All other roots are
+simple.
+
+\textbf{Proof for \(m\ge6\).} In (5), the additional condition
+\(f'''(p)=0\) is independent of the other two by length-four
+interpolation. This incidence has dimension \(m-2\).
+
+For distinct \(p,q\in U\), the four conditions \[
+ f'(p)=f''(p)=f'(q)=f''(q)=0
+\] are independent. Prescribe both entire 2-jets, using length-six
+interpolation, valid for \(m\ge5\), and divide by the nonvanishing
+denominator jets. The ordered-pair incidence has projective fibers of
+dimension \(m-4\) over a two-dimensional base, so its total dimension is
+\(m-2\). The closures of both exceptional images therefore have
+dimension at most \(m-2\), strictly below \(\dim S\).
+
+A general point of \(S\) avoids these loci and all the distinct
+hypersurfaces \(L_r\). Its one nonisotropic multiple root is exactly
+double, it has no other nonisotropic multiple root, and it has no
+isotropic root. These are statements about the full projective parameter
+line and include infinity. \(\square\)
+
+\textbf{Proof for \(m=4\).} Length-six interpolation is unavailable
+here. For the specified denominator, take \[
+ D(t)=1+t^2+t^4,\qquad N(t)=t^3.
+\] Then \[
+ F_N(t)=t^2(3+t^2-t^4).
+ \tag{6}
+\] The root at zero is exactly double and nonisotropic. The quartic
+factor has four distinct nonzero roots, because \(3+u-u^2\) has two
+distinct nonzero roots, each giving two distinct square roots. The
+coefficient of \(t^6\) is nonzero, so infinity is not a root. At any
+zero \(r\) of \(D\), one has \(F_N(r)=-r^3D'(r)\ne0\).
+
+Within the space of degree-six binary forms with a multiple root, those
+with precisely one exactly double root and all remaining roots simple
+form an open subset. To justify openness, its complement is the union of
+the closed locus of forms divisible by a cube of a linear factor and the
+closed locus of forms divisible by squares of two linear factors. These
+are images of projective parameter spaces; allowing the two factors to
+coincide adds only fourth-order roots, already in the first locus. The
+example (6) makes the pullback of this open set a nonempty open subset
+of the irreducible \(S\). A general point of \(S\) therefore has the
+asserted property. \(\square\)
+
+\textbf{Lemma 5.} A general point of \(L_r\), for each \(r\in Z\), has
+an exactly double root at \(r\) and all other roots simple.
+
+\textbf{Proof.} Such a point avoids \(S\) and all \(L_{r'}\) with
+\(r'\ne r\), since these are distinct hypersurfaces. Every multiple root
+outside \(Z\) would put the numerator in \(S\), and any root at another
+\(r'\in Z\) would put it in \(L_{r'}\). Equation (3) shows that the root
+at \(r\) is exactly double unless \(n_2d_1-n_1d_2=0\). This is a proper
+linear condition inside \(L_r\): one can choose \(n_1=0,n_2=1\) by jet
+interpolation. \(\square\)
+
+\subsection{6. Discriminant multiplicities and
+degrees}\label{discriminant-multiplicities-and-degrees}
+
+Let \(k=2m-2\), and form the polynomial \[
+ \Delta(N)=\operatorname{Disc}_{k}(F_N).
+\] The binary discriminant vanishes exactly on forms with a multiple
+projective root, including the zero form. Lemma 3 and Sections 3--4 give
+\[
+ V(\Delta)=S\cup\bigcup_{r\in Z}L_r.
+ \tag{7}
+\] This union is proper, so \(\Delta\) is not identically zero.
+
+For completeness, the discriminant of a degree-\(k\) binary form is
+homogeneous of degree \(2k-2\) in its coefficients. In a coordinate with
+nonzero leading coefficient and finite roots, this is the polynomial
+extending \[
+ c^{\,2k-2}\prod_{i<j}(\alpha_i-\alpha_j)^2
+\] for \(c\prod_i(t-\alpha_i)\). Equivalently it is, up to sign, the
+resultant with the derivative divided by the leading coefficient. It
+extends as a polynomial to all binary forms and vanishes precisely on
+projective multiple-root forms. Scaling every coefficient scales it by
+the power \(2k-2\), giving the stated degree.
+
+The coefficients of \(F_N\) are linear homogeneous functions of the
+coefficients of \(N\). Thus the nonzero homogeneous polynomial
+\(\Delta\) has degree \[
+ 2k-2=4m-6.
+ \tag{8}
+\] This is not yet a reduced degree assertion. We next prove that every
+component in (7) has multiplicity one.
+
+\textbf{Lemma 6.} At a binary form \(F\) with exactly one double root
+\(p\) and all other roots simple, the differential of its discriminant
+is a nonzero scalar multiple of the functional
+\(\dot F\mapsto\dot F(p)\), after choosing a local trivialization at
+\(p\).
+
+\textbf{Proof.} Choose a coordinate making all roots finite, translate
+\(p\) to zero, and restrict to a neighborhood with nonzero leading
+coefficient. The simple roots depend analytically on coefficients, by
+the implicit function theorem, and can be factored off. The remaining
+monic quadratic is \(t^2+ut+v\), with \(u=v=0\) at the original form.
+The discriminant product formula shows that the full discriminant is a
+nonvanishing analytic factor times \(u^2-4v\). Its differential is a
+nonzero multiple of \(\dot v\). Evaluating the factored polynomial at
+zero shows that \(\dot F(0)\) is a nonzero multiple of \(\dot v\),
+proving the assertion. \(\square\)
+
+At a general point of \(S\), Lemma 4 and Lemma 6 apply. In the numerator
+family the resulting functional is \[
+ \dot F_N(p)=D(p)\dot N'(p)-D'(p)\dot N(p),
+\] which is nonzero as a linear functional of \(\dot N\), by first-jet
+interpolation. At a general point of \(L_r\), Lemma 5 applies, and the
+functional is \[
+ \dot F_N(r)=-D'(r)\dot N(r),
+\] again nonzero. These nonzero directions remain valid in projective
+parameter space: the radial direction gives zero, since \(F_N(p)=0\).
+
+It follows that the pulled-back discriminant has nonzero differential at
+a general point of every component in (7). Thus each irreducible factor
+occurs to exponent one. If \(G\) is an irreducible reduced defining
+polynomial of \(S\), then, up to nonzero scalar, \[
+ \Delta(N)=G(N)\prod_{r\in Z}N(r).
+ \tag{9}
+\] Taking degrees in (8)--(9) gives \[
+ \deg S=(4m-6)-m=3m-6.
+ \tag{10}
+\]
+
+\subsection{7. Matrix space and degenerate numerator
+parameters}\label{matrix-space-and-degenerate-numerator-parameters}
+
+Choose a linear splitting of the surjection \(T\) from Section 2.
+Pulling a polynomial back along \(T\) simply adjoins independent kernel
+variables to the polynomial ring in the numerator coefficients. An
+irreducible polynomial over \(\mathbb C\) remains irreducible after
+adjoining variables. The evaluation hyperplanes remain distinct, and all
+degrees are preserved.
+
+There is a potential issue if one uses only the projective rational map
+\([H]\dashrightarrow[N_H]\): it is undefined at nonzero elements of
+\(\ker T\). This issue is avoided by working with affine cones and the
+surjective linear map \(T\).
+
+For nonzero \(N\), the preceding incidences and images pull back to the
+corresponding matrix incidences, by Lemmas 2--3. Their closures pull
+back as well: in a linear splitting the affine preimage is a product
+with the kernel, so the preimage of a dense set is dense in the preimage
+of its closure. At \(T(H)=0\), the form \(F_{N_H}\) is identically zero.
+Every point of the curve then belongs to the correspondence and
+satisfies the ramification condition. Since both \(Z\) and its
+complement are nonempty, such matrix parameters belong to both images,
+as their pulled-back homogeneous equations prescribe. These are cone
+vertices, not additional components. Parameters with \(N_H=cD\), giving
+constant Rayleigh quotient, are likewise already included in both
+incidences.
+
+Consequently (4) and (10) transfer to the exact matrix projective space
+of Theorem 1. Substituting \(m=2d\) yields \[
+ \deg\Sigma_{\rm iso}=2d,\qquad
+ \deg\Sigma_{\rm noniso}=6(d-1),
+\] with the claimed component statements. This completes the proof of
+Theorem 1.
+
+\subsection{8. Scope}\label{scope}
+
+The denominator's simple roots are essential. The proof is for the fixed
+unweighted embedding and bilinear form specified in Theorem 1, and does
+not silently extend to weighted embeddings with repeated denominator
+roots. The degree-four numerator example is used only for \(d=2\); the
+higher orders are proved by interpolation and dimension arguments. No
+finite computational experiment is used to justify an all-order step.
+
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  V. Borovik, H. Friedman, S. Hoşten, and M. Pfeffer, \emph{Numerical
+  Algebraic Geometry for Energy Computations on Tensor Train Varieties},
+  \href{https://arxiv.org/html/2512.06939v2}{arXiv:2512.06939v2}, 18
+  June 2026, §3.2, Propositions 3.6--3.10 and Conjecture 3.14.
+\item
+  OpenProblemsInNLA,
+  \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tensor-computations/TR-26/README.md}{TR-26:
+  Degrees of the two Rayleigh--Ritz discriminant parts for rational
+  normal curves}, canonical problem statement consulted 11 September
+  2026.
+\end{enumerate}
+
+\end{document}

@@ -7,17 +7,30 @@
 **Last checked:** 2026-09-11  
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Rating rationale:** Challenging because the limiting complex solution must be tied exactly to unit-circle eigenstructure; specialist impact is on structured Green-function matrix equations.  
-**Status:** Partially resolved  
+**Rating rationale:** Historical: challenging because the limiting complex solution must be tied exactly to unit-circle eigenstructure; specialist impact is on structured Green-function matrix equations.
+
+**Status:** Solved
+
+<!-- stepaniants-mf18-resolution -->
+## Resolution - 2026-09-11
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved affirmatively.** [Theorem 1 and Sections 1-4 of the complete proof](solution.md) establish the displayed rank equality for the full complex $C,D,R,P$ model. The proof includes singular $C$ or $D$, simple unit-circle roots at $1$ or $-1$, $m=0$, and arbitrary Jordan structure strictly inside the disk. The finite nonsingular limit and simple unit-circle eigenvalues remain assumptions, exactly as in the original target.
+
+[Proof PDF](solution.pdf) · [Standalone TeX](solution.tex) · [Independent mathematical review](../../references/stepaniants-mf18-2026-09-11/verification/MF-18-independent-review.md) · [Authorship, source history and public-branch audit](../../references/stepaniants-mf18-2026-09-11/README.md).
+
+The proof passed a separate Codex-agent review against the exact canonical statement and the original paper. It was developed with substantial ChatGPT/Codex assistance; this verification is independent automated-agent review, not external human peer review or formal certification. On 11 September 2026, the pre-submission audit found only the earlier partial result across five public repositories and all 29 public branch heads. The original target, permanent ID and canonical path are retained. Difficulty and importance above are historical ratings.
+<!-- /stepaniants-mf18-resolution -->
 
 <!-- colbrook-matrix-functions -->
-## Auxiliary result; canonical target unchanged — 2026-09-11
+## Earlier auxiliary result; original scope retained — 2026-09-11
 
 **Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the stated real-coefficient auxiliary theorem.**
 
 For real $A,Q$ with $Q=Q^\top$, scalar regularization $i\eta I$, and a finite invertible stabilizing limit, the manuscript proves that the imaginary-part rank is half the number of odd unit-circle Jordan blocks. It also establishes semisimple regularity and an exact defective example.
 
-This does not settle the canonical general complex $C,D,R,P$ problem. Its simple-eigenvalue real subcase was already known; the defective extension is an auxiliary result outside the canonical simple-eigenvalue hypothesis. The existing partial status and general complex target are retained. The entry remains in the open count. Its difficulty and importance ratings continue to describe the surviving canonical target.
+This auxiliary result did not settle the canonical general complex $C,D,R,P$ problem. Its simple-eigenvalue real subcase was already known; the defective extension is a distinct auxiliary result outside the canonical simple-eigenvalue hypothesis. The general complex target is now settled by the resolution above. This earlier contribution and its independent review retain their original attribution and scope.
 
 **Primary reference:** [complete authored PDF](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-18.pdf), [standalone TeX](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-18.tex), **Theorem 1 and Corollary 3; Section 8 exact defective example**. [Independent proof review](../../references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-18-review.md) · [Authorship and submission record](../../references/colbrook-matrix-functions-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
 
@@ -57,7 +70,7 @@ $$
 
 The rank describes the non-Hermitian part of the selected matrix-equation solution in Green-function computations. It connects a limiting nonlinear solve to the spectrum of a structured quadratic polynomial.
 
-The source proves the upper bound by $m$. Its earlier SIAM paper proves equality for real $C,R$, $P=I$, $D=0$; the general complex case remains the question. Existence of the limit is assumed, not conjectured here.
+The source proves the upper bound by $m$. Its earlier SIAM paper proves equality for real $C,R$, $P=I$, $D=0$; the resolution above establishes the general complex equality. Existence of the limit remains an assumption.
 
 ## References
 

@@ -96,15 +96,23 @@ With #89, eight PRs are accepted in this batch: #40, #47, #54, #62, #64, #78,
 open. All original IDs, paths and targets are preserved, and all 17 permanent-ID
 regression checks pass. The registry and required workflow remain unchanged.
 
-The latest upstream merges in [#68 at 15dc4c3](audit-root/PR68-current-15dc4c3.md)
-and [#85 at 5942bc2](audit-root/PR85-supplement-5942bc2.md) preserve their reviewed
-proofs and PDFs. #85 still needs three fingerprint corrections: the historical
-PDF digest already flagged, plus current renderer and submission-README digests
-made stale by its upstream merge. These are documentation findings; no
-mathematical or permanent-target check failed.
+The [latest revision audit](audit-root/current-pending-revisions.md) records
+mathematical PASS at #68 `2a1a0b3`, #85 `58a6560`, and #91 `cc5ed78`.
+All three #85 fingerprint findings were corrected and independently rechecked;
+the previous reports retain their historical findings at the older heads.
+PR #83 `eadd702` also retains mathematical PASS, with one stale Open-status
+sentence in the older reference summary still requiring reconciliation.
 
-PR #91 also passes its complete mathematical/source/PDF review, but remains
-outside this integration pending its required workflow execution approval.
-The same execution-approval hold applies to #68, #83 and #85. The latter also
-needs the documented fingerprint corrections before acceptance. No workflow
-approval or branch-protection bypass was performed for these four PRs.
+These four submissions remain outside integration while the required fork
+workflow execution approval is pending. No workflow approval or protection
+bypass was performed. The [third review batch](../maintainer-review-2026-09-11-wave3/README.md)
+records the subsequent submissions, evidence and integration decisions.
+
+## Final disposition of the pending submissions
+
+PRs #68, #83, #85 and #91 were subsequently integrated after their explicitly
+authorized required workflow runs passed. The three #85 fingerprints are corrected,
+the #83 reference summary is now historical, and AA-01 retains both its #68 and
+#89 proof records at the same original ID. The [final integration record](../maintainer-review-2026-09-11-wave3/final-six-integration.md)
+supersedes the earlier pending-workflow notes and records all six later merges,
+including #93 and #103, plus the final numbering and source-preservation checks.

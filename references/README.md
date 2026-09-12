@@ -39,6 +39,10 @@ screen. Use [CATALOG.md](../CATALOG.md) for current counts and statuses.
 
 - [Matrix-function submissions by Matthew J. Colbrook (2026-09-11)](colbrook-matrix-functions-2026-09-11/README.md): three independently reviewed resolutions, two partial results, and one auxiliary real-coefficient theorem.
 
+## Independent maintainer review: third batch, 11 September 2026
+
+The [third-batch audit](maintainer-review-2026-09-11-wave3/README.md) records the independent proof, source, exact-check and PDF reviews of PRs #93, #97, #101, #103, #106 and #110, their precise scopes, permanent-ID preservation and integration decisions.
+
 ## Independent maintainer review: fourth batch, 11 September 2026
 
 The [fourth-batch audit](maintainer-review-2026-09-11-wave4/README.md) records independent reviews of PRs #111, #114, #116, #118 and #120, including the RA-20 counterexample and preservation of original targets and IDs.

@@ -1,0 +1,295 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=26mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert_2}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\jsr}{\rho}
+\title{An explicit pair realizing every marginal polynomial growth exponent}
+\author{Matthew J. Colbrook\thanks{Department of Applied Mathematics and Theoretical Physics, University of Cambridge, Cambridge, United Kingdom. Email: m.colbrook@damtp.cam.ac.uk.}}\date{11 September 2026}
+\hypersetup{pdfauthor={Matthew J. Colbrook}}
+\usepackage{xurl}
+\begin{document}
+\maketitle
+
+\begin{quote}\small
+Authorship is recorded at the submitter's request. AI assistance is disclosed. An independent agent reviewed this complete mathematical source against the original repository targets; a separate agent checked the accompanying computations. This is not external human peer review or formal certification, and no priority claim is made. Original remarks about pending review and incomplete repository access are historical: completed reviews and live eligibility checks accompany this attributed edition.
+\end{quote}
+\begin{abstract}
+For every real $\gamma\geq0$, a finite family of real matrices is constructed whose joint spectral radius is one and whose maximal norm of a product of length $n$ is bounded above and below by positive constant multiples of $n^\gamma$, at every positive integer $n$. For $0<\gamma<1$, two matrices of order six suffice. A rank-two projection reduces arbitrary switching words to products of two-dimensional triangular matrices. A telescoping identity and H\"older's inequality give the upper bound for all words; a prescribed word with logarithmic gap length gives the lower bound at every length. Two matrices with dyadic-rational entries realize every nonnegative rational exponent. Rational pairs also realize some irrational exponents.
+\end{abstract}
+
+\section{Statement and scope}
+For a nonempty finite family $\mathcal M$ of real $d\times d$ matrices, put
+\[
+ a_n(\mathcal M)=\max_{M_1,\ldots,M_n\in\mathcal M}
+                 \norm{M_n\cdots M_1},\qquad n\geq1.
+\]
+Its joint spectral radius is $\jsr(\mathcal M)=\lim_{n\to\infty}a_n(\mathcal M)^{1/n}$; the limit exists by submultiplicativity. We use the spectral norm, but changing the norm changes only the constants in a two-sided growth estimate.
+
+Question 2 of Varney and Morris asks whether every nonnegative real exponent can occur in a two-sided polynomial estimate of this kind for a finite real matrix family with joint spectral radius one.\footnote{J. Varney and I. D. Morris, \emph{On marginal growth rates of matrix products}, Linear Algebra and its Applications 709 (2025), 132--163; Question 2. Preprint: \url{https://arxiv.org/abs/2209.00449}.} The construction below gives an affirmative answer to that source question, which is the apparent target of repository entry MF-12. Projection-reset products already appear in the proof of Theorem 5 of that paper. Here the intervening powers use two contracting Jordan blocks, and an explicit telescoping budget controls all switching words.
+
+\paragraph{Submission status.}
+This is a proposed proof, not an independently reviewed or repository-accepted resolution. The current canonical repository statement and an exhaustive open/closed issue and pull-request audit were not accessible in the preparation environment. The accompanying audit record therefore places submission on hold until those checks are completed. No claim is made about priority over material that could not be inspected.
+
+\begin{theorem}\label{thm:main}
+For every $\gamma\geq0$, there are two distinct real square matrices forming a family $\mathcal M_\gamma$, and constants $0<c_\gamma\leq C_\gamma<\infty$, such that
+\[
+ \jsr(\mathcal M_\gamma)=1,\qquad
+ c_\gamma n^\gamma\leq a_n(\mathcal M_\gamma)
+                  \leq C_\gamma n^\gamma\quad(n\geq1).
+\]
+For $0<\gamma<1$, the matrices have order six. For noninteger $\gamma>0$, order $6(\lfloor\gamma\rfloor+1)$ suffices. For integer $\gamma=m\geq0$, order $m+1$ suffices. If $\gamma$ is rational, the matrices can have dyadic-rational entries.
+\end{theorem}
+
+\section{The six-dimensional construction}
+Choose
+\[
+ 0<\lambda\leq\frac14,\qquad \lambda<\mu<1,\qquad
+ \alpha=1-\frac{\log\mu}{\log\lambda}\in(0,1).
+\]
+Equivalently, $\mu=\lambda^{1-\alpha}$. Define
+\[
+ J_t=t\begin{pmatrix}1&1\\0&1\end{pmatrix},\qquad
+ A=\diag(1,J_\lambda,J_\mu,1),
+\]
+and the rectangular matrices
+\[
+ V=\begin{pmatrix}
+ 1&0\\0&0\\1&0\\0&0\\0&1\\0&1
+ \end{pmatrix},\qquad
+ U=\begin{pmatrix}
+ 1&-1&0&1&0&0\\
+ 0&0&0&0&0&1
+ \end{pmatrix}.
+\]
+The second generator is the fixed matrix
+\begin{equation}\label{eq:P}
+ P=VU=\begin{pmatrix}
+ 1&-1&0&1&0&0\\
+ 0&0&0&0&0&0\\
+ 1&-1&0&1&0&0\\
+ 0&0&0&0&0&0\\
+ 0&0&0&0&0&1\\
+ 0&0&0&0&0&1
+ \end{pmatrix}.
+\end{equation}
+Direct multiplication gives $UV=I_2$, hence $P^2=P$. In particular, consecutive occurrences of $P$ do not introduce an unaccounted amplification.
+
+\begin{lemma}[Compressed powers]\label{lem:compressed}
+For every integer $q\geq0$,
+\begin{equation}\label{eq:T}
+ T_q:=UA^qV=\begin{pmatrix}1-q\lambda^q&q\mu^q\\0&1\end{pmatrix}.
+\end{equation}
+Writing $\ell_q=q\lambda^q$ and $b_q=q\mu^q$, one has
+\[
+ \ell_0=b_0=0,\qquad 0<\ell_q\leq\tfrac14\quad(q\geq1),
+ \qquad b_q=q^\alpha\ell_q^{1-\alpha}\quad(q\geq1).
+\]
+\end{lemma}
+\begin{proof}
+The Jordan identity
+\[
+ J_t^q=t^q\begin{pmatrix}1&q\\0&1\end{pmatrix}
+\]
+holds for every $q\geq0$. Substitution in $UA^qV$ gives \eqref{eq:T}, including $T_0=I_2$. Since $q4^{-q}\leq1/4$ for $q\geq1$ and $\lambda\leq1/4$, the estimate for $\ell_q$ follows. Finally,
+\[
+ q^\alpha(q\lambda^q)^{1-\alpha}
+ =q\lambda^{q(1-\alpha)}=q\mu^q.
+\]
+\end{proof}
+
+\section{An upper bound for every switching word}
+The essential point is a bound for arbitrary products of the compressed matrices, without imposing a switching pattern.
+
+\begin{lemma}[Telescoping budget estimate]\label{lem:budget}
+For any finite list of nonnegative integers $q_1,\ldots,q_k$, write
+\[
+ T_{q_k}\cdots T_{q_1}=\begin{pmatrix}a&z\\0&1\end{pmatrix}.
+\]
+Then $0\leq a\leq1$ and
+\[
+ 0\leq z\leq\left(\sum_{i=1}^k q_i\right)^\alpha.
+\]
+For the empty list, the product is $I_2$ and $z=0$.
+\end{lemma}
+\begin{proof}
+Set
+\[
+ w_i=\prod_{j=i+1}^k(1-\ell_{q_j}).
+\]
+By triangular multiplication,
+\[
+ a=\prod_{i=1}^k(1-\ell_{q_i}),\qquad
+ z=\sum_{i=1}^k b_{q_i}w_i.
+\]
+Each $w_i$ belongs to $[0,1]$, and telescoping yields the exact identity
+\begin{equation}\label{eq:telescoping}
+ \sum_{i=1}^k\ell_{q_i}w_i
+ =1-\prod_{i=1}^k(1-\ell_{q_i})\leq1.
+\end{equation}
+Terms with $q_i=0$ vanish. On the remaining terms, H\"older's inequality with conjugate exponents $1/\alpha$ and $1/(1-\alpha)$ gives
+\begin{align*}
+ z&=\sum_i(q_iw_i)^\alpha(\ell_{q_i}w_i)^{1-\alpha}\\
+  &\leq\left(\sum_iq_iw_i\right)^\alpha
+        \left(\sum_i\ell_{q_i}w_i\right)^{1-\alpha}
+   \leq\left(\sum_iq_i\right)^\alpha.
+\end{align*}
+\end{proof}
+
+Put $H=(1-\mu)^{-1}$. For every $r\geq0$,
+\begin{equation}\label{eq:boundedA}
+ \norm{A^r}\leq H.
+\end{equation}
+Indeed, $\norm{J_t^r}\leq(r+1)t^r\leq\sum_{j=0}^rt^j\leq(1-t)^{-1}$, and both $\lambda$ and $\mu$ are at most $\mu<1$. Also
+\[
+ \norm{V}=\sqrt2,\qquad \norm{U}=\sqrt3.
+\]
+Consider a word of length $n$ containing $s\geq1$ copies of $P$. It has a representation
+\begin{align}
+ W&=A^{q_s}P A^{q_{s-1}}P\cdots P A^{q_0}\notag\\
+  &=A^{q_s}V\, T_{q_{s-1}}\cdots T_{q_1}\,U A^{q_0},
+ \qquad \sum_{i=0}^s q_i+s=n.\label{eq:factor}
+\end{align}
+The middle product is empty when $s=1$. Lemma~\ref{lem:budget} shows that its spectral norm is at most $1+n^\alpha$: write it as $\diag(a,1)+zE_{12}$ and apply the triangle inequality. Consequently,
+\[
+ \norm W\leq\sqrt6 H^2(1+n^\alpha)
+             \leq2\sqrt6 H^2n^\alpha.
+\]
+The word $A^n$, which has no $P$, obeys the same final bound by \eqref{eq:boundedA}. Thus
+\begin{equation}\label{eq:upper}
+ a_n(\{A,P\})\leq C_{\lambda,\alpha}n^\alpha,
+ \qquad C_{\lambda,\alpha}=\frac{2\sqrt6}{(1-\mu)^2}.
+\end{equation}
+This controls every switching word, not merely the words used in the next section.
+
+\section{A lower bound at every length}
+Suppose first that $n\geq1/\lambda$. Choose
+\[
+ q=\left\lfloor\log_{1/\lambda}n\right\rfloor\geq1,
+ \qquad k=\left\lfloor\frac{n}{q+1}\right\rfloor,
+ \qquad r=n-k(q+1).
+\]
+Then
+\begin{equation}\label{eq:wordlower}
+ W_n=A^r(PA^q)^k
+\end{equation}
+is an allowed word of exactly length $n$. Since $(PA^q)^kV=VT_q^k$,
+\[
+ T_q^k=\begin{pmatrix}
+ (1-\ell_q)^k&\dfrac{b_q}{\ell_q}\bigl(1-(1-\ell_q)^k\bigr)\\[3pt]
+ 0&1
+ \end{pmatrix}.
+\]
+For every $(x,y)\in\R^2$, the first coordinate of $A^rV(x,y)^T$ equals $x$. The vector $Ve_2$ has norm $\sqrt2$. Applying $W_n$ to this vector therefore gives
+\begin{equation}\label{eq:lowerRayleigh}
+ \norm{W_n}\geq\frac1{\sqrt2}\frac{b_q}{\ell_q}
+                 \bigl(1-(1-\ell_q)^k\bigr).
+\end{equation}
+
+From the definition of $q$,
+\[
+ \lambda^{-q}\leq n<\lambda^{-(q+1)},\qquad
+ n\geq\lambda^{-q}\geq4^q\geq2(q+1).
+\]
+It follows that $k\geq n/[2(q+1)]$ and $\lambda^q\geq1/n$, so
+\[
+ k\ell_q\geq\frac{q}{2(q+1)}\geq\frac14.
+\]
+Using $1-u\leq e^{-u}$ for $u\geq0$, we obtain
+\[
+ 1-(1-\ell_q)^k\geq1-e^{-1/4}.
+\]
+Furthermore,
+\[
+ \frac{b_q}{\ell_q}=(\mu/\lambda)^q
+  =(\lambda^{-q})^\alpha\geq(\lambda n)^\alpha.
+\]
+Substituting in \eqref{eq:lowerRayleigh} proves
+\begin{equation}\label{eq:lower}
+ a_n(\{A,P\})\geq c_{\lambda,\alpha}n^\alpha,
+ \qquad c_{\lambda,\alpha}
+       =\frac{1-e^{-1/4}}{\sqrt2}\lambda^\alpha.
+\end{equation}
+For $1\leq n<1/\lambda$, the word $A^n$ has norm at least one, whereas
+$c_{\lambda,\alpha}n^\alpha<1$. Thus \eqref{eq:lower} holds for every positive integer $n$, without a subsequence restriction.
+
+The upper bound \eqref{eq:upper} implies $\jsr(\{A,P\})\leq1$. Since $A$ has eigenvalue one, $a_n(\{A,P\})\geq1$ for every $n$, and the reverse inequality follows. This completes the fractional-exponent construction. In particular, for any prescribed $\alpha\in(0,1)$, setting $\lambda=1/4$ and $\mu=4^{-(1-\alpha)}$ gives the required pair.
+
+\section{All exponents and rational entries}
+\begin{lemma}\label{lem:Jordan}
+Let $J=I_{m+1}+N$ be the Jordan block at one, where $N$ has ones on the first superdiagonal. Then $\norm{J^n}\asymp n^m$ for $n\geq1$. If $m\geq1$, explicit bounds are
+\[
+ m^{-m}n^m\leq\norm{J^n}\leq(m+1)n^m.
+\]
+For $m=0$, $\norm{J^n}=1$.
+\end{lemma}
+\begin{proof}
+The identity $J^n=\sum_{j=0}^m\binom njN^j$, with $\binom nj=0$ for $j>n$, gives the upper bound. When $n\geq m\geq1$, the top-right entry is $\binom nm$, and
+\[
+ \binom nm=\prod_{j=0}^{m-1}\frac{n-j}{m-j}
+           \geq(n/m)^m.
+\]
+For $1\leq n<m$, use $\norm{J^n}\geq1\geq(n/m)^m$.
+\end{proof}
+
+The tensor-product closure used next is standard; see also Proposition 3.1 of Varney and Morris. We give the direct argument for this pair. For noninteger $\gamma>0$, write $\gamma=m+\alpha$ with $m\geq0$ integer and $0<\alpha<1$. Replace the two base generators by
+\[
+ \widehat A=A\otimes J,\qquad \widehat P=P\otimes J.
+\]
+Every product of length $n$ from this pair equals the corresponding base product tensored with $J^n$. The spectral norm of a tensor product is the product of the spectral norms, as follows directly from the singular value decompositions of its two factors. Hence
+\[
+ a_n(\{\widehat A,\widehat P\})
+  =a_n(\{A,P\})\norm{J^n}\asymp n^{\alpha+m}.
+\]
+Taking $n$th roots gives joint spectral radius one. For integer $\gamma=m\geq0$, the pair $\{J_{m+1},0\}$ has exactly the same maximal growth as the single Jordan generator and consists of two distinct matrices. This proves the existence and dimension assertions of Theorem~\ref{thm:main}.
+
+\begin{corollary}\label{cor:rational}
+Every nonnegative rational exponent is realized by two matrices with dyadic-rational entries.
+\end{corollary}
+\begin{proof}
+For a rational $\alpha=a/b\in(0,1)$ with integers $1\leq a<b$, take
+\[
+ \lambda=2^{-b},\qquad \mu=2^{-(b-a)}.
+\]
+Then $b\geq2$, so $\lambda\leq1/4$, and $\mu=\lambda^{1-\alpha}$. Both generators have dyadic-rational entries. Tensoring with an integer Jordan block preserves this property. Integer exponents were already handled by integer matrices.
+\end{proof}
+
+\begin{corollary}\label{cor:irrational}
+Rational matrix pairs can have an irrational exact polynomial growth exponent. The exponents attainable by rational pairs are dense in $[0,\infty)$.
+\end{corollary}
+\begin{proof}
+Take $\lambda=1/4$ and $\mu=1/3$. Both matrices are rational, and the exponent is
+\[
+ \alpha=1-\frac{\log3}{\log4}\in(0,1).
+\]
+If $\log3/\log4=p/q$ for positive integers $p,q$, then $3^q=4^p$, contrary to unique factorization. The density assertion already follows from Corollary~\ref{cor:rational}, since the nonnegative rationals are dense in $[0,\infty)$.
+\end{proof}
+
+\section{Verification and boundaries of the claim}
+The proof is analytic; finite computations are supplementary diagnostics. The accompanying code checks $UV=I_2$, $P^2=P$, the compressed-power identities, arbitrary-gap products, and the exact-length lower construction. An exhaustive floating-point enumeration of all binary words through length 24 was also performed for $\alpha=1/2$. None of these finite checks is substituted for the all-words estimate in Lemma~\ref{lem:budget}.
+
+The matrices are fixed once the exponent is chosen. Neither a generator nor its dimension depends on $n$. The negative entry in $P$ is intentional; no nonnegativity claim is made. The statements concern two-sided comparability with $n^\gamma$, not existence of a limit for $a_n/n^\gamma$, optimal dimension, or optimal multiplicative constants. The source question requires real matrices, which permits the real parameters in the general construction.
+
+\begin{thebibliography}{9}\raggedright
+\bibitem{VM}
+J. Varney and I. D. Morris,
+\emph{On marginal growth rates of matrix products},
+Linear Algebra and its Applications \textbf{709} (2025), 132--163.
+\href{https://doi.org/10.1016/j.laa.2025.01.013}{doi:10.1016/j.laa.2025.01.013}.
+Preprint: \url{https://arxiv.org/abs/2209.00449}.
+The target is Question 2. Theorem 5 provides related projection-reset constructions; Proposition 3.1 records tensor-product closure. All estimates for the present pair are proved above.
+\bibitem{repo}
+\emph{OpenProblemsInNLA}, matrix-functions-and-stability category, entry MF-12.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/matrix-functions-and-stability}.
+Category mapping checked on 11 September 2026; exhaustive issue/PR clearance remains pending as documented in the package audit.
+\end{thebibliography}
+\end{document}
