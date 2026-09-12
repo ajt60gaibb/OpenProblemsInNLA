@@ -21,6 +21,14 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### ✅ IE-04 — the uniform exponential GEPP tail is false — George Stepaniants
+
+**Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
+
+**Solved negatively, 2026-09-11.** The [complete proof's theorem, equation (2), and robustness lemma](linear-systems-and-elimination/IE-04/solution.md) give an explicit full entrywise box of strict-pivot matrices with growth greater than $(3/2)^{n-1}/2$, and Gaussian probability at least $2^{-n^2(n^2+n+5)}$. With the admissible center $I_n$ and noise level one, this contradicts the displayed IE-04 tail for every proposed universal pair of constants at sufficiently large $x$. The proof covers all dimensions needed for the contradiction and does not claim a replacement optimal tail or a sharp high-probability exponent. [Proof PDF](linear-systems-and-elimination/IE-04/solution.pdf) · [Original target](linear-systems-and-elimination/IE-04/README.md).
+
+The complete analytic proof passed a separate [independent Codex-agent review](references/stepaniants-ie04-2026-09-11/verification/IE-04-independent-review.md). Finite exact interval and rational checks are supplementary. AI assistance and automated-review limits are disclosed; no external human peer review or formal certification is asserted. [Submission record and public eligibility audit](references/stepaniants-ie04-2026-09-11/README.md). All original target quantifiers, the permanent ID and historical ratings are retained.
+
 ### ✅ IE-05 - the orthogonal partial-pivoting extremizer equality is false - George Stepaniants
 
 **Author:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA.
