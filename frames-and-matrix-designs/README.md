@@ -2,7 +2,7 @@
 
 [← All categories](../README.md) · [Full catalog](../CATALOG.md) · [Solved and claimed solutions](../RESOLVED.md)
 
-**11 problems with open targets.**
+**12 problems with open targets.**
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
@@ -17,5 +17,6 @@
 | [FR-09](FR-09/README.md) | Complex equiangular tight frames with twice the dimension | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](FR-09/problem.pdf) · [TeX](FR-09/problem.tex) |
 | [FR-10](FR-10/README.md) | Sharp sampling complexity for Walsh restricted isometries | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](FR-10/problem.pdf) · [TeX](FR-10/problem.tex) |
 | [FR-11](FR-11/README.md) | The minimum number of quadratic measurements for generalized phase retrieval | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](FR-11/problem.pdf) · [TeX](FR-11/problem.tex) |
+| [FR-12](FR-12/README.md) | Counting real Hadamard matrices | **🔵 OPEN** | extreme | interesting to the community | [PDF](FR-12/problem.pdf) · [TeX](FR-12/problem.tex) |
 
 Ratings are editorial; each entry explains both ratings and the scope of its status evidence. [Definitions](../README.md#problem-status).

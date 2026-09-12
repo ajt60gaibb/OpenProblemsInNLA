@@ -88,7 +88,7 @@ def main():
               'input_relation':'L_recovered = P_(7,8) L_current K, K=I except K77=-1,K78=1',
               'canonical_baseline_matrix_identical':True,
               'column_squared_norms_identical':norms,
-              'positive_QR_upper_diagonals_identical':[t[i][i] for i in range(8)],
+              'positive_integer_upper_factor_diagonals_identical':[t[i][i] for i in range(8)],
               'first_available_row_is_admissible_at_every_stage_for_both':True,
               'all_eight_squared_active_maxima_identical':stages,
               'unnormalized_stage7_blocks':final_blocks,

@@ -2,7 +2,7 @@
 
 The [September 10 expansion screen](EXPANSION-TO-200-2026-09.md) records 42 new admissions and the primary-source checks that bring the audited collection to **200 open targets**. Historical counts below refer to earlier screens.
 
-Last updated: **2026-09-10**. Earlier screens retain their original dates. This records source coverage and consequential
+Last updated: **2026-09-11**. Earlier screens retain their original dates. This records source coverage and consequential
 exclusions. It is not an exhaustive bibliography or a claim that every problem
 in the books below has been checked. Each admitted entry has its own references
 and status evidence in the [catalog](../CATALOG.md).
@@ -75,7 +75,7 @@ are withheld from an open collection while the claim stands.
 | --- | --- | --- |
 | General Crouzeix constant-two conjecture | Lorist and Schwenninger, [*A solution to Crouzeix's conjecture*](https://arxiv.org/abs/2608.03841), August 2026 preprint. | Withheld because of a full proof claim. |
 | Polynomial worst-case element growth with complete pivoting | Shah and Urschel, [*Entry growth in Gaussian elimination*](https://arxiv.org/abs/2608.19189), August 2026 preprint. | Claimed quasipolynomial lower growth rules out the old polynomial conjecture. Distinct structured and small-order questions remain in IE. |
-| Forsythe conjecture, all restart lengths | Colbrook, Stepaniants, and Townsend, [*A Complete Resolution of Forsythe's Conjecture for Restarted Conjugate Gradients*](https://arxiv.org/abs/2609.04659), September 4, 2026, Theorem 1.1. | IE-01 removed: convergence for $s=3$, counterexamples for every $s\ge4$. The earlier screen missed this resolution. |
+| Forsythe conjecture, all restart lengths | Colbrook, Stepaniants, and Townsend, [*A Complete Resolution of Forsythe's Conjecture for Restarted Conjugate Gradients*](https://arxiv.org/abs/2609.04659v2), revised September 7, 2026, Theorem 1.1 and Appendix D; [Lean proof and verification record](https://github.com/sgstepaniants/Forsythe/blob/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof/VERIFICATION.md). | [IE-01](../linear-systems-and-elimination/IE-01/README.md) retained as **Lean verified**, checked September 11: convergence for $s=3$, counterexamples for every $s\ge4$, with formal verification of the classification for $s\ge2$. Excluded from the open count; ID and original target preserved. |
 | Growth factor at most two for complex symmetric matrices with positive definite real and imaginary parts | Drury, [2013 determinant inequality](https://doi.org/10.1016/j.laa.2013.08.031); Teng Zhang, [2026 refinement](https://arxiv.org/abs/2604.23024). | Higham's ASNA Problem 10.12 is historical, not an open entry. Earlier author/link errors are corrected in the Higham screen. |
 | Jordan form of the Fréchet derivative of a matrix function | Noferini, [*The Jordan canonical form of the Fréchet derivative of a matrix function and the bivariate Jordan problem*](https://arxiv.org/html/2512.08399v5), §§4–5, and [journal record](https://doi.org/10.1016/j.laa.2026.06.002). | Higham's Functions of Matrices Problem 3.11 is answered. The paper leaves different structural questions open. The journal issue is dated October 2026, but the manuscript and online result were available before this check. |
 | Matrix Spencer discrepancy conjecture | Akbas and Sra, [August 2026 manuscript](https://arxiv.org/abs/2608.28816). | Withheld because of a claimed general constructive result; earlier partial results are no longer an adequate status check. |

@@ -1,0 +1,141 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={SP-13 - Trace-norm-small
+perturbations preserve Hermitian spectral
+distributions},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}SP-13}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Eigenvalues and inverse problems\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Trace-norm-small
+perturbations preserve Hermitian spectral distributions\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Topic:} Non-Hermitian perturbations and spectral distributions
+
+\textbf{Rating rationale:} Removing all spectral-norm bounds requires
+control of nonnormal spectra under potentially large perturbations. The
+result would extend spectral analysis of discretization matrices and
+preconditioners with unbounded coefficients.
+
+\subsection{Statement}\label{statement}
+
+For a sequence \(A_n\in\mathbb C^{n\times n}\) and a measurable function
+\(f:[0,1]\to\mathbb R\), write \(\{A_n\}\sim_\lambda f\) if
+
+\[
+\lim_{n\to\infty}\frac1n\sum_{j=1}^n F(\lambda_j(A_n))
+=\int_0^1 F(f(t))\,dt
+\qquad\text{for every }F\in C_c(\mathbb C),
+\]
+
+where \(C_c(\mathbb C)\) denotes the continuous complex-valued functions
+of compact support, and eigenvalues are counted with algebraic
+multiplicity. Define the trace norm by \(\|E\|_*:=\sum_j\sigma_j(E)\).
+
+\textbf{Conjecture (Barbarino--Serra-Capizzano).} For every Hermitian
+sequence \(H_n=H_n^*\) with \(\{H_n\}\sim_\lambda f\), and every
+sequence \(E_n\in\mathbb C^{n\times n}\) satisfying \(\|E_n\|_*/n\to0\),
+one has
+
+\[\{H_n+E_n\}\sim_\lambda f.\]
+
+Neither sequence is assumed uniformly bounded in spectral norm;
+\(H_n+E_n\) need not be normal. The unit interval is a distributional
+normalization of the source's general finite-measure symbol domain.
+
+\subsection{Known cases and numerical
+significance}\label{known-cases-and-numerical-significance}
+
+The conclusion is proved if \(\|E_n\|_F=o(\sqrt n)\), and also if
+\(\|E_n\|_*=o(n)\) and \(\sup_n\|E_n\|_2<\infty\). Here \(\|\cdot\|_F\)
+and \(\|\cdot\|_2\) denote Frobenius and spectral norms. The conjecture
+retains the trace-norm assumption while removing the latter uniform
+bound. It concerns the limiting empirical distribution, not
+individual-eigenvalue matching.
+
+Spectral symbols describe large matrix sequences arising in PDE
+discretization and preconditioning. The source's equivalent GLT and
+diagonal formulations are grouped with this target rather than assigned
+separate IDs.
+
+\newpage
+\subsection{References and status
+check}\label{references-and-status-check}
+
+\begin{itemize}
+\tightlist
+\item
+  G. Barbarino and S. Serra-Capizzano, \emph{Non-Hermitian perturbations
+  of Hermitian matrix-sequences and applications to the spectral
+  analysis of the numerical approximation of partial differential
+  equations}, Numerical Linear Algebra with Applications 27 (2020),
+  e2286. \href{https://doi.org/10.1002/nla.2286}{DOI};
+  \href{https://giovannibarbarino.github.io/doc/articles/NHperturbation.pdf}{author
+  PDF}. Conjecture 1 in §6, printed p.29; Theorem 1 and Corollary 3 give
+  the stated partial results.
+\item
+  G. Barbarino, \emph{Conjectures on Perturbations of Hermitian
+  Sequences},
+  \href{https://arxiv.org/abs/1808.05555v1}{arXiv:1808.05555v1},
+  Conjecture 1 and Lemma 4.2. This supplies equivalent versions of the
+  same target.
+\item
+  G. Barbarino and C. Garoni, \emph{GLT sequences and normal matrices},
+  Electronic Journal of Linear Algebra 41 (2025), 1--20.
+  \href{https://journals.uwyo.edu/index.php/ela/article/download/8929/6949/23285}{Theorem
+  3.2} requires smaller perturbations when the sum is not normal, so it
+  does not settle this conjecture.
+\end{itemize}
+
+On 2026-09-11, checked these primary statements, the authors'
+publication lists, and targeted title, trace-norm,
+spectral-distribution, proof and counterexample searches. No full
+resolution was located. The surviving evidence is a bounded literature
+check; the 2025 normal-sequence theorem is not presented as a new proof
+of openness.
+\end{document}
