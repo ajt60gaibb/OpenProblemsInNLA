@@ -36,7 +36,7 @@ Amsel et al., [*Linear Systems and Eigenvalue Problems: Open Questions from a Si
 
 ## Resolution and status check — 2026-09-12
 
-The affine preprint *Subspace embeddings with the rerandomized SRHT* (Theorem 1, manuscript page 2, [arXiv-style full text](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/manuscript.pdf)) proves that for each power-of-two $n$, every $1\le r\le n$, and every fixed $r$-dimensional subspace $V$, choosing
+The manuscript *Subspace embeddings with the rerandomized SRHT* (Theorem 1, manuscript page 2, [manuscript PDF](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/manuscript.pdf)) proves that for each power-of-two $n$, every $1\le r\le n$, and every fixed $r$-dimensional subspace $V$, choosing
 
 $$
 k=\min\left\{n,\left\lceil Cr/\varepsilon^2\right\rceil\right\}
@@ -45,14 +45,14 @@ $$
 gives
 
 $$
-\Pr\left\{\|V^T\Omega^T\Omega V-I_r\|_2>\varepsilon\right\}\le0.01,
+\Pr\left\{\|V^T\Omega\Omega^T V-I_r\|_2>\varepsilon\right\}\le0.01,
 $$
 
 for two independent Rademacher sign diagonals, two normalized Walsh transforms, and a uniform $k$-subset coordinate sample without replacement. The theorem proves the *prescribed width itself* with full width cap and does not rely on a smaller alternative $k$. The same universal constant works for every power-of-two $n$, and there are no remaining parameter cases.
 
 The proven range is $0<\varepsilon<1$, which strictly contains TR-01’s displayed range $0<\varepsilon<1/2$. This is therefore a complete affirmative resolution of the original target.
 
-The current statement is the TR-01 target at prescribed width; the original 2026 Simons problem version (Problem 5.6) is the same probabilistic target on fixed $V$, and the manuscript explicitly records the comparison of the workshop and current versions.
+TR-01 is a prescribed-width strengthening of Problem 5.6 in the 2026 Simons workshop collection. It uses the same two-round Walsh/sign distribution and the same fixed-subspace OSE event, but TR-01 prescribes the specific width $k=\min\{n,\lceil Cr/\varepsilon^2\rceil\}$ rather than only asking for a width of order $O(r/\varepsilon^2)$. The manuscript proves this stronger prescribed-width formulation directly.
 
 ## Lean proof and verification evidence
 
@@ -64,7 +64,7 @@ The canonical result declarations are
 - `Problem56.PaperV7.certified_explicit_main`
 - `Problem56.PaperV7.main_prescribed_width_ose`
 
-The manuscript and Lean correspondence are reviewed in
+The submitted manuscript and correspondence evidence are available at
 
 - [manuscript.pdf](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/manuscript.pdf)
 - [manuscript.tex](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/manuscript.tex)
@@ -76,7 +76,17 @@ Lean toolchain and dependency pins are
 - [lean-toolchain](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/lean-toolchain) (`lean 4.33.0`)
 - [lake-manifest.json](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/lake-manifest.json) (mathlib `db584cd6d46c92f209a44c0f1c829460d327499d`)
 
-Reproducible checks are listed in the immutable validation record:
+The pinned reproduction instructions are in [`lean/README.md`](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/README.md), and the verifier is [`lean/verify.py`](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/verify.py). From the `lean/` directory of that immutable revision, the principal commands are
+
+```sh
+lake exe cache get
+python3 verify.py
+python3 verify.py --graph --semantic --fresh-kernel
+```
+
+The archived public record reports successful proof compilation, statement-boundary checks, transitive axiom checks, semantic regressions, a cold project rebuild, and fresh kernel replay.
+
+Reproducible checks are recorded in the immutable validation artifacts:
 
 - [delivery_check.json](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/audit/delivery_check.json) (PASS)
 - [cold_rebuild.json](https://github.com/yuningyang19/OpenProblemsInNLA_TR-01/blob/ed21181197ac839eac95f549404f94e7e3aa6e10/lean/audit/cold_rebuild.json) (rebuild log and source hashes)
@@ -92,7 +102,7 @@ The axiom audit is in the immutable artifact [`AxiomAudit.lean`](https://github.
 
 No `sorry`, `admit`, or custom mathematical axioms appear in the certified target graph.
 
-The catalog checked the statement correspondence and public verification records and did not rerun Lean locally for this upstream submission.
+The submitted verification package includes an independent manuscript-to-Lean statement-correspondence review and the public verification records linked above. This pull request does not claim that the OpenProblemsInNLA maintainers reran Lean locally; the formal-verification status is supported by the immutable public proof and audit record submitted for maintainer review.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Solved and claimed solutions](../../RESOLVED.md#tr-01) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
