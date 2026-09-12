@@ -8,6 +8,13 @@ claimed**. Thus **200 targets remain in the open count**. The classification is
 based on the exact displayed statement, not merely its title or a historical
 conjecture number.
 
+**IE-01 update — 2026-09-11:** The **Solution claimed** classification below is
+historical and has been superseded by **Lean verified** after checking the paper's Lean
+formalization and public Comparator verification record. See the
+[retained IE-01 entry](../linear-systems-and-elimination/IE-01/README.md#lean-proof-and-verification-evidence)
+for the evidence and scope. The audit's original counts below are preserved;
+this status change does not affect the open count or any problem ID.
+
 A bounded literature check cannot prove that a problem is still open. Each page
 records the primary sources, relevant later results and limits of its search.
 “Partially resolved” identifies substantive proved cases inside its target; a

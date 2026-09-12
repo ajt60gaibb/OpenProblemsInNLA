@@ -6,6 +6,8 @@ publications, with references and dated checks for subsequent solutions.
 <!-- catalog-summary -->
 **142 problems with open targets:** 66 open and 76 partially resolved. **75 other retained entries**, excluded from the open count.
 
+**Resolution evidence:** 74 solved (published or independently audited); 1 Lean verified.
+
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
 **[Browse all 142 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
@@ -75,10 +77,21 @@ page records the outcome, date and exact resolution reference.
 | --- | --- | --- |
 | 🔵 **OPEN** | The stated target remains unresolved in the checked literature. | Yes |
 | 🟡 **PARTIAL** | Substantive cases inside the displayed target are proved; the entry identifies the remaining cases. This may reflect older results, not necessarily a new discovery. | Yes, once |
-| ✅ **SOLVED** | A published or independently verified result settles the exact target, affirmatively or by a counterexample. | No |
 | 🟠 **SOLUTION CLAIMED** | A primary manuscript claims a complete resolution; its full proof has not been independently verified here. | No |
+| ✅ **SOLVED** | A published result or an independently audited argument settles the exact target, affirmatively or by a counterexample. An AI-agent audit can support this status; it does not establish formal verification. | No |
+| 🏆 **LEAN VERIFIED** | A Lean proof of the exact target has passed kernel checking, with reviewed statement correspondence and a reproducible verification record. This is the formal-verification level above Solved. | No |
 | ⚪ **NEEDS VERIFICATION** | A material statement or status issue prevents admission. This is not a claim that the problem is solved. | No |
 | ⚫ **WITHDRAWN** | A retained original entry explains why it was withdrawn; its ID and canonical page remain reserved. | No |
+
+For complete resolutions, the evidence levels are **Solution claimed → Solved →
+Lean verified**. An agent finding no error is an informal audit, not a proof
+certificate or external human peer review. Each resolution records the kind
+and scope of review actually performed. `Solved` alone makes no claim of Lean
+verification; promotion requires the [Lean evidence requirements](CONTRIBUTING.md#lean-verification).
+A Lean proof of only a special case does not promote the whole problem; if
+cases remain open, its status stays `Partially resolved`.
+Lean checks the formal statement; its correspondence to the original
+mathematical target still requires review.
 
 We retain older-source entries when the exact question is supported and no
 resolution was found, but explicitly flag the limits of that evidence. An
