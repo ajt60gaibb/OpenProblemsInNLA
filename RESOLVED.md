@@ -562,11 +562,13 @@ Eight exact targets passed independent agent review. Author: **Matthew J. Colbro
 
 [Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-18.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-18-review.md).
 
-### IE-19 - Negative resolution and sharp replacement
+### 🏆 IE-19 — Negative resolution by Matthew J. Colbrook; Lean formalization by George Stepaniants
 
-[Original statement](linear-systems-and-elimination/IE-19/README.md). **Solved.** Section 1 gives an admissible positive symmetric strictly diagonally dominant $3\times3$ matrix with inverse infinity norm $7/9$, below the proposed comparison value $5/4$. Theorem 1 in Section 2 proves that the exact infimum over the displayed class is $1/(\alpha+m)$ for every allowed parameter choice, and strict positivity prevents attainment. The order is entrywise; stronger comparisons of dominance margins are outside the result.
+[Original statement](linear-systems-and-elimination/IE-19/README.md). **Lean verified, 2026-09-12.** The exact original lower-bound and sharp conjectures are false: the admissible $3\times3$ matrix with diagonal entries $2$ and off-diagonal entries $1/2$, at $m=\alpha=1$, has inverse infinity norm $7/9<5/4$. The [Lean proof at revision 531941c](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/531941ca0062049ccf03d3f2df418ea805ac4036/linear-systems-and-elimination/IE-19/lean) exports `NLA.IE19.counterexample`, `NLA.IE19.not_lowerBoundConjecture`, and `NLA.IE19.not_sharpConjecture`. Independent agents reviewed the statement and complete proof; [Linux run 34703188616](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34703188616) matched all three declarations with Comparator and replayed the solution through Lean's default kernel, permitting only `propext`, `Classical.choice`, and `Quot.sound`. The [permanent verification archive](linear-systems-and-elimination/IE-19/lean/verification/linux-2026-09-12/) retains the original artifacts, logs and independent operational review; the canonical page gives pinned dependencies and reproduction commands.
 
-[Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-19.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-19-review.md).
+**Mathematical proof:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Lean formalization:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA. The manuscript's further sharp-infimum and nonattainment results remain informally reviewed and are outside this Lean certificate. The stable problem ID and original target are retained.
+
+[Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-19.pdf); [independent mathematical review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-19-review.md); [independent formalization reviews](linear-systems-and-elimination/IE-19/lean/reviews/).
 
 ### IE-21 - Affirmative resolution
 

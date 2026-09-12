@@ -3,15 +3,39 @@
 **Topic:** Conditioning of positive diagonally dominant linear systems.  
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Solved
-**Last checked:** 2026-09-11
+**Status:** Lean verified
+**Last checked:** 2026-09-12
+
+## Lean proof and verification evidence — 2026-09-12
+
+**The original IE-19 conjecture is false, with a complete Lean-verified counterexample.** The [proof at revision 531941c](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/531941ca0062049ccf03d3f2df418ea805ac4036/linear-systems-and-elimination/IE-19/lean) proves that the admissible matrix with diagonal entries $2$ and off-diagonal entries $1/2$, at $n=3$ and $m=\alpha=1$, has a genuine inverse with infinity norm $7/9<5/4$. The formal statement keeps the original entrywise bounds, weak diagonal dominance and all parameter quantifiers, without adding an invertibility premise. This counterexample refutes the full original lower-bound and sharp conjectures. The manuscript's additional sharp-infimum and nonattainment theorem remains informally reviewed and is outside this Lean certificate.
+
+**Mathematical proof:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Lean formalization:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, with AI-agent assistance.
+
+The checked declarations in [Solution.lean](https://github.com/sgstepaniants/OpenProblemsInNLA/blob/531941ca0062049ccf03d3f2df418ea805ac4036/linear-systems-and-elimination/IE-19/lean/Solution.lean) are:
+
+- `NLA.IE19.counterexample`
+- `NLA.IE19.not_lowerBoundConjecture`
+- `NLA.IE19.not_sharpConjecture`
+
+Two independent agents [reviewed the complete proof](lean/reviews/) against the original target. [Run 34703188616](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34703188616) executed Comparator remotely on GitHub Actions Ubuntu 24.04, matched all three formal statements and replayed the solution through Lean's default kernel. The [archived log and operational review](lean/verification/linux-2026-09-12/) record the actual run, exact source hashes, original artifact digests, and executed rejection controls for `sorry` and native-execution axioms. The [transitive axiom report](lean/verification/axioms.log) contains only `propext`, `Classical.choice`, and `Quot.sound`. The independent operational referee checked the downloaded evidence locally; it did not run Linux on the local macOS machine. The reviews are independent agent reviews, not external human peer review.
+
+The proof pins **Lean 4.33.1**, [LeanCert 621a43d](https://github.com/alerad/leancert/tree/621a43d7cf21f87872392a01e874f2f1dbddc926) and [Mathlib 0df444a](https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474). The [formalization manifest](lean/formalization.yaml) and [numerical targets](lean/NUMERICAL_TARGETS.md) describe scope and dependencies. From a checkout of the verified revision, with the documented [non-root Linux prerequisites](../../tools/lean/HARNESS.md), reproduce the check with:
+
+```
+tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
+tools/lean/verify.sh \
+  linear-systems-and-elimination/IE-19/lean \
+  /absolute/path/to/nla-lean-tools
+```
 
 <!-- colbrook-recovered -->
 ## Independently reviewed resolution - 2026-09-11
 
 **Negative resolution and sharp replacement.** Section 1 gives an admissible positive symmetric strictly diagonally dominant $3\times3$ matrix with inverse infinity norm $7/9$, below the proposed comparison value $5/4$. Theorem 1 in Section 2 proves that the exact infimum over the displayed class is $1/(\alpha+m)$ for every allowed parameter choice, and strict positivity prevents attainment. The order is entrywise; stronger comparisons of dominance margins are outside the result.
 
-**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [Complete manuscript](../../references/colbrook-recovered-2026-09-11/manuscripts/IE-19.pdf), [independent proof review](../../references/colbrook-recovered-2026-09-11/verification/reviews/IE-19-review.md), and [submission record](../../references/colbrook-recovered-2026-09-11/README.md). The supplied notes were reconstructed with substantial AI assistance. This is independent agent verification, not external human peer review or formal proof-assistant certification; no novelty or priority claim is made.
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [Complete manuscript](../../references/colbrook-recovered-2026-09-11/manuscripts/IE-19.pdf), [independent proof review](../../references/colbrook-recovered-2026-09-11/verification/reviews/IE-19-review.md), and [submission record](../../references/colbrook-recovered-2026-09-11/README.md). The supplied notes were reconstructed with substantial AI assistance. The 2026-09-11 review was independent agent verification, without external human peer review or formal proof-assistant certification. The later Lean verification above covers the complete negative resolution of the original conjecture. No novelty or priority claim is made.
 
 The difficulty, importance and rating rationale below are historical assessments of the original open target. Original statements, references and dated audits are preserved.
 <!-- /colbrook-recovered -->

@@ -4,7 +4,7 @@ This project proves the negative answer to the [original IE-19 question](../READ
 
 Formalization: **George Stepaniants**, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, with AI-agent assistance. Original counterexample and informal proof: **Matthew J. Colbrook**. See [formalization.yaml](formalization.yaml) for source attribution and automation disclosure.
 
-The proof builds with the pinned Lean 4.33.1 toolchain. All exported theorems pass `#assert_trust kernel`, and their reported transitive axioms are exactly `propext`, `Classical.choice`, and `Quot.sound`. Two independent final proof referees approved the proof and successfully re-elaborated it. The authoritative Linux Comparator run remains pending; this project does not yet promote the catalog status.
+The proof builds with the pinned Lean 4.33.1 toolchain. All exported theorems pass `#assert_trust kernel`, and their reported transitive axioms are exactly `propext`, `Classical.choice`, and `Quot.sound`. Two independent final proof referees approved the proof and successfully re-elaborated it. The [successful Linux Comparator run](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34703188616) verified all three declarations at [immutable proof revision 531941c](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/531941ca0062049ccf03d3f2df418ea805ac4036/linear-systems-and-elimination/IE-19/lean) on GitHub Actions Ubuntu 24.04. The catalog status is now `Lean verified` for the complete negative resolution. The [permanent operational evidence](verification/linux-2026-09-12/) records the executed controls, original artifacts, source hashes and independent audit.
 
 ## Exact targets
 
@@ -33,6 +33,7 @@ From the repository root on the supported non-root Linux host, authoritative ver
 python3 -m pip install -r tools/lean/requirements.txt
 python3 tools/lean/validate_manifest.py linear-systems-and-elimination/IE-19/lean
 tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
 tools/lean/verify.sh linear-systems-and-elimination/IE-19/lean /absolute/path/to/nla-lean-tools
 ```
 
@@ -40,4 +41,4 @@ This requires a committed, unchanged project. The harness uses fresh input copie
 
 ## Evidence
 
-The [statement and proof referee reports](reviews/) identify the exact frozen bytes. [Local build and axiom logs](verification/) report the actual development checks and their limits. A successful Linux Comparator result must be added before this project's evidence supports a `Lean verified` catalog entry.
+The [statement and proof referee reports](reviews/) identify the exact frozen bytes. [Local build and axiom logs](verification/) report the actual development checks and their limits. The [Linux evidence archive](verification/linux-2026-09-12/) retains the actual successful [run 34703188616](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34703188616), two original artifact ZIPs with matching GitHub digests, all 29 project input hashes, tool receipts and the independent operational review. It ran remotely on Ubuntu 24.04; the operational reviewer downloaded and audited its evidence locally without claiming a local Linux rerun. The harness used fresh pinned source clones and project elaboration with the official Mathlib compiled cache. The earlier local referee reports predate this run and retain their historical pending-Linux qualifications. Documentation updates do not change the mathematical bytes checked at `531941ca0062049ccf03d3f2df418ea805ac4036`.

@@ -1,0 +1,20 @@
+﻿2026-09-12T15:45:45.4071402Z ##[group]Run if [ "$EVENT_NAME" = "workflow_dispatch" ] || [ -z "$BASE_REF" ] || [ "$BASE_REF" = "0000000000000000000000000000000000000000" ]; then
+2026-09-12T15:45:45.4072126Z [36;1mif [ "$EVENT_NAME" = "workflow_dispatch" ] || [ -z "$BASE_REF" ] || [ "$BASE_REF" = "0000000000000000000000000000000000000000" ]; then[0m
+2026-09-12T15:45:45.4072932Z [36;1m  python3 tools/lean/projects.py --all --github-output "$GITHUB_OUTPUT"[0m
+2026-09-12T15:45:45.4073366Z [36;1m  echo "tools_changed=true" >> "$GITHUB_OUTPUT"[0m
+2026-09-12T15:45:45.4073724Z [36;1melse[0m
+2026-09-12T15:45:45.4074133Z [36;1m  python3 tools/lean/projects.py --base-ref "$BASE_REF" --github-output "$GITHUB_OUTPUT"[0m
+2026-09-12T15:45:45.4074617Z [36;1m  python3 - "$BASE_REF" "$GITHUB_OUTPUT" <<'PY'[0m
+2026-09-12T15:45:45.4074992Z [36;1mimport pathlib, subprocess, sys[0m
+2026-09-12T15:45:45.4075476Z [36;1mchanged = subprocess.check_output(['git','diff','--name-only',sys.argv[1],'HEAD','--'], text=True).splitlines()[0m
+2026-09-12T15:45:45.4076321Z [36;1mneeds_tools = any(p.startswith(('tools/lean/', 'docs/lean/ci-toolchain/')) or p == '.github/workflows/lean-verification.yml' for p in changed)[0m
+2026-09-12T15:45:45.4076946Z [36;1mwith pathlib.Path(sys.argv[2]).open('a') as stream:[0m
+2026-09-12T15:45:45.4077356Z [36;1m    stream.write('tools_changed=' + str(needs_tools).lower() + '\n')[0m
+2026-09-12T15:45:45.4077722Z [36;1mPY[0m
+2026-09-12T15:45:45.4077979Z [36;1mfi[0m
+2026-09-12T15:45:45.4098108Z shell: /usr/bin/bash -e {0}
+2026-09-12T15:45:45.4098429Z env:
+2026-09-12T15:45:45.4098726Z   BASE_REF: bacb23055a467c6e8de96f549c3807096a99c5fb
+2026-09-12T15:45:45.4099078Z   EVENT_NAME: push
+2026-09-12T15:45:45.4099341Z ##[endgroup]
+2026-09-12T15:45:45.4457690Z {"include":[{"id":"IE-19","project":"linear-systems-and-elimination/IE-19/lean"}]}

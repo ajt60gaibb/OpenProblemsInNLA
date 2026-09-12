@@ -1,0 +1,287 @@
+﻿2026-09-12T15:46:28.8649665Z ##[group]Run ulimit -n 65536
+2026-09-12T15:46:28.8649991Z [36;1mulimit -n 65536[0m
+2026-09-12T15:46:28.8650304Z [36;1mtools/lean/bootstrap.sh "$RUNNER_TEMP/nla-lean-tools"[0m
+2026-09-12T15:46:28.8650989Z [36;1mtools/lean/selftest.sh "$RUNNER_TEMP/nla-lean-tools"[0m
+2026-09-12T15:46:28.8686917Z shell: /usr/bin/bash -e {0}
+2026-09-12T15:46:28.8687174Z env:
+2026-09-12T15:46:28.8687365Z   GOTOOLCHAIN: local
+2026-09-12T15:46:28.8687598Z   XDG_RUNTIME_DIR: /run/user/1001
+2026-09-12T15:46:28.8687906Z   DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1001/bus
+2026-09-12T15:46:28.8688224Z ##[endgroup]
+2026-09-12T15:46:30.0033966Z Running elan toolchain install leanprover/lean4:v4.33.1
+2026-09-12T15:46:30.0034901Z Log: /home/runner/work/_temp/nla-lean-tools/logs/bootstrap/elan.log
+2026-09-12T15:46:30.0054168Z info: toolchain 'leanprover/lean4:v4.33.1' is already installed
+2026-09-12T15:46:30.0842581Z Running go build -mod=readonly -buildvcs=false -o /home/runner/work/_temp/nla-lean-tools/.tools/bin/landrun ./cmd/landrun
+2026-09-12T15:46:30.0843729Z Log: /home/runner/work/_temp/nla-lean-tools/logs/bootstrap/landrun-build.log
+2026-09-12T15:46:30.0891763Z go: downloading github.com/urfave/cli/v3 v3.6.2
+2026-09-12T15:46:30.1043623Z go: downloading github.com/landlock-lsm/go-landlock v0.9.0
+2026-09-12T15:46:30.2025113Z go: downloading golang.org/x/sys v0.40.0
+2026-09-12T15:46:30.2027127Z go: downloading kernel.org/pub/linux/libs/security/libcap/psx v1.2.77
+2026-09-12T15:46:39.2191212Z Running lake build lean4export comparator
+2026-09-12T15:46:39.2192206Z Log: /home/runner/work/_temp/nla-lean-tools/logs/bootstrap/comparator-build.log
+2026-09-12T15:46:39.7548504Z ✔ [3/20] Built Comparator.Util (430ms)
+2026-09-12T15:46:39.9544302Z ✔ [4/20] Built Comparator.Util:c.o (193ms)
+2026-09-12T15:46:41.3552718Z ✔ [5/20] Built Export.Parse (2.0s)
+2026-09-12T15:46:42.0612027Z ✔ [6/20] Built Export (2.7s)
+2026-09-12T15:46:42.0671691Z ✔ [7/20] Built Comparator.Axioms (745ms)
+2026-09-12T15:46:42.6592086Z ✔ [8/20] Built Comparator.Axioms:c.o (555ms)
+2026-09-12T15:46:43.5662029Z ✔ [9/20] Built Main (1.6s)
+2026-09-12T15:46:43.6652028Z ✔ [10/20] Built Comparator.Compare (1.0s)
+2026-09-12T15:46:43.9692194Z ✔ [11/20] Built Main:c.o (343ms)
+2026-09-12T15:46:44.3692195Z ✔ [12/20] Built Comparator.Compare:c.o (722ms)
+2026-09-12T15:46:44.4671714Z ✔ [13/20] Built Comparator (485ms)
+2026-09-12T15:46:44.5673818Z ✔ [14/20] Built Comparator:c.o (109ms)
+2026-09-12T15:46:46.2714170Z ✔ [15/20] Built Export:c.o (4.2s)
+2026-09-12T15:46:46.6726473Z ✔ [16/20] Built Main (2.2s)
+2026-09-12T15:46:46.7732241Z ✔ [17/20] Built Export.Parse:c.o (5.4s)
+2026-09-12T15:46:47.4759069Z ✔ [18/20] Built lean4export:exe (1.2s)
+2026-09-12T15:46:47.7762205Z ✔ [19/20] Built Main:c.o (1.2s)
+2026-09-12T15:46:48.4768820Z ✔ [20/20] Built comparator:exe (705ms)
+2026-09-12T15:46:48.4774428Z Build completed successfully (20 jobs).
+2026-09-12T15:46:48.7665213Z Tools built; isolation and checker controls run during verify. Receipt: /home/runner/work/_temp/nla-lean-tools/bootstrap.json
+2026-09-12T15:46:49.1697159Z Running /usr/bin/timeout --kill-after=5s 45s systemd-run -p RuntimeMaxSec=40 --user --quiet --wait --pipe --collect -p 'RestrictAddressFamilies=~AF_UNIX' --working-directory /home/runner/work/_temp/nla-lean-tools /usr/bin/env -i PATH=/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin:/home/runner/.elan/bin:/home/runner/go/bin:/opt/hostedtoolcache/go/1.27.1/x64/bin:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin HOME=/home/runner LANG=C.UTF-8 XDG_RUNTIME_DIR=/run/user/1001 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1001/bus GIT_TERMINAL_PROMPT=0 GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null COMPARATOR_BIN=/home/runner/work/_temp/nla-lean-tools/.tools/comparator/.lake/build/bin/comparator COMPARATOR_LEAN4EXPORT=/home/runner/work/_temp/nla-lean-tools/.tools/lean4export/.lake/build/bin/lean4export COMPARATOR_LANDRUN=/home/runner/work/_temp/nla-lean-tools/scripts/strict_landrun.py XDG_CACHE_HOME=/home/runner/work/_temp/nla-lean-tools/.tools/cache TMPDIR=/home/runner/work/_temp/nla-lean-tools/.verification-tmp /usr/bin/true
+2026-09-12T15:46:49.1703028Z Log: /home/runner/work/_temp/nla-lean-tools/logs/selftest-20260912T154649Z-4113/user-service.log
+2026-09-12T15:46:49.2114069Z Running python3 /home/runner/work/_temp/nla-lean-tools/reproduction/checks/sandbox_probe_ci.py
+2026-09-12T15:46:49.2114974Z Log: /home/runner/work/_temp/nla-lean-tools/logs/selftest-20260912T154649Z-4113/sandbox.log
+2026-09-12T15:46:49.2455786Z START sandbox mode: build
+2026-09-12T15:46:49.3334260Z START sandbox mode: export
+2026-09-12T15:46:49.4184358Z START sandbox negative case: unknown option
+2026-09-12T15:46:49.4605199Z START sandbox negative case: unexpected --rw
+2026-09-12T15:46:49.4995977Z START sandbox negative case: unexpected --rwx
+2026-09-12T15:46:49.5491332Z START sandbox negative case: relative --rwx
+2026-09-12T15:46:49.5957558Z MODE build: exit=0
+2026-09-12T15:46:49.5958464Z Running as unit: run-u2.service; invocation ID: 291147d93e534e76916d50a78f93f193
+2026-09-12T15:46:49.5959320Z PASS outside .lake write-open: denied errno=30
+2026-09-12T15:46:49.5959975Z PASS outside .lake truncate: denied errno=30
+2026-09-12T15:46:49.5960848Z PASS outside .lake read-only truncate-open: denied errno=30
+2026-09-12T15:46:49.5961499Z PASS symlink from .lake to outside write: denied errno=30
+2026-09-12T15:46:49.5963306Z PASS outside .lake creation: denied errno=30
+2026-09-12T15:46:49.5963913Z PASS build .lake write: allowed
+2026-09-12T15:46:49.5964410Z PASS user namespace: private
+2026-09-12T15:46:49.5964887Z PASS pid namespace: private
+2026-09-12T15:46:49.5965352Z PASS mnt namespace: private
+2026-09-12T15:46:49.5965800Z PASS net namespace: private
+2026-09-12T15:46:49.5966317Z PASS ipc namespace: private
+2026-09-12T15:46:49.5966745Z PASS uts namespace: private
+2026-09-12T15:46:49.5967222Z PASS host parent: absent from private /proc
+2026-09-12T15:46:49.5967812Z PASS host parent signal lookup: denied errno=3
+2026-09-12T15:46:49.5968408Z PASS host loopback listener: unreachable errno=13
+2026-09-12T15:46:49.5969002Z PASS AF_UNIX socket creation: denied errno=97
+2026-09-12T15:46:49.5969559Z PASS effective capabilities: none
+2026-09-12T15:46:49.5969920Z PASS no_new_privs: set
+2026-09-12T15:46:49.5970155Z Sandbox UID: 1001
+2026-09-12T15:46:49.5970437Z PASS nested namespace write attempt: rejected exit=1
+2026-09-12T15:46:49.5971222Z bwrap: setting up uid map: Permission denied
+2026-09-12T15:46:49.5971559Z Finished with result: success
+2026-09-12T15:46:49.5971873Z Main processes terminated with: code=exited/status=0
+2026-09-12T15:46:49.5972197Z Service runtime: 72ms
+2026-09-12T15:46:49.5972433Z CPU time consumed: 73ms
+2026-09-12T15:46:49.5972667Z Memory peak: 256.0K
+2026-09-12T15:46:49.5972893Z Memory swap peak: 0B
+2026-09-12T15:46:49.5973026Z 
+2026-09-12T15:46:49.5973123Z MODE export: exit=0
+2026-09-12T15:46:49.5973475Z Running as unit: run-u3.service; invocation ID: 13a58226851c4019b83e8281f9ceb80b
+2026-09-12T15:46:49.5973938Z PASS outside .lake write-open: denied errno=30
+2026-09-12T15:46:49.5974267Z PASS outside .lake truncate: denied errno=30
+2026-09-12T15:46:49.5974647Z PASS outside .lake read-only truncate-open: denied errno=30
+2026-09-12T15:46:49.5975069Z PASS symlink from .lake to outside write: denied errno=30
+2026-09-12T15:46:49.5975426Z PASS outside .lake creation: denied errno=30
+2026-09-12T15:46:49.5975749Z PASS export .lake write-open: denied errno=30
+2026-09-12T15:46:49.5976079Z PASS export .lake truncate: denied errno=30
+2026-09-12T15:46:49.5976410Z PASS user namespace: private
+2026-09-12T15:46:49.5976669Z PASS pid namespace: private
+2026-09-12T15:46:49.5976923Z PASS mnt namespace: private
+2026-09-12T15:46:49.5977174Z PASS net namespace: private
+2026-09-12T15:46:49.5977415Z PASS ipc namespace: private
+2026-09-12T15:46:49.5977664Z PASS uts namespace: private
+2026-09-12T15:46:49.5977934Z PASS host parent: absent from private /proc
+2026-09-12T15:46:49.5978625Z PASS host parent signal lookup: denied errno=3
+2026-09-12T15:46:49.5978985Z PASS host loopback listener: unreachable errno=13
+2026-09-12T15:46:49.5979328Z PASS AF_UNIX socket creation: denied errno=97
+2026-09-12T15:46:49.5979781Z PASS effective capabilities: none
+2026-09-12T15:46:49.5980045Z PASS no_new_privs: set
+2026-09-12T15:46:49.5980271Z Sandbox UID: 1001
+2026-09-12T15:46:49.5980538Z PASS nested namespace write attempt: rejected exit=1
+2026-09-12T15:46:49.5981473Z bwrap: setting up uid map: Permission denied
+2026-09-12T15:46:49.5982056Z Finished with result: success
+2026-09-12T15:46:49.5982614Z Main processes terminated with: code=exited/status=0
+2026-09-12T15:46:49.5983158Z Service runtime: 71ms
+2026-09-12T15:46:49.5983566Z CPU time consumed: 72ms
+2026-09-12T15:46:49.5983812Z Memory peak: 256.0K
+2026-09-12T15:46:49.5984028Z Memory swap peak: 0B
+2026-09-12T15:46:49.5984158Z 
+2026-09-12T15:46:49.5984276Z NEGATIVE unknown option: exit=2
+2026-09-12T15:46:49.5984685Z Running as unit: run-u4.service; invocation ID: 3b95b87ab38740a29841343532ac9ed9
+2026-09-12T15:46:49.5985287Z strict Comparator sandbox: unsupported Comparator Landrun option: --unrestricted-filesystem
+2026-09-12T15:46:49.5985765Z Finished with result: exit-code
+2026-09-12T15:46:49.5986078Z Main processes terminated with: code=exited/status=2
+2026-09-12T15:46:49.5986393Z Service runtime: 27ms
+2026-09-12T15:46:49.5986697Z CPU time consumed: 26ms
+2026-09-12T15:46:49.5986958Z Memory peak: 256.0K
+2026-09-12T15:46:49.5987172Z Memory swap peak: 0B
+2026-09-12T15:46:49.5987304Z 
+2026-09-12T15:46:49.5987414Z NEGATIVE unexpected --rw: exit=2
+2026-09-12T15:46:49.5987812Z Running as unit: run-u5.service; invocation ID: 3513dcab75154521b3908a63faea69a0
+2026-09-12T15:46:49.5988314Z strict Comparator sandbox: only private /dev may be passed with --rw
+2026-09-12T15:46:49.5988693Z Finished with result: exit-code
+2026-09-12T15:46:49.5988992Z Main processes terminated with: code=exited/status=2
+2026-09-12T15:46:49.5989313Z Service runtime: 26ms
+2026-09-12T15:46:49.5989533Z CPU time consumed: 25ms
+2026-09-12T15:46:49.5989755Z Memory peak: 256.0K
+2026-09-12T15:46:49.5989967Z Memory swap peak: 0B
+2026-09-12T15:46:49.5990098Z 
+2026-09-12T15:46:49.5990320Z NEGATIVE unexpected --rwx: exit=2
+2026-09-12T15:46:49.5991272Z Running as unit: run-u6.service; invocation ID: 4dffde7379274fd299657f39510dfcd7
+2026-09-12T15:46:49.5992184Z strict Comparator sandbox: only this project's existing .lake may be writable
+2026-09-12T15:46:49.5992959Z Finished with result: exit-code
+2026-09-12T15:46:49.5993285Z Main processes terminated with: code=exited/status=2
+2026-09-12T15:46:49.5993597Z Service runtime: 26ms
+2026-09-12T15:46:49.5993817Z CPU time consumed: 26ms
+2026-09-12T15:46:49.5994043Z Memory peak: 256.0K
+2026-09-12T15:46:49.5994255Z Memory swap peak: 0B
+2026-09-12T15:46:49.5994385Z 
+2026-09-12T15:46:49.5994498Z NEGATIVE relative --rwx: exit=2
+2026-09-12T15:46:49.5994889Z Running as unit: run-u7.service; invocation ID: b0ae5694ad3a4e348af8b05aaf2a38b1
+2026-09-12T15:46:49.5995460Z strict Comparator sandbox: only this project's existing .lake may be writable
+2026-09-12T15:46:49.5995879Z Finished with result: exit-code
+2026-09-12T15:46:49.5996180Z Main processes terminated with: code=exited/status=2
+2026-09-12T15:46:49.5996509Z Service runtime: 26ms
+2026-09-12T15:46:49.5996742Z CPU time consumed: 26ms
+2026-09-12T15:46:49.5996973Z Memory peak: 256.0K
+2026-09-12T15:46:49.5997186Z Memory swap peak: 0B
+2026-09-12T15:46:49.5997315Z 
+2026-09-12T15:46:49.5997575Z Outer and export fixture contents unchanged; only designated build fixture written.
+2026-09-12T15:46:49.6031377Z Running bash /home/runner/work/_temp/nla-lean-tools/reproduction/checks/run_replay.sh
+2026-09-12T15:46:49.6032107Z Log: /home/runner/work/_temp/nla-lean-tools/logs/selftest-20260912T154649Z-4113/kernel-controls.log
+2026-09-12T15:46:49.6699046Z Replay probe: RestrictAddressFamilies=~AF_UNIX (deny AF_UNIX sockets).
+2026-09-12T15:46:49.7207481Z Lean (version 4.33.1, x86_64-unknown-linux-gnu, Release)
+2026-09-12T15:46:49.7689923Z /home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean/Init.olean
+2026-09-12T15:46:49.7691587Z /home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean/Init.olean
+2026-09-12T15:46:49.7693087Z /home/runner/work/_temp/nla-lean-tools/.tools/comparator/.lake/build/lib/lean/Main.olean
+2026-09-12T15:46:51.0452710Z Trusted base fixture: 11 constants
+2026-09-12T15:46:51.0453195Z BEGIN honest_with_inductives_and_quotients
+2026-09-12T15:46:51.0453576Z Running Lean default kernel on solution.
+2026-09-12T15:46:51.0453941Z Lean default kernel accepts the solution
+2026-09-12T15:46:51.0454345Z RETURN honest_with_inductives_and_quotients: accepted
+2026-09-12T15:46:51.0454733Z BEGIN invalid_raw_proof
+2026-09-12T15:46:51.0455044Z Running Lean default kernel on solution.
+2026-09-12T15:46:51.0455398Z Lean default kernel rejects the solution
+2026-09-12T15:46:51.0455926Z RETURN invalid_raw_proof: rejected: while replaying declaration 'PinnedReplayProbe.invalid':
+2026-09-12T15:46:51.0456564Z (kernel) declaration type mismatch, 'PinnedReplayProbe.invalid' has type
+2026-09-12T15:46:51.0456945Z   True
+2026-09-12T15:46:51.0457153Z but it is expected to have type
+2026-09-12T15:46:51.0457397Z   False
+2026-09-12T15:46:51.0457605Z BEGIN quotient_postcheck_mismatch
+2026-09-12T15:46:51.0457892Z Running Lean default kernel on solution.
+2026-09-12T15:46:51.0458188Z Lean default kernel accepts the solution
+2026-09-12T15:46:51.0458474Z Quotient post-check rejects the solution
+2026-09-12T15:46:51.0458908Z RETURN quotient_postcheck_mismatch: rejected: Quotient constant mismatch on: Quot.lift
+2026-09-12T15:46:51.0459495Z PASS: all three actual Comparator.runBuiltinKernel cases behaved as required
+2026-09-12T15:46:51.1412172Z Running python3 /home/runner/work/_temp/nla-lean-tools/reproduction/checks/comparator_regressions.py
+2026-09-12T15:46:51.1413772Z Log: /home/runner/work/_temp/nla-lean-tools/logs/selftest-20260912T154649Z-4113/comparator-controls.log
+2026-09-12T15:46:51.1692182Z Comparator regressions: RestrictAddressFamilies=~AF_UNIX; .tools/env.sh selects the real strict sandbox.
+2026-09-12T15:46:51.1701976Z 
+2026-09-12T15:46:51.1702236Z CASE simple_match
+2026-09-12T15:46:53.2145203Z info: ComparatorRegression: no previous manifest, creating one from scratch
+2026-09-12T15:46:53.2146171Z info: toolchain not updated; already up-to-date
+2026-09-12T15:46:53.2146714Z Building Challenge
+2026-09-12T15:46:53.2147441Z ⚠ [2/3] Built Challenge (222ms)
+2026-09-12T15:46:53.2148041Z warning: Challenge.lean:1:8: declaration uses `sorry`
+2026-09-12T15:46:53.2148693Z Build completed successfully (3 jobs).
+2026-09-12T15:46:53.2151597Z Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+2026-09-12T15:46:53.2154116Z Building Solution
+2026-09-12T15:46:53.2154666Z ✔ [2/3] Built Solution (230ms)
+2026-09-12T15:46:53.2155151Z Build completed successfully (3 jobs).
+2026-09-12T15:46:53.2157276Z Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+2026-09-12T15:46:53.2158853Z Running Lean default kernel on solution.
+2026-09-12T15:46:53.2159350Z Lean default kernel accepts the solution
+2026-09-12T15:46:53.2159641Z Your solution is okay!
+2026-09-12T15:46:53.2160006Z PASS simple_match: exit 0, expected 0; required phase: Your solution is okay!
+2026-09-12T15:46:53.2160324Z 
+2026-09-12T15:46:53.2160418Z CASE simple_mismatch
+2026-09-12T15:46:55.0918755Z info: ComparatorRegression: no previous manifest, creating one from scratch
+2026-09-12T15:46:55.0919687Z info: toolchain not updated; already up-to-date
+2026-09-12T15:46:55.0920085Z Building Challenge
+2026-09-12T15:46:55.0920558Z ⚠ [2/3] Built Challenge (224ms)
+2026-09-12T15:46:55.0921571Z warning: Challenge.lean:1:8: declaration uses `sorry`
+2026-09-12T15:46:55.0922498Z Build completed successfully (3 jobs).
+2026-09-12T15:46:55.0924093Z Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+2026-09-12T15:46:55.0925388Z Building Solution
+2026-09-12T15:46:55.0925701Z ✔ [2/3] Built Solution (223ms)
+2026-09-12T15:46:55.0925974Z Build completed successfully (3 jobs).
+2026-09-12T15:46:55.0927693Z Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+2026-09-12T15:46:55.0930319Z uncaught exception: Challenge and solution constant kind don't match: 'comm'
+2026-09-12T15:46:55.0931745Z PASS simple_mismatch: exit 1, expected 1; required phase: Challenge and solution constant kind don't match: 'comm'
+2026-09-12T15:46:55.0932220Z 
+2026-09-12T15:46:55.0932319Z CASE simple_axiom_issue
+2026-09-12T15:46:56.9610398Z info: ComparatorRegression: no previous manifest, creating one from scratch
+2026-09-12T15:46:56.9611494Z info: toolchain not updated; already up-to-date
+2026-09-12T15:46:56.9612035Z Building Challenge
+2026-09-12T15:46:56.9612702Z ⚠ [2/3] Built Challenge (222ms)
+2026-09-12T15:46:56.9613233Z warning: Challenge.lean:1:8: declaration uses `sorry`
+2026-09-12T15:46:56.9613847Z Build completed successfully (3 jobs).
+2026-09-12T15:46:56.9615617Z Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+2026-09-12T15:46:56.9616985Z Building Solution
+2026-09-12T15:46:56.9617278Z ✔ [2/3] Built Solution (223ms)
+2026-09-12T15:46:56.9617556Z Build completed successfully (3 jobs).
+2026-09-12T15:46:56.9619084Z Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+2026-09-12T15:46:56.9621615Z uncaught exception: Illegal axiom detected: 'helper'
+2026-09-12T15:46:56.9622138Z PASS simple_axiom_issue: exit 1, expected 1; required phase: Illegal axiom detected: 'helper'
+2026-09-12T15:46:56.9622503Z 
+2026-09-12T15:46:56.9622607Z CASE simple_kind_mismatch
+2026-09-12T15:46:58.8335016Z info: ComparatorRegression: no previous manifest, creating one from scratch
+2026-09-12T15:46:58.8335564Z info: toolchain not updated; already up-to-date
+2026-09-12T15:46:58.8335870Z Building Challenge
+2026-09-12T15:46:58.8336664Z ⚠ [2/3] Built Challenge (222ms)
+2026-09-12T15:46:58.8337259Z warning: Challenge.lean:1:8: declaration uses `sorry`
+2026-09-12T15:46:58.8337844Z Build completed successfully (3 jobs).
+2026-09-12T15:46:58.8339344Z Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+2026-09-12T15:46:58.8341328Z Building Solution
+2026-09-12T15:46:58.8341850Z ✔ [2/3] Built Solution (222ms)
+2026-09-12T15:46:58.8342149Z Build completed successfully (3 jobs).
+2026-09-12T15:46:58.8344469Z Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+2026-09-12T15:46:58.8346907Z uncaught exception: Illegal axiom detected: 'helper'
+2026-09-12T15:46:58.8347816Z PASS simple_kind_mismatch: exit 1, expected 1; required phase: Illegal axiom detected: 'helper'
+2026-09-12T15:46:58.8348474Z 
+2026-09-12T15:46:58.8348638Z CASE type_mismatch
+2026-09-12T15:47:00.7086051Z info: ComparatorRegression: no previous manifest, creating one from scratch
+2026-09-12T15:47:00.7086659Z info: toolchain not updated; already up-to-date
+2026-09-12T15:47:00.7086968Z Building Challenge
+2026-09-12T15:47:00.7087428Z ✔ [2/3] Built Challenge (230ms)
+2026-09-12T15:47:00.7087705Z Build completed successfully (3 jobs).
+2026-09-12T15:47:00.7089107Z Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+2026-09-12T15:47:00.7090418Z Building Solution
+2026-09-12T15:47:00.7090926Z ✔ [2/3] Built Solution (236ms)
+2026-09-12T15:47:00.7091224Z Build completed successfully (3 jobs).
+2026-09-12T15:47:00.7092728Z Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+2026-09-12T15:47:00.7094357Z uncaught exception: Challenge and solution theorem statement do not match: 'checked'
+2026-09-12T15:47:00.7095061Z PASS type_mismatch: exit 1, expected 1; required phase: Challenge and solution theorem statement do not match: 'checked'
+2026-09-12T15:47:00.7123438Z PASS: all five Comparator regressions
+2026-09-12T15:47:00.7196734Z Running systemd-run --user --quiet --wait --pipe --collect -p 'RestrictAddressFamilies=~AF_UNIX' --working-directory /home/runner/work/_temp/nla-lean-tools/.verification-tmp/nla-axiom-205ar00q /usr/bin/env -i PATH=/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin:/home/runner/.elan/bin:/home/runner/go/bin:/opt/hostedtoolcache/go/1.27.1/x64/bin:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin HOME=/home/runner LANG=C.UTF-8 XDG_RUNTIME_DIR=/run/user/1001 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1001/bus GIT_TERMINAL_PROMPT=0 GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null COMPARATOR_BIN=/home/runner/work/_temp/nla-lean-tools/.tools/comparator/.lake/build/bin/comparator COMPARATOR_LEAN4EXPORT=/home/runner/work/_temp/nla-lean-tools/.tools/lean4export/.lake/build/bin/lean4export COMPARATOR_LANDRUN=/home/runner/work/_temp/nla-lean-tools/scripts/strict_landrun.py XDG_CACHE_HOME=/home/runner/work/_temp/nla-lean-tools/.tools/cache TMPDIR=/home/runner/work/_temp/nla-lean-tools/.verification-tmp lake env /home/runner/work/_temp/nla-lean-tools/.tools/comparator/.lake/build/bin/comparator comparator.json
+2026-09-12T15:47:00.7205989Z Log: /home/runner/work/_temp/nla-lean-tools/logs/selftest-20260912T154649Z-4113/negative-sorry.log
+2026-09-12T15:47:00.8522493Z info: NlaAxiomFixture: no previous manifest, creating one from scratch
+2026-09-12T15:47:00.8523410Z info: toolchain not updated; already up-to-date
+2026-09-12T15:47:00.9273030Z Building Challenge
+2026-09-12T15:47:01.9196483Z ✔ [2/3] Built Challenge (812ms)
+2026-09-12T15:47:01.9201111Z Build completed successfully (3 jobs).
+2026-09-12T15:47:02.8105611Z Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, Classical.choice, Quot.sound, propext, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+2026-09-12T15:47:02.8108034Z Building Solution
+2026-09-12T15:47:03.7070881Z ⚠ [2/3] Built Solution (782ms)
+2026-09-12T15:47:03.7071896Z warning: Solution.lean:2:8: declaration uses `sorry`
+2026-09-12T15:47:03.7074701Z Build completed successfully (3 jobs).
+2026-09-12T15:47:04.6824121Z Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, Classical.choice, Quot.sound, propext, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+2026-09-12T15:47:04.6826523Z uncaught exception: Illegal axiom detected: 'sorryAx'
+2026-09-12T15:47:04.6918510Z Running systemd-run --user --quiet --wait --pipe --collect -p 'RestrictAddressFamilies=~AF_UNIX' --working-directory /home/runner/work/_temp/nla-lean-tools/.verification-tmp/nla-axiom-vw_mhoos /usr/bin/env -i PATH=/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin:/home/runner/.elan/bin:/home/runner/go/bin:/opt/hostedtoolcache/go/1.27.1/x64/bin:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin HOME=/home/runner LANG=C.UTF-8 XDG_RUNTIME_DIR=/run/user/1001 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1001/bus GIT_TERMINAL_PROMPT=0 GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null COMPARATOR_BIN=/home/runner/work/_temp/nla-lean-tools/.tools/comparator/.lake/build/bin/comparator COMPARATOR_LEAN4EXPORT=/home/runner/work/_temp/nla-lean-tools/.tools/lean4export/.lake/build/bin/lean4export COMPARATOR_LANDRUN=/home/runner/work/_temp/nla-lean-tools/scripts/strict_landrun.py XDG_CACHE_HOME=/home/runner/work/_temp/nla-lean-tools/.tools/cache TMPDIR=/home/runner/work/_temp/nla-lean-tools/.verification-tmp lake env /home/runner/work/_temp/nla-lean-tools/.tools/comparator/.lake/build/bin/comparator comparator.json
+2026-09-12T15:47:04.6923879Z Log: /home/runner/work/_temp/nla-lean-tools/logs/selftest-20260912T154649Z-4113/negative-native.log
+2026-09-12T15:47:04.7439164Z info: NlaAxiomFixture: no previous manifest, creating one from scratch
+2026-09-12T15:47:04.7440107Z info: toolchain not updated; already up-to-date
+2026-09-12T15:47:04.8127887Z Building Challenge
+2026-09-12T15:47:05.7051760Z ✔ [2/3] Built Challenge (794ms)
+2026-09-12T15:47:05.7071444Z Build completed successfully (3 jobs).
+2026-09-12T15:47:06.6050160Z Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, Classical.choice, Quot.sound, propext, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+2026-09-12T15:47:06.6083643Z Building Solution
+2026-09-12T15:47:07.4966910Z ✔ [2/3] Built Solution (791ms)
+2026-09-12T15:47:07.4969853Z Build completed successfully (3 jobs).
+2026-09-12T15:47:08.4818849Z Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, Classical.choice, Quot.sound, propext, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+2026-09-12T15:47:08.4823463Z uncaught exception: Illegal axiom detected: 'checked._native.native_decide.ax_1_1'
+2026-09-12T15:47:08.4917473Z PASS: sandbox and checker controls only. Evidence: /home/runner/work/_temp/nla-lean-tools/logs/selftest-20260912T154649Z-4113
