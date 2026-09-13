@@ -4,13 +4,13 @@ A collection of precise open problems drawn from books and research
 publications, with references and dated checks for subsequent solutions.
 
 <!-- catalog-summary -->
-**125 problems with open targets:** 53 open and 72 partially resolved. **92 other retained entries**, excluded from the open count.
+**124 problems with open targets:** 52 open and 72 partially resolved. **93 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 76 solved (published or independently audited); 16 Lean verified.
+**Resolution evidence:** 77 solved (published or independently audited); 16 Lean verified.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
-**[Browse all 125 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
+**[Browse all 124 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
 <!-- /catalog-summary -->
 
 ## Browse by category
@@ -20,7 +20,7 @@ Each entry records its own literature-check date. Literature checks are bounded;
 | [Linear systems and elimination](linear-systems-and-elimination/README.md) | 9 |
 | [Eigenvalues and inverse problems](eigenvalues-and-inverse-problems/README.md) | 13 |
 | [Matrix functions and stability](matrix-functions-and-stability/README.md) | 14 |
-| [Randomized and low-rank approximation](randomized-and-low-rank-approximation/README.md) | 16 |
+| [Randomized and low-rank approximation](randomized-and-low-rank-approximation/README.md) | 15 |
 | [Tensor computations](tensor-computations/README.md) | 18 |
 | [Nonnegative and positive factorizations](nonnegative-and-positive-factorizations/README.md) | 7 |
 | [Matrix inequalities and norms](matrix-inequalities-and-norms/README.md) | 19 |

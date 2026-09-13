@@ -52,13 +52,50 @@ matrix\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Open\par}
+{\sffamily\small\bfseries\color{accent}Status: Solved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
 \textbf{Rating rationale:} Challenging because a sharp
 lower-singular-value threshold needs both necessity and sufficiency;
 community impact is the sparsity cost of reliable randomized embeddings.
+
+\subsection{Resolution --- 12 September
+2026}\label{resolution-12-september-2026}
+
+\textbf{Solved by Sidney Holden}, Center for Computational Biology,
+Flatiron Institute, Simons Foundation. The historical difficulty and
+importance ratings above refer to the original open question.
+
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/TR-08/solution.pdf}{Theorem
+1.1 and Sections 2--7} prove the exact criterion
+
+\[\exists a>0:\quad \Pr\{\sigma_{\min}((M_k)_{:I_k})\ge a\}\longrightarrow1
+\quad\Longleftrightarrow\quad
+\liminf_{k\to\infty}\frac{s_k^2}{\log k}>0.\]
+
+Thus the necessary and sufficient condition is
+\(s_k=\Omega(\sqrt{\log k})\). Every fixed positive multiple succeeds,
+and a normalized sparsity tending to zero along any subsequence fails.
+This includes oscillating sequences and the critical window, rather than
+only the logarithmic exponent. The fixed positive singular-value bound
+may depend on the sequence's positive lower ratio, but not on dimension
+or the realized matrix. The selected columns have exactly the original
+product law, so the ambient column count introduces no additional
+assumption.
+
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/TR-08/solution.tex}{Proof
+source} ·
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-tr08-2026-09-12/README.md}{Submission
+and verified affiliation} ·
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-tr08-2026-09-12/independent-review.md}{Independent
+Codex AI-agent audit: PASS}.
+
+The complete argument passed independent informal AI-agent review; this
+is not external human peer review or formal verification. No Lean
+verification was performed. The draft's ChatGPT assistance is disclosed.
+The original target and source attribution are retained below; no
+historical novelty claim is made.
 
 \subsection{Problem statement}\label{problem-statement}
 
@@ -71,9 +108,7 @@ Independently select a uniform \(k/100\)-element column set \(I_k\).
 Determine necessary and sufficient asymptotic conditions on \(s_k\) for
 the existence of an absolute \(a>0\) such that
 
-\[
-\Pr\{\sigma_{\min}((M_k)_{:I_k})\ge a\}=1-o(1).
-\]
+\[\Pr\{\sigma_{\min}((M_k)_{:I_k})\ge a\}=1-o(1).\]
 
 Probability includes both random constructions. The requested threshold
 concerns a lower singular-value bound, not an upper distortion estimate.
@@ -101,7 +136,6 @@ possible constant or \(\log\log k\) corrections. It is therefore a
 milestone toward the full target, rather than a replacement for it;
 existence of such an exponent is not assumed.
 
-\newpage
 \subsection{Reference}\label{reference}
 
 Huang, Rudelson, and Tikhomirov,
