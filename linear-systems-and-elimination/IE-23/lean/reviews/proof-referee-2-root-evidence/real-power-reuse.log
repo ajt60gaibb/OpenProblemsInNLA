@@ -1,0 +1,63 @@
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:414:theorem rpow_mul {x : ℝ} (hx : 0 ≤ x) (y z : ℝ) : x ^ (y * z) = (x ^ y) ^ z := by
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:421:  simp_rw [← rpow_natCast, ← rpow_mul hx, mul_comm y]
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:424:  simp_rw [← rpow_intCast, ← rpow_mul hx, mul_comm y]
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:502:  rw [← rpow_mul hx, mul_inv_cancel₀ hy, rpow_one]
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:505:  rw [← rpow_mul hx, inv_mul_cancel₀ hy, rpow_one]
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:509:  rw [← rpow_natCast, ← rpow_mul hx, mul_inv_cancel₀ hn0, rpow_one]
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:511:theorem rpow_inv_natCast_pow (hx : 0 ≤ x) (hn : n ≠ 0) : (x ^ (n⁻¹ : ℝ)) ^ n = x := by
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:513:  rw [← rpow_natCast, ← rpow_mul hx, inv_mul_cancel₀ hn0, rpow_one]
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:516:  rw [rpow_mul hx, rpow_natCast]
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:518:lemma rpow_mul_natCast (hx : 0 ≤ x) (y : ℝ) (n : ℕ) : x ^ (y * n) = (x ^ y) ^ n := by
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:519:  rw [rpow_mul hx, rpow_natCast]
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:522:  rw [rpow_mul hx, rpow_intCast]
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:524:lemma rpow_mul_intCast (hx : 0 ≤ x) (y : ℝ) (n : ℤ) : x ^ (y * n) = (x ^ y) ^ n := by
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:525:  rw [rpow_mul hx, rpow_intCast]
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:582:lemma le_rpow_inv_iff_of_pos (hx : 0 ≤ x) (hy : 0 ≤ y) (hz : 0 < z) : x ≤ y ^ z⁻¹ ↔ x ^ z ≤ y := by
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:592:  lt_iff_lt_of_le_iff_le <| le_rpow_inv_iff_of_pos hy hx hz
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:763:  rw [← rpow_one y, ← rpow_one z, ← mul_inv_cancel₀ hx, rpow_mul hy, rpow_mul hz, hyz]
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:984:theorem sqrt_eq_rpow (x : ℝ) : √x = x ^ (1 / (2 : ℝ)) := by
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:987:      ← rpow_natCast, ← rpow_mul h]
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:993:  rw [sqrt_eq_rpow, ← rpow_mul hx]
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:1005:    ← Real.sqrt_eq_rpow, cos_half, ← sqrt_mul, ← mul_div_assoc, mul_add, mul_one, norm_mul_cos_arg]
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:1011:    ← Real.sqrt_eq_rpow, sin_half_eq_sqrt, ← sqrt_mul (norm_nonneg _), ← mul_div_assoc, mul_sub,
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:1019:    ← Real.sqrt_eq_rpow, sin_half_eq_neg_sqrt, mul_neg, ← sqrt_mul (norm_nonneg _),
+Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:1026:    ← Real.sqrt_eq_rpow, abs_mul, abs_of_nonneg (sqrt_nonneg _), abs_sin_half,
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:140:theorem rpow_mul (x : ℝ≥0) (y z : ℝ) : x ^ (y * z) = (x ^ y) ^ z :=
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:141:  NNReal.eq <| Real.rpow_mul x.2 y z
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:144:  rw [rpow_mul, rpow_natCast]
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:146:lemma rpow_mul_natCast (x : ℝ≥0) (y : ℝ) (n : ℕ) : x ^ (y * n) = (x ^ y) ^ n := by
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:147:  rw [rpow_mul, rpow_natCast]
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:150:  rw [rpow_mul, rpow_intCast]
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:152:lemma rpow_mul_intCast (x : ℝ≥0) (y : ℝ) (n : ℤ) : x ^ (y * n) = (x ^ y) ^ n := by
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:153:  rw [rpow_mul, rpow_intCast]
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:170:  rw [← rpow_mul]
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:175:  rw [← rpow_mul]
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:185:theorem sqrt_eq_rpow (x : ℝ≥0) : sqrt x = x ^ (1 / (2 : ℝ)) := by
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:188:  exact Real.sqrt_eq_rpow x.1
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:304:lemma le_rpow_inv_iff_of_pos (hy : 0 ≤ y) (hz : 0 < z) (x : ℝ≥0) : x ≤ y ^ z⁻¹ ↔ x ^ z ≤ y :=
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:305:  Real.le_rpow_inv_iff_of_pos x.2 hy hz
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:397:  fun y => ⟨y ^ x⁻¹, by simp_rw [← rpow_mul, inv_mul_cancel₀ hx, rpow_one]⟩
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:428:  rw [← rpow_mul, mul_inv_cancel₀ hy, rpow_one]
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:431:  rw [← rpow_mul, inv_mul_cancel₀ hy, rpow_one]
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:445:theorem rpow_inv_natCast_pow (x : ℝ≥0) {n : ℕ} (hn : n ≠ 0) : (x ^ (n⁻¹ : ℝ)) ^ n = x := by
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:447:  exact Real.rpow_inv_natCast_pow x.2 hn
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:468:      rw [← rpow_mul, one_div_mul_cancel hy.ne.symm, rpow_one]
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:533:theorem zero_rpow_mul_self (y : ℝ) : (0 : ℝ≥0∞) ^ y * (0 : ℝ≥0∞) ^ y = (0 : ℝ≥0∞) ^ y := by
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:669:theorem rpow_mul (x : ℝ≥0∞) (y z : ℝ) : x ^ (y * z) = (x ^ y) ^ z := by
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:683:      simp [← coe_rpow_of_ne_zero, h, this, NNReal.rpow_mul]
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:791:    rw [← rpow_mul, one_div_mul_cancel hy.ne.symm, rpow_one]
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:818:  rw [rpow_mul, @rpow_le_rpow_iff _ _ z⁻¹ (by simp [hz])]
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:826:  rw [rpow_mul, @rpow_lt_rpow_iff _ _ z⁻¹ (by simp [hz])]
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:831:  rw [ENNReal.rpow_mul, ENNReal.rpow_le_rpow_iff (inv_pos.2 hz)]
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:975:  rw [← rpow_mul, mul_inv_cancel₀ hy, rpow_one]
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:978:  rw [← rpow_mul, inv_mul_cancel₀ hy, rpow_one]
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:989:  rw [← rpow_natCast, ← rpow_mul, mul_inv_cancel₀ (by positivity), rpow_one]
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:991:lemma rpow_inv_natCast_pow {n : ℕ} (hn : n ≠ 0) (x : ℝ≥0∞) : (x ^ (n⁻¹ : ℝ)) ^ n = x := by
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:992:  rw [← rpow_natCast, ← rpow_mul, inv_mul_cancel₀ (by positivity), rpow_one]
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:995:  rw [rpow_mul, rpow_natCast]
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:997:lemma rpow_mul_natCast (x : ℝ≥0∞) (y : ℝ) (n : ℕ) : x ^ (y * n) = (x ^ y) ^ n := by
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:998:  rw [rpow_mul, rpow_natCast]
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:1001:  rw [rpow_mul, rpow_intCast]
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:1003:lemma rpow_mul_intCast (x : ℝ≥0∞) (y : ℝ) (n : ℤ) : x ^ (y * n) = (x ^ y) ^ n := by
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:1004:  rw [rpow_mul, rpow_intCast]
+Mathlib/Analysis/SpecialFunctions/Pow/NNReal.lean:1018:lemma add_rpow_le_two_rpow_mul_rpow_add_rpow {p : ℝ} (a b : ℝ≥0∞) (hp : 0 ≤ p) :
