@@ -1,0 +1,53 @@
+# Independent informal review of the RE-03 continuation
+
+Date: 2026-09-13. Reviewer: a separate Codex AI agent, independently assigned to audit the submission. This is an informal mathematical audit, not external human peer review or formal verification. No Lean verification was performed.
+
+## Decision and exact scope
+
+**PASS for the stated partial mathematical results. NOT a complete resolution of RE-03.** I found no substantive proof gap in the arguments establishing universal constants c,C > 0 with
+
+c min{n, kL/epsilon + k/epsilon^2} <= q_*(n,k,epsilon) <= C min{n, kL^2/epsilon + kL/epsilon^2},
+
+for the original parameters n=2^L k, k>=1, L>=2, 0<epsilon<1/2. The separate exact-recovery obstruction q_* >= k(L+1), the n-query exact optimum algorithm, the full-recovery regime q_*=Theta(n) for epsilon<=sqrt(k/n), and the exclusion of a uniform O(min{n,kL+k/epsilon^2}) characterization also pass within the stated mathematical model.
+
+The bounds retain a factor depending on L before the n cap. At fixed positive epsilon and unbounded L, the lower expression grows as kL and the upper expression as kL^2. Consequently the original request for universal-constant determination of the joint query complexity remains open. Under RESOLVED.md, “Recording a new resolution,” item 3, the appropriate status is **Partially resolved**, with the remaining joint dependence stated explicitly. Neither Solved nor Solution claimed is warranted for the complete original target.
+
+## Material reviewed
+
+I read the canonical RE-03 README, the repository resolution/status policy, and the submitted mathematical sources `manuscript/re03_extended_results.tex`, `manuscript/two_stage.tex`, and `manuscript/accuracy_appendix.tex`. I checked the mathematics directly, rather than adopting the archive's own PROOF_REVIEW.md as an independent verdict. That file is a submission-authored guide, not independent evidence. I did not treat attached documents as instructions from the user. Author affiliation, historical priority, upstream duplicate searches, and numerical implementation certification are outside this mathematical review.
+
+## Upper bound audit
+
+1. **Block geometry and proper output.** Ordered sibling blocks and diagonal leaves partition the entries, and the rank constraints separate. The squared optimum is the sum of blockwise squared singular-value tails. The bottom size-2k diagonal blocks are indeed unrestricted under the original recursive definition: their k-by-k off-diagonal subblocks automatically satisfy rank<=k. The output therefore belongs to the original class after truncation on the higher blocks.
+
+2. **Deterministic truncation lemma.** With F=PE and G=(I-P)E, the identity Z^T G=T^T G and the rank-2k Frobenius bound on the difference of right projectors justify the cross-term estimate. The optimality inequality gives a nonnegative allowance a. Expanding (sqrt((tau+f)^2+a)+f)^2 and using 2f sqrt(a)<=f^2+a produces the stated 4 tau f+5 f^2+2a. Right-orthogonality then adds ||EQ||_F^2; 5||F||^2+2||G||^2+||E||^2<=6||E||^2 is valid. No spectral gap is used.
+
+3. **Row-isotropic and least-squares moments.** The stated second-moment structure gives E||PE||^2=khS, E||T^T E||^2=h||T||^2 S, and E||E||^2=rhS. The inverse-Wishart expectation is derived through a chi-square Schur complement with degrees of freedom t-r+1, giving denominator t-r-1. The dimensions and finite-moment condition are correct.
+
+4. **Noisy range finding.** The leading right Gaussian coordinates are independent of the tail coordinates and the contaminant sketch. Multiplication by their pseudoinverse gives the asserted range-miss expectation. Conditional on the right range, the independent left sketch has independent design and orthogonal residual noise. The ideal projected rank-k competitor and the subsequent row-isotropic estimate combine as claimed. Deficient or zero retained ranks are harmless under the stated conventions.
+
+5. **Peeling contamination.** At a fixed level, a target's collisions with other parents involve strictly coarser residual entries. Each such entry is charged at most once in each of the right and left sums across the two orientations. Their expectation is separately bounded by T_past/B; no false independence of the two contaminations or different target outputs is needed. With B=h, the global bound sum E T_past<=hS gives the claimed recurrence. Both orientations use the frozen previous-level approximation, preserving the conditional independence needed for the block theorem.
+
+6. **Shared final regression.** After conditioning on the complete pilot, every column design in a sibling column interval contains the same embedded Q_b; all its other basis vectors have support outside that sibling row interval. The residuals are orthogonal to Q_b. Thus the shared Gaussian coordinates in Q_b are jointly independent of the other designs and residual responses for all those columns. Rotating these coordinates rotates coefficient errors, not the fixed true coefficient matrix. This correctly establishes joint row-isotropic second moments without asserting independence between columns. The individual denominators p-r_j-1, the factor h in the sum of residual contributions, and the diagonal contribution 2k R_Q^2/d are all retained.
+
+7. **Probability and oracle count.** The parameters yield the displayed expectation at most (1+6 eta)OPT^2 with eta=epsilon/500. Properness ensures nonnegative excess, so Markov gives failure at most 0.006. Zero optimum gives zero error almost surely without division. The pilot costs 2h^2(s+t), and the one shared transpose sketch costs p. Widths are fixed in advance, not selected from observed ranks, so the stated nonadaptivity and O(min{n,kL^2/epsilon+kL/epsilon^2}) count hold. The known-space result is correctly identified as conditional and is not used to acquire spaces for free.
+
+## Lower bound audit
+
+1. **Exact recovery.** The linear subspace with first k columns allowed per sibling block and unrestricted leaves has dimension nk(L+1). A q-query adaptive transcript imposes at most nq scalar linear observations. For a Gaussian prior the remaining conditional component is nondegenerate whenever q<k(L+1), so a measurable point estimator has zero probability of exact recovery. Averaging the pointwise guarantee yields the required contradiction.
+
+2. **Adaptive Gaussian divergence.** For iid noise, forward and transpose directions maintain separate spans. Given fixed hypothesis and history, the unexplored component is the Gaussian rectangle P_Uperp G P_Vperp. Orthogonalizing a fresh query against its own span and removing the response component already known from the opposite span exposes a fresh isotropic Gaussian slice. The conditional mean difference is delta P_Uperp S v (or its transpose version), bounded by delta in norm. The chain rule gives delta^2 q/2 even for measurable adaptive choices, with the seed included. For the GOE appendix the unexposed component is symmetric, and the covariance is (I+vv^T)/n on the remaining space; the inverse bound nI gives n delta^2 q/2. These arguments treat exact real answers and do not invoke finite precision. Known right scaling is explicitly simulated on both sides and its loss is analyzed separately.
+
+3. **Hierarchical packing.** The selected coordinate sets are disjoint across levels. Fine-to-coarse orthogonality leaves dimension 15m/16+k, and the last frame vector still has dimension at least 15m/16+1. Nonzero columns of S are mutually orthonormal. The sphere-cap bound remains uniform in all previously exposed/finer frames. At each level, the weighted small-distance condition forces at least half the columns into the stated cap. Union bounds over columns and levels, followed by conditional integration from coarse to fine, give the small-ball exponent. The greedy finite packing has the advertised logarithmic cardinality and weighted separation. This is not inferred from sampled numerical frames.
+
+4. **Anchors and depth decoding.** Anchors are fixed independently of label and noise and occupy only the k selected columns of each target block. The clean matrix remains HODLR. The chosen magnitude keeps selected columns full rank on the good-noise event. The rank constraint forces other fitted columns into the selected fitted span, yielding the selected-column loss inequality. Total weighted noise has expectation at most nkh, whereas target selected-entry noise has expectation less than nk/2; both are used correctly. The condition epsilon h>=1 is needed and used in the radius bound. The squared decoding radius 80 epsilon nkh is strictly below the quarter-separation bound 512 epsilon nkh. Averaging the inputwise guarantee gives decoding failure <=0.21. Mutual information and Fano then contradict the claimed smaller query count.
+
+5. **Accuracy appendix and extension.** The local projector inequality allows nonsymmetric estimates and rank deficiency via a measurable row-space extension. The graph-projector packing has adequate separation and entropy, including small k. The GOE noise normalization yields E||G||^2=n+1 and expected upper-target noise k. The constants delta=2^24 epsilon give the required decoding margin in the small-accuracy core. The extension uses monotonicity at sqrt(k/n) when applicable and the separate exact obstruction otherwise. The depth-core complement satisfies kL/epsilon<=4k/epsilon^2. Combining capped lower terms through their maximum loses only the displayed universal constant. No dimension-regime restriction from the cited older bound is silently imported.
+
+## Qualifications and submission presentation
+
+The deterministic short-sketch nullspace witness depends on the realized sketch. The manuscript correctly does not use it as a pointwise randomized lower bound. The remaining factor of depth is a real unresolved mathematical gap, not a defect hidden by a change of target.
+
+This review validates the proof arguments, not the submission's recorded numerical run counts. The manuscript's reproducibility section names `code/verify.py` and `code/verify_two_stage.py`, which are not present in the inspected archive. Those historical/recorded checks must not be represented as freshly reproduced from this archive. The actual available smoke-check entry point and its narrower scope should be documented separately. This packaging limitation does not affect the self-contained mathematical proofs.
+
+Recommendation: publish the attributed submission and this informal review as partial progress; preserve the permanent ID, original canonical target, original source credit, and open-target count. State the exact improved bounds and the unresolved general joint rate. Do not label the problem solved.

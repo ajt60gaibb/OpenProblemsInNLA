@@ -21,6 +21,13 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### RE-03 — sharper HODLR query bounds — Sidney Holden
+
+**Partially resolved, 13 September 2026.** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Theorem 1.1 and Corollary 1.2](references/holden-re03-2026-09-13/submission/manuscript/re03_extended_results.pdf) establish lower bound $`c\min\{n,kL/\varepsilon+k/\varepsilon^2\}`$, upper bound $`C\min\{n,kL^2/\varepsilon+kL/\varepsilon^2\}`$, and the full-recovery regime $`q_*=\Theta(n)`$ for $`\varepsilon\le\sqrt{k/n}`$. The factor of depth in the general bounds remains; [RE-03's original target](randomized-and-low-rank-approximation/RE-03/README.md) stays open and retains its permanent ID.
+
+A separate [independent Codex AI-agent informal audit](references/holden-re03-2026-09-13/independent-review.md) passed the partial proofs. [Submission, verified affiliation and reproduction limits](references/holden-re03-2026-09-13/README.md). Five available smoke cases passed; the missing historical continuation suite was not reproduced. No Lean verification, external human peer review or novelty claim is asserted.
+
+
 ### KE-02, SP-08 and SP-09 — spectral partial results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-spectral-2026-09-12/README.md).

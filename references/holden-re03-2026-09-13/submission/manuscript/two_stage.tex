@@ -1,0 +1,191 @@
+\section{A two-stage improvement with shared regression}\label{sec:twostage}
+
+The coefficient accuracy needed during peeling is lower than the accuracy
+needed in the final answer. Keeping the larger range spaces, using only a
+constant-factor pilot fit, and then refitting all blocks simultaneously gives
+a stronger upper bound than Theorem~\ref{thm:upper}.
+
+\subsection{A constant-accuracy pilot and accurate retained ranges}
+
+Let $h=L-1$ and choose
+\begin{equation}\label{eq:twostageparameters}
+ \eta=\eps/500,\qquad s=k+1+\lceil k/\eta\rceil,\qquad
+ t=s+1+1000s,\qquad B=h.
+\end{equation}
+Run the peeling construction of Section~\ref{sec:algorithm} on the first
+$h$ levels with these parameters, but do not perform its final diagonal fit.
+Retain every range basis $Q_b$ as well as the rank-$k$ pilot block used for
+subtraction at later levels. Write $r_b=\dim\col(Q_b)\le s$.
+The two orientations at a level still use a frozen pilot from coarser levels.
+
+In the notation of \eqref{eq:levelbound},
+$\alpha\le\eta<10^{-3}$, $\beta=10^{-3}$, and
+$\gamma\le\sqrt{\eta/1000}$. Hence $r_0<0.01$ and $c_0<0.02$.
+The global inequality \eqref{eq:globalineq} gives, for the expected
+nonterminal pilot error $S$,
+\begin{equation}\label{eq:pilotconstant}
+ S\le\frac{1+r_0+\tfrac32c_0}{1-r_0-\tfrac12c_0}O<2O,
+ \qquad O=\OPT(A)^2.
+\end{equation}
+This is a constant-accuracy statement about the pilot, not the final output.
+
+For each target block $C_b$, define the retained-range miss
+\[
+ M_b^{\rm miss}=\norm{(I-Q_bQ_b^{\mathsf T})[C_b]_k}_\F^2.
+\]
+The right-space estimate \eqref{eq:rangemiss}, conditioned on the past and
+then averaged over hashes, implies
+\begin{equation}\label{eq:rangesum}
+ \E\sum_b M_b^{\rm miss}
+ \le\alpha\left(O+\frac1h\sum_{\ell=1}^h\E T_{\ell-1}\right)
+ \le\eta(O+S)\le3\eta O.
+\end{equation}
+Let $I_Q$ denote the squared Frobenius error of the best rank-$k$ approximation within each
+retained column space, with exact size-$2k$ diagonal blocks. By
+\eqref{eq:idealrange},
+\begin{equation}\label{eq:idealshared}
+ \E I_Q\le(1+3\eta)O.
+\end{equation}
+
+\subsection{Shared regression in larger spaces}
+
+Now condition on the entire pilot. For each column $j$, form an orthonormal
+matrix $Z_j$ by concatenating its size-$2k$ diagonal coordinate basis and
+all retained $Q_b$ on sibling row intervals for which $j$ belongs to the
+column interval. The row supports are disjoint. Thus
+\[
+ r_j=\dim\col(Z_j)\le2k+sh=:r_{\rm bd}.
+\]
+Let $A_Q[:,j]=Z_jZ_j^{\mathsf T}A[:,j]$, $e_j=A[:,j]-A_Q[:,j]$, and
+$R_Q^2=\sum_j\norm{e_j}^2$. This larger linear model has no rank-$k$
+restriction on the retained coefficients. In particular,
+\begin{equation}\label{eq:projectionvsproper}
+ R_Q^2\le I_Q.
+\end{equation}
+
+Draw a fresh standard Gaussian $\Omega\in\R^{n\times p}$ and obtain
+$A^{\mathsf T}\Omega$ with $p$ transpose queries. Fit each column by
+$Z_j(\Omega^{\mathsf T}Z_j)^\dagger\Omega^{\mathsf T}A[:,j]$.
+On every nonterminal sibling block, truncate this fitted block to rank $k$.
+Leave the fitted size-$2k$ diagonal blocks unchanged. Call the resulting
+proper HODLR matrix $\widehat H$.
+
+\begin{lemma}[Row isotropy survives shared fitting]\label{lem:sharedisotropy}
+Fix a retained block $b=(I,J)$ with $r=r_b>0$, and write its fitted coefficient
+matrix before truncation as $X_b+E_b$, where $X_b=Q_b^{\mathsf T}A_{I,J}$.
+For $p>\max_jr_j+1$, there is a positive semidefinite matrix $\Sigma_b$ such
+that
+\[
+ \E[(E_b)_{i\alpha}(E_b)_{j\beta}\mid\text{pilot}]
+   =\delta_{ij}(\Sigma_b)_{\alpha\beta},
+ \qquad
+ \tr\Sigma_b=\sum_{a\in J}\frac{\norm{e_a}^2}{p-r_a-1}.
+\]
+The expectation is over the fresh shared Gaussian sketch. Errors for
+different columns or blocks are not claimed to be independent.
+\end{lemma}
+\begin{proof}
+Embed $Q_b$ into $\R^n$ on rows $I$. For every $a\in J$, $Z_a$ contains
+this same basis. Its other columns have row support outside $I$, and $e_a$
+is orthogonal to the embedded $Q_b$.
+Therefore $G=\Omega^{\mathsf T}Q_b$ is independent of all the other design
+components and all noise vectors $\Omega^{\mathsf T}e_a$ needed for these
+columns, simultaneously for $a\in J$.
+
+For any fixed orthogonal $O_r\in\R^{r\times r}$, replacing $G$ by $GO_r$
+leaves that joint Gaussian distribution invariant. The least-squares
+coefficient-error block is then replaced by $O_r^{\mathsf T}E_b$, because
+the transformation acts on these design coordinates and not on the residual
+noise. Thus $E_b$ has a left-orthogonally invariant distribution.
+All second moments are finite by Lemma~\ref{lem:regression}.
+Sign changes of one row make cross-row second moments zero, and row
+permutations make within-row covariance matrices equal. This proves the
+claimed form with a positive semidefinite $\Sigma_b$.
+
+For a fixed column $a$, the entire design
+$\Omega^{\mathsf T}Z_a$ is standard Gaussian and independent of
+$\Omega^{\mathsf T}e_a$. Lemma~\ref{lem:regression} says that every
+coefficient coordinate has variance $\norm{e_a}^2/(p-r_a-1)$.
+Summing these diagonal entries over $a\in J$ proves the trace identity.
+\end{proof}
+
+\begin{proposition}[Conditional proper-fit error]\label{prop:sharedrisk}
+If $p\ge r_{\rm bd}+1+d$ for $d>0$, then
+\begin{equation}\label{eq:sharedrisk}
+ \E[\norm{A-\widehat H}_\F^2\mid\text{pilot}]
+ \le I_Q+10\sqrt{\frac{kh}{d}}\sqrt{O R_Q^2}
+      +\frac{6sh+2k}{d}R_Q^2.
+\end{equation}
+\end{proposition}
+\begin{proof}
+Use Lemma~\ref{lem:sharedisotropy} in
+Corollary~\ref{cor:isotropic} for each block, and add the orthogonal error
+outside its retained space. The coefficient tail
+$\tau_k(X_b)$ is no larger than $\tau_k(C_b)$.
+Put $S_b=\tr\Sigma_b$. Every column belongs to exactly one ordered sibling
+column interval at each of the $h$ nonterminal levels. Hence
+\[
+ \sum_b S_b\le\frac{h}{d}\sum_j\norm{e_j}^2=\frac{h}{d}R_Q^2.
+\]
+Cauchy--Schwarz gives
+$\sum_b\tau_k(C_b)\sqrt{kS_b}\le\sqrt{khOR_Q^2/d}$, and
+$\sum_b r_bS_b\le shR_Q^2/d$.
+If $r_b<k$, use the nontruncated case of
+Corollary~\ref{cor:isotropic}; its stated upper bound remains valid.
+Zero-dimensional blocks contribute no regression noise.
+
+For a column $j$, its $2k$ diagonal coefficients have total expected squared
+error $2k\norm{e_j}^2/(p-r_j-1)$. Summing these errors adds at most
+$2kR_Q^2/d$. All block errors add on disjoint entries, proving the result.
+\end{proof}
+
+\subsection{The improved query bound}
+
+Take
+\begin{equation}\label{eq:sharedwidth}
+ d=\left\lceil\max\left\{\frac{100kh}{\eta^2},
+                    \frac{6sh+2k}{\eta}\right\}\right\rceil,
+ \qquad p=2k+sh+1+d.
+\end{equation}
+Combining \eqref{eq:sharedrisk}, Jensen's inequality,
+\eqref{eq:projectionvsproper}, and \eqref{eq:idealshared} gives
+\begin{align*}
+ \E\norm{A-\widehat H}_\F^2
+ &\le \left(1+3\eta+\eta\sqrt{1+3\eta}
+                      +\eta(1+3\eta)\right)O\le(1+6\eta)O.
+\end{align*}
+If $O=0$, the expected error is zero. Otherwise the final output is in
+$\Hclass$, so its excess over $O$ is nonnegative. Markov's inequality yields
+failure probability at most
+$6\eta/(2\eps+\eps^2)\le0.006<0.01$.
+
+\begin{theorem}[Two-stage nonadaptive upper bound]\label{thm:twostage}
+The parameters \eqref{eq:twostageparameters} and
+\eqref{eq:sharedwidth} give an algorithm satisfying
+\eqref{eq:guarantee} with at most
+\begin{equation}\label{eq:twostagebudget}
+ Q_2=2(L-1)^2(s+t)+p
+\end{equation}
+queries. Using exact reconstruction when $Q_2\ge n$ gives
+\[
+ q_*(n,k,\eps)\le\min\{n,Q_2\}
+ =O\left(\min\left\{n,\frac{kL^2}{\eps}
+                            +\frac{kL}{\eps^2}\right\}\right).
+\]
+All query vectors may be drawn in advance. In particular, the final shared
+Gaussian sketch has a width bounded using $r_{\rm bd}$, not a width selected
+from the observed pilot ranks.
+\end{theorem}
+\begin{proof}
+The pilot uses at most $2hB(s+t)=2h^2(s+t)$ queries and the shared fit uses
+$p$ transpose queries. Here $s,t=O(k/\eps)$ and
+$p=O(kL/\eps^2)$. The probability bound was established above.
+The pilot's query vectors are nonadaptive by the construction in
+Section~\ref{sec:algorithm}; the shared sketch is independent of all of them.
+No oracle products with individual blocks are treated as free operations.
+\end{proof}
+
+The extra factor compared with the combined lower bound is now only one
+factor of depth: before taking the $n$-query cap, the expression in this
+upper bound is exactly $L(kL/\eps+k/\eps^2)$. A matching bound without this
+factor is still not proved.
