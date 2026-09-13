@@ -34,7 +34,7 @@ approximation},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RE-06}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-13}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ queries for finite-family matrix approximation\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Open\par}
+{\sffamily\small\bfseries\color{accent}Status: Solved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -60,6 +60,32 @@ precede information about the target; community impact is parallel and
 pass-efficient structured matrix learning.
 
 \textbf{Area:} nonadaptive matrix sketching
+
+\subsection{Resolution --- affirmative, 13 September
+2026}\label{resolution-affirmative-13-september-2026}
+
+Sidney Holden (Center for Computational Biology, Flatiron Institute,
+Simons Foundation) gives a complete affirmative answer in
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RE-06/solution.pdf}{Theorem
+1.1 and Sections 2--6}
+(\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RE-06/solution.tex}{TeX
+source}). The algorithm fixes all query vectors and query sides before
+any answers, succeeds with probability at least 0.99 for every fixed
+input, and uses at most
+\(4{,}000{,}000\sqrt{\log(2M)}\,\varepsilon^{-2}\) queries. Thus the
+original target holds with \(C=4{,}000{,}000\) and \(b=0\), including
+zero optimal residual and rank-deficient cases, in precisely the stated
+exact-real, query-only model.
+
+The complete proof passed a separate
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-re06-2026-09-13/independent-review.md}{independent
+Codex AI-agent informal audit}, satisfying the repository's
+\textit{Solved} policy. This is not external human peer review or formal
+verification. No Lean verification was performed.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-re06-2026-09-13/README.md}{Authorship,
+verified affiliation, original submission and checks}. The original
+target and historical evidence below are retained; the stronger
+nonadaptive relative-error question is not claimed settled.
 
 \subsection{Context and notation}\label{context-and-notation}
 
@@ -86,17 +112,13 @@ randomized algorithm exist that, for every \(0<\varepsilon<1/2\), choose
 all query vectors and all choices between \(A\) and \(A^\mathsf T\)
 before receiving any oracle answers, make at most
 
-\[
-C\sqrt t\,\varepsilon^{-2}
-\bigl[1+\log(2+t)+\log(1/\varepsilon)\bigr]^b
-\]
+\[C\sqrt t\,\varepsilon^{-2}
+\bigl[1+\log(2+t)+\log(1/\varepsilon)\bigr]^b\]
 
 queries, and return \(B\in\mathcal F\) such that
 
-\[
-\Pr\!\left[\|A-B\|_F\le(3+\varepsilon)
-\min_{D\in\mathcal F}\|A-D\|_F\right]\ge0.99?
-\]
+\[\Pr\!\left[\|A-B\|_F\le(3+\varepsilon)
+\min_{D\in\mathcal F}\|A-D\|_F\right]\ge0.99?\]
 
 Query choices may depend on \(\mathcal F,\varepsilon\) and randomness.
 Only oracle calls are charged; candidate processing and processing of
