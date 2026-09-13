@@ -3,7 +3,7 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Status:** Open  
-**Last checked:** 2026-09-10
+**Last checked:** 2026-09-13
 
 **Rating rationale:** The Fourier-constrained random optimization problem needs sharper analysis than current order bounds; it matters to structured matrix optimization and sampling.
 
@@ -30,6 +30,14 @@ Cyclic symmetry reduces this semidefinite program to a linear program involving 
 The 2026 collection retains the conjecture and cites the 2025 partial bounds, including an upper bound of order $`\sqrt{n\log\log n}`$. Searches for subsequent sharp asymptotics and resolutions found none. Independent edge sampling on all vertex pairs is the different ensemble in MD-01.
 
 **Audit update (2026-09-10):** Rechecked the 2026 Conjecture 18 and the SampTA paper, then searched for sharp random-circulant asymptotics. Added the published DOI; the remaining logarithmic upper-bound factor does not settle the limit. This is a bounded literature check, not a proof that no solution exists.
+
+## Reviewed progress — 2026-09-13
+
+**Author:** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](../../references/holden-md02-2026-09-13/README.md).
+
+The [manuscript](../../references/holden-md02-2026-09-13/manuscript.pdf) ([source](../../references/holden-md02-2026-09-13/manuscript.tex)), Theorems 4.1, 5.1, 6.1 and 7.1, gives an exact complementary-barrier fixed point, global Picard convergence, an equivalent converged-root expectation criterion, and uniform second-moment bounds for the first two iterates. A separate [independent Codex AI-agent informal audit](../../references/holden-md02-2026-09-13/independent-review.md) passed these supporting results.
+
+**MD-02 remains Open.** The required estimate on the converged root is unproved. Bounds for two finite iterates do not control an unbounded iteration count, and no asymptotic subcase of the displayed expectation limit is settled. The repository's resolution policy therefore does not support Solved or Partially resolved. Numerical checks supplement the proofs; they are not asymptotic or interval certificates. No Lean verification, external human peer review or priority claim is asserted.
 
 <!-- navigation -->
 [All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)

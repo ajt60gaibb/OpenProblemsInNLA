@@ -1,0 +1,529 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs,longtable,array}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\setlist{nosep}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\E}{\mathbb E}
+\newcommand{\R}{\mathbb R}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\tht}{\vartheta}
+\newcommand{\sgn}{\sigma}
+\DeclareMathOperator{\arsinh}{arsinh}
+\title{Random circulant theta: an all-time fixed point and a root-moment criterion}
+\author{Sidney Holden\\{\small Center for Computational Biology, Flatiron Institute}\\{\small Simons Foundation}}\date{13 September 2026}
+\hypersetup{pdfauthor={Sidney Holden}}
+\begin{document}
+\maketitle
+\begin{abstract}
+The random-circulant expectation problem MD-02 asks whether
+$\E\tht(G_n)/\sqrt n\to1$ for the inversion-class Bernoulli ensemble, including
+even orders. We give an exact fixed-point representation of the complementary
+weighted logarithmic barriers. It is valid at every finite barrier time and
+comes with a deterministic global convergence bound for Picard iteration.
+Complement symmetry converts the target into an explicit moment condition on
+one coordinate of the converged fixed point. For the first two Picard iterates
+we prove uniform all-orders bounds $n\E(u^{(1)}_0)^2\le2$ and
+$n\E(u^{(2)}_0)^2\le68$, without an assumption on the barrier time. These are
+finite-iterate theorems, not bounds on the converged root. The required
+probabilistic control as the iteration count increases is not proved here.
+Consequently this manuscript does not prove or disprove MD-02.
+\end{abstract}
+\tableofcontents
+\newpage
+
+\section{Target and scope}
+For $n\ge2$, let $S=-S\subset\mathbb Z_n\setminus\{0\}$ be obtained by
+including each inversion class $\{s,-s\}$ independently with probability
+$1/2$. The graph $G_S$ has an edge between distinct $i,j$ exactly when
+$i-j\in S$. The class $\{n/2\}$ is sampled once when $n$ is even.
+The displayed target in MD-02 is
+\begin{equation}\label{eq:target}
+ \frac{\E\tht(G_S)}{\sqrt n}\longrightarrow1
+ \quad\text{through all integer orders.}
+\end{equation}
+The problem and the repository's status conventions are recorded in
+\cite{repo,contributing}. The primary random-circulant theta paper is
+\cite{paper}. The earlier supplied manuscripts develop central-path skew
+identities, initial moments, and early-time estimates \cite{prior1,prior2}.
+Here we use a different representation of the same complementary barriers.
+All mathematical results used in the new reduction are proved below.
+
+The scope distinction is essential. The fixed point exists and is uniquely
+specified for every deterministic mask, and its first two iterates have
+small second moments in the random ensemble. Neither fact proves that the
+converged coordinate has a small second moment. No passage from two
+iterations to an unbounded number of iterations is made implicitly.
+
+\section{The Fourier probability program}
+Let $F$ be the unitary discrete Fourier transform, with
+$F_{sj}=n^{-1/2}\exp(-2\pi i sj/n)$. We use the unnormalized transform
+$\widehat p=\sqrt n Fp$ for probabilities. Averaging the standard theta
+semidefinite program over cyclic translations gives
+\begin{equation}\label{eq:lp}
+ \tht(G_S)=n\max\{p_0:p\in\R^n_{\ge0},\ 
+ \one^Tp=1,\ \widehat p_s=0\ (s\in S)\}.
+\end{equation}
+For completeness, a translation-invariant primal matrix has entries
+$X_{ij}=f(i-j)/n$, with $f(0)=1$ and $f(s)=0$ on edges. Its positive
+semidefiniteness is equivalent to nonnegativity of the Fourier eigenvalues.
+Writing $p=\widehat f/n$ gives a probability vector and objective
+$\sum_s f(s)=np_0$. Real symmetric matrices correspond to even $p$.
+Conversely, any real feasible probability can be averaged with its reflection;
+this preserves $p_0$ and the constraints. Thus allowing all real probabilities
+in \eqref{eq:lp} does not change its value. Complex equalities in that formula
+mean both their real and imaginary parts.
+
+Encode the mask by $\sgn_0=0$, $\sgn_s=-1$ for edges and $\sgn_s=+1$
+for nonedges, and define
+\begin{equation}\label{eq:R}
+ R=F^*\operatorname{diag}(\sgn)F,\qquad
+ P_0=\frac1n\one\one^T.
+\end{equation}
+Then $R$ is a real symmetric circulant matrix and
+\begin{equation}\label{eq:Ridentities}
+ R\one=0,\qquad R^2=I-P_0,\qquad \|R\|_{2\to2}=1.
+\end{equation}
+The complementary graph changes $R$ to $-R$. Let $r=Re_0$ denote the first
+column. Because $R$ is symmetric and circulant, $R_{0j}=r_j$.
+
+\begin{lemma}[Complementary feasible probabilities]\label{lem:orthogonal}
+If $p$ is feasible in \eqref{eq:lp} and $q$ is feasible for the complementary
+graph, then $p^Tq=1/n$. In particular $np_0\le1/q_0$ when $q_0>0$.
+\end{lemma}
+\begin{proof}
+The nonzero Fourier supports of $p$ and $q$ are disjoint. Parseval's identity
+therefore gives $p^Tq=\widehat p_0\widehat q_0/n=1/n$. Nonnegativity yields
+$p_0q_0\le1/n$.
+\end{proof}
+
+\section{Complementary weighted barriers}
+Fix $t\ge1$, and set
+\begin{equation}\label{eq:parameters}
+ w_0=t,\quad w_j=1\ (j\ne0),\quad W=t+n-1,\quad
+ v=w/t,\quad V=W/t=1+(n-1)/t.
+\end{equation}
+Maximize $\sum_j w_j\log p_j$ over the strictly positive feasible
+probabilities for $G_S$. The uniform probability is feasible. The objective
+is strictly concave and tends to minus infinity at the boundary, so it has
+a unique strictly positive maximizer $p=p(t)$.
+
+\begin{lemma}[Weighted complementary pair]\label{lem:pair}
+There is a unique positive complementary probability $q=q(t)$ satisfying
+\begin{equation}\label{eq:products}
+ p_jq_j=\frac{w_j}{nW}\quad(0\le j<n).
+\end{equation}
+Moreover $q$ is the weighted-barrier maximizer for the complementary graph.
+\end{lemma}
+\begin{proof}
+The first-order optimality condition says that $w/p$, with division
+coordinatewise, belongs to the span of $\one$ and the real Fourier constraint
+vectors on $S$. Write $w/p=\lambda\one+h$, with $h$ in the edge Fourier
+space. Taking the inner product with $p$ gives $\lambda=W$.
+Define $q=(w/p)/(nW)$. It is positive, sums to one, and its Fourier support
+is contained in $S\cup\{0\}$. Thus it is complementary feasible and satisfies
+\eqref{eq:products}. Conversely $w/q=nWp$ gives its own first-order
+optimality condition. Strict concavity proves uniqueness on both sides.
+\end{proof}
+
+\begin{proposition}[Deterministic theta interval]\label{prop:theta_interval}
+The weighted pair satisfies
+\begin{equation}\label{eq:interval}
+ np_0\ \le\ \tht(G_S)\ \le\ \frac1{q_0}
+       =\frac Wt\,np_0.
+\end{equation}
+For every circulant graph, $\tht(G_S)\tht(\overline{G_S})=n$.
+\end{proposition}
+\begin{proof}
+The first inequality is primal feasibility and the second follows from
+Lemma~\ref{lem:orthogonal}; the equality uses \eqref{eq:products}.
+For any optimal complementary probabilities the same lemma gives the product
+upper bound $n$. The weighted feasible pair gives the product lower bound
+$nt/W$ for every $t$. Letting $t\to\infty$ proves equality.
+\end{proof}
+
+\section{The all-time fixed point}
+All square roots in what follows are coordinatewise. Define
+\begin{equation}\label{eq:map}
+ \Phi_{R,t}(u)=R\sqrt{v+u^2}.
+\end{equation}
+
+\begin{theorem}[Exact fixed-point representation]\label{thm:fixed}
+For every mask and every finite $t\ge1$, the equation
+\begin{equation}\label{eq:fixed}
+ u=R\sqrt{v+u^2}
+\end{equation}
+has exactly one solution $u^*=u^*(R,t)$ in $\R^n$. Put
+$c=\sqrt{v+(u^*)^2}$. The complementary barrier pair is
+\begin{equation}\label{eq:reconstruct}
+ p=\frac{c+u^*}{\sqrt{nV}},\qquad
+ q=\frac{c-u^*}{\sqrt{nV}}.
+\end{equation}
+In particular,
+\begin{equation}\label{eq:rootformula}
+ \sqrt{\frac tW}\bigl(\sqrt{1+(u^*_0)^2}+u^*_0\bigr)
+ \le\frac{\tht(G_S)}{\sqrt n}
+ \le\sqrt{\frac Wt}\bigl(\sqrt{1+(u^*_0)^2}+u^*_0\bigr).
+\end{equation}
+Complementation changes $u^*$ to $-u^*$.
+\end{theorem}
+\begin{proof}
+Start with Lemma~\ref{lem:pair} and define
+$c=\sqrt{nV}(p+q)/2$, $u=\sqrt{nV}(p-q)/2$. Equation
+\eqref{eq:products} gives $c_j^2-u_j^2=v_j$, and $c_j>0$.
+At nonzero Fourier frequencies the two probabilities have complementary
+supports, so $u=Rc$. This proves existence.
+
+Conversely suppose \eqref{eq:fixed} holds, and put $c=\sqrt{v+u^2}$.
+By \eqref{eq:Ridentities}, $\one^Tu=0$ and
+\[
+ \|u\|^2=\|c\|^2-\frac{(\one^Tc)^2}{n}.
+\]
+Since $\|c\|^2-\|u\|^2=V$ and $c$ is positive,
+$\one^Tc=\sqrt{nV}$. Thus \eqref{eq:reconstruct} defines positive
+probabilities. Their Fourier supports are complementary, and their
+coordinate products are $v_j/(nV)=w_j/(nW)$. They satisfy the
+first-order conditions of Lemma~\ref{lem:pair}, so uniqueness of the barrier
+maximizer proves uniqueness of $u$.
+
+At coordinate zero, $c_0=\sqrt{1+u_0^2}$ and
+$np_0/\sqrt n=\sqrt{t/W}(c_0+u_0)$. Proposition~\ref{prop:theta_interval}
+gives \eqref{eq:rootformula}. Finally the square-root map is even: if $u$ is
+fixed for $R$, then $-u$ is fixed for $-R$. Uniqueness proves the last claim.
+\end{proof}
+
+The barrier logarithm is therefore exactly
+\begin{equation}\label{eq:logroot}
+ L_t=\arsinh(u^*_0),\qquad e^{L_t}=\sqrt{1+(u^*_0)^2}+u^*_0.
+\end{equation}
+This connects the fixed point to the logarithmic coordinate used in the prior
+central-path manuscripts. It does not estimate that coordinate.
+
+\section{Global convergence with an explicit error bound}
+Let $u^{(0)}=0$ and $u^{(k+1)}=\Phi_{R,t}(u^{(k)})$.
+
+\begin{theorem}[Deterministic convergence]\label{thm:convergence}
+For every mask, every $t\ge1$, and every $k\ge0$,
+\begin{equation}\label{eq:convergence}
+ \|u^{(k)}-u^*\|_2\le Dq^k,\qquad
+ D=\sqrt{\frac{nW}{2t}},\quad
+ q=\sqrt{\frac{2nW}{1+2nW}}<1.
+\end{equation}
+Consequently Picard iteration converges globally from zero. These bounds are
+exact-arithmetic mathematical bounds; ordinary floating-point computation
+needs additional roundoff analysis to turn them into interval certificates.
+\end{theorem}
+\begin{proof}
+For a zero-sum vector $u$, its positive and negative parts have equal total
+mass. Hence $\|u\|_2^2\le\|u\|_1^2/2$. At the fixed point,
+$\|u^*\|_1\le\one^T\sqrt{v+(u^*)^2}=\sqrt{nV}$, which proves
+$\|u^*\|_2\le D$.
+
+Every scalar map $x\mapsto\sqrt{v_j+x^2}$ is one-Lipschitz. Together with
+$\|R\|\le1$, this shows that $\Phi$ is nonexpansive, and induction gives
+$\|u^{(k)}-u^*\|\le D$. Thus all iterates have norm at most $2D$.
+On the interval $[-2D,2D]$ the scalar derivatives have absolute value at most
+\[
+ \frac{2D}{\sqrt{t^{-1}+4D^2}}=q.
+\]
+The line segment joining an iterate and the fixed point stays within these
+coordinate intervals. The mean-value inequality therefore improves
+nonexpansiveness to contraction by $q$ for these pairs, proving
+\eqref{eq:convergence} by induction.
+\end{proof}
+
+\begin{corollary}[A finite-iteration version of the missing estimate]\label{cor:finite}
+Let $t=n^2$ and
+\[
+ k_n=\left\lceil4(1+2n(t+n-1))\log n\right\rceil.
+\]
+Then $\|u^{(k_n)}-u^*\|_2=O(n^{-3/2})$, uniformly in the mask.
+A proof that $\E(u^{(k_n)}_0)^2=o(1)$ would therefore establish the sufficient
+root-moment condition in Theorem~\ref{thm:criterion} below.
+\end{corollary}
+\begin{proof}
+Writing $A=2nW$, one has
+$\log q=-\tfrac12\log(1+1/A)\le-1/(2(1+A))$.
+Thus $q^{k_n}\le n^{-2}$, while $D=O(\sqrt n)$.
+The last assertion follows from the triangle inequality in $L^2$.
+\end{proof}
+
+The iteration count in this corollary is of order $n^3\log n$. Proving a
+moment estimate for two iterations is not a substitute for proving it at this
+count. The convergence theorem itself is entirely deterministic and supplies
+no such probabilistic estimate.
+
+\section{An exact expectation criterion at the endpoint}
+The random mask has the same distribution as its complement. All fixed
+points in a fixed dimension are bounded by Theorem~\ref{thm:convergence};
+in particular the expectations below exist.
+
+\begin{theorem}[Root-moment criterion]\label{thm:criterion}
+For every $n\ge2$ and $t\ge1$, set
+\[
+ B_{n,t}=\E\bigl[\sqrt{1+(u^*_0(R,t))^2}-1\bigr]\ge0.
+\]
+Then
+\begin{equation}\label{eq:exactcriterion}
+ \sqrt{\frac tW}(1+B_{n,t})
+ \le\frac{\E\tht(G_S)}{\sqrt n}
+ \le\sqrt{\frac Wt}(1+B_{n,t}).
+\end{equation}
+For any sequence $t_n/n\to\infty$, the MD-02 limit holds if and only if
+$B_{n,t_n}\to0$. Equivalently it holds if and only if
+\begin{equation}\label{eq:necessarysufficient}
+ \E\min\{(u^*_0(R,t_n))^2,\ |u^*_0(R,t_n)|\}\longrightarrow0.
+\end{equation}
+The simpler condition $\E(u^*_0(R,t_n))^2\to0$ is sufficient.
+\end{theorem}
+\begin{proof}
+Complementation negates $u^*$, so $\E u^*_0=0$. Take expectations in
+\eqref{eq:rootformula} to obtain \eqref{eq:exactcriterion}. If $t_n/n\to\infty$,
+both deterministic prefactors tend to one. Since $B\ge0$, the two-sided
+inequality proves both directions of the equivalence.
+
+For every real $x$,
+\[
+ \frac1{1+\sqrt2}\min\{x^2,|x|\}
+ \le\sqrt{1+x^2}-1
+ \le\min\{x^2,|x|\}.
+\]
+This follows by rationalizing $\sqrt{1+x^2}-1$ and distinguishing
+$|x|\le1$ from $|x|\ge1$. It proves \eqref{eq:necessarysufficient}.
+Finally $\sqrt{1+x^2}-1\le x^2/2$ proves sufficiency of the second moment.
+\end{proof}
+
+\begin{corollary}[A quantitative sufficient bound]\label{cor:rate}
+If $t=n^2$ and $\E(u^*_0)^2\le C/n$, then
+\[
+ 1\le\frac{\E\tht(G_S)}{\sqrt n}
+ \le 1+\frac{C+1}{2n}+\frac{C}{4n^2}.
+\]
+In particular, a uniform bound
+$\sup_{k\ge0}n\E(u^{(k)}_0(R,n^2))^2\le C$ would prove MD-02.
+Neither bound in this corollary is established in this manuscript.
+\end{corollary}
+\begin{proof}
+For the lower bound, pair a graph with its complement and use
+$\tht(G)\tht(\bar G)=n$ and the arithmetic--geometric mean inequality.
+For the upper bound apply $\sqrt{1+y}\le1+y/2$ twice in
+\eqref{eq:exactcriterion}, using $(n-1)/n^2\le1/n$.
+For the final implication, convergence of the iterates and Fatou's lemma
+transfer a hypothetical uniform bound to $u^*$.
+\end{proof}
+
+\section{Uniform moments of the first two Picard roots}
+This section proves the finite-iterate estimates without assuming independence
+of the Fourier entries. Let $\mathcal C_n$ be the nonzero inversion classes,
+and $m_c=|c|\in\{1,2\}$. Define
+\[
+ h_c=F^*\operatorname{diag}(1_c)Fe_0,
+ \qquad r=\sum_{c\in\mathcal C_n}\sgn_c h_c.
+\]
+These vectors are real, mutually orthogonal, and satisfy
+\begin{equation}\label{eq:hc}
+ \|h_c\|_2^2=\frac{m_c}{n},\qquad
+ (h_c)_0=\frac{m_c}{n},\qquad \one^Th_c=0.
+\end{equation}
+If $A$ is the matrix with columns $h_c$, then
+\begin{equation}\label{eq:Ac}
+ \|A\|_{2\to2}^2\le\frac2n,\qquad
+ \|r\|_2^2=\frac{n-1}{n},\qquad
+ \sum_c m_c^2\le2(n-1).
+\end{equation}
+
+\begin{theorem}[All-time finite-iterate bounds]\label{thm:two}
+For $a=1-t^{-1/2}$, every $n\ge2$, and every finite $t\ge1$,
+\begin{align}
+ n\E(u^{(1)}_0)^2
+ &=a^2\begin{cases}2-2/n,&n\text{ odd},\\2-3/n,&n\text{ even},\end{cases}
+ \label{eq:first}\!\\[-1ex]
+ n\E(u^{(2)}_0)^2&\le68a^2.\label{eq:second}
+\end{align}
+Both roots have mean zero. The same conclusions hold at the limit $t\to\infty$
+for these finite iterates, interpreted by continuity.
+\end{theorem}
+\begin{proof}
+Since $\sqrt v=t^{-1/2}\one+ae_0$ and $R\one=0$,
+$u^{(1)}=ar$. Independence of the class signs gives
+$\E r_0^2=n^{-2}\sum_c m_c^2$. For odd $n$ the sum is $2(n-1)$; for even
+$n$ it is $2(n-2)+1=2n-3$. This proves \eqref{eq:first}.
+
+Put $b=t^{-1}$ and
+\[
+ f(x)=x\sqrt{b+a^2x^2},\qquad
+ g(x)=f(x)-\sqrt b\,x,\qquad H=\sum_{j=0}^{n-1}g(r_j).
+\]
+Because $\sum_j r_j=0$, also $H=\sum_jf(r_j)$. Differentiation yields
+\begin{equation}\label{eq:gder}
+ |g'(x)|\le2a|x|,\qquad |g''(x)|\le2a.
+\end{equation}
+For the second bound, when $a,b>0$ set $z=a|x|/\sqrt b$ and use
+$z(3+2z^2)/(1+z^2)^{3/2}\le2$. The cases $a=0$ and the limit $b\downarrow0$
+follow directly or by continuity.
+
+Flip one class sign $\sgn_c$. The corresponding kernel changes from $r$
+to $r-2\sgn_ch_c$. Taylor's theorem and \eqref{eq:gder} give
+\[
+ H(\sgn^{(c)})-H(\sgn)
+   =-2\sgn_c\langle h_c,g'(r)\rangle+\epsilon_c,
+ \qquad |\epsilon_c|\le4a\|h_c\|_2^2=4am_c/n.
+\]
+Thus, pointwise on the sign cube,
+\begin{align*}
+ \sum_c\bigl(H(\sgn^{(c)})-H(\sgn)\bigr)^2
+ &\le8\|A^Tg'(r)\|_2^2+\frac{32a^2}{n^2}\sum_cm_c^2\\
+ &\le\frac{16}{n}\cdot4a^2\|r\|_2^2+\frac{64a^2(n-1)}{n^2}
+ \le\frac{128a^2}{n}.
+\end{align*}
+The Rademacher Poincare inequality gives
+\begin{equation}\label{eq:Hvar}
+ \operatorname{Var}H\le\frac14\E\sum_c
+     (H(\sgn^{(c)})-H(\sgn))^2\le\frac{32a^2}{n}.
+\end{equation}
+For a self-contained justification of the factor $1/4$, expand a function
+of independent signs in the orthonormal Walsh basis. Its variance is the sum
+of squares of all nonconstant coefficients. The right side before the last
+inequality weights each such coefficient by the size of its nonempty index
+set, and is therefore no smaller.
+
+The exceptional root weight gives
+\[
+ u^{(2)}_0=H+\delta(r_0),\qquad
+ \delta(x)=x\left(\sqrt{1+a^2x^2}-\sqrt{b+a^2x^2}\right).
+\]
+The expression in parentheses lies between zero and $1-\sqrt b=a$, so
+$|\delta(x)|\le a|x|$. Both $H$ and $\delta(r_0)$ are odd under global
+sign reversal, so have mean zero. Therefore
+\[
+ \E(u^{(2)}_0)^2\le2\E H^2+2\E\delta(r_0)^2
+ \le\frac{64a^2}{n}+\frac{4a^2}{n}=\frac{68a^2}{n}.
+\]
+Continuity in $b\downarrow0$ and the finite size of the mask space for each
+fixed $n$ justify the endpoint statement for these two iterates.
+\end{proof}
+
+\begin{corollary}[First-root central limit]\label{cor:clt}
+If $t_n\to\infty$, then $\sqrt n\,u^{(1)}_0(R,t_n)$ converges in distribution
+to a centered Gaussian of variance $2$, along all integer orders.
+\end{corollary}
+\begin{proof}
+The first root is $a_n\sum_cm_c\sgn_c/\sqrt n$. Its variance tends to $2$
+and the largest summand has magnitude at most $2/\sqrt n$. The Lindeberg
+condition for this independent triangular array is immediate.
+\end{proof}
+
+Theorem~\ref{thm:two} makes no Gaussian approximation and treats the singleton
+exactly. The constant $68$ is a valid explicit bound, not a claimed optimal
+constant. No central limit theorem for the second or later root is needed
+for, or asserted by, this theorem.
+
+\section{Why the two-iterate theorem is not a solution}
+There are two distinct limits: $n\to\infty$ and $k\to\infty$.
+Theorem~\ref{thm:two} bounds the root when $k=1,2$ for all barrier times.
+Theorem~\ref{thm:criterion} concerns $k=\infty$. The deterministic error
+bound in Theorem~\ref{thm:convergence} does not bridge this difference at
+$k=2$; at $t=n^2$ its bound is of order $\sqrt n$ there.
+
+A finite iterate also cannot be silently inserted into
+\eqref{eq:rootformula}. The identity $\one^Tc=\sqrt{nV}$ used to reconstruct
+feasible normalized probabilities relies on the fixed-point equation itself.
+It need not hold for a finite iterate.
+
+Even the smallest deterministic example distinguishes the second iterate
+from the fixed point. For the empty graph on two vertices,
+$R=I-P_0$. In the limit $t\to\infty$,
+\[
+ u^{(1)}_0=\frac12,\qquad
+ u^{(2)}_0=\frac{\sqrt5-1}{4},\qquad
+ u^*_0=\frac1{2\sqrt2}.
+\]
+The middle and final numbers are unequal. The first two formulas follow
+directly from the map. For the final formula, the one-variable fixed-point
+equation is $u=(\sqrt{1+u^2}-u)/2$, which has the displayed positive
+solution. This is an illustration of the logical distinction, not a
+counterexample to the random asymptotic statement.
+
+Likewise a bad deterministic mask at large $n$ cannot by itself refute
+MD-02: its probability and its contribution to the expectation have to be
+estimated. The empty and complete masks each have probability
+$2^{-\lfloor n/2\rfloor}$. Their combined contribution to the normalized
+expectation is at most $(n+1)2^{-\lfloor n/2\rfloor}/\sqrt n$, which tends
+to zero.
+
+The exact outstanding task in this formulation is
+\begin{equation}\label{eq:missing}
+ \E\bigl[\sqrt{1+(u^*_0(R,n^2))^2}-1\bigr]\longrightarrow0.
+\end{equation}
+A bound $\E(u^*_0)^2=O(1/n)$ would prove substantially more than necessary,
+but it is not established by the two-iterate argument. The evolving
+nonlinearity depends on the same random mask as $R$; later applications
+cannot be treated as multiplication by an independent random operator.
+
+\section{Reproducibility and claim audit}
+The accompanying implementation applies $R$ by FFT, computes finite Picard
+iterates, reports the deterministic exact-arithmetic error formula, and
+numerically solves the fixed point using a continuation in $t$. A separate
+Fourier linear program checks the theta interval. Root-solver residuals are
+recorded explicitly; these solves are not interval-arithmetic certificates.
+
+The validation script enumerates inversion-class masks at orders $2$ through
+$12$ for first- and second-root moments, checks weighted reconstruction and
+complement symmetry against Fourier linear programs on smaller instances,
+and records Monte Carlo diagnostics separately. The actual run outcome is
+in \texttt{results/validation\_summary.json}. An implemented test or a
+successful finite experiment is not a proof of \eqref{eq:missing}.
+
+\begin{longtable}{p{0.32\textwidth}p{0.18\textwidth}p{0.41\textwidth}}
+\toprule
+Claim & Status here & Scope\\\midrule
+Exact all-time fixed point & Proved & Every mask, every finite $t\ge1$; Theorem~\ref{thm:fixed}.\\
+Global Picard convergence & Proved & Explicit deterministic error bound; Theorem~\ref{thm:convergence}.\\
+Expectation criterion & Proved equivalence & Concerns the converged root; Theorem~\ref{thm:criterion}.\\
+First two root moments & Proved & All integer orders and all barrier times; Theorem~\ref{thm:two}.\\
+First-root Gaussian limit & Proved & Independent triangular-array limit; Corollary~\ref{cor:clt}.\\
+Converged-root moment & Not proved & Equation~\eqref{eq:missing} is the remaining task.\\
+MD-02 expectation limit & Not proved or disproved & No substantive asymptotic subcase of the displayed target is established.\\
+Repository status recommendation & OPEN & Supporting results alone do not establish a displayed-target case.\\
+\bottomrule
+\end{longtable}
+
+The mathematical proofs are not accompanied by a claim of independent peer
+review or historical priority. Earlier proof archives, when available, are
+preserved as provenance rather than incorporated as unexamined hypotheses.
+The new theorems above are self-contained.
+
+\paragraph{Submission preparation.} AI assistance was used for submission preparation and a separate informal Codex AI-agent audit. This is not external human peer review or formal verification. No Lean verification was performed.
+
+\begin{thebibliography}{9}
+\bibitem{repo}
+OpenProblemsInNLA. MD-02, random circulant Lovasz theta, problem statement.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/matrix-discrepancy-and-optimization/MD-02}.
+\bibitem{contributing}
+OpenProblemsInNLA. Repository README and contribution guidelines.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA};
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/CONTRIBUTING.md}.
+\bibitem{paper}
+A.~S. Bandeira, J. B{\l}asiok, D. Dmitriev, U. Faure, A. Kireeva, and
+D. Kunisky. \emph{The Lov\'asz number of random circulant graphs}.
+arXiv:2502.16227, 2025. \url{https://arxiv.org/abs/2502.16227}.
+\bibitem{prior1}
+Supplied continuation archive, \texttt{MD02\_continuation\_results.zip}:
+\emph{Central-path continuation, sharp initial moments, and certified
+obstructions}. Sections 2--4 give the Fourier formulation and weighted
+complementary barriers; subsequent sections give initial-moment results and
+obstructions.
+\bibitem{prior2}
+Supplied continuation archive, \texttt{MD02\_extended\_proofs.zip}:
+\emph{Random circulant theta: initial limit laws and early central-path
+control}. Sections 2 and 8 give barrier notation and the full-scale gap;
+Theorem 7.1 gives early-time control.
+\end{thebibliography}
+\end{document}
