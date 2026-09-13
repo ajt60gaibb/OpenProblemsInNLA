@@ -9,7 +9,17 @@
 **Rating rationale:** Challenging because the symmetric subset structure has not yielded matching PSD-rank bounds; specialist importance reflects this explicit family’s role as a benchmark for semidefinite factorization.  
 **Status:** Partially resolved  
 **Area:** structured positive semidefinite factorization  
-**Last checked:** 2026-09-11  
+**Last checked:** 2026-09-13
+
+## Further partial results — 2026-09-13
+
+**Author:** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. **Independent Codex AI-agent review: PASS for the new partial scope.**
+
+For hypothetical real size-four factorizations, at most 65 of 70 factors on either side have rank one at order eight, and at most 64 of 126 at order nine. A span-five theorem for projection-valued subset sums gives mixed-rank and 252 covering constraints on the affine factor side at order nine. Exact integer and finite-field calculations establish a 90-dimensional quartic first-derivative space; a hypothetical determinant must use its nine extra directions. See Sections 2–10 of the [authored manuscript](../../references/holden-pf01-2026-09-13/paper/pf01_structural_obstructions.pdf) ([TeX](../../references/holden-pf01-2026-09-13/paper/pf01_structural_obstructions.tex)).
+
+**Remaining question:** The exact real PSD ranks for all $`n\ge7`$ remain undetermined, including orders seven, eight and nine. These necessary conditions do not exclude every size-four factorization. The stronger prior draft bounds quoted in the manuscript are outside this independent review's scope and are not newly endorsed here. Status remains **Partially resolved**.
+
+[Independent review and exact checks](../../references/holden-pf01-2026-09-13/verification/independent-review.md) · [Submission, verified affiliation and provenance](../../references/holden-pf01-2026-09-13/README.md). The review is informal AI-agent review; no Lean verification or external human peer review is asserted.
 
 <!-- colbrook-factorization -->
 ## Partial result — 2026-09-11
