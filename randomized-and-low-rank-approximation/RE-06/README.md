@@ -7,9 +7,15 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because all query choices must precede information about the target; community impact is parallel and pass-efficient structured matrix learning.  
-**Status:** Open  
+**Status:** Solved
 **Area:** nonadaptive matrix sketching  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-13
+
+## Resolution — affirmative, 13 September 2026
+
+Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) gives a complete affirmative answer in [Theorem 1.1 and Sections 2–6](solution.pdf) ([TeX source](solution.tex)). The algorithm fixes all query vectors and query sides before any answers, succeeds with probability at least 0.99 for every fixed input, and uses at most $`4{,}000{,}000\sqrt{\log(2M)}\,\varepsilon^{-2}`$ queries. Thus the original target holds with $`C=4{,}000{,}000`$ and $`b=0`$, including zero optimal residual and rank-deficient cases, in precisely the stated exact-real, query-only model.
+
+The complete proof passed a separate [independent Codex AI-agent informal audit](../../references/holden-re06-2026-09-13/independent-review.md), satisfying the repository's `Solved` policy. This is not external human peer review or formal verification. No Lean verification was performed. [Authorship, verified affiliation, original submission and checks](../../references/holden-re06-2026-09-13/README.md). The original target and historical evidence below are retained; the stronger nonadaptive relative-error question is not claimed settled.
 
 ## Context and notation
 

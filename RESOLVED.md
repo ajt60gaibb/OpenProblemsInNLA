@@ -21,6 +21,12 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### ✅ RE-06 — fully nonadaptive finite-family approximation — Sidney Holden
+
+**Solved affirmatively, 13 September 2026.** Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation), [Theorem 1.1 and Sections 2–6](randomized-and-low-rank-approximation/RE-06/solution.pdf), proves the original exact-real, query-only target with $`C=4{,}000{,}000`$ and $`b=0`$: all queries are fixed before answers and the $`3+\varepsilon`$ approximation succeeds with probability at least 0.99. [Retained target](randomized-and-low-rank-approximation/RE-06/README.md) · [Proof source](randomized-and-low-rank-approximation/RE-06/solution.tex).
+
+The full argument passed a separate [independent informal Codex AI-agent audit](references/holden-re06-2026-09-13/independent-review.md). No external human peer review or formal verification is asserted; no Lean verification was performed. [Submission, verified affiliation and checks](references/holden-re06-2026-09-13/README.md).
+
 ### KE-02, SP-08 and SP-09 — spectral partial results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-spectral-2026-09-12/README.md).
