@@ -1,0 +1,600 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,mathrsfs}
+\usepackage{microtype,booktabs,array,longtable}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={RA-04: Clustered-gap bounds for randomized block Krylov approximation},pdfauthor={Sidney Holden},pdfsubject={Full proof; independent informal AI-agent audit passed}}
+\usepackage{enumitem}
+\usepackage{fancyvrb}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\setlength{\emergencystretch}{2em}
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\K}{\mathcal K}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\range}{\operatorname{range}}
+\newcommand{\sm}{\sigma_{\min}}
+\newcommand{\nn}[1]{\lVert #1\rVert}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\newcommand{\ahat}{\widehat A}
+\newcommand{\Bconst}{128e}
+\title{RA-04: Clustered-gap bounds for randomized block Krylov approximation}
+\author{Sidney Holden\\{\small Center for Computational Biology, Flatiron Institute}\\{\small Simons Foundation}}
+\date{}
+\begin{document}
+\maketitle
+\vspace{-1em}
+\begin{abstract}
+A complete proof of the displayed RA-04 assertion is claimed. For a positive head spectrum of size $m=bt$ whose relative $b$-step gap is at least $\Delta$, the tangential interpolation evaluation matrix satisfies
+\[
+\Prob\!\left\{\sup_{0\le x\le\lambda_m}\nn{E_{\lambda,H}(x)}_2
+\le 2^{24}m^8\eta^{-4}\left(\frac{128e}{\Delta}\right)^t\right\}\ge1-\eta.
+\]
+The proof combines a logarithmic root covering, an annular resolvent identity, and a variational descent estimate. A published real-algebraic tube theorem controls proximity to the singular head-Krylov locus. Its defining polynomial has degree $m$, independently of the spectral scale. Translation preserves that locus, so one probability event controls every tail evaluation. The standard good-start convergence theorem then gives the exact iteration order requested in RA-04, without an additional $t\log m$ term.
+\end{abstract}
+
+\textbf{Review status.} The full exact RA-04 target passed a separate Codex AI-agent informal mathematical audit on 12 September 2026 (America/New\_York). The repository submission proposes \emph{Solved} under its independent-audit policy. This is not external human peer review or formal verification. No Lean verification was performed. The independent report is included in \texttt{verification/independent-review.md}. Finite tests are diagnostics, not proof certificates.
+
+\section{The assertion and the new estimate}\label{sec:statement}
+Let $A\in\R^{n\times d}$ and $M=AA^T$. Order the eigenvalues of $M$ as
+$\lambda_1\ge\cdots\ge\lambda_n\ge0$, extending this sequence by zeros for indices greater than $n$. Fix
+\[
+1\le b\le k,\qquad t=\lceil k/b\rceil,\qquad m=bt\le\rank(A).
+\]
+The relative clustered gap is
+\begin{equation}\label{eq:gap}
+\Delta=\min_{1\le i\le m-b}\frac{\lambda_i-\lambda_{i+b}}{\lambda_i}>0.
+\end{equation}
+When $m=b$, use the empty-minimum convention $\Delta=1$. All logarithms are natural. All assertions concern exact arithmetic and the original, unperturbed matrix $A$.
+
+For a standard real Gaussian $G\in\R^{n\times b}$, define
+\begin{equation}\label{eq:algorithm}
+\K_q(M,G)=\range[G,MG,\ldots,M^{q-1}G],\qquad
+\ahat=Z[Z^TA]_k,
+\end{equation}
+where $Z$ is any orthonormal basis of this space and $[\cdot]_k$ is a truncated SVD. These are precisely the algorithmic conventions of RA-04~\cite{repo}.
+
+\begin{theorem}[RA-04]\label{thm:main}
+There is an absolute constant $C>0$ such that, for every input above and every
+$0<\varepsilon,\delta<1/2$, choosing
+\begin{equation}\label{eq:target}
+q=\left\lceil\frac{C}{\sqrt\varepsilon}
+\left(t\log\frac2\Delta+\log\frac{n}{\delta\varepsilon}\right)\right\rceil
+\end{equation}
+in \eqref{eq:algorithm} gives, with probability at least $1-\delta$,
+\begin{align}
+\nn{A-\ahat}_\xi&\le(1+\varepsilon)\nn{A-[A]_k}_\xi,
+&&\xi\in\{2,F\},\label{eq:errors}\\
+\big|\nn{Av_i}_2^2-\lambda_i\big|&\le\varepsilon\lambda_{k+1},
+&&1\le i\le k,\label{eq:right}
+\end{align}
+where $v_i$ are the ordered top $k$ \emph{right} singular vectors of $\ahat$.
+The zero-optimal-error case is included.
+\end{theorem}
+
+The earlier partial reports proved an all-input estimate with $t\log(2m/\Delta)$ in place of $t\log(2/\Delta)$. They left a dimension-polynomial, gap-exponential interpolation bound unproved. The present argument proves that bound directly. It does not rely on the earlier restricted-width cluster theorem or on the earlier fractional-moment recurrence.
+
+The two substantive external inputs are explicitly isolated: the real-algebraic conic tube theorem in Section~\ref{sec:probability}, and the standard deterministic Krylov good-start theorem in Section~\ref{sec:algorithm}. The root-covering, contour, descent, and interpolation arguments are proved below. None uses an unproved small-ball or interpolation premise.
+
+\section{Head interpolation and its singular locus}\label{sec:interpolation}
+For the moment, work only with positive nodes
+$\lambda_1\ge\cdots\ge\lambda_m>0$, where $m=bt$ and \eqref{eq:gap} holds. Write $\Lambda=\diag(\lambda_1,\ldots,\lambda_m)$ and, for any $H\in\R^{m\times b}$, put
+\begin{equation}\label{eq:Khead}
+K_\lambda(H)=[H,\Lambda H,\ldots,\Lambda^{t-1}H]\in\R^{m\times m}.
+\end{equation}
+Its rows are $h_i^T[I_b,\lambda_i I_b,\ldots,\lambda_i^{t-1}I_b]$.
+Whenever it is invertible, set
+\begin{equation}\label{eq:eval}
+E_{\lambda,H}(x)=[I_b,xI_b,\ldots,x^{t-1}I_b]K_\lambda(H)^{-1}.
+\end{equation}
+For $y\in\R^m$, $P(x)=E_{\lambda,H}(x)y$ is the unique vector polynomial of degree at most $t-1$ satisfying $h_i^TP(\lambda_i)=y_i$.
+
+\begin{lemma}[Generic invertibility]\label{lem:generic}
+The polynomial $D_\lambda(H)=\det K_\lambda(H)$ is nonzero and homogeneous of degree $m$ in the $mb$ entries of $H$. Consequently a standard Gaussian $H$ gives an invertible $K_\lambda(H)$ almost surely.
+\end{lemma}
+\begin{proof}
+Every entry of $K_\lambda(H)$ is linear in $H$, so its determinant is homogeneous of degree $m$ unless identically zero. To exclude that possibility, set row $i$ of $H$ equal to $e_{1+((i-1)\bmod b)}^T$. Row and column permutations then give $b$ scalar Vandermonde blocks. The nodes in block $r$ are
+$\lambda_r,\lambda_{r+b},\ldots,\lambda_{r+(t-1)b}$, which are distinct by \eqref{eq:gap}. Thus all blocks are invertible. For $t=1$, this witness is simply $H=I_b$.
+A nonzero real polynomial vanishes on a Lebesgue-null set, proving the Gaussian assertion.
+\end{proof}
+
+Define the closed algebraic cone
+\begin{equation}\label{eq:sigma}
+\Sigma_\lambda=\{H\in\R^{m\times b}:D_\lambda(H)=0\}.
+\end{equation}
+The distance to this cone is always measured in the Frobenius norm on the \emph{starting matrix} $H$, not in an unrestricted perturbation norm on the raw matrix $K_\lambda(H)$.
+
+\begin{lemma}[Translation invariance]\label{lem:translation}
+For every real $x$,
+\begin{equation}\label{eq:translation}
+\Sigma_{\lambda-x}=\Sigma_\lambda,
+\qquad E_{\lambda-x,H}(0)=E_{\lambda,H}(x)
+\quad(H\notin\Sigma_\lambda).
+\end{equation}
+In fact, $D_{\lambda-x}(H)=D_\lambda(H)$ for every $H$.
+\end{lemma}
+\begin{proof}
+Expanding $(\Lambda-xI)^jH$ gives
+$K_{\lambda-x}(H)=K_\lambda(H)R_x$, where $R_x$ is block upper triangular with $(\ell,j)$ block
+$\binom{j}{\ell}(-x)^{j-\ell}I_b$ for $0\le\ell\le j\le t-1$.
+All diagonal blocks are $I_b$, so $\det R_x=1$. This proves the determinant and locus assertions. Translating a vector interpolant as $P(y)\mapsto P(y+x)$ proves the evaluation identity by uniqueness.
+\end{proof}
+
+This exact invariance will be important: the probability event used below is unchanged by every common shift of the nodes. A union bound over evaluation points is unnecessary.
+
+\section{A logarithmic root covering}\label{sec:cover}
+The next elementary covering has total length proportional to $h$, not to the degree. That distinction prevents a $t\log t$ loss.
+
+\begin{lemma}[One-dimensional root covering]\label{lem:cover}
+Let $a_1,\ldots,a_s\in\R$, with multiplicities allowed, and let $0<h\le1$. There is a finite union $V$ of closed intervals, of total length at most $6h$, such that
+\begin{equation}\label{eq:rootproduct}
+\prod_{\ell=1}^s\min\{1,|y-a_\ell|\}\ge(h/e)^s
+\end{equation}
+whenever $y$ is outside the interior of $V$.
+For $s=0$, take $V=\varnothing$ and the empty product equal to one.
+\end{lemma}
+\begin{proof}
+For $s>0$, let $d_j(y)$ be the $j$th smallest value of $|y-a_\ell|$ and define the open bad set
+\[
+\Omega=\{y:d_j(y)<jh/s\text{ for at least one }j\in\{1,\ldots,s\}\}.
+\]
+For each such pair $(y,j)$, the open interval $I(y,j)$ centered at $y$ with radius $jh/s$ contains at least $j$ of the points, counted with multiplicity.
+
+From this family, select an interval of largest available length, remove all intervals intersecting it, and repeat. There are only $s$ possible lengths. Selected intervals are disjoint, and each contains at least one point in its interior, so at most $s$ selections occur. If $j_\ell$ corresponds to a selected interval, disjointness gives $\sum_\ell j_\ell\le s$. Hence the sum of the selected lengths is at most $2h$.
+
+Every discarded interval meets a selected interval at least as long. Its center is therefore at distance less than twice the radius of that selected interval. Consequently $\Omega$ lies inside the interior of the union $V$ of the closed triple dilates of the selected intervals. This union has total length at most $6h$.
+
+Outside $\Omega$, $d_j(y)\ge jh/s$. Since $jh/s\le1$,
+\[
+\prod_{\ell=1}^s\min\{1,|y-a_\ell|\}
+\ge\prod_{j=1}^s\frac{jh}{s}
+=h^s\frac{s!}{s^s}\ge(h/e)^s.
+\]
+The last inequality follows from
+$\sum_{j=1}^s\log j\ge\int_1^s\log u\,du\ge s\log s-s$.
+Every point outside the interior of $V$ is outside $\Omega$.
+\end{proof}
+
+\begin{corollary}[Radial lower bound]\label{cor:radial}
+Let $\phi$ be a real or complex scalar polynomial of degree $s$ with $\phi(0)=1$. For $0<h\le1$ there is a union $V\subset\R$ of closed intervals of total length at most $6h$ such that
+\begin{equation}\label{eq:radial}
+|\phi(z)|\ge\left(\frac{h}{2e}\right)^s
+\quad\text{whenever }\log|z|\notin\operatorname{int}V.
+\end{equation}
+\end{corollary}
+\begin{proof}
+The assertion is immediate for $s=0$. Otherwise write
+$\phi(z)=\prod_{\ell=1}^s(1-z/\zeta_\ell)$, where every $\zeta_\ell\ne0$ because $\phi(0)=1$. Apply Lemma~\ref{lem:cover} to $a_\ell=\log|\zeta_\ell|$. If $y=\log|z|$, the reverse triangle inequality gives
+\[
+|1-z/\zeta_\ell|\ge|1-e^{y-a_\ell}|
+\ge\tfrac12\min\{1,|y-a_\ell|\}.
+\]
+For a nonnegative exponent, use $e^u-1\ge u$; for a negative exponent, use
+$1-e^{-u}\ge(1-e^{-1})\min\{1,u\}\ge\tfrac12\min\{1,u\}$.
+Multiplication and \eqref{eq:rootproduct} prove the result.
+\end{proof}
+
+\section{The annular moment estimate}\label{sec:annular}
+For a row set $J$, $H_J$ denotes the corresponding submatrix. If $|J|\le b$, the notation $\sm(H_J)$ means its smallest row singular value, equivalently
+\[
+\nn{H_J^Tz}_2\ge\sm(H_J)\nn z_2\quad(z\in\R^{|J|}).
+\]
+If every contiguous $b$-row submatrix has smallest singular value at least $\mu$, then the same holds for every smaller contiguous row set: extend that set to $b$ contiguous rows and pad $z$ with zeros.
+
+\begin{lemma}[Paired nondegeneracy]\label{lem:paired}
+Suppose $H\in\R^{m\times b}$ satisfies $\nn H_2\le R$ and every contiguous $b$-row submatrix has smallest singular value at least $\mu>0$. Let
+$u\in\R^m$ satisfy
+\begin{equation}\label{eq:moments}
+\nn u_2=1,\qquad H^T\Lambda^j u=0\quad(1\le j\le t-1).
+\end{equation}
+For every scalar polynomial $\phi$ of degree at most $t-1$ with $\phi(0)=1$,
+\begin{equation}\label{eq:paired}
+\nn{\diag(\phi(\lambda_1),\ldots,\phi(\lambda_m))u}_2
+\ge\frac{\mu\gamma\rho}{4\sqrt m\,R},
+\qquad
+\gamma=\frac{\Delta}{64m},\quad
+\rho=\left(\frac{\Delta}{128e}\right)^{t-1}.
+\end{equation}
+No invertibility of $K_\lambda(H)$ is assumed in this lemma.
+\end{lemma}
+\begin{proof}
+Use Corollary~\ref{cor:radial} with $h=\Delta/64$. Since $\deg\phi\le t-1$, the resulting lower bound on its allowed circles is at least $\rho$. Enlarge its covering set to
+\begin{equation}\label{eq:U}
+U=V\ \cup\ \bigcup_{i=1}^m[\log\lambda_i-\gamma,\log\lambda_i+\gamma].
+\end{equation}
+The total length of $U$ is at most
+\[
+6\frac{\Delta}{64}+2m\frac{\Delta}{64m}=\frac{\Delta}{8}.
+\]
+Every connected component therefore has length at most $\Delta/8$. It contains at most $b$ nodes $\log\lambda_i$, counting multiplicities. Indeed, $b+1$ such nodes would include some $i$ and $i+b$ and give
+\[
+\log\lambda_i-\log\lambda_{i+b}\le\Delta/8,
+\]
+whereas \eqref{eq:gap} gives this difference at least $-\log(1-\Delta)\ge\Delta$. When $t=1$, there are only $b$ nodes in total, so this conclusion is immediate.
+
+Consider a component $[a,c]$ containing at least one node. Its node indices form a contiguous set $J$ of size at most $b$. Both endpoints are outside the interior of $V$, and their distance from every $\log\lambda_i$ is at least $\gamma$: an endpoint at a smaller distance would be interior to a node interval in \eqref{eq:U}. Thus, on each of the circles $|z|=e^a$ and $|z|=e^c$,
+\begin{equation}\label{eq:contourbounds}
+|\phi(z)|\ge\rho,
+\qquad
+\max_i\frac{\lambda_i}{|z-\lambda_i|}
+\le\frac1{1-e^{-\gamma}}\le\frac2\gamma.
+\end{equation}
+The last inequality uses $0<\gamma\le1$.
+
+Put $w=\diag(\phi(\lambda_i))u$. For any $z$ outside the nodes, the function of $x$
+\[
+r_z(x)=x\frac{\phi(x)-\phi(z)}{x-z}
+\]
+is a polynomial of degree at most $t-1$ with zero constant coefficient. The moment equations \eqref{eq:moments} imply
+\begin{equation}\label{eq:resolvent}
+\phi(z)H^T\Lambda(zI-\Lambda)^{-1}u
+=H^T\Lambda(zI-\Lambda)^{-1}w.
+\end{equation}
+Let $\Gamma_J$ consist of the outer circle $|z|=e^c$ traversed counterclockwise and the inner circle $|z|=e^a$ traversed clockwise. Divide \eqref{eq:resolvent} by $z\phi(z)$ and integrate:
+\begin{equation}\label{eq:annularidentity}
+H_J^Tu_J
+=\frac1{2\pi i}\int_{\Gamma_J}
+\frac{H^T\Lambda(zI-\Lambda)^{-1}w}{z\phi(z)}\,dz.
+\end{equation}
+To verify the left side, integrate the equivalent left integrand
+$H^T\Lambda(zI-\Lambda)^{-1}u/z$. For each coordinate,
+\[
+\frac{\lambda_i}{z(z-\lambda_i)}
+=\frac1{z-\lambda_i}-\frac1z.
+\]
+The two circles enclose exactly the head nodes indexed by $J$ in their annulus; their contributions from zero cancel. Repeated nodes give the sum of their row contributions. Zeros of $\phi$ inside the annulus cause no difficulty: the identity is used on the boundary, and residues are evaluated only for the left integrand, which contains no $1/\phi$.
+
+On either circle, its length cancels the factor $1/|z|$. Consequently \eqref{eq:contourbounds} and \eqref{eq:annularidentity} give
+\[
+\nn{H_J^Tu_J}_2\le\frac{4R}{\gamma\rho}\nn w_2,
+\qquad
+\nn{u_J}_2\le\frac{4R}{\mu\gamma\rho}\nn w_2.
+\]
+The components containing nodes partition all $m$ indices, and there are at most $m$ of them. Summing the squared inequalities yields
+\[
+1=\nn u_2^2\le m\left(\frac{4R}{\mu\gamma\rho}\right)^2\nn w_2^2,
+\]
+which proves \eqref{eq:paired}.
+\end{proof}
+
+The proof uses at most $b$ rows at a time, but does not fix a partition into $b$-sized spectral clusters. It therefore allows arbitrary nonzero-width clusters, exact repeated values, and unaligned spectra subject only to \eqref{eq:gap}.
+
+\section{Extrapolation, descent, and distance to singularity}\label{sec:descent}
+For $H\notin\Sigma_\lambda$, define
+\begin{equation}\label{eq:f}
+f_\lambda(H)=\frac1{\nn{E_{\lambda,H}(0)}_2}.
+\end{equation}
+This is positive and continuous on the open set $\R^{m\times b}\setminus\Sigma_\lambda$.
+
+\begin{lemma}[Variational formula and a descent direction]\label{lem:descent}
+For $H\notin\Sigma_\lambda$,
+\begin{equation}\label{eq:variational}
+f_\lambda(H)=
+\min_{\substack{P\in\R^b[x],\ \deg P\le t-1\\\nn{P(0)}_2=1}}
+\left(\sum_{i=1}^m[h_i^TP(\lambda_i)]^2\right)^{1/2}.
+\end{equation}
+The minimum is attained. If $H$ has the $\mu,R$ bounds of Lemma~\ref{lem:paired}, there is a matrix $B\in\R^{m\times b}$ with $\nn B_F=1$ such that
+\begin{equation}\label{eq:descent}
+\limsup_{s\downarrow0}\frac{f_\lambda(H+sB)-f_\lambda(H)}s\le-\alpha,
+\qquad\alpha=\frac{\mu\gamma\rho}{4\sqrt m\,R}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+The invertible linear map $K_\lambda(H)$ identifies coefficient vectors with data $y_i=h_i^TP(\lambda_i)$; the constant coefficient is $E_{\lambda,H}(0)y$. Thus the minimum in \eqref{eq:variational} is
+$\min\{\nn y_2:\nn{E_{\lambda,H}(0)y}_2=1\}=1/\nn{E_{\lambda,H}(0)}_2$. A right singular vector for the largest singular value attains this minimum. In particular, there is no compactness assumption on an unbounded polynomial coefficient set.
+
+Let $P$ attain the minimum and set
+\[
+y_i=h_i^TP(\lambda_i),\qquad f=f_\lambda(H),\qquad u=y/f.
+\]
+Varying the positive-degree coefficient vectors of $P$ freely leaves $P(0)$ fixed. First-order optimality of the squared residual gives
+$H^T\Lambda^ju=0$ for $1\le j\le t-1$.
+Put $a=P(0)$ and $\phi(x)=a^TP(x)$. Then $\nn a_2=1$, $\phi(0)=1$, and $|\phi(\lambda_i)|\le\nn{P(\lambda_i)}_2$.
+Lemma~\ref{lem:paired} therefore implies
+\begin{equation}\label{eq:W}
+D:=\left(\sum_i u_i^2\nn{P(\lambda_i)}_2^2\right)^{1/2}\ge\alpha.
+\end{equation}
+Let row $i$ of $B$ be $-u_iP(\lambda_i)^T/D$. Then $\nn B_F=1$. Keep this particular $P$ fixed when replacing $H$ by $H+sB$. It remains feasible for \eqref{eq:variational}; its residual norm is differentiable at $s=0$ because $f>0$. Its derivative is
+\[
+\sum_i u_i\,B_i^TP(\lambda_i)=-D\le-\alpha.
+\]
+Since $f_\lambda(H+sB)$ is no greater than this feasible residual norm and equality holds at $s=0$, \eqref{eq:descent} follows.
+This argument does not require a unique minimizing polynomial or a simple largest singular value of $E(0)$.
+\end{proof}
+
+\begin{lemma}[A local error bound]\label{lem:distance}
+Fix $H_0\notin\Sigma_\lambda$ and $r_0>0$. Suppose every matrix $X$ in the closed Frobenius ball $\overline B_F(H_0,r_0)$ has spectral norm at most $R$ and contiguous $b$-row singular values at least $\mu$. With $\alpha$ as in \eqref{eq:descent},
+\begin{equation}\label{eq:distance}
+f_\lambda(H_0)\ge\frac\alpha2
+\min\{r_0,\dist_F(H_0,\Sigma_\lambda)\}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Suppose the strict reverse inequality holds, write $f_0=f_\lambda(H_0)$, and put $r=2f_0/\alpha$. Then $r<r_0$ and $r<\dist_F(H_0,\Sigma_\lambda)$. The function
+\[
+g(X)=f_\lambda(X)+\frac\alpha2\nn{X-H_0}_F
+\]
+is continuous on the compact closed radius-$r$ ball, which is disjoint from $\Sigma_\lambda$. On its boundary, $g(X)=f_\lambda(X)+f_0>f_0=g(H_0)$. Its minimum is therefore attained in the interior, at some $X_*$. Lemma~\ref{lem:descent} gives a unit direction with upper directional derivative of $f_\lambda$ at most $-\alpha$. The distance penalty has directional increment at most $\alpha/2$ times the step, by the triangle inequality. Thus $g$ has a strictly decreasing direction at $X_*$, a contradiction.
+\end{proof}
+
+Lemma~\ref{lem:distance} is the bridge between an extrapolation norm and algebraic geometry. It does not assert that a raw Krylov singular value equals distance to the starting-matrix singular locus. Such an identification would generally be false.
+
+\section{A probability bound uniform in the head spectrum}\label{sec:probability}
+We use the following consequence of a published real-algebraic tube theorem. The ambient space is real, as is the Gaussian starting block.
+
+\begin{lemma}[Imported conic tube bound]\label{lem:tube}
+Let $\Sigma\ne\{0\}$ be the zero set of a nonzero homogeneous real polynomial of degree $d_0\ge1$ on $\R^{p+1}$, $p\ge1$. For a standard Gaussian $g\in\R^{p+1}$, define
+$\mathscr C_\Sigma(g)=\nn g_2/\dist(g,\Sigma)$. Then, for $v\ge3d_0p$,
+\begin{equation}\label{eq:tube}
+\Prob\{\mathscr C_\Sigma(g)\ge v\}\le\frac{40d_0p}{v}.
+\end{equation}
+\end{lemma}
+\begin{proof}[Derivation from the imported theorem]
+Theorem~1.1 of B\"urgisser, Cucker, and Lotz~\cite{bcl}, in its average-case specialization, bounds the probability by
+\begin{equation}\label{eq:bclfull}
+4\sum_{j=1}^{p-1}\binom pj(2d_0)^j(1+v^{-1})^{p-j}v^{-j}
++\frac{2pO_p}{O_{p-1}}(2d_0/v)^p,
+\end{equation}
+where $O_p$ is the surface area of $S^p$. Their statement permits singular real algebraic sets. The Gaussian direction is uniform on $S^p$, and the condition number is homogeneous of degree zero, so the spherical estimate applies unchanged.
+
+The sum in \eqref{eq:bclfull} is at most
+$4[\exp(3d_0p/v)-1]\le24d_0p/v$, since $v\ge3d_0p$ and $e^z-1\le2z$ for $0\le z\le1$.
+Also $O_p/O_{p-1}=\int_0^\pi\sin^{p-1}\theta\,d\theta<4$ and $2d_0/v\le1$, so the last term is at most $16d_0p/v$. Adding proves \eqref{eq:tube}.
+Only \eqref{eq:bclfull} is imported; this simplification is included to make the constants explicit.
+\end{proof}
+
+For completeness, the elementary Gaussian estimates needed with it are proved here.
+
+\begin{lemma}[Gaussian row-block estimates]\label{lem:gauss}
+If $g\sim N(0,1)$, $H\in\R^{m\times b}$ is standard Gaussian, and $S\in\R^{b\times b}$ is standard Gaussian, then for $a>0$,
+\begin{equation}\label{eq:gauss}
+\Prob\{|g|<a\}\le a,\qquad \E\nn H_F^2=mb,
+\qquad \Prob\{\sm(S)<a\}\le b^{3/2}a.
+\end{equation}
+\end{lemma}
+\begin{proof}
+The scalar bound follows by integrating the normal density, which is at most $1/\sqrt{2\pi}$, over an interval of length $2a$. The expectation is the sum of the entry variances.
+For the last bound, let $d_i$ be the distance from row $i$ of $S$ to the span of its other rows. Almost surely $S$ is invertible and the norm of column $i$ of $S^{-1}$ is $d_i^{-1}$. Hence
+\[
+\nn{S^{-1}}_2\le\nn{S^{-1}}_F\le\sqrt b\max_i d_i^{-1}.
+\]
+Conditioned on the other rows, $d_i$ has distribution $|g|$. If $\sm(S)<a$, at least one $d_i<\sqrt b\,a$. The union bound proves the claim. No independence among the row-distance events is required.
+\end{proof}
+
+\begin{theorem}[Anchored extrapolation]\label{thm:zero}
+For every admissible positive head spectrum, standard Gaussian $H\in\R^{m\times b}$, and $0<\eta<1/2$,
+\begin{equation}\label{eq:zero}
+\Prob\left\{\nn{E_{\lambda,H}(0)}_2
+\le 2^{24}m^8\eta^{-4}\left(\frac{128e}{\Delta}\right)^t\right\}\ge1-\eta.
+\end{equation}
+For $t\ge2$, the bound holds on an explicitly specified event depending on the spectrum only through $\Sigma_\lambda$ and the stated lower gap bound $\Delta$.
+\end{theorem}
+\begin{proof}
+First take $t\ge2$, so $m\ge2$ and $N=mb\ge2$. Put $p=N-1$ and
+\[
+R_0=2\sqrt{N/\eta},\qquad
+\tau=\frac{\eta}{4mb^{3/2}}.
+\]
+Consider the simultaneous event
+\begin{align}
+\nn H_F&\le R_0,\label{eq:event1}\\
+\sm(H_{\{r,\ldots,r+b-1\}})&\ge\tau\quad(1\le r\le m-b+1),\label{eq:event2}\\
+\nn H_F&\ge\eta/4,\label{eq:event3}\\
+\frac{\nn H_F}{\dist_F(H,\Sigma_\lambda)}&\le\frac{160mp}{\eta}.\label{eq:event4}
+\end{align}
+Each failure probability is at most $\eta/4$. For \eqref{eq:event1}, use Markov's inequality and $\E\nn H_F^2=N$. For \eqref{eq:event2}, apply \eqref{eq:gauss} to at most $m$ contiguous $b$-row blocks. For \eqref{eq:event3}, the event of a smaller Frobenius norm implies $|H_{11}|<\eta/4$. For \eqref{eq:event4}, use Lemma~\ref{lem:tube} with $d_0=m$ and Lemma~\ref{lem:generic}. The cone contains nonzero matrices with a zero row, and it is not the whole ambient space. Thus every hypothesis of the imported theorem holds. A union bound gives probability at least $1-\eta$.
+
+On this event,
+\begin{equation}\label{eq:distgood}
+\dist_F(H,\Sigma_\lambda)\ge\frac{\eta^2}{640mp}
+\ge\frac{\eta^2}{640m^3}=:d_*.
+\end{equation}
+Here $p\le mb\le m^2$. In the closed ball of radius $r_0=\tau/2$ around $H$, perturbation of a smallest singular value by at most the perturbation norm gives row-block lower bound
+\[
+\mu=\tau/2\ge\frac{\eta}{8m^{5/2}}.
+\]
+Every matrix in the ball has spectral norm at most $R=2R_0\le4m/\sqrt\eta$; indeed $r_0<R_0$. Therefore Lemmas~\ref{lem:paired} and \ref{lem:distance} apply throughout this ball, with
+\begin{equation}\label{eq:alphagood}
+\alpha=\frac{\mu\gamma\rho}{4\sqrt m\,R}
+\ge\frac{\eta^{3/2}\Delta\rho}{8192m^5},
+\qquad \rho=\left(\frac{\Delta}{128e}\right)^{t-1}.
+\end{equation}
+Also $r_0\ge\eta/(8m^{5/2})\ge d_*$. Consequently
+\begin{align}
+f_\lambda(H)&\ge\frac\alpha2d_*
+\ge\frac{\eta^{7/2}\Delta\rho}{10485760m^8}\nonumber\\
+&\ge\frac{\eta^4}{2^{24}m^8}\left(\frac{\Delta}{128e}\right)^t.
+\label{eq:fbound}
+\end{align}
+The last step only weakens the bound: $10485760<2^{24}$, $\eta^{7/2}\ge\eta^4$, and $\Delta\rho\ge(\Delta/(128e))^t$. Inverting gives \eqref{eq:zero}.
+
+When $t=1$, $m=b$ and $E_{\lambda,H}(0)=H^{-1}$, independently of the nodes. Lemma~\ref{lem:gauss} gives $\nn{H^{-1}}_2\le m^{3/2}/\eta$ with probability at least $1-\eta$. This is smaller than the right-hand side of \eqref{eq:zero}, with $\Delta=1$. It also handles the one-dimensional case $m=b=1$, for which the conic tube theorem was not invoked.
+\end{proof}
+
+\begin{theorem}[Uniform tail interpolation]\label{thm:uniform}
+Under the same assumptions,
+\begin{equation}\label{eq:uniform}
+\Prob\left\{\sup_{0\le x\le\lambda_m}\nn{E_{\lambda,H}(x)}_2
+\le 2^{24}m^8\eta^{-4}\left(\frac{128e}{\Delta}\right)^t\right\}\ge1-\eta.
+\end{equation}
+\end{theorem}
+\begin{proof}
+For $t\ge2$, use the single event \eqref{eq:event1}--\eqref{eq:event4} for the original spectrum. For every $0\le x<\lambda_m$, all shifted nodes $\lambda_i-x$ are positive and
+\[
+\frac{(\lambda_i-x)-(\lambda_{i+b}-x)}{\lambda_i-x}
+\ge\frac{\lambda_i-\lambda_{i+b}}{\lambda_i}\ge\Delta.
+\]
+By Lemma~\ref{lem:translation}, their singular locus is \emph{exactly} $\Sigma_\lambda$. Thus the same four events, local ball, and estimates \eqref{eq:distgood}--\eqref{eq:fbound} apply to every shifted spectrum with the same constants. This is a deterministic simultaneous implication on that event, not an uncountable union of probability claims.
+
+The evaluation identity in \eqref{eq:translation} proves the bound for every $x<\lambda_m$. Since $E_{\lambda,H}(x)$ is a matrix polynomial, continuity gives it also at $x=\lambda_m$. For $t=1$, $E(x)=H^{-1}$ is constant and the assertion follows from Theorem~\ref{thm:zero}.
+\end{proof}
+
+This establishes the sufficient interpolation estimate left open in the earlier reports. The dimension and failure probability appear only as fixed polynomial factors; their logarithms are not multiplied by $t$.
+
+\section{Transfer to the original randomized algorithm}\label{sec:algorithm}
+We now return to $M=AA^T$ and the original $G$. Take a fixed orthogonal eigenbasis $U=[U_m\ U_\perp]$ and write
+\[
+U^TMU=\diag(\Lambda,\Lambda_\perp),\qquad
+U^TG=\begin{bmatrix}H\\T\end{bmatrix}.
+\]
+Orthogonal invariance gives standard Gaussian entries in both blocks. No eigenvectors are selected using $G$.
+
+Let
+\[
+B=[G,MG,\ldots,M^{t-1}G],\qquad
+K_T=[T,\Lambda_\perp T,\ldots,\Lambda_\perp^{t-1}T].
+\]
+Almost surely,
+\begin{equation}\label{eq:graph}
+BK_\lambda(H)^{-1}=U\begin{bmatrix}I_m\\F\end{bmatrix},
+\qquad F=K_TK_\lambda(H)^{-1}.
+\end{equation}
+At a tail node $x_j\in[0,\lambda_m]$, row $j$ of $F$ is $T_j^TE_{\lambda,H}(x_j)$. Hence
+\begin{equation}\label{eq:graphnorm}
+\nn F_2^2\le\nn F_F^2
+\le\nn T_F^2\sup_{0\le x\le\lambda_m}\nn{E_{\lambda,H}(x)}_2^2.
+\end{equation}
+
+Apply Theorem~\ref{thm:uniform} with $\eta=\delta/2$, and intersect its event with
+$\nn T_F^2\le2nb/\delta$. The latter fails with probability at most $\delta/2$ by Markov's inequality, since $\E\nn T_F^2=(n-m)b\le nb$. No independence is needed for this intersection. We obtain, with probability at least $1-\delta$,
+\begin{equation}\label{eq:L}
+L:=1+\nn F_2^2
+\le1+2^{57}nbm^{16}\delta^{-9}\left(\frac{128e}{\Delta}\right)^{2t}
+\le1+2^{57}n^{18}\delta^{-9}\left(\frac{128e}{\Delta}\right)^{2t}.
+\end{equation}
+
+For clarity, the graph-to-overlap reduction is proved rather than assumed. Let $J_k\in\R^{m\times k}$ contain the first $k$ coordinate vectors and let $F_k=FJ_k$. Then
+\[
+Q=U\begin{bmatrix}J_k\\F_k\end{bmatrix}(I_k+F_k^TF_k)^{-1/2}
+\]
+has orthonormal columns in $\range(B)$, and
+\begin{equation}\label{eq:good}
+\nn{(U_k^TQ)^{-1}}_2^2
+=\nn{I_k+F_k^TF_k}_2\le L.
+\end{equation}
+This handles $k$ not divisible by $b$ directly.
+
+\begin{theorem}[Imported deterministic good-start convergence]\label{thm:imported}
+There is an absolute $C_0\ge1$ with the following property. If the column space of a starting matrix $B$ contains orthonormal $Q\in\R^{n\times k}$ satisfying \eqref{eq:good}, then projection onto $\K_s(M,B)$ followed by a rank-$k$ SVD truncation satisfies \eqref{eq:errors}--\eqref{eq:right} for sufficiently many steps,
+\[
+s\ge\max\left\{2,\left\lceil\frac{C_0}{\sqrt\varepsilon}\log\frac{nL}{\varepsilon}\right\rceil\right\}.
+\]
+\end{theorem}
+
+This is Imported Theorem~3.2 in Chen, Epperly, Meyer, Musco, and Rao~\cite{chen}, with its sufficient-iteration $O(\cdot)$ notation expressed using an absolute constant. Their Problem~1.1 explicitly specifies \emph{right} singular vectors. The theorem invokes the good-start analysis in Appendix~F of Meyer, Musco, and Musco~\cite{mmm}. It is the only convergence theorem imported here. The case $\lambda_{k+1}=0$ is also proved directly below rather than relying on a zero-denominator limit in that analysis.
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Suppose first $\lambda_{k+1}>0$. On the probability-$1-\delta$ event above, \eqref{eq:L} and \eqref{eq:good} hold. Direct multiplication of the block powers gives the exact identity
+\begin{equation}\label{eq:nested}
+\K_s(M,B)=\K_{s+t-1}(M,G).
+\end{equation}
+Put $X=t\log(2/\Delta)$ and $Y=\log(n/(\delta\varepsilon))$. The bound \eqref{eq:L} implies
+\begin{align*}
+\log\frac{nL}{\varepsilon}
+&\le58\log2+19\log n+9\log(1/\delta)+\log(1/\varepsilon)
+ +2t\log(128e/\Delta)\\
+&\le 80(X+Y).
+\end{align*}
+For the last inequality, use $58\log2\le58X$,
+$\log(128e/\Delta)\le9\log(2/\Delta)$, and
+$19\log n+9\log(1/\delta)+\log(1/\varepsilon)\le19Y$.
+Consequently a choice such as $C=80C_0+4$ in \eqref{eq:target} ensures
+$q-t+1\ge\max\{2,\lceil C_0\log(nL/\varepsilon)/\sqrt\varepsilon\rceil\}$.
+Theorem~\ref{thm:imported} and \eqref{eq:nested} prove all three guarantees for the actual output of \eqref{eq:algorithm}.
+
+If $\lambda_{k+1}=0$, then $\rank(A)=k$ and the hypothesis $m\le\rank(A)$ forces $m=k$, so $b$ divides $k$. In the chosen eigenbasis,
+\[
+U^T[MG,M^2G,\ldots,M^tG]
+=\begin{bmatrix}\Lambda K_\lambda(H)\\0\end{bmatrix}.
+\]
+Both head factors are invertible almost surely. Thus $\K_{t+1}(M,G)$ contains $\range(A)$, giving $ZZ^TA=A$ and an exact best rank-$k$ approximation. The right singular-vector energies are exactly $\lambda_i$. The above choice of $C$ ensures $q\ge t+1$, so this case is included as well.
+\end{proof}
+
+\section{Scope, failure modes avoided, and review obligations}\label{sec:audit}
+The proof is uniform in all of $n,d,k,b,t,\varepsilon,\delta$ and in the positive head spectrum. It places no bound on $\lambda_1/\lambda_m$ and requires no positive consecutive gap. It leaves the matrix $A$ and Gaussian distribution in RA-04 unchanged. The word ``perturbation'' in the cited tube theorem does not denote an extra algorithmic perturbation here: only its average-case spherical specialization is used.
+
+Several potential shortcuts are deliberately not used. The determinant being nonzero does not alone give a quantitative bound; the descent lemma and the tube theorem supply that missing step. Smallest singular values of raw monomial Krylov matrices are not asserted to be gap-only. Noncommuting matrix-valued Lagrange products are not introduced. Finally, the uniform evaluation bound follows from a common event and exact translation invariance, not from an uncountable union bound.
+
+\begin{longtable}{p{0.30\textwidth}p{0.64\textwidth}}
+\toprule
+Proof obligation & Disposition\\
+\midrule
+\endhead
+Repeated head values & They occur at most $b$ times under the gap assumption; the residue-class witness and annular row groups allow repetitions.\\
+Unaligned or wide clusters & Only the $b$-step relative gap and contiguous row blocks are used. No fixed cluster centers or width condition occur.\\
+Roots at head nodes & Contour boundaries avoid all root moduli in the covering. Roots inside a contour do not invalidate the boundary identity.\\
+Complex roots & The reverse triangle inequality gives a bound on an entire circle from the root modulus.\\
+Multiple extremal singular values & The descent proof freezes one minimizer and uses an upper directional derivative, not differentiability of the minimum.\\
+Singular algebraic locus & The imported tube theorem covers singular real algebraic sets. No smoothness of the determinant-zero set is imposed.\\
+Probability dependence & Four elementary/conic events are combined by a union bound. Their independence is not asserted.\\
+All tail evaluations & The determinant-zero locus is invariant under common node translations. One event controls all $x<\lambda_m$; continuity gives the endpoint.\\
+Nondivisible target rank & The first $k$ graph columns give the overlap certificate directly.\\
+Zero tail error & Exact range recovery at depth $t+1$ is proved separately.\\
+Right-vector energy guarantee & Imported Theorem~3.2 is used with the right-vector convention of its Problem~1.1, not a substituted left-vector estimate.\\
+Universal constants & A fixed polynomial prefactor and exponent-$t$ gap factor give \eqref{eq:L}; $C=80C_0+4$ is one sufficient choice relative to the imported constant.\\
+\bottomrule
+\end{longtable}
+
+\textbf{Evidence level.} The complete argument passed a separate Codex AI-agent informal mathematical audit. Under the repository's policy this supports \emph{Solved}~\cite{guidelines}. The independent report accompanies this submission. No external human peer review, formal proof certificate, Lean verification or novelty-priority claim is asserted.
+
+The independent audit examined the annular identity \eqref{eq:annularidentity}, the passage from a frozen minimizing polynomial to the descent inequality \eqref{eq:descent}, and the compact-ball argument in Lemma~\ref{lem:distance}. These are the new steps connecting spectral clustering to the published algebraic probability theorem. Their assumptions and proofs are stated in full above; they are not outstanding conjectural premises.
+
+\section{Reproducible checks}\label{sec:checks}
+The companion scripts are tests of formulas and implementations, not substitutes for the universal arguments. Rational fixtures are expressly not presented as Gaussian samples. Floating-point observations are not probability certificates.
+
+\input{test_summary.tex}
+
+From the package root, run:
+\begin{Verbatim}[fontsize=\small]
+python -m pip install -r requirements.txt
+python tests/exact_checks.py --output results/exact_checks.json
+python tests/numerical_checks.py --output-dir results
+./build.sh
+\end{Verbatim}
+The tests retain seeds, dimensions, numerical residuals, and failed smaller-depth approximation criteria. Identity-check failures stop execution. The source and a machine-readable source inventory are included. The prior packages are identified by hashes in the provenance file; no earlier unproved interpolation estimate is assumed by this proof.
+
+\clearpage
+\begin{thebibliography}{9}
+\bibitem{repo}
+A. Townsend, \emph{Open Problems in Numerical Linear Algebra}, entry RA-04, ``Clustered singular-value gaps in randomized block Krylov approximation.'' Repository statement consulted September 12, 2026 (US Eastern time).
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/randomized-and-low-rank-approximation/RA-04}.
+
+\bibitem{chen}
+T. Chen, E. N. Epperly, R. A. Meyer, C. Musco, and A. Rao,
+\emph{Does block size matter in randomized block Krylov low-rank approximation?}
+SODA 2026, pp. 1026--1046.
+\href{https://doi.org/10.1137/1.9781611978971.42}{doi:10.1137/1.9781611978971.42}.
+Version used: \href{https://arxiv.org/abs/2508.06486v2}{arXiv:2508.06486v2}, Problem~1.1 and Imported Theorem~3.2, PDF pp. 1 and 6. The PDF title page identifies Christopher Musco and Akash Rao.
+
+\bibitem{mmm}
+R. A. Meyer, C. Musco, and C. Musco,
+\emph{On the Unreasonable Effectiveness of Single Vector Krylov Methods for Low-Rank Approximation}, SODA 2024, pp. 811--845.
+\href{https://arxiv.org/abs/2305.02535}{arXiv:2305.02535}.
+Appendix~F is the convergence-transfer provenance cited by~\cite{chen}.
+
+\bibitem{bcl}
+P. B\"urgisser, F. Cucker, and M. Lotz,
+\emph{The probability that a slightly perturbed numerical analysis problem is difficult}, Mathematics of Computation 77 (2008), 1559--1583.
+\href{https://doi.org/10.1090/S0025-5718-08-02060-7}{doi:10.1090/S0025-5718-08-02060-7}.
+Theorem~1.1 in the inspected preprint \href{https://arxiv.org/abs/math/0610270v1}{arXiv:math/0610270v1}, titled \emph{The probability that a small perturbation of a numerical analysis problem is difficult}, PDF p. 4. The real theorem, not the separate complex conic theorem, is used.
+
+\bibitem{guidelines}
+\emph{Open Problems in Numerical Linear Algebra}, README, ``Problem status,'' and CONTRIBUTING.md. Consulted September 12, 2026 (US Eastern time).
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA}.
+\end{thebibliography}
+\end{document}

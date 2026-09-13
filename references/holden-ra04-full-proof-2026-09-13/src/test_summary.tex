@@ -1,0 +1,25 @@
+\textbf{Exact checks.} The rational-arithmetic suite passes five residue-class rank witnesses, including two $t=1$ endpoints, and three interpolation fixtures. It verifies six vector resolvent identities, 105 positive-pole coordinate residues, translation and determinant invariance, Schur-complement formulas for the anchored minimum, and direct graph identities. Four exact interval-cover fixtures include repeated logarithmic root locations and verify the total-length bound. Additional checks verify 13 symbolic Pascal translation identities and a tied-singular-value fixture in which the frozen-minimizer descent remains valid without uniqueness.
+
+\textbf{Head-matrix diagnostics.} Across 96 fixtures with $b,t\in\{1,2,3,4\}$, geometric, repeated, and nonzero-width head spectra were tested. The largest relative discrepancy between the analytic singular-value derivative and the frozen-minimizer derivative was $6.05\cdot10^{-14}$; the corresponding finite-difference discrepancy was $6.75\cdot10^{-5}$. The maximum normalized moment residual was $4.03\cdot10^{-16}$, and the maximum relative translation residual was $8.10\cdot10^{-13}$. The stated interpolation bound exceeded every sampled norm, but its conservatism and these finite observations do not establish a probability bound.
+
+\textbf{Algorithmic diagnostics.} Two-pass block Arnoldi with numerical-rank detection in binary64 produced 81 records across seven spectra and three seeds per spectrum. Every record directly measures both norm errors and the ordered right-singular-vector energy defect. At $\varepsilon=0.1$, 43 records satisfied all tested criteria. The table gives the smallest \emph{tested} depth at which all three seeds passed. Failed smaller-depth records are retained. Neither the table nor its success counts estimate or certify the universal constant in Theorem~\ref{thm:main}.
+\begin{center}
+\begin{tabular}{lrrrr}
+\toprule
+Fixture & $n$ & $b$ & $k$ & Tested depth\\
+\midrule
+Exactly repeated clusters & 72 & 4 & 24 & 18\\
+Wide, unaligned spectrum & 64 & 4 & 19 & 10\\
+Mixed multiplicities at the boundary & 42 & 3 & 10 & 9\\
+Nonzero-width clusters & 45 & 3 & 14 & 10\\
+Scalar starting block & 20 & 1 & 5 & 12\\
+Full-size starting block & 32 & 6 & 6 & 4\\
+Zero optimal error & 40 & 3 & 12 & 5\\
+\bottomrule
+\end{tabular}
+\end{center}
+For the zero-error fixture, ``passed'' means that the spectral residual, Frobenius residual, and energy defect are each at most $10^{-10}$; the theorem is an exact-arithmetic assertion, not this tolerance test. Its exact recovery depth is $t+1=5$.
+
+\textbf{Spectral-scale stress tests.} Six further interpolation solves used 180-decimal-digit arithmetic. For the scalar fixture with head spectrum $(1,\zeta,\zeta/2)$ and $\zeta=10^{-4},10^{-16},10^{-50}$, the clustered gap stayed at $1/2$. The raw smallest singular values were approximately $1.65\cdot10^{-5}$, $1.65\cdot10^{-17}$, and $1.65\cdot10^{-51}$, while the anchored evaluation norms were approximately $4.07350$, $4.07329$, and $4.07329$. This finite diagnostic illustrates the difference between raw conditioning and extrapolation; it does not prove a limiting statement. Normalized inverse residuals are recorded as backward residual diagnostics, not forward-error certificates.
+
+The recorded environment is Python 3.13.5, NumPy 2.3.5, SymPy 1.14.0, and mpmath 1.3.0. Platform-dependent floating-point variation is expected.
