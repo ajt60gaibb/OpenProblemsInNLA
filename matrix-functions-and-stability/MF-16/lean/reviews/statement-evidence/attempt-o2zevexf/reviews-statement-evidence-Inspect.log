@@ -1,0 +1,123 @@
+def NLA.MF16.WordUniquenessConjecture : Prop :=
+∀ (w : List Letter),
+  SymmetricWord w →
+    ∀ (B P : ComplexMatrix), Matrix.PosDef B → Matrix.PosDef P → ∃! X, Matrix.PosDef X ∧ evalWord w X B = P
+def NLA.MF16.SymmetricWord : List Letter → Prop :=
+fun w => w = w.reverse ∧ Letter.X ∈ w
+def NLA.MF16.evalWord.{u_1} : {R : Type u_1} →
+  [Semiring R] → List Letter → Matrix (Fin 2) (Fin 2) R → Matrix (Fin 2) (Fin 2) R → Matrix (Fin 2) (Fin 2) R :=
+fun {R} [Semiring R] w X B =>
+  (List.map
+      (fun letter =>
+        match letter with
+        | Letter.X => X
+        | Letter.B => B)
+      w).prod
+def NLA.MF16.symmetricMatrix : (Fin 3 → ℝ) → RealMatrix :=
+fun v => !![v 0, v 1; v 1, v 2]
+def NLA.MF16.complexify : RealMatrix → ComplexMatrix :=
+fun A => Matrix.map A Complex.ofReal
+def Matrix.PosDef.{u_2, u_3} : {n : Type u_2} →
+  {R : Type u_3} → [inst : Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop :=
+fun {n} {R} [Ring R] [PartialOrder R] [StarRing R] M =>
+  M.IsHermitian ∧ ∀ ⦃x : n →₀ R⦄, x ≠ 0 → 0 < x.sum fun i xi => x.sum fun j xj => star xi * M i j * xj
+def NLA.MF16.linearCoefficient : ℝ → ℝ :=
+fun s =>
+  have t := s * s;
+  s * (t * (t * (t * (t * (t - 30) + 324) - 1512) + 2835) - 1458)
+def NLA.MF16.identityCoefficient : ℝ → ℝ :=
+fun s =>
+  have t := s * s;
+  3 * (t * (t * (t * (t * (t - 27) + 252) - 945) + 1215) - 243)
+def NLA.MF16.polynomialSystem : Fin 3 → Expr :=
+have x := Expr.var 0;
+have y := Expr.var 1;
+have z := Expr.var 2;
+have s := x.add z;
+have u := linearCoefficientExpr s;
+have v := identityCoefficientExpr s;
+have a := x.add (exprScale 4 y);
+have b := (exprScale 4 x).add (exprScale 17 y);
+have c := y.add (exprScale 4 z);
+have d := (exprScale 4 y).add (exprScale 17 z);
+have aa := a.mul a;
+have bb := b.mul b;
+have ac := a.mul c;
+have bd := b.mul d;
+have cubic11 := ((x.mul aa).add (exprScale 2 (y.mul (a.mul b)))).add (z.mul bb);
+have cubic12 := ((x.mul ac).add (y.mul ((a.mul d).add (b.mul c)))).add (z.mul bd);
+![exprSub (exprSub (x.mul z) (y.mul y)) (Expr.const 3),
+  exprSub (exprSub (u.mul cubic11) (v.mul (aa.add bb))) (Expr.const 4783113),
+  exprSub (exprSub (u.mul cubic12) (v.mul (ac.add bd))) (Expr.const 6377496)]
+def NLA.MF16.rootCenter : Fin 3 → ℚ :=
+![17471725533 / 5000000000, -51638297 / 156250000, 2224465749 / 2500000000]
+def NLA.MF16.rootBox : Fin 3 → IntervalRat :=
+![{ lo := 17471725033 / 5000000000, hi := 17471726033 / 5000000000, le := rootBox._proof_1 },
+  { lo := -413106501 / 1250000000, hi := -413106251 / 1250000000, le := rootBox._proof_2 },
+  { lo := 2224465499 / 2500000000, hi := 2224465999 / 2500000000, le := rootBox._proof_3 }]
+def NLA.MF16.rootCertificate : KrawczykCert 3 :=
+{ center := rootCenter,
+  preconditioner :=
+    !![17591641083 / 500000000, 20183 / 10000000000, -17029 / 10000000000;
+      -11575092327 / 500000000, -2477 / 2000000000, 10667 / 10000000000;
+      -21469001731 / 5000000000, -2797 / 10000000000, 2319 / 10000000000] }
+def LeanCert.Engine.krawczykCheck : {n : ℕ} →
+  (Fin n → Expr) → (Fin n → IntervalRat) → KrawczykCert n → optParam EvalConfig { } → Bool :=
+fun {n} F X cert cfg =>
+  decide (∀ (i : Fin n), (F i).checkADSupported = true) && decide (centerInside X cert.center) &&
+        decide (cert.preconditioner.det ≠ 0) &&
+      decide (intervalMatrixBound (preconditionedJacobian cert.preconditioner (intervalJacobian F X cfg)) < 1) &&
+    decide
+      (∀ (i : Fin n),
+        intervalStrictInside (newtonImageEnclosure F X cert.center cert.preconditioner cfg i) (X i) = true)
+LeanCert.Engine.krawczykCheck_sound {n : ℕ} (F : Fin n → Expr) (X : Fin n → IntervalRat) (cert : KrawczykCert n)
+  (cfg : EvalConfig) (hcheck : krawczykCheck F X cert cfg = true) : ∃! x, FinBoxMem x X ∧ SystemZero F x
+LeanCert.Engine.jacobianAt_mem_intervalJacobian {n : ℕ} (F : Fin n → Expr) (h : ∀ (i : Fin n), ADSupported (F i))
+  (X : Fin n → IntervalRat) (x : Fin n → ℝ) (hx : FinBoxMem x X) (cfg : EvalConfig) (i j : Fin n) :
+  jacobianAt F x i j ∈ intervalJacobian F X cfg i j
+LeanCert.Engine.contraction_unique_fixedPoint_in_finBox {n : ℕ} (X : Fin n → IntervalRat) (m : Fin n → ℝ)
+  (hm : FinBoxMem m X) (g : (Fin n → ℝ) → Fin n → ℝ) (hmap : Set.MapsTo g (finBoxSet X) (finBoxSet X)) (q : ℝ)
+  (hq0 : 0 ≤ q) (hq1 : q < 1) (hdiff : ∀ x ∈ finBoxSet X, DifferentiableAt ℝ g x)
+  (hderiv : ∀ x ∈ finBoxSet X, ‖fderiv ℝ g x‖ ≤ q) : ∃! x, FinBoxMem x X ∧ g x = x
+Matrix.aeval_self_charpoly.{u_1, u_4} {R : Type u_1} [CommRing R] {n : Type u_4} [DecidableEq n] [Fintype n]
+  (M : Matrix n n R) : (Polynomial.aeval M) M.charpoly = 0
+Matrix.posDef_iff_dotProduct_mulVec.{u_2, u_3} {n : Type u_2} {R : Type u_3} [Ring R] [PartialOrder R] [StarRing R]
+  [Fintype n] {M : Matrix n n R} : M.PosDef ↔ M.IsHermitian ∧ ∀ ⦃x : n → R⦄, x ≠ 0 → 0 < star x ⬝ᵥ M.mulVec x
+POLYNOMIAL_AST=a,a,m,v:0,v:2,n,m,v:1,v:1,n,c:3/1|a,a,m,m,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,a,v:0,v:2,a,v:0,v:2,n,c:30/1,c:324/1,n,c:1512/1,c:2835/1,n,c:1458/1,a,a,m,v:0,m,a,v:0,m,c:4/1,v:1,a,v:0,m,c:4/1,v:1,m,c:2/1,m,v:1,m,a,v:0,m,c:4/1,v:1,a,m,c:4/1,v:0,m,c:17/1,v:1,m,v:2,m,a,m,c:4/1,v:0,m,c:17/1,v:1,a,m,c:4/1,v:0,m,c:17/1,v:1,n,m,m,c:3/1,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,a,v:0,v:2,a,v:0,v:2,n,c:27/1,c:252/1,n,c:945/1,c:1215/1,n,c:243/1,a,m,a,v:0,m,c:4/1,v:1,a,v:0,m,c:4/1,v:1,m,a,m,c:4/1,v:0,m,c:17/1,v:1,a,m,c:4/1,v:0,m,c:17/1,v:1,n,c:4783113/1|a,a,m,m,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,a,v:0,v:2,a,v:0,v:2,n,c:30/1,c:324/1,n,c:1512/1,c:2835/1,n,c:1458/1,a,a,m,v:0,m,a,v:0,m,c:4/1,v:1,a,v:1,m,c:4/1,v:2,m,v:1,a,m,a,v:0,m,c:4/1,v:1,a,m,c:4/1,v:1,m,c:17/1,v:2,m,a,m,c:4/1,v:0,m,c:17/1,v:1,a,v:1,m,c:4/1,v:2,m,v:2,m,a,m,c:4/1,v:0,m,c:17/1,v:1,a,m,c:4/1,v:1,m,c:17/1,v:2,n,m,m,c:3/1,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,a,v:0,v:2,a,v:0,v:2,n,c:27/1,c:252/1,n,c:945/1,c:1215/1,n,c:243/1,a,m,a,v:0,m,c:4/1,v:1,a,v:1,m,c:4/1,v:2,m,a,m,c:4/1,v:0,m,c:17/1,v:1,a,m,c:4/1,v:1,m,c:17/1,v:2,n,c:6377496/1
+CENTER=17471725533/5000000000,-51638297/156250000,2224465749/2500000000
+BOX=17471725033/5000000000,17471726033/5000000000,-413106501/1250000000,-413106251/1250000000,2224465499/2500000000,2224465999/2500000000
+PRECONDITIONER=17591641083/500000000,20183/10000000000,-17029/10000000000,-11575092327/500000000,-2477/2000000000,10667/10000000000,-21469001731/5000000000,-2797/10000000000,2319/10000000000
+CONTRACTION_BOUND=16136719048657446264292376630014198783161012628051241371023265487923433258054678902636589697838834393684657499890804855306124868438119/610351562500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+[NLA.MF16.Letter.X,
+ NLA.MF16.Letter.B,
+ NLA.MF16.Letter.X,
+ NLA.MF16.Letter.X,
+ NLA.MF16.Letter.X,
+ NLA.MF16.Letter.X,
+ NLA.MF16.Letter.X,
+ NLA.MF16.Letter.X,
+ NLA.MF16.Letter.X,
+ NLA.MF16.Letter.X,
+ NLA.MF16.Letter.X,
+ NLA.MF16.Letter.X,
+ NLA.MF16.Letter.X,
+ NLA.MF16.Letter.X,
+ NLA.MF16.Letter.B,
+ NLA.MF16.Letter.X]
+16
+14
+2
+true
+true
+790668616748253 / 62500000000000000000000000000
+1 / 10000000
+'LeanCert.Engine.krawczykCheck_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MF16.WordUniquenessConjecture' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MF16.SymmetricWord' does not depend on any axioms
+'NLA.MF16.evalWord' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MF16.symmetricMatrix' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MF16.complexify' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MF16.polynomialSystem' depends on axioms: [propext, Quot.sound]
+'NLA.MF16.rootBox' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MF16.rootCertificate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MF16.contractionBound' depends on axioms: [propext, Classical.choice, Quot.sound]

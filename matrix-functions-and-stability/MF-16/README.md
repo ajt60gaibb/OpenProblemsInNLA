@@ -4,8 +4,9 @@
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
 **Rating rationale:** Challenging because uniqueness must hold for words of unbounded length despite higher-dimensional failures; specialist impact reflects the surviving two-letter, order-two setting.  
-**Last checked:** 2026-09-11  
-**Status:** Solved  
+**Last checked:** 2026-09-13
+
+**Status:** Lean verified
 
 <!-- colbrook-matrix-functions -->
 ## Resolution — 2026-09-11
@@ -16,9 +17,53 @@ The ordinary symmetric two-letter word $`XBX^{12}BX=P`$ has at least three disti
 
 The complete target is resolved. Its former difficulty rating is historical; the original statement, references and dated audits remain below.
 
-**Primary reference:** [complete authored PDF](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-16.pdf), [standalone TeX](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-16.tex), **Theorem 1; Theorem 4 gives three certified solutions, and Theorem 3 gives a family threshold**. [Independent proof review](../../references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-16-review.md) · [Authorship and submission record](../../references/colbrook-matrix-functions-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
+**Primary reference:** [complete authored PDF](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-16.pdf), [standalone TeX](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-16.tex), **Theorem 1; Theorem 4 gives three certified solutions, and Theorem 3 gives a family threshold**. [Independent proof review](../../references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-16-review.md) · [Authorship and submission record](../../references/colbrook-matrix-functions-2026-09-11/README.md). That dated manuscript review was independent agent review; the separate Lean verification below certifies the full original target. External human peer review is not claimed.
 
 <!-- /colbrook-matrix-functions -->
+
+## Lean proof and verification evidence — 2026-09-12
+
+**Formalization:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, with AI-agent assistance. **Matthew J. Colbrook retains authorship of the mathematical counterexample.**
+
+The [nine formal exports](lean/Solution.lean) refute the complete original universal uniqueness assertion: all finite ordinary two-letter palindromes containing $`X`$, and all complex Hermitian positive definite $`B,P`$ of order two. For the unchanged source word $`XBX^{12}BX`$ and integer matrices, the proof constructs two distinct genuine positive definite solutions. Actual written-order matrix products, complexification and every matrix-entry equality are proved. The original target and mathematical source are retained unchanged.
+
+A single rational box of radius $`10^{-7}`$ is certified by the actual LeanCert Krawczyk checker in explicit kernel mode. Cayley–Hamilton reduces the twelfth power before interval evaluation; determinant and symmetry recover the full word equation. The soundness theorem yields an actual root, and an LDL congruence proves positive definiteness. No numerical root approximation is assumed. The source's stronger three-solution count and exponent-family threshold are outside these nine exports.
+
+Two independent statement approvals preceded proof work, and [two independent final mathematical reports](lean/README.md#review-and-checks-actually-performed) approved the frozen proof. The [actual Ubuntu run](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34735259429), at immutable revision [4e244488](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/4e24448897a088ca9e7458379add1014c5d11e0c/matrix-functions-and-stability/MF-16/lean), passed all 17 jobs. All nine exports matched without definition exceptions; default-kernel replay, 22 standard-three axiom reports and both real control suites passed as a non-root user. The [independent operational audit](lean/verification/linux-2026-09-12/OPERATIONAL-REVIEW.md) and [coordinator acceptance](lean/verification/root-operational-2026-09-12/ROOT-CHECKS.json) bind all 294 submitted inputs and the original logs/artifacts. Local Mac checks are separately identified. The [v0.4 manifest](lean/formalization.yaml), [numerical targets](lean/NUMERICAL_TARGETS.md) and [proof map](lean/verification/PROOF_MAP.md) document the exact scope.
+
+### Checked declarations, versions and reproduction
+
+The full original target is refuted by `NLA.MF16.not_wordUniquenessConjecture`. All checked declarations in namespace `NLA.MF16` are listed below; their individual contracts and source correspondence are in the [proof package](lean/README.md).
+
+- `word_semantics`
+- `source_data`
+- `twelfth_power_reduction`
+- `polynomial_word_equivalence`
+- `krawczyk_certificate`
+- `certified_root`
+- `root_to_matrix`
+- `counterexample`
+- `not_wordUniquenessConjecture`
+
+The exact checked versions are:
+
+- Lean **4.33.1**.
+- Mathlib: `0df444a360eaa60ab8c11dca51a86af692955474`.
+- LeanCert: `621a43d7cf21f87872392a01e874f2f1dbddc926`.
+
+The [dependency manifest](lean/lake-manifest.json) pins all ten revisions. The successful run built the fresh project with matching official Mathlib cache objects; it does not claim to rebuild every dependency from source.
+
+Use a clean checkout of the immutable verified revision linked above and a non-root Linux host with the [documented sandbox prerequisites](../../tools/lean/HARNESS.md). From the repository root:
+
+```
+tools/lean/bootstrap.sh /tmp/nla-mf16-check
+tools/lean/selftest.sh /tmp/nla-mf16-check
+tools/lean/verify.sh \
+  matrix-functions-and-stability/MF-16/lean \
+  /tmp/nla-mf16-check
+```
+
+The verifier runs the actual controls, statement comparison, permitted-axiom checks and default-kernel replay. Its successful dated logs are linked above. A local `lake build Solution` is a separate development check.
 
 ## Problem statement
 

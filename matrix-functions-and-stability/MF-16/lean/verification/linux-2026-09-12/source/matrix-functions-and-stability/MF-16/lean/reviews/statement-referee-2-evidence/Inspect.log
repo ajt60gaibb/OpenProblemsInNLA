@@ -1,0 +1,129 @@
+def NLA.MF16.WordUniquenessConjecture : Prop :=
+∀ (w : List NLA.MF16.Letter),
+  NLA.MF16.SymmetricWord w →
+    ∀ (B P : NLA.MF16.ComplexMatrix),
+      @Matrix.PosDef (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex Complex.instRing
+          Complex.partialOrder Complex.instStarRing B →
+        @Matrix.PosDef (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex Complex.instRing
+            Complex.partialOrder Complex.instStarRing P →
+          @ExistsUnique NLA.MF16.ComplexMatrix fun (X : NLA.MF16.ComplexMatrix) =>
+            And
+              (@Matrix.PosDef (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex Complex.instRing
+                Complex.partialOrder Complex.instStarRing X)
+              (@Eq
+                (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                  (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                (@NLA.MF16.evalWord Complex Complex.instSemiring w X B) P)
+def NLA.MF16.SymmetricWord : List Letter → Prop :=
+fun w => w = w.reverse ∧ Letter.X ∈ w
+def NLA.MF16.evalWord.{u_1} : {R : Type u_1} →
+  [Semiring R] →
+    (w : List NLA.MF16.Letter) →
+      (X B :
+          Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+            (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) R) →
+        Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+          (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) R :=
+fun {R : Type u_1} [inst : Semiring R] (w : List NLA.MF16.Letter)
+    (X B :
+      Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+        (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) R) =>
+  @List.prod
+    (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) R)
+    (@Matrix.instMulOfFintypeOfAddCommMonoid (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) R
+      (Fin.fintype (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@Distrib.toMul R (@instDistribOfSemiring R inst)) (@Semiring.toAddCommMonoid R inst))
+    (@Matrix.one (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) R
+      (instDecidableEqFin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@MulZeroClass.toZero R (@instMulZeroClassOfSemiring R inst))
+      (@AddMonoidWithOne.toOne R
+        (@AddCommMonoidWithOne.toAddMonoidWithOne R
+          (@NonAssocSemiring.toAddCommMonoidWithOne R (@Semiring.toNonAssocSemiring R inst)))))
+    (@List.map NLA.MF16.Letter
+      (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+        (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) R)
+      (fun (letter : NLA.MF16.Letter) =>
+        NLA.MF16.instReprLetter.repr.match_1
+          (fun (letter : NLA.MF16.Letter) =>
+            Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+              (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) R)
+          letter (fun (_ : Unit) => X) fun (_ : Unit) => B)
+      w)
+def NLA.MF16.complexify : RealMatrix → ComplexMatrix :=
+fun A => Matrix.map A Complex.ofReal
+def Matrix.PosDef.{u_2, u_3} : {n : Type u_2} →
+  {R : Type u_3} → [inst : Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop :=
+fun {n} {R} [Ring R] [PartialOrder R] [StarRing R] M =>
+  M.IsHermitian ∧ ∀ ⦃x : n →₀ R⦄, x ≠ 0 → 0 < x.sum fun i xi => x.sum fun j xj => star xi * M i j * xj
+def LeanCert.Engine.FinBoxMem : {n : ℕ} → (Fin n → ℝ) → (Fin n → IntervalRat) → Prop :=
+fun {n} x X => ∀ (i : Fin n), x i ∈ X i
+def LeanCert.Engine.SystemZero : {n : ℕ} → (Fin n → Expr) → (Fin n → ℝ) → Prop :=
+fun {n} F x => ∀ (i : Fin n), evalFin (F i) x = 0
+LeanCert.Engine.krawczykCheck_sound {n : ℕ} (F : Fin n → Expr) (X : Fin n → IntervalRat) (cert : KrawczykCert n)
+  (cfg : EvalConfig) (hcheck : krawczykCheck F X cert cfg = true) : ∃! x, FinBoxMem x X ∧ SystemZero F x
+LeanCert.Engine.fixedPoint_iff_systemZero {n : ℕ} (F : Fin n → Expr) (Y : Matrix (Fin n) (Fin n) ℚ) (hdet : Y.det ≠ 0)
+  (x : Fin n → ℝ) : newtonMap (Y.map fun q => ↑q) F x = x ↔ SystemZero F x
+Matrix.aeval_self_charpoly.{u_1, u_4} {R : Type u_1} [CommRing R] {n : Type u_4} [DecidableEq n] [Fintype n]
+  (M : Matrix n n R) : (Polynomial.aeval M) M.charpoly = 0
+ROOT_AST=[["add",["add",["multiply",["variable",0],["variable",2]],["negate",["multiply",["variable",1],["variable",1]]]],["negate",["constant","3/1"]]],["add",["add",["multiply",["multiply",["add",["variable",0],["variable",2]],["add",["multiply",["multiply",["add",["variable",0],["variable",2]],["add",["variable",0],["variable",2]]],["add",["multiply",["multiply",["add",["variable",0],["variable",2]],["add",["variable",0],["variable",2]]],["add",["multiply",["multiply",["add",["variable",0],["variable",2]],["add",["variable",0],["variable",2]]],["add",["multiply",["multiply",["add",["variable",0],["variable",2]],["add",["variable",0],["variable",2]]],["add",["multiply",["add",["variable",0],["variable",2]],["add",["variable",0],["variable",2]]],["negate",["constant","30/1"]]]],["constant","324/1"]]],["negate",["constant","1512/1"]]]],["constant","2835/1"]]],["negate",["constant","1458/1"]]]],["add",["add",["multiply",["variable",0],["multiply",["add",["variable",0],["multiply",["constant","4/1"],["variable",1]]],["add",["variable",0],["multiply",["constant","4/1"],["variable",1]]]]],["multiply",["constant","2/1"],["multiply",["variable",1],["multiply",["add",["variable",0],["multiply",["constant","4/1"],["variable",1]]],["add",["multiply",["constant","4/1"],["variable",0]],["multiply",["constant","17/1"],["variable",1]]]]]]],["multiply",["variable",2],["multiply",["add",["multiply",["constant","4/1"],["variable",0]],["multiply",["constant","17/1"],["variable",1]]],["add",["multiply",["constant","4/1"],["variable",0]],["multiply",["constant","17/1"],["variable",1]]]]]]],["negate",["multiply",["multiply",["constant","3/1"],["add",["multiply",["multiply",["add",["variable",0],["variable",2]],["add",["variable",0],["variable",2]]],["add",["multiply",["multiply",["add",["variable",0],["variable",2]],["add",["variable",0],["variable",2]]],["add",["multiply",["multiply",["add",["variable",0],["variable",2]],["add",["variable",0],["variable",2]]],["add",["multiply",["multiply",["add",["variable",0],["variable",2]],["add",["variable",0],["variable",2]]],["add",["multiply",["add",["variable",0],["variable",2]],["add",["variable",0],["variable",2]]],["negate",["constant","27/1"]]]],["constant","252/1"]]],["negate",["constant","945/1"]]]],["constant","1215/1"]]],["negate",["constant","243/1"]]]],["add",["multiply",["add",["variable",0],["multiply",["constant","4/1"],["variable",1]]],["add",["variable",0],["multiply",["constant","4/1"],["variable",1]]]],["multiply",["add",["multiply",["constant","4/1"],["variable",0]],["multiply",["constant","17/1"],["variable",1]]],["add",["multiply",["constant","4/1"],["variable",0]],["multiply",["constant","17/1"],["variable",1]]]]]]]],["negate",["constant","4783113/1"]]],["add",["add",["multiply",["multiply",["add",["variable",0],["variable",2]],["add",["multiply",["multiply",["add",["variable",0],["variable",2]],["add",["variable",0],["variable",2]]],["add",["multiply",["multiply",["add",["variable",0],["variable",2]],["add",["variable",0],["variable",2]]],["add",["multiply",["multiply",["add",["variable",0],["variable",2]],["add",["variable",0],["variable",2]]],["add",["multiply",["multiply",["add",["variable",0],["variable",2]],["add",["variable",0],["variable",2]]],["add",["multiply",["add",["variable",0],["variable",2]],["add",["variable",0],["variable",2]]],["negate",["constant","30/1"]]]],["constant","324/1"]]],["negate",["constant","1512/1"]]]],["constant","2835/1"]]],["negate",["constant","1458/1"]]]],["add",["add",["multiply",["variable",0],["multiply",["add",["variable",0],["multiply",["constant","4/1"],["variable",1]]],["add",["variable",1],["multiply",["constant","4/1"],["variable",2]]]]],["multiply",["variable",1],["add",["multiply",["add",["variable",0],["multiply",["constant","4/1"],["variable",1]]],["add",["multiply",["constant","4/1"],["variable",1]],["multiply",["constant","17/1"],["variable",2]]]],["multiply",["add",["multiply",["constant","4/1"],["variable",0]],["multiply",["constant","17/1"],["variable",1]]],["add",["variable",1],["multiply",["constant","4/1"],["variable",2]]]]]]],["multiply",["variable",2],["multiply",["add",["multiply",["constant","4/1"],["variable",0]],["multiply",["constant","17/1"],["variable",1]]],["add",["multiply",["constant","4/1"],["variable",1]],["multiply",["constant","17/1"],["variable",2]]]]]]],["negate",["multiply",["multiply",["constant","3/1"],["add",["multiply",["multiply",["add",["variable",0],["variable",2]],["add",["variable",0],["variable",2]]],["add",["multiply",["multiply",["add",["variable",0],["variable",2]],["add",["variable",0],["variable",2]]],["add",["multiply",["multiply",["add",["variable",0],["variable",2]],["add",["variable",0],["variable",2]]],["add",["multiply",["multiply",["add",["variable",0],["variable",2]],["add",["variable",0],["variable",2]]],["add",["multiply",["add",["variable",0],["variable",2]],["add",["variable",0],["variable",2]]],["negate",["constant","27/1"]]]],["constant","252/1"]]],["negate",["constant","945/1"]]]],["constant","1215/1"]]],["negate",["constant","243/1"]]]],["add",["multiply",["add",["variable",0],["multiply",["constant","4/1"],["variable",1]]],["add",["variable",1],["multiply",["constant","4/1"],["variable",2]]]],["multiply",["add",["multiply",["constant","4/1"],["variable",0]],["multiply",["constant","17/1"],["variable",1]]],["add",["multiply",["constant","4/1"],["variable",1]],["multiply",["constant","17/1"],["variable",2]]]]]]]],["negate",["constant","6377496/1"]]]]
+ROOT_CENTER=["17471725533/5000000000","-51638297/156250000","2224465749/2500000000"]
+ROOT_BOX=[["17471725033/5000000000","17471726033/5000000000"],["-413106501/1250000000","-413106251/1250000000"],["2224465499/2500000000","2224465999/2500000000"]]
+ROOT_C=[["17591641083/500000000","20183/10000000000","-17029/10000000000"],["-11575092327/500000000","-2477/2000000000","10667/10000000000"],["-21469001731/5000000000","-2797/10000000000","2319/10000000000"]]
+ROOT_J=[[["2224465499/2500000000","2224465999/2500000000"],["413106251/625000000","413106501/625000000"],["17471725033/5000000000","17471726033/5000000000"]],[["1198723476685164615784507533905271968328566231169387260478525778382828142897912005554365614835602879781566268275385575528924277593733/19073486328125000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","9590223084641095527459642507512321319645523137422150976410832452807577645093849875520820736077634598930409650907561545079563326278989/152587890625000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"],["1287159838293754351653695793920859633012258693012877755242165519254173200221299746606168995648457814532802238109131873479609428031533/19073486328125000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","1287214111162393839780807608636144477322900635811008625279639978781602869045266123429557658881362746412449867618229802621182544183533/19073486328125000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"],["184485672640202123947444180994166476398352062506520797858230002410917427556877163356411379375743570302409813988922271667882588265516627/1220703125000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","184488869296121866532263617489489970757132331189784547991458320657795830811246965793395652192138303666810215529665791596564971080225627/1220703125000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"]],[["28162583086836150241900890558676292285520417760133463810148067913480823898030789761965483107098123480398128397025422484884811853993273/305175781250000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","28163757832766969678591806761084449444832590684462616675540428427796798918712557155096151696221346839469411936411563886427464915930523/305175781250000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"],["22861030593967746831986616722340214093292295316642596566644730753501276939272702105785898370144252868955037798870400439323695552553937/244140625000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","22861676498036858573416550058471907553073335996683627314726473914601271850135938978290486566189729463202007838802810536030820274470137/244140625000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"],["76695136064294004653469481895351187760387472101883602276671923614769882702177006404607361233254849528365335945566759203009158084978317/305175781250000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","76696755213881525600658700177250083631779357541761494731872886212980943638709784167970566172178801813026163300789058630370892992894317/305175781250000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"]]]
+ROOT_IMAGE=[["213277899413773387453404208741946455615563096579040022254187962712789652043768799771177426238969360531380012248271923671450437581814135128381524067/61035156250000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","213277899736507768426553134027793988215847072242260274815212790133254961802237464932271004291701154488156700121965073669266534687936632497143904067/61035156250000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"],["-4034241985568513156340351169306988526009766612938542610084007939219855942710120804963982372371785792903060727245431285343574616686419647881322289/12207031250000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","-4034241921021636961710566112137482005952971480294492097879042455126793991016387772745266761825427001547723152506801285780355195461920174128846289/12207031250000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"],["54308245662040985918087385791216066610067046734328188502912038241386769082349045152590865960748012410605133577856732318343102946661940734839685327/61035156250000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","54308245984775366891236311077063599210351022397548441063936865661852078840817710313684444013479806367381821451549882316159200052784438103602065327/61035156250000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"]]
+ROOT_Q="16136719048657446264292376630014198783161012628051241371023265487923433258054678902636589697838834393684657499890804855306124868438119/610351562500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+ROOT_CHECK=true
+ROOT_DET="790668616748253/62500000000000000000000000000"
+ROOT_RADIUS="1/10000000"
+'LeanCert.Engine.krawczykCheck_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.MF16.word_semantics :
+  SymmetricWord witnessWord ∧
+    witnessWord.length = 16 ∧
+      List.count Letter.X witnessWord = 14 ∧
+        List.count Letter.B witnessWord = 2 ∧
+          (∀ (X B : ComplexMatrix), evalWord witnessWord X B = X * B * X ^ 12 * B * X) ∧
+            ∀ (X B : RealMatrix), evalWord witnessWord X B = X * B * X ^ 12 * B * X
+NLA.MF16.source_data :
+  Matrix.PosDef witnessB ∧
+    Matrix.PosDef witnessP ∧
+      Matrix.PosDef witnessX0 ∧
+        evalWord witnessWord witnessX0 witnessB = witnessP ∧
+          Matrix.det realB = 1 ∧ Matrix.det realX0 = 3 ∧ Matrix.det realP = 3 ^ 14
+NLA.MF16.twelfth_power_reduction (v : Fin 3 → ℝ) (hdet : Matrix.det (symmetricMatrix v) = 3) :
+  symmetricMatrix v ^ 12 =
+    linearCoefficient (Matrix.trace (symmetricMatrix v)) • symmetricMatrix v -
+      identityCoefficient (Matrix.trace (symmetricMatrix v)) • 1
+NLA.MF16.polynomial_word_equivalence (v : Fin 3 → ℝ) :
+  SystemZero polynomialSystem v ↔
+    Matrix.det (symmetricMatrix v) = 3 ∧
+      evalWord witnessWord (symmetricMatrix v) realB 0 0 = realP 0 0 ∧
+        evalWord witnessWord (symmetricMatrix v) realB 0 1 = realP 0 1
+NLA.MF16.krawczyk_certificate :
+  krawczykCheck polynomialSystem rootBox rootCertificate = true ∧
+    rootCertificate.preconditioner.det = 790668616748253 / 62500000000000000000000000000 ∧
+      boxRadius rootBox rootCenter = rootRadius ∧ contractionBound < 27 / 1000
+NLA.MF16.certified_root : ∃! v, FinBoxMem v rootBox ∧ SystemZero polynomialSystem v
+NLA.MF16.root_to_matrix (v : Fin 3 → ℝ) (hv : FinBoxMem v rootBox) (hz : SystemZero polynomialSystem v) :
+  3 < v 0 ∧
+    Matrix.PosDef (complexify (symmetricMatrix v)) ∧
+      evalWord witnessWord (complexify (symmetricMatrix v)) witnessB = witnessP ∧
+        complexify (symmetricMatrix v) ≠ witnessX0
+NLA.MF16.counterexample :
+  SymmetricWord witnessWord ∧
+    Matrix.PosDef witnessB ∧
+      Matrix.PosDef witnessP ∧
+        Matrix.PosDef witnessX0 ∧
+          evalWord witnessWord witnessX0 witnessB = witnessP ∧
+            ∃ X, Matrix.PosDef X ∧ evalWord witnessWord X witnessB = witnessP ∧ X ≠ witnessX0
+NLA.MF16.not_wordUniquenessConjecture : ¬WordUniquenessConjecture
+'NLA.MF16.WordUniquenessConjecture' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MF16.SymmetricWord' does not depend on any axioms
+'NLA.MF16.evalWord' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MF16.symmetricMatrix' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MF16.complexify' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MF16.polynomialSystem' depends on axioms: [propext, Quot.sound]
+'NLA.MF16.rootBox' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MF16.rootCertificate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MF16.contractionBound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MF16.not_wordUniquenessConjecture' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

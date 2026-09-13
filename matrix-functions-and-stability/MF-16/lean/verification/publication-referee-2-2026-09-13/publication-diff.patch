@@ -1,0 +1,329 @@
+diff --git a/CATALOG.md b/CATALOG.md
+index 515724b..b235c28 100644
+--- a/CATALOG.md
++++ b/CATALOG.md
+@@ -2,7 +2,7 @@
+ 
+ **125 problems with open targets:** 53 open and 72 partially resolved. **92 other retained entries**, excluded from the open count.
+ 
+-**Resolution evidence:** 76 solved (published or independently audited); 16 Lean verified.
++**Resolution evidence:** 75 solved (published or independently audited); 17 Lean verified.
+ 
+ Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
+ 
+@@ -111,7 +111,7 @@ Retained entries outside the open count:
+ | [MF-06](matrix-functions-and-stability/MF-06/README.md) | A pointwise Lipschitz lower bound for the joint spectral radius | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-06/problem.pdf) · [TeX](matrix-functions-and-stability/MF-06/problem.tex) |
+ | [MF-07](matrix-functions-and-stability/MF-07/README.md) | Uniform polynomial bounds for products at joint spectral radius one | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-07/problem.pdf) · [TeX](matrix-functions-and-stability/MF-07/problem.tex) |
+ | [MF-12](matrix-functions-and-stability/MF-12/README.md) | Realizing arbitrary polynomial growth exponents by finite matrix families | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-12/problem.pdf) · [TeX](matrix-functions-and-stability/MF-12/problem.tex) |
+-| [MF-16](matrix-functions-and-stability/MF-16/README.md) | Uniqueness of positive definite solutions of two-letter word equations in order two | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-16/problem.pdf) · [TeX](matrix-functions-and-stability/MF-16/problem.tex) |
++| [MF-16](matrix-functions-and-stability/MF-16/README.md) | Uniqueness of positive definite solutions of two-letter word equations in order two | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-16/problem.pdf) · [TeX](matrix-functions-and-stability/MF-16/problem.tex) |
+ | [MF-18](matrix-functions-and-stability/MF-18/README.md) | Imaginary-part rank in a limiting Green-function matrix equation | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-18/problem.pdf) · [TeX](matrix-functions-and-stability/MF-18/problem.tex) |
+ | [MF-21](matrix-functions-and-stability/MF-21/README.md) | The uniform expansion threshold for Toeplitz symbols with higher-order zeros | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-21/problem.pdf) · [TeX](matrix-functions-and-stability/MF-21/problem.tex) |
+ | [MF-22](matrix-functions-and-stability/MF-22/README.md) | Polynomial conditioning of the cubic C1 spline Schrödinger Toeplitz family | **✅ SOLVED** | hard | interesting to specialist | [PDF](matrix-functions-and-stability/MF-22/problem.pdf) · [TeX](matrix-functions-and-stability/MF-22/problem.tex) |
+diff --git a/README.md b/README.md
+index 4c3ca47..e88a606 100644
+--- a/README.md
++++ b/README.md
+@@ -6,7 +6,7 @@ publications, with references and dated checks for subsequent solutions.
+ <!-- catalog-summary -->
+ **125 problems with open targets:** 53 open and 72 partially resolved. **92 other retained entries**, excluded from the open count.
+ 
+-**Resolution evidence:** 76 solved (published or independently audited); 16 Lean verified.
++**Resolution evidence:** 75 solved (published or independently audited); 17 Lean verified.
+ 
+ Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
+ 
+diff --git a/RESOLVED.md b/RESOLVED.md
+index 6fce118..389bf31 100644
+--- a/RESOLVED.md
++++ b/RESOLVED.md
+@@ -582,7 +582,7 @@ These three entries remain in the open count.
+ 
+ **MF-15 (Partially resolved).** The conventional critical exponent satisfies $\mathrm{CE}_n\ge2n-4$ for every $n\ge3$, already for rational entrywise nonnegative matrices with distinct positive eigenvalues. Combining this with the published upper bound gives $\mathrm{CE}_4=4$. The matching upper bound for every $n\ge5$, and hence the full family equality, remain unresolved. These are conventional matrix powers, not entrywise powers. [Complete proof](references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-15.pdf), Theorem 1 and Corollary 4; [review](references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-15-review.md).
+ 
+-**MF-16 (Solved).** The ordinary symmetric two-letter word $XBX^{12}BX=P$ has at least three distinct real symmetric positive definite solutions for explicit integer $B,P$. These are also Hermitian positive definite solutions, refuting the canonical universal uniqueness assertion in dimension two. An exact negative Jacobian determinant and two independent interval implementations certify the counterexample.  [Complete proof](references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-16.pdf), Theorem 1; Theorem 4 gives three certified solutions, and Theorem 3 gives a family threshold; [review](references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-16-review.md).
++**MF-16 (Lean verified; formalization by George Stepaniants).** The ordinary symmetric two-letter word $XBX^{12}BX=P$ has at least three distinct real symmetric positive definite solutions for explicit integer $B,P$. These are also Hermitian positive definite solutions, refuting the canonical universal uniqueness assertion in dimension two. An exact negative Jacobian determinant and two independent interval implementations certify the counterexample.  [Complete proof](references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-16.pdf), Theorem 1; Theorem 4 gives three certified solutions, and Theorem 3 gives a family threshold; [review](references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-16-review.md). **Lean verification — 2026-09-12:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, with AI-agent assistance. Matthew J. Colbrook retains mathematical authorship. The [nine exports](matrix-functions-and-stability/MF-16/lean/Solution.lean) negate the full original universal complex positive-definite uniqueness target using two distinct solutions of the unchanged word equation. The source's stronger three-solution count and exponent-family threshold are outside those exports. A genuine LeanCert Krawczyk root certificate in explicit kernel mode, actual Cayley–Hamilton reduction and full complex matrix-word recovery establish the result. Two independent statement and two independent final mathematical reviews were followed by [actual Ubuntu run 34735259429](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34735259429), with all nine exports, default-kernel replay, 22 standard-three reports and both real control suites passing. The [canonical evidence](matrix-functions-and-stability/MF-16/README.md#lean-proof-and-verification-evidence---2026-09-12) links the complete operational audit and root acceptance binding all 294 candidate inputs. External human peer review is not claimed.
+ 
+ **MF-18 (Solved separately; auxiliary result retained).** For real $A,Q$ with $Q=Q^\top$, scalar regularization $i\eta I$, and a finite invertible stabilizing limit, the manuscript proves that the imaginary-part rank is half the number of odd unit-circle Jordan blocks. It also establishes semisimple regularity and an exact defective example. This does not settle the canonical general complex $C,D,R,P$ problem. Its simple-eigenvalue real subcase was already known; the defective extension is an auxiliary result outside the canonical simple-eigenvalue hypothesis. The full canonical complex target is now solved by [George Stepaniants](matrix-functions-and-stability/MF-18/solution.md). Colbrook's distinct real-coefficient defective extension remains valid and separately credited. [Complete proof](references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-18.pdf), Theorem 1 and Corollary 3; Section 8 exact defective example; [review](references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-18-review.md).
+ 
+diff --git a/matrix-functions-and-stability/MF-16/README.md b/matrix-functions-and-stability/MF-16/README.md
+index 260e8b0..1d61c68 100644
+--- a/matrix-functions-and-stability/MF-16/README.md
++++ b/matrix-functions-and-stability/MF-16/README.md
+@@ -4,8 +4,9 @@
+ **Difficulty:** challenging  
+ **Importance:** interesting to specialist  
+ **Rating rationale:** Challenging because uniqueness must hold for words of unbounded length despite higher-dimensional failures; specialist impact reflects the surviving two-letter, order-two setting.  
+-**Last checked:** 2026-09-11  
+-**Status:** Solved  
++**Last checked:** 2026-09-12
++
++**Status:** Lean verified
+ 
+ <!-- colbrook-matrix-functions -->
+ ## Resolution — 2026-09-11
+@@ -16,10 +17,20 @@ The ordinary symmetric two-letter word $`XBX^{12}BX=P`$ has at least three disti
+ 
+ The complete target is resolved. Its former difficulty rating is historical; the original statement, references and dated audits remain below.
+ 
+-**Primary reference:** [complete authored PDF](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-16.pdf), [standalone TeX](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-16.tex), **Theorem 1; Theorem 4 gives three certified solutions, and Theorem 3 gives a family threshold**. [Independent proof review](../../references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-16-review.md) · [Authorship and submission record](../../references/colbrook-matrix-functions-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
++**Primary reference:** [complete authored PDF](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-16.pdf), [standalone TeX](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-16.tex), **Theorem 1; Theorem 4 gives three certified solutions, and Theorem 3 gives a family threshold**. [Independent proof review](../../references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-16-review.md) · [Authorship and submission record](../../references/colbrook-matrix-functions-2026-09-11/README.md). That dated manuscript review was independent agent review; the separate Lean verification below certifies the full original target. External human peer review is not claimed.
+ 
+ <!-- /colbrook-matrix-functions -->
+ 
++## Lean proof and verification evidence — 2026-09-12
++
++**Formalization:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, with AI-agent assistance. **Matthew J. Colbrook retains authorship of the mathematical counterexample.**
++
++The [nine formal exports](lean/Solution.lean) refute the complete original universal uniqueness assertion: all finite ordinary two-letter palindromes containing $`X`$, and all complex Hermitian positive definite $`B,P`$ of order two. For the unchanged source word $`XBX^{12}BX`$ and integer matrices, the proof constructs two distinct genuine positive definite solutions. Actual written-order matrix products, complexification and every matrix-entry equality are proved. The original target and mathematical source are retained unchanged.
++
++A single rational box of radius $`10^{-7}`$ is certified by the actual LeanCert Krawczyk checker in explicit kernel mode. Cayley–Hamilton reduces the twelfth power before interval evaluation; determinant and symmetry recover the full word equation. The soundness theorem yields an actual root, and an LDL congruence proves positive definiteness. No numerical root approximation is assumed. The source's stronger three-solution count and exponent-family threshold are outside these nine exports.
++
++Two independent statement approvals preceded proof work, and [two independent final mathematical reports](lean/README.md#review-and-checks-actually-performed) approved the frozen proof. The [actual Ubuntu run](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34735259429), at immutable revision [4e244488](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/4e24448897a088ca9e7458379add1014c5d11e0c/matrix-functions-and-stability/MF-16/lean), passed all 17 jobs. All nine exports matched without definition exceptions; default-kernel replay, 22 standard-three axiom reports and both real control suites passed as a non-root user. The [independent operational audit](lean/verification/linux-2026-09-12/OPERATIONAL-REVIEW.md) and [coordinator acceptance](lean/verification/root-operational-2026-09-12/ROOT-CHECKS.json) bind all 294 submitted inputs and the original logs/artifacts. Local Mac checks are separately identified. The [v0.4 manifest](lean/formalization.yaml), [numerical targets](lean/NUMERICAL_TARGETS.md) and [proof map](lean/verification/PROOF_MAP.md) document the exact scope.
++
+ ## Problem statement
+ 
+ A word $`W(X,B)`$ is a finite product of letters from $`\{X,B\}`$. It is symmetric if its sequence of letters equals its reversal. Require at least one occurrence of $`X`$.
+diff --git a/matrix-functions-and-stability/MF-16/lean/README.md b/matrix-functions-and-stability/MF-16/lean/README.md
+index 1502baa..3970185 100644
+--- a/matrix-functions-and-stability/MF-16/lean/README.md
++++ b/matrix-functions-and-stability/MF-16/lean/README.md
+@@ -1,6 +1,6 @@
+ # MF-16: a formal counterexample to order-two word uniqueness
+ 
+-**The complete nine-export proof has two accepted independent final mathematical approvals. Actual Linux verification is pending.** The [canonical problem](../README.md) remains **Solved**. This candidate documentation does not promote its verification status.
++**The complete nine-export proof passed independent mathematical review and actual Ubuntu Comparator/default-kernel verification.** The [canonical problem](../README.md) records the full target as **Lean verified**. The immutable checked revision and retained evidence are documented below.
+ 
+ Formalization: **George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA**, with AI assistance. **Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge, retains authorship of the mathematical counterexample. Hillar–Johnson and Armstrong–Hillar retain the original question's attribution. The new formalization has an Apache 2.0 license; it does not relicense the source manuscript.
+ 
+@@ -56,7 +56,7 @@ Every project object was initially absent from the author's fresh private prefix
+ 
+ The solution does not import Challenge and has no admission or custom axiom. Kernel trust and [Comparator configuration](comparator.json) permit only `propext`, `Classical.choice` and `Quot.sound`. Every advertised export is selected and `definition_names` is empty. Comparator checks formal statement identity; the independent statement reviews check correspondence to the informal original target.
+ 
+-## Reproduction and remaining gates
++## Reproduction
+ 
+ Lean is pinned to 4.33.1, Mathlib to `0df444a360eaa60ab8c11dca51a86af692955474`, and LeanCert to `621a43d7cf21f87872392a01e874f2f1dbddc926`. [lake-manifest.json](lake-manifest.json) pins all ten dependencies. With the project's own exact dependencies installed, explicitly build the proof:
+ 
+@@ -64,6 +64,20 @@ Lean is pinned to 4.33.1, Mathlib to `0df444a360eaa60ab8c11dca51a86af692955474`,
+ lake build Solution
+ ```
+ 
+-The unchanged default Lake target is `Challenge`; plain `lake build` therefore checks the reference statements. Its placeholders are not proofs. The isolated Linux workflow must additionally run the pinned Comparator, actual default-kernel replay and both real rejection/control suites. Successful local elaboration alone does not satisfy that gate.
++The unchanged default Lake target is `Challenge`; plain `lake build` therefore checks the reference statements. Its placeholders are not proofs. Reproduce the authoritative check from the immutable revision using the repository's [Linux verification workflow](../../../.github/workflows/lean-verification.yml) and [pinned checker instructions](../../../docs/lean/README.md). It runs Comparator, actual default-kernel replay and both real rejection/control suites on non-root Ubuntu.
+ 
+-Actual Ubuntu verification, independent operational acceptance and publication review remain required before changing the canonical entry to **Lean verified**. The [v0.4 metadata](formalization.yaml) describes the current completed implementation and pending verification scope truthfully. The campaign's pinned Schiffer and Forsythe examples and adapted Tau Ceti review protocol are credited in the source correspondence and metadata.
++## Actual Ubuntu verification and publication preservation
++
++[Run 34735259429](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34735259429) checked immutable candidate `4e24448897a088ca9e7458379add1014c5d11e0c`. All 17 jobs and every step passed. The actual checker ran on Ubuntu 24.04 x86_64 with UID 1001, Lean 4.33.1, the pinned Comparator/exporter and strict sandbox. It freshly cloned ten exact dependencies and used 8,690 matching official Mathlib cache files. Challenge and Solution build graphs had 2,840 and 2,863 jobs; these are not counts of a full dependency-source rebuild.
++
++Both actual export lists contain exactly the nine advertised declarations, with no definition exceptions. Default-kernel replay accepted the Solution. All 22 actual source axiom reports match their explicit kernel assertions and contain only `propext`, `Classical.choice`, `Quot.sound`. The final referees' count of 26 additionally includes four computational helper checks; their original evidence is retained. The Solution phase has no warnings or admissions.
++
++The target and standalone checker jobs each executed the actual sandbox probes, three raw-kernel controls, five Comparator fixtures and admission/native rejection controls. The deliberately admitted proof was rejected for `sorryAx`, and native computation for `checked._native.native_decide.ax_1_1`. Nested Bubblewrap was denied UID-map setup before its inner write; the logs do not establish an executed inner-write denial or general sandbox security.
++
++The [independent operational review](verification/linux-2026-09-12/OPERATIONAL-REVIEW.md) and [complete outer inventory](verification/linux-2026-09-12/EVIDENCE-MANIFEST.json) bind 466 evidence files plus the inventory, including all seven nested candidate manifests. The retained 294-input source snapshot agrees with the actual verifier receipt and committed Git blobs. Original project artifact ZIP SHA256 is `0dad309f58da9d61b1b177a550f60d8053938409bc30fe9d57399b719aec1d34`; checker ZIP SHA256 is `62d95b1cd2d2d34e82f0fc95c38cb1a2c2f9257caa7c9af5b50ca95eccf44f66`. Both match GitHub metadata and actual upload logs. The complete 217-log run ZIP is retained with a separately computed digest, without claiming a GitHub-published checksum for that log archive.
++
++Operational reviewer `/root/mf16_final_referee` also served as independent final mathematical referee 1 and independent candidate packaging reviewer. These roles add no mathematical approval. `/root` independently accepted that operational evidence and prepared these publication wrappers, but is a disclosed proof-route contributor and does not count as an independent final mathematical referee. Referee 2 remains `/root/formal_review_standards`. The [root acceptance](verification/root-operational-2026-09-12/ROOT-CHECKS.json) and its complete inventory bind six files plus that outer manifest.
++
++The actual run checks the immutable candidate, not these later publication wrappers. Among its 294 inputs, publication changes only this README and five status/review fields in the [v0.4 manifest](formalization.yaml); the other 292 inputs remain unchanged. Both exact candidate wrappers are archived under [publication evidence](verification/publication-2026-09-12/archive/). All 467 Linux evidence files, seven root operational files, 182 frozen proof inputs through the historical README archive, 45 statement inputs and fourteen original source snapshots remain intact. The canonical original mathematical target and source manuscripts are unchanged. Earlier pending notices remain historical phase records.
++
++The campaign's pinned Schiffer and Forsythe examples and adapted Tau Ceti protocol are credited in the source correspondence and metadata. Separate publication review is required before commit, fork push and individual upstream PR. No new proof run over these wrappers, external human review, official Tau Ceti endorsement or mathematical priority is claimed.
+diff --git a/matrix-functions-and-stability/MF-16/lean/formalization.yaml b/matrix-functions-and-stability/MF-16/lean/formalization.yaml
+index a17cf00..e0767a0 100644
+--- a/matrix-functions-and-stability/MF-16/lean/formalization.yaml
++++ b/matrix-functions-and-stability/MF-16/lean/formalization.yaml
+@@ -73,11 +73,12 @@ automation:
+     No human peer review, official Tau Ceti endorsement, source-author endorsement or new mathematical
+     priority is claimed.'
+ status:
+-  scope: Complete nine-export proof of the negative answer to the full original all-ordinary-palindromes/all-complex-Hermitian-positive-definite
+-    order-two uniqueness conjecture. Two independent statement approvals preceded implementation; two
+-    independent final mathematical approvals have been accepted. Actual non-root Ubuntu Comparator/default-kernel
+-    and control execution, independent operational review and publication acceptance remain pending. Canonical
+-    status remains Solved.
++  scope: Complete nine-export negative answer to the full original all-ordinary-palindromes, all-complex-Hermitian-positive-definite
++    order-two uniqueness conjecture. Two independent statement approvals preceded proof work; two independent
++    final mathematical approvals and actual Ubuntu Comparator/default-kernel run 34735259429 at 4e24448897a088ca9e7458379add1014c5d11e0c
++    passed. Independent operational review and root acceptance bind all 294 submitted inputs and both
++    real control suites. Canonical status is Lean verified. The stronger three-root and exponent-family
++    assertions are outside these exports.
+   sorry_count: 0
+   sorry_in_definitions: 0
+   axioms: &id001
+@@ -146,7 +147,7 @@ fidelity:
+     radius 10^-40 boxes or assume inverse-expression automatic differentiation. One additional solution
+     suffices; the source stronger three-solution and family-threshold claims are not exported.
+ review:
+-  status: agent-reviewed; actual Linux Comparator and default-kernel verification pending
++  status: agent-reviewed; Linux-Comparator-and-default-kernel-verified
+   reviewers:
+   - 'OpenAI Codex agent /root/solved_statement_inventory: historical independent statement referee 1,
+     later Cayley-Hamilton implementation coauthor'
+@@ -155,20 +156,25 @@ review:
+   - 'OpenAI Codex agent /root/mf16_final_referee: independent final mathematical referee 1'
+   - 'OpenAI Codex agent /root/formal_review_standards: independent final mathematical referee 2'
+   notes: Both independent statement approvals preceded implementation. Both independent final referees
+-    read the complete original target, actual definitions and all proof modules, freshly compiled the
+-    source and their inspectors in separate private macOS prefixes, and independently reconstructed the
+-    actual Expr polynomial and exact whole-box interval certificate. Each recorded ten successful checks
+-    and 26 standard-three axiom reports. Each inspected the full-negation-only proof closure with 94 reached
+-    project declarations and independently required the material Krawczyk/Cayley-Hamilton/complex-PD/full-word
+-    recovery chain. Different library-node selections are documented by the reports. Only pinned matching
+-    MI22 dependency sources/objects were reused read-only; no old project objects or local Lake/dependency
+-    rebuild were used. Reviewer-only namespace, metadata and multiline-output parser corrections are preserved;
+-    candidate mathematics did not change. Root read both complete reports and rehashed all 182 proof, 45 statement, 14 original
+-    inputs and both complete evidence inventories before accepting. This candidate replaces only the live
+-    README among frozen proof inputs, with the exact prior bytes retained at verification/pre-candidate-README.md;
+-    the 181 other proof and 44 other statement inputs remain unchanged. Actual Ubuntu Comparator/default-kernel,
+-    real controls, independent operational and publication checks remain required. No local check is reported
+-    as Linux, and no source-author/human/official Tau Ceti endorsement is claimed.
++    freshly elaborated and inspected the complete original target and material Krawczyk/Cayley-Hamilton/complex-PD/all-entry
++    matrix-word proof; each recorded ten successful checks and 26 standard-three reports including four
++    extra computational helpers. Local checks used read-only clean pinned MI22 dependencies, no old target
++    objects, and are identified as macOS. Actual Ubuntu run 34735259429 at 4e24448897a088ca9e7458379add1014c5d11e0c
++    passed all 17 jobs and steps, matched all nine exports without definition exceptions, accepted the
++    default kernel, and recorded 22 embedded source kernel/standard-three reports. Both real sandbox/kernel/Comparator/admission/native
++    control suites passed under UID 1001. Ten dependencies were freshly cloned and 8690 matching official
++    Mathlib cache files used, not a full dependency-source rebuild. Nested Bubblewrap was denied UID-map
++    setup before any inner write. Operational reviewer /root/mf16_final_referee also served as independent
++    final referee 1 and candidate packager; referee 2 is /root/formal_review_standards. Root is a proof-route
++    contributor, separately accepted operational evidence and prepared publication wrappers, not an independent
++    final mathematical referee. Operational report SHA256 e348886719fab4d2dca6aeba02d711d938f22b97c9529c6e91a2e70f086bf960
++    and outer b8661c4f497acc280bfccdd78e99d06049dc6fc854f09c227b67e65f39eb350a bind 466 files plus itself
++    including seven nested manifests; root checks SHA256 a09d923c1406601f672aeb6ae5e64eeac1a639a64e77b06489741a3c3523d684
++    confirm acceptance. Both exact candidate wrappers are archived; only README and five status/review
++    fields change among 294 candidate inputs, preserving 292 others, 467 Linux files, seven root operational
++    files, all frozen mathematical inputs and fourteen source snapshots. Separate publication review remains
++    required. No local check is reported as authoritative Linux, and no external human review, official
++    Tau Ceti endorsement or new mathematical priority is claimed.
+   statement_freeze:
+     file: reviews/statement-freeze.json
+     sha256: eaba8311f143727f2061f2b4c945e403e62b7e9041712d983ef56ccf2e7f0587
+@@ -196,9 +202,14 @@ review:
+     file: verification/final-review-acceptance.json
+     sha256: 94a681f53089ea8b45e9fc8e1760d015d00cfcd18af145a61c87c021aa021753
+   linux_verification:
+-    status: pending
+-    note: A new actual Ubuntu branch run, default-kernel replay, all nine Comparator exports and both
+-      real control suites are required before publication-status promotion.
++    status: passed; independently audited and root accepted
++    note: Actual run https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34735259429 at 4e24448897a088ca9e7458379add1014c5d11e0c.
++      All nine exports, default-kernel replay, 22 standard-three reports and both actual control suites
++      pass. Complete original artifact ZIPs, all 217 run logs and exact 294-input snapshot are retained
++      under verification/linux-2026-09-12, with independent OPERATIONAL-REVIEW.md and complete EVIDENCE-MANIFEST.json.
++      See verification/root-operational-2026-09-12/ROOT-CHECKS.json for coordinator acceptance. Linux
++      verifies the immutable candidate; publication archives its exact wrappers and preserves all other
++      inputs.
+   historical_readme:
+     file: verification/pre-candidate-README.md
+     sha256: 68a309b2cfd6f65dbd28d91e8b378c39928023b32a456ead4aaeb6a79a69659e
+diff --git a/matrix-functions-and-stability/MF-16/problem.pdf b/matrix-functions-and-stability/MF-16/problem.pdf
+index 064f337..98c06ef 100644
+Binary files a/matrix-functions-and-stability/MF-16/problem.pdf and b/matrix-functions-and-stability/MF-16/problem.pdf differ
+diff --git a/matrix-functions-and-stability/MF-16/problem.tex b/matrix-functions-and-stability/MF-16/problem.tex
+index c127839..61f1ae8 100644
+--- a/matrix-functions-and-stability/MF-16/problem.tex
++++ b/matrix-functions-and-stability/MF-16/problem.tex
+@@ -34,7 +34,7 @@ two},pdfauthor={Open Problems in Numerical Linear Algebra}}
+ \fancyhf{}
+ \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+ \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MF-16}
+-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
++\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
+ \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+ \renewcommand{\headrulewidth}{0.3pt}
+ \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+@@ -52,7 +52,7 @@ two\par}
+ \vspace{7pt}
+ {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+ to specialist\par}
+-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
++{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
+ \vspace{4pt}
+ {\color{accent}\hrule height 0.8pt}
+ \vspace{6pt}
+@@ -88,8 +88,58 @@ Theorem 3 gives a family threshold}.
+ \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-16-review.md}{Independent
+ proof review} ·
+ \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-functions-2026-09-11/README.md}{Authorship
+-and submission record}. Verification is independent agent review, not
+-external human peer review or formal certification.
++and submission record}. That dated manuscript review was independent
++agent review; the separate Lean verification below certifies the full
++original target. External human peer review is not claimed.
++
++\subsection{Lean proof and verification evidence ---
++2026-09-12}\label{lean-proof-and-verification-evidence-2026-09-12}
++
++\textbf{Formalization:} George Stepaniants, Department of Computing and
++Mathematical Sciences, California Institute of Technology, Pasadena,
++California, USA, with AI-agent assistance. \textbf{Matthew J. Colbrook
++retains authorship of the mathematical counterexample.}
++
++The
++\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-16/lean/Solution.lean}{nine
++formal exports} refute the complete original universal uniqueness
++assertion: all finite ordinary two-letter palindromes containing \(X\),
++and all complex Hermitian positive definite \(B,P\) of order two. For
++the unchanged source word \(XBX^{12}BX\) and integer matrices, the proof
++constructs two distinct genuine positive definite solutions. Actual
++written-order matrix products, complexification and every matrix-entry
++equality are proved. The original target and mathematical source are
++retained unchanged.
++
++A single rational box of radius \(10^{-7}\) is certified by the actual
++LeanCert Krawczyk checker in explicit kernel mode. Cayley--Hamilton
++reduces the twelfth power before interval evaluation; determinant and
++symmetry recover the full word equation. The soundness theorem yields an
++actual root, and an LDL congruence proves positive definiteness. No
++numerical root approximation is assumed. The source's stronger
++three-solution count and exponent-family threshold are outside these
++nine exports.
++
++Two independent statement approvals preceded proof work, and
++\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-16/lean/README.md\#review-and-checks-actually-performed}{two
++independent final mathematical reports} approved the frozen proof. The
++\href{https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34735259429}{actual
++Ubuntu run}, at immutable revision
++\href{https://github.com/sgstepaniants/OpenProblemsInNLA/tree/4e24448897a088ca9e7458379add1014c5d11e0c/matrix-functions-and-stability/MF-16/lean}{4e244488},
++passed all 17 jobs. All nine exports matched without definition
++exceptions; default-kernel replay, 22 standard-three axiom reports and
++both real control suites passed as a non-root user. The
++\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-16/lean/verification/linux-2026-09-12/OPERATIONAL-REVIEW.md}{independent
++operational audit} and
++\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-16/lean/verification/root-operational-2026-09-12/ROOT-CHECKS.json}{coordinator
++acceptance} bind all 294 submitted inputs and the original
++logs/artifacts. Local Mac checks are separately identified. The
++\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-16/lean/formalization.yaml}{v0.4
++manifest},
++\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-16/lean/NUMERICAL_TARGETS.md}{numerical
++targets} and
++\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-16/lean/verification/PROOF_MAP.md}{proof
++map} document the exact scope.
+ 
+ \subsection{Problem statement}\label{problem-statement}
+ 
+@@ -102,9 +152,7 @@ definite matrices \(B,P\in\mathbb C^{2\times2}\), is there exactly one
+ Hermitian positive definite matrix \(X\in\mathbb C^{2\times2}\)
+ satisfying
+ 
+-\[
+-W(X,B)=P?
+-\]
++\[W(X,B)=P?\]
+ 
+ Products are evaluated in the written order. Existence is known;
+ uniqueness is the open assertion. This is the ordinary two-letter word
+diff --git a/matrix-functions-and-stability/README.md b/matrix-functions-and-stability/README.md
+index aa62c11..e6dd0f1 100644
+--- a/matrix-functions-and-stability/README.md
++++ b/matrix-functions-and-stability/README.md
+@@ -31,7 +31,7 @@
+ | [MF-06](MF-06/README.md) | A pointwise Lipschitz lower bound for the joint spectral radius | **✅ SOLVED** | challenging | interesting to the community | [PDF](MF-06/problem.pdf) · [TeX](MF-06/problem.tex) |
+ | [MF-07](MF-07/README.md) | Uniform polynomial bounds for products at joint spectral radius one | **✅ SOLVED** | challenging | interesting to the community | [PDF](MF-07/problem.pdf) · [TeX](MF-07/problem.tex) |
+ | [MF-12](MF-12/README.md) | Realizing arbitrary polynomial growth exponents by finite matrix families | **✅ SOLVED** | challenging | interesting to the community | [PDF](MF-12/problem.pdf) · [TeX](MF-12/problem.tex) |
+-| [MF-16](MF-16/README.md) | Uniqueness of positive definite solutions of two-letter word equations in order two | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MF-16/problem.pdf) · [TeX](MF-16/problem.tex) |
++| [MF-16](MF-16/README.md) | Uniqueness of positive definite solutions of two-letter word equations in order two | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](MF-16/problem.pdf) · [TeX](MF-16/problem.tex) |
+ | [MF-18](MF-18/README.md) | Imaginary-part rank in a limiting Green-function matrix equation | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MF-18/problem.pdf) · [TeX](MF-18/problem.tex) |
+ | [MF-21](MF-21/README.md) | The uniform expansion threshold for Toeplitz symbols with higher-order zeros | **✅ SOLVED** | challenging | interesting to specialist | [PDF](MF-21/problem.pdf) · [TeX](MF-21/problem.tex) |
+ | [MF-22](MF-22/README.md) | Polynomial conditioning of the cubic C1 spline Schrödinger Toeplitz family | **✅ SOLVED** | hard | interesting to specialist | [PDF](MF-22/problem.pdf) · [TeX](MF-22/problem.tex) |

@@ -1,0 +1,216 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={MF-16 - Uniqueness
+of positive definite solutions of two-letter word equations in order
+two},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MF-16}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Matrix functions and stability\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Uniqueness
+of positive definite solutions of two-letter word equations in order
+two\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to specialist\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Topic:} Structured nonlinear matrix equations.
+
+\textbf{Rating rationale:} Challenging because uniqueness must hold for
+words of unbounded length despite higher-dimensional failures;
+specialist impact reflects the surviving two-letter, order-two setting.
+
+\subsection{Resolution --- 2026-09-11}\label{resolution-2026-09-11}
+
+\textbf{Author:} Matthew J. Colbrook, Department of Applied Mathematics
+and Theoretical Physics, University of Cambridge. \textbf{Independent
+Codex-agent review: PASS for the exact target.}
+
+The ordinary symmetric two-letter word \(XBX^{12}BX=P\) has at least
+three distinct real symmetric positive definite solutions for explicit
+integer \(B,P\). These are also Hermitian positive definite solutions,
+refuting the canonical universal uniqueness assertion in dimension two.
+An exact negative Jacobian determinant and two independent interval
+implementations certify the counterexample.
+
+The complete target is resolved. Its former difficulty rating is
+historical; the original statement, references and dated audits remain
+below.
+
+\textbf{Primary reference:}
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-16.pdf}{complete
+authored PDF},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-16.tex}{standalone
+TeX}, \textbf{Theorem 1; Theorem 4 gives three certified solutions, and
+Theorem 3 gives a family threshold}.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-16-review.md}{Independent
+proof review} ·
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-functions-2026-09-11/README.md}{Authorship
+and submission record}. That dated manuscript review was independent
+agent review; the separate Lean verification below certifies the full
+original target. External human peer review is not claimed.
+
+\subsection{Lean proof and verification evidence ---
+2026-09-12}\label{lean-proof-and-verification-evidence-2026-09-12}
+
+\textbf{Formalization:} George Stepaniants, Department of Computing and
+Mathematical Sciences, California Institute of Technology, Pasadena,
+California, USA, with AI-agent assistance. \textbf{Matthew J. Colbrook
+retains authorship of the mathematical counterexample.}
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-16/lean/Solution.lean}{nine
+formal exports} refute the complete original universal uniqueness
+assertion: all finite ordinary two-letter palindromes containing \(X\),
+and all complex Hermitian positive definite \(B,P\) of order two. For
+the unchanged source word \(XBX^{12}BX\) and integer matrices, the proof
+constructs two distinct genuine positive definite solutions. Actual
+written-order matrix products, complexification and every matrix-entry
+equality are proved. The original target and mathematical source are
+retained unchanged.
+
+A single rational box of radius \(10^{-7}\) is certified by the actual
+LeanCert Krawczyk checker in explicit kernel mode. Cayley--Hamilton
+reduces the twelfth power before interval evaluation; determinant and
+symmetry recover the full word equation. The soundness theorem yields an
+actual root, and an LDL congruence proves positive definiteness. No
+numerical root approximation is assumed. The source's stronger
+three-solution count and exponent-family threshold are outside these
+nine exports.
+
+Two independent statement approvals preceded proof work, and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-16/lean/README.md\#review-and-checks-actually-performed}{two
+independent final mathematical reports} approved the frozen proof. The
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34735259429}{actual
+Ubuntu run}, at immutable revision
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/tree/4e24448897a088ca9e7458379add1014c5d11e0c/matrix-functions-and-stability/MF-16/lean}{4e244488},
+passed all 17 jobs. All nine exports matched without definition
+exceptions; default-kernel replay, 22 standard-three axiom reports and
+both real control suites passed as a non-root user. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-16/lean/verification/linux-2026-09-12/OPERATIONAL-REVIEW.md}{independent
+operational audit} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-16/lean/verification/root-operational-2026-09-12/ROOT-CHECKS.json}{coordinator
+acceptance} bind all 294 submitted inputs and the original
+logs/artifacts. Local Mac checks are separately identified. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-16/lean/formalization.yaml}{v0.4
+manifest},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-16/lean/NUMERICAL_TARGETS.md}{numerical
+targets} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-16/lean/verification/PROOF_MAP.md}{proof
+map} document the exact scope.
+
+\subsection{Problem statement}\label{problem-statement}
+
+A word \(W(X,B)\) is a finite product of letters from \(\{X,B\}\). It is
+symmetric if its sequence of letters equals its reversal. Require at
+least one occurrence of \(X\).
+
+For every such symmetric word \(W\) and every pair of Hermitian positive
+definite matrices \(B,P\in\mathbb C^{2\times2}\), is there exactly one
+Hermitian positive definite matrix \(X\in\mathbb C^{2\times2}\)
+satisfying
+
+\[W(X,B)=P?\]
+
+Products are evaluated in the written order. Existence is known;
+uniqueness is the open assertion. This is the ordinary two-letter word
+case of the surviving order-two conjecture, with no real powers or
+additional fixed letters included in the statement.
+
+\subsection{Why it matters}\label{why-it-matters}
+
+The question concerns whether a structured nonlinear matrix equation has
+a single positive definite solution branch. The elementary word \(XBX\)
+connects this family with matrix geometric means and Riccati equations.
+
+\newpage
+\subsection{References}\label{references}
+
+\begin{itemize}
+\tightlist
+\item
+  C. J. Hillar and C. R. Johnson,
+  \href{https://qualiaphile.com/files/S0002-9939-03-07163-6.pdf}{Symmetric
+  word equations in two positive definite letters}, \emph{Proceedings of
+  the American Mathematical Society} 132 (2004), 945--953, Definition
+  1.1, Theorem 2.2, and Conjecture 2.3. This gives the original
+  two-letter existence and uniqueness formulation.
+\item
+  S. N. Armstrong and C. J. Hillar,
+  \href{https://arxiv.org/abs/math/0507306}{Solvability of Symmetric
+  Word Equations in Positive Definite Letters}, \emph{Journal of the
+  London Mathematical Society} 76 (2007), 777--796, Theorem 1.4 and
+  Conjecture 11.5 (p.~20 of the arXiv PDF); Remark 11.6 discusses the
+  real order-two case.
+\item
+  J. D. Lawson and Y. Lim,
+  \href{https://repository.lsu.edu/mathematics_pubs/611/}{Solving
+  symmetric matrix word equations via symmetric space machinery},
+  \emph{Linear Algebra and its Applications} 414 (2006), 560--569. Its
+  bounded-degree uniqueness result is summarized in Armstrong--Hillar's
+  introduction.
+\end{itemize}
+
+\subsection{Status check}\label{status-check}
+
+On 2026-09-08, searched the titles, ``symmetric word equations'',
+``Conjecture 11.5'', ``2 × 2'', ``two-by-two'', ``uniqueness'',
+``counterexample'', and 2025--2026. No order-two resolution was located.
+Armstrong--Hillar refute unrestricted uniqueness in dimensions at least
+three, while explicitly retaining the order-two conjecture; their
+special order-two theorem and known bounded-degree results do not cover
+every word. No recent explicit reaffirmation was found. The statement
+deliberately records the source-backed two-letter problem rather than
+presuming that the paper's comments about reducing complex matrices to
+real matrices cover arbitrarily many fixed letters.
+
+\subsection{Audit --- 2026-09-10}\label{audit-2026-09-10}
+
+Rechecked \href{https://arxiv.org/pdf/math/0507306}{Armstrong--Hillar,
+Theorem 11.4 and Conjecture 11.5}. The nontrivial word \(XBX^2B^3X^2BX\)
+is settled in order two, but arbitrary words remain open. Title and
+order-two uniqueness searches found no full resolution. Existence alone
+is not the reason for the partial-resolution tag.
+\end{document}
