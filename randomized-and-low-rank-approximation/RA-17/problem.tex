@@ -34,7 +34,7 @@ matrices},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RA-17}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-13}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -62,16 +62,22 @@ working on low-rank matrix sensing and recovery.
 
 \subsection{Problem statement}\label{problem-statement}
 
-For integers \(d\geq2\) and \(1\leq r\leq\lfloor d/2\rfloor\), let \[
-\mathcal M_{d,r}(\mathbb R)=\{X\in\mathbb R^{d\times d}:\operatorname{rank}X\leq r\}.
-\] For real measurement matrices \(A_1,\ldots,A_m\), define \[
-\mathcal A(X)=
-(\operatorname{tr}(A_1^\top X),\ldots,\operatorname{tr}(A_m^\top X)).
-\] Determine the exact integer \[
-\mu_{\mathbb R}(d,r)=
+For integers \(d\geq2\) and \(1\leq r\leq\lfloor d/2\rfloor\), let
+
+\[\mathcal M_{d,r}(\mathbb R)=\{X\in\mathbb R^{d\times d}:\mathop{\mathrm{rank}}\nolimits X\leq r\}.\]
+
+For real measurement matrices \(A_1,\ldots,A_m\), define
+
+\[\mathcal A(X)=
+(\mathop{\mathrm{tr}}\nolimits(A_1^\top X),\ldots,\mathop{\mathrm{tr}}\nolimits(A_m^\top X)).\]
+
+Determine the exact integer
+
+\[\mu_{\mathbb R}(d,r)=
 \min\{m:\exists A_1,\ldots,A_m\in\mathbb R^{d\times d},\
-\mathcal A|_{\mathcal M_{d,r}(\mathbb R)}\text{ is injective}\}
-\] for all such \(d,r\).
+\mathcal A|_{\mathcal M_{d,r}(\mathbb R)}\text{ is injective}\}\]
+
+for all such \(d,r\).
 
 Injectivity is uniform: every two matrices of rank at most \(r\) with
 equal measurements must coincide. Equivalently, \(\ker\mathcal A\) must
@@ -81,6 +87,43 @@ semidefiniteness, or generic-signal exception is required. The problem
 concerns unrestricted real square matrices and unrestricted real linear
 measurements.
 
+\subsection{Partial continuation --- 13 September
+2026}\label{partial-continuation-13-september-2026}
+
+\textbf{Author:} Sidney Holden, Center for Computational Biology,
+Flatiron Institute, Simons Foundation
+(\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ra17-continuation-2026-09-13/SUBMISSION.md}{verified
+affiliation}).
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ra17-continuation-2026-09-13/writeup/RA17_topological_relaxation.pdf}{continuation
+manuscript}, Sections 3--4, characterizes two topological relaxations
+one measurement below the complex generic count: existence of a
+continuous odd nonvanishing map on the low-rank unit link, and existence
+of the corresponding number of independent continuous evaluation-bundle
+sections. Each is equivalent to even complex determinantal degree. These
+do not establish a system of constant linear measurement matrices.
+Section 5 rederives the rank-one index lower bound; Section 2 supplies
+integer upper-bound measurements.
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ra17-continuation-2026-09-13/independent-review.md}{independent
+informal AI-agent review} records the checked scope and arithmetic
+verification.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ra17-continuation-2026-09-13/README.md}{Source,
+code and provenance}. No Lean verification or external human peer review
+is asserted. This extends the earlier partial submission in
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/197}{PR
+\#197}; no priority claim is made.
+
+\textbf{Remaining target:} the exact count for every allowed pair. In
+particular, the submission leaves \(19\leq\mu_{\mathbb R}(6,1)\leq20\)
+and \(35\leq\mu_{\mathbb R}(10,1)\leq36\) undecided. Section 7
+identifies the missing existence or impossibility of a 17-dimensional
+real space of six-by-six matrices with every nonzero matrix of rank at
+least three. RA-17 remains \textbf{Partially resolved} and counted as
+open.
+
 \subsection{Why it matters}\label{why-it-matters}
 
 This is the information-theoretic limit of noiseless real matrix
@@ -88,7 +131,6 @@ sensing. It distinguishes intrinsic identifiability from the larger
 measurement budgets that particular algorithms or stability guarantees
 may require.
 
-\newpage
 \subsection{References and status
 check}\label{references-and-status-check}
 

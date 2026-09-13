@@ -7,7 +7,7 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Status:** Partially resolved  
-**Last checked:** 2026-09-10
+**Last checked:** 2026-09-13
 
 **Rating rationale:** The all-dimension real measurement classification needs new control of exceptional kernels and topological obstructions, hence challenging. Its main impact is on the community working on low-rank matrix sensing and recovery.
 
@@ -37,6 +37,16 @@ Determine the exact integer
 for all such $`d,r`$.
 
 Injectivity is uniform: every two matrices of rank at most $`r`$ with equal measurements must coincide. Equivalently, $`\ker\mathcal A`$ must contain no nonzero matrix of rank at most $`2r`$. No randomness, stability guarantee, computationally efficient decoder, positive semidefiniteness, or generic-signal exception is required. The problem concerns unrestricted real square matrices and unrestricted real linear measurements.
+
+## Partial continuation — 13 September 2026
+
+**Author:** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation ([verified affiliation](../../references/holden-ra17-continuation-2026-09-13/SUBMISSION.md)).
+
+The [continuation manuscript](../../references/holden-ra17-continuation-2026-09-13/writeup/RA17_topological_relaxation.pdf), Sections 3–4, characterizes two topological relaxations one measurement below the complex generic count: existence of a continuous odd nonvanishing map on the low-rank unit link, and existence of the corresponding number of independent continuous evaluation-bundle sections. Each is equivalent to even complex determinantal degree. These do not establish a system of constant linear measurement matrices. Section 5 rederives the rank-one index lower bound; Section 2 supplies integer upper-bound measurements.
+
+The [independent informal AI-agent review](../../references/holden-ra17-continuation-2026-09-13/independent-review.md) records the checked scope and arithmetic verification. [Source, code and provenance](../../references/holden-ra17-continuation-2026-09-13/README.md). No Lean verification or external human peer review is asserted. This extends the earlier partial submission in [PR #197](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/197); no priority claim is made.
+
+**Remaining target:** the exact count for every allowed pair. In particular, the submission leaves $`19\leq\mu_{\mathbb R}(6,1)\leq20`$ and $`35\leq\mu_{\mathbb R}(10,1)\leq36`$ undecided. Section 7 identifies the missing existence or impossibility of a 17-dimensional real space of six-by-six matrices with every nonzero matrix of rank at least three. RA-17 remains **Partially resolved** and counted as open.
 
 ## Why it matters
 
