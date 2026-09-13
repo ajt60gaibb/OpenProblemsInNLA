@@ -21,6 +21,13 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### RA-05 — all-exponent coreset lower bounds — Sidney Holden
+
+**Partially resolved, 2026-09-13.** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Theorem 1.1 and Corollaries 1.2–1.3](references/holden-ra05-2026-09-13/manuscript/RA05_all_p_lower_bounds.pdf) give an all-exponent lower bound, refute the displayed additive formula for every fixed real p > 2, and match the cited upper bound up to logarithms for even powers at moderate accuracy. The optimal joint size for non-even powers and smaller accuracies remains open. [Retained target](randomized-and-low-rank-approximation/RA-05/README.md) · [Proof source](references/holden-ra05-2026-09-13/manuscript/RA05_all_p_lower_bounds.tex).
+
+A separate [independent Codex AI-agent audit](references/holden-ra05-2026-09-13/verification/independent-review.md) passed this partial scope; the full target is not marked Solved. [Submission record, verified affiliation and reproducibility](references/holden-ra05-2026-09-13/README.md). AI assistance is disclosed; no external human peer review, novelty claim or formal verification is asserted. No Lean verification was performed. Original IDs, paths, target and prior-source attribution are preserved; the entry remains in the open count.
+
+
 ### KE-02, SP-08 and SP-09 — spectral partial results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-spectral-2026-09-12/README.md).

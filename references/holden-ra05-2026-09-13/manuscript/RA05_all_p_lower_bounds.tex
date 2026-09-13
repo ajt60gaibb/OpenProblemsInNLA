@@ -1,0 +1,817 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,microtype}
+\usepackage{booktabs,array,enumitem,xcolor,fancyhdr}
+\usepackage[colorlinks=true,linkcolor=blue!45!black,citecolor=blue!45!black,urlcolor=blue!45!black,breaklinks=true]{hyperref}
+\usepackage{bookmark}
+\hypersetup{pdftitle={RA-05: An all-exponent obstruction to the proposed joint coreset bound},pdfauthor={Sidney Holden},pdfsubject={Strong row coresets, lower bounds, and proof audit}}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\linespread{1.035}
+\setlist{nosep,leftmargin=1.6em}
+\allowdisplaybreaks[2]
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small RA-05\;|\;All-exponent row-coreset lower bounds}
+\fancyhead[R]{\small September 12, 2026}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+\newcommand{\R}{\mathbb R}
+\newcommand{\F}{\mathbb F}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ip}[2]{\left\langle#1,#2\right\rangle}
+\newcommand{\abs}[1]{\left|#1\right|}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\cost}{cost}
+\DeclareMathOperator{\sr}{srank}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\tr}{tr}
+\newcommand{\Id}{I}
+\newcommand{\littleO}{\widetilde O}
+\newcommand{\littleTheta}{\widetilde\Theta}
+
+\begin{document}
+\begin{titlepage}
+\thispagestyle{empty}
+{\small\sffamily\bfseries RESEARCH MANUSCRIPT / RA-05}\par
+\vspace{0.65in}
+{\LARGE\bfseries An all-exponent obstruction to the proposed joint coreset bound\par}
+\vspace{0.2in}
+{\large Strong $\ell_p$ row coresets for every real $p>2$\par}
+\vspace{0.32in}
+{\large Sidney Holden}\\
+Center for Computational Biology\\
+Flatiron Institute, Simons Foundation\\
+September 12, 2026\\[6pt]
+{\small Prepared with ChatGPT assistance.}
+\vspace{0.32in}
+\begin{abstract}
+For the original-row, nonnegative-weight model in RA-05, let $S_p(k,\eps)$ be the worst-case minimum support of a strong coreset. We prove that, for every fixed real $p>2$ and all sufficiently large $k$,
+\[
+ S_p(k,\eps)\ge c_p\frac{k^{p/2}}{\eps^{\beta_p}+(\log k)/k},
+ \qquad 0<\eps<\tfrac12,
+\]
+where $\beta_p=2$ for positive even integers $p\ge4$, and $\beta_p=2-2/p$ otherwise. This disproves the proposed bound
+$\littleO_p(k^{p/2}/\eps+k/\eps^2)$ separately for every fixed $p>2$. For even $p$, it matches the cited upper bound up to logarithmic factors when $\eps\ge\sqrt{(\log k)/k}$. The proof combines a rectangular, well-conditioned derivative-evaluation matrix with a sparse-mean obstruction. A finite-difference argument handles noninteger powers without assuming that their derivative kernels are positive semidefinite. We also give a self-contained explicit quartic construction and reproducible finite checks.
+\end{abstract}
+\vspace{0.16in}
+\noindent\fbox{\begin{minipage}{0.94\textwidth}
+\textbf{Scope and verification.} The displayed proposed upper bound receives a complete negative answer. The optimal joint size is \emph{not} classified here for all exponents and accuracies. The precise remaining gaps are recorded in Section~\ref{sec:scope}. These are mathematical proofs prepared in this session, with an explicitly identified restricted-invertibility theorem imported from the literature. The manuscript is not peer reviewed or checked by a proof-assistant kernel. The numerical tests are supplementary, not proofs of the quantified statements.
+\end{minipage}}
+\vfill
+{\small The archive contains this PDF and its \LaTeX\ source, executable verification code, machine-readable results, concrete quartic matrices and violating hyperplanes, an audit, and the earlier quartic manuscript for provenance.}
+\end{titlepage}
+\tableofcontents
+\newpage
+
+\section{The exact target and the new lower bound}\label{sec:main}
+\subsection{Model and quantifiers}
+For $A\in\R^{n\times d}$, write its rows as $a_i^T$. For a linear subspace $F$ with Euclidean orthogonal projector $P_F$, define
+\begin{equation}\label{eq:cost}
+ \cost_A(F)=\sum_{i=1}^n\norm{(I-P_F)a_i}_2^p.
+\end{equation}
+A strong row coreset has weights $w_i\ge0$ such that
+\begin{equation}\label{eq:strong}
+ \abs{\sum_iw_i\norm{(I-P_F)a_i}_2^p-\cost_A(F)}
+ \le\eps\cost_A(F)
+\end{equation}
+for every $F$ of dimension at most $k$. Its size is $|\supp(w)|$, not the sum of its weights. Let $S_p(k,\eps)$ be the supremum, over all $n,d,A$ with $k<d$, of the minimum possible support in this model.
+
+RA-05 asks for the optimal joint dependence, and in particular asks whether constants depending only on $p$ can give
+\begin{equation}\label{eq:proposed}
+ C_p\left(\frac{k^{p/2}}{\eps}+\frac{k}{\eps^2}\right)
+ \log^{c_p}\!\left(\frac{2k}{\eps}\right)
+\end{equation}
+as a universal upper bound \cite{RA05}. Theorem~1.2 of Lin--Mirrokni--Woodruff states an upper bound of order $\littleO_p(k^{p/2}\eps^{-2})$; its Section~1.4 records the joint-dependence gap \cite{LMW}. We use that upper bound only to interpret our lower bounds. The lower-bound proofs do not depend on the correctness of an upper-bound algorithm.
+
+Weights in this manuscript may depend arbitrarily on the entire input. There is no obliviousness, independence, unbiasedness, or sampling-algorithm restriction. Thus the results exclude the best possible reweighting, not merely a particular sampling scheme.
+
+\subsection{Main statements}
+Set
+\begin{equation}\label{eq:beta}
+ \beta_p=\begin{cases}
+ 2,&p\in\{4,6,8,\ldots\},\\
+ 2-2/p,&p>2\text{ otherwise}.
+ \end{cases}
+\end{equation}
+All logarithms below are natural. The notation $c_p,C_p$ denotes positive constants depending only on fixed $p$; their values may differ at different occurrences.
+
+\begin{theorem}[All-exponent lower bound]\label{thm:main}
+For each fixed real $p>2$, there are constants $c_p>0$ and $k_0(p)$ such that, for every integer $k\ge k_0(p)$ and every $0<\eps<1/2$,
+\begin{equation}\label{eq:main}
+ S_p(k,\eps)\ge c_p\frac{k^{p/2}}{\eps^{\beta_p}+(\log k)/k}.
+\end{equation}
+For each such $k$, a single input, independent of $\eps$, gives this lower bound for all these accuracies. It has $d=k+1$ and $n=O_p(k^{p+1})$ rows. It suffices to require preservation of hyperplane costs.
+\end{theorem}
+
+\begin{corollary}[The proposed formula is false for every fixed exponent]\label{cor:false}
+For every fixed real $p>2$, no constants $C_p,c_p>0$ make \eqref{eq:proposed} a universal upper bound under the quantifiers in RA-05.
+\end{corollary}
+
+\begin{corollary}[Sharp moderate-accuracy order for even powers]\label{cor:even}
+For each fixed even integer $p\ge4$, the stated upper bound in \cite{LMW} and Theorem~\ref{thm:main} give
+\begin{equation}\label{eq:evenmatch}
+ S_p(k,\eps)=\littleTheta_p(k^{p/2}\eps^{-2})
+ \quad\text{when}\quad
+ k\ge k_0(p),\qquad \sqrt{\frac{\log k}{k}}\le\eps<\frac12.
+\end{equation}
+The lower bound in this regime has no additional logarithmic loss. The notation $\littleTheta_p$ allows the logarithmic factors in the cited upper bound.
+\end{corollary}
+
+Theorem~\ref{thm:main} is proved in Sections~\ref{sec:core}--\ref{sec:support}. Section~\ref{sec:scope} proves the corollaries and identifies what is not determined. Section~\ref{sec:quartic} supplies an independent explicit quartic obstruction, strengthening the audit trail without being needed for the all-exponent theorem.
+
+\section{Preliminaries and the one structural input}\label{sec:prelim}
+\begin{lemma}[Hyperplane reduction]\label{lem:hyperplane}
+Let $d=k+1$. A strong coreset necessarily satisfies
+\begin{equation}\label{eq:hyperplane}
+ \abs{\sum_i(w_i-1)\abs{a_i\cdot z}^p}
+ \le\eps\sum_i\abs{a_i\cdot z}^p
+ \qquad(z\in\R^d).
+\end{equation}
+\end{lemma}
+\begin{proof}
+For unit $z$, the hyperplane $F=z^\perp$ has dimension $k$ and $I-P_F=zz^T$. Consequently $\norm{(I-P_F)a_i}_2=|a_i\cdot z|$. Apply \eqref{eq:strong}, then use degree-$p$ homogeneity for arbitrary nonzero $z$. Both sides vanish at zero.
+\end{proof}
+We use only necessity: we do not assert that preservation of hyperplanes is sufficient to preserve every smaller-dimensional subspace.
+
+For a standard real Gaussian $Z$, put
+\begin{equation}\label{eq:gamma}
+ \gamma_a=\E|Z|^a=\frac{2^{a/2}\Gamma((a+1)/2)}{\sqrt\pi}.
+\end{equation}
+If $v$ is uniform on the unit sphere in $\R^r$, $a\ge2$, and $x$ is a unit vector, then
+\begin{equation}\label{eq:spherical}
+ \E|v\cdot x|^a\le\gamma_a r^{-a/2}.
+\end{equation}
+Indeed, a standard Gaussian vector is $Rv$, with independent radius and direction. Thus $\gamma_a=\E R^a\E|v\cdot x|^a$, and Jensen gives $\E R^a\ge(\E R^2)^{a/2}=r^{a/2}$. The formula for $\gamma_a$ follows by substituting in the one-dimensional Gaussian integral.
+
+\begin{theorem}[Restricted invertibility; imported]\label{thm:RI}
+Let $B$ be a nonzero real $d\times L$ matrix. For an integer $s\le\sr(B):=\norm{B}_F^2/\norm{B}_{\mathrm{op}}^2$, there is a set $S$ of $s$ columns with
+\begin{equation}\label{eq:RI}
+ \sigma_{\min}(B_S)^2\ge
+ \left(1-\sqrt{\frac{s}{\sr(B)}}\right)^2\frac{\norm{B}_F^2}{L}.
+\end{equation}
+\end{theorem}
+This is the Spielman--Srivastava theorem stated as Theorem~1.1 in Marcus--Spielman--Srivastava \cite{MSS}. We import the theorem in exactly this form. Its minimum singular value is the infimum over \emph{all} coefficient vectors in $\R^s$. No unit-column hypothesis is required. This is the only non-elementary structural theorem imported for the principal lower bound.
+
+\begin{lemma}[Gaussian $2\!\to\!p$ estimate]\label{lem:Gaussian}
+If $G\in\R^{L\times r}$ has independent standard Gaussian entries and $p>2$, then
+\begin{equation}\label{eq:Gaussian}
+ \E\norm{G}_{2\to p}\le\sqrt r+\gamma_p^{1/p}L^{1/p}.
+\end{equation}
+\end{lemma}
+A proof by Gaussian interpolation is given in Appendix~\ref{app:Gaussian}. It is included to make explicit the dimension dependence that will be crucial below.
+
+\section{A core with a well-conditioned rectangular derivative matrix}\label{sec:core}
+Define the scalar derivative kernel
+\begin{equation}\label{eq:psi}
+ \psi_p(t)=t|t|^{p-2}=\frac1p\frac{d}{dt}|t|^p.
+\end{equation}
+The next lemma does \emph{not} assume that a matrix obtained by applying $\psi_p$ entrywise to a Gram matrix is positive semidefinite.
+
+\begin{lemma}[Core lemma]\label{lem:core}
+For fixed $p>2$ and sufficiently large integer $r$, let
+\begin{equation}\label{eq:corecounts}
+ L=\lfloor r^{p/2}\rfloor,\qquad M=\lfloor L/48\rfloor.
+\end{equation}
+There are unit vectors $z_1,\ldots,z_L\in\R^r$ and a subset $u_1,\ldots,u_M$ of them such that
+\begin{align}
+ \sum_{i=1}^L|z_i\cdot x|^p&\le C_0(p)\norm{x}_2^p,
+ &&C_0(p)=[16(1+\gamma_p^{1/p})]^p,\label{eq:coremoment}\\
+ E_{ij}&=\psi_p(z_i\cdot u_j),
+ &&\sigma_{\min}(E)^2\ge\frac3{64}.\label{eq:coreE}
+\end{align}
+In particular, the same moment bound holds for the $u_j$, and $L\le96M$.
+\end{lemma}
+\begin{proof}
+Take independent standard Gaussian vectors $g_i\in\R^r$ and set $z_i=g_i/\norm{g_i}$. Write $G$ for the matrix with rows $g_i^T$. A Gaussian lower-tail bound gives
+\[
+ \Prob\{\exists i:\norm{g_i}<\sqrt r/2\}\le Le^{-r/8};
+\]
+see Appendix~\ref{app:prob}. For sufficiently large $r$, this is at most $1/8$. By Markov's inequality and Lemma~\ref{lem:Gaussian}, with failure probability at most $1/8$,
+\[
+ \norm{G}_{2\to p}\le8\bigl(\sqrt r+\gamma_p^{1/p}L^{1/p}\bigr)
+ \le8\sqrt r(1+\gamma_p^{1/p}).
+\]
+On the intersection of these two events,
+\[
+ \sum_i|z_i\cdot x|^p
+ \le(2/\sqrt r)^p\norm{Gx}_p^p\le C_0(p)\norm{x}_2^p.
+\]
+
+Let $K\in\R^{L\times L}$ have entries $K_{ij}=\psi_p(z_i\cdot z_j)$. It is real symmetric with diagonal one. For $i\ne j$, rotational invariance and \eqref{eq:spherical} imply
+\[
+ \E K_{ij}^2=\E|z_i\cdot z_j|^{2p-2}
+ \le\gamma_{2p-2}r^{-(p-1)}.
+\]
+Therefore
+\begin{equation}\label{eq:coreFrob}
+ \E\norm{K-I}_F^2\le\gamma_{2p-2}L^2r^{-(p-1)},\qquad
+ \Prob\{\norm{K-I}_F^2>L/16\}
+ \le16\gamma_{2p-2}r^{1-p/2}.
+\end{equation}
+Because $p>2$ is fixed, the last expression tends to zero. Increase the threshold on $r$ so this failure probability is at most $1/8$. The three events have positive joint probability by the union bound, regardless of their dependence. Fix a realization on which all hold.
+
+Let $\lambda_1,\ldots,\lambda_L$ be the eigenvalues of $K$. Since
+$\sum_i(\lambda_i-1)^2\le L/16$, at least $3L/4$ eigenvalues lie in $[1/2,3/2]$. Let $\Pi$ be the orthogonal spectral projection onto their eigenspaces and set $B=\Pi K$. Then
+\begin{equation}\label{eq:truncated}
+ \norm{B}_{\mathrm{op}}\le\frac32,\qquad
+ \norm{B}_F^2\ge\frac{3L}{16},\qquad
+ \sr(B)\ge\frac L{12}.
+\end{equation}
+The matrix $B$ has $L$ columns. Since $M\le L/48\le\sr(B)/4$, Theorem~\ref{thm:RI} selects $M$ columns indexed by $S$ such that
+\[
+ \sigma_{\min}(B_S)^2\ge\frac14\cdot\frac3{16}=\frac3{64}.
+\]
+Choose $u_j$ to be the corresponding $z_i$. Their derivative-evaluation matrix is $E=K_S$. The identity $B_S=\Pi E$ and the fact that an orthogonal projection is a contraction yield
+$\norm{Eh}\ge\norm{B_Sh}$ for every $h\in\R^M$. Hence \eqref{eq:coreE} holds. For $L\ge96$, $M=\lfloor L/48\rfloor\ge L/96$. The selected moment sum is no larger than the full one, since all summands are nonnegative.
+\end{proof}
+
+\begin{remark}[Why the rectangular matrix matters]\label{rem:rectangular}
+The $L$ vectors $z_i$ are query directions. Only the selected $M$ vectors $u_j$ label row groups in the eventual input. Query directions need not be input rows. Spectral truncation is used solely to select columns; it does not replace a legal query by a linear combination of nonlinear costs. The inequality for $E=K_S$ remains an inequality for actual evaluations at the legal directions $z_i$.
+\end{remark}
+
+\section{A noise family whose sparse means cannot be too small}\label{sec:noise}
+\begin{lemma}[Noise lemma]\label{lem:noise}
+Fix $p>2$. Define
+\begin{align}
+ \rho_p&=\frac{\gamma_p^2}{2\gamma_{2p}+(2/3)\gamma_p},&
+ D_p&=\max\{1,(\log9+4)/\rho_p\},\label{eq:noiseconstants}\\
+ N&=\lceil D_pr^{p/2+1}\rceil,&
+ q_0&=\left\lfloor\frac{r}{64\log(17N)}\right\rfloor.\label{eq:noisecounts}
+\end{align}
+For sufficiently large integer $r$, there are unit vectors $v_1,\ldots,v_N\in\R^r$, with mean $\mu=N^{-1}\sum_tv_t$, such that
+\begin{align}
+ \norm{\mu}_2^2&\le8/N,\label{eq:noisemean}\\
+ \frac1N\sum_t|v_t\cdot y|^p&\le C_1(p)r^{-p/2}\norm{y}_2^p,
+ &C_1(p)&=2\gamma_p(4/3)^p,\label{eq:noisemoment}\\
+ \norm{\sum_{t\in T}a_tv_t}_2^2&\ge\frac1{64}\sum_{t\in T}a_t^2
+ &&(|T|\le q_0,\ a_t\in\R).\label{eq:noiseRIP}
+\end{align}
+Moreover, $q_0\ge c_p r/\log r\ge1$ and $N\ge q_0$.
+\end{lemma}
+\begin{proof}
+Choose independent uniform unit vectors $v_t$. We bound the failure probabilities of the three events separately.
+
+\textit{Mean.} Independence and symmetry give $\E\norm{N^{-1}\sum_tv_t}^2=1/N$. Markov's inequality bounds the failure probability of \eqref{eq:noisemean} by $1/8$.
+
+\textit{Uniform $p$-moment.} For a fixed unit $y$, set $X_t=|v_t\cdot y|^p$. Then
+\[
+ 0\le X_t\le1,\quad \E X_t\le\gamma_pr^{-p/2},\quad
+ \operatorname{Var}(X_t)\le\gamma_{2p}r^{-p}.
+\]
+Bernstein's inequality, in the form proved in Appendix~\ref{app:prob}, implies
+\begin{align*}
+ \Prob\!\left\{\sum_tX_t\ge2\gamma_pNr^{-p/2}\right\}
+ &\le\exp\!\left[-\frac{N\gamma_p^2}{2\gamma_{2p}+(2/3)\gamma_pr^{p/2}}\right]\\
+ &\le\exp(-\rho_pN/r^{p/2}).
+\end{align*}
+A $1/4$-net of the unit sphere has at most $9^r$ points. The union bound and the definition of $D_p$ give failure probability at most $e^{-4r}$ on this net. The function
+\[
+ Q(y)=\left(N^{-1}\sum_t|v_t\cdot y|^p\right)^{1/p}
+\]
+is a seminorm. Its supremum on the unit sphere is at most $4/3$ times its maximum on the net, by the triangle inequality. Raising to the $p$th power proves \eqref{eq:noisemoment}.
+
+\textit{Every small subset.} Generate the same distribution by taking independent $g_t\sim N(0,I_r/r)$ and setting $v_t=g_t/\norm{g_t}$. Write $G$ for the matrix with columns $g_t$. For a fixed unit coefficient vector $a$ supported on a fixed subset, $Ga\sim N(0,I_r/r)$, and
+\[
+ \Prob\{\norm{Ga}\notin[1/2,3/2]\}\le2e^{-r/16}.
+\]
+For each set of $q$ columns take a $1/8$-net of its coefficient unit sphere of size at most $17^q$. There are at most $N^q$ such subsets. Union-bounding for $1\le q\le q_0$ gives failure probability at most
+\begin{equation}\label{eq:noiseunion}
+ 2q_0\exp(q_0\log(17N)-r/16)
+ \le2r\exp(-3r/64).
+\end{equation}
+On the complementary event, the largest singular value of each such $G_T$ is at most $(3/2)/(1-1/8)=12/7<2$. Its smallest singular value is at least $1/2-(1/8)(12/7)=2/7>1/4$. The case $q=1$ also bounds every column norm by $2$. Normalizing the columns thus leaves smallest singular value at least $1/8$, proving \eqref{eq:noiseRIP}.
+
+For sufficiently large $r$, the sum of the three failure bounds
+\[
+ \frac18+e^{-4r}+2re^{-3r/64}
+\]
+is less than one. Fix a joint realization. Finally, $N\le2D_pr^{p/2+1}$ for $r\ge2$, and hence
+\[
+ \log(17N)\le Q_p\log r,\qquad
+ Q_p=\frac p2+1+\frac{\log(34D_p)}{\log2}.
+\]
+When the unfloored quantity defining $q_0$ is at least two, its floor is at least half its value. Therefore $q_0\ge r/(128Q_p\log r)$. Also $q_0\le r\le N$. This proves every assertion.
+\end{proof}
+
+\section{The product input and a derivative forced by uniform accuracy}\label{sec:product}
+Fix the core from Lemma~\ref{lem:core} and the noise from Lemma~\ref{lem:noise}. Take the $MN$ rows
+\begin{equation}\label{eq:rows}
+ a_{jt}=N^{-1/p}(u_j,v_t)\in\R^{2r},
+ \qquad 1\le j\le M,\quad1\le t\le N.
+\end{equation}
+For a possibly unnormalized normal $(x,y)$, define
+\begin{equation}\label{eq:form}
+ f(x,y)=\frac1N\sum_{j,t}|u_j\cdot x+v_t\cdot y|^p.
+\end{equation}
+Using $|a+b|^p\le2^{p-1}(|a|^p+|b|^p)$ and $M\le r^{p/2}$ gives
+\begin{equation}\label{eq:costupper}
+ f(x,y)\le2^{p-1}\bigl(C_0(p)\norm{x}^p+C_1(p)\norm{y}^p\bigr)
+ \le C_*(p)(\norm{x}^p+\norm{y}^p),
+\end{equation}
+where $C_*(p)=2^{p-1}\max\{C_0(p),C_1(p)\}$.
+
+Suppose nonnegative weights preserve every hyperplane cost with error $\eps<1/2$. Let $f_w$ be the weighted form and $g=f_w-f$. By Lemma~\ref{lem:hyperplane},
+\begin{equation}\label{eq:uniformg}
+ |g(x,y)|\le\eps f(x,y)\qquad(x,y\in\R^r).
+\end{equation}
+Write
+\begin{equation}\label{eq:groups}
+ \alpha_{jt}=w_{jt}/N,\qquad s_j=\sum_t\alpha_{jt},\qquad
+ b_j=\sum_t\alpha_{jt}v_t.
+\end{equation}
+The original group mass is one and its original mean is $\mu$.
+
+\subsection{Mass and noise-moment constraints}
+\begin{lemma}\label{lem:mass}
+Under the preceding assumptions,
+\begin{align}
+ (1-\eps)M&\le\sum_js_j\le(1+\eps)M,\label{eq:masssum}\\
+ 0\le s_j&\le(1+\eps)C_0(p),\label{eq:masseach}\\
+ \sum_js_j^2&\le(1+\eps)^2C_0(p)M.\label{eq:masssquare}
+\end{align}
+For every unit $y$,
+\begin{equation}\label{eq:weightedmoment}
+ \sum_{j,t}\left(\alpha_{jt}+\frac1N\right)|v_t\cdot y|^p
+ \le\frac52 C_1(p).
+\end{equation}
+\end{lemma}
+\begin{proof}
+At $y=0$, preservation says
+\[
+ (1-\eps)\sum_j|u_j\cdot x|^p
+ \le\sum_js_j|u_j\cdot x|^p
+ \le(1+\eps)\sum_j|u_j\cdot x|^p.
+\]
+Integrate over uniform unit $x$. Since every $u_j$ has unit norm, all integrals of $|u_j\cdot x|^p$ equal the same strictly positive number. Cancelling it proves \eqref{eq:masssum}.
+
+Evaluate at $x=u_j$. Nonnegativity lets us discard every term other than group $j$, so $s_j\le f_w(u_j,0)\le(1+\eps)C_0(p)$. Multiplying the upper bound on the largest $s_j$ by the upper bound on $\sum_js_j$ proves \eqref{eq:masssquare}.
+
+Finally, at $x=0$, the sum on the left of \eqref{eq:weightedmoment} is exactly $f_w(0,y)+f(0,y)$. Preservation bounds it by $(2+\eps)f(0,y)$. Lemma~\ref{lem:noise} and $M\le r^{p/2}$ give $f(0,y)\le C_1(p)$, proving the claim.
+\end{proof}
+
+\subsection{A global Taylor estimate that includes odd and noninteger powers}
+\begin{lemma}[Uniform scalar remainder]\label{lem:Taylor}
+Let $p>2$, $q=\lceil p\rceil-1$, $\alpha=p-q\in(0,1]$, and $\phi(a)=|a|^p$. Then $\phi\in C^q(\R)$ and for all real $a,b$,
+\begin{equation}\label{eq:Taylor}
+ \left|\phi(a+b)-\sum_{\ell=0}^q\frac{\phi^{(\ell)}(a)b^\ell}{\ell!}\right|
+ \le2^{1-\alpha}|b|^p\le2|b|^p.
+\end{equation}
+\end{lemma}
+\begin{proof}
+For $t\ne0$,
+\[
+ \phi^{(q)}(t)=(p)_q\sign(t)^q|t|^\alpha,
+ \qquad (p)_q=p(p-1)\cdots(p-q+1),
+\]
+and $\phi^{(q)}(0)=0$. The map $|t|^\alpha$ is globally $\alpha$-H\"older with constant one. Its signed version is globally $\alpha$-H\"older with constant at most $2^{1-\alpha}$: for opposite signs use
+$a^\alpha+b^\alpha\le2^{1-\alpha}(a+b)^\alpha$ for $a,b\ge0$.
+Consequently the H\"older constant of $\phi^{(q)}$ is at most $(p)_q2^{1-\alpha}$.
+
+Subtract the order-$q$ Taylor polynomial from the integral remainder of order $q-1$ to obtain
+\[
+ \frac{b^q}{(q-1)!}\int_0^1(1-t)^{q-1}
+ \bigl[\phi^{(q)}(a+tb)-\phi^{(q)}(a)\bigr]dt.
+\]
+Its absolute value is at most
+\[
+ \frac{(p)_q2^{1-\alpha}|b|^p}{(q-1)!}
+ \int_0^1(1-t)^{q-1}t^\alpha dt
+ =2^{1-\alpha}|b|^p.
+\]
+The last equality follows from the beta integral and
+$(p)_q=\Gamma(p+1)/\Gamma(\alpha+1)$. This also covers integral $p$: then $q=p-1$ and $\alpha=1$.
+\end{proof}
+
+\begin{lemma}[Exact derivative stencil]\label{lem:stencil}
+For integer $q\ge1$, set
+\begin{equation}\label{eq:stencil}
+ d_0=-\sum_{j=1}^q\frac1j,\qquad
+ d_j=\frac{(-1)^{j+1}}j\binom qj\quad(1\le j\le q).
+\end{equation}
+Then $\sum_{j=0}^qd_jj^\ell$ is one for $\ell=1$ and zero for $\ell=0,2,\ldots,q$. Hence
+\[
+ t^{-1}\sum_{j=0}^qd_jP(jt)=P'(0)
+\]
+for every polynomial $P$ of degree at most $q$ and every $t\ne0$.
+\end{lemma}
+\begin{proof}
+Interpolate a polynomial at the nodes $0,1,\ldots,q$ and differentiate at zero. The derivative of its $j$th Lagrange basis polynomial is $d_j$ as in \eqref{eq:stencil}. Applying the interpolation identity to each monomial gives the stated moment identities. Rescaling the polynomial argument gives the formula for arbitrary $t$.
+\end{proof}
+
+\subsection{The uniform guarantee controls every group's mean error}
+\begin{lemma}[Mixed derivative estimate]\label{lem:derivative}
+For every pair of unit vectors $x,y$,
+\begin{equation}\label{eq:derivativebound}
+ \left|\sum_j\psi_p(u_j\cdot x)\ip{b_j-\mu}{y}\right|
+ \le C_p\eps^{\beta_p/2}.
+\end{equation}
+Consequently,
+\begin{equation}\label{eq:meanerrors}
+ \sum_j\norm{b_j-\mu}_2^2\le C_pM\eps^{\beta_p},\qquad
+ \sum_j\norm{b_j}_2^2\le C_pM\eps^{\beta_p}+\frac{16M}{N}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+For fixed unit $x,y$, put $h(s)=g(x,sy)$. Differentiating the finite sum gives
+\begin{equation}\label{eq:hprime}
+ h'(0)=p\sum_j\psi_p(u_j\cdot x)\ip{b_j-\mu}{y}.
+\end{equation}
+First use $q=\lceil p\rceil-1$ and the corresponding stencil. Define
+$\mathcal D_th=t^{-1}\sum_{\ell=0}^qd_\ell h(\ell t)$ for $0<t\le1$.
+Apply Lemma~\ref{lem:Taylor} to each atom, with scalar base $u_j\cdot x$ and increment $\ell t(v_t\cdot y)$, and cancel its Taylor terms using Lemma~\ref{lem:stencil}. In the following display the noise index is written as $a$ to avoid confusion with the step size:
+\begin{align}
+ |\mathcal D_th-h'(0)|
+ &\le2t^{p-1}\left(\sum_{\ell=0}^q|d_\ell|\ell^p\right)
+ \sum_{j,a}\left|\alpha_{ja}-\frac1N\right||v_a\cdot y|^p\notag\\
+ &\le5C_1(p)t^{p-1}\sum_{\ell=0}^q|d_\ell|\ell^p
+ \le R_p t^{p-1}.\label{eq:FDremainder}
+\end{align}
+Here nonnegative $\alpha_{ja}$ gives $|\alpha_{ja}-1/N|\le\alpha_{ja}+1/N$, and \eqref{eq:weightedmoment} bounds the sum uniformly. This is precisely where an uncontrolled total variation of signed weights would invalidate the argument.
+
+On the other hand, \eqref{eq:uniformg} and \eqref{eq:costupper} give
+\begin{equation}\label{eq:FDnoise}
+ |\mathcal D_th|\le\frac{\eps C_*(p)}t
+ \sum_{\ell=0}^q|d_\ell|\bigl(1+(\ell t)^p\bigr)
+ \le J_p\eps/t,
+\end{equation}
+where $J_p=C_*(p)(1+q^p)\sum_\ell|d_\ell|$. Taking $t=\eps^{1/p}\in(0,1)$ yields
+\begin{equation}\label{eq:nonintegerderivative}
+ |h'(0)|\le(J_p+R_p)\eps^{1-1/p}.
+\end{equation}
+
+If $p$ is even, there is a sharper argument. Then $h$ is a polynomial of degree at most $p$, because $|a+sb|^p=(a+sb)^p$. Use the stencil of order $q=p$ with $t=1$. Its remainder is identically zero, and \eqref{eq:uniformg}--\eqref{eq:costupper} give $|h'(0)|\le C_p\eps$. Together with \eqref{eq:hprime}, these two estimates prove \eqref{eq:derivativebound} with \eqref{eq:beta}.
+
+Let $H$ be the $M\times r$ matrix with rows $(b_j-\mu)^T$. Taking the supremum over unit $y$ in \eqref{eq:derivativebound}, and then evaluating at all $x=z_i$ from the core lemma, gives
+\[
+ \norm{EH}_F^2\le LC_p\eps^{\beta_p}.
+\]
+By \eqref{eq:coreE}, $\norm{EH}_F^2\ge(3/64)\norm{H}_F^2$. Since $L\le96M$, the first inequality in \eqref{eq:meanerrors} follows. Finally,
+\[
+ \sum_j\norm{b_j}^2\le2\sum_j\norm{b_j-\mu}^2+2M\norm{\mu}^2
+ \le C_pM\eps^{\beta_p}+16M/N.
+\]
+\end{proof}
+
+\section{From mean errors to support, and arbitrary ranks}\label{sec:support}
+For each group let $q_j=|\{t:w_{jt}\ne0\}|$, and let $m=\sum_jq_j$ be the total support.
+
+\begin{lemma}[Support inequality]\label{lem:support}
+With the preceding notation,
+\begin{equation}\label{eq:supportintermediate}
+ m\ge c_p\frac{M}{\eps^{\beta_p}+1/q_0}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+If $1\le q_j\le q_0$, the small-subset bound \eqref{eq:noiseRIP} and Cauchy--Schwarz imply
+\[
+ \norm{b_j}^2\ge\frac1{64}\sum_t\alpha_{jt}^2
+ \ge\frac{s_j^2}{64q_j}.
+\]
+If $q_j>q_0$, nonnegativity of a squared norm gives the weaker inequality
+\[
+ \norm{b_j}^2\ge\frac1{64}\left(\frac{s_j^2}{q_j}-\frac{s_j^2}{q_0}\right),
+\]
+whose right side is nonpositive. This weaker inequality therefore holds in both cases. For $q_j=0$, put $s_j^2/q_j=0$; then $s_j=b_j=0$, so the same convention is consistent. Summing gives
+\begin{align}
+ \sum_j\frac{s_j^2}{q_j}
+ &\le64\sum_j\norm{b_j}^2+\frac1{q_0}\sum_js_j^2\notag\\
+ &\le C_pM\bigl(\eps^{\beta_p}+1/q_0\bigr),\label{eq:sumratio}
+\end{align}
+since $N\ge q_0$, \eqref{eq:meanerrors} holds, and \eqref{eq:masssquare} bounds $\sum_js_j^2$.
+
+By \eqref{eq:masssum}, $\sum_js_j\ge M/2>0$, so $m>0$. Applying Cauchy--Schwarz over the nonempty groups,
+\[
+ (M/2)^2\le\left(\sum_js_j\right)^2
+ \le\left(\sum_jq_j\right)\left(\sum_j\frac{s_j^2}{q_j}\right).
+\]
+Combine this with \eqref{eq:sumratio} to prove \eqref{eq:supportintermediate}.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+For dimension $2r$ and rank $2r-1$, Lemma~\ref{lem:support}, $M=\Theta_p(r^{p/2})$, and $1/q_0\le C_p(\log r)/r$ give
+\[
+ m\ge c_p\frac{r^{p/2}}{\eps^{\beta_p}+(\log r)/r}.
+\]
+The input used no accuracy-dependent parameter. Also $MN=O_p(r^{p+1})$.
+
+For an arbitrary sufficiently large integer $k$, set $r=\lfloor(k+1)/2\rfloor$. Append $k+1-2r\in\{0,1\}$ zero coordinates to each row of \eqref{eq:rows}. Append the same zero coordinates to each query normal. Its orthogonal hyperplane in $\R^{k+1}$ has dimension exactly $k$, and its cost is unchanged. Thus the lower bound transfers to rank $k$. Since $r=\Theta(k)$ and $(\log r)/r=\Theta((\log k)/k)$, \eqref{eq:main} follows. Choose $k_0(p)$ large enough for the core and noise lemmas and for $L\ge96$.
+\end{proof}
+
+\section{Consequences and the exact remaining scope}\label{sec:scope}
+\subsection{A polynomial contradiction for each real \texorpdfstring{$p>2$}{p>2}}
+\begin{proof}[Proof of Corollary~\ref{cor:false}]
+It suffices to use the weaker universal exponent $\beta=2-2/p$, since $\beta_p\ge\beta$ and $0<\eps<1$. Fix
+\begin{equation}\label{eq:achoice}
+ a=\frac{\min\{p-2,1\}}8>0,\qquad \eps_k=k^{-a}.
+\end{equation}
+For large $k$, this is an allowed accuracy. Since $a\beta<1$, we have $(\log k)/k=o(\eps_k^\beta)$. Theorem~\ref{thm:main} gives a lower bound of order
+\begin{equation}\label{eq:lowerpower}
+ k^{p/2+a\beta}.
+\end{equation}
+The polynomial powers in the proposed expression are $k^{p/2+a}$ and $k^{1+2a}$. Their exponent gaps below \eqref{eq:lowerpower} are
+\begin{align}
+ \Delta_1&=a(\beta-1)=a\frac{p-2}{p}>0,\label{eq:gap1}\\
+ \Delta_2&=\frac p2-1-a(2-\beta)=\frac{p-2}{2}-\frac{2a}{p}>0.\label{eq:gap2}
+\end{align}
+For the last inequality, $a\le(p-2)/8$ and $p>2$ imply $\Delta_2>3(p-2)/8$. Finally, $\log(2k/\eps_k)=\Theta_p(\log k)$. Thus for every fixed logarithmic exponent $c$ the ratio of the lower bound to \eqref{eq:proposed} is bounded below by a positive constant times
+\[
+ \frac{k^{\min\{\Delta_1,\Delta_2\}}}{(\log k)^c}\longrightarrow\infty.
+\]
+No constants in \eqref{eq:proposed} can overcome this polynomial separation.
+\end{proof}
+
+For example, at $p=3$ and $\eps=k^{-1/8}$ our bound is $\Omega(k^{5/3})$, whereas the proposed polynomial terms are $k^{13/8}$ and $k^{5/4}$. The exponent gap from the larger term is $1/24$. At $p=4$, taking $\eps=k^{-1/4}$ and using the sharper even-power exponent gives $\Omega(k^{5/2})$, versus proposed terms $k^{9/4}$ and $k^{3/2}$.
+
+\subsection{Matching the cited upper bound, with explicit limitations}
+\begin{proof}[Proof of Corollary~\ref{cor:even}]
+For even $p$ we have $\beta_p=2$. If $\eps^2\ge(\log k)/k$, the denominator in \eqref{eq:main} is at most $2\eps^2$. Hence the lower bound is $c_pk^{p/2}\eps^{-2}$. Theorem~1.2 in \cite{LMW}, with a fixed success parameter such as $\delta=1/4$, supplies a coreset for every input with at most
+\[
+ C_pk^{p/2}\eps^{-2}\left(\log\frac{4C_pk}{\eps}\right)^{p+5}
+\]
+rows. Positive success probability suffices for the existential upper bound. This proves \eqref{eq:evenmatch}.
+\end{proof}
+
+For non-even $p$, our moderate-accuracy lower bound is of order
+$k^{p/2}\eps^{-(2-2/p)}$ when $\eps^{2-2/p}\ge(\log k)/k$. It does not match $k^{p/2}\eps^{-2}$. The finite-difference proof loses this power because it balances an $\eps/t$ observation error against a $t^{p-1}$ remainder.
+
+For every $p$, the new lower bound saturates at order $k^{p/2+1}/\log k$ as $\eps$ decreases further. This is a limitation of the sparse-mean argument: it only controls noise subsets up to $q_0=\Theta_p(k/\log k)$. The principal construction does not supply a matching all-accuracy upper bound of the same form. The explicit quartic construction below gives a complementary lower bound at a smaller accuracy, but also does not close the full classification.
+
+Accordingly, the exact results here are: a negative answer to the displayed proposed formula for \emph{every} fixed $p>2$, and a sharp order up to logarithms in the even-power regime \eqref{eq:evenmatch}. A status description for the broader optimal-joint-size request should still identify the non-even and smaller-accuracy gaps. No repository status has been changed by this work.
+
+\section{An independent explicit quartic counterexample}\label{sec:quartic}
+This section restates and proves the elementary counterexample from the earlier user-library manuscript \cite{prior}. Unlike the new all-exponent construction, it uses no restricted-invertibility theorem and even permits signed weights. Its finite-field construction is given in Appendix~\ref{app:MUB}. Real mutually unbiased bases are classical objects; see also \cite{Boykin}.
+
+Let
+\begin{equation}\label{eq:MUBcounts}
+ r=4^h\ (h\ge1),\quad B=r/2+1,\quad M=Br,\quad\lambda=1-1/r.
+\end{equation}
+Take $B$ real orthonormal bases of $\R^r$ such that vectors from different bases have inner products of absolute value $r^{-1/2}$. List all their vectors as $u_1,\ldots,u_M$, and let $U$ have rows $u_j^T$.
+
+\begin{lemma}[Core identities]\label{lem:MUB}
+Writing $G=UU^T$, with entrywise power denoted by $\circ$, we have
+\begin{align}
+ U^TU&=BI_r,\label{eq:MUBtight}\\
+ \sum_j(u_j\cdot x)^4&=\tfrac32\norm{x}_2^4,\label{eq:MUBmoment}\\
+ K:=G^{\circ3}&=(1-1/r)I_M+G/r\succeq\lambda I_M.\label{eq:MUBkernel}
+\end{align}
+\end{lemma}
+\begin{proof}
+The first identity follows by adding the identities from each basis. For the fourth moment, index a vector as $u_{bt}$ by basis $b$ and coordinate $t$, and put $Q_{bt}=u_{bt}u_{bt}^T-I_r/r$. For distinct bases,
+\[
+ \ip{Q_{bt}}{Q_{cs}}_F=(u_{bt}\cdot u_{cs})^2-1/r=0.
+\]
+The $Q_{bt}$ for one basis span its $(r-1)$-dimensional space of traceless diagonal matrices. These spaces are pairwise orthogonal and have total dimension
+\[
+ B(r-1)=r(r+1)/2-1,
+\]
+which is the dimension of all traceless symmetric matrices. For a traceless symmetric $X$, its squared projection length onto a given space is $\sum_t\ip{X}{Q_{bt}}_F^2$: this is the sum of squares of its diagonal entries in that basis. Therefore
+\[
+ \sum_{b,t}\ip{X}{Q_{bt}}_F^2=\norm{X}_F^2.
+\]
+Insert $X=xx^T-\norm{x}^2I_r/r$. Expanding gives
+\[
+ \sum_j(u_j\cdot x)^4-\frac Br\norm{x}^4
+ =\left(1-\frac1r\right)\norm{x}^4.
+\]
+As $B/r=1/2+1/r$, this proves \eqref{eq:MUBmoment}. Finally, diagonal entries of $G$ are one; off-diagonal entries are zero or $\pm r^{-1/2}$. Cubing each entry gives \eqref{eq:MUBkernel}. Here $G\succeq0$, as it is an ordinary Gram matrix.
+\end{proof}
+
+\begin{theorem}[Explicit quartic family]\label{thm:explicit}
+Let $\delta=B^{-1/4}$ and form the $Mr$ rows
+\begin{equation}\label{eq:explicitrows}
+ a_{jt}=r^{-1/4}(u_j,\delta e_t)\in\R^{2r},\qquad 1\le j\le M,\ 1\le t\le r.
+\end{equation}
+Any real weights preserving all hyperplane costs within relative error $\eps$ have support $m$ satisfying
+\begin{equation}\label{eq:explicitlower}
+ m\ge Mr\left(1-\frac{100r\eps^2}{\lambda^2\delta^2}\right).
+\end{equation}
+In particular, for $k=2r-1$ and $\eps_r=\delta/(20\sqrt r)$, every strong row coreset has at least $5Mr/9=\Omega(r^3)$ rows. This accuracy is $\Theta(r^{-3/4})$, and \eqref{eq:proposed} at $p=4$ is only $O(r^{11/4}\log^c r)$ for any fixed $c$.
+\end{theorem}
+\begin{proof}
+For the rows \eqref{eq:explicitrows}, put
+\[
+ f(x,y)=\frac1r\sum_{j,t}(u_j\cdot x+\delta y_t)^4.
+\]
+The scalar inequality $(a+b)^4\le8(a^4+b^4)$ and Lemma~\ref{lem:MUB} imply
+\begin{equation}\label{eq:explicitcost}
+ f(x,y)\le12\norm{x}^4+8\norm{y}^4,
+\end{equation}
+since $M\delta^4/r=1$ and $\sum_ty_t^4\le\norm{y}^4$.
+Let $g=f_w-f$ and $H_{jt}=(w_{jt}-1)/r$. The part of $g$ odd in $y$ is
+\[
+ O(x,y):=\frac{g(x,y)-g(x,-y)}2
+ =4\delta A(x,y)+4\delta^3D(x,y),
+\]
+where $A(x,y)=\sum_{j,t}H_{jt}(u_j\cdot x)^3y_t$ and
+$D(x,y)=\sum_{j,t}H_{jt}(u_j\cdot x)y_t^3$. Therefore
+\begin{equation}\label{eq:fourqueries}
+ O(2x,y)-2O(x,y)=24\delta A(x,y).
+\end{equation}
+For unit $x,y$, relative preservation and \eqref{eq:explicitcost} give
+$|O(x,y)|\le20\eps$ and $|O(2x,y)|\le200\eps$. Thus
+$|A(x,y)|\le10\eps/\delta$. Evaluate at $x=u_i$ and take the supremum over unit $y$. The result bounds every row norm of $KH$ by $10\eps/\delta$, and hence
+\[
+ \norm{H}_F^2\le\lambda^{-2}\norm{KH}_F^2
+ \le\frac{100M\eps^2}{\lambda^2\delta^2}.
+\]
+Each omitted row has $H_{jt}=-1/r$. Thus $(Mr-m)/r^2\le\norm{H}_F^2$, proving \eqref{eq:explicitlower}. At $\eps_r$, $\lambda\ge3/4$ gives
+\[
+ m\ge Mr\left(1-\frac1{4\lambda^2}\right)\ge\frac59Mr.
+\]
+The claimed polynomial comparison follows from $k=\Theta(r)$ and $\eps_r=\Theta(r^{-3/4})$. No step required weights to be nonnegative.
+\end{proof}
+
+\subsection{A computable violating hyperplane}
+Given a proposed reweighting, compute
+\begin{equation}\label{eq:witness}
+ KH=(1-1/r)H+U(U^TH)/r.
+\end{equation}
+Choose a row $i$ of largest norm. If it is nonzero, put $x=u_i$ and $y=(KH)_{i,:}/\norm{(KH)_{i,:}}$. Among the four normals
+\[
+ (x,y),\quad(x,-y),\quad(2x,y),\quad(2x,-y)
+\]
+one has relative error at least $\delta\norm{(KH)_{i,:}}/10$. To see this, repeat \eqref{eq:fourqueries} with the largest of the four relative errors in place of $\eps$. Normalize the selected normal and take its orthogonal hyperplane. Homogeneity leaves its relative error unchanged. The implementation uses \eqref{eq:witness}, avoiding an $M\times M$ matrix in the witness calculation.
+
+\section{Computational checks, provenance, and proof audit}\label{sec:checks}
+The accompanying code ran successfully with 2,851 assertions. Exact rational arithmetic checks all stencil moments for orders 1 through 16, and exact extraction from signed sums of even powers $p=4,6,8,10,12$. One-hundred-digit arithmetic checks the global Taylor remainder at 390 scalar points covering exponents just above two, nonintegers, odd integers, and even integers. These are tests of formulas and implementation; Lemma~\ref{lem:Taylor} proves the remainder for all scalar inputs.
+
+The program constructs the finite fields and the real bases from scratch for $r=4,16,64$. It checks every difference of binary alternating forms, every basis-pair Gram block, the cubic kernel identity, the tight-frame identity, and 20 integer-vector fourth-moment identities per dimension using integer arithmetic. It then exercises the four-query witness on exactly half-supported nonnegative weights. The recorded results are:
+\begin{center}
+\begin{tabular}{rrrr}
+\toprule
+$r$ & Tested support & Target $\eps_r$ & Witness relative error\\
+\midrule
+4 & 24 & 0.0189959 & 0.669495\\
+16 & 1152 & 0.00721688 & 0.265564\\
+64 & 67584 & 0.00260766 & 0.107057\\
+\bottomrule
+\end{tabular}
+\end{center}
+Concrete matrices, weights, and normalized violating hyperplanes for $r=4,16$ are saved as NumPy archives. The theorem, not these particular candidate weights, excludes \emph{every} support below its lower bound.
+
+Additional floating-point diagnostics test selected rectangular derivative matrices at $p=2.5$, $3$, $3.5$, $4$, $5$, and $6$, the product-cost derivative identity, its finite-difference remainder, hyperplane projection costs, and zero-padding. A deliberately separate $p=3$ circular example has a negative derivative-kernel eigenvalue, approximately $-0.179580$, showing why a blanket positive-semidefiniteness assertion would be wrong. All 2,324 subsets of size at most three of one 24-vector noise instance were tested numerically.
+
+\textbf{Important limitation of the finite tests.} The small random-core examples do not satisfy the conservative Frobenius event used in Lemma~\ref{lem:core}; the results file explicitly reports this. Their selected singular values are measured diagnostics, not realizations certified under every hypothesis of the asymptotic lemma. Pivoted QR is used only as a heuristic for these examples, not as a claimed implementation of Theorem~\ref{thm:RI}. The full large-$r$ existence argument is analytic. No numerical test certifies a continuum of subspace queries, all real $p$, or the external restricted-invertibility theorem.
+
+The earlier quartic manuscript \cite{prior} is included unchanged in \texttt{prior\_work/}. The new all-exponent theorem does not invoke any unproved claim from it. The polynomial extraction in the quartic argument is replaced here by a genuine remainder estimate for non-even powers, and the core is obtained by a separate random construction and column-selection theorem.
+
+The proof audit records the following distinctions: entrywise kernels versus ordinary matrix powers; Frobenius closeness versus operator-norm closeness; legal query directions versus selected input rows; exact polynomial extraction versus noninteger remainders; positive weights versus signed weights; support count versus total weight; and proved existence versus finite numerical checks. No claim of published priority, peer review, or formal verification is made.
+
+\appendix
+\section{Gaussian comparison with the needed dimension bound}\label{app:Gaussian}
+We first give the finite Gaussian comparison used in Lemma~\ref{lem:Gaussian}. Let $(X_i)$ and $(Y_i)$ be centered Gaussian vectors over a finite index set such that
+\[
+ \E(X_i-X_j)^2\le\E(Y_i-Y_j)^2\qquad(i,j).
+\]
+Then $\E\max_iX_i\le\E\max_iY_i$. To prove this, use the smooth maximum
+$F_\tau(z)=\tau^{-1}\log\sum_i e^{\tau z_i}$ and interpolate between independent copies of $X$ and $Y$ via $Z_s=\sqrt{1-s}X+\sqrt{s}Y$. If $a_i=e^{\tau Z_{s,i}}/\sum_je^{\tau Z_{s,j}}$, Gaussian integration by parts gives
+\[
+ \frac{d}{ds}\E F_\tau(Z_s)
+ =\frac\tau4\E\sum_{i,j}a_ia_j
+ \left[\E(Y_i-Y_j)^2-\E(X_i-X_j)^2\right]\ge0.
+\]
+The integration-by-parts identity follows by integrating the Gaussian density derivative; a small independent Gaussian perturbation handles a singular covariance matrix by continuity. Let $\tau\to\infty$, using
+$\max_i z_i\le F_\tau(z)\le\max_i z_i+(\log m)/\tau$ for $m$ indices.
+
+Now put $p'=p/(p-1)<2$. Index Gaussian processes by $x$ on the Euclidean unit sphere in $\R^r$ and $y$ in the unit $\ell_{p'}$ ball in $\R^L$:
+\[
+ X_{x,y}=\ip{Gx}{y},\qquad Y_{x,y}=\ip{g}{x}+\ip{h}{y},
+\]
+where $g\in\R^r,h\in\R^L$ are independent standard Gaussians. For two indices let $a=\ip{x}{x'}$ and $b=\ip{y}{y'}$. The norm inequality $\norm{y}_2\le\norm{y}_{p'}\le1$ ensures $a,b\le1$. Direct calculation gives
+\[
+ \E(Y_{x,y}-Y_{x',y'})^2-\E(X_{x,y}-X_{x',y'})^2
+ =2(1-a)(1-b)\ge0.
+\]
+Apply the finite comparison to successively finer finite nets of the two compact index sets. The processes are continuous and their suprema are bounded by integrable finite-dimensional Gaussian norms, so passage to the full sets is valid. Duality then gives
+\begin{align*}
+ \E\norm{G}_{2\to p}
+ &=\E\sup_{x,y}X_{x,y}
+ \le\E\sup_{x,y}Y_{x,y}\\
+ &=\E\norm{g}_2+\E\norm{h}_p
+ \le\sqrt r+(L\gamma_p)^{1/p}.
+\end{align*}
+This proves Lemma~\ref{lem:Gaussian}.
+
+\section{Elementary concentration and finite-net facts}\label{app:prob}
+\subsection{Nets and singular values}
+For $0<\eta<1$, a maximal $\eta$-separated subset of the Euclidean unit sphere in $\R^d$ is an $\eta$-net. Balls of radius $\eta/2$ around its points are disjoint and lie in the radius-$1+\eta/2$ ball. Comparing volumes gives cardinality at most $(1+2/\eta)^d$.
+
+For a linear map $T$, let $L_T=\norm{T}_{\mathrm{op}}$. If all unit net points have norm of their image at most $b$, then $L_T\le b+\eta L_T$, so $L_T\le b/(1-\eta)$. If their images also have norm at least $a$, every unit vector has image norm at least $a-\eta L_T$. The same upper-net argument applies to any continuous seminorm. These are the net-extension facts used in Section~\ref{sec:noise}.
+
+\subsection{Bernstein's bound}
+If independent centered variables $Y_i$ satisfy $|Y_i|\le1$ and $V=\sum_i\E Y_i^2$, then for $t>0$,
+\begin{equation}\label{eq:Bernstein}
+ \Prob\{\sum_iY_i\ge t\}\le
+ \exp\!\left(-\frac{t^2}{2(V+t/3)}\right).
+\end{equation}
+For $0<\lambda<3$, expand the exponential. Since $|\E Y_i^j|\le\E Y_i^2$ for $j\ge2$, and $j!\ge2\,3^{j-2}$,
+\[
+ \E e^{\lambda Y_i}\le
+ 1+\frac{\lambda^2\E Y_i^2}{2(1-\lambda/3)}
+ \le\exp\!\left(\frac{\lambda^2\E Y_i^2}{2(1-\lambda/3)}\right).
+\]
+Multiply these bounds and use exponential Markov. For $V>0$, choose $\lambda=t/(V+t/3)$ to obtain \eqref{eq:Bernstein}. If $V=0$, all variables vanish almost surely and the event has probability zero. For $X_i\in[0,1]$, apply the result to $Y_i=X_i-\E X_i$.
+
+\subsection{Gaussian norm tails}
+If $X$ is chi-square with $r$ degrees of freedom, its moment generating function is $\E e^{tX}=(1-2t)^{-r/2}$ for $t<1/2$. Optimizing exponential Markov gives, for $a>1$ or $0<a<1$, the corresponding upper or lower tail bound
+\[
+ \Prob\{X\ge ar\}\ \text{or}\ \Prob\{X\le ar\}
+ \le\exp\!\left[-\frac r2(a-1-\log a)\right].
+\]
+At $a=1/4$ and $a=9/4$, both exponents are larger than $r/16$. Hence $g\sim N(0,I_r/r)$ satisfies
+$\Prob\{\norm{g}\notin[1/2,3/2]\}\le2e^{-r/16}$.
+For a standard Gaussian vector, the lower tail at norm $\sqrt r/2$ is at most $e^{-r/8}$, a still weaker valid bound. These estimates justify the constants used in the core and noise lemmas.
+
+\section{Explicit complete real mutually unbiased bases}\label{app:MUB}
+Let $r=4^h=2^{m+1}$, where $m=2h-1$ is odd. Work in $E=\F_{2^m}$ with trace $T:E\to\F_2$. Thus
+\[
+ T(z)=z+z^2+\cdots+z^{2^{m-1}},\qquad T(z^2)=T(z),\qquad T(1)=1.
+\]
+Let $V=\F_2\oplus E$, an $(m+1)$-dimensional binary vector space. For each $a\in E$, define
+\begin{equation}\label{eq:binaryform}
+ \beta_a((t,x),(s,y))=
+ T(a^2xy)+T(ax)T(ay)+tT(ay)+sT(ax).
+\end{equation}
+This is bilinear, symmetric, and alternating. On the diagonal, the first two terms cancel because $T((ax)^2)=T(ax)=T(ax)^2$, and the last two cancel.
+
+\begin{lemma}\label{lem:nondegenerate}
+For distinct $a,b\in E$, the alternating form $\beta_a+\beta_b$ is nondegenerate.
+\end{lemma}
+\begin{proof}
+Put $c=a+b\ne0$, $d=a/c$, $X=cx$, and $Y=cy$. Expanding in characteristic two gives
+\begin{align*}
+ (\beta_a+\beta_b)((t,x),(s,y))
+ &=T(XY)+T(dX)T(Y)+T(X)T(dY)\\
+ &\quad+T(X)T(Y)+tT(Y)+sT(X).
+\end{align*}
+If $(t,x)$ is in the radical, varying $s$ first gives $T(X)=0$. The remaining condition for every $Y$ becomes
+\[
+ T([X+T(dX)+t]Y)=0.
+\]
+The trace pairing is nondegenerate: for any nonzero $Z$, choose $Y=Z^{-1}$ to get $T(ZY)=T(1)=1$. Hence $X=T(dX)+t\in\F_2$. As $m$ is odd, the restriction of $T$ to $\F_2$ is the identity. Thus $T(X)=0$ implies $X=0$, and then $t=0$. Since $c\ne0$, also $x=0$.
+\end{proof}
+
+Choose a binary basis $e_1,\ldots,e_{m+1}$ of $V$. For coordinates $z_i$, put
+\[
+ q_a(z)=\sum_{i<j}\beta_a(e_i,e_j)z_iz_j\in\F_2.
+\]
+Its polar form is $\beta_a$: $q_a(z+h)+q_a(z)+q_a(h)=\beta_a(z,h)$. For every linear functional $\ell:V\to\F_2$, form the real vector indexed by $z\in V$,
+\begin{equation}\label{eq:characters}
+ u_{a,\ell}(z)=r^{-1/2}(-1)^{q_a(z)+\ell(z)}.
+\end{equation}
+For fixed $a$, these $r$ vectors form an orthonormal basis: multiplying binary characters by a fixed sign vector preserves their orthogonality.
+
+For distinct $a,b$, an inner product is $r^{-1}$ times a quadratic character sum $S=\sum_z(-1)^{q(z)+\ell(z)}$ with nondegenerate polar form $\beta$. Its square is
+\[
+ S^2=\sum_{h\in V}(-1)^{q(h)+\ell(h)}\sum_{z\in V}(-1)^{\beta(z,h)}=r.
+\]
+For $h\ne0$, nondegeneracy makes the inner linear character nontrivial, so its sum is zero. For $h=0$, its sum is $r$. Therefore all cross-basis inner products have absolute value $r^{-1/2}$. Each coordinate of every vector in \eqref{eq:characters} has that same absolute value, so the standard basis is unbiased to all of them. The $|E|=r/2$ constructed bases, plus the standard basis, give $B=r/2+1$ bases as required.
+
+\begin{thebibliography}{9}\raggedright
+\bibitem{RA05}
+A. Townsend, \emph{Open Problems in Numerical Linear Algebra}, entry RA-05, ``Sharp joint rank and accuracy dependence for strong $\ell_p$ subspace coresets.'' Canonical GitHub website, accessed September 12, 2026; statement last checked there September 10, 2026.\\
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/randomized-and-low-rank-approximation/RA-05}
+
+\bibitem{LMW}
+H. Lin, V. Mirrokni, and D. P. Woodruff,
+\emph{Nearly Optimal Strong Coresets for $\ell_p$ Subspace Approximation},
+arXiv:2608.26047v2, August 27, 2026. Theorem~1.2 and Section~1.4.\\
+\url{https://arxiv.org/html/2608.26047v2}
+
+\bibitem{WY}
+D. P. Woodruff and T. Yasuda,
+\emph{Root Ridge Leverage Score Sampling for $\ell_p$ Subspace Approximation},
+arXiv:2407.03262; FOCS 2025. Background reference listed in RA-05.\\
+\url{https://arxiv.org/abs/2407.03262}
+
+\bibitem{MSS}
+A. W. Marcus, D. A. Spielman, and N. Srivastava,
+\emph{Interlacing Families III: Sharper Restricted Invertibility Estimates},
+arXiv:1712.07766v1, December 2017. Theorem~1.1, attributing the stated stable-rank bound to Spielman--Srivastava.\\
+\url{https://arxiv.org/abs/1712.07766}
+
+\bibitem{Boykin}
+P. O. Boykin, M. Sitharam, M. Tarifi, and P. Wocjan,
+\emph{Real Mutually Unbiased Bases}, arXiv:quant-ph/0502024, 2005.\\
+\url{https://arxiv.org/abs/quant-ph/0502024}
+
+\bibitem{prior}
+\emph{Counterexamples to the proposed joint coreset bound at $p=4$},
+earlier ChatGPT manuscript prepared for Sidney Holden, September 12, 2026.
+User-library file \texttt{RA05\_counterexample.pdf}, included unchanged in the archive's \texttt{prior\_work/} directory. This is unpublished prior-session work, not an external publication.
+\end{thebibliography}
+\end{document}
