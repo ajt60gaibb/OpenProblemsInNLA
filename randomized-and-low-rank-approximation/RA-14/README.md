@@ -8,7 +8,7 @@
 **Importance:** broadly interesting  
 **Rating rationale:** Extreme because matching information bounds for every adaptive algorithm and growing rank is a fundamental barrier; broad impact includes large-scale spectral computation and data analysis.  
 **Source:** Bakshi–Narayanan, Open Question 1.10.  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-12  
 **Status:** Partially resolved  
 
 ## Problem statement
@@ -49,3 +49,12 @@ On 2026-09-08 the [source record](https://arxiv.org/abs/2304.03191) still listed
 ## Audit — 2026-09-10
 
 Rechecked [Bakshi–Narayanan, Theorem 1.1 and Open Question 1.10](https://arxiv.org/html/2304.03191v1). Fixed-rank spectral complexity is settled in the theorem's sufficiently-large-dimension regime; growing-rank and simultaneous finite-parameter dependence remain unresolved. Later query-complexity searches and the [SODA 2026 block-size paper](https://doi.org/10.1137/1.9781611978971.42) did not settle the full target.
+
+
+## Further partial results — 12 September 2026
+
+Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) supplies [*Bounds and a spectral-to-PCA reduction*](../../references/holden-ra14-2026-09-12/package/report.pdf), Theorems 1.1, 1.2 and 5.1, Sections 2 and 6–8. The [submission record](../../references/holden-ra14-2026-09-12/README.md) includes verified affiliation, source attribution and reproducible checks.
+
+The note proves a universal lower bound of $`k`$ queries, exact $`k`$-query complexity under a rank-at-most-$`k`$ promise, and hence $`q_{\mathrm{sp}}=\Theta(n)`$ when $`k\ge n/2`$, using exact column recovery for the upper bound. A deterministic spectral-to-PCA postprocessor on symmetric inputs satisfying the stated gap promises uses at most $`k\lceil10/\sqrt{\varepsilon}\rceil`$ extra products. Combining this with the cited PCA lower bound yields $`\Theta(k\log n/\sqrt{\varepsilon})`$ when $`n\ge C_*(k/\varepsilon)^D`$ for universal constants. The polynomial dimension restriction is essential and retained; the exponent is not optimized or explicitly evaluated.
+
+A separate [independent informal Codex AI-agent audit](../../references/holden-ra14-2026-09-12/independent-review.md) reviews these partial claims. The simultaneous finite-parameter characterization outside these regimes remains unresolved. **Status remains Partially resolved.** No full solution, external human peer review or formal verification is claimed; no Lean verification was performed.

@@ -21,6 +21,10 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### RA-14 — query-complexity partial results — Sidney Holden
+
+**Partially resolved, 12 September 2026.** [Sidney Holden, verified affiliation and submission record](references/holden-ra14-2026-09-12/README.md). The [research note](references/holden-ra14-2026-09-12/package/report.pdf), Theorems 1.1, 1.2 and 5.1, establishes the universal rank lower bound, the large-rank regime and a spectral-to-PCA reduction giving matching bounds under a retained polynomial dimension hypothesis. [Independent informal AI-agent review](references/holden-ra14-2026-09-12/independent-review.md). The [original RA-14 target](randomized-and-low-rank-approximation/RA-14/README.md) remains open in the other simultaneous finite-parameter regimes. No full resolution, external human peer review or Lean verification is asserted.
+
 ### ✅ TR-14 — exact rank of complex Hankel tensors — Sidney Holden
 
 **Solved affirmatively, 12 September 2026.** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Theorem 1.1, Sections 2–5](tensor-computations/TR-14/solution.pdf) proves ordinary/symmetric rank equality for every complex Hankel tensor in the original target, including exceptional data, together with an exact formula. [Retained target](tensor-computations/TR-14/README.md) · [Proof source](tensor-computations/TR-14/solution.tex) · [Submission and verified affiliation](references/holden-tr14-2026-09-12/README.md).
