@@ -18,7 +18,7 @@
 | [RA-18](RA-18/README.md) | The Goreinov–Tyrtyshnikov–Zamarashkin conjecture on square-submatrix inverse norms | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](RA-18/problem.pdf) · [TeX](RA-18/problem.tex) |
 | [RE-01](RE-01/README.md) | Constant-factor HSS approximation in polynomial time | **🔵 OPEN** | challenging | interesting to the community | [PDF](RE-01/problem.pdf) · [TeX](RE-01/problem.tex) |
 | [RE-02](RE-02/README.md) | HSS approximation from a number of matvecs independent of depth | **🔵 OPEN** | challenging | interesting to the community | [PDF](RE-02/problem.pdf) · [TeX](RE-02/problem.tex) |
-| [RE-03](RE-03/README.md) | Optimal matvec query complexity of HODLR approximation | **🔵 OPEN** | challenging | interesting to the community | [PDF](RE-03/problem.pdf) · [TeX](RE-03/problem.tex) |
+| [RE-03](RE-03/README.md) | Optimal matvec query complexity of HODLR approximation | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](RE-03/problem.pdf) · [TeX](RE-03/problem.tex) |
 | [RE-06](RE-06/README.md) | Nonadaptive queries for finite-family matrix approximation | **🔵 OPEN** | challenging | interesting to the community | [PDF](RE-06/problem.pdf) · [TeX](RE-06/problem.tex) |
 | [TR-03](TR-03/README.md) | Sharp gap between volume sampling and the worst matrix with a prescribed spectrum | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](TR-03/problem.pdf) · [TeX](TR-03/problem.tex) |
 | [TR-08](TR-08/README.md) | Sharp sparsity threshold for injectivity of a random sparse rectangular matrix | **🔵 OPEN** | challenging | interesting to the community | [PDF](TR-08/problem.pdf) · [TeX](TR-08/problem.tex) |

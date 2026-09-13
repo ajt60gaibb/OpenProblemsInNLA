@@ -34,7 +34,7 @@ approximation},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RE-03}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-13}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ matvec query complexity of HODLR approximation\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Open\par}
+{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -61,6 +61,38 @@ impact is the cost of hierarchical matrix compression.
 
 \textbf{Area:} information complexity of hierarchical matrix
 approximation
+
+\subsection{Partial resolution --- 13 September
+2026}\label{partial-resolution-13-september-2026}
+
+Sidney Holden (Center for Computational Biology, Flatiron Institute,
+Simons Foundation) proves the following bounds in
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-re03-2026-09-13/submission/manuscript/re03_extended_results.pdf}{Theorem
+1.1 of the continuation manuscript}, for all original parameters and
+universal constants \(c,C>0\):
+
+\[c\min\{n,kL/\varepsilon+k/\varepsilon^2\}
+\le q_*(n,k,\varepsilon)
+\le C\min\{n,kL^2/\varepsilon+kL/\varepsilon^2\}.\]
+
+The upper bound is nonadaptive and returns a proper HODLR approximation
+with the original fixed-input success guarantee. Corollary 1.2 gives
+\(q_*=\Theta(n)\) when \(\varepsilon\le\sqrt{k/n}\). A separate
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-re03-2026-09-13/independent-review.md}{independent
+Codex AI-agent informal audit} passed these partial results, including
+the adaptive two-sided lower bounds.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-re03-2026-09-13/README.md}{Submission,
+verified affiliation, sources and reproduction limits}.
+
+\textbf{Still open:} determine the general joint rate up to universal
+constants. The uncapped upper expression is \(L\) times the lower
+expression, so these results do not solve the full original target. The
+problem remains in the open count. The available five-case assembly
+smoke suite passed; the historical continuation verification suite is
+incomplete in the supplied archive. No Lean verification, external human
+peer review or historical novelty claim is asserted.
+
+\newpage
 
 \subsection{Context and notation}\label{context-and-notation}
 
@@ -86,12 +118,10 @@ queries with which a randomized adaptive algorithm, given only oracle
 access to an arbitrary \(A\in\mathbb R^{n\times n}\), returns
 \(B\in\mathcal H_{n,k}\) such that
 
-\[
-\Pr\!\left[
+\[\Pr\!\left[
 \|A-B\|_F\le(1+\varepsilon)
 \min_{H\in\mathcal H_{n,k}}\|A-H\|_F
-\right]\ge0.99
-\]
+\right]\ge0.99\]
 
 for every \(A\). Here only oracle calls are charged: arbitrary
 measurable computations between queries are allowed. This is an
@@ -102,7 +132,6 @@ information complexity question.
 Determine \(q_*(n,k,\varepsilon)\) up to universal multiplicative
 constants, including its joint dependence on \(k,L,\varepsilon\).
 
-\newpage
 \subsection{Reference}\label{reference}
 
 Tyler Chen, Feyza Duman Keles, Diana Halikias, Cameron Musco,

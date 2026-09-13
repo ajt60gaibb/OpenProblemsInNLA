@@ -54,7 +54,7 @@ def render(source):
         body = body[:match.start()] + body[match.end():]
     body = re.sub(r"<!-- navigation -->.*?<!-- /navigation -->", "", body, flags=re.S)
     body = restore_pdf_layout(identifier, body)
-    if identifier in {"IE-05", "SP-15", "MF-02"}:
+    if identifier in {"IE-05", "SP-15", "MF-02", "RE-03"}:
         # Keep the unchanged original target together after its resolution notice.
         # This PDF-only layout instruction should not appear on the GitHub page.
         body = body.replace("## Context and notation\n", "\\newpage\n\n## Context and notation\n", 1)
@@ -93,7 +93,7 @@ def render(source):
             'MF-16', 'MF-17', 'MI-03', 'MI-04', 'MI-06', 'MI-07', 'MI-08',
             'MI-09', 'MI-19', 'MI-23', 'MI-28', 'MI-29', 'NM-01', 'NM-03', 'PF-05',
             'RA-02', 'RA-04', 'RA-06', 'RA-08', 'RA-09', 'RA-10', 'RA-11', 'RA-12',
-            'RA-14', 'RA-15', 'RA-17', 'RE-01', 'RE-02', 'RE-03', 'RE-06', 'SP-04',
+            'RA-14', 'RA-15', 'RA-17', 'RE-01', 'RE-02', 'RE-06', 'SP-04',
             'SP-05', 'SP-06', 'SP-07', 'SP-09', 'SP-12', 'TR-08', 'TR-11', 'TR-20', 'TR-21',
             'TR-24', 'TR-26', 'TR-30',
             'IE-27', 'MF-24', 'MI-30', 'MI-31', 'SP-14',

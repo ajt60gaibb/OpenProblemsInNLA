@@ -1,0 +1,449 @@
+\section{The earlier accuracy lower bound}\label{app:accuracy}
+
+This appendix supplies the $k/\eps^2$ argument used in the main theorem.
+It retains the definitions and constants of the earlier note.
+
+\subsection{Information in adaptive shifted-GOE queries}
+
+For a symmetric matrix $G$, use the GOE normalization
+\begin{equation}\label{eq:goe}
+ G_{ij}=G_{ji}\sim N(0,1/n)\quad(i<j),\qquad
+ G_{ii}\sim N(0,2/n),
+\end{equation}
+with independent upper-triangular entries. Its density on the vector space of
+symmetric matrices is proportional to
+$\exp(-n\norm{G}_{\F}^2/4)$. In particular, it is isotropic for the Frobenius
+inner product on that vector space.
+
+\begin{lemma}[Adaptive transcript divergence]\label{lem:kl}
+Fix symmetric $A_0,S\in\R^{n\times n}$ with $\norm{S}_{\op}\le1$ and a real
+$\delta$. Let $\mathbb P_S$ be the law of the transcript of any randomized
+adaptive algorithm using at most $q\le n$ vector queries on
+\[
+ A=A_0+\delta S+G.
+\]
+Let $\mathbb P_0$ be its transcript law on $A_0+G$. Include the independent
+random seed in the transcript. Then
+\begin{equation}\label{eq:kl}
+ \KL(\mathbb P_S\Vert\mathbb P_0)\le\frac{n\delta^2q}{2}.
+\end{equation}
+The statement permits queries on either side of $A$.
+\end{lemma}
+
+\begin{proof}
+\emph{Reduction to orthonormal fresh directions.}
+All matrices in question are symmetric, so choosing the transpose side gives
+no additional type of measurement. Subtract the known product $A_0v$ from
+each answer. If a new query vector has a component in the span of previous
+queries, its image on that component is already known. Removing it and
+normalizing the remaining vector recovers the same fresh information using
+one call. Queries wholly in the old span give no information and can be
+omitted. We may therefore work with an orthonormal sequence of fresh vectors,
+chosen adaptively. An algorithm that stops early can be padded with
+orthogonal queries. Data processing then bounds its original transcript by
+the padded transcript. Fix the seed for the moment.
+
+\emph{Gaussian exposure under adaptivity.}
+After $t-1$ fresh directions, let $V$ be the matrix of those directions and
+$\Pi=VV^{\mathsf T}$. For a fixed value of $S$, the observed answers determine
+$Z=GV$. The symmetric component of $G$ determined by these observations is
+\begin{equation}\label{eq:observedcomponent}
+ G_{\rm obs}=ZV^{\mathsf T}+VZ^{\mathsf T}
+             -V(V^{\mathsf T}Z)V^{\mathsf T}.
+\end{equation}
+The undetermined part is $(I-\Pi)G(I-\Pi)$. These are orthogonal subspaces of
+the space of symmetric matrices for the Frobenius inner product. Conditional
+on the history, the latter part remains a centered GOE compression on
+$\operatorname{range}(I-\Pi)$, with the normalization $1/n$, not the inverse
+of the remaining dimension.
+
+For completeness, this claim also holds when $V$ is adaptive. Initially it
+is just the orthogonal decomposition of an isotropic Gaussian. Given the
+past, the next direction is fixed. In an orthonormal basis of the remaining
+space beginning with that direction, the new Gaussian column and the
+unexposed lower-right symmetric block are independent. Conditioning on the
+column leaves that block unchanged. Induction proves the assertion. The
+choice of the next vector is a function of already conditioned-on answers,
+so it does not impose an additional constraint on the unexplored block.
+
+\emph{One-step divergence.}
+Let $v$ be the next unit vector, with $\Pi v=0$. The new information is the
+component
+\[
+ y=(I-\Pi)(A-A_0)v.
+\]
+The component in $\operatorname{range}(\Pi)$ is already determined by the old
+answers and symmetry:
+$V^{\mathsf T}(A-A_0)v=((A-A_0)V)^{\mathsf T}v$.
+At a fixed history, the conditional mean of $y$ under the shifted law is
+$\delta(I-\Pi)Sv$, and under the baseline it is zero. In both cases its
+conditional covariance, restricted to $\operatorname{range}(I-\Pi)$, is
+\begin{equation}\label{eq:covariance}
+ \Sigma_v=\frac1n\bigl((I-\Pi)+vv^{\mathsf T}\bigr).
+\end{equation}
+The variance is $2/n$ in direction $v$ and $1/n$ in the orthogonal remaining
+directions. In particular, $\Sigma_v^{-1}\preceq nI$ on its support.
+
+Two Gaussians with identical covariance and mean difference $m$ have
+divergence $m^{\mathsf T}\Sigma_v^{-1}m/2$, as follows directly by integrating
+the logarithm of their density ratio. The conditional divergence is therefore
+at most
+\[
+ \frac{n\delta^2}{2}\norm{(I-\Pi)Sv}^2
+ \le\frac{n\delta^2}{2}.
+\]
+Applying the chain rule for relative entropy to the successive fresh answers
+and summing gives \eqref{eq:kl}. Integrating over the seed gives the same bound
+for randomized algorithms, since its distribution is identical in both
+experiments.
+\end{proof}
+
+\begin{remark}[Why exact arithmetic does not invalidate the bound]
+This is a divergence calculation for the laws of exact real-valued answers.
+No rounding, finite-precision hypothesis, bounded query coefficients, or
+nonadaptive restriction is used. Normalizing a query loses no information
+because its scale is known. The unexplored Gaussian compression is what
+prevents arbitrary measurable postprocessing from revealing the hidden
+parameter for free.
+\end{remark}
+
+\subsection{A local approximation-to-subspace inequality}
+
+The next lemma is the deterministic part of the construction. It handles
+arbitrary perturbations, nonsymmetric estimates, and estimates of rank
+strictly smaller than $k$.
+
+\begin{lemma}[Local loss]\label{lem:local}
+Let $P$ be a rank-$k$ orthogonal projector on $\R^{2k}$, and let
+$0<\delta\le1/2$. Put
+\[
+ C=(1-\delta)I+2\delta P.
+\]
+For any $W\in\R^{2k\times2k}$ and any matrix $D$ of rank at most $k$, choose
+a rank-$k$ orthogonal projector $Q$ whose range contains the row space of $D$.
+Then
+\begin{align}\label{eq:local}
+ &\norm{C+W-D}_{\F}^2-\tau_k(C+W)^2\notag\\
+ &\hspace{1em}\ge
+ \delta\norm{P-Q}_{\F}^2
+ -\left(\frac{(1+\delta)^2}{\delta}+1\right)\norm{W}_{\F}^2.
+\end{align}
+\end{lemma}
+
+\begin{proof}
+Write $d=\norm{P-Q}_{\F}$ and $w=\norm{W}_{\F}$. Since $D=DQ$,
+\[
+ \norm{C+W-D}_{\F}^2\ge\norm{(C+W)(I-Q)}_{\F}^2.
+\]
+The rank-$k$ matrix $(1+\delta)P=CP$ is a valid competitor, so
+\[
+ \tau_k(C+W)^2\le\norm{C(I-P)+W}_{\F}^2.
+\]
+Subtracting these inequalities and expanding squared norms yields
+\begin{align}\label{eq:localexpand}
+ &\norm{C(I-Q)}_{\F}^2-\norm{C(I-P)}_{\F}^2
+  +2\ip{W}{C(P-Q)}_{\F}-\norm{WQ}_{\F}^2.
+\end{align}
+Because $C^2=(1-\delta)^2I+4\delta P$, the clean difference is
+\[
+ \tr((P-Q)C^2)=4\delta(k-\tr(PQ))=2\delta d^2.
+\]
+The cross term is bounded below by $-2(1+\delta)wd$, and the last term is at
+least $-w^2$. Thus \eqref{eq:localexpand} is bounded below by
+\[
+ 2\delta d^2-2(1+\delta)wd-w^2.
+\]
+Use
+$2(1+\delta)wd\le\delta d^2+(1+\delta)^2w^2/\delta$
+to obtain \eqref{eq:local}.
+\end{proof}
+
+The projector $Q$ can be selected measurably from $D$: choose a deterministic
+orthonormal basis of its row space, then extend it by a fixed coordinate-based
+Gram--Schmidt rule until its dimension is $k$. No optimality, symmetry, or
+uniqueness assumption on $D$ is needed.
+
+\subsection{An explicit finite packing}
+
+All logarithms in this section and in the information calculation are natural.
+The metric on tuples of projectors is the square root of the sum of their
+squared Frobenius distances.
+
+\begin{lemma}[Projector tuples]\label{lem:packing}
+For every pair of positive integers $k,M$, there is a finite collection
+\[
+ \bigl\{(P_1^\theta,\ldots,P_M^\theta):\theta=1,\ldots,N\bigr\}
+\]
+of rank-$k$ orthogonal projectors on $\R^{2k}$ such that
+\begin{equation}\label{eq:packsize}
+ \log N\ge\frac{Mk^2}{200}
+\end{equation}
+and, whenever $\theta\ne\theta'$,
+\begin{equation}\label{eq:packdist}
+ \sum_{j=1}^M\norm{P_j^\theta-P_j^{\theta'}}_{\F}^2
+ \ge\frac{Mk}{1600}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+\emph{Step 1: a single-block alphabet.}
+Suppose first that $k\ge4$. Let $S$ range over sign matrices with independent
+entries $\pm1/\sqrt{k}$. For fixed unit vectors $x,y$, the random variable
+$x^{\mathsf T}Sy$ has moment-generating function at most
+$\exp(t^2/(2k))$, because $\cosh u\le\exp(u^2/2)$ and
+$\sum_{ij}x_i^2y_j^2=1$. Thus
+\[
+ \Prob\{|x^{\mathsf T}Sy|>a\}\le2\exp(-ka^2/2).
+\]
+A $1/4$-net of the unit sphere has size at most $9^k$: take a maximal separated
+set and compare disjoint balls of radius $1/8$ with the enclosing ball of
+radius $9/8$. For nets in both variables,
+$\norm{S}_{\op}\le2\max_{x,y\text{ in nets}}|x^{\mathsf T}Sy|$.
+Consequently,
+\[
+ \Prob\{\norm{S}_{\op}>10\}
+ \le2\exp\bigl(-(25/2-2\log9)k\bigr)<1/2.
+\]
+At least $2^{k^2-1}$ sign matrices are therefore good.
+
+Let $h(p)=-p\log p-(1-p)\log(1-p)$. A binary Hamming ball of radius
+$\lfloor k^2/4\rfloor$ has size at most $\exp(h(1/4)k^2)$. To verify the usual
+binomial bound, multiply each summand by
+$p^i(1-p)^{d-i}$ with $d=k^2$ and $p=1/4$; for $i\le pd$ this weight is at
+least $\exp(-dh(p))$, while the weighted sum is at most one.
+Greedy deletion of such balls from the good matrices gives a set with mutual
+Hamming distance greater than $k^2/4$ and log cardinality at least
+\[
+ (\log2-h(1/4))k^2-\log2\ge k^2/20,\qquad k\ge4.
+\]
+
+For each retained sign matrix set $T=S/20$, so $\norm{T}_{\op}\le1/2$, and let
+$P_T$ project onto the graph of $T$, the column space of
+$[I\;T^{\mathsf T}]^{\mathsf T}$. For two matrices $T,U$, an orthonormal basis
+of the graph of $U$ is
+$[I\;U^{\mathsf T}]^{\mathsf T}(I+U^{\mathsf T}U)^{-1/2}$; an orthonormal
+basis of the orthogonal complement of the graph of $T$ is
+$[-T\;I]^{\mathsf T}(I+TT^{\mathsf T})^{-1/2}$. Hence
+\begin{align}\label{eq:graphidentity}
+ \frac12\norm{P_T-P_U}_{\F}^2
+ =\norm{(I+TT^{\mathsf T})^{-1/2}(U-T)
+          (I+U^{\mathsf T}U)^{-1/2}}_{\F}^2.
+\end{align}
+Both inverse square roots have minimum singular value at least
+$1/\sqrt{1+1/4}$. The Hamming separation also gives
+$\norm{T-U}_{\F}^2>k/400$. It follows that
+\[
+ \norm{P_T-P_U}_{\F}^2
+ \ge\frac{2}{(1+1/4)^2}\norm{T-U}_{\F}^2\ge k/400.
+\]
+For $k=1,2,3$, instead take the two complementary coordinate projectors.
+Their squared distance is $2k$ and their log cardinality is $\log2\ge k^2/20$.
+Thus for every $k$ there is a single-block alphabet of size $Q\ge2$ with
+$\log Q\ge k^2/20$ and squared separation at least $k/400$.
+
+\emph{Step 2: a product code.}
+In the $Q$-ary cube of length $M$, a Hamming ball of radius $\lfloor M/4\rfloor$
+has size at most
+\[
+ \exp\bigl(Mh(1/4)+(M/4)\log(Q-1)\bigr).
+\]
+Indeed, factor $(Q-1)^{M/4}$ out of the relevant binomial sum and apply the
+binary bound just proved. Greedy packing then gives mutual Hamming distance
+greater than $M/4$ and
+\[
+ \log N\ge M\bigl(\log Q-h(1/4)-\tfrac14\log(Q-1)\bigr)
+ \ge\tfrac1{10}M\log Q\ge Mk^2/200.
+\]
+The middle inequality holds for $Q\ge2$: the function
+$0.9\log Q-0.25\log(Q-1)$ is increasing there, and its value at $2$ is greater
+than $h(1/4)$. Each differing coordinate contributes at least $k/400$ to
+squared projector distance. This proves \eqref{eq:packdist}.
+\end{proof}
+
+\subsection{The hard distribution and the accuracy lower bound}
+
+\subsubsection{Matrices indexed by the packing}
+
+Set $M=n/(4k)=2^{L-2}$. Partition the coordinates into $M$ consecutive nodes
+of size $4k$, and split each into two sets $I_j,J_j$ of size $2k$.
+These are actual sibling blocks of the HODLR partition. Crucially, they are
+not the unrestricted $k\times k$ leaf blocks.
+
+Take the packing from Lemma~\ref{lem:packing}, and put
+\begin{align}\label{eq:hardfamily}
+ R_j^\theta&=2P_j^\theta-I_{2k},\notag\\
+ A_0&=\operatorname{blockdiag}_{j=1}^M
+       \begin{bmatrix}0&I_{2k}\\ I_{2k}&0\end{bmatrix},\notag\\
+ S_\theta&=\operatorname{blockdiag}_{j=1}^M
+       \begin{bmatrix}0&R_j^\theta\\ R_j^\theta&0\end{bmatrix},\qquad
+ A=A_0+\delta S_\theta+G.
+\end{align}
+Each $R_j^\theta$ is a symmetric orthogonal matrix. Thus $S_\theta$ is symmetric
+orthogonal too, and $\norm{S_\theta}_{\op}=1$.
+The upper targeted block of the clean matrix is
+\[
+ C_j=(1-\delta)I_{2k}+2\delta P_j^\theta.
+\]
+Its singular values are $1+\delta$ and $1-\delta$, each repeated $k$ times.
+The lower targeted block is its transpose. All other clean blocks are zero.
+By Lemma~\ref{lem:separable},
+\begin{equation}\label{eq:cleanopt}
+ \OPT(A_0+\delta S_\theta)^2
+ =2Mk(1-\delta)^2=\frac n2(1-\delta)^2.
+\end{equation}
+The packing parameters become
+\begin{equation}\label{eq:packingn}
+ \log N\ge\frac{nk}{800},\qquad
+ \sum_j\norm{P_j^\theta-P_j^{\theta'}}_{\F}^2\ge\frac n{6400}.
+\end{equation}
+
+\subsubsection{A good-noise event}
+
+Define
+\[
+ Z=\norm{G}_{\F}^2,\qquad
+ T=\sum_{j=1}^M\norm{G_{I_j,J_j}}_{\F}^2.
+\]
+The GOE normalization gives
+\[
+ \E Z=n+1\le\tfrac54n,\qquad \E T=k.
+\]
+For the second identity, there are $M(2k)^2=nk$ entries in the targeted
+\emph{upper} blocks, each with variance $1/n$. These entries are disjoint.
+Markov's inequality and a union bound imply that the event
+\begin{equation}\label{eq:event}
+ \mathcal E=\{Z\le10n,\ T\le10k\}
+\end{equation}
+has probability at least
+\begin{equation}\label{eq:eventprob}
+ \Prob(\mathcal E)\ge1-\frac18-\frac1{10}=\frac{31}{40}.
+\end{equation}
+On this event, use the best clean HODLR approximation as a competitor for the
+noisy matrix and apply $\norm{X+Y}_{\F}^2\le2\norm X_{\F}^2+2\norm Y_{\F}^2$:
+\begin{equation}\label{eq:noisyopt}
+ \OPT(A)^2\le n(1-\delta)^2+2Z\le21n.
+\end{equation}
+No independence between $Z$ and $T$ is needed.
+
+\subsubsection{Decoding the hidden projectors}
+
+Suppose an approximation algorithm succeeds on an input from
+\eqref{eq:hardfamily}. Choose $Q_j$ to be a rank-$k$ projector containing the
+row space of $B_{I_j,J_j}$, using the measurable rule following
+Lemma~\ref{lem:local}. Let
+\[
+ r^2=\sum_{j=1}^M\norm{P_j^\theta-Q_j}_{\F}^2.
+\]
+Since $\eps<1/2$, success and \eqref{eq:noisyopt} imply, on $\mathcal E$,
+\begin{align}\label{eq:globalexcess}
+ \norm{A-B}_{\F}^2-\OPT(A)^2
+ &\le (2\eps+\eps^2)\OPT(A)^2\notag\\
+ &\le\frac{105}{2}\eps n.
+\end{align}
+Sum Lemma~\ref{lem:local} over the targeted upper blocks. Their excesses are
+nonnegative and sum to at most the global excess by
+Lemma~\ref{lem:separable}. Also,
+\[
+ \frac{(1+\delta)^2}{\delta}+1
+ =\frac{1+3\delta+\delta^2}{\delta}\le\frac3\delta,
+ \qquad 0<\delta\le1/2.
+\]
+It follows that
+\begin{equation}\label{eq:radius}
+ r^2\le\frac{105\eps n}{2\delta}+\frac{30k}{\delta^2}.
+\end{equation}
+
+Now set
+\begin{equation}\label{eq:constants}
+ D=2^{24},\qquad \eps_0=\frac1{2D},\qquad \delta=D\eps,
+\end{equation}
+and first restrict to
+\begin{equation}\label{eq:coregime}
+ 0<\eps\le\eps_0,\qquad n\ge k/\eps^2.
+\end{equation}
+Then $0<\delta\le1/2$ and
+\begin{equation}\label{eq:smallradius}
+ \frac{r^2}{n}\le\frac{105}{2D}+\frac{30}{D^2}
+ <\frac1{102400}<\frac1{25600}.
+\end{equation}
+The smallest squared separation in \eqref{eq:packingn} is at least $n/6400$.
+Thus $r$ is less than half the minimum separation. Nearest-neighbor decoding
+of the tuple $(Q_1,\ldots,Q_M)$ in the finite packing recovers $\theta$
+uniquely. This is a measurable operation, and no query is needed to do it.
+
+Let $\theta$ be uniform on the packing, independently of $G$ and the algorithm's
+seed. The fixed-input guarantee \eqref{eq:guarantee} implies average success
+at least $0.99$ under this distribution. The success event and $\mathcal E$
+therefore intersect with probability at least
+\begin{equation}\label{eq:decodeprob}
+ \frac{31}{40}-\frac1{100}=\frac{153}{200}.
+\end{equation}
+Hence the decoding error probability is at most $47/200$.
+
+\subsubsection{Information cannot support that decoding probability}
+
+Let $\mathcal T$ denote the transcript including the seed. By
+Lemma~\ref{lem:kl}, and using the baseline transcript law generated by $A_0+G$,
+\begin{equation}\label{eq:mutualinfo}
+ I(\theta;\mathcal T)
+ \le\frac1N\sum_{\theta=1}^N
+       \KL(\mathbb P_\theta\Vert\mathbb P_0)
+ \le\frac{n\delta^2q}{2}.
+\end{equation}
+The first inequality follows from the identity
+\[
+ \frac1N\sum_\theta\KL(\mathbb P_\theta\Vert\mathbb P_0)
+ =I(\theta;\mathcal T)+\KL(\overline{\mathbb P}\Vert\mathbb P_0),
+\]
+where $\overline{\mathbb P}$ is the mixture transcript law.
+
+We recall the needed entropy bound directly. If $\widehat\theta$ is any
+transcript-based decoder and $p_e=\Prob(\widehat\theta\ne\theta)$, conditioning
+also on the error indicator gives
+\[
+ H(\theta\mid\mathcal T)\le\log2+p_e\log N.
+\]
+Since $H(\theta)=\log N$, this yields Fano's inequality in the form
+\begin{equation}\label{eq:fano}
+ p_e\ge1-\frac{I(\theta;\mathcal T)+\log2}{\log N}.
+\end{equation}
+
+Assume, for a contradiction, that
+\begin{equation}\label{eq:qthreshold}
+ q\le\frac{k}{6400\delta^2}.
+\end{equation}
+This bound is less than $n$ under \eqref{eq:coregime}, so the hypothesis
+$q\le n$ in Lemma~\ref{lem:kl} applies. Equations \eqref{eq:mutualinfo} and
+\eqref{eq:packingn} give $I(\theta;\mathcal T)\le(\log N)/16$.
+Moreover, \eqref{eq:coregime} implies
+$nk\ge4D^2$, so $\log N\ge nk/800\ge16\log2$.
+Equation \eqref{eq:fano} therefore gives $p_e\ge7/8$, contradicting
+$p_e\le47/200$ from \eqref{eq:decodeprob}. We have proved the following.
+
+\begin{proposition}[Accuracy lower bound in the core regime]\label{prop:core}
+If $\eps\le\eps_0$ and $n\ge k/\eps^2$, then
+\begin{equation}\label{eq:corelower}
+ q_*(n,k,\eps)\ge c_*\frac{k}{\eps^2},\qquad c_*=(6400D^2)^{-1}.
+\end{equation}
+\end{proposition}
+
+
+\subsection{Extending the accuracy lower bound to all parameters}
+
+Recall $D=2^{24}$, $\eps_0=1/(2D)$, and $c_*=(6400D^2)^{-1}$.
+The function $q_*(n,k,\eps)$ is nonincreasing in $\eps$.
+For $\eps\ge\eps_0$,
+\[
+ c_*\min\{n,k/\eps^2\}\le(c_*/\eps_0^2)k=k/1600,
+\]
+so Proposition~\ref{prop:exactlower} suffices.
+For $\eps<\eps_0$ and $n\ge k/\eps^2$, apply Proposition~\ref{prop:core}.
+Otherwise put $\zeta=\sqrt{k/n}>\eps$. If $\zeta\le\eps_0$, monotonicity
+and the core bound at accuracy $\zeta$ give $q_*\ge c_*k/\zeta^2=c_*n$.
+If $\zeta>\eps_0$, then $n<k/\eps_0^2$, and the exact-recovery obstruction
+again gives $q_*\ge c_*n$. This proves
+\[
+ q_*(n,k,\eps)\ge c_*\min\{n,k/\eps^2\}
+\]
+for every parameter triple in RE-03. Together with the $n$-query baseline,
+it also proves Corollary~\ref{cor:full}.

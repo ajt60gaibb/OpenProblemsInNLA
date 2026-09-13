@@ -1,0 +1,1155 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=26mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm}
+\usepackage{booktabs,array,longtable}
+\usepackage{xurl}
+\usepackage[hidelinks,pdftitle={Sharper bounds for RE-03},pdfsubject={Informally audited partial research results; the full query complexity is not determined}]{hyperref}
+\usepackage{enumitem,needspace,listings}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5.5pt}
+\setlength{\emergencystretch}{2em}
+\setcounter{tocdepth}{1}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\F}{\mathsf F}
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\Hclass}{\mathcal H_{n,k}}
+\newcommand{\OPT}{\operatorname{OPT}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\KL}{D_{\mathrm{KL}}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\ip}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\Id}{I}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\spanop}{span}
+\DeclareMathOperator{\orth}{orth}
+\DeclareMathOperator{\col}{col}
+\lstset{basicstyle=\ttfamily\small,columns=fullflexible,keepspaces=true,
+ breaklines=true,frame=none,showstringspaces=false}
+\title{Sharper bounds for RE-03}
+\author{Sidney Holden\\{\small Center for Computational Biology, Flatiron Institute}\\{\small Simons Foundation}}
+\date{}
+\begin{document}
+\maketitle
+\vspace{-1.6em}
+\begin{abstract}
+For the fixed-partition HODLR approximation problem with $n=2^Lk$, this note
+develops the bounds
+\[
+ c\min\left\{n,\frac{kL}{\eps}+\frac{k}{\eps^2}\right\}
+ \le q_*(n,k,\eps)\le
+ C\min\left\{n,\frac{kL^2}{\eps}+\frac{kL}{\eps^2}\right\}.
+\]
+The proposed upper bound is obtained by a row-isotropic perturbation inequality
+for truncated SVD, a noisy Gaussian Nystr\"om calculation, a constant-accuracy perforated pilot, and a globally shared final regression. The proposed new lower term $kL/\eps$ uses weighted
+hierarchical Stiefel frames, large fixed rank-constrained anchors, and a
+transcript-divergence argument valid for adaptive queries on both sides.
+The earlier $k/\eps^2$ lower-bound argument is included in an appendix, so the
+combined argument can be read without an external unpublished dependency.
+These bounds still do not match in general. They retain the characterization
+$q_* = \Theta(n)$ for $\eps\le\sqrt{k/n}$ and rule out the earlier candidate
+rate $kL+k/\eps^2$ as a uniform answer.
+\end{abstract}
+
+\textbf{Status (13 September 2026).} This is a partial research manuscript,
+not a full solution of RE-03. A separate Codex AI agent passed an independent
+informal audit of the stated partial proofs; see the accompanying
+\texttt{independent-review.md}. No formal verification or external human peer
+review is asserted. The numerical checks are sanity checks, not proof
+certificates; the original continuation suite is incomplete in the supplied
+archive, and only the available assembly smoke checks were rerun.
+No matching algorithm for the lower expression is supplied.
+
+\clearpage
+\begingroup\small\setlength{\parskip}{0pt}\tableofcontents\endgroup
+\clearpage
+
+\section{Problem, principal bounds, and scope}
+
+Let $n=2^Lk$, where $k\ge1$ and $L\ge2$ are integers, and let
+$0<\eps<1/2$. The class $\Hclass$ consists of matrices whose two ordered
+off-diagonal sibling blocks at each node of the prescribed balanced binary
+partition have rank at most $k$. The terminal diagonal blocks of order $k$
+are unrestricted. Set
+\[
+ \OPT(A)=\min_{H\in\Hclass}\norm{A-H}_{\F}.
+\]
+One query returns $Av$ or $A^{\mathsf T}v$. The side and vector may depend
+measurably on earlier answers and independent randomness. Only vector queries
+are charged; a matrix with $s$ query columns costs $s$ calls. The output must
+be in $\Hclass$ and satisfy
+\begin{equation}\label{eq:guarantee}
+ \Prob\{\norm{A-B}_{\F}\le(1+\eps)\OPT(A)\}\ge0.99
+ \quad\text{for every fixed }A\in\R^{n\times n}.
+\end{equation}
+This is the quantifier order and exact-real arithmetic model of RE-03.\footnote{
+RE-03, \emph{Optimal matvec query complexity of HODLR approximation}, problem
+statement and September 10, 2026 audit; source~\cite{re03}.}
+
+The repository cites an upper bound $O(\min\{n,kL^4/\eps^3\})$ and a lower
+bound $\Omega(kL+k/\eps)$ in the regime $n\ge c_0k/\eps$.\footnote{
+Chen et al., \emph{Near-optimal hierarchical matrix approximation from
+matrix-vector products}, Theorems 1.1--1.2 and Section 6; source~\cite{chen}.}
+The earlier supplied note~\cite{prior} proposed the stronger accuracy lower
+bound $c_*\min\{n,k/\eps^2\}$ and an exact-recovery obstruction $k(L+1)$.
+Its relevant arguments are preserved in Appendix~\ref{app:accuracy} and
+Section~\ref{sec:geometry}.
+
+\begin{theorem}[Combined bounds]\label{thm:combined}
+For every admissible $(n,k,\eps)$, the arguments in this manuscript give
+\begin{equation}\label{eq:combined}
+ c\min\left\{n,\frac{kL}{\eps}+\frac{k}{\eps^2}\right\}
+ \le q_*(n,k,\eps)
+ \le C\min\left\{n,\frac{kL^2}{\eps}+\frac{kL}{\eps^2}\right\},
+\end{equation}
+where $c,C>0$ are universal. One conservative lower constant is
+\[
+ D_0=2^{24},\qquad c_*=(6400D_0^2)^{-1},\qquad c=c_*/8.
+\]
+The upper bound is nonadaptive and admits the explicit query budget in
+Theorem~\ref{thm:twostage}. Independently, $q_*\ge k(L+1)$.
+\end{theorem}
+
+The constants are deliberately loose. An asymptotic bound with these constants
+is not a claim that the reference implementation is efficient at moderate
+matrix sizes. In particular, its theorem-parameter mode normally selects the
+$n$-query fallback on small numerical examples.
+
+\begin{corollary}[Full-recovery regime]\label{cor:full}
+For $0<\eps\le\sqrt{k/n}$,
+\[
+ c_* n\le q_*(n,k,\eps)\le n.
+\]
+Thus $q_*=\Theta(n)$ in this regime with universal constants.
+\end{corollary}
+
+\begin{corollary}[A previously plausible smaller rate is excluded]
+There is no universal bound
+$q_*=O(\min\{n,kL+k/\eps^2\})$.
+\end{corollary}
+\begin{proof}
+Take $k=1$, $n=2^L$, and $\eps=L^{-1/2}$ for $L>4$.
+The lower expression in \eqref{eq:combined} is at least a constant times
+$L^{3/2}$, while $L+\eps^{-2}=2L$. Both are below $n$ for large $L$.
+Their ratio is unbounded.
+\end{proof}
+
+The remaining gap is substantive. At fixed positive accuracy and increasing
+$L$, the expressions in \eqref{eq:combined} scale as $kL$ and $kL^2$ before
+capping. At $\eps=L^{-1/2}$ they scale as $kL^{3/2}$ and $kL^{5/2}$.
+Neither the $n$-query fallback nor the saturation corollary closes these gaps.
+
+\section{Block geometry and the exact baseline}\label{sec:geometry}
+
+Let $\mathcal R$ be the collection of all ordered sibling blocks $(I,J)$ and
+$\mathcal D$ the terminal diagonal blocks. These sets partition the entries.
+For a rectangular matrix $C$, let $[C]_k$ be a fixed measurable choice of a
+best rank-at-most-$k$ SVD truncation and write
+$\tau_k(C)^2=\sum_{i>k}\sigma_i(C)^2$.
+
+\begin{lemma}[Separable optimum]\label{lem:separable}
+For every matrix $A$,
+\begin{equation}\label{eq:separable}
+ \OPT(A)^2=\sum_{(I,J)\in\mathcal R}\tau_k(A_{I,J})^2.
+\end{equation}
+For any $B\in\Hclass$, each quantity
+$\norm{A_{I,J}-B_{I,J}}_\F^2-\tau_k(A_{I,J})^2$ is nonnegative,
+as are the diagonal-block errors. Their sum is
+$\norm{A-B}_\F^2-\OPT(A)^2$.
+\end{lemma}
+\begin{proof}
+The squared Frobenius norm is the sum of the squared norms on disjoint blocks.
+The rank constraints on different sibling blocks are independent. Minimize
+on each block by an SVD, and copy the unrestricted diagonal blocks.
+\end{proof}
+
+\begin{proposition}[The exact $n$-query upper bound]\label{prop:upper}
+Querying $Ae_j$ for $j=1,\ldots,n$ and then applying the blockwise projection
+of Lemma~\ref{lem:separable} returns an exactly optimal matrix in $\Hclass$.
+\end{proposition}
+
+\begin{proposition}[Adaptive-safe exact-recovery obstruction]\label{prop:exactlower}
+Every algorithm satisfying \eqref{eq:guarantee} uses at least $k(L+1)$ queries
+in the worst case.
+\end{proposition}
+\begin{proof}
+In each ordered sibling block allow only its first $k$ columns to be nonzero,
+and allow arbitrary entries in the $k\times k$ diagonal leaves. This is a
+linear subspace $\mathcal V\subseteq\Hclass$. At each of the $L$ levels its
+sibling blocks contribute $nk$ free entries, and the leaves contribute another
+$nk$, so $\dim\mathcal V=nk(L+1)$.
+
+Place an independent standard Gaussian prior on coordinates in an orthonormal
+basis of $\mathcal V$. Conditional on the algorithm's seed and previous
+answers, a new vector query supplies at most $n$ linear scalar observations.
+By induction, the unobserved component remains a nondegenerate Gaussian on a
+subspace of dimension at least $nk(L+1)-nq$. Adaptivity does not add
+constraints beyond those answers: the next linear measurement is fixed once
+the past is fixed. If $q<k(L+1)$, the posterior has no atoms, and any measurable
+point estimate has conditional probability zero of exact recovery.
+
+But $\OPT(A)=0$ on this prior, so \eqref{eq:guarantee} requires exact recovery
+with probability at least $0.99$ for each fixed input and hence on average.
+This contradicts the preceding posterior statement.
+\end{proof}
+
+\section{A perturbation bound for rank truncation}\label{sec:truncation}
+
+The following deterministic inequality is the main ingredient of the improved
+upper bound. It separates the effect of noise in the leading left singular
+space from the full Frobenius size of the noise.
+
+\begin{lemma}[Deterministic truncation inequality]\label{lem:truncation}
+Let $X,E\in\R^{r\times m}$ and $1\le k\le\min(r,m)$. Let $P$ be a rank-$k$
+projector onto leading left singular vectors of $X$, set $T=(I-P)X$ and
+$\tau=\norm{T}_\F$. Then
+\begin{align}\label{eq:truncation}
+ \norm{X-[X+E]_k}_\F^2-\tau^2
+ &\le 4\tau\norm{PE}_\F+6\norm{E}_\F^2
+       +4\sqrt{2k}\norm{T^{\mathsf T}E}_\F.
+\end{align}
+No independence, spectral gap, or distributional hypothesis is needed.
+\end{lemma}
+\begin{proof}
+Put $F=PE$, $G=(I-P)E$, $Z=X+F$, and $f=\norm{F}_\F$.
+Let $Q$ and $Q_0$ be rank-$k$ right singular projectors for $Z+G$ and $Z$,
+respectively. The optimality of $Q$ gives
+\[
+ \norm{Z(I-Q)}_\F^2\le \tau_k(Z)^2+a,
+ \qquad
+ a=2\sqrt{2k}\norm{T^{\mathsf T}G}_\F+\norm{G}_\F^2.
+\]
+Indeed, expand $(Z+G)^{\mathsf T}(Z+G)$ in the variational characterization of
+its leading right singular subspace. The cross term is bounded using
+$Z^{\mathsf T}G=T^{\mathsf T}G$ and
+$\norm{Q-Q_0}_\F\le\sqrt{2k}$. The remaining term obeys
+$\tr(G^{\mathsf T}G(Q-Q_0))\le\norm{G}_\F^2$.
+
+Since $\tau_k(Z)\le\tau+f$,
+\begin{align*}
+ \norm{X(I-Q)}_\F^2
+ &\le\bigl(\sqrt{(\tau+f)^2+a}+f\bigr)^2\\
+ &\le\tau^2+4\tau f+5f^2+2a.
+\end{align*}
+The second line follows from $\sqrt{x^2+a}\le x+\sqrt a$ and
+$2f\sqrt a\le f^2+a$. Also $[X+E]_k=(X+E)Q$, and right-orthogonality gives
+\[
+ \norm{X-(X+E)Q}_\F^2
+ =\norm{X(I-Q)}_\F^2+\norm{EQ}_\F^2.
+\]
+Finally $T^{\mathsf T}G=T^{\mathsf T}E$ and
+$5\norm{F}_\F^2+2\norm{G}_\F^2+\norm{E}_\F^2\le6\norm{E}_\F^2$.
+\end{proof}
+
+\begin{corollary}[Row-isotropic noise]\label{cor:isotropic}
+Suppose the second moments of $E$ satisfy
+\[
+ \E[E_{i\alpha}E_{j\beta}]=h\,\delta_{ij}\Sigma_{\alpha\beta},
+ \qquad \Sigma\succeq0,
+\]
+and put $S=\tr\Sigma$. Then
+\begin{equation}\label{eq:isotropic}
+ \E\norm{X-[X+E]_k}_\F^2
+ \le \tau_k(X)^2+10\tau_k(X)\sqrt{khS}+6rhS.
+\end{equation}
+\end{corollary}
+\begin{proof}
+The three second moments needed in Lemma~\ref{lem:truncation} are
+\[
+ \E\norm{PE}_\F^2=khS,\quad
+ \E\norm{T^{\mathsf T}E}_\F^2=h\norm{T}_\F^2S,\quad
+ \E\norm{E}_\F^2=rhS.
+\]
+Apply Cauchy--Schwarz to the two unsquared norms and use
+$4+4\sqrt2<10$. If $r<k$, truncate at $r$ instead: the risk is simply
+$rhS$, and the upper expression with $\tau_k(X)=0$ remains valid.
+\end{proof}
+
+\begin{lemma}[Gaussian least-squares moments]\label{lem:regression}
+Let $G\in\R^{t\times r}$ be standard Gaussian, $t>r+1$, and let
+$F\in\R^{t\times m}$ be independent of $G$ with independent centered Gaussian
+rows of covariance $\Sigma$. Then $E=G^\dagger F$ has second moments
+\[
+ \E[E_{i\alpha}E_{j\beta}]
+ =\frac{\delta_{ij}\Sigma_{\alpha\beta}}{t-r-1}.
+\]
+\end{lemma}
+\begin{proof}
+Conditional on $G$, the row covariance factor is $(G^{\mathsf T}G)^{-1}$.
+Sign changes of individual columns of $G$ make the expected off-diagonal
+entries of this inverse zero. A Schur complement expresses each diagonal
+entry as the reciprocal squared norm of one Gaussian column projected onto
+the orthogonal complement of the others. That squared norm is
+$\chi^2_{t-r+1}$. Integrating its density gives
+$\E[(\chi^2_\nu)^{-1}]=1/(\nu-2)$ for $\nu>2$.
+Thus $\E(G^{\mathsf T}G)^{-1}=I/(t-r-1)$, proving the claim.
+\end{proof}
+
+\section{Noisy Gaussian Nystr\"om approximation}\label{sec:nystrom}
+
+Consider a fixed block $C\in\R^{m_1\times m_2}$ with additive sketch
+contaminants $M\in\R^{m_1\times a}$ and $N\in\R^{b\times m_2}$.
+Draw independent standard Gaussian matrices of the following sizes:
+\[
+ \Omega:m_2\times s,\quad \Gamma:a\times s,\quad
+ \Psi:m_1\times t,\quad \Theta:b\times t.
+\]
+Form
+\begin{equation}\label{eq:gn}
+ Q=\orth(C\Omega+M\Gamma),\quad
+ \widehat X=(\Psi^{\mathsf T}Q)^\dagger
+              (\Psi^{\mathsf T}C+\Theta^{\mathsf T}N),\quad
+ \widehat C=Q[\widehat X]_k.
+\end{equation}
+The number of columns of $Q$ may be less than $s$.
+
+\begin{theorem}[Noisy block estimate]\label{thm:gn}
+Assume $s>k+1$ and $t>s+1$. Set
+\[
+ \tau=\tau_k(C),\quad \alpha=\frac{k}{s-k-1},\quad d=t-s-1,
+ \quad D=(1+\alpha)\tau^2+\alpha\norm M_\F^2+\norm N_\F^2.
+\]
+Then the construction \eqref{eq:gn} satisfies
+\begin{align}\label{eq:gnbound}
+ \E\norm{C-\widehat C}_\F^2
+ \le{}&\tau^2+\alpha(\tau^2+\norm M_\F^2)\\
+ &+10\tau\sqrt{\frac{kD}{d}}+\frac{6sD}{d}.\nonumber
+\end{align}
+The estimate is rank at most $k$.
+\end{theorem}
+\begin{proof}
+If $k\ge\min(m_1,m_2)$, the same arguments below can use a smaller true rank
+in the right-space calculation; alternatively use its rank-$k$ SVD with
+zero singular directions completed orthogonally. We give the case
+$k\le\min(m_1,m_2)$ explicitly.
+
+Write $C=C_k+C_{\rm tail}$ using an SVD and let $V_1$ contain its leading
+$k$ right singular vectors. Let $\Omega_1=V_1^{\mathsf T}\Omega$ and complete
+$V_1$ to an orthogonal basis. Because $\Omega_1$ has full row rank almost
+surely, multiplication of the range sketch by $\Omega_1^\dagger$ gives
+\[
+ \norm{(I-QQ^{\mathsf T})C_k}_\F^2
+ \le\norm{(C_{\rm tail}\Omega+M\Gamma)\Omega_1^\dagger}_\F^2.
+\]
+The Gaussian coordinates entering $C_{\rm tail}\Omega$ and $\Gamma$ are
+independent of $\Omega_1$. Their cross term has expectation zero. The
+Gaussian pseudoinverse calculation of Lemma~\ref{lem:regression}, transposed,
+(a standard ingredient in Gaussian range finding~\cite{halko}),
+therefore gives
+\begin{equation}\label{eq:rangemiss}
+ \E\norm{(I-QQ^{\mathsf T})C_k}_\F^2
+ \le\alpha(\tau^2+\norm M_\F^2).
+\end{equation}
+One may verify the omitted right isometry in the first display by multiplying
+on the right by $V_1^{\mathsf T}$; it does not change the Frobenius norm.
+
+The ideal projected rank-$k$ approximation satisfies
+\begin{align}\label{eq:idealrange}
+ \norm{C-Q[Q^{\mathsf T}C]_k}_\F^2
+ &\le\norm{C-QQ^{\mathsf T}C_k}_\F^2\\
+ &=\tau^2+\norm{(I-QQ^{\mathsf T})C_k}_\F^2.\nonumber
+\end{align}
+The equality follows from orthogonality of the right singular spaces of
+$C_k$ and $C_{\rm tail}$. In particular, for $C_\perp=(I-QQ^{\mathsf T})C$,
+\[
+ \E\norm{C_\perp}_\F^2
+ \le(1+\alpha)\tau^2+\alpha\norm M_\F^2.
+\]
+
+Condition on $Q$ and let $r$ be its number of columns. The Gaussian matrix
+$\Psi^{\mathsf T}Q$ is independent of $\Psi^{\mathsf T}C_\perp$.
+Consequently
+\[
+ \widehat X=Q^{\mathsf T}C+E,
+ \quad
+ E=(\Psi^{\mathsf T}Q)^\dagger
+      (\Psi^{\mathsf T}C_\perp+\Theta^{\mathsf T}N)
+\]
+has the second moments of Lemma~\ref{lem:regression} with
+$\Sigma=C_\perp^{\mathsf T}C_\perp+N^{\mathsf T}N$ and
+$h=1/(t-r-1)$. Apply Corollary~\ref{cor:isotropic} with
+$X=Q^{\mathsf T}C$. Its tail is at most $\tau$, because projection is a
+contraction and $Q^{\mathsf T}C_k$ is an admissible rank-$k$ competitor.
+The error outside $Q$ is orthogonal to the error inside $Q$.
+Use \eqref{eq:idealrange}, $r\le s$, $t-r-1\ge d$, and Jensen's inequality
+on the square root after averaging over $Q$. This gives \eqref{eq:gnbound}.
+If $r=0$, the output is zero and the same bound follows from
+\eqref{eq:idealrange}; no inverse is needed.
+\end{proof}
+
+\section{Perforated peeling with a global error bound}\label{sec:algorithm}
+
+Only the first $h=L-1$ levels need nontrivial rank truncation. The remaining
+size-$2k$ diagonal blocks are unrestricted in $\Hclass$, since their
+$k\times k$ sibling blocks already have rank at most $k$.
+
+\subsection{Sketches and query accounting}
+
+At a level $\ell\in\{1,\ldots,h\}$, the target blocks have order
+$m=n/2^\ell$. Treat the two orientations separately. For the upper
+orientation let $(I_b,J_b)$ be the left/right children of parent $b$.
+Let $H_{<\ell}$ contain the approximations of the strictly coarser sibling
+blocks, with zero entries elsewhere, and write $R=A-H_{<\ell}$.
+Draw a uniform independent hash $f(b)\in\{1,\ldots,B\}$ and independent
+Gaussian $m\times s$ matrices $\Omega_b$. For each bucket $a$, query the
+matrix whose restriction to $J_b$ is $\Omega_b$ when $f(b)=a$, and is zero
+elsewhere. Subtract the known product with $H_{<\ell}$.
+The rows $I_b$ of the bucket $f(b)$ give
+\begin{equation}\label{eq:rightsketch}
+ Y_b=A_{I_b,J_b}\Omega_b+
+      \sum_{c\ne b:f(c)=f(b)}R_{I_b,J_c}\Omega_c.
+\end{equation}
+This uses at most $Bs$ vector queries for one orientation.
+
+Independently draw a left hash $g$ and Gaussian $m\times t$ matrices
+$\Psi_b$. Query $A^{\mathsf T}$ on bucketed vectors supported on the $I_b$
+and subtract $H_{<\ell}^{\mathsf T}$. Transpose the appropriate outputs to get
+\begin{equation}\label{eq:leftsketch}
+ Z_b=\Psi_b^{\mathsf T}A_{I_b,J_b}+
+      \sum_{c\ne b:g(c)=g(b)}\Psi_c^{\mathsf T}R_{I_c,J_b}.
+\end{equation}
+This costs at most $Bt$ queries. Return
+$Q_b[(\Psi_b^{\mathsf T}Q_b)^\dagger Z_b]_k$ on this block, where
+$Q_b=\orth(Y_b)$. The lower orientation exchanges the two children and uses
+fresh independent randomness. Freeze $H_{<\ell}$ until both orientations
+are complete.
+
+Every queried vector depends only on random sketches, hashes, $n$, and $k$;
+subtraction of earlier approximations occurs after the oracle responses.
+Thus all actual query vectors may be chosen in advance. Empty buckets may
+be skipped. The per-level cost is at most $2B(s+t)$.
+
+\subsection{Contamination energies}
+
+Let
+\[
+ a_\ell=\sum_{\text{ordered blocks at level }\ell}\tau_k(A_{I,J})^2,
+ \qquad O=\sum_{\ell=1}^{h}a_\ell=\OPT(A)^2.
+\]
+Let $T_{\ell-1}$ be the squared error on the strictly coarser blocks.
+Condition on the past. For a right sketch the contaminant $M_b$ is the
+horizontal concatenation of the coarser residual blocks that collide with
+$b$; for a left sketch $N_b$ is their vertical analogue. Concatenated
+Gaussian matrices put \eqref{eq:rightsketch}--\eqref{eq:leftsketch} exactly
+in the setting of Theorem~\ref{thm:gn}.
+
+Every pair of distinct parents collides with probability $1/B$. Moreover,
+the corresponding residual entries belong to strictly coarser blocks.
+Across both orientations each such entry is counted at most once in the
+right-contamination sum, and at most once in the left-contamination sum.
+Therefore, with the expectation here only over hashes,
+\begin{equation}\label{eq:contamination}
+ \E\sum_b\norm{M_b}_\F^2\le T_{\ell-1}/B,
+ \qquad
+ \E\sum_b\norm{N_b}_\F^2\le T_{\ell-1}/B.
+\end{equation}
+The two sums need not be independent. No independence between different
+output blocks is needed in the analysis.
+
+\subsection{Summing the errors before choosing parameters}
+
+Put
+\[
+ \alpha=\frac{k}{s-k-1},\quad
+ \beta=\frac{s}{t-s-1},\quad
+ \gamma=\sqrt{\frac{k}{t-s-1}},
+\]
+\[
+ r_0=\alpha+6\beta(1+\alpha),\qquad
+ c_0=10\gamma\sqrt{1+\alpha}.
+\]
+Summing Theorem~\ref{thm:gn} over all targets at this level, using
+\eqref{eq:contamination}, and applying Cauchy--Schwarz to the mixed terms
+gives
+\begin{align}\label{eq:levelbound}
+ \E[\text{level-}\ell\text{ error}^2\mid\text{past}]
+ \le{}&(1+r_0+c_0)a_\ell+
+       \frac{r_0}{B}T_{\ell-1}\\
+ &+\frac{c_0}{\sqrt B}\sqrt{a_\ell T_{\ell-1}}.\nonumber
+\end{align}
+For clarity, the total quantity $D$ in the mixed term of the block theorem
+has conditional expectation at most
+$(1+\alpha)(a_\ell+T_{\ell-1}/B)$.
+Use
+$\sqrt{a(a+x)}\le a+\sqrt{ax}$.
+The coefficient on $T_{\ell-1}/B$ from the non-mixed terms is no greater
+than $r_0$, giving \eqref{eq:levelbound}.
+
+Choose $B=h$ and let $S$ be the expected squared error on all nonterminal
+sibling blocks. Since $T_{\ell-1}$ is a sum of earlier nonnegative block
+errors, $\sum_\ell\E T_{\ell-1}\le hS$. Also
+\[
+ \sum_\ell\E\sqrt{a_\ell T_{\ell-1}}
+ \le\sqrt{O\sum_\ell\E T_{\ell-1}}
+ \le\sqrt{OhS}.
+\]
+Consequently
+\begin{equation}\label{eq:globalineq}
+ S\le(1+r_0+c_0)O+r_0S+c_0\sqrt{OS}.
+\end{equation}
+All expectations are finite: Theorem~\ref{thm:gn} and induction on the finite
+number of levels establish this before the summation argument.
+
+\subsection{Parameters and the last diagonal fit}
+
+Set
+\begin{equation}\label{eq:parameters}
+ \eta=\eps/2600,\quad
+ s=k+1+\lceil k/\eta\rceil,\quad
+ t=s+1+\lceil s/\eta\rceil,\quad B=h.
+\end{equation}
+Then $\alpha\le\eta$, $\beta\le\eta$, and $\gamma\le\eta$.
+The last inequality follows from $s\ge k/\eta$.
+Since $\eta<1/100$, we have $r_0\le8\eta$ and $c_0\le11\eta$.
+Using $\sqrt{OS}\le(O+S)/2$ in \eqref{eq:globalineq} gives
+\[
+ S\le\frac{1+r_0+\tfrac32c_0}{1-r_0-\tfrac12c_0}O
+ \le(1+50\eta)O.
+\]
+The same inequality gives $S=0$ when $O=0$; division by $O$ is unnecessary.
+
+For the final size-$2k$ diagonal blocks, choose
+\begin{equation}\label{eq:leafwidth}
+ p=2k+1+\lceil2k/\eta\rceil
+\end{equation}
+and query $A\Omega$ for an independent standard Gaussian
+$\Omega\in\R^{n\times p}$. Subtract the now-known off-diagonal
+approximation $H_{\rm off}\Omega$. On a diagonal block $I$, set
+\[
+ \widehat D_I=((A-H_{\rm off})\Omega)_I\,\Omega_I^\dagger.
+\]
+The contaminating columns outside $I$ are independent of $\Omega_I$.
+The same Gaussian inverse moment calculation gives conditional total
+diagonal error at most
+$2k/(p-2k-1)$ times the off-diagonal error. Thus the final squared error obeys
+\begin{equation}\label{eq:expectfinal}
+ \E\norm{A-\widehat H}_\F^2
+ \le(1+\eta)(1+50\eta)O\le(1+52\eta)O.
+\end{equation}
+Every output block meets its rank constraint, so $\widehat H\in\Hclass$.
+
+\begin{theorem}[Explicit nonadaptive upper bound]\label{thm:upper}
+With \eqref{eq:parameters}--\eqref{eq:leafwidth}, the preceding construction
+uses at most
+\begin{equation}\label{eq:budget}
+ Q=2(L-1)^2(s+t)+p
+\end{equation}
+queries and satisfies \eqref{eq:guarantee}. Selecting the $n$-query exact
+baseline whenever $Q\ge n$ gives
+\[
+ q_*\le\min\{n,Q\}=O\!\left(\min\{n,kL^2/\eps^2\}\right).
+\]
+\end{theorem}
+\begin{proof}
+The query count follows directly from the two orientations, buckets, sketch
+widths, and last diagonal fit. If $O>0$, the excess
+$Z=\norm{A-\widehat H}_\F^2-O$ is nonnegative by
+Lemma~\ref{lem:separable}. Equation~\eqref{eq:expectfinal} and Markov's
+inequality give
+\[
+ \Prob\{Z>(2\eps+\eps^2)O\}
+ \le\frac{52\eta}{2\eps+\eps^2}\le0.01.
+\]
+If $O=0$, \eqref{eq:expectfinal} says the output error is zero almost surely.
+Finally $s=O(k/\eta)$, $t=O(k/\eta^2)$, and $p=O(k/\eta)$,
+with constants independent of $n,k,L,\eps$.
+\end{proof}
+
+\section{Joint fitting when the column spaces are supplied}\label{sec:jointfit}
+
+The repeated coefficient-fitting cost across levels is avoidable when the
+correct block column spaces are supplied. This conditional result does not
+supply those spaces and therefore is not an upper bound for the general
+problem by itself.
+
+For each ordered sibling block $(I,J)$, fix an orthonormal matrix
+$U_{I,J}\in\R^{|I|\times r_{I,J}}$ with $0\le r_{I,J}\le k$.
+Let $\mathcal V(U)$ be the linear subspace of matrices whose block $(I,J)$
+has columns in $\col(U_{I,J})$, with arbitrary diagonal leaves.
+Then $\mathcal V(U)\subseteq\Hclass$.
+For a column index $j$, concatenate the corresponding embedded sibling
+bases along its root-to-leaf path and the coordinate basis of its leaf.
+Call the resulting matrix $Z_j$. The row supports of its constituent pieces
+are disjoint, so $Z_j$ is orthonormal and
+\[
+ r_j:=\#\text{columns}(Z_j)
+   =k+\sum_{(I,J):j\in J}r_{I,J}\le k(L+1)=:r_{\max}^{\rm bound}.
+\]
+Put $r_{\max}=\max_jr_j$ and
+$A_U[:,j]=Z_jZ_j^{\mathsf T}A[:,j]$.
+This is the Frobenius projection of $A$ onto $\mathcal V(U)$.
+
+Draw a fresh standard Gaussian $\Omega\in\R^{n\times q}$ and use $q$
+transpose queries to obtain $Y=A^{\mathsf T}\Omega$. Define
+\begin{equation}\label{eq:jointfit}
+ B[:,j]=Z_j(\Omega^{\mathsf T}Z_j)^\dagger Y[j,:]^{\mathsf T}.
+\end{equation}
+The same $q$ responses are used for every column and every level.
+
+\begin{proposition}[Known-space coefficient fit]\label{prop:jointfit}
+If $q>r_{\max}+1$, the fit \eqref{eq:jointfit} belongs to $\mathcal V(U)$ and
+satisfies the exact expectation identity
+\begin{equation}\label{eq:jointidentity}
+ \E\norm{A-B}_\F^2
+ =\sum_{j=1}^n\left(1+\frac{r_j}{q-r_j-1}\right)
+      \norm{(I-Z_jZ_j^{\mathsf T})A[:,j]}^2.
+\end{equation}
+In particular, taking
+\[
+ q=r_{\max}+1+\lceil50r_{\max}/\eps\rceil
+\]
+gives $\norm{A-B}_\F\le(1+\eps)\norm{A-A_U}_\F$ with probability at least
+$0.99$, using $O(kL/\eps)$ queries.
+\end{proposition}
+\begin{proof}
+Write $A[:,j]=Z_jc_j+e_j$ with $Z_j^{\mathsf T}e_j=0$.
+For each fixed column, $G_j=\Omega^{\mathsf T}Z_j$ is standard Gaussian
+and independent of $\Omega^{\mathsf T}e_j$, whose entries are independent
+$N(0,\norm{e_j}^2)$. The least-squares coefficient error is
+$G_j^\dagger\Omega^{\mathsf T}e_j$.
+Lemma~\ref{lem:regression} gives its expected squared norm as
+$r_j\norm{e_j}^2/(q-r_j-1)$. Orthogonality to $e_j$ proves the identity
+for that column, and linearity of expectation proves \eqref{eq:jointidentity}.
+The fits for different columns need not be independent.
+
+The error in excess of $\norm{A-A_U}_\F^2$ is nonnegative and has mean at
+most $(\eps/50)\norm{A-A_U}_\F^2$ for the stated width.
+Markov's inequality bounds the failure probability by
+$1/(50(2+\eps))<0.01$. If the projection error is zero, the expectation
+identity gives exact recovery almost surely.
+\end{proof}
+
+If the spaces are obtained using earlier queries, the proposition remains
+valid conditionally when $\Omega$ is independent of those earlier queries.
+If the supplied bases contain the true leading $k$ left singular vectors of
+each block, then $\norm{A-A_U}_\F=\OPT(A)$.
+Neither observation yields those bases from the permitted oracle at no cost.
+The accompanying test helper that forms bases from a full SVD is expressly
+privileged input preparation, not part of a claimed query algorithm.
+
+This result isolates one missing step more precisely: the $kL/\eps$ scale is
+sufficient for fitting all coefficients once suitable rank-$k$ spaces are
+available. The present work has no uniformly accurate procedure for learning
+such spaces at the total cost needed to match the combined lower bound.
+
+\input{two_stage.tex}
+
+\section{Information in adaptive two-sided Gaussian queries}\label{sec:adaptive}
+
+The next lower-bound construction is nonsymmetric and uses independent
+Gaussian entries rather than GOE. Both query types must therefore be included
+in the information calculation.
+
+\begin{lemma}[Two-sided transcript divergence]\label{lem:rectkl}
+Let $A_0,S\in\R^{n\times n}$ be fixed with $\norm S_\op\le1$ and let $G$
+have independent $N(0,1)$ entries. For any randomized adaptive algorithm using
+at most $q$ queries, let $\mathbb P_S$ and $\mathbb P_0$ be its transcript laws
+on $A_0+\delta S+G$ and $A_0+G$. Include the seed in the transcript. Then
+\begin{equation}\label{eq:rectkl}
+ \KL(\mathbb P_S\Vert\mathbb P_0)\le\delta^2q/2.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Keep separate orthonormal spans $V$ of forward query vectors and $U$ of
+transpose query vectors. A component already in the appropriate span has a
+known image; remove it and normalize the remainder. Redundant queries
+contribute no new divergence.
+
+For a fixed value of $S$ and a fixed history, the observations reveal $GV$ and
+$U^{\mathsf T}G$. The unobserved component is
+$P_{U^\perp}GP_{V^\perp}$. It remains a centered isotropic Gaussian on this
+rectangular subspace. This is proved inductively: conditioned on the past,
+the next direction is fixed, and the newly exposed row or column of the
+remaining Gaussian rectangle is independent of the smaller rectangle left
+unexposed. The same argument works for measurable adaptive choices because
+they impose no condition beyond the answers already in the history.
+
+For a fresh unit forward vector $v\perp V$, project the output onto
+$U^\perp$. The omitted $U$ component is already determined by the known
+transpose answers. At a common history the two conditional means of the
+new information differ by $\delta P_{U^\perp}Sv$, and the conditional
+covariance is the identity on $U^\perp$. Its one-step divergence is at most
+$\delta^2/2$. A fresh transpose query similarly has mean difference
+$\delta P_{V^\perp}S^{\mathsf T}u$ and the same bound. Apply the chain rule
+and then average over the seed. Early stopping can be padded or treated by
+zero-contribution steps.
+\end{proof}
+
+\begin{remark}[Known diagonal scaling]
+Let $D$ be any fixed invertible diagonal matrix and write $A=A'D$.
+An algorithm for $A$ can be simulated using the same number of queries to
+$A'$: a forward query uses $A'(Dv)$, and a transpose query returns
+$D(A'^{\mathsf T}v)$. Thus the same transcript-divergence bound applies to algorithms run on
+$A=(A_0+\delta S+G)D$. The approximation loss for this scaled family must
+still be analyzed separately; diagonal scaling does not preserve the
+Frobenius objective. Neither the size of $D$ nor the size of $A_0$ incurs query
+cost.
+\end{remark}
+
+\section{A weighted hierarchical frame packing}\label{sec:packing}
+
+Assume $L\ge6$ and put $h=L-4$. In this section the symbol $h$ is a
+lower-bound construction parameter, not the upper algorithm's $L-1$.
+Use only upper sibling blocks at levels $\ell=1,\ldots,h$. Their orders are
+$m_\ell=n/2^\ell$, and the smallest is $16k$.
+For a target block $(I_b,J_b)$, let $C_b$ be the first $k$ coordinate indices
+of $J_b$. These column sets are disjoint across the entire hierarchy:
+an ancestor's selected indices lie in the leftmost leaf of its right child,
+and hence in no strictly descendant right child.
+
+Choose an orthonormal $m_\ell\times k$ frame $U_b$ and put it in rows $I_b$
+and columns $C_b$ of a square matrix $S$, setting every other entry to zero.
+Construct these frames from fine levels to coarse levels. At a block with
+row interval $I_b$ and order $m$, require its frame to be orthogonal to all
+previously constructed frame columns supported inside $I_b$.
+There are exactly
+\[
+ k(2^{h-\ell}-1)=m/16-k
+\]
+such descendant columns. Thus the available subspace has dimension
+$15m/16+k$; even the last column of the new frame is chosen in dimension at
+least $15m/16+1$.
+
+All nonzero columns of $S$ are consequently orthonormal. In particular,
+$\norm S_\op=1$ and $S\in\Hclass$. Set the fixed diagonal weights to
+\begin{equation}\label{eq:weights}
+ D_{jj}^2=\begin{cases}
+ m_\ell/n,&j\in C_b\text{ for a level-}\ell\text{ target},\\
+ 1/n,&j\text{ is not selected}.
+ \end{cases}
+\end{equation}
+The weights do not depend on the chosen frames. At every target level,
+$\sum_b\norm{U_b D_{C_b}}_\F^2=k/2$, so
+\begin{equation}\label{eq:weightednorm}
+ \norm{SD}_\F^2=kh/2.
+\end{equation}
+
+\begin{lemma}[Hierarchical packing]\label{lem:depthpacking}
+There is a finite family $\{S_\theta:\theta\in\mathcal T\}$ constructed above
+such that, with $N=|\mathcal T|$,
+\begin{equation}\label{eq:depthpack}
+ \log N\ge nkh/128,\qquad
+ \norm{(S_\theta-S_{\theta'})D}_\F^2>kh/128
+ \quad(\theta\ne\theta').
+\end{equation}
+Here and below logarithms used in information bounds are natural.
+\end{lemma}
+\begin{proof}
+Sample each frame uniformly in its allowed orthogonal complement,
+conditionally on finer frames. We bound the measure of a small ball around
+any fixed frame family $T$.
+
+A newly sampled unit column $u$ lies on a sphere in dimension
+$d\ge15m/16+1$. For any fixed unit vector $v$ in the ambient space,
+$\norm{u-v}\le1/4$ implies $\ip uv\ge31/32$.
+Projecting $v$ into the allowed subspace cannot enlarge this cap probability.
+For a standard Gaussian representation of the sphere, put
+$a=63/961<1/15$ and apply the exponential Markov bound with parameter $2$:
+\[
+ \Prob\{u_1\ge31/32\}
+ \le (1-4a)^{-1/2}5^{-(d-1)/2}
+ \le 2\,5^{-(d-1)/2}\le e^{-m/2}.
+\]
+The last inequality holds for $m\ge16$. This bound remains valid after any
+previous columns and all finer frames have been fixed.
+
+A level has $M=n/(2m)$ frames. If its weighted squared distance to $T$ is
+at most $k/64$, its $Mk$ column distances have total square at most $Mk/32$.
+At least half these columns must therefore have distance at most $1/4$.
+A union bound over subsets of columns gives the uniform conditional bound
+\[
+ \Prob\{\text{this level has weighted distance}^2\le k/64
+          \mid\text{finer frames}\}
+ \le2^{Mk}e^{-mMk/4}\le e^{-nk/16}.
+\]
+If the total weighted squared distance is at most $kh/128$, at least half
+of the $h$ levels have distance at most $k/64$.
+For any specified collection of levels, integrate their conditional bounds
+from coarse to fine (each is uniform in its finer conditioning).
+A union bound over level subsets yields
+\begin{equation}\label{eq:smallball}
+ \Prob\{\norm{(S-T)D}_\F^2\le kh/128\}
+ \le 2^h e^{-nkh/32}\le e^{-nkh/64}.
+\end{equation}
+The last inequality uses $nk\ge64$, valid for $L\ge6$.
+
+A greedy construction can therefore choose at least
+$\lfloor e^{nkh/64}\rfloor$ centers with pairwise distance greater than
+$\sqrt{kh/128}$: before that many choices, the union of the forbidden balls
+has measure less than one. Since $nkh/64\ge2$, the logarithm of this packing
+size is at least $nkh/128$.
+\end{proof}
+
+\section{Anchors and the depth--accuracy lower bound}\label{sec:depthlower}
+
+\subsection{A deterministic anchor inequality}
+
+\begin{lemma}[Selected-column loss]\label{lem:anchor}
+Write $C=[X\ Y]$ with $X\in\R^{m\times k}$ and
+$\sigma_{\min}(X)\ge s_0>0$. Let $B=[B_1\ B_2]$ have rank at most $k$.
+If $\norm{X-B_1}_\F\le K$ and $s_0\ge2K$, then
+\begin{equation}\label{eq:anchor}
+ \norm{C-B}_\F^2-\tau_k(C)^2
+ \ge\norm{X-B_1}_\F^2-\frac{2K}{s_0}\norm Y_\F^2.
+\end{equation}
+\end{lemma}
+\begin{proof}
+The perturbation bound on the smallest singular value makes $B_1$ full
+column rank. Thus every column of $B_2$ belongs to $\col(B_1)$.
+Let $P_X,P_B$ be the projections onto $\col(X)$ and $\col(B_1)$.
+The competitor $[X\ P_XY]$ has rank at most $k$, while the best possible
+fit of $Y$ using $\col(B_1)$ is $P_BY$. It follows that the left side of
+\eqref{eq:anchor} is at least
+\[
+ \norm{X-B_1}_\F^2+\tr\bigl(Y^{\mathsf T}(P_X-P_B)Y\bigr).
+\]
+For equal-dimensional subspaces,
+$\norm{P_X-P_B}_\op=\norm{(I-P_B)P_X}_\op$.
+Since $(I-P_B)X=(I-P_B)(X-B_1)$,
+this is at most $K/s_0$, and in particular at most $2K/s_0$.
+Substitution proves the displayed inequality.
+\end{proof}
+
+\subsection{The hard input distribution}
+
+For the core argument assume
+\begin{equation}\label{eq:depthcore}
+ h=L-4\ge4,\qquad \eps h\ge1.
+\end{equation}
+Choose $S_\theta$ uniformly from Lemma~\ref{lem:depthpacking}.
+Let $G$ be an independent standard iid Gaussian square matrix.
+For each target choose a fixed orthonormal frame $U_b^0$ and construct $A_0$
+by putting $M_0U_b^0$ in rows $I_b$ and selected columns $C_b$, with zeros
+elsewhere. Set
+\begin{equation}\label{eq:depthinput}
+ A=(A_0+\delta S_\theta+G)D,
+ \qquad \delta^2=2^{18}\eps n.
+\end{equation}
+The large number $M_0$ is fixed below, independently of $\theta,G$.
+Since every clean target block has at most $k$ nonzero columns,
+$(A_0+\delta S_\theta)D\in\Hclass$. Hence
+\begin{equation}\label{eq:depthopt}
+ \OPT(A)^2\le\norm{GD}_\F^2.
+\end{equation}
+
+There are $K_{\rm col}=k(2^h-1)=n/16-k$ selected columns. From
+\eqref{eq:weights},
+\[
+ \E\norm{GD}_\F^2
+ =n\tr D^2=n\left(\frac{kh}{2}+\frac{n-K_{\rm col}}n\right)\le nkh.
+\]
+On the selected entries of target blocks, the expected noise energy is
+\begin{equation}\label{eq:targetnoise}
+ \sum_b\E\norm{(GD)_{I_b,C_b}}_\F^2
+ =\frac{k}{2}\sum_{\ell=1}^h m_\ell
+ =\frac{kn}{2}(1-2^{-h})<kn/2.
+\end{equation}
+Markov's inequality and a union bound therefore give an event of probability
+at least $0.8$ on which
+\begin{equation}\label{eq:depthgood}
+ \norm{GD}_\F^2\le N_0:=10nkh,
+ \qquad \sum_b\norm{(GD)_{I_b,C_b}}_\F^2\le5nk.
+\end{equation}
+
+Put
+\[
+ K_0=\tfrac32\sqrt{N_0},\quad s_0=2K_0/\eps,
+ \quad w_{\min}=\sqrt{16k/n},
+ \quad M_0=\delta+\frac{s_0+\sqrt{N_0}}{w_{\min}}+1.
+\]
+On \eqref{eq:depthgood}, the selected columns $X_b=A_{I_b,C_b}$ have
+\[
+ \sigma_{\min}(X_b)
+ \ge(M_0-\delta)\sqrt{m_\ell/n}-\sqrt{N_0}\ge s_0.
+\]
+The unselected columns $Y_b$ in each target block contain noise only.
+
+\subsection{Decoding from a successful approximation}
+
+Let an algorithm satisfying \eqref{eq:guarantee} return $B$.
+On its success event and \eqref{eq:depthgood}, every selected-column error is
+at most $K_0$, because the entire error is at most
+$(1+\eps)\sqrt{N_0}<K_0$. Apply Lemma~\ref{lem:anchor} to each target block.
+Its remainder coefficient $2K_0/s_0$ equals $\eps$.
+By nonnegativity of all other local excesses,
+\begin{align}\label{eq:selectederror}
+ \sum_b\norm{X_b-B_{I_b,C_b}}_\F^2
+ &\le\bigl(\norm{A-B}_\F^2-\OPT(A)^2\bigr)
+       +\eps\sum_b\norm{Y_b}_\F^2\\
+ &\le(2\eps+\eps^2)N_0+\eps N_0
+ \le35\eps nkh.\nonumber
+\end{align}
+Subtract the fixed anchor on these selected entries and set all other entries
+to zero. This gives an estimate $\widehat W$ of $\delta S_\theta D$ with
+\begin{align}\label{eq:depthradius}
+ \norm{\widehat W-\delta S_\theta D}_\F^2
+ &\le2\sum_b\norm{X_b-B_{I_b,C_b}}_\F^2
+       +2\sum_b\norm{(GD)_{I_b,C_b}}_\F^2\\
+ &\le70\eps nkh+10nk\le80\eps nkh.\nonumber
+\end{align}
+The last inequality uses $\eps h\ge1$.
+The packing's half-separation squared is larger than
+\[
+ \delta^2kh/512=512\eps nkh>80\eps nkh.
+\]
+Thus nearest-center decoding of $\widehat W$ identifies $\theta$ on that
+joint event. The average decoding error is at most $0.21$: the noise event
+fails with probability at most $0.2$, and the algorithm fails with probability
+at most $0.01$ after averaging its pointwise guarantee over the hard inputs.
+
+\subsection{The information contradiction}
+
+Known scaling by $D$ does not change the query count. Lemma~\ref{lem:rectkl}
+therefore gives, for the full transcript $\mathsf T$,
+\[
+ I(\theta;\mathsf T)\le\delta^2q/2.
+\]
+To see this directly, average the divergences to the common baseline
+$A_0+G$. That average equals $I(\theta;\mathsf T)$ plus the nonnegative
+divergence of the mixture transcript law to the baseline.
+
+For a uniform label in a family of size $N$, every decoder obeys
+\begin{equation}\label{eq:fanonew}
+ p_e\ge1-\frac{I(\theta;\mathsf T)+\log2}{\log N}.
+\end{equation}
+This follows by conditioning on its error indicator:
+$H(\theta\mid\mathsf T)\le\log2+p_e\log N$.
+If
+\[
+ q\le\frac{kh}{1024\cdot2^{18}\eps},
+\]
+then $I(\theta;\mathsf T)\le nkh/2048\le(\log N)/16$.
+In the core regime $\log N\ge nkh/128\ge8$, so \eqref{eq:fanonew} gives
+$p_e>0.85$, contradicting $p_e\le0.21$.
+
+\begin{proposition}[Depth--accuracy lower bound in the core]\label{prop:depthcore}
+Under \eqref{eq:depthcore},
+\[
+ q_*(n,k,\eps)\ge c_{\rm d}\frac{kh}{\eps},
+ \qquad c_{\rm d}=(1024\cdot2^{18})^{-1}.
+\]
+\end{proposition}
+
+\section{Uniform extension and what is still missing}\label{sec:extension}
+
+Appendix~\ref{app:accuracy} proves, using the earlier supplied argument,
+\begin{equation}\label{eq:accuracyuniform}
+ q_*(n,k,\eps)\ge c_*\min\{n,k/\eps^2\},
+ \qquad c_*=(6400\cdot2^{48})^{-1}.
+\end{equation}
+We now remove the auxiliary restrictions from the new depth bound.
+
+In the core, $h\ge L/2$ and
+$kL/\eps\le kLh\le2kh^2\le n$ for $h\ge4$.
+Thus Proposition~\ref{prop:depthcore} implies
+$q_*\ge(c_{\rm d}/2)\min\{n,kL/\eps\}$.
+Outside the core, either $L<8$, in which case $\eps L<4$, or $L\ge8$ and
+$\eps h<1$, in which case $\eps L<1+4\eps<3$.
+In both cases
+\[
+ kL/\eps\le4k/\eps^2.
+\]
+Equation~\eqref{eq:accuracyuniform} therefore yields the depth bound with
+constant $c_*/4$. This is smaller than $c_{\rm d}/2$ and works in all cases.
+
+For nonnegative $a,b$, one has
+$\min(n,a)+\min(n,b)\ge\min(n,a+b)$.
+Taking the maximum of the two established lower bounds and using half their
+sum gives the left side of \eqref{eq:combined} with $c=c_*/8$.
+The upper side follows from Theorem~\ref{thm:twostage}.
+This completes the detailed argument for Theorem~\ref{thm:combined}.
+
+\subsection{The roles of the two hard distributions}
+
+The depth construction estimates many coefficients spread over scales. Its
+weighted packing has entropy proportional to $nkh$, and large fixed anchors
+convert small global excess into accurate estimation of selected columns.
+The diagonal weighting keeps the information per whitened query controlled
+while assigning comparable clean signal energy to each level.
+
+The accuracy construction in the appendix is different. It places nearly
+degenerate rank choices inside size-$2k$ sibling blocks. The relevant local
+loss is linear in a small spectral gap, while transcript information is
+quadratic in that gap. This produces $k/\eps^2$ rather than $k/\eps$.
+The two constructions cannot simply be multiplied: the packing dimension,
+noise normalization, and approximation-to-decoding inequalities all change
+when scales are combined.
+
+\subsection{The unresolved joint rate}
+
+The expression
+\[
+ \min\{n,kL/\eps+k/\eps^2\}
+\]
+is a lower bound, not an established characterization. A matching upper
+bound would need to use information across levels more efficiently than the
+separate perforated regressions analyzed here. The two-stage algorithm reduces the final fitting cost by sharing a single
+fresh regression across all levels. Its pilot still uses separate perforated
+sketches at each level, giving the $kL^2/\eps$ term. The final rank-truncation
+analysis has a $kL/\eps^2$ term because each column's residual enters $L-1$
+blockwise noise sums. Together these leave only a single factor $L$ between
+the proposed upper and lower expressions, but that factor is not a universal
+constant.
+
+\begin{proposition}[An obstruction to a uniform-embedding shortcut]\label{prop:nullspace}
+Let $m=n/2$, $\Omega\in\R^{n\times s}$, and $\Psi\in\R^{n\times t}$,
+where $s,t<m$. There is a nonzero rank-one $H\in\Hclass$ satisfying
+$H\Omega=0$ and $\Psi^{\mathsf T}H=0$.
+\end{proposition}
+\begin{proof}
+Let $I,J$ be the left and right root children. Choose unit vectors
+$u\in\ker(\Psi_I^{\mathsf T})$ and
+$v\in\ker(\Omega_J^{\mathsf T})$. These nullspaces are nontrivial by the
+width assumptions. Put $uv^{\mathsf T}$ in block $(I,J)$ and zero elsewhere.
+This matrix has Frobenius norm one, lies in $\Hclass$ for every $k\ge1$, and
+both products vanish.
+\end{proof}
+
+This proposition rules out an isometry or lower norm bound holding
+simultaneously for all HODLR differences under these two short sketches.
+Its witness depends on the realized sketches. It is therefore \emph{not} a
+lower bound against the pointwise randomized guarantee in \eqref{eq:guarantee},
+and does not rule out a successful joint estimator with a different analysis.
+
+Replacing the missing argument by an assertion that a joint least-squares
+fit must be better would not be valid: the fitted subspaces depend on the
+same sketch data, and rank truncation is nonlinear. Neither independence nor
+a uniform embedding of all possible rank-constrained differences follows
+from the calculations above. These are concrete gaps in that route, not
+steps that have been assumed in Theorems~\ref{thm:upper} and~\ref{thm:twostage}.
+
+\section{Reproducibility and proof-review priorities}\label{sec:checks}
+
+The package includes a dense, query-counted NumPy reference implementation.
+Its main routine uses only an oracle's dimension and vector-product method;
+it does not read the oracle's stored matrix. Every column product, including
+transpose products, is counted. The parameterized experimental routine may
+use smaller widths, but those widths are explicitly distinguished from the
+conservative theorem parameters.
+
+The recorded checks use a fixed seed and include the following results.
+\begin{center}\small
+\begin{tabular}{@{}p{.56\linewidth}r@{}}
+\toprule
+Check & Instances/draws\\
+\midrule
+Deterministic rank-truncation inequality & 3,600\\
+Gaussian inverse and row-isotropy moments & 12,000\\
+Noisy Nystr\"om estimates (four noise scales) & 4,800\\
+Hierarchical frame geometries & 5\\
+Selected-column anchor inequality & 1,500\\
+Fixed-query two-sided divergence identity & 120\\
+Parameter and constant inequalities & 11,760\\
+Oracle-level algorithm exercises & 13\\
+\bottomrule
+\end{tabular}
+\end{center}
+All checks in the recorded run passed. The largest observed hierarchical
+orthogonality defect was below $1.6\times10^{-15}$, and the fixed-query
+divergence identity discrepancies were below $7\times10^{-16}$.
+The inverse-moment and row-second-moment Monte Carlo relative discrepancies
+were approximately $0.0068$ and $0.0139$.
+
+These tests do not certify a worst-case probabilistic theorem. In particular,
+the fixed-query identity check does not test adaptivity, finite randomly
+sampled frames do not establish packing entropy, and Monte Carlo averages
+do not prove expectation inequalities. The adaptive posterior argument,
+small-ball packing, all-parameter extension, and the exact-arithmetic
+interpretation require mathematical review.
+
+The two-stage refinement is implemented separately in \texttt{two\_stage.py}.
+Its additional checks use 3,000 shared-regression second-moment trials and
+400 conditional proper-fit trials. The second-moment discrepancies are below
+1.8 recorded Monte Carlo standard errors. Twelve end-to-end cases check
+proper output and oracle accounting; 840 parameter triples check the stated
+constant inequalities. The actual two-stage path also recovers a diagonal
+$1024\times1024$ example in 230 queries, with relative error below
+$3.3\times10^{-16}$. These are experimental-width exact-instance checks,
+not evidence of a uniform practical accuracy guarantee at those widths.
+
+The separate known-space tests use 1,300 Gaussian trials and verify the
+expectation identity in Proposition~\ref{prop:jointfit} within the recorded
+Monte Carlo tolerances. They also recover a $128\times128$ known-space
+instance in 20 queries with relative error below $1.5\times10^{-15}$.
+Those tests supply spaces computed from explicit full matrices; this is not
+an additional general-oracle guarantee.
+
+A further audit checks 240 sketch-dependent nullspace witnesses and 90
+adaptively selected two-sided Gaussian histories, comprising 1,320 query
+steps. The largest discrepancy between the direct Gaussian posterior
+projector and its rectangular-span formula is below $4.8\times10^{-14}$.
+These finite-dimensional checks do not establish the conditional-independence
+claim for all measurable adaptive algorithms. Four extreme-accuracy input
+checks also exercise the $n$-query fallback through an opaque oracle, including
+the smallest positive IEEE double-precision value. The earlier package's
+verification suite was rerun without changing its source; its recorded checks
+also pass.
+
+For the algorithm, the small theorem-parameter examples use the exact
+$n$-query fallback. Separately, smaller experimental widths exercise actual
+peeling, including zero-tail inputs and nonzero perturbations. Their measured
+error ratios are reported without claiming $0.99$ relative-error guarantees.
+A diagonal $1024\times1024$ example is recovered in 260 queries to numerical
+precision; this is only a query-count and exact-instance exercise.
+
+Reproduce the checks from the package root with
+\begin{lstlisting}
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 \
+  python code/verify.py --output results/verification.json
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 \
+  python code/verify_two_stage.py --output results/two_stage.json
+\end{lstlisting}
+The earlier archive is retained unchanged under \texttt{prior/}. The
+appendix below incorporates its accuracy argument with only organizational
+changes and a uniform-extension conclusion. Both the new proofs and that
+earlier proof remain unreviewed.
+
+\clearpage
+\appendix
+\input{accuracy_appendix.tex}
+
+\begin{thebibliography}{9}
+\bibitem{re03}
+OpenProblemsInNLA. \emph{RE-03: Optimal matvec query complexity of HODLR
+approximation}. Problem entry, audit dated September 10, 2026.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/randomized-and-low-rank-approximation/RE-03}.
+Public statement checked September 13, 2026.
+
+\bibitem{chen}
+Tyler Chen, Feyza Duman Keles, Diana Halikias, Cameron Musco, Christopher Musco,
+and David Persson.
+\emph{Near-optimal hierarchical matrix approximation from matrix-vector
+products}. SODA 2025, pp.~2656--2692; arXiv:2407.04686v2, October 24, 2024.
+\url{https://arxiv.org/html/2407.04686v2}.
+Theorems 1.1--1.2, Sections 3--6 and 8.
+
+\bibitem{prior}
+\emph{Adaptive-query lower bounds for RE-03}.
+Earlier supplied unreviewed research note, 13 pages, in
+\texttt{prior/RE03\_partial\_results.zip} and
+\texttt{prior/RE03\_partial\_results.pdf}.
+The appendix reproduces its relevant lower-bound proof rather than treating
+it as an independently established external result.
+
+\bibitem{halko}
+Nathan Halko, Per-Gunnar Martinsson, and Joel A. Tropp.
+\emph{Finding structure with randomness: Probabilistic algorithms for
+constructing approximate matrix decompositions}.
+SIAM Review 53(2), 217--288, 2011; arXiv:0909.4061.
+\url{https://arxiv.org/abs/0909.4061}.
+Background on Gaussian range finding; the moment calculations used here are
+proved directly in the text.
+\end{thebibliography}
+\end{document}

@@ -7,9 +7,23 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because matching adaptive-query lower and upper bounds must cover depth and accuracy jointly; community impact is the cost of hierarchical matrix compression.  
-**Status:** Open  
+**Status:** Partially resolved  
 **Area:** information complexity of hierarchical matrix approximation  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-13  
+
+## Partial resolution — 13 September 2026
+
+Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) proves the following bounds in [Theorem 1.1 of the continuation manuscript](../../references/holden-re03-2026-09-13/submission/manuscript/re03_extended_results.pdf), for all original parameters and universal constants $`c,C>0`$:
+
+```math
+c\min\{n,kL/\varepsilon+k/\varepsilon^2\}
+\le q_*(n,k,\varepsilon)
+\le C\min\{n,kL^2/\varepsilon+kL/\varepsilon^2\}.
+```
+
+The upper bound is nonadaptive and returns a proper HODLR approximation with the original fixed-input success guarantee. Corollary 1.2 gives $`q_*=\Theta(n)`$ when $`\varepsilon\le\sqrt{k/n}`$. A separate [independent Codex AI-agent informal audit](../../references/holden-re03-2026-09-13/independent-review.md) passed these partial results, including the adaptive two-sided lower bounds. [Submission, verified affiliation, sources and reproduction limits](../../references/holden-re03-2026-09-13/README.md).
+
+**Still open:** determine the general joint rate up to universal constants. The uncapped upper expression is $`L`$ times the lower expression, so these results do not solve the full original target. The problem remains in the open count. The available five-case assembly smoke suite passed; the historical continuation verification suite is incomplete in the supplied archive. No Lean verification, external human peer review or historical novelty claim is asserted.
 
 ## Context and notation
 
