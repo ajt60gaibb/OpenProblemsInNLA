@@ -144,68 +144,43 @@ map} document the exact scope.
 \subsubsection{Checked declarations, versions and
 reproduction}\label{checked-declarations-versions-and-reproduction}
 
-The full original target is refuted by
-\textit{NLA.MF16.not\_wordUniquenessConjecture}. All checked
-declarations in namespace \textit{NLA.MF16} are listed below; their
-individual contracts and source correspondence are in the
-\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-16/lean/README.md}{proof
+The complete original target is refuted by
+\textit{NLA.MF16.not\_wordUniquenessConjecture}. All checked exports in
+namespace \textit{NLA.MF16} are: \textit{word\_semantics},
+\textit{source\_data}, \textit{twelfth\_power\_reduction},
+\textit{polynomial\_word\_equivalence}, \textit{krawczyk\_certificate},
+\textit{certified\_root}, \textit{root\_to\_matrix},
+\textit{counterexample}, \textit{not\_wordUniquenessConjecture}. Their
+individual contracts and original-target correspondence are itemized in
+the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-16/lean/README.md\#complete-target-and-actual-counterexample}{proof
 package}.
 
-\begin{itemize}
-\tightlist
-\item
-  \textit{word\_semantics}
-\item
-  \textit{source\_data}
-\item
-  \textit{twelfth\_power\_reduction}
-\item
-  \textit{polynomial\_word\_equivalence}
-\item
-  \textit{krawczyk\_certificate}
-\item
-  \textit{certified\_root}
-\item
-  \textit{root\_to\_matrix}
-\item
-  \textit{counterexample}
-\item
-  \textit{not\_wordUniquenessConjecture}
-\end{itemize}
+The actual checked toolchain is \textbf{Lean 4.33.1}. Exact dependency
+revisions are Mathlib \textit{0df444a360eaa60ab8c11dca51a86af692955474}
+and LeanCert \textit{621a43d7cf21f87872392a01e874f2f1dbddc926}; the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-16/lean/lake-manifest.json}{manifest}
+pins all ten dependencies. The successful run uses a fresh project with
+matching official Mathlib cache objects. It does not claim to rebuild
+every dependency from source.
 
-The exact checked versions are:
-
-\begin{itemize}
-\tightlist
-\item
-  Lean \textbf{4.33.1}.
-\item
-  Mathlib: \textit{0df444a360eaa60ab8c11dca51a86af692955474}.
-\item
-  LeanCert: \textit{621a43d7cf21f87872392a01e874f2f1dbddc926}.
-\end{itemize}
-
-The
-\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-16/lean/lake-manifest.json}{dependency
-manifest} pins all ten revisions. The successful run built the fresh
-project with matching official Mathlib cache objects; it does not claim
-to rebuild every dependency from source.
-
-Use a clean checkout of the immutable verified revision linked above and
-a non-root Linux host with the
+In a clean checkout of immutable revision
+\textit{4e24448897a088ca9e7458379add1014c5d11e0c}, use a non-root Linux
+host with the
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tools/lean/HARNESS.md}{documented
 sandbox prerequisites}. From the repository root:
 
-\begin{verbatim}
-tools/lean/bootstrap.sh /tmp/nla-mf16-check
-tools/lean/selftest.sh /tmp/nla-mf16-check
-tools/lean/verify.sh \
-  matrix-functions-and-stability/MF-16/lean \
-  /tmp/nla-mf16-check
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{tools/lean/bootstrap.sh}\NormalTok{ /tmp/nla{-}mf16{-}check}
+\ExtensionTok{tools/lean/selftest.sh}\NormalTok{ /tmp/nla{-}mf16{-}check}
+\ExtensionTok{tools/lean/verify.sh}\NormalTok{ matrix{-}functions{-}and{-}stability/MF{-}16/lean }\DataTypeTok{\textbackslash{}}
+\NormalTok{  /tmp/nla{-}mf16{-}check}
+\end{Highlighting}
+\end{Shaded}
 
 The verifier runs the actual controls, statement comparison,
-permitted-axiom checks and default-kernel replay. Its successful dated
+permitted-axiom checks and default-kernel replay; its dated successful
 logs are linked above. A local \textit{lake build Solution} is a
 separate development check.
 

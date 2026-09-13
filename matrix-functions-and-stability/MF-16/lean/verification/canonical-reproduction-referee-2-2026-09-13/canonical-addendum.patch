@@ -1,0 +1,54 @@
+diff --git a/matrix-functions-and-stability/MF-16/README.md b/matrix-functions-and-stability/MF-16/README.md
+index 1d61c68..bb3fb1f 100644
+--- a/matrix-functions-and-stability/MF-16/README.md
++++ b/matrix-functions-and-stability/MF-16/README.md
+@@ -4,7 +4,7 @@
+ **Difficulty:** challenging  
+ **Importance:** interesting to specialist  
+ **Rating rationale:** Challenging because uniqueness must hold for words of unbounded length despite higher-dimensional failures; specialist impact reflects the surviving two-letter, order-two setting.  
+-**Last checked:** 2026-09-12
++**Last checked:** 2026-09-13
+ 
+ **Status:** Lean verified
+ 
+@@ -31,6 +31,40 @@ A single rational box of radius $`10^{-7}`$ is certified by the actual LeanCert
+ 
+ Two independent statement approvals preceded proof work, and [two independent final mathematical reports](lean/README.md#review-and-checks-actually-performed) approved the frozen proof. The [actual Ubuntu run](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34735259429), at immutable revision [4e244488](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/4e24448897a088ca9e7458379add1014c5d11e0c/matrix-functions-and-stability/MF-16/lean), passed all 17 jobs. All nine exports matched without definition exceptions; default-kernel replay, 22 standard-three axiom reports and both real control suites passed as a non-root user. The [independent operational audit](lean/verification/linux-2026-09-12/OPERATIONAL-REVIEW.md) and [coordinator acceptance](lean/verification/root-operational-2026-09-12/ROOT-CHECKS.json) bind all 294 submitted inputs and the original logs/artifacts. Local Mac checks are separately identified. The [v0.4 manifest](lean/formalization.yaml), [numerical targets](lean/NUMERICAL_TARGETS.md) and [proof map](lean/verification/PROOF_MAP.md) document the exact scope.
+ 
++### Checked declarations, versions and reproduction
++
++The full original target is refuted by `NLA.MF16.not_wordUniquenessConjecture`. All checked declarations in namespace `NLA.MF16` are listed below; their individual contracts and source correspondence are in the [proof package](lean/README.md).
++
++- `word_semantics`
++- `source_data`
++- `twelfth_power_reduction`
++- `polynomial_word_equivalence`
++- `krawczyk_certificate`
++- `certified_root`
++- `root_to_matrix`
++- `counterexample`
++- `not_wordUniquenessConjecture`
++
++The exact checked versions are:
++
++- Lean **4.33.1**.
++- Mathlib: `0df444a360eaa60ab8c11dca51a86af692955474`.
++- LeanCert: `621a43d7cf21f87872392a01e874f2f1dbddc926`.
++
++The [dependency manifest](lean/lake-manifest.json) pins all ten revisions. The successful run built the fresh project with matching official Mathlib cache objects; it does not claim to rebuild every dependency from source.
++
++Use a clean checkout of the immutable verified revision linked above and a non-root Linux host with the [documented sandbox prerequisites](../../tools/lean/HARNESS.md). From the repository root:
++
++```
++tools/lean/bootstrap.sh /tmp/nla-mf16-check
++tools/lean/selftest.sh /tmp/nla-mf16-check
++tools/lean/verify.sh \
++  matrix-functions-and-stability/MF-16/lean \
++  /tmp/nla-mf16-check
++```
++
++The verifier runs the actual controls, statement comparison, permitted-axiom checks and default-kernel replay. Its successful dated logs are linked above. A local `lake build Solution` is a separate development check.
++
+ ## Problem statement
+ 
+ A word $`W(X,B)`$ is a finite product of letters from $`\{X,B\}`$. It is symmetric if its sequence of letters equals its reversal. Require at least one occurrence of $`X`$.

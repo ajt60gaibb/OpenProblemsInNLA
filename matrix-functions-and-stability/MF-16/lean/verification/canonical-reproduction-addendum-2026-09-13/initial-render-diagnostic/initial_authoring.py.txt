@@ -1,0 +1,38 @@
+from pathlib import Path
+from datetime import datetime,timezone
+import hashlib,json,subprocess,re,os
+CASES=[('MF-16','mf16','matrix-functions-and-stability','4e24448897a088ca9e7458379add1014c5d11e0c','NLA.MF16.not_wordUniquenessConjecture','## Problem statement'),('RA-08','ra08','randomized-and-low-rank-approximation','de6513d726e3f66d20730fdaef5ba99318ee7e8b','NLA.RA08.not_concaveSpectralTransferConjecture','Let $`n\\ge2`$')]
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();env=os.environ.copy();env['PANDOC']='/tmp/nla-submission-tools/pandoc-3.11-arm64/bin/pandoc';env['XELATEX']='/Library/TeX/texbin/xelatex'
+for ID,tree,cat,C,main,marker in CASES:
+ R=Path('/tmp/nla-lean-'+tree+'-worktree');E=R/cat/ID;P=E/'lean';D=P/'verification/canonical-reproduction-addendum-2026-09-13';assert not D.exists();D.mkdir();(D/'archive').mkdir()
+ before={}
+ for n in ['README.md','problem.tex','problem.pdf']:(D/'archive'/n).write_bytes((E/n).read_bytes());before[str((E/n).relative_to(R))]=sha(E/n)
+ prior={str(f.relative_to(P)):sha(f) for f in P.rglob('*') if f.is_file() and not f.is_relative_to(D)}
+ for f in P.rglob('*'):assert not f.is_symlink()
+ config=json.loads((P/'comparator.json').read_text());names=config['theorem_names'];assert names[-1]==main and len(names)==(9 if ID=='MF-16' else 14)
+ text=(E/'README.md').read_text();suffix=text[text.index(marker):];assert text.count(marker)==1
+ namespace=main.rsplit('.',1)[0];short=[n.removeprefix(namespace+'.') for n in names]
+ block='### Checked declarations, versions and reproduction\n\n'
+ block+='The complete original target is refuted by `'+main+'`. All checked exports in namespace `'+namespace+'` are: '+', '.join('`'+n+'`' for n in short)+'. Their individual contracts and original-target correspondence are itemized in the [proof package](lean/README.md#complete-target-and-'+('actual-counterexample' if ID=='MF-16' else 'counterexample')+').\n\n'
+ block+='The actual checked toolchain is **Lean 4.33.1**. Exact dependency revisions are Mathlib `0df444a360eaa60ab8c11dca51a86af692955474` and LeanCert `621a43d7cf21f87872392a01e874f2f1dbddc926`; the [manifest](lean/lake-manifest.json) pins all ten dependencies. The successful run uses a fresh project with matching official Mathlib cache objects. It does not claim to rebuild every dependency from source.\n\n'
+ block+='In a clean checkout of immutable revision `'+C+'`, use a non-root Linux host with the [documented sandbox prerequisites](../../tools/lean/HARNESS.md). From the repository root:\n\n```bash\n'
+ block+='tools/lean/bootstrap.sh /tmp/nla-'+tree+'-check\n'
+ block+='tools/lean/selftest.sh /tmp/nla-'+tree+'-check\n'
+ block+='tools/lean/verify.sh '+cat+'/'+ID+'/lean \\\n  /tmp/nla-'+tree+'-check\n```\n\n'
+ block+='The verifier runs the actual controls, statement comparison, permitted-axiom checks and default-kernel replay; its dated successful logs are linked above. A local `lake build Solution` is a separate development check.\n\n'
+ if ID=='RA-08':block+='## Problem statement\n\n'
+ text=text.replace(marker,block+marker,1)
+ if ID=='MF-16':text=text.replace('**Last checked:** 2026-09-12','**Last checked:** 2026-09-13',1)
+ assert text[text.index(marker):]==suffix
+ (E/'README.md').write_text(text)
+ checks=[]
+ for label,args in [('permanent-ids',['python3','tools/validate_problem_ids.py','--base-ref','origin/main']),('format',['python3','tools/format_math.py','--check']),('render',['python3','tools/render_problems.py',ID]),('diff-check',['git','diff','--check','HEAD'])]:
+  run=subprocess.run(args,cwd=R,env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT);(D/(label+'.log')).write_bytes(run.stdout);checks.append({'command':args,'exit_code':run.returncode,'log':label+'.log','log_sha256':sha(D/(label+'.log'))});assert run.returncode==0,(label,run.stdout.decode())
+ V=Path('/tmp/nla-lean-formalization/'+tree+'-reproduction-addendum-pages');V.mkdir(exist_ok=True);subprocess.run(['/opt/homebrew/bin/pdftoppm','-scale-to','1400','-png',str(E/'problem.pdf'),str(V/'page')],check=True)
+ pdftext=subprocess.check_output(['/opt/homebrew/bin/pdftotext','-layout',str(E/'problem.pdf'),'-']);(D/'pdf-text.txt').write_bytes(pdftext)
+ for r,h in prior.items():assert sha(P/r)==h,r
+ after={r:sha(R/r) for r in before}
+ original_pub=P/('verification/publication-2026-09-12' if ID=='MF-16' else 'verification/publication-2026-09-13');initial=json.loads((original_pub/'INTEGRITY-CHECKS.json').read_text())['publication_files'];current={r:sha(R/r) for r in initial}
+ assert {r for r in current if current[r]!=initial[r]}==set(before)
+ record={'utc':datetime.now(timezone.utc).isoformat(),'problem':ID,'reason':'CONTRIBUTING.md requires canonical exact theorem names, pinned toolchain/dependencies and reproduction commands directly; previous canonical text linked this information indirectly. Add it directly without any mathematical or project wrapper change.','candidate':C,'initial_publication_files':initial,'current_publication_files':current,'before_canonical_files':before,'after_canonical_files':after,'original_target_suffix_sha256':hashlib.sha256(suffix.encode()).hexdigest(),'original_target_suffix_unchanged':True,'all_existing_project_files_preserved':prior,'proof_or_statement_or_manifest_edits':False,'checked_names':names,'checks':checks,'pdf_images':{str(f):sha(f) for f in sorted(V.glob('*.png'))},'visual_review':'pending actual root and independent display','independent_addendum_review':'pending; initial reviews alone do not approve this amendment','marker_note':'Same publication operation as already recorded markers; no new marker or earlier timing claim.'}
+ (D/'ADDENDUM.json').write_text(json.dumps(record,indent=2)+'\n');(D/'prepare.py').write_bytes(Path(__file__).read_bytes());print(json.dumps({'problem':ID,'pages':list(record['pdf_images']),'pdf':sha(E/'problem.pdf'),'tex':sha(E/'problem.tex'),'existing_project_files_preserved':len(prior)},indent=2),flush=True)

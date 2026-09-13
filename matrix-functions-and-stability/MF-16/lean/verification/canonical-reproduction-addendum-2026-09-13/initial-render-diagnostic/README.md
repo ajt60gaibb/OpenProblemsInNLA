@@ -33,37 +33,20 @@ Two independent statement approvals preceded proof work, and [two independent fi
 
 ### Checked declarations, versions and reproduction
 
-The full original target is refuted by `NLA.MF16.not_wordUniquenessConjecture`. All checked declarations in namespace `NLA.MF16` are listed below; their individual contracts and source correspondence are in the [proof package](lean/README.md).
+The complete original target is refuted by `NLA.MF16.not_wordUniquenessConjecture`. All checked exports in namespace `NLA.MF16` are: `word_semantics`, `source_data`, `twelfth_power_reduction`, `polynomial_word_equivalence`, `krawczyk_certificate`, `certified_root`, `root_to_matrix`, `counterexample`, `not_wordUniquenessConjecture`. Their individual contracts and original-target correspondence are itemized in the [proof package](lean/README.md#complete-target-and-actual-counterexample).
 
-- `word_semantics`
-- `source_data`
-- `twelfth_power_reduction`
-- `polynomial_word_equivalence`
-- `krawczyk_certificate`
-- `certified_root`
-- `root_to_matrix`
-- `counterexample`
-- `not_wordUniquenessConjecture`
+The actual checked toolchain is **Lean 4.33.1**. Exact dependency revisions are Mathlib `0df444a360eaa60ab8c11dca51a86af692955474` and LeanCert `621a43d7cf21f87872392a01e874f2f1dbddc926`; the [manifest](lean/lake-manifest.json) pins all ten dependencies. The successful run uses a fresh project with matching official Mathlib cache objects. It does not claim to rebuild every dependency from source.
 
-The exact checked versions are:
+In a clean checkout of immutable revision `4e24448897a088ca9e7458379add1014c5d11e0c`, use a non-root Linux host with the [documented sandbox prerequisites](../../tools/lean/HARNESS.md). From the repository root:
 
-- Lean **4.33.1**.
-- Mathlib: `0df444a360eaa60ab8c11dca51a86af692955474`.
-- LeanCert: `621a43d7cf21f87872392a01e874f2f1dbddc926`.
-
-The [dependency manifest](lean/lake-manifest.json) pins all ten revisions. The successful run built the fresh project with matching official Mathlib cache objects; it does not claim to rebuild every dependency from source.
-
-Use a clean checkout of the immutable verified revision linked above and a non-root Linux host with the [documented sandbox prerequisites](../../tools/lean/HARNESS.md). From the repository root:
-
-```
+```bash
 tools/lean/bootstrap.sh /tmp/nla-mf16-check
 tools/lean/selftest.sh /tmp/nla-mf16-check
-tools/lean/verify.sh \
-  matrix-functions-and-stability/MF-16/lean \
+tools/lean/verify.sh matrix-functions-and-stability/MF-16/lean \
   /tmp/nla-mf16-check
 ```
 
-The verifier runs the actual controls, statement comparison, permitted-axiom checks and default-kernel replay. Its successful dated logs are linked above. A local `lake build Solution` is a separate development check.
+The verifier runs the actual controls, statement comparison, permitted-axiom checks and default-kernel replay; its dated successful logs are linked above. A local `lake build Solution` is a separate development check.
 
 ## Problem statement
 
