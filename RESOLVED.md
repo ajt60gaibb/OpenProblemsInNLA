@@ -19,6 +19,10 @@ None of these statuses is counted as open. A partial result leaves the
 surviving target in the open catalog with **🟡 PARTIAL**, even if that partial
 result is formalized in Lean.
 
+## RA-17 — topological continuation (13 September 2026)
+
+**Partially resolved; still counted as open.** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation, gives exact criteria for continuous odd-map and abstract bundle-frame relaxations, with arithmetic checks and explicit integer measurements. These relaxations do not settle the original linear measurement classification. The submitted intervals at (6,1) and (10,1) remain undecided. [Retained target and scope](randomized-and-low-rank-approximation/RA-17/README.md) · [Manuscript and verified affiliation](references/holden-ra17-continuation-2026-09-13/SUBMISSION.md) · [Independent informal AI-agent audit](references/holden-ra17-continuation-2026-09-13/independent-review.md). No Lean verification was performed.
+
 ## Resolved catalog entries
 
 ### KE-02, SP-08 and SP-09 — spectral partial results — Sidney Holden

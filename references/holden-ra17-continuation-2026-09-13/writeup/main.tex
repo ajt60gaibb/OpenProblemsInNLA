@@ -1,0 +1,622 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs,longtable}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,graphicx}
+\emergencystretch=2em
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyvrb}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}\newcommand{\C}{\mathbb C}\newcommand{\Q}{\mathbb Q}
+\newcommand{\Z}{\mathbb Z}\newcommand{\F}{\mathbb F_2}
+\newcommand{\eps}{\varepsilon}\newcommand{\Gr}{\operatorname{Gr}}
+\newcommand{\rank}{\operatorname{rank}}\newcommand{\ch}{\operatorname{ch}}
+\newcommand{\Span}{\operatorname{span}}\newcommand{\ind}{\operatorname{ind}}
+\newcommand{\sgn}{\operatorname{sgn}}\newcommand{\sq}{\operatorname{popcount}}
+\newcommand{\fnref}[1]{\footnote{See source \cite{#1}.}}
+\title{RA-17: Linear Recovery and Its Topological Relaxation}
+\author{Sidney Holden\\{\small Center for Computational Biology}\\{\small Flatiron Institute, Simons Foundation}}\date{13 September 2026}
+\begin{document}\maketitle
+\noindent\textit{Submitted edition: the partial results passed a separate informal Codex AI-agent audit on 13 September 2026; see the accompanying independent-review.md. This is not external human peer review or formal verification.}
+
+\begin{abstract}
+This is a continuation of the two preceding RA-17 proof packages, not a complete
+classification of the minimum number of linear measurements. The main additional
+result is an exact solution of a topological relaxation: one measurement below the
+complex generic count, a continuous odd nonvanishing map exists if and only if the
+complex determinantal degree is even. The corresponding evaluation bundle also
+admits the required number of independent sections exactly in the even-degree case.
+These statements explain a genuine limit of the earlier bundle strategy, rather
+than an unevaluated characteristic number. A direct rank-one index calculation
+recovers the lower bound of nineteen measurements in dimension six and shows
+precisely why it does not exclude nineteen. Integer measurement constructions,
+rational arithmetic checks, and a separately labelled audit of the interrupted
+small-pencil calculation accompany the proofs. The existence or impossibility of
+a seventeen-dimensional real $6\times6$ minimum-rank-three pencil remains
+undetermined here. Consequently the overall status is \textbf{PARTIAL}.
+\end{abstract}
+\tableofcontents
+
+\section{The exact target and the scope of this continuation}
+For integers $1\le r$ and $2r<d$, write $\mu_\R(d,r)$ for the smallest $m$ for
+which a linear map
+\[
+\mathcal A:M_d(\R)\longrightarrow\R^m
+\]
+is injective on all matrices of rank at most $r$. This is the all-parameter
+classification requested by RA-17.\fnref{ra17} Define
+\[
+ k=2r,\qquad c=d-k,\qquad m_0=d^2-c^2=4r(d-r),\qquad n=m_0-1.
+\]
+The dimension $n$ is odd. The complex projective variety of matrices of rank at
+most $k$ has dimension $n$ and degree
+\begin{equation}\label{degree}
+ D_{d,r}=\prod_{i=0}^{c-1}
+ \frac{(d+i)!\,i!}{(k+i)!\,(c+i)!}.
+\end{equation}
+This is the standard square determinantal degree; it is also used in the real
+recovery literature.\fnref{xu}
+
+The distinction between three questions is essential. The first asks for a
+\emph{linear} $\mathcal A$ that does not vanish at any nonzero rank-at-most-$k$
+matrix. The second asks for a continuous odd nonvanishing map on the same unit
+link. The third asks whether the evaluation bundle has a specified number of
+independent sections. A positive answer to the first implies the other two.
+Neither converse is proved here. In particular, arbitrary sections of an
+evaluation bundle need not be restrictions of a fixed space of constant matrices.
+
+The preceding package gives, among other results, the intervals
+\[
+19\le\mu_\R(6,1)\le20,\qquad
+35\le\mu_\R(10,1)\le36.
+\]
+The present argument independently checks the first lower bound in a short
+specialized calculation. It does not improve these intervals. The earlier
+archives are retained unchanged as provenance; retaining them does not mean that
+every earlier topological argument has been independently formalized or
+peer-reviewed. No claim of historical priority is made for the results below.
+
+\section{Linear kernels and integer upper-bound constructions}
+\begin{lemma}[Kernel criterion]\label{kernel}
+Let $K=\ker\mathcal A$. Uniform injectivity on rank-at-most-$r$ matrices is
+equivalent to
+\[
+ A\in K\setminus\{0\}\quad\Longrightarrow\quad\rank A\ge k+1.
+\]
+Consequently, if $\kappa(d,r)$ is the maximum dimension of such a real linear
+space, then $\mu_\R(d,r)=d^2-\kappa(d,r)$.
+\end{lemma}
+\begin{proof}
+Rank subadditivity puts every difference of two rank-at-most-$r$ matrices in the
+rank-at-most-$2r$ set. Conversely, express a rank-$\ell$ matrix, $\ell\le2r$,
+as a sum of $\ell$ rank-one matrices, split the summands into two groups of size
+at most $r$, and put a minus sign into the second group. This expresses the
+matrix as the difference of two admissible signals. A nonzero such matrix in the
+kernel is therefore exactly a collision. Redundant measurement rows can be
+removed, and a basis of the orthogonal complement of any admissible kernel
+supplies $d^2-\dim K$ measurements.
+\end{proof}
+
+\begin{proposition}[Explicit integer measurements]\label{anti}
+For every admissible $(d,r)$, there is an integer-valued measurement system with
+$m_0=4r(d-r)$ independent rows satisfying Lemma~\ref{kernel}.
+\end{proposition}
+\begin{proof}
+Treat each anti-diagonal separately. If its length is $\ell$, enumerate its
+entries by $j=1,\ldots,\ell$ and measure their moments
+\[
+ \sum_{j=1}^{\ell}j^a X_j,
+ \qquad a=0,\ldots,\min(k,\ell)-1.
+\]
+The Vandermonde matrix has full row rank. If a vector in its kernel had at most
+$k$ nonzero coordinates, the corresponding Vandermonde columns would be
+independent, so that vector would be zero. Thus a nonzero kernel vector on an
+anti-diagonal has at least $k+1$ nonzero entries.
+
+Take the first nonzero anti-diagonal of a nonzero full kernel matrix and select
+$k+1$ nonzero positions. In increasing row order and decreasing column order,
+the resulting square submatrix is triangular: entries on one side of its
+selected diagonal belong to earlier, zero anti-diagonals. Its determinant is,
+up to sign, the product of the selected nonzero entries. Hence the matrix has
+rank at least $k+1$. Finally,
+\[
+ \dim K=\sum_{\text{anti-diagonals}}\max(\ell-k,0)=(d-k)^2=c^2.
+\]
+The measurements have disjoint anti-diagonal supports, so their full row rank
+follows from the rank of the individual Vandermonde blocks.
+\end{proof}
+
+The exported file \path{data/antidiagonal_6_1.json} contains twenty explicit
+integer measurement rows and a rational basis of their sixteen-dimensional
+kernel. This is the certified upper endpoint, not a claimed nineteen-measurement
+construction. Other exported examples use exactly the same proof.
+
+\begin{proposition}[Odd degree gives the exact generic count]\label{oddexact}
+If $D_{d,r}$ is odd, then $\mu_\R(d,r)=m_0$.
+\end{proposition}
+\begin{proof}
+Suppose a kernel of dimension at least $c^2+1$ avoided the real rank-at-most-$k$
+cone. Restrict to a $(c^2+1)$-dimensional subspace. Avoidance is open on the real
+Grassmannian: the unit rank-at-most-$k$ link is compact, and its distance from
+the projectivized kernel is positive. A sufficiently small generic real
+perturbation would therefore still avoid real points. But its complex
+projectivization meets the complex determinantal variety transversely in
+$D_{d,r}$ points. Nonreal points occur in conjugate pairs; odd degree forces a
+real point. This is a contradiction. Proposition~\ref{anti} supplies equality.
+\end{proof}
+
+\section{An exact solution of the continuous odd relaxation}
+Let
+\[
+ X=\{[A]\in\mathbb{RP}^{d^2-1}:\rank A\le k\},\qquad
+ Z=\{A:\rank A\le k,\ \|A\|_F=1\}.
+\]
+Let $\lambda$ be the tautological real line bundle on $X$, and write
+$a=w_1(\lambda)$. The map $Z\to X$ is its two-sheeted sphere bundle.
+
+\begin{theorem}[Critical continuous relaxation]\label{continuous}
+There exists a continuous map
+\[
+ f:Z\longrightarrow S^{n-1},\qquad f(-A)=-f(A),
+\]
+if and only if $D_{d,r}$ is even. Equivalently, the bundle $n\lambda$ over $X$
+has a nowhere-zero section if and only if $D_{d,r}$ is even.
+\end{theorem}
+This assertion is at the critical count $n=m_0-1$. It does not purport to find
+the smallest count for the continuous relaxation, and it does not assert that
+$f$ is the normalization of a linear map.
+
+\subsection{Orientability and the top local-coefficient group}
+\begin{lemma}\label{orient}
+The smooth rank-$k$ stratum $U\subset X$ is connected and orientable. The
+restriction of $\lambda$ to $U$ has nontrivial sign monodromy. If
+$\Z_\lambda$ denotes the corresponding sign local system, then
+\[
+ H^n(X;\Z_\lambda)\cong\Z/2,
+ \qquad H^n(X;\F)\cong\F,
+\]
+and reduction modulo two between these top cohomology groups is an isomorphism.
+\end{lemma}
+\begin{proof}
+Let $G=\Gr_k(\R^d)$ and let $S$ be its tautological rank-$k$ bundle. The
+projective bundle
+\[
+ \pi:P(dS)\longrightarrow G
+\]
+resolves $X$ by recording the image plane of a matrix. It is a diffeomorphism
+over $U$. Put $u=w_1(S)$ and $h=w_1(\lambda)$ on this projective bundle. The
+standard tangent-bundle formulas give
+\[
+ w_1(TG)=d u,\quad w_1(dS)=d u,\quad
+ w_1\bigl(TP(dS)\bigr)=dk\,h+\pi^*(d u+d u)=0.
+\]
+Here $dk$ is even because $k=2r$. Thus the resolution, and its open subset
+$U$, are orientable. These formulas follow from
+$TG\cong\operatorname{Hom}(S,S^\perp)$ and
+$T_{\mathrm{vert}}P(E)\oplus\eps\cong\lambda^*\otimes\pi^*E$.\fnref{ms}
+
+The full-rank $k\times d$ matrices form a connected space when $k<d$:
+orthonormal row frames are connected in this range, and the positive-definite
+factor in a polar decomposition is connected. Together with connectedness of
+$G$, this proves connectedness of $U$. Since $k$ is even, $-I_k\in SO(k)$ can
+be joined to $I_k$ by a path. Applying that path on the image of a fixed
+rank-$k$ matrix joins $A$ to $-A$ without reducing the rank. Projectivization
+produces a loop on which $\lambda$ reverses sign.
+
+The singular subset $Y=X\setminus U$ has codimension
+\[
+ \dim X-\dim Y=2(d-k)+1=2c+1\ge3.
+\]
+Compact semialgebraic sets admit finite triangulations.\fnref{bcr} The long
+exact sequence for $(X,Y)$ therefore identifies top cohomology of $X$ with
+compactly supported top cohomology of $U$, with either coefficient system.
+Poincare duality on the connected orientable manifold $U$ gives
+\[
+ H_c^n(U;\Z_\lambda)\cong H_0(U;\Z_\lambda)=\Z/2.
+\]
+The last equality is the coinvariant calculation: transport around the loop
+above imposes $v=-v$. With mod-two coefficients the result is $\F$.
+The coefficient sequence
+$0\to\Z_\lambda\xrightarrow{2}\Z_\lambda\to\F\to0$ now shows that
+reduction in degree $n$ is an isomorphism; multiplication by two is zero and
+there is no cohomology above dimension $n$.
+\end{proof}
+
+\subsection{The Euler obstruction and degree parity}
+\begin{proof}[Proof of Theorem~\ref{continuous}]
+A nowhere-zero section of the rank-$n$ bundle $n\lambda$ is a section of its
+sphere bundle with fiber $S^{n-1}$. Since $X$ is an $n$-dimensional finite CW
+space and $S^{n-1}$ is $(n-2)$-connected, its only obstruction is the Euler
+class in degree $n$. This is obstruction theory for vector-bundle sections,
+with the orientation local system included.\fnref{hatcher}
+
+Because $n$ is odd, that orientation system is $\Z_\lambda$. The Euler class
+reduces to
+\[
+ w_n(n\lambda)=a^n.
+\]
+By Lemma~\ref{orient}, the Euler class is zero exactly when $a^n$ is zero.
+Intersecting $X$ with $n$ generic real projective hyperplanes computes the
+pairing of $a^n$ with its mod-two fundamental class. The intersection avoids
+$Y$ and is transverse. Its complexification consists of $D_{d,r}$ points,
+so its real cardinality is congruent to $D_{d,r}$ modulo two. Since top
+mod-two cohomology is one-dimensional, $a^n=0$ exactly when $D_{d,r}$ is even.
+
+Finally a section of $n\lambda$ pulls back to $Z$ in the form
+$f(A)\otimes A$. Independence of the choice of $A$ or $-A$ is precisely
+$f(-A)=-f(A)$. A nowhere-zero section can be normalized to have $\|f(A)\|=1$.
+This proves both equivalences.
+\end{proof}
+
+\begin{corollary}[Polynomial, but not necessarily linear, realization]\label{poly}
+When $D_{d,r}$ is even, there exist $n$ rational homogeneous polynomials of one
+common odd degree with no common nonzero zero on the rank-at-most-$k$ cone.
+No bound of one on that degree is asserted.
+\end{corollary}
+\begin{proof}
+Approximate the coordinates of the map in Theorem~\ref{continuous} uniformly
+on compact $Z$ by polynomial restrictions. Polynomials separate points, so
+Stone--Weierstrass applies. Replace a polynomial $p(A)$ by
+$(p(A)-p(-A))/2$ to make it odd without losing uniform accuracy. Approximate
+the finitely many coefficients by rationals. Accuracy less than half the
+original nonvanishing margin preserves nonvanishing.
+
+All surviving monomials have odd total degree. Choose a common odd degree
+$q$ at least as large as every degree present. Multiply each monomial of degree
+$j$ by $(\sum A_{uv}^2)^{(q-j)/2}$. This leaves its value unchanged on $Z$
+and makes the whole family homogeneous of degree $q$. Homogeneity extends
+nonvanishing from $Z$ to the nonzero cone.
+\end{proof}
+
+The distinction from RA-17 is not cosmetic. These polynomials need not be
+linear, and in general $P(X)-P(Y)\ne P(X-Y)$. The kernel/difference argument
+in Lemma~\ref{kernel} cannot be transferred to such a nonlinear family.
+
+\section{The evaluation-bundle relaxation has the same critical criterion}
+Put $B=\Gr_c(\R^d)$, let $Q$ be its tautological rank-$c$ bundle, and put
+\[
+ E=dQ,\qquad N=dc,\qquad b=\dim B=kc,
+ \qquad q=c^2+1=N-b+1.
+\]
+An admissible $q$-dimensional matrix space would give $q$ independent sections
+of $E$ by restricting matrices to the planes represented by $Q$. If a
+restriction vanished, the matrix would factor through a $k$-dimensional
+quotient and have rank at most $k$.
+
+\begin{theorem}[Exact critical frame criterion]\label{frames}
+The bundle $E=dQ$ has $c^2+1$ pointwise independent continuous sections if and
+only if $D_{d,r}$ is even. Equivalently, in the even-degree case there exists a
+real bundle $\eta$ of rank $b-1$ such that
+\[
+ \eps^{c^2+1}\oplus\eta\cong dQ.
+\]
+\end{theorem}
+\begin{proof}
+Here $b=kc$ is even and $q\ge2$. The Stiefel manifold $V_{N,q}$ is
+$(b-2)$-connected, and its first nonzero homotopy group is
+\[
+ \pi_{b-1}(V_{N,q})\cong\Z/2.
+\]
+For completeness, fix the first $q-2$ frame vectors. The fiber is
+$V_{b+1,2}$, and the base $V_{N,q-2}$ is $b$-connected, so the relevant
+homotopy group is unchanged. The two-frame manifold $V_{b+1,2}$ is the unit
+tangent sphere bundle of $S^b$. In its homotopy sequence, the boundary
+$\pi_b(S^b)\to\pi_{b-1}(S^{b-1})$ is multiplication by the Euler number
+$\chi(S^b)=2$. Its cokernel is $\Z/2$. The case $q=2$ uses this last
+calculation directly.
+
+Since the base has dimension $b$, there is only this first obstruction to a
+$q$-frame. It is the class $w_b(E)$, with untwisted mod-two coefficients.
+There are no higher obstructions on this base. This is the usual
+obstruction-theoretic definition of the relevant Stiefel--Whitney class.
+
+To evaluate $w_b(E)$, take $q$ generic constant matrices and their restriction
+sections. A linear dependence at a $c$-plane means that a nonzero member of
+the matrix pencil annihilates that plane. Generically such a member has rank
+exactly $k$ and has a unique $c$-dimensional nullspace. The degeneracy points
+therefore correspond exactly to the finite projective intersection with the
+rank-at-most-$k$ variety. The parity of their count is $D_{d,r}$. Top
+mod-two cohomology of the connected closed manifold $B$ is $\F$, proving
+that $w_b(E)$ vanishes exactly in the even-degree case. A frame has an
+orthogonal complement, giving the asserted bundle decomposition.
+\end{proof}
+
+\begin{corollary}[A precise limit of bundle-only arguments]\label{limit}
+When $D_{d,r}$ is even, no contradiction to the abstract decomposition
+\[
+ \eps^{c^2+1}\oplus\eta\cong dQ
+\]
+can rule out the critical kernel dimension $c^2+1$: such a decomposition
+actually exists. In particular, characteristic classes or indices derived
+only from that decomposition cannot exclude it.
+\end{corollary}
+This does not say that all topological arguments about the original linear
+problem are exhausted. An argument using extra compatibility of constant
+matrix sections, or extra geometry beyond this bundle relation, would be a
+different argument. It says exactly which relaxation has already become
+feasible.
+
+\section{A direct rank-one index calculation}
+This section specializes and independently rederives part of the earlier
+index obstruction. It uses the same kernel-to-bundle principle, not a new
+construction. Write $d=2\ell\ge4$, $r=1$, and set
+\[
+ h=\sq(\ell-1),\qquad c=d-2.
+\]
+
+\begin{theorem}[Rank-one index bound]\label{rankone}
+For even $d\ge4$,
+\begin{equation}\label{rankonebound}
+ \mu_\R(d,1)\ \ge\ 4d-4-2h+(h\bmod2).
+\end{equation}
+In particular, for $d=2^s+2$ with $s\ge1$, the bound is $4d-5$.
+\end{theorem}
+
+\subsection{The relevant characteristic number}
+Work over $G=\Gr_2(\R^d)$, with tautological $S$ and complementary $Q$.
+An admissible kernel of dimension $\kappa=c^2+j$ forces
+\[
+ \eps^{\kappa}\oplus\eta\cong dQ,
+ \qquad t:=\rank\eta=2(d-2)-j.
+\]
+The rational cohomology ring is
+\[
+ H^*(G;\Q)=\Q[p]/(p^\ell),\qquad |p|=4,
+ \qquad p=p_1(S),\qquad \int_G p^{\ell-1}=1
+\]
+for a suitable orientation. The rational ring is the even/even unoriented
+Grassmannian presentation.\fnref{carlson} For the normalization, the oriented
+two-plane cover identifies with the complex quadric of dimension $d-2$;
+the Euler class of the oriented two-plane bundle is, up to sign, its
+hyperplane class. The top hyperplane number of a quadric is two, and the
+cover has degree two.
+
+Both $TG$ and $\eta$ are orientable and admit $\operatorname{Spin}^c$
+structures whose determinant classes are torsion. Indeed, if
+$u=w_1(S)=w_1(Q)$, then
+\[
+ w_2(TG)=(\ell-1)u^2,
+ \qquad w_2(\eta)=\ell u^2.
+\]
+The integral Bockstein $\beta(u)$ reduces modulo two to $u^2$ and is
+2-torsion, so it supplies the required integral lifts. Thus the
+$\operatorname{Spin}^c$ index theorem applies, with rational determinant
+factors equal to one.\fnref{lm}
+
+Introduce the formal Euler root $z$ of $S$, so $p=z^2$. Stable identities give
+\[
+ TG\oplus(S\otimes S)\cong dS,\qquad Q\oplus S\cong\eps^d.
+\]
+The normalized spinor Chern character of $\eta$ is therefore
+$\cosh(z/2)^{-d}$, while
+\[
+ \widehat A(TG)=
+ \left(\frac{z/2}{\sinh(z/2)}\right)^d\frac{\sinh z}{z}.
+\]
+Multiplying gives $(z/\sinh z)^{d-1}$. The absolute value of the total
+spinor index is consequently
+\begin{equation}\label{indexformula}
+ |I|=2^{\lfloor t/2\rfloor-(d-2)}
+ \binom{d-2}{(d-2)/2}
+ =\frac{\binom{d-2}{(d-2)/2}}{2^{\lceil j/2\rceil}}.
+\end{equation}
+No assumption that $G$ is spin, rather than merely $\operatorname{Spin}^c$,
+is needed in this computation.
+
+Here is a direct coefficient verification. Formal change of variables
+$v=\sinh z$ yields
+\begin{align*}
+ [z^{d-2}]\left(\frac z{\sinh z}\right)^{d-1}
+ &=\operatorname*{Res}_{z=0}\frac{dz}{(\sinh z)^{d-1}}\\
+ &=[v^{d-2}](1+v^2)^{-1/2}
+ =(-1)^{(d-2)/2}\frac{\binom{d-2}{(d-2)/2}}{2^{d-2}}.
+\end{align*}
+This derivation avoids an unevaluated localization sum.
+
+\subsection{Integrality and the half-spin refinement}
+The 2-adic valuation of the central binomial coefficient in
+\eqref{indexformula} is $h=\sq(\ell-1)$, by the factorial valuation formula.
+If $h$ is even, taking $j=2h+1$ makes the total index a noninteger. Such a
+kernel is impossible.
+
+If $h$ is odd, instead take $j=2h$. Then $t\equiv2\pmod4$. The Euler class
+of $\eta$ vanishes rationally because $H^*(G;\Q)$ is concentrated in degrees
+divisible by four. The two half-spinor Chern characters therefore coincide
+rationally. Each half-index must equal $I/2$, but
+\[
+ |I/2|=\frac{\binom{d-2}{(d-2)/2}}{2^{h+1}}
+\]
+is a noninteger. Again the proposed kernel is impossible. A larger admissible
+kernel would contain the forbidden smaller-dimensional one. The maximum
+possible excess $j$ is therefore at most $2h-(h\bmod2)$, proving
+Theorem~\ref{rankone}.
+
+\subsection{The six-dimensional gap, explicitly}
+For $d=6$, $G=\Gr_2(\R^6)$ has
+\[
+ H^*(G;\Q)=\Q[p]/(p^3),\qquad \int_Gp^2=1.
+\]
+A hypothetical eighteen-dimensional minimum-rank-three kernel would yield
+an oriented rank-six $\eta$ with
+\[
+ p_1(\eta)=-6p,\qquad p_2(\eta)=21p^2.
+\]
+One also has $p_1(TG)=2p$, $p_2(TG)=7p^2$, and hence
+\[
+ \widehat A(TG)=1-\frac{p}{12}.
+\]
+The rational Euler class of $\eta$ is zero. Its half-spinor character is
+\[
+ \ch(\Delta^+\eta)=4-3p+\frac54p^2.
+\]
+The twisted Dirac index would therefore be
+\[
+ \int_G\left(1-\frac p{12}\right)
+ \left(4-3p+\frac54p^2\right)=\frac32,
+\]
+which is impossible. This proves $\kappa(6,1)\le17$ and
+$\mu_\R(6,1)\ge19$.
+
+For a seventeen-dimensional kernel, the complement instead has rank seven.
+The total spinor character is $8-6p+\tfrac52p^2$, giving index $3$, an
+integer. More strongly,
+\[
+ D_{6,1}=1764
+\]
+is even, so Theorem~\ref{frames} proves that a rank-seven complement with
+$\eps^{17}\oplus\eta\cong6Q$ actually exists. There is no missing
+bundle-only nonexistence theorem at this endpoint. What remains missing is
+a \emph{linear} seventeen-dimensional pencil, or an obstruction using more
+than this abstract bundle decomposition.
+
+\section{Exact algebraic certificates and the interrupted pencil}
+An algebraic candidate must be distinguished from a verified construction.
+The accompanying scripts use two exact acceptance mechanisms. Numerical
+optimization is permitted only as a way of proposing rational data; it is
+never itself an acceptance test.
+
+\subsection{Positive Gram forms in the minor ideal}
+Suppose $A(x)=\sum_{j=0}^{q-1}x_jB_j$ is a rational pencil, and $f_i(x)$
+are all its $(k+1)$-minors. A certificate consists of rational polynomials
+$h_i$, a vector $z(x)$ of all monomials of some positive degree, and a rational
+symmetric positive-definite matrix $H$ satisfying
+\begin{equation}\label{sos}
+ z(x)^THz(x)=\sum_i h_i(x)f_i(x).
+\end{equation}
+If all $f_i(x)$ vanished at a nonzero real $x$, the right side would be zero,
+but the left side would be positive: $z(x)\ne0$ because it includes pure
+powers of each coordinate. Thus the pencil is admissible. Identity
+\eqref{sos} is checked coefficient by coefficient over $\Q$; positive
+definiteness is checked by exact rational Schur-complement pivots.
+
+The search script first solves a semidefinite feasibility problem, then
+rounds free entries to rationals and solves the linear coefficient constraints
+exactly for the remaining entries. It rejects the proposal unless both exact
+checks pass. An infeasible numerical solve or a timeout is labelled
+inconclusive, not a counterexample to the pencil.
+
+\subsection{Projective charts and Hermite trace forms}
+An alternative verification covers projective parameter space by the disjoint
+charts
+\[
+ x_0=\cdots=x_{i-1}=0,\qquad x_i=1,
+ \qquad i=0,\ldots,q-1.
+\]
+This explicitly includes every projective point, so no hyperplane at infinity
+is omitted. On a chart with zero-dimensional rational minor ideal $I$, let
+$T=\Q[x]/I$ and form the trace pairing
+\[
+ H_T(u,v)=\operatorname{Tr}(M_{uv}),
+\]
+where $M$ denotes multiplication on the finite-dimensional algebra.
+Its signature is the number of distinct real points of the chart. Indeed,
+each real local factor contributes one positive direction, each conjugate
+complex pair contributes one positive and one negative direction, and the
+nilradical contributes only zero directions. Local multiplicities multiply
+the nonzero trace forms by positive integers and do not change this signature.
+Thus signature zero proves real emptiness. A unit ideal also proves emptiness;
+a positive-dimensional complex ideal is reported as inconclusive by this
+particular checker.
+
+\input{pencil_audit.tex}
+
+\section{What remains to solve RA-17}
+The exact linear classification has not been obtained. In particular, neither
+of the following alternatives has been established for the first retained gap:
+\begin{equation}\label{missing}
+ \begin{gathered}
+ \text{Construct a seventeen-dimensional }K\subset M_6(\R)\\
+ \text{whose every nonzero member has rank at least three,}\\
+ \text{or prove that no such linear space exists.}
+ \end{gathered}
+\end{equation}
+The first would give $\mu_\R(6,1)=19$; the second, together with
+Proposition~\ref{anti}, would give $\mu_\R(6,1)=20$.
+
+Theorems~\ref{continuous} and \ref{frames} solve specific relaxations, not
+\eqref{missing}. At this endpoint they exclude a proposed strategy: merely
+strengthening the characteristic-class or index calculation for the same
+abstract complement cannot prove nonexistence, because the complement exists.
+They do not exclude a strategy based on linearity, simultaneous compatibility
+of evaluations, real algebraic geometry, or a direct certified construction.
+
+There are other retained gaps as well. The preceding report records
+$35\le\mu_\R(10,1)\le36$, and corank-one intervals at $(32,15)$ and $(64,31)$.
+This continuation does not close those intervals or independently re-prove all
+of their endpoints. A complete answer requires exact values for every
+admissible pair, not only a larger finite table or a decision procedure for
+one fixed pair. No claim of complete solution should be inferred from the
+existence of a reproducible archive.
+
+\appendix
+\section{Reproduction, assurance, and source provenance}
+The primary arithmetic check is
+\begin{Verbatim}[fontsize=\small]
+python code/verify_relaxation.py
+\end{Verbatim}
+It checks the factorial degree formulas, their rank-two binary valuation,
+the formal-series index coefficient, the indicated mod-two Grassmannian
+class, and the ranks of the exported integer measurement systems. For the
+rank-two variety the closed degree formula is
+\[
+ D_{d,1}=\frac{(2d-3)!\,(2d-4)!}{(d-1)!^2(d-2)!^2},
+ \qquad \nu_2(D_{d,1})=2\bigl(\sq(d-1)-1\bigr).
+\]
+Thus this degree is odd exactly when $d-1$ is a power of two. Combining with
+Proposition~\ref{oddexact} gives $\mu_\R(d,1)=4d-4$ for those dimensions.
+For all other dimensions, this parity computation alone is not an exact
+linear classification.
+
+The optional pencil checker is run as
+\begin{Verbatim}[fontsize=\small]
+python code/certify_interrupted_pencil.py --chart 0
+# Repeat for charts 1, 2, 3, 4.
+python code/sos_pencil_certificate.py --degree 4
+# A numerical proposal is not accepted until rational verification passes.
+\end{Verbatim}
+Saved Gram certificates can be verified without re-running the SDP by supplying
+\verb|--verify| and the certificate filename. Such verification does not need
+CVXPY. The chart method recomputes the rational Groebner basis rather than
+assuming that an arbitrary stored basis generates the original minor ideal.
+
+The files under \path{logs/} record the actual executions and their exit
+statuses. A missing certificate, timeout, or positive-dimensional chart is not
+labelled a proof of admissibility. Arithmetic checks certify identities and
+matrix computations, not the correctness of every topological inference.
+The written proofs are not proof-assistant formalizations and have not been
+independently peer-reviewed as part of this archive.
+
+The earlier archives are included under \path{prior/} without modification.
+The copied interrupted scripts under \path{exploratory/} are research notes,
+not additional theorems. Third-party research PDFs are not redistributed.
+A SHA-256 manifest records the delivered files; archive integrity is distinct
+from mathematical correctness.
+
+\begin{thebibliography}{9}
+\bibitem{ra17} OpenProblemsInNLA. \emph{RA-17: Minimum linear measurements for
+uniform recovery of real low-rank matrices}. Repository problem specification.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/randomized-and-low-rank-approximation/RA-17}.
+\bibitem{xu} Zhiqiang Xu. \emph{The minimal measurement number for low-rank
+matrices recovery}. arXiv:1505.07204, 2015.
+\url{https://arxiv.org/abs/1505.07204}.
+\bibitem{carlson} Jeffrey D. Carlson. \emph{Grassmannians and the equivariant cohomology of isotropy actions}. arXiv:1611.01175, version 2, 2023. The even/even real
+Grassmannian presentation is used here; see the source audit for the title
+and version metadata retained with the earlier package.
+\url{https://arxiv.org/abs/1611.01175}.
+\bibitem{ms} John W. Milnor and James D. Stasheff. \emph{Characteristic Classes}.
+Annals of Mathematics Studies 76, Princeton University Press, 1974.
+Tangent-bundle, Euler-class, and Stiefel--Whitney-class formulas.
+\bibitem{hatcher} Allen Hatcher. \emph{Vector Bundles and K-Theory}.
+Author's online text. Obstructions to independent sections and Stiefel manifolds.
+\url{https://pi.math.cornell.edu/~hatcher/VBKT/VB.pdf}.
+\bibitem{bcr} Jacek Bochnak, Michel Coste, and Marie-Francoise Roy.
+\emph{Real Algebraic Geometry}. Springer, 1998. Semialgebraic triangulation.
+\bibitem{lm} H. Blaine Lawson, Jr., and Marie-Louise Michelsohn.
+\emph{Spin Geometry}. Princeton University Press, 1989.
+Spinor characteristic classes and the $\operatorname{Spin}^c$ index theorem.
+\end{thebibliography}
+\end{document}
