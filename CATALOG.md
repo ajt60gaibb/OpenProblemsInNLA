@@ -1,6 +1,6 @@
 # All problems and their status
 
-**125 problems with open targets:** 53 open and 72 partially resolved. **92 other retained entries**, excluded from the open count.
+**125 problems with open targets:** 52 open and 73 partially resolved. **92 other retained entries**, excluded from the open count.
 
 **Resolution evidence:** 76 solved (published or independently audited); 16 Lean verified.
 
@@ -233,7 +233,7 @@ Retained entries outside the open count:
 | [MI-12](matrix-inequalities-and-norms/MI-12/README.md) | Marcus's inequality for the permanent of block permanents | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-12/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-12/problem.tex) |
 | [MI-14](matrix-inequalities-and-norms/MI-14/README.md) | The complex Lu–Wenzel spectral conjecture | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-14/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-14/problem.tex) |
 | [MI-15](matrix-inequalities-and-norms/MI-15/README.md) | A sum-of-squares representation for the Toeplitz commutator form | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-15/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-15/problem.tex) |
-| [MI-16](matrix-inequalities-and-norms/MI-16/README.md) | The maximum permanent on a positive-semidefinite unitary orbit | **🔵 OPEN** | extreme | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-16/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-16/problem.tex) |
+| [MI-16](matrix-inequalities-and-norms/MI-16/README.md) | The maximum permanent on a positive-semidefinite unitary orbit | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-16/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-16/problem.tex) |
 | [MI-17](matrix-inequalities-and-norms/MI-17/README.md) | The Lih–Wang permanent inequality toward the flat matrix | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-17/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-17/problem.tex) |
 | [MI-18](matrix-inequalities-and-norms/MI-18/README.md) | Bapat's q-permanent monotonicity conjecture | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-18/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-18/problem.tex) |
 | [MI-20](matrix-inequalities-and-norms/MI-20/README.md) | Sharp subquadratic Lee constants for sums of matrices | **🔵 OPEN** | challenging | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-20/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-20/problem.tex) |
