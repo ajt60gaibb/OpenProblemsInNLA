@@ -1,0 +1,52 @@
+/-
+Copyright (c) 2026 George Stepaniants. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: George Stepaniants
+
+The genuine Euclidean operator norm of the witness residual follows from
+the projection structure and one exact unit eigenvector, without intervals.
+-/
+import NLA.RA08.Witness
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open scoped MatrixOrder
+open Matrix
+noncomputable section
+namespace NLA.RA08
+
+theorem spectralNorm_scalar {n : ℕ} (r : ℝ) (A : RealMatrix n) :
+    spectralNorm (r • A) = |r| * spectralNorm A := by
+  simp only [spectralNorm, map_smul, norm_smul, Real.norm_eq_abs]
+
+theorem witness_projection_norm : spectralNorm witnessF = 1 := by
+  have hp : IsStarProjection witnessF :=
+    ⟨by simpa only [IsIdempotentElem, pow_two] using witnessF_idempotent,
+      witnessF_psd.isHermitian⟩
+  let T := Matrix.toEuclideanCLM (n := Fin 6) (𝕜 := ℝ) witnessF
+  have hu : ‖T‖ ≤ 1 := IsStarProjection.norm_le T
+    (hp.map (Matrix.toEuclideanCLM (n := Fin 6) (𝕜 := ℝ)))
+  let e : EuclideanSpace ℝ (Fin 6) := PiLp.single 2 5 1
+  have he : witnessF *ᵥ (Pi.single 5 1) = (Pi.single 5 1 : Fin 6 → ℝ) := by
+    ext i
+    fin_cases i <;>
+      norm_num [witnessF, Matrix.mulVec_single_one, Pi.single_apply, Fin.ext_iff,
+        Matrix.cons_val_two, Matrix.vecHead, Matrix.vecTail]
+  have hTe : T e = e := by
+    change WithLp.toLp 2 (witnessF *ᵥ Pi.single 5 1) = WithLp.toLp 2 (Pi.single 5 1)
+    rw [he]
+  have hen : ‖e‖ = 1 := by simp [e, PiLp.norm_single]
+  have hl := T.le_opNorm e
+  rw [hTe, hen, mul_one] at hl
+  exact le_antisymm hu hl
+
+theorem witness_residual_norm : spectralNorm (witnessMatrix - witnessApproximation) = witnessT := by
+  rw [witnessMatrix, add_sub_cancel_left, spectralNorm_scalar, witness_projection_norm,
+    abs_of_pos witnessT_pos, mul_one]
+
+#assert_trust kernel witness_projection_norm
+#assert_trust kernel witness_residual_norm
+#print axioms witness_projection_norm
+#print axioms witness_residual_norm
+
+end NLA.RA08

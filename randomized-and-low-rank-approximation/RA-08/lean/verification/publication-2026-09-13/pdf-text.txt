@@ -1,0 +1,135 @@
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA                                                            RA-08
+
+
+
+
+Randomized and low-rank approximation
+
+
+Concave-function transfer of spectral low-rank
+error
+Diﬀiculty: challenging       Importance: interesting to the community
+Status: Lean verified
+
+Rating rationale: Challenging because scalar concavity must control noncommuting spectral errors;
+community impact is reusing low-rank approximations across matrix functions.
+Topic: Low-rank approximation of matrix functions.
+
+Resolution — 2026-09-11
+
+Author: Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University
+of Cambridge. Independent Codex-agent review: PASS for the exact target.
+A rational positive definite 6 × 6 matrix and its exact rank-three Nyström approximation attain the
+optimal input spectral error but violate transformed optimality for 𝑓 (𝑥) = min(𝑥, 1). At 𝑡 = 1/65536,
+the output ratio is at least 1 + 334583/15769728. Since the input excess is zero, this also excludes every
+finite factor 1 + 𝐶𝜀 for that scalar-concave class.
+The complete target is resolved. Its former diﬀiculty rating is historical; the original mathematical state-
+ment and source evidence are retained below.
+Primary reference: complete authored PDF, standalone TeX, Theorem 3.1. Independent proof review ·
+Authorship and submission record. That dated manuscript review was independent agent review; the
+separate Lean verification below certifies the full original target. External human peer review is not
+claimed.
+
+Lean proof and verification evidence — 2026-09-13
+
+Formalization: George Stepaniants, Department of Computing and Mathematical Sciences, California
+Institute of Technology, Pasadena, California, USA, with AI-agent assistance. Matthew J. Colbrook
+retains authorship of the mathematical counterexample.
+The fourteen formal exports refute the complete original implication for all real symmetric PSD pairs, ad-
+missible concave functions, original dimensions/ranks/error parameters and permitted ordered eigen-
+bases. The formal definitions use the genuine Euclidean operator norm and Mathlib continuous func-
+tional calculus. Truncations use the same selected eigenvectors, including repeated eigenspaces; admis-
+sibility allows 𝑓 (0) > 0. Existence of ordered spectral data and their actual CFC and norm meanings
+are proved.
+For the unchanged six-dimensional source witness with 𝑡 = 1/65536 and 𝑓 (𝑥) = min(𝑥, 1), the input
+residual and both optimal tails equal 𝑡, whereas the transformed error is strictly larger. Exact com-
+pression, a degree-six polynomial minorant, genuine CFC order and a Rayleigh bound reduce the con-
+tradiction to a rational positive gap. The materially used LeanCert checker proves strict positivity in
+explicit kernel mode on a singleton; no interval subdivision or numerical spectral enclosure is needed.
+The source’s larger contour-method ratio, separate Nyström sketch identity and ancillary nuclear-norm
+extensions are outside these fourteen exports.
+Two independent statement approvals preceded implementation, and two independent final mathe-
+matical reports approved the complete frozen proof. The actual Ubuntu run at immutable revision
+de6513d7 passed all 17 jobs. All fourteen exports matched without definition exceptions; default-kernel
+replay, 59 standard-three axiom reports and both real control suites passed as a non-root user. The in-
+dependent operational audit and coordinator acceptance bind all 613 submitted inputs and original ev-
+idence. Local Mac checks are separately identified. The v0.4 manifest, numerical targets and proof map
+document the verified scope. The original mathematical statement and sources below are unchanged.
+
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-13                                                                              1
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA                                                                  RA-08
+
+
+
+
+Let 𝑛 ≥ 2, 1 ≤ 𝑘 < 𝑛, and 𝐴, 𝐴̂ ∈ ℝ𝑛×𝑛 satisfy 𝐴 ⪰ 𝐴  ̂ ⪰ 0, where the matrices are symmetric and ⪰ is
+the positive semidefinite ordering. Let 𝑓 ∶ [0, ∞) → [0, ∞) be continuous, concave, and nondecreasing.
+              𝑛
+For 𝑋 = ∑𝑖=1 𝜆𝑖 𝑞𝑖 𝑞𝑇
+                    𝑖 with orthonormal 𝑞𝑖 and 𝜆1 ≥ ⋯ ≥ 𝜆𝑛 ≥ 0, set
+
+                                  𝑘                         𝑛                             𝑘
+                         𝑋𝑘 = ∑ 𝜆𝑖 𝑞𝑖 𝑞𝑇
+                                       𝑖 ,       𝑓 (𝑋) = ∑ 𝑓 (𝜆𝑖 )𝑞𝑖 𝑞𝑇
+                                                                      𝑖 ,      𝑓 (𝑋)𝑘 = ∑ 𝑓 (𝜆𝑖 )𝑞𝑖 𝑞𝑇
+                                                                                                     𝑖 .
+                                 𝑖=1                       𝑖=1                           𝑖=1
+
+Use the same eigenvectors for the two truncations, allowing any choice within repeated eigenspaces.
+For every 𝜀 ≥ 0, does
+
+                                                    ̂𝑘 ‖2 ≤ (1 + 𝜀)‖𝐴 − 𝐴𝑘 ‖2
+                                               ‖𝐴 − 𝐴
+
+imply
+
+                                                   ̂ 𝑘 ‖2 ≤ (1 + 𝜀)‖𝑓 (𝐴) − 𝑓 (𝐴)𝑘 ‖2 ?
+                                       ‖𝑓 (𝐴) − 𝑓 (𝐴)
+
+Here ‖ ⋅ ‖2 is the spectral norm. The question concerns every such matrix pair, function, and choice
+of eigendecompositions. It would allow spectral approximation guarantees to pass through a wider
+family of scalar functions without requiring matrix-vector products with 𝑓 (𝐴).
+
+
+
+
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-13                                                                                   2
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA                                                           RA-08
+
+
+
+
+References
+
+1. D. Persson, R. A. Meyer, and C. Musco, Algorithm-agnostic low-rank approximation of operator
+   monotone matrix functions, SIAM Journal on Matrix Analysis and Applications 46 (2025), 1–21. Table
+   1, operator-norm/concave/ordered cell, explicitly labels this open; §5 reiterates it. Equation (2) fixes
+   the truncation convention; Theorem 2.7 proves the operator-monotone case.
+2. D. Persson, T. Chen, and C. Musco, Randomized block-Krylov subspace methods for low-rank ap-
+   proximation of matrix functions, Linear Algebra and its Applications 741 (2026), 32–65. Abstract and
+   algorithmic error analysis concern specific Krylov approximants rather than this universal implica-
+   tion.
+
+Status check — 2026-09-08
+
+Checked the first paper’s latest listed arXiv v2 (2024-07-04), its 2025 journal record, Table 1, and §5.
+Searches for the title with “concave”, “counterexample”, “funNyström”, and 2026 found no resolution.
+The related 2026 Krylov paper was inspected for scope and did not supply this implication. The source’s
+operator-norm counterexample drops the ordering assumption and therefore does not refute the state-
+ment here. No explicit reaﬀirmation later than the 2025 publication was located. The matrix field here
+follows the source’s real symmetric setting, rather than the attachment’s broader Hermitian convention.
+
+Audit — 2026-09-10
+
+Rechecked Table 1 and Theorem 2.7: the ordered operator-monotone subclass is proved, but the larger
+concave class remains open. Concave-transfer and later matrix-function searches found no general res-
+olution. The source’s unordered counterexample does not refute this target.
+
+
+
+
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-13                                                                             3
+

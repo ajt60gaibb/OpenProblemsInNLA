@@ -1,0 +1,168 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={RA-08 - Concave-function
+transfer of spectral low-rank
+error},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RA-08}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Randomized and low-rank approximation\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Concave-function
+transfer of spectral low-rank error\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Rating rationale:} Challenging because scalar concavity must
+control noncommuting spectral errors; community impact is reusing
+low-rank approximations across matrix functions.\\
+\textbf{Topic:} Low-rank approximation of matrix functions.
+
+\subsection{Resolution --- 2026-09-11}\label{resolution-2026-09-11}
+
+\textbf{Author:} Matthew J. Colbrook, Department of Applied Mathematics
+and Theoretical Physics, University of Cambridge. \textbf{Independent
+Codex-agent review: PASS for the exact target.}
+
+A rational positive definite \(6\times6\) matrix and its exact
+rank-three Nyström approximation attain the optimal input spectral error
+but violate transformed optimality for \(f(x)=\min(x,1)\). At
+\(t=1/65536\), the output ratio is at least \(1+334583/15769728\). Since
+the input excess is zero, this also excludes every finite factor
+\(1+C\varepsilon\) for that scalar-concave class.
+
+The complete target is resolved. Its former difficulty rating is
+historical; the original mathematical statement and source evidence are
+retained below.
+
+\textbf{Primary reference:}
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-transfer-2026-09-11/manuscripts/03_concave_transfer_counterexamples.pdf}{complete
+authored PDF},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-transfer-2026-09-11/manuscripts/03_concave_transfer_counterexamples.tex}{standalone
+TeX}, \textbf{Theorem 3.1}.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-transfer-2026-09-11/verification/reviews/RA-08-review.md}{Independent
+proof review} ·
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-transfer-2026-09-11/README.md}{Authorship
+and submission record}. Verification is independent agent review, not
+external human peer review or formal certification.
+
+Let \(n\ge2\), \(1\le k<n\), and
+\(A,\widehat A\in\mathbb R^{n\times n}\) satisfy
+\(A\succeq\widehat A\succeq0\), where the matrices are symmetric and
+\(\succeq\) is the positive semidefinite ordering. Let
+\(f:[0,\infty)\to[0,\infty)\) be continuous, concave, and nondecreasing.
+
+For \(X=\sum_{i=1}^n\lambda_iq_iq_i^T\) with orthonormal \(q_i\) and
+\(\lambda_1\ge\cdots\ge\lambda_n\ge0\), set
+
+\[
+X_k=\sum_{i=1}^k\lambda_iq_iq_i^T,
+\quad f(X)=\sum_{i=1}^nf(\lambda_i)q_iq_i^T,
+\quad f(X)_k=\sum_{i=1}^kf(\lambda_i)q_iq_i^T.
+\]
+
+Use the same eigenvectors for the two truncations, allowing any choice
+within repeated eigenspaces. For every \(\varepsilon\ge0\), does
+
+\[
+\|A-\widehat A_k\|_2\le(1+\varepsilon)\|A-A_k\|_2
+\]
+
+imply
+
+\[
+\|f(A)-f(\widehat A)_k\|_2\le(1+\varepsilon)\|f(A)-f(A)_k\|_2?
+\]
+
+Here \(\|\cdot\|_2\) is the spectral norm. The question concerns every
+such matrix pair, function, and choice of eigendecompositions. It would
+allow spectral approximation guarantees to pass through a wider family
+of scalar functions without requiring matrix-vector products with
+\(f(A)\).
+
+\newpage
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  D. Persson, R. A. Meyer, and C. Musco,
+  \href{https://arxiv.org/html/2311.14023v2}{Algorithm-agnostic low-rank
+  approximation of operator monotone matrix functions}, \emph{SIAM
+  Journal on Matrix Analysis and Applications} 46 (2025), 1--21. Table
+  1, operator-norm/concave/ordered cell, explicitly labels this open; §5
+  reiterates it. Equation (2) fixes the truncation convention; Theorem
+  2.7 proves the operator-monotone case.
+\item
+  D. Persson, T. Chen, and C. Musco,
+  \href{https://arxiv.org/abs/2502.01888}{Randomized block-Krylov
+  subspace methods for low-rank approximation of matrix functions},
+  \emph{Linear Algebra and its Applications} 741 (2026), 32--65.
+  Abstract and algorithmic error analysis concern specific Krylov
+  approximants rather than this universal implication.
+\end{enumerate}
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+Checked the first paper's latest listed arXiv v2 (2024-07-04), its 2025
+journal record, Table 1, and §5. Searches for the title with
+``concave'', ``counterexample'', ``funNyström'', and 2026 found no
+resolution. The related 2026 Krylov paper was inspected for scope and
+did not supply this implication. The source's operator-norm
+counterexample drops the ordering assumption and therefore does not
+refute the statement here. No explicit reaffirmation later than the 2025
+publication was located. The matrix field here follows the source's real
+symmetric setting, rather than the attachment's broader Hermitian
+convention.
+
+\subsection{Audit --- 2026-09-10}\label{audit-2026-09-10}
+
+Rechecked \href{https://arxiv.org/html/2311.14023v2}{Table 1 and Theorem
+2.7}: the ordered operator-monotone subclass is proved, but the larger
+concave class remains open. Concave-transfer and later matrix-function
+searches found no general resolution. The source's unordered
+counterexample does not refute this target.
+\end{document}

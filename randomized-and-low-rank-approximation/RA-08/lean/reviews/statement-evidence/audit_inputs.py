@@ -1,0 +1,90 @@
+"""Bind exact RA08 source, API, pin, metadata and statement-stage identities."""
+from pathlib import Path
+import hashlib,json,re,subprocess
+P=Path(__file__).resolve().parents[2];R=P.parents[2];E=Path(__file__).resolve().parent
+BASE='5830ed4fb06da0659414a3deb2a40ad327aca052'
+C=Path('/tmp/nla-lean-mi22-worktree/matrix-inequalities-and-norms/MI-22/lean/.lake/packages')
+def sha(data):return hashlib.sha256(data).hexdigest()
+def git(args,where=R):return subprocess.check_output(['git',*args],cwd=where)
+def put(path,obj):path.write_text(json.dumps(obj,indent=2)+'\n')
+assert git(['rev-parse','HEAD']).decode().strip()==BASE
+source_paths=[
+ 'randomized-and-low-rank-approximation/RA-08/README.md',
+ 'randomized-and-low-rank-approximation/RA-08/problem.tex',
+ 'references/colbrook-transfer-2026-09-11/manuscripts/03_concave_transfer_counterexamples.tex',
+ 'references/colbrook-transfer-2026-09-11/original/manuscripts/03_concave_transfer_counterexamples.tex',
+ 'references/colbrook-transfer-2026-09-11/original/manuscripts/common_preamble.tex',
+ 'references/colbrook-transfer-2026-09-11/reviewed-sources/03_concave_transfer_counterexamples.tex',
+ 'references/colbrook-transfer-2026-09-11/reviewed-sources/common_preamble.tex',
+ 'references/colbrook-transfer-2026-09-11/verification/reviews/RA-08-review.md',
+ 'references/colbrook-transfer-2026-09-11/README.md',
+ 'references/colbrook-transfer-2026-09-11/manuscripts.json']
+sources={}
+for name in source_paths:
+ data=(R/name).read_bytes();committed=git(['show',BASE+':'+name]);assert data==committed,name
+ blob=git(['rev-parse',BASE+':'+name]).decode().strip()
+ sources[name]={'sha256':sha(data),'bytes':len(data),'git_blob':blob,'unchanged_from_upstream':True}
+put(P/'source-inputs.json',{'source_commit':BASE,'source_count':len(sources),'sources':sources})
+api_names={
+ 'mathlib':['Mathlib/Analysis/Matrix/Order.lean','Mathlib/Analysis/Matrix/Spectrum.lean',
+  'Mathlib/Analysis/InnerProductSpace/Spectrum.lean','Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean',
+  'Mathlib/Analysis/CStarAlgebra/Matrix.lean','Mathlib/Analysis/CStarAlgebra/ContinuousFunctionalCalculus/Unital.lean',
+  'Mathlib/Analysis/Matrix/PosDef.lean','Mathlib/LinearAlgebra/Matrix/PosDef.lean',
+  'Mathlib/Analysis/Convex/Function.lean','Mathlib/LinearAlgebra/UnitaryGroup.lean'],
+ 'leancert':['LeanCert/Tactic/Verification.lean','LeanCert/Tactic/IntervalAuto/PointIneq.lean']}
+pins=json.loads((P/'lake-manifest.json').read_text())['packages'];pinmap={v['name']:v['rev'] for v in pins};apis={}
+for dep,files in api_names.items():
+ for name in files:
+  data=(C/dep/name).read_bytes();assert data==git(['show',pinmap[dep]+':'+name],C/dep)
+  apis[dep+'/'+name]={'sha256':sha(data),'bytes':len(data),'commit':pinmap[dep],
+    'git_blob':git(['rev-parse',pinmap[dep]+':'+name],C/dep).decode().strip()}
+for name in ['docs/lean/README.md','docs/lean/REVIEW.md','docs/lean/schema/v0.4.schema.json',
+             'tools/lean/validate_manifest.py','tools/lean/source-lock.json']:
+ path=R/name
+ if path.is_file():
+  data=path.read_bytes();assert data==git(['show',BASE+':'+name])
+  apis['repository/'+name]={'sha256':sha(data),'bytes':len(data),'commit':BASE}
+put(E/'API-SOURCE-INPUTS.json',apis)
+standards=Path('/tmp/nla-lean-formalization/standards')
+meta=json.loads((standards/'TauCetiProject_TauCetiReview-commit.json').read_text())
+assert meta['sha']=='afb424eda89e8ac96d9eb69f6a88972055a4cd1b'
+manifest=json.loads((standards/'MANIFEST.json').read_text())
+rubrics={}
+for file in sorted((standards/'sources/TauCetiProject/TauCetiReview/rubrics').glob('*.md')):
+ name=file.relative_to(standards).as_posix();digest=sha(file.read_bytes())
+ expected=manifest.get(name)
+ if isinstance(expected,dict):expected=expected.get('sha256')
+ assert expected==digest,(name,expected,digest)
+ rubrics[name]={'sha256':digest,'bytes':file.stat().st_size}
+put(E/'RUBRIC-INPUTS.json',{'commit':meta['sha'],'scope':'Pinned campaign Tau Ceti sources, not an official service run.','files':rubrics})
+defs=(P/'NLA/RA08/Definitions.lean').read_text();challenge=(P/'Challenge.lean').read_text()
+assert not re.search(r'(?m)^\s*(?:axiom|unsafe|opaque)\b',defs)
+assert not re.search(r'\b(?:sorry|admit|native_decide|sorryAx)\b',defs)
+assert len(re.findall(r'(?m)^  sorry$',challenge))==14
+assert not (P/'Solution.lean').exists() and not (P/'NLA/RA08/Proof.lean').exists()
+conf=json.loads((P/'comparator.json').read_text());expected=['NLA.RA08.'+x for x in re.findall(r'(?m)^theorem (\w+)',challenge)]
+assert conf['theorem_names']==expected and len(expected)==14
+assert conf['definition_names']==[] and set(conf['permitted_axioms'])=={'propext','Classical.choice','Quot.sound'}
+latest=json.loads((E/'latest.json').read_text());run=Path(latest['attempt']);result=json.loads((run/'result.json').read_text())
+assert result['verdict']=='PASS: statement typechecking only' and len(result['commands'])==3
+assert all(row['exit_code']==0 for row in result['commands']) and result['pins_rechecked_after']
+assert len(result['pins'])==10
+assert sha((P/'NLA/RA08/Definitions.lean').read_bytes())==result['commands'][0]['source_sha256']
+assert sha((P/'Challenge.lean').read_bytes())==result['commands'][1]['source_sha256']
+clog=(run/'Challenge.log').read_text();assert clog.count("declaration uses `sorry`")==14
+ilog=(run/'reviews-statement-evidence-Inspect.log').read_text();assert ilog.count('depends on axioms:')==6
+assert 'sorryAx' not in ilog[ilog.rfind("'NLA.RA08.spectralNorm' depends on axioms:"):]
+registry=json.loads((R/'problem_ids.json').read_text());canonical={}
+for id_,path in registry.items():
+ data=(R/path).read_bytes();assert data==git(['show',BASE+':'+path]),id_
+ canonical[id_]=sha(data)
+assert len(canonical)==217
+assert not git(['diff','--name-only']), 'Tracked source changed'
+put(E/'input-audit.json',{'verdict':'PASS','base':BASE,'canonical_entries_unchanged':len(canonical),
+ 'all_registered_source_hashes':canonical,'source_count':len(sources),'planned_exports':expected,
+ 'definitions_holes':0,'intentional_challenge_holes':14,'proof_files_present':False,
+ 'fresh_statement_commands':3,'definition_kernel_assertions':6,'definition_standard_three_axiom_reports':6,
+ 'ten_pins_clean_before_after':True,'result_file':str(run/'result.json'),
+ 'result_sha256':sha((run/'result.json').read_bytes()),
+ 'scope':'Statement-only local macOS checks and exact diagnostics. No theorem implementation or Linux success.'})
+print('PASS: 217 unchanged canonical pages; 10 original sources; exact APIs/rubrics; 14 intentional Challenge holes; 3 fresh commands; 10 clean pins.')

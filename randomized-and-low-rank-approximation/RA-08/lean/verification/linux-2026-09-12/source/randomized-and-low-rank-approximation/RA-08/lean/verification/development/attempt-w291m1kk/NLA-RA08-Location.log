@@ -1,0 +1,75 @@
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+/private/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/NLA/RA08/Location.lean:32:43: error: unsolved goals
+x : Fin 6 → ℝ
+hx : x 2 = 0
+hF : x ⬝ᵥ witnessF *ᵥ x ≤ x ⬝ᵥ x
+h0 : 0 ≤ x 0 ^ 2
+h3 : 0 ≤ x 3 ^ 2
+h4 : 0 ≤ x 4 ^ 2
+h5 : 0 ≤ x 5 ^ 2
+⊢ x 0 ^ 2 + x (Fin.succ 0) ^ 2 + x (Fin.succ 0).succ ^ 2 + x (Fin.succ 0).succ.succ ^ 2 +
+        x (Fin.succ 0).succ.succ.succ ^ 2 +
+      x (Fin.succ 0).succ.succ.succ.succ ^ 2 =
+    x 0 ^ 2 + x 1 ^ 2 + x 2 ^ 2 + x 3 ^ 2 + x 4 ^ 2 + x 5 ^ 2
+/private/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/NLA/RA08/Location.lean:38:2: error: linarith failed to find a contradiction
+x : Fin 6 → ℝ
+hF : x ⬝ᵥ witnessF *ᵥ x ≤ x 0 ^ 2 + x 1 ^ 2 + x 2 ^ 2 + x 3 ^ 2 + x 4 ^ 2 + x 5 ^ 2
+h0 : 0 ≤ x 0 ^ 2
+h3 : 0 ≤ x 3 ^ 2
+h4 : 0 ≤ x 4 ^ 2
+h5 : 0 ≤ x 5 ^ 2
+hd : x ⬝ᵥ x = x 0 ^ 2 + x 1 ^ 2 + x 2 ^ 2 + x 3 ^ 2 + x 4 ^ 2 + x 5 ^ 2
+hx : True
+a✝ :
+  (witnessB + witnessT) * (x 0 ^ 2 + x 1 ^ 2 + x 2 ^ 2 + x 3 ^ 2 + x 4 ^ 2 + x 5 ^ 2) <
+    1 / 2 * x 0 ^ 2 + witnessB * x 1 ^ 2 + witnessA * x 2 ^ 2 + witnessT * x ⬝ᵥ witnessF *ᵥ x
+⊢ False
+failed
+/private/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/NLA/RA08/Location.lean:83:47: error: unsolved goals
+x : Fin 6 → ℝ
+r : ℝ
+hr : 1 < r
+hra : r < witnessA
+he : witnessMatrix *ᵥ x = r • x
+z : Fin 6 → ℝ := removeHighCoordinate x
+hz2 : z 2 = 0
+hc : z ⬝ᵥ witnessMatrix *ᵥ z ≤ (witnessB + witnessT) * z ⬝ᵥ z
+hs : witnessMatrixᵀ = witnessMatrix
+heq : z ⬝ᵥ witnessMatrix *ᵥ z - r * z ⬝ᵥ z = (witnessMatrix 2 2 - r) * x 2 ^ 2
+⊢ 17 / 16 ≤
+    ![1 / 2, witnessB, 17 / 16, 0, 0, 0] 2 +
+      vecCons (![1 / 82944, 1 / 336960, 7 / 1347840, 1 / 4792320, 1 / 599040, 0] 2)
+        (fun i =>
+          vecCons (![1 / 336960, 1 / 82944, -(7 / 1347840), 1 / 599040, 1 / 4792320, 0] 2)
+            (fun i =>
+              vecCons (![7 / 1347840, -(7 / 1347840), 1 / 168480, -(1 / 1198080), 1 / 1198080, 0] 2)
+                (fun i =>
+                  vecCons (![1 / 4792320, 1 / 599040, -(1 / 1198080), 1 / 4259840, 0, 0] 2)
+                    (fun i =>
+                      vecCons (![1 / 599040, 1 / 4792320, 1 / 1198080, 0, 1 / 4259840, 0] 2)
+                        (fun i => ![0, 0, 0, 0, 0, 1 / 65536] 2) i)
+                    i)
+                i)
+            i)
+        2
+/private/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/NLA/RA08/Location.lean:99:15: warning: This simp argument is unused:
+  zero_mulVec
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [dotProduct_zero, zero_dotProduct, mul_zero, sub_self] at heq
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/private/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/NLA/RA08/Location.lean:123:16: error(lean.unknownIdentifier): Unknown identifier `ofLp_eq_zero`
+/private/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/NLA/RA08/Location.lean:125:21: error: #assert_trust: 'NLA.RA08.witness_no_gap_eigenvector' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/NLA/RA08/Location.lean:126:21: error: #assert_trust: 'NLA.RA08.witness_spectral_location_proved' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.RA08.witness_no_gap_eigenvector' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.RA08.witness_spectral_location_proved' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

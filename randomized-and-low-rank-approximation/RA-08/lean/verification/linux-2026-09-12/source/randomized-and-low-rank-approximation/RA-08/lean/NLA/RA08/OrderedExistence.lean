@@ -1,0 +1,76 @@
+/-
+Copyright (c) 2026 George Stepaniants. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: George Stepaniants
+
+Department of Computing and Mathematical Sciences, California Institute of
+Technology, Pasadena, California, USA. AI-assisted formalization.
+Mathematical counterexample: Matthew J. Colbrook. This helper transports
+Mathlib's genuine spectral theorem to the reviewed ordered-data interface.
+-/
+import NLA.RA08.Definitions
+import Mathlib.Analysis.Matrix.PosDef
+import Mathlib.Order.Fin.Basic
+import LeanCert.Tactic.Verification
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open scoped BigOperators Classical MatrixOrder
+noncomputable section
+
+namespace NLA.RA08
+
+/-- Every actual real PSD matrix has complete decreasing spectral data.
+The order-preserving cardinality transport is followed by the inverse of
+Mathlib's arbitrary eigenvalue reindexing. No eigenvalue is discarded, and
+no positive dimension or distinct-eigenvalue assumption is used. -/
+theorem orderedSpectral_exists_proved {n : ℕ} (A : RealMatrix n)
+    (hA : A.PosSemidef) : Nonempty (OrderedSpectralData A) := by
+  let h := hA.isHermitian
+  let c : Fin n ≃o Fin (Fintype.card (Fin n)) :=
+    Fin.castOrderIso (Fintype.card_fin n).symm
+  let e₀ : Fin (Fintype.card (Fin n)) ≃ Fin n :=
+    Fintype.equivOfCardEq (Fintype.card_fin _)
+  let e : Fin n ≃ Fin n := c.toEquiv.trans e₀
+  have heigen (i : Fin n) : h.eigenvalues (e i) = h.eigenvalues₀ (c i) := by
+    simp [Matrix.IsHermitian.eigenvalues, e, e₀]
+  let b := h.eigenvectorBasis.reindex e.symm
+  let Q : Matrix.unitaryGroup (Fin n) ℝ :=
+    ⟨(EuclideanSpace.basisFun (Fin n) ℝ).toBasis.toMatrix b.toBasis,
+      (EuclideanSpace.basisFun (Fin n) ℝ).toMatrix_orthonormalBasis_mem_unitary b⟩
+  have hQ (i j : Fin n) : (Q : RealMatrix n) i j = h.eigenvectorUnitary i (e j) := by
+    change (b j) i = (h.eigenvectorBasis (e j)) i
+    simp [b]
+  refine ⟨{
+    eigenvalues := fun i => h.eigenvalues (e i)
+    orthogonal := Q
+    decreasing := ?_
+    nonnegative := fun i => hA.eigenvalues_nonneg (e i)
+    reconstruct := ?_ }⟩
+  · intro i j hij
+    change h.eigenvalues (e j) ≤ h.eigenvalues (e i)
+    rw [heigen, heigen]
+    exact h.eigenvalues₀_antitone (c.monotone hij)
+  · have hspec : A =
+        (h.eigenvectorUnitary : RealMatrix n) * Matrix.diagonal h.eigenvalues *
+          (h.eigenvectorUnitary : RealMatrix n).transpose := by
+      simpa [Unitary.conjStarAlgAut_apply,
+        Matrix.star_eq_conjTranspose, Matrix.conjTranspose_eq_transpose_of_trivial,
+        Function.comp_def]
+        using h.spectral_theorem
+    have hentry (U : RealMatrix n) (a : Fin n → ℝ) (i j : Fin n) :
+        (U * Matrix.diagonal a * U.transpose) i j =
+          ∑ k, U i k * a k * U j k := by
+      rw [Matrix.mul_apply]
+      simp only [Matrix.mul_diagonal, Matrix.transpose_apply]
+    refine hspec.trans ?_
+    ext i j
+    rw [hentry, hentry]
+    simp_rw [hQ]
+    exact (Equiv.sum_comp e (fun k =>
+      h.eigenvectorUnitary i k * h.eigenvalues k * h.eigenvectorUnitary j k)).symm
+
+#assert_trust kernel orderedSpectral_exists_proved
+#print axioms orderedSpectral_exists_proved
+
+end NLA.RA08

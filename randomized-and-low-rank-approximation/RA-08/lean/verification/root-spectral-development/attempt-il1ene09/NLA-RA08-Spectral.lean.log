@@ -1,0 +1,58 @@
+/private/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/NLA/RA08/Spectral.lean:44:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (↑d.orthogonal).col i
+in the target expression
+  (A *ᵥ fun r => ↑d.orthogonal r i) = d.eigenvalues i • fun r => ↑d.orthogonal r i
+
+case refine_3
+n : ℕ
+A : RealMatrix n
+d : OrderedSpectralData A
+i : Fin n
+⊢ (A *ᵥ fun r => ↑d.orthogonal r i) = d.eigenvalues i • fun r => ↑d.orthogonal r i
+
+Note: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.
+Full error:
+  function expected
+    ↑d.orthogonal r
+/private/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/NLA/RA08/Spectral.lean:68:52: error: unsolved goals
+n : ℕ
+A : RealMatrix n
+d : OrderedSpectralData A
+v w : Fin n → ℝ
+⊢ ↑d.orthogonal * diagonal v * (↑d.orthogonal)ᵀ - ↑d.orthogonal * diagonal w * (↑d.orthogonal)ᵀ =
+    (↑d.orthogonal * diagonal fun i => v i - w i) * (↑d.orthogonal)ᵀ
+/private/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/NLA/RA08/Spectral.lean:69:34: warning: This simp argument is unused:
+  Matrix.diagonal_sub
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [spectralCombination, mul_sub, sub_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/private/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/NLA/RA08/Spectral.lean:69:55: warning: This simp argument is unused:
+  mul_sub
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [spectralCombination, Matrix.diagonal_sub, sub_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/private/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/NLA/RA08/Spectral.lean:69:64: warning: This simp argument is unused:
+  sub_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [spectralCombination, Matrix.diagonal_sub, mul_sub]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/private/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/NLA/RA08/Spectral.lean:93:18: warning: This simp argument is unused:
+  WithLp.ofLp_toLp
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [v, star_trivial]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/private/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/NLA/RA08/Spectral.lean:100:21: error: #assert_trust: 'NLA.RA08.orderedSpectral_semantics_proved' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.RA08.orderedSpectral_semantics_proved' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.RA08.spectralCombination_norm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA08.tail_function_norm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA08.operator_rayleigh_bound_proved' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1,0 +1,130 @@
+/-
+Copyright (c) 2026 George Stepaniants. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: George Stepaniants
+
+The actual witness has no eigenvalue in (1,17/16). The compression proof
+route was suggested by the campaign coordinator and is proved here from
+the entries and the spectral theorem, without perturbation assumptions.
+-/
+import NLA.RA08.Witness
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open scoped BigOperators Classical MatrixOrder
+open Matrix
+noncomputable section
+namespace NLA.RA08
+
+theorem witnessF_quadratic_le (x : Fin 6 → ℝ) :
+    x ⬝ᵥ (witnessF *ᵥ x) ≤ x ⬝ᵥ x := by
+  have h := witnessF_complement_psd.dotProduct_mulVec_nonneg x
+  simpa only [star_trivial, sub_mulVec, one_mulVec, dotProduct_sub, sub_nonneg] using h
+
+theorem witness_compression_le (x : Fin 6 → ℝ) (hx : x 2 = 0) :
+    x ⬝ᵥ (witnessMatrix *ᵥ x) ≤ (witnessB + witnessT) * (x ⬝ᵥ x) := by
+  have hF := witnessF_quadratic_le x
+  have h0 := sq_nonneg (x 0)
+  have h3 := sq_nonneg (x 3)
+  have h4 := sq_nonneg (x 4)
+  have h5 := sq_nonneg (x 5)
+  have hd : x ⬝ᵥ x = (x 0) ^ 2 + (x 1) ^ 2 + (x 2) ^ 2 +
+      (x 3) ^ 2 + (x 4) ^ 2 + (x 5) ^ 2 := by
+    simp only [dotProduct, Fin.sum_univ_succ]
+    ring
+  rw [witnessMatrix_quadratic, ← witnessF_quadratic, hd]
+  rw [hd] at hF
+  norm_num [witnessA, witnessB, witnessT, hx] at *
+  nlinarith
+
+def removeHighCoordinate (x : Fin 6 → ℝ) : Fin 6 → ℝ :=
+  ![x 0, x 1, 0, x 3, x 4, x 5]
+
+theorem removeHigh_dot (x : Fin 6 → ℝ) :
+    removeHighCoordinate x ⬝ᵥ x =
+      removeHighCoordinate x ⬝ᵥ removeHighCoordinate x := by
+  simp [removeHighCoordinate, dotProduct, Fin.sum_univ_succ]
+
+theorem removeHigh_cross (A : RealMatrix 6) (hA : A.transpose = A)
+    (x : Fin 6 → ℝ) :
+    removeHighCoordinate x ⬝ᵥ (A *ᵥ x) =
+      removeHighCoordinate x ⬝ᵥ (A *ᵥ removeHighCoordinate x) +
+        x 2 * ((A *ᵥ x) 2 - A 2 2 * x 2) := by
+  have h02 : A 0 2 = A 2 0 := congrFun (congrFun hA 2) 0
+  have h12 : A 1 2 = A 2 1 := congrFun (congrFun hA 2) 1
+  have h32 : A 3 2 = A 2 3 := congrFun (congrFun hA 2) 3
+  have h42 : A 4 2 = A 2 4 := congrFun (congrFun hA 2) 4
+  have h52 : A 5 2 = A 2 5 := congrFun (congrFun hA 2) 5
+  simp [removeHighCoordinate, dotProduct, mulVec, Fin.sum_univ_succ,
+    h02, h12, h32, h42, h52]
+  ring
+
+theorem removeHigh_eigen_quadratic (A : RealMatrix 6) (hA : A.transpose = A)
+    (x : Fin 6 → ℝ) (r : ℝ) (he : A *ᵥ x = r • x) :
+    removeHighCoordinate x ⬝ᵥ (A *ᵥ removeHighCoordinate x) -
+        r * (removeHighCoordinate x ⬝ᵥ removeHighCoordinate x) =
+      (A 2 2 - r) * (x 2) ^ 2 := by
+  have h := removeHigh_cross A hA x
+  rw [he, dotProduct_smul, removeHigh_dot] at h
+  simp only [Pi.smul_apply, smul_eq_mul] at h
+  nlinarith
+
+theorem witness_no_gap_eigenvector (x : Fin 6 → ℝ) (r : ℝ)
+    (hr : 1 < r) (hra : r < witnessA) (he : witnessMatrix *ᵥ x = r • x) : x = 0 := by
+  let z := removeHighCoordinate x
+  have hz2 : z 2 = 0 := by simp [z, removeHighCoordinate]
+  have hc := witness_compression_le z hz2
+  have hs : witnessMatrix.transpose = witnessMatrix := by
+    simpa only [IsHermitian, conjTranspose_eq_transpose_of_trivial] using
+      witnessMatrix_psd.isHermitian
+  have heq := removeHigh_eigen_quadratic witnessMatrix hs x r he
+  change z ⬝ᵥ (witnessMatrix *ᵥ z) - r * (z ⬝ᵥ z) =
+    (witnessMatrix 2 2 - r) * (x 2) ^ 2 at heq
+  have hdiag : witnessA ≤ witnessMatrix 2 2 := by
+    norm_num [witnessMatrix, witnessApproximation, witnessF, witnessT, witnessA, diagonal]
+  have hhigh : 0 < witnessMatrix 2 2 - r := sub_pos.mpr (hra.trans_le hdiag)
+  have hlow : 0 < r - (witnessB + witnessT) := by
+    have hb := witnessB_add_T_lt_one
+    linarith
+  have hnn := real_length_nonneg z
+  have hterm : 0 ≤ (witnessMatrix 2 2 - r) * (x 2) ^ 2 :=
+    mul_nonneg hhigh.le (sq_nonneg _)
+  have hlen : z ⬝ᵥ z = 0 := by
+    by_contra hn
+    have hp := mul_pos hlow (lt_of_le_of_ne hnn (Ne.symm hn))
+    nlinarith
+  have hz : z = 0 := dotProduct_self_eq_zero.mp hlen
+  have hx2 : x 2 = 0 := by
+    rw [hz] at heq
+    simp only [zero_mulVec, dotProduct_zero, zero_dotProduct, mul_zero, sub_self] at heq
+    have hsq : (x 2) ^ 2 = 0 := (mul_eq_zero.mp heq.symm).resolve_left hhigh.ne'
+    nlinarith
+  have hz0 := congrFun hz 0
+  have hz1 := congrFun hz 1
+  have hz3 := congrFun hz 3
+  have hz4 := congrFun hz 4
+  have hz5 := congrFun hz 5
+  ext i
+  fin_cases i <;> simp_all [z, removeHighCoordinate]
+
+theorem witness_spectral_location_proved :
+    spectrum ℝ witnessMatrix ⊆ Set.Icc 0 1 ∪ Set.Ici witnessA := by
+  intro r hr
+  let hA := witnessMatrix_psd.isHermitian
+  obtain ⟨i, rfl⟩ := hA.spectrum_real_eq_range_eigenvalues ▸ hr
+  have hn := witnessMatrix_psd.eigenvalues_nonneg i
+  by_cases hl : hA.eigenvalues i ≤ 1
+  · exact Or.inl ⟨hn, hl⟩
+  · apply Or.inr
+    by_contra hlow
+    have he := hA.mulVec_eigenvectorBasis i
+    have hz := witness_no_gap_eigenvector _ _ (lt_of_not_ge hl) (lt_of_not_ge hlow) he
+    have hne := hA.eigenvectorBasis.orthonormal.ne_zero i
+    exact hne ((ofLp_eq_zero 2).mp hz)
+
+#assert_trust kernel witness_no_gap_eigenvector
+#assert_trust kernel witness_spectral_location_proved
+#print axioms witness_no_gap_eigenvector
+#print axioms witness_spectral_location_proved
+
+end NLA.RA08
