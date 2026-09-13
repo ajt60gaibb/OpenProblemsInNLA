@@ -21,6 +21,11 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### RA-04 — narrow-band and exact-tail continuation — Sidney Holden
+
+**Partially resolved, 13 September 2026.** [RA-04](randomized-and-low-rank-approximation/RA-04/README.md) retains its original universal target. Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) provides [a continuation](references/holden-ra04-continuation-2026-09-13/README.md): report Sections 3–5 prove the requested order under explicit narrow-band hypotheses; Sections 6–8 establish generic rank and exact recovery with few distinct lower eigenvalues. The [independent AI-agent review](references/holden-ra04-continuation-2026-09-13/verification/independent-review.md) passes these partial results and rejects promotion to Solved. General nonzero-width spectra remain unresolved; imported convergence and prior all-input results are explicitly credited. No Lean verification was performed, and RA-04 remains in the open count.
+
+
 ### KE-02, SP-08 and SP-09 — spectral partial results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-spectral-2026-09-12/README.md).

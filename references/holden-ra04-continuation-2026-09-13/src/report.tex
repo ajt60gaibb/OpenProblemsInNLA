@@ -1,0 +1,388 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,booktabs}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\K}{\mathcal K}
+\newcommand{\R}{\mathbb R}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\range}{\operatorname{range}}
+\newcommand{\Prob}{\mathbb P}
+\begin{document}
+\begin{center}
+{\LARGE\bfseries RA-04: narrow-band stability\\[4pt] and exact-tail deflation}
+\\[10pt]
+{\large Sidney Holden}\\[3pt]
+Center for Computational Biology, Flatiron Institute, Simons Foundation\\
+{\small Flatiron Research Fellow, Biological Transport Networks}\\[3pt]
+{\small Affiliation verified 13 September 2026 from the Simons Foundation staff profile.}
+\end{center}
+\begin{abstract}
+This continuation establishes a quantitative good-start graph for sufficiently
+narrow, nonzero-width leading spectral bands. Barycentric scaling eliminates
+dependence on the overall leading spectral condition number. A separate generic
+rank argument proves exact recovery when the spectrum below the target cutoff
+has few distinct values, with the boundary multiplicity handled explicitly.
+The unrestricted RA-04 bound is not established: the width restriction in the
+first theorem is substantive, and the second theorem does not cover an arbitrary
+diverse tail. The status is \textbf{PARTIAL}.
+\end{abstract}
+\tableofcontents
+
+\section{Target and dependencies}
+Let $M=AA^T$ have eigenvalues $\lambda_1\ge\cdots\ge\lambda_n\ge0$. Write
+\[
+ t=\lceil k/b\rceil,\qquad m=bt\le\rank(A),\qquad
+ \Delta=\min_{1\le i\le m-b}\frac{\lambda_i-\lambda_{i+b}}{\lambda_i}>0.
+\]
+For $m=b$, the empty minimum is $\Delta=1$. The Gaussian starting block is
+$G\in\R^{n\times b}$, and
+\[
+ \K_q(M,G)=\range[G,MG,\ldots,M^{q-1}G].
+\]
+RA-04 requests, for the prescribed projection-and-SVD-truncation output, all
+three of its approximation guarantees with iteration order
+\begin{equation}\label{target}
+ q=O\!\left(\frac{t\log(2/\Delta)+\log(n/(\delta\varepsilon))}
+ {\sqrt\varepsilon}\right).
+\end{equation}
+The previous report obtained the all-input bound with $t\log(2m/\Delta)$ in
+place of $t\log(2/\Delta)$, together with several exact target regimes.\footnote{
+\emph{RA04\_partial\_results.pdf}, supplied previous report; see also the
+source inventory at the end of this report.}
+The present work does not remove the additional $t\log m$ for arbitrary spectra.
+
+The new graph theorem below is self-contained. Its implication for all three
+RA-04 output guarantees uses the good-start convergence transfer of Chen et
+al., Definition 3.1, Imported Theorem 3.2 and Observation 3.3 of arXiv v2, exactly as imported in the previous report.\footnote{T.~Chen,
+E.~N.~Epperly, R.~A.~Meyer, C.~Musco, and A.~Rao, \emph{Does block size matter
+in randomized block Krylov low-rank approximation?}, arXiv:2508.06486;
+SODA 2026. \url{https://arxiv.org/abs/2508.06486}.}
+In particular, a graph $U[I_m;F]$ at depth $q_0$ with
+$\log(1+\norm{F}_F^2)=O(t\log(2/\Delta)+\log(n/\delta))$ and $q_0=O(t)$
+provides the good start used in that transfer. No independent new proof of
+the transfer theorem is claimed here. The fixed-spectrum corollary also uses
+the earlier all-input bound; this additional dependency is stated where used.
+
+\section{A Gaussian block estimate}
+\begin{lemma}\label{gaussian}
+Let $H\in\R^{a\times b}$ be standard Gaussian, $a\le b$. For $u\ge0$,
+\[
+ \Prob\{\sigma_{\min}(H)\le u\}\le16\sqrt a\,u.
+\]
+\end{lemma}
+\begin{proof}
+Let $v$ be a unit left singular vector for the smallest singular value, with
+an independent fair sign. Orthogonal invariance makes $v$ uniform on the unit
+sphere and independent of the singular values. For a fixed coordinate,
+$\mathbb E v_i^2=1/a$ and $\mathbb E v_i^4=3/[a(a+2)]$. Thus
+\[
+ \Prob\{|v_i|\ge(2a)^{-1/2}\}\ge\frac1{12}
+\]
+by the Paley--Zygmund inequality. Repeated singular values have probability
+zero and do not affect this assertion.
+
+Let $D_i$ be the distance of row $i$ from the span of the other rows. The
+Schur-complement identity gives
+\[
+ D_i^{-2}=((HH^T)^{-1})_{ii}\ge
+ \frac{|v_i|^2}{\sigma_{\min}(H)^2}.
+\]
+Conditioned on the other rows, $D_i$ has a chi distribution with $b-a+1$
+degrees of freedom. Consequently
+$\Prob\{D_i\le z\}\le\sqrt{2/\pi}\,z$. Independence of $v$ from the
+singular values now yields
+\[
+ \frac1{12}\Prob\{\sigma_{\min}(H)\le u\}
+ \le\Prob\{D_i\le u\sqrt{2a}\}
+ \le\frac2{\sqrt\pi}\sqrt a\,u.
+\]
+Since $24/\sqrt\pi<16$, the stated constant follows.
+\end{proof}
+For $r$ blocks with at most $b$ rows each, a union bound shows that every
+least singular value is at least $\eta/(16r\sqrt b)$ except on an event of
+probability at most $\eta$. Independence between this event and a subsequent
+perturbation is not assumed or needed.
+
+\section{Deterministic barycentric scaling}
+Partition the first $m$ indices into $r\ge2$ consecutive nonempty groups
+$J_s$ with $|J_s|\le b$. Let
+\[
+ c_1>\cdots>c_r>0,\qquad
+ \beta=\min_{s<r}\left(1-\frac{c_{s+1}}{c_s}\right)>0,
+ \qquad |\lambda_i-c_s|\le w c_s\quad(i\in J_s).
+\]
+Define the degree-$r-1$ polynomials and signed normalization constants
+\[
+ p_j(x)=\prod_{\ell\ne j}(x-c_\ell),\qquad
+ d_s=\prod_{\ell\ne s}(c_s-c_\ell).
+\]
+\begin{lemma}\label{barycentric}
+If $rw/\beta\le1/2$, then, for $i\in J_s$,
+\begin{equation}\label{rowerror}
+ \norm{\left(\frac{p_j(\lambda_i)}{d_s}\right)_{j=1}^r-e_s}
+ _2\le\frac{2rw}{\beta}.
+\end{equation}
+Moreover,
+\begin{equation}\label{tailratio}
+ \frac{\displaystyle\max_{j,\,0\le x\le(1+w)c_r}|p_j(x)|}
+ {\displaystyle\min_s|d_s|}
+ \le\left(\frac{1+w}{\beta}\right)^{r-1}.
+\end{equation}
+Neither estimate contains $c_1/c_r$.
+\end{lemma}
+\begin{proof}
+For any distinct $s,\ell$,
+$|c_s-c_\ell|\ge\beta\max(c_s,c_\ell)$. The diagonal ratio is
+\[
+ \frac{p_s(\lambda_i)}{d_s}
+ =\prod_{\ell\ne s}\left(1+
+ \frac{\lambda_i-c_s}{c_s-c_\ell}\right).
+\]
+Each perturbation has absolute value at most $w/\beta$. Its difference from
+one is at most $2(r-1)w/\beta$. For $j\ne s$, isolate the factor
+$(\lambda_i-c_s)/(c_s-c_j)$; the other factors have product bounded by
+$\exp((r-2)w/\beta)\le2$. The squared row error is therefore at most
+$4[(r-1)^2+(r-1)](w/\beta)^2\le4r^2(w/\beta)^2$.
+
+For the tail estimate, $|x-c_\ell|\le(1+w)c_\ell$, so
+\[
+ \max_j|p_j(x)|\le(1+w)^{r-1}\prod_{\ell<r}c_\ell.
+\]
+On the other hand, for every $s$,
+\[
+ |d_s|\ge\beta^{r-1}
+ \left(\prod_{\ell<s}c_\ell\right)c_s^{r-s}
+ \ge\beta^{r-1}\prod_{\ell<r}c_\ell.
+\]
+Division proves the claim. The cancellation is the reason to use this
+normalization rather than perturb a raw monomial Vandermonde matrix.
+\end{proof}
+
+\section{A graph theorem for nonzero-width bands}
+\begin{theorem}\label{graph}
+Let $\eta=\delta/3$, where $0<\delta<1$. Under the preceding band assumptions,
+suppose
+\begin{equation}\label{width}
+ w\le\frac{\beta\eta^{3/2}}{64r^2b\sqrt m}.
+\end{equation}
+With probability at least $1-\delta$, $\K_r(M,G)$ contains the columns of
+$U[I_m;F]$, where $U$ is an eigenbasis of $M$ and
+\begin{equation}\label{graphbound}
+ \norm{F}_F\le32b r^{3/2}\sqrt{n-m}\,\eta^{-3/2}
+ \left(\frac{1+w}{\beta}\right)^{r-1}.
+\end{equation}
+The empty tail when $n=m$ has norm zero.
+\end{theorem}
+\begin{proof}
+In the eigenbasis write $U^TG=[H;T]$. The polynomial Krylov matrix with
+basis $p_1,\ldots,p_r$ has head rows formed by concatenating
+$p_j(\lambda_i)h_i^T$. Divide each row in group $s$ by $d_s$ and call the
+result $C$. Its centered counterpart $C_0$ is block diagonal with blocks
+$H_s\in\R^{|J_s|\times b}$. With $E=C-C_0$, Lemma~\ref{barycentric} gives
+\[
+ \norm E_2\le\norm E_F\le\frac{2rw}{\beta}\norm H_F.
+\]
+Intersect the events
+\[
+ \min_s\sigma_{\min}(H_s)\ge\frac\eta{16r\sqrt b},\qquad
+ \norm H_F\le\sqrt{\frac{mb}\eta},\qquad
+ \norm T_F\le\sqrt{\frac{(n-m)b}\eta}.
+\]
+Lemma~\ref{gaussian} and Markov's inequality bound total failure probability
+by $3\eta=\delta$; omit the last event for an empty tail. On this intersection,
+$R_0=C_0^\dagger$ satisfies $C_0R_0=I_m$ and
+$\norm{R_0}_2\le16r\sqrt b/\eta$. The width bound implies
+\[
+ \norm{ER_0}_2\le
+ \frac{32r^2b\sqrt m\,w}{\beta\eta^{3/2}}\le\frac12.
+\]
+Thus
+\[
+ R=R_0(I_m+ER_0)^{-1},\qquad CR=I_m,\qquad
+ \norm R_2\le\frac{32r\sqrt b}\eta.
+\]
+This is a valid right inverse even for rectangular blocks.
+
+Let $D$ have diagonal entry $d_s$ on $J_s$. The unscaled head is $DC$,
+so $RD^{-1}$ is its right inverse. Multiplication of the full polynomial
+Krylov matrix by this matrix produces head $I_m$ and tail $F$. The unscaled
+tail has Frobenius norm at most
+$\sqrt r\max_{x,j}|p_j(x)|\norm T_F$. Hence
+\[
+ \norm F_F\le\sqrt r\norm T_F\norm R_2
+ \frac{\max_{x,j}|p_j(x)|}{\min_s|d_s|},
+\]
+which is \eqref{graphbound}. Each basis polynomial has degree at most $r-1$,
+so the constructed space lies in $\K_r(M,G)$. Although $E$ and $C_0$ use the
+same Gaussian rows, only deterministic inequalities on the stated event were
+used. There is no independence error.
+\end{proof}
+
+\section{Consequences for the requested iteration order}
+Take $r=t$ and $|J_s|=b$. Consecutive-band comparison gives
+\[
+ \beta-2w\le\Delta\le\beta+2w.
+\]
+In particular, $w\le\beta/4$ implies
+$\beta/2\le\Delta\le3\beta/2$. Assumption~\eqref{width} is stronger than
+this restriction. Since $b,r,m\le n$, Theorem~\ref{graph} yields
+\[
+ \log(1+\norm F_F^2)
+ =O\bigl(t\log(2/\Delta)+\log(n/\delta)\bigr).
+\]
+The imported good-start transfer therefore gives \eqref{target} with all
+three RA-04 guarantees. This proves the desired order for a nonzero-width
+regime, not for arbitrary widths. Unequal bands also give this consequence
+when $r=O(t)$ and their center gap is comparable to $\Delta$; the latter is
+then an additional hypothesis.
+
+\begin{corollary}\label{allfailure}
+Suppose $m\ge2$, $t\ge2$, there are $t$ consecutive bands of size $b$, and
+\begin{equation}\label{fixedwidth}
+ w\le\frac{\beta}
+ {64\,3^{3/2}t^2b\,m^{(3t+1)/2}}.
+\end{equation}
+Using the previous report's all-input bound, the RA-04 order
+\eqref{target} holds for every $0<\delta<1$ and admissible $\varepsilon$.
+\end{corollary}
+\begin{proof}
+When $\delta\ge m^{-t}$, condition~\eqref{fixedwidth} implies
+\eqref{width}. When $\delta<m^{-t}$, the extra $t\log m$ in the previous
+all-input bound is at most $\log(1/\delta)$ and is absorbed into the requested
+separate logarithmic term. These two cases cover all failure probabilities.
+\end{proof}
+The previous all-input theorem is an explicit dependency of this corollary,
+not a result re-proved in this continuation. No assertion is made that every
+admissible spectrum satisfies \eqref{fixedwidth}.
+
+\section{Generic block-Vandermonde rank}
+\begin{theorem}\label{ranklemma}
+Let $\rho$ rows be assigned real nodes, with at most $b$ rows at each node.
+Let $H\in\R^{\rho\times b}$ have a joint density. If $qb\ge\rho$, then
+\[
+ [H,\Lambda H,\ldots,\Lambda^{q-1}H]
+\]
+has row rank $\rho$ almost surely.
+\end{theorem}
+\begin{proof}
+Assign each equal-node group to distinct currently least-loaded colors among
+$b$ colors. The maximum and minimum loads differ by at most one after each
+group: increasing a subset of the minimum loads either preserves the two
+adjacent load levels, or raises all minima and some maxima to the next two
+levels. Consequently the final largest load is $\lceil\rho/b\rceil\le q$.
+
+For a witness, set each row of $H$ equal to its color's coordinate vector.
+After permutations, the displayed matrix splits into ordinary Vandermonde
+blocks, one per color. Within a color the nodes are distinct and their number
+is at most $q$. Each block has full row rank, exhibiting a nonzero
+$\rho\times\rho$ minor. That minor is a nonzero polynomial in the entries
+of $H$, whose zero set has Lebesgue measure zero.
+\end{proof}
+The coordinate-vector construction is a witness that a polynomial is not
+identically zero, not a claim about the Gaussian realization itself.
+
+\section{Exact recovery by distinct-tail deflation}
+\begin{theorem}\label{exact}
+Let $\theta=\lambda_k>0$. Let $a$ count eigenvalues strictly above $\theta$,
+and let $d_\theta$ be the full multiplicity of $\theta$. Assume that every
+higher eigenvalue has multiplicity at most $b$ and $k-a\le b$. Put
+\[
+ \rho=a+\min(d_\theta,b),\qquad
+ L=\#\{\text{distinct eigenvalues strictly below }\theta\}.
+\]
+Zero is counted once in $L$ when present. Almost surely,
+$\K_{L+\lceil\rho/b\rceil}(M,G)$ contains an optimal rank-$k$ left singular
+subspace. The prescribed projection-and-truncation algorithm then returns
+an exact best rank-$k$ approximation.
+\end{theorem}
+\begin{proof}
+Let $f(x)=\prod_{\tau<\theta}(x-\tau)$, with one factor for each distinct
+lower eigenvalue. The block $f(M)G$ has zero components below $\theta$ and
+nonzero deterministic row scalings in every higher eigenspace and at $\theta$.
+Each higher eigenspace has accessible dimension equal to its multiplicity
+almost surely. At $\theta$ the accessible dimension is $\min(d_\theta,b)$.
+
+Choose that many fixed coordinate rows from the $\theta$ eigenspace and
+all rows from the higher eigenspaces. On these $\rho$ coordinates the Gaussian
+block, after nonzero deterministic scalings, has a joint density. Each node
+has at most $b$ chosen rows, so Theorem~\ref{ranklemma} gives full row rank
+after $\lceil\rho/b\rceil$ blocks. If $d_\theta>b$, the remaining rows
+are linear combinations of the chosen $b$ rows; since their eigenvalue is
+identical, this relation holds for every power. Thus the full filtered space
+has dimension exactly $\rho$ and spans all accessible directions.
+
+It contains every higher eigenspace and at least $k-a$ directions at $\theta$,
+which is an optimal rank-$k$ left singular subspace. Multiplication by $f$
+adds $L$ to the maximum polynomial degree, giving the asserted number of
+original Krylov blocks. Projection onto a space containing such a subspace,
+followed by the prescribed SVD truncation, is an exact best rank-$k$
+approximation.
+\end{proof}
+RA-04's positive clustered gap implies the multiplicity assumptions: more
+than $b$ copies above the cutoff, or more than $b$ required copies at the
+cutoff, would give $\lambda_i=\lambda_{i+b}$ within the first $m$ entries.
+Also $a\le k-1\le m-1$, so $\rho\le m+b-1$. Hence $L+t+1$ blocks suffice.
+This regime allows arbitrarily large lower-tail rank and multiplicities;
+it restricts the number of distinct lower values, not their total count.
+
+\subsection{A necessary boundary correction for exact recovery}
+Take $b=2$, $k=m=4$, and eigenvalues $(5,4,3,2,2,2)$. Then $\Delta=2/5$,
+$L=0$, and $\rho=3+2=5$. Three blocks suffice by Theorem~\ref{exact};
+two generically do not. In $\K_2$, the block at eigenvalue $2$ is
+$H_{\rm tail}(u+2v)$. Since $H_{\rm tail}$ has rank two almost surely,
+a vector supported only above the cutoff must have $u+2v=0$. The intersection
+with that higher eigenspace therefore has dimension at most two. Exact
+rank-four approximation would require all three directions strictly above
+$2$, which is impossible in this intersection. This is not a counterexample
+to the big-$O$ assertion in RA-04.
+
+\section{Validation and remaining obligations}
+The exact checker uses rational arithmetic to test balanced-coloring rank
+witnesses, polynomial normalization, right-inverse identities, nonzero-width
+graph estimates, and the boundary example. The optional NumPy checker supplies
+floating-point diagnostics. Execution results are recorded in the archive's
+\texttt{results/} directory; no test count is assumed in this prose.
+
+These finite checks do not replace the proofs or independently establish the
+imported convergence theorem. They do not prove the unrestricted interpolation
+estimate or certify a universal iteration constant. The width assumptions
+remain essential to the presented argument. The prior general bound still
+contains an extra $t\log m$ outside the proved regimes.
+
+The sufficient square-depth interpolation estimate in the previous report is
+still unproved here. Additional Krylov powers might bypass it; even a
+counterexample to that stronger estimate would not by itself refute RA-04.
+The appropriate status of this archive is \textbf{PARTIAL}, not SOLVED.
+
+\section*{Sources}
+\addcontentsline{toc}{section}{Sources}
+\begin{enumerate}
+\item Open Problems in Numerical Linear Algebra, RA-04 repository entry.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/randomized-and-low-rank-approximation/RA-04}.
+\item \emph{RA04\_partial\_results.pdf}, previous report supplied in this
+conversation. Used for the earlier all-input bound and the convergence-transfer
+dependency. See the immutable prior submission and its independent audit at
+\href{https://github.com/sidneyholden1/OpenProblemsInNLA/tree/e15ce4854d1a9c9fa457b93da78fca04febf200a/references/holden-ra04-2026-09-12}{prior submission (immutable revision e15ce48)}.
+\item T.~Chen, E.~N.~Epperly, R.~A.~Meyer, C.~Musco, and A.~Rao,
+\emph{Does block size matter in randomized block Krylov low-rank approximation?},
+arXiv:2508.06486; SODA 2026. \url{https://arxiv.org/abs/2508.06486}.
+\item R.~A.~Meyer, C.~Musco, and C.~Musco,
+\emph{On the Unreasonable Effectiveness of Single Vector Krylov Methods for
+Low-Rank Approximation}, arXiv:2305.02535.
+\url{https://arxiv.org/abs/2305.02535}.
+\item N.~Shao, \emph{A structural bound for cluster robustness of randomized
+small-block Lanczos}.\newline arXiv:2507.10144.
+\url{https://arxiv.org/abs/2507.10144}. Related work, not a proof of the
+unresolved estimate.
+\end{enumerate}
+\end{document}
