@@ -1,0 +1,564 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=27mm,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem,booktabs,array,needspace}
+\usepackage{hyperref,fancyhdr}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue,
+  pdftitle={TR-08: A square-root-logarithmic threshold for sparse rectangular injectivity},
+  pdfauthor={Sidney Holden}}
+\setlength{\parskip}{3pt}
+\setlength{\emergencystretch}{2em}
+\allowdisplaybreaks[1]
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small TR-08: Sparse rectangular injectivity}
+\fancyhead[R]{\small Proposed complete proof}
+\fancyfoot[C]{\thepage}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\EE}{\mathbb E}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\CC}{\mathbb C}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\tr}{\operatorname{Tr}}
+\newcommand{\smin}{\sigma_{\min}}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ind}{\mathbf 1}
+\newcommand{\Id}{\mathrm I}
+\newcommand{\calB}{\mathcal B}
+\newcommand{\calG}{\mathcal G}
+\newcommand{\calN}{\mathcal N}
+\newcommand{\dd}{\mathrm d}
+\title{A square-root-logarithmic threshold\ for sparse rectangular injectivity\\[5pt]
+  \large A proposed complete solution of TR-08}
+\author{Sidney Holden\\[3pt]\small Center for Computational Biology\\\small Flatiron Institute, Simons Foundation}
+\date{12 September 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+Let $A_k$ have $k$ rows and $k/100$ independent columns. Each column has exactly $s_k$ uniformly located nonzero entries, with independent signs and magnitude $s_k^{-1/2}$. We prove the sequence criterion
+\[
+ \exists a>0:\ \PP\{\smin(A_k)\geq a\}\longrightarrow1
+ \quad\Longleftrightarrow\quad
+ \liminf_{k\to\infty}\frac{s_k^2}{\log k}>0.
+\]
+Below this scale, a reservoir of columns supplies local cancellation trees. Above it, columns with too many high-occupancy neighbors have uniformly bounded local interaction. Removing their row neighborhoods yields a well-conditioned bulk; a disjoint-row construction then recovers the exceptional columns through a block-triangular estimate. The sole non-elementary input is the published nonbacktracking trace-moment estimate of Dumitriu and Zhu. A termwise moment comparison extends that input to fixed column sparsity and support-dependent pruning.
+
+\smallskip
+\noindent\textbf{AI assistance.} The submitted draft was prepared with ChatGPT. Authorship is attributed to Sidney Holden at his request.\par
+\noindent\textbf{Review status.} This is a proposed research proof, not an independently refereed or formally verified result. The accompanying finite checks are supplementary; no numerical experiment is used as a proof step.
+\end{abstract}
+
+\section{Statement and exact reduction}
+
+Write $m=k/100$ and $d=s_k$, with $k$ restricted to multiples of $100$. Let
+\begin{equation}\label{eq:model}
+ A_{ij}=d^{-1/2}\varepsilon_{ij}\ind_{\{i\in S_j\}},
+ \qquad i\in[k],\quad j\in[m],
+\end{equation}
+where the $S_j$ are independent uniform $d$-subsets of $[k]$, and all $\varepsilon_{ij}$ are independent uniform signs, independent of the supports. All logarithms are natural.
+
+The repository target \cite{TR08}, following Problem 7.2 of \cite{HRT}, first constructs a larger matrix and then independently selects $m$ of its columns. Conditional on any value of the selected index set, the selected columns have exactly the product law \eqref{eq:model}. Consequently their unconditional law is also \eqref{eq:model}. In particular, the ambient number $n_k$ has no further role in this probability question; $n_k\geq m$ would suffice for this reduction.
+
+\Needspace{12\baselineskip}
+\begin{theorem}[Exact sequence criterion]\label{thm:main}
+For arbitrary integer sequences $1\leq s_k\leq k$, the following are equivalent:
+\begin{equation}\label{eq:criterion}
+ \exists a>0:\quad \PP\{\smin(A_k)\geq a\}=1-o(1),
+ \qquad
+ \liminf_{k\to\infty}\frac{s_k^2}{\log k}>0.
+\end{equation}
+More precisely:
+\begin{enumerate}[label=(\roman*),nosep]
+\item If $s_k^2=o(\log k)$, then $\smin(A_k)\to0$ in probability.
+\item For every $h>0$ there exists a numerical $a(h)>0$ such that, uniformly along any sequence with $s_k^2\geq h\log k$ eventually,
+\[
+ \PP\{\smin(A_k)\geq a(h)\}\longrightarrow1.
+\]
+\end{enumerate}
+\end{theorem}
+
+The constant in the target is fixed after the sparsity sequence has been specified: it does not depend on $k$, $n_k$, or the realized matrix. Part (ii) makes this order of quantifiers explicit. It does not assert that one positive lower bound works simultaneously for arbitrarily small $h$.
+
+Here is one deliberately conservative choice. Define
+\begin{align}
+ J(b)&=b\log(100b)-b+\frac1{100},\qquad b>\frac1{100},\label{eq:J}\\
+ \eta&=\frac18 J(1/32)>0,\qquad
+ R=\left\lceil\frac{3}{\eta h}\right\rceil+1,\qquad L=2(R-1),\label{eq:constants}\\
+ D&=1+\frac{128}{h},\qquad
+ a(h)=\frac1{6+8\sqrt{DL}}.\label{eq:a}
+\end{align}
+Numerically, $\eta\simeq0.0017946651687$. No optimization of these constants is intended.
+
+The proof of (ii) occupies Sections~\ref{sec:support}--\ref{sec:suff}; the proof of (i) is in Section~\ref{sec:necessity}. Section~\ref{sec:sequences} finishes the equivalence for nonmonotone sequences.
+
+\section{Elementary support estimates}\label{sec:support}
+
+Let $\alpha=1/100$. For a family of column supports, put
+\[
+ d_i=\abs{\{j:i\in S_j\}},
+ \qquad
+ \calN(J)=\bigcup_{j\in J}S_j.
+\]
+The letter $d$ always denotes column sparsity; $d_i$ denotes a row occupancy.
+
+\begin{lemma}[Incidence moment generating function]\label{lem:mgf}
+Let $U\subseteq[k]$ be fixed, and let $q\leq m$ independent uniform $d$-subsets remain unexposed. If $X_U$ is their total number of incidences with $U$, then, for $\theta\geq0$,
+\begin{equation}\label{eq:mgf}
+ \EE e^{\theta X_U}
+ \leq \exp\!\left(\alpha d\abs U(e^\theta-1)\right).
+\end{equation}
+In particular, for $b>\alpha$,
+\begin{equation}\label{eq:incidence-tail}
+ \PP\{X_U\geq b d\abs U\}
+ \leq \exp\!\left(-J(b)d\abs U\right).
+\end{equation}
+These bounds remain valid conditional on any already exposed columns, provided $U$ is then fixed and $X_U$ counts only the other columns.
+\end{lemma}
+\begin{proof}
+For one uniform support $S$ and $z\geq1$, expanding the product gives
+\begin{align*}
+ \EE z^{\abs{S\cap U}}
+ &=\EE\prod_{i\in U}\left(1+(z-1)\ind_{\{i\in S\}}\right)\\
+ &=\sum_{T\subseteq U}(z-1)^{\abs T}
+       \frac{(d)_{\abs T}}{(k)_{\abs T}}\\
+ &\leq \left(1+\frac dk(z-1)\right)^{\abs U}
+ \leq\exp\!\left(\frac{d\abs U}{k}(z-1)\right).
+\end{align*}
+Here $(x)_r=x(x-1)\cdots(x-r+1)$, and the inclusion probability is zero when $r>d$. The inequality $(d)_r/(k)_r\leq(d/k)^r$ follows factor by factor. Multiplication over the $q$ independent supports proves \eqref{eq:mgf}. Chernoff's bound with $\theta=\log(b/\alpha)$ gives \eqref{eq:incidence-tail}.
+\end{proof}
+
+\begin{lemma}[No triple overlaps in the polylogarithmic regime]\label{lem:overlaps}
+If $d\leq(\log k)^2$, then with probability $1-o(1)$,
+\begin{equation}\label{eq:overlap}
+ \abs{S_j\cap S_\ell}\leq2\quad\text{for every }j\ne\ell.
+\end{equation}
+Indeed the failure probability is at most $d^6/(12k)$.
+\end{lemma}
+\begin{proof}
+Conditional on $S_j$, a union bound over triples in $S_j$ yields
+\[
+ \PP\{\abs{S_j\cap S_\ell}\geq3\}
+ \leq {d\choose3}\frac{(d)_3}{(k)_3}
+ \leq \frac{d^6}{6k^3}.
+\]
+There are at most $k^2/2$ unordered column pairs. (For $d<3$ the event is impossible.)
+\end{proof}
+
+\section{Nonbacktracking control after support-dependent pruning}\label{sec:nb}
+
+For a real rectangular matrix $X$, form its symmetric bipartite dilation
+\[
+ H(X)=\begin{bmatrix}0&X\\X^{\mathsf T}&0\end{bmatrix}.
+\]
+The weighted nonbacktracking operator is indexed by oriented bipartite edges and acts by
+\begin{equation}\label{eq:nb-def}
+ (B_X f)(u\to v)=\sum_{w\ne u}H(X)_{vw}f(v\to w).
+\end{equation}
+It is convenient to use all oriented edges of the complete bipartite graph, even when some matrix entries are zero. Ordering present edges before absent ones gives a block form
+$\bigl[\begin{smallmatrix}B_{\rm present}&0\\ *&0\end{smallmatrix}\bigr]$.
+Thus padding introduces only zero eigenvalues. Let $\rho(B_X)$ denote the spectral radius.
+
+\subsection{The external trace-moment input}
+
+We use the following specialization of Dumitriu--Zhu \cite[Lemma 4.3]{DZ}. If $\widetilde A$ is a $k\times m$ matrix with independent centered entries, entry variance $1/k$, and entry magnitude at most $1/q$, let $\gamma=m/k=1/100$. There are absolute $c_0,C>0$ such that, for odd positive integers $\ell$ satisfying
+\begin{equation}\label{eq:DZ-range}
+ \ell\leq c_0\min\left\{\frac16q\log k,
+                  \frac{k^{1/6}}{\gamma^{1/6}q^2}\right\},
+\end{equation}
+and $\gamma^{-1/4}\leq q\leq k^{1/10}\gamma^{-1/18}$,
+\begin{equation}\label{eq:DZ}
+ \EE\tr\bigl(B_{\widetilde A}^{\ell}
+                  (B_{\widetilde A}^{\ell})^*\bigr)
+ \leq C\ell^4q^2mk\,\gamma^{(\ell-1)/2}.
+\end{equation}
+This uses the paper's parameters $\kappa=1$ and $\delta=1/6$. No independence assertion about the entries of our fixed-sparsity matrix is being made.
+
+\begin{lemma}[Pruning comparison]\label{lem:pruning}
+Suppose $d\to\infty$. From $A$ in \eqref{eq:model}, delete any collection of entries chosen as a measurable function of the supports alone, and call the padded result $X$. Then
+\begin{equation}\label{eq:nb-radius}
+ \PP\{\rho(B_X)\geq1/2\}=o(1).
+\end{equation}
+The rule may depend on the entire support pattern. It must not use the signs. The statement is for any one prescribed rule, not simultaneous control of all possible pruning rules.
+\end{lemma}
+\begin{proof}
+Let $\widetilde A_{ij}=d^{-1/2}\xi_{ij}\varepsilon'_{ij}$, where the $\xi_{ij}$ are independent Bernoulli variables of mean $d/k$, and the $\varepsilon'_{ij}$ are independent signs. These entries are centered and have variance $1/k$.
+
+Expand the squared Frobenius norm of $B_X^\ell$ as a sum over pairs of paths with common endpoints. Every summand is a monomial of degree $2\ell$ in the edge entries, with nonnegative combinatorial coefficient. Conditional on the supports, its sign expectation is zero unless every unoriented edge is used an even number of times. In the even case it is nonnegative.
+
+Let $E'$ be the distinct edges in one such even monomial, and let $t_j$ be the number in column $j$. Its expectation, after pruning, is at most
+\begin{equation}\label{eq:even-domination}
+ d^{-\ell}\PP\{E'\text{ is present in }A\}
+ =d^{-\ell}\prod_j\frac{(d)_{t_j}}{(k)_{t_j}}
+ \leq d^{-\ell}(d/k)^{\abs{E'}}.
+\end{equation}
+The last expression is exactly the corresponding expectation for $\widetilde A$. Therefore
+\begin{equation}\label{eq:trace-domination}
+ \EE\tr\bigl(B_X^\ell(B_X^\ell)^*\bigr)
+ \leq\EE\tr\bigl(B_{\widetilde A}^\ell
+                         (B_{\widetilde A}^\ell)^*\bigr).
+\end{equation}
+This is an expectation comparison, not a pointwise monotonicity claim for a signed nonbacktracking spectral radius.
+
+Take $q=\min\{\sqrt d,k^{1/20}\}$ and take $\ell$ to be the smallest odd integer at least $10\log k$. Since $d\to\infty$, the first restriction in \eqref{eq:DZ-range} holds eventually. The second holds because $q^2\leq k^{1/10}$ and $k^{1/6}/q^2\geq k^{1/15}$. The other restrictions on $q$ also hold eventually, including when $d$ is much larger than $k^{1/5}$.
+
+Using $\rho(B_X)^{2\ell}\leq\norm{B_X^\ell}_{\rm F}^2$, Markov's inequality and \eqref{eq:DZ} give
+\begin{align*}
+ \PP\{\rho(B_X)\geq1/2\}
+ &\leq C\ell^4q^2mk\,\gamma^{-1/2}
+                       (4\sqrt\gamma)^\ell\\
+ &\leq C'(\log k)^4 k^{21/10}(2/5)^\ell=o(1).
+\end{align*}
+In fact, the final display is $O(k^{-6})$ eventually. The entry bound $1/q$ need not be tight; this is why the same comparison covers the dense regime.
+\end{proof}
+
+\section{A deterministic bulk estimate}\label{sec:bulk}
+
+\begin{lemma}[Imaginary-parameter bulk bound]\label{lem:bulk}
+Let every nonzero entry of a real matrix $X$ have magnitude $d^{-1/2}$, where $d\geq64$. Suppose
+\begin{equation}\label{eq:bulk-assumptions}
+ \max_i\sum_jX_{ij}^2\leq\frac1{16},\qquad
+ \min_j\sum_iX_{ij}^2\geq\frac38,\qquad
+ \rho(B_X)<\frac12.
+\end{equation}
+Then
+\begin{equation}\label{eq:bulk-conclusion}
+ \norm{Xx}\geq\frac14\norm{x}\quad\text{for every }x.
+\end{equation}
+\end{lemma}
+\begin{proof}
+We include the required Ihara--Bass argument. Put $u=1/d$, $H=H(X)$, and let $\Delta$ be diagonal with $\Delta_{vv}=\sum_wH_{vw}^2$.
+Use the operator on present edges in this argument; padding only adds zero eigenvalues. For $\lambda^2\ne u$, the equation $B_Xf=\lambda f$ is equivalent to singularity of
+\begin{equation}\label{eq:IB}
+ K(\lambda)=(\lambda^2-u)\Id+\Delta-\lambda H.
+\end{equation}
+Indeed, put $g_v=\sum_wH_{vw}f(v\to w)$. Solving the two equations on opposite orientations gives
+\[
+ f(u_0\to v)=\frac{\lambda g_v-H_{u_0v}g_{u_0}}{\lambda^2-u}.
+\]
+Summing against $H_{u_0v}$ gives $K(\lambda)g=0$. Conversely, this formula reconstructs a nonzero eigenvector $f$ from a nonzero kernel vector $g$. It also shows that $g=0$ cannot occur for a nonzero $f$ when $\lambda^2\ne u$. Isolated vertices contribute only nonzero scalar factors to \eqref{eq:IB}.
+
+Write $\Delta_1,\Delta_2$ for the row and column blocks of $\Delta$. Set $\lambda=i\sqrt t$, with $t\geq1/4$. Dividing \eqref{eq:IB} by $-(t+u)$ gives the block matrix
+\[
+ \begin{bmatrix}
+ M_1(t)&i\sqrt t\,X/(t+u)\\
+ i\sqrt t\,X^{\mathsf T}/(t+u)&M_2(t)
+ \end{bmatrix},
+ \qquad
+ M_a(t)=\Id-\frac{\Delta_a}{t+u}.
+\]
+By the row bound, $M_1(t)$ is positive definite. The matrix \eqref{eq:IB} is nonsingular because $\sqrt t>\rho(B_X)$. Its Schur complement
+\begin{equation}\label{eq:schur}
+ S(t)=\Id-\frac{\Delta_2}{t+u}
+       +\frac{t}{(t+u)^2}X^{\mathsf T}M_1(t)^{-1}X
+\end{equation}
+is real symmetric, continuous and nonsingular on $[1/4,\infty)$. It tends to $\Id$ as $t\to\infty$. Its eigenvalues cannot cross zero, so $S(t)$ is positive definite throughout this interval.
+
+More generally, if the row squared norms are at most $\gamma$ and the column squared norms are at least $\beta$, this proves, whenever $\beta>t+u$,
+\begin{equation}\label{eq:bulk-formula}
+ X^{\mathsf T}X\succeq
+ \frac{t+u-\gamma}{t}(\beta-t-u)\Id.
+\end{equation}
+To see the last step explicitly, \eqref{eq:schur} gives
+$X^{\mathsf T}M_1^{-1}X\succeq(t+u)(\beta-t-u)\Id/t$,
+whereas $M_1^{-1}\preceq(t+u)\Id/(t+u-\gamma)$.
+
+Use $t=1/4$, $\gamma=1/16$, $\beta=3/8$ and $u\leq1/64$. The right side of \eqref{eq:bulk-formula} is at least
+\[
+ \frac34\cdot\frac7{64}\Id=\frac{21}{256}\Id
+ \succ\frac1{16}\Id.
+\]
+This proves \eqref{eq:bulk-conclusion}.
+\end{proof}
+
+\section{Sufficiency at every positive constant multiple}\label{sec:suff}
+
+Fix $h>0$, and assume $d^2\geq h\log k$. In particular $d\to\infty$. Use the constants $\eta,R,L,D$ in \eqref{eq:constants}--\eqref{eq:a}.
+
+\subsection{The regime \texorpdfstring{$d>(\log k)^2$}{d > (log k) squared}}
+
+For each row $i$, $d_i$ is binomial with mean $\alpha d$. Lemma~\ref{lem:mgf}, or its one-row case, gives
+\[
+ \PP\left\{\max_i d_i>d/16\right\}
+ \leq k e^{-J(1/16)d}=o(1).
+\]
+All column squared norms are one. Lemma~\ref{lem:pruning} without pruning, followed by Lemma~\ref{lem:bulk}, gives $\smin(A)\geq1/4$ with probability $1-o(1)$. This is stronger than \eqref{eq:a}.
+
+\subsection{Exceptional columns in the regime \texorpdfstring{$d\leq(\log k)^2$}{d <= (log k) squared}}
+
+Define
+\begin{equation}\label{eq:bad}
+ H_0=\{i:d_i>d/16\},\qquad
+ \calB=\{j:\abs{S_j\cap H_0}\geq d/2\},\qquad
+ \calG=[m]\setminus\calB.
+\end{equation}
+These definitions use only supports.
+
+\begin{lemma}[Bounded interaction with exceptional columns]\label{lem:bad-neighbors}
+With probability $1-o(1)$, every column intersects at most $R-1$ other columns from $\calB$, and
+\begin{equation}\label{eq:bounded-neighborhood}
+ \abs{S_j\cap\calN(\calB\setminus\{j\})}\leq L
+ \quad\text{for all }j.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Work on the event \eqref{eq:overlap}. Fix a center column $j_0$ and $R$ distinct other columns $j_1,\ldots,j_R$. Expose these $R+1$ supports. Suppose their pairwise overlaps are at most two.
+
+If every $j_a$ is exceptional, its support contains at least $d/2$ high-occupancy rows. Removing rows in any other exposed support removes at most $2R$ rows. For all sufficiently large $d$, we can therefore choose, for each $a$, a set $U_a$ of $\lfloor d/3\rfloor\geq d/4$ high-occupancy rows lying in $S_{j_a}$ and in no other exposed support. These $U_a$ are disjoint.
+
+For every $i\in U=\bigcup_a U_a$, at least $d/16-1\geq d/32$ incidences must come from unexposed columns. Conditional on the exposed supports, Lemma~\ref{lem:mgf} gives, for any fixed choice of these sets,
+\[
+ \PP\{\text{all rows in }U\text{ are high}\mid\text{exposed supports}\}
+ \leq e^{-J(1/32)d\abs U}
+ \leq e^{-J(1/32)R d^2/4}.
+\]
+There are at most $2^{Rd}$ possible choices of $U_1,\ldots,U_R$. Since $d\to\infty$, the conditional probability that all $R$ leaves are exceptional is at most
+\begin{equation}\label{eq:bad-conditional}
+ 2^{Rd}e^{-J(1/32)R d^2/4}
+ \leq e^{-\eta R d^2}.
+\end{equation}
+This bound is uniform over exposed supports with pairwise overlap at most two.
+
+Conditional on $S_{j_0}$, the probability that all $R$ other exposed supports meet it is at most $(d^2/k)^R$, by independence and a union bound. Combining this with \eqref{eq:bad-conditional}, then summing over at most $k^{R+1}$ ordered choices, bounds the probability of a center with $R$ exceptional neighbors, while \eqref{eq:overlap} holds, by
+\begin{equation}\label{eq:bad-neighbor-prob}
+ k d^{2R}e^{-\eta R d^2}
+ \leq\exp\!\left((1-\eta Rh)\log k+2R\log d\right)=o(1).
+\end{equation}
+Here $R$ is fixed, $\eta Rh>3$ and $\log d=O(\log\log k)$. Lemma~\ref{lem:overlaps} removes the conditioning on \eqref{eq:overlap}. Finally, at most $R-1$ intersecting exceptional supports, each overlapping in at most two rows, imply \eqref{eq:bounded-neighborhood}.
+\end{proof}
+
+\begin{lemma}[Very high occupancies do not capture a column]\label{lem:cap}
+With probability $1-o(1)$, every column has fewer than $\lceil d/4\rceil$ neighbors in $\{i:d_i>Dd\}$. In particular, every column has at least $3d/4$ neighbors with $d_i\leq Dd$.
+\end{lemma}
+\begin{proof}
+Fix and expose $S_j$. If it contains $\lceil d/4\rceil$ very high rows, choose such a set $U\subseteq S_j$. Each row requires more than $Dd-1\geq Dd/2$ incidences from other columns. Lemma~\ref{lem:mgf} and a union bound over at most $2^d$ choices of $U$ give, eventually,
+\[
+ \PP\{\abs{S_j\cap\{i:d_i>Dd\}}\geq\lceil d/4\rceil\}
+ \leq 2^d e^{-J(D/2)d^2/4}
+ \leq e^{-J(D/2)d^2/8}.
+\]
+For $D\geq1$, $J(D/2)>D$, since $\log(50D)>3$. Thus $hJ(D/2)/8>16$ for our choice of $D$. A union bound over columns is $o(1)$. The integer rounding gives at most $\lceil d/4\rceil-1<d/4$ very high neighbors, as claimed.
+\end{proof}
+
+\subsection{Deleting the exceptional neighborhoods, not just the high rows}
+
+On the support events just proved, let
+\begin{align}
+ R_1&=\{i:d_i\leq d/16\}\setminus\calN(\calB),\label{eq:R1}\\
+ R_2&=\{i:d_i\leq Dd\text{ and }\abs{\{j\in\calB:i\in S_j\}}=1\}.
+ \label{eq:R2}
+\end{align}
+These row sets are disjoint. Order columns as $(\calG,\calB)$ and retain only rows $R_1\cup R_2$. The resulting matrix has the \emph{exact} form
+\begin{equation}\label{eq:block}
+ \begin{bmatrix}X&0\\Z&W\end{bmatrix},
+ \quad X=A_{R_1,\calG},\quad Z=A_{R_2,\calG},\quad W=A_{R_2,\calB}.
+\end{equation}
+The zero block is the reason for deleting the whole exceptional neighborhood in \eqref{eq:R1}.
+
+Every good column has more than $d/2$ neighbors outside $H_0$. Deleting $\calN(\calB)$ removes at most $L$ of its rows by \eqref{eq:bounded-neighborhood}. Thus every column of $X$ has at least $d/2-L\geq3d/8$ entries eventually. Every row of $X$ has at most $d/16$ entries.
+
+The choice of $X$, padded with zeros to size $k\times m$, is a prescribed support-dependent pruning. Lemma~\ref{lem:pruning} applies despite all dependencies introduced by the definitions of $R_1$ and $\calG$. Lemma~\ref{lem:bulk} therefore gives, with an additional failure probability $o(1)$,
+\begin{equation}\label{eq:Xlower}
+ \norm{Xx}\geq\frac14\norm{x}.
+\end{equation}
+If $\calG$ is empty, this inequality is vacuous and no bulk argument is needed.
+
+By Lemma~\ref{lem:cap}, every exceptional column has at least $3d/4$ neighbors of occupancy at most $Dd$. At most $L$ of its rows touch another exceptional column. Hence it has at least $3d/4-L\geq d/2$ entries in $W$. Each row of $W$ has exactly one nonzero, so its columns have disjoint supports and
+\begin{equation}\label{eq:Wlower}
+ W^{\mathsf T}W\succeq\tfrac12\Id,
+ \qquad \norm{Wy}\geq\tfrac12\norm{y}.
+\end{equation}
+
+Every good column has at most $L$ entries in $Z$, while every row of $Z$ has at most $Dd$ entries. The induced matrix $1$- and infinity-norm bounds yield
+\begin{equation}\label{eq:Zupper}
+ \norm Z\leq\sqrt{\norm Z_1\norm Z_\infty}
+ \leq\sqrt{(L/\sqrt d)(D\sqrt d)}=\sqrt{DL}.
+\end{equation}
+This estimate is deterministic and does not require sign cancellation.
+
+Put $z=\sqrt{DL}$. For a vector $(x,y)$, write $u=Xx$ and $v=Zx+Wy$. Equations~\eqref{eq:Xlower}--\eqref{eq:Zupper} imply
+\[
+ \norm{x}\leq4\norm{u},\qquad
+ \norm{y}\leq2\norm{v}+8z\norm{u}.
+\]
+Consequently
+\begin{align*}
+ \norm{(x,y)}
+ &\leq\norm{x}+\norm{y}\\
+ &\leq(4+8z)\norm{u}+2\norm{v}
+ \leq(6+8z)\sqrt{\norm{u}^2+\norm{v}^2}.
+\end{align*}
+Deleting rows can only decrease an output norm. Applying this to \eqref{eq:block} proves
+\[
+ \norm{A(x,y)}\geq\frac1{6+8\sqrt{DL}}\norm{(x,y)}.
+\]
+All required events have probability $1-o(1)$. Together with the dense regime, this proves Theorem~\ref{thm:main}(ii).
+
+\section{Necessity: a reservoir of cancellation trees}\label{sec:necessity}
+
+Assume throughout this section that $d^2=o(\log k)$. Fix $\varepsilon\in(0,1)$ and put
+\begin{equation}\label{eq:width}
+ w=\lceil d/\varepsilon^2\rceil.
+\end{equation}
+We will show that $\smin(A)<\varepsilon$ with probability $1-o(1)$. The signs in this section can be arbitrary; randomness of the supports suffices.
+
+\subsection{The deterministic witness}
+
+Consider one root column with $d$ row neighbors. At each such row choose $w$ auxiliary columns. Each auxiliary column has its other $d-1$ rows outside the root support, with all these outer rows distinct. Include the entire support of every chosen column. This is the normalized cancellation pattern underlying the tree obstruction in \cite{HRT}.
+
+Set the root coefficient to $1$, and the coefficient of each auxiliary column to $\pm1/w$, choosing its sign to cancel the root contribution at its parent row. The resulting vector $v$ satisfies
+\begin{equation}\label{eq:tree-quotient}
+ \norm v^2=1+\frac dw,\qquad
+ \norm{Av}^2=\frac{d-1}{w},\qquad
+ \frac{\norm{Av}^2}{\norm v^2}=\frac{d-1}{d+w}<\varepsilon^2.
+\end{equation}
+For $d=1$ the output is identically zero. Unselected columns may meet any of the tree rows: their coefficients are zero and they do not affect this calculation.
+
+\subsection{Many rows have enough reservoir neighbors}
+
+Split the columns into a reservoir of size $t=\lfloor m/2\rfloor$ and at least $m/2$ independent test columns. Write $D_i^{\rm res}$ for the reservoir occupancy of row $i$. Its marginal distribution is $\operatorname{Bin}(t,d/k)$. Set
+\[
+ q=\PP\{D_i^{\rm res}\geq w\},\qquad
+ H=\{i:D_i^{\rm res}\geq w\}.
+\]
+There is a constant $C_\varepsilon$ such that
+\begin{equation}\label{eq:q}
+ q\geq e^{-C_\varepsilon d}.
+\end{equation}
+For completeness, put $D_\varepsilon=1+\varepsilon^{-2}$, so $w\leq D_\varepsilon d$. Eventually $t\geq k/300$, $w\leq t/2$ and $d/k\leq1/2$. The binomial probability at $w$ is at least
+\begin{align*}
+ {t\choose w}(d/k)^w(1-d/k)^{t-w}
+ &\geq\left(\frac{td}{kw}\right)^w e^{-2td/k}\\
+ &\geq \exp\!\left(-\bigl[D_\varepsilon\log(300D_\varepsilon)+1\bigr]d\right).
+\end{align*}
+This proves \eqref{eq:q}.
+
+The upper-tail indicators of two distinct row occupancies have nonpositive covariance. Here is a direct proof rather than an independence approximation. Conditional on $D_i^{\rm res}=a$, the occupancy of row $j\ne i$ has the law of a sum of $a$ Bernoulli variables of parameter $(d-1)/(k-1)$ and $t-a$ Bernoulli variables of parameter $d/(k-1)$. This law is stochastically decreasing in $a$. Hence
+$\PP\{D_j^{\rm res}\geq w\mid D_i^{\rm res}=a\}$ is nonincreasing in $a$, whereas $\ind_{\{a\geq w\}}$ is nondecreasing. Their covariance is nonpositive. Thus
+\[
+ \Var(\abs H)\leq\EE\abs H=kq.
+\]
+Chebyshev's inequality gives
+\begin{equation}\label{eq:H-size}
+ \PP\{\abs H<kq/2\}\leq\frac4{kq}=o(1),
+\end{equation}
+since $q\geq e^{-C_\varepsilon d}=k^{-o(1)}$.
+
+\subsection{Cleaning the reservoir neighborhoods}
+
+View the reservoir as a bipartite graph of rows and columns. The expected number of four-cycles is at most
+\[
+ {k\choose2}{t\choose2}
+ \left(\frac{(d)_2}{(k)_2}\right)^2=O(d^4).
+\]
+Consequently, with probability $1-o(1)$ there are at most $k^{1/4}$ four-cycles. Exclude from the candidate set $H$ all rows lying on a four-cycle, discarding at most $2k^{1/4}$ rows. Let $H'$ be the remaining candidate set. The reservoir graph itself is unchanged; all distances below are measured in the original reservoir graph. By \eqref{eq:H-size}, with probability $1-o(1)$,
+\begin{equation}\label{eq:H-prime}
+ \abs{H'}\geq kq/4.
+\end{equation}
+A row of $H'$ has at least $w$ adjacent reservoir columns, and distinct such columns have disjoint other row neighbors. Otherwise they would form a four-cycle through that row.
+
+Also, with probability $1-o(1)$,
+\begin{equation}\label{eq:max-res-degree}
+ \max_i D_i^{\rm res}\leq Q:=\lceil\log k\rceil.
+\end{equation}
+For example, a binomial upper-tail bound and a union bound give failure probability at most
+$k(e\alpha d/Q)^Q=o(1)$, because $d=o(\sqrt{\log k})$.
+
+Under \eqref{eq:max-res-degree}, the number of row vertices at reservoir-graph distance at most four from any specified row is at most
+\begin{equation}\label{eq:F}
+ F=1+Qd+(Qd)^2.
+\end{equation}
+Since $\abs{H'}\geq k^{1-o(1)}$ and $dF$ is polylogarithmic, eventually $\abs{H'}\geq2dF$.
+
+\subsection{An independent test column closes the tree}
+
+Conditional on a reservoir satisfying the preceding high-probability events, a uniform test support has probability at least
+\begin{equation}\label{eq:root-success}
+ p_*\geq\left(\frac{\abs{H'}}{2k}\right)^d
+ \geq(q/8)^d
+ \geq e^{-C'_{\varepsilon}d^2}
+\end{equation}
+of consisting of $d$ rows in $H'$ whose pairwise reservoir distances are greater than four. To verify the first bound, sample the support as an ordered distinct tuple. At each step at most $dF$ choices are forbidden, so at least $\abs{H'}/2$ choices remain. Divide the count of such tuples by $(k)_d\leq k^d$.
+
+For a successful test column, choose $w$ adjacent reservoir columns at each of its support rows. Absence of a four-cycle through each root-neighbor row makes the outer rows distinct within that branch. Distance greater than four between different root-neighbor rows makes different branches disjoint, and prevents any auxiliary column from meeting a second root-neighbor row. Thus all supports of the selected columns form exactly the pattern used in \eqref{eq:tree-quotient}.
+
+The test columns are conditionally independent. Therefore the conditional probability of no successful test column is at most
+\[
+ (1-p_*)^{m-t}\leq\exp\!\left(-\frac{k}{200}
+                                  e^{-C'_\varepsilon d^2}\right)=o(1).
+\]
+The last equality uses $d^2=o(\log k)$. Combining with the reservoir events and \eqref{eq:tree-quotient} proves
+\[
+ \PP\{\smin(A)<\varepsilon\}\longrightarrow1.
+\]
+As $\varepsilon\in(0,1)$ was arbitrary, Theorem~\ref{thm:main}(i) follows.
+
+\section{Arbitrary sequences and the critical window}\label{sec:sequences}
+
+If $\liminf s_k^2/\log k>0$, choose a fixed $h>0$ below this lower limit and apply Theorem~\ref{thm:main}(ii).
+
+Conversely, if that lower limit is zero, there is a subsequence $k_\nu$ along which $s_{k_\nu}^2=o(\log k_\nu)$. Part (i) implies that, for every fixed $a>0$,
+\[
+ \PP\{\smin(A_{k_\nu})\geq a\}\longrightarrow0.
+\]
+This contradicts convergence to one along the original sequence. No monotonicity assumption on $s_k$ is needed.
+
+The answer can equivalently be written $s_k=\Omega(\sqrt{\log k})$. In the existential-$a$ formulation this is an exact criterion, not a gap between two unspecified constants. Every fixed positive multiple succeeds, while a sequence with normalized sparsity tending to zero along any subsequence fails. In particular,
+\begin{center}
+\begin{tabular}{@{}p{0.60\textwidth}p{0.28\textwidth}@{}}
+\toprule
+Sparsity, with harmless integer rounding & Outcome\\
+\midrule
+$c\sqrt{\log k}$ for any fixed $c>0$ & Success\\
+$\sqrt{\log k}/\log\log k$ & Failure\\
+$\sqrt{\log k/\log\log k}$ & Failure\\
+$\sqrt{\log k\,\log\log k}$ & Success\\
+An oscillating sequence with $\liminf s_k/\sqrt{\log k}=0$ & Failure\\
+\bottomrule
+\end{tabular}
+\end{center}
+Thus the intermediate logarithmic exponent is $\alpha_*=1/2$, and the criterion also resolves all multiplicative constant and iterated-logarithm behavior at that exponent. The optimal dependence of the best attainable lower singular-value bound on the positive limiting ratio is not claimed or needed for TR-08.
+
+\appendix
+\section{Proof dependencies and finite checks}
+
+The proof uses exactly one non-elementary external estimate, \eqref{eq:DZ}. Its extension to the present model is proved term by term in Lemma~\ref{lem:pruning}. In particular, none of the following substitutions is made: independent Bernoulli supports for fixed-size supports without proof; pointwise spectral-radius monotonicity under signed pruning; or an upper-distortion theorem in place of a lower singular-value argument.
+
+The supplied program \texttt{code/verify.py} checks the exact tree quotient and the bulk algebra symbolically; checks 328 small hypergeometric moment-generating-function inequalities with rational arithmetic; exhaustively compares trace moments, using exact rational arithmetic, for 144 fixed-sparsity signed matrices with 729 independent-entry matrices; and checks finite Ihara--Bass and block-triangular examples numerically. The recorded run passed all assertions. It is not formal verification of the asymptotic argument or a substitute for the published input.
+
+The companion \texttt{code/experiment.py} generates the model exactly and records finite-dimensional smallest singular values. Such experiments cannot establish this threshold: at practical dimensions, rare witnesses may be invisible, and $s_k$ is an asymptotic sequence rather than a single integer.
+
+\Needspace{18\baselineskip}
+\begin{thebibliography}{9}
+\bibitem{TR08}
+Open Problems in Numerical Linear Algebra,
+\emph{TR-08: Sharp sparsity threshold for injectivity of a random sparse rectangular matrix}, repository statement, accessed 12 September 2026.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/randomized-and-low-rank-approximation/TR-08}.
+
+\bibitem{HRT}
+H. Huang, M. Rudelson, and K. Tikhomirov,
+\emph{Well-invertible column subsets of sparse matrices are rare},
+arXiv:2607.05384v2, 2026, especially Section 1.3.1 and Problem 7.2.
+\url{https://arxiv.org/html/2607.05384v2}.
+
+\bibitem{DZ}
+I. Dumitriu and Y. Zhu,
+\emph{Extreme singular values of inhomogeneous sparse random rectangular matrices},
+Bernoulli \textbf{30}(4) (2024), 2904--2931;
+arXiv:2209.12271v4, especially Lemma 4.3 and Section 5.
+\url{https://arxiv.org/abs/2209.12271v4}.
+\end{thebibliography}
+\end{document}

@@ -21,6 +21,13 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### ✅ TR-08 — exact square-root-logarithmic sparsity threshold — Sidney Holden
+
+**Solved, 12 September 2026.** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Theorem 1.1 and Sections 2–7](randomized-and-low-rank-approximation/TR-08/solution.pdf) settle the full [retained TR-08 target](randomized-and-low-rank-approximation/TR-08/README.md): the required fixed positive lower singular-value bound holds with probability tending to one exactly when $`\liminf s_k^2/\log k>0`$, including arbitrary sequences and the critical window. [Proof source](randomized-and-low-rank-approximation/TR-08/solution.tex) · [Submission and verified affiliation](references/holden-tr08-2026-09-12/README.md).
+
+The full proof passed a separate [independent Codex AI-agent informal audit](references/holden-tr08-2026-09-12/independent-review.md). The finite symbolic, exact-enumeration and numerical checks were rerun successfully. ChatGPT assistance is disclosed; no external human peer review, formal verification or historical novelty claim is asserted. No Lean verification was performed. The original ID, canonical path, target and prior-source credit remain unchanged.
+
+
 ### KE-02, SP-08 and SP-09 — spectral partial results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-spectral-2026-09-12/README.md).

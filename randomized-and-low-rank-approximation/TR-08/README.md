@@ -7,8 +7,26 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because a sharp lower-singular-value threshold needs both necessity and sufficiency; community impact is the sparsity cost of reliable randomized embeddings.  
-**Status:** Open  
+**Status:** Solved
 **Last checked:** 2026-09-12  
+
+## Resolution — 12 September 2026
+
+**Solved by Sidney Holden**, Center for Computational Biology, Flatiron Institute, Simons Foundation. The historical difficulty and importance ratings above refer to the original open question.
+
+[Theorem 1.1 and Sections 2–7](solution.pdf) prove the exact criterion
+
+```math
+\exists a>0:\quad \Pr\{\sigma_{\min}((M_k)_{:I_k})\ge a\}\longrightarrow1
+\quad\Longleftrightarrow\quad
+\liminf_{k\to\infty}\frac{s_k^2}{\log k}>0.
+```
+
+Thus the necessary and sufficient condition is $`s_k=\Omega(\sqrt{\log k})`$. Every fixed positive multiple succeeds, and a normalized sparsity tending to zero along any subsequence fails. This includes oscillating sequences and the critical window, rather than only the logarithmic exponent. The fixed positive singular-value bound may depend on the sequence's positive lower ratio, but not on dimension or the realized matrix. The selected columns have exactly the original product law, so the ambient column count introduces no additional assumption.
+
+[Proof source](solution.tex) · [Submission and verified affiliation](../../references/holden-tr08-2026-09-12/README.md) · [Independent Codex AI-agent audit: PASS](../../references/holden-tr08-2026-09-12/independent-review.md).
+
+The complete argument passed independent informal AI-agent review; this is not external human peer review or formal verification. No Lean verification was performed. The draft's ChatGPT assistance is disclosed. The original target and source attribution are retained below; no historical novelty claim is made.
 
 ## Problem statement
 
