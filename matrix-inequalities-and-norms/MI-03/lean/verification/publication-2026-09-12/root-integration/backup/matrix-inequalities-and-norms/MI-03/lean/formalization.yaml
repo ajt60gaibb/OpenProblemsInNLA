@@ -1,0 +1,235 @@
+# yaml-language-server: $schema=../../../docs/lean/schema/v0.4.schema.json
+version: v0.4
+project:
+  name: 'MI-03: the sharp constant for sums of complex contractions'
+  description: Complete proof of the canonical odd-summand conjecture, via the stronger exact least admissible
+    constant k/4 for every k≥2 in every positive dimension.
+  authors:
+  - George Stepaniants
+  affiliations:
+    George Stepaniants: Department of Computing and Mathematical Sciences, California Institute of Technology,
+      Pasadena, California, USA
+  responsible_maintainers:
+  - George Stepaniants
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+- title: MI-03 — sharp constant for sums of complex contractions
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/c0601d8825e9f9e744212c62e6a43fefc1c60a22/matrix-inequalities-and-norms/MI-03/README.md
+  type: web-post
+  location: Complete canonical problem statement
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: All positive dimensions, every tuple of complex contractions in the actual Euclidean operator
+    norm, the full set of admissible nonnegative constants and its actual infimum; every odd k≥3.
+- title: 'MI-03: Colbrook proof of the sharp contraction constant'
+  authors:
+  - Matthew J. Colbrook
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/c0601d8825e9f9e744212c62e6a43fefc1c60a22/references/colbrook-matrix-2026-09-11/original-proofs/MI-03.tex
+  type: manuscript
+  location: Complete upper-bound and dimension-two sharpness proof; SOURCE_MAP.md documents the precise
+    scope
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: Colbrook retains the mathematical proof and result; Bourin and Lee retain conjecture/prior-bound
+    credit. The stronger all-k≥2 statement is formalized. Additional dimension-three Hermitian extremizers
+    and rank classification are outside the eight exports.
+related_formalizations:
+- id: https://github.com/sgstepaniants/Forsythe/tree/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof
+  relationship: other
+  note: Campaign structure and pinned kernel-trust/Comparator workflow example; shared tool reuse and
+    licenses are retained. No Forsythe mathematical theorem is assumed.
+- id: https://github.com/jaumededios/Schiffer/tree/2938e277969c329caf154e48a3d8823f3635c7f1
+  relationship: other
+  note: Statement/analytic-proof separation example studied in the campaign. No Schiffer mathematical
+    theorem is imported.
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: Multiple agents; two statement approvals before implementation, exact pinned Mathlib CFC/matrix/norm/root-of-unity
+      APIs, then two independent final proof reviews with separate-prefix elaboration and actual dependency
+      audits.
+    prompting_notes: Preserve every original quantifier and actual norm/modulus/infimum meaning. Prove
+      the exact positive decomposition and all-k complex witness; establish IsLeast of the full admissible
+      set before invoking sInf. Use symbolic identities and explicit kernel LeanCert trust auditing, without
+      approximate phases or an artificial interval certificate.
+  notes: AI-assisted formalization requested by George Stepaniants. Implementation agent /root is not
+    counted as either independent final referee. No external human peer review, official Tau Ceti endorsement,
+    model identity, measured cost or historical priority is claimed.
+status:
+  scope: Complete affirmative answer to the full canonical odd-summand conjecture, via IsLeast of the
+    entire admissible set at k/4 for every k≥2 and equality of its actual real infimum. All eight exports
+    passed two independent statement reviews, two independent final proof reviews and actual Linux sandboxed
+    Comparator/default-kernel verification in run 34722618003 on 2026-09-12 at unchanged proof revision
+    901ba5ffad3b57557b60c7360df67659d8b8aa21. The independent operational audit binds all 173 inputs,
+    original artifact digests, sixteen standard-three axiom reports and both actual isolation/rejection-control
+    suites. Canonical status is Lean verified. Additional three-dimensional Hermitian extremizers and
+    rank classification remain outside these exports.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms:
+  - propext
+  - Classical.choice
+  - Quot.sound
+  main_results:
+  - declaration: NLA.MI03.modulus_semantics
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI03.contraction_modulus
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI03.positive_decomposition
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI03.universal_upper_bound
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI03.root_of_unity_data
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI03.sharpness_witness
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI03.sharp_constant
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.MI03.odd_contraction_conjecture
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+fidelity:
+  divergences: No narrowing of the original target. The stronger all-k≥2 theorem gives the complete original
+    every-odd-k≥3 result. The half ordered-pair Gram sum represents the source unordered-pair variance.
+    Actual CFC moduli, Euclidean operator norms, complex roots, witness matrices and admissible-set infimum
+    are retained. Attainment and IsLeast precede sInf equality. Extra dimension-three Hermitian extremizers
+    and rank classification are outside the eight exports.
+review:
+  status: agent-reviewed; Linux-Comparator-and-default-kernel-verified
+  reviewers:
+  - 'OpenAI Codex agent /root/formal_review_standards: independent statement referee1 and final proof
+    referee1'
+  - 'OpenAI Codex agent /root/leancert_examples: independent statement referee2 and final proof referee2'
+  notes: Both independent statement approvals preceded implementation. Final reviewers freshly elaborated
+    the actual proof in separate prefixes excluding old project objects and inspected material proof dependencies.
+    All sixteen internal/public kernel assertions and transitive axiom reports allow only propext, Classical.choice
+    and Quot.sound. LeanCert supplies explicit kernel trust auditing only; no numerical interval certificate
+    is claimed. Challenge placeholders remain isolated from Solution. Local macOS reviews used matching
+    pinned dependency caches. Actual Linux run 34722618003 at 901ba5ffad3b57557b60c7360df67659d8b8aa21
+    freshly cloned ten pinned dependencies, reused 8690 official Mathlib cache artifacts, built the project
+    sources, matched all eight exports with no definition exceptions, replayed them in the default kernel
+    and passed both real control suites. No full dependency-source rebuild is claimed. The nested Bubblewrap
+    executable was denied UID-map creation before its inner write. Independent agent /root/formal_review_standards
+    audited all 173 submitted inputs, original artifact ZIPs and logs, exact pins/tool-source lock and
+    default-kernel/control results. This operational reviewer also served as statement referee 1 and final
+    proof referee 1; it is not a third mathematical referee. The implementing agent /root is neither independent
+    final referee. Operational report SHA256 0c582ae4b9271ce89cd9484a45d380f3cfa8cab60595a7986debcaa67c084e30
+    and outer evidence manifest ecbdf4f208c72dd016442ca7dba5fd925b5c51286719454e5a58563460a610d9 bind
+    303 files plus the outer manifest, including all nested manifests. Publication archives both exact
+    prior wrappers and changes only the current README and formalization.yaml among the 173 verified inputs;
+    all 171 others and all 304 Linux evidence files remain identical. All 100 non-README proof-freeze
+    inputs, the historical README archive and original source snapshots are retained. Frozen phase labels
+    and earlier metadata remain historical. No external human peer review, official Tau Ceti endorsement
+    or historical priority is claimed.
+  statement_reports:
+  - file: reviews/statement-referee-1.md
+    sha256: 2a46c81ee78c4d0718c862cecf76a20425447c3ba502a78a477caf8a30e20de2
+  - file: reviews/statement-referee-2.md
+    sha256: 47c4a7ada59afabcbf5657da3cdc31598db49c88e2beed7b7b50f5b0dde09ce0
+  proof_reports:
+  - file: reviews/proof-referee-1.md
+    sha256: 7a00100cd2070c759b0dc71c743f9d58428c2ae5bfe41ffda4696efd4003391f
+  - file: reviews/proof-referee-2.md
+    sha256: 129c3b352346d1da8a192a0f4d662eb0a6e9b9f5a7a02b7efc176f2a7a051ba3
+  proof_freeze:
+    file: reviews/proof-freeze.json
+    sha256: fcff9e256a6425853b15def24260b419613a72d9122c0a5bedea4b4cd5f0fd1d
+  linux_verification:
+    status: passed; independently audited
+    note: Actual run https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34722618003 at 901ba5ffad3b57557b60c7360df67659d8b8aa21.
+      All eight exports, sixteen standard-three reports, actual default-kernel replay and both control
+      suites passed. See verification/linux-2026-09-12/OPERATIONAL-REVIEW.md and EVIDENCE-MANIFEST.json.
+      Original project ZIP SHA256 ca9ae612e2b9daef185d7d23fcfe2930c6a73b3cdbefa2b77bb24108ffc74e8d; control
+      ZIP SHA256 55dd2ca9c189c2b5fda8d8785cbf0177a74f77cdc26d0f12f03a3c4c11526f8d. Complete original run-log
+      archive is retained with its separately computed digest.
+  proof_report_evidence:
+    reviews/proof-referee-1-evidence/EVIDENCE-MANIFEST.json:
+      sha256: 3e3b31ec7ed0fdc50b06305a215d568e38849a2d437ae4cfc06e9ba3651f18eb
+      bytes: 4307
+    reviews/proof-referee-2-evidence/EVIDENCE-MANIFEST.json:
+      sha256: 7422f5c308563fd2e343a107f1aaf4c7dc060c09b4f03638f2e59fd4a9c99ea0
+      bytes: 3852
+alignment:
+- declaration: NLA.MI03.modulus_semantics
+  scope: Genuine principal positive-square-root modulus, its actual square and Euclidean operator norm
+    for every complex matrix in positive dimension.
+- declaration: NLA.MI03.contraction_modulus
+  scope: Actual I−|A| and |A|−|A|² positive semidefiniteness for every complex contraction, including
+    singular and zero inputs.
+- declaration: NLA.MI03.positive_decomposition
+  scope: Exact all-matrix finite-sum identity and unconditional positivity of its Gram variance and Hermitian
+    shifted square.
+- declaration: NLA.MI03.universal_upper_bound
+  scope: Full dimension-independent admissibility of k/4 for every k≥2 and every complex contraction tuple.
+- declaration: NLA.MI03.root_of_unity_data
+  scope: Unit norm and vanishing geometric sum of the actual complex exponential root for every k≥2.
+- declaration: NLA.MI03.sharpness_witness
+  scope: All-k dimension-two vector/operator norms, true CFC moduli, complete matrix sums and actual modulus
+    difference.
+- declaration: NLA.MI03.sharp_constant
+  scope: IsLeast of the entire admissible constant set and equality of its actual real infimum to k/4
+    for every k≥2.
+- declaration: NLA.MI03.odd_contraction_conjecture
+  scope: Unconditional full affirmative answer to the original every-odd-k≥3 conjecture.
+acknowledgements: Matthew J. Colbrook for the mathematical result and proof; Bourin and Lee for the conjecture
+  and previous bounds; Mathlib and LeanCert contributors for genuine CFC/order/matrix/norm/root/infimum
+  and trust APIs. Shared Comparator/exporter and sandbox tooling retain their licenses and attribution.
+  No external mathematical theorem is an unproved premise.

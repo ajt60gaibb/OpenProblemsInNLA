@@ -2,7 +2,7 @@
 
 **125 problems with open targets:** 52 open and 73 partially resolved. **92 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 76 solved (published or independently audited); 16 Lean verified.
+**Resolution evidence:** 75 solved (published or independently audited); 17 Lean verified.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -247,7 +247,7 @@ Retained entries outside the open count:
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [MI-03](matrix-inequalities-and-norms/MI-03/README.md) | Sharp additive triangle constant for an odd number of contractions | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-03/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-03/problem.tex) |
+| [MI-03](matrix-inequalities-and-norms/MI-03/README.md) | Sharp additive triangle constant for an odd number of contractions | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-03/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-03/problem.tex) |
 | [MI-04](matrix-inequalities-and-norms/MI-04/README.md) | A universal block-norm characterization of essentially Hermitian matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-04/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-04/problem.tex) |
 | [MI-06](matrix-inequalities-and-norms/MI-06/README.md) | Thompson-type domination for the arithmetic symmetric modulus | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-06/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-06/problem.tex) |
 | [MI-07](matrix-inequalities-and-norms/MI-07/README.md) | The triangle conjecture for the maximal symmetric modulus | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-07/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-07/problem.tex) |

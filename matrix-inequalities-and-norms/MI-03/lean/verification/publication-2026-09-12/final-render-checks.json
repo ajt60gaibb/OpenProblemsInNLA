@@ -1,0 +1,58 @@
+{
+  "reason": "Remove the newly introduced status-line trailing spaces caught by git diff --check; no mathematical statement changes.",
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "tools/render_problems.py",
+        "MI-03"
+      ],
+      "exit_code": 0,
+      "log": "render.log",
+      "sha256": "4ed5b3b69bf89220cfe320747fd13309f5980479d9cbfffe808d7a64bf7e61d7"
+    },
+    {
+      "command": [
+        "pdfinfo",
+        "matrix-inequalities-and-norms/MI-03/problem.pdf"
+      ],
+      "exit_code": 0,
+      "log": "pdfinfo.log",
+      "sha256": "5e40badd0d05f35bbf9f7cb4238bbeaa7a8d73e864ad551c9404b095b2fe2936"
+    },
+    {
+      "command": [
+        "pdftoppm",
+        "-r",
+        "110",
+        "-png",
+        "matrix-inequalities-and-norms/MI-03/problem.pdf",
+        "/tmp/nla-lean-formalization/mi03-publication/pages/page"
+      ],
+      "exit_code": 0,
+      "log": "render-pages.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "log": "diff-check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/format_math.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log": "format-final.log",
+      "sha256": "a79bf13b65bde7baa6900939f581282565799e78e47c9e2426f83b5b4ccb5a9c"
+    }
+  ]
+}
