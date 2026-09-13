@@ -1,0 +1,468 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,array,longtable}
+\usepackage{microtype}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Structural obstructions for PF-01},pdfauthor={Sidney Holden},pdfsubject={Partial research results and exact finite algebra certificates}}
+\usepackage{enumitem}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\emergencystretch}{2em}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\Sym}{\mathbb S}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\psdrank}{\operatorname{rank}_{\rm psd}}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\title{Structural obstructions for PF-01}
+\author{Sidney Holden\\{\small Center for Computational Biology, Flatiron Institute}\\{\small Simons Foundation}}\date{13 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Real size-four positive semidefinite factorizations of the subset-intersection matrices are constrained in several ways. At order eight, at most 65 of the 70 factors on either side can have rank one. At order nine, the analogous bound is 64 of 126. A separate algebraic argument shows that a family of fixed-cardinality subset sums which are orthogonal projections in $\Sym^4$ has coefficient span of dimension at most five. Consequently, a hypothetical size-four factorization at order nine has an affine factor side containing both rank-three and lower-rank matrices, with additional covering constraints on its rank-three indices.
+
+An exact integer and finite-field computation determines the 90-dimensional space of quartic polynomials satisfying the required first-derivative conditions at the 126 four-subset vectors. The determinant of a hypothetical factorization must use a nine-dimensional part of this space which is absent from a tempting, but incomplete, 81-dimensional ansatz. These are structural obstructions and an exact finite algebra certificate, not an exact-rank determination. The previous unrestricted rank bounds remain unchanged. The general proofs are research proof drafts, without independent review or formal verification.
+\end{abstract}
+
+\section{The target and the unchanged numerical bounds}
+Put $r=\lfloor n/2\rfloor$ and $s=n-r$. The canonical PF-01 matrix has entries
+\[
+ M^{(n)}_{I,J}=|I\cap J|,\qquad |I|=r,\quad |J|=s.
+\]
+The target is the least integer $k$ for which real symmetric positive semidefinite factors satisfy $M_{I,J}=\tr(A_I B_J)$ for every pair. It is the exact function of $n$, not a restricted factorization model.\footnote{Canonical PF-01 statement, \cite{repo}; original source, \cite{fawzi}, Problem 9.2.}
+
+Complementing the column index gives the symmetric matrix
+\begin{equation}\label{eq:D}
+ D_{I,K}=r-|I\cap K|,\qquad |I|=|K|=r.
+\end{equation}
+Column permutation preserves PSD rank. Let $E$ have rows $\one_I^T$, and set
+\[
+ H=\frac1r\one\one^T-I_n.
+\]
+Then $D=EHE^T$. Exchanging one element in a subset shows that $E$ has column rank $n$; $H$ is invertible because its eigenvalues are $s/r$ and $-1$. Hence $\rank D=n$.
+
+The repository records the established values $\psdrank M^{(5)}=\psdrank M^{(6)}=4$, and distinguishes them from the surviving orders.\footnote{Colbrook's manuscript and its stated review level are linked in \cite{repo}; see also \cite{colbrook}.} The preceding research manuscript in the accompanying archive proves the draft bounds
+\begin{equation}\label{eq:baseline}
+ \max\left\{4,\left\lceil\frac{\sqrt{8n+9}-1}{2}\right\rceil\right\}
+ \ \leq\ \psdrank M^{(n)}\ \leq\ \left\lceil2\sqrt{n-2}\right\rceil,
+ \qquad n\geq5.
+\end{equation}
+Its size-$\lceil2\sqrt{n-2}\rceil$ construction and strict triangular-order obstruction are retained, with their original scope and attribution.\footnote{The complete preceding archive is included as \texttt{prior/PF01\_research\_pack.zip}; its manuscript is \cite{prior}.}
+
+Nothing proved here replaces \eqref{eq:baseline} by an exact formula. In particular,
+\[
+ 4\leq\psdrank M^{(7)}\leq5,\qquad
+ 4\leq\psdrank M^{(8)}\leq5,\qquad
+ 4\leq\psdrank M^{(9)}\leq6
+\]
+remain the unrestricted intervals established by the combined package.
+
+\section{Factor spans and the affine reduction}
+Use trace-orthonormal coordinates on $\Sym^4$, a ten-dimensional real space. If $a$ and $b$ are the dimensions of the row-factor and column-factor spans, respectively, the rank inequality for a product gives
+\begin{equation}\label{eq:spans}
+ a,b\geq n,\qquad a+b\leq10+n.
+\end{equation}
+Indeed, writing the coordinate matrices as $U,V$, one has $D=UV^T$ and $\rank(UV^T)\geq a+b-10$.
+
+At $n=9$, \eqref{eq:spans} forces at least one span to have dimension exactly nine. Transposing the symmetric matrix $D$ if necessary, take this to be the row span. Then the column spaces of $U$ and $D$ coincide, so $U=EC$ for a rank-nine matrix $C$. Thus there are linearly independent $X_1,\ldots,X_9\in\Sym^4$ with
+\begin{equation}\label{eq:affine}
+ A_I=\sum_{i\in I}X_i,
+ \qquad
+ \tr(X_iB_K)=1-\one_K(i).
+\end{equation}
+The second identity follows by applying a left inverse of $E$ to the factorization. No positivity of the individual $X_i$ is asserted.
+
+Both factors indexed by $I$ are nonzero, and $D_{I,I}=0$. For PSD matrices, zero trace product implies zero matrix product. Therefore
+\begin{equation}\label{eq:orthogonal}
+ A_I B_I=0,\qquad 1\leq\rank A_I,\rank B_I\leq3,
+ \qquad \rank A_I+\rank B_I\leq4.
+\end{equation}
+The affine reduction is justified at order nine, not at order seven or eight in general. Extra factor directions cannot simply be discarded.
+
+\section{A finite bound on binary quadratic outputs}
+The following argument isolates a rank-one obstruction without assuming an affine factor family.
+
+\begin{lemma}[A low-dimensional rank-one fiber]\label{lem:fiber}
+Let $K$ be a real linear subspace of traceless symmetric $4\times4$ matrices with $\dim K\leq2$. Consider, for varying real rank-one matrices $X_0=uu^T/(u^Tu)$, the complex projective rank-one points in
+\[
+ \mathbb P\bigl(K_{\C}+\C X_0\bigr).
+\]
+If a positive-dimensional component meets the chart $\tr X\ne0$, then $\dim K=2$ and
+\[
+ K=\{X\in\Sym^4:\operatorname{range}X\subseteq U,\ \tr X=0\}
+\]
+for a real two-plane $U$. The plane $U$ is uniquely determined by $K$. The trace-one rank-one matrices on this component lie in one affine coset of $K$.
+\end{lemma}
+\begin{proof}
+Write $L=K_{\C}+\C X_0$, so $\dim L\leq3$. A curve of rank-one matrices cannot contain three points $v_i v_i^T$ with linearly independent vectors $v_1,v_2,v_3$. Otherwise those three matrices form a basis of $L$. In that basis a combination has rank equal to the number of its nonzero coefficients: a full-column-rank matrix $V=[v_1\ v_2\ v_3]$ has a left inverse, so $V\diag(c)V^T$ has rank $\rank\diag(c)$. There would be only three rank-one projective points in $L$, a contradiction.
+
+The vectors parametrizing the curve therefore span a fixed two-plane $U_{\C}$. The curve spans all three dimensions of $\operatorname{Sym}^2 U_{\C}$, since a line through two distinct symmetric rank-one points contains no further rank-one point. Hence $L=\operatorname{Sym}^2 U_{\C}$, $\dim K=2$, and $K_{\C}$ is its trace-zero subspace.
+
+The ranges of matrices in $K_{\C}$ span $U_{\C}$: a two-dimensional space of symmetric matrices cannot have all ranges in a single line. Because $K$ is real, this recovers a conjugation-invariant $U_{\C}$, hence a real two-plane $U$. Its trace form is positive definite on real rank-one matrices. All trace-one matrices in $\operatorname{Sym}^2 U$ differ by an element of $K$, proving the assertion and uniqueness.
+\end{proof}
+
+\begin{theorem}[Binary quadratic patterns]\label{thm:binary}
+Suppose $Q_1,\ldots,Q_m\in\Sym^4$ are linearly independent. Among the vectors
+\begin{equation}\label{eq:binary-map}
+ \left(\frac{u^TQ_1u}{u^Tu},\ldots,
+       \frac{u^TQ_mu}{u^Tu}\right),\qquad u\in\R^4\setminus\{0\},
+\end{equation}
+at most 65 belong to $\{0,1\}^m$ when $m\geq8$. At most 64 do so when $m\geq9$.
+\end{theorem}
+\begin{proof}
+Set $p(u)=u^Tu$ and $q_i(u)=u^TQ_i u$. In complex projective three-space impose the quartic equations
+\begin{equation}\label{eq:binary-quartics}
+ q_i(u)\bigl(q_i(u)-p(u)\bigr)=0\quad(1\leq i\leq m).
+\end{equation}
+Their common zero set has at most $4^3=64$ isolated projective points. This is the isolated-root version of B\'ezout's bound. For an overdetermined family, take three generic linear combinations of the defining quartics; each isolated base point remains isolated, and the same degree bound applies. Positive-dimensional components elsewhere do not invalidate an upper bound on isolated points.\footnote{For the isolated-root form of the degree bound, see \cite{bezout}, Theorem 2.1. The use here is the standard projective form and its generic-linear-combination extension.}
+
+On each irreducible component meeting $p\ne0$, every regular function $q_i/p$ takes values in the finite set $\{0,1\}$ and is constant. Consider the linear map
+\[
+ \pi:\Sym^4\longrightarrow\R^{m+1},\qquad
+ X\longmapsto\bigl(\tr X,\tr(Q_1X),\ldots,\tr(Q_mX)\bigr).
+\]
+Its kernel $K$ is traceless and has dimension at most $10-m$. A fixed binary pattern, normalized by $\tr X=1$, has rank-one preimages in a coset $X_0+K$.
+
+If $m\geq8$, Lemma~\ref{lem:fiber} shows that at most one binary pattern can have a positive-dimensional fiber containing real points. The uniquely determined two-plane produces a single coset and hence a single pattern. Every other attainable pattern uses a distinct isolated point of \eqref{eq:binary-quartics}, giving $64+1$.
+
+For $m\geq9$ the kernel has dimension at most one, so the positive-dimensional alternative in Lemma~\ref{lem:fiber} is impossible. This leaves the bound 64. Complex components contained in $p=0$ are irrelevant to real nonzero $u$.
+\end{proof}
+
+\section{Consequences for rank-one factor sides}
+\begin{theorem}\label{thm:pure-count}
+In any hypothetical size-four PSD factorization of $D^{(8)}$, at most 65 of the 70 factors on either side have rank one. In any hypothetical size-four factorization of $D^{(9)}$, at most 64 of the 126 factors on either side have rank one.
+\end{theorem}
+\begin{proof}
+The sum $S$ of the row factors is positive definite. If it had a common kernel, all row factors would be supported on a space of dimension at most three, whose symmetric-matrix space has dimension at most six. This contradicts $\rank D\geq8$. Apply the usual inverse congruences to normalize $\sum_I A_I=I_4$; the factorization and individual ranks are preserved.\footnote{This standard normalization is also recorded in \cite{fawzi}, Lemma 6.4.}
+
+Every column factor now has the same trace $c>0$, the column sum of $D$. Put
+\[
+ T=H^{-1}(E^TE)^{-1}E^T,\qquad
+ Q_i=c\sum_I T_{i,I}A_I.
+\]
+For every column, including higher-rank columns,
+\[
+ \tr\left(Q_i\frac{B_K}{c}\right)=\one_K(i).
+\]
+These identities and the full column rank of $E$ imply linear independence of the $Q_i$. If $B_K$ has rank one, write $B_K/c=uu^T$ with $\|u\|=1$. Its distinct subset vector $\one_K$ is a binary pattern in \eqref{eq:binary-map}. Apply Theorem~\ref{thm:binary} with $m=8$ or $m=9$. Interchanging the two factor sides proves the row assertion.
+\end{proof}
+
+Thus a size-four order-eight factorization, if it exists, has at least five factors of rank at least two on each side. At order nine the corresponding minimum is 62. These restrictions do not require all factors on the other side to have rank one.
+
+There is an elementary alternative for excluding an entirely rank-one side at order nine. If $B_K=u_Ku_K^T$ for all $K$, every column of the entrywise square $D^{\circ2}$ is an evaluation of homogeneous quartics in four coordinates. Therefore
+\begin{equation}\label{eq:powerbound}
+ \rank(D^{\circ2})\leq\binom74=35.
+\end{equation}
+In fact, the order-nine matrix has
+\begin{equation}\label{eq:square36}
+ \rank(D^{\circ2})=36.
+\end{equation}
+To verify \eqref{eq:square36}, let $W$ be the incidence matrix of pairs in four-subsets. Entrywise expansion gives
+\[
+ D^{\circ2}=16\one\one^T-7EE^T+2WW^T.
+\]
+Constants and single-element incidence columns lie in the span of $W$, giving rank at most 36. The accompanying exact calculation exhibits a nonzero $36\times36$ minor modulo $1{,}000{,}003$, proving the matching rational and real lower bound. This small calculation is independent of the general binary-pattern argument.
+
+\section{Quadratic identities on a subset slice}
+\begin{lemma}\label{lem:slice}
+Let $2\leq r\leq n-2$. A homogeneous quadratic
+\[
+ q(x)=\sum_i d_i x_i^2+\sum_{i<j}c_{ij}x_ix_j
+\]
+vanishes on all $\one_I$ with $|I|=r$ exactly when
+\begin{equation}\label{eq:slice-kernel}
+ c_{ij}=-\frac{d_i+d_j}{r-1}\quad(i\ne j).
+\end{equation}
+The statement holds coefficientwise for matrix-valued polynomials.
+\end{lemma}
+\begin{proof}
+Compare the values at $T\cup\{a\}$ and $T\cup\{b\}$, where $|T|=r-1$ and $a,b\notin T$. One obtains
+\[
+ \sum_{j\in T}(c_{aj}-c_{bj})=d_b-d_a.
+\]
+Exchanging a member of $T$ makes $c_{aj}-c_{bj}$ independent of $j\notin\{a,b\}$. The bounds on $r$ ensure that these exchanges are available. Symmetry then gives $c_{ij}=u_i+u_j$: for example, take
+\[
+ u_1=(c_{12}+c_{13}-c_{23})/2,\qquad u_i=c_{1i}-u_1\ (i\geq2),
+\]
+and use the difference relations to check the remaining pairs. Vanishing on the slice becomes $\sum_{i\in I}(d_i+(r-1)u_i)=0$. Comparing two such sums makes their individual coefficients equal, and their common value must be zero. This proves \eqref{eq:slice-kernel}; its converse follows by substitution.
+\end{proof}
+
+\section{Affine projection families in four dimensions}
+\begin{theorem}[A five-dimensional span bound]\label{thm:projection}
+Let $3\leq r\leq n-2$, and let $V_1,\ldots,V_n\in\Sym^4$. If
+\[
+ P_I=\sum_{i\in I}V_i
+\]
+is an orthogonal projection for every $r$-subset, then
+\begin{equation}\label{eq:five}
+ \dim\Span\{V_1,\ldots,V_n\}\leq5.
+\end{equation}
+\end{theorem}
+\begin{proof}
+Applying Lemma~\ref{lem:slice} to
+$V(x)^2-(\sum_i x_i)V(x)/r$ gives, for $i\ne j$,
+\begin{equation}\label{eq:projection-quad}
+ (r-1)(V_iV_j+V_jV_i)+V_i^2+V_j^2-V_i-V_j=0.
+\end{equation}
+Put $U=[V_i^2,V_j]$, $W=[V_i,V_j^2]$, and $C=[V_i,V_j]$. Commuting \eqref{eq:projection-quad} on the two sides yields
+\[
+ (r-1)U+W-C=0,\qquad U+(r-1)W-C=0.
+\]
+Since $r\ne2$, these imply $U=W=C/r$. Consequently the symmetric matrices
+\[
+ Z_i=V_i^2-V_i/r
+\]
+commute with every $V_j$. They commute with one another as well.
+
+Decompose $\R^4$ into their common eigenspaces. Each space is invariant under every $V_i$. On a block of dimension $d$, each $Z_i$ is scalar. Setting $W_i=V_i-I_d/(2r)$, equation \eqref{eq:projection-quad} shows that every $W_i^2$ and every anticommutator $W_iW_j+W_jW_i$ is scalar. Thus every element of $\mathcal W=\Span\{W_i\}$ has scalar square.
+
+The form $\ip UV=d^{-1}\tr(UV)$ is positive definite on $\mathcal W$, and
+\[
+ UV+VU=2\ip UV I_d.
+\]
+If $\dim\mathcal W\geq2$, choose a nonzero element orthogonal to a given nonzero $U$. It is invertible, anticommutes with $U$, and conjugates $U$ to $-U$. Therefore every $U\in\mathcal W$ is traceless. Two orthonormal elements square to $I_d$ and anticommute; their $+1$ and $-1$ eigenspaces have equal dimension, so $d$ is even.
+
+For $d=2$, the traceless symmetric space has dimension two, hence $\dim\mathcal W\leq2$. For $d=4$, two orthonormal generators can be put, by an orthogonal change of basis, in the forms
+\[
+ G_1=\begin{pmatrix}I_2&0\\0&-I_2\end{pmatrix},\qquad
+ G_2=\begin{pmatrix}0&I_2\\I_2&0\end{pmatrix}.
+\]
+A symmetric matrix anticommuting with both is
+\[
+ \begin{pmatrix}0&J\\-J&0\end{pmatrix},\qquad J^T=-J.
+\]
+Real $2\times2$ skew-symmetric matrices form a one-dimensional space. Consequently $\dim\mathcal W\leq3$ on a four-dimensional block.
+
+If $\dim\mathcal W\leq1$ on a block, all its $V_i$ commute and can be further diagonalized into scalar blocks. The only possible noncommuting blocks therefore have sizes two or four. A single size-four block gives span at most $1+3=4$. Two size-two blocks give at most $1+2+2=5$: their scalar parts have the same coefficient $1/(2r)$ for each $V_i$, so the scalar direction in their span is shared, not doubled. One size-two block and two scalar coordinates give at most $3+1+1=5$. With scalar blocks only the span is at most four. This proves \eqref{eq:five}.
+\end{proof}
+
+This improves the full-span obstruction used in the preceding manuscript: a six-dimensional coefficient family is already impossible in $\Sym^4$, rather than only a family spanning all ten dimensions.
+
+\section{Mixed ranks at order nine}
+\begin{proposition}\label{prop:affine-lowrank}
+For $n=8$ or $n=9$, there are no linearly independent $X_1,\ldots,X_n\in\Sym^4$ such that all four-subset sums are PSD and have rank at most two.
+\end{proposition}
+\begin{proof}
+Use the first eight indices and let $S=\sum_{i=1}^8X_i$. The sum of their four-subset factors is a positive multiple of $S$, so $S$ is PSD. A kernel of $S$ would be common to all those factors and hence to the eight $X_i$. Their span would then have dimension at most $\dim\Sym^3=6$, contradicting independence. Thus $S$ is positive definite.
+
+After congruence by $S^{-1/2}$, complementary four-subset sums add to $I_4$. Each and its complement have rank at most two. Their eigenvalues therefore belong to $\{0,1\}$, and both are rank-two projections. The eight normalized $X_i$ are independent, contradicting Theorem~\ref{thm:projection}.
+\end{proof}
+
+\begin{corollary}\label{cor:mixed}
+A size-four factorization of $D^{(9)}$, if it exists, has an affine factor side as in \eqref{eq:affine}. This side contains a rank-three factor and a factor of rank at most two. It has at most 64 rank-three factors.
+\end{corollary}
+\begin{proof}
+The affine reduction is Section 2. Proposition~\ref{prop:affine-lowrank} rules out all ranks at most two. If all affine factors had rank three, \eqref{eq:orthogonal} would make the entire opposite side rank one, contradicting either Theorem~\ref{thm:pure-count} or \eqref{eq:square36}. Each rank-three affine factor requires a rank-one opposite factor, and there are at most 64 of those.
+\end{proof}
+
+There is a stronger distribution constraint. For distinct $a,b,c\in[9]$, define the 40-element block
+\[
+ \mathcal F(a;b,c)=\{I\subseteq[9]:|I|=4,\ a\notin I,\ |I\cap\{b,c\}|=1\}.
+\]
+The pair $\{b,c\}$ is unordered, so there are $9\binom82=252$ such blocks.
+
+\begin{proposition}[Covering constraint]\label{prop:cover}
+Every block $\mathcal F(a;b,c)$ contains a rank-three factor on the affine side of a hypothetical size-four factorization of $D^{(9)}$.
+\end{proposition}
+\begin{proof}
+Suppose a block contained only ranks at most two. For $T=[9]\setminus\{a\}$, the sum $S_T=\sum_{i\in T}X_i$ is positive definite by the same eight-dimensional span argument as above. Complementation within $T$ preserves the block. Hence, after normalizing $S_T=I_4$, all its factors are rank-two projections.
+
+Fix the members containing $b$ rather than $c$. For each of the six indices $j\in T\setminus\{b,c\}$ put
+\[
+ V_j=S_T^{-1/2}(X_j+X_b/3)S_T^{-1/2}.
+\]
+Every three-subset sum of these six matrices is one of the projections just described. The $V_j$ are linearly independent, because the original nine $X_i$ are independent. This contradicts the bound five in Theorem~\ref{thm:projection}.
+\end{proof}
+
+\section{The exact quartic first-derivative space}
+Let $x=(x_1,\ldots,x_9)$, $\sigma=\sum_i x_i$, and $r=4$. Define
+\begin{align}
+ z_i(x)&=x_i^2-\frac{\sigma}{r}x_i, &
+ q(x)&=r\sum_i x_i^2-\sigma^2,\label{eq:zq}\\
+ h(x)&=\sum_i x_i^3-\frac{3\sigma}{2r}\sum_i x_i^2
+                         +\frac{\sigma^3}{2r^2}.\label{eq:h}
+\end{align}
+Let $\mathcal K$ be the vector space of homogeneous quartics $P$ satisfying
+\begin{equation}\label{eq:jet}
+ \partial_iP(\one_I)=0\quad(i\in I),\qquad
+ \partial_jP(\one_I)=\partial_kP(\one_I)\quad(j,k\notin I)
+\end{equation}
+for every four-subset $I$. Euler's identity then also gives $P(\one_I)=0$.
+
+\begin{theorem}[Exact finite algebra certificate]\label{thm:quartic}
+The space $\mathcal K$ has dimension 90. A basis is
+\begin{equation}\label{eq:basis}
+ \{q x_i x_j:i<j\}\ \cup\
+ \{z_i z_j:i\leq j\}\ \cup\
+ \{h x_i:1\leq i\leq9\}.
+\end{equation}
+In particular, every member has a unique representation
+\begin{equation}\label{eq:fullquartic}
+ P=qQ+z^TCz+h\ell,
+\end{equation}
+where $Q$ is a quadratic with no square terms, $C$ is symmetric, and $\ell$ is linear.
+\end{theorem}
+\begin{proof}[Proof by exact linear algebra]
+There are $\binom{12}{4}=495$ degree-four monomials. At each of the 126 subset vectors, impose four zero derivatives and four differences between outside derivatives. This produces the integer $1008\times495$ matrix $A$ specified by \eqref{eq:jet}.
+
+For the basis calculation use the integer multiples $\widetilde z_i=r z_i$ and $\widetilde h=2r^2h$. The 36, 45, and 9 polynomials in \eqref{eq:basis} then give a $495\times90$ integer coefficient matrix $F$. Direct integer multiplication gives $AF=0$.
+
+The accompanying certificate gives an explicit $405\times405$ minor of $A$ and an explicit $90\times90$ minor of $F$, each with nonzero determinant modulo the prime $1{,}000{,}003$. Thus $\rank_{\mathbb Q}A\geq405$ and $\rank_{\mathbb Q}F\geq90$. The exact identity $AF=0$ gives the reverse inequality $\rank_{\mathbb Q}A\leq495-90=405$. Consequently $\ker A=\operatorname{image}F$ over $\mathbb Q$ and $\R$. Nonzero rescaling back to \eqref{eq:zq}--\eqref{eq:h} preserves the result.
+
+The certificate includes the monomial convention, basis order, row and column indices of both minors, and their residues. It is regenerated by \texttt{python code/verify\_round2.py}; no floating-point rank threshold is used.
+\end{proof}
+
+The first 81 basis elements alone are not complete. At every four-subset vector,
+\begin{equation}\label{eq:hjet}
+ h(\one_I)=0,\qquad \nabla h(\one_I)=0.
+\end{equation}
+Therefore all nine additional quartics $hx_i$ satisfy \eqref{eq:jet}. Their independence modulo the first 81 terms is part of the exact certificate. Omitting them would invalidate a lower-bound argument based on that smaller ansatz. This corrects an attempted extension in this round, not the preceding manuscript's stated bounds.
+
+\section{What the determinant must do}
+Assume for this section that a size-four factorization exists at order nine and use its affine side. Set
+\[
+ L(x)=\sum_i x_iX_i,\qquad P(x)=\det L(x).
+\]
+If $A_I$ has rank three, its adjugate is a positive multiple of $B_I$ by \eqref{eq:orthogonal}. If it has smaller rank, its adjugate is zero. Equation \eqref{eq:affine} therefore implies \eqref{eq:jet}, so $P$ has representation \eqref{eq:fullquartic}.
+
+At a subset vector, $z=q=0$ and \eqref{eq:hjet} holds. Since
+\[
+ \partial_iq(\one_I)=0\ (i\in I),\qquad
+ \partial_jq(\one_I)=-2r\ (j\notin I),
+\]
+we obtain
+\begin{equation}\label{eq:signQ}
+ Q(\one_I)\leq0,\qquad
+ Q(\one_I)<0\ \Longleftrightarrow\ \rank A_I=3.
+\end{equation}
+
+\subsection{The determinant Hessian on the tangent space}
+Let
+\[
+ \mathcal T_I=\{v\in\R^9:\one^Tv=0,\ \one_I^Tv=0\},\qquad \dim\mathcal T_I=7.
+\]
+For $v\in\mathcal T_I$, equation \eqref{eq:affine} gives $\tr(B_I L(v))=0$. The quadratic form $\nabla^2P(\one_I)$ restricted to $\mathcal T_I$ is negative semidefinite and has rank at most three. Here is a direct verification of every possible factor rank.
+
+If $A_I=\diag(\lambda_1,\lambda_2,\lambda_3,0)$ with $\lambda_i>0$, then $B_I$ is a positive multiple of the last coordinate projector. Hence $L(v)_{44}=0$. The coefficient of $t^2$ in $\det(A_I+tL(v))$ is
+\[
+ -\lambda_1\lambda_2\lambda_3
+ \sum_{i=1}^3\frac{L(v)_{i4}^2}{\lambda_i},
+\]
+a negative sum of three squares.
+
+If $A_I$ has rank two, the coefficient is the positive product of its two positive eigenvalues times $\det C(v)$, where $C(v)$ is the symmetric $2\times2$ compression of $L(v)$ to its kernel. A nonzero PSD matrix $B_I$ supported there imposes $\tr(B_I C(v))=0$. Diagonalizing $B_I$, this restricted determinant is either $-\alpha a^2-c^2$ with $\alpha>0$, or $-c^2$. Its rank is at most two. If $A_I$ has rank one, the determinant has no quadratic term at all.
+
+\begin{proposition}[The nine additional directions are necessary]\label{prop:ell}
+For a hypothetical size-four order-nine factorization, the coefficient $\ell$ in \eqref{eq:fullquartic} is nonzero.
+\end{proposition}
+\begin{proof}
+Suppose $\ell=0$. Put $\varepsilon_i=1$ for $i\in I$ and $\varepsilon_i=-1$ otherwise. On $\mathcal T_I$, the derivative of $z$ is $\diag(\varepsilon)$, which acts orthogonally and preserves $\mathcal T_I$. The restricted Hessian of $qQ+z^TCz$, after this orthogonal conjugacy, is
+\begin{equation}\label{eq:hess-small}
+ 2rQ(\one_I)I_{\mathcal T_I}+2C|_{\mathcal T_I}.
+\end{equation}
+Its negative semidefiniteness and rank at most three imply that the largest eigenvalue of $C|_{\mathcal T_I}$ is $-rQ(\one_I)$, with multiplicity at least four.
+
+The space $\mathcal T_I$ has codimension one in the fixed eight-dimensional space $\one^\perp$. Eigenvalue interlacing gives
+\[
+ \lambda_1(C|_{\mathcal T_I})\geq
+ \lambda_2(C|_{\one^\perp})\geq
+ \lambda_2(C|_{\mathcal T_I}).
+\]
+The two outer quantities are equal, so $-rQ(\one_I)$ is the same fixed second eigenvalue for every $I$. Thus $Q$ is constant on the slice.
+
+By \eqref{eq:signQ}, a negative constant makes all affine factors rank three, contradicting Corollary~\ref{cor:mixed}. A zero constant makes them all have rank at most two, contradicting Proposition~\ref{prop:affine-lowrank}. A positive constant is excluded by \eqref{eq:signQ}. Therefore $\ell\ne0$.
+\end{proof}
+
+The omitted terms genuinely change this calculation. From \eqref{eq:h},
+\[
+ \nabla^2h(\one_I)|_{\mathcal T_I}
+ =3\diag(\varepsilon)|_{\mathcal T_I}.
+\]
+Thus the full Hessian has the additional term
+\[
+ 3\ell(\one_I)\diag(\varepsilon)|_{\mathcal T_I}.
+\]
+It is not a scalar identity shift. The fixed-matrix interlacing step in \eqref{eq:hess-small} does not apply. Excluding $\ell=0$ is therefore a restricted obstruction, not a proof of $\psdrank M^{(9)}\geq5$.
+
+\section{A concrete limitation of the combined constraints}
+Write $f(I)=-Q(\one_I)$ and let $\mathcal S=\{I:f(I)>0\}$ be the rank-three indices on the affine side. The results above imply that $f$ is a nonnegative quadratic function on the slice, $1\leq|\mathcal S|\leq64$, and $\mathcal S$ meets all 252 covering blocks.
+
+There is also a nonzero quadratic function $g$ on the slice such that $fg=0$. To see this, restrict $D^{\circ2}$ to the columns in $\mathcal S$. Those column factors are rank one, so their rank is at most 35 as in \eqref{eq:powerbound}. The full matrix $D^{\circ2}$ is symmetric of rank 36 with column space equal to that of the full-rank pair-incidence matrix $W$. Hence it has a factorization $WGW^T$ with $G$ invertible. The rows of $W$ indexed by $\mathcal S$ have rank at most 35. A nonzero vector in their nullspace supplies the desired quadratic $g$.
+
+These conditions still do not give a contradiction. The following exact pair, in one-based notation, demonstrates the limitation:
+\begin{equation}\label{eq:witness}
+ f(x)=(1-x_1)(2-x_3-x_4),\qquad
+ g(x)=x_1(2x_3-1).
+\end{equation}
+On the four-subset slice, $f\geq0$, $fg=0$, $f$ has support 55, and $g$ has support 56. Moreover,
+\[
+ \min_{a,b,c\ {\rm distinct}}
+ \sum_{I\in\mathcal F(a;b,c)}f(\one_I)=10>0.
+\]
+All 252 sums are checked with integer arithmetic in the package. Lower-degree terms in \eqref{eq:witness} can be homogenized on $\sigma=4$; the resulting functions lie in the same quadratic slice space.
+
+This pair is not a PSD factorization and is not asserted to be the derivative data of a determinant. It shows why the stated nonnegativity, support, covering, and quadratic-annihilator conditions alone cannot be advertised as the missing proof. The remaining determinant, PSD, and factor-product requirements are essential.
+
+\section{Numerical searches, checks, and exact remaining scope}
+The retained numerical records contain 30 size-four searches at order seven using unrestricted four-column Gram roots, three additional rank-two-root searches there, and four size-five, rank-three-root searches at order nine. They minimize
+\[
+ \frac{\|[\tr(A_I B_K)]-D\|_F^2}{\|D\|_F^2},
+ \qquad A_I=U_IU_I^T,\quad B_K=V_KV_K^T,
+\]
+with local L-BFGS-B iterations and an analytic gradient. A finite-difference gradient check is included. These are exploratory local searches, not global feasibility decisions.
+
+The best retained order-seven size-four run has objective
+\[
+ 5.993064458879322\times10^{-4}
+\]
+and maximum absolute entry discrepancy approximately $0.1513554$. Its nominally zero diagonal has discrepancies between approximately $0.02414$ and $0.15136$. It is explicitly labelled \emph{not a factorization}; no lower bound is inferred from failure to converge to zero.
+
+As positive controls, the preceding explicit construction was rerun at orders $5,6,7,8,9,11$. The largest entrywise trace discrepancy in these controls was approximately $2.665\times10^{-15}$. The earlier verification program was also rerun. The finite checks support the written identities but do not replace independent review of the general proofs.
+
+The new exact records establish the quartic-space rank calculation, the rank-36 entrywise-square calculation, the displayed algebraic identities, and the combinatorial witness. They do not establish the nonexistence of mixed-rank size-four factors at order seven, eight, or nine. They also do not supply a matching lower bound for the general stereographic upper construction.
+
+Accordingly, the exact target of PF-01 remains unsettled by this package. Its status is a partial research contribution, not a full solution claim. That distinction is the one required by the repository's status rules.\footnote{See \cite{status}: an improved bound or restricted-model result does not settle the exact displayed target.}
+
+\section*{Reproduction}
+From the extracted archive root:
+\begin{verbatim}
+python -m pip install -r requirements.txt
+python code/verify_round2.py
+python code/verify_prior.py
+python code/search_factors.py 7 4 --root-rank 4 --seeds 30
+\end{verbatim}
+The first verification command regenerates the exact minor certificates and the second-round numerical checks. The second reruns the previous report's checks. The optional search command is nonconvex and its outputs are never exact-rank certificates. The stored failed candidate is included only so its discrepancy can be inspected directly.
+
+\begingroup
+\small
+\setlength{\parskip}{2pt}
+\begin{thebibliography}{9}
+\setlength{\itemsep}{2pt}
+\bibitem{repo} Open Problems in Numerical Linear Algebra. \emph{PF-01: Exact positive semidefinite rank of subset-intersection matrices}. Canonical entry, checked in this round.\par
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/nonnegative-and-positive-factorizations/PF-01}
+\bibitem{fawzi} H. Fawzi, J. Gouveia, P. A. Parrilo, R. Z. Robinson, and R. R. Thomas. \emph{Positive semidefinite rank}. Mathematical Programming \textbf{153} (2015), 133--177. Problem 9.2 and Lemma 6.4.\par
+\url{https://arxiv.org/html/1407.4095}
+\bibitem{colbrook} M. J. Colbrook. \emph{Positive semidefinite ranks of the five- and six-element subset-intersection matrices}. 11 September 2026. Theorem 1, Corollary 5, and equation (8). The repository records agent review of the stated partial scope, not formal certification.\par
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-factorization-2026-09-11/manuscripts/PF-01_subset_intersection.tex}
+\bibitem{prior} \emph{Bounds for the subset-intersection PSD rank}. Preceding research manuscript supplied in this conversation; included in \texttt{prior/PF01\_research\_pack.zip}. Theorems 2 and 7 and the stated verification limitations. No independent review is claimed.
+\bibitem{bezout} J. Verschelde. \emph{Polynomial Homotopies for dense, sparse and determinantal systems}. Author-hosted exposition, section ``Three Classes of Polynomial Systems,'' Theorem 2.1. Page dated 8 April 2001.\par
+\url{https://homepages.math.uic.edu/~jan/srvart/node3.html}
+\bibitem{status} Open Problems in Numerical Linear Algebra. \emph{Problem status}. Repository README, checked in this round.\par
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA#problem-status}
+\end{thebibliography}
+\endgroup
+\end{document}
