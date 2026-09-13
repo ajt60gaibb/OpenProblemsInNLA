@@ -1,0 +1,157 @@
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA                                                           IV-06
+
+
+
+
+Intervals and absolute value equations
+
+
+Number of components of a real interval
+eigenvalue set
+Diﬀiculty: challenging       Importance: interesting to specialist
+Status: Lean verified
+
+Rating rationale: Controlling the topology of the real spectrum for nonsymmetric uncertain matrices
+appears to require new analysis, warranting challenging. The component-count bound primarily ad-
+vances specialist interval spectral enclosure theory.
+Area: interval linear algebra; eigenvalue computation
+
+Independently reviewed resolution - 2026-09-11
+
+Negative resolution. Theorem 1 gives a 3 × 3 independent-entry interval matrix with at least four com-
+ponents in its real eigenvalue set. Four exact integer eigenpairs at −3, 0, 3, 25 and excluded separators
+−1, 1, 12 refute the universal at-most-𝑛 conjecture. No symmetry assumption is introduced, and locat-
+ing every component endpoint is unnecessary.
+Author: Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University
+of Cambridge. See the complete manuscript, independent agent review and submission record. The
+source archive identifies the drafts as AI-generated; authorship is recorded at the submitter’s request.
+That original agent review was informal; the later Lean verification is documented below. External
+human peer review is not claimed.
+The diﬀiculty, importance and rating rationale below are historical assessments of the original open
+target. The original statement and dated audits are preserved.
+
+Lean proof and verification evidence - 2026-09-12
+
+The complete original component-bound conjecture is Lean verified with a negative answer. The
+proof at revision 18b5ef3 proves that the unchanged dimension-three source box has at least four ac-
+tual connected components. It retains the full independent-entry interval family, genuine nonzero
+real eigenvectors and the topology of the attained real-eigenvalue subset. Component cardinality is
+the actual Cardinal of ConnectedComponents; no finiteness, symmetry or all-real-spectrum assumption is
+added.
+Lean formalization: George Stepaniants, Department of Computing and Mathematical Sciences, Cal-
+ifornia Institute of Technology, Pasadena, California, USA, with AI-agent assistance. Matthew J. Col-
+brook retains authorship of the mathematical counterexample. Milan Hladík, David Daney and Elias
+P. Tsigaridas retain the original question and background credit.
+The eight checked exports, each with prefix NLA.IV06., are:
+ • eigenvalue_determinant_semantics: genuine eigenvector and characteristic-determinant equivalence
+   for every real square matrix.
+ • family_and_determinant_semantics: equality with the complete endpoint box and the actual determi-
+   nant polynomial.
+ • witness_eigenpairs: four admissible matrices and their nonzero eigenvectors at −3, 0, 3, 25.
+ • witness_separators: determinant bounds for every box member, excluding −1, 1, 12.
+ • connected_component_intervals: actual equal component classes force interval containment for any
+   real subset.
+ • four_components: an injective map from four representatives into the genuine component quotient.
+ • counterexample: admissible endpoints whose component cardinality strictly exceeds dimension
+   three.
+ • not_componentBoundConjecture: negation of the complete original universal claim.
+
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-12                                                                           1
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA                                                            IV-06
+
+
+
+
+Two independent statement approvals preceded implementation; two independent final proof refer-
+ees approved the frozen proof after fresh source elaboration and actual-term checks. Ubuntu run
+34725713519 matched all eight exports with the sandboxed Comparator, replayed the solution in Lean’s
+default kernel and passed both actual isolation/rejection-control suites. The operational audit and orig-
+inal artifacts bind all 200 candidate inputs; the separate root acceptance independently checked their
+identity and actual execution. All 17 internal/public transitive axiom reports allow only propext, Clas-
+sical.choice and Quot.sound. Operational and publication work does not add mathematical referees. Ex-
+ternal human peer review is not claimed.
+The pins are Lean 4.33.1, LeanCert 621a43d and Mathlib 0df444a. A material explicit kernel LeanCert
+certificate proves −18 < 0 on a singleton; exact algebra and universal aﬀine bounds reduce every sep-
+arator to this sign. Genuine connectedness and cardinality complete the argument. No eigenvalue
+approximation, root isolation or interval subdivision is used. Exactly four components, complete end-
+points and a replacement bound for all dimensions are outside these exports. See the project guide,
+manifest, reviews and dependency pins.
+From the immutable verified revision on a documented non-root Linux host, reproduce with:
+
+tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
+tools/lean/verify.sh \
+  intervals-and-absolute-value-equations/IV-06/lean \
+  /absolute/path/to/nla-lean-tools
+
+
+Problem statement
+
+For every integer 𝑛 ≥ 1 and real matrices 𝐿, 𝑈 ∈ ℝ𝑛×𝑛 with 𝐿 ≤ 𝑈 entrywise, form the interval matrix
+family
+
+                                               𝒜 = {𝐴 ∈ ℝ𝑛×𝑛 ∶ 𝐿 ≤ 𝐴 ≤ 𝑈}.
+
+Each entry varies independently in its prescribed closed interval; singleton intervals are allowed. Define
+the set of all real eigenvalues attained by the family by
+
+                              Λℝ (𝒜) = {𝜆 ∈ ℝ ∶ ∃𝐴 ∈ 𝒜, ∃𝑥 ∈ ℝ𝑛 ∖ {0}, 𝐴𝑥 = 𝜆𝑥}.
+
+Must Λℝ (𝒜) have at most 𝑛 connected components? Equivalently, must there exist 0 ≤ 𝑚 ≤ 𝑛 and real
+numbers 𝑎𝑟 ≤ 𝑏𝑟 , 1 ≤ 𝑟 ≤ 𝑚, such that
+
+                                                                   𝑚
+                                                     Λℝ (𝒜) = ⋃ [𝑎𝑟 , 𝑏𝑟 ]?
+                                                                  𝑟=1
+
+The empty set corresponds to 𝑚 = 0, and a singleton eigenvalue component counts as one interval.
+No symmetry, diagonalizability, or reality of the entire spectrum is assumed. Only real eigenvalues
+contribute to the set.
+Interval eigensolvers enclose all eigenvalues allowed by uncertain matrix entries. The conjecture bounds
+the number of separated real spectral regions they must represent, without claiming that their end-
+points can be found eﬀiciently. Finiteness and compactness of the union are known; the proposed
+linear bound is the unresolved claim. For families restricted to symmetric matrices, the ordered eigen-
+value functions already give 𝑛 compact intervals, as explained in the second reference; that does not
+address the family above.
+
+
+
+
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-12                                                                            2
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA                                                                IV-06
+
+
+
+
+References
+
+Milan Hladík, David Daney, and Elias P. Tsigaridas, An algorithm for addressing the real interval eigen-
+value problem, Journal of Computational and Applied Mathematics 235 (2011), 2715–2730, §1, p. 2716,
+paragraph immediately after the definition of Λ.
+The same authors, Characterizing and approximating eigenvalue sets of symmetric interval matrices, Comput-
+ers & Mathematics with Applications 62 (2011), 3152–3163, §2, p. 3153; DOI.
+
+Status check
+
+On 2026-09-10, checked the published formulation, the authors’ follow-up on symmetric interval ma-
+trices, Hladík’s current publication record, and searches for the original title, interval eigenvalue com-
+ponents, the at-most-𝑛 claim, and 2025/2026 developments. No primary source proving or refuting the
+general conjecture was located. This is a bounded literature check; papers addressing only symmetric
+interval families do not settle the stated question.
+
+Independent audit — 2026-09-10
+
+The primary 2011 JCAM text explicitly poses the at-most-𝑛 conjecture for independent entries. The
+full symmetric follow-up instead studies the coupled family 𝒜 𝑆 = {𝐴 ∈ 𝒜 ∶ 𝐴 = 𝐴𝑇 }, generally a
+proper subset, as its §2 explains. Its result alone does not justify the previous partial-resolution label for
+the displayed independent-entry target. Targeted later component-count and exact-conjecture searches
+found no proof or counterexample; the explicit openness statement is historical.
+
+
+
+
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-12                                                                                3
+
