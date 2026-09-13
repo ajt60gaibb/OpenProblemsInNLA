@@ -21,6 +21,12 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### ✅ PF-03 — rational completely positive boundary factors — Sidney Holden
+
+**Solved negatively, 13 September 2026.** Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) constructs an order-444 strictly positive integer completely positive boundary matrix of rank and real cp-rank seven with no rational nonnegative factor of any finite width. [Theorem 1.1 and Sections 2-6](references/holden-pf03-2026-09-13/proof/PF03_counterexample.pdf) settle the full universal target by counterexample, without asserting a minimal order or resolving every smaller fixed order. [Retained original target](nonnegative-and-positive-factorizations/PF-03/README.md) · [Source, certificates, authorship and verified affiliation](references/holden-pf03-2026-09-13/README.md).
+
+The complete proof and exact certificates passed a separate [independent informal Codex AI-agent audit](references/holden-pf03-2026-09-13/independent-review.md), including all 54,264 candidate facet supports, 98,790 matrix entries, 18 unit tests and a reviewer-written arithmetic check. No Lean verification, external human peer review or priority claim is asserted. The original ID, canonical path, statement and historical-source credit remain intact.
+
 ### KE-02, SP-08 and SP-09 — spectral partial results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-spectral-2026-09-12/README.md).

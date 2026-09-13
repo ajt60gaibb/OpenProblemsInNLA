@@ -1,0 +1,776 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype,booktabs,array}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyvrb}
+\hypersetup{pdftitle={A rational completely positive matrix with no rational nonnegative factor},pdfsubject={PF-03: exact counterexample and unrestricted-width obstruction},pdfauthor={Sidney Holden}}
+\setlength{\parskip}{0.35em}
+\setlength{\parindent}{1.1em}
+\setlength{\emergencystretch}{2em}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\F}{\mathbb F}
+\newcommand{\CP}{\mathcal{CP}}
+\newcommand{\cone}{\operatorname{cone}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\range}{\operatorname{range}}
+\newcommand{\cpr}{\operatorname{cpr}}
+\newcommand{\spanof}{\operatorname{span}}
+\newcommand{\ri}{\operatorname{ri}}
+\newcommand{\trans}{^{\mathsf T}}
+\numberwithin{equation}{section}
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries A rational completely positive matrix\\[0.2em]
+with no rational nonnegative factor}\par\medskip
+{\large Sidney Holden}\par\smallskip
+Center for Computational Biology, Flatiron Institute, Simons Foundation\par
+13 September 2026
+\end{center}
+
+\begin{abstract}
+An explicit integer matrix of order $444$ and rank seven is constructed that
+is completely positive over the reals but has no nonnegative rational Gram
+factor of any finite width. All its entries are strictly positive, and its real
+cp-rank is seven. The construction gives a negative answer to the universal
+boundary-factorization question PF-03. The obstruction is a rational
+polyhedral cone in $\R^7$ on which a trace-zero quadratic form is nonnegative
+and has exactly seven irrational zero rays forming an orthonormal basis.
+The arithmetic seed lies in $\Q(\sqrt[3]{2})$. Rational interval calculations
+certify its signs, and exhaustive integer computation certifies all $444$
+facets of the cone. The complete matrix, a compact integer representation,
+and a standard-library Python verifier accompany the proof. This is a
+computer-assisted proof that passed an independent informal Codex AI-agent
+audit on 13 September 2026; the accompanying independent-review report
+records the checks. It has not received external human peer review or
+formal proof-assistant verification.
+\end{abstract}
+
+\section{The statement being refuted}
+A real symmetric matrix $A$ is completely positive if $A=BB\trans$ for some
+entrywise nonnegative real matrix $B$ with finitely many columns. Write
+$\CP_n$ for the cone of such matrices of order $n$. The question in PF-03 is
+whether every
+\begin{equation}\label{eq:question}
+ A\in\Q^{n\times n}\cap\partial\CP_n,\qquad n\geq5,
+\end{equation}
+admits $A=CC\trans$ with $C\in\Q_{\geq0}^{n\times m}$ for some finite $m$.
+The width is explicitly unrestricted. Boundaries are in the full space of
+real symmetric matrices.\footnote{See the exact PF-03 statement in
+\cite{repo}, especially its unrestricted-width qualification.}
+
+The distinction between a rational Gram factor and a \emph{nonnegative}
+rational Gram factor is essential. Likewise, failure of a square rational
+factor does not suffice: a wider rational factor could still exist. The
+argument below excludes every finite width. The interior theorem and the
+boundary question are stated separately in the 2025 survey of Berman and
+Shaked-Monderer.\footnote{\cite{bsm}, Section 2, Question 2.1, Theorem 2.2,
+and the boundary Open Problem on page 2. The interior theorem is also
+\cite{dsv}, Theorem 1.1.}
+
+\begin{theorem}[Explicit counterexample]\label{thm:main}
+Let $R\in\Z^{444\times7}$ be the primitive integer facet matrix defined in
+Sections~\ref{sec:cone}--\ref{sec:facets}, in the row order specified there,
+and set
+\begin{equation}\label{eq:Adefinition}
+ A=RR\trans.
+\end{equation}
+Then all entries of $A$ are strictly positive integers,
+\[
+ \rank(A)=\cpr(A)=7,\qquad A\in\partial\CP_{444},
+\]
+and there is no $C\in\Q_{\geq0}^{444\times m}$ satisfying $CC\trans=A$,
+for any finite integer $m\geq1$.
+\end{theorem}
+
+The exact $444\times7$ array is supplied as \texttt{data/R\_integer.csv}.
+The expanded lower triangle of $A$ is supplied as
+\texttt{data/A\_integer.mtx.gz}. Thus the matrix is available both explicitly
+and in a compact exact representation. Equation~\eqref{eq:Adefinition} is
+\emph{not} its nonnegative factorization: $R$ is a signed integer matrix.
+Its nonnegative real factor is $RO$, where $O$ is constructed below.
+
+\section{A general unrestricted-width obstruction}\label{sec:obstruction}
+For a cone $K\subset\R^r$, write
+\[
+ \CP(K)=\cone\{xx\trans:x\in K\}.
+\]
+All conic combinations here are finite. The following lemma isolates the
+part of the argument that excludes arbitrary factor widths.
+
+\begin{lemma}[Cone obstruction]\label{lem:obstruction}
+Suppose that $K\subset\R^r$ is a full-dimensional pointed rational
+polyhedral cone and
+\[
+ K=\{x\in\R^r:Rx\geq0\},\qquad R\in\Q^{N\times r},\quad \rank R=r.
+\]
+Suppose $O=[u_1\ \cdots\ u_r]\in\R^{r\times r}$ is orthogonal and every
+$u_i\in K$. Suppose also that a real symmetric matrix $Q$ satisfies
+\begin{equation}\label{eq:abstractconditions}
+ \tr Q=0,\qquad x\trans Qx\geq0\ (x\in K),\qquad
+ \{x\in K\cap\Q^r:x\trans Qx=0\}=\{0\}.
+\end{equation}
+Then $A=RR\trans$ is completely positive and admits no nonnegative rational
+Gram factor of any finite width. If $N>r$, it is a boundary matrix of $\CP_N$.
+\end{lemma}
+
+\begin{proof}
+Since $RO\geq0$ and $OO\trans=I_r$,
+\begin{equation}\label{eq:realCP}
+ A=(RO)(RO)\trans\in\CP_N.
+\end{equation}
+Assume, for a contradiction, that $A=CC\trans$ with a finite nonnegative
+rational matrix $C=[c_1\ \cdots\ c_m]$.
+
+Every column of $C$ lies in $\range R$. Indeed, if $y\in\ker R\trans$, then
+\[
+ 0=y\trans Ay=\sum_{j=1}^m(y\trans c_j)^2.
+\]
+All summands are nonnegative real numbers, so $y\trans c_j=0$ for every $j$.
+Taking the orthogonal complement of $\ker R\trans$ gives the assertion.
+
+The matrix
+\[
+ L=(R\trans R)^{-1}R\trans
+\]
+is rational and satisfies $LR=I_r$. Put $X=LC=[x_1\ \cdots\ x_m]$.
+Then $X$ is rational, $RX=C\geq0$, and
+\begin{equation}\label{eq:reducedidentity}
+ XX\trans=LAL\trans=I_r.
+\end{equation}
+In particular every $x_j\in K$. Now
+\begin{equation}\label{eq:tracecontradiction}
+ 0=\tr Q=\tr(QXX\trans)=\sum_{j=1}^m x_j\trans Qx_j.
+\end{equation}
+Every summand is nonnegative. Each must vanish, and
+\eqref{eq:abstractconditions} forces every $x_j=0$, contradicting
+\eqref{eq:reducedidentity}. No upper bound or other restriction on $m$ has
+been used.
+
+If $N>r$, then $A$ is singular. For a nonzero $z\in\ker A$, the matrix
+$A-\varepsilon zz\trans$ fails to be positive semidefinite for every
+$\varepsilon>0$. Since every completely positive matrix is positive
+semidefinite, no neighborhood of $A$ is contained in $\CP_N$. Together
+with $A\in\CP_N$, this places $A$ on its boundary.
+\end{proof}
+
+We will certify a stronger zero-set property than the one in
+\eqref{eq:abstractconditions}: the nonzero zeros in $K$ are exactly the
+positive rays through the orthonormal vectors $u_1,\ldots,u_7$, and none of
+these rays contains a nonzero rational vector.
+
+\begin{lemma}[Irrational ray test]\label{lem:irrational}
+Let $\alpha=\sqrt[3]{2}$ and
+\[
+ u=a+\alpha b+\alpha^2c,\qquad a,b,c\in\Q^r.
+\]
+If $\rank[a\ b\ c]>1$, then $\R u$ contains no nonzero rational vector.
+\end{lemma}
+\begin{proof}
+The polynomial $t^3-2$ is irreducible over $\Q$ by Eisenstein's criterion,
+so $1,\alpha,\alpha^2$ are linearly independent over $\Q$. Suppose
+$u=sw$ with $0\ne w\in\Q^r$. Choose a nonzero coordinate $w_i$.
+Then $s=u_i/w_i\in\Q(\alpha)$, so write
+$s=s_0+s_1\alpha+s_2\alpha^2$ with $s_k\in\Q$.
+Comparing coefficients gives $a=s_0w$, $b=s_1w$, and $c=s_2w$.
+The coefficient matrix has rank at most one, a contradiction.
+\end{proof}
+
+\section{An exact seven-dimensional algebraic seed}\label{sec:seed}
+Set $\alpha=\sqrt[3]{2}>0$ and $\F=\Q(\alpha)$. The field is viewed in
+its unique real embedding. Define the following skew-symmetric integer
+matrices:
+\begin{equation}\label{eq:S}
+ S=\begin{pmatrix}
+ 0&-1&0&-6&-2&-6&-4\\
+ 1&0&3&4&-1&5&-1\\
+ 0&-3&0&-4&1&-2&-5\\
+ 6&-4&4&0&1&3&-3\\
+ 2&1&-1&-1&0&-1&-1\\
+ 6&-5&2&-3&1&0&-3\\
+ 4&1&5&3&1&3&0
+ \end{pmatrix},
+\end{equation}
+\begin{equation}\label{eq:T}
+ T=\begin{pmatrix}
+ 0&0&-3&0&-2&2&5\\
+ 0&0&-4&2&2&-2&2\\
+ 3&4&0&1&1&-3&0\\
+ 0&-2&-1&0&4&3&0\\
+ 2&-2&-1&-4&0&-2&-5\\
+ -2&2&3&-3&2&0&4\\
+ -5&-2&0&0&5&-4&0
+ \end{pmatrix}.
+\end{equation}
+Put
+\begin{equation}\label{eq:cayley}
+ \Omega=\alpha S+\alpha^2T,\qquad
+ O=(I_7+\Omega)^{-1}(I_7-\Omega).
+\end{equation}
+The real skew-symmetry of $\Omega$ makes $I_7\pm\Omega$ invertible.
+The Cayley transform is orthogonal, and all entries of $O$ belong to $\F$.
+These identities are also checked directly in exact field arithmetic.
+
+Expand $O$ uniquely as
+\begin{equation}\label{eq:coefficientmatrices}
+ O=B_0+\alpha B_1+\alpha^2B_2,\qquad B_k\in\Q^{7\times7}.
+\end{equation}
+For $1\leq i\leq7$, define
+\begin{equation}\label{eq:Cis}
+ C_i=[(B_0)_{:i}\ (B_1)_{:i}\ (B_2)_{:i}],\quad
+ U_i=\range C_i,\quad v=(1,\alpha,\alpha^2)\trans,
+ \quad u_i=C_iv=O_{:i}.
+\end{equation}
+The exact matrices $C_i$ all have rank three. Lemma~\ref{lem:irrational}
+therefore applies to each $u_i$.
+
+\subsection{Definition of the exposing quadratic form}
+Let $Q'=(q_{ij})\in\F^{7\times7}$ be symmetric with zero diagonal. Its
+$21$ upper-triangular entries are ordered lexicographically by $(i,j)$.
+Fix the last seven entries by
+\begin{equation}\label{eq:freevalues}
+ \begin{array}{c|rrrrrrr}
+ (i,j)&(3,7)&(4,5)&(4,6)&(4,7)&(5,6)&(5,7)&(6,7)\\ \hline
+ 1000q_{ij}&63&1007&18&402&151&1522&1640.
+ \end{array}
+\end{equation}
+Define the remaining $14$ entries by the $14$ equations
+\begin{equation}\label{eq:tangentlinear}
+ \bigl(Q'O\trans B_k\bigr)_{ii}=0,
+ \qquad 1\leq i\leq7,\quad k=0,1.
+\end{equation}
+The coefficient matrix has exact rank $14$, with pivots in the first $14$
+lexicographic upper-triangular variables. Thus these equations and
+\eqref{eq:freevalues} uniquely specify $Q'$. Finally set
+\begin{equation}\label{eq:Q}
+ Q=OQ'O\trans,\qquad H_i=C_i\trans QC_i.
+\end{equation}
+
+This defines the entire seed using only two small integer matrices, seven
+rational numbers, and arithmetic in a specified cubic field. The files
+\texttt{build\_seed.py} and \texttt{exact\_algebraic\_certificate.json}
+provide, respectively, a deterministic reconstruction and all expanded
+field elements. Each field element is stored as its three rational
+coefficients in the basis $(1,\alpha,\alpha^2)$.
+
+\begin{lemma}[Certified seed properties]\label{lem:seed}
+For the preceding exact seed,
+\begin{equation}\label{eq:seedproperties}
+ OO\trans=O\trans O=I_7,\qquad \tr Q=0,
+ \qquad q_{ij}>\frac{17391}{10^6}>0\quad(i\ne j).
+\end{equation}
+Every $C_i$ has rank three, and every $H_i$ is positive semidefinite of
+rank two with kernel $\R v$.
+\end{lemma}
+
+\begin{proof}
+Orthogonality follows from the Cayley transform; cyclic invariance of trace
+and the zero diagonal of $Q'$ give $\tr Q=0$.
+The exact coefficient computations give $\rank C_i=3$ for all seven
+indices. Equations~\eqref{eq:tangentlinear}, together with
+\[
+ O\trans B_0+\alpha O\trans B_1+\alpha^2O\trans B_2=I_7,
+\]
+also imply $\bigl(Q'O\trans B_2\bigr)_{ii}=0$. Consequently
+$C_i\trans Q u_i=0$, or equivalently $H_iv=0$.
+
+The remaining assertions are finite sign checks in $\F$. Table~\ref{tab:local}
+records strict rational lower bounds for the two leading principal minors
+needed for each $H_i$. The bound in \eqref{eq:seedproperties} is also obtained
+by exact rational interval evaluation. The sign algorithm and isolating
+interval are specified in Section~\ref{sec:verification}; they use no
+floating-point tolerance.
+
+For completeness, positivity of those two minors and $H_iv=0$ really do
+prove the asserted semidefiniteness. Write
+\[
+ H_i=\begin{pmatrix}D&b\\b\trans&c\end{pmatrix},\qquad
+ v=\begin{pmatrix}w\\\alpha^2\end{pmatrix},\quad w=(1,\alpha)\trans.
+\]
+The leading $2\times2$ matrix $D$ is positive definite. The kernel equation
+forces $b=-Dw/\alpha^2$ and $c=w\trans Dw/\alpha^4$. Thus
+\begin{equation}\label{eq:localPSD}
+ H_i=
+ \begin{pmatrix}I_2\\-w\trans/\alpha^2\end{pmatrix}
+ D
+ \begin{pmatrix}I_2&-w/\alpha^2\end{pmatrix}.
+\end{equation}
+This is positive semidefinite of rank two, with exactly the stated kernel.
+The exact certificates verify $H_iv=0$ separately as well.
+\end{proof}
+
+\begin{table}[ht]
+\centering
+\caption{Certified strict lower bounds; every displayed decimal is an exact
+rational number, not a floating-point estimate. Indices inside $H_i$ are
+one-based.}\label{tab:local}
+\begin{tabular}{ccc}
+\toprule
+$i$ & Lower bound for $(H_i)_{11}$ & Lower bound for
+$\det(H_i)_{\{1,2\},\{1,2\}}$\\
+\midrule
+1&1.016353&0.444291\\
+2&1.150668&0.687760\\
+3&0.380276&0.104352\\
+4&0.242452&0.030000\\
+5&3.486402&4.967538\\
+6&0.424643&0.091575\\
+7&1.071944&0.579814\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{A rational cone with seven irrational zero rays}\label{sec:cone}
+Define the exact rationals
+\begin{equation}\label{eq:triangleconstants}
+ a_0=\frac{125992104989487316477}{10^{20}},\qquad
+ b_0=\frac{158740105196819947475}{10^{20}},\qquad
+ \delta=\frac1{10000},
+\end{equation}
+and the rational matrix
+\begin{equation}\label{eq:W}
+ W=\begin{pmatrix}
+ 1&1&1\\
+ a_0+\delta&a_0&a_0-\delta\\
+ b_0&b_0+\delta&b_0-\delta
+ \end{pmatrix}.
+\end{equation}
+Its determinant is $3\delta^2>0$. Let $w_1,w_2,w_3$ be its columns.
+For each $i$, put
+\begin{equation}\label{eq:GiK}
+ g_{ik}=C_iw_k\in\Q^7,\qquad
+ G_i=\cone\{g_{i1},g_{i2},g_{i3}\},\qquad
+ K=G_1+\cdots+G_7.
+\end{equation}
+Equivalently, $K$ is the cone generated by the $21$ columns of
+\begin{equation}\label{eq:V}
+ V=[C_1W\mid C_2W\mid\cdots\mid C_7W]\in\Q^{7\times21}.
+\end{equation}
+These generators need not be nonnegative in their seven-dimensional
+coordinates. Their nonnegative embedding is obtained from the facet matrix
+$R$ in the next section.
+
+\subsection{Exact inclusion and cross-pairing certificates}
+Put
+\[
+ d_x=\frac{\alpha-a_0}{\delta},\qquad
+ d_y=\frac{\alpha^2-b_0}{\delta},
+\]
+and define
+\begin{equation}\label{eq:barycentric}
+ \lambda_1=\frac{1+2d_x-d_y}{3},\qquad
+ \lambda_2=\frac{1-d_x+2d_y}{3},\qquad
+ \lambda_3=\frac{1-d_x-d_y}{3}.
+\end{equation}
+Direct calculation gives
+\begin{equation}\label{eq:inclusion}
+ \lambda_1+\lambda_2+\lambda_3=1,\qquad
+ W\lambda=v,\qquad u_i=\sum_{k=1}^3\lambda_kg_{ik}.
+\end{equation}
+The rational interval certificate gives $\lambda_k>33/100$ for all three
+indices. Hence $u_i\in\ri G_i$.
+
+All cross-block generator pairings satisfy the following stronger-than-needed
+strict inequality:
+\begin{equation}\label{eq:cross}
+ g_{ik}\trans Qg_{j\ell}>\frac{17}{1000}
+ \quad(1\leq i<j\leq7,\ 1\leq k,\ell\leq3).
+\end{equation}
+There are exactly $\binom72\,3^2=189$ such checks. They are evaluated from
+$V\trans QV$ in the same exact field arithmetic, using rational lower
+endpoints; the smallest certified lower endpoint exceeds $0.017344$.
+
+Finally, the rational vector
+\begin{equation}\label{eq:h}
+ h=\frac1{10^8}
+ \begin{pmatrix}
+ -71246841\\-101280383\\-150296097\\-110993458\\
+ -39802169\\-119030527\\-63286873
+ \end{pmatrix}
+\end{equation}
+satisfies
+\begin{equation}\label{eq:pointedcertificate}
+ h\trans g_{ik}>\frac{999}{1000}>0
+ \qquad(1\leq i\leq7,\ 1\leq k\leq3).
+\end{equation}
+This last check is purely rational. These exact values, the barycentric
+coefficients, and the generator matrix are supplied in
+\texttt{data/rational\_cone\_certificate.json}.
+
+\begin{proposition}[The zero set on the rational cone]\label{prop:zeros}
+The cone $K$ is pointed, rational polyhedral, and full-dimensional in $\R^7$.
+The quadratic form $q(x)=x\trans Qx$ is nonnegative on $K$, and
+\begin{equation}\label{eq:zeros}
+ \{x\in K:q(x)=0\}
+ =\{0\}\ \cup\ \bigcup_{i=1}^7\{t u_i:t>0\}.
+\end{equation}
+In particular, its only rational zero in $K$ is the origin.
+\end{proposition}
+
+\begin{proof}
+Finite rational generation makes $K$ rational polyhedral. The common
+strictly positive functional \eqref{eq:pointedcertificate} makes it pointed:
+any nonzero conic combination of generators has positive $h$-value, so
+$K$ cannot contain both a nonzero vector and its negative. By
+\eqref{eq:inclusion}, $K$ contains all columns of the orthogonal matrix $O$.
+They span $\R^7$, proving full dimension.
+
+For $x_i\in G_i\subset U_i$, write $x_i=C_iz_i$. Lemma~\ref{lem:seed} gives
+\[
+ q(x_i)=z_i\trans H_iz_i\geq0,
+\]
+with equality precisely when $x_i\in\R u_i$. Because $C_i$ is injective
+and every generator $w_k$ has first coordinate one, the first coordinate
+of any nonzero vector in $\cone\{w_1,w_2,w_3\}$ is strictly positive.
+Thus the only nonzero part of $\R u_i$ inside $G_i$ is its positive ray.
+
+For nonzero $x_i\in G_i$ and $x_j\in G_j$ with $i\ne j$, write each as a
+nonnegative combination of its three generators. Each combination has at
+least one positive coefficient. Expanding the bilinear pairing and using
+\eqref{eq:cross} gives
+\begin{equation}\label{eq:crossGi}
+ x_i\trans Qx_j>0.
+\end{equation}
+Now any $x\in K$ has some representation $x=x_1+\cdots+x_7$ with
+$x_i\in G_i$, and
+\begin{equation}\label{eq:qsum}
+ q(x)=\sum_i q(x_i)+2\sum_{i<j}x_i\trans Qx_j\geq0.
+\end{equation}
+If at least two $x_i$ are nonzero, the right-hand side is strictly positive.
+If exactly one is nonzero, it vanishes precisely on that group's positive
+$u_i$-ray. The zero vector causes no exception because the common positive
+functional excludes a nontrivial conic sum equal to zero. This proves
+\eqref{eq:zeros}.
+
+Each $C_i$ has rational column rank three. Lemma~\ref{lem:irrational}
+shows that none of these seven lines contains a nonzero rational vector.
+Consequently $K$ has no nonzero rational zero of $q$.
+\end{proof}
+
+\section{The exact facet matrix}\label{sec:facets}
+The passage from a rational cone in $\R^7$ to an ordinary nonnegative Gram
+problem must use a complete inequality description of the cone. Merely
+finding some supporting inequalities would not suffice. The following
+construction and exhaustive check supply that completeness.
+
+Multiply each of the $21$ columns of $V$ by a positive rational number to
+obtain a primitive integer vector. Denote the resulting vectors, in the
+same block order, by $p_1,\ldots,p_{21}\in\Z^7$. No column changes its ray.
+For every six-element subset $J\subset\{1,\ldots,21\}$, form the
+$6\times7$ matrix with rows $p_j\trans$, $j\in J$.
+
+If the row rank is six, compute a primitive integer generator $r_J$ of its
+one-dimensional nullspace. Retain it precisely when one orientation has
+\begin{equation}\label{eq:facetcriterion}
+ r_J\trans p_k\geq0\qquad(1\leq k\leq21).
+\end{equation}
+Use that orientation and discard duplicate normals. Sort the retained
+normals first by their increasing zero-index lists
+$\{k:r_J\trans p_k=0\}$ and then lexicographically by the normal entries.
+The transposes of these normals are the rows of $R$.
+
+\begin{lemma}[Complete facet enumeration]\label{lem:facets}
+This exact enumeration produces $444$ distinct primitive integer normals.
+Every corresponding zero-index list has size six, and
+\begin{equation}\label{eq:Hrepresentation}
+ K=\{x\in\R^7:Rx\geq0\},\qquad
+ R\in\Z^{444\times7},\quad \rank R=7.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The finite enumeration gives the counts in Table~\ref{tab:facets}.
+Nullspaces, ranks, orientations, and all supporting signs are calculated
+using exact integers. In particular, the $444$ retained normals vanish on
+six independent generators, so each defines a six-dimensional face of
+$K$: a facet.
+
+Conversely, every facet of a full-dimensional finitely generated cone in
+$\R^7$ is generated by the input generators lying on that facet, and has
+linear span of dimension six. It therefore contains six independent input
+generators. Their index set occurs in the exhaustive enumeration, and
+their oriented primitive null normal is the facet normal. No facet can be
+missing.
+
+A full-dimensional pointed polyhedral cone is the intersection of its
+facet halfspaces. One can also see this here by slicing with $h\trans x=1$:
+\eqref{eq:pointedcertificate} gives a compact six-dimensional polytope whose
+vertices are among $p_k/(h\trans p_k)$. Its facet inequalities completely
+determine the slice, and homogenizing gives the cone description. Thus
+\eqref{eq:Hrepresentation} follows. The exact rational row-rank check gives
+$\rank R=7$; it is also forced by pointedness of the intersection.
+\end{proof}
+
+\begin{table}[ht]
+\centering
+\caption{Exhaustive exact facet certificate.}\label{tab:facets}
+\begin{tabular}{lr}
+\toprule
+Quantity & Verified value\\
+\midrule
+Six-generator subsets examined, $\binom{21}{6}$ & 54,264\\
+Rank-deficient six-generator subsets & 0\\
+Non-supporting six-generator subsets & 53,820\\
+Distinct supporting primitive facet normals & 444\\
+Generators on each facet & 6\\
+Rank of the complete facet matrix & 7\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The file \texttt{data/facets.json} records both the oriented primitive
+normals and their exact zero-index lists. The verifier does not trust a
+stored ``complete'' flag: it independently recomputes all $54,264$
+nullspaces and compares the resulting complete set with the stored one.
+The construction of $R$ involves no numerical convex-hull oracle.
+
+\section{Proof of the counterexample and further consequences}
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Apply Lemma~\ref{lem:obstruction} with $r=7$, $N=444$, the cone from
+\eqref{eq:GiK}, the orthogonal matrix \eqref{eq:cayley}, and the form
+\eqref{eq:Q}. Lemma~\ref{lem:seed} gives $\tr Q=0$,
+Proposition~\ref{prop:zeros} gives the required absence of nonzero rational
+zeros, and Lemma~\ref{lem:facets} gives the exact rational cone embedding.
+Therefore $A=RR\trans$ is completely positive, has no rational nonnegative
+factor of any finite width, and lies on the boundary because $444>7$.
+
+It remains to verify the claimed strict positivity and cp-rank. Let
+$B=RO$. Every row of $R$ is nonnegative on every generator $g_{ik}$.
+Since all three coefficients in \eqref{eq:inclusion} are positive,
+\begin{equation}\label{eq:Bzeros}
+ (Ru_i)_a=0
+ \quad\Longleftrightarrow\quad
+ \text{row $a$ of $R$ vanishes on all three }g_{i1},g_{i2},g_{i3}.
+\end{equation}
+A facet contains exactly six of the $21$ generator rays. Hence a row of
+$B$ can vanish in at most two of its seven coordinates. Every row of $B$
+therefore has at least five strictly positive coordinates. Any two rows
+have a common strictly positive coordinate, since two subsets of size at
+least five in a seven-element set intersect. Their inner product is
+strictly positive. Thus every entry of $A=BB\trans=RR\trans$ is positive;
+it is an integer because $R$ is an integer matrix.
+
+Finally, $\rank A=\rank R=7$. The displayed nonnegative factor $B=RO$ has
+seven columns, so $\cpr(A)\leq7$. Every Gram factor has at least
+$\rank A$ columns, giving equality.
+\end{proof}
+
+\subsection{Why adding columns cannot repair rationality}
+The obstruction actually determines all possible factor directions, not
+just a selected factorization. If $A=CC\trans$ is any real nonnegative
+factorization, the same reduction $X=LC$ gives $XX\trans=I_7$ and
+$x_j\in K$. The trace calculation forces every nonzero $x_j$ onto one of
+the seven rays in \eqref{eq:zeros}. Thus every nonzero column of $C$ lies
+on one of
+\begin{equation}\label{eq:ambientrays}
+ \R_{>0}Ru_1,\ldots,\R_{>0}Ru_7.
+\end{equation}
+Each ambient ray also has no nonzero rational vector: applying the
+rational left inverse $L$ to such a vector would give a nonzero rational
+vector on $\R u_i$. Splitting a column into more columns along its ray
+cannot avoid this obstruction.
+
+In reduced coordinates, orthogonality makes the remaining freedom explicit.
+Writing each nonzero $x_j=t_j u_{i(j)}$ with $t_j>0$, the identity
+$XX\trans=I_7$ is equivalent to
+\[
+ \sum_{j:i(j)=i}t_j^2=1\qquad(1\leq i\leq7).
+\]
+There is freedom to split each unit weight, but none of the permitted
+nonzero directions is rational.
+
+\begin{corollary}[Larger orders]\label{cor:padding}
+For every $n\geq444$, there is an entrywise strictly positive integer
+matrix of order $n$ and rank seven that is completely positive but has no
+rational nonnegative factor of any finite width.
+\end{corollary}
+\begin{proof}
+Append copies of one row of $R$ to obtain $R_n\in\Z^{n\times7}$ and set
+$A_n=R_nR_n\trans$. The factor $R_nO$ is nonnegative. All its row inner
+products are positive by the preceding support argument. A rational
+nonnegative factor of $A_n$ would restrict on its first $444$ rows to one
+of $A$, which is impossible.
+\end{proof}
+
+\begin{corollary}[Nonclosedness of rational factorability]
+For order $444$, the set of matrices with a finite nonnegative rational
+Gram factor is not closed even relative to
+$\CP_{444}\cap\Q^{444\times444}$ with its Euclidean subspace topology.
+\end{corollary}
+\begin{proof}
+Approximate every entry of the finite nonnegative real factor $RO$ by
+nonnegative rational numbers. The Gram matrices of the resulting rational
+factors converge to $A$, but Theorem~\ref{thm:main} excludes $A$ itself.
+\end{proof}
+
+\section{Exact arithmetic, finite verification, and reproducibility}
+\label{sec:verification}
+The role of computation is restricted to explicit finite equalities,
+ranks, signs, and an exhaustive facet list. The quantified conclusion
+about all rational factors is the argument in
+Lemma~\ref{lem:obstruction}; no enumeration of candidate factor widths
+or rational matrices is involved.
+
+\subsection{Cubic field arithmetic and sign certificates}
+Represent an element of $\F$ by a triple of rational numbers
+$(a,b,c)$ meaning $a+b\alpha+c\alpha^2$. Addition is coordinatewise,
+and multiplication is the exact rule
+\begin{align}\label{eq:fieldmultiply}
+ &(a+b\alpha+c\alpha^2)(d+e\alpha+f\alpha^2)\nonumber\\
+ &\quad=(ad+2bf+2ce)+(ae+bd+2cf)\alpha+(af+be+cd)\alpha^2.
+\end{align}
+Every rational is stored as an arbitrary-precision integer numerator and
+positive integer denominator. Gaussian elimination uses exact inverses
+in this cubic field; no algebraic-number approximations enter an equality
+or rank test.
+
+For inequalities, the verifier uses
+\begin{equation}\label{eq:isolation}
+ \begin{aligned}
+ \ell&=\frac{12599210498948731647672106072782283505702}{10^{40}},\\[0.4em]
+ u&=\frac{12599210498948731647672106072782283505703}{10^{40}}.
+ \end{aligned}
+\end{equation}
+It checks $\ell^3<2<u^3$ by integer arithmetic. The real cube function is
+strictly increasing, so $\ell<\alpha<u$. Each quadratic expression
+$a+b\alpha+c\alpha^2$ is evaluated by interval Horner arithmetic on
+$[\ell,u]$. Products use the minimum and maximum of the four endpoint
+products, and all endpoints remain rational. A positivity assertion is
+accepted only if its exact lower endpoint is positive.
+
+The same algorithm certifies the principal minors of $H_i$, all $21$
+off-diagonal entries of $Q'$, all $189$ cross-generator pairings, and the
+barycentric coefficients. Dependency overestimation in interval
+arithmetic can only make the bounds wider; it cannot invalidate a
+positive lower endpoint.
+
+\subsection{Facet arithmetic}
+For each $6\times7$ integer matrix, the nullspace routine uses
+fraction-free Bareiss elimination with row and column pivoting. Every
+integer division is checked for zero remainder. Integer back substitution
+produces a null vector, which is checked against all six input rows and
+normalized by the positive gcd of its entries. Orienting and testing it
+against all $21$ generators uses integer dot products only.
+
+Both the original exact symbolic construction and the independent
+standard-library reconstruction produce identical algebraic certificate
+entries. The final distributed verifier requires no third-party packages:
+it rebuilds the seed from \eqref{eq:S}, \eqref{eq:T}, and
+\eqref{eq:freevalues}, rechecks the cone, and exhaustively reconstructs the
+facet list. The mathematical proof does not depend on the numerical search
+that first suggested the seed.
+
+\subsection{Complete verification command}
+From the extracted package directory, run
+\begin{Verbatim}[fontsize=\small]
+python code/verify_all.py
+python code/test_arithmetic.py
+\end{Verbatim}
+The first command verifies the seed, all cone properties, all $54,264$
+facet candidates, and every entry of the expanded matrix. The second runs
+$18$ arithmetic and corruption-detection unit tests. The recorded runs
+passed. Python's optimization switches \texttt{-O} and \texttt{-OO} are
+explicitly rejected so that assertion checks cannot be disabled silently.
+
+The verified matrix has $98,790$ stored lower-triangular entries, each a
+strictly positive integer. The largest entry has $270$ decimal digits.
+The factor $RO$ has $2,966$ strictly positive entries and $142$ exact zeros.
+The Gram identity is certified by $OO\trans=I_7$ and the exact definition
+$A=RR\trans$, and the expanded matrix file is checked entry by entry
+against that definition.
+
+The file \texttt{logs/verification\_summary.json} records exact rational
+bounds and the verified counts. Unit-test results are in
+\texttt{logs/unit\_tests.txt}. These logs are not accepted as inputs to
+establish the theorem: running the verifier recomputes the checks.
+
+\subsection{What is and is not being claimed}
+The construction refutes the universal assertion in
+\eqref{eq:question}. It does not assert that order $444$ or rank seven is
+minimal. It does not classify every matrix of order five or the intermediate
+ranks. Those additional classification questions are not necessary to
+answer the stated universal existence question negatively.
+
+The counterexample is singular but entrywise strictly positive. Singularity
+is allowed by the stated boundary problem, and the unrestricted-width
+condition has been addressed directly. The factor field
+$\Q(\sqrt[3]{2})$ is not totally real: its two other embeddings are
+nonreal. A descent argument that requires total reality therefore cannot
+be applied to this factor. No field-descent theorem is used here.
+
+The finite calculations are exact and reproducible. The complete
+mathematical argument is presented above, but neither independent human
+review nor formal proof-assistant verification has occurred. No priority
+claim relative to all existing literature is made. The accompanying
+independent-review report records the subsequent informal Codex AI-agent
+audit; no Lean verification was performed.
+
+\appendix
+\section{A compact verification of the geometric argument}
+The following implication chain is useful for auditing the interface
+between the exact data and the unrestricted-width conclusion.
+
+First, the arithmetic seed supplies seven rational three-dimensional
+subspaces $U_i$ and an orthonormal basis $u_i\in U_i$. The form $Q$ is
+positive semidefinite on each $U_i$, with kernel precisely $\R u_i$.
+The column rank-three certificates imply that every such line is
+irrational in the sense of Lemma~\ref{lem:irrational}.
+
+Second, the triangle $W$ supplies rational cones $G_i\subset U_i$ containing
+$u_i$ with strictly positive coefficients. The $189$ strict inequalities
+force positive bilinear pairings between nonzero vectors in different
+cones. Hence a zero of $Q$ in their sum cannot use more than one group.
+This is the only step needed to pass from local semidefiniteness to the
+complete zero-set description.
+
+Third, the common rational functional proves pointedness and the
+orthonormal basis proves full dimension. Exhaustive facet enumeration
+then identifies the sum cone \emph{exactly} with $\{x:Rx\geq0\}$.
+The inclusion of the basis gives $RO\geq0$, while the equality of the two
+cone descriptions constrains \emph{every} possible reduced factor column,
+not just the displayed seven-column factor.
+
+Finally, rationality is preserved by the left inverse of the rational
+full-column-rank matrix $R$. The trace-zero identity turns the nonnegative
+quadratic values of every reduced factor column into individual zeros.
+The irrational-ray test then rules out every nonzero rational column,
+independently of how many columns there are.
+
+None of these implications uses density of rational points to obtain an
+exact boundary factor, a conjectural rational exposing normal, or an
+assumption that rational cp-rank equals real cp-rank.
+
+\begin{thebibliography}{9}
+\bibitem{repo}
+OpenProblemsInNLA,
+\emph{PF-03---Rational factors for rational completely positive boundary
+matrices}, repository statement, status check dated 10 September 2026.
+\url{https://raw.githubusercontent.com/ajt60gaibb/OpenProblemsInNLA/main/nonnegative-and-positive-factorizations/PF-03/README.md}.
+
+\bibitem{bsm}
+A.~Berman and N.~Shaked-Monderer,
+\emph{Completely Positive Matrices over Sets},
+Communications in Optimization Theory (2025), article 23, Section 2.
+\url{https://cot.mathres.org/issues/COT202523.pdf}.
+
+\bibitem{dsv}
+M.~Dutour Sikiri\'c, A.~Sch\"urmann, and F.~Vallentin,
+\emph{Rational factorizations of completely positive matrices},
+Linear Algebra and its Applications \textbf{523} (2017), 46--51.
+\url{https://doi.org/10.1016/j.laa.2017.02.017}.
+\end{thebibliography}
+\end{document}
