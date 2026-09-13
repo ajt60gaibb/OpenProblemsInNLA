@@ -21,6 +21,11 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### NM-01 — reviewed partial progress — Sidney Holden
+
+**Open, 13 September 2026.** Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) supplies [conditional recovery and SOS obstruction results](references/holden-nm01-round2-2026-09-13/nm01_round2.pdf): Theorem 2.3 assumes an exact decision/value oracle on strong SSC; Theorems 3.1–3.2 show weak-SSC rigidity and off-promise probes; Theorem 4.5 and Corollary 4.7 obstruct a specified input-preordering SOS strategy. The [independent informal Codex AI-agent review](references/holden-nm01-round2-2026-09-13/independent-review.md) addresses these partial scopes. No complete decision algorithm, promise-preserving hardness reduction or settled decision subclass is supplied by this round. [The original target](nonnegative-and-positive-factorizations/NM-01/README.md) remains Open and counted once; neither Solved nor a new problem ID is warranted. [Attribution, verified affiliation and provenance](references/holden-nm01-round2-2026-09-13/README.md). No Lean verification or external human peer review is claimed.
+
+
 ### KE-02, SP-08 and SP-09 — spectral partial results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-spectral-2026-09-12/README.md).

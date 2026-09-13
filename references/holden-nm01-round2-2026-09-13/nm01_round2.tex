@@ -1,0 +1,692 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=0.96in,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,microtype,booktabs,array,longtable}
+\usepackage{xcolor,fancyhdr,xurl,titlesec,listings}
+\usepackage[colorlinks=true,linkcolor=blue!40!black,citecolor=blue!40!black,urlcolor=blue!40!black]{hyperref}
+\definecolor{ink}{HTML}{17324B}
+\definecolor{muted}{HTML}{526575}
+\definecolor{pale}{HTML}{EDF3F6}
+\titleformat{\section}{\Large\bfseries\color{ink}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\large\bfseries\color{ink}}{\thesubsection}{0.6em}{}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small\color{muted}NM-01 / Second research round}
+\fancyhead[R]{\small\color{muted}Partial results}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\setlength{\parskip}{5pt}\setlength{\parindent}{0pt}
+\allowdisplaybreaks[2]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}\newcommand{\Q}{\mathbb Q}\newcommand{\Z}{\mathbb Z}
+\newcommand{\e}{\mathbf1}\newcommand{\cone}{\operatorname{cone}}
+\newcommand{\conv}{\operatorname{conv}}\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\rank}{\operatorname{rank}}\newcommand{\poly}{\operatorname{poly}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}\newcommand{\Tr}{\mathcal T}
+\newcommand{\bits}{\operatorname{bits}}\newcommand{\SOS}{\operatorname{SOS}}
+\hypersetup{pdftitle={NM-01, round two: projective recovery and exact SOS obstructions},pdfauthor={Sidney Holden},pdfsubject={Partial results, not a full resolution of NM-01}}
+\lstset{basicstyle=\small\ttfamily,breaklines=true,columns=fullflexible,keepspaces=true,frame=single,rulecolor=\color{muted}}
+\begin{document}
+\begin{titlepage}
+\vspace*{0.55in}
+{\small\bfseries\color{ink}RESEARCH NOTE\quad NM-01\quad ROUND TWO}\par
+\vspace{0.40in}
+{\Huge\bfseries\color{ink}Projective recovery\\[6pt] and exact SOS\\[6pt] obstructions}\par
+\vspace{0.30in}
+{\Large Minimum-volume factorization under\\the sufficient-scattering promise}\par
+\vspace{0.40in}
+\colorbox{pale}{\parbox{0.94\textwidth}{\vspace{9pt}\textbf{Status: additional partial results.}\par
+A polynomial-time solver for the full variable-rank promise problem is not established here. The new results are a conditional search-to-decision reduction on the strong-SSC subclass, a weak-SSC rigidity example with an explicit off-promise interval, and exact degree/size obstructions for a specified SOS approach.\vspace{9pt}}}
+\vfill
+{\large Sidney Holden}\par
+{\small Center for Computational Biology, Flatiron Institute,\\Simons Foundation}\par
+12 September 2026\par
+\vspace{0.18in}
+{\small\color{muted}Prepared with ChatGPT assistance; the supplied draft described itself as AI-generated mathematical work. Independently reviewed by a separate Codex AI agent at the partial-results scope; see the accompanying review. No external human peer review or formal verification is claimed. The first-round archive is preserved unchanged. No broad novelty or priority claim is made.}\par
+\end{titlepage}
+
+\section*{Executive statement}
+\addcontentsline{toc}{section}{Executive statement}
+This round pursues two ways to avoid the first round's exponential facet bottleneck. One encodes the hidden simplex into values of projectively transformed problems. The other tries low-degree sum-of-squares (SOS) certificates for the dual-ball containment underlying the ellipsoid formulation. The results distinguish what those approaches actually provide from what remains missing.
+
+\begin{center}
+\begin{tabular}{p{0.65\textwidth}p{0.23\textwidth}}
+\toprule
+\textbf{New statement in this round} & \textbf{Location}\\
+\midrule
+An exact-value oracle recovers the hidden factors on the \emph{strong}-SSC subclass using $O(r^4)$ value calls and polynomial additional bit work. Exact decision suffices to simulate that oracle. & Theorem~\ref{thm:recovery}\\[5pt]
+A rational rank-three weak-SSC input permits only scalar positive diagonal reweighting. Explicit projective perturbations leave the \emph{entire} original promise for $0<|t|\le1/1000$. & Theorems~\ref{thm:rigid} and \ref{thm:offpromise}\\[5pt]
+For every total degree $D\ge2$, rational strong-SSC rank-three inputs defeat degree-$D$ certificates in the full preordering of the input linear inequalities. The construction has polynomial encoding length in $D$. & Theorem~\ref{thm:strongsos}\\[5pt]
+A direct-sum family with $n=2r-3$ forces degree $\Omega(r)$ and exponentially large \emph{standard dense} SOS levels. This is not a general computational hardness result. & Corollary~\ref{cor:dense}\\[5pt]
+Explicit exact rational dual witnesses exclude degrees four, six, and eight, with 256, 4,096, and 65,536 positive-definite localizing matrices checked. & Section~\ref{sec:certs}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The factor-recovery experiments use an \emph{exponential} facet oracle: 24 and 73 distinct projective value queries recover signed generating factors in ranks three and four. The oracle is not supplied by the theorem. All 23 methods in the full regression suite passed, including the degree-eight check and deliberate corruptions. These finite computations supplement the proofs; they do not establish the asymptotic statements by themselves.
+
+\textbf{The remaining gap is algorithmic.} We do not have a polynomial-time exact-value oracle, a different polynomial-time solver on all promised inputs, or a promise-preserving hardness reduction. The SOS results rule out particular certificate formulations, not every SDP, sparse method, or global algorithm. The rigid example prevents this projective self-reduction from being applied indiscriminately to the repository's weaker promise.
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Exact target, definitions, and inherited facts}
+\label{sec:target}
+The canonical NM-01 entry~\cite{repo} supplies rational $X\in\Q^{m\times n}$, an integer $2\le r\le\min(m,n)$, and rational $\tau\ge0$. It promises $\rank X=r$ and the existence of real factors
+\begin{equation}
+ X=W_\star H_\star,\qquad H_\star\ge0,\qquad \e_r^T H_\star=\e_n^T,
+ \label{eq:factor}
+\end{equation}
+with $H_\star$ sufficiently scattered. Neither factor is supplied. The task is to decide whether a feasible pair has $\det(W^TW)\le\tau$, in time polynomial in total binary input length. The factor $W$ is unrestricted in sign. Correctness is required only on promised inputs, but the polynomial runtime requirement applies on all inputs. The entry permits bounded-error randomization.
+
+For $H\ge0$, set $K=\cone(H)$ and
+\begin{equation}
+ C_r=\{x\ge0:\e^Tx\ge\sqrt{r-1}\norm{x}\},\qquad
+ C_r^*=\{q:\e^Tq\ge\norm{q}\}.
+\end{equation}
+The \emph{original, or weak, SSC} in this note is exactly
+\begin{equation}
+ C_r\subseteq K,\qquad
+ K\subseteq\cone(Q),\ Q^TQ=I\ \Longrightarrow\ Q\text{ is a permutation}.
+ \label{eq:weak}
+\end{equation}
+The \emph{strong SSC} means $C_r\subseteq K$ together with
+\begin{equation}
+ K^*\cap\partial C_r^*=\bigcup_{i=1}^r\R_+e_i.
+ \label{eq:strong}
+\end{equation}
+Strong SSC implies the second condition in~\eqref{eq:weak}. It is not equivalent to it. The projective theorem below deliberately assumes~\eqref{eq:strong}; the rigidity example shows why this distinction cannot be dropped.
+
+\subsection{The coordinate reduction and exact value}
+The first-round note~\cite{previous} proves the following facts, and we state the parts used here. Choose independent columns $B$ of $X$ and compute $X=BY$. Then $Y$ contains an identity submatrix and, on the promise, $\e^TY=\e^T$. The promised factors can be written
+\begin{equation}
+ Y=TH,\quad \e^TT=\e^T,\qquad
+ W_\star=BT,\quad H=H_\star.
+ \label{eq:reduced}
+\end{equation}
+The reduced optimal value is $\mu_0=\det(T)^2$, and the original value is $\det(B^TB)\mu_0$.
+
+Here is the elementary volume argument. For any other feasible reduced factor $T'=TR$, put $A=R^{-1}$. Its rows belong to $K^*\subseteq C_r^*$ and $\e^TA=\e^T$. Writing $s_i=\e^Ta_i$, Hadamard's inequality and the arithmetic--geometric mean give
+\begin{equation}
+ |\det A|\le\prod_i\norm{a_i}\le\prod_i s_i\le1.
+ \label{eq:detbound}
+\end{equation}
+Consequently $\det(T')^2\ge\det(T)^2$. Equality forces $A$ orthogonal; the second weak-SSC condition then makes it a permutation.
+
+\subsection{Why the promised factors have bounded rational entries}
+For each row $i$ of $H$, the columns on the hidden facet $h_i=0$ span dimension $r-1$. A short proof is useful here. The vector $\e-e_i\in C_r$ lies in their cone. If their span were smaller than $r-1$, choose nonzero $z$ orthogonal to that span with $z_i=0$. Then $\e^Tz=0$. For small nonzero $u$, the vector $e_i+uz$ remains in $K^*$, by checking finitely many columns, but
+\[
+ \e^T(e_i+uz)=1<\sqrt{1+u^2\norm{z}^2},
+\]
+contrary to $K^*\subseteq C_r^*$.
+
+Thus each row of $T^{-1}$ is a positive multiple of an integer normal to $r-1$ rational columns of $Y$. If $C$ consists of those normals, normalization gives
+\begin{equation}
+ T^{-1}=\diag(s)C,\qquad s=C^{-T}\e>0.
+ \label{eq:normalrecovery}
+\end{equation}
+In particular $T,H$, and $\mu_0$ are rational. Cofactor and denominator-product bounds give polynomial bit lengths. With a dense binary encoding of length $L\ge2$, the deliberately loose first-round bound
+\begin{equation}
+ p(L)=100(L+1)^6
+ \label{eq:pbound}
+\end{equation}
+bounds each numerator and denominator of those entries and of $\mu_0$. In applying this bound to a value query, $L$ can be taken as the length of its matrix, rank, and a zero threshold; the unknown optimum does not depend on the later decision thresholds.
+
+The sharper first-round time bound is $(L+\binom{n}{r-1})^{O(1)}$, obtained by facet enumeration and maximum-inscribed-ellipsoid optimization. This note does not remove that dependence. We preserve that archive, rather than relabel its results as new.
+
+\subsection{Research context and scope of the sources}
+Facet-based simplex identification and ellipsoid-based recovery are existing frameworks~\cite{abd,gillisbook,lin}. The ellipsoid paper itself identifies facet enumeration as its bottleneck. The general containment and SOS literature~\cite{ktt,kt} motivates the second route below; we do not claim its generic hardness results are promise-preserving reductions to NM-01. Testing SSC~\cite{gillisl} is also a different problem, excluded from the canonical task. The expanded-scattering robustness paper~\cite{robust} does not supply the missing global algorithm. Exact univariate rational factorization in the projective reduction uses the standard polynomial-time theorem of Lenstra, Lenstra, and Lov\'asz~\cite{lll}.
+
+\section{Projective values encode the hidden factors}
+\label{sec:projective}
+For this section, $Y\in\Q^{r\times n}$ is normalized and has the strong-SSC factorization~\eqref{eq:reduced}. Let $T_i$ denote its $i$th hidden vertex.
+
+\begin{lemma}[Projective value identity]
+\label{lem:projective}
+Let $\ell\in\Q^r$, $d_i=\ell^TT_i>0$, and $D_\ell=\diag(d_1,\ldots,d_r)$. Suppose $D_\ell\cone(H)$ satisfies SSC1. Define
+\begin{equation}
+ Y_\ell[:,j]=\frac{Y[:,j]}{\ell^TY[:,j]}.
+ \label{eq:projdata}
+\end{equation}
+Then $Y_\ell$ has feasible factors
+\begin{equation}
+ T_\ell=TD_\ell^{-1},\qquad
+ H_\ell=D_\ell H\diag\bigl((\ell^TY[:,j])^{-1}\bigr),
+\end{equation}
+and its optimal squared determinant is
+\begin{equation}
+ \mu_\ell=\frac{\mu_0}{\bigl(\prod_i\ell^TT_i\bigr)^2}.
+ \label{eq:valueidentity}
+\end{equation}
+If the diagonally transformed cone has strong SSC, the whole query is strong-SSC promised.
+\end{lemma}
+\begin{proof}
+Since $\ell^TY[:,j]=\sum_i d_iH_{ij}>0$, the formula is defined. Direct multiplication verifies the factorization, nonnegativity, and column normalization. Columnwise positive scaling does not change the cone of $H_\ell$, which is $D_\ell K$. The value bound~\eqref{eq:detbound} applies in these new hidden coordinates, proving optimality and~\eqref{eq:valueidentity}.
+\end{proof}
+
+For $\ell=\e+\delta v$, the positive square root of the value ratio becomes a product of linear polynomials:
+\begin{equation}
+ F(v):=\sqrt{\mu_0/\mu_{\e+\delta v}}
+       =\prod_{i=1}^r(1+\delta v^TT_i).
+ \label{eq:F}
+\end{equation}
+This square root is rational and positive. It can be extracted exactly by integer square-root checks on the reduced numerator and denominator. No approximate square-root step occurs in the reduction.
+
+\subsection{A uniform, polynomial-bit safe perturbation}
+The obstacle is ensuring that every oracle query stays inside the promise. Strong SSC supplies a positive gap on every non-coordinate extreme dual ray. Rationality supplies a uniform lower bound on that gap without enumerating the rays.
+
+\begin{lemma}[Uniform diagonal stability]
+\label{lem:stability}
+Let $q$ run through the extreme rays of $K^*$ normalized by $\e^Tq=1$. For non-coordinate rays suppose $1-\norm{q}^2\ge\gamma>0$. If
+\begin{equation}
+ \max_i|d_i-1|\le\epsilon\le\min\{1/2,\gamma/(64r)\},
+ \label{eq:stabilitybound}
+\end{equation}
+then $DK$ has strong SSC, for $D=\diag(d)$.
+\end{lemma}
+\begin{proof}
+The dual cone is $D^{-1}K^*$. Coordinate generators remain positive coordinate generators. For a normalized non-coordinate ray put $q'=D^{-1}q$ and $u=q'-q$. Then
+\[
+ \norm{u}\le2\epsilon,\qquad |\e^Tu|\le2\sqrt r\,\epsilon.
+\]
+Expanding the two squares, and using $\norm{q}\le1$, gives
+\begin{equation}
+ \left|(\e^Tq')^2-\norm{q'}^2-(1-\norm{q}^2)\right|\le16r\epsilon.
+\end{equation}
+Also $\e^Tq'>0$ under~\eqref{eq:stabilitybound}. Every such ray therefore lies strictly inside $C_r^*$. A conic combination of interior rays and coordinate rays can lie on its boundary only on a single coordinate ray, by strictness of the Euclidean triangle inequality for nonparallel directions. Duality proves the assertion.
+\end{proof}
+
+For completeness, the bit gap can be bounded explicitly. Put
+\begin{equation}
+ b(L)=1000(L+1)^{10},\qquad \gamma=2^{-2rb(L)}.
+ \label{eq:raygap}
+\end{equation}
+To justify this bound, clear all denominators of $Y$ with one product of bit length at most $L$. Integer cofactor facet normals then have bit lengths at most $5(L+1)^2$. Each normalized dual generator is proportional to $T^Tc$ for such a normal $c$. Using a common product of at most $r^2$ denominators of $T$, followed by normalization by the coordinate sum, bounds each resulting numerator and denominator by $b(L)$ bits. This is much looser than the actual estimate $O(r^2p(L)+rL+r\log r)$. The denominator of $1-\sum_iq_i^2$ is at most the product of the squared coordinate denominators, proving~\eqref{eq:raygap} for every positive gap.
+
+All probes below have $\norm{v}_\infty\le V$, where
+\begin{equation}
+ K_0=(r-1)\binom r2,\qquad
+ V=r\max(1,K_0)^{r-1}+r.
+\end{equation}
+Since $|T_{ij}|\le2^{p(L)}$, choose
+\begin{equation}
+ M_0=2rb(L)+p(L)+\left\lceil\log_2(128r^2V)\right\rceil,
+ \qquad \delta=2^{-M_0}.
+ \label{eq:safedelta}
+\end{equation}
+Then $|\delta v^TT_i|\le\gamma/(128r)$, so every prescribed query has strong SSC. The integer $M_0$ is polynomial in $L$, and the binary representation of $\delta$ has $M_0+1$ bits. This is a theoretical bound, not a practical numerical recommendation.
+
+\subsection{Recovering all linear factors with polynomially many values}
+\begin{theorem}[Strong-SSC search-to-decision reduction]
+\label{thm:recovery}
+On the strong-SSC subclass of NM-01, exact factor recovery up to permutation is polynomial-time Turing reducible to exact decision. More specifically, an exact optimal-value oracle for promised queries suffices with $O(r^4)$ value calls of polynomial input size and polynomial additional bit work. Conversely, exact factor recovery gives exact decision. The same implication holds for bounded-error polynomial-time decision after amplification.
+\end{theorem}
+\begin{proof}
+It is enough to recover $T$ from $Y$; then $H=T^{-1}Y$ and $W=BT$. Choose the safe $\delta$ above and evaluate~\eqref{eq:F} using oracle values.
+
+For integers $k=0,\ldots,K_0$, let
+\begin{equation}
+ b_k=(1,k,k^2,\ldots,k^{r-1})^T.
+\end{equation}
+For distinct columns $T_i,T_j$, their projection difference $b_k^T(T_i-T_j)$ is a nonzero polynomial in $k$ of degree at most $r-1$. The columns are distinct because $T$ is invertible. Across all pairs there are at most $K_0$ bad integers. Thus one of the $K_0+1$ directions has pairwise distinct projections $\alpha_i=b_k^TT_i$.
+
+For each trial direction, interpolate $P(t)=F(tb_k)$ from $t=0,1,\ldots,r$. Form the monic polynomial
+\begin{equation}
+ Q(z)=z^rP(1/z)=\prod_{i=1}^r(z+\delta\alpha_i).
+ \label{eq:Q}
+\end{equation}
+Exact rational univariate factorization~\cite{lll} identifies a direction with $r$ distinct roots. Zero projections cause no difficulty: $Q$ always has degree $r$, even when $P$ has smaller degree. Fix such a direction and its roots $z_i=-\delta\alpha_i$.
+
+For coordinate $a$, define
+\begin{equation}
+ R_a(t)=\partial_{v_a}F(tb_k)
+       =\delta\sum_i T_{ai}\prod_{j\ne i}(1+\delta\alpha_jt).
+\end{equation}
+For $t=0,\ldots,r-1$, interpolate the degree-at-most-$r$ polynomial $s\mapsto F(tb_k+se_a)$ from $s=0,\ldots,r$ and take its coefficient of $s$. Then interpolate $R_a(t)$, of degree at most $r-1$. Set
+\begin{equation}
+ S_a(z)=z^{r-1}R_a(1/z).
+\end{equation}
+At each distinct root of $Q$,
+\begin{equation}
+ \boxed{T_{ai}=\frac{S_a(z_i)}{\delta Q'(z_i)}.}
+ \label{eq:recoverentry}
+\end{equation}
+This includes $z_i=0$. Evaluating these known polynomials at their roots is not an additional oracle query; no query outside the safe grid is used.
+
+The direction search uses $O(r^4)$ values, and the derivative grids use $O(r^3)$. All interpolation and factorization degrees, argument bit lengths, coefficient heights, and output bit lengths are polynomially bounded. The safe-grid bound is precisely the $V$ used in~\eqref{eq:safedelta}.
+
+To simulate an exact-value query by decision, let $J$ be its matrix/rank encoding length with zero threshold and let $p=p(J)$. Its optimum belongs to $[0,2^p]$ and has denominator at most $Q_0=2^p$. After $3p+4$ threshold bisections, the interval width is at most $2^{-2p-4}$. Its midpoint is within $1/(32Q_0^2)$ of the true rational. Distinct reduced rationals with denominators at most $Q_0$ differ by at least $1/Q_0^2$. Continued-fraction rational reconstruction of the closest rational with that denominator bound therefore returns the exact optimum. Equality at a queried threshold is handled by the decision predicate $\mu\le\tau$.
+
+The prescribed loop bounds and bit caps can be enforced on all inputs; malformed roots, zero denominators, or inconsistent reconstructed factors cause termination with an arbitrary off-promise output. They do not require testing SSC. With randomized decision, amplify each bit decision to failure probability smaller than the reciprocal of a fixed multiple of the total polynomial query bound and take a union bound. Finally, exact factor recovery directly provides the determinant to compare to $\tau$.
+\end{proof}
+
+\begin{remark}[What the reduction does not provide]
+The theorem needs an oracle; it does not construct one. It also does not say that values of affine images of a single fixed input reveal its vertices: affine transformations alone only rescale the determinant by a known factor. The informative queries here are projective, and their promise preservation relies on the stronger condition.
+\end{remark}
+
+\section{A weak-SSC input with global diagonal rigidity}
+\label{sec:rigidity}
+Consider the normalized rational matrix
+\begin{equation}
+ H=\begin{pmatrix}
+ 0&0&2/3&1/4&2/3&2/7\\
+ 5/8&2/5&0&0&1/3&5/7\\
+ 3/8&3/5&1/3&3/4&0&0
+ \end{pmatrix}
+ \label{eq:rigidH}
+\end{equation}
+and the three vectors
+\begin{equation}
+ q_1=\tfrac13(-1,2,2)^T,\quad
+ q_2=\tfrac1{19}(15,-6,10)^T,\quad
+ q_3=\tfrac17(6,3,-2)^T.
+ \label{eq:rigidq}
+\end{equation}
+Direct pair-intersection computation gives
+\begin{equation}
+ \cone(H)^*=\cone(e_1,e_2,e_3,q_1,q_2,q_3).
+ \label{eq:rigiddual}
+\end{equation}
+One way to verify this identity without any numerical geometry is to intersect every pair of the six homogeneous boundary planes with $\e^Th=1$, retain the feasible intersections, and obtain exactly the six columns in~\eqref{eq:rigidH}. The cone is contained in the orthant because the three $e_i$ inequalities are present, so this section is bounded.
+
+\begin{theorem}[Weak SSC and positive diagonal rigidity]
+\label{thm:rigid}
+The matrix~\eqref{eq:rigidH} has rank three, satisfies weak SSC, and does not satisfy strong SSC. For a positive diagonal matrix $D$,
+\begin{equation}
+ C_3\subseteq D\cone(H)\quad\Longleftrightarrow\quad D=dI\text{ for some }d>0.
+ \label{eq:rigidity}
+\end{equation}
+In particular, $X=H$ is promised for NM-01 and has optimal value one.
+\end{theorem}
+\begin{proof}
+All six generators in~\eqref{eq:rigiddual} have coordinate sum and Euclidean norm one. Thus the dual cone lies in $C_3^*$ and SSC1 holds. The only normalized boundary points are those six generators, by strict convexity of the unit ball. Every component of each extra $q_i$ is nonzero, and
+\begin{equation}
+ q_1^Tq_2=-7/57,\quad q_1^Tq_3=-4/21,\quad q_2^Tq_3=52/133.
+\end{equation}
+No extra generator is orthogonal to any other possible frame member.
+
+More explicitly, if an orthogonal $Q$ contains $K$ in its cone, every column $u_i$ of $Q$ lies in $K^*$. Therefore $\e^Tu_i\ge1$, while $\sum_i(\e^Tu_i)^2=3$. All sums are one, so every $u_i$ is one of the six listed contacts. Only the three coordinate contacts form an orthogonal frame. This proves weak SSC; the extra contacts disprove strong SSC.
+
+For the rigidity assertion write $a_i=d_i^{-1}>0$ and $b_j=q_j-q_j\circ q_j$, where $\circ$ denotes entrywise product. Exact arithmetic gives
+\begin{equation}
+ [b_1\ b_2\ b_3]=
+ \begin{pmatrix}
+ -4/9&60/361&6/49\\
+ 2/9&-150/361&12/49\\
+ 2/9&90/361&-18/49
+ \end{pmatrix},\qquad
+ 243b_1+361b_2+392b_3=0.
+ \label{eq:positivebalance}
+\end{equation}
+SSC1 for $DK$ would require $D^{-1}q_j\in C_3^*$, or
+\begin{equation}
+ 0\le g_j(a):=q_j^Ta-\norm{\diag(q_j)a}
+       \le(q_j-q_j\circ q_j)^Ta=b_j^Ta.
+ \label{eq:cauchyrigidity}
+\end{equation}
+The last inequality is Cauchy--Schwarz with the unit vector $q_j$. The positive weighted sum in~\eqref{eq:positivebalance} forces equality in all three instances of~\eqref{eq:cauchyrigidity}. Equality in Cauchy--Schwarz forces $\diag(q_j)a$ to be a nonnegative scalar multiple of $q_j$. Since its components are all nonzero, $a$ is constant. Conversely a scalar $D$ does not change the cone. The objective statement follows from~\eqref{eq:detbound} with $T=I$.
+\end{proof}
+
+\subsection{An explicit projective interval outside the whole promise}
+Losing SSC for one inherited factorization alone would not prove that a transformed input is off-promise. It could conceivably acquire a different sufficiently scattered factorization. The next theorem rules that out on a concrete interval.
+
+\begin{theorem}[A punctured off-promise interval]
+\label{thm:offpromise}
+Let $\ell_t=(1+t,1,1)^T$ and
+\begin{equation}
+ X_t[:,j]=H[:,j]/(\ell_t^TH[:,j]).
+\end{equation}
+For every real $t$ with $0<|t|\le1/1000$, $X_t$ has no factorization satisfying the original weak-SSC promise.
+\end{theorem}
+\begin{proof}
+The denominators are positive and the data cone is unchanged. Any SSC factorization must, by the facet-support argument in Section~\ref{sec:target}, select its three inverse-factor rows from three of the six dual extreme rays in~\eqref{eq:rigiddual}. For a selected row matrix $C$, normalization forces
+\begin{equation}
+ s(t)=C^{-T}\ell_t,\qquad A(t)=\diag(s(t))C.
+\end{equation}
+Only strictly positive $s(t)$ is allowed. Its objective equals $1/p_C(t)^2$, where $p_C(t)=\det(C)\prod_i s_i(t)$.
+
+Index the normals by $0,1,2,3,4,5=e_1,e_2,e_3,q_1,q_2,q_3$. On the closed interval $[-1/1000,1/1000]$, exactly six triples have strictly positive scales. Their determinant products are
+\begin{center}
+\begin{tabular}{cl}
+\toprule
+Triple & $p_C(t)$\\
+\midrule
+012 & $1+t$\\
+124 & $-(t+1)(2t-1)(2t+7)/15$\\
+125 & $-(t-1)(t+1)(t+4)/6$\\
+134 & $-(2t-1)(2t+3)^2/20$\\
+235 & $(t-1)(2t+3)^2/15$\\
+345 & $-(2t-17)(2t+3)^2/180$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The remaining fourteen triples have either an identically zero scale or a scale strictly negative throughout the interval. These statements follow by checking the affine scales at the two endpoints. Appendix~\ref{app:triples} records all twenty triples.
+
+For each of the five nonidentity feasible triples,
+\begin{equation}
+ (1+t)^2-p_C(t)^2>0\qquad (-1/1000\le t\le1/1000).
+ \label{eq:intervalgap}
+\end{equation}
+For an exact interval check, substitute $t=-1/1000+x/500$, expand this polynomial of degree at most six in the Bernstein basis on $0\le x\le1$, and check every coefficient is strictly positive. The full rational coefficients are in \texttt{certificates/weak\_rigidity.json}; the separate symbolic regeneration in \texttt{rigidity.py} checks their identity and signs.
+
+The identity triple is feasible, so a promised optimum could not have an objective strictly worse than it. By~\eqref{eq:intervalgap}, any promised optimum would have to be the identity triple. Its coefficient cone is $\diag(1+t,1,1)\cone(H)$, which fails SSC1 by Theorem~\ref{thm:rigid} when $t\ne0$. This is a contradiction. The argument does not assert that all off-promise global optima come from facet triples.
+\end{proof}
+
+\section{Arbitrarily high degree is needed by a specified SOS route}
+\label{sec:sos}
+The ellipsoid route suggests replacing dual-ball containment by a small SOS program. We now give a precise negative result for this approach. It is important to name the formulation: different liftings, sparse formulations, and unrelated algorithms are not covered.
+
+For normalized $H\in\Q_+^{3\times n}$, write
+\begin{equation}
+ Q_H=\{q:\e^Tq=1,\ h_j^Tq\ge0\ (j=1,\ldots,n)\},\qquad
+ f(q)=1-\norm{q}^2.
+\end{equation}
+SSC1 is $Q_H\subseteq\{\norm{q}\le1\}$. Eliminate $q_3=1-q_1-q_2$ and regard the functions as polynomials in $x=q_1,y=q_2$.
+
+\begin{definition}[Full truncated input preordering]
+For integer $D$, let $\Tr_D(H)$ consist of identities
+\begin{equation}
+ p=\sum_{I\subseteq\{1,\ldots,n\}}\sigma_I\prod_{j\in I}(h_j^Tq),
+ \quad \sigma_I\in\SOS[x,y],\quad \deg\sigma_I+|I|\le D.
+ \label{eq:preorder}
+\end{equation}
+Terms with $|I|>D$ are omitted. No extra nonlinear inequality is assumed. Repeated powers of generators can be absorbed into square factors, so squarefree $I$ loses no generality at this degree bound.
+\end{definition}
+This full preordering is at least as strong as the usual input quadratic module, which uses only $I=\varnothing$ and singleton subsets. The standard SOS containment literature~\cite{kt,ktt} gives context for such certificates, but the construction and proof below are given in full.
+
+\subsection{A rational contact family}
+For rational $t\in(0,1)$, put
+\begin{equation}
+ v(t)=\frac{(t^2-t,\ t,\ 1-t)^T}{t^2-t+1}.
+ \label{eq:circleparam}
+\end{equation}
+It satisfies $\e^Tv(t)=\norm{v(t)}=1$. Given $M\ge5$, take the contacts
+\begin{equation}
+ V=\{e_1,e_2,e_3,v(t_1),\ldots,v(t_{M-3})\},\qquad
+ t_j=\frac13+\frac{j}{3(M-2)}.
+ \label{eq:contacts}
+\end{equation}
+All extra contacts have sign pattern $(-,+,+)$, hence nonzero pairwise inner products and no zero components. All $M$ points are distinct vertices of their convex hull: a unit-sphere point cannot be a convex combination of other distinct points in the closed unit ball.
+
+Let $P$ be the section $\e^Th=1$ of the cone defined by $v^Th\ge0$ for $v\in V$, and let $H$ list the vertices of $P$. This is a rational polygon with $M$ vertices. Its dual normalized section is $Q_H=\conv(V)$. The $e_i$ inequalities ensure $P\subseteq\{h\ge0\}$, and the dual-ball inclusion ensures SSC1. The orthogonal-frame argument from Theorem~\ref{thm:rigid} proves weak SSC. Coordinates of $V$ and $H$ have $O(\log M)$ bit lengths: the latter are intersections of two rational lines and the normalization plane.
+
+\begin{lemma}[Zeros on the affine circle]
+\label{lem:circlezeros}
+A polynomial of total degree at most $k$ on $\e^Tq=1$ that does not vanish identically on the circle $\norm{q}=1$ has at most $2k$ distinct zeros on that circle. If it vanishes identically, it is divisible by the circle's defining polynomial $f$, up to a nonzero scalar.
+\end{lemma}
+\begin{proof}
+A rational parametrization of this nondegenerate conic turns a degree-$k$ polynomial into a rational function whose numerator has degree at most $2k$; equivalently its restriction is a trigonometric polynomial of order at most $k$. This gives the zero bound, including a possible point at infinity by using the homogeneous parametrization. For divisibility, substitute $q=(x,y,1-x-y)$, so
+\begin{equation}
+ f=2(x+y-x^2-y^2-xy).
+ \label{eq:circlepoly}
+\end{equation}
+Division by its monic quadratic in $y$ leaves $a(x)y+b(x)$. Vanishing on both arcs over an interval of $x$ forces $a=b=0$. Thus the remainder vanishes identically and $f$ divides the polynomial.
+\end{proof}
+
+\begin{proposition}[Contact-count degree obstruction]
+\label{prop:weakdegree}
+For the weak-SSC family above, $f\notin\Tr_D(H)$ whenever $M>2D$.
+\end{proposition}
+\begin{proof}
+Expand each SOS multiplier into individual squares. At a contact $v\in V$, the left side $f(v)$ is zero and all summands in~\eqref{eq:preorder} are nonnegative, so every summand vanishes there. A product of $t$ nonzero affine linear generators can vanish on at most $2t$ contacts, since a line meets a circle in at most two points. Its squared polynomial factor $p^2$ therefore vanishes on at least $M-2t$ other contacts. But $2\deg p\le D-t$, while
+\[
+ M-2t>D-t\ge2\deg p,
+\]
+using $t\le D$ and $M>2D$. Lemma~\ref{lem:circlezeros} forces $f\mid p$. Every summand is consequently divisible by $f^2$. The identity $f=\sum(\cdots)$ is impossible, since $f$ is a nonconstant polynomial not divisible by its square.
+\end{proof}
+
+\subsection{Strong SSC, rational dual witnesses, and polynomial encoding}
+The preceding contact argument uses extra boundary contacts and therefore only weak SSC. The next construction moves those contacts strictly inside the ball and proves the same degree obstruction by an explicit separating functional.
+
+Put $c=\e/3$. For parameters $\epsilon,\eta>0$, replace extra vertices by
+\begin{equation}
+ v_i^\epsilon=(1-\epsilon)v_i+\epsilon c\quad(i>3),
+ \qquad v_i^\epsilon=e_i\quad(i\le3),
+ \label{eq:shrink}
+\end{equation}
+and let $H_\epsilon$ be the primal polygon's vertex matrix. For sufficiently small $\epsilon$, the cyclic vertex/facet incidences are unchanged. Since the extra vertices now have norm strictly below one, the only normalized dual boundary contacts are $e_1,e_2,e_3$. Thus $H_\epsilon$ has strong SSC.
+
+Use the original contacts, not the shrunken ones, to define rational evaluation points on an expanded circle:
+\begin{equation}
+ y_i=c+(1+\eta)(v_i-c),\qquad
+ \mathcal L(p)=\frac1M\sum_{i=1}^M p(y_i).
+ \label{eq:functional}
+\end{equation}
+They satisfy
+\begin{equation}
+ \mathcal L(f)=-\kappa,\qquad
+ \kappa=\frac23(2\eta+\eta^2)>0.
+ \label{eq:gapfunctional}
+\end{equation}
+Although $\mathcal L$ is a positive average of evaluations, its points lie outside the unit ball and need not satisfy the input inequalities. Positivity on the \emph{truncated preordering} is a separate matrix calculation.
+
+For $k\ge0$, define the quotient-basis vector
+\begin{equation}
+ b_k(x,y)=(1,x,\ldots,x^k,y,xy,\ldots,x^{k-1}y)^T,
+ \label{eq:quotientbasis}
+\end{equation}
+with the $y$ part absent for $k=0$. On the expanded circle, $f=-\kappa$ gives
+\begin{equation}
+ y^2=(1-x)y+x-x^2+\kappa/2.
+\end{equation}
+Thus every polynomial of degree at most $k$ restricts to a linear combination of~\eqref{eq:quotientbasis}, without increasing degree.
+
+For $I\subseteq\{1,\ldots,M\}$ of size $t\le D$, set $k=\lfloor(D-t)/2\rfloor$ and
+\begin{equation}
+ A_I(\eta,\epsilon)=\frac1M\sum_{i=1}^M
+ \left(\prod_{j\in I}h_j(\epsilon)^Ty_i\right)
+ b_k(y_i)b_k(y_i)^T.
+ \label{eq:localmatrix}
+\end{equation}
+If every $A_I$ is positive semidefinite, then $\mathcal L$ is nonnegative on every term of~\eqref{eq:preorder}. If they are positive definite, this condition is robust to small parameter perturbations.
+
+\begin{lemma}[Uniform small rational perturbations]
+\label{lem:polyperturb}
+With $M=2D+1$, the parameters $\eta$ and $\epsilon$ in~\eqref{eq:localmatrix} can be chosen positive rational with bit lengths polynomial in $M$ so that all the matrices $A_I$ are positive definite and the primal polygon retains its incidences.
+\end{lemma}
+\begin{proof}
+First take $\eta=\epsilon=0$. All weights in~\eqref{eq:localmatrix} are nonnegative. The product of $t$ facet slacks is strictly positive at at least $M-2t$ contacts. This number is greater than $2k$. A nonzero linear combination of the basis $b_k$ cannot vanish identically on the circle: its degree in $y$ is at most one, whereas the circle equation is a monic irreducible quadratic in $y$. By Lemma~\ref{lem:circlezeros}, it cannot vanish at all those positive-weight contacts. Hence $A_I(0,0)\succ0$ for every $I$.
+
+The polynomial bit claim needs more than continuity. Here are explicit complexity bounds on the algebra involved. Each contact coordinate has numerator and denominator of $O(\log M)$ bits. Each perturbed primal vertex is obtained by a $3\times3$ rational inverse; its coordinates are rational functions of $\epsilon$ with numerator and denominator degrees at most two and coefficient bit lengths $O(\log M)$. Denominators are nonzero at zero. Every entry of~\eqref{eq:localmatrix}, after a common denominator is used, has degree $O(M)$ in $(\eta,\epsilon)$ and rational coefficient bit lengths bounded by a polynomial in $M$. This follows by multiplying at most $M$ slacks and monomials of degree at most $M$, then adding $M$ terms. There are only two polynomial variables, so the numbers of coefficients are polynomial too.
+
+A leading principal minor has order at most $2k+1\le M$. Clearing denominators, its numerator and denominator have degree $O(M^2)$ and coefficient bit lengths $\poly(M)$. These bounds are uniform over $I$ and the minor order: the logarithm of the number of determinant expansion terms is $O(M\log M)$, not exponential. Each minor is strictly positive at zero, so both cleared polynomials have nonzero constant terms of absolute value at least $2^{-\poly(M)}$, while their other coefficients have absolute values at most $2^{\poly(M)}$.
+
+The elementary sign-stability bound is enough. If a bivariate polynomial has degree at most $a$, coefficient magnitude at most $2^b$, and a nonzero constant of magnitude at least $2^{-b}$, then for $0\le\eta,\epsilon\le\rho\le1/2$ its nonconstant part has magnitude at most $(a+1)^2 2^b\rho$. Taking $\rho<2^{-2b-1}/(a+1)^2$ preserves its sign. Choose a single polynomial upper bound for $a,b$ for all the minor numerators and denominators. This bound does not depend on which of the exponentially many subsets is selected. The same reasoning applies to the rational triple-orientation tests that preserve polygon incidences; at zero no three circle contacts are collinear.
+
+Consequently there is an integer $N=\poly(M)$ such that choosing, for example, $\eta=\epsilon=2^{-N}$ preserves all denominator signs, positive principal minors, and incidences. Sylvester's criterion completes the proof. An explicit sharp universal exponent is unnecessary for this existence and polynomial-encoding statement; the supplied finite certificates use directly verified, much smaller exponents.
+\end{proof}
+
+\begin{theorem}[Unbounded SOS degree even with strong SSC]
+\label{thm:strongsos}
+For every integer $D\ge2$ there is a rational normalized strong-SSC matrix $H_D\in\Q_+^{3\times(2D+1)}$, of total encoding length polynomial in $D$, such that
+\begin{equation}
+ f\notin\Tr_D(H_D).
+ \label{eq:strongfailure}
+\end{equation}
+Moreover, a rational functional of the form~\eqref{eq:functional} has polynomial encoding length, is nonnegative on $\Tr_D(H_D)$, and takes $f$ to $-\kappa<0$, with $\kappa\ge2^{-\poly(D)}$. In particular $f+\alpha\notin\Tr_D(H_D)$ for $0\le\alpha<\kappa$.
+\end{theorem}
+\begin{proof}
+Take $M=2D+1$ and choose the parameters from Lemma~\ref{lem:polyperturb}. The shrunken dual polygon has only the three coordinate unit-ball contacts, so $H_D=H_\epsilon$ has strong SSC. All coordinates of $H_D$ and of the evaluation points have polynomial bit lengths, by the rational formulas in that lemma.
+
+For an individual squared factor of degree at most $k$, its restrictions at the $y_i$ are a coefficient vector times $b_k(y_i)$. Thus~\eqref{eq:localmatrix} proves $\mathcal L(p^2\prod_{j\in I}h_j^Tq)\ge0$. Summing proves nonnegativity on the whole preordering. Equation~\eqref{eq:gapfunctional} separates $f$ and also $f+\alpha$ when $\alpha<\kappa$. Finally $\eta=2^{-\poly(D)}$ makes $\kappa\ge2^{-\poly(D)}$.
+\end{proof}
+
+The functional has a short description, but verifying all its localizing matrices by this direct method takes exponentially many subset checks as $D$ grows. No polynomial-time verifier for the general SOS obstruction is claimed. For fixed $D$, the exact finite checks in the next section are small enough to execute.
+
+\subsection{A standard dense-hierarchy size obstruction}
+\begin{lemma}[Strong SSC survives a direct sum with coordinate rays]
+If $H$ has strong SSC and $s\ge0$, then $\widehat H=\diag(H,I_s)$ has strong SSC at rank $r+s$.
+\end{lemma}
+\begin{proof}
+Its dual cone is $K^*\times\R_+^s$. For $(q,z)$ in this cone,
+\[
+ \e^Tq+\e^Tz\ge\norm{q}+\norm{z}
+ \ge\sqrt{\norm{q}^2+\norm{z}^2}.
+\]
+Equality requires at most one nonzero block, a single coordinate of $z$ if that is the block, and a coordinate boundary ray of $K^*$ otherwise. Hence only full-space coordinate rays lie on the circular-cone boundary.
+\end{proof}
+
+\begin{corollary}[Exponential sizes for standard dense levels]
+\label{cor:dense}
+There are rational strong-SSC inputs with $r=2D+1$, $n=2r-3$, and polynomial encoding length in $r$, for which no degree-$D$ input-preordering certificate proves $1-\norm{q}^2\ge0$ on the normalized dual section. A standard dense SOS hierarchy can therefore require moment/Gram matrices of dimension $2^{\Omega(r)}$ to certify that containment exactly. This dimension is superpolynomial in the family input length.
+\end{corollary}
+\begin{proof}
+Pad $H_D$ from Theorem~\ref{thm:strongsos} with $I_{r-3}$. Restrict a hypothetical certificate to $q_4=\cdots=q_r=0$. The extra generators become zero and the other generators and target reduce exactly to the rank-three certificate problem. Total degree cannot increase under restriction, contradicting~\eqref{eq:strongfailure}.
+
+An exact dense level of order $k$ has total degree $2k$ and uses the full monomial vector of degree at most $k$ in $r-1$ affine variables, of dimension $\binom{r-1+k}{k}$. Degree must exceed $D=(r-1)/2$, so $k>(r-1)/4$. The binomial coefficient is then $2^{\Omega(r)}$. The input has polynomial length by Theorem~\ref{thm:strongsos} and the polynomial-size padding.
+\end{proof}
+
+\begin{remark}[This is not hardness of NM-01]
+Every input in this corollary has the known factorization $X=I\widehat H$ and optimum one. A method exploiting that structure can decide it immediately. The conclusion concerns the size of the specified \emph{standard dense relaxation}, not a lower bound for every certificate, every SDP representation, sparse/chordal methods, or all polynomial-time algorithms. The unpadded rank-three problem is already polynomial-time solvable by the first-round facet method.
+\end{remark}
+
+\section{Explicit certificates and executable checks}
+\label{sec:certs}
+The delivered witnesses use precisely the formulas in Section~\ref{sec:sos}. No numerical optimizer was used to validate them.
+
+\begin{center}
+\begin{tabular}{rrrrrr}
+\toprule
+Total degree $D$ & Columns $M$ & $\eta$ & $\epsilon$ & Matrices checked & Largest size\\
+\midrule
+4 & 9 & $2^{-32}$ & $2^{-40}$ & 256 & $5\times5$\\
+6 & 13 & $2^{-32}$ & $2^{-40}$ & 4,096 & $7\times7$\\
+8 & 17 & $2^{-64}$ & $2^{-80}$ & 65,536 & $9\times9$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The number of matrices is $\sum_{t=0}^D\binom{2D+1}{t}=2^{2D}$. Every reported matrix is strictly positive definite, not merely numerically close to semidefinite. The checker computes rational LDL pivots with no square roots and requires each pivot to be positive. It also reconstructs the primal matrix, checks all vertex/facet incidences, checks normalization and the norm inequalities, and verifies the common expanded-circle identity.
+
+The two exact separating values are
+\begin{align}
+ \mathcal L(f)&=-\frac{2863311531}{9223372036854775808}
+ &&(D=4,6),\\
+ \mathcal L(f)&=-\frac{12297829382473034411}{170141183460469231731687303715884105728}
+ &&(D=8).
+\end{align}
+The degree-four and degree-six reports include every subset's complete rational LDL pivots. The degree-eight report records the total count and minimum pivot; all individual matrices and pivots are regenerated deterministically from its input certificate.
+
+The padded versions have $(r,n)=(9,15),(13,23),(17,31)$. The first dense orders not excluded by these particular checks are respectively $3,4,5$, whose full monomial dimensions are $165$, $1,820$, and $20,349$. These are lower-bound statements about the tested degrees, not assertions that the next orders succeed.
+
+\subsection{The projective recovery demonstrations}
+The rank-three demonstration uses
+\begin{equation}
+ T_3=\begin{pmatrix}2&0&-1\\0&2&0\\-1&-1&2\end{pmatrix},\qquad \det(T_3)^2=36,
+\end{equation}
+and the rank-four demonstration uses
+\begin{equation}
+ T_4=\begin{pmatrix}2&0&-1&0\\0&2&0&-1\\0&0&2&0\\-1&-1&0&2\end{pmatrix},\qquad \det(T_4)^2=144.
+\end{equation}
+In each case $H$ consists of the columns $(3/4)e_i+(1/4)e_j$, $i\ne j$. This capped-simplex family has strong SSC in both ranks; the exact test also checks it directly through all dual rays. Data are $Y=T_rH$.
+
+The recovery routine receives only $Y$, the scale, and a value callback. It does not receive $T_r$, the facet list, or the generating $H$. The supplied callback pre-enumerates facets and facet subsets and is exponential in variable rank. A separate test observer uses the known generating factor to check the strong-SSC condition on \emph{every} queried transformed cone. The observer does not supply entries to the recovery algorithm.
+
+Using $\delta=2^{-24}$, exact recovery uses 24 distinct value probes for rank three and 73 for rank four. The isolating direction indices are $k=0$ and $k=2$, so the latter also tests rejection of colliding projection directions. A rank-two test and zero-projection handling are included. These practical probe scales are certified instance by instance; the extremely conservative uniform scale~\eqref{eq:safedelta} is proved but not instantiated in these demonstrations.
+
+\subsection{Assurance levels and rejected attempts}
+The full suite contains 23 test methods and records zero failures, zero errors, and zero skips when run with \texttt{--full}. Tests include exact circle identities, positive-definite checks, all three frozen SOS witnesses, the weak limit, the twenty-triple interval certificate, projective reconstruction, exact threshold equality, and deliberate changes to inputs, weights, evaluation points, and a value oracle. They are not an independent proof audit. A second verifier, \texttt{verify\_raw\_sos.py}, also checks degrees four and six using the full monomial basis, without quotient-basis reduction; all 256 and 4,096 resulting matrices pass exact positive-semidefiniteness checks. These extra checks are separate from the 23-method count. All 16 first-round test methods were also rerun successfully.
+
+One exploratory degree-eight choice, $\eta=2^{-32},\epsilon=2^{-40}$, failed an exact positive-definiteness check at subset $(0,2)$. It is \emph{not} a certificate. The delivered degree-eight witness uses the smaller scales in the table and passes every check. A time-limited execution was interrupted before completion; only the later complete run is counted. These distinctions prevent unsuccessful searches or incomplete runs from inflating the evidence.
+
+The general degree theorem is proved using the contact-count and perturbation arguments, not inferred from three numerical examples. The exact source routines use Python rational arithmetic; SymPy is needed only for projective interpolation/factorization, the rigidity polynomial identities, and related tests. No floating-point solver status is used as a certificate.
+
+\section{What remains to finish NM-01}
+\label{sec:remaining}
+The first route yields a precise conditional equivalence on strong SSC: a polynomial decision algorithm would give exact hidden-factor recovery. Its explicit weak-SSC counterexample also identifies a genuine promise-preservation barrier. The second route supplies an all-degree family and exact finite witnesses excluding fixed-degree input SOS certificates, and a dense-size obstruction in growing rank.
+
+Neither route supplies the missing value oracle. No result here removes facet enumeration from the exact general algorithm, gives a polynomial-time oracle for ellipsoid containment in a vertex-described data hull, or constructs a promise-preserving reduction proving general complexity hardness. Generic containment hardness cannot simply be imported, because it does not guarantee the hidden sufficiently scattered factorization required by NM-01.
+
+The results also leave substantial possible algorithmic approaches untouched: specially structured convex lifts, sparse certificates, methods that do not certify the entire dual-ball inclusion, and global procedures not based on the demonstrated projective probes. The failure of these particular shortcuts is not a proof that those alternatives fail.
+
+Accordingly, the archive is an \emph{additional partial-results submission for mathematical review}. It is not evidence to mark NM-01 solved. No repository files were changed. The work has not been independently audited or formalized in a proof assistant; the contribution guidelines~\cite{contrib} distinguish those assurance levels.
+
+\appendix
+\section{The complete twenty-triple interval certificate}
+\label{app:triples}
+The following table records $s(0)=C^{-T}\e$ for each triple. The exact linear functions $s(t)$ and all comparison Bernstein coefficients are in the JSON certificate. A zero classification means an identically zero scale along the displayed projective line, not just at $t=0$.
+
+\begin{center}\small
+\begin{longtable}{cll}
+\toprule
+Triple & $s(0)$ & Interval classification\\
+\midrule\endhead
+012 & $(1,1,1)$ & Identity candidate\\
+013 & $(3/2,0,3/2)$ & Zero scale\\
+014 & $(-1/2,8/5,19/10)$ & Negative scale\\
+015 & $(4,5/2,-7/2)$ & Negative scale\\
+023 & $(3/2,0,3/2)$ & Zero scale\\
+024 & $(7/2,8/3,-19/6)$ & Negative scale\\
+025 & $(-1,5/3,7/3)$ & Negative scale\\
+034 & $(3/2,3/2,0)$ & Zero scale\\
+035 & $(3/2,3/2,0)$ & Zero scale\\
+045 & $(-17/2,95/18,56/9)$ & Negative scale\\
+123 & $(3,3,-3)$ & Negative scale\\
+124 & $(7/5,1/3,19/15)$ & Strictly worse than identity\\
+125 & $(1/2,4/3,7/6)$ & Strictly worse than identity\\
+134 & $(6/5,3/8,57/40)$ & Strictly worse than identity\\
+135 & $(-3/2,12/5,21/10)$ & Negative scale\\
+145 & $(17/10,76/45,-7/18)$ & Negative scale\\
+234 & $(-2,21/8,19/8)$ & Negative scale\\
+235 & $(1,3/5,7/5)$ & Strictly worse than identity\\
+245 & $(17/9,-19/27,49/27)$ & Negative scale\\
+345 & $(51/40,19/24,14/15)$ & Strictly worse than identity\\
+\bottomrule
+\end{longtable}\end{center}
+For the Bernstein check, if $P(a+(b-a)x)=\sum_{k=0}^d c_kx^k$, its degree-$d$ Bernstein coefficients are
+\[
+ \beta_j=\sum_{k=0}^j c_k\frac{\binom jk}{\binom dk},\qquad 0\le j\le d.
+\]
+The identity $P=\sum_j\beta_j\binom djx^j(1-x)^{d-j}$ and positivity of each $\beta_j$ prove~\eqref{eq:intervalgap}. The check uses the whole interval, not a grid of sampled $t$ values.
+
+\section{Artifact map and reproduction}
+The original first-round archive is included unchanged at \texttt{previous/NM01\_partial\_results.zip}. The new files are separated from it. The principal commands, run from the extracted round-two directory, are
+\begin{lstlisting}
+python code/test_round2.py --full
+python code/sos_obstruction.py \
+  --verify certificates/sos_degree8_strong.json
+python code/rigidity.py --verify certificates/weak_rigidity.json
+python code/projective_recovery.py --rank 4 \
+  --verify certificates/projective_rank4.json
+python code/padding.py
+python code/verify_raw_sos.py certificates/sos_degree6_strong.json
+python code/check_manifest.py
+\end{lstlisting}
+The full degree-eight rational check is the longest step. Without \texttt{--full}, the test suite explicitly skips that one test. The SOS checker itself needs only the Python standard library. The full suite and the projective and rigidity scripts require SymPy; the tested version is recorded in the environment file.
+
+The paper is rebuilt by running twice from \texttt{paper/}:
+\begin{lstlisting}
+pdflatex -interaction=nonstopmode -halt-on-error nm01_round2.tex
+\end{lstlisting}
+\texttt{verification/} contains actual run logs and machine-readable results, not forecasts. A SHA-256 manifest covers delivered files. The final archive is extracted into a clean directory for a manifest check and a complete rerun before delivery. That procedure checks reproducibility of the code and finite certificates; it does not convert the manuscript into an independently reviewed proof.
+
+\begin{thebibliography}{99}
+\bibitem{repo} OpenProblemsInNLA contributors. \emph{NM-01: Polynomial-time minimum-volume decision under sufficient scattering}. Canonical repository entry, accessed 12 September 2026.\par
+\url{https://raw.githubusercontent.com/ajt60gaibb/OpenProblemsInNLA/main/nonnegative-and-positive-factorizations/NM-01/README.md}
+\bibitem{previous} ChatGPT. \emph{NM-01: Exact arithmetic, tractable regimes, and obstructions}. First-round research package, 12 September 2026. In particular, Theorems 3.1, 3.4, 4.2, and 5.2. Preserved unchanged in this archive's \texttt{previous/} directory. Partial, self-checked work, not an external source of independent verification.
+\bibitem{gillisbook} N. Gillis. \emph{Nonnegative Matrix Factorization}. SIAM, 2020. The canonical entry identifies Definitions 4.15 and 4.42, Theorem 4.43, and Section 4.3.3.6.\par
+\url{https://doi.org/10.1137/1.9781611976410}
+\bibitem{abd} M. Abdolali and N. Gillis. \emph{Simplex-Structured Matrix Factorization: Sparsity-based Identifiability and Provably Correct Algorithms}. arXiv:2007.11446, 2020. Facet identification and the facet-rank condition.\par
+\url{https://arxiv.org/abs/2007.11446}
+\bibitem{lin} C.-H. Lin, R. Wu, W.-K. Ma, C.-Y. Chi, and Y. Wang. \emph{Maximum Volume Inscribed Ellipsoid: A New Simplex-Structured Matrix Factorization Framework via Facet Enumeration and Convex Optimization}. arXiv:1708.02883v3. Facet enumeration is an explicit computational bottleneck.\par
+\url{https://arxiv.org/html/1708.02883v3}
+\bibitem{lll} A. K. Lenstra, H. W. Lenstra Jr., and L. Lov\'asz. \emph{Factoring polynomials with rational coefficients}. Mathematische Annalen 261 (1982), 515--534. Polynomial-time rational polynomial factorization.\par
+\url{https://link.springer.com/article/10.1007/BF01457454}
+\bibitem{kt} K. Kellner and T. Theobald. \emph{Sum of Squares Certificates for Containment of $\mathcal H$-polytopes in $\mathcal V$-polytopes}. arXiv:1409.5008v4, 2016. Section 4 defines SOS containment hierarchies; its formulation is background, not identical to every preordering considered here.\par
+\url{https://arxiv.org/abs/1409.5008}
+\bibitem{ktt} K. Kellner, T. Theobald, and C. Trabandt. \emph{Containment problems for polytopes and spectrahedra}. arXiv:1204.4313v3, 2013. Theorem 3.4 concerns general containment hardness, not the NM-01 promise.\par
+\url{https://arxiv.org/abs/1204.4313}
+\bibitem{gillisl} N. Gillis and R. Luce. \emph{Checking the Sufficiently Scattered Condition using a Global Non-Convex Optimization Software}. arXiv:2402.06019, 2024. Promise checking is distinct from promised recovery.\par
+\url{https://arxiv.org/abs/2402.06019}
+\bibitem{robust} G. Barbarino, N. Gillis, and S. Saha. \emph{Robustness of Minimum-Volume Nonnegative Matrix Factorization under an Expanded Sufficiently Scattered Condition}. arXiv:2511.04291v1, 2025. Robustness results and its discussion of the unresolved polynomial-solvability question.\par
+\url{https://arxiv.org/html/2511.04291v1}
+\bibitem{contrib} OpenProblemsInNLA contributors. \emph{Contribution guidelines}. Accessed 12 September 2026. Partial versus full resolution and levels of mathematical auditing.\par
+\url{https://raw.githubusercontent.com/ajt60gaibb/OpenProblemsInNLA/main/CONTRIBUTING.md}
+\end{thebibliography}
+\end{document}
