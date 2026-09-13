@@ -34,7 +34,7 @@ approximation},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RA-14}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-13}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -63,7 +63,7 @@ analysis.\\
 
 \subsection{Problem statement}\label{problem-statement}
 
-Let \(n\ge2\), \(1\le k<n\), and \(0<\varepsilon<1/2\). An unknown
+Let \(n\ge2\), \(1\le k< n\), and \(0<\varepsilon<1/2\). An unknown
 matrix \(A\in\mathbb R^{n\times n}\) is available through exact products
 \(Ax\) and \(A^Tx\), with one such product counting as one query. An
 algorithm may choose each real query vector adaptively using all earlier
@@ -75,14 +75,12 @@ for which an algorithm using at most \(q\) queries returns a matrix
 \(Z\in\mathbb R^{n\times k}\) with \(Z^TZ=I_k\) such that, for every
 input \(A\),
 
-\[
-\Pr\!\left[
+\[\Pr\!\left[
 \|A(I-ZZ^T)\|_2
 \le (1+\varepsilon)
 \min_{\substack{U\in\mathbb R^{n\times k}\\U^TU=I_k}}
 \|A(I-UU^T)\|_2
-\right]\ge\frac{99}{100}.
-\]
+\right]\ge\frac{99}{100}.\]
 
 Probability is over the algorithm's internal randomness, and
 \(\|\cdot\|_2\) is the spectral norm.
@@ -147,4 +145,38 @@ growing-rank and simultaneous finite-parameter dependence remain
 unresolved. Later query-complexity searches and the
 \href{https://doi.org/10.1137/1.9781611978971.42}{SODA 2026 block-size
 paper} did not settle the full target.
+
+\subsection{Finite-accuracy partial result --- 13 September
+2026}\label{finite-accuracy-partial-result-13-september-2026}
+
+\textbf{Author:} Sidney Holden, Center for Computational Biology,
+Flatiron Institute, Simons Foundation.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ra14-v5-2026-09-13/README.md}{Submission
+and verified affiliation}.
+
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ra14-v5-2026-09-13/report.pdf}{Theorem
+1.1} establishes, for a universal positive constant \(c\) and every
+original admissible parameter triple,
+
+\[q_{\mathrm{sp}}(n,k,\varepsilon)\ge c\frac{k}{\sqrt{\varepsilon}}\log\left(1+\frac{n\sqrt{\varepsilon}}{k}\right).\]
+
+Together with the reproduced upper bound, this gives matching
+universal-factor bounds when \(\varepsilon\le(k/n)^2\) and when
+\(\varepsilon\ge k/n\), including
+\(q_{\mathrm{sp}}(n,1,1/n)=\Theta(\sqrt n\log n)\) for \(n>2\). Sections
+3--10 prove the new lower bound; Appendices A and B reproduce the
+charged reduction and upper bound.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ra14-v5-2026-09-13/report.tex}{Proof
+source}.
+
+The stated partial result passed a separate
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ra14-v5-2026-09-13/independent-review.md}{independent
+informal Codex AI-agent audit}. \textbf{RA-14 remains Partially
+resolved:} at \(k=1\) and \(\varepsilon=(\log n/n)^2\), the bounds still
+leave \(\Omega(n\log\log n/\log n)\) versus \(O(n)\), an unbounded
+factor. The full simultaneous universal-factor target is unchanged. No
+Lean verification, external human peer review or priority claim is
+asserted. This continues the earlier partial submission
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/190}{PR
+\#190}; it does not duplicate a previously pushed full solution.
 \end{document}
