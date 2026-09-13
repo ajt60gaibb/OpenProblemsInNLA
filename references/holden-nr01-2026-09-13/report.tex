@@ -1,0 +1,423 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs,array,longtable}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Exact ranks for the regular 17-, 18-, 19-, and 20-gons},pdfsubject={A finite-case computer-assisted proof for NR-01},pdfauthor={Sidney Holden}}
+\usepackage{enumitem}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\rankp}{\operatorname{rank}_{+}}
+\newcommand{\aff}{\operatorname{aff}}
+\newcommand{\conv}{\operatorname{conv}}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\Fp}{\mathbb F_p}
+\newcommand{\one}{\mathbf 1}
+\title{Exact ranks for the regular 17-, 18-, 19-, and 20-gons}
+\author{Sidney Holden\\[3pt]\small Center for Computational Biology\\\small Flatiron Institute, Simons Foundation}
+\date{13 September 2026}
+\begin{document}
+\maketitle
+\vspace{-1.5em}
+\begin{abstract}
+A computer-assisted exclusion of four-dimensional, eight-facet lifts proves that the regular $n$-gon slack matrix has real nonnegative rank nine for $17\le n\le20$. The reduction uses both factors of a nonnegative factorization, a complete finite cover of planar shadows, and exact determinant and Pl\"ucker-relation calculations over finite fields. The finite-field calculations certify ranks over the cyclotomic number field; they are not searches for finite-field points and use no numerical infeasibility tolerance. All 6,610 incidence patterns pass, and a second pass with different primes, coordinate gauges, and determinant subsets also passes. A limiting argument includes nonsimple lifts and collapsed fibers. The regular 16-gon's known rank-eight factorization is retained as a positive control.
+
+\textbf{Scope.} This is a finite-case, computer-assisted proof draft, not a proof of the universal equality in NR-01. In particular, this report does not resolve the first remaining case, $n=25$. No external peer review, proof-assistant formalization, or bibliographic-priority determination is claimed.
+\end{abstract}
+
+\section{Question and conclusion}
+For $n\ge3$, put $\theta=\pi/n$, $c=\cos\theta$, and define
+\begin{equation}\label{eq:slack}
+ S_n(i,j)=c-\cos((2i+1-2j)\theta),\qquad 0\le i,j<n.
+\end{equation}
+The real nonnegative rank of a nonnegative matrix is
+\[
+ \rankp(M)=\min\{r:M=WH,\ W\in\R_{\ge0}^{m\times r},\ H\in\R_{\ge0}^{r\times n}\}.
+\]
+With $k=\lceil\log_2n\rceil$, write
+\begin{equation}\label{eq:upper}
+ U(n)=\begin{cases}
+ 2k-1,&2^{k-1}<n\le3\cdot2^{k-2},\\
+ 2k,&3\cdot2^{k-2}<n\le2^k.
+ \end{cases}
+\end{equation}
+NR-01 asks whether $\rankp(S_n)=U(n)$ for every $n$. The repository entry explicitly identifies the gap at $n=17$.\footnote{OpenProblemsInNLA, NR-01 entry, source \cite{repo}.} The inequality $\rankp(S_n)\le U(n)$ is the construction of Vandaele, Gillis, and Glineur.\footnote{Vandaele, Gillis, and Glineur, equation (1) and Theorem 3, source \cite{vgg}.}
+
+\begin{theorem}\label{thm:main}
+For $n=17,18,19,20$,
+\[
+ \boxed{\rankp(S_n)=9.}
+\]
+\end{theorem}
+The upper bound is established by four supplied nine-term exact factorizations, as well as by the known construction. The work in this report is the lower bound. Combined with the previously established cases, the result verifies the conjectured formula through $n=24$; for $21\le n\le24$, Section 2 below excludes rank at most eight since $F(8,4)=20$, and the upper bound in \cite{vgg} equals nine. This supplies the lower bound directly rather than attributing it to that upper-bound reference. The earlier rank-balance package also establishes rank eleven for $43\le n\le48$; that package is retained unchanged under \texttt{prior\_round/}. Its statement that $n=17$ remains unresolved is superseded by this report, not silently edited.
+
+The only external mathematical inputs used in the lower-bound proof are the upper-bound theorem for polytopes and the published classification count of 39 simplicial 3-spheres on eight vertices. The projected-normal criterion is proved here in the needed form; it is also a special case of the projection lemma in \cite{rs}.
+
+\section{A rank-eight factorization would give a four-dimensional lift}
+Set
+\[
+ a_i=(\cos((2i+1)\theta),\sin((2i+1)\theta)),\quad
+ b_j=(\cos(2j\theta),\sin(2j\theta)).
+\]
+The regular polygon is $P_n=\conv\{b_j\}=\{x:a_i^Tx\le c\}$, and its slack embedding is $s(x)=c\one-Ax$, where $A$ has rows $a_i^T$. Consequently
+\begin{equation}\label{eq:section}
+ \aff\{S_n(:,j)\}\cap\R^n_{\ge0}=\conv\{S_n(:,j)\}=s(P_n).
+\end{equation}
+The equality is exact: the columns affinely span the entire two-dimensional affine image of $s$, and intersection with the orthant imposes precisely the polygon's inequalities.
+
+The transpose has the same property. Indeed, $\{x:b_j^Tx\le c\}$ is the regular polygon with vertices $a_i$. Both row and column sums of $S_n$ equal $\kappa=nc>0$. Its ordinary rank is three, since its column affine hull has dimension two and lies on a nonzero constant-sum hyperplane.
+
+\begin{lemma}\label{lem:bounded}
+Suppose $M=WH\ge0$, every column of $W$ and every row of $H$ is nonzero, all columns of $M$ have the same positive sum $\kappa$, and
+\[
+ \aff\{M(:,j)\}\cap\R^m_{\ge0}=\conv\{M(:,j)\}=P_M.
+\]
+There is a bounded polytope of dimension $\rank(H)-1$, with at most $r$ facets, that maps linearly onto $P_M$, where $r$ is the inner dimension of the factorization.
+\end{lemma}
+\begin{proof}
+Let $h_j$ be the columns of $H$, let $\ell=W^T\one$, and set
+\[
+ Q_H=\aff\{h_j\}\cap\R^r_{\ge0}.
+\]
+Every coordinate of $\ell$ is positive, and $\ell^Th_j=\kappa$. Thus each $y\in Q_H$ satisfies $0\le y_a\le\kappa/\ell_a$, proving boundedness. The affine hull of the $h_j$ has dimension $\rank(H)-1$, because a linear functional takes a fixed nonzero value on them. Their average is strictly positive, since $H$ has no zero row, so intersection with the orthant does not reduce this dimension. There are at most $r$ facets.
+
+Nonnegativity of $W$ and the affine-hull condition imply $WQ_H\subseteq P_M$. Conversely, all columns of $M$ are images of points $h_j\in Q_H$. Convexity gives $WQ_H=P_M$.
+\end{proof}
+
+Take a minimum nonnegative factorization $S_n=WH$ of inner dimension $r$, and set $p=\rank(W)$, $q=\rank(H)$. No zero summand can occur in a minimum factorization. Apply Lemma~\ref{lem:bounded} to $S_n$ and to $S_n^T=H^TW^T$. It gives two bounded lifts, of dimensions $q-1$ and $p-1$, each with at most $r$ facets. Sylvester's inequality gives
+\begin{equation}\label{eq:balance}
+ p+q\le r+\rank(S_n)=r+3,
+ \qquad (p-1)+(q-1)\le r+1.
+\end{equation}
+Hence $r\le8$ would give a lift of dimension at most four with at most eight facets.
+
+The dual upper-bound theorem says that a $d$-polytope with at most $m$ facets has at most
+\begin{equation}\label{eq:F}
+ F(m,2a)=\binom{m-a}{a}+\binom{m-a-1}{a-1},\qquad
+ F(m,2a+1)=2\binom{m-a-1}{a}
+\end{equation}
+vertices.\footnote{McMullen's upper-bound theorem, source \cite{mcmullen}; the dual formulas are also discussed in \cite{ggs}.} In dimensions two and three, eight facets allow at most eight and twelve vertices. A four-polytope with at most seven facets has at most $F(7,4)=14$ vertices. A linear image cannot have more vertices than its domain. Thus, for $n\ge17$, a factorization with $r\le8$ necessarily gives a \emph{four-dimensional bounded polytope with exactly eight facets} projecting onto $P_n$.
+
+\section{A finite cover of eight-facet planar shadows}
+\subsection{Combinatorial types}
+A generic small perturbation of the defining inequalities of a bounded four-polytope with eight facets is simple. Its polar has a simplicial 3-sphere boundary with eight vertices. There are exactly 39 such spheres, of which 37 are polytopal.\footnote{Lutz, Table 1 and the discussion following Table 2, source \cite{lutz}; the eight-vertex classification is attributed there to Gr\"unbaum--Sreedharan, Barnette, and Altshuler.}
+
+The supplied program does not import a presumed complete list. It starts with the boundary of a 4-simplex, performs three stellar subdivisions to obtain eight vertices, and explores all valid $2\leftrightarrow3$ bistellar moves. Each move replaces $\sigma*\partial\tau$ by $\partial\sigma*\tau$, with $\tau$ absent from the old complex and the link condition checked exactly. These moves preserve the PL sphere. Isomorphism is removed by an exhaustive vertex-permutation canonicalization. The program produces 39 distinct spheres, so the published count proves that the generated list is complete.
+
+The tetrahedron-count distribution is
+\[
+\begin{array}{c|rrrrrrr}
+ \text{tetrahedra}&14&15&16&17&18&19&20\\\hline
+ \text{sphere types}&3&5&8&8&6&5&4.
+\end{array}
+\]
+It is safe to keep the two non-polytopal spheres: this enlarges the candidate set. Only the 23 types with at least 17 tetrahedra can have a shadow with at least 17 vertices.
+
+\subsection{Projected normals and a sign test}
+Write a simple four-polytope as
+\[
+ Q=\{x\in\R^4:a_i^Tx\le\beta_i,\quad i=0,\ldots,7\},
+\]
+and project onto a plane. Restrict each normal $a_i$ to the two-dimensional kernel of the projection, obtaining $v_i\in\R^2$. In a generic configuration all $v_i$ are nonzero and no two lie on the same line through zero.
+
+At a vertex with four active inequalities $T$, the vertex is strictly preserved by the projection exactly when $\{v_i:i\in T\}$ positively spans $\R^2$. Here strict preservation means that its image is a vertex and that its fiber is a singleton. To see the forward direction, an exposing objective pulled back from the image lies in the interior of the vertex normal cone. Its strictly positive coefficients on the four active normals sum to zero after restriction to the kernel. Conversely, positive spanning supplies strictly positive coefficients with zero restricted sum. Their combination is a nonzero objective from the image plane and exposes exactly the vertex. The same argument for three active inequalities characterizes strictly preserved edges.
+
+Up to a change of kernel coordinates, a choice of slope order, and signs, every generic rank-two configuration has the form
+\[
+ v_i=\varepsilon_i(1,t_i),\qquad t_0<t_1<\cdots<t_7.
+\]
+Only the order and signs affect positive spanning, so take $t_i=i$. Choose the cut in the projective line immediately before label zero, and change all signs if necessary to make its sign positive. This leaves $7!$ orders and $2^7$ sign choices:
+\begin{equation}\label{eq:states}
+ 7!\,2^7=645120.
+\end{equation}
+A subset positively spans the plane if and only if its signs in slope order have at least two changes. An alternating triple has a positive linear dependence because the middle slope is a strict convex combination of the two outside slopes; without an alternating triple the vectors lie in an open halfplane. This also follows by checking the three $2\times2$ determinants of every triple.
+
+For a positively spanning four-set, exactly two of its three-subsets positively span. Thus the candidate shadow vertices, joined by candidate shadow edges, form disjoint cycles. A genuine convex polygonal shadow has one cycle. The computation keeps all single cycles of length at least 17, whether or not the underlying sign data extend to a realization of the sphere. Again, this is a safe over-cover.
+
+\subsection{Exhaustive counts}
+For each of the 23 eligible spheres the program checks all configurations in \eqref{eq:states}. No output truncation is allowed; capacity and degree checks fail loudly if an invariant is violated. The results are
+\begin{center}
+\begin{tabular}{lr}
+\toprule
+Quantity&Count\\\midrule
+Sphere--normal-order/sign configurations&14,837,760\\
+Configurations yielding one cycle of length at least 17&24,036\\
+Distinct 17-cycles, up to facet relabeling and dihedral order&855\\
+Distinct 18-cycles&192\\
+Distinct 19-cycles&14\\
+Distinct cycles of length 20&0\\
+\bottomrule
+\end{tabular}
+\end{center}
+In fact, no tested configuration has 20 positively spanning tetrahedra, even before the single-cycle restriction.
+
+\begin{proposition}\label{prop:19}
+A planar projection of a bounded four-polytope with at most eight facets has at most 19 vertices.
+\end{proposition}
+\begin{proof}
+For a generic simple eight-facet polytope this follows from the exhaustive cover above. Fewer facets give a smaller upper-bound-theorem capacity. For an arbitrary polytope and projection, perturb to a generic simple situation. Each vertex of the original shadow has an exposing direction with a strict gap from the other vertices; nearby shadows retain a distinct vertex near it. Thus a perturbation cannot have fewer vertices than the original shadow for sufficiently small perturbations. The generic bound therefore applies also to the original shadow.
+\end{proof}
+
+\section{Why the cover includes degenerate lifts}
+It would not be valid to assume that a hypothetical exact lift of a regular polygon is simple or generic. The following reduction makes the use of generic shadows legitimate without preserving regularity during perturbation.
+
+\begin{lemma}\label{lem:limit}
+If a bounded four-polytope with eight facets projects onto $P_n$, where $17\le n\le19$, then there are points $q_0,\ldots,q_{n-1}$ in the original polytope projecting onto the polygon vertices in cyclic order, whose active-facet incidences contain a pattern obtained by selecting $n$ positions from one of the enumerated 17-, 18-, or 19-cycles.
+\end{lemma}
+\begin{proof}
+Perturb the eight facet inequalities generically by an amount tending to zero. Boundedness is stable, and all eight facets remain nonredundant for sufficiently small perturbations. The resulting polytopes and their shadows converge to the original ones. For each original polygon vertex choose an objective exposing it uniquely. For all sufficiently small generic perturbations this objective exposes a shadow vertex near that original vertex, with a unique preimage vertex in the perturbed polytope. The $n$ selected vertices are distinct and occur in the original cyclic order.
+
+By Proposition~\ref{prop:19}, each perturbed shadow has length at most 19. There are finitely many sphere types, shadow cycles, labels, and choices of $n$ positions. Pass to a subsequence on which all these combinatorial data are constant. Uniform boundedness permits a further subsequence on which the selected lift vertices converge to points $q_j$ in the original polytope. Their projections are exactly the regular polygon vertices. Each of the four active facet equalities at a selected perturbed vertex persists in the limit. Extra equalities in the limit are allowed; only these necessary four are retained.
+\end{proof}
+
+The program selects every $n$-element subsequence of every candidate cycle and canonicalizes again. This gives
+\begin{equation}\label{eq:patterns}
+ \begin{array}{c|rrr}
+ n&17&18&19\\\hline
+ \text{distinct selected patterns}&6147&449&14.
+ \end{array}
+\end{equation}
+There are 6,610 patterns in total. Discarding the unselected vertices introduces no metric assumption about their positions: they need not lie on the circle, and they are not used in the algebraic test.
+
+The points $q_j$ in Lemma~\ref{lem:limit} must affinely span four dimensions. Otherwise $Q\cap\aff\{q_j\}$ would be a bounded polytope of dimension at most three, with at most eight facets, projecting onto all of $P_n$. Its vertex capacity would be at most twelve, a contradiction. This observation is what excludes a zero bivector in the next section.
+
+\section{Incidence equations as a linear bivector system}
+Let $K=\Q(\zeta)$, where $\zeta=e^{2\pi i/n}$, and set $t_j=\zeta^j$. Over $\C$, the three columns
+\[
+ V_j=(1,t_j,t_j^{-1})
+\]
+span the same space as $(1,\cos(2\pi j/n),\sin(2\pi j/n))$. Every three distinct rows are independent, because
+\begin{equation}\label{eq:vander}
+ \det V_{\{a,b,c\}}
+ =\frac{(t_b-t_a)(t_c-t_a)(t_c-t_b)}{t_at_bt_c}\ne0
+ \quad(a<b<c).
+\end{equation}
+Choose coordinates in the four-dimensional lift so its two extra coordinates at the selected points are columns $z,w\in\C^n$. Their homogeneous coordinate matrix is
+\[
+ L=[\,V\mid z\mid w\,].
+\]
+Its rank is five. Adding columns of $V$ to either height column does not affect the lift's incidence determinants. Fix a gauge by making the first three coordinates of both heights zero. Equivalently, work in
+\[
+ E=K^n/\operatorname{col}V,\qquad \dim E=n-3,\qquad E_{\C}=E\otimes_K\C.
+\]
+No algebraicity assumption is imposed on the hypothetical real factorization: its heights lie in the scalar extension $E_{\C}$. The class
+\begin{equation}\label{eq:omega}
+ \omega=\bar z\wedge\bar w\in\bigwedge^2 E_{\C}
+\end{equation}
+is nonzero and decomposable.
+
+In a selected pattern, let $T_j\subset\{0,\ldots,7\}$ be the four active facets at position $j$. For a facet $i$, define $I_i=\{j:i\in T_j\}$. All lifted points in $I_i$ lie on an affine hyperplane, so every $5\times5$ minor of $L$ on a five-set $F\subset I_i$ vanishes. Expanding on its last two columns gives a homogeneous linear equation in the coordinates
+\[
+ \omega_{ab}=z_aw_b-z_bw_a,\qquad 3\le a<b<n.
+\]
+Explicitly, for $F=(f_0<\cdots<f_4)$ the coefficient of $\omega_{f_u f_v}$ is
+\begin{equation}\label{eq:A}
+ (-1)^{u+v+1}\det V_{F\setminus\{f_u,f_v\}},
+ \qquad 0\le u<v\le4,
+\end{equation}
+with terms involving a gauge index omitted. Stack these equations into a matrix $A$ over $K$. The number of columns is
+\[
+ N=\binom{n-3}{2}=91,105,120\quad\text{for }n=17,18,19.
+\]
+A necessary condition for the lift is $A\omega=0$, together with decomposability. The latter is characterized by the quadratic Pl\"ucker relations
+\begin{equation}\label{eq:plucker}
+ \omega_{ab}\omega_{cd}-\omega_{ac}\omega_{bd}
+       +\omega_{ad}\omega_{bc}=0,
+ \qquad a<b<c<d.
+\end{equation}
+Only necessary equations are used. No positivity relaxation is treated as sufficient for a lift.
+
+\section{Complementary pairs and the planar-section obstruction}
+Call two selected positions $a,b$ complementary if $T_a\cap T_b=\varnothing$. Since both sets have size four among eight facets, this is equivalent to the integer-mask test $T_a\mathbin{\mathrm{xor}}T_b=255$. Distinct active four-sets have unique complements, so complementary pairs form a matching. Every checked pattern has at most six such pairs.
+
+Let $e_j$ be the $j$th coordinate vector in $K^n$ and $\bar e_j$ its class in $E$. A complementary pair supplies a known nonzero solution of the linear system:
+\begin{equation}\label{eq:spike}
+ c_{ab}=\bar e_a\wedge\bar e_b\in\ker A.
+\end{equation}
+Indeed, a facet contains at most one of $a,b$. If the heights are $e_a,e_b$, its selected homogeneous points have rank at most four, so all its five-minors vanish.
+
+If there are $s\le6$ complementary pairs, their $2s$ endpoint classes are linearly independent modulo $\operatorname{col}V$. A vector supported on those endpoints that lies in $\operatorname{col}V$ must vanish at at least three other positions, and \eqref{eq:vander} then forces it to be zero. Therefore the $s$ bivectors in \eqref{eq:spike} are linearly independent, over both the number field and the prime fields used below.
+
+\begin{lemma}\label{lem:plane}
+Suppose the only nonzero decomposable solutions of $A\omega=0$ are scalar multiples of the complementary-pair bivectors. Then the selected pattern cannot occur in a bounded eight-facet lift of $P_n$ for $17\le n\le19$.
+\end{lemma}
+\begin{proof}
+A hypothetical lift gives a nonzero decomposable $\omega$ by \eqref{eq:omega}. If $\omega$ is proportional to $\bar e_a\wedge\bar e_b$, the height two-plane modulo $\operatorname{col}V$ equals $\Span(\bar e_a,\bar e_b)$. After an invertible change of the height coordinates and addition of affine functions of the projected coordinates, both heights vanish at all positions except possibly $a,b$. Thus the other $n-2$ real lifted points lie in one affine plane, and the projection is injective on this plane. The same conclusion over the reals follows from equality of real and complex affine ranks of real point sets.
+
+Intersect the original bounded polytope with this plane. The intersection is a two-dimensional polygon described by at most eight inequalities, so has at most eight vertices. Each of the $n-2$ selected points is a vertex of the intersection: its projection is an exposed vertex of $P_n$, and the projection is injective on the plane. Hence $n-2\le8$, contrary to $n\ge17$.
+\end{proof}
+
+It remains to certify the hypothesis of Lemma~\ref{lem:plane}. Most patterns already have a linear kernel spanned by the complementary bivectors. Eighteen $n=17$ patterns have one extra linear direction; the quadratic calculation is essential for these and is performed for all patterns uniformly.
+
+\section{What the finite-field calculation proves}
+The following specialization argument is included to avoid a common but invalid inference: the absence of solutions over $\Fp$ by itself would not exclude solutions over $\C$ or $\R$.
+
+\begin{lemma}\label{lem:modular}
+Let $A$ be the incidence matrix above, and let $c_1,\ldots,c_s$ be the linearly independent complementary-pair bivectors. Choose a prime $p\equiv1\pmod n$ and a primitive $n$th root in $\Fp$, defining a specialization of the cyclotomic coefficients. Suppose the specialized matrix has rank $N-\ell$. Parameterize its nullspace by $\ell$ variables, substitute that parameterization into every relation \eqref{eq:plucker}, and form the coefficient matrix of the resulting quadratic forms. If this matrix has rank
+\begin{equation}\label{eq:target}
+ \binom{\ell+1}{2}-s,
+\end{equation}
+then every nonzero decomposable vector in the characteristic-zero kernel of $A$ is a multiple of one of $c_1,\ldots,c_s$. If $s=0$, there is no such vector.
+\end{lemma}
+\begin{proof}
+Choose $N-\ell$ original rows and pivot columns giving a nonzero minor after specialization. That minor is nonzero over $K$. Keep just those rows over $K$, obtaining a possibly relaxed kernel $L$ of dimension exactly $\ell$. The actual kernel is contained in $L$, and every $c_i$ belongs to $L$.
+
+Gaussian elimination on this fixed nonsingular pivot minor gives a basis of $L$ over a localization of the cyclotomic integer ring in which all denominators have nonzero specializations. Its reduction is a basis of the full specialized kernel, because the chosen rows span its row space. Therefore the modular quadratic coefficient matrix is a specialization of the characteristic-zero quadratic matrix on $L$. A nonzero minor modulo $p$ gives the same rank lower bound over $K$.
+
+The $c_i$ remain independent after specialization, by the endpoint argument following \eqref{eq:spike}. Choose coordinates on $L$ whose first $s$ axes are these bivectors. Every restricted Pl\"ucker quadratic vanishes on all those axes, because each $c_i$ is decomposable. Thus the characteristic-zero quadratic row space is contained in the space of all quadratics with zero coefficients on $x_1^2,\ldots,x_s^2$. The latter has dimension exactly \eqref{eq:target}.
+
+The assumed modular rank proves the matching lower bound over $K$. Hence the row space is exactly this entire quadratic space. Its common zero set over $\C$ is the union of the first $s$ coordinate axes: the remaining squares force the other coordinates to zero, and the cross-products force at most one of the first $s$ coordinates to be nonzero. Every decomposable vector in the actual kernel satisfies these quadratics and therefore lies on one of the stated axes.
+\end{proof}
+
+All the arithmetic needed for the lemma is integer arithmetic modulo a prime. The roots are checked to have exact order $n$, not merely to satisfy $z^n=1$. Gauge minors are nonzero by \eqref{eq:vander}. The implementation also checks the computed nullspace residual exactly.
+
+For the first pass the gauge positions are $0,1,2$ and all five-minor equations are used. The second pass uses gauge positions $2,7,13$, a different prime, and a smaller subset of determinant equations: for each facet, hold three of its selected positions fixed and use every pair of the remaining positions. These are still necessary equations, so any extra relaxation only makes exclusion harder. Both passes meet the rank target for every pattern.
+
+\section{Exact computation and controls}
+\begin{center}
+\begin{tabular}{rrrrrr}
+\toprule
+$n$&Patterns&First $p$&First root&Second $p$&Second root\\\midrule
+17&6,147&103&72&137&122\\
+18&449&109&4&163&23\\
+19&14&191&52&229&165\\\bottomrule
+\end{tabular}
+\end{center}
+There are 13,220 successful pattern--prime checks. In both passes, the nullity equals the number of complementary pairs in 6,129 of the $n=17$ cases and exceeds it by one in 18 cases. All $n=18$ and $n=19$ cases have nullity equal to that number. In every case the quadratic rank is exactly the target in \eqref{eq:target}. The full per-pattern records are included; these counts are not sampled estimates.
+
+As a concrete nontrivial example, zero-based pattern 1109 in \texttt{data/patterns\_n17.json} has active masks
+\[
+\begin{split}
+ &(113,53,39,139,141,77,85,86,54,\\[-2pt]
+ &\hspace{3.5em}58,184,154,210,198,204,232,240).
+\end{split}
+\]
+It has no complementary pair, but its linear kernel modulo 103 is one-dimensional. The restricted quadratic coefficient matrix has rank one, eliminating that remaining direction. This illustrates why a linear-nullity calculation alone would not suffice.
+
+\subsection{A feasible lower-size control}
+The known rank-eight factorization of the regular 16-gon gives a four-dimensional lift and an actual feasible incidence pattern. The checker computes its ordinary factor ranks exactly as $\rank(W)=6$ and $\rank(H)=5$ in the cyclotomic field $\Q[x]/(x^{32}+1)$, so the $H$-lift indeed has dimension four. Applying the same algebraic test to this pattern at $p=97$ gives
+\[
+ N=78,\quad\ell=5,\quad s=4,\quad
+ \rank(\text{quadratic matrix})=10<11=\binom{6}{2}-4.
+\]
+The exclusion criterion therefore fails, as it must. The program asserts that this known feasible control is \emph{not} excluded. This is a regression safeguard, not a replacement for the proof of the general criterion.
+
+\subsection{Upper certificates}
+For each $n=17,18,19,20$, the archive contains explicit matrices $W\in\R_{\ge0}^{n\times9}$ and $H\in\R_{\ge0}^{9\times n}$, expressed using zero, one, $\sin(a\pi/n)$, $2\sin(a\pi/n)$, and
+\[
+ c_a=\cos(\pi/n)-\cos((2a+1)\pi/n)
+     =2\sin(a\pi/n)\sin((a+1)\pi/n).
+\]
+Their construction is the zero-aware folding implementation retained from the previous package, based on \cite{vgg}. Nonnegativity is checked from integer angle ranges. With $x=e^{\pi i/(2n)}$, each doubled entry is an integer polynomial in $x$. The checker verifies
+\[
+ (2W)(2H)=4S_n\quad\text{in }\mathbb Z[x]/(x^{2n}+1).
+\]
+Evaluation at this particular $x$ proves the desired real identity. The quotient need not be a field; no irreducibility assumption is made. All 28 upper-factor checks for $3\le n\le24$ and $43\le n\le48$ pass, comprising 17,334 entry identities. The four target factorizations are verified from their stored JSON files, not merely regenerated and presumed correct.
+
+\subsection{Regression tests}
+Thirteen regression tests pass. They regenerate the sphere list, full shadow cover, and selected-pattern cover; compare the sign-change test against independent determinant circuits for every subset and sign pattern; check canonicalization; compare Laplace coefficients with direct $5\times5$ modular determinants; compare the row-reduction implementation with a separate list-based elimination; cross-check reduced determinant rows; retain the 16-gon control; verify the upper certificates; reject a corrupted factorization; reject an invalid incidence pattern; and check that every release record is present.
+
+\section{Proof of the main theorem}
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Assume $17\le n\le20$ and $\rankp(S_n)\le8$. Section 2 gives a bounded four-dimensional lift with exactly eight facets. If $n=20$, Proposition~\ref{prop:19} already gives a contradiction.
+
+For $n=17,18,19$, Lemma~\ref{lem:limit} produces a selected incidence pattern in the exhaustive cover \eqref{eq:patterns}, and selected lift points whose homogeneous coordinate matrix has rank five. Their height bivector is therefore nonzero and decomposable and satisfies the pattern's incidence equations. The exact checks of Section 8 meet the hypotheses of Lemma~\ref{lem:modular} for every pattern. The bivector must consequently lie on a complementary-pair axis, or cannot exist if there are no such axes. Lemma~\ref{lem:plane} excludes the former possibility as well. This contradicts the assumed factorization.
+
+Thus $\rankp(S_n)\ge9$. The supplied nine-term factorizations give the reverse inequality, proving equality.
+\end{proof}
+
+No symmetry of the hypothetical optimal factors was imposed. No monotonicity of nonnegative rank as $n$ increases was used. No conclusion was inferred from the failure of a numerical factorization search. The perturbation does not assume that a generic nearby polygon is regular; regular coordinates are imposed only on the limiting selected vertices.
+
+\section{Remaining scope of NR-01}
+The finite result above is not an induction in $n$ and does not establish the conjecture for all regular polygons. For example, the rank-balance inequality in the earlier report gives
+\[
+ 9\le\rankp(S_{25})\le10,
+\]
+and this report does not eliminate the nine-term case. The same interval remains for $25\le n\le30$ under the bounds assembled here. A separate classification and exclusion argument would be needed for nine-facet lifts, including five-dimensional lifts; the eight-facet catalogue cannot be reused as though it covered them.
+
+For orientation, the established or remaining values in the first 48 sizes are summarized below. The entries for $3\le n\le16$ use the earlier literature recorded in the repository; $21\le n\le24$ follows from the rank-balance reduction in Section 2 and the upper bound in \cite{vgg}. The entries for $31\le n\le32$ and $43\le n\le48$ follow from the earlier rank-balance proof.\footnote{The repository and recent lower-bound study give the small-case context; see \cite{repo,bvg}. The prior report is supplied in the archive, source \cite{prior}.}
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Sizes&Rank or interval&Status in this package\\\midrule
+$3$; $4$&$3$; $4$&Established\\
+$5$--$6$&$5$&Established\\
+$7$--$8$&$6$&Established\\
+$9$--$12$&$7$&Established\\
+$13$--$16$&$8$&Established\\
+$17$--$20$&$9$&Proved here by finite exclusion\\
+$21$--$24$&$9$&Rank balance and published upper bound\\
+$25$--$30$&$9$--$10$&Not resolved here\\
+$31$--$32$&$10$&Earlier rank-balance bound plus upper bound\\
+$33$--$42$&$10$--$11$&Not resolved here\\
+$43$--$48$&$11$&Earlier rank-balance result\\\bottomrule
+\end{tabular}
+\end{center}
+No doubling lower-bound recurrence is proved here, and the argument does not justify restricting optimal factorizations to symmetric ones. The appropriate overall description of the delivered result is \textbf{partial resolution of NR-01, with a complete finite-case computer-assisted argument for $17\le n\le20$}.
+
+\section{Reproduction and audit boundary}
+The principal command, run from the extracted package, is
+\begin{verbatim}
+python code/verify_all.py
+python code/test_pipeline.py
+\end{verbatim}
+The first command rebuilds the finite cover and compares it with the frozen JSON data, performs both modular passes, retains the feasible control, and checks the exact upper certificates. It writes a new run under \texttt{checks/latest/}; the supplied release results remain under \texttt{checks/release/}. The second command runs the regression suite. The same checks can be run as separate stages using the commands in \texttt{README.md}; the supplied release outputs were verified in stages. The summary-only stage checks output completeness, not the arithmetic again. Dependencies are listed in \texttt{requirements.txt}. No internet connection or optimization solver is used by verification.
+
+For a proof audit, the logical dependencies are as follows. The 39-sphere classification count and the upper-bound theorem are external theorems. Sphere generation and isomorphism reduction supply a complete finite catalogue relative to that count. The sign-order enumeration supplies an over-cover of all generic shadows. The limiting lemma transfers arbitrary exact lifts into selected patterns from that cover. The linear and quadratic rank tests certify the characteristic-zero algebraic obstruction. The planar-section argument supplies the final convex-geometric contradiction. Each computational stage is rerunnable; output records alone are not a substitute for these reductions.
+
+The report and code have been checked within this package, but have not been independently refereed or formally verified in a proof assistant. Review should focus especially on the generic-to-degenerate reduction and the specialization lemma, rather than treating successful arithmetic checks as a proof of those mathematical reductions.
+
+\appendix
+\section{Compact verification pseudocode}
+\begin{verbatim}
+spheres = generate_spheres_by_valid_bistellar_moves()
+assert 39 pairwise-nonisomorphic spheres are generated
+
+cycles = empty set
+for sphere with at least 17 tetrahedra:
+    for order of 7 labels after fixed label 0:
+        for 7 freely chosen signs:
+            keep positive-spanning four-sets as vertices
+            keep positive-spanning three-sets as edges
+            if the graph is one cycle of length >= 17:
+                canonicalize and retain the cycle
+assert cycle counts are {17:855, 18:192, 19:14}
+
+for n in {17,18,19}:
+    patterns = every n-position subsequence of every cycle
+    canonicalize under dihedral order and facet relabeling
+    for prime, gauge, determinant-subset in two passes:
+        for pattern:
+            A = linear incidence equations in bivector entries
+            K = a nullspace basis for A modulo the prime
+            s = number of complementary pairs
+            Q = coefficients of all Plucker quadratics on K
+            assert rank(Q) = choose(nullity(A)+1,2) - s
+
+assert known feasible n=16 control is not excluded
+verify four stored nine-term upper factorizations exactly
+\end{verbatim}
+
+\begin{thebibliography}{9}
+\bibitem{repo} OpenProblemsInNLA. \emph{NR-01: Exact nonnegative rank of regular polygon slack matrices}. Repository entry, accessed September 12, 2026. \url{https://raw.githubusercontent.com/ajt60gaibb/OpenProblemsInNLA/main/nonnegative-and-positive-factorizations/NR-01/README.md}.
+\bibitem{vgg} A. Vandaele, N. Gillis, and F. Glineur. \emph{On the Linear Extension Complexity of Regular $n$-gons}. Linear Algebra and its Applications 521 (2017), 217--239. Preprint arXiv:1505.08031, version 2 (2016). \url{https://arxiv.org/abs/1505.08031}.
+\bibitem{lutz} F. H. Lutz. \emph{Combinatorial 3-Manifolds with 10 Vertices}. Beitraege zur Algebra und Geometrie 49 (2008), 97--106. Preprint arXiv:math/0604018v2 (2007), Table 1. \url{https://arxiv.org/abs/math/0604018}.
+\bibitem{rs} T. R\"orig and R. Sanyal. \emph{Non-projectability of polytope skeleta}. Advances in Mathematics 229 (2012), 79--101. \url{https://arxiv.org/abs/0908.0845}.
+\bibitem{mcmullen} P. McMullen. \emph{The maximum numbers of faces of a convex polytope}. Mathematika 17 (1970), 179--184.
+\bibitem{ggs} A. P. Goucha, J. Gouveia, and P. M. Silva. \emph{On ranks of regular polygons}. SIAM Journal on Discrete Mathematics 31 (2017), 2612--2625. Preprint arXiv:1610.09868. \url{https://arxiv.org/abs/1610.09868}.
+\bibitem{bvg} T. Baeckelant, A. Vandaele, and N. Gillis. \emph{Computing Lower Bounds on the Nonnegative Rank via Non-Convex Optimization Solvers}. arXiv:2605.14058v2 (2026). \url{https://arxiv.org/abs/2605.14058}.
+\bibitem{prior} \emph{Rank-balance bounds for regular-polygon slack matrices}. Earlier proof package accompanying this work; retained as \texttt{prior\_round/NR01\_rank\_balance\_partial.zip}. Its scope statement at $n=17$ is superseded by the present finite-case result.
+\end{thebibliography}
+\end{document}
