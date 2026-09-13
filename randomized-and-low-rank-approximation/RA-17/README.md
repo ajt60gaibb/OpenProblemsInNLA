@@ -7,7 +7,7 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Status:** Partially resolved  
-**Last checked:** 2026-09-10
+**Last checked:** 2026-09-12
 
 **Rating rationale:** The all-dimension real measurement classification needs new control of exceptional kernels and topological obstructions, hence challenging. Its main impact is on the community working on low-rank matrix sensing and recovery.
 
@@ -37,6 +37,16 @@ Determine the exact integer
 for all such $`d,r`$.
 
 Injectivity is uniform: every two matrices of rank at most $`r`$ with equal measurements must coincide. Equivalently, $`\ker\mathcal A`$ must contain no nonzero matrix of rank at most $`2r`$. No randomness, stability guarantee, computationally efficient decoder, positive semidefiniteness, or generic-signal exception is required. The problem concerns unrestricted real square matrices and unrestricted real linear measurements.
+
+## Partial resolution — 12 September 2026
+
+**Author:** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation ([verified affiliation and submission record](../../references/holden-ra17-2026-09-12/SUBMISSION.md)).
+
+[Theorem 1.1 and Sections 5–6](../../references/holden-ra17-2026-09-12/writeup/RA17_exact_cases_and_bounds.pdf) prove $`\mu_{\mathbb R}(4,1)=11`$: a characteristic-class obstruction excludes ten measurements, and exact rational certificates verify both versions of Xu's eleven-measurement construction. The manuscript also gives general bounds and exact corank-one families, including $`\mu_{\mathbb R}(8,3)=56`$ and $`\mu_{\mathbb R}(24,11)=568`$. [Manuscript source](../../references/holden-ra17-2026-09-12/writeup/RA17_exact_cases_and_bounds.tex) · [Reproducible code and certificates](../../references/holden-ra17-2026-09-12/README.md).
+
+The [independent Codex AI-agent audit](../../references/holden-ra17-2026-09-12/independent-review.md) assesses these partial results. This is informal automated review, not external human peer review or formal verification; no Lean verification was performed. Xu and the other cited authors retain credit for prior results, and no novelty claim is made.
+
+**Remaining target:** determine the exact count for every allowed pair $`(d,r)`$. Section 9 leaves, for example, $`138\leq\mu_{\mathbb R}(12,5)\leq139`$ and $`246\leq\mu_{\mathbb R}(16,7)\leq247`$. These are gaps in the submitted arguments, not a claim of literature-wide best bounds. RA-17 remains **Partially resolved** and continues to count as open.
 
 ## Why it matters
 

@@ -34,7 +34,7 @@ matrices},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RA-17}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -62,16 +62,22 @@ working on low-rank matrix sensing and recovery.
 
 \subsection{Problem statement}\label{problem-statement}
 
-For integers \(d\geq2\) and \(1\leq r\leq\lfloor d/2\rfloor\), let \[
-\mathcal M_{d,r}(\mathbb R)=\{X\in\mathbb R^{d\times d}:\operatorname{rank}X\leq r\}.
-\] For real measurement matrices \(A_1,\ldots,A_m\), define \[
-\mathcal A(X)=
-(\operatorname{tr}(A_1^\top X),\ldots,\operatorname{tr}(A_m^\top X)).
-\] Determine the exact integer \[
-\mu_{\mathbb R}(d,r)=
+For integers \(d\geq2\) and \(1\leq r\leq\lfloor d/2\rfloor\), let
+
+\[\mathcal M_{d,r}(\mathbb R)=\{X\in\mathbb R^{d\times d}:\mathop{\mathrm{rank}}\nolimits X\leq r\}.\]
+
+For real measurement matrices \(A_1,\ldots,A_m\), define
+
+\[\mathcal A(X)=
+(\mathop{\mathrm{tr}}\nolimits(A_1^\top X),\ldots,\mathop{\mathrm{tr}}\nolimits(A_m^\top X)).\]
+
+Determine the exact integer
+
+\[\mu_{\mathbb R}(d,r)=
 \min\{m:\exists A_1,\ldots,A_m\in\mathbb R^{d\times d},\
-\mathcal A|_{\mathcal M_{d,r}(\mathbb R)}\text{ is injective}\}
-\] for all such \(d,r\).
+\mathcal A|_{\mathcal M_{d,r}(\mathbb R)}\text{ is injective}\}\]
+
+for all such \(d,r\).
 
 Injectivity is uniform: every two matrices of rank at most \(r\) with
 equal measurements must coincide. Equivalently, \(\ker\mathcal A\) must
@@ -80,6 +86,40 @@ stability guarantee, computationally efficient decoder, positive
 semidefiniteness, or generic-signal exception is required. The problem
 concerns unrestricted real square matrices and unrestricted real linear
 measurements.
+
+\subsection{Partial resolution --- 12 September
+2026}\label{partial-resolution-12-september-2026}
+
+\textbf{Author:} Sidney Holden, Center for Computational Biology,
+Flatiron Institute, Simons Foundation
+(\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ra17-2026-09-12/SUBMISSION.md}{verified
+affiliation and submission record}).
+
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ra17-2026-09-12/writeup/RA17_exact_cases_and_bounds.pdf}{Theorem
+1.1 and Sections 5--6} prove \(\mu_{\mathbb R}(4,1)=11\): a
+characteristic-class obstruction excludes ten measurements, and exact
+rational certificates verify both versions of Xu's eleven-measurement
+construction. The manuscript also gives general bounds and exact
+corank-one families, including \(\mu_{\mathbb R}(8,3)=56\) and
+\(\mu_{\mathbb R}(24,11)=568\).
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ra17-2026-09-12/writeup/RA17_exact_cases_and_bounds.tex}{Manuscript
+source} ·
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ra17-2026-09-12/README.md}{Reproducible
+code and certificates}.
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ra17-2026-09-12/independent-review.md}{independent
+Codex AI-agent audit} assesses these partial results. This is informal
+automated review, not external human peer review or formal verification;
+no Lean verification was performed. Xu and the other cited authors
+retain credit for prior results, and no novelty claim is made.
+
+\textbf{Remaining target:} determine the exact count for every allowed
+pair \((d,r)\). Section 9 leaves, for example,
+\(138\leq\mu_{\mathbb R}(12,5)\leq139\) and
+\(246\leq\mu_{\mathbb R}(16,7)\leq247\). These are gaps in the submitted
+arguments, not a claim of literature-wide best bounds. RA-17 remains
+\textbf{Partially resolved} and continues to count as open.
 
 \subsection{Why it matters}\label{why-it-matters}
 
