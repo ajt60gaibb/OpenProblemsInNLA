@@ -1,0 +1,67 @@
+160:  isLUB_csSup _ _ _ := isLUB_sSup _
+176:  isLUB_csSup := ConditionallyCompleteLattice.isGLB_csInf (α := α)
+177:  isGLB_csInf := ConditionallyCompleteLattice.isLUB_csSup (α := α)
+193:theorem isLUB_csSup (hn : s.Nonempty) (hb : BddAbove s := by bddDefault) : IsLUB s (sSup s) :=
+194:  ConditionallyCompleteLattice.isLUB_csSup _ hn hb
+197:theorem le_csSup (h₁ : BddAbove s) (h₂ : a ∈ s) : a ≤ sSup s :=
+198:  (isLUB_csSup (nonempty_of_mem h₂) h₁).1 h₂
+201:theorem csSup_le (h₁ : s.Nonempty) (h₂ : ∀ b ∈ s, b ≤ a) : sSup s ≤ a :=
+202:  (isLUB_csSup h₁ ⟨a, h₂⟩).2 h₂
+205:theorem le_csSup_of_le (hs : BddAbove s) (hb : b ∈ s) (h : a ≤ b) : a ≤ sSup s :=
+206:  le_trans h (le_csSup hs hb)
+209:theorem csSup_le_csSup (ht : BddAbove t) (hs : s.Nonempty) (h : s ⊆ t) : sSup s ≤ sSup t :=
+210:  csSup_le hs fun _ ha => le_csSup ht (h ha)
+213:theorem le_csSup_iff (h : BddAbove s) (hs : s.Nonempty) : a ≤ sSup s ↔ ∀ b ∈ upperBounds s, a ≤ b :=
+214:  ⟨fun h _ hb => le_trans h (csSup_le hs hb), fun hb => hb _ fun _ => le_csSup h⟩
+218:  (isLUB_csSup ne ⟨a, H.1⟩).unique H
+223:  isLUB_csSup_of_directed _ _ := isLUB_csSup _
+226:  fun _ hx => ⟨csInf_le hb hx, le_csSup ha hx⟩
+229:theorem csSup_le_iff (hb : BddAbove s) (hs : s.Nonempty) : sSup s ≤ a ↔ ∀ b ∈ s, b ≤ a :=
+230:  isLUB_le_iff (isLUB_csSup hs hb)
+235:  (isLUB_csSup h <| hs.mono fun _ hx _ hy => hy hx).unique (isGLB_csInf hs h).isLUB
+255:  (eq_of_le_of_not_lt (csSup_le hs H)) fun hb =>
+257:    lt_irrefl _ <| ha'.trans_le <| le_csSup ⟨b, H⟩ ha
+271:  lt_of_lt_of_le h (le_csSup hs ha)
+287:theorem csInf_le_csSup (ne : s.Nonempty) (hb : BddBelow s := by bddDefault)
+289:  isGLB_le_isLUB (isGLB_csInf ne hb) (isLUB_csSup ne ha) ne
+291:theorem csInf_le_csSup_of_nonempty_inter (h : (s ∩ t).Nonempty) (hs : BddBelow s := by bddDefault)
+293:  isGLB_le_isLUB_of_nonempty_inter h (isGLB_csInf h.left hs) (isLUB_csSup h.right ht)
+302:  ((isLUB_csSup sne hs).union (isLUB_csSup tne ht)).csSup_eq sne.inl
+311:  (csSup_le hst) fun _ hx => le_inf (le_csSup hs hx.1) (le_csSup ht hx.2)
+319:  ((isLUB_csSup sne hs).insert a).csSup_eq (insert_nonempty a s)
+339:  (csSup_le hs h_is_ub).antisymm ((h_b_le_ub _) fun _ => le_csSup ⟨b, h_is_ub⟩)
+345:  isLUB_csSup _ hn hb := isLUB_pi.mpr fun _ ↦ by
+347:    exact isLUB_csSup (image_nonempty.mpr hn) ((monotone_eval _).map_bddAbove hb)
+363:  exact csSup_le hs hb
+367:  lt_isLUB_iff <| isLUB_csSup hs hb
+415:    · apply csSup_le s_ne (fun x hx ↦ ?_)
+417:      exact hxy.trans (le_csSup Bt yt)
+418:    · apply csSup_le t_ne (fun y hy ↦ ?_)
+420:      exact hyx.trans (le_csSup Bs xs)
+442:  eq_top_iff.2 <| le_csSup (OrderTop.bddAbove s) hs
+499:theorem isLUB_csSup' {s : Set α} (hs : BddAbove s) : IsLUB s (sSup s) := by
+502:  · exact isLUB_csSup hne hs
+505:from `csSup_le_iff`. -/
+506:theorem csSup_le_iff' {s : Set α} (hs : BddAbove s) {a : α} : sSup s ≤ a ↔ ∀ x ∈ s, x ≤ a :=
+507:  isLUB_le_iff (isLUB_csSup' hs)
+509:theorem csSup_le' {s : Set α} {a : α} (h : a ∈ upperBounds s) : sSup s ≤ a :=
+510:  (csSup_le_iff' ⟨a, h⟩).2 h
+515:  simpa only [not_le, not_forall₂, exists_prop] using (csSup_le_iff' hb).not
+517:theorem le_csSup_iff' {s : Set α} {a : α} (h : BddAbove s) :
+519:  ⟨fun h _ hb => le_trans h (csSup_le' hb), fun hb => hb _ fun _ => le_csSup h⟩
+529:  exact csSup_le' h
+539:theorem csSup_le_csSup' {s t : Set α} (h₁ : BddAbove t) (h₂ : s ⊆ t) : sSup s ≤ sSup t := by
+543:  · exact csSup_le_csSup h₁ h h₂
+551:  exact (isLUB_csSup' hs |>.union <| isLUB_csSup' ht).csSup_eq hne.inl
+555:  csSup_le' fun _ hx ↦ le_inf (le_csSup hs hx.left) (le_csSup ht hx.right)
+558:  isLUB_csSup' hs |>.insert a |>.csSup_eq <| insert_nonempty a s
+580:      exact le_csSup h₂ ha
+590:      refine coe_le_coe.2 (csSup_le ?_ ?_)
+690:theorem le_csSup_image {s : Set α} {c : α} (hcs : c ∈ s) (h_bdd : BddAbove s) :
+692:  le_csSup (map_bddAbove h_mono h_bdd) (mem_image_of_mem f hcs)
+697:  csSup_le (Nonempty.image f hs) (h_mono.mem_upperBounds_image hB)
+710:  csSup_image_le hf hs <| isLUB_csSup hs hbdd |>.left
+770:  isLUB_image2_of_isLUB_isLUB h₁ h₂ (isLUB_csSup hs₀ hs₁) (isLUB_csSup ht₀ ht₁)
+817:  isLUB_csSup _ hS _ := WithTop.isLUB_sSup' hS
+822:  isLUB_sSup s := ⟨fun _ ↦ le_csSup (OrderTop.bddAbove _), fun _ has ↦
+823:    s.eq_empty_or_nonempty.elim (by simp [·, WithTop.sSup_empty]) (csSup_le · has)⟩

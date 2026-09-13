@@ -7,9 +7,17 @@
 **Difficulty:** challenging  
 **Importance:** broadly interesting  
 **Status:** Open  
-**Last checked:** 2026-09-10
+**Last checked:** 2026-09-12
 
 **Rating rationale:** Improving the known universal coefficient to its proposed sharp value is challenging; connections between matrix logarithms, entropy and quantum dynamics make the question broadly interesting.
+
+## Projection equivalence and coefficient sharpness — 12 September 2026
+
+**Author:** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](../../references/holden-matrix-2026-09-12/README.md).
+
+[Theorems 1 and 2](../../references/holden-matrix-2026-09-12/MI-27/result.md) prove equivalence with the arbitrary-rank projection case and give a strictly positive order-two family showing that any universal coefficient is at least one. The proof allows component traces to vary and uses entropy concavity to recombine them. The universal coefficient-one upper bound remains Open.
+
+A separate [independent Codex AI-agent audit](../../references/holden-matrix-2026-09-12/verification/MI-20-MI-27-review.md) passed this limited scope. This is informal automated review; no complete resolution, historical novelty, external human peer review or formal verification is claimed. No Lean verification was performed.
 
 ## Problem statement
 

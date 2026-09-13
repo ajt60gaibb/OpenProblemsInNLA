@@ -21,6 +21,26 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### RA-14 — query-complexity partial results — Sidney Holden
+
+**Partially resolved, 12 September 2026.** [Sidney Holden, verified affiliation and submission record](references/holden-ra14-2026-09-12/README.md). The [research note](references/holden-ra14-2026-09-12/package/report.pdf), Theorems 1.1, 1.2 and 5.1, establishes the universal rank lower bound, the large-rank regime and a spectral-to-PCA reduction giving matching bounds under a retained polynomial dimension hypothesis. [Independent informal AI-agent review](references/holden-ra14-2026-09-12/independent-review.md). The [original RA-14 target](randomized-and-low-rank-approximation/RA-14/README.md) remains open in the other simultaneous finite-parameter regimes. No full resolution, external human peer review or Lean verification is asserted.
+
+### ✅ TR-14 — exact rank of complex Hankel tensors — Sidney Holden
+
+**Solved affirmatively, 12 September 2026.** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Theorem 1.1, Sections 2–5](tensor-computations/TR-14/solution.pdf) proves ordinary/symmetric rank equality for every complex Hankel tensor in the original target, including exceptional data, together with an exact formula. [Retained target](tensor-computations/TR-14/README.md) · [Proof source](tensor-computations/TR-14/solution.tex) · [Submission and verified affiliation](references/holden-tr14-2026-09-12/README.md).
+
+The complete proof passed a separate [independent Codex AI-agent audit](references/holden-tr14-2026-09-12/independent-review.md). Supplementary exact computations were reproduced. This is informal automated review, not external human peer review or formal verification; no Lean verification was performed. Nie and Ye retain credit for the original conjecture and earlier cases. IDs, canonical paths and the original statement are unchanged.
+
+### MI-15 and MI-16 — matrix partial results — Sidney Holden
+
+**Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-matrix-2026-09-12/README.md).
+
+- [MI-15](matrix-inequalities-and-norms/MI-15/README.md): [Sections 1–5](references/holden-matrix-2026-09-12/MI-15/proof.md) prove exact SOS certificates in orders 8–12. The all-order assertion remains open. [Independent review](references/holden-matrix-2026-09-12/verification/MI-15-review.md).
+- [MI-16](matrix-inequalities-and-norms/MI-16/README.md): the [Theorem](references/holden-matrix-2026-09-12/MI-16/result.md) gives the exact orbit maximum for every one-exceptional-eigenvalue spectrum. Arbitrary spectra remain open. [Independent review](references/holden-matrix-2026-09-12/verification/MI-16-review.md).
+
+The same submission includes audited MI-20 projective reductions and MI-27 projection-equivalence and coefficient-sharpness lemmas; both remain Open because their requested answers are not supplied. Three separate informal Codex AI-agent reviews passed the stated scopes. No full resolution, novelty, external human peer review or formal verification is asserted. No Lean verification was performed. The open-target count does not decrease; IDs, paths, targets and prior-source credit are retained.
+
+
 ### KE-02, SP-08 and SP-09 — spectral partial results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-spectral-2026-09-12/README.md).
@@ -450,9 +470,12 @@ historical and the entry no longer contributes to the open count.
 
 **Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Three independent Codex agents reviewed thirteen complete arguments, with one PASS report per argument. Ten resolve their exact targets and three establish the partial results below. [Authorship, exact scopes, original proofs and reviews](references/colbrook-matrix-2026-09-11/README.md). Verification is independent agent review; the original drafts were AI-assisted.
 
-#### MI-03 — affirmative result
+#### MI-03 — affirmative result by Matthew J. Colbrook; Lean formalization by George Stepaniants
 
-[Canonical entry](matrix-inequalities-and-norms/MI-03/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-03/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-03-review.md). **Theorem 1.1 and its proof.** The sharp additive contraction constant is $c_k=k/4$ for every $k\ge2$, including every odd summand count. Exact dimension-two extremizers match the universal upper bound. 
+[Canonical entry](matrix-inequalities-and-norms/MI-03/README.md) · [Complete proof](matrix-inequalities-and-norms/MI-03/solution.pdf) · [Independent review](references/colbrook-matrix-2026-09-11/verification/reviews/MI-03-review.md). **Theorem 1.1 and its proof.** The sharp additive contraction constant is $c_k=k/4$ for every $k\ge2$, including every odd summand count. Exact dimension-two extremizers match the universal upper bound.
+
+**Lean verified - 2026-09-12.** The [eight checked exports](https://github.com/sgstepaniants/OpenProblemsInNLA/blob/901ba5ffad3b57557b60c7360df67659d8b8aa21/matrix-inequalities-and-norms/MI-03/lean/Solution.lean) prove the complete original odd-summand conjecture, via the stronger least admissible constant $`k/4`$ for every $`k\ge2`$. The actual CFC moduli, Euclidean operator norms, all complex contraction tuples and real infimum of the entire admissible set are retained; the universal upper bound is proved internally. **Formalization: George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA**, with AI-agent assistance. Matthew J. Colbrook retains mathematical proof/result credit; Jean-Christophe Bourin and Eun-Young Lee retain the conjecture and prior-bound credit. See the [canonical verification evidence](matrix-inequalities-and-norms/MI-03/README.md#lean-proof-and-verification-evidence---2026-09-12), [statement and final proof reviews](matrix-inequalities-and-norms/MI-03/lean/reviews/), [successful Linux run](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34722618003) and [independent operational audit](matrix-inequalities-and-norms/MI-03/lean/verification/linux-2026-09-12/OPERATIONAL-REVIEW.md). All 173 submitted inputs, sixteen standard-three axiom reports, actual default-kernel replay and real controls were checked. The operational reviewer also served as final proof referee 1. LeanCert audits this exact proof's kernel trust; no numerical interval certificate or external human peer review is claimed. The source's additional three-dimensional Hermitian extremizers and rank classification are outside the formalized exports.
+
 
 #### MI-04 — affirmative result
 
@@ -628,11 +651,14 @@ Seven exact targets are classified below. Independent agent review is not extern
 
 [Complete manuscript](references/colbrook-intervals-2026-09-11/manuscripts/IV-05.pdf); [full independent agent review](references/colbrook-intervals-2026-09-11/verification/reviews/IV-05-review.md).
 
-### IV-06 - Negative resolution
+### IV-06 - Negative resolution by Matthew J. Colbrook; Lean formalization by George Stepaniants
 
 [Original statement](intervals-and-absolute-value-equations/IV-06/README.md). **Solved, recorded 2026-09-11.** Matthew J. Colbrook (University of Cambridge). Theorem 1 gives a $3\times3$ independent-entry interval matrix with at least four components in its real eigenvalue set. Four exact integer eigenpairs at $-3,0,3,25$ and excluded separators $-1,1,12$ refute the universal at-most-$n$ conjecture. No symmetry assumption is introduced, and locating every component endpoint is unnecessary.
 
 [Complete manuscript](references/colbrook-intervals-2026-09-11/manuscripts/IV-06.pdf); [full independent agent review](references/colbrook-intervals-2026-09-11/verification/reviews/IV-06-review.md).
+
+**Lean verified - 2026-09-12.** The [eight checked exports](https://github.com/sgstepaniants/OpenProblemsInNLA/blob/18b5ef3127da0ae4f68e09289f60fd4f6e3d9bcb/intervals-and-absolute-value-equations/IV-06/lean/Solution.lean) negate the complete original universal component bound using the unchanged dimension-three box with at least four actual components. Full independent-entry variation, genuine nonzero eigenvectors, real subset topology and `Cardinal` component counts are retained; no finiteness premise is assumed. **Formalization: George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA**, with AI-agent assistance. Matthew J. Colbrook retains mathematical counterexample credit; Hladík, Daney and Tsigaridas retain original-question credit. See the [canonical verification evidence](intervals-and-absolute-value-equations/IV-06/README.md#lean-proof-and-verification-evidence---2026-09-12), [statement and final proof reviews](intervals-and-absolute-value-equations/IV-06/lean/reviews/), [successful Ubuntu run](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34725713519), [operational audit](intervals-and-absolute-value-equations/IV-06/lean/verification/linux-2026-09-12/OPERATIONAL-REVIEW.md) and [root acceptance](intervals-and-absolute-value-equations/IV-06/lean/verification/root-operational-2026-09-12/ROOT-CHECKS.json). All 200 inputs, seventeen standard-three axiom reports, actual default-kernel replay and both real control suites were checked. The material explicit kernel LeanCert computation is the singleton sign $`-18<0`$; exact algebra and topology complete the argument. Additional operational and publication roles do not add mathematical referees. Exactly four components, every endpoint and an all-dimension replacement bound are outside these exports. External human peer review is not claimed.
+
 
 ## Reviewed discrepancy submission - 2026-09-11
 
@@ -694,9 +720,12 @@ Eight exact targets passed independent agent review. Author: **Matthew J. Colbro
 
 ### IE-23 - Negative resolution
 
-[Original statement](linear-systems-and-elimination/IE-23/README.md). **Solved.** Theorem 1 gives a $2\times3$ full-row-rank matrix with distinct norm-minimizing right inverses for every $2<p<\infty$ over both fields. Their common induced norm is $2^{1/2-1/p}$. Sections 3-4 identify the complete minimizer sets, including a complex higher-dimensional family. The smallest matrix is attributed to Dokmanic and Gribonval\'s spectral-norm example; its extension to the displayed direct-inverse objective is checked. No conclusion about the separate product objective is claimed.
+[Original statement](linear-systems-and-elimination/IE-23/README.md). **Lean verified.** Theorem 1 gives a $2\times3$ full-row-rank matrix with distinct norm-minimizing right inverses for every $2<p<\infty$ over both fields. Their common induced norm is $2^{1/2-1/p}$. Sections 3-4 identify the complete minimizer sets, including a complex higher-dimensional family. The smallest matrix is attributed to Dokmanic and Gribonval\'s spectral-norm example; its extension to the displayed direct-inverse objective is checked. No conclusion about the separate product objective is claimed.
 
 [Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-23.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-23-review.md).
+
+
+**Lean formalization:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, with AI-agent assistance. **Matthew J. Colbrook** retains mathematical authorship; **Ivan Dokmanić and Rémi Gribonval** retain the underlying example and original-question credit. The [eight exports at revision a40e560](https://github.com/sgstepaniants/OpenProblemsInNLA/blob/a40e5608f61dd4086708cb2e03901ffd01e4c0a9/linear-systems-and-elimination/IE-23/lean/Solution.lean) prove the actual p=4 norms, global minimality over every complex right inverse and the complete canonical conjecture's negation. The stronger all-p formulas and classifications above retain their manuscript and informal-review scope. [Ubuntu run 34725525250](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34725525250) passed sandboxed Comparator matching, default-kernel replay and both actual control suites with the standard three axioms. LeanCert supplies kernel trust auditing of the pure exact proof, with no interval certificate. The proof author's [operational audit](linear-systems-and-elimination/IE-23/lean/verification/linux-2026-09-12/OPERATIONAL-REVIEW.md) was [independently accepted by the coordinator](linear-systems-and-elimination/IE-23/lean/verification/root-operational-2026-09-12/ROOT-CHECKS.json). See the [project guide](linear-systems-and-elimination/IE-23/lean/README.md) and [manifest](linear-systems-and-elimination/IE-23/lean/formalization.yaml).
 
 The related order-five rook bound is outside the order-three/order-four target of [IE-15](linear-systems-and-elimination/IE-15/README.md). That target was open when the order-five result was recorded; George Stepaniants's complete order-three/order-four resolution is now recorded above.
 
@@ -765,3 +794,7 @@ every rejected candidate.
 3. For a partial result, use `Partially resolved` and state the exact remaining cases. A weaker bound, a different algorithm, or a different input model does not settle the target.
 4. Add the resolution here, validate IDs with `python3 tools/validate_problem_ids.py --base-ref origin/main`, regenerate the catalog indexes with `python3 tools/update_catalog.py --base-ref origin/main`, and regenerate the affected TeX/PDF with `python3 tools/render_problems.py ID`. Run `python3 -m unittest discover -s tests -p 'test_problem_ids.py' -v`.
 5. Submit a pull request. An issue being closed is not, by itself, evidence that a mathematical problem is solved. If a claim is withdrawn or a gap is found, retain the history and revise the status using the new evidence.
+
+### RA-04 — partial clustered-gap results by Sidney Holden, 2026-09-12
+
+[RA-04](randomized-and-low-rank-approximation/RA-04/README.md) is **Partially resolved** and remains in the open count. Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) proves a general bound with an extra logarithmic term and the requested order for small gaps, exactly repeated clusters, two-step blocks and endpoints. The general clustered-spectrum target remains open. [Report](references/holden-ra04-2026-09-12/RA04_partial_results.pdf), Theorems 4.1, 5.3, 6.1 and 7.1, Corollaries 5.4 and 6.2, and Proposition 8.1; [independent agent PASS for partial results](references/holden-ra04-2026-09-12/verification/independent-review.md); [authorship and reproduction](references/holden-ra04-2026-09-12/README.md). No formal verification or external human peer review is claimed.

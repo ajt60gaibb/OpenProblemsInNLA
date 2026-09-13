@@ -1,0 +1,22 @@
+Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean:459:theorem inv_eq_left_inv (h : B * A = 1) : A⁻¹ = B :=
+Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean:465:  inv_eq_left_inv (mul_eq_one_comm.2 h)
+Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean:472:theorem left_inv_eq_left_inv (h : B * A = 1) (g : C * A = 1) : B = C := by
+Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean:473:  rw [← inv_eq_left_inv h, ← inv_eq_left_inv g]
+Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean:480:theorem right_inv_eq_left_inv (h : A * B = 1) (g : C * A = 1) : B = C := by
+Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean:481:  rw [← inv_eq_right_inv h, ← inv_eq_left_inv g]
+Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean:484:  refine left_inv_eq_left_inv (mul_nonsing_inv _ h') ?_
+Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean:506:  { Matrix.one, Matrix.inv with inv_one := inv_eq_left_inv (by simp) }
+Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean:509:  inv_eq_left_inv (by simp [h, smul_smul])
+Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean:512:  inv_eq_left_inv (by simp [h, smul_smul])
+Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean:515:  refine inv_eq_left_inv ?_
+Mathlib/LinearAlgebra/Matrix/Rank.lean:155:theorem rank_one [CommSemiring R] [DecidableEq n] [StrongRankCondition R] :
+Mathlib/LinearAlgebra/Matrix/Rank.lean:182:theorem rank_mul_le_left [CommSemiring R] [StrongRankCondition R] (A : Matrix m n R)
+Mathlib/LinearAlgebra/Matrix/Rank.lean:197:  le_min (rank_mul_le_left _ _) (rank_mul_le_right _ _)
+Mathlib/LinearAlgebra/Matrix/Rank.lean:202:  refine le_trans (rank_mul_le_left _ _) ?_
+Mathlib/LinearAlgebra/Matrix/Rank.lean:209:  have := rank_mul_le_left (A : Matrix n n R) (↑A⁻¹ : Matrix n n R)
+Mathlib/LinearAlgebra/Matrix/Rank.lean:210:  rwa [← Units.val_mul, mul_inv_cancel, Units.val_one, rank_one] at this
+Mathlib/LinearAlgebra/Matrix/Rank.lean:240:  refine le_antisymm (rank_mul_le_left B A) ?_
+Mathlib/LinearAlgebra/Matrix/Rank.lean:245:    _ ≤ (B * A).rank := rank_mul_le_left _ _
+Mathlib/LinearAlgebra/Matrix/Rank.lean:393:theorem rank_le_height [CommSemiring R] [StrongRankCondition R] {m n : ℕ}
+Mathlib/LinearAlgebra/Matrix/Rank.lean:518:    (((rank_conjTranspose_mul_self _).symm.trans_le <| rank_mul_le_left _ _).trans_eq <|
+Mathlib/LinearAlgebra/Matrix/Rank.lean:520:    ((rank_conjTranspose_mul_self _).symm.trans_le <| rank_mul_le_left _ _)

@@ -2,7 +2,7 @@
 
 [← All categories](../README.md) · [Full catalog](../CATALOG.md) · [Solved and claimed solutions](../RESOLVED.md)
 
-**18 problems with open targets.** 8 retained entries are excluded from the open count.
+**17 problems with open targets.** 9 retained entries are excluded from the open count.
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
@@ -11,7 +11,6 @@
 | [TR-10](TR-10/README.md) | Border Comon's conjecture over the complex numbers | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](TR-10/problem.pdf) · [TeX](TR-10/problem.tex) |
 | [TR-11](TR-11/README.md) | Generic identifiability of tensors at strictly subcritical ranks | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](TR-11/problem.pdf) · [TeX](TR-11/problem.tex) |
 | [TR-12](TR-12/README.md) | Classification of perfect tensor formats with generic unique decomposition | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](TR-12/problem.pdf) · [TeX](TR-12/problem.tex) |
-| [TR-14](TR-14/README.md) | Comon's exact-rank conjecture for Hankel tensors | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](TR-14/problem.pdf) · [TeX](TR-14/problem.tex) |
 | [TR-16](TR-16/README.md) | Monotonicity of the average number of critical rank-one approximations | **🔵 OPEN** | challenging | interesting to specialist | [PDF](TR-16/problem.pdf) · [TeX](TR-16/problem.tex) |
 | [TR-18](TR-18/README.md) | Near-optimal type-2 bound for Gaussian sums of symmetric tensors | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](TR-18/problem.pdf) · [TeX](TR-18/problem.tex) |
 | [TR-19](TR-19/README.md) | Exact best-rank-one approximation ratios for general tensor formats | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](TR-19/problem.pdf) · [TeX](TR-19/problem.tex) |
@@ -32,6 +31,7 @@
 | [TR-04](TR-04/README.md) | Improve the worst-case approximation factor for prescribed tensor-train ranks | **✅ SOLVED** | extreme | interesting to the community | [PDF](TR-04/problem.pdf) · [TeX](TR-04/problem.tex) |
 | [TR-06](TR-06/README.md) | Finite mean angular condition number for identifiable tensor decomposition | **✅ SOLVED** | challenging | interesting to specialist | [PDF](TR-06/problem.pdf) · [TeX](TR-06/problem.tex) |
 | [TR-13](TR-13/README.md) | Equality of ranks for generic odd-order Hankel tensors | **✅ SOLVED** | challenging | interesting to specialist | [PDF](TR-13/problem.pdf) · [TeX](TR-13/problem.tex) |
+| [TR-14](TR-14/README.md) | Comon's exact-rank conjecture for Hankel tensors | **✅ SOLVED** | challenging | interesting to specialist | [PDF](TR-14/problem.pdf) · [TeX](TR-14/problem.tex) |
 | [TR-15](TR-15/README.md) | Nonnegative H-eigenvalue inheritance from odd-order Hankel tensors | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](TR-15/problem.pdf) · [TeX](TR-15/problem.tex) |
 | [TR-17](TR-17/README.md) | Frobenius inner products minimize the algebraic complexity of rank-one approximation | **✅ SOLVED** | challenging | interesting to the community | [PDF](TR-17/problem.pdf) · [TeX](TR-17/problem.tex) |
 | [TR-20](TR-20/README.md) | Rayleigh–Ritz discriminant degrees for rank-one matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](TR-20/problem.pdf) · [TeX](TR-20/problem.tex) |

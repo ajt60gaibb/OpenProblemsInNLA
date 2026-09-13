@@ -1,0 +1,59 @@
+{
+  "commands": [
+    {
+      "label": "manifest",
+      "command": [
+        "/tmp/nla-lean-formalization/venv/bin/python",
+        "tools/lean/validate_manifest.py",
+        "/private/tmp/nla-lean-iv06-worktree/intervals-and-absolute-value-equations/IV-06/lean"
+      ],
+      "exit_code": 0,
+      "log": "manifest.log",
+      "log_sha256": "acd348ab849a63056a72b45c57059083ad0a2326f81f7a3d8b29f25ccbb4d9d6"
+    },
+    {
+      "label": "permanent-ids",
+      "command": [
+        "python3",
+        "tools/validate_problem_ids.py",
+        "--base-ref",
+        "origin/main"
+      ],
+      "exit_code": 0,
+      "log": "permanent-ids.log",
+      "log_sha256": "44cc74bfe8f011df4389835465a6043310e12828a092e8c74d318f50d26da3a0"
+    },
+    {
+      "label": "catalog-idempotence",
+      "command": [
+        "python3",
+        "tools/update_catalog.py",
+        "--base-ref",
+        "origin/main"
+      ],
+      "exit_code": 0,
+      "log": "catalog-idempotence.log",
+      "log_sha256": "748ca47ac336c62847ddc3b1c128375a839439e93fc772c7af630c0b1263f541"
+    },
+    {
+      "label": "permanent-id-tests",
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_problem_ids.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "permanent-id-tests.log",
+      "log_sha256": "eb3da778cc548e9eb79ac6ff24d3e003c7e9b22803fbf4e74536c3bc02dcbbd2"
+    }
+  ],
+  "catalog_byte_identity": true,
+  "tracked_diff_empty": true,
+  "no_proof_or_dependency_build": true
+}
