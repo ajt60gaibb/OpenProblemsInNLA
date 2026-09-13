@@ -2,10 +2,27 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-10  
+**Status:** Solved
+**Last checked:** 2026-09-12
 
-**Rating rationale:** Challenging reflects extending a discrete real approximation principle to complex spectra with a sharp constant; community impact concerns usable worst-case GMRES bounds for normal matrices.
+**Historical rating rationale:** Challenging reflects extending a discrete real approximation principle to complex spectra with a sharp constant; community impact concerns usable worst-case GMRES bounds for normal matrices.
+
+## Resolution: negative, 12 September 2026
+
+**Author:** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Verified affiliation and submission record](../../references/holden-ie16-2026-09-12/README.md).
+
+[Theorem 1.1, proved in Sections 2-3 of the manuscript](solution.pdf) disproves the displayed universal inequality. With $`\omega=e^{2\pi i/3}`$, take the nine distinct nonzero points $`L=\{\omega^a+10^{-3}\omega^b:0\le a,b\le2\}`$ and $`k=4`$. Then
+
+```math
+M_4(L)=\frac{3003003000}{1001003001001}>\frac{299}{100000},
+\qquad \max_{S\subseteq L,\ |S|=5}M_4(S)<\frac{23}{10000}.
+```
+
+The ratio is therefore greater than $`13/10>4/\pi`$. Here $`n=9`$ and $`1\le4\le n-2`$, so all original assumptions and quantifiers are addressed by this counterexample. Theorem 1.2 (Sections 4-5) additionally proves that no finite dimension-independent replacement constant exists. The finite counterexample alone settles IE-16 negatively; no case of the original universal truth question remains open.
+
+The complete proof passed a separate [independent Codex AI-agent informal audit](../../references/holden-ie16-2026-09-12/INDEPENDENT-REVIEW.md). The supplied exact-arithmetic verifier passed all 126 subset checks, and reviewer-written rational checks passed independently. This is not external human peer review or formal verification. No Lean verification was performed. [Proof source](solution.tex) · [Exact verifier and certificates](../../references/holden-ie16-2026-09-12/submitted/README.md).
+
+## Original problem (retained)
 
 Let $`L\subset\mathbb C\setminus\{0\}`$ consist of $`n\ge3`$ distinct points. For a nonempty $`S\subseteq L`$, define
 

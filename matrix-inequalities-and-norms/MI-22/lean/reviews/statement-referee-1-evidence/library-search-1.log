@@ -1,0 +1,16 @@
+110:Together with `LinearMap.singularValues_of_finrank_le`, this characterizes the singular values.
+115:theorem singularValues_fin {n : ℕ} (hn : finrank 𝕜 E = n) (i : Fin n) :
+122:  T.singularValues_fin hn ⟨i, hi⟩
+124:theorem singularValues_of_finrank_le {i : ℕ} (hi : finrank 𝕜 E ≤ i) : T.singularValues i = 0 := by
+128:theorem sq_singularValues_fin {n : ℕ} (hn : finrank 𝕜 E = n) (i : Fin n) :
+130:  simp [T.singularValues_fin hn, T.isPositive_adjoint_comp_self.nonneg_eigenvalues hn i]
+134:  T.sq_singularValues_fin hn ⟨i, hi⟩
+139:  simp [← T.sq_singularValues_fin]
+141:theorem singularValues_antitone : Antitone T.singularValues := by
+144:  · simpa [T.singularValues_of_finrank_le hj] using T.singularValues_nonneg i
+146:    rw [T.sq_singularValues_fin rfl ⟨j, hj⟩, T.sq_singularValues_fin rfl ⟨i, hij.trans_lt hj⟩]
+164:    simp [RCLike.ofReal_eq_zero.mp hi, T.singularValues_fin rfl]
+175:    grind [singularValues_of_finrank_le]
+178:    := by ext i; simp [T.singularValues_fin, T.isPositive_adjoint_comp_self.nonneg_eigenvalues]
+187:  order [T.singularValues_antitone hl]
+201:theorem singularValues_finrank_range_self : T.singularValues (finrank 𝕜 T.range) = 0 := by

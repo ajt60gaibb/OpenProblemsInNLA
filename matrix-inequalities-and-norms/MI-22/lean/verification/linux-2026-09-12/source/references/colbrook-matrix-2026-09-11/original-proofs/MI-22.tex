@@ -1,0 +1,120 @@
+\section{MI-22: a certified operator-norm counterexample to the weighted log-majorization}
+\label{sec:mi22}
+The conjecture is
+\begin{equation}\label{eq:mi22-target}
+ s\bigl(A^t(A\#_t B)B^{1-t}\bigr)\prec_{\log}s(AB),
+ \qquad A,B>0,\quad 0\leq t\leq1,
+\end{equation}
+where singular values are decreasingly ordered and $\#_t$ is the weighted geometric mean. It is Conjecture 1.1 of \cite{GAMA2021}. We disprove even the largest-singular-value inequality. The proof uses explicit rational certificates for two matrix roots; every certificate check is an exact rational comparison.
+
+\begin{theorem}\label{thm:mi22}
+A counterexample to \eqref{eq:mi22-target} is
+\[
+ A=\diag\left(256,\frac1{256},1\right),\qquad
+ B=\begin{pmatrix}17&-4&0\\-4&16385&-8192\\0&-8192&4096\end{pmatrix},
+ \qquad t=\frac18.
+\]
+In fact,
+\[
+ \opnorm{A^{1/8}(A\#_{1/8}B)B^{7/8}}>10900,
+ \qquad \opnorm{AB}<10200.
+\]
+\end{theorem}
+
+We first give the elementary error estimate used to turn rational root approximations into a proof.
+\begin{lemma}\label{lem:root-lipschitz}
+If $P,Q\geq mI>0$ and $0<\alpha<1$, then
+\[
+ \opnorm{P^\alpha-Q^\alpha}
+ \leq \alpha m^{\alpha-1}\opnorm{P-Q}.
+\]
+\end{lemma}
+\begin{proof}
+The scalar integral representation for $x^\alpha$, applied by spectral calculus, and the resolvent identity give
+\[
+ P^\alpha-Q^\alpha
+ =\frac{\sin(\pi\alpha)}{\pi}\int_0^\infty
+ u^\alpha(uI+Q)^{-1}(P-Q)(uI+P)^{-1}\,du.
+\]
+The integral converges in norm. The norm of the integrand is at most
+$u^\alpha(u+m)^{-2}\opnorm{P-Q}$. Differentiating the scalar integral formula, or evaluating this positive integral directly, gives
+\[
+ \frac{\sin(\pi\alpha)}{\pi}\int_0^\infty\frac{u^\alpha}{(u+m)^2}\,du
+ =\alpha m^{\alpha-1},
+\]
+proving the estimate.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:mi22}]
+The matrix $A$ is positive definite. The leading principal minors of $B$ are $17$, $278529$, and $4096$, so $B>0$ as well. Define the rational matrix
+\[
+ C=A^{-1/2}BA^{-1/2}
+ =\begin{pmatrix}
+ 17/256&-4&0\\-4&4194560&-131072\\0&-131072&4096
+ \end{pmatrix}.
+\]
+Set $X=C^{1/8}$ and $Y=B^{1/8}$. The left-hand matrix in the theorem is
+\[
+ L=A^{5/8}XA^{1/2}Y^7,
+ \qquad A^{5/8}=\diag(32,1/32,1),\quad A^{1/2}=\diag(16,1/16,1).
+\]
+Here are rational approximations $R$ to $X$ and $S$ to $Y$, with a common denominator $10^{15}$:
+\begingroup\small
+\[
+ R=10^{-15}\begin{pmatrix}
+ 563431071954661&-4774979464975&-152620714401404\\
+ -4774979464975&6722248446399974&-185449303604146\\
+ -152620714401404&-185449303604146&793308473748417
+ \end{pmatrix},
+\]
+\[
+ S=10^{-15}\begin{pmatrix}
+ 1417565567728212&-40084698659651&-79375309604622\\
+ -40084698659651&2883518412755210&-1150490885652445\\
+ -79375309604622&-1150490885652445&1157680400969996
+ \end{pmatrix}.
+\]
+\endgroup
+These displayed rational matrices obey the following exact certificate inequalities:
+\begin{align}
+ B,C&>2^{-10}I,\label{eq:mi22-cert1}\\
+ \frac9{20}I<R<8I,&\qquad \frac9{20}I<S<4I,\label{eq:mi22-cert2}\\
+ \norm{R^8-C}_F^2&<10^{-16},\qquad \norm{S^8-B}_F^2<10^{-16}.\label{eq:mi22-cert3}
+\end{align}
+All positive-definite comparisons in \eqref{eq:mi22-cert1}--\eqref{eq:mi22-cert2} are verified by positive leading principal minors. The two comparisons in \eqref{eq:mi22-cert3} are sums of nine rational squares. The accompanying certificate verifier performs precisely these operations, without floating-point arithmetic, and its full input is printed above.
+
+Since $(9/20)^8>2^{-10}$, both $R^8$ and $S^8$ exceed $2^{-10}I$. Apply Lemma \ref{lem:root-lipschitz} with $\alpha=1/8$ and $m=2^{-10}$. Because $\alpha m^{\alpha-1}=2^{23/4}<64$, equations \eqref{eq:mi22-cert1}--\eqref{eq:mi22-cert3} imply
+\[
+ \opnorm{X-R}<\varepsilon,\qquad \opnorm{Y-S}<\varepsilon,
+ \qquad \varepsilon=64\cdot10^{-8}.
+\]
+Also $\opnorm{X}<8$ and $\opnorm{Y}<4$: for example, the exact traces of $C$ and $B$ are respectively smaller than $8^8$ and $4^8$. Together with \eqref{eq:mi22-cert2}, the telescoping identity for $Y^7-S^7$ gives
+\[
+ \opnorm{Y^7-S^7}\leq7\cdot4^6\varepsilon.
+\]
+For the rational matrix $\widetilde L=A^{5/8}RA^{1/2}S^7$, it follows that
+\begin{align*}
+ \opnorm{L-\widetilde L}
+ &\leq32\cdot16\,\varepsilon\bigl(4^7+8\cdot7\cdot4^6\bigr)\\
+ &=\frac{6291456}{78125}<100.
+\end{align*}
+One further exact rational multiplication yields
+\begin{equation}\label{eq:mi22-entry}
+ \widetilde L_{12}>11000.
+\end{equation}
+Consequently $\opnorm{L}\geq|L_{12}|>11000-100=10900$.
+
+On the other hand,
+\[
+ AB=\begin{pmatrix}4352&-1024&0\\-1/64&16385/256&-32\\0&-8192&4096\end{pmatrix},
+\]
+and its exact squared Frobenius norm is
+\[
+ \norm{AB}_F^2=\frac{6807858741265}{65536}<10200^2.
+\]
+Thus $\opnorm{AB}\leq\norm{AB}_F<10200<10900<\opnorm{L}$, contradicting the first inequality required by log-majorization.
+\end{proof}
+
+\begin{remark}[Reproducibility and the role of computation]
+High-precision calculations were used to propose the rational matrices $R,S$, but no such calculation is trusted by the proof. The finite certificate consists of \eqref{eq:mi22-cert1}--\eqref{eq:mi22-cert3}, \eqref{eq:mi22-entry}, and the Frobenius-norm comparison; all are verified with integer fractions. The error estimate bridges these exact finite checks to the true matrix roots. This is a rigorous computer-assisted counterexample, not a claim based only on a numerical singular-value comparison.
+\end{remark}

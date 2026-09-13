@@ -34,7 +34,7 @@ error},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-12}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,14 +51,47 @@ solution cost at a prescribed backward error\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} broadly
 interesting\par}
-{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+{\sffamily\small\bfseries\color{accent}Status: Solved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
-\textbf{Rating rationale:} Challenging reflects the remaining removal of
-a dimension-dependent logarithm from an established general algorithm;
-broad impact follows from a condition-independent cost bound for
-arbitrary linear systems.
+\textbf{Rating rationale (historical):} Challenging reflects the
+remaining removal of a dimension-dependent logarithm from an established
+general algorithm; broad impact follows from a condition-independent
+cost bound for arbitrary linear systems.
+
+\subsection{Resolution: affirmative, 12 September
+2026}\label{resolution-affirmative-12-september-2026}
+
+\textbf{Author:} Sidney Holden, Center for Computational Biology,
+Flatiron Institute, Simons Foundation.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ie12-2026-09-12/README.md}{Verified
+affiliation and submission record}.
+
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-12/solution.pdf}{Theorem
+1, proved in Sections 2--6} gives a randomized exact-real algorithm with
+deterministic worst-case cost \(O(n^2\varepsilon^{-3})\) and \(O(n^2)\)
+scalar storage. For every original input it always returns a nonzero
+vector and achieves the original A-only backward error at most
+\(5\varepsilon/8\) with probability greater than \(0.997\). Thus it
+settles the complete target with \(q=3\), uniformly in dimension,
+conditioning and right-hand side.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-12/solution.tex}{Proof
+source}.
+
+The argument passed a separate
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ie12-2026-09-12/independent-review.md}{independent
+Codex AI-agent audit}, including exact component-test reproduction. This
+is informal automated review, not external human peer review or formal
+verification. The supplied draft was prepared with ChatGPT assistance;
+no Lean verification was performed.
+
+Entrywise randomized rounding and weighted-pattern matrix products
+cancel the logarithmic iteration overhead in total arithmetic cost. This
+does not assert dimension-independent black-box convergence,
+finite-precision stability, bit complexity or practical speed. The
+original target and prior-source attribution below are retained; the
+earlier status discussion is historical.
 
 \subsection{Problem statement}\label{problem-statement}
 
@@ -67,10 +100,8 @@ such that, for every \(n\ge1\), nonsingular
 \(A\in\mathbb R^{n\times n}\) with \(\|A\|_2=1\), \(b\ne0\), and
 \(0<\varepsilon<1/2\), it returns \(x\ne0\) satisfying
 
-\[
-\Pr\left\{\frac{\|Ax-b\|_2}{\|A\|_2\|x\|_2}
-\le\varepsilon\right\}\ge0.99
-\]
+\[\Pr\left\{\frac{\|Ax-b\|_2}{\|A\|_2\|x\|_2}
+\le\varepsilon\right\}\ge0.99\]
 
 using at most \(C n^2\varepsilon^{-q}\) operations? Use an exact-real
 arithmetic model with scalar arithmetic, square roots, comparisons, and
@@ -81,6 +112,7 @@ and of \(n,b,\varepsilon\). The fraction is normwise backward error with
 perturbations allowed in \(A\) only. A deterministic algorithm meeting
 the bound would also answer positively.
 
+\newpage
 \subsection{References and status}\label{references-and-status}
 
 M. Dereziński, Y. Nakatsukasa, and E. Rebrova,

@@ -6,8 +6,8 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Solved  
-**Last checked:** 2026-09-11
+**Status:** Lean verified
+**Last checked:** 2026-09-12
 
 **Rating rationale:** Controlling every partial product of singular values is challenging despite the proved eigenvalue-modulus analogue; the resulting norm comparisons are relevant across matrix analysis.
 
@@ -20,6 +20,39 @@ Rational positive definite $`3\times3`$ matrices at $`t=1/8`$ violate the first 
 The exact target is resolved. The original statement and source evidence are retained below; its former difficulty rating is historical.
 
 **Primary manuscript:** [complete proof PDF](solution.pdf), [standalone TeX](solution.tex), Theorem 1.1 and its proof; [authorship and scope](solution.md). The [independent review](../../references/colbrook-matrix-2026-09-11/verification/reviews/MI-22-review.md) checks the full original argument and records its hash. The draft was AI-assisted; this is independent agent verification, not external human peer review or formal certification. [Submission record](../../references/colbrook-matrix-2026-09-11/README.md).
+
+## Lean proof and verification evidence — 2026-09-12
+
+**Lean formalization:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, with AI-agent assistance. Matthew J. Colbrook retains credit for the original negative resolution and mathematical method.
+
+The [immutable Solution](https://github.com/sgstepaniants/OpenProblemsInNLA/blob/26f526cf8b6232af9528b30616076dc7a2c66ac6/matrix-inequalities-and-norms/MI-22/lean/Solution.lean) proves the complete original universal statement false. All complex positive-definite inputs, all positive dimensions, every $`t\in[0,1]`$, every proper singular-value prefix and full-product equality remain in the [reviewed definitions](lean/NLA/MI22/Definitions.lean). The formal counterexample uses the disclosed exact rational adaptation $`B=DT^8D`$ and $`t=1/8`$. Its actual left operator norm exceeds 11000 and its actual $`AB`$ norm is below 10500. Colbrook's printed integer $`B`$, root-residual theorem and original 10900/10200 bounds remain informal source results; they are not claimed as this formalization's witness.
+
+The eight checked declarations, in namespace `NLA.MI22`, are:
+
+- `singular_values_semantics`
+- `spectral_power_semantics`
+- `euclidean_norm_bounds`
+- `witness_rational_data`
+- `witness_principal_powers`
+- `witness_operator_gap`
+- `counterexample`
+- `not_weightedLogMajorizationConjecture`
+
+They prove genuine Mathlib CFC powers, descending singular values with multiplicities, Euclidean operator-norm bridges, every rational witness obligation, and the actual first-prefix reversal, followed by the full negation. Two independent agents reviewed the frozen statements and complete proof. [Linux run 34720684925](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34720684925) matched all eight exports with Lean4 Comparator and replayed the solution through Lean's default kernel. The [independent operational audit](lean/verification/linux-2026-09-12/OPERATIONAL-REVIEW.md) retains the original artifacts, complete 177-input identity and both exercised sandbox/rejection control suites. All 17 internal/public [axiom reports](lean/verification/linux-2026-09-12/axiom-verification.json) use only `propext`, `Classical.choice` and `Quot.sound`; the solution contains no admissions or native execution trust.
+
+This catalog reviewed the actual remote Linux execution and separately retained local macOS re-elaborations. Ten pinned dependency checkouts were fresh; the official Mathlib cache was used, so a complete dependency-source rebuild is not claimed. The reviews are by independent AI agents, not external human peer review or source-author endorsement. Statement referees establish correspondence with the prose; Comparator checks formal identity and kernel trust.
+
+The proof pins **Lean 4.33.1**, [Mathlib 0df444a](https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474) and [LeanCert 621a43d](https://github.com/alerad/leancert/tree/621a43d7cf21f87872392a01e874f2f1dbddc926). LeanCert certifies only the retained strict scalar comparison $`10500<11000`$, in explicit kernel mode on a singleton. Exact matrix algebra and true root/norm proofs cover all other obligations, without interval subdivision. The [project guide](lean/README.md), [source correspondence](lean/SOURCE_CORRESPONDENCE.md), [locked dependencies](lean/lake-manifest.json) and [formalization manifest](lean/formalization.yaml) record the full scope.
+
+From the verified revision, on an isolated non-root Linux host satisfying the [shared harness prerequisites](../../tools/lean/HARNESS.md), run:
+
+```
+tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
+tools/lean/verify.sh \
+  matrix-inequalities-and-norms/MI-22/lean \
+  /absolute/path/to/nla-lean-tools
+```
 
 ## Problem statement
 

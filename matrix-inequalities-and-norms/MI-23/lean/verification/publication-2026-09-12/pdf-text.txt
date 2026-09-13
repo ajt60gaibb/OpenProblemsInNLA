@@ -1,0 +1,133 @@
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA                                                            MI-23
+
+
+
+
+Matrix inequalities and norms
+
+
+Corrected generalized geometric-mean product
+conjecture
+Diﬀiculty: challenging       Importance: interesting to specialist
+Status: Lean verified
+
+Rating rationale: The four interacting exponents make this corrected conjecture challenging; its imme-
+diate consequences concern specialists in matrix means and log-majorization.
+
+Lean proof and verification evidence - 2026-09-12
+
+The complete corrected MI-23 conjecture is false, with a Lean-verified counterexample. The rational
+complex positive-definite witness has 𝑟 = 𝑠 = 1, 𝑝 = 2, 𝑡 = 1/8 and violates the first ordered eigenvalue
+inequality. The proof at revision 17194f9 preserves every original dimension, both real 𝑟, 𝑠 regions,
+actual CFC matrix powers, all proper prefix products and equality of complete products.
+Mathematical counterexample and informal proof: Matthew J. Colbrook, Department of Applied
+Mathematics and Theoretical Physics, University of Cambridge. Lean formalization: George Stepa-
+niants, Department of Computing and Mathematical Sciences, California Institute of Technology,
+Pasadena, California, USA, with AI-agent assistance.
+The eight checked exports, each with prefix NLA.MI23., are:
+ • positive_powers_and_means: genuine CFC powers and generalized means are positive definite.
+ • product_eigenvalue_semantics: complete characteristic roots with multiplicities, positivity, ordering,
+   similarity and determinant product.
+ • squared_product_largest: the actual largest root of 𝑋 2 𝑌 2 equals ‖𝑋𝑌‖22 .
+ • operator_norm_bounds: entry and Frobenius bounds for the genuine Euclidean operator norm.
+ • witness_data: admissibility and all actual CFC witness identities.
+ • witness_squared_gap: the exact rational gap and strict operator-norm separation.
+ • counterexample: failure of the original log-majorization relation at the admissible witness.
+ • not_generalizedGeometricMeanConjecture: negation of the complete universal conjecture.
+Two independent agents reviewed the frozen statements and completed proof. Linux run 34716784038
+matched all eight exports using the sandboxed Comparator and replayed the solution in Lean’s default
+kernel. The original artifacts and independent operational audit bind all 133 verified source inputs and
+both actual isolation and rejection-control suites. All 64 internal/public transitive axiom reports contain
+only propext, Classical.choice and Quot.sound. These are independent agent reviews, without a claim of
+external human peer review.
+The proof pins Lean 4.33.1, LeanCert 621a43d and Mathlib 0df444a. Exact integer-power identities
+replace fractional-power approximation. One kernel-mode LeanCert certificate proves the positive ra-
+tional gap and remains in the final norm and eigenvalue contradiction. See the manifest, dependency
+pins and numerical targets. From the verified revision on a documented non-root Linux host, reproduce
+with:
+
+tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
+tools/lean/verify.sh \
+  matrix-inequalities-and-norms/MI-23/lean \
+  /absolute/path/to/nla-lean-tools
+
+This settles the corrected eigenvalue conjecture stated below. The earlier singular-value conjecture is a
+different target. The original problem and historical informal proof remain intact.
+
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-12                                                                             1
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA                                                                  MI-23
+
+
+
+
+Resolution — 2026-09-11
+
+Negative result by Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics,
+University of Cambridge. Independent proof review: PASS.
+Rational positive definite 3 × 3 matrices with 𝑟 = 𝑠 = 1, 𝑝 = 2 and 𝑡 = 1/8 violate the corrected eigen-
+value log-majorization conjecture. An exact integer-power construction and rational norm separation
+establish failure of the first ordered eigenvalue inequality.
+The exact target is resolved. The original statement and source evidence are retained below; its former
+diﬀiculty rating is historical.
+Primary manuscript: complete proof PDF, standalone TeX, Theorem 1.1 and its proof; authorship and
+scope. The independent review checks the full original argument and records its hash. The draft was
+AI-assisted; the 2026-09-11 review was independent agent verification, without external human peer
+review or formal certification. The later Lean verification above covers the complete corrected target.
+Submission record.
+
+Problem statement
+
+For positive definite 𝐴, 𝐵 ∈ ℂ𝑛×𝑛 , real 𝑟, and 𝑡 ∈ [0, 1], define
+
+                                          𝐺𝑟,𝑡 (𝐴, 𝐵) = 𝐴𝑟/2 (𝐴−1/2 𝐵𝐴−1/2 )𝑡 𝐴𝑟/2 .
+
+Is it true, for every 𝑛 ≥ 1, every such 𝐴, 𝐵, every 𝑝 ≥ 1, 𝑡 ∈ [0, 1], and either 𝑟, 𝑠 ≥ 1 or 𝑟, 𝑠 ≤ 0, that
+
+                                   𝜆(𝐺𝑟,𝑡 (𝐴, 𝐵)𝑝 𝐺𝑠,1−𝑡 (𝐴, 𝐵)𝑝 ) ≺log 𝜆(𝐴𝑝(𝑟+𝑠−1) 𝐵𝑝 )?
+
+The eigenvalues of these products are positive real numbers, ordered decreasingly: each product is
+                                                                                                   𝑘
+similar to a positive definite matrix. For positive decreasing vectors 𝑥, 𝑦 ∈ ℝ𝑛 , 𝑥 ≺log 𝑦 means ∏𝑗=1 𝑥𝑗 ≤
+   𝑘
+∏𝑗=1 𝑦𝑗 for 1 ≤ 𝑘 < 𝑛, with equality at 𝑘 = 𝑛.
+This compares nonlinear matrix-mean products with products of powers of the input matrices. It
+would give simultaneous multiplicative control for every partial product of ordered eigenvalues and
+strengthen norm estimates used with positive definite matrix functions.
+
+
+
+
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-12                                                                                   2
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA                                                            MI-23
+
+
+
+
+References
+
+1. M. M. Ghabries, H. Abbas, B. Mourad and A. Assi, New log-majorization results concerning eigenvalues
+   and singular values and a complement of a norm inequality, preprint (2021), Conjecture 2.1, p. 6. PDF.
+2. M. M. Ghabries, Contributions to Matrix Inequalities and Some Applications, PhD thesis, University
+   of Angers and Lebanese University (2022), final Open Problems, Problem 6, pp. 109–110. Thesis
+   uploaded by its author.
+3. M. M. Ghabries, A log-majorization inequality for normal matrices with applications to determinantal in-
+   equalities and geometric means (2026), §4. Full text.
+Status check (2026-09-10): Theorem 2.1 and equation (13) of the first source prove a substantive in-
+                                            𝑟(𝑝−1)         𝑟𝑝+𝑠
+cluded region: 𝑟, 𝑠 ≥ 1, 1 ≤ 𝑝 ≤ 2, and (𝑟+𝑠)𝑝 ≤ 𝑡 ≤ (𝑟+𝑠)𝑝 . This includes 𝑝 = 1 for all 𝑡. The full
+parameter range is the remaining question. The first source refutes its earlier unrestricted singular-
+value Conjecture 1.2; the statement here is the explicitly proposed replacement. The thesis retains it.
+The July 2026 paper concerns eigenvalue products of ordinary weighted means and does not claim this
+full 𝑟, 𝑠, 𝑝 statement. Current arXiv versions and searches for the authors, “Conjecture 2.1 generalized
+geometric mean” and 2025/2026 yielded no full resolution. This is a bounded check, not certification
+of openness.
+
+
+
+
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-12                                                                             3
+

@@ -1,0 +1,762 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=22mm,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{newtxtext,newtxmath}
+\usepackage{microtype}
+\usepackage{booktabs,array}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{xurl}
+\usepackage{hyperref}
+\definecolor{inkblue}{HTML}{173650}
+\definecolor{lightgray}{HTML}{F3F5F7}
+\hypersetup{colorlinks=true,linkcolor=inkblue,citecolor=inkblue,urlcolor=inkblue,
+  pdftitle={A quadratic-cost backward-error solver for general real systems},
+  pdfauthor={Sidney Holden},
+  pdfsubject={An affirmative solution to IE-12 in the stated exact-real model}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\scshape IE-12 \quad Exact-real backward-error complexity}
+\fancyhead[R]{\small 12 September 2026}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\setlength{\parindent}{1.2em}
+\setlength{\parskip}{3pt}
+\setlength{\emergencystretch}{2em}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\E}{\mathbb E}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\norm}[1]{\left\|#1\right\|_2}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\berr}{\operatorname{berr}}
+\newcommand{\sgnp}{\operatorname{sign}_{+}}
+\lstset{basicstyle=\small\ttfamily,columns=fullflexible,keepspaces=true,
+  frame=single,rulecolor=\color{black!20},backgroundcolor=\color{lightgray},
+  xleftmargin=5pt,xrightmargin=5pt,framesep=6pt,breaklines=true,
+  showstringspaces=false,aboveskip=10pt,belowskip=10pt}
+
+\begin{document}
+\thispagestyle{plain}
+\begin{center}
+{\color{inkblue}\Large\bfseries A quadratic-cost backward-error solver\\[4pt]
+for general real systems}\par
+\vspace{7pt}
+{\large An affirmative solution to IE-12 in the stated exact-real model}\par
+\vspace{9pt}
+{\large Sidney Holden}\par
+{\small Center for Computational Biology, Flatiron Institute, Simons Foundation}\par
+{12 September 2026}
+\end{center}
+
+\begin{abstract}
+We give an explicit randomized algorithm for the normalized, fully accessible
+real linear-system problem in IE-12. Its deterministic worst-case operation
+count is $O(n^2\eps^{-3})$; with probability greater than $0.997$ its nonzero
+output satisfies $\norm{Ax-b}/\norm{x}\le 5\eps/8$. Thus the answer to IE-12
+is affirmative with $q=3$. The algorithm rounds $A$ once to a nearby scaled
+integer matrix. A weighted-pattern multiplication scheme supports repeated
+products with this matrix and its transpose more cheaply than dense products.
+A rectangular augmented system supplies an exact kernel, and a fixed-length
+randomly started polynomial filter finds an approximate kernel vector.
+A clamping step converts it to the required backward-error guarantee without
+perturbing $b$. The logarithm in the iteration count is canceled by the
+preprocessed product cost, not removed from convergence itself. All essential
+lemmas, probability estimates, model details, and cost bounds are proved below.
+\end{abstract}
+
+\noindent\textbf{Verification status.} This is a complete mathematical argument
+with executable exact-arithmetic component tests and floating-point
+illustrations. The submitted draft was prepared with ChatGPT assistance;
+authorship is recorded as Sidney Holden at his request. Independent informal
+Codex AI-agent review is documented in the accompanying submission record.
+This is not external human peer review or proof-assistant verification. The theorem is about exact-real scalar complexity, not
+finite-precision stability, bit complexity, or practical speed.
+
+\section{Problem, result, and mechanism}
+
+IE-12 asks for absolute constants $C,q>0$ and an algorithm that, given a
+nonsingular $A\in\R^{n\times n}$ with promised $\norm{A}=1$, a nonzero
+$b\in\R^n$, and $0<\eps<1/2$, uses at most $Cn^2\eps^{-q}$ operations and
+returns a nonzero vector satisfying
+\begin{equation}\label{eq:target}
+ \PP\!\left\{\frac{\norm{Ax-b}}{\norm{A}\norm{x}}\le\eps\right\}\ge0.99.
+\end{equation}
+The allowed primitives are exact-real scalar arithmetic, square roots,
+comparisons, and independent standard Gaussian or random-bit draws. Input
+entries are accessible; normalization need not be computed. The metric allows
+perturbations in $A$ only \cite{ie12}.
+
+The cited general-system result has cost
+$O(n^2\log(n/\delta)/\eps)$ for failure probability $\delta$; the corresponding
+PSD result is $O(n^2/\sqrt\eps)$ \cite[Corollaries 17 and 25]{dnr}.
+Our construction addresses the stated operation-count question by exploiting
+entry access and preprocessing. It does not assert dimension-independent
+convergence of a black-box Krylov iteration.
+
+\begin{theorem}[Affirmative answer to IE-12]\label{thm:main}
+There is an explicit randomized algorithm in the stated exact-real model and
+an absolute constant $C$ such that, for every $n\ge1$, every real
+$A\in\R^{n\times n}$ with $\norm{A}=1$, every $b\ne0$, and every
+$0<\eps<1/2$, the algorithm always returns $x\ne0$, uses at most
+$Cn^2\eps^{-3}$ operations and $O(n^2)$ real-scalar storage, and satisfies
+\begin{equation}\label{eq:main}
+ \PP\!\left\{\frac{\norm{Ax-b}}{\norm{x}}\le\frac{5\eps}{8}\right\}>0.997.
+\end{equation}
+Its output also always satisfies $\norm{x}\le8\norm{b}/\eps$.
+The constant is independent of all input data and of conditioning.
+Nonsingularity is not required for this stronger statement.
+\end{theorem}
+
+The matrix-product construction is related to the Mailman method, which saves
+a logarithmic factor for preprocessed constant-alphabet matrices
+\cite{mailman}. Here the rounded matrix has an alphabet that can grow with
+$n$ and $1/\eps$, so applying that result as a constant-alphabet black box
+would not suffice. We instead charge an integer coefficient $a$ a weight
+$1+|a|$, enumerate only patterns of bounded total weight, and process heavy
+entries individually. The resulting estimates are
+\begin{align}
+ W&=O(n^2/\eps),\label{eq:overviewW}\\
+ \text{one product}&=O(n4^k+W/k+n),\label{eq:overviewproduct}\\
+ \text{number of iterations}&=O(k/\eps^2),\label{eq:overviewiter}
+\end{align}
+where $k=\max\{1,\lfloor\log_{16}n\rfloor\}$. Since $k4^k=O(n)$,
+multiplying \eqref{eq:overviewproduct} by \eqref{eq:overviewiter} gives
+$O(n^2/\eps^3)$. Both preprocessing and every table computation are included.
+
+Throughout, vector and matrix norms without a subscript other than $F$ are
+Euclidean and spectral norms, respectively. Transpose is written $\top$.
+Indexed scalar-array reads and writes can be counted at unit cost without
+changing any bound. Equivalently, preprocessing builds a fixed-wiring scalar
+arithmetic circuit for each subsequent product. No floor, logarithm, hashing,
+SVD, or real-number digit-extraction oracle is assumed.
+
+\section{One bounded-cost rounding of the input}
+
+Set
+\begin{equation}\label{eq:parameters}
+ \beta=\norm{b},\qquad c=b/\beta,\qquad
+ \rho=\eta=\eps/8,\qquad h=\frac{\eps}{64\sqrt n}
+      =\frac{\rho}{8\sqrt n}.
+\end{equation}
+For each $t=A_{ij}/h$, let $m=\lfloor t\rfloor$ and $p=t-m$.
+Independently set $Z_{ij}=m+1$ with probability $p$ and $Z_{ij}=m$ otherwise.
+Write $Q=hZ$.
+
+\subsection{Implementation using exactly the permitted primitives}
+
+The floor is not taken as a primitive. Starting with $m=0$, if $t\ge0$,
+increment $m$ until $m+1>t$; if $t<0$, decrement $m$ until $m\le t$.
+This costs $O(1+|t|)$ scalar additions and comparisons and gives the exact floor.
+
+An exact uniform random variable can be obtained in constant cost from three
+independent standard Gaussians. Put
+\begin{equation}\label{eq:uniform}
+ R=\sqrt{G_1^2+G_2^2+G_3^2},\qquad
+ U=\frac{1+G_1/R}{2}\quad(R>0).
+\end{equation}
+If $R=0$, assign $U=1/2$ without retrying. This event has probability zero.
+The normalized Gaussian vector is uniform on the unit sphere in $\R^3$,
+by rotational invariance. A strip whose first coordinate lies in
+$[z,z+dz]$ has area $2\pi\,dz$, whereas the sphere has area $4\pi$.
+Consequently $G_1/R$ is uniform on $[-1,1]$, and $U$ is uniform on $[0,1]$.
+The comparison $U<p$ therefore implements the rounding rule exactly. Independent
+triples are used for distinct entries, and the later starting vector uses fresh
+draws. There is no rejection loop and no expected-time qualification.
+
+\begin{lemma}[Weight, cost, and spectral error]\label{lem:round}
+For every realization of the rounding,
+\begin{equation}\label{eq:weight}
+ W:=\sum_{i,j}(1+|Z_{ij}|)
+ \le (2+64/\eps)n^2\le65n^2/\eps.
+\end{equation}
+The entire rounding costs $O(n^2/\eps)$ operations, including computation of the
+integer parts. Moreover,
+\begin{equation}\label{eq:roundprob}
+ \PP\{\norm{Q-A}>\rho\}
+ \le 2\exp\bigl((2\log 9-32)n\bigr)<10^{-3}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Since $|Z_{ij}|\le |A_{ij}|/h+1$, Cauchy--Schwarz gives
+\[
+ \sum_{i,j}|A_{ij}|\le n\|A\|_F\le n\sqrt n\norm{A}=n^{3/2}.
+\]
+Thus $W\le2n^2+n^{3/2}/h=(2+64/\eps)n^2$. Because $2\eps<1$,
+this implies \eqref{eq:weight}. The comparison-floor costs sum to
+$O(n^2+\sum|A_{ij}|/h)=O(n^2/\eps)$; all other entrywise work is constant
+per entry. These estimates are deterministic.
+
+Let $E=Q-A$. Its entries are independent, centered random variables, each
+supported in an interval of length at most $h$. We include the elementary
+exponential estimate used here. If $Y$ is centered and supported in an interval
+of length $L$, then, for $K(s)=\log\E e^{sY}$, the second derivative is the
+variance under an exponentially tilted distribution. Any variable in such an
+interval has variance at most $L^2/4$: subtract the midpoint and use
+$\operatorname{Var}(Y)\le\E(Y-\mathrm{midpoint})^2$. Hence
+$K''(s)\le L^2/4$ and $K(0)=K'(0)=0$, giving
+\[
+ \E e^{sY}\le e^{s^2L^2/8}.
+\]
+For fixed unit vectors $u,v\in\R^n$, independence and
+$\sum_{ij}u_i^2v_j^2=1$ imply
+\[
+ \E e^{s u^\top Ev}\le e^{s^2h^2/8}.
+\]
+Optimizing the exponential Markov bound in $s$ and applying it to both signs
+therefore yields
+\begin{equation}\label{eq:bilinear}
+ \PP\{|u^\top Ev|>t\}\le2e^{-2t^2/h^2}.
+\end{equation}
+
+There is a $1/4$-net $\mathcal N$ of the unit sphere with
+$|\mathcal N|\le9^n$. Indeed, take a maximal $1/4$-separated set; its disjoint
+radius-$1/8$ balls fit in the radius-$9/8$ ball, so volume comparison proves
+the cardinality bound, and maximality proves the net property. For every
+matrix $E$, approximation of both unit vectors in a maximizing bilinear form
+gives
+\[
+ \norm{E}\le2\max_{u,v\in\mathcal N}|u^\top Ev|.
+\]
+The two approximation errors are each at most $\norm{E}/4$.
+A union bound in \eqref{eq:bilinear}, with $t=\rho/2$, proves
+\[
+ \PP\{\norm{E}>\rho\}
+ \le2\,9^{2n}\exp\!\left(-\frac{\rho^2}{2h^2}\right)
+ =2\exp\bigl((2\log9-32)n\bigr).
+\]
+Since $2\log9<5$, the last quantity is at most $2e^{-27}<10^{-3}$.
+The nets and exponential functions are proof devices, not computations
+performed by the algorithm.
+\end{proof}
+
+\section{Weighted-pattern products with an integer matrix}
+
+We next prove the product construction independently of the random rounding.
+An integer pattern is a finite sequence $s=(a_1,\ldots,a_m)$, with
+\[
+ \omega(s)=\sum_{r=1}^m(1+|a_r|).
+\]
+The empty pattern has weight zero. Let $\mathcal P_k$ be the collection of all
+patterns of weight at most an integer $k\ge1$.
+
+\begin{lemma}[A small catalogue with explicit identifiers]\label{lem:catalogue}
+The catalogue satisfies $|\mathcal P_k|\le4^k$. It can be enumerated, together
+with a distinct identifier for each pattern and the head and tail identifiers
+of every nonempty pattern, in $O(k4^k)$ scalar operations and storage.
+Each given pattern in $\mathcal P_k$ can be encoded in $O(k)$ operations.
+\end{lemma}
+
+\begin{proof}
+Encode an integer coefficient with symbols in $\{0,1,2\}$ as follows:
+$0$ is the single symbol $0$; $+r$ is $r$ copies of $1$ followed by $0$;
+$-r$ is $r$ copies of $2$ followed by $0$. Concatenate the coefficient codes
+and pad the resulting word by symbols $3$ to total length $k$.
+The unpadded length is exactly the weight. Zeros terminate coefficients;
+the first $3$, if present, starts the padding. Thus the encoding is injective.
+There are $4^k$ words of length $k$ over four symbols.
+
+The identifier is the base-four value of the padded word, computed by the
+recurrence $\texttt{code}\leftarrow4\,\texttt{code}+\texttt{symbol}$.
+Leading zeros cause no ambiguity because every padded word has length $k$.
+No bit-packing or digit extraction is used. To enumerate the catalogue,
+recursively append all integers of weight at most the remaining budget.
+There are at most $4^k$ visited patterns, at most $O(k)$ work at each visit,
+and at most $k$ coefficients to store per pattern. Computing the tail code
+afresh costs another $O(k)$ per pattern, still within $O(k4^k)$.
+The power $4^k$ itself is formed by repeated multiplication.
+\end{proof}
+
+\begin{lemma}[Preprocessed integer products]\label{lem:product}
+Let $Z\in\Z^{n\times n}$, let $1\le k\le n$, and put
+$W=\sum_{ij}(1+|Z_{ij}|)$. In $O(W+k4^k)$ preprocessing operations one can
+construct exact product routines for both $Zv$ and $Z^\top v$, valid for
+arbitrary real $v$. Each product costs
+\begin{equation}\label{eq:productcost}
+ O(n4^k+W/k+n)
+\end{equation}
+operations. The storage, including input, descriptors, and a product's
+intermediate table, is $O(n^2+k4^k+n4^k)$ real-scalar words.
+\end{lemma}
+
+\begin{proof}
+\textit{Packing the rows.}
+Give an entry $a$ weight $1+|a|$. If this exceeds $k$, mark it heavy and
+store it as a standalone multiplication. In each contiguous run of remaining
+light entries, greedily pack entries into maximal consecutive bins whose total
+weight is at most $k$. Each bin is a catalogue pattern, recorded by its
+identifier and starting column. Its length is at most $k$.
+
+Let $H$ be the number of heavy entries, and let $W_L,W_H$ be the total light
+and heavy weights. In a light run, any two consecutive bins have combined
+weight greater than $k$: otherwise the first entry of the second bin could
+have been added to the first. Pairing consecutive bins shows that the run has
+at most $2W_{\rm run}/k+1$ bins. There are at most $H+n$ nonempty light runs.
+Since $H\le W_H/k$, the number $S$ of all bins and standalone heavy terms
+satisfies
+\begin{equation}\label{eq:terms}
+ S\le2W_L/k+(H+n)+H\le2W/k+n.
+\end{equation}
+Each term covers at least one original entry, so also $S\le n^2$.
+Scanning costs $O(n^2)$, and encoding a bin costs $O(k)$, including padding.
+Thus the scan and encoding cost is
+$O(n^2+Sk)=O(W+nk)=O(W)$ because $W\ge n^2$ and $k\le n$.
+Heavy coefficients are never expanded in unary.
+
+\textit{All shifted pattern products.}
+For a queried vector $v$, build a table $F(j,s)$ for
+$j=n,n-1,\ldots,1$ and $s\in\mathcal P_k$. Initialize
+$F(n+1,s)=0$ and $F(j,\emptyset)=0$. If $s=(a,s')$ is nonempty, use
+\begin{equation}\label{eq:table}
+ F(j,s)=a v_j+F(j+1,s').
+\end{equation}
+Induction on $j$ proves that $F(j,s)$ is the dot product of $s$ with the
+segment of $v$ starting at $j$, with zero padding beyond $n$.
+In particular it is the exact contribution of a stored bin.
+The head and tail identifiers were computed in preprocessing. Each table
+entry now costs at most one multiplication and one addition, not $O(k)$
+operations. Initializing and filling a direct-address table of
+$(n+1)4^k$ slots costs $O(n4^k)$, including unused slots.
+
+For each row, sum one looked-up value for each bin and one scalar product
+for each heavy term. This costs $O(S+n)$ operations. Together with
+\eqref{eq:terms}, this proves \eqref{eq:productcost}. The table is recomputed
+for every queried vector; its entire cost has just been counted.
+
+Apply the same preprocessing separately to $Z^\top$, using the same
+catalogue. Its weight is also $W$ and transposing costs $O(n^2)$. Two routines
+change the constants only. At most $n^2$ terms are stored per routine; the
+catalogue requires $O(k4^k)$ words, and a table requires $O(n4^k)$ words.
+The two products can reuse table workspace, proving the storage claim.
+\end{proof}
+
+\begin{remark}[Meaning of table access]
+All identifiers are integers constructed by the explicitly charged loops and
+scalar arithmetic. Their range is $0,\ldots,4^k-1$; ordinary indexed storage
+suffices. Alternatively, the identifiers tell a preprocessor which previously
+computed scalar to connect to each output sum. Evaluating the resulting
+straight-line circuit needs only scalar arithmetic. Neither a hash table nor
+a nonuniform advice string about $A$ is required.
+\end{remark}
+
+For $Q=hZ$, multiply a routine's output by $h$, at $O(n)$ additional cost.
+The same statement applies to $Q^\top$.
+
+\section{A condition-independent approximate-kernel filter}
+
+The next lemma deliberately uses a rectangular matrix. Its nontrivial kernel
+is guaranteed by dimension, not by a computed singular vector, a nonsingular
+rounded matrix, or consistency of a rounded linear system.
+
+\begin{lemma}[Fixed-time randomized kernel filtering]\label{lem:kernel}
+Let $B\in\R^{(d-1)\times d}$ satisfy $\norm{B}^2\le4$, and let $\eta>0$.
+Let $\ell$ be the least nonnegative integer with $2^\ell\ge10^9d$.
+Let $T$ be the least nonnegative integer satisfying $T\eta^2\ge4\ell$.
+Draw $g\sim N(0,I_d)$ and compute
+\begin{equation}\label{eq:iteration}
+ z_0=g,\qquad z_{t+1}=z_t-\tfrac14B^\top Bz_t,
+ \qquad 0\le t<T.
+\end{equation}
+With probability greater than $0.998$, $z_T\ne0$ and
+\begin{equation}\label{eq:approxkernel}
+ \norm{Bz_T}\le\eta\norm{z_T}.
+\end{equation}
+No condition number or spectral gap enters $T$.
+\end{lemma}
+
+\begin{proof}
+There exists a unit vector $v\in\ker B$; fix one for analysis only.
+Put $a=|v^\top g|$ and $G=\norm{g}$. A standard Gaussian has density at most
+$1/\sqrt{2\pi}$, so
+\[
+ \PP\{a<10^{-3}\}\le\sqrt{2/\pi}\,10^{-3}<10^{-3}.
+\]
+Also $\E G^2=d$, hence Markov's inequality gives
+$\PP\{G^2>1000d\}\le10^{-3}$. On their intersection, an event of probability
+greater than $0.998$,
+\begin{equation}\label{eq:gaussevent}
+ a\ge10^{-3},\qquad G^2/a^2\le10^9d.
+\end{equation}
+
+Let $H=B^\top B$ and $M=I-H/4$. The eigenvalues $\lambda$ of $H$ lie in
+$[0,4]$, so $M$ is a positive semidefinite contraction and $Mv=v$.
+The iterate is $z_T=M^{\,T}g$, where $T$ denotes an integer power here,
+not transpose. Thus $v^\top z_T=v^\top g$, and
+\begin{equation}\label{eq:nonzero}
+ \norm{z_T}\ge a>0.
+\end{equation}
+Use an orthonormal eigenbasis of $H$, with coordinates $g_j$ and
+$z_{T,j}=(1-\lambda_j/4)^Tg_j$. The coordinates with
+$\lambda_j\le\eta^2/2$ contribute at most
+$\frac12\eta^2\norm{z_T}^2$ to
+$\norm{Bz_T}^2=\sum_j\lambda_j z_{T,j}^2$.
+
+For the remaining coordinates, the inequality $1-s\le e^{-s}$ for
+$0\le s\le1$ gives
+\[
+ \lambda(1-\lambda/4)^{2T}\le\lambda e^{-T\lambda/2}.
+\]
+Because $T\ge4/\eta^2$, the function
+$\lambda\mapsto\lambda e^{-T\lambda/2}$ is decreasing on
+$[\eta^2/2,\infty)$. Consequently the high-eigenvalue contribution is at most
+\begin{equation}\label{eq:highpart}
+ \frac{\eta^2}{2}\,e^{-T\eta^2/4}G^2.
+\end{equation}
+By construction, $\ell\ge\log_2(10^9d)\ge\log(10^9d)$ and
+$T\eta^2/4\ge\ell$. Therefore \eqref{eq:gaussevent} bounds
+\eqref{eq:highpart} by $\eta^2a^2/2$, which is at most
+$\eta^2\norm{z_T}^2/2$ by \eqref{eq:nonzero}. Adding the two parts proves
+\eqref{eq:approxkernel}. This proof also shows why no additional
+$\log(1/\eta)$ factor is needed: the factor $\lambda$ in the residual is
+retained when bounding the high-eigenvalue part.
+\end{proof}
+
+For our application take $d=n+1$ and
+\begin{equation}\label{eq:B}
+ B=[\,Q\;\;-c\,].
+\end{equation}
+On the rounding-success event of Lemma~\ref{lem:round},
+\begin{equation}\label{eq:Bnorm}
+ \norm{Q}\le1+\rho<17/16,\qquad
+ \norm{B}^2\le\norm{Q}^2+\norm{c}^2
+ \le(17/16)^2+1=545/256<4.
+\end{equation}
+For $z_t=(u_t,\alpha_t)$, a step of \eqref{eq:iteration} is exactly
+\begin{equation}\label{eq:implementedstep}
+ \begin{aligned}
+ r_t&=Qu_t-c\alpha_t,\\
+ u_{t+1}&=u_t-\tfrac14Q^\top r_t,\\
+ \alpha_{t+1}&=\alpha_t+\tfrac14c^\top r_t.
+ \end{aligned}
+\end{equation}
+It uses one product with each of $Q,Q^\top$ and $O(n)$ further operations.
+In particular neither $B^\top B$ nor a dense Gram matrix is formed.
+The vector $v$ in the proof is not computed.
+
+\section{Conversion to backward error with \texorpdfstring{$b$}{b} unchanged}
+
+\begin{lemma}[Clamped projective conversion]\label{lem:convert}
+Assume \eqref{eq:parameters}, $\norm{Q-A}\le\rho$, and
+$z=(u,\alpha)\ne0$ satisfies
+\begin{equation}\label{eq:conversionhyp}
+ \norm{Qu-c\alpha}\le\eta\norm{z}.
+\end{equation}
+Then $u\ne0$. Define $\sgnp(\alpha)=1$ for $\alpha\ge0$ and $-1$ otherwise,
+and put
+\begin{equation}\label{eq:clamp}
+ \alpha'=\sgnp(\alpha)\max\{\abs{\alpha},\eta\norm{u}\},
+ \qquad x=\frac{\beta}{\alpha'}u.
+\end{equation}
+This vector is nonzero and satisfies
+\begin{equation}\label{eq:converted}
+ \frac{\norm{Ax-b}}{\norm{x}}\le\rho+4\eta=5\eps/8,
+ \qquad \norm{x}\le\beta/\eta.
+\end{equation}
+In particular the definition remains valid when $\alpha=0$.
+\end{lemma}
+
+\begin{proof}
+If $u=0$, then $\alpha\ne0$ and
+$\norm{Qu-c\alpha}=|\alpha|=\norm{z}$, contradicting $\eta<1$.
+Moreover,
+\[
+ |\alpha|=\norm{c\alpha}
+ \le\norm{Qu}+\norm{Qu-c\alpha}
+ \le(1+\rho)\norm{u}+\eta\norm{z}.
+\]
+Using $\norm{z}\le\norm{u}+|\alpha|$ gives
+\begin{equation}\label{eq:projectiveratio}
+ \frac{\norm{z}}{\norm{u}}
+ \le\frac{2+\rho}{1-\eta}<3,
+\end{equation}
+since $\rho=\eta<1/16$. The clamping rule gives
+$|\alpha'|\ge\eta\norm{u}>0$ and
+$|\alpha'-\alpha|\le\eta\norm{u}$, including when $\alpha=0$.
+Thus $x\ne0$ and $\norm{x}\le\beta/\eta$. Since $b=\beta c$ exactly,
+\begin{align*}
+ \frac{\norm{Ax-b}}{\norm{x}}
+ &=\frac{\norm{Au-c\alpha'}}{\norm{u}}\\
+ &\le\norm{A-Q}
+   +\frac{\norm{Qu-c\alpha}}{\norm{u}}
+   +\frac{|\alpha'-\alpha|}{\norm{u}}\\
+ &\le\rho+\eta\frac{\norm{z}}{\norm{u}}+\eta
+ \le\rho+4\eta.
+\end{align*}
+This establishes the claimed guarantee for the original $A$ and $b$.
+\end{proof}
+
+For completeness, the backward perturbation is fully explicit. Given any
+nonzero output $x$, set
+\begin{equation}\label{eq:rankone}
+ \Delta A=\frac{(b-Ax)x^\top}{\norm{x}^2}.
+\end{equation}
+Then $(A+\Delta A)x=b$ and
+$\norm{\Delta A}=\norm{Ax-b}/\norm{x}$. Conversely,
+$\Delta A x=b-Ax$ implies
+$\norm{\Delta A}\ge\norm{Ax-b}/\norm{x}$, so this is exactly the minimum
+spectral-norm perturbation, not merely an upper bound on a different metric.
+On success, \eqref{eq:converted} and $\norm{A}=1$ give
+$\norm{\Delta A}/\norm{A}\le5\eps/8$. No perturbation of $b$ is needed.
+
+\clearpage
+\section{Complete algorithm and deterministic accounting}
+
+The following is the exact-real algorithm. The shorthand for rounding and
+product preprocessing denotes precisely the loops proved above.
+The iteration count is implemented by a comparison, rather than a ceiling
+primitive.
+
+\begin{lstlisting}[caption={Exact-real solver; all loops have deterministic cost bounds.}]
+Input: entries of A, b; promised ||A||_2 = 1; b != 0; 0 < eps < 1/2
+beta = sqrt(sum_i b[i]^2); c = b / beta
+rho = eta = eps / 8; h = eps / (64 * sqrt(n))
+
+For each entry A[i,j]:
+    t = A[i,j] / h
+    compute m = floor(t) by the comparison/increment loops
+    draw three fresh independent standard Gaussians
+    obtain U from (1 + G1 / sqrt(G1^2 + G2^2 + G3^2)) / 2
+        using U = 1/2 when the square-root denominator is zero
+    Z[i,j] = m + 1 if U < t - m, and m otherwise
+
+k = 1; power = 16
+while 16 * power <= n:
+    power = 16 * power; k = k + 1
+preprocess weighted-pattern products for Z and transpose(Z)
+Q_product(v)  = h * Z_product(v)
+QT_product(v) = h * ZT_product(v)
+
+ell = 0; power = 1
+while power < 10^9 * (n + 1):
+    power = 2 * power; ell = ell + 1
+Draw n + 1 fresh independent standard Gaussians as (u, alpha)
+t = 0
+while t * eta^2 < 4 * ell:
+    r = Q_product(u) - c * alpha
+    u = u - QT_product(r) / 4
+    alpha = alpha + dot(c, r) / 4
+    t = t + 1
+
+s = sqrt(dot(u,u))
+if s == 0: return beta * e_1
+alpha_prime = max(abs(alpha), eta * s)
+if alpha < 0: alpha_prime = -alpha_prime
+return (beta / alpha_prime) * u
+\end{lstlisting}
+
+\subsection{A uniform bound valid even for small \texorpdfstring{$n$}{n}}
+
+\begin{lemma}[Cancellation parameters]\label{lem:budget}
+For the $k,\ell,T$ used in the algorithm,
+\begin{equation}\label{eq:kproperties}
+ 1\le k\le n,\qquad n<16^{k+1},\qquad k4^k\le4n,
+\end{equation}
+\begin{equation}\label{eq:timeproperties}
+ \ell\le4k+35\le39k,\qquad T\le10000\,k/\eps^2.
+\end{equation}
+They can be determined with the permitted arithmetic and comparisons.
+\end{lemma}
+
+\begin{proof}
+For $n\ge16$, $16^k\le n<16^{k+1}$. Since $k\le4^k$ for positive integers,
+$k4^k\le16^k\le n$. For $1\le n<16$, $k=1$ and $k4^k=4\le4n$.
+The remaining assertions in \eqref{eq:kproperties} follow directly.
+Since $10^9<2^{30}$ and $n+1\le2n<2\,16^{k+1}$,
+\[
+ 10^9(n+1)<2^{4k+35},
+\]
+so the least possible $\ell$ is at most $4k+35\le39k$.
+The least $T$ with $T\eta^2\ge4\ell$ obeys
+\[
+ T\le\frac{4\ell}{\eta^2}+1
+ =\frac{256\ell}{\eps^2}+1
+ \le\frac{9984k}{\eps^2}+1
+ \le\frac{10000k}{\eps^2}.
+\]
+Repeated multiplication and comparison implement the $k$ and $\ell$ loops;
+the iteration loop realizes exactly this $T$. Logarithms, floors, and ceilings
+in their mathematical descriptions are not unit-cost operations in the
+algorithm.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+\textit{Correctness and probability.}
+By Lemma~\ref{lem:round}, the rounding-success event
+$\mathcal E=\{\norm{Q-A}\le\rho\}$ has probability greater than $0.999$.
+Conditional on any realized $Q$ in this event, \eqref{eq:Bnorm} holds, and
+the fresh Gaussian start permits application of Lemma~\ref{lem:kernel}.
+With conditional probability greater than $0.998$ the computed vector is
+nonzero and satisfies \eqref{eq:conversionhyp}. Lemma~\ref{lem:convert}
+then gives the claimed $5\eps/8$ error for the original input.
+A union bound bounds the total failure probability by a quantity strictly
+less than $0.001+0.002=0.003$. The conditional argument does not require
+independence of the success events; only the fresh starting draw is needed.
+
+\textit{All realizations are well-defined.}
+The Gaussian-to-uniform construction has an explicit branch at its zero
+denominator. Also $\beta>0$, $h>0$, and no division takes place inside the
+filter except by $4$. If $\norm{u}=0$ at the end, the fallback $\beta e_1$
+is nonzero. Otherwise the clamped denominator is nonzero. Consequently every
+realization, including those outside the success event, returns a nonzero
+vector after the same bounded number of iterations. Clamping gives
+$\norm{x}\le\beta/\eta$; the fallback also satisfies this bound because
+$\eta<1$. There is no condition-number-sensitive stopping rule.
+
+\textit{Operation count.}
+Rounding costs $O(n^2/\eps)$. By Lemma~\ref{lem:product}, both product
+routines cost $O(W+k4^k)$ to preprocess. One filter step costs
+$O(n4^k+W/k+n)$, including both product tables and all updates.
+Normalization, loop setup, and final conversion cost at most $O(n+k+\ell)$
+in addition. The iteration comparison and counter cost $O(T)$ in total and
+are absorbed by the step bound. Therefore the entire cost is at most
+\begin{align}
+ &O(n^2/\eps)+O(W+k4^k)
+   +O\!\left(\frac{k}{\eps^2}
+                  \left(n4^k+\frac Wk+n\right)\right) \notag\\
+ &\hspace{18mm}=O(n^2/\eps)
+   +O\!\left(\frac{kn4^k+W+nk}{\eps^2}\right)
+   =O(n^2/\eps^3).\label{eq:finalcost}
+\end{align}
+The last equality uses $k4^k\le4n$, $k\le n$, and
+$W\le65n^2/\eps$. Every estimate is uniform in all inputs and all random
+outcomes. This proves existence of an absolute operation-count constant $C$
+with $q=3$.
+
+\textit{Storage.}
+The input and two term lists require $O(n^2)$ words.
+By \eqref{eq:kproperties}, $k4^k=O(n)$ and $n4^k=O(n^2)$, so the catalogue
+and reusable product tables fit in $O(n^2)$ words. The vectors, counters,
+and temporary scalars need less space. This proves the storage claim.
+\end{proof}
+
+An optional early exit on
+$\norm{Qu-c\alpha}\le\eta\sqrt{\norm{u}^2+\alpha^2}$ is valid in exact
+arithmetic and does not increase the worst-case cost. It tests the augmented
+residual using a preprocessed product. Recomputing the original dense residual
+$Ax-b$ on every iteration is \emph{not} part of the algorithm; that would
+reintroduce an avoidable logarithmic cost. A single final original-system
+check or construction of \eqref{eq:rankone} costs $O(n^2)$ and is harmless.
+
+\section{Reproducibility and scope}
+
+The accompanying archive contains the mathematical source, a PDF, exact
+component tests, a floating-point solver prototype, reproducible experiments,
+and a separate audit of the model and edge cases. These serve different roles.
+
+\subsection{Exact component checks}
+
+The standard-library test suite uses integers and \texttt{fractions.Fraction}
+for exact checks. All nine test groups pass. They cover injective pattern
+identifiers, all shifted pattern products, exhaustive small greedy packings,
+exact forward and transpose products, comparison-based floors, the uniform
+parameter inequalities, rational diagonal filtering examples, the
+$\alpha=0$ and tiny-$\alpha$ clamping cases, and the error-budget constants.
+The tests include $147$ rational matrix fixtures with both product directions,
+packing budgets $1$ through $6$, and integer dimension boundary checks near
+$16^j$ for $j\le100$. These are implementation checks, not a proof of the
+universal theorem; the proof is Sections 2--6.
+
+\subsection{Floating-point illustrations}
+
+The NumPy prototype is explicitly not a finite-precision theorem. It is tested
+on $15$ fixed-seed systems, including ill-conditioned, nonnormal, and one
+singular inconsistent example. All final original-system checks passed, and
+all reported errors are below $5\eps/8$. Table~\ref{tab:tests} gives selected
+runs; the complete data, seeds, and version metadata are in the archive.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Test family & $n$ & $\eps$ & Steps & $\norm{Ax-b}/\norm{x}$\\
+\midrule
+Diagonal, smallest entry $10^{-250}$ & 4 & 0.25 & 171 & $3.1092\!\times\!10^{-2}$\\
+Small singular-value outlier & 32 & 0.10 & 240 & $1.4401\!\times\!10^{-2}$\\
+Geometric spectrum & 64 & 0.25 & 75 & $4.1896\!\times\!10^{-2}$\\
+Nonnormal bidiagonal & 24 & 0.25 & 424 & $3.1829\!\times\!10^{-2}$\\
+Singular, inconsistent (extension) & 16 & 0.25 & 51 & $4.4016\!\times\!10^{-2}$\\
+\bottomrule
+\end{tabular}
+\caption{Illustrations with augmented-residual early exit. Main experiment
+runs use dense products for convenience; separate same-draw comparisons test
+the compressed implementation. The table is not a speed benchmark.}
+\label{tab:tests}
+\end{table}
+
+The dense and compressed backends were compared end to end on five of the
+same draws, with maximum observed relative output difference below
+$2.0\times10^{-16}$. Separate product comparisons exercise budgets
+$k=2,\ldots,7$, rather than only the small default budgets at modest $n$.
+In $300$ diagnostic rounding trials the largest observed ratio
+$\norm{Q-A}/(\eps/8)$ was approximately $0.1186$. Diagnostic spectral norms
+and matrix-family construction occur outside the proved algorithm.
+None of these finite samples establishes its universal success probability.
+
+The solver prototype uses floating-point Gaussians and arithmetic, and uses a
+Python ceiling for its diagnostic step cap; the paper gives comparison-based
+implementations for every restricted-model operation. An optional NumPy floor
+shortcut, optional dense products, and an optional user-imposed iteration cap
+are clearly marked in the code. A truncated run does not inherit the
+fixed-time theorem. Exact circuit tests require only the Python standard
+library; the numerical experiments require NumPy.
+
+\subsection{What the result does and does not establish}
+
+The answer to the displayed IE-12 cost question is affirmative with an
+explicit exponent $q=3$. The success criterion is precisely $A$-only
+normwise backward error for the original data. No condition-number bound,
+input-distribution assumption, rounded-matrix invertibility, or restriction
+on the direction or magnitude of $b$ is used.
+
+The method still takes $O(\eps^{-2}\log(n+1))$ filter steps. It removes the
+dimension-dependent logarithm from \emph{total arithmetic cost} through
+entry-dependent preprocessing, rather than proving a dimension-free black-box
+iteration rate. Constants are deliberately generous and no optimal exponent
+in $\eps$ is claimed. At modest dimensions the chosen catalogue budget is
+small, so this construction should not be interpreted as a demonstrated
+practical improvement over established solvers.
+
+The theorem counts exact-real scalar operations and real-scalar words.
+It does not bound finite-precision roundoff or the bit lengths of exact
+intermediates. In particular, a small backward error need not imply a small
+forward error for an ill-conditioned input. The explicit perturbation
+\eqref{eq:rankone}, not closeness to $A^{-1}b$, is the certificate.
+The result is presented with a self-contained proof; independent mathematical
+review would be appropriate before treating it as an externally established
+resolution of the repository entry.
+
+\clearpage
+\begin{thebibliography}{9}
+\bibitem{ie12}
+\emph{OpenProblemsInNLA}, IE-12, ``Near-quadratic solution cost at a prescribed
+backward error,'' entry marked last checked 10 September 2026. Website read
+12 September 2026.\\
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-12/README.md}
+
+\bibitem{dnr}
+M. Derezi\'nski, Y. Nakatsukasa, and E. Rebrova,
+\emph{Towards Universal Convergence of Backward Error in Linear System
+Solvers}, arXiv:2604.16075v2, 22 May 2026. In particular, Corollaries 17 and 25
+and Section 7.\\
+\url{https://arxiv.org/html/2604.16075v2}
+
+\bibitem{mailman}
+E. Liberty and S. W. Zucker,
+``The Mailman algorithm: A note on matrix--vector multiplication,''
+\emph{Information Processing Letters} \textbf{109}(3), 179--182 (2009).
+DOI: 10.1016/j.ipl.2008.09.028. Author manuscript: \\
+\url{https://www.cs.yale.edu/homes/el327/papers/mailmanAlgorithm.pdf}
+\end{thebibliography}
+
+\end{document}
