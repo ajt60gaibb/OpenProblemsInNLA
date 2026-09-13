@@ -34,7 +34,7 @@ scattering},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}NM-01}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-13}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -62,33 +62,57 @@ community importance reflects minimum-volume factorization in source
 separation and data analysis.\\
 \textbf{Topic:} structured matrix factorization; global optimization
 
+\subsection{Reviewed partial progress ---
+2026-09-13}\label{reviewed-partial-progress-2026-09-13}
+
+Sidney Holden (Center for Computational Biology, Flatiron Institute,
+Simons Foundation) supplies
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-nm01-round2-2026-09-13/nm01_round2.pdf}{round-two
+partial results}, with
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-nm01-round2-2026-09-13/README.md}{verified
+affiliation and source provenance}.
+
+Theorem 2.3 gives conditional exact factor recovery using an exact
+decision/value oracle on the stronger SSC subclass. Theorems 3.1--3.2
+show weak-SSC diagonal rigidity and a punctured interval of projective
+probes outside the entire original promise. Theorem 4.5 and Corollary
+4.7 give all-degree input-preordering SOS obstructions and exponential
+sizes for standard dense levels. These results neither supply the
+missing oracle nor exclude all polynomial algorithms, general SDPs or
+sparse lifts.
+
+A separate
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-nm01-round2-2026-09-13/independent-review.md}{independent
+informal Codex AI-agent review} checks the stated partial scopes. The
+full rational-input decision problem below remains open; no full
+resolution, external human peer review or formal verification is
+asserted. No Lean verification was performed. The original weaker SSC
+promise and computational model are unchanged.
+
 \subsection{Context and notation}\label{context-and-notation}
 
 For \(H\in\mathbb R_+^{r\times n}\), let
-\(\operatorname{cone}(H)=\{Hy:y\in\mathbb R_+^n\}\) and let \(e_d\) be
-the all-ones vector in \(\mathbb R^d\). Here \textbf{SSC} means the
-precise version in Gillis's Definition 4.15:
+\(\mathop{\mathrm{cone}}\nolimits(H)=\{Hy:y\in\mathbb R_+^n\}\) and let
+\(e_d\) be the all-ones vector in \(\mathbb R^d\). Here \textbf{SSC}
+means the precise version in Gillis's Definition 4.15:
 
-\[
-\mathcal C_r=\{x\in\mathbb R_+^r:
-e_r^Tx\geq\sqrt{r-1}\|x\|_2\}\subseteq\operatorname{cone}(H),
-\]
+\[\mathcal C_r=\{x\in\mathbb R_+^r:
+e_r^Tx\geq\sqrt{r-1}\|x\|_2\}\subseteq\mathop{\mathrm{cone}}\nolimits(H),\]
 
 and every orthogonal \(Q\in\mathbb R^{r\times r}\) satisfying
-\(\operatorname{cone}(H)\subseteq\operatorname{cone}(Q)\) is a
-permutation matrix. Some later sources use a stronger second condition
-involving the boundary of the dual cone; that condition is not
+\(\mathop{\mathrm{cone}}\nolimits(H)\subseteq\mathop{\mathrm{cone}}\nolimits(Q)\)
+is a permutation matrix. Some later sources use a stronger second
+condition involving the boundary of the dual cone; that condition is not
 substituted here.
 
-For \(X\in\mathbb R^{m\times n}\) and \(r=\operatorname{rank}(X)\), the
-minimum-volume problem considered here is
+For \(X\in\mathbb R^{m\times n}\) and
+\(r=\mathop{\mathrm{rank}}\nolimits(X)\), the minimum-volume problem
+considered here is
 
-\[
-\min_{W\in\mathbb R^{m\times r},\ H\in\mathbb R_+^{r\times n}}
+\[\min_{W\in\mathbb R^{m\times r},\ H\in\mathbb R_+^{r\times n}}
 \det(W^TW)
 \quad\text{subject to}\quad
-X=WH,\qquad e_r^TH=e_n^T.\tag{MV}
-\]
+X=WH,\qquad e_r^TH=e_n^T.\tag{MV}\]
 
 In particular, \(W\) is unrestricted in sign and the \textbf{columns} of
 \(H\) sum to one. This is min-vol NMF (1), Definition 4.42 of the book.
@@ -98,14 +122,13 @@ In particular, \(W\) is unrestricted in sign and the \textbf{columns} of
 Consider the following rational-input decision version of minimum-volume
 optimization. The input is \(X\in\mathbb Q^{m\times n}\), an integer
 \(2\leq r\leq\min(m,n)\), and \(\tau\in\mathbb Q_{\geq0}\), with the
-promise that \(\operatorname{rank}(X)=r\) and that there exist real
-factors \(X=W_\star H_\star\) feasible for (MV) with \(H_\star\)
-satisfying SSC. These factors are not supplied. Decide whether
+promise that \(\mathop{\mathrm{rank}}\nolimits(X)=r\) and that there
+exist real factors \(X=W_\star H_\star\) feasible for (MV) with
+\(H_\star\) satisfying SSC. These factors are not supplied. Decide
+whether
 
-\[
-\exists W\in\mathbb R^{m\times r},\ H\in\mathbb R_+^{r\times n}:
-\quad X=WH,\quad e_r^TH=e_n^T,\quad\det(W^TW)\leq\tau.
-\]
+\[\exists W\in\mathbb R^{m\times r},\ H\in\mathbb R_+^{r\times n}:
+\quad X=WH,\quad e_r^TH=e_n^T,\quad\det(W^TW)\leq\tau.\]
 
 Does a polynomial-time algorithm exist, with time measured in the total
 binary input length? Randomization is allowed with success probability

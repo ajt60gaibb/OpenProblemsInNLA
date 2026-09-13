@@ -8,8 +8,16 @@
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because the SSC promise gives identifiability without a known polynomial optimization method; community importance reflects minimum-volume factorization in source separation and data analysis.  
 **Topic:** structured matrix factorization; global optimization  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-13  
 **Status:** Open  
+
+## Reviewed partial progress — 2026-09-13
+
+Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) supplies [round-two partial results](../../references/holden-nm01-round2-2026-09-13/nm01_round2.pdf), with [verified affiliation and source provenance](../../references/holden-nm01-round2-2026-09-13/README.md).
+
+Theorem 2.3 gives conditional exact factor recovery using an exact decision/value oracle on the stronger SSC subclass. Theorems 3.1–3.2 show weak-SSC diagonal rigidity and a punctured interval of projective probes outside the entire original promise. Theorem 4.5 and Corollary 4.7 give all-degree input-preordering SOS obstructions and exponential sizes for standard dense levels. These results neither supply the missing oracle nor exclude all polynomial algorithms, general SDPs or sparse lifts.
+
+A separate [independent informal Codex AI-agent review](../../references/holden-nm01-round2-2026-09-13/independent-review.md) checks the stated partial scopes. The full rational-input decision problem below remains open; no full resolution, external human peer review or formal verification is asserted. No Lean verification was performed. The original weaker SSC promise and computational model are unchanged.
 
 ## Context and notation
 
