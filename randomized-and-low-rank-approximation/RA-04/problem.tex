@@ -34,7 +34,7 @@ approximation},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RA-04}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-13}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ singular-value gaps in randomized block Krylov approximation\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} hard\quad\textbf{Importance:} interesting
 to specialist\par}
-{\sffamily\small\bfseries\color{accent}Status: Open\par}
+{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -59,32 +59,61 @@ to specialist\par}
 refinement of an established Krylov bound; specialist impact reflects
 the source's assessment that its practical gain is limited.
 
+\subsection{Partial results ---
+2026-09-13}\label{partial-results-2026-09-13}
+
+Sidney Holden (Center for Computational Biology, Flatiron Institute,
+Simons Foundation) supplies
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ra04-continuation-2026-09-13/README.md}{further
+partial results and verified affiliation}. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ra04-continuation-2026-09-13/report.md}{report,
+Sections 3--8}, proves narrow-band convergence and exact recovery with
+few distinct lower eigenvalues. A
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ra04-continuation-2026-09-13/verification/independent-review.md}{separate
+AI-agent audit} passes these restricted scopes; imported results retain
+credit. No Lean verification was performed.
+
+\textbf{Remaining:} Arbitrary spectra outside these regimes remain
+unresolved. The general bound retains an extra logarithmic factor; no
+full proof or counterexample is established. The original target and
+open count are preserved.
+
+\subsection{Original problem}\label{original-problem}
+
 Let \(A\in\mathbb R^{n\times d}\) have singular values
 \(\sigma_1\geq\sigma_2\geq\cdots\). Fix integers \(1\leq b\leq k\), set
-\(t=\lceil k/b\rceil\), and set \(k'=bt\leq\operatorname{rank}(A)\).
-Define \[
-\Delta_{k'}^{(b)}=\min_{1\leq i\leq k'-b}
-\frac{\sigma_i^2-\sigma_{i+b}^2}{\sigma_i^2},
-\] with the empty minimum set to one, and suppose this gap is positive.
+\(t=\lceil k/b\rceil\), and set
+\(k'=bt\leq\mathop{\mathrm{rank}}\nolimits(A)\). Define
+
+\[\Delta_{k'}^{(b)}=\min_{1\leq i\leq k'-b}
+\frac{\sigma_i^2-\sigma_{i+b}^2}{\sigma_i^2},\]
+
+with the empty minimum set to one, and suppose this gap is positive.
 Draw \(G\in\mathbb R^{n\times b}\) with independent standard Gaussian
-entries. In exact arithmetic, let \(Z\) be an orthonormal basis of \[
-\operatorname{range}[G,(AA^T)G,\ldots,(AA^T)^{q-1}G],
-\qquad \widehat A=Z[Z^TA]_k,
-\] where \([B]_k\) denotes a best rank-\(k\) approximation obtained by
+entries. In exact arithmetic, let \(Z\) be an orthonormal basis of
+
+\[\mathop{\mathrm{range}}\nolimits[G,(AA^T)G,\ldots,(AA^T)^{q-1}G],
+\qquad \widehat A=Z[Z^TA]_k,\]
+
+where \([B]_k\) denotes a best rank-\(k\) approximation obtained by
 truncating the SVD of \(B\).
 
 Does an absolute constant \(C\) exist such that, for every such input
-and every \(0<\varepsilon,\delta<1/2\), taking \[
-q=\left\lceil C\left[
+and every \(0<\varepsilon,\delta<1/2\), taking
+
+\[q=\left\lceil C\left[
 \frac{t}{\sqrt\varepsilon}\log\frac{2}{\Delta_{k'}^{(b)}}+
 \frac1{\sqrt\varepsilon}\log\frac{n}{\delta\varepsilon}
-\right]\right\rceil
-\] gives, with probability at least \(1-\delta\), both \[
-\|A-\widehat A\|_\xi\leq(1+\varepsilon)\|A-[A]_k\|_\xi
-\quad(\xi=2,F),
-\] and \(|\|A v_i\|_2^2-\sigma_i^2|\leq\varepsilon\sigma_{k+1}^2\) for
-the ordered top \(k\) right singular vectors \(v_i\) of \(\widehat A\)?
-Here \(\sigma_{k+1}=0\) if necessary. The factor two makes the logarithm
+\right]\right\rceil\]
+
+gives, with probability at least \(1-\delta\), both
+
+\[\|A-\widehat A\|_\xi\leq(1+\varepsilon)\|A-[A]_k\|_\xi
+\quad(\xi=2,F),\]
+
+and \(|\|A v_i\|_2^2-\sigma_i^2|\leq\varepsilon\sigma_{k+1}^2\) for the
+ordered top \(k\) right singular vectors \(v_i\) of \(\widehat A\)? Here
+\(\sigma_{k+1}=0\) if necessary. The factor two makes the logarithm
 meaningful at a unit gap.
 
 This is the gap-independent algorithmic component of the authors'
