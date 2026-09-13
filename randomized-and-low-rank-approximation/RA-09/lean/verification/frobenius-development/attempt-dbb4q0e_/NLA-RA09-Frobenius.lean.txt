@@ -1,0 +1,138 @@
+/-
+Copyright (c) 2026 George Stepaniants. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: George Stepaniants
+
+Department of Computing and Mathematical Sciences, California Institute of
+Technology, Pasadena, California, USA. AI-assisted formalization.
+Mathematical transfer theorem: Matthew J. Colbrook.
+
+Actual Frobenius norm and trace bridges for the reviewed RA-09 statements.
+-/
+import NLA.RA09.Definitions
+import LeanCert.Tactic.Verification
+import Mathlib.Tactic.Ring
+import Mathlib.Tactic.Linarith
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open scoped BigOperators Classical MatrixOrder
+open Matrix
+noncomputable section
+namespace NLA.RA09
+
+theorem frobeniusSquared_nonneg {m n : ℕ} (M : Matrix (Fin m) (Fin n) ℝ) :
+    0 ≤ frobeniusSquared M :=
+  Finset.sum_nonneg fun _ _ => Finset.sum_nonneg fun _ _ => sq_nonneg _
+
+theorem frobeniusSquared_trace {m n : ℕ} (M : Matrix (Fin m) (Fin n) ℝ) :
+    frobeniusSquared M = Matrix.trace (M.transpose * M) := by
+  simp only [frobeniusSquared, Matrix.trace, Matrix.diag, Matrix.mul_apply,
+    Matrix.transpose_apply, pow_two]
+  exact Finset.sum_comm
+
+section Norm
+open scoped Matrix.Norms.Frobenius
+
+theorem frobeniusSquared_norm {m n : ℕ} (M : Matrix (Fin m) (Fin n) ℝ) :
+    frobeniusSquared M = frobeniusNorm M ^ 2 := by
+  rw [frobeniusNorm, Matrix.frobenius_norm_def]
+  simp only [Real.rpow_two, Real.norm_eq_abs, sq_abs, ← Real.sqrt_eq_rpow]
+  exact (Real.sq_sqrt (frobeniusSquared_nonneg M)).symm
+
+end Norm
+
+theorem frobeniusSquared_eq_zero {m n : ℕ} (M : Matrix (Fin m) (Fin n) ℝ) :
+    frobeniusSquared M = 0 ↔ M = 0 := by
+  rw [frobeniusSquared_trace]
+  simpa only [Matrix.conjTranspose_eq_transpose_of_trivial] using
+    (Matrix.trace_conjTranspose_mul_self_eq_zero_iff (A := M))
+
+theorem frobenius_semantics_proved {m n : ℕ} (M : Matrix (Fin m) (Fin n) ℝ) :
+    frobeniusSquared M = frobeniusNorm M ^ 2 ∧
+    frobeniusSquared M = ∑ i, ∑ j, |M i j| ^ 2 ∧
+    frobeniusSquared M = Matrix.trace (M.transpose * M) ∧
+    0 ≤ frobeniusSquared M ∧
+    (frobeniusSquared M = 0 ↔ M = 0) := by
+  exact ⟨frobeniusSquared_norm M, by simp only [sq_abs, frobeniusSquared],
+    frobeniusSquared_trace M, frobeniusSquared_nonneg M, frobeniusSquared_eq_zero M⟩
+
+theorem orthogonal_transpose_mul {n : ℕ} (U : Matrix.unitaryGroup (Fin n) ℝ) :
+    (U : RealMatrix n).transpose * (U : RealMatrix n) = 1 := by
+  simpa only [Matrix.star_eq_conjTranspose, Matrix.conjTranspose_eq_transpose_of_trivial] using
+    Matrix.UnitaryGroup.star_mul_self U
+
+theorem orthogonal_mul_transpose {n : ℕ} (U : Matrix.unitaryGroup (Fin n) ℝ) :
+    (U : RealMatrix n) * (U : RealMatrix n).transpose = 1 := by
+  simpa only [Matrix.star_eq_conjTranspose, Matrix.conjTranspose_eq_transpose_of_trivial] using
+    U.2.2
+
+theorem frobeniusSquared_mul_orthogonal_left {m n : ℕ}
+    (M : Matrix (Fin m) (Fin n) ℝ) (U : Matrix.unitaryGroup (Fin m) ℝ) :
+    frobeniusSquared ((U : RealMatrix m) * M) = frobeniusSquared M := by
+  rw [frobeniusSquared_trace, frobeniusSquared_trace]
+  calc
+    _ = Matrix.trace (M.transpose *
+        ((U : RealMatrix m).transpose * (U : RealMatrix m)) * M) := by
+      congr 1
+      simp only [Matrix.transpose_mul, Matrix.mul_assoc]
+    _ = _ := by rw [orthogonal_transpose_mul, Matrix.mul_one]
+
+theorem frobeniusSquared_mul_orthogonal_right {m n : ℕ}
+    (M : Matrix (Fin m) (Fin n) ℝ) (V : Matrix.unitaryGroup (Fin n) ℝ) :
+    frobeniusSquared (M * (V : RealMatrix n)) = frobeniusSquared M := by
+  rw [frobeniusSquared_trace, frobeniusSquared_trace]
+  calc
+    _ = Matrix.trace ((V : RealMatrix n).transpose *
+        (M.transpose * M) * (V : RealMatrix n)) := by
+      congr 1
+      simp only [Matrix.transpose_mul, Matrix.mul_assoc]
+    _ = _ := by
+      rw [Matrix.trace_mul_cycle, orthogonal_mul_transpose, Matrix.mul_one]
+
+theorem frobenius_orthogonal_invariance_proved {m n : ℕ}
+    (M : Matrix (Fin m) (Fin n) ℝ)
+    (U : Matrix.unitaryGroup (Fin m) ℝ) (V : Matrix.unitaryGroup (Fin n) ℝ) :
+    frobeniusSquared
+      ((U : RealMatrix m) * M * (V : RealMatrix n)) = frobeniusSquared M := by
+  rw [frobeniusSquared_mul_orthogonal_right, frobeniusSquared_mul_orthogonal_left]
+
+theorem trace_mul_posSemidef_nonneg {n : ℕ} (X Y : RealMatrix n)
+    (hX : X.PosSemidef) (hY : Y.PosSemidef) : 0 ≤ Matrix.trace (X * Y) := by
+  obtain ⟨S, hS⟩ := CStarAlgebra.nonneg_iff_eq_star_mul_self.mp hX.nonneg
+  rw [hS, Matrix.star_eq_conjTranspose, Matrix.trace_mul_cycle]
+  simpa only [Matrix.mul_assoc] using (hY.mul_mul_conjTranspose_same S).trace_nonneg
+
+theorem frobeniusSquared_sub_identity {n : ℕ} (A B : RealMatrix n)
+    (hB : B.IsHermitian) :
+    frobeniusSquared (A-B) = frobeniusSquared A - frobeniusSquared B -
+      2 * Matrix.trace (B * (A-B)) := by
+  have hBt : B.transpose = B := by
+    simpa only [Matrix.conjTranspose_eq_transpose_of_trivial] using hB.eq
+  simp only [frobeniusSquared_trace, Matrix.transpose_sub, Matrix.sub_mul,
+    Matrix.mul_sub, Matrix.trace_sub, hBt]
+  have hcross : Matrix.trace (A.transpose * B) = Matrix.trace (B * A) := by
+    rw [← Matrix.trace_transpose (A.transpose * B)]
+    simp only [Matrix.transpose_mul, Matrix.transpose_transpose, hBt]
+  rw [hcross]
+  ring
+
+theorem trace_deficit_reduction_proved {n : ℕ} (A B : RealMatrix n)
+    (hA : A.PosSemidef) (hB : B.PosSemidef) (hBA : B ≤ A) :
+    frobeniusSquared (A-B) = frobeniusSquared A - frobeniusSquared B -
+      2 * Matrix.trace (B * (A-B)) ∧
+    0 ≤ Matrix.trace (B * (A-B)) ∧
+    frobeniusSquared (A-B) ≤ frobeniusSquared A - frobeniusSquared B := by
+  have hd : (A-B).PosSemidef := (sub_nonneg.mpr hBA).posSemidef
+  have hi := frobeniusSquared_sub_identity A B hB.isHermitian
+  have hn := trace_mul_posSemidef_nonneg B (A-B) hB hd
+  exact ⟨hi, hn, by linarith⟩
+
+#assert_trust kernel frobenius_semantics_proved
+#assert_trust kernel frobenius_orthogonal_invariance_proved
+#assert_trust kernel trace_deficit_reduction_proved
+#print axioms frobenius_semantics_proved
+#print axioms frobenius_orthogonal_invariance_proved
+#print axioms trace_deficit_reduction_proved
+
+end NLA.RA09

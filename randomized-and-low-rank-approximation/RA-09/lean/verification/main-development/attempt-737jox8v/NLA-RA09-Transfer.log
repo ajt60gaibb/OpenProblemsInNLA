@@ -1,0 +1,52 @@
+/private/tmp/nla-lean-ra09-worktree/randomized-and-low-rank-approximation/RA-09/lean/NLA/RA09/Transfer.lean:85:2: error: Tactic `apply` failed: could not unify the conclusion of `@add_le_add_left`
+  ?b + ?a ≤ ?c + ?a
+with the goal
+  ∑ i, (f (dA.eigenvalues i) ^ 2 - transferScale f τ ^ 2 * dA.eigenvalues i ^ 2) +
+      (∑ x with ↑x < k,
+          (f (dHat.eigenvalues x) ^ 2 - transferScale f τ ^ 2 * dHat.eigenvalues x ^ 2 -
+            2 * f (dHat.eigenvalues x) * ∑ i, overlapWeights dA dHat i x * f (dA.eigenvalues i)) +
+        ∑ x with ↑x < k,
+          2 * transferScale f τ ^ 2 * dHat.eigenvalues x * ∑ i, overlapWeights dA dHat i x * dA.eigenvalues i) ≤
+    ∑ i,
+      (f (dA.eigenvalues i) ^ 2 - transferScale f τ ^ 2 * dA.eigenvalues i ^ 2 + scalarAuxiliary f τ (dA.eigenvalues i))
+
+Note: The full type of `@add_le_add_left` is
+  ∀ {α : Type ?u.93} [inst : Add α] [inst_1 : LE α] [i : AddRightMono α] {b c : α}, b ≤ c → ∀ (a : α), b + a ≤ c + a
+
+n : ℕ
+A Ahat : RealMatrix n
+dA : OrderedSpectralData A
+dHat : OrderedSpectralData Ahat
+horder : Ahat ≤ A
+f : ℝ → ℝ
+hf : AdmissibleFunction f
+τ : ℝ
+hτ : 0 < τ
+hfτ : 0 < f τ
+k : ℕ
+hk : k ≤ n
+hA :
+  frobeniusSquared (A - truncation dHat k) =
+    ∑ i, dA.eigenvalues i ^ 2 + ∑ j with ↑j < k, dHat.eigenvalues j ^ 2 -
+      2 * ∑ j with ↑j < k, dHat.eigenvalues j * ∑ i, overlapWeights dA dHat i j * dA.eigenvalues i
+hF :
+  frobeniusSquared (functionalCalculus f A - functionTruncation dHat f k) =
+    ∑ i, f (dA.eigenvalues i) ^ 2 + ∑ j with ↑j < k, f (dHat.eigenvalues j) ^ 2 -
+      2 * ∑ j with ↑j < k, f (dHat.eigenvalues j) * ∑ i, overlapWeights dA dHat i j * f (dA.eigenvalues i)
+⊢ ∑ i, (f (dA.eigenvalues i) ^ 2 - transferScale f τ ^ 2 * dA.eigenvalues i ^ 2) +
+      (∑ x with ↑x < k,
+          (f (dHat.eigenvalues x) ^ 2 - transferScale f τ ^ 2 * dHat.eigenvalues x ^ 2 -
+            2 * f (dHat.eigenvalues x) * ∑ i, overlapWeights dA dHat i x * f (dA.eigenvalues i)) +
+        ∑ x with ↑x < k,
+          2 * transferScale f τ ^ 2 * dHat.eigenvalues x * ∑ i, overlapWeights dA dHat i x * dA.eigenvalues i) ≤
+    ∑ i,
+      (f (dA.eigenvalues i) ^ 2 - transferScale f τ ^ 2 * dA.eigenvalues i ^ 2 + scalarAuxiliary f τ (dA.eigenvalues i))
+/private/tmp/nla-lean-ra09-worktree/randomized-and-low-rank-approximation/RA-09/lean/NLA/RA09/Transfer.lean:119:21: error: #assert_trust: 'NLA.RA09.function_residual_scale_bound' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-lean-ra09-worktree/randomized-and-low-rank-approximation/RA-09/lean/NLA/RA09/Transfer.lean:120:21: error: #assert_trust: 'NLA.RA09.positive_tail_transfer_proved' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.RA09.selected_column_average' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA09.function_residual_scale_bound' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.RA09.positive_tail_transfer_proved' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

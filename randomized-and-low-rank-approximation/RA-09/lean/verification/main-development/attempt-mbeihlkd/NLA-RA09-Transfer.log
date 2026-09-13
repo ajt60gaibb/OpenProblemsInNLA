@@ -1,0 +1,82 @@
+/private/tmp/nla-lean-ra09-worktree/randomized-and-low-rank-approximation/RA-09/lean/NLA/RA09/Transfer.lean:28:22: error(lean.unknownIdentifier): Unknown identifier `i`
+
+Note: It is not possible to treat `i` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+/private/tmp/nla-lean-ra09-worktree/randomized-and-low-rank-approximation/RA-09/lean/NLA/RA09/Transfer.lean:30:39: error: unsolved goals
+n : ℕ
+a b F G : Fin n → ℝ
+p : Fin n → Fin n → ℝ
+c : ℝ
+S : Finset (Fin n)
+⊢ ∑ x, F x ^ 2 + ∑ x ∈ S, G x ^ 2 - (∑ x ∈ S, G x * ∑ x_1, p x_1 x * F x_1) * 2 - c ^ 2 * ∑ x, a x ^ 2 -
+        c ^ 2 * ∑ x ∈ S, b x ^ 2 +
+      (c ^ 2 * ∑ x ∈ S, b x * ∑ x_1, p x_1 x * a x_1) * 2 =
+    ∑ x, F x ^ 2 + ∑ x ∈ S, G x ^ 2 - (∑ x ∈ S, G x * ∑ x_1, p x_1 x * F x_1) * 2 - c ^ 2 * ∑ x ∈ S, b x ^ 2 +
+        (c ^ 2 * ∑ x ∈ S, b x * ∑ x_1, p x_1 x * a x_1) * 2 -
+      c ^ 2 * a sorry ^ 2
+/private/tmp/nla-lean-ra09-worktree/randomized-and-low-rank-approximation/RA-09/lean/NLA/RA09/Transfer.lean:80:12: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∑ i, ?F i ^ 2 + ∑ j ∈ ?S, ?G j ^ 2 - 2 * ∑ j ∈ ?S, ?G j * ∑ i, ?p i j * ?F i -
+    ?c ^ 2 * (∑ i, ?a i ^ 2 + ∑ j ∈ ?S, ?b j ^ 2 - 2 * ∑ j ∈ ?S, ?b j * ∑ i, ?p i j * ?a i)
+in the target expression
+  ∑ i, f (dA.eigenvalues i) ^ 2 + ∑ j with ↑j < k, f (dHat.eigenvalues j) ^ 2 -
+        2 * ∑ j with ↑j < k, f (dHat.eigenvalues j) * ∑ i, overlapWeights dA dHat i j * f (dA.eigenvalues i) -
+      transferScale f τ ^ 2 *
+        (∑ i, dA.eigenvalues i ^ 2 + ∑ j with ↑j < k, dHat.eigenvalues j ^ 2 -
+          2 * ∑ j with ↑j < k, dHat.eigenvalues j * ∑ i, overlapWeights dA dHat i j * dA.eigenvalues i) ≤
+    ∑ i,
+      (f (dA.eigenvalues i) ^ 2 - transferScale f τ ^ 2 * dA.eigenvalues i ^ 2 + scalarAuxiliary f τ (dA.eigenvalues i))
+
+n : ℕ
+A Ahat : RealMatrix n
+dA : OrderedSpectralData A
+dHat : OrderedSpectralData Ahat
+horder : Ahat ≤ A
+f : ℝ → ℝ
+hf : AdmissibleFunction f
+τ : ℝ
+hτ : 0 < τ
+hfτ : 0 < f τ
+k : ℕ
+hk : k ≤ n
+hA :
+  frobeniusSquared (A - truncation dHat k) =
+    ∑ i, dA.eigenvalues i ^ 2 + ∑ j with ↑j < k, dHat.eigenvalues j ^ 2 -
+      2 * ∑ j with ↑j < k, dHat.eigenvalues j * ∑ i, overlapWeights dA dHat i j * dA.eigenvalues i
+hF :
+  frobeniusSquared (functionalCalculus f A - functionTruncation dHat f k) =
+    ∑ i, f (dA.eigenvalues i) ^ 2 + ∑ j with ↑j < k, f (dHat.eigenvalues j) ^ 2 -
+      2 * ∑ j with ↑j < k, f (dHat.eigenvalues j) * ∑ i, overlapWeights dA dHat i j * f (dA.eigenvalues i)
+⊢ ∑ i, f (dA.eigenvalues i) ^ 2 + ∑ j with ↑j < k, f (dHat.eigenvalues j) ^ 2 -
+        2 * ∑ j with ↑j < k, f (dHat.eigenvalues j) * ∑ i, overlapWeights dA dHat i j * f (dA.eigenvalues i) -
+      transferScale f τ ^ 2 *
+        (∑ i, dA.eigenvalues i ^ 2 + ∑ j with ↑j < k, dHat.eigenvalues j ^ 2 -
+          2 * ∑ j with ↑j < k, dHat.eigenvalues j * ∑ i, overlapWeights dA dHat i j * dA.eigenvalues i) ≤
+    ∑ i,
+      (f (dA.eigenvalues i) ^ 2 - transferScale f τ ^ 2 * dA.eigenvalues i ^ 2 + scalarAuxiliary f τ (dA.eigenvalues i))
+
+Note: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.
+Full error:
+  function expected
+    overlapWeights dA dHat i
+/private/tmp/nla-lean-ra09-worktree/randomized-and-low-rank-approximation/RA-09/lean/NLA/RA09/Transfer.lean:106:37: warning: This simp argument is unused:
+  hfτ
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [hfa, hfb, transferScale, zero_div, functionTail, zero_pow (by decide : 2 ≠ 0), mul_zero, zero_mul,
+    Finset.sum_const_zero, add_zero, sub_zero, le_refl]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/private/tmp/nla-lean-ra09-worktree/randomized-and-low-rank-approximation/RA-09/lean/NLA/RA09/Transfer.lean:116:21: error: #assert_trust: 'NLA.RA09.function_residual_scale_bound' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-lean-ra09-worktree/randomized-and-low-rank-approximation/RA-09/lean/NLA/RA09/Transfer.lean:117:21: error: #assert_trust: 'NLA.RA09.positive_tail_transfer_proved' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.RA09.selected_column_average' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA09.function_residual_scale_bound' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.RA09.positive_tail_transfer_proved' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

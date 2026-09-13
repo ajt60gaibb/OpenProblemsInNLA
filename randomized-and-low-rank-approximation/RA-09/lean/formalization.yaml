@@ -1,0 +1,391 @@
+# yaml-language-server: $schema=../../../docs/lean/schema/v0.4.schema.json
+version: v0.4
+project:
+  name: 'RA-09: concave-function transfer of Frobenius low-rank error'
+  description: Complete affirmative proof of the original universal squared Frobenius transfer statement
+    for ordered real PSD matrices and continuous concave nondecreasing nonnegative half-line functions.
+  authors:
+  - George Stepaniants
+  affiliations:
+    George Stepaniants: Department of Computing and Mathematical Sciences, California Institute of Technology,
+      Pasadena, California, USA
+  responsible_maintainers:
+  - George Stepaniants
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+- title: RA-09 — Concave-function transfer of Frobenius low-rank error
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/5830ed4fb06da0659414a3deb2a40ad327aca052/randomized-and-low-rank-approximation/RA-09/README.md
+  type: web-post
+  location: Complete retained original statement and canonical trace-deficit reduction
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: Every n>=2, 1<=k<n, ordered pair of real symmetric PSD matrices, original half-line function,
+    selected ordered orthonormal eigendecomposition and epsilon>=0. The premise is intentionally the difference
+    of squared Frobenius norms; the original and function truncations share selected eigenvectors.
+- title: Sharp Frobenius error transfer for monotone subhomogeneous matrix functions
+  authors:
+  - Matthew J. Colbrook
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/5830ed4fb06da0659414a3deb2a40ad327aca052/references/colbrook-transfer-2026-09-11/manuscripts/02_frobenius_function_transfer.tex
+  type: manuscript
+  location: Theorem 1.1 and Sections 2–3,5, together with the canonical trace-deficit reduction; SourceCorrespondence.md
+    and PROOF_MAP.md
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: Colbrook retains mathematical authorship. The source proves a stronger ordinary-residual transfer
+    result for a larger monotone-subhomogeneous class. This formalization proves the complete canonical
+    concave-function implication through an internally proved trace-deficit bridge. The source broader
+    function class, unordered factor two, sharpness, complex extension and k=n theorem are outside the
+    seventeen exports.
+- title: Algorithm-agnostic low-rank approximation of operator monotone matrix functions
+  authors:
+  - D. Persson
+  - R. A. Meyer
+  - C. Musco
+  id: https://arxiv.org/abs/2311.14023v2
+  type: preprint
+  location: Table 1 Frobenius/concave/ordered cell, Theorem 2.5, Section 5 and equation (2)
+  relationship: background
+  author_endorsement: not-contacted
+  note: Original question and same-basis truncation convention; no unproved transfer assertion from this
+    source is assumed.
+related_formalizations:
+- id: https://github.com/sgstepaniants/Forsythe/tree/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof
+  relationship: other
+  note: Pinned statement/proof, minimized computation, kernel-trust and Comparator reproduction patterns;
+    no Forsythe mathematical result is assumed.
+- id: https://github.com/jaumededios/Schiffer/tree/2938e277969c329caf154e48a3d8823f3635c7f1
+  relationship: other
+  note: Pinned statement/proof separation example; no Schiffer theorem or implementation is imported.
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: Multiple implementation agents. Two independent reviews of exact frozen definitions, seventeen
+      Challenge signatures and numerical obligations preceded proof work. Two fresh independent final
+      mathematical referees then performed source, type, term, axiom and private-prefix compilation checks.
+    prompting_notes: Preserve the complete canonical trace-deficit premise, actual Frobenius norm, matrix
+      PSD order and CFC, every selected eigenbasis and the original half-line function class including
+      f(0)>0. Prove the unbounded scalar branches by exact algebra and a sum of squares; derive zero support
+      before harmonic division; retain selected zero columns, f(tau)=0 and zero tails. Use actual LeanCert
+      kernel trust checks without artificial interval computation.
+  notes: 'AI-assisted formalization requested by George Stepaniants. Implementation contributors: /root/leancert_examples
+    (statements, spectral/overlap/transfer integration and initial harmonic route), /root (Frobenius,
+    zero-column and zero-tail helpers), /root/formal_review_standards (scalar proof and harmonic completion),
+    with feasibility-route contributor /root/solved_statement_inventory. All are ineligible as independent
+    final mathematical referees. Final referees are /root/ra09_final_referee1 and /root/mf16_final_referee.
+    The latter subsequently prepares these candidate documents, adding no mathematical approval. No external
+    human review, official Tau Ceti or source-author endorsement, or new priority is claimed.'
+status:
+  scope: Complete seventeen-export affirmative proof of the full original real ordered-PSD, concave half-line
+    Frobenius-transfer implication. Two independent statement approvals preceded implementation and two
+    independent final mathematical reports are sealed. The coordinator accepted both final reports; authoritative
+    Ubuntu Comparator/default-kernel/control verification, operational acceptance and publication remain
+    pending. Canonical status remains Solved. Local source checks are macOS and do not promote it to Lean
+    verified.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms:
+  - propext
+  - Classical.choice
+  - Quot.sound
+  main_results:
+  - declaration: NLA.RA09.frobenius_semantics
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.RA09.frobenius_orthogonal_invariance
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.RA09.orderedSpectral_exists
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.RA09.orderedSpectral_semantics
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.RA09.functionalCalculus_spectral
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.RA09.truncation_semantics
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.RA09.trace_deficit_reduction
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.RA09.admissible_scalar_consequences
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.RA09.scalar_branch_certificates
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.RA09.ordered_scalar_certificate
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.RA09.harmonic_constraint
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.RA09.overlap_semantics
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.RA09.overlap_error_expansions
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.RA09.zero_column_average
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.RA09.positive_tail_transfer
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.RA09.zero_tail_closure
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.RA09.concaveFrobeniusTransferConjecture
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+fidelity:
+  divergences: The canonical original target is preserved without extra assumptions. A real extension
+    of the half-line function is used, with proved independence of values below zero. The source residual
+    theorem is connected to the stronger canonical premise by the actual PSD trace identity; no premise
+    is silently substituted. The source negative-discriminant step is replaced by an exact sum of squares,
+    and its pseudoinverse harmonic presentation by an actual diagonal quadratic test with zero-coordinate
+    support proved first. The broader source claims listed above are not advertised as exports.
+review:
+  status: agent-reviewed; Linux-verification-pending
+  reviewers:
+  - 'OpenAI Codex agent /root: independent historical statement referee 1, subsequently a proof contributor
+    and ineligible as an independent final mathematical referee'
+  - 'OpenAI Codex agent /root/formal_review_standards: independent historical statement referee 2, subsequently
+    a proof contributor and ineligible as an independent final mathematical referee'
+  - 'OpenAI Codex agent /root/ra09_final_referee1: independent final mathematical referee 1'
+  - 'OpenAI Codex agent /root/mf16_final_referee: independent final mathematical referee 2, subsequently
+    candidate-document preparer'
+  notes: 'The statement freeze binds 31 project inputs and 17 original source/policy files; the full proof
+    freeze binds 361 and the same 17 originals. Original source base is 5830ed4fb06da0659414a3deb2a40ad327aca052.
+    Author fresh validation passed 18 direct commands and 49 explicit source kernel/standard-three reports.
+    Referee 1 passed 18 commands and 66 reports including 17 inspector reports; referee 2 passed 19 commands
+    and 50 reports including one literal actual-Frobenius-norm/CFC consumer. Both independently matched
+    all seventeen elaborated signatures and checked the actual term/type closure: final target 115 safe
+    project declarations and 40 required material bridges; all exports 139 and 49. Ten clean exact dependencies
+    were reused read-only, no old target objects, cache copies or downloads. All raw attempts remain,
+    including referee 1''s corrected report-count parser and referee 2''s corrected import-order diagnostic;
+    no mathematical changes were required. The known OrderedExistence.lean header word counterexample
+    is a nonblocking copied comment typo for the affirmative transfer theorem and is preserved with the
+    frozen source. Actual Ubuntu, standalone default-kernel replay, Comparator, sandbox/rejection controls
+    and operational acceptance are separate pending gates.'
+  statement_freeze:
+    file: reviews/statement-freeze.json
+    sha256: c144b68990fca06c554790b25bfaef7544c0a8baf532e5b38365fe74ee9c87ed
+  proof_freeze:
+    file: verification/proof-freeze.json
+    sha256: 533f5c328cdaf8c1f23f238f8c71b7b4b2fdabb2f532d58a398d4ab2434ccf7e
+  statement_gate:
+    file: verification/proof-start.json
+    sha256: 1838ba4734f82970700086ef9850cea848ffa7f72b52055e89b94d2a19678b8e
+  statement_reports:
+  - file: reviews/statement-referee-1.md
+    sha256: 9ef11c19d1c0808e55d6ca17f912cdb98366f3d3c31b637167d395716aba348d
+  - file: reviews/statement-referee-2.md
+    sha256: b6a800489763e1766e17fd5029e47c777681ac10c6a0c968a0d57e4c340b2bc1
+  proof_reports:
+  - file: reviews/final-referee-1.md
+    sha256: c967a8a02b5d731fa9c0c940c6c3b022a9881c792ec1c5676b2d1f06aeec8c4f
+  - file: reviews/final-referee-2.md
+    sha256: bfbfd8c1377c149deac4b8784304a7484e1d6156368d0c2cf488ddae47a9dd97
+  proof_report_evidence:
+    reviews/final-referee-1-evidence/EVIDENCE-MANIFEST.json:
+      sha256: bc73a429f86a5124ef8c8da09a8518d3039c73bf75fcd9b4de17dea7fd0a6501
+      bytes: 8471
+    reviews/final-referee-2-evidence/EVIDENCE-MANIFEST.json:
+      sha256: 00c585f102c81748288cc8ba12992839bbb9782d23e744d96994715785079824
+      bytes: 11830
+  coordinator_acceptance:
+    status: accepted
+    file: verification/final-review-acceptance.json
+    sha256: ed2eef518099d23090e21786b626a111d511b32fea12e7193442273e2d980132
+    note: Root accepted the two independent final reports after full report/source-boundary review, complete
+      inventory/source rehashing and actual 66/50 axiom-report checks; this adds no independent mathematical
+      approval.
+  linux_verification:
+    status: pending
+    note: No authoritative RA-09 Ubuntu candidate run or default-kernel/Comparator/control result is claimed.
+      Use the immutable candidate with the repository pinned Linux workflow after coordinator acceptance
+      and independent candidate packaging review.
+  candidate_documents:
+    preparer: /root/mf16_final_referee
+    role: Independent final mathematical referee 2, now document preparer; no additional independent mathematical
+      or packaging approval
+    installation: Root installed these candidate wrappers after the accepted final-review gate; exact
+      historical README and external draft retained. No Lean mathematics or canonical status changed.
+      Independent concrete packaging review and Linux remain pending.
+    frozen_readme_sha256: ca0cd8e9da1abf5e929a528e98a67b13143056ad1b9403c6477093a1d68fbd0c
+    archive_required_on_installation: false
+  standards:
+    tau_ceti: https://github.com/TauCetiProject/TauCetiReview/tree/afb424eda89e8ac96d9eb69f6a88972055a4cd1b/rubrics
+    adaptation: ../../../docs/lean/REVIEW.md
+    formalization_schema: https://github.com/mathlib-initiative/formalization.yaml/blob/99c678e569c7c4c0772db297c5ddd5e4c9b6322e/schema/v0.4.schema.json
+    local_schema: ../../../docs/lean/schema/v0.4.schema.json
+    schema_sha256: 25ff6b25ca4511635aff4443cf20480c15e59dddf19591c730950b442ea54fce
+  historical_readme:
+    file: verification/pre-candidate-README.md
+    sha256: ca0cd8e9da1abf5e929a528e98a67b13143056ad1b9403c6477093a1d68fbd0c
+alignment:
+- declaration: NLA.RA09.frobenius_semantics
+  scope: 'Every rectangular real matrix: entry-square sum equals the actual Mathlib Frobenius norm squared,
+    the absolute-entry sum and trace of the transpose product; nonnegative and zero exactly for the zero
+    matrix.'
+- declaration: NLA.RA09.frobenius_orthogonal_invariance
+  scope: Actual Frobenius squared norm is invariant under independent left and right real orthogonal changes
+    of basis.
+- declaration: NLA.RA09.orderedSpectral_exists
+  scope: Every genuine real PSD matrix has complete decreasing orthonormal spectral data, including zero-dimensional
+    auxiliary matrices.
+- declaration: NLA.RA09.orderedSpectral_semantics
+  scope: Every supplied ordered data object reconstructs the actual PSD matrix and supplies orthonormal
+    eigenvectors; no preferred or simple eigenbasis is required.
+- declaration: NLA.RA09.functionalCalculus_spectral
+  scope: Actual real matrix CFC equals the spectral formula for every selected ordered decomposition and
+    every function; values below zero are irrelevant.
+- declaration: NLA.RA09.truncation_semantics
+  scope: Actual same-basis truncation is PSD and bounded by the matrix, both Frobenius tails equal the
+    exact sums, and ordinary truncation equals the matrix exactly when the discarded eigenvalues vanish.
+- declaration: NLA.RA09.trace_deficit_reduction
+  scope: For real PSD B below A, the exact Frobenius trace identity has nonnegative cross trace and derives
+    residual error at most the difference of squared norms.
+- declaration: NLA.RA09.admissible_scalar_consequences
+  scope: The original half-line function class implies decreasing f(x)/x, nonnegative scaling, both threshold
+    inequalities, the needed Lipschitz bound, and whole-half-line vanishing if f(tau)=0 for positive tau.
+- declaration: NLA.RA09.scalar_branch_certificates
+  scope: The exact quadratic sum of squares is strictly positive on the full unbounded domain d>=1,z>0,
+    with all three closed-branch factor identities and their nonnegative signs.
+- declaration: NLA.RA09.ordered_scalar_certificate
+  scope: The complete ordered scalar inequality follows from the actual admissible function, positive
+    tau,a,b and f(tau)>0; no branch inequality is assumed.
+- declaration: NLA.RA09.harmonic_constraint
+  scope: True diagonal-minus-rank-one PSD order, a nonnegative diagonal and a unit vector give zero-coordinate
+    support and b times the harmonic sum at most one.
+- declaration: NLA.RA09.overlap_semantics
+  scope: Actual squared orthogonal-overlap entries are nonnegative, have unit column sums and bounded
+    selected row sums; Ahat<=A derives all positive-column support and harmonic conditions.
+- declaration: NLA.RA09.overlap_error_expansions
+  scope: Both actual original and function Frobenius errors have the exact overlap expansions, including
+    selected zero eigenvalues with positive f(0).
+- declaration: NLA.RA09.zero_column_average
+  scope: Nonnegative normalized weights and the actual half-line function class bound the full selected-zero-column
+    f(0) contribution; the threshold may be any real number.
+- declaration: NLA.RA09.positive_tail_transfer
+  scope: At a positive actual first discarded eigenvalue, the full ordered excess inequality and scaled-tail
+    inequality hold; f(tau)=0 is proved separately within the theorem.
+- declaration: NLA.RA09.zero_tail_closure
+  scope: Under the original trace-deficit premise and a zero first discarded eigenvalue, A equals Ahat_k
+    and Ahat, and both actual function errors equal (n-k)f(0)^2 for arbitrary selected null-space bases.
+- declaration: NLA.RA09.concaveFrobeniusTransferConjecture
+  scope: Unconditional affirmative proof of the full original real ordered-PSD concave Frobenius-transfer
+    implication, with its difference-of-squared-norms premise, every allowed basis and every nonnegative
+    epsilon.
+acknowledgements: Matthew J. Colbrook for the mathematical theorem and proof; Persson, Meyer and Musco
+  for the original question. Mathlib and LeanCert contributors for actual Frobenius norm, trace, PSD order,
+  spectral theorem, CFC, scalar algebra and trust APIs. The selected-basis CFC construction credits Jon
+  Bannon and Jireh Loreaux and the locally adapted RA-08 pattern. Shared checker, exporter and sandbox
+  tools retain their licenses and attribution.
