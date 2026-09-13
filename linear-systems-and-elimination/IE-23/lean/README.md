@@ -1,6 +1,6 @@
-# IE-23 - complete Lean proof, Linux verification pending
+# IE-23 - Lean verified
 
-**The complete original induced-norm uniqueness conjecture has a proved negative answer in Lean, with all eight reviewed exports.** Two independent statement approvals, including the exact additive Comparator supplement, preceded implementation. Two independent final proof reviewers approved the completed source after their own fresh elaboration and actual-term audits. Actual Linux sandboxed Comparator/default-kernel verification, its controls and independent operational audit are still pending. The canonical entry remains **Solved**.
+**The complete original induced-norm uniqueness conjecture has a proved negative answer in Lean, with all eight reviewed exports.** Two independent statement approvals, including the exact additive Comparator supplement, preceded implementation. Two independent final proof reviewers approved the completed source after their own fresh elaboration and actual-term audits. Actual [Ubuntu run 34725525250](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34725525250) verified all eight exports at immutable revision `a40e5608f61dd4086708cb2e03901ffd01e4c0a9`, with default-kernel replay and both real control suites. The proof author's operational inspection was separately accepted by the coordinator. The canonical entry is **Lean verified**.
 
 Formalization: **George Stepaniants**, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, with AI-agent assistance. **Matthew J. Colbrook** retains credit for the mathematical resolution. **Dokmanić and Gribonval** retain attribution for the underlying rational matrix in their Example 4.1. No new mathematical priority or source-author endorsement is claimed. The implementing agent `/root/leancert_examples` is neither independent final referee; the coordinator `/root` served as independent statement and final proof referee 2.
 
@@ -40,7 +40,7 @@ The source's all-p formulas, full minimizer classifications, higher-dimensional 
 
 All sixteen internal/public `#assert_trust kernel` commands and transitive axiom reports allow exactly `propext`, `Classical.choice` and `Quot.sound`. The completed solution has no admission, custom axiom or native execution trust. The eight deliberate Challenge placeholders remain isolated and are never imported by Solution. [Comparator](comparator.json) selects every public export, with no definition exceptions and only the standard three axioms.
 
-The project pins Lean **4.33.1**, Mathlib `0df444a360eaa60ab8c11dca51a86af692955474` and LeanCert `621a43d7cf21f87872392a01e874f2f1dbddc926`; [lake-manifest.json](lake-manifest.json) pins all ten dependencies. The [actual v0.4 manifest](formalization.yaml) records scope, attribution, automation, reviews and the pending Linux gate.
+The project pins Lean **4.33.1**, Mathlib `0df444a360eaa60ab8c11dca51a86af692955474` and LeanCert `621a43d7cf21f87872392a01e874f2f1dbddc926`; [lake-manifest.json](lake-manifest.json) pins all ten dependencies. The [actual v0.4 manifest](formalization.yaml) records scope, attribution, automation, reviews and the successful Linux verification.
 
 ## What ran and how to reproduce
 
@@ -56,7 +56,7 @@ lake build Solution
 
 The deliberately frozen default is Challenge; plain `lake build` therefore checks statements. The retained author and referee runners record the exact local source/pin/object paths used in their private-prefix checks. Their integrity assertions bind the historical README and evidence at that phase. Reproducing those historical runners requires an isolated copy of those frozen inputs and their recorded local paths; they are not generic commands to rerun over refreshed publication wrappers. The normal proof command above and the shared Linux workflow below apply to the current candidate.
 
-After the candidate has an immutable Git revision, use the [shared workflow](../../../docs/lean/README.md) on a correctly configured [non-root Linux host](../../../tools/lean/HARNESS.md). From the repository root:
+For the exact executed source, check out [immutable revision a40e560](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/a40e5608f61dd4086708cb2e03901ffd01e4c0a9/linear-systems-and-elimination/IE-23/lean). Use the [shared workflow](../../../docs/lean/README.md) on a correctly configured [non-root Linux host](../../../tools/lean/HARNESS.md). From the repository root:
 
 ```
 tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
@@ -65,6 +65,16 @@ tools/lean/verify.sh \
   linear-systems-and-elimination/IE-23/lean \
   /absolute/path/to/nla-lean-tools
 ```
+
+## Actual Ubuntu execution and accepted evidence
+
+[Run 34725525250](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34725525250) completed successfully at `a40e5608f61dd4086708cb2e03901ffd01e4c0a9`. The [project receipt](verification/linux-2026-09-12/artifacts/lean-IE-23/verify-20260912T233011Z-4151/result.json) binds the exact 190-file Git input tree and all eight exports. The genuine Comparator matched both environments with no definition exceptions and replayed the solution in Lean's default kernel. All sixteen internal/public axiom reports contain the standard three axioms. The eight intentional Challenge placeholders remain isolated.
+
+The harness took a fresh committed-source snapshot and cloned all ten dependencies at their pinned revisions. It reused **8690 official Mathlib cache files**; this was not a full dependency-source rebuild. The recorded 2384/2394 Challenge/Solution job counts are graph sizes. Seven project mathematical modules and Solution were freshly elaborated. The shared checker/exporter and Landrun binaries were built from the pinned tool sources. Both the standalone and project jobs exercised real non-root build/export isolation, kernel regressions, Comparator mismatches and the additional admitted/native-proof rejections. Nested Bubblewrap was denied UID-map creation before any inner write; no broader claim is inferred.
+
+The [operational report](verification/linux-2026-09-12/OPERATIONAL-REVIEW.md) and [330-file manifest](verification/linux-2026-09-12/EVIDENCE-MANIFEST.json) retain both original GitHub artifact ZIPs, metadata, complete run-log ZIP, source snapshots, checker pins and unmodified logs; the outer manifest is the 331st file and all nested manifests are included. The original project ZIP digest is `bc1fceb8cc81b8c3f7a4c938b3208fc2727fa4f3895dd4c70f5ec3e01f480271`; the control ZIP digest is `f8908adc9b1840cf4d8b9350aa904e8adf160d1d58f696be831cae3d2d191978`.
+
+**Operational inspector `/root/leancert_examples` authored the proof.** The coordinator `/root`, independent of that author and previously final mathematical referee 2, separately [accepted the actual evidence](verification/root-operational-2026-09-12/ROOT-CHECKS.json). The [root evidence manifest](verification/root-operational-2026-09-12/EVIDENCE-MANIFEST.json) binds that acceptance. Publication preparer `/root/solved_statement_inventory` previously served as independent mathematical referee 1. None of these packaging or operational roles is an additional mathematical review. No new proof build or Linux run is claimed for the refreshed publication wrappers.
 
 ## Independent reviews and historical records
 
@@ -77,6 +87,6 @@ tools/lean/verify.sh \
 
 The referees apply the [pinned Tau Ceti adaptation](../../../docs/lean/REVIEW.md), including original-target fidelity, actual definitions and hypotheses, proof quality, library reuse, API, documentation and attribution. These are independent AI-agent reviews, not external human peer review or official Tau Ceti endorsement. Schiffer and Forsythe are credited as campaign organization/tooling examples; no mathematical result from those projects is assumed.
 
-All statement-stage documents are historical records of 12 September 2026. [NUMERICAL_TARGETS.md](NUMERICAL_TARGETS.md), [SOURCE_CORRESPONDENCE.md](SOURCE_CORRESPONDENCE.md), [PROOF_MAP.md](PROOF_MAP.md), earlier handoffs and referee reports preserve their original phase-specific wording. Their pending-work statements are superseded only by the dated later evidence described here. The exact original README is archived at [README.statement.md](verification/linux-candidate-2026-09-12/README.statement.md). Only this README changes among the 104 proof-freeze inputs; all other 103 inputs, all eight original sources/snapshots, both final review evidence sets and the exact configuration supplement are unchanged. The new formalization manifest and candidate preservation evidence are additive.
+All statement-stage documents remain historical records of 12 September 2026. [NUMERICAL_TARGETS.md](NUMERICAL_TARGETS.md), [SOURCE_CORRESPONDENCE.md](SOURCE_CORRESPONDENCE.md), [PROOF_MAP.md](PROOF_MAP.md), earlier handoffs and referee reports preserve their original phase-specific wording. Their pending-work statements are superseded by the dated evidence above. The original statement README is retained at [README.statement.md](verification/linux-candidate-2026-09-12/README.statement.md). All other 103 proof-freeze inputs and all eight original source snapshots are unchanged.
 
-Actual Linux default-kernel/Comparator execution and controls, an independent operational audit, and publication review remain required before canonical promotion. No project-specific Linux success, immutable submitted proof revision, or Lean-verified canonical status is claimed yet.
+Publication changes only this README and the current formalization manifest among the 190 submitted inputs; all other **188 inputs**, all **331 Linux evidence files** and the complete coordinator acceptance evidence remain byte-identical. The exact prior [README](verification/publication-2026-09-12/archive/README.linux-candidate.md) and [manifest](verification/publication-2026-09-12/archive/formalization.linux-candidate.yaml) are archived. Original targets, source manuscripts, pins, code, all eight exports, reviews and the additive configuration supplement are preserved. The successful run remains bound to the immutable candidate revision; the publication handoff separately records wrapper, catalog and rendered-document checks.

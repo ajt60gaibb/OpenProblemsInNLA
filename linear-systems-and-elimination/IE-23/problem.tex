@@ -34,7 +34,7 @@ norm},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-23}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ of the right inverse minimizing an induced p-to-2 norm\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} hard\quad\textbf{Importance:} interesting
 to specialist\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -60,7 +60,7 @@ to specialist\par}
 
 \textbf{Negative resolution.} Theorem 1 gives a \(2\times3\)
 full-row-rank matrix with distinct norm-minimizing right inverses for
-every \(2<p<\infty\) over both fields. Their common induced norm is
+every \(2< p<\infty\) over both fields. Their common induced norm is
 \(2^{1/2-1/p}\). Sections 3-4 identify the complete minimizer sets,
 including a complex higher-dimensional family. The smallest matrix is
 attributed to Dokmanic and Gribonval\textquotesingle s spectral-norm
@@ -75,9 +75,9 @@ manuscript},
 proof review}, and
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-recovered-2026-09-11/README.md}{submission
 record}. The supplied notes were reconstructed with substantial AI
-assistance. This is independent agent verification, not external human
-peer review or formal proof-assistant certification; no novelty or
-priority claim is made.
+assistance. That original review was informal; the later Lean
+verification of the canonical negative answer is documented below.
+External human peer review, novelty and priority are not claimed.
 
 The difficulty, importance and rating rationale below are historical
 assessments of the original open target. Original statements, references
@@ -87,26 +87,121 @@ and dated audits are preserved.
 for a known norm minimizer; specialist impact is the characterization of
 generalized inverses under induced norms.
 
+\subsection{Lean proof and verification evidence -
+2026-09-12}\label{lean-proof-and-verification-evidence---2026-09-12}
+
+\textbf{The complete original uniqueness conjecture is Lean verified,
+with a negative answer.} The
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/tree/a40e5608f61dd4086708cb2e03901ffd01e4c0a9/linear-systems-and-elimination/IE-23/lean}{proof
+at revision a40e560} uses the unchanged rational \(2\times3\) example at
+\(p=4\). Two distinct right inverses attain the same actual induced norm
+\(\sqrt{\sqrt{2}}\) and are global minimizers over \textbf{every complex
+right inverse}. The formalization proves genuine matrix rank and inverse
+identities, real-power and Euclidean-norm bounds, and the actual
+supremum over all nonzero complex inputs. The generic norm semantics
+cover every original dimension and finite real \(p>2\); no additional
+boundedness or minimality premise is assumed.
+
+\textbf{Lean formalization:} George Stepaniants, Department of Computing
+and Mathematical Sciences, California Institute of Technology, Pasadena,
+California, USA, with AI-agent assistance. \textbf{Matthew J. Colbrook}
+retains mathematical authorship of the resolution; \textbf{Ivan Dokmanić
+and Rémi Gribonval} retain credit for the underlying example and
+original uniqueness question.
+
+The eight
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/blob/a40e5608f61dd4086708cb2e03901ffd01e4c0a9/linear-systems-and-elimination/IE-23/lean/Solution.lean}{checked
+exports}, each with prefix \textit{NLA.IE23.}, are:
+
+\begin{itemize}
+\tightlist
+\item
+  \textit{inducedNorm\_semantics}: actual nonzero-input supremum and
+  all-input norm inequality.
+\item
+  \textit{witness\_matrix\_identities}: full row rank, true inverse,
+  both right inverses and distinctness.
+\item
+  \textit{fourth\_power\_norm\_control}: exact real-power identities and
+  universal complex-vector bound.
+\item
+  \textit{witness\_action\_identities}: actual actions and the bound for
+  every right-inverse competitor.
+\item
+  \textit{witness\_attainment}: a genuine nonzero vector attains both
+  norm ratios.
+\item
+  \textit{witness\_norms}: both actual suprema equal the positive fourth
+  root of two.
+\item
+  \textit{witness\_global\_minimizers}: both matrices globally minimize
+  the entire feasible norm set.
+\item
+  \textit{not\_rightInverseUniqueConjecture}: the full original
+  universal assertion is false.
+\end{itemize}
+
+Two independent agents approved the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-23/lean/reviews}{statements
+and completed proof}.
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34725525250}{Ubuntu
+run 34725525250} matched all eight declarations with the sandboxed
+Comparator and replayed the solution in Lean's default kernel. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-23/lean/verification/linux-2026-09-12}{original
+artifacts and operational audit} bind all 190 submitted inputs and both
+actual isolation/rejection-control suites. All 16
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-23/lean/verification/linux-2026-09-12/axiom-verification.json}{internal/public
+axiom reports} use exactly \textit{propext}, \textit{Classical.choice}
+and \textit{Quot.sound}. The proof author performed the operational
+inspection; the coordinator, independently of that author,
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-23/lean/verification/root-operational-2026-09-12/ROOT-CHECKS.json}{accepted
+the actual evidence}. These operational roles are separate from the two
+mathematical referees. External human peer review is not claimed.
+
+The pins are \textbf{Lean 4.33.1},
+\href{https://github.com/alerad/leancert/tree/621a43d7cf21f87872392a01e874f2f1dbddc926}{LeanCert
+621a43d} and
+\href{https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474}{Mathlib
+0df444a}. LeanCert audits the kernel trust of this pure exact proof;
+there is \textbf{no numerical interval certificate}. The \(p=4\)
+sum-of-squares argument avoids approximate norm calculations and
+interval subdivision. The source's stronger all-\(p\) formulas, complete
+minimizer classifications and higher-dimensional families retain their
+manuscript and informal-review scope; the eight exports give the
+complete original negative answer. See the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-23/lean/README.md}{project
+guide},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-23/lean/formalization.yaml}{manifest}
+and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-23/lean/lake-manifest.json}{dependency
+pins}. From the immutable verified revision on a documented
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tools/lean/HARNESS.md}{non-root
+Linux host}, reproduce with:
+
+\begin{verbatim}
+tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
+tools/lean/verify.sh \
+  linear-systems-and-elimination/IE-23/lean \
+  /absolute/path/to/nla-lean-tools
+\end{verbatim}
+
 \subsection{Problem statement}\label{problem-statement}
 
-Let \(1\le m<n\), let \(A\in\mathbb C^{m\times n}\) have rank \(m\), and
-let \(2<p<\infty\). For \(X\in\mathbb C^{n\times m}\) define the induced
-norm
+Let \(1\le m< n\), let \(A\in\mathbb C^{m\times n}\) have rank \(m\),
+and let \(2< p<\infty\). For \(X\in\mathbb C^{n\times m}\) define the
+induced norm
 
-\[
-\|X\|_{p\to2}=\sup_{y\in\mathbb C^m\setminus\{0\}}
-\frac{\|Xy\|_2}{\bigl(\sum_{i=1}^m|y_i|^p\bigr)^{1/p}}.
-\]
+\[\|X\|_{p\to2}=\sup_{y\in\mathbb C^m\setminus\{0\}}
+\frac{\|Xy\|_2}{\bigl(\sum_{i=1}^m|y_i|^p\bigr)^{1/p}}.\]
 
 The Moore--Penrose inverse \(A^\dagger=A^*(AA^*)^{-1}\) minimizes this
 norm among the right inverses \(X\) satisfying \(AX=I_m\). Is it always
 the unique minimizer? Equivalently, must
 
-\[
-AX=I_m,\quad X\ne A^\dagger
+\[AX=I_m,\quad X\ne A^\dagger
 \quad\Longrightarrow\quad
-\|X\|_{p\to2}>\|A^\dagger\|_{p\to2}
-\]
+\|X\|_{p\to2}>\|A^\dagger\|_{p\to2}\]
 
 hold for every such \(A,p,X\)?
 
@@ -159,7 +254,7 @@ The
 \href{https://dokmanic.ece.illinois.edu/assets/pdf/DokmanicG17aa.pdf}{author
 copy of Part I}, Corollary 4.2(3) and Remark 4.1 on printed p.~18,
 explicitly separates minimality from the remaining uniqueness question
-for \(2<p<\infty\). Searches for later induced-\(p\)-to-2 uniqueness
+for \(2< p<\infty\). Searches for later induced-\(p\)-to-2 uniqueness
 results found no resolution; Part II's sparse-inverse objectives do not
 supply this missing assertion.
 \end{document}
