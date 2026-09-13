@@ -1,0 +1,36 @@
+{
+  "result": "PASS",
+  "signatures": {
+    "word_semantics": ": SymmetricWord witnessWord \u2227 witnessWord.length = 16 \u2227 witnessWord.count Letter.X = 14 \u2227 witnessWord.count Letter.B = 2 \u2227 (\u2200 X B : ComplexMatrix, evalWord witnessWord X B = X * B * X^12 * B * X) \u2227 (\u2200 X B : RealMatrix, evalWord witnessWord X B = X * B * X^12 * B * X)",
+    "source_data": ": witnessB.PosDef \u2227 witnessP.PosDef \u2227 witnessX0.PosDef \u2227 evalWord witnessWord witnessX0 witnessB = witnessP \u2227 realB.det = 1 \u2227 realX0.det = 3 \u2227 realP.det = 3^14",
+    "twelfth_power_reduction": "(v : Fin 3 \u2192 \u211d) (hdet : (symmetricMatrix v).det = 3) : (symmetricMatrix v)^12 = linearCoefficient (Matrix.trace (symmetricMatrix v)) \u2022 symmetricMatrix v - identityCoefficient (Matrix.trace (symmetricMatrix v)) \u2022 (1 : RealMatrix)",
+    "polynomial_word_equivalence": "(v : Fin 3 \u2192 \u211d) : SystemZero polynomialSystem v \u2194 (symmetricMatrix v).det = 3 \u2227 (evalWord witnessWord (symmetricMatrix v) realB) 0 0 = realP 0 0 \u2227 (evalWord witnessWord (symmetricMatrix v) realB) 0 1 = realP 0 1",
+    "krawczyk_certificate": ": krawczykCheck polynomialSystem rootBox rootCertificate {} = true \u2227 rootCertificate.preconditioner.det = (790668616748253/62500000000000000000000000000 : \u211a) \u2227 boxRadius rootBox rootCenter = rootRadius \u2227 contractionBound < 27/1000",
+    "certified_root": ": \u2203! v : Fin 3 \u2192 \u211d, FinBoxMem v rootBox \u2227 SystemZero polynomialSystem v",
+    "root_to_matrix": "(v : Fin 3 \u2192 \u211d) (hv : FinBoxMem v rootBox) (hz : SystemZero polynomialSystem v) : 3 < v 0 \u2227 (complexify (symmetricMatrix v)).PosDef \u2227 evalWord witnessWord (complexify (symmetricMatrix v)) witnessB = witnessP \u2227 complexify (symmetricMatrix v) \u2260 witnessX0",
+    "counterexample": ": SymmetricWord witnessWord \u2227 witnessB.PosDef \u2227 witnessP.PosDef \u2227 witnessX0.PosDef \u2227 evalWord witnessWord witnessX0 witnessB = witnessP \u2227 \u2203 X : ComplexMatrix, X.PosDef \u2227 evalWord witnessWord X witnessB = witnessP \u2227 X \u2260 witnessX0",
+    "not_wordUniquenessConjecture": ": \u00ac WordUniquenessConjecture"
+  },
+  "comparator_configuration": {
+    "challenge_module": "Challenge",
+    "solution_module": "Solution",
+    "theorem_names": [
+      "NLA.MF16.word_semantics",
+      "NLA.MF16.source_data",
+      "NLA.MF16.twelfth_power_reduction",
+      "NLA.MF16.polynomial_word_equivalence",
+      "NLA.MF16.krawczyk_certificate",
+      "NLA.MF16.certified_root",
+      "NLA.MF16.root_to_matrix",
+      "NLA.MF16.counterexample",
+      "NLA.MF16.not_wordUniquenessConjecture"
+    ],
+    "definition_names": [],
+    "permitted_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "scope": "Normalized source headers and fresh elaboration, not actual Comparator execution"
+}

@@ -1,0 +1,220 @@
+def NLA.MF16.WordUniquenessConjecture : Prop :=
+∀ (w : List NLA.MF16.Letter),
+  NLA.MF16.SymmetricWord w →
+    ∀ (B P : NLA.MF16.ComplexMatrix),
+      @Matrix.PosDef (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex Complex.instRing
+          Complex.partialOrder Complex.instStarRing B →
+        @Matrix.PosDef (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex Complex.instRing
+            Complex.partialOrder Complex.instStarRing P →
+          @ExistsUnique NLA.MF16.ComplexMatrix fun (X : NLA.MF16.ComplexMatrix) =>
+            And
+              (@Matrix.PosDef (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex Complex.instRing
+                Complex.partialOrder Complex.instStarRing X)
+              (@Eq
+                (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                  (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Complex)
+                (@NLA.MF16.evalWord Complex Complex.instSemiring w X B) P)
+def NLA.MF16.evalWord.{u_1} : {R : Type u_1} →
+  [Semiring R] →
+    (w : List NLA.MF16.Letter) →
+      (X B :
+          Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+            (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) R) →
+        Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+          (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) R :=
+fun {R : Type u_1} [inst : Semiring R] (w : List NLA.MF16.Letter)
+    (X B :
+      Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+        (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) R) =>
+  @List.prod
+    (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) R)
+    (@Matrix.instMulOfFintypeOfAddCommMonoid (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) R
+      (Fin.fintype (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@Distrib.toMul R (@instDistribOfSemiring R inst)) (@Semiring.toAddCommMonoid R inst))
+    (@Matrix.one (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) R
+      (instDecidableEqFin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@MulZeroClass.toZero R (@instMulZeroClassOfSemiring R inst))
+      (@AddMonoidWithOne.toOne R
+        (@AddCommMonoidWithOne.toAddMonoidWithOne R
+          (@NonAssocSemiring.toAddCommMonoidWithOne R (@Semiring.toNonAssocSemiring R inst)))))
+    (@List.map NLA.MF16.Letter
+      (Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+        (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) R)
+      (fun (letter : NLA.MF16.Letter) =>
+        NLA.MF16.instReprLetter.repr.match_1
+          (fun (letter : NLA.MF16.Letter) =>
+            Matrix (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+              (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) R)
+          letter (fun (_ : Unit) => X) fun (_ : Unit) => B)
+      w)
+def NLA.MF16.complexify : (A : NLA.MF16.RealMatrix) → NLA.MF16.ComplexMatrix :=
+fun (A : NLA.MF16.RealMatrix) =>
+  @Matrix.map (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+    (Fin (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Real Complex A Complex.ofReal
+def Matrix.PosDef.{u_2, u_3} : {n : Type u_2} →
+  {R : Type u_3} →
+    [inst : Ring R] →
+      [PartialOrder R] →
+        [@StarRing R
+              (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring R
+                (@NonAssocRing.toNonUnitalNonAssocRing R (@Ring.toNonAssocRing R inst)))] →
+          (M : Matrix n n R) → Prop :=
+fun {n : Type u_2} {R : Type u_3} [inst : Ring R] [inst_1 : PartialOrder R]
+    [inst_2 :
+      @StarRing R
+        (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring R
+          (@NonAssocRing.toNonUnitalNonAssocRing R (@Ring.toNonAssocRing R inst)))]
+    (M : Matrix n n R) =>
+  And
+    (@Matrix.IsHermitian R n
+      (@InvolutiveStar.toStar R
+        (@StarAddMonoid.toInvolutiveStar R
+          (@AddCommMonoid.toAddMonoid R
+            (@NonUnitalNonAssocSemiring.toAddCommMonoid R
+              (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring R
+                (@NonAssocRing.toNonUnitalNonAssocRing R (@Ring.toNonAssocRing R inst)))))
+          (@StarRing.toStarAddMonoid R
+            (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring R
+              (@NonAssocRing.toNonUnitalNonAssocRing R (@Ring.toNonAssocRing R inst)))
+            inst_2)))
+      M)
+    (∀ ⦃x : @Finsupp n R (@MulZeroClass.toZero R (@instMulZeroClassOfSemiring R (@Ring.toSemiring R inst)))⦄,
+      @Ne (@Finsupp n R (@MulZeroClass.toZero R (@instMulZeroClassOfSemiring R (@Ring.toSemiring R inst)))) x
+          (@OfNat.ofNat
+            (@Finsupp n R (@MulZeroClass.toZero R (@instMulZeroClassOfSemiring R (@Ring.toSemiring R inst))))
+            (nat_lit 0)
+            (@Zero.toOfNat0
+              (@Finsupp n R (@MulZeroClass.toZero R (@instMulZeroClassOfSemiring R (@Ring.toSemiring R inst))))
+              (@Finsupp.instZero n R
+                (@MulZeroClass.toZero R (@instMulZeroClassOfSemiring R (@Ring.toSemiring R inst)))))) →
+        @LT.lt R (@Preorder.toLT R (@PartialOrder.toPreorder R inst_1))
+          (@OfNat.ofNat R (nat_lit 0)
+            (@Zero.toOfNat0 R (@MulZeroClass.toZero R (@instMulZeroClassOfSemiring R (@Ring.toSemiring R inst)))))
+          (@Finsupp.sum n R R (@MulZeroClass.toZero R (@instMulZeroClassOfSemiring R (@Ring.toSemiring R inst)))
+            (@Semiring.toAddCommMonoid R (@Ring.toSemiring R inst)) x fun (i : n) (xi : R) =>
+            @Finsupp.sum n R R (@MulZeroClass.toZero R (@instMulZeroClassOfSemiring R (@Ring.toSemiring R inst)))
+              (@Semiring.toAddCommMonoid R (@Ring.toSemiring R inst)) x fun (j : n) (xj : R) =>
+              @HMul.hMul R R R (@instHMul R (@Distrib.toMul R (@instDistribOfSemiring R (@Ring.toSemiring R inst))))
+                (@HMul.hMul R R R (@instHMul R (@Distrib.toMul R (@instDistribOfSemiring R (@Ring.toSemiring R inst))))
+                  (@Star.star R
+                    (@InvolutiveStar.toStar R
+                      (@StarAddMonoid.toInvolutiveStar R
+                        (@AddCommMonoid.toAddMonoid R
+                          (@NonUnitalNonAssocSemiring.toAddCommMonoid R
+                            (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring R
+                              (@NonAssocRing.toNonUnitalNonAssocRing R (@Ring.toNonAssocRing R inst)))))
+                        (@StarRing.toStarAddMonoid R
+                          (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring R
+                            (@NonAssocRing.toNonUnitalNonAssocRing R (@Ring.toNonAssocRing R inst)))
+                          inst_2)))
+                    xi)
+                  (M i j))
+                xj))
+def NLA.MF16.SymmetricWord : List Letter → Prop :=
+fun w => w = w.reverse ∧ Letter.X ∈ w
+def NLA.MF16.symmetricMatrix : (Fin 3 → ℝ) → RealMatrix :=
+fun v => !![v 0, v 1; v 1, v 2]
+def NLA.MF16.linearCoefficient : ℝ → ℝ :=
+fun s =>
+  have t := s * s;
+  s * (t * (t * (t * (t * (t - 30) + 324) - 1512) + 2835) - 1458)
+def NLA.MF16.identityCoefficient : ℝ → ℝ :=
+fun s =>
+  have t := s * s;
+  3 * (t * (t * (t * (t * (t - 27) + 252) - 945) + 1215) - 243)
+def NLA.MF16.rootBox : Fin 3 → IntervalRat :=
+![{ lo := 17471725033 / 5000000000, hi := 17471726033 / 5000000000, le := rootBox._proof_1 },
+  { lo := -413106501 / 1250000000, hi := -413106251 / 1250000000, le := rootBox._proof_2 },
+  { lo := 2224465499 / 2500000000, hi := 2224465999 / 2500000000, le := rootBox._proof_3 }]
+def NLA.MF16.rootCertificate : KrawczykCert 3 :=
+{ center := rootCenter,
+  preconditioner :=
+    !![17591641083 / 500000000, 20183 / 10000000000, -17029 / 10000000000;
+      -11575092327 / 500000000, -2477 / 2000000000, 10667 / 10000000000;
+      -21469001731 / 5000000000, -2797 / 10000000000, 2319 / 10000000000] }
+def LeanCert.Engine.SystemZero : {n : ℕ} → (Fin n → Expr) → (Fin n → ℝ) → Prop :=
+fun {n} F x => ∀ (i : Fin n), evalFin (F i) x = 0
+def LeanCert.Engine.FinBoxMem : {n : ℕ} → (Fin n → ℝ) → (Fin n → IntervalRat) → Prop :=
+fun {n} x X => ∀ (i : Fin n), x i ∈ X i
+def LeanCert.Engine.krawczykCheck : {n : ℕ} →
+  (Fin n → Expr) → (Fin n → IntervalRat) → KrawczykCert n → optParam EvalConfig { } → Bool :=
+fun {n} F X cert cfg =>
+  decide (∀ (i : Fin n), (F i).checkADSupported = true) && decide (centerInside X cert.center) &&
+        decide (cert.preconditioner.det ≠ 0) &&
+      decide (intervalMatrixBound (preconditionedJacobian cert.preconditioner (intervalJacobian F X cfg)) < 1) &&
+    decide
+      (∀ (i : Fin n),
+        intervalStrictInside (newtonImageEnclosure F X cert.center cert.preconditioner cfg i) (X i) = true)
+LeanCert.Engine.krawczykCheck_sound {n : ℕ} (F : Fin n → Expr) (X : Fin n → IntervalRat) (cert : KrawczykCert n)
+  (cfg : EvalConfig) (hcheck : krawczykCheck F X cert cfg = true) : ∃! x, FinBoxMem x X ∧ SystemZero F x
+LeanCert.Engine.jacobianAt_mem_intervalJacobian {n : ℕ} (F : Fin n → Expr) (h : ∀ (i : Fin n), ADSupported (F i))
+  (X : Fin n → IntervalRat) (x : Fin n → ℝ) (hx : FinBoxMem x X) (cfg : EvalConfig) (i j : Fin n) :
+  jacobianAt F x i j ∈ intervalJacobian F X cfg i j
+LeanCert.Engine.contraction_unique_fixedPoint_in_finBox {n : ℕ} (X : Fin n → IntervalRat) (m : Fin n → ℝ)
+  (hm : FinBoxMem m X) (g : (Fin n → ℝ) → Fin n → ℝ) (hmap : Set.MapsTo g (finBoxSet X) (finBoxSet X)) (q : ℝ)
+  (hq0 : 0 ≤ q) (hq1 : q < 1) (hdiff : ∀ x ∈ finBoxSet X, DifferentiableAt ℝ g x)
+  (hderiv : ∀ x ∈ finBoxSet X, ‖fderiv ℝ g x‖ ≤ q) : ∃! x, FinBoxMem x X ∧ g x = x
+Matrix.aeval_self_charpoly.{u_1, u_4} {R : Type u_1} [CommRing R] {n : Type u_4} [DecidableEq n] [Fintype n]
+  (M : Matrix n n R) : (Polynomial.aeval M) M.charpoly = 0
+Matrix.posDef_iff_dotProduct_mulVec.{u_2, u_3} {n : Type u_2} {R : Type u_3} [Ring R] [PartialOrder R] [StarRing R]
+  [Fintype n] {M : Matrix n n R} : M.PosDef ↔ M.IsHermitian ∧ ∀ ⦃x : n → R⦄, x ≠ 0 → 0 < star x ⬝ᵥ M.mulVec x
+NLA.MF16.word_semantics :
+  SymmetricWord witnessWord ∧
+    witnessWord.length = 16 ∧
+      List.count Letter.X witnessWord = 14 ∧
+        List.count Letter.B witnessWord = 2 ∧
+          (∀ (X B : ComplexMatrix), evalWord witnessWord X B = X * B * X ^ 12 * B * X) ∧
+            ∀ (X B : RealMatrix), evalWord witnessWord X B = X * B * X ^ 12 * B * X
+NLA.MF16.source_data :
+  Matrix.PosDef witnessB ∧
+    Matrix.PosDef witnessP ∧
+      Matrix.PosDef witnessX0 ∧
+        evalWord witnessWord witnessX0 witnessB = witnessP ∧
+          Matrix.det realB = 1 ∧ Matrix.det realX0 = 3 ∧ Matrix.det realP = 3 ^ 14
+NLA.MF16.twelfth_power_reduction (v : Fin 3 → ℝ) (hdet : Matrix.det (symmetricMatrix v) = 3) :
+  symmetricMatrix v ^ 12 =
+    linearCoefficient (Matrix.trace (symmetricMatrix v)) • symmetricMatrix v -
+      identityCoefficient (Matrix.trace (symmetricMatrix v)) • 1
+NLA.MF16.polynomial_word_equivalence (v : Fin 3 → ℝ) :
+  SystemZero polynomialSystem v ↔
+    Matrix.det (symmetricMatrix v) = 3 ∧
+      evalWord witnessWord (symmetricMatrix v) realB 0 0 = realP 0 0 ∧
+        evalWord witnessWord (symmetricMatrix v) realB 0 1 = realP 0 1
+NLA.MF16.krawczyk_certificate :
+  krawczykCheck polynomialSystem rootBox rootCertificate = true ∧
+    rootCertificate.preconditioner.det = 790668616748253 / 62500000000000000000000000000 ∧
+      boxRadius rootBox rootCenter = rootRadius ∧ contractionBound < 27 / 1000
+NLA.MF16.certified_root : ∃! v, FinBoxMem v rootBox ∧ SystemZero polynomialSystem v
+NLA.MF16.root_to_matrix (v : Fin 3 → ℝ) (hv : FinBoxMem v rootBox) (hz : SystemZero polynomialSystem v) :
+  3 < v 0 ∧
+    Matrix.PosDef (complexify (symmetricMatrix v)) ∧
+      evalWord witnessWord (complexify (symmetricMatrix v)) witnessB = witnessP ∧
+        complexify (symmetricMatrix v) ≠ witnessX0
+NLA.MF16.counterexample :
+  SymmetricWord witnessWord ∧
+    Matrix.PosDef witnessB ∧
+      Matrix.PosDef witnessP ∧
+        Matrix.PosDef witnessX0 ∧
+          evalWord witnessWord witnessX0 witnessB = witnessP ∧
+            ∃ X, Matrix.PosDef X ∧ evalWord witnessWord X witnessB = witnessP ∧ X ≠ witnessX0
+NLA.MF16.not_wordUniquenessConjecture : ¬WordUniquenessConjecture
+AST=a,a,m,v:0,v:2,n,m,v:1,v:1,n,c:3/1|a,a,m,m,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,a,v:0,v:2,a,v:0,v:2,n,c:30/1,c:324/1,n,c:1512/1,c:2835/1,n,c:1458/1,a,a,m,v:0,m,a,v:0,m,c:4/1,v:1,a,v:0,m,c:4/1,v:1,m,c:2/1,m,v:1,m,a,v:0,m,c:4/1,v:1,a,m,c:4/1,v:0,m,c:17/1,v:1,m,v:2,m,a,m,c:4/1,v:0,m,c:17/1,v:1,a,m,c:4/1,v:0,m,c:17/1,v:1,n,m,m,c:3/1,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,a,v:0,v:2,a,v:0,v:2,n,c:27/1,c:252/1,n,c:945/1,c:1215/1,n,c:243/1,a,m,a,v:0,m,c:4/1,v:1,a,v:0,m,c:4/1,v:1,m,a,m,c:4/1,v:0,m,c:17/1,v:1,a,m,c:4/1,v:0,m,c:17/1,v:1,n,c:4783113/1|a,a,m,m,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,a,v:0,v:2,a,v:0,v:2,n,c:30/1,c:324/1,n,c:1512/1,c:2835/1,n,c:1458/1,a,a,m,v:0,m,a,v:0,m,c:4/1,v:1,a,v:1,m,c:4/1,v:2,m,v:1,a,m,a,v:0,m,c:4/1,v:1,a,m,c:4/1,v:1,m,c:17/1,v:2,m,a,m,c:4/1,v:0,m,c:17/1,v:1,a,v:1,m,c:4/1,v:2,m,v:2,m,a,m,c:4/1,v:0,m,c:17/1,v:1,a,m,c:4/1,v:1,m,c:17/1,v:2,n,m,m,c:3/1,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,m,a,v:0,v:2,a,v:0,v:2,a,m,a,v:0,v:2,a,v:0,v:2,n,c:27/1,c:252/1,n,c:945/1,c:1215/1,n,c:243/1,a,m,a,v:0,m,c:4/1,v:1,a,v:1,m,c:4/1,v:2,m,a,m,c:4/1,v:0,m,c:17/1,v:1,a,m,c:4/1,v:1,m,c:17/1,v:2,n,c:6377496/1
+CENTER=17471725533/5000000000,-51638297/156250000,2224465749/2500000000
+BOX=17471725033/5000000000,17471726033/5000000000,-413106501/1250000000,-413106251/1250000000,2224465499/2500000000,2224465999/2500000000
+C=17591641083/500000000,20183/10000000000,-17029/10000000000,-11575092327/500000000,-2477/2000000000,10667/10000000000,-21469001731/5000000000,-2797/10000000000,2319/10000000000
+Q=16136719048657446264292376630014198783161012628051241371023265487923433258054678902636589697838834393684657499890804855306124868438119/610351562500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+DET=790668616748253/62500000000000000000000000000
+RADIUS=1/10000000
+CHECK=true
+BOUND=true
+'LeanCert.Engine.krawczykCheck_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MF16.WordUniquenessConjecture' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MF16.SymmetricWord' does not depend on any axioms
+'NLA.MF16.evalWord' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MF16.symmetricMatrix' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MF16.complexify' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MF16.polynomialSystem' depends on axioms: [propext, Quot.sound]
+'NLA.MF16.rootBox' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MF16.rootCertificate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.MF16.contractionBound' depends on axioms: [propext, Classical.choice, Quot.sound]

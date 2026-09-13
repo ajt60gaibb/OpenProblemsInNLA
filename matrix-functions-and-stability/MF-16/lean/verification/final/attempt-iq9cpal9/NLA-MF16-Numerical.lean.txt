@@ -1,0 +1,53 @@
+/-
+Copyright (c) 2026 George Stepaniants. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: George Stepaniants
+
+Department of Computing and Mathematical Sciences, California Institute of
+Technology, Pasadena, California, USA. AI-assisted formalization.
+Mathematical counterexample: Matthew J. Colbrook. The single rational
+three-variable certificate is the reviewed formalization adaptation.
+-/
+import NLA.MF16.Definitions
+import LeanCert.Tactic.Verification
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+set_option maxHeartbeats 0
+set_option maxRecDepth 32768
+
+namespace NLA.MF16
+open LeanCert.Core LeanCert.Engine
+
+/-- The actual full Krawczyk Boolean, checked by kernel reduction. -/
+theorem actual_krawczyk_checked :
+    krawczykCheck polynomialSystem rootBox rootCertificate {} = true := by
+  decide +kernel
+
+theorem preconditioner_det_exact :
+    rootCertificate.preconditioner.det =
+      (790668616748253/62500000000000000000000000000 : ℚ) := by
+  decide +kernel
+
+theorem box_radius_exact : boxRadius rootBox rootCenter = rootRadius := by
+  decide +kernel
+
+theorem contraction_bound_small : contractionBound < 27/1000 := by
+  decide +kernel
+
+theorem certified_root_proved :
+    ∃! v : Fin 3 → ℝ, FinBoxMem v rootBox ∧ SystemZero polynomialSystem v :=
+  krawczykCheck_sound polynomialSystem rootBox rootCertificate {} actual_krawczyk_checked
+
+#assert_trust kernel actual_krawczyk_checked
+#assert_trust kernel preconditioner_det_exact
+#assert_trust kernel box_radius_exact
+#assert_trust kernel contraction_bound_small
+#assert_trust kernel certified_root_proved
+#print axioms actual_krawczyk_checked
+#print axioms preconditioner_det_exact
+#print axioms box_radius_exact
+#print axioms contraction_bound_small
+#print axioms certified_root_proved
+
+end NLA.MF16
