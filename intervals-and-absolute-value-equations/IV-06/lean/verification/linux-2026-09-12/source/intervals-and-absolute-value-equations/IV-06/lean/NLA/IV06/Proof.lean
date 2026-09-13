@@ -1,0 +1,212 @@
+/-
+Copyright (c) 2026 George Stepaniants. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: George Stepaniants
+
+Colbrook's exact interval-matrix counterexample. Formalization: Department of
+Computing and Mathematical Sciences, California Institute of Technology,
+Pasadena, California, USA. AI-assisted formalization.
+-/
+import NLA.IV06.Definitions
+import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
+import Mathlib.Tactic.FinCases
+import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.NormNum
+import Mathlib.Tactic.Ring
+import LeanCert.Tactic.IntervalAuto.PointIneq
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+noncomputable section
+
+namespace NLA.IV06
+
+/-- No nonempty-index assumption is needed, including for the empty matrix. -/
+theorem eigenvalue_determinant_semantics_proved (n : ℕ) (A : RealMatrix n) (lam : ℝ) :
+    HasRealEigenvalue A lam ↔ characteristicDet A lam = 0 := by
+  unfold HasRealEigenvalue characteristicDet
+  rw [← Matrix.exists_mulVec_eq_zero_iff]
+  constructor
+  · rintro ⟨v, hv, h⟩
+    exact ⟨v, hv, by simp [Matrix.sub_mulVec, Matrix.smul_mulVec, h]⟩
+  · rintro ⟨v, hv, h⟩
+    refine ⟨v, hv, ?_⟩
+    have heq : lam • v = A.mulVec v := by
+      simpa only [Matrix.sub_mulVec, Matrix.smul_mulVec, Matrix.one_mulVec,
+        sub_eq_zero] using h
+    exact heq.symm
+
+/-- The two non-singleton entries describe the entire independent-entry box. -/
+theorem interval_family_iff (A : RealMatrix 3) :
+    InIntervalFamily lower upper A ↔
+      ∃ a b : ℝ, a ∈ Set.Icc (-166) (-16) ∧ b ∈ Set.Icc 9 159 ∧ A = family a b := by
+  constructor
+  · rintro ⟨hL, hU⟩
+    refine ⟨A 0 1, A 0 2, ?_, ?_, ?_⟩
+    · exact ⟨by simpa [lower, family] using hL 0 1,
+        by simpa [upper, family] using hU 0 1⟩
+    · exact ⟨by simpa [lower, family] using hL 0 2,
+        by simpa [upper, family] using hU 0 2⟩
+    · ext i j
+      have hl := hL i j
+      have hu := hU i j
+      fin_cases i <;> fin_cases j <;>
+        norm_num [lower, upper, family] at hl hu ⊢ <;> first | rfl | linarith
+  · rintro ⟨a, b, ha, hb, rfl⟩
+    constructor <;> intro i j <;> fin_cases i <;> fin_cases j <;>
+      norm_num [lower, upper, family] <;> linarith [ha.1, ha.2, hb.1, hb.2]
+
+/-- Exact determinant polynomial, with all three variables unrestricted. -/
+theorem family_characteristicDet (a b lam : ℝ) :
+    characteristicDet (family a b) lam =
+      (lam - 25) * (lam ^ 2 - 1) - a * (lam - 1) - b * (lam + 1) := by
+  norm_num [characteristicDet, family, Matrix.det_fin_three, Matrix.cons_val_two,
+    Matrix.one_apply, Fin.ext_iff]
+  ring
+
+theorem family_and_determinant_semantics_proved :
+    EntrywiseLE lower upper ∧
+    (∀ A : RealMatrix 3, InIntervalFamily lower upper A ↔
+      ∃ a b : ℝ, a ∈ Set.Icc (-166) (-16) ∧ b ∈ Set.Icc 9 159 ∧ A = family a b) ∧
+    (∀ a b lam : ℝ, characteristicDet (family a b) lam =
+      (lam - 25) * (lam ^ 2 - 1) - a * (lam - 1) - b * (lam + 1)) := by
+  refine ⟨?_, interval_family_iff, family_characteristicDet⟩
+  intro i j
+  fin_cases i <;> fin_cases j <;> norm_num [lower, upper, family]
+
+theorem witness_eigenpairs_proved (i : Fin 4) :
+    InIntervalFamily lower upper (family (includedA i) (includedB i)) ∧
+    includedVector i ≠ 0 ∧
+    (family (includedA i) (includedB i)).mulVec (includedVector i) =
+      includedValue i • includedVector i ∧
+    includedValue i ∈ realEigenvalueSet lower upper := by
+  have hmem : InIntervalFamily lower upper (family (includedA i) (includedB i)) := by
+    apply (interval_family_iff _).mpr
+    refine ⟨includedA i, includedB i, ?_, ?_, rfl⟩ <;>
+      fin_cases i <;> norm_num [includedA, includedB]
+  have hne : includedVector i ≠ 0 := by
+    intro h
+    have h0 := congr_fun h 0
+    fin_cases i <;> norm_num [includedVector] at h0
+  have heq : (family (includedA i) (includedB i)).mulVec (includedVector i) =
+      includedValue i • includedVector i := by
+    ext k
+    fin_cases i <;> fin_cases k <;>
+      norm_num [family, includedA, includedB, includedVector, includedValue,
+        Matrix.mulVec, dotProduct, Fin.sum_univ_succ]
+  exact ⟨hmem, hne, heq, _, hmem, _, hne, heq⟩
+
+/-- The weakest of the three actual strict upper margins. The kernel certificate
+is used by every separator exclusion and hence by the final component count. -/
+theorem numerical_separator_margin : (-18 : ℝ) < 0 := by
+  interval_decide (trust := kernel)
+
+theorem witness_separators_proved :
+    (∀ A : RealMatrix 3, InIntervalFamily lower upper A → ∀ j : Fin 3,
+      determinantLower j ≤ characteristicDet A (separator j) ∧
+      characteristicDet A (separator j) ≤ determinantUpper j) ∧
+    (∀ j : Fin 3, determinantUpper j < 0) ∧
+    (∀ j : Fin 3, separator j ∉ realEigenvalueSet lower upper) := by
+  have hbounds : ∀ A : RealMatrix 3, InIntervalFamily lower upper A → ∀ j : Fin 3,
+      determinantLower j ≤ characteristicDet A (separator j) ∧
+      characteristicDet A (separator j) ≤ determinantUpper j := by
+    intro A hA j
+    rcases (interval_family_iff A).mp hA with ⟨a, b, ha, hb, rfl⟩
+    rw [family_characteristicDet]
+    fin_cases j <;> norm_num [separator, determinantLower, determinantUpper] <;>
+      constructor <;> linarith [ha.1, ha.2, hb.1, hb.2]
+  have hnegative : ∀ j : Fin 3, determinantUpper j < 0 := by
+    intro j
+    have hle : determinantUpper j ≤ (-18 : ℝ) := by
+      fin_cases j <;> norm_num [determinantUpper]
+    exact hle.trans_lt numerical_separator_margin
+  refine ⟨hbounds, hnegative, ?_⟩
+  intro j hmem
+  rcases hmem with ⟨A, hA, heig⟩
+  exact (ne_of_lt ((hbounds A hA j).2.trans_lt (hnegative j)))
+    ((eigenvalue_determinant_semantics_proved 3 A (separator j)).mp heig)
+
+/-- Use the actual preconnected component in the real subtype, then its continuous
+inclusion into the real line. No finiteness or closedness hypothesis is used. -/
+theorem connected_component_intervals_proved (S : Set ℝ) (x y : S)
+    (h : ConnectedComponents.mk x = ConnectedComponents.mk y) :
+    Set.Icc (x : ℝ) (y : ℝ) ⊆ S := by
+  have hx : x ∈ connectedComponent y := ConnectedComponents.coe_eq_coe'.mp h
+  have hpre : IsPreconnected ((Subtype.val : S → ℝ) '' connectedComponent y) :=
+    isPreconnected_connectedComponent.image _ continuous_subtype_val.continuousOn
+  have hleft : (x : ℝ) ∈ (Subtype.val : S → ℝ) '' connectedComponent y := ⟨x, hx, rfl⟩
+  have hright : (y : ℝ) ∈ (Subtype.val : S → ℝ) '' connectedComponent y :=
+    ⟨y, mem_connectedComponent, rfl⟩
+  intro z hz
+  rcases hpre.Icc_subset hleft hright hz with ⟨u, _, rfl⟩
+  exact u.property
+
+/-- A finite exact ordering check supplies a separator between every ordered pair. -/
+theorem ordered_pair_separator (i j : Fin 4) (hij : i < j) :
+    ∃ k : Fin 3, includedValue i ≤ separator k ∧ separator k ≤ includedValue j := by
+  fin_cases i
+  · refine ⟨0, by norm_num [includedValue, separator], ?_⟩
+    fin_cases j <;> norm_num [Fin.lt_def] at hij <;>
+      norm_num [includedValue, separator]
+  · refine ⟨1, by norm_num [includedValue, separator], ?_⟩
+    fin_cases j <;> norm_num [Fin.lt_def] at hij <;>
+      norm_num [includedValue, separator]
+  · refine ⟨2, by norm_num [includedValue, separator, Matrix.cons_val_two], ?_⟩
+    fin_cases j <;> norm_num [Fin.lt_def] at hij
+    norm_num [includedValue, separator, Matrix.cons_val_two]
+  · fin_cases j <;> norm_num [Fin.lt_def] at hij
+
+theorem four_components_proved :
+    (∃ f : Fin 4 → realEigenvalueSet lower upper,
+      (∀ i, (f i : ℝ) = includedValue i) ∧
+      Function.Injective (fun i => ConnectedComponents.mk (f i))) ∧
+    (4 : Cardinal) ≤ componentCard (realEigenvalueSet lower upper) := by
+  let f : Fin 4 → realEigenvalueSet lower upper :=
+    fun i => ⟨includedValue i, (witness_eigenpairs_proved i).2.2.2⟩
+  have hsep : ∀ i j : Fin 4, i < j →
+      ConnectedComponents.mk (f i) ≠ ConnectedComponents.mk (f j) := by
+    intro i j hij h
+    rcases ordered_pair_separator i j hij with ⟨k, hki, hkj⟩
+    have hbetween := connected_component_intervals_proved
+      (realEigenvalueSet lower upper) (f i) (f j) h
+    exact witness_separators_proved.2.2 k (hbetween ⟨hki, hkj⟩)
+  have hinj : Function.Injective (fun i => ConnectedComponents.mk (f i)) := by
+    intro i j h
+    rcases lt_trichotomy i j with hij | heq | hji
+    · exact (hsep i j hij h).elim
+    · exact heq
+    · exact (hsep j i hji h.symm).elim
+  refine ⟨⟨f, fun _ => rfl, hinj⟩, ?_⟩
+  simpa [Cardinal.mk_fin, componentCard] using Cardinal.mk_le_of_injective hinj
+
+theorem counterexample_proved :
+    EntrywiseLE lower upper ∧
+    (3 : Cardinal) < componentCard (realEigenvalueSet lower upper) := by
+  refine ⟨family_and_determinant_semantics_proved.1, ?_⟩
+  exact lt_of_lt_of_le (by norm_num : (3 : Cardinal) < 4) four_components_proved.2
+
+theorem not_componentBoundConjecture_proved : ¬ ComponentBoundConjecture := by
+  intro h
+  exact (not_le_of_gt counterexample_proved.2)
+    (h 3 (by norm_num) lower upper counterexample_proved.1)
+
+#assert_trust kernel eigenvalue_determinant_semantics_proved
+#assert_trust kernel family_and_determinant_semantics_proved
+#assert_trust kernel witness_eigenpairs_proved
+#assert_trust kernel numerical_separator_margin
+#assert_trust kernel witness_separators_proved
+#assert_trust kernel connected_component_intervals_proved
+#assert_trust kernel four_components_proved
+#assert_trust kernel counterexample_proved
+#assert_trust kernel not_componentBoundConjecture_proved
+#print axioms eigenvalue_determinant_semantics_proved
+#print axioms family_and_determinant_semantics_proved
+#print axioms witness_eigenpairs_proved
+#print axioms numerical_separator_margin
+#print axioms witness_separators_proved
+#print axioms connected_component_intervals_proved
+#print axioms four_components_proved
+#print axioms counterexample_proved
+#print axioms not_componentBoundConjecture_proved
+
+end NLA.IV06

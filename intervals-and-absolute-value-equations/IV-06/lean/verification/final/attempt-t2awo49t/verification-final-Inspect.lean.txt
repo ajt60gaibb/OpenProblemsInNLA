@@ -1,0 +1,82 @@
+/- Author proof-term audit. Traversal organization follows the campaign's prior
+independent reviews; all required IV06 dependencies are checked in actual bodies. -/
+import Solution
+import Lean.Util.FoldConsts
+
+open Lean Elab Command in
+run_cmd do
+  let env ← getEnv
+  let mut pending := [``NLA.IV06.not_componentBoundConjecture]
+  let mut visited : List Name := []
+  let mut allConstants : List Name := []
+  for _ in [:1000] do
+    match pending with
+    | [] => pure ()
+    | name :: rest =>
+      pending := rest
+      if !visited.contains name then
+        visited := name :: visited
+        let some info := env.find? name | throwError "Missing declaration: {name}"
+        if let some body := info.value? (allowOpaque := true) then
+          let constants := body.getUsedConstants.toList
+          allConstants := constants ++ allConstants
+          let projectDeps := constants.filter (fun n =>
+            n.toString.startsWith "NLA.IV06." ||
+              n.toString.startsWith "_private.NLA.IV06.")
+          logInfo m!"PROJECT_EDGE {name}: {projectDeps}"
+          pending := projectDeps ++ pending
+  unless pending.isEmpty do throwError "Dependency traversal did not finish"
+  for required in [``Matrix.exists_mulVec_eq_zero_iff,
+      ``Matrix.det_fin_three,
+      ``ConnectedComponents.coe_eq_coe',
+      ``isPreconnected_connectedComponent,
+      ``IsPreconnected.image,
+      ``IsPreconnected.Icc_subset,
+      ``Cardinal.mk_le_of_injective,
+      ``Cardinal.mk_fin,
+      ``LeanCert.Validity.verify_strict_upper_bound_dyadic_checked,
+      ``NLA.IV06.numerical_separator_margin,
+      ``NLA.IV06.eigenvalue_determinant_semantics_proved,
+      ``NLA.IV06.interval_family_iff,
+      ``NLA.IV06.family_characteristicDet,
+      ``NLA.IV06.witness_eigenpairs_proved,
+      ``NLA.IV06.witness_separators_proved,
+      ``NLA.IV06.connected_component_intervals_proved,
+      ``NLA.IV06.four_components_proved,
+      ``NLA.IV06.counterexample_proved,
+      ``NLA.IV06.not_componentBoundConjecture_proved] do
+    unless allConstants.contains required do
+      throwError "Missing retained mathematical dependency: {required}"
+    logInfo m!"RETAINED_DEPENDENCY: {required}"
+  for forbidden in [``sorryAx, `Lean.ofReduceBool, `Lean.trustCompiler] do
+    if allConstants.contains forbidden then
+      throwError "Forbidden dependency: {forbidden}"
+  logInfo m!"PROJECT_DECLARATIONS_REACHABLE_FROM_FULL_NEGATION: {visited.length}"
+
+#check NLA.IV06.eigenvalue_determinant_semantics
+#check NLA.IV06.family_and_determinant_semantics
+#check NLA.IV06.witness_eigenpairs
+#check NLA.IV06.witness_separators
+#check NLA.IV06.connected_component_intervals
+#check NLA.IV06.four_components
+#check NLA.IV06.counterexample
+#check NLA.IV06.not_componentBoundConjecture
+
+set_option pp.all true in
+#print NLA.IV06.ComponentBoundConjecture
+set_option pp.all true in
+#print NLA.IV06.componentCard
+set_option pp.all true in
+#print NLA.IV06.realEigenvalueSet
+set_option pp.all true in
+#print NLA.IV06.HasRealEigenvalue
+set_option pp.proofs true in
+#print NLA.IV06.numerical_separator_margin
+set_option pp.proofs true in
+#print NLA.IV06.witness_separators_proved
+set_option pp.proofs true in
+#print NLA.IV06.connected_component_intervals_proved
+set_option pp.proofs true in
+#print NLA.IV06.four_components_proved
+set_option pp.proofs true in
+#print NLA.IV06.not_componentBoundConjecture_proved

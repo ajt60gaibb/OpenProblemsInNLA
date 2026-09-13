@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "count": 8,
+  "signatures": {
+    "eigenvalue_determinant_semantics": "(n : \u2115) (A : RealMatrix n) (lam : \u211d) : HasRealEigenvalue A lam \u2194 characteristicDet A lam = 0",
+    "family_and_determinant_semantics": ": EntrywiseLE lower upper \u2227 (\u2200 A : RealMatrix 3, InIntervalFamily lower upper A \u2194 \u2203 a b : \u211d, a \u2208 Set.Icc (-166) (-16) \u2227 b \u2208 Set.Icc 9 159 \u2227 A = family a b) \u2227 (\u2200 a b lam : \u211d, characteristicDet (family a b) lam = (lam - 25) * (lam ^ 2 - 1) - a * (lam - 1) - b * (lam + 1))",
+    "witness_eigenpairs": "(i : Fin 4) : InIntervalFamily lower upper (family (includedA i) (includedB i)) \u2227 includedVector i \u2260 0 \u2227 (family (includedA i) (includedB i)).mulVec (includedVector i) = includedValue i \u2022 includedVector i \u2227 includedValue i \u2208 realEigenvalueSet lower upper",
+    "witness_separators": ": (\u2200 A : RealMatrix 3, InIntervalFamily lower upper A \u2192 \u2200 j : Fin 3, determinantLower j \u2264 characteristicDet A (separator j) \u2227 characteristicDet A (separator j) \u2264 determinantUpper j) \u2227 (\u2200 j : Fin 3, determinantUpper j < 0) \u2227 (\u2200 j : Fin 3, separator j \u2209 realEigenvalueSet lower upper)",
+    "connected_component_intervals": "(S : Set \u211d) (x y : S) (h : ConnectedComponents.mk x = ConnectedComponents.mk y) : Set.Icc (x : \u211d) (y : \u211d) \u2286 S",
+    "four_components": ": (\u2203 f : Fin 4 \u2192 realEigenvalueSet lower upper, (\u2200 i, (f i : \u211d) = includedValue i) \u2227 Function.Injective (fun i => ConnectedComponents.mk (f i))) \u2227 (4 : Cardinal) \u2264 componentCard (realEigenvalueSet lower upper)",
+    "counterexample": ": EntrywiseLE lower upper \u2227 (3 : Cardinal) < componentCard (realEigenvalueSet lower upper)",
+    "not_componentBoundConjecture": ": \u00ac ComponentBoundConjecture"
+  },
+  "scope": "Exact normalized source signatures plus fresh Lean checking; not actual Linux Comparator."
+}

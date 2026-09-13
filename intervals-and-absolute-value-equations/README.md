@@ -19,6 +19,6 @@
 | [IV-03](IV-03/README.md) | Polynomial-size vertex test for inverse M-matrix intervals | **✅ SOLVED** | challenging | interesting to specialist | [PDF](IV-03/problem.pdf) · [TeX](IV-03/problem.tex) |
 | [IV-04](IV-04/README.md) | Exact solution hulls for tridiagonal interval systems | **✅ SOLVED** | challenging | interesting to the community | [PDF](IV-04/problem.pdf) · [TeX](IV-04/problem.tex) |
 | [IV-05](IV-05/README.md) | Exact solution hulls for inverse M-matrix intervals | **✅ SOLVED** | challenging | interesting to specialist | [PDF](IV-05/problem.pdf) · [TeX](IV-05/problem.tex) |
-| [IV-06](IV-06/README.md) | Number of components of a real interval eigenvalue set | **✅ SOLVED** | challenging | interesting to specialist | [PDF](IV-06/problem.pdf) · [TeX](IV-06/problem.tex) |
+| [IV-06](IV-06/README.md) | Number of components of a real interval eigenvalue set | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](IV-06/problem.pdf) · [TeX](IV-06/problem.tex) |
 
 Ratings are editorial; each entry explains both ratings and the scope of its status evidence. [Definitions](../README.md#problem-status).
