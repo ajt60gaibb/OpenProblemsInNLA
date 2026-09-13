@@ -6,10 +6,18 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Rating rationale:** Challenging because sharp cp-rank control is still missing for the remaining order-six boundary configurations; community importance is the size of exact completely positive certificates.  
-**Status:** Partially resolved  
+**Rating rationale:** Historical ratings for the original open question: challenging because sharp cp-rank control was missing for the remaining order-six boundary configurations; community importance is the size of exact completely positive certificates.  
+**Status:** Solved  
 **Area:** size of nonnegative symmetric factorizations  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-13  
+
+## Resolution — affirmative, 13 September 2026 (UTC)
+
+**Author:** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](../../references/holden-pf04-2026-09-13/README.md).
+
+[Theorem 1.1, proved in Sections 2–8](../../references/holden-pf04-2026-09-13/submission/PF04_proposed_proof.pdf), proves the full retained target: every real completely positive matrix of order six has a nonnegative factor with at most nine columns, including singular matrices and zero entries. Proposition 8.1 gives a positive-definite matrix attaining nine, so $`p_6=9`$. [Editable proof](../../references/holden-pf04-2026-09-13/submission/PF04_proposed_proof.tex).
+
+The complete argument passed a separate [independent Codex AI-agent informal audit](../../references/holden-pf04-2026-09-13/independent-review.md). Exact auxiliary checks were rerun successfully. This meets the repository's Solved policy; it is not external human peer review or formal verification. AI assistance in preparation and review is disclosed. No Lean verification was performed. The original target, ID, canonical path and prior-source credit are retained below as historical context.
 
 ## Context and notation
 
