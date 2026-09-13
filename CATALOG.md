@@ -1,8 +1,8 @@
 # All problems and their status
 
-**125 problems with open targets:** 53 open and 72 partially resolved. **92 other retained entries**, excluded from the open count.
+**124 problems with open targets:** 53 open and 71 partially resolved. **93 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 76 solved (published or independently audited); 16 Lean verified.
+**Resolution evidence:** 77 solved (published or independently audited); 16 Lean verified.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -206,7 +206,6 @@ Retained entries outside the open count:
 | [NR-03](nonnegative-and-positive-factorizations/NR-03/README.md) | Full nonnegative rank of the quadratic correlation matrix | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](nonnegative-and-positive-factorizations/NR-03/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/NR-03/problem.tex) |
 | [PF-01](nonnegative-and-positive-factorizations/PF-01/README.md) | Exact positive semidefinite rank of subset-intersection matrices | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](nonnegative-and-positive-factorizations/PF-01/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-01/problem.tex) |
 | [PF-03](nonnegative-and-positive-factorizations/PF-03/README.md) | Rational factors for rational completely positive boundary matrices | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](nonnegative-and-positive-factorizations/PF-03/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-03/problem.tex) |
-| [PF-04](nonnegative-and-positive-factorizations/PF-04/README.md) | The maximum cp-rank in order six | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](nonnegative-and-positive-factorizations/PF-04/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-04/problem.tex) |
 
 Retained entries outside the open count:
 
@@ -216,6 +215,7 @@ Retained entries outside the open count:
 | [NM-04](nonnegative-and-positive-factorizations/NM-04/README.md) | The Rowland–Wu polynomial identity for Sinkhorn limits | **✅ SOLVED** | challenging | interesting to the community | [PDF](nonnegative-and-positive-factorizations/NM-04/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/NM-04/problem.tex) |
 | [NR-04](nonnegative-and-positive-factorizations/NR-04/README.md) | The nonnegative rank of the nine-point distance matrix | **✅ SOLVED** | hard | interesting to specialist | [PDF](nonnegative-and-positive-factorizations/NR-04/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/NR-04/problem.tex) |
 | [PF-02](nonnegative-and-positive-factorizations/PF-02/README.md) | Connectedness of minimal positive semidefinite factorization orbits | **✅ SOLVED** | challenging | interesting to the community | [PDF](nonnegative-and-positive-factorizations/PF-02/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-02/problem.tex) |
+| [PF-04](nonnegative-and-positive-factorizations/PF-04/README.md) | The maximum cp-rank in order six | **✅ SOLVED** | challenging | interesting to the community | [PDF](nonnegative-and-positive-factorizations/PF-04/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-04/problem.tex) |
 | [PF-05](nonnegative-and-positive-factorizations/PF-05/README.md) | Infinitesimal rigidity detects unique size-two factors in the presence of zeros | **✅ SOLVED** | challenging | interesting to specialist | [PDF](nonnegative-and-positive-factorizations/PF-05/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-05/problem.tex) |
 
 

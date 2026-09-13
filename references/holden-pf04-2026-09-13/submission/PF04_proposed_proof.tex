@@ -1,0 +1,601 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsthm,mathtools}
+\usepackage{newtxtext,newtxmath}
+\usepackage[margin=26mm]{geometry}
+\usepackage{microtype}
+\usepackage{booktabs,array}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\usepackage{bookmark}
+\hypersetup{pdftitle={PF-04: A proposed proof that the maximum cp-rank in order six is nine},pdfauthor={Sidney Holden},pdfsubject={Completely positive matrices; cp-rank; octahedral support}}
+\setlength{\headheight}{14pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small PF-04 \quad Maximum cp-rank in order six}
+\fancyhead[R]{\small Informally audited manuscript}
+\fancyfoot[C]{\thepage}
+\setlength{\parskip}{3pt}
+\setlength{\parindent}{14pt}
+\setlist[enumerate]{itemsep=3pt,topsep=5pt,leftmargin=*}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\CP}{\mathcal{CP}}
+\newcommand{\COP}{\mathcal{COP}}
+\newcommand{\PSD}{\mathcal{P}}
+\newcommand{\NN}{\mathcal{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\OO}{\mathsf{O}}
+\newcommand{\PP}{\mathsf{P}}
+\DeclareMathOperator{\cpr}{cpr}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\relint}{relint}
+\DeclareMathOperator{\relbd}{relbd}
+\DeclareMathOperator{\diag}{diag}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\newcommand{\ee}{\mathbf e}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\zeros}{\mathbf 0}
+\newcommand{\T}{\mathsf T}
+\newcommand{\inputfact}[1]{\textbf{(#1)}}
+
+\title{\vspace{-12mm}\textbf{PF-04: A proposed proof that the maximum\protect\\ cp-rank in order six is nine}}
+\author{Sidney Holden\\[3pt]\small Center for Computational Biology\\\small Flatiron Institute, Simons Foundation}
+\date{12 September 2026}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\begin{abstract}
+We present a proposed proof that every real completely positive matrix of order six has a nonnegative factor with at most nine columns. The argument uses the published order-five bound and the corrected exceptional-boundary theorems of Shaked-Monderer. A relative-face shear reduces a putative counterexample to three support graphs. The central additional lemma gives an eight-column bound for octahedrally supported matrices orthogonal to a copositive matrix with positive diagonal. Proper octahedral subgraphs are then bounded by eight, and one carefully chosen rank-one subtraction bounds the full octahedral graph by nine, including singular endpoints. An explicit positive-definite matrix attains nine. All continuous steps are proved analytically; exact finite checks are supplementary.
+\end{abstract}
+\noindent\textbf{Validation status.} This complete argument passed an independent informal Codex AI-agent audit on 12 September 2026 (New York time). The review report accompanies this submission. This is not external human peer review or formal verification. The accompanying program checks finite graph assertions and explicit algebraic examples; it does not certify the entire proof. AI assistance was used in submission preparation and review. No Lean verification was performed.
+
+\section{Statement, notation, and published inputs}
+
+A real symmetric matrix $A$ is completely positive when $A=BB^{\T}$ for an entrywise nonnegative rectangular matrix $B$. Its cp-rank is the least possible number of columns of $B$, with $\cpr(0)=0$. Write $\CP_n$ for this cone and $\COP_n$ for its dual, the cone of matrices $M$ satisfying $x^{\T}Mx\geq0$ for $x\geq0$. The inner product is $\ip{M}{A}=\tr(MA)$. Positive definite means $A\succ0$, and entrywise positive is written $A>0$; these are different conditions.
+
+\begin{theorem}[Proposed resolution of PF-04]\label{thm:main}
+For every $A\in\CP_6$ there is a matrix $B\in\R_{\geq0}^{6\times9}$ such that $A=BB^{\T}$. Moreover, some $A\succ0$ in $\CP_6$ has $\cpr(A)=9$. Consequently
+\[
+ p_6:=\max\{\cpr(A):A\in\CP_6\}=9.
+\]
+\end{theorem}
+
+The catalogue entry \cite{catalogue} asks exactly this real, exact factorization question. The proof below is an existence proof. It does not assert a polynomial-time algorithm for computing a minimal factor.
+
+For $A\in\CP_n$, let $G(A)$ have vertex set $[n]$ and edge $ij$ when $i\ne j$ and $a_{ij}>0$. Graphs are simple. A column in any nonnegative factor of $A$ has clique support: if $a_{ij}=0$, then $b_{i\ell}b_{j\ell}=0$ for every column $\ell$. We use $N_G[i]$ for a closed neighborhood.
+
+The following published facts are the only non-elementary cp-rank inputs.
+
+\noindent\inputfact{K1} The maximum cp-rank in order five is six \cite{orderfive}.
+
+\noindent\inputfact{K2} For a connected triangle-free support graph, a tree realization has cp-rank at most its order, and a non-tree realization has cp-rank at most its number of edges \cite[Proposition 2.4]{graphbounds}. The cases of order at most three follow from Lemma~\ref{lem:three} below.
+
+\noindent\inputfact{K3} If $A\in\CP_6$ and an exceptional extremal $M\in\COP_6$ satisfy $\ip{M}{A}=0$, then $\cpr(A)\leq9$ \cite[Theorem 1.1]{djl6}.
+
+\noindent\inputfact{K4} Under the conditions of \inputfact{K3}, a zero diagonal entry of $M$ improves the bound to seven \cite[Lemma 3.1]{djl6}.
+
+Here ``exceptional'' means outside $\PSD_n+\NN_n$, where $\PSD_n$ is the positive semidefinite cone and $\NN_n$ is the cone of symmetric entrywise nonnegative matrices. ``Extremal'' means generating an extreme ray of $\COP_n$. We use the corrected arXiv version v3, dated 1 June 2017, of \cite{djl6}.
+
+\begin{remark}[Two consequences of \inputfact{K2}]\label{rem:cyclebound}
+If $C\in\CP_h$ and $G(C)$ has maximum degree at most two, then
+\begin{equation}\label{eq:degree-two}
+ \cpr(C)\leq h.
+\end{equation}
+Indeed, the connected components are isolated vertices, paths, or cycles. Components of order at most three satisfy the bound by Lemma~\ref{lem:three}; the other components satisfy it by \inputfact{K2}. Concatenating their factors gives the sum of the component orders. Also, a matrix with support graph $K_{3,3}$ has cp-rank at most nine, since this connected graph is triangle-free with nine edges. Only these upper bounds are used; no equality between ordinary rank and cp-rank is assumed for even cycles.
+\end{remark}
+
+\section{Elementary preliminaries}
+
+\begin{lemma}[Closed bounded-column sets]\label{lem:closed}
+For fixed $n,r$, the set
+\[
+ \mathcal S_{n,r}=\{BB^{\T}:B\in\R_{\geq0}^{n\times r}\}
+\]
+is closed. Thus an upper cp-rank bound holding for all positive-definite matrices in a fixed coordinate face of $\CP_n$ also holds for the singular matrices in that face.
+\end{lemma}
+\begin{proof}
+If $A_k=B_kB_k^{\T}\to A$, then $\|B_k\|_F^2=\tr(A_k)$ is bounded. A subsequence of the factors converges to a nonnegative $B$, and $A=BB^{\T}$. Zero columns permit the fixed column count $r$. For the second assertion, $A+\varepsilon I\in\CP_n$ is positive definite, has the same off-diagonal support as $A$, and converges to $A$.
+\end{proof}
+
+We also use the standard closedness of $\CP_n$ itself. One elementary justification is that its trace-one slice is the convex hull of the compact set $\{uu^{\T}:u\geq0,\ \|u\|_2=1\}$. This slice is compact in finite dimension, and coning it preserves closedness because its trace is fixed at one.
+
+\begin{lemma}[Nonnegative congruence]\label{lem:congruence}
+If $A\in\CP_n$ and $S$ is entrywise nonnegative, then
+\[
+ \cpr(SAS^{\T})\leq\cpr(A).
+\]
+Positive diagonal congruence and simultaneous row-column permutation preserve cp-rank.
+\end{lemma}
+\begin{proof}
+Apply $S$ to a nonnegative factor of $A$. For positive diagonal matrices and permutations, the inverse transformation is also nonnegative.
+\end{proof}
+
+\begin{lemma}[Order three, including a prescribed row]\label{lem:three}
+Every positive semidefinite entrywise nonnegative matrix of order at most three is completely positive, and its cp-rank equals its ordinary rank. A matrix of order three admits such a factor with at most two positive entries in any one prescribed row. In order two, at most one positive entry in a prescribed row suffices.
+\end{lemma}
+\begin{proof}
+A zero diagonal entry of a positive semidefinite matrix gives a zero row and column, which can be removed. Scale the remaining diagonal entries to one. In order three write
+\[
+ C=\begin{pmatrix}1&a&b\\a&1&c\\b&c&1\end{pmatrix},\qquad 0\leq a,b,c\leq1.
+\]
+After a permutation, we may arrange $c\geq ab$. If all three analogous inequalities failed and $abc>0$, multiplying them would give $abc>1$, a contradiction. If $abc=0$, at least one inequality holds directly. For $a<1$, the factor
+\begin{equation}\label{eq:cholesky3}
+ L=\begin{pmatrix}
+ 1&0&0\\
+ a&\sqrt{1-a^2}&0\\
+ b&\dfrac{c-ab}{\sqrt{1-a^2}}&
+ \sqrt{1-b^2-\dfrac{(c-ab)^2}{1-a^2}}
+ \end{pmatrix}
+\end{equation}
+is nonnegative and satisfies $LL^{\T}=C$. The last radicand is nonnegative by the Schur complement. Its number of nonzero columns is $\rank(C)$. If $a=1$, positive semidefiniteness forces $b=c$; use rows $(1,0),(1,0),(b,\sqrt{1-b^2})$ instead. The order-two assertion follows from the same Cholesky formula.
+
+For the prescribed-row refinement in order three, put the prescribed vertex second and choose which of the other vertices is first. Let its correlations with the two other vertices be $a,b$, and let their mutual correlation be $c$. At least one of
+\[
+ b\geq ac,\qquad a\geq bc
+\]
+holds: simultaneous strict failure would imply $c^2>1$ when $ab>0$, and is impossible when $ab=0$. Choose the first pivot accordingly. Formula~\eqref{eq:cholesky3} is nonnegative in this ordering and its second row has at most two positive entries. If a correlation is one and the matrix is singular, the rank-at-most-two factor already suffices. In order two, place the prescribed row first in the Cholesky factor.
+\end{proof}
+
+\begin{lemma}[A vertex of degree at most two]\label{lem:lowdegree}
+If $A\in\CP_6$ and $G(A)$ has a vertex of degree at most two, then $\cpr(A)\leq8$.
+\end{lemma}
+\begin{proof}
+An isolated vertex contributes at most one column, leaving an order-five completely positive matrix, so \inputfact{K1} gives at most seven. For degree $d=1$ or $2$, fix any completely positive decomposition and group the columns positive at the chosen vertex $v$. Their sum of outer products, denoted $K$, is supported on $N_G[v]$, of size $d+1\leq3$. Lemma~\ref{lem:three} refactors $K$ with at most $d$ columns positive at $v$. Move all its other columns into the part supported off $v$. The latter part is completely positive of order five, and \inputfact{K1} gives
+\[
+ \cpr(A)\leq d+6\leq8.
+\]
+\end{proof}
+
+\section{Coordinate faces, dual completion, and shears}
+
+For a graph $G$ on $[n]$, set
+\[
+ L_G=\{X\in\mathcal S_n:x_{ij}=0\text{ for }i\ne j,\ ij\notin E(G)\},
+ \qquad F_G=\CP_n\cap L_G.
+\]
+All relative interiors and boundaries of $F_G$ below are taken in $L_G$, not in the full symmetric-matrix space. This distinction is essential.
+
+The cone $F_G$ is closed and full-dimensional in $L_G$. For the latter claim, the matrices
+\[
+ \ee_i\ee_i^{\T}\quad(i\in[n]),\qquad
+ (\ee_i+\ee_j)(\ee_i+\ee_j)^{\T}\quad(ij\in E(G))
+\]
+form a basis of $L_G$ consisting of elements of $F_G$. The positive combinations of this basis contain a relatively open set.
+
+\begin{lemma}[Copositive completion]\label{lem:completion}
+Specify all diagonal entries and the entries on the edges of $G$ of a symmetric matrix $P$. Suppose every fully specified clique principal matrix is copositive. Then $P$ has a copositive completion $Q$. In particular, the unspecified entries can be set to
+\begin{equation}\label{eq:completion}
+ q_{ij}=\sqrt{p_{ii}p_{jj}}\qquad(ij\notin E(G),\ i\ne j).
+\end{equation}
+\end{lemma}
+\begin{proof}
+Copositivity of singleton blocks gives $p_{ii}\geq0$. If $p_{ii}=0$, every specified incident entry is nonnegative: a negative entry would contradict copositivity of the corresponding $2\times2$ block by taking the other coordinate small. Formula~\eqref{eq:completion} makes unspecified incident entries zero. These coordinates contribute only nonnegative terms and may be omitted.
+
+On the remaining coordinates, scale the specified diagonal to one. The proposed missing entries are now one. Take $x\geq0$ with $\sum_i x_i=1$. If two nonadjacent vertices $i,j$ both lie in its support, redistribute their total mass between them, holding all other coordinates fixed. The quadratic form is affine in this redistribution, because
+\[
+ q_{ii}+q_{jj}-2q_{ij}=1+1-2=0.
+\]
+At one endpoint its value is no larger than before, and one support coordinate disappears. Repeating yields a vector with clique support and quadratic value no larger than the original. The final value is nonnegative by the hypothesis on clique blocks. Homogeneity proves copositivity on the whole nonnegative orthant.
+\end{proof}
+
+This is a direct proof of the all-diagonals-specified copositive completion fact; see Hogben, Johnson, and Reams \cite{completion} for the general completion result. No positive-semidefinite completion theorem or chordality assumption is used here.
+
+\begin{lemma}[An exceptional normal on a relative boundary]\label{lem:exceptionalnormal}
+Let $A\succ0$, $G(A)=G$, and $A\in\relbd F_G$. Then some exceptional extremal $M\in\COP_n$ satisfies $\ip{M}{A}=0$.
+\end{lemma}
+\begin{proof}
+A supporting functional in $L_G$ gives a nonzero $P\in L_G$ such that
+\[
+ \ip{P}{A}=0,\qquad \ip{P}{X}\geq0\quad(X\in F_G).
+\]
+For every clique $T$ and every nonnegative $x$ supported on $T$, $xx^{\T}\in F_G$. Hence each clique block $P[T]$ is copositive. Lemma~\ref{lem:completion} supplies $Q\in\COP_n$ agreeing with $P$ on all diagonal and graph-edge positions. Thus $\ip{Q}{A}=0$.
+
+Express $Q$ as a finite conic combination of generators of extreme rays of $\COP_n$. This is legitimate for this closed pointed finite-dimensional cone. For completeness, the functional defined by
+\[
+ H=I+\sum_{i<j}(\ee_i+\ee_j)(\ee_i+\ee_j)^{\T}
+\]
+is strictly positive on every nonzero copositive matrix: its value is a sum of nonnegative evaluations, and equality forces every diagonal and off-diagonal coefficient to vanish. Its unit-level section is therefore a compact base. The finite-dimensional extreme-point theorem applied to that base gives the stated finite conic decomposition.
+
+Every extreme-ray summand is orthogonal to $A$, because the summands have nonnegative inner products with $A$. No nonzero positive semidefinite summand can be orthogonal to $A\succ0$. An extreme copositive matrix in $\PSD_n+\NN_n$ is itself positive semidefinite or entrywise nonnegative, by the definition of an extreme ray. Thus, if no exceptional summand occurred, $Q$ would be entrywise nonnegative. Its orthogonality to $A$, whose diagonal and graph-edge entries are strictly positive, would force $Q$ to be zero at all these positions. This would make $P=0$, a contradiction.
+\end{proof}
+
+\begin{corollary}[General order-six relative boundary]\label{cor:boundary9}
+If $A\succ0$, $G(A)=G$, and $A\in\relbd F_G$ for a six-vertex graph $G$, then $\cpr(A)\leq9$.
+\end{corollary}
+\begin{proof}
+Apply Lemma~\ref{lem:exceptionalnormal} and \inputfact{K3}.
+\end{proof}
+
+\begin{lemma}[Support-preserving shear]\label{lem:shear}
+Let $A\succ0$ belong to $\relint F_G$, with $G(A)=G$. Suppose distinct vertices $i,j$ satisfy $N_G[j]\subseteq N_G[i]$. Then there exists
+\[
+ A'\succ0,\qquad A'\in\relbd F_G,\qquad
+ G(A')\subseteq G,\qquad \cpr(A')\geq\cpr(A).
+\]
+\end{lemma}
+\begin{proof}
+Set $E=\ee_i\ee_j^{\T}$, $T(t)=I-tE$, and
+\begin{equation}\label{eq:shear}
+ A(t)=T(t)AT(t)^{\T},\qquad t\geq0.
+\end{equation}
+Since $i\ne j$, $E^2=0$, so $T(t)$ is invertible with $T(t)^{-1}=I+tE\geq0$. Every $A(t)$ is positive definite. If $ik$ is a nonedge, then $k\ne j$ and $jk$ is a nonedge by the neighborhood inclusion; therefore
+\[
+ a_{ik}(t)=a_{ik}-t a_{jk}=0.
+\]
+The other nonedge entries are unchanged. Thus $A(t)\in L_G$ for all $t$.
+
+For sufficiently small $t\geq0$, relative interior implies $A(t)\in F_G$. The vertices $i,j$ are adjacent, and
+\[
+ a_{ij}(t)=a_{ij}-t a_{jj}
+\]
+becomes negative at finite $t$, so the path cannot remain in $F_G$ forever. Let
+\[
+ t_* =\sup\{s\geq0:A(t)\in F_G\text{ for all }0\leq t\leq s\}.
+\]
+Then $0<t_*<\infty$. Closedness and continuity give $A(t_*)\in F_G$, and the definition of $t_*$ makes it a relative boundary point. This first-exit definition does not assume the polynomial path has a convex feasible parameter set.
+
+Finally, whenever $A(t)\in\CP_n$,
+\[
+ A=(I+tE)A(t)(I+tE)^{\T},
+\]
+so Lemma~\ref{lem:congruence} gives $\cpr(A)\leq\cpr(A(t))$. Take $A'=A(t_*)$.
+\end{proof}
+
+\begin{remark}[What makes the shear useful]\label{rem:shearuse}
+When all positive-definite relative boundary matrices with exact graph $G$ have cp-rank at most $k$, applying Lemma~\ref{lem:shear} to a matrix with cp-rank greater than $k$ must delete at least one edge. A shear adds no columns to a factor; this is not a rank-one subtraction estimate.
+\end{remark}
+
+\section{The three terminal graphs}
+
+Let $\OO=K_{2,2,2}$, with independent pairs
+\begin{equation}\label{eq:pairs}
+ \{1,2\},\quad\{3,4\},\quad\{5,6\}.
+\end{equation}
+It has twelve edges and eight maximal triangles, each obtained by choosing one vertex from each pair. Each edge belongs to exactly two such triangles. Let $\PP$ be the triangular prism: two vertex-disjoint triangles joined by a three-edge matching.
+
+\begin{lemma}[Terminal graph classification]\label{lem:classification}
+A graph $G$ on six vertices with minimum degree at least three and with no inclusion $N_G[j]\subseteq N_G[i]$ for distinct $i,j$ is isomorphic to exactly one of
+\[
+ K_{3,3},\qquad \PP,\qquad \OO.
+\]
+\end{lemma}
+\begin{proof}
+Let $H=\overline G$. Its maximum degree is at most two, and
+\[
+ N_G[j]\subseteq N_G[i]\quad\Longleftrightarrow\quad
+ N_H(i)\subseteq N_H(j),
+\]
+where neighborhoods in $H$ are open. The graph $H$ cannot have an isolated vertex, whose empty neighborhood is contained in any other neighborhood. A path component with at least three vertices is impossible: an endpoint's neighborhood is contained in the neighborhood of the vertex at distance two along that path. A four-cycle is also impossible, since its opposite vertices have equal open neighborhoods.
+
+Every component of a graph of maximum degree two is an isolated vertex, a path, or a cycle. Therefore the components of $H$ are edges or cycles of length three or at least five. With six vertices and no isolated vertices, the only possibilities are $3K_2$, $2C_3$, and $C_6$. Their complements are respectively $\OO$, $K_{3,3}$, and $\PP$.
+\end{proof}
+
+\begin{lemma}[The triangular prism]\label{lem:prism}
+Every completely positive matrix with graph $\PP$ has cp-rank at most eight.
+\end{lemma}
+\begin{proof}
+Write the two triangles as $U$ and $V$, and their matching edges as $i_kj_k$ with $i_k\in U$, $j_k\in V$, $k=1,2,3$. Every factor column is supported either in one triangle or in one matching edge. Group the matching-edge columns separately. Each such group contributes a positive semidefinite nonnegative block
+\[
+ \begin{pmatrix}a&c\\c&b\end{pmatrix},\qquad c>0,
+\]
+on its edge. Replace it by the single vector $(\sqrt a,c/\sqrt a)$, leaving the nonnegative diagonal remainder $b-c^2/a$ at its $V$ endpoint. Consequently
+\begin{equation}\label{eq:prismdecomp}
+ A=X\oplus Y+\sum_{k=1}^3 w_k w_k^{\T},
+\end{equation}
+where $X,Y\in\CP_3$ are supported on $U,V$ respectively, and $w_k$ is positive on exactly the matching edge $i_kj_k$.
+
+If either $X$ or $Y$ is singular, Lemma~\ref{lem:three} gives at most $2+3+3=8$ columns. Otherwise choose one matching edge and write its vector as $(\sqrt\alpha,c/\sqrt\alpha)$ on its endpoints, with $\alpha>0$. For $s\geq0$, change that vector to
+\[
+ (\sqrt{\alpha+s},c/\sqrt{\alpha+s}),
+\]
+replace $X$ by $X-s\ee_i\ee_i^{\T}$, and add
+\[
+ \left(\frac{c^2}{\alpha}-\frac{c^2}{\alpha+s}\right)\ee_j\ee_j^{\T}
+\]
+to $Y$. Identity~\eqref{eq:prismdecomp} is preserved. The new $Y$ remains completely positive. At
+\[
+ s=(X^{-1})_{ii}^{-1}>0,
+\]
+the new $X$ is positive semidefinite and singular. Its off-diagonal entries are unchanged and its diagonal entries are nonnegative because it is positive semidefinite. It is therefore completely positive by Lemma~\ref{lem:three}, with cp-rank at most two. The total count is again at most eight.
+\end{proof}
+
+\begin{lemma}[No $K_{3,3}$ inside the octahedron]\label{lem:noK33}
+No six-vertex subgraph of $\OO$ is isomorphic to $K_{3,3}$.
+\end{lemma}
+\begin{proof}
+Each of the three missing pairs in~\eqref{eq:pairs} would have to lie entirely within one part of a $K_{3,3}$ bipartition. A part of size three cannot be a union of these two-element pairs.
+\end{proof}
+
+\section{The octahedral orthogonality bound}
+
+The next lemma covers positive-diagonal copositive normals without any extremality assumption. In particular it also covers positive-diagonal rank-one positive semidefinite normals at singular endpoints.
+
+\begin{lemma}[Eight columns under positive-diagonal orthogonality]\label{lem:octanormal}
+Let $A\in\CP_6$ satisfy $G(A)\subseteq\OO$. If $M\in\COP_6$ has $m_{ii}>0$ for every $i$ and $\ip{M}{A}=0$, then
+\[
+ \cpr(A)\leq8.
+\]
+\end{lemma}
+\begin{proof}
+With $D=\diag(\sqrt{m_{11}},\ldots,\sqrt{m_{66}})$, replace $M$ by $D^{-1}MD^{-1}$ and $A$ by $DAD$. This preserves the assumptions and cp-rank, so assume $m_{ii}=1$.
+
+Take any completely positive decomposition $A=\sum b b^{\T}$, discarding zero columns. Each $b$ has clique support in $\OO$, hence support size at most three. Also every column is a zero of $M$:
+\[
+ 0=\ip{M}{A}=\sum b^{\T}Mb,
+\]
+and all summands are nonnegative.
+
+Let $H$ be the subgraph of $\OO$ consisting of edges $ij$ with $m_{ij}=-1$, and put $h=|E(H)|$. A two-vertex supported zero is precisely a positive multiple of
+\[
+ u_{ij}=\ee_i+\ee_j\qquad(ij\in E(H)).
+\]
+Indeed, every $2\times2$ block with diagonal one is copositive only when $m_{ij}\geq-1$, and
+\[
+ x^2+2m_{ij}xy+y^2=(x-y)^2+2(m_{ij}+1)xy.
+\]
+There are no singleton-supported zeros. The graph $H$ is triangle-free: a triangle with all three off-diagonal entries $-1$ would give quadratic value $-3$ at its all-ones vector.
+
+\medskip\noindent\emph{Classification on a triangle.}
+If a copositive matrix has a zero $b$ positive on a support $T$, then its principal block on $T$ is positive semidefinite and annihilates $b[T]$. To see this directly, for every real $z$ supported on $T$, both $b+\varepsilon z$ and $b-\varepsilon z$ are nonnegative for sufficiently small $\varepsilon$. The linear term in their quadratic expansions must vanish, and the quadratic term is nonnegative.
+
+Now let $T$ be one of the eight octahedral triangles and suppose a zero is positive on $T$. If $T$ contains an edge of $H$, its positive semidefinite block has both the edge zero and the positive triangle zero in its kernel. These are linearly independent, so the block has rank one. A rank-one positive semidefinite matrix with diagonal one is $ss^{\T}$ with $s_i\in\{-1,1\}$. A positive zero requires mixed signs. Thus exactly two edges of $T$ lie in $H$, sharing a vertex, and the zero cone on $T$ is generated nonnegatively by their two edge zeros. More explicitly, if $s=(1,-1,-1)$, then $b_1=b_2+b_3$ and
+\[
+ b=b_2(\ee_1+\ee_2)+b_3(\ee_1+\ee_3).
+\]
+If $T$ contains no edge of $H$, its positive semidefinite block must have rank two: rank zero is excluded by its diagonal, rank three by the zero, and rank one with a positive zero would have two $-1$ edges. Hence its positive zeros constitute just one ray.
+
+Let $c$ be the number of the eight triangles meeting $E(H)$. Let $t$ count those triangles disjoint from $E(H)$ on which a positive zero ray occurs. Then
+\begin{equation}\label{eq:tcount}
+ t\leq8-c.
+\end{equation}
+All original columns on any one of these $t$ rays can be combined into one rank-one summand. The remaining columns are nonnegative combinations of one or two of the $h$ vectors $u_e$, $e\in E(H)$.
+
+\medskip\noindent\emph{Compression of the edge-zero part.}
+Let $U$ be the $6\times h$ matrix with columns $u_e$. Write the remaining factor as $UZ$, where $Z\geq0$. Each column of $Z$ is supported on one edge of $H$, or on two edges of $H$ whose union is an octahedral triangle. Form a graph $J$ on the $h$ edges of $H$, joining two when their union is such a triangle. Each edge of $H$ belongs to only two octahedral triangles, and each of these triangles contains at most two edges of $H$. Therefore
+\[
+ \Delta(J)\leq2.
+\]
+The completely positive coefficient matrix $C=ZZ^{\T}$ has graph contained in $J$. By~\eqref{eq:degree-two}, $\cpr(C)\leq h$, and nonnegative congruence gives $\cpr(UCU^{\T})\leq h$. When $h=0$, this part is absent.
+
+Finally, count incidences between edges of $H$ and octahedral triangles. Each edge occurs twice and each of the $c$ met triangles contains at most two such edges, so
+\begin{equation}\label{eq:hcount}
+ 2h\leq2c.
+\end{equation}
+Combining the edge-zero part and the $t$ individual triangle rays yields
+\[
+ \cpr(A)\leq h+t\leq h+8-c\leq8.
+\]
+\end{proof}
+
+\begin{corollary}[Octahedral relative boundaries]\label{cor:octaboundary}
+Let $G\subseteq\OO$, $A\succ0$, $G(A)=G$, and $A\in\relbd F_G$. Then $\cpr(A)\leq8$.
+\end{corollary}
+\begin{proof}
+Lemma~\ref{lem:exceptionalnormal} gives an exceptional extremal normal $M$. If every diagonal entry is positive, apply Lemma~\ref{lem:octanormal}. Otherwise \inputfact{K4} gives the stronger bound seven.
+\end{proof}
+
+\section{Proper octahedral subgraphs need at most eight columns}
+
+\begin{proposition}\label{prop:properocta}
+If $A\in\CP_6$ and $G(A)$ is a proper subgraph of $\OO$, then $\cpr(A)\leq8$.
+\end{proposition}
+\begin{proof}
+First restrict to positive-definite matrices. Suppose a counterexample exists, and choose one with the fewest positive off-diagonal edges among all positive-definite counterexamples supported on proper subgraphs of the fixed $\OO$. Let its exact graph be $G$.
+
+By Lemma~\ref{lem:lowdegree}, every vertex of $G$ has degree at least three. Corollary~\ref{cor:octaboundary} implies $A\in\relint F_G$. If $N_G[j]\subseteq N_G[i]$ for distinct vertices, apply the shear lemma. It gives a positive-definite relative boundary matrix $A'$ with $\cpr(A')\geq\cpr(A)>8$ and graph contained in $G$. Its graph cannot still equal $G$, by Corollary~\ref{cor:octaboundary}. Hence it has fewer edges, contradicting the choice of $A$.
+
+Thus $G$ satisfies Lemma~\ref{lem:classification}. The octahedral possibility is excluded because $G$ is proper; a graph isomorphic to $\OO$ would have twelve edges. The $K_{3,3}$ possibility is excluded by Lemma~\ref{lem:noK33}. The prism possibility is excluded by Lemma~\ref{lem:prism}. This contradiction proves the positive-definite case.
+
+For arbitrary $A$, apply that case to $A+\varepsilon I$, whose graph is the same proper subgraph, and use Lemma~\ref{lem:closed} with $r=8$.
+\end{proof}
+
+\section{The full octahedral graph needs at most nine columns}
+
+The singular endpoint is the delicate part of a rank-one subtraction argument. The next lemma ensures that its kernel supplies a copositive normal with no zero diagonal entries.
+
+\begin{lemma}[A finite choice with full-support inverse image]\label{lem:generic}
+Suppose $A\succ0$ and $G(A)=\OO$. Put $T=\{1,3,5\}$ and $T'=\{2,4,6\}$. There is an integer $\ell\in\{1,\ldots,13\}$ such that
+\[
+ v=\ee_1+\ell\ee_3+\ell^2\ee_5
+ \quad\text{satisfies}\quad (A^{-1}v)_i\ne0\quad(i=1,\ldots,6).
+\]
+\end{lemma}
+\begin{proof}
+Order the two triples by their matching pairs. The cross block has the form
+\[
+ A[T,T']=\begin{pmatrix}0&a&b\\c&0&d\\e&f&0\end{pmatrix},
+ \qquad a,b,c,d,e,f>0,
+\]
+and determinant $ade+bcf>0$.
+
+Every row of $A^{-1}$ has a nonzero restriction to the columns in $T$. For a row indexed in $T$, its positive diagonal entry proves this. For an index $i\in T'$, otherwise symmetry would give $z=A^{-1}\ee_i$ with $z[T]=0$. The $T$ coordinates of $Az=\ee_i$ would then imply $A[T,T']z[T']=0$. Invertibility of the cross block would force $z=0$, impossible.
+
+Consequently each of the six polynomials
+\[
+ (A^{-1})_{i1}+\ell(A^{-1})_{i3}+\ell^2(A^{-1})_{i5}
+\]
+is nonzero as a polynomial and has at most two real roots. Their combined exceptional set contains at most twelve positive integers. At least one of the thirteen candidates avoids all of them.
+\end{proof}
+
+\begin{proposition}\label{prop:octa9}
+Every $A\in\CP_6$ with $G(A)\subseteq\OO$ has cp-rank at most nine.
+\end{proposition}
+\begin{proof}
+Proper support is already covered by Proposition~\ref{prop:properocta}. By Lemma~\ref{lem:closed}, it remains to consider $A\succ0$ with exact support $\OO$. If $A\in\relbd F_{\OO}$, Corollary~\ref{cor:octaboundary} even gives eight. Thus assume $A\in\relint F_{\OO}$.
+
+Choose $v$ as in Lemma~\ref{lem:generic}, and write $q=A^{-1}v$, so that all six entries of $q$ are nonzero. Because $v$ has triangle support, $vv^{\T}\in F_{\OO}$. Define
+\[
+ t_* =\max\{t\geq0:A-tvv^{\T}\in F_{\OO}\},
+ \qquad R=A-t_*vv^{\T}.
+\]
+Here $t_*>0$ by relative interior. The feasible set of this linear path is closed and convex and is bounded above by
+\begin{equation}\label{eq:psdendpoint}
+ \tau=(v^{\T}A^{-1}v)^{-1},
+\end{equation}
+since positive semidefiniteness of a rank-one downdate of $A\succ0$ is equivalent to $t\leq\tau$. Thus the maximum exists and $R\in F_{\OO}$.
+
+There are three exhaustive cases.
+\begin{enumerate}[label=\textnormal{(\roman*)}]
+\item If $G(R)$ is a proper subgraph of $\OO$, Proposition~\ref{prop:properocta} gives $\cpr(R)\leq8$, whether or not $R$ is singular.
+\item If $G(R)=\OO$ and $R\succ0$, maximality of $t_*$ puts $R$ on $\relbd F_{\OO}$. Corollary~\ref{cor:octaboundary} gives $\cpr(R)\leq8$.
+\item If $G(R)=\OO$ and $R$ is singular, the rank-one downdate formula forces $t_*=\tau$. Hence
+\[
+ Rq=Aq-\tau v(v^{\T}q)=v-v=0.
+\]
+The matrix $M=qq^{\T}$ is positive semidefinite, hence copositive, and has strictly positive diagonal because every $q_i$ is nonzero. Also $\ip{M}{R}=q^{\T}Rq=0$. Lemma~\ref{lem:octanormal}, which does not require an exceptional normal, gives $\cpr(R)\leq8$.
+\end{enumerate}
+In every case,
+\[
+ A=R+(\sqrt{t_*}v)(\sqrt{t_*}v)^{\T}
+\]
+has a nonnegative factor with at most $8+1=9$ columns.
+\end{proof}
+
+\section{Completion of the proof and an exact sharpness witness}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}: upper bound]
+Suppose a positive-definite matrix in $\CP_6$ has cp-rank greater than nine. Choose such a matrix $A$ with the fewest edges in $G=G(A)$. Lemma~\ref{lem:lowdegree} gives minimum degree at least three. Corollary~\ref{cor:boundary9} gives $A\in\relint F_G$.
+
+A closed-neighborhood inclusion would allow Lemma~\ref{lem:shear} to produce $A'\succ0$ with $\cpr(A')\geq\cpr(A)>9$ on $\relbd F_G$. By Corollary~\ref{cor:boundary9}, its exact graph must be a proper subgraph of $G$. This contradicts minimality of the edge count.
+
+The terminal classification therefore leaves $K_{3,3}$, $\PP$, or $\OO$. Their cp-rank bounds are respectively nine by Remark~\ref{rem:cyclebound}, eight by Lemma~\ref{lem:prism}, and nine by Proposition~\ref{prop:octa9}. None can support a counterexample. This proves the upper bound for positive-definite matrices. For any singular $A\in\CP_6$, use $A+\varepsilon I$ and the closedness of $\mathcal S_{6,9}$.
+\end{proof}
+
+\begin{proposition}[A positive-definite matrix with cp-rank nine]\label{prop:sharp}
+The matrix
+\begin{equation}\label{eq:sharpA}
+ A_* = \begin{pmatrix}
+ 3&0&0&2&1&1\\
+ 0&3&0&1&1&1\\
+ 0&0&3&1&1&1\\
+ 2&1&1&6&0&0\\
+ 1&1&1&0&3&0\\
+ 1&1&1&0&0&3
+ \end{pmatrix}
+\end{equation}
+is positive definite and has $\cpr(A_*)=9$.
+\end{proposition}
+\begin{proof}
+Let $B_*$ have the nine columns $\ee_i+\ee_j$ for $i\in\{1,2,3\}$, $j\in\{4,5,6\}$, except that the column for $(i,j)=(1,4)$ is replaced by $\ee_1+2\ee_4$. Then $B_*\geq0$ and $A_*=B_*B_*^{\T}$, so $\cpr(A_*)\leq9$.
+
+Its support graph is $K_{3,3}$. Every column in any nonnegative factor has support of size at most two and therefore contributes to at most one of its nine positive off-diagonal edges. Each such edge needs a column. Thus $\cpr(A_*)\geq9$.
+
+For positive definiteness, if $B_*^{\T}x=0$, the eight unchanged edge columns imply that the coordinates in the first part all equal a common number $a$ and those in the second part all equal $-a$. The changed column then gives $a-2a=0$, so $x=0$. Therefore $B_*$ has row rank six. An independent exact check gives $\det(A_*)=36$.
+\end{proof}
+
+Proposition~\ref{prop:sharp} completes the equality assertion in Theorem~\ref{thm:main}. Allowing zero columns converts every at-most-nine-column factor into a $6\times9$ factor, exactly as required in PF-04.
+
+\section{Dependency audit and reproducible checks}
+
+\subsection{Logical order and the column count}
+The proof is not an induction that assumes the desired octahedral bound. The dependencies are ordered as follows:
+\begin{center}
+\begin{tabular}{@{}p{0.30\linewidth}p{0.60\linewidth}@{}}
+\toprule
+Result & Inputs used \\
+\midrule
+General relative boundary, $\leq9$ & Copositive completion, exceptional normal, \inputfact{K3}. \\
+Octahedral orthogonality, $\leq8$ & Triangle zero classification, degree-two coefficient graph, \inputfact{K2}. \\
+Octahedral relative boundary, $\leq8$ & Exceptional normal, octahedral orthogonality, \inputfact{K4}. \\
+Proper octahedral supports, $\leq8$ & That relative boundary bound, shear, terminal classification, prism and low-degree bounds. \\
+Full octahedral support, $\leq9$ & Proper-support bound, relative boundary bound, thirteen-vector lemma, orthogonality lemma. \\
+All order-six matrices, $\leq9$ & General relative boundary bound, shear, three terminal graph bounds, closedness. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The shear never incurs a column penalty. The only $+1$ in the full octahedral argument is the single rank-one summand peeled in Proposition~\ref{prop:octa9}. Its remainder always has the eight-column bound, not merely the general nine-column bound. Singular remainders are handled either by the proper-support proposition or by the explicitly positive-diagonal normal $qq^{\T}$. A singular matrix is not assumed to have a full-support kernel vector without proof.
+
+\subsection{An exact example of the singular endpoint}
+To illustrate case (iii), take
+\[
+ W=\begin{pmatrix}
+ 3&2&2&2&0&0&0&0\\
+ 0&0&0&0&2&2&2&2\\
+ 1&1&0&0&1&1&0&0\\
+ 0&0&1&1&0&0&1&1\\
+ 2&0&1&0&1&0&1&0\\
+ 0&1&0&1&0&1&0&1
+ \end{pmatrix},\quad
+ q_0=\begin{pmatrix}1\\1\\-1\\-1\\-1\\-1\end{pmatrix},\quad
+ v=\begin{pmatrix}1\\0\\1\\0\\1\\0\end{pmatrix}.
+\]
+Set $R=WW^{\T}$ and $A=R+vv^{\T}$. Exact arithmetic gives
+\[
+ G(R)=\OO,\quad \rank(R)=5,\quad Rq_0=0,\quad
+ \det(A)=128,\quad A^{-1}v=-q_0.
+\]
+Since $v^{\T}A^{-1}v=1$, the positive semidefinite and completely positive subtraction endpoints in this direction both occur at $t=1$. The remainder has the displayed eight-column factor and exact octahedral support. This example is an illustration of endpoint coverage, not a claim that this particular $A$ requires nine columns.
+
+\subsection{What the program verifies}
+The file \texttt{verification/verify.py} uses only Python's standard library. Its matrix calculations use integers and exact rational numbers. Running it gives:
+\begin{center}
+\begin{tabular}{@{}lr@{}}
+\toprule
+Finite check & Count or result\\
+\midrule
+All labelled simple graphs on six vertices & $32{,}768$\\
+Closed-neighborhood inclusions checked & $155{,}520$\\
+Terminal graphs: $K_{3,3}$ / prism / octahedron & $10\,/\,60\,/\,15$\\
+All subgraphs of a fixed octahedron & $4{,}096$\\
+Terminal proper octahedral subgraphs & $8$ labelled prisms\\
+Triangle-free $H\subseteq\OO$ checked & $1{,}699$\\
+Largest auxiliary-graph degree & $2$\\
+Largest value of $h+(8-c)$ & $8$\\
+Determinant of the sharpness witness & $36$\\
+Determinant in the singular-endpoint example & $128$\\
+Exact examples for the thirteen-vector choice & $64$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The program also verifies the symbolic cross-block determinant expansion and confirms directly that $K_{3,3}$ is not a subgraph of the octahedron. The analytic proofs of all these graph assertions are included above, so the theorem does not rest on a numerical search or an unreported enumeration. The 64 inverse-image examples are only examples; the universal thirteen-vector assertion follows from the polynomial-root argument.
+
+The supporting-file \texttt{AUDIT.md} identifies the main proof obligations, hypotheses, and validation limits. A specialist review should focus particularly on Lemmas~\ref{lem:exceptionalnormal}, \ref{lem:shear}, and \ref{lem:octanormal}, and on the three-case endpoint argument in Proposition~\ref{prop:octa9}.
+
+\clearpage
+\begin{thebibliography}{9}
+\bibitem{orderfive}
+N.~Shaked-Monderer, I.~M.~Bomze, F.~Jarre, and W.~Schachinger,
+\emph{On the cp-rank and minimal cp factorizations of a completely positive matrix},
+SIAM Journal on Matrix Analysis and Applications \textbf{34}(2) (2013), 355--368.
+\href{https://doi.org/10.1137/120885759}{doi:10.1137/120885759}.
+
+\bibitem{graphbounds}
+N.~Shaked-Monderer,
+\emph{Bounding the cp-rank by graph parameters},
+Electronic Journal of Linear Algebra \textbf{28} (2015), 99--116.
+Propositions 2.3--2.4, especially p.~103.
+\url{https://emis.de/ft/34721}.
+
+\bibitem{djl6}
+N.~Shaked-Monderer,
+\emph{On the DJL conjecture for order 6},
+Operators and Matrices \textbf{11} (2017), 71--88.
+The proof here uses the corrected arXiv version v3, 1 June 2017,
+Theorem 1.1 and Lemma 3.1.
+\url{https://arxiv.org/html/1501.02426v3}.
+
+\bibitem{completion}
+L.~Hogben, C.~R.~Johnson, and R.~Reams,
+\emph{The copositive completion problem},
+Linear Algebra and its Applications \textbf{408} (2005), 207--211.
+\href{https://doi.org/10.1016/j.laa.2005.06.019}{doi:10.1016/j.laa.2005.06.019}.
+
+\bibitem{catalogue}
+\emph{OpenProblemsInNLA}, PF-04, ``The maximum cp-rank in order six.''
+Problem statement and status entry consulted for this manuscript;
+entry last checked 10 September 2026.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/nonnegative-and-positive-factorizations/PF-04}{PF-04 repository entry}.
+\end{thebibliography}
+\end{document}
