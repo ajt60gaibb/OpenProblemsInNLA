@@ -1,0 +1,528 @@
+@[reducible] def NLA.IS03.RealMatrix : ℕ → Type :=
+fun n => Matrix.{0, 0, 0} (Fin n) (Fin n) ℝ
+def NLA.IS03.EntrywiseNonnegative : {n : ℕ} → NLA.IS03.RealMatrix n → Prop :=
+fun {n} A => ∀ (i j : Fin n), LE.le.{0} 0 (A i j)
+def NLA.IS03.normalizedDerivative : ℕ → Polynomial.{0} ℝ → Polynomial.{0} ℝ :=
+fun n p => HSMul.hSMul.{0, 0, 0} (Inv.inv.{0} ↑n) (Polynomial.derivative.{0} p)
+def NLA.IS03.DerivativeRealizabilityConjecture : Prop :=
+∀ (n : ℕ),
+  LE.le.{0} 5 n →
+    ∀ (A : NLA.IS03.RealMatrix n),
+      NLA.IS03.EntrywiseNonnegative A →
+        ∃ B,
+          NLA.IS03.EntrywiseNonnegative B ∧
+            Eq.{1} (Matrix.charpoly.{0, 0} B) (NLA.IS03.normalizedDerivative n (Matrix.charpoly.{0, 0} A))
+def NLA.IS03.witnessMatrix : NLA.IS03.RealMatrix 7 :=
+Matrix.of.{0, 0, 0}
+  (Matrix.vecCons.{0}
+    (Matrix.vecCons.{0} (1 / 2)
+      (Matrix.vecCons.{0} 0
+        (Matrix.vecCons.{0} 0
+          (Matrix.vecCons.{0} 0
+            (Matrix.vecCons.{0} 0 (Matrix.vecCons.{0} 0 (Matrix.vecCons.{0} 0 Matrix.vecEmpty.{0})))))))
+    (Matrix.vecCons.{0}
+      (Matrix.vecCons.{0} 0
+        (Matrix.vecCons.{0} 0
+          (Matrix.vecCons.{0} 1
+            (Matrix.vecCons.{0} 0
+              (Matrix.vecCons.{0} 0 (Matrix.vecCons.{0} 0 (Matrix.vecCons.{0} 0 Matrix.vecEmpty.{0})))))))
+      (Matrix.vecCons.{0}
+        (Matrix.vecCons.{0} 0
+          (Matrix.vecCons.{0} 1
+            (Matrix.vecCons.{0} 0
+              (Matrix.vecCons.{0} 0
+                (Matrix.vecCons.{0} 0 (Matrix.vecCons.{0} 0 (Matrix.vecCons.{0} 0 Matrix.vecEmpty.{0})))))))
+        (Matrix.vecCons.{0}
+          (Matrix.vecCons.{0} 0
+            (Matrix.vecCons.{0} 0
+              (Matrix.vecCons.{0} 0
+                (Matrix.vecCons.{0} 0
+                  (Matrix.vecCons.{0} 1 (Matrix.vecCons.{0} 0 (Matrix.vecCons.{0} 0 Matrix.vecEmpty.{0})))))))
+          (Matrix.vecCons.{0}
+            (Matrix.vecCons.{0} 0
+              (Matrix.vecCons.{0} 0
+                (Matrix.vecCons.{0} 0
+                  (Matrix.vecCons.{0} 0
+                    (Matrix.vecCons.{0} 0 (Matrix.vecCons.{0} 1 (Matrix.vecCons.{0} 0 Matrix.vecEmpty.{0})))))))
+            (Matrix.vecCons.{0}
+              (Matrix.vecCons.{0} 0
+                (Matrix.vecCons.{0} 0
+                  (Matrix.vecCons.{0} 0
+                    (Matrix.vecCons.{0} 0
+                      (Matrix.vecCons.{0} 0 (Matrix.vecCons.{0} 0 (Matrix.vecCons.{0} 1 Matrix.vecEmpty.{0})))))))
+              (Matrix.vecCons.{0}
+                (Matrix.vecCons.{0} 0
+                  (Matrix.vecCons.{0} 0
+                    (Matrix.vecCons.{0} 0
+                      (Matrix.vecCons.{0} 1
+                        (Matrix.vecCons.{0} 0 (Matrix.vecCons.{0} 0 (Matrix.vecCons.{0} 0 Matrix.vecEmpty.{0})))))))
+                Matrix.vecEmpty.{0})))))))
+def NLA.IS03.witnessPolynomial : Polynomial.{0} ℝ :=
+HMul.hMul.{0, 0, 0}
+  (HMul.hMul.{0, 0, 0} (HSub.hSub.{0, 0, 0} Polynomial.X.{0} (Polynomial.C.{0} (1 / 2)))
+    (HSub.hSub.{0, 0, 0} (HPow.hPow.{0, 0, 0} Polynomial.X.{0} 2) 1))
+  (HSub.hSub.{0, 0, 0} (HPow.hPow.{0, 0, 0} Polynomial.X.{0} 4) 1)
+def NLA.IS03.derivativePolynomial : Polynomial.{0} ℝ :=
+HAdd.hAdd.{0, 0, 0}
+  (HAdd.hAdd.{0, 0, 0}
+    (HSub.hSub.{0, 0, 0}
+      (HAdd.hAdd.{0, 0, 0}
+        (HSub.hSub.{0, 0, 0}
+          (HSub.hSub.{0, 0, 0} (HPow.hPow.{0, 0, 0} Polynomial.X.{0} 6)
+            (HMul.hMul.{0, 0, 0} (Polynomial.C.{0} (3 / 7)) (HPow.hPow.{0, 0, 0} Polynomial.X.{0} 5)))
+          (HMul.hMul.{0, 0, 0} (Polynomial.C.{0} (5 / 7)) (HPow.hPow.{0, 0, 0} Polynomial.X.{0} 4)))
+        (HMul.hMul.{0, 0, 0} (Polynomial.C.{0} (2 / 7)) (HPow.hPow.{0, 0, 0} Polynomial.X.{0} 3)))
+      (HMul.hMul.{0, 0, 0} (Polynomial.C.{0} (3 / 7)) (HPow.hPow.{0, 0, 0} Polynomial.X.{0} 2)))
+    (HMul.hMul.{0, 0, 0} (Polynomial.C.{0} (1 / 7)) Polynomial.X.{0}))
+  (Polynomial.C.{0} (1 / 7))
+def NLA.IS03.traceMoments : Fin 7 → ℝ :=
+Matrix.vecCons.{0} (3 / 7)
+  (Matrix.vecCons.{0} (79 / 49)
+    (Matrix.vecCons.{0} (48 / 343)
+      (Matrix.vecCons.{0} (6731 / 2401)
+        (Matrix.vecCons.{0} (5213 / 16807)
+          (Matrix.vecCons.{0} (219766 / 117649) (Matrix.vecCons.{0} (-8593 / 823543) Matrix.vecEmpty.{0}))))))
+def Matrix.charpoly.{u_1, u_4} : {R : Type u_1} →
+  [inst : CommRing.{u_1} R] →
+    {n : Type u_4} →
+      [DecidableEq.{u_4 + 1} n] → [Fintype.{u_4} n] → Matrix.{u_4, u_4, u_1} n n R → Polynomial.{u_1} R :=
+fun {R} [CommRing.{u_1} R] {n} [DecidableEq.{u_4 + 1} n] [Fintype.{u_4} n] M =>
+  Matrix.det.{u_1, u_4} (Matrix.charmatrix.{u_1, u_4} M)
+def Matrix.charmatrix.{u_1, u_4} : {R : Type u_1} →
+  [inst : CommRing.{u_1} R] →
+    {n : Type u_4} →
+      [DecidableEq.{u_4 + 1} n] →
+        [Fintype.{u_4} n] → Matrix.{u_4, u_4, u_1} n n R → Matrix.{u_4, u_4, u_1} n n (Polynomial.{u_1} R) :=
+fun {R} [CommRing.{u_1} R] {n} [DecidableEq.{u_4 + 1} n] [Fintype.{u_4} n] M =>
+  HSub.hSub.{max u_1 u_4, max u_1 u_4, max u_1 u_4} ((Matrix.scalar.{u_4, u_1} n) Polynomial.X.{u_1})
+    ((RingHom.mapMatrix.{u_4, u_1, u_1} Polynomial.C.{u_1}) M)
+def Matrix.trace.{u_3, u_6} : {n : Type u_3} →
+  {R : Type u_6} → [Fintype.{u_3} n] → [AddCommMonoid.{u_6} R] → Matrix.{u_3, u_3, u_6} n n R → R :=
+fun {n} {R} [Fintype.{u_3} n] [AddCommMonoid.{u_6} R] A => ∑ i, Matrix.diag.{u_6, u_3} A i
+def Polynomial.derivative.{u} : {R : Type u} →
+  [inst : Semiring.{u} R] → LinearMap.{u, u, u, u} (RingHom.id.{u} R) (Polynomial.{u} R) (Polynomial.{u} R) :=
+fun {R} [Semiring.{u} R] =>
+  LinearMap.mk.{u, u, u, u}
+    (AddHom.mk.{u, u}
+      (fun p =>
+        Polynomial.sum.{u, u} p fun n a =>
+          HMul.hMul.{u, u, u} (Polynomial.C.{u} (HMul.hMul.{u, u, u} a ↑n))
+            (HPow.hPow.{u, 0, u} Polynomial.X.{u} (HSub.hSub.{0, 0, 0} n 1)))
+      fun p q => Polynomial.derivative._proof_2.{u} p q)
+    fun a p => Polynomial.derivative._proof_4.{u} a p
+@[defeq] theorem Matrix.mul_apply.{v, u_1, u_2, u_3} : ∀ {l : Type u_1} {m : Type u_2} {n : Type u_3} {α : Type v}
+  [inst : Fintype.{u_2} m] [inst_1 : Mul.{v} α] [inst_2 : AddCommMonoid.{v} α] {M : Matrix.{u_1, u_2, v} l m α}
+  {N : Matrix.{u_2, u_3, v} m n α} {i : l} {k : n},
+  Eq.{v + 1} (HMul.hMul.{max (max u_1 u_2) v, max (max u_2 u_3) v, max (max u_1 u_3) v} M N i k)
+    (∑ j, HMul.hMul.{v, v, v} (M i j) (N j k)) :=
+fun {l} {m} {n} {α} [Fintype.{u_2} m] [Mul.{v} α] [AddCommMonoid.{v} α] {M} {N} {i} {k} => rfl.{v + 1}
+pow_succ.{0} : ∀ (a : NLA.IS03.RealMatrix 6) (n : ℕ),
+  Eq.{1} (HPow.hPow.{0, 0, 0} a (HAdd.hAdd.{0, 0, 0} n 1)) (HMul.hMul.{0, 0, 0} (HPow.hPow.{0, 0, 0} a n) a)
+Matrix.charpoly_isEmpty.{u_1, u_4} {R : Type u_1} [CommRing.{u_1} R] {n : Type u_4} [DecidableEq.{u_4 + 1} n]
+  [Fintype.{u_4} n] [IsEmpty.{u_4 + 1} n] {A : Matrix.{u_4, u_4, u_1} n n R} :
+  Eq.{u_1 + 1} (Matrix.charpoly.{u_1, u_4} A) 1
+Matrix.trace_eq_zero_of_isEmpty.{u_3, u_6} {n : Type u_3} {R : Type u_6} [Fintype.{u_3} n] [AddCommMonoid.{u_6} R]
+  [IsEmpty.{u_3 + 1} n] (A : Matrix.{u_3, u_3, u_6} n n R) : Eq.{u_6 + 1} (Matrix.trace.{u_3, u_6} A) 0
+Matrix.trace_one.{u_3, u_6} {n : Type u_3} {R : Type u_6} [Fintype.{u_3} n] [DecidableEq.{u_3 + 1} n]
+  [AddCommMonoidWithOne.{u_6} R] : Eq.{u_6 + 1} (Matrix.trace.{u_3, u_6} 1) ↑(Fintype.card.{u_3} n)
+Polynomial.coeff_derivative.{u} {R : Type u} [Semiring.{u} R] (p : Polynomial.{u} R) (n : ℕ) :
+  Eq.{u + 1} (Polynomial.coeff.{u} (Polynomial.derivative.{u} p) n)
+    (HMul.hMul.{u, u, u} (Polynomial.coeff.{u} p (HAdd.hAdd.{0, 0, 0} n 1)) (HAdd.hAdd.{u, u, u} (↑n) 1))
+Matrix.charpoly_monic.{u, v} {R : Type u} [CommRing.{u} R] {n : Type v} [DecidableEq.{v + 1} n] [Fintype.{v} n]
+  (M : Matrix.{v, v, u} n n R) : Polynomial.Monic.{u} (Matrix.charpoly.{u, v} M)
+Matrix.charpoly_natDegree_eq_dim.{u, v} {R : Type u} [CommRing.{u} R] {n : Type v} [DecidableEq.{v + 1} n]
+  [Fintype.{v} n] [Nontrivial.{u} R] (M : Matrix.{v, v, u} n n R) :
+  Eq.{1} (Polynomial.natDegree.{u} (Matrix.charpoly.{u, v} M)) (Fintype.card.{v} n)
+Matrix.eval_charpoly.{u_1, u_3} {R : Type u_1} [CommRing.{u_1} R] {m : Type u_3} [DecidableEq.{u_3 + 1} m]
+  [Fintype.{u_3} m] (M : Matrix.{u_3, u_3, u_1} m m R) (t : R) :
+  Eq.{u_1 + 1} (Polynomial.eval.{u_1} t (Matrix.charpoly.{u_1, u_3} M))
+    (Matrix.det.{u_1, u_3} (HSub.hSub.{max u_1 u_3, max u_1 u_3, max u_1 u_3} ((Matrix.scalar.{u_3, u_1} m) t) M))
+Matrix.trace_eq_sum_roots_charpoly.{u_1, u_3} {n : Type u_1} [Fintype.{u_1} n] [DecidableEq.{u_1 + 1} n] {K : Type u_3}
+  [Field.{u_3} K] (A : Matrix.{u_1, u_1, u_3} n n K) [IsAlgClosed.{u_3} K] :
+  Eq.{u_3 + 1} (Matrix.trace.{u_1, u_3} A) (Multiset.sum.{u_3} (Polynomial.roots.{u_3} (Matrix.charpoly.{u_3, u_1} A)))
+Matrix.trace_eq_sum_roots_charpoly_of_splits.{u_1, u_2} {n : Type u_1} [Fintype.{u_1} n] [DecidableEq.{u_1 + 1} n]
+  {R : Type u_2} [CommRing.{u_2} R] {B : Matrix.{u_1, u_1, u_2} n n R} [IsDomain.{u_2} R]
+  (hAps : Polynomial.Splits.{u_2} (Matrix.charpoly.{u_2, u_1} B)) :
+  Eq.{u_2 + 1} (Matrix.trace.{u_1, u_2} B) (Multiset.sum.{u_2} (Polynomial.roots.{u_2} (Matrix.charpoly.{u_2, u_1} B)))
+def NLA.IS03.normalizedDerivative : (n : Nat) →
+  (p : @Polynomial.{0} Real Real.semiring) → @Polynomial.{0} Real Real.semiring :=
+fun (n : Nat) (p : @Polynomial.{0} Real Real.semiring) =>
+  @HSMul.hSMul.{0, 0, 0} Real (@Polynomial.{0} Real Real.semiring) (@Polynomial.{0} Real Real.semiring)
+    (@instHSMul.{0, 0} Real (@Polynomial.{0} Real Real.semiring)
+      (@Algebra.toSMul.{0, 0} Real (@Polynomial.{0} Real Real.semiring) Real.instCommSemiring
+        (@Polynomial.semiring.{0} Real Real.semiring)
+        (@Polynomial.algebraOfAlgebra.{0, 0} Real Real Real.instCommSemiring Real.semiring
+          (@Algebra.id.{0} Real Real.instCommSemiring))))
+    (@Inv.inv.{0} Real Real.instInv (@Nat.cast.{0} Real Real.instNatCast n))
+    (@DFunLike.coe.{1, 1, 1}
+      (@LinearMap.{0, 0, 0, 0} Real Real Real.semiring Real.semiring
+        (@RingHom.id.{0} Real (@Semiring.toNonAssocSemiring.{0} Real Real.semiring))
+        (@Polynomial.{0} Real Real.semiring) (@Polynomial.{0} Real Real.semiring)
+        (@Semiring.toAddCommMonoid.{0} (@Polynomial.{0} Real Real.semiring)
+          (@Polynomial.semiring.{0} Real Real.semiring))
+        (@Semiring.toAddCommMonoid.{0} (@Polynomial.{0} Real Real.semiring)
+          (@Polynomial.semiring.{0} Real Real.semiring))
+        (@Polynomial.module.{0, 0} Real Real.semiring Real Real.semiring (@Semiring.toModule.{0} Real Real.semiring))
+        (@Polynomial.module.{0, 0} Real Real.semiring Real Real.semiring (@Semiring.toModule.{0} Real Real.semiring)))
+      (@Polynomial.{0} Real Real.semiring)
+      (fun (x : @Polynomial.{0} Real Real.semiring) => @Polynomial.{0} Real Real.semiring)
+      (@LinearMap.instFunLike.{0, 0, 0, 0} Real Real (@Polynomial.{0} Real Real.semiring)
+        (@Polynomial.{0} Real Real.semiring) Real.semiring Real.semiring
+        (@Semiring.toAddCommMonoid.{0} (@Polynomial.{0} Real Real.semiring)
+          (@Polynomial.semiring.{0} Real Real.semiring))
+        (@Semiring.toAddCommMonoid.{0} (@Polynomial.{0} Real Real.semiring)
+          (@Polynomial.semiring.{0} Real Real.semiring))
+        (@Polynomial.module.{0, 0} Real Real.semiring Real Real.semiring (@Semiring.toModule.{0} Real Real.semiring))
+        (@Polynomial.module.{0, 0} Real Real.semiring Real Real.semiring (@Semiring.toModule.{0} Real Real.semiring))
+        (@RingHom.id.{0} Real (@Semiring.toNonAssocSemiring.{0} Real Real.semiring)))
+      (@Polynomial.derivative.{0} Real Real.semiring) p)
+def NLA.IS03.DerivativeRealizabilityConjecture : Prop :=
+∀ (n : Nat),
+  @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 5) (instOfNatNat (nat_lit 5))) n →
+    ∀ (A : NLA.IS03.RealMatrix n),
+      @NLA.IS03.EntrywiseNonnegative n A →
+        @Exists.{1}
+          (NLA.IS03.RealMatrix
+            (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) n
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+          fun
+            (B :
+              NLA.IS03.RealMatrix
+                (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) n
+                  (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))) =>
+          And
+            (@NLA.IS03.EntrywiseNonnegative
+              (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) n
+                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+              B)
+            (@Eq.{1}
+              (@Polynomial.{0} Real
+                (@CommSemiring.toSemiring.{0} Real (@CommRing.toCommSemiring.{0} Real Real.commRing)))
+              (@Matrix.charpoly.{0, 0} Real Real.commRing
+                (Fin
+                  (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) n
+                    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+                (instDecidableEqFin
+                  (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) n
+                    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+                (Fin.fintype
+                  (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) n
+                    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+                B)
+              (NLA.IS03.normalizedDerivative n
+                (@Matrix.charpoly.{0, 0} Real Real.commRing (Fin n) (instDecidableEqFin n) (Fin.fintype n) A)))
+theorem NLA.IS03.nonnegative_power_trace : ∀ {n : Nat} (A : NLA.IS03.RealMatrix n)
+  (hA : @NLA.IS03.EntrywiseNonnegative n A) (k : Nat),
+  And
+    (@NLA.IS03.EntrywiseNonnegative n
+      (@HPow.hPow.{0, 0, 0} (NLA.IS03.RealMatrix n) Nat (NLA.IS03.RealMatrix n)
+        (@instHPow.{0, 0} (NLA.IS03.RealMatrix n) Nat
+          (@NPow.toPow.{0} (NLA.IS03.RealMatrix n)
+            (@Monoid.toNPow.{0} (NLA.IS03.RealMatrix n)
+              (@Semiring.toMonoid.{0} (NLA.IS03.RealMatrix n)
+                (@Matrix.semiring.{0, 0} (Fin n) Real Real.semiring (Fin.fintype n) (instDecidableEqFin n))))))
+        A k))
+    (@LE.le.{0} Real Real.instLE (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))
+      (@Matrix.trace.{0, 0} (Fin n) Real (Fin.fintype n) Real.instAddCommMonoid
+        (@HPow.hPow.{0, 0, 0} (NLA.IS03.RealMatrix n) Nat (NLA.IS03.RealMatrix n)
+          (@instHPow.{0, 0} (NLA.IS03.RealMatrix n) Nat
+            (@NPow.toPow.{0} (NLA.IS03.RealMatrix n)
+              (@Monoid.toNPow.{0} (NLA.IS03.RealMatrix n)
+                (@Semiring.toMonoid.{0} (NLA.IS03.RealMatrix n)
+                  (@Matrix.semiring.{0, 0} (Fin n) Real Real.semiring (Fin.fintype n) (instDecidableEqFin n))))))
+          A k))) :=
+fun {n : Nat} (A : NLA.IS03.RealMatrix n) (hA : @NLA.IS03.EntrywiseNonnegative n A) (k : Nat) =>
+  sorryAx.{0}
+    (∀ (tag : Lean.Name),
+      And
+        (@NLA.IS03.EntrywiseNonnegative n
+          (@HPow.hPow.{0, 0, 0} (NLA.IS03.RealMatrix n) Nat (NLA.IS03.RealMatrix n)
+            (@instHPow.{0, 0} (NLA.IS03.RealMatrix n) Nat
+              (@NPow.toPow.{0} (NLA.IS03.RealMatrix n)
+                (@Monoid.toNPow.{0} (NLA.IS03.RealMatrix n)
+                  (@Semiring.toMonoid.{0} (NLA.IS03.RealMatrix n)
+                    (@Matrix.semiring.{0, 0} (Fin n) Real Real.semiring (Fin.fintype n) (instDecidableEqFin n))))))
+            A k))
+        (@LE.le.{0} Real Real.instLE (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))
+          (@Matrix.trace.{0, 0} (Fin n) Real (Fin.fintype n) Real.instAddCommMonoid
+            (@HPow.hPow.{0, 0, 0} (NLA.IS03.RealMatrix n) Nat (NLA.IS03.RealMatrix n)
+              (@instHPow.{0, 0} (NLA.IS03.RealMatrix n) Nat
+                (@NPow.toPow.{0} (NLA.IS03.RealMatrix n)
+                  (@Monoid.toNPow.{0} (NLA.IS03.RealMatrix n)
+                    (@Semiring.toMonoid.{0} (NLA.IS03.RealMatrix n)
+                      (@Matrix.semiring.{0, 0} (Fin n) Real Real.semiring (Fin.fintype n) (instDecidableEqFin n))))))
+              A k))))
+    Bool.false
+    (Lean.Name.num
+      (Lean.Name.str
+        (Lean.Name.str
+          (Lean.Name.num
+            (Lean.Name.str
+              (Lean.Name.str
+                (Lean.Name.str
+                  (Lean.Name.num
+                    (Lean.Name.num
+                      (Lean.Name.num
+                        (Lean.Name.num
+                          (Lean.Name.num
+                            (Lean.Name.num (Lean.Name.str Lean.Name.anonymous "Challenge")
+                              (@OfNat.ofNat.{0} Nat (nat_lit 18) (instOfNatNat (nat_lit 18))))
+                            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                          (@OfNat.ofNat.{0} Nat (nat_lit 18) (instOfNatNat (nat_lit 18))))
+                        (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7))))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7))))
+                  "_sorry")
+                "_@")
+              "Challenge")
+            (@OfNat.ofNat.{0} Nat (nat_lit 3641858985) (instOfNatNat (nat_lit 3641858985))))
+          "_hygCtx")
+        "_hyg")
+      (@OfNat.ofNat.{0} Nat (nat_lit 41) (instOfNatNat (nat_lit 41))))
+theorem NLA.IS03.trace_moment_certificate : ∀
+  (B : NLA.IS03.RealMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+  (hB :
+    @Eq.{1} (@Polynomial.{0} Real (@CommSemiring.toSemiring.{0} Real (@CommRing.toCommSemiring.{0} Real Real.commRing)))
+      (@Matrix.charpoly.{0, 0} Real Real.commRing (Fin (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+        (instDecidableEqFin (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+        (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))) B)
+      NLA.IS03.derivativePolynomial)
+  (i : Fin (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))),
+  @Eq.{1} Real
+    (@Matrix.trace.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))) Real
+      (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))) Real.instAddCommMonoid
+      (@HPow.hPow.{0, 0, 0} (NLA.IS03.RealMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))) Nat
+        (NLA.IS03.RealMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+        (@instHPow.{0, 0} (NLA.IS03.RealMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))) Nat
+          (@NPow.toPow.{0} (NLA.IS03.RealMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+            (@Monoid.toNPow.{0} (NLA.IS03.RealMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+              (@Semiring.toMonoid.{0}
+                (NLA.IS03.RealMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+                (@Matrix.semiring.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))) Real
+                  Real.semiring (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+                  (instDecidableEqFin (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))))))))
+        B
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7))) i)
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+    (NLA.IS03.traceMoments i) :=
+fun (B : NLA.IS03.RealMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+    (hB :
+      @Eq.{1}
+        (@Polynomial.{0} Real (@CommSemiring.toSemiring.{0} Real (@CommRing.toCommSemiring.{0} Real Real.commRing)))
+        (@Matrix.charpoly.{0, 0} Real Real.commRing (Fin (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+          (instDecidableEqFin (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+          (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))) B)
+        NLA.IS03.derivativePolynomial) =>
+  sorryAx.{0}
+    (∀ (tag : Lean.Name) (i : Fin (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))),
+      @Eq.{1} Real
+        (@Matrix.trace.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))) Real
+          (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))) Real.instAddCommMonoid
+          (@HPow.hPow.{0, 0, 0} (NLA.IS03.RealMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))) Nat
+            (NLA.IS03.RealMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+            (@instHPow.{0, 0} (NLA.IS03.RealMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))) Nat
+              (@NPow.toPow.{0} (NLA.IS03.RealMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+                (@Monoid.toNPow.{0} (NLA.IS03.RealMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+                  (@Semiring.toMonoid.{0}
+                    (NLA.IS03.RealMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+                    (@Matrix.semiring.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))) Real
+                      Real.semiring (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+                      (instDecidableEqFin (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))))))))
+            B
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+              (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7))) i)
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+        (NLA.IS03.traceMoments i))
+    Bool.false
+    (Lean.Name.num
+      (Lean.Name.str
+        (Lean.Name.str
+          (Lean.Name.num
+            (Lean.Name.str
+              (Lean.Name.str
+                (Lean.Name.str
+                  (Lean.Name.num
+                    (Lean.Name.num
+                      (Lean.Name.num
+                        (Lean.Name.num
+                          (Lean.Name.num
+                            (Lean.Name.num (Lean.Name.str Lean.Name.anonymous "Challenge")
+                              (@OfNat.ofNat.{0} Nat (nat_lit 36) (instOfNatNat (nat_lit 36))))
+                            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                          (@OfNat.ofNat.{0} Nat (nat_lit 36) (instOfNatNat (nat_lit 36))))
+                        (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7))))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7))))
+                  "_sorry")
+                "_@")
+              "Challenge")
+            (@OfNat.ofNat.{0} Nat (nat_lit 563598464) (instOfNatNat (nat_lit 563598464))))
+          "_hygCtx")
+        "_hyg")
+      (@OfNat.ofNat.{0} Nat (nat_lit 40) (instOfNatNat (nat_lit 40))))
+theorem NLA.IS03.counterexample : And
+  (@NLA.IS03.EntrywiseNonnegative (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7))) NLA.IS03.witnessMatrix)
+  (∀ (B : NLA.IS03.RealMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))),
+    @NLA.IS03.EntrywiseNonnegative (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))) B →
+      @Ne.{1}
+        (@Polynomial.{0} Real (@CommSemiring.toSemiring.{0} Real (@CommRing.toCommSemiring.{0} Real Real.commRing)))
+        (@Matrix.charpoly.{0, 0} Real Real.commRing (Fin (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+          (instDecidableEqFin (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+          (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))) B)
+        (NLA.IS03.normalizedDerivative (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))
+          (@Matrix.charpoly.{0, 0} Real Real.commRing
+            (Fin (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7))))
+            (instDecidableEqFin (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7))))
+            (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))) NLA.IS03.witnessMatrix))) :=
+sorryAx.{0}
+  (∀ (tag : Lean.Name),
+    And
+      (@NLA.IS03.EntrywiseNonnegative (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))
+        NLA.IS03.witnessMatrix)
+      (∀ (B : NLA.IS03.RealMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))),
+        @NLA.IS03.EntrywiseNonnegative (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))) B →
+          @Ne.{1}
+            (@Polynomial.{0} Real (@CommSemiring.toSemiring.{0} Real (@CommRing.toCommSemiring.{0} Real Real.commRing)))
+            (@Matrix.charpoly.{0, 0} Real Real.commRing
+              (Fin (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+              (instDecidableEqFin (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+              (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))) B)
+            (NLA.IS03.normalizedDerivative (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))
+              (@Matrix.charpoly.{0, 0} Real Real.commRing
+                (Fin (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7))))
+                (instDecidableEqFin (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7))))
+                (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))) NLA.IS03.witnessMatrix))))
+  Bool.false
+  (Lean.Name.num
+    (Lean.Name.str
+      (Lean.Name.str
+        (Lean.Name.num
+          (Lean.Name.str
+            (Lean.Name.str
+              (Lean.Name.str
+                (Lean.Name.num
+                  (Lean.Name.num
+                    (Lean.Name.num
+                      (Lean.Name.num
+                        (Lean.Name.num
+                          (Lean.Name.num (Lean.Name.str Lean.Name.anonymous "Challenge")
+                            (@OfNat.ofNat.{0} Nat (nat_lit 48) (instOfNatNat (nat_lit 48))))
+                          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                        (@OfNat.ofNat.{0} Nat (nat_lit 48) (instOfNatNat (nat_lit 48))))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7))))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7))))
+                "_sorry")
+              "_@")
+            "Challenge")
+          (@OfNat.ofNat.{0} Nat (nat_lit 2578912379) (instOfNatNat (nat_lit 2578912379))))
+        "_hygCtx")
+      "_hyg")
+    (@OfNat.ofNat.{0} Nat (nat_lit 29) (instOfNatNat (nat_lit 29))))
+theorem NLA.IS03.negative_moment : And
+  (@Eq.{1} Real
+    (NLA.IS03.traceMoments
+      (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))) (nat_lit 6)
+        (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))
+          (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))) (nat_lit 6))))
+    (@HDiv.hDiv.{0, 0, 0} Real Real Real (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+      (@Neg.neg.{0} Real Real.instNeg
+        (@OfNat.ofNat.{0} Real (nat_lit 8593)
+          (@instOfNatAtLeastTwo.{0} Real (nat_lit 8593) Real.instNatCast
+            (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 8592) (instOfNatNat (nat_lit 8592)))
+              (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 8591) (instOfNatNat (nat_lit 8591))))))))
+      (@OfNat.ofNat.{0} Real (nat_lit 823543)
+        (@instOfNatAtLeastTwo.{0} Real (nat_lit 823543) Real.instNatCast
+          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 823542) (instOfNatNat (nat_lit 823542)))
+            (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 823541) (instOfNatNat (nat_lit 823541)))))))))
+  (@LT.lt.{0} Real Real.instLT
+    (NLA.IS03.traceMoments
+      (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))) (nat_lit 6)
+        (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))
+          (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))) (nat_lit 6))))
+    (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))) :=
+sorryAx.{0}
+  (∀ (tag : Lean.Name),
+    And
+      (@Eq.{1} Real
+        (NLA.IS03.traceMoments
+          (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))) (nat_lit 6)
+            (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))
+              (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))) (nat_lit 6))))
+        (@HDiv.hDiv.{0, 0, 0} Real Real Real (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+          (@Neg.neg.{0} Real Real.instNeg
+            (@OfNat.ofNat.{0} Real (nat_lit 8593)
+              (@instOfNatAtLeastTwo.{0} Real (nat_lit 8593) Real.instNatCast
+                (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 8592) (instOfNatNat (nat_lit 8592)))
+                  (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 8591) (instOfNatNat (nat_lit 8591))))))))
+          (@OfNat.ofNat.{0} Real (nat_lit 823543)
+            (@instOfNatAtLeastTwo.{0} Real (nat_lit 823543) Real.instNatCast
+              (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 823542) (instOfNatNat (nat_lit 823542)))
+                (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 823541) (instOfNatNat (nat_lit 823541)))))))))
+      (@LT.lt.{0} Real Real.instLT
+        (NLA.IS03.traceMoments
+          (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))) (nat_lit 6)
+            (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))
+              (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))) (nat_lit 6))))
+        (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))))
+  Bool.false
+  (Lean.Name.num
+    (Lean.Name.str
+      (Lean.Name.str
+        (Lean.Name.num
+          (Lean.Name.str
+            (Lean.Name.str
+              (Lean.Name.str
+                (Lean.Name.num
+                  (Lean.Name.num
+                    (Lean.Name.num
+                      (Lean.Name.num
+                        (Lean.Name.num
+                          (Lean.Name.num (Lean.Name.str Lean.Name.anonymous "Challenge")
+                            (@OfNat.ofNat.{0} Nat (nat_lit 41) (instOfNatNat (nat_lit 41))))
+                          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                        (@OfNat.ofNat.{0} Nat (nat_lit 41) (instOfNatNat (nat_lit 41))))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7))))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7))))
+                "_sorry")
+              "_@")
+            "Challenge")
+          (@OfNat.ofNat.{0} Nat (nat_lit 2230746212) (instOfNatNat (nat_lit 2230746212))))
+        "_hygCtx")
+      "_hyg")
+    (@OfNat.ofNat.{0} Nat (nat_lit 34) (instOfNatNat (nat_lit 34))))
+NLA.IS03.nonnegative_power_trace {n : ℕ} (A : NLA.IS03.RealMatrix n) (hA : NLA.IS03.EntrywiseNonnegative A) (k : ℕ) :
+  NLA.IS03.EntrywiseNonnegative (HPow.hPow.{0, 0, 0} A k) ∧ LE.le.{0} 0 (Matrix.trace.{0, 0} (HPow.hPow.{0, 0, 0} A k))
+NLA.IS03.witness_admissible :
+  NLA.IS03.EntrywiseNonnegative NLA.IS03.witnessMatrix ∧ Eq.{1} (Matrix.trace.{0, 0} NLA.IS03.witnessMatrix) (1 / 2)
+NLA.IS03.witness_polynomials :
+  Eq.{1} (Matrix.charpoly.{0, 0} NLA.IS03.witnessMatrix) NLA.IS03.witnessPolynomial ∧
+    Eq.{1} (NLA.IS03.normalizedDerivative 7 (Matrix.charpoly.{0, 0} NLA.IS03.witnessMatrix))
+        NLA.IS03.derivativePolynomial ∧
+      Polynomial.Monic.{0} NLA.IS03.derivativePolynomial ∧
+        Eq.{1} (Polynomial.natDegree.{0} NLA.IS03.derivativePolynomial) 6
+NLA.IS03.trace_moment_certificate (B : NLA.IS03.RealMatrix 6)
+  (hB : Eq.{1} (Matrix.charpoly.{0, 0} B) NLA.IS03.derivativePolynomial) (i : Fin 7) :
+  Eq.{1} (Matrix.trace.{0, 0} (HPow.hPow.{0, 0, 0} B (HAdd.hAdd.{0, 0, 0} (↑i) 1))) (NLA.IS03.traceMoments i)
+NLA.IS03.negative_moment : Eq.{1} (NLA.IS03.traceMoments 6) (-8593 / 823543) ∧ LT.lt.{0} (NLA.IS03.traceMoments 6) 0
+NLA.IS03.counterexample :
+  NLA.IS03.EntrywiseNonnegative NLA.IS03.witnessMatrix ∧
+    ∀ (B : NLA.IS03.RealMatrix 6),
+      NLA.IS03.EntrywiseNonnegative B →
+        Ne.{1} (Matrix.charpoly.{0, 0} B)
+          (NLA.IS03.normalizedDerivative 7 (Matrix.charpoly.{0, 0} NLA.IS03.witnessMatrix))
+NLA.IS03.not_derivativeRealizabilityConjecture : ¬NLA.IS03.DerivativeRealizabilityConjecture
+'NLA.IS03.RealMatrix' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.IS03.EntrywiseNonnegative' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.IS03.normalizedDerivative' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.IS03.DerivativeRealizabilityConjecture' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.IS03.witnessMatrix' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.IS03.witnessPolynomial' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.IS03.derivativePolynomial' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.IS03.traceMoments' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'Matrix.charpoly' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'Matrix.charmatrix' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'Matrix.trace' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'Polynomial.derivative' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
