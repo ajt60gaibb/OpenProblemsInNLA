@@ -8,7 +8,7 @@
 **Importance:** broadly interesting  
 **Rating rationale:** Extreme because matching information bounds for every adaptive algorithm and growing rank is a fundamental barrier; broad impact includes large-scale spectral computation and data analysis.  
 **Source:** Bakshi–Narayanan, Open Question 1.10.  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-13  
 **Status:** Partially resolved  
 
 ## Problem statement
@@ -49,3 +49,17 @@ On 2026-09-08 the [source record](https://arxiv.org/abs/2304.03191) still listed
 ## Audit — 2026-09-10
 
 Rechecked [Bakshi–Narayanan, Theorem 1.1 and Open Question 1.10](https://arxiv.org/html/2304.03191v1). Fixed-rank spectral complexity is settled in the theorem's sufficiently-large-dimension regime; growing-rank and simultaneous finite-parameter dependence remain unresolved. Later query-complexity searches and the [SODA 2026 block-size paper](https://doi.org/10.1137/1.9781611978971.42) did not settle the full target.
+
+## Finite-accuracy partial result — 13 September 2026
+
+**Author:** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](../../references/holden-ra14-v5-2026-09-13/README.md).
+
+[Theorem 1.1](../../references/holden-ra14-v5-2026-09-13/report.pdf) establishes, for a universal positive constant $`c`$ and every original admissible parameter triple,
+
+```math
+q_{\mathrm{sp}}(n,k,\varepsilon)\ge c\frac{k}{\sqrt{\varepsilon}}\log\left(1+\frac{n\sqrt{\varepsilon}}{k}\right).
+```
+
+Together with the reproduced upper bound, this gives matching universal-factor bounds when $`\varepsilon\le(k/n)^2`$ and when $`\varepsilon\ge k/n`$, including $`q_{\mathrm{sp}}(n,1,1/n)=\Theta(\sqrt n\log n)`$ for $`n>2`$. Sections 3–10 prove the new lower bound; Appendices A and B reproduce the charged reduction and upper bound. [Proof source](../../references/holden-ra14-v5-2026-09-13/report.tex).
+
+The stated partial result passed a separate [independent informal Codex AI-agent audit](../../references/holden-ra14-v5-2026-09-13/independent-review.md). **RA-14 remains Partially resolved:** at $`k=1`$ and $`\varepsilon=(\log n/n)^2`$, the bounds still leave $`\Omega(n\log\log n/\log n)`$ versus $`O(n)`$, an unbounded factor. The full simultaneous universal-factor target is unchanged. No Lean verification, external human peer review or priority claim is asserted. This continues the earlier partial submission [PR #190](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/190); it does not duplicate a previously pushed full solution.

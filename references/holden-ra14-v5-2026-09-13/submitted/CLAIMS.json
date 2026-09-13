@@ -1,0 +1,131 @@
+{
+  "scope_note": "proof_provided_unreviewed identifies a claim accompanied by a written proof, not independent or formal certification.",
+  "claims": [
+    {
+      "id": "rank",
+      "statement": "q_sp >= k; exactly k queries on the rank-at-most-k promise.",
+      "scope": "All admissible parameters; two-sided adaptive model.",
+      "status": "proof_provided_unreviewed",
+      "location": "Proposition 2.2"
+    },
+    {
+      "id": "posterior",
+      "statement": "Conditional kernel density is proportional to det(I+Q^T K Q)^(nu/2).",
+      "scope": "Singular tilted Wishart law; arbitrary adaptive transcript with t<n-k.",
+      "status": "proof_provided_unreviewed",
+      "location": "Proposition 4.2"
+    },
+    {
+      "id": "angular",
+      "statement": "E[Q(I+beta Q^T K Q)^(-1)Q^T] <= ((k+nu/beta)/(d-k-1))I.",
+      "scope": "d>k+1, K positive semidefinite, nu>=0, beta>0, specified determinant-tilted Grassmann law.",
+      "status": "proof_provided_unreviewed",
+      "location": "Lemma 5.1"
+    },
+    {
+      "id": "budget",
+      "statement": "E Phi_T <= 4nu*T/n with alpha=nu/k.",
+      "scope": "n>=8, k<=n/8, nu>0, T<=n/4; arbitrary adaptive orthonormal queries.",
+      "status": "proof_provided_unreviewed",
+      "location": "Proposition 6.2"
+    },
+    {
+      "id": "constant_fallback",
+      "statement": "q_sp >= 2^(-20)*k*log(en/k).",
+      "scope": "All admissible parameters; no inherited information theorem is needed.",
+      "status": "proof_provided_unreviewed",
+      "location": "Proposition 7.1"
+    },
+    {
+      "id": "external_spectrum",
+      "statement": "Finite-dimensional Gaussian least-singular-value lower-tail estimate.",
+      "scope": "Every N>=r, t>0; source constants retained.",
+      "status": "imported_published_theorem",
+      "location": "Theorem 8.1",
+      "source": "Rudelson–Vershynin, Theorem 1.1, arXiv:0802.3956v4"
+    },
+    {
+      "id": "warm_start",
+      "statement": "A valid gapped spectral approximation can be converted to near-optimal PCA trace with k*ceil(10/sqrt(e)) extra products.",
+      "scope": "Exact hypotheses in Theorem 9.1; no unknown spectral scale supplied to the routine.",
+      "status": "previous_argument_reproduced_unreviewed",
+      "location": "Theorem 9.1 and Appendix A"
+    },
+    {
+      "id": "tradeoff",
+      "statement": "q_sp >= nk/(5nu)*log(1+nu/k) - D*nk/(nu+k) - 2k.",
+      "scope": "n>=n_*, k<=n/8, nu_*<=nu<=n/4, epsilon<=a/4*((nu+k)/n)^2; D=20/sqrt(a).",
+      "status": "proof_provided_unreviewed",
+      "location": "Proposition 9.3"
+    },
+    {
+      "id": "global_lower",
+      "statement": "q_sp >= c*k/sqrt(epsilon)*log(1+n*sqrt(epsilon)/k).",
+      "scope": "All integer n>=2, 1<=k<n, real 0<epsilon<1/2; universal c>0.",
+      "status": "proof_provided_unreviewed",
+      "location": "Theorem 1.1 and Section 10",
+      "dependencies": [
+        "rank",
+        "posterior",
+        "angular",
+        "budget",
+        "constant_fallback",
+        "external_spectrum",
+        "warm_start"
+      ]
+    },
+    {
+      "id": "upper",
+      "statement": "q_sp <= min(n, ceil(12000*k/sqrt(epsilon)*log(en/k))).",
+      "scope": "All admissible parameters; individual A and A^T products charged.",
+      "status": "previous_argument_reproduced_unreviewed",
+      "location": "Appendix B"
+    },
+    {
+      "id": "tiny_accuracy",
+      "statement": "q_sp=Theta(n) for epsilon<=(k/n)^2.",
+      "scope": "All admissible parameters in this region; universal constants.",
+      "status": "proof_provided_unreviewed",
+      "location": "Corollary 1.2 and Section 11",
+      "dependencies": [
+        "global_lower",
+        "upper"
+      ]
+    },
+    {
+      "id": "moderate_accuracy",
+      "statement": "Matching capped k/sqrt(epsilon)*log(en/k) bounds for epsilon>=k/n.",
+      "scope": "All admissible parameters in this region; universal constants.",
+      "status": "proof_provided_unreviewed",
+      "location": "Corollary 1.2 and Section 11",
+      "dependencies": [
+        "global_lower",
+        "upper"
+      ]
+    },
+    {
+      "id": "rank_one_inverse_n",
+      "statement": "q_sp(n,1,1/n)=Theta(sqrt(n)*log(n)).",
+      "scope": "Integer n>2; universal constants.",
+      "status": "proof_provided_unreviewed",
+      "location": "Corollary 1.2",
+      "dependencies": [
+        "moderate_accuracy"
+      ]
+    },
+    {
+      "id": "fixed_power",
+      "statement": "Matching bounds if epsilon >= (k/n)^(2-2delta), for any fixed delta in (0,1].",
+      "scope": "Constants may depend on delta and are not uniform as delta tends to zero.",
+      "status": "proof_provided_unreviewed",
+      "location": "Section 11"
+    },
+    {
+      "id": "full_characterization",
+      "statement": "Matching universal-constant bounds for every simultaneous finite n,k,epsilon.",
+      "scope": "Entire RA-14 domain.",
+      "status": "not_established",
+      "location": "Section 11.1"
+    }
+  ]
+}

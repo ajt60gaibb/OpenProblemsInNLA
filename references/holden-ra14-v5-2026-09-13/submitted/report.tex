@@ -1,0 +1,842 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=0.94in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,microtype,booktabs,array,longtable}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={RA-14: Finite-Accuracy Lower Bounds},pdfsubject={Continuation 5: a universal adaptive lower bound; the full problem remains partial}}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\setlength{\emergencystretch}{3em}
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\qsp}{q_{\mathrm{sp}}}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\range}{\operatorname{range}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\St}{\operatorname{Stief}}
+\newcommand{\Gr}{\operatorname{Gr}}
+\newcommand{\pdet}{\operatorname{pdet}}
+\newcommand{\calK}{\mathcal K}
+\newcommand{\calD}{\mathcal D}
+\newcommand{\calF}{\mathcal F}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\diver}{\operatorname{div}}
+\begin{document}
+\begin{center}
+{\LARGE\bfseries RA-14: Finite-Accuracy Lower Bounds}\\[5pt]
+{\large Continuation 5}
+\end{center}
+\begin{abstract}
+For every admissible finite dimension, rank, and accuracy, this note gives a proof of
+\[
+q_{\mathrm{sp}}(n,k,\eps)\ \ge\ c\,\frac{k}{\sqrt\eps}
+\log\!\left(1+\frac{n\sqrt\eps}{k}\right)
+\]
+with a universal positive constant. The argument uses a determinant tilt of a singular Wishart law, its exact posterior under adaptive matrix--vector queries, and an integration-by-parts estimate on a Grassmann manifold. For $k\le n/8$, during the first $n/4$ queries, a regularized log-determinant of the hidden-kernel overlap increases by at most $4\nu/n$ in conditional expectation per query. The finite-dimensional spectral input is the least-singular-value theorem of Rudelson--Vershynin, with its hypotheses retained; no deformed-Wigner dimension restriction is used.
+
+Together with the preceding upper bound, this proves $\Theta(\sqrt n\log n)$ at $k=1$, $\eps=1/n$, and $\Theta(n)$ whenever $\eps\le(k/n)^2$. It also gives matching universal-constant bounds throughout $\eps\ge k/n$. A logarithmic transition remains: at $k=1$, $\eps=(\log n/n)^2$, the bounds here are $\Omega(n\log\log n/\log n)$ and $O(n)$.
+
+The full RA-14 problem is therefore still \textbf{PARTIAL}. The new lower-bound proof and its exact remaining gap are written out below. This is an unreviewed mathematical research argument, not an independently certified or proof-assistant-verified result.
+\end{abstract}
+\setcounter{tocdepth}{1}
+\begingroup
+\small
+\setlength{\parskip}{0pt}
+\tableofcontents
+\endgroup
+\newpage
+
+\section{Problem, new theorem, and scope}\label{sec:main}
+An unknown $A\in\R^{n\times n}$ is accessed through products $Ax$ or $A^\top x$. Each individual vector product costs one query. Query vectors may depend arbitrarily and measurably on preceding replies and on an independent random seed. All other exact-real computation is free. For $n\ge2$, $1\le k<n$, and $0<\eps<1/2$, the output must satisfy $Z^\top Z=I_k$ and, for every fixed $A$,
+\begin{equation}\label{eq:target}
+\Prob\{\norm{A(I-ZZ^\top)}_2\le(1+\eps)\sigma_{k+1}(A)\}\ge0.99.
+\end{equation}
+The minimum worst-case query budget is $\qsp(n,k,\eps)$. This is the repository's RA-14 formulation~\cite{repo}. All logarithms in this note are natural. A block with $b$ columns costs $b$ vector queries.
+
+Put
+\begin{equation}\label{eq:F}
+x=\frac nk,\qquad s=\sqrt\eps,\qquad y=xs,\qquad
+F(n,k,\eps)=\frac{k}{s}\log(1+y)
+=n\frac{\log(1+y)}{y}.
+\end{equation}
+In particular, $F\le n$, without adding a separate cap.
+
+\begin{theorem}[Universal finite-accuracy lower bound]\label{thm:global}
+There is a universal constant $c>0$ such that, for every admissible $(n,k,\eps)$,
+\begin{equation}\label{eq:bracket}
+\max\{k,cF(n,k,\eps)\}
+\le\qsp(n,k,\eps)
+\le\min\!\left\{n,\left\lceil12000\frac{k}{\sqrt\eps}\log\frac{en}{k}\right\rceil\right\}.
+\end{equation}
+The lower bound has no dimension or rank-growth hypothesis. Its universal constant is not optimized or numerically evaluated.
+\end{theorem}
+The new part is the $cF$ lower bound. Sections~\ref{sec:rank}--\ref{sec:globalproof} prove it, including a fresh constant-accuracy fallback. The only imported non-elementary probabilistic theorem is stated in Section~\ref{sec:spectrum}. The upper bound was developed in the preceding packages~\cite{prior3,prior4}; Appendix~\ref{app:upper} reproduces the construction and query accounting. The earlier packages are preserved unchanged in the archive.
+
+\begin{corollary}[Two universally matched regions]\label{cor:regions}
+With universal implicit constants,
+\begin{align}
+\eps\le(k/n)^2&\quad\Longrightarrow\quad \qsp(n,k,\eps)=\Theta(n),\label{eq:tiny}\\
+\eps\ge k/n&\quad\Longrightarrow\quad
+\qsp(n,k,\eps)=\Theta\!\left(\min\left\{n,\frac{k}{\sqrt\eps}\log\frac{en}{k}\right\}\right).
+\label{eq:moderate}
+\end{align}
+In particular, for $n>2$,
+\begin{equation}\label{eq:closedexample}
+\qsp(n,1,1/n)=\Theta(\sqrt n\log n).
+\end{equation}
+\end{corollary}
+These statements close the particular high-accuracy example that the v4 note explicitly left unresolved. They do not cover the full transition with matching universal constants. For instance, as $n\to\infty$,
+\begin{equation}\label{eq:remainingexample}
+\frac{c' n\log\log n}{\log n}
+\le\qsp\!\left(n,1,\frac{\log^2 n}{n^2}\right)\le n.
+\end{equation}
+The lower expression in \eqref{eq:bracket} is not asserted to be the optimal answer. Nor is the existing capped upper expression asserted to be optimal everywhere.
+
+\section{Rank necessity and charged oracle normalization}\label{sec:rank}
+The following facts are retained from the earlier work, with the arguments included to fix the oracle model.
+
+\begin{lemma}[Rectangular Gaussian completion]\label{lem:rectcompletion}
+Let $G\in\R^{n\times k}$ have independent standard Gaussian entries. An adaptive deterministic procedure observes $Gc$ and $G^\top z$. If $C\subset\R^k$ and $X\subset\R^n$ are the spans of the respective query vectors, then, conditionally on its transcript,
+\[
+G=\bar G+P_{X^\perp}\widetilde G P_{C^\perp},\qquad
+\bar G=P_XG+GP_C-P_XGP_C,
+\]
+where $\bar G$ is known and the unrevealed block is a fresh standard Gaussian map from $C^\perp$ to $X^\perp$.
+\end{lemma}
+\begin{proof}
+Given the past, a new query direction is fixed. A new column query reveals one linear combination of the remaining independent Gaussian columns. Rotate $C^\perp$ so that this combination is the first column; the other columns remain independent Gaussian. A row query has the identical argument in $X^\perp$. Redundant queries reveal nothing. Induction proves the adaptive assertion; inclusion--exclusion gives the known part.
+\end{proof}
+
+\begin{proposition}[Rank lower bound]\label{prop:rank}
+For all parameters, $\qsp(n,k,\eps)\ge k$. On the promise $\rank A\le k$, exactly $k$ queries are necessary and sufficient.
+\end{proposition}
+\begin{proof}
+Use $A=[G^\top;0_{(n-k)\times n}]$. The two oracle directions give precisely the observations in Lemma~\ref{lem:rectcompletion}. Almost surely $\rank A=k$, so success requires $\range Z=\range G$.
+Write $r=\dim C$, $t=\dim X$. Before $k$ total nonredundant queries, $\rank(G^\top X)=t$ almost surely. Indeed a new row response has a nondegenerate Gaussian component in $C^\perp$, of dimension $k-r>t$, and thus cannot lie in the span of the previous $t$ row responses with positive probability.
+
+Fix a seed and a transcript after $q<k$ queries, and put $S=\range Z$. If $X^\perp\not\subset S$, a nonzero unrevealed column combination has affine Gaussian support parallel to $X^\perp$ and belongs to $S$ with probability zero. If $X^\perp\subset S$, the row-response rank assertion gives $P_X\range G=X$, so $\range G+X^\perp=\R^n$; both spaces cannot be contained in a $k$-dimensional $S$. Success again has probability zero. Averaging over seeds contradicts the pointwise success guarantee.
+
+Under the rank promise, query $A^\top$ on $k$ independent Gaussian vectors. Their images span the row space almost surely. Orthonormalize, and extend to dimension $k$ if the rank is smaller. The residual is zero.
+\end{proof}
+
+\begin{lemma}[Normalization and output extension]\label{lem:normalize}
+On a symmetric input, a $q$-query algorithm can be simulated using at most $q$ orthonormal query directions. Its output subspace can be included in the query span using at most $k$ further queries. A procedure of total budget at most $T\le n$ can be padded to exactly $T$ orthonormal directions.
+\end{lemma}
+\begin{proof}
+Decompose each requested vector into the existing query span and its orthogonal complement. The product on the first component is already known. Query only the normalized second component when it is nonzero. Apply the same operation to the output columns, charging all those products. A deterministic measurable orthonormal completion supplies dummy directions if needed.
+\end{proof}
+All lower-bound constructions below are symmetric, so the two allowed oracle directions coincide. Products with $M=I-H/L$, for a known positive $L$, and products with $H$ simulate each other with exactly one query. No inverse oracle is introduced.
+
+\section{A determinant-tilted singular Wishart law}\label{sec:prior}
+Let $r=n-k$. Start with $H=XX^\top$, where $X\in\R^{n\times r}$ has independent $N(0,1)$ entries. For a positive semidefinite matrix of rank $r$, write $\pdet H$ for the product of its $r$ positive eigenvalues. Define, for an integer $\nu\ge0$,
+\begin{equation}\label{eq:tilt}
+\frac{d\calD_{n,k,\nu}}{d\calD_{n,k,0}}(H)
+=\frac{(\pdet H)^{\nu/2}}{\E_0(\pdet H)^{\nu/2}}.
+\end{equation}
+The normalizer is finite and positive. The kernel is a Haar-uniform $k$-dimensional subspace.
+
+\begin{lemma}[Equivalent sampling description]\label{lem:sampling}
+Under $\calD_{n,k,\nu}$, the positive eigenvalues of $H$ have the distribution of the eigenvalues of $GG^\top$, where $G\in\R^{r\times(n+\nu)}$ is standard Gaussian. Their eigenspaces are uniformly oriented, independently of these eigenvalues. Equivalently, sample a Haar $n\times r$ frame $Q$ independently of $G$ and set $H=QGG^\top Q^\top$.
+\end{lemma}
+\begin{proof}
+For a standard Gaussian $m\times r$ matrix, the Gram matrix $W$ has density proportional to
+\begin{equation}\label{eq:wishartdensity}
+(\det W)^{(m-r-1)/2}e^{-\tr W/2},\qquad W\succ0.
+\end{equation}
+For completeness, Gaussian Gram--Schmidt gives an upper triangular factor $R$ whose off-diagonal entries are independent standard normals and whose positive diagonal squares have independent $\chi^2_{m-i+1}$ laws. Its density is proportional to $\prod_iR_{ii}^{m-i}e^{-\tr(R^\top R)/2}$. The Jacobian of $R\mapsto R^\top R$ is $2^r\prod_iR_{ii}^{r-i+1}$, which gives \eqref{eq:wishartdensity}. The positive eigenvalues of $XX^\top$ equal those of $X^\top X$. Multiplication by $(\det W)^{\nu/2}$ changes $m=n$ to $m=n+\nu$. Orthogonal invariance gives the independent uniform orientation.
+\end{proof}
+The extra degrees of freedom $\nu$ will tune the spectral gap. The exact kernel remains $k$-dimensional for every choice of $\nu$.
+
+\subsection{Deferred Gaussian decisions}
+The Schur-complement conditioning used below is related to the Wishart oracle analysis of Braverman--Hazan--Simchowitz--Woodworth~\cite{bhsw}. The singular and tilted versions needed here are proved explicitly.
+
+\begin{lemma}[Adaptive singular-Wishart completion]\label{lem:schur}
+Under $\calD_{n,k,0}$, let $V\in\R^{n\times t}$ be the orthonormal query frame after $t<r$ adaptive queries. In an orthogonal coordinate system beginning with $V$, the conditional matrix has the form
+\begin{equation}\label{eq:schur}
+H=\begin{bmatrix}J&B^\top\\ B&BJ^{-1}B^\top+S\end{bmatrix},
+\qquad J\succ0,
+\end{equation}
+where $J$ and $B$ are known and
+\[
+S=YY^\top,\qquad Y\in\R^{(n-t)\times(r-t)}
+\]
+has independent standard Gaussian entries, independently of the transcript.
+\end{lemma}
+\begin{proof}
+For the first query, rotate its direction to the first coordinate and let the first row of $X$ be $z^\top$. The response gives $a=\norm z^2>0$ and $b=X_{\rm rest}z$. Conditional on $z$, rotate the latent $r$-dimensional column coordinates so $z=\sqrt a\,e_1$. The first remaining column is then $b/\sqrt a$, while all other columns are independent standard Gaussian. Consequently the lower-right block is $bb^\top/a+YY^\top$.
+
+Inductively, subtract the already known block $BJ^{-1}B^\top$ from the next response and work in the unqueried orthogonal complement. Given the past, the next direction is fixed, and the same row/column argument applies to the fresh rectangular Gaussian matrix. The new Schur pivot is a positive chi-squared variable with $r-t$ degrees of freedom. Its removal leaves dimensions reduced by one. This proves the claim for arbitrary adaptive orthonormal directions and also proves that the queried compression stays nonsingular until $t=r$.
+\end{proof}
+Absolute continuity in \eqref{eq:tilt} transfers all these almost-sure nonsingularity statements to every $\nu\ge0$. The fresh-block distribution itself changes under the tilt, as follows.
+
+\section{The exact tilted posterior}\label{sec:posterior}
+Set $d=n-t$ and let $Q\in\St(d,k)$ span $\ker S$ in \eqref{eq:schur}. Define
+\begin{equation}\label{eq:graphdefs}
+K=BJ^{-2}B^\top\succeq0,\qquad C=Q^\top KQ,\qquad
+U=\begin{bmatrix}-J^{-1}B^\top Q\\ Q\end{bmatrix}(I+C)^{-1/2}.
+\end{equation}
+Then $U$ is an orthonormal kernel basis of $H$ in these coordinates.
+
+\begin{lemma}[Pseudodeterminant identity]\label{lem:pdet}
+For \eqref{eq:schur} and \eqref{eq:graphdefs},
+\begin{equation}\label{eq:pdet}
+\pdet H=\det J\;\pdet S\;\det(I+C).
+\end{equation}
+Moreover,
+\begin{equation}\label{eq:overlapgraph}
+U^\top P_VU=(I+C)^{-1/2}C(I+C)^{-1/2}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+The kernel and Gram identities follow by multiplication. For the pseudodeterminant, write
+\[
+H=L\diag(J,S)L^\top,\qquad
+L=\begin{bmatrix}I&0\\ BJ^{-1}&I\end{bmatrix},\qquad \det L=1.
+\]
+For any positive semidefinite $D$ of nullity $k$ and any invertible $L$, comparing the coefficients of $z^k$ in
+$\det(LDL^\top+zI)=(\det L)^2\det(D+zL^{-1}L^{-\top})$ gives
+\[
+\pdet(LDL^\top)=(\det L)^2\pdet D\,
+\det(N^\top L^{-1}L^{-\top}N),
+\]
+where $N$ is an orthonormal kernel basis of $D$. Here $N=[0;Q]$, and the last Gram matrix is $I+C$. This proves \eqref{eq:pdet}.
+\end{proof}
+
+\begin{proposition}[Posterior kernel density]\label{prop:posterior}
+Under $\calD_{n,k,\nu}$ and conditional on any adaptive transcript of $t<r$ queries, the subspace $\range Q$ has density
+\begin{equation}\label{eq:angulardensity}
+\frac{\det(I+Q^\top KQ)^{\nu/2}}
+{\int_{\Gr(d,k)}\det(I+\widetilde Q^\top K\widetilde Q)^{\nu/2}\,d\mu(\widetilde Q)}
+\end{equation}
+with respect to uniform probability measure $\mu$ on $\Gr(d,k)$. The positive eigenvalues of $S$ are independent of this kernel under the conditional law, and have the nonzero-Wishart law with dimensions $r-t$ and $d+\nu$.
+\end{proposition}
+\begin{proof}
+Under the base law in Lemma~\ref{lem:schur}, the kernel of $S$ is uniform and independent of its positive eigenvalues. The conditional Radon--Nikodym derivative is, by \eqref{eq:pdet}, proportional to
+\[
+(\det J)^{\nu/2}(\pdet S)^{\nu/2}
+\det(I+Q^\top KQ)^{\nu/2}.
+\]
+The first factor is known. The second changes the eigenvalue degrees of freedom from $d$ to $d+\nu$, by Lemma~\ref{lem:sampling}. The third changes only the kernel orientation, producing \eqref{eq:angulardensity}. Independence before tilting and the factorization prove the asserted independence afterward. This is a change of measure on the full input distribution followed by conditional expectation; it does not assume the queries were chosen nonadaptively.
+\end{proof}
+
+\subsection{An exact untilted-law check}
+There is a useful additional identity for the base law. It is not needed for the main theorem, but independently checks the determinant and conditioning calculations.
+\begin{proposition}\label{prop:digamma}
+Let $\nu=0$, and let $T<r$ arbitrary adaptive orthonormal queries be made. For any orthonormal basis $U_0$ of the full kernel,
+\begin{equation}\label{eq:digamma}
+\E_0[-\log\det(U_0^\top(I-P_{V_T})U_0)]
+=\sum_{i=0}^{T-1}\left[\psi\!\left(\frac{n-i}{2}\right)
+-\psi\!\left(\frac{n-k-i}{2}\right)\right],
+\end{equation}
+where $\psi=\Gamma'/\Gamma$. For $k=1$, this is $\psi(n/2)-\psi((n-T)/2)$.
+\end{proposition}
+\begin{proof}
+The left side is $\E_0\log\det(I+C)$. Take logarithms in \eqref{eq:pdet}. The positive Gram determinant of $H$ has independent chi-squared factors of degrees $k+1,\ldots,n$, and that of $S$ has degrees $k+1,\ldots,n-T$. The adaptive Schur pivots of $J$ have degrees $r,r-1,\ldots,r-T+1$, by Lemma~\ref{lem:schur}. Since $\E\log\chi^2_j=\psi(j/2)+\log2$, subtraction yields \eqref{eq:digamma}. No independence between all three determinants is required for this expectation identity.
+\end{proof}
+
+\section{A Grassmann integration estimate}\label{sec:grassmann}
+This estimate is the central new information bound. It holds for every positive semidefinite $K$, including highly ill-conditioned matrices determined by an adaptive transcript.
+
+\begin{lemma}[Regularized posterior second moment]\label{lem:angular}
+Let $d>k+1$, $K\succeq0$, $\nu\ge0$, and $\beta>0$. Give $Q\in\Gr(d,k)$ the density proportional to $\det(I+Q^\top KQ)^{\nu/2}$. Then
+\begin{equation}\label{eq:angularbound}
+\E\big[Q(I+\beta Q^\top KQ)^{-1}Q^\top\big]
+\preceq\frac{k+\nu/\beta}{d-k-1}\,I_d.
+\end{equation}
+In particular, for $\beta=1+\nu/k$, the numerator is at most $2k$.
+\end{lemma}
+\begin{proof}
+Fix a unit eigenvector $v$ of $K$, with eigenvalue $\kappa\ge0$. At a point $Q$, choose an orthogonal coordinate system in which $Q=[I_k;0]$. Write
+\[
+v=\begin{bmatrix}a\\ b\end{bmatrix},\quad
+h=a^\top a,\quad C=Q^\top KQ,\quad
+F=(I+\beta C)^{-1},\quad D=I+C,\quad
+z=Q^\top K(I-QQ^\top)v.
+\]
+Put $r_v=a^\top Fa$. The eigenvector relation gives
+\begin{equation}\label{eq:zidentity}
+z=(\kappa I-C)a.
+\end{equation}
+Consider the globally defined horizontal vector field on the Grassmann manifold
+\begin{equation}\label{eq:field}
+X(Q)=(I-QQ^\top)vv^\top QF.
+\end{equation}
+The field is unchanged as a tangent vector to the subspace when the orthonormal basis $Q$ is replaced by $QO$.
+
+We first calculate its divergence with respect to uniform Grassmann measure. In the graph chart
+\[
+Q(Y)=\begin{bmatrix}I\\Y\end{bmatrix}(I+Y^\top Y)^{-1/2},
+\qquad Y\in\R^{(d-k)\times k},
+\]
+the volume density has zero first derivative at $Y=0$: reflection of the last $d-k$ coordinates sends $Y$ to $-Y$ and preserves the measure. Thus the divergence at that point is the ordinary sum of coordinate derivatives. The chart velocity of \eqref{eq:field}, to first order, is
+\[
+(b-Ya)(a^\top+b^\top Y)F(Y)+O(\norm Y^2),
+\]
+because the derivatives at zero of $(I+Y^\top Y)^{\pm1/2}$ vanish. Also
+\[
+dF=-\beta F\,(dY^\top K_{21}+K_{12}dY)F.
+\]
+Differentiating each coordinate and summing yields
+\begin{equation}\label{eq:divergence}
+\diver X=(1-h)\tr F-(d-k)r_v
+-\beta\big[a^\top F^2z+(\tr F)a^\top Fz\big].
+\end{equation}
+For example, the two terms from differentiating $F$ are obtained by summing
+$-\beta b_i a^\top F(e_jk_i^\top+k_ie_j^\top)Fe_j$ over $i,j$, where $k_i=K_{12}e_i$. This gives precisely the last two terms in \eqref{eq:divergence}.
+
+The directional derivative of the log density along $X$ is
+\begin{equation}\label{eq:score}
+X\log w=\nu a^\top FD^{-1}z.
+\end{equation}
+Indeed $dC=Faz^\top+za^\top F$, and $F$ commutes with $D$. Integrating $\diver(wX)$ over the compact boundaryless Grassmann manifold gives zero. After dividing by the normalizer and using \eqref{eq:divergence}--\eqref{eq:score},
+\begin{align}\label{eq:stationarity}
+(d-k)\E r_v
+=\E\big[&(1-h)\tr F
+-\beta a^\top F^2(\kappa I-C)a
+-\beta(\tr F)a^\top F(\kappa I-C)a\notag\\
+&+\nu a^\top FD^{-1}(\kappa I-C)a\big].
+\end{align}
+All functions here are smooth on a compact space, so the integration by parts has no integrability or boundary exception.
+
+Each term has a uniform bound. Since $\beta FC\preceq I$,
+\begin{align*}
+-\beta a^\top F^2(\kappa I-C)a&\le r_v,\\
+-\beta(\tr F)a^\top F(\kappa I-C)a&\le h\tr F.
+\end{align*}
+Because $K-\kappa vv^\top\succeq0$, we have $\kappa aa^\top\preceq C$. When $\kappa>0$, this implies $a\in\range C$ and $\kappa a^\top C^\dagger a\le1$. Hence
+\begin{align*}
+\nu a^\top FD^{-1}(\kappa I-C)a
+&\le\nu\kappa a^\top FD^{-1}a\\
+&\le\nu\sup_{c\ge0}\frac{c}{(1+\beta c)(1+c)}\le\frac\nu\beta.
+\end{align*}
+For $\kappa=0$ the same upper bound is immediate. The $(1-h)\tr F$ and $h\tr F$ terms sum to $\tr F\le k$. Equation~\eqref{eq:stationarity} therefore gives
+\[
+(d-k)\E r_v\le k+\E r_v+\nu/\beta,
+\]
+which is the desired bound in every eigenvector direction of $K$.
+
+Finally, the law and the matrix integrand are equivariant under all orthogonal transformations commuting with $K$. Sign changes in an eigenbasis of $K$ show that the expectation in \eqref{eq:angularbound} is diagonal in that basis. Bounds on all its diagonal entries thus imply the full matrix inequality, and therefore the inequality for every unit $v$, not just eigenvectors.
+\end{proof}
+
+\section{One-query growth of a regularized determinant}\label{sec:potential}
+Let $U_0$ be any orthonormal kernel basis of $H$. For a query frame $V_t$ and a fixed $\alpha>0$, define the basis-invariant potential
+\begin{equation}\label{eq:potential}
+\Phi_t=\log\det(I_k+\alpha U_0^\top P_{V_t}U_0).
+\end{equation}
+Always $0\le\Phi_t\le k\log(1+\alpha)$ and $\Phi_0=0$.
+
+\begin{lemma}[Conditional one-query bound]\label{lem:increment}
+Under $\calD_{n,k,\nu}$, with $\nu>0$, set $\alpha=\nu/k$. If $t<n-k-1$, every next adaptive orthonormal query satisfies
+\begin{equation}\label{eq:increment}
+\E[\Phi_{t+1}-\Phi_t\mid\calF_t]
+\le\frac{2\nu}{n-t-k-1}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Use the posterior coordinates of Section~\ref{sec:posterior}. The next query is a fixed unit vector $v$ in the $d=n-t$ dimensional remaining coordinate space, conditional on $\calF_t$. The full kernel basis is the graph in \eqref{eq:graphdefs}. Appending this query adds one rank-one matrix to $U_0^\top P_{V_t}U_0$. The determinant lemma, together with \eqref{eq:overlapgraph}, gives the exact identity
+\begin{equation}\label{eq:exactincrement}
+\Phi_{t+1}-\Phi_t
+=\log\!\left(1+\alpha v^\top Q[I+(1+\alpha)C]^{-1}Q^\top v\right).
+\end{equation}
+Use $\log(1+z)\le z$ and apply Lemma~\ref{lem:angular} with $\beta=1+\alpha=1+\nu/k$ to the exact conditional density \eqref{eq:angulardensity}. Its numerator is at most $2k$, which gives \eqref{eq:increment}. The next reply is not needed to evaluate the rank-one overlap increment; the query vector is already predictable.
+\end{proof}
+
+\begin{proposition}[Adaptive information budget]\label{prop:budget}
+If $n\ge8$, $k\le n/8$, $\nu>0$, and $T\le n/4$, then every procedure using $T$ orthonormal adaptive queries obeys
+\begin{equation}\label{eq:budget}
+\E\Phi_T\le\frac{4\nu T}{n},\qquad \alpha=\nu/k.
+\end{equation}
+The expectation may include an independent algorithmic seed.
+\end{proposition}
+\begin{proof}
+For $0\le t<T$, $n-t-k-1\ge n/2$ under the stated bounds. Sum \eqref{eq:increment} using conditional expectation. The argument holds for each fixed seed; averaging preserves it.
+\end{proof}
+This is a bound on individual vector queries against arbitrary adaptive algorithms. It is not a bound on block depth and does not use a visible-block direct-sum argument.
+
+\section{A self-contained constant-accuracy fallback}\label{sec:constant}
+The new framework also recovers a universal logarithmic lower bound. The conservative constant below is weaker than v4's constant, but no v4 information-theoretic lemma is needed.
+
+\begin{proposition}\label{prop:constant}
+For all admissible parameters,
+\begin{equation}\label{eq:constantbound}
+\qsp(n,k,\eps)\ge 2^{-20}k\log(en/k).
+\end{equation}
+\end{proposition}
+\begin{proof}
+Set $x=n/k$ and $\ell=\log(ex)$. For $\ell\le2^{18}$, Proposition~\ref{prop:rank} suffices. Assume $\ell>2^{18}$ and, for a contradiction, $q<2^{-20}k\ell$.
+
+Take $\nu=4095n$, so the positive eigenvalues of $H$ have a Gaussian Gram law with $m=4096n$ degrees of freedom. Use the symmetric input
+\[
+M=I-H/m.
+\]
+Except with probability below $0.001$, every nonzero eigenvalue of $H/m$ lies in $[3/4,5/4]$. Here is a direct bound: for fixed unit $z\in\R^r$, $\norm{G^\top z}^2$ is $\chi^2_m$. Its moment-generating function gives
+$\Prob(|\chi^2_m/m-1|>u)\le2e^{-mu^2/8}$ for $0<u<1$. Use $u=1/8$ and a $1/4$-net of cardinality at most $9^r$; quadratic-form approximation multiplies the net bound by at most two. The failure probability is at most
+$2\exp(r\log9-m/512)<2e^{-5n}<0.001$ for $n\ge2$.
+
+On this event, $M$ equals the identity on its kernel $U_0$ and has tail singular values at most $1/4$. Success in \eqref{eq:target} gives
+\[
+\norm{U_0^\top(I-ZZ^\top)}_2
+=\norm{U_0^\top M(I-ZZ^\top)}_2\le3/8,
+\]
+so $U_0^\top ZZ^\top U_0\succeq(55/64)I$. Append and charge the output directions. For $T=q+k$, the extended frame then satisfies
+\[
+\Phi_T\ge k\log\!\left(1+\frac{55\alpha}{64}\right)
+\ge\frac{55}{64}k\log(1+\alpha),\qquad \alpha=4095n/k.
+\]
+The pointwise success probability and the spectral event have joint probability above $0.989$. Thus $\E\Phi_T>0.8k\ell$.
+
+Since $\ell>2^{18}$, $k\le n/8$ and
+$T\le k(1+\ell/2^{20})<n/4$. Proposition~\ref{prop:budget} gives
+$\E\Phi_T\le16380T$, so $T>k\ell/2^{15}$. But the assumed query bound gives
+$T<5k\ell/2^{20}<k\ell/2^{15}$. This contradiction proves \eqref{eq:constantbound}.
+\end{proof}
+
+\section{Finite-dimensional spectral separation}\label{sec:spectrum}
+We use the following precise external input. It applies to all fixed rectangular dimensions, including almost-square matrices; Gaussian entries are a special case of its hypotheses.
+
+\begin{theorem}[Rudelson--Vershynin, imported]\label{thm:RV}
+There are positive universal constants $C_{\rm RV},c_{\rm RV}$ such that a standard Gaussian $N\times r$ matrix $G$, $N\ge r$, satisfies, for every $t>0$,
+\begin{equation}\label{eq:RV}
+\Prob\{s_{\min}(G)\le t(\sqrt N-\sqrt{r-1})\}
+\le(C_{\rm RV}t)^{N-r+1}+e^{-c_{\rm RV}N}.
+\end{equation}
+\end{theorem}
+This is Theorem 1.1 of Rudelson--Vershynin~\cite{rv}, specialized to real standard Gaussian entries. Its proof is not reproduced here. Unlike a concentration bound around $\sqrt N-\sqrt r$ with an additive constant fluctuation, \eqref{eq:RV} remains useful when $N-r$ is fixed.
+
+\begin{lemma}[A separated kernel with uniformly bounded bulk]\label{lem:spectral}
+There exist universal $a\in(0,1/100)$ and integers $n_*,\nu_*\ge8$ such that, whenever
+\[
+n\ge n_*,\qquad 1\le k\le n/8,\qquad \nu_*\le\nu\le n/4,
+\]
+a matrix $H\sim\calD_{n,k,\nu}$ satisfies, with probability at least $0.99$,
+\begin{equation}\label{eq:spectralgood}
+\norm H\le100n,\qquad
+\lambda_{\min}^+(H)\ge100a\frac{(\nu+k)^2}{n}.
+\end{equation}
+Here $\lambda_{\min}^+$ denotes the smallest positive eigenvalue.
+\end{lemma}
+\begin{proof}
+Let $t_*=[2\max\{C_{\rm RV},1\}]^{-1}\le1/2$ and set $a=t_*^2/900$. With $N=n+\nu$, $r=n-k$, we have
+\[
+\sqrt{n+\nu}-\sqrt{n-k-1}
+=\frac{\nu+k+1}{\sqrt{n+\nu}+\sqrt{n-k-1}}
+\ge\frac{\nu+k}{3\sqrt n}.
+\]
+Lemma~\ref{lem:sampling} and \eqref{eq:RV} therefore give the lower-eigenvalue inequality in \eqref{eq:spectralgood}, except with probability at most
+$2^{-(\nu+k+1)}+e^{-c_{\rm RV}(n+\nu)}$. Choose $\nu_*,n_*$ to make this below $0.005$.
+
+For the norm bound, take $1/4$-nets on the unit spheres in $\R^r$ and $\R^{n+\nu}$. Their product cardinality is at most $9^{r+n+\nu}\le9^{3n}$. Each bilinear Gaussian form has variance one. A two-sided tail at $5\sqrt n$ and the net approximation $\norm G\le2\max_{\rm net}|u^\top Gv|$ show
+\[
+\Prob\{\norm G>10\sqrt n\}\le2e^{3n\log9-25n/2}<0.005
+\]
+for $n\ge8$. Since $\norm H=\norm G^2$, the union bound proves the result.
+\end{proof}
+On this event, the matrix
+\begin{equation}\label{eq:hardM}
+M=I-H/(100n)
+\end{equation}
+is positive semidefinite, has its top $k$ eigenvalues exactly one, and has all remaining eigenvalues in $[0,1-g_0]$, where
+\begin{equation}\label{eq:g0}
+g_0=a\left(\frac{\nu+k}{n}\right)^2.
+\end{equation}
+No approximate outlier-location theorem is needed: the leading eigenspace is the exact kernel.
+
+\section{From the requested residual to kernel information}\label{sec:bridge}
+We use the spectral-to-trace postprocessor from the original research note~\cite{prior1}. Its full elementary proof is included in Appendix~\ref{app:warm}.
+
+\begin{theorem}[Charged warm-start postprocessing]\label{thm:warm}
+Let a symmetric $M$ have positive leading $k$ eigenvalues at least $a_1$, with remaining eigenvalues of magnitude at most $b_1$. Suppose $0<e<1/2$,
+\[
+a_1\ge(1+3e/2)b_1,\qquad Z^\top Z=I_k,\qquad
+\norm{M(I-ZZ^\top)}_2\le(1+e)b_1.
+\]
+A deterministic postprocessor, not knowing $a_1$ or $b_1$, uses at most $k\lceil10/\sqrt e\rceil$ further products with $M$ and returns an orthonormal $\widehat V$ such that
+\[
+\tr(\widehat V^\top M\widehat V)\ge(1-e/200)\sum_{i=1}^k\lambda_i(M).
+\]
+\end{theorem}
+
+\begin{lemma}[Kernel overlap on the good event]\label{lem:tracekernel}
+For \eqref{eq:hardM} on \eqref{eq:spectralgood}, set $e=g_0/4$. If an RA-14 algorithm succeeds at accuracy $\eps\le e$, the postprocessor in Theorem~\ref{thm:warm} satisfies
+\begin{equation}\label{eq:kerneltrace}
+\tr(\widehat V^\top U_0U_0^\top\widehat V)\ge\frac{799}{800}k.
+\end{equation}
+Its query cost is at most
+\begin{equation}\label{eq:postcost}
+D\frac{nk}{\nu+k}+k,\qquad D=20/\sqrt a.
+\end{equation}
+\end{lemma}
+\begin{proof}
+The true tail bound $b_1=\sigma_{k+1}(M)$ is at most $1-g_0$. Since $(1+3e/2)(1-g_0)\le1$ and $\eps\le e$, every warm-start hypothesis holds. The returned trace is at least $(1-e/200)k$. On the other hand,
+\[
+M\preceq U_0U_0^\top+(1-g_0)(I-U_0U_0^\top),
+\]
+so this trace is at most
+$k-g_0[k-\tr(\widehat V^\top U_0U_0^\top\widehat V)]$.
+Using $e=g_0/4$ proves \eqref{eq:kerneltrace}. Finally,
+$k\lceil10/\sqrt e\rceil\le20k/\sqrt{g_0}+k$ gives \eqref{eq:postcost}.
+\end{proof}
+After at most $k$ additional, charged output-extension queries, the query span contains $\widehat V$. All eigenvalues $p_i$ of $U_0^\top P_{V_T}U_0$ lie in $[0,1]$, and their sum is at least $799k/800$. Concavity gives
+\begin{equation}\label{eq:PhiSuccess}
+\Phi_T=\sum_i\log(1+\alpha p_i)
+\ge\left(\sum_i p_i\right)\log(1+\alpha)
+\ge\frac{799}{800}k\log(1+\nu/k).
+\end{equation}
+Thus success supplies a determinant lower bound without requiring a lower bound on every individual principal angle.
+
+\begin{proposition}[Unabsorbed finite-parameter tradeoff]\label{prop:tradeoff}
+Under the hypotheses of Lemma~\ref{lem:spectral}, and for
+$\eps\le \frac a4((\nu+k)/n)^2$, one has
+\begin{equation}\label{eq:tradeoff}
+\qsp(n,k,\eps)\ge
+\frac{nk}{5\nu}\log(1+\nu/k)-D\frac{nk}{\nu+k}-2k,
+\qquad D=20/\sqrt a.
+\end{equation}
+The right side need not be positive. This inequality retains the postprocessing overhead rather than hiding it in a constant.
+\end{proposition}
+\begin{proof}
+Let $q$ be a successful algorithm's budget and let
+$T=q+k\lceil10/\sqrt e\rceil+k$, with $e=g_0/4$.
+If $T>n/4$, then $T>\frac{nk}{5\nu}\log(1+\nu/k)$, since
+$\log(1+\nu/k)\le\nu/k$. Otherwise the normalized, padded procedure is admissible for Proposition~\ref{prop:budget}. The joint probability of the good spectral event and original success is at least $0.98$, so \eqref{eq:PhiSuccess} gives
+\[
+\frac{4\nu T}{n}\ge0.98\frac{799}{800}k\log(1+\nu/k)
+>\frac45 k\log(1+\nu/k).
+\]
+Thus $T>\frac{nk}{5\nu}\log(1+\nu/k)$ in either case. Subtracting the upper bound $Dnk/(\nu+k)+2k$ on the overhead proves \eqref{eq:tradeoff}.
+\end{proof}
+
+\section{Proof of the all-parameter lower bound}\label{sec:globalproof}
+We now specify every fallback and absorption, so that a dimension hypothesis is not silently discarded.
+
+Fix the constants $a,n_*,\nu_*$ from Lemma~\ref{lem:spectral}, enlarging $n_*$ to at least eight. Let
+\begin{equation}\label{eq:constants}
+B_*=2/\sqrt a,\qquad D=20/\sqrt a,
+\end{equation}
+and choose a universal integer $R$ satisfying
+\begin{equation}\label{eq:R}
+R\ge\max\{\nu_*,B_*,2\},\qquad \log R\ge100(D+1).
+\end{equation}
+These constants may be enormous. Their role is to prove a universal-factor statement, not to give a practical query threshold.
+
+\begin{proof}[Proof of the lower bound in Theorem~\ref{thm:global}]
+Recall $F\le n$. If $n<n_*$, Proposition~\ref{prop:rank} gives $q\ge1\ge F/n_*$. If $k\ge n/(8R)$, it gives $q\ge k\ge F/(8R)$. If $s=\sqrt\eps\ge1/(8B_*)$, then
+\[
+F\le8B_*k\log(1+x)\le8B_*k\log(ex),
+\]
+and Proposition~\ref{prop:constant} gives $q\ge 2^{-20}F/(8B_*)$.
+
+It remains to consider
+\begin{equation}\label{eq:hardregime}
+n\ge n_*,\qquad k<n/(8R),\qquad s<1/(8B_*).
+\end{equation}
+Choose
+\begin{equation}\label{eq:nuchoice}
+\nu=\left\lceil\max\{Rk,B_*ns\}\right\rceil,
+\qquad z=\nu/k,
+\qquad G_\nu=\frac{nk}{\nu}\log(1+\nu/k)=n\frac{\log(1+z)}{z}.
+\end{equation}
+Then $\nu\ge\nu_*$, $z\ge R$, and $\nu\le n/8+1\le n/4$. Also $k\le n/8$. In particular all hypotheses of Lemma~\ref{lem:spectral} hold. Since $\nu\ge B_*ns$,
+\[
+e=\frac a4\left(\frac{\nu+k}{n}\right)^2\ge\frac a4B_*^2s^2=\eps.
+\]
+
+Suppose for contradiction that an RA-14 algorithm uses $q<G_\nu/100$ queries. Run it on \eqref{eq:hardM}, append the postprocessor with parameter $e$, and append its output directions. The total integer budget is
+\[
+T=q+k\lceil10/\sqrt e\rceil+k.
+\]
+The overhead satisfies
+\begin{align*}
+T-q&\le D\frac{nk}{\nu+k}+2k
+\le\left(D+\frac{2\nu}{n}\right)\frac{nk}{\nu}
+\le(D+1/2)\frac{nk}{\nu}\\
+&\le\frac{D+1/2}{\log R}G_\nu<\frac{G_\nu}{100}.
+\end{align*}
+Thus $T<G_\nu/50\le n/50$. Normalize and pad the procedure as in Lemma~\ref{lem:normalize}. Proposition~\ref{prop:budget} applies and gives
+\begin{equation}\label{eq:upperexpected}
+\E\Phi_T\le4\nu T/n<\frac{2}{25}k\log(1+\nu/k).
+\end{equation}
+
+The good spectral event has probability at least $0.99$. The original success guarantee is at least $0.99$ for every fixed input, so its success and that event have joint probability at least $0.98$. On their intersection, Lemma~\ref{lem:tracekernel} and \eqref{eq:PhiSuccess} apply. Off the intersection, $\Phi_T\ge0$. Consequently
+\begin{equation}\label{eq:lowerexpected}
+\E\Phi_T\ge0.98\frac{799}{800}k\log(1+\nu/k)
+>0.97k\log(1+\nu/k),
+\end{equation}
+contradicting \eqref{eq:upperexpected}. Hence $q\ge G_\nu/100$.
+
+It remains to compare $G_\nu$ with $F$ without a hidden parameter condition. The function $f(u)=\log(1+u)/u$ is decreasing on $(0,\infty)$, because $\log(1+u)\ge u/(1+u)$. Rounding in \eqref{eq:nuchoice} gives
+$z\le2\max\{R,B_*y\}$. If $B_*y\ge R$, then
+\[
+G_\nu\ge n f(2B_*y)\ge\frac1{2B_*}n f(y)=\frac{F}{2B_*}.
+\]
+If $B_*y<R$, then $G_\nu\ge n f(2R)\ge f(2R)F$. Thus the hard-regime lower bound is at least
+\[
+\frac1{100}\min\left\{\frac1{2B_*},\frac{\log(1+2R)}{2R}\right\}F.
+\]
+Combining with the three fallback cases proves the theorem with, for example,
+\begin{equation}\label{eq:cfinal}
+c=\min\left\{\frac1{n_*},\frac1{8R},\frac{2^{-20}}{8B_*},
+\frac1{200B_*},\frac{\log(1+2R)}{200R}\right\}>0.
+\end{equation}
+All constants in \eqref{eq:cfinal} are universal. The argument was uniform for each fixed algorithmic seed and therefore includes randomized adaptive algorithms.
+\end{proof}
+
+\section{Matched regions and the remaining transition}\label{sec:scope}
+\begin{proof}[Proof of Corollary~\ref{cor:regions}]
+If $y\le1$, monotonicity of $f$ gives $F\ge n\log2$. The lower theorem and exact $n$-query recovery give \eqref{eq:tiny}.
+
+If $\eps\ge1/x$, then $y\ge\sqrt x$. For $x\ge1$,
+\[
+\log(1+\sqrt x)\ge\frac14\log(ex).
+\]
+Indeed, for $\log x\ge1$, the left side is at least $\tfrac12\log x\ge\tfrac14(1+\log x)$; for $\log x\le1$, it is at least $\log2>\tfrac12$. Thus $F\ge\tfrac14(k/s)\log(ex)$, and the upper bound in \eqref{eq:bracket} matches, including the $n$ cap and integer rounding. Setting $k=1$, $\eps=1/n$ proves \eqref{eq:closedexample}.
+\end{proof}
+More generally, for any fixed $\delta\in(0,1]$, the same comparison gives a characterization with constants allowed to depend on $\delta$ throughout
+\begin{equation}\label{eq:fixedpower}
+\eps\ge(k/n)^{2-2\delta}.
+\end{equation}
+When $y\ge x^\delta$, one has $\log(1+y)\ge c_\delta\log(ex)$. This covers every fixed power strictly above the $(k/n)^2$ scale. It does not supply a universal constant as $\delta\downarrow0$.
+
+For an exact description of the current gap, discard only absolute prefactors and ceilings, and put $\ell=\log(ex)$. The two candidate scales in \eqref{eq:bracket} have ratio
+\begin{equation}\label{eq:gapratio}
+\frac{\min\{n,(k/s)\ell\}}{F}
+=\frac{\min\{y,\ell\}}{\log(1+y)}
+\le\frac{\ell}{\log(1+\ell)}.
+\end{equation}
+The inequality follows because $y/\log(1+y)$ is increasing and $\ell/\log(1+y)$ is decreasing; the two pieces meet at $y=\ell$. Therefore the largest unresolved multiplicative gap between these bounds occurs near
+\[
+\sqrt\eps=\frac{k}{n}\log\frac{en}{k}.
+\]
+At $k=1$, $\eps=(\log n/n)^2$, this gives \eqref{eq:remainingexample}. The factor $\log n/\log\log n$ is unbounded, not a universal constant.
+
+\subsection{What would complete the argument}
+A complete RA-14 solution would require a matching bound in this transition, or a different universally matching expression. In particular, neither of the following has been proved here:
+\[
+\qsp=\Theta\!\left(\min\left\{n,\frac{k}{\sqrt\eps}\log\frac{en}{k}\right\}\right)
+\quad\hbox{for all parameters},
+\]
+or
+\[
+\qsp=\Theta\!\left(\frac{k}{\sqrt\eps}\log\!\left(1+\frac{n\sqrt\eps}{k}\right)\right)
+\quad\hbox{for all parameters}.
+\]
+The first would need a stronger lower bound; the second would need a stronger upper bound. An exact-recovery upper cap does not prove the missing lower bound. Similarly, the determinant-potential lower bound does not itself construct an algorithm attaining it. The near-cap case remains a substantive mathematical gap, so this archive must not be represented as a full solution.
+
+\section{Proof audit and computational checks}\label{sec:checks}
+The lower-bound proof depends on the following chain: adaptive Gaussian completion; the pseudodeterminant identity; the factorized posterior tilt; the Grassmann integration estimate; the charged rank-one potential update; a finite-dimensional least-singular-value input; and a charged spectral-to-trace postprocessor. Every step except the explicitly imported Rudelson--Vershynin theorem is proved in this note. In particular, no query lower bound from a separate PCA problem is imported, and no large-dimension restriction from a deformed-Wigner law is dropped.
+
+The archive contains an independently readable proof audit, a claim inventory, all source files, and component tests. Tests check kernel graphs and pseudodeterminants, the exact rank-one potential update, the local-coordinate divergence and score derivatives, pointwise inequalities used in integration by parts, special-case angular integrals, finite-parameter comparisons, and query counts for three legal diagnostic strategies. Diagnostic code knows a sampled hidden kernel only in its validation layer; query selection uses previous replies and independent Gaussian randomness.
+
+The recorded run passed all \textbf{28 new component tests}, all \textbf{20 unchanged v4 tests}, and all \textbf{17 unchanged v3 upper-bound tests}: 65 tests in total. Recorded diagnostics include 72 kernel-geometry cases, six angular case summaries based on 60,000 importance-sampling draws, and 432 legal adaptive runs producing 8,208 path rows. The maximum pseudodeterminant log-identity error in the geometry cases was below $1.92\cdot10^{-13}$. None of these finite checks supplies a universal lower-bound certificate.
+
+Numerical identities, empirical expectations, and special-case quadrature are not proofs against all adaptive algorithms. All numerical code uses floating point rather than the exact-real model. The new universal constant is not estimated from experiments, and the external least-singular-value theorem is not numerically certified. Actual test counts, seeds, exit codes, and diagnostic summaries are recorded in \texttt{results/verification.json}; the earlier v4 and v3 suites are rerun without changing their assertions.
+
+The previous v4 PDF and ZIP are preserved byte-for-byte in \texttt{prior/}. They retain the earlier dimension-restricted results and their original qualifications. The current note strengthens the global lower bound but does not change the original repository or claim external review.
+
+\appendix
+\section{Proof of the charged warm-start theorem}\label{app:warm}
+\begin{proof}[Proof of Theorem~\ref{thm:warm}]
+Assume $b_1>0$, set $\tau=(1+e)b_1$, and use an eigenbasis $M=\diag(\Lambda_1,\Lambda_2)$, with entries $\lambda_i\ge a_1$ and $|\mu_j|\le b_1$. If $V$ is the top eigenbasis, $V^\top=\Lambda_1^{-1}V^\top M$ gives
+$\norm{V^\top(I-ZZ^\top)}_2\le\tau/a_1<1$. Thus $V^\top Z$ is invertible and the output range is a graph $\range[I;F_0]$. Applying the residual bound to its perpendicular vectors $(-F_0^\top y,y)$ yields
+\begin{equation}\label{eq:warmweighted}
+F_0(\Lambda_1^2-\tau^2I)F_0^\top\preceq\tau^2I-\Lambda_2^2.
+\end{equation}
+Equivalently,
+\[
+F_0=(\tau^2I-\Lambda_2^2)^{1/2}K_0(\Lambda_1^2-\tau^2I)^{-1/2},
+\qquad \norm{K_0}_2\le1,\quad \norm{K_0}_F^2\le k.
+\]
+For an integer $m\ge1$, let
+\[
+p_m(u)=\frac{T_m(u)-1}{u-1},\qquad p_m(1)=m^2,
+\]
+a polynomial of degree $m-1$. The identity
+$p_m(u)=m+2\sum_{j=1}^{m-1}(m-j)T_j(u)$ proves that it is positive and nondecreasing for $u\ge1$. For $-1\le u\le1$,
+\begin{equation}\label{eq:fejerbound}
+0\le p_m(u)\le\min\{m^2,2/(1-u)\},
+\end{equation}
+with the second bound omitted at one. Indeed
+$p_m(\cos\theta)=[\sin(m\theta/2)/\sin(\theta/2)]^2$. For $u>1$,
+$p_m(u)=[\cosh(m\operatorname{arcosh}u)-1]/(u-1)$.
+
+The range of $p_m(M/b_1)Z$ is the graph of
+$F=p_m(\Lambda_2/b_1)F_0p_m(\Lambda_1/b_1)^{-1}$.
+Let $Y=[I;F](I+F^\top F)^{-1/2}$ and $C_0=(I+F^\top F)^{-1}$. Without assuming that $\Lambda_1$ and $F^\top F$ commute,
+\begin{align*}
+\sum_i\lambda_i-\tr(Y^\top MY)
+&=\tr((\Lambda_1-a_1I)F^\top F C_0)
++\tr(F^\top(a_1I-\Lambda_2)F C_0)\\
+&\le\sum_{i,j}(\lambda_i-\mu_j)|F_{ji}|^2.
+\end{align*}
+Here $0\preceq F^\top FC_0\preceq F^\top F$, $0\prec C_0\preceq I$, and the matrices paired with them in these traces are positive semidefinite. Substituting \eqref{eq:warmweighted} bounds the loss by $k$ times the supremum of
+\begin{equation}\label{eq:warmcoefficient}
+B(\lambda,\mu)=\frac{(\lambda-\mu)(\tau^2-\mu^2)}{\lambda^2-\tau^2}
+\left(\frac{p_m(\mu/b_1)}{p_m(\lambda/b_1)}\right)^2.
+\end{equation}
+For fixed $\mu$, the rational factor decreases for $\lambda>\tau$: its derivative numerator is $\mu^2-\tau^2-(\lambda-\mu)^2<0$. The polynomial denominator increases. The worst leading value is therefore no larger than its value at $(1+3e/2)b_1$.
+
+Choose $m=\lceil10/\sqrt e\rceil$ and temporarily scale $b_1=1$. With $v=1-\mu\in[0,2]$, the numerator before the leading-value denominator is
+\[
+N=p_m(\mu)^2(3e/2+v)(e+v)(2+e-v).
+\]
+For $v\ge e$, \eqref{eq:fejerbound} gives $N\le50$. For $v\le e$, it gives $N\le(25/2)m^4e^2<(25/2)11^4<200000$. Meanwhile,
+\[
+(1+3e/2)^2-(1+e)^2\ge e,\qquad
+\operatorname{arcosh}(1+3e/2)\ge\sqrt e.
+\]
+The second inequality follows from $\cosh u\le1+u^2$ on $[0,1]$. Consequently the denominator of \eqref{eq:warmcoefficient} is at least
+\[
+\frac{(\cosh10-1)^2}{(9/4)e}>\frac{4\cdot10^8}{9e}.
+\]
+The last numerical inequality follows from the exact certificate
+\[
+\sum_{j=1}^7 \frac{10^{2j}}{(2j)!}=\frac{5860808350}{567567}>10000.
+\]
+Restoring $b_1$, we have $B(\lambda,\mu)<(9/2000)eb_1<eb_1/200$. Thus
+\[
+\tr(Y^\top MY)\ge\sum_i\lambda_i-keb_1/200
+\ge(1-e/200)\sum_i\lambda_i.
+\]
+
+Finally, the filtered graph is contained in
+$\range[Z,MZ,\ldots,M^{m-1}Z]$. Build this block-Krylov space and take its top $k$ algebraic Ritz vectors. The variational principle gives at least the trace of $Y$. Orthogonalize successive frontier blocks, of width at most $k$, and retain their images under $M$. Processing $m$ frontiers, including the last images needed for compression, costs at most $km$ products. The algorithm needs neither $b_1$ nor the polynomial coefficients: the polynomial only certifies a subspace in the computed space. If $b_1=0$, the residual is zero and the input subspace already contains the range of $M$; the same algorithm stops on invariance. This completes the proof.
+\end{proof}
+
+\section{The dimension-sensitive upper bound}\label{app:upper}
+This appendix reproduces the construction from the preceding packages~\cite{prior3,prior4}, including the extraction rule and the cost of estimating the unknown spectral scale.
+
+\subsection{An oversampled Gaussian event}
+Let $n\ge\ell=256r$ and $\Omega\in\R^{n\times\ell}$ be standard Gaussian. Split its rows in any fixed eigenbasis into $\Omega_1$ with $r$ rows and $\Omega_2$ with $n-r$ rows. Except with probability at most $2e^{-9r}+2e^{-4n}$,
+\begin{equation}\label{eq:sketch}
+\rank\Omega_1=r,\qquad \norm{\Omega_2\Omega_1^\dagger}_2\le\sqrt{n/r}.
+\end{equation}
+Here is an elementary proof with the constants used in the algorithm. A $1/8$-net of the unit sphere in $\R^a$ has at most $17^a$ points. For fixed unit $u\in\R^r$, $\norm{\Omega_1^\top u}^2$ is chi-squared with $\ell$ degrees of freedom. Its moment-generating function gives tails
+$\exp[-\ell(a-1-\log a)/2]$ at squared-norm ratio $a$. At $a=9/16,25/16$, the exponent coefficient exceeds $1/20$. A net union bound and approximation give
+\[
+\norm{\Omega_1}_2\le(10/7)\sqrt\ell,\qquad
+\sigma_{\min}(\Omega_1)\ge(3/4-(10/7)/8)\sqrt\ell=(4/7)\sqrt\ell
+\]
+except with probability $2\cdot17^r e^{-\ell/20}\le2e^{-9r}$.
+For $\Omega_2$, nets on both spheres and scalar Gaussian tails show all net bilinear forms are at most $\sqrt{20n}$ in magnitude, except with probability $2\cdot17^{n-r+\ell}e^{-10n}\le2e^{-4n}$. Net approximation gives $\norm{\Omega_2}_2\le(4/3)\sqrt{20n}$. Dividing by the lower singular value yields
+\[
+\norm{\Omega_2\Omega_1^\dagger}_2
+\le\frac{7\sqrt{20}}{48}\sqrt{n/r}<\sqrt{n/r},
+\]
+which proves \eqref{eq:sketch}.
+
+\subsection{Estimating the unknown scale}
+Let $M=A^\top A\succeq0$; each product with $M$ costs two original queries. Set $r=k+1$, $\delta=\eps/4$, $\ell_1=256r$, and
+\[
+d_1=\left\lceil\frac{\log(4n/(r\delta))}{4\sqrt\delta}\right\rceil.
+\]
+Form $\calK=\range[\Omega,M\Omega,\ldots,M^{d_1}\Omega]$, with a Gaussian block of width $\ell_1$, and compute the $r$th eigenvalue $\mu$ of the compressed $M$. This costs at most $2\ell_1(d_1+1)$ original queries, including compression. Put $c=\lambda_r(M)$. If $c>0$, the event \eqref{eq:sketch} implies
+\begin{equation}\label{eq:ritzc}
+(1-\delta)c\le\mu\le c.
+\end{equation}
+To see the lower bound, put $t=(1-\delta)c$ and use the analysis-only polynomial $\pi(x)=T_{d_1}(2x/t-1)$. It has magnitude at most one on $[0,t]$, is positive and nondecreasing above $c$, and
+\[
+\pi(c)^2\ge\tfrac14\exp(4d_1\sqrt\delta)\ge n/(r\delta),
+\]
+using $\operatorname{arcosh}((1+\delta)/(1-\delta))=2\operatorname{artanh}\sqrt\delta\ge2\sqrt\delta$. In an eigenbasis partitioned after $r$ entries, the graph
+\[
+Y=\pi(M)\Omega\Omega_1^\dagger\pi(\Lambda_1)^{-1}=[I;F]
+\]
+belongs to $\calK$ and satisfies
+$Y^\top(M-tI)Y\succeq[\delta c-t\norm{\Omega_2\Omega_1^\dagger}_2^2/\pi(c)^2]I\succeq0$.
+Tail coordinates above $t$ contribute nonnegatively; those at most $t$ have $|\pi|\le1$. The min--max principle proves \eqref{eq:ritzc}; its upper bound is Ritz interlacing. If $c=0$, $M\Omega$ spans $\range M$ almost surely. Conversely, if $c>0$, the $r$th Ritz value is positive almost surely. Thus an exact test $\mu=0$ gives a legitimate rank-promise branch: return an orthonormal basis of $\range(M\Omega)$, extended to dimension $k$ when necessary.
+
+\subsection{A coarse polynomial surrogate}
+On $\mu>0$ set $b=\mu/(1-\delta)$, so $c\le b\le c/(1-\delta)$. Put $\eta=\eps/4$, $R^2=3n/k$, and
+\[
+d_2=\left\lceil\frac{\log(8R^2/\eta)}{2\sqrt\eta}\right\rceil,
+\qquad H=T_{d_2}(2M/b-I).
+\]
+Take a fresh Gaussian block of width $\ell_2=256k$. Compute $Q=\operatorname{orth}(H\Omega)$, then $HQ$, and return the top $k$ \emph{right singular vectors} of $(HQ)^\top=Q^\top H$, completing orthonormally if needed. Each of the two polynomial applications costs at most $2\ell_2d_2$ original queries via the Chebyshev recurrence.
+
+In an eigenbasis of $M$, all but the first $k$ entries of $H$ have magnitude at most one. More generally, write a symmetric $H=\diag(H_1,H_2)$ with $H_1$ of size $k$, $\norm{H_2}\le1$, and let $L=\norm{\Omega_2\Omega_1^\dagger}_2$. The difference between $H$ and its column-range approximation $H\Omega\Omega_1^\dagger[I\ 0]$ is
+\[
+\begin{bmatrix}0&0\\-H_2\Omega_2\Omega_1^\dagger&H_2\end{bmatrix},
+\]
+so $\norm{(I-QQ^\top)H}_2^2\le1+L^2$. Also $\sigma_{k+1}(Q^\top H)\le\sigma_{k+1}(H)\le1$. The prescribed right-singular-vector truncation therefore has
+$\norm{QQ^\top H(I-ZZ^\top)}_2\le1$. Adding the squared actions of the two orthogonal left ranges gives
+\[
+\norm{H(I-ZZ^\top)}_2^2\le2+L^2\le2+n/k\le R^2.
+\]
+No invertibility of $H_1$ is needed. Because $H$ may be indefinite, substituting algebraic Ritz vectors would not be justified by this argument.
+
+\subsection{Returning to the spectral residual and counting queries}
+For every $z\ge0$, the degree choice ensures
+\begin{equation}\label{eq:majorant}
+z\le1+\eta+\frac{\eta}{R^2}T_{d_2}(2z-1)^2.
+\end{equation}
+For $z\le1+\eta$ this is immediate. For $z>1+\eta$, the function $T_d(2z-1)^2/z$ is nondecreasing: if $y=\cosh u\ge1$, then $yT_d'(y)/T_d(y)=d\coth u\tanh(du)\ge1$, which makes its logarithmic derivative nonnegative. At $z=1+\eta$,
+\[
+T_{d_2}(1+2\eta)^2\ge\tfrac14e^{2d_2\sqrt\eta}\ge2R^2/\eta\ge(1+\eta)R^2/\eta,
+\]
+using $\operatorname{arcosh}(1+2\eta)=2\operatorname{arsinh}\sqrt\eta\ge\sqrt\eta$. Thus \eqref{eq:majorant} follows.
+Functional calculus yields
+$M\preceq(1+\eta)bI+(\eta b/R^2)H^2$. Evaluating on unit vectors orthogonal to $Z$ proves
+\[
+\norm{A(I-ZZ^\top)}_2^2\le(1+2\eta)b
+\le\frac{1+\eps/2}{1-\eps/4}\sigma_{k+1}(A)^2
+\le(1+\eps)^2\sigma_{k+1}(A)^2.
+\]
+The two Gaussian failures have sum at most
+$2e^{-9(k+1)}+2e^{-9k}+4e^{-4n}<0.001$
+on the randomized branch $n\ge256(k+1)$. The algorithm uses the exact $n$-column recovery branch if the sketch width exceeds $n$ or if that branch is cheaper than
+\[
+B=2\ell_1(d_1+1)+4\ell_2d_2
+\le3072k+1536\frac{k}{\sqrt\eps}\log\frac{96(n/k)}{\eps}.
+\]
+If $\eps^{-1/2}\ge n/k$, the $n$ cap already bounds the desired expression. Otherwise $\log(1/\eps)<2\log(n/k)$, giving $B\le12000k\eps^{-1/2}\log(en/k)$. The sketch-width fallback also satisfies this bound because $n<256(k+1)\le512k$. This proves the upper bound in \eqref{eq:bracket}.
+
+
+\begingroup
+\small
+\setlength{\parskip}{0pt}
+\begin{thebibliography}{9}
+\setlength{\itemsep}{2pt}
+\bibitem{repo}
+Open Problems in Numerical Linear Algebra.
+\emph{RA-14: Optimal query complexity of spectral rank-$k$ approximation.}
+Repository problem statement.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/randomized-and-low-rank-approximation/RA-14}.
+
+\bibitem{rv}
+Mark Rudelson and Roman Vershynin.
+\emph{The smallest singular value of a random rectangular matrix.}
+2009; arXiv:0802.3956v4. Theorem 1.1 is the external finite-dimensional spectral input.
+\url{https://arxiv.org/abs/0802.3956v4}.
+
+\bibitem{bhsw}
+Mark Braverman, Elad Hazan, Max Simchowitz, and Blake Woodworth.
+\emph{The gradient complexity of linear regression.}
+COLT 2020; arXiv:1911.02212v3, 2021.
+\url{https://arxiv.org/abs/1911.02212v3}.
+The Wishart Schur-complement conditioning is antecedent methodology; the singular completion, tilted posterior, and information estimate used here are proved in the text.
+
+\bibitem{prior1}
+\emph{RA-14: Bounds and a spectral-to-PCA reduction.}
+Original generated research note. Preserved within the unchanged v4 archive in \texttt{prior/}. Partial and unreviewed. The charged warm-start theorem is reproduced in Appendix~\ref{app:warm}.
+
+\bibitem{prior3}
+\emph{RA-14: A Dimension-Sensitive Upper Bound and Lower-Bound Audit.}
+Generated continuation v3. Preserved within the unchanged v4 archive in \texttt{prior/}. Partial and unreviewed. Its upper-bound proof is reproduced in Appendix~\ref{app:upper}.
+
+\bibitem{prior4}
+\emph{RA-14: Adaptive Lower Bounds and the Fixed-Accuracy Characterization.}
+Generated continuation v4. Its original PDF and ZIP are preserved byte-for-byte in \texttt{prior/}. Partial and unreviewed. The present note supplies a different lower-bound argument and resolves the particular $k=1$, $\eps=1/n$ example that v4 left open.
+\end{thebibliography}
+\endgroup
+\end{document}

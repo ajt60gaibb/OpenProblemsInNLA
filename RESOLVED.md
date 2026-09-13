@@ -21,6 +21,11 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### RA-14 — finite-accuracy partial bounds — Sidney Holden
+
+**Partially resolved, 13 September 2026.** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Theorem 1.1 and Sections 3–10](references/holden-ra14-v5-2026-09-13/report.pdf) prove a universal finite-accuracy lower bound and matching regimes described on the [retained canonical page](randomized-and-low-rank-approximation/RA-14/README.md). The simultaneous finite-parameter characterization remains open: at rank one and accuracy $`(\log n/n)^2`$, the lower and upper bounds differ by an unbounded factor. A separate [independent informal AI-agent review](references/holden-ra14-v5-2026-09-13/independent-review.md) passes only this partial scope. [Authorship, verified affiliation, provenance and reproduction](references/holden-ra14-v5-2026-09-13/README.md). No Lean verification, external human peer review or priority claim is asserted; the original ID, target and open count are preserved.
+
+
 ### KE-02, SP-08 and SP-09 — spectral partial results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-spectral-2026-09-12/README.md).
