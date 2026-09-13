@@ -8,7 +8,13 @@
 **Importance:** broadly interesting  
 **Rating rationale:** Extreme because a uniform convergence guarantee must handle arbitrary smoothed factors, random initialization and near-exact recovery below quadratic overparameterization; broad importance includes nonconvex optimization and machine learning.  
 **Status:** Open  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-13
+
+## Supporting results — 2026-09-13
+
+Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) gives [local ALS rates and a separate algebraic comparator](../../references/holden-tr09-2026-09-13/report.pdf). Theorem 4.1 and Corollary 4.2 prove a derivative bound and pointwise local convergence for a specified mixed-block ALS cycle when two normalized factor Gram matrices are close to identity. Theorem 5.1 supplies a smoothing event for two orthogonal base modes. Theorem 7.1 gives exact $`2r-1`$-term algebraic recovery under its stated rank and noncollinearity assumptions.
+
+**TR-09 remains Open.** No input-independent random-start basin probability is proved, even for the restricted base family. The global algebraic method is outside the required optimization class. The supporting proofs passed a separate [independent informal Codex AI-agent review](../../references/holden-tr09-2026-09-13/independent-review.md); this does not establish a full or restricted random-start resolution. [Authorship, verified affiliation and provenance](../../references/holden-tr09-2026-09-13/README.md). No Lean verification, external human peer review or novelty certification is claimed. The original target below is retained unchanged.
 
 ## Problem statement
 

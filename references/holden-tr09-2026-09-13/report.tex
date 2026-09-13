@@ -1,0 +1,516 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,booktabs,microtype}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={TR-09: Uniform local ALS rates and a linear-width algebraic benchmark}}
+\usepackage{enumitem}
+\usepackage{listings}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\setlist{nosep,leftmargin=*}
+\lstset{basicstyle=\ttfamily\small,breaklines=true,columns=fullflexible,frame=none}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ip}[2]{\left\langle#1,#2\right\rangle}
+\newcommand{\col}{\operatorname{col}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Id}{\mathrm I}
+\newcommand{\Smap}{\mathcal S}
+\title{TR-09: Uniform local ALS rates and a linear-width algebraic benchmark}
+\author{Sidney Holden\\{\small Center for Computational Biology, Flatiron Institute}\\{\small Simons Foundation}}\date{13 September 2026}
+\begin{document}
+\maketitle
+\vspace{-1.4em}
+\begin{abstract}
+A common-metric argument strengthens the preceding mixed-block ALS result. With two approximately orthogonal factor modes, a binary mixed-block cycle has a uniformly small tensor derivative, independently of coherence and weight imbalance in the third mode. Its local contraction rate survives the prescribed smoothing of two orthogonal base matrices while the remaining base matrix is arbitrary. A separate exact construction shows that the local nonsingularity neighborhood cannot be made uniform over the larger pairwise-noncollinear family merely from that derivative estimate.
+
+The second result is a tensor-only, finite-grid randomized algebraic algorithm producing an exact decomposition with $2r-1$ terms. It needs only rational arithmetic, not eigenvalue extraction, and has conditional success at least $3/4$ for every input with two full-column-rank factor matrices and a third matrix with nonzero, pairwise noncollinear columns. It therefore handles every base triple in the smoothed model almost surely, but is explicitly \emph{not} an ALS or gradient trajectory.
+
+\textbf{This report does not solve TR-09.} The local optimization result lacks a uniform random-start entry guarantee. The global algebraic result violates the problem's algorithm-class requirement. The proofs are accompanied by exact checks and complete floating-point diagnostics; independent informal AI-agent review is recorded separately in the submission; formal verification and external human peer review are not claimed.
+\end{abstract}
+
+\section{Target and separation of the claims}
+The canonical specification starts from arbitrary deterministic $n\times r$ base matrices, adds independent Gaussian entries of variance $\rho^2/n$ once, with $\rho=r^{-q}$ and fixed $q>0$, and forms
+\begin{equation}\label{eq:target}
+ T=\sum_{i=1}^r a_i\otimes b_i\otimes c_i.
+\end{equation}
+It seeks $k(r)=o(r^2)$, a polynomial dimension threshold, and an explicitly initialized ALS or gradient method attaining every relative Frobenius tolerance in $\operatorname{poly}(n,r,\log(1/\varepsilon))$ exact-real operations. The smoothing probability precedes the conditional initialization probability. Algebraic recovery substituted for optimization is explicitly excluded.\footnote{OpenProblemsInNLA, canonical TR-09 entry; original COLT problem by Arvanitakis, Srinivas, and Vijayaraghavan. See references \ref{ref:repo}--\ref{ref:colt}.}
+
+The preceding mixed-block report proves exact first-order cancellation when $B$ and $C$ have orthonormal columns and $A$ has nonzero, pairwise noncollinear columns.\footnote{Previous working manuscript, \emph{TR-09: mixed-block cancellation and a coherence-dependent local barrier}, included as \texttt{prior/TR09\_fourth\_round\_report.md}. Its local proof is reproduced below in the form needed here; the earlier staged random-start theorem is not an input to this report.} That cancellation extends more robustly than an entrywise inverse-Gram estimate suggests. The key is to perturb all block spaces through the \emph{same} almost-isometric tensor transformation, rather than perturbing nearly dependent design columns independently.
+
+The second half of the report addresses a different question: can exact, linear-width recovery be performed with uniform finite-grid success and polynomial rational arithmetic when the optimization restriction is removed? An explicit answer is given, including the output factors. This is a benchmark for the missing optimization theorem, not a replacement for it.
+
+\section{The mixed-block cycle}
+Write
+\[
+ \Smap(X,Y,Z)=\sum_{i=1}^r x_i\otimes y_i\otimes z_i,
+ \qquad F_T(X,Y,Z)=\norm{\Smap(X,Y,Z)-T}_F^2.
+\]
+A block chooses at most one factor vector from each component. The chosen modes may differ across components. With everything else fixed, the represented tensor is affine linear in the selected variables, so the update is an actual least-squares minimizer of $F_T$.
+
+If $D$ is the vectorized design and $f$ the contribution of unselected components, the update is
+\begin{equation}\label{eq:block}
+ z^+=(D^\top D)^{-1}D^\top(\operatorname{vec}T-f).
+\end{equation}
+The specified algorithm aborts at a singular design. At a nonsingular design the minimizer is unique. Mixed-mode blocks are understood here in this explicit, affine-linear sense; a narrower convention allowing only whole single-mode matrices would be a further restriction.
+
+For $r\ge2$, give component $i$ the binary code of $i-1$ and put
+\begin{equation}\label{eq:length}
+ \ell=1+2\lceil\log_2 r\rceil.
+\end{equation}
+A cycle first updates all first-mode vectors. For each binary bit, it then updates the second-mode vectors on the zero side together with the third-mode vectors on the one side, followed by the complementary block. The width is $k=r$ throughout. The root's true factors, binary reference coordinates, and gauges below are not supplied to the algorithm.
+
+\subsection{Derivative of one block}
+Let $\theta_*$ be an exact factorization, let $J=D\Smap(\theta_*)$, and let $D_*$ be a full-rank root block design. The first-order residual after that block is
+\begin{equation}\label{eq:projection}
+ (\Id-P_{D_*})Jh,
+ \qquad P_{D_*}=D_*(D_*^\top D_*)^{-1}D_*^\top.
+\end{equation}
+Indeed, differentiating the block normal equations $D^\top(\Smap-T)=0$ at zero residual removes the term containing the derivative of $D^\top$. The remaining equations give the orthogonal projection formula. Thus changes of the design along the trajectory have not been omitted.
+
+\subsection{Cancellation in the orthogonal reference problem}
+\begin{lemma}\label{lem:reference}
+Suppose $B^\top B=C^\top C=\Id_r$ and the $a_i$ are nonzero and pairwise noncollinear. Every root design in the cycle is full rank. If $\mathcal T=\operatorname{range}J$ and $S_1,\ldots,S_\ell$ are the root block spaces, then
+\begin{equation}\label{eq:annihilate}
+ (\Id-P_{S_\ell})\cdots(\Id-P_{S_1})\big|_{\mathcal T}=0.
+\end{equation}
+\end{lemma}
+\begin{proof}
+By orthogonal changes of coordinates in the last two modes, take $b_i=c_i=e_i$. A tangent tensor has the form
+\[
+ E=\sum_i\Delta a_i\otimes e_i\otimes e_i
+ +\sum_i a_i\otimes\Delta b_i\otimes e_i
+ +\sum_i a_i\otimes e_i\otimes\Delta c_i.
+\]
+Regard the last two coordinates as indexing first-mode vector-valued cells. The first block removes every diagonal cell. An internal off-diagonal cell $(j,i)$ contains
+\[
+ a_i\beta_{ji}+a_j\gamma_{ij}.
+\]
+These coefficients belong to $b_i$ and $c_j$. A mixed block acts separately in each cell. If both coefficients are selected, its design there is injective because $a_i,a_j$ are independent, and its projection removes the whole cell. If only one is selected, its single direction is nonzero.
+
+Distinct binary codes differ in a bit. One of that bit's two complementary blocks selects both $b_i$ and $c_j$. Once a cell is removed, later projections cannot recreate it, since each block preserves the cell decomposition. Exterior cells contain at most one first-mode direction and are removed when its factor is selected. The same cellwise argument proves injectivity of every block design. This proves \eqref{eq:annihilate}.
+\end{proof}
+
+The tensor Jacobian has only the usual component-scaling kernel under these assumptions. To see this, fix the own-coordinate entries of the second- and third-mode perturbations to zero. Diagonal cells then determine $\Delta a_i$, internal off-diagonal cells determine their two coefficients, and exterior cells determine their single coefficients. This gives an injective local factor chart.
+
+\section{A common-metric projection bound}
+The following elementary lemma is the main new ingredient. It avoids estimates involving the smallest singular value of a particular design matrix.
+
+\begin{lemma}[Metric perturbation of a finite projection product]\label{lem:metric}
+Let $G$ be positive definite on a finite-dimensional real inner-product space, and suppose
+\[
+ \norm{G-\Id}_2\le d<1.
+\]
+For a subspace $S$, write $P_S^G$ for projection onto $S$ in the $G$ inner product. Suppose subspaces $S_1,\ldots,S_\ell$ satisfy
+\[
+ (\Id-P_{S_\ell})\cdots(\Id-P_{S_1})x=0
+ \quad\text{for every }x\in\mathcal T.
+\]
+Then, for $x\in\mathcal T$,
+\begin{equation}\label{eq:metricbound}
+ \norm{(\Id-P_{S_\ell}^G)\cdots(\Id-P_{S_1}^G)x}_G
+ \le \gamma(\ell,d)\norm{x}_G,
+ \qquad
+ \gamma(\ell,d)=\frac{\ell d}{1-d}\sqrt{\frac{1+d}{1-d}}.
+\end{equation}
+No conditioning assumption on bases for the $S_j$ is needed. If $d\le1/4$, then $\gamma(\ell,d)\le2\ell d$.
+\end{lemma}
+\begin{proof}
+Fix $S$, let $P=P_S$, and decompose $x=Px+t$ with $t\perp S$. Write $P_S^Gx=Px+w$, where $w\in S$. Its normal equation is
+\[
+ PGw=PGt=P(G-\Id)t.
+\]
+The compression of $G$ to $S$ has least eigenvalue at least $1-d$. Therefore
+\begin{equation}\label{eq:singlemetric}
+ \norm{(P_S^G-P_S)x}
+ \le\frac{d}{1-d}\norm{(\Id-P_S)x}.
+\end{equation}
+Let $Q_j=\Id-P_{S_j}$ and $Q_j^G=\Id-P_{S_j}^G$. Expand the product difference as
+\[
+ Q_\ell^G\cdots Q_1^G-Q_\ell\cdots Q_1
+ =\sum_{j=1}^{\ell}Q_\ell^G\cdots Q_{j+1}^G
+      (Q_j^G-Q_j)Q_{j-1}\cdots Q_1.
+\]
+The left tail of each term is nonexpansive in the $G$ norm. The right prefix is nonexpansive in the ordinary norm. By \eqref{eq:singlemetric}, each summand applied to $x$ has $G$ norm at most
+\[
+ \sqrt{1+d}\frac{d}{1-d}\norm{x}
+ \le \frac{d}{1-d}\sqrt{\frac{1+d}{1-d}}\norm{x}_G.
+\]
+Sum over $j$ and use the reference annihilation. Finally,
+$\sqrt{(1+d)/(1-d)}/(1-d)\le\sqrt{5/3}/(3/4)<2$ for $d\le1/4$.
+\end{proof}
+
+If an invertible map $L$ transports all reference spaces, then
+\begin{equation}\label{eq:conjugacy}
+ P_{LS}L=LP_S^{L^\top L}.
+\end{equation}
+This follows directly by writing the least-squares problem in the variable $Lz$. Equation \eqref{eq:conjugacy} is the link between the metric lemma and the actual Euclidean least-squares algorithm. It does not prescribe a change to that algorithm's objective.
+
+\section{Near-orthogonal modes with unrestricted first-mode coherence}
+Normalize the last two true factor columns and absorb their norms into the first mode. Thus assume throughout this section that $\norm{b_i}=\norm{c_i}=1$, and let
+\[
+ \tau=\max\{\norm{B^\top B-\Id}_2,\norm{C^\top C-\Id}_2\}.
+\]
+There is no upper or lower bound on first-mode column norms or pairwise angles, except nonzero columns and noncollinearity of each pair.
+
+\begin{theorem}[Uniform derivative bound]\label{thm:localrate}
+Let $n\ge r\ge2$, suppose the preceding conditions hold, and set $d=2\tau+\tau^2<1$. At the correct decomposition, the residual derivative of the mixed cycle on the true tensor tangent space has operator norm at most $\gamma(\ell,d)$ from \eqref{eq:metricbound}.
+
+In particular, if
+\begin{equation}\label{eq:tauthreshold}
+ \tau\le\frac{1}{64\ell},
+\end{equation}
+then this norm is less than $1/8$, independently of all first-mode coherence and weight ratios. Every root block design is full column rank.
+\end{theorem}
+\begin{proof}
+Use the polar factors
+\[
+ Q_B=B(B^\top B)^{-1/2},\qquad Q_C=C(C^\top C)^{-1/2}.
+\]
+Define an ambient positive definite map $L_B$ to equal $(B^\top B)^{1/2}$ in the orthonormal $Q_B$ coordinates and the identity on their orthogonal complement. Then $L_BQ_B=B$ and the eigenvalues of $L_B^2$ lie in $[1-\tau,1+\tau]$. Define $L_C$ analogously and let
+\[
+ L=\Id\otimes L_B\otimes L_C.
+\]
+The reference tensor is $\sum_i a_i\otimes (Q_B)_i\otimes (Q_C)_i$. Every reference tangent space and every reference block space is mapped by $L$ onto its actual counterpart. For instance, a second-mode block direction maps as
+\[
+ a_i\otimes\R^n\otimes(Q_C)_i
+ \longmapsto a_i\otimes\R^n\otimes c_i,
+\]
+using invertibility of $L_B$. The same holds for the other two modes and their mixed sums. Hence full column rank of all reference designs implies full column rank of the actual designs.
+
+The eigenvalues of $G=L^\top L$ lie in $[(1-\tau)^2,(1+\tau)^2]$, so $\norm{G-\Id}_2\le2\tau+\tau^2=d$. Apply Lemma~\ref{lem:reference}, Lemma~\ref{lem:metric}, and \eqref{eq:conjugacy}. The $G$ norm of a reference residual equals the actual Frobenius norm after applying $L$, giving the stated bound without an additional first-mode condition number.
+
+Under \eqref{eq:tauthreshold}, $\tau\le1/192$, $d<1/4$, and $d\le(5/2)\tau$. Consequently $\gamma\le2\ell d\le5/64<1/8$.
+\end{proof}
+
+All polar factors and mode maps in this proof are analysis-only. The implementation still performs \eqref{eq:block} on the original squared residual, without whitening, orthogonalization, or access to true factors.
+
+\begin{corollary}[Uniform rate inside a pointwise local basin]\label{cor:nonlinear}
+Under \eqref{eq:tauthreshold}, every fixed root has a neighborhood, modulo component scaling, in which complete mixed cycles are well defined and
+\begin{equation}\label{eq:half}
+ \norm{\Smap(\theta_{t+1})-T}_F
+ \le\frac12\norm{\Smap(\theta_t)-T}_F.
+\end{equation}
+The factor $1/2$ is uniform. The neighborhood size is not asserted to be uniform.
+\end{corollary}
+\begin{proof}
+Invertibility of $L$ transfers the reference Jacobian's scaling-only kernel to the actual one. Take an analytic local chart transverse to that kernel, for example by dividing each last-mode factor by its inner product with its true unit direction and moving the two scalars into the first factor. Let $e$ be the chart displacement and use the norm $\norm{e}_*=\norm{Je}_F$.
+
+Root design nonsingularity makes the finite cycle analytic on a sufficiently small neighborhood. The cycle fixes the root. Theorem~\ref{thm:localrate} implies that its chart derivative has $*$-norm less than $1/8$. Shrink the neighborhood so that its derivative norm is at most $1/4$, and so that
+\[
+ \tfrac34\norm{e}_*\le\norm{\Smap(\theta_*+e)-T}_F
+ \le\tfrac54\norm{e}_*.
+\]
+Then $\norm{e^+}_*\le\norm{e}_*/4$, making the neighborhood invariant, and the residual ratio is at most $5/12<1/2$. Virtual component rescalings preserve every represented term and commute with unique block minimization, so no gauge step needs to be executed.
+\end{proof}
+
+\subsection{What this changes relative to the preceding report}
+An independent perturbation bound on nearly dependent design columns could introduce the first-mode pair-separation parameter. That loss is unnecessary for the \emph{root derivative} and for the allowed Gram perturbation in the two other modes. Their block spaces share one near-isometry, to which Lemma~\ref{lem:metric} applies uniformly. The previous caution remains relevant to the local basin and to global initialization, not to this derivative-level robustness.
+
+\subsection{Exact arithmetic cost}
+A cycle has $\ell$ blocks of at most $nr$ variables. Same-mode cross-Gram blocks are scalar multiples of $\Id_n$, while different-mode cross-Gram blocks are scalar multiples of outer products. They can be assembled in $O(n^2r^2)$ operations, with right-hand sides obtained in $O(n^3r)$ operations. A conservative dense solve takes $O(n^3r^3)$ operations per block. Thus cycles in the local basin have polynomial cost and require $O(\log(1/\varepsilon))$ iterations once the initial residual there is at most $\norm{T}_F$.
+
+The reference numerical code explicitly forms the larger least-squares design instead of using this structured Gram assembly. It implements the same block minimizers but is not an optimized realization of that operation count. Neither implementation statement is a finite-precision stability guarantee.
+
+\section{The once-smoothed two-orthogonal-base family}
+\begin{theorem}[Uniform smoothing event for the local rate]\label{thm:smoothing}
+Put $R=r+2$. Let $\bar A$ be arbitrary, and let each of $\bar B,\bar C$ have mutually orthogonal columns, allowing zero columns and unrestricted scales. Add the prescribed independent Gaussian perturbations once. For
+\begin{equation}\label{eq:dimension}
+ n\ge 2^{17}R^{36},
+\end{equation}
+with probability at least $1-R^{-30}$ the normalized last two modes satisfy \eqref{eq:tauthreshold}, and the first-mode columns are nonzero and pairwise noncollinear. Hence Corollary~\ref{cor:nonlinear} applies on this event. The event does not depend on the requested accuracy.
+\end{theorem}
+\begin{proof}
+For one orthogonal base mode, write $b_i=\bar b_i+g_i$ and define
+$m_i^2=\norm{\bar b_i}^2+\rho^2$. Direct Gaussian moment calculations give
+\begin{align*}
+ \mathbb E\norm{b_i}^2&=m_i^2,&
+ \operatorname{Var}(\norm{b_i}^2)&\le4m_i^4/n,\\
+ \mathbb E\ip{b_i}{b_j}&=0,&
+ \operatorname{Var}(\ip{b_i}{b_j})&\le m_i^2m_j^2/n\quad(i\ne j).
+\end{align*}
+Let $\tau_*=1/(64\ell)$ and $t=\tau_*/(2r)$. Chebyshev's inequality bounds a column-norm failure
+$|\norm{b_i}^2-m_i^2|>m_i^2/2$ by $16/n$, and a cross-inner-product failure
+$|\ip{b_i}{b_j}|>t m_i m_j$ by $1/(nt^2)$.
+
+Outside all these failures, the normalized distinct-column inner products are at most $2t$. The Gram matrix has diagonal one, so its operator-norm deviation from the identity is at most its maximum absolute off-diagonal row sum, at most $2rt=\tau_*$. A union bound for both modes gives failure at most
+\[
+ \frac{32r+4r^4\tau_*^{-2}}{n}
+ \le\frac{65568r^6}{n}<R^{-30},
+\]
+where $\ell\le2r$ was used. This estimate is independent of the magnitudes of all base columns and of $\rho>0$.
+
+A translated nondegenerate Gaussian $n\times r$ matrix has full column rank almost surely: a chosen nonzero $r\times r$ minor is a nonzero polynomial in variables with a density. Thus the arbitrary first base mode causes no additional exceptional probability. Absorbing the nonzero last-mode column norms into it preserves pairwise noncollinearity.
+\end{proof}
+
+The dimension exponent is an explicit sufficient bound for this \emph{local-rate} statement, not a practical recommendation. The theorem does not supply an initialization law with inverse-polynomial probability of entering its basin. Full support of a Gaussian law alone supplies only a positive, potentially arbitrarily small probability for a fixed neighborhood.
+
+\section{Why a uniform local derivative is not a uniform basin}
+The distinction can be made exact within the larger pairwise-noncollinear family of Theorem~\ref{thm:localrate}.
+
+\begin{proposition}[A shrinking nonsingular neighborhood]\label{prop:basin}
+For $n=r=3$, there is a family of roots with $B=C=\Id_3$, uniformly bounded factor norms, and pairwise noncollinear first-mode columns, together with starting factors approaching those roots, for which the first mixed block after the first-mode update is singular. Hence no positive factor-space radius uniform over this family can guarantee nonsingularity of every block in the specified cycle.
+\end{proposition}
+\begin{proof}
+Take $0<\theta<\pi/4$, write $c=\cos\theta$, $s=\sin\theta$, and put $\delta=s^2/c^2$. Let
+\[
+ a_1=e_1,\qquad a_2=e_1+\delta e_2,\qquad a_3=e_2,
+ \qquad B=C=\Id_3.
+\]
+The three first-mode columns are pairwise noncollinear. The tensor still has CP rank three: its second-mode unfolding has rank three because the vectors $a_i\otimes e_i$ are independent. Initialize $X=A$ and $Y=Z=Q$, where
+\[
+ Q=\begin{pmatrix}c&0&-s\\0&1&0\\s&0&c\end{pmatrix}.
+\]
+The squared combined displacement of $Y,Z$ from the root is $8(1-c)$, tending to zero. Since the $q_i\otimes q_i$ are orthonormal, the first-mode update is exactly
+\[
+ X^+=A(Q\circ Q).
+\]
+Its first two columns obey
+\[
+ x_1^+=c^2e_1+s^2e_2=c^2(e_1+\delta e_2)=c^2x_2^+.
+\]
+The first mixed block selects $y_1,z_2,y_3$. Its design has the nonzero kernel direction
+\[
+ \Delta y_1=e_2,\qquad \Delta z_2=-c^2q_1,\qquad \Delta y_3=0,
+\]
+because the two resulting tensor terms cancel exactly. Thus this block is singular although all root designs are nonsingular by Lemma~\ref{lem:reference}.
+\end{proof}
+
+This construction has $\rank A=2$, not full column rank. It is a boundary example for the stated local theorem, not a failure theorem for Gaussian-smoothed full-rank inputs. The special starting points also do not imply any lower bound on a random-initialization failure probability. In particular, it would be incorrect to infer a universal negative solution of TR-09 from this proposition.
+
+\section{A tensor-only algebraic benchmark at width \texorpdfstring{$2r-1$}{2r-1}}
+This section removes the optimization restriction and proves a different, completely explicit result. Hankel and Vandermonde representations are established subjects in tensor decomposition; for example, Nie and Ye study base changes and Vandermonde decompositions of Hankel tensors.\footnote{Nie and Ye, \emph{Hankel Tensor Decompositions and Ranks}, SIAM J. Matrix Anal. Appl. 40(2), 486--516 (2019), reference \ref{ref:hankel}. The algorithm and proof here are given in full rather than imported from that paper. No literature-wide novelty claim is made.}
+
+\begin{theorem}[Rational linear-width recovery]\label{thm:rational}
+Suppose $T$ has a representation \eqref{eq:target} with $A,B\in\R^{n\times r}$ full column rank and with the columns of $C$ nonzero and pairwise noncollinear. There is a tensor-only randomized algorithm that, in one bounded trial, returns an exact real decomposition of $T$ with
+\[
+ k=2r-1
+\]
+terms, with probability at least $3/4$ for every such fixed input. It uses $O(n^3r)$ exact real arithmetic operations and $O(nr\log(r+2))$ random bits. Its operations are additions, subtractions, multiplications, divisions, and comparisons; it does not extract eigenvalues or polynomial roots.
+
+This is an algebraic recovery algorithm, \textbf{not} a qualifying optimization method for TR-09.
+\end{theorem}
+
+\subsection{Independent sketches and two matrix pencils}
+Let $T_j=T(:,:,j)$, and for $g\in\R^n$ write $T(g)=\sum_j g_jT_j$. Draw independent finite-grid matrices and vectors
+\[
+ U,V\in\R^{n\times r},\quad g,h\in\R^n,\quad p,q\in\R^r.
+\]
+The grid size is specified in Section~\ref{sec:probability}. All draws precede any computation using $T$. Form
+\begin{align}
+ S_j&=U^\top T_jV,&
+ M_0&=U^\top T(g)V,& M_1&=U^\top T(h)V,\label{eq:compress}\\
+ P_A&=M_1M_0^{-1},& P_B&=M_1^\top M_0^{-\top}.\label{eq:pencils}
+\end{align}
+Abort if $M_0$ is singular. For the proof write
+\[
+ A_0=U^\top A,\quad B_0=V^\top B,\quad
+ d_i=g^\top c_i,\quad e_i=h^\top c_i,\quad t_i=e_i/d_i.
+\]
+On the good event, $A_0,B_0$ are invertible, all $d_i\ne0$, and all $t_i$ are distinct. The pencils satisfy
+\begin{equation}\label{eq:diagonalpencils}
+ P_A=A_0\diag(t_i)A_0^{-1},\qquad
+ P_B=B_0\diag(t_i)B_0^{-1}.
+\end{equation}
+These are proof identities only; no eigenvectors or $t_i$ are computed.
+
+\subsection{Row-Krylov transformations}
+Form the two row-Krylov matrices
+\begin{equation}\label{eq:krylov}
+ K_A=\begin{pmatrix}p^\top\\p^\top P_A\\ \vdots\\p^\top P_A^{r-1}\end{pmatrix},
+ \qquad
+ K_B=\begin{pmatrix}q^\top\\q^\top P_B\\ \vdots\\q^\top P_B^{r-1}\end{pmatrix}.
+\end{equation}
+Abort if either is singular. Define $v_r(t)=(1,t,\ldots,t^{r-1})^\top$, and let $V_t$ contain the columns $v_r(t_i)$. From \eqref{eq:diagonalpencils},
+\begin{equation}\label{eq:krylovvandermonde}
+ K_AA_0=V_t\diag(\alpha_i),\quad \alpha_i=p^\top(A_0)_i,
+ \qquad
+ K_BB_0=V_t\diag(\beta_i),\quad \beta_i=q^\top(B_0)_i.
+\end{equation}
+Thus, on the good event, the transformed slices
+\begin{equation}\label{eq:hankel}
+ H_j=K_AS_jK_B^\top
+ =\sum_{i=1}^r\alpha_i\beta_i(c_i)_j v_r(t_i)v_r(t_i)^\top
+\end{equation}
+are Hankel matrices. Their entry in zero-based position $(a,b)$ depends only on $a+b$.
+
+\subsection{Fixed-node interpolation}
+Set $k=2r-1$ and choose the fixed, input-independent nodes $z_\ell=\ell$ for $\ell=0,\ldots,k-1$. Define
+\[
+ V_z=[v_r(z_0)\ \cdots\ v_r(z_{k-1})],\qquad
+ W_z=(z_\ell^m)_{0\le m,\ell\le k-1}.
+\]
+The square Vandermonde matrix $W_z$ is invertible. For every slice let $f_{m,j}$ be its Hankel anti-diagonal value; concretely, choose
+\[
+ f_{m,j}=(H_j)_{a,b},\qquad a=\min(m,r-1),\quad b=m-a.
+\]
+Let $F=(f_{m,j})\in\R^{k\times n}$ and set
+\begin{equation}\label{eq:zfactor}
+ Z^\top=W_z^{-1}F.
+\end{equation}
+Equality of the anti-diagonal values proves
+\begin{equation}\label{eq:hankelfit}
+ H_j=V_z\diag(Z_{j,:})V_z^\top
+ \quad\text{for every }j.
+\end{equation}
+The interpolation nodes need not be the unknown eigenvalues $t_i$. The extra $r-1$ summands are what allow fixed real nodes and rational arithmetic.
+
+\subsection{Lifting back to the original tensor}
+Compute the rectangular lifting maps
+\begin{equation}\label{eq:lifts}
+ L_A=T(g)V M_0^{-1},\qquad L_B=T(g)^\top U M_0^{-\top}.
+\end{equation}
+The proof factorization gives
+\[
+ L_A=AA_0^{-1},\qquad L_B=BB_0^{-1},\qquad
+ T_j=L_AS_jL_B^\top.
+\]
+Output
+\begin{equation}\label{eq:output}
+ X=L_AK_A^{-1}V_z,\qquad
+ Y=L_BK_B^{-1}V_z,\qquad
+ Z^\top=W_z^{-1}F.
+\end{equation}
+Substituting \eqref{eq:hankelfit} into the lifting identity yields
+\[
+ X\diag(Z_{j,:})Y^\top=T_j
+ \quad\text{for all }j.
+\]
+This proves exact recovery from the tensor and the sketches alone. Unknown factors have appeared only in the analysis. The reference implementation checks the Hankel identities and the final reconstruction exactly, and reports failure rather than returning an unchecked candidate.
+
+\section{Uniform probability and arithmetic accounting}\label{sec:probability}
+\begin{lemma}[Finite-grid polynomial bound]\label{lem:grid}
+If a nonzero real polynomial has total degree at most $d$ and its variables are sampled independently from a grid of size $M$, its zero probability is at most $d/M$.
+\end{lemma}
+\begin{proof}
+Induct on the number of variables. Write the polynomial as a polynomial of degree $t$ in its last variable with nonzero leading coefficient. That coefficient has total degree at most $d-t$, so by induction it vanishes with probability at most $(d-t)/M$. Otherwise the remaining univariate polynomial has at most $t$ roots in the grid. Adding the probabilities proves the bound.
+\end{proof}
+
+Use the grid $\{1,\ldots,M\}$ with
+\begin{equation}\label{eq:gridsize}
+ M=2^{\lceil\log_2(4r^2+16r)\rceil}.
+\end{equation}
+The bad-event accounting is as follows.
+\begin{center}
+\begin{tabular}{p{.65\linewidth}r}
+\toprule
+Event & Probability bound\\\midrule
+$\det(U^\top A)=0$ or $\det(V^\top B)=0$ & $2r/M$\\
+Some $g^\top c_i=0$ & $r/M$\\
+Some $(h^\top c_i)(g^\top c_j)-(h^\top c_j)(g^\top c_i)=0$, $i<j$ & $r(r-1)/M$\\
+Either row-Krylov determinant vanishes, conditional on the earlier good events & $2r/M$\\\bottomrule
+\end{tabular}
+\end{center}
+The first determinant polynomials are nonzero because $A,B$ are full rank. Each ratio-collision polynomial has degree two and is nonzero because $c_i,c_j$ are independent. Conditional on distinct $t_i$ and invertible compressed factors, \eqref{eq:krylovvandermonde} shows that each Krylov determinant is a nonzero degree-$r$ polynomial in its own independently sampled row vector.
+
+A union bound therefore gives
+\begin{equation}\label{eq:success}
+ \Pr(\text{failure})\le\frac{r^2+4r}{M}\le\frac14.
+\end{equation}
+The bounds are uniform over every fixed promised tensor and do not depend on any base scale, condition number, or eigenvalue separation. The draws use exactly
+$(2nr+2n+2r)\log_2M$ bits in the ideal independent-bit model. Fixed pseudorandom seeds in the experiments are for reproducibility, not a substitute for that probability model.
+
+Computing all compressed slices costs $O(n^3r+n^2r^2)$ operations; applying the two Krylov transformations to them costs $O(nr^3)$. Matrix inversions, moment interpolation, Krylov row construction, and lifting fit within
+\[
+ O(n^3r+n^2r^2+nr^3+r^3)=O(n^3r)\qquad(n\ge r).
+\]
+Gaussian elimination uses field operations and comparisons; no square-root or eigenvalue primitive is needed. Rational numerator and denominator sizes can nevertheless be large. The theorem is an arithmetic-operation result, not a polynomial bit-complexity or numerical-stability result.
+
+\begin{corollary}[The relaxed guarantee on every smoothed base triple]\label{cor:relaxed}
+For every deterministic base triple in the TR-09 model, almost surely over its once-drawn smoothing the algorithm of Theorem~\ref{thm:rational} returns an exact $2r-1$ term decomposition with conditional success at least $3/4$.
+\end{corollary}
+\begin{proof}
+All three smoothed factor matrices are full column rank almost surely. Apply the fixed-input theorem conditionally. Exact reconstruction satisfies every positive relative tolerance.
+\end{proof}
+
+\section{Why the two results do not combine into a solution}
+The output matrices $X,Y$ in \eqref{eq:output} depend on tensor contractions, matrix pencils, and Krylov transformations. They are not factors drawn independently of the tensor, nor has a permitted optimization trajectory reaching them been exhibited. Appending one last least-squares update of $Z$ would not cure that missing trajectory. This is the precise disqualification of the global benchmark.
+
+Conversely, the mixed-block cycle genuinely minimizes the original residual at every block, but its high-probability smoothing theorem only identifies roots with an effective local rate. It does not show that an admissible random start reaches their basins. The two statements therefore cannot be spliced by calling the algebraic output an initializer.
+
+There is a similar distinction in adjacent convergence literature. Li, Usevich, and Comon explicitly define global convergence of their Jacobi-type schemes as convergence of the whole sequence to a stationary point, not necessarily to a global maximizer.\footnote{Li, Usevich, and Comon, arXiv:1702.03750v2, Introduction, Contribution paragraph, reference \ref{ref:jacobi}.} That type of convergence result does not by itself supply the missing zero-residual or random-start guarantee here. No claim is made that those algorithms are equivalent to this mixed-block cycle.
+
+The remaining mathematical task is an optimization reachability theorem covering arbitrary once-smoothed base coherence with the required initialization probability and total operation budget. It is not an information-theoretic or rational-arithmetic obstruction: Theorem~\ref{thm:rational} proves that the relaxed recovery task is uniformly tractable at linear width.
+
+\section{Checks and complete diagnostic records}
+\subsection{Exact arithmetic and implementation tests}
+All 12 implementation tests passed. They cover validation, explicit failure on singular input, rank-one and rank-three exact recovery, reproducibility, the positive-definiteness checker, binary pair coverage, mixed-block residual monotonicity, and fixed-point behavior.
+
+The exact script records 25 passed checks: one common-metric projection conjugacy identity; two full zero-derivative identities; three strict $1/8$ derivative certificates; three rational instances of Proposition~\ref{prop:basin}; and sixteen exact tensor-only recovery instances. The recovery fixtures include coherent factors, unbalanced weights, rectangular dimensions, and third-mode matrices of rank two with pairwise noncollinear columns.
+
+For each strict derivative certificate, if $J_c$ is a full-column-rank chart Jacobian and $E_c$ its image after the complete linearized cycle, the script verifies positive definiteness of
+\[
+ \frac{1}{64}J_c^\top J_c-E_c^\top E_c
+\]
+by exact rational symmetric elimination. This checks every tangent direction in that fixture, not only sampled directions. These are finite algebraic checks, not formal verification of the quantified theorems.
+
+\subsection{Floating-point local and global diagnostics}
+The numerical reference uses double-precision least squares with an explicit numerical-rank cutoff. All predetermined cases, all residual histories, and all failures are retained. Small nonzero numerical derivatives in exactly orthogonal cases are rounding artifacts; the exact zero identities are checked separately.
+
+There are 36 local runs, with starts formed by adding small perturbations to the true factors. These starts are deliberately \emph{not} admissible evidence for the global initializer requirement. At tolerance $10^{-11}$ and 30 cycles, mixed blocks succeeded in 18/18 runs, while ordinary full-mode ALS succeeded in 6/18.
+
+There are also 240 global runs using $X^0=0$ and independent Gaussian $Y^0,Z^0$, with scalar tensor normalization only. They cover ranks three and four, two dimensions, three base scales, two once-drawn smoothing seeds per tensor family, and five initialization seeds. Each method received 60 cycles at tolerance $10^{-10}$. These $n=5,7$ cases are below the sufficient dimension threshold in Theorem~\ref{thm:smoothing}; they are not tests of its quantified large-dimension conclusion.
+\begin{center}
+\begin{tabular}{lrrr}
+\toprule
+Global input family and method & Runs & Tolerance reached & Budget exhausted\\\midrule
+Two orthogonal bases; mixed & 60 & 57 & 3\\
+Two orthogonal bases; ordinary & 60 & 0 & 60\\
+Three coherent bases; mixed & 60 & 0 & 60\\
+Three coherent bases; ordinary & 60 & 0 & 60\\\bottomrule
+\end{tabular}
+\end{center}
+No numerical-rank failure occurred in this scheduled set. Equal cycle counts are not equal work: mixed cycles have more blocks and different solve costs. The table is a diagnostic comparison, not a timing or complexity claim. In particular, the all-coherent failures are finite-run observations, not a lower bound or a negative resolution of the problem.
+
+\subsection{Reproduction and review status}
+From the archive root:
+\begin{lstlisting}
+python -m unittest discover -s src -p 'test_*.py'
+python src/verify_exact.py
+OPENBLAS_NUM_THREADS=1 python src/diagnostics.py
+cd report
+pdflatex -interaction=nonstopmode -halt-on-error TR09_round5.tex
+pdflatex -interaction=nonstopmode -halt-on-error TR09_round5.tex
+\end{lstlisting}
+The exact programs require SymPy, and the numerical programs require NumPy. The pinned versions used for the recorded runs are in \texttt{requirements.txt}; interpreter and platform details are recorded separately. Tests were rerun after extracting the final archive.
+
+\section{Disposition}
+This report establishes a stronger local mixed-block theorem and an exact linear-width algebraic benchmark, but neither is a full TR-09 resolution. The local smoothing corollary alone is not a new in-target random-initialization case. The earlier staged theorem's proposed partial-resolution status remains a separate review question; this report does not independently certify its entire proof.
+
+A complete-resolution label would overstate what has been established. Independent informal AI-agent review is recorded separately in the submission; formal verification, practical stability, and literature-wide novelty are not claimed.
+
+\begingroup\small
+\begin{thebibliography}{9}
+\bibitem{repo}\label{ref:repo}
+OpenProblemsInNLA. \emph{TR-09: Subquadratic overparameterization for iterative decomposition of smoothed tensors}. Canonical entry, accessed during this round.\newline
+\url{https://raw.githubusercontent.com/ajt60gaibb/OpenProblemsInNLA/main/tensor-computations/TR-09/README.md}
+
+\bibitem{colt}\label{ref:colt}
+D. Arvanitakis, V. Srinivas, and A. Vijayaraghavan. \emph{Open Problem: How much overparametrization is needed for ALS in tensor decomposition?} PMLR 336, 7105--7110, 2026.\newline
+\url{https://proceedings.mlr.press/v336/arvanitakis26a.html}
+
+\bibitem{hankel}\label{ref:hankel}
+J. Nie and K. Ye. \emph{Hankel Tensor Decompositions and Ranks}. SIAM J. Matrix Anal. Appl. 40(2), 486--516, 2019. DOI: 10.1137/18M1168285.\newline
+\url{https://epubs.siam.org/doi/10.1137/18M1168285}
+
+\bibitem{jacobi}\label{ref:jacobi}
+J. Li, K. Usevich, and P. Comon. \emph{Globally convergent Jacobi-type algorithms for simultaneous orthogonal symmetric tensor diagonalization}. arXiv:1702.03750v2, 2017.\newline
+\url{https://arxiv.org/html/1702.03750v2}
+
+\bibitem{previous}\label{ref:previous}
+\emph{TR-09: mixed-block cancellation and a coherence-dependent local barrier}. Previous working report from this conversation. Included unchanged in the archive's \texttt{prior} directory. Not an independently reviewed publication.
+
+\bibitem{rubric}\label{ref:rubric}
+OpenProblemsInNLA. \emph{README} and \emph{CONTRIBUTING}. Repository status and reporting guidelines.\newline
+\url{https://raw.githubusercontent.com/ajt60gaibb/OpenProblemsInNLA/main/README.md}\newline
+\url{https://raw.githubusercontent.com/ajt60gaibb/OpenProblemsInNLA/main/CONTRIBUTING.md}
+\end{thebibliography}
+\endgroup
+\end{document}

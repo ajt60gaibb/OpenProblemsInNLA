@@ -1,0 +1,7 @@
+# Submission validation — 13 September 2026
+
+- Independent AI-agent informal proof audit: pass for supporting scope only; retain Open. All 12 original unit tests and all 25 exact checks rerun successfully by the reviewer, plus separately written exact-rational checks. See independent-review.md and rerun-exact-checks.json. Original 276 floating-point diagnostics are preserved, not rerun or used as proof evidence.
+- Permanent-ID validation against origin/main passed for 217 IDs; all 17 safeguard tests passed. Index generation succeeded with no index/count changes (16 Lean verified, 53 Open, 72 Partially resolved, 76 Solved). No resolution-archive entry is added because no target is resolved.
+- All canonical math-format checks passed. Original TR-09 statement, references and historical status check are byte-identical to upstream/main. Every original extracted archive file is byte-identical to the input. Author/date and review disclosures are the only changes in the separate attributed manuscript.
+- Attributed report rebuilt with pdfLaTeX twice (13 pages); canonical TR-09 TeX/PDF rebuilt with the repository renderer (2 pages). All 15 pages visually inspected; no clipping or overlapping text found. No missing-character, undefined-reference or overfull-box warnings in the report build.
+- No Lean commands were run. No status, problem number, registry mapping, or unrelated canonical page changed.

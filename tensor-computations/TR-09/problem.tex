@@ -34,7 +34,7 @@ tensors},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}TR-09}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-13}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -61,6 +61,32 @@ guarantee must handle arbitrary smoothed factors, random initialization
 and near-exact recovery below quadratic overparameterization; broad
 importance includes nonconvex optimization and machine learning.
 
+\subsection{Supporting results ---
+2026-09-13}\label{supporting-results-2026-09-13}
+
+Sidney Holden (Center for Computational Biology, Flatiron Institute,
+Simons Foundation) gives
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-tr09-2026-09-13/report.pdf}{local
+ALS rates and a separate algebraic comparator}. Theorem 4.1 and
+Corollary 4.2 prove a derivative bound and pointwise local convergence
+for a specified mixed-block ALS cycle when two normalized factor Gram
+matrices are close to identity. Theorem 5.1 supplies a smoothing event
+for two orthogonal base modes. Theorem 7.1 gives exact \(2r-1\)-term
+algebraic recovery under its stated rank and noncollinearity
+assumptions.
+
+\textbf{TR-09 remains Open.} No input-independent random-start basin
+probability is proved, even for the restricted base family. The global
+algebraic method is outside the required optimization class. The
+supporting proofs passed a separate
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-tr09-2026-09-13/independent-review.md}{independent
+informal Codex AI-agent review}; this does not establish a full or
+restricted random-start resolution.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-tr09-2026-09-13/README.md}{Authorship,
+verified affiliation and provenance}. No Lean verification, external
+human peer review or novelty certification is claimed. The original
+target below is retained unchanged.
+
 \subsection{Problem statement}\label{problem-statement}
 
 Given \(n\ge r\), take arbitrary base factors
@@ -68,19 +94,15 @@ Given \(n\ge r\), take arbitrary base factors
 adding independent Gaussian entries of variance \(\rho^2/n\), where
 \(\rho=r^{-q}\) and \(q>0\) is fixed. The input is
 
-\[
-T=\sum_{j=1}^{r}a_j\otimes b_j\otimes c_j.
-\]
+\[T=\sum_{j=1}^{r}a_j\otimes b_j\otimes c_j.\]
 
 Does there exist \(k(r)=o(r^2)\), a polynomial lower bound \(n_0(r)\),
 and an explicitly specified ALS or gradient-descent method, initialized
 randomly, such that for every \(n\ge n_0(r)\) and \(0<\varepsilon<1\) it
 returns \(k\) summands with
 
-\[
-\left\|T-\sum_{i=1}^{k}x_i\otimes y_i\otimes z_i\right\|_F
-\le\varepsilon\|T\|_F
-\]
+\[\left\|T-\sum_{i=1}^{k}x_i\otimes y_i\otimes z_i\right\|_F
+\le\varepsilon\|T\|_F\]
 
 using polynomially many exact real arithmetic operations in
 \(n,r,\log(1/\varepsilon)\), with probability \(1-o_r(1)\) over the
