@@ -21,6 +21,10 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### MI-16 — exact algebraic spectral determination — Sidney Holden
+
+**Solved, 12 September 2026.** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Verified affiliation and submission](references/holden-mi16-2026-09-12/README.md). [Theorem 2.1, Sections 3–5](matrix-inequalities-and-norms/MI-16/solution.pdf) give a finite exact algebraic prescription for the maximum permanent for all nonnegative spectra and every order, using critical-value elimination and an explicit finite spectral-moment selector. This settles the retained [MI-16 exact-value target](matrix-inequalities-and-norms/MI-16/README.md), without claiming a compact structural formula, an efficient general implementation, or general optimizer classification. Theorem 8.1 and Sections 9–10 also sharpen the earlier one-exceptional-eigenvalue partial result to two candidates with thresholds and complete equality cases. Prior partial findings from [PR #186](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/186) retain credit. [Independent Codex AI-agent audit: PASS](references/holden-mi16-2026-09-12/independent-review.md). Informal automated review only; no Lean verification, external human peer review, or historical novelty claim.
+
 ### KE-02, SP-08 and SP-09 — spectral partial results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-spectral-2026-09-12/README.md).

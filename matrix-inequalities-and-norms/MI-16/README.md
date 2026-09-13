@@ -3,10 +3,20 @@
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
 **Provenance:** explicit exact extremal problem; no conjectured optimizer is supplied  
-**Status:** Open  
-**Last checked:** 2026-09-10
+**Status:** Solved
+**Last checked:** 2026-09-12
 
-**Rating rationale:** An exact formula for arbitrary spectra would resolve a longstanding permanent optimization barrier and inform prescribed-spectrum matrix optimization.
+**Historical rating rationale:** An exact formula for arbitrary spectra would resolve a longstanding permanent optimization barrier and inform prescribed-spectrum matrix optimization.
+
+## Resolution — exact algebraic determination, 12 September 2026
+
+**Solved by Sidney Holden**, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](../../references/holden-mi16-2026-09-12/README.md). [Proof PDF](solution.pdf) · [LaTeX source](solution.tex) · [Independent AI-agent audit: PASS](../../references/holden-mi16-2026-09-12/independent-review.md).
+
+Theorem 2.1 and Sections 3–5 give an exact finite algebraic prescription for every nonnegative real spectrum in every order. A specialized critical-value elimination polynomial gives finitely many candidates. Explicit Schur-character sums compute a spectral moment at a proved finite order, which selects the maximum even when some real critical values are not Hermitian-feasible. The prescription has no remaining matrix optimization or unevaluated limit, and meets the original exact-value criterion below. For arbitrary real inputs it uses exact ordered-field arithmetic and comparisons; the reference programs accept rational inputs.
+
+**Form of the answer:** this is not a compact general structural formula, an efficient arbitrary-order solver, or a classification of all general-spectrum optimizers. Those stronger goals are not claimed. Theorem 8.1 separately gives a two-candidate structural formula for one exceptional eigenvalue; Sections 9–10 prove the transition threshold and every equality case. The earlier rank-one expansion and equal-support reduction from [Holden's partial submission, PR #186](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/186), are retained and credited in the dossier. This submission adds the all-spectrum determination and sharper exceptional-spectrum results.
+
+A separate Codex agent independently audited the complete argument and its correspondence with this unchanged target. This is informal AI-agent review, not external human peer review or formal verification. No Lean verification or historical-priority claim is made. Whether a structural formula is preferred for the historical problem is exposed for maintainer review; it is not silently added to this entry's completion criterion.
 
 ## Problem statement
 
