@@ -1,0 +1,26 @@
+# RA-09 complete proof handoff
+
+**COMPLETE local implementation, frozen for two independent final mathematical reviews.** No authoritative Linux or publication claim is made.
+
+- Proof freeze: `verification/proof-freeze.json`, SHA256 `533f5c328cdaf8c1f23f238f8c71b7b4b2fdabb2f532d58a398d4ab2434ccf7e`; **361 project files + 17 original Git source/policy files**. All nested manifests are included; only the exact outer freeze and this subsequent report are excluded.
+- All **31** original statement inputs are byte-identical to the accepted freeze. No definitions, numerical targets, original sources, comparator config, toolchain or dependency pins changed.
+- `NLA/RA09/Proof.lean`: `1661afe661293f8b19e83714b6bc25a076ce10109875d79e9c118f9291e565bd`.
+- `Solution.lean`: `fc80b094cc7c7cb519e5f812066a87e29e8283cd8f9858ef6f3d04c9f5e2bbbb`.
+- Actual final fresh result: `verification/final/attempt-evss8dve/result.json`, SHA256 `58a9a27c23fea439e1a44e78c80adfe90d8b9192f31e2c7f99254639acc43002`.
+- Actual inspector: `verification/final/Inspect.lean`, SHA256 `81957e84e7b8c1b2b480c9bd9b27730854417444d43617a145e95b9eb181d621`.
+- Complete source audit: `verification/final/source-audit.json`, SHA256 `db0aa781ce4178012981d40121c87d2f55b9ccc0285c1cb976a48a0c4c30c5b3`.
+- Completed proof correspondence: `PROOF_MAP.md`, SHA256 `5223fe0667c7c61b672023329bfed292b1334081759f19625e2c3161321a7fcb`.
+
+The complete original affirmative target and all **17** literal Challenge/Solution contracts compile. The full proof retains the original difference-of-squared-Frobenius-norms premise, every original dimension/rank/epsilon, all ordered real PSD inputs, every admissible half-line function including positive `f(0)`, and every selected eigenbasis. Actual Frobenius/CFC/spectral/order semantics, scalar factors, harmonic constraints, overlaps and both tail branches are proved. The zero-tail case gives both exact `(n-k) f(0)^2` errors without equating distinct null-space truncation matrices.
+
+Author validation ran **18** fresh direct Lean commands from an empty project prefix: all fifteen project modules, Solution, actual declaration inspector, and isolated Challenge. All returned zero. Implementation and inspection sources had no warnings; only the seventeen deliberate reference Challenge placeholders remained. **49** actual source kernel/standard-three reports passed. The full-target type/body traversal reached **115** safe project declarations and verified **31** material dependencies. The all-export traversal reached **139** and verified **39**, also checking spectral nonvacuity and actual Frobenius norm semantics. Every reached declaration was checked for partial/unsafe status and transitive axiom closure.
+
+LeanCert use is the explicitly approved **kernel trust and axiom audit of pure exact algebra**, without an artificial numerical interval, sampled oracle, native reduction or extra axiom. All closures contain only `propext`, `Classical.choice`, `Quot.sound` or a subset. The complete source audit verifies all five sealed helper inventories, both complete statement-review inventories, the 17 exact signatures with no definition exceptions, 14 actual pinned primary API source files, both permanent-ID validations and all **17** ID tests. Ten dependency pins were clean before and after the fresh build.
+
+Dependencies were reused **read-only** from the pinned MI-22 source/build cache. No prior target object was included, no Lake build/dependency copy/download/rebuild was run, and no shared cache was changed. Only this author’s completed generated prefixes were removed after recording every object hash. Complete original diagnostic logs and source snapshots remain, including earlier unsuccessful proof attempts, root’s temporary ENOSPC before a command ran, and two author validation-script corrections (one nonexistent API path; one log-aggregation check that improperly treated reference placeholders). Neither validation-script correction changed mathematics, a frozen statement or a successful Lean result.
+
+Mathematical result: **Matthew J. Colbrook**, *Sharp Frobenius error transfer for monotone subhomogeneous matrix functions*; original question: Persson, Meyer and Musco. Formalization: **George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA**, with AI assistance. Mathematical authorship is preserved. See PROOF_MAP and SourceCorrespondence for exact source and adaptation mapping.
+
+Implementation contributors `/root/leancert_examples`, `/root`, `/root/formal_review_standards`, and the earlier route contributor `/root/solved_statement_inventory` must **not** count as independent final mathematical referees. The accepted earlier statement reviews preceded proof work and do not substitute for final review.
+
+The historical README and numerical/source plan deliberately retain their frozen statement-stage wording. A truthful candidate README and schema-v0.4 formalization.yaml must be prepared after both final reviews, with exact historical-wrapper archives as required. Actual Ubuntu default-kernel replay, Comparator, negative controls and publication remain pending. Canonical status is still **Solved**; no canonical target, permanent ID, index, source manuscript, commit, push or PR was changed by this implementation task.

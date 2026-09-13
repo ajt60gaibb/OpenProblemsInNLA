@@ -1,0 +1,181 @@
+Mathlib/Analysis/Convex/Function.lean:26:* `ConcaveOn 𝕜 s f`: The function `f` is concave on `s` with scalars `𝕜`.
+Mathlib/Analysis/Convex/Function.lean:28:* `StrictConcaveOn 𝕜 s f`: The function `f` is strictly concave on `s` with scalars `𝕜`.
+Mathlib/Analysis/Convex/Function.lean:59:def ConcaveOn : Prop :=
+Mathlib/Analysis/Convex/Function.lean:69:def StrictConcaveOn : Prop :=
+Mathlib/Analysis/Convex/Function.lean:77:theorem ConvexOn.dual (hf : ConvexOn 𝕜 s f) : ConcaveOn 𝕜 s (toDual ∘ f) := hf
+Mathlib/Analysis/Convex/Function.lean:79:theorem ConcaveOn.dual (hf : ConcaveOn 𝕜 s f) : ConvexOn 𝕜 s (toDual ∘ f) := hf
+Mathlib/Analysis/Convex/Function.lean:81:theorem StrictConvexOn.dual (hf : StrictConvexOn 𝕜 s f) : StrictConcaveOn 𝕜 s (toDual ∘ f) := hf
+Mathlib/Analysis/Convex/Function.lean:83:theorem StrictConcaveOn.dual (hf : StrictConcaveOn 𝕜 s f) : StrictConvexOn 𝕜 s (toDual ∘ f) := hf
+Mathlib/Analysis/Convex/Function.lean:90:theorem concaveOn_id {s : Set β} (hs : Convex 𝕜 s) : ConcaveOn 𝕜 s _root_.id :=
+Mathlib/Analysis/Convex/Function.lean:103:theorem ConcaveOn.congr (hf : ConcaveOn 𝕜 s f) (hfg : EqOn f g s) : ConcaveOn 𝕜 s g :=
+Mathlib/Analysis/Convex/Function.lean:113:theorem StrictConcaveOn.congr (hf : StrictConcaveOn 𝕜 s f) (hfg : EqOn f g s) :
+Mathlib/Analysis/Convex/Function.lean:114:    StrictConcaveOn 𝕜 s g :=
+Mathlib/Analysis/Convex/Function.lean:125:theorem ConcaveOn.subset {t : Set E} (hf : ConcaveOn 𝕜 t f) (hst : s ⊆ t) (hs : Convex 𝕜 s) :
+Mathlib/Analysis/Convex/Function.lean:126:    ConcaveOn 𝕜 s f :=
+Mathlib/Analysis/Convex/Function.lean:133:theorem StrictConcaveOn.subset {t : Set E} (hf : StrictConcaveOn 𝕜 t f) (hst : s ⊆ t)
+Mathlib/Analysis/Convex/Function.lean:134:    (hs : Convex 𝕜 s) : StrictConcaveOn 𝕜 s f :=
+Mathlib/Analysis/Convex/Function.lean:145:theorem ConcaveOn.comp (hg : ConcaveOn 𝕜 (f '' s) g) (hf : ConcaveOn 𝕜 s f)
+Mathlib/Analysis/Convex/Function.lean:146:    (hg' : MonotoneOn g (f '' s)) : ConcaveOn 𝕜 s (g ∘ f) :=
+Mathlib/Analysis/Convex/Function.lean:153:theorem ConvexOn.comp_concaveOn (hg : ConvexOn 𝕜 (f '' s) g) (hf : ConcaveOn 𝕜 s f)
+Mathlib/Analysis/Convex/Function.lean:157:theorem ConcaveOn.comp_convexOn (hg : ConcaveOn 𝕜 (f '' s) g) (hf : ConvexOn 𝕜 s f)
+Mathlib/Analysis/Convex/Function.lean:158:    (hg' : AntitoneOn g (f '' s)) : ConcaveOn 𝕜 s (g ∘ f) :=
+Mathlib/Analysis/Convex/Function.lean:169:theorem StrictConcaveOn.comp_strictConvexOn (hg : StrictConcaveOn 𝕜 (f '' s) g)
+Mathlib/Analysis/Convex/Function.lean:171:    StrictConcaveOn 𝕜 s (g ∘ f) :=
+Mathlib/Analysis/Convex/Function.lean:174:theorem StrictConcaveOn.comp (hg : StrictConcaveOn 𝕜 (f '' s) g) (hf : StrictConcaveOn 𝕜 s f)
+Mathlib/Analysis/Convex/Function.lean:175:    (hg' : StrictMonoOn g (f '' s)) (hf' : s.InjOn f) : StrictConcaveOn 𝕜 s (g ∘ f) :=
+Mathlib/Analysis/Convex/Function.lean:178:theorem StrictConvexOn.comp_strictConcaveOn (hg : StrictConvexOn 𝕜 (f '' s) g)
+Mathlib/Analysis/Convex/Function.lean:179:    (hf : StrictConcaveOn 𝕜 s f) (hg' : StrictAntiOn g (f '' s)) (hf' : s.InjOn f) :
+Mathlib/Analysis/Convex/Function.lean:190:theorem ConcaveOn.comp_strictConvexOn (hg : ConcaveOn 𝕜 (f '' s) g) (hf : StrictConvexOn 𝕜 s f)
+Mathlib/Analysis/Convex/Function.lean:191:    (hg' : StrictAntiOn g (f '' s)) : StrictConcaveOn 𝕜 s (g ∘ f) :=
+Mathlib/Analysis/Convex/Function.lean:194:theorem ConcaveOn.comp_strictConcaveOn (hg : ConcaveOn 𝕜 (f '' s) g) (hf : StrictConcaveOn 𝕜 s f)
+Mathlib/Analysis/Convex/Function.lean:195:    (hg' : StrictMonoOn g (f '' s)) : StrictConcaveOn 𝕜 s (g ∘ f) :=
+Mathlib/Analysis/Convex/Function.lean:198:theorem ConvexOn.comp_strictConcaveOn (hg : ConvexOn 𝕜 (f '' s) g) (hf : StrictConcaveOn 𝕜 s f)
+Mathlib/Analysis/Convex/Function.lean:200:  hg.dual.comp_strictConcaveOn hf hg'
+Mathlib/Analysis/Convex/Function.lean:210:theorem StrictConcaveOn.comp_convexOn (hg : StrictConcaveOn 𝕜 (f '' s) g) (hf : ConvexOn 𝕜 s f)
+Mathlib/Analysis/Convex/Function.lean:211:    (hg' : AntitoneOn g (f '' s)) (hf' : s.InjOn f) : StrictConcaveOn 𝕜 s (g ∘ f) :=
+Mathlib/Analysis/Convex/Function.lean:214:theorem StrictConvexOn.comp_concaveOn (hg : StrictConvexOn 𝕜 (f '' s) g) (hf : ConcaveOn 𝕜 s f)
+Mathlib/Analysis/Convex/Function.lean:218:theorem StrictConcaveOn.comp_concaveOn (hg : StrictConcaveOn 𝕜 (f '' s) g) (hf : ConcaveOn 𝕜 s f)
+Mathlib/Analysis/Convex/Function.lean:219:    (hg' : MonotoneOn g (f '' s)) (hf' : s.InjOn f) : StrictConcaveOn 𝕜 s (g ∘ f) :=
+Mathlib/Analysis/Convex/Function.lean:236:theorem ConcaveOn.add (hf : ConcaveOn 𝕜 s f) (hg : ConcaveOn 𝕜 s g) : ConcaveOn 𝕜 s (f + g) :=
+Mathlib/Analysis/Convex/Function.lean:248:theorem concaveOn_const (c : β) (hs : Convex 𝕜 s) : ConcaveOn 𝕜 s fun _ => c :=
+Mathlib/Analysis/Convex/Function.lean:255:theorem ConcaveOn.add_const [IsOrderedAddMonoid β] (hf : ConcaveOn 𝕜 s f) (b : β) :
+Mathlib/Analysis/Convex/Function.lean:256:    ConcaveOn 𝕜 s (f + fun _ => b) :=
+Mathlib/Analysis/Convex/Function.lean:265:    ConcaveOn 𝕜 s f :=
+Mathlib/Analysis/Convex/Function.lean:286:theorem ConcaveOn.convex_ge (hf : ConcaveOn 𝕜 s f) (r : β) : Convex 𝕜 ({ x ∈ s | r ≤ f x }) :=
+Mathlib/Analysis/Convex/Function.lean:297:theorem ConcaveOn.convex_hypograph (hf : ConcaveOn 𝕜 s f) :
+Mathlib/Analysis/Convex/Function.lean:306:    ConcaveOn 𝕜 s f ↔ Convex 𝕜 { p : E × β | p.1 ∈ s ∧ p.2 ≤ f p.1 } :=
+Mathlib/Analysis/Convex/Function.lean:326:theorem ConcaveOn.translate_right (hf : ConcaveOn 𝕜 s f) (c : E) :
+Mathlib/Analysis/Convex/Function.lean:327:    ConcaveOn 𝕜 ((fun z => c + z) ⁻¹' s) (f ∘ fun z => c + z) :=
+Mathlib/Analysis/Convex/Function.lean:336:theorem ConcaveOn.translate_left (hf : ConcaveOn 𝕜 s f) (c : E) :
+Mathlib/Analysis/Convex/Function.lean:337:    ConcaveOn 𝕜 ((fun z => c + z) ⁻¹' s) (f ∘ fun z => z + c) :=
+Mathlib/Analysis/Convex/Function.lean:362:    ConcaveOn 𝕜 s f ↔
+Mathlib/Analysis/Convex/Function.lean:381:    ConcaveOn 𝕜 s f ↔
+Mathlib/Analysis/Convex/Function.lean:392:theorem LinearMap.concaveOn (f : E →ₗ[𝕜] β) {s : Set E} (hs : Convex 𝕜 s) : ConcaveOn 𝕜 s f :=
+Mathlib/Analysis/Convex/Function.lean:400:theorem StrictConcaveOn.concaveOn {s : Set E} {f : E → β} (hf : StrictConcaveOn 𝕜 s f) :
+Mathlib/Analysis/Convex/Function.lean:401:    ConcaveOn 𝕜 s f :=
+Mathlib/Analysis/Convex/Function.lean:421:theorem StrictConcaveOn.convex_gt (hf : StrictConcaveOn 𝕜 s f) (r : β) :
+Mathlib/Analysis/Convex/Function.lean:454:    ConcaveOn 𝕜 s f :=
+Mathlib/Analysis/Convex/Function.lean:476:theorem LinearOrder.strictConcaveOn_of_lt (hs : Convex 𝕜 s)
+Mathlib/Analysis/Convex/Function.lean:479:    StrictConcaveOn 𝕜 s f :=
+Mathlib/Analysis/Convex/Function.lean:499:theorem ConcaveOn.comp_linearMap {f : F → β} {s : Set F} (hf : ConcaveOn 𝕜 s f) (g : E →ₗ[𝕜] F) :
+Mathlib/Analysis/Convex/Function.lean:500:    ConcaveOn 𝕜 (g ⁻¹' s) (f ∘ g) :=
+Mathlib/Analysis/Convex/Function.lean:535:theorem StrictConcaveOn.add_concaveOn (hf : StrictConcaveOn 𝕜 s f) (hg : ConcaveOn 𝕜 s g) :
+Mathlib/Analysis/Convex/Function.lean:536:    StrictConcaveOn 𝕜 s (f + g) :=
+Mathlib/Analysis/Convex/Function.lean:539:theorem ConcaveOn.add_strictConcaveOn (hf : ConcaveOn 𝕜 s f) (hg : StrictConcaveOn 𝕜 s g) :
+Mathlib/Analysis/Convex/Function.lean:540:    StrictConcaveOn 𝕜 s (f + g) :=
+Mathlib/Analysis/Convex/Function.lean:543:theorem StrictConcaveOn.add (hf : StrictConcaveOn 𝕜 s f) (hg : StrictConcaveOn 𝕜 s g) :
+Mathlib/Analysis/Convex/Function.lean:544:    StrictConcaveOn 𝕜 s (f + g) :=
+Mathlib/Analysis/Convex/Function.lean:552:theorem StrictConcaveOn.add_const {γ : Type*} {f : E → γ}
+Mathlib/Analysis/Convex/Function.lean:554:    [Module 𝕜 γ] (hf : StrictConcaveOn 𝕜 s f) (b : γ) : StrictConcaveOn 𝕜 s (f + fun _ => b) :=
+Mathlib/Analysis/Convex/Function.lean:573:theorem ConcaveOn.convex_gt (hf : ConcaveOn 𝕜 s f) (r : β) : Convex 𝕜 ({ x ∈ s | r < f x }) :=
+Mathlib/Analysis/Convex/Function.lean:586:theorem ConcaveOn.openSegment_subset_strict_hypograph (hf : ConcaveOn 𝕜 s f) (p q : E × β)
+Mathlib/Analysis/Convex/Function.lean:596:theorem ConcaveOn.convex_strict_hypograph [ZeroLEOneClass 𝕜] (hf : ConcaveOn 𝕜 s f) :
+Mathlib/Analysis/Convex/Function.lean:621:theorem ConcaveOn.inf (hf : ConcaveOn 𝕜 s f) (hg : ConcaveOn 𝕜 s g) : ConcaveOn 𝕜 s (f ⊓ g) :=
+Mathlib/Analysis/Convex/Function.lean:637:theorem StrictConcaveOn.inf (hf : StrictConcaveOn 𝕜 s f) (hg : StrictConcaveOn 𝕜 s g) :
+Mathlib/Analysis/Convex/Function.lean:638:    StrictConcaveOn 𝕜 s (f ⊓ g) :=
+Mathlib/Analysis/Convex/Function.lean:653:theorem ConcaveOn.ge_on_segment' (hf : ConcaveOn 𝕜 s f) {x y : E} (hx : x ∈ s) (hy : y ∈ s)
+Mathlib/Analysis/Convex/Function.lean:664:theorem ConcaveOn.ge_on_segment (hf : ConcaveOn 𝕜 s f) {x y z : E} (hx : x ∈ s) (hy : y ∈ s)
+Mathlib/Analysis/Convex/Function.lean:683:theorem StrictConcaveOn.lt_on_open_segment' (hf : StrictConcaveOn 𝕜 s f) {x y : E} (hx : x ∈ s)
+Mathlib/Analysis/Convex/Function.lean:697:theorem StrictConcaveOn.lt_on_openSegment (hf : StrictConcaveOn 𝕜 s f) {x y z : E} (hx : x ∈ s)
+Mathlib/Analysis/Convex/Function.lean:721:theorem ConcaveOn.left_le_of_le_right' (hf : ConcaveOn 𝕜 s f) {x y : E} (hx : x ∈ s) (hy : y ∈ s)
+Mathlib/Analysis/Convex/Function.lean:732:theorem ConcaveOn.right_le_of_le_left' (hf : ConcaveOn 𝕜 s f) {x y : E} {a b : 𝕜} (hx : x ∈ s)
+Mathlib/Analysis/Convex/Function.lean:742:theorem ConcaveOn.left_le_of_le_right (hf : ConcaveOn 𝕜 s f) {x y z : E} (hx : x ∈ s) (hy : y ∈ s)
+Mathlib/Analysis/Convex/Function.lean:751:theorem ConcaveOn.right_le_of_le_left (hf : ConcaveOn 𝕜 s f) {x y z : E} (hx : x ∈ s) (hy : y ∈ s)
+Mathlib/Analysis/Convex/Function.lean:775:theorem ConcaveOn.left_lt_of_lt_right' (hf : ConcaveOn 𝕜 s f) {x y : E} (hx : x ∈ s) (hy : y ∈ s)
+Mathlib/Analysis/Convex/Function.lean:786:theorem ConcaveOn.lt_right_of_left_lt' (hf : ConcaveOn 𝕜 s f) {x y : E} {a b : 𝕜} (hx : x ∈ s)
+Mathlib/Analysis/Convex/Function.lean:796:theorem ConcaveOn.left_lt_of_lt_right (hf : ConcaveOn 𝕜 s f) {x y z : E} (hx : x ∈ s) (hy : y ∈ s)
+Mathlib/Analysis/Convex/Function.lean:805:theorem ConcaveOn.lt_right_of_left_lt (hf : ConcaveOn 𝕜 s f) {x y z : E} (hx : x ∈ s) (hy : y ∈ s)
+Mathlib/Analysis/Convex/Function.lean:820:theorem neg_convexOn_iff : ConvexOn 𝕜 s (-f) ↔ ConcaveOn 𝕜 s f := by
+Mathlib/Analysis/Convex/Function.lean:833:theorem neg_concaveOn_iff : ConcaveOn 𝕜 s (-f) ↔ ConvexOn 𝕜 s f := by
+Mathlib/Analysis/Convex/Function.lean:838:theorem neg_strictConvexOn_iff : StrictConvexOn 𝕜 s (-f) ↔ StrictConcaveOn 𝕜 s f := by
+Mathlib/Analysis/Convex/Function.lean:853:theorem neg_strictConcaveOn_iff : StrictConcaveOn 𝕜 s (-f) ↔ StrictConvexOn 𝕜 s f := by
+Mathlib/Analysis/Convex/Function.lean:856:alias ⟨_, ConcaveOn.neg⟩ := neg_convexOn_iff
+Mathlib/Analysis/Convex/Function.lean:860:alias ⟨_, StrictConcaveOn.neg⟩ := neg_strictConvexOn_iff
+Mathlib/Analysis/Convex/Function.lean:862:alias ⟨_, StrictConvexOn.neg⟩ := neg_strictConcaveOn_iff
+Mathlib/Analysis/Convex/Function.lean:864:theorem ConvexOn.sub (hf : ConvexOn 𝕜 s f) (hg : ConcaveOn 𝕜 s g) : ConvexOn 𝕜 s (f - g) :=
+Mathlib/Analysis/Convex/Function.lean:867:theorem ConcaveOn.sub (hf : ConcaveOn 𝕜 s f) (hg : ConvexOn 𝕜 s g) : ConcaveOn 𝕜 s (f - g) :=
+Mathlib/Analysis/Convex/Function.lean:870:theorem StrictConvexOn.sub (hf : StrictConvexOn 𝕜 s f) (hg : StrictConcaveOn 𝕜 s g) :
+Mathlib/Analysis/Convex/Function.lean:874:theorem StrictConcaveOn.sub (hf : StrictConcaveOn 𝕜 s f) (hg : StrictConvexOn 𝕜 s g) :
+Mathlib/Analysis/Convex/Function.lean:875:    StrictConcaveOn 𝕜 s (f - g) :=
+Mathlib/Analysis/Convex/Function.lean:878:theorem ConvexOn.sub_strictConcaveOn (hf : ConvexOn 𝕜 s f) (hg : StrictConcaveOn 𝕜 s g) :
+Mathlib/Analysis/Convex/Function.lean:882:theorem ConcaveOn.sub_strictConvexOn (hf : ConcaveOn 𝕜 s f) (hg : StrictConvexOn 𝕜 s g) :
+Mathlib/Analysis/Convex/Function.lean:883:    StrictConcaveOn 𝕜 s (f - g) :=
+Mathlib/Analysis/Convex/Function.lean:884:  (sub_eq_add_neg f g).symm ▸ hf.add_strictConcaveOn hg.neg
+Mathlib/Analysis/Convex/Function.lean:886:theorem StrictConvexOn.sub_concaveOn (hf : StrictConvexOn 𝕜 s f) (hg : ConcaveOn 𝕜 s g) :
+Mathlib/Analysis/Convex/Function.lean:890:theorem StrictConcaveOn.sub_convexOn (hf : StrictConcaveOn 𝕜 s f) (hg : ConvexOn 𝕜 s g) :
+Mathlib/Analysis/Convex/Function.lean:891:    StrictConcaveOn 𝕜 s (f - g) :=
+Mathlib/Analysis/Convex/Function.lean:914:theorem StrictConcaveOn.translate_right (hf : StrictConcaveOn 𝕜 s f) (c : E) :
+Mathlib/Analysis/Convex/Function.lean:915:    StrictConcaveOn 𝕜 ((fun z => c + z) ⁻¹' s) (f ∘ fun z => c + z) :=
+Mathlib/Analysis/Convex/Function.lean:924:theorem StrictConcaveOn.translate_left (hf : StrictConcaveOn 𝕜 s f) (c : E) :
+Mathlib/Analysis/Convex/Function.lean:925:    StrictConcaveOn 𝕜 ((fun z => c + z) ⁻¹' s) (f ∘ fun z => z + c) := by
+Mathlib/Analysis/Convex/Function.lean:951:theorem ConcaveOn.smul {c : 𝕜} (hc : 0 ≤ c) (hf : ConcaveOn 𝕜 s f) :
+Mathlib/Analysis/Convex/Function.lean:952:    ConcaveOn 𝕜 s fun x => c • f x :=
+Mathlib/Analysis/Convex/Function.lean:983:theorem ConcaveOn.comp_affineMap {f : F → β} (g : E →ᵃ[𝕜] F) {s : Set F} (hf : ConcaveOn 𝕜 s f) :
+Mathlib/Analysis/Convex/Function.lean:984:    ConcaveOn 𝕜 (g ⁻¹' s) (f ∘ g) :=
+Mathlib/Analysis/Convex/Function.lean:1011:    apply h hx hy (div_nonneg ha hab.le) (div_nonneg hb hab.le)
+Mathlib/Analysis/Convex/Function.lean:1017:    ConcaveOn 𝕜 s f ↔
+Mathlib/Analysis/Convex/Function.lean:1034:theorem strictConcaveOn_iff_div {f : E → β} :
+Mathlib/Analysis/Convex/Function.lean:1035:    StrictConcaveOn 𝕜 s f ↔
+Mathlib/Analysis/Convex/Function.lean:1052:theorem OrderIso.strictConvexOn_symm (f : α ≃o β) (hf : StrictConcaveOn 𝕜 univ f) :
+Mathlib/Analysis/Convex/Function.lean:1062:theorem OrderIso.convexOn_symm (f : α ≃o β) (hf : ConcaveOn 𝕜 univ f) :
+Mathlib/Analysis/Convex/Function.lean:1071:theorem OrderIso.strictConcaveOn_symm (f : α ≃o β) (hf : StrictConvexOn 𝕜 univ f) :
+Mathlib/Analysis/Convex/Function.lean:1072:    StrictConcaveOn 𝕜 univ f.symm := by
+Mathlib/Analysis/Convex/Function.lean:1082:    ConcaveOn 𝕜 univ f.symm := by
+Mathlib/Analysis/Convex/Function.lean:1114:lemma StrictConcaveOn.eq_of_isMaxOn (hf : StrictConcaveOn 𝕜 s f) (hfx : IsMaxOn f s x)
+Mathlib/Analysis/Convex/Function.lean:1135:theorem ConcaveOn.right_le_of_le_left'' (hf : ConcaveOn 𝕜 s f) (hx : x ∈ s) (hz : z ∈ s)
+Mathlib/Analysis/Convex/Function.lean:1139:theorem ConcaveOn.left_le_of_le_right'' (hf : ConcaveOn 𝕜 s f) (hx : x ∈ s) (hz : z ∈ s)
+Mathlib/Analysis/Convex/Deriv.lean:61:    (h_anti : AntitoneOn (deriv f) (interior D)) : ConcaveOn ℝ D f :=
+Mathlib/Analysis/Convex/Deriv.lean:180:theorem StrictAntiOn.strictConcaveOn_of_deriv {D : Set ℝ} (hD : Convex ℝ D) {f : ℝ → ℝ}
+Mathlib/Analysis/Convex/Deriv.lean:182:    StrictConcaveOn ℝ D f :=
+Mathlib/Analysis/Convex/Deriv.lean:194:    (hf'_anti : Antitone (deriv f)) : ConcaveOn ℝ univ f :=
+Mathlib/Analysis/Convex/Deriv.lean:208:theorem StrictAnti.strictConcaveOn_univ_of_deriv {f : ℝ → ℝ} (hf : Continuous f)
+Mathlib/Analysis/Convex/Deriv.lean:209:    (hf'_anti : StrictAnti (deriv f)) : StrictConcaveOn ℝ univ f :=
+Mathlib/Analysis/Convex/Deriv.lean:210:  (hf'_anti.strictAntiOn _).strictConcaveOn_of_deriv convex_univ hf.continuousOn
+Mathlib/Analysis/Convex/Deriv.lean:225:    (hf''_nonpos : ∀ x ∈ interior D, deriv^[2] f x ≤ 0) : ConcaveOn ℝ D f :=
+Mathlib/Analysis/Convex/Deriv.lean:251:    (hf''₀ : ∀ x ∈ interior D, f'' x ≤ 0) : ConcaveOn ℝ D f := by
+Mathlib/Analysis/Convex/Deriv.lean:279:theorem strictConcaveOn_of_deriv2_neg {D : Set ℝ} (hD : Convex ℝ D) {f : ℝ → ℝ}
+Mathlib/Analysis/Convex/Deriv.lean:281:    StrictConcaveOn ℝ D f :=
+Mathlib/Analysis/Convex/Deriv.lean:285:        by rwa [interior_interior]).strictConcaveOn_of_deriv
+Mathlib/Analysis/Convex/Deriv.lean:300:    (hf''_nonpos : ∀ x ∈ D, deriv^[2] f x ≤ 0) : ConcaveOn ℝ D f :=
+Mathlib/Analysis/Convex/Deriv.lean:316:theorem strictConcaveOn_of_deriv2_neg' {D : Set ℝ} (hD : Convex ℝ D) {f : ℝ → ℝ}
+Mathlib/Analysis/Convex/Deriv.lean:317:    (hf : ContinuousOn f D) (hf'' : ∀ x ∈ D, deriv^[2] f x < 0) : StrictConcaveOn ℝ D f :=
+Mathlib/Analysis/Convex/Deriv.lean:318:  strictConcaveOn_of_deriv2_neg hD hf fun x hx => hf'' x (interior_subset hx)
+Mathlib/Analysis/Convex/Deriv.lean:332:    ConcaveOn ℝ univ f :=
+Mathlib/Analysis/Convex/Deriv.lean:348:theorem strictConcaveOn_univ_of_deriv2_neg {f : ℝ → ℝ} (hf : Continuous f)
+Mathlib/Analysis/Convex/Deriv.lean:349:    (hf'' : ∀ x, deriv^[2] f x < 0) : StrictConcaveOn ℝ univ f :=
+Mathlib/Analysis/Convex/Deriv.lean:350:  strictConcaveOn_of_deriv2_neg' convex_univ hf.continuousOn fun x _ => hf'' x
+Mathlib/Analysis/Convex/Deriv.lean:381:lemma ConcaveOn.slope_anti (hfc : ConcaveOn 𝕜 s f) (hx : x ∈ s) :
+Mathlib/Analysis/Convex/Deriv.lean:386:lemma ConcaveOn.antitoneOn_slope_gt (hfc : ConcaveOn 𝕜 s f) (hxs : x ∈ s) :
+Mathlib/Analysis/Convex/Deriv.lean:390:lemma ConcaveOn.antitoneOn_slope_lt (hfc : ConcaveOn 𝕜 s f) (hxs : x ∈ s) :
+Mathlib/Analysis/Convex/Deriv.lean:856:namespace ConcaveOn
+Mathlib/Analysis/Convex/Deriv.lean:863:lemma slope_le_of_hasDerivWithinAt_Ioi (hfc : ConcaveOn ℝ S f)
+Mathlib/Analysis/Convex/Deriv.lean:869:lemma slope_le_rightDeriv (hfc : ConcaveOn ℝ S f) (hx : x ∈ S) (hy : y ∈ S) (hxy : x < y)
+Mathlib/Analysis/Convex/Deriv.lean:874:lemma slope_le_of_hasDerivWithinAt (hfc : ConcaveOn ℝ S f) (hx : x ∈ S) (hy : y ∈ S) (hxy : x < y)
+Mathlib/Analysis/Convex/Deriv.lean:880:lemma slope_le_derivWithin (hfc : ConcaveOn ℝ S f) (hx : x ∈ S) (hy : y ∈ S) (hxy : x < y)
+Mathlib/Analysis/Convex/Deriv.lean:885:lemma slope_le_of_hasDerivAt (hfc : ConcaveOn ℝ S f)
+Mathlib/Analysis/Convex/Deriv.lean:890:lemma slope_le_deriv (hfc : ConcaveOn ℝ S f)
+Mathlib/Analysis/Convex/Deriv.lean:902:lemma le_slope_of_hasDerivWithinAt_Iio (hfc : ConcaveOn ℝ S f)
+Mathlib/Analysis/Convex/Deriv.lean:908:lemma leftDeriv_le_slope (hfc : ConcaveOn ℝ S f) (hx : x ∈ S) (hy : y ∈ S) (hxy : x < y)
+Mathlib/Analysis/Convex/Deriv.lean:913:lemma le_slope_of_hasDerivWithinAt (hfc : ConcaveOn ℝ S f) (hx : x ∈ S) (hy : y ∈ S) (hxy : x < y)
+Mathlib/Analysis/Convex/Deriv.lean:919:lemma derivWithin_le_slope (hfc : ConcaveOn ℝ S f) (hx : x ∈ S) (hy : y ∈ S) (hxy : x < y)
+Mathlib/Analysis/Convex/Deriv.lean:924:lemma le_slope_of_hasDerivAt (hfc : ConcaveOn ℝ S f) (hx : x ∈ S) (hy : y ∈ S) (hxy : x < y)
+Mathlib/Analysis/Convex/Deriv.lean:929:lemma deriv_le_slope (hfc : ConcaveOn ℝ S f) (hx : x ∈ S) (hy : y ∈ S) (hxy : x < y)
+Mathlib/Analysis/Convex/Deriv.lean:939:lemma antitoneOn_derivWithin (hfc : ConcaveOn ℝ S f) (hfd : DifferentiableOn ℝ f S) :
+Mathlib/Analysis/Convex/Deriv.lean:949:theorem antitoneOn_deriv (hfc : ConcaveOn ℝ S f) (hfd : ∀ x ∈ S, DifferentiableAt ℝ f x) :
+Mathlib/Analysis/Convex/Deriv.lean:953:end ConcaveOn
+Mathlib/Analysis/Convex/Deriv.lean:955:namespace StrictConcaveOn
+Mathlib/Analysis/Convex/Deriv.lean:962:lemma slope_lt_of_hasDerivWithinAt_Ioi (hfc : StrictConcaveOn ℝ S f)
+Mathlib/Analysis/Convex/Deriv.lean:968:lemma slope_lt_rightDeriv (hfc : StrictConcaveOn ℝ S f) (hx : x ∈ S) (hy : y ∈ S) (hxy : x < y)
+Mathlib/Analysis/Convex/Deriv.lean:973:lemma slope_lt_of_hasDerivWithinAt (hfc : StrictConcaveOn ℝ S f)
+Mathlib/Analysis/Convex/Deriv.lean:979:lemma slope_lt_derivWithin (hfc : StrictConcaveOn ℝ S f) (hx : x ∈ S) (hy : y ∈ S) (hxy : x < y)
+Mathlib/Analysis/Convex/Deriv.lean:984:lemma slope_lt_of_hasDerivAt (hfc : StrictConcaveOn ℝ S f) (hx : x ∈ S) (hy : y ∈ S) (hxy : x < y)
+Mathlib/Analysis/Convex/Deriv.lean:990:lemma slope_lt_deriv (hfc : StrictConcaveOn ℝ S f) (hx : x ∈ S) (hy : y ∈ S) (hxy : x < y)
+Mathlib/Analysis/Convex/Deriv.lean:1002:lemma lt_slope_of_hasDerivWithinAt_Iio (hfc : StrictConcaveOn ℝ S f)
+Mathlib/Analysis/Convex/Deriv.lean:1008:lemma leftDeriv_lt_slope (hfc : StrictConcaveOn ℝ S f) (hx : x ∈ S) (hy : y ∈ S) (hxy : x < y)
+Mathlib/Analysis/Convex/Deriv.lean:1013:lemma lt_slope_of_hasDerivWithinAt (hfc : StrictConcaveOn ℝ S f)
+Mathlib/Analysis/Convex/Deriv.lean:1019:lemma derivWithin_lt_slope (hfc : StrictConcaveOn ℝ S f) (hx : x ∈ S) (hy : y ∈ S) (hxy : x < y)
+Mathlib/Analysis/Convex/Deriv.lean:1024:lemma lt_slope_of_hasDerivAt (hfc : StrictConcaveOn ℝ S f) (hx : x ∈ S) (hy : y ∈ S) (hxy : x < y)
+Mathlib/Analysis/Convex/Deriv.lean:1029:lemma deriv_lt_slope (hfc : StrictConcaveOn ℝ S f) (hx : x ∈ S) (hy : y ∈ S) (hxy : x < y)
+Mathlib/Analysis/Convex/Deriv.lean:1039:lemma strictAntiOn_derivWithin (hfc : StrictConcaveOn ℝ S f) (hfd : DifferentiableOn ℝ f S) :
+Mathlib/Analysis/Convex/Deriv.lean:1045:theorem strictAntiOn_deriv (hfc : StrictConcaveOn ℝ S f) (hfd : ∀ x ∈ S, DifferentiableAt ℝ f x) :
+Mathlib/Analysis/Convex/Deriv.lean:1049:end StrictConcaveOn

@@ -1,0 +1,272 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={RA-09 - Concave-function
+transfer of Frobenius low-rank
+error},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RA-09}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-13}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Randomized and low-rank approximation\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Concave-function
+transfer of Frobenius low-rank error\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Rating rationale:} Challenging because squared Frobenius
+transfer needs control of eigenvectors as well as eigenvalues; community
+impact is reusable low-rank approximation of matrix functions.\\
+\textbf{Topic:} Low-rank approximation of matrix functions.
+
+\subsection{Resolution --- 2026-09-11}\label{resolution-2026-09-11}
+
+\textbf{Author:} Matthew J. Colbrook, Department of Applied Mathematics
+and Theoretical Physics, University of Cambridge. \textbf{Independent
+Codex-agent review: PASS for the exact target.}
+
+The ordered theorem transfers ordinary relative Frobenius residual error
+with no loss for the larger monotone subhomogeneous function class. Put
+\(B=\widehat A_k\). Since \(0\preceq B\preceq A\),
+\(\|A-B\|_F^2=\|A\|_F^2-\|B\|_F^2-2\mathop{\mathrm{tr}}\nolimits(B(A-B))\le\|A\|_F^2-\|B\|_F^2\).
+Thus the original stronger trace-deficit premise implies the proved
+residual premise, establishing the exact canonical conclusion. All
+specified eigenbasis choices and zero-tail cases are covered.
+
+The complete target is resolved. Its former difficulty rating is
+historical; the original mathematical statement and source evidence are
+retained below.
+
+\textbf{Primary reference:}
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-transfer-2026-09-11/manuscripts/02_frobenius_function_transfer.pdf}{complete
+authored PDF},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-transfer-2026-09-11/manuscripts/02_frobenius_function_transfer.tex}{standalone
+TeX}, \textbf{Theorem 1.1, with the trace-deficit reduction above}.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-transfer-2026-09-11/verification/reviews/RA-09-review.md}{Independent
+proof review} ·
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-transfer-2026-09-11/README.md}{Authorship
+and submission record}. That dated manuscript audit was independent
+agent review. The separate Lean verification below certifies the full
+original target; external human peer review is not claimed.
+
+\subsection{Lean proof and verification evidence ---
+2026-09-13}\label{lean-proof-and-verification-evidence-2026-09-13}
+
+\textbf{Formalization:} George Stepaniants, Department of Computing and
+Mathematical Sciences, California Institute of Technology, Pasadena,
+California, USA, with AI-agent assistance. \textbf{Matthew J. Colbrook
+retains mathematical authorship.}
+
+The
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/blob/3bcc863070c037fffb1deee3f12d1cd1517727df/randomized-and-low-rank-approximation/RA-09/lean/Solution.lean}{proof
+at immutable revision 3bcc8630} proves the complete original implication
+for every dimension, rank, ordered real PSD pair, allowed function,
+error parameter and selected ordered eigenbasis. It retains the
+difference-of-squared-norms premise and permits \(f(0)>0\). Proved
+semantic bridges connect the definitions to the actual Frobenius norm,
+PSD order, spectral theorem and continuous functional calculus; ordinary
+and function truncations use the same selected eigenvectors. The
+trace-deficit reduction, selected zero eigenvalues and zero-tail cases
+are proved.
+
+The full target is \textit{NLA.RA09.concaveFrobeniusTransferConjecture}.
+All 17 checked exports in namespace \textit{NLA.RA09} are:
+
+\begin{itemize}
+\tightlist
+\item
+  \textit{frobenius\_semantics};
+  \textit{frobenius\_orthogonal\_invariance}.
+\item
+  \textit{orderedSpectral\_exists}; \textit{orderedSpectral\_semantics}.
+\item
+  \textit{functionalCalculus\_spectral}; \textit{truncation\_semantics}.
+\item
+  \textit{trace\_deficit\_reduction};
+  \textit{admissible\_scalar\_consequences}.
+\item
+  \textit{scalar\_branch\_certificates};
+  \textit{ordered\_scalar\_certificate}.
+\item
+  \textit{harmonic\_constraint}; \textit{overlap\_semantics}.
+\item
+  \textit{overlap\_error\_expansions}; \textit{zero\_column\_average}.
+\item
+  \textit{positive\_tail\_transfer}; \textit{zero\_tail\_closure}.
+\item
+  \textit{concaveFrobeniusTransferConjecture}.
+\end{itemize}
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-09/lean/PROOF_MAP.md}{proof
+map} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-09/lean/formalization.yaml}{manifest}
+give each contract and its original-target correspondence. Exact
+unbounded scalar factorizations and a sum of squares eliminate interval
+computations. LeanCert checks kernel trust throughout the matrix proof.
+The manuscript's broader function class, unordered theorem and ancillary
+extensions are outside these exports.
+
+Two independent statement approvals preceded implementation;
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-09/lean/README.md\#reviewed-evidence}{two
+independent final mathematical reviews} approved the frozen proof.
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34738884548}{Ubuntu
+run 34738884548}, on 13 September 2026, matched all 17 exports without
+definition exceptions and replayed them through Lean's default kernel.
+All 49 source axiom reports permit only \textit{propext},
+\textit{Classical.choice}, and \textit{Quot.sound}; both actual control
+suites passed as a non-root user. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-09/lean/verification/linux-2026-09-13/OPERATIONAL-REVIEW.md}{independent
+operational audit} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-09/lean/verification/root-operational-2026-09-13/ROOT-CHECKS.json}{coordinator
+acceptance} bind the complete 524-file candidate. Local macOS
+development checks are recorded separately.
+
+The checked toolchain is \textbf{Lean 4.33.1}. Dependency revisions are:
+
+\begin{itemize}
+\tightlist
+\item
+  Mathlib: \textit{0df444a360eaa60ab8c11dca51a86af692955474}.
+\item
+  LeanCert: \textit{621a43d7cf21f87872392a01e874f2f1dbddc926}.
+\end{itemize}
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-09/lean/lake-manifest.json}{Lake
+manifest} pins all ten dependencies. The run used a fresh project and
+matching official Mathlib cache objects; it did not rebuild all
+dependencies from source. From a clean checkout of immutable revision
+\textit{3bcc863070c037fffb1deee3f12d1cd1517727df}, use a non-root Linux
+host with the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tools/lean/HARNESS.md}{documented
+prerequisites} and run from the repository root:
+
+\begin{verbatim}
+tools/lean/bootstrap.sh /tmp/nla-ra09-check
+tools/lean/selftest.sh /tmp/nla-ra09-check
+tools/lean/verify.sh randomized-and-low-rank-approximation/RA-09/lean \
+  /tmp/nla-ra09-check
+\end{verbatim}
+
+These commands run the controls, statement comparison, permitted-axiom
+checks and default-kernel replay. A local \textit{lake build Solution}
+is a separate development check. The original statement and source
+record below remain unchanged.
+
+\subsection{Problem statement}\label{problem-statement}
+
+Let \(n\ge2\), \(1\le k< n\), and
+\(A,\widehat A\in\mathbb R^{n\times n}\) be symmetric with
+\(A\succeq\widehat A\succeq0\). Let \(f:[0,\infty)\to[0,\infty)\) be
+continuous, concave, and nondecreasing. For a positive semidefinite
+matrix \(X=\sum_{i=1}^n\lambda_iq_iq_i^T\) with decreasing eigenvalues
+and orthonormal eigenvectors, write
+
+\[X_k=\sum_{i=1}^k\lambda_iq_iq_i^T,
+\quad f(X)=\sum_{i=1}^nf(\lambda_i)q_iq_i^T,
+\quad f(X)_k=\sum_{i=1}^kf(\lambda_i)q_iq_i^T.\]
+
+Use the same eigenvectors for the two truncations, with any choices
+inside repeated eigenspaces. Is the implication
+
+\[\|A\|_F^2-\|\widehat A_k\|_F^2
+\le(1+\varepsilon)\|A-A_k\|_F^2\]
+
+\[\Longrightarrow\quad
+\|f(A)-f(\widehat A)_k\|_F^2
+\le(1+\varepsilon)\|f(A)-f(A)_k\|_F^2\]
+
+valid for every such input, every eigendecomposition choice, and every
+\(\varepsilon\ge0\)? Here \(\|M\|_F^2=\sum_{i,j}|M_{ij}|^2\). The
+premise is intentionally the difference of squared norms, not merely a
+relative-error bound for \(\widehat A_k\).
+
+The problem asks whether a reusable approximation to \(A\) provides
+near-optimal Frobenius approximation to a larger class of matrix
+functions.
+
+\newpage
+\subsection{References}\label{references}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  D. Persson, R. A. Meyer, and C. Musco,
+  \href{https://arxiv.org/html/2311.14023v2}{Algorithm-agnostic low-rank
+  approximation of operator monotone matrix functions}, \emph{SIAM
+  Journal on Matrix Analysis and Applications} 46 (2025), 1--21. Table
+  1, Frobenius/concave/ordered cell and its asterisk; Theorem 2.5
+  supplies the stronger premise being extended, and §5 explicitly leaves
+  the concave case open. Equation (2) specifies truncation.
+\item
+  D. Persson, T. Chen, and C. Musco,
+  \href{https://arxiv.org/abs/2502.01888}{Randomized block-Krylov
+  subspace methods for low-rank approximation of matrix functions},
+  \emph{Linear Algebra and its Applications} 741 (2026), 32--65. This
+  related work analyzes particular randomized Krylov constructions.
+\end{enumerate}
+
+\subsection{Status check --- 2026-09-08}\label{status-check-2026-09-08}
+
+Checked the source's latest listed arXiv v2 (2024-07-04), 2025 journal
+record, Table 1, Theorem 2.5, and §5. Searches combining the title,
+``concave'', ``Frobenius'', ``counterexample'', ``funNyström'', and 2026
+found no resolution. The related 2026 Krylov paper does not establish
+the universal ordered-pair implication. No explicit reaffirmation later
+than the 2025 publication was located. The source's nuclear-norm
+counterexample and its unordered Frobenius example do not answer this
+target. Unlike the spectral-error question, this statement concerns
+squared Frobenius error and a stronger premise; these are distinct
+explicitly marked open cells in the source table.
+
+\subsection{Audit --- 2026-09-10}\label{audit-2026-09-10}
+
+Rechecked \href{https://arxiv.org/html/2311.14023v2}{Table 1 and Theorem
+2.5}: operator-monotone functions satisfy this stronger-premise
+implication, while general concave functions remain open.
+Frobenius/concavity and later matrix-function searches found no
+resolution. The difference-of-squared-norms premise is essential.
+\end{document}

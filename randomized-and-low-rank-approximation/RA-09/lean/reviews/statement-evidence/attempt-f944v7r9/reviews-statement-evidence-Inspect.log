@@ -1,0 +1,172 @@
+def NLA.RA09.ConcaveFrobeniusTransferConjecture : Prop :=
+∀ (n : ℕ),
+  2 ≤ n →
+    ∀ (k : ℕ),
+      1 ≤ k →
+        k < n →
+          ∀ (A Ahat : RealMatrix n),
+            Matrix.PosSemidef A →
+              Matrix.PosSemidef Ahat →
+                Ahat ≤ A →
+                  ∀ (f : ℝ → ℝ),
+                    AdmissibleFunction f →
+                      ∀ (dA : OrderedSpectralData A) (dHat : OrderedSpectralData Ahat) (ε : ℝ),
+                        0 ≤ ε →
+                          frobeniusSquared A - frobeniusSquared (truncation dHat k) ≤
+                              (1 + ε) * frobeniusSquared (A - truncation dA k) →
+                            frobeniusSquared (functionalCalculus f A - functionTruncation dHat f k) ≤
+                              (1 + ε) * frobeniusSquared (functionalCalculus f A - functionTruncation dA f k)
+def NLA.RA09.AdmissibleFunction : (ℝ → ℝ) → Prop :=
+fun f => ContinuousOn f (Set.Ici 0) ∧ ConcaveOn ℝ (Set.Ici 0) f ∧ MonotoneOn f (Set.Ici 0) ∧ ∀ (x : ℝ), 0 ≤ x → 0 ≤ f x
+structure NLA.RA09.OrderedSpectralData {n : ℕ} (A : RealMatrix n) : Type
+number of parameters: 2
+fields:
+  NLA.RA09.OrderedSpectralData.eigenvalues : Fin n → ℝ
+  NLA.RA09.OrderedSpectralData.orthogonal : ↥(Matrix.unitaryGroup (Fin n) ℝ)
+  NLA.RA09.OrderedSpectralData.decreasing : Antitone self.eigenvalues
+  NLA.RA09.OrderedSpectralData.nonnegative : ∀ (i : Fin n), 0 ≤ self.eigenvalues i
+  NLA.RA09.OrderedSpectralData.reconstruct : A =
+      ↑self.orthogonal * Matrix.diagonal self.eigenvalues * (↑self.orthogonal).transpose
+constructor:
+  NLA.RA09.OrderedSpectralData.mk {n : ℕ} {A : RealMatrix n} (eigenvalues : Fin n → ℝ)
+    (orthogonal : ↥(Matrix.unitaryGroup (Fin n) ℝ)) (decreasing : Antitone eigenvalues)
+    (nonnegative : ∀ (i : Fin n), 0 ≤ eigenvalues i)
+    (reconstruct : A = ↑orthogonal * Matrix.diagonal eigenvalues * (↑orthogonal).transpose) : OrderedSpectralData A
+def Matrix.PosSemidef.{u_2, u_3} : {n : Type u_2} →
+  {R : Type u_3} → [inst : Ring R] → [PartialOrder R] → [StarRing R] → Matrix n n R → Prop :=
+fun {n} {R} [Ring R] [PartialOrder R] [StarRing R] M =>
+  M.IsHermitian ∧ ∀ (x : n →₀ R), 0 ≤ x.sum fun i xi => x.sum fun j xj => star xi * M i j * xj
+theorem Matrix.le_iff.{u_1, u_2} : ∀ {𝕜 : Type u_1} {n : Type u_2} [inst : RCLike 𝕜] {A B : Matrix n n 𝕜},
+  A ≤ B ↔ (B - A).PosSemidef :=
+fun {𝕜} {n} [RCLike 𝕜] {A B} => Iff.rfl
+def NLA.RA09.frobeniusNorm : {m n : Nat} → (A : Matrix (Fin m) (Fin n) Real) → Real :=
+fun {m n : Nat} (A : Matrix (Fin m) (Fin n) Real) =>
+  @Norm.norm (Matrix (Fin m) (Fin n) Real)
+    (@NormedAddCommGroup.toNorm (Matrix (Fin m) (Fin n) Real)
+      (@Matrix.frobeniusNormedAddCommGroup (Fin m) (Fin n) Real (Fin.fintype m) (Fin.fintype n)
+        Real.normedAddCommGroup))
+    A
+def NLA.RA09.functionalCalculus : {n : Nat} → (f : Real → Real) → (A : NLA.RA09.RealMatrix n) → NLA.RA09.RealMatrix n :=
+fun {n : Nat} (f : Real → Real) (A : NLA.RA09.RealMatrix n) =>
+  @cfc Real (NLA.RA09.RealMatrix n)
+    (@IsSelfAdjoint (Matrix (Fin n) (Fin n) Real)
+      (@Matrix.instStar (Fin n) Real
+        (@InvolutiveStar.toStar Real
+          (@StarAddMonoid.toInvolutiveStar Real
+            (@AddCommMonoid.toAddMonoid Real
+              (@NonUnitalNonAssocSemiring.toAddCommMonoid Real
+                (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Real
+                  (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Real
+                    (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Real
+                      (@CommRing.toNonUnitalCommRing Real
+                        (@Field.toCommRing Real
+                          (@NormedField.toField Real
+                            (@DenselyNormedField.toNormedField Real
+                              (@RCLike.toDenselyNormedField Real Real.instRCLike))))))))))
+            (@StarRing.toStarAddMonoid Real
+              (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Real
+                (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Real
+                  (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Real
+                    (@CommRing.toNonUnitalCommRing Real
+                      (@Field.toCommRing Real
+                        (@NormedField.toField Real
+                          (@DenselyNormedField.toNormedField Real
+                            (@RCLike.toDenselyNormedField Real Real.instRCLike))))))))
+              (@RCLike.toStarRing Real Real.instRCLike))))))
+    Real.instCommSemiring instStarRingReal Real.metricSpace NLA.RA09.functionalCalculus._proof_1 instContinuousStarReal
+    (@instTopologicalSpaceMatrix (Fin n) (Fin n) Real
+      (@UniformSpace.toTopologicalSpace Real (@PseudoMetricSpace.toUniformSpace Real Real.pseudoMetricSpace)))
+    (@Matrix.instRing (Fin n) Real (Fin.fintype n) (instDecidableEqFin n) Real.instRing)
+    (@Matrix.instStarRing (Fin n) Real (Fin.fintype n)
+      (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Real
+        (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Real
+          (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Real (@CommRing.toNonUnitalCommRing Real Real.commRing))))
+      instStarRingReal)
+    (@Matrix.instAlgebra (Fin n) Real Real (Fin.fintype n) (instDecidableEqFin n) Real.instCommSemiring
+      (@Ring.toSemiring Real Real.instRing) (@Algebra.id Real Real.instCommSemiring))
+    (@NLA.RA09.functionalCalculus._proof_2 n) f A
+def NLA.RA09.frobeniusSquared : {m n : ℕ} → Matrix (Fin m) (Fin n) ℝ → ℝ :=
+fun {m n} A => ∑ i, ∑ j, A i j ^ 2
+def NLA.RA09.spectralCombination : {n : ℕ} → {A : RealMatrix n} → OrderedSpectralData A → (Fin n → ℝ) → RealMatrix n :=
+fun {n} {A} d values => ↑d.orthogonal * Matrix.diagonal values * (↑d.orthogonal).transpose
+def NLA.RA09.truncation : {n : ℕ} → {A : RealMatrix n} → OrderedSpectralData A → ℕ → RealMatrix n :=
+fun {n} {A} d k => spectralCombination d fun i => if ↑i < k then d.eigenvalues i else 0
+def NLA.RA09.functionTruncation : {n : ℕ} → {A : RealMatrix n} → OrderedSpectralData A → (ℝ → ℝ) → ℕ → RealMatrix n :=
+fun {n} {A} d f k => spectralCombination d fun i => if ↑i < k then f (d.eigenvalues i) else 0
+def NLA.RA09.spectralTail : {n : ℕ} → {A : RealMatrix n} → OrderedSpectralData A → ℕ → ℝ :=
+fun {n} {A} d k => ∑ i with k ≤ ↑i, d.eigenvalues i ^ 2
+def NLA.RA09.functionTail : {n : ℕ} → {A : RealMatrix n} → OrderedSpectralData A → (ℝ → ℝ) → ℕ → ℝ :=
+fun {n} {A} d f k => ∑ i with k ≤ ↑i, f (d.eigenvalues i) ^ 2
+def NLA.RA09.overlapMatrix : {n : ℕ} →
+  {A Ahat : RealMatrix n} → OrderedSpectralData A → OrderedSpectralData Ahat → RealMatrix n :=
+fun {n} {A Ahat} dA dHat => (↑dA.orthogonal).transpose * ↑dHat.orthogonal
+def NLA.RA09.overlapWeights : {n : ℕ} →
+  {A Ahat : RealMatrix n} → OrderedSpectralData A → OrderedSpectralData Ahat → RealMatrix n :=
+fun {n} {A Ahat} dA dHat i j => overlapMatrix dA dHat i j ^ 2
+def NLA.RA09.outerSquare : {n : ℕ} → (Fin n → ℝ) → RealMatrix n :=
+fun {n} v i j => v i * v j
+def NLA.RA09.transferScale : (ℝ → ℝ) → ℝ → ℝ :=
+fun f τ => f τ / τ
+def NLA.RA09.scalarAuxiliary : (ℝ → ℝ) → ℝ → ℝ → ℝ :=
+fun f τ a => max (transferScale f τ ^ 2 * a ^ 2 - f a ^ 2) 0
+def NLA.RA09.branchQuadratic : ℝ → ℝ → ℝ :=
+fun d z => 2 * (d + 1) * z ^ 2 - (2 * d + 1) * z + d
+Matrix.frobenius_norm_def.{u_3, u_4, u_5} {m : Type u_3} {n : Type u_4} {α : Type u_5} [Fintype m] [Fintype n]
+  [SeminormedAddCommGroup α] (A : Matrix m n α) : ‖A‖ = (∑ i, ∑ j, ‖A i j‖ ^ 2) ^ (1 / 2)
+Matrix.trace_mul_comm.{u_2, u_3, u_6} {m : Type u_2} {n : Type u_3} {R : Type u_6} [Fintype m] [Fintype n]
+  [AddCommMonoid R] [CommMagma R] (A : Matrix m n R) (B : Matrix n m R) : (A * B).trace = (B * A).trace
+Matrix.trace_mul_cycle.{u_2, u_3, u_4, u_6} {m : Type u_2} {n : Type u_3} {p : Type u_4} {R : Type u_6} [Fintype m]
+  [Fintype n] [Fintype p] [NonUnitalCommSemiring R] (A : Matrix m n R) (B : Matrix n p R) (C : Matrix p m R) :
+  (A * B * C).trace = (C * A * B).trace
+Matrix.PosSemidef.dotProduct_mulVec_nonneg.{u_2, u_3} {n : Type u_2} {R : Type u_3} [Ring R] [PartialOrder R]
+  [StarRing R] [Fintype n] {M : Matrix n n R} (hM : M.PosSemidef) (x : n → R) : 0 ≤ star x ⬝ᵥ M.mulVec x
+Matrix.PosSemidef.conjTranspose_mul_mul_same.{u_1, u_2, u_3} {m : Type u_1} {n : Type u_2} {R : Type u_3} [Ring R]
+  [PartialOrder R] [StarRing R] [Fintype n] [Finite m] {A : Matrix n n R} (hA : A.PosSemidef) (B : Matrix n m R) :
+  (B.conjTranspose * A * B).PosSemidef
+Matrix.PosSemidef.diag_nonneg.{u_2, u_3} {n : Type u_2} {R : Type u_3} [Ring R] [PartialOrder R] [StarRing R]
+  {A : Matrix n n R} (hA : A.PosSemidef) {i : n} : 0 ≤ A i i
+Matrix.PosSemidef.trace_nonneg.{u_2, u_3} {n : Type u_2} {R : Type u_3} [Ring R] [PartialOrder R] [StarRing R]
+  [Fintype n] [AddLeftMono R] {A : Matrix n n R} (hA : A.PosSemidef) : 0 ≤ A.trace
+Matrix.IsHermitian.eigenvalues₀_antitone.{u_1, u_2} {𝕜 : Type u_1} [RCLike 𝕜] {n : Type u_2} [Fintype n]
+  {A : Matrix n n 𝕜} [DecidableEq n] (hA : A.IsHermitian) : Antitone hA.eigenvalues₀
+Matrix.IsHermitian.spectral_theorem.{u_1, u_2} {𝕜 : Type u_1} [RCLike 𝕜] {n : Type u_2} [Fintype n] {A : Matrix n n 𝕜}
+  [DecidableEq n] (hA : A.IsHermitian) :
+  A =
+    ((Unitary.conjStarAlgAut 𝕜 (Matrix n n 𝕜)) hA.eigenvectorUnitary) (Matrix.diagonal (RCLike.ofReal ∘ hA.eigenvalues))
+Matrix.IsHermitian.mulVec_eigenvectorBasis.{u_1, u_2} {𝕜 : Type u_1} [RCLike 𝕜] {n : Type u_2} [Fintype n]
+  {A : Matrix n n 𝕜} [DecidableEq n] (hA : A.IsHermitian) (j : n) :
+  A.mulVec (hA.eigenvectorBasis j).ofLp = hA.eigenvalues j • (hA.eigenvectorBasis j).ofLp
+Matrix.PosSemidef.eigenvalues_nonneg.{u_2, u_3} {n : Type u_2} {𝕜 : Type u_3} [Fintype n] [RCLike 𝕜] {A : Matrix n n 𝕜}
+  [DecidableEq n] (hA : A.PosSemidef) (i : n) : 0 ≤ ⋯.eigenvalues i
+Matrix.IsHermitian.cfc_eq.{u_1, u_2} {n : Type u_1} {𝕜 : Type u_2} [RCLike 𝕜] [Fintype n] [DecidableEq n]
+  {A : Matrix n n 𝕜} (hA : A.IsHermitian) (f : ℝ → ℝ) : cfc f A = hA.cfc f
+concaveOn_iff_div.{u_1, u_2, u_5} {𝕜 : Type u_1} {E : Type u_2} {β : Type u_5} [Field 𝕜] [LinearOrder 𝕜]
+  [IsStrictOrderedRing 𝕜] [AddCommMonoid E] [AddCommMonoid β] [PartialOrder β] [SMul 𝕜 E] [SMul 𝕜 β] {s : Set E}
+  {f : E → β} :
+  ConcaveOn 𝕜 s f ↔
+    Convex 𝕜 s ∧
+      ∀ ⦃x : E⦄,
+        x ∈ s →
+          ∀ ⦃y : E⦄,
+            y ∈ s →
+              ∀ ⦃a b : 𝕜⦄,
+                0 ≤ a →
+                  0 ≤ b →
+                    0 < a + b → (a / (a + b)) • f x + (b / (a + b)) • f y ≤ f ((a / (a + b)) • x + (b / (a + b)) • y)
+'NLA.RA09.ConcaveFrobeniusTransferConjecture' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA09.AdmissibleFunction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA09.OrderedSpectralData' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA09.frobeniusSquared' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA09.frobeniusNorm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA09.spectralCombination' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA09.truncation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA09.functionalCalculus' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA09.functionTruncation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA09.spectralTail' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA09.functionTail' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA09.overlapMatrix' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA09.overlapWeights' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA09.outerSquare' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA09.transferScale' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA09.scalarAuxiliary' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA09.branchQuadratic' depends on axioms: [propext, Classical.choice, Quot.sound]

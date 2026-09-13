@@ -1,0 +1,122 @@
+/-
+Copyright (c) 2026 George Stepaniants. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: George Stepaniants
+
+Department of Computing and Mathematical Sciences, California Institute of
+Technology, Pasadena, California, USA. AI-assisted formalization.
+Mathematical theorem and averaging argument: Matthew J. Colbrook.
+All weights and harmonic constraints below come from actual matrix order.
+-/
+import NLA.RA09.OverlapOrder
+import NLA.RA09.Averaging
+import NLA.RA09.TailScale
+import NLA.RA09.ZeroColumn
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open scoped BigOperators Classical MatrixOrder
+noncomputable section
+namespace NLA.RA09
+
+theorem scaled_overlap_identity {n : ℕ} (a b F G : Fin n → ℝ)
+    (p : Fin n → Fin n → ℝ) (c : ℝ) (S : Finset (Fin n)) :
+    ((∑ i, F i^2) + (∑ j ∈ S, G j^2) -
+        2 * ∑ j ∈ S, G j * (∑ i, p i j * F i)) -
+      c^2 * ((∑ i, a i^2) + (∑ j ∈ S, b j^2) -
+        2 * ∑ j ∈ S, b j * (∑ i, p i j * a i)) =
+    (∑ i, F i^2-c^2*a i^2) +
+      ∑ j ∈ S, (G j^2-c^2*b j^2 - 2*G j*(∑ i, p i j*F i) +
+        2*c^2*b j*(∑ i, p i j*a i)) := by
+  simp only [mul_assoc, Finset.sum_add_distrib, Finset.sum_sub_distrib,
+    ← Finset.mul_sum]
+  ring
+
+theorem selected_column_average {n : ℕ} {A Ahat : RealMatrix n}
+    (dA : OrderedSpectralData A) (dHat : OrderedSpectralData Ahat)
+    (horder : Ahat ≤ A) (f : ℝ → ℝ) (hf : AdmissibleFunction f)
+    (τ : ℝ) (hτ : 0 < τ) (hfτ : 0 < f τ) (j : Fin n) :
+    (f (dHat.eigenvalues j))^2 - (transferScale f τ)^2*(dHat.eigenvalues j)^2 -
+      2*f (dHat.eigenvalues j)*(∑ i, overlapWeights dA dHat i j*f (dA.eigenvalues i)) +
+      2*(transferScale f τ)^2*dHat.eigenvalues j*
+        (∑ i, overlapWeights dA dHat i j*dA.eigenvalues i) ≤
+    ∑ i, overlapWeights dA dHat i j * scalarAuxiliary f τ (dA.eigenvalues i) := by
+  have hs := overlap_semantics_proved dA dHat horder 0 (Nat.zero_le n)
+  by_cases hb : dHat.eigenvalues j = 0
+  · simpa only [hb, zero_pow (by decide : 2 ≠ 0), mul_zero, sub_zero,
+      zero_mul, add_zero] using zero_column_average_proved dA.eigenvalues
+      (fun i => overlapWeights dA dHat i j) dA.nonnegative
+      (fun i => hs.1 i j) (hs.2.1 j) f hf τ
+  · have hbpos : 0 < dHat.eigenvalues j :=
+      lt_of_le_of_ne (dHat.nonnegative j) (Ne.symm hb)
+    exact positive_column_average dA.eigenvalues (fun i => overlapWeights dA dHat i j)
+      dA.nonnegative (fun i => hs.1 i j) (hs.2.1 j) f hf τ
+      (dHat.eigenvalues j) hτ hfτ hbpos
+      (hs.2.2.2 j hbpos).1 (hs.2.2.2 j hbpos).2
+
+theorem restricted_auxiliary_average {n : ℕ} {A Ahat : RealMatrix n}
+    (dA : OrderedSpectralData A) (dHat : OrderedSpectralData Ahat)
+    (horder : Ahat ≤ A) (f : ℝ → ℝ) (τ : ℝ) (k : ℕ) (hk : k ≤ n) :
+    (∑ j ∈ Finset.univ.filter (fun j : Fin n => j.val < k),
+      ∑ i, overlapWeights dA dHat i j * scalarAuxiliary f τ (dA.eigenvalues i)) ≤
+    ∑ i, scalarAuxiliary f τ (dA.eigenvalues i) := by
+  rw [Finset.sum_comm]
+  apply Finset.sum_le_sum
+  intro i _
+  rw [← Finset.sum_mul]
+  exact (mul_le_mul_of_nonneg_right
+    ((overlap_semantics_proved dA dHat horder k hk).2.2.1 i)
+    (le_max_right _ _)).trans_eq (one_mul _)
+
+theorem function_residual_scale_bound {n : ℕ} {A Ahat : RealMatrix n}
+    (dA : OrderedSpectralData A) (dHat : OrderedSpectralData Ahat)
+    (horder : Ahat ≤ A) (f : ℝ → ℝ) (hf : AdmissibleFunction f)
+    (τ : ℝ) (hτ : 0 < τ) (hfτ : 0 < f τ) (k : ℕ) (hk : k ≤ n) :
+    frobeniusSquared (functionalCalculus f A-functionTruncation dHat f k) -
+      (transferScale f τ)^2*frobeniusSquared (A-truncation dHat k) ≤
+    ∑ i, (f (dA.eigenvalues i)^2 - (transferScale f τ)^2*dA.eigenvalues i^2 +
+      scalarAuxiliary f τ (dA.eigenvalues i)) := by
+  obtain ⟨hA,hF⟩ := overlap_error_expansions_proved dA dHat f k hk
+  rw [hA,hF,scaled_overlap_identity]
+  rw [Finset.sum_add_distrib]
+  apply add_le_add_left
+  calc
+    _ ≤ ∑ j ∈ Finset.univ.filter (fun j : Fin n => j.val < k),
+          ∑ i, overlapWeights dA dHat i j * scalarAuxiliary f τ (dA.eigenvalues i) := by
+      exact Finset.sum_le_sum fun j _ => selected_column_average dA dHat horder f hf τ hτ hfτ j
+    _ ≤ _ := restricted_auxiliary_average dA dHat horder f τ k hk
+
+theorem positive_tail_transfer_proved {n : ℕ} {A Ahat : RealMatrix n}
+    (dA : OrderedSpectralData A) (dHat : OrderedSpectralData Ahat)
+    (horder : Ahat ≤ A) (f : ℝ → ℝ) (hf : AdmissibleFunction f)
+    (k : ℕ) (hk : k < n) (hτ : 0 < dA.eigenvalues ⟨k, hk⟩) :
+    frobeniusSquared (functionalCalculus f A - functionTruncation dHat f k) -
+        functionTail dA f k ≤
+      (transferScale f (dA.eigenvalues ⟨k, hk⟩))^2 *
+        (frobeniusSquared (A - truncation dHat k) - spectralTail dA k) ∧
+    (transferScale f (dA.eigenvalues ⟨k, hk⟩))^2 * spectralTail dA k ≤
+      functionTail dA f k := by
+  refine ⟨?_, spectral_tail_scaling dA f hf k hk hτ⟩
+  by_cases hfτ : f (dA.eigenvalues ⟨k,hk⟩) = 0
+  · have hz := (admissible_scalar_consequences_proved f hf
+      (dA.eigenvalues ⟨k,hk⟩) hτ).2.2.2.2.2 hfτ
+    have hfa : ∀ i, f (dA.eigenvalues i) = 0 := fun i => hz _ (dA.nonnegative i)
+    have hfb : ∀ i, f (dHat.eigenvalues i) = 0 := fun i => hz _ (dHat.nonnegative i)
+    rw [(overlap_error_expansions_proved dA dHat f k hk.le).2]
+    simp only [hfa,hfb,transferScale,hfτ,zero_div,functionTail,zero_pow (by decide : 2 ≠ 0),
+      mul_zero,zero_mul,Finset.sum_const_zero,add_zero,sub_zero,le_refl]
+  · have hfτpos : 0 < f (dA.eigenvalues ⟨k,hk⟩) :=
+      lt_of_le_of_ne (hf.2.2.2 _ hτ.le) (Ne.symm hfτ)
+    have h := function_residual_scale_bound dA dHat horder f hf
+      (dA.eigenvalues ⟨k,hk⟩) hτ hfτpos k hk.le
+    rw [spectral_auxiliary_sum dA f hf k hk hτ] at h
+    nlinarith
+
+#assert_trust kernel selected_column_average
+#assert_trust kernel function_residual_scale_bound
+#assert_trust kernel positive_tail_transfer_proved
+#print axioms selected_column_average
+#print axioms function_residual_scale_bound
+#print axioms positive_tail_transfer_proved
+
+end NLA.RA09

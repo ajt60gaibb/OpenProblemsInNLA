@@ -1,0 +1,96 @@
+"""Adapt the previously audited RA08 source binding to the exact RA09 packaging formats."""
+from pathlib import Path
+import hashlib,json
+O=Path(__file__).resolve().parent
+S=Path('/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/verification/linux-2026-09-12/source_audit.py')
+s=S.read_text();pre=s[:s.index("pack=P/")]
+pre=pre.replace('RA-08','RA-09').replace('==613','==524')
+pre=pre.replace('ab05e2bf801e6906453e88a4d84d5e73191f776db05610fb8b8e5e4a03d4f856','533f5c328cdaf8c1f23f238f8c71b7b4b2fdabb2f532d58a398d4ab2434ccf7e').replace('eb0460c3dd4c13a42f928e3f00c9c3710e486922b99aff74f4d6a3098c5ed332','c144b68990fca06c554790b25bfaef7544c0a8baf532e5b38365fe74ee9c87ed')
+pre=pre.replace("archive={'README.md':'verification/pre-candidate-README.md','formalization.yaml':'verification/pre-candidate-formalization.yaml'}","archive={'README.md':'verification/pre-candidate-README.md'}")
+pre=pre.replace('[(proof,450),(statement,39)]','[(proof,361),(statement,31)]').replace("len(proof['source_files'])==10","len(proof['source_files'])==17")
+manifest=s[s.index('def manifest('):s.index('\nnested={}')] 
+tail=s[s.index("lock_bytes=retain("):s.index("save('source-binding.json'")]
+mid='''installation=json.loads((P/'verification/linux-candidate-2026-09-13/INSTALLATION.json').read_text())
+assert len(installation['baseline'])==499
+for n,r in installation['baseline'].items():
+    target=archive.get(n,n)
+    assert inputs[target]['sha256']==r['sha256'] and inputs[target]['bytes']==r['bytes'],n
+for n,h in installation['wrapper_files'].items():assert inputs[n]['sha256']==h,n
+'''+manifest+'''
+nested={}
+for n in inputs:
+    if Path(n).name=='EVIDENCE-MANIFEST.json':nested[n]=manifest(n)
+assert len(nested)==13
+root=json.loads((P/'verification/root-candidate-2026-09-13/ROOT-CHECKS.json').read_text())
+assert len(root['prior_inputs'])==root['prior_input_count']==520
+for n,h in root['prior_inputs'].items():
+    assert inputs[n]['sha256']==h,n
+rootfiles={n for n in inputs if n.startswith('verification/root-candidate-2026-09-13/')}
+assert len(rootfiles)==4 and not set(root['prior_inputs'])&rootfiles
+assert set(root['prior_inputs'])|rootfiles==set(inputs)
+assert inputs['verification/linux-candidate-2026-09-13/INSTALLATION.json']['sha256']==root['installation_sha256']
+packreport='reviews/candidate-packaging-referee-2026-09-13.md'
+assert inputs[packreport]['sha256']==root['independent_packaging_report_sha256']=='9d74a02767975969022abd594e813bfde0c0c5b2a26f28f79623cffecde01d47'
+for n,r in root['complete_package_inventories'].items():
+    assert inputs[n]['sha256']==r['sha256'] and nested[n]['bound_files']==r['bound_files']
+assert root['canonical_status']=='Solved, unchanged'
+gate=json.loads((P/'verification/final-review-acceptance.json').read_text())
+assert inputs['verification/final-review-acceptance.json']['sha256']==root['final_review_gate_sha256']=='ed2eef518099d23090e21786b626a111d511b32fea12e7193442273e2d980132'
+assert len(gate['reports'])==2
+for r in gate['reports']:
+    assert inputs[r['report']]['sha256']==r['sha256']
+    assert inputs[r['evidence']['path']]['sha256']==r['evidence']['sha256']
+    assert nested[r['evidence']['path']]['bound_files']==r['evidence']['bound_files']
+    assert (r['successful_direct_source_commands'],r['actual_standard_three_reports'])==((18,66) if r['report']=='reviews/final-referee-1.md' else (19,50))
+    assert r['mathematical_revision_requested'] is False
+names=['frobenius_semantics','frobenius_orthogonal_invariance','orderedSpectral_exists',
+    'orderedSpectral_semantics','functionalCalculus_spectral','truncation_semantics',
+    'trace_deficit_reduction','admissible_scalar_consequences','scalar_branch_certificates',
+    'ordered_scalar_certificate','harmonic_constraint','overlap_semantics','overlap_error_expansions',
+    'zero_column_average','positive_tail_transfer','zero_tail_closure','concaveFrobeniusTransferConjecture']
+config=json.loads((P/'comparator.json').read_text())
+assert config['theorem_names']==installation['exports']==['NLA.RA09.'+n for n in names]
+assert config['definition_names']==[] and config['permitted_axioms']==['propext','Classical.choice','Quot.sound']
+def headers(file):
+    text=(P/file).read_text()
+    return {m.group(1):' '.join(text[m.end():text.index(':=',m.end())].split())
+      for m in re.finditer(r'^theorem\\s+(\\w+)\\s+',text,re.M)}
+assert headers('Challenge.lean')==headers('Solution.lean')
+assert list(headers('Solution.lean'))==names
+scan={}
+for f in sorted((P/'NLA/RA09').glob('*.lean'))+[P/'Solution.lean']:
+    code=re.sub(r'/\\-.*?\\-/','',f.read_text(),flags=re.S)
+    code=re.sub(r'--[^\\n]*','',code)
+    assert not re.search(r'\\b(sorry|admit|axiom|native_decide|unsafe)\\b',code),f
+    assert not re.search(r'^import\\s+Challenge\\b',code,re.M),f
+    assertions=re.findall(r'^#assert_trust kernel\\s+(\\S+)',code,re.M)
+    prints=re.findall(r'^#print axioms\\s+(\\S+)',code,re.M)
+    assert assertions==prints,f
+    n=str(f.relative_to(P));scan[n]={'sha256':inputs[n]['sha256'],'kernel_assertions':assertions}
+assert sum(len(r['kernel_assertions']) for r in scan.values())==49
+for n in ['NLA/RA09/Proof.lean','Solution.lean']:
+    assert 'set_option leancert.trust "kernel"' in (P/n).read_text()
+assert '**Status:** Solved' in (P.parent/'README.md').read_text()
+for n in ['README.md','formalization.yaml']:
+    text=(P/n).read_text()
+    assert 'George Stepaniants' in text and 'California Institute of Technology' in text
+    assert 'Department of Computing and Mathematical Sciences' in text
+    assert not re.search(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}',text)
+'''
+end='''save('source-binding.json',{'result':'PASS committed source and review binding; remote acceptance still required',
+ 'candidate':COMMIT,'base':BASE,'candidate_inputs':inputs,'candidate_input_count':524,'proof_inputs':361,'statement_inputs':31,
+ 'original_sources':originals,'archive_mapping':archive,'preinstallation_inputs_preserved':499,
+ 'root_entry_inputs':520,'root_acceptance_inputs':4,'all_candidate_inputs_accounted_once':True,
+ 'complete_nested_manifests':nested,'accepted_mathematical_reviews':gate['reports'],'config':config,
+ 'source_trust_scan':scan,'embedded_kernel_assertions':49,
+ 'final_review_count_scope':'49 assertions are embedded in the candidate; final referee 1 independently reported 66 with 17 extra export checks and final referee 2 50 with one literal consumer.',
+ 'material_LeanCert_scope':'Pure exact scalar and finite matrix reasoning; actual LeanCert kernel trust/dependency assertions. No interval certificate, numerical oracle or artificial numerical computation.',
+ 'repository_infrastructure':infrastructure,'source_lock_sha256':sha(lock_bytes),'locked_checker_sources':58,
+ 'derived_ci_probe_sha256':sha(probe),'proof_coauthors':['/root/formal_review_standards','/root/solved_statement_inventory','/root/leancert_examples','/root'],
+ 'operational_reviewer':C['role'],'actual_remote_success_claimed':False})
+print(json.dumps({'result':'PASS committed source/context binding only','candidate_inputs':524,'nested_manifests':13,
+ 'exports':17,'embedded_kernel_assertions':49,'locked_sources':58,'remote_acceptance':'pending'}))
+'''
+out=pre+mid+tail+end
+(O/'source_audit.py').write_text(out)
+(O/'source-inspector-adaptation.json').write_text(json.dumps({'source':str(S),'source_sha256':hashlib.sha256(s.encode()).hexdigest(),'adapted_sha256':hashlib.sha256(out.encode()).hexdigest(),'changes':'Exact RA09 commit count 524, proof 361 and statement 31 inputs, 17 originals/exports, actual 499 pre-installation and 520 root input formats, 13 nested manifests, 49 kernel trust checks, pure exact math scope, actual gate and report hashes. No inherited RA08 mathematical assumptions.'},indent=2)+'\n')

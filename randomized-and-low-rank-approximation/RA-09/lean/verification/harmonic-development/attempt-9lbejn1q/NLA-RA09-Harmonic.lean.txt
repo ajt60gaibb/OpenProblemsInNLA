@@ -1,0 +1,116 @@
+/-
+Copyright (c) 2026 George Stepaniants. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: George Stepaniants
+
+Department of Computing and Mathematical Sciences, California Institute of
+Technology, Pasadena, California, USA. AI-assisted formalization.
+Mathematical transfer theorem: Matthew J. Colbrook.
+The direct diagonal quadratic test is the reviewed adaptation of the source
+harmonic lemma; zero-coordinate support is proved before any denominator use.
+Initial implementation: /root/leancert_examples.
+Completion and exact-API checks: /root/formal_review_standards.
+-/
+import NLA.RA09.Definitions
+import Mathlib.Tactic.Positivity
+import Mathlib.Tactic.FieldSimp
+import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.Ring
+import LeanCert.Tactic.Verification
+
+/-!
+# Harmonic constraint from a real PSD rank-one bound
+
+The diagonal quadratic form first forces zero-coordinate support. Testing it
+at the entrywise quotient then proves the harmonic inequality without a
+pseudoinverse or an invertibility assumption.
+-/
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open scoped BigOperators Classical MatrixOrder
+open Matrix
+noncomputable section
+namespace NLA.RA09
+
+/-- The actual outer product acts through its scalar dot product. -/
+theorem outerSquare_mulVec {n : ℕ} (v z : Fin n → ℝ) :
+    outerSquare v *ᵥ z = (v ⬝ᵥ z) • v := by
+  ext i
+  simp only [mulVec, dotProduct, outerSquare, Pi.smul_apply, smul_eq_mul]
+  rw [Finset.sum_mul]
+  apply Finset.sum_congr rfl
+  intro j _
+  ring
+
+/-- Exact quadratic form for a diagonal matrix minus a rank-one outer product. -/
+theorem diagonal_outer_quadratic {n : ℕ} (a v z : Fin n → ℝ) (b : ℝ) :
+    z ⬝ᵥ ((diagonal a - b • outerSquare v) *ᵥ z) =
+      (∑ i, a i * z i ^ 2) - b * (v ⬝ᵥ z)^2 := by
+  rw [sub_mulVec, dotProduct_sub, smul_mulVec, dotProduct_smul,
+    outerSquare_mulVec, dotProduct_smul, dotProduct_comm z v]
+  simp only [smul_eq_mul, mulVec_diagonal, dotProduct]
+  congr 1
+  · apply Finset.sum_congr rfl
+    intro i _
+    ring
+  · ring
+
+/-- Genuine PSD order supplies both support and the full harmonic bound. -/
+theorem harmonic_constraint_proved {n : ℕ} (a v : Fin n → ℝ) (b : ℝ)
+    (ha : ∀ i, 0 ≤ a i) (hv : ∑ i, v i ^ 2 = 1) (hb : 0 < b)
+    (horder : (Matrix.diagonal a - b • outerSquare v).PosSemidef) :
+    (∀ i, a i = 0 → v i = 0) ∧ b * (∑ i, v i ^ 2 / a i) ≤ 1 := by
+  have hsupport : ∀ i, a i = 0 → v i = 0 := by
+    intro i hi
+    have hd := horder.diag_nonneg (i := i)
+    have hd' : 0 ≤ a i - b * v i ^ 2 := by
+      simpa only [sub_apply, diagonal_apply_eq, smul_apply, smul_eq_mul,
+        outerSquare, pow_two, mul_assoc] using hd
+    have hsq : v i ^ 2 ≤ 0 := by
+      apply (_root_.mul_le_mul_left hb).mp
+      nlinarith [hd']
+    exact sq_eq_zero_iff.mp (le_antisymm hsq (sq_nonneg _))
+  refine ⟨hsupport, ?_⟩
+  let H : ℝ := ∑ i, v i ^ 2 / a i
+  have hH : 0 < H := by
+    have hex : ∃ i, v i ≠ 0 := by
+      by_contra hn
+      have hz : ∀ i, v i = 0 := by
+        intro i
+        by_contra hi
+        exact hn ⟨i, hi⟩
+      simp [hz] at hv
+    obtain ⟨i, hi⟩ := hex
+    have hai : 0 < a i := lt_of_le_of_ne (ha i) (fun he => hi (hsupport i he.symm))
+    have hterm : 0 < v i ^ 2 / a i := div_pos (sq_pos_of_ne_zero hi) hai
+    exact hterm.trans_le (Finset.single_le_sum (fun j _ => div_nonneg (sq_nonneg _) (ha j))
+      (Finset.mem_univ i))
+  let z : Fin n → ℝ := fun i => v i / a i
+  have hdiag : (∑ i, a i * z i ^ 2) = H := by
+    apply Finset.sum_congr rfl
+    intro i _
+    by_cases hi : a i = 0
+    · simp [z, hi]
+    · dsimp [z]
+      field_simp
+      <;> ring
+  have hdot : v ⬝ᵥ z = H := by
+    apply Finset.sum_congr rfl
+    intro i _
+    dsimp [z]
+    ring
+  have hq := horder.dotProduct_mulVec_nonneg z
+  simp only [star_trivial, diagonal_outer_quadratic, hdiag, hdot] at hq
+  apply (_root_.mul_le_mul_left hH).mp
+  change H * (b * H) ≤ H * 1
+  nlinarith [hq]
+
+#assert_trust kernel outerSquare_mulVec
+#assert_trust kernel diagonal_outer_quadratic
+#assert_trust kernel harmonic_constraint_proved
+#print axioms outerSquare_mulVec
+#print axioms diagonal_outer_quadratic
+#print axioms harmonic_constraint_proved
+
+end NLA.RA09

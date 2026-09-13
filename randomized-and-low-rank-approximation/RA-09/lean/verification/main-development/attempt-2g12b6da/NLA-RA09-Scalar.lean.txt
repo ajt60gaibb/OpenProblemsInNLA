@@ -1,0 +1,238 @@
+/-
+Copyright (c) 2026 George Stepaniants. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: George Stepaniants
+
+Department of Computing and Mathematical Sciences, California Institute of
+Technology, Pasadena, California, USA. AI-assisted formalization.
+Mathematical theorem and scalar argument: Matthew J. Colbrook,
+Sharp Frobenius error transfer for monotone subhomogeneous matrix functions,
+Sections 2–3. The exact sum-of-squares adaptation is recorded in NUMERICAL_TARGETS.
+-/
+import NLA.RA09.Definitions
+import Mathlib.Tactic.FieldSimp
+import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.Positivity
+import Mathlib.Tactic.Ring
+import LeanCert.Tactic.Verification
+
+/-!
+# Scalar inequalities for ordered Frobenius transfer
+
+Concavity on the nonnegative half-line gives subhomogeneity without assuming
+that the function vanishes at zero. Exact branch factorizations prove the
+ordered scalar certificate on its full unbounded domain.
+-/
+
+set_option autoImplicit false
+noncomputable section
+namespace NLA.RA09
+
+/-- Concavity at zero, written without a quotient in the conclusion. -/
+private theorem scalar_cross (f : ℝ → ℝ) (hf : AdmissibleFunction f)
+    {x y : ℝ} (hx : 0 ≤ x) (hy : 0 < y) (hxy : x ≤ y) :
+    x * f y ≤ y * f x := by
+  have ht0 : 0 ≤ x / y := div_nonneg hx hy.le
+  have ht1 : x / y ≤ 1 := (div_le_one hy).2 hxy
+  have hc := hf.2.1.2 (show y ∈ Set.Ici (0 : ℝ) from hy.le)
+    (Set.mem_Ici.mpr (le_refl (0 : ℝ)))
+    ht0 (sub_nonneg.mpr ht1) (show x / y + (1 - x / y) = 1 by ring)
+  have hi : x / y * f y ≤ f x := by
+    simp only [smul_eq_mul, mul_zero, add_zero, div_mul_cancel₀ x hy.ne'] at hc
+    have hz := mul_nonneg (sub_nonneg.mpr ht1) (hf.2.2.2 0 le_rfl)
+    linarith
+  have hq : (x * f y) / y ≤ f x := by simpa only [div_mul_eq_mul_div] using hi
+  simpa only [mul_comm] using (div_le_iff₀ hy).mp hq
+
+/-- The complete scalar consequences of the original admissible function class. -/
+theorem admissible_scalar_consequences_proved (f : ℝ → ℝ) (hf : AdmissibleFunction f)
+    (τ : ℝ) (hτ : 0 < τ) :
+    (∀ x y : ℝ, 0 < x → x ≤ y → f y / y ≤ f x / x) ∧
+    0 ≤ transferScale f τ ∧
+    (∀ x : ℝ, 0 ≤ x → x ≤ τ → transferScale f τ * x ≤ f x) ∧
+    (∀ x : ℝ, τ ≤ x → f x ≤ transferScale f τ * x) ∧
+    (∀ x y : ℝ, 0 ≤ x → x ≤ y → τ ≤ y →
+      0 ≤ f y - f x ∧ f y - f x ≤ transferScale f τ * (y-x)) ∧
+    (f τ = 0 → ∀ x : ℝ, 0 ≤ x → f x = 0) := by
+  have ratio : ∀ x y : ℝ, 0 < x → x ≤ y → f y / y ≤ f x / x := by
+    intro x y hx hxy
+    have hy := hx.trans_le hxy
+    exact (div_le_div_iff₀ hy hx).2 (by nlinarith [scalar_cross f hf hx.le hy hxy])
+  have below : ∀ t : ℝ, 0 < t → ∀ x : ℝ, 0 ≤ x → x ≤ t →
+      transferScale f t * x ≤ f x := by
+    intro t ht x hx hxt
+    have h : (x * f t) / t ≤ f x :=
+      (div_le_iff₀ ht).2 (by nlinarith [scalar_cross f hf hx ht hxt])
+    dsimp [transferScale]
+    convert h using 1
+    ring
+  have above : ∀ x : ℝ, τ ≤ x → f x ≤ transferScale f τ * x := by
+    intro x htx
+    have h := scalar_cross f hf hτ.le (hτ.trans_le htx) htx
+    have h' : f x ≤ (x * f τ) / τ := (le_div_iff₀ hτ).2 (by nlinarith)
+    dsimp [transferScale]
+    convert h' using 1
+    ring
+  refine ⟨ratio, div_nonneg (hf.2.2.2 τ hτ.le) hτ.le, below τ hτ, above, ?_, ?_⟩
+  · intro x y hx hxy hty
+    have hy := hτ.trans_le hty
+    refine ⟨sub_nonneg.mpr (hf.2.2.1 hx (hx.trans hxy) hxy), ?_⟩
+    have hlow := below y hy x hx hxy
+    have hid : transferScale f y * y = f y := div_mul_cancel₀ (f y) hy.ne'
+    calc
+      f y - f x ≤ transferScale f y * (y-x) := by nlinarith
+      _ ≤ transferScale f τ * (y-x) :=
+        mul_le_mul_of_nonneg_right (ratio τ y hτ hty) (sub_nonneg.mpr hxy)
+  · intro hzero x hx
+    apply le_antisymm _ (hf.2.2.2 x hx)
+    rcases le_total x τ with hxt | htx
+    · exact (hf.2.2.1 hx hτ.le hxt).trans_eq hzero
+    · simpa [transferScale, hzero] using above x htx
+
+/-- Exact unbounded sum of squares and all three closed branch factors. -/
+theorem scalar_branch_certificates_proved (d z : ℝ) (hd : 1 ≤ d) (hz : 0 < z) :
+    branchQuadratic d z =
+      2*(d-1)*(z-1/2)^2 + (d-1)/2 + 4*(z-3/8)^2 + 7/16 ∧
+    0 < branchQuadratic d z ∧
+    (z ≤ 1 →
+      2*d^2*z - 2*z - d^2 + 1 - d*(d-1)*(1-1/z) =
+        (d-1)/z * branchQuadratic d z ∧
+      0 ≤ (d-1)/z * branchQuadratic d z) ∧
+    (1 ≤ z → z ≤ d →
+      2*d^2 - 2*z - d^2 + 1 - d*(d-1)*(1-1/z) =
+        (d-z)*(2*z+d-1)/z ∧
+      0 ≤ (d-z)*(2*z+d-1)/z) ∧
+    (d ≤ z →
+      2*d*z - 2*z - d^2 + 1 - d*(d-1)*(1-1/z) =
+        (d-1)*(z-d)*(2*z-1)/z ∧
+      0 ≤ (d-1)*(z-d)*(2*z-1)/z) := by
+  have hsos : branchQuadratic d z =
+      2*(d-1)*(z-1/2)^2 + (d-1)/2 + 4*(z-3/8)^2 + 7/16 := by
+    unfold branchQuadratic
+    ring
+  have hq : 0 < branchQuadratic d z := by
+    rw [hsos]
+    nlinarith [mul_nonneg (sub_nonneg.mpr hd) (sq_nonneg (z-1/2)), sq_nonneg (z-3/8)]
+  refine ⟨hsos, hq, ?_, ?_, ?_⟩
+  · intro _
+    constructor
+    · unfold branchQuadratic
+      field_simp
+      ring
+    · exact mul_nonneg (div_nonneg (sub_nonneg.mpr hd) hz.le) hq.le
+  · intro hz1 hzd
+    constructor
+    · field_simp
+      ring
+    · exact div_nonneg (mul_nonneg (sub_nonneg.mpr hzd) (by linarith)) hz.le
+  · intro hdz
+    constructor
+    · field_simp
+      ring
+    · exact div_nonneg (mul_nonneg
+        (mul_nonneg (sub_nonneg.mpr hd) (sub_nonneg.mpr hdz)) (by linarith)) hz.le
+
+/-- The three branches need only these two actual scalar lower bounds. -/
+private theorem normalized_ordered_certificate (d z v : ℝ)
+    (hd : 1 ≤ d) (hz : 0 < z)
+    (hbelow : z ≤ 1 → d*z ≤ v) (habove : 1 ≤ z → d ≤ v) :
+    d*(d-1)*(1-1/z) ≤ max (z^2-v^2) 0 + 2*d*v - 2*z - d^2 + 1 := by
+  obtain ⟨_, _, hfirst, hmiddle, hlast⟩ := scalar_branch_certificates_proved d z hd hz
+  have hd0 : 0 ≤ d := by linarith
+  have hm0 : 0 ≤ max (z^2-v^2) 0 := le_max_right _ _
+  rcases le_total z 1 with hz1 | h1z
+  · have hv := hbelow hz1
+    have hprod := mul_le_mul_of_nonneg_left hv (show 0 ≤ 2*d by positivity)
+    obtain ⟨hfactor, hnonneg⟩ := hfirst hz1
+    nlinarith
+  · have hv := habove h1z
+    rcases le_total z d with hzd | hdz
+    · have hprod := mul_le_mul_of_nonneg_left hv (show 0 ≤ 2*d by positivity)
+      obtain ⟨hfactor, hnonneg⟩ := hmiddle h1z hzd
+      nlinarith
+    · have hG : 2*d*z ≤ max (z^2-v^2) 0 + 2*d*v := by
+        rcases le_total v z with hvz | hzv
+        · have hp := mul_nonneg (sub_nonneg.mpr hvz)
+            (show 0 ≤ z+v-2*d by linarith)
+          nlinarith [le_max_left (z^2-v^2) 0]
+        · have hp := mul_le_mul_of_nonneg_left hzv (show 0 ≤ 2*d by positivity)
+          nlinarith
+      obtain ⟨hfactor, hnonneg⟩ := hlast hdz
+      linarith
+
+/-- The full ordered scalar certificate, including both threshold branches. -/
+theorem ordered_scalar_certificate_proved (f : ℝ → ℝ) (hf : AdmissibleFunction f)
+    (τ a b : ℝ) (hτ : 0 < τ) (hfτ : 0 < f τ) (ha : 0 < a) (hb : 0 < b) :
+    f b * max (f b - transferScale f τ * b) 0 * (1-b/a) ≤
+      scalarAuxiliary f τ a + 2*f b*f a - 2*(transferScale f τ)^2*b*a -
+        (f b)^2 + (transferScale f τ)^2*b^2 := by
+  obtain ⟨_, _, hsmall, hlarge, hlip, _⟩ :=
+    admissible_scalar_consequences_proved f hf τ hτ
+  let c := transferScale f τ
+  have hc : 0 < c := div_pos hfτ hτ
+  -- Expose the two named scalar wrappers so the normalization is explicit.
+  change f b * max (f b-c*b) 0 * (1-b/a) ≤
+    max (c^2*a^2-(f a)^2) 0 + 2*f b*f a - 2*c^2*b*a - (f b)^2 + c^2*b^2
+  rcases le_total τ b with htb | hbt
+  · have hfb : f b ≤ c*b := hlarge b htb
+    rw [max_eq_right (sub_nonpos.mpr hfb)]
+    simp only [mul_zero, zero_mul]
+    have hs : (f a-f b)^2 ≤ (c*(a-b))^2 := by
+      rcases le_total a b with hab | hba
+      · obtain ⟨h0,h1⟩ := hlip a b ha.le hab htb
+        have hsq := mul_self_le_mul_self h0 h1
+        nlinarith only [hsq]
+      · obtain ⟨h0,h1⟩ := hlip b a hb.le hba (htb.trans hba)
+        have hsq := mul_self_le_mul_self h0 h1
+        nlinarith only [hsq]
+    nlinarith only [hs, le_max_left (c^2*a^2-(f a)^2) 0]
+  · have hcb : 0 < c*b := mul_pos hc hb
+    have hfb : c*b ≤ f b := hsmall b hb.le hbt
+    let d := f b/(c*b)
+    let z := a/b
+    let v := f a/(c*b)
+    have hd : 1 ≤ d := (one_le_div hcb).2 hfb
+    have hz : 0 < z := div_pos ha hb
+    have hbelow : z ≤ 1 → d*z ≤ v := by
+      intro hz1
+      have hab : a ≤ b := (div_le_one hb).1 hz1
+      have hx : (a*f b)/b ≤ f a :=
+        (div_le_iff₀ hb).2 (by nlinarith only [scalar_cross f hf ha.le hb hab])
+      have hdiv := div_le_div_of_nonneg_right hx hcb.le
+      calc
+        d*z = ((a*f b)/b)/(c*b) := by dsimp [d,z]; ring
+        _ ≤ v := hdiv
+    have habove : 1 ≤ z → d ≤ v := by
+      intro h1z
+      have hba : b ≤ a := (one_le_div hb).1 h1z
+      exact div_le_div_of_nonneg_right (hf.2.2.1 hb.le ha.le hba) hcb.le
+    have hn := normalized_ordered_certificate d z v hd hz hbelow habove
+    have hm := mul_le_mul_of_nonneg_left hn (sq_nonneg (c*b))
+    have hmax : max (c^2*a^2-(f a)^2) 0 = (c*b)^2 * max (z^2-v^2) 0 := by
+      rw [mul_max_of_nonneg _ _ (sq_nonneg (c*b)), mul_zero]
+      congr 1
+      dsimp [z,v]
+      field_simp
+    rw [max_eq_left (sub_nonneg.mpr hfb), hmax]
+    -- The same positive square rescales every term, including the positive part.
+    calc
+      f b * (f b-c*b) * (1-b/a) = (c*b)^2 * (d*(d-1)*(1-1/z)) := by
+        simp only [d,z]
+        field_simp
+      _ ≤ (c*b)^2 * (max (z^2-v^2) 0 + 2*d*v - 2*z - d^2 + 1) := hm
+      _ = (c*b)^2 * max (z^2-v^2) 0 + 2*f b*f a - 2*c^2*b*a - (f b)^2 + c^2*b^2 := by
+        simp only [d,z,v]
+        field_simp
+
+#assert_trust kernel scalar_cross
+#assert_trust kernel admissible_scalar_consequences_proved
+#assert_trust kernel scalar_branch_certificates_proved
+#assert_trust kernel normalized_ordered_certificate
+#assert_trust kernel ordered_scalar_certificate_proved
+#print axioms scalar_cross
+#print axioms admissible_scalar_consequences_proved
+#print axioms scalar_branch_certificates_proved
+#print axioms normalized_ordered_certificate
+#print axioms ordered_scalar_certificate_proved
+
+end NLA.RA09
