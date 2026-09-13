@@ -21,6 +21,12 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### ✅ NR-03 — quadratic correlation counterexample — Sidney Holden
+
+**Solved negatively, 13 September 2026.** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Theorem 1 and Sections 2–4](references/holden-nr03-2026-09-13/NR03_counterexample.pdf) give an exact nonnegative rational factorization with 127 terms for the prescribed 128-by-128 matrix $`C_7`$, disproving the universal equality in the [retained NR-03 question](nonnegative-and-positive-factorizations/NR-03/README.md). The general bound is strictly below $`2^n`$ for every $`n\ge7`$. Exact ranks at individual sizes and the smallest counterexample dimension are not asserted.
+
+The complete proof passed a separate [independent Codex AI-agent informal audit](references/holden-nr03-2026-09-13/independent-review.md). The [submission record](references/holden-nr03-2026-09-13/README.md) supplies source, verified affiliation, original archive and fresh exact checks. ChatGPT assistance is disclosed; no external human peer review, formal verification or historical novelty certification is claimed. No Lean verification was performed. Original ID, canonical path, target and earlier Colbrook partial-result credit are preserved.
+
 ### KE-02, SP-08 and SP-09 — spectral partial results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-spectral-2026-09-12/README.md).

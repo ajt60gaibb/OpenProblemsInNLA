@@ -1,0 +1,316 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=0.94in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,array}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{xurl}
+\usepackage[colorlinks=true,linkcolor=blue!40!black,citecolor=blue!40!black,urlcolor=blue!40!black]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\DeclareMathOperator{\rank}{rank}
+\newcommand{\rankp}{\rank_{+}}
+\newcommand{\ind}[1]{\mathbf 1_{\{#1\}}}
+\newcommand{\NN}{\mathbb R_{\ge0}}
+\newcommand{\Aset}{\mathcal A}
+\newcommand{\code}[1]{\texttt{\small #1}}
+\newcommand{\pp}[1]{\left(#1\right)_{+}}
+\setlength{\parskip}{4pt}
+\setlength{\headheight}{14pt}
+\setlist{nosep,leftmargin=1.4em}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small NR-03: a complete negative answer}
+\fancyhead[R]{\small Complementary-pair factorization}
+\fancyfoot[C]{\thepage}
+\lstset{basicstyle=\ttfamily\footnotesize,columns=fullflexible,keepspaces=true,
+  breaklines=true,showstringspaces=false,frame=single,rulecolor=\color{black!25},
+  xleftmargin=0.2em,xrightmargin=0.2em}
+\hypersetup{pdftitle={The quadratic correlation matrix need not have full nonnegative rank},
+  pdfauthor={Sidney Holden},pdfsubject={A counterexample to NR-03: C7 has nonnegative rank at most 127, and a general factorization}}
+\title{\textbf{The quadratic correlation matrix need not\\have full nonnegative rank}\\[6pt]
+\large A counterexample to NR-03 and an explicit factorization for every size}
+\author{Sidney Holden\\[3pt]\small Center for Computational Biology\\\small Flatiron Institute, Simons Foundation}
+\date{September 2026}
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\begin{abstract}
+For subsets $a,b\subseteq[n]$, let $C_n(a,b)=(1-|a\cap b|)^2$, with every entry prescribed. We construct nonnegative rational factors proving
+\[
+\rankp(C_n)\le 2^{n-1}+n+\binom n2+\binom n4.
+\]
+At $n=7$ this gives $\rankp(C_7)\le127<128$, disproving the universal full-rank conjecture in NR-03. In fact the displayed bound is strictly below $2^n$ for every $n\ge7$. The construction separates the matrix into a component invariant under complementing its row index and three nonnegative correction families. A polynomial identity proves the factorization exactly. The package also supplies all factors for $n=7$ and construction-independent integer checks of all 16,384 entries. No numerical optimization, freely chosen completion, or assumption about real factor coordinates is used.
+\end{abstract}
+
+\section{The precise question and its negative answer}
+
+For $M\in\NN^{m\times q}$, its nonnegative rank is
+\[
+\rankp(M)=\min\{r:M=WH,\ W\in\NN^{m\times r},\ H\in\NN^{r\times q}\}.
+\]
+The repository asks whether $\rankp(C_n)=2^n$ for every integer $n\ge3$, where
+\begin{equation}\label{eq:C}
+C_n(a,b)=(1-|a\cap b|)^2,\qquad a,b\subseteq[n].
+\end{equation}
+In particular, entries with intersection size greater than one are not free parameters \cite{repo}. The same conjecture appears as Conjecture~4 in Section~6.4 of Vandaele et al.\ \cite{vggt}, and is retained in the recent benchmark discussion of Baeckelant et al.\ \cite{bvg}.
+
+\begin{theorem}\label{thm:main}
+For every integer $n\ge1$, with $\binom nk=0$ when $k>n$,
+\begin{equation}\label{eq:bound}
+\rankp(C_n)\le \min\left\{2^n,\;2^{n-1}+n+\binom n2+\binom n4\right\}.
+\end{equation}
+Consequently,
+\[
+\boxed{\rankp(C_7)\le 64+7+21+35=127<128,}
+\]
+and $\rankp(C_n)<2^n$ for every $n\ge7$.
+\end{theorem}
+
+This is a complete negative answer to the universally quantified question. It does not assert that the exact nonnegative rank of $C_7$ is $127$, or that $7$ is the smallest counterexample dimension.
+
+\section{The explicit factors}\label{sec:factors}
+
+Let $a^c=[n]\setminus a$. For each column index $b$, write
+\begin{equation}\label{eq:denom}
+p=|b|,\qquad d_b=\max\{1,(p-1)^2\},\qquad D=\operatorname{diag}(d_b).
+\end{equation}
+Thus $D$ is a positive diagonal matrix, including at singleton columns. Choose one representative from each complementary pair by taking
+\[
+\Aset=\{s\subseteq[n]:n\notin s\},\qquad |\Aset|=2^{n-1}.
+\]
+For $T\in\binom{[n]}4$, set
+\begin{equation}\label{eq:h}
+h_T(a)=\max\{|a\cap T|-2,0\}.
+\end{equation}
+This function takes values $0,0,0,1,2$ as $|a\cap T|$ ranges from $0$ to $4$.
+
+Construct $W$ and $V$ using the following disjoint families of atom indices. The actual right factor will be $H=VD^{-1}$.
+
+\subsection*{Complementary pairs: $2^{n-1}$ atoms}
+For each $s\in\Aset$, use
+\begin{equation}\label{eq:core}
+W_{a,s}=\ind{a=s\ \text{or}\ a=s^c},\qquad
+V_{s,b}=(1-|s\cap b|)^2(1-|s^c\cap b|)^2.
+\end{equation}
+
+\subsection*{Singleton columns: $n$ atoms}
+For each $i\in[n]$, use
+\begin{equation}\label{eq:single}
+W_{a,i}=\ind{i\notin a},\qquad V_{i,b}=\ind{b=\{i\}}.
+\end{equation}
+
+\subsection*{Pairs: $\binom n2$ atoms}
+For each $S\in\binom{[n]}2$, use
+\begin{equation}\label{eq:pair}
+W_{a,S}=\ind{S\subseteq a},\qquad V_{S,b}=4(p-2)\ind{S\subseteq b}.
+\end{equation}
+
+\subsection*{Four-element sets: $\binom n4$ atoms}
+For each $T\in\binom{[n]}4$, use
+\begin{equation}\label{eq:four}
+W_{a,T}=h_T(a),\qquad V_{T,b}=12\ind{T\subseteq b}.
+\end{equation}
+
+Every entry of $W$ and $V$ is a nonnegative integer. In \eqref{eq:pair}, the indicator can be nonzero only if $p\ge2$, so the coefficient $p-2$ cannot give a negative entry. The total number of atoms is
+\begin{equation}\label{eq:r}
+r(n)=2^{n-1}+n+\binom n2+\binom n4.
+\end{equation}
+We now prove the exact identity $WV=C_nD$. Positive column scaling then gives the desired nonnegative rational factorization $C_n=W(VD^{-1})$.
+
+\newpage
+\section{Entrywise proof of the factorization}\label{sec:proof}
+
+Fix $a,b\subseteq[n]$, and put $t=|a\cap b|$ and $p=|b|$. Then $|a^c\cap b|=p-t$.
+
+Exactly one complementary pair contains $a$. Therefore the sum of its family of atom contributions is
+\begin{equation}\label{eq:G}
+G=(t-1)^2(p-t-1)^2.
+\end{equation}
+The singleton family contributes
+\begin{equation}\label{eq:E}
+E=\ind{p=1}(1-t).
+\end{equation}
+There are $\binom t2$ pairs contained in both $a$ and $b$, so the pair family contributes
+\begin{equation}\label{eq:P}
+P=4(p-2)\binom t2.
+\end{equation}
+For a four-element set $T\subseteq b$, the row function $h_T(a)$ is one when exactly three elements of $T$ lie in $a$, two when all four do, and zero otherwise. Counting these two cases gives
+\begin{equation}\label{eq:Q}
+Q=12\left((p-t)\binom t3+2\binom t4\right).
+\end{equation}
+
+\begin{lemma}\label{lem:identity}
+For all real $p,t$, the following polynomial identity holds:
+\begin{align}
+&(p-1)^2(t-1)^2-(t-1)^2(p-t-1)^2 \notag\\
+&\quad=t(t-1)^2(2p-2-t) \notag\\
+&\quad=2(p-2)t(t-1)+2(p-t)t(t-1)(t-2)\notag\\
+&\hspace{4.6cm}+t(t-1)(t-2)(t-3).\label{eq:poly}
+\end{align}
+\end{lemma}
+\begin{proof}
+The first equality follows by taking the difference of the squares $(p-1)^2$ and $(p-t-1)^2$. For the second, factor out $t(t-1)$ and use
+\[
+(t-1)(2p-2-t)=2(p-2)+2(p-t)(t-2)+(t-2)(t-3).
+\]
+Expanding either side verifies this last equality.
+\end{proof}
+
+\begin{proof}[Proof of the factorization and the upper bound in Theorem~\ref{thm:main}]
+If $p=0$, then $t=0$, $d_b=1$, and $(G,E,P,Q)=(1,0,0,0)$. If $p=1$, then $t\in\{0,1\}$, $d_b=1$, $G=P=Q=0$, and $E=1-t=(1-t)^2$. Thus $G+E+P+Q=d_b(1-t)^2$ in these two cases.
+
+If $p\ge2$, then $d_b=(p-1)^2$ and $E=0$. Replacing the falling factorials in \eqref{eq:poly} by binomial coefficients gives
+\[
+d_b(t-1)^2-G
+=4(p-2)\binom t2+12(p-t)\binom t3+24\binom t4=P+Q.
+\]
+Thus in all cases $(WV)_{a,b}=d_b(1-|a\cap b|)^2$. This proves $WV=C_nD$, hence $C_n=W(VD^{-1})$ with $r(n)$ nonnegative rational atoms. The trivial factorization $C_n=I_{2^n}C_n$ gives the other upper bound in \eqref{eq:bound}.
+\end{proof}
+
+\newpage
+\section{Strictness for every \texorpdfstring{$n\ge7$}{n >= 7}}
+
+Write $q_n=n+\binom n2+\binom n4$. Then $q_7=63<64$. Pascal's identities imply
+\begin{equation}\label{eq:pascal}
+q_{n+1}-2q_n=1-\binom n2+\binom n3-\binom n4.
+\end{equation}
+For $n\ge7$, we have $\binom n4=\frac{n-3}{4}\binom n3\ge\binom n3$, so the right-hand side of \eqref{eq:pascal} is strictly negative. Induction therefore yields $q_n<2^{n-1}$ for every $n\ge7$, proving
+\[
+\rankp(C_n)\le2^{n-1}+q_n<2^n\qquad(n\ge7).
+\]
+This completes Theorem~\ref{thm:main}. Some values of the constructed bound are:
+
+\begin{center}
+\begin{tabular}{rrrrrr}
+\toprule
+$n$ & Complementary pairs & Singletons & Pairs & Four-sets & Total $r(n)$ \\
+\midrule
+7 & 64 & 7 & 21 & 35 & 127 \\
+8 & 128 & 8 & 28 & 70 & 234 \\
+9 & 256 & 9 & 36 & 126 & 427 \\
+10 & 512 & 10 & 45 & 210 & 777 \\
+\bottomrule
+\end{tabular}
+\end{center}
+Each total is strictly smaller than $2^n$. Moreover,
+\[
+\frac{\rankp(C_n)}{2^n}\le\frac12+\frac{n+\binom n2+\binom n4}{2^n}
+=\frac12+O(n^4 2^{-n}).
+\]
+This is an upper estimate, not a determination of the actual limiting ratio.
+
+\section{A transparent numerical slice of the certificate}
+
+For $n=7$ and $b=[7]$, we have $p=7$ and $d_b=36$. The table gives the integer-scaled contributions for each intersection size $t$. The singleton correction is zero on this column.
+
+\begin{center}
+\begin{tabular}{rrrrr}
+\toprule
+$t$ & Complementary-pair part $G$ & Pair part $P$ & Four-set part $Q$ & $(G+P+Q)/36$ \\
+\midrule
+0 & 36 & 0 & 0 & 1 \\
+1 & 0 & 0 & 0 & 0 \\
+2 & 16 & 20 & 0 & 1 \\
+3 & 36 & 60 & 48 & 4 \\
+4 & 36 & 120 & 168 & 9 \\
+5 & 16 & 200 & 360 & 16 \\
+6 & 0 & 300 & 600 & 25 \\
+7 & 36 & 420 & 840 & 36 \\
+\bottomrule
+\end{tabular}
+\end{center}
+The last column is exactly $(1-t)^2$, including every prescribed value for $t>1$. All the other columns of $C_7$ are checked in the same exact way by the complete certificate verifier.
+
+\newpage
+\section{Certificate files and reproducibility}
+
+The supplied matrices $W\in\mathbb Z_{\ge0}^{128\times127}$, $V\in\mathbb Z_{\ge0}^{127\times128}$, and $d\in\mathbb Z_{>0}^{128}$ satisfy
+\[
+WV=C_7\operatorname{diag}(d),\qquad
+H=V\operatorname{diag}(d)^{-1},\qquad C_7=WH.
+\]
+The denominator values are $1,4,9,16,25,36$. Every entry of $W$ is in $\{0,1,2\}$, and every entry of $V$ is at most $36$.
+
+\subsection*{Indexing and data}
+Rows and columns follow integer masks $0,\ldots,127$; bit $i$ denotes element $i+1$. Atoms are ordered as 64 complementary pairs (representative masks $0,\ldots,63$), seven singletons, 21 pairs, and 35 four-sets. Pairs and four-sets follow lexicographic coordinate-tuple order; labels are included.
+
+Integer matrices, denominators, and atom labels are in \code{data/factors\_n7.json}. CSV matrices are \code{W\_n7.csv} and \code{H\_scaled\_n7.csv}; denominators are in \code{column\_denominators\_n7.csv}. The additional \code{H\_n7\_rational.csv} stores $H$ as exact fraction strings: its product with $W$ equals $C_7$ itself.
+
+\subsection*{Exact checks}
+Python 3.10 or later suffices, without third-party packages, a compiler, network access, or an optimization solver:
+\begin{lstlisting}
+python3 code/verify_certificate.py
+python3 verify_all.py
+\end{lstlisting}
+The first command reads the certificate without importing its generator. It checks dimensions, nonnegativity, positive denominators, and all $16{,}384$ entries by integer multiplication, including $5{,}103$ zeros and $11{,}281$ positive entries.
+
+The full suite also regenerates the certificate, checks the polynomial identity coefficient by coefficient, verifies all $349{,}524$ entries across $n=1,\ldots,9$, multiplies the unscaled rational CSV factors, and rejects six damaged certificates. Successful logs are included. An optional, separate C++ implementation checks the integer CSV files; it passed with both GCC and Clang.
+
+\section{Scope, prior work, and review status}
+
+The previous package proving $\rankp(C_4)=16$ is preserved unchanged under \code{provenance/}, with a successful rerun log. The present construction does not depend on it and is compatible with it: $r(4)=19$, $r(5)=36$, and $r(6)=68$ give no nontrivial upper bounds at those sizes.
+
+The $n=7$ counterexample fully settles the universal question negatively without determining exact ranks at $n=5,6,7$. It does not determine the extension complexity of the entire correlation polytope: factors for this submatrix need not factor the full slack matrix.
+
+The submitted proof and checks were developed with ChatGPT assistance. On 13 September 2026, a separate Codex AI agent independently audited the entire argument and exact target, returning PASS for the complete negative resolution; its report and independently written exact checker accompany this submission. Under the repository's evidence rules \cite{status}, this supports \emph{Solved}. This is informal AI-agent review, not external human peer review or formal verification. No Lean verification was performed.
+
+\newpage
+\appendix
+\section{A small construction-independent verifier}
+
+The following is sufficient to check the supplied counterexample. It uses no knowledge of the four atom families: its only mathematical target is \eqref{eq:C}. The full verifier adds stronger input diagnostics and summary statistics.
+
+\begin{lstlisting}[language=Python]
+import json
+from pathlib import Path
+
+c = json.loads(Path("data/factors_n7.json").read_text())
+W, V, d = c["W"], c["H_scaled"], c["denominators"]
+
+def check(ok, message):
+    if not ok:
+        raise ValueError(message)
+
+check(c["n"] == 7 and c["r"] == 127, "Wrong metadata")
+check(len(W) == 128 and all(len(x) == 127 for x in W),
+      "Wrong left-factor dimensions")
+check(len(V) == 127 and all(len(x) == 128 for x in V),
+      "Wrong right-factor dimensions")
+check(len(d) == 128 and all(type(x) is int and x > 0 for x in d),
+      "Invalid denominators")
+check(all(type(x) is int and x >= 0 for row in W + V for x in row),
+      "Invalid factor entry")
+for a in range(128):
+    for b in range(128):
+        actual = sum(W[a][k] * V[k][b] for k in range(127))
+        target = d[b] * (1 - (a & b).bit_count()) ** 2
+        check(actual == target, f"Bad entry: {a}, {b}")
+print("PASS: rank_+(C_7) <= 127 < 128")
+\end{lstlisting}
+
+\begin{thebibliography}{9}
+\bibitem{repo}
+A. Townsend, \emph{Open Problems in Numerical Linear Algebra}, entry NR-03, ``Full nonnegative rank of the quadratic correlation matrix.'' Canonical statement inspected in this conversation; the historical page records Last checked September 11, 2026.\newline
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/nonnegative-and-positive-factorizations/NR-03}
+
+\bibitem{vggt}
+A. Vandaele, N. Gillis, F. Glineur, and D. Tuyttens, \emph{Heuristics for Exact Nonnegative Matrix Factorization}, arXiv:1411.7245, Section~6.4, Conjecture~4.\newline
+\url{https://arxiv.org/html/1411.7245}
+
+\bibitem{bvg}
+T. Baeckelant, A. Vandaele, and N. Gillis, \emph{Computing Lower Bounds on the Nonnegative Rank via Non-Convex Optimization Solvers}, arXiv:2605.14058v2, July 6, 2026, Section~6.7 and Appendix~A.4.\newline
+\url{https://arxiv.org/html/2605.14058v2}
+
+\bibitem{status}
+\emph{Open Problems in Numerical Linear Algebra}, README, ``Problem status.'' The distinction between a complete manuscript, an independently audited resolution, and formal verification.\newline
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA#problem-status}
+\end{thebibliography}
+
+\end{document}
