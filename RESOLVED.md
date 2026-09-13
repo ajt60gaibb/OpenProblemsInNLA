@@ -21,6 +21,21 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### MI-27 — sharp logarithmic commutator inequality — Sidney Holden
+
+**Solved, affirmative, 12 September 2026.** [Original statement](matrix-inequalities-and-norms/MI-27/README.md).
+Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation
+([verified affiliation and provenance](references/holden-mi27-2026-09-12/provenance.md)),
+proves the universal coefficient-one bound and its strict-positive order-two sharpness.
+[Theorem 1.1 and Sections 2–5](references/holden-mi27-2026-09-12/solution.pdf)
+cover every dimension and every complex positive definite input in the canonical target.
+The argument uses the published Frenkel/Hirche–Tomamichel relative-entropy identity.
+A [separate informal Codex AI-agent audit](references/holden-mi27-2026-09-12/verification/independent-review.md)
+passed the complete proof; this is not external human peer review or formal verification.
+AI assistance and the earlier partial findings in [PR #186](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/186)
+are disclosed. No Lean check or priority claim is made. All IDs, paths and original targets are preserved.
+
+
 ### KE-02, SP-08 and SP-09 — spectral partial results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-spectral-2026-09-12/README.md).

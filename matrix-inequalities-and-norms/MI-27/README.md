@@ -6,10 +6,26 @@
 
 **Difficulty:** challenging  
 **Importance:** broadly interesting  
-**Status:** Open  
-**Last checked:** 2026-09-10
+**Status:** Solved
+**Last checked:** 2026-09-12
 
-**Rating rationale:** Improving the known universal coefficient to its proposed sharp value is challenging; connections between matrix logarithms, entropy and quantum dynamics make the question broadly interesting.
+**Historical rating rationale:** Improving the known universal coefficient to its proposed sharp value is challenging; connections between matrix logarithms, entropy and quantum dynamics make the question broadly interesting.
+
+## Resolution: affirmative, 12 September 2026
+
+**Sidney Holden**, Center for Computational Biology, Flatiron Institute, Simons Foundation,
+proves the exact inequality for every dimension and every complex positive definite
+pair in the original statement, with optimality already in order two.
+See **Theorem 1.1, Sections 2–5**, of the [complete manuscript](../../references/holden-mi27-2026-09-12/solution.pdf)
+([Markdown](../../references/holden-mi27-2026-09-12/solution.md), [LaTeX](../../references/holden-mi27-2026-09-12/solution.tex)).
+
+A [separate Codex AI-agent audit](../../references/holden-mi27-2026-09-12/verification/independent-review.md)
+passed the full proof and checked its published relative-entropy input.
+This is informal review; no external human peer review, Lean verification or priority claim is asserted.
+[Provenance and verified affiliation](../../references/holden-mi27-2026-09-12/provenance.md)
+disclose AI assistance and credit [PR #186](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/186),
+whose partial results left the universal upper bound open.
+The original target below is retained; ratings above are historical.
 
 ## Problem statement
 
@@ -34,4 +50,4 @@ This is a sharp matrix-function estimate for the rate at which noncommuting posi
 
 4. Q. Ning, F.-Z. Guo, J. Zhang and Q.-Y. Wen, *On Bounding Entangling Rates and Mixing Rates in Some Special Cases*, Int. J. Theor. Phys. 55 (2016), 1686–1694. [Published abstract](https://doi.org/10.1007/s10773-015-2806-9), which reports coefficient one under additional restrictions; the subscription body was not independently inspected in this audit.
 
-Status check (2026-09-10): Audenaert's theorem settles the existence claim with $`2`$. Vershynina’s 2021 revision distinguishes the proved coefficient from the proposed coefficient $`1`$. Searches for “small incremental mixing sharp constant”, “logarithmic commutator Audenaert constant one”, and 2025/2026 found later special-case estimates but no announced universal coefficient-one proof or counterexample. This limited search does not certify that the conjecture remains open.
+Historical status check (2026-09-10; superseded by the resolution above): Audenaert's theorem settles the existence claim with $`2`$. Vershynina’s 2021 revision distinguishes the proved coefficient from the proposed coefficient $`1`$. Searches for “small incremental mixing sharp constant”, “logarithmic commutator Audenaert constant one”, and 2025/2026 found later special-case estimates but no announced universal coefficient-one proof or counterexample. This limited search does not certify that the conjecture remains open.
