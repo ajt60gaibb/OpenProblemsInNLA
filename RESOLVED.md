@@ -21,6 +21,13 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### ✅ RA-04 — clustered-gap block Krylov approximation — Sidney Holden
+
+**Solved, 13 September 2026.** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Theorem 1.1, Theorem 6.4 and Section 7](references/holden-ra04-full-proof-2026-09-13/report.pdf) establish the full affirmative [retained RA-04 target](randomized-and-low-rank-approximation/RA-04/README.md), with no extra cluster-width or spectral condition-number restriction. The same algorithm achieves both relative norm errors and ordered right singular-vector energy accuracy, including zero residual and nondivisible block sizes.
+
+The [separate independent Codex AI-agent informal audit](references/holden-ra04-full-proof-2026-09-13/verification/independent-review.md) passed the full proof. This is not external human peer review or formal verification; no Lean verification was performed. [Submission, attribution and verified affiliation](references/holden-ra04-full-proof-2026-09-13/SUBMISSION.md). Original ID, path, target and source attribution are retained.
+
+
 ### KE-02, SP-08 and SP-09 — spectral partial results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-spectral-2026-09-12/README.md).
