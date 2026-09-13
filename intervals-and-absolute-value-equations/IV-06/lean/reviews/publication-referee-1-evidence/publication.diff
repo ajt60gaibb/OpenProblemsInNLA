@@ -1,0 +1,434 @@
+diff --git a/CATALOG.md b/CATALOG.md
+index 515724b..b11e00d 100644
+--- a/CATALOG.md
++++ b/CATALOG.md
+@@ -2,7 +2,7 @@
+ 
+ **125 problems with open targets:** 53 open and 72 partially resolved. **92 other retained entries**, excluded from the open count.
+ 
+-**Resolution evidence:** 76 solved (published or independently audited); 16 Lean verified.
++**Resolution evidence:** 75 solved (published or independently audited); 17 Lean verified.
+ 
+ Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
+ 
+@@ -344,4 +344,4 @@ Retained entries outside the open count:
+ | [IV-03](intervals-and-absolute-value-equations/IV-03/README.md) | Polynomial-size vertex test for inverse M-matrix intervals | **✅ SOLVED** | challenging | interesting to specialist | [PDF](intervals-and-absolute-value-equations/IV-03/problem.pdf) · [TeX](intervals-and-absolute-value-equations/IV-03/problem.tex) |
+ | [IV-04](intervals-and-absolute-value-equations/IV-04/README.md) | Exact solution hulls for tridiagonal interval systems | **✅ SOLVED** | challenging | interesting to the community | [PDF](intervals-and-absolute-value-equations/IV-04/problem.pdf) · [TeX](intervals-and-absolute-value-equations/IV-04/problem.tex) |
+ | [IV-05](intervals-and-absolute-value-equations/IV-05/README.md) | Exact solution hulls for inverse M-matrix intervals | **✅ SOLVED** | challenging | interesting to specialist | [PDF](intervals-and-absolute-value-equations/IV-05/problem.pdf) · [TeX](intervals-and-absolute-value-equations/IV-05/problem.tex) |
+-| [IV-06](intervals-and-absolute-value-equations/IV-06/README.md) | Number of components of a real interval eigenvalue set | **✅ SOLVED** | challenging | interesting to specialist | [PDF](intervals-and-absolute-value-equations/IV-06/problem.pdf) · [TeX](intervals-and-absolute-value-equations/IV-06/problem.tex) |
++| [IV-06](intervals-and-absolute-value-equations/IV-06/README.md) | Number of components of a real interval eigenvalue set | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](intervals-and-absolute-value-equations/IV-06/problem.pdf) · [TeX](intervals-and-absolute-value-equations/IV-06/problem.tex) |
+diff --git a/README.md b/README.md
+index 4c3ca47..e88a606 100644
+--- a/README.md
++++ b/README.md
+@@ -6,7 +6,7 @@ publications, with references and dated checks for subsequent solutions.
+ <!-- catalog-summary -->
+ **125 problems with open targets:** 53 open and 72 partially resolved. **92 other retained entries**, excluded from the open count.
+ 
+-**Resolution evidence:** 76 solved (published or independently audited); 16 Lean verified.
++**Resolution evidence:** 75 solved (published or independently audited); 17 Lean verified.
+ 
+ Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
+ 
+diff --git a/RESOLVED.md b/RESOLVED.md
+index 6fce118..a5ce332 100644
+--- a/RESOLVED.md
++++ b/RESOLVED.md
+@@ -628,12 +628,15 @@ Seven exact targets are classified below. Independent agent review is not extern
+ 
+ [Complete manuscript](references/colbrook-intervals-2026-09-11/manuscripts/IV-05.pdf); [full independent agent review](references/colbrook-intervals-2026-09-11/verification/reviews/IV-05-review.md).
+ 
+-### IV-06 - Negative resolution
++### IV-06 - Negative resolution by Matthew J. Colbrook; Lean formalization by George Stepaniants
+ 
+ [Original statement](intervals-and-absolute-value-equations/IV-06/README.md). **Solved, recorded 2026-09-11.** Matthew J. Colbrook (University of Cambridge). Theorem 1 gives a $3\times3$ independent-entry interval matrix with at least four components in its real eigenvalue set. Four exact integer eigenpairs at $-3,0,3,25$ and excluded separators $-1,1,12$ refute the universal at-most-$n$ conjecture. No symmetry assumption is introduced, and locating every component endpoint is unnecessary.
+ 
+ [Complete manuscript](references/colbrook-intervals-2026-09-11/manuscripts/IV-06.pdf); [full independent agent review](references/colbrook-intervals-2026-09-11/verification/reviews/IV-06-review.md).
+ 
++**Lean verified - 2026-09-12.** The [eight checked exports](https://github.com/sgstepaniants/OpenProblemsInNLA/blob/18b5ef3127da0ae4f68e09289f60fd4f6e3d9bcb/intervals-and-absolute-value-equations/IV-06/lean/Solution.lean) negate the complete original universal component bound using the unchanged dimension-three box with at least four actual components. Full independent-entry variation, genuine nonzero eigenvectors, real subset topology and `Cardinal` component counts are retained; no finiteness premise is assumed. **Formalization: George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA**, with AI-agent assistance. Matthew J. Colbrook retains mathematical counterexample credit; Hladík, Daney and Tsigaridas retain original-question credit. See the [canonical verification evidence](intervals-and-absolute-value-equations/IV-06/README.md#lean-proof-and-verification-evidence---2026-09-12), [statement and final proof reviews](intervals-and-absolute-value-equations/IV-06/lean/reviews/), [successful Ubuntu run](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34725713519), [operational audit](intervals-and-absolute-value-equations/IV-06/lean/verification/linux-2026-09-12/OPERATIONAL-REVIEW.md) and [root acceptance](intervals-and-absolute-value-equations/IV-06/lean/verification/root-operational-2026-09-12/ROOT-CHECKS.json). All 200 inputs, seventeen standard-three axiom reports, actual default-kernel replay and both real control suites were checked. The material explicit kernel LeanCert computation is the singleton sign $`-18<0`$; exact algebra and topology complete the argument. Additional operational and publication roles do not add mathematical referees. Exactly four components, every endpoint and an all-dimension replacement bound are outside these exports. External human peer review is not claimed.
++
++
+ ## Reviewed discrepancy submission - 2026-09-11
+ 
+ ### MD-06 - negative resolution by Matthew J. Colbrook
+diff --git a/intervals-and-absolute-value-equations/IV-06/README.md b/intervals-and-absolute-value-equations/IV-06/README.md
+index 756cc4e..2d00fa7 100644
+--- a/intervals-and-absolute-value-equations/IV-06/README.md
++++ b/intervals-and-absolute-value-equations/IV-06/README.md
+@@ -6,8 +6,8 @@
+ 
+ **Difficulty:** challenging  
+ **Importance:** interesting to specialist  
+-**Status:** Solved
+-**Last checked:** 2026-09-11
++**Status:** Lean verified
++**Last checked:** 2026-09-12
+ 
+ **Rating rationale:** Controlling the topology of the real spectrum for nonsymmetric uncertain matrices appears to require new analysis, warranting challenging. The component-count bound primarily advances specialist interval spectral enclosure theory.
+ 
+@@ -18,11 +18,42 @@
+ 
+ **Negative resolution.** Theorem 1 gives a $`3\times3`$ independent-entry interval matrix with at least four components in its real eigenvalue set. Four exact integer eigenpairs at $`-3,0,3,25`$ and excluded separators $`-1,1,12`$ refute the universal at-most-$`n`$ conjecture. No symmetry assumption is introduced, and locating every component endpoint is unnecessary.
+ 
+-**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. See the [complete manuscript](../../references/colbrook-intervals-2026-09-11/manuscripts/IV-06.pdf), [independent agent review](../../references/colbrook-intervals-2026-09-11/verification/reviews/IV-06-review.md) and [submission record](../../references/colbrook-intervals-2026-09-11/README.md). The source archive identifies the drafts as AI-generated; authorship is recorded at the submitter's request. This is agent verification, not external human peer review or formal proof-assistant certification.
++**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. See the [complete manuscript](../../references/colbrook-intervals-2026-09-11/manuscripts/IV-06.pdf), [independent agent review](../../references/colbrook-intervals-2026-09-11/verification/reviews/IV-06-review.md) and [submission record](../../references/colbrook-intervals-2026-09-11/README.md). The source archive identifies the drafts as AI-generated; authorship is recorded at the submitter's request. That original agent review was informal; the later Lean verification is documented below. External human peer review is not claimed.
+ 
+ The difficulty, importance and rating rationale below are historical assessments of the original open target. The original statement and dated audits are preserved.
+ <!-- /colbrook-intervals -->
+ 
++## Lean proof and verification evidence - 2026-09-12
++
++**The complete original component-bound conjecture is Lean verified with a negative answer.** The [proof at revision 18b5ef3](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/18b5ef3127da0ae4f68e09289f60fd4f6e3d9bcb/intervals-and-absolute-value-equations/IV-06/lean) proves that the unchanged dimension-three source box has at least four actual connected components. It retains the full independent-entry interval family, genuine nonzero real eigenvectors and the topology of the attained real-eigenvalue subset. Component cardinality is the actual `Cardinal` of `ConnectedComponents`; no finiteness, symmetry or all-real-spectrum assumption is added.
++
++**Lean formalization:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, with AI-agent assistance. **Matthew J. Colbrook** retains authorship of the mathematical counterexample. Milan Hladík, David Daney and Elias P. Tsigaridas retain the original question and background credit.
++
++The eight [checked exports](https://github.com/sgstepaniants/OpenProblemsInNLA/blob/18b5ef3127da0ae4f68e09289f60fd4f6e3d9bcb/intervals-and-absolute-value-equations/IV-06/lean/Solution.lean), each with prefix `NLA.IV06.`, are:
++
++- `eigenvalue_determinant_semantics`: genuine eigenvector and characteristic-determinant equivalence for every real square matrix.
++- `family_and_determinant_semantics`: equality with the complete endpoint box and the actual determinant polynomial.
++- `witness_eigenpairs`: four admissible matrices and their nonzero eigenvectors at $`-3,0,3,25`$.
++- `witness_separators`: determinant bounds for every box member, excluding $`-1,1,12`$.
++- `connected_component_intervals`: actual equal component classes force interval containment for any real subset.
++- `four_components`: an injective map from four representatives into the genuine component quotient.
++- `counterexample`: admissible endpoints whose component cardinality strictly exceeds dimension three.
++- `not_componentBoundConjecture`: negation of the complete original universal claim.
++
++Two independent statement approvals preceded implementation; two independent final proof referees approved the frozen proof after fresh source elaboration and actual-term checks. [Ubuntu run 34725713519](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34725713519) matched all eight exports with the sandboxed Comparator, replayed the solution in Lean's default kernel and passed both actual isolation/rejection-control suites. The [operational audit and original artifacts](lean/verification/linux-2026-09-12/) bind all 200 candidate inputs; the [separate root acceptance](lean/verification/root-operational-2026-09-12/ROOT-CHECKS.json) independently checked their identity and actual execution. All 17 internal/public transitive axiom reports allow only `propext`, `Classical.choice` and `Quot.sound`. Operational and publication work does not add mathematical referees. External human peer review is not claimed.
++
++The pins are **Lean 4.33.1**, [LeanCert 621a43d](https://github.com/alerad/leancert/tree/621a43d7cf21f87872392a01e874f2f1dbddc926) and [Mathlib 0df444a](https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474). A material explicit kernel LeanCert certificate proves $`-18<0`$ on a singleton; exact algebra and universal affine bounds reduce every separator to this sign. Genuine connectedness and cardinality complete the argument. No eigenvalue approximation, root isolation or interval subdivision is used. Exactly four components, complete endpoints and a replacement bound for all dimensions are outside these exports. See the [project guide](lean/README.md), [manifest](lean/formalization.yaml), [reviews](lean/reviews/) and [dependency pins](lean/lake-manifest.json).
++
++From the immutable verified revision on a documented [non-root Linux host](../../tools/lean/HARNESS.md), reproduce with:
++
++```
++tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
++tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
++tools/lean/verify.sh \
++  intervals-and-absolute-value-equations/IV-06/lean \
++  /absolute/path/to/nla-lean-tools
++```
++
+ ## Problem statement
+ 
+ For every integer $`n\ge1`$ and real matrices $`L,U\in\mathbb R^{n\times n}`$ with $`L\le U`$ entrywise, form the interval matrix family
+diff --git a/intervals-and-absolute-value-equations/IV-06/lean/README.md b/intervals-and-absolute-value-equations/IV-06/lean/README.md
+index 959d6cf..109d922 100644
+--- a/intervals-and-absolute-value-equations/IV-06/lean/README.md
++++ b/intervals-and-absolute-value-equations/IV-06/lean/README.md
+@@ -1,8 +1,8 @@
+-# IV-06: complete Lean proof, Linux verification pending
++# IV-06: verified interval-eigenvalue component counterexample
+ 
+-**The complete original interval-eigenvalue component conjecture has a proved negative answer in Lean, with all eight reviewed exports.** Two independent statement approvals preceded implementation; two independent final proof reviewers subsequently approved the frozen source after fresh elaboration and actual-term audits. The project-specific Linux Comparator/default-kernel run, its controls and independent operational review are still pending. The canonical entry remains **Solved**.
++**The complete original interval-eigenvalue component conjecture is Lean verified with a negative answer and all eight reviewed exports.** Two independent statement approvals preceded implementation; two independent final proof approvals followed. The unchanged proof at [revision 18b5ef3](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/18b5ef3127da0ae4f68e09289f60fd4f6e3d9bcb/intervals-and-absolute-value-equations/IV-06/lean) passed actual sandboxed Linux Comparator/default-kernel verification in [run 34725713519](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34725713519). The [independent operational audit](verification/linux-2026-09-12/OPERATIONAL-REVIEW.md) and [root acceptance](verification/root-operational-2026-09-12/ROOT-CHECKS.json) checked the real execution and all 200 submitted inputs. The [canonical entry](../README.md) records the complete verified scope.
+ 
+-Formalization: **George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA**, with AI-agent assistance. **Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge, retains mathematical authorship of the counterexample. The implementation and this packaging are by the same agent, `/root/solved_statement_inventory`; packaging is not an additional independent mathematical review. No George email, new mathematical priority or external human peer-review claim is added.
++Formalization: **George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA**, with AI-agent assistance. **Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge, retains mathematical authorship of the counterexample. The implementation and historical candidate packaging are by `/root/solved_statement_inventory`. Publication preparation is by `/root`, who also served as statement referee 1 and final proof referee 2; packaging and operational acceptance are not additional mathematical reviews. No George email, new mathematical priority or external human peer-review claim is added.
+ 
+ ## Complete original target and proved scope
+ 
+@@ -40,7 +40,7 @@ The only numerical interval certificate is **`(-18 : ℝ) < 0`**, proved by expl
+ 
+ All **17** internal/public explicit kernel checks and transitive axiom reports admit only `propext`, `Classical.choice` and `Quot.sound`. Both final referees inspected the actual retained private checker proof, and independently repeated its exact Boolean input using `decide +kernel`. The complete solution has no admission, custom axiom, native execution trust or Challenge import. The eight deliberate Challenge placeholders remain isolated and prove nothing. [Comparator](comparator.json) lists exactly the eight exports, no definition exceptions and only the standard three permitted axioms.
+ 
+-Lean is pinned to **4.33.1**, Mathlib to `0df444a360eaa60ab8c11dca51a86af692955474` and LeanCert to `621a43d7cf21f87872392a01e874f2f1dbddc926`. [lake-manifest.json](lake-manifest.json) fixes all ten dependencies. The [actual v0.4 manifest](formalization.yaml) records the exact scope, attribution, reviews and pending Linux gate.
++Lean is pinned to **4.33.1**, Mathlib to `0df444a360eaa60ab8c11dca51a86af692955474` and LeanCert to `621a43d7cf21f87872392a01e874f2f1dbddc926`. [lake-manifest.json](lake-manifest.json) fixes all ten dependencies. The [actual v0.4 manifest](formalization.yaml) records the exact scope, attribution, reviews and completed Linux gate.
+ 
+ ## Checks actually performed and reproduction
+ 
+@@ -58,7 +58,7 @@ lake build Solution
+ 
+ The frozen default target remains `Challenge`, so plain `lake build` checks statements. Historical author/referee runners have integrity checks against their then-current README and local paths; rerunning those historical scripts requires the corresponding frozen snapshot. The current source can instead be checked with the normal proof command above and the shared Linux workflow below.
+ 
+-Once the candidate has an immutable Git revision, use the [shared workflow](../../../docs/lean/README.md) on a configured [non-root Linux host](../../../tools/lean/HARNESS.md). From the repository root:
++From the immutable verified revision, use the [shared workflow](../../../docs/lean/README.md) on a configured [non-root Linux host](../../../tools/lean/HARNESS.md). From the repository root:
+ 
+ ```
+ tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+@@ -80,4 +80,12 @@ The independent reviews apply the ten [pinned Tau Ceti angles adapted for NLA](.
+ 
+ The exact historical README is archived at [README.statement.md](verification/linux-candidate-2026-09-12/README.statement.md). Only this README changes among the 126 proof-freeze inputs; all other 125 inputs, the eight original source Git blobs, every statement/final review and their evidence remain unchanged. The other original 12 September 2026 statement plans, correspondence, handoffs and phase-specific pending notices retain their historical wording. The new manifest and candidate preservation evidence are additive.
+ 
+-Actual project-specific Linux Comparator/default-kernel execution and controls, independent operational review, and publication review remain required before promotion. No Linux success, submitted immutable proof revision or canonical Lean-verified status is claimed in this candidate.
++## Actual Linux verification and publication preservation
++
++The successful Ubuntu 24.04 run freshly cloned all ten dependencies at their exact pins and used 8690 official Mathlib cache artifacts before checking the project source. Challenge and Solution build graphs completed with 1916 and 2918 jobs respectively; these graph counts do not assert full dependency-source rebuilds. The solution emitted no warnings. Its eight declarations matched without definition exceptions, default-kernel replay passed, and all seventeen internal/public transitive axiom reports contained exactly the standard three.
++
++The target job and separate checker job each passed the actual sandbox probes, three raw-kernel controls, five Comparator fixtures and the admission/native-execution negative controls. The nested Bubblewrap executable was denied UID-map creation before its inner write; this does not claim that the write executed or establish general sandbox security. Complete raw logs and original artifact ZIPs are preserved. The [Linux evidence manifest](verification/linux-2026-09-12/EVIDENCE-MANIFEST.json) binds 347 files plus itself, including every nested manifest. Original project ZIP SHA-256 is `bbe96d9e07020993524329a33ea366ff0ab85707d666b0974bd06c667af0e005`; checker-control ZIP SHA-256 is `3c405009704da285d05939461fec1bb38f8a8fe4f9e7f52339f2da4f689c0529`. Both match GitHub metadata and upload logs. The separately retained 152-file run-log ZIP has a locally computed digest; no GitHub-published log-archive digest is claimed.
++
++Operational reviewer `/root/formal_review_standards`, also statement referee 2 and a shared-harness contributor, did not implement this proof. The root coordinator independently accepted the audit and actual GitHub records; root also served as final mathematical referee 2. These roles do not increase the number of independent mathematical reviewers. The [root operational evidence manifest](verification/root-operational-2026-09-12/EVIDENCE-MANIFEST.json) retains its six checked files plus itself.
++
++The successful run verifies the immutable candidate, not a later metadata revision. Publication changes only this README and five status/review fields in the current manifest among its 200 submitted inputs. All other 198 inputs, all 348 Linux evidence files and all seven root operational evidence files remain byte-identical. The exact preceding [README](verification/publication-2026-09-12/archive/README.linux-candidate.md) and [manifest](verification/publication-2026-09-12/archive/formalization.linux-candidate.yaml) are archived. All 125 non-README proof-freeze inputs and the historical README archive are preserved, as are all eight original source snapshots. The canonical original problem statement and mathematical source are unchanged. Earlier phase-specific pending notices remain historical records. Publication does not rerun the proof or claim external human review, official Tau Ceti endorsement, source-author endorsement or new mathematical priority.
+diff --git a/intervals-and-absolute-value-equations/IV-06/lean/formalization.yaml b/intervals-and-absolute-value-equations/IV-06/lean/formalization.yaml
+index 74232ce..a001ad6 100644
+--- a/intervals-and-absolute-value-equations/IV-06/lean/formalization.yaml
++++ b/intervals-and-absolute-value-equations/IV-06/lean/formalization.yaml
+@@ -61,12 +61,13 @@ automation:
+     and /root. No external human review, official Tau Ceti endorsement, source-author endorsement, measured
+     cost, model identity or priority is claimed.
+ status:
+-  scope: Complete locally proved negative answer to the entire original interval-eigenvalue component-bound
+-    conjecture, with all eight exports approved by two independent statement and two independent final
+-    proof referees. The exact dimension-three source box has at least four actual components, without
+-    assuming finiteness of the component quotient. Actual Linux sandboxed Comparator/default-kernel execution,
+-    controls, independent operational audit and publication review remain pending. Canonical status remains
+-    Solved.
++  scope: Complete negative answer to the full original universal interval-eigenvalue component-bound conjecture.
++    All eight exports retain the full independent-entry box, genuine nonzero real eigenvectors and actual
++    Cardinal of ConnectedComponents. The unchanged dimension-three source box has at least four components,
++    without a finite-component premise. Two independent statement and two independent final proof approvals
++    were followed by actual Ubuntu sandboxed Comparator/default-kernel success in run 34725713519 at 18b5ef3127da0ae4f68e09289f60fd4f6e3d9bcb.
++    Independent operational review and root acceptance bind all 200 inputs, actual execution and both
++    real control suites. Canonical status is Lean verified.
+   sorry_count: 0
+   sorry_in_definitions: 0
+   axioms:
+@@ -154,25 +155,34 @@ fidelity:
+     determinant-range surjectivity, exactly four components, complete endpoints and a general replacement
+     bound are outside the exports.
+ review:
+-  status: agent-reviewed; actual Linux Comparator/default-kernel verification pending
++  status: agent-reviewed; Linux-Comparator-and-default-kernel-verified
+   reviewers:
+   - 'OpenAI Codex agent /root: independent statement referee 1 and final proof referee 2'
+   - 'OpenAI Codex agent /root/formal_review_standards: independent statement referee 2'
+   - 'OpenAI Codex agent /root/leancert_examples: independent final proof referee 1'
+-  notes: Both statement approvals preceded implementation. Both final referees independently checked every
+-    frozen proof input and original source, freshly elaborated six commands, inspected actual proof terms,
+-    reconstructed exact universal affine bounds and repeated the actual retained LeanCert Boolean input
+-    with decide +kernel. All seventeen internal/public candidate kernel and transitive axiom checks permit
+-    exactly the standard three axioms. Referee 1 traversed 58 declarations from the final negation and
+-    required 23 actual dependencies; referee 2 traversed 65 declarations from all eight exports, required
+-    20 dependencies and added twelve kernel/axiom checks. The numerical certificate is exactly -18<0 in
+-    explicit LeanCert kernel mode on a singleton and is consumed through separator exclusion to the full
+-    negation. All local checks used Lean 4.33.1 on macOS and clean pinned MI-22 dependency objects reused
+-    read-only, excluding old project objects. No local Lake, dependency rebuild or Linux run is claimed.
+-    Candidate packaging archives and refreshes only the historical README among 126 proof-freeze inputs,
+-    preserving all other 125 inputs, eight original sources, every report and evidence file. Earlier phase-specific
+-    source plans, correspondence and handoffs remain historical. Linux execution and operational/publication
+-    reviews are pending.
++  notes: Both independent statement approvals preceded implementation. Both final referees freshly elaborated
++    the proof in separate private prefixes, inspected actual terms, independently reconstructed exact
++    universal bounds and repeated the retained LeanCert Boolean checker with decide +kernel. Seventeen
++    internal/public assertions and transitive axiom reports allow only propext, Classical.choice and Quot.sound.
++    The material interval certificate is exactly -18<0 in explicit kernel mode on a singleton, consumed
++    through separator exclusion to the full negation. Local checks ran on macOS with read-only matching
++    pinned MI-22 dependency objects and no old IV-06 project objects. Actual Ubuntu run 34725713519 at
++    18b5ef3127da0ae4f68e09289f60fd4f6e3d9bcb freshly cloned ten exact dependencies, used 8690 official
++    Mathlib cache artifacts, built the sources, matched all eight exports without definition exceptions,
++    replayed the default kernel and passed both actual control suites. No full dependency-source rebuild
++    is claimed. The nested Bubblewrap executable was denied UID-map creation before its inner write. Independent
++    operational reviewer /root/formal_review_standards also served as statement referee 2 and contributed
++    to shared infrastructure; proof author is /root/solved_statement_inventory. Root independently accepted
++    actual execution and retained identity; root also served as final proof referee 2 and prepared publication
++    metadata. These additional roles do not add mathematical referees. Operational report SHA256 4e212afc2458805a3684748939e46f47dac3e1f6e7576bb5fc8dc591d75ed7c8
++    and outer evidence b4cde7e528bbf53ba50291e73d48ff27d490df228fbc0e9cea0f9d54011bc7d0 bind 347 files
++    plus the outer manifest, retaining every nested manifest. Root checks SHA256 bfcea16a79ad3398dc902dbb0ab3ca7014d0f70cf7460db1e7731f1c976a6259
++    independently confirm the acceptance. Publication archives both prior wrappers, changes only this
++    manifest and README among 200 candidate inputs, and preserves all 198 others, 348 Linux files and
++    seven root operational files. All 125 non-README proof-freeze inputs, the archived statement README
++    and eight original source snapshots remain intact. Earlier phase notices are historical. No new proof
++    run over publication wrappers, external human review, official Tau Ceti endorsement or priority is
++    claimed.
+   statement_reports:
+   - file: reviews/statement-referee-1.md
+     sha256: 68a4472868bd52e02e0d5ab70f4fb7d5131f3176cc0b8b8c1d1a74b78fd61d48
+@@ -194,10 +204,13 @@ review:
+       sha256: f85b7a1d66d41c3da25582edfdd57b5475ebe7dfd8a16e6f4b498f478a369007
+       bytes: 2666
+   linux_verification:
+-    status: pending
+-    note: No IV-06 project-specific Linux run, Comparator success, default-kernel replay, actual controls
+-      or operational approval is claimed. Success of shared infrastructure or other problems does not
+-      verify this candidate.
++    status: passed; independently audited and root accepted
++    note: Actual run https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34725713519 at 18b5ef3127da0ae4f68e09289f60fd4f6e3d9bcb.
++      Eight matched exports, seventeen standard-three axiom reports, actual default-kernel replay and
++      both full control suites passed. See verification/linux-2026-09-12/OPERATIONAL-REVIEW.md, its EVIDENCE-MANIFEST.json
++      and verification/root-operational-2026-09-12/ROOT-CHECKS.json. Original project ZIP SHA256 bbe96d9e07020993524329a33ea366ff0ab85707d666b0974bd06c667af0e005;
++      checker-control ZIP SHA256 3c405009704da285d05939461fec1bb38f8a8fe4f9e7f52339f2da4f689c0529. Complete
++      raw run-log archive is retained with its separately computed digest.
+ alignment:
+ - declaration: NLA.IV06.eigenvalue_determinant_semantics
+   scope: Equivalence between a genuine nonzero real eigenvector and the actual characteristic determinant
+diff --git a/intervals-and-absolute-value-equations/IV-06/problem.tex b/intervals-and-absolute-value-equations/IV-06/problem.tex
+index 65156d4..5366646 100644
+--- a/intervals-and-absolute-value-equations/IV-06/problem.tex
++++ b/intervals-and-absolute-value-equations/IV-06/problem.tex
+@@ -34,7 +34,7 @@ set},pdfauthor={Open Problems in Numerical Linear Algebra}}
+ \fancyhf{}
+ \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+ \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IV-06}
+-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
++\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
+ \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+ \renewcommand{\headrulewidth}{0.3pt}
+ \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+@@ -51,7 +51,7 @@ of components of a real interval eigenvalue set\par}
+ \vspace{7pt}
+ {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+ to specialist\par}
+-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
++{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
+ \vspace{4pt}
+ {\color{accent}\hrule height 0.8pt}
+ \vspace{6pt}
+@@ -80,40 +80,134 @@ manuscript},
+ agent review} and
+ \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-intervals-2026-09-11/README.md}{submission
+ record}. The source archive identifies the drafts as AI-generated;
+-authorship is recorded at the submitter's request. This is agent
+-verification, not external human peer review or formal proof-assistant
+-certification.
++authorship is recorded at the submitter's request. That original agent
++review was informal; the later Lean verification is documented below.
++External human peer review is not claimed.
+ 
+ The difficulty, importance and rating rationale below are historical
+ assessments of the original open target. The original statement and
+ dated audits are preserved.
+ 
++\subsection{Lean proof and verification evidence -
++2026-09-12}\label{lean-proof-and-verification-evidence---2026-09-12}
++
++\textbf{The complete original component-bound conjecture is Lean
++verified with a negative answer.} The
++\href{https://github.com/sgstepaniants/OpenProblemsInNLA/tree/18b5ef3127da0ae4f68e09289f60fd4f6e3d9bcb/intervals-and-absolute-value-equations/IV-06/lean}{proof
++at revision 18b5ef3} proves that the unchanged dimension-three source
++box has at least four actual connected components. It retains the full
++independent-entry interval family, genuine nonzero real eigenvectors and
++the topology of the attained real-eigenvalue subset. Component
++cardinality is the actual \textit{Cardinal} of
++\textit{ConnectedComponents}; no finiteness, symmetry or
++all-real-spectrum assumption is added.
++
++\textbf{Lean formalization:} George Stepaniants, Department of Computing
++and Mathematical Sciences, California Institute of Technology, Pasadena,
++California, USA, with AI-agent assistance. \textbf{Matthew J. Colbrook}
++retains authorship of the mathematical counterexample. Milan Hladík,
++David Daney and Elias P. Tsigaridas retain the original question and
++background credit.
++
++The eight
++\href{https://github.com/sgstepaniants/OpenProblemsInNLA/blob/18b5ef3127da0ae4f68e09289f60fd4f6e3d9bcb/intervals-and-absolute-value-equations/IV-06/lean/Solution.lean}{checked
++exports}, each with prefix \textit{NLA.IV06.}, are:
++
++\begin{itemize}
++\tightlist
++\item
++  \textit{eigenvalue\_determinant\_semantics}: genuine eigenvector and
++  characteristic-determinant equivalence for every real square matrix.
++\item
++  \textit{family\_and\_determinant\_semantics}: equality with the
++  complete endpoint box and the actual determinant polynomial.
++\item
++  \textit{witness\_eigenpairs}: four admissible matrices and their
++  nonzero eigenvectors at \(-3,0,3,25\).
++\item
++  \textit{witness\_separators}: determinant bounds for every box member,
++  excluding \(-1,1,12\).
++\item
++  \textit{connected\_component\_intervals}: actual equal component
++  classes force interval containment for any real subset.
++\item
++  \textit{four\_components}: an injective map from four representatives
++  into the genuine component quotient.
++\item
++  \textit{counterexample}: admissible endpoints whose component
++  cardinality strictly exceeds dimension three.
++\item
++  \textit{not\_componentBoundConjecture}: negation of the complete
++  original universal claim.
++\end{itemize}
++
++Two independent statement approvals preceded implementation; two
++independent final proof referees approved the frozen proof after fresh
++source elaboration and actual-term checks.
++\href{https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34725713519}{Ubuntu
++run 34725713519} matched all eight exports with the sandboxed
++Comparator, replayed the solution in Lean's default kernel and passed
++both actual isolation/rejection-control suites. The
++\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/intervals-and-absolute-value-equations/IV-06/lean/verification/linux-2026-09-12}{operational
++audit and original artifacts} bind all 200 candidate inputs; the
++\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/intervals-and-absolute-value-equations/IV-06/lean/verification/root-operational-2026-09-12/ROOT-CHECKS.json}{separate
++root acceptance} independently checked their identity and actual
++execution. All 17 internal/public transitive axiom reports allow only
++\textit{propext}, \textit{Classical.choice} and \textit{Quot.sound}.
++Operational and publication work does not add mathematical referees.
++External human peer review is not claimed.
++
++The pins are \textbf{Lean 4.33.1},
++\href{https://github.com/alerad/leancert/tree/621a43d7cf21f87872392a01e874f2f1dbddc926}{LeanCert
++621a43d} and
++\href{https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474}{Mathlib
++0df444a}. A material explicit kernel LeanCert certificate proves
++\(-18<0\) on a singleton; exact algebra and universal affine bounds
++reduce every separator to this sign. Genuine connectedness and
++cardinality complete the argument. No eigenvalue approximation, root
++isolation or interval subdivision is used. Exactly four components,
++complete endpoints and a replacement bound for all dimensions are
++outside these exports. See the
++\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/intervals-and-absolute-value-equations/IV-06/lean/README.md}{project
++guide},
++\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/intervals-and-absolute-value-equations/IV-06/lean/formalization.yaml}{manifest},
++\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/intervals-and-absolute-value-equations/IV-06/lean/reviews}{reviews}
++and
++\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/intervals-and-absolute-value-equations/IV-06/lean/lake-manifest.json}{dependency
++pins}.
++
++From the immutable verified revision on a documented
++\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tools/lean/HARNESS.md}{non-root
++Linux host}, reproduce with:
++
++\begin{verbatim}
++tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
++tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
++tools/lean/verify.sh \
++  intervals-and-absolute-value-equations/IV-06/lean \
++  /absolute/path/to/nla-lean-tools
++\end{verbatim}
++
+ \subsection{Problem statement}\label{problem-statement}
+ 
+ For every integer \(n\ge1\) and real matrices
+ \(L,U\in\mathbb R^{n\times n}\) with \(L\le U\) entrywise, form the
+ interval matrix family
+ 
+-\[
+-\mathcal A=\{A\in\mathbb R^{n\times n}:L\le A\le U\}.
+-\]
++\[\mathcal A=\{A\in\mathbb R^{n\times n}:L\le A\le U\}.\]
+ 
+ Each entry varies independently in its prescribed closed interval;
+ singleton intervals are allowed. Define the set of all real eigenvalues
+ attained by the family by
+ 
+-\[
+-\Lambda_{\mathbb R}(\mathcal A)
+-=\{\lambda\in\mathbb R:\exists A\in\mathcal A,\ \exists x\in\mathbb R^n\setminus\{0\},\ Ax=\lambda x\}.
+-\]
++\[\Lambda_{\mathbb R}(\mathcal A)
++=\{\lambda\in\mathbb R:\exists A\in\mathcal A,\ \exists x\in\mathbb R^n\setminus\{0\},\ Ax=\lambda x\}.\]
+ 
+ Must \(\Lambda_{\mathbb R}(\mathcal A)\) have at most \(n\) connected
+ components? Equivalently, must there exist \(0\le m\le n\) and real
+ numbers \(a_r\le b_r\), \(1\le r\le m\), such that
+ 
+-\[
+-\Lambda_{\mathbb R}(\mathcal A)=\bigcup_{r=1}^{m}[a_r,b_r]?
+-\]
++\[\Lambda_{\mathbb R}(\mathcal A)=\bigcup_{r=1}^{m}[a_r,b_r]?\]
+ 
+ The empty set corresponds to \(m=0\), and a singleton eigenvalue
+ component counts as one interval. No symmetry, diagonalizability, or
+diff --git a/intervals-and-absolute-value-equations/README.md b/intervals-and-absolute-value-equations/README.md
+index fb16436..bc37bf7 100644
+--- a/intervals-and-absolute-value-equations/README.md
++++ b/intervals-and-absolute-value-equations/README.md
+@@ -19,6 +19,6 @@
+ | [IV-03](IV-03/README.md) | Polynomial-size vertex test for inverse M-matrix intervals | **✅ SOLVED** | challenging | interesting to specialist | [PDF](IV-03/problem.pdf) · [TeX](IV-03/problem.tex) |
+ | [IV-04](IV-04/README.md) | Exact solution hulls for tridiagonal interval systems | **✅ SOLVED** | challenging | interesting to the community | [PDF](IV-04/problem.pdf) · [TeX](IV-04/problem.tex) |
+ | [IV-05](IV-05/README.md) | Exact solution hulls for inverse M-matrix intervals | **✅ SOLVED** | challenging | interesting to specialist | [PDF](IV-05/problem.pdf) · [TeX](IV-05/problem.tex) |
+-| [IV-06](IV-06/README.md) | Number of components of a real interval eigenvalue set | **✅ SOLVED** | challenging | interesting to specialist | [PDF](IV-06/problem.pdf) · [TeX](IV-06/problem.tex) |
++| [IV-06](IV-06/README.md) | Number of components of a real interval eigenvalue set | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](IV-06/problem.pdf) · [TeX](IV-06/problem.tex) |
+ 
+ Ratings are editorial; each entry explains both ratings and the scope of its status evidence. [Definitions](../README.md#problem-status).

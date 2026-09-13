@@ -2,7 +2,7 @@
 
 **124 problems with open targets:** 51 open and 73 partially resolved. **93 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 75 solved (published or independently audited); 18 Lean verified.
+**Resolution evidence:** 74 solved (published or independently audited); 19 Lean verified.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -344,4 +344,4 @@ Retained entries outside the open count:
 | [IV-03](intervals-and-absolute-value-equations/IV-03/README.md) | Polynomial-size vertex test for inverse M-matrix intervals | **✅ SOLVED** | challenging | interesting to specialist | [PDF](intervals-and-absolute-value-equations/IV-03/problem.pdf) · [TeX](intervals-and-absolute-value-equations/IV-03/problem.tex) |
 | [IV-04](intervals-and-absolute-value-equations/IV-04/README.md) | Exact solution hulls for tridiagonal interval systems | **✅ SOLVED** | challenging | interesting to the community | [PDF](intervals-and-absolute-value-equations/IV-04/problem.pdf) · [TeX](intervals-and-absolute-value-equations/IV-04/problem.tex) |
 | [IV-05](intervals-and-absolute-value-equations/IV-05/README.md) | Exact solution hulls for inverse M-matrix intervals | **✅ SOLVED** | challenging | interesting to specialist | [PDF](intervals-and-absolute-value-equations/IV-05/problem.pdf) · [TeX](intervals-and-absolute-value-equations/IV-05/problem.tex) |
-| [IV-06](intervals-and-absolute-value-equations/IV-06/README.md) | Number of components of a real interval eigenvalue set | **✅ SOLVED** | challenging | interesting to specialist | [PDF](intervals-and-absolute-value-equations/IV-06/problem.pdf) · [TeX](intervals-and-absolute-value-equations/IV-06/problem.tex) |
+| [IV-06](intervals-and-absolute-value-equations/IV-06/README.md) | Number of components of a real interval eigenvalue set | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](intervals-and-absolute-value-equations/IV-06/problem.pdf) · [TeX](intervals-and-absolute-value-equations/IV-06/problem.tex) |

@@ -651,11 +651,14 @@ Seven exact targets are classified below. Independent agent review is not extern
 
 [Complete manuscript](references/colbrook-intervals-2026-09-11/manuscripts/IV-05.pdf); [full independent agent review](references/colbrook-intervals-2026-09-11/verification/reviews/IV-05-review.md).
 
-### IV-06 - Negative resolution
+### IV-06 - Negative resolution by Matthew J. Colbrook; Lean formalization by George Stepaniants
 
 [Original statement](intervals-and-absolute-value-equations/IV-06/README.md). **Solved, recorded 2026-09-11.** Matthew J. Colbrook (University of Cambridge). Theorem 1 gives a $3\times3$ independent-entry interval matrix with at least four components in its real eigenvalue set. Four exact integer eigenpairs at $-3,0,3,25$ and excluded separators $-1,1,12$ refute the universal at-most-$n$ conjecture. No symmetry assumption is introduced, and locating every component endpoint is unnecessary.
 
 [Complete manuscript](references/colbrook-intervals-2026-09-11/manuscripts/IV-06.pdf); [full independent agent review](references/colbrook-intervals-2026-09-11/verification/reviews/IV-06-review.md).
+
+**Lean verified - 2026-09-12.** The [eight checked exports](https://github.com/sgstepaniants/OpenProblemsInNLA/blob/18b5ef3127da0ae4f68e09289f60fd4f6e3d9bcb/intervals-and-absolute-value-equations/IV-06/lean/Solution.lean) negate the complete original universal component bound using the unchanged dimension-three box with at least four actual components. Full independent-entry variation, genuine nonzero eigenvectors, real subset topology and `Cardinal` component counts are retained; no finiteness premise is assumed. **Formalization: George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA**, with AI-agent assistance. Matthew J. Colbrook retains mathematical counterexample credit; Hladík, Daney and Tsigaridas retain original-question credit. See the [canonical verification evidence](intervals-and-absolute-value-equations/IV-06/README.md#lean-proof-and-verification-evidence---2026-09-12), [statement and final proof reviews](intervals-and-absolute-value-equations/IV-06/lean/reviews/), [successful Ubuntu run](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34725713519), [operational audit](intervals-and-absolute-value-equations/IV-06/lean/verification/linux-2026-09-12/OPERATIONAL-REVIEW.md) and [root acceptance](intervals-and-absolute-value-equations/IV-06/lean/verification/root-operational-2026-09-12/ROOT-CHECKS.json). All 200 inputs, seventeen standard-three axiom reports, actual default-kernel replay and both real control suites were checked. The material explicit kernel LeanCert computation is the singleton sign $`-18<0`$; exact algebra and topology complete the argument. Additional operational and publication roles do not add mathematical referees. Exactly four components, every endpoint and an all-dimension replacement bound are outside these exports. External human peer review is not claimed.
+
 
 ## Reviewed discrepancy submission - 2026-09-11
 
