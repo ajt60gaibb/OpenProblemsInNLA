@@ -34,7 +34,7 @@ error},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RA-09}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-13}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ transfer of Frobenius low-rank error\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -69,7 +69,7 @@ Codex-agent review: PASS for the exact target.}
 The ordered theorem transfers ordinary relative Frobenius residual error
 with no loss for the larger monotone subhomogeneous function class. Put
 \(B=\widehat A_k\). Since \(0\preceq B\preceq A\),
-\(\|A-B\|_F^2=\|A\|_F^2-\|B\|_F^2-2\operatorname{tr}(B(A-B))\le\|A\|_F^2-\|B\|_F^2\).
+\(\|A-B\|_F^2=\|A\|_F^2-\|B\|_F^2-2\mathop{\mathrm{tr}}\nolimits(B(A-B))\le\|A\|_F^2-\|B\|_F^2\).
 Thus the original stronger trace-deficit premise implies the proved
 residual premise, establishing the exact canonical conclusion. All
 specified eigenbasis choices and zero-tail cases are covered.
@@ -86,35 +86,138 @@ TeX}, \textbf{Theorem 1.1, with the trace-deficit reduction above}.
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-transfer-2026-09-11/verification/reviews/RA-09-review.md}{Independent
 proof review} ·
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-transfer-2026-09-11/README.md}{Authorship
-and submission record}. Verification is independent agent review, not
-external human peer review or formal certification.
+and submission record}. That dated manuscript audit was independent
+agent review. The separate Lean verification below certifies the full
+original target; external human peer review is not claimed.
 
-Let \(n\ge2\), \(1\le k<n\), and
+\subsection{Lean proof and verification evidence ---
+2026-09-13}\label{lean-proof-and-verification-evidence-2026-09-13}
+
+\textbf{Formalization:} George Stepaniants, Department of Computing and
+Mathematical Sciences, California Institute of Technology, Pasadena,
+California, USA, with AI-agent assistance. \textbf{Matthew J. Colbrook
+retains mathematical authorship.}
+
+The
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/blob/3bcc863070c037fffb1deee3f12d1cd1517727df/randomized-and-low-rank-approximation/RA-09/lean/Solution.lean}{proof
+at immutable revision 3bcc8630} proves the complete original implication
+for every dimension, rank, ordered real PSD pair, allowed function,
+error parameter and selected ordered eigenbasis. It retains the
+difference-of-squared-norms premise and permits \(f(0)>0\). Proved
+semantic bridges connect the definitions to the actual Frobenius norm,
+PSD order, spectral theorem and continuous functional calculus; ordinary
+and function truncations use the same selected eigenvectors. The
+trace-deficit reduction, selected zero eigenvalues and zero-tail cases
+are proved.
+
+The full target is \textit{NLA.RA09.concaveFrobeniusTransferConjecture}.
+All 17 checked exports in namespace \textit{NLA.RA09} are:
+
+\begin{itemize}
+\tightlist
+\item
+  \textit{frobenius\_semantics};
+  \textit{frobenius\_orthogonal\_invariance}.
+\item
+  \textit{orderedSpectral\_exists}; \textit{orderedSpectral\_semantics}.
+\item
+  \textit{functionalCalculus\_spectral}; \textit{truncation\_semantics}.
+\item
+  \textit{trace\_deficit\_reduction};
+  \textit{admissible\_scalar\_consequences}.
+\item
+  \textit{scalar\_branch\_certificates};
+  \textit{ordered\_scalar\_certificate}.
+\item
+  \textit{harmonic\_constraint}; \textit{overlap\_semantics}.
+\item
+  \textit{overlap\_error\_expansions}; \textit{zero\_column\_average}.
+\item
+  \textit{positive\_tail\_transfer}; \textit{zero\_tail\_closure}.
+\item
+  \textit{concaveFrobeniusTransferConjecture}.
+\end{itemize}
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-09/lean/PROOF_MAP.md}{proof
+map} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-09/lean/formalization.yaml}{manifest}
+give each contract and its original-target correspondence. Exact
+unbounded scalar factorizations and a sum of squares eliminate interval
+computations. LeanCert checks kernel trust throughout the matrix proof.
+The manuscript's broader function class, unordered theorem and ancillary
+extensions are outside these exports.
+
+Two independent statement approvals preceded implementation;
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-09/lean/README.md\#reviewed-evidence}{two
+independent final mathematical reviews} approved the frozen proof.
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34738884548}{Ubuntu
+run 34738884548}, on 13 September 2026, matched all 17 exports without
+definition exceptions and replayed them through Lean's default kernel.
+All 49 source axiom reports permit only \textit{propext},
+\textit{Classical.choice}, and \textit{Quot.sound}; both actual control
+suites passed as a non-root user. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-09/lean/verification/linux-2026-09-13/OPERATIONAL-REVIEW.md}{independent
+operational audit} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-09/lean/verification/root-operational-2026-09-13/ROOT-CHECKS.json}{coordinator
+acceptance} bind the complete 524-file candidate. Local macOS
+development checks are recorded separately.
+
+The checked toolchain is \textbf{Lean 4.33.1}. Dependency revisions are:
+
+\begin{itemize}
+\tightlist
+\item
+  Mathlib: \textit{0df444a360eaa60ab8c11dca51a86af692955474}.
+\item
+  LeanCert: \textit{621a43d7cf21f87872392a01e874f2f1dbddc926}.
+\end{itemize}
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-09/lean/lake-manifest.json}{Lake
+manifest} pins all ten dependencies. The run used a fresh project and
+matching official Mathlib cache objects; it did not rebuild all
+dependencies from source. From a clean checkout of immutable revision
+\textit{3bcc863070c037fffb1deee3f12d1cd1517727df}, use a non-root Linux
+host with the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tools/lean/HARNESS.md}{documented
+prerequisites} and run from the repository root:
+
+\begin{verbatim}
+tools/lean/bootstrap.sh /tmp/nla-ra09-check
+tools/lean/selftest.sh /tmp/nla-ra09-check
+tools/lean/verify.sh \
+  randomized-and-low-rank-approximation/RA-09/lean \
+  /tmp/nla-ra09-check
+\end{verbatim}
+
+These commands run the controls, statement comparison, permitted-axiom
+checks and default-kernel replay. A local \textit{lake build Solution}
+is a separate development check. The original statement and source
+record below remain unchanged.
+
+\subsection{Problem statement}\label{problem-statement}
+
+Let \(n\ge2\), \(1\le k< n\), and
 \(A,\widehat A\in\mathbb R^{n\times n}\) be symmetric with
 \(A\succeq\widehat A\succeq0\). Let \(f:[0,\infty)\to[0,\infty)\) be
 continuous, concave, and nondecreasing. For a positive semidefinite
 matrix \(X=\sum_{i=1}^n\lambda_iq_iq_i^T\) with decreasing eigenvalues
 and orthonormal eigenvectors, write
 
-\[
-X_k=\sum_{i=1}^k\lambda_iq_iq_i^T,
+\[X_k=\sum_{i=1}^k\lambda_iq_iq_i^T,
 \quad f(X)=\sum_{i=1}^nf(\lambda_i)q_iq_i^T,
-\quad f(X)_k=\sum_{i=1}^kf(\lambda_i)q_iq_i^T.
-\]
+\quad f(X)_k=\sum_{i=1}^kf(\lambda_i)q_iq_i^T.\]
 
 Use the same eigenvectors for the two truncations, with any choices
 inside repeated eigenspaces. Is the implication
 
-\[
-\|A\|_F^2-\|\widehat A_k\|_F^2
-\le(1+\varepsilon)\|A-A_k\|_F^2
-\]
+\[\|A\|_F^2-\|\widehat A_k\|_F^2
+\le(1+\varepsilon)\|A-A_k\|_F^2\]
 
-\[
-\Longrightarrow\quad
+\[\Longrightarrow\quad
 \|f(A)-f(\widehat A)_k\|_F^2
-\le(1+\varepsilon)\|f(A)-f(A)_k\|_F^2
-\]
+\le(1+\varepsilon)\|f(A)-f(A)_k\|_F^2\]
 
 valid for every such input, every eigendecomposition choice, and every
 \(\varepsilon\ge0\)? Here \(\|M\|_F^2=\sum_{i,j}|M_{ij}|^2\). The

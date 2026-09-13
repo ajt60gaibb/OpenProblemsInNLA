@@ -1,0 +1,36 @@
+Mathlib/Analysis/Matrix/Spectrum.lean:61:lemma eigenvalues₀_antitone : Antitone hA.eigenvalues₀ :=
+Mathlib/Analysis/Matrix/Spectrum.lean:65:noncomputable def eigenvalues : n → ℝ := fun i =>
+Mathlib/Analysis/Matrix/Spectrum.lean:141:theorem spectral_theorem :
+Mathlib/Analysis/Matrix/Spectrum.lean:156:  conv_lhs => rw [hA.spectral_theorem, conjStarAlgAut_apply, charpoly_mul_comm, ← mul_assoc]
+Mathlib/Analysis/Matrix/Spectrum.lean:178:  exact (eigenvalues₀_antitone hA).sortedGE_ofFn
+Mathlib/Analysis/Matrix/Spectrum.lean:196:  conv_lhs => rw [hA.spectral_theorem, conjStarAlgAut_apply, ← coe_star]
+Mathlib/Analysis/Matrix/Spectrum.lean:206:  conv_lhs => rw [hA.spectral_theorem]
+Mathlib/Analysis/Matrix/Spectrum.lean:213:  conv_lhs => rw [hA.spectral_theorem, ← spectrum.algebraMap_mem_iff 𝕜]
+Mathlib/Analysis/Matrix/Spectrum.lean:220:  rw [hA.spectral_theorem, h, Pi.comp_zero, RCLike.ofReal_zero, Function.const_zero,
+Mathlib/Analysis/Matrix/Spectrum.lean:231:    have := hA.spectral_theorem
+Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean:50:noncomputable def cfcAux : C(spectrum ℝ A, ℝ) →⋆ₐ[ℝ] (Matrix n n 𝕜) where
+Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean:71:lemma isClosedEmbedding_cfcAux : IsClosedEmbedding hA.cfcAux := by
+Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean:75:    (F := Matrix n n 𝕜) (f := hA.cfcAux) <| LinearMap.ker_eq_bot'.mpr fun f hf ↦ ?_
+Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean:79:    simp only [LinearMap.coe_coe, cfcAux_apply, conjStarAlgAut_apply] at hf
+Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean:91:lemma cfcAux_id : hA.cfcAux (.restrict (spectrum ℝ A) (.id ℝ)) = A := by
+Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean:92:  conv_rhs => rw [hA.spectral_theorem]
+Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean:101:    refine ⟨ha.cfcAux, ha.isClosedEmbedding_cfcAux.continuous,
+Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean:102:      ha.isClosedEmbedding_cfcAux.injective, ha.cfcAux_id, fun f ↦ ?map_spec,
+Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean:108:      · rw [cfcAux_apply, conjStarAlgAut_apply, Unitary.spectrum_star_right_conjugate]
+Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean:116:      simp only [isSelfAdjoint_iff, cfcAux_apply, ← map_star]
+Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean:135:lemma cfcHom_eq_cfcAux : cfcHom hA.isSelfAdjoint = hA.cfcAux :=
+Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean:136:  cfcHom_eq_of_continuous_of_map_id hA hA.cfcAux
+Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean:137:    hA.isClosedEmbedding_cfcAux.continuous hA.cfcAux_id
+Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean:141:  isClosedEmbedding _ hA := cfcHom_eq_cfcAux hA ▸ hA.isHermitian.isClosedEmbedding_cfcAux
+Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean:143:lemma cfc_eq (f : ℝ → ℝ) : cfc f A = hA.cfc f := by
+Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean:145:  have := cfcHom_eq_of_continuous_of_map_id hA' hA.cfcAux hA.isClosedEmbedding_cfcAux.continuous
+Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean:146:    hA.cfcAux_id
+Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean:148:  simp only [cfcAux_apply, ContinuousMap.coe_mk, Function.comp_def, Set.domRestrict_apply,
+Mathlib/Analysis/CStarAlgebra/ContinuousFunctionalCalculus/Basic.lean:172:  refine cfcHom_eq_of_continuous_of_map_id ha _ ?_ ?_
+Mathlib/Analysis/CStarAlgebra/ContinuousFunctionalCalculus/Unital.lean:263:lemma cfcHom_eq_of_continuous_of_map_id [UniqueHom R A]
+Mathlib/Analysis/CStarAlgebra/ContinuousFunctionalCalculus/Unital.lean:276:  refine cfcHom_eq_of_continuous_of_map_id (cfcHom_predicate ha f) φ ?_ ?_
+Mathlib/Analysis/CStarAlgebra/ContinuousFunctionalCalculus/Unital.lean:347:lemma cfc_eq_cfcL {a : A} {f : R → R} (ha : p a) (hf : ContinuousOn f (spectrum R a)) :
+Mathlib/Analysis/CStarAlgebra/ContinuousFunctionalCalculus/Unital.lean:362:lemma cfc_eq_cfcL_mkD :
+Mathlib/Analysis/CStarAlgebra/ContinuousFunctionalCalculus/Unital.lean:437:lemma cfc_eq_cfc_iff_eqOn : cfc f a = cfc g a ↔ (spectrum R a).EqOn f g :=
+Mathlib/Analysis/CStarAlgebra/ContinuousFunctionalCalculus/Restrict.lean:154:  apply cfcHom_eq_of_continuous_of_map_id
+Mathlib/Analysis/CStarAlgebra/ContinuousFunctionalCalculus/Restrict.lean:159:lemma cfc_eq_restrict (f : C(S, R)) (halg : IsClosedEmbedding (algebraMap R S)) {a : A} (hpa : p a)

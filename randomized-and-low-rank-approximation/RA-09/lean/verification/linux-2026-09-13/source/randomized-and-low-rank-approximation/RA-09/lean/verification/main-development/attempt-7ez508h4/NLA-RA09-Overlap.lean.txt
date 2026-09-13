@@ -1,0 +1,142 @@
+/-
+Copyright (c) 2026 George Stepaniants. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: George Stepaniants
+
+Department of Computing and Mathematical Sciences, California Institute of
+Technology, Pasadena, California, USA. AI-assisted formalization.
+Mathematical transfer theorem: Matthew J. Colbrook.
+Actual finite matrix overlap identities for arbitrary selected eigenbases.
+-/
+import NLA.RA09.Spectral
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open scoped BigOperators Classical MatrixOrder
+open Matrix
+noncomputable section
+namespace NLA.RA09
+
+theorem spectralCombination_hermitian {n : ℕ} {A : RealMatrix n}
+    (d : OrderedSpectralData A) (u : Fin n → ℝ) :
+    (spectralCombination d u).IsHermitian := by
+  change (spectralCombination d u).conjTranspose = spectralCombination d u
+  simp only [spectralCombination, conjTranspose_eq_transpose_of_trivial,
+    transpose_mul, transpose_transpose, transpose_diagonal, mul_assoc]
+
+theorem spectralCombination_entry {n : ℕ} {A : RealMatrix n}
+    (d : OrderedSpectralData A) (u : Fin n → ℝ) (i j : Fin n) :
+    spectralCombination d u i j = ∑ l,
+      (d.orthogonal : RealMatrix n) i l * u l * (d.orthogonal : RealMatrix n) j l := by
+  simp only [spectralCombination, mul_apply, mul_diagonal, transpose_apply]
+
+theorem frobeniusSquared_sub_expansion {n : ℕ} (X Y : RealMatrix n)
+    (hY : Y.IsHermitian) :
+    frobeniusSquared (X-Y) = frobeniusSquared X + frobeniusSquared Y -
+      2 * Matrix.trace (Y*X) := by
+  have hYt : Y.transpose = Y := by
+    simpa only [conjTranspose_eq_transpose_of_trivial] using hY.eq
+  have hi := frobeniusSquared_sub_identity X Y hY
+  have ht : Matrix.trace (Y*Y) = frobeniusSquared Y := by
+    rw [frobeniusSquared_trace, hYt]
+  rw [Matrix.mul_sub, Matrix.trace_sub, ht] at hi
+  linarith
+
+theorem spectralCombination_trace_product {n : ℕ} {A Ahat : RealMatrix n}
+    (dA : OrderedSpectralData A) (dHat : OrderedSpectralData Ahat)
+    (u v : Fin n → ℝ) :
+    Matrix.trace (spectralCombination dHat v * spectralCombination dA u) =
+      ∑ j, v j * (∑ i, overlapWeights dA dHat i j * u i) := by
+  let V := overlapMatrix dA dHat
+  have hin : (dHat.orthogonal : RealMatrix n).transpose * spectralCombination dA u *
+      (dHat.orthogonal : RealMatrix n) = V.transpose * diagonal u * V := by
+    simp only [V, spectralCombination, overlapMatrix, transpose_mul, transpose_transpose, mul_assoc]
+  calc
+    _ = Matrix.trace ((dHat.orthogonal : RealMatrix n) *
+        (diagonal v * ((dHat.orthogonal : RealMatrix n).transpose * spectralCombination dA u))) := by
+      congr 1
+      simp only [spectralCombination, mul_assoc]
+    _ = Matrix.trace ((diagonal v *
+        ((dHat.orthogonal : RealMatrix n).transpose * spectralCombination dA u)) *
+          (dHat.orthogonal : RealMatrix n)) := Matrix.trace_mul_comm _ _
+    _ = Matrix.trace (diagonal v * (V.transpose * diagonal u * V)) := by
+      rw [← hin]
+      congr 1
+      simp only [mul_assoc]
+    _ = _ := by
+      unfold Matrix.trace Matrix.diag
+      apply Finset.sum_congr rfl
+      intro j _
+      simp only [diagonal_mul, mul_apply, mul_diagonal, transpose_apply]
+      apply congrArg (fun x : ℝ => v j * x)
+      apply Finset.sum_congr rfl
+      intro i _
+      dsimp [V, overlapWeights]
+      ring
+
+theorem spectral_errors_general {n : ℕ} {A Ahat : RealMatrix n}
+    (dA : OrderedSpectralData A) (dHat : OrderedSpectralData Ahat)
+    (u v : Fin n → ℝ) :
+    frobeniusSquared (spectralCombination dA u - spectralCombination dHat v) =
+      (∑ i, u i ^ 2) + (∑ j, v j ^ 2) -
+        2 * ∑ j, v j * (∑ i, overlapWeights dA dHat i j * u i) := by
+  rw [frobeniusSquared_sub_expansion _ _ (spectralCombination_hermitian dHat v),
+    spectralCombination_frobenius, spectralCombination_frobenius,
+    spectralCombination_trace_product]
+
+def overlapOrthogonal {n : ℕ} {A Ahat : RealMatrix n}
+    (dA : OrderedSpectralData A) (dHat : OrderedSpectralData Ahat) :
+    Matrix.unitaryGroup (Fin n) ℝ := star dA.orthogonal * dHat.orthogonal
+
+theorem overlapOrthogonal_coe {n : ℕ} {A Ahat : RealMatrix n}
+    (dA : OrderedSpectralData A) (dHat : OrderedSpectralData Ahat) :
+    (overlapOrthogonal dA dHat : RealMatrix n) = overlapMatrix dA dHat := by
+  simp only [overlapOrthogonal, Unitary.coe_mul, Unitary.coe_star,
+    Matrix.star_eq_conjTranspose, conjTranspose_eq_transpose_of_trivial, overlapMatrix]
+
+theorem overlap_column_sum {n : ℕ} {A Ahat : RealMatrix n}
+    (dA : OrderedSpectralData A) (dHat : OrderedSpectralData Ahat) (j : Fin n) :
+    ∑ i, overlapWeights dA dHat i j = 1 := by
+  have h := congrArg (fun M : RealMatrix n => M j j)
+    (orthogonal_transpose_mul (overlapOrthogonal dA dHat))
+  simpa only [overlapOrthogonal_coe, mul_apply, transpose_apply,
+    one_apply_eq, overlapWeights, pow_two] using h
+
+theorem overlap_row_sum {n : ℕ} {A Ahat : RealMatrix n}
+    (dA : OrderedSpectralData A) (dHat : OrderedSpectralData Ahat) (i : Fin n) :
+    ∑ j, overlapWeights dA dHat i j = 1 := by
+  have h := congrArg (fun M : RealMatrix n => M i i)
+    (orthogonal_mul_transpose (overlapOrthogonal dA dHat))
+  simpa only [overlapOrthogonal_coe, mul_apply, transpose_apply,
+    one_apply_eq, overlapWeights, pow_two] using h
+
+theorem overlap_error_expansions_proved {n : ℕ} {A Ahat : RealMatrix n}
+    (dA : OrderedSpectralData A) (dHat : OrderedSpectralData Ahat)
+    (f : ℝ → ℝ) (k : ℕ) (_hk : k ≤ n) :
+    frobeniusSquared (A - truncation dHat k) =
+      (∑ i, dA.eigenvalues i ^ 2) +
+      (∑ j ∈ Finset.univ.filter (fun j : Fin n => j.val < k), dHat.eigenvalues j ^ 2) -
+      2 * ∑ j ∈ Finset.univ.filter (fun j : Fin n => j.val < k),
+        dHat.eigenvalues j * (∑ i, overlapWeights dA dHat i j * dA.eigenvalues i) ∧
+    frobeniusSquared (functionalCalculus f A - functionTruncation dHat f k) =
+      (∑ i, f (dA.eigenvalues i) ^ 2) +
+      (∑ j ∈ Finset.univ.filter (fun j : Fin n => j.val < k), f (dHat.eigenvalues j) ^ 2) -
+      2 * ∑ j ∈ Finset.univ.filter (fun j : Fin n => j.val < k),
+        f (dHat.eigenvalues j) * (∑ i, overlapWeights dA dHat i j * f (dA.eigenvalues i)) := by
+  constructor
+  · have h := spectral_errors_general dA dHat dA.eigenvalues
+      (fun j => if j.val < k then dHat.eigenvalues j else 0)
+    have hA : spectralCombination dA dA.eigenvalues = A := dA.reconstruct.symm
+    rw [hA] at h
+    simpa only [truncation, Finset.sum_filter, ite_pow, zero_pow (by decide : 2 ≠ 0),
+      ite_mul, zero_mul] using h
+  · rw [selected_cfc_eq, functionTruncation]
+    have h := spectral_errors_general dA dHat (fun i => f (dA.eigenvalues i))
+      (fun j => if j.val < k then f (dHat.eigenvalues j) else 0)
+    simpa only [Finset.sum_filter, ite_pow, zero_pow (by decide : 2 ≠ 0),
+      ite_mul, zero_mul] using h
+
+#assert_trust kernel overlap_error_expansions_proved
+#print axioms overlap_error_expansions_proved
+
+end NLA.RA09
