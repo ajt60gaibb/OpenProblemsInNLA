@@ -1,0 +1,258 @@
+\documentclass[11pt]{article}
+\input{common_preamble}
+\title{Concave matrix-function error transfer can fail for exact Nystr\"om approximations}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+We give exact Nystr\"om counterexamples to two proposed concave matrix-function error-transfer principles. A rational positive-definite $6\times6$ matrix has a rank-three Nystr\"om approximation that is exactly optimal in spectral norm, yet applying $f(x)=\min(x,1)$ destroys optimality. A rational lower bound certifies the strict violation at a fixed nonzero perturbation. Separately, a growing-dimensional Nystr\"om construction rules out every dimension-independent nuclear-norm relative-excess factor $1+C\eps$, even when the input excess is required to be arbitrarily small. Both examples use the same fixed nonnegative nondecreasing concave function and satisfy positive-semidefinite order. They do not contradict positive transfer theorems for operator-monotone functions.
+\end{abstract}
+
+\section{Setting and scope}
+Throughout, $f(x)=\min(x,1)$ for $x\ge0$. This function is continuous, nonnegative, nondecreasing and concave, with $f(0)=0$. We use $\norm\cdot_2$ for spectral norm and $\norm\cdot_*$ for nuclear norm. For a positive-semidefinite target $A$ and a full-column-rank sketch $\Omega$, the Nystr\"om approximation is
+\[
+ \mathcal N(A,\Omega)=A\Omega(\Omega^TA\Omega)^{-1}\Omega^TA
+\]
+whenever the middle matrix is invertible. Replacing $\Omega$ by an orthonormal basis of its range leaves this matrix unchanged. Our examples therefore fit the usual orthonormal-sketch formulation as well.
+
+Persson, Meyer, and Musco ask whether operator monotonicity can be weakened to ordinary monotonicity and concavity, and whether relaxed relative-excess factors could hold when exact transfer fails \cite[Table~1 and Section~5]{PMM2025}. The first construction answers the ordered spectral question negatively, already for an exactly optimal input approximation. The second rules out any universal nuclear excess factor for the concave class. We give explicit sketches, not merely ordered positive-semidefinite approximations. No probability-of-failure statement for a prescribed random sketch distribution is asserted.
+
+\section{A derivative formula}
+\begin{lemma}\label{lem:derivative}
+Let $B=\diag(b_1,\ldots,b_d)$ have no eigenvalue equal to one. For a fixed symmetric perturbation $E$,
+\[
+ f(B+tE)-f(B)=tD+O(t^2),\qquad
+ D_{ij}=f^{[1]}(b_i,b_j)E_{ij},
+\]
+where $f^{[1]}(x,y)=(f(x)-f(y))/(x-y)$ for $x\ne y$, and $f^{[1]}(x,x)=1$ below one and zero above one.
+\end{lemma}
+\begin{proof}
+Choose disjoint neighborhoods of the spectral clusters below and above one. The function equals $z$ on the first neighborhood and the constant one on the second, and is holomorphic on their union. For sufficiently small $t$, Cauchy's matrix formula and the resolvent identity give the derivative
+\[
+ D=\frac1{2\pi i}\int_\Gamma
+      f(z)(zI-B)^{-1}E(zI-B)^{-1}\,dz.
+\]
+The $(i,j)$ entry is $E_{ij}$ times the integral of
+$f(z)/((z-b_i)(z-b_j))$. Partial fractions, or the double-pole formula when $i=j$, give the stated divided difference. A second resolvent expansion on the fixed contours gives an $O(t^2)$ remainder. Its constant may depend on $B$; no uniformity in dimension is asserted here.
+\end{proof}
+
+\section{An exactly optimal Nystr\"om approximation that does not transfer}
+\begin{theorem}\label{thm:spectral}
+Let
+\[
+ B=\diag\left(\frac12,\frac{127}{128},\frac{17}{16}\right),\qquad
+ U=\frac19\begin{bmatrix}1&8\\8&1\\-4&4\end{bmatrix},\qquad E=UU^T.
+\]
+Using block sizes $3,2,1$, set
+\[
+ F=\frac1{65}\begin{bmatrix}
+ 64E&8U&0\\8U^T&I_2&0\\0&0&65
+ \end{bmatrix},\qquad
+ \widehat A=B\oplus0_3,\qquad
+ \Omega=\begin{bmatrix}I_3\\-8U^T\\0_{1\times3}\end{bmatrix}.
+\]
+For $t=1/65536$ and $A=\widehat A+tF$, the target $A$ is positive definite,
+\[
+ \widehat A=\mathcal N(A,\Omega),\qquad
+ 0\preceq\widehat A\preceq A,
+\]
+and, with $k=3$,
+\[
+ \norm{A-\widehat A}_2=t=\norm{A-A_k}_2.
+\]
+Nevertheless,
+\begin{equation}\label{eq:spectralratio}
+ \frac{\norm{f(A)-f(\widehat A)}_2}
+      {\norm{f(A)-f(A)_k}_2}
+ \ge1+\frac{334583}{15769728}>1.
+\end{equation}
+Thus no implication with output factor $1+C\eps$ holds for all such Nystr\"om approximations and any finite $C$, even though the input excess here is exactly zero.
+\end{theorem}
+\begin{proof}
+Direct multiplication gives $U^TU=I_2$. The first five coordinates of $F$ form the orthogonal projector onto the columns of $[8U^T\ I_2]^T/\sqrt{65}$, and the last coordinate is a separate unit projector. Hence $F^2=F$, $F\succeq0$, $\rank F=3$, and $\norm F_2=1$.
+
+Also $F\Omega=0$, so
+\[
+ A\Omega=\begin{bmatrix}B\\0_{2\times3}\\0_{1\times3}\end{bmatrix},
+ \qquad \Omega^TA\Omega=B.
+\]
+The Nystr\"om identity follows immediately. The ranges of $\widehat A$ and $F$ together span $\R^6$: the bottom two components of the first two projector columns span coordinates four and five, and the last projector spans coordinate six. Their positive-semidefinite sum is therefore positive definite.
+
+The residual is $tF$ and has norm $t$. Since $\widehat A$ has rank three, the variational principle gives $\lambda_4(A)\le t$. The first three eigenvalues are at least $1/2$ by positive-semidefinite order, and the sixth coordinate is an eigenvector with eigenvalue $t$. Thus $\lambda_4(A)=t$. Since $f$ is nondecreasing and $t<1$, the optimal transformed spectral tail is also $t$.
+
+Write $\mathcal D$ for the derivative of $f$ at $\widehat A$ in direction $F$. By Lemma~\ref{lem:derivative}, its upper-left $3\times3$ block is $(64/65)D$, where
+\[
+ D=\frac1{729}\begin{bmatrix}
+ 585&144&224\\144&585&-28\\224&-28&0
+ \end{bmatrix}.
+\]
+For $v=(4,3,1)^T/\sqrt{26}$ and $\widetilde v=v\oplus0_3$, exact arithmetic gives
+\begin{equation}\label{eq:witness}
+ v^TDv=\frac{19705}{18954},\qquad
+ \widetilde v^T\mathcal D\widetilde v
+   =\frac{64}{65}\frac{19705}{18954}.
+\end{equation}
+We now control the finite-$t$ remainder.
+
+Let $a=17/16$, $d=a-1=1/16$, and $r=9/256$. The circle $\Gamma$ of center $a$ and radius $r$ isolates the unique eigenvalue above one for both $\widehat A$ and $A$. Its distance from the spectrum of $\widehat A$ is at least $r$, since the gap between its two largest eigenvalues is $2r$. The other eigenvalues of $A$ stay below one because $127/128+t<1$.
+
+Set $R(z)=(zI-\widehat A)^{-1}$ and $R_t(z)=(zI-\widehat A-tF)^{-1}$. Since $t<r/2$,
+\[
+ \norm{R(z)}_2\le r^{-1},\qquad
+ \norm{R_t(z)}_2\le2r^{-1}\quad(z\in\Gamma).
+\]
+The exact identity $R_t=R+tRFR+t^2RFRFR_t$ and the functional-calculus formula
+\[
+ f(A)=A-\frac1{2\pi i}\int_\Gamma(z-1)R_t(z)\,dz
+\]
+give
+\begin{equation}\label{eq:remainder}
+ \norm{f(A)-f(\widehat A)-t\mathcal D}_2
+ \le\frac{2(d+r)}{r^2}t^2=\frac{12800}{81}t^2.
+\end{equation}
+Here we used the contour length $2\pi r$ and $|z-1|\le d+r$. Combining \eqref{eq:witness} and \eqref{eq:remainder},
+\[
+ \frac{\widetilde v^T(f(A)-f(\widehat A))\widetilde v}{t}
+ \ge\frac{64}{65}\frac{19705}{18954}
+       -\frac{12800}{81\cdot65536}
+ =1+\frac{334583}{15769728}.
+\]
+This proves the strict rational certificate \eqref{eq:spectralratio}.
+\end{proof}
+
+All entries of $A$, $\widehat A$ and $\Omega$ are rational. No floating-point eigenvalue computation is needed for the proof. Exact spectral optimality is not the same as being the particular eigenvalue truncation $A_k$: spectral-norm best approximations need not be unique.
+
+\section{Unbounded nuclear excess for exact Nystr\"om approximations}
+\begin{theorem}\label{thm:nuclear}
+For every finite $C\ge0$ and every prescribed $\eps_0>0$, there exist a positive-definite matrix $A$, a full-column-rank sketch $\Omega$, and $k=\rank\mathcal N(A,\Omega)$ such that, writing $\widehat A=\mathcal N(A,\Omega)$,
+\[
+ \norm{A-\widehat A}_*=(1+\eps)\norm{A-A_k}_*,
+ \qquad 0<\eps<\eps_0,
+\]
+while
+\[
+ \norm{f(A)-f(\widehat A)}_*>(1+C\eps)\norm{f(A)-f(A)_k}_*.
+\]
+The function $f(x)=\min(x,1)$ is fixed independently of $C$ and $\eps_0$.
+\end{theorem}
+
+Fix $m\ge1$, put $\rho=1/4$ and $h_i=\rho^i$, and define
+\[
+ B_m=\diag(1-h_1,\ldots,1-h_m,1+h_1,\ldots,1+h_m),
+ \quad u=\frac{\boldsymbol1_{2m}}{\sqrt{2m}},\quad E=uu^T.
+\]
+The derivative from Lemma~\ref{lem:derivative} is
+\begin{equation}\label{eq:Dm}
+ D_m=\frac1{2m}\begin{bmatrix}J_m&K_m\\K_m^T&0\end{bmatrix},
+ \qquad (K_m)_{ij}=\frac{h_i}{h_i+h_j}
+                  =\frac1{1+\rho^{j-i}},
+\end{equation}
+where $J_m$ is the matrix of ones.
+
+\begin{lemma}\label{lem:divergence}
+The derivatives satisfy
+\[
+ \norm{D_m}_*\ge\frac1\pi\log(m+1)-\frac12-\sqrt{\frac2{15}}.
+\]
+In particular, their nuclear norms are unbounded.
+\end{lemma}
+\begin{proof}
+Let $S=\diag(I_m,-I_m)$. The triangle inequality and unitary invariance give
+\[
+ \norm{D_m}_*\ge\norm{\frac{D_m-SD_mS}{2}}_*
+ =\frac{\norm{K_m}_*}{m}.
+\]
+Let $T_m$ have ones on and above its diagonal and zeros below. Entrywise geometric decay gives
+\begin{align*}
+ \norm{K_m-(T_m-I_m/2)}_F^2
+ &=2\sum_{d=1}^{m-1}(m-d)
+          \left(\frac{\rho^d}{1+\rho^d}\right)^2\\
+ &\le\frac{2m\rho^2}{1-\rho^2}.
+\end{align*}
+Using $\norm X_*\le\sqrt m\norm X_F$ for an $m\times m$ matrix,
+\begin{equation}\label{eq:Tbound}
+ \frac{\norm{K_m}_*}{m}
+ \ge\frac{\norm{T_m}_*}{m}-\frac12
+        -\sqrt{\frac{2\rho^2}{1-\rho^2}}.
+\end{equation}
+
+The singular values of $T_m$ are
+\begin{equation}\label{eq:Tsingular}
+ \sigma_j(T_m)=\frac1{2\sin((2j-1)\pi/(4m+2))},
+ \qquad 1\le j\le m.
+\end{equation}
+For completeness, $(T_m^T)^{-1}$ is the lower bidiagonal first-difference matrix with diagonal one and subdiagonal minus one. Its Gram matrix has diagonal $2,\ldots,2,1$ and adjacent off-diagonal entries minus one. The eigenvector recurrence is solved by $x_i=\sin(i\theta)$, with boundary conditions $x_0=0$ and $x_{m+1}=x_m$. Thus $\theta=(2j-1)\pi/(2m+1)$ and its eigenvalues are $4\sin^2(\theta/2)$, proving \eqref{eq:Tsingular}.
+
+Since $\sin x\le x$ for $x\ge0$,
+\[
+ \frac{\norm{T_m}_*}{m}
+ \ge\frac{2m+1}{m\pi}\sum_{j=1}^m\frac1{2j-1}
+ \ge\frac1\pi\sum_{j=1}^m\frac1j
+ \ge\frac1\pi\log(m+1).
+\]
+Substituting $\rho=1/4$ into \eqref{eq:Tbound} proves the lemma.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:nuclear}]
+Fix $0<\eta<1$ for the moment. With $d=2m$ and $u=\boldsymbol1_d/\sqrt d$, put
+\[
+ v=\begin{bmatrix}\sqrt\eta\,u\\\sqrt{1-\eta}\end{bmatrix},\qquad
+ \widehat A=B_m\oplus[0],\qquad
+ A_t=\widehat A+tvv^T,
+ \qquad
+ \Omega=\begin{bmatrix}I_d\\-\sqrt{\eta/(1-\eta)}\,u^T\end{bmatrix}.
+\]
+Because $v^T\Omega=0$, we have
+\[
+ A_t\Omega=\begin{bmatrix}B_m\\0\end{bmatrix},\qquad
+ \Omega^TA_t\Omega=B_m,
+\]
+so $\mathcal N(A_t,\Omega)=\widehat A$. The positive-semidefinite summands have ranges spanning $\R^{d+1}$, so $A_t$ is positive definite for every $t>0$.
+
+Let $a(t)=\lambda_{d+1}(A_t)$. For $0<t<1/4$, the other $d$ eigenvalues are at least $3/4$, while $0<a(t)\le t$. The block Schur complement gives
+\begin{align}\label{eq:smalltail}
+ a(t)={}&(1-\eta)t\\
+ &-t^2\eta(1-\eta)
+ u^T(B_m+t\eta uu^T-a(t)I_d)^{-1}u.\notag
+\end{align}
+The inverse has norm at most two, so $a(t)=(1-\eta)t+O(t^2)$. In particular, both optimal nuclear tails, before and after applying $f$, equal $a(t)$, whereas $\norm{A_t-\widehat A}_*=t$.
+
+By Lemma~\ref{lem:derivative}, the derivative of $f(A_t)-f(\widehat A)$ at zero has upper-left block $\eta D_m$ and bottom-right entry $1-\eta$. Pinching to these two diagonal blocks is contractive in nuclear norm: it equals the average of a matrix and its conjugate by $\diag(I_d,-1)$. Therefore
+\begin{equation}\label{eq:pinchedlimit}
+ \liminf_{t\downarrow0}
+ \frac{\norm{f(A_t)-f(\widehat A)}_*}{t}
+ \ge\eta\norm{D_m}_*+1-\eta.
+\end{equation}
+Define the actual relative excesses
+\[
+ \eps_A(t)=\frac{t}{a(t)}-1,\qquad
+ \eps_f(t)=\frac{\norm{f(A_t)-f(\widehat A)}_*}{a(t)}-1.
+\]
+Equations~\eqref{eq:smalltail} and \eqref{eq:pinchedlimit} imply
+\[
+ \eps_A(t)\longrightarrow\frac\eta{1-\eta}>0,
+ \qquad
+ \liminf_{t\downarrow0}\frac{\eps_f(t)}{\eps_A(t)}
+ \ge\norm{D_m}_*.
+\]
+For the desired parameters, first choose $\eta$ with $\eta/(1-\eta)<\eps_0$. Next choose a finite $m$ so that Lemma~\ref{lem:divergence} gives $\norm{D_m}_*>C$. Finally choose a sufficiently small positive $t$. Then $0<\eps_A(t)<\eps_0$ and $\eps_f(t)>C\eps_A(t)$. The dimension is fixed before taking $t$ small, so no dimension-uniform remainder estimate is being assumed.
+\end{proof}
+
+The use of a function with a flat interval is not essential. For any fixed $\gamma>0$, replace $f$ by $f_\gamma(x)=\min(x,1)+\gamma x$. In the nuclear argument, the upper-left derivative block becomes $\eta(D_m+\gamma uu^T)$ and the transformed small tail is $(1+\gamma)a(t)$. The resulting lower bound on the excess ratio is at least $(\norm{D_m}_*-\gamma)/(1+\gamma)$, which remains unbounded. A sufficiently small fixed $\gamma>0$ also preserves the strict finite spectral violation by continuity.
+
+\section{Verification and limitations}
+The programs \texttt{verify\_counterexamples.py} and
+\texttt{verify\_nystrom\_counterexamples.py} check rational projection and Nystr\"om identities, the spectral remainder certificate, the triangular singular-value formula, and moderate-dimensional finite differences at 80 decimal digits. Large-dimensional finite differences are deliberately not used as proof certificates: the smallest distance to the kink is exponentially small in $m$.
+
+These constructions do not refute nuclear transfer for operator-monotone functions under order, nor spectral transfer for operator-monotone functions without order. They also leave the unordered operator-monotone nuclear relative-excess question unresolved. The counterexamples use a concave function outside that class. They are fully specified mathematical candidates, not independently reviewed or priority-certified results.
+
+\begin{thebibliography}{9}
+\bibitem{PMM2025}
+D.~Persson, R.~A.~Meyer, and C.~Musco,
+\emph{Algorithm-agnostic low-rank approximation of operator monotone matrix functions},
+SIAM Journal on Matrix Analysis and Applications \textbf{46}(1), 1--21 (2025).
+\href{https://doi.org/10.1137/23M1619435}{doi:10.1137/23M1619435}.
+Preprint: \href{https://arxiv.org/abs/2311.14023}{arXiv:2311.14023}, version~2, July~4, 2024.
+\end{thebibliography}
+\end{document}

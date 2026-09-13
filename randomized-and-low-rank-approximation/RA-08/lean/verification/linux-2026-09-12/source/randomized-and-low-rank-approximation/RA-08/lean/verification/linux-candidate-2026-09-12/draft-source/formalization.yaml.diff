@@ -1,0 +1,386 @@
+--- historical/formalization.yaml
++++ candidate/formalization.yaml
+@@ -1,10 +1,10 @@
+ # yaml-language-server: $schema=../../../docs/lean/schema/v0.4.schema.json
+ version: v0.4
+ project:
+-  name: 'RA-08: exact concave spectral-transfer counterexample (statement stage)'
+-  description: Proposed full-target formalization of Colbrook's unchanged six-dimensional rational counterexample,
+-    using an exact polynomial minorant instead of the contour remainder estimate. No implementation proof
+-    exists yet.
++  name: 'RA-08: an exact concave spectral-transfer counterexample'
++  description: Complete negative answer to the original real PSD concave spectral-transfer implication, using
++    Colbrook's unchanged six-dimensional rational witness, genuine CFC and Euclidean operator norms, and an
++    exact polynomial minorant.
+   authors:
+   - George Stepaniants
+   affiliations:
+@@ -22,19 +22,19 @@
+   location: Complete original mathematical statement, all quantifiers and shared spectral-truncation convention
+   relationship: formalizes
+   author_endorsement: not-contacted
+-- title: Concave matrix-function transfer counterexamples
++- title: Concave matrix-function error transfer can fail for exact Nyström approximations
+   authors:
+   - Matthew J. Colbrook
+   id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/5830ed4fb06da0659414a3deb2a40ad327aca052/references/colbrook-transfer-2026-09-11/manuscripts/03_concave_transfer_counterexamples.tex
+   type: manuscript
+-  location: Theorem 3.1 and its complete proof; SourceCorrespondence.md maps the unchanged witness and
+-    modified proof route
++  location: Theorem 3.1 and its complete proof; SourceCorrespondence.md and PROOF_MAP.md map the unchanged
++    witness and adapted proof route
+   relationship: formalizes
+   author_endorsement: not-contacted
+-  note: Colbrook retains mathematical authorship. The source witness at t=1/65536 is unchanged. The proposed
+-    polynomial route has a weaker strictly positive rational gap than the contour bound; the canonical
+-    full negative answer is the intended target. The stronger ratio, ancillary Nystrom sketch identity
+-    and nuclear or strictly-increasing extensions are outside the fourteen proposed exports.
++  note: Colbrook retains mathematical authorship. The source witness at t=1/65536 is unchanged. The exact
++    polynomial route proves a weaker strictly positive rational margin than the contour bound, sufficient
++    for the complete canonical negative answer. The larger contour ratio, separate Nyström sketch identity
++    and ancillary nuclear or stronger extensions are outside the fourteen exports.
+ - title: Algorithm-agnostic low-rank approximation of operator monotone matrix functions
+   authors:
+   - D. Persson
+@@ -42,8 +42,7 @@
+   - C. Musco
+   id: https://arxiv.org/html/2311.14023v2
+   type: preprint
+-  location: 'Canonical attribution: Table 1 ordered concave spectral cell and Equation (2) truncation
+-    convention'
++  location: 'Canonical attribution: Table 1 ordered concave spectral cell and Equation (2) truncation convention'
+   relationship: formalizes
+   author_endorsement: not-contacted
+   note: Original question attribution retained through the exact canonical source. No mathematical theorem
+@@ -60,100 +59,253 @@
+   methods:
+   - method: agent
+     framework: OpenAI Codex
+-    tool_setup: Multiple agents; exact source/statement review before implementation, followed by separate
+-      final mathematical and actual Linux operational gates. At this phase only the author statement checks
+-      and rational diagnostics have run.
+-    prompting_notes: Preserve every original real PSD, function, parameter and eigenbasis quantifier.
+-      Minimize computation using the unchanged rational witness, exact same-matrix polynomial CFC minorant,
+-      three unnormalized matrix-vector products and one materially consumed kernel-only LeanCert scalar
+-      sign. Do not assume spectral location, truncation optimality or operator monotonicity of min(x,1).
+-  notes: 'Statement author agent: /root/formal_review_standards. The root coordinator supplied a compression
+-    spectral-gap proof-route idea. Root and /root/solved_statement_inventory are assigned independent
+-    formal statement inspections; no approval is claimed yet. Final mathematical referees must exclude
+-    the author and every eventual mathematical coauthor. No human peer review, official Tau Ceti execution
+-    or endorsement, source-author endorsement, measured cost or priority is claimed.'
++    tool_setup: Multiple implementation agents; two frozen statement approvals before implementation, then
++      two independent final mathematical reviews with fresh private-prefix source compilation and actual type-and-body
++      dependency inspection. Authoritative Linux and publication gates remain separate.
++    prompting_notes: Preserve every original real PSD, function, parameter and eigenbasis quantifier. Prove
++      actual spectral and selected CFC semantics. Minimize computation with exact compression and finite-dimensional
++      kernels, a same-matrix polynomial CFC minorant, three unnormalized rational matrix-vector products and
++      one materially consumed explicit-kernel LeanCert singleton strict-gap certificate. Do not assume numerical
++      eigenvalues, tail identities or operator monotonicity of min(x,1).
++  notes: 'AI-assisted formalization requested by George Stepaniants. Main implementation and selected CFC
++    identification: /root/formal_review_standards. Generic spectral/norm lemmas and disclosed compression
++    route: /root. Ordered spectral existence: /root/solved_statement_inventory. The latter two previously
++    reviewed the frozen statements but later became implementation coauthors; none of these three is an independent
++    final mathematical referee. Final referees are /root/leancert_examples and /root/mf16_final_referee. No
++    human peer review, official Tau Ceti endorsement, source-author endorsement, measured cost or new priority
++    is claimed.'
+ status:
+-  scope: Statement-only boundary for the entire original negative answer. Fourteen intentional Challenge
+-    placeholders; no Proof or Solution, no completed mathematical result, and no actual Linux run. Two
+-    statement approvals, implementation, independent final proofs reviews and operational/publication
+-    gates are pending. Canonical status stays Solved.
++  scope: Complete fourteen-export proof of the negative answer to the full original all-real-PSD, all-function,
++    all-parameter and all-selected-eigenbasis concave spectral-transfer implication. Two frozen statement
++    approvals preceded implementation and two independent final mathematical reports approving the complete
++    proof have been accepted. Actual Ubuntu Comparator/default-kernel and real-control execution, independent
++    operational acceptance and publication review remain pending. Canonical status remains Solved.
++  sorry_count: 0
+   sorry_in_definitions: 0
+-  main_results: []
++  axioms: &id001
++  - propext
++  - Classical.choice
++  - Quot.sound
++  main_results:
++  - declaration: NLA.RA08.orderedSpectral_exists
++    file: Solution.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.RA08.orderedSpectral_semantics
++    file: Solution.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.RA08.functionalCalculus_spectral
++    file: Solution.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.RA08.spectral_tail_norms
++    file: Solution.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.RA08.operator_rayleigh_bound
++    file: Solution.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.RA08.witness_data
++    file: Solution.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.RA08.witness_spectral_location
++    file: Solution.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.RA08.minorant_scalar
++    file: Solution.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.RA08.minorant_functional_calculus
++    file: Solution.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.RA08.witness_tail_data
++    file: Solution.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.RA08.witness_rational_certificate
++    file: Solution.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.RA08.numerical_gap_positive
++    file: Solution.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.RA08.counterexample
++    file: Solution.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.RA08.not_concaveSpectralTransferConjecture
++    file: Solution.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
+ fidelity:
+-  divergences: No narrowing of the original target. All original real dimensions, ranks, nonnegative epsilon,
+-    continuous nonnegative nondecreasing concave half-line functions and every selected ordered orthogonal
+-    eigenbasis are retained. Generic f(0)=0 is not assumed. Actual CFC/order/operator-norm and truncation
+-    bridges are explicit theorem obligations. The same source witness is evaluated with a new polynomial
+-    minorant and weaker strict rational margin; the manuscript's stronger contour ratio and ancillary
+-    extensions are not advertised.
++  divergences: No narrowing of the original universal implication being refuted. Every real dimension, rank,
++    nonnegative error parameter, continuous nonnegative nondecreasing concave half-line function and selected
++    ordered orthogonal eigenbasis is retained. Generic f(0)=0 is not assumed. Actual CFC, PSD order, Euclidean
++    operator norm and every-basis truncation semantics are proved. The unchanged source witness is handled
++    by an exact polynomial minorant with a weaker sufficient strict margin; the source larger contour ratio,
++    separate Nyström sketch identity and ancillary stronger extensions are not exported.
+ review:
+-  status: unchecked statement boundary; independent statement reviews pending
+-  reviewers: []
+-  notes: 'Author-only fresh macOS typechecking and actual definition/API inspection used a private project
+-    prefix and ten clean pinned MI-22 dependency objects read-only; no Lake build, dependency copy or
+-    Linux result is claimed. Definition-only kernel trust assertions do not certify the admitted Challenge
+-    statements. The actual v0.4 schema applies now; the repository completion-only metadata validator
+-    is deferred because there are no completed main results. Pinned Tau Ceti scope: correctness, scope,
+-    proof quality, reuse, generality, API, naming, placement, documentation and attribution. The sole
+-    planned LeanCert numerical check is the positive rational gap on a singleton, whose actual checker
+-    must feed the full negation.'
++  status: agent-reviewed; actual Linux Comparator and default-kernel verification pending
++  reviewers:
++  - 'OpenAI Codex agent /root/solved_statement_inventory: historical independent statement referee 1, later
++    ordered-spectral-existence coauthor'
++  - 'OpenAI Codex agent /root: historical statement referee 2 and disclosed compression-route contributor,
++    later generic spectral/norm coauthor; not an independent final mathematical referee'
++  - 'OpenAI Codex agent /root/leancert_examples: independent final mathematical referee 1'
++  - 'OpenAI Codex agent /root/mf16_final_referee: independent final mathematical referee 2'
++  notes: Both statement approvals preceded implementation. Both independent final referees read the complete
++    original source and actual definitions, all sixteen mathematical modules and all fourteen exports; freshly
++    compiled candidate sources and independent inspectors in private macOS prefixes; and independently reconstructed
++    the exact projection, positive-definiteness/compression certificates, polynomial products and strict rational
++    gap. Referee 1 records twenty successful commands and 61 standard-three axiom reports; referee 2 records
++    nineteen and 62. Their actual type-and-body traversals independently reach 215 project declarations from
++    the full negation and retain the material numerical helper and genuine CFC/norm/spectral chain; differing
++    selected dependency sets are documented in their reports. Only the ten exact clean pinned MI-22 dependency
++    sources/objects were reused read-only, with old project objects excluded and no Lake or dependency rebuild.
++    Reviewer-only tool/display corrections and failed development attempts are retained. No mathematical correction
++    was requested. Candidate packaging replaces only README.md and formalization.yaml among frozen proof and
++    statement inputs, retaining both exact originals at the named pre-candidate archives. The other 448 proof
++    inputs, 37 statement inputs and all ten original Git sources remain unchanged. The retained numerical
++    term checks constant zero on [0,0] strictly below the exact positive gap with the actual LeanCert strict-upper-bound
++    checker, then feeds the complete negation. Actual Ubuntu Comparator, default-kernel replay, both real
++    control suites, independent operational and publication acceptance remain required. No local check is
++    reported as Linux or official Comparator execution.
++  statement_freeze:
++    file: reviews/statement-freeze.json
++    sha256: eb0460c3dd4c13a42f928e3f00c9c3710e486922b99aff74f4d6a3098c5ed332
++  proof_freeze:
++    file: verification/proof-freeze.json
++    sha256: ab05e2bf801e6906453e88a4d84d5e73191f776db05610fb8b8e5e4a03d4f856
++  statement_reports:
++  - file: reviews/statement-referee-1.md
++    sha256: f0d018dd92b9a7d4e76f66db068838b9e0076f9c3beff8d474ae4b83a25f6bac
++  - file: reviews/statement-referee-2.md
++    sha256: 65e405035d5f870c214b938be3b6c9bedcaaecc4f643eb585c840423b6643a9d
++  proof_reports:
++  - file: reviews/final-referee-1.md
++    sha256: a19a55d07e1aeafd1b73116b1c217024431f3f2d0b31fa5939b143194651be2f
++  - file: reviews/final-referee-2.md
++    sha256: 31f69c8bf835848cc45ac475fd6449d24e5daf19b3daa6a30286c204a3294c5b
++  proof_report_evidence:
++    reviews/final-referee-1-evidence/EVIDENCE-MANIFEST.json:
++      sha256: 9ae5330cec559495d81e94c09f142c9c3bb4cc73775812338a4d807f536960b8
++      bytes: 9368
++    reviews/final-referee-2-evidence/EVIDENCE-MANIFEST.json:
++      sha256: 24330e2eb9b6a13614c9d62f57ea2b08acc81e870bfd5c5260c720a67f31d5f4
++      bytes: 11412
++  statement_report_evidence:
++    reviews/statement-referee-1-evidence/EVIDENCE-MANIFEST.json:
++      sha256: 186f2669a9e83685f55fd5051afa22bceb226406c19882fba7905ec22670bb14
++      bytes: 3930
++    reviews/statement-referee-2-evidence/EVIDENCE-MANIFEST.json:
++      sha256: 42599c07cbf0c452bb9eb6c631eb83df06cc60b2577cdb13ec8715d9771bccdd
++      bytes: 2032
++  coordinator_acceptance:
++    file: verification/final-review-acceptance.json
++    sha256: ab7c97b219b098a9d6e1f72cad49e21d68a1ac37cd73f600d971aca5977de84d
++  linux_verification:
++    status: pending
++    note: A new actual Ubuntu branch run, all fourteen Comparator exports, default-kernel replay and both
++      real control suites are required before publication-status promotion.
++  historical_readme:
++    file: verification/pre-candidate-README.md
++    sha256: 1b6b1796019062b3bc983b380a410fa3d52f07f9e1f3e5120bd0d1fc8257f9c5
++  historical_formalization:
++    file: verification/pre-candidate-formalization.yaml
++    sha256: 9ca52885b2ebfd85c2d4eba626d290fb93c2fff47287c2aff490123771be9c52
+ alignment:
+ - declaration: NLA.RA08.orderedSpectral_exists
+-  file: Challenge.lean
+-  scope: Proposed statement only; no completed proof. See the exact signature and its contract in NUMERICAL_TARGETS.md
+-    and SourceCorrespondence.md.
++  file: Solution.lean
++  scope: Every actual real PSD matrix admits complete ordered orthogonal spectral data, including repeated
++    eigenvalues and zero dimension.
+ - declaration: NLA.RA08.orderedSpectral_semantics
+-  file: Challenge.lean
+-  scope: Proposed statement only; no completed proof. See the exact signature and its contract in NUMERICAL_TARGETS.md
+-    and SourceCorrespondence.md.
++  file: Solution.lean
++  scope: The selected columns are actual orthonormal eigenvectors, the selected eigenvalue combination reconstructs
++    the matrix, and actual positive semidefiniteness follows.
+ - declaration: NLA.RA08.functionalCalculus_spectral
+-  file: Challenge.lean
+-  scope: Proposed statement only; no completed proof. See the exact signature and its contract in NUMERICAL_TARGETS.md
+-    and SourceCorrespondence.md.
++  file: Solution.lean
++  scope: For every selected ordered spectral decomposition and every real scalar function, genuine CFC equals
++    the selected spectral combination and is independent of the extension outside the nonnegative half-line.
+ - declaration: NLA.RA08.spectral_tail_norms
+-  file: Challenge.lean
+-  scope: Proposed statement only; no completed proof. See the exact signature and its contract in NUMERICAL_TARGETS.md
+-    and SourceCorrespondence.md.
++  file: Solution.lean
++  scope: For every selected basis and admissible function, the actual Euclidean operator-norm tails of the
++    original and function truncations equal the first discarded eigenvalue and its function value.
+ - declaration: NLA.RA08.operator_rayleigh_bound
+-  file: Challenge.lean
+-  scope: Proposed statement only; no completed proof. See the exact signature and its contract in NUMERICAL_TARGETS.md
+-    and SourceCorrespondence.md.
++  file: Solution.lean
++  scope: For every real matrix and real vector, the absolute quadratic form is at most the genuine Euclidean
++    operator norm times the squared Euclidean vector norm.
+ - declaration: NLA.RA08.witness_data
+-  file: Challenge.lean
+-  scope: Proposed statement only; no completed proof. See the exact signature and its contract in NUMERICAL_TARGETS.md
+-    and SourceCorrespondence.md.
++  file: Solution.lean
++  scope: The unchanged source function and rational matrices satisfy admissibility, the exact projection and
++    complement identities, positive definiteness and actual PSD order.
+ - declaration: NLA.RA08.witness_spectral_location
+-  file: Challenge.lean
+-  scope: Proposed statement only; no completed proof. See the exact signature and its contract in NUMERICAL_TARGETS.md
+-    and SourceCorrespondence.md.
++  file: Solution.lean
++  scope: The actual real spectrum of the fixed witness is contained in [0,1] union [17/16,infinity); the entire
++    open spectral gap is excluded by proof.
+ - declaration: NLA.RA08.minorant_scalar
+-  file: Challenge.lean
+-  scope: Proposed statement only; no completed proof. See the exact signature and its contract in NUMERICAL_TARGETS.md
+-    and SourceCorrespondence.md.
++  file: Solution.lean
++  scope: The exact scalar polynomial minorant lies below min(x,1) throughout the entire proved nonnegative
++    unbounded spectral set, with no operator-monotonicity assertion.
+ - declaration: NLA.RA08.minorant_functional_calculus
+-  file: Challenge.lean
+-  scope: Proposed statement only; no completed proof. See the exact signature and its contract in NUMERICAL_TARGETS.md
+-    and SourceCorrespondence.md.
++  file: Solution.lean
++  scope: The actual polynomial CFC of the witness equals the stated matrix polynomial, which is below the
++    genuine kink-function CFC in actual PSD order.
+ - declaration: NLA.RA08.witness_tail_data
+-  file: Challenge.lean
+-  scope: Proposed statement only; no completed proof. See the exact signature and its contract in NUMERICAL_TARGETS.md
+-    and SourceCorrespondence.md.
++  file: Solution.lean
++  scope: For every permitted witness eigendecomposition, the residual norm and fourth eigenvalue are exactly
++    t and the actual approximation truncations and both optimal tails have the stated values.
+ - declaration: NLA.RA08.witness_rational_certificate
+-  file: Challenge.lean
+-  scope: Proposed statement only; no completed proof. See the exact signature and its contract in NUMERICAL_TARGETS.md
+-    and SourceCorrespondence.md.
++  file: Solution.lean
++  scope: All exact vector, matrix-product, squared-length, approximation CFC and actual minorant Rayleigh
++    identities hold, with Rayleigh value 26*t*(1+witnessGap).
+ - declaration: NLA.RA08.numerical_gap_positive
+-  file: Challenge.lean
+-  scope: Proposed statement only; no completed proof. See the exact signature and its contract in NUMERICAL_TARGETS.md
+-    and SourceCorrespondence.md.
++  file: Solution.lean
++  scope: The actual rational witnessGap is strictly positive, using the explicit-kernel LeanCert strict-upper-bound
++    checker for zero on the singleton [0,0]; this term is materially used by the final result.
+ - declaration: NLA.RA08.counterexample
+-  file: Challenge.lean
+-  scope: Proposed statement only; no completed proof. See the exact signature and its contract in NUMERICAL_TARGETS.md
+-    and SourceCorrespondence.md.
++  file: Solution.lean
++  scope: For every allowed ordered decomposition of the actual admissible source pair, the original spectral
++    inequality holds at error zero and the transformed spectral inequality fails.
+ - declaration: NLA.RA08.not_concaveSpectralTransferConjecture
+-  file: Challenge.lean
+-  scope: Proposed statement only; no completed proof. See the exact signature and its contract in NUMERICAL_TARGETS.md
+-    and SourceCorrespondence.md.
+-acknowledgements: Matthew J. Colbrook for the mathematical counterexample; Persson, Meyer and Musco for
+-  the original question; Mathlib and LeanCert contributors for the genuine matrix, spectrum, CFC, Euclidean
+-  operator norm and kernel checker APIs. Shared tools and all source licenses retain their attribution.
++  file: Solution.lean
++  scope: Unconditional negation of the complete canonical universal implication, retaining every original
++    real PSD pair, dimension, rank, function, nonnegative error parameter and selected eigenbasis.
++acknowledgements: Matthew J. Colbrook for the mathematical counterexample; Persson, Meyer and Musco for the
++  original question. Mathlib and LeanCert contributors for genuine spectral theorem, selected CFC, PSD order,
++  Euclidean operator norm, dimension and kernel-checker APIs. The selected CFC architecture credits its actual
++  Mathlib source. Shared checker/exporter/sandbox tools, all source licenses and original attributions are
++  retained.

@@ -1,0 +1,32 @@
+/private/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/NLA/RA08/Basis.lean:66:6: error: Tactic `rewrite` failed: motive is not type correct:
+  fun _a => (↑d.orthogonal)ᵀ * _a * ↑d.orthogonal = diagonal d.eigenvalues
+Error: Application type mismatch: The argument
+  d
+has type
+  OrderedSpectralData A
+but is expected to have type
+  OrderedSpectralData _a
+in the application
+  d.orthogonal
+
+Explanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.
+
+Possible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).
+
+n : ℕ
+A : RealMatrix n
+d : OrderedSpectralData A
+⊢ (↑d.orthogonal)ᵀ * A * ↑d.orthogonal = diagonal d.eigenvalues
+/private/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/NLA/RA08/Basis.lean:112:21: error: #assert_trust: 'NLA.RA08.basis_quadratic' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/NLA/RA08/Basis.lean:113:21: error: #assert_trust: 'NLA.RA08.basis_rayleigh_lower' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/NLA/RA08/Basis.lean:114:21: error: #assert_trust: 'NLA.RA08.basis_rayleigh_upper' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.RA08.rectangular_kernel' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.RA08.basis_quadratic' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.RA08.basis_rayleigh_lower' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.RA08.basis_rayleigh_upper' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

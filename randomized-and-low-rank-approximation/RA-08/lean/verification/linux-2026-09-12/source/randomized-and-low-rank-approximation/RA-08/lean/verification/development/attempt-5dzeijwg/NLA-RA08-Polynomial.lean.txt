@@ -1,0 +1,84 @@
+/-
+Copyright (c) 2026 George Stepaniants. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: George Stepaniants
+
+Polynomial bridges to the genuine real continuous functional calculus.
+-/
+import NLA.RA08.Witness
+import NLA.RA08.Scalar
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open scoped BigOperators Classical MatrixOrder
+open Matrix Polynomial
+noncomputable section
+namespace NLA.RA08
+
+def cubicFunction (x : ℝ) : ℝ := x * (x - 1 / 2) * (x - witnessB)
+
+theorem matrixK_cfc {n : ℕ} (A : RealMatrix n) (hA : A.IsHermitian) :
+    functionalCalculus cubicFunction A = matrixK A := by
+  change cfc (fun x : ℝ => x * (x - 1 / 2) * (x - witnessB)) A = matrixK A
+  let p : ℝ[X] := X * (X - C (1 / 2)) * (X - C witnessB)
+  have h := cfc_polynomial p A hA
+  simpa [p, matrixK, Algebra.algebraMap_eq_smul_one] using h
+
+theorem minorant_cfc {n : ℕ} (A : RealMatrix n) (hA : A.IsHermitian) :
+    functionalCalculus minorantFunction A = minorantMatrix A := by
+  let p : ℝ[X] := X - C minorantCoefficient *
+    (X * (X - C (1 / 2)) * (X - C witnessB)) ^ 2
+  have he : p.eval = minorantFunction := by
+    ext x
+    simp [p, minorantFunction]
+    ring
+  have h := cfc_polynomial p A hA
+  rw [he] at h
+  simpa only [p, functionalCalculus, minorantMatrix, matrixK, map_sub, map_mul, map_pow,
+    aeval_X, aeval_C, Algebra.algebraMap_eq_smul_one, smul_mul_assoc, one_mul] using h
+
+theorem matrixK_symmetric {n : ℕ} (A : RealMatrix n) (hA : A.IsHermitian) :
+    (matrixK A).transpose = matrixK A := by
+  have h : (functionalCalculus cubicFunction A).IsHermitian :=
+    cfc_predicate cubicFunction A
+  rw [matrixK_cfc A hA] at h
+  simpa only [IsHermitian, conjTranspose_eq_transpose_of_trivial] using h
+
+def approximationPolynomialFunction (x : ℝ) : ℝ :=
+  x - (2048 / 1377 : ℝ) * cubicFunction x
+
+theorem approximationPolynomial_cfc {n : ℕ} (A : RealMatrix n) (hA : A.IsHermitian) :
+    functionalCalculus approximationPolynomialFunction A =
+      A - (2048 / 1377 : ℝ) • matrixK A := by
+  change cfc (fun x : ℝ => x - (2048 / 1377 : ℝ) *
+    (x * (x - 1 / 2) * (x - witnessB))) A = _
+  let p : ℝ[X] := X - C (2048 / 1377) * (X * (X - C (1 / 2)) * (X - C witnessB))
+  have h := cfc_polynomial p A hA
+  simpa [p, matrixK, Algebra.algebraMap_eq_smul_one, smul_mul_assoc] using h
+
+theorem approximation_cfc :
+    functionalCalculus witnessFunction witnessApproximation = witnessApproximationImage := by
+  have he : functionalCalculus witnessFunction witnessApproximation =
+      functionalCalculus approximationPolynomialFunction witnessApproximation := by
+    apply cfc_congr
+    intro x hx
+    rw [witnessApproximation, spectrum_diagonal] at hx
+    obtain ⟨i, rfl⟩ := hx
+    fin_cases i <;>
+      norm_num [witnessFunction, approximationPolynomialFunction, cubicFunction, witnessA, witnessB]
+  rw [he, approximationPolynomial_cfc _ witnessApproximation_psd.isHermitian]
+  ext i j
+  fin_cases i <;> fin_cases j <;>
+    norm_num [witnessApproximation, witnessApproximationImage, matrixK, witnessA, witnessB,
+      Matrix.mul_apply, Matrix.one_apply, diagonal, Fin.sum_univ_succ]
+
+#assert_trust kernel matrixK_cfc
+#assert_trust kernel minorant_cfc
+#assert_trust kernel matrixK_symmetric
+#assert_trust kernel approximation_cfc
+#print axioms matrixK_cfc
+#print axioms minorant_cfc
+#print axioms matrixK_symmetric
+#print axioms approximation_cfc
+
+end NLA.RA08

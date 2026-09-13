@@ -1,0 +1,126 @@
+/-
+Copyright (c) 2026 George Stepaniants. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: George Stepaniants
+
+Only three exact matrix-vector products are evaluated. Symmetry turns the
+degree-six quadratic form into the squared length of their output; no
+degree-six full matrix expansion or numerical eigenvalue bound is used.
+-/
+import NLA.RA08.Polynomial
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open scoped BigOperators Classical MatrixOrder
+open Matrix
+noncomputable section
+namespace NLA.RA08
+
+def firstProductVector : Fin 6 → ℝ :=
+  ![-221123 / 112320, 77 / 1797120, 6319 / 89856, 1 / 199680, 1 / 122880, 0]
+
+def secondProductVector : Fin 6 → ℝ :=
+  ![-34405 / 1472200704, 1752653 / 117776056320, 1164429317 / 29444014080,
+    -38911 / 13086228480, -763891 / 104689827840, 0]
+
+theorem witnessMatrix_mulVec_formula (x : Fin 6 → ℝ) :
+    witnessMatrix *ᵥ x =
+      (fun i => ![1 / 2, witnessB, witnessA, 0, 0, 0] i * x i) +
+        witnessT • (witnessF *ᵥ x) := by
+  ext i
+  simp only [witnessMatrix, witnessApproximation, add_mulVec, smul_mulVec,
+    Pi.add_apply, mulVec_diagonal]
+
+theorem first_product :
+    (witnessMatrix - witnessB • (1 : RealMatrix 6)) *ᵥ witnessVector = firstProductVector := by
+  rw [sub_mulVec, smul_mulVec, one_mulVec, witnessMatrix_mulVec_formula]
+  ext i
+  fin_cases i <;>
+    norm_num [witnessF, witnessT, witnessA, witnessB,
+      witnessVector, firstProductVector, mulVec, dotProduct,
+      Fin.sum_univ_succ, Matrix.cons_val_two, Matrix.vecHead, Matrix.vecTail]
+
+theorem second_product :
+    (witnessMatrix - (1 / 2 : ℝ) • (1 : RealMatrix 6)) *ᵥ firstProductVector =
+      secondProductVector := by
+  rw [sub_mulVec, smul_mulVec, one_mulVec, witnessMatrix_mulVec_formula]
+  ext i
+  fin_cases i <;>
+    norm_num [witnessF, witnessT, witnessA, witnessB,
+      firstProductVector, secondProductVector, mulVec, dotProduct,
+      Fin.sum_univ_succ, Matrix.cons_val_two, Matrix.vecHead, Matrix.vecTail]
+
+theorem third_product : witnessMatrix *ᵥ secondProductVector = witnessKVector := by
+  rw [witnessMatrix_mulVec_formula]
+  ext i
+  fin_cases i <;>
+    norm_num [witnessF, witnessT, witnessA, witnessB,
+      secondProductVector, witnessKVector, mulVec, dotProduct, Fin.sum_univ_succ,
+      Matrix.cons_val_two, Matrix.vecHead, Matrix.vecTail]
+
+theorem witness_K_product : matrixK witnessMatrix *ᵥ witnessVector = witnessKVector := by
+  unfold matrixK
+  rw [← mulVec_mulVec, ← mulVec_mulVec, first_product, second_product, third_product]
+
+theorem witness_vector_length : witnessVector ⬝ᵥ witnessVector = 26 := by
+  norm_num [witnessVector, dotProduct, Fin.sum_univ_succ, Fin.ext_iff, Matrix.cons_val_two, Matrix.vecHead, Matrix.vecTail]
+
+theorem witness_vector_F : witnessVector ⬝ᵥ (witnessF *ᵥ witnessVector) = 14912 / 585 := by
+  norm_num [witnessVector, witnessF, dotProduct, mulVec, Fin.sum_univ_succ, Fin.ext_iff, Matrix.cons_val_two, Matrix.vecHead, Matrix.vecTail]
+
+theorem witness_K_length : witnessKVector ⬝ᵥ witnessKVector =
+    1800760572753083906132034496291 / 1019907849866242673982515970048000 := by
+  norm_num [witnessKVector, dotProduct, Fin.sum_univ_succ, Fin.ext_iff, Matrix.cons_val_two, Matrix.vecHead, Matrix.vecTail]
+
+theorem witness_K_squared_quadratic :
+    witnessVector ⬝ᵥ ((matrixK witnessMatrix) ^ 2 *ᵥ witnessVector) =
+      witnessKVector ⬝ᵥ witnessKVector := by
+  have h := real_gram_quadratic (matrixK witnessMatrix) witnessVector
+  rw [matrixK_symmetric _ witnessMatrix_psd.isHermitian, ← pow_two, witness_K_product] at h
+  exact h
+
+theorem witness_matrix_vector_quadratic :
+    witnessVector ⬝ᵥ (witnessMatrix *ᵥ witnessVector) =
+      (2303 / 128 : ℝ) + witnessT * (14912 / 585) := by
+  rw [witnessMatrix_quadratic, ← witnessF_quadratic, witness_vector_F]
+  norm_num [witnessVector, witnessA, witnessB, Matrix.cons_val_two, Matrix.vecHead, Matrix.vecTail]
+
+theorem witness_image_vector_quadratic :
+    witnessVector ⬝ᵥ (witnessApproximationImage *ᵥ witnessVector) = (2295 / 128 : ℝ) := by
+  simp only [witnessApproximationImage, dotProduct, mulVec_diagonal]
+  norm_num [witnessVector, witnessB, Fin.sum_univ_succ,
+    Matrix.cons_val_two, Matrix.vecHead, Matrix.vecTail]
+
+theorem witness_minorant_quadratic :
+    witnessVector ⬝ᵥ ((minorantMatrix witnessMatrix -
+      functionalCalculus witnessFunction witnessApproximation) *ᵥ witnessVector) =
+      26 * witnessT * (1 + witnessGap) := by
+  rw [approximation_cfc]
+  simp only [minorantMatrix, sub_mulVec, dotProduct_sub, smul_mulVec, dotProduct_smul,
+    smul_eq_mul, witness_K_squared_quadratic, witness_K_length,
+    witness_matrix_vector_quadratic, witness_image_vector_quadratic]
+  norm_num [minorantCoefficient, witnessT, witnessGap]
+
+theorem witness_rational_certificate_proved :
+    witnessVector ⬝ᵥ witnessVector = 26 ∧
+    witnessVector ⬝ᵥ (witnessF *ᵥ witnessVector) = 14912 / 585 ∧
+    matrixK witnessMatrix *ᵥ witnessVector = witnessKVector ∧
+    witnessKVector ⬝ᵥ witnessKVector =
+      1800760572753083906132034496291 / 1019907849866242673982515970048000 ∧
+    functionalCalculus witnessFunction witnessApproximation = witnessApproximationImage ∧
+    witnessVector ⬝ᵥ ((minorantMatrix witnessMatrix -
+        functionalCalculus witnessFunction witnessApproximation) *ᵥ witnessVector) =
+      26 * witnessT * (1 + witnessGap) := by
+  exact ⟨witness_vector_length, witness_vector_F, witness_K_product, witness_K_length,
+    approximation_cfc, witness_minorant_quadratic⟩
+
+#assert_trust kernel first_product
+#assert_trust kernel second_product
+#assert_trust kernel third_product
+#assert_trust kernel witness_rational_certificate_proved
+#print axioms first_product
+#print axioms second_product
+#print axioms third_product
+#print axioms witness_rational_certificate_proved
+
+end NLA.RA08

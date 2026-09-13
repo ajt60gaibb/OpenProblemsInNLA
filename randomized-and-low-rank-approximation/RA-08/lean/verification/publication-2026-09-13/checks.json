@@ -1,0 +1,110 @@
+[
+  {
+    "name": "permanent-ids-origin",
+    "command": [
+      "python3",
+      "tools/validate_problem_ids.py",
+      "--base-ref",
+      "origin/main"
+    ],
+    "exit_code": 0,
+    "log": "permanent-ids-origin.log",
+    "log_sha256": "44cc74bfe8f011df4389835465a6043310e12828a092e8c74d318f50d26da3a0"
+  },
+  {
+    "name": "permanent-ids-upstream",
+    "command": [
+      "python3",
+      "tools/validate_problem_ids.py",
+      "--base-ref",
+      "nla-upstream/main"
+    ],
+    "exit_code": 0,
+    "log": "permanent-ids-upstream.log",
+    "log_sha256": "8b360e56c890760950e6bc4515be8cd45b3998088d5dce25b68a54a72a7e85c0"
+  },
+  {
+    "name": "manifest",
+    "command": [
+      "/tmp/nla-lean-formalization/venv/bin/python",
+      "tools/lean/validate_manifest.py",
+      "randomized-and-low-rank-approximation/RA-08/lean"
+    ],
+    "exit_code": 0,
+    "log": "manifest.log",
+    "log_sha256": "44c16dd1f7b10f8a23180aff61cdc9b2b0955e9232e91e3d290f032d10feb02c"
+  },
+  {
+    "name": "format-write",
+    "command": [
+      "python3",
+      "tools/format_math.py",
+      "--write",
+      "RA-08"
+    ],
+    "exit_code": 0,
+    "log": "format-write.log",
+    "log_sha256": "a32da5fd664ba8ef7500d62d646c4b8763cd1adefdbd2afc5661b7dc1fea9bc6"
+  },
+  {
+    "name": "catalog",
+    "command": [
+      "python3",
+      "tools/update_catalog.py",
+      "--base-ref",
+      "origin/main"
+    ],
+    "exit_code": 0,
+    "log": "catalog.log",
+    "log_sha256": "0334a5241eec44fe3a238a92a387a1170fdd6356c5a4232e2ea1753a89f7edca"
+  },
+  {
+    "name": "permanent-id-tests",
+    "command": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_problem_ids.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "log": "permanent-id-tests.log",
+    "log_sha256": "beeea87628deda07b109f5f516757a556467ec53f318bf31c6aaa8f3e04af2f2"
+  },
+  {
+    "name": "format-check",
+    "command": [
+      "python3",
+      "tools/format_math.py",
+      "--check"
+    ],
+    "exit_code": 0,
+    "log": "format-check.log",
+    "log_sha256": "a79bf13b65bde7baa6900939f581282565799e78e47c9e2426f83b5b4ccb5a9c"
+  },
+  {
+    "name": "render",
+    "command": [
+      "python3",
+      "tools/render_problems.py",
+      "RA-08"
+    ],
+    "exit_code": 0,
+    "log": "render.log",
+    "log_sha256": "f219669d8d5f33f9e6c1e44d6066bffb93139bbfb8c99c088e5af08dcdb9e4ea"
+  },
+  {
+    "name": "pdfinfo",
+    "command": [
+      "/opt/homebrew/bin/pdfinfo",
+      "randomized-and-low-rank-approximation/RA-08/problem.pdf"
+    ],
+    "exit_code": 0,
+    "log": "pdfinfo.log",
+    "log_sha256": "265e960e142b56c9db53b4d8b325d86d0a54877f2ccedbcbb4f794a2e58128aa"
+  }
+]

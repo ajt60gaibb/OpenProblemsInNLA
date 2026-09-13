@@ -1,0 +1,140 @@
+"""Independent final referee 1 source, proof, API and evidence audit.
+
+Only this referee's evidence is written. Frozen mathematical and historical
+inputs are read-only; the later Linux and publication gates remain separate.
+"""
+from pathlib import Path
+import datetime, hashlib, json, re, subprocess
+P=Path(__file__).resolve().parents[2];E=Path(__file__).resolve().parent;W=P.parents[2]
+C=Path('/tmp/nla-lean-mi22-worktree/matrix-inequalities-and-norms/MI-22/lean/.lake/packages')
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def git(*args):return subprocess.check_output(['git','-C',str(W),*args])
+pf=P/'verification/proof-freeze.json';sf=P/'reviews/statement-freeze.json'
+assert sha(pf)=='ab05e2bf801e6906453e88a4d84d5e73191f776db05610fb8b8e5e4a03d4f856'
+assert sha(P/'reviews/proof-completion.md')=='dab07a0cf99d739914c54efea282211afcbfb45507ac3fef74b285afc3ad79ce'
+f=json.loads(pf.read_text());s=json.loads(sf.read_text())
+assert len(f['files'])==450 and len(s['files'])==39
+for n,h in f['files'].items():assert sha(P/n)==h,n
+for n,h in s['files'].items():assert sha(P/n)==h,n
+assert git('rev-parse','HEAD').decode().strip()==f['base']
+assert not git('diff','--name-only') and not git('diff','--cached','--name-only')
+originals={}
+for n,h in f['source_files'].items():
+    raw=git('show',f['base']+':'+n)
+    assert hashlib.sha256(raw).hexdigest()==h and (W/n).read_bytes()==raw
+    blob=git('rev-parse',f['base']+':'+n).decode().strip()
+    assert blob==f['source_git_blobs'][n]
+    originals[n]={'sha256':h,'git_blob':blob,'unchanged':True}
+assert '**Status:** Solved' in (W/'randomized-and-low-rank-approximation/RA-08/README.md').read_text()
+challenge=(P/'Challenge.lean').read_text();solution=(P/'Solution.lean').read_text()
+def sigs(text):
+    return {name:' '.join(body.split()) for name,body in
+            re.findall(r'^theorem\s+(\w+)(.*?)\s*:=\s*by\b',text,re.S|re.M)}
+assert sigs(challenge)==sigs(solution) and len(sigs(solution))==14
+cfg=json.loads((P/'comparator.json').read_text())
+assert cfg=={'challenge_module':'Challenge','solution_module':'Solution',
+ 'theorem_names':['NLA.RA08.'+n for n in sigs(challenge)],'definition_names':[],
+ 'permitted_axioms':['propext','Classical.choice','Quot.sound']}
+math_sources=[*sorted((P/'NLA/RA08').glob('*.lean')),P/'Solution.lean']
+imports={}
+for path in math_sources:
+    code=re.sub(r'/\-.*?\-/','',path.read_text(),flags=re.S)
+    code=re.sub(r'--[^\n]*','',code)
+    assert not re.search(r'\b(sorry|admit|native_decide|unsafe|axiom)\b',code),path
+    ims=re.findall(r'^import\s+(\S+)',code,re.M);imports[str(path.relative_to(P))]=ims
+    assert 'Challenge' not in ims and all(not i.startswith('reviews.') for i in ims)
+numerics=(P/'NLA/RA08/Numerical.lean').read_text()
+assert 'interval_decide (trust := kernel)' in numerics and 'IntervalAuto.PointIneq' in numerics
+latest=json.loads((E/'latest.json').read_text());run=Path(latest['attempt'])
+result=json.loads((run/'result.json').read_text())
+assert result['verdict']=='PASS' and len(result['commands'])==20
+assert result['pins_rechecked_after'] and result['frozen_proof_inputs_preserved']==450
+assert result['disposable_prefix_removed_after_check'] and not Path(result['prefix']).exists()
+axioms=[]
+for row in result['commands']:
+    assert row['exit_code']==0 and sha(P/row['source'])==row['source_sha256']
+    assert sha(run/row['log'])==row['log_sha256']
+    text=(run/row['log']).read_text()
+    if row['source']=='Challenge.lean':assert text.count('warning:')==text.count('declaration uses `sorry`')==14
+    else:assert 'warning:' not in text and 'error:' not in text
+    for name,values in re.findall(r"'([^'\n]+)' depends on axioms: \[([^\]]*)\]",text):
+        ax=[a.strip() for a in values.split(',')]
+        assert set(ax)==set(cfg['permitted_axioms'])
+        axioms.append({'declaration':name,'axioms':ax,'log':row['log']})
+assert len(axioms)==61
+inspect=(run/'reviews-final-referee-1-evidence-Inspect.log').read_text()
+assert 'INDEPENDENT_SAFE_PROJECT_DECLARATIONS_REACHABLE_FROM_FULL_NEGATION: 215' in inspect
+required=re.findall(r'^RETAINED_DEPENDENCY: (.+)$',inspect,re.M)
+assert len(required)==33 and len(set(required))==33
+assert 'LeanCert.Validity.verify_strict_upper_bound_dyadic_checked' in required
+assert 'NLA.RA08.counterexample_proved' in required
+assert 'NLA.RA08.witness_functional_rayleigh_lower' in required
+assert 'NLA.RA08.selected_cfc_eq' in required
+assert 'ContinuousLinearMap.hasOpNorm' in inspect and 'Matrix.toEuclideanCLM' in inspect
+assert '@cfc Real' in inspect and 'WithLp' in inspect
+bool_start=inspect.index('theorem NLA.RA08.numerical_gap_positive_proved._proof_1_7 :')
+bool_term=inspect[bool_start:]
+assert 'checkStrictUpperBoundDyadicChecked' in bool_term
+assert '78605142319958855341529309 11432529876841442781954048000' in bool_term
+assert '(-53) 10' in bool_term and 'of_decide_eq_true (id (Eq.refl true))' in bool_term
+(E/'retained-Boolean-helper.txt').write_text(bool_term)
+pinrows=[]
+pkgs={x['name']:x for x in json.loads((P/'lake-manifest.json').read_text())['packages']}
+for n,d in pkgs.items():
+    dep=C/n;rev=subprocess.check_output(['git','-C',str(dep),'rev-parse','HEAD']).decode().strip()
+    assert rev==d['rev'] and not subprocess.check_output(['git','-C',str(dep),'status','--porcelain=v1'])
+    pinrows.append({'name':n,'rev':rev,'read_only_path':str(dep),'clean':True})
+apis={}
+sources={'mathlib':['Mathlib/Analysis/Matrix/Spectrum.lean',
+ 'Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean',
+ 'Mathlib/Analysis/CStarAlgebra/ContinuousFunctionalCalculus/Unital.lean',
+ 'Mathlib/Analysis/CStarAlgebra/Matrix.lean','Mathlib/Analysis/Matrix/Order.lean',
+ 'Mathlib/LinearAlgebra/Matrix/PosDef.lean',
+ 'Mathlib/LinearAlgebra/Dimension/StrongRankCondition.lean'],
+ 'leancert':['LeanCert/Validity/DyadicBounds.lean','LeanCert/Tactic/Verification.lean',
+ 'LeanCert/Tactic/IntervalAuto/PointIneq.lean']}
+for pkg,paths in sources.items():
+    for rel in paths:
+        path=C/pkg/rel;rev=pkgs[pkg]['rev'];raw=path.read_bytes()
+        assert raw==subprocess.check_output(['git','-C',str(C/pkg),'show',rev+':'+rel])
+        apis[pkg+'/'+rel]={'path':str(path),'commit':rev,'sha256':sha(path)}
+T=Path('/tmp/nla-lean-formalization/standards/sources/TauCetiProject/TauCetiReview')
+tree=json.loads(Path('/tmp/nla-lean-formalization/standards/TauCetiProject_TauCetiReview-tree.json').read_text())
+blobs={r['path']:r['sha'] for r in tree['tree'] if r['type']=='blob'}
+rubrics={}
+for path in sorted((T/'rubrics').glob('*.md')):
+    raw=path.read_bytes();rel=str(path.relative_to(T))
+    blob=hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()
+    assert blob==blobs[rel]
+    rubrics[rel]={'sha256':sha(path),'git_blob':blob}
+assert len(rubrics)==12
+rules={r:sha(W/r) for r in ['docs/lean/REVIEW.md','CONTRIBUTING.md','AGENTS.md','tools/lean/HARNESS.md']}
+diag=json.loads((E/'exact-reconstruction.json').read_text())
+assert diag['verdict'].startswith('PASS')
+for n,h in diag['parsed_Lean_inputs'].items():assert sha(P/n)==h
+record={'verdict':'PASS independent final mathematical evidence audit; no publication or Linux approval',
+ 'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+ 'reviewer':'/root/leancert_examples, OpenAI Codex AI agent; no RA08 statement/proof authorship',
+ 'proof_freeze_sha256':sha(pf),'completion_sha256':sha(P/'reviews/proof-completion.md'),
+ 'all_frozen_project_inputs':f['files'],'all_statement_inputs':s['files'],
+ 'original_Git_sources':originals,'reviewed_math_inputs':{str(p.relative_to(P)):sha(p) for p in math_sources},
+ 'exact_reference_signatures':sigs(solution),'comparator':cfg,'implementation_imports':imports,
+ 'fresh_result':str(run/'result.json'),'fresh_result_sha256':sha(run/'result.json'),
+ 'fresh_commands':20,'no_implementation_warnings':True,'isolated_reference_holes':14,
+ 'kernel_standard_three_records':axioms,'actual_retained_dependencies':required,
+ 'actual_safe_project_declarations_from_full_target':215,
+ 'actual_independent_inspector_sha256':sha(run/'reviews-final-referee-1-evidence-Inspect.log'),
+ 'actual_Boolean_helper_sha256':sha(E/'retained-Boolean-helper.txt'),
+ 'exact_numerics_sha256':sha(E/'exact-reconstruction.json'),
+ 'ten_clean_readonly_dependency_pins':pinrows,'primary_API_inputs':apis,
+ 'TauCeti_commit':'afb424eda89e8ac96d9eb69f6a88972055a4cd1b','twelve_review_rubric_inputs':rubrics,
+ 'repository_review_policy_inputs':rules,
+ 'documentation_followup':'Historical frozen README/formalization.yaml correctly remain untouched during final review; candidate packaging must archive and refresh their statement-stage text, including the actual source title. NUMERICAL_TARGETS and SourceCorrespondence remain historical boundary evidence.',
+ 'scope':'Complete original canonical negation. No proof of the larger source contour ratio, Nystrom identity, ancillary nuclear theorem, all-C wrapper or historical priority is claimed by these exports.',
+ 'canonical_status':'Solved, unchanged','Linux_Comparator':'pending; no run claimed',
+ 'source_edits_commits_pushes_status_changes':False}
+(E/'audit-result.json').write_text(json.dumps(record,indent=2)+'\n')
+print(json.dumps({'verdict':record['verdict'],'audit_sha256':sha(E/'audit-result.json'),
+ 'fresh_result_sha256':record['fresh_result_sha256'],
+ 'inspector_sha256':record['actual_independent_inspector_sha256'],
+ 'exact_numerics_sha256':record['exact_numerics_sha256'],'axiom_reports':len(axioms)},indent=2))

@@ -1,0 +1,196 @@
+"""Root's independent frozen RA-08 statement review; no proof implementation."""
+from pathlib import Path
+from fractions import Fraction as Q
+import datetime
+import hashlib
+import json
+import os
+import platform
+import re
+import subprocess
+import tempfile
+import time
+import jsonschema
+import yaml
+
+R = Path('/tmp/nla-lean-ra08-worktree')
+P = R / 'randomized-and-low-rank-approximation/RA-08/lean'
+E = P / 'reviews/statement-referee-2-evidence'
+C = Path('/tmp/nla-lean-mi22-worktree/matrix-inequalities-and-norms/MI-22/lean')
+L = Path('/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1')
+sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
+git = lambda r,*a: subprocess.check_output(['git',*a],cwd=r)
+freeze = P / 'reviews/statement-freeze.json'
+assert sha(freeze) == 'eb0460c3dd4c13a42f928e3f00c9c3710e486922b99aff74f4d6a3098c5ed332'
+frozen = json.loads(freeze.read_text())
+assert len(frozen['files']) == 39 and len(frozen['source_files']) == 10
+assert git(R,'rev-parse','HEAD').decode().strip() == frozen['base']
+assert not (P/'Solution.lean').exists() and not (P/'NLA/RA08/Proof.lean').exists()
+for rel,h in frozen['files'].items(): assert sha(P/rel) == h, rel
+for rel,h in frozen['source_files'].items():
+    b = git(R,'show',frozen['base']+':'+rel)
+    assert sha(R/rel) == hashlib.sha256(b).hexdigest() == h,rel
+    assert git(R,'rev-parse',frozen['base']+':'+rel).decode().strip() == frozen['source_git_blobs'][rel]
+assert not E.exists()
+E.mkdir()
+(E/'context.json').write_text(json.dumps(dict(reviewer='/root', phase='independent statement referee 2',
+    role='Independent of statement implementation; contributed the compression proof-route idea before review, disclosed. No proof is implemented or certified by this review.',
+    statement_freeze_sha256=sha(freeze),frozen_files=39,original_source_blobs=10,
+    canonical_status='Solved, unchanged'),indent=2)+'\n')
+
+manifest=json.loads((P/'lake-manifest.json').read_text())
+pins=[]
+for package in manifest['packages']:
+    dep=C/'.lake/packages'/package['name']
+    rev=git(dep,'rev-parse','HEAD').decode().strip()
+    assert rev==package['rev'] and not git(dep,'status','--porcelain=v1')
+    pins.append(dict(name=package['name'],path=str(dep.resolve()),rev=rev,clean=True))
+assert len(pins)==10
+(E/'dependency-pins.json').write_text(json.dumps(pins,indent=2)+'\n')
+defs=(P/'NLA/RA08/Definitions.lean').read_text()
+challenge=(P/'Challenge.lean').read_text()
+config=json.loads((P/'comparator.json').read_text())
+headers=['NLA.RA08.'+n for n in re.findall(r'^theorem ([A-Za-z0-9_]+)',challenge,re.M)]
+assert headers==config['theorem_names'] and len(headers)==14
+assert config['definition_names']==[] and set(config['permitted_axioms'])=={'propext','Classical.choice','Quot.sound'}
+assert len(re.findall(r'^  sorry$',challenge,re.M))==14
+assert not re.search(r'\b(sorry|axiom|native_decide|implemented_by)\b',defs)
+metadata=yaml.safe_load((P/'formalization.yaml').read_text())
+schema=json.loads((R/'docs/lean/schema/v0.4.schema.json').read_text())
+jsonschema.validate(metadata,schema)
+assert metadata['status']['main_results']==[] and metadata['status']['sorry_in_definitions']==0
+assert [r['declaration'] for r in metadata['alignment']]==headers
+assert metadata['project']['authors']==['George Stepaniants']
+assert metadata['project']['affiliations']['George Stepaniants']=='Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA'
+
+# Independently reconstruct the actual frozen literals and the source block F.
+def scalar(name):
+    m=re.search(r'def '+name+r' : ℝ :=\s*(-?\d+)\s*/\s*(\d+)',defs)
+    assert m,name
+    return Q(int(m[1]),int(m[2]))
+def mm(a,b): return [[sum((x*y for x,y in zip(row,col)),Q(0)) for col in zip(*b)] for row in a]
+def mv(a,b): return [sum((x*y for x,y in zip(row,b)),Q(0)) for row in a]
+def transpose(a): return [list(x) for x in zip(*a)]
+def dot(a,b): return sum((x*y for x,y in zip(a,b)),Q(0))
+def sub(a,b): return [[x-y for x,y in zip(r,s)] for r,s in zip(a,b)]
+I=[[Q(int(i==j)) for j in range(6)] for i in range(6)]
+t,a,b,c,g=map(scalar,['witnessT','witnessA','witnessB','minorantCoefficient','witnessGap'])
+block=defs.split('def witnessF : RealMatrix 6 :=',1)[1].split('def witnessApproximation',1)[0]
+rows=re.search(r'!!\[(.*?)\]',block,re.S)[1].split(';')
+F=[[Q(int(s.strip()),5265) for s in row.strip().split(',')] for row in rows]
+assert '1 / 5265' in block and len(F)==6 and all(len(row)==6 for row in F)
+U=[[Q(1,9),Q(8,9)],[Q(8,9),Q(1,9)],[Q(-4,9),Q(4,9)]]
+E3=mm(U,transpose(U)); sourceF=[[Q(0) for _ in range(6)] for _ in range(6)]
+for i in range(3):
+    for j in range(3): sourceF[i][j]=Q(64,65)*E3[i][j]
+    for j in range(2): sourceF[i][j+3]=sourceF[j+3][i]=Q(8,65)*U[i][j]
+sourceF[3][3]=sourceF[4][4]=Q(1,65);sourceF[5][5]=Q(1)
+assert F==sourceF and mm(F,F)==F and F==transpose(F)
+assert mm(transpose(U),U)==[[Q(1),Q(0)],[Q(0),Q(1)]]
+Ah=[[Q(0) for _ in range(6)] for _ in range(6)]
+for i,value in enumerate([Q(1,2),b,a]):Ah[i][i]=value
+A=[[Ah[i][j]+t*F[i][j] for j in range(6)] for i in range(6)]
+w=[Q(x) for x in [4,3,1,0,0,0]]
+assert '![4, 3, 1, 0, 0, 0]' in defs
+K=mm(mm(A,sub(A,[[Q(1,2)*x for x in row] for row in I])),sub(A,[[b*x for x in row] for row in I]))
+Kw=mv(K,w)
+kwblock=defs.split('def witnessKVector : Fin 6 → ℝ :=',1)[1].split('def witnessGap',1)[0]
+kwtokens=re.search(r'!\[(.*?)\]',kwblock,re.S)[1].split(',')
+kwexpected=[Q(s.strip().replace(' ','')) for s in kwtokens]
+assert Kw==kwexpected
+H=sub(A,[[c*x for x in row] for row in mm(K,K)])
+fAh=[[Q(0) for _ in range(6)] for _ in range(6)]
+for i,value in enumerate([Q(1,2),b,Q(1)]):fAh[i][i]=value
+assert dot(w,w)==26 and dot(w,mv(F,w))==Q(14912,585)
+assert dot(Kw,Kw)==Q(1800760572753083906132034496291,1019907849866242673982515970048000)
+rayleigh=dot(w,mv(sub(H,fAh),w))
+assert rayleigh==26*t*(1+g) and g>0
+assert c*(a*a)*(a-Q(1,2))**2*(a-b)**2==a-1
+def polymul(p,q):
+    out=[Q(0)]*(len(p)+len(q)-1)
+    for i,x in enumerate(p):
+        for j,y in enumerate(q):out[i+j]+=x*y
+    return out
+shift=[Q(1)]
+for value in [a,a,a-Q(1,2),a-Q(1,2),a-b,a-b]:shift=polymul(shift,[value,Q(1)])
+shift=[c*x for x in shift];shift[0]+=1-a;shift[1]-=1
+assert shift==list(map(Q,['0','19/17','537952/23409','2069504/23409','288428032/1896129','227540992/1896129','67108864/1896129']))
+assert all(x>=0 for x in shift)
+assert b+t==Q(65025,65536) and b+t<1<a
+assert mv(A,[Q(0)]*5+[Q(1)])==[Q(0)]*5+[t]
+def ldl_positive(matrix):
+    d=[row[:] for row in matrix];pivots=[]
+    for k in range(len(d)):
+        p=d[k][k];assert p>0;pivots.append(p)
+        for i in range(k+1,len(d)):
+            for j in range(k+1,len(d)):d[i][j]-=d[i][k]*d[k][j]/p
+    return pivots
+apiv=ldl_positive(A)
+indices=[0,1,3,4,5]
+compression=[[(b+t)*Q(int(i==j))-A[i][j] for j in indices] for i in indices]
+cpiv=ldl_positive(compression)
+diagnostic=dict(scope='Independent exact Fraction diagnostics only; not Lean proofs or inferred eigenvalue/truncation theorems.',
+    definitions_sha256=sha(P/'NLA/RA08/Definitions.lean'),source_block_F_matches=True,
+    projection_identity=True,normalized_minorant_coefficient=True,
+    exact_Kw=list(map(str,Kw)),squared_Kw_norm=str(dot(Kw,Kw)),
+    Rayleigh=str(rayleigh),relative_gap=str(g),shifted_minorant_coefficients=list(map(str,shift)),
+    actual_A_positive_LDL_pivots=list(map(str,apiv)),compression_positive_LDL_pivots=list(map(str,cpiv)),
+    exact_last_coordinate_eigenpair=True)
+(E/'exact-checks.json').write_text(json.dumps(diagnostic,indent=2)+'\n')
+
+# Independent inspector: actual elaborated definitions/types, not author logs.
+inspect='import Challenge\nimport LeanCert.Tactic.Verification\nset_option pp.universes true\n'
+for name in ['RealMatrix','spectralNorm','AdmissibleFunction','OrderedSpectralData','spectralCombination',
+             'truncation','functionTruncation','functionalCalculus','ConcaveSpectralTransferConjecture',
+             'witnessMatrix','witnessF','witnessGap','minorantMatrix','minorantFunction']:
+    inspect+='#print NLA.RA08.'+name+'\n'
+for name in ['Matrix.toEuclideanCLM','Matrix.PosSemidef','Matrix.unitaryGroup','Matrix.instPreOrder','ConcaveOn','MonotoneOn']:
+    inspect+='#print '+name+'\n'
+for name in headers:inspect+='#check '+name+'\n'
+for name in ['NLA.RA08.spectralNorm','NLA.RA08.ConcaveSpectralTransferConjecture','NLA.RA08.functionTruncation']:
+    inspect+='set_option pp.all true in\n#print '+name+'\n'
+for name in ['Matrix.IsHermitian.cfc_eq','Matrix.IsHermitian.eigenvalues₀_antitone',
+             'Matrix.IsHermitian.spectral_theorem','Matrix.IsHermitian.spectrum_real_eq_range_eigenvalues','cfc_mono','cfc_polynomial']:
+    inspect+='#check '+name+'\n'
+for name in ['spectralNorm','AdmissibleFunction','ConcaveSpectralTransferConjecture','functionalCalculus','witnessMatrix','witnessGap']:
+    inspect+='#assert_trust kernel NLA.RA08.'+name+'\n#print axioms NLA.RA08.'+name+'\n'
+inspect+='-- Explicitly display that the reference theorem is still admitted, not certified.\n#print axioms NLA.RA08.not_concaveSpectralTransferConjecture\n'
+(E/'Inspect.lean').write_text(inspect)
+prefix=Path(tempfile.mkdtemp(prefix='ra08-root-statements-',dir='/tmp/nla-lean-formalization/independent-prefixes'))
+order=['Cli','batteries','Qq','aesop','proofwidgets','importGraph','LeanSearchClient','plausible','mathlib','leancert']
+env=os.environ.copy();env['LEAN_PATH']=':'.join(map(str,[prefix,*[(C/'.lake/packages'/n/'.lake/build/lib/lean').resolve() for n in order],L/'lib/lean']))
+record=dict(utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),platform=platform.platform(),
+    toolchain=subprocess.check_output([str(L/'bin/lean'),'--version']).decode().strip(),
+    fresh_prefix=str(prefix),LEAN_PATH=env['LEAN_PATH'],pins=pins,commands=[],
+    scope='Fresh direct macOS statement elaboration only; ten clean pinned dependency objects read-only, no project cache, Lake build, proof implementation or Linux verification.')
+for source in ['NLA/RA08/Definitions.lean','Challenge.lean','reviews/statement-referee-2-evidence/Inspect.lean']:
+    path=P/source;target=prefix/Path(source).with_suffix('.olean');target.parent.mkdir(parents=True,exist_ok=True)
+    cmd=[str(L/'bin/lean'),'-o',str(target),'-i',str(target.with_suffix('.ilean')),str(path)]
+    start=time.monotonic();result=subprocess.run(cmd,cwd=P,env=env,capture_output=True)
+    log=E/(Path(source).stem+'.log');log.write_bytes(result.stdout+result.stderr)
+    record['commands'].append(dict(command=cmd,source_sha256=sha(path),exit_code=result.returncode,
+        seconds=time.monotonic()-start,log=log.name,log_sha256=sha(log)))
+    (E/'fresh-checks.json').write_text(json.dumps(record,indent=2)+'\n')
+    print(source,result.returncode,round(time.monotonic()-start,2),flush=True)
+    assert result.returncode==0,log.read_text()
+assert not (E/'Definitions.log').read_text()
+assert (E/'Challenge.log').read_text().count('declaration uses `sorry`')==14
+assert 'warning:' not in (E/'Inspect.log').read_text()
+axioms=re.findall(r"'([^']+)' depends on axioms: \[([^]]*)\]",(E/'Inspect.log').read_text())
+assert len(axioms)==7
+assert all(set(row[1].split(', '))=={'propext','Classical.choice','Quot.sound'} for row in axioms[:-1])
+assert 'sorryAx' in axioms[-1][1]
+for pin in pins:
+    dep=Path(pin['path']);assert git(dep,'rev-parse','HEAD').decode().strip()==pin['rev'] and not git(dep,'status','--porcelain=v1')
+for rel,h in frozen['files'].items(): assert sha(P/rel)==h,rel
+for rel,h in frozen['source_files'].items(): assert sha(R/rel)==h,rel
+registry=json.loads((R/'problem_ids.json').read_text());assert len(registry)==217
+for rel in registry.values():assert (R/rel).read_bytes()==git(R,'show',frozen['base']+':'+rel),rel
+record.update(finished_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),all_pins_rechecked=True,
+    original_frozen_files_unchanged=39,original_source_blobs_unchanged=10,canonical_pages_unchanged=217,
+    definition_only_kernel_reports=6,deliberate_reference_holes=14,
+    schema='Actual v0.4 schema PASS, no completed main results advertised; completion-only validator not claimed.',
+    verdict='Mechanical statement and independent diagnostic checks PASS; prose referee verdict to follow')
+(E/'fresh-checks.json').write_text(json.dumps(record,indent=2)+'\n')
+(E/'review_statements.py').write_bytes(Path(__file__).read_bytes())
+print('PASS',E,flush=True)

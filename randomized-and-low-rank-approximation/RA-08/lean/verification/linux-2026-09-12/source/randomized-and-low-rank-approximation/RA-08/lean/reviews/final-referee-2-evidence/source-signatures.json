@@ -1,0 +1,46 @@
+{
+  "result": "PASS",
+  "signatures": {
+    "orderedSpectral_exists": "{n : \u2115} (A : RealMatrix n) (hA : A.PosSemidef) : Nonempty (OrderedSpectralData A)",
+    "orderedSpectral_semantics": "{n : \u2115} {A : RealMatrix n} (d : OrderedSpectralData A) : A.PosSemidef \u2227 spectralCombination d d.eigenvalues = A \u2227 (\u2200 i j : Fin n, (fun r => (d.orthogonal : RealMatrix n) r i) \u2b1d\u1d65 (fun r => (d.orthogonal : RealMatrix n) r j) = if i = j then 1 else 0) \u2227 (\u2200 i : Fin n, A *\u1d65 (fun r => (d.orthogonal : RealMatrix n) r i) = d.eigenvalues i \u2022 (fun r => (d.orthogonal : RealMatrix n) r i))",
+    "functionalCalculus_spectral": "{n : \u2115} {A : RealMatrix n} (d : OrderedSpectralData A) (f : \u211d \u2192 \u211d) : functionalCalculus f A = spectralCombination d (fun i => f (d.eigenvalues i)) \u2227 (\u2200 g : \u211d \u2192 \u211d, Set.EqOn f g (Set.Ici 0) \u2192 functionalCalculus f A = functionalCalculus g A)",
+    "spectral_tail_norms": "{n : \u2115} {A : RealMatrix n} (d : OrderedSpectralData A) (k : \u2115) (hk : k < n) (f : \u211d \u2192 \u211d) (hf : AdmissibleFunction f) : spectralNorm (A - truncation d k) = d.eigenvalues \u27e8k, hk\u27e9 \u2227 spectralNorm (functionalCalculus f A - functionTruncation d f k) = f (d.eigenvalues \u27e8k, hk\u27e9)",
+    "operator_rayleigh_bound": "{n : \u2115} (A : RealMatrix n) (x : Fin n \u2192 \u211d) : |x \u2b1d\u1d65 (A *\u1d65 x)| \u2264 spectralNorm A * (x \u2b1d\u1d65 x)",
+    "witness_data": ": AdmissibleFunction witnessFunction \u2227 witnessFunction 0 = 0 \u2227 0 < witnessT \u2227 witnessB + witnessT < 1 \u2227 witnessU.transpose * witnessU = 1 \u2227 witnessF ^ 2 = witnessF \u2227 witnessF.PosSemidef \u2227 (1 - witnessF).PosSemidef \u2227 witnessApproximation.PosSemidef \u2227 witnessMatrix.PosDef \u2227 witnessApproximation \u2264 witnessMatrix",
+    "witness_spectral_location": ": spectrum \u211d witnessMatrix \u2286 Set.Icc 0 1 \u222a Set.Ici witnessA",
+    "minorant_scalar": "(x : \u211d) (hx : 0 \u2264 x) (hgap : x \u2264 1 \u2228 witnessA \u2264 x) : minorantFunction x \u2264 witnessFunction x",
+    "minorant_functional_calculus": ": functionalCalculus minorantFunction witnessMatrix = minorantMatrix witnessMatrix \u2227 minorantMatrix witnessMatrix \u2264 functionalCalculus witnessFunction witnessMatrix",
+    "witness_tail_data": "(dA : OrderedSpectralData witnessMatrix) (dAhat : OrderedSpectralData witnessApproximation) : spectralNorm (witnessMatrix - witnessApproximation) = witnessT \u2227 dA.eigenvalues 3 = witnessT \u2227 truncation dAhat 3 = witnessApproximation \u2227 functionTruncation dAhat witnessFunction 3 = functionalCalculus witnessFunction witnessApproximation \u2227 spectralNorm (witnessMatrix - truncation dA 3) = witnessT \u2227 spectralNorm (functionalCalculus witnessFunction witnessMatrix - functionTruncation dA witnessFunction 3) = witnessT",
+    "witness_rational_certificate": ": witnessVector \u2b1d\u1d65 witnessVector = 26 \u2227 witnessVector \u2b1d\u1d65 (witnessF *\u1d65 witnessVector) = 14912 / 585 \u2227 matrixK witnessMatrix *\u1d65 witnessVector = witnessKVector \u2227 witnessKVector \u2b1d\u1d65 witnessKVector = 1800760572753083906132034496291 / 1019907849866242673982515970048000 \u2227 functionalCalculus witnessFunction witnessApproximation = witnessApproximationImage \u2227 witnessVector \u2b1d\u1d65 ((minorantMatrix witnessMatrix - functionalCalculus witnessFunction witnessApproximation) *\u1d65 witnessVector) = 26 * witnessT * (1 + witnessGap)",
+    "numerical_gap_positive": ": 0 < witnessGap",
+    "counterexample": "(dA : OrderedSpectralData witnessMatrix) (dAhat : OrderedSpectralData witnessApproximation) : spectralNorm (witnessMatrix - truncation dAhat 3) \u2264 spectralNorm (witnessMatrix - truncation dA 3) \u2227 \u00ac (spectralNorm (functionalCalculus witnessFunction witnessMatrix - functionTruncation dAhat witnessFunction 3) \u2264 spectralNorm (functionalCalculus witnessFunction witnessMatrix - functionTruncation dA witnessFunction 3))",
+    "not_concaveSpectralTransferConjecture": ": \u00ac ConcaveSpectralTransferConjecture"
+  },
+  "comparator_configuration": {
+    "challenge_module": "Challenge",
+    "solution_module": "Solution",
+    "theorem_names": [
+      "NLA.RA08.orderedSpectral_exists",
+      "NLA.RA08.orderedSpectral_semantics",
+      "NLA.RA08.functionalCalculus_spectral",
+      "NLA.RA08.spectral_tail_norms",
+      "NLA.RA08.operator_rayleigh_bound",
+      "NLA.RA08.witness_data",
+      "NLA.RA08.witness_spectral_location",
+      "NLA.RA08.minorant_scalar",
+      "NLA.RA08.minorant_functional_calculus",
+      "NLA.RA08.witness_tail_data",
+      "NLA.RA08.witness_rational_certificate",
+      "NLA.RA08.numerical_gap_positive",
+      "NLA.RA08.counterexample",
+      "NLA.RA08.not_concaveSpectralTransferConjecture"
+    ],
+    "definition_names": [],
+    "permitted_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "scope": "Normalized source headers and fresh elaboration, not actual Comparator execution"
+}
