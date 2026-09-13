@@ -8,7 +8,7 @@
 | --- | --- | --- | --- | --- | --- |
 | [RA-01](RA-01/README.md) | Optimal pivot count for RPCholesky trace approximation | **🔵 OPEN** | challenging | interesting to the community | [PDF](RA-01/problem.pdf) · [TeX](RA-01/problem.tex) |
 | [RA-04](RA-04/README.md) | Clustered singular-value gaps in randomized block Krylov approximation | **🔵 OPEN** | hard | interesting to specialist | [PDF](RA-04/problem.pdf) · [TeX](RA-04/problem.tex) |
-| [RA-05](RA-05/README.md) | Sharp joint rank and accuracy dependence for strong $`\ell_p`$ subspace coresets | **🔵 OPEN** | challenging | interesting to the community | [PDF](RA-05/problem.pdf) · [TeX](RA-05/problem.tex) |
+| [RA-05](RA-05/README.md) | Sharp joint rank and accuracy dependence for strong $`\ell_p`$ subspace coresets | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](RA-05/problem.pdf) · [TeX](RA-05/problem.tex) |
 | [RA-06](RA-06/README.md) | Sensitivity-dependent row sampling for $`\ell_p`$ embeddings when p exceeds two | **🔵 OPEN** | challenging | interesting to the community | [PDF](RA-06/problem.pdf) · [TeX](RA-06/problem.tex) |
 | [RA-11](RA-11/README.md) | Optimal trace-estimation complexity using Kronecker matrix-vector queries | **🔵 OPEN** | extreme | interesting to the community | [PDF](RA-11/problem.pdf) · [TeX](RA-11/problem.tex) |
 | [RA-14](RA-14/README.md) | Optimal query complexity of spectral rank-$`k`$ approximation | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](RA-14/problem.pdf) · [TeX](RA-14/problem.tex) |
