@@ -1,0 +1,715 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,longtable,array}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+\hypersetup{pdftitle={RA-17: Exact Cases and Certified Bounds},
+ pdfsubject={Partial resolution with exact algebraic certificates},pdfauthor={Sidney Holden}}
+\setcounter{tocdepth}{1}
+\usepackage{listings}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt}
+\setlength{\emergencystretch}{2em}
+\linespread{1.035}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\F}{\mathbb F}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Gr}{\operatorname{Gr}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\muR}{\mu_{\R}}
+\newcommand{\swt}{\operatorname{swt}}
+\newcommand{\val}{\nu_2}
+\newcommand{\Sch}{\mathsf{s}}
+\newcommand{\pr}{\mathbb{RP}}
+\newcommand{\cp}{\mathbb{CP}}
+\newcommand{\oc}{\mathcal O}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\lstset{basicstyle=\small\ttfamily,breaklines=true,columns=fullflexible,keepspaces=true}
+\title{RA-17: Exact Cases and Certified Bounds}
+\author{Sidney Holden\\{\small Center for Computational Biology, Flatiron Institute}\\{\small Simons Foundation}}
+\date{}
+\begin{document}
+\maketitle
+\vspace{-1em}
+\begin{abstract}
+This is a partial resolution, not an all-dimension solution of RA-17. The main exact result established here is $\muR(4,1)=11$: a Grassmannian characteristic-class obstruction excludes ten measurements, and exact rational computations certify eleven. Both the matrices printed in Xu's paper and the slightly different accompanying Maple data are verified. The manuscript also gives explicit universal measurement constructions, general Pontryagin--Euler and Stiefel--Whitney lower bounds, an odd-degree exactness criterion, and exact corank-one families. All computational certificates are regenerated from the measurement matrices; no numerical search is used as a proof. Concrete gaps, including $138\leq\muR(12,5)\leq139$ and $246\leq\muR(16,7)\leq247$ for the methods proved here, remain unclosed.
+\end{abstract}
+\begingroup\small\setlength{\parskip}{0pt}\tableofcontents\endgroup
+\newpage
+
+\section{The target and the scope of the result}
+For $d\geq2$ and $1\leq r\leq\lfloor d/2\rfloor$, let
+\[
+ \mathcal M_{d,r}(\R)=\{X\in M_d(\R):\rank X\leq r\}.
+\]
+Given real matrices $A_1,\ldots,A_m$, set
+\[
+ \mathcal A(X)=(\tr(A_1^TX),\ldots,\tr(A_m^TX)).
+\]
+RA-17 asks for the smallest $m=\muR(d,r)$ for which $\mathcal A$ is injective on \emph{all} of $\mathcal M_{d,r}(\R)$, for every allowed pair $(d,r)$. The matrices and measurements are unrestricted real matrices; symmetry, positivity, a generic-signal exception, or an efficient decoder are not part of the question. The catalogue explicitly distinguishes its all-dimension target from deciding individual polynomial feasibility instances.\footnote{RA-17 catalogue entry, statement and audit, \cite{catalogue}.}
+
+Throughout, write
+\begin{equation}\label{eq:parameters}
+ k=2r,\qquad c=d-2r,\qquad m_0=d^2-c^2=4dr-4r^2.
+\end{equation}
+The real problem is not solved by asserting $\muR=m_0$: Xu's construction already has eleven measurements when $(d,r)=(4,1)$, whereas $m_0=12$.\footnote{Xu, Theorem 3.2 and equation (3.5), \cite{xu}; the same distinction appears in \cite{survey}, Section 5.}
+
+\begin{theorem}[Exact exceptional case]\label{thm:main}
+For unrestricted real $4\times4$ matrices of rank at most one,
+\[
+ \boxed{\muR(4,1)=11.}
+\]
+Equivalently, the largest dimension of a real linear subspace of $M_4(\R)$ all of whose nonzero elements have rank at least three is five.
+\end{theorem}
+
+The lower bound is proved in Section~\ref{sec:four}; the upper bound is certified in Section~\ref{sec:certificate}. Sections~\ref{sec:characteristic}--\ref{sec:corank} supply broader bounds and exact families. Section~\ref{sec:gaps} states precisely what these arguments do not determine. No priority claim is made for the arguments or their special cases.
+
+\section{Uniform recovery and admissible kernels}\label{sec:kernel}
+Call a real linear subspace $K\subset M_d(\R)$ \emph{admissible} if every nonzero $X\in K$ has rank at least $2r+1$, and define
+\[
+ \kappa(d,r)=\max\{\dim K:K\text{ is admissible}\}.
+\]
+
+\begin{lemma}\label{lem:kernel}
+A real linear map is injective on $\mathcal M_{d,r}(\R)$ if and only if its kernel is admissible. Consequently,
+\begin{equation}\label{eq:duality}
+ \muR(d,r)=d^2-\kappa(d,r).
+\end{equation}
+\end{lemma}
+\begin{proof}
+A difference of two matrices of rank at most $r$ has rank at most $2r$. Conversely, write a rank-$q$ matrix, $q\leq2r$, as
+$X=\sum_{j=1}^q u_jv_j^T$. Split this sum into two groups of at most $r$ terms and write it as $X=Y-Z$, putting the negative of the second group into $Z$. Then $\rank Y,\rank Z\leq r$.
+
+Thus a nonzero kernel element of rank at most $2r$ gives two distinct permitted inputs with the same measurements, and every collision gives such a kernel element. Redundant measurements can be removed. Conversely, a basis of the annihilator of an admissible $K$ gives $d^2-\dim K$ independent real measurements. Rank--nullity now proves \eqref{eq:duality}.
+\end{proof}
+
+\begin{proposition}[Boundary cases]\label{prop:boundary}
+If $d=2r$, then $\muR(d,r)=d^2$. If $d=2r+1$, then $\muR(d,r)=d^2-1$.
+\end{proposition}
+\begin{proof}
+In the first case every matrix has rank at most $2r$, so the kernel is zero. In the second case every nonzero admissible matrix must be invertible. An admissible two-dimensional space, spanned by $A,B$, would make
+\[
+ f(\theta)=\det(\cos\theta A+\sin\theta B)
+\]
+continuous and nowhere zero. Since $d$ is odd, $f(\theta+\pi)=-f(\theta)$, contradicting the intermediate value theorem. Hence $\kappa\leq1$, and $\R I_d$ attains one.
+\end{proof}
+
+\section{Explicit universal measurements}\label{sec:universal}
+The bound $\muR\leq m_0$ has a direct deterministic construction. Related large-minimum-rank constructions occur in Rees's work.\footnote{Rees, \cite{rees}. Only the existence statement is used for historical context; the construction below is proved directly.}
+
+\begin{proposition}\label{prop:antidiagonal}
+There is an explicit $c^2$-dimensional admissible subspace of $M_d(\R)$. Its annihilator can be written using coordinate measurements and finite differences with integer coefficients. In particular,
+\[
+ \muR(d,r)\leq m_0.
+\]
+\end{proposition}
+\begin{proof}
+Order the anti-diagonals by increasing row-plus-column index. On an anti-diagonal of length $\ell\leq k$, set every entry to zero. On one of length $\ell>k$, choose its entries, in increasing row order, to be
+\[
+ (p(1),\ldots,p(\ell)),\qquad \deg p\leq\ell-k-1.
+\]
+Each long anti-diagonal contributes $\ell-k$ independent parameters. The lengths are $1,2,\ldots,d-1,d,d-1,\ldots,1$, so the dimension is
+\[
+ \sum_{\text{anti-diagonals}}(\ell-k)_+
+ =(d-k)+2\sum_{j=1}^{d-k-1}j=(d-k)^2=c^2.
+\]
+
+Let $X$ be nonzero and consider its first nonzero anti-diagonal, of index $h$. A nonzero polynomial of degree at most $\ell-k-1$ has at most that many roots among $1,\ldots,\ell$; hence there are at least $k+1$ nonzero entries. Select $k+1$ of them at positions $(i_a,j_a)$, with $i_1<\cdots<i_{k+1}$ and $j_a=h-i_a$. In the submatrix with rows $i_a$ and columns $j_a$ in this order, the entry $(a,b)$ has index $h+i_a-i_b$. For $a<b$ it lies on an earlier, zero anti-diagonal. The selected submatrix is therefore lower triangular with nonzero diagonal. Its determinant is nonzero, proving $\rank X\geq k+1$.
+
+For explicit measurements, retain every coordinate on a short anti-diagonal. On a long anti-diagonal set $q=\ell-k$ and take the $k$ consecutive differences
+\[
+ \sum_{j=0}^{q}(-1)^j\binom qj x_{s+j},\qquad s=1,\ldots,k.
+\]
+Their coefficient rows are independent, and they annihilate precisely the evaluations of polynomials of degree below $q$. Different anti-diagonals have disjoint supports. Their combined rank is $d^2-c^2$ and their kernel is exactly the space constructed above.
+\end{proof}
+
+The routine \texttt{antidiagonal\_measurements(d,r)} returns the full measurement matrix and a kernel basis, using row-major vectorization. The proof is independent of floating-point conditioning of the resulting matrices.
+
+\section{An evaluation bundle and characteristic-class bounds}\label{sec:characteristic}
+All bundles in this section are real unless otherwise specified. Let
+\[
+ G=\Gr_{2r}(\R^d),\qquad S\oplus Q\cong\eps^d,
+\]
+where $S$ is the tautological rank-$2r$ bundle, $Q$ its rank-$c$ orthogonal complement, and $\eps^j$ the trivial rank-$j$ bundle.
+
+\begin{lemma}[Evaluation bundle]\label{lem:evaluation}
+If $K$ is admissible with dimension $\kappa$, there is a vector bundle $\eta$ on $G$ with
+\begin{align}
+ \eps^\kappa\oplus\eta&\cong dQ,\label{eq:bundle}\\
+ \rank\eta&=dc-\kappa,\label{eq:etarank}\\
+ p(\eta)&=p(S)^{-d},\qquad
+ w(\eta)=w(S)^{-d}.\label{eq:classes}
+\end{align}
+For an optimal kernel, $\rank\eta=\muR(d,r)-2dr$.
+\end{lemma}
+\begin{proof}
+At $E\in G$ restrict a matrix to $E^\perp$:
+\[
+ K\longrightarrow\Hom(E^\perp,\R^d),\qquad A\longmapsto A|_{E^\perp}.
+\]
+If the restriction is zero, $A$ has a kernel of dimension at least $c$ and thus rank at most $2r$. Admissibility forces $A=0$. These maps form a fiberwise injective bundle map $\eps^\kappa\hookrightarrow\Hom(Q,\eps^d)\cong dQ$; a bundle metric supplies the complement $\eta$. The Whitney formulas, $S\oplus Q\cong\eps^d$, and \eqref{eq:duality} prove the remaining assertions.
+\end{proof}
+
+\subsection{A nonzero Pontryagin class}
+Write
+\[
+ d=2n+\epsilon,\qquad \epsilon\in\{0,1\},\qquad s=n-r.
+\]
+Assume $s\geq1$; the cases $s=0$ are in Proposition~\ref{prop:boundary}. The rational cohomology ring of the \emph{unoriented} Grassmannian here is
+\begin{equation}\label{eq:rationalring}
+ H^*(G;\Q)\cong
+ \frac{\Q[p_1,\ldots,p_r,\bar p_1,\ldots,\bar p_s]}
+ {\big[(1+p_1+\cdots+p_r)(1+\bar p_1+\cdots+\bar p_s)=1\big]},
+ \qquad |p_i|=|\bar p_i|=4i.
+\end{equation}
+The bracket denotes the ideal of all positive-degree homogeneous components of the displayed relation. The $p_i$ are the Pontryagin classes of $S$. This presentation applies to both parities of $d$.\footnote{Carlson, Corollary 2.3, pp.~10--11, \cite{carlson}; He, Corollary 5.26, p.~19, \cite{he}.}
+
+As a graded algebra with degrees divided by two, \eqref{eq:rationalring} is the usual complex Grassmannian ring for $\Gr_r(\C^{r+s})$. Its Schur basis is indexed by partitions inside the rectangle $(s^r)$. In degree $4rs$ its basis consists of the single rectangular class.
+
+\begin{lemma}\label{lem:ptop}
+The bundle in Lemma~\ref{lem:evaluation} satisfies $p_{rs}(\eta)\neq0$ in rational cohomology.
+\end{lemma}
+\begin{proof}
+Use formal roots $u_1,\ldots,u_r$ of degree four, so $p(S)=\prod_i(1+u_i)$. The Cauchy identity gives
+\[
+ p(S)^{-d}=\prod_{i=1}^r\prod_{j=1}^d(1+u_i)^{-1}
+ =\sum_\lambda(-1)^{|\lambda|}\Sch_\lambda(u)\Sch_\lambda(1^d).
+\]
+Here $\Sch_\lambda$ is a Schur polynomial, and $1^d$ means $d$ variables all equal to one. In weight $rs$, only $\lambda=(s^r)$ survives in the Grassmannian quotient. Therefore
+\begin{equation}\label{eq:topcoefficient}
+ p_{rs}(\eta)=(-1)^{rs}D_{d;r,s}\,\Sch_{(s^r)}(u),\qquad
+ D_{d;r,s}=\prod_{i=1}^r\prod_{j=1}^s
+ \frac{d+j-i}{r+s-i-j+1}.
+\end{equation}
+The second factor is the nonzero top Schur class. The hook-content product $D_{d;r,s}=\Sch_{(s^r)}(1^d)$ is a positive integer: all numerators and denominators in the displayed product are positive. Hence the class is nonzero.
+\end{proof}
+
+\subsection{Rank and Euler obstructions}
+\begin{theorem}[General Pontryagin--Euler bound]\label{thm:pontryagin}
+With $s\geq1$ as above, define
+\[
+ e(d,r)=\begin{cases}
+ 1,&\epsilon=0\text{ and }rs\text{ odd},\\
+ 1,&\epsilon=1\text{ and }r(s+1)\text{ odd},\\
+ 0,&\text{otherwise}.
+ \end{cases}
+\]
+Then
+\begin{equation}\label{eq:pontryaginbound}
+ \boxed{\muR(d,r)\geq2dr+2rs+e(d,r)
+ =3dr-2r^2-\epsilon r+e(d,r).}
+\end{equation}
+\end{theorem}
+\begin{proof}
+For a rank-$t$ real bundle, $p_j=0$ when $2j>t$. Lemma~\ref{lem:ptop} thus gives $\rank\eta\geq2rs$, proving the bound without the extra one.
+
+Suppose equality $\rank\eta=2rs$ holds. Its top Pontryagin class satisfies
+\begin{equation}\label{eq:eulersquare}
+ p_{rs}(\eta)=e(\eta)^2,
+\end{equation}
+where the Euler class has coefficients in the orientation local system of $\eta$; its square has ordinary rational coefficients.
+
+If $d$ is even, $w_1(\eta)=d\,w_1(Q)=0$, so the Euler class has ordinary coefficients. When $rs$ is odd, its degree $2rs$ is two modulo four, and \eqref{eq:rationalring} shows that this cohomology group is zero. Equation~\eqref{eq:eulersquare} contradicts Lemma~\ref{lem:ptop}.
+
+If $d$ is odd, then $w_1(\eta)=w_1(Q)=w_1(S)$. Also
+\[
+ TG\cong S^*\otimes Q,\qquad
+ w_1(TG)=c\,w_1(S)+2r\,w_1(Q)=d\,w_1(S).
+\]
+Thus $\eta$ has the orientation local system $\oc_G$ of $G$. The dimension of $G$ is $4rs+2r$. Poincar\'e duality identifies
+\[
+ H^{2rs}(G;\oc_G\otimes\Q)\cong H_{2r(s+1)}(G;\Q).
+\]
+If $r(s+1)$ is odd, the group on the right is zero by \eqref{eq:rationalring} and the universal coefficient theorem over $\Q$. Again the Euler class vanishes, contradicting \eqref{eq:eulersquare}. In each indicated case the rank must increase by at least one.
+\end{proof}
+
+The use of the orientation local system in the odd-dimensional ambient case is essential. Treating every Euler class as an ordinary rational class would give unjustified additional bounds.
+
+\subsection{A further rank-one refinement}\label{subsec:rankone}
+\begin{proposition}\label{prop:rankone}
+For odd $d\geq5$,
+\begin{equation}\label{eq:odd-rankone}
+ \muR(d,1)\geq3d-2.
+\end{equation}
+For even $d\geq4$, put $s=(d-2)/2$. Then
+\begin{equation}\label{eq:even-rankone}
+ \muR(d,1)\geq3d-1
+\end{equation}
+whenever $s$ is odd or $\binom{d+s-1}{s}$ is not a perfect square. Without either condition the bound $\muR(d,1)\geq3d-2$ still holds.
+\end{proposition}
+\begin{proof}
+Let $u=p_1(S)$. The evaluation bundle has
+\[
+ p_s(\eta)=(-1)^s\binom{d+s-1}{s}u^s\neq0.
+\]
+For even $d$, the ring is $\Q[u]/(u^{s+1})$. Equality in the baseline bound would make $\eta$ oriented of rank $2s$. Odd $s$ was already excluded. For even $s$ its Euler class must have the form $a u^{s/2}$ for $a\in\Q$. Its square would force
+\[
+ a^2=\binom{d+s-1}{s}.
+\]
+An integer is a rational square only if it is an integer square. This proves \eqref{eq:even-rankone} under the stated condition. For example, $d=6$ gives the coefficient $\binom72=21$, and hence $\muR(6,1)\geq17$.
+
+Now let $d=2s+3$ be odd. The oriented double cover of $\Gr_2(\R^d)$ is the nonsingular complex quadric $Q^{2s+1}\subset\cp^{2s+2}$. An oriented orthonormal pair $(a,b)$ maps to $[a+ib]$. If $h$ denotes its hyperplane class, the pullback of $u$ is $h^2$, and $h^{2s}\neq0$. In each even degree the rational cohomology of this odd-dimensional complex quadric is one-dimensional, generated by a power of $h$.
+
+The deck map sends $h$ to $-h$ and reverses the orientation of the pulled-back $\eta$. At rank $2s$, its Euler class would be an anti-invariant multiple of $h^s$. For even $s$ it must be zero. For odd $s$ write it as $a h^s$; then its square would require
+\[
+ a^2=-\binom{d+s-1}{s},
+\]
+which is impossible over $\Q$. Thus rank $2s$ is excluded in both cases, proving \eqref{eq:odd-rankone}.
+\end{proof}
+
+\subsection{A computable Stiefel--Whitney bound}\label{subsec:sw}
+For a partition $\lambda$ with at most $k$ parts and largest part at most $c$, write $\lambda\subset(c^k)$. Define
+\begin{align}
+ D_\lambda(d)&=\Sch_\lambda(1^d)
+ =\prod_{(i,j)\in\lambda}\frac{d+j-i}{h_{ij}},\label{eq:hook}\\
+ J(d,k)&=\max\{|\lambda|:\lambda\subset(c^k),\ D_\lambda(d)\text{ odd}\},\label{eq:J}
+\end{align}
+where $h_{ij}$ is the hook length of cell $(i,j)$; the empty partition is allowed.
+
+\begin{proposition}\label{prop:sw}
+For $k=2r$ and $c=d-k$,
+\begin{equation}\label{eq:swbound}
+ \muR(d,r)\geq kd+J(d,k).
+\end{equation}
+\end{proposition}
+\begin{proof}
+The mod-two Grassmannian presentation is
+\[
+ H^*(\Gr_k(\R^d);\F_2)=
+ \frac{\F_2[w_1,\ldots,w_k,\bar w_1,\ldots,\bar w_c]}
+ {[(1+w_1+\cdots+w_k)(1+\bar w_1+\cdots+\bar w_c)=1]}.
+\]
+Its Schur classes within $(c^k)$ form a basis. This is the usual unoriented Grassmannian ring, not the more delicate ring of its oriented cover.\footnote{For the presentation used here, see Matszangosz--Wendt, Section 3.1, \cite{mw}.}
+
+Apply the Cauchy identity in this ring to $w(\eta)=w(S)^{-d}$. In degree $j$, the coefficient of the Schur class indexed by $\lambda$ is $D_\lambda(d)$ modulo two. The signs disappear in characteristic two. Thus $w_{J(d,k)}(\eta)\neq0$. A rank-$t$ real bundle has $w_j=0$ for $j>t$, so $\rank\eta\geq J(d,k)$. Lemma~\ref{lem:evaluation} completes the proof.
+\end{proof}
+
+The parity in \eqref{eq:hook} is evaluated without rational rounding:
+\[
+ \val(D_\lambda(d))=\sum_{(i,j)\in\lambda}
+ \big(\val(d+j-i)-\val(h_{ij})\big).
+\]
+This supplies a finite combinatorial \emph{lower bound}, not a sufficient condition for an admissible kernel. The software explicitly skips this enumeration when the rectangle has too many partitions; it never reports a skipped computation as an exact result.
+
+\section{Why ten measurements cannot suffice for \texorpdfstring{$4\times4$}{4 x 4} matrices}\label{sec:four}
+Here is a short proof of the lower half of Theorem~\ref{thm:main}, independent of the general Schur-class calculation.
+
+\begin{lemma}\label{lem:G24}
+Let $G=\Gr_2(\R^4)$ and let $\gamma$ be its tautological real two-plane bundle. Then
+\[
+ H^2(G;\Q)=0,\qquad p_1(\gamma)\neq0\text{ in }H^4(G;\Q).
+\]
+\end{lemma}
+\begin{proof}
+An oriented plane determines a unit decomposable two-form. Its self-dual and anti-self-dual parts identify the oriented double cover $\widetilde G$ with $S^2\times S^2$. Reversing the plane orientation is antipodal on both spheres. Its action on $H^2(\widetilde G;\Q)$ is therefore minus the identity. Rational transfer identifies $H^2(G;\Q)$ with the invariant part, which is zero.
+
+For the Pontryagin class, identify the same cover with the nonsingular quadric
+\[
+ \{[z_1:z_2:z_3:z_4]\in\cp^3:z_1^2+z_2^2+z_3^2+z_4^2=0\}
+ \cong\cp^1\times\cp^1.
+\]
+The map sends an oriented orthonormal frame $(u,v)$ to $[u+iv]$. The pulled-back real plane bundle is the underlying real bundle of the tautological complex line, up to the choice of orientation. The hyperplane class of the quadric is $x+y$, where $x,y$ generate the two $H^2(\cp^1;\Q)$ factors. Consequently
+\[
+ \pi^*p_1(\gamma)=(x+y)^2=2xy\neq0.
+\]
+Hence $p_1(\gamma)$ is nonzero. These facts also follow from the $r=s=1$ specialization of \eqref{eq:rationalring}.
+\end{proof}
+
+\begin{proposition}\label{prop:ten}
+Every six-dimensional real linear subspace of $M_4(\R)$ contains a nonzero matrix of rank at most two.
+\end{proposition}
+\begin{proof}
+Suppose otherwise, and call the space $K$. At each $E\in G$, restriction gives an injection
+\[
+ K\hookrightarrow\Hom(E,\R^4)\cong4\gamma_E.
+\]
+Indeed, a matrix killing a two-plane has rank at most two. Therefore there is a rank-two bundle $\eta$ with
+\[
+ \eps^6\oplus\eta\cong4\gamma.
+\]
+Its first Stiefel--Whitney class is $w_1(\eta)=4w_1(\gamma)=0$, so $\eta$ is orientable. Since $H^2(G;\Q)=0$, its rational Euler class is zero and
+\[
+ p_1(\eta)=e(\eta)^2=0.
+\]
+On the other hand, the Whitney formula gives
+\[
+ p_1(\eta)=4p_1(\gamma)\neq0,
+\]
+contradicting Lemma~\ref{lem:G24}.
+\end{proof}
+
+A map with at most ten measurements has a kernel of dimension at least six. Such a kernel contains a six-dimensional subspace, to which Proposition~\ref{prop:ten} applies. Lemma~\ref{lem:kernel} then yields $\muR(4,1)\geq11$.
+
+\section{An exact certificate for eleven measurements}\label{sec:certificate}
+Xu's displayed matrices give the upper bound eleven. The accompanying website lists two entries differently. Both data sets are included, and both are independently certified from their measurement rows.\footnote{Printed data: \cite{xu}, p.~6, equation (3.5). Maple data: \cite{xucode}.}
+
+\subsection{Conventions and the two data sets}
+Let
+\[
+ \operatorname{vec}_{\rm row}(X)=(x_{11},x_{12},\ldots,x_{14},x_{21},\ldots,x_{44})^T.
+\]
+The included matrix $W$ has eleven rows and sixteen columns, and the measurements are $W\operatorname{vec}_{\rm row}(X)$. The rows in Appendix~\ref{app:rows} correspond to simultaneous transposes of the displayed source matrices. This does not alter admissibility: transposition preserves every rank and is a linear bijection.
+
+In the \emph{source matrices}, the differing entries are
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+Entry & Printed paper & Maple website\\
+\midrule
+$A_4(2,4)$ & 3 & 4\\
+$A_8(4,3)$ & 3 & 2\\
+\bottomrule
+\end{tabular}
+\end{center}
+These correspond to $W_{4,14}$ and $W_{8,12}$ with one-based indexing in our row-major convention. The discrepancy is not used to reject either construction: both pass the exact check below.
+
+\subsection{Eliminating the linear measurements}
+For either variant, rational row reduction gives $\rank W=11$. Let $B$ be the resulting $16\times5$ nullspace basis, normalized so that the free coordinates are
+\[
+ (x_{34},x_{41},x_{42},x_{43},x_{44})=(a,b,c,z,t).
+\]
+Thus
+\[
+ \operatorname{vec}_{\rm row}(X)=B(a,b,c,z,t)^T.
+\]
+The full rational basis is stored in the measurement JSON file, and recomputed rather than trusted by the verifier.
+
+The sixteen $3\times3$ minors of $X$ are homogeneous cubic polynomials $f_1,\ldots,f_{16}$ in five variables. Clearing denominators and dividing a polynomial by its nonzero integer content do not change its zero set. It remains to prove that their only common real zero is the origin.
+
+\subsection{The affine chart \texorpdfstring{$t=1$}{t = 1}}
+Substitute $t=1$ and multiply each cubic by every monomial of total degree at most two in $a,b,c,z$. This gives a rational Macaulay matrix with
+\[
+ 16\binom{4+2}{2}=240\text{ rows},\qquad
+ \binom{4+5}{5}=126\text{ columns}.
+\]
+Columns are all monomials of total degree at most five. They are ordered decreasingly by the pair (total degree, exponent tuple). Exact reduced row echelon form has rank $106$. The twenty nonpivot monomials are
+\begin{equation}\label{eq:monomialbasis}
+ \begin{split}
+ \mathcal B=(&z^4,c^3,c^2z,cz^2,z^3,\ a^2,ab,ac,az,b^2,bc,bz,\\
+             &c^2,cz,z^2,a,b,c,z,1).
+ \end{split}
+\end{equation}
+Every $z$ times a monomial in $\mathcal B$ has degree at most five, and row reduction expresses it as a rational combination of $\mathcal B$, modulo the row relations. Let $T$ be the $20\times20$ matrix whose $j$th column is this reduction of $z\mathcal B_j$.
+
+\begin{lemma}[The necessary eigenvalue condition]\label{lem:eigenvalue}
+At any common real zero of the affine cubic system, its $z$ coordinate is a real root of $\det(zI-T)$.
+\end{lemma}
+\begin{proof}
+Evaluate \eqref{eq:monomialbasis} at a common zero and put the resulting values into a column $v$. Every Macaulay row is a polynomial multiple of a cubic, so it vanishes there; all row-reduced relations also vanish. Consequently
+\[
+ T^Tv=zv.
+\]
+The last component of $v$ is one, so $v\neq0$. Thus $z$ is an eigenvalue of $T^T$, whose characteristic polynomial is that of $T$.
+\end{proof}
+
+This argument does \emph{not} assume that a truncated row reduction is a complete Gr\"obner basis, or that the listed monomials have already been proved to be a basis of the full quotient algebra. The explicitly obtained polynomial relations alone give the necessary eigenvalue condition.
+
+Let $q$ be the primitive integer multiple of $\det(zI-T)$ with positive leading coefficient. The exact degree is twenty. A Sturm sequence over $\Q$ has twenty-one members, and its signs at infinity yield
+\begin{center}
+\begin{tabular}{lrrrr}
+\toprule
+Data set & Degree & $V(-\infty)$ & $V(+\infty)$ & Real roots\\
+\midrule
+Printed paper & 20 & 10 & 10 & 0\\
+Maple website & 20 & 10 & 10 & 0\\
+\bottomrule
+\end{tabular}
+\end{center}
+All coefficients of $T$ and $q$, and both sign sequences, are supplied in exact JSON form. In the certificate files only, the fourth parameter $z$ is named \texttt{d}; it is not the ambient matrix dimension. The verifier regenerates $q$ from the matrices and recomputes the Sturm sequence using rational arithmetic. Lemma~\ref{lem:eigenvalue} therefore excludes all real solutions with $t\neq0$, after rescaling to $t=1$.
+
+\subsection{The projective hyperplane \texorpdfstring{$t=0$}{t = 0}}
+A proof confined to $t=1$ would be incomplete. Set $t=0$ in the homogeneous cubics and multiply by every homogeneous degree-two monomial in $a,b,c,z$. There are
+\[
+ 16\binom{4+2-1}{2}=160\text{ rows},\qquad
+ \binom{4+5-1}{5}=56\text{ degree-five columns}.
+\]
+For both variants this rational matrix has full column rank $56$. Hence every homogeneous degree-five monomial lies in the ideal generated by the restricted cubics. In particular, $a^5,b^5,c^5,z^5$ lie in that ideal. Their simultaneous vanishing forces $a=b=c=z=0$, even over $\C$. There is no nonzero point in this chart.
+
+Combining the affine and infinite charts, no nonzero kernel matrix has rank at most two. The eleven measurements are uniformly injective on rank-at-most-one matrices. Together with Proposition~\ref{prop:ten}, this proves Theorem~\ref{thm:main}.
+
+\subsection{What was actually checked}
+The two data sets were processed with the included GMP rational row-reduction implementation. The printed-paper variant was also recomputed with SymPy's separate rational row-reduction implementation; the full characteristic polynomial and both chart conclusions agreed. The saved logs record these executions. These are exact algebraic certificates, not numerical singular-value sampling and not a proof-assistant formalization of the topological lower bound.
+
+\section{An exactness criterion from odd determinantal degree}\label{sec:degree}
+For $c\geq1$, the complex projective variety of $d\times d$ matrices of rank at most $2r$ has codimension $c^2$ and degree
+\begin{equation}\label{eq:degree}
+ \Delta(d,2r)=\prod_{i=0}^{c-1}
+ \frac{(d+i)!\,i!}{(2r+i)!\,(c+i)!}.
+\end{equation}
+The degree and the resulting parity argument are also used in Xu's real-field results.\footnote{Xu, Section 3, \cite{xu}.}
+
+\begin{proposition}\label{prop:odddegree}
+If $\Delta(d,2r)$ is odd, then $\muR(d,r)=m_0$.
+\end{proposition}
+\begin{proof}
+If $\muR<m_0$, an admissible kernel has dimension at least $c^2+1$. Choose a subspace of precisely that dimension. Its projectivization is a real projective $c^2$-plane disjoint from the real determinantal variety.
+
+Disjointness from this compact real projective variety is open in the real Grassmannian of projective planes. Perturb the plane, within this open set, to a generic real plane. Its complexification meets the complex determinantal variety transversely in $\Delta$ points, avoiding its lower-dimensional singular strata. Complex conjugation pairs every nonreal intersection point. An odd total number therefore forces a real intersection point, contradicting disjointness. The upper bound follows from Proposition~\ref{prop:antidiagonal}.
+\end{proof}
+
+For an integer $j\geq0$, let $s_2(j)$ count its binary ones. Legendre's identity $\val(j!)=j-s_2(j)$ turns \eqref{eq:degree} into the directly computable test
+\begin{equation}\label{eq:degreebinary}
+ \val(\Delta)=\sum_{i=0}^{c-1}
+ \big[s_2(2r+i)+s_2(c+i)-s_2(d+i)-s_2(i)\big].
+\end{equation}
+Oddness is equivalent to this sum being zero. The known family $d=2^a+r$, subject to the stated rank range, satisfies the exact generic count, as does $d=2r+1$.\footnote{Xu, Theorem 5.5 in \cite{survey}.}
+
+For the rectangle $\lambda=(c^{2r})$, the hook-content formula gives $D_\lambda(d)=\Delta(d,2r)$; cancellation of the factorials verifies the identity. Thus Proposition~\ref{prop:sw} recovers the odd-degree lower bound when its top coefficient is odd. Neither an even degree nor a vanishing characteristic class proves that a larger admissible kernel exists.
+
+\section{Clifford constructions and exact corank-one families}\label{sec:corank}
+\subsection{Explicit nonsingular spaces in arbitrary size}
+Write $d=2^{4b+a}u$, with $u$ odd and $0\leq a\leq3$, and set
+\begin{equation}\label{eq:rho}
+ \rho(d)=8b+2^a.
+\end{equation}
+The classical Hurwitz--Radon construction gives matrices $H_0,\ldots,H_{\rho(d)-1}$ such that
+\begin{equation}\label{eq:hurwitznorm}
+ H(x)^TH(x)=\norm{x}^2I_d,\qquad H(x)=\sum_jx_jH_j.
+\end{equation}
+A direct construction, implemented in the bundle, is recalled next so that only existence, not a maximality theorem about nonsingular spaces, is needed.
+
+Start with $H_0=I$ and skew matrices $G_1,\ldots,G_q$ satisfying
+\begin{equation}\label{eq:clifford}
+ G_iG_j+G_jG_i=-2\delta_{ij}I.
+\end{equation}
+The base sizes $1,2,4,8$ have $q=0,1,3,7$, respectively. In size two use $\left(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\right)$; in sizes four and eight use left multiplication by the imaginary quaternion and octonion units. The multiplication convention for octonions, written as quaternion pairs, is
+\[
+ (a,b)(c,e)=(ac-\bar e b,\ ea+b\bar c).
+\]
+The norm identity for this formula, or its coefficientwise expansion, gives \eqref{eq:clifford} for its seven imaginary left-multiplication matrices $O_i$.
+
+To add eight generators while multiplying size by sixteen, first form
+\[
+ A_i=\begin{pmatrix}0&O_i\\O_i&0\end{pmatrix}\quad(1\leq i\leq7),
+ \qquad A_8=\begin{pmatrix}0&I_8\\-I_8&0\end{pmatrix}.
+\]
+They are skew, square to $-I$, and anticommute in distinct indices. Put $P=A_1\cdots A_8$. Then
+\[
+ P^T=P,\qquad P^2=I,\qquad PA_i=-A_iP.
+\]
+Given generators $G_j$ in size $N$, the matrices
+\[
+ G_j\otimes P\quad(1\leq j\leq q),\qquad
+ I_N\otimes A_i\quad(1\leq i\leq8)
+\]
+satisfy \eqref{eq:clifford} in size $16N$. Start at size $2^a$ and repeat $b$ times; then take $u$ identical diagonal blocks. The resulting number of generators, plus the identity, is $8b+2^a$. Expanding the square proves \eqref{eq:hurwitznorm}.
+
+Therefore, whenever $2r<d$,
+\begin{equation}\label{eq:rhoUpper}
+ \muR(d,r)\leq\min\{m_0,d^2-\rho(d)\}.
+\end{equation}
+Every nonzero $H(x)$ is invertible, and \eqref{eq:hurwitznorm} also proves linear independence of the coefficient matrices.
+
+\subsection{The cofactor obstruction}
+Here let $d$ be even and $r=d/2-1$, so admissible matrices have rank at least $d-1$. Causin's bound is
+\begin{equation}\label{eq:causin}
+ \kappa(d,d/2-1)\leq\rho_{\C}(d):=2\val(d)+2.
+\end{equation}
+\footnote{Causin, Theorem 3.5 and Proposition 2.2, \cite{causin}.}
+
+For completeness, put $C(A)=\operatorname{adj}(A)^T$ and $F(A)=A+iC(A)$. If $F(A)z=0$, multiplication by $A^T$ gives
+\[
+ (A^TA+i\det(A)I)z=0.
+\]
+Taking the scalar product with $z$ forces $\det A=0$ and $Az=0$; then $C(A)z=0$. For rank $d-1$, the singular-value decomposition shows that $C(A)$ is nonzero on $\ker A$, a contradiction. Thus $F$ is invertible. It is odd because $d$ is even. On the sphere of an admissible $\kappa$-space it gives
+\[
+ d\xi_{\C}\cong\eps^d_{\C}\quad\text{over }\pr^{\kappa-1}.
+\]
+The class $[\xi_{\C}]-1$ has order $2^{\lfloor(\kappa-1)/2\rfloor}$ in reduced complex $K$-theory. This order divides $d$, giving \eqref{eq:causin}.
+
+Combining \eqref{eq:causin} with the explicit constructions yields
+\begin{equation}\label{eq:corankbounds}
+ d^2-2\val(d)-2\ \leq\ \muR(d,d/2-1)
+ \leq d^2-\max\{4,\rho(d)\}.
+\end{equation}
+
+\begin{corollary}[Exact infinite families]\label{cor:families}
+For even $d\geq4$ and $r=d/2-1$:
+\begin{align}
+ \val(d)=1&\quad\Longrightarrow\quad \muR(d,r)=d^2-4,\label{eq:familyone}\\
+ \val(d)\equiv3\pmod4&\quad\Longrightarrow\quad
+ \muR(d,r)=d^2-2\val(d)-2.\label{eq:familythree}
+\end{align}
+In \eqref{eq:familyone}, the permitted rank range in fact starts at $d=6$.
+\end{corollary}
+\begin{proof}
+When $\val(d)=1$, the upper bound on $\kappa$ is four and the anti-diagonal construction has dimension four. When $\val(d)=4b+3$, \eqref{eq:rho} gives $\rho(d)=8b+8=2\val(d)+2$, so the upper and lower bounds on $\kappa$ agree.
+\end{proof}
+
+For example,
+\[
+ \muR(8,3)=56,\qquad \muR(24,11)=568,\qquad \muR(128,63)=16368.
+\]
+The first is four below the generic count sixty.
+
+\subsection{Lifting the five-dimensional exceptional kernel}
+\begin{proposition}\label{prop:lift}
+For $d=4+8t$, $t\geq0$, there is a five-dimensional real subspace of $M_d(\R)$ whose nonzero matrices have rank at least $d-1$. Consequently,
+\[
+ \muR(d,d/2-1)\leq d^2-5.
+\]
+\end{proposition}
+\begin{proof}
+Let $B(x)$, $x\in\R^5$, be either certified $4\times4$ kernel from Section~\ref{sec:certificate}. It has rank at least three for $x\neq0$. Let $L(x)$ be octonion left multiplication with the first five coefficients equal to $x$ and the last three zero. Then $L(x)^TL(x)=\norm{x}^2I_8$, so $L(x)$ is invertible for $x\neq0$. The block diagonal matrix
+\[
+ \operatorname{diag}(B(x),\underbrace{L(x),\ldots,L(x)}_{t\text{ copies}})
+\]
+has rank at least $3+8t=d-1$. The first block proves injectivity in the five parameters.
+\end{proof}
+
+\begin{remark}[A scope check on the cited bound]
+The table preceding Proposition 3.6 in Causin's arXiv version has
+$\rho(d)=8b+2^a$ and $\rho_{\C}(d)=8b+2a+2$. They coincide for $a=3$, not for every multiple of eight: for instance $\rho(16)=9$ whereas $\rho_{\C}(16)=10$. The phrase ``8 divides $n$'' in that proposition is broader than the equality justified by those displayed bounds alone. Here only \eqref{eq:causin} is invoked, and exactness is concluded only when independently matching constructions are given. No assertion that the broader proposition is false is needed.
+\end{remark}
+
+\section{What remains undetermined}\label{sec:gaps}
+Table~\ref{tab:bounds} reports bounds proved in this manuscript, taking the strongest of the applicable constructions and obstructions. It is \emph{not} claimed to be a complete literature table of optimal known bounds.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrl}
+\toprule
+$d$ & $r$ & Lower & Upper & Conclusion here\\
+\midrule
+3&1&8&8&Exact boundary\\
+4&1&11&11&Exact exceptional case\\
+5&1&16&16&Odd degree\\
+6&1&17&20&Gap remains\\
+6&2&32&32&Exact corank-one family\\
+7&1&19&24&Gap remains\\
+7&2&32&40&Gap remains\\
+8&1&23&28&Gap remains\\
+8&2&40&48&Gap remains\\
+8&3&56&56&Clifford/cofactor equality\\
+9&1&32&32&Odd degree\\
+10&2&64&64&Odd degree\\
+12&3&96&108&Gap remains\\
+12&5&138&139&One measurement unresolved\\
+16&7&246&247&One measurement unresolved\\
+24&11&568&568&Clifford/cofactor equality\\
+\bottomrule
+\end{tabular}
+\caption{Selected certified intervals. A full direct-bound table through $d=16$ is included in the results directory.}\label{tab:bounds}
+\end{table}
+
+For $(12,5)$, the cofactor obstruction allows a kernel of dimension at most six, and the Xu--octonion lift constructs one of dimension five. These methods do not decide whether dimension six is attainable. For $(16,7)$, the corresponding upper limit is ten and the Clifford construction has dimension nine. No ten-dimensional admissible kernel or obstruction excluding it is supplied here.
+
+These are concrete missing steps, not claims that no further result can be obtained. In particular, the general characteristic-class lower bounds have not been proved sufficient for existence. The parity test settles its odd-degree cases but does not classify even-degree exceptions. The exact computational certificate concerns $(4,1)$, not arbitrary $(d,r)$.
+
+\textbf{Status: PARTIAL.} Theorem~\ref{thm:main}, the bounds, constructions, and exact families above are the results of this bundle. The all-dimension target of RA-17 is not established.
+
+\section{Reproduction and verification boundary}\label{sec:reproduce}
+The bundle needs Python with SymPy. The default exact verifier additionally uses a C++17 compiler and GMP development headers; a pure-SymPy backend is included. These commands may be run from the root directory:
+\begin{lstlisting}
+python code/verify_xu.py --variant both
+python code/verify_xu.py --variant paper --backend sympy
+python code/test_constructions.py
+python code/bounds.py --max-d 16
+\end{lstlisting}
+The first command regenerates both exact certificates from the measurement rows, including the infinite chart. It compares the resulting characteristic polynomials and sign sequences with the saved files, and exits with an error on a failed check. Temporary matrices and the compiled helper are written to a temporary directory, not to source files.
+
+The construction tests verify all coefficient identities in the tested norm formulas, rather than sampling parameter vectors. They also check exact ranks and annihilation for the anti-diagonal measurements and block lifts, and compare factorial-degree parity with the binary and Schur formulas. Such tests complement, rather than replace, the proofs of the general constructions.
+
+The bounds program always outputs an interval and an explicit exactness flag. The Schur enumeration has a partition-count limit because its cost can grow exponentially. A skipped enumeration is marked in the output. This is not a real-algebraic feasibility solver and is not presented as the requested all-dimension classification.
+
+The characteristic-class proofs use ordinary mathematical arguments and the cohomology presentations cited above. They have not been formalized in a proof assistant. No reconstruction complexity, numerical stability constant, or claim of peer review is attached to the result.
+
+\clearpage
+\appendix
+\section{The measurement rows}\label{app:rows}
+The following are the rows of $W$ for the \emph{website} variant. Interpret each consecutive group of four entries as one row of its measurement matrix. The printed-paper variant replaces row 4, column 14 by $3$, and row 8, column 12 by $3$. The JSON files are the exact machine-readable data.
+\begin{center}
+\setlength{\tabcolsep}{4pt}
+\footnotesize
+\begin{tabular}{r|rrrr|rrrr|rrrr|rrrr}
+$j$&\multicolumn{4}{c|}{entries 1--4}&\multicolumn{4}{c|}{entries 5--8}&\multicolumn{4}{c|}{entries 9--12}&\multicolumn{4}{c}{entries 13--16}\\
+\hline
+1&-4&-4&4&0&1&4&-3&-4&3&4&0&2&4&3&-3&1\\
+2&0&0&0&1&3&-2&3&-1&-1&-1&-2&-3&-1&2&3&2\\
+3&-1&4&-2&0&-4&0&0&-1&-1&-1&0&2&-1&1&2&2\\
+4&-2&-2&1&-3&-2&0&-2&3&4&2&-4&4&1&4&3&-2\\
+5&4&-4&1&3&2&-3&-4&0&-4&0&4&2&-4&0&-2&0\\
+6&2&2&0&-1&2&-4&-2&0&3&3&1&-1&4&1&-2&-4\\
+7&2&-1&4&0&1&-3&-1&3&4&0&-4&0&0&-1&3&4\\
+8&0&4&-2&3&3&2&-1&0&-1&1&3&2&2&1&4&3\\
+9&2&-2&-1&-3&-1&2&1&-4&4&3&4&4&-4&-1&-1&3\\
+10&-4&4&-1&-3&2&1&-3&2&0&0&4&4&-1&4&1&-4\\
+11&1&3&2&4&1&0&-4&3&-2&-2&-2&2&0&-4&4&-2\\
+\end{tabular}
+\end{center}
+
+\section{Certificate summaries}\label{app:certsummary}
+For the printed-paper variant, the Sturm sign sequences, in sequence order, are
+\begin{align*}
+ +\infty:\quad&(+,+,-,-,+,+,+,-,+,+,-,+,+,+,+,-,-,-,+,-,+),\\
+ -\infty:\quad&(+,-,-,+,+,-,+,+,+,-,-,-,+,-,+,+,-,+,+,+,+).
+\end{align*}
+For the website variant, they are
+\begin{align*}
+ +\infty:\quad&(+,+,-,-,-,+,-,-,+,-,-,-,-,+,+,-,-,+,+,-,+),\\
+ -\infty:\quad&(+,-,-,+,-,-,-,+,+,+,-,+,-,-,+,+,-,-,+,+,+).
+\end{align*}
+Each line has ten sign variations. The exact characteristic polynomials are stored by their twenty-one integer coefficients, in descending order. To identify the coefficient lists unambiguously, their SHA-256 hashes (one coefficient per line, including the final newline) are:
+\begin{description}[style=nextline]
+\item[Printed paper]
+\texttt{7aad7afdf70bebdf5891b0f3c772f5213e0eda451cd1d3df75aaca35f38fde8f}
+\item[Website]
+\texttt{e36cd93ce9ac7f6c388fceb8fcff53a9cd228140f1d348b63e35e6082ffe245a}
+\end{description}
+The hash is an integrity check, not a mathematical proof. The proof is the exact construction of the polynomial relations, the Sturm computation, and the independent rank check at infinity.
+
+\clearpage
+\begin{thebibliography}{10}
+\bibitem{catalogue}
+OpenProblemsInNLA, \emph{RA-17---Minimum linear measurements for uniform recovery of real low-rank matrices}, catalogue entry and audit dated September 10, 2026. Accessed September 12, 2026.
+\url{https://raw.githubusercontent.com/ajt60gaibb/OpenProblemsInNLA/main/randomized-and-low-rank-approximation/RA-17/README.md}.
+
+\bibitem{xu}
+Zhiqiang Xu, \emph{The minimal measurement number for low-rank matrices recovery}, arXiv:1505.07204v1, 2015. Theorem 3.2 and equation (3.5) on p.~6; degree arguments in Section 3. Published version: Applied and Computational Harmonic Analysis, DOI 10.1016/j.acha.2017.01.005.
+\url{https://arxiv.org/pdf/1505.07204v1}.
+
+\bibitem{xucode}
+Zhiqiang Xu, \emph{Maple verification data for the rank-one construction}, accompanying author webpage. Accessed September 12, 2026.
+\url{https://lsec.cc.ac.cn/~xuzq/rank1.htm}.
+
+\bibitem{survey}
+Zhiqiang Xu, \emph{Signal Recovery on Algebraic Varieties Using Linear Samples}, arXiv:2506.17572v2, Section 5, Theorem 5.5 and Remark 5.6. Published in Acta Mathematica Sinica \textbf{42} (2026), 740--754, DOI 10.1007/s10114-026-5299-y.
+\url{https://arxiv.org/html/2506.17572v2}.
+
+\bibitem{carlson}
+Jeffrey D. Carlson, \emph{Grassmannians and the equivariant cohomology of isotropy actions}, arXiv:1611.01175v2, 2023. Corollary 2.3, pp.~10--11.
+\url{https://arxiv.org/pdf/1611.01175v2}.
+
+\bibitem{he}
+Chen He, \emph{Localization of equivariant cohomology rings of real and oriented Grassmannians}, arXiv:1609.06243. Corollary 5.26, p.~19 of the accessed preprint.
+\url{https://arxiv.org/pdf/1609.06243}.
+
+\bibitem{mw}
+\'Akos K. Matszangosz and Matthias Wendt, \emph{The mod 2 cohomology rings of oriented Grassmannians via Koszul complexes}, Mathematische Zeitschrift \textbf{308}, article 2 (2024). Section 3.1 recalls the unoriented Grassmannian presentation used here.
+\url{https://doi.org/10.1007/s00209-024-03556-y}.
+
+\bibitem{causin}
+Andrea Causin, \emph{On the dimension of some real, bounded rank, matrix spaces}, arXiv:0911.1810v1, 2009. Proposition 2.2 and Theorem 3.5. The broader wording of Proposition 3.6 is not used.
+\url{https://arxiv.org/pdf/0911.1810v1}.
+
+\bibitem{rees}
+Elmer G. Rees, \emph{Linear spaces of real matrices of large rank}, Proceedings of the Royal Society of Edinburgh Section A \textbf{126} (1996), 147--151.
+\url{https://doi.org/10.1017/S030821050003064X}.
+\end{thebibliography}
+\end{document}
