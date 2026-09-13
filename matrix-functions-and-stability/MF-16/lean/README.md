@@ -1,6 +1,6 @@
 # MF-16: a formal counterexample to order-two word uniqueness
 
-**The complete nine-export proof has two accepted independent final mathematical approvals. Actual Linux verification is pending.** The [canonical problem](../README.md) remains **Solved**. This candidate documentation does not promote its verification status.
+**The complete nine-export proof passed independent mathematical review and actual Ubuntu Comparator/default-kernel verification.** The [canonical problem](../README.md) records the full target as **Lean verified**. The immutable checked revision and retained evidence are documented below.
 
 Formalization: **George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA**, with AI assistance. **Matthew J. Colbrook**, Department of Applied Mathematics and Theoretical Physics, University of Cambridge, retains authorship of the mathematical counterexample. Hillar–Johnson and Armstrong–Hillar retain the original question's attribution. The new formalization has an Apache 2.0 license; it does not relicense the source manuscript.
 
@@ -56,7 +56,7 @@ Every project object was initially absent from the author's fresh private prefix
 
 The solution does not import Challenge and has no admission or custom axiom. Kernel trust and [Comparator configuration](comparator.json) permit only `propext`, `Classical.choice` and `Quot.sound`. Every advertised export is selected and `definition_names` is empty. Comparator checks formal statement identity; the independent statement reviews check correspondence to the informal original target.
 
-## Reproduction and remaining gates
+## Reproduction
 
 Lean is pinned to 4.33.1, Mathlib to `0df444a360eaa60ab8c11dca51a86af692955474`, and LeanCert to `621a43d7cf21f87872392a01e874f2f1dbddc926`. [lake-manifest.json](lake-manifest.json) pins all ten dependencies. With the project's own exact dependencies installed, explicitly build the proof:
 
@@ -64,6 +64,20 @@ Lean is pinned to 4.33.1, Mathlib to `0df444a360eaa60ab8c11dca51a86af692955474`,
 lake build Solution
 ```
 
-The unchanged default Lake target is `Challenge`; plain `lake build` therefore checks the reference statements. Its placeholders are not proofs. The isolated Linux workflow must additionally run the pinned Comparator, actual default-kernel replay and both real rejection/control suites. Successful local elaboration alone does not satisfy that gate.
+The unchanged default Lake target is `Challenge`; plain `lake build` therefore checks the reference statements. Its placeholders are not proofs. Reproduce the authoritative check from the immutable revision using the repository's [Linux verification workflow](../../../.github/workflows/lean-verification.yml) and [pinned checker instructions](../../../docs/lean/README.md). It runs Comparator, actual default-kernel replay and both real rejection/control suites on non-root Ubuntu.
 
-Actual Ubuntu verification, independent operational acceptance and publication review remain required before changing the canonical entry to **Lean verified**. The [v0.4 metadata](formalization.yaml) describes the current completed implementation and pending verification scope truthfully. The campaign's pinned Schiffer and Forsythe examples and adapted Tau Ceti review protocol are credited in the source correspondence and metadata.
+## Actual Ubuntu verification and publication preservation
+
+[Run 34735259429](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34735259429) checked immutable candidate `4e24448897a088ca9e7458379add1014c5d11e0c`. All 17 jobs and every step passed. The actual checker ran on Ubuntu 24.04 x86_64 with UID 1001, Lean 4.33.1, the pinned Comparator/exporter and strict sandbox. It freshly cloned ten exact dependencies and used 8,690 matching official Mathlib cache files. Challenge and Solution build graphs had 2,840 and 2,863 jobs; these are not counts of a full dependency-source rebuild.
+
+Both actual export lists contain exactly the nine advertised declarations, with no definition exceptions. Default-kernel replay accepted the Solution. All 22 actual source axiom reports match their explicit kernel assertions and contain only `propext`, `Classical.choice`, `Quot.sound`. The final referees' count of 26 additionally includes four computational helper checks; their original evidence is retained. The Solution phase has no warnings or admissions.
+
+The target and standalone checker jobs each executed the actual sandbox probes, three raw-kernel controls, five Comparator fixtures and admission/native rejection controls. The deliberately admitted proof was rejected for `sorryAx`, and native computation for `checked._native.native_decide.ax_1_1`. Nested Bubblewrap was denied UID-map setup before its inner write; the logs do not establish an executed inner-write denial or general sandbox security.
+
+The [independent operational review](verification/linux-2026-09-12/OPERATIONAL-REVIEW.md) and [complete outer inventory](verification/linux-2026-09-12/EVIDENCE-MANIFEST.json) bind 466 evidence files plus the inventory, including all seven nested candidate manifests. The retained 294-input source snapshot agrees with the actual verifier receipt and committed Git blobs. Original project artifact ZIP SHA256 is `0dad309f58da9d61b1b177a550f60d8053938409bc30fe9d57399b719aec1d34`; checker ZIP SHA256 is `62d95b1cd2d2d34e82f0fc95c38cb1a2c2f9257caa7c9af5b50ca95eccf44f66`. Both match GitHub metadata and actual upload logs. The complete 217-log run ZIP is retained with a separately computed digest, without claiming a GitHub-published checksum for that log archive.
+
+Operational reviewer `/root/mf16_final_referee` also served as independent final mathematical referee 1 and independent candidate packaging reviewer. These roles add no mathematical approval. `/root` independently accepted that operational evidence and prepared these publication wrappers, but is a disclosed proof-route contributor and does not count as an independent final mathematical referee. Referee 2 remains `/root/formal_review_standards`. The [root acceptance](verification/root-operational-2026-09-12/ROOT-CHECKS.json) and its complete inventory bind six files plus that outer manifest.
+
+The actual run checks the immutable candidate, not these later publication wrappers. Among its 294 inputs, publication changes only this README and five status/review fields in the [v0.4 manifest](formalization.yaml); the other 292 inputs remain unchanged. Both exact candidate wrappers are archived under [publication evidence](verification/publication-2026-09-12/archive/). All 467 Linux evidence files, seven root operational files, 182 frozen proof inputs through the historical README archive, 45 statement inputs and fourteen original source snapshots remain intact. The canonical original mathematical target and source manuscripts are unchanged. Earlier pending notices remain historical phase records.
+
+The campaign's pinned Schiffer and Forsythe examples and adapted Tau Ceti protocol are credited in the source correspondence and metadata. Separate publication review is required before commit, fork push and individual upstream PR. No new proof run over these wrappers, external human review, official Tau Ceti endorsement or mathematical priority is claimed.

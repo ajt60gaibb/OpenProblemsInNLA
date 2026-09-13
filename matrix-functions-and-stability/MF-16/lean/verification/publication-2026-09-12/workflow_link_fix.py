@@ -1,0 +1,15 @@
+from pathlib import Path
+import json,hashlib,subprocess,datetime
+R=Path('/tmp/nla-lean-mf16-worktree');P=R/'matrix-functions-and-stability/MF-16/lean';D=P/'verification/publication-2026-09-12';V=Path('/tmp/nla-lean-formalization/mf16-publication-pages');V.mkdir(exist_ok=True)
+f=P/'README.md';data=f.read_bytes();assert data.count(b'.github/workflows/lean-verify.yml')==1
+(D/'README.before-workflow-link-fix.md').write_bytes(data)
+f.write_bytes(data.replace(b'.github/workflows/lean-verify.yml',b'.github/workflows/lean-verification.yml'))
+assert (R/'.github/workflows/lean-verification.yml').is_file()
+(D/'workflow-link-correction.json').write_text(json.dumps({'finding':'Root link-existence assertion failed before rasterization or campaign edits: lean-verify.yml does not exist. Correct actual path is lean-verification.yml.','failed_check_exit':1,'old_readme_sha256':hashlib.sha256(data).hexdigest(),'new_readme_sha256':hashlib.sha256(f.read_bytes()).hexdigest(),'mathematical_changes':False,'canonical_pdf_changes':False},indent=2)+'\n')
+(D/'workflow_link_fix.py').write_bytes(Path(__file__).read_bytes())
+subprocess.run(['/opt/homebrew/bin/pdftoppm','-scale-to','1400','-png',str(P.parent/'problem.pdf'),str(V/'page')],check=True)
+print(json.dumps({'pages':[str(f) for f in sorted(V.glob('*.png'))],'pdf_sha256':hashlib.sha256((P.parent/'problem.pdf').read_bytes()).hexdigest(),'tex_sha256':hashlib.sha256((P.parent/'problem.tex').read_bytes()).hexdigest()},indent=2))
+C=Path('/tmp/nla-lean-formalization/CAMPAIGN.json');d=json.loads(C.read_text());t=d['tracks'];t['MF-16']['current_phase']='Actual Linux and independent operational review/root acceptance passed; publication prepared/rendered, independent publication review next';t['MF-16']['canonical_status']='Lean verified on unpublished branch; upstream unchanged';t['MF-16']['operational_acceptance']={'run':34735259429,'report_sha256':'e348886719fab4d2dca6aeba02d711d938f22b97c9529c6e91a2e70f086bf960','root_sha256':'a09d923c1406601f672aeb6ae5e64eeac1a639a64e77b06489741a3c3523d684'}
+t['RA-08']['current_phase']='Actual Linux and independent operational review passed; root operational acceptance pending';t['RA-09']['current_phase']='All17 exports compile and frozen; two independent final referees active';t['RA-09']['proof_freeze_sha256']='533f5c328cdaf8c1f23f238f8c71b7b4b2fdabb2f532d58a398d4ab2434ccf7e';t['RA-09']['independent_final_referees']=['/root/ra09_final_referee1','/root/mf16_final_referee'];t.setdefault('RA-20',{}).update({'agent':'/root/formal_review_standards','phase':'Faithful statement-only draft typed; sealing before two independent statement reviews','path':'/tmp/nla-lean-formalization/next-ra-statements-draft/RA-20/lean','canonical_status':'Solved, unchanged','proof_authorized':False})
+if not any(x['problem']=='IS-03' for x in d['completed_formalization_prs']):d['completed_formalization_prs'].append({'problem':'IS-03','url':'https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/203'})
+d['updated_utc']=datetime.datetime.now(datetime.timezone.utc).isoformat();C.write_text(json.dumps(d,indent=2)+'\n')

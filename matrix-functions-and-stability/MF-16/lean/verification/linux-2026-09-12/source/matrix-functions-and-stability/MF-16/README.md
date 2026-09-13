@@ -1,0 +1,55 @@
+# MF-16 — Uniqueness of positive definite solutions of two-letter word equations in order two
+
+**Topic:** Structured nonlinear matrix equations.  
+**Difficulty:** challenging  
+**Importance:** interesting to specialist  
+**Rating rationale:** Challenging because uniqueness must hold for words of unbounded length despite higher-dimensional failures; specialist impact reflects the surviving two-letter, order-two setting.  
+**Last checked:** 2026-09-11  
+**Status:** Solved  
+
+<!-- colbrook-matrix-functions -->
+## Resolution — 2026-09-11
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the exact target.**
+
+The ordinary symmetric two-letter word $`XBX^{12}BX=P`$ has at least three distinct real symmetric positive definite solutions for explicit integer $`B,P`$. These are also Hermitian positive definite solutions, refuting the canonical universal uniqueness assertion in dimension two. An exact negative Jacobian determinant and two independent interval implementations certify the counterexample.
+
+The complete target is resolved. Its former difficulty rating is historical; the original statement, references and dated audits remain below.
+
+**Primary reference:** [complete authored PDF](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-16.pdf), [standalone TeX](../../references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-16.tex), **Theorem 1; Theorem 4 gives three certified solutions, and Theorem 3 gives a family threshold**. [Independent proof review](../../references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-16-review.md) · [Authorship and submission record](../../references/colbrook-matrix-functions-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
+
+<!-- /colbrook-matrix-functions -->
+
+## Problem statement
+
+A word $`W(X,B)`$ is a finite product of letters from $`\{X,B\}`$. It is symmetric if its sequence of letters equals its reversal. Require at least one occurrence of $`X`$.
+
+For every such symmetric word $`W`$ and every pair of Hermitian positive definite matrices $`B,P\in\mathbb C^{2\times2}`$, is there exactly one Hermitian positive definite matrix $`X\in\mathbb C^{2\times2}`$ satisfying
+
+```math
+W(X,B)=P?
+```
+
+Products are evaluated in the written order. Existence is known; uniqueness is the open assertion. This is the ordinary two-letter word case of the surviving order-two conjecture, with no real powers or additional fixed letters included in the statement.
+
+## Why it matters
+
+The question concerns whether a structured nonlinear matrix equation has a single positive definite solution branch. The elementary word $`XBX`$ connects this family with matrix geometric means and Riccati equations.
+
+## References
+
+- C. J. Hillar and C. R. Johnson, [Symmetric word equations in two positive definite letters](https://qualiaphile.com/files/S0002-9939-03-07163-6.pdf), *Proceedings of the American Mathematical Society* 132 (2004), 945–953, Definition 1.1, Theorem 2.2, and Conjecture 2.3. This gives the original two-letter existence and uniqueness formulation.
+- S. N. Armstrong and C. J. Hillar, [Solvability of Symmetric Word Equations in Positive Definite Letters](https://arxiv.org/abs/math/0507306), *Journal of the London Mathematical Society* 76 (2007), 777–796, Theorem 1.4 and Conjecture 11.5 (p. 20 of the arXiv PDF); Remark 11.6 discusses the real order-two case.
+- J. D. Lawson and Y. Lim, [Solving symmetric matrix word equations via symmetric space machinery](https://repository.lsu.edu/mathematics_pubs/611/), *Linear Algebra and its Applications* 414 (2006), 560–569. Its bounded-degree uniqueness result is summarized in Armstrong–Hillar's introduction.
+
+## Status check
+
+On 2026-09-08, searched the titles, “symmetric word equations”, “Conjecture 11.5”, “2 × 2”, “two-by-two”, “uniqueness”, “counterexample”, and 2025–2026. No order-two resolution was located. Armstrong–Hillar refute unrestricted uniqueness in dimensions at least three, while explicitly retaining the order-two conjecture; their special order-two theorem and known bounded-degree results do not cover every word. No recent explicit reaffirmation was found. The statement deliberately records the source-backed two-letter problem rather than presuming that the paper's comments about reducing complex matrices to real matrices cover arbitrarily many fixed letters.
+
+## Audit — 2026-09-10
+
+Rechecked [Armstrong–Hillar, Theorem 11.4 and Conjecture 11.5](https://arxiv.org/pdf/math/0507306). The nontrivial word $`XBX^2B^3X^2BX`$ is settled in order two, but arbitrary words remain open. Title and order-two uniqueness searches found no full resolution. Existence alone is not the reason for the partial-resolution tag.
+
+<!-- navigation -->
+[All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
+<!-- /navigation -->

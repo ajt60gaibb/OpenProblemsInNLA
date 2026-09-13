@@ -1,0 +1,135 @@
+/-
+Copyright (c) 2026 George Stepaniants. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: George Stepaniants
+
+Department of Computing and Mathematical Sciences, California Institute of
+Technology, Pasadena, California, USA. AI-assisted formalization.
+Mathematical counterexample: Matthew J. Colbrook. Exact word and real/complex
+matrix bridges for the reviewed single-box adaptation.
+-/
+import NLA.MF16.Definitions
+import Mathlib.Tactic.FinCases
+import Mathlib.Tactic.FieldSimp
+import Mathlib.Tactic.Ring
+
+set_option autoImplicit false
+open scoped ComplexOrder
+noncomputable section
+namespace NLA.MF16
+
+theorem witness_eval {R : Type*} [Semiring R]
+    (X B : Matrix (Fin 2) (Fin 2) R) :
+    evalWord witnessWord X B = X * B * X^12 * B * X := by
+  simp [evalWord, witnessWord, List.map_append, List.prod_append,
+    List.map_replicate, List.prod_replicate, mul_assoc]
+
+theorem word_semantics_proved :
+    SymmetricWord witnessWord ∧ witnessWord.length = 16 ∧
+    witnessWord.count Letter.X = 14 ∧ witnessWord.count Letter.B = 2 ∧
+    (∀ X B : ComplexMatrix,
+      evalWord witnessWord X B = X * B * X^12 * B * X) ∧
+    (∀ X B : RealMatrix,
+      evalWord witnessWord X B = X * B * X^12 * B * X) := by
+  refine ⟨by decide +kernel, by decide +kernel, by decide +kernel,
+    by decide +kernel, witness_eval, witness_eval⟩
+
+theorem complexify_mul (A B : RealMatrix) :
+    complexify (A * B) = complexify A * complexify B := by
+  change (A * B).map Complex.ofRealHom = A.map Complex.ofRealHom * B.map Complex.ofRealHom
+  exact Matrix.map_mul
+
+theorem complexify_pow (A : RealMatrix) (k : ℕ) :
+    complexify (A^k) = complexify A ^ k :=
+  Matrix.map_pow A Complex.ofRealHom k
+
+theorem complexify_transpose (A : RealMatrix) :
+    complexify A.transpose = (complexify A).conjTranspose := by
+  ext i j
+  simp [complexify, Matrix.conjTranspose_apply]
+
+theorem complexify_witness_eval (X B : RealMatrix) :
+    complexify (evalWord witnessWord X B) =
+      evalWord witnessWord (complexify X) (complexify B) := by
+  simp only [witness_eval, complexify_mul, complexify_pow]
+
+/-- A genuine complex PD test, proved by an invertible LDL congruence. -/
+theorem complexify_two_by_two_posDef (a b d : ℝ) (ha : 0 < a)
+    (hdet : 0 < a*d-b*b) : (complexify !![a,b;b,d]).PosDef := by
+  let T : RealMatrix := !![1,b/a;0,1]
+  let D : RealMatrix := Matrix.diagonal ![a,(a*d-b*b)/a]
+  have hD : (complexify D).PosDef := by
+    have hdiag : (Matrix.diagonal (fun i : Fin 2 =>
+        ((![(a : ℝ),(a*d-b*b)/a] i) : ℂ))).PosDef := by
+      apply Matrix.PosDef.diagonal
+      intro i
+      fin_cases i
+      · simpa using ha
+      · simpa using div_pos hdet ha
+    simpa [D, complexify] using hdiag
+  have ht : (complexify T).det = 1 := by
+    simp [T, complexify, Matrix.det_fin_two]
+  have hu : IsUnit (complexify T) := (complexify T).isUnit_iff_isUnit_det.mpr (by
+    rw [ht]
+    exact isUnit_one)
+  have hpos := hD.conjTranspose_mul_mul_same (B := complexify T)
+    (Matrix.mulVec_injective_iff_isUnit.mpr hu)
+  have hreconstruct : T.transpose * D * T = !![a,b;b,d] := by
+    ext i j
+    fin_cases i <;> fin_cases j <;>
+      simp [T,D,Matrix.mul_apply,Fin.sum_univ_two] <;>
+      field_simp [ne_of_gt ha] <;> ring
+  rw [← complexify_transpose, ← complexify_mul, ← complexify_mul,
+    hreconstruct] at hpos
+  exact hpos
+
+theorem source_data_proved :
+    witnessB.PosDef ∧ witnessP.PosDef ∧ witnessX0.PosDef ∧
+    evalWord witnessWord witnessX0 witnessB = witnessP ∧
+    realB.det = 1 ∧ realX0.det = 3 ∧ realP.det = 3^14 := by
+  have hb : witnessB.PosDef := by
+    exact complexify_two_by_two_posDef 1 4 17 (by norm_num) (by norm_num)
+  have hp : witnessP.PosDef := by
+    exact complexify_two_by_two_posDef 4783113 6377496 8503345 (by norm_num) (by norm_num)
+  have hx : witnessX0.PosDef := by
+    exact complexify_two_by_two_posDef 3 0 1 (by norm_num) (by norm_num)
+  have hxdiag : realX0 = Matrix.diagonal ![3,1] := by
+    ext i j
+    fin_cases i <;> fin_cases j <;> norm_num [realX0, Matrix.diagonal_apply]
+  have hpow : realX0^12 = !![531441,0;0,1] := by
+    rw [hxdiag, Matrix.diagonal_pow]
+    ext i j
+    fin_cases i <;> fin_cases j <;> norm_num [Matrix.diagonal_apply]
+  have heq : evalWord witnessWord realX0 realB = realP := by
+    rw [witness_eval, hpow]
+    ext i j
+    fin_cases i <;> fin_cases j <;>
+      norm_num [realX0,realB,realP,Matrix.mul_apply,Fin.sum_univ_two]
+  refine ⟨hb,hp,hx,?_,?_,?_,?_⟩
+  · simpa only [witnessX0,witnessB,witnessP,complexify_witness_eval] using congrArg complexify heq
+  · norm_num [realB,Matrix.det_fin_two]
+  · norm_num [realX0,Matrix.det_fin_two]
+  · norm_num [realP,Matrix.det_fin_two]
+
+theorem symmetricMatrix_transpose (v : Fin 3 → ℝ) :
+    (symmetricMatrix v).transpose = symmetricMatrix v := by
+  ext i j
+  fin_cases i <;> fin_cases j <;> rfl
+
+theorem realB_transpose : realB.transpose = realB := by
+  ext i j
+  fin_cases i <;> fin_cases j <;> rfl
+
+theorem witness_word_transpose (v : Fin 3 → ℝ) :
+    (evalWord witnessWord (symmetricMatrix v) realB).transpose =
+      evalWord witnessWord (symmetricMatrix v) realB := by
+  simp only [witness_eval, Matrix.transpose_mul, Matrix.transpose_pow,
+    symmetricMatrix_transpose, realB_transpose, mul_assoc]
+
+theorem witness_word_det (v : Fin 3 → ℝ) (hdet : (symmetricMatrix v).det = 3) :
+    (evalWord witnessWord (symmetricMatrix v) realB).det = 3^14 := by
+  rw [witness_eval]
+  simp only [Matrix.det_mul, Matrix.det_pow, hdet, source_data_proved.2.2.2.2.1]
+  norm_num
+
+end NLA.MF16

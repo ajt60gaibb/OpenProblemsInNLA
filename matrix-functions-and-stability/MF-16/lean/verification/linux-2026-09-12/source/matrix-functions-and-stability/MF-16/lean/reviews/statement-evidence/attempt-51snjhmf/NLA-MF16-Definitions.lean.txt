@@ -1,0 +1,141 @@
+/-
+Copyright (c) 2026 George Stepaniants. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: George Stepaniants
+
+Department of Computing and Mathematical Sciences, California Institute of
+Technology, Pasadena, California, USA. AI-assisted formalization.
+Mathematical counterexample: Matthew J. Colbrook. Original word-equation
+conjecture/source: Hillar–Johnson and Armstrong–Hillar.
+-/
+import Mathlib.LinearAlgebra.Matrix.PosDef
+import Mathlib.LinearAlgebra.Matrix.Charpoly.Basic
+import Mathlib.LinearAlgebra.Matrix.Notation
+import LeanCert.Engine.RootFinding.Krawczyk
+
+set_option autoImplicit false
+
+namespace NLA.MF16
+open LeanCert.Core LeanCert.Engine
+
+/-- Exactly the two ordinary letters in the canonical problem. -/
+inductive Letter where
+  | X
+  | B
+  deriving DecidableEq, Repr
+
+/-- Equality with the actual reversed list, and an actual occurrence of X. -/
+def SymmetricWord (w : List Letter) : Prop := w = w.reverse ∧ Letter.X ∈ w
+
+/-- The ordinary product of the interpreted letters, in their written order. -/
+def evalWord {R : Type*} [Semiring R] (w : List Letter)
+    (X B : Matrix (Fin 2) (Fin 2) R) : Matrix (Fin 2) (Fin 2) R :=
+  (w.map (fun letter => match letter with | .X => X | .B => B)).prod
+
+abbrev RealMatrix := Matrix (Fin 2) (Fin 2) ℝ
+abbrev ComplexMatrix := Matrix (Fin 2) (Fin 2) ℂ
+
+/-- The full original universal order-two complex Hermitian PD uniqueness claim. -/
+def WordUniquenessConjecture : Prop :=
+  ∀ w : List Letter, SymmetricWord w →
+    ∀ B P : ComplexMatrix, B.PosDef → P.PosDef →
+      ∃! X : ComplexMatrix, X.PosDef ∧ evalWord w X B = P
+
+/-- Sixteen ordinary letters: fourteen occurrences of X and two of B. -/
+def witnessWord : List Letter := [.X, .B] ++ List.replicate 12 .X ++ [.B, .X]
+
+noncomputable section
+
+def symmetricMatrix (v : Fin 3 → ℝ) : RealMatrix := !![v 0, v 1; v 1, v 2]
+
+def complexify (A : RealMatrix) : ComplexMatrix := A.map Complex.ofReal
+
+def realB : RealMatrix := !![1, 4; 4, 17]
+def realP : RealMatrix := !![4783113, 6377496; 6377496, 8503345]
+def realX0 : RealMatrix := !![3, 0; 0, 1]
+
+def witnessB : ComplexMatrix := complexify realB
+def witnessP : ComplexMatrix := complexify realP
+def witnessX0 : ComplexMatrix := complexify realX0
+
+/-- Coefficient of S in S^12 when det(S)=3, in Horner form. -/
+def linearCoefficient (s : ℝ) : ℝ :=
+  let t := s*s
+  s * (t * (t * (t * (t * (t - 30) + 324) - 1512) + 2835) - 1458)
+
+/-- Coefficient of I subtracted in S^12 when det(S)=3: three times u_11(s). -/
+def identityCoefficient (s : ℝ) : ℝ :=
+  let t := s*s
+  3 * (t * (t * (t * (t * (t - 27) + 252) - 945) + 1215) - 243)
+
+end
+
+/-- Polynomial expression subtraction, remaining in the supported AD fragment. -/
+def exprSub (a b : Expr) : Expr := .add a (.neg b)
+def exprScale (q : ℚ) (a : Expr) : Expr := .mul (.const q) a
+
+local infixl:65 " +ₑ " => Expr.add
+local infixl:65 " -ₑ " => exprSub
+local infixl:70 " *ₑ " => Expr.mul
+
+/-- Exact polynomial AST for the two-by-two Cayley–Hamilton coefficient. -/
+def linearCoefficientExpr (s : Expr) : Expr :=
+  let t := s *ₑ s
+  s *ₑ (t *ₑ (t *ₑ (t *ₑ (t *ₑ (t -ₑ .const 30) +ₑ .const 324)
+    -ₑ .const 1512) +ₑ .const 2835) -ₑ .const 1458)
+
+/-- Exact polynomial AST for the identity coefficient. -/
+def identityCoefficientExpr (s : Expr) : Expr :=
+  let t := s *ₑ s
+  exprScale 3 (t *ₑ (t *ₑ (t *ₑ (t *ₑ (t -ₑ .const 27) +ₑ .const 252)
+    -ₑ .const 945) +ₑ .const 1215) -ₑ .const 243)
+
+/-- Three polynomial equations: det(S)-3, followed by the two reduced word
+residuals. Their equivalence to the actual word entries is a proof obligation. -/
+def polynomialSystem : Fin 3 → Expr :=
+  let x := Expr.var 0
+  let y := Expr.var 1
+  let z := Expr.var 2
+  let s := x +ₑ z
+  let u := linearCoefficientExpr s
+  let v := identityCoefficientExpr s
+  let a := x +ₑ exprScale 4 y
+  let b := exprScale 4 x +ₑ exprScale 17 y
+  let c := y +ₑ exprScale 4 z
+  let d := exprScale 4 y +ₑ exprScale 17 z
+  let aa := a *ₑ a
+  let bb := b *ₑ b
+  let ac := a *ₑ c
+  let bd := b *ₑ d
+  let cubic11 := (x *ₑ aa +ₑ exprScale 2 (y *ₑ (a *ₑ b))) +ₑ z *ₑ bb
+  let cubic12 := (x *ₑ ac +ₑ y *ₑ (a *ₑ d +ₑ b *ₑ c)) +ₑ z *ₑ bd
+  ![(x *ₑ z -ₑ y *ₑ y) -ₑ .const 3,
+    (u *ₑ cubic11 -ₑ v *ₑ (aa +ₑ bb)) -ₑ .const 4783113,
+    (u *ₑ cubic12 -ₑ v *ₑ (ac +ₑ bd)) -ₑ .const 6377496]
+
+/-- Rational center near the source's second additional root; ten decimals. -/
+def rootCenter : Fin 3 → ℚ :=
+  ![17471725533/5000000000, -51638297/156250000, 2224465749/2500000000]
+
+def rootRadius : ℚ := 1/10000000
+
+/-- A single closed three-dimensional rational box of radius 10^-7. -/
+def rootBox : Fin 3 → IntervalRat :=
+  ![⟨17471725033/5000000000, 17471726033/5000000000, by norm_num⟩,
+    ⟨-413106501/1250000000, -413106251/1250000000, by norm_num⟩,
+    ⟨2224465499/2500000000, 2224465999/2500000000, by norm_num⟩]
+
+/-- Untrusted rational certificate data. Soundness needs the actual Boolean check. -/
+def rootCertificate : KrawczykCert 3 where
+  center := rootCenter
+  preconditioner :=
+    !![17591641083/500000000, 20183/10000000000, -17029/10000000000;
+      -11575092327/500000000, -2477/2000000000, 10667/10000000000;
+      -21469001731/5000000000, -2797/10000000000, 2319/10000000000]
+
+/-- The actual checker's infinity-norm bound on I-CJ over the whole box. -/
+def contractionBound : ℚ :=
+  intervalMatrixBound (preconditionedJacobian rootCertificate.preconditioner
+    (intervalJacobian polynomialSystem rootBox {}))
+
+end NLA.MF16

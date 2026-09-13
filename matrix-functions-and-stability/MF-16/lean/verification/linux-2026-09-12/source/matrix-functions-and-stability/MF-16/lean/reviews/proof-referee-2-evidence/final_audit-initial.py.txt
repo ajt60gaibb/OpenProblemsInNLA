@@ -1,0 +1,80 @@
+"""Final independent MF16 evidence and statement/API integrity checks."""
+from pathlib import Path
+import hashlib,json,re,subprocess,datetime
+E=Path(__file__).resolve().parent;P=E.parents[1];W=P.parents[2]
+C=Path('/tmp/nla-lean-mi22-worktree/matrix-inequalities-and-norms/MI-22/lean/.lake/packages')
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+f=json.loads((P/'verification/proof-freeze.json').read_text());sf=json.loads((P/'reviews/statement-freeze.json').read_text())
+for files in [f['files'],sf['files']]:
+ for n,h in files.items():assert sha(P/n)==h,n
+assert len(f['files'])==182 and len(sf['files'])==45 and len(f['source_files'])==14
+r=json.loads((E/'fresh-result.json').read_text());assert r['verdict']=='PASS' and len(r['commands'])==10
+axs=[]
+for c in r['commands']:
+ assert c['exit_code']==0 and sha(P/c['source'])==c['source_sha256']
+ assert sha(E/c['log'])==c['log_sha256']
+ for n,a in re.findall(r"'([^']+)' depends on axioms: \[(.*?)\]",(E/c['log']).read_text()):
+  assert set(a.split(', '))=={'propext','Classical.choice','Quot.sound'}
+  axs.append({'name':n,'axioms':a.split(', ')})
+assert len(axs)==26
+(E/'axiom-audit.json').write_text(json.dumps({'count':len(axs),'reports':axs},indent=2)+'\n')
+headers=lambda s:dict((a,re.sub(r'\s+',' ',b).strip()) for a,b in re.findall(r'^theorem (\w+)(.*?):=',s,re.M|re.S))
+assert headers((P/'Challenge.lean').read_text())==headers((P/'Solution.lean').read_text())
+config=json.loads((P/'comparator.json').read_text())
+assert config['theorem_names']==['NLA.MF16.'+n for n in headers((P/'Solution.lean').read_text())]
+assert config['definition_names']==[] and config['permitted_axioms']==['propext','Classical.choice','Quot.sound']
+mathfiles=[P/'Solution.lean',*sorted((P/'NLA/MF16').glob('*.lean'))]
+for p in mathfiles:
+ s=re.sub(r'/\-.*?\-/','',p.read_text(),flags=re.S)
+ assert not re.search(r'\b(sorry|admit|axiom|native_decide|unsafe|partial)\b',s),p
+ assert not re.search(r'^import\s+Challenge\b',s,re.M),p
+s=(W/'references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-16.tex').read_text()
+original=(W/'references/colbrook-matrix-functions-2026-09-11/reviewed-sources/MF-16.tex').read_text()
+assert s.split('% BEGIN REVIEWED BODY',1)[1].split('% END REVIEWED BODY',1)[0].strip()==original.split('\\maketitle',1)[1].strip()
+# Bind primary source sections actually inspected and reused.
+api=['mathlib/Mathlib/LinearAlgebra/Matrix/PosDef.lean',
+ 'mathlib/Mathlib/Analysis/Complex/Order.lean',
+ 'mathlib/Mathlib/LinearAlgebra/Matrix/Charpoly/Basic.lean',
+ 'mathlib/Mathlib/LinearAlgebra/Matrix/Charpoly/Coeff.lean',
+ 'mathlib/Mathlib/Data/Matrix/Mul.lean',
+ 'mathlib/Mathlib/Analysis/Matrix/Normed.lean',
+ 'mathlib/Mathlib/Topology/MetricSpace/Contracting.lean',
+ 'leancert/LeanCert/Engine/RootFinding/Krawczyk.lean',
+ 'leancert/LeanCert/Core/Support.lean',
+ 'leancert/LeanCert/Core/IntervalRat/Basic.lean',
+ 'leancert/LeanCert/Engine/Optimization/Gradient.lean',
+ 'leancert/LeanCert/Tactic/Verification.lean']
+pins={d['name']:d['rev'] for d in r['pins']};apis={}
+for n in api:
+ pkg,rel=n.split('/',1);p=C/pkg/rel
+ raw=subprocess.check_output(['git','show',pins[pkg]+':'+rel],cwd=C/pkg)
+ assert p.read_bytes()==raw
+ apis[n]={'sha256':sha(p),'commit':pins[pkg],'Git_blob':subprocess.check_output(['git','rev-parse',pins[pkg]+':'+rel],cwd=C/pkg).decode().strip()}
+(E/'primary-api-inputs.json').write_text(json.dumps(apis,indent=2)+'\n')
+stand=Path('/tmp/nla-lean-formalization/standards');td=stand/'sources/TauCetiProject/TauCetiReview'
+tree=json.loads((stand/'TauCetiProject_TauCetiReview-tree.json').read_text());assert tree['sha']=='afb424eda89e8ac96d9eb69f6a88972055a4cd1b'
+tbl={x['path']:x['sha'] for x in tree['tree'] if x['type']=='blob'}
+rubrics={}
+for p in sorted((td/'rubrics').glob('*.md')):
+ rel=str(p.relative_to(td));raw=p.read_bytes();blob=hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest();assert blob==tbl[rel]
+ rubrics[rel]={'sha256':sha(p),'Git_blob':blob}
+(E/'review-standards.json').write_text(json.dumps({'TauCeti_commit':tree['sha'],'scope':'Repository-adapted final review angles, not official Tau Ceti service execution.','rubrics':rubrics,'repository_REVIEW_sha256':sha(W/'docs/lean/REVIEW.md')},indent=2)+'\n')
+log=(E/'reviews-proof-referee-2-evidence-Inspect.log').read_text()
+assert 'of_decide_eq_true (id (Eq.refl true))' in log
+assert 'REVIEW_PROJECT_COUNT 94' in log and 'REVIEW_LIBRARY_COUNT 11' in log
+assert log.count('RETAINED ')==27
+assert not subprocess.check_output(['git','diff','--name-only'],cwd=W)
+record={'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'verdict':'PASS independent final code review checks',
+ 'reviewed_freeze_sha256':sha(P/'verification/proof-freeze.json'),'proof_inputs_preserved':182,
+ 'statement_inputs_preserved':45,'original_source_blobs_preserved':14,
+ 'mathematical_file_hashes':{str(p.relative_to(P)):sha(p) for p in mathfiles},
+ 'exact_reference_signatures':config['theorem_names'],'definition_exceptions':[],
+ 'fresh_source_commands':10,'kernel_standard_three_reports':len(axs),'whole_negation_project_nodes':94,
+ 'actual_LeanCert_soundness_nodes':11,'material_dependencies_required':27,
+ 'actual_Boolean_proof_observed':'of_decide_eq_true (id (Eq.refl true))',
+ 'independent_diagnostic_sha256':sha(E/'exact-diagnostics.json'),
+ 'frozen_original_body_identity':True,'source_safety_and_target_identity':True,
+ 'canonical_status':'Solved, unchanged','formalization_yaml':'absent; required at later candidate packaging',
+ 'Linux_Comparator':'pending; not run by this review'}
+(E/'final-audit.json').write_text(json.dumps(record,indent=2)+'\n')
+print('PASS independent final audit: 182+45+14 preserved, 10 fresh commands, 26 standard-three reports.')
