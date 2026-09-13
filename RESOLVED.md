@@ -21,6 +21,13 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### RA-05 — unrestricted quartic classification — Sidney Holden
+
+**Partially resolved, 13 September 2026.** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Theorem 1.1 and Sections 2–8](references/holden-ra05-quartic-2026-09-13/manuscript/RA05_unrestricted_quartic.pdf) classify the strong original-row coreset size for $`p=4`$, arbitrary input rank and all allowed $`k,\varepsilon`$, as $`\widetilde\Theta(\min\{k^2/\varepsilon^2,k^{5/2}/\varepsilon+k/\varepsilon^2\})`$. Weights remain nonnegative and all rank-at-most-$`k`$ queries are preserved. The broader classification for $`p\ne4`$ remains open; [RA-05](randomized-and-low-rank-approximation/RA-05/README.md) stays in the open count.
+
+The proof passed a separate [independent Codex AI-agent informal audit](references/holden-ra05-quartic-2026-09-13/verification/independent-review.md). All 7,621 finite assertions and both exact certificate checkers passed. No Lean verification, external human peer review or novelty certification is asserted. [Proof source](references/holden-ra05-quartic-2026-09-13/manuscript/RA05_unrestricted_quartic.tex) · [Submission, verified affiliation and provenance](references/holden-ra05-quartic-2026-09-13/README.md). This new quartic submission is separate from the earlier all-exponent partial lower bounds in [PR #199](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/199).
+
+
 ### KE-02, SP-08 and SP-09 — spectral partial results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-spectral-2026-09-12/README.md).

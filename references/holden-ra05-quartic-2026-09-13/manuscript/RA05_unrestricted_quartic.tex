@@ -1,0 +1,819 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=0.88in,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,mathtools,booktabs,array,longtable}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumitem,fancyhdr,hyperref}
+\hypersetup{colorlinks=true,linkcolor=MidnightBlue,citecolor=MidnightBlue,urlcolor=MidnightBlue,pdftitle={Sharp unrestricted quartic row coresets},pdfauthor={Sidney Holden}}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small RA-05 | Unrestricted quartic classification}\fancyhead[R]{\small Research continuation}\fancyfoot[C]{\thepage}
+\setlength{\parskip}{4pt}\setlength{\parindent}{0pt}
+\setlist{nosep,leftmargin=1.5em}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}\newcommand{\E}{\mathbb E}\newcommand{\Prob}{\mathbb P}
+\newcommand{\Tr}{\operatorname{tr}}\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\supp}{\operatorname{supp}}\newcommand{\Sym}{\operatorname{Sym}}
+\newcommand{\cost}{\operatorname{cost}}\newcommand{\OPT}{\operatorname{OPT}}
+\newcommand{\op}{\mathrm{op}}\newcommand{\Frob}{\mathrm F}
+\newcommand{\vc}{\operatorname{vec}}\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ip}[2]{\left\langle#1,#2\right\rangle}
+\newcommand{\Id}{\mathrm I}\newcommand{\dbar}{\bar d}
+\newcommand{\calL}{\mathcal L}\newcommand{\calC}{\mathcal C}
+\newcommand{\wt}{\widetilde}
+\DeclareMathOperator{\srank}{srank}
+\numberwithin{equation}{section}
+\begin{document}
+\begin{titlepage}
+\vspace*{0.35in}
+{\small\sffamily\bfseries RESEARCH CONTINUATION / RA-05}\par\vspace{0.2in}
+{\LARGE\bfseries Sharp unrestricted quartic row coresets}\par\vspace{0.12in}
+{\large Three accuracy regimes, protected mixed tensors,\par and nonnegative partial-coloring compression}\par\vspace{0.25in}
+{\large Sidney Holden}\par
+{\small Center for Computational Biology, Flatiron Institute, Simons Foundation}\par
+{\small Prepared with ChatGPT assistance.}\par September 2026
+\vspace{0.25in}
+\begin{abstract}
+Let $S_4(k,\varepsilon)$ be the worst-case minimum support of a nonnegative strong coreset on original rows for quartic Euclidean subspace approximation, with query dimension at most $k$. There is no restriction on the rank of the input matrix. We prove
+\[
+ S_4(k,\varepsilon)=\wt\Theta\!\left(
+ \min\left\{\frac{k^2}{\varepsilon^2},\,
+ \frac{k^{5/2}}{\varepsilon}+\frac{k}{\varepsilon^2}\right\}\right)
+\]
+for every $k\ge1$ and $0<\varepsilon<1/2$. More precisely, the lower bound has an absolute constant and no logarithmic loss, while the upper bound has at most a ninth power of $\log(2k/\varepsilon)$. The new upper bound is
+$O((k^{5/2}/\varepsilon+k/\varepsilon^2)\log^5(2k/\varepsilon))$.
+It combines an optimal-head split, exact protection of a controlled number of mixed-tensor directions, anisotropic matrix-Gaussian estimates, and repeated partial coloring with frozen fractional exceptions. Every final weight is nonnegative and attached to an original row.
+
+The lower bound is reproved, including both variable-density hyperplane examples and arbitrary-rank orthogonal blocks. Thus the earlier rank restriction is removed at $p=4$: in particular, accuracy $\varepsilon=k^{-2}$ has optimal size $\wt\Theta(k^5)$ rather than the previously surviving interval from $k^5$ to $k^6$.
+\end{abstract}
+\vspace{0.12in}
+\textbf{Scope and evidence.} This manuscript gives a complete joint-size classification for the unrestricted quartic case. It does \emph{not} classify every real $p>2$, which is the broader RA-05 target. The whole entry therefore remains partially resolved, subject to review. The proofs have an author-side audit and reproducible finite checks, not independent peer review or proof-assistant verification. Imported theorems are stated at their points of use; no first-discovery or priority certification is asserted.
+\vfill
+{\small Package: manuscript and source; feature and exact-arithmetic checks; recorded results; proof audit; source and status notes; unchanged preceding proof package.}
+\end{titlepage}
+{\small\setlength{\parskip}{0pt}\tableofcontents}
+\newpage
+\section{The target, the theorem, and what changes}
+\subsection{Original-row strong coresets}
+For rows $a_i\in\R^d$ and an orthogonal projector $P_F$, set
+\[
+ C_A(F)=\sum_i\norm{(\Id-P_F)a_i}_2^4.
+\]
+A strong row coreset consists of numbers $w_i\ge0$ satisfying
+\begin{equation}\label{eq:strong}
+ \abs{\sum_i(w_i-1)\norm{(\Id-P_F)a_i}_2^4}
+ \le\varepsilon C_A(F)\qquad(\dim F\le k).
+\end{equation}
+Its size is $|\supp(w)|$. Define $S_4(k,\varepsilon)$ by taking the supremum of the minimum such size over all finite matrices, all ambient dimensions greater than $k$, and arbitrary input ranks. This is exactly the $p=4$ specialization of RA-05 \cite{repo}; weights may depend on the entire input and there is no extra running-time requirement.
+
+Write
+\begin{equation}\label{eq:R}
+ \mathcal R(k,\varepsilon)=
+ \min\left\{k^2\varepsilon^{-2},\ k^{5/2}\varepsilon^{-1}+k\varepsilon^{-2}\right\}.
+\end{equation}
+\begin{theorem}[Unrestricted quartic classification]\label{thm:main}
+There are absolute constants $0<c<C<\infty$ such that, for every integer $k\ge1$ and $0<\varepsilon<1/2$,
+\begin{equation}\label{eq:main}
+ c\mathcal R(k,\varepsilon)\le S_4(k,\varepsilon)
+ \le C\mathcal R(k,\varepsilon)\log^9(2k/\varepsilon).
+\end{equation}
+In addition, the second branch has the separate upper bound
+\begin{equation}\label{eq:newupper}
+ S_4(k,\varepsilon)\le
+ C\left(k^{5/2}\varepsilon^{-1}+k\varepsilon^{-2}\right)\log^5(2k/\varepsilon).
+\end{equation}
+All upper bounds use nonnegative weights on original indices.
+\end{theorem}
+Up to absolute constant factors, $\mathcal R$ is the following three-branch function:
+\begin{equation}\label{eq:regimes}
+ \begin{cases}
+ k^2\varepsilon^{-2},&\varepsilon\ge k^{-1/2},\\
+ k^{5/2}\varepsilon^{-1},&k^{-3/2}\le\varepsilon\le k^{-1/2},\\
+ k\varepsilon^{-2},&\varepsilon\le k^{-3/2}.
+ \end{cases}
+\end{equation}
+Intervals outside $0<\varepsilon<1/2$ are simply unused. Constants and logarithms do not introduce any dependence on the original row count or ambient dimension.
+
+\subsection{Relation to the preceding packages}
+The preceding manuscript \cite{prior}, Theorem 1.1, classified even-power inputs of rank at most $k+1$. At $p=4$ that restricted answer is
+$\Theta(\min\{k^2/\varepsilon^2,k^{5/2}/\varepsilon,k^4\})$.
+It explicitly did not give a matching arbitrary-rank upper bound. The present upper bound removes that restriction at $p=4$. The lower bounds required here are proved again in Section~\ref{sec:lower}, so the new conclusion does not assume an unreviewed asymptotic theorem from the earlier package.
+
+The existing general upper bound of Lin--Mirrokni--Woodruff \cite[Theorem 1.2]{lmw} is used twice: as the first upper branch, and as a preliminary reduction to a polynomial number of weighted original rows. It is not used to infer the improved second branch.
+
+\begin{center}
+\begin{tabular}{@{}llll@{}}\toprule
+Accuracy & Prior unrestricted lower & Prior upper & This manuscript\\\midrule
+$k^{-1/4}$ & $k^{5/2}$ & $\wt O(k^{5/2})$ & $\wt\Theta(k^{5/2})$\\
+$k^{-1}$ & $k^{7/2}$ & $\wt O(k^4)$ & $\wt\Theta(k^{7/2})$\\
+$k^{-2}$ & $k^5$ & $\wt O(k^6)$ & $\wt\Theta(k^5)$\\\bottomrule
+\end{tabular}
+\end{center}
+Only absolute constants and logarithms are suppressed in this comparison; entries are asymptotic orders, not coefficient-one finite inequalities.
+
+\subsection{Proof organization and remaining scope}
+Sections~\ref{sec:imports}--\ref{sec:upperend} prove the new upper bound. The delicate part is not the pure head or pure tail: it is the interaction of a quadratic head feature with a mixed feature or a quadratic tail feature. A bounded number of their high-variance right directions are preserved exactly. A different mixed term is controlled anisotropically, avoiding an unnecessary factor $\sqrt{k}$. Partial coloring is iterated without making negative final weights; the remaining fractional entries are frozen rather than forced to signs.
+
+Section~\ref{sec:lower} gives both required lower constructions. Section~\ref{sec:scope} records why Theorem~\ref{thm:main} is not a classification for $p\ne4$. In particular, this is not a claim that the whole RA-05 entry is solved merely because a substantive fixed-exponent case is solved.
+
+\section{Imported theorems and elementary consequences}\label{sec:imports}
+All implicit constants in the quartic proof are absolute and may depend on the numerical constants in the following imported results.
+
+\begin{theorem}[Subspace partial coloring; Rothvoss]\label{thm:roth}
+There exist absolute $c_0,\kappa_0>0$ such that the following holds. If $F\subseteq\R^a$ has codimension at most $c_0a$, and $K\subseteq F$ is centrally symmetric and convex with standard Gaussian measure
+$\gamma_F(K)\ge e^{-c_0a}$, then for every $x^0\in(-1,1)^a$ there is
+\[
+ x\in(x^0+K)\cap[-1,1]^a
+\]
+with at least $\kappa_0a$ coordinates equal to $-1$ or $1$.
+\end{theorem}
+This is \cite[Lemma 9]{roth}, with a fixed allowed value of its parameter. For example, that lemma uses $\xi\le1/60000$, codimension fraction $\frac32\xi\log_2(1/\xi)$, and saturation fraction $\xi/2$. We only use existence. The arbitrary starting point is important when the lemma is applied repeatedly on the still-fractional coordinates.
+
+\begin{theorem}[Rectangular matrix-Gaussian bound; Tropp]\label{thm:tropp}
+For fixed real matrices $X_i$ of size $d_1\times d_2$ and independent standard normal $\gamma_i$, let
+\[
+ \sigma^2=\max\left\{\norm{\sum_iX_iX_i^T}_\op,
+                         \norm{\sum_iX_i^TX_i}_\op\right\}.
+\]
+Then $\Prob\{\norm{\sum_i\gamma_iX_i}_\op\ge t\}
+\le(d_1+d_2)\exp(-t^2/(2\sigma^2))$.
+\end{theorem}
+This is \cite[Theorem 1.5]{tropp}. Zero-dimensional cases are omitted. We only use a fixed small failure probability, so its consequence is an operator bound $C\sigma\sqrt{\log(2+d_1+d_2)}$.
+
+\begin{theorem}[Preliminary row reduction; imported]\label{thm:presparse}
+For every quartic input and $0<\delta<1/2$, a nonnegative weighted original-row subset of size at most
+\[
+ C k^2\delta^{-2}\log^9(Ck/\delta)
+\]
+preserves every rank-at-most-$k$ cost within $1\pm\delta$.
+\end{theorem}
+This is \cite[Theorem 1.2]{lmw} at $p=4$ and a fixed failure probability, say $1/4$. Positive success probability suffices for the existential assertion. A reweighted row $w_i^{1/4}a_i$ is only a representation of its weight; composing subsequent row weights still gives a coreset on the original indices.
+
+\subsection{Restricting the coefficient Gaussian}
+\begin{lemma}[Variance contraction]\label{lem:projection}
+Let $\Pi$ be an orthogonal projection on the coefficient space and let $\gamma$ be standard Gaussian there. For $Z=\sum_i(\Pi\gamma)_iX_i$,
+\[
+ \E ZZ^T\preceq\sum_iX_iX_i^T,\qquad
+ \E Z^TZ\preceq\sum_iX_i^TX_i.
+\]
+The same statements hold after any fixed left or right multiplication of the atoms.
+\end{lemma}
+\begin{proof}
+For every vector $u$, form the matrix whose columns are $X_i^Tu$. Its squared Frobenius norm after multiplication by $\Pi$ cannot increase. This is precisely the first quadratic-form inequality. Apply the same argument to $X_i^T$ for the second. Express $\Pi\gamma$ in an orthonormal basis of its range to obtain a series with independent Gaussian coefficients, to which Theorem~\ref{thm:tropp} applies. Fixed multiplication merely replaces the atoms in this argument.
+\end{proof}
+Thus every variance estimate below survives the exact linear constraints imposed during coloring. We never treat correlated constrained coordinates as independent.
+
+\begin{lemma}[Anisotropic right whitening]\label{lem:anisotropic}
+Suppose $A=\sum_iX_iX_i^T\preceq a\Id$, where $a>0$, and set
+$B=\sum_iX_i^TX_i$, $R=B+a\Id$. With probability at least $0.99$, a standard Gaussian on any fixed coefficient subspace satisfies
+\begin{equation}\label{eq:anisotropic}
+ \norm{Z R^{-1/2}}_\op\le C\sqrt{\log(2+d_1+d_2)}.
+\end{equation}
+In particular, on this one event, simultaneously for every $v$,
+\[
+ \norm{Zv}_2\le C\sqrt{\log(2+d_1+d_2)}\sqrt{v^TBv+a\norm v_2^2}.
+\]
+\end{lemma}
+\begin{proof}
+For $Y_i=X_iR^{-1/2}$, the left variance is at most $A/a\preceq\Id$, since $R^{-1}\preceq a^{-1}\Id$. The right variance is $R^{-1/2}BR^{-1/2}\preceq\Id$. Lemma~\ref{lem:projection} preserves these bounds after coefficient restriction; Theorem~\ref{thm:tropp} proves~\eqref{eq:anisotropic}. This is an operator event, not a union bound over query vectors.
+\end{proof}
+
+\subsection{A polynomial Gaussian width}
+\begin{lemma}[Quartic Gaussian width]\label{lem:headwidth}
+If $G$ is a centered Gaussian tensor in $\Sym^4(\R^r)$ with covariance at most $v^2\Id$ in the inherited tensor Hilbert space, then
+\[
+ \E\sup_{\norm x=1}\abs{\ip G{x^{\otimes4}}}\le C v\sqrt r.
+\]
+\end{lemma}
+\begin{proof}
+For $X_x=\ip G{x^{\otimes4}}$,
+\[
+ \E(X_x-X_y)^2\le v^2\norm{x^{\otimes4}-y^{\otimes4}}^2
+ =2v^2(1-(x\cdot y)^4)\le4v^2\norm{x-y}^2.
+\]
+Compare to $Y_x=2v\,g\cdot x$ with $g$ standard Gaussian in $\R^r$. Add a zero index to both families so that the comparison also bounds the nonnegative part of the supremum; the extra variance inequality holds because $\E X_x^2\le v^2\le\E Y_x^2$. Gaussian comparison, recalled in Appendix~\ref{app:gaussian}, gives
+$\E\max(0,\sup X_x)\le2v\sqrt r$. Apply the same argument to $-X_x$ and add. This avoids replacing an expected signed supremum by an expected absolute supremum without justification.
+\end{proof}
+\section{An optimal head and fixed normalized features}\label{sec:features}
+\subsection{Ambient dimension and positive contractions}
+After preliminary row reduction, there are $n_0$ weighted rows. Identify their row span isometrically with $\R^d$, where $d\le n_0$. A projector in the original ambient space compresses to a positive contraction $P$ on this row span, with $\rank P\le k$. Its residual cost is
+\begin{equation}\label{eq:contractioncost}
+ C(P)=\sum_i\bigl(a_i^T(\Id-P)a_i\bigr)^2.
+\end{equation}
+It is therefore sufficient to preserve~\eqref{eq:contractioncost} for every $0\preceq P\preceq\Id$ of rank at most $k$. This does not require an ambient-dimensional net.
+
+If $d\le k$, the zero-optimum case is treated at the end of Section~\ref{sec:upperend}. Otherwise choose a minimizing rank-$k$ orthogonal head space $B$, which exists by compactness. Split
+\[
+ a_i=b_i+c_i,\qquad b_i\in B\simeq\R^k,\quad c_i\in B^\perp.
+\]
+For the moment assume $\OPT=\sum_i\norm{c_i}^4>0$ and scale all rows so that
+\begin{equation}\label{eq:optnorm}
+ \sum_i\rho_i^4=1,\qquad \rho_i=\norm{c_i}.
+\end{equation}
+For any allowed positive contraction, $P\preceq P_{\operatorname{range}P}$, so its cost is no less than the cost of that rank-at-most-$k$ projector. Consequently
+\begin{equation}\label{eq:Cge1}
+ C(P)\ge1.
+\end{equation}
+Let $Q=(\Id-P)^{1/2}$, $V=Q|_B$, and $W=Q|_{B^\perp}$. Then $\norm V_\op,\norm W_\op\le1$, and
+\begin{equation}\label{eq:H}
+ H(P):=\sum_i\norm{Vb_i}^4
+ \le8\left(C(P)+\sum_i\norm{Wc_i}^4\right)\le16C(P).
+\end{equation}
+The first inequality applies $\norm{x-y}^4\le8(\norm x^4+\norm y^4)$ row by row. Notice that the head is chosen for the fixed input, not for the query.
+
+\subsection{Lewis normalization of the head only}
+\begin{lemma}[Head normalization]\label{lem:lewis}
+For the spanning head rows there is an invertible $T$ on $B$ and a representation
+\[
+ Tb_i=\lambda_i^{1/4}u_i,\qquad
+ \sum_i\lambda_i u_i u_i^T=\Id_k,\qquad
+ \sum_i\lambda_i=k.
+\]
+Nonzero head rows have $\norm{u_i}=1$; put $\lambda_i=0,u_i=0$ on zero head rows. The normalized head form obeys
+\begin{equation}\label{eq:Lewisbound}
+ \frac1k\norm x^4\le \sum_i\lambda_i(u_i\cdot x)^4\le\norm x^4.
+\end{equation}
+Moreover, for every real linear map $V$,
+\begin{equation}\label{eq:headrowleverage}
+ \norm{Vb_i}^4\le k\lambda_i\sum_j\norm{Vb_j}^4.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Minimize $\sum_i\norm{Tb_i}^4$ over $\det T=1$. Spanning implies that $\min_{\norm v=1}\sum_i|b_i\cdot v|^4>0$, so a sublevel set bounds $\norm T_\op$. The determinant then bounds the least singular value away from zero, giving existence by compactness. For every symmetric traceless $X$, differentiate along $e^{tX}T$. Stationarity says that $\sum_i\norm{Tb_i}^2(Tb_i)(Tb_i)^T$ is a positive scalar multiple of the identity. Rescale $T$ by a scalar to make that multiple one, and define $\lambda_i=\norm{Tb_i}^4$.
+
+Taking a trace gives total mass $k$. Jensen with probabilities $\lambda_i/k$ proves the lower inequality in~\eqref{eq:Lewisbound}; its upper inequality uses $(u_i\cdot x)^4\le\norm x^2(u_i\cdot x)^2$ and isotropy. Hence $|b_i\cdot x|^4\le k\lambda_i\sum_j|b_j\cdot x|^4$ in the original coordinates. Evaluate this inequality at $V^Tg$ and average over a standard Gaussian $g$ in the output space. The identity $\E|g\cdot v|^4=3\norm v^4$ proves~\eqref{eq:headrowleverage}.
+\end{proof}
+All subsequent coordinate normalizations are proof devices. They do not replace returned input rows by projected or synthetic rows.
+
+\subsection{The two head metrics and the tail metric}
+Tensor spaces below carry the inner product inherited from the full tensor product. In particular $\norm{v^{\otimes2}}=\norm v^2$. Inverses are taken only on the indicated positive ranges.
+
+Define
+\begin{align}
+ M&=\sum_i(b_i^{\otimes2})(b_i^{\otimes2})^T,
+ &D&=\rank M\le k(k+1)/2\le k^2,\label{eq:M}\\
+ N&=\sum_i\rho_i^2 b_i b_i^T,
+ &h&=\rank N\le k.\label{eq:N}
+\end{align}
+Choose orthonormal coordinates in their ranges and put
+\begin{equation}\label{eq:egdt}
+ e_i=M^{\dagger/2}b_i^{\otimes2}\in\R^D,\qquad
+ g_i=(N^{\dagger/2}b_i)\otimes c_i,\qquad
+ d_i=c_i^{\otimes2},\quad
+ \tau_i=\norm{e_i}^2,\quad t_i=\norm{g_i}^2.
+\end{equation}
+Here $g_i$ belongs to a space of dimension $h(d-k)$, and is zero when $c_i=0$. If $h=0$, omit all $g$-features. Any $b_i$ with $\rho_i>0$ lies in $\operatorname{range}N$: a vector in its kernel is orthogonal to every such $b_i$. This observation justifies all mixed contractions below, even when $N$ is singular.
+
+The fixed normalizations give
+\begin{equation}\label{eq:featurebounds}
+ \sum_i e_i e_i^T=\Id_D,\quad \sum_i\tau_i=D,
+ \qquad \Gamma_g:=\sum_i g_i g_i^T\preceq\Id,\quad\sum_i t_i=h.
+\end{equation}
+For the $g$ inequality, set $a_i'=\rho_iN^{\dagger/2}b_i$ and $v_i=c_i/\rho_i$ on nonzero tails. Then $\sum_i a_i'a_i'^T=\Id_h$ and
+$\Gamma_g=\sum_i a_i'a_i'^T\otimes v_iv_i^T\preceq\Id_h\otimes\Id$.
+
+On the quadratic tail space set
+\begin{equation}\label{eq:Rtail}
+ R_t=\sum_i d_i d_i^T+\frac1k\Id,\qquad \dbar_i=R_t^{-1/2}d_i.
+\end{equation}
+Then $\sum_i\dbar_i\dbar_i^T\preceq\Id$ and $\norm{\dbar_i}^2\le k\rho_i^4$.
+
+\subsection{One fixed probability distribution}
+Average the following probability vectors, omitting the third one if $h=0$:
+\begin{equation}\label{eq:pi}
+ \frac{\lambda_i}{k},\qquad \frac{\tau_i}{D},\qquad
+ \frac{t_i}{h},\qquad \rho_i^4.
+\end{equation}
+Call their average $\pi_i$. Remove zero input rows. Every remaining $\pi_i$ is positive and $\sum_i\pi_i=1$. The essential individual bounds are
+\begin{equation}\label{eq:ratios}
+ \frac{\lambda_i}{\pi_i}\le4k,\quad
+ \frac{\tau_i}{\pi_i}\le4D,\quad
+ \frac{t_i}{\pi_i}\le4k,\quad
+ \frac{\rho_i^4}{\pi_i}\le4,\quad
+ \frac{\norm{\dbar_i}^2}{\pi_i}\le4k.
+\end{equation}
+The distribution is never recomputed during rounding. A current mass $\mu_i$ on the rescaled atom $\pi_i^{-1/4}a_i$ means original-row weight $\mu_i/\pi_i$.
+
+For later rounding,~\eqref{eq:headrowleverage},~\eqref{eq:H}, and~\eqref{eq:ratios} imply the uniform bound
+\begin{equation}\label{eq:sensitivity}
+ \frac{\norm{Qa_i}^4}{\pi_i}
+ \le8\left(4k^2H(P)+4\right)\le544k^2 C(P).
+\end{equation}
+It holds also when some head or tail row is zero; no lower bound on the smallest positive $\pi_i$ is needed.
+
+\section{Every mixed term and its query norm}\label{sec:contractions}
+For a query define
+\begin{equation}\label{eq:queryvectors}
+ a=M^{1/2}\vc(V^TV),\qquad
+ z=\vc(N^{1/2}V^TW),\qquad
+ p=\vc(P|_{B^\perp}).
+\end{equation}
+The first two vectors are expressed in the ranges used in~\eqref{eq:egdt}. They satisfy
+\begin{align}
+ e_i^Ta&=\norm{Vb_i}^2,&g_i^Tz&=(Vb_i)\cdot(Wc_i),&d_i^Tp&=c_i^TPc_i,\label{eq:queryeval}\\
+ \norm a^2&=H(P),&
+ \norm z^2&\le\sum_i\rho_i^2\norm{Vb_i}^2\le\sqrt{H(P)},&
+ \norm p^2&\le k,\label{eq:querynorms}\\
+ p^TR_tp&\le2.&&&&\label{eq:tailquerynorm}
+\end{align}
+Indeed, $WW^T\preceq\Id$ gives
+$\norm{N^{1/2}V^TW}_\Frob^2\le\Tr(VNV^T)$, and Cauchy--Schwarz plus~\eqref{eq:optnorm} gives the second bound. For the last two bounds, $0\preceq P|_{B^\perp}\preceq\Id$ and its trace is at most $k$; also $0\le c_i^TPc_i\le\rho_i^2$.
+
+For arbitrary signed coefficient changes $\theta_i$, abbreviate
+\begin{align*}
+ Z_1&=\sum_i\theta_i e_i g_i^T,&Z_2&=\sum_i\theta_i e_i d_i^T,&Z_3&=\sum_i\theta_i g_i g_i^T,\\
+ Z_{40}&=\sum_i\theta_i\rho_i^2g_i,&Z_4&=\sum_i\theta_i g_i d_i^T,&Z_5&=\sum_i\theta_i d_i d_i^T,\\
+ v_{20}&=\sum_i\theta_i\rho_i^2 e_i,&L_t&=\sum_i\theta_i\rho_i^2 c_i c_i^T,&s_t&=\sum_i\theta_i\rho_i^4.
+\end{align*}
+An exact expansion gives
+\begin{align}\label{eq:expansion}
+ \sum_i\theta_i\norm{Qa_i}^4
+ ={}&\sum_i\theta_i\norm{Vb_i}^4
+ +4a^TZ_1z+2a^Tv_{20}-2a^TZ_2p+4z^TZ_3z\notag\\
+ &+4z^TZ_{40}-4z^TZ_4p+s_t-2\ip{P|_{B^\perp}}{L_t}_\Frob+p^TZ_5p.
+\end{align}
+To verify it, expand $(\norm x^2+2x\cdot y+\norm y^2)^2$ and use
+$\norm{Wc_i}^2=\rho_i^2-c_i^TPc_i$.
+In the rounding argument $v_{20}$ and $s_t$ are preserved exactly. The other terms are all estimated below. In particular, no degree-three tail interaction is discarded as a remainder.
+
+The norms in~\eqref{eq:querynorms}--\eqref{eq:tailquerynorm} imply
+\begin{equation}\label{eq:Cratios}
+ H(P)\le16C(P),\qquad
+ H(P)^{3/4}\le8C(P),\qquad
+ \sqrt{H(P)}\le4C(P),\qquad H(P)^{1/4}\le2C(P),
+\end{equation}
+where~\eqref{eq:Cge1} is used. These are the only places where optimality of the head is needed for relative rather than additive error.
+
+\section{A current positive measure and its Gaussian bounds}\label{sec:variance}
+\subsection{Maintained quantities}
+All features and $\pi$ remain those of the fixed input. At an outer rounding stage, let $\mu$ be the current positive measure, including both frozen entries and active copies. Maintain
+\begin{align}
+ &\sum_i\mu_i\le1,\quad
+ \sum_i\frac{\mu_i\rho_i^4}{\pi_i}\le1,\quad
+ \sum_i\frac{\mu_i t_i}{\pi_i}\le k,\label{eq:scalarinv}\\
+ &E_\mu:=\sum_i\frac{\mu_i e_i e_i^T}{\pi_i}\preceq2\Id,
+ \quad G_\mu:=\sum_i\frac{\mu_i g_i g_i^T}{\pi_i}\preceq2\Id,
+ \quad T_\mu:=\sum_i\frac{\mu_i\dbar_i\dbar_i^T}{\pi_i}\preceq2\Id.\label{eq:matrixinv}
+\end{align}
+The original measure $\mu=\pi$ has all three matrix upper bounds with constant one. Initial downward rounding can only decrease them. The scalar quantities in~\eqref{eq:scalarinv}, and the vector $\sum_i\mu_i\rho_i^2e_i/\pi_i$, will subsequently be preserved exactly.
+
+Active copies have common mass $\eta$ and index list $i_1,\ldots,i_n$, with their measure dominated by $\mu$. Let sums over $\ell$ below run through any subset of these copies; repeated original indices are permitted. Define unscaled atoms
+\begin{align}
+ X_{1\ell}&=e_{i_\ell}g_{i_\ell}^T/\pi_{i_\ell},&
+ X_{2\ell}&=e_{i_\ell}d_{i_\ell}^T/\pi_{i_\ell},&
+ X_{4\ell}&=g_{i_\ell}d_{i_\ell}^T/\pi_{i_\ell},\label{eq:copyatoms}\\
+ E_\ell&=e_{i_\ell}e_{i_\ell}^T/\pi_{i_\ell},&
+ G_\ell&=g_{i_\ell}g_{i_\ell}^T/\pi_{i_\ell},&
+ T_\ell&=\dbar_{i_\ell}\dbar_{i_\ell}^T/\pi_{i_\ell}.\notag
+\end{align}
+A coloring increment $x_\ell$ changes the original-row coefficient by $\eta x_\ell/\pi_{i_\ell}$. Thus Gaussian estimates for the unscaled atoms must always be multiplied by $\eta$ before being used as cost or matrix-invariant errors.
+
+\subsection{Variance table}
+For a rectangular family $X$, write $A_X=\sum XX^T$, $B_X=\sum X^TX$. The following bounds follow from~\eqref{eq:ratios}--\eqref{eq:matrixinv}:
+\begin{equation}\label{eq:variance-table}
+\begin{array}{c|c|c}
+\text{family}&A_X\text{ bound}&\text{additional bound}\\\hline
+X_1&(8k/\eta)\Id&\Tr B_{X_1}\le8kD/\eta\\
+X_2&(8/\eta)\Id&\Tr B_{X_2}\le8D/\eta\\
+X_4&(8/\eta)\Id&\text{query bound in \eqref{eq:B4query}}\\
+E&(8D/\eta)\Id&B_E=A_E\\
+G&(8k/\eta)\Id&B_G=A_G\\
+T&(8k/\eta)\Id&B_T=A_T
+\end{array}
+\end{equation}
+For example,
+\[
+ A_{X_1}=\sum_\ell\frac{t_{i_\ell}e_{i_\ell}e_{i_\ell}^T}{\pi_{i_\ell}^2}
+ \preceq4k\sum_\ell\frac{e_{i_\ell}e_{i_\ell}^T}{\pi_{i_\ell}}
+ \preceq\frac{8k}{\eta}\Id.
+\]
+Its trace bounds $\Tr B_{X_1}$. The $X_2$ and $X_4$ bounds use $\norm{d_i}^2=\rho_i^4$. For a positive rank-one atom $vv^T/\pi_i$, its square is at most $(\norm v^2/\pi_i)(vv^T/\pi_i)$; this proves the last three rows.
+
+Two vector-valued series have second-moment bounds
+\begin{equation}\label{eq:vectorvariance}
+ \sum_\ell\norm{\rho_{i_\ell}^2g_{i_\ell}/\pi_{i_\ell}}^2\le4k/\eta,
+ \qquad
+ \sum_\ell\norm{\rho_{i_\ell}^2d_{i_\ell}/\pi_{i_\ell}}^2\le4/\eta.
+\end{equation}
+The second vector is the vectorization of the linear tail matrix in~\eqref{eq:expansion}. Markov's inequality applied to a squared norm gives fixed-probability bounds of the square roots of~\eqref{eq:vectorvariance}. Lemma~\ref{lem:projection} also contracts these vector second moments.
+
+\subsection{Why the other mixed term does not lose a factor of rank}
+For the full active collection set $B_4=\sum_\ell X_{4\ell}^TX_{4\ell}$. For every allowed query,
+\begin{equation}\label{eq:B4query}
+ p^TB_4p
+ =\sum_\ell\frac{t_{i_\ell}(c_{i_\ell}^TPc_{i_\ell})^2}{\pi_{i_\ell}^2}
+ \le4\sum_\ell\frac{t_{i_\ell}}{\pi_{i_\ell}}
+ \le\frac{4k}{\eta}.
+\end{equation}
+Apply Lemma~\ref{lem:anisotropic} with $a=8/\eta$ and $R_4=B_4+(8/\eta)\Id$. For a Gaussian on any constrained active subset, with fixed high probability,
+\begin{equation}\label{eq:X4good}
+ \norm{\Big(\sum_\ell\gamma_\ell X_{4\ell}\Big)R_4^{-1/2}}_\op\le C\sqrt L,
+ \qquad p^TR_4p\le12k/\eta.
+\end{equation}
+Here and below $L\ge1$ bounds the logarithm of all matrix dimensions. Hence the contribution of this entire mixed term, after multiplication by $\eta$, is at most
+$C\sqrt{k\eta L}\norm z\le C\sqrt{k\eta L}C(P)$.
+A crude operator bound followed by $\norm p\le\sqrt k$ would be weaker. The fixed right-whitened operator event in~\eqref{eq:X4good} is what controls every query simultaneously.
+
+The quadratic tail term is handled differently. Its normalized error is $\sum_\ell\gamma_\ell T_\ell$, and~\eqref{eq:tailquerynorm} shows that an operator bound on this series controls $p^TZ_5p$ without a factor of $k$. Thus both types of regularization are used at their specific places, not interchangeably.
+\section{Protected directions and one compression round}\label{sec:round}
+\begin{lemma}[One round with fractional exceptions]\label{lem:round}
+Suppose~\eqref{eq:scalarinv}--\eqref{eq:matrixinv} hold and the full active collection has $n$ copies of common mass $\eta$. Let $m_0\ge C(D+3)$ and $n>m_0$. There is a vector $x\in[-1,1]^n$ such that at most $m_0$ coordinates are strictly between $-1$ and $1$, and the following exact constraints hold:
+\begin{equation}\label{eq:exactconstraints}
+ \sum_\ell x_\ell=0,\quad
+ \sum_\ell\frac{x_\ell\rho_{i_\ell}^4}{\pi_{i_\ell}}=0,\quad
+ \sum_\ell\frac{x_\ell t_{i_\ell}}{\pi_{i_\ell}}=0,\quad
+ \sum_\ell\frac{x_\ell\rho_{i_\ell}^2e_{i_\ell}}{\pi_{i_\ell}}=0.
+\end{equation}
+Put $L=1+\log(2n)+\log(2n_0)$, where $n_0$ bounds the number of distinct input rows and their intrinsic dimension. The change from mass $\eta$ to $\eta(1+x_\ell)$ obeys, for every query,
+\begin{equation}\label{eq:roundcost}
+ \abs{\eta\sum_\ell\frac{x_\ell\norm{Qa_{i_\ell}}^4}{\pi_{i_\ell}}}
+ \le C L^{3/2}
+ \left(k^{5/2}\eta+\sqrt{k\eta}+D\sqrt{\frac{k\eta}{m_0}}\right)C(P).
+\end{equation}
+The changes of the three matrices in~\eqref{eq:matrixinv} satisfy
+\begin{equation}\label{eq:roundstats}
+ \norm{\Delta E_\mu}_\op\le CL^{3/2}\sqrt{D\eta},\qquad
+ \norm{\Delta G_\mu}_\op+\norm{\Delta T_\mu}_\op\le CL^{3/2}\sqrt{k\eta}.
+\end{equation}
+All constants are absolute.
+\end{lemma}
+\begin{proof}
+We first protect directions for the \emph{whole} active collection. Let
+\[
+ B_1=\sum_{\ell=1}^nX_{1\ell}^TX_{1\ell},\qquad
+ B_2=\sum_{\ell=1}^nX_{2\ell}^TX_{2\ell},\qquad
+ q=\left\lfloor\frac{c_0m_0}{32D}\right\rfloor.
+\]
+Taking the absolute lower threshold for $m_0$ large enough makes $q\ge c_0m_0/(64D)\ge1$. Let $U_j$ span the top $q$ eigenvectors of $B_j$; if its space has fewer than $q$ dimensions, use the entire space. Impose the exact matrix constraints
+\begin{equation}\label{eq:protected}
+ \sum_\ell x_\ell X_{1\ell}U_1=0,\qquad
+ \sum_\ell x_\ell X_{2\ell}U_2=0.
+\end{equation}
+There are at most $2Dq$ scalar constraints. These particular $U_1,U_2$ remain fixed throughout the round.
+
+Starting at zero, repeatedly apply Theorem~\ref{thm:roth} to the still-fractional coordinates. Suppose $a>m_0$ coordinates remain. Every increment is zero off this active subset and is constrained by~\eqref{eq:exactconstraints} and~\eqref{eq:protected}. Add a head constraint as follows. For the $a$ active columns form
+\[
+ v_\ell=\frac{\lambda_{i_\ell}}{\pi_{i_\ell}}u_{i_\ell}^{\otimes4},\qquad
+ S=\sum_{\ell\ \mathrm{active}}v_\ell v_\ell^T.
+\]
+Each $\norm{v_\ell}\le4k$, so $\Tr S\le16k^2a$. Protect the top
+$\ell_0=\lfloor c_0a/8\rfloor$ eigendirections of $S$ by requiring that the corresponding coordinates of $\sum h_\ell v_\ell$ vanish. Again, if all tensor directions have been protected, the remaining head error is zero. This adds at most $\ell_0$ constraints. These head directions may be chosen anew at each partial step.
+
+Let $F$ be the resulting increment subspace of $\R^a$. The codimension is at most
+\[
+ D+3+2Dq+\ell_0\le c_0a
+\]
+when $m_0\ge C(D+3)$ with a sufficiently large absolute constant. In particular, taking $m_0\ge100(D+3)/c_0$ suffices for these elementary counts.
+
+Consider a standard Gaussian increment in $F$. Its head tensor covariance is at most the spectral truncation of $S$, hence at most $Ck^2\Id$: the first discarded eigenvalue is at most $\Tr S/(\ell_0+1)\le Ck^2$. Lemma~\ref{lem:headwidth} and Markov therefore give, with a fixed arbitrarily small failure probability after enlarging $C$,
+\begin{equation}\label{eq:headpartial}
+ \sup_{\norm y=1}\abs{\sum h_\ell\frac{\lambda_{i_\ell}}{\pi_{i_\ell}}
+ (u_{i_\ell}\cdot y)^4}\le Ck^{3/2}.
+\end{equation}
+To justify covariance truncation explicitly, the head covariance after coefficient projection is at most $S$ by Lemma~\ref{lem:projection}, and its range is orthogonal to the protected output eigenspace. Compressing both sides to that orthogonal complement bounds its operator norm by the first unprotected eigenvalue.
+
+For $j=1,2$, let $J_j=\Id-U_jU_j^T$. Since $B_j$ is positive semidefinite,
+\[
+ \norm{J_1B_1J_1}_\op\le\frac{8kD}{\eta(q+1)},\qquad
+ \norm{J_2B_2J_2}_\op\le\frac{8D}{\eta(q+1)}.
+\]
+The protected part of the increment is zero. On the unprotected part, Theorem~\ref{thm:tropp}, the left bounds in~\eqref{eq:variance-table}, and Lemma~\ref{lem:projection} give
+\begin{align}
+ \norm{\sum h_\ell X_{1\ell}}_\op
+ &\le C\sqrt{\frac{kL}{\eta}}\left(1+\frac D{\sqrt{m_0}}\right),\label{eq:partialX1}\\
+ \norm{\sum h_\ell X_{2\ell}}_\op
+ &\le C\sqrt{\frac{L}{\eta}}\left(1+\frac D{\sqrt{m_0}}\right).\label{eq:partialX2}
+\end{align}
+The variance of an active subset is dominated by that of the full collection, and subsequent coefficient projection contracts it. Thus it is legitimate to keep the original protected eigenspaces for every partial step.
+
+Impose in addition the fixed-high-probability norm events furnished by the remaining rows of~\eqref{eq:variance-table}, the two vector bounds~\eqref{eq:vectorvariance}, and the right-whitened event~\eqref{eq:X4good}. There are only an absolute number of events. Their intersection with~\eqref{eq:headpartial}--\eqref{eq:partialX2} defines a centrally symmetric convex set $K\subseteq F$ with $\gamma_F(K)\ge1/2$ after increasing the universal constants. All norms are norms of linear functions of the increment. Every feature space has dimension at most a fixed polynomial in $n_0$, so the logarithmic thresholds used are at most $C\sqrt L$. Since $a>m_0$ is large, $1/2\ge e^{-c_0a}$.
+
+Theorem~\ref{thm:roth} now applies to the current strictly fractional coordinates, whatever their current values. Each application saturates at least a $\kappa_0$ fraction of them. After at most $C\log(2n)\le CL$ applications at most $m_0$ coordinates remain fractional. The sum of increments is the asserted $x$. All the exact constraints persist, since every increment satisfies them.
+
+For completeness, the error of a single partial increment, after multiplying by $\eta$, is bounded term by term in~\eqref{eq:expansion}. The head inequality~\eqref{eq:headpartial},~\eqref{eq:Lewisbound}, and Gaussian averaging give at most $C\eta k^{5/2}H(P)$. The $Z_1$ term uses~\eqref{eq:partialX1} and $\norm a\norm z\le H(P)^{3/4}$. The $Z_2$ term uses~\eqref{eq:partialX2} and $\norm a\norm p\le\sqrt{kH(P)}$. Each contributes at most
+\[
+ C\sqrt{k\eta L}\left(1+\frac D{\sqrt{m_0}}\right)C(P).
+\]
+The $Z_3$ term is controlled by the $G$ series and $\norm z^2\le\sqrt H$. The $Z_{40}$ vector and $Z_4$ anisotropic bounds give $C\sqrt{k\eta L}C(P)$. The linear tail matrix uses its Frobenius bound and $\norm p\le\sqrt k$. The quadratic tail uses the $T$ series and $p^TR_tp\le2$. Each again costs at most $C\sqrt{k\eta L}C(P)$. Finally, $v_{20}$ and $s_t$ vanish exactly. Equation~\eqref{eq:Cratios} converts all these estimates to the displayed relative scale.
+
+Sum these bounds over the at most $CL$ partial increments to obtain~\eqref{eq:roundcost}. Applying the same triangle inequality to the $E,G,T$ series gives~\eqref{eq:roundstats}. Positivity is not asserted for a Gaussian increment; it comes from the actual output $x\in[-1,1]^n$, and is used in the next section.
+\end{proof}
+
+\begin{remark}[What is, and is not, protected]
+The $U_1,U_2$ constraints cost only $O(Dq)$ scalar dimensions and are retained for the whole outer round. The head truncation costs $O(a)$ dimensions at a partial step. The full ambient family of quartic moments is \emph{not} imposed as exact constraints. Doing that would give a different dimension-dependent bound and would not prove the theorem above. Likewise, the $Z_4$ mixed term is not estimated by a dimension-free Frobenius norm; its anisotropic right norm is essential.
+\end{remark}
+
+\section{Positive halving, frozen exceptions, and total support}\label{sec:upperend}
+\subsection{Initial common-mass copies}
+Fix a compression target $0<\delta<1/2$ for an $n_0$-row input with positive optimum. Put
+\begin{equation}\label{eq:initialeta}
+ \eta_0=\frac{\delta}{10^4 k^2n_0},\qquad
+ n_i=\left\lfloor\frac{\pi_i}{\eta_0}\right\rfloor.
+\end{equation}
+Replace mass $\pi_i$ by $n_i$ copies of mass $\eta_0$ on its rescaled atom. Their total count $N_*\le1/\eta_0$ is finite. By~\eqref{eq:sensitivity}, the lost cost is nonnegative and at most
+\begin{equation}\label{eq:initialerror}
+ 544k^2n_0\eta_0 C(P)<(\delta/8)C(P)
+\end{equation}
+simultaneously for all queries. All matrix and scalar invariants decrease under this initial operation.
+
+Use the uniform logarithmic bound
+\begin{equation}\label{eq:Lglobal}
+ L=1+\log(2/\eta_0)+\log(2n_0)
+\end{equation}
+and choose
+\begin{equation}\label{eq:m0choice}
+ m_0=\left\lceil C_0L^4\left(\frac{k^{5/2}}\delta+\frac{k}{\delta^2}\right)\right\rceil,
+\end{equation}
+where $C_0$ is a sufficiently large absolute constant. This choice also ensures $m_0\ge C(D+3)$ in Lemma~\ref{lem:round}.
+
+\subsection{Freezing rather than forcing fractional entries}
+At a stage with $n>m_0$ full copies of mass $\eta$, apply Lemma~\ref{lem:round} and replace each copy mass by $\eta(1+x_\ell)$. Discard coordinates with $x_\ell=-1$. Keep coordinates with $x_\ell=1$ as full copies of mass $2\eta$ for the next stage. \emph{Freeze} every strictly fractional coordinate, with its positive mass $\eta(1+x_\ell)$, and never modify it again. There are at most $m_0$ newly frozen entries per stage.
+
+No negative measure is created. The cardinality constraint $\sum x_\ell=0$ preserves the total density mass exactly. It also implies that the number of positive full copies is at most $n/2$: if $f$ entries are fractional, their sum lies in $[-f,f]$, and
+$n_+-n_-=-\sum_{\rm fractional}x_\ell$ with $n_++n_-=n-f$.
+Thus the active count halves and the process terminates in at most $C\log(2N_*)\le CL$ stages. The tail-mass and mixed-trace constraints in~\eqref{eq:exactconstraints} preserve the other scalar invariants. The frozen part is always included when checking the matrix invariants.
+
+At every executed stage, positivity and total mass at most one give $n\eta\le1$. Since $n>m_0$, its pre-round mass satisfies $\eta<1/m_0$. The successive full-copy masses double, so over every executed prefix,
+\begin{equation}\label{eq:geom}
+ \sum_j\eta_j\le\frac2{m_0},\qquad
+ \sum_j\sqrt{\eta_j}\le\frac4{\sqrt{m_0}}.
+\end{equation}
+The same bounds apply if a stage leaves no full copies.
+
+\subsection{Closing the invariant induction}
+Initially the three matrix invariants hold with constant one. Supposing they hold before each stage of a prefix, Lemma~\ref{lem:round} and~\eqref{eq:geom} bound the cumulative operator deviations by
+\begin{equation}\label{eq:statdrift}
+ CL^{3/2}\sqrt{D/m_0},\qquad CL^{3/2}\sqrt{k/m_0},\qquad CL^{3/2}\sqrt{k/m_0}.
+\end{equation}
+Since $D\le k^2$ and~\eqref{eq:m0choice} gives $m_0\ge C_0L^4k^{5/2}/\delta$, all three quantities are at most $1/2$ for sufficiently large $C_0$. Hence each matrix stays below $\tfrac32\Id$, in particular below $2\Id$. This proves the induction. There is no assumption that the new measure is pointwise dominated by the initial one; instead, these explicitly maintained matrix bounds control it. Each active submeasure is dominated by the current full positive measure, which is all that Section~\ref{sec:variance} needs.
+
+\subsection{Closing the cost and support bounds}
+Summing~\eqref{eq:roundcost} and using~\eqref{eq:geom} bounds the total rounding change, relative to the fixed input cost, by
+\begin{align}\label{eq:totalcosterror}
+ CL^{3/2}\left(\frac{k^{5/2}}{m_0}+\sqrt{\frac{k}{m_0}}
+ +\frac{D\sqrt k}{m_0}\right)
+ &\le CL^{3/2}\left(\frac{2k^{5/2}}{m_0}+\sqrt{\frac{k}{m_0}}\right)\notag\\
+ &\le\delta/2
+\end{align}
+for a sufficiently large $C_0$. The powers $L^4$ in~\eqref{eq:m0choice} dominate the $L^{3/2}$ factors in both the linear and square-root terms. Combine this with~\eqref{eq:initialerror}; the final measure preserves every cost within $1\pm\delta$.
+
+There are at most $m_0$ active full copies at termination and at most $m_0$ frozen entries per executed stage. Merge every repeated original index. The resulting number of nonzero original-row weights is at most
+\begin{equation}\label{eq:finiteupper}
+ C Lm_0\le C\left(k^{5/2}/\delta+k/\delta^2\right)
+ \log^5(Ckn_0/\delta).
+\end{equation}
+The final original-row weight is the final merged mass divided by $\pi_i$. It is nonnegative. Frozen entries do not add new input points.
+
+\subsection{Zero optimum and preliminary reduction}
+If the fixed input has rank $r\le k$, the head-only part of the same argument suffices, without a tail normalization. Use Lewis masses $\lambda_i$, probabilities $\pi_i=\lambda_i/r$, and common copies. The head truncation in the proof of Lemma~\ref{lem:round} gives a partial-step polynomial discrepancy at most $Cr^{3/2}$ and hence relative linear-form discrepancy at most $Cr^{5/2}\eta$. Impose the exact cardinality constraint, iterate until $m_0$ fractional exceptions remain, and use the same frozen-exception halving. Initial downward rounding uses the head sensitivity bound $r^2$, and~\eqref{eq:geom} gives total error at most $CLr^{5/2}/m_0$. Taking $m_0=CL^4 r^{5/2}/\delta$ gives a head-only embedding with at most $Cr^{5/2}\delta^{-1}\log^5(Crn_0/\delta)$ rows. Gaussian averaging transfers it to every Euclidean subspace cost, including zero-cost queries. This argument also covers any zero-optimum case. A completely zero input needs no rows.
+
+For an arbitrary original input, apply Theorem~\ref{thm:presparse} with accuracy $\delta=\varepsilon/8$ and fix a successful outcome. Its reweighted matrix has
+\[
+ n_0\le Ck^2\delta^{-2}\log^9(Ck/\delta),
+ \qquad \log(Ckn_0/\delta)\le C\log(2k/\varepsilon).
+\]
+Use~\eqref{eq:finiteupper} or the head-only case on this matrix with the same accuracy $\delta$. Composing the two positive reweightings preserves original indices and gives distortion bounded by
+$(1\pm\delta)^2$, which lies within $1\pm\varepsilon$. This proves~\eqref{eq:newupper}. Theorem~\ref{thm:presparse} itself supplies the other upper branch. Taking the better construction and bounding both logarithmic factors by $C\log^9(2k/\varepsilon)$ proves the upper half of Theorem~\ref{thm:main}.
+
+\begin{remark}[Existence, computation, and input dependence]
+The proof uses exact optimal subspaces, exact linear-algebraic ranges, extremely fine common copies, and an existential partial-coloring theorem. It is a size/existence proof, as requested by RA-05, not a nearly input-sparsity-time algorithm. The number of copies is used only inside an existence argument and within logarithms; after preliminary reduction it is polynomial in $k$ and $1/\varepsilon$ with absolute exponents. Neither a hidden $\log n$ nor a hidden $\log d$ remains in the final size. The finite code accompanying this manuscript checks the stated algebra and exact positive-weight examples; it does not implement this entire asymptotic oracle construction.
+\end{remark}
+\section{Matching lower bounds}\label{sec:lower}
+Two different input families are necessary. The first supplies the dense-head and middle regimes; the second has arbitrarily large input rank and supplies the high-accuracy regime. The arguments below restate and specialize mechanisms from the preceding work, with the needed proofs included.
+
+\subsection{A variable-density cubic core}
+We use the Spielman--Srivastava restricted-invertibility theorem in the form stated in \cite[Theorem 1.1]{mss}: if a nonzero matrix $B$ has $L$ columns and $m\le\srank(B)$, some $m$ columns have squared least singular value at least
+\begin{equation}\label{eq:RI}
+ \left(1-\sqrt{m/\srank(B)}\right)^2\norm B_\Frob^2/L,
+ \qquad\srank(B)=\norm B_\Frob^2/\norm B_\op^2.
+\end{equation}
+\begin{lemma}[Quartic core with variable density]\label{lem:core}
+For all sufficiently large integers $r$, every integer $L$ with
+$r^2\le L\le r^3/1920$ admits unit vectors $z_1,\ldots,z_L\in\R^r$ and a selected subset $u_1,\ldots,u_M$, $M=\lfloor L/48\rfloor$, such that
+\begin{align}
+ &L/96\le M\le L/48,\qquad
+ \sum_i(z_i\cdot x)^4\le C(1+M/r^2)\norm x^4,\label{eq:coremoment}\\
+ &E_{ij}=(z_i\cdot u_j)^3,\qquad\sigma_{\min}(E)^2\ge3/64.\label{eq:coreeval}
+\end{align}
+The moment bound also holds for the selected $u_j$.
+\end{lemma}
+\begin{proof}
+Take independent standard Gaussian rows $g_i\in\R^r$ and set $z_i=g_i/\norm{g_i}$. For the matrix $G$ with rows $g_i^T$, Gaussian comparison gives
+$\E\norm G_{2\to4}\le\sqrt r+3^{1/4}L^{1/4}$; a proof is in Appendix~\ref{app:gaussian}. Markov's inequality bounds failure of eight times this estimate by $1/8$. The elementary chi-square lower tail gives
+$\Prob\{\min_i\norm{g_i}<\sqrt r/2\}\le Le^{-r/8}\le1/8$ for all sufficiently large $r$, uniformly over the allowed polynomial range of $L$. On the good events, normalizing the rows proves~\eqref{eq:coremoment}, initially with $L$ in place of $M$; they differ only by absolute factors.
+
+Let $K_{ij}=(z_i\cdot z_j)^3$. This is symmetric with diagonal one. For independent uniform unit vectors,
+$\E(z_i\cdot z_j)^6=15/[r(r+2)(r+4)]\le15/r^3$. Hence
+\[
+ \Prob\{\norm{K-\Id}_\Frob^2>L/16\}
+ \le240L/r^3\le1/8.
+\]
+There is a realization satisfying all three events. If $\lambda_i$ are the eigenvalues of $K$, their squared distances to one sum to at most $L/16$. At least $3L/4$ lie in $[1/2,3/2]$. Project onto their eigenspaces using $\Pi$ and put $B=\Pi K$. Then $\norm B_\op\le3/2$, $\norm B_\Frob^2\ge3L/16$, and $\srank(B)\ge L/12$. Apply~\eqref{eq:RI} with $M\le\srank(B)/4$ to select columns with squared least singular value at least $3/64$. The same unprojected columns of $K$ have no smaller least singular value, since $\Pi$ is a contraction. They give~\eqref{eq:coreeval}. Selecting rows cannot increase a sum of nonnegative fourth powers.
+\end{proof}
+All $z_i$ remain actual legal evaluation directions. Spectral projection is used only to select well-conditioned input columns, not to invent a query by taking a linear combination of costs.
+
+\subsection{Entire orthonormal auxiliary groups}
+\begin{lemma}[Aggregate auxiliary moment]\label{lem:auxbases}
+If $M\ge r^2/96$, there are $M$ orthonormal bases $(v_{j1},\ldots,v_{jr})$ of $\R^r$ such that
+\[
+ \frac1r\sum_{j,t}(v_{jt}\cdot y)^4\le CM r^{-2}\norm y^4.
+\]
+For every group, its mean $\mu_j=r^{-1}\sum_t v_{jt}$ has squared norm $1/r$.
+\end{lemma}
+\begin{proof}
+Choose the bases independently from Haar measure. For fixed unit $y$, let $X_j=\sum_t(v_{jt}\cdot y)^4$. Orthogonality gives $0\le X_j\le1$ and spherical moments give $\E X_j=3/(r+2)\le3/r$. Since $e^x\le1+(e-1)x$ on $[0,1]$, exponential Markov and independence between whole bases show
+\[
+ \Prob\{\sum_jX_j\ge A M/r\}\le
+ \exp(-(A-3(e-1))M/r).
+\]
+Take $A=3(e-1)+96(\log9+2)$. A $1/4$-net of the unit sphere has at most $9^r$ points, so a union bound leaves failure probability at most $e^{-2r}$. The fourth root of the stated sum is a seminorm; its supremum on the sphere is at most $4/3$ times its maximum on the net. Raising to the fourth power proves the assertion. Orthogonality gives the mean norm exactly. No independence of vectors \emph{within} a basis is asserted or needed.
+\end{proof}
+
+Use the $Mr$ rows
+\begin{equation}\label{eq:lowerrows}
+ a_{jt}=r^{-1/4}(u_j,v_{jt})\in\R^{2r}.
+\end{equation}
+Their homogeneous hyperplane form satisfies
+\begin{equation}\label{eq:lowercost}
+ f(x,y)=\frac1r\sum_{j,t}(u_j\cdot x+v_{jt}\cdot y)^4
+ \le C D_0(\norm x^4+\norm y^4),\qquad D_0=1+M/r^2.
+\end{equation}
+A strong coreset at query rank $2r-1$ preserves this form for every $(x,y)$: normalize the hyperplane normal and use degree-four homogeneity. Let $g=f_w-f$, $\alpha_{jt}=w_{jt}/r$, $b_j=\sum_t\alpha_{jt}v_{jt}$, and let the rows of $H$ be $(b_j-\mu_j)^T$.
+
+For the part $O(x,y)=(g(x,y)-g(x,-y))/2$ that is odd in $y$, exact quartic expansion gives
+\begin{equation}\label{eq:lowerodd}
+ O(2x,y)-2O(x,y)=24\sum_j(u_j\cdot x)^3\ip{b_j-\mu_j}{y}.
+\end{equation}
+Preservation and~\eqref{eq:lowercost} bound the right-hand interaction by $C D_0\varepsilon$ for unit $x,y$. Take $x=z_i$, maximize in unit $y$, sum squares, and use~\eqref{eq:coreeval}. This yields
+\begin{equation}\label{eq:lowerH}
+ \norm H_\Frob^2\le CM D_0^2\varepsilon^2.
+\end{equation}
+Orthogonality within every entire group now gives
+\[
+ \sum_{j,t}\alpha_{jt}^2=\sum_j\norm{b_j}^2
+ \le2\norm H_\Frob^2+2M/r.
+\]
+The zero-subspace cost query gives $\sum_{j,t}\alpha_{jt}\ge(1-\varepsilon)M\ge M/2$, since the unscaled rows all have the same norm. Cauchy--Schwarz on the $m$ nonzero coefficients implies
+\begin{equation}\label{eq:lowerdensity}
+ m\ge c\frac{M}{\varepsilon^2(1+M/r^2)^2+1/r}.
+\end{equation}
+This argument even permits signed weights if they satisfy the preservation guarantee; no positivity was used in this lower family.
+
+\subsection{Optimizing the density}
+The allowed $M$ range, up to absolute factors and integer roundings, runs from $r^2$ to $r^3$. For $\varepsilon\ge r^{-1/2}$ choose $M\asymp r^2$ in~\eqref{eq:lowerdensity}. For smaller $\varepsilon$, the ideal choice is $M\asymp r^{3/2}/\varepsilon$; use it until the upper endpoint is reached, then use $M\asymp r^3$. These substitutions yield
+\begin{equation}\label{eq:boundedlower}
+ m\ge c\min\{r^2\varepsilon^{-2},\ r^{5/2}\varepsilon^{-1},\ r^4\}.
+\end{equation}
+For example, at the ideal intermediate choice, the denominator in~\eqref{eq:lowerdensity} is $O(1/r)$, so the bound is $cMr=cr^{5/2}/\varepsilon$. The fixed numerical constant at the core's upper endpoint only shifts transitions by an absolute factor and therefore does not change~\eqref{eq:boundedlower}.
+
+For all sufficiently large $k$, take $r=\lfloor(k+1)/2\rfloor$ and pad rows and normals by zeros to dimension $k+1$. The resulting hyperplanes have dimension $k$ and unchanged costs. For the finitely many smaller $k$, reduce the absolute constant, using the trivial lower bound one and the fact that the displayed minimum is at most $k^4$. Thus for every $k\ge1$,
+\begin{equation}\label{eq:lowerT}
+ S_4(k,\varepsilon)\ge c\min\{k^2\varepsilon^{-2},\ k^{5/2}\varepsilon^{-1},\ k^4\}.
+\end{equation}
+
+\subsection{Arbitrary-rank blocks at every accuracy}
+\begin{lemma}[Explicit high-accuracy lower bound]\label{lem:blocklower}
+For all $k\ge1$ and $0<\varepsilon<1/2$,
+\begin{equation}\label{eq:blocklower}
+ S_4(k,\varepsilon)\ge\frac{k}{2304\varepsilon^2}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Let $N=\lceil\varepsilon^{-2}\rceil$, $R=2\sqrt k$, and use mutually orthogonal vectors $e_j,e_{jt}$ in dimension $k+kN$. The $kN$ rows are
+$a_{jt}=N^{-1/4}(Re_j+e_{jt})$. Put $\alpha_{jt}=w_{jt}/N\ge0$, $s_j=\sum_t\alpha_{jt}$, and $W_0=\sum_j s_j$.
+The rank-$k$ head span has cost $k$, so $|W_0-k|\le\varepsilon k$. Omitting its $j$th head coordinate gives a rank-$(k-1)$ query with original cost $k+C_0-1$ and weighted cost $W_0+(C_0-1)s_j$, where $C_0=(R^2+1)^2$. Therefore
+\[
+ |s_j-1|\le\varepsilon\left(1+\frac{2k}{C_0-1}\right)
+ \le\frac32\varepsilon<\frac34.
+\]
+Every group has mass at least $1/4$ and is nonempty.
+
+In group $j$ let $b_j=\sum_t\alpha_{jt}e_{jt}$ and $y_j=b_j/\norm{b_j}$. Its coordinates $u_{jt}$ are nonnegative and have squared sum one. Use the legal rank-$k$ spaces
+\[
+ F_\pm=\operatorname{span}\left\{\frac{Re_j\pm y_j}{\sqrt{R^2+1}}:1\le j\le k\right\}.
+\]
+Different groups are orthogonal. With $d_0=(R^2+1)^{-1}$ and $c=2R^2/(R^2+1)$, their unscaled squared residuals are
+$D_\pm(u)=A(u)\mp cu$, where $A(u)=2-d_0-d_0u^2$. For $0\le u\le1$, $1\le A(u)\le2$, $1\le c\le2$, and $0\le D_\pm\le4$. Thus
+\[
+ 4u\le D_-(u)^2-D_+(u)^2=4A(u)cu\le16u.
+\]
+The original difference of the two costs is at most $16k/\sqrt N$, by Cauchy--Schwarz on each group's $u_{jt}$. The weighted difference is at least $4\sum_j\norm{b_j}$. Both original costs are at most $16k$. Preservation at the two queries therefore gives
+\[
+ \sum_j\norm{b_j}\le4kN^{-1/2}+8\varepsilon k.
+\]
+If $q_j$ rows are retained in group $j$, then $\norm{b_j}\ge s_j/\sqrt{q_j}\ge1/(4\sqrt{q_j})$. Convexity gives
+$\sum_jq_j^{-1/2}\ge k^{3/2}/\sqrt m$ for $m=\sum q_j$. Consequently
+\[
+ m\ge\frac{k}{256(N^{-1/2}+2\varepsilon)^2}
+ \ge\frac{k}{2304\varepsilon^2}.
+\]
+Nonnegativity is essential here, unlike in the hyperplane construction. The ambient dimension grows with accuracy, but every query used still has dimension at most $k$.
+\end{proof}
+
+\subsection{Combining the lower bounds}
+Let $A=k^2/\varepsilon^2$, $B=k^{5/2}/\varepsilon$, $C_*=k^4$, and $D_*=k/\varepsilon^2$. An elementary comparison gives
+\begin{equation}\label{eq:envelopeequiv}
+ \max\{\min(A,B,C_*),D_*\}
+ \le\min(A,B+D_*)\le2\max\{\min(A,B,C_*),D_*\}.
+\end{equation}
+For $\varepsilon\ge k^{-1/2}$, both relevant minima have order $A$. Between $k^{-3/2}$ and $k^{-1/2}$, $B\le A,C_*$ and $D_*\le B$, so the middle expression lies between $B$ and $2B$. Below $k^{-3/2}$, $D_*\ge B,C_*$ and $D_*\le A$, so it lies between $D_*$ and $2D_*$. This proves both~\eqref{eq:envelopeequiv} and~\eqref{eq:regimes}. Equations~\eqref{eq:lowerT} and~\eqref{eq:blocklower} now give the lower half of Theorem~\ref{thm:main}.
+
+\section{Exact examples, checks, and proof-audit limits}\label{sec:checks}
+\subsection{A full-rank input with a proved optimal head}
+The following example specifically avoids assuming that a chosen head is optimal merely because it looks natural. For integers $k\ge1$, $N>k$, and $R>0$ with $R^2(N-k)\ge1$, take both signs of
+\begin{equation}\label{eq:certrows}
+ a_{jt,\pm}=Re_j\pm e_{jt}\in\R^{k+kN}.
+\end{equation}
+The head span has cost $2kN$ and is globally optimal among all rank-at-most-$k$ queries. To prove this, write $s_j=1-P_{jj}$, $t_{jt}=1-P_{jt,jt}$, and $u_{jt}=\ip{Qe_j}{Qe_{jt}}$ for a positive contraction $P$ of rank at most $k$ and $Q=(\Id-P)^{1/2}$. Pairing the signs gives
+\[
+ \frac12 C(P)=\sum_{j,t}\left[(R^2s_j+t_{jt})^2+4R^2u_{jt}^2\right].
+\]
+Let $S=\sum_j s_j$ and $T=\Tr(P|_{\rm tail})$. Since $\Tr P\le k$, $T\le S$. Also
+$\sum_{j,t}t_{jt}^2\ge kN-2T$ and $\sum_t t_{jt}\ge N-k$. Therefore
+\[
+ \frac12 C(P)\ge kN-2T+2R^2(N-k)S\ge kN.
+\]
+This is a global optimality argument, not a finite-query diagnostic.
+
+The exact certificate uses $k=2,N=3,R=2$, giving 12 integer rows in dimension eight and optimum cost 12. Retain the positive-sign row from each pair with weight two and give weight zero to the negative-sign row. Its support is six. Query the rank-two spaces spanned by $2e_j+e_{j1}$ and by $2e_j-e_{j1}$, respectively. Their projectors have integer numerators and denominator five. Exact Euclidean residual calculations give
+\begin{center}
+\begin{tabular}{@{}llll@{}}\toprule
+Query & Original cost & Weighted cost & Relative error\\\midrule
+Positive tilt & $232/5$ & $648/25$ & $64/145$\\
+Negative tilt & $232/5$ & $1672/25$ & $64/145$\\\bottomrule
+\end{tabular}
+\end{center}
+Both violate accuracy $1/10$. The standard-library checker verifies the row pattern, projector symmetry, idempotence and rank, and the direct rational costs. This is a finite witness and an optimal-head test instance, not a certificate of the universal upper-bound theorem.
+
+\subsection{An exact frozen-exception example}
+A separate rank-three input with 38 integer rows is reduced to 26 positively weighted original rows while preserving every homogeneous quartic moment exactly. Its test uses a common mass $1/38$, preserves the constant mass coordinate as well as all 15 degree-four monomials, and finds a nullspace coloring with 10 positive full copies and 16 fractional exceptions. The latter are frozen with their positive masses. Exact rational equality of the full moment vector implies equality for every Euclidean subspace cost, by polynomial expansion or Gaussian averaging.
+
+This example demonstrates the nonnegative bookkeeping. It deliberately uses \emph{all} quartic moments as exact constraints and therefore is not an implementation of the low-codimension partial-coloring oracle in Lemma~\ref{lem:round}. Its much stronger finite constraints must not be substituted for that lemma's asymptotic proof.
+
+\subsection{Recorded finite verification}
+The suite in \texttt{code/verify.py} records 7,621 successful assertions. They include 630 complete quartic error decompositions, 4,410 query contraction checks, density-ratio and singular-range cases, 24 coefficient-projection variance contractions, protected-right-mode constraints, anisotropic variance/query bounds, and 1,050 comparisons of the final regime envelopes. Counts are assertion counts, not independent proofs.
+
+The largest recorded absolute decomposition residual is below $1.5\cdot10^{-14}$. Matrix-variance identities have larger absolute magnitudes; their recorded residuals and scale-aware tolerances are saved separately. The generic random head/tail examples test identities that do not require optimality. Only the structured sign-pair family~\eqref{eq:certrows} is used as a proved-optimal-head example. The code does not infer optimality from random queries.
+
+The exact lower witness checker uses only Python integers and \texttt{Fraction}; feature tests use NumPy/SciPy, and the exact fractional-exception example uses rational linear algebra in SymPy. The imported Gaussian, partial-coloring, preliminary-coreset, and restricted-invertibility theorems are not experimentally certified by this suite. The large-dimensional positive-probability lower constructions are proved analytically, not instantiated at their conservative asymptotic constants.
+
+\section{Scope of the resolution and the remaining RA-05 question}\label{sec:scope}
+Theorem~\ref{thm:main} removes the input-rank restriction at $p=4$ and covers every allowed query rank and accuracy. In that precise sense, the unrestricted quartic joint-size problem is classified up to logarithmic factors.
+
+RA-05, however, fixes an arbitrary real $p>2$ and asks for the corresponding joint function. This manuscript does not prove an analogous matching upper and lower pair for $p\ne4$. The earlier package contains results for other even and non-even exponents and a negative answer to the displayed proposed formula; it is archived unchanged. We do not silently extend the quartic feature expansion~\eqref{eq:expansion} to a nonpolynomial loss, and we do not assert that higher even powers have the same mixed-feature ranks or variance budgets.
+
+The new proof is an author-side mathematical argument with explicitly stated imported dependencies. It has not been independently peer reviewed, kernel checked, or given a priority certificate. For the whole repository entry the proposed status remains \textbf{Partially resolved}, subject to review, because mathematical cases remain outside the proved scope. The repository distinguishes such partial scope from the evidence levels for a complete resolution \cite{status}. No repository files were changed.
+
+\appendix
+\section{Elementary Gaussian tools used above}\label{app:gaussian}
+\subsection{Comparison of Gaussian increments}
+For centered finite Gaussian families $(X_i)$ and $(Y_i)$, the inequality
+$\E(X_i-X_j)^2\le\E(Y_i-Y_j)^2$ for all pairs implies
+$\E\max_i X_i\le\E\max_i Y_i$.
+For completeness, let $f_\beta(z)=\beta^{-1}\log\sum_i e^{\beta z_i}$ and interpolate independent copies as $Z(t)=\sqrt t X+\sqrt{1-t}Y$. Gaussian integration by parts and the softmax Hessian give
+\[
+ \frac d{dt}\E f_\beta(Z(t))
+ =\frac\beta4\E\sum_{i,j}q_iq_j
+ \left[\E(X_i-X_j)^2-\E(Y_i-Y_j)^2\right]\le0,
+\]
+where $q_i=e^{\beta Z_i}/\sum_j e^{\beta Z_j}$. A small independent Gaussian handles singular covariances by continuity. Integrate and let $\beta\to\infty$, using
+$0\le f_\beta(z)-\max_i z_i\le\beta^{-1}\log n$.
+For the compact finite-dimensional index sets used in this manuscript, increasing finite dense nets and domination by integrable Gaussian norms justify the limit.
+
+\subsection{\texorpdfstring{The Gaussian $2\to4$ norm}{The Gaussian 2-to-4 norm}}
+For an $L\times r$ standard Gaussian matrix $G$, index $X_{x,y}=y^TGx$ by $\norm x_2=1$, $\norm y_{4/3}\le1$. Compare to $Y_{x,y}=g\cdot x+h\cdot y$, with independent standard $g,h$. If $a=x\cdot x'$ and $b=y\cdot y'$, the difference of the $Y$ and $X$ increment variances is $2(1-a)(1-b)\ge0$, since $\norm y_2\le\norm y_{4/3}\le1$. Therefore
+\[
+ \E\norm G_{2\to4}\le\E\norm g_2+\E\norm h_4
+ \le\sqrt r+(3L)^{1/4}.
+\]
+For a standard Gaussian vector $g\in\R^r$, the elementary exponential-Markov bound for $\norm g^2$ gives
+$\Prob\{\norm g<\sqrt r/2\}\le e^{-r/8}$. For a uniform sphere vector $v$, Gaussian radial-direction independence gives
+$\E(v\cdot x)^4=3/[r(r+2)]$ and
+$\E(v\cdot x)^6=15/[r(r+2)(r+4)]$ for unit $x$.
+
+\subsection{Nets and seminorms}
+A maximal $\theta$-separated subset of the Euclidean unit sphere is a $\theta$-net of size at most $(1+2/\theta)^r$, by comparing disjoint radius-$\theta/2$ balls. For a seminorm $Q$, if $D=\sup_{\norm x=1}Q(x)$, the triangle inequality gives
+$D\le\max_{x\ {\rm in\ net}}Q(x)+\theta D$.
+At $\theta=1/4$, the extension factor is $4/3$. These are the only net estimates used in the lower construction. The arbitrary-rank upper proof uses Gaussian operator and polynomial-norm events instead of a net over all subspaces.
+
+\begin{thebibliography}{10}
+\bibitem{repo} OpenProblemsInNLA. \emph{RA-05: Sharp joint rank and accuracy dependence for strong $\ell_p$ subspace coresets}. Canonical entry, checked during this continuation.\par
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/randomized-and-low-rank-approximation/RA-05}
+\bibitem{lmw} H. Lin, V. Mirrokni, and D. P. Woodruff. \emph{Nearly Optimal Strong Coresets for $\ell_p$ Subspace Approximation}. arXiv:2608.26047v2, 27 August 2026. Theorem 1.2.\par
+\url{https://arxiv.org/html/2608.26047v2}
+\bibitem{roth} T. Rothvoss. \emph{Constructive discrepancy minimization for convex sets}. SIAM Journal on Computing 46(1) (2017), 224--234; arXiv:1404.0339. Lemma 9, including the subspace and arbitrary-starting-point hypotheses.\par
+\url{https://arxiv.org/pdf/1404.0339}
+\bibitem{tropp} J. A. Tropp. \emph{User-Friendly Tail Bounds for Sums of Random Matrices}. Foundations of Computational Mathematics 12 (2012), 389--434; arXiv:1004.4389v7. Theorem 1.5.\par
+\url{https://arxiv.org/html/1004.4389v7}
+\bibitem{mss} A. W. Marcus, D. A. Spielman, and N. Srivastava. \emph{Interlacing Families III: Sharper Restricted Invertibility Estimates}. arXiv:1712.07766. Theorem 1.1, stating the Spielman--Srivastava stable-rank theorem.\par
+\url{https://arxiv.org/html/1712.07766}
+\bibitem{prior} \emph{Sharp even-power coresets at intrinsic rank at most $k+1$}. Earlier manuscript prepared for Sidney Holden with ChatGPT, September 2026. Included unchanged as \texttt{prior\_work/RA05\_rank\_classification\_package.zip}. This is a preceding conversation artifact, not an externally peer-reviewed publication.
+\bibitem{li} Y. Li. \emph{Near-Optimal Embeddings of Constant-Dimensional Subspaces of $L^p$ into $\ell_p^N$}. arXiv:2607.11747v4, July 2026. Theorem 4.4 also states the Rothvoss lemma in the absolute-constant form used here; it is not an additional premise of the proof.\par
+\url{https://arxiv.org/html/2607.11747v4}
+\bibitem{status} OpenProblemsInNLA. \emph{Solved problems and solution claims}, status and evidence-level definitions.\par
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/RESOLVED.md}
+\end{thebibliography}
+\end{document}

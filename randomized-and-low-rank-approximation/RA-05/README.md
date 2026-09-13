@@ -3,9 +3,29 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because simultaneous control of all subspaces must match joint rank and accuracy lower bounds; community impact is compact robust low-rank fitting.  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-13
 
-**Status:** Open  
+**Status:** Partially resolved
+
+## Partial resolution — unrestricted quartic case, 13 September 2026
+
+**Author:** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](../../references/holden-ra05-quartic-2026-09-13/README.md).
+
+[Theorem 1.1, proved in Sections 2–8](../../references/holden-ra05-quartic-2026-09-13/manuscript/RA05_unrestricted_quartic.pdf) classifies the optimal size for $`p=4`$, arbitrary input rank, every integer $`k\ge1`$ and every $`0<\varepsilon<1/2`$, up to logarithmic factors:
+
+```math
+S_4(k,\varepsilon)=\widetilde\Theta\!\left(
+\min\left\{\frac{k^2}{\varepsilon^2},
+\frac{k^{5/2}}{\varepsilon}+\frac{k}{\varepsilon^2}\right\}\right).
+```
+
+The weights are nonnegative and select original rows; preservation is simultaneous over all subspaces of dimension at most $`k`$, without a restriction on input rank, row count or ambient dimension. The lower bound has no logarithmic loss, the combined upper bound uses at most $`\log^9(2k/\varepsilon)`$, and the second upper branch uses at most the fifth power. [Proof source](../../references/holden-ra05-quartic-2026-09-13/manuscript/RA05_unrestricted_quartic.tex).
+
+This also disproves the subsidiary displayed upper-bound conjecture below at $`p=4`$: at $`\varepsilon=k^{-1}`$ the lower bound is of order $`k^{7/2}`$, exceeding its proposed order $`k^3`$ times any fixed logarithmic power. **The unrestricted optimal joint classification for fixed real $`p>2`$ other than $`4`$ remains open.** The whole RA-05 entry is therefore Partially resolved, and remains in the open count.
+
+The argument passed a separate [independent Codex AI-agent informal audit](../../references/holden-ra05-quartic-2026-09-13/verification/independent-review.md), including primary-source checks of the imported theorems. All 7,621 finite assertions and both exact certificate checkers were rerun successfully. ChatGPT assistance is disclosed; this is not external human peer review or formal verification. No Lean verification was performed. The [earlier all-exponent lower-bound submission, PR #199](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/199), is a separate partial contribution. The original statement, ID, path and prior-source credit are retained below.
+
+## Original question
 
 Fix a real $`p>2`$. For $`A\in\mathbb R^{n\times d}`$, with rows $`a_i^T`$, and a linear subspace $`F\subseteq\mathbb R^d`$, define
 
