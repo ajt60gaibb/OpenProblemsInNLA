@@ -3,9 +3,28 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because simultaneous control of all subspaces must match joint rank and accuracy lower bounds; community impact is compact robust low-rank fitting.  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-13
 
-**Status:** Open  
+**Status:** Partially resolved
+
+
+## Partial resolution — 2026-09-13
+
+**Sidney Holden**, Center for Computational Biology, Flatiron Institute, Simons Foundation, proves an all-exponent lower bound in [Theorem 1.1](../../references/holden-ra05-2026-09-13/manuscript/RA05_all_p_lower_bounds.pdf). For every fixed real $`p>2`$, all sufficiently large $`k`$ and every $`0<\varepsilon<1/2`$, the worst-case minimum support obeys
+
+```math
+S_p(k,\varepsilon)\ge c_p\frac{k^{p/2}}{\varepsilon^{\beta_p}+(\log k)/k},
+\qquad
+\beta_p=\begin{cases}2,&p\in\{4,6,8,\ldots\},\\2-2/p,&\text{otherwise}.\end{cases}
+```
+
+One real input per rank, independent of accuracy, witnesses the bound for arbitrary nonnegative original-row weights. Corollary 1.2 gives a **negative answer to the displayed additive formula for every fixed exponent**, even allowing every fixed logarithmic power. Corollary 1.3 matches the cited upper bound up to logarithms for even $`p\ge4`$ when $`\varepsilon\ge\sqrt{(\log k)/k}`$.
+
+**Remaining target:** the optimal joint size for non-even exponents and smaller accuracies, including even exponents, is still undetermined. Thus the full classification remains partially resolved. The original statement is retained below.
+
+The [separate independent Codex AI-agent audit](../../references/holden-ra05-2026-09-13/verification/independent-review.md) passed the proof at this scope. This is informal automated review, not external human peer review or formal verification; no Lean verification was performed. [Proof source](../../references/holden-ra05-2026-09-13/manuscript/RA05_all_p_lower_bounds.tex) · [Attribution, verified affiliation and reproducibility](../../references/holden-ra05-2026-09-13/README.md).
+
+## Original target
 
 Fix a real $`p>2`$. For $`A\in\mathbb R^{n\times d}`$, with rows $`a_i^T`$, and a linear subspace $`F\subseteq\mathbb R^d`$, define
 

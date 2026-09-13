@@ -52,3 +52,5 @@ The [fourth-batch audit](maintainer-review-2026-09-11-wave4/README.md) records i
 The [follow-up audit](maintainer-review-2026-09-11-wave5/README.md) records independent mathematical, primary-source and PDF reviews of subsequent submissions, with exact reviewed heads and permanent-ID preservation checks.
 
 - [IE-05 negative resolution by George Stepaniants, 11 September 2026](stepaniants-ie05-2026-09-11/README.md): an exact order-eight orthogonal partial-pivoting counterexample, with the complete proof, separately written rational checks and an independent full-target review.
+
+- [Sidney Holden: RA-05 all-exponent coreset lower bounds](holden-ra05-2026-09-13/README.md) — independently audited partial result, 2026-09-13.
