@@ -6,19 +6,35 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Rating rationale:** Extreme because full nonnegative rank is much sharper than available exponential lower bounds for this family; broad importance concerns communication complexity and limitations of linear programming formulations.  
-**Status:** Partially resolved  
+**Rating rationale:** Historical ratings for the original conjecture. Extreme because full nonnegative rank is much sharper than available exponential lower bounds for this family; broad importance concerns communication complexity and limitations of linear programming formulations.  
+**Status:** Solved  
 **Area:** exact NMF and lower bounds for optimization formulations  
-**Last checked:** 2026-09-11  
+**Last checked:** 2026-09-13  
+
+## Negative resolution — 2026-09-13
+
+**Author:** Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. **Independent Codex AI-agent informal audit: PASS for the complete original target.**
+
+[Theorem 1, proved in Sections 2–4](../../references/holden-nr03-2026-09-13/NR03_counterexample.pdf) constructs nonnegative rational factors for the fully prescribed matrix and proves
+
+```math
+\mathop{\mathrm{rank}}\nolimits_+(C_n)\le\min\left\{2^n,\;2^{n-1}+n+\binom n2+\binom n4\right\},\qquad n\ge1.
+```
+
+In particular, $`\mathop{\mathrm{rank}}\nolimits_+(C_7)\le127<128`$, so the original equality for every $`n\ge3`$ is false. The bound is strictly below $`2^n`$ for every $`n\ge7`$. All entries remain fixed by the original formula, over the original real field; positive column denominators convert the exact integer certificate into genuine rational factors. This is a complete negative resolution of the universal question. Exact ranks at $`n=5,6,7`$ and the smallest counterexample dimension are not determined or required, and no extension-complexity claim for the whole correlation polytope is made.
+
+[Standalone proof source](../../references/holden-nr03-2026-09-13/NR03_counterexample.tex) · [Independent review](../../references/holden-nr03-2026-09-13/independent-review.md) · [Exact certificate](../../references/holden-nr03-2026-09-13/data/factors_n7.json) · [Submission, verified affiliation and reproduction](../../references/holden-nr03-2026-09-13/README.md).
+
+The complete argument passed independent informal AI-agent review, with fresh exact checks. ChatGPT assistance is disclosed; neither external human peer review nor formal verification is claimed. No Lean verification was performed. The original statement and prior partial-result credit are retained below.
 
 <!-- colbrook-factorization -->
-## Partial result — 2026-09-11
+## Historical partial result — 2026-09-11
 
 **Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. **Independent Codex-agent review: PASS for the stated partial scope.**
 
 The fixed three-bit quadratic correlation matrix has nonnegative rank exactly eight. Its ordinary-rank-seven parity null vector constrains both factors in a hypothetical seven-term factorization; nine distinguished entries then exclude such a factorization.
 
-**Remaining question:** The full prescribed-completion conjecture for every $`n\ge4`$ remains unresolved. The parity restriction is proved only for a hypothetical factorization whose inner dimension equals ordinary rank; it is not imposed on arbitrary wider factorizations. The ratings assess that surviving question.
+**Remaining question at that date:** The full prescribed-completion conjecture for every $`n\ge4`$ remained unresolved. The parity restriction is proved only for a hypothetical factorization whose inner dimension equals ordinary rank; it is not imposed on arbitrary wider factorizations. The new counterexample above now settles the universal conjecture negatively; these earlier findings retain their original credit.
 
 **Primary reference:** [complete authored PDF](../../references/colbrook-factorization-2026-09-11/manuscripts/NR-03_n3_exact_rank.pdf), [standalone TeX](../../references/colbrook-factorization-2026-09-11/manuscripts/NR-03_n3_exact_rank.tex), **Theorem 1 and Lemma 2**. [Independent proof review](../../references/colbrook-factorization-2026-09-11/verification/reviews/NR-03-review.md) · [Authorship and submission record](../../references/colbrook-factorization-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
 
