@@ -34,7 +34,7 @@ orbit},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MI-16}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,16 +51,61 @@ maximum permanent on a positive-semidefinite unitary orbit\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Open\par}
+{\sffamily\small\bfseries\color{accent}Status: Solved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
 \textbf{Provenance:} explicit exact extremal problem; no conjectured
 optimizer is supplied
 
-\textbf{Rating rationale:} An exact formula for arbitrary spectra would
-resolve a longstanding permanent optimization barrier and inform
-prescribed-spectrum matrix optimization.
+\textbf{Historical rating rationale:} An exact formula for arbitrary
+spectra would resolve a longstanding permanent optimization barrier and
+inform prescribed-spectrum matrix optimization.
+
+\subsection{Resolution --- exact algebraic determination, 12 September
+2026}\label{resolution-exact-algebraic-determination-12-september-2026}
+
+\textbf{Solved by Sidney Holden}, Center for Computational Biology,
+Flatiron Institute, Simons Foundation.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-mi16-2026-09-12/README.md}{Submission
+and verified affiliation}.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-16/solution.pdf}{Proof
+PDF} ·
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-16/solution.tex}{LaTeX
+source} ·
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-mi16-2026-09-12/independent-review.md}{Independent
+AI-agent audit: PASS}.
+
+Theorem 2.1 and Sections 3--5 give an exact finite algebraic
+prescription for every nonnegative real spectrum in every order. A
+specialized critical-value elimination polynomial gives finitely many
+candidates. Explicit Schur-character sums compute a spectral moment at a
+proved finite order, which selects the maximum even when some real
+critical values are not Hermitian-feasible. The prescription has no
+remaining matrix optimization or unevaluated limit, and meets the
+original exact-value criterion below. For arbitrary real inputs it uses
+exact ordered-field arithmetic and comparisons; the reference programs
+accept rational inputs.
+
+\textbf{Form of the answer:} this is not a compact general structural
+formula, an efficient arbitrary-order solver, or a classification of all
+general-spectrum optimizers. Those stronger goals are not claimed.
+Theorem 8.1 separately gives a two-candidate structural formula for one
+exceptional eigenvalue; Sections 9--10 prove the transition threshold
+and every equality case. The earlier rank-one expansion and
+equal-support reduction from
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/186}{Holden's
+partial submission, PR \#186}, are retained and credited in the dossier.
+This submission adds the all-spectrum determination and sharper
+exceptional-spectrum results.
+
+A separate Codex agent independently audited the complete argument and
+its correspondence with this unchanged target. This is informal AI-agent
+review, not external human peer review or formal verification. No Lean
+verification or historical-priority claim is made. Whether a structural
+formula is preferred for the historical problem is exposed for
+maintainer review; it is not silently added to this entry's completion
+criterion.
 
 \subsection{Problem statement}\label{problem-statement}
 
@@ -69,11 +114,11 @@ For every integer \(n\ge1\) and every real list
 determine the exact value of
 
 \[M_n(\lambda)=\max_{U\in\mathcal U_n}
-\operatorname{per}\!\left(U^*\operatorname{diag}(\lambda_1,\ldots,\lambda_n)U\right),
+\mathop{\mathrm{per}}\nolimits\!\left(U^*\mathop{\mathrm{diag}}\nolimits(\lambda_1,\ldots,\lambda_n)U\right),
 \qquad \mathcal U_n=\{U\in\mathbb C^{n\times n}:U^*U=I_n\},\]
 
 where
-\(\operatorname{per}(C)=\sum_{\sigma\in S_n}\prod_{i=1}^n c_{i,\sigma(i)}\)
+\(\mathop{\mathrm{per}}\nolimits(C)=\sum_{\sigma\in S_n}\prod_{i=1}^n c_{i,\sigma(i)}\)
 and \(S_n\) is the permutation group. The permanent of these Hermitian
 positive-semidefinite matrices is real. Compactness ensures the maximum
 exists. A resolution should express its value from the prescribed

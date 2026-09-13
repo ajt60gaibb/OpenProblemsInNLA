@@ -1,0 +1,783 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[a4paper,margin=26mm,headheight=14pt]{geometry}
+\usepackage{microtype,booktabs,array,enumitem,xcolor,xurl}
+\usepackage[colorlinks=true,linkcolor=blue!45!black,urlcolor=blue!45!black,citecolor=blue!45!black]{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small MI-16: exact algebraic determination}
+\fancyhead[R]{\small Proof dossier}
+\fancyfoot[C]{\thepage}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+\setlist{nosep,leftmargin=1.7em}
+\newcommand{\per}{\operatorname{per}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\spec}{\operatorname{spec}}
+\newcommand{\U}{\mathcal U}
+\newcommand{\F}{\mathbb F}
+\newcommand{\C}{\mathbb C}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\N}{\mathbb N}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+\DeclareMathOperator{\sqf}{sqf}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Crit}{Crit}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\allowdisplaybreaks[2]
+\hypersetup{pdftitle={MI-16: an exact algebraic determination and a sharp exceptional-spectrum formula},pdfauthor={Sidney Holden},pdfsubject={Maximum permanent on positive-semidefinite unitary orbits}}
+\begin{document}
+\begin{titlepage}
+\vspace*{0mm}
+{\small\sffamily MATHEMATICAL RESEARCH DOSSIER\par}
+\vspace{7mm}
+{\LARGE\bfseries MI-16\par}
+\vspace{3mm}
+{\Large An exact algebraic determination\par}
+{\Large and a sharp exceptional-spectrum formula\par}
+\vspace{4mm}
+{\large Sidney Holden\par}
+\vspace{2mm}
+{\small Center for Computational Biology, Flatiron Institute,\par}
+{\small Simons Foundation\par}
+\vspace{3mm}
+{\large 12 September 2026\par}
+\vspace{3mm}
+\textbf{Problem.} For arbitrary $n\geq1$ and prescribed $\lambda_i\geq0$, determine
+\[
+ M_n(\lambda)=\max_{U\in\U_n}\per\!\left(U^*\diag(\lambda)U\right).
+\]
+\par\vspace{4mm}
+\textbf{Results in this dossier.} A finite algebraic prescription determines this value for every spectrum: a specified elimination polynomial supplies finitely many candidate values, and a finite, explicitly bounded spectral-moment calculation selects the correct one. A separate structural theorem reduces the spectrum $(\alpha,\beta,\ldots,\beta)$ to just two explicit candidates, with all equality cases and a unique transition threshold.
+\par\vspace{4mm}
+\textbf{Scope and status.} The general prescription uses Gr\"obner elimination and ordered algebraic roots. It is not a compact all-spectrum closed form, a practical high-order algorithm, or a classification of general optimizers. Generic algebraic optimization underlies this part of the work; no claim of historical novelty or community acceptance as the intended resolution of the longstanding open problem is made. A reader requiring a structural all-spectrum formula should not regard that stronger goal as achieved here. The accompanying submission record identifies the independent informal AI-agent audit and its scope; this is not external human peer review or formal verification.
+\par\vspace{4mm}
+\textbf{Authorship and assistance.} Authorship is recorded at Sidney Holden's request; the original dossier was prepared with ChatGPT. Affiliation was verified against the official Simons Foundation profile on 12 September 2026.\par\vspace{3mm}
+\textbf{Use of the supplied pack.} The rank-one perturbation expansion and the equal-support reduction in Part II come from the uploaded MI-16 findings. The support-$2$ versus support-$n$ proof, threshold analysis, equality classification, and the all-spectrum algebraic construction are developed in this dossier. Prior results are distinguished from those derivations.
+\vfill
+{\small Package contents: this PDF and its \LaTeX{} source; exact reference implementations; verification records; original MI-16 findings; provenance and file hashes.}
+\end{titlepage}
+\begingroup\setlength{\parskip}{0pt}\small\tableofcontents\endgroup
+\newpage
+
+\section{Problem, conventions, and the form of the answer}
+The website's MI-16 entry asks for the maximum permanent of a Hermitian positive-semidefinite matrix with a prescribed nonnegative spectrum, over complex unitary similarity, for arbitrary order \cite{catalog}. Write
+\[
+ D=\diag(\lambda_1,\ldots,\lambda_n),\qquad
+ f_\lambda(U)=\per(U^*DU),\qquad
+ M=M_n(\lambda).
+\]
+Here the permanent of the $0\times0$ matrix is $1$. A star denotes conjugate transpose. Norms without a subscript in tensor estimates are operator norms; $\norm{\cdot}_F$ is the Frobenius norm. Haar measure on $\U_n$ has total mass one.
+
+The repository and Zhang's survey describe the general extremal problem and warn against equal-diagonal optimality as a universal shortcut \cite{catalog,zhang}. This dossier does not assume that shortcut. Its general answer is an \emph{algebraic prescription}: all operations are specified from $\lambda$, there is no remaining optimization over matrices, and the final root selection uses a finite moment order with a proved bound. This is a different type of answer from a short structural formula.
+
+For rational or algebraic input eigenvalues, the prescription uses exact effective algebraic operations and comparisons. For unrestricted real input, it is interpreted over the ordered field generated by those input values, with exact arithmetic and comparisons available. It does not claim to resolve exact equality questions from finite-precision approximations alone.
+
+\part{A finite algebraic determination for every spectrum}
+
+\section{The complete prescription}\label{sec:prescription}
+This section specifies the answer before proving it. The definitions involve only $n$ and the prescribed eigenvalues.
+
+\subsection{The critical-value polynomial}
+Set $\F=\Q(\lambda_1,\ldots,\lambda_n)$ and let
+\[
+ q_\lambda(t)=\prod_{\theta\in\{\lambda_1,\ldots,\lambda_n\}_{\rm distinct}}(t-\theta).
+\]
+In particular, repeated eigenvalues occur only once in $q_\lambda$. Let $A=(a_{ij})$ be a matrix of $n^2$ independent indeterminates, and define its permanental adjoint by
+\[
+ C(A)_{ij}=\per A(j\mid i),
+\]
+where $A(j\mid i)$ deletes row $j$ and column $i$. Let $z$ be an additional indeterminate. Form the following explicitly specified ideal in $\F[a_{11},\ldots,a_{nn},z]$:
+\begin{equation}\label{eq:ideal}
+\begin{split}
+ I_\lambda=\Big\langle\;&\tr(A^k)-\sum_{i=1}^n\lambda_i^k\quad(1\leq k\leq n),\\
+ &[q_\lambda(A)]_{ij}\quad(1\leq i,j\leq n),\\
+ &[A,C(A)]_{ij}\quad(1\leq i,j\leq n),\\
+ &z-\per A\;\Big\rangle.
+\end{split}
+\end{equation}
+Compute a lexicographic Gr\"obner basis with all matrix-entry variables preceding $z$. Take the monic generator of the univariate elimination ideal $I_\lambda\cap\F[z]$, and take its monic square-free part. Denote the resulting polynomial by $P_\lambda(z)$.
+
+Section~\ref{sec:critical} proves that this elimination ideal is nonzero and proper, so $P_\lambda$ exists and has positive degree. The spectrum is specialized \emph{before} elimination. This is important at repeated and zero eigenvalues; specializing a formula obtained for generic distinct eigenvalues is not the prescription.
+
+\subsection{A finite spectral moment}
+For a positive integer $p$, put $m=np$ and index $m$ positions by pairs $(a,i)$, $1\leq a\leq p$, $1\leq i\leq n$. Let
+\[
+ H=(S_n)^p,\qquad K=(S_p)^n
+\]
+act respectively by permuting positions within each row $a$ and within each column $i$ of this rectangular array.
+
+For a partition $\nu\vdash m$, let $\chi^\nu$ be the irreducible character of $S_m$, $f^\nu=\chi^\nu(e)$ its dimension, and $s_\nu$ its Schur polynomial. Define
+\begin{equation}\label{eq:weights}
+ w_{n,p,\nu}=\frac{f^\nu}{(np)!}
+       \sum_{h\in H}\sum_{k\in K}\chi^\nu(kh),
+\end{equation}
+and the explicit symmetric polynomial
+\begin{equation}\label{eq:moment}
+ T_{n,p}(\lambda)=
+ \sum_{\substack{\nu\vdash np\\\ell(\nu)\leq n}}
+ w_{n,p,\nu}\frac{s_\nu(\lambda_1,\ldots,\lambda_n)}{s_\nu(1^n)}.
+\end{equation}
+Every denominator $s_\nu(1^n)$ in this sum is a positive integer. The weights are nonnegative rational numbers and sum to one. Section~\ref{sec:moments} proves
+\begin{equation}\label{eq:moment_integral}
+ T_{n,p}(\lambda)=\int_{\U_n}f_\lambda(U)^p\,dU.
+\end{equation}
+Equation~\eqref{eq:moment}, not an unevaluated integral, is used in the prescription.
+
+\subsection{The finite root selector}
+If all $\lambda_i=0$, return $0$. Otherwise put
+\[
+ L=\max_i\lambda_i,\qquad B=L^n>0,
+\]
+and list, without multiplicities, the real roots of $P_\lambda$ in $[0,B]$:
+\[
+ r_1<r_2<\cdots<r_s.
+\]
+The list is nonempty. If $s=1$, return $r_1$. If $s\geq2$, set
+\begin{align}
+ \rho&=\min_{1\leq j<s}(r_{j+1}-r_j),\label{eq:gap}\\
+ b&=\min\{j\in\N:2^j\geq1+16n^2B/\rho\},\nonumber\\
+ h&=\left\lceil\frac{4B}{\rho}\right\rceil,
+ &p&=2n^2bh.\label{eq:order}
+\end{align}
+All of these are determined by the input data and the finite root list.
+
+\begin{theorem}[Exact algebraic spectral prescription]\label{thm:general}
+For every $n\geq1$ and every nonnegative real spectrum, the preceding construction is well-defined. In the case $B>0$ and $s\geq2$, its exact answer is
+\begin{equation}\label{eq:main}
+\boxed{\displaystyle
+ M_n(\lambda)=r_1+\sum_{j=1}^{s-1}(r_{j+1}-r_j)
+       \one_{\{T_{n,p}(\lambda)>r_j^{\,p}\}}.}
+\end{equation}
+Equivalently, $M_n(\lambda)$ is the first root in the ordered list whose $p$th power is at least $T_{n,p}(\lambda)$.
+\end{theorem}
+The square-free elimination, root ordering, character sums, Schur evaluations, integer ceilings, and comparisons in this formula are finite algebraic operations or finite discrete operations. The construction does not assume that a real root of the complex critical-value polynomial is realized on the Hermitian orbit. That potential obstruction is the reason for the moment selector.
+
+\section{Why the critical-value polynomial exists}\label{sec:critical}
+\subsection{The correct complex orbit, including repeated eigenvalues}
+\begin{lemma}\label{lem:orbit}
+The complex zero set of the first two lines of \eqref{eq:ideal} is exactly
+\[
+ \mathcal O_\lambda=\{S^{-1}DS:S\in\GL_n(\C)\}.
+\]
+It is a smooth complex algebraic orbit. At $A\in\mathcal O_\lambda$, its tangent space consists of the commutators $[X,A]$ with $X\in\C^{n\times n}$.
+\end{lemma}
+\begin{proof}
+Newton's identities show that the first $n$ power sums determine the characteristic polynomial. Thus the trace equations force the characteristic polynomial to be $\prod_i(t-\lambda_i)$. The equation $q_\lambda(A)=0$, with $q_\lambda$ square-free, forces $A$ to be diagonalizable. Together these conditions give exactly the stated similarity orbit. Conversely, every matrix on the orbit satisfies both sets of equations. Matrix-group orbits in characteristic zero are smooth; here the orbit is the homogeneous space of $\GL_n$ by the block-diagonal centralizer of $D$. Differentiating $e^{tX}Ae^{-tX}$ gives $[X,A]$.
+\end{proof}
+The square-free spectral equation removes nonsemisimple Jordan matrices that would otherwise have the same characteristic polynomial. No assumption of distinct positive eigenvalues was used.
+
+\subsection{Stationarity and the permanental adjoint}
+\begin{lemma}\label{lem:stationary}
+For every matrix $A$ and variation $E$,
+\[
+ d(\per)_A(E)=\tr(C(A)E).
+\]
+A matrix on the complex orbit is a critical point of the permanent restricted to that orbit exactly when $[A,C(A)]=0$. Every maximizer on the Hermitian unitary orbit satisfies this equation.
+\end{lemma}
+\begin{proof}
+Differentiating the permanent term by term gives the first identity. Hence
+\[
+ d(\per)_A([X,A])=\tr\bigl([A,C(A)]X\bigr),
+\]
+and the complex trace pairing is nondegenerate.
+
+For Hermitian $A$, the matrix $C(A)$ is Hermitian: conjugating and transposing a deleted-row-and-column minor interchanges the two indices. Consequently $T=[A,C(A)]$ is skew-Hermitian. A stationary point on the unitary orbit makes $\tr(TX)$ zero for every skew-Hermitian $X$. Taking $X=T$ gives
+\[
+ 0=\tr(T^2)=-\norm{T}_F^2,
+\]
+so $T=0$. Compactness supplies a maximum, and there is no boundary on the unitary orbit.
+\end{proof}
+The commutation condition itself is prior work of Grone, Johnson, de S\'a, and Wolkowicz \cite{grone}. The proof is included to fix conventions and cover the degenerate spectra used here. Stationarity alone does not select the global maximum.
+
+\subsection{Finitely many critical values, not necessarily finitely many points}
+\begin{lemma}\label{lem:finite}
+The permanent takes only finitely many values on the critical locus of $\mathcal O_\lambda$. Therefore $I_\lambda\cap\F[z]$ is nonzero and proper, and $P_\lambda(M)=0$.
+\end{lemma}
+\begin{proof}
+The critical locus is algebraic and has finitely many irreducible components. On the smooth part of each component, the differential of the permanent vanishes, because it vanishes on the tangent space of the whole smooth orbit. In characteristic zero, a rational function on an irreducible variety with zero differential is constant. Thus the permanent is constant on each component, and so the set of critical values is finite.
+
+For completeness, the zero-differential assertion can be seen in the function field: a nonconstant function is transcendental over the algebraically closed constant field and, in characteristic zero, has a nonzero differential in a separating transcendence basis. Hence zero differential forces a constant. Constancy on a dense open set extends to the whole component for a regular function.
+
+Let the finitely many critical values over the algebraic closure be $c_1,\ldots,c_t$. The polynomial $\prod_j(z-c_j)$ vanishes on the zero set of \eqref{eq:ideal}; a power lies in that ideal by the Nullstellensatz. Equivalently, the elimination theorem gives a nonzero univariate elimination ideal. Computing a Gr\"obner basis over $\F$, and then extending the field, preserves its leading monomials and the elimination property, so the univariate ideal already has a nonzero element over $\F$.
+
+A Hermitian maximizing matrix, paired with $z=M$, is a zero of the ideal by Lemma~\ref{lem:stationary}. Thus the ideal is proper and every univariate element of it vanishes at $M$. Taking the square-free part does not remove this root.
+\end{proof}
+Critical-value polynomial methods are a general tool of algebraic optimization, rather than a new principle particular to MI-16; see the author abstract of Hanzon \cite{hanzon}. Gr\"obner computation supplies an effective elimination operation \cite{buchberger}. The additional task here is to select the correct value without treating all real complex-critical values as feasible Hermitian values.
+
+\section{Exact spectral moments}\label{sec:moments}
+\subsection{Tensor realization of the permanent}
+Let
+\[
+ w_n=\frac1{\sqrt{n!}}\sum_{\sigma\in S_n}
+ e_{\sigma(1)}\otimes\cdots\otimes e_{\sigma(n)}.
+\]
+The summands are orthonormal, so $\norm{w_n}=1$, and direct expansion gives
+\begin{equation}\label{eq:tensor}
+ \per A=\ip{w_n}{A^{\otimes n}w_n}.
+\end{equation}
+Indeed, for every fixed permutation in the left tensor factor, summing over the right permutation produces the permanent; the $n!$ identical copies cancel the normalization.
+
+For $A\succeq0$ with $\norm A\leq L$, this identity yields
+\begin{equation}\label{eq:bound}
+ 0\leq\per A\leq L^n=B.
+\end{equation}
+In particular, the permanent is real and nonnegative on the orbit.
+
+\subsection{Schur--Weyl calculation}
+Put $m=np$ and
+\[
+ v=(e_1\otimes\cdots\otimes e_n)^{\otimes p},\qquad
+ P_H=\frac1{|H|}\sum_{h\in H}R(h),\qquad
+ w=\sqrt{|H|}\,P_Hv=w_n^{\otimes p},
+\]
+where $R$ permutes tensor positions. The stabilizer of $v$ in $S_m$ is $K$, and $H\cap K=\{e\}$. In particular $\norm w=1$.
+
+Schur--Weyl duality decomposes the tensor space as
+\[
+ (\C^n)^{\otimes m}
+ =\bigoplus_{\substack{\nu\vdash m\\\ell(\nu)\leq n}}
+ V^\nu_{S_m}\otimes V^\nu_{\U_n}.
+\]
+The trace of the polynomial representation of $D$ on $V^\nu_{\U_n}$ is $s_\nu(\lambda)$, and its dimension is $s_\nu(1^n)$. Haar averaging its unitary conjugates therefore gives the scalar $s_\nu(\lambda)/s_\nu(1^n)$. These standard decomposition and averaging facts are stated in Collins--\'{S}niady \cite{collins}.
+
+Let $E_\nu$ be the orthogonal central projector onto the summand indexed by $\nu$. It is
+\[
+ E_\nu=\frac{f^\nu}{m!}\sum_{\sigma\in S_m}\chi^\nu(\sigma)R(\sigma).
+\]
+Since $E_\nu$ commutes with $P_H$,
+\begin{align*}
+ \ip{w}{E_\nu w}
+ &=|H|\ip{v}{E_\nu P_Hv}\\
+ &=\frac{f^\nu}{m!}\sum_{h\in H}\sum_{\sigma\in S_m}
+       \chi^\nu(\sigma)\ip{v}{R(\sigma h)v}\\
+ &=\frac{f^\nu}{m!}\sum_{h\in H}\sum_{k\in K}\chi^\nu(kh^{-1})
+ =w_{n,p,\nu}.
+\end{align*}
+The last equality reindexes $H$ by inversion. This proves both nonnegativity of the weights and their sum being $1$.
+
+Now \eqref{eq:tensor} implies
+\[
+ f_\lambda(U)^p=\ip{w}{(U^*DU)^{\otimes m}w}.
+\]
+Averaging block by block gives exactly \eqref{eq:moment}--\eqref{eq:moment_integral}. This also proves the moment formula for singular $D$, either directly through the polynomial representation or by continuity. The restriction $\ell(\nu)\leq n$ is essential: there is no assumption that $np\leq n$ or that the moment order is small.
+
+\subsection{Completely finite evaluation of the ingredients}
+The Schur polynomial may be evaluated without dividing by eigenvalue differences. Define $h_0=1$, $h_j=0$ for $j<0$, and for $j\geq0$ let
+\[
+ \sum_{j\geq0}h_j(\lambda)t^j=\prod_{i=1}^n(1-\lambda_i t)^{-1}.
+\]
+Then the Jacobi--Trudi formula is
+\[
+ s_\nu(\lambda)=\det\bigl(h_{\nu_i-i+j}(\lambda)\bigr)_{1\leq i,j\leq\ell(\nu)}.
+\]
+If $h(c)$ denotes the hook length of a cell $c=(i,j)$ in the Young diagram of $\nu$, the remaining dimensions are
+\[
+ f^\nu=\frac{m!}{\prod_{c\in\nu}h(c)},\qquad
+ s_\nu(1^n)=\prod_{(i,j)\in\nu}\frac{n+j-i}{h(i,j)}.
+\]
+Characters can be computed by the Murnaghan--Nakayama recursion: remove a connected skew strip with no $2\times2$ square, of length equal to the next cycle length, and sum the recursively computed character with sign $(-1)^{\text{number of occupied rows}-1}$. The empty diagram at the empty cycle type has character $1$. This is the recursion implemented in the reference code and independently checked by character-table orthogonality.
+
+For $p=1$, only $\nu=(n)$ has nonzero weight. Consequently
+\begin{equation}\label{eq:firstmoment}
+ T_{n,1}(\lambda)=\frac{h_n(\lambda)}{\binom{2n-1}{n}}.
+\end{equation}
+
+\section{A quantitative finite root-selection proof}\label{sec:selector}
+\subsection{A Lipschitz estimate}
+\begin{lemma}\label{lem:lipschitz}
+For $U,V\in\U_n$,
+\[
+ |f_\lambda(U)-f_\lambda(V)|\leq2nB\norm{U-V}_F.
+\]
+\end{lemma}
+\begin{proof}
+For matrices $A,E$ with both operator norms at most $L$, telescoping tensor powers gives
+\[
+ \norm{A^{\otimes n}-E^{\otimes n}}
+ \leq nL^{n-1}\norm{A-E}.
+\]
+Apply \eqref{eq:tensor}. Also
+\[
+ \norm{U^*DU-V^*DV}\leq2L\norm{U-V}
+ \leq2L\norm{U-V}_F.
+\]
+Multiplication gives the claim. The case $L=0$ has already been separated.
+\end{proof}
+
+\subsection{A uniform Haar-ball lower bound}
+\begin{lemma}\label{lem:ball}
+For every $U_0\in\U_n$ and $r>0$,
+\[
+ \Pr\{\norm{U-U_0}_F\leq r\}
+ \geq\left(1+\frac{2\sqrt n}{r}\right)^{-2n^2}.
+\]
+\end{lemma}
+\begin{proof}
+Regard the unitary group as a subset of $\R^{2n^2}$ lying on the sphere of radius $\sqrt n$. A maximal $r$-separated set of $N$ points has disjoint ambient open balls of radius $r/2$. All those balls lie in the ambient ball of radius $\sqrt n+r/2$. Comparing Euclidean volumes yields
+\[
+ N\leq(1+2\sqrt n/r)^{2n^2}.
+\]
+Maximality says that the closed radius-$r$ balls centered at these points cover the group. Frobenius distance is invariant under unitary multiplication, so every such group ball has the same Haar mass. The cover therefore implies that this mass is at least $1/N$, which gives the stated lower bound.
+\end{proof}
+
+\subsection{Proof of Theorem~\ref{thm:general}}
+The zero-spectrum and single-candidate cases follow from \eqref{eq:bound} and Lemma~\ref{lem:finite}. Suppose $s\geq2$ and let $\rho,b,h,p$ be as in \eqref{eq:gap}--\eqref{eq:order}. Put
+\[
+ a=T_{n,p}(\lambda)^{1/p},\qquad
+ Q=\left(1+\frac{16n^2B}{\rho}\right)^{2n^2}.
+\]
+Since $0\leq f\leq M$, one has $a\leq M\leq B$.
+
+Choose a maximizing unitary $U_0$ and a ball of radius
+\[
+ r=\frac{\rho}{8nB}.
+\]
+Inside it, Lemma~\ref{lem:lipschitz} gives $f(U)\geq M-\rho/4$. Its Haar mass is at least $1/Q$: indeed the sharper factor in Lemma~\ref{lem:ball} is $1+16n^{3/2}B/\rho$, which is at most $1+16n^2B/\rho$. Integrating the $p$th power on this ball gives
+\begin{equation}\label{eq:root-bound}
+ M\leq\frac\rho4+Q^{1/p}a.
+\end{equation}
+When $M<\rho/4$, this inequality is immediate; otherwise it follows directly by taking $p$th roots. Thus a possibly negative local lower bound causes no issue.
+
+By the definitions of $b$ and $h$, and Bernoulli's inequality,
+\[
+ Q\leq 2^{2n^2b},\qquad
+ \left(1+\frac\rho{4B}\right)^h
+ \geq1+h\frac\rho{4B}\geq2.
+\]
+As $p=2n^2bh$, it follows that
+\[
+ Q^{1/p}\leq1+\frac\rho{4B}.
+\]
+Using $a\leq B$ in \eqref{eq:root-bound} therefore proves
+\begin{equation}\label{eq:half-gap}
+ 0\leq M-a\leq\frac\rho2.
+\end{equation}
+The maximum $M$ is one of the candidate roots. Any candidate below it is at most $M-\rho<a$, while any candidate at or above it is at least $M\geq a$. Thus the first candidate not below $a$ is exactly $M$. The indicators in \eqref{eq:main} equal $1$ precisely before that root and telescope to it. This proves the theorem.\qed
+
+\begin{remark}[Safe variants]
+Any positive certified lower bound $\delta\leq\rho$ may replace $\rho$ throughout the construction; the same proof gives $M-a\leq\delta/2$. One may also discard candidates already certified smaller than a lower bound for $M$. If only one candidate remains, no high-order moment is needed. These are the safe early-exit and root-isolation variants used in the prototype.
+\end{remark}
+
+\section{A fully explicit order-two example and computational scope}
+\subsection{All order-two spectra}
+Let $\lambda=(\alpha,\beta)$, with $\alpha\ne\beta$. For a complex $2\times2$ matrix
+\[
+ A=\begin{pmatrix}x&u\\v&y\end{pmatrix},\qquad
+ C(A)=\begin{pmatrix}y&u\\v&x\end{pmatrix},
+\]
+commutation says $u(x-y)=v(x-y)=0$. If $x\ne y$, the matrix is diagonal and the value is $\alpha\beta$. If $x=y=(\alpha+\beta)/2$, the determinant equation gives $uv=(\alpha-\beta)^2/4$, and the permanent is $(\alpha^2+\beta^2)/2$. Both cases are realized on the Hermitian orbit. Thus
+\[
+ P_\lambda(z)=(z-\alpha\beta)
+      \left(z-\frac{\alpha^2+\beta^2}{2}\right).
+\]
+The first moment is
+\[
+ T_{2,1}=\frac{\alpha^2+\alpha\beta+\beta^2}{3},
+\]
+strictly between the two roots. It already selects the upper one, proving
+\[
+ \boxed{M_2(\alpha,\beta)=\frac{\alpha^2+\beta^2}{2}.}
+\]
+For example, $(\alpha,\beta)=(1,3)$ gives $P(z)=(z-3)(z-5)$ and first moment $13/3$, so the answer is $5$. The conservative general bound gives $p=1296$ in this case; an independent exact one-dimensional integral calculation also verifies $3^{1296}<T_{2,1296}<5^{1296}$.
+
+\subsection{Degenerate checks}
+For a scalar spectrum $(\beta,\ldots,\beta)$, the square-free matrix equation forces $A=\beta I$ and $P_\lambda(z)=z-\beta^n$. Hence $M=\beta^n$.
+
+For rank one, $A=\alpha uu^*$ with $\norm u=1$, and
+\[
+ \per A=n!\alpha^n\prod_i|u_i|^2
+ \leq\frac{n!}{n^n}\alpha^n.
+\]
+Equality requires $|u_i|^2=1/n$. The corresponding exact Haar moments are
+\begin{equation}\label{eq:rankone-moment}
+ T_{n,p}(\alpha,0,\ldots,0)
+ =\frac{(n!)^p\alpha^{np}(n-1)!(p!)^n}{(np+n-1)!},
+\end{equation}
+by the Dirichlet integral on the squared moduli of a Haar unit vector. This identity supplies an independent check of the character formula.
+
+\subsection{What this construction does and does not deliver}
+The general result is stronger than giving a necessary stationary equation or an $L^p$-limit: it specifies a finite moment order and a proved exact branch choice. It is, however, a generic algebraic type of answer. It does not identify simple spectral regions or the shapes of maximizing matrices for an arbitrary spectrum.
+
+The reference implementation is intended for inspection and small exact cases. Lexicographic elimination can be very expensive, and the direct moment sum has $(n!)^p(p!)^n$ character terms before aggregation. The implementation therefore has explicit resource guards and returns no mathematical value when a guard is exceeded. A trial of unrestricted order-three elimination for spectrum $(0,1,2)$ was stopped by a 180-second process limit without a polynomial being produced. This is recorded as a computational limitation, not a negative mathematical result. The finite prescription is justified by its proof, not by an assertion that it was run successfully in high order.
+
+\part{A sharp structural answer for one exceptional eigenvalue}
+
+\section{Reduction to a simplex and equal supports}\label{sec:family}
+Fix $n\geq2$ and $\alpha,\beta\geq0$. For the spectrum $(\alpha,\beta,\ldots,\beta)$, every orbit matrix is
+\[
+ A=\beta I+(\alpha-\beta)uu^*,\qquad\norm u=1.
+\]
+Put $\delta=\alpha-\beta$ and $t_i=|u_i|^2$. Then $t_i\geq0$ and $\sum_i t_i=1$.
+
+\begin{lemma}[Expansion from the supplied pack]\label{lem:expansion}
+If $e_j(t)$ is the $j$th elementary symmetric polynomial, with $e_0=1$, then
+\begin{equation}\label{eq:rankoneexpansion}
+ \per\bigl(\beta I+\delta uu^*\bigr)
+ =\sum_{j=0}^n j!\,\beta^{n-j}\delta^j e_j(t).
+\end{equation}
+\end{lemma}
+\begin{proof}
+Choose the rank-one term in a set of $j$ rows and the diagonal term in the other rows. The associated permutation fixes the latter rows, and its contribution on the chosen principal submatrix is the rank-one permanent $j!\prod_{i\in S}|u_i|^2$. Sum over the $j$-element subsets $S$ and then over $j$.
+\end{proof}
+
+\begin{lemma}[Equal-support maximizer; supplied-pack lemma]\label{lem:simplex}
+A symmetric multiaffine polynomial on the probability simplex has a maximizer whose positive coordinates are all equal.
+\end{lemma}
+\begin{proof}
+Among all maximizers choose one with the fewest positive coordinates. Fix two positive coordinates $a,b$ and hold the others fixed. Symmetry and multiaffinity put the objective in the form
+\[
+ C+A(a+b)+Bab.
+\]
+Keep $a+b$ fixed. If $B<0$, moving to an endpoint strictly increases the value. If $B=0$, moving to an endpoint preserves it and reduces the support. Both contradict the choice. Therefore $B>0$, and the maximum over this pair occurs at $a=b$. This holds for every positive pair.
+\end{proof}
+
+Consequently, writing
+\begin{equation}\label{eq:Pk}
+ P_{n,k}(\alpha,\beta)=
+ \sum_{j=0}^k\binom{k}{j}j!\,\beta^{n-j}
+                  \left(\frac{\alpha-\beta}{k}\right)^j,
+\end{equation}
+the supplied pack establishes
+\begin{equation}\label{eq:packmax}
+ M_n(\alpha,\beta^{n-1})=\max_{1\leq k\leq n}P_{n,k}(\alpha,\beta).
+\end{equation}
+Here and below $\beta^{n-1}$ in the spectral argument means $n-1$ copies, not an exponentiated eigenvalue. An equal-support representative is
+\begin{equation}\label{eq:Hk}
+ A_k=\beta I+\frac{\alpha-\beta}{k}(J_k\oplus0_{n-k}).
+\end{equation}
+The pack proved \eqref{eq:packmax}, but did not prove the following reduction to only two supports.
+
+\section{Only support two or full support can maximize}\label{sec:twoorn}
+\begin{theorem}[Two-candidate structural formula]\label{thm:family}
+For every $n\geq2$ and all $\alpha,\beta\geq0$,
+\begin{equation}\label{eq:familymain}
+ \boxed{M_n(\alpha,\beta^{n-1})=
+       \max\{P_{n,2}(\alpha,\beta),P_{n,n}(\alpha,\beta)\}.}
+\end{equation}
+If $\alpha>\beta$, full support is optimal. If $0\leq\alpha<\beta$, put $x=(\beta-\alpha)/\beta\in(0,1]$ and define
+\begin{equation}\label{eq:Fk}
+ F_k(x)=\sum_{j=0}^k\frac{k!}{(k-j)!}\left(-\frac{x}{k}\right)^j
+       =\int_0^\infty e^{-s}\left(1-\frac{xs}{k}\right)^k\,ds.
+\end{equation}
+Then the answer is $\beta^n\max\{F_2(x),F_n(x)\}$, with $F_2(x)=1-x+x^2/2$.
+\end{theorem}
+
+\subsection{Activating a zero coordinate}
+For the negative perturbation, the normalized objective is
+\[
+ f_x(t)=\sum_{j=0}^n j!(-x)^j e_j(t)
+       =\int_0^\infty e^{-s}\prod_i(1-xst_i)\,ds.
+\]
+Suppose $k<n$ coordinates are $1/k$ and the rest are zero. Activate one zero coordinate along
+\[
+ t_i(\varepsilon)=\frac{1-\varepsilon}{k}\quad(1\leq i\leq k),
+ \qquad t_{k+1}(\varepsilon)=\varepsilon.
+\]
+Differentiating this polynomial integral at zero gives
+\begin{equation}\label{eq:activation}
+ \left.\frac{d}{d\varepsilon}f_x(t(\varepsilon))\right|_{0}
+ =\frac{x^2}{k}I_k(x),\qquad
+ I_k(x)=\int_0^\infty s^2e^{-s}
+             \left(1-\frac{xs}{k}\right)^{k-1}\,ds.
+\end{equation}
+There is no infinite-series interchange here: all integrands are polynomials times $e^{-s}$.
+
+\begin{lemma}\label{lem:positiveI}
+For every $k\geq3$ and $0\leq x\leq1$, $I_k(x)>0$.
+\end{lemma}
+\begin{proof}
+If $k$ is odd, the power $k-1$ is even and the nonzero integrand is nonnegative. If $k$ is even, then
+\[
+ I_k'(x)=-\frac{k-1}{k}\int_0^\infty s^3e^{-s}
+              \left(1-\frac{xs}{k}\right)^{k-2}\,ds<0.
+\]
+It is therefore enough to show $I_k(1)>0$ for even $k\geq4$.
+
+Define
+\[
+ \mu_j(k)=\frac12\int_0^\infty s^2e^{-s}(k-s)^j\,ds.
+\]
+Integration by parts, or the gamma integration identity applied to $(k-s)^j$, gives
+\begin{equation}\label{eq:muRec}
+ \mu_{j+1}=(k-3-j)\mu_j+kj\mu_{j-1},\qquad
+ \mu_0=1,\quad\mu_1=k-3.
+\end{equation}
+For $k\geq5$, these initial conditions and the nonnegative coefficients show positivity of the moments up to the indices needed below. Applying \eqref{eq:muRec} at the last three indices gives
+\begin{align*}
+ \mu_{k-2}&=k(k-3)\mu_{k-4},\\
+ \mu_{k-3}&=\mu_{k-4}+k(k-4)\mu_{k-5},\\
+ \mu_{k-1}&=-\mu_{k-2}+k(k-2)\mu_{k-3}\\
+ &=k\bigl(\mu_{k-4}+k(k-2)(k-4)\mu_{k-5}\bigr)>0.
+\end{align*}
+For $k=4$, the recurrence gives $\mu_3(4)=4$. Finally,
+\[
+ I_k(1)=\frac{2\mu_{k-1}(k)}{k^{k-1}}>0.
+\]
+This settles all even $k$ and hence all cases.
+\end{proof}
+
+\subsection{Proof of Theorem~\ref{thm:family}}
+For $0\leq\alpha<\beta$, Lemma~\ref{lem:simplex} supplies an equal-support maximizer. Every support size $3\leq k<n$ has a strictly improving feasible activation by \eqref{eq:activation} and Lemma~\ref{lem:positiveI}. Support one is inferior because
+\[
+ F_2(x)-F_1(x)=\frac{x^2}{2}>0.
+\]
+Only $k=2$ and $k=n$ remain.
+
+For $\alpha>\beta>0$, every coefficient in \eqref{eq:rankoneexpansion} is nonnegative. Each $e_j(t)$ is maximized at the uniform point: averaging two coordinates does not decrease it, since its coefficient of the product of that pair is the nonnegative elementary symmetric polynomial of degree $j-2$ in the remaining coordinates. Repeated averaging and continuity give the uniform maximum. The $e_2$ coefficient is strictly positive, so equality forces the uniform point.
+
+For $\beta=0<\alpha$, the rank-one AM--GM calculation in Section~6 gives the full-support answer. For $\alpha=\beta$, the orbit is the single matrix $\beta I$. These observations also show that \eqref{eq:familymain} is valid at every nonnegative boundary value.\qed
+
+\section{The unique transition, monotonicity, and asymptotics}
+\begin{theorem}\label{thm:threshold}
+For each $n\geq3$, there is exactly one $x_n\in(0,1)$ satisfying $F_n(x_n)=F_2(x_n)$. Full support wins for $0<x<x_n$, and support two wins for $x_n<x\leq1$. At $x=x_n$, both give the maximum. Moreover,
+\[
+ x_3=\frac34,\qquad x_4=2-\frac{2\sqrt3}{3},\qquad
+ x_3<x_4<x_5<\cdots\longrightarrow1.
+\]
+As $n\to\infty$,
+\begin{equation}\label{eq:asymptotic}
+ 1-x_n=\frac1{2n}+\frac3{8n^2}+O(n^{-3}).
+\end{equation}
+\end{theorem}
+
+\subsection{Existence and uniqueness}
+Put $G_n(x)=F_n(x)-F_2(x)$. Its expansion at zero begins
+\[
+ G_n(x)=\frac{n-2}{2n}x^2+O(x^3),
+\]
+so it is positive just to the right of zero. The coefficients of $F_n$ give the exact differential identity
+\[
+ x^2F_n'(x)=n\bigl((1+x)F_n(x)-1\bigr).
+\]
+Subtracting the corresponding expression for $F_2$ gives
+\begin{equation}\label{eq:Gode}
+ G_n'(x)=\frac{n(1+x)}{x^2}G_n(x)+\frac{n-2}{2}(x-1).
+\end{equation}
+The integrating factor $e^{n/x}x^{-n}$ makes the left-hand expression strictly decreasing on $(0,1)$, because
+\[
+ \frac{d}{dx}\bigl(e^{n/x}x^{-n}G_n(x)\bigr)
+ =\frac{n-2}{2}(x-1)e^{n/x}x^{-n}<0.
+\]
+Thus there is at most one zero in that interval.
+
+We next show $F_n(1)<1/2$. If $n$ is odd, the integrand in \eqref{eq:Fk} is negative for $s>n$, while on $0<s<n$ it is strictly smaller than $e^{-2s}$. Its integral is consequently less than $1/2$. If $n$ is even, put
+\[
+ J_j=\int_0^\infty e^{-s}(1-s/n)^j\,ds.
+\]
+Integration by parts gives $J_j=1-(j/n)J_{j-1}$. Since $J_n=F_n(1)$, substitution into $I_n(1)=n^2(J_{n-1}-2J_n+J_{n+1})$ yields
+\[
+ I_n(1)=n\bigl(2n-(4n+1)F_n(1)\bigr)>0.
+\]
+Hence $F_n(1)<2n/(4n+1)<1/2$ also in the even case. Therefore $G_n(1)<0$, proving existence and the direction of the unique crossing.
+
+Directly,
+\[
+ \frac{G_3(x)}{x^2}=\frac{3-4x}{18},\qquad
+ \frac{G_4(x)}{x^2}=\frac{3x^2-12x+8}{32},
+\]
+which gives the displayed exact first thresholds.
+
+\subsection{Strict increase and limiting value}
+At $x=x_n$, the full-support point of order $n$ has value $F_2(x_n)$. Embed it with a zero coordinate in order $n+1$. Lemma~\ref{lem:positiveI} supplies a strictly improving activation. The two-candidate theorem in order $n+1$ therefore forces
+\[
+ F_{n+1}(x_n)>F_2(x_n),
+\]
+so $x_{n+1}>x_n$.
+
+For fixed $0<x<1$, the coefficients of $F_n$ have magnitude at most $x^j$ and converge termwise to $(-x)^j$. Geometric domination gives
+\[
+ F_n(x)\longrightarrow\frac1{1+x}.
+\]
+But
+\[
+ \frac1{1+x}-F_2(x)=\frac{x^2(1-x)}{2(1+x)}>0.
+\]
+Thus every fixed $x<1$ eventually lies below the transition. The increasing thresholds tend to $1$.
+
+\subsection{A uniform expansion near the endpoint}
+For $x\in[1/2,1]$, the integral in \eqref{eq:Fk} gives the uniform expansion
+\begin{equation}\label{eq:FnExpansion}
+ F_n(x)=\frac1{1+x}-\frac{x^2}{n(1+x)^3}
+       +\frac{x^3(x-2)}{n^2(1+x)^5}+O(n^{-3}).
+\end{equation}
+Here is a direct error justification. On $0\leq s\leq n^{1/4}$, Taylor expansion of $n\log(1-xs/n)$ and then of the exponential gives
+\[
+ (1-xs/n)^n=e^{-xs}\left[
+ 1-\frac{x^2s^2}{2n}
+ +\frac{x^4s^4/8-x^3s^3/3}{n^2}
+ +O\!\left(\frac{s^4+s^5+s^6}{n^3}\right)\right]
+\]
+uniformly in that range. Multiplication by $e^{-s}$ makes the error integrable with an $O(n^{-3})$ bound independent of $x$. Between $n^{1/4}$ and $n/x$, the exact integrand is bounded in magnitude by $e^{-(1+x)s}$, whose tail is smaller than any inverse power of $n$. Beyond $n/x$, its absolute integral is exactly
+\[
+ e^{-n/x}(x/n)^n n!\leq e^{-n}.
+\]
+The integrated polynomial approximation has equally negligible tails. Termwise integration therefore gives \eqref{eq:FnExpansion}.
+
+Let $\varepsilon_n=1-x_n$. The already-proved convergence and \eqref{eq:FnExpansion} first imply $\varepsilon_n=O(n^{-1})$. Expanding $G_n(1-\varepsilon_n)=0$ then gives
+\[
+ 0=\frac{\varepsilon_n}{4}-\frac1{8n}
+     -\frac{3\varepsilon_n^2}{8}
+     +\frac{\varepsilon_n}{16n}-\frac1{32n^2}
+     +O(n^{-3}).
+\]
+Solving successively for the coefficients of $n^{-1}$ and $n^{-2}$ yields \eqref{eq:asymptotic}.
+
+\section{All equality cases in the exceptional-spectrum family}
+\begin{theorem}\label{thm:equality}
+Assume $\alpha\ne\beta$ and $n\geq2$. Apart from permutations of coordinates and conjugation by a diagonal unitary, every maximizing matrix is one of the representatives $A_k$ in \eqref{eq:Hk}, with $k=2$ or $k=n$ as selected by Theorem~\ref{thm:family} and the transition rule. No nonuniform positive coordinates $|u_i|^2$ occur in a maximizer.
+
+For $\alpha=\beta$, the orbit consists only of $\beta I$. For $n=1$, the maximum is $\alpha$.
+\end{theorem}
+\begin{proof}
+For $\alpha>\beta$, uniqueness of the uniform squared moduli was proved with the positive-coefficient argument or rank-one AM--GM. It remains to consider $0\leq\alpha<\beta$, so $0<x\leq1$.
+
+Take any maximizing simplex point having two unequal positive coordinates $a,b$. Holding their sum fixed, write the polynomial as $C+A(a+b)+Bab$. The derivative in the feasible pair direction is $B(b-a)$. Since both coordinates are positive, stationarity and $a\ne b$ force $B=0$. Merging the two coordinates preserves the objective and reduces the support. Repeat until the remaining positive coordinates are equal.
+
+If a merge was performed, the terminal support is smaller than the initial support and hence smaller than $n$. Support one cannot maximize, and supports $3,\ldots,n-1$ cannot maximize by the activation proof. Thus the terminal support is two. An unequal point with support two cannot itself maximize because its pair coefficient is $2x^2>0$. Consequently the last merge must have come from a support-three maximizer.
+
+At that last step, the untouched positive coordinate is $1/2$ and the two merged coordinates have sum $1/2$. Their coefficient in the normalized objective is
+\[
+ B=2x^2-6x^3\cdot\frac12=x^2(2-3x).
+\]
+A value-preserving merge therefore requires $x=2/3$. However,
+\[
+ F_3(x)-F_2(x)=\frac{x^2(3-4x)}{18}>0
+ \qquad\text{at }x=2/3,
+\]
+contradicting maximality of support two in any dimension at least three. No nonuniform maximizer exists.
+
+Finally, equal squared moduli on a support of size $k$ mean that $u$ differs from the vector with $k$ entries $1/\sqrt k$ and the others zero only by coordinate phases and a permutation. These changes produce exactly the stated diagonal-unitary conjugates and permutations of $A_k$.
+\end{proof}
+
+\subsection{Examples and consequences}
+For every $n\geq2$,
+\[
+ \boxed{M_n(0,\beta,\ldots,\beta)=\frac{\beta^n}{2}.}
+\]
+For $n\geq3$ and $\beta>0$, all maximizers have exceptional vector supported equally on two coordinates. In order three with $\beta=1$, a representative is
+\[
+ \begin{pmatrix}
+ 1/2&-1/2&0\\-1/2&1/2&0\\0&0&1
+ \end{pmatrix},
+ \qquad \per=\frac12.
+\]
+The full-support representative $I-J_3/3$ has permanent $4/9$. This reproduces the counterexample mechanism already present in the supplied findings, rather than assuming equal diagonals are always optimal.
+
+For $(\alpha,\beta,n)=(1/4,1,3)$, $x=x_3=3/4$ and both support two and support three maximize, with value $17/32$. Up to the stated symmetries these are the only maximizers; there is no continuum of intermediate nonuniform squared moduli.
+
+The exact transition is the unique root in $(0,1)$ of the degree-$n-2$ polynomial
+\[
+ \frac{F_n(x)-1+x-x^2/2}{x^2}.
+\]
+The attached verification record gives rational isolating intervals. Some rounded values are
+\begin{center}
+\begin{tabular}{@{}rrrrrr@{}}
+\toprule
+$n$&3&4&5&6&10\\
+\midrule
+$x_n$&0.7500000000&0.8452994616&0.8805028218&0.9040756332&0.9458187429\\
+\bottomrule
+\end{tabular}
+\end{center}
+In terms of the eigenvalue ratio, full support wins when $\alpha/\beta>1-x_n$, and support two wins when $0\leq\alpha/\beta<1-x_n$, within the case $\alpha<\beta$.
+
+\part{Verification, provenance, and limitations}
+
+\section{Reproducible checks and audit}
+\subsection{Exact checks performed}
+The main verification script completed \textbf{12,832 exact checks}, using rational or Gaussian-rational arithmetic and symbolic polynomial identities. They include:
+\begin{center}
+\begin{tabular}{@{}p{0.73\linewidth}r@{}}
+\toprule
+Check group&Count\\
+\midrule
+Gaussian-rational permanent expansion&30\\
+Comparison of all equal-support candidates against supports $2,n$&1,416\\
+Rational simplex-grid upper checks&9,876\\
+Grid equality-case checks&53\\
+Activation integral samples and derivative identities&80\\
+Gamma-moment recurrence and endpoint identities&241\\
+Support/transition differential identities and ordered thresholds&54\\
+Character dimensions, identity values, and orthogonality&992\\
+Moment weights, scalar/rank-one/direct order-two moments&49\\
+Critical-value eliminations&9\\
+Finite moment-order arithmetic&32\\
+\midrule
+Total&12,832\\
+\bottomrule
+\end{tabular}
+\end{center}
+The nine eliminations include nontrivial order-two spectra and scalar/zero order-three spectra. Character moment tests include $(n,p)=(3,3)$ and $(4,2)$. The two-dimensional moments were independently compared to
+\[
+ \sum_{j=0}^p\binom pj
+ \left(\frac{\alpha^2+\beta^2}{2}\right)^{p-j}
+ \frac{\bigl(-\tfrac12(\alpha-\beta)^2\bigr)^j}{2j+1},
+\]
+which follows by integrating the Haar $2\times2$ parametrization over a uniform variable on $[-1,1]$.
+
+A separate selector check runs seven end-to-end small cases and verifies the conservative $p=1296$ selector for $(1,3)$ by an independent exact integral expansion. The original supplied-pack verification was also rerun: 72 random exact permanent comparisons, 126 equal-support comparisons, and 1,650 rational-grid comparisons passed.
+
+These tests are not a formal proof assistant verification and do not certify every order by enumeration. The universal claims rest on the mathematical arguments above. Floating-point exploratory searches, if inspected in the optional exploration files, are not global-optimality certificates.
+
+\subsection{Specific logical pitfalls addressed}
+\textbf{Repeated eigenvalues.} The square-free spectral equation and input-first specialization prevent importing a generic distinct-spectrum elimination into a degenerate case.
+
+\textbf{Extraneous real critical values.} The proof never equates ``real complex-critical value'' with ``Hermitian feasible value.'' The finite moment interval has width smaller than the candidate spacing and selects the actual maximum.
+
+\textbf{Positive-dimensional critical loci.} Finiteness is required for critical \emph{values}, not for critical points. Constancy on irreducible components is the relevant argument.
+
+\textbf{High moment order.} The Schur sum retains only partitions of length at most $n$, so no zero representation dimension is divided out. The formula remains valid when $np>n$.
+
+\textbf{Special family versus arbitrary spectrum.} The equal-support and two-candidate structural proofs use a rank-one perturbation of a scalar matrix. They are not extrapolated to general spectra.
+
+\subsection{Unachieved stronger objectives}
+No compact general expression analogous to \eqref{eq:familymain}, no practical arbitrary-order implementation, and no classification of all general-spectrum optimizers is established. The generic algebraic prescription may or may not be regarded by the problem's maintainers as the intended kind of resolution. That question is not settled by describing an exact algorithm as a formula. The package therefore states its mathematical content and its limitations rather than reporting the historical problem as independently validated or accepted as solved.
+
+\section{Files and provenance}
+The uploaded archive's MI-16 folder is preserved unchanged in \texttt{input\_findings\_MI16/}. The original archive itself is not duplicated in this package. Its hash, the source URLs, access dates, software versions, and the unsuccessful bounded order-three elimination trial are recorded in \texttt{provenance/}.
+
+The mathematical report and implementations are research outputs from this session. The package does not claim that every derived theorem is new to the literature. In particular, the input pack is explicitly credited for the rank-one perturbation and equal-support reduction, the commutator stationarity condition is prior published work, and the general elimination/representation-theoretic techniques are established methods.
+
+To rerun the exact checks, install the pinned dependency in \texttt{requirements.txt} and run the commands in \texttt{README.md}. The four principal reference modules implement the exceptional-spectrum formula, spectral moments, critical-value elimination, and the finite algebraic selector. A resource-budget exception means that computation did not return a value; it must not be interpreted as a bound or a proof of failure.
+
+\begin{thebibliography}{9}
+\bibitem{catalog}
+\emph{OpenProblemsInNLA}, MI-16, ``The maximum permanent on a positive-semidefinite unitary orbit.'' Website entry, accessed 12--13 September 2026 (UTC); entry reports last checked 10 September 2026.\\
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/matrix-inequalities-and-norms/MI-16}
+
+\bibitem{zhang}
+F. Zhang, \emph{An update on a few permanent conjectures}, Special Matrices \textbf{4} (2016), 305--316. DOI: 10.1515/spma-2016-0030. The ``Marcus--Minc max-per-$U$ problem 1965'' passage was consulted in the primary HTML text.\\
+\url{https://arxiv.org/html/1608.02844v1}
+
+\bibitem{grone}
+R. Grone, C. R. Johnson, E. de S\'a, and H. Wolkowicz,
+\emph{A note on maximizing the permanent of a positive definite Hermitian matrix, given the eigenvalues}, Linear and Multilinear Algebra \textbf{19}(4) (1986), 389--393. DOI: 10.1080/03081088608817733. The publisher abstract states the commutation condition; the argument used here is reproduced in Lemma~\ref{lem:stationary}.\\
+\url{https://www.tandfonline.com/doi/abs/10.1080/03081088608817733}
+
+\bibitem{collins}
+B. Collins and P. \'{S}niady, \emph{Integration with respect to the Haar measure on unitary, orthogonal and symplectic group}, Communications in Mathematical Physics \textbf{264} (2006), 773--795. DOI: 10.1007/s00220-006-1554-3. Primary preprint: arXiv:math-ph/0402073; Theorem 2.1 and Proposition 2.2.\\
+\url{https://arxiv.org/html/math-ph/0402073}
+
+\bibitem{buchberger}
+B. Buchberger, \emph{Bruno Buchberger's PhD thesis 1965: An algorithm for finding the basis elements of the residue class ring of a zero dimensional polynomial ideal}, English translation by M. P. Abramson, Journal of Symbolic Computation \textbf{41}(3--4) (2006), 475--511. DOI: 10.1016/j.jsc.2005.09.007. Publisher abstract and author publication record were consulted for attribution of the algorithmic theory.\\
+\url{https://www.sciencedirect.com/science/article/pii/S0747717105001483}
+
+\bibitem{hanzon}
+B. Hanzon, Author talk abstract on critical-value polynomials and algebraic optimization, Back to the Roots symposium, KU Leuven, 12 September 2013. Cited for the established role of finite critical-value polynomials, not for the specific moment selector proved here.\\
+\url{https://homes.esat.kuleuven.be/~sistawww/smc/bttr/details_hanzon.php}
+\end{thebibliography}
+\end{document}
