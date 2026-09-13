@@ -1,12 +1,6 @@
-# IS-03: reviewed derivative-realizability counterexample
+# IS-03: verified derivative-realizability counterexample
 
-**The complete original conjecture has a locally checked negative proof, with
-all seven exports approved by two independent final referees.** Two independent
-statement approvals preceded implementation. This package is ready for the
-project-specific Linux verification stage. Linux Comparator, default-kernel
-replay, the required controls and independent operational review are still
-**pending**. The [canonical entry](../README.md) remains **Solved** on its
-existing informal evidence.
+**The complete original derivative-realizability conjecture is Lean verified with a negative answer and all seven reviewed exports.** Two independent statement approvals preceded implementation; two independent final proof approvals followed. The unchanged proof at [revision f87375f](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/f87375fa5d7926fe0e065199eaab8f15ac5a5e48/eigenvalues-and-inverse-problems/IS-03/lean) passed actual sandboxed Linux Comparator/default-kernel verification in [run 34728101436](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34728101436). The [independent operational audit](verification/linux-2026-09-12/OPERATIONAL-REVIEW.md) and [root acceptance](verification/root-operational-2026-09-12/ROOT-CHECKS.json) checked the real execution and all 303 submitted inputs. The [canonical entry](../README.md) records the complete verified scope.
 
 Formalization: **George Stepaniants, Department of Computing and Mathematical
 Sciences, California Institute of Technology, Pasadena, California, USA**, with
@@ -16,8 +10,10 @@ authorship of the counterexample. Johnson and
 Hoover–McCormick–Paparella–Thrall retain the original conjecture and source
 attribution. The root coordinator and `/root/solved_statement_inventory`
 coauthored the statement package and implementation; neither is an independent
-final referee. This documentation was prepared by the latter implementation
-agent. No email, source-author endorsement, external human peer review or new
+final referee. Historical candidate documentation was prepared by the latter implementation
+agent. Publication preparation is by `/root/formal_review_standards`, the
+independent final mathematical referee 2; this preparation is not an additional
+mathematical review. No email, source-author endorsement, external human peer review or new
 mathematical priority is claimed. The included Apache 2.0 license applies to
 the new formalization code and does not relicense the source manuscript.
 
@@ -145,7 +141,7 @@ statement module. Historical author/referee runners retain checks against
 their then-current README and local cache paths. Reproducing those records
 requires their frozen snapshot rather than overwriting historical evidence.
 
-For the pending project-specific verification, follow the
+From the immutable verified revision, follow the
 [shared workflow](../../../docs/lean/README.md) on a configured
 [non-root Linux host](../../../tools/lean/HARNESS.md). From the repository root:
 
@@ -157,9 +153,9 @@ tools/lean/verify.sh \
   /absolute/path/to/nla-lean-tools
 ```
 
-These commands describe the remaining reproducible gate; this package does
-not claim they have run for IS-03. A successful run on another problem or the
-shared infrastructure does not verify this candidate.
+These commands reproduce the verification from the immutable candidate. The
+observed project-specific run and its scope are recorded below; success on
+unrelated projects is not used to verify IS-03.
 
 ## Independent approvals and preserved history
 
@@ -182,14 +178,60 @@ The exact statement-stage README is archived at
 Only the live README changes among the 203 proof-freeze inputs; all other
 202 inputs, all ten original Git source blobs and every statement/final
 report and evidence file remain unchanged. The new
-[v0.4 manifest](formalization.yaml) records the complete scope and pending
+[v0.4 manifest](formalization.yaml) records the complete scope and completed
 Linux gate. The earlier
 [NUMERICAL_TARGETS.md](NUMERICAL_TARGETS.md),
 [SourceCorrespondence.md](SourceCorrespondence.md), source manifest and
 phase-specific handoffs retain their historical 12 September 2026 wording;
 the completed proofs and later reviews supersede their pending-work notices.
 
-The next steps are coordinator candidate review, an immutable candidate
-commit, actual Linux verification with controls, independent operational
-review and publication review. Canonical status promotion and an individual
-upstream PR follow those gates.
+## Actual Linux verification and publication preservation
+
+The successful Ubuntu 24.04 run freshly cloned all ten dependencies at their
+exact pins and used 8690 official Mathlib cache artifacts before checking the
+project source. Challenge and Solution build graphs completed with 1718 and
+3101 jobs respectively; these graph counts do not assert full dependency-source
+rebuilds. The Solution phase emitted no warnings. Its seven declarations matched
+without definition exceptions, default-kernel replay passed, and all eighteen
+internal/public transitive axiom reports contained exactly the standard three.
+
+The target job and separate checker job each passed the actual sandbox probes,
+three raw-kernel controls, five Comparator fixtures and the admission/native
+execution negative controls. The nested Bubblewrap executable was denied
+UID-map creation before its inner write; this does not claim that the inner
+write executed or establish general sandbox security. Complete raw logs and
+original artifact ZIPs are retained. The [Linux evidence manifest](verification/linux-2026-09-12/EVIDENCE-MANIFEST.json)
+binds 444 files plus itself, including every nested manifest. Original project
+ZIP SHA-256 is `5a72c6ed55af7aea388b74910cd0b0cbc2c81004427b145390fbe74f4ec1ac1e`;
+checker-control ZIP SHA-256 is
+`2ef6c60b6f7e7367fd72ba3e484ab7e350cf8970c8e6ae880bb4bbff494c5cb5`.
+Both match GitHub metadata and actual upload logs. The retained 152-file full
+run-log ZIP has a separately computed digest; no GitHub-published checksum
+for that archive is claimed.
+
+Operational reviewer `/root/leancert_examples` also served as independent
+statement and final mathematical referee 1 and authored neither the statements
+nor the proof. The root coordinator independently accepted the operational
+evidence and actual GitHub records; root and `/root/solved_statement_inventory`
+coauthored the proof and do not count as independent final referees. Publication
+preparer `/root/formal_review_standards` is the other independent statement/final
+referee and also contributed shared infrastructure. These roles do not increase
+the number of mathematical referees. The [root operational evidence manifest](verification/root-operational-2026-09-12/EVIDENCE-MANIFEST.json)
+retains six checked files plus itself.
+
+The successful run verifies the immutable candidate, not a later metadata
+revision. Publication changes only this README and five status/review fields
+in the current manifest among its 303 submitted inputs. All other 301 inputs,
+all 445 Linux evidence files and all seven root operational evidence files
+remain byte-identical. The exact preceding [README](verification/publication-2026-09-12/archive/README.linux-candidate.md)
+and [manifest](verification/publication-2026-09-12/archive/formalization.linux-candidate.yaml)
+are archived. All 202 non-README proof-freeze inputs, all 34 statement inputs
+through their exact README archive, all ten original source snapshots and every
+review/evidence record are preserved. The canonical original problem statement
+and mathematical source are unchanged. Earlier phase-specific pending notices
+remain historical records.
+
+A separate publication review remains required before a publication commit,
+push and individual upstream PR. This preparation reruns no Lean proof and
+claims no external human review, official Tau Ceti endorsement, source-author
+endorsement or new mathematical priority.

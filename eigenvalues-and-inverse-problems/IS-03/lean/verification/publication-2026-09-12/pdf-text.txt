@@ -1,0 +1,136 @@
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA                                                            IS-03
+
+
+
+
+Eigenvalues and inverse problems
+
+
+Johnson’s derivative-realizability conjecture
+Diﬀiculty: challenging       Importance: interesting to the community
+Status: Lean verified
+
+Rating rationale: Challenging reflects preserving nonnegative realizability under polynomial differ-
+entiation; community impact connects the nonnegative inverse eigenvalue problem with polynomial
+critical points.
+
+Resolution — 2026-09-11
+Negative resolution by Matthew J. Colbrook, Department of Applied Mathematics and Theoretical
+Physics, University of Cambridge. Complete manuscript · PDF · LaTeX. Theorem 1 and equations (1)–
+(7).
+The nonnegative real order-seven matrix 𝐴 = diag(1/2, 𝐶2 , 𝐶4 ) has a normalized characteristic-
+polynomial derivative whose seventh power sum is −8593/823543 < 0. Every power of a nonnegative
+matrix has nonnegative trace, so the derivative cannot be realized at order six, or after any zero padding.
+Reducibility and positive trace are allowed in the original target. This refutes its universal assertion.
+The complete argument received an independent Codex-agent PASS on 11 September 2026. The re-
+view report records the exact scope and a hash of the original reviewed manuscript. The mathematical
+sections remain unchanged in the authored version. Original ChatGPT generation is disclosed; that
+dated agent review was informal. The later Lean verification is documented below; external human
+peer review is not claimed. Submission and verification record.
+The original statement, source references and prior audit notes are retained; the former diﬀiculty rating
+is historical.
+
+Lean proof and verification evidence - 2026-09-12
+The complete original derivative-realizability conjecture is Lean verified with a negative answer.
+The proof at revision f87375f proves that the unchanged nonnegative order-seven source matrix has no
+entrywise-nonnegative realization of its normalized characteristic-polynomial derivative at order six.
+The full original quantifiers and exact order 𝑛 − 1 are retained. Neither symmetry nor diagonalizability
+is assumed; entrywise nonnegativity is not replaced by positive semidefiniteness.
+Lean formalization: George Stepaniants, Department of Computing and Mathematical Sciences, Cal-
+ifornia Institute of Technology, Pasadena, California, USA, with AI-agent assistance. Matthew J. Col-
+brook retains mathematical counterexample authorship. Johnson and Hoover, McCormick, Paparella
+and Thrall retain the original conjecture and source attribution.
+The seven checked exports, each with prefix NLA.IS03., are:
+ • nonnegative_power_trace: every natural power of an entrywise-nonnegative real matrix has nonneg-
+   ative entries and trace, including order and power zero.
+ • witness_admissible: the actual source matrix is entrywise nonnegative and has trace 1/2.
+ • witness_polynomials: its genuine characteristic polynomial and normalized derivative have the stated
+   coeﬀicients; the derivative is monic of degree six.
+ • trace_moment_certificate: every real order-six matrix with that characteristic polynomial has all seven
+   prescribed power traces, without a spectral assumption.
+ • negative_moment: the seventh value is exactly −8593/823543 and strictly negative.
+ • counterexample: the admissible source matrix has no nonnegative order-six realization of its actual
+   normalized derivative.
+ • not_derivativeRealizabilityConjecture: negation of the complete original universal assertion.
+Two independent statement approvals preceded implementation; two independent final proof refer-
+ees approved the frozen proof after fresh source elaboration, actual-term inspection and replay of the
+
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-12                                                                             1
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA                                                            IS-03
+
+
+
+
+retained numerical checker. Ubuntu run 34728101436 matched all seven exports with the sandboxed
+Comparator, replayed the solution in Lean’s default kernel and passed both actual isolation/rejection-
+control suites. The operational audit and original artifacts bind all 303 submitted inputs; root acceptance
+independently checked their identity and actual execution. All 18 internal/public transitive axiom re-
+ports allow only propext, Classical.choice and Quot.sound. Operational and publication roles do not add
+mathematical referees. External human peer review is not claimed.
+The pins are Lean 4.33.1, LeanCert 621a43d and Mathlib 0df444a. The material explicit kernel LeanCert
+certificate proves the singleton sign −8593/823543 < 0. Exact characteristic-polynomial, spectral, Vi-
+eta/Newton and trace arguments connect that sign to the full contradiction. Separability and an actual
+eigenbasis of any potential realization are derived, not assumed. No approximate roots, numerical
+eigensolver or interval subdivision is used. The source’s stronger zero-padding exclusion and its sepa-
+rate Monov consequence are outside these seven exports. See the project guide, manifest, reviews and
+pins.
+From the immutable verified revision on a documented non-root Linux host, reproduce with:
+
+tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
+tools/lean/verify.sh \
+  eigenvalues-and-inverse-problems/IS-03/lean \
+  /absolute/path/to/nla-lean-tools
+
+
+Problem statement
+
+For every integer 𝑛 ≥ 5 and every real entrywise-nonnegative matrix 𝐴 ∈ ℝ𝑛×𝑛 , define 𝑝𝐴 (𝑧) = det(𝑧𝐼 −
+𝐴). Must there exist an entrywise-nonnegative 𝐵 ∈ ℝ(𝑛−1)×(𝑛−1) such that
+
+                                                       1 ′
+                                    det(𝑧𝐼 − 𝐵) =       𝑝 (𝑧)         as polynomials in 𝑧?
+                                                       𝑛 𝐴
+Equivalently, the critical points of the characteristic polynomial, counted with multiplicity, would them-
+selves form a realizable spectrum of the smaller order. Neither 𝐴 nor 𝐵 is assumed symmetric or diago-
+nalizable. The realization must have exactly order 𝑛 − 1; allowing arbitrary additional zero eigenvalues
+changes the problem. This would provide a dimension-reduction operation for nonnegative spectral
+realization.
+
+
+
+
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-12                                                                             2
+OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA                                                                 IS-03
+
+
+
+
+References
+
+Hoover, McCormick, Paparella, and Thrall, On the realizability of the critical points of a realizable list, Con-
+jecture 1.2, p. 2, and §6. The paper credits the conjecture to Johnson and records the Cronin–Laffey
+low-order results.
+
+Earlier status check — 2026-09-08
+
+Searches for Johnson conjecture derivative nonnegative matrix characteristic polynomial proof counterexample,
+1712.05454 2026, and Monov conjecture solved found no general resolution. The source proves several
+classes and records the solved cases 𝑛 ≤ 4, and 𝑛 ≤ 6 with tr 𝐴 = 0. Nonnegative power sums alone are
+a different hypothesis. Monov’s weaker moment conjecture is not separately counted here.
+
+Audit update — 2026-09-10
+
+Rechecked the primary manuscript, Conjecture 1.2 and its proved families; the journal version is LAA
+555 (2018), 301–313. Results for Ciarlet/Suleĭmanova lists, appropriate companion-matrix realizations,
+and trace-zero lists of orders five and six settle substantive portions of the displayed target. Johnson-
+conjecture/critical-point searches found no general proof or counterexample.
+
+
+
+
+Editorial ratings; a bounded search cannot certify that a problem remains unsolved.
+Literature check: 2026-09-12                                                                                  3
+

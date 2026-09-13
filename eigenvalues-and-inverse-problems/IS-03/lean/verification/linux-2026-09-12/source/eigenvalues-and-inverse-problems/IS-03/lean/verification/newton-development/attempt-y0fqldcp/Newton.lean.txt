@@ -1,0 +1,52 @@
+/-
+Copyright (c) 2026 George Stepaniants. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: George Stepaniants
+
+Exact Newton identities for the unrestricted spectral data in Colbrook's IS-03
+counterexample. No root approximations or spectral regularity assumptions.
+-/
+import NLA.IS03.Definitions
+import Mathlib.RingTheory.MvPolynomial.Symmetric.NewtonIdentities
+import Mathlib.RingTheory.Polynomial.Vieta
+import Mathlib.Data.Complex.Basic
+import Mathlib.Tactic
+
+noncomputable section
+open scoped BigOperators
+open Polynomial
+
+namespace NLA.IS03
+
+/-- Elementary symmetric functions evaluated at the actual complex values. -/
+def elementaryMoments {ι : Type*} [Fintype ι] (μ : ι → ℂ) (k : ℕ) : ℂ :=
+  MvPolynomial.aeval μ (MvPolynomial.esymm ι ℂ k)
+
+/-- Actual finite power sums, retaining one term for each index. -/
+def powerMoments {ι : Type*} [Fintype ι] (μ : ι → ℂ) (k : ℕ) : ℂ :=
+  ∑ i, μ i ^ k
+
+/-- Vieta's formula for a finite family with multiplicities retained. -/
+theorem product_coeff_eq_elementary {ι : Type*} [Fintype ι]
+    (μ : ι → ℂ) {k : ℕ} (hk : k ≤ Fintype.card ι) :
+    (∏ i, (X - C (μ i))).coeff k =
+      (-1 : ℂ) ^ (Fintype.card ι - k) * elementaryMoments μ (Fintype.card ι - k) := by
+  classical
+  have hcard : (Finset.univ.val.map μ).card = Fintype.card ι := by simp
+  have h := Multiset.prod_X_sub_C_coeff (Finset.univ.val.map μ) (by simpa using hk)
+  simpa only [Finset.prod_eq_multiset_prod, Multiset.map_map, Function.comp_def,
+    hcard, elementaryMoments, MvPolynomial.aeval_esymm_eq_multiset_esymm] using h
+
+/-- The genuine multivariate Newton identity evaluated at arbitrary complex values. -/
+theorem powerMoments_newton {ι : Type*} [Fintype ι] (μ : ι → ℂ)
+    (k : ℕ) (hk : 0 < k) :
+    powerMoments μ k = (-1 : ℂ) ^ (k + 1) * k * elementaryMoments μ k -
+      ∑ a ∈ (Finset.antidiagonal k).filter (fun a => a.1 ∈ Set.Ioo 0 k),
+        (-1 : ℂ) ^ a.1 * elementaryMoments μ a.1 * powerMoments μ a.2 := by
+  classical
+  have h := congrArg (MvPolynomial.aeval μ)
+    (MvPolynomial.psum_eq_mul_esymm_sub_sum ι ℂ k hk)
+  simpa only [MvPolynomial.psum, map_sum, map_sub, map_mul, map_pow, map_neg,
+    map_one, map_natCast, MvPolynomial.aeval_X, elementaryMoments, powerMoments] using h
+
+end NLA.IS03

@@ -1,0 +1,51 @@
+NLA/IS03/Spectral.lean:38:50: error: Application type mismatch: The argument
+  r.property
+has type
+  ↑r ∈ ComplexRoots
+but is expected to have type
+  ↑r ∈ (Polynomial.map (algebraMap ℝ ℂ) derivativePolynomial).rootSet ℂ
+in the application
+  aeval_eq_zero_of_mem_rootSet r.property
+NLA/IS03/Spectral.lean:43:75: error: unsolved goals
+B : RealMatrix 6
+hB : charpoly B = derivativePolynomial
+f : Module.End ℂ (Fin 6 → ℂ) := toLin' (Matrix.map B ⇑(algebraMap ℝ ℂ))
+hchar : LinearMap.charpoly f = Polynomial.map (algebraMap ℝ ℂ) derivativePolynomial
+he : ∀ (r : ↑ComplexRoots), f.HasEigenvalue ↑r
+v : ↑ComplexRoots → Fin 6 → ℂ
+hv : ∀ (r : ↑ComplexRoots), f.HasEigenvector (↑r) (v r)
+hlin : LinearIndependent (ι := ↑ComplexRoots) ℂ v
+⊢ ComplexRoots.ncard = 6
+NLA/IS03/Spectral.lean:47:2: error: Type mismatch: After simplification, term
+  hv
+ has type
+  ∀ (a : ℂ) (b : a ∈ ComplexRoots),
+    @Module.End.HasEigenvector ℂ (Fin 6 → ℂ) Complex.commRing Pi.addCommGroup (Pi.Function.module (Fin 6) ℂ ℂ) f a
+      (v ⟨a, b⟩)
+but is expected to have type
+  ∀ (a : ℂ) (b : a ∈ ComplexRoots),
+    @Module.End.HasEigenvector ℂ (Fin 6 → ℂ) Complex.commRing Pi.addCommGroup (Pi.Function.module (Fin 6) ℂ ℂ)
+      (toLin' (Matrix.map B Complex.ofReal)) a (v ⟨a, b⟩)
+NLA/IS03/Spectral.lean:44:10: warning: This simp argument is unused:
+  complexRoots_card
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Module.finrank_fintype_fun_eq_card]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IS03/Spectral.lean:59:61: error: unsolved goals
+B : RealMatrix 6
+hB : charpoly B = derivativePolynomial
+b : Module.Basis ↑ComplexRoots ℂ (Fin 6 → ℂ)
+hb : ∀ (r : ↑ComplexRoots), Module.End.HasEigenvector (toLin' (Matrix.map B ⇑(algebraMap ℝ ℂ))) (↑r) (b r)
+M : Matrix (Fin 6) (Fin 6) ℂ := Matrix.map B ⇑(algebraMap ℝ ℂ)
+f : Module.End ℂ (Fin 6 → ℂ) := toLin' M
+k : ℕ
+i j : ↑ComplexRoots
+⊢ (if i = j then ↑i ^ k else 0) = (Finsupp.single j (↑j ^ k)) i
+NLA/IS03/Spectral.lean:76:8: error: Type mismatch: After simplification, term
+  AddMonoidHom.map_trace (algebraMap ℝ ℂ) (B ^ k)
+ has type
+  ↑(trace (B ^ k)) = (Matrix.map (B ^ k) Complex.ofReal).trace
+but is expected to have type
+  ↑(trace (B ^ k)) = (Matrix.map B Complex.ofReal ^ k).trace

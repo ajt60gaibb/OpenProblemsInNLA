@@ -1,0 +1,97 @@
+from pathlib import Path
+from datetime import datetime, timezone
+import hashlib, json, os, re, subprocess
+
+R=Path('/tmp/nla-lean-is03-worktree'); prefix='eigenvalues-and-inverse-problems/IS-03/lean/';P=R/prefix
+O=P/'verification/publication-2026-09-12';C=P/'verification/publication-scope-correction-2026-09-12'
+E=P/'reviews/publication-referee-1-evidence';report=P/'reviews/publication-referee-1.md'
+preflight=P/'verification/publication-preflight-2026-09-12'
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+git=lambda *a:subprocess.check_output(['git',*a],cwd=R)
+assert git('rev-parse','HEAD').decode().strip()=='ab164900f806ab7208ca8b0107a6238603eaacad'
+assert sha(report)=='d9953410c9fbed860bb40752734cf3c4c2d5ace6a7d99732d245fc2c66d33943'
+assert sha(E/'EVIDENCE-MANIFEST.json')=='076c9f2231dd49d6e3bfb5b2f284da04f0bd316a1bd000649d323468a3f76395'
+assert sha(O/'INTEGRITY-CHECKS.json')=='8c2123242a0c56ccc78943c8b5cbfd21095d2ef0c2e6877bf8e69c220ac51d26'
+assert sha(O/'EVIDENCE-MANIFEST.json')=='f01c38486feff1079f6366dd22e2b39437453d1b3040e102f1318876b1133b97'
+assert sha(C/'CORRECTION.json')=='10a2d7e8557e656ccd5472131e51d90000505a8fd77bf9e7f7cc33a3616c49ae'
+assert sha(C/'EVIDENCE-MANIFEST.json')=='4b996130f6e42faa97e7960b9041d0f7a026e64cb4c71bdef66047eb6d2044ca'
+initial=json.loads((O/'INTEGRITY-CHECKS.json').read_text())
+correction=json.loads((C/'CORRECTION.json').read_text())
+outputs=correction['current_publication_sha256']
+assert set(outputs)==set(initial['publication_sha256']) and len(outputs)==9
+assert {f for f in outputs if outputs[f]!=initial['publication_sha256'][f]}=={'RESOLVED.md',prefix+'formalization.yaml'}
+for f,h in outputs.items():assert sha(R/f)==h,f
+for f,h in initial['unchanged_nonwrapper_sha256'].items():assert sha(P/f)==h,f
+assert len(initial['unchanged_nonwrapper_sha256'])==301
+retained=dict(initial['all_retained_operational_sha256'])
+assert len(retained)==452
+for f,h in retained.items():assert sha(P/f)==h,f
+for directory,external,count in [(O,set(),35),(C,set(),10),(E,{'../publication-referee-1.md'},10)]:
+    outer=directory/'EVIDENCE-MANIFEST.json';manifest=json.loads(outer.read_text());files=manifest['files']
+    assert len(files)==count
+    if 'file_count' in manifest: assert manifest['file_count']==count
+    actual={q.relative_to(directory).as_posix() for q in directory.rglob('*') if q.is_file() and q!=outer}
+    assert actual==set(files)-external
+    for f,entry in files.items():assert sha(directory/f)==entry['sha256'] and (directory/f).stat().st_size==entry['bytes'],f
+    retained.update({q.relative_to(P).as_posix():sha(q) for q in directory.rglob('*') if q.is_file()})
+retained[report.relative_to(P).as_posix()]=sha(report)
+preserved=json.loads((O/'preserved-upstream-files.json').read_text())
+assert len(preserved['Git_blobs'])==preserved['file_count']==6967
+for f,h in preserved['Git_blobs'].items():
+    b=(R/f).read_bytes();actual=hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest();assert actual==h,f
+before=json.loads((O/'before.json').read_text())
+assert sha(R/'problem_ids.json')==before['problem_ids_sha256']
+canonical=(R/'eigenvalues-and-inverse-problems/IS-03/README.md').read_text().split('## Problem statement',1)[1]
+assert hashlib.sha256(('## Problem statement'+canonical).encode()).hexdigest()==before['canonical_target_tail_sha256']
+directories=[prefix+'verification/'+n for n in ['linux-2026-09-12','root-operational-2026-09-12','publication-2026-09-12','publication-scope-correction-2026-09-12']]+[prefix+'reviews/publication-referee-1-evidence']
+reportpath=report.relative_to(R).as_posix()
+subprocess.run(['git','add','--',*outputs,*directories,reportpath],cwd=R,check=True)
+for path in git('diff','--cached','--name-only').decode().splitlines():
+    assert path in outputs or path==reportpath or any(path.startswith(d+'/') for d in directories),path
+first=subprocess.run(['git','diff','--cached','--check'],cwd=R,capture_output=True)
+assert not first.stderr
+excluded={}
+if first.returncode:
+    for line in first.stdout.decode().splitlines():
+        match=re.match(r'^(.+):\d+: (?:trailing whitespace\.|new blank line at EOF\.)$',line)
+        if match:
+            path=match.group(1);f=path.removeprefix(prefix)
+            assert path.startswith(prefix) and f in retained,path
+            assert sha(R/path)==retained[f],path
+            excluded[path]={'sha256':sha(R/path),'reason':'Exact independently reviewed immutable raw historical execution/review evidence; retain original bytes'}
+    assert excluded,first.stdout.decode()
+assert not preflight.exists();preflight.mkdir()
+(preflight/'commit_is03_publication.initial.py.txt').write_bytes(Path('/tmp/nla-lean-formalization/commit_is03_publication.initial.py.txt').read_bytes())
+(preflight/'preflight-parser-correction.json').write_text(json.dumps({'finding':'Initial preflight expected optional file_count metadata in the independent review manifest; that manifest has a complete files mapping and an exact self-exclusion rule but no count field.', 'initial_exit_code':1, 'stage':'Read-only validation, before any staging or commit', 'correction':'Require exactly10 actual entries and exact directory coverage; additionally check a file_count field when present. No hash, byte-count or inventory requirement was relaxed.', 'candidate_or_review_bytes_changed':False},indent=2)+'\n')
+raw=preflight/'git-diff-check-initial.log';raw.write_bytes(first.stdout)
+if any(line.endswith((b' ',b'\t')) for line in first.stdout.splitlines()) or first.stdout.endswith(b'\n\n'):
+    excluded[raw.relative_to(R).as_posix()]={'sha256':sha(raw),'reason':'Exact raw output of the preceding staged whitespace check, recording immutable historical evidence; no normalization'}
+args=['git','diff','--cached','--check','--','.']+[':(exclude)'+p for p in sorted(excluded)]
+check=subprocess.run(args,cwd=R,capture_output=True);assert check.returncode==0,check.stdout.decode()+check.stderr.decode()
+acceptance={'utc':datetime.now(timezone.utc).isoformat(),
+ 'status':'Root accepts the corrected independent publication APPROVE; user authorized commit, push and individual upstream PR',
+ 'root_role':'IS03 proof coauthor and author of two publication wording corrections; not an independent mathematical referee. Independent publication reviewer leancert_examples authored neither the proof nor publication. Standards prepared publication and was final referee2.',
+ 'independent_review_sha256':sha(report),'independent_evidence_sha256':sha(E/'EVIDENCE-MANIFEST.json'),
+ 'initial_publication_sha256':sha(O/'EVIDENCE-MANIFEST.json'),'scope_correction_sha256':sha(C/'EVIDENCE-MANIFEST.json'),
+ 'publication_sha256':outputs,'unchanged_nonwrapper_candidate_inputs':301,'preserved_operational_files':452,
+ 'preserved_other_upstream_files':6967,'permanent_IDs':217,'proof_statement_original_source_preservation':'203/34/10 inputs accepted after sealed independent review and prior root operational verification; original target suffix independently rechecked',
+ 'only_exact_hash_bound_whitespace_exceptions':excluded,'command':args,'exit_code':0,
+ 'root_visual':'All three final PDF page images individually displayed and inspected after the exact-scope correction; PDF unchanged and no defects',
+ 'scope':'Full original derivative-realizability universal negation; all seven reviewed signatures, actual arbitrary-matrix power traces, material kernel LeanCert negative sign and entrywise-nonnegative exact-order-six exclusion retained',
+ 'candidate':'f87375fa5d7926fe0e065199eaab8f15ac5a5e48','actual_Ubuntu_run':34728101436,
+ 'no_new_Lean_or_Linux_execution_claimed':True}
+(preflight/'ROOT-ACCEPTANCE.json').write_text(json.dumps(acceptance,indent=2)+'\n')
+(preflight/'commit_is03_publication.py').write_bytes(Path(__file__).read_bytes())
+outer=preflight/'EVIDENCE-MANIFEST.json';files={q.relative_to(preflight).as_posix():{'sha256':sha(q),'bytes':q.stat().st_size} for q in preflight.rglob('*') if q.is_file()}
+outer.write_text(json.dumps({'file_count':len(files),'files':files,'inventory_rule':'Every file here except this exact outer manifest; nested manifests retained.'},indent=2)+'\n')
+subprocess.run(['git','add','--',str(preflight.relative_to(R))],cwd=R,check=True)
+subprocess.run(args,cwd=R,check=True)
+env=dict(os.environ,GIT_AUTHOR_NAME='George Stepaniants',GIT_COMMITTER_NAME='George Stepaniants',GIT_AUTHOR_EMAIL='',GIT_COMMITTER_EMAIL='')
+result=subprocess.run(['git','-c','user.name=George Stepaniants','-c','user.email=','-c','commit.gpgsign=false','commit','-m','Publish Linux-verified IS-03 formalization and reviewed evidence'],cwd=R,env=env,capture_output=True)
+assert result.returncode==0,result.stdout.decode()+result.stderr.decode()
+assert git('show','-s','--format=%ae%x00%ce','HEAD').rstrip(b'\n')==b'\0'
+assert not git('status','--porcelain')
+receipt={'commit':git('rev-parse','HEAD').decode().strip(),'blank_author_and_committer_emails':True,'worktree_clean':True,
+ 'root_acceptance_sha256':sha(preflight/'ROOT-ACCEPTANCE.json'),'root_evidence_sha256':sha(outer),'independent_review_sha256':sha(report),'exact_whitespace_exceptions':len(excluded)}
+Path('/tmp/nla-lean-formalization/IS-03-publication-commit.json').write_text(json.dumps(receipt,indent=2)+'\n')
+print(json.dumps(receipt,indent=2))

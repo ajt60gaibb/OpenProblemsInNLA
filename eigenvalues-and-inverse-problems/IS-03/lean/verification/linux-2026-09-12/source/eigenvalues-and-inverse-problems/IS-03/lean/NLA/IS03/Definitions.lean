@@ -1,0 +1,62 @@
+/-
+Copyright (c) 2026 George Stepaniants. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: George Stepaniants
+
+Formalization of Matthew J. Colbrook's counterexample to Johnson's
+derivative-realizability conjecture. Definitions only; see NUMERICAL_TARGETS.md.
+-/
+import Mathlib.LinearAlgebra.Matrix.Charpoly.Basic
+import Mathlib.LinearAlgebra.Matrix.Trace
+import Mathlib.LinearAlgebra.Matrix.Notation
+import Mathlib.Data.Real.Basic
+import Mathlib.Algebra.Polynomial.Derivative
+
+noncomputable section
+
+open Matrix Polynomial
+open scoped Matrix
+
+namespace NLA.IS03
+
+/-- Actual real square matrices of the indicated finite order. -/
+abbrev RealMatrix (n : ℕ) := Matrix (Fin n) (Fin n) ℝ
+
+/-- Entrywise nonnegativity; it is not positive-semidefinite order. -/
+def EntrywiseNonnegative {n : ℕ} (A : RealMatrix n) : Prop :=
+  ∀ i j, 0 ≤ A i j
+
+/-- The actual formal derivative, scaled by the reciprocal of the matrix order. -/
+def normalizedDerivative (n : ℕ) (p : ℝ[X]) : ℝ[X] :=
+  ((n : ℝ)⁻¹) • p.derivative
+
+/-- The entire original universal conjecture, with realization at exactly order n−1. -/
+def DerivativeRealizabilityConjecture : Prop :=
+  ∀ n : ℕ, 5 ≤ n → ∀ A : RealMatrix n, EntrywiseNonnegative A →
+    ∃ B : RealMatrix (n - 1), EntrywiseNonnegative B ∧
+      B.charpoly = normalizedDerivative n A.charpoly
+
+/-- Colbrook's unchanged block matrix diag(1/2, C₂, C₄). -/
+def witnessMatrix : RealMatrix 7 :=
+  !![1/2, 0, 0, 0, 0, 0, 0;
+     0, 0, 1, 0, 0, 0, 0;
+     0, 1, 0, 0, 0, 0, 0;
+     0, 0, 0, 0, 1, 0, 0;
+     0, 0, 0, 0, 0, 1, 0;
+     0, 0, 0, 0, 0, 0, 1;
+     0, 0, 0, 1, 0, 0, 0]
+
+/-- The proposed characteristic polynomial; equality to the actual one is an obligation. -/
+def witnessPolynomial : ℝ[X] :=
+  (X - C (1/2)) * (X^2 - 1) * (X^4 - 1)
+
+/-- The proposed normalized derivative; no characteristic polynomial is defined to equal it. -/
+def derivativePolynomial : ℝ[X] :=
+  X^6 - C (3/7) * X^5 - C (5/7) * X^4 + C (2/7) * X^3 -
+    C (3/7) * X^2 + C (1/7) * X + C (1/7)
+
+/-- Source trace values for powers one through seven. Their universal validity is a theorem target. -/
+def traceMoments : Fin 7 → ℝ :=
+  ![3/7, 79/49, 48/343, 6731/2401, 5213/16807, 219766/117649, -8593/823543]
+
+end NLA.IS03

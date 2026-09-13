@@ -1,0 +1,5 @@
+# IS-03 publication scope clarification
+
+Independent publication review by `/root/leancert_examples` found that two standalone descriptions omitted **entrywise nonnegativity** from the excluded realization. `/root` corrected exactly the status.scope sentence in formalization.yaml and the new IS-03 RESOLVED paragraph. The actual theorem excludes entrywise-nonnegative real order-six realizations; it does not exclude arbitrary real companion realizations.
+
+The original sealed publication package is retained unchanged and records the preceding wording. `CORRECTION.json` and exact before/after snapshots document the two replacements and current publication hashes. Fresh schema/full-export coverage, global math formatting and tracked diff whitespace checks passed. Every other publication output, all301 nonwrapper candidate inputs, all452 operational files and all mathematical/configuration/source bytes are unchanged. The canonical PDF is unchanged, so its existing three-page visual evidence remains applicable. This correction adds no mathematical referee or new Lean/Linux execution. Independent publication approval remains a separate step.

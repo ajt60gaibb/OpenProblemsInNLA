@@ -1,0 +1,32 @@
+NLA/IS03/Spectral.lean:30:40: error(lean.invalidField): Invalid field `HasEigenvector`: The environment does not contain `LinearMap.HasEigenvector`, so it is not possible to project the field `HasEigenvector` from an expression
+  toLin' (Matrix.map B ⇑(algebraMap ℝ ℂ))
+of type `(Fin 6 → ℂ) →ₗ[ℂ] Fin 6 → ℂ`
+NLA/IS03/Spectral.lean:32:73: error: unsolved goals
+B : RealMatrix 6
+hB : charpoly B = derivativePolynomial
+f : (Fin 6 → ℂ) →ₗ[ℂ] Fin 6 → ℂ := toLin' (Matrix.map B ⇑(algebraMap ℝ ℂ))
+⊢ (Matrix.map B Complex.ofReal).charpoly = Polynomial.map (algebraMap ℝ ℂ) derivativePolynomial
+NLA/IS03/Spectral.lean:34:34: error(lean.invalidField): Invalid field `HasEigenvalue`: The environment does not contain `LinearMap.HasEigenvalue`, so it is not possible to project the field `HasEigenvalue` from an expression
+  f
+of type `(Fin 6 → ℂ) →ₗ[ℂ] Fin 6 → ℂ`
+NLA/IS03/Spectral.lean:38:2: error: expected a term of the shape `∀ xs, ∃ a, p xs a` or `∀ xs, p xs ∧ q xs`
+NLA/IS03/Spectral.lean:33:37: warning: This simp argument is unused:
+  Matrix.charpoly_map
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [f, Matrix.charpoly_toLin', hB]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IS03/Spectral.lean:33:58: warning: This simp argument is unused:
+  hB
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [f, Matrix.charpoly_toLin', Matrix.charpoly_map]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IS03/Spectral.lean:53:28: error: Type mismatch
+  B ^ k
+has type
+  RealMatrix 6
+but is expected to have type
+  Matrix (?m.55 k) (?m.55 k) ℂ

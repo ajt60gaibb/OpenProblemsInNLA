@@ -1,0 +1,134 @@
+{
+  "result": "PASS",
+  "source_files": {
+    "NLA/IS03/Definitions.lean": {
+      "sha256": "8b4b581e9831b0438d0635b013a60df0cf0139fa9087850b842d8e58975ea1a9",
+      "no_forbidden_source_constructs": true
+    },
+    "NLA/IS03/Algebra.lean": {
+      "sha256": "8578821ec515e8e11f3fa5fc94ae48ee0bd57b61338c501fd09e8ed1efad5125",
+      "no_forbidden_source_constructs": true
+    },
+    "NLA/IS03/Witness.lean": {
+      "sha256": "b10da5ff41667f45ba6385edabc3fb2d74ede53b1b1208d0de2b3026ad879cfd",
+      "no_forbidden_source_constructs": true
+    },
+    "NLA/IS03/Spectral.lean": {
+      "sha256": "a4886a8bc7c00607bf2cb0209a5ee153e7661d4bd837e12658ee8e66c8322424",
+      "no_forbidden_source_constructs": true
+    },
+    "NLA/IS03/Newton.lean": {
+      "sha256": "451953080999a9b7aec73af27af178018fec6d340439c3b4081716165a7f1ddd",
+      "no_forbidden_source_constructs": true
+    },
+    "NLA/IS03/Numerical.lean": {
+      "sha256": "707f69cea0fe650904f016177b7906a6cec308b6a287005369295a133b54659d",
+      "no_forbidden_source_constructs": true
+    },
+    "NLA/IS03/Proof.lean": {
+      "sha256": "39c6be952b030622404a216c625d86404a579dc8a6c992a268a7bdf10ea30c28",
+      "no_forbidden_source_constructs": true
+    },
+    "Solution.lean": {
+      "sha256": "1b3d7ebe1fabc51a04c3012c694f4bd52efe654ebb933e273b87153b267d7508",
+      "no_forbidden_source_constructs": true
+    }
+  },
+  "imports": {
+    "NLA/IS03/Definitions.lean": [
+      "Mathlib.LinearAlgebra.Matrix.Charpoly.Basic",
+      "Mathlib.LinearAlgebra.Matrix.Trace",
+      "Mathlib.LinearAlgebra.Matrix.Notation",
+      "Mathlib.Data.Real.Basic",
+      "Mathlib.Algebra.Polynomial.Derivative"
+    ],
+    "NLA/IS03/Algebra.lean": [
+      "NLA.IS03.Definitions",
+      "Mathlib.FieldTheory.Separable",
+      "Mathlib.Tactic.ComputeDegree",
+      "Mathlib.Tactic.FinCases",
+      "Mathlib.Tactic.NormNum",
+      "Mathlib.Tactic.Ring"
+    ],
+    "NLA/IS03/Witness.lean": [
+      "NLA.IS03.Algebra"
+    ],
+    "NLA/IS03/Spectral.lean": [
+      "NLA.IS03.Algebra",
+      "Mathlib.Analysis.Complex.Polynomial.Basic",
+      "Mathlib.LinearAlgebra.Eigenspace.Charpoly",
+      "Mathlib.LinearAlgebra.FiniteDimensional.Lemmas"
+    ],
+    "NLA/IS03/Newton.lean": [
+      "NLA.IS03.Definitions",
+      "Mathlib.RingTheory.MvPolynomial.Symmetric.NewtonIdentities",
+      "Mathlib.RingTheory.Polynomial.Vieta",
+      "Mathlib.LinearAlgebra.Complex.Module",
+      "Mathlib.Tactic.Convert",
+      "Mathlib.Tactic.FinCases",
+      "Mathlib.Tactic.LinearCombination",
+      "Mathlib.Tactic.NormNum",
+      "LeanCert.Tactic.Verification"
+    ],
+    "NLA/IS03/Numerical.lean": [
+      "NLA.IS03.Definitions",
+      "LeanCert.Tactic.IntervalAuto.PointIneq"
+    ],
+    "NLA/IS03/Proof.lean": [
+      "NLA.IS03.Witness",
+      "NLA.IS03.Spectral",
+      "NLA.IS03.Newton",
+      "NLA.IS03.Numerical"
+    ],
+    "Solution.lean": [
+      "NLA.IS03.Proof"
+    ]
+  },
+  "textually_equal_public_headers": [
+    [
+      "nonnegative_power_trace",
+      "theorem nonnegative_power_trace {n : \u2115} (A : RealMatrix n) (hA : EntrywiseNonnegative A) (k : \u2115) : EntrywiseNonnegative (A^k) \u2227 0 \u2264 Matrix.trace (A^k) := by"
+    ],
+    [
+      "witness_admissible",
+      "theorem witness_admissible : EntrywiseNonnegative witnessMatrix \u2227 Matrix.trace witnessMatrix = 1/2 := by"
+    ],
+    [
+      "witness_polynomials",
+      "theorem witness_polynomials : witnessMatrix.charpoly = witnessPolynomial \u2227 normalizedDerivative 7 witnessMatrix.charpoly = derivativePolynomial \u2227 derivativePolynomial.Monic \u2227 derivativePolynomial.natDegree = 6 := by"
+    ],
+    [
+      "trace_moment_certificate",
+      "theorem trace_moment_certificate (B : RealMatrix 6) (hB : B.charpoly = derivativePolynomial) : \u2200 i : Fin 7, Matrix.trace (B^(i.val + 1)) = traceMoments i := by"
+    ],
+    [
+      "negative_moment",
+      "theorem negative_moment : traceMoments 6 = (-8593/823543 : \u211d) \u2227 traceMoments 6 < 0 := by"
+    ],
+    [
+      "counterexample",
+      "theorem counterexample : EntrywiseNonnegative witnessMatrix \u2227 \u2200 B : RealMatrix 6, EntrywiseNonnegative B \u2192 B.charpoly \u2260 normalizedDerivative 7 witnessMatrix.charpoly := by"
+    ],
+    [
+      "not_derivativeRealizabilityConjecture",
+      "theorem not_derivativeRealizabilityConjecture : \u00ac DerivativeRealizabilityConjecture := by"
+    ]
+  ],
+  "comparator_config_sha256": "f1e84761b1175d1d638b6cc26c2c2797c7da64ca7dd73919594437388484bf0a",
+  "seven_exact_selection_names": [
+    "NLA.IS03.nonnegative_power_trace",
+    "NLA.IS03.witness_admissible",
+    "NLA.IS03.witness_polynomials",
+    "NLA.IS03.trace_moment_certificate",
+    "NLA.IS03.negative_moment",
+    "NLA.IS03.counterexample",
+    "NLA.IS03.not_derivativeRealizabilityConjecture"
+  ],
+  "definition_exceptions": [],
+  "permitted_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "limitation": "Static scans and identical headers supplement actual elaboration/term inspection. Official sandboxed Comparator and independent default-kernel replay have not run for this candidate."
+}
