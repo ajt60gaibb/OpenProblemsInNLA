@@ -1,0 +1,148 @@
+@[reducible] def NLA.IE23.Vec : ℕ → Type :=
+fun n => Fin n → ℂ
+'NLA.IE23.Vec' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def NLA.IE23.Mat : ℕ → ℕ → Type :=
+fun m n => Matrix (Fin m) (Fin n) ℂ
+'NLA.IE23.Mat' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.IE23.euclideanNorm : {n : ℕ} → NLA.IE23.Vec n → ℝ :=
+fun {n} y => ‖WithLp.toLp 2 y‖
+'NLA.IE23.euclideanNorm' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.IE23.lpNorm : {n : ℕ} → ℝ → NLA.IE23.Vec n → ℝ :=
+fun {n} p y => (∑ i, ‖y i‖ ^ p) ^ (1 / p)
+'NLA.IE23.lpNorm' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.IE23.ratioSet : {m n : ℕ} → ℝ → NLA.IE23.Mat n m → Set ℝ :=
+fun {m n} p X => {r | ∃ y, y ≠ 0 ∧ r = NLA.IE23.euclideanNorm (Matrix.mulVec X y) / NLA.IE23.lpNorm p y}
+'NLA.IE23.ratioSet' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.IE23.inducedNorm : {m n : ℕ} → ℝ → NLA.IE23.Mat n m → ℝ :=
+fun {m n} p X => sSup (NLA.IE23.ratioSet p X)
+'NLA.IE23.inducedNorm' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.IE23.FullRowRank : {m n : ℕ} → NLA.IE23.Mat m n → Prop :=
+fun {m n} A => Matrix.rank A = m
+'NLA.IE23.FullRowRank' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.IE23.moorePenrose : {m n : ℕ} → NLA.IE23.Mat m n → NLA.IE23.Mat n m :=
+fun {m n} A => Matrix.conjTranspose A * (A * Matrix.conjTranspose A)⁻¹
+'NLA.IE23.moorePenrose' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.IE23.IsRightInverse : {m n : ℕ} → NLA.IE23.Mat m n → NLA.IE23.Mat n m → Prop :=
+fun {m n} A X => A * X = 1
+'NLA.IE23.IsRightInverse' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.IE23.IsNormMinimizer : {m n : ℕ} → NLA.IE23.Mat m n → ℝ → NLA.IE23.Mat n m → Prop :=
+fun {m n} A p X =>
+  NLA.IE23.IsRightInverse A X ∧
+    ∀ (Y : NLA.IE23.Mat n m), NLA.IE23.IsRightInverse A Y → NLA.IE23.inducedNorm p X ≤ NLA.IE23.inducedNorm p Y
+'NLA.IE23.IsNormMinimizer' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.IE23.rightInverseNorms : {m n : ℕ} → NLA.IE23.Mat m n → ℝ → Set ℝ :=
+fun {m n} A p => {c | ∃ Y, NLA.IE23.IsRightInverse A Y ∧ c = NLA.IE23.inducedNorm p Y}
+'NLA.IE23.rightInverseNorms' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.IE23.RightInverseUniqueConjecture : Prop :=
+∀ (m n : ℕ),
+  1 ≤ m →
+    m < n →
+      ∀ (A : NLA.IE23.Mat m n),
+        NLA.IE23.FullRowRank A →
+          ∀ (p : ℝ),
+            2 < p →
+              ∀ (X : NLA.IE23.Mat n m),
+                NLA.IE23.IsRightInverse A X →
+                  X ≠ NLA.IE23.moorePenrose A →
+                    NLA.IE23.inducedNorm p (NLA.IE23.moorePenrose A) < NLA.IE23.inducedNorm p X
+'NLA.IE23.RightInverseUniqueConjecture' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.IE23.witnessA : NLA.IE23.Mat 2 3 :=
+!![1, 1, 0; 1, 0, 1]
+'NLA.IE23.witnessA' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.IE23.witnessGram : NLA.IE23.Mat 2 2 :=
+!![2, 1; 1, 2]
+'NLA.IE23.witnessGram' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.IE23.witnessGramInv : NLA.IE23.Mat 2 2 :=
+(1 / 3) • !![2, -1; -1, 2]
+'NLA.IE23.witnessGramInv' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.IE23.witnessB : NLA.IE23.Mat 3 2 :=
+(1 / 3) • !![1, 1; 2, -1; -1, 2]
+'NLA.IE23.witnessB' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.IE23.witnessX : NLA.IE23.Mat 3 2 :=
+!![0, 0; 1, 0; 0, 1]
+'NLA.IE23.witnessX' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.IE23.normingVector : NLA.IE23.Vec 2 :=
+![1, -1]
+'NLA.IE23.normingVector' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.IE23.witnessNorm : ℝ :=
+√√2
+'NLA.IE23.witnessNorm' depends on axioms: [propext, Classical.choice, Quot.sound]
+def NLA.IE23.euclideanNorm : {n : Nat} → NLA.IE23.Vec n → Real :=
+fun {n} y =>
+  @norm
+    (WithLp
+      (@OfNat.ofNat ENNReal (nat_lit 2)
+        (@instOfNatAtLeastTwo ENNReal (nat_lit 2)
+          (@AddMonoidWithOne.toNatCast ENNReal
+            (@AddCommMonoidWithOne.toAddMonoidWithOne ENNReal ENNReal.instAddCommMonoidWithOne))
+          NLA.IE23.euclideanNorm._proof_1))
+      ((i : Fin n) → (fun x => Complex) i))
+    (@PiLp.instNorm
+      (@OfNat.ofNat ENNReal (nat_lit 2)
+        (@instOfNatAtLeastTwo ENNReal (nat_lit 2)
+          (@AddMonoidWithOne.toNatCast ENNReal
+            (@AddCommMonoidWithOne.toAddMonoidWithOne ENNReal ENNReal.instAddCommMonoidWithOne))
+          NLA.IE23.euclideanNorm._proof_1))
+      (Fin n) (fun x => Complex) (Fin.fintype n) fun i => Complex.instNorm)
+    (@WithLp.toLp
+      (@OfNat.ofNat ENNReal (nat_lit 2)
+        (@instOfNatAtLeastTwo ENNReal (nat_lit 2)
+          (@AddMonoidWithOne.toNatCast ENNReal
+            (@AddCommMonoidWithOne.toAddMonoidWithOne ENNReal ENNReal.instAddCommMonoidWithOne))
+          NLA.IE23.euclideanNorm._proof_1))
+      ((i : Fin n) → (fun x => Complex) i) y)
+def NLA.IE23.lpNorm : {n : Nat} → Real → NLA.IE23.Vec n → Real :=
+fun {n} p y =>
+  @HPow.hPow Real Real Real (@instHPow Real Real Real.instPow)
+    (∑ i, @HPow.hPow Real Real Real (@instHPow Real Real Real.instPow) (@norm Complex Complex.instNorm (y i)) p)
+    (@HDiv.hDiv Real Real Real (@instHDiv Real (@DivInvMonoid.toDiv Real Real.instDivInvMonoid))
+      (@OfNat.ofNat Real (nat_lit 1) (@One.toOfNat1 Real Real.instOne)) p)
+def NLA.IE23.moorePenrose : {m n : Nat} → NLA.IE23.Mat m n → NLA.IE23.Mat n m :=
+fun {m n} A =>
+  @HMul.hMul (Matrix (Fin n) (Fin m) Complex) (Matrix (Fin m) (Fin m) Complex) (Matrix (Fin n) (Fin m) Complex)
+    (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid (Fin n) (Fin m) (Fin m) Complex (Fin.fintype m) Complex.instMul
+      Complex.instAddCommMonoid)
+    (@Matrix.conjTranspose (Fin m) (Fin n) Complex
+      (@InvolutiveStar.toStar Complex
+        (@StarAddMonoid.toInvolutiveStar Complex
+          (@AddCommMonoid.toAddMonoid Complex
+            (@NonUnitalNonAssocSemiring.toAddCommMonoid Complex
+              (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                  (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))))
+          (@StarRing.toStarAddMonoid Complex
+            (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+              (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))
+            Complex.instStarRing)))
+      A)
+    (@Inv.inv (Matrix (Fin m) (Fin m) Complex)
+      (@Matrix.inv (Fin m) Complex (Fin.fintype m) (instDecidableEqFin m) Complex.commRing)
+      (@HMul.hMul (NLA.IE23.Mat m n) (Matrix (Fin n) (Fin m) Complex) (Matrix (Fin m) (Fin m) Complex)
+        (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid (Fin m) (Fin n) (Fin m) Complex (Fin.fintype n) Complex.instMul
+          Complex.instAddCommMonoid)
+        A
+        (@Matrix.conjTranspose (Fin m) (Fin n) Complex
+          (@InvolutiveStar.toStar Complex
+            (@StarAddMonoid.toInvolutiveStar Complex
+              (@AddCommMonoid.toAddMonoid Complex
+                (@NonUnitalNonAssocSemiring.toAddCommMonoid Complex
+                  (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                    (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                      (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))))
+              (@StarRing.toStarAddMonoid Complex
+                (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring Complex
+                  (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing Complex
+                    (@NonUnitalCommRing.toNonUnitalNonAssocCommRing Complex Complex.instNonUnitalCommRing)))
+                Complex.instStarRing)))
+          A)))
+@[instance_reducible] def Matrix.inv.{u', v} : {n : Type u'} →
+  {α : Type v} → [Fintype n] → [DecidableEq n] → [CommRing α] → Inv (Matrix n n α) :=
+fun {n} {α} [Fintype n] [DecidableEq n] [CommRing α] => { inv := fun A => Ring.inverse A.det • A.adjugate }
+def Matrix.rank.{um, un, uR} : {m : Type um} →
+  {n : Type un} → {R : Type uR} → [Fintype n] → [CommSemiring R] → Matrix m n R → ℕ :=
+fun {m} {n} {R} [Fintype n] [CommSemiring R] A => Module.finrank R ↥A.mulVecLin.range
+EuclideanSpace.norm_sq_eq.{u_7, u_8} {𝕜 : Type u_7} [RCLike 𝕜] {n : Type u_8} [Fintype n] (x : EuclideanSpace 𝕜 n) :
+  ‖x‖ ^ 2 = ∑ i, ‖x.ofLp i‖ ^ 2
+isLUB_csSup.{u_1} {α : Type u_1} [ConditionallyCompleteLattice α] {s : Set α} (hn : s.Nonempty)
+  (hb : BddAbove s := by bddDefault) : IsLUB s (sSup s)

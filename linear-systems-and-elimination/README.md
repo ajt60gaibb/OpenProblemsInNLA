@@ -34,7 +34,7 @@
 | [IE-19](IE-19/README.md) | Sharp inverse norm bound from upper bounds on matrix entries | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](IE-19/problem.pdf) · [TeX](IE-19/problem.tex) |
 | [IE-21](IE-21/README.md) | Sharp row-deletion singular-value limit for spherical random matrices | **✅ SOLVED** | challenging | interesting to the community | [PDF](IE-21/problem.pdf) · [TeX](IE-21/problem.tex) |
 | [IE-22](IE-22/README.md) | Optimal uniform row-deletion singular-value constant | **✅ SOLVED** | challenging | interesting to the community | [PDF](IE-22/problem.pdf) · [TeX](IE-22/problem.tex) |
-| [IE-23](IE-23/README.md) | Uniqueness of the right inverse minimizing an induced p-to-2 norm | **✅ SOLVED** | hard | interesting to specialist | [PDF](IE-23/problem.pdf) · [TeX](IE-23/problem.tex) |
+| [IE-23](IE-23/README.md) | Uniqueness of the right inverse minimizing an induced p-to-2 norm | **🏆 LEAN VERIFIED** | hard | interesting to specialist | [PDF](IE-23/problem.pdf) · [TeX](IE-23/problem.tex) |
 | [IE-26](IE-26/README.md) | Sharp stability bounds for perturbed Fourier interpolation | **✅ SOLVED** | challenging | interesting to the community | [PDF](IE-26/problem.pdf) · [TeX](IE-26/problem.tex) |
 
 Ratings are editorial; each entry explains both ratings and the scope of its status evidence. [Definitions](../README.md#problem-status).

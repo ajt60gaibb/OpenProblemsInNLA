@@ -1,0 +1,240 @@
+# yaml-language-server: $schema=../../../docs/lean/schema/v0.4.schema.json
+version: v0.4
+project:
+  name: 'IE-23: nonuniqueness of induced-norm-minimizing right inverses'
+  description: Complete negative answer to the original direct induced p-to-2 norm uniqueness conjecture,
+    with two distinct global minimizers at the exact admissible p=4 witness.
+  authors:
+  - George Stepaniants
+  affiliations:
+    George Stepaniants: Department of Computing and Mathematical Sciences, California Institute of Technology,
+      Pasadena, California, USA
+  responsible_maintainers:
+  - George Stepaniants
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+- title: IE-23 - uniqueness of the right inverse minimizing an induced p-to-2 norm
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/f41f1f9ffa2171550d4bb795862c6170c4f26070/linear-systems-and-elimination/IE-23/README.md
+  type: web-post
+  location: Complete canonical problem statement
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: Every 1≤m<n, full-row-rank complex A, finite real p>2 and distinct complex right inverse, with
+    the genuine direct induced norm and Moore-Penrose formula. The entire universal conjecture is negated.
+- title: Nonuniqueness of induced-norm-minimizing right inverses
+  authors:
+  - Matthew J. Colbrook
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/f41f1f9ffa2171550d4bb795862c6170c4f26070/references/colbrook-recovered-2026-09-11/manuscripts/IE-23.tex
+  type: manuscript
+  location: Theorem 1 and global-optimality argument, specialized to p=4; SOURCE_CORRESPONDENCE.md and
+    PROOF_MAP.md give exact scope
+  relationship: adapts
+  author_endorsement: not-contacted
+  note: Colbrook retains the mathematical resolution. The rational matrices are unchanged. The p=4 case
+    gives the full canonical negative answer. All-p formulas, full minimizer classifications, higher-dimensional
+    families, smallest-dimension classification and endpoints are outside these eight exports.
+- title: 'Beyond Moore-Penrose Part I: Generalized Inverses that Minimize Matrix Norms'
+  authors:
+  - Ivan Dokmanić
+  - Rémi Gribonval
+  id: https://arxiv.org/abs/1706.08349v2
+  type: preprint
+  location: Example 4.1, equations (51)-(53), pp.16-17; Corollary 4.2(3) and Remark 4.1, p.18
+  relationship: background
+  author_endorsement: not-contacted
+  note: Retains attribution for the underlying rational A and Moore-Penrose example and the original direct-inverse
+    uniqueness question. Its separate product objective is outside the canonical target. No unproved literature
+    inequality is assumed by the Lean proof.
+related_formalizations:
+- id: https://github.com/sgstepaniants/Forsythe/tree/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof
+  relationship: other
+  note: Campaign organization and pinned kernel-trust/Comparator workflow example; shared tool reuse and
+    licenses are retained. No Forsythe mathematical theorem is assumed.
+- id: https://github.com/jaumededios/Schiffer/tree/2938e277969c329caf154e48a3d8823f3635c7f1
+  relationship: other
+  note: Statement/analytic-proof separation example studied in the campaign. No Schiffer mathematical
+    theorem is imported.
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: Multiple agents; two statement approvals including the exact additive Comparator supplement
+      before implementation, then two independent final proof reviews with private-prefix elaboration
+      and actual compiled dependency audits.
+    prompting_notes: Preserve the full original complex-matrix, dimension and finite-real-p quantifiers,
+      actual Euclidean and p norms, matrix rank/inverse, nonzero-input supremum and all-complex global
+      competitor set. Specialize the unchanged source counterexample to p=4; prove nonvacuity and unsquared
+      norm bridges internally. Use exact algebra and LeanCert kernel trust auditing, without an artificial
+      interval certificate.
+  notes: AI-assisted formalization requested by George Stepaniants. The implementing agent /root/leancert_examples
+    is neither independent final referee. Coordinator /root is independent final referee 2; /root/solved_statement_inventory
+    is independent final referee 1. Candidate documentation is prepared by /root/formal_review_standards
+    and is not an additional mathematical review. No external human review, official Tau Ceti endorsement,
+    model identity, measured cost or priority is claimed.
+status:
+  scope: Complete locally proved negative answer to the entire canonical direct induced-norm uniqueness
+    conjecture, with all eight exports approved by two independent statement and two independent final
+    proof referees. The exact p=4 matrices are two distinct global minimizers over all complex right inverses.
+    Actual Linux sandboxed Comparator/default-kernel execution, controls, independent operational audit
+    and publication review remain pending. Canonical status remains Solved.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms:
+  - propext
+  - Classical.choice
+  - Quot.sound
+  main_results:
+  - declaration: NLA.IE23.inducedNorm_semantics
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE23.witness_matrix_identities
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE23.fourth_power_norm_control
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE23.witness_action_identities
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE23.witness_attainment
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE23.witness_norms
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE23.witness_global_minimizers
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE23.not_rightInverseUniqueConjecture
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+fidelity:
+  divergences: No narrowing of the original conjecture being negated. The same source matrices at m=2,n=3,p=4
+    suffice to refute its all-dimension/all-p statement. Generic denominator/supremum semantics are proved
+    on every original domain. The actual complex inverse, rank, Euclidean norm, real powers, all-input
+    suprema and all-right-inverse global minimality are retained. The stronger source all-p formulas and
+    full minimizer classifications, higher-dimensional families, smallest-dimension classification, endpoints
+    and separate product objective are outside these exports.
+review:
+  status: agent-reviewed; actual Linux Comparator/default-kernel verification pending
+  reviewers:
+  - 'OpenAI Codex agent /root/solved_statement_inventory: independent statement referee 1 and final proof
+    referee 1'
+  - 'OpenAI Codex agent /root: independent statement referee 2 and final proof referee 2'
+  notes: Both statement approvals preceded proof implementation and include the unchanged additive Comparator
+    supplement. Both final referees freshly elaborated ten commands in private prefixes excluding old
+    IE-23 objects and inspected actual proof terms. Each traversed 93 project declarations; referee 1
+    checked 40 retained dependencies and referee 2 checked 28, adding twelve kernel assertions. All sixteen
+    internal/public transitive axiom reports contain exactly propext, Classical.choice and Quot.sound.
+    LeanCert supplies explicit kernel trust auditing only; there is no numerical interval certificate.
+    Challenge placeholders remain isolated. All local checks used Lean 4.33.1 on macOS with clean exact
+    pinned MI-22 dependency objects reused read-only; there was no local Lake invocation, full dependency-source
+    rebuild or Linux run. Packaging archives and refreshes only the historical README among 104 proof-freeze
+    inputs, preserving all other 103 inputs, original eight sources/snapshots, all review evidence and
+    the configuration supplement. The source plan, proof map and earlier phase labels remain historical.
+    Actual Linux verification and operational/publication reviews are pending.
+  statement_reports:
+  - file: reviews/statement-referee-1.md
+    sha256: d2f3669ada22f985ce66681a1b763d0fc722d1938b9c2a35b27792f7fc418270
+  - file: reviews/statement-referee-2.md
+    sha256: dda8d5d5dc194371818ecef9fa4e1a20d52dbadc7b8f998dff4a815cfbd4f758
+  proof_reports:
+  - file: reviews/proof-referee-1.md
+    sha256: 4aded9a6adfc4723941bae2ac8c4ae0c1ad4bdef7136dd3a285068ae1f68d4d2
+  - file: reviews/proof-referee-2.md
+    sha256: 0b6f2f6ed1aa4505da7ceb63d33470822914820904a4b0fee309f69ba314c008
+  proof_freeze:
+    file: reviews/proof-freeze.json
+    sha256: 8ed8f46ea66c9e420156d99840e4e24e78cf8207a9e415cc7c26f6f9739e5fe8
+  configuration_supplement:
+    file: reviews/statement-config-supplement.json
+    sha256: dafd6645aa017c543dd4eb9f60633b47a2035f090d58955525a3d6c41156141a
+  proof_report_evidence:
+    reviews/proof-referee-1-evidence/EVIDENCE-MANIFEST.json:
+      sha256: bb232d4c5a8c2a8fb75238547cbc9646a99ab8f3904286152f52963140132748
+      bytes: 5751
+    reviews/proof-referee-2-root-evidence/EVIDENCE-MANIFEST.json:
+      sha256: 020a62b026a9d00b6e41b50feefd468979d87a74e3384a688a1bb449b49a2847
+      bytes: 3606
+  linux_verification:
+    status: pending
+    note: No IE-23 project-specific Linux run, Comparator success, default-kernel replay or operational
+      approval is claimed. Shared infrastructure success does not verify this problem.
+alignment:
+- declaration: NLA.IE23.inducedNorm_semantics
+  scope: 'Generic actual nonzero-input supremum semantics for every original domain: denominator positivity,
+    nonempty bounded ratio set, IsLUB, nonnegativity and all-input inequality including zero.'
+- declaration: NLA.IE23.witness_matrix_identities
+  scope: Exact full row rank, genuine matrix inverse and Moore-Penrose formula, both right inverses, distinctness
+    and Gram identities for the source witness.
+- declaration: NLA.IE23.fourth_power_norm_control
+  scope: Exact positive fourth-root/real-power identities and the universal unsquared norm comparison
+    for all complex two-vectors at p=4.
+- declaration: NLA.IE23.witness_action_identities
+  scope: Actual actions on every complex input and the squared Euclidean lower-bound identity for every
+    complex right-inverse competitor.
+- declaration: NLA.IE23.witness_attainment
+  scope: Actual nonzero norming vector and both attained ratios, with true denominator and Euclidean numerators.
+- declaration: NLA.IE23.witness_norms
+  scope: Equalities of the actual nonzero-input suprema of both distinct feasible matrices with the positive
+    fourth root of two.
+- declaration: NLA.IE23.witness_global_minimizers
+  scope: Both matrices are global minimizers over all complex right inverses, and their common norm is
+    IsLeast of the entire feasible value set.
+- declaration: NLA.IE23.not_rightInverseUniqueConjecture
+  scope: Unconditional negation of the complete original all-dimension, all-full-row-rank-complex-matrix,
+    finite-real-p>2 strict uniqueness conjecture.
+acknowledgements: Matthew J. Colbrook for the mathematical resolution; Dokmanić and Gribonval for the
+  underlying example and original question; Mathlib and LeanCert contributors for actual norms, powers,
+  matrix rank/inverse, supremum and kernel-trust APIs. Shared Comparator/exporter/sandbox tools retain
+  their licenses and attribution. No external mathematical theorem is an unproved premise.
