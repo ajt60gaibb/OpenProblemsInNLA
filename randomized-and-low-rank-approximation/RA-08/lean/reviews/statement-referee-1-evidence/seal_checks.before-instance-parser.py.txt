@@ -1,0 +1,149 @@
+#!/usr/bin/env python3
+"""Independent statement referee's postchecks. Does not build or edit the candidate."""
+import hashlib
+import json
+import re
+import subprocess
+from datetime import datetime, timezone
+from pathlib import Path
+
+import jsonschema
+import yaml
+
+E = Path(__file__).resolve().parent
+P = E.parent.parent
+R = P.parents[2]
+D = Path('/tmp/nla-lean-mi22-worktree/matrix-inequalities-and-norms/MI-22/lean/.lake/packages')
+T = Path('/tmp/nla-lean-formalization/standards/sources/TauCetiProject')
+
+def sha(p):
+    return hashlib.sha256(p.read_bytes()).hexdigest()
+
+def git(root, *args):
+    return subprocess.check_output(['git', '-C', str(root), *args]).decode().strip()
+
+def save(name, value):
+    (E / name).write_text(json.dumps(value, indent=2) + '\n')
+
+freeze = json.loads((P / 'reviews/statement-freeze.json').read_text())
+assert sha(P / 'reviews/statement-freeze.json') == 'eb0460c3dd4c13a42f928e3f00c9c3710e486922b99aff74f4d6a3098c5ed332'
+assert len(freeze['files']) == 39 and len(freeze['source_files']) == 10
+for name, digest in freeze['files'].items():
+    assert sha(P / name) == digest, name
+sources = []
+for name, digest in freeze['source_files'].items():
+    actual = subprocess.check_output(['git', '-C', str(R), 'show', freeze['base'] + ':' + name])
+    blob = git(R, 'rev-parse', freeze['base'] + ':' + name)
+    assert hashlib.sha256(actual).hexdigest() == sha(R / name) == digest, name
+    assert blob == freeze['source_git_blobs'][name], name
+    sources.append({'path': name, 'sha256': digest, 'git_blob': blob})
+
+authored = (R / 'references/colbrook-transfer-2026-09-11/manuscripts/03_concave_transfer_counterexamples.tex').read_text()
+reviewed = (R / 'references/colbrook-transfer-2026-09-11/reviewed-sources/03_concave_transfer_counterexamples.tex').read_text()
+authored_body = authored.split('% BEGIN REVIEWED BODY', 1)[1].split('% END REVIEWED BODY', 1)[0].strip()
+assert authored_body == reviewed.split('\\maketitle', 1)[1].strip()
+
+fresh = json.loads((E / 'fresh-checks.json').read_text())
+assert len(fresh['commands']) == 3 and fresh['pins_and_sources_rechecked_after']
+for c in fresh['commands']:
+    assert c['exit_code'] == 0 and sha(E / c['log']) == c['log_sha256']
+    assert sha(P / c['source']) == sha(E / c['source_snapshot']) == c['sha256']
+    assert 'error:' not in (E / c['log']).read_text()
+assert not (E / 'NLA-RA08-Definitions.log').read_text()
+challenge_log = (E / 'Challenge.log').read_text()
+assert challenge_log.count('warning: declaration uses `sorry`') == 14
+assert len(challenge_log.strip().splitlines()) == 14
+inspection = (E / 'reviews-statement-referee-1-evidence-Inspect.log').read_text()
+assert 'warning:' not in inspection
+axioms = [s for s in inspection.splitlines() if 'depends on axioms:' in s]
+assert len(axioms) == 8
+assert all('[propext, Classical.choice, Quot.sound]' in re.sub(r'\.\{[^}]*\}', '', s) for s in axioms)
+for semantic in ['ContinuousLinearMap.hasOpNorm', 'EuclideanSpace Real (Fin n)',
+                 'Matrix.instPreOrder', 'Matrix.PosSemidef', 'Matrix.unitaryGroup',
+                 'Matrix.semiring', 'cfc', 'ConcaveOn']:
+    assert semantic in inspection, semantic
+challenge = (P / 'Challenge.lean').read_text()
+names = ['NLA.RA08.' + s for s in re.findall(r'^theorem\s+(\w+)', challenge, re.M)]
+config = json.loads((P / 'comparator.json').read_text())
+metadata = yaml.safe_load((P / 'formalization.yaml').read_text())
+schema = json.loads((R / 'docs/lean/schema/v0.4.schema.json').read_text())
+jsonschema.Draft202012Validator(schema).validate(metadata)
+assert len(names) == 14 and names == config['theorem_names']
+assert names == [r['declaration'] for r in metadata['alignment']]
+assert config['definition_names'] == []
+assert config['permitted_axioms'] == ['propext', 'Classical.choice', 'Quot.sound']
+assert metadata['status']['main_results'] == []
+assert metadata['status']['sorry_in_definitions'] == 0
+assert all(re.search(r'^' + re.escape(name) + r'(?:[.{\s]|$)', inspection, re.M) for name in names)
+assert len(re.findall(r'^\s+sorry\s*$', challenge, re.M)) == 14
+definition = (P / 'NLA/RA08/Definitions.lean').read_text()
+assert not re.search(r'\b(sorry|admit|axiom|native_decide|unsafe|run_tac)\b', definition)
+assert not (P / 'Solution.lean').exists() and not (P / 'NLA/RA08/Proof.lean').exists()
+for pin in fresh['pins']:
+    assert git(Path(pin['path']), 'rev-parse', 'HEAD') == pin['expected']
+    assert not git(Path(pin['path']), 'status', '--porcelain')
+
+api_files = {
+    'mathlib': [
+        'Mathlib/Analysis/Matrix/Spectrum.lean',
+        'Mathlib/Analysis/Matrix/HermitianFunctionalCalculus.lean',
+        'Mathlib/Analysis/CStarAlgebra/ContinuousFunctionalCalculus/Unital.lean',
+        'Mathlib/Analysis/CStarAlgebra/Matrix.lean',
+        'Mathlib/Analysis/Matrix/Order.lean',
+        'Mathlib/LinearAlgebra/Matrix/PosDef.lean',
+        'Mathlib/Analysis/Convex/Function.lean',
+        'Mathlib/LinearAlgebra/UnitaryGroup.lean',
+    ],
+    'leancert': ['LeanCert/Tactic/Verification.lean'],
+}
+api = {}
+for package, files in api_files.items():
+    for name in files:
+        root = D / package
+        api[package + '/' + name] = {
+            'sha256': sha(root / name), 'bytes': (root / name).stat().st_size,
+            'commit': git(root, 'rev-parse', 'HEAD'),
+            'git_blob': git(root, 'rev-parse', 'HEAD:' + name),
+        }
+assert git(T, 'rev-parse', 'HEAD') == 'afb424eda89e8ac96d9eb69f6a88972055a4cd1b'
+rubrics = {}
+for file in sorted((T / 'TauCetiReview/rubrics').glob('*.md')):
+    name = str(file.relative_to(T))
+    rubrics[name] = {'sha256': sha(file), 'bytes': file.stat().st_size,
+                     'git_blob': git(T, 'rev-parse', 'HEAD:' + name)}
+assert len(rubrics) == 12
+save('actual-api-rubric-inputs.json', {
+    'api_read_scope': 'Actual source declarations and surrounding implementation; no claim that every complete library file was read.',
+    'apis': api,
+    'rubric_commit': git(T, 'rev-parse', 'HEAD'),
+    'rubric_read_scope': 'All twelve complete pinned rubric files; applied through repository REVIEW.md, not an official service run.',
+    'rubrics': rubrics,
+    'repository_review': {'path': 'docs/lean/REVIEW.md', 'sha256': sha(R / 'docs/lean/REVIEW.md'),
+                          'git_blob': git(R, 'rev-parse', freeze['base'] + ':docs/lean/REVIEW.md')},
+    'raw_schema': {'path': 'docs/lean/schema/v0.4.schema.json', 'sha256': sha(R / 'docs/lean/schema/v0.4.schema.json')},
+})
+save('final-input-audit.json', {
+    'reviewer': '/root/solved_statement_inventory', 'utc': datetime.now(timezone.utc).isoformat(),
+    'verdict': 'PASS: statement fidelity and independent local checks only',
+    'source_base': freeze['base'], 'statement_freeze_sha256': sha(P / 'reviews/statement-freeze.json'),
+    'frozen_project_count': 39, 'frozen_project_files_unchanged': True,
+    'original_source_count': 10, 'original_source_files_unchanged': sources,
+    'authored_and_reviewed_mathematical_bodies_match': {
+        'result': True,
+        'authored_boundary': 'Between explicit BEGIN REVIEWED BODY and END REVIEWED BODY markers, outer whitespace only stripped.',
+        'reviewed_boundary': 'After maketitle through end document, outer whitespace only stripped.',
+        'outside_body': 'Authored front matter adds dated resolution/review attribution, preserved and inspected separately.',
+    },
+    'fresh_commands': 3, 'fresh_commands_all_passed': True,
+    'intentional_Challenge_warnings': 14, 'definitions_warnings': 0, 'inspection_warnings': 0,
+    'definition_only_standard_three_audit_lines': axioms,
+    'all_14_export_names_and_v04_alignment_exact': names,
+    'no_comparator_definition_exceptions': True, 'raw_v04_schema_passed': True,
+    'completion_only_validator_intentionally_not_run': 'No completed main results exist at statement stage.',
+    'no_Proof_or_Solution': True, 'all_ten_pins_clean_after': True,
+    'exact_diagnostics_sha256': sha(E / 'exact-checks.json'),
+    'fresh_checks_sha256': sha(E / 'fresh-checks.json'),
+    'inspection_sha256': sha(E / 'reviews-statement-referee-1-evidence-Inspect.log'),
+    'limitations': 'Fresh project statements on macOS using read-only pinned MI22 dependency artifacts. No implementation proof, Linux build, Comparator, default-kernel replay or final operational approval.'
+})
+print('PASS: 39 frozen project files, 10 Git sources, 14 statements, 3 fresh commands, 8 definition-only standard-three checks; raw v0.4 schema and exact diagnostics retained.')

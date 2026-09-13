@@ -1,0 +1,99 @@
+/-
+Copyright (c) 2026 George Stepaniants. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: George Stepaniants
+
+Exact algebra for Matthew J. Colbrook's unchanged RA-08 witness.
+Department of Computing and Mathematical Sciences, California Institute of
+Technology, Pasadena, California, USA.
+-/
+import NLA.RA08.Definitions
+import Mathlib.Tactic.FinCases
+import Mathlib.Tactic.NormNum
+import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.Ring
+import LeanCert.Tactic.Trust
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open scoped BigOperators Classical MatrixOrder
+open Matrix
+noncomputable section
+namespace NLA.RA08
+
+theorem witnessFunction_admissible : AdmissibleFunction witnessFunction := by
+  refine ⟨?_, ⟨convex_Ici 0, ?_⟩, ?_, ?_⟩
+  · exact (continuous_id.min continuous_const).continuousOn
+  · intro x hx y hy a b ha hb hab
+    change a * min x 1 + b * min y 1 ≤ min (a * x + b * y) 1
+    apply le_min
+    · exact add_le_add (mul_le_mul_of_nonneg_left (min_le_left _ _) ha)
+        (mul_le_mul_of_nonneg_left (min_le_left _ _) hb)
+    · calc
+        a * min x 1 + b * min y 1 ≤ a * 1 + b * 1 :=
+          add_le_add (mul_le_mul_of_nonneg_left (min_le_right _ _) ha)
+            (mul_le_mul_of_nonneg_left (min_le_right _ _) hb)
+        _ = 1 := by simpa using hab
+  · intro x hx y hy hxy
+    exact min_le_min hxy le_rfl
+  · intro x hx
+    exact le_min hx zero_le_one
+
+theorem witnessT_pos : 0 < witnessT := by norm_num [witnessT]
+
+theorem witnessB_add_T_lt_one : witnessB + witnessT < 1 := by
+  norm_num [witnessB, witnessT]
+
+theorem witnessU_orthogonal : witnessU.transpose * witnessU = 1 := by
+  ext i j
+  fin_cases i <;> fin_cases j <;>
+    norm_num [witnessU, Matrix.mul_apply, Fin.sum_univ_succ, Matrix.transpose_apply]
+
+theorem witnessF_symmetric : witnessF.transpose = witnessF := by
+  ext i j
+  fin_cases i <;> fin_cases j <;> norm_num [witnessF, Matrix.transpose_apply]
+
+theorem witnessF_idempotent : witnessF ^ 2 = witnessF := by
+  ext i j
+  fin_cases i <;> fin_cases j <;>
+    norm_num [pow_two, witnessF, Matrix.mul_apply, Fin.sum_univ_succ]
+
+theorem real_gram_psd {n : ℕ} (A : RealMatrix n) :
+    (A.transpose * A).PosSemidef := by
+  simpa only [conjTranspose_eq_transpose_of_trivial] using
+    Matrix.posSemidef_conjTranspose_mul_self A
+
+theorem witnessF_psd : witnessF.PosSemidef := by
+  have h := real_gram_psd witnessF
+  rw [witnessF_symmetric, ← pow_two, witnessF_idempotent] at h
+  exact h
+
+theorem witnessF_complement_psd : (1 - witnessF).PosSemidef := by
+  have h := real_gram_psd (1 - witnessF)
+  have ht : (1 - witnessF).transpose = 1 - witnessF := by
+    simp only [transpose_sub, transpose_one, witnessF_symmetric]
+  have hi : (1 - witnessF) * (1 - witnessF) = 1 - witnessF := by
+    noncomm_ring [show witnessF * witnessF = witnessF by
+      simpa only [pow_two] using witnessF_idempotent]
+  rwa [ht, hi] at h
+
+theorem witnessApproximation_psd : witnessApproximation.PosSemidef := by
+  apply Matrix.PosSemidef.diagonal
+  intro i
+  fin_cases i <;> norm_num [witnessA, witnessB]
+
+theorem witnessMatrix_psd : witnessMatrix.PosSemidef :=
+  witnessApproximation_psd.add (witnessF_psd.smul witnessT_pos.le)
+
+theorem witness_order : witnessApproximation ≤ witnessMatrix := by
+  change (witnessMatrix - witnessApproximation).PosSemidef
+  simpa only [witnessMatrix, add_sub_cancel_left] using witnessF_psd.smul witnessT_pos.le
+
+#assert_trust kernel witnessFunction_admissible
+#assert_trust kernel witnessF_idempotent
+#assert_trust kernel witnessMatrix_psd
+#print axioms witnessFunction_admissible
+#print axioms witnessF_idempotent
+#print axioms witnessMatrix_psd
+
+end NLA.RA08

@@ -1,0 +1,114 @@
+/-
+Copyright (c) 2026 George Stepaniants. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: George Stepaniants
+
+Exact semantics and Euclidean operator-norm identities for every selected
+ordered orthonormal eigenbasis, including repeated eigenvalues.
+Department of Computing and Mathematical Sciences, California Institute of
+Technology, Pasadena, California, USA. Colbrook's original target is retained.
+-/
+import NLA.RA08.Definitions
+import Mathlib.Tactic.Ring
+import LeanCert.Tactic.Verification
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open scoped BigOperators Classical MatrixOrder Matrix.Norms.L2Operator RealInnerProductSpace
+open Matrix
+noncomputable section
+namespace NLA.RA08
+
+theorem spectral_transpose_mul {n : ℕ} {A : RealMatrix n} (d : OrderedSpectralData A) :
+    (d.orthogonal : RealMatrix n).transpose * (d.orthogonal : RealMatrix n) = 1 := by
+  simpa only [Unitary.coe_star, Matrix.star_eq_conjTranspose,
+    conjTranspose_eq_transpose_of_trivial] using Unitary.coe_star_mul_self d.orthogonal
+
+theorem orderedSpectral_semantics_proved {n : ℕ} {A : RealMatrix n}
+    (d : OrderedSpectralData A) :
+    A.PosSemidef ∧ spectralCombination d d.eigenvalues = A ∧
+      (∀ i j : Fin n,
+        (fun r => (d.orthogonal : RealMatrix n) r i) ⬝ᵥ
+          (fun r => (d.orthogonal : RealMatrix n) r j) = if i = j then 1 else 0) ∧
+      (∀ i : Fin n,
+        A *ᵥ (fun r => (d.orthogonal : RealMatrix n) r i) =
+          d.eigenvalues i • (fun r => (d.orthogonal : RealMatrix n) r i)) := by
+  refine ⟨?_, d.reconstruct.symm, ?_, ?_⟩
+  · have h := (Matrix.PosSemidef.diagonal d.nonnegative).mul_mul_conjTranspose_same
+      (d.orthogonal : RealMatrix n)
+    simpa only [conjTranspose_eq_transpose_of_trivial, ← d.reconstruct] using h
+  · intro i j
+    have h := congrArg (fun M : RealMatrix n => M i j) (spectral_transpose_mul d)
+    simpa only [Matrix.mul_apply, Matrix.transpose_apply, Matrix.one_apply, dotProduct] using h
+  · intro i
+    have hc : (fun r => (d.orthogonal : RealMatrix n) r i) =
+        (d.orthogonal : RealMatrix n) *ᵥ Pi.single i 1 :=
+      (Matrix.mulVec_single_one (d.orthogonal : RealMatrix n) i).symm
+    rw [hc]
+    conv_lhs => arg 1; rw [d.reconstruct]
+    calc
+      _ = (d.orthogonal : RealMatrix n) *ᵥ (diagonal d.eigenvalues *ᵥ
+          (((d.orthogonal : RealMatrix n).transpose * (d.orthogonal : RealMatrix n)) *ᵥ
+            Pi.single i 1)) := by simp only [mulVec_mulVec, mul_assoc]
+      _ = _ := by
+        rw [spectral_transpose_mul, one_mulVec, diagonal_mulVec_single]
+        simp only [mul_one, mulVec_smul, mulVec_single_one]
+
+theorem spectralCombination_norm {n : ℕ} {A : RealMatrix n}
+    (d : OrderedSpectralData A) (v : Fin n → ℝ) :
+    spectralNorm (spectralCombination d v) = ‖v‖ := by
+  have ht : (d.orthogonal : RealMatrix n).transpose =
+      ((star d.orthogonal : Matrix.unitaryGroup (Fin n) ℝ) : RealMatrix n) := by
+    simp only [Unitary.coe_star, Matrix.star_eq_conjTranspose,
+      conjTranspose_eq_transpose_of_trivial]
+  unfold spectralNorm spectralCombination
+  rw [Matrix.l2_opNorm_toEuclideanCLM, ht, CStarRing.norm_mul_coe_unitary,
+    CStarRing.norm_coe_unitary_mul, Matrix.l2_opNorm_diagonal]
+
+theorem spectralCombination_sub {n : ℕ} {A : RealMatrix n}
+    (d : OrderedSpectralData A) (v w : Fin n → ℝ) :
+    spectralCombination d v - spectralCombination d w =
+      spectralCombination d (fun i => v i - w i) := by
+  have hd : diagonal (fun i => v i - w i) = diagonal v - diagonal w :=
+    Matrix.diagonal_sub v w
+  simp only [spectralCombination, hd, mul_sub, sub_mul]
+
+theorem tail_function_norm {n : ℕ} (v : Fin n → ℝ)
+    (hv : ∀ i, 0 ≤ v i) (hd : Antitone v) (k : ℕ) (hk : k < n) :
+    ‖(fun i : Fin n => v i - if i.val < k then v i else 0)‖ = v ⟨k, hk⟩ := by
+  apply le_antisymm
+  · apply (pi_norm_le_iff_of_nonneg (hv ⟨k, hk⟩)).mpr
+    intro i
+    by_cases hi : i.val < k
+    · simp [hi, hv ⟨k, hk⟩]
+    · simp only [hi, ↓reduceIte, sub_zero, Real.norm_eq_abs, abs_of_nonneg (hv i)]
+      exact hd (show (⟨k, hk⟩ : Fin n) ≤ i from Nat.le_of_not_gt hi)
+  · have h := norm_le_pi_norm (fun i : Fin n => v i - if i.val < k then v i else 0)
+      (⟨k, hk⟩ : Fin n)
+    simpa only [lt_self_iff_false, ↓reduceIte, sub_zero, Real.norm_eq_abs,
+      abs_of_nonneg (hv ⟨k, hk⟩)] using h
+
+theorem operator_rayleigh_bound_proved {n : ℕ} (A : RealMatrix n) (x : Fin n → ℝ) :
+    |x ⬝ᵥ (A *ᵥ x)| ≤ spectralNorm A * (x ⬝ᵥ x) := by
+  let v : EuclideanSpace ℝ (Fin n) := WithLp.toLp 2 x
+  let T := Matrix.toEuclideanCLM (n := Fin n) (𝕜 := ℝ) A
+  have hi : ⟪v, T v⟫ = x ⬝ᵥ (A *ᵥ x) := Matrix.inner_toEuclideanCLM A v v
+  have hv : ‖v‖ ^ 2 = x ⬝ᵥ x := by
+    rw [← real_inner_self_eq_norm_sq, EuclideanSpace.inner_eq_star_dotProduct]
+    simp only [v, star_trivial]
+  calc
+    |x ⬝ᵥ (A *ᵥ x)| = |⟪v, T v⟫| := congrArg abs hi.symm
+    _ ≤ ‖v‖ * ‖T v‖ := abs_real_inner_le_norm v (T v)
+    _ ≤ ‖v‖ * (‖T‖ * ‖v‖) := mul_le_mul_of_nonneg_left (T.le_opNorm v) (norm_nonneg v)
+    _ = spectralNorm A * (x ⬝ᵥ x) := by rw [← hv]; unfold spectralNorm T; ring
+
+#assert_trust kernel orderedSpectral_semantics_proved
+#assert_trust kernel spectralCombination_norm
+#assert_trust kernel tail_function_norm
+#assert_trust kernel operator_rayleigh_bound_proved
+#print axioms orderedSpectral_semantics_proved
+#print axioms spectralCombination_norm
+#print axioms tail_function_norm
+#print axioms operator_rayleigh_bound_proved
+
+end NLA.RA08

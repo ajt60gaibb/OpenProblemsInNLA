@@ -1,0 +1,62 @@
+/private/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/NLA/RA08/OrderedExistence.lean:51:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  h.eigenvalues (e ?i)
+in the target expression
+  (fun i => h.eigenvalues (e i)) j ≤ (fun i => h.eigenvalues (e i)) i
+
+case refine_1
+n : ℕ
+A : RealMatrix n
+hA : Matrix.PosSemidef A
+h : Matrix.IsHermitian A := Matrix.PosSemidef.isHermitian hA
+c : Fin n ≃o Fin (Fintype.card (Fin n)) := Fin.castOrderIso ⋯
+e₀ : Fin (Fintype.card (Fin n)) ≃ Fin n := Fintype.equivOfCardEq ⋯
+e : Fin n ≃ Fin n := c.trans e₀
+heigen : ∀ (i : Fin n), h.eigenvalues (e i) = h.eigenvalues₀ (c i)
+b : OrthonormalBasis (Fin n) ℝ (EuclideanSpace ℝ (Fin n)) := h.eigenvectorBasis.reindex e.symm
+Q : ↥(Matrix.unitaryGroup (Fin n) ℝ) := ⟨(EuclideanSpace.basisFun (Fin n) ℝ).toBasis.toMatrix ⇑b.toBasis, ⋯⟩
+hQ : ∀ (i j : Fin n), ↑Q i j = ↑h.eigenvectorUnitary i (e j)
+i j : Fin n
+hij : i ≤ j
+⊢ (fun i => h.eigenvalues (e i)) j ≤ (fun i => h.eigenvalues (e i)) i
+/private/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/NLA/RA08/OrderedExistence.lean:56:6: error: Type mismatch: After simplification, term
+  Matrix.IsHermitian.spectral_theorem h
+ has type
+  @Eq (Matrix (Fin n) (Fin n) ℝ) A (↑h.eigenvectorUnitary * Matrix.diagonal h.eigenvalues * star ↑h.eigenvectorUnitary)
+but is expected to have type
+  @Eq (RealMatrix n) A (↑h.eigenvectorUnitary * Matrix.diagonal h.eigenvalues * (↑h.eigenvectorUnitary).transpose)
+/private/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/NLA/RA08/OrderedExistence.lean:64:8: error: Tactic `rewrite` failed: motive is not type correct:
+  fun _a => _a = (↑Q * Matrix.diagonal fun i => h.eigenvalues (e i)) * (↑Q).transpose
+Error: Application type mismatch: The argument
+  h
+has type
+  Matrix.IsHermitian A
+but is expected to have type
+  Matrix.IsHermitian _a
+in the application
+  h.eigenvalues
+
+Explanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.
+
+Possible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).
+
+case refine_2
+n : ℕ
+A : RealMatrix n
+hA : Matrix.PosSemidef A
+h : Matrix.IsHermitian A := Matrix.PosSemidef.isHermitian hA
+c : Fin n ≃o Fin (Fintype.card (Fin n)) := Fin.castOrderIso ⋯
+e₀ : Fin (Fintype.card (Fin n)) ≃ Fin n := Fintype.equivOfCardEq ⋯
+e : Fin n ≃ Fin n := c.trans e₀
+heigen : ∀ (i : Fin n), h.eigenvalues (e i) = h.eigenvalues₀ (c i)
+b : OrthonormalBasis (Fin n) ℝ (EuclideanSpace ℝ (Fin n)) := h.eigenvectorBasis.reindex e.symm
+Q : ↥(Matrix.unitaryGroup (Fin n) ℝ) := ⟨(EuclideanSpace.basisFun (Fin n) ℝ).toBasis.toMatrix ⇑b.toBasis, ⋯⟩
+hQ : ∀ (i j : Fin n), ↑Q i j = ↑h.eigenvectorUnitary i (e j)
+hspec : A = ↑h.eigenvectorUnitary * Matrix.diagonal h.eigenvalues * (↑h.eigenvectorUnitary).transpose
+hentry :
+  ∀ (U : RealMatrix n) (a : Fin n → ℝ) (i j : Fin n),
+    (U * Matrix.diagonal a * Matrix.transpose U) i j = ∑ k, U i k * a k * U j k
+⊢ A = (↑Q * Matrix.diagonal fun i => h.eigenvalues (e i)) * (↑Q).transpose
+/private/tmp/nla-lean-ra08-worktree/randomized-and-low-rank-approximation/RA-08/lean/NLA/RA08/OrderedExistence.lean:71:21: error: #assert_trust: 'NLA.RA08.orderedSpectral_exists_proved' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.RA08.orderedSpectral_exists_proved' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

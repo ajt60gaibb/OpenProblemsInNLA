@@ -1,0 +1,2316 @@
+@[reducible] def NLA.RA08.RealMatrix : ℕ → Type :=
+fun n => Matrix.{0, 0, 0} (Fin n) (Fin n) ℝ
+def NLA.RA08.spectralNorm : {n : ℕ} → NLA.RA08.RealMatrix n → ℝ :=
+fun {n} A => norm.{0} (Matrix.toEuclideanCLM.{0, 0} A)
+def NLA.RA08.AdmissibleFunction : (ℝ → ℝ) → Prop :=
+fun f =>
+  ContinuousOn.{0, 0} f (Set.Ici.{0} 0) ∧
+    ConcaveOn.{0, 0, 0} ℝ (Set.Ici.{0} 0) f ∧
+      MonotoneOn.{0, 0} f (Set.Ici.{0} 0) ∧ ∀ (x : ℝ), LE.le.{0} 0 x → LE.le.{0} 0 (f x)
+structure NLA.RA08.OrderedSpectralData {n : ℕ} (A : NLA.RA08.RealMatrix n) : Type
+number of parameters: 2
+fields:
+  NLA.RA08.OrderedSpectralData.eigenvalues : Fin n → ℝ
+  NLA.RA08.OrderedSpectralData.orthogonal : ↥(Matrix.unitaryGroup.{0, 0} (Fin n) ℝ)
+  NLA.RA08.OrderedSpectralData.decreasing : Antitone.{0, 0} self.eigenvalues
+  NLA.RA08.OrderedSpectralData.nonnegative : ∀ (i : Fin n), LE.le.{0} 0 (self.eigenvalues i)
+  NLA.RA08.OrderedSpectralData.reconstruct : Eq.{1} A
+      (HMul.hMul.{0, 0, 0} (HMul.hMul.{0, 0, 0} (↑self.orthogonal) (Matrix.diagonal.{0, 0} self.eigenvalues))
+        (Matrix.transpose.{0, 0, 0} ↑self.orthogonal))
+constructor:
+  NLA.RA08.OrderedSpectralData.mk {n : ℕ} {A : NLA.RA08.RealMatrix n} (eigenvalues : Fin n → ℝ)
+    (orthogonal : ↥(Matrix.unitaryGroup.{0, 0} (Fin n) ℝ)) (decreasing : Antitone.{0, 0} eigenvalues)
+    (nonnegative : ∀ (i : Fin n), LE.le.{0} 0 (eigenvalues i))
+    (reconstruct :
+      Eq.{1} A
+        (HMul.hMul.{0, 0, 0} (HMul.hMul.{0, 0, 0} (↑orthogonal) (Matrix.diagonal.{0, 0} eigenvalues))
+          (Matrix.transpose.{0, 0, 0} ↑orthogonal))) :
+    NLA.RA08.OrderedSpectralData A
+def NLA.RA08.truncation : {n : ℕ} →
+  {A : NLA.RA08.RealMatrix n} → NLA.RA08.OrderedSpectralData A → ℕ → NLA.RA08.RealMatrix n :=
+fun {n} {A} d k => NLA.RA08.spectralCombination d fun i => ite.{1} (LT.lt.{0} (↑i) k) (d.eigenvalues i) 0
+def NLA.RA08.functionTruncation : {n : ℕ} →
+  {A : NLA.RA08.RealMatrix n} → NLA.RA08.OrderedSpectralData A → (ℝ → ℝ) → ℕ → NLA.RA08.RealMatrix n :=
+fun {n} {A} d f k => NLA.RA08.spectralCombination d fun i => ite.{1} (LT.lt.{0} (↑i) k) (f (d.eigenvalues i)) 0
+def NLA.RA08.functionalCalculus : {n : ℕ} → (ℝ → ℝ) → NLA.RA08.RealMatrix n → NLA.RA08.RealMatrix n :=
+fun {n} f A => cfc.{0, 0} f A
+def NLA.RA08.ConcaveSpectralTransferConjecture : Prop :=
+∀ (n : ℕ),
+  LE.le.{0} 2 n →
+    ∀ (k : ℕ),
+      LE.le.{0} 1 k →
+        LT.lt.{0} k n →
+          ∀ (A Ahat : NLA.RA08.RealMatrix n),
+            Matrix.PosSemidef.{0, 0} A →
+              Matrix.PosSemidef.{0, 0} Ahat →
+                LE.le.{0} Ahat A →
+                  ∀ (f : ℝ → ℝ),
+                    NLA.RA08.AdmissibleFunction f →
+                      ∀ (dA : NLA.RA08.OrderedSpectralData A) (dAhat : NLA.RA08.OrderedSpectralData Ahat) (ε : ℝ),
+                        LE.le.{0} 0 ε →
+                          LE.le.{0} (NLA.RA08.spectralNorm (HSub.hSub.{0, 0, 0} A (NLA.RA08.truncation dAhat k)))
+                              (HMul.hMul.{0, 0, 0} (HAdd.hAdd.{0, 0, 0} 1 ε)
+                                (NLA.RA08.spectralNorm (HSub.hSub.{0, 0, 0} A (NLA.RA08.truncation dA k)))) →
+                            LE.le.{0}
+                              (NLA.RA08.spectralNorm
+                                (HSub.hSub.{0, 0, 0} (NLA.RA08.functionalCalculus f A)
+                                  (NLA.RA08.functionTruncation dAhat f k)))
+                              (HMul.hMul.{0, 0, 0} (HAdd.hAdd.{0, 0, 0} 1 ε)
+                                (NLA.RA08.spectralNorm
+                                  (HSub.hSub.{0, 0, 0} (NLA.RA08.functionalCalculus f A)
+                                    (NLA.RA08.functionTruncation dA f k))))
+def NLA.RA08.witnessMatrix : NLA.RA08.RealMatrix 6 :=
+HAdd.hAdd.{0, 0, 0} NLA.RA08.witnessApproximation (HSMul.hSMul.{0, 0, 0} NLA.RA08.witnessT NLA.RA08.witnessF)
+def NLA.RA08.witnessF : NLA.RA08.RealMatrix 6 :=
+HSMul.hSMul.{0, 0, 0} (1 / 5265)
+  (Matrix.of.{0, 0, 0}
+    (Matrix.vecCons.{0}
+      (Matrix.vecCons.{0} 4160
+        (Matrix.vecCons.{0} 1024
+          (Matrix.vecCons.{0} 1792
+            (Matrix.vecCons.{0} 72 (Matrix.vecCons.{0} 576 (Matrix.vecCons.{0} 0 Matrix.vecEmpty.{0}))))))
+      (Matrix.vecCons.{0}
+        (Matrix.vecCons.{0} 1024
+          (Matrix.vecCons.{0} 4160
+            (Matrix.vecCons.{0} (-1792)
+              (Matrix.vecCons.{0} 576 (Matrix.vecCons.{0} 72 (Matrix.vecCons.{0} 0 Matrix.vecEmpty.{0}))))))
+        (Matrix.vecCons.{0}
+          (Matrix.vecCons.{0} 1792
+            (Matrix.vecCons.{0} (-1792)
+              (Matrix.vecCons.{0} 2048
+                (Matrix.vecCons.{0} (-288) (Matrix.vecCons.{0} 288 (Matrix.vecCons.{0} 0 Matrix.vecEmpty.{0}))))))
+          (Matrix.vecCons.{0}
+            (Matrix.vecCons.{0} 72
+              (Matrix.vecCons.{0} 576
+                (Matrix.vecCons.{0} (-288)
+                  (Matrix.vecCons.{0} 81 (Matrix.vecCons.{0} 0 (Matrix.vecCons.{0} 0 Matrix.vecEmpty.{0}))))))
+            (Matrix.vecCons.{0}
+              (Matrix.vecCons.{0} 576
+                (Matrix.vecCons.{0} 72
+                  (Matrix.vecCons.{0} 288
+                    (Matrix.vecCons.{0} 0 (Matrix.vecCons.{0} 81 (Matrix.vecCons.{0} 0 Matrix.vecEmpty.{0}))))))
+              (Matrix.vecCons.{0}
+                (Matrix.vecCons.{0} 0
+                  (Matrix.vecCons.{0} 0
+                    (Matrix.vecCons.{0} 0
+                      (Matrix.vecCons.{0} 0 (Matrix.vecCons.{0} 0 (Matrix.vecCons.{0} 5265 Matrix.vecEmpty.{0}))))))
+                Matrix.vecEmpty.{0})))))))
+def NLA.RA08.matrixK : {n : ℕ} → NLA.RA08.RealMatrix n → NLA.RA08.RealMatrix n :=
+fun {n} A =>
+  HMul.hMul.{0, 0, 0} (HMul.hMul.{0, 0, 0} A (HSub.hSub.{0, 0, 0} A (HSMul.hSMul.{0, 0, 0} (1 / 2) 1)))
+    (HSub.hSub.{0, 0, 0} A (HSMul.hSMul.{0, 0, 0} NLA.RA08.witnessB 1))
+def NLA.RA08.minorantFunction : ℝ → ℝ :=
+fun x =>
+  HSub.hSub.{0, 0, 0} x
+    (HMul.hMul.{0, 0, 0}
+      (HMul.hMul.{0, 0, 0} (HMul.hMul.{0, 0, 0} NLA.RA08.minorantCoefficient (HPow.hPow.{0, 0, 0} x 2))
+        (HPow.hPow.{0, 0, 0} (HSub.hSub.{0, 0, 0} x (1 / 2)) 2))
+      (HPow.hPow.{0, 0, 0} (HSub.hSub.{0, 0, 0} x NLA.RA08.witnessB) 2))
+def NLA.RA08.minorantMatrix : {n : ℕ} → NLA.RA08.RealMatrix n → NLA.RA08.RealMatrix n :=
+fun {n} A =>
+  HSub.hSub.{0, 0, 0} A
+    (HSMul.hSMul.{0, 0, 0} NLA.RA08.minorantCoefficient (HPow.hPow.{0, 0, 0} (NLA.RA08.matrixK A) 2))
+def NLA.RA08.witnessGap : ℝ :=
+78605142319958855341529309 / 11432529876841442781954048000
+def Matrix.toEuclideanCLM.{u_1, u_3} : {𝕜 : Type u_1} →
+  {n : Type u_3} →
+    [inst : RCLike.{u_1} 𝕜] →
+      [inst_1 : Fintype.{u_3} n] →
+        [DecidableEq.{u_3 + 1} n] →
+          StarAlgEquiv.{u_1, max u_1 u_3, max u_3 u_1} 𝕜 (Matrix.{u_3, u_3, u_1} n n 𝕜)
+            (ContinuousLinearMap.{u_1, u_1, max u_3 u_1, max u_3 u_1} (RingHom.id.{u_1} 𝕜)
+              (EuclideanSpace.{u_1, u_3} 𝕜 n) (EuclideanSpace.{u_1, u_3} 𝕜 n)) :=
+fun {𝕜} {n} [RCLike.{u_1} 𝕜] [Fintype.{u_3} n] [DecidableEq.{u_3 + 1} n] =>
+  StarAlgEquiv.trans.{u_1, max u_1 u_3, max u_1 u_3, max u_1 u_3}
+    (StarAlgEquiv.symm.{u_1, max u_1 u_3, max u_1 u_3}
+      (LinearMap.toMatrixOrthonormal.{u_1, max u_1 u_3, u_3} (EuclideanSpace.basisFun.{u_3, u_1} n 𝕜)))
+    (let __src := LinearMap.toContinuousLinearMap.{u_1, max u_1 u_3, max u_1 u_3};
+    StarAlgEquiv.mk.{u_1, max u_1 u_3, max u_1 u_3}
+      (StarRingEquiv.mk.{max u_1 u_3, max u_1 u_3}
+        (RingEquiv.mk.{max u_1 u_3, max u_1 u_3}
+          (Equiv.mk.{(max u_1 u_3) + 1, (max u_1 u_3) + 1}
+            (AddHom.toFun.{max u_1 u_3, max u_1 u_3} (LinearMap.toAddHom.{u_1, u_1, max u_1 u_3, max u_1 u_3} ↑__src))
+            (LinearEquiv.invFun.{u_1, u_1, max u_1 u_3, max u_1 u_3} __src) Matrix.toEuclideanCLM._proof_13.{u_1, u_3}
+            Matrix.toEuclideanCLM._proof_14.{u_1, u_3})
+          Matrix.toEuclideanCLM._proof_15.{u_1, u_3} Matrix.toEuclideanCLM._proof_16.{u_1, u_3})
+        Matrix.toEuclideanCLM._proof_25.{u_1, u_3})
+      Matrix.toEuclideanCLM._proof_26.{u_1, u_3})
+def Matrix.PosSemidef.{u_2, u_3} : {n : Type u_2} →
+  {R : Type u_3} →
+    [inst : Ring.{u_3} R] → [PartialOrder.{u_3} R] → [StarRing.{u_3} R] → Matrix.{u_2, u_2, u_3} n n R → Prop :=
+fun {n} {R} [Ring.{u_3} R] [PartialOrder.{u_3} R] [StarRing.{u_3} R] M =>
+  Matrix.IsHermitian.{u_3, u_2} M ∧
+    ∀ (x : Finsupp.{u_2, u_3} n R),
+      LE.le.{u_3} 0
+        (Finsupp.sum.{u_2, u_3, u_3} x fun i xi =>
+          Finsupp.sum.{u_2, u_3, u_3} x fun j xj =>
+            HMul.hMul.{u_3, u_3, u_3} (HMul.hMul.{u_3, u_3, u_3} (star.{u_3} xi) (M i j)) xj)
+@[reducible] def Matrix.unitaryGroup.{u, v} : (n : Type u) →
+  [inst : DecidableEq.{u + 1} n] →
+    [inst_1 : Fintype.{u} n] →
+      (α : Type v) → [inst_2 : CommRing.{v} α] → [StarRing.{v} α] → Submonoid.{max v u} (Matrix.{u, u, v} n n α) :=
+fun n [DecidableEq.{u + 1} n] [Fintype.{u} n] α [CommRing.{v} α] [StarRing.{v} α] =>
+  unitary.{max v u} (Matrix.{u, u, v} n n α)
+@[reducible] def Matrix.instPreOrder.{u_1, u_2} : {𝕜 : Type u_1} →
+  {n : Type u_2} → [RCLike.{u_1} 𝕜] → Preorder.{max u_1 u_2} (Matrix.{u_2, u_2, u_1} n n 𝕜) :=
+fun {𝕜} {n} [RCLike.{u_1} 𝕜] =>
+  Preorder.mk.{max u_1 u_2} Matrix.instPreOrder._proof_2.{u_2, u_1} Matrix.instPreOrder._proof_3.{u_2, u_1}
+    Matrix.instPreOrder._proof_1.{u_2, u_1}
+def ConcaveOn.{u_1, u_2, u_5} : (𝕜 : Type u_1) →
+  {E : Type u_2} →
+    {β : Type u_5} →
+      [Semiring.{u_1} 𝕜] →
+        [PartialOrder.{u_1} 𝕜] →
+          [AddCommMonoid.{u_2} E] →
+            [AddCommMonoid.{u_5} β] →
+              [PartialOrder.{u_5} β] → [SMul.{u_1, u_2} 𝕜 E] → [SMul.{u_1, u_5} 𝕜 β] → Set.{u_2} E → (E → β) → Prop :=
+fun 𝕜 {E} {β} [Semiring.{u_1} 𝕜] [PartialOrder.{u_1} 𝕜] [AddCommMonoid.{u_2} E] [AddCommMonoid.{u_5} β]
+    [PartialOrder.{u_5} β] [SMul.{u_1, u_2} 𝕜 E] [SMul.{u_1, u_5} 𝕜 β] s f =>
+  Convex.{u_1, u_2} 𝕜 s ∧
+    ∀ ⦃x : E⦄,
+      Membership.mem.{u_2, u_2} s x →
+        ∀ ⦃y : E⦄,
+          Membership.mem.{u_2, u_2} s y →
+            ∀ ⦃a b : 𝕜⦄,
+              LE.le.{u_1} 0 a →
+                LE.le.{u_1} 0 b →
+                  Eq.{u_1 + 1} (HAdd.hAdd.{u_1, u_1, u_1} a b) 1 →
+                    LE.le.{u_5}
+                      (HAdd.hAdd.{u_5, u_5, u_5} (HSMul.hSMul.{u_1, u_5, u_5} a (f x))
+                        (HSMul.hSMul.{u_1, u_5, u_5} b (f y)))
+                      (f
+                        (HAdd.hAdd.{u_2, u_2, u_2} (HSMul.hSMul.{u_1, u_2, u_2} a x) (HSMul.hSMul.{u_1, u_2, u_2} b y)))
+def MonotoneOn.{u, v} : {α : Type u} →
+  {β : Type v} → [Preorder.{u} α] → [Preorder.{v} β] → (α → β) → Set.{u} α → Prop :=
+fun {α} {β} [Preorder.{u} α] [Preorder.{v} β] f s =>
+  ∀ ⦃a : α⦄, Membership.mem.{u, u} s a → ∀ ⦃b : α⦄, Membership.mem.{u, u} s b → LE.le.{u} a b → LE.le.{v} (f a) (f b)
+def NLA.RA08.spectralNorm : {n : Nat} → (A : NLA.RA08.RealMatrix n) → Real :=
+fun {n : ⋯} (A : ⋯) =>
+  @Norm.norm.{0}
+    (@ContinuousLinearMap.{0, 0, 0, 0} Real Real
+      (@DivisionSemiring.toSemiring.{0} Real
+        (@Semifield.toDivisionSemiring.{0} Real
+          (@Field.toSemifield.{0} Real
+            (@NormedField.toField.{0} Real
+              (@DenselyNormedField.toNormedField.{0} Real (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+      (@DivisionSemiring.toSemiring.{0} Real
+        (@Semifield.toDivisionSemiring.{0} Real
+          (@Field.toSemifield.{0} Real
+            (@NormedField.toField.{0} Real
+              (@DenselyNormedField.toNormedField.{0} Real (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+      (@RingHom.id.{0} Real
+        (@Semiring.toNonAssocSemiring.{0} Real
+          (@DivisionSemiring.toSemiring.{0} Real
+            (@Semifield.toDivisionSemiring.{0} Real
+              (@Field.toSemifield.{0} Real
+                (@NormedField.toField.{0} Real
+                  (@DenselyNormedField.toNormedField.{0} Real
+                    (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+      (EuclideanSpace.{0, 0} Real (Fin n))
+      (@PiLp.topologicalSpace.{0, 0}
+        (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+          (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+            (@AddMonoidWithOne.toNatCast.{0} ENNReal
+              (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+            PiLp.innerProductSpace._proof_1))
+        (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+        @UniformSpace.toTopologicalSpace.{0} Real
+          (@PseudoMetricSpace.toUniformSpace.{0} Real
+            (@SeminormedRing.toPseudoMetricSpace.{0} Real
+              (@SeminormedCommRing.toSeminormedRing.{0} Real
+                (@NormedCommRing.toSeminormedCommRing.{0} Real
+                  (@NormedField.toNormedCommRing.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+      (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+        (@WithLp.instAddCommGroup.{0}
+          (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+            (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+              (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+              PiLp.innerProductSpace._proof_1))
+          ((i : Fin n) → (fun (x : Fin n) => Real) i)
+          (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+            @Ring.toAddCommGroup.{0} Real
+              (@DivisionRing.toRing.{0} Real
+                (@Field.toDivisionRing.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+      (EuclideanSpace.{0, 0} Real (Fin n))
+      (@PiLp.topologicalSpace.{0, 0}
+        (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+          (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+            (@AddMonoidWithOne.toNatCast.{0} ENNReal
+              (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+            PiLp.innerProductSpace._proof_1))
+        (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+        @UniformSpace.toTopologicalSpace.{0} Real
+          (@PseudoMetricSpace.toUniformSpace.{0} Real
+            (@SeminormedRing.toPseudoMetricSpace.{0} Real
+              (@SeminormedCommRing.toSeminormedRing.{0} Real
+                (@NormedCommRing.toSeminormedCommRing.{0} Real
+                  (@NormedField.toNormedCommRing.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+      (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+        (@WithLp.instAddCommGroup.{0}
+          (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+            (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+              (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+              PiLp.innerProductSpace._proof_1))
+          ((i : Fin n) → (fun (x : Fin n) => Real) i)
+          (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+            @Ring.toAddCommGroup.{0} Real
+              (@DivisionRing.toRing.{0} Real
+                (@Field.toDivisionRing.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+      (@WithLp.instModule.{0, 0}
+        (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+          (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+            (@AddMonoidWithOne.toNatCast.{0} ENNReal
+              (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+            PiLp.innerProductSpace._proof_1))
+        Real ((i : Fin n) → (fun (x : Fin n) => Real) i)
+        (@DivisionSemiring.toSemiring.{0} Real
+          (@Semifield.toDivisionSemiring.{0} Real
+            (@Field.toSemifield.{0} Real
+              (@NormedField.toField.{0} Real
+                (@DenselyNormedField.toNormedField.{0} Real (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+        (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+          @Ring.toAddCommGroup.{0} Real
+            (@DivisionRing.toRing.{0} Real
+              (@Field.toDivisionRing.{0} Real
+                (@NormedField.toField.{0} Real
+                  (@DenselyNormedField.toNormedField.{0} Real
+                    (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+        (@Pi.Function.module.{0, 0, 0} (Fin n) Real Real
+          (@DivisionSemiring.toSemiring.{0} Real
+            (@Semifield.toDivisionSemiring.{0} Real
+              (@Field.toSemifield.{0} Real
+                (@NormedField.toField.{0} Real
+                  (@DenselyNormedField.toNormedField.{0} Real
+                    (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+          (@Semiring.toAddCommMonoid.{0} Real
+            (@Ring.toSemiring.{0} Real
+              (@DivisionRing.toRing.{0} Real
+                (@Field.toDivisionRing.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+          (@Semiring.toModule.{0} Real
+            (@DivisionSemiring.toSemiring.{0} Real
+              (@Semifield.toDivisionSemiring.{0} Real
+                (@Field.toSemifield.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))))
+      (@WithLp.instModule.{0, 0}
+        (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+          (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+            (@AddMonoidWithOne.toNatCast.{0} ENNReal
+              (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+            PiLp.innerProductSpace._proof_1))
+        Real ((i : Fin n) → (fun (x : Fin n) => Real) i)
+        (@DivisionSemiring.toSemiring.{0} Real
+          (@Semifield.toDivisionSemiring.{0} Real
+            (@Field.toSemifield.{0} Real
+              (@NormedField.toField.{0} Real
+                (@DenselyNormedField.toNormedField.{0} Real (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+        (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+          @Ring.toAddCommGroup.{0} Real
+            (@DivisionRing.toRing.{0} Real
+              (@Field.toDivisionRing.{0} Real
+                (@NormedField.toField.{0} Real
+                  (@DenselyNormedField.toNormedField.{0} Real
+                    (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+        (@Pi.Function.module.{0, 0, 0} (Fin n) Real Real
+          (@DivisionSemiring.toSemiring.{0} Real
+            (@Semifield.toDivisionSemiring.{0} Real
+              (@Field.toSemifield.{0} Real
+                (@NormedField.toField.{0} Real
+                  (@DenselyNormedField.toNormedField.{0} Real
+                    (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+          (@Semiring.toAddCommMonoid.{0} Real
+            (@Ring.toSemiring.{0} Real
+              (@DivisionRing.toRing.{0} Real
+                (@Field.toDivisionRing.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+          (@Semiring.toModule.{0} Real
+            (@DivisionSemiring.toSemiring.{0} Real
+              (@Semifield.toDivisionSemiring.{0} Real
+                (@Field.toSemifield.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))))
+    (@ContinuousLinearMap.hasOpNorm.{0, 0, 0, 0} Real Real (EuclideanSpace.{0, 0} Real (Fin n))
+      (EuclideanSpace.{0, 0} Real (Fin n))
+      (@PiLp.seminormedAddCommGroup.{0, 0}
+        (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+          (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+            (@AddMonoidWithOne.toNatCast.{0} ENNReal
+              (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+            PiLp.innerProductSpace._proof_1))
+        (Fin n) (fun (x : Fin n) => Real) fact_one_le_two_ennreal (Fin.fintype n) fun (i : Fin n) =>
+        @NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Real
+          (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Real
+            (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Real
+              (@NormedCommRing.toSeminormedCommRing.{0} Real Real.normedCommRing))))
+      (@PiLp.seminormedAddCommGroup.{0, 0}
+        (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+          (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+            (@AddMonoidWithOne.toNatCast.{0} ENNReal
+              (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+            PiLp.innerProductSpace._proof_1))
+        (Fin n) (fun (x : Fin n) => Real) fact_one_le_two_ennreal (Fin.fintype n) fun (i : Fin n) =>
+        @NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Real
+          (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Real
+            (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Real
+              (@NormedCommRing.toSeminormedCommRing.{0} Real Real.normedCommRing))))
+      (@DenselyNormedField.toNontriviallyNormedField.{0} Real Real.denselyNormedField)
+      (@DenselyNormedField.toNontriviallyNormedField.{0} Real Real.denselyNormedField)
+      (@PiLp.normedSpace.{0, 0, 0}
+        (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+          (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+            (@AddMonoidWithOne.toNatCast.{0} ENNReal
+              (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+            PiLp.innerProductSpace._proof_1))
+        Real (Fin n) (fun (x : Fin n) => Real) fact_one_le_two_ennreal (Fin.fintype n)
+        (@NontriviallyNormedField.toNormedField.{0} Real
+          (@DenselyNormedField.toNontriviallyNormedField.{0} Real Real.denselyNormedField))
+        (fun (i : Fin n) =>
+          @NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Real
+            (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Real
+              (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Real
+                (@NormedCommRing.toSeminormedCommRing.{0} Real Real.normedCommRing))))
+        fun (i : Fin n) =>
+        @InnerProductSpace.toNormedSpace.{0, 0} Real Real Real.instRCLike
+          (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Real
+            (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Real
+              (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Real
+                (@NormedCommRing.toSeminormedCommRing.{0} Real Real.normedCommRing))))
+          (@RCLike.toInnerProductSpaceReal.{0} Real Real.instRCLike))
+      (@PiLp.normedSpace.{0, 0, 0}
+        (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+          (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+            (@AddMonoidWithOne.toNatCast.{0} ENNReal
+              (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+            PiLp.innerProductSpace._proof_1))
+        Real (Fin n) (fun (x : Fin n) => Real) fact_one_le_two_ennreal (Fin.fintype n)
+        (@NontriviallyNormedField.toNormedField.{0} Real
+          (@DenselyNormedField.toNontriviallyNormedField.{0} Real Real.denselyNormedField))
+        (fun (i : Fin n) =>
+          @NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Real
+            (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Real
+              (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Real
+                (@NormedCommRing.toSeminormedCommRing.{0} Real Real.normedCommRing))))
+        fun (i : Fin n) =>
+        @InnerProductSpace.toNormedSpace.{0, 0} Real Real Real.instRCLike
+          (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Real
+            (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Real
+              (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Real
+                (@NormedCommRing.toSeminormedCommRing.{0} Real Real.normedCommRing))))
+          (@RCLike.toInnerProductSpaceReal.{0} Real Real.instRCLike))
+      (@RingHom.id.{0} Real
+        (@Semiring.toNonAssocSemiring.{0} Real
+          (@DivisionSemiring.toSemiring.{0} Real
+            (@Semifield.toDivisionSemiring.{0} Real
+              (@Field.toSemifield.{0} Real
+                (@NormedField.toField.{0} Real
+                  (@DenselyNormedField.toNormedField.{0} Real
+                    (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))))
+    (@DFunLike.coe.{1, 1, 1}
+      (@StarAlgEquiv.{0, 0, 0} Real (Matrix.{0, 0, 0} (Fin n) (Fin n) Real)
+        (@ContinuousLinearMap.{0, 0, 0, 0} Real Real
+          (@DivisionSemiring.toSemiring.{0} Real
+            (@Semifield.toDivisionSemiring.{0} Real
+              (@Field.toSemifield.{0} Real
+                (@NormedField.toField.{0} Real
+                  (@DenselyNormedField.toNormedField.{0} Real
+                    (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+          (@DivisionSemiring.toSemiring.{0} Real
+            (@Semifield.toDivisionSemiring.{0} Real
+              (@Field.toSemifield.{0} Real
+                (@NormedField.toField.{0} Real
+                  (@DenselyNormedField.toNormedField.{0} Real
+                    (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+          (@RingHom.id.{0} Real
+            (@Semiring.toNonAssocSemiring.{0} Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Real (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Real
+              (@PseudoMetricSpace.toUniformSpace.{0} Real
+                (@SeminormedRing.toPseudoMetricSpace.{0} Real
+                  (@SeminormedCommRing.toSeminormedRing.{0} Real
+                    (@NormedCommRing.toSeminormedCommRing.{0} Real
+                      (@NormedField.toNormedCommRing.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Real) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Real (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Real
+              (@PseudoMetricSpace.toUniformSpace.{0} Real
+                (@SeminormedRing.toPseudoMetricSpace.{0} Real
+                  (@SeminormedCommRing.toSeminormedRing.{0} Real
+                    (@NormedCommRing.toSeminormedCommRing.{0} Real
+                      (@NormedField.toNormedCommRing.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Real) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Real ((i : Fin n) → (fun (x : Fin n) => Real) i)
+            (@DivisionSemiring.toSemiring.{0} Real
+              (@Semifield.toDivisionSemiring.{0} Real
+                (@Field.toSemifield.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Real
+                (@DivisionRing.toRing.{0} Real
+                  (@Field.toDivisionRing.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Real Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Real
+                (@Ring.toSemiring.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+              (@Semiring.toModule.{0} Real
+                (@DivisionSemiring.toSemiring.{0} Real
+                  (@Semifield.toDivisionSemiring.{0} Real
+                    (@Field.toSemifield.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Real ((i : Fin n) → (fun (x : Fin n) => Real) i)
+            (@DivisionSemiring.toSemiring.{0} Real
+              (@Semifield.toDivisionSemiring.{0} Real
+                (@Field.toSemifield.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Real
+                (@DivisionRing.toRing.{0} Real
+                  (@Field.toDivisionRing.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Real Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Real
+                (@Ring.toSemiring.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+              (@Semiring.toModule.{0} Real
+                (@DivisionSemiring.toSemiring.{0} Real
+                  (@Semifield.toDivisionSemiring.{0} Real
+                    (@Field.toSemifield.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))))
+        (@Matrix.add.{0, 0, 0} (Fin n) (Fin n) Real
+          (@Distrib.toAdd.{0} Real
+            (@instDistribOfSemiring.{0} Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))))
+        (@ContinuousLinearMap.add.{0, 0, 0, 0} Real Real
+          (@DivisionSemiring.toSemiring.{0} Real
+            (@Semifield.toDivisionSemiring.{0} Real
+              (@Field.toSemifield.{0} Real
+                (@NormedField.toField.{0} Real
+                  (@DenselyNormedField.toNormedField.{0} Real
+                    (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+          (@DivisionSemiring.toSemiring.{0} Real
+            (@Semifield.toDivisionSemiring.{0} Real
+              (@Field.toSemifield.{0} Real
+                (@NormedField.toField.{0} Real
+                  (@DenselyNormedField.toNormedField.{0} Real
+                    (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+          (@RingHom.id.{0} Real
+            (@Semiring.toNonAssocSemiring.{0} Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Real (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Real
+              (@PseudoMetricSpace.toUniformSpace.{0} Real
+                (@SeminormedRing.toPseudoMetricSpace.{0} Real
+                  (@SeminormedCommRing.toSeminormedRing.{0} Real
+                    (@NormedCommRing.toSeminormedCommRing.{0} Real
+                      (@NormedField.toNormedCommRing.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Real) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Real (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Real
+              (@PseudoMetricSpace.toUniformSpace.{0} Real
+                (@SeminormedRing.toPseudoMetricSpace.{0} Real
+                  (@SeminormedCommRing.toSeminormedRing.{0} Real
+                    (@NormedCommRing.toSeminormedCommRing.{0} Real
+                      (@NormedField.toNormedCommRing.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Real) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Real ((i : Fin n) → (fun (x : Fin n) => Real) i)
+            (@DivisionSemiring.toSemiring.{0} Real
+              (@Semifield.toDivisionSemiring.{0} Real
+                (@Field.toSemifield.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Real
+                (@DivisionRing.toRing.{0} Real
+                  (@Field.toDivisionRing.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Real Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Real
+                (@Ring.toSemiring.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+              (@Semiring.toModule.{0} Real
+                (@DivisionSemiring.toSemiring.{0} Real
+                  (@Semifield.toDivisionSemiring.{0} Real
+                    (@Field.toSemifield.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Real ((i : Fin n) → (fun (x : Fin n) => Real) i)
+            (@DivisionSemiring.toSemiring.{0} Real
+              (@Semifield.toDivisionSemiring.{0} Real
+                (@Field.toSemifield.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Real
+                (@DivisionRing.toRing.{0} Real
+                  (@Field.toDivisionRing.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Real Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Real
+                (@Ring.toSemiring.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+              (@Semiring.toModule.{0} Real
+                (@DivisionSemiring.toSemiring.{0} Real
+                  (@Semifield.toDivisionSemiring.{0} Real
+                    (@Field.toSemifield.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))))
+          (@NLA.RA08.spectralNorm._proof_1 n))
+        (@Matrix.instMulOfFintypeOfAddCommMonoid.{0, 0} (Fin n) Real (Fin.fintype n)
+          (@Distrib.toMul.{0} Real
+            (@instDistribOfSemiring.{0} Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@Semiring.toAddCommMonoid.{0} Real
+            (@DivisionSemiring.toSemiring.{0} Real
+              (@Semifield.toDivisionSemiring.{0} Real
+                (@Field.toSemifield.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+        (@ContinuousLinearMap.instMul.{0, 0} Real
+          (@DivisionSemiring.toSemiring.{0} Real
+            (@Semifield.toDivisionSemiring.{0} Real
+              (@Field.toSemifield.{0} Real
+                (@NormedField.toField.{0} Real
+                  (@DenselyNormedField.toNormedField.{0} Real
+                    (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+          (EuclideanSpace.{0, 0} Real (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Real
+              (@PseudoMetricSpace.toUniformSpace.{0} Real
+                (@SeminormedRing.toPseudoMetricSpace.{0} Real
+                  (@SeminormedCommRing.toSeminormedRing.{0} Real
+                    (@NormedCommRing.toSeminormedCommRing.{0} Real
+                      (@NormedField.toNormedCommRing.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Real) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Real ((i : Fin n) → (fun (x : Fin n) => Real) i)
+            (@DivisionSemiring.toSemiring.{0} Real
+              (@Semifield.toDivisionSemiring.{0} Real
+                (@Field.toSemifield.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Real
+                (@DivisionRing.toRing.{0} Real
+                  (@Field.toDivisionRing.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Real Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Real
+                (@Ring.toSemiring.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+              (@Semiring.toModule.{0} Real
+                (@DivisionSemiring.toSemiring.{0} Real
+                  (@Semifield.toDivisionSemiring.{0} Real
+                    (@Field.toSemifield.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))))
+        (@Matrix.smul.{0, 0, 0, 0} (Fin n) (Fin n) Real Real
+          (@instSMulOfMul.{0} Real
+            (@Distrib.toMul.{0} Real
+              (@instDistribOfSemiring.{0} Real
+                (@DivisionSemiring.toSemiring.{0} Real
+                  (@Semifield.toDivisionSemiring.{0} Real
+                    (@Field.toSemifield.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))))
+        (@ContinuousLinearMap.instSMul.{0, 0, 0, 0, 0} Real Real
+          (@DivisionSemiring.toSemiring.{0} Real
+            (@Semifield.toDivisionSemiring.{0} Real
+              (@Field.toSemifield.{0} Real
+                (@NormedField.toField.{0} Real
+                  (@DenselyNormedField.toNormedField.{0} Real
+                    (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+          (@DivisionSemiring.toSemiring.{0} Real
+            (@Semifield.toDivisionSemiring.{0} Real
+              (@Field.toSemifield.{0} Real
+                (@NormedField.toField.{0} Real
+                  (@DenselyNormedField.toNormedField.{0} Real
+                    (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+          (@RingHom.id.{0} Real
+            (@Semiring.toNonAssocSemiring.{0} Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Real (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Real
+              (@PseudoMetricSpace.toUniformSpace.{0} Real
+                (@SeminormedRing.toPseudoMetricSpace.{0} Real
+                  (@SeminormedCommRing.toSeminormedRing.{0} Real
+                    (@NormedCommRing.toSeminormedCommRing.{0} Real
+                      (@NormedField.toNormedCommRing.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Real) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Real (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Real
+              (@PseudoMetricSpace.toUniformSpace.{0} Real
+                (@SeminormedRing.toPseudoMetricSpace.{0} Real
+                  (@SeminormedCommRing.toSeminormedRing.{0} Real
+                    (@NormedCommRing.toSeminormedCommRing.{0} Real
+                      (@NormedField.toNormedCommRing.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Real) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Real ((i : Fin n) → (fun (x : Fin n) => Real) i)
+            (@DivisionSemiring.toSemiring.{0} Real
+              (@Semifield.toDivisionSemiring.{0} Real
+                (@Field.toSemifield.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Real
+                (@DivisionRing.toRing.{0} Real
+                  (@Field.toDivisionRing.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Real Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Real
+                (@Ring.toSemiring.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+              (@Semiring.toModule.{0} Real
+                (@DivisionSemiring.toSemiring.{0} Real
+                  (@Semifield.toDivisionSemiring.{0} Real
+                    (@Field.toSemifield.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Real ((i : Fin n) → (fun (x : Fin n) => Real) i)
+            (@DivisionSemiring.toSemiring.{0} Real
+              (@Semifield.toDivisionSemiring.{0} Real
+                (@Field.toSemifield.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Real
+                (@DivisionRing.toRing.{0} Real
+                  (@Field.toDivisionRing.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Real Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Real
+                (@Ring.toSemiring.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+              (@Semiring.toModule.{0} Real
+                (@DivisionSemiring.toSemiring.{0} Real
+                  (@Semifield.toDivisionSemiring.{0} Real
+                    (@Field.toSemifield.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))))
+          Real
+          (@DistribMulAction.toDistribSMul.{0, 0} Real (EuclideanSpace.{0, 0} Real (Fin n))
+            (@Semiring.toMonoid.{0} Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+            (@SubNegMonoid.toAddMonoid.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+              (@AddGroup.toSubNegMonoid.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+                (@AddCommGroup.toAddGroup.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+                  (@WithLp.instAddCommGroup.{0}
+                    (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                      (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                        (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                          (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                        PiLp.innerProductSpace._proof_1))
+                    ((i : Fin n) → (fun (x : Fin n) => Real) i)
+                    (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+                      @Ring.toAddCommGroup.{0} Real
+                        (@DivisionRing.toRing.{0} Real
+                          (@Field.toDivisionRing.{0} Real
+                            (@NormedField.toField.{0} Real
+                              (@DenselyNormedField.toNormedField.{0} Real
+                                (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))))
+            (@WithLp.instDistribMulAction.{0, 0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              Real ((i : Fin n) → (fun (x : Fin n) => Real) i)
+              (@Semiring.toMonoid.{0} Real
+                (@DivisionSemiring.toSemiring.{0} Real
+                  (@Semifield.toDivisionSemiring.{0} Real
+                    (@Field.toSemifield.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+              (@Pi.distribMulAction.{0, 0, 0} (Fin n) (fun (x : Fin n) => Real) Real
+                (@Semiring.toMonoid.{0} Real
+                  (@DivisionSemiring.toSemiring.{0} Real
+                    (@Semifield.toDivisionSemiring.{0} Real
+                      (@Field.toSemifield.{0} Real
+                        (@NormedField.toField.{0} Real
+                          (@DenselyNormedField.toNormedField.{0} Real
+                            (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+                (fun (i : Fin n) =>
+                  @SubNegMonoid.toAddMonoid.{0} ((fun (x : Fin n) => Real) i)
+                    ((fun (i : Fin n) =>
+                        @AddGroup.toSubNegMonoid.{0} ((fun (x : Fin n) => Real) i)
+                          ((fun (i : Fin n) =>
+                              @AddCommGroup.toAddGroup.{0} ((fun (x : Fin n) => Real) i)
+                                ((fun (i : Fin n) =>
+                                    @Ring.toAddCommGroup.{0} Real
+                                      (@DivisionRing.toRing.{0} Real
+                                        (@Field.toDivisionRing.{0} Real
+                                          (@NormedField.toField.{0} Real
+                                            (@DenselyNormedField.toNormedField.{0} Real
+                                              (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+                                  i))
+                            i))
+                      i))
+                fun (i : Fin n) =>
+                @Module.toDistribMulAction.{0, 0} Real Real
+                  (@DivisionSemiring.toSemiring.{0} Real
+                    (@Semifield.toDivisionSemiring.{0} Real
+                      (@Field.toSemifield.{0} Real
+                        (@NormedField.toField.{0} Real
+                          (@DenselyNormedField.toNormedField.{0} Real
+                            (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+                  (@Semiring.toAddCommMonoid.{0} Real
+                    (@DivisionSemiring.toSemiring.{0} Real
+                      (@Semifield.toDivisionSemiring.{0} Real
+                        (@Field.toSemifield.{0} Real
+                          (@NormedField.toField.{0} Real
+                            (@DenselyNormedField.toNormedField.{0} Real
+                              (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+                  (@Semiring.toModule.{0} Real
+                    (@DivisionSemiring.toSemiring.{0} Real
+                      (@Semifield.toDivisionSemiring.{0} Real
+                        (@Field.toSemifield.{0} Real
+                          (@NormedField.toField.{0} Real
+                            (@DenselyNormedField.toNormedField.{0} Real
+                              (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))))
+          (@NLA.RA08.spectralNorm._proof_2 n) (@NLA.RA08.spectralNorm._proof_3 n))
+        (@Matrix.instStar.{0, 0} (Fin n) Real
+          (@InvolutiveStar.toStar.{0} Real
+            (@StarAddMonoid.toInvolutiveStar.{0} Real
+              (@AddCommMonoid.toAddMonoid.{0} Real
+                (@NonUnitalNonAssocSemiring.toAddCommMonoid.{0} Real
+                  (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Real
+                    (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Real
+                      (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Real
+                        (@CommRing.toNonUnitalCommRing.{0} Real
+                          (@Field.toCommRing.{0} Real
+                            (@NormedField.toField.{0} Real
+                              (@DenselyNormedField.toNormedField.{0} Real
+                                (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))))
+              (@StarRing.toStarAddMonoid.{0} Real
+                (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Real
+                  (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Real
+                    (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Real
+                      (@CommRing.toNonUnitalCommRing.{0} Real
+                        (@Field.toCommRing.{0} Real
+                          (@NormedField.toField.{0} Real
+                            (@DenselyNormedField.toNormedField.{0} Real
+                              (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+                (@RCLike.toStarRing.{0} Real Real.instRCLike)))))
+        (@ContinuousLinearMap.instStarId.{0, 0} Real (EuclideanSpace.{0, 0} Real (Fin n)) Real.instRCLike
+          (@PiLp.normedAddCommGroup.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Real) fact_one_le_two_ennreal (Fin.fintype n) fun (i : Fin n) =>
+            @NonUnitalNormedRing.toNormedAddCommGroup.{0} Real
+              (@NonUnitalNormedCommRing.toNonUnitalNormedRing.{0} Real
+                (@NormedCommRing.toNonUnitalNormedCommRing.{0} Real
+                  (@NormedField.toNormedCommRing.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+          (@PiLp.innerProductSpace.{0, 0, 0} Real Real.instRCLike (Fin n) (Fin.fintype n) (fun (x : Fin n) => Real)
+            (fun (i : Fin n) =>
+              @NonUnitalNormedRing.toNormedAddCommGroup.{0} Real
+                (@NonUnitalNormedCommRing.toNonUnitalNormedRing.{0} Real
+                  (@NormedCommRing.toNonUnitalNormedCommRing.{0} Real
+                    (@NormedField.toNormedCommRing.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            fun (i : Fin n) => @RCLike.innerProductSpace.{0} Real Real.instRCLike)
+          (@NLA.RA08.spectralNorm._proof_4 n)))
+      (Matrix.{0, 0, 0} (Fin n) (Fin n) Real)
+      (fun (x : Matrix.{0, 0, 0} (Fin n) (Fin n) Real) =>
+        @ContinuousLinearMap.{0, 0, 0, 0} Real Real
+          (@DivisionSemiring.toSemiring.{0} Real
+            (@Semifield.toDivisionSemiring.{0} Real
+              (@Field.toSemifield.{0} Real
+                (@NormedField.toField.{0} Real
+                  (@DenselyNormedField.toNormedField.{0} Real
+                    (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+          (@DivisionSemiring.toSemiring.{0} Real
+            (@Semifield.toDivisionSemiring.{0} Real
+              (@Field.toSemifield.{0} Real
+                (@NormedField.toField.{0} Real
+                  (@DenselyNormedField.toNormedField.{0} Real
+                    (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+          (@RingHom.id.{0} Real
+            (@Semiring.toNonAssocSemiring.{0} Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Real (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Real
+              (@PseudoMetricSpace.toUniformSpace.{0} Real
+                (@SeminormedRing.toPseudoMetricSpace.{0} Real
+                  (@SeminormedCommRing.toSeminormedRing.{0} Real
+                    (@NormedCommRing.toSeminormedCommRing.{0} Real
+                      (@NormedField.toNormedCommRing.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Real) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Real (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Real
+              (@PseudoMetricSpace.toUniformSpace.{0} Real
+                (@SeminormedRing.toPseudoMetricSpace.{0} Real
+                  (@SeminormedCommRing.toSeminormedRing.{0} Real
+                    (@NormedCommRing.toSeminormedCommRing.{0} Real
+                      (@NormedField.toNormedCommRing.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Real) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Real ((i : Fin n) → (fun (x : Fin n) => Real) i)
+            (@DivisionSemiring.toSemiring.{0} Real
+              (@Semifield.toDivisionSemiring.{0} Real
+                (@Field.toSemifield.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Real
+                (@DivisionRing.toRing.{0} Real
+                  (@Field.toDivisionRing.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Real Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Real
+                (@Ring.toSemiring.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+              (@Semiring.toModule.{0} Real
+                (@DivisionSemiring.toSemiring.{0} Real
+                  (@Semifield.toDivisionSemiring.{0} Real
+                    (@Field.toSemifield.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Real ((i : Fin n) → (fun (x : Fin n) => Real) i)
+            (@DivisionSemiring.toSemiring.{0} Real
+              (@Semifield.toDivisionSemiring.{0} Real
+                (@Field.toSemifield.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Real
+                (@DivisionRing.toRing.{0} Real
+                  (@Field.toDivisionRing.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Real Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Real
+                (@Ring.toSemiring.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+              (@Semiring.toModule.{0} Real
+                (@DivisionSemiring.toSemiring.{0} Real
+                  (@Semifield.toDivisionSemiring.{0} Real
+                    (@Field.toSemifield.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))))
+      (@StarAlgEquiv.instFunLike.{0, 0, 0} Real (Matrix.{0, 0, 0} (Fin n) (Fin n) Real)
+        (@ContinuousLinearMap.{0, 0, 0, 0} Real Real
+          (@DivisionSemiring.toSemiring.{0} Real
+            (@Semifield.toDivisionSemiring.{0} Real
+              (@Field.toSemifield.{0} Real
+                (@NormedField.toField.{0} Real
+                  (@DenselyNormedField.toNormedField.{0} Real
+                    (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+          (@DivisionSemiring.toSemiring.{0} Real
+            (@Semifield.toDivisionSemiring.{0} Real
+              (@Field.toSemifield.{0} Real
+                (@NormedField.toField.{0} Real
+                  (@DenselyNormedField.toNormedField.{0} Real
+                    (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+          (@RingHom.id.{0} Real
+            (@Semiring.toNonAssocSemiring.{0} Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Real (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Real
+              (@PseudoMetricSpace.toUniformSpace.{0} Real
+                (@SeminormedRing.toPseudoMetricSpace.{0} Real
+                  (@SeminormedCommRing.toSeminormedRing.{0} Real
+                    (@NormedCommRing.toSeminormedCommRing.{0} Real
+                      (@NormedField.toNormedCommRing.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Real) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Real (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Real
+              (@PseudoMetricSpace.toUniformSpace.{0} Real
+                (@SeminormedRing.toPseudoMetricSpace.{0} Real
+                  (@SeminormedCommRing.toSeminormedRing.{0} Real
+                    (@NormedCommRing.toSeminormedCommRing.{0} Real
+                      (@NormedField.toNormedCommRing.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Real) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Real ((i : Fin n) → (fun (x : Fin n) => Real) i)
+            (@DivisionSemiring.toSemiring.{0} Real
+              (@Semifield.toDivisionSemiring.{0} Real
+                (@Field.toSemifield.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Real
+                (@DivisionRing.toRing.{0} Real
+                  (@Field.toDivisionRing.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Real Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Real
+                (@Ring.toSemiring.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+              (@Semiring.toModule.{0} Real
+                (@DivisionSemiring.toSemiring.{0} Real
+                  (@Semifield.toDivisionSemiring.{0} Real
+                    (@Field.toSemifield.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Real ((i : Fin n) → (fun (x : Fin n) => Real) i)
+            (@DivisionSemiring.toSemiring.{0} Real
+              (@Semifield.toDivisionSemiring.{0} Real
+                (@Field.toSemifield.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Real
+                (@DivisionRing.toRing.{0} Real
+                  (@Field.toDivisionRing.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Real Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Real
+                (@Ring.toSemiring.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+              (@Semiring.toModule.{0} Real
+                (@DivisionSemiring.toSemiring.{0} Real
+                  (@Semifield.toDivisionSemiring.{0} Real
+                    (@Field.toSemifield.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))))
+        (@Matrix.add.{0, 0, 0} (Fin n) (Fin n) Real
+          (@Distrib.toAdd.{0} Real
+            (@instDistribOfSemiring.{0} Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))))
+        (@ContinuousLinearMap.add.{0, 0, 0, 0} Real Real
+          (@DivisionSemiring.toSemiring.{0} Real
+            (@Semifield.toDivisionSemiring.{0} Real
+              (@Field.toSemifield.{0} Real
+                (@NormedField.toField.{0} Real
+                  (@DenselyNormedField.toNormedField.{0} Real
+                    (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+          (@DivisionSemiring.toSemiring.{0} Real
+            (@Semifield.toDivisionSemiring.{0} Real
+              (@Field.toSemifield.{0} Real
+                (@NormedField.toField.{0} Real
+                  (@DenselyNormedField.toNormedField.{0} Real
+                    (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+          (@RingHom.id.{0} Real
+            (@Semiring.toNonAssocSemiring.{0} Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Real (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Real
+              (@PseudoMetricSpace.toUniformSpace.{0} Real
+                (@SeminormedRing.toPseudoMetricSpace.{0} Real
+                  (@SeminormedCommRing.toSeminormedRing.{0} Real
+                    (@NormedCommRing.toSeminormedCommRing.{0} Real
+                      (@NormedField.toNormedCommRing.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Real) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Real (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Real
+              (@PseudoMetricSpace.toUniformSpace.{0} Real
+                (@SeminormedRing.toPseudoMetricSpace.{0} Real
+                  (@SeminormedCommRing.toSeminormedRing.{0} Real
+                    (@NormedCommRing.toSeminormedCommRing.{0} Real
+                      (@NormedField.toNormedCommRing.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Real) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Real ((i : Fin n) → (fun (x : Fin n) => Real) i)
+            (@DivisionSemiring.toSemiring.{0} Real
+              (@Semifield.toDivisionSemiring.{0} Real
+                (@Field.toSemifield.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Real
+                (@DivisionRing.toRing.{0} Real
+                  (@Field.toDivisionRing.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Real Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Real
+                (@Ring.toSemiring.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+              (@Semiring.toModule.{0} Real
+                (@DivisionSemiring.toSemiring.{0} Real
+                  (@Semifield.toDivisionSemiring.{0} Real
+                    (@Field.toSemifield.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Real ((i : Fin n) → (fun (x : Fin n) => Real) i)
+            (@DivisionSemiring.toSemiring.{0} Real
+              (@Semifield.toDivisionSemiring.{0} Real
+                (@Field.toSemifield.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Real
+                (@DivisionRing.toRing.{0} Real
+                  (@Field.toDivisionRing.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Real Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Real
+                (@Ring.toSemiring.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+              (@Semiring.toModule.{0} Real
+                (@DivisionSemiring.toSemiring.{0} Real
+                  (@Semifield.toDivisionSemiring.{0} Real
+                    (@Field.toSemifield.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))))
+          (@NLA.RA08.spectralNorm._proof_1 n))
+        (@Matrix.instMulOfFintypeOfAddCommMonoid.{0, 0} (Fin n) Real (Fin.fintype n)
+          (@Distrib.toMul.{0} Real
+            (@instDistribOfSemiring.{0} Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@Semiring.toAddCommMonoid.{0} Real
+            (@DivisionSemiring.toSemiring.{0} Real
+              (@Semifield.toDivisionSemiring.{0} Real
+                (@Field.toSemifield.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+        (@ContinuousLinearMap.instMul.{0, 0} Real
+          (@DivisionSemiring.toSemiring.{0} Real
+            (@Semifield.toDivisionSemiring.{0} Real
+              (@Field.toSemifield.{0} Real
+                (@NormedField.toField.{0} Real
+                  (@DenselyNormedField.toNormedField.{0} Real
+                    (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+          (EuclideanSpace.{0, 0} Real (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Real
+              (@PseudoMetricSpace.toUniformSpace.{0} Real
+                (@SeminormedRing.toPseudoMetricSpace.{0} Real
+                  (@SeminormedCommRing.toSeminormedRing.{0} Real
+                    (@NormedCommRing.toSeminormedCommRing.{0} Real
+                      (@NormedField.toNormedCommRing.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Real) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Real ((i : Fin n) → (fun (x : Fin n) => Real) i)
+            (@DivisionSemiring.toSemiring.{0} Real
+              (@Semifield.toDivisionSemiring.{0} Real
+                (@Field.toSemifield.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Real
+                (@DivisionRing.toRing.{0} Real
+                  (@Field.toDivisionRing.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Real Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Real
+                (@Ring.toSemiring.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+              (@Semiring.toModule.{0} Real
+                (@DivisionSemiring.toSemiring.{0} Real
+                  (@Semifield.toDivisionSemiring.{0} Real
+                    (@Field.toSemifield.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))))
+        (@Matrix.smul.{0, 0, 0, 0} (Fin n) (Fin n) Real Real
+          (@instSMulOfMul.{0} Real
+            (@Distrib.toMul.{0} Real
+              (@instDistribOfSemiring.{0} Real
+                (@DivisionSemiring.toSemiring.{0} Real
+                  (@Semifield.toDivisionSemiring.{0} Real
+                    (@Field.toSemifield.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))))
+        (@ContinuousLinearMap.instSMul.{0, 0, 0, 0, 0} Real Real
+          (@DivisionSemiring.toSemiring.{0} Real
+            (@Semifield.toDivisionSemiring.{0} Real
+              (@Field.toSemifield.{0} Real
+                (@NormedField.toField.{0} Real
+                  (@DenselyNormedField.toNormedField.{0} Real
+                    (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+          (@DivisionSemiring.toSemiring.{0} Real
+            (@Semifield.toDivisionSemiring.{0} Real
+              (@Field.toSemifield.{0} Real
+                (@NormedField.toField.{0} Real
+                  (@DenselyNormedField.toNormedField.{0} Real
+                    (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+          (@RingHom.id.{0} Real
+            (@Semiring.toNonAssocSemiring.{0} Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Real (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Real
+              (@PseudoMetricSpace.toUniformSpace.{0} Real
+                (@SeminormedRing.toPseudoMetricSpace.{0} Real
+                  (@SeminormedCommRing.toSeminormedRing.{0} Real
+                    (@NormedCommRing.toSeminormedCommRing.{0} Real
+                      (@NormedField.toNormedCommRing.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Real) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (EuclideanSpace.{0, 0} Real (Fin n))
+          (@PiLp.topologicalSpace.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+            @UniformSpace.toTopologicalSpace.{0} Real
+              (@PseudoMetricSpace.toUniformSpace.{0} Real
+                (@SeminormedRing.toPseudoMetricSpace.{0} Real
+                  (@SeminormedCommRing.toSeminormedRing.{0} Real
+                    (@NormedCommRing.toSeminormedCommRing.{0} Real
+                      (@NormedField.toNormedCommRing.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@AddCommGroup.toAddCommMonoid.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+            (@WithLp.instAddCommGroup.{0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              ((i : Fin n) → (fun (x : Fin n) => Real) i)
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Real ((i : Fin n) → (fun (x : Fin n) => Real) i)
+            (@DivisionSemiring.toSemiring.{0} Real
+              (@Semifield.toDivisionSemiring.{0} Real
+                (@Field.toSemifield.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Real
+                (@DivisionRing.toRing.{0} Real
+                  (@Field.toDivisionRing.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Real Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Real
+                (@Ring.toSemiring.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+              (@Semiring.toModule.{0} Real
+                (@DivisionSemiring.toSemiring.{0} Real
+                  (@Semifield.toDivisionSemiring.{0} Real
+                    (@Field.toSemifield.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))))
+          (@WithLp.instModule.{0, 0}
+            (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                  (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                PiLp.innerProductSpace._proof_1))
+            Real ((i : Fin n) → (fun (x : Fin n) => Real) i)
+            (@DivisionSemiring.toSemiring.{0} Real
+              (@Semifield.toDivisionSemiring.{0} Real
+                (@Field.toSemifield.{0} Real
+                  (@NormedField.toField.{0} Real
+                    (@DenselyNormedField.toNormedField.{0} Real
+                      (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+              @Ring.toAddCommGroup.{0} Real
+                (@DivisionRing.toRing.{0} Real
+                  (@Field.toDivisionRing.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+            (@Pi.Function.module.{0, 0, 0} (Fin n) Real Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+              (@Semiring.toAddCommMonoid.{0} Real
+                (@Ring.toSemiring.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+              (@Semiring.toModule.{0} Real
+                (@DivisionSemiring.toSemiring.{0} Real
+                  (@Semifield.toDivisionSemiring.{0} Real
+                    (@Field.toSemifield.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))))
+          Real
+          (@DistribMulAction.toDistribSMul.{0, 0} Real (EuclideanSpace.{0, 0} Real (Fin n))
+            (@Semiring.toMonoid.{0} Real
+              (@DivisionSemiring.toSemiring.{0} Real
+                (@Semifield.toDivisionSemiring.{0} Real
+                  (@Field.toSemifield.{0} Real
+                    (@NormedField.toField.{0} Real
+                      (@DenselyNormedField.toNormedField.{0} Real
+                        (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+            (@SubNegMonoid.toAddMonoid.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+              (@AddGroup.toSubNegMonoid.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+                (@AddCommGroup.toAddGroup.{0} (EuclideanSpace.{0, 0} Real (Fin n))
+                  (@WithLp.instAddCommGroup.{0}
+                    (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                      (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                        (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                          (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                        PiLp.innerProductSpace._proof_1))
+                    ((i : Fin n) → (fun (x : Fin n) => Real) i)
+                    (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+                      @Ring.toAddCommGroup.{0} Real
+                        (@DivisionRing.toRing.{0} Real
+                          (@Field.toDivisionRing.{0} Real
+                            (@NormedField.toField.{0} Real
+                              (@DenselyNormedField.toNormedField.{0} Real
+                                (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))))))
+            (@WithLp.instDistribMulAction.{0, 0}
+              (@OfNat.ofNat.{0} ENNReal (nat_lit 2)
+                (@instOfNatAtLeastTwo.{0} ENNReal (nat_lit 2)
+                  (@AddMonoidWithOne.toNatCast.{0} ENNReal
+                    (@AddCommMonoidWithOne.toAddMonoidWithOne.{0} ENNReal ENNReal.instAddCommMonoidWithOne))
+                  PiLp.innerProductSpace._proof_1))
+              Real ((i : Fin n) → (fun (x : Fin n) => Real) i)
+              (@Semiring.toMonoid.{0} Real
+                (@DivisionSemiring.toSemiring.{0} Real
+                  (@Semifield.toDivisionSemiring.{0} Real
+                    (@Field.toSemifield.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+              (@Pi.addCommGroup.{0, 0} (Fin n) (fun (x : Fin n) => Real) fun (i : Fin n) =>
+                @Ring.toAddCommGroup.{0} Real
+                  (@DivisionRing.toRing.{0} Real
+                    (@Field.toDivisionRing.{0} Real
+                      (@NormedField.toField.{0} Real
+                        (@DenselyNormedField.toNormedField.{0} Real
+                          (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike))))))
+              (@Pi.distribMulAction.{0, 0, 0} (Fin n) (fun (x : Fin n) => Real) Real
+                (@Semiring.toMonoid.{0} Real
+                  (@DivisionSemiring.toSemiring.{0} Real
+                    (@Semifield.toDivisionSemiring.{0} Real
+                      (@Field.toSemifield.{0} Real
+                        (@NormedField.toField.{0} Real
+                          (@DenselyNormedField.toNormedField.{0} Real
+                            (@RCLike.toDenselyNormedField.{0} Real Real.instRCLike)))))))
+                (fun (i : ⋯) => @SubNegMonoid.toAddMonoid.{0} ((fun (x : ⋯) => ⋯) ⋯) ⋯) ⋯)))
+          ⋯ ⋯)
+        ⋯ ⋯)
+      ⋯ ⋯)
+def NLA.RA08.ConcaveSpectralTransferConjecture : Prop :=
+∀ (n : Nat),
+  @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) n →
+    ∀ (k : Nat),
+      @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) k →
+        @LT.lt.{0} Nat instLTNat k n →
+          ∀ (A Ahat : NLA.RA08.RealMatrix n),
+            @Matrix.PosSemidef.{0, 0} (Fin n) Real Real.instRing Real.partialOrder instStarRingReal A →
+              @Matrix.PosSemidef.{0, 0} (Fin n) Real Real.instRing Real.partialOrder instStarRingReal Ahat →
+                @LE.le.{0} (NLA.RA08.RealMatrix n)
+                    (@Preorder.toLE.{0} (NLA.RA08.RealMatrix n)
+                      (@Matrix.instPreOrder.{0, 0} Real (Fin n) Real.instRCLike))
+                    Ahat A →
+                  ∀ (f : Real → Real),
+                    NLA.RA08.AdmissibleFunction f →
+                      ∀ (dA : @NLA.RA08.OrderedSpectralData n A) (dAhat : @NLA.RA08.OrderedSpectralData n Ahat)
+                        (ε : Real),
+                        @LE.le.{0} Real Real.instLE
+                            (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) ε →
+                          @LE.le.{0} Real Real.instLE
+                              (@NLA.RA08.spectralNorm n
+                                (@HSub.hSub.{0, 0, 0} (NLA.RA08.RealMatrix n) (NLA.RA08.RealMatrix n)
+                                  (NLA.RA08.RealMatrix n)
+                                  (@instHSub.{0} (NLA.RA08.RealMatrix n)
+                                    (@Matrix.sub.{0, 0, 0} (Fin n) (Fin n) Real Real.instSub))
+                                  A (@NLA.RA08.truncation n Ahat dAhat k)))
+                              (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+                                (@HAdd.hAdd.{0, 0, 0} Real Real Real (@instHAdd.{0} Real Real.instAdd)
+                                  (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)) ε)
+                                (@NLA.RA08.spectralNorm n
+                                  (@HSub.hSub.{0, 0, 0} (NLA.RA08.RealMatrix n) (NLA.RA08.RealMatrix n)
+                                    (NLA.RA08.RealMatrix n)
+                                    (@instHSub.{0} (NLA.RA08.RealMatrix n)
+                                      (@Matrix.sub.{0, 0, 0} (Fin n) (Fin n) Real Real.instSub))
+                                    A (@NLA.RA08.truncation n A dA k)))) →
+                            @LE.le.{0} Real Real.instLE
+                              (@NLA.RA08.spectralNorm n
+                                (@HSub.hSub.{0, 0, 0} (NLA.RA08.RealMatrix n) (NLA.RA08.RealMatrix n)
+                                  (NLA.RA08.RealMatrix n)
+                                  (@instHSub.{0} (NLA.RA08.RealMatrix n)
+                                    (@Matrix.sub.{0, 0, 0} (Fin n) (Fin n) Real Real.instSub))
+                                  (@NLA.RA08.functionalCalculus n f A) (@NLA.RA08.functionTruncation n Ahat dAhat f k)))
+                              (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+                                (@HAdd.hAdd.{0, 0, 0} Real Real Real (@instHAdd.{0} Real Real.instAdd)
+                                  (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)) ε)
+                                (@NLA.RA08.spectralNorm n
+                                  (@HSub.hSub.{0, 0, 0} (NLA.RA08.RealMatrix n) (NLA.RA08.RealMatrix n)
+                                    (NLA.RA08.RealMatrix n)
+                                    (@instHSub.{0} (NLA.RA08.RealMatrix n)
+                                      (@Matrix.sub.{0, 0, 0} (Fin n) (Fin n) Real Real.instSub))
+                                    (@NLA.RA08.functionalCalculus n f A) (@NLA.RA08.functionTruncation n A dA f k))))
+theorem NLA.RA08.spectral_tail_norms : ∀ {n : Nat} {A : NLA.RA08.RealMatrix n} (d : @NLA.RA08.OrderedSpectralData n A)
+  (k : Nat) (hk : @LT.lt.{0} Nat instLTNat k n) (f : Real → Real) (hf : NLA.RA08.AdmissibleFunction f),
+  And
+    (@Eq.{1} Real
+      (@NLA.RA08.spectralNorm n
+        (@HSub.hSub.{0, 0, 0} (NLA.RA08.RealMatrix n) (NLA.RA08.RealMatrix n) (NLA.RA08.RealMatrix n)
+          (@instHSub.{0} (NLA.RA08.RealMatrix n) (@Matrix.sub.{0, 0, 0} (Fin n) (Fin n) Real Real.instSub)) A
+          (@NLA.RA08.truncation n A d k)))
+      (@NLA.RA08.OrderedSpectralData.eigenvalues n A d (@Fin.mk n k hk)))
+    (@Eq.{1} Real
+      (@NLA.RA08.spectralNorm n
+        (@HSub.hSub.{0, 0, 0} (NLA.RA08.RealMatrix n) (NLA.RA08.RealMatrix n) (NLA.RA08.RealMatrix n)
+          (@instHSub.{0} (NLA.RA08.RealMatrix n) (@Matrix.sub.{0, 0, 0} (Fin n) (Fin n) Real Real.instSub))
+          (@NLA.RA08.functionalCalculus n f A) (@NLA.RA08.functionTruncation n A d f k)))
+      (f (@NLA.RA08.OrderedSpectralData.eigenvalues n A d (@Fin.mk n k hk)))) :=
+fun {n : Nat} {A : NLA.RA08.RealMatrix n} (d : @NLA.RA08.OrderedSpectralData n A) (k : Nat)
+    (hk : @LT.lt.{0} Nat instLTNat k n) (f : Real → Real) (hf : NLA.RA08.AdmissibleFunction f) =>
+  sorryAx.{0}
+    (∀ (tag : Lean.Name),
+      And
+        (@Eq.{1} Real
+          (@NLA.RA08.spectralNorm n
+            (@HSub.hSub.{0, 0, 0} (NLA.RA08.RealMatrix n) (NLA.RA08.RealMatrix n) (NLA.RA08.RealMatrix n)
+              (@instHSub.{0} (NLA.RA08.RealMatrix n) (@Matrix.sub.{0, 0, 0} (Fin n) (Fin n) Real Real.instSub)) A
+              (@NLA.RA08.truncation n A d k)))
+          (@NLA.RA08.OrderedSpectralData.eigenvalues n A d (@Fin.mk n k hk)))
+        (@Eq.{1} Real
+          (@NLA.RA08.spectralNorm n
+            (@HSub.hSub.{0, 0, 0} (NLA.RA08.RealMatrix n) (NLA.RA08.RealMatrix n) (NLA.RA08.RealMatrix n)
+              (@instHSub.{0} (NLA.RA08.RealMatrix n) (@Matrix.sub.{0, 0, 0} (Fin n) (Fin n) Real Real.instSub))
+              (@NLA.RA08.functionalCalculus n f A) (@NLA.RA08.functionTruncation n A d f k)))
+          (f (@NLA.RA08.OrderedSpectralData.eigenvalues n A d (@Fin.mk n k hk)))))
+    Bool.false
+    (Lean.Name.num
+      (Lean.Name.str
+        (Lean.Name.str
+          (Lean.Name.num
+            (Lean.Name.str
+              (Lean.Name.str
+                (Lean.Name.str
+                  (Lean.Name.num
+                    (Lean.Name.num
+                      (Lean.Name.num
+                        (Lean.Name.num
+                          (Lean.Name.num
+                            (Lean.Name.num (Lean.Name.str Lean.Name.anonymous "Challenge")
+                              (@OfNat.ofNat.{0} Nat (nat_lit 51) (instOfNatNat (nat_lit 51))))
+                            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                          (@OfNat.ofNat.{0} Nat (nat_lit 51) (instOfNatNat (nat_lit 51))))
+                        (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7))))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7))))
+                  "_sorry")
+                "_@")
+              "Challenge")
+            (@OfNat.ofNat.{0} Nat (nat_lit 3806823512) (instOfNatNat (nat_lit 3806823512))))
+          "_hygCtx")
+        "_hyg")
+      (@OfNat.ofNat.{0} Nat (nat_lit 77) (instOfNatNat (nat_lit 77))))
+theorem NLA.RA08.minorant_functional_calculus : And
+  (@Eq.{1} (NLA.RA08.RealMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+    (@NLA.RA08.functionalCalculus (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))
+      NLA.RA08.minorantFunction NLA.RA08.witnessMatrix)
+    (@NLA.RA08.minorantMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))) NLA.RA08.witnessMatrix))
+  (@LE.le.{0} (NLA.RA08.RealMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+    (@Preorder.toLE.{0} (NLA.RA08.RealMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+      (@Matrix.instPreOrder.{0, 0} Real (Fin (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+        Real.instRCLike))
+    (@NLA.RA08.minorantMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))) NLA.RA08.witnessMatrix)
+    (@NLA.RA08.functionalCalculus (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))) NLA.RA08.witnessFunction
+      NLA.RA08.witnessMatrix)) :=
+sorryAx.{0}
+  (∀ (tag : Lean.Name),
+    And
+      (@Eq.{1} (NLA.RA08.RealMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+        (@NLA.RA08.functionalCalculus (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))
+          NLA.RA08.minorantFunction NLA.RA08.witnessMatrix)
+        (@NLA.RA08.minorantMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))) NLA.RA08.witnessMatrix))
+      (@LE.le.{0} (NLA.RA08.RealMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+        (@Preorder.toLE.{0} (NLA.RA08.RealMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+          (@Matrix.instPreOrder.{0, 0} Real (Fin (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+            Real.instRCLike))
+        (@NLA.RA08.minorantMatrix (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))) NLA.RA08.witnessMatrix)
+        (@NLA.RA08.functionalCalculus (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))
+          NLA.RA08.witnessFunction NLA.RA08.witnessMatrix)))
+  Bool.false
+  (Lean.Name.num
+    (Lean.Name.str
+      (Lean.Name.str
+        (Lean.Name.num
+          (Lean.Name.str
+            (Lean.Name.str
+              (Lean.Name.str
+                (Lean.Name.num
+                  (Lean.Name.num
+                    (Lean.Name.num
+                      (Lean.Name.num
+                        (Lean.Name.num
+                          (Lean.Name.num (Lean.Name.str Lean.Name.anonymous "Challenge")
+                            (@OfNat.ofNat.{0} Nat (nat_lit 87) (instOfNatNat (nat_lit 87))))
+                          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                        (@OfNat.ofNat.{0} Nat (nat_lit 87) (instOfNatNat (nat_lit 87))))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7))))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7))))
+                "_sorry")
+              "_@")
+            "Challenge")
+          (@OfNat.ofNat.{0} Nat (nat_lit 2034236600) (instOfNatNat (nat_lit 2034236600))))
+        "_hygCtx")
+      "_hyg")
+    (@OfNat.ofNat.{0} Nat (nat_lit 27) (instOfNatNat (nat_lit 27))))
+NLA.RA08.orderedSpectral_exists {n : ℕ} (A : NLA.RA08.RealMatrix n) (hA : Matrix.PosSemidef.{0, 0} A) :
+  Nonempty.{1} (NLA.RA08.OrderedSpectralData A)
+NLA.RA08.orderedSpectral_semantics {n : ℕ} {A : NLA.RA08.RealMatrix n} (d : NLA.RA08.OrderedSpectralData A) :
+  Matrix.PosSemidef.{0, 0} A ∧
+    Eq.{1} (NLA.RA08.spectralCombination d d.eigenvalues) A ∧
+      (∀ (i j : Fin n),
+          Eq.{1} (dotProduct.{0, 0} (fun r => ↑d.orthogonal r i) fun r => ↑d.orthogonal r j)
+            (ite.{1} (Eq.{1} i j) 1 0)) ∧
+        ∀ (i : Fin n),
+          Eq.{1} (Matrix.mulVec.{0, 0, 0} A fun r => ↑d.orthogonal r i)
+            (HSMul.hSMul.{0, 0, 0} (d.eigenvalues i) fun r => ↑d.orthogonal r i)
+NLA.RA08.functionalCalculus_spectral {n : ℕ} {A : NLA.RA08.RealMatrix n} (d : NLA.RA08.OrderedSpectralData A)
+  (f : ℝ → ℝ) :
+  Eq.{1} (NLA.RA08.functionalCalculus f A) (NLA.RA08.spectralCombination d fun i => f (d.eigenvalues i)) ∧
+    ∀ (g : ℝ → ℝ),
+      Set.EqOn.{0, 0} f g (Set.Ici.{0} 0) → Eq.{1} (NLA.RA08.functionalCalculus f A) (NLA.RA08.functionalCalculus g A)
+NLA.RA08.spectral_tail_norms {n : ℕ} {A : NLA.RA08.RealMatrix n} (d : NLA.RA08.OrderedSpectralData A) (k : ℕ)
+  (hk : LT.lt.{0} k n) (f : ℝ → ℝ) (hf : NLA.RA08.AdmissibleFunction f) :
+  Eq.{1} (NLA.RA08.spectralNorm (HSub.hSub.{0, 0, 0} A (NLA.RA08.truncation d k))) (d.eigenvalues ⟨k, hk⟩) ∧
+    Eq.{1}
+      (NLA.RA08.spectralNorm
+        (HSub.hSub.{0, 0, 0} (NLA.RA08.functionalCalculus f A) (NLA.RA08.functionTruncation d f k)))
+      (f (d.eigenvalues ⟨k, hk⟩))
+NLA.RA08.operator_rayleigh_bound {n : ℕ} (A : NLA.RA08.RealMatrix n) (x : Fin n → ℝ) :
+  LE.le.{0} (abs.{0} (dotProduct.{0, 0} x (Matrix.mulVec.{0, 0, 0} A x)))
+    (HMul.hMul.{0, 0, 0} (NLA.RA08.spectralNorm A) (dotProduct.{0, 0} x x))
+NLA.RA08.witness_data :
+  NLA.RA08.AdmissibleFunction NLA.RA08.witnessFunction ∧
+    Eq.{1} (NLA.RA08.witnessFunction 0) 0 ∧
+      LT.lt.{0} 0 NLA.RA08.witnessT ∧
+        LT.lt.{0} (HAdd.hAdd.{0, 0, 0} NLA.RA08.witnessB NLA.RA08.witnessT) 1 ∧
+          Eq.{1} (HMul.hMul.{0, 0, 0} (Matrix.transpose.{0, 0, 0} NLA.RA08.witnessU) NLA.RA08.witnessU) 1 ∧
+            Eq.{1} (HPow.hPow.{0, 0, 0} NLA.RA08.witnessF 2) NLA.RA08.witnessF ∧
+              Matrix.PosSemidef.{0, 0} NLA.RA08.witnessF ∧
+                Matrix.PosSemidef.{0, 0} (HSub.hSub.{0, 0, 0} 1 NLA.RA08.witnessF) ∧
+                  Matrix.PosSemidef.{0, 0} NLA.RA08.witnessApproximation ∧
+                    Matrix.PosDef.{0, 0} NLA.RA08.witnessMatrix ∧
+                      LE.le.{0} NLA.RA08.witnessApproximation NLA.RA08.witnessMatrix
+NLA.RA08.witness_spectral_location :
+  spectrum.{0, 0} ℝ NLA.RA08.witnessMatrix ⊆ Union.union.{0} (Set.Icc.{0} 0 1) (Set.Ici.{0} NLA.RA08.witnessA)
+NLA.RA08.minorant_scalar (x : ℝ) (hx : LE.le.{0} 0 x) (hgap : LE.le.{0} x 1 ∨ LE.le.{0} NLA.RA08.witnessA x) :
+  LE.le.{0} (NLA.RA08.minorantFunction x) (NLA.RA08.witnessFunction x)
+NLA.RA08.minorant_functional_calculus :
+  Eq.{1} (NLA.RA08.functionalCalculus NLA.RA08.minorantFunction NLA.RA08.witnessMatrix)
+      (NLA.RA08.minorantMatrix NLA.RA08.witnessMatrix) ∧
+    LE.le.{0} (NLA.RA08.minorantMatrix NLA.RA08.witnessMatrix)
+      (NLA.RA08.functionalCalculus NLA.RA08.witnessFunction NLA.RA08.witnessMatrix)
+NLA.RA08.witness_tail_data (dA : NLA.RA08.OrderedSpectralData NLA.RA08.witnessMatrix)
+  (dAhat : NLA.RA08.OrderedSpectralData NLA.RA08.witnessApproximation) :
+  Eq.{1} (NLA.RA08.spectralNorm (HSub.hSub.{0, 0, 0} NLA.RA08.witnessMatrix NLA.RA08.witnessApproximation))
+      NLA.RA08.witnessT ∧
+    Eq.{1} (dA.eigenvalues 3) NLA.RA08.witnessT ∧
+      Eq.{1} (NLA.RA08.truncation dAhat 3) NLA.RA08.witnessApproximation ∧
+        Eq.{1} (NLA.RA08.functionTruncation dAhat NLA.RA08.witnessFunction 3)
+            (NLA.RA08.functionalCalculus NLA.RA08.witnessFunction NLA.RA08.witnessApproximation) ∧
+          Eq.{1} (NLA.RA08.spectralNorm (HSub.hSub.{0, 0, 0} NLA.RA08.witnessMatrix (NLA.RA08.truncation dA 3)))
+              NLA.RA08.witnessT ∧
+            Eq.{1}
+              (NLA.RA08.spectralNorm
+                (HSub.hSub.{0, 0, 0} (NLA.RA08.functionalCalculus NLA.RA08.witnessFunction NLA.RA08.witnessMatrix)
+                  (NLA.RA08.functionTruncation dA NLA.RA08.witnessFunction 3)))
+              NLA.RA08.witnessT
+NLA.RA08.witness_rational_certificate :
+  Eq.{1} (dotProduct.{0, 0} NLA.RA08.witnessVector NLA.RA08.witnessVector) 26 ∧
+    Eq.{1} (dotProduct.{0, 0} NLA.RA08.witnessVector (Matrix.mulVec.{0, 0, 0} NLA.RA08.witnessF NLA.RA08.witnessVector))
+        (14912 / 585) ∧
+      Eq.{1} (Matrix.mulVec.{0, 0, 0} (NLA.RA08.matrixK NLA.RA08.witnessMatrix) NLA.RA08.witnessVector)
+          NLA.RA08.witnessKVector ∧
+        Eq.{1} (dotProduct.{0, 0} NLA.RA08.witnessKVector NLA.RA08.witnessKVector)
+            (1800760572753083906132034496291 / 1019907849866242673982515970048000) ∧
+          Eq.{1} (NLA.RA08.functionalCalculus NLA.RA08.witnessFunction NLA.RA08.witnessApproximation)
+              NLA.RA08.witnessApproximationImage ∧
+            Eq.{1}
+              (dotProduct.{0, 0} NLA.RA08.witnessVector
+                (Matrix.mulVec.{0, 0, 0}
+                  (HSub.hSub.{0, 0, 0} (NLA.RA08.minorantMatrix NLA.RA08.witnessMatrix)
+                    (NLA.RA08.functionalCalculus NLA.RA08.witnessFunction NLA.RA08.witnessApproximation))
+                  NLA.RA08.witnessVector))
+              (HMul.hMul.{0, 0, 0} (HMul.hMul.{0, 0, 0} 26 NLA.RA08.witnessT)
+                (HAdd.hAdd.{0, 0, 0} 1 NLA.RA08.witnessGap))
+NLA.RA08.numerical_gap_positive : LT.lt.{0} 0 NLA.RA08.witnessGap
+NLA.RA08.counterexample (dA : NLA.RA08.OrderedSpectralData NLA.RA08.witnessMatrix)
+  (dAhat : NLA.RA08.OrderedSpectralData NLA.RA08.witnessApproximation) :
+  LE.le.{0} (NLA.RA08.spectralNorm (HSub.hSub.{0, 0, 0} NLA.RA08.witnessMatrix (NLA.RA08.truncation dAhat 3)))
+      (NLA.RA08.spectralNorm (HSub.hSub.{0, 0, 0} NLA.RA08.witnessMatrix (NLA.RA08.truncation dA 3))) ∧
+    ¬LE.le.{0}
+        (NLA.RA08.spectralNorm
+          (HSub.hSub.{0, 0, 0} (NLA.RA08.functionalCalculus NLA.RA08.witnessFunction NLA.RA08.witnessMatrix)
+            (NLA.RA08.functionTruncation dAhat NLA.RA08.witnessFunction 3)))
+        (NLA.RA08.spectralNorm
+          (HSub.hSub.{0, 0, 0} (NLA.RA08.functionalCalculus NLA.RA08.witnessFunction NLA.RA08.witnessMatrix)
+            (NLA.RA08.functionTruncation dA NLA.RA08.witnessFunction 3)))
+NLA.RA08.not_concaveSpectralTransferConjecture : ¬NLA.RA08.ConcaveSpectralTransferConjecture
+Matrix.IsHermitian.eigenvalues₀_antitone.{u_1, u_2} {𝕜 : Type u_1} [RCLike.{u_1} 𝕜] {n : Type u_2} [Fintype.{u_2} n]
+  {A : Matrix.{u_2, u_2, u_1} n n 𝕜} [DecidableEq.{u_2 + 1} n] (hA : Matrix.IsHermitian.{u_1, u_2} A) :
+  Antitone.{0, 0} (Matrix.IsHermitian.eigenvalues₀.{u_1, u_2} hA)
+Matrix.IsHermitian.eigenvectorUnitary.{u_3, u_4} {𝕜 : Type u_3} [RCLike.{u_3} 𝕜] {n : Type u_4} [Fintype.{u_4} n]
+  {A : Matrix.{u_4, u_4, u_3} n n 𝕜} [DecidableEq.{u_4 + 1} n] (hA : Matrix.IsHermitian.{u_3, u_4} A) :
+  ↥(Matrix.unitaryGroup.{u_4, u_3} n 𝕜)
+Matrix.IsHermitian.spectral_theorem.{u_1, u_2} {𝕜 : Type u_1} [RCLike.{u_1} 𝕜] {n : Type u_2} [Fintype.{u_2} n]
+  {A : Matrix.{u_2, u_2, u_1} n n 𝕜} [DecidableEq.{u_2 + 1} n] (hA : Matrix.IsHermitian.{u_1, u_2} A) :
+  Eq.{max (u_1 + 1) (u_2 + 1)} A
+    (((Unitary.conjStarAlgAut.{u_1, max u_1 u_2} 𝕜 (Matrix.{u_2, u_2, u_1} n n 𝕜))
+        (Matrix.IsHermitian.eigenvectorUnitary.{u_1, u_2} hA))
+      (Matrix.diagonal.{u_1, u_2}
+        (Function.comp.{u_2 + 1, 1, u_1 + 1} RCLike.ofReal.{u_1} (Matrix.IsHermitian.eigenvalues.{u_1, u_2} hA))))
+Matrix.IsHermitian.cfc_eq.{u_1, u_2} {n : Type u_1} {𝕜 : Type u_2} [RCLike.{u_2} 𝕜] [Fintype.{u_1} n]
+  [DecidableEq.{u_1 + 1} n] {A : Matrix.{u_1, u_1, u_2} n n 𝕜} (hA : Matrix.IsHermitian.{u_2, u_1} A) (f : ℝ → ℝ) :
+  Eq.{max (u_1 + 1) (u_2 + 1)} (cfc.{0, max u_1 u_2} f A) (Matrix.IsHermitian.cfc.{u_1, u_2} hA f)
+Matrix.IsHermitian.spectrum_real_eq_range_eigenvalues.{u_1, u_2} {𝕜 : Type u_1} [RCLike.{u_1} 𝕜] {n : Type u_2}
+  [Fintype.{u_2} n] {A : Matrix.{u_2, u_2, u_1} n n 𝕜} [DecidableEq.{u_2 + 1} n]
+  (hA : Matrix.IsHermitian.{u_1, u_2} A) :
+  Eq.{1} (spectrum.{0, max u_1 u_2} ℝ A) (Set.range.{0, u_2 + 1} (Matrix.IsHermitian.eigenvalues.{u_1, u_2} hA))
+cfc_mono.{u_1, u_2} {R : Type u_1} {A : Type u_2} {p : A → Prop} [CommSemiring.{u_1} R] [PartialOrder.{u_1} R]
+  [StarRing.{u_1} R] [MetricSpace.{u_1} R] [IsTopologicalSemiring.{u_1} R] [ContinuousStar.{u_1} R]
+  [ContinuousSqrt.{u_1} R] [StarOrderedRing.{u_1} R] [TopologicalSpace.{u_2} A] [Ring.{u_2} A] [StarRing.{u_2} A]
+  [PartialOrder.{u_2} A] [StarOrderedRing.{u_2} A] [Algebra.{u_1, u_2} R A]
+  [instCFC : ContinuousFunctionalCalculus.{u_1, u_2} R A p] {f g : R → R} {a : A}
+  (h : ∀ (x : R), Membership.mem.{u_1, u_1} (spectrum.{u_1, u_2} R a) x → LE.le.{u_1} (f x) (g x))
+  (hf : ContinuousOn.{u_1, u_1} f (spectrum.{u_1, u_2} R a) := by cfc_cont_tac)
+  (hg : ContinuousOn.{u_1, u_1} g (spectrum.{u_1, u_2} R a) := by cfc_cont_tac) :
+  LE.le.{u_2} (cfc.{u_1, u_2} f a) (cfc.{u_1, u_2} g a)
+cfc_polynomial.{u_1, u_2} {R : Type u_1} {A : Type u_2} {p : A → Prop} [CommSemiring.{u_1} R] [StarRing.{u_1} R]
+  [MetricSpace.{u_1} R] [IsTopologicalSemiring.{u_1} R] [ContinuousStar.{u_1} R] [TopologicalSpace.{u_2} A]
+  [Ring.{u_2} A] [StarRing.{u_2} A] [Algebra.{u_1, u_2} R A] [instCFC : ContinuousFunctionalCalculus.{u_1, u_2} R A p]
+  (q : Polynomial.{u_1} R) (a : A) (ha : p a := by cfc_tac) :
+  Eq.{u_2 + 1} (cfc.{u_1, u_2} (fun x => Polynomial.eval.{u_1} x q) a) ((Polynomial.aeval.{u_1, u_2} a) q)
+Matrix.PosSemidef.dotProduct_mulVec_zero_iff.{u_1, u_2} {𝕜 : Type u_1} {n : Type u_2} [RCLike.{u_1} 𝕜] [Fintype.{u_2} n]
+  {A : Matrix.{u_2, u_2, u_1} n n 𝕜} (hA : Matrix.PosSemidef.{u_2, u_1} A) (x : n → 𝕜) :
+  Eq.{u_1 + 1} (dotProduct.{u_1, u_2} (star.{max u_2 u_1} x) (Matrix.mulVec.{u_1, u_2, u_2} A x)) 0 ↔
+    Eq.{max (u_1 + 1) (u_2 + 1)} (Matrix.mulVec.{u_1, u_2, u_2} A x) 0
+'NLA.RA08.spectralNorm' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.RA08.AdmissibleFunction' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.RA08.ConcaveSpectralTransferConjecture' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.RA08.functionalCalculus' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.RA08.witnessMatrix' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'NLA.RA08.witnessGap' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]

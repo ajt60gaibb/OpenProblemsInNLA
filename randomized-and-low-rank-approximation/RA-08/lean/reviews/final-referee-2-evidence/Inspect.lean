@@ -1,0 +1,182 @@
+/- Independent final mathematical referee 2: /root/mf16_final_referee.
+No RA-08 statement or implementation contribution. This diagnostic is not imported
+by the solution. Generic environment traversal is adapted from my MF-16 review;
+requirements were chosen after reading the complete original RA-08 target and proof. -/
+import Solution
+import Lean.Util.FoldConsts
+
+open Lean Elab Command in
+run_cmd do
+  let env ← getEnv
+  let exports := [``NLA.RA08.orderedSpectral_exists,
+    ``NLA.RA08.orderedSpectral_semantics,
+    ``NLA.RA08.functionalCalculus_spectral,
+    ``NLA.RA08.spectral_tail_norms,
+    ``NLA.RA08.operator_rayleigh_bound,
+    ``NLA.RA08.witness_data,
+    ``NLA.RA08.witness_spectral_location,
+    ``NLA.RA08.minorant_scalar,
+    ``NLA.RA08.minorant_functional_calculus,
+    ``NLA.RA08.witness_tail_data,
+    ``NLA.RA08.witness_rational_certificate,
+    ``NLA.RA08.numerical_gap_positive,
+    ``NLA.RA08.counterexample,
+    ``NLA.RA08.not_concaveSpectralTransferConjecture]
+  let library := [``LeanCert.Validity.verify_strict_upper_bound_dyadic_checked,
+    ``LeanCert.Engine.checkDomainValidDyadic_correct,
+    ``LeanCert.Engine.evalIntervalDyadic_correct_of_domain]
+  let isProject := fun n : Name => n.toString.startsWith "NLA.RA08." ||
+    n.toString.startsWith "_private.NLA.RA08."
+  for (label, starts) in [("FINAL_TARGET", [``NLA.RA08.not_concaveSpectralTransferConjecture]),
+      ("ALL_EXPORTS", exports)] do
+    let mut pending := starts
+    let mut seen : List Name := []
+    let mut used : List Name := []
+    for _ in [:5000] do
+      match pending with
+      | [] => pure ()
+      | name :: rest =>
+        pending := rest
+        unless seen.contains name do
+          seen := name :: seen
+          let some ci := env.find? name | throwError "Missing retained declaration: {name}"
+          if ci.isUnsafe || ci.isPartial then
+            throwError "Unsafe/partial retained declaration: {name}"
+          for ax in (← liftCoreM <| collectAxioms name) do
+            unless [``propext, ``Classical.choice, ``Quot.sound].contains ax do
+              throwError "Forbidden transitive axiom: {name}: {ax}"
+          let body ← match ci.value? (allowOpaque := true) with
+            | some b => pure b.getUsedConstants.toList
+            | none => match ci with
+              | .inductInfo _ | .ctorInfo _ | .recInfo _ => pure []
+              | _ => throwError "Unexplained bodyless declaration: {name}"
+          let deps := ci.type.getUsedConstants.toList ++ body
+          used := deps ++ used
+          let follow := deps.filter fun n => isProject n || library.contains n
+          logInfo m!"REFEREE_EDGE {label} {name}: {follow}"
+          pending := follow ++ pending
+    unless pending.isEmpty do throwError "Traversal incomplete: {label}"
+    for need in [``NLA.RA08.orderedSpectral_exists_proved,
+    ``NLA.RA08.spectral_tail_norms_proved,
+    ``NLA.RA08.selected_cfc_eq,
+    ``NLA.RA08.spectralCombination_norm,
+    ``NLA.RA08.operator_rayleigh_bound_proved,
+    ``NLA.RA08.rectangular_kernel,
+    ``NLA.RA08.witness_fourth,
+    ``NLA.RA08.approximation_fourth,
+    ``NLA.RA08.front_kernel,
+    ``NLA.RA08.back_kernel,
+    ``NLA.RA08.witness_no_gap_eigenvector,
+    ``NLA.RA08.selected_data_spectrum,
+    ``NLA.RA08.witness_projection_norm,
+    ``NLA.RA08.minorant_scalar_proved,
+    ``NLA.RA08.minorant_shift_identity,
+    ``NLA.RA08.minorant_cfc,
+    ``NLA.RA08.approximation_cfc,
+    ``NLA.RA08.first_product,
+    ``NLA.RA08.second_product,
+    ``NLA.RA08.third_product,
+    ``NLA.RA08.witness_K_squared_quadratic,
+    ``NLA.RA08.witness_minorant_quadratic,
+    ``NLA.RA08.witness_functional_rayleigh_lower,
+    ``NLA.RA08.numerical_gap_positive_proved,
+    ``NLA.RA08.numerical_gap_positive_proved._proof_1_7,
+    ``NLA.RA08.counterexample_proved,
+    ``NLA.RA08.not_concaveSpectralTransferConjecture_proved,
+    ``Matrix.IsHermitian.spectral_theorem,
+    ``Matrix.IsHermitian.eigenvalues₀_antitone,
+    ``cfcHom_eq_of_continuous_of_map_id,
+    ``Matrix.inner_toEuclideanCLM,
+    ``Matrix.l2_opNorm_toEuclideanCLM,
+    ``Matrix.l2_opNorm_diagonal,
+    ``LinearMap.finrank_le_finrank_of_injective,
+    ``Matrix.IsHermitian.spectrum_real_eq_range_eigenvalues,
+    ``Matrix.IsHermitian.mulVec_eigenvectorBasis,
+    ``cfc_polynomial,
+    ``cfc_mono,
+    ``LeanCert.Validity.verify_strict_upper_bound_dyadic_checked,
+    ``LeanCert.Engine.checkDomainValidDyadic_correct,
+    ``LeanCert.Engine.evalIntervalDyadic_correct_of_domain] do
+      unless used.contains need do
+        throwError "Final proof path fails to consume {need} in {label}"
+      logInfo m!"REFEREE_REQUIRED {label}: {need}"
+    logInfo m!"REFEREE_COUNTS {label}: project={(seen.filter isProject).length}, library={(seen.filter (fun n => !isProject n)).length}"
+
+#check NLA.RA08.orderedSpectral_exists
+#check NLA.RA08.orderedSpectral_semantics
+#check NLA.RA08.functionalCalculus_spectral
+#check NLA.RA08.spectral_tail_norms
+#check NLA.RA08.operator_rayleigh_bound
+#check NLA.RA08.witness_data
+#check NLA.RA08.witness_spectral_location
+#check NLA.RA08.minorant_scalar
+#check NLA.RA08.minorant_functional_calculus
+#check NLA.RA08.witness_tail_data
+#check NLA.RA08.witness_rational_certificate
+#check NLA.RA08.numerical_gap_positive
+#check NLA.RA08.counterexample
+#check NLA.RA08.not_concaveSpectralTransferConjecture
+set_option pp.all true in
+#print NLA.RA08.ConcaveSpectralTransferConjecture
+set_option pp.all true in
+#print NLA.RA08.OrderedSpectralData
+set_option pp.all true in
+#print NLA.RA08.AdmissibleFunction
+set_option pp.all true in
+#print NLA.RA08.spectralNorm
+set_option pp.all true in
+#print NLA.RA08.functionalCalculus
+set_option pp.all true in
+#print NLA.RA08.truncation
+set_option pp.all true in
+#print NLA.RA08.functionTruncation
+set_option pp.proofs true in
+#print NLA.RA08.numerical_gap_positive_proved
+set_option pp.proofs true in
+#print NLA.RA08.counterexample_proved
+set_option pp.proofs true in
+#print NLA.RA08.not_concaveSpectralTransferConjecture_proved
+set_option pp.proofs true in
+set_option pp.all true in
+#print NLA.RA08.numerical_gap_positive_proved._proof_1_7
+#assert_trust kernel LeanCert.Validity.verify_strict_upper_bound_dyadic_checked
+#print axioms LeanCert.Validity.verify_strict_upper_bound_dyadic_checked
+#assert_trust kernel LeanCert.Engine.checkDomainValidDyadic_correct
+#print axioms LeanCert.Engine.checkDomainValidDyadic_correct
+#assert_trust kernel LeanCert.Engine.evalIntervalDyadic_correct_of_domain
+#print axioms LeanCert.Engine.evalIntervalDyadic_correct_of_domain
+#print NLA.RA08.witnessT
+#print NLA.RA08.witnessA
+#print NLA.RA08.witnessB
+#print NLA.RA08.witnessU
+#print NLA.RA08.witnessF
+#print NLA.RA08.witnessApproximation
+#print NLA.RA08.witnessMatrix
+#print NLA.RA08.witnessVector
+#print NLA.RA08.minorantCoefficient
+#print NLA.RA08.minorantFunction
+#print NLA.RA08.matrixK
+#print NLA.RA08.minorantMatrix
+#print NLA.RA08.firstProductVector
+#print NLA.RA08.secondProductVector
+#print NLA.RA08.witnessKVector
+#print NLA.RA08.witnessGap
+
+-- This fully expanded consumer checks the conclusion with actual Euclidean norms,
+-- real PSD order and the unrestricted half-line function class. No proof is added
+-- to the candidate and no input premise is supplied here.
+open scoped MatrixOrder in
+example : ¬ (∀ n : ℕ, 2 ≤ n → ∀ k : ℕ, 1 ≤ k → k < n →
+    ∀ A Ahat : Matrix (Fin n) (Fin n) ℝ, A.PosSemidef → Ahat.PosSemidef → Ahat ≤ A →
+      ∀ f : ℝ → ℝ,
+        (ContinuousOn f (Set.Ici 0) ∧ ConcaveOn ℝ (Set.Ici 0) f ∧
+          MonotoneOn f (Set.Ici 0) ∧ ∀ x : ℝ, 0 ≤ x → 0 ≤ f x) →
+        ∀ dA : NLA.RA08.OrderedSpectralData A,
+        ∀ dAhat : NLA.RA08.OrderedSpectralData Ahat,
+        ∀ ε : ℝ, 0 ≤ ε →
+          ‖Matrix.toEuclideanCLM (n := Fin n) (𝕜 := ℝ) (A - NLA.RA08.truncation dAhat k)‖ ≤
+            (1 + ε) * ‖Matrix.toEuclideanCLM (n := Fin n) (𝕜 := ℝ) (A - NLA.RA08.truncation dA k)‖ →
+          ‖Matrix.toEuclideanCLM (n := Fin n) (𝕜 := ℝ) (cfc (R := ℝ) f A - NLA.RA08.functionTruncation dAhat f k)‖ ≤
+            (1 + ε) * ‖Matrix.toEuclideanCLM (n := Fin n) (𝕜 := ℝ)
+              (cfc (R := ℝ) f A - NLA.RA08.functionTruncation dA f k)‖) :=
+  NLA.RA08.not_concaveSpectralTransferConjecture

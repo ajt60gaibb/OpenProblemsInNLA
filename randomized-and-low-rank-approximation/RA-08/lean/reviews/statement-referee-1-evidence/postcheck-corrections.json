@@ -1,0 +1,32 @@
+{
+  "scope": "Audit-script parsing corrections only; no candidate change and no failed fresh Lean compilation.",
+  "observed_failures_and_corrections": [
+    {
+      "snapshot": "seal_checks.initial.py.txt",
+      "failure": "Direct comparison of both complete suffixes after maketitle rejected the authored publication notice and explicit reviewed-body marker comments.",
+      "correction": "Compare the complete authored body between BEGIN/END REVIEWED BODY markers to the reviewed suffix after maketitle, retaining end document and stripping outer whitespace only. Read the authored notice separately."
+    },
+    {
+      "snapshot": "seal_checks.before-warning-parser.py.txt",
+      "failure": "The diagnostic parser expected single quotes around sorry; Lean printed backticks.",
+      "correction": "Match the actual fourteen backtick-form warnings."
+    },
+    {
+      "snapshot": "seal_checks.before-universe-parser.py.txt",
+      "failure": "The exact axiom string comparison omitted the pp.universes suffixes on Classical.choice and Quot.sound.",
+      "correction": "Remove only printed universe suffixes before comparing exact standard-three names; retain raw lines."
+    },
+    {
+      "snapshot": "seal_checks.before-instance-parser.py.txt",
+      "failure": "The EuclideanSpace semantic substring omitted its pp.universes suffix.",
+      "correction": "Normalize only printed universe suffixes for the substring check."
+    },
+    {
+      "snapshot": "seal_checks.before-rubric-receipt.py.txt",
+      "failure": "The audit initially treated retained Tau Ceti source files as a local Git clone; no Git repository is present there.",
+      "correction": "Hash actual rubric bytes into Git blob IDs and compare all twelve against retained commit/tree receipts. Disclose retained-snapshot provenance and no fresh network request."
+    }
+  ],
+  "fresh_source_result": "Definitions, Challenge and Inspect all passed on their first independent fresh compilation.",
+  "candidate_integrity": "All 39 frozen project inputs and ten original Git source files remained byte-identical."
+}
