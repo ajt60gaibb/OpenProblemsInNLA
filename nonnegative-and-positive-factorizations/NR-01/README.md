@@ -9,7 +9,7 @@
 **Rating rationale:** Challenging because matching lower bounds must hold for every polygon size despite an explicit upper construction; community importance connects structured NMF with optimal linear extended formulations.  
 **Status:** Partially resolved  
 **Area:** structured nonnegative matrix factorization  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-13
 
 ## Context and notation
 
@@ -61,3 +61,33 @@ SIAM, 2020, §3.6.3.4, p. 90.
 
 Rechecked [Baeckelant–Vandaele–Gillis v2, Appendix A.2, Table 7](https://arxiv.org/html/2605.14058v2), and searched for later regular-polygon rank resolutions. The conjectured value is attained and proved for substantive ranges, including n from 5 through 16, but gaps remain, for example at n=17. The upper formula remains conjecturally sharp for the whole family; no full resolution was located.
 
+
+## Reviewed partial result — 2026-09-13
+
+Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons
+Foundation) proves in [Theorem 1.1](../../references/holden-nr01-2026-09-13/report.pdf)
+that
+
+```math
+\mathop{\mathrm{rank}}\nolimits_+(S_n)=9,\qquad n=17,18,19,20.
+```
+
+The computer-assisted lower bound covers arbitrary real factorizations, including
+nonsimple lifts and nongeneric projections; exact nine-term factorizations give
+the matching upper bounds. Sections 2–7 supply the rank-balance reduction,
+finite shadow cover, degeneration argument and characteristic-zero justification
+of the modular rank certificates. The argument also gives the lower bound nine
+for every size at least 21 by the eight-facet vertex bound in Section 2; together
+with the known upper construction this settles sizes 21–24.
+
+The [independent informal Codex AI-agent audit](../../references/holden-nr01-2026-09-13/independent-review.md)
+checks the mathematical reductions and reproduces the complete computational
+pipeline. This is partial affirmative progress: the original equality for every
+size remains open, beginning with $`9\le\mathop{\mathrm{rank}}\nolimits_+(S_{25})\le10`$.
+In particular, sizes 25–30 and 33–42 remain unresolved by this submission;
+no general formula for the remaining sizes is proved. **NR-01 remains Partially
+resolved.** No Lean verification or external human peer review is claimed.
+
+[Submission, reproducibility and verified affiliation](../../references/holden-nr01-2026-09-13/README.md)
+· [Editable manuscript](../../references/holden-nr01-2026-09-13/report.tex).
+The original ID, canonical path, target and prior references are retained.

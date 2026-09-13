@@ -34,7 +34,7 @@ matrices},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}NR-01}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-13}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -68,19 +68,15 @@ extended formulations.
 All factorizations are over the real numbers. For
 \(X\in\mathbb R_{\ge0}^{m\times n}\), define
 
-\[
-\operatorname{rank}_+(X)=\min\{r\ge0:X=WH,\quad
-W\in\mathbb R_{\ge0}^{m\times r},\ H\in\mathbb R_{\ge0}^{r\times n}\}.
-\]
+\[\mathop{\mathrm{rank}}\nolimits_+(X)=\min\{r\ge0:X=WH,\quad
+W\in\mathbb R_{\ge0}^{m\times r},\ H\in\mathbb R_{\ge0}^{r\times n}\}.\]
 
 \subsection{Problem statement}\label{problem-statement}
 
 For each integer \(n\ge3\), define the \(n\times n\) nonnegative matrix
 
-\[
-S_n(i,j)=\cos(\pi/n)-\cos\bigl((2i+1-2j)\pi/n\bigr),
-\qquad 0\le i,j<n.
-\]
+\[S_n(i,j)=\cos(\pi/n)-\cos\bigl((2i+1-2j)\pi/n\bigr),
+\qquad 0\le i,j< n.\]
 
 It is the slack matrix obtained from the vertices of the regular
 \(n\)-gon on the unit circle and its supporting facet inequalities.
@@ -89,13 +85,11 @@ It is the slack matrix obtained from the vertices of the regular
 
 With \(k=\lceil\log_2 n\rceil\), is it true for every \(n\ge3\) that
 
-\[
-\operatorname{rank}_+(S_n)=
+\[\mathop{\mathrm{rank}}\nolimits_+(S_n)=
 \begin{cases}
-2k-1,&2^{k-1}<n\le 2^{k-1}+2^{k-2},\\
-2k,&2^{k-1}+2^{k-2}<n\le2^k?
-\end{cases}
-\]
+2k-1,&2^{k-1}< n\le 2^{k-1}+2^{k-2},\\
+2k,&2^{k-1}+2^{k-2}< n\le2^k?
+\end{cases}\]
 
 \subsection{References}\label{references}
 
@@ -119,4 +113,40 @@ resolutions. The conjectured value is attained and proved for
 substantive ranges, including n from 5 through 16, but gaps remain, for
 example at n=17. The upper formula remains conjecturally sharp for the
 whole family; no full resolution was located.
+
+\subsection{Reviewed partial result ---
+2026-09-13}\label{reviewed-partial-result-2026-09-13}
+
+Sidney Holden (Center for Computational Biology, Flatiron Institute,
+Simons Foundation) proves in
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-nr01-2026-09-13/report.pdf}{Theorem
+1.1} that
+
+\[\mathop{\mathrm{rank}}\nolimits_+(S_n)=9,\qquad n=17,18,19,20.\]
+
+The computer-assisted lower bound covers arbitrary real factorizations,
+including nonsimple lifts and nongeneric projections; exact nine-term
+factorizations give the matching upper bounds. Sections 2--7 supply the
+rank-balance reduction, finite shadow cover, degeneration argument and
+characteristic-zero justification of the modular rank certificates. The
+argument also gives the lower bound nine for every size at least 21 by
+the eight-facet vertex bound in Section 2; together with the known upper
+construction this settles sizes 21--24.
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-nr01-2026-09-13/independent-review.md}{independent
+informal Codex AI-agent audit} checks the mathematical reductions and
+reproduces the complete computational pipeline. This is partial
+affirmative progress: the original equality for every size remains open,
+beginning with \(9\le\mathop{\mathrm{rank}}\nolimits_+(S_{25})\le10\).
+In particular, sizes 25--30 and 33--42 remain unresolved by this
+submission; no general formula for the remaining sizes is proved.
+\textbf{NR-01 remains Partially resolved.} No Lean verification or
+external human peer review is claimed.
+
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-nr01-2026-09-13/README.md}{Submission,
+reproducibility and verified affiliation} ·
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-nr01-2026-09-13/report.tex}{Editable
+manuscript}. The original ID, canonical path, target and prior
+references are retained.
 \end{document}

@@ -21,6 +21,10 @@ result is formalized in Lean.
 
 ## Resolved catalog entries
 
+### NR-01 — exact regular-polygon small cases — Sidney Holden
+
+**Partially resolved, 13 September 2026.** [Theorem 1.1](references/holden-nr01-2026-09-13/report.pdf) proves real nonnegative rank nine for the regular 17-, 18-, 19-, and 20-gon slack matrices. The separate [independent informal Codex AI-agent audit](references/holden-nr01-2026-09-13/independent-review.md) checks the proof and reproduces the full finite computation. The universal formula remains open, starting at size 25; **NR-01 is not marked Solved**. No Lean verification or external human peer review is claimed. [Retained target](nonnegative-and-positive-factorizations/NR-01/README.md) · [Source, verified affiliation and reproduction record](references/holden-nr01-2026-09-13/README.md).
+
 ### KE-02, SP-08 and SP-09 — spectral partial results — Sidney Holden
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-spectral-2026-09-12/README.md).
