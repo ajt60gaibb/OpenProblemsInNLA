@@ -1,0 +1,522 @@
+diff --git a/CATALOG.md b/CATALOG.md
+index 515724b..38a332b 100644
+--- a/CATALOG.md
++++ b/CATALOG.md
+@@ -2,7 +2,7 @@
+ 
+ **125 problems with open targets:** 53 open and 72 partially resolved. **92 other retained entries**, excluded from the open count.
+ 
+-**Resolution evidence:** 76 solved (published or independently audited); 16 Lean verified.
++**Resolution evidence:** 75 solved (published or independently audited); 17 Lean verified.
+ 
+ Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
+ 
+@@ -70,7 +70,7 @@ Retained entries outside the open count:
+ | [IE-08](eigenvalues-and-inverse-problems/IE-08/README.md) | A cubic-time Schur algorithm using logarithmic precision | **✅ SOLVED** | extreme | broadly interesting | [PDF](eigenvalues-and-inverse-problems/IE-08/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IE-08/problem.tex) |
+ | [IE-10](eigenvalues-and-inverse-problems/IE-10/README.md) | Conditioning of a random Krylov compression of a cyclic shift | **✅ SOLVED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/IE-10/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IE-10/problem.tex) |
+ | [IS-02](eigenvalues-and-inverse-problems/IS-02/README.md) | Where a symmetric stochastic matrix can be spectrally unique | **✅ SOLVED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/IS-02/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-02/problem.tex) |
+-| [IS-03](eigenvalues-and-inverse-problems/IS-03/README.md) | Johnson's derivative-realizability conjecture | **✅ SOLVED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-03/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-03/problem.tex) |
++| [IS-03](eigenvalues-and-inverse-problems/IS-03/README.md) | Johnson's derivative-realizability conjecture | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/IS-03/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/IS-03/problem.tex) |
+ | [KE-03](eigenvalues-and-inverse-problems/KE-03/README.md) | Find a near-largest nonnormal eigenvalue using few matrix-vector products | **✅ SOLVED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/KE-03/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/KE-03/problem.tex) |
+ | [KE-04](eigenvalues-and-inverse-problems/KE-04/README.md) | Strict interlacing across block Lanczos iterations | **✅ SOLVED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/KE-04/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/KE-04/problem.tex) |
+ | [SP-04](eigenvalues-and-inverse-problems/SP-04/README.md) | The smallest-multiplier rule for nearest unit-absolute-determinant matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/SP-04/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-04/problem.tex) |
+diff --git a/README.md b/README.md
+index 4c3ca47..e88a606 100644
+--- a/README.md
++++ b/README.md
+@@ -6,7 +6,7 @@ publications, with references and dated checks for subsequent solutions.
+ <!-- catalog-summary -->
+ **125 problems with open targets:** 53 open and 72 partially resolved. **92 other retained entries**, excluded from the open count.
+ 
+-**Resolution evidence:** 76 solved (published or independently audited); 16 Lean verified.
++**Resolution evidence:** 75 solved (published or independently audited); 17 Lean verified.
+ 
+ Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
+ 
+diff --git a/RESOLVED.md b/RESOLVED.md
+index 6fce118..a2a156a 100644
+--- a/RESOLVED.md
++++ b/RESOLVED.md
+@@ -432,10 +432,12 @@ historical and the entry no longer contributes to the open count.
+ 
+ **Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. Separate Codex agents checked the complete arguments against the exact catalog targets and returned PASS. Two reviewers covered the three full resolutions; a third checked the related partial bound below. Original AI provenance is preserved, and the verification level is explicitly independent agent review. [Detailed reports and submission record](references/colbrook-additional-2026-09-11/README.md).
+ 
+-#### IS-03 — negative resolution
++#### IS-03 — negative resolution by Matthew J. Colbrook; Lean formalization by George Stepaniants
+ 
+ [Original statement](eigenvalues-and-inverse-problems/IS-03/README.md) · [Complete manuscript](eigenvalues-and-inverse-problems/IS-03/solution.md) · [PDF](eigenvalues-and-inverse-problems/IS-03/solution.pdf) · [Independent PASS report](references/colbrook-additional-2026-09-11/verification/reviews/IS-03-review.md). **Theorem 1 and equations (1)–(7).** The nonnegative real order-seven matrix $A=\operatorname{diag}(1/2,C_2,C_4)$ has a normalized characteristic-polynomial derivative whose seventh power sum is $-8593/823543<0$. Every power of a nonnegative matrix has nonnegative trace, so the derivative cannot be realized at order six, or after any zero padding. Reducibility and positive trace are allowed in the original target. This refutes its universal assertion.
+ 
++**Lean verified - 2026-09-12.** The [seven checked exports](https://github.com/sgstepaniants/OpenProblemsInNLA/blob/f87375fa5d7926fe0e065199eaab8f15ac5a5e48/eigenvalues-and-inverse-problems/IS-03/lean/Solution.lean) negate the complete original derivative-realizability conjecture using the unchanged nonnegative order-seven source matrix and the impossibility of an entrywise-nonnegative realization of exactly order six. Actual characteristic-polynomial differentiation, arbitrary-real-matrix power traces and all original quantifiers are retained, without symmetry or diagonalizability assumptions. **Formalization: George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA**, with AI-agent assistance. Matthew J. Colbrook retains mathematical counterexample credit; Johnson and Hoover, McCormick, Paparella and Thrall retain original-question credit. See the [canonical verification evidence](eigenvalues-and-inverse-problems/IS-03/README.md#lean-proof-and-verification-evidence---2026-09-12), [statement and final reviews](eigenvalues-and-inverse-problems/IS-03/lean/reviews/), [successful Ubuntu run](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34728101436), [operational audit](eigenvalues-and-inverse-problems/IS-03/lean/verification/linux-2026-09-12/OPERATIONAL-REVIEW.md) and [root acceptance](eigenvalues-and-inverse-problems/IS-03/lean/verification/root-operational-2026-09-12/ROOT-CHECKS.json). All 303 inputs, eighteen standard-three axiom reports, actual default-kernel replay and both real control suites were checked. The material explicit kernel LeanCert computation is the singleton sign $`-8593/823543<0`$; exact algebra, derived spectral semantics and Newton identities complete the argument. Operational and publication work does not add mathematical referees. The stronger zero-padding exclusion and separate Monov consequence remain informal source results outside these seven exports. External human peer review is not claimed.
++
+ #### SP-06 — negative resolution
+ 
+ [Original statement](eigenvalues-and-inverse-problems/SP-06/README.md) · [Complete manuscript](eigenvalues-and-inverse-problems/SP-06/solution.md) · [PDF](eigenvalues-and-inverse-problems/SP-06/solution.pdf) · [Independent PASS report](references/colbrook-additional-2026-09-11/verification/reviews/SP-06-review.md). **Theorem 1 and equations (1)–(8).** The integer-coefficient Laurent polynomial in Theorem 1 is real on a rigorously constructed star-shaped Jordan curve enclosing zero, while its $2\times2$ Toeplitz section has eigenvalues $-128\pm8i$. The proof checks continuity, injectivity and reality on the entire curve. It refutes the conjectured implication for every finite section; it does not refute the distinct limiting-spectrum statement.
+diff --git a/eigenvalues-and-inverse-problems/IS-03/README.md b/eigenvalues-and-inverse-problems/IS-03/README.md
+index d536f90..a81ebc3 100644
+--- a/eigenvalues-and-inverse-problems/IS-03/README.md
++++ b/eigenvalues-and-inverse-problems/IS-03/README.md
+@@ -6,8 +6,9 @@
+ 
+ **Difficulty:** challenging  
+ **Importance:** interesting to the community  
+-**Status:** Solved  
+-**Last checked:** 2026-09-11  
++**Status:** Lean verified
++
++**Last checked:** 2026-09-12
+ 
+ **Rating rationale:** Challenging reflects preserving nonnegative realizability under polynomial differentiation; community impact connects the nonnegative inverse eigenvalue problem with polynomial critical points.
+ 
+@@ -17,10 +18,40 @@
+ 
+ The nonnegative real order-seven matrix $`A=\mathop{\mathrm{diag}}\nolimits(1/2,C_2,C_4)`$ has a normalized characteristic-polynomial derivative whose seventh power sum is $`-8593/823543<0`$. Every power of a nonnegative matrix has nonnegative trace, so the derivative cannot be realized at order six, or after any zero padding. Reducibility and positive trace are allowed in the original target. This refutes its universal assertion.
+ 
+-The complete argument received an independent Codex-agent **PASS** on 11 September 2026. The [review report](../../references/colbrook-additional-2026-09-11/verification/reviews/IS-03-review.md) records the exact scope and a hash of the original reviewed manuscript. The mathematical sections remain unchanged in the authored version. Original ChatGPT generation is disclosed; no external human peer review or formal proof certificate is asserted. [Submission and verification record](../../references/colbrook-additional-2026-09-11/README.md).
++The complete argument received an independent Codex-agent **PASS** on 11 September 2026. The [review report](../../references/colbrook-additional-2026-09-11/verification/reviews/IS-03-review.md) records the exact scope and a hash of the original reviewed manuscript. The mathematical sections remain unchanged in the authored version. Original ChatGPT generation is disclosed; that dated agent review was informal. The later Lean verification is documented below; external human peer review is not claimed. [Submission and verification record](../../references/colbrook-additional-2026-09-11/README.md).
+ 
+ The original statement, source references and prior audit notes are retained; the former difficulty rating is historical.
+ 
++## Lean proof and verification evidence - 2026-09-12
++
++**The complete original derivative-realizability conjecture is Lean verified with a negative answer.** The [proof at revision f87375f](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/f87375fa5d7926fe0e065199eaab8f15ac5a5e48/eigenvalues-and-inverse-problems/IS-03/lean) proves that the unchanged nonnegative order-seven source matrix has no entrywise-nonnegative realization of its normalized characteristic-polynomial derivative at order six. The full original quantifiers and exact order $`n-1`$ are retained. Neither symmetry nor diagonalizability is assumed; entrywise nonnegativity is not replaced by positive semidefiniteness.
++
++**Lean formalization:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA, with AI-agent assistance. **Matthew J. Colbrook** retains mathematical counterexample authorship. Johnson and Hoover, McCormick, Paparella and Thrall retain the original conjecture and source attribution.
++
++The seven [checked exports](https://github.com/sgstepaniants/OpenProblemsInNLA/blob/f87375fa5d7926fe0e065199eaab8f15ac5a5e48/eigenvalues-and-inverse-problems/IS-03/lean/Solution.lean), each with prefix `NLA.IS03.`, are:
++
++- `nonnegative_power_trace`: every natural power of an entrywise-nonnegative real matrix has nonnegative entries and trace, including order and power zero.
++- `witness_admissible`: the actual source matrix is entrywise nonnegative and has trace $`1/2`$.
++- `witness_polynomials`: its genuine characteristic polynomial and normalized derivative have the stated coefficients; the derivative is monic of degree six.
++- `trace_moment_certificate`: every real order-six matrix with that characteristic polynomial has all seven prescribed power traces, without a spectral assumption.
++- `negative_moment`: the seventh value is exactly $`-8593/823543`$ and strictly negative.
++- `counterexample`: the admissible source matrix has no nonnegative order-six realization of its actual normalized derivative.
++- `not_derivativeRealizabilityConjecture`: negation of the complete original universal assertion.
++
++Two independent statement approvals preceded implementation; two independent final proof referees approved the frozen proof after fresh source elaboration, actual-term inspection and replay of the retained numerical checker. [Ubuntu run 34728101436](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34728101436) matched all seven exports with the sandboxed Comparator, replayed the solution in Lean's default kernel and passed both actual isolation/rejection-control suites. The [operational audit and original artifacts](lean/verification/linux-2026-09-12/) bind all 303 submitted inputs; [root acceptance](lean/verification/root-operational-2026-09-12/ROOT-CHECKS.json) independently checked their identity and actual execution. All 18 internal/public transitive axiom reports allow only `propext`, `Classical.choice` and `Quot.sound`. Operational and publication roles do not add mathematical referees. External human peer review is not claimed.
++
++The pins are **Lean 4.33.1**, [LeanCert 621a43d](https://github.com/alerad/leancert/tree/621a43d7cf21f87872392a01e874f2f1dbddc926) and [Mathlib 0df444a](https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474). The material explicit kernel LeanCert certificate proves the singleton sign $`-8593/823543<0`$. Exact characteristic-polynomial, spectral, Vieta/Newton and trace arguments connect that sign to the full contradiction. Separability and an actual eigenbasis of any potential realization are derived, not assumed. No approximate roots, numerical eigensolver or interval subdivision is used. The source's stronger zero-padding exclusion and its separate Monov consequence are outside these seven exports. See the [project guide](lean/README.md), [manifest](lean/formalization.yaml), [reviews](lean/reviews/) and [pins](lean/lake-manifest.json).
++
++From the immutable verified revision on a documented [non-root Linux host](../../tools/lean/HARNESS.md), reproduce with:
++
++```
++tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
++tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
++tools/lean/verify.sh \
++  eigenvalues-and-inverse-problems/IS-03/lean \
++  /absolute/path/to/nla-lean-tools
++```
++
+ ## Problem statement
+ 
+ For every integer $`n\geq5`$ and every real entrywise-nonnegative matrix
+diff --git a/eigenvalues-and-inverse-problems/IS-03/lean/README.md b/eigenvalues-and-inverse-problems/IS-03/lean/README.md
+index 5bc05d5..bfa3b9b 100644
+--- a/eigenvalues-and-inverse-problems/IS-03/lean/README.md
++++ b/eigenvalues-and-inverse-problems/IS-03/lean/README.md
+@@ -1,12 +1,6 @@
+-# IS-03: reviewed derivative-realizability counterexample
++# IS-03: verified derivative-realizability counterexample
+ 
+-**The complete original conjecture has a locally checked negative proof, with
+-all seven exports approved by two independent final referees.** Two independent
+-statement approvals preceded implementation. This package is ready for the
+-project-specific Linux verification stage. Linux Comparator, default-kernel
+-replay, the required controls and independent operational review are still
+-**pending**. The [canonical entry](../README.md) remains **Solved** on its
+-existing informal evidence.
++**The complete original derivative-realizability conjecture is Lean verified with a negative answer and all seven reviewed exports.** Two independent statement approvals preceded implementation; two independent final proof approvals followed. The unchanged proof at [revision f87375f](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/f87375fa5d7926fe0e065199eaab8f15ac5a5e48/eigenvalues-and-inverse-problems/IS-03/lean) passed actual sandboxed Linux Comparator/default-kernel verification in [run 34728101436](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34728101436). The [independent operational audit](verification/linux-2026-09-12/OPERATIONAL-REVIEW.md) and [root acceptance](verification/root-operational-2026-09-12/ROOT-CHECKS.json) checked the real execution and all 303 submitted inputs. The [canonical entry](../README.md) records the complete verified scope.
+ 
+ Formalization: **George Stepaniants, Department of Computing and Mathematical
+ Sciences, California Institute of Technology, Pasadena, California, USA**, with
+@@ -16,8 +10,10 @@ authorship of the counterexample. Johnson and
+ Hoover–McCormick–Paparella–Thrall retain the original conjecture and source
+ attribution. The root coordinator and `/root/solved_statement_inventory`
+ coauthored the statement package and implementation; neither is an independent
+-final referee. This documentation was prepared by the latter implementation
+-agent. No email, source-author endorsement, external human peer review or new
++final referee. Historical candidate documentation was prepared by the latter implementation
++agent. Publication preparation is by `/root/formal_review_standards`, the
++independent final mathematical referee 2; this preparation is not an additional
++mathematical review. No email, source-author endorsement, external human peer review or new
+ mathematical priority is claimed. The included Apache 2.0 license applies to
+ the new formalization code and does not relicense the source manuscript.
+ 
+@@ -145,7 +141,7 @@ statement module. Historical author/referee runners retain checks against
+ their then-current README and local cache paths. Reproducing those records
+ requires their frozen snapshot rather than overwriting historical evidence.
+ 
+-For the pending project-specific verification, follow the
++From the immutable verified revision, follow the
+ [shared workflow](../../../docs/lean/README.md) on a configured
+ [non-root Linux host](../../../tools/lean/HARNESS.md). From the repository root:
+ 
+@@ -157,9 +153,9 @@ tools/lean/verify.sh \
+   /absolute/path/to/nla-lean-tools
+ ```
+ 
+-These commands describe the remaining reproducible gate; this package does
+-not claim they have run for IS-03. A successful run on another problem or the
+-shared infrastructure does not verify this candidate.
++These commands reproduce the verification from the immutable candidate. The
++observed project-specific run and its scope are recorded below; success on
++unrelated projects is not used to verify IS-03.
+ 
+ ## Independent approvals and preserved history
+ 
+@@ -182,14 +178,60 @@ The exact statement-stage README is archived at
+ Only the live README changes among the 203 proof-freeze inputs; all other
+ 202 inputs, all ten original Git source blobs and every statement/final
+ report and evidence file remain unchanged. The new
+-[v0.4 manifest](formalization.yaml) records the complete scope and pending
++[v0.4 manifest](formalization.yaml) records the complete scope and completed
+ Linux gate. The earlier
+ [NUMERICAL_TARGETS.md](NUMERICAL_TARGETS.md),
+ [SourceCorrespondence.md](SourceCorrespondence.md), source manifest and
+ phase-specific handoffs retain their historical 12 September 2026 wording;
+ the completed proofs and later reviews supersede their pending-work notices.
+ 
+-The next steps are coordinator candidate review, an immutable candidate
+-commit, actual Linux verification with controls, independent operational
+-review and publication review. Canonical status promotion and an individual
+-upstream PR follow those gates.
++## Actual Linux verification and publication preservation
++
++The successful Ubuntu 24.04 run freshly cloned all ten dependencies at their
++exact pins and used 8690 official Mathlib cache artifacts before checking the
++project source. Challenge and Solution build graphs completed with 1718 and
++3101 jobs respectively; these graph counts do not assert full dependency-source
++rebuilds. The Solution phase emitted no warnings. Its seven declarations matched
++without definition exceptions, default-kernel replay passed, and all eighteen
++internal/public transitive axiom reports contained exactly the standard three.
++
++The target job and separate checker job each passed the actual sandbox probes,
++three raw-kernel controls, five Comparator fixtures and the admission/native
++execution negative controls. The nested Bubblewrap executable was denied
++UID-map creation before its inner write; this does not claim that the inner
++write executed or establish general sandbox security. Complete raw logs and
++original artifact ZIPs are retained. The [Linux evidence manifest](verification/linux-2026-09-12/EVIDENCE-MANIFEST.json)
++binds 444 files plus itself, including every nested manifest. Original project
++ZIP SHA-256 is `5a72c6ed55af7aea388b74910cd0b0cbc2c81004427b145390fbe74f4ec1ac1e`;
++checker-control ZIP SHA-256 is
++`2ef6c60b6f7e7367fd72ba3e484ab7e350cf8970c8e6ae880bb4bbff494c5cb5`.
++Both match GitHub metadata and actual upload logs. The retained 152-file full
++run-log ZIP has a separately computed digest; no GitHub-published checksum
++for that archive is claimed.
++
++Operational reviewer `/root/leancert_examples` also served as independent
++statement and final mathematical referee 1 and authored neither the statements
++nor the proof. The root coordinator independently accepted the operational
++evidence and actual GitHub records; root and `/root/solved_statement_inventory`
++coauthored the proof and do not count as independent final referees. Publication
++preparer `/root/formal_review_standards` is the other independent statement/final
++referee and also contributed shared infrastructure. These roles do not increase
++the number of mathematical referees. The [root operational evidence manifest](verification/root-operational-2026-09-12/EVIDENCE-MANIFEST.json)
++retains six checked files plus itself.
++
++The successful run verifies the immutable candidate, not a later metadata
++revision. Publication changes only this README and five status/review fields
++in the current manifest among its 303 submitted inputs. All other 301 inputs,
++all 445 Linux evidence files and all seven root operational evidence files
++remain byte-identical. The exact preceding [README](verification/publication-2026-09-12/archive/README.linux-candidate.md)
++and [manifest](verification/publication-2026-09-12/archive/formalization.linux-candidate.yaml)
++are archived. All 202 non-README proof-freeze inputs, all 34 statement inputs
++through their exact README archive, all ten original source snapshots and every
++review/evidence record are preserved. The canonical original problem statement
++and mathematical source are unchanged. Earlier phase-specific pending notices
++remain historical records.
++
++A separate publication review remains required before a publication commit,
++push and individual upstream PR. This preparation reruns no Lean proof and
++claims no external human review, official Tau Ceti endorsement, source-author
++endorsement or new mathematical priority.
+diff --git a/eigenvalues-and-inverse-problems/IS-03/lean/formalization.yaml b/eigenvalues-and-inverse-problems/IS-03/lean/formalization.yaml
+index 6ea7e73..afb0bdb 100644
+--- a/eigenvalues-and-inverse-problems/IS-03/lean/formalization.yaml
++++ b/eigenvalues-and-inverse-problems/IS-03/lean/formalization.yaml
+@@ -82,12 +82,14 @@ automation:
+     root acceptance add no mathematical referee. No external human review, official Tau Ceti endorsement,
+     source-author endorsement, measured cost, model identity or priority is claimed.
+ status:
+-  scope: Complete locally proved negative answer to the entire original derivative-realizability conjecture,
+-    with all seven exports approved by two independent statement and two independent final proof referees.
+-    The unchanged admissible order-seven source matrix has no nonnegative exact-order-six realization
+-    of its normalized characteristic-polynomial derivative. Actual project-specific Linux sandboxed Comparator/default-kernel
+-    execution, controls, independent operational audit and publication review remain pending. Canonical
+-    status remains Solved.
++  scope: Complete negative answer to the full original universal derivative-realizability conjecture.
++    All seven exports retain every n at least five, entrywise-nonnegative real matrices and a realization
++    of exactly order n-1. The unchanged nonnegative order-seven source matrix has no entrywise-nonnegative order-six realization
++    of its actual normalized characteristic-polynomial derivative. No symmetry or diagonalizability is
++    assumed. Two independent statement and two independent final proof approvals were followed by actual
++    Ubuntu sandboxed Comparator/default-kernel success in run 34728101436 at f87375fa5d7926fe0e065199eaab8f15ac5a5e48.
++    Independent operational review and root acceptance bind all 303 inputs, actual execution and both
++    real control suites. Canonical status is Lean verified.
+   sorry_count: 0
+   sorry_in_definitions: 0
+   axioms:
+@@ -167,30 +169,38 @@ fidelity:
+     generic Newton module permits repeated values and retains multiplicities. Source claims about arbitrary
+     zero padding, Monov, minimal order and historical priority are outside the seven exports.
+ review:
+-  status: agent-reviewed; actual Linux Comparator/default-kernel verification pending
++  status: agent-reviewed; Linux-Comparator-and-default-kernel-verified
+   reviewers:
+   - 'OpenAI Codex agent /root/leancert_examples: independent statement referee 1 and final proof referee
+     1'
+   - 'OpenAI Codex agent /root/formal_review_standards: independent statement referee 2 and final proof
+     referee 2'
+-  notes: Both statement approvals preceded proof implementation. Both final referees read the complete
+-    original source and implementation and independently preserved all 203 proof-freeze inputs and ten
+-    source Git blobs. Each ran eleven fresh source commands, inspected the actual type-and-body closure
+-    of all seven exports (61 project declarations; 55 from the final negation), independently reconstructed
+-    exact finite algebra and replayed the retained Boolean checker input with decide +kernel. Their required
+-    dependency sets contained 33 and 40 declarations respectively. All 18 internal/public candidate axiom
+-    reports permit exactly propext, Classical.choice and Quot.sound; additional independent structural/checker
+-    assertions have only allowed axioms or subsets. The material LeanCert computation is only -8593/823543<0
+-    using explicit kernel trust on the singleton [0,0]. Its actual proof is consumed through the negative
+-    moment and trace contradiction to the full negation. All local elaborations ran Lean 4.33.1 on macOS
+-    with fresh project prefixes and ten clean pinned MI-22 dependency objects reused read-only, excluding
+-    old IS-03 and MI-22 project objects. No local Lake, full dependency-source rebuild or Linux execution
+-    is claimed. Candidate packaging archives and refreshes only the historical README among 203 proof-freeze
+-    inputs, preserving all 202 others, all ten original sources and all reports/evidence. The v0.4 manifest
+-    and packaging records are additive. Earlier source plans, correspondence and pending phase notices
+-    remain historical. The root coordinator coauthored the Newton module and accepted the two independent
+-    reports; that acceptance is not a third mathematical review. Linux and operational/publication reviews
+-    remain pending.
++  notes: Both independent statement approvals preceded implementation. Both final referees freshly elaborated
++    the proof in separate private prefixes, inspected actual terms and semantic dependencies, independently
++    reconstructed exact characteristic polynomials, Bezout and trace identities, and replayed the material
++    LeanCert Boolean checker with decide +kernel. Eighteen internal/public kernel assertions and transitive
++    axiom reports allow only propext, Classical.choice and Quot.sound. The material certificate is exactly
++    -8593/823543<0 in explicit kernel mode on a singleton, consumed through the negative seventh trace
++    to the full original negation. Actual spectral, Vieta/Newton and trace arguments derive an eigenbasis
++    for any potential realization rather than assuming diagonalizability. Local proof checks ran on macOS
++    with read-only pinned MI-22 dependency objects and no old IS-03 project objects. Actual Ubuntu run
++    34728101436 at f87375fa5d7926fe0e065199eaab8f15ac5a5e48 freshly cloned ten exact dependencies, used
++    8690 official Mathlib cache artifacts, built the source, matched all seven exports without definition
++    exceptions, replayed the default kernel and passed both actual control suites. Graph counts were 1718
++    for Challenge and 3101 for Solution; no full dependency-source rebuild is claimed. Nested Bubblewrap
++    was denied UID-map creation before its inner write. Independent operational reviewer /root/leancert_examples
++    also served as independent statement and final referee 1. Root and /root/solved_statement_inventory
++    coauthored the statements/proof; root operational acceptance is not an independent mathematical review.
++    Publication preparer /root/formal_review_standards is independent final referee 2 and a shared-infrastructure
++    contributor; preparation adds no mathematical referee. Operational report SHA256 97d43157105cc4abe654c5cd222a2e7928028d2f687f04ee3435ef6c589aff1f
++    and outer evidence 66d3eef4f5a6b67f9d9aec94187af141cdda626b8c6d88b9b5c8e8e82c8ccd14 bind 444 files
++    plus the outer manifest, retaining every nested manifest. Root checks SHA256 f1a0d3936711ed76c006d7f59c62dd227f3a52812567578fafa284d8aa7bf154
++    separately confirm acceptance. Publication archives both prior wrappers, changes only README and this
++    manifest among 303 candidate inputs, and preserves all 301 others, all 445 Linux files and seven root
++    operational files. All 202 non-README proof-freeze inputs, the exact historical README archive, 34
++    statement inputs and ten original source snapshots remain intact. Earlier phase notices are historical.
++    No new proof run over publication wrappers, external human review, official Tau Ceti endorsement or
++    priority is claimed.
+   statement_reports:
+   - file: reviews/statement-referee-1.md
+     sha256: 79d057b4608eb72826d1265f7e718f57855907cfdd3283ab791bbbc98321f71a
+@@ -225,10 +235,13 @@ review:
+     file: verification/final-review-acceptance.json
+     sha256: 73b53a03c34cf25666338767107c48fce2ea320bc36206ea134dc2717342ab12
+   linux_verification:
+-    status: pending
+-    note: No IS-03 project-specific Linux run, Comparator success, default-kernel replay, real control-suite
+-      execution or operational approval is claimed. Success of shared infrastructure or other problems
+-      does not verify this candidate.
++    status: passed; independently audited and root accepted
++    note: Actual run https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34728101436 at f87375fa5d7926fe0e065199eaab8f15ac5a5e48.
++      Seven matched exports, eighteen standard-three axiom reports, actual default-kernel replay and both
++      full control suites passed. See verification/linux-2026-09-12/OPERATIONAL-REVIEW.md, its EVIDENCE-MANIFEST.json
++      and verification/root-operational-2026-09-12/ROOT-CHECKS.json. Original project ZIP SHA256 5a72c6ed55af7aea388b74910cd0b0cbc2c81004427b145390fbe74f4ec1ac1e;
++      checker-control ZIP SHA256 2ef6c60b6f7e7367fd72ba3e484ab7e350cf8970c8e6ae880bb4bbff494c5cb5. Complete
++      original run-log archive is retained with its separately computed digest.
+ alignment:
+ - declaration: NLA.IS03.nonnegative_power_trace
+   scope: For every real square matrix and every natural power, entrywise nonnegativity implies entrywise
+diff --git a/eigenvalues-and-inverse-problems/IS-03/problem.pdf b/eigenvalues-and-inverse-problems/IS-03/problem.pdf
+index 3d43f21..2004225 100644
+Binary files a/eigenvalues-and-inverse-problems/IS-03/problem.pdf and b/eigenvalues-and-inverse-problems/IS-03/problem.pdf differ
+diff --git a/eigenvalues-and-inverse-problems/IS-03/problem.tex b/eigenvalues-and-inverse-problems/IS-03/problem.tex
+index 0c6621b..4113a5e 100644
+--- a/eigenvalues-and-inverse-problems/IS-03/problem.tex
++++ b/eigenvalues-and-inverse-problems/IS-03/problem.tex
+@@ -34,7 +34,7 @@ conjecture},pdfauthor={Open Problems in Numerical Linear Algebra}}
+ \fancyhf{}
+ \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+ \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IS-03}
+-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
++\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
+ \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+ \renewcommand{\headrulewidth}{0.3pt}
+ \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+@@ -51,7 +51,7 @@ derivative-realizability conjecture\par}
+ \vspace{7pt}
+ {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+ to the community\par}
+-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
++{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
+ \vspace{4pt}
+ {\color{accent}\hrule height 0.8pt}
+ \vspace{6pt}
+@@ -72,7 +72,7 @@ manuscript} ·
+ \textbf{Theorem 1 and equations (1)--(7).}
+ 
+ The nonnegative real order-seven matrix
+-\(A=\operatorname{diag}(1/2,C_2,C_4)\) has a normalized
++\(A=\mathop{\mathrm{diag}}\nolimits(1/2,C_2,C_4)\) has a normalized
+ characteristic-polynomial derivative whose seventh power sum is
+ \(-8593/823543<0\). Every power of a nonnegative matrix has nonnegative
+ trace, so the derivative cannot be realized at order six, or after any
+@@ -84,14 +84,115 @@ on 11 September 2026. The
+ \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-additional-2026-09-11/verification/reviews/IS-03-review.md}{review
+ report} records the exact scope and a hash of the original reviewed
+ manuscript. The mathematical sections remain unchanged in the authored
+-version. Original ChatGPT generation is disclosed; no external human
+-peer review or formal proof certificate is asserted.
++version. Original ChatGPT generation is disclosed; that dated agent
++review was informal. The later Lean verification is documented below;
++external human peer review is not claimed.
+ \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-additional-2026-09-11/README.md}{Submission
+ and verification record}.
+ 
+ The original statement, source references and prior audit notes are
+ retained; the former difficulty rating is historical.
+ 
++\subsection{Lean proof and verification evidence -
++2026-09-12}\label{lean-proof-and-verification-evidence---2026-09-12}
++
++\textbf{The complete original derivative-realizability conjecture is
++Lean verified with a negative answer.} The
++\href{https://github.com/sgstepaniants/OpenProblemsInNLA/tree/f87375fa5d7926fe0e065199eaab8f15ac5a5e48/eigenvalues-and-inverse-problems/IS-03/lean}{proof
++at revision f87375f} proves that the unchanged nonnegative order-seven
++source matrix has no entrywise-nonnegative realization of its normalized
++characteristic-polynomial derivative at order six. The full original
++quantifiers and exact order \(n-1\) are retained. Neither symmetry nor
++diagonalizability is assumed; entrywise nonnegativity is not replaced by
++positive semidefiniteness.
++
++\textbf{Lean formalization:} George Stepaniants, Department of Computing
++and Mathematical Sciences, California Institute of Technology, Pasadena,
++California, USA, with AI-agent assistance. \textbf{Matthew J. Colbrook}
++retains mathematical counterexample authorship. Johnson and Hoover,
++McCormick, Paparella and Thrall retain the original conjecture and
++source attribution.
++
++The seven
++\href{https://github.com/sgstepaniants/OpenProblemsInNLA/blob/f87375fa5d7926fe0e065199eaab8f15ac5a5e48/eigenvalues-and-inverse-problems/IS-03/lean/Solution.lean}{checked
++exports}, each with prefix \textit{NLA.IS03.}, are:
++
++\begin{itemize}
++\tightlist
++\item
++  \textit{nonnegative\_power\_trace}: every natural power of an
++  entrywise-nonnegative real matrix has nonnegative entries and trace,
++  including order and power zero.
++\item
++  \textit{witness\_admissible}: the actual source matrix is entrywise
++  nonnegative and has trace \(1/2\).
++\item
++  \textit{witness\_polynomials}: its genuine characteristic polynomial
++  and normalized derivative have the stated coefficients; the derivative
++  is monic of degree six.
++\item
++  \textit{trace\_moment\_certificate}: every real order-six matrix with
++  that characteristic polynomial has all seven prescribed power traces,
++  without a spectral assumption.
++\item
++  \textit{negative\_moment}: the seventh value is exactly
++  \(-8593/823543\) and strictly negative.
++\item
++  \textit{counterexample}: the admissible source matrix has no
++  nonnegative order-six realization of its actual normalized derivative.
++\item
++  \textit{not\_derivativeRealizabilityConjecture}: negation of the
++  complete original universal assertion.
++\end{itemize}
++
++Two independent statement approvals preceded implementation; two
++independent final proof referees approved the frozen proof after fresh
++source elaboration, actual-term inspection and replay of the retained
++numerical checker.
++\href{https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34728101436}{Ubuntu
++run 34728101436} matched all seven exports with the sandboxed
++Comparator, replayed the solution in Lean's default kernel and passed
++both actual isolation/rejection-control suites. The
++\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/eigenvalues-and-inverse-problems/IS-03/lean/verification/linux-2026-09-12}{operational
++audit and original artifacts} bind all 303 submitted inputs;
++\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/eigenvalues-and-inverse-problems/IS-03/lean/verification/root-operational-2026-09-12/ROOT-CHECKS.json}{root
++acceptance} independently checked their identity and actual execution.
++All 18 internal/public transitive axiom reports allow only
++\textit{propext}, \textit{Classical.choice} and \textit{Quot.sound}.
++Operational and publication roles do not add mathematical referees.
++External human peer review is not claimed.
++
++The pins are \textbf{Lean 4.33.1},
++\href{https://github.com/alerad/leancert/tree/621a43d7cf21f87872392a01e874f2f1dbddc926}{LeanCert
++621a43d} and
++\href{https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474}{Mathlib
++0df444a}. The material explicit kernel LeanCert certificate proves the
++singleton sign \(-8593/823543<0\). Exact characteristic-polynomial,
++spectral, Vieta/Newton and trace arguments connect that sign to the full
++contradiction. Separability and an actual eigenbasis of any potential
++realization are derived, not assumed. No approximate roots, numerical
++eigensolver or interval subdivision is used. The source's stronger
++zero-padding exclusion and its separate Monov consequence are outside
++these seven exports. See the
++\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/eigenvalues-and-inverse-problems/IS-03/lean/README.md}{project
++guide},
++\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/eigenvalues-and-inverse-problems/IS-03/lean/formalization.yaml}{manifest},
++\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/eigenvalues-and-inverse-problems/IS-03/lean/reviews}{reviews}
++and
++\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/eigenvalues-and-inverse-problems/IS-03/lean/lake-manifest.json}{pins}.
++
++From the immutable verified revision on a documented
++\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tools/lean/HARNESS.md}{non-root
++Linux host}, reproduce with:
++
++\begin{verbatim}
++tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
++tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
++tools/lean/verify.sh \
++  eigenvalues-and-inverse-problems/IS-03/lean \
++  /absolute/path/to/nla-lean-tools
++\end{verbatim}
++
+ \subsection{Problem statement}\label{problem-statement}
+ 
+ For every integer \(n\geq5\) and every real entrywise-nonnegative matrix
+@@ -99,9 +200,7 @@ For every integer \(n\geq5\) and every real entrywise-nonnegative matrix
+ exist an entrywise-nonnegative \(B\in\mathbb R^{(n-1)\times(n-1)}\) such
+ that
+ 
+-\[
+-\det(zI-B)=\frac1n p_A'(z)\qquad\text{as polynomials in }z?
+-\]
++\[\det(zI-B)=\frac1n p_A'(z)\qquad\text{as polynomials in }z?\]
+ 
+ Equivalently, the critical points of the characteristic polynomial,
+ counted with multiplicity, would themselves form a realizable spectrum
+@@ -127,9 +226,10 @@ Searches for
+ \textit{Johnson conjecture derivative nonnegative matrix characteristic polynomial proof counterexample},
+ \textit{1712.05454 2026}, and \textit{Monov conjecture solved} found
+ no general resolution. The source proves several classes and records the
+-solved cases \(n\leq4\), and \(n\leq6\) with \(\operatorname{tr}A=0\).
+-Nonnegative power sums alone are a different hypothesis. Monov's weaker
+-moment conjecture is not separately counted here.
++solved cases \(n\leq4\), and \(n\leq6\) with
++\(\mathop{\mathrm{tr}}\nolimits A=0\). Nonnegative power sums alone are
++a different hypothesis. Monov's weaker moment conjecture is not
++separately counted here.
+ 
+ \subsection{Audit update --- 2026-09-10}\label{audit-update-2026-09-10}
+ 
+diff --git a/eigenvalues-and-inverse-problems/README.md b/eigenvalues-and-inverse-problems/README.md
+index f14ea8b..ad26f41 100644
+--- a/eigenvalues-and-inverse-problems/README.md
++++ b/eigenvalues-and-inverse-problems/README.md
+@@ -27,7 +27,7 @@
+ | [IE-08](IE-08/README.md) | A cubic-time Schur algorithm using logarithmic precision | **✅ SOLVED** | extreme | broadly interesting | [PDF](IE-08/problem.pdf) · [TeX](IE-08/problem.tex) |
+ | [IE-10](IE-10/README.md) | Conditioning of a random Krylov compression of a cyclic shift | **✅ SOLVED** | challenging | interesting to specialist | [PDF](IE-10/problem.pdf) · [TeX](IE-10/problem.tex) |
+ | [IS-02](IS-02/README.md) | Where a symmetric stochastic matrix can be spectrally unique | **✅ SOLVED** | challenging | interesting to specialist | [PDF](IS-02/problem.pdf) · [TeX](IS-02/problem.tex) |
+-| [IS-03](IS-03/README.md) | Johnson's derivative-realizability conjecture | **✅ SOLVED** | challenging | interesting to the community | [PDF](IS-03/problem.pdf) · [TeX](IS-03/problem.tex) |
++| [IS-03](IS-03/README.md) | Johnson's derivative-realizability conjecture | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](IS-03/problem.pdf) · [TeX](IS-03/problem.tex) |
+ | [KE-03](KE-03/README.md) | Find a near-largest nonnormal eigenvalue using few matrix-vector products | **✅ SOLVED** | challenging | interesting to the community | [PDF](KE-03/problem.pdf) · [TeX](KE-03/problem.tex) |
+ | [KE-04](KE-04/README.md) | Strict interlacing across block Lanczos iterations | **✅ SOLVED** | challenging | interesting to the community | [PDF](KE-04/problem.pdf) · [TeX](KE-04/problem.tex) |
+ | [SP-04](SP-04/README.md) | The smallest-multiplier rule for nearest unit-absolute-determinant matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](SP-04/problem.pdf) · [TeX](SP-04/problem.tex) |

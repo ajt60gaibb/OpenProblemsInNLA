@@ -34,7 +34,7 @@ conjecture},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IS-03}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ derivative-realizability conjecture\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -72,7 +72,7 @@ manuscript} ·
 \textbf{Theorem 1 and equations (1)--(7).}
 
 The nonnegative real order-seven matrix
-\(A=\operatorname{diag}(1/2,C_2,C_4)\) has a normalized
+\(A=\mathop{\mathrm{diag}}\nolimits(1/2,C_2,C_4)\) has a normalized
 characteristic-polynomial derivative whose seventh power sum is
 \(-8593/823543<0\). Every power of a nonnegative matrix has nonnegative
 trace, so the derivative cannot be realized at order six, or after any
@@ -84,13 +84,114 @@ on 11 September 2026. The
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-additional-2026-09-11/verification/reviews/IS-03-review.md}{review
 report} records the exact scope and a hash of the original reviewed
 manuscript. The mathematical sections remain unchanged in the authored
-version. Original ChatGPT generation is disclosed; no external human
-peer review or formal proof certificate is asserted.
+version. Original ChatGPT generation is disclosed; that dated agent
+review was informal. The later Lean verification is documented below;
+external human peer review is not claimed.
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-additional-2026-09-11/README.md}{Submission
 and verification record}.
 
 The original statement, source references and prior audit notes are
 retained; the former difficulty rating is historical.
+
+\subsection{Lean proof and verification evidence -
+2026-09-12}\label{lean-proof-and-verification-evidence---2026-09-12}
+
+\textbf{The complete original derivative-realizability conjecture is
+Lean verified with a negative answer.} The
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/tree/f87375fa5d7926fe0e065199eaab8f15ac5a5e48/eigenvalues-and-inverse-problems/IS-03/lean}{proof
+at revision f87375f} proves that the unchanged nonnegative order-seven
+source matrix has no entrywise-nonnegative realization of its normalized
+characteristic-polynomial derivative at order six. The full original
+quantifiers and exact order \(n-1\) are retained. Neither symmetry nor
+diagonalizability is assumed; entrywise nonnegativity is not replaced by
+positive semidefiniteness.
+
+\textbf{Lean formalization:} George Stepaniants, Department of Computing
+and Mathematical Sciences, California Institute of Technology, Pasadena,
+California, USA, with AI-agent assistance. \textbf{Matthew J. Colbrook}
+retains mathematical counterexample authorship. Johnson and Hoover,
+McCormick, Paparella and Thrall retain the original conjecture and
+source attribution.
+
+The seven
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/blob/f87375fa5d7926fe0e065199eaab8f15ac5a5e48/eigenvalues-and-inverse-problems/IS-03/lean/Solution.lean}{checked
+exports}, each with prefix \textit{NLA.IS03.}, are:
+
+\begin{itemize}
+\tightlist
+\item
+  \textit{nonnegative\_power\_trace}: every natural power of an
+  entrywise-nonnegative real matrix has nonnegative entries and trace,
+  including order and power zero.
+\item
+  \textit{witness\_admissible}: the actual source matrix is entrywise
+  nonnegative and has trace \(1/2\).
+\item
+  \textit{witness\_polynomials}: its genuine characteristic polynomial
+  and normalized derivative have the stated coefficients; the derivative
+  is monic of degree six.
+\item
+  \textit{trace\_moment\_certificate}: every real order-six matrix with
+  that characteristic polynomial has all seven prescribed power traces,
+  without a spectral assumption.
+\item
+  \textit{negative\_moment}: the seventh value is exactly
+  \(-8593/823543\) and strictly negative.
+\item
+  \textit{counterexample}: the admissible source matrix has no
+  nonnegative order-six realization of its actual normalized derivative.
+\item
+  \textit{not\_derivativeRealizabilityConjecture}: negation of the
+  complete original universal assertion.
+\end{itemize}
+
+Two independent statement approvals preceded implementation; two
+independent final proof referees approved the frozen proof after fresh
+source elaboration, actual-term inspection and replay of the retained
+numerical checker.
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/34728101436}{Ubuntu
+run 34728101436} matched all seven exports with the sandboxed
+Comparator, replayed the solution in Lean's default kernel and passed
+both actual isolation/rejection-control suites. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/eigenvalues-and-inverse-problems/IS-03/lean/verification/linux-2026-09-12}{operational
+audit and original artifacts} bind all 303 submitted inputs;
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/eigenvalues-and-inverse-problems/IS-03/lean/verification/root-operational-2026-09-12/ROOT-CHECKS.json}{root
+acceptance} independently checked their identity and actual execution.
+All 18 internal/public transitive axiom reports allow only
+\textit{propext}, \textit{Classical.choice} and \textit{Quot.sound}.
+Operational and publication roles do not add mathematical referees.
+External human peer review is not claimed.
+
+The pins are \textbf{Lean 4.33.1},
+\href{https://github.com/alerad/leancert/tree/621a43d7cf21f87872392a01e874f2f1dbddc926}{LeanCert
+621a43d} and
+\href{https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474}{Mathlib
+0df444a}. The material explicit kernel LeanCert certificate proves the
+singleton sign \(-8593/823543<0\). Exact characteristic-polynomial,
+spectral, Vieta/Newton and trace arguments connect that sign to the full
+contradiction. Separability and an actual eigenbasis of any potential
+realization are derived, not assumed. No approximate roots, numerical
+eigensolver or interval subdivision is used. The source's stronger
+zero-padding exclusion and its separate Monov consequence are outside
+these seven exports. See the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/eigenvalues-and-inverse-problems/IS-03/lean/README.md}{project
+guide},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/eigenvalues-and-inverse-problems/IS-03/lean/formalization.yaml}{manifest},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/eigenvalues-and-inverse-problems/IS-03/lean/reviews}{reviews}
+and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/eigenvalues-and-inverse-problems/IS-03/lean/lake-manifest.json}{pins}.
+
+From the immutable verified revision on a documented
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tools/lean/HARNESS.md}{non-root
+Linux host}, reproduce with:
+
+\begin{verbatim}
+tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
+tools/lean/selftest.sh /absolute/path/to/nla-lean-tools
+tools/lean/verify.sh \
+  eigenvalues-and-inverse-problems/IS-03/lean \
+  /absolute/path/to/nla-lean-tools
+\end{verbatim}
 
 \subsection{Problem statement}\label{problem-statement}
 
@@ -99,9 +200,7 @@ For every integer \(n\geq5\) and every real entrywise-nonnegative matrix
 exist an entrywise-nonnegative \(B\in\mathbb R^{(n-1)\times(n-1)}\) such
 that
 
-\[
-\det(zI-B)=\frac1n p_A'(z)\qquad\text{as polynomials in }z?
-\]
+\[\det(zI-B)=\frac1n p_A'(z)\qquad\text{as polynomials in }z?\]
 
 Equivalently, the critical points of the characteristic polynomial,
 counted with multiplicity, would themselves form a realizable spectrum
@@ -127,9 +226,10 @@ Searches for
 \textit{Johnson conjecture derivative nonnegative matrix characteristic polynomial proof counterexample},
 \textit{1712.05454 2026}, and \textit{Monov conjecture solved} found
 no general resolution. The source proves several classes and records the
-solved cases \(n\leq4\), and \(n\leq6\) with \(\operatorname{tr}A=0\).
-Nonnegative power sums alone are a different hypothesis. Monov's weaker
-moment conjecture is not separately counted here.
+solved cases \(n\leq4\), and \(n\leq6\) with
+\(\mathop{\mathrm{tr}}\nolimits A=0\). Nonnegative power sums alone are
+a different hypothesis. Monov's weaker moment conjecture is not
+separately counted here.
 
 \subsection{Audit update --- 2026-09-10}\label{audit-update-2026-09-10}
 

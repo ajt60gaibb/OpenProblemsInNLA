@@ -1,0 +1,140 @@
+/-
+Copyright (c) 2026 George Stepaniants. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: George Stepaniants
+
+Exact Newton identities for the unrestricted spectral data in Colbrook's IS-03
+counterexample. No root approximations or spectral regularity assumptions.
+-/
+import NLA.IS03.Definitions
+import Mathlib.RingTheory.MvPolynomial.Symmetric.NewtonIdentities
+import Mathlib.RingTheory.Polynomial.Vieta
+import Mathlib.LinearAlgebra.Complex.Module
+import Mathlib.Tactic.Convert
+import Mathlib.Tactic.FinCases
+import Mathlib.Tactic.LinearCombination
+import Mathlib.Tactic.NormNum
+import LeanCert.Tactic.Verification
+
+noncomputable section
+open scoped BigOperators
+open Polynomial
+
+namespace NLA.IS03
+
+/-- Elementary symmetric functions evaluated at the actual complex values. -/
+def elementaryMoments {ι : Type*} [Fintype ι] (μ : ι → ℂ) (k : ℕ) : ℂ :=
+  MvPolynomial.aeval μ (MvPolynomial.esymm ι ℂ k)
+
+/-- Actual finite power sums, retaining one term for each index. -/
+def powerMoments {ι : Type*} [Fintype ι] (μ : ι → ℂ) (k : ℕ) : ℂ :=
+  ∑ i, μ i ^ k
+
+/-- Vieta's formula for a finite family with multiplicities retained. -/
+theorem product_coeff_eq_elementary {ι : Type*} [Fintype ι]
+    (μ : ι → ℂ) {k : ℕ} (hk : k ≤ Fintype.card ι) :
+    (∏ i, (X - C (μ i))).coeff k =
+      (-1 : ℂ) ^ (Fintype.card ι - k) * elementaryMoments μ (Fintype.card ι - k) := by
+  classical
+  have hcard : (Finset.univ.val.map μ).card = Fintype.card ι := by simp
+  have h := Multiset.prod_X_sub_C_coeff (Finset.univ.val.map μ) (by simpa using hk)
+  simpa only [Finset.prod_eq_multiset_prod, Multiset.map_map, Function.comp_def,
+    hcard, elementaryMoments, MvPolynomial.aeval_esymm_eq_multiset_esymm] using h
+
+/-- The genuine multivariate Newton identity evaluated at arbitrary complex values. -/
+theorem powerMoments_newton {ι : Type*} [Fintype ι] (μ : ι → ℂ)
+    (k : ℕ) (hk : 0 < k) :
+    powerMoments μ k = (-1 : ℂ) ^ (k + 1) * k * elementaryMoments μ k -
+      ∑ a ∈ (Finset.antidiagonal k).filter (fun a => a.1 ∈ Set.Ioo 0 k),
+        (-1 : ℂ) ^ a.1 * elementaryMoments μ a.1 * powerMoments μ a.2 := by
+  classical
+  have h := congrArg (MvPolynomial.aeval μ)
+    (MvPolynomial.psum_eq_mul_esymm_sub_sum ι ℂ k hk)
+  simpa only [MvPolynomial.psum, map_sum, map_sub, map_mul, map_pow, map_neg,
+    map_one, map_natCast, MvPolynomial.aeval_X, elementaryMoments, powerMoments] using h
+
+/-- The seven exact power sums follow from the full product polynomial, for any
+finite family of six complex values. No distinctness or spectral premise is used. -/
+theorem power_sums_of_derivative_product {ι : Type*} [Fintype ι]
+    (μ : ι → ℂ) (hcard : Fintype.card ι = 6)
+    (hprod : (∏ i, (X - C (μ i))) =
+      derivativePolynomial.map (algebraMap ℝ ℂ)) :
+    ∀ k : Fin 7, (∑ i, μ i ^ (k.val + 1)) = (traceMoments k : ℂ) := by
+  classical
+  have hc (k : ℕ) (hk : k ≤ 6) :
+      (derivativePolynomial.map (algebraMap ℝ ℂ)).coeff k =
+        (-1 : ℂ) ^ (6 - k) * elementaryMoments μ (6 - k) := by
+    rw [← hprod]
+    simpa only [hcard] using product_coeff_eq_elementary μ (by simpa [hcard] using hk)
+  have e1 : elementaryMoments μ 1 = 3/7 := by
+    have h := hc 5 (by decide)
+    norm_num [derivativePolynomial, Polynomial.coeff_add, Polynomial.coeff_sub,
+      Polynomial.coeff_C_mul] at h
+    exact h.symm
+  have e2 : elementaryMoments μ 2 = -5/7 := by
+    have h := hc 4 (by decide)
+    norm_num [derivativePolynomial, Polynomial.coeff_add, Polynomial.coeff_sub,
+      Polynomial.coeff_C_mul] at h
+    linear_combination -h
+  have e3 : elementaryMoments μ 3 = -2/7 := by
+    have h := hc 3 (by decide)
+    norm_num [derivativePolynomial, Polynomial.coeff_add, Polynomial.coeff_sub,
+      Polynomial.coeff_C_mul] at h
+    linear_combination h
+  have e4 : elementaryMoments μ 4 = -3/7 := by
+    have h := hc 2 (by decide)
+    norm_num [derivativePolynomial, Polynomial.coeff_add, Polynomial.coeff_sub,
+      Polynomial.coeff_C_mul] at h
+    linear_combination -h
+  have e5 : elementaryMoments μ 5 = -1/7 := by
+    have h := hc 1 (by decide)
+    norm_num [derivativePolynomial, Polynomial.coeff_add, Polynomial.coeff_sub,
+      Polynomial.coeff_C_mul] at h
+    linear_combination h
+  have e6 : elementaryMoments μ 6 = 1/7 := by
+    have h := hc 0 (by decide)
+    norm_num [derivativePolynomial, Polynomial.coeff_add, Polynomial.coeff_sub,
+      Polynomial.coeff_C_mul] at h
+    linear_combination -h
+  have e7 : elementaryMoments μ 7 = 0 := by
+    have he : Finset.powersetCard 7 (Finset.univ : Finset ι) = ∅ :=
+      Finset.powersetCard_eq_empty.mpr (by simp [hcard])
+    simp [elementaryMoments, MvPolynomial.esymm, he]
+  have s1 : powerMoments μ 1 = 3/7 := by
+    convert powerMoments_newton μ 1 (by decide) using 1 <;>
+      norm_num [Finset.Nat.antidiagonal_eq_image, Finset.range_add_one, Finset.sum_filter, Finset.sum_insert, e1]
+  have s2 : powerMoments μ 2 = 79/49 := by
+    convert powerMoments_newton μ 2 (by decide) using 1 <;>
+      norm_num [Finset.Nat.antidiagonal_eq_image, Finset.range_add_one, Finset.sum_filter, Finset.sum_insert, e1, e2, s1]
+  have s3 : powerMoments μ 3 = 48/343 := by
+    convert powerMoments_newton μ 3 (by decide) using 1 <;>
+      norm_num [Finset.Nat.antidiagonal_eq_image, Finset.range_add_one, Finset.sum_filter, Finset.sum_insert, e1, e2, e3, s1, s2]
+  have s4 : powerMoments μ 4 = 6731/2401 := by
+    convert powerMoments_newton μ 4 (by decide) using 1 <;>
+      norm_num [Finset.Nat.antidiagonal_eq_image, Finset.range_add_one, Finset.sum_filter, Finset.sum_insert, e1, e2, e3, e4,
+        s1, s2, s3]
+  have s5 : powerMoments μ 5 = 5213/16807 := by
+    convert powerMoments_newton μ 5 (by decide) using 1 <;>
+      norm_num [Finset.Nat.antidiagonal_eq_image, Finset.range_add_one, Finset.sum_filter, Finset.sum_insert, e1, e2, e3, e4, e5,
+        s1, s2, s3, s4]
+  have s6 : powerMoments μ 6 = 219766/117649 := by
+    convert powerMoments_newton μ 6 (by decide) using 1 <;>
+      norm_num [Finset.Nat.antidiagonal_eq_image, Finset.range_add_one, Finset.sum_filter, Finset.sum_insert, e1, e2, e3, e4, e5, e6,
+        s1, s2, s3, s4, s5]
+  have s7 : powerMoments μ 7 = -8593/823543 := by
+    convert powerMoments_newton μ 7 (by decide) using 1 <;>
+      norm_num [Finset.Nat.antidiagonal_eq_image, Finset.range_add_one, Finset.sum_filter, Finset.sum_insert, e1, e2, e3, e4, e5, e6, e7,
+        s1, s2, s3, s4, s5, s6]
+  intro k
+  change powerMoments μ (k.val + 1) = (traceMoments k : ℂ)
+  fin_cases k <;>
+    norm_num [traceMoments, s1, s2, s3, s4, s5, s6, s7]
+
+#assert_trust kernel product_coeff_eq_elementary
+#assert_trust kernel powerMoments_newton
+#assert_trust kernel power_sums_of_derivative_product
+#print axioms product_coeff_eq_elementary
+#print axioms powerMoments_newton
+#print axioms power_sums_of_derivative_product
+
+end NLA.IS03

@@ -1,0 +1,87 @@
+"""Independent IS-03 final referee 2: fresh source objects, no source mutation.
+Reuses only the clean matching MI-22 dependency cache, read-only.
+Adapted from this reviewer's prior source-check runner; no Lake invocation.
+"""
+from pathlib import Path
+import datetime, hashlib, json, os, platform, re, subprocess, tempfile, time
+out=Path(__file__).resolve().parent
+project=out.parents[1]; repo=project.parents[2]
+cache=Path('/tmp/nla-lean-mi22-worktree/matrix-inequalities-and-norms/MI-22/lean')
+toolchain=Path('/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1')
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+git=lambda p,*a:subprocess.check_output(['git','-C',str(p),*a])
+write=lambda n,o:(out/n).write_text(json.dumps(o,indent=2)+'\n')
+fpath=project/'verification/proof-freeze.json'
+assert sha(fpath)=='636cdb024f5b73ea61edd518de39ee192a604987aad2b9914c4d7e7eeab672e4'
+assert sha(project/'reviews/proof-completion.md')=='534e662eda86b3aee5bc1bfcf07fc1d0b8d0040c63c9c9f45e162e8412f428ea'
+freeze=json.loads(fpath.read_text())
+assert len(freeze['files'])==203 and len(freeze['source_files'])==10
+
+def frozen_check():
+    for name,h in freeze['files'].items():assert sha(project/name)==h,name
+    for name,h in freeze['source_files'].items():
+        assert sha(repo/name)==h,name
+        assert (repo/name).read_bytes()==git(repo,'show',freeze['base']+':'+name),name
+frozen_check()
+manifest=json.loads((project/'lake-manifest.json').read_text())
+def pins_check():
+    pins=[]
+    for pkg in manifest['packages']:
+        p=cache/'.lake/packages'/pkg['name']
+        rev=git(p,'rev-parse','HEAD').decode().strip();status=git(p,'status','--porcelain=v1').decode()
+        assert rev==pkg['rev'] and not status,(pkg['name'],rev,status)
+        assert (p/'.lake/build/lib/lean').is_dir(),p
+        pins.append({'name':pkg['name'],'revision':rev,'path':str(p.resolve()),'source_clean':True,'object_directory_present':True})
+    assert len(pins)==10
+    return pins
+pins=pins_check();write('dependency-pins-before.json',pins)
+prefix=Path(tempfile.mkdtemp(prefix='nla-is03-proof-ref2-',dir='/tmp'))
+order=['Cli','batteries','Qq','aesop','proofwidgets','importGraph','LeanSearchClient','plausible','mathlib','leancert']
+paths=[prefix,*((cache/'.lake/packages'/name/'.lake/build/lib/lean').resolve() for name in order),toolchain/'lib/lean']
+assert all(p==prefix or '/.lake/packages/' in str(p) or p==toolchain/'lib/lean' for p in paths)
+assert not list(prefix.iterdir())
+env=os.environ.copy();env['LEAN_PATH']=os.pathsep.join(map(str,paths));lean=str(toolchain/'bin/lean')
+version=subprocess.check_output([lean,'--version'],text=True).strip();assert '4.33.1' in version
+write('environment.json',{'scope':'Independent local macOS full fresh source elaboration. Matching MI-22 dependency objects reused read-only; no Lake/dependency build or Linux Comparator.',
+ 'created_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'platform':platform.platform(),'lean':lean,'lean_version':version,
+ 'fresh_prefix':str(prefix),'LEAN_PATH':env['LEAN_PATH'],'initial_prefix_empty':True,
+ 'excluded_old_project_object_directories':[str(project/'.lake/build/lib/lean'),str(cache/'.lake/build/lib/lean')]})
+commands=[]
+sources=['NLA/IS03/'+n+'.lean' for n in ['Definitions','Algebra','Witness','Spectral','Newton','Numerical','Proof']]+['Solution.lean','reviews/proof-referee-2-evidence/Inspect.lean','Challenge.lean']
+for source in sources:
+    target=prefix/(Path(source).with_suffix('.olean') if not source.startswith('reviews/') else Path('IndependentInspect.olean'))
+    target.parent.mkdir(parents=True,exist_ok=True)
+    cmd=[lean,'-o',str(target),source];start=time.monotonic()
+    print('START '+source,flush=True)
+    r=subprocess.run(cmd,cwd=project,env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=300)
+    log=out/(Path(source).stem+'.log');log.write_bytes(r.stdout)
+    commands.append({'source':source,'command':cmd,'exit_code':r.returncode,'seconds':round(time.monotonic()-start,3),
+                     'source_sha256':sha(project/source),'object_sha256':sha(target) if target.exists() else None,'log_sha256':sha(log)})
+    write('fresh-checks.json',commands);print('END '+source+' exit='+str(r.returncode),flush=True)
+    assert r.returncode==0,r.stdout.decode()
+    text=r.stdout.decode();assert 'error:' not in text
+    if source=='Challenge.lean':assert text.count('declaration uses `sorry`')==7 and text.count('warning:')==7
+    else:assert 'warning:' not in text,text
+frozen_check();assert pins_check()==pins;write('dependency-pins-after.json',pins)
+rows=[]
+for source in sources:
+    if source=='Challenge.lean':continue
+    raw=(out/(Path(source).stem+'.log')).read_text()
+    for name,body in re.findall(r"'([^']+)' depends on axioms: \[([^\]]*)\]",raw):
+        axioms={re.sub(r'\.\{.*?\}','',x.strip()) for x in body.split(',') if x.strip()}
+        assert axioms<={'propext','Classical.choice','Quot.sound'},(name,axioms)
+        rows.append({'source':source,'declaration':name,'axioms':sorted(axioms)})
+    for name in re.findall(r"'([^']+)' does not depend on any axioms",raw):rows.append({'source':source,'declaration':name,'axioms':[]})
+raw=(out/'Inspect.log').read_text()
+assert 'PUBLIC_THEOREM_KINDS_VERIFIED 7' in raw
+traversed=int(re.search(r'SAFE_PROJECT_DECLARATIONS_TRAVERSED (\d+)',raw).group(1))
+required=re.findall(r'^REQUIRED_DEPENDENCY_PRESENT (.+)$',raw,re.M)
+assert len(required)==40 and len(set(required))==40
+assert sum(r['source']=='reviews/proof-referee-2-evidence/Inspect.lean' for r in rows)==13
+assert sum(r['source']!='reviews/proof-referee-2-evidence/Inspect.lean' for r in rows)==18
+write('axioms.json',{'all_transitive_axioms_allowed_only_standard3_or_subset':True,'independent_inspection_assertions':13,'candidate_assertions':18,'rows':rows})
+write('fresh-result.json',{'result':'PASS','fresh_command_count':len(commands),'kernel_assertions':len(rows),'candidate_kernel_assertions':18,'independent_kernel_assertions':13,
+ 'intentional_Challenge_holes':7,'actual_project_declarations_from_all_exports':traversed,'required_actual_dependencies':required,
+ 'proof_freeze_preserved':True,'original_sources_preserved':True,'ten_dependency_pins_clean_before_and_after':True,
+ 'scope':'Independent macOS source elaboration, actual term traversal and kernel trust checks. Linux sandbox/Comparator/default-kernel replay remains pending.'})
+print('PASS: independent fresh IS-03 final checks',flush=True)

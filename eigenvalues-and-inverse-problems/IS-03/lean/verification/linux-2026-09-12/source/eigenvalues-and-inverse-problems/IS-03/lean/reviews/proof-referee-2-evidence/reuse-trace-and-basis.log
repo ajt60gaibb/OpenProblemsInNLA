@@ -1,0 +1,45 @@
+Mathlib/RingTheory/Trace/Basic.lean:40:* `Module.Basis.traceDual_powerBasis_eq`: The dual basis of a power basis `{1, x, x²...}` under the
+Mathlib/RingTheory/Trace/Basic.lean:67:theorem Algebra.traceForm_toMatrix_powerBasis (h : PowerBasis R S) :
+Mathlib/RingTheory/Trace/Basic.lean:69:  ext; rw [traceForm_toMatrix, of_apply, pow_add, h.basis_eq_pow, h.basis_eq_pow]
+Mathlib/RingTheory/Trace/Basic.lean:84:  rw [trace_eq_matrix_trace pb.basis, trace_eq_neg_charpoly_coeff, charpoly_leftMulMatrix, ←
+Mathlib/RingTheory/Trace/Basic.lean:116:  rw [← adjoin.powerBasis_gen hx, (adjoin.powerBasis hx).trace_gen_eq_sum_roots] <;>
+Mathlib/RingTheory/Trace/Basic.lean:138:  simpa [minpoly_gen K x] using PowerBasis.trace_gen_eq_nextCoeff_minpoly <| adjoin.powerBasis hx
+Mathlib/RingTheory/Trace/Basic.lean:256:  rw [trace_eq_trace_adjoin K x, Algebra.smul_def, map_mul, ← adjoin.powerBasis_gen hx,
+Mathlib/RingTheory/Trace/Basic.lean:607:The dual basis of a powerbasis `{1, x, x²...}` under the trace form is `aᵢ / f'(x)`,
+Mathlib/RingTheory/Trace/Basic.lean:610:lemma Module.Basis.traceDual_powerBasis_eq (pb : PowerBasis K L) (i) :
+Mathlib/RingTheory/Discriminant.lean:148:    traceMatrix_eq_embeddingsMatrixReindex_mul_trans, det_mul, det_transpose, pow_two]
+Mathlib/RingTheory/Discriminant.lean:286:    exact mem_bot.2 (IsIntegrallyClosed.isIntegral_iff.1 <| isIntegral_trace (hz.mul <| hint.pow _))
+Mathlib/RingTheory/Discriminant.lean:289:      (IsIntegrallyClosed.isIntegral_iff.1 <| isIntegral_trace <| (hint.pow _).mul (hint.pow _))
+Mathlib/RingTheory/DedekindDomain/Different.lean:601:    _root_.funext (Basis.traceDual_powerBasis_eq pb)
+Mathlib/LinearAlgebra/Matrix/Charpoly/Minpoly.lean:71:In combination with `det_eq_sign_charpoly_coeff` or `trace_eq_neg_charpoly_coeff`
+Mathlib/LinearAlgebra/Matrix/Charpoly/Eigs.lean:22:* `Matrix.trace_eq_sum_roots_charpoly_of_splits`: the trace is the sum of the roots of the
+Mathlib/LinearAlgebra/Matrix/Charpoly/Eigs.lean:29:* `Matrix.trace_eq_sum_roots_charpoly`: the trace is the sum of the roots of the
+Mathlib/LinearAlgebra/Matrix/Charpoly/Eigs.lean:35:The two lemmas `Matrix.det_eq_prod_roots_charpoly` and `Matrix.trace_eq_sum_roots_charpoly` are more
+Mathlib/LinearAlgebra/Matrix/Charpoly/Eigs.lean:45:`trace_eq_sum_roots_charpoly_of_splits` closely resemble
+Mathlib/LinearAlgebra/Matrix/Charpoly/Eigs.lean:89:theorem trace_eq_sum_roots_charpoly_of_splits [IsDomain R] (hAps : B.charpoly.Splits) :
+Mathlib/LinearAlgebra/Matrix/Charpoly/Eigs.lean:90:    B.trace = (Matrix.charpoly B).roots.sum := by
+Mathlib/LinearAlgebra/Matrix/Charpoly/Eigs.lean:93:  · rw [trace_eq_neg_charpoly_nextCoeff, neg_eq_iff_eq_neg,
+Mathlib/LinearAlgebra/Matrix/Charpoly/Eigs.lean:101:theorem trace_eq_sum_roots_charpoly [IsAlgClosed K] : A.trace = (Matrix.charpoly A).roots.sum :=
+Mathlib/LinearAlgebra/Matrix/Charpoly/Eigs.lean:102:  trace_eq_sum_roots_charpoly_of_splits (IsAlgClosed.splits A.charpoly)
+Mathlib/LinearAlgebra/Matrix/Charpoly/Coeff.lean:27:- `Matrix.trace_eq_neg_charpoly_coeff` proves that the trace is the negative of the (d-1)th
+Mathlib/LinearAlgebra/Matrix/Charpoly/Coeff.lean:138:/-- See also `Matrix.coeff_charpolyRev_eq_neg_trace`. -/
+Mathlib/LinearAlgebra/Matrix/Charpoly/Coeff.lean:139:theorem trace_eq_neg_charpoly_coeff [Nonempty n] (M : Matrix n n R) :
+Mathlib/LinearAlgebra/Matrix/Charpoly/Coeff.lean:140:    trace M = -M.charpoly.coeff (Fintype.card n - 1) := by
+Mathlib/LinearAlgebra/Matrix/Charpoly/Coeff.lean:145:theorem trace_eq_neg_charpoly_nextCoeff (M : Matrix n n R) : M.trace = -M.charpoly.nextCoeff := by
+Mathlib/LinearAlgebra/Matrix/Charpoly/Coeff.lean:149:  simp [trace_eq_neg_charpoly_coeff, nextCoeff]
+Mathlib/LinearAlgebra/Matrix/Charpoly/Coeff.lean:201:  rw [Algebra.smul_def (trace M), ← C_eq_algebraMap, pow_two, ← mul_assoc, add_assoc,
+Mathlib/LinearAlgebra/Matrix/Charpoly/Coeff.lean:214:    M.charpoly = X ^ 2 - C M.trace * X + C M.det := by
+Mathlib/LinearAlgebra/Matrix/Charpoly/Coeff.lean:220:    · simp [trace_eq_neg_charpoly_coeff, hn]
+Mathlib/LinearAlgebra/Matrix/Charpoly/Coeff.lean:230:    M.charpoly = X ^ 2 - C M.trace * X + C M.det :=
+Mathlib/LinearAlgebra/Matrix/Charpoly/Coeff.lean:336:@[simp] lemma coeff_charpolyRev_eq_neg_trace (M : Matrix n n R) :
+Mathlib/LinearAlgebra/Matrix/Charpoly/Coeff.lean:337:    coeff M.charpolyRev 1 = - trace M := by
+Mathlib/LinearAlgebra/Matrix/Charpoly/Coeff.lean:341:  · simp [trace_eq_neg_charpoly_coeff M, ← M.reverse_charpoly, nextCoeff]
+Mathlib/LinearAlgebra/Matrix/Charpoly/FiniteField.lean:53:theorem FiniteField.trace_pow_card {K : Type*} [Field K] [Fintype K] (M : Matrix n n K) :
+Mathlib/LinearAlgebra/Matrix/Charpoly/FiniteField.lean:57:  rw [Matrix.trace_eq_neg_charpoly_coeff, Matrix.trace_eq_neg_charpoly_coeff,
+Mathlib/LinearAlgebra/Matrix/Charpoly/FiniteField.lean:60:theorem ZMod.trace_pow_card {p : ℕ} [Fact p.Prime] (M : Matrix n n (ZMod p)) :
+Mathlib/LinearAlgebra/Matrix/Charpoly/FiniteField.lean:61:    trace (M ^ p) = trace M ^ p := by have h := FiniteField.trace_pow_card M; rwa [ZMod.card] at h
+Mathlib/LinearAlgebra/Eigenspace/Matrix.lean:39:/-- Standard basis vectors are eigenvectors of any associated diagonal linear operator. -/
+Mathlib/LinearAlgebra/Eigenspace/Matrix.lean:146:  rw [← AlgEquiv.spectrum_eq (toLinAlgEquiv <| Pi.basisFun R n), ← hasEigenvalue_iff_mem_spectrum]
+Mathlib/LinearAlgebra/Eigenspace/Charpoly.lean:54:lemma trace_eq_sum_roots_charpoly_of_splits {f : End K V} (h : f.charpoly.Splits) :
+Mathlib/LinearAlgebra/Eigenspace/Charpoly.lean:55:    f.trace K V = f.charpoly.roots.sum := by
+Mathlib/LinearAlgebra/Eigenspace/Charpoly.lean:58:    Matrix.trace_eq_sum_roots_charpoly_of_splits (by simpa using h), charpoly_toMatrix]
