@@ -27,11 +27,14 @@ The passing scopes include AC-01's small-CW upper bound (also relevant to AC-04)
 
 ## Resolved catalog entries
 
-### MF-24 — a negative resolution of uniform boundedness — Georg Maierhofer
+### 🏆 MF-24 — a negative resolution of uniform boundedness — Georg Maierhofer
 
 **Solved negatively, 15 September 2026.** Georg Maierhofer (University of Cambridge), [manuscript dated 14 September 2026](references/mf24-counterexample/proof.pdf), **Theorem 1 and equation (15)**, gives super-identical-pseudospectral weighted shifts of order $`(m+1)^2`$ and a common polynomial with norm ratio at least $`(4/5)\sqrt m`$. This refutes the dimension-independent bound in the [retained original target](matrix-functions-and-stability/MF-24/README.md).
 
-**Corollary 3** proves $`C_N\ge\sqrt{\lfloor\sqrt N\rfloor-1}`$ for $`N\ge9`$. Exact values and optimal growth of $`C_N`$ remain open. [Source, exact checks, numerical checks and AI-assistance disclosure](references/mf24-counterexample/README.md). The [fresh maintainer audit](reviews/2026-09-15-pr264/README.md) confirms the full negative resolution; the [submitted informal Codex AI-agent audit](references/mf24-counterexample/independent-review.md) is retained. No external peer review, Lean verification or publication-priority claim is asserted.
+**Corollary 3** proves $`C_N\ge\sqrt{\lfloor\sqrt N\rfloor-1}`$ for $`N\ge9`$. Exact values and optimal growth of $`C_N`$ remain open. [Source, exact checks, numerical checks and AI-assistance disclosure](references/mf24-counterexample/README.md). The [fresh maintainer audit](reviews/2026-09-15-pr264/README.md) confirms the full negative resolution; the [submitted informal Codex AI-agent audit](references/mf24-counterexample/independent-review.md) is retained. Those informal records do not claim external peer review or publication priority; the separate Lean verification is recorded below.
+
+
+**Lean verified, 15 September 2026.** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, supplied the [complete 22-target formalization](matrix-functions-and-stability/MF-24/lean/README.md). It refutes the original comparison for arbitrary complex matrices, shifts and polynomials with genuine Euclidean operator norms. Its conservative ratio $`(2/3)\sqrt m`$ suffices; the sharper manuscript corollaries remain outside the formalization. The [exact proof-commit Linux run](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/35033148310/job/104596164346) passed LeanCert kernel assertions, Comparator, default-kernel replay, standard transitive axioms and rejection controls. Two independent AI-agent referees reviewed the complete source and actual evidence; see the [canonical evidence section](matrix-functions-and-stability/MF-24/README.md#lean-proof-and-verification-evidence). Georg Maierhofer retains original mathematical credit.
 
 
 ### 🏆 MI-32 — the Latała–Świątkowski upper comparison — Diar Heidary

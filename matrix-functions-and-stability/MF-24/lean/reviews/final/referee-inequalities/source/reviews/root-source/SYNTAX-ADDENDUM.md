@@ -1,0 +1,3 @@
+# MF24 root syntax reconciliation
+
+Independent reviewer `/root` read the exact changes from the captured source review to Polynomial `a60dc3c45c1854e54843095942cbe646fbbc766af99f962bcf9d45e603a867fc` and Heights `39488265cf404a7fb4d8010d35dd30ea2843358b10c77ffc938cd76cbcf10c52`. Matrix sum evaluation now uses the actual Matrix API. The height proofs replace an absent lemma, make natural-number flag simplification explicit, use the exact quotient/remainder inequality directly and supply the correctly oriented zero inequality. No statement, parameter domain, source word, proof construction or mathematical bound changes. The prior complete source-only review extends to these bytes; actual full mechanical acceptance remains pending.

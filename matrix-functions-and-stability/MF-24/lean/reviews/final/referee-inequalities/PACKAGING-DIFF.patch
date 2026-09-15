@@ -1,0 +1,299 @@
+--- approved/formalization.yaml
++++ candidate/formalization.yaml
+@@ -1,31 +1,30 @@
+-# yaml-language-server: $schema=../../../docs/lean/schema/v0.4.schema.json
+ version: v0.4
+ project:
+   name: 'MF-24: unbounded polynomial norm ratios for super-identical pseudospectra'
+-  description: >-
+-    Statement-only draft for the full negative dimension-independent comparison
+-    target, using the unchanged growing weighted-shift family, actual complex
+-    polynomial evaluation, actual ordered singular values after every complex
+-    shift, and genuine induced Euclidean operator norms.
++  description: Complete compiled proof candidate refuting the original dimension-independent polynomial norm comparison.
++    It uses the unchanged weighted-shift family, every complex shift, actual ordered singular values and genuine
++    Euclidean operator norms.
+   authors:
+   - George Stepaniants
+   affiliations:
+-    George Stepaniants: Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena, California, USA
++    George Stepaniants: Department of Computing and Mathematical Sciences, California Institute of Technology, Pasadena,
++      California, USA
+   responsible_maintainers:
+   - George Stepaniants
+   license: Apache-2.0
+ repository:
+   role: substantive-development
++  note: Complete source and full development compilation accepted at 4bd2d76e; canonical Comparator, kernel replay
++    and publication gates pending.
+ sources:
+-- title: 'MF-24 — A dimension-independent polynomial norm bound from super-identical pseudospectra'
++- title: MF-24 — A dimension-independent polynomial norm bound from super-identical pseudospectra
+   id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/8f04b905eb2e0827b6b84f37d9d080ae1f05b202/matrix-functions-and-stability/MF-24/README.md
+   type: web-post
+   location: Complete retained original uniform-boundedness target and canonical resolution
+   relationship: formalizes
+   author_endorsement: not-contacted
+-  note: >-
+-    The permanent ID and original mathematical target are preserved. The exact
+-    dimension-dependent constants and their optimal growth remain open.
++  note: The permanent ID and original mathematical target are preserved. The exact dimension-dependent constants
++    and their optimal growth remain open.
+ - title: Unbounded polynomial norm ratios for super-identical pseudospectra
+   authors:
+   - Georg Maierhofer
+@@ -34,10 +33,8 @@
+   location: Theorem 1, Lemma 2 and the finite-family divergence in Sections 1–4
+   relationship: formalizes
+   author_endorsement: not-contacted
+-  note: >-
+-    Original mathematical proof credit belongs to Georg Maierhofer, University
+-    of Cambridge. George Stepaniants is the formalization author. The proposed
+-    formal estimate uses t²+m and (2/3)sqrt(m), rather than the source-sharper
++  note: Original mathematical proof credit belongs to Georg Maierhofer, University of Cambridge. George Stepaniants
++    is the formalization author. The proposed formal estimate uses t²+m and (2/3)sqrt(m), rather than the source-sharper
+     t²+m−1 and (4/5)sqrt(m); the complete negative canonical target is unchanged.
+ - title: Super-identical pseudospectra
+   authors:
+@@ -66,59 +63,184 @@
+   methods:
+   - method: agent
+     framework: OpenAI Codex
+-    tool_setup: >-
+-      Multiple problem agents. Source inspection and statement drafting on
+-      macOS. The coordinator manages remote non-root Linux typechecks and
+-      proof builds. No local Lean, Lake or cache downloads are authorized.
+-    prompting_notes: >-
+-      State all numerical and general obligations before proof bodies. Preserve
+-      every complex shift, ordered singular-value multiplicity and zero, actual
+-      operator norms, actual complex polynomial evaluation and unbounded
+-      dimensions. Use generic finite recurrences and exact 2×2 algebra; avoid
+-      growing determinant expansion, interval subdivisions and numerical SVDs.
+-      Require LeanCert kernel trust for every eventual export.
+-  notes: >-
+-    AI-assisted statements by /root/next_matrix_functions. Two independent
+-    statement reviews and remote Linux elaboration are still pending; no proof
+-    body is implemented. No official Tau Ceti endorsement, external human peer
+-    review, source-author endorsement or mathematical novelty claim is asserted.
++    tool_setup: Multiple problem agents. Source inspection and statement drafting on macOS. The coordinator manages
++      remote non-root Linux typechecks and proof builds. No local Lean, Lake or cache downloads are authorized.
++    prompting_notes: State all numerical and general obligations before proof bodies. Preserve every complex shift,
++      ordered singular-value multiplicity and zero, actual operator norms, actual complex polynomial evaluation
++      and unbounded dimensions. Use generic finite recurrences and exact 2×2 algebra; avoid growing determinant
++      expansion, interval subdivisions and numerical SVDs. Require LeanCert kernel trust for every eventual export.
++  notes: Substantial Codex assistance. Definitions and principal implementation by /root/next_matrix_functions;
++    generic determinant/transfer implementation contributions by /root/next_elimination. Independent full mathematical
++    source reviewers /root and /root/next_inequalities contributed no mathematical proof code. Frozen statements
++    were independently approved before implementation. Canonical Linux checking is pending; no local Lean, official
++    Tau Ceti endorsement, external human peer review or novelty claim.
+ status:
+-  scope: >-
+-    Statement-only draft: twenty-two deliberate Challenge goals, definitions,
+-    exact numerical obligations and pinned tooling. No Solution implementation
+-    exists. No independent statement approval, Linux typecheck, frozen boundary,
+-    kernel proof acceptance, Comparator result or verified-count increment is
+-    claimed. The full original target is intended; the additional sharper
+-    quantitative statements and the source's padding corollary are not claimed.
+-  main_results: []
++  scope: All 22 full-target declarations and their complete proof graph passed actual Linux development compilation
++    and LeanCert kernel-trust/standard-axiom checks in run 35031607095. The aggregate run failed in a separate MF-12
++    component. This package still awaits its own canonical Comparator, default-kernel replay, rejection controls
++    and final operational referee acceptance. The 22 deliberate Challenge placeholders are specifications, excluded
++    from proof-development sorry counts. Canonical status remains Solved.
++  sorry_count: 0
++  sorry_in_definitions: 0
++  axioms: &id001
++  - propext
++  - Classical.choice
++  - Quot.sound
++  main_results:
++  - declaration: NLA.MF24.family_dimensions
++    file: NLA/MF24/Dimensions.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.MF24.source_words_eq_height_shifts
++    file: NLA/MF24/Heights.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.MF24.height_shift_powers
++    file: NLA/MF24/Powers.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.MF24.family_nilpotent_nonnegative
++    file: NLA/MF24/Heights.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.MF24.polynomial_degree_evaluation
++    file: NLA/MF24/Polynomial.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.MF24.polynomial_entries
++    file: NLA/MF24/Polynomial.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.MF24.gram_continuant
++    file: NLA/MF24/GramContinuant.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.MF24.gram_transfer
++    file: NLA/MF24/Transfer.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.MF24.transfer_bridge
++    file: NLA/MF24/Bridge.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.MF24.family_gram_charpoly
++    file: NLA/MF24/FamilySpectrum.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.MF24.gram_singular_bridge
++    file: NLA/MF24/SpectralBridge.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.MF24.family_super_identical
++    file: NLA/MF24/FamilySpectrum.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.MF24.first_row_and_nonzero
++    file: NLA/MF24/Numerator.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.MF24.polynomial_numerator_bound
++    file: NLA/MF24/Numerator.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.MF24.residue_geometry
++    file: NLA/MF24/Geometry.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.MF24.residue_weight_bounds
++    file: NLA/MF24/Weights.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.MF24.polynomial_denominator_energy
++    file: NLA/MF24/Energy.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.MF24.polynomial_denominator_bound
++    file: NLA/MF24/Energy.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.MF24.polynomial_norm_ratio
++    file: NLA/MF24/Ratios.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.MF24.finite_rational_family_ratio
++    file: NLA/MF24/Ratios.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.MF24.arbitrarily_large_ratios
++    file: NLA/MF24/Unbounded.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  - declaration: NLA.MF24.no_uniform_comparison
++    file: NLA/MF24/Unbounded.lean
++    sorry_count: 0
++    axioms: *id001
++    comparator_config: comparator.json
++    literature_dependencies: []
++  whole_problem_verified: false
+ fidelity:
+-  divergences: >-
+-    No restriction of the original negative comparison target. The denominator
+-    estimate is deliberately weakened from t²+m−1 to t²+m, and the finite-family
+-    ratio from (4/5)sqrt(m) to (2/3)sqrt(m), to retain full residue classes and
+-    remove boundary-deletion isometries. Scalar identities at every complex η
+-    replace matrix-valued polynomial expressions. The source's all-dimension
+-    padding lower bound, liminf result and sharp constants are not formalized.
++  divergences: No restriction of the original negative comparison target. The denominator estimate is deliberately
++    weakened from t²+m−1 to t²+m, and the finite-family ratio from (4/5)sqrt(m) to (2/3)sqrt(m), to retain full
++    residue classes and remove boundary-deletion isometries. Scalar identities at every complex η replace matrix-valued
++    polynomial expressions. The source's all-dimension padding lower bound, liminf result and sharp constants are
++    not formalized.
+ review:
+-  status: unreviewed statement-only draft; all proof and final mechanical gates pending
+-  reviewers: []
+-  notes: >-
+-    Challenge placeholders are intentional statement goals and prove no
+-    mathematics. Two independent statement reviewers, actual Linux typechecking
+-    and an immutable freeze are required before proof implementation. Later
+-    acceptance requires LeanCert kernel trust, transitive axiom audit, actual
+-    Comparator with no definition holes, default-kernel replay, negative
+-    controls and two independent final referees applying scoped Tau Ceti
+-    fidelity, proof-quality, reuse and attribution standards.
++  status: two independent complete mathematical source approvals; canonical operational reviews pending
++  reviewers:
++  - /root (non-implementing mathematical referee)
++  - /root/next_inequalities (non-implementing mathematical referee)
++  notes: Statement approval/freeze and actual prior elaboration are retained. Full source reviews and development
++    evidence accompany the package. Scoped Tau Ceti adaptation and pinned Schiffer/Forsythe references; no external
++    human or official endorsement.
+ alignment:
+   source_correspondence: SourceCorrespondence.md
+   numerical_boundary: NUMERICAL_TARGETS.md
+   proposed_statements: Challenge.lean
+   source_provenance: SOURCE-PROVENANCE.json
+   intended_implementation_entry: Solution.lean
+-acknowledgements: >-
+-  Georg Maierhofer for the original mathematical counterexample; Fortier Bourque
+-  and Ransford for the original problem; Mathlib contributors for the matrix,
+-  Hermitian spectrum, singular-value and Euclidean norm APIs; LeanCert and
+-  Comparator contributors for trust and independent statement checking. Their
+-  mathematical and software credit is distinct from formalization authorship.
++acknowledgements: Georg Maierhofer for the original mathematical counterexample; Fortier Bourque and Ransford for
++  the original problem; Mathlib contributors for the matrix, Hermitian spectrum, singular-value and Euclidean norm
++  APIs; LeanCert and Comparator contributors for trust and independent statement checking. Their mathematical and
++  software credit is distinct from formalization authorship.
+--- approved/lakefile.toml
++++ candidate/lakefile.toml
+@@ -1,6 +1,6 @@
+ name = "NLAMF24"
+ version = "0.1.0"
+-defaultTargets = ["Challenge"]
++defaultTargets = ["Solution"]
+ 
+ [[require]]
+ name = "leancert"

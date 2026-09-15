@@ -1,0 +1,242 @@
+--- earlier/NLA/MF24/Energy.lean
++++ current/NLA/MF24/Energy.lean
+@@ -75,7 +75,8 @@
+   intro hf
+   have hmod : Nat.ModEq (stride m) r.val s.val := (Nat.modEq_iff_dvd' hf.1.le).mpr hf.2
+   apply hs
+-  exact (mem_residueClass m c s).mpr (hmod.symm.trans ((mem_residueClass m c r).mp hr))
++  have hremainder : s.val % stride m = r.val % stride m := hmod.symm
++  exact (mem_residueClass m c s).mpr (hremainder.trans ((mem_residueClass m c r).mp hr))
+ 
+ lemma denominator_row_bound (m : ℕ) (hm : 2 ≤ m) (t : ℝ) (ht : 1 < t)
+     (c : Fin (stride m)) (x : EuclideanVector (dimension m))
+--- earlier/NLA/MF24/FamilySpectrum.lean
++++ current/NLA/MF24/FamilySpectrum.lean
+@@ -23,16 +23,17 @@
+     (h : ∀ η : ℂ, (A + η • (1 : Square N)).det = (B + η • (1 : Square N)).det) :
+     A.charpoly = B.charpoly := by
+   apply Polynomial.funext
+-  intro λ
++  intro spectralParameter
+   rw [Matrix.eval_charpoly, Matrix.eval_charpoly]
+-  have hs : Matrix.scalar (Fin N) λ = λ • (1 : Square N) := by
++  have hs : Matrix.scalar (Fin N) spectralParameter = spectralParameter • (1 : Square N) := by
+     ext i j
+     by_cases hij : i = j <;>
+       simp [Matrix.scalar_apply, Matrix.diagonal_apply, Matrix.one_apply, hij]
+-  have hneg (C : Square N) : Matrix.scalar (Fin N) λ - C = -(C + (-λ) • (1 : Square N)) := by
++  have hneg (C : Square N) : Matrix.scalar (Fin N) spectralParameter - C =
++      -(C + (-spectralParameter) • (1 : Square N)) := by
+     rw [hs]
+     module
+-  rw [hneg A, hneg B, Matrix.det_neg, Matrix.det_neg, h (-λ)]
++  rw [hneg A, hneg B, Matrix.det_neg, Matrix.det_neg, h (-spectralParameter)]
+ 
+ lemma family_gram_determinant (m : ℕ) (hm : 2 ≤ m) (t : ℝ) (z η : ℂ) :
+     (gram (scalarShift (matrixX m t) z) + η • (1 : Square (dimension m))).det =
+--- earlier/NLA/MF24/Geometry.lean
++++ current/NLA/MF24/Geometry.lean
+@@ -28,8 +28,9 @@
+ lemma vertex_residue_quotient (m : ℕ) (v : Fin (dimension m)) :
+     v.val / stride m < m + 1 := by
+   apply (Nat.div_lt_iff_lt_mul (stride_pos m)).mpr
+-  have hv := v.isLt
+-  rw [dimension_eq] at hv
++  have hv : v.val < m * stride m + 1 := by
++    calc v.val < dimension m := v.isLt
++      _ = m * stride m + 1 := dimension_eq m
+   have hd := stride_pos m
+   nlinarith
+ 
+@@ -41,6 +42,7 @@
+       · intro v _
+         exact Finset.mem_range.mpr (vertex_residue_quotient m v)
+       · intro v hv w hw he
++        change v.val / stride m = w.val / stride m at he
+         have hvmod := (mem_residueClass m c v).mp hv
+         have hwmod := (mem_residueClass m c w).mp hw
+         have hdv := Nat.div_add_mod' v.val (stride m)
+@@ -53,9 +55,22 @@
+ lemma heightY_zero_iff (m : ℕ) (v : Fin (dimension m)) :
+     heightY m v.val = 0 ↔
+       v.val % (m + 1) = 0 ∧ v.val / (m + 1) < m := by
+-  have hbound := (vertex_grid_bounds m v.val v.isLt).1
+-  unfold heightY
+-  split_ifs <;> omega
++  have hbound : v.val / (m + 1) ≤ m := (vertex_grid_bounds m v.val v.isLt).1
++  constructor
++  · intro hz
++    change (if 1 ≤ v.val % (m + 1) then (1 : ℕ) else 0) +
++      (if v.val / (m + 1) = m then (1 : ℕ) else 0) = 0 at hz
++    obtain ⟨hfirst, hsecond⟩ := Nat.add_eq_zero_iff.mp hz
++    have hrem : v.val % (m + 1) = 0 := by
++      by_contra hr
++      have hpos : 1 ≤ v.val % (m + 1) := Nat.one_le_iff_ne_zero.mpr hr
++      exact Nat.one_ne_zero ((if_pos hpos).symm.trans hfirst)
++    have hquot : v.val / (m + 1) ≠ m := by
++      intro he
++      exact Nat.one_ne_zero ((if_pos he).symm.trans hsecond)
++    exact ⟨hrem, Nat.lt_of_le_of_ne hbound hquot⟩
++  · rintro ⟨hrem, hquot⟩
++    simp [heightY, hrem, Nat.ne_of_lt hquot]
+ 
+ lemma heightY_two_iff (m v : ℕ) :
+     heightY m v = 2 ↔ 1 ≤ v % (m + 1) ∧ v / (m + 1) = m := by
+--- earlier/NLA/MF24/GramContinuant.lean
++++ current/NLA/MF24/GramContinuant.lean
+@@ -30,8 +30,9 @@
+         (fun i : Fin n => i.castSucc.castSucc)
+         (fun i : Fin n => i.castSucc.castSucc) = gramPencil word z η n := by
+     calc
+-      _ = ((gramPencil word z η (n + 2)).submatrix Fin.castSucc Fin.castSucc).
+-          submatrix Fin.castSucc Fin.castSucc := rfl
++      _ = Matrix.submatrix
++          ((gramPencil word z η (n + 2)).submatrix Fin.castSucc Fin.castSucc)
++          Fin.castSucc Fin.castSucc := rfl
+       _ = gramPencil word z η n := by
+         rw [gramPencil_corner, gramPencil_corner]
+   have h := last_border_det n (gramPencil word z η (n + 2))
+--- earlier/NLA/MF24/GramEntries.lean
++++ current/NLA/MF24/GramEntries.lean
+@@ -99,9 +99,14 @@
+ theorem gramPencil_last_previous (word : List ℝ) (z η : ℂ) (n : ℕ) :
+     gramPencil word z η (n + 2) (Fin.last (n + 1)) (Fin.last n).castSucc =
+       -z * (word.getD n 0 : ℂ) := by
++  have hne : Fin.last (n + 1) ≠ (Fin.last n).castSucc := by
++    intro h
++    have hv := congrArg Fin.val h
++    simp only [Fin.val_last, Fin.val_castSucc] at hv
++    omega
+   rw [gramPencil_apply, Fin.sum_univ_castSucc, Fin.sum_univ_castSucc]
+   simp [shiftedWord_far_upper, shiftedWord_last_edge, shiftedWord_diag,
+-    shiftedWord_last_lower, mul_comm]
++    shiftedWord_last_lower, mul_comm, hne]
+ 
+ theorem gramPencil_previous_last (word : List ℝ) (z η : ℂ) (n : ℕ) :
+     gramPencil word z η (n + 2) (Fin.last n).castSucc (Fin.last (n + 1)) =
+@@ -112,8 +117,13 @@
+ 
+ theorem gramPencil_last_earlier (word : List ℝ) (z η : ℂ) (n : ℕ) (i : Fin n) :
+     gramPencil word z η (n + 2) (Fin.last (n + 1)) i.castSucc.castSucc = 0 := by
++  have hne : Fin.last (n + 1) ≠ i.castSucc.castSucc := by
++    intro h
++    have hv := congrArg Fin.val h
++    simp only [Fin.val_last, Fin.val_castSucc] at hv
++    omega
+   rw [gramPencil_apply, Fin.sum_univ_castSucc, Fin.sum_univ_castSucc]
+-  simp [shiftedWord_far_upper, shiftedWord_penultimate_lower, shiftedWord_last_lower]
++  simp [shiftedWord_far_upper, shiftedWord_penultimate_lower, shiftedWord_last_lower, hne]
+ 
+ theorem gramPencil_earlier_last (word : List ℝ) (z η : ℂ) (n : ℕ) (i : Fin n) :
+     gramPencil word z η (n + 2) i.castSucc.castSucc (Fin.last (n + 1)) = 0 := by
+--- earlier/NLA/MF24/Heights.lean
++++ current/NLA/MF24/Heights.lean
+@@ -47,9 +47,7 @@
+       t ^ ((if 1 ≤ s then 1 else 0) + d) = (if s = 0 then t else 1) := by
+   by_cases hs : s = 0
+   · subst s
+-    simp only [Nat.zero_add, Nat.one_le_one, if_true, Nat.not_succ_le_zero,
+-      if_false, pow_add, pow_one]
+-    field_simp [ne_of_gt ht]
++    simp [pow_add, ne_of_gt ht]
+   · have hs1 : 1 ≤ s := by omega
+     have hs2 : 1 ≤ s + 1 := by omega
+     simp [hs, hs1, hs2, pow_ne_zero _ (ne_of_gt ht)]
+@@ -83,8 +81,8 @@
+       simp [hm1, ne_of_gt ht]
+     · have hq1 : 1 ≤ q := by omega
+       have hq2 : 1 ≤ q + 1 := by omega
+-      simp only [Nat.not_succ_le_zero, if_false, hq1, hq2, hm1,
+-        if_true, zero_add, one_add_one_eq_two, pow_one, hq0]
++      simp only [show ¬ (1 : ℕ) ≤ 0 by omega, hq1, hq2, hm1, hq0,
++        if_false, if_true, Nat.zero_add, one_add_one_eq_two, pow_one]
+       field_simp [ne_of_gt ht] <;> ring
+   · rw [heightY_grid m (q + 1) 0 (by omega), heightY_grid m q m (by omega)]
+     have hqm : q ≠ m := by omega
+@@ -98,8 +96,10 @@
+   · by_contra hn
+     have hlarge : m + 1 ≤ v / (m + 1) := by omega
+     have hmul := Nat.mul_le_mul_right (m + 1) hlarge
+-    unfold dimension at hv
+-    nlinarith
++    have hbound : (m + 1) * (m + 1) ≤ v := by omega
++    have hv' : v < (m + 1) * (m + 1) := by
++      simpa only [dimension, pow_two] using hv
++    omega
+   · omega
+ 
+ lemma source_edge_height_ratios (m : ℕ) (hm : 2 ≤ m) (t : ℝ) (ht : 0 < t)
+@@ -151,8 +151,8 @@
+         he]
+     · rfl
+   · simp [heightX]
+-  · have hm0 : m ≠ 0 := by omega
+-    simp [heightY, hm0]
++  · have h0m : 0 ≠ m := by omega
++    simp [heightY, h0m]
+ 
+ theorem family_nilpotent_nonnegative (m : ℕ) (hm : 2 ≤ m)
+     (t : ℝ) (ht : 1 < t) :
+--- earlier/NLA/MF24/Numerator.lean
++++ current/NLA/MF24/Numerator.lean
+@@ -29,8 +29,9 @@
+     simp only [hj0, mul_zero] at hj
+     omega
+   have hjm : j ≤ m := by
+-    have hb := v.isLt
+-    rw [dimension_eq] at hb
++    have hb : v.val < m * stride m + 1 := by
++      calc v.val < dimension m := v.isLt
++        _ = m * stride m + 1 := dimension_eq m
+     by_contra hn
+     have hlarge : m + 1 ≤ j := by omega
+     have hmul := Nat.mul_le_mul_left (stride m) hlarge
+--- earlier/NLA/MF24/Polynomial.lean
++++ current/NLA/MF24/Polynomial.lean
+@@ -70,10 +70,11 @@
+       if r.val < s.val ∧ stride m ∣ s.val - r.val then
+         ((t ^ h s / t ^ h r : ℝ) : ℂ) else 0 := by
+   rw [polyEval_testPolynomial]
+-  simp only [Finset.sum_apply, height_shift_powers (dimension m) h t ht]
++  simp only [Matrix.sum_apply, height_shift_powers (dimension m) h t ht]
+   have hD := stride_pos m
+-  have hsize := s.isLt
+-  rw [dimension_eq] at hsize
++  have hsize : s.val < m * stride m + 1 := by
++    calc s.val < dimension m := s.isLt
++      _ = m * stride m + 1 := dimension_eq m
+   by_cases hforward : r.val < s.val ∧ stride m ∣ s.val - r.val
+   · obtain ⟨j, hj⟩ := hforward.2
+     have hsj : s.val = r.val + stride m * j := by omega
+--- earlier/NLA/MF24/Transfer.lean
++++ current/NLA/MF24/Transfer.lean
+@@ -8,6 +8,7 @@
+ Original mathematical counterexample: Georg Maierhofer, University of Cambridge.
+ -/
+ import NLA.MF24.GramContinuant
++import NLA.MF24.FamilyTransfer
+ 
+ set_option autoImplicit false
+ set_option leancert.trust "kernel"
+@@ -24,8 +25,8 @@
+     transferProduct u ρ (word.take (k + 1)) =
+       transferMatrix u ρ ((word.getD k 0 : ℂ) ^ 2) *
+         transferProduct u ρ (word.take k) := by
+-  rw [List.take_succ_eq_append_getElem hk, List.getD_eq_getElem word 0 hk]
+-  simp [transferProduct, List.reverse_append]
++  rw [List.take_succ_eq_append_getElem hk, transferProduct_append,
++    transferProduct_singleton, List.getD_eq_getElem word 0 hk]
+ 
+ /-- Both coordinates track actual Gram determinants throughout the entire
+ prefix, so the scalar recurrence is connected to the ordered matrix product. -/
+--- earlier/NLA/MF24/Weights.lean
++++ current/NLA/MF24/Weights.lean
+@@ -31,7 +31,7 @@
+   have hconst : (∑ v ∈ s, if bad v then hi - lo else 0) =
+       ((s.filter bad).card : ℝ) * (hi - lo) := by
+     rw [← Finset.sum_filter]
+-    simp
++    simp only [Finset.sum_const, nsmul_eq_mul]
+   rw [Finset.sum_add_distrib, hconst] at hsum
+   simp only [Finset.sum_const, nsmul_eq_mul] at hsum
+   have hc : (s.card : ℝ) ≤ (m : ℝ) + 1 := by exact_mod_cast hcard

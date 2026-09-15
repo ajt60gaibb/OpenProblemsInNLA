@@ -52,7 +52,7 @@ pseudospectra\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -95,11 +95,97 @@ assistance. The
 maintainer audit} confirms the complete negative resolution and records
 independent mathematical review and fresh checks. The
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/mf24-counterexample/independent-review.md}{submitted
-informal Codex AI-agent audit} is also retained. No external human peer
-review or Lean verification is asserted. See the
+informal Codex AI-agent audit} is also retained. Those original audits
+were informal; the separate Lean verification is documented below. No
+external human peer review is asserted. See the
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/mf24-counterexample/README.md}{source,
 checks and provenance}. The existing difficulty and importance ratings
 are retained as historical ratings of the original boundedness question.
+
+\newpage
+
+\subsection{Lean proof and verification
+evidence}\label{lean-proof-and-verification-evidence}
+
+\textbf{Formalization: George Stepaniants, Department of Computing and
+Mathematical Sciences, California Institute of Technology.} Georg
+Maierhofer retains credit for the mathematical counterexample above. The
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/blob/208e30d80f73ef661b1f019c7de93c70254f7e48/matrix-functions-and-stability/MF-24/lean/Solution.lean}{complete
+Lean proof at immutable revision 208e30d8} pins Lean \textbf{4.33.1},
+Mathlib \textit{0df444a360eaa60ab8c11dca51a86af692955474} and LeanCert
+\textit{621a43d7cf21f87872392a01e874f2f1dbddc926}.
+
+The declarations in namespace \textit{NLA.MF24} include:
+
+\begin{itemize}
+\tightlist
+\item
+  \textit{family\_super\_identical}: equality of every ordered singular
+  value after every complex shift.
+\item
+  \textit{polynomial\_norm\_ratio} and
+  \textit{finite\_rational\_family\_ratio}: the explicit norm-ratio
+  estimates for the original weighted-shift family.
+\item
+  \textit{arbitrarily\_large\_ratios}: a finite-dimensional pair and
+  polynomial exceeding every proposed real comparison bound.
+\item
+  \textit{no\_uniform\_comparison}: the complete negative answer to the
+  original uniform-boundedness question.
+\end{itemize}
+
+All \textbf{22 declarations}, including their full determinant, spectrum
+and operator-norm dependencies, are listed in
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-24/lean/formalization.yaml}{formalization.yaml}
+and checked against the independently reviewed
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-24/lean/Challenge.lean}{Challenge}.
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-24/lean/NLA/MF24/Definitions.lean}{definitions}
+use genuine complex polynomial evaluation and the induced norm on
+complex Euclidean space. Singular-value equality includes multiplicities
+and zeros; no normality, fixed dimension or restricted shift is assumed.
+The formal estimate uses the conservative denominator \(t^2+m\), giving
+\((2/3)\sqrt m\) at \(t=m\). This still refutes the complete original
+target. The manuscript's sharper constant, dimension-padding corollary
+and optimal growth question are not claimed as Lean-verified results.
+
+On \textbf{15 September 2026},
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/35033148310/job/104596164346}{the
+actual GitHub Linux verification job} checked this exact proof commit.
+All 22 exports passed LeanCert kernel assertions, real non-root
+Comparator statement matching, default-kernel replay and transitive
+axiom checks. Only \textit{propext}, \textit{Classical.choice} and
+\textit{Quot.sound} support the target results. Invalid-proof,
+mismatched-statement, forbidden-axiom and sandbox controls passed. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-24/lean/verification/linux-2026-09-15}{retained
+raw logs, artifact and input hashes} bind that execution to all 192
+candidate project files. These are actual GitHub Linux checks; no local
+macOS Lean execution is claimed.
+
+Two independent AI-agent referees accepted the complete mathematical
+source and reviewed the actual runtime evidence:
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-24/lean/reviews/final/referee-root/REVIEW.md}{referee
+1} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-24/lean/reviews/final/referee-inequalities/REVIEW.md}{referee
+2}. They applied the repository's scoped Tau Ceti protocol. This is
+separate from external human peer review or certification that the
+checker software is infallible.
+
+To reproduce the ordinary proof build, enter
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-24/lean/README.md}{the
+Lean project directory} with Lean installed and run:
+
+\begin{verbatim}
+lake exe cache get && lake build
+\end{verbatim}
+
+The default target is the complete Solution. For the additional
+sandboxed Comparator, kernel replay and rejection checks, follow the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/README.md}{shared
+Linux verification instructions}. Solution never imports the Challenge's
+deliberate specification placeholders. This evidence names the exact
+tested proof revision; subsequent documentation commits have separate
+published-commit checks.
 
 \newpage
 

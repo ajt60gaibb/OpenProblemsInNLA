@@ -1,0 +1,42 @@
+name: Lean development statement checks
+
+on:
+  push:
+    branches: [codex/lean-next-development]
+    paths: ['.lean-development/**', '.github/workflows/lean-development.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lean-next-development-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  statements:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: leanprover/lean-action@96e06131c0e9943c780388fd166f55d1e2fa0433
+        with:
+          lake-package-directory: .lean-development
+          auto-config: false
+          build: false
+          test: false
+          lint: false
+          use-mathlib-cache: false
+          use-github-cache: false
+      - name: Elaborate independent statements (not proof verification)
+        working-directory: .lean-development
+        run: python3 check.py
+      - name: Retain exact development receipt and logs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: lean-development-statements
+          path: .lean-development/evidence/
+          if-no-files-found: error

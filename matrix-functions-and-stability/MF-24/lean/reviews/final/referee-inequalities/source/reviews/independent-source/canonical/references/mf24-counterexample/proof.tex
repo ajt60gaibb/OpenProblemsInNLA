@@ -1,0 +1,311 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\norm}[1]{\lVert #1\rVert_2}
+\newcommand{\ind}[1]{\mathbf{1}_{\{#1\}}}
+\newcommand{\sip}{\sim_{\mathrm{sip}}}
+
+\hypersetup{pdftitle={Unbounded polynomial norm ratios for super-identical pseudospectra}}
+
+\begin{document}
+\begin{center}
+{\Large\bfseries Unbounded polynomial norm ratios for\\
+super-identical pseudospectra}
+\end{center}
+
+\begin{abstract}
+We give explicit nonnegative nilpotent weighted shifts of order $(m+1)^2$ whose singular
+values agree after every complex scalar shift, but whose norms under a common
+polynomial have ratio at least $(4/5)\sqrt m$. Thus no dimension-independent
+comparison constant exists. A two-by-two transfer identity proves equality
+of the shifted singular values; a residue-class decomposition gives the norm
+bounds. The proof uses only finite matrices and elementary linear algebra.
+It does not determine the optimal dimension-dependent bound.
+\end{abstract}
+
+\section{Statement and construction}
+All matrix norms are Euclidean operator norms. For $A,B\in\mathbb C^{N\times N}$,
+write $A\sip B$ if
+\[
+ s_j(A-zI)=s_j(B-zI)
+ \qquad(z\in\mathbb C,\ 1\le j\le N),
+\]
+where singular values are in decreasing order, with multiplicities. This is
+\emph{super-identical pseudospectra} in the terminology of
+Fortier Bourque and Ransford~\cite{fortier-ransford}.
+Problem MF-24~\cite{mf24} asks whether the constants
+\begin{equation}\label{eq:CN}
+ C_N=\sup\left\{
+ \frac{\norm{p(A)}}{\norm{p(B)}}:
+ A,B\in\mathbb C^{N\times N},\ A\sip B,\
+ p\in\mathbb C[z],\ p(B)\ne0\right\}
+\end{equation}
+are bounded independently of $N$. Both the matrices and the polynomial
+may depend on $N$. Ransford and Walsh~\cite[Theorem 1.3]{ransford-walsh}
+prove $C_N\le\sqrt{N-2}$ for $N\ge4$. We give a lower bound that diverges.
+
+\begin{theorem}\label{thm:main}
+For every integer $m\ge2$ and real $t>1$, the weighted shifts $X=X_{m,t}$
+and $Y=Y_{m,t}$ defined below have order $N=(m+1)^2$ and satisfy $X\sip Y$.
+For
+\begin{equation}\label{eq:p}
+ D=m+2,\qquad p_m(z)=\sum_{j=1}^m z^{Dj},
+\end{equation}
+one has $p_m(Y)\ne0$ and
+\begin{equation}\label{eq:bounds}
+ \norm{p_m(X)}\ge t^2\sqrt m,\qquad
+ \norm{p_m(Y)}\le t^2+m-1.
+\end{equation}
+Consequently,
+\begin{equation}\label{eq:ratio}
+ \frac{\norm{p_m(X)}}{\norm{p_m(Y)}}
+ \ge \frac{\sqrt m}{1+(m-1)/t^2}.
+\end{equation}
+\end{theorem}
+
+Put $k=m+1$, so $D=k+1$ and $N=k^2=mD+1$.
+A weighted shift with word $(w_1,\ldots,w_{N-1})$ is the matrix
+\[
+ W_{i-1,i}=w_i\quad(1\le i<N),\qquad W_{r,s}=0\quad(s\ne r+1).
+\]
+Thus vertices are numbered $0,\ldots,N-1$, and edges $1,\ldots,N-1$.
+Let $U=(t,1,\ldots,1)$ have length $m$. Define
+\begin{equation}\label{eq:words}
+ \begin{aligned}
+ \text{word}(X)&=\bigl(U,1,U,(t^{-1},U)^{m-1}\bigr),\\
+ \text{word}(Y)&=\bigl(U,(t^{-1},U)^{m-1},1,U\bigr).
+ \end{aligned}
+\end{equation}
+Commas mean concatenation, and the exponent means repetition of the whole
+parenthesized word. There are $m+1$ motifs $U$, separated by $m$ bridges:
+the first bridge of $X$ and the last bridge of $Y$ are $1$; all other
+bridges are $t^{-1}$. Each word has $(m+1)m+m=N-1$ entries.
+For example, $m=2$ gives
+\[
+ (t,1,1,t,1,t^{-1},t,1),\qquad
+ (t,1,t^{-1},t,1,1,t,1).
+\]
+Both shifts are nonnegative and nilpotent. Also, $\deg p_m=mD=N-1$.
+
+\section{Equality of the shifted singular values}
+Fix a weighted shift $W$ with positive real weights and $z\in\mathbb C$. Set
+$\rho=|z|^2$ and $u=\rho+\eta$, where $\eta$ is a polynomial variable.
+The matrix $(W-zI)^*(W-zI)+\eta I$ is tridiagonal. Its diagonal is
+$u,u+w_1^2,\ldots,u+w_{N-1}^2$, and its adjacent off-diagonal entries
+are $-\overline z w_j$ and $-z w_j$. Its leading principal determinants satisfy
+\begin{equation}\label{eq:recurrence}
+ d_0=1,\qquad d_1=u,\qquad
+ d_{j+1}=(u+w_j^2)d_j-\rho w_j^2d_{j-1}\quad(1\le j<N).
+\end{equation}
+This follows by expanding a tridiagonal determinant along its last row.
+Define
+\begin{equation}\label{eq:K}
+ K(a)=\begin{pmatrix}u+a&-\rho a\\1&0\end{pmatrix},\qquad
+ v_0=\begin{pmatrix}u\\1\end{pmatrix},\quad
+ f=\begin{pmatrix}1\\0\end{pmatrix},\quad
+ g=\begin{pmatrix}1\\-\rho\end{pmatrix}.
+\end{equation}
+Then
+\begin{equation}\label{eq:product}
+ d_N=f^{\mathsf T}K(w_{N-1}^2)\cdots K(w_1^2)v_0.
+\end{equation}
+In particular, later edges multiply on the left.
+
+\begin{lemma}[Bridge identity]\label{lem:bridge}
+Let $P$ be a two-by-two matrix over a commutative ring, and let $u,\rho,a,b$
+belong to that ring. With the notation in~\eqref{eq:K}, set
+\[
+ R=PK(a),\qquad S=PK(b),\qquad v=Pv_0.
+\]
+For every integer $n\ge0$,
+\begin{equation}\label{eq:bridge}
+ f^{\mathsf T}R^nSv=f^{\mathsf T}SR^nv.
+\end{equation}
+\end{lemma}
+\begin{proof}
+The transposes are algebraic, not conjugate transposes. Write $w=Pf$.
+Since $K(a)=v_0f^{\mathsf T}+a f g^{\mathsf T}$, we have
+\[
+ R=vf^{\mathsf T}+a w g^{\mathsf T},\qquad
+ S=vf^{\mathsf T}+b w g^{\mathsf T}.
+\]
+Multiplying these rank-one expressions gives
+\[
+ RS-SR=(b-a)\bigl[v(f^{\mathsf T}w)g^{\mathsf T}
+                       -w(g^{\mathsf T}v)f^{\mathsf T}\bigr].
+\]
+After multiplication by $f^{\mathsf T}$ on the left and $v$ on the right,
+the two scalar terms coincide. Hence $f^{\mathsf T}(RS-SR)v=0$.
+The two-by-two Cayley--Hamilton identity
+\[
+ R^2=(\operatorname{tr}R)R-(\det R)I
+\]
+implies by induction that $R^n=\alpha_n R+\beta_n I$ for some ring elements
+$\alpha_n,\beta_n$; the initial cases are $R^0=I$ and $R^1=R$.
+Substitution proves~\eqref{eq:bridge}. No division or invertibility is needed.
+\end{proof}
+
+The motif $U$ has transfer product $P=K(1)^{m-1}K(t^2)$.
+Apply the lemma in $\mathbb C[\eta]$ with $a=t^{-2}$, $b=1$, and $n=m-1$.
+Reading~\eqref{eq:words} in the order of~\eqref{eq:product} gives
+\[
+ d_N^X=f^{\mathsf T}R^{m-1}Sv
+      =f^{\mathsf T}SR^{m-1}v=d_N^Y.
+\]
+Therefore, for every fixed $z\in\mathbb C$,
+\begin{equation}\label{eq:Gram}
+ \det\bigl((X-zI)^*(X-zI)+\eta I\bigr)
+ =\det\bigl((Y-zI)^*(Y-zI)+\eta I\bigr)
+\end{equation}
+as polynomials in $\eta$. The two Gram matrices have the same eigenvalues
+with multiplicities, since their characteristic polynomials agree.
+They are Hermitian positive semidefinite; taking nonnegative square roots
+of their eigenvalues proves $X\sip Y$.
+
+\section{Polynomial norm bounds}
+For either word, define the prefix height $h$ by
+\[
+ h(0)=0,\qquad w_i=t^{h(i)-h(i-1)}.
+\]
+Every vertex has a unique representation $r=qk+s$, with $0\le q,s\le m$.
+The two words give
+\begin{equation}\label{eq:heights}
+ h_X(qk+s)=\ind{s\ge1}+\ind{q\ge1},\qquad
+ h_Y(qk+s)=\ind{s\ge1}+\ind{q=m}.
+\end{equation}
+Indeed, the first edge of each motif raises the height by one, its other
+edges leave it unchanged, and each $t^{-1}$ bridge lowers it by one.
+
+There is a unique path contributing to each potentially nonzero entry of
+a power of a weighted shift. For an integer $\ell\ge0$ and $r+\ell<N$,
+\begin{equation}\label{eq:paths}
+ (W^\ell)_{r,r+\ell}
+ =\prod_{i=r+1}^{r+\ell}w_i=t^{h(r+\ell)-h(r)};
+\end{equation}
+all other entries are zero. The monomials of $p_m$ have distinct degrees,
+so they occupy distinct superdiagonals.
+
+\paragraph{The numerator and a nonzero denominator.}
+For $1\le j\le m$, the vertex $jD=jk+j$ has $X$-height $2$.
+Thus the first row of $p_m(X)$ contains $m$ entries equal to $t^2$, at
+columns $D,2D,\ldots,mD$. Its Euclidean norm is $t^2\sqrt m$, which is
+at most the operator norm of $p_m(X)$.
+Also, $h_Y(N-1)=2$ and $h_Y(0)=0$, so
+\begin{equation}\label{eq:nonzero}
+ (p_m(Y))_{0,N-1}=t^2\ne0.
+\end{equation}
+
+\paragraph{Residue blocks of the denominator.}
+Every nonzero entry of $p_m(Y)$ joins vertices in the same residue class
+modulo $D$. Permuting rows and columns by these classes gives a block
+diagonal matrix. Since $N=mD+1$, each block has size $L=m$ or $m+1$.
+If the heights along one class, in increasing vertex order, are
+$a_0,\ldots,a_{L-1}$, then~\eqref{eq:paths} gives
+\begin{equation}\label{eq:block}
+ B_{ij}=\begin{cases}t^{a_j-a_i},&j>i,\\0,&j\le i.\end{cases}
+\end{equation}
+Here every $j>i$ occurs: its vertex separation is $(j-i)D$, with
+$1\le j-i\le m$, and hence is one of the powers in $p_m$.
+
+Each $Y$-block contains at most one height $0$ and at most one height $2$.
+To see this, the height-$0$ vertices are $qk$ for $0\le q<m$, with distinct
+residues $-q$ modulo $D$. The height-$2$ vertices are $mk+s$ for
+$1\le s\le m$, with distinct residues $s-m$ modulo $D$.
+All other heights are $1$.
+
+The first column and last row of $B$ are zero. Removing them leaves an
+$(L-1)$-by-$(L-1)$ matrix $\widehat B$ with the same operator norm.
+Explicitly, $B$ maps $(x_0,x_1,\ldots,x_{L-1})$ to
+$(\widehat B(x_1,\ldots,x_{L-1}),0)$; the coordinate projection and
+inclusion do not change the supremum defining the norm.
+Set
+\[
+ u_i=t^{-a_i}\quad(0\le i\le L-2),\qquad
+ v_j=t^{a_{j+1}}\quad(0\le j\le L-2).
+\]
+Equation~\eqref{eq:block} implies $0\le\widehat B_{ij}\le u_i v_j$.
+For any complex vector $x$, componentwise absolute values therefore give
+\[
+ |\widehat Bx|\le u\,(v^{\mathsf T}|x|),\qquad
+ \norm{\widehat Bx}\le\norm{u}\,\norm{v}\,\norm{x}.
+\]
+The second inequality is Cauchy--Schwarz. The restrictions on heights,
+together with $t>1$, imply
+\[
+ \norm{u}^2\le1+(L-2)t^{-2},\qquad
+ \norm{v}^2\le t^4+(L-2)t^2.
+\]
+Consequently,
+\[
+ \norm{B}\le\norm{u}\norm{v}
+ \le\sqrt{\bigl(1+(L-2)t^{-2}\bigr)\bigl(t^4+(L-2)t^2\bigr)}
+ =t^2+L-2\le t^2+m-1.
+\]
+The operator norm of a block diagonal matrix is the maximum of the block
+norms. This proves the second inequality in~\eqref{eq:bounds}, and
+completes the proof of Theorem~\ref{thm:main}.
+
+\section{Consequences for the comparison constants}
+Taking the finite value $t=m$ in~\eqref{eq:ratio}, and using
+$4(m-1)\le m^2$, yields
+\begin{equation}\label{eq:finite}
+ \frac{\norm{p_m(X_{m,m})}}{\norm{p_m(Y_{m,m})}}
+ \ge \frac45\sqrt m\longrightarrow\infty.
+\end{equation}
+Each pair consists of finite rational matrices. Thus the uniform boundedness
+question has a negative answer, without taking a limit of matrices.
+
+\begin{corollary}\label{cor:dimension}
+For every integer $N\ge9$,
+\begin{equation}\label{eq:dimension}
+ C_N\ge\sqrt{\lfloor\sqrt N\rfloor-1}.
+\end{equation}
+In particular, $\liminf_{N\to\infty}C_N/N^{1/4}\ge1$.
+\end{corollary}
+\begin{proof}
+For fixed $m$, let $t\to\infty$ in the scalar lower bound
+in~\eqref{eq:ratio}. Since $C_{(m+1)^2}$ is a supremum over every finite
+$t>1$, it is at least $\sqrt m$; attainment is not asserted.
+Given $N\ge9$, put $m=\lfloor\sqrt N\rfloor-1\ge2$ and pad both
+$(m+1)^2$-by-$(m+1)^2$ matrices by the same zero block to reach order $N$.
+For every shift $z$, this adds the same singular values $|z|$ to both lists.
+Also $p_m(0)=0$, so the polynomial matrices receive only zero blocks and
+their norms do not change. This proves~\eqref{eq:dimension}.
+The final assertion follows because
+$(\lfloor\sqrt N\rfloor-1)/\sqrt N\to1$.
+\end{proof}
+
+The exact constants $C_N$ and their optimal growth rate are not determined
+here. In particular, a gap remains between the lower scale $N^{1/4}$ in
+Corollary~\ref{cor:dimension} and the upper scale $N^{1/2}$ from
+\cite[Theorem 1.3]{ransford-walsh}.
+
+\begin{thebibliography}{9}
+\bibitem{fortier-ransford}
+M. Fortier Bourque and T. Ransford,
+\emph{Super-identical pseudospectra},
+J. London Math. Soc. (2) \textbf{79} (2009), 511--528.
+\href{https://doi.org/10.1112/jlms/jdn085}{doi:10.1112/jlms/jdn085}.
+
+\bibitem{ransford-walsh}
+T. Ransford and N. Walsh,
+\emph{A four-mean theorem and its application to pseudospectra},
+Positivity \textbf{26} (2022), article 70.
+\href{https://doi.org/10.1007/s11117-022-00928-8}{doi:10.1007/s11117-022-00928-8}.
+\href{https://arxiv.org/abs/2109.14472v2}{arXiv:2109.14472v2}, 9 July 2022,
+Theorem 1.3 and Proposition 5.1.
+
+\bibitem{mf24}
+A. Townsend, \emph{Open Problems in Numerical Linear Algebra},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/matrix-functions-and-stability/MF-24}{entry MF-24},
+accessed 14 September 2026. The entry identifies uniform boundedness as
+the target and retains the sharp constants as a related quantitative question.
+\end{thebibliography}
+\end{document}

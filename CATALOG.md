@@ -2,7 +2,7 @@
 
 **113 problems with open targets:** 42 open and 71 partially resolved. **104 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 67 solved (published or independently audited); 37 solved with Lean verification.
+**Resolution evidence:** 66 solved (published or independently audited); 38 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -114,7 +114,7 @@ Retained entries outside the open count:
 | [MF-18](matrix-functions-and-stability/MF-18/README.md) | Imaginary-part rank in a limiting Green-function matrix equation | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-18/problem.pdf) · [TeX](matrix-functions-and-stability/MF-18/problem.tex) |
 | [MF-21](matrix-functions-and-stability/MF-21/README.md) | The uniform expansion threshold for Toeplitz symbols with higher-order zeros | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-21/problem.pdf) · [TeX](matrix-functions-and-stability/MF-21/problem.tex) |
 | [MF-22](matrix-functions-and-stability/MF-22/README.md) | Polynomial conditioning of the cubic C1 spline Schrödinger Toeplitz family | **✅ SOLVED** | hard | interesting to specialist | [PDF](matrix-functions-and-stability/MF-22/problem.pdf) · [TeX](matrix-functions-and-stability/MF-22/problem.tex) |
-| [MF-24](matrix-functions-and-stability/MF-24/README.md) | A dimension-independent polynomial norm bound from super-identical pseudospectra | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-24/problem.pdf) · [TeX](matrix-functions-and-stability/MF-24/problem.tex) |
+| [MF-24](matrix-functions-and-stability/MF-24/README.md) | A dimension-independent polynomial norm bound from super-identical pseudospectra | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-24/problem.pdf) · [TeX](matrix-functions-and-stability/MF-24/problem.tex) |
 | [SF-01](matrix-functions-and-stability/SF-01/README.md) | Preservation of real H-matrix structure by Newton square-root iterates | **✅ SOLVED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/SF-01/problem.pdf) · [TeX](matrix-functions-and-stability/SF-01/problem.tex) |
 
 
