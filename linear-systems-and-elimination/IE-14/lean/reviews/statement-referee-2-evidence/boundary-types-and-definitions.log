@@ -1,0 +1,183 @@
+NLA.IE14.numerical_bounds : And
+  (@LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))
+    (@HDiv.hDiv.{0, 0, 0} Real Real Real (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+      (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))
+      (@OfNat.ofNat.{0} Real (nat_lit 2) (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast ⋯))))
+  (@LE.le.{0} Real Real.instLE
+    (@HDiv.hDiv.{0, 0, 0} Real Real Real (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+      (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))
+      (@OfNat.ofNat.{0} Real (nat_lit 2) (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast ⋯)))
+    (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)))
+'NLA.IE14.numerical_bounds' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+@NLA.IE14.entryMax_semantics : ∀ {n : Nat},
+  @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) n →
+    ∀ (A : NLA.IE14.Mat n),
+      And
+        (@LE.le.{0} Real Real.instLE (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))
+          (@NLA.IE14.entryMax n A))
+        (And
+          (∀ (i j : Fin n),
+            @LE.le.{0} Real Real.instLE (@norm.{0} Complex Complex.instNorm (A i j)) (@NLA.IE14.entryMax n A))
+          (∃ i j, @Eq.{1} Real (@NLA.IE14.entryMax n A) (@norm.{0} Complex Complex.instNorm (A i j))))
+'NLA.IE14.entryMax_semantics' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+@NLA.IE14.admissible_path_exists : ∀ {n : Nat} (A : NLA.IE14.Mat n),
+  @Ne.{1} Complex (@Matrix.det.{0, 0} (Fin n) (instDecidableEqFin n) (Fin.fintype n) Complex Complex.commRing A)
+      (@OfNat.ofNat.{0} Complex (nat_lit 0) (@Zero.toOfNat0.{0} Complex Complex.instZero)) →
+    ∃ path, @NLA.IE14.AdmissiblePath n A path
+'NLA.IE14.admissible_path_exists' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+NLA.IE14.all_active_entries_bound : ∀ (n : Nat),
+  @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) n →
+    ∀ (A : NLA.IE14.Mat n),
+      @NLA.IE14.CyclicInput n A →
+        ∀ (path : NLA.IE14.PivotPath n),
+          @NLA.IE14.AdmissiblePath n A path →
+            ∀ (k i j : Fin n),
+              @LE.le.{0} (Fin n) (@instLEFin n) k i →
+                @LE.le.{0} (Fin n) (@instLEFin n) k j →
+                  @LE.le.{0} Real Real.instLE
+                    (@norm.{0} Complex Complex.instNorm (@NLA.IE14.trajectory n A path (@Fin.val n k) i j))
+                    (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) (NLA.IE14.fibonacciBound n)
+                      (@NLA.IE14.entryMax n A))
+'NLA.IE14.all_active_entries_bound' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+NLA.IE14.witness_data : ∀ (n : Nat)
+  (hn : @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) n),
+  And (@NLA.IE14.CyclicInput n (NLA.IE14.witnessMatrix n hn))
+    (@Eq.{1} Real (@NLA.IE14.entryMax n (NLA.IE14.witnessMatrix n hn))
+      (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)))
+'NLA.IE14.witness_data' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+NLA.IE14.witness_attainment : ∀ (n : Nat)
+  (hn : @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) n),
+  And (@NLA.IE14.AdmissiblePath n (NLA.IE14.witnessMatrix n hn) (NLA.IE14.witnessPath n hn))
+    (@Eq.{1} Real (@NLA.IE14.growth n (NLA.IE14.witnessMatrix n hn) (NLA.IE14.witnessPath n hn))
+      (NLA.IE14.fibonacciBound n))
+'NLA.IE14.witness_attainment' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+NLA.IE14.canonical_result : ∀ (n : Nat),
+  @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) n →
+    And (@IsGreatest.{0} Real Real.instLE (NLA.IE14.cyclicGrowthSet n) (NLA.IE14.fibonacciBound n))
+      (@Eq.{1} Real (NLA.IE14.sharpConstant n) (NLA.IE14.fibonacciBound n))
+'NLA.IE14.canonical_result' depends on axioms: [propext, sorryAx.{u}, Classical.choice.{u}, Quot.sound.{u}]
+@[reducible] def NLA.IE14.Mat : Nat → Type :=
+fun n => Matrix.{0, 0, 0} (Fin n) (Fin n) Complex
+def NLA.IE14.rowSwap : {n : Nat} → NLA.IE14.Mat n → Fin n → Fin n → NLA.IE14.Mat n :=
+fun {n} S k p i j =>
+  S
+    (@DFunLike.coe.{1, 1, 1} (Equiv.Perm.{1} (Fin n)) (Fin n) (fun x => Fin n)
+      (@EquivLike.toFunLike.{1, 1, 1} (Equiv.Perm.{1} (Fin n)) (Fin n) (Fin n)
+        (@Equiv.instEquivLike.{1, 1} (Fin n) (Fin n)))
+      (@Equiv.swap.{1} (Fin n) (instDecidableEqFin n) k p) i)
+    j
+def NLA.IE14.schurStep : {n : Nat} → NLA.IE14.Mat n → Fin n → Fin n → NLA.IE14.Mat n :=
+fun {n} S k p =>
+  have B := @NLA.IE14.rowSwap n S k p;
+  fun i j =>
+  @ite.{1} Complex (And (@LT.lt.{0} (Fin n) (@instLTFin n) k i) (@LT.lt.{0} (Fin n) (@instLTFin n) k j))
+    (@instDecidableAnd (@LT.lt.{0} (Fin n) (@instLTFin n) k i) (@LT.lt.{0} (Fin n) (@instLTFin n) k j)
+      (@Fin.decLt n k i) (@Fin.decLt n k j))
+    (@HSub.hSub.{0, 0, 0} Complex Complex Complex (@instHSub.{0} Complex Complex.instSub) (B i j)
+      (@HMul.hMul.{0, 0, 0} Complex Complex Complex (@instHMul.{0} Complex Complex.instMul)
+        (@HDiv.hDiv.{0, 0, 0} Complex Complex Complex
+          (@instHDiv.{0} Complex (@DivInvMonoid.toDiv.{0} Complex Complex.instDivInvMonoid)) (B i k) (B k k))
+        (B k j)))
+    (@OfNat.ofNat.{0} Complex (nat_lit 0) (@Zero.toOfNat0.{0} Complex Complex.instZero))
+def NLA.IE14.trajectory : {n : Nat} → NLA.IE14.Mat n → NLA.IE14.PivotPath n → Nat → NLA.IE14.Mat n :=
+fun {n} A path x => @Nat.brecOn.{1} (fun x => NLA.IE14.Mat n) x (@NLA.IE14.trajectory._f n A path)
+def NLA.IE14.AdmissiblePivot : {n : Nat} → NLA.IE14.Mat n → Fin n → Fin n → Prop :=
+fun {n} S k p =>
+  And (@LE.le.{0} (Fin n) (@instLEFin n) k p)
+    (And (@Ne.{1} Complex (S p k) (@OfNat.ofNat.{0} Complex (nat_lit 0) (@Zero.toOfNat0.{0} Complex Complex.instZero)))
+      (∀ (i : Fin n),
+        @LE.le.{0} (Fin n) (@instLEFin n) k i →
+          @LE.le.{0} Real Real.instLE (@norm.{0} Complex Complex.instNorm (S i k))
+            (@norm.{0} Complex Complex.instNorm (S p k))))
+def NLA.IE14.AdmissiblePath : {n : Nat} → NLA.IE14.Mat n → NLA.IE14.PivotPath n → Prop :=
+fun {n} A path => ∀ (k : Fin n), @NLA.IE14.AdmissiblePivot n (@NLA.IE14.trajectory n A path (@Fin.val n k)) k (path k)
+def NLA.IE14.CyclicPosition : {n : Nat} → Fin n → Fin n → Prop :=
+fun {n} i j =>
+  Or
+    (And
+      (@LE.le.{0} Nat instLENat (@Fin.val n i)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@Fin.val n j)
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+      (@LE.le.{0} Nat instLENat (@Fin.val n j)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@Fin.val n i)
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+    (Or
+      (And (@Eq.{1} Nat (@Fin.val n i) (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+        (@Eq.{1} Nat
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@Fin.val n j)
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+          n))
+      (And (@Eq.{1} Nat (@Fin.val n j) (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+        (@Eq.{1} Nat
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@Fin.val n i)
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+          n)))
+def NLA.IE14.CyclicInput : {n : Nat} → NLA.IE14.Mat n → Prop :=
+fun {n} A =>
+  And
+    (@Ne.{1} Complex (@Matrix.det.{0, 0} (Fin n) (instDecidableEqFin n) (Fin.fintype n) Complex Complex.commRing A)
+      (@OfNat.ofNat.{0} Complex (nat_lit 0) (@Zero.toOfNat0.{0} Complex Complex.instZero)))
+    (And
+      (∀ (i j : Fin n),
+        Not (@NLA.IE14.CyclicPosition n i j) →
+          @Eq.{1} Complex (A i j) (@OfNat.ofNat.{0} Complex (nat_lit 0) (@Zero.toOfNat0.{0} Complex Complex.instZero)))
+      (∀ (i j : Fin n),
+        @Eq.{1} Nat (@Fin.val n i) (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) →
+          @Eq.{1} Nat
+              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@Fin.val n j)
+                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+              n →
+            And
+              (@Ne.{1} Complex (A i j)
+                (@OfNat.ofNat.{0} Complex (nat_lit 0) (@Zero.toOfNat0.{0} Complex Complex.instZero)))
+              (@Ne.{1} Complex (A j i)
+                (@OfNat.ofNat.{0} Complex (nat_lit 0) (@Zero.toOfNat0.{0} Complex Complex.instZero)))))
+def NLA.IE14.growth : {n : Nat} → NLA.IE14.Mat n → NLA.IE14.PivotPath n → Real :=
+fun {n} A path =>
+  @HDiv.hDiv.{0, 0, 0} Real Real Real (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+    (↑(@Finset.sup.{0, 0} NNReal (Fin n) NNReal.instSemilatticeSup NNReal.instOrderBot
+        (@Finset.univ.{0} (Fin n) (Fin.fintype n)) fun k =>
+        @NLA.IE14.activeMaxNN n (@NLA.IE14.trajectory n A path (@Fin.val n k)) (@Fin.val n k)))
+    (@NLA.IE14.entryMax n A)
+def NLA.IE14.cyclicGrowthSet : Nat → Set.{0} Real :=
+fun n =>
+  @Set.ofPred.{0} Real fun r =>
+    ∃ A path,
+      And (@NLA.IE14.CyclicInput n A)
+        (And (@NLA.IE14.AdmissiblePath n A path) (@Eq.{1} Real r (@NLA.IE14.growth n A path)))
+def NLA.IE14.factorIndex : (n : Nat) →
+  @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) n → Fin n → Fin n :=
+fun n hn i =>
+  @dite.{1} (Fin n) (@Eq.{1} Nat (@Fin.val n i) (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+    (instDecidableEqNat (@Fin.val n i) (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+    (fun h0 => @Fin.mk n (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) ⋯) fun h0 =>
+    @dite.{1} (Fin n)
+      (@Eq.{1} Nat
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@Fin.val n i)
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+        n)
+      (instDecidableEqNat
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@Fin.val n i)
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+        n)
+      (fun hlast => @Fin.mk n (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) ⋯) fun hlast =>
+      @Fin.mk n
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@Fin.val n i)
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+        ⋯
+def NLA.IE14.witnessMatrix : (n : Nat) →
+  @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) n → NLA.IE14.Mat n :=
+fun n hn i j =>
+  @HMul.hMul.{0, 0, 0} (NLA.IE14.Mat n) (NLA.IE14.Mat n) (Matrix.{0, 0, 0} (Fin n) (Fin n) Complex)
+    (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin n) (Fin n) (Fin n) Complex (Fin.fintype n)
+      Complex.instMul Complex.instAddCommMonoid)
+    (NLA.IE14.witnessLower n) (NLA.IE14.witnessUpper n) (NLA.IE14.factorIndex n hn i) j
+def NLA.IE14.witnessPath : (n : Nat) →
+  @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) n → NLA.IE14.PivotPath n :=
+fun n hn k =>
+  @ite.{1} (Fin n) (@Eq.{1} Nat (@Fin.val n k) (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+    (instDecidableEqNat (@Fin.val n k) (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))) k
+    (@Fin.mk n
+      (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) n
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+      ⋯)

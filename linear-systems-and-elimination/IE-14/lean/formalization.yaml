@@ -1,0 +1,212 @@
+# yaml-language-server: $schema=../../../docs/lean/schema/v0.4.schema.json
+version: v0.4
+project:
+  name: 'IE-14: sharp growth for complex cyclic tridiagonal partial pivoting'
+  description: The exact attained growth F_(n+1)+1 for every n≥4, over all nonsingular complex cyclic tridiagonal
+    inputs with both corners nonzero, all permitted maximal-modulus GEPP tie paths, and every entry of every
+    active Schur complement. Literal row swaps start at the given input; an all-size rational witness attains
+    the greatest value.
+  authors:
+  - George Stepaniants
+  affiliations:
+    George Stepaniants: Department of Computing and Mathematical Sciences, California Institute of Technology,
+      Pasadena, California, USA
+  responsible_maintainers:
+  - George Stepaniants
+  license: Apache-2.0
+repository:
+  role: substantive-development
+  note: The complete seven-target formalization passed actual non-root Linux run 35035525244 at immutable proof
+    commit 6e48f25fffdae2cf93e4985dc515abbd15e0481b. All mathematical source remains unchanged in this publication
+    update; the sole build-configuration change selects Solution as the default target. Its frozen predecessor
+    is retained.
+sources:
+- title: IE-14 — Sharp growth for cyclic tridiagonal matrices
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/d8c38a795876b132c90df8d1be8682d3dcde394c/linear-systems-and-elimination/IE-14/README.md
+  type: web-post
+  relationship: formalizes
+  location: 'Complete original problem statement: all n≥4, nonsingular complex cyclic tridiagonal matrices
+    with both corners nonzero, original ordering, all admissible GEPP ties, and the maximum over every active
+    entry at every stage.'
+  author_endorsement: not-contacted
+  note: Permanent ID, canonical path and complete original mathematical target are preserved unchanged.
+- title: Sharp growth for cyclic tridiagonal partial pivoting
+  authors:
+  - Matthew J. Colbrook
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/d8c38a795876b132c90df8d1be8682d3dcde394c/references/colbrook-recovered-2026-09-11/manuscripts/IE-14.tex
+  type: manuscript
+  relationship: formalizes
+  location: 'Theorem 1 and Sections 2–4: two-old/one-fresh original-row front, every column''s history, the
+    Fibonacci upper bound and an all-size rational attaining construction.'
+  author_endorsement: not-contacted
+  note: Original mathematical authorship remains Matthew J. Colbrook, Department of Applied Mathematics and
+    Theoretical Physics, University of Cambridge. The complete original source, historical review and attribution
+    are preserved. The formal proof records the old pair's maximum and sum instead of sorting its entries;
+    it proves the original label invariant from actual swaps and realizes the prescribed witness order through
+    the literal current-last-row path. No additional target assumptions are introduced. Formalization credit
+    is supplied as requested by the campaign user; no separate author endorsement or external human review
+    is asserted.
+- title: Accuracy and Stability of Numerical Algorithms, second edition
+  authors:
+  - Nicholas J. Higham
+  id: https://doi.org/10.1137/1.9780898718027
+  type: book
+  relationship: background
+  location: Problem 9.15(b), printed page 193, asks for sharp GEPP growth in the two-corner quasi-tridiagonal
+    pattern; Theorem 9.11, printed page 173, supplies the complex banded-matrix and ordinary tridiagonal comparison.
+  author_endorsement: not-contacted
+related_formalizations:
+- id: https://github.com/sgstepaniants/Forsythe/tree/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof
+  relationship: other
+  note: Structure/API and explicit LeanCert kernel-trust reference; the shared verification infrastructure
+    pins actual Comparator/exporter sources.
+- id: https://github.com/jaumededios/Schiffer/tree/2938e277969c329caf154e48a3d8823f3635c7f1
+  relationship: other
+  note: Statement/proof structure reference. No mathematical implementation copied from this project.
+- id: https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/d8c38a795876b132c90df8d1be8682d3dcde394c/linear-systems-and-elimination/IE-05/lean
+  relationship: adapts
+  note: Finite-maximum, active supported-vector injectivity and trailing-LU-sum proof patterns are adapted
+    from real GEPP to the current complex definitions. The original theorem is not assumed to cover IE-14 or
+    its cyclic front bound.
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: Pinned Lean 4.33.1, LeanCert 621a43d7cf21f87872392a01e874f2f1dbddc926, Mathlib 0df444a360eaa60ab8c11dca51a86af692955474.
+      Both independent exact-byte statement approvals preceded implementation at commit 58b516b6dbb7fa4e885b679d261bf779c263aad4.
+    prompting_notes: Preserve all dimensions, complex entries, nonzero corners, fixed original input ordering,
+      all permitted maximal-modulus ties and all active entries. Prove the original-row front from actual swaps
+      and use symbolic maximum/sum recurrences for all column histories, including n=4 and the final two-row
+      stage. Prove a complete nonsingular GEPP path by supported-vector injectivity. Prove actual witness swaps
+      through a tail-product identity in physical row coordinates. The LeanCert kernel conjunction 0<1/2 and
+      1/2≤1 is consumed in nonzero upper-factor pivots and exact witness-entry bounds.
+  notes: 'Substantial AI assistance. Proof contributors: coordinator /root and /root/target_inventory. Independent
+    statement referees /root/reference_api_review and /root/existing_verification_audit contributed no proof
+    code and remain independent for later reviews. Repository Tau Ceti adaptation; no official endorsement,
+    external human review, novelty certification or unmeasured cost claims. Two independent complete-source
+    reviews and the later full source/runtime review are retained. A separate coordinator operational audit
+    also checked the actual GitHub execution. The publication agent /root/next_elimination edited metadata/evidence
+    only, changed no mathematical code and ran no local Lean/Lake.'
+status:
+  scope: Complete original attained extremum F_(n+1)+1 for every n>=4 over all nonsingular complex cyclic tridiagonal
+    inputs with both corners nonzero, all permitted actual GEPP tie paths and every active entry. All seven
+    frozen targets passed actual Linux run 35035525244 at 6e48f25fffdae2cf93e4985dc515abbd15e0481b, including
+    kernel trust, Comparator, default-kernel replay, standard transitive axioms and required rejection/sandbox
+    controls. Complete-source and actual-runtime independent reviews accepted. Challenge placeholders are specifications
+    only. Publication commits remain distinct from that observed execution.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms:
+  - propext
+  - Classical.choice
+  - Quot.sound
+  main_results:
+  - declaration: NLA.IE14.numerical_bounds
+    file: NLA/IE14/Proof.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+    verification_status: 'Accepted by actual Linux run 35035525244 at 6e48f25fffdae2cf93e4985dc515abbd15e0481b:
+      LeanCert kernel trust, Comparator, default-kernel replay and standard transitive axiom checks.'
+  - declaration: NLA.IE14.entryMax_semantics
+    file: NLA/IE14/Basic.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+    verification_status: 'Accepted by actual Linux run 35035525244 at 6e48f25fffdae2cf93e4985dc515abbd15e0481b:
+      LeanCert kernel trust, Comparator, default-kernel replay and standard transitive axiom checks.'
+  - declaration: NLA.IE14.admissible_path_exists
+    file: NLA/IE14/Proof.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+    verification_status: 'Accepted by actual Linux run 35035525244 at 6e48f25fffdae2cf93e4985dc515abbd15e0481b:
+      LeanCert kernel trust, Comparator, default-kernel replay and standard transitive axiom checks.'
+  - declaration: NLA.IE14.all_active_entries_bound
+    file: NLA/IE14/Proof.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+    verification_status: 'Accepted by actual Linux run 35035525244 at 6e48f25fffdae2cf93e4985dc515abbd15e0481b:
+      LeanCert kernel trust, Comparator, default-kernel replay and standard transitive axiom checks.'
+  - declaration: NLA.IE14.witness_data
+    file: NLA/IE14/Proof.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+    verification_status: 'Accepted by actual Linux run 35035525244 at 6e48f25fffdae2cf93e4985dc515abbd15e0481b:
+      LeanCert kernel trust, Comparator, default-kernel replay and standard transitive axiom checks.'
+  - declaration: NLA.IE14.witness_attainment
+    file: NLA/IE14/Proof.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+    verification_status: 'Accepted by actual Linux run 35035525244 at 6e48f25fffdae2cf93e4985dc515abbd15e0481b:
+      LeanCert kernel trust, Comparator, default-kernel replay and standard transitive axiom checks.'
+  - declaration: NLA.IE14.canonical_result
+    file: NLA/IE14/Proof.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+    verification_status: 'Accepted by actual Linux run 35035525244 at 6e48f25fffdae2cf93e4985dc515abbd15e0481b:
+      LeanCert kernel trust, Comparator, default-kernel replay and standard transitive axiom checks.'
+  whole_problem_verified: true
+review:
+  status: accepted complete mathematical source and actual canonical runtime evidence
+  reviewers:
+  - /root/reference_api_review (independent Codex AI agent)
+  - /root/existing_verification_audit (independent Codex AI agent)
+  - /root/next_matrix_functions (independent complete source and actual-runtime AI referee)
+  - /root (separate coordinator audit of actual canonical runtime evidence)
+  notes: Both original pre-proof approvals, all frozen records and both complete-source final reports remain
+    unchanged. The subsequent independent full source/runtime report and separate operational audit accept
+    all 143 actual inputs, all seven exports and executed controls at 6e48f25fffdae2cf93e4985dc515abbd15e0481b.
+    This is a scoped Tau Ceti adaptation and not human peer review or official endorsement. The original default
+    Challenge configuration is preserved before changing the publication default to Solution. No mathematical
+    statement, proof, dependency pin or Comparator configuration is changed.
+verification:
+  proof_commit: 6e48f25fffdae2cf93e4985dc515abbd15e0481b
+  canonical_run: https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/35035525244
+  canonical_job: https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/35035525244/job/104603738111
+  authentic_evidence: verification/linux-2026-09-15
+  full_source_runtime_review: reviews/operational/matrix-functions/REVIEW.md
+  separate_runtime_audit: verification/linux-2026-09-15/ROOT-AUDIT.json
+  whole_problem_verified: true
+  comparator: accepted all seven frozen targets; no replaceable definition holes
+  default_kernel: accepted complete exported proof graph
+  axioms:
+  - propext
+  - Classical.choice
+  - Quot.sound
+  rejection_and_sandbox_controls: all required actual per-project controls passed
+  local_publication_Lean_Lake_execution: false
+  publication_note: The default Lake target changes from Challenge to Solution only; frozen original and all
+    prior evidence remain. Later publication/merge commits need their own exact-commit checks.

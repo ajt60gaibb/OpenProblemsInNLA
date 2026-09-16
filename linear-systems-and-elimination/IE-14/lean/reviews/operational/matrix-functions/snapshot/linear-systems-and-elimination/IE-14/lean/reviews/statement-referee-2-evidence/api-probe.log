@@ -1,0 +1,70 @@
+Finset.le_sup.{u_2, u_3} {α : Type u_2} {β : Type u_3} [SemilatticeSup α] [OrderBot α] {s : Finset β} {f : β → α}
+  {b : β} (hb : b ∈ s) : f b ≤ s.sup f
+Finset.sup_le.{u_2, u_3} {α : Type u_2} {β : Type u_3} [SemilatticeSup α] [OrderBot α] {s : Finset β} {f : β → α}
+  {a : α} : (∀ b ∈ s, f b ≤ a) → s.sup f ≤ a
+Finset.exists_mem_eq_sup.{u_2, u_5} {α : Type u_2} {ι : Type u_5} [LinearOrder α] [OrderBot α] (s : Finset ι)
+  (h : s.Nonempty) (f : ι → α) : ∃ i ∈ s, s.sup f = f i
+Finset.exists_max_image.{u_2, u_3} {α : Type u_2} {β : Type u_3} [LinearOrder α] (s : Finset β) (f : β → α)
+  (h : s.Nonempty) : ∃ x ∈ s, ∀ x' ∈ s, f x' ≤ f x
+NNReal.coe_le_coe {r₁ r₂ : NNReal} : ↑r₁ ≤ ↑r₂ ↔ r₁ ≤ r₂
+coe_nnnorm.{u_5} {E : Type u_5} [SeminormedAddGroup E] (a : E) : ↑‖a‖₊ = ‖a‖
+norm_pos_iff.{u_5} {E : Type u_5} [NormedAddGroup E] {a : E} : 0 < ‖a‖ ↔ a ≠ 0
+norm_div.{u_2} {α : Type u_2} [NormedDivisionRing α] (a b : α) : ‖a / b‖ = ‖a‖ / ‖b‖
+norm_mul.{u_2} {α : Type u_2} [Norm α] [Mul α] [NormMulClass α] (a b : α) : ‖a * b‖ = ‖a‖ * ‖b‖
+norm_sub_le.{u_5} {E : Type u_5} [SeminormedAddGroup E] (a b : E) : ‖a - b‖ ≤ ‖a‖ + ‖b‖
+norm_neg.{u_5} {E : Type u_5} [SeminormedAddGroup E] (a : E) : ‖-a‖ = ‖a‖
+Complex.norm_real (r : ℝ) : ‖↑r‖ = ‖r‖
+div_le_one.{u_2} {α : Type u_2} [Semifield α] [PartialOrder α] [PosMulReflectLT α] {a b : α} (hb : 0 < b) :
+  a / b ≤ 1 ↔ a ≤ b
+div_le_iff₀.{u_3} {G₀ : Type u_3} [GroupWithZero G₀] [PartialOrder G₀] [MulPosReflectLT G₀] {a b c : G₀} (hc : 0 < c) :
+  b / c ≤ a ↔ b ≤ a * c
+Nat.fib_zero : Nat.fib 0 = 0
+Nat.fib_one : Nat.fib 1 = 1
+Nat.fib_add_two {n : ℕ} : Nat.fib (n + 2) = Nat.fib n + Nat.fib (n + 1)
+Nat.fib_add_one {n : ℕ} : n ≠ 0 → Nat.fib (n + 1) = Nat.fib (n - 1) + Nat.fib n
+Nat.fib_le_fib_succ {n : ℕ} : Nat.fib n ≤ Nat.fib (n + 1)
+Nat.fib_mono : Monotone Nat.fib
+Nat.fib_pos {n : ℕ} : 0 < Nat.fib n ↔ 0 < n
+Equiv.swap_apply_left.{u_1} {α : Sort u_1} [DecidableEq α] (a b : α) : (Equiv.swap a b) a = b
+Equiv.swap_apply_right.{u_1} {α : Sort u_1} [DecidableEq α] (a b : α) : (Equiv.swap a b) b = a
+Equiv.swap_apply_of_ne_of_ne.{u_1} {α : Sort u_1} [DecidableEq α] {a b x : α} : x ≠ a → x ≠ b → (Equiv.swap a b) x = x
+Equiv.swap_apply_self.{u_1} {α : Sort u_1} [DecidableEq α] (i j a : α) : (Equiv.swap i j) ((Equiv.swap i j) a) = a
+Matrix.mul_apply.{v, u_1, u_2, u_3} {l : Type u_1} {m : Type u_2} {n : Type u_3} {α : Type v} [Fintype m] [Mul α]
+  [AddCommMonoid α] {M : Matrix l m α} {N : Matrix m n α} {i : l} {k : n} : (M * N) i k = ∑ j, M i j * N j k
+Matrix.mulVec_injective_iff_isUnit.{u, u_3} {m : Type u} [DecidableEq m] {K : Type u_3} [Field K] [Fintype m]
+  {A : Matrix m m K} : Function.Injective A.mulVec ↔ IsUnit A
+Matrix.isUnit_iff_isUnit_det.{u', v} {n : Type u'} {α : Type v} [Fintype n] [DecidableEq n] [CommRing α]
+  (A : Matrix n n α) : IsUnit A ↔ IsUnit A.det
+Matrix.mulVec_single_one.{u_2, u_3, u_7} {m : Type u_2} {n : Type u_3} {R : Type u_7} [Fintype n] [DecidableEq n]
+  [NonAssocSemiring R] (M : Matrix m n R) (j : n) : M.mulVec (Pi.single j 1) = M.col j
+Matrix.mulVec_add.{v, u_2, u_3} {m : Type u_2} {n : Type u_3} {α : Type v} [NonUnitalNonAssocSemiring α] [Fintype n]
+  (A : Matrix m n α) (x y : n → α) : A.mulVec (x + y) = A.mulVec x + A.mulVec y
+Matrix.det_mul.{v, u_2} {n : Type u_2} [DecidableEq n] [Fintype n] {R : Type v} [CommRing R] (M N : Matrix n n R) :
+  (M * N).det = M.det * N.det
+Matrix.det_permute.{v, u_2} {n : Type u_2} [DecidableEq n] [Fintype n] {R : Type v} [CommRing R] (σ : Equiv.Perm n)
+  (M : Matrix n n R) : (M.submatrix (⇑σ) id).det = ↑↑(Equiv.Perm.sign σ) * M.det
+Matrix.det_permute'.{v, u_2} {n : Type u_2} [DecidableEq n] [Fintype n] {R : Type v} [CommRing R] (σ : Equiv.Perm n)
+  (M : Matrix n n R) : (M.submatrix id ⇑σ).det = ↑↑(Equiv.Perm.sign σ) * M.det
+Matrix.det_of_isUpperTriangular.{v, u_3} {m : Type u_3} {R : Type v} {M : Matrix m m R} [CommRing R] [DecidableEq m]
+  [Fintype m] [LinearOrder m] (h : M.IsUpperTriangular) : M.det = ∏ i, M i i
+Matrix.det_of_isLowerTriangular.{v, u_3} {m : Type u_3} {R : Type v} [CommRing R] [DecidableEq m] [Fintype m]
+  [LinearOrder m] (M : Matrix m m R) (h : M.IsLowerTriangular) : M.det = ∏ i, M i i
+Matrix.det_fromBlocks₁₁.{u_2, u_3, u_4} {m : Type u_2} {n : Type u_3} {α : Type u_4} [Fintype m] [Fintype n]
+  [DecidableEq m] [DecidableEq n] [CommRing α] (A : Matrix m m α) (B : Matrix m n α) (C : Matrix n m α)
+  (D : Matrix n n α) [Invertible A] : (Matrix.fromBlocks A B C D).det = A.det * (D - C * ⅟A * B).det
+Matrix.det_fromBlocks_zero₂₁.{v, u_1, u_2} {m : Type u_1} {n : Type u_2} [DecidableEq n] [Fintype n] [DecidableEq m]
+  [Fintype m] {R : Type v} [CommRing R] (A : Matrix m m R) (B : Matrix m n R) (D : Matrix n n R) :
+  (Matrix.fromBlocks A B 0 D).det = A.det * D.det
+Finset.sum_eq_single.{u_1, u_4} {ι : Type u_1} {M : Type u_4} [AddCommMonoid M] {s : Finset ι} {f : ι → M} (a : ι)
+  (h₀ : ∀ b ∈ s, b ≠ a → f b = 0) (h₁ : a ∉ s → f a = 0) : ∑ x ∈ s, f x = f a
+Finset.sum_add_distrib.{u_1, u_4} {ι : Type u_1} {M : Type u_4} {s : Finset ι} [AddCommMonoid M] {f g : ι → M} :
+  ∑ x ∈ s, (f x + g x) = ∑ x ∈ s, f x + ∑ x ∈ s, g x
+Finset.prod_ne_zero_iff.{u_1, u_4} {ι : Type u_1} {M₀ : Type u_4} [CommMonoidWithZero M₀] {f : ι → M₀} {s : Finset ι}
+  [Nontrivial M₀] [NoZeroDivisors M₀] : ∏ x ∈ s, f x ≠ 0 ↔ ∀ a ∈ s, f a ≠ 0
+IsGreatest.isLUB.{u_1} {α : Type u_1} [Preorder α] {s : Set α} {a : α} (h : IsGreatest s a) : IsLUB s a
+IsLUB.csSup_eq.{u_1} {α : Type u_1} [ConditionallyCompleteLattice α] {s : Set α} {a : α} (H : IsLUB s a)
+  (ne : s.Nonempty) : sSup s = a
+le_csSup.{u_1} {α : Type u_1} [ConditionallyCompleteLattice α] {s : Set α} {a : α} (h₁ : BddAbove s) (h₂ : a ∈ s) :
+  a ≤ sSup s
+csSup_le.{u_1} {α : Type u_1} [ConditionallyCompleteLattice α] {s : Set α} {a : α} (h₁ : s.Nonempty)
+  (h₂ : ∀ b ∈ s, b ≤ a) : sSup s ≤ a

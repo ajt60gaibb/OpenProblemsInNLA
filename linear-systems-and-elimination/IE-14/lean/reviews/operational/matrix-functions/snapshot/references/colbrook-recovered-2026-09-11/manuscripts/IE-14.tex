@@ -1,0 +1,83 @@
+% Reviewed source SHA256 (UTF-8/LF): 1f67bbf4d5e6e799e73fd15fdc5769e0867779f5800499e170b7b2431cf0b910
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=26mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,booktabs,microtype}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\one}{\boldsymbol 1}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\tr}{\operatorname{tr}}
+\setlength{\emergencystretch}{3em}
+\allowdisplaybreaks[1]
+\title{Sharp growth for cyclic tridiagonal partial pivoting}
+\author{Matthew J. Colbrook\\\small Department of Applied Mathematics and Theoretical Physics\\\small University of Cambridge, Cambridge, United Kingdom\\\small\href{mailto:m.colbrook@damtp.cam.ac.uk}{m.colbrook@damtp.cam.ac.uk}}
+\date{11 September 2026}
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\hypersetup{pdfauthor={Matthew J. Colbrook}}
+\geometry{margin=22mm}
+\begin{document}
+\maketitle
+
+\noindent\textbf{Independently reviewed resolution.} The complete proof was checked against the current canonical target IE-14. The recovered provisional identifiers are confirmed. Authorship is recorded at the submitter's request; substantial AI assistance and reconstruction are disclosed in the submission record.
+The dated \href{https://github.com/MColbrook/OpenProblemsInNLA/blob/codex/colbrook-recovered-submissions/references/colbrook-recovered-2026-09-11/verification/reviews/IE-14-review.md}{independent agent review} records the subsequent checks and supersedes original draft remarks about pending review. This is not external human peer review or formal certification.
+\par\medskip
+% BEGIN REVIEWED BODY
+
+\noindent\textit{Reconstructed candidate proof draft. Independent mathematical review and source/priority verification are required. The IE identifiers are provisional labels recovered from earlier notes, not verified current repository identifiers.}
+
+
+\begin{abstract}
+A two-row front argument gives the proposed sharp GEPP growth $F_{n+1}+1$ for cyclic tridiagonal matrices of order $n\ge4$. A rational construction with both cyclic corners nonzero attains it. The argument permits real or complex entries, fixed original column order, and all maximal-modulus pivot ties.
+\end{abstract}
+\section{Statement}
+Nonzeros are restricted to the ordinary tridiagonal bands and corners $(1,n)$ and $(n,1)$, both required nonzero. Matrices are nonsingular, and initial maximum modulus is one. Growth includes every active Schur-complement entry.
+\begin{theorem}
+With $F_0=0,F_1=1$, the largest permitted growth is
+\[\boxed{c_n=F_{n+1}+1\quad(n\ge4).}\]
+\end{theorem}
+The initial values are $6,9,14,22$ for $n=4,5,6,7$.
+\section{Front estimates}
+At stage $k\le n-2$, two old surviving rows have labels in $\{1,\ldots,k\}\cup\{n\}$. Fresh original row $k+1$ joins them. Other later original rows, except row $n$, are unchanged because their earlier columns are zero. Eliminating one front row leaves two old rows.
+
+For a target column, let old magnitudes be $a\ge b\ge0$ and fresh magnitude be at most $c$. Multipliers have modulus at most one. If $c=0$, the sorted new pair is bounded by $(a+b,a)$: a zero-valued pivot leaves the old pair unchanged, and either old pivot gives this triangle-inequality bound. For arbitrary $c$, the survivor sum is at most
+\[a+b+c+\max(a,b,c).\]
+These statements are also valid over the complex field.
+\section{All column histories}
+In the last column, the initial old pair is bounded by $(1,1)$, and fresh values are zero at stages $1,\ldots,n-3$. After $t$ such updates the pair is bounded by $(F_{t+2},F_{t+1})$. Before stage $n-2$ it is at most $(F_{n-1},F_{n-2})$. The next fresh value is at most one, so the survivor sum is at most
+\[2F_{n-1}+F_{n-2}+1=F_{n+1}+1.\]
+The final update uses only these two survivors, so the final scalar and all earlier values satisfy this bound.
+
+Column $1$ has only initial values. In column $2$, the initial pair is at most $(1,0)$ and the first fresh value is at most one, giving bound two. For $3\le j\le n-2$, the old pair in column $j$ is zero until stage $j-2$. Fresh row $j-1$ contributes at most one, leaving a pair bounded by $(1,1)$. At stage $j-1$ another fresh value at most one gives survivors bounded by two. At the stage eliminating column $j$, its newly arriving value is at most one. Thus this entire column history is bounded by two.
+
+Column $n-1$ starts with pair at most $(1,0)$, because of original row $n$. Through stage $n-4$ its fresh values vanish. Before stage $n-3$ its pair is therefore at most
+\[(a,b)=(F_{n-3},F_{n-4});\]
+this includes $n=4$. A fresh value at most one gives new maximum at most $2a$ and sum at most $2a+b+1=F_{n-1}+1$. At the next stage another fresh value at most one arrives. Each new survivor is bounded by the larger of the old pair sum and old maximum plus one, both at most $F_{n-1}+1$. This is below the claimed global bound. All columns have now been covered.
+\section{Attaining construction}
+Let $L$ be unit lower triangular with $-1$ on the first two subdiagonals. Define upper triangular $U$ with
+\[
+U_{11}=1,\quad U_{12}=U_{22}=\tfrac12,\quad U_{ii}=1\ (3\le i\le n-1),
+\]
+all other nonfinal off-diagonal entries zero, and
+\[U_{i,n}=F_{i+1}\ (i<n),\qquad U_{n,n}=F_{n+1}+1.\]
+Put $C=LU$ and assign original rows by
+\[C_{i,:}=A_{\sigma_i,:},\qquad\sigma=(1,n,2,3,\ldots,n-1).\]
+Multiplication gives a cyclic tridiagonal $A$, with all entry moduli at most one and $A_{1n}=1$, $A_{n1}=-1$. In particular, the last column of $C$ is $(1,1,0,\ldots,0,1)^T$, by the Fibonacci recurrence. After row assignment, these occupy exactly the allowed rows $1,n-1,n$. The first two columns follow from the displayed half entries; each remaining nonfinal column comes from a diagonal entry of $U$ and the two subdiagonals of $L$. This verifies all structural zeros.
+
+The diagonal of $U$ is nonzero. In original-row pivot sequence $\sigma$, active column $k$ after earlier elimination consists of $L_{ik}U_{kk}$. Since $L_{kk}=1$ and $|L_{ik}|\le1$, every chosen pivot is maximal in modulus. This describes ordinary permitted GEPP choices, not a preliminary column or row reordering. The final pivot is $F_{n+1}+1$ and the initial maximum is one, proving attainment.
+\section{Checks and source status}
+The verifier constructs and checks the factorization, every structural zero, corner condition, pivot, and intermediate growth for $4\le n\le30$. The general proof still requires independent mathematical review.
+
+Recovered target description: \emph{Sharp growth for cyclic tridiagonal matrices}, provisionally IE-14 in OpenProblemsInNLA. The live statement and identifier have not been independently verified during reconstruction. Repository supplied for the task:\footnote{\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/linear-systems-and-elimination}.}
+
+\end{document}
+
+% END REVIEWED BODY

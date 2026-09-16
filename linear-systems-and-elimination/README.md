@@ -26,7 +26,7 @@
 | [IE-05](IE-05/README.md) | Exact extremizers for partial pivoting on orthogonal matrices | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](IE-05/problem.pdf) · [TeX](IE-05/problem.tex) |
 | [IE-12](IE-12/README.md) | Near-quadratic solution cost at a prescribed backward error | **✅ SOLVED** | challenging | broadly interesting | [PDF](IE-12/problem.pdf) · [TeX](IE-12/problem.tex) |
 | [IE-13](IE-13/README.md) | Sharp growth for unequal lower and upper bandwidths | **✅ SOLVED** | challenging | interesting to specialist | [PDF](IE-13/problem.pdf) · [TeX](IE-13/problem.tex) |
-| [IE-14](IE-14/README.md) | Sharp growth for cyclic tridiagonal matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](IE-14/problem.pdf) · [TeX](IE-14/problem.tex) |
+| [IE-14](IE-14/README.md) | Sharp growth for cyclic tridiagonal matrices | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](IE-14/problem.pdf) · [TeX](IE-14/problem.tex) |
 | [IE-15](IE-15/README.md) | Exact small-order growth factors for rook pivoting | **🏆 LEAN VERIFIED** | hard | interesting to specialist | [PDF](IE-15/problem.pdf) · [TeX](IE-15/problem.tex) |
 | [IE-16](IE-16/README.md) | A sharp subset bound for worst-case normal GMRES | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](IE-16/problem.pdf) · [TeX](IE-16/problem.tex) |
 | [IE-17](IE-17/README.md) | Monotonic optimal backward error along LSMR | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](IE-17/problem.pdf) · [TeX](IE-17/problem.tex) |

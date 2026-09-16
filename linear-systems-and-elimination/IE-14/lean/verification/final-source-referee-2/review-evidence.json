@@ -1,0 +1,66 @@
+{
+  "phase": "independent final source review; no Linux Comparator run claimed",
+  "verdict": "PASS for exact complete candidate source, conditional on separate operational gates",
+  "reviewer": "OpenAI Codex AI agent /root/existing_verification_audit, independent referee 2; no proof contribution",
+  "candidate_commit": "c04371f6005220866f4f069809002d319554e039",
+  "final_source_input_seal_sha256": "eba95af5ab465c97c346eecd5b5427ecb72c16a80d549fe85b1af799c566b54b",
+  "statement_commit": "58b516b6dbb7fa4e885b679d261bf779c263aad4",
+  "frozen_inputs_checked": 10,
+  "candidate_inputs_checked": 23,
+  "original_sources_preserved": 7,
+  "fresh_build": {
+    "exit_code": 0,
+    "jobs": 3644,
+    "project_snapshot_source_files": 17,
+    "fresh_project_artifacts": true,
+    "dependency_cache_reused": true,
+    "expected_challenge_sorry_warnings": 7,
+    "solution_warnings": 0
+  },
+  "kernel_and_axiom_audit": {
+    "exit_code": 0,
+    "theorems": 98,
+    "permitted_axioms": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "literal_types": {
+    "count": 7,
+    "identical_pp_all_output": true,
+    "challenge_sha256": "f2d23a1d0fec4b6f98473afffd210d5a8c4c2dde180a6823de024417ab63b296",
+    "solution_sha256": "f2d23a1d0fec4b6f98473afffd210d5a8c4c2dde180a6823de024417ab63b296"
+  },
+  "compiled_certificate_consumption": {
+    "exit_code": 0,
+    "both_helpers_and_certificate_reached": {
+      "witness_data": 106,
+      "witness_attainment": 341,
+      "canonical_result": 344
+    },
+    "actual_helper_proofs_use_distinct_projections": [
+      "half_bounds_certificate.left",
+      "half_bounds_certificate.right"
+    ]
+  },
+  "manifest_validation": "PASS, 7 declarations",
+  "exact_diagnostics": "27 all-size witness samples n=4..30 replayed byte-identical to frozen results; finite evidence only",
+  "initial_reviewer_audit_corrections": "Reviewer script used unsupported pp.width and unless...then syntax. Corrected only scratch audit files; both initial failed logs retained. No candidate defect or source edit.",
+  "limitations": [
+    "Local macOS source build with existing pinned dependency artifacts; not fresh Linux or default-kernel Comparator replay.",
+    "No operational review, status promotion, publication approval or external human endorsement."
+  ],
+  "sealed_at_utc": "2026-09-15T23:19:23.749063+00:00",
+  "commands": [
+    "PATH=/private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin:$PATH lake build Challenge Solution",
+    "lake env lean FinalAudit.lean",
+    "lake env lean ChallengeTypes.lean",
+    "lake env lean SolutionTypes.lean",
+    "cmp challenge-types.log solution-types.log",
+    "lake env lean DependencyAudit.lean",
+    "/private/tmp/nla-pr153-venv/bin/python ../../../tools/lean/validate_manifest.py .",
+    "python3 check_inputs.py",
+    "python3 reviews/initial/exact-check.py; cmp exact-results.json exact-recheck.json"
+  ]
+}

@@ -6,20 +6,38 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Solved
-**Last checked:** 2026-09-11
+**Status:** Lean verified
+**Last checked:** 2026-09-15
 
 <!-- colbrook-recovered -->
 ## Independently reviewed resolution - 2026-09-11
 
 **Sharp growth classification.** Theorem 1 and Sections 2-4 prove $`c_n=F_{n+1}+1`$ for every $`n\ge4`$, with $`F_0=0,F_1=1`$. The bound covers complex cyclic tridiagonal matrices, every active entry and every permitted GEPP tie path in the original ordering. A rational matrix with both cyclic corners nonzero attains it at every order.
 
-**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [Complete manuscript](../../references/colbrook-recovered-2026-09-11/manuscripts/IE-14.pdf), [independent proof review](../../references/colbrook-recovered-2026-09-11/verification/reviews/IE-14-review.md), and [submission record](../../references/colbrook-recovered-2026-09-11/README.md). The supplied notes were reconstructed with substantial AI assistance. This is independent agent verification, not external human peer review or formal proof-assistant certification; no novelty or priority claim is made.
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. [Complete manuscript](../../references/colbrook-recovered-2026-09-11/manuscripts/IE-14.pdf), [independent proof review](../../references/colbrook-recovered-2026-09-11/verification/reviews/IE-14-review.md), and [submission record](../../references/colbrook-recovered-2026-09-11/README.md). The supplied notes were reconstructed with substantial AI assistance. Those original reviews were informal. The separate complete Lean verification is recorded below; no external human peer review, novelty or priority claim is made.
 
 The difficulty, importance and rating rationale below are historical assessments of the original open target. Original statements, references and dated audits are preserved.
 <!-- /colbrook-recovered -->
 
 **Rating rationale:** Challenging reflects an all-orders extremal problem in which the two corner entries change elimination fill; specialist impact is a precise stability bound for cyclic tridiagonal systems.
+
+## Lean proof and verification evidence
+
+**Formalization: George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology.** Matthew J. Colbrook retains original mathematical credit. The [complete Lean proof](lean/README.md) establishes the exact attained value
+
+```math
+c_n=F_{n+1}+1\qquad(n\ge4).
+```
+
+The declaration `NLA.IE14.canonical_result` covers every nonsingular complex cyclic tridiagonal input with both corners nonzero, every permitted largest-modulus GEPP tie path, and every active entry from the original input through the final scalar. It proves an actual greatest value before identifying the supremum. The [seven matched declarations](lean/formalization.yaml) also prove existence of genuine admissible paths, the universal upper bound, and the complete rational witness with its legal physical row swaps.
+
+On **15 September 2026**, [the actual Linux verification job](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/35035525244/job/104603738111) checked immutable proof revision `6e48f25fffdae2cf93e4985dc515abbd15e0481b`. All seven declarations passed LeanCert kernel-trust assertions, sandboxed Comparator statement matching and Lean default-kernel replay. Only `propext`, `Classical.choice` and `Quot.sound` occur in their transitive axiom sets. Required invalid-proof, mismatched-statement, forbidden-axiom and sandbox controls passed. [Authentic logs and input hashes](lean/verification/linux-2026-09-15) bind that execution to all 143 project inputs.
+
+The two original independent complete-source referees and a subsequent independent full source/runtime referee accepted the proof; a separate operational audit checked the same actual execution. [Reports and scope](lean/reviews/operational) distinguish those AI-agent reviews from external human peer review. The original local contributor builds remain labelled as historical evidence; this publication work performed no local Lean execution.
+
+Two exact LeanCert bounds on $`1/2`$ are consumed in the witness's nonzero pivots and entry bounds. The all-dimensional argument uses symbolic Fibonacci recurrences, a proved row-label invariant and triangular products, avoiding interval searches and expanded determinants.
+
+The project pins Lean **4.33.1**, Mathlib `0df444a360eaa60ab8c11dca51a86af692955474` and LeanCert `621a43d7cf21f87872392a01e874f2f1dbddc926`. In the [project directory](lean/README.md), `lake exe cache get` followed by `lake build` builds Solution by default. Follow the [shared Linux instructions](../../docs/lean/README.md) for Comparator and controls. The original frozen configuration is retained; the publication changes only its default target from Challenge to Solution. Publication and merge commits require separate exact-commit checks and are not represented as the earlier proof execution.
 
 ## Problem statement
 

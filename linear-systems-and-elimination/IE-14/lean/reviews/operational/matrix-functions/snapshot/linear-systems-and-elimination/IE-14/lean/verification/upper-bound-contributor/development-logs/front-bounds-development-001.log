@@ -1,0 +1,94 @@
+NLA/IE14/FrontBounds.lean:109:8: error: Type mismatch
+  multiplier_bound (trajectory A path ↑z) z p (hp z) q hq
+has type
+  ‖trajectory A path (↑z) q z / trajectory A path (↑z) p z‖ ≤ 1
+but is expected to have type
+  ‖trajectory A path k q z / trajectory A path k p z‖ * ‖trajectory A path k p j‖ ≤ ‖trajectory A path k p j‖
+NLA/IE14/FrontBounds.lean:125:20: error: linarith failed to find a contradiction
+n : ℕ
+hn : 4 ≤ n
+A : Mat n
+hA : CyclicInput A
+path : PivotPath n
+hp : AdmissiblePath A path
+k : ℕ
+hk : k + 2 < n
+j : Fin n
+hj : k < ↑j
+c : ℝ
+hc : ‖A ⟨k + 1, ⋯⟩ j‖ ≤ c
+z : Fin n := ⟨k, ⋯⟩
+p : Fin n := path z
+r : Fin n := (frontPair hn path k).1
+s : Fin n := (frontPair hn path k).2
+f : Fin n := (Equiv.symm (origin path k)) ⟨k + 1, ⋯⟩
+τ : Equiv.Perm (Fin n) := Equiv.swap z p
+rem : Fin n × Fin n := remainingPair r s f p
+hF : FrontInvariant A path k r s
+hf : k ≤ ↑f ∧ r ≠ f ∧ s ≠ f
+hpair : frontPair hn path (k + 1) = (τ rem.1, τ rem.2)
+hfj : trajectory A path k f j = A ⟨k + 1, ⋯⟩ j
+hfc : ‖trajectory A path k f j‖ ≤ c
+hnorm :
+  ∀ (q : Fin n),
+    k ≤ ↑q → q ≠ p → ‖trajectory A path (k + 1) (τ q) j‖ ≤ ‖trajectory A path k q j‖ + ‖trajectory A path k p j‖
+hpr : p = r
+hs : ‖trajectory A path (k + 1) (τ s) j‖ ≤ ‖trajectory A path k s j‖ + ‖trajectory A path k r j‖
+hf' : ‖trajectory A path (k + 1) (τ f) j‖ ≤ ‖trajectory A path k f j‖ + ‖trajectory A path k r j‖
+a✝ :
+  c + ‖trajectory A path k r j‖ <
+    ‖trajectory A path (k + 1) (τ (if True then (s, f) else if r = s then (r, f) else (r, s)).2) j‖
+⊢ False
+failed
+NLA/IE14/FrontBounds.lean:131:20: error: linarith failed to find a contradiction
+n : ℕ
+hn : 4 ≤ n
+A : Mat n
+hA : CyclicInput A
+path : PivotPath n
+hp : AdmissiblePath A path
+k : ℕ
+hk : k + 2 < n
+j : Fin n
+hj : k < ↑j
+c : ℝ
+hc : ‖A ⟨k + 1, ⋯⟩ j‖ ≤ c
+z : Fin n := ⟨k, ⋯⟩
+p : Fin n := path z
+r : Fin n := (frontPair hn path k).1
+s : Fin n := (frontPair hn path k).2
+f : Fin n := (Equiv.symm (origin path k)) ⟨k + 1, ⋯⟩
+τ : Equiv.Perm (Fin n) := Equiv.swap z p
+rem : Fin n × Fin n := remainingPair r s f p
+hF : FrontInvariant A path k r s
+hf : k ≤ ↑f ∧ r ≠ f ∧ s ≠ f
+hpair : frontPair hn path (k + 1) = (τ rem.1, τ rem.2)
+hfj : trajectory A path k f j = A ⟨k + 1, ⋯⟩ j
+hfc : ‖trajectory A path k f j‖ ≤ c
+hnorm :
+  ∀ (q : Fin n),
+    k ≤ ↑q → q ≠ p → ‖trajectory A path (k + 1) (τ q) j‖ ≤ ‖trajectory A path k q j‖ + ‖trajectory A path k p j‖
+hps : p = s
+hr : ‖trajectory A path (k + 1) (τ r) j‖ ≤ ‖trajectory A path k r j‖ + ‖trajectory A path k s j‖
+hf' : ‖trajectory A path (k + 1) (τ f) j‖ ≤ ‖trajectory A path k f j‖ + ‖trajectory A path k s j‖
+a✝ : c + ‖trajectory A path k s j‖ < ‖trajectory A path (k + 1) (τ (if True then (r, f) else (r, s)).2) j‖
+⊢ False
+failed
+NLA/IE14/FrontBounds.lean:124:42: warning: This simp argument is unused:
+  if_pos rfl
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [rem, remainingPair, hpr]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IE14/FrontBounds.lean:130:72: warning: This simp argument is unused:
+  if_pos rfl
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [rem, remainingPair, hps, if_neg (Ne.symm hF.distinct)]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IE14/FrontBounds.lean:150:21: error: #assert_trust: 'NLA.IE14.front_step_bounds' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.IE14.front_step_bounds' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

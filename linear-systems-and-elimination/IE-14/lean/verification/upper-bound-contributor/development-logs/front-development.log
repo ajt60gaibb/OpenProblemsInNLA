@@ -1,0 +1,179 @@
+NLA/IE14/Front.lean:28:57: error(lean.unknownIdentifier): Unknown constant `Equiv.swap_symm`
+NLA/IE14/Front.lean:27:66: error: unsolved goals
+n : ℕ
+path : PivotPath n
+k : ℕ
+hk : k < n
+a : Fin n
+⊢ (Equiv.symm (Equiv.swap ⟨k, hk⟩ (path ⟨k, hk⟩))) ((Equiv.symm (origin path k)) a) =
+    (Equiv.swap ⟨k, hk⟩ (path ⟨k, hk⟩)) ((Equiv.symm (origin path k)) a)
+NLA/IE14/Front.lean:39:30: warning: This simp argument is unused:
+  if_pos rfl
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [remainingPair, Prod.fst, Prod.snd]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IE14/Front.lean:39:42: warning: This simp argument is unused:
+  Prod.fst
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [remainingPair, if_pos rfl, Prod.snd]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IE14/Front.lean:39:52: warning: This simp argument is unused:
+  Prod.snd
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [remainingPair, if_pos rfl, Prod.fst]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IE14/Front.lean:43:52: warning: This simp argument is unused:
+  if_pos rfl
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [remainingPair, if_neg (Ne.symm hrs), Prod.fst, Prod.snd]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IE14/Front.lean:43:64: warning: This simp argument is unused:
+  Prod.fst
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [remainingPair, if_neg (Ne.symm hrs), if_pos rfl, Prod.snd]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IE14/Front.lean:43:74: warning: This simp argument is unused:
+  Prod.snd
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [remainingPair, if_neg (Ne.symm hrs), if_pos rfl, Prod.fst]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IE14/Front.lean:47:74: warning: This simp argument is unused:
+  Prod.fst
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [remainingPair, if_neg (Ne.symm hrf), if_neg (Ne.symm hsf), Prod.snd]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IE14/Front.lean:47:84: warning: This simp argument is unused:
+  Prod.snd
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [remainingPair, if_neg (Ne.symm hrf), if_neg (Ne.symm hsf), Prod.fst]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IE14/Front.lean:82:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  if ?m.57 then ?m.61 else ?m.62
+in the target expression
+  (if h : k < n then fun i j =>
+        if ⟨k, h⟩ < i ∧ ⟨k, h⟩ < j then
+          trajectory A path k ((Equiv.swap ⟨k, h⟩ (path ⟨k, h⟩)) i) j -
+            trajectory A path k ((Equiv.swap ⟨k, h⟩ (path ⟨k, h⟩)) i) ⟨k, h⟩ /
+                trajectory A path k ((Equiv.swap ⟨k, h⟩ (path ⟨k, h⟩)) ⟨k, h⟩) ⟨k, h⟩ *
+              trajectory A path k ((Equiv.swap ⟨k, h⟩ (path ⟨k, h⟩)) ⟨k, h⟩) j
+        else 0
+      else 0)
+      ((Equiv.swap ⟨k, hk⟩ (path ⟨k, hk⟩)) q) j =
+    trajectory A path k q j -
+      trajectory A path k q ⟨k, hk⟩ / trajectory A path k (path ⟨k, hk⟩) ⟨k, hk⟩ * trajectory A path k (path ⟨k, hk⟩) j
+
+n : ℕ
+A : Mat n
+path : PivotPath n
+k : ℕ
+hk : k < n
+q j : Fin n
+hp : k ≤ ↑(path ⟨k, hk⟩)
+hq : k ≤ ↑q
+hne : q ≠ path ⟨k, hk⟩
+hj : k < ↑j
+hi : ⟨k, hk⟩ < (Equiv.swap ⟨k, hk⟩ (path ⟨k, hk⟩)) q
+⊢ (if h : k < n then fun i j =>
+        if ⟨k, h⟩ < i ∧ ⟨k, h⟩ < j then
+          trajectory A path k ((Equiv.swap ⟨k, h⟩ (path ⟨k, h⟩)) i) j -
+            trajectory A path k ((Equiv.swap ⟨k, h⟩ (path ⟨k, h⟩)) i) ⟨k, h⟩ /
+                trajectory A path k ((Equiv.swap ⟨k, h⟩ (path ⟨k, h⟩)) ⟨k, h⟩) ⟨k, h⟩ *
+              trajectory A path k ((Equiv.swap ⟨k, h⟩ (path ⟨k, h⟩)) ⟨k, h⟩) j
+        else 0
+      else 0)
+      ((Equiv.swap ⟨k, hk⟩ (path ⟨k, hk⟩)) q) j =
+    trajectory A path k q j -
+      trajectory A path k q ⟨k, hk⟩ / trajectory A path k (path ⟨k, hk⟩) ⟨k, hk⟩ * trajectory A path k (path ⟨k, hk⟩) j
+
+Note: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.
+Full error:
+  function expected
+    trajectory A path k ((Equiv.swap ⟨k, h⟩ (path ⟨k, h⟩)) i)
+NLA/IE14/Front.lean:81:25: warning: This simp argument is unused:
+  dif_pos hk
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [trajectory, schurStep, rowSwap]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IE14/Front.lean:93:23: error: Application type mismatch: The argument
+  k
+has type
+  ℕ
+of sort `Type` but is expected to have type
+  Type ?u.38
+of sort `Type (?u.38 + 1)` in the application
+  @InitialSeg k
+NLA/IE14/Front.lean:93:26: error(lean.invalidDottedIdent): Invalid dotted identifier notation: Not supported on type universe
+  Sort ?u.39
+NLA/IE14/Front.lean:101:4: error: Function expected at
+  FrontInvariant
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  A
+
+Hint: The identifier `FrontInvariant` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+NLA/IE14/Front.lean:102:2: error: Tactic `constructor` failed: target is not an inductive datatype
+
+x✝ : Sort u_1
+FrontInvariant : x✝
+n : ℕ
+hn : 4 ≤ n
+A : Mat n
+path : PivotPath n
+⊢ sorry
+NLA/IE14/Front.lean:120:32: error: Function expected at
+  FrontInvariant
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  A
+
+Hint: The identifier `FrontInvariant` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+NLA/IE14/Front.lean:140:10: error: Function expected at
+  FrontInvariant
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  A
+
+Hint: The identifier `FrontInvariant` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+NLA/IE14/Front.lean:142:63: error: unsolved goals
+case neg
+x✝ : Sort u_1
+FrontInvariant : x✝
+n : ℕ
+A : Mat n
+path : PivotPath n
+k : ℕ
+r s : Fin n
+hA : CyclicInput A
+hp : AdmissiblePath A path
+hF : sorry
+hk : k + 2 < n
+z : Fin n := ⟨k, ⋯⟩
+p : Fin n := path z
+hr : ¬p = r
+hs : ¬p = s
+hf : ¬path ⟨k, ⋯⟩ = (Equiv.symm (origin path k)) ⟨k + 1, ⋯⟩
+⊢ False

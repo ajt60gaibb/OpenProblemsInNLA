@@ -1,0 +1,45 @@
+# IE-14 preliminary helper source/API review — referee 1
+
+**Disposition: no mathematical correspondence defect found in the completed helper path; one current compilation regression reported. Not a final source or complete-target approval.**
+
+Reviewer: OpenAI GPT-6 Codex agent `/root/reference_api_review`, independent non-implementing AI referee, 15 September 2026. I changed no project proof, specification or publication file. This bounded review covers completed `Basic`, `Certificates`, `GEPP`, `Factors`, `Tail`, `WitnessEntries` and `Front`, the frozen Definitions/Challenge, and relevant original manuscript and IE-05/Mathlib APIs. `FrontBounds`, `ColumnBounds`, the completed public wrapper/attainment proof and final documentation are not covered by this preliminary approval boundary.
+
+## Concrete finding requiring recheck
+
+The first isolated helper snapshot built successfully in **3,636 jobs**, with all **65 helper theorem** kernel-trust and permitted-axiom checks passing. Actual compiled-expression traversal also reached `half_bounds_certificate` from both half helpers, `witness_data_proved`, `witness_path_admissible` and `witness_final_scalar`.
+
+I then read and copied the coordinator's revised norm-based strict-half proof and unused-simp cleanup into the independent snapshot. The updated build fails at `Factors.lean`, `factorIndex_injective`, line 74: `split_ifs at hv <;> omega`. Removing the preceding `simp only [Fin.val_mk] at hv` leaves Fin-value coercions opaque in three branches. The exact updated failing Factors hash is `5940b409821f302737a27dfd3f0af623c62218d25c780c076b1d46ec35678e6c`. See [updated-build.log](updated-build.log). This is a compilation regression introduced by cleanup, not a demonstrated mathematical target defect. I reported it promptly to the coordinator and made no source edit. Restore or otherwise repair the required reduction and rerun the updated build/trust checks before approval. The successful original snapshot cannot approve changed current bytes.
+
+## Mathematical and semantic inspection
+
+- **Actual complex GEPP and nonvacuity:** `ActiveInjective` quantifies all complex vectors supported in the active block. Its initial proof uses actual determinant nonzeroness and `Matrix.mulVec_injective_iff_isUnit`. The Schur step lifts a kernel vector by adjusting the pivot coordinate, so it does not incorrectly require the zero-padded full matrix to stay invertible. Maximal pivot existence follows from a genuine finite maximum and a nonzero active column. The chosen max path establishes existence without restricting the public family of all maximal-modulus tie paths. The `n=0` existential case is harmless; the target remains n≥4.
+- **Correct entry maximum:** finite NNReal suprema range over actual complex moduli. `entryMax_semantics` proves an attained input-entry maximum for n≥1; `peakMax` is literally the frozen growth numerator, including input and final active scalar. No matrix operator norm or final-U-only proxy is introduced.
+- **All-size witness and both corners:** triangularity and exact diagonal nonzeroness establish det(LU)≠0. The finite row-label permutation preserves determinant nonzeroness. Product identities explicitly separate the second, last and other columns; Fibonacci cancellation makes the last factor-product column `(1,1,0,…,0,1)`. The support theorem proves every forbidden original-order entry zero. The original corners are exactly 1 and −1. Normalization proves actual entry maximum one, using a corner for the lower bound.
+- **Literal physical swaps:** `stageFactor` is used only for active physical rows. `stageFactor_pivot` identifies the actual selected row with factor row k; `stageFactor_swap_succ` tracks the real transposition into the next active block. `witness_trajectory` inductively proves every active entry is the appropriate trailing LU sum, starting from the frozen original input, and cancels only proved nonzero U pivots. Hence `witness_path_admissible` proves the prescribed physical path maximal in modulus at every stage, and `witness_final_scalar` proves its actual last scalar equals F(n+1)+1. A pre-permuted LU run is not substituted for the target.
+- **Original-label front:** `origin` composes actual transpositions in the correct order. `FrontInvariant` records active/distinct old rows, their original-label range, complete coverage of other active rows, and exact preservation of future input rows. `pivot_in_front` excludes all other rows because their true original entry in the pivot column is zero. `frontInvariant_advance` proves the survivor bookkeeping and fresh-row identity, rather than assuming the source's informal two-row-front description. It holds for every admissible path through stage n−2 and does not impose a deterministic tie rule.
+- **Certificate use:** the lower half bound supplies actual nonzero half pivots; the upper bound supplies both positive/negative half-entry normalization. The new strict helper is especially explicit: norm positivity is rewritten by the real half identity and closed by `half_bounds_certificate.1`; the norm upper bound closes by `.2`. Its current source is mathematically appropriate but awaits a successful rebuilt dependency audit after the unrelated cleanup regression is fixed.
+
+## Independent checks and API/reuse assessment
+
+The isolated project has its own initially empty project `.lake/build`; only the existing **pinned dependency package/cache tree** is shared. I copied and hashed 15 source/config/context files before compiling the initial helpers. [initial-inputs.json](initial-inputs.json) and [snapshot-inputs.json](snapshot-inputs.json) distinguish successful original and changed attempted snapshots. [AuditInterim.lean](AuditInterim.lean) checks all 65 named helper theorem closures and actual project-constant certificate reachability; [audit-lean.log](audit-lean.log) records the successful first run. The generic dependency traversal adapts the independent SP-05 referee-2 diagnostic, not any mathematical proof.
+
+All ten approved pre-proof hashes still match, including Definitions, Challenge, dossier, pins and independent exact checks. There are no holes, native computations or new custom axioms in the reviewed helper source. The first compiled 65 closures use only `propext`, `Classical.choice`, `Quot.sound`.
+
+My separate exact arithmetic [diagnostic](front-diagnostics.py) uses Fraction/Gaussian-rational arithmetic and my own earlier IE-14 arithmetic helpers. It passed **2,859 checks**: 80 complex cyclic samples in dimensions 4…8, **1,059** visited physical-front states, **979** admissible tie edges, and complete active LU-tail identities for every witness stage in dimensions 4…12. Every surviving original label and every future-row entry was compared directly to physical elimination. These finite diagnostics corroborate conventions; they do not establish the all-dimensional theorem.
+
+I compared the existing IE-05 `GEPP.lean` and `LUTrajectory.lean` APIs and the pinned Mathlib finite-maximum, matrix-injectivity, triangular-determinant and permutation-determinant APIs. The complex adaptation is mathematically sound: it uses moduli in the real norm order and genuine complex algebra for elimination. Reuse is explicitly acknowledged in Basic/GEPP/Tail. New abstractions separate actual row labels, active kernel injectivity and finite maxima cleanly. Symbolic finite-sum cancellation and Fibonacci identities avoid numerical spectral computation or expanded determinants. George Stepaniants/Caltech and original Colbrook attribution are retained. No architectural rewrite is requested.
+
+## Updated attempted snapshot hashes
+
+| Module | SHA256 |
+| --- | --- |
+| `NLA/IE14/Definitions.lean` | `fbc915432bf9b254d966e73af7ad3c525dfff44f11c1ec420a041a94817b5d91` |
+| `NLA/IE14/Basic.lean` | `f75c6ae2c7d5532afc827e4405297ce8567332ade91a74a0df7f1284f1022a6b` |
+| `NLA/IE14/Certificates.lean` | `be7f06f647851c46f5acb703f14e818058b97e592d8a6556b79c2a64ec9f5c33` |
+| `NLA/IE14/GEPP.lean` | `92f621550c134f82e130e80aa8a1fbc364ddc0f8e236149e5bc56383df33a18f` |
+| `NLA/IE14/Factors.lean` | `5940b409821f302737a27dfd3f0af623c62218d25c780c076b1d46ec35678e6c` |
+| `NLA/IE14/Tail.lean` | `b444b6156e6e30f2dd4c2a02cdf035c6caa74417d563b2d32df01764aeecdbab` |
+| `NLA/IE14/WitnessEntries.lean` | `c55b486d70e4373f60db135dd6968932a81e09dbc675d5005a98c89eb09e4e2c` |
+| `NLA/IE14/Front.lean` | `6c72173fcf2274fff2f91429436994f30ea7a2976b3356ae4bd8c7e592beab71` |
+
+The exact [preliminary audit record](preliminary-audit.json) retains frozen hashes, initial/updated inputs, successful initial closures, finite diagnostics and the concrete updated build failure. [latest-helper-diff.patch](latest-helper-diff.patch) records the changes read. This review does not assert completed all-column bounds, growth equality, IsGreatest/supremum assembly, final seven-export correspondence, Linux/Comparator acceptance or full campaign completion. Those remain for the complete frozen candidate and final independent review.

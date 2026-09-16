@@ -1,0 +1,47 @@
+ℹ [3631/3632] Replayed NLA.IE14.Front
+info: NLA/IE14/Front.lean:286:0: 'NLA.IE14.frontInvariant_all' depends on axioms: [propext, Classical.choice, Quot.sound]
+✖ [3632/3632] Building NLA.IE14.FrontBounds (2.6s)
+trace: .> LEAN_PATH=/private/tmp/nla-formalization-campaign-20260915/linear-systems-and-elimination/IE-15/lean/.lake/packages/Cli/.lake/build/lib/lean:/private/tmp/nla-formalization-campaign-20260915/linear-systems-and-elimination/IE-15/lean/.lake/packages/batteries/.lake/build/lib/lean:/private/tmp/nla-formalization-campaign-20260915/linear-systems-and-elimination/IE-15/lean/.lake/packages/Qq/.lake/build/lib/lean:/private/tmp/nla-formalization-campaign-20260915/linear-systems-and-elimination/IE-15/lean/.lake/packages/aesop/.lake/build/lib/lean:/private/tmp/nla-formalization-campaign-20260915/linear-systems-and-elimination/IE-15/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/private/tmp/nla-formalization-campaign-20260915/linear-systems-and-elimination/IE-15/lean/.lake/packages/importGraph/.lake/build/lib/lean:/private/tmp/nla-formalization-campaign-20260915/linear-systems-and-elimination/IE-15/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/private/tmp/nla-formalization-campaign-20260915/linear-systems-and-elimination/IE-15/lean/.lake/packages/plausible/.lake/build/lib/lean:/private/tmp/nla-formalization-campaign-20260915/linear-systems-and-elimination/IE-15/lean/.lake/packages/mathlib/.lake/build/lib/lean:/private/tmp/nla-formalization-campaign-20260915/linear-systems-and-elimination/IE-15/lean/.lake/packages/leancert/.lake/build/lib/lean:/private/tmp/nla-formalization-ie14-20260915/linear-systems-and-elimination/IE-14/lean/.lake/build/lib/lean /private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean /private/tmp/nla-formalization-ie14-20260915/linear-systems-and-elimination/IE-14/lean/NLA/IE14/FrontBounds.lean -o /private/tmp/nla-formalization-ie14-20260915/linear-systems-and-elimination/IE-14/lean/.lake/build/lib/lean/NLA/IE14/FrontBounds.olean -i /private/tmp/nla-formalization-ie14-20260915/linear-systems-and-elimination/IE-14/lean/.lake/build/lib/lean/NLA/IE14/FrontBounds.ilean -c /private/tmp/nla-formalization-ie14-20260915/linear-systems-and-elimination/IE-14/lean/.lake/build/ir/NLA/IE14/FrontBounds.c --setup /private/tmp/nla-formalization-ie14-20260915/linear-systems-and-elimination/IE-14/lean/.lake/build/ir/NLA/IE14/FrontBounds.setup.json --json
+error: NLA/IE14/FrontBounds.lean:85:6: Tactic `apply` failed: could not unify the conclusion of `@add_le_add_left`
+  ?b + ?a ≤ ?c + ?a
+with the goal
+  ‖trajectory A path k q j‖ +
+      ‖trajectory A path k q z / trajectory A path k (path z) z‖ * ‖trajectory A path k (path z) j‖ ≤
+    ‖trajectory A path k q j‖ + ‖trajectory A path k (path ⟨k, hk⟩) j‖
+
+Note: The full type of `@add_le_add_left` is
+  ∀ {α : Type ?u.69} [inst : Add α] [inst_1 : LE α] [i : AddRightMono α] {b c : α}, b ≤ c → ∀ (a : α), b + a ≤ c + a
+
+n : ℕ
+A : Mat n
+path : PivotPath n
+hp : AdmissiblePath A path
+k : ℕ
+hk : k < n
+q j : Fin n
+hq : k ≤ ↑q
+hne : q ≠ path ⟨k, hk⟩
+hj : k < ↑j
+z : Fin n := ⟨k, hk⟩
+⊢ ‖trajectory A path k q j‖ +
+      ‖trajectory A path k q z / trajectory A path k (path z) z‖ * ‖trajectory A path k (path z) j‖ ≤
+    ‖trajectory A path k q j‖ + ‖trajectory A path k (path ⟨k, hk⟩) j‖
+error: NLA/IE14/FrontBounds.lean:190:4: Type mismatch: After simplification, term
+  ht
+ has type
+  ‖trajectory A path (n - 1) ((Equiv.swap ⟨n - 2, ⋯⟩ (path ⟨n - 2, ⋯⟩)) q) last‖ ≤
+    ‖trajectory A path (n - 2) q last‖ + ‖trajectory A path (n - 2) (path ⟨n - 2, ⋯⟩) last‖
+but is expected to have type
+  ‖trajectory A path (n - 1) last last‖ ≤ ‖trajectory A path (n - 2) q last‖ + ‖trajectory A path (n - 2) p last‖
+error: NLA/IE14/FrontBounds.lean:199:21: #assert_trust: 'NLA.IE14.front_step_bounds' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+info: NLA/IE14/FrontBounds.lean:200:0: 'NLA.IE14.front_step_bounds' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: NLA/IE14/FrontBounds.lean:201:21: #assert_trust: 'NLA.IE14.final_scalar_le_frontSum' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+info: NLA/IE14/FrontBounds.lean:202:0: 'NLA.IE14.final_scalar_le_frontSum' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: Lean exited with code 1
+Some required targets logged failures:
+- NLA.IE14.FrontBounds
+error: build failed

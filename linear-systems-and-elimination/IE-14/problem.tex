@@ -34,7 +34,7 @@ matrices},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-14}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Verification check: 2026-09-15}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ growth for cyclic tridiagonal matrices\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to specialist\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -72,9 +72,9 @@ manuscript},
 proof review}, and
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-recovered-2026-09-11/README.md}{submission
 record}. The supplied notes were reconstructed with substantial AI
-assistance. This is independent agent verification, not external human
-peer review or formal proof-assistant certification; no novelty or
-priority claim is made.
+assistance. Those original reviews were informal. The separate complete
+Lean verification is recorded below; no external human peer review,
+novelty or priority claim is made.
 
 The difficulty, importance and rating rationale below are historical
 assessments of the original open target. Original statements, references
@@ -84,6 +84,71 @@ and dated audits are preserved.
 problem in which the two corner entries change elimination fill;
 specialist impact is a precise stability bound for cyclic tridiagonal
 systems.
+
+\newpage
+
+\subsection{Lean proof and verification
+evidence}\label{lean-proof-and-verification-evidence}
+
+\textbf{Formalization: George Stepaniants, Department of Computing and
+Mathematical Sciences, California Institute of Technology.} Matthew J.
+Colbrook retains original mathematical credit. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-14/lean/README.md}{complete
+Lean proof} establishes the exact attained value
+
+\[c_n=F_{n+1}+1\qquad(n\ge4).\]
+
+The declaration \textit{NLA.IE14.canonical\_result} covers every
+nonsingular complex cyclic tridiagonal input with both corners nonzero,
+every permitted largest-modulus GEPP tie path, and every active entry
+from the original input through the final scalar. It proves an actual
+greatest value before identifying the supremum. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-14/lean/formalization.yaml}{seven
+matched declarations} also prove existence of genuine admissible paths,
+the universal upper bound, and the complete rational witness with its
+legal physical row swaps.
+
+On \textbf{15 September 2026},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/35035525244/job/104603738111}{the
+actual Linux verification job} checked immutable proof revision
+\textit{6e48f25fffdae2cf93e4985dc515abbd15e0481b}. All seven
+declarations passed LeanCert kernel-trust assertions, sandboxed
+Comparator statement matching and Lean default-kernel replay. Only
+\textit{propext}, \textit{Classical.choice} and \textit{Quot.sound}
+occur in their transitive axiom sets. Required invalid-proof,
+mismatched-statement, forbidden-axiom and sandbox controls passed.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-14/lean/verification/linux-2026-09-15}{Authentic
+logs and input hashes} bind that execution to all 143 project inputs.
+
+The two original independent complete-source referees and a subsequent
+independent full source/runtime referee accepted the proof; a separate
+operational audit checked the same actual execution.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-14/lean/reviews/operational}{Reports
+and scope} distinguish those AI-agent reviews from external human peer
+review. The original local contributor builds remain labelled as
+historical evidence; this publication work performed no local Lean
+execution.
+
+Two exact LeanCert bounds on \(1/2\) are consumed in the witness's
+nonzero pivots and entry bounds. The all-dimensional argument uses
+symbolic Fibonacci recurrences, a proved row-label invariant and
+triangular products, avoiding interval searches and expanded
+determinants.
+
+The project pins Lean \textbf{4.33.1}, Mathlib
+\textit{0df444a360eaa60ab8c11dca51a86af692955474} and LeanCert
+\textit{621a43d7cf21f87872392a01e874f2f1dbddc926}. In the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-14/lean/README.md}{project
+directory}, \textit{lake exe cache get} followed by
+\textit{lake build} builds Solution by default. Follow the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/README.md}{shared
+Linux instructions} for Comparator and controls. The original frozen
+configuration is retained; the publication changes only its default
+target from Challenge to Solution. Publication and merge commits require
+separate exact-commit checks and are not represented as the earlier
+proof execution.
+
+\newpage
 
 \subsection{Problem statement}\label{problem-statement}
 
@@ -103,10 +168,9 @@ first column, interchange its row with the active first row, and form
 the trailing Schur complement. For an admissible path \(\pi\), let
 \(S_1=A,\ldots,S_n\) denote the active matrices. Define
 
-\[
-\rho(A,\pi)=\frac{\max_{1\le k\le n}\|S_k\|_{\max}}{\|A\|_{\max}},
-\qquad \|M\|_{\max}=\max_{i,j}|m_{ij}|,
-\]
+\[\rho(A,\pi)=\frac{\max_{1\le k\le n}\|S_k\|_{\max}}{\|A\|_{\max}},
+\qquad \|M\|_{\max}=\max_{i,j}|m_{ij}|,\]
+
 \[c_n=\sup_{A\in\mathcal C_n}\ \sup_{\pi\text{ permitted by GEPP}}\rho(A,\pi).\]
 
 Determine \(c_n\) for every \(n\ge4\), with matching upper bounds and

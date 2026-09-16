@@ -945,11 +945,13 @@ Eight exact targets passed independent agent review. Author: **Matthew J. Colbro
 
 [Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-13.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-13-review.md).
 
-### IE-14 - Sharp growth classification
+### IE-14 - Sharp growth classification; Lean formalization by George Stepaniants
 
-[Original statement](linear-systems-and-elimination/IE-14/README.md). **Solved.** Theorem 1 and Sections 2-4 prove $c_n=F_{n+1}+1$ for every $n\ge4$, with $F_0=0,F_1=1$. The bound covers complex cyclic tridiagonal matrices, every active entry and every permitted GEPP tie path in the original ordering. A rational matrix with both cyclic corners nonzero attains it at every order.
+[Original statement](linear-systems-and-elimination/IE-14/README.md). **Lean verified.** Theorem 1 and Sections 2-4 prove $c_n=F_{n+1}+1$ for every $n\ge4$, with $F_0=0,F_1=1$. The bound covers complex cyclic tridiagonal matrices, every active entry and every permitted GEPP tie path in the original ordering. A rational matrix with both cyclic corners nonzero attains it at every order.
 
 [Complete manuscript](references/colbrook-recovered-2026-09-11/manuscripts/IE-14.pdf); [independent review](references/colbrook-recovered-2026-09-11/verification/reviews/IE-14-review.md).
+
+**Lean formalization:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology. Matthew J. Colbrook, University of Cambridge DAMTP, retains original mathematical authorship. All seven declarations passed [actual Linux verification at proof revision 6e48f25f](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/35035525244/job/104603738111), including LeanCert kernel assertions, Comparator, default-kernel replay and required rejection/sandbox controls. The full complex all-tie extremum and an attaining all-size witness are covered. The [independent source/runtime reports and authentic evidence](linear-systems-and-elimination/IE-14/README.md#lean-proof-and-verification-evidence) distinguish the checked proof revision from later publication commits.
 
 ### IE-17 - Negative resolution
 

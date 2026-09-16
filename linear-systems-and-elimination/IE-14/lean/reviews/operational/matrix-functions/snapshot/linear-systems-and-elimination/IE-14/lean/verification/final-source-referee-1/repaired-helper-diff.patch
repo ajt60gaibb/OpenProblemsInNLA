@@ -1,0 +1,65 @@
+--- previous-attempt/NLA/IE14/Factors.lean
++++ final/NLA/IE14/Factors.lean
+@@ -71,7 +71,7 @@
+   apply Fin.ext
+   have hv := congrArg Fin.val h
+   dsimp only [factorIndex] at hv
+-  split_ifs at hv <;> omega
++  split_ifs at hv <;> simp only at hv <;> omega
+ 
+ def factorEquiv (n : ℕ) (hn : 4 ≤ n) : Equiv.Perm (Fin n) :=
+   Equiv.ofBijective (factorIndex n hn) ⟨factorIndex_injective n hn,
+--- previous-attempt/NLA/IE14/Tail.lean
++++ final/NLA/IE14/Tail.lean
+@@ -104,6 +104,7 @@
+         intro h
+         apply hilast
+         apply Fin.ext
++        change i.val = n-1
+         omega
+       simp [stageFactor, hz, hi']
+ 
+--- previous-attempt/NLA/IE14/WitnessEntries.lean
++++ final/NLA/IE14/WitnessEntries.lean
+@@ -32,6 +32,7 @@
+         intro he
+         apply ha
+         apply Fin.ext
++        change a.val = i.val-d
+         omega
+       simp [hne]
+     · simp
+@@ -92,7 +93,7 @@
+     · have hij : i ≠ j := by intro h; subst i; omega
+       have hzj : (⟨0,by omega⟩ : Fin n) ≠ j := by
+         intro h
+-        have := congrArg Fin.val h
++        have he : 0 = j.val := congrArg Fin.val h
+         omega
+       norm_num [witnessUpper,hj,hi1,hij,hzj,Nat.fib_add_two]
+     · have hi2 : 2 ≤ i.val := by omega
+@@ -102,7 +103,7 @@
+       have hpj (d : ℕ) (hd : 0 < d) (hdi : d ≤ i.val) :
+           (⟨i.val-d,lt_of_le_of_lt (Nat.sub_le _ _) i.isLt⟩ : Fin n) ≠ j := by
+         intro h
+-        have := congrArg Fin.val h
++        have he : i.val-d = j.val := congrArg Fin.val h
+         have := i.isLt
+         omega
+       simp only [dif_pos hi',dif_pos hi2,witnessUpper,hj,↓reduceIte,
+@@ -176,13 +177,13 @@
+         exfalso
+         unfold CyclicPosition at hij
+         dsimp only [factorIndex] at *
+-        split_ifs at * <;> omega
++        split_ifs at * <;> simp only at * <;> omega
+     · rw [product_nonfinal_column n _ j hj hj1]
+       by_contra h
+       have hs := lower_support n (factorIndex n hn i) j h
+       unfold CyclicPosition at hij
+       dsimp only [factorIndex] at hs
+-      split_ifs at hs <;> omega
++      split_ifs at hs <;> simp only at hs <;> omega
+ 
+ theorem witness_corners (n : ℕ) (hn : 4 ≤ n) (i j : Fin n)
+     (hi : i.val=0) (hj : j.val+1=n) :

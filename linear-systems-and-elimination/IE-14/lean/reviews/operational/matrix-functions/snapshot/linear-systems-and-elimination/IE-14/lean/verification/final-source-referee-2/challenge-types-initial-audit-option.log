@@ -1,0 +1,58 @@
+ChallengeTypes.lean:3:0: error: Unknown option `pp.width`
+NLA.IE14.numerical_bounds :
+  And
+    (@LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))
+      (@HDiv.hDiv.{0, 0, 0} Real Real Real (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+        (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))
+        (@OfNat.ofNat.{0} Real (nat_lit 2)
+          (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast
+            (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+              (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))))
+    (@LE.le.{0} Real Real.instLE
+      (@HDiv.hDiv.{0, 0, 0} Real Real Real (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+        (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))
+        (@OfNat.ofNat.{0} Real (nat_lit 2)
+          (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast
+            (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+              (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))))))
+      (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)))
+NLA.IE14.entryMax_semantics {n : Nat}
+  (hn : @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) n) (A : NLA.IE14.Mat n) :
+  And
+    (@LE.le.{0} Real Real.instLE (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))
+      (@NLA.IE14.entryMax n A))
+    (And
+      (∀ (i j : Fin n),
+        @LE.le.{0} Real Real.instLE (@Norm.norm.{0} Complex Complex.instNorm (A i j)) (@NLA.IE14.entryMax n A))
+      (@Exists.{1} (Fin n) fun (i : Fin n) =>
+        @Exists.{1} (Fin n) fun (j : Fin n) =>
+          @Eq.{1} Real (@NLA.IE14.entryMax n A) (@Norm.norm.{0} Complex Complex.instNorm (A i j))))
+NLA.IE14.admissible_path_exists {n : Nat} (A : NLA.IE14.Mat n)
+  (hA :
+    @Ne.{1} Complex (@Matrix.det.{0, 0} (Fin n) (instDecidableEqFin n) (Fin.fintype n) Complex Complex.commRing A)
+      (@OfNat.ofNat.{0} Complex (nat_lit 0) (@Zero.toOfNat0.{0} Complex Complex.instZero))) :
+  @Exists.{1} (NLA.IE14.PivotPath n) fun (path : NLA.IE14.PivotPath n) => @NLA.IE14.AdmissiblePath n A path
+NLA.IE14.all_active_entries_bound (n : Nat)
+  (hn : @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) n) (A : NLA.IE14.Mat n)
+  (hA : @NLA.IE14.CyclicInput n A) (path : NLA.IE14.PivotPath n) (hp : @NLA.IE14.AdmissiblePath n A path)
+  (k i j : Fin n) :
+  @LE.le.{0} (Fin n) (@instLEFin n) k i →
+    @LE.le.{0} (Fin n) (@instLEFin n) k j →
+      @LE.le.{0} Real Real.instLE
+        (@Norm.norm.{0} Complex Complex.instNorm (@NLA.IE14.trajectory n A path (@Fin.val n k) i j))
+        (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) (NLA.IE14.fibonacciBound n)
+          (@NLA.IE14.entryMax n A))
+NLA.IE14.witness_data (n : Nat)
+  (hn : @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) n) :
+  And (@NLA.IE14.CyclicInput n (NLA.IE14.witnessMatrix n hn))
+    (@Eq.{1} Real (@NLA.IE14.entryMax n (NLA.IE14.witnessMatrix n hn))
+      (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)))
+NLA.IE14.witness_attainment (n : Nat)
+  (hn : @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) n) :
+  And (@NLA.IE14.AdmissiblePath n (NLA.IE14.witnessMatrix n hn) (NLA.IE14.witnessPath n hn))
+    (@Eq.{1} Real (@NLA.IE14.growth n (NLA.IE14.witnessMatrix n hn) (NLA.IE14.witnessPath n hn))
+      (NLA.IE14.fibonacciBound n))
+NLA.IE14.canonical_result (n : Nat)
+  (hn : @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) n) :
+  And (@IsGreatest.{0} Real Real.instLE (NLA.IE14.cyclicGrowthSet n) (NLA.IE14.fibonacciBound n))
+    (@Eq.{1} Real (NLA.IE14.sharpConstant n) (NLA.IE14.fibonacciBound n))

@@ -1,0 +1,93 @@
+def NLA.IE14.rowSwap : {n : ℕ} → Mat n → Fin n → Fin n → Mat n :=
+fun {n} S k p i j => S ((Equiv.swap k p) i) j
+def NLA.IE14.schurStep : {n : ℕ} → Mat n → Fin n → Fin n → Mat n :=
+fun {n} S k p =>
+  have B := rowSwap S k p;
+  fun i j => if k < i ∧ k < j then B i j - B i k / B k k * B k j else 0
+def NLA.IE14.trajectory : {n : ℕ} → Mat n → PivotPath n → ℕ → Mat n :=
+fun {n} A path x => Nat.brecOn x (trajectory._f A path)
+def NLA.IE14.AdmissiblePivot : {n : ℕ} → Mat n → Fin n → Fin n → Prop :=
+fun {n} S k p => k ≤ p ∧ S p k ≠ 0 ∧ ∀ (i : Fin n), k ≤ i → ‖S i k‖ ≤ ‖S p k‖
+def NLA.IE14.AdmissiblePath : {n : ℕ} → Mat n → PivotPath n → Prop :=
+fun {n} A path => ∀ (k : Fin n), AdmissiblePivot (trajectory A path ↑k) k (path k)
+def NLA.IE14.entryMaxNN : {n : ℕ} → Mat n → ℝ≥0 :=
+fun {n} A => Finset.univ.sup fun ij => ‖A ij.1 ij.2‖₊
+def NLA.IE14.entryMax : {n : ℕ} → Mat n → ℝ :=
+fun {n} A => ↑(entryMaxNN A)
+def NLA.IE14.activeMaxNN : {n : ℕ} → Mat n → ℕ → ℝ≥0 :=
+fun {n} S k => Finset.univ.sup fun ij => if k ≤ ↑ij.1 ∧ k ≤ ↑ij.2 then ‖S ij.1 ij.2‖₊ else 0
+def NLA.IE14.growth : {n : ℕ} → Mat n → PivotPath n → ℝ :=
+fun {n} A path => ↑(Finset.univ.sup fun k => activeMaxNN (trajectory A path ↑k) ↑k) / entryMax A
+def NLA.IE14.CyclicPosition : {n : ℕ} → Fin n → Fin n → Prop :=
+fun {n} i j => ↑i ≤ ↑j + 1 ∧ ↑j ≤ ↑i + 1 ∨ ↑i = 0 ∧ ↑j + 1 = n ∨ ↑j = 0 ∧ ↑i + 1 = n
+def NLA.IE14.CyclicInput : {n : ℕ} → Mat n → Prop :=
+fun {n} A =>
+  Matrix.det A ≠ 0 ∧
+    (∀ (i j : Fin n), ¬CyclicPosition i j → A i j = 0) ∧ ∀ (i j : Fin n), ↑i = 0 → ↑j + 1 = n → A i j ≠ 0 ∧ A j i ≠ 0
+def NLA.IE14.cyclicGrowthSet : ℕ → Set ℝ :=
+fun n => {r | ∃ A path, CyclicInput A ∧ AdmissiblePath A path ∧ r = growth A path}
+def NLA.IE14.sharpConstant : ℕ → ℝ :=
+fun n => sSup (cyclicGrowthSet n)
+def NLA.IE14.fibonacciBound : ℕ → ℝ :=
+fun n => ↑(Nat.fib (n + 1)) + 1
+def NLA.IE14.witnessLower : (n : ℕ) → Mat n :=
+fun n i j => if i = j then 1 else if ↑j + 1 = ↑i ∨ ↑j + 2 = ↑i then -1 else 0
+def NLA.IE14.witnessUpper : (n : ℕ) → Mat n :=
+fun n i j =>
+  if ↑j + 1 = n then if i = j then ↑(Nat.fib (n + 1)) + 1 else ↑(Nat.fib (↑i + 2))
+  else if i = j then if ↑i = 1 then 1 / 2 else 1 else if ↑i = 0 ∧ ↑j = 1 then 1 / 2 else 0
+def NLA.IE14.factorIndex : (n : ℕ) → 4 ≤ n → Fin n → Fin n :=
+fun n hn i => if h0 : ↑i = 0 then ⟨0, ⋯⟩ else if hlast : ↑i + 1 = n then ⟨1, ⋯⟩ else ⟨↑i + 1, ⋯⟩
+def NLA.IE14.witnessMatrix : (n : ℕ) → 4 ≤ n → Mat n :=
+fun n hn i j => (witnessLower n * witnessUpper n) (factorIndex n hn i) j
+def NLA.IE14.witnessPath : (n : ℕ) → 4 ≤ n → PivotPath n :=
+fun n hn k => if ↑k = 0 then k else ⟨n - 1, ⋯⟩
+def IsGreatest.{u_1} : {α : Type u_1} → [LE α] → Set α → α → Prop :=
+fun {α} [LE α] s a => a ∈ s ∧ a ∈ upperBounds s
+NLA.IE14.numerical_bounds : 0 < 1 / 2 ∧ 1 / 2 ≤ 1
+NLA.IE14.entryMax_semantics {n : ℕ} (hn : 1 ≤ n) (A : Mat n) :
+  0 ≤ entryMax A ∧ (∀ (i j : Fin n), ‖A i j‖ ≤ entryMax A) ∧ ∃ i j, entryMax A = ‖A i j‖
+NLA.IE14.admissible_path_exists {n : ℕ} (A : Mat n) (hA : Matrix.det A ≠ 0) : ∃ path, AdmissiblePath A path
+NLA.IE14.all_active_entries_bound (n : ℕ) (hn : 4 ≤ n) (A : Mat n) (hA : CyclicInput A) (path : PivotPath n)
+  (hp : AdmissiblePath A path) (k i j : Fin n) :
+  k ≤ i → k ≤ j → ‖trajectory A path (↑k) i j‖ ≤ fibonacciBound n * entryMax A
+NLA.IE14.witness_data (n : ℕ) (hn : 4 ≤ n) : CyclicInput (witnessMatrix n hn) ∧ entryMax (witnessMatrix n hn) = 1
+NLA.IE14.witness_attainment (n : ℕ) (hn : 4 ≤ n) :
+  AdmissiblePath (witnessMatrix n hn) (witnessPath n hn) ∧
+    growth (witnessMatrix n hn) (witnessPath n hn) = fibonacciBound n
+NLA.IE14.canonical_result (n : ℕ) (hn : 4 ≤ n) :
+  IsGreatest (cyclicGrowthSet n) (fibonacciBound n) ∧ sharpConstant n = fibonacciBound n
+Finset.le_sup.{u_2, u_3} {α : Type u_2} {β : Type u_3} [SemilatticeSup α] [OrderBot α] {s : Finset β} {f : β → α}
+  {b : β} (hb : b ∈ s) : f b ≤ s.sup f
+Finset.sup_le.{u_2, u_3} {α : Type u_2} {β : Type u_3} [SemilatticeSup α] [OrderBot α] {s : Finset β} {f : β → α}
+  {a : α} : (∀ b ∈ s, f b ≤ a) → s.sup f ≤ a
+Finset.exists_mem_eq_sup.{u_2, u_5} {α : Type u_2} {ι : Type u_5} [LinearOrder α] [OrderBot α] (s : Finset ι)
+  (h : s.Nonempty) (f : ι → α) : ∃ i ∈ s, s.sup f = f i
+IsGreatest.isLUB.{u_1} {α : Type u_1} [Preorder α] {s : Set α} {a : α} (h : IsGreatest s a) : IsLUB s a
+IsLUB.csSup_eq.{u_1} {α : Type u_1} [ConditionallyCompleteLattice α] {s : Set α} {a : α} (H : IsLUB s a)
+  (ne : s.Nonempty) : sSup s = a
+Matrix.det_mul.{v, u_2} {n : Type u_2} [DecidableEq n] [Fintype n] {R : Type v} [CommRing R] (M N : Matrix n n R) :
+  (M * N).det = M.det * N.det
+Matrix.det_permute.{v, u_2} {n : Type u_2} [DecidableEq n] [Fintype n] {R : Type v} [CommRing R] (σ : Equiv.Perm n)
+  (M : Matrix n n R) : (M.submatrix (⇑σ) id).det = ↑↑(Equiv.Perm.sign σ) * M.det
+Matrix.det_eq_zero_of_column_eq_zero.{v, u_2} {n : Type u_2} [DecidableEq n] [Fintype n] {R : Type v} [CommRing R]
+  {A : Matrix n n R} (j : n) (h : ∀ (i : n), A i j = 0) : A.det = 0
+Matrix.det_updateRow_add_smul_self.{v, u_2} {n : Type u_2} [DecidableEq n] [Fintype n] {R : Type v} [CommRing R]
+  (A : Matrix n n R) {i j : n} (hij : i ≠ j) (c : R) : (A.updateRow i (A i + c • A j)).det = A.det
+Nat.fib_add_two {n : ℕ} : Nat.fib (n + 2) = Nat.fib n + Nat.fib (n + 1)
+Nat.fib_le_fib_succ {n : ℕ} : Nat.fib n ≤ Nat.fib (n + 1)
+norm_div.{u_2} {α : Type u_2} [NormedDivisionRing α] (a b : α) : ‖a / b‖ = ‖a‖ / ‖b‖
+norm_mul.{u_2} {α : Type u_2} [Norm α] [Mul α] [NormMulClass α] (a b : α) : ‖a * b‖ = ‖a‖ * ‖b‖
+norm_sub_le.{u_5} {E : Type u_5} [SeminormedAddGroup E] (a b : E) : ‖a - b‖ ≤ ‖a‖ + ‖b‖
+Complex.instNorm
+NNReal.instLinearOrder
+6
+9
+14
+22
+Matrix.det_fromBlocks₁₁.{u_2, u_3, u_4} {m : Type u_2} {n : Type u_3} {α : Type u_4} [Fintype m] [Fintype n]
+  [DecidableEq m] [DecidableEq n] [CommRing α] (A : Matrix m m α) (B : Matrix m n α) (C : Matrix n m α)
+  (D : Matrix n n α) [Invertible A] : (Matrix.fromBlocks A B C D).det = A.det * (D - C * ⅟A * B).det
+Matrix.det_fromBlocks_one₁₁.{u_2, u_3, u_4} {m : Type u_2} {n : Type u_3} {α : Type u_4} [Fintype m] [Fintype n]
+  [DecidableEq m] [DecidableEq n] [CommRing α] (B : Matrix m n α) (C : Matrix n m α) (D : Matrix n n α) :
+  (Matrix.fromBlocks 1 B C D).det = (D - C * B).det
