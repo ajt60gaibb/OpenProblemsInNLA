@@ -2,7 +2,7 @@
 
 **113 problems with open targets:** 42 open and 71 partially resolved. **104 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 67 solved (published or independently audited); 37 solved with Lean verification.
+**Resolution evidence:** 66 solved (published or independently audited); 38 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -29,7 +29,7 @@ Retained entries outside the open count:
 | --- | --- | --- | --- | --- | --- |
 | [IE-01](linear-systems-and-elimination/IE-01/README.md) | Forsythe's conjecture beyond restart length two | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](linear-systems-and-elimination/IE-01/problem.pdf) · [TeX](linear-systems-and-elimination/IE-01/problem.tex) |
 | [IE-02](linear-systems-and-elimination/IE-02/README.md) | Is the ideal GMRES bound sharp for every Jordan block? | **✅ SOLVED** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-02/problem.pdf) · [TeX](linear-systems-and-elimination/IE-02/problem.tex) |
-| [IE-04](linear-systems-and-elimination/IE-04/README.md) | Exponential smoothed tail bounds for partial pivoting | **✅ SOLVED** | extreme | broadly interesting | [PDF](linear-systems-and-elimination/IE-04/problem.pdf) · [TeX](linear-systems-and-elimination/IE-04/problem.tex) |
+| [IE-04](linear-systems-and-elimination/IE-04/README.md) | Exponential smoothed tail bounds for partial pivoting | **🏆 LEAN VERIFIED** | extreme | broadly interesting | [PDF](linear-systems-and-elimination/IE-04/problem.pdf) · [TeX](linear-systems-and-elimination/IE-04/problem.tex) |
 | [IE-05](linear-systems-and-elimination/IE-05/README.md) | Exact extremizers for partial pivoting on orthogonal matrices | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-05/problem.pdf) · [TeX](linear-systems-and-elimination/IE-05/problem.tex) |
 | [IE-12](linear-systems-and-elimination/IE-12/README.md) | Near-quadratic solution cost at a prescribed backward error | **✅ SOLVED** | challenging | broadly interesting | [PDF](linear-systems-and-elimination/IE-12/problem.pdf) · [TeX](linear-systems-and-elimination/IE-12/problem.tex) |
 | [IE-13](linear-systems-and-elimination/IE-13/README.md) | Sharp growth for unequal lower and upper bandwidths | **✅ SOLVED** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-13/problem.pdf) · [TeX](linear-systems-and-elimination/IE-13/problem.tex) |

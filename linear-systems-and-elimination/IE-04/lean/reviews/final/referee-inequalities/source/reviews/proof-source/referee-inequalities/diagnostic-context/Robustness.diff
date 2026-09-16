@@ -1,0 +1,17 @@
+--- before/Robustness
++++ after/Robustness
+@@ -62,8 +62,12 @@
+         (trajectory A (noSwapPath n) k ⟨k, hkn⟩ j) (modelStage n k ⟨k, hkn⟩ j)
+         he he' hp ha' (hentries i j hki.le hkj.le)
+         (hentries ⟨k, hkn⟩ j le_rfl hkj.le) hv0
+-      simp only [Matrix.sub_apply, trajectory, dif_pos hkn, noSwapPath, schurStep,
+-        rowSwap, Equiv.swap_self, Equiv.refl_apply, hki, hkj, and_self, if_true]
++      have hstep : trajectory A (noSwapPath n) (k + 1) =
++          schurStep (trajectory A (noSwapPath n) k) ⟨k, hkn⟩ ⟨k, hkn⟩ := by
++        simp only [trajectory, dif_pos hkn, noSwapPath]
++      rw [Matrix.sub_apply, hstep]
++      simp only [schurStep, rowSwap, Equiv.swap_self, Equiv.refl_apply,
++        if_pos (show (⟨k, hkn⟩ : Fin n) < i ∧ (⟨k, hkn⟩ : Fin n) < j from ⟨hki, hkj⟩)]
+       rw [modelStage_active_update hkn i j hki hkj]
+       calc
+         _ ≤ stageAmplification n * e := hs

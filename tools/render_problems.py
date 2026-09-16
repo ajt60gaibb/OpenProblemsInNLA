@@ -67,7 +67,7 @@ def render(source):
         body = body[:match.start()] + body[match.end():]
     body = re.sub(r"<!-- navigation -->.*?<!-- /navigation -->", "", body, flags=re.S)
     body = restore_pdf_layout(identifier, body)
-    if identifier in {"IE-05", "SP-15", "MF-02", "RE-03", "RA-01", "MF-24"}:
+    if identifier in {"IE-04", "IE-05", "SP-15", "MF-02", "RE-03", "RA-01", "MF-24"}:
         # Keep the unchanged original target together after its resolution notice.
         # This PDF-only layout instruction should not appear on the GitHub page.
         body = body.replace("## Context and notation\n", "\\newpage\n\n## Context and notation\n", 1)
@@ -91,7 +91,7 @@ def render(source):
             input=body.strip(), text=True, capture_output=True, check=True,
         )
         tex = result.stdout
-        if identifier in {"SP-04", "SP-05"}:
+        if identifier in {"IE-04", "SP-04", "SP-05"}:
             # These publication dates record formal verification, not a literature search.
             tex = tex.replace("Literature check:", "Verification check:")
         # The code spans in this catalog are literal search phrases. Set them
@@ -102,7 +102,7 @@ def render(source):
         # leave only a few lines on a second page after the status audit.
         if identifier in {
             'AA-01', 'AC-13', 'AV-01', 'AV-02', 'AV-03', 'FR-01', 'FR-02', 'FR-04',
-            'FR-10', 'FR-11', 'FR-12', 'IE-01', 'IE-02', 'IE-03', 'IE-04', 'IE-06', 'IE-08', 'IE-10', 'IE-11', 'IE-13',
+            'FR-10', 'FR-11', 'FR-12', 'IE-01', 'IE-02', 'IE-03', 'IE-06', 'IE-08', 'IE-10', 'IE-11', 'IE-13',
             'IE-14', 'IE-15', 'IE-17', 'IE-19', 'IE-21', 'IE-22', 'IE-23',
             'IE-24', 'IE-25', 'IE-26', 'IS-02', 'IS-03', 'IS-05', 'IV-02', 'IV-03', 'IV-04',
             'IV-05', 'IV-06', 'KE-03', 'KE-04', 'MD-06', 'MF-14', 'MF-15',

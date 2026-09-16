@@ -1,0 +1,42 @@
+--- before/GaussianBox
++++ after/GaussianBox
+@@ -28,15 +28,14 @@
+       Set.Icc (witnessMatrix n i j - (1 : Mat n) i j - boxRadius n)
+         (witnessMatrix n i j - (1 : Mat n) i j + boxRadius n))) := by
+   ext G
+-  simp only [gaussianBox, Set.mem_setOf_eq, Set.mem_univ_pi, Set.mem_Icc]
+   constructor
+-  · intro h i j
++  · intro h i hi j hj
+     have hij := abs_le.mp (h i j)
+     constructor <;> linarith
+   · intro h i j
+     rw [abs_le]
+-    have hij := h i j
+-    constructor <;> linarith
++    have hij := h i (Set.mem_univ i) j (Set.mem_univ j)
++    constructor <;> linarith [hij.1, hij.2]
+ 
+ theorem gaussian_box_product (n : ℕ) :
+     MeasurableSet (gaussianBox n) ∧
+@@ -48,7 +47,19 @@
+   rw [gaussianBox_eq_pi]
+   refine ⟨MeasurableSet.univ_pi (fun _ => MeasurableSet.univ_pi
+     (fun _ => measurableSet_Icc)), ?_⟩
+-  simp only [gaussianMatrix, Measure.pi_pi]
++  let intervals : Fin n → Fin n → Set ℝ := fun i j =>
++    Set.Icc (witnessMatrix n i j - (1 : Mat n) i j - boxRadius n)
++      (witnessMatrix n i j - (1 : Mat n) i j + boxRadius n)
++  have houter := Measure.pi_pi
++    (fun _ : Fin n => Measure.pi (fun _ : Fin n => gaussianReal 0 1))
++    (fun i : Fin n => Set.univ.pi (intervals i))
++  have hinner : (∏ i : Fin n, (Measure.pi (fun _ : Fin n => gaussianReal 0 1))
++      (Set.univ.pi (intervals i))) =
++      ∏ i : Fin n, ∏ j : Fin n, gaussianReal 0 1 (intervals i j) := by
++    apply Finset.prod_congr rfl
++    intro i hi
++    exact Measure.pi_pi (fun _ : Fin n => gaussianReal 0 1) (intervals i)
++  exact houter.trans hinner
+ 
+ theorem witness_gaussian_center_bound {n : ℕ} (i j : Fin n) :
+     |witnessMatrix n i j - (1 : Mat n) i j| ≤ 1 := by

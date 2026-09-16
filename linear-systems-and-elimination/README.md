@@ -22,7 +22,7 @@
 | --- | --- | --- | --- | --- | --- |
 | [IE-01](IE-01/README.md) | Forsythe's conjecture beyond restart length two | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](IE-01/problem.pdf) · [TeX](IE-01/problem.tex) |
 | [IE-02](IE-02/README.md) | Is the ideal GMRES bound sharp for every Jordan block? | **✅ SOLVED** | challenging | interesting to specialist | [PDF](IE-02/problem.pdf) · [TeX](IE-02/problem.tex) |
-| [IE-04](IE-04/README.md) | Exponential smoothed tail bounds for partial pivoting | **✅ SOLVED** | extreme | broadly interesting | [PDF](IE-04/problem.pdf) · [TeX](IE-04/problem.tex) |
+| [IE-04](IE-04/README.md) | Exponential smoothed tail bounds for partial pivoting | **🏆 LEAN VERIFIED** | extreme | broadly interesting | [PDF](IE-04/problem.pdf) · [TeX](IE-04/problem.tex) |
 | [IE-05](IE-05/README.md) | Exact extremizers for partial pivoting on orthogonal matrices | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](IE-05/problem.pdf) · [TeX](IE-05/problem.tex) |
 | [IE-12](IE-12/README.md) | Near-quadratic solution cost at a prescribed backward error | **✅ SOLVED** | challenging | broadly interesting | [PDF](IE-12/problem.pdf) · [TeX](IE-12/problem.tex) |
 | [IE-13](IE-13/README.md) | Sharp growth for unequal lower and upper bandwidths | **✅ SOLVED** | challenging | interesting to specialist | [PDF](IE-13/problem.pdf) · [TeX](IE-13/problem.tex) |

@@ -1,0 +1,11 @@
+--- before/ProbabilityTail
++++ after/ProbabilityTail
+@@ -25,6 +25,8 @@
+ 
+ theorem gaussianBox_smoothedInput {n : ℕ} (G : Mat n) (hG : G ∈ gaussianBox n) :
+     InWitnessBox (smoothedInput (1 : Mat n) 1 G) := by
++  change InWitnessBox ((1 : Mat n) + (1 : ℝ) • G)
++  rw [one_smul]
+   intro i j
+   have h := hG i j
+   change |(1 : Mat n) i j + G i j - witnessMatrix n i j| ≤ boxRadius n

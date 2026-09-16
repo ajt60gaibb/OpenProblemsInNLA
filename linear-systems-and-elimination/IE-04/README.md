@@ -6,8 +6,8 @@
 
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Status:** Solved  
-**Last checked:** 2026-09-11  
+**Status:** Lean verified  
+**Last checked:** 2026-09-15  
 
 **Rating rationale:** Extreme reflects a uniform tail bound over adversarial matrix centers, beyond current average-case analysis; broad impact is justified by explaining the stability of a standard dense solver.
 
@@ -23,6 +23,14 @@
 For any proposed $`c_1,c_2>0`$, take $`\bar A=I_n`$, $`\sigma=1`$ and $`x=(3/2)^{n-1}/(2n^{c_1})`$. Sufficiently large $`n`$ give an admissible $`x\ge1`$ and violate the proposed upper bound. This covers the exact real Gaussian model and every proposed universal pair; the event has strict pivot choices and nonsingular matrices. The conclusion uses the unrestricted range of $`x`$ and does not address a different tail restricted to smaller $`x`$.
 
 [Proof PDF](solution.pdf) · [Standalone source](solution.tex) · [Independent complete-proof review](../../references/stepaniants-ie04-2026-09-11/verification/IE-04-independent-review.md) · [Submission and verification record](../../references/stepaniants-ie04-2026-09-11/README.md). AI assistance and automated-review limits are disclosed. The permanent ID, original statement, and historical ratings below are retained.
+
+## Lean proof and verification evidence — 15 September 2026
+
+**Formalization: George Stepaniants**, Department of Computing and Mathematical Sciences, California Institute of Technology. The [immutable complete proof](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/026b3e5534a4d6e15ebffb85318c2ff031df32bf/linear-systems-and-elimination/IE-04/lean) verifies the full negative answer through 21 checked declarations, ending with `NLA.IE04.counterexample` and `NLA.IE04.not_uniformExponentialTail`. It covers arbitrary positive real $`c_1,c_2`$, actual Gaussian product measures, the full nonsingular perturbation box and every admissible partial-pivoting tie rule. The center $`I_n`$ and noise scale one are admissible witnesses; all original quantifiers are retained.
+
+[Canonical non-root Linux run 35034399633](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/35034399633/job/104600154206) accepted these exact proof bytes with Lean 4.33.1, Mathlib `0df444a360eaa60ab8c11dca51a86af692955474` and LeanCert `621a43d7cf21f87872392a01e874f2f1dbddc926`. LeanCert checks the consumed scalar certificate $`e^{-2}>1/8`$ in kernel mode. Comparator, independent default-kernel replay and the required rejection and sandbox controls passed; only `propext`, `Classical.choice` and `Quot.sound` occur in the exported proofs.
+
+[Project and reproduction instructions](lean/README.md) · [Original runtime evidence](lean/verification/linux-2026-09-15) · [Both independent final referee reports](lean/reviews/final) · [Formalization manifest](lean/formalization.yaml). Substantial AI assistance and scoped AI-agent review are disclosed. The checked proof revision is distinct from later documentation commits, whose publication workflow must run separately. No external human peer review or official Tau Ceti endorsement is asserted.
 
 ## Context and notation
 
