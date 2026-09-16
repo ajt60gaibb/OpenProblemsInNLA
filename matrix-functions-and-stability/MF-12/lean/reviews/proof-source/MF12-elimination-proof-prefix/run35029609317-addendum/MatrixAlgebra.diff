@@ -1,0 +1,170 @@
+--- before/MatrixAlgebra
++++ after/MatrixAlgebra
+@@ -66,7 +66,7 @@
+         simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
+ 
+ /-- The explicit powers of the unchanged 1+2+2+1 source matrix. -/
+-def fractionalPowerForm (α : ℝ) (q : ℕ) : Square 6 :=
++noncomputable def fractionalPowerForm (α : ℝ) (q : ℕ) : Square 6 :=
+   !![1, 0, 0, 0, 0, 0;
+      0, baseLambda ^ q, (q : ℝ) * baseLambda ^ q, 0, 0, 0;
+      0, 0, baseLambda ^ q, 0, 0, 0;
+@@ -156,77 +156,113 @@
+   fin_cases r <;> fin_cases s
+   all_goals simp only [Matrix.mul_apply, Fin.sum_univ_six]
+   · change ((1) * (1) + (0) * (0) + (0) * (0) + (0) * (0) + (0) * (0) + (0) * (0) : ℝ) = 1
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((1) * (0) + (0) * (baseLambda) + (0) * (0) + (0) * (0) + (0) * (0) + (0) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((1) * (0) + (0) * (baseLambda) + (0) * (baseLambda) + (0) * (0) + (0) * (0) + (0) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((1) * (0) + (0) * (0) + (0) * (0) + (0) * (baseMu α) + (0) * (0) + (0) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((1) * (0) + (0) * (0) + (0) * (0) + (0) * (baseMu α) + (0) * (baseMu α) + (0) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((1) * (0) + (0) * (0) + (0) * (0) + (0) * (0) + (0) * (0) + (0) * (1) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (1) + (baseLambda ^ (q)) * (0) + (((q : ℕ) : ℝ) * baseLambda ^ (q)) * (0) + (0) * (0) + (0) * (0) + (0) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (baseLambda ^ (q)) * (baseLambda) + (((q : ℕ) : ℝ) * baseLambda ^ (q)) * (0) + (0) * (0) + (0) * (0) + (0) * (0) : ℝ) = baseLambda ^ (q + 1)
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (baseLambda ^ (q)) * (baseLambda) + (((q : ℕ) : ℝ) * baseLambda ^ (q)) * (baseLambda) + (0) * (0) + (0) * (0) + (0) * (0) : ℝ) = ((q + 1 : ℕ) : ℝ) * baseLambda ^ (q + 1)
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (baseLambda ^ (q)) * (0) + (((q : ℕ) : ℝ) * baseLambda ^ (q)) * (0) + (0) * (baseMu α) + (0) * (0) + (0) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (baseLambda ^ (q)) * (0) + (((q : ℕ) : ℝ) * baseLambda ^ (q)) * (0) + (0) * (baseMu α) + (0) * (baseMu α) + (0) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (baseLambda ^ (q)) * (0) + (((q : ℕ) : ℝ) * baseLambda ^ (q)) * (0) + (0) * (0) + (0) * (0) + (0) * (1) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (1) + (0) * (0) + (baseLambda ^ (q)) * (0) + (0) * (0) + (0) * (0) + (0) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (0) * (baseLambda) + (baseLambda ^ (q)) * (0) + (0) * (0) + (0) * (0) + (0) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (0) * (baseLambda) + (baseLambda ^ (q)) * (baseLambda) + (0) * (0) + (0) * (0) + (0) * (0) : ℝ) = baseLambda ^ (q + 1)
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (0) * (0) + (baseLambda ^ (q)) * (0) + (0) * (baseMu α) + (0) * (0) + (0) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (0) * (0) + (baseLambda ^ (q)) * (0) + (0) * (baseMu α) + (0) * (baseMu α) + (0) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (0) * (0) + (baseLambda ^ (q)) * (0) + (0) * (0) + (0) * (0) + (0) * (1) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (1) + (0) * (0) + (0) * (0) + (baseMu α ^ (q)) * (0) + (((q : ℕ) : ℝ) * baseMu α ^ (q)) * (0) + (0) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (0) * (baseLambda) + (0) * (0) + (baseMu α ^ (q)) * (0) + (((q : ℕ) : ℝ) * baseMu α ^ (q)) * (0) + (0) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (0) * (baseLambda) + (0) * (baseLambda) + (baseMu α ^ (q)) * (0) + (((q : ℕ) : ℝ) * baseMu α ^ (q)) * (0) + (0) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (0) * (0) + (0) * (0) + (baseMu α ^ (q)) * (baseMu α) + (((q : ℕ) : ℝ) * baseMu α ^ (q)) * (0) + (0) * (0) : ℝ) = baseMu α ^ (q + 1)
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (0) * (0) + (0) * (0) + (baseMu α ^ (q)) * (baseMu α) + (((q : ℕ) : ℝ) * baseMu α ^ (q)) * (baseMu α) + (0) * (0) : ℝ) = ((q + 1 : ℕ) : ℝ) * baseMu α ^ (q + 1)
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (0) * (0) + (0) * (0) + (baseMu α ^ (q)) * (0) + (((q : ℕ) : ℝ) * baseMu α ^ (q)) * (0) + (0) * (1) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (1) + (0) * (0) + (0) * (0) + (0) * (0) + (baseMu α ^ (q)) * (0) + (0) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (0) * (baseLambda) + (0) * (0) + (0) * (0) + (baseMu α ^ (q)) * (0) + (0) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (0) * (baseLambda) + (0) * (baseLambda) + (0) * (0) + (baseMu α ^ (q)) * (0) + (0) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (0) * (0) + (0) * (0) + (0) * (baseMu α) + (baseMu α ^ (q)) * (0) + (0) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (0) * (0) + (0) * (0) + (0) * (baseMu α) + (baseMu α ^ (q)) * (baseMu α) + (0) * (0) : ℝ) = baseMu α ^ (q + 1)
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (0) * (0) + (0) * (0) + (0) * (0) + (baseMu α ^ (q)) * (0) + (0) * (1) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (1) + (0) * (0) + (0) * (0) + (0) * (0) + (0) * (0) + (1) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (0) * (baseLambda) + (0) * (0) + (0) * (0) + (0) * (0) + (1) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (0) * (baseLambda) + (0) * (baseLambda) + (0) * (0) + (0) * (0) + (1) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (0) * (0) + (0) * (0) + (0) * (baseMu α) + (0) * (0) + (1) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (0) * (0) + (0) * (0) + (0) * (baseMu α) + (0) * (baseMu α) + (1) * (0) : ℝ) = 0
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+   · change ((0) * (0) + (0) * (0) + (0) * (0) + (0) * (0) + (0) * (0) + (1) * (1) : ℝ) = 1
+-    simp only [pow_succ, Nat.cast_add, Nat.cast_one] <;> ring
++    simp only [pow_succ, Nat.cast_add, Nat.cast_one, zero_mul, mul_zero,
++      zero_add, add_zero, one_mul, mul_one] <;> ring
+ 
+ lemma fractionalMatrix_power (α : ℝ) (q : ℕ) :
+     fractionalMatrix α ^ q = fractionalPowerForm α q := by
+@@ -234,7 +270,7 @@
+   | zero => simpa only [pow_zero] using (fractionalPowerForm_zero α).symm
+   | succ q ih => rw [pow_succ, ih, fractionalPowerForm_mul]
+ 
+-def fractionalPowerV (α : ℝ) (q : ℕ) : Matrix (Fin 6) (Fin 2) ℝ :=
++noncomputable def fractionalPowerV (α : ℝ) (q : ℕ) : Matrix (Fin 6) (Fin 2) ℝ :=
+   !![1, 0; (q : ℝ) * baseLambda ^ q, 0; baseLambda ^ q, 0;
+      0, (q : ℝ) * baseMu α ^ q; 0, baseMu α ^ q; 0, 1]
+ 

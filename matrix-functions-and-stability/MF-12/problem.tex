@@ -34,7 +34,7 @@ families},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MF-12}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Verification check: 2026-09-15}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ arbitrary polynomial growth exponents by finite matrix families\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -81,20 +81,94 @@ Codex-agent review}.
 TeX} ·
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-jsr-growth-2026-09-11/README.md}{Submission,
 authorship and verification record}. The proof was developed with AI
-assistance; no external human peer review or formal verification is
-claimed. The original statement and prior evidence below are retained,
-and the ratings above are historical. This entry no longer contributes
-to the open count.
+assistance. Those original reviews were informal; the separate Lean
+verification of the complete original target is documented below. No
+external human peer review is claimed. The original statement and prior
+evidence below are retained, and the ratings above are historical. This
+entry no longer contributes to the open count.
+
+\newpage
+
+\subsection{Lean proof and verification
+evidence}\label{lean-proof-and-verification-evidence}
+
+\textbf{Formalization: George Stepaniants, Department of Computing and
+Mathematical Sciences, California Institute of Technology.} Matthew J.
+Colbrook retains credit for the original mathematical proof. The
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/blob/3d06c49635bbdde109c491510641204285eaf05c/matrix-functions-and-stability/MF-12/lean/Solution.lean}{complete
+Lean proof at immutable revision 3d06c496} pins Lean \textbf{4.33.1},
+Mathlib \textit{0df444a360eaa60ab8c11dca51a86af692955474} and LeanCert
+\textit{621a43d7cf21f87872392a01e874f2f1dbddc926}.
+
+The declaration \textit{NLA.MF12.realizes\_every\_nonnegative\_exponent}
+proves the complete original target: for every real exponent
+\(\alpha\ge0\), a fixed positive dimension and exactly two distinct
+fixed real matrices have an attained maximum of genuine Euclidean
+operator norms between fixed positive multiples of \(k^\alpha\) for
+\textbf{every} integer \(k\ge1\). The actual \(k\)th-root sequence
+converges to one. Dimensions, matrices and comparison constants are
+fixed before the length is quantified.
+
+All \textbf{28 declarations} and their dependency bridges are listed in
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-12/lean/formalization.yaml}{formalization.yaml}
+and matched against the independently reviewed
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-12/lean/Challenge.lean}{Challenge}.
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-12/lean/NLA/MF12/Definitions.lean}{definitions}
+retain all switching words, every positive length, exponent zero and
+arbitrary noninteger exponents. Exact algebra, finite Holder
+inequalities and rational bounds replace interval searches. Enlarged
+constants suffice for the original question; the manuscript's additional
+rational-entry and density results, sharper constants and optimal
+dimensions are outside the formalized scope.
+
+On \textbf{15 September 2026},
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/35037011332/job/104608341268}{the
+actual GitHub Linux verification job} checked this exact proof commit.
+All 28 targets passed LeanCert kernel-trust assertions, non-root
+sandboxed Comparator statement matching and Lean default-kernel replay.
+Their transitive axiom sets are only \textit{propext},
+\textit{Classical.choice} and \textit{Quot.sound};
+\textit{gap\_decomposition} uses just \textit{propext} and
+\textit{Quot.sound}. Actual invalid-proof, mismatched-statement,
+forbidden-axiom and sandbox controls passed. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-12/lean/verification/linux-2026-09-15}{retained
+logs, artifact and input hashes} bind this execution to all 322
+candidate project files. No local macOS Lean execution is claimed.
+
+Two independent AI-agent final referees accepted the complete source and
+actual evidence:
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-12/lean/reviews/final/referee-elimination/REVIEW.md}{referee
+1} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-12/lean/reviews/final/referee-inequalities/REVIEW.md}{referee
+2}. They applied the repository's scoped Tau Ceti protocol; this is
+distinct from external human peer review or certification of
+checker-software infallibility.
+
+For the ordinary proof build, enter
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-12/lean/README.md}{the
+Lean project} with its pinned toolchain and run:
+
+\begin{verbatim}
+lake exe cache get && lake build
+\end{verbatim}
+
+The default target is the complete Solution. For the additional
+Comparator, kernel and rejection checks, follow the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/README.md}{shared
+Linux instructions}. Solution never imports Challenge's specification
+placeholders. This evidence names the exact checked proof revision;
+later publication commits require separate exact-commit checks.
+
+\newpage
 
 \subsection{Context and notation}\label{context-and-notation}
 
 The joint spectral radius of a nonempty compact set
 \(\mathcal M\subset\mathbb C^{d\times d}\) is
 
-\[
-\widehat\rho(\mathcal M)=\lim_{k\to\infty}
-\max_{A_1,\ldots,A_k\in\mathcal M}\|A_k\cdots A_1\|_2^{1/k}.
-\]
+\[\widehat\rho(\mathcal M)=\lim_{k\to\infty}
+\max_{A_1,\ldots,A_k\in\mathcal M}\|A_k\cdots A_1\|_2^{1/k}.\]
 
 This definition also applies to finite real matrix sets. The ordinary
 spectral radius of one matrix is written \(\rho(A)\).
@@ -103,9 +177,7 @@ For a compact nonempty \(\mathcal M\subset\mathbb R^{d\times d}\) with
 \(\widehat\rho(\mathcal M)=1\), define its maximal product norm at
 length \(k\) by
 
-\[
-g_{\mathcal M}(k)=\max_{A_1,\ldots,A_k\in\mathcal M}\|A_k\cdots A_1\|_2.
-\]
+\[g_{\mathcal M}(k)=\max_{A_1,\ldots,A_k\in\mathcal M}\|A_k\cdots A_1\|_2.\]
 
 This problem concerns growth within one family over time.
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-07/README.md}{MF-07}
@@ -115,13 +187,11 @@ instead requests a dimension-dependent bound uniform across families.
 
 For every real \(\alpha\ge0\), do there exist a positive integer \(d\),
 a finite nonempty \(\mathcal M\subset\mathbb R^{d\times d}\) with
-\(\widehat\rho(\mathcal M)=1\), and constants \(0<c\le C<\infty\) such
+\(\widehat\rho(\mathcal M)=1\), and constants \(0< c\le C<\infty\) such
 that
 
-\[
-c k^\alpha\le g_{\mathcal M}(k)\le C k^\alpha
-\qquad\text{for every integer }k\ge1?
-\]
+\[c k^\alpha\le g_{\mathcal M}(k)\le C k^\alpha
+\qquad\text{for every integer }k\ge1?\]
 
 \subsection{Reference and status
 evidence}\label{reference-and-status-evidence}

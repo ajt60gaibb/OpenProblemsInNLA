@@ -1,0 +1,24 @@
+--- before/JordanBounds.lean
++++ after/JordanBounds.lean
+@@ -61,8 +61,8 @@
+ lemma jordan_norm_lower (m n : ℕ) :
+     jordanLower m * (n : ℝ) ^ m ≤ spectralNorm (jordanMatrix m ^ n) := by
+   by_cases hm : m = 0
+-  · simpa only [hm, jordanLower, if_pos rfl, pow_zero, mul_one] using
+-      jordan_power_norm_ge_one 0 n
++  · subst m
++    simpa [jordanLower] using jordan_power_norm_ge_one 0 n
+   · have hmR : 0 < (m : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero hm
+     have hpow : 0 < (m : ℝ) ^ m := pow_pos hmR m
+     by_cases hmn : m ≤ n
+@@ -72,7 +72,9 @@
+         (0 : Fin (m + 1)) ⟨m, by omega⟩
+       have hchooseNorm : (n.choose m : ℝ) ≤ spectralNorm (jordanMatrix m ^ n) := by
+         simpa only [jordan_entries, Fin.val_zero, Fin.val_mk, Nat.zero_le,
+-          if_pos, Nat.sub_zero, abs_of_nonneg (Nat.cast_nonneg _)] using hentry
++          if_pos, Nat.sub_zero,
++          abs_of_nonneg (Nat.cast_nonneg (n.choose m) : (0 : ℝ) ≤ (n.choose m : ℝ))]
++          using hentry
+       calc
+         jordanLower m * (n : ℝ) ^ m = (n : ℝ) ^ m / (m : ℝ) ^ m := by
+           rw [jordanLower, if_neg hm, div_eq_mul_inv, mul_comm]

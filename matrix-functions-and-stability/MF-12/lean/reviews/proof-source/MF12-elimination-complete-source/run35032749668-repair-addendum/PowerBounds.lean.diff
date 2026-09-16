@@ -1,0 +1,10 @@
+--- before/PowerBounds.lean
++++ after/PowerBounds.lean
+@@ -45,6 +45,7 @@
+     rw [abs_of_nonneg (pow_nonneg (baseMu_pos α).le q)]
+     exact (pow_le_one₀ (baseMu_pos α).le (baseMu_lt_one α hα1).le).trans hH
+   have hLambdaOff : |(q : ℝ) * baseLambda ^ q| ≤ fractionalPowerBound α := by
++    change |loss q| ≤ fractionalPowerBound α
+     rw [abs_of_nonneg (loss_nonneg q)]
+     exact (loss_le_quarter q).trans ((by norm_num : (1 / 4 : ℝ) ≤ 1).trans hH)
+   have hμoff : |(q : ℝ) * baseMu α ^ q| ≤ fractionalPowerBound α := by

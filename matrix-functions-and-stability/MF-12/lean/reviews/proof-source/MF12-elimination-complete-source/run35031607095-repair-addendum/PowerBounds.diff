@@ -1,0 +1,39 @@
+--- before/PowerBounds.lean
++++ after/PowerBounds.lean
+@@ -38,13 +38,13 @@
+     rw [abs_zero]
+     linarith
+   have hone : |(1 : ℝ)| ≤ fractionalPowerBound α := by simpa only [abs_one] using hH
+-  have hλpow : |baseLambda ^ q| ≤ fractionalPowerBound α := by
++  have hLambdaPow : |baseLambda ^ q| ≤ fractionalPowerBound α := by
+     rw [abs_of_nonneg (pow_nonneg baseLambda_pos.le q)]
+     exact (pow_le_one₀ baseLambda_pos.le baseLambda_lt_one.le).trans hH
+   have hμpow : |baseMu α ^ q| ≤ fractionalPowerBound α := by
+     rw [abs_of_nonneg (pow_nonneg (baseMu_pos α).le q)]
+     exact (pow_le_one₀ (baseMu_pos α).le (baseMu_lt_one α hα1).le).trans hH
+-  have hλoff : |(q : ℝ) * baseLambda ^ q| ≤ fractionalPowerBound α := by
++  have hLambdaOff : |(q : ℝ) * baseLambda ^ q| ≤ fractionalPowerBound α := by
+     rw [abs_of_nonneg (loss_nonneg q)]
+     exact (loss_le_quarter q).trans ((by norm_num : (1 / 4 : ℝ) ≤ 1).trans hH)
+   have hμoff : |(q : ℝ) * baseMu α ^ q| ≤ fractionalPowerBound α := by
+@@ -67,9 +67,9 @@
+   · change |(0 : ℝ)| ≤ fractionalPowerBound α
+     exact hzero
+   · change |(baseLambda ^ q : ℝ)| ≤ fractionalPowerBound α
+-    exact hλpow
++    exact hLambdaPow
+   · change |((q : ℝ) * baseLambda ^ q : ℝ)| ≤ fractionalPowerBound α
+-    exact hλoff
++    exact hLambdaOff
+   · change |(0 : ℝ)| ≤ fractionalPowerBound α
+     exact hzero
+   · change |(0 : ℝ)| ≤ fractionalPowerBound α
+@@ -81,7 +81,7 @@
+   · change |(0 : ℝ)| ≤ fractionalPowerBound α
+     exact hzero
+   · change |(baseLambda ^ q : ℝ)| ≤ fractionalPowerBound α
+-    exact hλpow
++    exact hLambdaPow
+   · change |(0 : ℝ)| ≤ fractionalPowerBound α
+     exact hzero
+   · change |(0 : ℝ)| ≤ fractionalPowerBound α

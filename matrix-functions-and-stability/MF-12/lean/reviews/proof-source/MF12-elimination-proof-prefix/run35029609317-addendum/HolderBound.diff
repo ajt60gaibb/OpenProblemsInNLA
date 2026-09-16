@@ -1,0 +1,44 @@
+--- before/HolderBound
++++ after/HolderBound
+@@ -25,14 +25,15 @@
+     (α : ℝ) (hα : 0 < α) (hα1 : α < 1) :
+     (∑ i ∈ s, Real.rpow (f i) α * Real.rpow (g i) (1 - α)) ≤
+       Real.rpow (∑ i ∈ s, f i) α * Real.rpow (∑ i ∈ s, g i) (1 - α) := by
++  simp only [Real.rpow_eq_pow]
+   have hβ : 0 < 1 - α := sub_pos.mpr hα1
+   have h := Real.inner_le_Lp_mul_Lq_of_nonneg s
+-    (f := fun i => Real.rpow (f i) α) (g := fun i => Real.rpow (g i) (1 - α))
++    (f := fun i => (f i) ^ α) (g := fun i => (g i) ^ (1 - α))
+     (Real.HolderConjugate.inv_one_sub_inv hα hα1)
+     (fun i _ => Real.rpow_nonneg (hf i) _) (fun i _ => Real.rpow_nonneg (hg i) _)
+-  have hfp (i : ι) : Real.rpow (Real.rpow (f i) α) α⁻¹ = f i :=
++  have hfp (i : ι) : ((f i) ^ α) ^ α⁻¹ = f i :=
+     Real.rpow_rpow_inv (hf i) hα.ne'
+-  have hgp (i : ι) : Real.rpow (Real.rpow (g i) (1 - α)) (1 - α)⁻¹ = g i :=
++  have hgp (i : ι) : ((g i) ^ (1 - α)) ^ (1 - α)⁻¹ = g i :=
+     Real.rpow_rpow_inv (hg i) hβ.ne'
+   simpa only [hfp, hgp, one_div, inv_inv] using h
+ 
+@@ -48,17 +49,17 @@
+ lemma weighted_gain_identity (α : ℝ) (hα : 0 < α) (hα1 : α < 1)
+     (q : ℕ) (w : ℝ) (hw : 0 ≤ w) :
+     gain α q * w = Real.rpow ((q : ℝ) * w) α * Real.rpow (loss q * w) (1 - α) := by
++  simp only [Real.rpow_eq_pow]
+   have hg := (loss_gain_bounds α hα hα1).2.2.2 q
+-  have hwp : Real.rpow w α * Real.rpow w (1 - α) = w := by
++  simp only [Real.rpow_eq_pow] at hg
++  have hwp : w ^ α * w ^ (1 - α) = w := by
+     rw [← Real.rpow_add_of_nonneg hw hα.le (sub_nonneg.mpr hα1.le)]
+     simp
+   rw [Real.mul_rpow (Nat.cast_nonneg q) hw, Real.mul_rpow (loss_nonneg q) hw]
+   calc
+     gain α q * w =
+-        (Real.rpow (q : ℝ) α * Real.rpow (loss q) (1 - α)) *
+-          (Real.rpow w α * Real.rpow w (1 - α)) := by rw [hwp, hg]
+-    _ = (Real.rpow (q : ℝ) α * Real.rpow w α) *
+-        (Real.rpow (loss q) (1 - α) * Real.rpow w (1 - α)) := by ring
++        ((q : ℝ) ^ α * (loss q) ^ (1 - α)) * (w ^ α * w ^ (1 - α)) := by rw [hwp, hg]
++    _ = ((q : ℝ) ^ α * w ^ α) * ((loss q) ^ (1 - α) * w ^ (1 - α)) := by ring
+ 
+ theorem compressed_product_bound (α : ℝ) (hα : 0 < α) (hα1 : α < 1)
+     (qs : List ℕ) :

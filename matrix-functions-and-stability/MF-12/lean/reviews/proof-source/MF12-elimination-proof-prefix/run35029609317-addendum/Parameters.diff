@@ -1,0 +1,29 @@
+--- before/Parameters
++++ after/Parameters
+@@ -44,7 +44,7 @@
+     div_pos (Real.rpow_pos_of_pos baseLambda_pos α) (by norm_num)
+   have hc1 : fractionalLower α < 1 := by
+     have hpow := Real.rpow_lt_one baseLambda_pos.le baseLambda_lt_one hα
+-    change Real.rpow baseLambda α / 10 < 1
++    change baseLambda ^ α / 10 < 1
+     linarith
+   refine ⟨baseLambda_pos, hmu, baseMu_lt_one α hα1, hH, hc, ?_⟩
+   dsimp only [fractionalUpper]
+@@ -80,14 +80,16 @@
+     ∀ q : ℕ, gain α q = Real.rpow (q : ℝ) α * Real.rpow (loss q) (1 - α) := by
+   refine ⟨by simp [loss], by simp [gain], fun q hq => ⟨loss_pos q hq, loss_le_quarter q⟩, ?_⟩
+   intro q
+-  have hqpow : Real.rpow (q : ℝ) α * Real.rpow (q : ℝ) (1 - α) = q := by
++  have hqpow : (q : ℝ) ^ α * (q : ℝ) ^ (1 - α) = q := by
+     rw [← Real.rpow_add_of_nonneg (Nat.cast_nonneg q) hα.le (sub_nonneg.mpr hα1.le)]
+     simp
+   calc
+     gain α q = (q : ℝ) * Real.rpow (baseLambda ^ q) (1 - α) := by
+       dsimp only [gain, baseMu]
++      simp only [Real.rpow_eq_pow]
+       rw [Real.rpow_pow_comm baseLambda_pos.le]
+     _ = Real.rpow (q : ℝ) α * Real.rpow ((q : ℝ) * baseLambda ^ q) (1 - α) := by
++      simp only [Real.rpow_eq_pow]
+       rw [Real.mul_rpow (Nat.cast_nonneg q) (pow_nonneg baseLambda_pos.le q)]
+       rw [← mul_assoc, hqpow]
+     _ = Real.rpow (q : ℝ) α * Real.rpow (loss q) (1 - α) := rfl

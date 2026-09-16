@@ -36,7 +36,7 @@ def restore_pdf_layout(identifier, body):
     if identifier == "SP-05":
         # Keep the complete original target together after its verification notice.
         body = body.replace("## Problem statement\n", "\\newpage\n\n## Problem statement\n", 1)
-    if identifier == "MF-02":
+    if identifier in {"MF-02", "MF-12"}:
         body = body.replace("## Lean proof and verification evidence", "\\newpage\n\n## Lean proof and verification evidence", 1)
     if identifier == "MF-22":
         heading = "## Resolution: affirmative, 11 September 2026\n"
@@ -67,7 +67,7 @@ def render(source):
         body = body[:match.start()] + body[match.end():]
     body = re.sub(r"<!-- navigation -->.*?<!-- /navigation -->", "", body, flags=re.S)
     body = restore_pdf_layout(identifier, body)
-    if identifier in {"IE-05", "SP-15", "MF-02", "RE-03", "RA-01", "MF-24"}:
+    if identifier in {"IE-05", "SP-15", "MF-02", "MF-12", "RE-03", "RA-01", "MF-24"}:
         # Keep the unchanged original target together after its resolution notice.
         # This PDF-only layout instruction should not appear on the GitHub page.
         body = body.replace("## Context and notation\n", "\\newpage\n\n## Context and notation\n", 1)
@@ -91,7 +91,7 @@ def render(source):
             input=body.strip(), text=True, capture_output=True, check=True,
         )
         tex = result.stdout
-        if identifier in {"SP-04", "SP-05"}:
+        if identifier in {"SP-04", "SP-05", "MF-12"}:
             # These publication dates record formal verification, not a literature search.
             tex = tex.replace("Literature check:", "Verification check:")
         # The code spans in this catalog are literal search phrases. Set them

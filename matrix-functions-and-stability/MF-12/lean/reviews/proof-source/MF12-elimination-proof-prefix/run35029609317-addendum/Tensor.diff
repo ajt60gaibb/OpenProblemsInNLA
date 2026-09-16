@@ -1,0 +1,25 @@
+--- before/Tensor
++++ after/Tensor
+@@ -31,11 +31,11 @@
+ 
+ lemma tensor_mul {d e : ℕ} (A C : Square d) (B D : Square e) :
+     tensor A B * tensor C D = tensor (A * C) (B * D) := by
+-  unfold tensor
++  unfold tensor Matrix.kronecker
+   rw [Matrix.submatrix_mul_equiv, ← Matrix.mul_kronecker_mul]
+ 
+ @[simp] lemma tensor_one (d e : ℕ) : tensor (1 : Square d) (1 : Square e) = 1 := by
+-  unfold tensor
++  unfold tensor Matrix.kronecker
+   rw [Matrix.one_kronecker_one, Matrix.submatrix_one_equiv]
+ 
+ theorem tensor_word_identity {d e : ℕ} (A P : Square d) (J : Square e)
+@@ -83,7 +83,7 @@
+     calc
+       spectralNorm A * spectralNorm B ≤
+           ((d : ℝ) * (e : ℝ)) * (entryMax A * entryMax B) := by
+-            convert hprod using 1 <;> ring
++            exact hprod.trans_eq (by ring)
+       _ = ((d : ℝ) * (e : ℝ)) * entryMax (tensor A B) := by rw [hentry]
+       _ ≤ ((d : ℝ) * (e : ℝ)) * spectralNorm (tensor A B) :=
+         mul_le_mul_of_nonneg_left hT.2.2.2.1 hdim.le
