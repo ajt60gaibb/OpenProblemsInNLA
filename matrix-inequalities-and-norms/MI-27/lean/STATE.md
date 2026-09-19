@@ -1,0 +1,11 @@
+# MI-27 review snapshot, 19 September 2026
+
+The full unchanged original coefficient-one logarithmic commutator bound and all twenty frozen contracts now have proof bodies. Local actual runs through recovery-117 succeeded; aggregate and isolated type diagnostics recovery-118 are recorded separately when complete. Final independent reviews and real GitHub Linux Comparator are pending. This snapshot alone does not authorize a completed-count increment.
+
+Historical draft comments in frozen Definitions, Challenge and development modules are retained verbatim for statement and execution provenance. Statements such as UNELABORATED, UNCOMPILED, no Solution, and remaining internal obligation describe their earlier preparation time; this dated state and actual command receipts supersede them. Intentional Challenge placeholders remain reference statements, never proof imports.
+
+The numerical plan's suggested C10 cutoff 1+1/epsilon is replaced in the actual proof by the sound common bound M=norm(rho)+norm(sigma)+1 and R=1+M/epsilon. The unchanged frozen existential cutoff contract is proved for every unitary conjugate. C09 uses an endpoint spectral optimizer and the mean value theorem; no projection differentiability is assumed. C11 proves the general entropy identity internally, including prior product integrability before Fubini and trace correction before density normalization. C12 truncates both mixture terms before changes of variable. All improper and finite integrals are symbolic, with no numerical quadrature.
+
+LeanCert is used in kernel mode only for the exact positivity of one half, consumed in C05; all twenty exported declarations undergo trust and axiom checks. Reused MI24 modules are dependencies, not an additional verified target. Analytic resolution remains credited to Sidney Holden, Flatiron Institute, Simons Foundation. Formalization: George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, with Codex assistance. No contact email is published.
+
+Source-body authors include root and nr04_mf14_final_referee_a; neither counts as an independent final referee. The two final nonauthor AI reviewers are nr04_mf14_final_referee_b and new_math_nr01. Their source reviews are distinct from actual compiler and GitHub executions.

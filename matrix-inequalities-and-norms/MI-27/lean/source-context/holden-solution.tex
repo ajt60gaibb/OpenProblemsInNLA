@@ -1,0 +1,587 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[a4paper,margin=27mm,headheight=14pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype,booktabs,enumitem}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+ pdftitle={MI-27: The logarithmic commutator inequality with sharp constant one},
+ pdfauthor={Sidney Holden},
+ pdfsubject={Complete analytic proof, sharpness, and reproducible consistency checks},
+ pdfkeywords={MI-27, logarithmic commutator, entropy, sharp constant, positive part}
+}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small MI-27: sharp logarithmic commutator inequality}
+\fancyhead[R]{\small 12 September 2026}
+\fancyfoot[C]{\thepage}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt}
+\setlength{\emergencystretch}{2em}
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\rank}{rank}
+\newcommand{\Id}{I}
+\newcommand{\one}[1]{\left\lVert #1\right\rVert_1}
+\newcommand{\op}[1]{\left\lVert #1\right\rVert_\infty}
+\newcommand{\ent}{\mathsf S}
+\newcommand{\rel}{\mathsf D}
+\newcommand{\hs}{\mathsf E}
+\newcommand{\dd}{\,\mathrm d}
+\newcommand{\ii}{\mathrm i}
+\newcommand{\C}{\mathbb C}
+\title{\textbf{MI-27: The logarithmic commutator inequality\\with sharp constant one}}
+\author{Sidney Holden\\{\small Center for Computational Biology, Flatiron Institute}\\{\small Simons Foundation}}
+\date{12 September 2026}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+For every pair of positive definite complex matrices $A,B$ with
+$\tr(A+B)=1$, we prove
+\[
+ \one{[B,\log(A+B)]}\le
+ -\tr(A)\log\tr(A)-\tr(B)\log\tr(B).
+\]
+The proof uses Frenkel's integral representation of quantum relative
+entropy, in its positive-part form given by Hirche and Tomamichel.
+The key estimate is that $\tr(\rho-\gamma e^{\ii tH}\sigma e^{-\ii tH})_+$
+is $\op{H}$-Lipschitz in $t$, uniformly for $\gamma\ge1$ and for all
+matrix sizes. A positive integral of these estimates has total weight
+exactly the binary entropy. A strictly positive definite $2\times2$
+family from the supplied findings pack proves that no coefficient
+smaller than one is possible.
+\end{abstract}
+
+\section{Statement and conventions}
+
+The problem designated MI-27 in the linked collection asks specifically
+for coefficient one, rather than merely a dimension-independent
+coefficient \cite{MI27}. Its historical formulation and a coefficient-two
+bound are recorded in \cite{AK,Audenaert}. The following settles the
+stated matrix inequality.
+
+\begin{theorem}[MI-27, with the optimal universal coefficient]
+\label{thm:main}
+Let $n\ge1$, and let $A,B\in\C^{n\times n}$ be positive definite with
+$\tr(A+B)=1$. Put $a=\tr A$ and $b=\tr B$. Then
+\begin{equation}
+ \boxed{\one{[B,\log(A+B)]}\le h(b)},
+ \qquad h(b)=-a\log a-b\log b,\quad a+b=1.
+ \label{eq:main}
+\end{equation}
+The coefficient one is best possible even when $n=2$ and both matrices
+are strictly positive definite.
+\end{theorem}
+
+All logarithms are natural. The commutator is $[X,Y]=XY-YX$;
+$\one{X}=\tr\sqrt{X^*X}$ is the full trace norm, not one half of it;
+and $\op{X}$ is the operator norm. A density matrix is a positive
+semidefinite matrix of trace one. For Hermitian $X$, $X_+$ is its positive
+part. Write
+\[
+ \ent(\rho)=-\tr\rho\log\rho,\qquad
+ \rel(\rho\Vert\sigma)=\tr\rho(\log\rho-\log\sigma),
+\]
+with the usual support convention for relative entropy and $0\log0=0$.
+Only positive definite matrices are needed in the application to
+Theorem~\ref{thm:main}.
+
+\textbf{Proof dependency.} The only non-elementary input is the published
+relative-entropy identity in Section~\ref{sec:representation}.
+Everything used after that identity is proved below. The argument does
+not assume that $A$ and $B$ commute, that either has rank one, or that the
+projection reduction in the supplied pack has already been solved.
+
+\section{A uniform positive-part estimate}
+
+\begin{lemma}[Commuting with an effect]
+\label{lem:effect}
+If $X\ge0$ and $0\le Q\le\Id$, then
+\begin{equation}
+ \one{[X,Q]}\le\tr X.
+ \label{eq:effect}
+\end{equation}
+\end{lemma}
+\begin{proof}
+The Hermitian matrix $R=2Q-\Id$ is a contraction. Consequently, the
+triangle inequality and the trace-norm product inequality give
+\[
+ \one{[X,Q]}=\tfrac12\one{XR-RX}
+ \le\tfrac12\bigl(\one{XR}+\one{RX}\bigr)
+ \le\one{X}\op{R}\le\tr X.
+\]
+\end{proof}
+
+For density matrices $\rho,\sigma$ and $\gamma\ge1$, define
+\begin{equation}
+ \hs_\gamma(\rho\Vert\sigma)
+   =\tr(\rho-\gamma\sigma)_+.
+ \label{eq:hockey}
+\end{equation}
+This is often called the quantum hockey-stick divergence.
+
+\begin{lemma}[Uniform unitary-orbit Lipschitz bound]
+\label{lem:unitary}
+Let $\rho,\sigma$ be density matrices, let $H=H^*$, and set
+$U_t=e^{\ii tH}$ and $\sigma_t=U_t\sigma U_t^*$. For every $\gamma\ge1$
+and every $s,t\in\mathbb R$,
+\begin{align}
+ |\hs_\gamma(\rho\Vert\sigma_t)
+    -\hs_\gamma(\rho\Vert\sigma_s)|
+     &\le |t-s|\op{H},\label{eq:orbit-second}\\
+ |\hs_\gamma(\sigma_t\Vert\rho)
+    -\hs_\gamma(\sigma_s\Vert\rho)|
+     &\le |t-s|\op{H}.\label{eq:orbit-first}
+\end{align}
+\end{lemma}
+\begin{proof}
+For every Hermitian $M$, diagonalization shows that
+\begin{equation}
+ \tr M_+=\max_{0\le Q\le\Id}\tr QM.
+ \label{eq:variational}
+\end{equation}
+In particular $|\tr M_+-\tr N_+|\le\one{M-N}$. Thus
+$f(t)=\tr M(t)_+$, where $M(t)=\rho-\gamma\sigma_t$, is locally
+Lipschitz, hence absolutely continuous on compact intervals and
+differentiable almost everywhere.
+
+At a point of differentiability, fix the spectral projection
+$Q_t=\boldsymbol 1_{(0,\infty)}(M(t))$. It maximizes
+\eqref{eq:variational}, and it commutes with $M(t)$. We have
+\[
+ f(t+u)\ge\tr Q_tM(t+u)
+       =f(t)+u\tr Q_tM'(t)+o(|u|).
+\]
+The positive and negative choices of $u$, together with differentiability
+of $f$ at $t$, imply
+$f'(t)=\tr Q_tM'(t)$. No differentiability of $Q_t$ is being assumed.
+
+Since $[\rho-\gamma\sigma_t,Q_t]=0$, we have
+$[\rho,Q_t]=\gamma[\sigma_t,Q_t]$. Therefore
+\begin{align}
+ f'(t)
+  &=-\ii\gamma\tr Q_t[H,\sigma_t]
+    =-\ii\gamma\tr H[\sigma_t,Q_t]\notag\\
+  &=-\ii\tr H[\rho,Q_t].\label{eq:key-cancellation}
+\end{align}
+Trace-norm duality and Lemma~\ref{lem:effect} now yield
+\[
+ |f'(t)|\le\op{H}\one{[\rho,Q_t]}\le\op{H}.
+\]
+Integrating this almost-everywhere bound for the absolutely continuous
+function $f$ proves \eqref{eq:orbit-second}.
+
+For \eqref{eq:orbit-first}, use unitary invariance:
+\[
+ \hs_\gamma(\sigma_t\Vert\rho)
+   =\hs_\gamma(\sigma\Vert U_t^*\rho U_t),
+\]
+and apply the first result with generator $-H$.
+\end{proof}
+
+\begin{remark}
+The cancellation in \eqref{eq:key-cancellation} removes the apparently
+large factor $\gamma$. A generic perturbation bound on the second
+argument would keep that factor and is not sufficient here. Eigenvalue
+crossings at zero cause no gap: the scalar function is absolutely
+continuous, and its derivative is used only almost everywhere.
+\end{remark}
+
+\section{The relative-entropy representation and its kernels}
+\label{sec:representation}
+
+Frenkel's Theorem~6 \cite{Frenkel}, in the equivalent form of
+Hirche--Tomamichel, Corollary~2.3, equation~(2.22) \cite{HT}, states that
+for density matrices $\rho,\sigma$,
+\begin{equation}
+ \rel(\rho\Vert\sigma)
+  =\int_1^\infty
+    \left\{\frac{\hs_\gamma(\rho\Vert\sigma)}{\gamma}
+           +\frac{\hs_\gamma(\sigma\Vert\rho)}{\gamma^2}
+    \right\}\dd\gamma.
+ \label{eq:frenkel}
+\end{equation}
+This is the ordinary Umegaki relative entropy even when the matrices do
+not commute. It is not a replacement of relative entropy by a different
+quantum divergence.
+
+For reference, Frenkel's original state-normalized form is
+\[
+ \rel(\rho\Vert\sigma)=
+ \int_{-\infty}^{\infty}
+ \frac{\tr\bigl((1-v)\rho+v\sigma\bigr)_-}{|v|(v-1)^2}\dd v.
+\]
+The integrand vanishes for $0\le v\le1$. In the part $v>1$, the
+substitution $\gamma=v/(v-1)$ gives the first integral in
+\eqref{eq:frenkel}. In the part $v<0$, the substitution
+$\gamma=(v-1)/v$ gives the second. Here $X_-=(-X)_+$.
+
+\begin{lemma}[Skew relative-entropy kernel]
+\label{lem:skew}
+For $0<\alpha<1$, put $\beta=1-\alpha$. Then
+\begin{align}
+ &\rel\bigl(\rho\Vert\alpha\rho+\beta\sigma\bigr)\notag\\
+ &\quad=\int_1^\infty\left\{
+ \frac{\beta^2}{\gamma(\beta+\alpha\gamma)^2}
+       \hs_\gamma(\rho\Vert\sigma)
+ +\frac{\beta^2}{(\alpha+\beta\gamma)^2}
+       \hs_\gamma(\sigma\Vert\rho)
+ \right\}\dd\gamma.
+ \label{eq:skew-kernel}
+\end{align}
+\end{lemma}
+\begin{proof}
+Let $M=\alpha\rho+\beta\sigma$. For $1\le v<1/\alpha$,
+\[
+ \hs_v(\rho\Vert M)
+   =(1-\alpha v)\,
+     \hs_{\beta v/(1-\alpha v)}(\rho\Vert\sigma),
+\]
+and for $v\ge1/\alpha$ the positive part is zero. For all $v\ge1$,
+\[
+ \hs_v(M\Vert\rho)
+   =\beta\,\hs_{(v-\alpha)/\beta}(\sigma\Vert\rho).
+\]
+Apply \eqref{eq:frenkel} to $(\rho,M)$. In its first integral make the
+change of variables
+\[
+ \gamma=\frac{\beta v}{1-\alpha v},\qquad
+ v=\frac{\gamma}{\beta+\alpha\gamma},\qquad
+ \dd v=\frac{\beta}{(\beta+\alpha\gamma)^2}\dd\gamma.
+\]
+In its second integral put $v=\alpha+\beta\gamma$.
+These give precisely the two coefficients in \eqref{eq:skew-kernel}.
+Every integrand is nonnegative; the substitutions are valid also for
+improper integrals.
+\end{proof}
+
+For $a,b>0$ with $a+b=1$, define the weighted entropy difference
+\begin{align}
+ \chi_{a,b}(\rho,\sigma)
+   &:=\ent(a\rho+b\sigma)-a\ent(\rho)-b\ent(\sigma)\notag\\
+   &=a\rel(\rho\Vert a\rho+b\sigma)
+     +b\rel(\sigma\Vert a\rho+b\sigma).
+ \label{eq:holevo}
+\end{align}
+The second equality follows by expanding the traces.
+
+\begin{proposition}[A positive kernel of mass $h(b)$]
+\label{prop:kernel}
+For density matrices $\rho,\sigma$,
+\begin{equation}
+ \boxed{\displaystyle
+ \chi_{a,b}(\rho,\sigma)
+ =ab\int_1^\infty\left\{
+ \frac{\hs_\gamma(\rho\Vert\sigma)}{\gamma(b+a\gamma)}
+ +\frac{\hs_\gamma(\sigma\Vert\rho)}{\gamma(a+b\gamma)}
+ \right\}\dd\gamma.}
+ \label{eq:chi-kernel}
+\end{equation}
+The two nonnegative scalar kernels have respective masses
+\begin{align}
+ ab\int_1^\infty\frac{\dd\gamma}{\gamma(b+a\gamma)}
+    &=-a\log a,\label{eq:mass-a}\\
+ ab\int_1^\infty\frac{\dd\gamma}{\gamma(a+b\gamma)}
+    &=-b\log b.\label{eq:mass-b}
+\end{align}
+\end{proposition}
+\begin{proof}
+Use Lemma~\ref{lem:skew} first with $(\alpha,\rho,\sigma)=(a,\rho,\sigma)$,
+then with $(\alpha,\rho,\sigma)=(b,\sigma,\rho)$, and insert the results
+in \eqref{eq:holevo}. The coefficient of
+$\hs_\gamma(\rho\Vert\sigma)$ simplifies as follows:
+\[
+ \frac{ab^2}{\gamma(b+a\gamma)^2}
+ +\frac{ba^2}{(b+a\gamma)^2}
+ =\frac{ab}{\gamma(b+a\gamma)}.
+\]
+The other coefficient follows by exchanging $a$ and $b$.
+
+For the first mass, an antiderivative is
+$a\log\bigl(\gamma/(b+a\gamma)\bigr)$. At $\gamma=1$ it equals zero,
+and at infinity it tends to $-a\log a$. The other mass is identical
+with $a,b$ exchanged. Also $0\le\hs_\gamma\le1$ for density matrices
+and $\gamma\ge1$, so \eqref{eq:chi-kernel} is absolutely convergent.
+\end{proof}
+
+\section{Proof of the upper bound}
+
+\begin{proposition}[Finite-time entropy estimate]
+\label{prop:finite}
+Let $A,B>0$ with $\tr A=a$, $\tr B=b$, $a+b=1$, and let $H=H^*$.
+For $S_t=A+e^{\ii tH}Be^{-\ii tH}$,
+\begin{equation}
+ |\ent(S_t)-\ent(S_0)|\le |t|\op{H}\,h(b)
+ \quad\text{for all }t\in\mathbb R.
+ \label{eq:finite}
+\end{equation}
+\end{proposition}
+\begin{proof}
+Set $\rho=A/a$, $\sigma=B/b$, and $\sigma_t=e^{\ii tH}\sigma e^{-\ii tH}$.
+Unitary invariance of entropy gives
+\[
+ \ent(S_t)-\ent(S_0)
+  =\chi_{a,b}(\rho,\sigma_t)-\chi_{a,b}(\rho,\sigma).
+\]
+Apply the two bounds of Lemma~\ref{lem:unitary} to the two integrands in
+\eqref{eq:chi-kernel}. Integrate the resulting finite-difference bounds
+and use \eqref{eq:mass-a}--\eqref{eq:mass-b}:
+\begin{align*}
+ |\ent(S_t)-\ent(S_0)|
+ &\le |t|\op{H}\,ab\int_1^\infty
+ \left\{\frac1{\gamma(b+a\gamma)}
+          +\frac1{\gamma(a+b\gamma)}\right\}\dd\gamma\\
+ &=|t|\op{H}(-a\log a-b\log b).
+\end{align*}
+The kernels are integrable and independent of $t$. In particular,
+\emph{no differentiation under an improper integral is needed}.
+\end{proof}
+
+\begin{proof}[Proof of the inequality in Theorem~\ref{thm:main}]
+Put $S=A+B$. The path $S_t$ in Proposition~\ref{prop:finite} is positive
+definite near zero (in fact for every $t$), so its entropy is
+differentiable. The derivative of the trace of a matrix function gives
+\[
+ \left.\frac{\mathrm d}{\mathrm dt}\ent(S_t)\right|_{t=0}
+ =-\tr\bigl(S'_0(\log S+\Id)\bigr)
+ =-\ii\tr[H,B]\log S
+ =-\ii\tr H[B,\log S],
+\]
+where $S'_0=\ii[H,B]$ and $\tr S'_0=0$. Equivalently, the trace derivative
+formula follows by diagonalizing $S$ and summing the diagonal terms of
+the Fr\'echet derivative of $-x\log x$.
+
+Divide \eqref{eq:finite} by $|t|$ and let $t\to0$. With the Hermitian
+matrix $K=-\ii[B,\log S]$, this yields
+\begin{equation}
+ |\tr HK|\le\op{H}h(b)\qquad(H=H^*).
+ \label{eq:dual}
+\end{equation}
+Choose $H=\sgn(K)$, using zero on $\ker K$. Then $\op{H}\le1$ and
+$\tr HK=\tr|K|=\one{K}=\one{[B,\log S]}$. Inequality
+\eqref{eq:dual} is exactly \eqref{eq:main}.
+\end{proof}
+
+\section{Sharpness within the strictly positive definite class}
+\label{sec:sharp}
+
+The following family is retained, with attribution, from the MI-27
+findings in the user's supplied pack \cite{Pack}; its properties are
+verified here rather than assumed.
+For $0<t<1/2$, set
+\begin{equation}
+ S_t=\begin{pmatrix}1-t&0\\0&t\end{pmatrix},\qquad
+ d_t=(1-2t^2)t(1-t),\qquad
+ B_t=t^2S_t+d_t\begin{pmatrix}1&1\\1&1\end{pmatrix},\qquad
+ A_t=S_t-B_t.
+ \label{eq:family}
+\end{equation}
+Let $u_t=(\sqrt t,\sqrt{1-t})^{\mathsf T}$ and $P_t=u_tu_t^*$.
+This is a rank-one orthogonal projection, and
+\[
+ S_t^{1/2}P_tS_t^{1/2}
+   =t(1-t)\begin{pmatrix}1&1\\1&1\end{pmatrix}.
+\]
+Consequently,
+\[
+ B_t=S_t^{1/2}\bigl(t^2\Id+(1-2t^2)P_t\bigr)S_t^{1/2}.
+\]
+The middle matrix has eigenvalues $t^2$ and $1-t^2$, both strictly
+between zero and one. Thus $A_t,B_t>0$, and
+$\tr(A_t+B_t)=\tr S_t=1$. As an additional algebraic check,
+\[
+ \det A_t=\det B_t=t^3(1-t)(1-t^2)>0.
+\]
+
+Writing $b_t=\tr B_t$, direct calculation gives
+\begin{equation}
+ b_t=t^2+2d_t,\qquad
+ \one{[B_t,\log S_t]}=2d_t\log\frac{1-t}{t}.
+ \label{eq:family-values}
+\end{equation}
+Indeed, the commutator is real skew-symmetric with off-diagonal
+magnitude $d_t\log((1-t)/t)$, so its two singular values both equal
+that magnitude.
+
+As $t\downarrow0$, $d_t/t\to1$ and $b_t/(2t)\to1$, whence
+\[
+ \frac{2d_t\log((1-t)/t)}{2t\log(1/t)}\longrightarrow1.
+\]
+Moreover, $h(x)=x\log(1/x)+x+O(x^2)$ as $x\downarrow0$.
+Since $\log(1/b_t)/\log(1/t)\to1$, it follows that
+\[
+ \frac{h(b_t)}{2t\log(1/t)}\longrightarrow1.
+\]
+Therefore
+\begin{equation}
+ \boxed{\displaystyle
+ \lim_{t\downarrow0}
+ \frac{\one{[B_t,\log(A_t+B_t)]}}{h(\tr B_t)}=1.}
+ \label{eq:sharp}
+\end{equation}
+For every $c<1$, the ratio in \eqref{eq:sharp} exceeds $c$ for sufficiently
+small positive $t$. Thus no smaller universal coefficient is valid
+under the original strict hypotheses. This completes the sharpness
+part of Theorem~\ref{thm:main}.
+
+\appendix
+\section{The corresponding skew-divergence improvement}
+
+Define the normalized skew divergence, for $0<\alpha<1$, by
+\[
+ \mathsf{SD}_\alpha(\rho\Vert\sigma)=
+ \frac{\rel(\rho\Vert\alpha\rho+(1-\alpha)\sigma)}{-\log\alpha}.
+\]
+The kernels in \eqref{eq:skew-kernel} have masses
+\begin{align*}
+ \int_1^\infty\frac{\beta^2}{\gamma(\beta+\alpha\gamma)^2}\dd\gamma
+   &=-\log\alpha-\beta,\\
+ \int_1^\infty\frac{\beta^2}{(\alpha+\beta\gamma)^2}\dd\gamma
+   &=\beta,
+ \qquad\beta=1-\alpha.
+\end{align*}
+For the first integral one may use the antiderivative
+$\log\gamma-\log(\beta+\alpha\gamma)+\beta/(\beta+\alpha\gamma)$;
+for the second use $-\beta/(\alpha+\beta\gamma)$.
+Thus Lemma~\ref{lem:unitary} also proves
+\begin{equation}
+ |\mathsf{SD}_\alpha(\rho\Vert U_t\sigma U_t^*)
+    -\mathsf{SD}_\alpha(\rho\Vert\sigma)|
+ \le |t|\op{H}.
+ \label{eq:skew-Lipschitz}
+\end{equation}
+The same holds when the first argument is rotated, by joint unitary
+invariance. This supplies the coefficient-one estimate in the
+skew-divergence approach to mixing; compare the coefficient-two
+unitary perturbation estimate in \cite[Section~8]{Audenaert}.
+Indeed, expanding
+\[
+ \chi_{a,b}(\rho,\sigma)
+ =-a\log a\,\mathsf{SD}_a(\rho\Vert\sigma)
+  -b\log b\,\mathsf{SD}_b(\sigma\Vert\rho)
+\]
+and using \eqref{eq:skew-Lipschitz} gives a second presentation of
+Proposition~\ref{prop:finite}.
+
+\section{Connection to the pack's projection reduction}
+
+The supplied pack \cite{Pack} reduced the target to the assertion
+\begin{equation}
+ \one{[S^{1/2}PS^{1/2},\log S]}
+ \le h(\tr SP),\qquad S>0,\quad\tr S=1,
+ \label{eq:projection}
+\end{equation}
+for every orthogonal projection $P$, with no rank restriction.
+Theorem~\ref{thm:main} now proves this assertion: put
+\[
+ K_\varepsilon=\varepsilon\Id+(1-2\varepsilon)P,\quad
+ B_\varepsilon=S^{1/2}K_\varepsilon S^{1/2},\quad
+ A_\varepsilon=S-B_\varepsilon,
+\]
+apply the theorem for $0<\varepsilon<1/2$, and let $\varepsilon\downarrow0$.
+The sum $S$ and its logarithm stay fixed, and all other quantities are
+continuous. For $P=0$ or $P=\Id$, both sides of \eqref{eq:projection}
+are zero, with $h(0)=h(1)=0$.
+
+For completeness, the converse reduction is also valid. If $0\le K\le\Id$,
+write its eigenvalues as $k_1\ge\cdots\ge k_n\ge0$, put $k_{n+1}=0$,
+and let $P_j$ project onto the first $j$ eigenvectors. Then
+\[
+ K=\sum_{j=1}^n(k_j-k_{j+1})P_j+(1-k_1)0
+\]
+is a convex combination of projections. For the corresponding weights
+$\theta_j$, put $B_j=S^{1/2}P_jS^{1/2}$ and $b_j=\tr B_j$.
+Linearity, trace-norm convexity, \eqref{eq:projection}, and concavity of
+$h$ give
+\[
+ \one{[S^{1/2}KS^{1/2},\log S]}
+ \le\sum_j\theta_j h(b_j)
+ \le h\!\left(\sum_j\theta_j b_j\right).
+\]
+Take $K=S^{-1/2}BS^{-1/2}$ to recover the original assertion.
+Importantly, the $b_j$ are allowed to vary; no assertion is made about
+extreme points in a fixed-trace slice. The upper-bound proof in the
+main text does not require this reduction.
+
+\section{Verification, scope, and provenance}
+
+The accompanying \texttt{verification/verify.py} checks the rational
+kernel identities and the sharpness-family determinants symbolically.
+It also compares the relative-entropy and weighted-entropy integrals
+with direct matrix evaluations, exercises a zero-eigenvalue crossing,
+checks trace-norm duality and entropy derivatives, and evaluates the
+strictly positive definite sharpness family at high precision. The
+quadrature is split at generalized eigenvalues of the matrix pencils
+to handle the positive-part kinks. The complete numerical output,
+software versions, random seed, and tolerances are included.
+
+These computations are consistency checks, not the proof of a universal
+inequality. The analytic proof is Sections~1--5, using the published
+identity \eqref{eq:frenkel}. The report is not a proof-assistant
+formalization and has not been independently refereed. No claim of
+historical publication priority is made. The source and exact input
+pack provenance are recorded in \texttt{provenance.md}; the sharpness
+family and projection reduction are explicitly credited to that pack.
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{MI27}
+\emph{OpenProblemsInNLA}, ``MI-27: Constant one in the logarithmic
+commutator inequality,'' matrix-inequalities-and-norms collection.
+Accessed 12 September 2026.
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/matrix-inequalities-and-norms/MI-27}.
+
+\bibitem{AK}
+K.~M.~R.~Audenaert and F.~Kittaneh,
+\emph{Problems and Conjectures in Matrix and Operator Inequalities},
+arXiv:1201.5232v3 (2012), Section~6, Conjecture~4, equation~(26),
+and the following coefficient-one proposal.
+\url{https://arxiv.org/abs/1201.5232}.
+
+\bibitem{Audenaert}
+K.~M.~R.~Audenaert,
+\emph{Quantum Skew Divergence},
+Journal of Mathematical Physics \textbf{55}, 112202 (2014), Section~8.
+\url{https://arxiv.org/abs/1304.5935}.
+
+\bibitem{Frenkel}
+P.~E.~Frenkel,
+\emph{Integral formula for quantum relative entropy implies data
+processing inequality},
+Quantum \textbf{7}, 1102 (2023), Theorem~6, pp.~6--7 of arXiv:2208.12194v4.
+DOI: \href{https://doi.org/10.22331/q-2023-09-07-1102}{10.22331/q-2023-09-07-1102}.
+\url{https://arxiv.org/abs/2208.12194}.
+
+\bibitem{HT}
+C.~Hirche and M.~Tomamichel,
+\emph{Quantum R\'enyi and $f$-divergences from integral representations},
+Communications in Mathematical Physics \textbf{405}, 208 (2024).
+Corollary~2.3, equation~(2.22), p.~7 of arXiv:2306.12343v3;
+see also Proposition~2.9 for skew-divergence kernels.
+DOI: \href{https://doi.org/10.1007/s00220-024-05087-3}{10.1007/s00220-024-05087-3}.
+\url{https://arxiv.org/abs/2306.12343}.
+
+\bibitem{Pack}
+User-supplied findings archive,
+\emph{OpenProblemsInNLA matrix proof checkpoint, 2026-09-12},
+MI-27/\texttt{result.md}, Theorems~1--2.
+The archive supplies the projection equivalence and the strictly
+positive definite sharpness family, but explicitly leaves the universal
+upper bound unproved. An unchanged copy of that MI-27 result is included
+in \texttt{provenance/input\_MI27\_result.md}.
+\end{thebibliography}
+
+\end{document}

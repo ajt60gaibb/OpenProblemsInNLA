@@ -1,0 +1,13 @@
+# MI-27 documentation and check-scope addendum
+
+Reviewer: `/root/new_math_nr01`, 19 September 2026. This is a narrow addendum to the completed full-source PASS review in `../MI27-final-newmath/REVIEW.md`; its bytes and original manifest are unchanged.
+
+**PASS for the inspected documentation delta.** The publication record `PUBLICATION-DOCUMENTATION-DELTA.json` has SHA256 `8a09b465f2f178e357cba4fde53a238894af6594573c5426ed6bb43a7f7fa061`. I read it and the pattern provenance file, independently checked their hashes, checked the publication directory's actual pattern-file inventory, and compared every NLA proof module, Challenge and Solution against the immutable source snapshot. No definition, contract or proof-source difference was found.
+
+The full Schiffer excerpt is omitted from publication. Its consultation is instead recorded by repository URL, exact revision, source path and consulted-source hash. This preserves the example's attribution without bundling that full source text. I did not independently certify the exhaustive absence of a license in the remote Schiffer tree; that bounded tree inspection is reported by the coordinator. The actual omission is independently checked.
+
+The two Forsythe examples remain documentation only, absent from the proof import closure. The publication includes the Apache-2.0 license text with SHA256 `cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30` and records its pinned repository/revision. I checked the retained license text and exact hash. A separate web attempt to retrieve the pinned raw license returned a cache miss, so I do not claim my own successful remote retrieval or independently expand the coordinator's provenance claim. The metadata preserves the library and mathematical authors' roles. This addendum is a source/provenance review, not a legal opinion.
+
+**Linux-check terminology.** The earlier report's phrase “external kernel” means the separate replay of exported declarations using the default Lean kernel through Comparator on the campaign's non-root Linux runner, together with its sandbox and negative controls. It does not require or claim execution of a third-party kernel such as Nanoda. Actual local macOS elaboration/trust checks, raw-type diagnostics, and the later Linux export/replay/sandbox run must retain their separate evidence. The Linux run was still unrun at the time of this addendum, and no successful future run is pre-certified.
+
+The full mathematical/source verdict remains PASS at snapshot `d9a8bb1b4cf6e228d6c211c57f58cfd79e710f3961dffe65cb06db6c39249790`. This addendum changes no source, count, canonical status or publication.

@@ -1,0 +1,942 @@
+{
+  "verdict": "PASS_READ_ONLY_AUTHENTICATION",
+  "time": "2026-09-19T10:27:34.881621+00:00",
+  "scope": "Source/evidence hashes and recorded local execution provenance; no compiler, Comparator or Linux execution by reviewer",
+  "snapshot_sha256": "d9a8bb1b4cf6e228d6c211c57f58cfd79e710f3961dffe65cb06db6c39249790",
+  "snapshot_files_authenticated": 147,
+  "proof_modules_authenticated": 52,
+  "previously_read_dependency_sources_unchanged": 51,
+  "isolated_reference_and_diagnostic_modules": 3,
+  "receipt_count": 41,
+  "reuse_edges": 689,
+  "local_environment_sha256": "8cdb5a599c3e21081011efd2e7a677a46f433b20e3c61e34a5473bf962374f6f",
+  "compiler_sha256": "1b370cfcbf44e80d1b004ab1b1ab9a4c73951f9f7c242140bcff9bc577576554",
+  "runner_sha256": "632516b916e54f275cc63bab7bf6eaa7e1d1a9dc9ac2cf50b436475037c40a09",
+  "observed_package_pins": {
+    "LeanSearchClient": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+    "Qq": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+    "aesop": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+    "batteries": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+    "importGraph": "16f02aa7642864af59f1ff0e384a015994db9118",
+    "leancert": "621a43d7cf21f87872392a01e874f2f1dbddc926",
+    "mathlib": "0df444a360eaa60ab8c11dca51a86af692955474",
+    "plausible": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+    "proofwidgets": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957"
+  },
+  "all20_source_headers_match": true,
+  "all20_standard_axiom_reports_match": true,
+  "raw_type_and_universe_logs_byteidentical": true,
+  "raw_type_log_bytes": 1296589,
+  "raw_type_log_sha256": "680cfb9b070f49d58f7a27292a73080d6099648b60ba838c86ba64903234a4fd",
+  "solution_aggregate_seconds": 19.19243637499676,
+  "GitHub_Comparator": "NOT_RUN",
+  "standalone_lake_build": "NOT_RUN",
+  "packaging_note": "Snapshot lake-manifest top-level name is NLANR04 while lakefile names NLAMI27; root will correct only publication metadata, no pin or proof change.",
+  "contracts": {
+    "NLA.MI27.entropy_unitary_mix_derivative": {
+      "module": "NLA.MI27.EntropyDerivative",
+      "header": "{n : \u2115} (hn : 1 \u2264 n) (A B H : Mat n) (hA : A.PosDef) (hB : B.PosDef) (hH : H.IsHermitian) : HasDerivAt (fun t : \u211d => entropy (A + conjFlow H B t)) (trR (H * ((-Complex.I) \u2022 comm B (logM (A + B))))) 0"
+    },
+    "NLA.MI27.entropy_trajectory_lipschitz": {
+      "module": "NLA.MI27.EntropyTrajectory",
+      "header": "{n : \u2115} (hn : 1 \u2264 n) (\u03c1 \u03c3 H : Mat n) (h\u03c1 : StrictDensity \u03c1) (h\u03c3 : StrictDensity \u03c3) (hH : H.IsHermitian) (a b : \u211d) (ha : 0 < a) (hb : 0 < b) (hab : a + b = 1) (t : \u211d) : |entropy ((a : \u2102) \u2022 \u03c1 + (b : \u2102) \u2022 conjFlow H \u03c3 t) - entropy ((a : \u2102) \u2022 \u03c1 + (b : \u2102) \u2022 \u03c3)| \u2264 |t| * opNorm H * h a b"
+    },
+    "NLA.MI27.hockey_stick_unitary_lipschitz": {
+      "module": "NLA.MI27.HockeyStickFlow",
+      "header": "{n : \u2115} (hn : 1 \u2264 n) (\u03c1 \u03c3 H : Mat n) (h\u03c1 : StrictDensity \u03c1) (h\u03c3 : StrictDensity \u03c3) (hH : H.IsHermitian) (\u03b3 s t : \u211d) (h\u03b3 : 1 \u2264 \u03b3) : |E \u03b3 \u03c1 (conjFlow H \u03c3 t) - E \u03b3 \u03c1 (conjFlow H \u03c3 s)| \u2264 |t - s| * opNorm H \u2227 |E \u03b3 (conjFlow H \u03c3 t) \u03c1 - E \u03b3 (conjFlow H \u03c3 s) \u03c1| \u2264 |t - s| * opNorm H"
+    },
+    "NLA.MI27.kernel_integrals": {
+      "module": "NLA.MI27.KernelIntegrals",
+      "header": "(a b R : \u211d) (ha : 0 < a) (hb : 0 < b) (hab : a + b = 1) (hR : 1 \u2264 R) : IntervalIntegrable (kernelAB a b) MeasureTheory.volume 1 R \u2227 IntervalIntegrable (kernelBA a b) MeasureTheory.volume 1 R \u2227 (\u222b \u03b3 in (1 : \u211d)..R, kernelAB a b \u03b3) = a * Real.log (R / (b + a * R)) \u2227 (\u222b \u03b3 in (1 : \u211d)..R, kernelBA a b \u03b3) = b * Real.log (R / (a + b * R))"
+    },
+    "NLA.MI27.kernel_entropy_mass_bound": {
+      "module": "NLA.MI27.KernelIntegrals",
+      "header": "(a b R : \u211d) (ha : 0 < a) (hb : 0 < b) (hab : a + b = 1) (hR : 1 \u2264 R) : 0 \u2264 (\u222b \u03b3 in (1 : \u211d)..R, kernelAB a b \u03b3) \u2227 (\u222b \u03b3 in (1 : \u211d)..R, kernelAB a b \u03b3) \u2264 -a * Real.log a \u2227 0 \u2264 (\u222b \u03b3 in (1 : \u211d)..R, kernelBA a b \u03b3) \u2227 (\u222b \u03b3 in (1 : \u211d)..R, kernelBA a b \u03b3) \u2264 -b * Real.log b \u2227 (\u222b \u03b3 in (1 : \u211d)..R, kernelAB a b \u03b3) + (\u222b \u03b3 in (1 : \u211d)..R, kernelBA a b \u03b3) \u2264 h a b"
+    },
+    "NLA.MI27.logarithmic_commutator_bound": {
+      "module": "NLA.MI27.LogarithmicCommutator",
+      "header": "(n : \u2115) (hn : 1 \u2264 n) (A B : Mat n) (hA : A.PosDef) (hB : B.PosDef) (htrace : Matrix.trace (A + B) = 1) : traceNorm (B * logM (A + B) - logM (A + B) * B) \u2264 -(trR A) * Real.log (trR A) - (trR B) * Real.log (trR B)"
+    },
+    "NLA.MI27.logarithmic_commutator_dual_bound": {
+      "module": "NLA.MI27.LogarithmicCommutatorDual",
+      "header": "{n : \u2115} (hn : 1 \u2264 n) (A B H : Mat n) (hA : A.PosDef) (hB : B.PosDef) (htrace : Matrix.trace (A + B) = 1) (hH : H.IsHermitian) : let a := trR A let b := trR B let K := (-Complex.I) \u2022 comm B (logM (A + B)) 0 \u2264 h a b \u2227 |trR (H * K)| \u2264 opNorm H * h a b"
+    },
+    "NLA.MI27.normalize_positive_pair": {
+      "module": "NLA.MI27.Normalization",
+      "header": "{n : \u2115} (hn : 1 \u2264 n) (A B : Mat n) (hA : A.PosDef) (hB : B.PosDef) (htrace : Matrix.trace (A + B) = 1) : let a := trR A let b := trR B let \u03c1 := ((a : \u2102)\u207b\u00b9) \u2022 A let \u03c3 := ((b : \u2102)\u207b\u00b9) \u2022 B 0 < a \u2227 0 < b \u2227 a + b = 1 \u2227 StrictDensity \u03c1 \u2227 StrictDensity \u03c3 \u2227 A = (a : \u2102) \u2022 \u03c1 \u2227 B = (b : \u2102) \u2022 \u03c3"
+    },
+    "NLA.MI27.half_coefficient_positive": {
+      "module": "NLA.MI27.Numerical",
+      "header": ": (0 : \u211d) < 1 / 2"
+    },
+    "NLA.MI27.positive_commutator_trace_bound": {
+      "module": "NLA.MI27.PositiveCommutator",
+      "header": "{n : \u2115} (hn : 1 \u2264 n) (X H Q : Mat n) (hX : X.PosSemidef) (hH : H.IsHermitian) (hQ0 : 0 \u2264 Q) (hQ1 : Q \u2264 1) : |trR ((-Complex.I) \u2022 (H * comm X Q))| \u2264 opNorm H * trR X"
+    },
+    "NLA.MI27.positive_part_variational": {
+      "module": "NLA.MI27.PositivePart",
+      "header": "{n : \u2115} (hn : 1 \u2264 n) (M : Mat n) (hM : M.IsHermitian) : (\u2200 Q : Mat n, 0 \u2264 Q \u2192 Q \u2264 1 \u2192 trR (Q * M) \u2264 tracePos M) \u2227 (\u2203 P : Mat n, P.IsHermitian \u2227 P * P = P \u2227 0 \u2264 P \u2227 P \u2264 1 \u2227 P * M = M * P \u2227 trR (P * M) = tracePos M) \u2227 (\u2200 \u03c1 \u03c3 : Mat n, StrictDensity \u03c1 \u2192 StrictDensity \u03c3 \u2192 \u2200 \u03b3 : \u211d, 1 \u2264 \u03b3 \u2192 0 \u2264 E \u03b3 \u03c1 \u03c3 \u2227 E \u03b3 \u03c1 \u03c3 \u2264 1)"
+    },
+    "NLA.MI27.positive_part_trace_lipschitz": {
+      "module": "NLA.MI27.PositivePartLipschitz",
+      "header": "{n : \u2115} (hn : 1 \u2264 n) (M N : Mat n) (hM : M.IsHermitian) (hN : N.IsHermitian) : |tracePos M - tracePos N| \u2264 (n : \u211d) * opNorm (M - N)"
+    },
+    "NLA.MI27.positive_trace_operator_bound": {
+      "module": "NLA.MI27.PositiveTrace",
+      "header": "{n : \u2115} (hn : 1 \u2264 n) (X Y : Mat n) (hX : X.PosSemidef) (hY : Y.IsHermitian) : |trR (X * Y)| \u2264 trR X * opNorm Y"
+    },
+    "NLA.MI27.relative_entropy_finite_hockey_stick": {
+      "module": "NLA.MI27.RelativeEntropyHockeyStick",
+      "header": "{n : \u2115} (hn : 1 \u2264 n) (\u03c1 \u03c3 : Mat n) (h\u03c1 : StrictDensity \u03c1) (h\u03c3 : StrictDensity \u03c3) (R : \u211d) (hR : 1 \u2264 R) (h\u03c1\u03c3 : \u03c1 \u2264 (R : \u2102) \u2022 \u03c3) (h\u03c3\u03c1 : \u03c3 \u2264 (R : \u2102) \u2022 \u03c1) : IntervalIntegrable (fun \u03b3 : \u211d => E \u03b3 \u03c1 \u03c3 / \u03b3 + E \u03b3 \u03c3 \u03c1 / \u03b3 ^ 2) MeasureTheory.volume 1 R \u2227 relEntropy \u03c1 \u03c3 = \u222b \u03b3 in (1 : \u211d)..R, E \u03b3 \u03c1 \u03c3 / \u03b3 + E \u03b3 \u03c3 \u03c1 / \u03b3 ^ 2"
+    },
+    "NLA.MI27.skew_commutator_trace_norm": {
+      "module": "NLA.MI27.SkewRotation",
+      "header": "{n : \u2115} (hn : 1 \u2264 n) (T B : Mat n) (hT : T.PosDef) (hB : B.IsHermitian) : let K := (-Complex.I) \u2022 comm B (logM T) K.IsHermitian \u2227 K\u1d34 * K = (comm B (logM T))\u1d34 * comm B (logM T) \u2227 traceNorm (comm B (logM T)) = traceNorm K"
+    },
+    "NLA.MI27.spectral_function_semantics": {
+      "module": "NLA.MI27.SpectralSemantics",
+      "header": "{n : \u2115} (hn : 1 \u2264 n) (M : Mat n) (hM : M.IsHermitian) (f : \u211d \u2192 \u211d) (hf : ContinuousOn f (spectrum \u211d M)) : cfc f M = (hM.eigenvectorUnitary : Mat n) * Matrix.diagonal (fun i => (f (hM.eigenvalues i) : \u2102)) * (hM.eigenvectorUnitary : Mat n)\u1d34 \u2227 trR (cfc f M) = \u2211 i : Fin n, f (hM.eigenvalues i) \u2227 (logM M).IsHermitian \u2227 (Matrix.trace M).im = 0"
+    },
+    "NLA.MI27.hermitian_trace_norm_witness": {
+      "module": "NLA.MI27.TraceNormWitness",
+      "header": "{n : \u2115} (hn : 1 \u2264 n) (K : Mat n) (hK : K.IsHermitian) : \u2203 H : Mat n, H.IsHermitian \u2227 opNorm H \u2264 1 \u2227 trR (H * K) = traceNorm K"
+    },
+    "NLA.MI27.uniform_hockey_stick_cutoff": {
+      "module": "NLA.MI27.UniformCutoff",
+      "header": "{n : \u2115} (hn : 1 \u2264 n) (\u03c1 \u03c3 : Mat n) (h\u03c1 : StrictDensity \u03c1) (h\u03c3 : StrictDensity \u03c3) : \u2203 R : \u211d, 1 < R \u2227 \u2200 U : unitary (Mat n), \u03c1 \u2264 (R : \u2102) \u2022 ((U : Mat n) * \u03c3 * (U : Mat n)\u1d34) \u2227 (U : Mat n) * \u03c3 * (U : Mat n)\u1d34 \u2264 (R : \u2102) \u2022 \u03c1 \u2227 (\u2200 \u03b3 : \u211d, R \u2264 \u03b3 \u2192 E \u03b3 \u03c1 ((U : Mat n) * \u03c3 * (U : Mat n)\u1d34) = 0 \u2227 E \u03b3 ((U : Mat n) * \u03c3 * (U : Mat n)\u1d34) \u03c1 = 0) \u2227 ContinuousOn (fun \u03b3 : \u211d => E \u03b3 \u03c1 ((U : Mat n) * \u03c3 * (U : Mat n)\u1d34)) (Set.Icc 1 R) \u2227 ContinuousOn (fun \u03b3 : \u211d => E \u03b3 ((U : Mat n) * \u03c3 * (U : Mat n)\u1d34) \u03c1) (Set.Icc 1 R)"
+    },
+    "NLA.MI27.unitary_flow_semantics": {
+      "module": "NLA.MI27.UnitaryFlow",
+      "header": "{n : \u2115} (hn : 1 \u2264 n) (H : Mat n) (hH : H.IsHermitian) : flow H 0 = 1 \u2227 (\u2200 s t : \u211d, flow H (s + t) = flow H s * flow H t) \u2227 (\u2200 t : \u211d, (flow H t)\u1d34 * flow H t = 1 \u2227 flow H t * (flow H t)\u1d34 = 1 \u2227 HasDerivAt (flow H) (Complex.I \u2022 (H * flow H t)) t) \u2227 (\u2200 (\u03c3 : Mat n) (t : \u211d), (\u03c3.IsHermitian \u2192 (conjFlow H \u03c3 t).IsHermitian) \u2227 (\u03c3.PosSemidef \u2192 (conjFlow H \u03c3 t).PosSemidef) \u2227 (\u03c3.PosDef \u2192 (conjFlow H \u03c3 t).PosDef) \u2227 Matrix.trace (conjFlow H \u03c3 t) = Matrix.trace \u03c3 \u2227 spectrum \u2102 (conjFlow H \u03c3 t) = spectrum \u2102 \u03c3 \u2227 (\u03c3.IsHermitian \u2192 entropy (conjFlow H \u03c3 t) = entropy \u03c3) \u2227 HasDerivAt (conjFlow H \u03c3) (Complex.I \u2022 comm H (conjFlow H \u03c3 t)) t)"
+    },
+    "NLA.MI27.weighted_entropy_finite_kernel": {
+      "module": "NLA.MI27.WeightedEntropy",
+      "header": "{n : \u2115} (hn : 1 \u2264 n) (\u03c1 \u03c3 : Mat n) (h\u03c1 : StrictDensity \u03c1) (h\u03c3 : StrictDensity \u03c3) (R : \u211d) (hR : 1 \u2264 R) (h\u03c1\u03c3 : \u03c1 \u2264 (R : \u2102) \u2022 \u03c3) (h\u03c3\u03c1 : \u03c3 \u2264 (R : \u2102) \u2022 \u03c1) (a b : \u211d) (ha : 0 < a) (hb : 0 < b) (hab : a + b = 1) : IntervalIntegrable (fun \u03b3 : \u211d => kernelAB a b \u03b3 * E \u03b3 \u03c1 \u03c3 + kernelBA a b \u03b3 * E \u03b3 \u03c3 \u03c1) MeasureTheory.volume 1 R \u2227 chi a b \u03c1 \u03c3 = \u222b \u03b3 in (1 : \u211d)..R, kernelAB a b \u03b3 * E \u03b3 \u03c1 \u03c3 + kernelBA a b \u03b3 * E \u03b3 \u03c3 \u03c1"
+    }
+  },
+  "authenticated_modules": {
+    "NLA.MI24.Definitions": {
+      "source_sha256": "d96504d2aa26369299dbf4db7351804859d6ba5d677251cba5f42d7f8c5cdf1c",
+      "output_sha256": "168f7e54864bd58113d101a5028770e8af4d84f2ac6fbd314485d29b5dd31d0d",
+      "fresh_run": "recovery-001",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reuse_hops": 39,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI24/Definitions.olean",
+        "NLA/MI24/Definitions.lean"
+      ]
+    },
+    "NLA.MI24.OperatorNorm": {
+      "source_sha256": "b287ac8435fe7ad1fd9da7b4bb9d7c2a4432bc1fe4dbdbf10e08f41f52c32220",
+      "output_sha256": "f04dd2e134a713b86f73424962bdf33f173e2499cdce00ca0c68534c8f77e983",
+      "fresh_run": "recovery-001",
+      "log_sha256": "7301ef9201bb7420c3b70a0a59b3029e8390a9315d9ed4f5a686b3ce63973a8e",
+      "reuse_hops": 39,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI24/OperatorNorm.olean",
+        "NLA/MI24/OperatorNorm.lean"
+      ]
+    },
+    "NLA.MI24.PowerScaling": {
+      "source_sha256": "21856cb596910eb276eb96eec53d6022c844b2743b0f865cc3e093c7ec14d553",
+      "output_sha256": "ec88b21bb463636ac073d19ff66683f2103670eb62533c0239945a98707893ca",
+      "fresh_run": "recovery-001",
+      "log_sha256": "5217b32d6a1e092d67a09231a4152b0f68929454ad7eac2c7c3f37ce77b2377f",
+      "reuse_hops": 39,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI24/PowerScaling.olean",
+        "NLA/MI24/PowerScaling.lean"
+      ]
+    },
+    "NLA.MI24.SpectralPowers": {
+      "source_sha256": "77c494ec04b502fa351bff9c819fbf2a2af769b39651b9c16713a0194e453b00",
+      "output_sha256": "08d9f65fc32342af67f4c619320e1127fc84f770f8e1c0b89e56686ba6bfc4f0",
+      "fresh_run": "recovery-001",
+      "log_sha256": "6d53bd26ce02acb26eaaae350f5c55989b58e7e75d5a947b206f2e40bab9bb65",
+      "reuse_hops": 39,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI24/SpectralPowers.olean",
+        "NLA/MI24/SpectralPowers.lean"
+      ]
+    },
+    "NLA.MI24.TraceHolder": {
+      "source_sha256": "b0197afbe382e0c0bd3ec59db242051b208d99673f88d198cfe1eb3f289ad1ca",
+      "output_sha256": "250cbd45e522c2a30b181940309e74843e119404640d857cbc868d043bee82dc",
+      "fresh_run": "recovery-001",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reuse_hops": 39,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI24/TraceHolder.olean",
+        "NLA/MI24/TraceHolder.lean"
+      ]
+    },
+    "NLA.MI24.TraceOverlap": {
+      "source_sha256": "254fe37a3102bc733eda86fb0503c6137ade4f375f688a920d8d2c7c64bee62f",
+      "output_sha256": "f8df09a8884de9e830c988a9c6f73c35f58a1a0f4df7a994c728c3d6d809304d",
+      "fresh_run": "recovery-001",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reuse_hops": 39,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI24/TraceOverlap.olean",
+        "NLA/MI24/TraceOverlap.lean"
+      ]
+    },
+    "NLA.MI24.TraceSpectral": {
+      "source_sha256": "31d6d6d85f8681995b9db5015d862b762033107e621d63ae00782578961de504",
+      "output_sha256": "d3616d92b0550e11c1b82a27e889080cff979f4ead27ed26190b56daefd10040",
+      "fresh_run": "recovery-001",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reuse_hops": 39,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI24/TraceSpectral.olean",
+        "NLA/MI24/TraceSpectral.lean"
+      ]
+    },
+    "NLA.MI27.Definitions": {
+      "source_sha256": "9f1fa10a35305a717ae6d7d3fcbf50eb6fc6912175bb997a197cb68b385cee40",
+      "output_sha256": "99080dd5de1990b051dcfc9287e93e468fd81e194e7e73f19fe097bf4d0521ee",
+      "fresh_run": "recovery-001",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reuse_hops": 39,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/Definitions.olean",
+        "NLA/MI27/Definitions.lean"
+      ]
+    },
+    "NLA.MI27.EntropyDerivative": {
+      "source_sha256": "c7259f438e404b70f35e70d632b118e46f81c82e9249942f7c5dc0ca3151f8c0",
+      "output_sha256": "b72609d7a72299f1d5efed4473b6b6761f1fbe5602b88592b2f155f550557cba",
+      "fresh_run": "recovery-021",
+      "log_sha256": "7a0550d3e86240bbb490d9fb46e4b9f9b762947f16df415b22eec9be51616479",
+      "reuse_hops": 2,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/EntropyDerivative.olean",
+        "NLA/MI27/EntropyDerivative.lean"
+      ]
+    },
+    "NLA.MI27.EntropyTrajectory": {
+      "source_sha256": "160d55d7427af53367226dba647775db9a413a5edcc412db936276a48aeaa5ca",
+      "output_sha256": "e9ed03ec7a49fd20f4e8846b4fe539319f750880493f364b282c79a8ac67ed9e",
+      "fresh_run": "recovery-117",
+      "log_sha256": "f949cc53ff81855497be14fa727d86ea88c58fb78ac62cfa7991a7c7f980d41c",
+      "reuse_hops": 1,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/EntropyTrajectory.olean",
+        "NLA/MI27/EntropyTrajectory.lean"
+      ]
+    },
+    "NLA.MI27.FiniteHockeyStick": {
+      "source_sha256": "7a6d22e4ce2400489dd38c4fe5d1f97d3066865e276530b645e00c64e094ab7e",
+      "output_sha256": "d18d498630442ca2fff02f7fefcf7fec9dacc60d5a06645273c412e8a0b49c96",
+      "fresh_run": "recovery-023",
+      "log_sha256": "895554094795731372c09f101168ff2153d7a28e9b034405ae8634ce242e5fa7",
+      "reuse_hops": 7,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/FiniteHockeyStick.olean",
+        "NLA/MI27/FiniteHockeyStick.lean"
+      ]
+    },
+    "NLA.MI27.HockeyStickChangeVariables": {
+      "source_sha256": "c8e9a9fcc9458aa3c6c76176650e4f37641988fc32f0efe51dccc6c061bffc80",
+      "output_sha256": "8ef260f0f1ec126153287176c0b0e39529140de33369ead8e8c1e7370f81bf54",
+      "fresh_run": "recovery-111",
+      "log_sha256": "b25dabaa40aef5be0cf9a242dfc39fbcad1186ea2b0993b519e23ac349940649",
+      "reuse_hops": 5,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/HockeyStickChangeVariables.olean",
+        "NLA/MI27/HockeyStickChangeVariables.lean"
+      ]
+    },
+    "NLA.MI27.HockeyStickFlow": {
+      "source_sha256": "04081ee5cb3819e79c9786d821e3607dd1bb23436dcaa98b1bd421db6e457f7b",
+      "output_sha256": "88ecd1d42e4c4109b25981279e31c31c637e0f8e50306d2069f16ad76cc10c1e",
+      "fresh_run": "recovery-015",
+      "log_sha256": "de6b04101bb5a86b491ad94ba5a8dea9f8fd041d85217768cb759adbf2caeff8",
+      "reuse_hops": 5,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/HockeyStickFlow.olean",
+        "NLA/MI27/HockeyStickFlow.lean"
+      ]
+    },
+    "NLA.MI27.HockeyStickSubstitution": {
+      "source_sha256": "516cf0e7059b6bb32e4e4f2e0ff1a39b863f552f54e7259f45fe8968efbda27a",
+      "output_sha256": "04c65d713aa0eac38fa0aa134e38bf176cc62c0d53e562dcccf3fac8460ec772",
+      "fresh_run": "recovery-111",
+      "log_sha256": "7f5a8acf331337d55f9950fcd14362f6a168d23eba857cdeb2968661ddb86c4e",
+      "reuse_hops": 5,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/HockeyStickSubstitution.olean",
+        "NLA/MI27/HockeyStickSubstitution.lean"
+      ]
+    },
+    "NLA.MI27.IdentityShift": {
+      "source_sha256": "3997b0a8393f4e2dd27a26d3ba5d2765e1191f7bf797876e8b25c6fe19ef9737",
+      "output_sha256": "d158b0de2020744de5b4826a533fdf22646ac0dd5e4f7559240372a47d0f4c2e",
+      "fresh_run": "recovery-022",
+      "log_sha256": "5cd0fe872519010a536c1cbec67be61efda6b67ae64356fb8905bb9ba720da72",
+      "reuse_hops": 20,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/IdentityShift.olean",
+        "NLA/MI27/IdentityShift.lean"
+      ]
+    },
+    "NLA.MI27.IdentityShiftFTC": {
+      "source_sha256": "44e93c9525e7aafacd6ed97de26f00059970e8ff28896ad405461f00ac9651c7",
+      "output_sha256": "e9c6d3c9cb3c501ff32355c9623b896af8ab7ce626a7c950f845ae3883a050d2",
+      "fresh_run": "recovery-092",
+      "log_sha256": "c9547640f14739e4e7701a4dd3c5d44894ee27905737147ce223fcdde9b6d39c",
+      "reuse_hops": 11,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/IdentityShiftFTC.olean",
+        "NLA/MI27/IdentityShiftFTC.lean"
+      ]
+    },
+    "NLA.MI27.IdentityShiftImproper": {
+      "source_sha256": "532f3d6615b7ccd2b76b6d89af9509adafeac0ff63456523ec0da1111b6877f7",
+      "output_sha256": "8982a0563c8f47e535fa7e0f34259b1b867f40e594044da08a3584f8630b8ab8",
+      "fresh_run": "recovery-092",
+      "log_sha256": "336a6b079fdfb0acce7227aa978e6d66d89f12a641feead842d29e33fd8f5dfa",
+      "reuse_hops": 9,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/IdentityShiftImproper.olean",
+        "NLA/MI27/IdentityShiftImproper.lean"
+      ]
+    },
+    "NLA.MI27.IdentityShiftLimit": {
+      "source_sha256": "19324b97f1d50e51446943a3c5a6e3fbc6d66e2ccf1015944efe040797e4e34f",
+      "output_sha256": "2a296fcf44cc2eede7547d415fb5379465dafba54de458fbebbb6c5039f9ae07",
+      "fresh_run": "recovery-091",
+      "log_sha256": "3f4c8d21e9f2d888574677839c69f6bce5d5c0d02b646ac90adaef8b70333981",
+      "reuse_hops": 12,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/IdentityShiftLimit.olean",
+        "NLA/MI27/IdentityShiftLimit.lean"
+      ]
+    },
+    "NLA.MI27.KernelIntegrals": {
+      "source_sha256": "28b30f10c77d687de9685cacf17ff55806a61602b90ef5d47d02f6b127820d32",
+      "output_sha256": "db08ab0799104c5887a502851d491ee7fda87af463c30f4a8dca43a03a6ed89f",
+      "fresh_run": "recovery-007",
+      "log_sha256": "f3e59c637bc49545f15e5e2b4f4ffbe9d4b8443ad52a66612784048fe57a88bf",
+      "reuse_hops": 2,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/KernelIntegrals.olean",
+        "NLA/MI27/KernelIntegrals.lean"
+      ]
+    },
+    "NLA.MI27.LogarithmicCommutator": {
+      "source_sha256": "5653b30213b581b20915a0fcde191e359245f424cb4a2a1b786462c0484f0bbe",
+      "output_sha256": "4fd2d9b3e35c403f786eea21bfdb3c4b14943330e1283fc7ef4c0c7b9daf50fe",
+      "fresh_run": "recovery-117",
+      "log_sha256": "2e2ee201c9d365932763c590ae5e06548628b2d7af030320de2843318b16438b",
+      "reuse_hops": 1,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/LogarithmicCommutator.olean",
+        "NLA/MI27/LogarithmicCommutator.lean"
+      ]
+    },
+    "NLA.MI27.LogarithmicCommutatorDual": {
+      "source_sha256": "2664a2968d57458d7cb74a0764b74381088f9ee8014675f6eb4ce8e27e8ca7dd",
+      "output_sha256": "411615a040f87c89704bdb075ec41c6ff072d1f5ffbbc7fd250af9a7f37c0abb",
+      "fresh_run": "recovery-117",
+      "log_sha256": "9e385d7cca55b0c3d9e37861f3d329996dda4b7a6ef3fed7fbc00b7236e65739",
+      "reuse_hops": 1,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/LogarithmicCommutatorDual.olean",
+        "NLA/MI27/LogarithmicCommutatorDual.lean"
+      ]
+    },
+    "NLA.MI27.MixtureBasics": {
+      "source_sha256": "dc00dff8880d576d4130cc2dd99c3954c674a0bc7dda7c091c32a0f5750816e8",
+      "output_sha256": "9d3a0e721782aec4705187edf7ca9f5cf8def2af442213b3deadab8658de2fec",
+      "fresh_run": "recovery-114",
+      "log_sha256": "34e33f3f8663b9e7d165350e3f3e75e53ad767c673c0832f84e3dcea80bf3a74",
+      "reuse_hops": 4,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/MixtureBasics.olean",
+        "NLA/MI27/MixtureBasics.lean"
+      ]
+    },
+    "NLA.MI27.MixtureChangeVariables": {
+      "source_sha256": "b4b8dc184626c05e4cf80173035ccc6b70a806c9e652c9ecd3b688e86f602a62",
+      "output_sha256": "d186dc0d7992ab7e1e1908df198f08137d29c2e84b283b98c76f3481867d385c",
+      "fresh_run": "recovery-114",
+      "log_sha256": "6cfdf1541b1f541dff110a7f610acef8c3daedbc0cd3894ec43cbd2d3eba3b36",
+      "reuse_hops": 4,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/MixtureChangeVariables.olean",
+        "NLA/MI27/MixtureChangeVariables.lean"
+      ]
+    },
+    "NLA.MI27.MixturePositivePart": {
+      "source_sha256": "c4c02950730ba2838f77c97f1d2d106f7e8a46eec8f2d445c74f4e5f19935521",
+      "output_sha256": "d8cf272807833f926d30eb13ae8791756034f4cc08b81062bb9f8eb31eb15ded",
+      "fresh_run": "recovery-114",
+      "log_sha256": "968e889e698c2a89367b033610852e14abb517498433697b2ca89b251eb692f0",
+      "reuse_hops": 4,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/MixturePositivePart.olean",
+        "NLA/MI27/MixturePositivePart.lean"
+      ]
+    },
+    "NLA.MI27.MixtureRelativeEntropy": {
+      "source_sha256": "ae9a2b1ca99f5c890fb7376e1e785d1ce0f0731636e35f1062e87a33fd3cd4ea",
+      "output_sha256": "d6c80b94fc9b44bb8bfe693b04c7072d9f620ac00bee55557417ee357a007d4c",
+      "fresh_run": "recovery-116",
+      "log_sha256": "1fd75f5a453507b5ab63b001b4776eb262fa553a2cc29747439c7e429278c35d",
+      "reuse_hops": 2,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/MixtureRelativeEntropy.olean",
+        "NLA/MI27/MixtureRelativeEntropy.lean"
+      ]
+    },
+    "NLA.MI27.NegativeCount": {
+      "source_sha256": "4882ae49e95e65293b29c2f2e47281f39de02ce1d045093eca8f6e55867e7713",
+      "output_sha256": "aea408b529575d13e3472f40990d05ef9b0958ae07a2bb5c5c82914502bc047d",
+      "fresh_run": "recovery-095",
+      "log_sha256": "c9625c7e925119f34dd37fad82fef5911e45ffdefde4c8431034856257f2b1d7",
+      "reuse_hops": 16,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/NegativeCount.olean",
+        "NLA/MI27/NegativeCount.lean"
+      ]
+    },
+    "NLA.MI27.NegativeCountCongruence": {
+      "source_sha256": "096c2ba3bededdb8aba944d75020b1e9d58642d5f7cff0979283df987e8b5fb7",
+      "output_sha256": "d47100cb4db376bf2b5f1362ce128a6a5935486b6795a977820eec5be1642029",
+      "fresh_run": "recovery-106",
+      "log_sha256": "dc8ca81aa89dd120b85cb2667f0a91d69765a4253fce443b07dd430505d51704",
+      "reuse_hops": 9,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/NegativeCountCongruence.olean",
+        "NLA/MI27/NegativeCountCongruence.lean"
+      ]
+    },
+    "NLA.MI27.NegativeCountLayerCake": {
+      "source_sha256": "55b6e086a519d5d3b2b2b490be37f12afbec37dd4df9b93b5205f9bc690c7391",
+      "output_sha256": "bd74eac2ffbdb0c55e5a93bf4725afd5e08944ab1a5cde72344bc3c11d509830",
+      "fresh_run": "recovery-097",
+      "log_sha256": "c17760f3a8eac6673ba2854a3fd7eae83bb49d8d68da258a7588276db88a1eea",
+      "reuse_hops": 9,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/NegativeCountLayerCake.olean",
+        "NLA/MI27/NegativeCountLayerCake.lean"
+      ]
+    },
+    "NLA.MI27.NegativeCountMeasurable": {
+      "source_sha256": "73038376bf764b2debefb40d85c8f90a9859ae38f2a46e54664c2762487fe92a",
+      "output_sha256": "e3886f0c674f0c419d65ad5b69f4851731d71af4ccb1a7ac67310affba70e777",
+      "fresh_run": "recovery-097",
+      "log_sha256": "fb0b20a5be68f31174a7257085b13afca8bcd34581076b8b95b375ab6bd07de6",
+      "reuse_hops": 9,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/NegativeCountMeasurable.olean",
+        "NLA/MI27/NegativeCountMeasurable.lean"
+      ]
+    },
+    "NLA.MI27.NegativeWeights": {
+      "source_sha256": "07673367ef62db0a2f0f1f75c80880b11174093bae6b5eddb3cf2c2d6e7b3599",
+      "output_sha256": "329e6f85c3f618d30cbb5b015199cf83947c16bfc9f65a4d600d64b093cef2c0",
+      "fresh_run": "recovery-100",
+      "log_sha256": "b031d01f51bb9510a7dcd6438ec3af12cc7c5d11e7b63cce61da4dccdce33c07",
+      "reuse_hops": 14,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/NegativeWeights.olean",
+        "NLA/MI27/NegativeWeights.lean"
+      ]
+    },
+    "NLA.MI27.Normalization": {
+      "source_sha256": "27415a0ee420139f76112b70c0382bd584d8f25978ef3568ca2ad69a7540e59b",
+      "output_sha256": "04945d28dc2bb72666c19a41f683a39522aa4f011bea87e96febdcd73f3560d8",
+      "fresh_run": "recovery-002",
+      "log_sha256": "c8f9b8dd0b5747c04bd2ac91e005e3c3f718650558d762dc8ab6d98637e7d192",
+      "reuse_hops": 2,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/Normalization.olean",
+        "NLA/MI27/Normalization.lean"
+      ]
+    },
+    "NLA.MI27.Numerical": {
+      "source_sha256": "6f1d7b60b724d1f9b501860947390e88d862fb68921b79450eae16069a72a6b3",
+      "output_sha256": "ae7ec281dd7c496fc6403d690dc962aff53f79e59ad50c4ec5875fbb1a83e361",
+      "fresh_run": "recovery-002",
+      "log_sha256": "b4c37a9ec6e32205b6c56374ad18372ddcf8cb6e24e390fe5190001c6bc32c95",
+      "reuse_hops": 6,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/Numerical.olean",
+        "NLA/MI27/Numerical.lean"
+      ]
+    },
+    "NLA.MI27.PencilCount": {
+      "source_sha256": "b95ec6602fcf4b901881408e6fb1123849158ca65cf0eac8477d00671853a268",
+      "output_sha256": "5ae255c1ec073c3186250f2d6215a7891334731c7f559cb255b0176d5ae4cd8e",
+      "fresh_run": "recovery-108",
+      "log_sha256": "3e8bef71953eda3686c9ad72a63e36066a37896b13a61f29f8fb22506b07ceef",
+      "reuse_hops": 7,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/PencilCount.olean",
+        "NLA/MI27/PencilCount.lean"
+      ]
+    },
+    "NLA.MI27.PencilCountBasic": {
+      "source_sha256": "4bdfc743010acd0b92b7f0042ecbdee54523f9e3b6194e36c1dcfbff54dcdf8f",
+      "output_sha256": "6cc1741acf5b3520d4b9a861a75a9d155fe6f21954b7735ee2df96816c9deb08",
+      "fresh_run": "recovery-108",
+      "log_sha256": "074604357ee766c0f0f8b57e3e13b8f917dd770064eef457673e5d08c51ec4d6",
+      "reuse_hops": 7,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/PencilCountBasic.olean",
+        "NLA/MI27/PencilCountBasic.lean"
+      ]
+    },
+    "NLA.MI27.PencilIntegral": {
+      "source_sha256": "464cb6d980b55ddcdaec9a81dd8899c922fa0625ae656dc3a8f908debd46faa4",
+      "output_sha256": "c723b748f241e209276d0a55e2f5379ce5fe54b200e9cf369d9660c56532c2b0",
+      "fresh_run": "recovery-108",
+      "log_sha256": "83f4b22e3330c913b8a21609a65c69c5dc353be98334783ad5b7d712d9fbe0f3",
+      "reuse_hops": 7,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/PencilIntegral.olean",
+        "NLA/MI27/PencilIntegral.lean"
+      ]
+    },
+    "NLA.MI27.PencilScalar": {
+      "source_sha256": "634fbe10bc3dbe909063126319eeaa84d624573887250cba8a5cbde4bcf981e4",
+      "output_sha256": "3a28aecc7af52951e7bd3761c6bf7ee0c89a488512e0a266eb3d33381493516c",
+      "fresh_run": "recovery-103",
+      "log_sha256": "e268c05811d4f5628c4115071716d4ebd9ddfa7604817a2032cc82ba93b36631",
+      "reuse_hops": 9,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/PencilScalar.olean",
+        "NLA/MI27/PencilScalar.lean"
+      ]
+    },
+    "NLA.MI27.PencilTraceLog": {
+      "source_sha256": "a0f072fbde7e35fcb8493975332ab8fe350199cf4ba86d13adf8781646de8cfa",
+      "output_sha256": "cfbce98c8fe38b0a2282637974a17609eb4a7c28fa5213c99e62c91e1eaa38c6",
+      "fresh_run": "recovery-105",
+      "log_sha256": "069040cdfa322727443d1d7400ea5df3f9e0f58e027fda3780a6bbe9d7c4bd1c",
+      "reuse_hops": 9,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/PencilTraceLog.olean",
+        "NLA/MI27/PencilTraceLog.lean"
+      ]
+    },
+    "NLA.MI27.PencilTraceLogBasic": {
+      "source_sha256": "83f228dfeb3347ea50d318e8b4549cfcea1fd3d595d9aacc697b937f1eb3915a",
+      "output_sha256": "b62092840d26748033859ddbf833386de2623a339b72376244e537358d0acc4f",
+      "fresh_run": "recovery-103",
+      "log_sha256": "2cf721a278cdb995008ea9261cf59504d763d783e9ad5a514cab585b3ccb0eda",
+      "reuse_hops": 10,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/PencilTraceLogBasic.olean",
+        "NLA/MI27/PencilTraceLogBasic.lean"
+      ]
+    },
+    "NLA.MI27.PositiveCommutator": {
+      "source_sha256": "9efe0cfaad6aa1a3bb3639cab25638caea5c0fddf59f6c3780756914af6e4b97",
+      "output_sha256": "09ec861e4f735e1340730ca30a3d71e229dccea8e88d3c3714a4d60b97ad4c5a",
+      "fresh_run": "recovery-002",
+      "log_sha256": "701d35f72b5e06538a2885ce41221c9c07fb26d5762875b841cc90539bab0973",
+      "reuse_hops": 6,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/PositiveCommutator.olean",
+        "NLA/MI27/PositiveCommutator.lean"
+      ]
+    },
+    "NLA.MI27.PositivePart": {
+      "source_sha256": "f80d7437bffef68db964e769616506388d98df9cb71aae439395c38bdf28e009",
+      "output_sha256": "8109fd4cd3adadde6ac7d0dba5dc1e265d3882b20ba63d7fb8640c59f13619ac",
+      "fresh_run": "recovery-002",
+      "log_sha256": "eed1244339fbe80cda8241b5524edc07ff8641934a6b3124110e1bd02044c91d",
+      "reuse_hops": 21,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/PositivePart.olean",
+        "NLA/MI27/PositivePart.lean"
+      ]
+    },
+    "NLA.MI27.PositivePartLipschitz": {
+      "source_sha256": "ff491f043137651b28db6d25e54616a762083d2540aaadddb66bd56e24295c9a",
+      "output_sha256": "bdcb4cbfd989ce0c5680b422da971af271fb5c2769f79aea01ec966eff2894b9",
+      "fresh_run": "recovery-002",
+      "log_sha256": "68dbc69b37ac48caae23d0b1aa465cfc27e8e52ef1debe198b8e56a29934c409",
+      "reuse_hops": 17,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/PositivePartLipschitz.olean",
+        "NLA/MI27/PositivePartLipschitz.lean"
+      ]
+    },
+    "NLA.MI27.PositiveTrace": {
+      "source_sha256": "09620ea1716273b5a4a0722de8ea8ee552447be46b91c19509bd62c80784f647",
+      "output_sha256": "2d29ff281b96a91298f68202263fb93d05ae38d7ff3d4f1fa1db2a481d541628",
+      "fresh_run": "recovery-002",
+      "log_sha256": "090df6155107bdda6b6a11e96175c367a411c12dacc1d913db953ce3447133f2",
+      "reuse_hops": 30,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/PositiveTrace.olean",
+        "NLA/MI27/PositiveTrace.lean"
+      ]
+    },
+    "NLA.MI27.RelativeEntropyHockeyStick": {
+      "source_sha256": "43eb1726ecd45936f6ad5a6db55f9d40f974a6e53ee29280ca87e2f4b97c2594",
+      "output_sha256": "cf62d8e7dc17968202e73f5965ef409e762b3fef65d82d76779a3f5f9ff06016",
+      "fresh_run": "recovery-114",
+      "log_sha256": "64160cc7941d7c4191d1c538ed1361f57bcd4b34793a8e65d69b9939d73a801f",
+      "reuse_hops": 4,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/RelativeEntropyHockeyStick.olean",
+        "NLA/MI27/RelativeEntropyHockeyStick.lean"
+      ]
+    },
+    "NLA.MI27.SkewRotation": {
+      "source_sha256": "0acd1dcafb41b0098685580bc9698bdae8dee02cee8a078b48124f7347236038",
+      "output_sha256": "5ec415a2cf71558a7df108e522423fc1b244c9321ab9075bb12e9e765468557a",
+      "fresh_run": "recovery-002",
+      "log_sha256": "4bba1f588d001d17dfc26dbf9a123e79965793a0152c67e8cbfa3c634593aa36",
+      "reuse_hops": 6,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/SkewRotation.olean",
+        "NLA/MI27/SkewRotation.lean"
+      ]
+    },
+    "NLA.MI27.SpectralSemantics": {
+      "source_sha256": "c8c3f68fc021dec0bde8ac02f83d58fb3caa5b4152f7c4dabb7205c334cbcc95",
+      "output_sha256": "6fe033dba73fdfbeb7fbe9d1c4c92893e216b3fd43561868cb433b8f8d25d77c",
+      "fresh_run": "recovery-002",
+      "log_sha256": "f787cab3c7f4e1edbda5c5bb54a80806df129729872efa8c96f956ec949f722d",
+      "reuse_hops": 25,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/SpectralSemantics.olean",
+        "NLA/MI27/SpectralSemantics.lean"
+      ]
+    },
+    "NLA.MI27.TraceNormWitness": {
+      "source_sha256": "4972acdb82e972b5c260811ce38e2fff9174e83f3efe4cf11e15d6e93eab7c99",
+      "output_sha256": "2daa3c7cdfe8720e599fb6fed88a67f50b08b8e5d2f8d0a4ab6b985f298cc149",
+      "fresh_run": "recovery-015",
+      "log_sha256": "5c8cce53e3ffe6e639403bf7b27f6d52ded7f2da99785bc7925227650984e6bd",
+      "reuse_hops": 2,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/TraceNormWitness.olean",
+        "NLA/MI27/TraceNormWitness.lean"
+      ]
+    },
+    "NLA.MI27.TraceTangent": {
+      "source_sha256": "b93af13381b49fce74332f8f23ca1c6aac320e55009760a6651fad59bcc9dc4c",
+      "output_sha256": "1ebda70fca02ae237d0f633dd03c3975bdbe800486627ee576b0cb941a228f6d",
+      "fresh_run": "recovery-019",
+      "log_sha256": "198e9ff84aa38c563fb6503c21fa5636c2e384d047a928909b3812b4b02d4749",
+      "reuse_hops": 22,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/TraceTangent.olean",
+        "NLA/MI27/TraceTangent.lean"
+      ]
+    },
+    "NLA.MI27.UniformCutoff": {
+      "source_sha256": "4c98010b95ff32e4c35c936108e1e39bec18d55dfecaaa74fee19f9efc22c1bb",
+      "output_sha256": "d9f84a197e40c479dbe268b669a2d08902507f5b3935b783c882de198a892c9e",
+      "fresh_run": "recovery-011",
+      "log_sha256": "b04057cc01cea657b524689019a4e71c448c4b61c0a6b5d25b9ca7260905f444",
+      "reuse_hops": 9,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/UniformCutoff.olean",
+        "NLA/MI27/UniformCutoff.lean"
+      ]
+    },
+    "NLA.MI27.UnitaryConjugation": {
+      "source_sha256": "d4cc666e04d6f873eeb4538008ac7c90777ef29a262eadad855f7a56514ae68b",
+      "output_sha256": "7c72f7601dd303a3ef0f1b0fe46e7ed33b29904c6b0dc35c825cf1802bd9c675",
+      "fresh_run": "recovery-001",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reuse_hops": 18,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/UnitaryConjugation.olean",
+        "NLA/MI27/UnitaryConjugation.lean"
+      ]
+    },
+    "NLA.MI27.UnitaryFlow": {
+      "source_sha256": "b671962044229034a7ca73ecaeb1200666ed44a4a29c8afd895c8aa8622ed08d",
+      "output_sha256": "ce672dcfd3d5da5bf228cecb097f5ac41af27ce756ec6b71ae06fefafe99082a",
+      "fresh_run": "recovery-004",
+      "log_sha256": "1c7cdecfa8d4c9a0a0bdcc69fa2e2e8973176689ff532c4616355ee5553f5d68",
+      "reuse_hops": 6,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/UnitaryFlow.olean",
+        "NLA/MI27/UnitaryFlow.lean"
+      ]
+    },
+    "NLA.MI27.WeightedEntropy": {
+      "source_sha256": "9a2fdadb244c1254b65cd836967d03048101d7dbe47c73ded79536641695b69e",
+      "output_sha256": "81ec3378ce9961adf5e186d6a645693812c08a03d0221dab21c6fbe75d5d109f",
+      "fresh_run": "recovery-116",
+      "log_sha256": "6f94b1fef44d945b1d2a777d4bc42f947565d529a982793dd4df153828a26492",
+      "reuse_hops": 2,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/NLA/MI27/WeightedEntropy.olean",
+        "NLA/MI27/WeightedEntropy.lean"
+      ]
+    },
+    "Solution": {
+      "source_sha256": "c6a7e59ce49c1e22fe7d02ed1d3c23737ac702f2dd2621ca51041c115b7f840c",
+      "output_sha256": "7784b55209b4a76779530595afe02a9b82c489683b93343edb186b79a4a21f34",
+      "fresh_run": "recovery-118",
+      "log_sha256": "e00a867c6a83d0b3cd5fd356fefe66abb3bc3f79d2e11603736c972201843c5c",
+      "reuse_hops": 0,
+      "command": [
+        "/Users/georgestepaniants/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--threads=1",
+        "--memory=4096",
+        "-o",
+        "/Users/georgestepaniants/Research/OpenProblemsInNLA/.local-recovery-20260918/local-lean/.lake/build/lib/lean/Solution.olean",
+        "Solution.lean"
+      ]
+    }
+  },
+  "receipt_hashes": {
+    "recovery-001": "e0c6170d4d5b6fd03f7f8a130ecc051d81488b9333cbc229f6a7305d185acdc9",
+    "recovery-002": "0583a7a7b6574247fdf7f6add8897bbf634b9db5572c212ee31c4151f0f14118",
+    "recovery-003": "8817251f81a312b923b658295da8a15e6fa37670fc3ed0c27b9afbe03894685a",
+    "recovery-004": "903082af5c4da22b2393cdba1ce53f9455f46025aa5597cebb7b7ffec8918c5b",
+    "recovery-006": "968b81c880050521906c452675aee4f7bd1373b7af40e67de978a5f28e4bb351",
+    "recovery-007": "8df098b476474b09678a4621879a19560a5216d321465e47ec66302e6293ec1d",
+    "recovery-010": "849cdc7e6f6c7619fab722684b8075178faa819b8a10fec7f85e00bca69f42af",
+    "recovery-011": "c1b8c04b765fbe464bc44004ece745489995a4a29f661f8a92c6309ea2036ac1",
+    "recovery-015": "b6ac5188acdeb08e76ab859ae54dbc7acf970e703bc9a62849f328e472cc5fdb",
+    "recovery-018": "699a94e51dac1b49f5cf4b949320c172228c67f01b8e893d97aefe7d74c7f7d7",
+    "recovery-019": "b0eefa5cec2c198773fcd3e86d526b250c95a7933a90a5ee409b865ccf472bd9",
+    "recovery-021": "caf3b3db3ebbc216110832fe5382c1cd636d6550cdb8b252063f3743914104e4",
+    "recovery-022": "5c9b61ce83c92eb53eb7ceb5d504bb6429f6f79b641ef569aef52cc95bc5bcbd",
+    "recovery-023": "f43a02abf4229605206e32411daf5a294003ea6943c0cf5c77309838c32cfa29",
+    "recovery-090": "5fc1faa3ee960690b10a3aa5775adb63ad03012e0945627f2f90caa818fae047",
+    "recovery-091": "ef0d825ae546e4ad8e0980a98146a9e37ca4ac4f9f6ff0048622af2912db7b0f",
+    "recovery-092": "a90fad1e17b67e1da79c17f526ed7c95b34a63b5bae7b06f780075164e61c9bb",
+    "recovery-095": "46d36589dcfff7a5bc374cb705034771c7448d9033875960cb2fb248e780d335",
+    "recovery-096": "87022ef02745bd092b71c33a3494ee0ccb2ae6214a98b0c62a9746fac31dfd50",
+    "recovery-097": "7e6aef82efbe6e911937d35af039e6d24fb5827e3a26ed84c517eb85c21d45ca",
+    "recovery-098": "978b23b109fbb285285b7082c0ca5c04534910e09ad39dd42af59947a99a6760",
+    "recovery-099": "a8d0951302e3881f3cecb32be9162afe95b30e80e09607d8262e288854d887a1",
+    "recovery-100": "b4b6158f67930fd0efb01f69ccda6368c6577693f12a8f817ad8efc145eb78fa",
+    "recovery-101": "8002439f242a2a91df500b9813cb40dfe0af01c3083d842c304e856664b1d7bc",
+    "recovery-102": "8af4077f8977b6a5c874e53b21a096af2684ec7a72e734d14b5ad50a47548961",
+    "recovery-103": "1b3a6ddad77335477540be3a7e4e7de41502efcc6c0ed7825ed70bbfe2a8eeea",
+    "recovery-104": "14c86e5ca7d4a4ea3a27c541c72c911082dc3f696d0ca2c5cecc557d8db2d40e",
+    "recovery-105": "b6ee905c0e8367abf2ef73160837e8de2f53ebee0f3287011844d3853b4d3b41",
+    "recovery-106": "c43fb6e7d9d877fadc259523b6744adb14d744eac3fac3ad4c7cf737a8a798e1",
+    "recovery-107": "225be4b7b16b88e80fda86a7e3a16f0f7b29ebaab4f5a17d99935d3040553bc4",
+    "recovery-108": "b26612d56e72fadc2a8dd5a1451b4e3a4a5d4069e26264044726583039357e7f",
+    "recovery-109": "331f9a202b998efb40d3dd9b127e2686c5e2a66e84e9396e66f4c6d2c2523524",
+    "recovery-110": "9e866a0b325ae06893d805cb4e37e75e918b167c8577cecc940313fc631f76e0",
+    "recovery-111": "1e50355f1e5a6280fdff6fe2025397f7180c497273227647a69519d0908f5ec1",
+    "recovery-112": "0d9c3b6a669d98a142fe1c8b3ecbb48fb3e771f6df3c907eb2a9b7e2a9a4e8a2",
+    "recovery-113": "1295825b59ff402b3e7a62a297d2752917e7a4c8c601ac097d930bb2c4945dbd",
+    "recovery-114": "c1cb6a158d7fd8bb7f75b6fdfc92377580d3c5fcd20b72b8e1b87b3829989519",
+    "recovery-115": "f33aa824ffdbcccddd4c32ee04d542d39f12b76a145cb584eb4b724772c0cac8",
+    "recovery-116": "20a057f2438f64d0c3392771d051d7919b65cfe6ab16bfc9816c8258753e6b51",
+    "recovery-117": "a17cbcad7dab9e994bfe300b74af49ce8ffe8e0c14c2835752075c4ba89a9f4c",
+    "recovery-118": "27379164eccb6aae527f921f0efcca2fc4bfa10799df5b148cdf5e1ad15dcb3e"
+  }
+}

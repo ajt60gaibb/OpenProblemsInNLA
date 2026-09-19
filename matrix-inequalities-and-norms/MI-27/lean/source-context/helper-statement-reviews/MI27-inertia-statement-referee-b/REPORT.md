@@ -1,0 +1,19 @@
+# MI27 inertia bridge — independent pre-body referee B
+
+**Verdict: APPROVE the four displayed lemma interfaces and proposed reduction.** This is a bounded pre-body mathematical/statement review of `development/MI27-C11-referee-a-v1/INERTIA-BRIDGE-OBLIGATION.md`, SHA256 `37f8e0da1e1f0ca98d70a7406bc023facb7c6cf7dcf06cccec19bc4ad7dd063e`. It is not a proof-body review or a claim that these helpers, full C11 or MI27 have been Lean verified.
+
+Reviewer: `/root/nr04_mf14_final_referee_b`, independent nonauthor AI agent, 19 September 2026. I inspected the statement note and pinned API signatures, verified the referenced NegativeCount source hash, and performed no proof edit, Lean/Lake/Comparator invocation, publication or count change.
+
+The core `c11_negative_weights_card_le` is valid. For a vector supported on strictly negative b-coordinates, its b-weighted sum is strictly negative unless the vector is zero. If the projection of its T-image onto strictly negative a-coordinates vanishes, the a-weighted sum is nonnegative: those negative coordinates vanish, and every remaining weight is nonnegative. The stated transported-form equality therefore forces the input to vanish. This gives an injective complex linear map between the two negative-coordinate function spaces, so their complex dimensions give the displayed natural-number cardinal inequality.
+
+This argument includes arbitrary rectangular/singular T, zero or repeated weights, and empty dimensions. When n=0 the left count is zero. When m=0, the transported-form hypothesis itself rules out a negative b-coordinate. No order on complex numbers, nondegeneracy hypothesis, or factor-two realification is needed. The concrete quadratic-form hypothesis is useful algebraic input, not an assumed inertia conclusion.
+
+The `c11_hermitian_quadratic_spectral` interface has the correct orientation. At the pinned library, the eigenvector unitary U diagonalizes M as U diag(λ) Uᴴ, so the quadratic form is the real sum of λᵢ times `normSq ((Uᴴ *ᵥ v) i)`. Taking the real part on the left is appropriate, and the formula needs neither positivity nor nonsingularity. It also makes sense in dimension zero.
+
+For N=SᴴMS, Hermiticity of M implies Hermiticity of N for arbitrary S. Taking separate eigenvector unitaries U for M and V for N and T=UᴴSV gives the exact transported-form equality needed by the dimension lemma, with a=λ(M), b=λ(N). The already stated spectral negative-count formula then gives `c11_negativeCount_congruence_le`. No relationship between the individual eigenvalues under congruence is asserted or needed. Singular M and singular S are covered; in particular S=0 yields count zero on the left.
+
+For `IsUnit S`, applying the same inequality to N and S⁻¹ gives the reverse inequality, because (S⁻¹)ᴴ(SᴴMS)S⁻¹=M. Equality by antisymmetry is therefore correct, including singular M. `IsUnit S` is the appropriate matrix-ring invertibility hypothesis; Hermiticity, unitarity or positive definiteness of S is unnecessary. The inherited `1 ≤ n` restriction is harmless and the core rectangular statement remains genuinely zero-dimensional.
+
+I checked the cited pinned signatures for Hermitian spectral decomposition, conjugate-transpose congruence, `Matrix.star_mulVec`, `LinearMap.finrank_le_finrank_of_injective`, and `Module.finrank_pi` at Mathlib `0df444a360eaa60ab8c11dca51a86af692955474`. They support the proposed direction. Coercing finite cardinalities to the real-valued CFC traces and constructing the extension/projection linear map remain implementation work, not additional mathematical hypotheses.
+
+No blocking statement issue was found. The exact helper interfaces can proceed to source-body development and root's serial local compilation. Matrix-pencil substitution, trace-log identities, measure exchange and the frozen C11 conclusion remain separate obligations. No completed-target count is justified by this review.
