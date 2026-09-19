@@ -20,7 +20,7 @@
 | [NR-03](NR-03/README.md) | Full nonnegative rank of the quadratic correlation matrix | **🏆 LEAN VERIFIED** | extreme | broadly interesting | [PDF](NR-03/problem.pdf) · [TeX](NR-03/problem.tex) |
 | [NR-04](NR-04/README.md) | The nonnegative rank of the nine-point distance matrix | **✅ SOLVED** | hard | interesting to specialist | [PDF](NR-04/problem.pdf) · [TeX](NR-04/problem.tex) |
 | [PF-02](PF-02/README.md) | Connectedness of minimal positive semidefinite factorization orbits | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](PF-02/problem.pdf) · [TeX](PF-02/problem.tex) |
-| [PF-03](PF-03/README.md) | Rational factors for rational completely positive boundary matrices | **✅ SOLVED** | extreme | interesting to the community | [PDF](PF-03/problem.pdf) · [TeX](PF-03/problem.tex) |
+| [PF-03](PF-03/README.md) | Rational factors for rational completely positive boundary matrices | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](PF-03/problem.pdf) · [TeX](PF-03/problem.tex) |
 | [PF-04](PF-04/README.md) | The maximum cp-rank in order six | **✅ SOLVED** | challenging | interesting to the community | [PDF](PF-04/problem.pdf) · [TeX](PF-04/problem.tex) |
 | [PF-05](PF-05/README.md) | Infinitesimal rigidity detects unique size-two factors in the presence of zeros | **✅ SOLVED** | challenging | interesting to specialist | [PDF](PF-05/problem.pdf) · [TeX](PF-05/problem.tex) |
 
