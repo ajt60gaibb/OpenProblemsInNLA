@@ -1,15 +1,31 @@
 # MI-18 — Bapat's q-permanent monotonicity conjecture
 
 <!-- navigation -->
-[All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
+[All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex) · [Order-four proof](proof.pdf) · [Audit](MI18_order4_audit_report.pdf) · [Reproducibility package](MI18_order4_audited.zip)
 <!-- /navigation -->
 
 **Difficulty:** extreme  
 **Importance:** interesting to specialist  
 **Status:** Partially resolved  
-**Last checked:** 2026-09-10
+**Last checked:** 2026-09-17
 
 **Rating rationale:** Strict monotonicity on the whole PSD cone is a longstanding generalized-permanent barrier; its immediate impact is in specialist matrix-function inequalities.
+
+## Computer-assisted order-four result — 2026-09-16
+
+For every Hermitian PSD $`A\in\mathbb C^{4\times4}`$,
+
+```math
+P_q'(A)\ge0\qquad(-1\le q\le1).
+```
+
+Consequently, if $`A`$ is non-diagonal with positive diagonal, then $`q\mapsto P_q(A)`$ is strictly increasing on $`[-1,1]`$. This proves the complete order-four case of the displayed family; the arbitrary-order conjecture remains open.
+
+The [proof](proof.pdf) uses rational Bernstein and contraction-square certificates. The [audited package](MI18_order4_audited.zip) contains the proof sources, exact certificate, original standard-library verifier, separately written SymPy verifier, recorded logs, manifests, and a literature-search record. The [original certificate package](MI18_order4_certificate.zip) is retained unchanged.
+
+On 2026-09-17, this checkout reproduced the original verifier, the second implementation, all twelve deliberate corruption rejections, and the six-block tensor addendum using Python 3.13.2 and SymPy 1.14.0. Both package manifests passed. The two checkers use exact rational/symbolic arithmetic; they are not a Lean formalization.
+
+The original argument and second verification path were produced by the same AI assistant. This is not independent human or external review, and it does not certify novelty or priority. The audit found no prior generic order-four theorem in the sources it examined, but its literature search is explicitly bounded.
 
 ## Problem statement
 
@@ -49,4 +65,4 @@ The expression is real for Hermitian $`A`$. The order of rows and columns in the
 
  Mitchell proves that the original positive-definite conjecture is equivalent to the displayed extension, and proves rank-one and order-three cases. Searches for “Bapat q-permanent conjecture”, “monotonicity”, “proof”, “counterexample”, and 2025–2026 found no resolution. The stronger proposed extension beyond $`[-1,1]`$ is not included; Mitchell explains why extending that assertion to all PSD matrices fails. No recent explicit reaffirmation of the exact conjecture was found.
 
-**Independent audit:** Independently rechecked Mitchell’s PSD-extension conjecture and rank-one theorem, and searched for later q-permanent monotonicity resolutions. Rank-one and low-order cases are substantive parts of the displayed family; the general case still has only historical-source status evidence.
+**Literature audit:** Rechecked Mitchell’s PSD-extension conjecture and rank-one theorem, and searched for later q-permanent monotonicity resolutions. Rank-one and low-order cases are substantive parts of the displayed family; the general case still has only historical-source status evidence.
