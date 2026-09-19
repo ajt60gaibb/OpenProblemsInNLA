@@ -7,9 +7,9 @@
 **Difficulty:** hard  
 **Importance:** interesting to specialist  
 **Rating rationale:** Hard because a single small exact factorization must be constructed or excluded using sharp nonnegative-rank tools; specialist importance reflects its role as a named distance-matrix benchmark.  
-**Status:** Solved  
+**Status:** Lean verified  
 **Area:** exact factorization of Euclidean distance matrices  
-**Last checked:** 2026-09-11  
+**Last checked:** 2026-09-19  
 
 <!-- colbrook-factorization -->
 ## Resolution — 2026-09-11
@@ -20,9 +20,19 @@ The nine-point matrix $`D_{ij}=(i-j)^2`$ has nonnegative rank seven, so no exact
 
 The complete target is resolved. Its former difficulty rating is historical; the original statement, references and dated audits remain below.
 
-**Primary reference:** [complete authored PDF](../../references/colbrook-factorization-2026-09-11/manuscripts/NR-04_nine_point_distance.pdf), [standalone TeX](../../references/colbrook-factorization-2026-09-11/manuscripts/NR-04_nine_point_distance.tex), **Theorem 1, with Theorem 4 for the lower bound**. [Independent proof review](../../references/colbrook-factorization-2026-09-11/verification/reviews/NR-04-review.md) · [Authorship and submission record](../../references/colbrook-factorization-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
+**Primary reference:** [complete authored PDF](../../references/colbrook-factorization-2026-09-11/manuscripts/NR-04_nine_point_distance.pdf), [standalone TeX](../../references/colbrook-factorization-2026-09-11/manuscripts/NR-04_nine_point_distance.tex), **Theorem 1, with Theorem 4 for the lower bound**. [Independent proof review](../../references/colbrook-factorization-2026-09-11/verification/reviews/NR-04-review.md) · [Authorship and submission record](../../references/colbrook-factorization-2026-09-11/README.md). That original verification was independent agent review, without external human peer review or formal certification; the separate Lean verification is recorded below.
 
 <!-- /colbrook-factorization -->
+
+## Lean proof and verification evidence
+
+**Lean verified — 19 September 2026 (UTC). Formalization: George Stepaniants**, Department of Computing and Mathematical Sciences, California Institute of Technology, with substantial AI assistance. Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge retains mathematical construction authorship.
+
+The real nine-point squared distance matrix has nonnegative rank seven, including arbitrary real factors and zero or degenerate factor columns.
+
+All 15 frozen contracts passed actual local serial Lean, two wholly nonauthor final AI-agent source reviews, and the [sgstepaniants run 35431159955](https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/35431159955) and [ajt60gaibb run 35431201248](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/35431201248). The real Comparator, default kernel, standard-axiom checks, sandbox and rejection controls passed on the immutable proof [f488b0cf](https://github.com/sgstepaniants/OpenProblemsInNLA/tree/f488b0cfe2175e5e50d439c5a4115accc4b07b6d/nonnegative-and-positive-factorizations/NR-04/lean). Two independent statement reviews preceded implementation. Kernel-mode LeanCert audits are retained, with exact computation minimized. An independent operational audit authenticates the execution evidence. No official Tau Ceti service or external human peer review is claimed.
+
+[Proof, reproduction and scope](lean/README.md) · [Exact execution evidence](lean/verification/linux-2026-09-19/SUMMARY.json) · [Formalization metadata](lean/formalization.yaml) · [Upstream PR #304](https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/304).
 
 ## Context and notation
 

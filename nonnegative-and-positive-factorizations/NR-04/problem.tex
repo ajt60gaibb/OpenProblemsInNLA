@@ -34,7 +34,7 @@ matrix},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}NR-04}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-19}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -52,7 +52,7 @@ nonnegative rank of the nine-point distance matrix\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} hard\quad\textbf{Importance:} interesting
 to specialist\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -87,18 +87,52 @@ TeX}, \textbf{Theorem 1, with Theorem 4 for the lower bound}.
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-factorization-2026-09-11/verification/reviews/NR-04-review.md}{Independent
 proof review} ·
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-factorization-2026-09-11/README.md}{Authorship
-and submission record}. Verification is independent agent review, not
-external human peer review or formal certification.
+and submission record}. That original verification was independent agent
+review, without external human peer review or formal certification; the
+separate Lean verification is recorded below.
+
+\subsection{Lean proof and verification
+evidence}\label{lean-proof-and-verification-evidence}
+
+\textbf{Lean verified --- 19 September 2026 (UTC). Formalization: George
+Stepaniants}, Department of Computing and Mathematical Sciences,
+California Institute of Technology, with substantial AI assistance.
+Matthew J. Colbrook, Department of Applied Mathematics and Theoretical
+Physics, University of Cambridge retains mathematical construction
+authorship.
+
+The real nine-point squared distance matrix has nonnegative rank seven,
+including arbitrary real factors and zero or degenerate factor columns.
+
+All 15 frozen contracts passed actual local serial Lean, two wholly
+nonauthor final AI-agent source reviews, and the
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/actions/runs/35431159955}{sgstepaniants
+run 35431159955} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/35431201248}{ajt60gaibb
+run 35431201248}. The real Comparator, default kernel, standard-axiom
+checks, sandbox and rejection controls passed on the immutable proof
+\href{https://github.com/sgstepaniants/OpenProblemsInNLA/tree/f488b0cfe2175e5e50d439c5a4115accc4b07b6d/nonnegative-and-positive-factorizations/NR-04/lean}{f488b0cf}.
+Two independent statement reviews preceded implementation. Kernel-mode
+LeanCert audits are retained, with exact computation minimized. An
+independent operational audit authenticates the execution evidence. No
+official Tau Ceti service or external human peer review is claimed.
+
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/nonnegative-and-positive-factorizations/NR-04/lean/README.md}{Proof,
+reproduction and scope} ·
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/nonnegative-and-positive-factorizations/NR-04/lean/verification/linux-2026-09-19/SUMMARY.json}{Exact
+execution evidence} ·
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/nonnegative-and-positive-factorizations/NR-04/lean/formalization.yaml}{Formalization
+metadata} ·
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/304}{Upstream
+PR \#304}.
 
 \subsection{Context and notation}\label{context-and-notation}
 
 All factorizations are over the real numbers. For
 \(X\in\mathbb R_{\ge0}^{m\times n}\), define
 
-\[
-\operatorname{rank}_+(X)=\min\{r\ge0:X=WH,\quad
-W\in\mathbb R_{\ge0}^{m\times r},\ H\in\mathbb R_{\ge0}^{r\times n}\}.
-\]
+\[\mathop{\mathrm{rank}}\nolimits_+(X)=\min\{r\ge0:X=WH,\quad
+W\in\mathbb R_{\ge0}^{m\times r},\ H\in\mathbb R_{\ge0}^{r\times n}\}.\]
 
 \subsection{Problem statement}\label{problem-statement}
 
@@ -110,7 +144,7 @@ for \(1\le i,j\le9\).
 Does there exist an exact factorization \(D=WH\) with
 \(W\in\mathbb R_{\ge0}^{9\times6}\) and
 \(H\in\mathbb R_{\ge0}^{6\times9}\)? Equivalently, is
-\(\operatorname{rank}_+(D)=6\) or \(7\)?
+\(\mathop{\mathrm{rank}}\nolimits_+(D)=6\) or \(7\)?
 
 \subsection{References}\label{references}
 

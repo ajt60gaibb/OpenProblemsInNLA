@@ -18,7 +18,7 @@
 | [NM-03](NM-03/README.md) | Complexity of globally optimal nonnegative rank-two approximation | **✅ SOLVED** | challenging | interesting to the community | [PDF](NM-03/problem.pdf) · [TeX](NM-03/problem.tex) |
 | [NM-04](NM-04/README.md) | The Rowland–Wu polynomial identity for Sinkhorn limits | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](NM-04/problem.pdf) · [TeX](NM-04/problem.tex) |
 | [NR-03](NR-03/README.md) | Full nonnegative rank of the quadratic correlation matrix | **🏆 LEAN VERIFIED** | extreme | broadly interesting | [PDF](NR-03/problem.pdf) · [TeX](NR-03/problem.tex) |
-| [NR-04](NR-04/README.md) | The nonnegative rank of the nine-point distance matrix | **✅ SOLVED** | hard | interesting to specialist | [PDF](NR-04/problem.pdf) · [TeX](NR-04/problem.tex) |
+| [NR-04](NR-04/README.md) | The nonnegative rank of the nine-point distance matrix | **🏆 LEAN VERIFIED** | hard | interesting to specialist | [PDF](NR-04/problem.pdf) · [TeX](NR-04/problem.tex) |
 | [PF-02](PF-02/README.md) | Connectedness of minimal positive semidefinite factorization orbits | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](PF-02/problem.pdf) · [TeX](PF-02/problem.tex) |
 | [PF-03](PF-03/README.md) | Rational factors for rational completely positive boundary matrices | **✅ SOLVED** | extreme | interesting to the community | [PDF](PF-03/problem.pdf) · [TeX](PF-03/problem.tex) |
 | [PF-04](PF-04/README.md) | The maximum cp-rank in order six | **✅ SOLVED** | challenging | interesting to the community | [PDF](PF-04/problem.pdf) · [TeX](PF-04/problem.tex) |
