@@ -33,8 +33,8 @@ def restore_pdf_layout(identifier, body):
         # Keep the complete retained question together after verification notices.
         heading = "## Original problem statement\n"
         body = body.replace(heading, "\\newpage\n\n" + heading, 1)
-    if identifier in {"SP-05", "MF-14", "MI-28", "NM-04"}:
-        # Keep the complete original target together after its verification notice.
+    if identifier in {"SP-05", "MF-08", "MF-14", "MI-28", "NM-04"}:
+        # Keep the original target together after its resolution or verification notice.
         body = body.replace("## Problem statement\n", "\\newpage\n\n## Problem statement\n", 1)
     if identifier in {"IE-14", "MF-02", "MF-12", "MF-24", "MI-28"}:
         body = body.replace("## Lean proof and verification evidence", "\\newpage\n\n## Lean proof and verification evidence", 1)

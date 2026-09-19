@@ -1,8 +1,8 @@
 # All problems and their status
 
-**112 problems with open targets:** 42 open and 70 partially resolved. **105 other retained entries**, excluded from the open count.
+**111 problems with open targets:** 41 open and 70 partially resolved. **106 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 47 solved (published or independently audited); 58 solved with Lean verification.
+**Resolution evidence:** 48 solved (published or independently audited); 58 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -88,7 +88,6 @@ Retained entries outside the open count:
 | --- | --- | --- | --- | --- | --- |
 | [MF-01](matrix-functions-and-stability/MF-01/README.md) | Optimal sign approximation with a multiplication budget | **🔵 OPEN** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-01/problem.pdf) · [TeX](matrix-functions-and-stability/MF-01/problem.tex) |
 | [MF-04](matrix-functions-and-stability/MF-04/README.md) | Finiteness for nonnegative rational matrix families | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-04/problem.pdf) · [TeX](matrix-functions-and-stability/MF-04/problem.tex) |
-| [MF-08](matrix-functions-and-stability/MF-08/README.md) | NP-hardness of unrestricted static output-feedback stabilization | **🔵 OPEN** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-08/problem.pdf) · [TeX](matrix-functions-and-stability/MF-08/problem.tex) |
 | [MF-09](matrix-functions-and-stability/MF-09/README.md) | Decidability of strict stability for rational matrix families | **🔵 OPEN** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-09/problem.pdf) · [TeX](matrix-functions-and-stability/MF-09/problem.tex) |
 | [MF-10](matrix-functions-and-stability/MF-10/README.md) | Algebraicity of joint spectral radii from rational input | **🔵 OPEN** | extreme | interesting to the community | [PDF](matrix-functions-and-stability/MF-10/problem.pdf) · [TeX](matrix-functions-and-stability/MF-10/problem.tex) |
 | [MF-11](matrix-functions-and-stability/MF-11/README.md) | Temporal regularity of marginal matrix-product growth | **🔵 OPEN** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-11/problem.pdf) · [TeX](matrix-functions-and-stability/MF-11/problem.tex) |
@@ -108,6 +107,7 @@ Retained entries outside the open count:
 | [MF-05](matrix-functions-and-stability/MF-05/README.md) | Local Hölder continuity of the joint spectral radius | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-05/problem.pdf) · [TeX](matrix-functions-and-stability/MF-05/problem.tex) |
 | [MF-06](matrix-functions-and-stability/MF-06/README.md) | A pointwise Lipschitz lower bound for the joint spectral radius | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-06/problem.pdf) · [TeX](matrix-functions-and-stability/MF-06/problem.tex) |
 | [MF-07](matrix-functions-and-stability/MF-07/README.md) | Uniform polynomial bounds for products at joint spectral radius one | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-07/problem.pdf) · [TeX](matrix-functions-and-stability/MF-07/problem.tex) |
+| [MF-08](matrix-functions-and-stability/MF-08/README.md) | NP-hardness of unrestricted static output-feedback stabilization | **✅ SOLVED** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-08/problem.pdf) · [TeX](matrix-functions-and-stability/MF-08/problem.tex) |
 | [MF-12](matrix-functions-and-stability/MF-12/README.md) | Realizing arbitrary polynomial growth exponents by finite matrix families | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-12/problem.pdf) · [TeX](matrix-functions-and-stability/MF-12/problem.tex) |
 | [MF-14](matrix-functions-and-stability/MF-14/README.md) | Degree coverage with seven matrix multiplications | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-14/problem.pdf) · [TeX](matrix-functions-and-stability/MF-14/problem.tex) |
 | [MF-16](matrix-functions-and-stability/MF-16/README.md) | Uniqueness of positive definite solutions of two-letter word equations in order two | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-16/problem.pdf) · [TeX](matrix-functions-and-stability/MF-16/problem.tex) |

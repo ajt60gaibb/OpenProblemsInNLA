@@ -35,6 +35,25 @@ The passing scopes include AC-01's small-CW upper bound (also relevant to AC-04)
 
 ## Resolved catalog entries
 
+### ✅ MF-08 — unrestricted static output-feedback stabilization
+
+**Affirmative literature resolution, reviewed 18 September 2026.**
+Johan Löfberg, [Theorem 1.1 of arXiv:2609.16886v1](https://arxiv.org/html/2609.16886v1),
+and Amir Ali Ahmadi, Abraar Chaudhry, Ijay Narang and Yukai Tang,
+[Theorem 1 of arXiv:2609.20636v1](https://arxiv.org/html/2609.20636v1), establish
+NP-hardness on integer subclasses with unrestricted real gains and strict
+Hurwitz stability. Integer inputs embed directly in the original rational-input
+language, settling [MF-08](matrix-functions-and-stability/MF-08/README.md).
+
+The v1 preprints passed a separate informal Codex-agent review of their
+continuous-time arguments and exact target correspondence. No external human
+peer review, journal acceptance or Lean verification is asserted.
+[Reference note and review scope](references/stepaniants-mf08-2026-09-18/README.md).
+**Literature application and curation:** George Stepaniants, Department of
+Computing and Mathematical Sciences, California Institute of Technology.
+The NP-hardness theorems remain credited to the cited paper authors.
+
+
 ### 🏆 MF-24 — a negative resolution of uniform boundedness — Georg Maierhofer
 
 **Solved negatively, 15 September 2026.** Georg Maierhofer (University of Cambridge), [manuscript dated 14 September 2026](references/mf24-counterexample/proof.pdf), **Theorem 1 and equation (15)**, gives super-identical-pseudospectral weighted shifts of order $`(m+1)^2`$ and a common polynomial with norm ratio at least $`(4/5)\sqrt m`$. This refutes the dimension-independent bound in the [retained original target](matrix-functions-and-stability/MF-24/README.md).
