@@ -1,0 +1,18 @@
+import pathlib,json,re,hashlib,subprocess,os,datetime
+p=pathlib.Path.cwd();e=p/'reviews/ie22-final-fidelity-evidence';sha=lambda q:hashlib.sha256(q.read_bytes()).hexdigest();progress=json.loads((e/'build-progress.json').read_text());before=json.loads((e/'hashes-before.json').read_text());names=json.loads((p/'comparator.json').read_text())['theorem_names'];lean='/private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean'
+raw=(p/'Challenge.lean').read_text();text='import NLA.IE22.Final\nset_option autoImplicit false\nnoncomputable section\nopen MeasureTheory ProbabilityTheory Filter Set\nopen scoped BigOperators ENNReal RealInnerProductSpace Topology\nnamespace NLA.IE22\nopen NLA.IE21\n'
+for name in names:
+ short=name.rsplit('.',1)[1];m=re.search(r'(?m)^theorem '+re.escape(short)+r'\b([\s\S]*?) := by sorry',raw);assert m
+ sig=m.group(1);level=0;cut=None
+ for j,ch in enumerate(sig):
+  if ch in '({[':level+=1
+  elif ch in ')}]':level-=1
+  elif ch==':' and level==0:cut=j;break
+ assert cut is not None
+ params=sig[:cut].strip();typ=sig[cut+1:];assert params.startswith('(')
+ text+='\n-- '+name+'\nexample : ∀ '+params+','+typ+' := @'+name+'\n#print axioms '+name+'\n'
+text+='end NLA.IE22\n';audit=e/'ExactTypesAndAxioms2.lean';audit.write_text(text);env=os.environ.copy();env['LEAN_PATH']=progress['lean_path'];cmd=[lean,str(audit.relative_to(p))];r=subprocess.run(cmd,cwd=p,env=env,text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT);(e/'exact-types-and-axioms2.log').write_text(r.stdout);print(r.stdout);assert r.returncode==0
+found=re.findall(r"'([^']+)' depends on axioms: \[([^\]]*)\]",r.stdout);assert len(found)==20;assert [n for n,_ in found]==names;allowed={'propext','Classical.choice','Quot.sound'};assert all({x.strip() for x in ax.split(',')}==allowed for _,ax in found)
+after={f:sha(p/f) for f in before};assert before==after;assert len(progress['steps'])==47 and all(x['exit_code']==0 for x in progress['steps'])
+receipt={'reviewer':'/root/ie22_final_fidelity','independent_nonauthor':True,'completed_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'build_directory':progress['build_directory'],'compiler':lean,'compiler_version':subprocess.check_output([lean,'--version'],text=True).strip(),'project_modules_rebuilt':47,'reused_project_objects':0,'dependency_cache':'/private/tmp/nla-formalization-campaign-20260915/linear-systems-and-elimination/IE-15/lean/.lake/packages','lean_path':progress['lean_path'],'source_sha256_before':before,'source_sha256_after':after,'steps':progress['steps'],'exact_frozen_full_signatures_checked':20,'signature_audit_sha256':sha(audit),'transitive_axioms':{n:[x.strip() for x in ax.split(',')] for n,ax in found},'audit_log_sha256':sha(e/'exact-types-and-axioms2.log'),'audit_command':cmd,'audit_exit_code':r.returncode,'corrections':['First audit generator mistakenly supplied each unapplied polymorphic theorem to an example with parameters already introduced. All 20 examples consequently reported a type mismatch; all 47 source builds succeeded. The additive ExactTypesAndAxioms2.lean moves the original binder list under explicit forall and assigns the full theorem term with @. Original driver, audit and failed logs are retained. No project proof source changed.','One read-only scouting command used ../../API-AND-SEMANTIC-RISKS.md instead of ../API-AND-SEMANTIC-RISKS.md; corrected path read successfully. No source or build impact.'],'limitations':['Local Darwin arm64 compilation with cached upstream dependency objects, not an authentic Linux Comparator or LeanCert wrapper run.']}
+(e/'build-receipt.json').write_text(json.dumps(receipt,indent=2)+'\n');print('INDEPENDENT_BUILD_AND_AUDIT_PASS')

@@ -1,0 +1,32 @@
+IE22 spectral projection author development build; pinned cached dependencies and unchanged verified IE21 cache; no full IE22 or Linux/LeanCert verification claim.
+COMMAND ["/private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean", "-o", "/private/tmp/nla-ie22-spectral-projection-author-build/NLA/IE22/SpectralProjection.olean", "NLA/IE22/SpectralProjection.lean"]
+NLA/IE22/SpectralProjection.lean:85:61: error: unsolved goals
+case this
+m n r : ℕ
+_hm : 1 ≤ m
+hr : 1 ≤ r ∧ r < n
+A : Mat m n
+hA : UnitRows A
+L : Space n →L[ℝ] Space m := matrixMap A
+T : Space n →ₗ[ℝ] Space n := ↑(ContinuousLinearMap.adjoint L ∘SL L)
+hT : T.IsSymmetric
+hdim : Module.finrank ℝ (Space n) = n
+b : OrthonormalBasis (Fin n) ℝ (Space n) := hT.eigenvectorBasis hdim
+⊢ ?m.238
+
+m n r : ℕ
+_hm : 1 ≤ m
+hr : 1 ≤ r ∧ r < n
+A : Mat m n
+hA : UnitRows A
+L : Space n →L[ℝ] Space m := matrixMap A
+T : Space n →ₗ[ℝ] Space n := ↑(ContinuousLinearMap.adjoint L ∘SL L)
+hT : T.IsSymmetric
+hdim : Module.finrank ℝ (Space n) = n
+b : OrthonormalBasis (Fin n) ℝ (Space n) := hT.eigenvectorBasis hdim
+this : ?m.238 := ?this
+⊢ ∃ J,
+    operatorNorm (projectedMatrix A J) ^ 2 ≤ ↑m / (↑r + 1) ∧
+      (∀ (i : Fin m), ‖matrixRow (projectedMatrix A J) i‖ ≤ 1) ∧ (gramMatrix (projectedMatrix A J)).trace ≤ ↑m
+NLA/IE22/SpectralProjection.lean:95:6: error: unexpected token 'λ'; expected command
+EXIT 1

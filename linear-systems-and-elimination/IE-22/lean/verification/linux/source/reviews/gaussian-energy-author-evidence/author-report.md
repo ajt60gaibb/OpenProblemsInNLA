@@ -1,0 +1,11 @@
+# Gaussian energy author evidence
+
+Role: AI proof author `/root/ie21_final_fidelity`, also an author of the IE-22 statement draft; this is not an independent final referee approval or a claim of human/official Tau Ceti endorsement.
+
+The exact frozen selected `gaussian_energy_moments` statement is implemented. Its literal mean is trace(BᵀB)/m and variance is 2 trace((BᵀB)²)/m², with actual standard Gaussian measure and MemLp 2. All helper identities hold without rank, nonzero-row or dimension assumptions; the selected statement preserves the original positive-dimension hypotheses. The zero vector normalization branch and empty finite sums are explicitly covered. There are no conclusion assumptions.
+
+The proof starts with the unchanged IE-21 unit Gaussian projection law and exact even moments. Scaling gives arbitrary linear-functional moments; fourth-moment polarization gives E[X²Y²] = ‖b‖²‖c‖² + 2⟪b,c⟫² even for correlated rows. Finite sums give the exact first and second energy moments. Cyclic trace and the literal row Gram matrix identify the trace-square expression. The variance identity then cancels the squared mean. Integrability is proved from Gaussian norm moments and polynomial bounds, not postulated. Additional trace nonnegativity, trace ≤ m for rows of norm ≤ 1, and mean ≤ 1 are proved for later event assembly.
+
+The author reran the exact source plus a separate full frozen-signature example and all 17 public theorem axiom queries; both files compiled without diagnostics and every closure was exactly the permitted standard three: propext, Classical.choice, Quot.sound. The build driver checked the unchanged four-file statement freeze and all 31 vendored IE-21 source hashes before execution. No Challenge import, sorry, custom axiom, native evaluation or target weakening occurs in the proof.
+
+This was a Darwin cached development build using the recorded Lean executable and existing dependency oleans. It is not authentic Linux verification, an independent fresh dependency rebuild, LeanCert kernel replay, Comparator verification, or whole-target final approval. Those later gates remain required. The helper/event checkpoint receipts are preserved separately; this source adds one fully proved selected target.

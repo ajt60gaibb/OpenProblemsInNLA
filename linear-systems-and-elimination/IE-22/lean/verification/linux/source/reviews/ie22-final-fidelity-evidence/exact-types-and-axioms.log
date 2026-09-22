@@ -1,0 +1,335 @@
+reviews/ie22-final-fidelity-evidence/ExactTypesAndAxioms.lean:19:61: error: Type mismatch
+  supremum_semantics
+has type
+  ∀ (θ : ℝ),
+    0 < θ ∧ θ < 1 →
+      ∀ (m n : ℕ),
+        1 ≤ m →
+          1 ≤ n →
+            (unitRowValues θ m n).Nonempty ∧
+              BddAbove (unitRowValues θ m n) ∧
+                (∃ A, UnitRows A ∧ extremalValue θ m n = normalizedSingular θ A) ∧
+                  (∀ (A : Mat m n), UnitRows A → normalizedSingular θ A ≤ extremalValue θ m n) ∧
+                    0 ≤ extremalValue θ m n ∧
+                      extremalValue θ m n ≤ √↑n ∧
+                        ∀ (A : Mat m n),
+                          0 ≤ normalizedSingular θ A ∧ normalizedSingular θ A ^ 2 = normalizedDeletion θ A
+but is expected to have type
+  (unitRowValues θ m n).Nonempty ∧
+    BddAbove (unitRowValues θ m n) ∧
+      (∃ A, UnitRows A ∧ extremalValue θ m n = normalizedSingular θ A) ∧
+        (∀ (A : Mat m n), UnitRows A → normalizedSingular θ A ≤ extremalValue θ m n) ∧
+          0 ≤ extremalValue θ m n ∧
+            extremalValue θ m n ≤ √↑n ∧
+              ∀ (A : Mat m n), 0 ≤ normalizedSingular θ A ∧ normalizedSingular θ A ^ 2 = normalizedDeletion θ A
+'NLA.IE22.supremum_semantics' depends on axioms: [propext, Classical.choice, Quot.sound]
+reviews/ie22-final-fidelity-evidence/ExactTypesAndAxioms.lean:25:93: error: Type mismatch
+  constant_semantics
+has type
+  ∀ (θ : ℝ),
+    0 < θ ∧ θ < 1 →
+      0 ≤ sharpConstant θ ∧
+        sharpConstant θ ^ 2 = gaussianTrim θ ∧
+          sharpConstant θ =
+            √(1 / √(2 * Real.pi) *
+                ∫ (g : ℝ) in Icc (-gaussianCutoff θ) (gaussianCutoff θ), g ^ 2 * Real.exp (-g ^ 2 / 2))
+but is expected to have type
+  0 ≤ sharpConstant θ ∧
+    sharpConstant θ ^ 2 = gaussianTrim θ ∧
+      sharpConstant θ =
+        √(1 / √(2 * Real.pi) * ∫ (g : ℝ) in Icc (-gaussianCutoff θ) (gaussianCutoff θ), g ^ 2 * Real.exp (-g ^ 2 / 2))
+'NLA.IE22.constant_semantics' depends on axioms: [propext, Classical.choice, Quot.sound]
+reviews/ie22-final-fidelity-evidence/ExactTypesAndAxioms.lean:34:71: error: Type mismatch
+  projection_semantics
+has type
+  ∀ (θ : ℝ),
+    0 < θ ∧ θ < 1 →
+      ∀ (m n d : ℕ),
+        1 ≤ n →
+          1 ≤ d →
+            ∀ (A : Mat m n) (J : Space d →ₗᵢ[ℝ] Space n),
+              (∀ (g : Space d), (matrixMap (projectedMatrix A J)) g = (matrixMap A) (J g)) ∧
+                (∀ (i : Fin m), ‖matrixRow (projectedMatrix A J) i‖ ≤ ‖matrixRow A i‖) ∧
+                  deletionSingular θ A ≤ deletionSingular θ (projectedMatrix A J)
+but is expected to have type
+  (∀ (g : Space d), (matrixMap (projectedMatrix A J)) g = (matrixMap A) (J g)) ∧
+    (∀ (i : Fin m), ‖matrixRow (projectedMatrix A J) i‖ ≤ ‖matrixRow A i‖) ∧
+      deletionSingular θ A ≤ deletionSingular θ (projectedMatrix A J)
+'NLA.IE22.projection_semantics' depends on axioms: [propext, Classical.choice, Quot.sound]
+reviews/ie22-final-fidelity-evidence/ExactTypesAndAxioms.lean:43:61: error: Type mismatch
+  spectral_projection
+has type
+  ∀ (m n r : ℕ),
+    1 ≤ m →
+      1 ≤ r ∧ r < n →
+        ∀ (A : Mat m n),
+          UnitRows A →
+            ∃ J,
+              operatorNorm (projectedMatrix A J) ^ 2 ≤ ↑m / (↑r + 1) ∧
+                (∀ (i : Fin m), ‖matrixRow (projectedMatrix A J) i‖ ≤ 1) ∧ (gramMatrix (projectedMatrix A J)).trace ≤ ↑m
+but is expected to have type
+  ∃ J,
+    operatorNorm (projectedMatrix A J) ^ 2 ≤ ↑m / (↑r + 1) ∧
+      (∀ (i : Fin m), ‖matrixRow (projectedMatrix A J) i‖ ≤ 1) ∧ (gramMatrix (projectedMatrix A J)).trace ≤ ↑m
+'NLA.IE22.spectral_projection' depends on axioms: [propext, Classical.choice, Quot.sound]
+reviews/ie22-final-fidelity-evidence/ExactTypesAndAxioms.lean:50:81: error: Type mismatch
+  gaussian_objective_mean
+has type
+  ∀ (θ : ℝ),
+    0 < θ ∧ θ < 1 →
+      ∀ (m d : ℕ),
+        1 ≤ m →
+          1 ≤ d →
+            ∀ (B : Mat m d),
+              (∀ (i : Fin m), ‖matrixRow B i‖ ≤ 1) →
+                ∀ (t : ℝ),
+                  0 ≤ t →
+                    Integrable (projectedObjective θ B t) (stdGaussian (Space d)) ∧
+                      ∫ (g : Space d), projectedObjective θ B t g ∂stdGaussian (Space d) ≤ gaussianTrim θ
+but is expected to have type
+  Integrable (projectedObjective θ B t) (stdGaussian (Space d)) ∧
+    ∫ (g : Space d), projectedObjective θ B t g ∂stdGaussian (Space d) ≤ gaussianTrim θ
+'NLA.IE22.gaussian_objective_mean' depends on axioms: [propext, Classical.choice, Quot.sound]
+reviews/ie22-final-fidelity-evidence/ExactTypesAndAxioms.lean:59:40: error: Type mismatch
+  gaussian_objective_variance
+has type
+  ∀ (θ : ℝ) (m d : ℕ),
+    1 ≤ m →
+      1 ≤ d →
+        ∀ (B : Mat m d) (t : ℝ),
+          0 ≤ t →
+            MemLp (projectedObjective θ B t) 2 (stdGaussian (Space d)) ∧
+              Var[projectedObjective θ B t; stdGaussian (Space d)] ≤ 4 * t * operatorNorm B ^ 2 / ↑m
+but is expected to have type
+  MemLp (projectedObjective θ B t) 2 (stdGaussian (Space d)) ∧
+    Var[projectedObjective θ B t; stdGaussian (Space d)] ≤ 4 * t * operatorNorm B ^ 2 / ↑m
+'NLA.IE22.gaussian_objective_variance' depends on axioms: [propext, Classical.choice, Quot.sound]
+reviews/ie22-final-fidelity-evidence/ExactTypesAndAxioms.lean:66:70: error: Type mismatch
+  gaussian_energy_moments
+has type
+  ∀ (m d : ℕ),
+    1 ≤ m →
+      1 ≤ d →
+        ∀ (B : Mat m d),
+          MemLp (projectedEnergy B) 2 (stdGaussian (Space d)) ∧
+            ∫ (g : Space d), projectedEnergy B g ∂stdGaussian (Space d) = (gramMatrix B).trace / ↑m ∧
+              Var[projectedEnergy B; stdGaussian (Space d)] = 2 * (gramMatrix B * gramMatrix B).trace / ↑m ^ 2
+but is expected to have type
+  MemLp (projectedEnergy B) 2 (stdGaussian (Space d)) ∧
+    ∫ (g : Space d), projectedEnergy B g ∂stdGaussian (Space d) = (gramMatrix B).trace / ↑m ∧
+      Var[projectedEnergy B; stdGaussian (Space d)] = 2 * (gramMatrix B * gramMatrix B).trace / ↑m ^ 2
+'NLA.IE22.gaussian_energy_moments' depends on axioms: [propext, Classical.choice, Quot.sound]
+reviews/ie22-final-fidelity-evidence/ExactTypesAndAxioms.lean:75:43: error: Type mismatch
+  bounded_trimming_threshold
+has type
+  ∀ (θ : ℝ),
+    0 < θ ∧ θ < 1 →
+      ∀ (m : ℕ),
+        1 ≤ m →
+          ∀ (y : Fin m → ℝ),
+            (∀ (i : Fin m), 0 ≤ y i) →
+              (∑ i, y i) / ↑m ≤ 2 →
+                ∃ t,
+                  0 ≤ t ∧
+                    t ≤ truncationScale θ ∧
+                      finiteTrim (retainedRows θ m) y / ↑m = trimDual (retainedRows θ m) y t ∧
+                        ∀ (u : ℝ), 0 ≤ u → trimDual (retainedRows θ m) y u ≤ trimDual (retainedRows θ m) y t
+but is expected to have type
+  ∃ t,
+    0 ≤ t ∧
+      t ≤ truncationScale θ ∧
+        finiteTrim (retainedRows θ m) y / ↑m = trimDual (retainedRows θ m) y t ∧
+          ∀ (u : ℝ), 0 ≤ u → trimDual (retainedRows θ m) y u ≤ trimDual (retainedRows θ m) y t
+'NLA.IE22.bounded_trimming_threshold' depends on axioms: [propext, Classical.choice, Quot.sound]
+reviews/ie22-final-fidelity-evidence/ExactTypesAndAxioms.lean:80:85: error: Type mismatch
+  threshold_lipschitz
+has type
+  ∀ (θ : ℝ),
+    0 < θ ∧ θ < 1 →
+      ∀ (m : ℕ),
+        1 ≤ m →
+          ∀ (y : Fin m → ℝ) (s t : ℝ), |trimDual (retainedRows θ m) y s - trimDual (retainedRows θ m) y t| ≤ |s - t|
+but is expected to have type
+  |trimDual (retainedRows θ m) y s - trimDual (retainedRows θ m) y t| ≤ |s - t|
+'NLA.IE22.threshold_lipschitz' depends on axioms: [propext, Classical.choice, Quot.sound]
+reviews/ie22-final-fidelity-evidence/ExactTypesAndAxioms.lean:86:63: error: Type mismatch
+  threshold_grid
+has type
+  ∀ (θ : ℝ),
+    0 < θ ∧ θ < 1 →
+      ∀ (δ : ℝ),
+        0 < δ →
+          ∃ C,
+            (∀ t ∈ C, t ∈ Icc 0 (truncationScale θ)) ∧
+              ↑C.card ≤ truncationScale θ / δ + 2 ∧ ∀ t ∈ Icc 0 (truncationScale θ), ∃ s ∈ C, |t - s| ≤ δ
+but is expected to have type
+  ∃ C,
+    (∀ t ∈ C, t ∈ Icc 0 (truncationScale θ)) ∧
+      ↑C.card ≤ truncationScale θ / δ + 2 ∧ ∀ t ∈ Icc 0 (truncationScale θ), ∃ s ∈ C, |t - s| ≤ δ
+'NLA.IE22.threshold_grid' depends on axioms: [propext, Classical.choice, Quot.sound]
+reviews/ie22-final-fidelity-evidence/ExactTypesAndAxioms.lean:96:88: error: Type mismatch
+  projection_good_event_bound
+has type
+  ∀ (θ : ℝ),
+    0 < θ ∧ θ < 1 →
+      ∀ (m d r : ℕ),
+        1 ≤ m →
+          1 ≤ d →
+            1 ≤ r →
+              ∀ (B : Mat m d),
+                (∀ (i : Fin m), ‖matrixRow B i‖ ≤ 1) →
+                  operatorNorm B ^ 2 ≤ ↑m / (↑r + 1) →
+                    ∀ (δ : ℝ),
+                      0 < δ ∧ δ < 1 →
+                        MeasurableSet (ProjectionGood θ B δ) ∧
+                          (stdGaussian (Space d)).real (ProjectionGood θ B δ)ᶜ ≤ projectionFailure θ d r δ
+but is expected to have type
+  MeasurableSet (ProjectionGood θ B δ) ∧
+    (stdGaussian (Space d)).real (ProjectionGood θ B δ)ᶜ ≤ projectionFailure θ d r δ
+'NLA.IE22.projection_good_event_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+reviews/ie22-final-fidelity-evidence/ExactTypesAndAxioms.lean:104:59: error: Type mismatch
+  deterministic_finite_bound
+has type
+  ∀ (θ : ℝ),
+    0 < θ ∧ θ < 1 →
+      ∀ (m n r : ℕ),
+        1 ≤ m →
+          1 ≤ r ∧ r < n →
+            ∀ (δ : ℝ),
+              0 < δ ∧ δ < 1 →
+                deterministicFailure θ n r δ < 1 →
+                  ∀ (A : Mat m n), UnitRows A → normalizedDeletion θ A ≤ deterministicBound θ n r δ
+but is expected to have type
+  normalizedDeletion θ A ≤ deterministicBound θ n r δ
+'NLA.IE22.deterministic_finite_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+reviews/ie22-final-fidelity-evidence/ExactTypesAndAxioms.lean:111:68: error: Type mismatch
+  supremum_finite_bound
+has type
+  ∀ (θ : ℝ),
+    0 < θ ∧ θ < 1 →
+      ∀ (m n r : ℕ),
+        1 ≤ m →
+          1 ≤ r ∧ r < n →
+            ∀ (δ : ℝ),
+              0 < δ ∧ δ < 1 →
+                deterministicFailure θ n r δ < 1 →
+                  extremalValue θ m n ^ 2 ≤ deterministicBound θ n r δ ∧
+                    extremalValue θ m n ≤ √(deterministicBound θ n r δ)
+but is expected to have type
+  extremalValue θ m n ^ 2 ≤ deterministicBound θ n r δ ∧ extremalValue θ m n ≤ √(deterministicBound θ n r δ)
+'NLA.IE22.supremum_finite_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+reviews/ie22-final-fidelity-evidence/ExactTypesAndAxioms.lean:123:31: error: Type mismatch
+  deterministic_schedule
+has type
+  ∀ (θ : ℝ),
+    0 < θ ∧ θ < 1 →
+      (∀ᶠ (n : ℕ) in atTop,
+          1 ≤ deletionSchedule n ∧
+            deletionSchedule n < n ∧
+              0 < errorSchedule n ∧
+                errorSchedule n < 1 ∧ deterministicFailure θ n (deletionSchedule n) (errorSchedule n) < 1) ∧
+        Tendsto errorSchedule atTop (𝓝 0) ∧
+          ∃ C,
+            0 < C ∧
+              ∀ᶠ (n : ℕ) in atTop,
+                deterministicFailure θ n (deletionSchedule n) (errorSchedule n) ≤ C * errorSchedule n ∧
+                  deterministicBound θ n (deletionSchedule n) (errorSchedule n) - gaussianTrim θ ≤ C * errorSchedule n
+but is expected to have type
+  (∀ᶠ (n : ℕ) in atTop,
+      1 ≤ deletionSchedule n ∧
+        deletionSchedule n < n ∧
+          0 < errorSchedule n ∧
+            errorSchedule n < 1 ∧ deterministicFailure θ n (deletionSchedule n) (errorSchedule n) < 1) ∧
+    Tendsto errorSchedule atTop (𝓝 0) ∧
+      ∃ C,
+        0 < C ∧
+          ∀ᶠ (n : ℕ) in atTop,
+            deterministicFailure θ n (deletionSchedule n) (errorSchedule n) ≤ C * errorSchedule n ∧
+              deterministicBound θ n (deletionSchedule n) (errorSchedule n) - gaussianTrim θ ≤ C * errorSchedule n
+'NLA.IE22.deterministic_schedule' depends on axioms: [propext, Classical.choice, Quot.sound]
+reviews/ie22-final-fidelity-evidence/ExactTypesAndAxioms.lean:132:74: error: Type mismatch
+  universal_squared_rate
+has type
+  ∀ (θ : ℝ),
+    0 < θ ∧ θ < 1 →
+      ∃ C,
+        0 < C ∧
+          ∃ N,
+            1 ≤ N ∧
+              ∀ (m n : ℕ),
+                1 ≤ m →
+                  N ≤ n →
+                    (∀ (A : Mat m n), UnitRows A → normalizedDeletion θ A ≤ gaussianTrim θ + C * errorSchedule n) ∧
+                      extremalValue θ m n ^ 2 ≤ gaussianTrim θ + C * errorSchedule n
+but is expected to have type
+  ∃ C,
+    0 < C ∧
+      ∃ N,
+        1 ≤ N ∧
+          ∀ (m n : ℕ),
+            1 ≤ m →
+              N ≤ n →
+                (∀ (A : Mat m n), UnitRows A → normalizedDeletion θ A ≤ gaussianTrim θ + C * errorSchedule n) ∧
+                  extremalValue θ m n ^ 2 ≤ gaussianTrim θ + C * errorSchedule n
+'NLA.IE22.universal_squared_rate' depends on axioms: [propext, Classical.choice, Quot.sound]
+reviews/ie22-final-fidelity-evidence/ExactTypesAndAxioms.lean:139:51: error: Type mismatch
+  uniform_upper_all_rows
+has type
+  ∀ (θ : ℝ),
+    0 < θ ∧ θ < 1 →
+      ∀ (ε : ℝ), 0 < ε → ∃ N, 1 ≤ N ∧ ∀ (m n : ℕ), 1 ≤ m → N ≤ n → extremalValue θ m n ≤ sharpConstant θ + ε
+but is expected to have type
+  ∃ N, 1 ≤ N ∧ ∀ (m n : ℕ), 1 ≤ m → N ≤ n → extremalValue θ m n ≤ sharpConstant θ + ε
+'NLA.IE22.uniform_upper_all_rows' depends on axioms: [propext, Classical.choice, Quot.sound]
+reviews/ie22-final-fidelity-evidence/ExactTypesAndAxioms.lean:150:61: error: Type mismatch
+  spherical_realization_from_finite_bound
+has type
+  ∀ (θ : ℝ),
+    0 < θ ∧ θ < 1 →
+      ∀ (m n : ℕ),
+        1 ≤ m →
+          2 ≤ n →
+            ∀ (t ε δ : ℝ),
+              0 < t ∧ t < 1 →
+                0 < ε ∧ ε ≤ (1 - θ) / 2 →
+                  0 < δ ∧ δ < 1 →
+                    finiteFailure m n t ε δ < 1 →
+                      ∃ A, UnitRows A ∧ |normalizedDeletion θ A - gaussianTrim θ| ≤ trimmingError θ m t ε δ + √(2 / ↑n)
+but is expected to have type
+  ∃ A, UnitRows A ∧ |normalizedDeletion θ A - gaussianTrim θ| ≤ trimmingError θ m t ε δ + √(2 / ↑n)
+'NLA.IE22.spherical_realization_from_finite_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+reviews/ie22-final-fidelity-evidence/ExactTypesAndAxioms.lean:159:54: error: Type mismatch
+  high_aspect_near_extremizers
+has type
+  ∀ (θ : ℝ),
+    0 < θ ∧ θ < 1 →
+      ∀ (m n : ℕ → ℕ),
+        (∀ (j : ℕ), 1 ≤ m j) →
+          (∀ (j : ℕ), 1 ≤ n j) →
+            Tendsto n atTop atTop →
+              Tendsto (fun j => ↑(m j) / ↑(n j)) atTop atTop →
+                ∀ (ε : ℝ), 0 < ε → ∀ᶠ (j : ℕ) in atTop, ∃ A, UnitRows A ∧ sharpConstant θ - ε < normalizedSingular θ A
+but is expected to have type
+  ∀ᶠ (j : ℕ) in atTop, ∃ A, UnitRows A ∧ sharpConstant θ - ε < normalizedSingular θ A
+'NLA.IE22.high_aspect_near_extremizers' depends on axioms: [propext, Classical.choice, Quot.sound]
+reviews/ie22-final-fidelity-evidence/ExactTypesAndAxioms.lean:167:82: error: Type mismatch
+  high_aspect_supremum_limit
+has type
+  ∀ (θ : ℝ),
+    0 < θ ∧ θ < 1 →
+      ∀ (m n : ℕ → ℕ),
+        (∀ (j : ℕ), 1 ≤ m j) →
+          (∀ (j : ℕ), 1 ≤ n j) →
+            Tendsto n atTop atTop →
+              Tendsto (fun j => ↑(m j) / ↑(n j)) atTop atTop →
+                Tendsto (fun j => extremalValue θ (m j) (n j)) atTop (𝓝 (sharpConstant θ))
+but is expected to have type
+  Tendsto (fun j => extremalValue θ (m j) (n j)) atTop (𝓝 (sharpConstant θ))
+'NLA.IE22.high_aspect_supremum_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+reviews/ie22-final-fidelity-evidence/ExactTypesAndAxioms.lean:173:64: error: Type mismatch
+  canonical_sharp_constant
+has type
+  ∀ (θ : ℝ), 0 < θ ∧ θ < 1 → EventualUniformUpper θ (sharpConstant θ) ∧ ∀ C < sharpConstant θ, ¬EventualUniformUpper θ C
+but is expected to have type
+  EventualUniformUpper θ (sharpConstant θ) ∧ ∀ C < sharpConstant θ, ¬EventualUniformUpper θ C
+'NLA.IE22.canonical_sharp_constant' depends on axioms: [propext, Classical.choice, Quot.sound]

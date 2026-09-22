@@ -1,0 +1,53 @@
+IE22 author local cached development build only; unchanged verified IE21 source hashes checked. No authoritative Linux verification claim.
+COMMAND ["/private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean", "-o", "/private/tmp/nla-ie22-threshold-mean-author-build/NLA/IE22/GaussianEnergy.olean", "NLA/IE22/GaussianEnergy.lean"]
+NLA/IE22/GaussianEnergy.lean:94:45: error(lean.unknownIdentifier): Unknown constant `WithLp.toLp_apply`
+NLA/IE22/GaussianEnergy.lean:91:60: error: unsolved goals
+m d : ℕ
+B : Mat m d
+⊢ ∑ i, ∑ j, B i j * B i j = ∑ i, ‖WithLp.toLp 2 (B i)‖ * ‖WithLp.toLp 2 (B i)‖
+NLA/IE22/GaussianEnergy.lean:94:4: warning: This simp argument is unused:
+  EuclideanSpace.real_norm_sq_eq
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Matrix.trace, Matrix.diag, Matrix.mul_apply, Matrix.transpose_apply, matrixRow, WithLp.toLp_apply,
+    sq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IE22/GaussianEnergy.lean:102:63: error: unsolved goals
+m d : ℕ
+B : Mat m d
+he : (gramMatrix B * gramMatrix B).trace = (B * Matrix.transpose B * (B * Matrix.transpose B)).trace
+i : Fin m
+a✝¹ : i ∈ Finset.univ
+j : Fin m
+a✝ : j ∈ Finset.univ
+⊢ (∑ j_1, B i j_1 * Matrix.transpose B j_1 j) * ∑ j_1, B j j_1 * Matrix.transpose B j_1 i =
+    ⟪matrixRow B j, matrixRow B i⟫ * ⟪matrixRow B j, matrixRow B i⟫
+NLA/IE22/GaussianEnergy.lean:109:55: warning: This simp argument is unused:
+  row_gram_eq_inner
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Matrix.trace, Matrix.diag, Matrix.mul_apply]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IE22/GaussianEnergy.lean:127:2: error: Type mismatch: After simplification, term
+  MemLp.mul_const hs (↑m)⁻¹
+ has type
+  MemLp (fun x => (∑ i, ⟪matrixRow B i, x⟫ ^ 2) * (↑m)⁻¹) 2 (stdGaussian (Space d))
+but is expected to have type
+  MemLp (projectedEnergy B) 2 (stdGaussian (Space d))
+NLA/IE22/GaussianEnergy.lean:158:4: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∫ (g : Space ?m.106), projectedEnergy ?B g ^ 2 ∂stdGaussian (Space ?m.106)
+in the target expression
+  ∫ (x : Space d), (projectedEnergy B ^ 2) x ∂stdGaussian (Space d) -
+      (∫ (x : Space d), projectedEnergy B x ∂stdGaussian (Space d)) ^ 2 =
+    2 * (gramMatrix B * gramMatrix B).trace / ↑m ^ 2
+
+m d : ℕ
+_hm : 1 ≤ m
+_hd : 1 ≤ d
+B : Mat m d
+⊢ ∫ (x : Space d), (projectedEnergy B ^ 2) x ∂stdGaussian (Space d) -
+      (∫ (x : Space d), projectedEnergy B x ∂stdGaussian (Space d)) ^ 2 =
+    2 * (gramMatrix B * gramMatrix B).trace / ↑m ^ 2
+EXIT 1

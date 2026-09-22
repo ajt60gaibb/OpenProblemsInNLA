@@ -2,7 +2,7 @@
 
 **111 problems with open targets:** 41 open and 70 partially resolved. **106 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 41 solved (published or independently audited); 65 solved with Lean verification.
+**Resolution evidence:** 40 solved (published or independently audited); 66 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -40,7 +40,7 @@ Retained entries outside the open count:
 | [IE-18](linear-systems-and-elimination/IE-18/README.md) | The exact four-step amplification of restarted Anderson acceleration | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-18/problem.pdf) · [TeX](linear-systems-and-elimination/IE-18/problem.tex) |
 | [IE-19](linear-systems-and-elimination/IE-19/README.md) | Sharp inverse norm bound from upper bounds on matrix entries | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](linear-systems-and-elimination/IE-19/problem.pdf) · [TeX](linear-systems-and-elimination/IE-19/problem.tex) |
 | [IE-21](linear-systems-and-elimination/IE-21/README.md) | Sharp row-deletion singular-value limit for spherical random matrices | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-21/problem.pdf) · [TeX](linear-systems-and-elimination/IE-21/problem.tex) |
-| [IE-22](linear-systems-and-elimination/IE-22/README.md) | Optimal uniform row-deletion singular-value constant | **✅ SOLVED** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-22/problem.pdf) · [TeX](linear-systems-and-elimination/IE-22/problem.tex) |
+| [IE-22](linear-systems-and-elimination/IE-22/README.md) | Optimal uniform row-deletion singular-value constant | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-22/problem.pdf) · [TeX](linear-systems-and-elimination/IE-22/problem.tex) |
 | [IE-23](linear-systems-and-elimination/IE-23/README.md) | Uniqueness of the right inverse minimizing an induced p-to-2 norm | **🏆 LEAN VERIFIED** | hard | interesting to specialist | [PDF](linear-systems-and-elimination/IE-23/problem.pdf) · [TeX](linear-systems-and-elimination/IE-23/problem.tex) |
 | [IE-26](linear-systems-and-elimination/IE-26/README.md) | Sharp stability bounds for perturbed Fourier interpolation | **✅ SOLVED** | challenging | interesting to the community | [PDF](linear-systems-and-elimination/IE-26/problem.pdf) · [TeX](linear-systems-and-elimination/IE-26/problem.tex) |
 

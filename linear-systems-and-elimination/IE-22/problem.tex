@@ -34,7 +34,7 @@ constant},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-22}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Verification check: 2026-09-22}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ uniform row-deletion singular-value constant\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -86,17 +86,66 @@ and dated audits are preserved.
 extremum over matrices and deleted row sets; community impact is a sharp
 robustness limit for row-sampling methods.
 
+\subsection{Lean proof and verification evidence -
+2026-09-22}\label{lean-proof-and-verification-evidence---2026-09-22}
+
+\textbf{The complete original target is Lean verified.} The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/c45f9ccef20a2fa5cc4b988e93d4173dab853362/linear-systems-and-elimination/IE-22/lean/NLA/IE22/Final.lean}{formal
+proof at revision c45f9cc} proves the sharp Gaussian constant for the
+actual supremum over every real unit-row matrix. It includes the exact
+finite bound, a squared error rate uniform over all positive row counts,
+deterministic near-extremizers along every high-aspect sequence, the
+supremum limit, and failure of the original eventual-uniform property
+for every smaller constant. The floor convention, rank deficiency and
+empty retained selections are included.
+
+\textbf{Lean formalization:} George Stepaniants, Department of Computing
+and Mathematical Sciences, California Institute of Technology, with
+substantial AI-agent assistance. \textbf{Matthew J. Colbrook} retains
+attribution for the original mathematical proof. The original statement,
+source attribution and dated history below remain preserved.
+
+All
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-22/lean/Solution.lean}{20
+required declarations} passed authentic LeanCert kernel-trust
+assertions, the sandboxed Lean4 Comparator and kernel replay on non-root
+Linux. Each transitive axiom closure contains only \textit{propext},
+\textit{Classical.choice} and \textit{Quot.sound}. Exact spectral and
+analytic arguments establish the sharp variance estimate and asymptotic
+rate without approximate quadrature or numerical eigenvalue searches.
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-22/lean/verification/linux/OPERATIONAL-REVIEW.md}{operational
+evidence} records immutable inputs, authenticated dependency revisions
+and successful isolation and rejection controls.
+
+Two nonauthor agents independently reviewed the complete statements and
+all 47 proof modules:
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-22/lean/reviews/ie22-final-fidelity-evidence/source-review.md}{fidelity
+review} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-22/lean/reviews/ie22-final-correctness-evidence/source-review.md}{correctness
+review}. Their separate
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-22/lean/reviews/ie22-final-fidelity-evidence/completion-review.md}{fidelity
+completion review} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-22/lean/reviews/ie22-final-correctness-evidence/completion-review.md}{correctness
+completion review} audit the Linux evidence. Publication correspondence
+is reviewed in subsequent addenda. These are independent AI reviews
+under the repository's adapted Tau Ceti protocol, not external human
+peer review or official Tau Ceti endorsement. See the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-22/lean/README.md}{project
+guide} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-22/lean/formalization.yaml}{formalization
+metadata} for exact scope, review history and reproduction instructions.
+
+\newpage
 \subsection{Problem statement}\label{problem-statement}
 
 Fix \(0<\theta<1\). For a real \(m\times n\) matrix \(A\) with every row
 of Euclidean norm one, put
 
-\[
-s_\theta(A)=\min_{S\subseteq\{1,\ldots,m\},\ |S|=\lfloor\theta m\rfloor}
+\[s_\theta(A)=\min_{S\subseteq\{1,\ldots,m\},\ |S|=\lfloor\theta m\rfloor}
 \min_{\|x\|_2=1}\|A_Sx\|_2,
 \qquad
-M_{m,n}(\theta)=\sup_{\|a_i\|_2=1}\sqrt{\frac nm}\,s_\theta(A).
-\]
+M_{m,n}(\theta)=\sup_{\|a_i\|_2=1}\sqrt{\frac nm}\,s_\theta(A).\]
 
 Here \(a_i\) is row \(i\) of \(A\), and \(A_S\) contains exactly the
 rows indexed by \(S\).
@@ -104,19 +153,15 @@ rows indexed by \(S\).
 Determine the sharp asymptotic upper constant for \(M_{m,n}(\theta)\) as
 \(n\to\infty\) and \(m/n\to\infty\). In particular, is it
 
-\[
-c_\theta=\left(\frac1{\sqrt{2\pi}}\int_{-a_\theta}^{a_\theta}t^2e^{-t^2/2}\,dt\right)^{1/2},
+\[c_\theta=\left(\frac1{\sqrt{2\pi}}\int_{-a_\theta}^{a_\theta}t^2e^{-t^2/2}\,dt\right)^{1/2},
 \qquad
-\mathbb P(|G|\le a_\theta)=\theta,\quad G\sim N(0,1)?
-\]
+\mathbb P(|G|\le a_\theta)=\theta,\quad G\sim N(0,1)?\]
 
 Precisely, the proposed uniform inequality asks whether, for every
 \(\varepsilon>0\), there exist integers \(N\) and \(R\) such that
 
-\[
-M_{m,n}(\theta)\le c_\theta+\varepsilon
-\quad\text{whenever }n\ge N\text{ and }m/n\ge R,
-\]
+\[M_{m,n}(\theta)\le c_\theta+\varepsilon
+\quad\text{whenever }n\ge N\text{ and }m/n\ge R,\]
 
 and whether no smaller constant has this property. The supremum and
 quantifiers specify the source's uniform \(1+o(1)\) bound; the floor

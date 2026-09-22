@@ -1,0 +1,34 @@
+IE22 variance tensorization author development build; pinned cached dependencies and unchanged verified IE21 cache; no full IE22 or Linux/LeanCert verification claim.
+COMMAND ["/private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean", "-o", "/private/tmp/nla-ie22-variance-tensorization-author-build/NLA/IE22/VarianceTensorization.olean", "NLA/IE22/VarianceTensorization.lean"]
+NLA/IE22/VarianceTensorization.lean:143:2: error: Type mismatch: After simplification, term
+  MeasurePreserving.symm (MeasurableEquiv.piFinSuccAbove (fun x => ℝ) 0)
+    (measurePreserving_piFinSuccAbove (fun x => μ) 0)
+ has type
+  @MeasurePreserving (ℝ × (Fin d → ℝ)) (Fin (d + 1) → ℝ) Prod.instMeasurableSpace MeasurableSpace.pi
+    (⇑{ toFun := fun f => Fin.cons f.1 fun j => cast ⋯ (f.2 j), invFun := fun f => (f 0, Fin.removeNth 0 f),
+        left_inv := ⋯, right_inv := ⋯ })
+    (μ.prod (Measure.pi fun j => μ)) (Measure.pi fun x => μ)
+but is expected to have type
+  @MeasurePreserving (ℝ × (Fin d → ℝ)) (Fin (d + 1) → ℝ) Prod.instMeasurableSpace MeasurableSpace.pi
+    (fun z => Fin.cons z.1 z.2) (μ.prod (Measure.pi fun x => μ)) (Measure.pi fun x => μ)
+NLA/IE22/VarianceTensorization.lean:148:56: error: Application type mismatch: The argument
+  z.2
+has type
+  Fin d → ℝ
+but is expected to have type
+  (i : Fin ?m.7) → ?m.8 i.succ
+in the application
+  Fin.cons ?m.11 z.2
+NLA/IE22/VarianceTensorization.lean:158:4: error: Type mismatch: After simplification, term
+  Measurable.comp (measurable_pi_apply j) measurable_fst
+ has type
+  @Measurable ((Fin d → ℝ) × ℝ) ℝ Prod.instMeasurableSpace Real.measurableSpace ((fun f => f j) ∘ Prod.fst)
+but is expected to have type
+  @Measurable ((Fin d → ℝ) × ℝ) ℝ Prod.instMeasurableSpace Real.measurableSpace fun c => c.1 j
+NLA/IE22/VarianceTensorization.lean:160:0: error: (deterministic) timeout at `isDefEq`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+NLA/IE22/VarianceTensorization.lean:167:16: error: (kernel) unknown constant '_private.NLA.IE22.VarianceTensorization.0.NLA.IE22.vt_coordinate_variance_measurable'
+EXIT 1

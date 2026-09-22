@@ -1,0 +1,15 @@
+# IE22 asymptotic helpers: independent partial review
+
+**Verdict: APPROVE** `AsymptoticConclusion.lean`, SHA256 `112dbd68b3f52b2a2227b6c08ad3b5acc6a9f4cbb163ac3c3b1bb6c6a662aa77`. No mathematical or assumption-boundary defects found.
+
+Reviewer: AI `/root/infrastructure_audit`. I authored none of this module or its root-authored SupremumSemantics, SphericalRealization and DeterministicSchedule dependencies. I authored other IE22 Gaussian modules and some unchanged IE21 dependencies. This is an independent module-only review, not a final whole-package nonauthor review. I made no proof-source changes.
+
+I read the full helper proofs and compared their quantifiers with the original IE22 canonical page/manuscript and frozen NUMERICAL_TARGETS/Challenge. The first three are explicitly conditional assembly lemmas. They do not establish or export the corresponding selected final targets until the actual finite certificate/rate/upper theorem supplies the named premise. This distinction is accurate in the source header and names. `Final.lean` was not reviewed.
+
+`universal_squared_rate_of_finite_bound` combines the explicit finite certificate with the exact floor schedule, obtaining one C,N independent of m and A. It retains both the all-unit-row-matrix squared bound and the squared actual supremum bound, deriving the latter from proved supremum attainment. `uniform_upper_all_rows_of_rate` uses C*errorSchedule→0 and the literal nonnegative square-root constant to obtain the unsquared bound for every m≥1, without any aspect-ratio assumption. The power in the hypothesis is the square of extremalValue, as independently typechecked.
+
+`high_aspect_supremum_limit_of_uniform_upper` proves both order-neighborhood inequalities along every positive sequence with n→∞ and m/n→∞. Its lower estimate consumes the already proved every-sequence near-extremizers and the exact supremum domination; its upper estimate consumes the stated all-m uniform bound. There is no subsequence restriction or unjustified interchange of suprema and limits.
+
+`no_smaller_uniform_constant` has no conditional upper-bound input. For C<c it tests the purported original EventualUniformUpper property at epsilon=(c−C)/3, and uses n_j=j+1, m_j=(j+1)^2. Their literal ratio is j+1, so both arbitrary integer thresholds N and R are eventually satisfied. An actual unit-row near-extremizer exceeds c−epsilon while the purported bound is C+epsilon, a strict contradiction. This preserves the canonical two-threshold quantifier and covers every real C<c.
+
+A new independent output directory rebuilt Definitions, all three root-authored dependencies, AsymptoticConclusion and four explicit helper type/axiom tests. All six commands exited zero without diagnostics. Every helper closure is exactly propext, Classical.choice and Quot.sound. The receipt binds sources before/after, the frozen boundary, scripts/logs, and the verified unchanged IE21 cache provenance. Cached third-party binaries are a local development dependency, not independently authenticated Linux evidence. No authentic LeanCert/Comparator, completed selected final-target or publication claim is made here.

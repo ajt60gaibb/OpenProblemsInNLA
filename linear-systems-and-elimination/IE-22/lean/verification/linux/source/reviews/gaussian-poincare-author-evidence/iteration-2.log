@@ -1,0 +1,38 @@
+IE22 Gaussian foundation author development build; cached pinned dependencies and unchanged verified IE21 cache, no full problem verification claim.
+COMMAND ["/private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean", "-o", "/private/tmp/nla-ie22-gaussian-poincare-author-build/NLA/IE22/GaussianPoincare.olean", "NLA/IE22/GaussianPoincare.lean"]
+NLA/IE22/GaussianPoincare.lean:47:68: error: `ring_nf` made no progress on the goal
+NLA/IE22/GaussianPoincare.lean:47:68: error: `ring_nf` made no progress on the goal
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+NLA/IE22/GaussianPoincare.lean:49:4: error: No applicable extensionality theorem found for type
+  AddCommGroup ℝ
+
+Note: Extensionality theorems can be registered by marking them with the `[ext]` attribute
+NLA/IE22/GaussianPoincare.lean:51:4: error: `simp` made no progress
+NLA/IE22/GaussianPoincare.lean:45:71: error: unsolved goals
+case e'_8
+x : ℝ
+hd : HasDerivAt (fun z => -z ^ 2 / 2) (-x) x
+⊢ gaussianPDFReal 0 1 = fun y => (√(2 * Real.pi))⁻¹ * Real.exp (-y ^ 2 / 2)
+
+case e'_9
+x : ℝ
+hd : HasDerivAt (fun z => -z ^ 2 / 2) (-x) x
+⊢ -x * gaussianPDFReal 0 1 x = (√(2 * Real.pi))⁻¹ * (Real.exp (-x ^ 2 / 2) * -x)
+NLA/IE22/GaussianPoincare.lean:69:2: error: Type mismatch: After simplification, term
+  Tendsto.comp gaussian_density_tendsto_atTop tendsto_neg_atBot_atTop
+ has type
+  Tendsto (fun x => (√Real.pi)⁻¹ * (√2)⁻¹ * Real.exp (-x ^ 2 / 2)) atBot (𝓝 0)
+but is expected to have type
+  Tendsto (gaussianPDFReal 0 1) atBot (𝓝 0)
+EXIT 1

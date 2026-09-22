@@ -1,0 +1,5 @@
+# Header correction addendum
+
+The original four-module consumer review and all prior author/consumer receipts remain unchanged and historical. The reviewer independently compared retained GaussianPoincare source a0636eda1a4493fe981908fe061efc4e4f65cb4772e2d01a248962d0f0b4010c against current 2e8afcce18cb78f517bfa935f42453d314f2420b6dfdf0308f5d477f2d767eb7. The only change is the initial module documentation: it now correctly locates finite-product tensorization in VarianceTensorization. Imports and every byte after that initial module comment, including all declarations and proofs, are identical.
+
+APPROVE this bounded documentation correction. The mathematical consumer-review verdict is unchanged. The author's retained correction compilation log is hash-verified and contains exit zero without diagnostics; this addendum inspected that retained execution evidence and did not itself repeat the compilation. All original local cached-build and non-final-review limitations continue to apply. No whole-target Linux/LeanCert/Comparator verification is claimed.
