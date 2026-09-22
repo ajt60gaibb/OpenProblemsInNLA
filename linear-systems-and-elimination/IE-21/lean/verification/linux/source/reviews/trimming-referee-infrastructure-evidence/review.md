@@ -1,0 +1,30 @@
+# Independent module review: trimming, uniform geometry and tails
+
+Verdict: **APPROVE for the six modules below at the recorded hashes.** No mathematical or source-integrity defect found. Reviewer: Codex AI agent `/root/infrastructure_audit`, 2026-09-22. The reviewer authored none of these six modules. This is a module-only review: the reviewer authored SphericalLaw and RowLaw, which occur among the rebuilt dependencies, and other Gaussian/spherical modules. It is not a fresh independent final review of the complete IE-21 package.
+
+All six complete source files were read against the frozen definitions, relevant Challenge statements and supporting minimum/measurability declarations. Source hashes match their respective author receipts, including the subsequently supplied AsymptoticTail receipt. Exact hashes of all rebuilt project dependencies and the author receipts appear in `receipt.json`.
+
+| Reviewed module | SHA-256 |
+| --- | --- |
+| `NLA/IE21/QuantileTrimming.lean` | `c1601c196a8c6c08f187ee0b6eb699ea1781b34ab0a639c0e1e6bd3da09eb098` |
+| `NLA/IE21/EmpiricalTrimming.lean` | `3e634d650b5f7d066457d9eccd8406ae0945c1774890282b2a5ac8cf58000267` |
+| `NLA/IE21/UniformTrimmingGeometry.lean` | `4c6d0f86d75d29d71b20ba0ae24716e16ebf0b78aedef6aabb4a05ac3b6cd986` |
+| `NLA/IE21/UniformTrimmingBound.lean` | `e1eebfad4467353c09844da9a39b466650befa14c79a3d445f1febc747b07267` |
+| `NLA/IE21/FiniteSizeGeometry.lean` | `0ac88a9e6b40f0ac7b85c5f698ee54c92d7ce86199b61202fb84d060c502efa7` |
+| `NLA/IE21/AsymptoticTail.lean` | `f4cee5319731cfefd99e6dd334a142e811d3366c5ae8d2b5c8c1ef8faa2ba236` |
+
+QuantileTrimming proves quantile existence for an arbitrary real probability law by CDF limits, monotonicity and right continuity; it does not assume atomlessness. The strict-below/closed-below masses straddle θ. The mean-one nonnegative hypothesis gives the threshold bound 1/(1−θ). The fractional selector uses mass at the threshold explicitly; when that mass is zero, the proof establishes θ equals the strict-below mass before using the totalized division. Its mass and weighted objective are exact, with integrability proved.
+
+EmpiricalTrimming minimizes over subsets of the exact cardinality k. Its exchange argument bounds a selected threshold by L when at least k observations lie at or below L. Ties remain inclusive, and an empty minimizing subset uses threshold zero. The fractional error is the proved deterministic bound L·|k−Σwᵢ|, for all k≤m including k=0. There is no relaxed cardinality. `retainedRows` remains the frozen natural floor of θm. These helper modules do not yet establish the later probability estimate producing the L/m floor correction; this review does not claim that unfinished assembly. They retain the exact quantities needed for it.
+
+UniformTrimmingGeometry uses the actual Euclidean retained-row linear map and its norm bound by the full map. It compares two attained finite minima through a common retained subset, giving the stated Lipschitz constant 2·normalizedOperator and then 2(1+t) on the covariance event. The net extension gives the literal GoodEvent, which still quantifies over every unit direction. Its measurability support was inspected in FiniteTrimming: it is a closed covariance sublevel set intersected with an arbitrary intersection of closed directional sublevel sets, not an unjustified countable union or an event restricted to the net.
+
+UniformTrimmingBound is correctly conditional on the pointwise and covariance probability bounds. It uses event inclusion and a finite union bound, with nonnegative Bpoint when replacing net cardinality by (1+2/δ)^n. Those premises are not presented as proofs of the final selected uniform concentration declaration. Finite probability measures justify each real-measure comparison, including outer-measure inequalities that do not need extra event measurability.
+
+FiniteSizeGeometry obtains normalized deletion from the attained directional minimum of the exact retained-row definition. It uses the proved Gaussian constant in [0,1], bounds the positive denominator using t<1, and derives a positive operator norm. Its output contains all four finite-size statistics with exactly the frozen error and denominator 1−t. No nonzero-denominator assumption is substituted for the proof.
+
+AsymptoticTail preserves arbitrary positive integer dimension schedules with n→∞ and m/n→∞. The aspect schedule supplies eventual n≥2 and admissible parameters. Once the finite error is strictly below η, the η-tail is a subset of the finite-error tail in the correct direction; squeeze with the proved failure limit gives convergence. `random_row_tail_eq` accepts any measurable probability space Ω, uses the full independently distributed surface-row law, and proves exact pushforward equality on the measurable ratio tail. It does not restrict Ω to the canonical product space or assume almost-sure convergence.
+
+Fresh verification used `python3 reviews/trimming-referee-infrastructure-evidence/build.py`, a new external directory, and Lean 4.33.1 (compiler 819816b2e0a3bf405af45ae5c7af2491d8f5bee6). All 17 project source modules plus the reviewer audit compiled with exit 0 and no Lean errors or warnings. All 23 public declarations in the six reviewed modules have exactly the permitted closures `propext`, `Classical.choice`, `Quot.sound`; no sorryAx, user axiom or native reduction axiom occurs. Sources remained byte-identical throughout the run. The four frozen statement-boundary files also match statement-freeze.json. A harmless Python regex string SyntaxWarning was emitted before the run; it does not concern Lean compilation and no failed Lean build occurred in this review.
+
+This is a cached macOS development check. It uses the retained pinned Mathlib/package build cache and records project bytes, but does not independently reauthenticate every cached upstream olean or establish a fresh source build of dependencies. The exact Linux sandbox, LeanCert kernel assertions, full Comparator correspondence and negative controls have not been run for IE-21 by this review. No canonical status promotion or full-problem verification is claimed.

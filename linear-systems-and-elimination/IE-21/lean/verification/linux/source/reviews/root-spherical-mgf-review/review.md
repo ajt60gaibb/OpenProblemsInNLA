@@ -1,0 +1,7 @@
+# Independent spherical quadratic-MGF review
+
+Reviewer: Codex AI root, 2026-09-22. Decision: APPROVE SphericalMGF at development stage. I did not author this module or its moment dependencies. I independently reviewed the statement boundary and authored separate concentration/net/aspect modules, so this is not an independent final whole-problem review or a human referee report.
+
+I read the entire source and independently rebuilt it. Bounded actual sphere support separately proves integrability of the centered powers and exponential for each real a. The centered absolute moment is bounded by 4^r r! using the verified all-orders nonnegative energy moments. Dominated convergence transports the real exponential series through the probability integral with an explicitly summable bounded majorant; no unjustified interchange or truncation is used. The zeroth term is one and the first term cancels by the exact mean-one theorem. For q=4|a|≤1/2, the remaining geometric sum is q²/(1−q)≤32a². Finally 1+32a²≤exp(32a²) gives precisely the complete frozen integrability-and-MGF target for |a|≤1/8, including both signs and a=0.
+
+The independent local module build and every-public-theorem transitive axiom audit passed without diagnostics. All closures contain only propext, Classical.choice and Quot.sound, and the frozen boundary hashes remain unchanged. Local proof development and this review do not substitute for actual Comparator, final LeanCert kernel assertions or authenticated full Linux verification.

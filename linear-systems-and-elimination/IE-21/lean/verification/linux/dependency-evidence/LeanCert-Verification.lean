@@ -1,0 +1,663 @@
+/-
+Copyright (c) 2026 LeanCert Contributors. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: LeanCert Contributors
+-/
+import Lean
+import Lean.Meta.Native
+import Lean.Meta.Tactic.AuxLemma
+
+/-!
+# Centralized certificate verification (trust choke point)
+
+Every LeanCert reflective tactic ultimately closes a decidable certificate
+proposition, normally of the form `check … = true`. This module is the single place where that goal
+gets closed, and therefore the single place where the trusted base of the
+resulting proof is decided:
+
+| Mode      | Closes with         | Trusted base                                    |
+|-----------|---------------------|-------------------------------------------------|
+| `.native` | `nativeEqTrue`      | kernel + compiler/runtime (native auxiliary axiom) |
+| `.kernel` | cached kernel proof | kernel only (foundational axioms)                |
+| `.auto`   | kernel, then native | kernel when it succeeds; fallback is reported    |
+
+Design rules:
+
+* `.kernel` **never** falls back to native verification. Failure is a hard
+  error telling the user how to opt in to native trust explicitly.
+* `.auto` may fall back, and reports when it does (`trace[leancert.verification]`
+  always; one `logInfo` per process on first fallback).
+* The typed boundary reduces the `Decidable` instance first, so a conclusive
+  `false` result is data rather than an exception. Successful kernel proofs
+  still go through `mkAuxLemma` for eager kernel validation and per-module
+  caching.
+* Native mode uses Lean's structured `nativeEqTrue` primitive directly:
+  `.notTrue` is rejection, while compilation/evaluation exceptions are
+  infrastructure failures.
+
+Select the mode globally with `set_option leancert.trust "kernel"` (likewise
+`"native"`, `"auto"`), or per invocation with `(trust := kernel|native|auto)`.
+The per-invocation setting takes precedence.
+
+Caveat for `.auto`: the heartbeat budget bounds elaboration-side work, but
+kernel reduction itself is not heartbeat-interruptible; a pathologically large
+certificate can exceed the budget wall-clock. Calibrated cost gates therefore
+route predictably large finite sums, integrations, and optimization
+certificates directly to native verification.
+-/
+
+open Lean Meta Elab Tactic
+
+register_option leancert.trust : String := {
+  defValue := "native"
+  descr := "LeanCert certificate verification route: \"native\" (native_decide; \
+    trusts the compiler/runtime), \"kernel\" (decide +kernel; kernel-only \
+    trusted base, never falls back), or \"auto\" (try kernel first within \
+    leancert.trust.kernelHeartbeats, fall back to native_decide and report)"
+}
+
+register_option leancert.trust.kernelHeartbeats : Nat := {
+  defValue := 400000
+  descr := "heartbeat budget for the kernel verification attempt in \
+    leancert.trust = \"auto\" mode (same units as maxHeartbeats)"
+}
+
+register_option leancert.trust.autoGate : Bool := {
+  defValue := true
+  descr := "in leancert.trust = \"auto\" mode, skip the kernel attempt for \
+    certificates whose size predictably exceeds the calibrated kernel/native \
+    crossover (finite-sum term count, integration partition count, \
+    optimization iterations) and go straight to native_decide; see \
+    scripts/bench-trust/README.md for the calibration data"
+}
+
+register_option leancert.trust.autoMaxSumTerms : Nat := {
+  defValue := 2000
+  descr := "auto-mode gate: maximum finite-sum term count for which the \
+    kernel attempt is made (crossover ≈ 10^4 terms at ~35s/+1.5 GiB; \
+    ≤2×10^3 costs under a second)"
+}
+
+register_option leancert.trust.autoMaxPartitions : Nat := {
+  defValue := 500
+  descr := "auto-mode gate: maximum integration partition count for which \
+    the kernel attempt is made (500 partitions ≈ +2.5s)"
+}
+
+register_option leancert.trust.autoMaxOptIterations : Nat := {
+  defValue := 100
+  descr := "auto-mode gate: maximum branch-and-bound iteration limit for \
+    which the kernel attempt is made (a conservative policy threshold; the \
+    v4.32.2 calibration matrix measures comparable routes through 50 iterations)"
+}
+
+namespace LeanCert.Tactic
+
+initialize registerTraceClass `leancert.verification
+
+/-- Reported once per process on the first `.auto`-mode native fallback, so a
+file with hundreds of certificate checks does not produce hundreds of
+messages. Per-invocation detail is always available under
+`trace[leancert.verification]`. -/
+initialize autoFallbackReported : IO.Ref Bool ← IO.mkRef false
+
+/-- How a certificate goal is allowed to be verified. -/
+inductive VerificationMode where
+  /-- Close with `native_decide`; the proof additionally trusts the Lean
+  compiler and runtime (`Lean.ofReduceBool`). -/
+  | native
+  /-- Close with `decide +kernel`; kernel-only trusted base. Never falls back
+  to native verification. -/
+  | kernel
+  /-- Try the kernel route first, fall back to `native_decide`, reporting the
+  fallback. -/
+  | auto
+  deriving DecidableEq, Repr, Inhabited
+
+/-- Which route actually closed a certificate goal. -/
+inductive VerificationUsed where
+  | kernel
+  | native
+  deriving DecidableEq, Repr
+
+/-- Why a particular verification route was used.
+
+This distinguishes an explicit native request from the two reasons that
+`.auto` can use native verification. -/
+inductive VerificationCause where
+  /-- The caller explicitly requested native verification. -/
+  | explicitNative
+  /-- The caller explicitly requested kernel verification. -/
+  | explicitKernel
+  /-- Auto mode successfully used kernel verification. -/
+  | autoKernel
+  /-- Auto mode selected native verification before attempting the kernel
+  because a calibrated cost gate fired. -/
+  | autoNativeGate
+  /-- Auto mode used native verification after its kernel attempt failed. -/
+  | autoNativeFallback
+  deriving DecidableEq, Repr
+
+/-- Structured telemetry for one successfully closed certificate goal.
+
+The event is returned directly to the caller. It is not stored globally, so
+speculative tactic attempts can discard it together with their proof state. -/
+structure VerificationEvent where
+  /-- The resolved policy in force for this certificate closure. -/
+  requested : VerificationMode
+  /-- The route that actually closed the certificate. -/
+  used : VerificationUsed
+  /-- Why that route was selected. -/
+  cause : VerificationCause
+  /-- Human-readable auto-gate explanation, present exactly for
+  `autoNativeGate` events. -/
+  gateReason : Option String := none
+  deriving Repr
+
+/-- Verification telemetry for zero or more retained certificate closures. -/
+structure VerificationUsage where
+  events : Array VerificationEvent := #[]
+  deriving Repr, Inhabited
+
+/-- Infrastructure failures while checking a Boolean certificate.
+
+An ordinary checker result of `false` is deliberately not represented here:
+it is the `.rejected` case of `VerificationResult`. -/
+inductive VerificationFailure where
+  /-- The proposed certificate goal was not a closed decidable proposition. -/
+  | malformedCertificateGoal (detail : String)
+  /-- Kernel reduction could not determine or validate the checker result. -/
+  | kernelFailure (detail : String)
+  /-- Native compilation or evaluation failed before producing a result. -/
+  | nativeFailure (detail : String)
+  /-- The verification protocol itself encountered an unexpected invariant
+  failure. -/
+  | internalError (detail : String)
+  deriving Repr
+
+/-- Typed result of attempting to close one Boolean certificate goal.
+
+Only `.accepted` mutates the retained tactic state. Both `.rejected` and
+`.failed` restore the complete state saved on entry. -/
+inductive VerificationResult where
+  /-- The checker evaluated to `true`; the certificate goal is assigned. -/
+  | accepted (event : VerificationEvent)
+  /-- The checker conclusively evaluated to `false`. -/
+  | rejected
+  /-- The checker could not be evaluated or its proof could not be retained. -/
+  | failed (failure : VerificationFailure)
+  deriving Repr
+
+namespace VerificationEvent
+
+/-- Regard one successful certificate closure as aggregate usage. -/
+def toUsage (event : VerificationEvent) : VerificationUsage :=
+  { events := #[event] }
+
+end VerificationEvent
+
+namespace VerificationUsage
+
+/-- Aggregate usage containing one successful certificate closure. -/
+def singleton (event : VerificationEvent) : VerificationUsage :=
+  event.toUsage
+
+/-- Combine independently retained verification events, preserving order. -/
+def combine (left right : VerificationUsage) : VerificationUsage :=
+  { events := left.events ++ right.events }
+
+/-- Number of retained certificates closed by kernel reduction. -/
+def kernelChecks (usage : VerificationUsage) : Nat :=
+  usage.events.foldl (fun n event =>
+    if event.used == .kernel then n + 1 else n) 0
+
+/-- Number of retained certificates closed by native reduction. -/
+def nativeChecks (usage : VerificationUsage) : Nat :=
+  usage.events.foldl (fun n event =>
+    if event.used == .native then n + 1 else n) 0
+
+/-- Reasons for auto-mode decisions that bypassed kernel verification. -/
+def autoGateReasons (usage : VerificationUsage) : Array String :=
+  usage.events.filterMap fun event =>
+    if event.cause == .autoNativeGate then event.gateReason else none
+
+end VerificationUsage
+
+def VerificationMode.ofString? : String → Option VerificationMode
+  | "native" => some .native
+  | "kernel" => some .kernel
+  | "auto"   => some .auto
+  | _        => none
+
+/-- Option-value spelling of the mode (`"kernel"` / `"native"` / `"auto"`). -/
+def VerificationMode.asString : VerificationMode → String
+  | .native => "native"
+  | .kernel => "kernel"
+  | .auto   => "auto"
+
+/-- Configuration for certificate verification. Tactics resolve this from
+options via `VerificationConfig.current`; public `(trust := …)` syntax
+overrides it per invocation. -/
+structure VerificationConfig where
+  mode : VerificationMode := .native
+  /-- Heartbeat budget for the kernel attempt in `.auto` mode. -/
+  kernelHeartbeats : Nat := 400000
+  deriving Repr, Inhabited
+
+/-- Read the verification configuration from the current options
+(`leancert.trust`, `leancert.trust.kernelHeartbeats`). -/
+def VerificationConfig.current : CoreM VerificationConfig := do
+  let opts ← getOptions
+  let raw := leancert.trust.get opts
+  let some mode := VerificationMode.ofString? raw
+    | throwError "invalid value '{raw}' for option 'leancert.trust'; \
+        expected \"native\", \"kernel\", or \"auto\""
+  return { mode, kernelHeartbeats := leancert.trust.kernelHeartbeats.get opts }
+
+private structure CertificateGoal where
+  type : Expr
+  decision : Expr
+
+/-- Validate and unpack a closed decidable certificate proposition.
+
+Most LeanCert certificates have the shape `check = true`; a few low-level
+bridges use decidable propositions such as domain-validity predicates
+directly. Both are represented by the single Boolean expression returned by
+`decide`. -/
+private def parseCertificateGoal (certGoal : MVarId) :
+    TacticM (Except VerificationFailure CertificateGoal) := certGoal.withContext do
+  let certType ← instantiateMVars (← certGoal.getType)
+  if certType.hasMVar then
+    return .error <| .malformedCertificateGoal
+      s!"certificate goal contains unresolved metavariables: {certType}"
+  if certType.hasLooseBVars then
+    return .error <| .malformedCertificateGoal
+      s!"certificate goal contains loose bound variables: {certType}"
+  if certType.hasFVar then
+    return .error <| .malformedCertificateGoal
+      s!"certificate goal contains free variables: {certType}"
+  unless ← isProp certType do
+    return .error <| .malformedCertificateGoal
+      s!"expected a decidable proposition, got: {certType}"
+  let decision ←
+    try mkDecide certType
+    catch e =>
+      return .error <| .malformedCertificateGoal
+        s!"certificate proposition has no executable Decidable instance:\n\
+          {← e.toMessageData.toString}"
+  if decision.hasMVar then
+    return .error <| .malformedCertificateGoal
+      s!"certificate decision procedure contains unresolved metavariables: {decision}"
+  if decision.hasFVar then
+    return .error <| .malformedCertificateGoal
+      s!"certificate decision procedure contains free variables: {decision}"
+  return .ok { type := certType, decision }
+
+private inductive VerificationAttempt where
+  | accepted
+  | rejected
+  | failed (detail : String)
+
+/-- Evaluate the checker once using Lean's native Boolean primitive. On
+success, `nativeEqTrue` returns the exact proof retained by the certificate
+goal; `.notTrue` is a structured negative result rather than an exception. -/
+private def closeNativeTypedCore (certificate : CertificateGoal)
+    (certGoal : MVarId) (_tacticName : String) :
+    TacticM VerificationAttempt := do
+  try
+    match ← Lean.Meta.nativeEqTrue `native_decide certificate.decision
+        (axiomDeclRange? := (← getRef)) with
+    | .notTrue =>
+        return .rejected
+    | .success proof =>
+        let decidableInst := certificate.decision.appArg!
+        let propositionProof := mkApp3 (mkConst ``of_decide_eq_true)
+          certificate.type decidableInst proof
+        certGoal.assign propositionProof
+        return .accepted
+  catch e =>
+    return .failed (← e.toMessageData.toString)
+
+/-- Kernel-only certificate closure with a structured Boolean result.
+
+The elaborator first reduces the closed checker to a canonical Boolean so
+`false` is data rather than an exception. For `true`, the equality proof is
+stored through the same auxiliary-lemma cache used by `decide +kernel`, so the
+kernel validates the result eagerly and repeated certificate types can reuse
+the declaration. -/
+private def closeKernelTypedCore (certificate : CertificateGoal)
+    (certGoal : MVarId) : TacticM VerificationAttempt := do
+  try
+    let proof ← mkDecideProof certificate.type
+    let decidableInst := proof.appFn!.appArg!
+    let reduced ← withOptions (fun opts => opts.set `maxRecDepth 100000) do
+      withAtLeastTransparency .all <| whnf decidableInst
+    if reduced.isAppOf ``isFalse then
+      return .rejected
+    unless reduced.isAppOf ``isTrue do
+      return .failed s!"certificate decision procedure did not reduce to \
+        `isTrue` or `isFalse`: {reduced}"
+    let levelsInType := (collectLevelParams {} certificate.type).params
+    let lemmaLevels := (← Term.getLevelNames).reverse.filter levelsInType.contains
+    let lemmaName ← withOptions (Elab.async.set · false) do
+      mkAuxLemma lemmaLevels certificate.type proof
+    certGoal.assign <| mkConst lemmaName (lemmaLevels.map .param)
+    return .accepted
+  catch e =>
+    return .failed (← e.toMessageData.toString)
+
+/-! ### Auto-mode cost gate
+
+Thresholds come from `scripts/bench-trust/baselines/` (see the README there):
+kernel reduction is essentially free for point/bound/Newton certificates,
+cheap for moderate partition/subdivision counts, and crosses over to
+"markedly worse than native" around 10^4 finite-sum terms (superlinear time,
++1.5 GiB RSS). The gate reads scale parameters syntactically off the
+certificate goal; anything it does not recognize is attempted normally.
+
+The checker names below are unresolved `Name` literals because this module
+deliberately imports only `Lean` (everything in LeanCert imports it back).
+`LeanCert/Test/TrustModes.lean` builds these applications with *resolved*
+names and asserts the gate fires, so a checker rename breaks CI rather than
+silently disabling the gate. -/
+
+/-- First subterm that is a (full enough) application of any of `names`. -/
+private def findAppOfAny? (e : Expr) (names : List Name) (minArgs : Nat) :
+    Option Expr :=
+  e.find? fun sub => names.any (sub.isAppOf ·) && sub.getAppNumArgs ≥ minArgs
+
+/-- Length of a syntactic `List` literal (`List.cons` chain). -/
+private partial def listLitLength (e : Expr) (acc : Nat := 0) : Nat :=
+  if e.isAppOfArity ``List.cons 3 then listLitLength e.appArg! (acc + 1) else acc
+
+/-- If the certificate is predictably past the kernel/native crossover,
+return a human-readable reason to skip the kernel attempt in auto mode.
+`none` means "attempt the kernel". -/
+def autoGateReason? (opts : Options) (certType : Expr) : Option String := Id.run do
+  unless leancert.trust.autoGate.get opts do return none
+  let maxSum := leancert.trust.autoMaxSumTerms.get opts
+  let maxParts := leancert.trust.autoMaxPartitions.get opts
+  let maxIters := leancert.trust.autoMaxOptIterations.get opts
+  -- Finite sums over `Finset.Icc a b`: terms = b + 1 - a.
+  let sumChecks : List Name :=
+    [`LeanCert.Engine.checkFinSumUpperBoundFull, `LeanCert.Engine.checkFinSumLowerBoundFull,
+     `LeanCert.Engine.checkFinSumUpperBound, `LeanCert.Engine.checkFinSumLowerBound]
+  if let some app := findAppOfAny? certType sumChecks 3 then
+    let args := app.getAppArgs
+    if let (some a, some b) := (args[1]!.nat?, args[2]!.nat?) then
+      let terms := b + 1 - a
+      if terms > maxSum then
+        return some s!"finite sum with {terms} terms exceeds autoMaxSumTerms={maxSum}"
+  -- List-indexed finite sums: term count is the index-list literal length.
+  let listChecks : List Name :=
+    [`LeanCert.Engine.checkFinSumUpperBoundListFull,
+     `LeanCert.Engine.checkFinSumLowerBoundListFull]
+  if let some app := findAppOfAny? certType listChecks 3 then
+    if listLitLength app.getAppArgs[2]! > maxSum then
+      return some s!"list-indexed sum with {listLitLength app.getAppArgs[2]!} \
+        terms exceeds autoMaxSumTerms={maxSum}"
+  -- Partitioned integration: third argument is the partition count.
+  if let some app := findAppOfAny? certType
+      [`LeanCert.Validity.Integration.integratePartitionChecked] 3 then
+    if let some n := app.getAppArgs[2]!.nat? then
+      if n > maxParts then
+        return some s!"{n} integration partitions exceed autoMaxPartitions={maxParts}"
+  -- Global optimization: read maxIterations off a GlobalOptConfig literal.
+  let optChecks : List Name :=
+    [`LeanCert.Validity.GlobalOpt.checkGlobalUpperBound,
+     `LeanCert.Validity.GlobalOpt.checkGlobalLowerBound,
+     `LeanCert.Validity.GlobalOpt.checkGlobalBounds]
+  if (findAppOfAny? certType optChecks 4).isSome then
+    if let some cfgApp := findAppOfAny? certType
+        [`LeanCert.Engine.Optimization.GlobalOptConfig.mk] 1 then
+      if let some iters := cfgApp.getAppArgs[0]!.nat? then
+        if iters > maxIters then
+          return some s!"{iters} optimization iterations exceed autoMaxOptIterations={maxIters}"
+  return none
+
+private def closeAutoTypedCore (cfg : VerificationConfig)
+    (certificate : CertificateGoal) (certGoal : MVarId)
+    (tacticName : String) : TacticM VerificationResult := do
+  if let some reason := autoGateReason? (← getOptions) certificate.type then
+    trace[leancert.verification] "{tacticName}: auto gate routed certificate to \
+      native_decide ({reason})"
+    match ← closeNativeTypedCore certificate certGoal tacticName with
+    | .accepted =>
+        return .accepted {
+          requested := .auto
+          used := .native
+          cause := .autoNativeGate
+          gateReason := some reason
+        }
+    | .rejected => return .rejected
+    | .failed detail => return .failed (.nativeFailure detail)
+  let s ← saveState
+  match ← withOptions (fun o => o.set `maxHeartbeats cfg.kernelHeartbeats) do
+      closeKernelTypedCore certificate certGoal with
+  | .accepted =>
+      trace[leancert.verification] "{tacticName}: certificate verified by kernel reduction (auto)"
+      return .accepted {
+        requested := .auto
+        used := .kernel
+        cause := .autoKernel
+      }
+  | .rejected =>
+      -- A conclusive Boolean `false` is route-independent. Native fallback is
+      -- reserved for a kernel route that could not finish.
+      return .rejected
+  | .failed detail =>
+    s.restore
+    trace[leancert.verification] "{tacticName}: kernel attempt failed in auto mode, \
+      falling back to native_decide:\n{detail}"
+    match ← closeNativeTypedCore certificate certGoal tacticName with
+    | .accepted =>
+        unless (← autoFallbackReported.get) do
+          autoFallbackReported.set true
+          logInfo m!"{tacticName}: a certificate was verified with native_decide \
+            (kernel attempt did not succeed within budget). The proof \
+            additionally trusts the compiler. Further fallbacks in this \
+            session are reported under `trace[leancert.verification]` only."
+        return .accepted {
+          requested := .auto
+          used := .native
+          cause := .autoNativeFallback
+        }
+    | .rejected => return .rejected
+    | .failed nativeDetail =>
+        return .failed <| .nativeFailure
+          s!"native fallback failed after kernel verification failure:\n\
+            Kernel failure: {detail}\nNative failure: {nativeDetail}"
+
+/-- Close a decidable certificate goal (normally `check … = true`) according to the
+verification mode and return a typed result.
+
+Only `.accepted` retains state changes. Rejection, malformed goals, and
+verification infrastructure failures restore the complete tactic state saved
+on entry, including environment declarations and messages. -/
+def closeCertificateGoalTyped (cfg : VerificationConfig) (certGoal : MVarId)
+    (tacticName : String := "leancert") : TacticM VerificationResult := do
+  let saved ← saveState
+  try
+    let savedGoals ← getGoals
+    let certificate ←
+      match ← parseCertificateGoal certGoal with
+      | .ok certificate => pure certificate
+      | .error failure =>
+          saved.restore
+          return .failed failure
+    let result ←
+      match cfg.mode with
+      | .native =>
+          match ← closeNativeTypedCore certificate certGoal tacticName with
+          | .accepted =>
+              trace[leancert.verification] "{tacticName}: certificate verified by native_decide"
+              pure <| .accepted {
+                requested := .native
+                used := .native
+                cause := .explicitNative
+              }
+          | .rejected => pure .rejected
+          | .failed detail => pure <| .failed (.nativeFailure detail)
+      | .kernel =>
+          match ← closeKernelTypedCore certificate certGoal with
+          | .accepted =>
+              trace[leancert.verification] "{tacticName}: certificate verified by kernel reduction"
+              pure <| .accepted {
+                requested := .kernel
+                used := .kernel
+                cause := .explicitKernel
+              }
+          | .rejected => pure .rejected
+          | .failed detail => pure <| .failed (.kernelFailure detail)
+      | .auto =>
+          closeAutoTypedCore cfg certificate certGoal tacticName
+    match result with
+    | .accepted _ =>
+        -- Restore the surrounding goal list while retaining the successful
+        -- environment extension and certificate assignment.
+        setGoals savedGoals
+        pruneSolvedGoals
+        return result
+    | .rejected | .failed _ =>
+        saved.restore
+        return result
+  catch e =>
+    saved.restore
+    let detail ←
+      try e.toMessageData.toString
+      catch _ => pure "an exception escaped the verification implementation"
+    return .failed <| .internalError detail
+
+def VerificationFailure.message (tacticName : String) :
+    VerificationFailure → String
+  | .malformedCertificateGoal detail =>
+      s!"{tacticName}: malformed certificate goal:\n{detail}"
+  | .kernelFailure detail =>
+      s!"{tacticName}: kernel verification failed on the certificate check:\n\
+        {detail}\nKernel mode never falls back to native verification. Use \
+        `set_option leancert.trust \"native\"` (or \"auto\") to allow \
+        `native_decide`, which additionally trusts the compiler."
+  | .nativeFailure detail =>
+      s!"{tacticName}: native certificate verification failed:\n{detail}"
+  | .internalError detail =>
+      s!"{tacticName}: internal certificate verification error:\n{detail}"
+
+/-- Close the current goal as a LeanCert certificate check according to the
+configured verification route (`leancert.trust`, or a `(trust := …)` override
+active via `withTrustMode`). For tactic implementations that embed certificate
+obligations inside quoted proof terms — `(by leancert_verify_cert)` — where
+the typed boundary cannot be called directly. Not intended for end users. -/
+elab "leancert_verify_cert" : tactic => do
+  match ← closeCertificateGoalTyped (← VerificationConfig.current) (← getMainGoal)
+      (tacticName := "leancert") with
+  | .accepted _ => pure ()
+  | .rejected => throwError "leancert: certificate checker evaluated to false"
+  | .failed failure => throwError (failure.message "leancert")
+
+/-! ## Public per-invocation syntax: `(trust := kernel|native|auto)`
+
+Tactics accept an optional trailing `leancertTrustItem`; when present it
+overrides the `leancert.trust` option for that invocation only (implemented
+by running the tactic core under `withOptions`, so every certificate check in
+the invocation — including nested fallback strategies — honors it). -/
+
+/-- Parser category for verification modes. `auto` needs an explicit branch
+because it is a reserved Lean token rather than an `ident`. -/
+declare_syntax_cat leancertTrustMode
+syntax ident : leancertTrustMode
+syntax &"auto" : leancertTrustMode
+
+/-- Per-invocation verification route for LeanCert tactics:
+`(trust := kernel)`, `(trust := native)`, or `(trust := auto)`. -/
+syntax leancertTrustItem := "(" &"trust" " := " leancertTrustMode ")"
+
+/-- Elaborate an optional `(trust := …)` item. -/
+def elabTrustItem? : Option (TSyntax ``leancertTrustItem) →
+    TacticM (Option VerificationMode)
+  | none => pure none
+  | some stx =>
+    match stx with
+    | `(leancertTrustItem| (trust := $m:leancertTrustMode)) => do
+      let raw := m.raw.reprint.getD ""
+      let some mode := VerificationMode.ofString? raw
+        | throwErrorAt m "invalid trust mode '{raw}'; expected kernel, native, or auto"
+      return some mode
+    | _ => throwUnsupportedSyntax
+
+/-- Run `act` with `leancert.trust` overridden to `mode?` when provided. -/
+def withTrustMode (mode? : Option VerificationMode) (act : TacticM α) : TacticM α :=
+  match mode? with
+  | none => act
+  | some m => withOptions (fun o => o.set `leancert.trust m.asString) act
+
+/-! ## `#assert_trust`: CI trust manifests
+
+`#assert_trust kernel thm` / `#assert_trust native thm` pin a theorem's trust
+class. Drift in *either* direction fails: a kernel-clean theorem acquiring
+native-compiler trust is a regression, and a native-pinned theorem losing its
+native dependency means the manifest should be tightened to `kernel`.
+`sorryAx` and unrecognized axioms always fail. -/
+
+/-- Trust classification of a single axiom. -/
+inductive TrustClass where
+  /-- `propext`, `Classical.choice`, `Quot.sound`. -/
+  | foundational
+  /-- `Lean.ofReduceBool` / `Lean.ofReduceNat` / `Lean.trustCompiler`, or a
+  per-declaration `native_decide` auxiliary (`<decl>._native.native_decide.ax_*`). -/
+  | nativeCompiler
+  /-- `sorryAx`. -/
+  | sorryAx
+  /-- Anything else. -/
+  | custom
+  deriving DecidableEq, Repr
+
+/-- Classify an axiom name into its trust class. -/
+def classifyAxiom (n : Name) : TrustClass :=
+  if n == ``propext || n == ``Classical.choice || n == ``Quot.sound then
+    .foundational
+  else if n == ``Lean.ofReduceBool || n == ``Lean.ofReduceNat
+      || n == ``Lean.trustCompiler then
+    .nativeCompiler
+  else if n == ``sorryAx then
+    .sorryAx
+  else
+    match n with
+    | .str (.str _ "native_decide") _ => .nativeCompiler
+    | _ => .custom
+
+open Elab Command in
+/-- `#assert_trust kernel thm`: `thm` depends on foundational axioms only.
+`#assert_trust native thm`: `thm` additionally depends on native-compiler
+trust (and nothing worse). Any `sorryAx` or unrecognized axiom fails both. -/
+elab "#assert_trust " cls:ident thm:ident : command => do
+  let declName ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo thm
+  liftCoreM do
+    let axs ← collectAxioms declName
+    let part (c : TrustClass) : Array Name := axs.filter (classifyAxiom · == c)
+    let foundational := part .foundational
+    let native := part .nativeCompiler
+    let sorries := part .sorryAx
+    let custom := part .custom
+    let breakdown : MessageData := MessageData.joinSep
+      ([(`foundational, foundational), (`nativeCompiler, native),
+        (`sorryAx, sorries), (`custom, custom)].filterMap fun (label, group) =>
+        if group.isEmpty then none
+        else some m!"  {label}: {MessageData.joinSep (group.toList.map toMessageData) ", "}")
+      "\n"
+    unless sorries.isEmpty && custom.isEmpty do
+      throwErrorAt thm "#assert_trust: '{declName}' depends on sorry or \
+        unrecognized axioms\n{breakdown}"
+    match cls.getId with
+    | `kernel =>
+      unless native.isEmpty do
+        throwErrorAt thm "#assert_trust kernel: '{declName}' is not \
+          kernel-clean\n{breakdown}"
+    | `native =>
+      if native.isEmpty then
+        throwErrorAt thm "#assert_trust native: '{declName}' has no \
+          native-compiler dependency; tighten the manifest to `kernel`"
+    | other =>
+      throwErrorAt cls "#assert_trust: unknown trust class '{other}'; \
+        expected 'kernel' or 'native'"
+
+end LeanCert.Tactic
