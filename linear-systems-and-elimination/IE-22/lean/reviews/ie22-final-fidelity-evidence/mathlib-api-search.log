@@ -1,0 +1,51 @@
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:34:* The definition `LinearMap.IsSymmetric.eigenvectorBasis` provides an orthonormal basis for `E`
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:37:  `LinearMap.IsSymmetric.eigenvectorBasis` gives the associated linear isometry equivalence
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:39:  `LinearMap.IsSymmetric.eigenvectorBasis_apply_self_apply` states that, when `T` is
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:211:Instead use the functions eigenvalues and eigenvectorBasis defined below. -/
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:253:private theorem hasEigenvector_eigenvectorBasis_helper (hT : T.IsSymmetric)
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:300:noncomputable irreducible_def eigenvectorBasis (hT : T.IsSymmetric) (hn : Module.finrank 𝕜 E = n) :
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:306:theorem hasEigenvector_eigenvectorBasis (hT : T.IsSymmetric) (hn : Module.finrank 𝕜 E = n)
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:307:    (i : Fin n) : HasEigenvector T (hT.eigenvalues hn i) (hT.eigenvectorBasis hn i) := by
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:308:  rw [eigenvalues_def, eigenvectorBasis_def, OrthonormalBasis.reindex_apply]
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:309:  apply hasEigenvector_eigenvectorBasis_helper
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:312:theorem eigenvalues_antitone (hT : T.IsSymmetric) (hn : Module.finrank 𝕜 E = n) :
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:322:  Module.End.hasEigenvalue_of_hasEigenvector (hT.hasEigenvector_eigenvectorBasis hn i)
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:325:theorem apply_eigenvectorBasis (hT : T.IsSymmetric) (hn : Module.finrank 𝕜 E = n) (i : Fin n) :
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:326:    T (hT.eigenvectorBasis hn i) = (hT.eigenvalues hn i : 𝕜) • hT.eigenvectorBasis hn i :=
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:327:  mem_eigenspace_iff.mp (hT.hasEigenvector_eigenvectorBasis hn i).1
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:332:theorem eigenvectorBasis_apply_self_apply (hT : T.IsSymmetric) (hn : Module.finrank 𝕜 E = n)
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:334:    (hT.eigenvectorBasis hn).repr (T v) i =
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:335:      hT.eigenvalues hn i * (hT.eigenvectorBasis hn).repr v i := by
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:338:      T ((hT.eigenvectorBasis hn).repr.symm w) =
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:339:        (hT.eigenvectorBasis hn).repr.symm (toLp 2 fun i ↦ hT.eigenvalues hn i * w i) by
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:341:      congr_arg (fun v => (hT.eigenvectorBasis hn).repr v i)
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:342:        (this ((hT.eigenvectorBasis hn).repr v))
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:344:  simp_rw [← OrthonormalBasis.sum_repr_symm, map_sum, map_smul, apply_eigenvectorBasis]
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:349:theorem toMatrix_eigenvectorBasis (hT : T.IsSymmetric) (hn : Module.finrank 𝕜 E = n) :
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:350:    letI b := (hT.eigenvectorBasis hn).toBasis
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:359:  simp [← T.charpoly_toMatrix (hT.eigenvectorBasis hn).toBasis, toMatrix_eigenvectorBasis,
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:364:  rw [← charpoly_toMatrix _ (hT.eigenvectorBasis hn).toBasis, toMatrix_eigenvectorBasis,
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Analysis/InnerProductSpace/Spectrum.lean:376:  convert! (hT.eigenvalues_antitone hn).sortedGE_ofFn
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/Distributions/TwoValued.lean:55:/-- If a random variable is ae equal to `0` or `1`, then its conditional variance is the product of
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/Distributions/TwoValued.lean:91:/-- If a random variable is ae equal to `0` or `1`, then its variance is the product of
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/Distributions/Binomial.lean:201:The conditional variance of a binomial random variable is the product of the conditional
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/Moments/CovarianceBilin.lean:23:`covarianceBilin`, which is a continuous bilinear form mapping `x y : E` to
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/Moments/CovarianceBilin.lean:48:/-- Covariance of a measure on an inner product space, as a continuous bilinear form. -/
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/Moments/CovarianceBilin.lean:113:lemma covarianceBilin_map {F : Type*} [NormedAddCommGroup F] [InnerProductSpace ℝ F]
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/Moments/CovarianceBilin.lean:165:lemma covarianceBilin_apply_pi {ι Ω : Type*} [Fintype ι] {mΩ : MeasurableSpace Ω}
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/Distributions/Gaussian/Multivariate.lean:88:  rw [this, variance_sum_pi]
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/Distributions/Gaussian/Basic.lean:264:    rw [variance_dual_prod' (IsGaussian.memLp_dual μ (L.comp (.inl ℝ E F)) 2 (by simp))
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/Moments/Covariance.lean:116:  simp_rw [covariance, Pi.add_apply]
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/Moments/Covariance.lean:130:  simp_rw [covariance, Pi.smul_apply, smul_eq_mul, ← integral_const_mul, ← mul_assoc, mul_sub,
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/Moments/Covariance.lean:339:lemma covariance_fst_snd_prod (hfμ : MemLp X 2 μ) (hgν : MemLp Y 2 ν) :
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/BrownianMotion/Basic.lean:157:      rw [PiLp.coe_symm_continuousLinearEquiv, covarianceBilin_apply_pi, covarianceBilin_apply_pi]
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/Distributions/Gaussian/CharFun.lean:182:  simp [covarianceBilin, ← this.2, g, ← InnerProductSpace.toDual_apply_eq_toDualMap_apply,
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/Moments/Variance.lean:447:lemma variance_sum_pi [Fintype ι] {Ω : ι → Type*} {mΩ : ∀ i, MeasurableSpace (Ω i)}
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/Moments/Variance.lean:513:lemma variance_add_prod (hfμ : MemLp X 2 μ) (hgν : MemLp Y 2 ν) :
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/Moments/Variance.lean:528:lemma variance_dual_prod' {L : StrongDual ℝ (E × F)}
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/Moments/Variance.lean:533:  rw [this, variance_add_prod hLμ hLν]
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/Moments/Variance.lean:535:lemma variance_dual_prod {L : StrongDual ℝ (E × F)} (hLμ : MemLp id 2 μ) (hLν : MemLp id 2 ν) :
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/Moments/Variance.lean:537:  variance_dual_prod' (ContinuousLinearMap.comp_memLp' _ hLμ)
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Independence.lean:92:lemma iIndepFun_of_covariance_inner [InnerProductSpace ℝ E]
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Independence.lean:146:lemma indepFun_of_covariance_inner [InnerProductSpace ℝ E]
+/private/tmp/mf21-mathlib-source-20260920/Mathlib/Probability/Distributions/Gaussian/HasGaussianLaw/Independence.lean:329:lemma HasGaussianLaw.indepFun_of_covariance_inner [InnerProductSpace ℝ E] [InnerProductSpace ℝ F]

@@ -1,0 +1,11 @@
+# Projection event author evidence
+
+Role: AI proof author `/root/ie21_final_fidelity`, also an author of the IE-22 statement draft; this is not an independent final referee approval or human/official Tau Ceti endorsement. The short row-inner/operator estimate was initially supplied by `/root/ie21_final_correctness` and adapted here to the unchanged IE-21 matrixMap inner-row API. GaussianVariance and its tensorization/Poincare dependencies were independently authored by the other two proof authors.
+
+The selected `projection_good_event_bound` now has its exact frozen signature. No auxiliary moment, spectral-existence or conclusion assumption was added. All former helper moment inputs are supplied by the actual exact GaussianEnergy and GaussianVariance theorems.
+
+The proof uses actual Gaussian energy mean ≤ 1, exact energy variance and the row-pair operator estimate to obtain Var(energy) ≤ 2/(r+1). The threshold mean is ≤ gaussianTrim and its variance is ≤ 4t operatorNorm²/m for correlated rows. Chebyshev yields the energy and grid tails. The finite threshold grid has cardinal ≤ L/delta + 2; one-Lipschitz continuity transfers every threshold to the grid. The unchanged exact radius moments give the remaining 2/(d delta²) tail. These three terms assemble to the literal projectionFailure, with no constant rounded or weakened. Measurability is proved by closedness of the uncountable intersection of threshold constraints.
+
+The exact full frozen-signature example and all 10 public theorem axiom queries were freshly compiled with no diagnostics, and all closures were exactly propext, Classical.choice, Quot.sound. The four variance dependency sources were freshly compiled in the same local build before use; their log is retained and hashed. The driver checks the four frozen boundary files and all 31 unchanged IE-21 source hashes. No Challenge import, sorry, custom axiom or native computation occurs in the proof.
+
+This is a local cached Darwin author build, with pinned cached upstream and IE-21 objects. It is not authentic Linux verification, independent final review, LeanCert kernel replay or Comparator verification. Those gates remain required. Historical event/extraction helper checkpoint files are preserved unchanged and described their then-incomplete stage accurately.

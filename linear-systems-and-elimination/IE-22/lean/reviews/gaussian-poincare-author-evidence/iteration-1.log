@@ -1,0 +1,35 @@
+IE22 Gaussian foundation author development build; cached pinned dependencies and unchanged verified IE21 cache, no full problem verification claim.
+COMMAND ["/private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean", "-o", "/private/tmp/nla-ie22-gaussian-poincare-author-build/NLA/IE22/Definitions.olean", "NLA/IE22/Definitions.lean"]
+EXIT 0
+COMMAND ["/private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean", "-o", "/private/tmp/nla-ie22-gaussian-poincare-author-build/NLA/IE22/GaussianPoincare.olean", "NLA/IE22/GaussianPoincare.lean"]
+NLA/IE22/GaussianPoincare.lean:28:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∫ (a : Ω), ((fun x_1 => f x ^ 2) - fun x_1 => 2 * f x * f x_1) a + f a ^ 2 ∂μ
+in the target expression
+  ∫ (y : Ω), f x ^ 2 - 2 * f x * f y + f y ^ 2 ∂μ = f x ^ 2 - 2 * f x * ∫ (y : Ω), f y ∂μ + ∫ (y : Ω), f y ^ 2 ∂μ
+
+Ω : Type u_1
+inst✝¹ : MeasurableSpace Ω
+μ : Measure Ω
+inst✝ : IsProbabilityMeasure μ
+f : Ω → ℝ
+hf : MemLp f 2 μ
+hi : Integrable f μ
+hi2 : Integrable (fun x => f x ^ 2) μ
+x : Ω
+⊢ ∫ (y : Ω), f x ^ 2 - 2 * f x * f y + f y ^ 2 ∂μ = f x ^ 2 - 2 * f x * ∫ (y : Ω), f y ∂μ + ∫ (y : Ω), f y ^ 2 ∂μ
+NLA/IE22/GaussianPoincare.lean:33:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∫ (a : Ω), ((fun x => f x ^ 2) - fun x => 2 * f x * ∫ (y : Ω), f y ∂μ) a + ?m.290 ∂μ
+in the target expression
+  Var[f; μ] = 1 / 2 * ∫ (x : Ω), f x ^ 2 - 2 * f x * ∫ (y : Ω), f y ∂μ + ∫ (y : Ω), f y ^ 2 ∂μ ∂μ
+
+Ω : Type u_1
+inst✝¹ : MeasurableSpace Ω
+μ : Measure Ω
+inst✝ : IsProbabilityMeasure μ
+f : Ω → ℝ
+hf : MemLp f 2 μ
+hi : Integrable f μ
+hi2 : Integrable (fun x => f x ^ 2) μ
+hinner : ∀ (x : Ω), ∫ (y : Ω), (f x - f y) ^ 2 ∂μ = f x ^ 2 - 2 * f x * ∫ (y : Ω), f y ∂μ + ∫ (y : Ω), f y ^ 2 ∂μ
+⊢ Var[f; μ] = 1 / 2 * ∫ (x : Ω), f x ^ 2 - 2 * f x * ∫ (y : Ω), f y ∂μ + ∫ (y : Ω), f y ^ 2 ∂μ ∂μ
+EXIT 1

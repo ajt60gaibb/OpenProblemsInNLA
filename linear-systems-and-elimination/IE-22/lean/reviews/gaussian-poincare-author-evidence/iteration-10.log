@@ -1,0 +1,23 @@
+IE22 Gaussian foundation author development build; cached pinned dependencies and unchanged verified IE21 cache, no full problem verification claim.
+COMMAND ["/private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean", "-o", "/private/tmp/nla-ie22-gaussian-poincare-author-build/NLA/IE22/GaussianPoincare.olean", "NLA/IE22/GaussianPoincare.lean"]
+NLA/IE22/GaussianPoincare.lean:232:4: error: Tactic `apply` failed: could not unify the conclusion of `@Measurable.lintegral_prod_right'`
+  Measurable fun x => ∫⁻ (y : ?β), ?f (x, y) ∂?ν
+with the goal
+  Measurable fun p => ∫⁻ (y : ℝ), H p.2 * gaussianCrossingWeight p.1 y p.2 ∂gaussianReal 0 1
+
+Note: The full type of `@Measurable.lintegral_prod_right'` is
+  ∀ {α : Type ?u.93} {β : Type ?u.92} [inst : MeasurableSpace α] [inst_1 : MeasurableSpace β] {ν : Measure β}
+    [SFinite ν] {f : α × β → ℝ≥0∞}, Measurable f → Measurable fun x => ∫⁻ (y : β), f (x, y) ∂ν
+
+H : ℝ → ℝ≥0∞
+hH : Measurable H
+hswap :
+  ∀ (x : ℝ),
+    ∫⁻ (y : ℝ), ∫⁻ (s : ℝ), H s * gaussianCrossingWeight x y s ∂gaussianReal 0 1 =
+      ∫⁻ (s : ℝ), ∫⁻ (y : ℝ), H s * gaussianCrossingWeight x y s ∂gaussianReal 0 1
+⊢ Measurable fun p => ∫⁻ (y : ℝ), H p.2 * gaussianCrossingWeight p.1 y p.2 ∂gaussianReal 0 1
+NLA/IE22/GaussianPoincare.lean:239:43: error: `fun_prop` was unable to prove `Measurable fun y => gaussianCrossingWeight (?m.246 y) y s`
+
+Issues:
+NLA/IE22/GaussianPoincare.lean:239:13: error: `simp` made no progress
+EXIT 1

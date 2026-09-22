@@ -1,0 +1,30 @@
+IE22 author local cached development build only; unchanged verified IE21 source hashes checked. No authoritative Linux verification claim.
+COMMAND ["/private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean", "-o", "/private/tmp/nla-ie22-threshold-mean-author-build/NLA/IE22/GaussianEnergy.olean", "NLA/IE22/GaussianEnergy.lean"]
+NLA/IE22/GaussianEnergy.lean:46:2: error: Type mismatch: After simplification, term
+  gaussian_inner_even_moment_general b 2
+ has type
+  ∫ (g : Space d), ⟪b, g⟫ ^ 4 ∂stdGaussian (Space d) = (2 + 1) * ‖b‖ ^ 4
+but is expected to have type
+  ∫ (g : Space d), ⟪b, g⟫ ^ 4 ∂stdGaussian (Space d) = 3 * ‖b‖ ^ 4
+NLA/IE22/GaussianEnergy.lean:55:2: error: linarith failed to find a contradiction
+d : ℕ
+b c g : Space d
+a✝ : ((fun g => ⟪b, g⟫ ^ 4) + fun g => ⟪c, g⟫ ^ 4) g < ⟪b, g⟫ ^ 2 * ⟪c, g⟫ ^ 2
+⊢ False
+failed
+NLA/IE22/GaussianEnergy.lean:67:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∫ (a : Space d),
+    (((fun g => ⟪b + c, g⟫ ^ 4) + fun g => ⟪b - c, g⟫ ^ 4) - fun x => 2 * ⟪b, x⟫ ^ 4) a -
+      2 * ⟪c, a⟫ ^ 4 ∂stdGaussian (Space d)
+in the target expression
+  12 * ∫ (a : Space d), ⟪b, a⟫ ^ 2 * ⟪c, a⟫ ^ 2 ∂stdGaussian (Space d) =
+    ∫ (g : Space d), ⟪b + c, g⟫ ^ 4 + ⟪b - c, g⟫ ^ 4 - 2 * ⟪b, g⟫ ^ 4 - 2 * ⟪c, g⟫ ^ 4 ∂stdGaussian (Space d)
+
+d : ℕ
+b c : Space d
+hp : ∀ (g : Space d), 12 * (⟪b, g⟫ ^ 2 * ⟪c, g⟫ ^ 2) = ⟪b + c, g⟫ ^ 4 + ⟪b - c, g⟫ ^ 4 - 2 * ⟪b, g⟫ ^ 4 - 2 * ⟪c, g⟫ ^ 4
+he :
+  12 * ∫ (a : Space d), ⟪b, a⟫ ^ 2 * ⟪c, a⟫ ^ 2 ∂stdGaussian (Space d) =
+    ∫ (g : Space d), ⟪b + c, g⟫ ^ 4 + ⟪b - c, g⟫ ^ 4 - 2 * ⟪b, g⟫ ^ 4 - 2 * ⟪c, g⟫ ^ 4 ∂stdGaussian (Space d)
+⊢ ∫ (g : Space d), ⟪b, g⟫ ^ 2 * ⟪c, g⟫ ^ 2 ∂stdGaussian (Space d) = ‖b‖ ^ 2 * ‖c‖ ^ 2 + 2 * ⟪b, c⟫ ^ 2
+EXIT 1
