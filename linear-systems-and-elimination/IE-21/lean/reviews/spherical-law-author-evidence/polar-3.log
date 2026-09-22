@@ -1,0 +1,20 @@
+Author development-only macOS typecheck; cached dependencies, no kernel/Comparator completion claim.
+Lean (version 4.33.1, arm64-apple-darwin24.6.0, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)
+COMMAND: /private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean -o /private/tmp/nla-ie21-spherical-author-build/NLA/IE21/GaussianPolar.olean NLA/IE21/GaussianPolar.lean
+NLA/IE21/GaussianPolar.lean:102:11: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  Measure.map (⇑?m.99) (Measure.withDensity ?m.89 ((gaussianRadialDensity n ∘ Subtype.val ∘ Prod.snd) ∘ ⇑?m.99))
+in the target expression
+  Measure.map (⇑(homeomorphUnitSphereProd (Space n)))
+      ((Measure.comap Subtype.val ℙ).withDensity
+        ((fun p => gaussianRadialDensity n ↑p.2) ∘ ⇑(homeomorphUnitSphereProd (Space n)))) =
+    (surfaceMeasure n).prod (gaussianRadialMeasure n)
+
+n : ℕ
+heq :
+  (fun x => gaussianRadialDensity n ‖↑x‖) =
+    (fun p => gaussianRadialDensity n ↑p.2) ∘ ⇑(homeomorphUnitSphereProd (Space n))
+⊢ Measure.map (⇑(homeomorphUnitSphereProd (Space n)))
+      ((Measure.comap Subtype.val ℙ).withDensity
+        ((fun p => gaussianRadialDensity n ↑p.2) ∘ ⇑(homeomorphUnitSphereProd (Space n)))) =
+    (surfaceMeasure n).prod (gaussianRadialMeasure n)
+EXIT: 1

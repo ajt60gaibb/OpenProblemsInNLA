@@ -1,0 +1,29 @@
+Author development-only macOS typecheck; cached dependencies, no kernel/Comparator completion claim.
+Lean (version 4.33.1, arm64-apple-darwin24.6.0, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)
+COMMAND: /private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean -o /private/tmp/nla-ie21-spherical-author-build/NLA/IE21/SphericalMGF.olean NLA/IE21/SphericalMGF.lean
+NLA/IE21/SphericalMGF.lean:61:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∫ (a : Space n), directionalEnergy x a ^ (r + 1) + 1 ∂sphereLaw n
+in the target expression
+  ∫ (x_1 : Space n), |directionalEnergy x x_1 - 1| ^ (r + 1) ∂sphereLaw n ≤
+    2 ^ r * ∫ (a : Space n), ((fun u => directionalEnergy x u ^ (r + 1)) + fun x => 1) a ∂sphereLaw n
+
+case succ
+n : ℕ
+hn : 1 ≤ n
+x : Space n
+hx : ‖x‖ = 1
+this : IsProbabilityMeasure (sphereLaw n) := (surface_probability n hn).right.right.right.left
+r : ℕ
+hpoint :
+  ∀ᵐ (u : Space n) ∂sphereLaw n, |directionalEnergy x u - 1| ^ (r + 1) ≤ 2 ^ r * (directionalEnergy x u ^ (r + 1) + 1)
+hi :
+  ∫ (x_1 : Space n), |directionalEnergy x x_1 - 1| ^ (r + 1) ∂sphereLaw n ≤
+    2 ^ r * ∫ (a : Space n), ((fun u => directionalEnergy x u ^ (r + 1)) + fun x => 1) a ∂sphereLaw n
+⊢ ∫ (u : Space n), |directionalEnergy x u - 1| ^ (r + 1) ∂sphereLaw n ≤ 4 ^ (r + 1) * ↑(r + 1).factorial
+NLA/IE21/SphericalMGF.lean:85:13: warning: Variable name `hB` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hB
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+EXIT: 1

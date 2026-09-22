@@ -1,0 +1,23 @@
+Author development-only macOS typecheck; cached dependencies, no kernel/Comparator completion claim.
+Lean (version 4.33.1, arm64-apple-darwin24.6.0, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)
+COMMAND: /private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean -o /private/tmp/nla-ie21-spherical-author-build/NLA/IE21/GaussianMoments.olean NLA/IE21/GaussianMoments.lean
+NLA/IE21/GaussianMoments.lean:113:13: error(lean.unknownIdentifier): Unknown identifier `measureReal_univ_eq_one`
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+NLA/IE21/GaussianMoments.lean:101:73: error: unsolved goals
+n : ℕ
+hn : 1 ≤ n
+hp : ∀ (g : Space n), (‖g‖ ^ 2 - ↑n) ^ 2 = ‖g‖ ^ 4 - 2 * ↑n * ‖g‖ ^ 2 + ↑n ^ 2
+⊢ ↑n * 2 - ↑n ^ 2 + ↑n ^ 2 * (stdGaussian (Space n)).real univ = ↑n * 2
+NLA/IE21/GaussianMoments.lean:113:51: warning: This simp argument is unused:
+  one_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [measureReal_univ_eq_one, smul_eq_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+EXIT: 1
