@@ -1,0 +1,230 @@
+version: v0.4
+project:
+  name: 'IE-22: exact optimal uniform row-deletion singular-value constant'
+  description: The literal supremum over every real unit-row matrix has sharp asymptotic constant sqrt(h_theta),
+    with the exact finite projected-Gaussian certificate, an explicit uniform squared O_theta(n^(-1/6))
+    rate, matching deterministic spherical realizations, every high-aspect sequence limit, and failure
+    of the original eventual-uniform property for every smaller constant.
+  authors:
+  - George Stepaniants
+  affiliations:
+    George Stepaniants: Department of Computing and Mathematical Sciences, California Institute of Technology
+  responsible_maintainers:
+  - George Stepaniants
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+- title: IE-22 complete canonical problem and original solution
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/54f93060c0c4e5dab81096c6496e0d2b4251f3ef/linear-systems-and-elimination/IE-22/README.md
+  type: web-post
+  relationship: formalizes
+  author_endorsement: not-contacted
+- title: IE-21/IE-22 spherical-row deletion bounds
+  authors:
+  - Matthew J. Colbrook
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/54f93060c0c4e5dab81096c6496e0d2b4251f3ef/references/colbrook-recovered-2026-09-11/manuscripts/IE-21-22.tex
+  type: manuscript
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: Original mathematical proof attribution remains Matthew J. Colbrook.
+related_formalizations:
+- id: https://github.com/jaumededios/Schiffer/tree/2938e277969c329caf154e48a3d8823f3635c7f1
+  relationship: other
+  note: Statement/solution separation and project structure reference; no proof imported.
+- id: https://github.com/sgstepaniants/Forsythe/tree/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof
+  relationship: other
+  note: Kernel Comparator infrastructure/API reference; no mathematical proof imported.
+- id: https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/1eb284b84ecc0d3c958d022b3e020be7fa111391/linear-systems-and-elimination/IE-21/lean
+  relationship: builds-on
+  note: All 31 mathematical sources vendored byte-identically with provenance in reviews/IE21-DEPENDENCY.json;
+    rebuilt in this project. IE21 was independently reviewed and Linux kernel verified, then published
+    in PR314 with full PR CI passing. No mutable local-path or compiled-artifact dependency.
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: Pinned Lean 4.33.1, Mathlib and authentic LeanCert. All 20 complete targets passed the
+      unchanged shared non-root Linux verifier, authentic LeanCert kernel-trust assertions, sandboxed
+      Comparator and default-kernel replay. All dependency Git heads and authentic LeanCert verification
+      source were authenticated. The pinned Mathlib dependency cache was reused; all 47 project mathematical
+      modules, including 31 unchanged vendored IE21 modules, were freshly rebuilt.
+    prompting_notes: Preserve the complete original supremum, floor, unit-row, spectral, Gaussian, finite-bound,
+      asymptotic and optimality statements. Independently review and freeze all exact definitions and
+      numerical targets before implementation. Prove every analytic and spectral dependency without new
+      axioms, assumed target conclusions, or dimension/aspect restrictions.
+  notes: Substantial Codex assistance. ie21_final_fidelity authored the frozen IE22 boundary and TrimmingThreshold,
+    GaussianMean, GaussianEnergy, ProjectionEvent and DeterministicBound. ie21_final_correctness authored
+    VarianceTensorization and SpectralProjection. infrastructure_audit authored GaussianPoincare, GaussianPoincareHinge
+    and GaussianVariance. Root authored SupremumSemantics, SphericalRealization, DeterministicSchedule,
+    AsymptoticConclusion, Final and packaging. Root and infrastructure_audit independently approved the
+    IE22 mathematical boundary before proof implementation; their prior IE21 authorship is disclosed.
+    Incremental nonauthor module reviews explicitly disclose authorship elsewhere. A header-only correction
+    to GaussianPoincare has additive evidence; historical hashes/reports are retained. Fresh final whole-source
+    nonauthor referees /root/ie22_final_fidelity and /root/ie22_final_correctness independently approved
+    all source, each freshly rebuilt all 47 modules and checked all 20 full types, and each separately
+    audited the authentic Linux evidence. No human peer review or official Tau Ceti endorsement is claimed.
+status:
+  scope: 'Complete affirmative resolution of the original canonical IE-22 target: the actual supremum
+    over all real unit-row matrices has the exact Gaussian sharp constant. All 20 required statements,
+    including the literal finite bound, an explicit squared rate uniform in every positive row count,
+    deterministic witnesses and limit along every high-aspect sequence, and the original eventual-uniform
+    optimality quantifiers, passed authenticated verification. No additional mathematical premise is assumed.'
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: &id001
+  - propext
+  - Classical.choice
+  - Quot.sound
+  challenge_placeholder_count: 20
+  completed_target_count: 20
+  local_development_build: passed-all-proof-modules
+  comparator_result: comparator-accepted
+  authoritative_linux_result: passed
+  main_results:
+  - declaration: NLA.IE22.supremum_semantics
+    file: NLA/IE22/SupremumSemantics.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE22.constant_semantics
+    file: NLA/IE22/SupremumSemantics.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE22.projection_semantics
+    file: NLA/IE22/SpectralProjection.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE22.spectral_projection
+    file: NLA/IE22/SpectralProjection.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE22.gaussian_objective_mean
+    file: NLA/IE22/GaussianMean.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE22.gaussian_objective_variance
+    file: NLA/IE22/GaussianVariance.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE22.gaussian_energy_moments
+    file: NLA/IE22/GaussianEnergy.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE22.bounded_trimming_threshold
+    file: NLA/IE22/TrimmingThreshold.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE22.threshold_lipschitz
+    file: NLA/IE22/TrimmingThreshold.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE22.threshold_grid
+    file: NLA/IE22/TrimmingThreshold.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE22.projection_good_event_bound
+    file: NLA/IE22/ProjectionEvent.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE22.deterministic_finite_bound
+    file: NLA/IE22/DeterministicBound.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE22.supremum_finite_bound
+    file: NLA/IE22/DeterministicBound.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE22.deterministic_schedule
+    file: NLA/IE22/DeterministicSchedule.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE22.universal_squared_rate
+    file: NLA/IE22/Final.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE22.uniform_upper_all_rows
+    file: NLA/IE22/Final.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE22.spherical_realization_from_finite_bound
+    file: NLA/IE22/SphericalRealization.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE22.high_aspect_near_extremizers
+    file: NLA/IE22/SphericalRealization.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE22.high_aspect_supremum_limit
+    file: NLA/IE22/Final.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.IE22.canonical_sharp_constant
+    file: NLA/IE22/Final.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  verification_evidence: verification/linux/OPERATIONAL-REVIEW.md
+  verified_source_commit: c45f9ccef20a2fa5cc4b988e93d4173dab853362
+  verification_run: verify-20260922T221554Z-991
+fidelity:
+  divergences: No weakening of the complete canonical target. M is the attained supremum of actual normalized
+    floor-row singular values over every unit-row matrix. The finite projection and probability bounds,
+    exact floor(n^(2/3)) and n^(-1/6) schedule, uniformity in all m, every high-aspect lower witness and
+    limit, and no-smaller-constant quantifiers are proved. The source Hermite-series Poincare sketch is
+    replaced by an exact elementary scalar crossing-kernel argument, actual nonsmooth hinge regularity
+    and proved finite-product variance tensorization. This changes the proof route without assuming the
+    desired variance estimate. The quantitative O_theta constant is explicitly 22+4L^2+8L, with L=2/(1-theta).
+    Zero rows of projected matrices, rank deficiency and empty retained selections are included.
+review:
+  status: approved-source-and-authoritative-evidence-by-two-independent-nonauthor-agents
+  notes: Both fresh nonauthor AI referees read the complete source and independently audited the retained
+    Linux inputs, dependency identities, actual separate exports, kernel assertions/replay, axiom closures
+    and real controls. Original source reports and receipts remain unchanged; completion addenda bind
+    the verification evidence. The exact source snapshot, including its then-pending README and metadata,
+    is retained in verification/linux/source. Current README/metadata and canonical status are post-run
+    publication documentation; proofs, statements, pins, build configuration and Comparator input are
+    unchanged. Subsequent publication addenda review these documentation deltas. Preproof and incremental
+    reviews retain disclosed authorship limits. No external human peer review or official Tau Ceti endorsement
+    is claimed.
+  reviewers:
+  - /root/ie22_final_fidelity
+  - /root/ie22_final_correctness

@@ -1,0 +1,18 @@
+IE22 spectral projection author development build; pinned cached dependencies and unchanged verified IE21 cache; no full IE22 or Linux/LeanCert verification claim.
+COMMAND ["/private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean", "-o", "/private/tmp/nla-ie22-spectral-projection-author-build/NLA/IE22/SpectralProjection.olean", "NLA/IE22/SpectralProjection.lean"]
+NLA/IE22/SpectralProjection.lean:81:18: error(lean.unknownIdentifier): Unknown constant `Finset.sum_univ`
+NLA/IE22/SpectralProjection.lean:81:6: error: Type mismatch: After simplification, term
+  h
+ has type
+  ‖∑ x_1, x.ofLp x_1 • v x_1‖ * ‖∑ x_1, x.ofLp x_1 • v x_1‖ = ∑ x_1, x.ofLp x_1 * x.ofLp x_1
+but is expected to have type
+  ∑ x_1, (∑ x_2, x.ofLp x_2 • v x_2).ofLp x_1 * (∑ x_2, x.ofLp x_2 • v x_2).ofLp x_1 = ‖x‖ * ‖x‖
+NLA/IE22/SpectralProjection.lean:91:2: error: Tactic `rfl` failed: The left-hand side
+  ∑ y, ∑ x, B y x * B y x
+is not definitionally equal to the right-hand side
+  ∑ x, ∑ x_1, (matrixRow B x).ofLp x_1 ^ 2
+
+m d : ℕ
+B : Mat m d
+⊢ ∑ y, ∑ x, B y x * B y x = ∑ x, ∑ x_1, (matrixRow B x).ofLp x_1 ^ 2
+EXIT 1

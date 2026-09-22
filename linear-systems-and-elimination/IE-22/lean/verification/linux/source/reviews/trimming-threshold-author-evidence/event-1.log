@@ -1,0 +1,50 @@
+IE22 author local cached development build only; unchanged verified IE21 source hashes checked. No authoritative Linux verification claim.
+COMMAND ["/private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean", "-o", "/private/tmp/nla-ie22-threshold-mean-author-build/NLA/IE22/ProjectionEvent.olean", "NLA/IE22/ProjectionEvent.lean"]
+NLA/IE22/ProjectionEvent.lean:33:14: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+NLA/IE22/ProjectionEvent.lean:33:2: error: `dsimp` made no progress
+NLA/IE22/ProjectionEvent.lean:51:16: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+NLA/IE22/ProjectionEvent.lean:51:4: error: `dsimp` made no progress
+NLA/IE22/ProjectionEvent.lean:58:24: error: `field_simp` made no progress on the goal
+NLA/IE22/ProjectionEvent.lean:128:6: error: Tactic `apply` failed: could not unify the conclusion of `@add_le_add_right`
+  ?a + ?b ≤ ?a + ?c
+with the goal
+  (stdGaussian (Space d)).real ({g | 2 < projectedEnergy B g} ∪ ⋃ t ∈ C, Bad t) +
+      (stdGaussian (Space d)).real {g | ‖g‖ ^ 2 < (1 - δ) * ↑d} ≤
+    (stdGaussian (Space d)).real {g | 2 < projectedEnergy B g} + ∑ t ∈ C, (stdGaussian (Space d)).real (Bad t) +
+      (stdGaussian (Space d)).real {g | ‖g‖ ^ 2 < (1 - δ) * ↑d}
+
+Note: The full type of `@add_le_add_right` is
+  ∀ {α : Type ?u.369} [inst : Add α] [inst_1 : LE α] [AddLeftMono α] {b c : α}, b ≤ c → ∀ (a : α), a + b ≤ a + c
+
+θ : ℝ
+hθ : 0 < θ ∧ θ < 1
+m d : ℕ
+hm : 1 ≤ m
+hd : 1 ≤ d
+B : Mat m d
+δ : ℝ
+hδ : 0 < δ
+BE BT : ℝ
+hBT : 0 ≤ BT
+henergy : (stdGaussian (Space d)).real {g | 2 < projectedEnergy B g} ≤ BE
+hpoint :
+  ∀ t ∈ Icc 0 (truncationScale θ),
+    (stdGaussian (Space d)).real {g | gaussianTrim θ + δ < projectedObjective θ B t g} ≤ BT
+C : Finset ℝ
+hC : ∀ t ∈ C, t ∈ Icc 0 (truncationScale θ)
+hcard : ↑C.card ≤ truncationScale θ / δ + 2
+hcover : ∀ t ∈ Icc 0 (truncationScale θ), ∃ s ∈ C, |t - s| ≤ δ
+Bad : ℝ → Set (Space d) := ⋯
+hsub : (ProjectionGood θ B δ)ᶜ ⊆ ({g | 2 < projectedEnergy B g} ∪ ⋃ t ∈ C, Bad t) ∪ {g | ‖g‖ ^ 2 < (1 - δ) * ↑d}
+hsum : ∑ t ∈ C, (stdGaussian (Space d)).real (Bad t) ≤ ↑C.card * BT
+⊢ (stdGaussian (Space d)).real ({g | 2 < projectedEnergy B g} ∪ ⋃ t ∈ C, Bad t) +
+      (stdGaussian (Space d)).real {g | ‖g‖ ^ 2 < (1 - δ) * ↑d} ≤
+    (stdGaussian (Space d)).real {g | 2 < projectedEnergy B g} + ∑ t ∈ C, (stdGaussian (Space d)).real (Bad t) +
+      (stdGaussian (Space d)).real {g | ‖g‖ ^ 2 < (1 - δ) * ↑d}
+NLA/IE22/ProjectionEvent.lean:133:13: error: Type mismatch
+  add_le_add_right (add_le_add_left (mul_le_mul_of_nonneg_right hcard hBT) BE) ?m.705
+has type
+  ?m.705 + (↑C.card * BT + BE) ≤ ?m.705 + ((truncationScale θ / δ + 2) * BT + BE)
+but is expected to have type
+  BE + ↑C.card * BT + 2 / (↑d * δ ^ 2) ≤ BE + (truncationScale θ / δ + 2) * BT + 2 / (↑d * δ ^ 2)
+EXIT 1

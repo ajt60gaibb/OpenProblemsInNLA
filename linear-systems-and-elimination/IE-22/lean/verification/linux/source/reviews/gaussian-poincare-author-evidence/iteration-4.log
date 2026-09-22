@@ -1,0 +1,37 @@
+IE22 Gaussian foundation author development build; cached pinned dependencies and unchanged verified IE21 cache, no full problem verification claim.
+COMMAND ["/private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean", "-o", "/private/tmp/nla-ie22-gaussian-poincare-author-build/NLA/IE22/GaussianPoincare.olean", "NLA/IE22/GaussianPoincare.lean"]
+NLA/IE22/GaussianPoincare.lean:92:4: error: Type mismatch: After simplification, term
+  HasDerivAt.neg (gaussian_density_hasDerivAt x)
+ has type
+  @HasDerivAt ℝ DenselyNormedField.toNontriviallyNormedField ℝ Real.normedAddCommGroup.toAddCommGroup
+    RCLike.toInnerProductSpaceReal.toModule PseudoMetricSpace.toUniformSpace.toTopologicalSpace ⋯ (-gaussianPDFReal 0 1)
+    (x * gaussianPDFReal 0 1 x) x
+but is expected to have type
+  @HasDerivAt ℝ DenselyNormedField.toNontriviallyNormedField ℝ Real.instAddCommGroup Semiring.toModule
+    PseudoMetricSpace.toUniformSpace.toTopologicalSpace ⋯ (fun z => -gaussianPDFReal 0 1 z) (x * gaussianPDFReal 0 1 x)
+    x
+NLA/IE22/GaussianPoincare.lean:89:71: error: unsolved goals
+a : ℝ
+hd : ∀ (x : ℝ), HasDerivAt (fun z => -gaussianPDFReal 0 1 z) (x * gaussianPDFReal 0 1 x) x
+⊢ ∫ (x : ℝ) in Ioi a, x * gaussianPDFReal 0 1 x = gaussianPDFReal 0 1 a
+NLA/IE22/GaussianPoincare.lean:103:4: error: Type mismatch: After simplification, term
+  HasDerivAt.neg (gaussian_density_hasDerivAt x)
+ has type
+  @HasDerivAt ℝ DenselyNormedField.toNontriviallyNormedField ℝ Real.normedAddCommGroup.toAddCommGroup
+    RCLike.toInnerProductSpaceReal.toModule PseudoMetricSpace.toUniformSpace.toTopologicalSpace ⋯ (-gaussianPDFReal 0 1)
+    (x * gaussianPDFReal 0 1 x) x
+but is expected to have type
+  @HasDerivAt ℝ DenselyNormedField.toNontriviallyNormedField ℝ Real.instAddCommGroup Semiring.toModule
+    PseudoMetricSpace.toUniformSpace.toTopologicalSpace ⋯ (fun z => -gaussianPDFReal 0 1 z) (x * gaussianPDFReal 0 1 x)
+    x
+NLA/IE22/GaussianPoincare.lean:100:72: error: unsolved goals
+a : ℝ
+hd : ∀ (x : ℝ), HasDerivAt (fun z => -gaussianPDFReal 0 1 z) (x * gaussianPDFReal 0 1 x) x
+⊢ ∫ (x : ℝ) in Iic a, x * gaussianPDFReal 0 1 x = -gaussianPDFReal 0 1 a
+NLA/IE22/GaussianPoincare.lean:116:4: error: typeclass instance problem is stuck
+  NormedSpace ℝ ?m.53
+
+Note: Lean will not try to resolve this typeclass instance problem because the second and fourth type arguments to `NormedSpace` contain metavariables. These arguments must be fully determined before Lean will try to resolve the typeclass.
+
+Hint: Adding type annotations and supplying implicit arguments to functions can give Lean more information for typeclass resolution. For example, if you have a variable `x` that you intend to be a `Nat`, but Lean reports it as having an unresolved type like `?m`, replacing `x` with `(x : Nat)` can get typeclass resolution un-stuck.
+EXIT 1

@@ -1,0 +1,7 @@
+# IE-22 Gaussian objective mean author handoff
+
+The exact frozen `gaussian_objective_mean` statement is proved, with integrability as a conclusion. Author AI agent `/root/ie21_final_fidelity` also drafted the boundary, so this is not independent review.
+
+Each nonnegative squared-coordinate hinge lies between0 and t, making it integrable without a moment assumption. A row b of norm at most1 is represented as its norm times a unit vector (the zero-row case uses an arbitrary unit vector in positive dimension). Pointwise contraction increases the hinge. The unchanged IE-21 exact unit Gaussian projection law therefore bounds its expectation below by the one-dimensional standard hinge expectation. Sum over rows without any independence assumption, use floor(theta*m)/m<=theta, then invoke the unchanged exact population-trimming/Gaussian integral identity. All numerical constants and every correlated-row case remain exact.
+
+Stable local compilation and an independently written full-signature example pass with zero warnings. The selected result has exactly propext, Classical.choice, Quot.sound. The build driver checks all four frozen boundary hashes and all31 vendored IE-21 source hashes. Cached upstream and previously built unchanged IE-21 artifacts are used; no authenticated Linux/LeanCert/Comparator completion is claimed. Independent review and all final complete-target gates remain pending. Helper APIs: `gaussian_inner_hinge_integrable` and `gaussian_hinge_contraction`.

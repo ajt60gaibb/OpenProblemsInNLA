@@ -6,8 +6,8 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Solved
-**Last checked:** 2026-09-11
+**Status:** Lean verified
+**Last checked:** 2026-09-22
 
 <!-- colbrook-recovered -->
 ## Independently reviewed resolution - 2026-09-11
@@ -20,6 +20,16 @@ The difficulty, importance and rating rationale below are historical assessments
 <!-- /colbrook-recovered -->
 
 **Rating rationale:** Challenging reflects an optimal uniform extremum over matrices and deleted row sets; community impact is a sharp robustness limit for row-sampling methods.
+
+## Lean proof and verification evidence - 2026-09-22
+
+**The complete original target is Lean verified.** The [formal proof at revision c45f9cc](https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/c45f9ccef20a2fa5cc4b988e93d4173dab853362/linear-systems-and-elimination/IE-22/lean/NLA/IE22/Final.lean) proves the sharp Gaussian constant for the actual supremum over every real unit-row matrix. It includes the exact finite bound, a squared error rate uniform over all positive row counts, deterministic near-extremizers along every high-aspect sequence, the supremum limit, and failure of the original eventual-uniform property for every smaller constant. The floor convention, rank deficiency and empty retained selections are included.
+
+**Lean formalization:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, with substantial AI-agent assistance. **Matthew J. Colbrook** retains attribution for the original mathematical proof. The original statement, source attribution and dated history below remain preserved.
+
+All [20 required declarations](lean/Solution.lean) passed authentic LeanCert kernel-trust assertions, the sandboxed Lean4 Comparator and kernel replay on non-root Linux. Each transitive axiom closure contains only `propext`, `Classical.choice` and `Quot.sound`. Exact spectral and analytic arguments establish the sharp variance estimate and asymptotic rate without approximate quadrature or numerical eigenvalue searches. The [operational evidence](lean/verification/linux/OPERATIONAL-REVIEW.md) records immutable inputs, authenticated dependency revisions and successful isolation and rejection controls.
+
+Two nonauthor agents independently reviewed the complete statements and all 47 proof modules: [fidelity review](lean/reviews/ie22-final-fidelity-evidence/source-review.md) and [correctness review](lean/reviews/ie22-final-correctness-evidence/source-review.md). Their separate [fidelity completion review](lean/reviews/ie22-final-fidelity-evidence/completion-review.md) and [correctness completion review](lean/reviews/ie22-final-correctness-evidence/completion-review.md) audit the Linux evidence. Publication correspondence is reviewed in subsequent addenda. These are independent AI reviews under the repository's adapted Tau Ceti protocol, not external human peer review or official Tau Ceti endorsement. See the [project guide](lean/README.md) and [formalization metadata](lean/formalization.yaml) for exact scope, review history and reproduction instructions.
 
 ## Problem statement
 

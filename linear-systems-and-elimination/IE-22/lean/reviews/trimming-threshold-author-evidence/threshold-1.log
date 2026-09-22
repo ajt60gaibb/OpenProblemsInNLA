@@ -1,0 +1,28 @@
+IE22 author local cached development build only; unchanged verified IE21 source hashes checked. No authoritative Linux verification claim.
+COMMAND ["/private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean", "-o", "/private/tmp/nla-ie22-threshold-mean-author-build/NLA/IE22/Definitions.olean", "NLA/IE22/Definitions.lean"]
+EXIT 0
+COMMAND ["/private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean", "-o", "/private/tmp/nla-ie22-threshold-mean-author-build/NLA/IE22/TrimmingThreshold.olean", "NLA/IE22/TrimmingThreshold.lean"]
+NLA/IE22/TrimmingThreshold.lean:24:52: error: failed to prove positivity/nonnegativity/nonzeroness
+NLA/IE22/TrimmingThreshold.lean:25:33: error: unsolved goals
+θ : ℝ
+hθ : 0 < θ ∧ θ < 1
+m : ℕ
+hm : 1 ≤ m
+y : Fin m → ℝ
+hy : ∀ (i : Fin m), 0 ≤ y i
+hmean : (∑ i, y i) / ↑m ≤ 2
+L : ℝ := truncationScale θ
+C : Finset (Fin m) := {i | y i ≤ L}
+D : Finset (Fin m) := {i | ¬y i ≤ L}
+hmpos : 0 < ↑m
+hL : 0 < L
+⊢ (1 - θ) / (1 - θ) = 1
+NLA/IE22/TrimmingThreshold.lean:49:64: error: failed to prove positivity/nonnegativity/nonzeroness
+NLA/IE22/TrimmingThreshold.lean:77:4: error: Type mismatch: After simplification, term
+  Finset.sum_le_sum fun i x => (hinge i).right
+ has type
+  ∑ x, max (t - y x) 0 ≤ ↑m * t - ↑m * s + ∑ x, max (s - y x) 0
+but is expected to have type
+  ∑ x, max (t - y x) 0 ≤ ↑m * (t - s) + ∑ x, max (s - y x) 0
+NLA/IE22/TrimmingThreshold.lean:101:51: error: failed to prove positivity/nonnegativity/nonzeroness
+EXIT 1

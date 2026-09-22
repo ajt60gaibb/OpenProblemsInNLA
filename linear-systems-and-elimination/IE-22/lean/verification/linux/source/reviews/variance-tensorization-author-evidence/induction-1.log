@@ -1,0 +1,31 @@
+IE22 variance tensorization author development build; pinned cached dependencies and unchanged verified IE21 cache; no full IE22 or Linux/LeanCert verification claim.
+COMMAND ["/private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean", "-o", "/private/tmp/nla-ie22-variance-tensorization-author-build/NLA/IE22/VarianceTensorization.olean", "NLA/IE22/VarianceTensorization.lean"]
+NLA/IE22/VarianceTensorization.lean:253:50: error: unexpected token '('; expected ')', ',' or ':'
+NLA/IE22/VarianceTensorization.lean:199:9: error: unsolved goals
+case zero
+μ : Measure ℝ
+inst✝ : IsProbabilityMeasure μ
+C : ℝ
+f : (Fin 0 → ℝ) → ℝ
+hf : Measurable f
+hb : ∀ (x : Fin 0 → ℝ), ‖f x‖ ≤ C
+heq : f = fun x => f fun i => i.elim0
+⊢ Var[fun x => f fun i => i.elim0; Measure.pi fun x => μ] ≤ 0
+NLA/IE22/VarianceTensorization.lean:222:14: warning: `MeasureTheory.integrable_finset_sum` has been deprecated: Use `MeasureTheory.integrable_finsetSum` instead
+NLA/IE22/VarianceTensorization.lean:234:14: warning: `MeasureTheory.integral_finset_sum` has been deprecated: Use `MeasureTheory.integral_finsetSum` instead
+NLA/IE22/VarianceTensorization.lean:244:35: error: Application type mismatch: The argument
+  C
+has type
+  ℝ
+of sort `Type` but is expected to have type
+  ∀ (x : Fin d → ℝ), ‖F (a, x)‖ ≤ C
+of sort `Prop` in the application
+  ih (fun y => F (a, y)) hm C
+NLA/IE22/VarianceTensorization.lean:253:12: error: Type mismatch: After simplification, term
+  add_le_add
+ has type
+  ?m.656 ≤ ?m.657 → ?m.658 ≤ ?m.659 → ?m.656 + ?m.658 ≤ ?m.657 + ?m.659
+but is expected to have type
+  ∫ (x : ℝ), Var[fun y => F (x, y); π] ∂μ + ∫ (y : Fin d → ℝ), Var[fun x => F (x, y); μ] ∂π ≤
+    ∫ (a : ℝ), ∑ i, ∫ (y : Fin d → ℝ), V i.succ (a, y) ∂π ∂μ + ∫ (y : Fin d → ℝ), Var[fun x => F (x, y); μ] ∂π
+EXIT 1

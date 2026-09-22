@@ -1,0 +1,30 @@
+IE22 variance tensorization author development build; pinned cached dependencies and unchanged verified IE21 cache; no full IE22 or Linux/LeanCert verification claim.
+COMMAND ["/private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean", "-o", "/private/tmp/nla-ie22-variance-tensorization-author-build/NLA/IE22/Definitions.olean", "NLA/IE22/Definitions.lean"]
+EXIT 0
+COMMAND ["/private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean", "-o", "/private/tmp/nla-ie22-variance-tensorization-author-build/NLA/IE22/VarianceTensorization.olean", "NLA/IE22/VarianceTensorization.lean"]
+NLA/IE22/VarianceTensorization.lean:83:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∫ (z : α × β), f z ^ 2 ∂μ.prod ν
+in the target expression
+  ∫ (x : α × β), (f ^ 2) x ∂μ.prod ν - (∫ (x : α × β), f x ∂μ.prod ν) ^ 2 =
+    ∫ (a : α), ∫ (y : β), f (a, y) ^ 2 ∂ν ∂μ - ∫ (a : α), (∫ (y : β), f (a, y) ∂ν) ^ 2 ∂μ +
+      (∫ (x : α), ((fun x => ∫ (y : β), f (x, y) ∂ν) ^ 2) x ∂μ - (∫ (x : α), ∫ (y : β), f (x, y) ∂ν ∂μ) ^ 2)
+
+α : Type u_1
+β : Type u_2
+inst✝³ : MeasurableSpace α
+inst✝² : MeasurableSpace β
+μ : Measure α
+ν : Measure β
+inst✝¹ : IsProbabilityMeasure μ
+inst✝ : IsProbabilityMeasure ν
+f : α × β → ℝ
+hf : Measurable f
+C : ℝ
+hb : ∀ (x : α × β), ‖f x‖ ≤ C
+hF : MemLp f 2 (μ.prod ν)
+hM : MemLp (fun x => ∫ (y : β), f (x, y) ∂ν) 2 μ
+heq : ∀ (x : α), Var[fun y => f (x, y); ν] = ∫ (y : β), f (x, y) ^ 2 ∂ν - (∫ (y : β), f (x, y) ∂ν) ^ 2
+⊢ ∫ (x : α × β), (f ^ 2) x ∂μ.prod ν - (∫ (x : α × β), f x ∂μ.prod ν) ^ 2 =
+    ∫ (a : α), ∫ (y : β), f (a, y) ^ 2 ∂ν ∂μ - ∫ (a : α), (∫ (y : β), f (a, y) ∂ν) ^ 2 ∂μ +
+      (∫ (x : α), ((fun x => ∫ (y : β), f (x, y) ∂ν) ^ 2) x ∂μ - (∫ (x : α), ∫ (y : β), f (x, y) ∂ν ∂μ) ^ 2)
+EXIT 1

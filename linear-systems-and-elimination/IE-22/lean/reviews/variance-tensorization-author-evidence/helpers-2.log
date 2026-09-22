@@ -1,0 +1,78 @@
+IE22 variance tensorization author development build; pinned cached dependencies and unchanged verified IE21 cache; no full IE22 or Linux/LeanCert verification claim.
+COMMAND ["/private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean", "-o", "/private/tmp/nla-ie22-variance-tensorization-author-build/NLA/IE22/VarianceTensorization.olean", "NLA/IE22/VarianceTensorization.lean"]
+NLA/IE22/VarianceTensorization.lean:104:28: error: Application type mismatch: The argument
+  MemLp.integrable ?m.237 hF
+has type
+  Integrable f (μ.prod ν)
+but is expected to have type
+  Integrable (Function.uncurry ?m.229) (Measure.prod ?m.223 ?m.224)
+in the application
+  integral_integral_swap (MemLp.integrable ?m.237 hF)
+NLA/IE22/VarianceTensorization.lean:108:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∫ (a_1 : β), (f ∘ fun a => (x, id a)) a_1 - a a_1 ∂ν
+in the target expression
+  ∫ (y : β), f (x, y) - a y ∂ν = ∫ (y : β), f (x, y) ∂ν - ∫ (x : α), ∫ (y : β), f (x, y) ∂ν ∂μ
+
+α : Type u_1
+β : Type u_2
+inst✝³ : MeasurableSpace α
+inst✝² : MeasurableSpace β
+μ : Measure α
+ν : Measure β
+inst✝¹ : IsProbabilityMeasure μ
+inst✝ : IsProbabilityMeasure ν
+f : α × β → ℝ
+hf : Measurable f
+C : ℝ
+hb : ∀ (x : α × β), ‖f x‖ ≤ C
+a : β → ℝ := fun y => ∫ (x : α), f (x, y) ∂μ
+ha : Measurable a
+hab : ∀ (y : β), ‖a y‖ ≤ C
+q : α × β → ℝ := fun z => f z - a z.2
+hq : Measurable q
+hqb : ∀ (z : α × β), ‖q z‖ ≤ C + C
+hQ : MemLp q 2 (μ.prod ν)
+hF : MemLp f 2 (μ.prod ν)
+hA : Integrable a ν
+hmean : ∫ (y : β), a y ∂ν = ∫ (x : α), ∫ (y : β), f (x, y) ∂ν ∂μ
+x : α
+⊢ ∫ (y : β), f (x, y) - a y ∂ν = ∫ (y : β), f (x, y) ∂ν - ∫ (x : α), ∫ (y : β), f (x, y) ∂ν ∂μ
+NLA/IE22/VarianceTensorization.lean:125:10: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  Var[f ∘ fun a => (id a, ?m.608); ?m.614]
+in the target expression
+  ∫ (x : α), q (x, y) ^ 2 ∂μ = Var[fun x => f (x, y); μ]
+
+α : Type u_1
+β : Type u_2
+inst✝³ : MeasurableSpace α
+inst✝² : MeasurableSpace β
+μ : Measure α
+ν : Measure β
+inst✝¹ : IsProbabilityMeasure μ
+inst✝ : IsProbabilityMeasure ν
+f : α × β → ℝ
+hf : Measurable f
+C : ℝ
+hb : ∀ (x : α × β), ‖f x‖ ≤ C
+a : β → ℝ := fun y => ∫ (x : α), f (x, y) ∂μ
+ha : Measurable a
+hab : ∀ (y : β), ‖a y‖ ≤ C
+q : α × β → ℝ := fun z => f z - a z.2
+hq : Measurable q
+hqb : ∀ (z : α × β), ‖q z‖ ≤ C + C
+hQ : MemLp q 2 (μ.prod ν)
+hF : MemLp f 2 (μ.prod ν)
+hA : Integrable a ν
+hmean : ∫ (y : β), a y ∂ν = ∫ (x : α), ∫ (y : β), f (x, y) ∂ν ∂μ
+hinner : ∀ (x : α), ∫ (y : β), q (x, y) ∂ν = ∫ (y : β), f (x, y) ∂ν - ∫ (x : α), ∫ (y : β), f (x, y) ∂ν ∂μ
+hMQ : MemLp (fun x => ∫ (y : β), q (x, y) ∂ν) 2 μ
+y : β
+⊢ ∫ (x : α), q (x, y) ^ 2 ∂μ = Var[fun x => f (x, y); μ]
+NLA/IE22/VarianceTensorization.lean:136:2: error: Type mismatch
+  add_le_add_left (bounded_variance_integral_le μ ν f hf C hb) ?m.70
+has type
+  Var[fun x => ∫ (y : β), f (x, y) ∂ν; μ] + ?m.70 ≤ ∫ (y : β), Var[fun x => f (x, y); μ] ∂ν + ?m.70
+but is expected to have type
+  ∫ (x : α), Var[fun y => f (x, y); ν] ∂μ + Var[fun x => ∫ (y : β), f (x, y) ∂ν; μ] ≤
+    ∫ (x : α), Var[fun y => f (x, y); ν] ∂μ + ∫ (y : β), Var[fun x => f (x, y); μ] ∂ν
+EXIT 1
