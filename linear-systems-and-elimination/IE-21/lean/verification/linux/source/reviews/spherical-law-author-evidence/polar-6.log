@@ -1,0 +1,24 @@
+Author development-only macOS typecheck; cached dependencies, no kernel/Comparator completion claim.
+Lean (version 4.33.1, arm64-apple-darwin24.6.0, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)
+COMMAND: /private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean -o /private/tmp/nla-ie21-spherical-author-build/NLA/IE21/GaussianPolar.olean NLA/IE21/GaussianPolar.lean
+NLA/IE21/GaussianPolar.lean:173:57: error: unsolved goals
+case e_f
+n : ℕ
+hn : 1 ≤ n
+p : ↑(Sphere n) × ↑(Ioi 0) → Space n × ℝ := Prod.map Subtype.val Subtype.val
+hp : Measurable p
+hg : Measurable fun g => (gaussianDirection g, ‖g‖)
+g : { x // x ∈ {0}ᶜ }
+⊢ (‖↑g‖⁻¹ • ↑g, ‖↑g‖) = Prod.map Subtype.val Subtype.val ((homeomorphUnitSphereProd (Space n)) g)
+NLA/IE21/GaussianPolar.lean:181:13: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  SFinite (surfaceLaw n)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+NLA/IE21/GaussianPolar.lean:178:15: warning: This simp argument is unused:
+  Function.comp_def
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [p, gaussianDirection]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+EXIT: 1

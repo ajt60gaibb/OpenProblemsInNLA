@@ -1,0 +1,72 @@
+Author development-only macOS typecheck; cached dependencies, no kernel/Comparator completion claim.
+Lean (version 4.33.1, arm64-apple-darwin24.6.0, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)
+COMMAND: /private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean -o /private/tmp/nla-ie21-spherical-author-build/NLA/IE21/Definitions.olean NLA/IE21/Definitions.lean
+EXIT: 0
+COMMAND: /private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean -o /private/tmp/nla-ie21-spherical-author-build/NLA/IE21/SphericalLaw.olean NLA/IE21/SphericalLaw.lean
+NLA/IE21/SphericalLaw.lean:20:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+NLA/IE21/SphericalLaw.lean:22:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+NLA/IE21/SphericalLaw.lean:23:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+NLA/IE21/SphericalLaw.lean:28:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+NLA/IE21/SphericalLaw.lean:36:29: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+EXIT: 0
+COMMAND: /private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean -o /private/tmp/nla-ie21-spherical-author-build/NLA/IE21/RowLaw.olean NLA/IE21/RowLaw.lean
+NLA/IE21/RowLaw.lean:48:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+NLA/IE21/RowLaw.lean:51:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+NLA/IE21/RowLaw.lean:60:4: error: Tactic `assumption` failed
+
+m n : ℕ
+hn : 1 ≤ n
+this✝ : IsProbabilityMeasure (sphereLaw n) := (surface_probability n hn).right.right.right.left
+hp : IsProbabilityMeasure (matrixLaw m n)
+this : IsProbabilityMeasure (matrixLaw m n) := hp
+hrow : ∀ (i : Fin m), Measure.map (fun A => matrixRow A i) (matrixLaw m n) = sphereLaw n
+⊢ Measure.map (fun x => matrixRow (rowsMatrix x)) (Measure.pi fun x => sphereLaw n) = Measure.pi fun x => sphereLaw n
+NLA/IE21/RowLaw.lean:66:32: error: `fun_prop` was unable to prove `Measurable fun a => ∀ (i : Fin m), ‖matrixRow a i‖ = 1`
+
+Issues:
+  No theorems found for `NLA.IE21.matrixRow` in order to prove `Measurable fun a_1 => matrixRow a_1 a`
+  No theorems found for `NLA.IE21.matrixRow` in order to prove `Measurable fun a => matrixRow a i`
+NLA/IE21/RowLaw.lean:72:66: error: `MeasurableSet {x | ‖x‖ = 1}` is not a `fun_prop` goal! Consider marking `MeasurableSet` with `@[fun_prop]`.
+EXIT: 1

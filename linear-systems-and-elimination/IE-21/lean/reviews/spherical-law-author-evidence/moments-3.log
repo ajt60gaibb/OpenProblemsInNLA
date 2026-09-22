@@ -1,0 +1,21 @@
+Author development-only macOS typecheck; cached dependencies, no kernel/Comparator completion claim.
+Lean (version 4.33.1, arm64-apple-darwin24.6.0, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)
+COMMAND: /private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean -o /private/tmp/nla-ie21-spherical-author-build/NLA/IE21/GaussianMoments.olean NLA/IE21/GaussianMoments.lean
+NLA/IE21/GaussianMoments.lean:69:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  y ^ (n - 1)
+in the target expression
+  (fun x => x ^ (n - 1) * ((√(2 * Real.pi))⁻¹ ^ n * Real.exp (-x ^ 2 / 2) * x ^ (2 * r))) y =
+    (fun x => (√(2 * Real.pi))⁻¹ ^ n * (x ^ (↑n + 2 * ↑r - 1) * Real.exp (-x ^ 2 / 2))) y
+
+n : ℕ
+hn : 1 ≤ n
+r : ℕ
+this : NeZero n := { out := fun a => gaussian_norm_even_integral._proof_1_1 n hn a }
+hd : ∀ (g : Space n), (gaussianRadialDensity n ‖g‖).toReal = (√(2 * Real.pi))⁻¹ ^ n * Real.exp (-‖g‖ ^ 2 / 2)
+y : ℝ
+hy : y ∈ Ioi 0
+hn' : ↑(n - 1) = ↑n - 1
+hr' : ↑(2 * r) = 2 * ↑r
+⊢ (fun x => x ^ (n - 1) * ((√(2 * Real.pi))⁻¹ ^ n * Real.exp (-x ^ 2 / 2) * x ^ (2 * r))) y =
+    (fun x => (√(2 * Real.pi))⁻¹ ^ n * (x ^ (↑n + 2 * ↑r - 1) * Real.exp (-x ^ 2 / 2))) y
+EXIT: 1

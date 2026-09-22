@@ -6,8 +6,8 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Solved
-**Last checked:** 2026-09-11
+**Status:** Lean verified  
+**Last checked:** 2026-09-22
 
 <!-- colbrook-recovered -->
 ## Independently reviewed resolution - 2026-09-11
@@ -20,6 +20,17 @@ The difficulty, importance and rating rationale below are historical assessments
 <!-- /colbrook-recovered -->
 
 **Rating rationale:** Challenging reflects a sharp limit for the least singular value after adversarial row deletion; community impact includes random matrix theory and robust iterative solvers.
+
+## Lean proof and verification evidence - 2026-09-22
+
+**The complete original target is Lean verified.** The [formal proof at revision 1eb284b](https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/1eb284b84ecc0d3c958d022b3e020be7fa111391/linear-systems-and-elimination/IE-21/lean/NLA/IE21/FiniteSize.lean) proves the stated probability limit for every sequence with diverging dimension and aspect ratio. It includes the explicit finite-size failure and error bounds, the exact floor convention, arbitrary changing probability spaces, and the actual normalized surface distribution. The Euclidean operator norm and attained row-deletion minimum are proved to have their original meanings, including rank-deficient and empty-retention cases.
+
+**Lean formalization:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, with substantial AI-agent assistance. **Matthew J. Colbrook** retains attribution for the original mathematical proof. The original statement, source attribution and dated history below remain preserved.
+
+All [23 required declarations](lean/Solution.lean) passed authentic LeanCert kernel-trust assertions, the sandboxed Lean4 Comparator and kernel replay on non-root Linux. Each transitive axiom closure contains only `propext`, `Classical.choice` and `Quot.sound`. The exact analytic proof uses no approximate numerical integration. The [operational evidence](lean/verification/linux/OPERATIONAL-REVIEW.md) records immutable inputs, authenticated dependency revisions and successful isolation and rejection controls.
+
+Two nonauthor agents independently reviewed the complete statements and proofs: [fidelity review](lean/reviews/ie21-final-fidelity-evidence/review.md) and [correctness review](lean/reviews/ie21-final-correctness-evidence/source-review.md). Their [fidelity completion review](lean/reviews/ie21-final-fidelity-evidence/completion-review.md) and [correctness completion review](lean/reviews/ie21-final-correctness-evidence/completion-review.md) separately check the Linux evidence. Publication correspondence is reviewed in subsequent addenda. These are independent AI reviews under the repository's adapted Tau Ceti protocol, not external human peer review or official Tau Ceti endorsement. See the [project guide](lean/README.md) and [formalization metadata](lean/formalization.yaml) for exact scope, review history and reproduction instructions.
+
 
 ## Problem statement
 

@@ -1,0 +1,392 @@
+Running /usr/bin/timeout --kill-after=5s 45s systemd-run -p RuntimeMaxSec=40 --user --quiet --wait --pipe --collect -p 'RestrictAddressFamilies=~AF_UNIX' --working-directory /home/admin/nla-lean-tools /usr/bin/env -i PATH=/home/admin/.elan/toolchains/leanprover--lean4---v4.33.1/bin:/home/admin/.elan/bin:/home/admin/mf21-tools/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin HOME=/home/admin LANG=C.UTF-8 XDG_RUNTIME_DIR=/run/user/1000 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus GIT_TERMINAL_PROMPT=0 GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null COMPARATOR_BIN=/home/admin/nla-lean-tools/.tools/comparator/.lake/build/bin/comparator COMPARATOR_LEAN4EXPORT=/home/admin/nla-lean-tools/.tools/lean4export/.lake/build/bin/lean4export COMPARATOR_LANDRUN=/home/admin/nla-lean-tools/scripts/strict_landrun.py XDG_CACHE_HOME=/home/admin/nla-lean-tools/.tools/cache TMPDIR=/home/admin/nla-lean-tools/.verification-tmp /usr/bin/true
+Log: /home/admin/nla-lean-tools/logs/verify-20260922T205303Z-973/user-service.log
+Running python3 /home/admin/nla-lean-tools/reproduction/checks/sandbox_probe_ci.py
+Log: /home/admin/nla-lean-tools/logs/verify-20260922T205303Z-973/sandbox.log
+START sandbox mode: build
+START sandbox mode: export
+START sandbox negative case: unknown option
+START sandbox negative case: unexpected --rw
+START sandbox negative case: unexpected --rwx
+START sandbox negative case: relative --rwx
+MODE build: exit=0
+Running as unit: run-u2.service; invocation ID: 56afb7e2c54945989e4a9a2e0fd56947
+PASS outside .lake write-open: denied errno=30
+PASS outside .lake truncate: denied errno=30
+PASS outside .lake read-only truncate-open: denied errno=30
+PASS symlink from .lake to outside write: denied errno=30
+PASS outside .lake creation: denied errno=30
+PASS build .lake write: allowed
+PASS user namespace: private
+PASS pid namespace: private
+PASS mnt namespace: private
+PASS net namespace: private
+PASS ipc namespace: private
+PASS uts namespace: private
+PASS host parent: absent from private /proc
+PASS host parent signal lookup: denied errno=3
+PASS host loopback listener: unreachable errno=13
+PASS AF_UNIX socket creation: denied errno=97
+PASS effective capabilities: none
+PASS no_new_privs: set
+Sandbox UID: 1000
+PASS nested namespace write attempt: rejected exit=1
+bwrap: setting up uid map: Permission denied
+Finished with result: success
+Main processes terminated with: code=exited/status=0
+Service runtime: 26ms
+CPU time consumed: 27ms
+Memory peak: 256.0K
+Memory swap peak: 0B
+
+MODE export: exit=0
+Running as unit: run-u3.service; invocation ID: 0a8beb34438541e7a976fd351ad671f9
+PASS outside .lake write-open: denied errno=30
+PASS outside .lake truncate: denied errno=30
+PASS outside .lake read-only truncate-open: denied errno=30
+PASS symlink from .lake to outside write: denied errno=30
+PASS outside .lake creation: denied errno=30
+PASS export .lake write-open: denied errno=30
+PASS export .lake truncate: denied errno=30
+PASS user namespace: private
+PASS pid namespace: private
+PASS mnt namespace: private
+PASS net namespace: private
+PASS ipc namespace: private
+PASS uts namespace: private
+PASS host parent: absent from private /proc
+PASS host parent signal lookup: denied errno=3
+PASS host loopback listener: unreachable errno=13
+PASS AF_UNIX socket creation: denied errno=97
+PASS effective capabilities: none
+PASS no_new_privs: set
+Sandbox UID: 1000
+PASS nested namespace write attempt: rejected exit=1
+bwrap: setting up uid map: Permission denied
+Finished with result: success
+Main processes terminated with: code=exited/status=0
+Service runtime: 26ms
+CPU time consumed: 27ms
+Memory peak: 256.0K
+Memory swap peak: 0B
+
+NEGATIVE unknown option: exit=2
+Running as unit: run-u4.service; invocation ID: 3a57f8d144274c5d9845ebe7b3efe8c0
+strict Comparator sandbox: unsupported Comparator Landrun option: --unrestricted-filesystem
+Finished with result: exit-code
+Main processes terminated with: code=exited/status=2
+Service runtime: 10ms
+CPU time consumed: 10ms
+Memory peak: 260.0K
+Memory swap peak: 0B
+
+NEGATIVE unexpected --rw: exit=2
+Running as unit: run-u5.service; invocation ID: bcaff6f2af134709ae5aae685242f5d1
+strict Comparator sandbox: only private /dev may be passed with --rw
+Finished with result: exit-code
+Main processes terminated with: code=exited/status=2
+Service runtime: 9ms
+CPU time consumed: 9ms
+Memory peak: 264.0K
+Memory swap peak: 0B
+
+NEGATIVE unexpected --rwx: exit=2
+Running as unit: run-u6.service; invocation ID: f8faade2c7d74a1fb5a5b5a808c1d398
+strict Comparator sandbox: only this project's existing .lake may be writable
+Finished with result: exit-code
+Main processes terminated with: code=exited/status=2
+Service runtime: 9ms
+CPU time consumed: 9ms
+Memory peak: 256.0K
+Memory swap peak: 0B
+
+NEGATIVE relative --rwx: exit=2
+Running as unit: run-u7.service; invocation ID: fe9689e3390a4c70bf09d9eb15be3451
+strict Comparator sandbox: only this project's existing .lake may be writable
+Finished with result: exit-code
+Main processes terminated with: code=exited/status=2
+Service runtime: 10ms
+CPU time consumed: 10ms
+Memory peak: 512.0K
+Memory swap peak: 0B
+
+Outer and export fixture contents unchanged; only designated build fixture written.
+Running bash /home/admin/nla-lean-tools/reproduction/checks/run_replay.sh
+Log: /home/admin/nla-lean-tools/logs/verify-20260922T205303Z-973/kernel-controls.log
+Replay probe: RestrictAddressFamilies=~AF_UNIX (deny AF_UNIX sockets).
+Lean (version 4.33.1, aarch64-unknown-linux-gnu, Release)
+/home/admin/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean/Init.olean
+/home/admin/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean/Init.olean
+/home/admin/nla-lean-tools/.tools/comparator/.lake/build/lib/lean/Main.olean
+Trusted base fixture: 11 constants
+BEGIN honest_with_inductives_and_quotients
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+RETURN honest_with_inductives_and_quotients: accepted
+BEGIN invalid_raw_proof
+Running Lean default kernel on solution.
+Lean default kernel rejects the solution
+RETURN invalid_raw_proof: rejected: while replaying declaration 'PinnedReplayProbe.invalid':
+(kernel) declaration type mismatch, 'PinnedReplayProbe.invalid' has type
+  True
+but it is expected to have type
+  False
+BEGIN quotient_postcheck_mismatch
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Quotient post-check rejects the solution
+RETURN quotient_postcheck_mismatch: rejected: Quotient constant mismatch on: Quot.lift
+PASS: all three actual Comparator.runBuiltinKernel cases behaved as required
+Running python3 /home/admin/nla-lean-tools/reproduction/checks/comparator_regressions.py
+Log: /home/admin/nla-lean-tools/logs/verify-20260922T205303Z-973/comparator-controls.log
+Comparator regressions: RestrictAddressFamilies=~AF_UNIX; .tools/env.sh selects the real strict sandbox.
+
+CASE simple_match
+info: ComparatorRegression: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+Building Challenge
+⚠ [2/3] Built Challenge (80ms)
+warning: Challenge.lean:1:8: declaration uses `sorry`
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+✔ [2/3] Built Solution (79ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+PASS simple_match: exit 0, expected 0; required phase: Your solution is okay!
+
+CASE simple_mismatch
+info: ComparatorRegression: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+Building Challenge
+⚠ [2/3] Built Challenge (77ms)
+warning: Challenge.lean:1:8: declaration uses `sorry`
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+✔ [2/3] Built Solution (76ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+uncaught exception: Challenge and solution constant kind don't match: 'comm'
+PASS simple_mismatch: exit 1, expected 1; required phase: Challenge and solution constant kind don't match: 'comm'
+
+CASE simple_axiom_issue
+info: ComparatorRegression: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+Building Challenge
+⚠ [2/3] Built Challenge (75ms)
+warning: Challenge.lean:1:8: declaration uses `sorry`
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+✔ [2/3] Built Solution (76ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+uncaught exception: Illegal axiom detected: 'helper'
+PASS simple_axiom_issue: exit 1, expected 1; required phase: Illegal axiom detected: 'helper'
+
+CASE simple_kind_mismatch
+info: ComparatorRegression: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+Building Challenge
+⚠ [2/3] Built Challenge (76ms)
+warning: Challenge.lean:1:8: declaration uses `sorry`
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+✔ [2/3] Built Solution (78ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+uncaught exception: Illegal axiom detected: 'helper'
+PASS simple_kind_mismatch: exit 1, expected 1; required phase: Illegal axiom detected: 'helper'
+
+CASE type_mismatch
+info: ComparatorRegression: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+Building Challenge
+✔ [2/3] Built Challenge (76ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+✔ [2/3] Built Solution (77ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+uncaught exception: Challenge and solution theorem statement do not match: 'checked'
+PASS type_mismatch: exit 1, expected 1; required phase: Challenge and solution theorem statement do not match: 'checked'
+PASS: all five Comparator regressions
+Running systemd-run --user --quiet --wait --pipe --collect -p 'RestrictAddressFamilies=~AF_UNIX' --working-directory /home/admin/nla-lean-tools/.verification-tmp/nla-axiom-6kiow6a2 /usr/bin/env -i PATH=/home/admin/.elan/toolchains/leanprover--lean4---v4.33.1/bin:/home/admin/.elan/bin:/home/admin/mf21-tools/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin HOME=/home/admin LANG=C.UTF-8 XDG_RUNTIME_DIR=/run/user/1000 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus GIT_TERMINAL_PROMPT=0 GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null COMPARATOR_BIN=/home/admin/nla-lean-tools/.tools/comparator/.lake/build/bin/comparator COMPARATOR_LEAN4EXPORT=/home/admin/nla-lean-tools/.tools/lean4export/.lake/build/bin/lean4export COMPARATOR_LANDRUN=/home/admin/nla-lean-tools/scripts/strict_landrun.py XDG_CACHE_HOME=/home/admin/nla-lean-tools/.tools/cache TMPDIR=/home/admin/nla-lean-tools/.verification-tmp lake env /home/admin/nla-lean-tools/.tools/comparator/.lake/build/bin/comparator comparator.json
+Log: /home/admin/nla-lean-tools/logs/verify-20260922T205303Z-973/negative-sorry.log
+info: NlaAxiomFixture: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+Building Challenge
+✔ [2/3] Built Challenge (316ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, Classical.choice, Quot.sound, propext, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+⚠ [2/3] Built Solution (288ms)
+warning: Solution.lean:2:8: declaration uses `sorry`
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, Classical.choice, Quot.sound, propext, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+uncaught exception: Illegal axiom detected: 'sorryAx'
+Running systemd-run --user --quiet --wait --pipe --collect -p 'RestrictAddressFamilies=~AF_UNIX' --working-directory /home/admin/nla-lean-tools/.verification-tmp/nla-axiom-nb6dyo2o /usr/bin/env -i PATH=/home/admin/.elan/toolchains/leanprover--lean4---v4.33.1/bin:/home/admin/.elan/bin:/home/admin/mf21-tools/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin HOME=/home/admin LANG=C.UTF-8 XDG_RUNTIME_DIR=/run/user/1000 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus GIT_TERMINAL_PROMPT=0 GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null COMPARATOR_BIN=/home/admin/nla-lean-tools/.tools/comparator/.lake/build/bin/comparator COMPARATOR_LEAN4EXPORT=/home/admin/nla-lean-tools/.tools/lean4export/.lake/build/bin/lean4export COMPARATOR_LANDRUN=/home/admin/nla-lean-tools/scripts/strict_landrun.py XDG_CACHE_HOME=/home/admin/nla-lean-tools/.tools/cache TMPDIR=/home/admin/nla-lean-tools/.verification-tmp lake env /home/admin/nla-lean-tools/.tools/comparator/.lake/build/bin/comparator comparator.json
+Log: /home/admin/nla-lean-tools/logs/verify-20260922T205303Z-973/negative-native.log
+info: NlaAxiomFixture: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+Building Challenge
+✔ [2/3] Built Challenge (285ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, Classical.choice, Quot.sound, propext, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+✔ [2/3] Built Solution (290ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, Classical.choice, Quot.sound, propext, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+uncaught exception: Illegal axiom detected: 'checked._native.native_decide.ax_1_1'
+Running lake env true
+Log: /home/admin/nla-lean-tools/logs/verify-20260922T205303Z-973/dependencies.log
+info: leancert: cloning https://github.com/alerad/leancert
+info: leancert: checking out revision '621a43d7cf21f87872392a01e874f2f1dbddc926'
+info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+info: mathlib: checking out revision '0df444a360eaa60ab8c11dca51a86af692955474'
+info: plausible: cloning https://github.com/leanprover-community/plausible
+info: plausible: checking out revision 'b7eb3304aeae834b12dda98993a37f6a41f6f0bb'
+info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+info: LeanSearchClient: checking out revision '5f4d51b81cbd3f6b32b156bfad9056621a040404'
+info: importGraph: cloning https://github.com/leanprover-community/import-graph
+info: importGraph: checking out revision '16f02aa7642864af59f1ff0e384a015994db9118'
+info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+info: proofwidgets: checking out revision '4be2e3d5087eeb272cf5a8853b8f9dd025ef5957'
+info: aesop: cloning https://github.com/leanprover-community/aesop
+info: aesop: checking out revision '3448c0bcc5ce01b2d1546e483ec3620e32df3d0e'
+info: Qq: cloning https://github.com/leanprover-community/quote4
+info: Qq: checking out revision '92c15be17b7caf78c2ad767ec40f89052d908d81'
+info: batteries: cloning https://github.com/leanprover-community/batteries
+info: batteries: checking out revision '4488d40d070b9700d4d5a6aa342f0d40c31b2a2d'
+info: Cli: cloning https://github.com/leanprover/lean4-cli
+info: Cli: checking out revision '6130a47896ce867c6a4a55373441e59e565bad0f'
+Running lake exe cache get
+Log: /home/admin/nla-lean-tools/logs/verify-20260922T205303Z-973/mathlib-cache.log
+✔ [1/5] Built Cache.Cli (110ms)
+✔ [2/5] Built Cache.Lean (126ms)
+✔ [6/26] Built Cache.Infra (184ms)
+✔ [7/26] Built Cache.Cli:c.o (112ms)
+✔ [8/26] Built Cache.Lean:c.o (138ms)
+✔ [9/26] Built Cache.Infra:c.o (68ms)
+✔ [10/26] Built Batteries.Tactic.OpenPrivate (348ms)
+✔ [11/26] Built Cache.IO (481ms)
+✔ [12/26] Built Batteries.Tactic.OpenPrivate:c.o (460ms)
+✔ [13/26] Built Cache.Hashing (273ms)
+✔ [14/26] Built Cache.Hashing:c.o (170ms)
+✔ [15/26] Built Cache.IO:c.o (603ms)
+✔ [16/26] Built Cache.Requests (702ms)
+✔ [17/26] Built Cache.Marker (203ms)
+✔ [18/26] Built Cache.Marker:c.o (46ms)
+✔ [19/26] Built Cache.Query (240ms)
+✔ [20/26] Built Cache.Query:c.o (122ms)
+✔ [21/26] Built Cache.Warning (241ms)
+✔ [22/26] Built Cache.Warning:c.o (108ms)
+✔ [23/26] Built Cache.Main (423ms)
+✔ [24/26] Built Cache.Requests:c.o (1.1s)
+✔ [25/26] Built Cache.Main:c.o (340ms)
+✔ [26/26] Built cache:exe (528ms)
+Current branch: HEAD
+Using cache from origin: (some leanprover-community/mathlib4)
+Decompressing 8689 already-cached file(s) (1 already decompressed)
+No files to download
+Decompressed 8689 already-cached file(s)
+Completed successfully in 11400 ms!
+Running systemd-run --user --quiet --wait --pipe --collect -p 'RestrictAddressFamilies=~AF_UNIX' --working-directory /home/admin/nla-lean-tools/.verification-tmp/nla-fresh-proof-vftg2mf9/project /usr/bin/env -i PATH=/home/admin/.elan/toolchains/leanprover--lean4---v4.33.1/bin:/home/admin/.elan/bin:/home/admin/mf21-tools/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin HOME=/home/admin LANG=C.UTF-8 XDG_RUNTIME_DIR=/run/user/1000 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus GIT_TERMINAL_PROMPT=0 GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null COMPARATOR_BIN=/home/admin/nla-lean-tools/.tools/comparator/.lake/build/bin/comparator COMPARATOR_LEAN4EXPORT=/home/admin/nla-lean-tools/.tools/lean4export/.lake/build/bin/lean4export COMPARATOR_LANDRUN=/home/admin/nla-lean-tools/scripts/strict_landrun.py XDG_CACHE_HOME=/home/admin/nla-lean-tools/.tools/cache TMPDIR=/home/admin/nla-lean-tools/.verification-tmp lake env /home/admin/nla-lean-tools/.tools/comparator/.lake/build/bin/comparator comparator.json
+Log: /home/admin/nla-lean-tools/logs/verify-20260922T205303Z-973/comparator.log
+Building Challenge
+✔ [3176/3178] Built NLA.IE21.Definitions (3.7s)
+⚠ [3177/3178] Built Challenge (1.0s)
+warning: Challenge.lean:15:8: declaration uses `sorry`
+warning: Challenge.lean:20:8: declaration uses `sorry`
+warning: Challenge.lean:27:8: declaration uses `sorry`
+warning: Challenge.lean:32:8: declaration uses `sorry`
+warning: Challenge.lean:36:8: declaration uses `sorry`
+warning: Challenge.lean:43:8: declaration uses `sorry`
+warning: Challenge.lean:53:8: declaration uses `sorry`
+warning: Challenge.lean:60:8: declaration uses `sorry`
+warning: Challenge.lean:67:8: declaration uses `sorry`
+warning: Challenge.lean:72:8: declaration uses `sorry`
+warning: Challenge.lean:79:8: declaration uses `sorry`
+warning: Challenge.lean:87:8: declaration uses `sorry`
+warning: Challenge.lean:96:8: declaration uses `sorry`
+warning: Challenge.lean:102:8: declaration uses `sorry`
+warning: Challenge.lean:107:8: declaration uses `sorry`
+warning: Challenge.lean:115:8: declaration uses `sorry`
+warning: Challenge.lean:120:8: declaration uses `sorry`
+warning: Challenge.lean:125:8: declaration uses `sorry`
+warning: Challenge.lean:131:8: declaration uses `sorry`
+warning: Challenge.lean:142:8: declaration uses `sorry`
+warning: Challenge.lean:152:8: declaration uses `sorry`
+warning: Challenge.lean:167:8: declaration uses `sorry`
+warning: Challenge.lean:177:8: declaration uses `sorry`
+Build completed successfully (3178 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, NLA.IE21.surface_probability, NLA.IE21.gaussian_surface_correspondence, NLA.IE21.product_row_semantics, NLA.IE21.independent_row_transport, NLA.IE21.matrix_semantics, NLA.IE21.deletion_minimum, NLA.IE21.deletion_zero_cases, NLA.IE21.finite_trimming_semantics, NLA.IE21.directional_minimum, NLA.IE21.statistics_measurable, NLA.IE21.gaussian_constant, NLA.IE21.spherical_moments, NLA.IE21.spherical_quadratic_mgf, NLA.IE21.spherical_gaussian_trimming, NLA.IE21.pointwise_trim_concentration, NLA.IE21.sphere_net, NLA.IE21.covariance_concentration, NLA.IE21.uniform_trim_concentration, NLA.IE21.finite_size_bound, NLA.IE21.finite_size_independent_rows, NLA.IE21.aspect_schedule, NLA.IE21.spherical_ratio_limit, NLA.IE21.original_random_row_limit, propext, Classical.choice, Quot.sound, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+✔ [3707/3725] Built NLA.IE21.SphericalLaw (1.8s)
+✔ [3708/3727] Built NLA.IE21.MatrixSemantics (2.2s)
+✔ [3709/3729] Built NLA.IE21.GaussianTrimming (2.6s)
+ℹ [3710/3732] Built NLA.IE21.SphereNet (2.7s)
+info: NLA/IE21/SphereNet.lean:106:0: 'NLA.IE21.sphere_net' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [3711/3732] Built NLA.IE21.RowLaw (1.4s)
+✔ [3712/3734] Built NLA.IE21.GaussianPolar (1.8s)
+✔ [3713/3734] Built NLA.IE21.FiniteTrimming (2.3s)
+✔ [3714/3738] Built NLA.IE21.BoundedConcentration (1.7s)
+✔ [3715/3738] Built NLA.IE21.Chernoff (1.0s)
+✔ [3716/3738] Built NLA.IE21.RatioAlgebra (1.4s)
+✔ [3718/3741] Built NLA.IE21.GaussianMoments (1.7s)
+✔ [3720/3741] Built NLA.IE21.QuadraticNet (2.2s)
+✔ [3721/3741] Built NLA.IE21.SphericalMoments (1.7s)
+ℹ [3722/3741] Built NLA.IE21.AspectSchedule (2.3s)
+info: NLA/IE21/AspectSchedule.lean:176:0: 'NLA.IE21.aspect_schedule' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [3723/3741] Built NLA.IE21.PopulationTrimming (6.2s)
+✔ [3724/3741] Built NLA.IE21.CovarianceConcentration (1.6s)
+✔ [3725/3741] Built LeanCert.Tactic.Verification (2.0s)
+✔ [3726/3741] Built NLA.IE21.PointwiseTrimmingSemantics (1.2s)
+✔ [3727/3741] Built NLA.IE21.UniformTrimmingGeometry (2.4s)
+✔ [3728/3741] Built NLA.IE21.AsymptoticTail (1.8s)
+✔ [3729/3741] Built NLA.IE21.SphericalMGF (2.0s)
+✔ [3730/3741] Built NLA.IE21.QuantileTrimming (2.6s)
+✔ [3731/3741] Built NLA.IE21.FiniteSizeGeometry (1.3s)
+✔ [3732/3741] Built NLA.IE21.UniformTrimmingBound (1.4s)
+✔ [3733/3741] Built NLA.IE21.SphericalTrimming (1.0s)
+✔ [3734/3741] Built NLA.IE21.Covariance (1.0s)
+✔ [3735/3741] Built NLA.IE21.EmpiricalTrimming (1.3s)
+✔ [3736/3741] Built NLA.IE21.TrimmingConcentration (2.3s)
+✔ [3737/3741] Built NLA.IE21.PointwiseTrimming (949ms)
+✔ [3738/3741] Built NLA.IE21.UniformTrimming (942ms)
+✔ [3739/3741] Built NLA.IE21.FiniteSize (952ms)
+ℹ [3740/3741] Built Solution (1.0s)
+info: Solution.lean:14:0: 'NLA.IE21.surface_probability' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:16:0: 'NLA.IE21.gaussian_surface_correspondence' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:18:0: 'NLA.IE21.product_row_semantics' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:20:0: 'NLA.IE21.independent_row_transport' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:22:0: 'NLA.IE21.matrix_semantics' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:24:0: 'NLA.IE21.deletion_minimum' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:26:0: 'NLA.IE21.deletion_zero_cases' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:28:0: 'NLA.IE21.finite_trimming_semantics' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:30:0: 'NLA.IE21.directional_minimum' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:32:0: 'NLA.IE21.statistics_measurable' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:34:0: 'NLA.IE21.gaussian_constant' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:36:0: 'NLA.IE21.spherical_moments' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:38:0: 'NLA.IE21.spherical_quadratic_mgf' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:40:0: 'NLA.IE21.spherical_gaussian_trimming' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:42:0: 'NLA.IE21.pointwise_trim_concentration' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:44:0: 'NLA.IE21.sphere_net' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:46:0: 'NLA.IE21.covariance_concentration' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:48:0: 'NLA.IE21.uniform_trim_concentration' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:50:0: 'NLA.IE21.finite_size_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:52:0: 'NLA.IE21.finite_size_independent_rows' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:54:0: 'NLA.IE21.aspect_schedule' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:56:0: 'NLA.IE21.spherical_ratio_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:58:0: 'NLA.IE21.original_random_row_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (3741 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, NLA.IE21.surface_probability, NLA.IE21.gaussian_surface_correspondence, NLA.IE21.product_row_semantics, NLA.IE21.independent_row_transport, NLA.IE21.matrix_semantics, NLA.IE21.deletion_minimum, NLA.IE21.deletion_zero_cases, NLA.IE21.finite_trimming_semantics, NLA.IE21.directional_minimum, NLA.IE21.statistics_measurable, NLA.IE21.gaussian_constant, NLA.IE21.spherical_moments, NLA.IE21.spherical_quadratic_mgf, NLA.IE21.spherical_gaussian_trimming, NLA.IE21.pointwise_trim_concentration, NLA.IE21.sphere_net, NLA.IE21.covariance_concentration, NLA.IE21.uniform_trim_concentration, NLA.IE21.finite_size_bound, NLA.IE21.finite_size_independent_rows, NLA.IE21.aspect_schedule, NLA.IE21.spherical_ratio_limit, NLA.IE21.original_random_row_limit, propext, Classical.choice, Quot.sound, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+PASS: fresh Comparator run and all controls. Evidence: /home/admin/nla-lean-tools/logs/verify-20260922T205303Z-973

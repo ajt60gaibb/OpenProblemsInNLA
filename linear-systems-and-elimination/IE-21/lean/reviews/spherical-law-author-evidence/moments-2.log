@@ -1,0 +1,17 @@
+Author development-only macOS typecheck; cached dependencies, no kernel/Comparator completion claim.
+Lean (version 4.33.1, arm64-apple-darwin24.6.0, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)
+COMMAND: /private/tmp/nla-campaign-toolchain/lean-4.33.1-darwin_aarch64/bin/lean -o /private/tmp/nla-ie21-spherical-author-build/NLA/IE21/GaussianMoments.olean NLA/IE21/GaussianMoments.lean
+NLA/IE21/GaussianMoments.lean:57:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∫ (x : Space n), ?f ‖x‖
+in the target expression
+  ∫ (x : Space n), (√(2 * Real.pi))⁻¹ ^ n * Real.exp (-‖x‖ ^ 2 / 2) * ‖x‖ ^ (2 * r) ∂ℙ =
+    ↑n * ℙ.real (Metric.ball 0 1) * (√(2 * Real.pi))⁻¹ ^ n * radialIntegral (↑n + 2 * ↑r)
+
+n : ℕ
+hn : 1 ≤ n
+r : ℕ
+this : NeZero n := { out := fun a => gaussian_norm_even_integral._proof_1_1 n hn a }
+hd : ∀ (g : Space n), (gaussianRadialDensity n ‖g‖).toReal = (√(2 * Real.pi))⁻¹ ^ n * Real.exp (-‖g‖ ^ 2 / 2)
+⊢ ∫ (x : Space n), (√(2 * Real.pi))⁻¹ ^ n * Real.exp (-‖x‖ ^ 2 / 2) * ‖x‖ ^ (2 * r) ∂ℙ =
+    ↑n * ℙ.real (Metric.ball 0 1) * (√(2 * Real.pi))⁻¹ ^ n * radialIntegral (↑n + 2 * ↑r)
+EXIT: 1

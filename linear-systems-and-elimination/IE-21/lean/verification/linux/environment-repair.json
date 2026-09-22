@@ -1,0 +1,38 @@
+{
+  "timestamp_utc": "2026-09-22T20:48:24.160228+00:00",
+  "operator": "Codex AI /root/infrastructure_audit, mechanical operator and author of separate IE-21 Gaussian/spherical modules; not final independent referee",
+  "reason": "VM reboot restored user namespace restriction to 1. Restore documented shared CI prerequisite without changing harness, controls or proof sources.",
+  "policy_source": ".github/workflows/lean-verification.yml",
+  "policy_sha256": "2c3963089483ec5e7e35e6355fa60988778e0b439ce099d7cd7050a8c3b6467c",
+  "steps": [
+    {
+      "guest_command": [
+        "sysctl",
+        "kernel.apparmor_restrict_unprivileged_userns"
+      ],
+      "exit_code": 0,
+      "output": "kernel.apparmor_restrict_unprivileged_userns = 1\n"
+    },
+    {
+      "guest_command": [
+        "sudo",
+        "-n",
+        "sysctl",
+        "-w",
+        "kernel.apparmor_restrict_unprivileged_userns=0"
+      ],
+      "exit_code": 0,
+      "output": "kernel.apparmor_restrict_unprivileged_userns = 0\n"
+    },
+    {
+      "guest_command": [
+        "sysctl",
+        "kernel.apparmor_restrict_unprivileged_userns"
+      ],
+      "exit_code": 0,
+      "output": "kernel.apparmor_restrict_unprivileged_userns = 0\n"
+    }
+  ],
+  "verification_started": false,
+  "IE21_source_transferred": false
+}
