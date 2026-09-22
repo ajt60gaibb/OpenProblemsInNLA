@@ -1,0 +1,28 @@
+{
+  "timestamp_utc": "2026-09-22T19:32:20.719309+00:00",
+  "commands": [
+    {
+      "command": [
+        "systemctl",
+        "--user",
+        "show",
+        "nla-tr27-full-20260922-r1.service",
+        "--property=LoadState,Transient,FragmentPath,ActiveState,SubState"
+      ],
+      "exit_code": 0,
+      "output": "LoadState=not-found\nActiveState=inactive\nSubState=dead\nFragmentPath=\nTransient=no\n"
+    },
+    {
+      "command": [
+        "journalctl",
+        "--user",
+        "--unit=nla-tr27-full-20260922-r1.service",
+        "--no-pager",
+        "--output=short-iso"
+      ],
+      "exit_code": 0,
+      "output": "2026-09-22T19:24:08+00:00 ubuntu systemd[785]: Started nla-tr27-full-20260922-r1.service - /usr/bin/python3 /home/admin/nla-tr27-full-20260922/run-verifier.py.\n2026-09-22T19:26:34+00:00 ubuntu systemd[785]: nla-tr27-full-20260922-r1.service: Consumed 1min 8.706s CPU time.\n"
+    }
+  ],
+  "interpretation": "Transient service has finished; post-completion default properties in execution-provenance are not live limit measurements. The exact requested runtime/file-descriptor limits are recorded in service-start.json. Proof isolation is established by the actual harness sandbox controls."
+}

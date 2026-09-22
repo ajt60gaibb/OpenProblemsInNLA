@@ -1,0 +1,15 @@
+# TR-27 geometry author evidence
+
+Author: AI proof-author agent `/root/reference_review`, acting within the George Stepaniants formalization campaign. This is author evidence, not independent proof review. This agent's earlier independent statement review preceded its proof authorship; the agent cannot count as an independent final full-proof referee.
+
+`NLA/TR27/Geometry.lean` proves the exact frozen declarations `homogeneous_parameter_semantics` and `witness_admissible`, with nine supporting public lemmas. It imports IntegralImage and Mathlib, never Challenge, and changes no frozen mathematical boundary.
+
+Each coordinate is the difference of two degree-twelve monomials. If the homogeneous map is zero, the earlier exact quadratic forces the first parameter to vanish; the final coordinate then forces the second parameter to vanish. The converse follows homogeneous scaling. The already proved complete range equality supplies the third conjunct of homogeneous parameter semantics.
+
+The key homogeneous-kernel step is explicit: substitution sends the degree-n component to the degree-12n component of the substituted polynomial. The proof expands the finite homogeneous-component sum, uses the homogeneity of the coordinate map and injectivity of multiplication by twelve on natural degrees, and treats components above total degree as zero. Thus vanishing of the substituted polynomial implies vanishing of every substituted homogeneous component. This establishes homogeneity of the actual kernel, not merely homogeneity of a generating subset or a parameterized locus.
+
+The kernel is prime because the target polynomial ring is a domain; its quotient is consequently reduced. Nonemptiness uses an actual nonzero curve vector. For full span, thirteen finite source points with distinct natural-number parameters form a basis by Mathlib's general Vandermonde determinant criterion and dimension equality. Applying the proved surjective quotient map sends their span onto the entire twelve-dimensional target. Every projected source point lies in the full cone by the retained integral-image proof. No large determinant is expanded or numerically sampled to infer a universal statement.
+
+A fresh local macOS Lean 4.33.1 rebuild of Definitions, Algebra, IntegralImage, Geometry and the external audit passes. All eleven public Geometry declarations have exactly `propext`, `Classical.choice`, `Quot.sound` in their transitive axiom closures. No `sorry`, `admit`, native-decision call, added axiom, conjectural hypothesis or rank assumption is present in this module.
+
+This receipt is limited to local author development and transitive axiom inspection. It does not claim the authoritative Linux driver, the complete-problem Comparator run, a completed LeanCert verification command, independent final full-proof review, or all TR-27 targets. The generic projective semantic bridges and final rank claims require their own proofs and complete integration. No status promotion or PR follows from this receipt alone.

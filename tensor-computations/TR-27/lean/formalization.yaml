@@ -1,0 +1,246 @@
+version: v0.4
+project:
+  name: 'TR-27: complete projective tensor-square counterexample'
+  description: 'The full canonical conjecture is false: a reduced irreducible nondegenerate complex
+    projective curve has a point of rank 3 and border rank at most 2 whose ordinary Segre tensor
+    square has rank 9. All geometric and rank semantics are proved.'
+  authors:
+  - George Stepaniants
+  affiliations:
+    George Stepaniants: Department of Computing and Mathematical Sciences, California Institute of
+      Technology
+  responsible_maintainers:
+  - George Stepaniants
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+- title: TR-27 — Border-rank deficiency forcing strict submultiplicativity at the tensor square
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/54f93060c0c4e5dab81096c6496e0d2b4251f3ef/tensor-computations/TR-27/README.md
+  type: web-post
+  relationship: formalizes
+  author_endorsement: not-contacted
+- title: Border rank two does not force a tensor-square rank saving
+  authors:
+  - Matthew J. Colbrook
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/54f93060c0c4e5dab81096c6496e0d2b4251f3ef/references/colbrook-tensor-metrics-rank-2026-09-11/manuscripts/tr27_solution.tex
+  type: manuscript
+  relationship: formalizes
+  author_endorsement: not-contacted
+  note: Original counterexample and mathematical proof attribution remains Matthew J. Colbrook, University
+    of Cambridge.
+related_formalizations:
+- id: https://github.com/jaumededios/Schiffer/tree/2938e277969c329caf154e48a3d8823f3635c7f1
+  relationship: other
+  note: Campaign statement/solution separation reference; no proof imported.
+- id: https://github.com/sgstepaniants/Forsythe/tree/8d1b0c0545a77b40245e84705aa7d273e6c81e62/lean-proof
+  relationship: other
+  note: Campaign kernel-only Comparator structure reference; no proof imported.
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: Pinned Lean 4.33.1, LeanCert and Mathlib. Complete fresh project builds, all 25 authentic
+      LeanCert kernel-trust assertions, sandboxed Comparator and default-kernel replay passed on
+      non-root Linux using the unchanged shared verifier. All dependency Git heads were authenticated.
+      The pinned Mathlib dependency cache was reused; project proofs were rebuilt.
+    prompting_notes: Preserve the complete projective target and separate tensor factors, require
+      the whole closed-image equality, and review statements independently before implementing proofs.
+  notes: Substantial Codex assistance. /root/canonical_inventory authored the statement boundary
+    and Algebra, Independence and RankWitness. /root/reference_review authored IntegralImage, Geometry
+    and BorderWitness. /root authored Semantics, SegreSemantics, AffineBorder, CoordinateTransport,
+    Counterexample and final packaging. /root/infrastructure_audit authored ProjectiveGeometry after
+    completing earlier independent statement and module reviews. Before any TR-27 proof, /root and
+    /root/reference_review independently approved the boundary; those approvals remain statement-only.
+    Module reviewers disclose their authorship limits. Fresh final referees /root/tr27_final_fidelity
+    and /root/tr27_final_correctness authored none of the package. No human peer review, official
+    Tau Ceti endorsement, or measured cost is claimed.
+status:
+  scope: Complete negative resolution of the original canonical conjecture, with all 25 reviewed
+    required statements verified. The constructed admissible complex projective variety contains
+    a point of rank 3 and border rank at most 2 whose ordinary Segre tensor square has rank 9. Both
+    fresh nonauthor final referees approved source correspondence and the actual Linux evidence.
+    No additional mathematical premise is assumed.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: &id001
+  - propext
+  - Classical.choice
+  - Quot.sound
+  challenge_placeholder_count: 25
+  completed_target_count: 25
+  local_development_build: passed-all-proof-modules
+  comparator_result: comparator-accepted
+  authoritative_linux_result: passed
+  main_results:
+  - declaration: NLA.TR27.finite_coordinates
+    file: NLA/TR27/Semantics.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.admissible_geometry
+    file: NLA/TR27/ProjectiveGeometry.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.cone_projective_membership
+    file: NLA/TR27/Semantics.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.projective_cone_rank
+    file: NLA/TR27/Semantics.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.rank_minima
+    file: NLA/TR27/Semantics.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.projective_affine_border
+    file: NLA/TR27/AffineBorder.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.tensor_representatives
+    file: NLA/TR27/Semantics.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.segre_cone_rank
+    file: NLA/TR27/SegreSemantics.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.segre_rank_minimum
+    file: NLA/TR27/SegreSemantics.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.coordinate_transport
+    file: NLA/TR27/CoordinateTransport.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.quotient_semantics
+    file: NLA/TR27/Algebra.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.homogeneous_parameter_semantics
+    file: NLA/TR27/Geometry.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.integral_quadratic
+    file: NLA/TR27/Algebra.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.substitution_integral
+    file: NLA/TR27/IntegralImage.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.whole_closed_image
+    file: NLA/TR27/IntegralImage.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.witness_admissible
+    file: NLA/TR27/Geometry.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.curve_nonzero
+    file: NLA/TR27/Algebra.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.eight_point_independence
+    file: NLA/TR27/Independence.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.witness_three_terms
+    file: NLA/TR27/RankWitness.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.border_curve_semantics
+    file: NLA/TR27/BorderWitness.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.border_two
+    file: NLA/TR27/BorderWitness.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.square_nine_terms
+    file: NLA/TR27/RankWitness.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.square_not_eight
+    file: NLA/TR27/RankWitness.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.projective_counterexample
+    file: NLA/TR27/Counterexample.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.TR27.original_conjecture_false
+    file: NLA/TR27/Counterexample.lean
+    sorry_count: 0
+    axioms: *id001
+    comparator_config: comparator.json
+    literature_dependencies: []
+  verification_evidence: verification/linux/OPERATIONAL-REVIEW.md
+  verified_source_commit: 775e8b169119c4045b07db7666eda8c001ae3bd1
+  verification_run: verify-20260922T192408Z-961
+fidelity:
+  divergences: The required counterexample states border rank at most two, rank exactly three, and
+    square rank exactly nine; these refute the full original implication. Optional source strengths
+    including smoothness, exact border rank two, arbitrary finite delays, and eventual-power saving
+    are not claimed.
+review:
+  status: approved-source-and-authoritative-evidence-by-two-independent-nonauthor-agents
+  reviewers:
+  - /root/tr27_final_fidelity
+  - /root/tr27_final_correctness
+  notes: Both nonauthor final AI referees inspected the complete source and independently checked
+    the actual Linux logs, all input hashes, statement exports, kernel assertions, axiom reports,
+    dependency receipts and controls. Their original source reports and receipts remain unchanged;
+    separate completion addenda record the completed gates. Preproof statement approvals and earlier
+    module reviews retain their disclosed roles. Current README/metadata, completion addenda and
+    canonical status are post-run publication documentation; the exact earlier input snapshot, including
+    then-pending documentation, is retained in verification/linux/source. No mathematical, build
+    or Comparator input changed. No official Tau Ceti endorsement or human peer review is claimed.

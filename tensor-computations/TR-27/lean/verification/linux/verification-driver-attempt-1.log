@@ -1,0 +1,390 @@
+Running /usr/bin/timeout --kill-after=5s 45s systemd-run -p RuntimeMaxSec=40 --user --quiet --wait --pipe --collect -p 'RestrictAddressFamilies=~AF_UNIX' --working-directory /home/admin/nla-lean-tools /usr/bin/env -i PATH=/home/admin/.elan/toolchains/leanprover--lean4---v4.33.1/bin:/home/admin/.elan/bin:/home/admin/mf21-tools/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin HOME=/home/admin LANG=C.UTF-8 XDG_RUNTIME_DIR=/run/user/1000 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus GIT_TERMINAL_PROMPT=0 GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null COMPARATOR_BIN=/home/admin/nla-lean-tools/.tools/comparator/.lake/build/bin/comparator COMPARATOR_LEAN4EXPORT=/home/admin/nla-lean-tools/.tools/lean4export/.lake/build/bin/lean4export COMPARATOR_LANDRUN=/home/admin/nla-lean-tools/scripts/strict_landrun.py XDG_CACHE_HOME=/home/admin/nla-lean-tools/.tools/cache TMPDIR=/home/admin/nla-lean-tools/.verification-tmp /usr/bin/true
+Log: /home/admin/nla-lean-tools/logs/verify-20260922T192408Z-961/user-service.log
+Running python3 /home/admin/nla-lean-tools/reproduction/checks/sandbox_probe_ci.py
+Log: /home/admin/nla-lean-tools/logs/verify-20260922T192408Z-961/sandbox.log
+START sandbox mode: build
+START sandbox mode: export
+START sandbox negative case: unknown option
+START sandbox negative case: unexpected --rw
+START sandbox negative case: unexpected --rwx
+START sandbox negative case: relative --rwx
+MODE build: exit=0
+Running as unit: run-u2.service; invocation ID: 92ed44e10fca4df3a150dd804376d047
+PASS outside .lake write-open: denied errno=30
+PASS outside .lake truncate: denied errno=30
+PASS outside .lake read-only truncate-open: denied errno=30
+PASS symlink from .lake to outside write: denied errno=30
+PASS outside .lake creation: denied errno=30
+PASS build .lake write: allowed
+PASS user namespace: private
+PASS pid namespace: private
+PASS mnt namespace: private
+PASS net namespace: private
+PASS ipc namespace: private
+PASS uts namespace: private
+PASS host parent: absent from private /proc
+PASS host parent signal lookup: denied errno=3
+PASS host loopback listener: unreachable errno=13
+PASS AF_UNIX socket creation: denied errno=97
+PASS effective capabilities: none
+PASS no_new_privs: set
+Sandbox UID: 1000
+PASS nested namespace write attempt: rejected exit=1
+bwrap: setting up uid map: Permission denied
+Finished with result: success
+Main processes terminated with: code=exited/status=0
+Service runtime: 28ms
+CPU time consumed: 28ms
+Memory peak: 256.0K
+Memory swap peak: 0B
+
+MODE export: exit=0
+Running as unit: run-u3.service; invocation ID: 48af72d1ef2e4aae8969652a61586653
+PASS outside .lake write-open: denied errno=30
+PASS outside .lake truncate: denied errno=30
+PASS outside .lake read-only truncate-open: denied errno=30
+PASS symlink from .lake to outside write: denied errno=30
+PASS outside .lake creation: denied errno=30
+PASS export .lake write-open: denied errno=30
+PASS export .lake truncate: denied errno=30
+PASS user namespace: private
+PASS pid namespace: private
+PASS mnt namespace: private
+PASS net namespace: private
+PASS ipc namespace: private
+PASS uts namespace: private
+PASS host parent: absent from private /proc
+PASS host parent signal lookup: denied errno=3
+PASS host loopback listener: unreachable errno=13
+PASS AF_UNIX socket creation: denied errno=97
+PASS effective capabilities: none
+PASS no_new_privs: set
+Sandbox UID: 1000
+PASS nested namespace write attempt: rejected exit=1
+bwrap: setting up uid map: Permission denied
+Finished with result: success
+Main processes terminated with: code=exited/status=0
+Service runtime: 27ms
+CPU time consumed: 27ms
+Memory peak: 336.0K
+Memory swap peak: 0B
+
+NEGATIVE unknown option: exit=2
+Running as unit: run-u4.service; invocation ID: 91179a9354ce420da6d3cc5d71b21366
+strict Comparator sandbox: unsupported Comparator Landrun option: --unrestricted-filesystem
+Finished with result: exit-code
+Main processes terminated with: code=exited/status=2
+Service runtime: 10ms
+CPU time consumed: 10ms
+Memory peak: 256.0K
+Memory swap peak: 0B
+
+NEGATIVE unexpected --rw: exit=2
+Running as unit: run-u5.service; invocation ID: e3cf35634a2b4592a30b137a407a03da
+strict Comparator sandbox: only private /dev may be passed with --rw
+Finished with result: exit-code
+Main processes terminated with: code=exited/status=2
+Service runtime: 10ms
+CPU time consumed: 10ms
+Memory peak: 256.0K
+Memory swap peak: 0B
+
+NEGATIVE unexpected --rwx: exit=2
+Running as unit: run-u6.service; invocation ID: 28bfdf04f47f44ce8fd26838f4e5b24d
+strict Comparator sandbox: only this project's existing .lake may be writable
+Finished with result: exit-code
+Main processes terminated with: code=exited/status=2
+Service runtime: 10ms
+CPU time consumed: 10ms
+Memory peak: 256.0K
+Memory swap peak: 0B
+
+NEGATIVE relative --rwx: exit=2
+Running as unit: run-u7.service; invocation ID: 1c663b35101845b8b071a0ce5246eea2
+strict Comparator sandbox: only this project's existing .lake may be writable
+Finished with result: exit-code
+Main processes terminated with: code=exited/status=2
+Service runtime: 10ms
+CPU time consumed: 10ms
+Memory peak: 512.0K
+Memory swap peak: 0B
+
+Outer and export fixture contents unchanged; only designated build fixture written.
+Running bash /home/admin/nla-lean-tools/reproduction/checks/run_replay.sh
+Log: /home/admin/nla-lean-tools/logs/verify-20260922T192408Z-961/kernel-controls.log
+Replay probe: RestrictAddressFamilies=~AF_UNIX (deny AF_UNIX sockets).
+Lean (version 4.33.1, aarch64-unknown-linux-gnu, Release)
+/home/admin/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean/Init.olean
+/home/admin/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean/Init.olean
+/home/admin/nla-lean-tools/.tools/comparator/.lake/build/lib/lean/Main.olean
+Trusted base fixture: 11 constants
+BEGIN honest_with_inductives_and_quotients
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+RETURN honest_with_inductives_and_quotients: accepted
+BEGIN invalid_raw_proof
+Running Lean default kernel on solution.
+Lean default kernel rejects the solution
+RETURN invalid_raw_proof: rejected: while replaying declaration 'PinnedReplayProbe.invalid':
+(kernel) declaration type mismatch, 'PinnedReplayProbe.invalid' has type
+  True
+but it is expected to have type
+  False
+BEGIN quotient_postcheck_mismatch
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Quotient post-check rejects the solution
+RETURN quotient_postcheck_mismatch: rejected: Quotient constant mismatch on: Quot.lift
+PASS: all three actual Comparator.runBuiltinKernel cases behaved as required
+Running python3 /home/admin/nla-lean-tools/reproduction/checks/comparator_regressions.py
+Log: /home/admin/nla-lean-tools/logs/verify-20260922T192408Z-961/comparator-controls.log
+Comparator regressions: RestrictAddressFamilies=~AF_UNIX; .tools/env.sh selects the real strict sandbox.
+
+CASE simple_match
+info: ComparatorRegression: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+Building Challenge
+⚠ [2/3] Built Challenge (83ms)
+warning: Challenge.lean:1:8: declaration uses `sorry`
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+✔ [2/3] Built Solution (84ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+PASS simple_match: exit 0, expected 0; required phase: Your solution is okay!
+
+CASE simple_mismatch
+info: ComparatorRegression: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+Building Challenge
+⚠ [2/3] Built Challenge (83ms)
+warning: Challenge.lean:1:8: declaration uses `sorry`
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+✔ [2/3] Built Solution (78ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+uncaught exception: Challenge and solution constant kind don't match: 'comm'
+PASS simple_mismatch: exit 1, expected 1; required phase: Challenge and solution constant kind don't match: 'comm'
+
+CASE simple_axiom_issue
+info: ComparatorRegression: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+Building Challenge
+⚠ [2/3] Built Challenge (81ms)
+warning: Challenge.lean:1:8: declaration uses `sorry`
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+✔ [2/3] Built Solution (82ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+uncaught exception: Illegal axiom detected: 'helper'
+PASS simple_axiom_issue: exit 1, expected 1; required phase: Illegal axiom detected: 'helper'
+
+CASE simple_kind_mismatch
+info: ComparatorRegression: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+Building Challenge
+⚠ [2/3] Built Challenge (80ms)
+warning: Challenge.lean:1:8: declaration uses `sorry`
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+✔ [2/3] Built Solution (81ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+uncaught exception: Illegal axiom detected: 'helper'
+PASS simple_kind_mismatch: exit 1, expected 1; required phase: Illegal axiom detected: 'helper'
+
+CASE type_mismatch
+info: ComparatorRegression: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+Building Challenge
+✔ [2/3] Built Challenge (80ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+✔ [2/3] Built Solution (80ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+uncaught exception: Challenge and solution theorem statement do not match: 'checked'
+PASS type_mismatch: exit 1, expected 1; required phase: Challenge and solution theorem statement do not match: 'checked'
+PASS: all five Comparator regressions
+Running systemd-run --user --quiet --wait --pipe --collect -p 'RestrictAddressFamilies=~AF_UNIX' --working-directory /home/admin/nla-lean-tools/.verification-tmp/nla-axiom-nri5aqrx /usr/bin/env -i PATH=/home/admin/.elan/toolchains/leanprover--lean4---v4.33.1/bin:/home/admin/.elan/bin:/home/admin/mf21-tools/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin HOME=/home/admin LANG=C.UTF-8 XDG_RUNTIME_DIR=/run/user/1000 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus GIT_TERMINAL_PROMPT=0 GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null COMPARATOR_BIN=/home/admin/nla-lean-tools/.tools/comparator/.lake/build/bin/comparator COMPARATOR_LEAN4EXPORT=/home/admin/nla-lean-tools/.tools/lean4export/.lake/build/bin/lean4export COMPARATOR_LANDRUN=/home/admin/nla-lean-tools/scripts/strict_landrun.py XDG_CACHE_HOME=/home/admin/nla-lean-tools/.tools/cache TMPDIR=/home/admin/nla-lean-tools/.verification-tmp lake env /home/admin/nla-lean-tools/.tools/comparator/.lake/build/bin/comparator comparator.json
+Log: /home/admin/nla-lean-tools/logs/verify-20260922T192408Z-961/negative-sorry.log
+info: NlaAxiomFixture: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+Building Challenge
+✔ [2/3] Built Challenge (312ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, Classical.choice, Quot.sound, propext, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+⚠ [2/3] Built Solution (304ms)
+warning: Solution.lean:2:8: declaration uses `sorry`
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, Classical.choice, Quot.sound, propext, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+uncaught exception: Illegal axiom detected: 'sorryAx'
+Running systemd-run --user --quiet --wait --pipe --collect -p 'RestrictAddressFamilies=~AF_UNIX' --working-directory /home/admin/nla-lean-tools/.verification-tmp/nla-axiom-xz0uxefh /usr/bin/env -i PATH=/home/admin/.elan/toolchains/leanprover--lean4---v4.33.1/bin:/home/admin/.elan/bin:/home/admin/mf21-tools/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin HOME=/home/admin LANG=C.UTF-8 XDG_RUNTIME_DIR=/run/user/1000 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus GIT_TERMINAL_PROMPT=0 GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null COMPARATOR_BIN=/home/admin/nla-lean-tools/.tools/comparator/.lake/build/bin/comparator COMPARATOR_LEAN4EXPORT=/home/admin/nla-lean-tools/.tools/lean4export/.lake/build/bin/lean4export COMPARATOR_LANDRUN=/home/admin/nla-lean-tools/scripts/strict_landrun.py XDG_CACHE_HOME=/home/admin/nla-lean-tools/.tools/cache TMPDIR=/home/admin/nla-lean-tools/.verification-tmp lake env /home/admin/nla-lean-tools/.tools/comparator/.lake/build/bin/comparator comparator.json
+Log: /home/admin/nla-lean-tools/logs/verify-20260922T192408Z-961/negative-native.log
+info: NlaAxiomFixture: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+Building Challenge
+✔ [2/3] Built Challenge (384ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, Classical.choice, Quot.sound, propext, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+✔ [2/3] Built Solution (308ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, Classical.choice, Quot.sound, propext, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+uncaught exception: Illegal axiom detected: 'checked._native.native_decide.ax_1_1'
+Running lake env true
+Log: /home/admin/nla-lean-tools/logs/verify-20260922T192408Z-961/dependencies.log
+info: leancert: cloning https://github.com/alerad/leancert
+info: leancert: checking out revision '621a43d7cf21f87872392a01e874f2f1dbddc926'
+info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+info: mathlib: checking out revision '0df444a360eaa60ab8c11dca51a86af692955474'
+info: plausible: cloning https://github.com/leanprover-community/plausible
+info: plausible: checking out revision 'b7eb3304aeae834b12dda98993a37f6a41f6f0bb'
+info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+info: LeanSearchClient: checking out revision '5f4d51b81cbd3f6b32b156bfad9056621a040404'
+info: importGraph: cloning https://github.com/leanprover-community/import-graph
+info: importGraph: checking out revision '16f02aa7642864af59f1ff0e384a015994db9118'
+info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+info: proofwidgets: checking out revision '4be2e3d5087eeb272cf5a8853b8f9dd025ef5957'
+info: aesop: cloning https://github.com/leanprover-community/aesop
+info: aesop: checking out revision '3448c0bcc5ce01b2d1546e483ec3620e32df3d0e'
+info: Qq: cloning https://github.com/leanprover-community/quote4
+info: Qq: checking out revision '92c15be17b7caf78c2ad767ec40f89052d908d81'
+info: batteries: cloning https://github.com/leanprover-community/batteries
+info: batteries: checking out revision '4488d40d070b9700d4d5a6aa342f0d40c31b2a2d'
+info: Cli: cloning https://github.com/leanprover/lean4-cli
+info: Cli: checking out revision '6130a47896ce867c6a4a55373441e59e565bad0f'
+Running lake exe cache get
+Log: /home/admin/nla-lean-tools/logs/verify-20260922T192408Z-961/mathlib-cache.log
+✔ [1/5] Built Cache.Cli (118ms)
+✔ [2/5] Built Cache.Lean (134ms)
+✔ [6/26] Built Cache.Cli:c.o (118ms)
+✔ [7/26] Built Cache.Lean:c.o (124ms)
+✔ [8/26] Built Cache.Infra (182ms)
+✔ [9/26] Built Cache.Infra:c.o (70ms)
+✔ [10/26] Built Batteries.Tactic.OpenPrivate (360ms)
+✔ [11/26] Built Cache.IO (501ms)
+✔ [12/26] Built Batteries.Tactic.OpenPrivate:c.o (472ms)
+✔ [13/26] Built Cache.Hashing (283ms)
+✔ [14/26] Built Cache.Hashing:c.o (174ms)
+✔ [15/26] Built Cache.IO:c.o (623ms)
+✔ [16/26] Built Cache.Requests (745ms)
+✔ [17/26] Built Cache.Marker (220ms)
+✔ [18/26] Built Cache.Marker:c.o (47ms)
+✔ [19/26] Built Cache.Query (250ms)
+✔ [20/26] Built Cache.Query:c.o (127ms)
+✔ [21/26] Built Cache.Warning (247ms)
+✔ [22/26] Built Cache.Warning:c.o (108ms)
+✔ [23/26] Built Cache.Main (470ms)
+✔ [24/26] Built Cache.Requests:c.o (1.2s)
+✔ [25/26] Built Cache.Main:c.o (361ms)
+✔ [26/26] Built cache:exe (518ms)
+Current branch: HEAD
+Using cache from origin: (some leanprover-community/mathlib4)
+Decompressing 8689 already-cached file(s) (1 already decompressed)
+No files to download
+Decompressed 8689 already-cached file(s)
+Completed successfully in 12106 ms!
+Running systemd-run --user --quiet --wait --pipe --collect -p 'RestrictAddressFamilies=~AF_UNIX' --working-directory /home/admin/nla-lean-tools/.verification-tmp/nla-fresh-proof-5aja1cza/project /usr/bin/env -i PATH=/home/admin/.elan/toolchains/leanprover--lean4---v4.33.1/bin:/home/admin/.elan/bin:/home/admin/mf21-tools/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin HOME=/home/admin LANG=C.UTF-8 XDG_RUNTIME_DIR=/run/user/1000 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus GIT_TERMINAL_PROMPT=0 GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null COMPARATOR_BIN=/home/admin/nla-lean-tools/.tools/comparator/.lake/build/bin/comparator COMPARATOR_LEAN4EXPORT=/home/admin/nla-lean-tools/.tools/lean4export/.lake/build/bin/lean4export COMPARATOR_LANDRUN=/home/admin/nla-lean-tools/scripts/strict_landrun.py XDG_CACHE_HOME=/home/admin/nla-lean-tools/.tools/cache TMPDIR=/home/admin/nla-lean-tools/.verification-tmp lake env /home/admin/nla-lean-tools/.tools/comparator/.lake/build/bin/comparator comparator.json
+Log: /home/admin/nla-lean-tools/logs/verify-20260922T192408Z-961/comparator.log
+Building Challenge
+✔ [2914/2916] Built NLA.TR27.Definitions (3.4s)
+⚠ [2915/2916] Built Challenge (959ms)
+warning: Challenge.lean:20:8: declaration uses `sorry`
+warning: Challenge.lean:25:8: declaration uses `sorry`
+warning: Challenge.lean:30:8: declaration uses `sorry`
+warning: Challenge.lean:34:8: declaration uses `sorry`
+warning: Challenge.lean:40:8: declaration uses `sorry`
+warning: Challenge.lean:48:8: declaration uses `sorry`
+warning: Challenge.lean:55:8: declaration uses `sorry`
+warning: Challenge.lean:60:8: declaration uses `sorry`
+warning: Challenge.lean:65:8: declaration uses `sorry`
+warning: Challenge.lean:73:8: declaration uses `sorry`
+warning: Challenge.lean:83:8: declaration uses `sorry`
+warning: Challenge.lean:89:8: declaration uses `sorry`
+warning: Challenge.lean:95:8: declaration uses `sorry`
+warning: Challenge.lean:100:8: declaration uses `sorry`
+warning: Challenge.lean:105:8: declaration uses `sorry`
+warning: Challenge.lean:109:8: declaration uses `sorry`
+warning: Challenge.lean:112:8: declaration uses `sorry`
+warning: Challenge.lean:115:8: declaration uses `sorry`
+warning: Challenge.lean:119:8: declaration uses `sorry`
+warning: Challenge.lean:126:8: declaration uses `sorry`
+warning: Challenge.lean:133:8: declaration uses `sorry`
+warning: Challenge.lean:138:8: declaration uses `sorry`
+warning: Challenge.lean:146:8: declaration uses `sorry`
+warning: Challenge.lean:151:8: declaration uses `sorry`
+warning: Challenge.lean:159:8: declaration uses `sorry`
+Build completed successfully (2916 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, NLA.TR27.finite_coordinates, NLA.TR27.admissible_geometry, NLA.TR27.cone_projective_membership, NLA.TR27.projective_cone_rank, NLA.TR27.rank_minima, NLA.TR27.projective_affine_border, NLA.TR27.tensor_representatives, NLA.TR27.segre_cone_rank, NLA.TR27.segre_rank_minimum, NLA.TR27.coordinate_transport, NLA.TR27.quotient_semantics, NLA.TR27.homogeneous_parameter_semantics, NLA.TR27.integral_quadratic, NLA.TR27.substitution_integral, NLA.TR27.whole_closed_image, NLA.TR27.witness_admissible, NLA.TR27.curve_nonzero, NLA.TR27.eight_point_independence, NLA.TR27.witness_three_terms, NLA.TR27.border_curve_semantics, NLA.TR27.border_two, NLA.TR27.square_nine_terms, NLA.TR27.square_not_eight, NLA.TR27.projective_counterexample, NLA.TR27.original_conjecture_false, propext, Classical.choice, Quot.sound, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+ℹ [3407/3421] Built NLA.TR27.Semantics (1.6s)
+info: NLA/TR27/Semantics.lean:234:0: 'NLA.TR27.rank_minima' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: NLA/TR27/Semantics.lean:235:0: 'NLA.TR27.projective_cone_rank' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: NLA/TR27/Semantics.lean:236:0: 'NLA.TR27.projective_span_range' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: NLA/TR27/Semantics.lean:237:0: 'NLA.TR27.cone_projective_membership' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: NLA/TR27/Semantics.lean:238:0: 'NLA.TR27.finite_coordinates' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: NLA/TR27/Semantics.lean:239:0: 'NLA.TR27.tensor_representatives' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [3408/3421] Built LeanCert.Tactic.Verification (1.9s)
+ℹ [3409/3421] Built NLA.TR27.AffineBorder (1.9s)
+info: NLA/TR27/AffineBorder.lean:105:0: 'NLA.TR27.projective_affine_border' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: NLA/TR27/AffineBorder.lean:106:0: 'NLA.TR27.homogeneousComponent_vanishes' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3410/3421] Built NLA.TR27.ProjectiveGeometry (2.0s)
+info: NLA/TR27/ProjectiveGeometry.lean:135:0: 'NLA.TR27.admissible_geometry' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [3411/3421] Built NLA.TR27.Algebra (3.9s)
+ℹ [3412/3421] Built NLA.TR27.SegreSemantics (1.0s)
+info: NLA/TR27/SegreSemantics.lean:108:0: 'NLA.TR27.segre_rank_minimum' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: NLA/TR27/SegreSemantics.lean:109:0: 'NLA.TR27.segre_cone_rank' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3413/3421] Built NLA.TR27.CoordinateTransport (1.1s)
+info: NLA/TR27/CoordinateTransport.lean:105:0: 'NLA.TR27.coordinate_transport' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [3414/3421] Built NLA.TR27.IntegralImage (1.5s)
+✔ [3415/3421] Built NLA.TR27.Geometry (1.2s)
+✔ [3416/3421] Built NLA.TR27.Independence (1.4s)
+✔ [3417/3421] Built NLA.TR27.BorderWitness (1.0s)
+✔ [3418/3421] Built NLA.TR27.RankWitness (1.4s)
+ℹ [3419/3421] Built NLA.TR27.Counterexample (954ms)
+info: NLA/TR27/Counterexample.lean:66:0: 'NLA.TR27.projective_counterexample' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: NLA/TR27/Counterexample.lean:67:0: 'NLA.TR27.original_conjecture_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3420/3421] Built Solution (1.4s)
+info: Solution.lean:14:0: 'NLA.TR27.finite_coordinates' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:16:0: 'NLA.TR27.admissible_geometry' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:18:0: 'NLA.TR27.cone_projective_membership' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:20:0: 'NLA.TR27.projective_cone_rank' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:22:0: 'NLA.TR27.rank_minima' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:24:0: 'NLA.TR27.projective_affine_border' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:26:0: 'NLA.TR27.tensor_representatives' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:28:0: 'NLA.TR27.segre_cone_rank' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:30:0: 'NLA.TR27.segre_rank_minimum' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:32:0: 'NLA.TR27.coordinate_transport' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:34:0: 'NLA.TR27.quotient_semantics' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:36:0: 'NLA.TR27.homogeneous_parameter_semantics' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:38:0: 'NLA.TR27.integral_quadratic' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:40:0: 'NLA.TR27.substitution_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:42:0: 'NLA.TR27.whole_closed_image' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:44:0: 'NLA.TR27.witness_admissible' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:46:0: 'NLA.TR27.curve_nonzero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:48:0: 'NLA.TR27.eight_point_independence' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:50:0: 'NLA.TR27.witness_three_terms' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:52:0: 'NLA.TR27.border_curve_semantics' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:54:0: 'NLA.TR27.border_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:56:0: 'NLA.TR27.square_nine_terms' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:58:0: 'NLA.TR27.square_not_eight' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:60:0: 'NLA.TR27.projective_counterexample' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Solution.lean:62:0: 'NLA.TR27.original_conjecture_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (3421 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, NLA.TR27.finite_coordinates, NLA.TR27.admissible_geometry, NLA.TR27.cone_projective_membership, NLA.TR27.projective_cone_rank, NLA.TR27.rank_minima, NLA.TR27.projective_affine_border, NLA.TR27.tensor_representatives, NLA.TR27.segre_cone_rank, NLA.TR27.segre_rank_minimum, NLA.TR27.coordinate_transport, NLA.TR27.quotient_semantics, NLA.TR27.homogeneous_parameter_semantics, NLA.TR27.integral_quadratic, NLA.TR27.substitution_integral, NLA.TR27.whole_closed_image, NLA.TR27.witness_admissible, NLA.TR27.curve_nonzero, NLA.TR27.eight_point_independence, NLA.TR27.witness_three_terms, NLA.TR27.border_curve_semantics, NLA.TR27.border_two, NLA.TR27.square_nine_terms, NLA.TR27.square_not_eight, NLA.TR27.projective_counterexample, NLA.TR27.original_conjecture_false, propext, Classical.choice, Quot.sound, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+PASS: fresh Comparator run and all controls. Evidence: /home/admin/nla-lean-tools/logs/verify-20260922T192408Z-961

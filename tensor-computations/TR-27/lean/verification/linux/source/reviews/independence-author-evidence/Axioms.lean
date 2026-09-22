@@ -1,0 +1,30 @@
+import NLA.TR27.Independence
+
+#print axioms NLA.TR27.coefficientFunctional
+#print axioms NLA.TR27.coefficientFunctional_apply
+#print axioms NLA.TR27.coefficientFunctional_sourceUnit
+#print axioms NLA.TR27.coefficientFunctional_some
+#print axioms NLA.TR27.coefficientFunctional_none
+#print axioms NLA.TR27.tangentFactor
+#print axioms NLA.TR27.tangentPolynomial
+#print axioms NLA.TR27.tangentFactor_degree
+#print axioms NLA.TR27.tangentFactor_coeff_zero
+#print axioms NLA.TR27.tangentPolynomial_degree
+#print axioms NLA.TR27.tangentPolynomial_degree_of_none
+#print axioms NLA.TR27.tangentPolynomial_coeff_one
+#print axioms NLA.TR27.tangentPolynomial_eval
+#print axioms NLA.TR27.tangentPolynomial_annihilates
+#print axioms NLA.TR27.tangent_not_sum
+#print axioms NLA.TR27.separatingFactor
+#print axioms NLA.TR27.separatingPolynomial
+#print axioms NLA.TR27.separatingFactor_degree
+#print axioms NLA.TR27.separatingPolynomial_degree
+#print axioms NLA.TR27.separatingPolynomial_eval_self
+#print axioms NLA.TR27.separatingPolynomial_eval_other
+#print axioms NLA.TR27.separatingPolynomial_annihilates
+#print axioms NLA.TR27.source_curve_independent
+#print axioms NLA.TR27.tangent_not_span
+#print axioms NLA.TR27.center_not_span
+#print axioms NLA.TR27.projected_curve_independent
+#print axioms NLA.TR27.projective_curve_representation
+#print axioms NLA.TR27.eight_point_independence

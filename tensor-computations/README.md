@@ -36,6 +36,6 @@
 | [TR-17](TR-17/README.md) | Frobenius inner products minimize the algebraic complexity of rank-one approximation | **✅ SOLVED** | challenging | interesting to the community | [PDF](TR-17/problem.pdf) · [TeX](TR-17/problem.tex) |
 | [TR-20](TR-20/README.md) | Rayleigh–Ritz discriminant degrees for rank-one matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](TR-20/problem.pdf) · [TeX](TR-20/problem.tex) |
 | [TR-26](TR-26/README.md) | Degrees of the two Rayleigh–Ritz discriminant parts for rational normal curves | **✅ SOLVED** | challenging | interesting to specialist | [PDF](TR-26/problem.pdf) · [TeX](TR-26/problem.tex) |
-| [TR-27](TR-27/README.md) | Border-rank deficiency forcing strict submultiplicativity at the tensor square | **✅ SOLVED** | extreme | interesting to the community | [PDF](TR-27/problem.pdf) · [TeX](TR-27/problem.tex) |
+| [TR-27](TR-27/README.md) | Border-rank deficiency forcing strict submultiplicativity at the tensor square | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](TR-27/problem.pdf) · [TeX](TR-27/problem.tex) |
 
 Ratings are editorial; each entry explains both ratings and the scope of its status evidence. [Definitions](../README.md#problem-status).

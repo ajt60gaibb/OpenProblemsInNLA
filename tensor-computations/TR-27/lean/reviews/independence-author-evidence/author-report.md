@@ -1,0 +1,17 @@
+# TR-27 uniform independence: author evidence
+
+Date: 2026-09-22. Authoring agent: `/root/canonical_inventory`. This is author evidence, not independent proof review or full-problem verification. The internal polynomial-dual derivation received the root agent's mathematical scrutiny before implementation; the complete frozen Challenge boundary had already received two independent statement approvals.
+
+The new `NLA/TR27/Independence.lean` proves the full frozen `eight_point_independence` signature, with no additional hypotheses. Its SHA256 is `e7394b4445160b14a7754d3d234d43abb1e90d43eed288c32e38c892ad179b0e`. It contains 23 theorems and five definitions, with no placeholders, custom axioms, native proof shortcuts or import of Challenge. Stable Algebra and IntegralImage are dependencies; neither was edited in this task. Frozen Definitions, Challenge and NUMERICAL_TARGETS hashes remain unchanged.
+
+The polynomial dual `coefficientFunctional` pairs thirteen coefficients with the original source vector. `tangentPolynomial` is X times the product of factors for every finite nonzero parameter; repeated parameters are allowed. Its coefficient of X is nonzero. Its degree is at most k+1; if an infinity parameter occurs, one factor is one and the degree is at most k. Therefore for k≤11 the functional annihilates every proposed source point, including infinity, but not e1. This proves `tangent_not_sum` and `tangent_not_span` with unrestricted complex coefficients.
+
+For a finite parameter in an injective family of at most eight, `separatingPolynomial` annihilates all other curve vectors and is nonzero at the selected one. Its degree is at most eight, so it also annihilates infinity. Pairing with a linear dependence removes all finite coefficients; any remaining infinity coefficient vanishes by the last coordinate. This proves `source_curve_independent` uniformly, with zero and infinity included.
+
+`center_not_span` adjoins the fixed parameters 1,2,3 to the arbitrary family of at most eight, with no distinctness assumption needed for that step. Center membership would put e1 in the span of at most eleven source vectors. The exact quotient-kernel result then gives `projected_curve_independent`.
+
+`projective_curve_representation` uses the proved equality of the entire algebraic zero locus with the parameterized cone. Every point of the full variety therefore has a curve parameter; an injective projective family has distinct parameters. Applying the actual `Projectivization.Independent` constructor proves the frozen `eight_point_independence`. The argument is not restricted to a finite grid, generic parameters, one affine chart, or a dense subset.
+
+Run `python3 reviews/independence-author-evidence/typecheck.py` to reproduce the recorded macOS development check. It compiles Definitions, Algebra, IntegralImage, Independence and the all-declaration axiom audit into `/private/tmp/nla-tr27-independence-build`; all five runs exit zero without warnings. The transitive axiom closures of all 28 new declarations are exactly subsets of `propext`, `Classical.choice`, and `Quot.sound`. The final theorem's closure includes the entire imported whole-image proof.
+
+No interval calculation is needed, and LeanCert was not invoked for these exact polynomial and linear-algebra lemmas. Independent proof review, authoritative Linux/kernel-trust checks, and Comparator remain outstanding. This module alone does not prove the rank-three, border-two, or tensor-square-nine conclusions and does not certify the whole canonical problem.

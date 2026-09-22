@@ -2,7 +2,7 @@
 % Compile with XeLaTeX. Mathematical content is maintained in Markdown.
 \documentclass[11pt,a4paper]{article}
 \usepackage[fontsize=10.5pt]{scrextend}
-\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage[margin=22mm,headheight=20pt,headsep=9mm,footskip=11mm]{geometry}
 \usepackage{fontspec}
 \setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
 \setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
@@ -34,7 +34,7 @@ square},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}TR-27}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-17}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Verification check: 2026-09-22}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ deficiency forcing strict submultiplicativity at the tensor square\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -92,6 +92,88 @@ feedback, not a formal referee report.
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-tensor-metrics-rank-2026-09-11/README.md\#tr-27-author-feedback--2026-09-17}{Correspondence
 summary}.
 
+\newpage
+
+\subsection{Lean proof and verification evidence -
+2026-09-22}\label{lean-proof-and-verification-evidence---2026-09-22}
+
+\textbf{The complete original conjecture is Lean verified, with a
+negative answer.} The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/775e8b169119c4045b07db7666eda8c001ae3bd1/tensor-computations/TR-27/lean/NLA/TR27/Counterexample.lean}{formal
+proof at revision 775e8b1} constructs a reduced irreducible
+nondegenerate complex projective curve and a point with rank 3, border
+rank at most 2, and ordinary Segre tensor-square rank 9. These
+inequalities refute the full implication below. Decompositions allow
+arbitrary complex coefficients, repeated points, zero summands, the
+point at infinity, and independently chosen left and right tensor
+factors. The proof covers the whole variety, using an algebraic proof
+that the parameter cone equals the entire closed zero locus.
+
+\textbf{Lean formalization:} George Stepaniants, Department of Computing
+and Mathematical Sciences, California Institute of Technology, with
+substantial AI-agent assistance. \textbf{Matthew J. Colbrook} retains
+attribution for the original counterexample and mathematical proof. The
+conjecture authorship, manuscript, original statement and author
+feedback above remain preserved.
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/775e8b169119c4045b07db7666eda8c001ae3bd1/tensor-computations/TR-27/lean/Solution.lean}{25
+checked declarations} establish the projective, Zariski-closure and
+Segre semantics, the whole-image geometry, the rank and border-rank
+bounds, and the unconditional final theorems
+\textit{NLA.TR27.projective\_counterexample} and
+\textit{NLA.TR27.original\_conjecture\_false}. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tensor-computations/TR-27/lean/Challenge.lean}{statement
+boundary} was independently reviewed before implementation and remains
+byte-identical to its frozen receipt. Two fresh nonauthor agents
+approved the complete mathematical source and separately checked the
+actual verification evidence:
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tensor-computations/TR-27/lean/reviews/final-fidelity-referee.md}{fidelity
+source review} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tensor-computations/TR-27/lean/reviews/final-fidelity-completion.md}{completion
+review}, and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tensor-computations/TR-27/lean/reviews/final-correctness-referee.md}{correctness
+source review} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tensor-computations/TR-27/lean/reviews/final-correctness-completion.md}{completion
+review}. These are independent AI reviews adapting the repository's Tau
+Ceti protocol, not external human peer review or official Tau Ceti
+endorsement.
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tensor-computations/TR-27/lean/verification/linux/OPERATIONAL-REVIEW.md}{successful
+non-root Linux run and operational audit} bind the immutable proof
+inputs to all 25 successful Comparator comparisons, default-kernel
+replay, authentic LeanCert kernel assertions, dependency revisions and
+isolation/rejection controls. Every selected declaration uses only
+\textit{propext}, \textit{Classical.choice} and \textit{Quot.sound}. The
+pins are Lean 4.33.1, LeanCert
+\textit{621a43d7cf21f87872392a01e874f2f1dbddc926} and Mathlib
+\textit{0df444a360eaa60ab8c11dca51a86af692955474}; the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tools/lean/source-lock.json}{shared
+source lock} pins the Comparator and control tools. This exact algebraic
+proof needs no numerical interval certificate.
+
+The manuscript's additional smoothness, exact border rank two and
+arbitrary prescribed finite-delay results retain their manuscript and
+informal-review scope. They are unnecessary for this complete negative
+answer and are not claimed as Lean verified. The Segre- and
+Veronese-restricted questions remain open as recorded above. See the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tensor-computations/TR-27/lean/README.md}{project
+guide} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tensor-computations/TR-27/lean/formalization.yaml}{formalization
+metadata}. On the documented
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/README.md}{non-root
+Linux environment}, reproduce from the repository root with:
+
+\begin{verbatim}
+tools/lean/bootstrap.sh /absolute/path/to/verification-tools
+tools/lean/verify.sh \
+  tensor-computations/TR-27/lean \
+  /absolute/path/to/verification-tools
+\end{verbatim}
+
+\newpage
+
 \subsection{Problem statement}\label{problem-statement}
 
 Let \(V\) be a finite-dimensional complex vector space and let
@@ -123,7 +205,6 @@ already yields a strict saving when two copies are decomposed together.
 It connects ill-behaved rank limits with the cost of repeated
 multilinear computation.
 
-\newpage
 \subsection{References and status
 check}\label{references-and-status-check}
 

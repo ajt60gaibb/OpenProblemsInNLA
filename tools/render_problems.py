@@ -42,6 +42,10 @@ def restore_pdf_layout(identifier, body):
         # Separate verification evidence and keep the full original target together.
         body = body.replace("## Lean proof and verification evidence\n", "\\newpage\n\n## Lean proof and verification evidence\n", 1)
         body = body.replace("## Problem statement\n", "\\newpage\n\n## Problem statement\n", 1)
+    if identifier == "TR-27":
+        # Keep dated verification evidence and the retained target on separate pages.
+        body = body.replace("## Lean proof and verification evidence", "\\newpage\n\n## Lean proof and verification evidence", 1)
+        body = body.replace("## Problem statement\n", "\\newpage\n\n## Problem statement\n", 1)
     if identifier == "KE-05":
         # Separate verification evidence and keep the retained original target together.
         body = body.replace("## Lean proof and verification evidence\n", "\\newpage\n\n## Lean proof and verification evidence\n", 1)
@@ -104,7 +108,9 @@ def render(source):
             input=body.strip(), text=True, capture_output=True, check=True,
         )
         tex = result.stdout
-        if identifier in {"IE-02", "IE-04", "IE-14", "IE-21", "IV-03", "KE-05", "MF-05", "MF-12", "MF-18", "MF-21", "MF-22", "MI-24", "MI-27", "MI-28", "NM-04", "NR-04", "PF-03", "SP-04", "SP-05", "SP-15"}:
+        if identifier == "TR-27":
+            tex = tex.replace("headheight=15pt", "headheight=20pt")
+        if identifier in {"IE-02", "IE-04", "IE-14", "IE-21", "IV-03", "KE-05", "MF-05", "MF-12", "MF-18", "MF-21", "MF-22", "MI-24", "MI-27", "MI-28", "NM-04", "NR-04", "PF-03", "SP-04", "SP-05", "SP-15", "TR-27"}:
             # These publication dates record formal verification, not a literature search.
             tex = tex.replace("Literature check:", "Verification check:")
         # The code spans in this catalog are literal search phrases. Set them
@@ -124,7 +130,7 @@ def render(source):
             'RA-02', 'RA-06', 'RA-08', 'RA-09', 'RA-10', 'RA-12',
             'RA-15', 'RE-01', 'RE-02', 'RE-06', 'SP-04',
             'SP-05', 'SP-06', 'SP-09', 'SP-12', 'TR-11', 'TR-20', 'TR-21',
-            'TR-24', 'TR-26', 'TR-27', 'TR-30',
+            'TR-24', 'TR-26', 'TR-30',
             'IE-27', 'MI-30', 'MI-31',
         }:
             tex = re.sub(r"\\subsection\{References?(?:\s+and\s+status\s+check)?\}",

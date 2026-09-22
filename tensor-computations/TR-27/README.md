@@ -6,8 +6,8 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Status:** Solved  
-**Last checked:** 2026-09-17
+**Status:** Lean verified  
+**Last checked:** 2026-09-22
 
 **Rating rationale:** Forcing a saving at exactly two copies for every projective variety goes beyond the known eventual-power mechanism and presents a general structural barrier. The relationship between degeneration and repeated decomposition matters to the tensor-complexity community.
 
@@ -16,6 +16,26 @@
 <!-- /colbrook-tensor-metrics-rank -->
 
 **Author feedback — 2026-09-17.** In personal correspondence with Alex Townsend, Alessandra Bernardi, a coauthor of Conjecture 1.1, said she thought the argument works and agreed that it contradicts the conjecture in its stated generality. **The restrictions to Segre and Veronese varieties remain open.** This is informal mathematical feedback, not a formal referee report. [Correspondence summary](../../references/colbrook-tensor-metrics-rank-2026-09-11/README.md#tr-27-author-feedback--2026-09-17).
+
+## Lean proof and verification evidence - 2026-09-22
+
+**The complete original conjecture is Lean verified, with a negative answer.** The [formal proof at revision 775e8b1](https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/775e8b169119c4045b07db7666eda8c001ae3bd1/tensor-computations/TR-27/lean/NLA/TR27/Counterexample.lean) constructs a reduced irreducible nondegenerate complex projective curve and a point with rank 3, border rank at most 2, and ordinary Segre tensor-square rank 9. These inequalities refute the full implication below. Decompositions allow arbitrary complex coefficients, repeated points, zero summands, the point at infinity, and independently chosen left and right tensor factors. The proof covers the whole variety, using an algebraic proof that the parameter cone equals the entire closed zero locus.
+
+**Lean formalization:** George Stepaniants, Department of Computing and Mathematical Sciences, California Institute of Technology, with substantial AI-agent assistance. **Matthew J. Colbrook** retains attribution for the original counterexample and mathematical proof. The conjecture authorship, manuscript, original statement and author feedback above remain preserved.
+
+The [25 checked declarations](https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/775e8b169119c4045b07db7666eda8c001ae3bd1/tensor-computations/TR-27/lean/Solution.lean) establish the projective, Zariski-closure and Segre semantics, the whole-image geometry, the rank and border-rank bounds, and the unconditional final theorems `NLA.TR27.projective_counterexample` and `NLA.TR27.original_conjecture_false`. The [statement boundary](lean/Challenge.lean) was independently reviewed before implementation and remains byte-identical to its frozen receipt. Two fresh nonauthor agents approved the complete mathematical source and separately checked the actual verification evidence: [fidelity source review](lean/reviews/final-fidelity-referee.md) and [completion review](lean/reviews/final-fidelity-completion.md), and [correctness source review](lean/reviews/final-correctness-referee.md) and [completion review](lean/reviews/final-correctness-completion.md). These are independent AI reviews adapting the repository's Tau Ceti protocol, not external human peer review or official Tau Ceti endorsement.
+
+The [successful non-root Linux run and operational audit](lean/verification/linux/OPERATIONAL-REVIEW.md) bind the immutable proof inputs to all 25 successful Comparator comparisons, default-kernel replay, authentic LeanCert kernel assertions, dependency revisions and isolation/rejection controls. Every selected declaration uses only `propext`, `Classical.choice` and `Quot.sound`. The pins are Lean 4.33.1, LeanCert `621a43d7cf21f87872392a01e874f2f1dbddc926` and Mathlib `0df444a360eaa60ab8c11dca51a86af692955474`; the [shared source lock](../../tools/lean/source-lock.json) pins the Comparator and control tools. This exact algebraic proof needs no numerical interval certificate.
+
+The manuscript's additional smoothness, exact border rank two and arbitrary prescribed finite-delay results retain their manuscript and informal-review scope. They are unnecessary for this complete negative answer and are not claimed as Lean verified. The Segre- and Veronese-restricted questions remain open as recorded above. See the [project guide](lean/README.md) and [formalization metadata](lean/formalization.yaml). On the documented [non-root Linux environment](../../docs/lean/README.md), reproduce from the repository root with:
+
+```
+tools/lean/bootstrap.sh /absolute/path/to/verification-tools
+tools/lean/verify.sh \
+  tensor-computations/TR-27/lean \
+  /absolute/path/to/verification-tools
+```
+
 
 ## Problem statement
 
