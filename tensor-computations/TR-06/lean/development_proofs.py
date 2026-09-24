@@ -28,7 +28,11 @@ def main():
     parser.add_argument('--modules', nargs='+', default=[
         'Generic', 'LinearNorm', 'MetricSlope', 'Radial', 'PolynomialNull',
         'Homogeneity', 'Measurability', 'RankOneCharts', 'LocusMeasurability',
-        'SourceBridge', 'NormDet', 'Rectangular', 'LocalVolume', 'Density', 'Radius', 'Area', 'FiniteVolume'])
+        'SourceBridge', 'AngularMeasurability', 'NormDet', 'Rectangular', 'LocalVolume', 'Density', 'Radius', 'Area', 'WeightedArea', 'FiniteVolume',
+        'NullImage', 'GraphJacobian', 'Complexification', 'ClosedFibers', 'AlgebraFiber',
+        'ProjectionAtlasDefinitions', 'ProjectionLinear', 'ProjectionCompact',
+        'ProjectionTangent', 'ProjectionLocal', 'ProjectionAtlas',
+        'QuasiFiniteCharactersDefinitions', 'QuasiFiniteCharacters'])
     args = parser.parse_args()
     root = Path(__file__).resolve().parent
     build, evidence = args.build_dir.resolve(), args.evidence_dir.resolve()

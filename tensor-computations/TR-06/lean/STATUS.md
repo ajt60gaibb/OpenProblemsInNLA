@@ -16,7 +16,8 @@ slope, and Borel measurability of the full identifiable real sampling locus.
 The polynomial result concerns ordinary coordinate-space Lebesgue measure;
 it does not establish induced tensor-volume nullity.
 
-The seventeen retained implementation modules pass local Lean 4.33.1 elaboration,
+The thirty-two retained supporting implementation/definition modules pass local
+Lean 4.33.1 elaboration,
 permitted-axiom inspection and pinned LeanCert `#assert_trust kernel` checks.
 Independent contribution reviews and reruns are retained in `reviews/`.
 The local checker reuses prebuilt dependency artifacts. It is not an
@@ -27,6 +28,15 @@ Additional reviewed supporting modules establish Borel chart loci, pointwise
 source/metric agreement on the smooth inverse locus, and finite-volume estimates
 under an explicit bounded-overlap hypothesis. They do not establish that the
 actual normalized graph satisfies the required uniform fiber bound.
+
+The new combined development rebuild and individual reviews also cover angular
+measurability on the regular locus, weighted area, source-dimensional C1
+null-image transfer, L2 graph Jacobian inequalities, and a uniform finite-family
+coordinate-projection atlas. Algebraic contributions prove conditional
+real/complex transfer, finiteness of complete closed-product fibers at exact
+identifiable tensors, and a uniform character count on the quasi-finite locus.
+The actual tensor-source and graph-point algebraic correspondences remain to
+be established; the abstract character bound alone does not prove graph volume.
 
 The full-measure regular-locus, bounded normalized-graph volume, polar integration
 and complete finite-mean arguments remain outstanding. No complete TR-06 proof,
