@@ -20,6 +20,10 @@ The difficulty, importance and rating rationale below are historical assessments
 **Rating rationale:** Controlling every local minimum on sparse random cubic graphs requires new landscape analysis beyond existing dense and high-degree results; it informs synchronization and nonconvex optimization.
 
 
+## Lean formalization scaffold
+
+The repository retains the approved statement boundary and current supporting Lean work in [lean/](lean/), including [Challenge.lean](lean/Challenge.lean) and [Solution.lean](lean/Solution.lean). This is an **unverified, incomplete formalization**; the existing mathematical status and resolution above are unchanged. See [lean/README.md](lean/README.md) for scope, blockers, pinned metadata, and review records.
+
 For each even integer $`n\geq4`$, let $`G_n`$ be uniformly distributed over the labelled simple $`3`$-regular graphs with vertex set $`\{1,\ldots,n\}`$. For a graph $`G`$ on these vertices, define
 
 ```math

@@ -1,0 +1,46 @@
+version: v0.4
+project:
+  name: 'IV-02 Lean formalization scaffold'
+  description: 'Statement-first formalization of the complete tridiagonal interval determinant-range complexity target; supporting lemmas only.'
+  authors:
+  - OpenAI Codex (AI-assisted formalisation)
+  license: 'No licence grant is made by this metadata.'
+sources:
+- title: 'IV-02 canonical problem statement'
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/aa8d010bdd5a/intervals-and-absolute-value-equations/IV-02/README.md
+  type: web-post
+  relationship: formalizes
+  note: 'Canonical source snapshot recorded in SPEC.md.'
+- title: 'Twenty-problem resolution, IV-02'
+  id: '../../04_twenty_problem_resolutions/main.tex'
+  type: manuscript
+  relationship: formalizes
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: Pinned Lean 4.33.1 and Mathlib revisions are recorded in lakefile.toml.
+    prompting_notes: The full complexity contract remains isolated in Challenge.lean.
+status:
+  scope: 'Challenge.lean records the full exact determinant-range and complexity target; Solution.lean proves rotation_identity_verified and layer_count_verified.'
+  whole_problem_verified: false
+  canonical_status: 'not Lean verified'
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: [propext, Classical.choice, Quot.sound]
+  main_results:
+  - declaration: IV02.rotation_identity_verified
+    file: Solution.lean
+    sorry_count: 0
+    axioms: []
+    comparator_config: comparator.json
+  - declaration: IV02.layer_count_verified
+    file: Solution.lean
+    sorry_count: 0
+    axioms: []
+    comparator_config: comparator.json
+fidelity:
+  divergences: 'The complete interval-family definitions, PARTITION reduction, NP-hardness and exact-output complexity proof remain unimplemented; the complete target is retained in Challenge.lean.'
+review:
+  status: 'AI-reviewed; proof-blocked'
+  notes: 'Official referee and Comparator verification remain pending.'

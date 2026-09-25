@@ -1,0 +1,51 @@
+version: v0.4
+project:
+  name: 'MD-06 Lean formalization scaffold'
+  description: 'Statement-first formalization of the complete random cubic synchronization target; one supporting projection lemma only.'
+  authors:
+  - Matthew J. Colbrook
+  responsible_maintainers:
+  - OpenProblemsInNLA formalization team
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+- title: 'MD-06 — Global synchronization of a random cubic graph'
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/aa8d010bdd5a/matrix-discrepancy-and-optimization/MD-06/README.md
+  type: web-post
+  relationship: formalizes
+  location: 'Negative resolution theorem, graph model and torus energy statement'
+- title: 'Twenty-problem resolutions manuscript'
+  id: '../../04_twenty_problem_resolutions/main.tex'
+  type: manuscript
+  relationship: formalizes
+  location: 'Section MD-06, Theorem md-main and correction lemma md-correction'
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: Pinned Lean 4.33.1 and Mathlib revisions are recorded in lakefile.lean.
+    prompting_notes: The full probabilistic and analytic target remains isolated in Challenge.lean.
+toolchain:
+  lean: leanprover/lean4:v4.33.1
+  mathlib: 0df444a360eaa60ab8c11dca51a86af692955474
+  leancert: 621a43d7cf21f87872392a01e874f2f1dbddc926
+  dependency_manifest: lake-manifest.json
+status:
+  scope: 'Challenge.lean records the complete negative limit and strong critical-point target; Solution.lean proves only stable_event_has_nonsync_critical.'
+  whole_problem_verified: false
+  canonical_status: 'not Lean verified'
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: [propext, Classical.choice, Quot.sound]
+  main_results:
+  - declaration: MD06.stable_event_has_nonsync_critical
+    file: Solution.lean
+    sorry_count: 0
+    axioms: []
+    comparator_config: comparator.json
+fidelity:
+  divergences: 'The graph probability, torus calculus, random-regular-graph estimates and correction argument remain abstract or unimplemented; the complete target is retained in Challenge.lean.'
+review:
+  status: 'AI-reviewed; proof-blocked'
+  notes: 'Official referee and Comparator verification remain pending.'

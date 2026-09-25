@@ -20,6 +20,10 @@
 The recovered AI-assisted proof passed independent agent review; this is not external human peer review or formal certification. The original target and dated source audit are retained. Difficulty, importance and rating rationale are historical. No novelty or priority claim is made.
 <!-- /colbrook-recovered-tensors -->
 
+## Lean formalization scaffold
+
+The repository retains the approved statement boundary and current supporting Lean work in [`lean/`](lean/), including [`Challenge.lean`](lean/Challenge.lean) and [`Solution.lean`](lean/Solution.lean). This is an **unverified, incomplete formalization**; the existing mathematical status and resolution above are unchanged. See [`lean/README.md`](lean/README.md) for scope, blockers, pinned metadata, and review records.
+
 ## Problem statement
 
 Let $`d\ge3`$, $`n_1,\ldots,n_d\ge2`$, and positive integers $`r_1,\ldots,r_{d-1}`$ be given. Let $`S_r\subset\mathbb R^{n_1\times\cdots\times n_d}`$ consist of tensors whose unfolding separating modes $`1,\ldots,j`$ from modes $`j+1,\ldots,d`$ has rank at most $`r_j`$, for every $`j`$. For a dense input tensor $`A`$, put

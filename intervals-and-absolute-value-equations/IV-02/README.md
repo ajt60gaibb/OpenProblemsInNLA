@@ -22,6 +22,10 @@
 The difficulty, importance and rating rationale below are historical assessments of the original open target. The original statement and dated audits are preserved.
 <!-- /colbrook-intervals -->
 
+## Lean formalization scaffold
+
+The repository retains the approved statement boundary and current supporting Lean work in [`lean/`](lean/), including [`Challenge.lean`](lean/Challenge.lean) and [`Solution.lean`](lean/Solution.lean). This is an **unverified, incomplete formalization**; the existing mathematical status and resolution above are unchanged. See [`lean/README.md`](lean/README.md) for scope, blockers, pinned metadata, and review records.
+
 ## Problem statement
 
 For $`n\geq2`$, let the input consist of $`3n-2`$ closed real intervals with

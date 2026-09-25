@@ -1,0 +1,53 @@
+version: v0.4
+project:
+  name: 'TR-04 Lean formalization scaffold'
+  description: 'Statement-first formalization of the complete tensor-train approximation target; candidate-count lemmas only.'
+  authors:
+  - OpenAI Codex (AI-assisted formalisation)
+  license: 'No licence grant is made by this metadata.'
+sources:
+- title: 'TR-04 resolution and theorem'
+  authors:
+  - Matthew J. Colbrook
+  id: 'sources/aa8d010bdd5a/tensor-computations/TR-04/README.md'
+  type: article
+  relationship: formalizes
+  location: 'Theorem 3 and Sections 2–5 of the recovered resolution'
+  note: 'Full intended result includes the complete TT-SVD approximation contract; the current Solution file proves only candidate-count support lemmas.'
+- title: 'Tensor-Train Decomposition'
+  authors:
+  - I. V. Oseledets
+  id: 'doi:10.1137/090752286'
+  type: article
+  relationship: background
+  location: 'Theorem 2.2 and Corollary 2.4'
+related_formalizations: []
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: Pinned Lean 4.33.1 and Mathlib revisions are recorded in lakefile.toml.
+    prompting_notes: The complete TT-SVD contract remains isolated in Challenge.lean.
+status:
+  scope: 'Challenge.lean records the complete TT-SVD theorem; Solution.lean proves only candidate-count support lemmas.'
+  whole_problem_verified: false
+  canonical_status: 'not Lean verified'
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: [propext, Classical.choice, Quot.sound]
+  main_results:
+  - declaration: candidate_count_le_first_mode
+    file: Solution.lean
+    sorry_count: 0
+    axioms: []
+    comparator_config: comparator.json
+  - declaration: cyclic_window_count_le_first_mode
+    file: Solution.lean
+    sorry_count: 0
+    axioms: []
+    comparator_config: comparator.json
+fidelity:
+  divergences: 'The full finite-dimensional unfolding rank, SVD and TT-SVD development remains unimplemented; the complete target is retained in Challenge.lean.'
+review:
+  status: 'AI-reviewed; proof-blocked'
+  notes: 'Official referee and Comparator verification remain pending.'
