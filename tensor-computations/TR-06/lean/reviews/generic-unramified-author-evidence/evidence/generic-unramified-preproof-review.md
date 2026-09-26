@@ -1,0 +1,9 @@
+# Independent generic-unramified pre-proof approval
+
+Reviewer: root, nonauthor of implementation. APPROVE the two exact typechecked proposition definitions at SHA256 `ff8317d3fcb8ec4c29a5be165f02bd8dd3c8fc794133f90dca6e8ec4888de97f` after reading the complete boundary and API/proof plan.
+
+The injective domain map identifies the generic prime's contraction with zero. Generic quasi-finiteness provides the actual finite generic residue-field extension; it is not inferred merely from the name of the tensor map. The base generic residue field is a fraction field and inherits characteristic zero, hence is perfect. The finite extension is therefore separable, and the generic local-ring ideal condition is the equality of zero maximal ideals. This proves actual IsUnramifiedAt at the source zero prime.
+
+Spreading formal unramifiedness first produces a source denominator only. The proposed Zariski Main finite envelope and denominator clearing write a multiple of that source element inside a finite R-module algebra. Its nonzero integral element divides a nonzero base scalar, so the resulting base principal open is contained in the source unramified open. This supplies the nonzero denominator in R required by the statement. Canonical mapped-powers localization and the R[1/r] action are explicit; only formal unramifiedness is asserted, without claiming that the same denominator already supplies module finiteness.
+
+No source element is assumed algebraic over R without justification, and no smoothness, Jacobian, derivative or Noetherian premise is silently added. Characteristic zero and injectivity are mathematically appropriate for the actual complex image/source subalgebras. The analytic Segre derivative bridge and the common-denominator assembly with finite localization remain separate obligations. This is pre-proof statement approval, not complete TR-06 verification.

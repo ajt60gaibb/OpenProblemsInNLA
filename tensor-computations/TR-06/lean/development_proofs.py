@@ -26,13 +26,22 @@ def main():
     parser.add_argument('--build-dir', type=Path, required=True)
     parser.add_argument('--evidence-dir', type=Path, required=True)
     parser.add_argument('--modules', nargs='+', default=[
-        'Generic', 'LinearNorm', 'MetricSlope', 'Radial', 'PolynomialNull',
-        'Homogeneity', 'Measurability', 'RankOneCharts', 'LocusMeasurability',
-        'SourceBridge', 'AngularMeasurability', 'NormDet', 'Rectangular', 'LocalVolume', 'Density', 'Radius', 'Area', 'WeightedArea', 'FiniteVolume',
-        'NullImage', 'GraphJacobian', 'Complexification', 'ClosedFibers', 'AlgebraFiber',
-        'ProjectionAtlasDefinitions', 'ProjectionLinear', 'ProjectionCompact',
-        'ProjectionTangent', 'ProjectionLocal', 'ProjectionAtlas',
-        'QuasiFiniteCharactersDefinitions', 'QuasiFiniteCharacters'])
+        'Generic', 'LinearNorm', 'MetricSlope', 'Radial',
+        'PolynomialNull', 'Homogeneity', 'Measurability', 'RankOneCharts',
+        'LocusMeasurability', 'SourceBridge', 'AngularMeasurability', 'NormDet',
+        'Rectangular', 'LocalVolume', 'Density', 'Radius',
+        'Area', 'WeightedArea', 'FiniteVolume', 'NullImage',
+        'GraphJacobian', 'Complexification', 'ClosedFibers', 'AlgebraFiber',
+        'ProjectionAtlasDefinitions', 'ProjectionLinear', 'ProjectionCompact', 'ProjectionTangent',
+        'ProjectionLocal', 'ProjectionAtlas', 'QuasiFiniteCharactersDefinitions', 'QuasiFiniteCharacters',
+        'ClosedCone', 'FiniteCharactersDefinitions', 'FiniteCharacters', 'SegreAlgebraDefinitions',
+        'SegreAlgebra', 'GenericFiniteLocalizationDefinitions', 'GenericFiniteLocalization', 'AdditionLocalizationDefinitions',
+        'FiniteCharacterFiberDefinitions', 'FiniteCharacterFiber', 'AdditionLocalization', 'GenericUnramifiedDefinitions',
+        'GenericUnramified', 'SegreBoundary', 'SegreCoordinates', 'SegreNonzero',
+        'FiniteFiberExactnessBoundary', 'FiniteFiberExactness', 'RegularChartDefinitions', 'AdditionNoEscape',
+        'AdditionOpen', 'ImmersionPatch', 'PivotChart', 'RegularChart',
+        'RegularChartAudit',
+    ])
     args = parser.parse_args()
     root = Path(__file__).resolve().parent
     build, evidence = args.build_dir.resolve(), args.evidence_dir.resolve()
