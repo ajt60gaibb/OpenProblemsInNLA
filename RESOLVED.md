@@ -38,6 +38,12 @@ The passing scopes include AC-01's small-CW upper bound (also relevant to AC-04)
 
 ## Resolved catalog entries
 
+### 🟠 FR-05 — vanishing phase-retrieval injectivity probability — Zhangsong Li
+
+**Solution claimed, 14 September 2026.** Zhangsong Li's [manuscript](https://zhangsong-li.github.io/injectivity_phase_retrieval.pdf), Theorem 1.4, claims the stronger bound $`p_d\le C/d`$ for every $`d\ge2`$ in the retained [FR-05 target](frames-and-matrix-designs/FR-05/README.md). The claim has not been independently audited here and is not Lean verified; its status is therefore `Solution claimed`, not `Solved`. The [formalisation plan](frames-and-matrix-designs/FR-05/formalisation-plan.md) identifies the source freeze, statement boundary, and proof obligations needed for a future verification. The original ID, canonical path, and target are retained.
+
+**Local Lean development, 27 September 2026.** The [completed formalisation](frames-and-matrix-designs/FR-05/lean/README.md) proves the quantitative bound and original limit for the actual Gaussian law and all-signals predicate. The [local build and axiom audit](frames-and-matrix-designs/FR-05/lean/verification/library-cleanup/README.md) pass with standard axioms only and no solution placeholders. Independent statement/proof review and isolated Linux Comparator/kernel verification remain pending; this does not promote the catalog status.
+
 ### ✅ MF-08 — unrestricted static output-feedback stabilization
 
 **Affirmative literature resolution, reviewed 18 September 2026.**

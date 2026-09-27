@@ -1,0 +1,157 @@
+# yaml-language-server: $schema=../../../docs/lean/schema/v0.4.schema.json
+version: v0.4
+project:
+  name: 'FR-05: vanishing complex phase-retrieval injectivity probability'
+  description: >-
+    A locally Lean-checked proof of p_d <= C/d for every d >= 2 and the
+    original limit p_d -> 0, for iid standard complex-Gaussian 4d-5 row
+    frames and all-signals phase-retrieval injectivity. Includes the planted
+    probability bound, likelihood comparison, exact sampler identities, and
+    final assembly. Independent review and isolated verification are pending.
+  authors:
+  - OpenAI Codex AI
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+- title: 'FR-05: probability of phase-retrieval injectivity'
+  id: ../README.md
+  type: web-post
+  location: Canonical problem statement
+  relationship: formalizes
+  author_endorsement: n/a
+  note: >-
+    The permanent problem number, canonical target, source credit, and
+    solution-claimed catalog status are unchanged. Both the original limit
+    and the manuscript's stronger quantitative bound are proved locally,
+    without assuming the intermediate analytic estimates.
+- title: "Resolution of Vinzant's Conjecture on Phase Retrieval Injectivity"
+  authors:
+  - Zhangsong Li
+  id: https://zhangsong-li.github.io/injectivity_phase_retrieval.pdf
+  type: manuscript
+  location: Theorem 1.4; Sections 2--3, especially Propositions 3.1 and 3.2
+  relationship: adapts
+  author_endorsement: not-contacted
+  note: >-
+    Retrieved and hash-frozen as sources/injectivity_phase_retrieval.pdf.
+    Propositions 3.1 and 3.2 and the sampler-to-likelihood bridges are proved,
+    rather than postulated. The proof adapts some intermediate arguments;
+    see the source map and fidelity notes below.
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: >-
+      Lean 4.33.1 and Mathlib 0df444a360eaa60ab8c11dca51a86af692955474.
+      The current files were type-checked on arm64 macOS using an existing
+      matching dependency cache; no isolated Comparator verification was run.
+    prompting_notes: >-
+      Preserve the original all-pairs entrywise-modulus predicate and state
+      only completed results as exports. Do not add axioms or represent
+      analytic source steps by placeholders in Solution.
+  notes: >-
+    Implemented at the user's request. No human author endorsement, external
+    review, priority claim, measured cost, or repository-verified status is
+    inferred from the local build and axiom audit.
+status:
+  scope: >-
+    Complete mathematical target, locally type-checked on arm64 macOS:
+    exists C > 0, for all d >= 2, p_d <= C/d, hence p_d -> 0. Includes
+    measurability of the actual injectivity event, the planted good-event
+    estimate, Haar/overlap likelihood estimates, both exact law identities,
+    and finite-prefix absorption. No analytic hypotheses remain in either
+    final theorem. This is not independent statement review or an isolated
+    Linux Comparator/kernel verification; repository status remains
+    Solution claimed.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms:
+  - propext
+  - Classical.choice
+  - Quot.sound
+  main_results:
+  - declaration: NLA.FR05.phaseRetrieval_injective_probability_le_inv
+    file: Solution.lean
+    sorry_count: 0
+    axioms: [propext, Classical.choice, Quot.sound]
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.FR05.phaseRetrieval_injective_probability_tendsto_zero
+    file: Solution.lean
+    sorry_count: 0
+    axioms: [propext, Classical.choice, Quot.sound]
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.FR05.explicit_noninjective_frame
+    file: Solution.lean
+    sorry_count: 0
+    axioms: [propext, Classical.choice, Quot.sound]
+    comparator_config: comparator.json
+    literature_dependencies: []
+  - declaration: NLA.FR05.likelihood_l2_bound_of_second_moment_estimates
+    file: Solution.lean
+    sorry_count: 0
+    axioms: [propext, Classical.choice, Quot.sound]
+    comparator_config: comparator.json
+    literature_dependencies: []
+verification_plan:
+  permitted_axioms:
+  - propext
+  - Classical.choice
+  - Quot.sound
+  definition_names: []
+  note: >-
+    The exact signatures are duplicated in Challenge solely for future
+    Comparator checking. Challenge contains four isolated deliberate
+    placeholders and is not imported by Solution. A fresh non-root Linux
+    Comparator run, statement review, source-to-definition audit, and proof
+    review remain outstanding.
+fidelity:
+  divergences: >-
+    The original probability law, all-signals predicate, dimensions, and
+    final quantifiers are retained. The planted proof uses an exactly
+    quadratic factor chart and a frozen-Jacobian contraction, avoiding a
+    separate perturbed inverse. A measurable row-distance event replaces
+    the need for a measurable choice of unit normal. Weaker intermediate
+    small-ball estimates suffice for the same O(M^-2) planted bound.
+    Elementary phase and exponential estimates are simplified without
+    changing the final statements. No claim of new mathematical priority
+    or an independently audited line-by-line equivalence is made.
+review:
+  status: unchecked
+  notes: >-
+    No independent statement or proof review has been requested or completed.
+alignment:
+  source_freeze: SOURCE_FREEZE.md
+  source_map: README.md
+  checked_definitions:
+  - NLA.FR05.PhaseRetrievalInjective
+  - NLA.FR05.qZero
+  - NLA.FR05.standardComplexGaussianFrame
+  - NLA.FR05.phaseRetrievalProbability
+  - NLA.FR05.sourceRadialLaw
+  - NLA.FR05.sourcePlantedFrameLawAt
+  - NLA.FR05.plantedEquationMap
+  checked_results:
+  - NLA.FR05.qZero_isHermitian
+  - NLA.FR05.quadraticForm_qZero_allOnes
+  - NLA.FR05.explicit_noninjective_frame
+  - NLA.FR05.inverse_bound_of_source_comparison
+  - NLA.FR05.phaseRetrieval_injective_probability_le_inv_of_source_comparison
+  - NLA.FR05.likelihood_l2_bound_of_second_moment_estimates
+  - NLA.FR05.sourcePlantedFrameLawAt_eq_viaPlantedRows
+  - NLA.FR05.sourceRadialLaw_sourceM_apply_Ici_le
+  - NLA.FR05.plantedEquationLinear_source_formula
+  - NLA.FR05.proposition_3_1
+  - NLA.FR05.proposition_3_1_haar
+  - NLA.FR05.proposition_3_2
+  - NLA.FR05.source_haar_planted_frame_law_eq_likelihood
+  - NLA.FR05.source_reference_frame_law_eq_likelihood
+  - NLA.FR05.source_reference_injective_probability
+  - NLA.FR05.phaseRetrieval_injective_probability_le_inv
+  - NLA.FR05.phaseRetrieval_injective_probability_tendsto_zero
+acknowledgements: >-
+  The Lean and Mathlib contributors provide the proof assistant and library.
+  Zhangsong Li is credited as the manuscript author, separately from this
+  implementation; no authorship or endorsement is implied.

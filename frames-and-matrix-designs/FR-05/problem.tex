@@ -34,7 +34,7 @@ measurements},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}FR-05}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-14}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ injectivity probability at 4d minus 5 complex phase measurements\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Open\par}
+{\sffamily\small\bfseries\color{accent}Status: Solution claimed\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -59,25 +59,71 @@ to the community\par}
 needs quantitative algebraic and probabilistic control beyond positive
 failure probability; it informs phase-retrieval measurement design.
 
+\subsection{Original statement}\label{original-statement}
+
 For every integer \(d\geq2\), draw \(A_d\in\mathbb C^{(4d-5)\times d}\)
 with independent standard complex Gaussian entries: the real and
 imaginary parts are independent \(N(0,1/2)\). Let \(p_d\) be the
-probability that \[
-|A_dx|=|A_dy|\quad\Longrightarrow\quad
-y=e^{\mathrm i\theta}x\ \text{for some }\theta\in\mathbb R
-\] holds for all \(x,y\in\mathbb C^d\), where absolute value is
+probability that
+
+\[|A_dx|=|A_dy|\quad\Longrightarrow\quad
+y=e^{\mathrm i\theta}x\ \text{for some }\theta\in\mathbb R\]
+
+holds for all \(x,y\in\mathbb C^d\), where absolute value is
 componentwise. Equivalently, \(p_d\) is the probability that the induced
 phase-retrieval map on vectors modulo global phase is injective.
 
-Is \[
-\lim_{d\to\infty}p_d=0?
-\]
+Is
+
+\[\lim_{d\to\infty}p_d=0?\]
 
 This is part (b) of Vinzant's conjecture as restated in Randomstrasse
 101. It distinguishes injective exceptional measurement systems from
 typical matrices at a row count just below \(4d-4\). Injectivity is the
 basic identifiability requirement before conditioning and stable
 numerical inversion can be addressed.
+
+\subsection{Solution claim --- 14 September
+2026}\label{solution-claim-14-september-2026}
+
+Zhangsong Li's
+\href{https://zhangsong-li.github.io/injectivity_phase_retrieval.pdf}{13-page
+manuscript}, Theorem 1.4, claims the stronger bound
+
+\[p_d\leq C/d\qquad(d\geq2)\]
+
+for an absolute constant \(C>0\). This implies the displayed limit. The
+argument plants a two-dimensional ambiguity, compares its law in \(L^2\)
+to a covariance-matched Gaussian law, and uses a quantitative
+implicit-function argument to turn the planted approximate ambiguity
+into an exact one.
+
+This remains a \textbf{solution claim}, not a repository-verified
+resolution: the manuscript is the primary source, and independent review
+and the repository's isolated Linux Lean verification remain
+outstanding. The original target, permanent identifier, and canonical
+path are unchanged. The implementation route is recorded in the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/frames-and-matrix-designs/FR-05/formalisation-plan.md}{formalisation
+plan}.
+
+\subsubsection{Local Lean development --- 27 September
+2026}\label{local-lean-development-27-september-2026}
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/frames-and-matrix-designs/FR-05/lean/Solution.lean}{Lean
+solution} now proves the bound \(p_d\le C/d\) for every \(d\ge2\) and
+the original limit \(p_d\to0\), using the original Gaussian law and
+all-signals injectivity predicate. The local build and transitive axiom
+audit pass, using only standard Lean axioms and no proof placeholders in
+the solution. See the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/frames-and-matrix-designs/FR-05/lean/FINAL_ASSEMBLY.md}{final
+assembly},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/frames-and-matrix-designs/FR-05/lean/README.md}{source
+guide}, and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/frames-and-matrix-designs/FR-05/lean/verification/library-cleanup/README.md}{local
+verification record}. This development check does not replace
+independent statement review or the isolated Linux Comparator/kernel
+workflow; the catalog status is unchanged.
 
 \subsection{References}\label{references}
 
@@ -94,13 +140,18 @@ numerical inversion can be addressed.
   \(\mathbb C^4\) demonstrates why the below-\(4d-4\) regime cannot
   simply be dismissed. \href{https://arxiv.org/abs/1502.04656}{Paper}.
 \item
+  Z. Li, \emph{Resolution of Vinzant's Conjecture on Phase Retrieval
+  Injectivity} (13 September 2026), Theorem 1.4. The manuscript claims
+  \(p_d\le C/d\) for every \(d\ge2\).
+  \href{https://zhangsong-li.github.io/injectivity_phase_retrieval.pdf}{Manuscript}.
+\item
   Z. Li, \emph{On Injectivity of Phase Retrieval}, arXiv:2606.17922
-  (2026). The abstract and main result establish the strict inequality
-  \(p_d<1\), explicitly identifying this as the first part of Vinzant's
-  conjecture. \href{https://arxiv.org/abs/2606.17922}{Paper}.
+  (2026). This earlier version established only \(p_d<1\).
+  \href{https://arxiv.org/abs/2606.17922}{Paper}.
 \end{enumerate}
 
-\subsection{Status check --- 2026-09-10}\label{status-check-2026-09-10}
+\subsection{Historical status check ---
+2026-09-10}\label{historical-status-check-2026-09-10}
 
 Searched ``Vinzant conjecture injectivity probability limit'', ``phase
 retrieval 4M-5 2026'', and checked the latest June 2026 paper
@@ -111,6 +162,6 @@ assertion \(p_d<1\) is deliberately excluded from this problem.
 \textbf{Audit update (2026-09-10):} Rechecked Li's June 2026 abstract
 and searched for the asymptotic part of Vinzant's conjecture. The
 reported strict inequality \(p_d<1\) does not force \(p_d\to0\); this
-entry contains only the latter target. This is a bounded literature
-check, not a proof that no solution exists.
+entry contained only the latter target. This was a bounded literature
+check, not a proof that no solution existed at that time.
 \end{document}
