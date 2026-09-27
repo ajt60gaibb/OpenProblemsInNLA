@@ -21,6 +21,10 @@ The difficulty, importance and rating rationale below are historical assessments
 
 **Rating rationale:** Challenging reflects a sharp limit for the least singular value after adversarial row deletion; community impact includes random matrix theory and robust iterative solvers.
 
+## Lean formalization scaffold
+
+The repository retains the approved statement boundary and current supporting Lean work in [`lean/`](lean/), including [`Challenge.lean`](lean/Challenge.lean) and [`Solution.lean`](lean/Solution.lean). This is an **unverified, incomplete formalization**; the existing mathematical status and resolution above are unchanged. See [`lean/README.md`](lean/README.md) for scope, blockers, pinned metadata, and review records.
+
 ## Problem statement
 
 Fix $`0<\theta<1`$. For $`A\in\mathbb R^{m\times n}`$ define

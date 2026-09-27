@@ -23,6 +23,10 @@
 The difficulty, importance and rating rationale below are historical assessments of the original open target. The original statement and dated audits are preserved.
 <!-- /colbrook-intervals -->
 
+## Lean formalization scaffold
+
+The repository retains the approved statement boundary and current supporting Lean work in [`lean/`](lean/), including [`Challenge.lean`](lean/Challenge.lean) and [`Solution.lean`](lean/Solution.lean). This is an **unverified, incomplete formalization**; the existing mathematical status and resolution above are unchanged. See [`lean/README.md`](lean/README.md) for scope, blockers, pinned metadata, and review records.
+
 ## Problem statement
 
 The input is an $`n\times n`$ tridiagonal interval matrix $`\mathcal T`$, $`n\ge1`$, and an interval vector $`\mathcal b\subset\mathbb R^n`$, all with rational endpoints. Thus $`T_{ij}=0`$ for $`|i-j|>1`$, and the remaining entries of $`T`$ and all entries of $`b`$ range independently through their supplied closed intervals. Define the united solution set

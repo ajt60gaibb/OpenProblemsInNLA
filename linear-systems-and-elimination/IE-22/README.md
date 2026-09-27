@@ -21,6 +21,10 @@ The difficulty, importance and rating rationale below are historical assessments
 
 **Rating rationale:** Challenging reflects an optimal uniform extremum over matrices and deleted row sets; community impact is a sharp robustness limit for row-sampling methods.
 
+## Lean formalization scaffold
+
+The repository retains the approved statement boundary and current supporting Lean work in [`lean/`](lean/), including [`Challenge.lean`](lean/Challenge.lean) and [`Solution.lean`](lean/Solution.lean). This is an **unverified, incomplete formalization**; the existing mathematical status and resolution above are unchanged. See [`lean/README.md`](lean/README.md) for scope, blockers, pinned metadata, and review records.
+
 ## Problem statement
 
 Fix $`0<\theta<1`$. For a real $`m\times n`$ matrix $`A`$ with every row of Euclidean norm one, put
