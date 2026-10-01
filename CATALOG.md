@@ -1,8 +1,8 @@
 # All problems and their status
 
-**106 problems with open targets:** 39 open and 67 partially resolved. **111 other retained entries**, excluded from the open count.
+**105 problems with open targets:** 38 open and 67 partially resolved. **112 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 44 solved (published or independently audited); 66 solved with Lean verification.
+**Resolution evidence:** 44 solved (published or independently audited); 67 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -93,7 +93,6 @@ Retained entries outside the open count:
 | [MF-11](matrix-functions-and-stability/MF-11/README.md) | Temporal regularity of marginal matrix-product growth | **🔵 OPEN** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-11/problem.pdf) · [TeX](matrix-functions-and-stability/MF-11/problem.tex) |
 | [MF-13](matrix-functions-and-stability/MF-13/README.md) | Symmetric maximizers for Lyapunov operators of order six | **🔵 OPEN** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-13/problem.pdf) · [TeX](matrix-functions-and-stability/MF-13/problem.tex) |
 | [MF-15](matrix-functions-and-stability/MF-15/README.md) | Critical exponent for generalized doubly nonnegative matrices | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-15/problem.pdf) · [TeX](matrix-functions-and-stability/MF-15/problem.tex) |
-| [MF-17](matrix-functions-and-stability/MF-17/README.md) | Optimal uniform growth after inversion of an exponentially stable generator | **🔵 OPEN** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-17/problem.pdf) · [TeX](matrix-functions-and-stability/MF-17/problem.tex) |
 | [MF-19](matrix-functions-and-stability/MF-19/README.md) | Decidability of zero hitting by rational matrix powers | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-19/problem.pdf) · [TeX](matrix-functions-and-stability/MF-19/problem.tex) |
 | [MF-20](matrix-functions-and-stability/MF-20/README.md) | Decidability of zero hitting by a matrix exponential | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-20/problem.pdf) · [TeX](matrix-functions-and-stability/MF-20/problem.tex) |
 | [MF-23](matrix-functions-and-stability/MF-23/README.md) | Complete Crouzeix conjecture | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-23/problem.pdf) · [TeX](matrix-functions-and-stability/MF-23/problem.tex) |
@@ -111,6 +110,7 @@ Retained entries outside the open count:
 | [MF-12](matrix-functions-and-stability/MF-12/README.md) | Realizing arbitrary polynomial growth exponents by finite matrix families | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-12/problem.pdf) · [TeX](matrix-functions-and-stability/MF-12/problem.tex) |
 | [MF-14](matrix-functions-and-stability/MF-14/README.md) | Degree coverage with seven matrix multiplications | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-14/problem.pdf) · [TeX](matrix-functions-and-stability/MF-14/problem.tex) |
 | [MF-16](matrix-functions-and-stability/MF-16/README.md) | Uniqueness of positive definite solutions of two-letter word equations in order two | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-16/problem.pdf) · [TeX](matrix-functions-and-stability/MF-16/problem.tex) |
+| [MF-17](matrix-functions-and-stability/MF-17/README.md) | Optimal uniform growth after inversion of an exponentially stable generator | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-17/problem.pdf) · [TeX](matrix-functions-and-stability/MF-17/problem.tex) |
 | [MF-18](matrix-functions-and-stability/MF-18/README.md) | Imaginary-part rank in a limiting Green-function matrix equation | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-18/problem.pdf) · [TeX](matrix-functions-and-stability/MF-18/problem.tex) |
 | [MF-21](matrix-functions-and-stability/MF-21/README.md) | The uniform expansion threshold for Toeplitz symbols with higher-order zeros | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-21/problem.pdf) · [TeX](matrix-functions-and-stability/MF-21/problem.tex) |
 | [MF-22](matrix-functions-and-stability/MF-22/README.md) | Polynomial conditioning of the cubic C1 spline Schrödinger Toeplitz family | **🏆 LEAN VERIFIED** | hard | interesting to specialist | [PDF](matrix-functions-and-stability/MF-22/problem.pdf) · [TeX](matrix-functions-and-stability/MF-22/problem.tex) |

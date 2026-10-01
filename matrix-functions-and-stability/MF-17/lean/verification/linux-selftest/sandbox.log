@@ -1,0 +1,119 @@
+$ python3 /tmp/mf17-nla-tools/reproduction/checks/sandbox_probe_ci.py
+START sandbox mode: build
+START sandbox mode: export
+START sandbox negative case: unknown option
+START sandbox negative case: unexpected --rw
+START sandbox negative case: unexpected --rwx
+START sandbox negative case: relative --rwx
+MODE build: exit=0
+Running as unit: run-p273-i13632.service; invocation ID: f9ca8c712ccd4fe09f268ace6e99b812
+PASS outside .lake write-open: denied errno=30
+PASS outside .lake truncate: denied errno=30
+PASS outside .lake read-only truncate-open: denied errno=30
+PASS symlink from .lake to outside write: denied errno=30
+PASS outside .lake creation: denied errno=30
+PASS build .lake write: allowed
+PASS user namespace: private
+PASS pid namespace: private
+PASS mnt namespace: private
+PASS net namespace: private
+PASS ipc namespace: private
+PASS uts namespace: private
+PASS host parent: absent from private /proc
+PASS host parent signal lookup: denied errno=3
+PASS host loopback listener: unreachable errno=111
+PASS AF_UNIX socket creation: denied errno=97
+PASS effective capabilities: none
+PASS no_new_privs: set
+Sandbox UID: 1000
+PASS nested namespace write attempt: rejected exit=1
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from pathlib import Path; import sys; Path(sys.argv[1]).write_text('unexpected nested write')
+                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 810, in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 772, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 30] Read-only file system: '/tmp/mf17-nla-tools/.verification-tmp/strict-sandbox-probe-yjqi5ipe/outside-nested.txt'
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 62ms
+             CPU time consumed: 49ms
+
+MODE export: exit=0
+Running as unit: run-p288-i33894.service; invocation ID: 0aea0bb3896145b0ada8791efd6bd29a
+PASS outside .lake write-open: denied errno=30
+PASS outside .lake truncate: denied errno=30
+PASS outside .lake read-only truncate-open: denied errno=30
+PASS symlink from .lake to outside write: denied errno=30
+PASS outside .lake creation: denied errno=30
+PASS export .lake write-open: denied errno=30
+PASS export .lake truncate: denied errno=30
+PASS user namespace: private
+PASS pid namespace: private
+PASS mnt namespace: private
+PASS net namespace: private
+PASS ipc namespace: private
+PASS uts namespace: private
+PASS host parent: absent from private /proc
+PASS host parent signal lookup: denied errno=3
+PASS host loopback listener: unreachable errno=111
+PASS AF_UNIX socket creation: denied errno=97
+PASS effective capabilities: none
+PASS no_new_privs: set
+Sandbox UID: 1000
+PASS nested namespace write attempt: rejected exit=1
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from pathlib import Path; import sys; Path(sys.argv[1]).write_text('unexpected nested write')
+                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 810, in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 772, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 30] Read-only file system: '/tmp/mf17-nla-tools/.verification-tmp/strict-sandbox-probe-yjqi5ipe/outside-nested.txt'
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 61ms
+             CPU time consumed: 47ms
+
+NEGATIVE unknown option: exit=2
+Running as unit: run-p303-i1387.service; invocation ID: 741e09cc34244b3e85fcc46297ec5068
+strict Comparator sandbox: unsupported Comparator Landrun option: --unrestricted-filesystem
+          Finished with result: exit-code
+Main processes terminated with: code=exited, status=2/INVALIDARGUMENT
+               Service runtime: 25ms
+             CPU time consumed: 11ms
+
+NEGATIVE unexpected --rw: exit=2
+Running as unit: run-p308-i1388.service; invocation ID: 78ff5c61824a4b888a05c67b7a6648f5
+strict Comparator sandbox: only private /dev may be passed with --rw
+          Finished with result: exit-code
+Main processes terminated with: code=exited, status=2/INVALIDARGUMENT
+               Service runtime: 10ms
+             CPU time consumed: 10ms
+
+NEGATIVE unexpected --rwx: exit=2
+Running as unit: run-p313-i13633.service; invocation ID: 97c63cb7a6524301b06615c6e4552a40
+strict Comparator sandbox: only this project's existing .lake may be writable
+          Finished with result: exit-code
+Main processes terminated with: code=exited, status=2/INVALIDARGUMENT
+               Service runtime: 10ms
+             CPU time consumed: 10ms
+
+NEGATIVE relative --rwx: exit=2
+Running as unit: run-p318-i13634.service; invocation ID: 9d81809f5243472da524d79e17b21925
+strict Comparator sandbox: only this project's existing .lake may be writable
+          Finished with result: exit-code
+Main processes terminated with: code=exited, status=2/INVALIDARGUMENT
+               Service runtime: 10ms
+             CPU time consumed: 10ms
+
+Outer and export fixture contents unchanged; only designated build fixture written.
+
+EXIT_STATUS=0

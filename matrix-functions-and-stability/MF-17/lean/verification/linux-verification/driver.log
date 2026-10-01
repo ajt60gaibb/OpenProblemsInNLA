@@ -1,0 +1,747 @@
+HARNESS_PID=9471
+Running /usr/bin/timeout --kill-after=5s 45s systemd-run -p RuntimeMaxSec=40 --user --quiet --wait --pipe --collect -p 'RestrictAddressFamilies=~AF_UNIX' --working-directory /tmp/mf17-nla-tools /usr/bin/env -i PATH=/tmp/mf17-lean/bin:/tmp/mf17-lean/bin:/usr/bin:/bin XDG_RUNTIME_DIR=/run/user/1000 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus GIT_TERMINAL_PROMPT=0 GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null COMPARATOR_BIN=/tmp/mf17-nla-tools/.tools/comparator/.lake/build/bin/comparator COMPARATOR_LEAN4EXPORT=/tmp/mf17-nla-tools/.tools/lean4export/.lake/build/bin/lean4export COMPARATOR_LANDRUN=/tmp/mf17-nla-tools/scripts/strict_landrun.py XDG_CACHE_HOME=/tmp/mf17-nla-tools/.tools/cache TMPDIR=/tmp/mf17-nla-tools/.verification-tmp /usr/bin/true
+Log: /tmp/mf17-nla-tools/logs/verify-20260930T133910Z-9471/user-service.log
+Running python3 /tmp/mf17-nla-tools/reproduction/checks/sandbox_probe_ci.py
+Log: /tmp/mf17-nla-tools/logs/verify-20260930T133910Z-9471/sandbox.log
+START sandbox mode: build
+START sandbox mode: export
+START sandbox negative case: unknown option
+START sandbox negative case: unexpected --rw
+START sandbox negative case: unexpected --rwx
+START sandbox negative case: relative --rwx
+MODE build: exit=0
+Running as unit: run-p9482-i40135.service; invocation ID: cff7afcaa0c94a3ba1d38daf6740f1fb
+PASS outside .lake write-open: denied errno=30
+PASS outside .lake truncate: denied errno=30
+PASS outside .lake read-only truncate-open: denied errno=30
+PASS symlink from .lake to outside write: denied errno=30
+PASS outside .lake creation: denied errno=30
+PASS build .lake write: allowed
+PASS user namespace: private
+PASS pid namespace: private
+PASS mnt namespace: private
+PASS net namespace: private
+PASS ipc namespace: private
+PASS uts namespace: private
+PASS host parent: absent from private /proc
+PASS host parent signal lookup: denied errno=3
+PASS host loopback listener: unreachable errno=111
+PASS AF_UNIX socket creation: denied errno=97
+PASS effective capabilities: none
+PASS no_new_privs: set
+Sandbox UID: 1000
+PASS nested namespace write attempt: rejected exit=1
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from pathlib import Path; import sys; Path(sys.argv[1]).write_text('unexpected nested write')
+                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 810, in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 772, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 30] Read-only file system: '/tmp/mf17-nla-tools/.verification-tmp/strict-sandbox-probe-v7eh5vku/outside-nested.txt'
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 64ms
+             CPU time consumed: 53ms
+
+MODE export: exit=0
+Running as unit: run-p9497-i11832.service; invocation ID: 44ce5e3a3a80448d9989965eb45b03b7
+PASS outside .lake write-open: denied errno=30
+PASS outside .lake truncate: denied errno=30
+PASS outside .lake read-only truncate-open: denied errno=30
+PASS symlink from .lake to outside write: denied errno=30
+PASS outside .lake creation: denied errno=30
+PASS export .lake write-open: denied errno=30
+PASS export .lake truncate: denied errno=30
+PASS user namespace: private
+PASS pid namespace: private
+PASS mnt namespace: private
+PASS net namespace: private
+PASS ipc namespace: private
+PASS uts namespace: private
+PASS host parent: absent from private /proc
+PASS host parent signal lookup: denied errno=3
+PASS host loopback listener: unreachable errno=111
+PASS AF_UNIX socket creation: denied errno=97
+PASS effective capabilities: none
+PASS no_new_privs: set
+Sandbox UID: 1000
+PASS nested namespace write attempt: rejected exit=1
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from pathlib import Path; import sys; Path(sys.argv[1]).write_text('unexpected nested write')
+                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 810, in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 772, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 30] Read-only file system: '/tmp/mf17-nla-tools/.verification-tmp/strict-sandbox-probe-v7eh5vku/outside-nested.txt'
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 70ms
+             CPU time consumed: 41ms
+
+NEGATIVE unknown option: exit=2
+Running as unit: run-p9512-i11833.service; invocation ID: 2dfa75a923dc4b9b954a66bb4ee010c9
+strict Comparator sandbox: unsupported Comparator Landrun option: --unrestricted-filesystem
+          Finished with result: exit-code
+Main processes terminated with: code=exited, status=2/INVALIDARGUMENT
+               Service runtime: 24ms
+             CPU time consumed: 10ms
+
+NEGATIVE unexpected --rw: exit=2
+Running as unit: run-p9517-i11834.service; invocation ID: b6a04baf6ad045ecbc49ba3d01810c61
+strict Comparator sandbox: only private /dev may be passed with --rw
+          Finished with result: exit-code
+Main processes terminated with: code=exited, status=2/INVALIDARGUMENT
+               Service runtime: 9ms
+             CPU time consumed: 9ms
+
+NEGATIVE unexpected --rwx: exit=2
+Running as unit: run-p9522-i11835.service; invocation ID: 05686ea4d4f4455eacd37095efd1b530
+strict Comparator sandbox: only this project's existing .lake may be writable
+          Finished with result: exit-code
+Main processes terminated with: code=exited, status=2/INVALIDARGUMENT
+               Service runtime: 10ms
+             CPU time consumed: 10ms
+
+NEGATIVE relative --rwx: exit=2
+Running as unit: run-p9527-i11836.service; invocation ID: 9ac2c81f158f4a86bd98557f1d1fd8f6
+strict Comparator sandbox: only this project's existing .lake may be writable
+          Finished with result: exit-code
+Main processes terminated with: code=exited, status=2/INVALIDARGUMENT
+               Service runtime: 9ms
+             CPU time consumed: 9ms
+
+Outer and export fixture contents unchanged; only designated build fixture written.
+Running bash /tmp/mf17-nla-tools/reproduction/checks/run_replay.sh
+Log: /tmp/mf17-nla-tools/logs/verify-20260930T133910Z-9471/kernel-controls.log
+Replay probe: RestrictAddressFamilies=~AF_UNIX (deny AF_UNIX sockets).
+Lean (version 4.33.1, aarch64-unknown-linux-gnu, Release)
+/tmp/mf17-lean/lib/lean/Init.olean
+/tmp/mf17-lean/lib/lean/Init.olean
+/tmp/mf17-nla-tools/.tools/comparator/.lake/build/lib/lean/Main.olean
+Trusted base fixture: 11 constants
+BEGIN honest_with_inductives_and_quotients
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+RETURN honest_with_inductives_and_quotients: accepted
+BEGIN invalid_raw_proof
+Running Lean default kernel on solution.
+Lean default kernel rejects the solution
+RETURN invalid_raw_proof: rejected: while replaying declaration 'PinnedReplayProbe.invalid':
+(kernel) declaration type mismatch, 'PinnedReplayProbe.invalid' has type
+  True
+but it is expected to have type
+  False
+BEGIN quotient_postcheck_mismatch
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Quotient post-check rejects the solution
+RETURN quotient_postcheck_mismatch: rejected: Quotient constant mismatch on: Quot.lift
+PASS: all three actual Comparator.runBuiltinKernel cases behaved as required
+Running python3 /tmp/mf17-nla-tools/reproduction/checks/comparator_regressions.py
+Log: /tmp/mf17-nla-tools/logs/verify-20260930T133910Z-9471/comparator-controls.log
+Comparator regressions: RestrictAddressFamilies=~AF_UNIX; .tools/env.sh selects the real strict sandbox.
+
+CASE simple_match
+info: ComparatorRegression: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+Building Challenge
+⚠ [2/3] Built Challenge (80ms)
+warning: Challenge.lean:1:8: declaration uses `sorry`
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+✔ [2/3] Built Solution (96ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+PASS simple_match: exit 0, expected 0; required phase: Your solution is okay!
+
+CASE simple_mismatch
+info: ComparatorRegression: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+Building Challenge
+⚠ [2/3] Built Challenge (90ms)
+warning: Challenge.lean:1:8: declaration uses `sorry`
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+✔ [2/3] Built Solution (80ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+uncaught exception: Challenge and solution constant kind don't match: 'comm'
+PASS simple_mismatch: exit 1, expected 1; required phase: Challenge and solution constant kind don't match: 'comm'
+
+CASE simple_axiom_issue
+info: ComparatorRegression: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+Building Challenge
+⚠ [2/3] Built Challenge (79ms)
+warning: Challenge.lean:1:8: declaration uses `sorry`
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+✔ [2/3] Built Solution (92ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+uncaught exception: Illegal axiom detected: 'helper'
+PASS simple_axiom_issue: exit 1, expected 1; required phase: Illegal axiom detected: 'helper'
+
+CASE simple_kind_mismatch
+info: ComparatorRegression: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+Building Challenge
+⚠ [2/3] Built Challenge (80ms)
+warning: Challenge.lean:1:8: declaration uses `sorry`
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+✔ [2/3] Built Solution (79ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, comm, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+uncaught exception: Illegal axiom detected: 'helper'
+PASS simple_kind_mismatch: exit 1, expected 1; required phase: Illegal axiom detected: 'helper'
+
+CASE type_mismatch
+info: ComparatorRegression: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+Building Challenge
+✔ [2/3] Built Challenge (82ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+✔ [2/3] Built Solution (79ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+uncaught exception: Challenge and solution theorem statement do not match: 'checked'
+PASS type_mismatch: exit 1, expected 1; required phase: Challenge and solution theorem statement do not match: 'checked'
+PASS: all five Comparator regressions
+Running systemd-run --user --quiet --wait --pipe --collect -p 'RestrictAddressFamilies=~AF_UNIX' --working-directory /tmp/mf17-nla-tools/.verification-tmp/nla-axiom-_sfiqzan /usr/bin/env -i PATH=/tmp/mf17-lean/bin:/tmp/mf17-lean/bin:/usr/bin:/bin XDG_RUNTIME_DIR=/run/user/1000 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus GIT_TERMINAL_PROMPT=0 GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null COMPARATOR_BIN=/tmp/mf17-nla-tools/.tools/comparator/.lake/build/bin/comparator COMPARATOR_LEAN4EXPORT=/tmp/mf17-nla-tools/.tools/lean4export/.lake/build/bin/lean4export COMPARATOR_LANDRUN=/tmp/mf17-nla-tools/scripts/strict_landrun.py XDG_CACHE_HOME=/tmp/mf17-nla-tools/.tools/cache TMPDIR=/tmp/mf17-nla-tools/.verification-tmp lake env /tmp/mf17-nla-tools/.tools/comparator/.lake/build/bin/comparator comparator.json
+Log: /tmp/mf17-nla-tools/logs/verify-20260930T133910Z-9471/negative-sorry.log
+info: NlaAxiomFixture: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+Building Challenge
+✔ [2/3] Built Challenge (309ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, Classical.choice, Quot.sound, propext, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+⚠ [2/3] Built Solution (293ms)
+warning: Solution.lean:2:8: declaration uses `sorry`
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, Classical.choice, Quot.sound, propext, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+uncaught exception: Illegal axiom detected: 'sorryAx'
+Running systemd-run --user --quiet --wait --pipe --collect -p 'RestrictAddressFamilies=~AF_UNIX' --working-directory /tmp/mf17-nla-tools/.verification-tmp/nla-axiom-f65ti1xo /usr/bin/env -i PATH=/tmp/mf17-lean/bin:/tmp/mf17-lean/bin:/usr/bin:/bin XDG_RUNTIME_DIR=/run/user/1000 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus GIT_TERMINAL_PROMPT=0 GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null COMPARATOR_BIN=/tmp/mf17-nla-tools/.tools/comparator/.lake/build/bin/comparator COMPARATOR_LEAN4EXPORT=/tmp/mf17-nla-tools/.tools/lean4export/.lake/build/bin/lean4export COMPARATOR_LANDRUN=/tmp/mf17-nla-tools/scripts/strict_landrun.py XDG_CACHE_HOME=/tmp/mf17-nla-tools/.tools/cache TMPDIR=/tmp/mf17-nla-tools/.verification-tmp lake env /tmp/mf17-nla-tools/.tools/comparator/.lake/build/bin/comparator comparator.json
+Log: /tmp/mf17-nla-tools/logs/verify-20260930T133910Z-9471/negative-native.log
+info: NlaAxiomFixture: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+Building Challenge
+✔ [2/3] Built Challenge (311ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, Classical.choice, Quot.sound, propext, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+✔ [2/3] Built Solution (299ms)
+Build completed successfully (3 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, checked, Classical.choice, Quot.sound, propext, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+uncaught exception: Illegal axiom detected: 'checked._native.native_decide.ax_1_1'
+Running lake env true
+Log: /tmp/mf17-nla-tools/logs/verify-20260930T133910Z-9471/dependencies.log
+info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+info: mathlib: checking out revision '0df444a360eaa60ab8c11dca51a86af692955474'
+info: plausible: cloning https://github.com/leanprover-community/plausible
+info: plausible: checking out revision 'b7eb3304aeae834b12dda98993a37f6a41f6f0bb'
+info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+info: LeanSearchClient: checking out revision '5f4d51b81cbd3f6b32b156bfad9056621a040404'
+info: importGraph: cloning https://github.com/leanprover-community/import-graph
+info: importGraph: checking out revision '16f02aa7642864af59f1ff0e384a015994db9118'
+info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+info: proofwidgets: checking out revision '4be2e3d5087eeb272cf5a8853b8f9dd025ef5957'
+info: aesop: cloning https://github.com/leanprover-community/aesop
+info: aesop: checking out revision '3448c0bcc5ce01b2d1546e483ec3620e32df3d0e'
+info: Qq: cloning https://github.com/leanprover-community/quote4
+info: Qq: checking out revision '92c15be17b7caf78c2ad767ec40f89052d908d81'
+info: batteries: cloning https://github.com/leanprover-community/batteries
+info: batteries: checking out revision '4488d40d070b9700d4d5a6aa342f0d40c31b2a2d'
+info: Cli: cloning https://github.com/leanprover/lean4-cli
+info: Cli: checking out revision '6130a47896ce867c6a4a55373441e59e565bad0f'
+Running lake exe cache get
+Log: /tmp/mf17-nla-tools/logs/verify-20260930T133910Z-9471/mathlib-cache.log
+✔ [1/5] Built Cache.Cli (120ms)
+✔ [2/5] Built Cache.Lean (141ms)
+✔ [6/26] Built Cache.Cli:c.o (163ms)
+✔ [7/26] Built Cache.Infra (185ms)
+✔ [8/26] Built Cache.Lean:c.o (169ms)
+✔ [9/26] Built Cache.Infra:c.o (70ms)
+✔ [10/26] Built Batteries.Tactic.OpenPrivate (362ms)
+✔ [11/26] Built Cache.IO (515ms)
+✔ [12/26] Built Batteries.Tactic.OpenPrivate:c.o (472ms)
+✔ [13/26] Built Cache.Hashing (294ms)
+✔ [14/26] Built Cache.Hashing:c.o (186ms)
+✔ [15/26] Built Cache.IO:c.o (634ms)
+✔ [16/26] Built Cache.Requests (731ms)
+✔ [17/26] Built Cache.Marker (216ms)
+✔ [18/26] Built Cache.Marker:c.o (45ms)
+✔ [19/26] Built Cache.Query (262ms)
+✔ [20/26] Built Cache.Query:c.o (126ms)
+✔ [21/26] Built Cache.Warning (274ms)
+✔ [22/26] Built Cache.Warning:c.o (120ms)
+✔ [23/26] Built Cache.Main (461ms)
+✔ [24/26] Built Cache.Requests:c.o (1.2s)
+✔ [25/26] Built Cache.Main:c.o (344ms)
+✔ [26/26] Built cache:exe (801ms)
+Current branch: HEAD
+Using cache from origin: (some leanprover-community/mathlib4)
+Decompressing 8689 already-cached file(s) (1 already decompressed)
+No files to download
+Decompressed 8689 already-cached file(s)
+Completed successfully in 12954 ms!
+Running systemd-run --user --quiet --wait --pipe --collect -p 'RestrictAddressFamilies=~AF_UNIX' --working-directory /tmp/mf17-nla-tools/.verification-tmp/nla-fresh-proof-3cro2khf/project /usr/bin/env -i PATH=/tmp/mf17-lean/bin:/tmp/mf17-lean/bin:/usr/bin:/bin XDG_RUNTIME_DIR=/run/user/1000 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus GIT_TERMINAL_PROMPT=0 GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null COMPARATOR_BIN=/tmp/mf17-nla-tools/.tools/comparator/.lake/build/bin/comparator COMPARATOR_LEAN4EXPORT=/tmp/mf17-nla-tools/.tools/lean4export/.lake/build/bin/lean4export COMPARATOR_LANDRUN=/tmp/mf17-nla-tools/scripts/strict_landrun.py XDG_CACHE_HOME=/tmp/mf17-nla-tools/.tools/cache TMPDIR=/tmp/mf17-nla-tools/.verification-tmp lake env /tmp/mf17-nla-tools/.tools/comparator/.lake/build/bin/comparator comparator.json
+Log: /tmp/mf17-nla-tools/logs/verify-20260930T133910Z-9471/comparator.log
+Building Challenge
+✔ [8706/8708] Built ProofProject.Definitions (11s)
+⚠ [8707/8708] Built Challenge (3.0s)
+warning: Challenge.lean:10:8: declaration uses `sorry`
+warning: Challenge.lean:15:8: declaration uses `sorry`
+warning: Challenge.lean:19:8: declaration uses `sorry`
+warning: Challenge.lean:26:8: declaration uses `sorry`
+warning: Challenge.lean:32:8: declaration uses `sorry`
+Build completed successfully (8708 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, ProofProject.stableSemigroup_hasGeneratorInverse, ProofProject.attainableNorms_bddAbove, ProofProject.sharp_growth, ProofProject.finite_dimensional_lower, ProofProject.contractive_envelope, propext, Classical.choice, Quot.sound, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building Solution
+✔ [8705/8846] Built ProofProject.CosineMargin (2.9s)
+✔ [8706/8846] Built ProofProject.FiniteCircleParseval (3.0s)
+⚠ [8707/8846] Built ProofProject.DiskSector (3.9s)
+warning: ProofProject/DiskSector.lean:29:47: Variable name `hw` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hw
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8708/8846] Built ProofProject.ReciprocalPolynomialApproximation (4.3s)
+warning: ProofProject/ReciprocalPolynomialApproximation.lean:36:2: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+✔ [8709/8846] Built ProofProject.CStarSqrtSeparation (5.6s)
+✔ [8710/8846] Built ProofProject.ProjectionAngle (5.8s)
+✔ [8711/8846] Built ProofProject.HalfPlaneRadial (6.0s)
+⚠ [8712/8846] Built ProofProject.HilbertFourier (8.7s)
+warning: ProofProject/HilbertFourier.lean:81:8: automatically included section variable(s) unused in theorem `_private.ProofProject.HilbertFourier.0.ProofProject.norm_toLp_sq_eq_integral`:
+  [CompleteSpace H]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace H] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+✔ [8713/8846] Built ProofProject.OperatorPolarRange (9.1s)
+✔ [8714/8846] Built ProofProject.AnalyticSector (11s)
+✔ [8715/8846] Built ProofProject.PolynomialRadialMaximum (13s)
+⚠ [8717/8847] Built ProofProject.SchurData (13s)
+warning: ProofProject/SchurData.lean:41:33: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+✔ [8718/8847] Built ProofProject.SchurFraction (13s)
+✔ [8719/8847] Built ProofProject.CirclePolynomialDefs (15s)
+✔ [8720/8847] Built ProofProject.WeightedCauchySchwarz (14s)
+✔ [8721/8847] Built ProofProject.SourceWeightFactor (16s)
+✔ [8722/8847] Built ProofProject.DirichletKernel (15s)
+✔ [8723/8847] Built ProofProject.PowerIntegralBounds (16s)
+✔ [8724/8847] Built ProofProject.ReplicationDeficit (16s)
+✔ [8725/8847] Built ProofProject.SeparatedIntegers (13s)
+✔ [8726/8847] Built ProofProject.ScalarEigenvalues (13s)
+✔ [8727/8847] Built ProofProject.BalancedOperatorFactors (11s)
+⚠ [8728/8847] Built ProofProject.IntervalOperatorIntegral (12s)
+warning: ProofProject/IntervalOperatorIntegral.lean:28:0: automatically included section variable(s) unused in theorem `ProofProject.intervalOperatorIntegral_integrable`:
+  [CompleteSpace H]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace H] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ProofProject/IntervalOperatorIntegral.lean:36:0: automatically included section variable(s) unused in theorem `ProofProject.norm_intervalOperatorIntegral_apply_le`:
+  [CompleteSpace H]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace H] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+✔ [8729/8847] Built ProofProject.AveragingWindow (11s)
+✔ [8730/8847] Built ProofProject.OperatorPolarExtension (13s)
+✔ [8731/8847] Built ProofProject.AnalyticMajorant (11s)
+✔ [8732/8847] Built ProofProject.PhaseDeficit (11s)
+✔ [8733/8847] Built ProofProject.FactorizedSynthesis (13s)
+✔ [8734/8847] Built ProofProject.MetricMargin (12s)
+✔ [8735/8849] Built ProofProject.DiagonalOperators (15s)
+✔ [8736/8849] Built ProofProject.BasisEnergy (15s)
+✔ [8737/8849] Built ProofProject.Contractive (14s)
+✔ [8738/8849] Built ProofProject.Rescaling (17s)
+✔ [8739/8849] Built ProofProject.ScalarExamples (17s)
+✔ [8740/8850] Built ProofProject.Generator (16s)
+✔ [8741/8850] Built ProofProject.GrowthRate (17s)
+✔ [8742/8850] Built ProofProject.ResolventKernelIntegration (13s)
+✔ [8743/8850] Built ProofProject.CirclePolynomialReflection (16s)
+⚠ [8744/8851] Built ProofProject.WeightedBoundaryEstimate (14s)
+warning: ProofProject/WeightedBoundaryEstimate.lean:50:4: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+✔ [8745/8851] Built ProofProject.SourceWeightBounds (14s)
+✔ [8746/8851] Built ProofProject.AngularPowerIntegrals (13s)
+✔ [8747/8851] Built ProofProject.WeightedDirichletBounds (14s)
+✔ [8748/8851] Built ProofProject.PolarFactorAlgebra (11s)
+✔ [8749/8851] Built ProofProject.SeparationScale (11s)
+✔ [8750/8851] Built ProofProject.PhaseIntegralEnergy (14s)
+✔ [8751/8851] Built ProofProject.AveragingTriangle (12s)
+✔ [8752/8851] Built ProofProject.DiagonalPeak (15s)
+✔ [8753/8851] Built ProofProject.ScalarSeparation (13s)
+✔ [8754/8851] Built ProofProject.LaurentCircleProduct (14s)
+⚠ [8755/8851] Built ProofProject.ApproximateSeparation (13s)
+warning: ProofProject/ApproximateSeparation.lean:26:0: automatically included section variable(s) unused in theorem `ProofProject.coefficient_mul_norm_le_energy`:
+  [NormedSpace ℂ H]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NormedSpace ℂ H] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+✔ [8756/8851] Built ProofProject.FiniteModelMargin (13s)
+✔ [8757/8851] Built ProofProject.ReplicationEnergy (15s)
+✔ [8758/8851] Built ProofProject.Endpoint (13s)
+✔ [8759/8851] Built ProofProject.BasisPatterns (16s)
+✔ [8760/8854] Built ProofProject.Laplace (14s)
+✔ [8761/8854] Built ProofProject.BoundedGenerator (15s)
+✔ [8762/8854] Built ProofProject.TailGeometry (14s)
+✔ [8763/8854] Built ProofProject.OuterPolynomialBoundary (15s)
+✔ [8764/8854] Built ProofProject.SectorPower (14s)
+✔ [8765/8854] Built ProofProject.GrowthExponentPerturbation (14s)
+✔ [8766/8854] Built ProofProject.SourceWeightParameters (14s)
+✔ [8767/8855] Built ProofProject.PeakClock (15s)
+✔ [8768/8857] Built ProofProject.CirclePolynomialDivision (13s)
+✔ [8769/8857] Built ProofProject.PhaseQuotientIntegral (15s)
+✔ [8770/8858] Built ProofProject.OperatorBalancedFactors (13s)
+✔ [8771/8858] Built ProofProject.ReplicationOrder (12s)
+✔ [8772/8859] Built ProofProject.RoundedSpace (15s)
+✔ [8773/8859] Built ProofProject.GeneratorOrbit (13s)
+✔ [8774/8859] Built ProofProject.LaplaceGenerator (12s)
+✔ [8775/8859] Built ProofProject.ScalarFourierReconstruction (12s)
+✔ [8776/8859] Built ProofProject.DiagonalWitness (12s)
+✔ [8777/8859] Built ProofProject.FourierTailCoefficients (11s)
+✔ [8778/8859] Built ProofProject.OscillatoryIntegration (10s)
+✔ [8779/8859] Built ProofProject.SourcePhaseDefs (12s)
+✔ [8780/8859] Built ProofProject.OscillatoryFirstDerivative (9.5s)
+✔ [8781/8859] Built ProofProject.PositiveCircleFactorization (12s)
+✔ [8782/8860] Built ProofProject.ReplicationBound (11s)
+✔ [8783/8860] Built ProofProject.ReplicatedSpace (11s)
+⚠ [8784/8860] Built ProofProject.AugmentedSynthesis (15s)
+info: ProofProject/AugmentedSynthesis.lean:172:46: Try this:
+  [apply] abel_nf
+warning: ProofProject/AugmentedSynthesis.lean:172:42: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [8785/8860] Built ProofProject.SourceOscillatoryPhase (14s)
+warning: ProofProject/SourceOscillatoryPhase.lean:63:18: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ProofProject/SourceOscillatoryPhase.lean:75:11: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ProofProject/SourceOscillatoryPhase.lean:75:31: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ProofProject/SourceOscillatoryPhase.lean:114:35: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+✔ [8786/8860] Built ProofProject.RoundedOperators (18s)
+✔ [8787/8864] Built ProofProject.InverseGenerator (17s)
+✔ [8788/8865] Built ProofProject.OscillatoryKernel (15s)
+✔ [8789/8865] Built ProofProject.TrianglePartition (16s)
+✔ [8790/8865] Built ProofProject.DiscreteLower (17s)
+✔ [8791/8865] Built ProofProject.WeightedCircleProjection (17s)
+✔ [8792/8867] Built ProofProject.SourceRadialBounds (16s)
+✔ [8793/8867] Built ProofProject.SourcePhasePolar (16s)
+✔ [8794/8867] Built ProofProject.OscillatoryNonstationary (10s)
+✔ [8795/8867] Built ProofProject.SourcePhaseCorrection (13s)
+✔ [8796/8867] Built ProofProject.CoefficientSquare (11s)
+✔ [8797/8867] Built ProofProject.ApproximateSynthesis (11s)
+⚠ [8798/8868] Built ProofProject.AdjointSemigroup (12s)
+warning: ProofProject/AdjointSemigroup.lean:93:45: This simp argument is unused:
+  NNReal.coe_mk
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [dist_eq_norm, Real.norm_eq_abs]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [8799/8868] Built ProofProject.RoundedSemigroupBound (14s)
+✔ [8800/8868] Built ProofProject.OscillatoryCriticalInterval (11s)
+✔ [8801/8870] Built ProofProject.Envelope (12s)
+✔ [8802/8870] Built ProofProject.SourceWindowRescaling (11s)
+✔ [8803/8871] Built ProofProject.CircleGramPolynomial (11s)
+✔ [8804/8871] Built ProofProject.SourceRadialIntegrability (11s)
+✔ [8805/8873] Built ProofProject.OscillatoryTwiceIntegration (10s)
+✔ [8806/8873] Built ProofProject.SourcePhaseMargin (11s)
+✔ [8807/8874] Built ProofProject.EndpointDeficit (11s)
+✔ [8808/8874] Built ProofProject.SeparatedFactorSum (9.7s)
+✔ [8809/8874] Built ProofProject.OscillatorySemigroup (10s)
+✔ [8810/8874] Built ProofProject.BalancedSeparation (13s)
+✔ [8811/8877] Built ProofProject.OscillatorySecondDerivative (11s)
+✔ [8812/8877] Built ProofProject.FiniteModelWitness (13s)
+✔ [8813/8877] Built ProofProject.SourceWindowAmplitude (11s)
+✔ [8814/8877] Built ProofProject.OuterCircleWeight (12s)
+✔ [8815/8877] Built ProofProject.FiniteHankelForm (12s)
+✔ [8816/8877] Built ProofProject.PolynomialLaurent (12s)
+⚠ [8817/8877] Built ProofProject.SourceDirichletGain (12s)
+warning: ProofProject/SourceDirichletGain.lean:45:44: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ProofProject/SourceDirichletGain.lean:46:46: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ProofProject/SourceDirichletGain.lean:48:27: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+✔ [8818/8878] Built ProofProject.SourceMomentDefs (11s)
+⚠ [8819/8878] Built ProofProject.ReciprocalSqrtSeparation (10s)
+warning: ProofProject/ReciprocalSqrtSeparation.lean:104:6: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+✔ [8820/8878] Built ProofProject.SourceMarginIntegrability (11s)
+✔ [8821/8878] Built ProofProject.HilbertULift (10s)
+✔ [8822/8881] Built ProofProject.FiniteLatticeDecay (9.9s)
+✔ [8823/8881] Built ProofProject.SourceWindowStationary (8.8s)
+✔ [8824/8881] Built ProofProject.BoundedSemigroup (11s)
+✔ [8825/8881] Built ProofProject.SourceAmplitudeConjugation (9.5s)
+⚠ [8826/8882] Built ProofProject.FiniteModelLower (9.1s)
+warning: ProofProject/FiniteModelLower.lean:53:21: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+✔ [8827/8886] Built ProofProject.PolynomialGeometryReduction (9.1s)
+✔ [8828/8886] Built ProofProject.SourceRadialLimits (9.9s)
+✔ [8829/8898] Built ProofProject.HolomorphicCircleMoments (10s)
+✔ [8830/8900] Built ProofProject.SourceMomentConvergence (9.9s)
+✔ [8831/8900] Built ProofProject.DampedPowerDerivatives (9.3s)
+✔ [8832/8901] Built ProofProject.SourcePieceScale (8.5s)
+✔ [8833/8901] Built ProofProject.SourcePhaseMeasure (11s)
+⚠ [8834/8903] Built ProofProject.SourceWindowPhaseBounds (9.8s)
+warning: ProofProject/SourceWindowPhaseBounds.lean:77:6: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ProofProject/SourceWindowPhaseBounds.lean:103:6: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ProofProject/SourceWindowPhaseBounds.lean:131:6: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ProofProject/SourceWindowPhaseBounds.lean:150:10: Unused tactic linter: `ring` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ProofProject/SourceWindowPhaseBounds.lean:150:10: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+⚠ [8835/8903] Built ProofProject.AveragedFourierOperator (9.9s)
+warning: ProofProject/AveragedFourierOperator.lean:59:0: automatically included section variable(s) unused in theorem `ProofProject.BoundedSemigroup.averagingInterval_continuous`:
+  [CompleteSpace H]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace H] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ProofProject/AveragedFourierOperator.lean:64:0: automatically included section variable(s) unused in theorem `ProofProject.BoundedSemigroup.averagingInterval_bound`:
+  [CompleteSpace H]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace H] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ProofProject/AveragedFourierOperator.lean:118:8: This simp argument is unused:
+  ← RCLike.real_smul_eq_coe_smul (K := ℂ)
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [averagingOrbit, averagingWindow_of_mem hs, indicator_of_mem hs, averagingFourierKernel,
+    Circle.smul_def, mul_smul]
+
+Note: Simp arguments with `←` have the additional effect of removing the other direction from the simp set, even if the simp argument itself is unused. If the hint above does not work, try replacing `←` with `-` to only get that effect and silence this warning.
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8836/8905] Built ProofProject.SemigroupKernelOperator (12s)
+warning: ProofProject/SemigroupKernelOperator.lean:27:0: automatically included section variable(s) unused in theorem `ProofProject.BoundedSemigroup.positiveOrbit_continuous`:
+  [CompleteSpace H]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace H] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ProofProject/SemigroupKernelOperator.lean:32:0: automatically included section variable(s) unused in theorem `ProofProject.BoundedSemigroup.positiveOrbit_norm_le`:
+  [CompleteSpace H]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace H] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+✔ [8837/8905] Built ProofProject.ReplicationModels (11s)
+⚠ [8838/8905] Built ProofProject.WeightedPolynomialAngle (10s)
+warning: ProofProject/WeightedPolynomialAngle.lean:108:34: This simp argument is unused:
+  Pi.smul_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [weightedLaurentFunction, laurentCirclePolynomial_add, laurentCirclePolynomial_smul, smul_eq_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [8839/8905] Built ProofProject.FiniteGeometricError (10s)
+⚠ [8840/8905] Built ProofProject.SeparatorBudget (9.9s)
+warning: ProofProject/SeparatorBudget.lean:43:22: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [8841/8905] Built ProofProject.PowerAmplitude (10s)
+warning: ProofProject/PowerAmplitude.lean:111:49: Variable name `hA0` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hA0
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [8842/8905] Built ProofProject.FiniteParitySplit (9.9s)
+✔ [8843/8905] Built ProofProject.SourceSeparatorScale (9.7s)
+✔ [8844/8905] Built ProofProject.SourceBoundaryMoments (10s)
+✔ [8845/8905] Built ProofProject.SourcePieceCutoff (8.8s)
+ℹ [8846/8905] Built ProofProject.SourceWeightedAmplitude (8.9s)
+info: ProofProject/SourceWeightedAmplitude.lean:95:8: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+✔ [8847/8905] Built ProofProject.SourceFrequencyNormalization (7.4s)
+⚠ [8848/8905] Built ProofProject.SourceWindowDecay (7.8s)
+warning: ProofProject/SourceWindowDecay.lean:124:4: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+✔ [8849/8905] Built ProofProject.AveragedFourierEstimate (9.4s)
+✔ [8850/8908] Built ProofProject.AveragedFourierFactor (9.9s)
+⚠ [8851/8908] Built ProofProject.PowerTailIntegral (10s)
+warning: ProofProject/PowerTailIntegral.lean:55:65: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ProofProject/PowerTailIntegral.lean:74:20: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+✔ [8852/8908] Built ProofProject.ResolventAverage (11s)
+✔ [8853/8908] Built ProofProject.ReplicationLower (11s)
+✔ [8854/8910] Built ProofProject.SemigroupKernelConvolution (12s)
+✔ [8855/8910] Built ProofProject.SourcePieceDampedTail (11s)
+⚠ [8856/8910] Built ProofProject.RationalCircleAngle (13s)
+warning: ProofProject/RationalCircleAngle.lean:121:37: This simp argument is unused:
+  star_inv
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [polynomialCirclePhase, fourier_neg, div_eq_mul_inv, starRingEnd_apply, star_mul, star_star]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [8857/8910] Built ProofProject.SignedTransformedAmplitude (12s)
+✔ [8858/8910] Built ProofProject.SourcePieceClock (13s)
+✔ [8859/8910] Built ProofProject.FiniteMomentOrthogonality (12s)
+✔ [8860/8910] Built ProofProject.SourcePieceAmplitude (11s)
+⚠ [8861/8911] Built ProofProject.SourceWindowPointwise (11s)
+warning: ProofProject/SourceWindowPointwise.lean:94:10: Unused tactic linter: `ring` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ProofProject/SourceWindowPointwise.lean:94:10: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+✔ [8862/8911] Built ProofProject.SourceWindowSupportScale (10s)
+✔ [8863/8911] Built ProofProject.GammaKernel (9.9s)
+✔ [8864/8911] Built ProofProject.FiniteFourierReconstruction (11s)
+✔ [8865/8913] Built ProofProject.BoundaryLower (11s)
+✔ [8866/8915] Built ProofProject.ResolventConvolution (10s)
+✔ [8867/8915] Built ProofProject.RescaledResolventInverse (12s)
+✔ [8868/8915] Built ProofProject.PolynomialPhaseMoments (11s)
+✔ [8869/8915] Built ProofProject.TransformedAmplitudeBounds (11s)
+✔ [8870/8915] Built ProofProject.ProjectionHankel (12s)
+✔ [8871/8915] Built ProofProject.TailBoundaryAlgebra (13s)
+✔ [8872/8917] Built ProofProject.SourcePolynomialHilbert (13s)
+⚠ [8873/8917] Built ProofProject.SourceWindowSmoothedDecay (12s)
+warning: ProofProject/SourceWindowSmoothedDecay.lean:87:20: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+✔ [8874/8918] Built ProofProject.FiniteMomentCoefficients (12s)
+⚠ [8876/8927] Built ProofProject.BesselKernelSeries (11s)
+warning: ProofProject/BesselKernelSeries.lean:48:9: Variable name `n` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _n
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [8877/8927] Built ProofProject.GammaConvolution (12s)
+✔ [8878/8927] Built ProofProject.SemigroupKernelSeries (13s)
+✔ [8879/8927] Built ProofProject.ResolventOperatorIdentity (13s)
+✔ [8880/8927] Built ProofProject.AnalyticCircleMean (14s)
+✔ [8881/8927] Built ProofProject.PhaseCoefficientPolynomial (13s)
+✔ [8882/8927] Built ProofProject.FiniteToeplitz (14s)
+✔ [8883/8927] Built ProofProject.SourcePolynomialGain (13s)
+✔ [8884/8927] Built ProofProject.SourceScalarBudget (13s)
+✔ [8885/8927] Built ProofProject.SourcePolynomialInner (13s)
+✔ [8886/8927] Built ProofProject.OscillatorEnergy (14s)
+✔ [8887/8927] Built ProofProject.GammaKernelSeries (12s)
+✔ [8888/8927] Built ProofProject.BesselKernelODE (15s)
+✔ [8889/8927] Built ProofProject.DerivativeTailLimit (13s)
+✔ [8890/8927] Built ProofProject.GammaResolventPowers (13s)
+✔ [8891/8927] Built ProofProject.ToeplitzBoundary (10s)
+✔ [8892/8927] Built ProofProject.ToeplitzPadding (12s)
+✔ [8893/8927] Built ProofProject.ToeplitzPolynomial (13s)
+✔ [8894/8927] Built ProofProject.SourceBoundaryLower (13s)
+✔ [8895/8927] Built ProofProject.OuterToeplitzData (13s)
+✔ [8896/8927] Built ProofProject.SourceBoundaryEstimate (11s)
+✔ [8897/8927] Built ProofProject.SourceOscillatoryOperator (15s)
+✔ [8898/8927] Built ProofProject.BesselOscillator (12s)
+✔ [8899/8927] Built ProofProject.OscillatorAsymptotic (12s)
+✔ [8900/8927] Built ProofProject.GeneratorInversePowers (12s)
+✔ [8901/8927] Built ProofProject.LowerBound (6.7s)
+✔ [8902/8927] Built ProofProject.OscillatoryResolventBounds (13s)
+✔ [8903/8927] Built ProofProject.SchurContraction (19s)
+ℹ [8904/8927] Built ProofProject.BesselAsymptotic (13s)
+info: ProofProject/BesselAsymptotic.lean:45:16: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+✔ [8905/8927] Built ProofProject.SourcePieceOperator (16s)
+✔ [8906/8927] Built ProofProject.GeneratorExponentialSeries (14s)
+✔ [8907/8927] Built ProofProject.FiniteSchurInterpolation (5.4s)
+✔ [8908/8927] Built ProofProject.SourcePieceLimit (4.8s)
+✔ [8909/8927] Built ProofProject.SourcePieceResolvent (5.8s)
+✔ [8910/8927] Built ProofProject.InverseExponentialKernel (6.3s)
+✔ [8911/8927] Built ProofProject.RationalPhaseApproximation (5.7s)
+⚠ [8912/8927] Built ProofProject.SourcePieceError (5.2s)
+warning: ProofProject/SourcePieceError.lean:35:0: automatically included section variable(s) unused in theorem `ProofProject.sourcePiece_sqrt_delete_le`:
+  [CompleteSpace H]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace H] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ProofProject/SourcePieceError.lean:62:0: automatically included section variable(s) unused in theorem `ProofProject.sourcePiece_sqrt_keep_le`:
+  [CompleteSpace H]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CompleteSpace H] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+✔ [8913/8927] Built ProofProject.SourceBesselRemainder (6.2s)
+✔ [8914/8927] Built ProofProject.OuterSectorFunction (5.0s)
+✔ [8915/8927] Built ProofProject.SourcePieceSeparation (2.8s)
+⚠ [8916/8927] Built ProofProject.OuterInteriorEstimate (2.6s)
+warning: ProofProject/OuterInteriorEstimate.lean:77:4: Try `simp at hp` instead of `simpa using hp`
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+✔ [8917/8927] Built ProofProject.SharpTailGeometry (1.9s)
+✔ [8918/8927] Built ProofProject.SeparatedOperatorSum (2.5s)
+✔ [8919/8927] Built ProofProject.SourcePieceSynthesis (1.9s)
+✔ [8920/8927] Built ProofProject.SourcePieceFiniteSum (2.0s)
+✔ [8921/8927] Built ProofProject.SourcePieceTimeBound (1.0s)
+✔ [8922/8927] Built ProofProject.OscillatoryTailBound (1.8s)
+✔ [8923/8927] Built ProofProject.SharpUpperBound (2.3s)
+✔ [8924/8927] Built ProofProject.SharpGrowth (1.8s)
+✔ [8925/8927] Built ProofProject.Helpers (1.7s)
+✔ [8926/8927] Built Solution (1.8s)
+Build completed successfully (8927 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, ProofProject.stableSemigroup_hasGeneratorInverse, ProofProject.attainableNorms_bddAbove, ProofProject.sharp_growth, ProofProject.finite_dimensional_lower, ProofProject.contractive_envelope, propext, Classical.choice, Quot.sound, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+PASS: fresh Comparator run and all controls. Evidence: /tmp/mf17-nla-tools/logs/verify-20260930T133910Z-9471
+
+EXIT_STATUS=0

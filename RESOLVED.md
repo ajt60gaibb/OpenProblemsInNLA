@@ -38,6 +38,32 @@ The passing scopes include AC-01's small-CW upper bound (also relevant to AC-04)
 
 ## Resolved catalog entries
 
+### 🏆 MF-17 — sharp fixed-bound inverse-semigroup growth
+
+**Lean verified, 30 September 2026.** The complete fixed-bound target is
+settled with rate $`(\log\log(t+e^e))^{(2/\pi)\arccos(M^{-1})}`$ for every
+fixed $`M>1`$, uniform over the original complex Hilbert-space semigroup class.
+Finite-dimensional lower witnesses retain the same prescribed bound, and
+$`G_1(t)=1`$ for every $`t\geq0`$. A limiting leading coefficient and
+uniformity as $`M\downarrow1`$ are not asserted.
+
+The unchanged [manuscript, Part VI, Theorem S.1.1](matrix-functions-and-stability/MF-17/MF-17-research-handoff.pdf#page=43)
+(printed p. 42) supplies the proposed theorem. The Lean proof uses the adapted
+arguments described in the [statement correspondence](matrix-functions-and-stability/MF-17/lean/NUMERICAL_TARGETS.md).
+All five contracts passed a fresh local Linux build, Comparator statement and
+axiom checks, default-kernel replay, and the real sandbox/rejection controls.
+The complete harness exited 0. Two independent retrospective AI statement
+reviews and separate upper/lower source reviews are retained; no external
+human peer review is claimed.
+
+The [published proof revision](https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/cad3785440a2678b5b30aa8133d425e709b6811d/matrix-functions-and-stability/MF-17/lean) fixes the mathematical inputs.
+See the [canonical evidence section](matrix-functions-and-stability/MF-17/README.md#lean-proof-and-verification-evidence)
+for the immutable source revision, pins, exact declarations, reproduction
+commands, logs, axiom reports and review scope. The maintainer review matched
+the published proof inputs to the SHA-256 hashes in the retained local-run
+receipt; it did not rerun Lean or the Linux verifier. The original ID,
+canonical path and mathematical target are unchanged.
+
 ### 🟠 FR-05 — vanishing phase-retrieval injectivity probability — Zhangsong Li
 
 **Solution claimed, 14 September 2026.** Zhangsong Li's [manuscript](https://zhangsong-li.github.io/injectivity_phase_retrieval.pdf), Theorem 1.4, claims the stronger bound $`p_d\le C/d`$ for every $`d\ge2`$ in the retained [FR-05 target](frames-and-matrix-designs/FR-05/README.md). The claim has not been independently audited here and is not Lean verified; its status is therefore `Solution claimed`, not `Solved`. The [formalisation plan](frames-and-matrix-designs/FR-05/formalisation-plan.md) identifies the source freeze, statement boundary, and proof obligations needed for a future verification. The original ID, canonical path, and target are retained.
