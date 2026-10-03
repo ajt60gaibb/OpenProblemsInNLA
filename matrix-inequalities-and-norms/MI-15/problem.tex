@@ -34,7 +34,7 @@ form},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MI-15}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Verification check: 2026-10-02}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,15 +51,202 @@ sum-of-squares representation for the Toeplitz commutator form\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to specialist\par}
-{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
 \textbf{Provenance:} explicit conjecture
 
-\textbf{Rating rationale:} All-order algebraic certification needs more
-than known nonnegativity; its direct application is a specific Toeplitz
-commutator form.
+\textbf{Rating rationale:} These ratings are historical and refer to the
+original universal conjecture: all-order algebraic certification
+required more than known nonnegativity, with direct application to a
+specific Toeplitz commutator form. They do not rate the remaining
+finite-order questions.
+
+\subsection{Resolution --- 2 October
+2026}\label{resolution-2-october-2026}
+
+\textbf{Resolved negatively.} Wenqi Zhu (Mathematical Institute,
+University of Oxford) and Ping Nie (David R. Cheriton School of Computer
+Science, University of Waterloo).
+
+The answer is \textbf{no}: for every integer \(n\ge2^{9961475}\), the
+original polynomial \(F_n\) is not a finite sum of squares of real
+homogeneous quadratic forms, allowing arbitrary real coefficients and
+any finite number of squares. This refutes the universal assertion
+below. The strengthened Böttcher--Wenzel inequality still gives
+\(F_n\ge0\) for every input at every order.
+
+Lean proves SOS for every \(2\le n\le20\). Exact rational Gram
+certificates, checked for polynomial identity and positivity by the
+project's
+\href{https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/verification/positive.py}{positive
+certificate checker}, establish SOS for every \(2\le n\le50\). The range
+through 50 is exact computational evidence; the Lean positive theorem
+covers the range through 20.
+
+The unresolved gap is \(51\le n<2^{9961475}\). The smallest bad order
+and a smaller explicit obstruction threshold remain open. No assertion
+that every gap order has the same answer is made. See the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-inequalities-and-norms/MI-15\#lean-proof-and-verification-evidence}{Lean
+proof and verification evidence} for the formal resolution and the two
+positive evidence scopes.
+
+\subsection{Lean proof and verification
+evidence}\label{lean-proof-and-verification-evidence}
+
+\subsubsection{Immutable source and
+dependencies}\label{immutable-source-and-dependencies}
+
+The
+\href{https://github.com/erenup/toeplitz-bw-not-sos/tree/7126c0841b008dc89a21edfd008bbf1b748d280f}{proof
+repository at \textit{7126c0841b008dc89a21edfd008bbf1b748d280f}} pins
+Lean \textbf{\textit{v4.34.0-rc2}} in its
+\href{https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/lean/lean-toolchain}{toolchain
+file}, and Mathlib
+\textbf{\textit{85e3a25e006c35636f0e53b0e9296caca2685bc0}} in its
+\href{https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/lean/lake-manifest.json}{dependency
+manifest}. That manifest pins the remaining dependencies as well.
+
+\subsubsection{Declarations and statement
+correspondence}\label{declarations-and-statement-correspondence}
+
+The following definitions are in
+\href{https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/lean/ToeplitzSOS/Defs.lean}{\textit{lean/ToeplitzSOS/Defs.lean}},
+in namespace \textit{ToeplitzSOS}:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Variables:}
+  \textit{V n = CoordFamily × Fin (2 * n - 1)}. The two
+  constructors of \textit{CoordFamily} select \textit{x} and \textit{y};
+  the second coordinate \(a=0,\ldots,2n-2\) encodes the signed diagonal
+  \(a-(n-1)\). Thus \textit{MvPolynomial (V n) Real} has exactly the
+  independent real variables
+  \(x_{-(n-1)},\ldots,x_{n-1},y_{-(n-1)},\ldots,y_{n-1}\) in the
+  original \(4n-2\)-variable polynomial ring.
+\item
+  \textbf{Toeplitz matrices:} \textit{X n} and \textit{Y n} use
+  \textit{diagIndex i j = i + (n - 1 - j)} for
+  \textit{i j : Fin n}. Since \(0\le j< n\), this is the offset
+  encoding of \(i-j\). Moving from zero-based to one-based matrix
+  indices leaves the difference unchanged, giving exactly the
+  catalogue's \(X=(x_{i-j})\) and \(Y=(y_{i-j})\).
+\item
+  \textbf{Norm and polynomial:} \textit{frob A} is
+  \(\sum_{i,j}A_{ij}^2\); \textit{inner A B} is
+  \(\sum_{i,j}A_{ij}B_{ij}=\mathop{\mathrm{tr}}\nolimits(A^TB)\).
+  Therefore \textit{toeplitzBW n} is precisely the displayed \(F_n\),
+  with the two coefficients 2 and the ordinary matrix commutator. These
+  are squared Frobenius norms over the real coefficient ring.
+\item
+  \textbf{Squares and identity:} \textit{IsSumSqHomQuad p} asserts that
+  there exist a natural number \textit{s} and
+  \textit{q : Fin s → MvPolynomial (V n) Real} such that each
+  \textit{q j} satisfies \textit{IsHomogeneous 2} and
+  \(p=\sum_j(q_j)^2\) in that polynomial ring. The count may be zero, is
+  finite, and is unrestricted; the real coefficients and the square
+  count may depend on \(n\). This is a polynomial identity, not equality
+  at finitely many inputs or a constraint on a selected Gram ansatz.
+\item
+  \textbf{Universal quantifier:} \textit{MI15} is
+  \textit{∀ n ≥ 2, IsSumSqHomQuad (toeplitzBW n)}, precisely the
+  original assertion for every integer order \(n\ge2\).
+\end{itemize}
+
+In namespace \textit{ToeplitzSOS.Negative}, the
+\href{https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/lean/ToeplitzSOS/Negative/SharpStatement.lean}{statement
+file} defines \textit{SharpNegativeResolution}. Its theorem
+\textit{sharpOrderThreshold\_eq} identifies the symbolic threshold with
+\(2^{9961475}\), and \textit{sharpNegativeResolution\_iff\_explicit}
+expands the finite real homogeneous-quadratic quantifiers. The
+\href{https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/lean/ToeplitzSOS/Negative/Resolution.lean}{resolution
+file} proves:
+
+\begin{itemize}
+\tightlist
+\item
+  \textit{ToeplitzSOS.Negative.sharpNegativeResolution}: the
+  unconditional all-larger-order non-SOS statement.
+\item
+  \textit{ToeplitzSOS.Negative.sharp\_negative\_explicit}: the same
+  theorem with the square count, real coefficient polynomials,
+  degree-two homogeneity and polynomial identity expanded.
+\item
+  \textit{ToeplitzSOS.Negative.not\_MI15}: the negation of the
+  catalogue's universal assertion.
+\end{itemize}
+
+All analytic premises needed for these conclusions are proved within the
+import closure; they are not extra assumptions on the catalogue problem.
+The word \textit{sharp} in declaration names distinguishes sufficient
+bounds and does not claim an optimal threshold.
+
+For the positive range,
+\href{https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/lean/ToeplitzSOS/Certificates/Range.lean}{\textit{ToeplitzSOS.toeplitzBW\_isSumSq\_of\_le\_20}}
+proves exactly \(2\le n\le20\) for the same polynomial and SOS
+predicate. The separate
+\href{https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/verification/README.md\#positive-orders}{exact
+certificate documentation} describes the rational chain through order
+50.
+
+\subsubsection{Reproduction and verification
+record}\label{reproduction-and-verification-record}
+
+The dated successful build and verification log is
+\href{https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/VERIFICATION.md}{\textit{VERIFICATION.md}}.
+It records the verification of the declarations above and their
+dependencies. \textbf{The catalogue did not rerun the checks}; the
+evidence supplied for this status is the external project's verification
+record.
+
+With the pinned Lean toolchain installed, run from the repository root
+of the pinned revision:
+
+\begin{verbatim}
+cd lean
+lake exe cache get
+./verify
+./verify --certificates
+\end{verbatim}
+
+The first verification command builds and audits the negative theorem
+and its dependencies. The second also builds and audits the positive
+certificates and range theorem. Dependency pins must be retained. For
+the exact positive range through 50, follow the
+\href{https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/verification/README.md}{dependency
+setup and commands} and run from the repository root:
+
+\begin{verbatim}
+python3 -m venv .venv
+.venv/bin/python -m pip install -r verification/requirements.txt
+.venv/bin/python verification/positive.py
+.venv/bin/python -O verification/positive.py
+\end{verbatim}
+
+\subsubsection{Transitive axioms}\label{transitive-axioms}
+
+The
+\href{https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/VERIFICATION.md}{verification
+record} contains the transitive axiom report for the target
+declarations. Only \textit{propext}, \textit{Classical.choice} and
+\textit{Quot.sound}, or a subset, are allowed. The project's
+\href{https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/lean/Audit.lean}{audit}
+traverses every imported project declaration, including private and
+generated declarations; its
+\href{https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/lean/verify}{verifier}
+rejects other axioms and exercises corrupted-source and unproved-axiom
+controls. No \textit{sorryAx}, unproved custom axiom or additional trust
+in native execution supports the target theorems.
+
+The Lean declarations are the primary references for the resolution. The
+\href{https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/paper/main.pdf}{working
+paper, \emph{Sum-of-Squares and Non-Sum-of-Squares Regimes for the
+Toeplitz Böttcher--Wenzel Form}} is secondary; an arXiv version is
+forthcoming. The
+\href{https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/paper-lean-mapping/README.md}{paper--Lean
+map} distinguishes its formalized statements and exact computations.
 
 \subsection{Finite-order SOS certificates --- 12 September
 2026}\label{finite-order-sos-certificates-12-september-2026}
@@ -74,15 +261,8 @@ Sections 1--5 of the
 establish sum-of-squares representations for orders \(n=8,9,10,11,12\),
 with at most \(2(n-1)^2\) homogeneous quadratic squares. The five
 rational Gram certificates passed exact polynomial-identity and integer
-positive-definiteness checks. The assertion for every order remains
-open.
-
-A separate
-\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-matrix-2026-09-12/verification/MI-15-review.md}{independent
-Codex AI-agent audit} passed this limited scope. This is informal
-automated review; no complete resolution, historical novelty, external
-human peer review or formal verification is claimed. No Lean
-verification was performed.
+positive-definiteness checks. These finite-order certificates preceded
+the negative resolution above.
 
 \subsection{Problem statement}\label{problem-statement}
 
@@ -130,7 +310,10 @@ question.
   PDF}.
 \end{enumerate}
 
-\subsection{Status check --- 2026-09-10}\label{status-check-2026-09-10}
+\subsection{Historical status check ---
+2026-09-10}\label{historical-status-check-2026-09-10}
+
+The following dated record predates the resolution above.
 
 Both arXiv records remain v1; the published 2024 survey still poses this
 SOS assertion. László's particular certificate strategy works through

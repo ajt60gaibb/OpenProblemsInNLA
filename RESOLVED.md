@@ -38,6 +38,14 @@ The passing scopes include AC-01's small-CW upper bound (also relevant to AC-04)
 
 ## Resolved catalog entries
 
+### 🏆 MI-15 — Toeplitz commutator form: negative resolution
+
+**Lean verified, 2 October 2026.** Wenqi Zhu (Mathematical Institute, University of Oxford) and Ping Nie (David R. Cheriton School of Computer Science, University of Waterloo). The answer to [MI-15](matrix-inequalities-and-norms/MI-15/README.md) is **no**: $`F_n`$ is not a finite sum of squares of real homogeneous quadratic forms for every integer $`n\ge2^{9961475}`$, with arbitrary real coefficients and any finite square count. The original ID, statement and earlier partial result are retained; the difficulty and impact ratings are historical.
+
+The primary references are `ToeplitzSOS.Negative.not_MI15` and `ToeplitzSOS.Negative.sharp_negative_explicit` in the [immutable Lean source](https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/lean/ToeplitzSOS/Negative/Resolution.lean). The [canonical evidence section](matrix-inequalities-and-norms/MI-15/README.md#lean-proof-and-verification-evidence) gives the definitions, exact statement comparison, dependency pins and reproduction commands; the dated [verification log and transitive axiom report](https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/VERIFICATION.md) supply the formal verification evidence. The catalogue did not rerun the checks.
+
+Lean proves SOS for $`2\le n\le20`$; [exact rational certificates](https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/verification/README.md#positive-orders) establish SOS for every $`2\le n\le50`$. The gap $`51\le n<2^{9961475}`$, the smallest bad order, and a smaller explicit obstruction threshold remain open. All-order nonnegativity is unaffected. The [working paper, *Sum-of-Squares and Non-Sum-of-Squares Regimes for the Toeplitz Böttcher–Wenzel Form*](https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/paper/main.pdf), with arXiv version forthcoming, is secondary to the Lean declarations and verification record.
+
 ### 🏆 MF-17 — sharp fixed-bound inverse-semigroup growth
 
 **Lean verified, 30 September 2026.** The complete fixed-bound target is
@@ -204,7 +212,7 @@ The complete proof passed a separate [independent Codex AI-agent audit](referenc
 
 **Partially resolved, 12 September 2026.** Author: Sidney Holden, Center for Computational Biology, Flatiron Institute, Simons Foundation. [Submission and verified affiliation](references/holden-matrix-2026-09-12/README.md).
 
-- [MI-15](matrix-inequalities-and-norms/MI-15/README.md): [Sections 1–5](references/holden-matrix-2026-09-12/MI-15/proof.md) prove exact SOS certificates in orders 8–12. The all-order assertion remains open. [Independent review](references/holden-matrix-2026-09-12/verification/MI-15-review.md).
+- [MI-15](matrix-inequalities-and-norms/MI-15/README.md): [Sections 1–5](references/holden-matrix-2026-09-12/MI-15/proof.md) prove exact SOS certificates in orders 8–12. This preceded the [negative resolution](matrix-inequalities-and-norms/MI-15/README.md#resolution--2-october-2026). [Independent review](references/holden-matrix-2026-09-12/verification/MI-15-review.md).
 - [MI-16](matrix-inequalities-and-norms/MI-16/README.md): the [Theorem](references/holden-matrix-2026-09-12/MI-16/result.md) gives the exact orbit maximum for every one-exceptional-eigenvalue spectrum. This preceded the [all-spectrum resolution](matrix-inequalities-and-norms/MI-16/README.md). [Independent review of the earlier scope](references/holden-matrix-2026-09-12/verification/MI-16-review.md).
 
 The same submission includes audited MI-20 projective reductions and MI-27 projection-equivalence and coefficient-sharpness lemmas. MI-20 remains Open; [MI-27 was subsequently solved](matrix-inequalities-and-norms/MI-27/README.md). Three separate informal Codex AI-agent reviews passed these earlier scopes. This partial submission alone supplied no full resolution and did not reduce the open count. No novelty, external human peer review or formal verification is asserted; no Lean verification was performed. IDs, paths, targets and prior-source credit are retained.
