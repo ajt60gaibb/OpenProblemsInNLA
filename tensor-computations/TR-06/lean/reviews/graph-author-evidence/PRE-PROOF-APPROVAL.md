@@ -1,0 +1,3 @@
+Root independently approved exact GraphJacobian map definitions and both signatures before proof implementation. Reviewed draft SHA256: 78c9b8dd1fbdcf6368563de240ed3d45641f0a66217d4d02dcf8bebe225ced3b.
+
+Approval: WithLp 2 supplies squared-norm sum. Graph Gram eigenvalues 1+lambda are at least one; product bounds every lambda, and quadratic expansion proves the norm bound, including empty bases. Range-restricted A is an isomorphism of equal-dimensional Hilbert spaces; L2 range inclusion is isometric, yielding the second inequality by normDet composition. No extra dimension hypothesis or quantitative assumption is needed. Root explicitly instructed proceeding with the two approved signatures while retaining frozen targets.
