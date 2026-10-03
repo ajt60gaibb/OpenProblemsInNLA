@@ -6,12 +6,12 @@ This generated source inventory covers every permanent registered ID. It does no
 
 Registered entries: **217**.
 
-- external-statement-source: **3**
+- external-statement-source: **4**
 - local-statement-source: **65**
-- missing-statement: **119**
+- missing-statement: **118**
 - shared-statement-source: **30**
 
-The six existing scope gaps remain explicit even when a new shared statement is recorded. IE-01, TR-01, and MI-32 already cite pinned external formalizations and are tracked separately from entries with no Lean statement. Copied historical and review projects do not count.
+The six existing scope gaps remain explicit even when a new shared statement is recorded. IE-01, TR-01, MI-15, and MI-32 already cite pinned external formalizations and are tracked separately from entries with no Lean statement. Copied historical and review projects do not count.
 
 Regenerate with `python3 tools/statement_inventory.py --base-ref <published-commit>`; add `--check` to reject stale generated files. The base commit is explicit so unrelated working-branch commits do not change the inventory.
 
@@ -133,7 +133,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [MI-12](../../../matrix-inequalities-and-norms/MI-12/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [MI-13](../../../matrix-inequalities-and-norms/MI-13/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [MI-14](../../../matrix-inequalities-and-norms/MI-14/README.md) | Partially resolved | missing-statement | Not audited here. |
-| [MI-15](../../../matrix-inequalities-and-norms/MI-15/README.md) | Lean verified | missing-statement | Not audited here. |
+| [MI-15](../../../matrix-inequalities-and-norms/MI-15/README.md) | Lean verified | external-statement-source | Not audited here. |
 | [MI-16](../../../matrix-inequalities-and-norms/MI-16/README.md) | Solved | missing-statement | Not audited here. |
 | [MI-17](../../../matrix-inequalities-and-norms/MI-17/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [MI-18](../../../matrix-inequalities-and-norms/MI-18/README.md) | Partially resolved | missing-statement | Not audited here. |
