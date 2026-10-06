@@ -6,16 +6,16 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Solved
+**Status:** Lean verified
 **Last checked:** 2026-10-06
 
 ## Resolution — 2026-10-06
 
 **Conjecture origin:** The conjecture goes back to Lloyd N. Trefethen and David Bau III, *Numerical Linear Algebra* (SIAM, 1997), p. 169.
 
-**Affirmative resolution; not Lean verified.** John Urschel's [*On the Growth Factor of Random Matrices*](https://arxiv.org/abs/2610.06785v1), posted 5 October 2026, resolves the square-root upper-bound target below: see **Theorem 1.4**, together with **Section 5.1 and the proof of Proposition 5.1** for growth over all Schur complements. The original problem statement and permanent ID are retained.
+**Affirmative resolution; Lean verified.** John Urschel's [*On the Growth Factor of Random Matrices*](https://arxiv.org/abs/2610.06785v1), posted 5 October 2026, resolves the square-root upper-bound target below: see **Theorem 1.4**, together with **Section 5.1 and the proof of Proposition 5.1** for growth over all Schur complements. The original problem statement and permanent ID are retained.
 
-The status remains **Solved**. A complete local Lean proof, independently reviewed by Codex AI agents, now implements the original target and the stronger all-Schur tail; its exact scope and successful local checks are recorded [below](#lean-proof-and-verification-evidence). The catalog's authoritative Linux verification pipeline is pending, so this entry is not promoted to **Lean verified**.
+The complete Lean proof implements the original target and the stronger all-Schur tail. Independent Codex AI-agent reviews checked the mathematical correspondence, and the catalog's authoritative Linux pipeline accepted all six target declarations on 6 October 2026, including the full Comparator/exporter and raw-kernel checks. The [retained verification evidence](#lean-proof-and-verification-evidence) supports promotion to **Lean verified**.
 
 The difficulty, importance and rating rationale are historical assessments of the original open target.
 
@@ -44,7 +44,7 @@ Here growth is measured over the exact-arithmetic Schur complements as defined a
 
 ## Lean proof and verification evidence
 
-**Local proof checks completed, 6 October 2026; publication authorized.** The maintainer reports that John Urschel gave permission to publish this Lean code. That permission is not a correctness endorsement. The [immutable proof source](https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/263a215acd295a260dec7a75ff6bebebb9789df9/linear-systems-and-elimination/IE-06/lean/Solution.lean) at revision `263a215acd295a260dec7a75ff6bebebb9789df9` implements six declarations in namespace `NLA.IE06`:
+**Authoritative Linux verification completed, 6 October 2026.** The maintainer reports that John Urschel gave permission to publish this Lean code. That permission is not a correctness endorsement. The [immutable proof source](https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/263a215acd295a260dec7a75ff6bebebb9789df9/linear-systems-and-elimination/IE-06/lean/Solution.lean) at revision `263a215acd295a260dec7a75ff6bebebb9789df9` implements six declarations in namespace `NLA.IE06`:
 
 - `squareRootUpperBound`: the complete original limit, for every real $`\eta>0`$.
 - `schurSubpolynomialTail`: the stronger all-Schur tail, for every real $`\alpha>0`$ with constants independent of dimension.
@@ -57,7 +57,9 @@ The [final independent mathematical scope audit](https://github.com/ajt60gaibb/O
 
 The [dated local receipt](https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/263a215acd295a260dec7a75ff6bebebb9789df9/linear-systems-and-elimination/IE-06/lean/verification/local/attempt-0i_0ibma/result.json) records 114 successfully compiled source modules and a transitive axiom audit of all 3,229 owned declarations across 113 concrete modules, including private helpers. The unchanged pinned Comparator library [accepted all six actual theorem statements, referenced definitions, and proof axiom closures](https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/263a215acd295a260dec7a75ff6bebebb9789df9/linear-systems-and-elimination/IE-06/lean/verification/local/attempt-0i_0ibma/CompareSolution.lean.log) against the independent frozen Challenge. LeanCert kernel checks passed; only `propext`, `Classical.choice`, and `Quot.sound` are permitted. The deliberate `sorry` and native-execution rejection controls failed as required. Challenge's six reference placeholders are not imported by Solution.
 
-The [locked package](https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/263a215acd295a260dec7a75ff6bebebb9789df9/linear-systems-and-elimination/IE-06/lean/lake-manifest.json) uses Lean **4.33.1**, mathlib [`0df444a360ea`](https://github.com/leanprover-community/mathlib4/commit/0df444a360eaa60ab8c11dca51a86af692955474), and LeanCert [`621a43d7cf21`](https://github.com/alerad/leancert/commit/621a43d7cf21f87872392a01e874f2f1dbddc926). [Reproduction instructions](https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/263a215acd295a260dec7a75ff6bebebb9789df9/linear-systems-and-elimination/IE-06/lean/INFRASTRUCTURE.md) and the [verification summary](https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/263a215acd295a260dec7a75ff6bebebb9789df9/linear-systems-and-elimination/IE-06/lean/verification/SUMMARY.md) distinguish this local run, which trusts pinned compiled dependency caches, from the authoritative Linux sandbox, full Comparator CLI/exporter, and separate raw-kernel replay. Those checks remain pending. The original target, permanent ID, and canonical path are unchanged.
+The [locked package](https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/263a215acd295a260dec7a75ff6bebebb9789df9/linear-systems-and-elimination/IE-06/lean/lake-manifest.json) uses Lean **4.33.1**, mathlib [`0df444a360ea`](https://github.com/leanprover-community/mathlib4/commit/0df444a360eaa60ab8c11dca51a86af692955474), and LeanCert [`621a43d7cf21`](https://github.com/alerad/leancert/commit/621a43d7cf21f87872392a01e874f2f1dbddc926). [Reproduction instructions](lean/INFRASTRUCTURE.md) and the [verification summary](lean/verification/SUMMARY.md) distinguish the earlier local checks from the subsequent authoritative Linux run. The original target, permanent ID, and canonical path are unchanged.
+
+The catalog reran the complete verification pipeline in [successful Linux CI run 37513136002](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/37513136002/job/112439363988), testing PR head [05b1c83e](https://github.com/ajt60gaibb/OpenProblemsInNLA/commit/05b1c83e11042d7067cd51c5a4bfc0265e7390f4) through merge revision [6091e87a](https://github.com/ajt60gaibb/OpenProblemsInNLA/commit/6091e87aa8538ea31df21fd06cce3d9e42f65c2a). The proof sources and checker configuration match the immutable proof linked above. The permanently retained [Linux receipt and logs](lean/verification/linux-ci-2026-10-06/README.md) record `comparator-accepted`: the actual non-root sandbox, six-target Comparator CLI/exporter, Lean default-kernel replay, and admitted-proof/native-execution rejection controls all passed. This is execution evidence from the catalog's own CI, independently reviewed alongside the original-target correspondence; it is not a claim of external human peer review.
 
 ## Scope of the resolution
 
