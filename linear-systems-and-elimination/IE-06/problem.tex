@@ -34,7 +34,7 @@ growth},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-06}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-10-06}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,10 +51,32 @@ square-root upper bound for Gaussian partial-pivoting growth\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Open\par}
+{\sffamily\small\bfseries\color{accent}Status: Solved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
+\subsection{Resolution --- 2026-10-06}\label{resolution-2026-10-06}
+
+\textbf{Conjecture origin:} The conjecture goes back to Lloyd N.
+Trefethen and David Bau III, \emph{Numerical Linear Algebra} (SIAM,
+1997), p.~169.
+
+\textbf{Affirmative resolution; not Lean verified.} John Urschel's
+\href{https://arxiv.org/abs/2610.06785v1}{\emph{On the Growth Factor of
+Random Matrices}}, posted 5 October 2026, resolves the square-root
+upper-bound target below: see \textbf{Theorem 1.4}, together with
+\textbf{Section 5.1 and the proof of Proposition 5.1} for growth over
+all Schur complements. The original problem statement and permanent ID
+are retained.
+
+The status is recorded as \textbf{Solved} on the basis of this arXiv
+preprint. This update checks the source's correspondence with IE-06; it
+is not an independent audit of the full proof. No Lean verification is
+recorded.
+
+The difficulty, importance and rating rationale are historical
+assessments of the original open target.
+
 \textbf{Rating rationale:} Challenging reflects the need for a sharp
 probabilistic exponent beyond existing polynomial estimates; community
 impact is its prediction of typical partial-pivoting stability.
@@ -66,9 +88,7 @@ All elimination in this problem is in exact arithmetic. Write
 active Schur complements \(S_1=A,S_2,\ldots,S_n\), with row/column
 permutations as appropriate. Its element-growth factor is
 
-\[
-\rho(A)=\frac{\max_{1\leq j\leq n}\|S_j\|_{\max}}{\|A\|_{\max}}.
-\]
+\[\rho(A)=\frac{\max_{1\leq j\leq n}\|S_j\|_{\max}}{\|A\|_{\max}}.\]
 
 Partial pivoting chooses a largest-magnitude entry in the active first
 column; complete pivoting chooses one anywhere in the active matrix. If
@@ -82,10 +102,8 @@ otherwise stated.
 Let \(G_n\in\mathbb R^{n\times n}\) have independent \(N(0,1)\) entries.
 Is the following precise square-root upper-bound conjecture true?
 
-\[
-\text{For every }\eta>0,\qquad
-\lim_{n\to\infty}\Pr\{\rho_{\mathrm{PP}}(G_n)>n^{1/2+\eta}\}=0.
-\]
+\[\text{For every }\eta>0,\qquad
+\lim_{n\to\infty}\Pr\{\rho_{\mathrm{PP}}(G_n)>n^{1/2+\eta}\}=0.\]
 
 Here growth is measured over the exact-arithmetic Schur complements as
 defined above. This formulation asks only for the conjectured upper
@@ -96,7 +114,46 @@ which requires a uniform result after perturbing every deterministic
 center and prescribes an exponential tail.
 
 \newpage
+
+\subsection{Scope of the resolution}\label{scope-of-the-resolution}
+
+For every \(\alpha>0\), Urschel's Theorem 1.4 gives constants
+\(C_\alpha,n_\alpha\) such that, for \(n\ge n_\alpha\),
+
+\[\Pr\!\left\{\mathrm{growth}(\Pi(G_n))>
+\sqrt n\,e^{C_\alpha\sqrt{\log n}}\right\}< n^{-\alpha}.\]
+
+Here \(\Pi\) applies partial pivoting and the paper defines
+\(\mathrm{growth}\) using \(L\) and \(U\).
+\href{https://arxiv.org/html/2610.06785v1\#S5.SS1}{Section 5.1} and the
+\href{https://arxiv.org/html/2610.06785v1\#S5.SS2}{proof of Proposition
+5.1} explicitly control every Schur-complement entry. Since
+\(\|G_n\|_{\max}\ge1\) except with exponentially small probability, that
+argument also bounds the retained \(\rho_{\mathrm{PP}}\) at the same
+scale. For each fixed \(\eta>0\),
+\(e^{C_\alpha\sqrt{\log n}}=o(n^\eta)\), implying the displayed limit.
+The Gaussian model and exact-arithmetic assumptions agree; pivot ties
+have probability zero.
+
+Lloyd N. Trefethen's
+\href{https://arxiv.org/abs/2610.04761v1}{\emph{Instability of Gaussian
+elimination is exponentially rare (proof of partial result)}}, posted 3
+October 2026, treats the corner entry \(u_{nn}\). In the correspondence
+supplied for this update, Trefethen dates that proof to 2015 and says he
+has not checked Urschel's proof. Credit for the conjecture remains with
+Trefethen, including its appearance in Trefethen and Bau's
+\emph{Numerical Linear Algebra} (1997), p.~169; the full resolution is
+due to Urschel.
+
 \subsection{References}\label{references}
+
+John Urschel, \href{https://arxiv.org/abs/2610.06785v1}{\emph{On the
+Growth Factor of Random Matrices}}, arXiv:2610.06785v1 (5 October 2026),
+Theorem 1.4, Section 5.1 and Proposition 5.1. Lloyd N. Trefethen,
+\href{https://arxiv.org/abs/2610.04761v1}{\emph{Instability of Gaussian
+elimination is exponentially rare (proof of partial result)}},
+arXiv:2610.04761v1 (3 October 2026). Lloyd N. Trefethen and David Bau
+III, \emph{Numerical Linear Algebra}, SIAM (1997), p.~169.
 
 Huang and Tikhomirov,
 \href{https://doi.org/10.1007/s00440-024-01276-2}{\emph{Average-case

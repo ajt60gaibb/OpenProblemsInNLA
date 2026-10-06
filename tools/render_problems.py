@@ -29,6 +29,10 @@ def plain_pdf_title(title):
 
 def restore_pdf_layout(identifier, body):
     """Keep document commands out of the public mathematical statements."""
+    if identifier == "IE-06":
+        # Keep the theorem comparison and its references together after the target.
+        heading = "## Scope of the resolution\n"
+        body = body.replace(heading, "\\newpage\n\n" + heading, 1)
     if identifier == "RA-01":
         # Keep each dated partial result together after the new manuscript notice.
         body = body.replace("## Partial resolution - 13 September 2026\n",
@@ -128,7 +132,7 @@ def render(source):
         # leave only a few lines on a second page after the status audit.
         if identifier in {
             'AA-01', 'AC-13', 'AV-01', 'AV-02', 'AV-03', 'FR-01', 'FR-02', 'FR-04',
-            'FR-10', 'FR-11', 'FR-12', 'IE-01', 'IE-03', 'IE-06', 'IE-08', 'IE-10', 'IE-11', 'IE-13',
+            'FR-10', 'FR-11', 'FR-12', 'IE-01', 'IE-03', 'IE-08', 'IE-10', 'IE-11', 'IE-13',
             'IE-14', 'IE-15', 'IE-17', 'IE-19', 'IE-21', 'IE-22',
             'IE-24', 'IE-25', 'IE-26', 'IS-02', 'IS-03', 'IS-05', 'IV-02', 'IV-03', 'IV-04',
             'IV-05', 'IV-06', 'KE-03', 'KE-04', 'MD-06', 'MF-15',

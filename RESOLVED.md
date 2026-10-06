@@ -38,6 +38,14 @@ The passing scopes include AC-01's small-CW upper bound (also relevant to AC-04)
 
 ## Resolved catalog entries
 
+### ✅ IE-06 — square-root Gaussian partial-pivoting growth — John Urschel
+
+**Conjecture origin:** The conjecture goes back to Lloyd N. Trefethen and David Bau III, *Numerical Linear Algebra* (SIAM, 1997), p. 169.
+
+**Solved affirmatively; recorded 6 October 2026. Not Lean verified.** John Urschel's [*On the Growth Factor of Random Matrices*](https://arxiv.org/abs/2610.06785v1), posted 5 October 2026, proves the square-root upper exponent in the [retained original IE-06 target](linear-systems-and-elimination/IE-06/README.md). Theorem 1.4 gives a $`\sqrt n\,e^{C_\alpha\sqrt{\log n}}`$ threshold with failure probability below $`n^{-\alpha}`$ for every fixed $`\alpha>0`$ and sufficiently large $`n`$. Section 5.1 and the proof of Proposition 5.1 cover all Schur complements, matching the catalog's growth convention; the subpolynomial factor implies its limit for every $`\eta>0`$.
+
+Lloyd N. Trefethen retains credit for the conjecture and the earlier corner-entry result, posted as [arXiv:2610.04761v1](https://arxiv.org/abs/2610.04761v1) on 3 October 2026. In correspondence supplied for this update, he dates that proof to 2015 and says he has not checked Urschel's proof. The Solved status is based on Urschel's arXiv preprint; this update checks source-to-target correspondence, not the full proof independently. No Lean verification is recorded. IE-06's ID, canonical path and original target remain unchanged.
+
 ### 🏆 MI-15 — Toeplitz commutator form: negative resolution
 
 **Lean verified, 2 October 2026.** Wenqi Zhu (Mathematical Institute, University of Oxford) and Ping Nie (David R. Cheriton School of Computer Science, University of Waterloo). The answer to [MI-15](matrix-inequalities-and-norms/MI-15/README.md) is **no**: $`F_n`$ is not a finite sum of squares of real homogeneous quadratic forms for every integer $`n\ge2^{9961475}`$, with arbitrary real coefficients and any finite square count. The original ID, statement and earlier partial result are retained; the difficulty and impact ratings are historical.
