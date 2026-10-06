@@ -1,8 +1,8 @@
 # All problems and their status
 
-**103 problems with open targets:** 37 open and 66 partially resolved. **114 other retained entries**, excluded from the open count.
+**102 problems with open targets:** 37 open and 65 partially resolved. **115 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 45 solved (published or independently audited); 68 solved with Lean verification.
+**Resolution evidence:** 45 solved (published or independently audited); 69 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -233,7 +233,6 @@ Retained entries outside the open count:
 | [MI-12](matrix-inequalities-and-norms/MI-12/README.md) | Marcus's inequality for the permanent of block permanents | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-12/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-12/problem.tex) |
 | [MI-14](matrix-inequalities-and-norms/MI-14/README.md) | The complex Lu–Wenzel spectral conjecture | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-14/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-14/problem.tex) |
 | [MI-17](matrix-inequalities-and-norms/MI-17/README.md) | The Lih–Wang permanent inequality toward the flat matrix | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-17/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-17/problem.tex) |
-| [MI-18](matrix-inequalities-and-norms/MI-18/README.md) | Bapat's q-permanent monotonicity conjecture | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-18/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-18/problem.tex) |
 | [MI-20](matrix-inequalities-and-norms/MI-20/README.md) | Sharp subquadratic Lee constants for sums of matrices | **🔵 OPEN** | challenging | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-20/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-20/problem.tex) |
 | [MI-25](matrix-inequalities-and-norms/MI-25/README.md) | Dimension-independent Hlawka constants for Schatten norms | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-25/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-25/problem.tex) |
 | [MI-30](matrix-inequalities-and-norms/MI-30/README.md) | Product inequality for disjoint principal minors of Wishart matrices | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-30/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-30/problem.tex) |
@@ -249,6 +248,7 @@ Retained entries outside the open count:
 | [MI-13](matrix-inequalities-and-norms/MI-13/README.md) | Nobori's spectral-middle-factor commutator conjecture | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-13/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-13/problem.tex) |
 | [MI-15](matrix-inequalities-and-norms/MI-15/README.md) | A sum-of-squares representation for the Toeplitz commutator form | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-15/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-15/problem.tex) |
 | [MI-16](matrix-inequalities-and-norms/MI-16/README.md) | The maximum permanent on a positive-semidefinite unitary orbit | **✅ SOLVED** | extreme | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-16/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-16/problem.tex) |
+| [MI-18](matrix-inequalities-and-norms/MI-18/README.md) | Bapat's q-permanent monotonicity conjecture | **🏆 LEAN VERIFIED** | extreme | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-18/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-18/problem.tex) |
 | [MI-19](matrix-inequalities-and-norms/MI-19/README.md) | A q-permanent inequality for subset-preserving permutations | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](matrix-inequalities-and-norms/MI-19/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-19/problem.tex) |
 | [MI-21](matrix-inequalities-and-norms/MI-21/README.md) | Freewan–Hayajneh inequality for sums of weighted geometric means | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-21/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-21/problem.tex) |
 | [MI-22](matrix-inequalities-and-norms/MI-22/README.md) | Lemos–Soares singular-value log-majorization | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](matrix-inequalities-and-norms/MI-22/problem.pdf) · [TeX](matrix-inequalities-and-norms/MI-22/problem.tex) |
