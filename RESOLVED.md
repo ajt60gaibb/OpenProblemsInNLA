@@ -38,6 +38,12 @@ The passing scopes include AC-01's small-CW upper bound (also relevant to AC-04)
 
 ## Resolved catalog entries
 
+### 🏆 MI-18 — q-permanent monotonicity: negative resolution
+
+**Lean verified, 6 October 2026.** Kenta Kitamura's [order-144 counterexample](https://github.com/KitaKen1/bapat-lal-q-permanent-lean/blob/4200da4fc1a132d69c23fb877795b5b72089544b/lean/Bapat/Counterexample.lean) disproves the full arbitrary-order assertion in [MI-18](matrix-inequalities-and-norms/MI-18/README.md). A non-diagonal Hermitian positive definite matrix $`VV^*+\varepsilon I`$ has a strict decrease between two points of $`[-1,1]`$. The perturbation and points are existential. The original statement, permanent ID, and proved order-four and earlier special cases are retained.
+
+Separate Codex agents reviewed the statement correspondence and the author's dated public Lean build/standard-axiom evidence at immutable revision `4200da4fc1a132d69c23fb877795b5b72089544b`; all 22 recorded source hashes matched. The catalog independently recomputed the exact integer certificate, but did not rerun Lean locally. [Formal evidence and precise scope](matrix-inequalities-and-norms/MI-18/README.md#lean-proof-and-verification-evidence) · [Review and reproduction](reviews/2026-10-06-mi18-issue329/README.md) · [Mathematical manuscript](matrix-inequalities-and-norms/MI-18/solution.pdf) ([source](matrix-inequalities-and-norms/MI-18/solution.md)) · [Issue #329](https://github.com/ajt60gaibb/OpenProblemsInNLA/issues/329). Kitamura is credited for the formalization and supplied certificate, with the source's AI-assistance disclosure; the new exposition is Codex-prepared and has not been approved by the author. External human peer review and discovery priority are not asserted. The external Lean repository is not copied into this collection.
+
 ### 🏆 MI-15 — Toeplitz commutator form: negative resolution
 
 **Lean verified, 2 October 2026.** Wenqi Zhu (Mathematical Institute, University of Oxford) and Ping Nie (David R. Cheriton School of Computer Science, University of Waterloo). The answer to [MI-15](matrix-inequalities-and-norms/MI-15/README.md) is **no**: $`F_n`$ is not a finite sum of squares of real homogeneous quadratic forms for every integer $`n\ge2^{9961475}`$, with arbitrary real coefficients and any finite square count. The original ID, statement and earlier partial result are retained; the difficulty and impact ratings are historical.

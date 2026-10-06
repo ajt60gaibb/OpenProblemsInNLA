@@ -48,6 +48,16 @@ def render(source):
             input=markdown, text=True, encoding="utf-8", capture_output=True, check=True,
         )
         tex = result.stdout
+        if identifier == "MI-18":
+            # Keep the reviewed prose unchanged while preventing equations and
+            # the ordered certificate table from colliding with page footers.
+            tex = tex.replace(r"\subsection{3. Permanents", "\\newpage\n" + r"\subsection{3. Permanents", 1)
+            tex = tex.replace(r"\subsection{5. Positive", "\\newpage\n" + r"\subsection{5. Positive", 1)
+            tex = tex.replace(r"\subsection{Appendix.", "\\newpage\n" + r"\subsection{Appendix.", 1)
+            tex = tex.replace(r"\subsection{Sources and scope}", "\\newpage\n" + r"\subsection{Sources and scope}", 1)
+            tex = tex.replace("After all 144 steps", r"\Needspace{9\baselineskip}" + "\nAfter all 144 steps", 1)
+            tex = tex.replace(r"\[", "\\nopagebreak[4]\n" + r"\[")
+            tex = tex.replace(r"{\def\LTcaptype{none}", r"{\small\renewcommand{\arraystretch}{0.94}\def\LTcaptype{none}", 1)
         if identifier == "SP-15":
             tex = tex.replace("\n\\[\n", "\n\\nopagebreak[4]\n\\[\n")
             # Keep the frozen proof unchanged in Markdown while preventing

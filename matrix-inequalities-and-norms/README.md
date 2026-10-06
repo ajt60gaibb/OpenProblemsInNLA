@@ -2,7 +2,7 @@
 
 [← All categories](../README.md) · [Full catalog](../CATALOG.md) · [Solved and claimed solutions](../RESOLVED.md)
 
-**14 problems with open targets.** 18 retained entries are excluded from the open count.
+**13 problems with open targets.** 19 retained entries are excluded from the open count.
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
@@ -16,7 +16,6 @@
 | [MI-12](MI-12/README.md) | Marcus's inequality for the permanent of block permanents | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](MI-12/problem.pdf) · [TeX](MI-12/problem.tex) |
 | [MI-14](MI-14/README.md) | The complex Lu–Wenzel spectral conjecture | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](MI-14/problem.pdf) · [TeX](MI-14/problem.tex) |
 | [MI-17](MI-17/README.md) | The Lih–Wang permanent inequality toward the flat matrix | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](MI-17/problem.pdf) · [TeX](MI-17/problem.tex) |
-| [MI-18](MI-18/README.md) | Bapat's q-permanent monotonicity conjecture | **🟡 PARTIAL** | extreme | interesting to specialist | [PDF](MI-18/problem.pdf) · [TeX](MI-18/problem.tex) |
 | [MI-20](MI-20/README.md) | Sharp subquadratic Lee constants for sums of matrices | **🔵 OPEN** | challenging | interesting to the community | [PDF](MI-20/problem.pdf) · [TeX](MI-20/problem.tex) |
 | [MI-25](MI-25/README.md) | Dimension-independent Hlawka constants for Schatten norms | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](MI-25/problem.pdf) · [TeX](MI-25/problem.tex) |
 | [MI-30](MI-30/README.md) | Product inequality for disjoint principal minors of Wishart matrices | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](MI-30/problem.pdf) · [TeX](MI-30/problem.tex) |
@@ -32,6 +31,7 @@
 | [MI-13](MI-13/README.md) | Nobori's spectral-middle-factor commutator conjecture | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](MI-13/problem.pdf) · [TeX](MI-13/problem.tex) |
 | [MI-15](MI-15/README.md) | A sum-of-squares representation for the Toeplitz commutator form | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](MI-15/problem.pdf) · [TeX](MI-15/problem.tex) |
 | [MI-16](MI-16/README.md) | The maximum permanent on a positive-semidefinite unitary orbit | **✅ SOLVED** | extreme | interesting to the community | [PDF](MI-16/problem.pdf) · [TeX](MI-16/problem.tex) |
+| [MI-18](MI-18/README.md) | Bapat's q-permanent monotonicity conjecture | **🏆 LEAN VERIFIED** | extreme | interesting to specialist | [PDF](MI-18/problem.pdf) · [TeX](MI-18/problem.tex) |
 | [MI-19](MI-19/README.md) | A q-permanent inequality for subset-preserving permutations | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](MI-19/problem.pdf) · [TeX](MI-19/problem.tex) |
 | [MI-21](MI-21/README.md) | Freewan–Hayajneh inequality for sums of weighted geometric means | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](MI-21/problem.pdf) · [TeX](MI-21/problem.tex) |
 | [MI-22](MI-22/README.md) | Lemos–Soares singular-value log-majorization | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](MI-22/problem.pdf) · [TeX](MI-22/problem.tex) |
