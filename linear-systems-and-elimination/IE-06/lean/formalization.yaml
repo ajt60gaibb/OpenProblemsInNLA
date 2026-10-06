@@ -1,0 +1,242 @@
+# yaml-language-server: $schema=../../../docs/lean/schema/v0.4.schema.json
+version: v0.4
+project:
+  name: 'IE-06: Gaussian partial-pivoting growth'
+  description: Complete local Lean proof of the original all-Schur square-root upper-exponent limit and a stronger
+    arbitrary-polynomial tail at sqrt(n) exp(C sqrt(log n)), including the actual Gaussian law, all admissible
+    pivot paths, measurability, path existence, and Gaussian nonsingularity.
+  authors:
+  - Codex AI agents (formalization, infrastructure, and independent agent review)
+  license: Apache-2.0
+repository:
+  role: substantive-development
+  note: Prepared locally at the maintainer's request. Nothing has been committed, pushed, or submitted as a
+    pull request; no remote CI was dispatched. John Urschel has not been contacted. Publication remains for
+    the maintainer to decide after speaking with him.
+sources:
+- title: IE-06 — The square-root upper bound for Gaussian partial-pivoting growth
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/286d8768fbd9a69264daa88e285680293db29837/linear-systems-and-elimination/IE-06/README.md
+  type: web-post
+  location: Complete Context and notation and Problem statement
+  relationship: formalizes
+  author_endorsement: not-contacted
+  contributors:
+  - name: Lloyd N. Trefethen
+    role: Original conjecture, including its presentation with David Bau III
+  note: Both the original HEAD page and the preexisting working resolution update are retained verbatim in
+    source/. This task leaves canonical files unchanged.
+- title: On the Growth Factor of Random Matrices
+  authors:
+  - John Urschel
+  id: https://arxiv.org/abs/2610.06785v1
+  type: article
+  location: Sections 4 and 5; Theorem 1.4, Proposition 5.1, selected-block extension and spectral recursion
+  relationship: adapts
+  author_endorsement: not-contacted
+  note: The displayed Theorem 1.4 concerns LU growth. The stronger all-Schur estimate is extracted from the
+    argument, with exact elimination, normalization, and almost-sure tie bridges proved here. All required
+    probabilistic estimates are supplied by proved Lean declarations; no manuscript theorem is assumed as an
+    axiom.
+- title: Generic IE-04 exact GEPP definitions
+  authors:
+  - George Stepaniants
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/286d8768fbd9a69264daa88e285680293db29837/linear-systems-and-elimination/IE-04/lean/NLA/IE04/Definitions.lean
+  type: software
+  relationship: adapts
+  license: Apache-2.0
+  author_endorsement: not-contacted
+  note: 'Credits retained for AI-assisted generic definitions. George Stepaniants: Department of Computing
+    and Mathematical Sciences, California Institute of Technology. No IE-04 problem-specific target or numerical
+    witness is imported.'
+- title: Prékopa–Leindler formalization in isoperimetric
+  id: https://github.com/hojonathanho/isoperimetric/tree/29768f8beeaf17295cdf3853d37da35d7e2b0a5f
+  type: software
+  relationship: adapts
+  license: Apache-2.0
+  author_endorsement: not-contacted
+  note: Minimal compatibility port of proved Basic and PrekopaLeindler modules. Immutable source copies, license,
+    source hashes, exact statement-preservation review, and axiom audits are retained in source/ and reviews/.
+- title: Gaussian concentration and singular-value infrastructure in lean-stat-learning-theory
+  id: https://github.com/YuanheZ/lean-stat-learning-theory/tree/d0f506f0a695018265dccb33bcb05e2f5ca1c876
+  type: software
+  relationship: adapts
+  license: Apache-2.0
+  author_endorsement: not-contacted
+  note: Pinned proved Gaussian Lipschitz concentration closure and MatrixInfra modules, compiled with the existing
+    project dependency pins. Immutable sources, licenses, compatibility records, independent reviews, and transitive
+    axiom audits are retained.
+status:
+  scope: Complete original IE-06 limit and stronger all-Schur tail, with all six frozen reference signatures
+    implemented in Solution.lean. Every probabilistic premise in the final proof is supplied by a proved theorem.
+    The fresh local build, all-owned-declaration axiom audit, rejection controls, and actual six-target Comparator
+    library comparison passed in attempt-0i_0ibma. Authoritative Linux/exporter/raw-replay verification was
+    not run.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  challenge_placeholder_count: 6
+  axioms:
+  - propext
+  - Classical.choice
+  - Quot.sound
+  main_results:
+  - declaration: NLA.IE06.squareRootUpperBound
+    file: Solution.lean
+    comparator_config: comparator.json
+    verification_status: 'Passed fresh local run verification/local/attempt-0i_0ibma/result.json: Lean 4.33.1
+      compilation, LeanCert kernel assertions, and the unchanged Comparator library on the actual independent
+      Challenge/Solution environments accepted this statement, its referenced definitions, and its foundational-only
+      transitive proof axioms. No authoritative Linux sandbox, exporter, or separate raw-kernel replay was
+      run; pinned compiled dependency caches remain trusted inputs.'
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    literature_dependencies: []
+  - declaration: NLA.IE06.schurSubpolynomialTail
+    file: Solution.lean
+    comparator_config: comparator.json
+    verification_status: 'Passed fresh local run verification/local/attempt-0i_0ibma/result.json: Lean 4.33.1
+      compilation, LeanCert kernel assertions, and the unchanged Comparator library on the actual independent
+      Challenge/Solution environments accepted this statement, its referenced definitions, and its foundational-only
+      transitive proof axioms. No authoritative Linux sandbox, exporter, or separate raw-kernel replay was
+      run; pinned compiled dependency caches remain trusted inputs.'
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    literature_dependencies: []
+  - declaration: NLA.IE06.gaussianMatrix_probability
+    file: Solution.lean
+    comparator_config: comparator.json
+    verification_status: 'Passed fresh local run verification/local/attempt-0i_0ibma/result.json: Lean 4.33.1
+      compilation, LeanCert kernel assertions, and the unchanged Comparator library on the actual independent
+      Challenge/Solution environments accepted this statement, its referenced definitions, and its foundational-only
+      transitive proof axioms. No authoritative Linux sandbox, exporter, or separate raw-kernel replay was
+      run; pinned compiled dependency caches remain trusted inputs.'
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    literature_dependencies: []
+  - declaration: NLA.IE06.exceedanceEvent_measurable
+    file: Solution.lean
+    comparator_config: comparator.json
+    verification_status: 'Passed fresh local run verification/local/attempt-0i_0ibma/result.json: Lean 4.33.1
+      compilation, LeanCert kernel assertions, and the unchanged Comparator library on the actual independent
+      Challenge/Solution environments accepted this statement, its referenced definitions, and its foundational-only
+      transitive proof axioms. No authoritative Linux sandbox, exporter, or separate raw-kernel replay was
+      run; pinned compiled dependency caches remain trusted inputs.'
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    literature_dependencies: []
+  - declaration: NLA.IE06.admissiblePath_exists
+    file: Solution.lean
+    comparator_config: comparator.json
+    verification_status: 'Passed fresh local run verification/local/attempt-0i_0ibma/result.json: Lean 4.33.1
+      compilation, LeanCert kernel assertions, and the unchanged Comparator library on the actual independent
+      Challenge/Solution environments accepted this statement, its referenced definitions, and its foundational-only
+      transitive proof axioms. No authoritative Linux sandbox, exporter, or separate raw-kernel replay was
+      run; pinned compiled dependency caches remain trusted inputs.'
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    literature_dependencies: []
+  - declaration: NLA.IE06.gaussianMatrix_singular_null
+    file: Solution.lean
+    comparator_config: comparator.json
+    verification_status: 'Passed fresh local run verification/local/attempt-0i_0ibma/result.json: Lean 4.33.1
+      compilation, LeanCert kernel assertions, and the unchanged Comparator library on the actual independent
+      Challenge/Solution environments accepted this statement, its referenced definitions, and its foundational-only
+      transitive proof axioms. No authoritative Linux sandbox, exporter, or separate raw-kernel replay was
+      run; pinned compiled dependency caches remain trusted inputs.'
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    literature_dependencies: []
+automation:
+  methods:
+  - method: agent
+    framework: Codex
+    tool_setup: Multiple agents for exact source and numerical specifications, independent preimplementation
+      mathematical review, implementation, independent actual-source reviews, and reproducible infrastructure.
+      Lean 4.33.1 and pinned LeanCert in kernel mode. The shared CI/Comparator acceptance gates were preserved;
+      local checks are distinguished from authoritative Linux verification.
+  notes: AI-agent reviews are not human peer review or source-author endorsement. Symbolic probability and
+    numerical estimates avoid massive finite computation and a huge explicit dimension cutoff. The log(2) <
+    7/10 LeanCert fixture is infrastructure only and is not used by the Gaussian-growth proof.
+review:
+  status: Complete proof implementation with independent AI-agent mathematical and actual-source reviews, approved
+    final mathematical scope audit, and successful fresh local compilation, axiom audit, and actual six-target
+    Comparator library comparison.
+  reviewers:
+  - 'Coordinator agent /root: independent reviews of delegated source and proof modules'
+  - 'Source and proof agent /root/source_statement_author: independent reviews of coordinator and other-agent
+    modules'
+  - 'Independent mathematics agent /root/independent_math_review: exact contracts and independent proof-source
+    reviews'
+  - 'Infrastructure agent /root/infrastructure: independent source/build reviews and verification controls'
+  notes: Each report under reviews/ records its scope and relevant source hashes. Module implementers are not
+    treated as their own independent reviewers. No human peer review or John Urschel endorsement is claimed.
+    Historical reports and receipts certify only their recorded source snapshots. The final independent mathematical
+    scope audit is reviews/final-independent-mathematical-scope-audit.md; execution evidence is verification/local/attempt-0i_0ibma/result.json.
+    These documents have separate semantic-review and runtime-verification scopes.
+fidelity:
+  divergences: The original permanent IE-06 target and canonical path are unchanged. The stronger all-Schur
+    tail is extracted from the manuscript argument rather than identified with its displayed LU-growth theorem.
+    Reviewed alternative intermediate bounds use a universal Gaussian spectral constant 16, a Gaussian-mixture/finite-Jensen
+    quadratic argument, and a sufficient 6 sqrt(log n) scalar cost; they preserve the complete final tail and
+    original limit. No separate sharper arbitrary-cutoff profile or new open IE-06 problem is claimed.
+toolchain:
+  lean: leanprover/lean4:v4.33.1
+  dependency_manifest: lake-manifest.json
+  dependencies:
+    leancert: 621a43d7cf21f87872392a01e874f2f1dbddc926
+    mathlib: 0df444a360eaa60ab8c11dca51a86af692955474
+verification:
+  local_final_kernel_checks: passed
+  actual_six_target_comparator: 'passed: unchanged pinned Comparator library; separate actual Challenge and
+    Solution environments'
+  authoritative_linux_sandbox: false
+  exporter_executed: false
+  separate_raw_kernel_replay_executed: false
+  permitted_axioms:
+  - propext
+  - Classical.choice
+  - Quot.sound
+  evidence: verification/local/attempt-0i_0ibma/result.json
+  note: All 114 source modules compiled; every owned declaration in 113 concrete modules was audited, including
+    private helpers. All six target statement/definition comparisons and axiom checks passed. Local checking
+    trusts pinned compiled dependency caches; tracked dependency sources and revisions were checked before
+    and after. Challenge remains the verbatim historical reference module with six deliberate placeholders
+    and is not imported by Solution. Comparator has no replaceable definition holes. The full CLI/exporter/raw-replay
+    and authoritative Linux sandbox gates were not executed and were not weakened.
+  fresh_source_modules_compiled: 114
+  owned_declarations_audited: 3229
+  concrete_modules_audited: 113
+  rejection_controls: 'passed: RejectSorry and RejectNative failed as required'
+  full_comparator_cli_executed: false
+  comparator_log: verification/local/attempt-0i_0ibma/CompareSolution.lean.log
+  evidence_summary: verification/SUMMARY.md
+  final_mathematical_scope_audit: reviews/final-independent-mathematical-scope-audit.md
+alignment:
+  original_statement: source/original-HEAD-README.md
+  preexisting_working_statement: source/working-README.md
+  mathematical_specification: reviews/statement-specification.md
+  proof_specification: reviews/full-proof-specification.md
+  proof_map: PROOF_STATUS.md
+  frozen_reference_signatures: Challenge.lean
+  implementation_entry: Solution.lean
+  comparator: comparator.json
+acknowledgements: Mathlib, LeanCert, Lean Comparator, and formalization.yaml contributors; authors of the pinned
+  isoperimetric and lean-stat-learning-theory proofs; credited generic IE-04 GEPP definitions. Provenance and
+  licenses are retained under source/.
