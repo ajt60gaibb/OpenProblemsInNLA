@@ -14,13 +14,16 @@ independent frozen Challenge. See the
 No authoritative Linux sandbox, exporter, or separate raw-kernel replay is
 claimed; [verification/SUMMARY.md](verification/SUMMARY.md) records these limits.
 
-The permanent ID, canonical path, original mathematical target, and canonical
-README/TeX/PDF were preserved by this task. The working page already recorded a
-literature resolution when work began. Complete verbatim copies of both the
+The permanent ID, canonical path, and complete original mathematical target
+are preserved. The proof-development phase left the canonical README/TeX/PDF
+unchanged; publication adds evidence links and regenerated documents. The
+working page already recorded a literature resolution when work began. Complete verbatim copies of both the
 original HEAD page and the preexisting working page are retained in
-[source/](source/). Nothing has been committed, pushed, or submitted as a pull
-request; no remote CI was dispatched. John Urschel has not been contacted.
-Publication remains for the maintainer to decide after speaking with him.
+[source/](source/). On 6 October 2026 the maintainer reported permission from
+John Urschel to publish this code and authorized the GitHub push. This records
+publication permission, without claiming that Urschel reviewed or endorsed
+the formalization. [PUBLICATION.md](PUBLICATION.md) records this authorization,
+the immutable proof revision, provenance, and the remaining verification scope.
 
 ## Exact target and stronger result
 

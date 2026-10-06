@@ -132,11 +132,14 @@ trust axiom, or proof-development `sorry`. Review reports are not human peer
 review or John Urschel's endorsement.
 
 IE-06 remains the same permanent ID, canonical path, and complete original
-problem. The canonical README, TeX, and PDF were not changed by this task;
-preexisting working-tree edits and full statement snapshots were retained.
-There is no additional unsolved IE-06 target. Nothing has been committed or
-pushed, no remote CI has been dispatched, and John has not been contacted.
-The maintainer will decide the next step after speaking with him.
+problem. The proof-development phase left the canonical README, TeX, and PDF
+unchanged. Publication adds evidence links and regenerates the documents,
+preserving the target; preexisting working-tree edits and full statement
+snapshots are retained.
+There is no additional unsolved IE-06 target. The retained local checks
+preceded publication. The maintainer subsequently reported John Urschel's
+permission to publish and authorized the push; see [PUBLICATION.md](PUBLICATION.md).
+Publication permission does not constitute a correctness endorsement.
 
 The successful local LeanCert and actual six-target Comparator library checks
 have distinct scopes from the unchanged shared Linux sandbox/exporter/kernel-

@@ -29,7 +29,7 @@ dependency pins, and all retained logs.
 | Shared harness regressions | PASS: [12 tests](shared-harness-tests.json). Shared acceptance safeguards were not modified. |
 | Permanent IDs and repository regressions | PASS: [record](final-repository-checks.json), validating 217 IDs against `origin/main`, all 17 permanent-ID tests, and all 30 Lean-selection/metadata tests. |
 | Completed-proof metadata | PASS: [final documentation/schema receipt](../reviews/final-documentation-validation.json) validates the v0.4 metadata with all six results selected exactly once by Comparator. |
-| Canonical preservation | PASS: the canonical IE-06 README, TeX, and PDF match their initial working hashes in the repository-check record. The original HEAD page and preexisting working page remain complete verbatim source copies. |
+| Prepublication canonical preservation | PASS: at the recorded local validation, the canonical IE-06 README, TeX, and PDF matched their initial working hashes. Publication subsequently adds evidence links and regenerated documents while preserving the complete original target. Both original source pages remain verbatim copies. |
 
 The six comparisons cover `squareRootUpperBound`, `schurSubpolynomialTail`,
 `gaussianMatrix_probability`, `exceedanceEvent_measurable`,
@@ -70,6 +70,9 @@ and reviews remain available and certify only their recorded snapshots. The
 [delivery manifest](delivery-manifest.json) records the final package file
 hashes; it is an integrity inventory, not an additional proof checker.
 
-Nothing was committed, pushed, published, submitted to remote CI, or sent to
-John Urschel. This task's repository additions are confined to `IE-06/lean/`;
-preexisting working-tree edits were preserved.
+At the completion of the retained local validation, nothing had been committed,
+pushed, submitted to remote CI, or sent to John Urschel by the agents. The
+maintainer subsequently reported permission to publish and authorized the push;
+[the publication record](../PUBLICATION.md) documents that later step. Historical
+receipts retain their original publication flags. The original dirty checkout
+was preserved, and publication was prepared on an isolated branch.

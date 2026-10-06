@@ -4,8 +4,9 @@ The package uses Lean 4.33.1, LeanCert commit
 `621a43d7cf21f87872392a01e874f2f1dbddc926`, Mathlib commit
 `0df444a360eaa60ab8c11dca51a86af692955474`, and the full dependency graph in
 `lake-manifest.json`. The unchanged shared Lean/CI/Comparator infrastructure is
-bound by `verification/tooling-lock.json`. Nothing has been committed, pushed,
-or submitted to remote CI.
+bound by `verification/tooling-lock.json`. The original checks preceded
+publication; [PUBLICATION.md](PUBLICATION.md) records the subsequent
+maintainer-authorized publication and preserves that historical distinction.
 
 `Solution.lean` implements all six exact signatures in the independently frozen
 `Challenge.lean`. Challenge is retained verbatim, including its historical
@@ -77,7 +78,7 @@ exporter execution, or independent raw-kernel replay. The receipts record these
 limits explicitly; no sandbox or acceptance gate has been replaced or relaxed.
 
 The unchanged authoritative route remains available on supported non-root
-Linux against a clean committed project, if publication is later authorized:
+Linux against a clean committed project:
 
 ```sh
 tools/lean/bootstrap.sh /absolute/path/to/nla-lean-tools
@@ -86,5 +87,6 @@ tools/lean/verify.sh linear-systems-and-elimination/IE-06/lean /absolute/path/to
 ```
 
 It includes Landrun/Bubblewrap isolation, the exporter, raw-kernel replay,
-Comparator, and rejection controls. It was not run or remotely dispatched in
-this task. The maintainer's request to keep the code local is preserved.
+Comparator, and rejection controls. It was not run or remotely dispatched during the retained local validation.
+The maintainer subsequently authorized publication; the repository's normal
+CI can run this route on the published branch without changing these gates.
