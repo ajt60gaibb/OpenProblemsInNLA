@@ -34,7 +34,7 @@ growth},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IE-06}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-10-06}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Verification check: 2026-10-06}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ square-root upper bound for Gaussian partial-pivoting growth\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -61,7 +61,7 @@ to the community\par}
 Trefethen and David Bau III, \emph{Numerical Linear Algebra} (SIAM,
 1997), p.~169.
 
-\textbf{Affirmative resolution; not Lean verified.} John Urschel's
+\textbf{Affirmative resolution; Lean verified.} John Urschel's
 \href{https://arxiv.org/abs/2610.06785v1}{\emph{On the Growth Factor of
 Random Matrices}}, posted 5 October 2026, resolves the square-root
 upper-bound target below: see \textbf{Theorem 1.4}, together with
@@ -69,13 +69,13 @@ upper-bound target below: see \textbf{Theorem 1.4}, together with
 all Schur complements. The original problem statement and permanent ID
 are retained.
 
-The status remains \textbf{Solved}. A complete local Lean proof,
-independently reviewed by Codex AI agents, now implements the original
-target and the stronger all-Schur tail; its exact scope and successful
-local checks are recorded
-\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-06\#lean-proof-and-verification-evidence}{below}.
-The catalog's authoritative Linux verification pipeline is pending, so
-this entry is not promoted to \textbf{Lean verified}.
+The complete Lean proof implements the original target and the stronger
+all-Schur tail. Independent Codex AI-agent reviews checked the
+mathematical correspondence, and the catalog's authoritative Linux
+pipeline accepted all six target declarations on 6 October 2026,
+including the full Comparator/exporter and raw-kernel checks. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-06\#lean-proof-and-verification-evidence}{retained
+verification evidence} supports promotion to \textbf{Lean verified}.
 
 The difficulty, importance and rating rationale are historical
 assessments of the original open target.
@@ -119,10 +119,9 @@ center and prescribes an exponential tail.
 \subsection{Lean proof and verification
 evidence}\label{lean-proof-and-verification-evidence}
 
-\textbf{Local proof checks completed, 6 October 2026; publication
-authorized.} The maintainer reports that John Urschel gave permission to
-publish this Lean code. That permission is not a correctness
-endorsement. The
+\textbf{Authoritative Linux verification completed, 6 October 2026.} The
+maintainer reports that John Urschel gave permission to publish this
+Lean code. That permission is not a correctness endorsement. The
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/263a215acd295a260dec7a75ff6bebebb9789df9/linear-systems-and-elimination/IE-06/lean/Solution.lean}{immutable
 proof source} at revision
 \textit{263a215acd295a260dec7a75ff6bebebb9789df9} implements six
@@ -181,14 +180,28 @@ package} uses Lean \textbf{4.33.1}, mathlib
 \href{https://github.com/leanprover-community/mathlib4/commit/0df444a360eaa60ab8c11dca51a86af692955474}{\textit{0df444a360ea}},
 and LeanCert
 \href{https://github.com/alerad/leancert/commit/621a43d7cf21f87872392a01e874f2f1dbddc926}{\textit{621a43d7cf21}}.
-\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/263a215acd295a260dec7a75ff6bebebb9789df9/linear-systems-and-elimination/IE-06/lean/INFRASTRUCTURE.md}{Reproduction
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-06/lean/INFRASTRUCTURE.md}{Reproduction
 instructions} and the
-\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/263a215acd295a260dec7a75ff6bebebb9789df9/linear-systems-and-elimination/IE-06/lean/verification/SUMMARY.md}{verification
-summary} distinguish this local run, which trusts pinned compiled
-dependency caches, from the authoritative Linux sandbox, full Comparator
-CLI/exporter, and separate raw-kernel replay. Those checks remain
-pending. The original target, permanent ID, and canonical path are
-unchanged.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-06/lean/verification/SUMMARY.md}{verification
+summary} distinguish the earlier local checks from the subsequent
+authoritative Linux run. The original target, permanent ID, and
+canonical path are unchanged.
+
+The catalog reran the complete verification pipeline in
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/37513136002/job/112439363988}{successful
+Linux CI run 37513136002}, testing PR head
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/commit/05b1c83e11042d7067cd51c5a4bfc0265e7390f4}{05b1c83e}
+through merge revision
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/commit/6091e87aa8538ea31df21fd06cce3d9e42f65c2a}{6091e87a}.
+The proof sources and checker configuration match the immutable proof
+linked above. The permanently retained
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-06/lean/verification/linux-ci-2026-10-06/README.md}{Linux
+receipt and logs} record \textit{comparator-accepted}: the actual
+non-root sandbox, six-target Comparator CLI/exporter, Lean
+default-kernel replay, and admitted-proof/native-execution rejection
+controls all passed. This is execution evidence from the catalog's own
+CI, independently reviewed alongside the original-target correspondence;
+it is not a claim of external human peer review.
 
 \newpage
 

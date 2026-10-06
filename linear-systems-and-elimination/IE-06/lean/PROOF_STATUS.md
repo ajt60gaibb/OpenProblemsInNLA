@@ -1,4 +1,4 @@
-# Complete probabilistic proof: local implementation finished
+# Complete probabilistic proof: authoritative Linux verification passed
 
 The original IE-06 limit and the stronger all-Schur tail are proved in
 [Unconditional.lean](NLA/IE06/Unconditional.lean), with all six frozen reference
@@ -11,8 +11,11 @@ modules passed the transitive axiom audit, both `sorry` and native-execution
 controls were rejected, and the unchanged Comparator library accepted the
 actual statements, referenced definitions, and proof axioms of all six targets.
 The [Comparator log](verification/local/attempt-0i_0ibma/CompareSolution.lean.log)
-records each result. This uses trusted pinned dependency caches and is not an
-authoritative Linux sandbox, exporter, or separate raw-kernel-replay run; see
+records each local result. The subsequent [Linux CI run](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/37513136002)
+completed the full Comparator CLI, exporter, raw exported-declaration kernel
+replay, strict sandbox probes, and rejection controls. The actual solution was
+accepted with only the same three permitted axioms. See the
+[retained Linux evidence](verification/linux-ci-2026-10-06/README.md) and
 [verification/SUMMARY.md](verification/SUMMARY.md).
 
 No mathematical probability premise remains in the final theorems. Reusable
@@ -141,9 +144,14 @@ preceded publication. The maintainer subsequently reported John Urschel's
 permission to publish and authorized the push; see [PUBLICATION.md](PUBLICATION.md).
 Publication permission does not constitute a correctness endorsement.
 
-The successful local LeanCert and actual six-target Comparator library checks
-have distinct scopes from the unchanged shared Linux sandbox/exporter/kernel-
-replay gates, which were not run. The final receipt binds the delivered proof
-sources; earlier receipts describe only their recorded snapshots. The local
-checks trust the pinned compiled dependency caches, whose tracked sources and
-revisions were checked before and after execution.
+The earlier local LeanCert and exhaustive declaration audit and the subsequent
+authoritative Linux Comparator/exporter/kernel-replay run have distinct scopes
+and both passed. The Linux receipt binds all 1,139 package inputs at the tested
+commit. Every recorded hash matched the promotion checkout before these
+status-document changes; proof sources, dependency pins, frozen reviews, and
+historical receipts remain unchanged. The historical delivery manifest describes
+its original snapshot, not the newly added CI evidence. The local checks trust
+pinned compiled dependency caches; the Linux harness independently materializes
+pinned dependencies, runs its actual isolation controls, and replays the exported
+solution through Lean's default kernel. Neither route replaces mathematical
+semantic review or constitutes manuscript-author endorsement.

@@ -51,7 +51,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [IE-03](../../../linear-systems-and-elimination/IE-03/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [IE-04](../../../linear-systems-and-elimination/IE-04/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [IE-05](../../../linear-systems-and-elimination/IE-05/README.md) | Lean verified | local-statement-source | Not audited here. |
-| [IE-06](../../../linear-systems-and-elimination/IE-06/README.md) | Solved | local-statement-source | Not audited here. |
+| [IE-06](../../../linear-systems-and-elimination/IE-06/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [IE-07](../../../eigenvalues-and-inverse-problems/IE-07/README.md) | Open | missing-statement | Not audited here. |
 | [IE-08](../../../eigenvalues-and-inverse-problems/IE-08/README.md) | Solved | missing-statement | Not audited here. |
 | [IE-10](../../../eigenvalues-and-inverse-problems/IE-10/README.md) | Solved | shared-statement-source | Not audited here. |
