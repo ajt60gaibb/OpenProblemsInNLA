@@ -69,10 +69,13 @@ upper-bound target below: see \textbf{Theorem 1.4}, together with
 all Schur complements. The original problem statement and permanent ID
 are retained.
 
-The status is recorded as \textbf{Solved} on the basis of this arXiv
-preprint. This update checks the source's correspondence with IE-06; it
-is not an independent audit of the full proof. No Lean verification is
-recorded.
+The status remains \textbf{Solved}. A complete local Lean proof,
+independently reviewed by Codex AI agents, now implements the original
+target and the stronger all-Schur tail; its exact scope and successful
+local checks are recorded
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-06\#lean-proof-and-verification-evidence}{below}.
+The catalog's authoritative Linux verification pipeline is pending, so
+this entry is not promoted to \textbf{Lean verified}.
 
 The difficulty, importance and rating rationale are historical
 assessments of the original open target.
@@ -112,6 +115,80 @@ or a limiting-distribution claim. It is also distinct from
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/linear-systems-and-elimination/IE-04/README.md}{IE-04},
 which requires a uniform result after perturbing every deterministic
 center and prescribes an exponential tail.
+
+\subsection{Lean proof and verification
+evidence}\label{lean-proof-and-verification-evidence}
+
+\textbf{Local proof checks completed, 6 October 2026; publication
+authorized.} The maintainer reports that John Urschel gave permission to
+publish this Lean code. That permission is not a correctness
+endorsement. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/263a215acd295a260dec7a75ff6bebebb9789df9/linear-systems-and-elimination/IE-06/lean/Solution.lean}{immutable
+proof source} at revision
+\textit{263a215acd295a260dec7a75ff6bebebb9789df9} implements six
+declarations in namespace \textit{NLA.IE06}:
+
+\begin{itemize}
+\tightlist
+\item
+  \textit{squareRootUpperBound}: the complete original limit, for every
+  real \(\eta>0\).
+\item
+  \textit{schurSubpolynomialTail}: the stronger all-Schur tail, for
+  every real \(\alpha>0\) with constants independent of dimension.
+\item
+  \textit{gaussianMatrix\_probability}: the actual independent
+  standard-Gaussian entry law has mass one.
+\item
+  \textit{exceedanceEvent\_measurable}: the literal growth event is
+  measurable for every dimension and threshold.
+\item
+  \textit{admissiblePath\_exists}: every nonsingular input admits a
+  partial-pivoting path.
+\item
+  \textit{gaussianMatrix\_singular\_null}: singular inputs form a
+  Gaussian null set.
+\end{itemize}
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/263a215acd295a260dec7a75ff6bebebb9789df9/linear-systems-and-elimination/IE-06/lean/reviews/final-independent-mathematical-scope-audit.md}{final
+independent mathematical scope audit} checks the original full
+statement, all active Schur stages, normalization, every admissible tie
+choice, and all probability quantifiers. The proof follows the
+manuscript's all-Schur argument; it does not identify the paper's
+displayed LU-growth definition with the catalog's growth factor. Every
+probabilistic premise of the final theorem is supplied by a proved Lean
+declaration. Reviews were performed by AI agents, not external human
+referees.
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/263a215acd295a260dec7a75ff6bebebb9789df9/linear-systems-and-elimination/IE-06/lean/verification/local/attempt-0i_0ibma/result.json}{dated
+local receipt} records 114 successfully compiled source modules and a
+transitive axiom audit of all 3,229 owned declarations across 113
+concrete modules, including private helpers. The unchanged pinned
+Comparator library
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/263a215acd295a260dec7a75ff6bebebb9789df9/linear-systems-and-elimination/IE-06/lean/verification/local/attempt-0i_0ibma/CompareSolution.lean.log}{accepted
+all six actual theorem statements, referenced definitions, and proof
+axiom closures} against the independent frozen Challenge. LeanCert
+kernel checks passed; only \textit{propext}, \textit{Classical.choice},
+and \textit{Quot.sound} are permitted. The deliberate \textit{sorry} and
+native-execution rejection controls failed as required. Challenge's six
+reference placeholders are not imported by Solution.
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/263a215acd295a260dec7a75ff6bebebb9789df9/linear-systems-and-elimination/IE-06/lean/lake-manifest.json}{locked
+package} uses Lean \textbf{4.33.1}, mathlib
+\href{https://github.com/leanprover-community/mathlib4/commit/0df444a360eaa60ab8c11dca51a86af692955474}{\textit{0df444a360ea}},
+and LeanCert
+\href{https://github.com/alerad/leancert/commit/621a43d7cf21f87872392a01e874f2f1dbddc926}{\textit{621a43d7cf21}}.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/263a215acd295a260dec7a75ff6bebebb9789df9/linear-systems-and-elimination/IE-06/lean/INFRASTRUCTURE.md}{Reproduction
+instructions} and the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/263a215acd295a260dec7a75ff6bebebb9789df9/linear-systems-and-elimination/IE-06/lean/verification/SUMMARY.md}{verification
+summary} distinguish this local run, which trusts pinned compiled
+dependency caches, from the authoritative Linux sandbox, full Comparator
+CLI/exporter, and separate raw-kernel replay. Those checks remain
+pending. The original target, permanent ID, and canonical path are
+unchanged.
 
 \newpage
 

@@ -1,0 +1,203 @@
+NLA/IE06/Elimination.lean:32:4: error: 'change' tactic failed, pattern
+  (E * A) ((Equiv.swap k p) i) j - rowSwap S k p i k / rowSwap S k p k k * (E * A) ((Equiv.swap k p) k) j = ?m.53
+is not definitionally equal to target
+  ((fun i j => if k < i then rowSwap E k p i j - rowSwap S k p i k / rowSwap S k p k k * rowSwap E k p k j else 0) * A)
+      i j =
+    schurStep S k p i j
+NLA/IE06/Elimination.lean:37:2: error: unsolved goals
+case neg
+n : ℕ
+A S E : Mat n
+k p i j : Fin n
+hj : k < j
+hkE : ∀ (a : Fin n), (E * A) a k = S a k
+hjE : ∀ (a : Fin n), (E * A) a j = S a j
+hi : ¬k < i
+⊢ ((fun i j => if k < i then rowSwap E k p i j - rowSwap S k p i k / rowSwap S k p k k * rowSwap E k p k j else 0) * A)
+      i j =
+    0
+NLA/IE06/Elimination.lean:30:15: warning: This simp argument is unused:
+  Matrix.mul_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [eliminationStep, hi, ↓reduceIte, sub_mul, mul_assoc, Finset.sum_sub_distrib, ← Finset.mul_sum]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IE06/Elimination.lean:30:50: warning: This simp argument is unused:
+  hi
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Matrix.mul_apply, eliminationStep, ↓reduceIte, sub_mul, mul_assoc, Finset.sum_sub_distrib,
+    ← Finset.mul_sum]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IE06/Elimination.lean:30:54: warning: This simp argument is unused:
+  ↓reduceIte
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Matrix.mul_apply, eliminationStep, hi, sub_mul, mul_assoc, Finset.sum_sub_distrib,
+    ← Finset.mul_sum]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IE06/Elimination.lean:31:6: warning: This simp argument is unused:
+  sub_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Matrix.mul_apply, eliminationStep, hi, ↓reduceIte, mul_assoc, Finset.sum_sub_distrib,
+    ← Finset.mul_sum]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IE06/Elimination.lean:31:15: warning: This simp argument is unused:
+  mul_assoc
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Matrix.mul_apply, eliminationStep, hi, ↓reduceIte, sub_mul, Finset.sum_sub_distrib,
+    ← Finset.mul_sum]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IE06/Elimination.lean:31:26: warning: This simp argument is unused:
+  Finset.sum_sub_distrib
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Matrix.mul_apply, eliminationStep, hi, ↓reduceIte, sub_mul, mul_assoc, ← Finset.mul_sum]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IE06/Elimination.lean:31:50: warning: This simp argument is unused:
+  ← Finset.mul_sum
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Matrix.mul_apply, eliminationStep, hi, ↓reduceIte, sub_mul, mul_assoc, Finset.sum_sub_distrib]
+
+Note: Simp arguments with `←` have the additional effect of removing the other direction from the simp set, even if the simp argument itself is unused. If the hint above does not work, try replacing `←` with `-` to only get that effect and silence this warning.
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IE06/Elimination.lean:37:10: warning: This simp argument is unused:
+  Matrix.mul_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [eliminationStep, schurStep, hi]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IE06/Elimination.lean:40:8: error: fail to show termination for
+  NLA.IE06.eliminationRows_mul
+with errors
+failed to infer structural recursion:
+Not considering parameter n of NLA.IE06.eliminationRows_mul:
+  it is unchanged in the recursive calls
+Not considering parameter A of NLA.IE06.eliminationRows_mul:
+  it is unchanged in the recursive calls
+Not considering parameter path of NLA.IE06.eliminationRows_mul:
+  it is unchanged in the recursive calls
+Not considering parameter hj of NLA.IE06.eliminationRows_mul:
+  its type Nat.le is an inductive family and indices are not variables
+    k.le ↑j
+Cannot use parameter k:
+  failed to eliminate recursive application
+    eliminationRows_mul A path k a ⟨k, hk⟩ (le_refl k)
+Cannot use parameter i:
+  the type Fin n does not have a `.brecOn` recursor
+Cannot use parameter j:
+  the type Fin n does not have a `.brecOn` recursor
+
+
+Could not find a decreasing measure.
+The basic measures relate at each recursive call as follows:
+(<, ≤, =: relation proved, ? all proofs failed, _: no proof attempted)
+            k #1 #2 #3
+1) 51:14-60 ?  ?  <  _
+2) 53:14-57 ?  ?  =  ?
+
+#1: sizeOf i
+#2: sizeOf j
+#3: ↑j - k
+
+Please use `termination_by` to specify a decreasing measure.
+NLA/IE06/Elimination.lean:63:8: error: Type mismatch
+  if_neg fun a => eliminationRows_inactive._proof_1_6 i k hi a
+has type
+  (if k < ↑i then ?m.62 else ?m.63) = ?m.63
+but is expected to have type
+  (if h : k < n then fun i j =>
+        if ⟨k, h⟩ < i then
+          rowSwap (eliminationRows A path k) ⟨k, h⟩ (path ⟨k, h⟩) i j -
+            rowSwap (trajectory A path k) ⟨k, h⟩ (path ⟨k, h⟩) i ⟨k, h⟩ /
+                rowSwap (trajectory A path k) ⟨k, h⟩ (path ⟨k, h⟩) ⟨k, h⟩ ⟨k, h⟩ *
+              rowSwap (eliminationRows A path k) ⟨k, h⟩ (path ⟨k, h⟩) ⟨k, h⟩ j
+        else 0
+      else 0)
+      i j =
+    0
+NLA/IE06/Elimination.lean:62:36: warning: This simp argument is unused:
+  dif_pos hk
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [eliminationRows, eliminationStep]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/IE06/Elimination.lean:102:8: error: Type mismatch: After simplification, term
+  abs_sub_le (E ((Equiv.swap k p) i) j) (S ((Equiv.swap k p) i) k / S ((Equiv.swap k p) k) k * E ((Equiv.swap k p) k) j)
+ has type
+  ∀ (c : ℝ),
+    |E ((Equiv.swap k p) i) j - c| ≤
+      |E ((Equiv.swap k p) i) j - S ((Equiv.swap k p) i) k / S ((Equiv.swap k p) k) k * E ((Equiv.swap k p) k) j| +
+        |S ((Equiv.swap k p) i) k / S ((Equiv.swap k p) k) k * E ((Equiv.swap k p) k) j - c|
+but is expected to have type
+  |E ((Equiv.swap k p) i) j - S ((Equiv.swap k p) i) k / S ((Equiv.swap k p) k) k * E ((Equiv.swap k p) k) j| ≤
+    |E ((Equiv.swap k p) i) j| + |S ((Equiv.swap k p) i) k / S ((Equiv.swap k p) k) k| * |E ((Equiv.swap k p) k) j|
+NLA/IE06/Elimination.lean:113:9: error: unsolved goals
+case zero
+n : ℕ
+A : Mat n
+path : PivotPath n
+hp : AdmissiblePath A path
+i : Fin n
+⊢ ∑ j, |if i = j then 1 else 0| ≤ 1
+NLA/IE06/Elimination.lean:109:8: error: fail to show termination for
+  NLA.IE06.eliminationRows_rowL1_le
+with errors
+failed to infer structural recursion:
+Not considering parameter n of NLA.IE06.eliminationRows_rowL1_le:
+  it is unchanged in the recursive calls
+Not considering parameter A of NLA.IE06.eliminationRows_rowL1_le:
+  it is unchanged in the recursive calls
+Not considering parameter path of NLA.IE06.eliminationRows_rowL1_le:
+  it is unchanged in the recursive calls
+Not considering parameter hp of NLA.IE06.eliminationRows_rowL1_le:
+  it is unchanged in the recursive calls
+Cannot use parameter k:
+  failed to eliminate recursive application
+    eliminationRows_rowL1_le A path hp k a
+Cannot use parameter i:
+  the type Fin n does not have a `.brecOn` recursor
+
+
+Could not find a decreasing measure.
+The basic measures relate at each recursive call as follows:
+(<, ≤, =: relation proved, ? all proofs failed, _: no proof attempted)
+             k #1
+1) 121:26-64 ?  ?
+
+#1: sizeOf i
+
+Please use `termination_by` to specify a decreasing measure.
+NLA/IE06/Elimination.lean:125:21: error: #assert_trust: 'NLA.IE06.eliminationRows_mul' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+NLA/IE06/Elimination.lean:126:21: error: #assert_trust: 'NLA.IE06.eliminationRows_inactive' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+NLA/IE06/Elimination.lean:127:21: error: #assert_trust: 'NLA.IE06.eliminationRows_terminal' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+NLA/IE06/Elimination.lean:129:21: error: #assert_trust: 'NLA.IE06.eliminationStep_rowL1_le' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+NLA/IE06/Elimination.lean:130:21: error: #assert_trust: 'NLA.IE06.eliminationRows_rowL1_le' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.IE06.eliminationRows_mul' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.IE06.eliminationRows_inactive' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.IE06.eliminationRows_terminal' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.IE06.admissible_multiplier_le_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.IE06.eliminationStep_rowL1_le' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.IE06.eliminationRows_rowL1_le' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

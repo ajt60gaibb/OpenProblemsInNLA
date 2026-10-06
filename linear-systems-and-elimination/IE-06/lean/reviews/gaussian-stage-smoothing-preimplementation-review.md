@@ -1,0 +1,11 @@
+# Independent preimplementation review: actual-stage smoothing
+
+Reviewer: infrastructure/Gaussian agent, independent of root author. Verdict: APPROVED. Reviewed specification SHA-256 `b367bd3a8b27e1b44a27cd9d41f6f59d9c21953d49040679273c1192f826c050`. This is a mathematical preimplementation review, not an audit of subsequent code.
+
+The literal event excludes singular inputs and requires only the actual selected-block retained inverse sum bound. In a fixed nonsingular selected-block fiber, the retained elimination row splits into disjoint remaining-row identity coordinates and selected coordinates containing the row times the retained inverse Z. Consequently its squared norm is exactly 1 plus the latter squared Euclidean norm. The product restricted-Gaussian row tail and ||Z||F²=Sigma_r<=tau give zeta²=1+(2+4x)tau at cost at most (n-t)exp(-x), including zero retained coefficients.
+
+For the next s=4r fresh Gaussian columns, the already reviewed GaussianSmoothing bound applies with L=2^(4r), q=r, and the same zeta. Its threshold is exactly K in the specification and its failure cost is (n+1)exp(-x). Nonsingularity supplies actual valid pivot transitions; the future transition J has the deterministic row-l1 bound and JE_tGstar=0 by the exact annihilation identities. No future success event is conditioned on. Fixed-fiber auxiliary inverse/orthonormal choices do not become an unproved measurable frame.
+
+The intrinsic public event is expressed entirely in actual matrices and elimination rows. F7 plus the future product law can integrate the fixed-fiber estimates, since order weights sum to one; thus there is no hidden row-order union factor. The combined coefficient is (n-t)+(n+1)<=2n+1. Its Gaussian singular-input exception is already separately proved null.
+
+Partitioning FutureBlock(n,t), indexed by original columns, into the next s columns and FutureBlock(n,t+s) is an exact product-coordinate partition with measurable assembly inverse. It preserves every original column and includes s=0. For the final staging reduction u>5r implies t=u-4r>r, while u<=5r is covered by the deterministic row norm<=row-l1<=2^u<=2^(5r). The latter changes only the eventual universal constant, not the target.
