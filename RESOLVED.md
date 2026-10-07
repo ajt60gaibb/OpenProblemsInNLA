@@ -38,6 +38,12 @@ The passing scopes include AC-01's small-CW upper bound (also relevant to AC-04)
 
 ## Resolved catalog entries
 
+### 🟠 MF-23 — complete Crouzeix conjecture — OpenAI
+
+**Complete solution claimed; recorded 6 October 2026.** OpenAI's [mathematics catalog, family 325](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/CONTENTS.md) links a [direct finite-matrix proof](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-direct-proof-of-the-complete-Crouzeix-inequality-September-26-2026/paper.pdf), a [stronger Hilbert-space proof](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/The-complete-Crouzeix-theorem-September-23-2026/paper.pdf), and the [Lean formalization scope](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/325.md). The finite-matrix result has the matrix-valued polynomial quantifiers and sharp constant two in the [retained MF-23 target](matrix-functions-and-stability/MF-23/README.md). The public [Lean theorem source](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/OAI/Analysis/DirectCrouzeix/CompleteBound.lean) states `OAI.DirectCrouzeix.complete_crouzeix : UniversalBound 2` against a matching [Comparator challenge](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/DirectCrouzeix.lean).
+
+This catalog checked statement correspondence but did not rerun Lean or find a dated successful verification log and transitive axiom report for the cited revision. The status is therefore **Solution claimed** under this repository's [Lean verification criteria](CONTRIBUTING.md#lean-verification), pending that evidence. MF-23's permanent ID, canonical path and original mathematical statement are unchanged.
+
 ### 🏆 IE-06 — square-root Gaussian partial-pivoting growth — John Urschel
 
 **Conjecture origin:** The conjecture goes back to Lloyd N. Trefethen and David Bau III, *Numerical Linear Algebra* (SIAM, 1997), p. 169.
