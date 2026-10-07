@@ -7,8 +7,44 @@
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
 **Rating rationale:** Extreme because the information-theoretic transition must be uniform in norm parameter, accuracy, and dimension; community impact is the cost of low-rank approximation across error measures.  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-10-06  
 **Status:** Partially resolved  
+
+## Later literature — checked 6 October 2026
+
+The [primary arXiv abstract of Zhang et al.](https://arxiv.org/abs/2609.35840),
+first submitted 24 September 2026, reports
+
+```math
+Q_p^*=\widetilde\Theta\!\left(
+\min\left\{N,k\min\left\{
+p^{1/6}\varepsilon^{-1/3},\varepsilon^{-1/2}
+\right\}\right\}\right),
+\qquad 2\le p<\infty,
+```
+
+for sufficiently small $`\varepsilon`$, with universal constants,
+$`N=\min\{m,n\}`$ and success probability $`2/3`$. It identifies the
+transition $`p\varepsilon\asymp1`$, with spectral endpoint
+$`\widetilde\Theta(\min\{N,k\varepsilon^{-1/2}\})`$.
+For each fixed $`1\le p<2`$, it reports
+$`\widetilde\Theta_p(\min\{N,k\varepsilon^{-1/3}\})`$, with constants
+and an accuracy threshold that may depend on $`p`$.
+
+Setting $`m=n=N`$ and $`k=1`$ relates these results to the norm transition
+in this entry. **They do not determine the displayed target up to universal
+constant factors:** the tildes leave logarithmic factors unspecified, the
+fixed-$`p`$ result below two is not uniform in $`p`$, and the abstract does
+not establish the catalog's simultaneous all-parameter guarantee with
+success probability $`99/100`$. The growing-$`p`$ transition is substantial
+relevant progress; **status remains Partially resolved** and the original
+statement is unchanged. The growing-rank spectral scope is also recorded
+in [RA-14](../RA-14/README.md).
+
+**Evidence limit:** this check retrieved the primary abstract through the
+search index; the full manuscript could not be retrieved. The exact
+theorem hypotheses and full proof have not been independently checked
+here, and no Lean verification is asserted for this addition.
 
 ## Problem statement
 
@@ -46,6 +82,7 @@ This asks how the matrix-product cost changes between aggregate singular-value e
 
 1. Ainesh Bakshi and Shyam Narayanan, [*Krylov Methods are (nearly) Optimal for Low-Rank Approximation*](https://arxiv.org/html/2304.03191v1#S1.SS2), arXiv:2304.03191v1 (2023), Open Question 1.11; Theorems 1.1 and 1.5, Algorithm 7.4.
 2. Praneeth Kacham and David P. Woodruff, [*Faster Algorithms for Schatten-$`p`$ Low Rank Approximation*](https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.APPROX/RANDOM.2024.55), APPROX/RANDOM 2024, article 55: later running-time bounds.
+3. H. Zhang, W. Wu, C. Zhang, Y. Li, C. Zheng, C. Fang, H. Li, and Z. Lin, [*Matrix-Vector Complexity of Low-Rank Approximation*](https://arxiv.org/abs/2609.35840), arXiv:2609.35840, 24 September 2026, abstract; the present literature notice is limited to that primary abstract.
 
 ## Status check
 

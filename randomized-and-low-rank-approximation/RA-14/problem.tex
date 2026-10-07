@@ -34,7 +34,7 @@ approximation},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RA-14}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-14}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-10-06}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -61,9 +61,43 @@ broad impact includes large-scale spectral computation and data
 analysis.\\
 \textbf{Source:} Bakshi--Narayanan, Open Question 1.10.
 
+\hypertarget{later-literature-checked-6-october-2026}{%
+\subsection{Later literature --- checked 6 October
+2026}\label{later-literature-checked-6-october-2026}}
+
+The \href{https://arxiv.org/abs/2609.35840}{primary arXiv abstract of
+Zhang et al.}, first submitted 24 September 2026, reports the spectral
+query bound
+
+\[Q_\infty^*=\widetilde\Theta\!\left(
+\min\{N,k\varepsilon^{-1/2}\}\right),
+\qquad N=\min\{m,n\}.\]
+
+The paper uses adaptive exact products with a real \(m\times n\) matrix
+and its transpose, a rank-\(k\) right projector, and success probability
+\(2/3\). Its abstract specifies sufficiently small \(\varepsilon\) and
+suppresses logarithmic factors in \(\widetilde\Theta\).
+
+This supplies relevant growing-rank bounds. However, the repository asks
+for \textbf{universal constant factors simultaneously in every
+admissible finite parameter}, with success probability \(99/100\). The
+displayed rate does not settle the logarithmic factors or by itself
+close the finite-accuracy transition gap recorded below. Its success
+guarantee is not silently identified with the catalog's guarantee.
+\textbf{Status remains Partially resolved}, and the original target is
+unchanged. The paper's Schatten-norm transition is recorded in
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-15/README.md}{RA-15}.
+
+\textbf{Evidence limit:} this check retrieved the primary abstract
+through the search index; the full manuscript could not be retrieved. No
+theorem number, independently checked full proof, or Lean verification
+is claimed for this addition. The earlier partial results and their
+separate review records remain as recorded below.
+
+\hypertarget{further-partial-results-exact-capacity-and-adaptive-innovations-14-september-2026}{%
 \subsection{Further partial results --- exact capacity and adaptive
 innovations, 14 September
-2026}\label{further-partial-results-exact-capacity-and-adaptive-innovations-14-september-2026}
+2026}\label{further-partial-results-exact-capacity-and-adaptive-innovations-14-september-2026}}
 
 \textbf{Author:} Sidney Holden, Center for Computational Biology,
 Flatiron Institute, Simons Foundation.
@@ -97,7 +131,8 @@ source}. AI assistance is disclosed; no Lean verification, external
 human peer review, formal verification or novelty claim is asserted.
 Original assumptions, quantifiers, target, ID and path are preserved.
 
-\subsection{Problem statement}\label{problem-statement}
+\hypertarget{problem-statement}{%
+\subsection{Problem statement}\label{problem-statement}}
 
 Let \(n\ge2\), \(1\le k< n\), and \(0<\varepsilon<1/2\). An unknown
 matrix \(A\in\mathbb R^{n\times n}\) is available through exact products
@@ -132,15 +167,17 @@ editorially fixed two-sided oracle model. The introduction describes
 products \(Av\); Algorithm 7.4 explicitly uses both \(A\) and \(A^T\).
 On symmetric inputs these models coincide.
 
+\hypertarget{why-it-matters-in-numerical-linear-algebra}{%
 \subsection{Why it matters in numerical linear
-algebra}\label{why-it-matters-in-numerical-linear-algebra}
+algebra}\label{why-it-matters-in-numerical-linear-algebra}}
 
 Matrix products dominate many large-scale singular-subspace
 computations. The question asks which dependence on the requested number
 of singular vectors is unavoidable for every adaptive algorithm, rather
 than for a chosen Krylov implementation.
 
-\subsection{References}\label{references}
+\hypertarget{references}{%
+\subsection{References}\label{references}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -155,9 +192,16 @@ than for a chosen Krylov implementation.
   Tyler Chen et al., \href{https://arxiv.org/abs/2508.06486}{\emph{Does
   block size matter in randomized block Krylov low-rank
   approximation?}}, 2025, §1: later block-size bounds.
+\item
+  H. Zhang, W. Wu, C. Zhang, Y. Li, C. Zheng, C. Fang, H. Li, and Z.
+  Lin, \href{https://arxiv.org/abs/2609.35840}{\emph{Matrix-Vector
+  Complexity of Low-Rank Approximation}}, arXiv:2609.35840, 24 September
+  2026, abstract; the present literature notice is limited to that
+  primary abstract.
 \end{enumerate}
 
-\subsection{Status check}\label{status-check}
+\hypertarget{status-check}{%
+\subsection{Status check}\label{status-check}}
 
 The source's \(O(k\log n/\sqrt\varepsilon)\) upper bound and fixed-rank
 lower bound do not determine the growing-rank dependence. The 2025 paper
@@ -171,7 +215,8 @@ characterization. The source's lower bound has a
 sufficiently-large-dimension regime, not every finite \(n,\varepsilon\).
 This is a bounded check.
 
-\subsection{Audit --- 2026-09-10}\label{audit-2026-09-10}
+\hypertarget{audit-2026-09-10}{%
+\subsection{Audit --- 2026-09-10}\label{audit-2026-09-10}}
 
 Rechecked \href{https://arxiv.org/html/2304.03191v1}{Bakshi--Narayanan,
 Theorem 1.1 and Open Question 1.10}. Fixed-rank spectral complexity is
@@ -181,8 +226,9 @@ unresolved. Later query-complexity searches and the
 \href{https://doi.org/10.1137/1.9781611978971.42}{SODA 2026 block-size
 paper} did not settle the full target.
 
+\hypertarget{earlier-partial-results-12-september-2026}{%
 \subsection{Earlier partial results --- 12 September
-2026}\label{earlier-partial-results-12-september-2026}
+2026}\label{earlier-partial-results-12-september-2026}}
 
 Holden's
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-ra14-2026-09-12/package/report.pdf}{first
@@ -195,8 +241,9 @@ review} and
 record} are retained. The finite-accuracy result below strengthens the
 lower bound while the full joint characterization remains open.
 
+\hypertarget{finite-accuracy-partial-result-13-september-2026}{%
 \subsection{Finite-accuracy partial result --- 13 September
-2026}\label{finite-accuracy-partial-result-13-september-2026}
+2026}\label{finite-accuracy-partial-result-13-september-2026}}
 
 \textbf{Author:} Sidney Holden, Center for Computational Biology,
 Flatiron Institute, Simons Foundation.
@@ -229,9 +276,10 @@ asserted. This continues the earlier partial submission
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/pull/190}{PR
 \#190}; it does not duplicate a previously pushed full solution.
 
+\hypertarget{restricted-krylov-and-posterior-continuation-13-september-2026}{%
 \subsection{Restricted Krylov and posterior continuation --- 13
 September
-2026}\label{restricted-krylov-and-posterior-continuation-13-september-2026}
+2026}\label{restricted-krylov-and-posterior-continuation-13-september-2026}}
 
 \textbf{Author:} Sidney Holden, Center for Computational Biology,
 Flatiron Institute, Simons Foundation.

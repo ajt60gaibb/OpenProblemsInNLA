@@ -29,6 +29,12 @@ def plain_pdf_title(title):
 
 def restore_pdf_layout(identifier, body):
     """Keep document commands out of the public mathematical statements."""
+    if identifier == "MD-01":
+        # Keep the original expectation target together after the resolution notice.
+        body = body.replace("## Original problem statement\n", "\\newpage\n\n## Original problem statement\n", 1)
+    if identifier == "MI-25":
+        # Keep the new proof-release scope and its evidence on the same page.
+        body = body.replace("## Literature update", "\\newpage\n\n## Literature update", 1)
     if identifier == "IE-06":
         # Keep the theorem comparison and its references together after the target.
         heading = "## Scope of the resolution\n"
@@ -142,7 +148,7 @@ def render(source):
             'MF-16', 'MF-17', 'MI-03', 'MI-04', 'MI-06', 'MI-07', 'MI-08',
             'MI-09', 'MI-19', 'MI-23', 'MI-29', 'NM-03', 'NM-04', 'PF-05',
             'RA-02', 'RA-06', 'RA-08', 'RA-09', 'RA-10', 'RA-12',
-            'RA-15', 'RE-01', 'RE-02', 'RE-06', 'SP-04',
+            'RE-01', 'RE-02', 'RE-06', 'SP-04',
             'SP-05', 'SP-06', 'SP-09', 'SP-12', 'TR-11', 'TR-20', 'TR-21',
             'TR-24', 'TR-26', 'TR-30',
             'IE-27', 'MI-30', 'MI-31',

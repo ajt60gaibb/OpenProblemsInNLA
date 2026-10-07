@@ -34,7 +34,7 @@ norms},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RA-15}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-10-06}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -60,15 +60,51 @@ transition must be uniform in norm parameter, accuracy, and dimension;
 community impact is the cost of low-rank approximation across error
 measures.
 
-\subsection{Problem statement}\label{problem-statement}
+\hypertarget{later-literature-checked-6-october-2026}{%
+\subsection{Later literature --- checked 6 October
+2026}\label{later-literature-checked-6-october-2026}}
+
+The \href{https://arxiv.org/abs/2609.35840}{primary arXiv abstract of
+Zhang et al.}, first submitted 24 September 2026, reports
+
+\[Q_p^*=\widetilde\Theta\!\left(
+\min\left\{N,k\min\left\{
+p^{1/6}\varepsilon^{-1/3},\varepsilon^{-1/2}
+\right\}\right\}\right),
+\qquad 2\le p<\infty,\]
+
+for sufficiently small \(\varepsilon\), with universal constants,
+\(N=\min\{m,n\}\) and success probability \(2/3\). It identifies the
+transition \(p\varepsilon\asymp1\), with spectral endpoint
+\(\widetilde\Theta(\min\{N,k\varepsilon^{-1/2}\})\). For each fixed
+\(1\le p<2\), it reports
+\(\widetilde\Theta_p(\min\{N,k\varepsilon^{-1/3}\})\), with constants
+and an accuracy threshold that may depend on \(p\).
+
+Setting \(m=n=N\) and \(k=1\) relates these results to the norm
+transition in this entry. \textbf{They do not determine the displayed
+target up to universal constant factors:} the tildes leave logarithmic
+factors unspecified, the fixed-\(p\) result below two is not uniform in
+\(p\), and the abstract does not establish the catalog's simultaneous
+all-parameter guarantee with success probability \(99/100\). The
+growing-\(p\) transition is substantial relevant progress;
+\textbf{status remains Partially resolved} and the original statement is
+unchanged. The growing-rank spectral scope is also recorded in
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-14/README.md}{RA-14}.
+
+\textbf{Evidence limit:} this check retrieved the primary abstract
+through the search index; the full manuscript could not be retrieved.
+The exact theorem hypotheses and full proof have not been independently
+checked here, and no Lean verification is asserted for this addition.
+
+\hypertarget{problem-statement}{%
+\subsection{Problem statement}\label{problem-statement}}
 
 For \(1\le p<\infty\), define the Schatten norm of a real matrix \(M\)
 by
 
-\[
-\|M\|_{\mathcal S_p}
-=\left(\sum_i\sigma_i(M)^p\right)^{1/p},
-\]
+\[\|M\|_{\mathcal S_p}
+=\left(\sum_i\sigma_i(M)^p\right)^{1/p},\]
 
 where \(\sigma_i(M)\) are its singular values; set
 \(\|M\|_{\mathcal S_\infty}=\max_i\sigma_i(M)\).
@@ -84,13 +120,11 @@ Define \(q_p(n,\varepsilon)\) to be the least integer \(q\) such that
 some algorithm using at most \(q\) queries outputs a real unit vector
 \(v\) with
 
-\[
-\Pr\!\left[
+\[\Pr\!\left[
 \|A(I-vv^T)\|_{\mathcal S_p}
 \le(1+\varepsilon)
 \min_{\|u\|_2=1}\|A(I-uu^T)\|_{\mathcal S_p}
-\right]\ge\frac{99}{100}
-\]
+\right]\ge\frac{99}{100}\]
 
 for every \(A\).
 
@@ -105,14 +139,15 @@ source introduction describes \(Av\), but Algorithm 7.4 uses \(A\) and
 \(A^T\). These models coincide on its symmetric lower-bound inputs. The
 relative error is in the norm, not its \(p\)th power.
 
+\hypertarget{why-it-matters-in-numerical-linear-algebra}{%
 \subsection{Why it matters in numerical linear
-algebra}\label{why-it-matters-in-numerical-linear-algebra}
+algebra}\label{why-it-matters-in-numerical-linear-algebra}}
 
 This asks how the matrix-product cost changes between aggregate
 singular-value error and worst-direction error.
 
-\newpage
-\subsection{References}\label{references}
+\hypertarget{references}{%
+\subsection{References}\label{references}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -128,9 +163,16 @@ singular-value error and worst-direction error.
   \href{https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.APPROX/RANDOM.2024.55}{\emph{Faster
   Algorithms for Schatten-\(p\) Low Rank Approximation}}, APPROX/RANDOM
   2024, article 55: later running-time bounds.
+\item
+  H. Zhang, W. Wu, C. Zhang, Y. Li, C. Zheng, C. Fang, H. Li, and Z.
+  Lin, \href{https://arxiv.org/abs/2609.35840}{\emph{Matrix-Vector
+  Complexity of Low-Rank Approximation}}, arXiv:2609.35840, 24 September
+  2026, abstract; the present literature notice is limited to that
+  primary abstract.
 \end{enumerate}
 
-\subsection{Status check}\label{status-check}
+\hypertarget{status-check}{%
+\subsection{Status check}\label{status-check}}
 
 For fixed finite \(p\), the source gives a dimension-independent query
 bound; the spectral lower bound grows with \(\log n\) in its stated
@@ -142,7 +184,8 @@ Question 1.11,'' Schatten phase transition, query complexity, and
 2025/2026 found no resolution. The older rank-one spectral lower-bound
 question was solved by the 2023 source. This is a bounded check.
 
-\subsection{Audit --- 2026-09-10}\label{audit-2026-09-10}
+\hypertarget{audit-2026-09-10}{%
+\subsection{Audit --- 2026-09-10}\label{audit-2026-09-10}}
 
 Rechecked \href{https://arxiv.org/html/2304.03191v1}{Bakshi--Narayanan,
 Theorem 1.1 and Open Question 1.11}. The spectral endpoint has matching
