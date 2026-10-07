@@ -4,7 +4,40 @@
 square-root upper-exponent limit and the stronger all-Schur tail bound, with
 all probabilistic estimates supplied by proved declarations. The final fresh
 local build, exhaustive project-declaration axiom audit, and actual six-target
-Challenge/Solution comparison **passed**.
+Challenge/Solution comparison **passed**. The subsequent full authoritative
+Linux Comparator/exporter/kernel-replay route also **passed**.
+
+## Authoritative Linux CI acceptance
+
+[Run 37513136002](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/37513136002) /
+[job 112439363988](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/37513136002/job/112439363988) accepted the actual IE-06
+solution at tested merge commit `6091e87aa8538ea31df21fd06cce3d9e42f65c2a`,
+for PR head `05b1c83e11042d7067cd51c5a4bfc0265e7390f4`. The retained
+[result](linux-ci-2026-10-06/verify-20261006T184228Z-4239/result.json) has SHA-256
+`e8d6ccc4501c435ca30d48bb8b9940ce6bcba9417b884b9625f4414ef102f168`.
+The complete small artifact is retained unchanged beside its
+[provenance and verification guide](linux-ci-2026-10-06/README.md).
+
+| Authoritative check | Result and evidence |
+| --- | --- |
+| Full actual-target Comparator | PASS: [log](linux-ci-2026-10-06/verify-20261006T184228Z-4239/comparator.log) builds and exports Challenge and Solution, accepts the six exact targets and their referenced definitions, and accepts the exported solution through Lean's default kernel. |
+| Permitted proof axioms | Exactly `propext`, `Classical.choice`, and `Quot.sound`; no replaceable definition holes. |
+| Actual Linux isolation | PASS: [sandbox probes](linux-ci-2026-10-06/verify-20261006T184228Z-4239/sandbox.log) exercise non-root build/export isolation, write restrictions, private namespaces, network/AF_UNIX restrictions, and rejection of unsupported sandbox options. |
+| Replay and Comparator regressions | PASS: [three replay controls](linux-ci-2026-10-06/verify-20261006T184228Z-4239/kernel-controls.log) and [five Comparator cases](linux-ci-2026-10-06/verify-20261006T184228Z-4239/comparator-controls.log). |
+| Forbidden-proof rejection | PASS: [sorry](linux-ci-2026-10-06/verify-20261006T184228Z-4239/negative-sorry.log) and [native](linux-ci-2026-10-06/verify-20261006T184228Z-4239/negative-native.log) exit 1 at forbidden-axiom detection as required. |
+| Identity before promotion | PASS: [all 1,139 recorded inputs](linux-ci-2026-10-06/input-identity-before-promotion.json) matched the promotion checkout before documentation edits. |
+
+The Linux run covers the six selected targets and their exported dependency
+closure. The earlier local audit below separately covers every owned declaration.
+The tested proof sources, comparator configuration, dependency pins, frozen
+reviews, and historical receipts remain unchanged. Current status documents and
+metadata were updated after CI, and the new evidence directory was added; neither
+is misrepresented as part of the old CI snapshot. The retained delivery manifest
+continues to describe its historical publication snapshot. The CI command's
+`semantic_review` value remains `not-performed-by-this-command`; mathematical
+fidelity rests on the separately recorded reviews.
+
+## Earlier local validation
 
 The accepted [execution receipt](local/attempt-0i_0ibma/result.json) has SHA-256
 `50fbaf7b84715f7fdf4e28d3813abb4c2f7837514f9322c255cb99fa1b0952e2`.
@@ -59,16 +92,17 @@ alternative intermediate bounds are described in [PROOF_STATUS.md](../PROOF_STAT
 
 Local verification uses Lean 4.33.1 and the pinned existing dependency object
 cache. Project sources were rebuilt freshly; dependency revisions and tracked
-source cleanliness were checked before and after. The authoritative non-root
-Linux sandbox, exporter, and independent raw-kernel replay **were not run**.
-The actual local Comparator-library execution is explicitly distinguished from
-that complete acceptance route. [INFRASTRUCTURE.md](../INFRASTRUCTURE.md)
+source cleanliness were checked before and after. That historical local run
+did not execute the authoritative Linux sandbox, exporter, or raw-kernel replay.
+The subsequent CI run above completed those gates. The original local receipt
+retains its false flags; its scope is not retroactively enlarged. [INFRASTRUCTURE.md](../INFRASTRUCTURE.md)
 gives both reproduction paths and their trust boundaries.
 
 This record supersedes the initial statement-only status. Historical receipts
 and reviews remain available and certify only their recorded snapshots. The
-[delivery manifest](delivery-manifest.json) records the final package file
-hashes; it is an integrity inventory, not an additional proof checker.
+[delivery manifest](delivery-manifest.json) records the historical publication
+package hashes; it is preserved unchanged and excludes the subsequent CI evidence
+and status-document updates. It is an integrity inventory, not a proof checker.
 
 At the completion of the retained local validation, nothing had been committed,
 pushed, submitted to remote CI, or sent to John Urschel by the agents. The

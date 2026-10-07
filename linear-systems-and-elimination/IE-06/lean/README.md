@@ -1,4 +1,4 @@
-# IE-06: complete local Lean proof
+# IE-06: complete Linux-verified Lean proof
 
 [Solution.lean](Solution.lean) proves the complete original IE-06 target and a
 stronger all-Schur probability bound. The complete probabilistic argument is
@@ -11,8 +11,12 @@ Comparator library accepted all six actual Solution exports against the
 independent frozen Challenge. See the
 [final receipt](verification/local/attempt-0i_0ibma/result.json) and
 [Comparator log](verification/local/attempt-0i_0ibma/CompareSolution.lean.log).
-No authoritative Linux sandbox, exporter, or separate raw-kernel replay is
-claimed; [verification/SUMMARY.md](verification/SUMMARY.md) records these limits.
+The subsequent [authoritative Linux run](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/37513136002) also **passed**:
+the full Comparator CLI exported the actual six targets and replayed the solution
+through Lean's default kernel, with the strict sandbox and all rejection controls
+passing. The [retained CI evidence](verification/linux-ci-2026-10-06/README.md)
+records the exact tested commit, logs, and receipt.
+[verification/SUMMARY.md](verification/SUMMARY.md) distinguishes both verification routes.
 
 The permanent ID, canonical path, and complete original mathematical target
 are preserved. The proof-development phase left the canonical README/TeX/PDF
@@ -23,7 +27,7 @@ original HEAD page and the preexisting working page are retained in
 John Urschel to publish this code and authorized the GitHub push. This records
 publication permission, without claiming that Urschel reviewed or endorsed
 the formalization. [PUBLICATION.md](PUBLICATION.md) records this authorization,
-the immutable proof revision, provenance, and the remaining verification scope.
+the immutable proof revision, provenance, and completed Linux verification.
 
 ## Exact target and stronger result
 
@@ -116,8 +120,15 @@ rebuilt every project source, audited owned declarations including private
 helpers, exercised the `sorry` and native-execution rejection controls, and ran
 the pinned Comparator library on the actual independent Challenge and Solution
 environments. All checks passed in `attempt-0i_0ibma`, whose input hashes match
-the delivered proof sources. This local library run does not execute the full
-Comparator CLI/exporter/raw-replay pipeline or the authoritative Linux sandbox.
+the delivered proof sources. That earlier local library run did not execute the full
+Comparator CLI/exporter/raw-replay pipeline or the authoritative Linux sandbox;
+the subsequent CI run completed those gates without changing the proof inputs.
 `KernelControl.lean` proves `log(2) < 7/10` solely as a kernel-checker fixture;
 the Gaussian proof does not depend on that numerical test. Shared acceptance
 safeguards remain unchanged.
+
+All 1,139 CI-recorded package inputs matched the checkout before this status
+promotion. Only current documentation/metadata and the newly retained CI
+evidence are updated here. The original receipts, frozen reviews, proof sources,
+and historical delivery inventory remain unchanged; see the
+[input-identity record](verification/linux-ci-2026-10-06/input-identity-before-promotion.json).
