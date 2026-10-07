@@ -34,7 +34,7 @@ product},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}AC-02}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-14}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-10-06}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -61,7 +61,8 @@ algorithm searches; community importance concerns recursive matrix
 multiplication and bilinear algorithm design.\\
 \textbf{Topic:} small matrix multiplication algorithms
 
-\subsection{Problem statement}\label{problem-statement}
+\hypertarget{problem-statement}{%
+\subsection{Problem statement}\label{problem-statement}}
 
 Determine the least integer \(r\) for which there are complex
 coefficients \(u_{t,ij},v_{t,ij},w_{ij,t}\) satisfying, for every pair
@@ -76,11 +77,13 @@ classical upper bound is 23; deciding whether 22 products suffice is
 part of determining the exact minimum. Algorithms mixing entries of both
 inputs within a factor are outside this specified model.
 
-\subsection{Why it matters}\label{why-it-matters}
+\hypertarget{why-it-matters}{%
+\subsection{Why it matters}\label{why-it-matters}}
 
 Such identities can be applied recursively to matrix blocks.
 
-\subsection{References and status}\label{references-and-status}
+\hypertarget{references-and-status}{%
+\subsection{References and status}\label{references-and-status}}
 
 Bläser,
 \href{https://theoryofcomputing.org/articles/gs005/gs005.pdf}{2013}, §1
@@ -90,12 +93,14 @@ Rank-23 Scheme for General 3×3 Matrix Multiplication}} (2026), gives
 another 23-product scheme. C. Wang,
 \href{https://arxiv.org/abs/2603.07280}{\emph{Automated Lower Bounds for
 Bilinear Complexity over Finite Fields}}, v10 (2026), improves a lower
-bound over \(\mathbb F_2\); that is not a complex-field resolution.
-Searches for ``rank 22 matrix multiplication 2026 proof'' found no
-qualifying algorithm or matching lower bound. \textbf{Admitted: no
-resolution located.}
+bound over \(\mathbb F_2\). Rudich and Rousseau's October preprint,
+discussed below, raises the finite-field lower bound to 22; it does not
+establish the same lower bound over \(\mathbb C\). Searches for complex
+bilinear algorithms and matching lower bounds found no determination of
+the exact complex rank. \textbf{Admitted: no resolution located.}
 
-\subsection{Status check --- 2026-09-10}\label{status-check-2026-09-10}
+\hypertarget{status-check-2026-09-10}{%
+\subsection{Status check --- 2026-09-10}\label{status-check-2026-09-10}}
 
 Rechecked \href{https://arxiv.org/abs/2604.27645}{Sun's rank-23
 construction} and \href{https://arxiv.org/html/2605.21738v1}{Alman--Li,
@@ -105,8 +110,9 @@ algorithms found no qualifying construction or matching lower bound.
 Fewer additions at rank 23 and finite-field lower bounds do not settle
 this complex-field minimum.
 
+\hypertarget{reviewed-research-submission-14-september-2026}{%
 \subsection{Reviewed research submission --- 14 September
-2026}\label{reviewed-research-submission-14-september-2026}
+2026}\label{reviewed-research-submission-14-september-2026}}
 
 \textbf{Author:} Sidney Holden, Center for Computational Biology,
 Flatiron Institute, Simons Foundation.
@@ -126,4 +132,30 @@ from the passing audit.
 AI-agent audit and limitations}. AI assistance disclosed; no external
 human review, formal verification or Lean checks. Original target and
 prior-source credit retained.
+
+\hypertarget{literature-update-2026-10-06}{%
+\subsection{Literature update ---
+2026-10-06}\label{literature-update-2026-10-06}}
+
+Isaac Rudich and Louis-Martin Rousseau,
+\href{https://arxiv.org/abs/2610.01639v1}{\emph{Lower Bound of 22 for
+3x3 Matrix Multiplication over the Integers}}, arXiv:2610.01639v1,
+submitted 1 October 2026, reports in
+\href{https://arxiv.org/html/2610.01639v1\#S1}{§1} that the bilinear
+rank of the \(3\times3\) matrix product over \(\mathbb F_2\) is at least
+22. \href{https://arxiv.org/html/2610.01639v1\#S3}{§3, displayed theorem
+(1)}, \textit{recursive\_algorithm\_multiplications\_at\_least\_22},
+gives the corresponding lower bound for algorithms with integer
+constants that work on square matrix blocks of every size. Sections 3--4
+specify this model and the reduction from integer-coefficient algorithms
+to decompositions over \(\mathbb F_2\).
+
+This advances the finite-field and integer-coefficient problems, where
+the lower bound 22 and upper bound 23 still differ. It does not
+establish a lower bound of 22 over \(\mathbb C\): arbitrary complex
+coefficients cannot in general be reduced modulo 2. The exact complex
+bilinear rank asked for here remains undetermined, and \textbf{Status:
+Open} is retained. The authors supply a Lean formalization and describe
+its audit procedure in §3; this literature update reviewed the paper's
+statements and scope but did not rerun Lean or audit the formalization.
 \end{document}
