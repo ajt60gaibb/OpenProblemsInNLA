@@ -8,7 +8,7 @@
 **Importance:** broadly interesting  
 **Rating rationale:** Extreme because closing the exponent gap is a longstanding central barrier in algebraic algorithms; broad importance follows from matrix multiplication’s role throughout NLA and computational complexity.  
 **Topic:** arithmetic complexity of dense matrix multiplication  
-**Last checked:** 2026-09-14  
+**Last checked:** 2026-10-06  
 **Status:** Open  
 
 ## Problem statement
@@ -32,13 +32,18 @@ M. Bläser, [*Fast Matrix Multiplication*](https://theoryofcomputing.org/article
 Graduate Surveys 5 (2013), §§1, 5, provides the computational model. E. Dupont
 et al., [*Improving the matrix multiplication exponent with modern optimization
 and AlphaEvolve*](https://arxiv.org/abs/2608.16884) (2026), abstract and §1,
-reports $`\omega<2.371177`$, which does not reach two. Searches for “matrix
-multiplication exponent 2026” and “omega equals 2 proof” located improvements,
-not a resolution. **Admitted: no resolution located.**
+reported the earlier bound $`\omega<2.371177`$. OpenAI,
+[*An Upper Bound of 9/4 for the Matrix Multiplication Exponent*](https://github.com/openai/math/blob/main/preprints/Matrix-Multiplication-Nine-Fourths-October-2-2026/paper.pdf)
+(2 October 2026), reports $`\omega\leq 9/4=2.25`$ over $`\mathbb C`$.
+The bound is strictly above two. **Admitted: no resolution located.**
 
 ## Status check — 2026-09-10
 
 Rechecked [Dupont et al., August 2026](https://arxiv.org/abs/2608.16884), and searched for exponent-two proofs and newer matrix-multiplication bounds. Its reported bound is still strictly above two, at 2.371177. No proof of exponent two or a strict lower bound above two was located. Faster finite-size identities and improved numerical optimizations of existing bounds do not decide the asymptotic equality.
+
+## Status check — 2026-10-06
+
+[OpenAI's mathematics release](https://openai.com/index/sharing-ai-progress-in-mathematics/) points to its [manuscript catalogue](https://github.com/openai/math/blob/main/CONTENTS.md), which lists the 9/4 square-matrix bound over $`\mathbb C`$ and the [preprint](https://github.com/openai/math/blob/main/preprints/Matrix-Multiplication-Nine-Fourths-October-2-2026/paper.pdf). This is a reported $`O_\varepsilon(n^{9/4+\varepsilon})`$ arithmetic-operation upper bound, improving the previously cited 2.371177 bound. The new claim has not been independently reviewed for this entry. Since $`9/4>2`$, it does not answer whether $`\omega=2`$; **AC-01 remains open**.
 
 ## Reviewed research submission — 14 September 2026
 
