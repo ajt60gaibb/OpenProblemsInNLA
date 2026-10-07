@@ -66,6 +66,9 @@ def restore_pdf_layout(identifier, body):
         # Separate formal evidence and keep the unchanged original target together.
         body = body.replace("## Lean proof and verification evidence\n", "\\newpage\n\n## Lean proof and verification evidence\n", 1)
         body = body.replace("## Statement\n", "\\newpage\n\n## Statement\n", 1)
+    if identifier == "MF-23":
+        # Keep the resolution notice and retained original target on separate pages.
+        body = body.replace("## Context and notation\n", "\\newpage\n\n## Context and notation\n", 1)
     if identifier in {"RA-12", "RA-13"}:
         heading = "## Problem statement\n"
         body = body.replace(heading, "\\newpage\n\n" + heading, 1)
