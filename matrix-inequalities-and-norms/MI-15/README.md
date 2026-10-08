@@ -5,7 +5,7 @@
 **Provenance:** explicit conjecture  
 **Status:** Lean verified
 
-**Last checked:** 2026-10-02
+**Last checked:** 2026-10-08
 
 **Rating rationale:** These ratings are historical and refer to the original universal conjecture: all-order algebraic certification required more than known nonnegativity, with direct application to a specific Toeplitz commutator form. They do not rate the remaining finite-order questions.
 
@@ -14,6 +14,8 @@
 **Resolved negatively.** Wenqi Zhu (Mathematical Institute, University of Oxford) and Ping Nie (David R. Cheriton School of Computer Science, University of Waterloo).
 
 The answer is **no**: for every integer $`n\ge2^{9961475}`$, the original polynomial $`F_n`$ is not a finite sum of squares of real homogeneous quadratic forms, allowing arbitrary real coefficients and any finite number of squares. This refutes the universal assertion below. The strengthened Böttcher–Wenzel inequality still gives $`F_n\ge0`$ for every input at every order.
+
+Zhu and Nie's [arXiv preprint, posted 6 October 2026](https://arxiv.org/abs/2610.08980) presents the negative theorem, the exact positive range through order 50, and a further all-order positive result: if either Toeplitz factor is symmetric or skew-symmetric, the restricted form is SOS while the other factor is any real Toeplitz matrix. The paper discloses AI assistance in developing candidate constructions, code and arguments; the authors state that they reviewed the work and take responsibility for the publication.
 
 Lean proves SOS for every $`2\le n\le20`$. Exact rational Gram certificates, checked for polynomial identity and positivity by the project's [positive certificate checker](https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/verification/positive.py), establish SOS for every $`2\le n\le50`$. The range through 50 is exact computational evidence; the Lean positive theorem covers the range through 20.
 
@@ -71,7 +73,7 @@ python3 -m venv .venv
 
 The [verification record](https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/VERIFICATION.md) contains the transitive axiom report for the target declarations. Only `propext`, `Classical.choice` and `Quot.sound`, or a subset, are allowed. The project's [audit](https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/lean/Audit.lean) traverses every imported project declaration, including private and generated declarations; its [verifier](https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/lean/verify) rejects other axioms and exercises corrupted-source and unproved-axiom controls. No `sorryAx`, unproved custom axiom or additional trust in native execution supports the target theorems.
 
-The Lean declarations are the primary references for the resolution. The [working paper, *Sum-of-Squares and Non-Sum-of-Squares Regimes for the Toeplitz Böttcher–Wenzel Form*](https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/paper/main.pdf) is secondary; an arXiv version is forthcoming. The [paper–Lean map](https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/paper-lean-mapping/README.md) distinguishes its formalized statements and exact computations.
+The Lean declarations are the primary references for the formal resolution. The [arXiv paper, *Sum-of-Squares and Non-Sum-of-Squares Regimes for the Toeplitz Böttcher–Wenzel Form*](https://arxiv.org/abs/2610.08980) gives the mathematical exposition and the all-order symmetry-subclass result. The [paper–Lean map](https://github.com/erenup/toeplitz-bw-not-sos/blob/7126c0841b008dc89a21edfd008bbf1b748d280f/paper-lean-mapping/README.md) distinguishes its formalized statements and exact computations.
 
 ## Finite-order SOS certificates — 12 September 2026
 
@@ -104,6 +106,7 @@ An explicit sum-of-squares identity would give an algebraic certificate for a st
 
 1. L. László, *Sum of squares representation for the Böttcher–Wenzel biquadratic form*, Acta Universitatis Sapientiae, Informatica 4(1) (2012), 17–32: equation (1), §5, and Conjecture 15, p.31. [Primary manuscript](https://arxiv.org/pdf/1207.6372).
 2. J. Ge, F. Li, Z. Tang, and Y. Zhou, *A survey on the DDVV-type inequalities*, Advances in Mathematics (China) 53 (2024), 449–467: published Conjecture 4.1, p.461; Conjecture 4.3 in [arXiv:2402.01085v1](https://arxiv.org/html/2402.01085v1). [Published PDF](https://ccj.pku.edu.cn/Article/DownLoad?id=374327987&type=ArticleFile).
+3. W. Zhu and P. Nie, *Sum-of-Squares and Non-Sum-of-Squares Regimes for the Toeplitz Böttcher–Wenzel Form*, arXiv:2610.08980v1 (2026), Theorems 2.1, 3.1 and 4.1. [Preprint](https://arxiv.org/abs/2610.08980).
 
 ## Historical status check — 2026-09-10
 
