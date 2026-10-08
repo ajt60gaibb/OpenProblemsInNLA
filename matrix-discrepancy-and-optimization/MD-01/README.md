@@ -3,7 +3,7 @@
 **Difficulty:** challenging  
 **Importance:** broadly interesting  
 **Status:** Solution claimed  
-**Last checked:** 2026-10-06
+**Last checked:** 2026-10-08
 
 **Rating rationale:** A sharp expectation constant requires new random SDP analysis beyond order bounds; it connects matrix optimization with probabilistic combinatorics.
 
@@ -55,17 +55,27 @@ the norm of a symmetric matrix within a factor of two. Consequently,
 
 The moment bound follows by integrating this tail bound. Thus
 $`\sup_n\mathbb E[(\vartheta(G_n)/\sqrt n)^2]<\infty`$, so the
-normalized Lovász numbers are uniformly integrable. Their claimed
-convergence in probability to one yields convergence in $`L^1`$ and
-therefore the displayed expectation limit. This argument preserves the
-original SDP, graph ensemble and quantifiers; it does not replace the
-expectation statement with a probabilistic one.
+normalized Lovász numbers are uniformly integrable. Theorem 1.2's
+high-probability upper bound therefore gives
+$`\limsup_n\mathbb E\vartheta(G_n)/\sqrt n\le1`$.
+For the lower bound, the deterministic inequality
+$`\vartheta(G)\vartheta(\bar G)\ge n`$ and the fact that
+$`G_n`$ and $`\bar G_n`$ have the same distribution give, by the
+arithmetic-geometric mean inequality,
+$`\mathbb E\vartheta(G_n)\ge\sqrt n`$ for every $`n`$.
+Together these establish the original expectation limit, conditional on
+Theorem 1.2. The argument preserves the original SDP, graph ensemble and
+quantifiers; it does not replace the expectation statement with a
+probabilistic one.
 
-**Evidence level:** the theorem statements, their match to this target,
-and the expectation implication above were checked. The full manuscript's
-proof has not received an independent audit in this catalog, and no Lean
-verification is asserted. The status is therefore **Solution claimed**.
-The original mathematical statement follows unchanged.
+**Evidence level, 8 October 2026:** an [independent AI-agent review](../../reviews/2026-10-08-claimed-solutions/MD-01.md)
+checked the theorem's match to the expectation target, the bridge above,
+and the witness construction through its main dependency chain. It could
+not independently certify the decisive graph-matrix norm, product and
+correction estimates (Theorem 3.27/Corollary 3.28 and Theorems 4.7 and 4.17).
+The status therefore remains **Solution claimed**; no Lean verification or
+external human peer review is asserted. The original mathematical statement
+follows unchanged.
 
 ## Original problem statement
 

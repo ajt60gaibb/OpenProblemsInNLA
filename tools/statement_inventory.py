@@ -196,10 +196,13 @@ def build_inventory(root, base_ref):
             classification = "missing-statement"
         if campaign and campaign["source_present"]:
             classification = "shared-statement-source"
+        status = metadata(text, "Status", "Unknown")
         concerns = [SCOPE_GAPS[identifier]] if identifier in SCOPE_GAPS else []
         if identifier == "FR-05":
-            concerns.append("The catalog labels the solution claimed, and the Challenge boundary is marked pending independent review.")
-        status = metadata(text, "Status", "Unknown")
+            if status == "Solved":
+                concerns.append("The Solved label rests on a separate informal manuscript audit; the local Challenge boundary still awaits independent statement review and formal verification.")
+            else:
+                concerns.append("The catalog labels the solution claimed, and the Challenge boundary is marked pending independent review.")
         entries.append({
             "id": identifier,
             "title": text.splitlines()[0][len(title_prefix):],
