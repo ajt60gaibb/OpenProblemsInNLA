@@ -19,6 +19,13 @@ submitted 24 September 2026. In §1.1, **Theorem 1.2 and Corollary 1.3**
 the authors claim that $`\vartheta(G_n)/\sqrt n\to1`$ in probability.
 Appendix F (printed pp. 76–77) identifies their formulation with the
 trace-normalized SDP used in this entry.
+The v1 corollary prints an exact high-probability lower bound
+$`\vartheta(G_n)\ge\sqrt n`$. Coauthor Jeff Xu confirmed in correspondence
+supplied by the maintainer on 8 October 2026 that its intended lower bound
+is $`(1-o_n(1))\sqrt n`$. He also confirmed that Claim 4.15's proof should
+have a logarithm, rather than $`n`$, inside the disputed square root.
+These corrections leave the leading-constant claim unchanged; a corrected
+arXiv version was not yet available on 8 October 2026.
 The [official FOCS 2026 accepted-paper list](https://focs.computer.org/2026/accepted-papers/)
 includes this paper; acceptance is recorded separately from publication in
 the proceedings.
@@ -73,6 +80,13 @@ checked the theorem's match to the expectation target, the bridge above,
 and the witness construction through its main dependency chain. It could
 not independently certify the decisive graph-matrix norm, product and
 correction estimates (Theorem 3.27/Corollary 3.28 and Theorems 4.7 and 4.17).
+The follow-up review found a concrete counterexample to auxiliary Theorem
+3.24's printed $`O(1)`$ remainder for general fixed mixed trace moments.
+The later main estimates use weaker bounds compatible with that example,
+so it does not by itself refute Theorem 1.2, but the published proof needs
+clarification. No MD-01 Lean formalization or verification record was found
+in the checked public sources; the paper's "Formal Verification" appendix
+is a written argument.
 The status therefore remains **Solution claimed**; no Lean verification or
 external human peer review is asserted. The original mathematical statement
 follows unchanged.
