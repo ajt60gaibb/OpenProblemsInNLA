@@ -1,0 +1,2118 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}[proposition]{Theorem}
+\newtheorem{lemma}[proposition]{Lemma}
+\newtheorem{corollary}[proposition]{Corollary}
+\newcommand{\T}{\mathbb T}
+\newcommand{\C}{\mathbb C}
+\newcommand{\dm}{\,dm}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\title{A counterexample to canonical Toeplitz eigenvalue distribution}
+\author{Clemens Thalhammer}
+\date{9 October 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We construct a computably specified continuous complex scalar symbol
+with neither an inner nor an outer annular holomorphic extension,
+whose Toeplitz sections are not canonically distributed. Along an
+infinite sequence of orders, each of two points outside the symbol
+range is an eigenvalue of fixed positive asymptotic multiplicity.
+The construction uses exact finite spectral corrections, geometric
+Cauchy coordinates, and a uniformly convergent Fourier series.
+A deterministic search using finite contraction certificates specifies
+every correction. All parameter choices are explicit, with no claim
+of computational efficiency.
+\end{abstract}
+
+\section{Statement and notation}
+For a continuous complex scalar symbol $a$ on $\T$, write
+\[
+ a_k=\frac1{2\pi}\int_0^{2\pi}a(e^{it})e^{-ikt}\,dt,\qquad
+ T_n(a)=(a_{j-k})_{j,k=0}^{n-1}.
+\]
+The canonical-distribution conjecture, in the continuous-symbol
+formulation recorded in \cite[Section~1, p.~2]{BBG}, asserts convergence
+of the empirical eigenvalue measures to $a_*m$ when both separate
+one-sided annular extensions are absent. The problem is catalogued as
+OP-00159 at clopen.solutions~\cite{Clopen} and as SP-14 in
+OpenProblemsInNLA~\cite{OpenProblemsInNLA}.
+Theorem~\ref{thm:counterexample}
+gives a counterexample under exactly these hypotheses. Its symbol has the form
+\[
+ a(z)=zg(z^2),\qquad g_0(s)=\sqrt{1+s^{-1}},\qquad
+ g=g_0+P_-+P_+.
+\]
+Every finite background $P_-$ has strictly negative powers and
+$P_+$ has strictly positive powers; each separately vanishes at $-1$.
+The square root is the branch analytic outside the unit circle,
+equal to one at infinity and continuous on the circle.
+Set $a_0(z)=zg_0(z^2)$ and $h(s)=sg(s)^2-1$.
+Smallness of $h-s$ in the norms below makes $h(\T)$ a Jordan curve
+with bounded interior $D$ containing zero.
+Its normalized conformal map is $f:\mathbb D\to D$, $f(0)=0$,
+$f'(0)>0$; real symmetry gives $f(-1)=-1$.
+
+For Laurent series and analytic series, respectively, use
+\[
+ \|v\|_{\mathcal W^\beta}=\sum_{j\in\mathbb Z}
+                 (1+|j|)^\beta|v_j|,\qquad
+ \|x\|_{H^s}^2=\sum_{k\ge0}(k+1)^{2s}|x_k|^2.
+\]
+The two-sided version of $H^s$ uses $1+|j|$.
+Write $P_nx=\sum_{k=0}^{n-1}x_kz^k$.
+Write $\Pi_+,\Pi_-$ for the nonnegative and strictly negative
+Fourier projections, and $T(g_0)V=\Pi_+(g_0V)$ on analytic
+polynomials. The background polynomials remain denoted by $P_-,P_+$.
+
+\section{Exact finite algebra and the boundary inverse estimates}
+
+\begin{proposition}[Odd-symbol pencil and its jets]
+\label{prop:odd-pencil}
+Let $a(z)=zg(z^2)$, $n=2m+1$, $L=m+1$, and let $U$ be the
+$L$-by-$L$ upper unit shift. Put
+\[
+ G=T_L(g),\qquad H=G^2-U,\qquad
+ M(t)=e_0^*(H-tU)^{-1}e_m.
+\]
+Whenever $H$ is invertible, divisibility of
+$\det(wI-T_n(a))/w$ by $(w^2-1)^h$ is equivalent to
+$[t^k]M(t)=0$ for $0\le k<h$.
+This is an exact equivalence of finite algebraic constraints.
+If $W=H^{-1}$ and $r_k=e_0^*W(UW)^k$, then
+\[
+ [t^k]M(t)=(r_k)_m.
+\]
+Write $R_k(s)=\sum_{j=0}^m(r_k)_js^j$ and
+$X_k(s)=\sum_{j=0}^m(r_kG)_js^j$. For a change $v_q$ in $g_{-q-1}$,
+\begin{equation}\label{eq:odd-pencil-jacobian}
+ \frac{\partial [t^k]M(t)}{\partial v_q}
+ =-2\sum_{l=0}^k[s^{m-q-1}]R_l(s)X_{k-l}(s).
+\end{equation}
+At $g(s)=\sqrt{1+s^{-1}}$ one has $H=I$, $M(t)=t^m$, and
+\[
+ J^0_{kq}=-2(k+1)\binom{1/2}{m-q-1-k}
+             \mathbf1_{k\le m-q-1}.
+\]
+Finally, if $\|g-\sqrt{1+s^{-1}}\|_\infty\le\eta$, then
+\[
+ \|H-I\|\le 2\sqrt2\eta+\eta^2.
+\]
+Thus sufficiently small symbol perturbations give invertibility of $H$
+uniformly in $m$, without an asymptotic finite-section argument.
+\end{proposition}
+\begin{proof}
+Let $c_w(z)=z^{-1}(a(z)-w)$ and order the even coordinates before
+the odd ones in $T_{2m+2}(c_w)$. Its block form is
+\[
+ \begin{pmatrix}G&-wI\\-wU&G\end{pmatrix}.
+\]
+Its determinant is $\det(G^2-w^2U)$: first use the Schur complement
+when $G$ is invertible, then use the polynomial identity to remove
+that restriction. For $w\ne0$, solving for the first inverse row gives
+the two blocks
+\[
+ e_0^*(G^2-w^2U)^{-1}G,
+ \qquad we_0^*(G^2-w^2U)^{-1}.
+\]
+Jacobi's identity at the upper-right corner gives
+\[
+ \det(wI-T_n(a))
+ =w\det(H-tU)M(t),\qquad t=w^2-1.
+\]
+The two signs cancel because $n$ is odd. Since $\det H\ne0$,
+the factor multiplying $M$ is nonzero at $t=0$. Oddness of the
+characteristic polynomial supplies the matching multiplicity at $w=-1$.
+The resolvent series proves the row-jet formula.
+
+All Toeplitz matrices here are persymmetric with respect to the reversal
+matrix $J_L$. So are $H-tU$ and its inverse, and each coefficient
+$W(UW)^k$. Their last columns are the reversals of their first rows,
+with a transpose and no complex conjugation. Changing $g_{-q-1}$ changes
+$G$ by $E=U^{q+1}$ and changes $H$ to first order by $EG+GE$.
+Differentiating the resolvent gives
+\[
+ -\sum_{l=0}^k r_l(EG+GE)J_Lr_{k-l}^{\mathsf T}.
+\]
+The two sums agree after reversing $l$ and $k-l$. The remaining matrix
+product selects the coefficient of degree $m-q-1$, proving
+\eqref{eq:odd-pencil-jacobian}. At the base symbol,
+$G=\sqrt{I+U}$, so $G^2-U=I$; the displayed triangular formula follows.
+The multiplier bound $\|\sqrt{I+U}\|\le\sqrt2$ and
+$\|G-G_0\|\le\eta$ prove the last assertion.
+\end{proof}
+
+
+\begin{lemma}[Changing the spectral coordinate exactly]
+\label{lem:coordinate-jets}
+Let $f(u)=\sum_{l\ge1}f_lu^l$ be analytic near zero with $f_1\ne0$,
+and hold this function fixed while varying $G$.
+The first $h$ jets of
+$e_0^*(H-f(u)U)^{-1}e_m$ vanish if and only if the first $h$ jets
+of $M(t)$ vanish. Set $W=H^{-1}$ and define rows
+\[
+ r_0=e_0^*W,\qquad
+ r_k=\left(\sum_{l=1}^k f_l r_{k-l}\right)UW.
+\]
+Then $r_k$ is the $k$th row coefficient of the transformed inverse.
+The Jacobian formula \eqref{eq:odd-pencil-jacobian} remains valid with
+these rows and their products with $G$.
+\end{lemma}
+\begin{proof}
+Composition by $f$ acts on the first $h$ Taylor coefficients through
+a lower triangular matrix with diagonal $1,f_1,\ldots,f_1^{h-1}$.
+This matrix is invertible. The resolvent identity gives the row
+recursion, and differentiation and persymmetry give the unchanged
+bilinear formula. Fixing $f$ avoids extra derivatives from the coordinate
+choice; an adaptive coordinate would require accounting for them.
+\end{proof}
+
+
+\begin{lemma}[Suppression of repeated corner corrections]
+\label{lem:corner-feedback}
+Suppose $G=T_{m+1}(g)$ has lower bandwidth $p$, and set $H=G^2-U$.
+Let $h+p<(m+2)/2$, $Q=m-h$, and
+$E=\sum_{q=Q}^{m-1}v_qU^{q+1}$. Then $E^2=0$ and
+\[
+ (G+E)^2-U=H+D,\qquad D=GE+EG.
+\]
+Let $A$ select coordinates $0,\ldots,h+p-1$, and let $B$ select
+$m+1-h-p,\ldots,m$. Then $D=ADB$.
+Suppose, for $|t|\le R$, that
+\[
+ \|(H-tU)^{-1}\|\le M_0,\qquad
+ \|D_r(H-tU)^{-1}D_r^{-1}\|\le M_r,
+ \quad D_r=\operatorname{diag}(1,r,\ldots,r^m),\quad r>1.
+\]
+Put $d=m+2-2h-2p$ and $\gamma=M_rr^{-d}$. If $\gamma\|D\|<1$,
+the nonlinear remainder in the corner after its first variation obeys
+\[
+ \left|[t^k]e_0^*\left((H+D-tU)^{-1}-(H-tU)^{-1}
+       +(H-tU)^{-1}D(H-tU)^{-1}\right)e_m\right|
+ \le R^{-k}\frac{M_0^2\gamma\|D\|^2}{1-\gamma\|D\|}.
+\]
+\end{lemma}
+\begin{proof}
+The support statements follow by multiplying the indicated shifts by a
+matrix of lower bandwidth $p$. If $W=(H-tU)^{-1}$, the weighted inverse
+bound gives $\|BWA\|\le M_rr^{-d}$. Each term beyond the first variation
+in the resolvent identity contains this block between two copies of $D$.
+Summing its geometric series gives the stated uniform bound on the disk;
+Cauchy's coefficient estimate supplies $R^{-k}$. The same series proves
+invertibility of the perturbed pencil on that disk.
+\end{proof}
+
+
+\begin{proposition}[Geometric factor and exponential separation]
+\label{prop:outside-factor}
+Let $c$ extend holomorphically to $|z|>1$, continuously to $\T$, and
+meromorphically to infinity with pole order $b\ge0$ and nonzero leading
+coefficient. Suppose $c$ is nonzero on $\T$ with winding zero.
+There are exactly $b$ zeros $\zeta_1,\ldots,\zeta_b$ in $|z|>1$,
+counting multiplicity. Put
+\[
+ p(z)=\prod_{j=1}^b(1-z/\zeta_j),\qquad
+ F(z)=\frac{p(z^{-1})}{c(z^{-1})}.
+\]
+The apparent singularity of $F$ at zero is removable, and $F$ is the
+generating function of the first row of $T(c)^{-1}$.
+
+Fix $1<r<\min_j|\zeta_j|$ (any $r>1$ in the zero-free exterior if
+$b=0$), and write $F(z)=\sum_{j\ge0}f_jz^j$.
+There are constants $C,N_0$ such that, for $N\ge N_0$ and
+$1\le l\le N-b$,
+\begin{equation}\label{eq:low-row-exponential}
+ \left(\sum_{j=0}^{l-1}|(T_N(c)^{-1})_{0j}-f_j|^2\right)^{1/2}
+ \le C r^{-(N-b-l+1)}.
+\end{equation}
+The constants are uniform over a compact holomorphic family of such
+symbols when the exterior pole order is fixed, the leading coefficient
+stays nonzero, and the zeros stay outside the chosen radius $r$.
+For a variation $\delta c(z)=z^{-j}$, $j\ge1$, the coefficients of
+the outside-zero polynomial satisfy $\|\delta p\|=O(r^{-j})$, with
+any fixed coefficient norm and the same compact-family qualification.
+\end{proposition}
+\begin{proof}
+Nonvanishing and continuity on the boundary give a zero-free collar.
+The argument principle on a large annulus gives the zero count $b$.
+Choose the nonzero constant $G$ so that
+$c_+=Gp$, $c_-=c/(Gp)$ satisfy $c_-(\infty)=1$. Both factors and
+their inverses are bounded and holomorphic on their respective sides
+of the circle. The elementary Toeplitz product identity gives
+$T(c)=T(c_-)T(c_+)$, and hence
+$T(c)^{-1}=T(c_+^{-1})T(c_-^{-1})$. Its first row has generating
+function $G^{-1}c_-^{-1}(z^{-1})=F(z)$.
+
+The symbols $c(rz)$ are again continuous, nonvanishing and of index
+zero. Finite-section stability, in the form read in
+\cite[Section~3, equation~(6)]{BFGM}, gives a uniform bound for
+\[
+ D_rT_N(c)^{-1}D_r^{-1}=T_N(c(r\,\cdot))^{-1},
+ \qquad D_r=\operatorname{diag}(1,r,\ldots,r^{N-1}).
+\]
+Truncating the infinite inverse row $f$ leaves a residual supported
+only in the last $b$ columns: $c_k=0$ for $k>b$, so a missing index
+$i\ge N$ can contribute to column $j$ only when $j\ge N-b$.
+Its norm is bounded by a constant times $\|f\|_2$.
+Multiplication by the finite inverse and its displayed weighted bound
+then proves \eqref{eq:low-row-exponential}. Uniformity over compact
+families follows by a finite covering and the inverse perturbation
+identity, applied also to the scaled symbols.
+
+For completeness, the coefficients of $p$ depend holomorphically on a
+holomorphic parameter even when the outside zeros coincide. Their
+power sums are contour integrals of $z^k c'(z)/c(z)$ on an annulus
+whose inner boundary is $|z|=r$ and whose outer boundary encloses all
+zeros. Differentiating and integrating by parts changes the integrand
+to $-kz^{k-1}\delta c(z)/c(z)$. It is $O(r^{-j})$ for the indicated
+variation on the two fixed contours. Newton's identities and the
+nonzero constant term of the monic zero polynomial give the final claim.
+\end{proof}
+
+
+\begin{lemma}[The finite corner and a squared outside factor]
+\label{lem:corner-scattering-factor}
+Under the hypotheses of Proposition~\ref{prop:outside-factor}, write
+$p(z)=\sum_{j=0}^b p_jz^j$, $F(z)=\sum_{j\ge0}f_jz^j$,
+and $V_N=T_N(c)^{-1}$. For every fixed allowable $r>1$,
+\begin{equation}\label{eq:corner-scattering-factor}
+ (V_N)_{0,N-1}
+ =[z^{N-1}]\frac{p(z^{-1})^2}{c(z^{-1})}+O(r^{-N}).
+\end{equation}
+The coefficient on the right is a Laurent coefficient; its negative
+part is finite. Constants are uniform on the compact families in that
+proposition. No relative error is asserted.
+\end{lemma}
+\begin{proof}
+For $N>b$, truncating the infinite first inverse row gives the exact
+identity
+\[
+ (V_N)_{0,N-1}=f_{N-1}
+ +\sum_{l=0}^{b-1}f_{N+l}
+       \sum_{k=0}^{b-1-l}c_{k+l+1}(V_N)_{0k}.
+\]
+Indeed the omitted tail leaves a residual only in the last $b$ columns,
+and persymmetry identifies $(V_N)_{N-1-k,N-1}$ with $(V_N)_{0k}$.
+Equation~\eqref{eq:low-row-exponential}, with $l=b$, replaces the
+finitely many entries $(V_N)_{0k}$ by $f_k$, at error $O(r^{-N})$;
+the fixed factors $r^{2b-1}$ are absorbed into the constant.
+The identity $F(z)c(z^{-1})=p(z^{-1})$ gives
+\[
+ \sum_{k=0}^{b-1-l} f_kc_{k+l+1}=p_{l+1}.
+\]
+The resulting sum $\sum_{j=0}^b p_jf_{N-1+j}$ is exactly the
+coefficient in \eqref{eq:corner-scattering-factor}. The case $b=0$
+is the exact upper-triangular identity.
+\end{proof}
+
+
+\begin{lemma}[Continuation of the far-zero factors across the boundary]
+\label{lem:far-factor-collar}
+For $g=g_0+P$ with $P(-1)=0$ and $h-s$ sufficiently small
+in $C^1(\T)$, the factors $p_w$ can be chosen
+holomorphically for all $w$ in a neighborhood of
+$\{w:w^2-1\in\overline D\}$. There is a fixed radius $\rho>1$
+such that they consist precisely of the zeros of $c_w$ outside
+$|z|=\rho$ there. If the positive degree of $g$ is $p>0$, each factor
+has degree $2p$; when $g$ has no positive powers the factor is one.
+There are polynomials $A_t$ and $B_t$ in $s$, with coefficients
+holomorphic in a neighborhood of $\overline D$, such that
+\begin{equation}\label{eq:outside-square-parity}
+ p_w(z)^2=A_t(z^2)+wzB_t(z^2),\qquad t=w^2-1.
+\end{equation}
+\end{lemma}
+\begin{proof}
+The function $h$ is holomorphic outside the circle, and $h'$ extends
+continuously to it: the additional term $2sg_0P$ has derivative
+$O(|s+1|^{1/2})$ at $-1$. For a sufficiently thin closed exterior
+annulus, $\|h'-1\|<1/3$. Any two points of this annulus can be joined
+in it by a radial segment and a shorter circular arc of total length
+at most $(1+\pi/2)$ times their distance. Integration of $h'-1$
+along that path proves injectivity. Thus $h$ maps the annulus
+conformally to the region between $\Gamma$ and an enclosing Jordan
+curve $h(r\T)$, for some $r>1$.
+
+Let $U$ be the bounded interior of this latter curve. For $t\in U$,
+the zeros of $h(s)-t$ outside $|s|=r$ have constant count $2p$ when
+$p>0$, and zero count when $p=0$, by the argument principle at
+infinity. The domain $\{w:w^2-1\in U\}$ is connected, since $U$
+is simply connected and contains $-1$. On $|z|=\sqrt r$, neither
+$c_w$ nor $c_{-w}$ vanishes there. Their equal outside-zero counts
+are $2p$: at $w=0$ this follows from
+$g(s)^2=(h(s)+1)/s$ and the argument principle. Choosing
+$\rho=\sqrt r$, contour power sums therefore give holomorphic
+normalized factors, including at multiple far zeros. For $t\in D$
+they agree with the original factors, because the intervening
+annulus has no zeros. The parity relation $p_{-w}(z)=p_w(-z)$ shows
+that the even coefficients in $p_w^2$ are even in $w$, while its
+odd coefficients are odd in $w$. Division of the latter by $w$ is
+removable at zero. Descent under $w\mapsto w^2-1$ proves
+\eqref{eq:outside-square-parity}.
+\end{proof}
+
+
+
+For the factors in the preceding lemma define $R_t,X_t$ by parity:
+\[
+ F_w(z)=\frac{p_w(z^{-1})}{g(z^{-2})-wz}
+          =X_t(z^2)+wzR_t(z^2),\qquad t=w^2-1.
+\]
+Parity and the removable value at $w=0$ make both functions
+holomorphic in $t$. Their coefficients are the formal inverse rows
+used below.
+
+\begin{proposition}[Polynomial stability up to the squared boundary]
+\label{prop:boundary-polynomial-stability}
+For the fixed background of Lemma~\ref{lem:far-factor-collar}, put
+$\mathcal W=\{w:w^2-1\in\overline D\}$.
+There are $C,N_0$ and $\rho>1$ such that, for every $w\in\mathcal W$
+and $N\ge N_0$, $T_N(c_w)$ is invertible and
+\[
+ \|T_N(c_w)^{-1}\|\le CN^2,\qquad
+ \|D_\rho T_N(c_w)^{-1}D_\rho^{-1}\|\le C,
+ \quad D_\rho=\operatorname{diag}(1,\rho,\ldots,\rho^{N-1}).
+\]
+These include the parameters for which $c_w$ vanishes on $\T$.
+For the odd pencil $W_m(t)=(G^2-(1+t)U)^{-1}$ it follows that,
+uniformly for $t\in\overline D$ and large $m$,
+\begin{equation}\label{eq:boundary-pencil-stability}
+ \|W_m(t)\|\le C(m+1)^4,\qquad
+ \|D_rW_m(t)D_r^{-1}\|\le C,\qquad r=\rho^2>1.
+\end{equation}
+\end{proposition}
+\begin{proof}
+The scaled symbols $c_w(\rho\,\cdot)$ are nonzero and of index zero
+uniformly on the compact parameter set $\mathcal W$, by the collar
+lemma. Uniform finite-section stability gives the second bound in
+the first display, and also eventual invertibility. This step applies
+to the scaled symbols, not to a possibly vanishing symbol on $\T$.
+If $V_N=T_N(c_w)^{-1}$, in particular
+\[
+ |(V_N)_{ij}|\le C\rho^{j-i}.
+\]
+
+The far-factor function $F_w(z)=p_w(z^{-1})/c_w(z^{-1})$ is
+holomorphic for $|z|<1$, also when $w\in\partial\mathcal W$.
+Cancellation removes the far zeros. Near the circle, rationalization
+of its denominator expresses it as
+\[
+ F_w(z)=\frac{p_w(z^{-1})(g(z^{-2})+wz)}
+                {z^2(h(z^{-2})-(w^2-1))}.
+\]
+The collar map is quantitatively injective. Since $h(s)$ is outside
+$D$ when $1<|s|<r$, this gives
+$\operatorname{dist}(h(s),\overline D)\ge c(|s|-1)$.
+The numerator is uniformly bounded there. Hence
+\[
+ |F_w(z)|\le\frac C{1-|z|},\qquad
+ |[z^j]F_w(z)|\le C(j+1),
+\]
+uniformly in $w$; the second inequality is Cauchy's bound at
+radius $j/(j+1)$, with the small values of $j$ treated separately.
+
+The formal identity $F_w(z)c_w(z^{-1})=p_w(z^{-1})$ still holds at
+boundary parameters. Its row convolution is finite in each column
+because $c_w$ has fixed positive degree $b$. Truncation therefore
+gives a residual of size at most $CN$ supported in the last $b$
+columns. Multiplication by the displayed entry bound for $V_N$ shows
+\[
+ |(V_N)_{0j}-[z^j]F_w|\le CN\rho^{j-N+b}.
+\]
+In particular, the first row has entries bounded by $CN$ and
+$(V_N)_{00}=F_w(0)+O(N\rho^{-N})$. The continuous function $F_w(0)$
+never vanishes: it is the ratio of the leading coefficients of the
+normalized far factor and $c_w$. Thus $|(V_N)_{00}|$ is bounded
+below for large $N$.
+
+For clarity, the elementary Toeplitz inverse identity needed to pass
+from a row bound to an operator bound is as follows. Write
+$x=V_Ne_0$, $y=V_Ne_{N-1}$, and $x_0=(V_N)_{00}$.
+If $L(v)$ and $U(v)$ denote lower and upper triangular Toeplitz
+matrices with first column or row $v$, respectively, then
+\[
+ V_N=\frac1{x_0}\left[
+ L(x)U(y_{N-1},\ldots,y_0)
+ -L(0,y_0,\ldots,y_{N-2})U(0,x_{N-1},\ldots,x_1)\right].
+\]
+One verification uses the equal first and last principal blocks of
+the original Toeplitz matrix. Their inverse Schur complements give
+\[
+ x_0\{(V_N)_{ij}-(V_N)_{i-1,j-1}\}
+ =x_i y_{N-1-j}-y_{i-1}x_{N-j},\qquad i,j\ge1;
+\]
+iteration with the first row and column gives the identity. The
+Schur complements exist since $x_0\ne0$ and the matrix is
+persymmetric. Now $\|x\|_1\le C$ by the weighted entry estimate,
+whereas $\|y\|_1\le CN^2$ by persymmetry and the first-row bound.
+The triangle and convolution inequalities prove $\|V_N\|\le CN^2$.
+
+Finally use the even--odd block matrix in
+Proposition~\ref{prop:odd-pencil}. At $w=0$ its inverse bounds give
+$\|G^{-1}\|\le C(m+1)^2$. Its upper-left inverse block is $W_m(t)G$,
+so multiplication by $G^{-1}$ proves the unweighted pencil bound.
+After scaling by $\rho$ in the original variable, the blocks use
+$G_r=T_{m+1}(g(r\,\cdot))$, and the off-diagonal factors are
+$w/\rho$. Both that full inverse and $G_r^{-1}$ have uniform bounds.
+The same identity proves the weighted bound in
+\eqref{eq:boundary-pencil-stability}.
+\end{proof}
+
+
+\begin{corollary}[Exponential nonlinear feedback in exact conformal jets]
+\label{cor:conformal-feedback-bound}
+Fix the preceding background and let $f$ be a conformal map from the
+disk to $D$, with $f(0)=0$. Fix $0<\sigma<1/2$, put
+$q=\lfloor\sigma m\rfloor$, and let
+\[
+ E=\sum_{j=m-q+1}^m\ell_jU^j,\qquad V=\sum_j|\ell_j|.
+\]
+For large $m$, the difference between the perturbed corner
+$e_0^*((G+E)^2-(1+f(u))U)^{-1}e_m$ and its affine approximation in
+$E$ has every $u$-Taylor coefficient bounded by
+\[
+ \frac{C(m+1)^8 r^{-d}V^2}{1-Cr^{-d}V},\qquad
+ d=m+2-2q-2p,
+\]
+provided $Cr^{-d}V<1$. Here $p$ is the fixed lower bandwidth of $G$
+and $r>1$ is fixed. In particular $q=\lfloor3m/8\rfloor$ permits
+more unknowns than the $m/4$ target jets while preserving an
+exponentially small nonlinear remainder.
+\end{corollary}
+\begin{proof}
+For large $m$, $E^2=0$. The support and gap argument in
+Lemma~\ref{lem:corner-feedback} applies with its $h$ replaced by $q$.
+Use $\|W_m\|\le C(m+1)^4$, $\|D_rW_mD_r^{-1}\|\le C$, and
+$\|GE+EG\|\le CV$, uniformly on $\overline D$.
+This gives the displayed supremum bound for the nonlinear remainder
+throughout $D$. Composition with $f$ and Cauchy's estimate on circles
+with radii increasing to one give the same bound for every coefficient,
+without an exponentially growing coefficient-extraction factor.
+\end{proof}
+
+
+\begin{corollary}[Uniform replacement of the finite Jacobian on the boundary]
+\label{cor:boundary-jacobian-replacement}
+Fix $0<\sigma<1$ and $q=\lfloor\sigma m\rfloor$ in the preceding
+setting. For $0\le d<q$, let $J_{m,d}(t)$ be the exact corner
+derivative with respect to $g_{-(m-d)}$. Then
+\[
+ \sup_{t\in\overline D}
+ \left|J_{m,d}(t)+2[s^d]R_t(s)X_t(s)\right|
+ \le C(m+1)^3r^{-(m+1-q-2p)}.
+\]
+After composition with a fixed conformal map $f:\mathbb D\to D$,
+the same bound holds for every Taylor coefficient of the difference.
+In particular, no exponentially increasing coefficient-extraction
+factor is needed when replacing the finite Jacobian in conformal jets.
+\end{corollary}
+\begin{proof}
+Decompose the unsquared factor as
+$p_w(z)=a_t(z^2)+wzb_t(z^2)$. Its coefficient functions, like those
+of $A_t,B_t$, are holomorphic through $\overline D$.
+Rationalizing the first-row generating function gives
+\[
+ R_t(s)=\frac{\zeta a_t(\zeta)+\zeta^2b_t(\zeta)g(\zeta)}
+                 {h(\zeta)-t},\qquad
+ X_t(s)=\frac{\zeta a_t(\zeta)g(\zeta)
+                         +\zeta(1+t)b_t(\zeta)}{h(\zeta)-t},
+ \quad \zeta=s^{-1}.
+\]
+Both are holomorphic in the disk, including at $s=0$ after
+cancellation. The collar distance bound in Proposition~\ref{prop:boundary-polynomial-stability}
+shows that each has modulus at most $C/(1-|s|)$, uniformly on
+$\overline D$. Their coefficients are consequently bounded by $C(j+1)$.
+
+Let $G_\infty=T(g)$. The formal infinite first-row equations, whose
+sums in each column are finite because the positive bandwidth is $p$,
+give $X_t=R_tG_\infty$ and
+$R_t(G_\infty^2-(1+t)U_\infty)=e_0^*$.
+These identities also hold at $t=-1$ by the displayed analytic formulas.
+Truncate the row $R_t$ at length $L=m+1$. Its residual for the
+finite pencil is supported in the last $2p$ columns and is bounded
+by $CL$: all omitted indices are at most $L+2p$, and the fixed
+Wiener norm of $g$ bounds the convolutions. The weighted pencil
+inverse bound therefore gives
+\[
+ |(e_0^*W_m(t))_j-[s^j]R_t(s)|
+       \le CLr^{j-L+2p}.
+\]
+For $j<q$ multiplication by $G$ gives the same estimate for the
+finite $X$ row and $[s^j]X_t$, using $q+p<L$ and the finite
+weighted Wiener norm of $g(r\,\cdot)$. In the coefficient of
+degree $d<q$ of their product, summing at most $L$ terms now gives
+the stated $CL^3r^{q-L+2p}$ bound. The exact derivative identity
+\eqref{eq:odd-pencil-jacobian} supplies the factor $-2$.
+Composition with $f$ gives a bounded analytic difference on the unit
+disk; Cauchy's estimate with radii tending to one proves the final claim.
+\end{proof}
+
+
+\begin{proposition}[Exact limiting Jacobian as a boundary integral]
+\label{prop:boundary-cauchy-jacobian}
+For a polynomial $V(s)=\sum_{d\ge0}v_ds^d$, define
+\[
+ \mathcal J V(t)=-2\sum_{d\ge0}v_d[s^d]R_t(s)X_t(s),\qquad t\in D.
+\]
+Put
+\[
+ N_t(\zeta)=\zeta\left(A_t(\zeta)g(\zeta)
+           +\tfrac12 B_t(\zeta)(h(\zeta)+t+2)\right).
+\]
+Then
+\begin{equation}\label{eq:boundary-cauchy-jacobian}
+ \mathcal J V(t)=-\frac2{2\pi i}\int_\T
+          \frac{N_t(\zeta)V(\zeta)}{(h(\zeta)-t)^2}\,d\zeta.
+\end{equation}
+Let $\mathcal C_\Gamma f(t)=(2\pi i)^{-1}
+\int_\Gamma f(x)/(x-t)\,dx$, and set
+\[
+ q(\zeta)=\frac{N_{h(\zeta)}(\zeta)}{h'(\zeta)},\qquad
+ L_t(\zeta)=\frac{N_t(\zeta)-N_{h(\zeta)}(\zeta)}{t-h(\zeta)}.
+\]
+The latter quotient is removable at $t=h(\zeta)$. Formula
+\eqref{eq:boundary-cauchy-jacobian} becomes
+\[
+ \mathcal J V=-2\,\partial_t\mathcal C_\Gamma
+       [(qV)\circ h^{-1}]
+   +2\,\mathcal C_\Gamma[(L_tV/h')\circ h^{-1}].
+\]
+Its leading weight has exactly the square-root endpoint zero:
+\[
+ q(\zeta)=\frac{\zeta g(\zeta)}{h'(\zeta)}
+          p_{\sqrt\zeta\,g(\zeta)}(\sqrt\zeta)^2,
+ \qquad
+ \lim_{\zeta\to-1,\ \zeta\in\T}\frac{q(\zeta)}{g_0(\zeta)}
+       =-p_0(i)^2\ne0.
+\]
+The expression is independent of the choice of $\sqrt\zeta$.
+\end{proposition}
+\begin{proof}
+The odd part of $F_w(z)^2$ is $2wzR_t(z^2)X_t(z^2)$.
+Use \eqref{eq:outside-square-parity} in $F_w^2$, put $s=z^2$
+and $\zeta=s^{-1}$, and combine the two denominators. Direct algebra gives
+\[
+ R_t(\zeta^{-1})X_t(\zeta^{-1})
+ =\frac{\zeta^2\{A_t(\zeta)g(\zeta)
+        +\tfrac12 B_t(\zeta)(h(\zeta)+t+2)\}}
+        {(h(\zeta)-t)^2}.
+\]
+Coefficient extraction proves the integral identity, first on a nearby
+exterior circle and then on $\T$ by continuity. Splitting
+$N_t=N_h+(t-h)L_t$ gives the two Cauchy terms with the displayed signs.
+At $t=h(\zeta)$ take $w=\sqrt\zeta\,g(\zeta)$ in
+\eqref{eq:outside-square-parity}; its right side is
+$A_h+\zeta gB_h$. This proves the formula for $q$.
+Finally $g/g_0\to1$, $h'\to1$ and $p_0$ is even with all its zeros
+outside $\rho>1$. These facts prove the endpoint limit and its
+nonvanishing.
+\end{proof}
+
+
+\section{Correction norms and endpoint restoration}
+The base triangular Jacobian, indexed by reversed correction degree,
+and its polynomial inverse are
+\[
+ (J^0v)_k=-2(k+1)\sum_{d\ge k}\binom{1/2}{d-k}v_d,
+\]
+\begin{equation}\label{eq:base-preconditioner}
+ v_d=-\frac12\sum_{k=d}^{q-1}\binom{-1/2}{k-d}
+                         \frac{x_k}{k+1},\qquad x=J^0v.
+\end{equation}
+
+\begin{lemma}[Localized invisible restoration and the squared curve]
+\label{lem:localized-restoration}
+Let $m\ge2$, let $L(s)=\sum_{j=1}^m\ell_js^{-j}$, and put
+\[
+ V=\sum_j|\ell_j|,\qquad
+ T=\sum_{j\in\mathbb Z}|d_j-d_{j-1}|,
+ \quad d_j=j(-1)^j\ell_j,
+\]
+where coefficients outside $1\le j\le m$ are zero. Define
+\[
+ K_m(s)=(-s)^{-m-1}\left(\frac{1-s^{-1}}2\right)^m,
+ \qquad D(s)=L(s)-L(-1)K_m(s).
+\]
+Then $D(-1)=0$. The added restoring packet has coefficient
+$\ell^1$ norm $|L(-1)|\le V$, and its frequencies in $zD(z^2)$
+are invisible to $T_{2m+1}$. For $g_0(s)=\sqrt{1+s^{-1}}$,
+\begin{equation}\label{eq:localized-weighted-c1}
+ \|g_0D\|_{C^1(\T)}
+ \le C\left(m^{3/4}V+\sqrt{mVT}\right).
+\end{equation}
+If $P$ is fixed and $C^1$ with $P(-1)=0$, then
+\[
+ \|s(g_0+P+D)^2-s(g_0+P)^2\|_{C^1}
+ \le C_P\left(m^{3/4}V+\sqrt{mVT}+T+\sqrt m V+mV^2\right).
+\]
+All $C^1$ norms refer to the angular variable.
+\end{lemma}
+\begin{proof}
+The binomial expansion has alternating coefficients of total absolute
+sum one. Its support is $-m-1,\ldots,-2m-1$ in $s$, proving the
+cost and invisibility statements.
+Write $s=-e^{i\theta}$ and let $d$ be the distance of $\theta$ to
+$2\pi\mathbb Z$. The square-root factor satisfies
+$|g_0|\le C\sqrt d$ and $|\partial_\theta g_0|\le C/\sqrt d$.
+Summation by parts and the trivial derivative bound give
+\[
+ |\partial_\theta L|\le C\min(mV,T/d),\qquad
+ |L(s)-L(-1)|\le CV\min(md,1).
+\]
+The first bound follows by multiplying the derivative Fourier series
+by $1-e^{-i\theta}$ and taking the absolute coefficient sum.
+
+The packet has $|K_m|=|\cos(\theta/2)|^m$. Differentiating its explicit
+formula, and using the Gaussian bound near zero and exponential decay
+away from zero, gives
+\[
+ \sup\sqrt d\,|\partial_\theta K_m|\le Cm^{3/4},\qquad
+ \sup d\,|\partial_\theta K_m|\le C\sqrt m,
+ \qquad |1-K_m|\le C\min(md,1).
+\]
+Hence $|D|\le CV\min(md,1)$, so
+$\|g_0'D\|_\infty\le C\sqrt m V$. Also
+\[
+ \sqrt d\,|L'|\le C\min(mV\sqrt d,T/\sqrt d)
+                         \le C\sqrt{mVT}.
+\]
+These estimates prove \eqref{eq:localized-weighted-c1}.
+At the endpoint the product is continuously differentiable, with
+derivative zero, because $D(-1)=0$ and $D$ is differentiable.
+
+Since $|P(s)|\le C_Pd$, the same bounds give
+$\|PD\|_{C^1}\le C_P(V+T+\sqrt m V)$.
+Finally $\|D\|_\infty\le2V$ and $\|D'\|_\infty\le CmV$, so
+$\|D^2\|_{C^1}\le CmV^2$. Expanding the two squares proves the claim.
+\end{proof}
+
+
+\begin{lemma}[Coefficient and geometry bounds from the base preconditioner]
+\label{lem:preconditioned-restoration}
+Let $q\le m/2$, let $x$ have degree less than $q$, and define $v$
+by \eqref{eq:base-preconditioner}. Put
+\[
+ L(s)=s^{-m}\sum_{d=0}^{q-1}v_ds^d,\quad
+ D(s)=L(s)-L(-1)K_m(s),\quad
+ R_1=\sum_{k<q}\frac{|x_k|}{k+1},\quad
+ R_{1/2}=\sum_{k<q}\frac{|x_k|}{\sqrt{k+1}},
+\]
+where $K_m$ is the localized invisible packet from
+Lemma~\ref{lem:localized-restoration}. Then
+\[
+ \|L\|_{\ell^1}\le C R_{1/2},\qquad
+ \operatorname{Var}\{(-1)^dv_d\}_{d\in\mathbb Z}\le R_1,
+ \qquad T_m\le C(mR_1+R_{1/2}).
+\]
+For $\gamma\ge0$ write
+$\|a\|_{\mathcal W^\gamma}=\sum_j(1+|j|)^\gamma|a_j|$.
+For every $0\le\alpha<1/2$,
+\begin{equation}\label{eq:preconditioned-weighted-restoration}
+ \|g_0D\|_{\mathcal W^{1+\alpha}}
+ \le C_\alpha\bigl(m^{1+\alpha}R_1
+                    +m^{3/4+\alpha}R_{1/2}\bigr).
+\end{equation}
+If $P$ is any fixed Laurent polynomial with $P(-1)=0$, then
+\[
+ \|s(g_0+P+D)^2-s(g_0+P)^2\|_{\mathcal W^{1+\alpha}}
+ \le C_{P,\alpha}\bigl(m^{1+\alpha}R_1
+       +m^{3/4+\alpha}R_{1/2}+m^{1+\alpha}R_{1/2}^2\bigr).
+\]
+\end{lemma}
+\begin{proof}
+Set $A_l=\binom{2l}{l}/4^l$. For one input coefficient $x_k$, the
+modulated $v$ sequence is a multiple of the reversed finite sequence
+$A_0,\ldots,A_k$. Its zero-padded variation is twice its maximum.
+The factor $1/(2(k+1))$ in \eqref{eq:base-preconditioner} therefore
+gives the stated variation bound. The identity
+$\sum_{l=0}^kA_l=(2k+1)A_k=O(\sqrt{k+1})$ gives the coefficient
+norm bound. Multiplication by the physical frequency $m-d$ gives
+the bound for $T_m$.
+
+A useful exact identity is, for $j\ge1$,
+\[
+ \sum_{d=0}^k\binom{1/2}{d+j}\binom{-1/2}{k-d}
+  =\frac{k+1/2}{k+j}\binom{-1/2}{k}\binom{-1/2}{j-1}.
+\]
+It follows by differentiating
+$(1+z)^{1/2}\sum_{l=0}^k\binom{-1/2}{l}z^l$.
+The absolute values of these negative Laurent coefficients sum to
+one: their alternating signs are all opposite to the surviving
+nonnegative coefficient when evaluated at $s=-1$. Equivalently,
+apply monotone convergence to the corresponding positive series
+as its argument increases to one. Including the factor
+$1/(2(k+1))$ shows that the full Wiener norm of $g_0$ times this
+basis correction is $1/(k+1)$. Summing gives
+\[
+ \|g_0L\|_{\mathcal W^0}\le R_1.
+\]
+
+To estimate the restoring packet, modulate the variable to
+$u=-s^{-1}$. Its binomial factor is $b_m(u)=((1+u)/2)^m$.
+Unimodality gives $\|(1-u)b_m\|_{\ell^1}\le C m^{-1/2}$.
+Write $(1-u)^{1/2}=1-\sum_{l\ge1}c_lu^l$, where
+$c_l\ge0$, $\sum c_l=1$ and $c_l\le C l^{-3/2}$.
+Then
+\[
+ \|(1-u)^{1/2}b_m\|_{\ell^1}
+ \le\sum_{l\ge1}c_l\min(2,Clm^{-1/2})
+ \le C m^{-1/4}.
+\]
+On frequencies of magnitude at most $4m+4$, these two Wiener
+bounds, $|L(-1)|\le C R_{1/2}$, and multiplication by the largest
+weight prove \eqref{eq:preconditioned-weighted-restoration}.
+
+For completeness, the infinite tail is controlled by the endpoint
+cancellation, not by a divergent first moment of $g_0$. In the
+modulated variable $D$ is a polynomial supported at degrees at most
+$2m+1$, with coefficient sum zero and coefficient norm at most
+$CR_{1/2}$. For $n>4m+4$ the difference of two square-root kernel
+coefficients whose indices differ by $j\le2m+1$ is bounded by
+$Cj n^{-5/2}$, by the binomial recurrence. Thus the product's
+$n$th coefficient is at most $CmR_{1/2}n^{-5/2}$. Its weighted tail
+is bounded by $C_\alpha m^{1/2+\alpha}R_{1/2}$, which is smaller
+than the restoring term already retained. This proves the first
+weighted estimate.
+
+Finally factor $P=(1+s)Q$ with $Q$ a fixed Laurent polynomial.
+The variation bound gives $\|(1+s)L\|_{\ell^1}\le R_1$.
+The binomial-packet difference bound gives
+$\|(1+s)K_m\|_{\ell^1}\le Cm^{-1/2}$.
+These are finite polynomials of frequency $O(m)$, so their
+$\mathcal W^{1+\alpha}$ norms give the required bound for $PD$.
+The term $D^2$ has coefficient norm at most $CR_{1/2}^2$ and
+frequency $O(m)$. Expanding the squared curve proves the last assertion.
+\end{proof}
+
+
+\begin{corollary}[A sufficient negative-Sobolev correction size]
+\label{cor:negative-sobolev-correction}
+Fix $-1/2<s<0$ and $q\le m/2$. If
+$\|x\|_{H^s}\le C_Pm^{s-1}$, the preceding correction satisfies
+\[
+ \|L\|_{\ell^1}=O_P(m^{-1}),\qquad T_m=O_P(m^s).
+\]
+For every $0\le\alpha<\min(-s,1/4)$ its restored squared-curve
+change tends to zero in $\mathcal W^{1+\alpha}$, with bound
+\[
+ C_{P,s,\alpha}
+       \bigl(m^{s+\alpha}+m^{\alpha-1/4}+m^{\alpha-1}\bigr).
+\]
+Consequently the construction can preserve a small $C^{1,\alpha}$
+neighborhood, not just a $C^1$ neighborhood, if this norm estimate
+for the preconditioned correction is established.
+\end{corollary}
+\begin{proof}
+Weighted Cauchy--Schwarz gives
+$R_1\le C_s\|x\|_{H^s}$ and
+$R_{1/2}\le C_s q^{-s}\|x\|_{H^s}$.
+The former uses $s>-1/2$, the latter $s<0$.
+Since $q\le m/2$, these give $R_1=O_P(m^{s-1})$ and
+$R_{1/2}=O_P(m^{-1})$. Substitute in the preceding lemma.
+Absolute weighted Fourier summability implies the stated
+$C^{1,\alpha}$ control.
+\end{proof}
+
+
+\begin{lemma}[The restored perturbation divided by the endpoint square root]
+\label{lem:normalized-endpoint-restoration}
+For the localized restoration of any negative correction $L$ supported
+in frequencies of magnitude at most $m$, put $V=\|L\|_{\ell^1}$.
+For every $0\le r<1$, in the two-sided circle Sobolev norm,
+\[
+ \|D/g_0\|_{H^r(\T)}
+       \le C_r m^r V\sqrt{\log(m+1)}.
+\]
+In particular, corrections with $V=O_P(m^{-1})$ change $P/g_0$
+by an arbitrarily small amount in $H^r(\T)$ as $m\to\infty$.
+For $1/2<r<1$ this also controls the supremum norm.
+\end{lemma}
+\begin{proof}
+The restored polynomial has $\|D\|_{\ell^1}\le2V$, frequencies
+of magnitude at most $2m+1$, and $D(-1)=0$. At angular distance $d$
+from $-1$, these facts give
+$|D|\le CV\min(md,1)$, while $|g_0|^2$ is comparable to $d$.
+Integration therefore gives
+$\|D/g_0\|_2\le CV\sqrt{\log(m+1)}$.
+After modulation to $u=-s^{-1}$, the coefficients of $1/g_0$ are
+$A_n=\binom{2n}{n}/4^n$. Their first differences are $O(n^{-3/2})$.
+The zero sum of the modulated coefficients of $D$ thus bounds the
+$n$th product coefficient by $CmVn^{-3/2}$ for $n>4m+4$.
+The low-frequency part of the $H^r$ norm is at most $Cm^r$ times
+the $L^2$ norm. The squared high-frequency part is bounded by
+$C m^2V^2\sum_{n>4m}n^{2r-3}\le C_rm^{2r}V^2$ for $r<1$.
+These estimates prove the assertion. The last statement is the
+coefficient Cauchy--Schwarz embedding for $r>1/2$.
+\end{proof}
+
+
+\section{The geometric operator estimate}
+The following estimates control the actual Jacobian, including its
+exterior-zero factors, uniformly as the degree of the background grows.
+
+\begin{lemma}[The square-root extension of the analytic projection]
+\label{lem:endpoint-extension}
+Let $g_0(s)=\sqrt{1+s^{-1}}$ and let $y$ be a polynomial. Define
+$V=T(g_0)^{-1}y$, using the triangular polynomial inverse, and
+$Ey=g_0V$. For every $0<r<1$,
+\[
+ \|Ey\|_{H^r(\T)}\le C_r\|y\|_{H^r},\qquad \Pi_+Ey=y.
+\]
+For $r>1/2$, the same inverse also satisfies
+$\|V\|_{L^2}\le C_r\|y\|_{H^r}$.
+These operators therefore extend by density to the indicated spaces.
+For $r>1/2$ the continuous representative of $Ey$ vanishes at $-1$.
+\end{lemma}
+\begin{proof}
+Write $A_l=\binom{2l}{l}/4^l$. The exact partial-convolution identity
+in Lemma~\ref{lem:preconditioned-restoration} gives, up to signs, the
+matrix of the negative part of $E$:
+\[
+ K_{j,k}=\frac{(k+1/2)A_kA_{j-1}}{k+j},
+ \qquad j\ge1,\quad k\ge0.
+\]
+Since $A_l\le C(l+1)^{-1/2}$, the matrix after the Sobolev weights
+is bounded entrywise by
+\[
+ C\,\frac{j^{r-1/2}(k+1)^{1/2-r}}{j+k}.
+\]
+Apply Schur's test with row weights $j^{-1/2}$ and column weights
+$(k+1)^{-1/2}$. Its two required sums are bounded by
+\[
+ Cj^r\sum_{k\ge0}\frac{(k+1)^{-r}}{j+k},
+ \qquad
+ C(k+1)^{1-r}\sum_{j\ge1}\frac{j^{r-1}}{j+k},
+\]
+respectively. Splitting each sum at $j=k+1$, or comparing with
+the corresponding integral, bounds both uniformly for $0<r<1$.
+This proves the first assertion.
+
+The coefficient matrix of $T(g_0)^{-1}:H^r\to L^2$ has squared
+Hilbert--Schmidt norm
+\[
+ \sum_{k\ge0}(k+1)^{-2r}\sum_{d=0}^k A_{k-d}^2
+ \le C\sum_{k\ge0}(k+1)^{-2r}\log(k+2)<\infty
+\]
+when $r>1/2$. For polynomial inputs $Ey=g_0V$ vanishes at $-1$.
+Point evaluation is continuous on $H^r(\T)$ for $r>1/2$,
+so the last assertion follows by density.
+\end{proof}
+
+
+\begin{lemma}[Small Cauchy-projection perturbations in the circle parameter]
+\label{lem:wiener-cauchy-projections}
+Let $h(s)=s+k(s)$, with
+$k\in\mathcal W^{1+\alpha}$ for some $\alpha>0$, and put
+$\delta=\sum_n |n|\,|k_n|$. If $\delta$ is sufficiently small,
+$h(\T)$ is a positively oriented Jordan curve. Let $C_h$ denote
+the interior Cauchy projection pulled back by $h$. For $0\le r\le1$,
+\[
+ \|C_h-\Pi_+\|_{H^r(\T)\to H^r(\T)}\le C_r\delta .
+\]
+Write $k=k_-+k_+$, where $k_-$ has nonpositive powers and $k_+$
+has strictly positive powers. If, in addition,
+$\|k_+\|_{\mathcal W^{r+1}}$ is sufficiently small, then
+\[
+ \|\Pi_+C_h\Pi_-\|_{L^2\to H^r}
+       \le C_r\|k_+\|_{\mathcal W^{r+1}}.
+\]
+Here $\Pi_-=I-\Pi_+$; the constants do not involve higher derivatives
+of $k_-$.
+\end{lemma}
+\begin{proof}
+The divided difference
+\[
+ H(\zeta,\eta)=\frac{h(\zeta)-h(\eta)}{\zeta-\eta}
+\]
+belongs to the two-variable Wiener algebra and
+$\|H-1\|_{\mathcal W(\T^2)}\le\delta$. Indeed the divided
+difference of a monomial of degree $n$ has $|n|$ terms of
+coefficient modulus one, for either sign of $n$. Thus
+$|h(\zeta)-h(\eta)|\ge(1-\delta)|\zeta-\eta|$.
+The same statement along the homotopy $s+tk(s)$ proves the
+orientation assertion. The constant term of $k$ causes only a
+translation.
+
+Set $A(\zeta,\eta)=h'(\zeta)/H(\zeta,\eta)$, where $h'$ is the
+derivative with respect to the circle variable. The Wiener
+Neumann series gives
+\[
+ \|A-1\|_{\mathcal W(\T^2)}
+       \le\frac{2\delta}{1-\delta}.
+\]
+If $A=\sum a_{j,l}\zeta^j\eta^l$, the Cauchy boundary formula is
+the norm-convergent operator series
+\[
+ C_h=\sum_{j,l}a_{j,l}M_{s^l}\Pi_+M_{s^j}.
+\]
+The half-jump terms agree because $A(\eta,\eta)=1$.
+This identity follows first with radial regularization of the
+circle Cauchy kernel and then by its $L^2$ limit; the
+$C^{1,\alpha}$ boundary has the usual Cauchy boundary values.
+It proves the asserted small bound on $L^2$.
+The operator is a projection. This follows from the Cauchy formula
+for smooth curves and then from Fourier approximation of $h$:
+the displayed Wiener representation gives operator-norm convergence
+on $L^2$, so the identity $C_h^2=C_h$ passes to the limit.
+
+For smooth $v$, integration by parts in the Cauchy integral gives
+\[
+ \partial_\theta(C_hv)
+  =h_\theta\,C_h(v_\theta/h_\theta).
+\]
+The multipliers $h_\theta$ and $h_\theta^{-1}$ are uniformly
+bounded on $L^2$ and are within $C\delta$ there of $is$ and
+$(is)^{-1}$. Subtracting the analogous identity for $\Pi_+$ and
+using the $L^2$ estimate therefore gives the small $H^1$ bound.
+The formula and bound for the stated regularity follow by Fourier
+approximation of $h$ and density of smooth $v$. Interpolation
+between $L^2$ and $H^1$ proves the estimate for $0<r<1$.
+
+For the last claim use the two-variable algebra with coefficient
+weight $(1+\max(j,0)+\max(l,0))^r$. The divided differences of
+$k_-$ have only nonpositive powers in each variable, and their
+weighted norm is at most $\delta$. Those of $k_+$ have weighted
+norm at most $C_r\|k_+\|_{\mathcal W^{r+1}}$.
+Neumann expansion consequently splits $A=A_-+A_{\rm rem}$, where
+$A_-$ has only nonpositive powers in both variables and
+\[
+ \|A_{\rm rem}\|_{\mathcal W_{\rm pos}^r(\T^2)}
+      \le C_r\|k_+\|_{\mathcal W^{r+1}}.
+\]
+Every term of $\Pi_+C_h\Pi_-$ coming from $A_-$ vanishes. A term
+$\Pi_+M_{s^l}\Pi_+M_{s^j}\Pi_-$ can be nonzero only for $j\ge1$
+and $j+l\ge1$. It is a partial shift from negative input
+frequencies to output frequencies between $0$ and $j+l-1$.
+Its $L^2\to H^r$ norm is therefore at most
+$(1+\max(j,0)+\max(l,0))^r$. Summing the remainder coefficients
+proves the final estimate.
+\end{proof}
+
+
+\begin{lemma}[An endpoint Bezout kernel in the Wiener algebra]
+\label{lem:endpoint-bezout}
+Let $b(x)=\sqrt{1+x}$ and let $D$ be a polynomial with $D(-1)=0$.
+For every $\alpha>0$,
+\[
+ \left\|\frac{b(y)D(x)-b(x)D(y)}{y-x}\right\|_{\mathcal W(\T^2)}
+ \le C_\alpha\|bD\|_{\mathcal W^{1+\alpha}}.
+\]
+The assertion is used only when its right side is finite.
+\end{lemma}
+\begin{proof}
+Put $v=bD$ and $q=v/(1+x)$. The kernel on the left is
+$b(x)b(y)(q(x)-q(y))/(y-x)$. Since $v(-1)=0$, write
+\[
+ v(x)=\sum_{n\ge1}v_n\bigl(x^n-(-1)^n\bigr).
+\]
+For one summand $x^n-(-1)^n$, its quotient by $1+x$ is an
+alternating geometric polynomial. After replacing $x,y$ by $-x,-y$,
+its kernel is, up to sign,
+\[
+ \sqrt{1-x}\sqrt{1-y}\,T_{n-2}(x,y),\qquad
+ T_N=\sum_{\substack{i,j\ge0\\i+j\le N}}x^iy^j.
+\]
+The case $n=1$ has zero kernel.
+
+Write $\sqrt{1-x}=\sum_{\ell\ge1}c_\ell(1-x^\ell)$, where
+$c_\ell>0$, $\sum c_\ell=1$, and
+$\sum_{\ell\ge t}c_\ell=\binom{2t-2}{t-1}/4^{t-1}\le C/\sqrt t$.
+Regard the coefficients of $T_{n-2}$ as a triangular indicator
+on $\mathbb Z^2$. A horizontal translation by $\ell$ changes its
+$\ell^1$ norm by at most $Cn\min(\ell,n)$, and the analogous
+vertical bound holds. Consequently
+\[
+ \|(I-S_x^\ell)(I-S_y^k)T_{n-2}\|_{\ell^1}
+       \le Cn\min(\ell,k,n).
+\]
+Summing against $c_\ell c_k$ gives
+\[
+ \|\sqrt{1-x}\sqrt{1-y}\,T_{n-2}\|_{\mathcal W}
+ \le Cn\sum_{t=1}^n\left(\sum_{\ell\ge t}c_\ell\right)^2
+ \le Cn\log(n+1).
+\]
+Finally $n\log(n+1)\le C_\alpha(1+n)^{1+\alpha}$.
+The resulting absolutely convergent kernel series agrees with the
+displayed divided difference in the open bidisk and hence on its
+continuous boundary extension.
+\end{proof}
+
+
+\begin{lemma}[The unsquared divided difference]
+\label{lem:unsquared-divided-difference}
+Write $g=g_0+P_-+P_+$, where $P_-$ has strictly negative powers,
+$P_+$ has strictly positive powers, and both vanish at $-1$.
+For $a(z)=zg(z^2)$ and $a_0(z)=zg_0(z^2)$, set
+\[
+ F(z,\eta)=\frac{a(z)-a(\eta)}{a_0(z)-a_0(\eta)}
+          =F_-(z,\eta)+F_+(z,\eta),
+\]
+where $F_--1$ and $F_+$ are the contributions of $P_-$ and $P_+$.
+All quotients have continuous extensions at their removable boundary
+points. For $\alpha>0$,
+\[
+ \|F_--1\|_{\mathcal W(\T^2)}
+       \le C_\alpha\|g_0P_-\|_{\mathcal W^{1+\alpha}},
+\]
+and $F_--1$ has strictly negative powers of each variable.
+For $K\ge0$, let $\mathcal W_{\mathrm{pos},z}^K$ have coefficient
+weight $(1+\max(j,0))^K$ on the exponent $j$ of $z$, with no
+weight on the exponent of $\eta$. Then
+\[
+ \|F_+\|_{\mathcal W_{\mathrm{pos},z}^K}
+       \le C_K\|P_+\|_{\mathcal W^{K+2}}.
+\]
+\end{lemma}
+\begin{proof}
+Rationalizing the negative contribution separates it into
+\[
+ \frac{s g_0(s)P_-(s)-t g_0(t)P_-(t)}{s-t}
+ +z\eta\,\frac{g_0(t)P_-(s)-g_0(s)P_-(t)}{s-t},
+ \qquad s=z^2,\quad t=\eta^2.
+\]
+The first divided difference has Wiener norm bounded by
+$C\|g_0P_-\|_{\mathcal W^1}$. For the second put
+$x=s^{-1}$, $y=t^{-1}$ and $D(x)=P_-(x^{-1})$.
+It becomes $z^{-1}\eta^{-1}$ times the kernel in
+Lemma~\ref{lem:endpoint-bezout}. The claimed norm and Fourier
+orientation follow. In particular the quotient extends at the
+two distinct contact parameters where both base values are zero.
+
+For the positive contribution write $P_+(s)=(1+s)Q(s)$ and
+$r(z)=zQ(z^2)$, an odd polynomial. Put $A=a_0(z)$ and $B=a_0(\eta)$.
+Since the change in $a$ is $A^2r(z)$, exact algebra gives
+\[
+ F_+=A r(z)+B r(\eta)
+   +AB\,\frac{A+B}{z+\eta}\,
+                   \frac{r(z)-r(\eta)}{z-\eta}.
+\]
+The two-variable kernel $AB(A+B)/(z+\eta)$ has finite Wiener
+norm and has at most one positive power in each variable.
+Indeed, with $x=z^{-1}$, $y=\eta^{-1}$,
+$b_x=\sqrt{1+x^2}$ and $b_y=\sqrt{1+y^2}$, it equals
+\[
+ (xy)^{-1}\left((1+x^2)b_y
+       +x(y-x)\frac{b_xb_y}{b_x+b_y}\right).
+\]
+The last fraction belongs to the bidisk Wiener algebra because
+\[
+ \frac{b_xb_y}{b_x+b_y}
+   =\int_0^\infty b_xe^{-ub_x}b_ye^{-ub_y}\,du
+\]
+is a convergent Bochner integral there. To verify convergence,
+the elementary subordination formula
+\[
+ e^{-u\sqrt{1+x^2}}
+ =\frac{u}{2\sqrt\pi}\int_0^\infty
+       v^{-3/2}e^{-u^2/(4v)}e^{-v(1+x^2)}\,dv
+\]
+gives Wiener norm at most one. Its positive scalar density has
+mass one, and its $u$ derivative has total variation $C/u$,
+by the substitution $v=u^2w$. Thus
+$\|b_xe^{-ub_x}\|_{\mathcal W}\le C/u$; the bound $2$ for
+small $u$ follows instead from $\|b_x\|_{\mathcal W}\le2$.
+The product is integrable in $u$. The formula is first checked
+in the open bidisk, where the square roots have positive real
+part, and then extended by the Wiener convergence.
+
+A monomial of degree $n$ in $r$ now contributes at most
+$C_K(1+n)^{K+1}$ to the required norm: its divided difference
+has $n$ terms, and the resulting positive $z$ degree is at
+most $n+1$. Finally division by $1+s$, using $P_+(-1)=0$,
+gives $\|Q\|_{\mathcal W^{K+1}}\le
+C_K\|P_+\|_{\mathcal W^{K+2}}$. This proves the last assertion.
+\end{proof}
+
+
+\begin{lemma}[A quantitative conformal coordinate near the circle]
+\label{lem:quantitative-conformal-coordinate}
+For fixed $0<\alpha<1$, a sufficiently small
+$\mathcal W^{1+\alpha}$ neighborhood of $h(s)=s$ admits normalized
+Riemann maps $f:\mathbb D\to D$ with
+\[
+ \|f'-1\|_\infty\le C_\alpha\|h-s\|_{\mathcal W^{1+\alpha}}.
+\]
+The maps have uniformly bounded $C^{1,\alpha}$ norms on the closed
+disk. The smallness threshold and bound follow from elementary
+H\"older norm estimates and can be made effective.
+For the real-symmetric curves used here, $f(-1)=-1$.
+\end{lemma}
+\begin{proof}
+Smallness in the stated Fourier norm implies smallness in
+$C^{1,\alpha}(\T)$. The angle of $h(e^{it})$ is a
+$C^{1,\alpha}$ diffeomorphism close to $t$. Inverting it
+represents the curve as $\rho(\theta)e^{i\theta}$, with
+\[
+ \|\ell\|_{C^{1,\alpha}}\le C_\alpha\|h-s\|_{\mathcal W^{1+\alpha}},
+ \qquad \ell=\log\rho .
+\]
+This estimate follows directly by differentiating the angle and
+the logarithm of $h(e^{it})e^{-it}$, and applying the product,
+composition, and inverse-function estimates in $C^{1,\alpha}$.
+All denominators stay uniformly away from zero.
+
+Let $H$ be the periodic Hilbert transform, with zero mean and
+the sign for which it supplies the imaginary part of an analytic
+function from its real part. It is bounded on $C^\alpha$.
+For completeness, subtract the value at the evaluation point
+in its cotangent-kernel formula; splitting at the distance
+between two evaluation points bounds the H\"older seminorm by
+$C(\alpha^{-1}+(1-\alpha)^{-1})$ times the input seminorm.
+It commutes with differentiation and has the corresponding
+bound on $C^{1,\alpha}$.
+
+Seek a real mean-zero angle correction $u$ satisfying
+\[
+ u=H[\ell(t+u(t))].
+\]
+Use the closed set $\|u\|_{C^{1,\alpha}}\le M$, where
+$M=C_\alpha\|\ell\|_{C^{1,\alpha}}<1/4$, with a sufficiently
+large fixed coefficient, but give this set the $C^\alpha$ metric.
+The set is complete: a $C^\alpha$ limit with these uniform
+derivative bounds is still $C^{1,\alpha}$ with the same bound,
+by compactness of the derivatives and the fundamental theorem
+of calculus. The Hilbert-transform and composition estimates
+show that the displayed map preserves the set for small $\ell$.
+For two inputs use
+\[
+ \ell(t+u)-\ell(t+v)
+  =(u-v)\int_0^1\ell'(t+v+\lambda(u-v))\,d\lambda.
+\]
+The intervening angle maps are uniformly Lipschitz. H\"older
+product and composition bounds therefore give Lipschitz
+constant $C_\alpha\|\ell\|_{C^{1,\alpha}}<1$ in the
+$C^\alpha$ metric. The contraction theorem supplies the
+required small $C^{1,\alpha}$ solution.
+
+Let $G$ be analytic in the disk with boundary real part
+$\ell(t+u(t))$, boundary imaginary part $u(t)$, and real $G(0)$.
+Then $f(z)=z\exp G(z)$ has the prescribed boundary curve,
+$f(0)=0$, and $f'(0)>0$. The norm bounds for $G$ give the
+displayed derivative estimate; all derivatives extend
+continuously to the boundary. Poisson extension preserves the
+$C^\alpha$ class on the closed disk: subtract the value at the
+nearest boundary point and split the Poisson integral at angular
+distance $1-|z|$ to bound the radial error by
+$C_\alpha(1-|z|)^\alpha$; angular differences follow by translation.
+Apply this to the boundary derivative of $G$.
+If the neighborhood is small,
+$\|f'-1\|_\infty<1/4$, so integration along disk chords proves
+univalence and uniform bi-Lipschitz bounds. The boundary
+homeomorphism and the argument principle identify its image
+with $D$. In the symmetric case $\ell$ is even. Uniqueness
+makes $u$ odd, hence $u(\pi)=0$, and $\rho(\pi)=1$ gives
+$f(-1)=-1$.
+\end{proof}
+
+
+\begin{proposition}[Uniform small far factors and spectral derivatives]
+\label{prop:small-far-factors}
+Under the hypotheses of Lemma~\ref{lem:unsquared-divided-difference}, suppose that
+$\|g_0P_-\|_{\mathcal W^{1+\alpha}}$ and
+$\|P_+\|_{\mathcal W^{K+3}}$ are sufficiently small.
+Assume also the preceding squared-curve neighborhood, so that
+the normalized $f$ and its inverse have uniform bi-Lipschitz bounds.
+For the actual far factors
+\[
+ p_w(z)^2=A_t(z^2)+wzB_t(z^2),\qquad t=w^2-1,
+\]
+one has, for $K\ge0$,
+\[
+ \sum_{j\ge0}(1+j)^K\left(
+  \|[s^j](A_t(s)-1)\|_{H^\infty(D)}
+       +\|[s^j]B_t(s)\|_{H^\infty(D)}\right)
+ \le C_K\|P_+\|_{\mathcal W^{K+3}}.
+\]
+The constants are uniform on a sufficiently small fixed neighborhood.
+\end{proposition}
+\begin{proof}
+For a boundary value $w=a(\eta)$ the positive Wiener factor is
+\[
+ \log p_{a(\eta)}(z)=\Pi_{>0,z}\log F(z,\eta).
+\]
+This can be checked on a sufficiently thin exterior circle:
+$(a_0(z)-a_0(\eta))/z$ has a zero-free exterior logarithm
+with no positive Laurent part, and the positive part of the
+remaining logarithm is the logarithm of the normalized far factor.
+The previously proved collar separates its zeros from that circle.
+Taking its boundary limit gives the displayed identity in the
+two-variable Wiener algebra.
+
+The function $F_-$ is close to one and coanalytic in both
+variables. Its logarithm contributes nothing to $\Pi_{>0,z}$.
+Neumann series in the submultiplicatively weighted algebra
+$\mathcal W_{\mathrm{pos},z}^K$, followed by exponentiation, give
+\[
+ \|p_{a(\eta)}(z)-1\|_{\mathcal W_{\mathrm{pos},z}^K}
+       \le C_K\|P_+\|_{\mathcal W^{K+2}}.
+\]
+In particular this bounds the sum of the weighted suprema of
+the individual positive-$z$ coefficients on the spectral boundary.
+Their holomorphic continuation in $w$, established in the collar
+lemma, and the maximum principle give the same bound on the two
+closed lobes $\{w:w^2-1\in\overline D\}$.
+
+For the odd coefficients we also need a spectral derivative bound.
+Differentiating the factor on an exterior circle gives
+\[
+ \partial_w\log p_w(z)=-\Pi_{>0,z}\frac1{a(z)-w}.
+\]
+At $w=a(\eta)$ the reciprocal is
+\[
+ \frac1{a_0(z)-a_0(\eta)}\,F(z,\eta)^{-1}.
+\]
+The first factor has only negative powers of $z$; every one of
+its coefficients has Wiener norm at most $2$ as a function of
+$\eta$. To see this, expand
+$(a_0(z)+a_0(\eta))/(z^2-\eta^2)$ geometrically in $z^{-2}$.
+The odd coefficients are partial sums of square-root binomial
+coefficients times powers of $\eta$, and the even coefficients
+are $a_0(\eta)$ times a power of $\eta$.
+
+Subtract $F_-^{-1}$ from $F^{-1}$: its product with the base
+reciprocal is coanalytic and disappears under the positive
+projection. For any remaining series $E$ the coefficient count
+just described gives
+\[
+ \left\|\Pi_{>0,z}
+       \frac{E(z,\eta)}{a_0(z)-a_0(\eta)}
+       \right\|_{\mathcal W_{\mathrm{pos},z}^K}
+ \le C_K\|E\|_{\mathcal W_{\mathrm{pos},z}^{K+1}}.
+\]
+Only positive input degrees $j$ contribute, and at most $j$
+base coefficients can contribute for each such degree. The
+series is absolutely convergent in the indicated norm.
+For the fixed Laurent-polynomial background it also agrees
+with the exterior-circle projection: the positive Laurent
+coefficients decay exponentially on its fixed collar, so the
+radial limit can be taken term by term. Apply the estimate to
+$E=F^{-1}-F_-^{-1}$ and use the preceding Neumann bounds. It
+follows that
+\[
+ \|\partial_w p_{a(\eta)}(z)\|_{\mathcal W_{\mathrm{pos},z}^K}
+       \le C_K\|P_+\|_{\mathcal W^{K+3}}.
+\]
+The same holds for $\partial_w(p_w^2)$, and the maximum principle
+again bounds the sum of coefficient suprema throughout both lobes.
+
+For an odd coefficient $Q_j(w)=[z^j]p_w(z)^2$, parity gives
+$Q_j(0)=0$. There is a path in the corresponding closed lobe
+from $0$ to $w$ of length at most $C|w|$. Indeed, if
+$w^2-1=f(u)$, use the path
+$w(v)=\sqrt{1+f(-1+v(u+1))}$, $0\le v\le1$, with the
+continuous choice of sign. Bi-Lipschitz bounds give
+$|1+f(-1+v(u+1))|\asymp v|u+1|$, so integration of its
+derivative bounds the length by $C\sqrt{|u+1|}\le C|w|$.
+Consequently $|Q_j(w)/w|\le C\sup|Q'_j|$.
+The even coefficient bound supplies $A_t-1$, and the odd
+coefficient bound just proved supplies $B_t$. Their weighted
+sums are exactly the asserted estimate.
+\end{proof}
+
+
+\begin{proposition}[The two-level isomorphism estimate]
+\label{prop:two-level-isomorphism}
+Fix $\alpha=1/8$ and split the finite real Laurent background as
+$P=P_-+P_+$, with strictly negative and strictly positive powers,
+respectively, and with $P_-(-1)=P_+(-1)=0$. There is a sufficiently
+small $\gamma>0$ such that the bounds
+\[
+\begin{split}
+ &\|h-s\|_{\mathcal W^{1+\alpha}}<\gamma,\qquad
+   \|P_-\|_{\mathcal W^0}<\gamma,\\
+ &\|P_-/g_0\|_{\mathcal W^0}<\gamma,\qquad
+   \|g_0P_-\|_{\mathcal W^{1+\alpha}}<\gamma,\qquad
+   \|P_+\|_{\mathcal W^4}<\gamma
+\end{split}
+\]
+imply that the actual operator
+$\mathcal A_gx=(\mathcal J_g(J^0)^{-1}x)\circ f$ extends to
+compatible isomorphisms on $H^{-1/4}$ and $H^{-1/8}$.
+Their norms and inverse norms are bounded independently of the
+degree of $P$.
+\end{proposition}
+\begin{proof}
+The proof applies at each of $r=3/4,7/8$, with $s=r-1$.
+For a one-variable multiplier use the coefficient norm
+\[
+ \|M\|_{\mathcal W_{\rm pos}^r}
+   =\sum_{n\in\mathbb Z}(1+\max(n,0))^r|M_n|.
+\]
+It is submultiplicative. The endpoint extension lemma gives
+\begin{equation}\label{eq:one-sided-density-product}
+ \|\Pi_+(M Ey)\|_{H^r}
+       \le C_r\|M\|_{\mathcal W_{\rm pos}^r}\|y\|_{H^r},
+ \qquad
+ \|M Ey\|_{L^2}\le C_r\|M\|_{\mathcal W^0}\|y\|_{H^r}.
+\end{equation}
+Indeed a coanalytic multiplier cannot turn the negative part of
+$Ey$ positive, and its backward shifts on analytic $H^r$ are
+contractions. A positive shift by $j$ on two-sided $H^r$ costs
+at most $C_r(1+j)^r$. This proves both assertions by summation.
+
+Put $R=g/g_0$ and $m=R/h'$. The assumptions imply
+\[
+ \|m-1\|_{\mathcal W_{\rm pos}^r}\le C_r\gamma,\qquad
+ \|(h-s)_+\|_{\mathcal W^{r+1}}\le C_r\gamma .
+\]
+Here are the Fourier details. The negative part
+$1+P_-/g_0$ of $R$ is close to one in $\mathcal W^0$.
+Writing $P_+=(1+s)Q$ gives $P_+/g_0=sg_0Q$ and
+$\|Q\|_{\mathcal W^r}\le C_r\|P_+\|_{\mathcal W^{r+1}}$.
+The part of $h-s$ without positive-background factors,
+$2sg_0P_-+sP_-^2$, is nonpositive. Every other term is a
+product containing $P_+$, so its positive weighted norm of
+order $r+1$ is bounded by $C_r\|P_+\|_{\mathcal W^{r+2}}$,
+using the bounded unweighted norms of the coanalytic factors.
+Thus $h'-1$ is small in $\mathcal W_{\rm pos}^r$; Neumann
+inversion proves the bound for $m$.
+
+Consider the operator on analytic $H^r$
+\[
+ By=\Pi_+s^{-1}C_h[s m Ey].
+\]
+Its direct projection is $\Pi_+m Ey$, within $C_r\gamma$ of $y$
+by \eqref{eq:one-sided-density-product}. The positive part of
+the density $s m Ey$ is in $H^r$ with bounded norm. Apply
+the small $H^r$ estimate for $C_h-\Pi_+$ to that part, and the
+$L^2\to H^r$ estimate for $\Pi_+C_h\Pi_-$ to its negative part.
+Lemma~\ref{lem:wiener-cauchy-projections} then gives
+\[
+ \|B-I\|_{H^r\to H^r}\le C_r\gamma .
+\]
+Consequently $B$ is an isomorphism for small $\gamma$.
+
+We explain why this is the required bare Cauchy isomorphism,
+rather than merely a projected estimate. Let
+$\mathcal R_r=C_hH^r(\T)$. The small norm of $C_h-\Pi_+$ implies
+that $\Pi_+:\mathcal R_r\to H^r$ is an isomorphism: on analytic
+inputs $\Pi_+C_h$ is close to the identity, while a range vector
+$v$ with $\Pi_+v=0$ satisfies $v=(C_h-\Pi_+)v$ and is zero.
+Constants are fixed by $C_h$. Therefore
+\[
+ \pi(v)=\Pi_+s^{-1}v
+\]
+identifies $\mathcal R_r$ modulo constants with analytic $H^r$.
+The same range argument on $L^2$ shows that an $L^2$ range
+vector whose positive part is in $H^r$ actually lies in
+$\mathcal R_r$. This applies to the densities just considered.
+
+Composition by $h^{-1}\circ f$ identifies $\mathcal R_r$ with
+analytic $H^r$, preserving constants, with uniform bounds in
+both directions. The boundary maps are uniformly bi-Lipschitz.
+For $0<r<1$ their action on $H^r(\T)$ follows from the
+equivalent norm
+\[
+ \|v\|_{L^2}^2+
+  \int_\T\int_\T
+     \frac{|v(z)-v(\zeta)|^2}{|z-\zeta|^{1+2r}}
+                       \,|dz|\,|d\zeta|,
+\]
+by change of variables. Equivalence with the Fourier norm
+follows by expanding in Fourier modes. The range identification
+then follows from the Cauchy formula, first for analytic
+polynomials in the disk coordinate and then by density.
+
+Differentiation in the physical spectral variable, followed by
+composition with $f$, acts as $Z\mapsto Z'/f'$ in the disk.
+Differentiation is an isomorphism from analytic $H^r$ modulo
+constants onto $H^{r-1}$. Analytic $H^\infty$ multipliers are
+bounded on $H^s$ for $s<0$: this follows from the equivalent
+weighted Bergman norm
+\[
+ \int_{\mathbb D}|X(u)|^2(1-|u|^2)^{-1-2s}\,dA(u).
+\]
+The equivalence is immediate by integrating each monomial
+and comparing its beta-integral weight with $(k+1)^{2s}$.
+Both $f'$ and $1/f'$ are uniformly bounded here.
+
+Define the bare operator by
+\[
+ \mathcal J_{\rm bare}V
+  =-2\,\partial_t\mathcal C_\Gamma[(sgV/h')\circ h^{-1}].
+\]
+Since $y=\Pi_+g_0V$ satisfies $x_k=-2(k+1)y_k$ when
+$x=J^0V$, the preceding isomorphisms factor
+$(\mathcal J_{\rm bare}(J^0)^{-1}x)\circ f$
+into invertible maps with uniform bounds. This proves the bare
+isomorphism on $H^s$. The same proof of boundedness, without
+requiring a multiplier near one, shows that the differentiated
+Cauchy transform of a density $sM Ey$ has $H^s$ output norm
+at most $C_r\|M\|_{\mathcal W_{\rm pos}^r}\|y\|_{H^r}$.
+
+It remains to retain the actual exterior factors. Write
+$A_t(s)=\sum A_j(t)s^j$ and $B_t(s)=\sum B_j(t)s^j$ in
+Proposition~\ref{prop:boundary-cauchy-jacobian}.
+The $A$ part of the actual Jacobian is
+$\sum_j A_j(t)\mathcal J_{\rm bare}(s^jV)(t)$.
+The shift costs at most $C_r(1+j)^r$ in the preceding density
+bound. Its coefficient is an analytic multiplier on $H^s$
+after composition with $f$, so it costs only its $H^\infty(D)$
+norm.
+
+For the $B$ part use the exact identities
+$h+t+2=2(h+1)-(h-t)$ and $h+1=sg^2$.
+The first resulting term is the differentiated Cauchy transform
+with density $s^{j+2}g^2V/h'=s^{j+2}gm Ey$.
+The general density bound applies with $M=s^{j+1}gm$, at
+cost at most $C_r(1+j)^r$. The second term is the
+undifferentiated Cauchy transform with density $s^{j+1}V/h'$.
+It is bounded from $y\in H^r$ to $L^2$, by the second assertion
+of Lemma~\ref{lem:endpoint-extension}, boundedness of $C_h$ on
+$L^2$, and the bounded multiplier $1/h'$. The boundary
+composition is bounded on $L^2$, which embeds in $H^s$.
+This bound does not grow with $j$.
+
+Proposition~\ref{prop:small-far-factors}, used with $K=r\le1$,
+now proves
+\[
+ \|\mathcal A_g-\mathcal A_{{\rm bare},g}\|_{H^s\to H^s}
+       \le C_r\|P_+\|_{\mathcal W^4}\le C_r\gamma .
+\]
+Neumann inversion, after decreasing the single fixed $\gamma$,
+gives the asserted actual isomorphisms for both chosen exponents.
+All formulas agree on polynomial inputs and extend compatibly.
+The inverse on the stronger space agrees with the weaker inverse
+by uniqueness in the weaker space.
+\end{proof}
+
+
+\section{The forcing and growing finite systems}
+\begin{proposition}[The scattering generating function]
+\label{prop:fixed-background-forcing}
+With $\zeta=s^{-1}$ set
+\[
+ S_t(s)=\frac{\zeta A_t(\zeta)+\zeta^2B_t(\zeta)g(\zeta)}
+                  {h(\zeta)-t}.
+\]
+The odd part of $p_w(z^{-1})^2/(g(z^{-2})-wz)$ is
+$wzS_t(z^2)$. Consequently the corner identity gives
+$M_m(t)=[s^m]S_t(s)$ up to its finite inverse-row error.
+\end{proposition}
+\begin{proof}
+Multiply numerator and denominator by $g(z^{-2})+wz$ and
+retain the odd powers of $z$. The exact row-truncation identity
+in Lemma~\ref{lem:corner-scattering-factor} supplies the error.
+The next lemma bounds this error on the whole closed domain,
+including $w=0$.
+\end{proof}
+
+\begin{lemma}[The scattering approximation on the whole closed domain]
+\label{lem:closed-domain-scattering}
+For each fixed polynomial background in the preceding small
+neighborhood, there are $C>0$ and $0<\kappa<1$ such that
+\[
+ \sup_{t\in\overline D}|M_m(t)-[s^m]S_t(s)|\le C\kappa^m,
+\]
+where $S_t$ is the generating function in
+Proposition~\ref{prop:fixed-background-forcing}. The same bound
+holds for every Taylor coefficient after composition with $f$.
+\end{lemma}
+\begin{proof}
+Use the scaled finite-section radius $\rho>1$ from
+Proposition~\ref{prop:boundary-polynomial-stability}.
+Choose $1<r_0<R^2<\rho$ inside its squared-variable collar.
+For $t$ in the closed interior of $h(r_0\T)$, the far-factor
+function $F_w$ is holomorphic on $|z|<R^{-1}$ and uniformly bounded
+on that circle: any uncancelled physical zero has $|z|\le\sqrt{r_0}$
+in the original exterior variable. Thus $|f_j|\le CR^j$.
+The row truncation argument now gives low-row errors bounded by
+$C(R/\rho)^N$. In the exact corner identity in
+Lemma~\ref{lem:corner-scattering-factor}, multiplication by the
+finitely many tail coefficients bounds the scattering error by
+$C(R^2/\rho)^N$.
+
+This error is holomorphic in $w$ on a fixed neighborhood of
+$\mathcal W$. For even $N$ it is odd in $w$. Division by $w$
+therefore preserves an exponential bound on $\mathcal W$: near zero
+use Cauchy's estimate on a fixed small circle, and elsewhere divide
+by a fixed lower bound for $|w|$. With $N=2m+2$, the parity formula
+for $S_t$ gives the assertion, including $t=-1$. The coefficient
+claim follows from the supremum bound on the unit disk after composition.
+\end{proof}
+
+
+\begin{lemma}[Coefficients of a Cauchy pole approaching the contact point]
+\label{lem:moving-cauchy-coefficients}
+Suppose $f:\mathbb D\to D$ extends to a $C^{1,\beta}$
+diffeomorphism of the closed disk for some $\beta>0$, is bi-Lipschitz,
+and satisfies $f(-1)=-1$, $f'(-1)>0$.
+If $a\in D$ has $|a+1|\le C_0x$ and
+$\operatorname{dist}(a,\partial D)\ge c_0x$, with $0<x<x_0$,
+then
+\[
+ \left|[u^k]\frac1{a-f(u)}\right|\le C e^{C_1kx}.
+\]
+The same estimate, multiplied by $C/x$, bounds the derivative of
+this coefficient with respect to $a$ on a smaller such region.
+It also holds with a numerator $H(f(u))$, uniformly for a bounded
+family of functions $H$ holomorphic on a fixed neighborhood of
+$\overline D$. The exponential constant $C_1$ depends only on the
+bi-Lipschitz bounds and $C_0,c_0$, not on the H\"older seminorm.
+\end{lemma}
+\begin{proof}
+Put $v=f^{-1}(a)$. The bi-Lipschitz bounds imply
+$|v+1|\le Cx$ and $1-|v|\ge cx$.
+Remove the simple pole:
+\[
+ \frac1{a-f(u)}=\frac1{f'(v)(v-u)}+H_a(u).
+\]
+The remainder is holomorphic in the disk and is bounded there by
+$C|u-v|^{\beta-1}$, by the H\"older Taylor remainder and the lower
+Lipschitz bound. Its boundary $L^1$ norm is uniformly bounded,
+so every Taylor coefficient is bounded by $C$. The pole term has
+coefficient $1/(f'(v)v^{k+1})$, bounded by $Ce^{C_1kx}$.
+Cauchy's estimate in the parameter $a$, on a disk of radius $cx$
+contained in $D$, gives the derivative bound, with a possibly larger
+$C_1$. To include a numerator, divide
+$H(t)=H(a)+(t-a)\widetilde H_a(t)$; the divided differences are
+uniformly bounded and holomorphic near $\overline D$.
+\end{proof}
+
+
+\begin{proposition}[The growing conformal forcing bound]
+\label{prop:conformal-forcing-bound}
+For every fixed polynomial background in the preceding small
+neighborhood there are $\theta_0>0$ and $C_P$ such that
+\begin{equation}\label{eq:conformal-forcing-coefficients}
+ |[u^k]M_m(f(u))|\le C_Pm^{-3/2},
+ \qquad 0\le k\le\theta_0m.
+\end{equation}
+Moreover $\theta_0$ can be chosen uniformly on a sufficiently small
+fixed $\mathcal W^{1+\alpha}$ neighborhood of the squared unit
+circle, for any fixed $\alpha>0$. The constants $C_P$ and the
+threshold for $m$ may still depend arbitrarily on the fixed background.
+Consequently, for $-1/2<s<0$ and fixed $0<\theta<\theta_0$,
+\[
+ \|P_{\lfloor\theta m\rfloor}(M_m\circ f)\|_{H^s}
+       \le C_{P,s}m^{s-1}.
+\]
+\end{proposition}
+\begin{proof}
+Lemma~\ref{lem:quantitative-conformal-coordinate} gives a
+$C^{1,\alpha}$ normalized map with $\|f'-1\|_\infty<1/4$ and
+uniform bi-Lipschitz bounds. Real symmetry gives $f(-1)=-1$ and
+$f'(-1)>0$.
+
+It is enough, by Lemma~\ref{lem:closed-domain-scattering}, to bound
+the double coefficient of $S_{f(u)}(s)$. Continue it from the $s$ disk
+to a thin slit annulus $1\le|s|\le1+\delta$, cut along
+$[-1-\delta,-1]$. Its only nonanalyticity there is the square root.
+The continued function $h(s^{-1})$ remains within $C\delta$ of
+$\Gamma$ on this annulus: its derivative is continuous across the
+circle away from the cut and has a continuous limiting value at the
+contact point on both sides. By decreasing $\delta$ for the fixed
+background, the derivative bound here can be chosen absolute.
+Choose $R=1-L\delta$, with a fixed sufficiently large $L$ depending
+only on the bi-Lipschitz constants of $f$. Then $f(\{|u|\le R\})$
+stays farther than $C\delta$ from $\Gamma$. No denominator zero
+is crossed in the slit annulus for these $u$.
+
+Deforming the $s$ coefficient contour gives an outer-circle term
+and an integral of the two boundary values on the cut. The outer
+term has $u^k$ coefficient at most
+\[
+ C_P(1+\delta)^{-m}R^{-k}.
+\]
+This is exponentially small if $k\le\theta_0m$, with
+$\theta_0<1/(4L)$ and $\delta$ sufficiently small.
+
+On the cut write $s=-1-x$, $\zeta=-1/(1+x)$, and
+\[
+ g_\pm=P(\zeta)\pm i\sqrt x,\qquad
+ t_\pm=\zeta g_\pm^2-1.
+\]
+Since $P(\zeta)=O_P(x)$, these points satisfy
+\[
+ t_\pm=-1+x+O_P(x^{3/2}),\qquad
+ |t_+-t_-|\le C_Px^{3/2}.
+\]
+They and the segment between them lie in $D$ at distance comparable
+to $x$ from its boundary, after decreasing $\delta$ once more.
+The two numerators in $S_t$ are
+$N_\pm(t)=\zeta A_t(\zeta)+\zeta^2B_t(\zeta)g_\pm$.
+They are uniformly bounded holomorphic functions of $t$ near
+$\overline D$, and $N_+-N_-=O_P(\sqrt x)$ in that norm.
+Split their jump as
+\[
+ \frac{N_+(t)-N_-(t)}{t_+-t}
+ +N_-(t)\left(\frac1{t_+-t}-\frac1{t_--t}\right).
+\]
+Lemma~\ref{lem:moving-cauchy-coefficients}, and its parameter
+derivative on the segment between $t_-$ and $t_+$, bound the
+$u^k$ coefficient of this jump by
+$C_P\sqrt x\,e^{C_1kx}$. This extraction is performed on a circle
+$|u|=R$ smaller than both pole radii, as ensured by the choice of $L$.
+The cut contribution is therefore bounded by
+\[
+ C_P\int_0^\delta x^{1/2}(1+x)^{-m-1}e^{C_1kx}\,dx
+ \le C_Pm^{-3/2}
+\]
+when $k\le\theta_0m$ and $\theta_0<1/(4C_1)$.
+The small circle about the branch point contributes zero in the
+contour deformation, since the boundary values are bounded there
+for $|u|\le R$. This proves \eqref{eq:conformal-forcing-coefficients}.
+
+Only the uniform bi-Lipschitz constants and the fixed small
+$C^1$ neighborhood enter the restrictions on $\theta_0$.
+Lemma~\ref{lem:quantitative-conformal-coordinate} supplies these
+uniformly on the stated $\mathcal W^{1+\alpha}$ neighborhood.
+The slit-annulus width may
+shrink with the particular polynomial; the restrictions on
+$\theta_0$ above do not depend on that width. Finally, summing
+$(k+1)^{2s}m^{-3}$ over $k<\theta m$ proves the Sobolev estimate.
+\end{proof}
+
+
+\begin{corollary}[Explicit parameters]
+\label{cor:explicit-neighborhood-parameters}
+In Proposition~\ref{prop:two-level-isomorphism} one may use
+$\gamma=2^{-1000}$ and bound both operator norms and both inverse
+norms by $2^{100}$. The forcing proportion may be taken as
+$\theta_0=2^{-20}$. Thus
+\[
+ s=-\tfrac14,\qquad \tau=\tfrac18,\qquad \sigma=\tfrac38,
+ \qquad \theta=2^{-10000}
+\]
+satisfy the strict oversampling inequality, with left side less
+than $1/2$. These choices are intentionally inefficient.
+\end{corollary}
+\begin{proof}
+We record a loose constant ledger to make the parameter choices
+checkable. Use the coefficient norms already specified, and the
+periodic H\"older norm
+$\|v\|_\infty+\|v'\|_\infty+[v']_\alpha$ for $C^{1,\alpha}$.
+All the following estimates apply at $r=3/4,7/8$ and $\alpha=1/8$.
+
+In the endpoint lemma, $A_n\le(n+1)^{-1/2}$ gives Schur row
+sums at most $24$ and column sums at most $28$, by splitting
+the displayed sums at $j=k+1$. Thus $\|E\|\le64$ is valid.
+The triangular inverse has squared Hilbert--Schmidt norm at most
+$\sum_{\ell\ge1}\ell^{-3/2}(1+\log\ell)<8$, so its norm is
+at most $8$. In the Cauchy-projection lemma the $L^2$ difference
+is at most $4\delta$; differentiating gives at most $14\delta$
+in the equivalent derivative norm. Interpolation and the Fourier
+weight comparison give $64\delta$ on $H^r$. The off-diagonal
+smoothing constant can be taken as $16$ by its two Neumann
+resolvent factors.
+
+The product estimates in the proof above give, successively,
+\[
+ \|(h-s)_+\|_{\mathcal W^{r+1}}\le20\gamma,\quad
+ \|h'-1\|_{\mathcal W_{\rm pos}^r}\le21\gamma,\quad
+ \|R-1\|_{\mathcal W_{\rm pos}^r}\le5\gamma,\quad
+ \|m-1\|_{\mathcal W_{\rm pos}^r}\le52\gamma.
+\]
+For example, the three positive terms in $h-s$ cost at most
+$16\gamma+12\gamma^2$. The direct, positive-density, and
+negative-density errors in $B-I$ are bounded by
+$3328\gamma$, $16384\gamma$, and $40960\gamma$ respectively.
+The still looser bound $2^{25}\gamma$ therefore suffices.
+
+The remaining norm comparisons can also be bounded generously.
+For the two values of $r$, the elementary sine inequalities give
+\[
+ n^{2r}\le
+ \int_{-\pi}^{\pi}
+  \frac{|e^{int}-1|^2}{|e^{it}-1|^{1+2r}}\,dt
+ \le64n^{2r}\qquad(n\ge1).
+\]
+Splitting the upper integral at $1/n$ proves the upper bound;
+integrating only up to $1/n$ proves the lower bound.
+Thus fractional composition by a circle map with both metric
+and Jacobian bounds at most $2$ costs less than $2^{20}$.
+For $a=-2s\in\{1/2,1/4\}$ the monomial beta weight lies between
+$\tfrac12(k+1)^{-a}$ and $8(k+1)^{-a}$: for the lower bound
+integrate over $0\le1-t\le1/(k+1)$, and for the upper use
+$(1-x)^k\le e^{-kx}$. Analytic multiplier norms consequently
+cost at most $8$ times the supremum norm.
+
+For the conformal coordinate, radial conversion gives
+$\|\ell\|_{C^{1,\alpha}}\le2^{12}\gamma$.
+This follows by first taking the logarithm of
+$h(e^{it})e^{-it}$ and then inverting its angle, whose derivative
+is between $1/2$ and $3/2$. The cotangent-kernel proof bounds
+the Hilbert transform in the two required H\"older norms by
+$2^{20}$. In the fixed-point proof one may take
+$M=2^{24}\|\ell\|_{C^{1,\alpha}}$; composition costs at most
+$6\|\ell\|_{C^{1,\alpha}}$ on this set. It follows that
+$\|f'-1\|_\infty\le2^{40}\gamma$ for $\gamma\le2^{-50}$.
+In particular all the metric and Jacobian bounds used above
+are at most $2$ for the chosen $\gamma$.
+
+The semigroup proof gives
+$\|b_xb_y/(b_x+b_y)\|_{\mathcal W}\le8$ and the associated
+base two-variable kernel norm at most $20$.
+The triangular-indicator argument has bound
+$4n(1+\log n)\le16n^{1+\alpha}$.
+Thus $2^{16}$ bounds both divided-difference constants
+needed here, including positive weights up to order $2$.
+Neumann series, the logarithm and exponential, the derivative
+coefficient count, and the path of length at most $2|w|$
+then bound the weighted sum for $A_t-1,B_t$ by $2^{30}\gamma$.
+
+Combining the preceding bounds in the explicit factorization,
+both bare norms are below $2^{40}$, and the general differentiated
+density bound is below $2^{45}$ times its multiplier norm.
+The actual perturbation, including all coefficient multipliers,
+is below $2^{100}\gamma$. Its product with the bare inverse is
+therefore less than $1/2$ at $\gamma=2^{-1000}$.
+The two actual norms and inverse norms are consequently below
+$2^{100}$.
+
+Finally the forcing proof can use $R=1-32\delta$ for its
+coefficient-extraction circle. After shrinking the collar for
+the fixed background its continued derivatives are bounded by
+$2$. The moving cut poles satisfy $|f^{-1}(a)+1|\le4x$;
+also after the parameter Cauchy estimate their coefficient growth
+can be bounded by $C_Pe^{64kx}$. These choices permit
+$\theta_0=2^{-20}$. The collar width and prefactor may depend
+on the background, as before. Now
+\[
+ 2^{200}(4\cdot2^{-10000})^{1/8}<\tfrac12
+\]
+proves the stated oversampling assertion.
+\end{proof}
+
+
+\begin{lemma}[Oversampling from two Sobolev bounds]
+\label{lem:sobolev-oversampling}
+Suppose $A$ is an isomorphism on $H^s$ and $H^{s+\tau}$, with
+$\tau>0$ and compatible inverses. Write
+$M_s=\|A\|_{H^s\to H^s}$ and
+$K_r=\|A^{-1}\|_{H^r\to H^r}$. If $q\ge h$ and
+\[
+ \varepsilon=M_sK_{s+\tau}
+       \left(\frac h{q+1}\right)^\tau<1,
+\]
+then $P_hAP_q$ has a right inverse with $H^s$ norm at most
+$K_s/(1-\varepsilon)$, whose output has degree less than $q$.
+No small bound for $A-I$ is assumed.
+\end{lemma}
+\begin{proof}
+On $P_hH^s$, set $E=P_hA(I-P_q)A^{-1}P_h$.
+The tail estimate
+$\|(I-P_q)v\|_{H^s}\le(q+1)^{-\tau}\|v\|_{H^{s+\tau}}$
+and the finite-band estimate
+$\|P_hv\|_{H^{s+\tau}}\le h^\tau\|P_hv\|_{H^s}$
+give $\|E\|\le\varepsilon$. Since
+$P_hAP_qA^{-1}P_h=I-E$, the operator
+$P_qA^{-1}P_h(I-E)^{-1}$ is the required right inverse.
+\end{proof}
+
+
+\begin{proposition}[Two explicit analytic estimates would suffice locally]
+\label{prop:sobolev-completion-reduction}
+Fix one polynomial background $P$ as above and numbers
+$0<\theta<\sigma<1/2$, $-1/2<s<0$, and $\tau>0$.
+Let $f$ be the exact conformal map onto $D$, with $f(0)=0$ and
+$f'(0)>0$, and define on polynomials
+\[
+ \mathcal A_gx=(\mathcal J_g((J^0)^{-1}x))\circ f.
+\]
+Assume the following two estimates, established above on the
+specified small neighborhood and with the explicit parameters.
+\begin{enumerate}
+\item $\mathcal A_g$ extends to compatible isomorphisms on $H^s$
+and $H^{s+\tau}$, with
+\[
+ \|\mathcal A_g\|_{H^s}\,
+ \|\mathcal A_g^{-1}\|_{H^{s+\tau}}
+            (\theta/\sigma)^\tau<1.
+\]
+\item For $h=\lfloor\theta m\rfloor$, the exact forcing satisfies
+\[
+ \|P_h(M_m\circ f)\|_{H^s}\le C_Pm^{s-1}.
+\]
+\end{enumerate}
+Then, for all sufficiently large $m$, real corrections supported at
+$g_{-j}$, $m-\lfloor\sigma m\rfloor+1\le j\le m$, make the first
+$h$ jets vanish exactly. Their preconditioned vectors satisfy
+$\|x\|_{H^s}=O_P(m^{s-1})$, so all the coefficient and geometry
+conclusions of Corollary~\ref{cor:negative-sobolev-correction} hold.
+\end{proposition}
+\begin{proof}
+Lemma~\ref{lem:sobolev-oversampling} gives uniformly bounded right
+inverses for the first $h$ rows and $q=\lfloor\sigma m\rfloor$
+columns of the preconditioned limiting operator. By
+Corollary~\ref{cor:boundary-jacobian-replacement}, the actual finite
+linear maps differ in $H^s$ operator norm by an exponentially small
+quantity times a fixed power of $m$. Indeed
+\eqref{eq:base-preconditioner} bounds the input coefficient norm by
+$C_sq^{-s}\|x\|_{H^s}$, while $h$ uniformly bounded output
+coefficients have $H^s$ norm at most $C_sh^{s+1/2}$ times their
+maximum. A Neumann correction therefore supplies uniformly bounded
+right inverses $B_m$ for the finite maps.
+
+Write the exact finite equations as $b_m+A_mx+N_m(x)=0$.
+Corollary~\ref{cor:conformal-feedback-bound} and the same norm
+conversions bound the nonlinear remainder, and its difference on
+a ball, by an exponentially small quantity times fixed powers of
+$m$ and the corresponding quadratic expression in $x$. The
+difference estimate also follows directly by subtracting the
+convergent separated-corner resolvent series. On a ball of radius
+$C m^{s-1}$, the map
+\[
+ x\longmapsto-B_mb_m-B_mN_m(x)
+\]
+therefore maps the ball into itself and has Lipschitz constant less
+than $1/2$ for large $m$, after increasing the fixed $C$.
+Its fixed point solves the exact equations. Since the background
+and the normalized conformal map have real coefficients, all these
+maps preserve real coefficient sequences, and the fixed point is real.
+The odd-pencil identity turns vanishing jets into the asserted
+characteristic-polynomial divisibility. Invisible restoration and
+the preceding corollary give the final bounds.
+\end{proof}
+
+
+\section{Exact selection and the infinite symbol}
+The following gives an exact selection rule. Its purpose is to remove
+any dependence on an unspecified choice of a nonlinear root. The
+algorithm is not intended for practical computation.
+
+\begin{theorem}[A continuous counterexample]
+\label{thm:counterexample}
+There is a computably specified continuous complex scalar symbol $a$
+with neither separate one-sided annular holomorphic extension and an
+increasing sequence $n_j$ such that $T_{n_j}(a)$ has both $1$ and $-1$
+as eigenvalues of algebraic multiplicity at least
+$\lfloor\theta(n_j-1)/2\rfloor$, where $\theta=2^{-10000}$.
+Both points are outside $a(\T)$. In particular its empirical
+eigenvalue measures do not converge to $a_*m$.
+\end{theorem}
+\begin{proof}
+Fix
+\[
+ \gamma=2^{-1000},\quad \theta=2^{-10000},\quad
+ \sigma=\tfrac38,\quad m_0=2^{10000},\quad
+ \kappa=2^{-1010},\quad \beta_j=\gamma\,2^{-j-4}.
+\]
+Start with $P_-=P_+=0$. At stage $j$, with the last chosen order
+$m_{j-1}$, first add the positive packet
+\[
+ Q_j(s)=\tau_j s^{m_{j-1}}(1+s),\qquad
+ \tau_j=\kappa\,2^{-\lceil\sqrt{2m_{j-1}+1}\rceil}.
+\]
+We will always choose $m_j\ge8m_{j-1}$, divisible by eight.
+The new packet vanishes at $-1$.
+
+All positive costs fit their stage budgets. Its $\mathcal W^4$ norm
+is bounded by $C\tau_j(1+m_{j-1})^4$. The same bound, with a fixed
+larger constant, bounds its change to the squared curve in
+$\mathcal W^{1+\alpha}$, $\alpha=1/8$. Indeed
+$g_0(1+s)$ belongs to that algebra, and the old finite polynomial
+has support of magnitude at most $2m_{j-1}+1$ and bounded
+$\mathcal W^0$ norm. Expand the square and use the weighted
+convolution inequality. The constant $2^{100}$ is more than
+sufficient in these estimates. For $x\ge m_0$ the function
+$(1+x)^4 2^{-\sqrt{2x+1}}$ decreases and its value at $8x$
+is less than a quarter of its value at $x$. Its initial value
+is smaller than the required bound for $\beta_1$ by the displayed
+choices. Thus each positive $\mathcal W^4$ cost and squared-curve
+cost is strictly less than $\beta_j$, uniformly in the subsequent
+choices of orders.
+
+Hold the resulting background $P$ fixed. For each prospective
+$m\ge8m_{j-1}$ divisible by eight put
+$q=3m/8$ and $h=\lfloor\theta m\rfloor$.
+Let $v=(v_0,\ldots,v_{q-1})$ be real and set
+\[
+ L_v(s)=s^{-m}\sum_{d=0}^{q-1}v_ds^d,\qquad
+ D_v(s)=L_v(s)-L_v(-1)K_m(s).
+\]
+Use the exact $K_m$ in Lemma~\ref{lem:localized-restoration}.
+Require the first $h$ coefficients in $t=w^2-1$ of
+\[
+ \frac{\det(wI-T_{2m+1}(z(g+L_v)(z^2)))}{w}
+\]
+to vanish. These are $h$ real polynomial equations in the $q$
+variables $v_d$. There is no division ambiguity: the odd Toeplitz
+symbol makes the characteristic polynomial odd, and its quotient
+by $w$ is a polynomial in $w^2$, hence in $t$.
+The coefficients of these equations are computable from the
+current finite background and the rational binomial coefficients.
+
+Put $x=J^0v$ and impose also the strict inequalities
+\[
+ R_1=\sum_{k<q}\frac{|x_k|}{k+1}<m^{-19/16},\qquad
+ R_{1/2}=\sum_{k<q}\frac{|x_k|}{\sqrt{k+1}}<m^{-15/16}.
+\]
+Require, separately, each of the following increments to be
+strictly below $\beta_j$:
+\[
+ \|D_v\|_{\mathcal W^0},\qquad
+ \|D_v/g_0\|_{\mathcal W^0},\qquad
+ \|g_0D_v\|_{\mathcal W^{1+\alpha}},\qquad
+ \|s(g+D_v)^2-sg^2\|_{\mathcal W^{1+\alpha}}.
+\]
+The last norm may be certified by the triangle bound obtained
+from $2sg_0D_v+2sPD_v+sD_v^2$.
+
+These conditions have regular solutions for all sufficiently
+large $m$. The two-level theorem, forcing bound, and oversampling
+lemma give the local completion with
+$\|x\|_{H^{-1/4}}=O_P(m^{-5/4})$.
+Thus $R_1=O_P(m^{-5/4})$ and $R_{1/2}=O_P(m^{-1})$, which
+satisfy both strict bounds eventually. Conversely the stated
+strict bounds alone imply, by the restoration estimates,
+\[
+ \|D_v\|_{\mathcal W^0}=O(m^{-15/16}),\quad
+ \|g_0D_v\|_{\mathcal W^{1+\alpha}}=O(m^{-1/16}),\quad
+ \|D_v/g_0\|_{\mathcal W^0}
+       =O(m^{-3/16}\sqrt{\log(m+1)}).
+\]
+For the third bound use $H^{3/4}(\T)\subset\mathcal W^0$.
+The squared-curve increment is bounded by
+$C_P(m^{-1/16}+m^{-3/4})$. Hence the open norm budgets hold
+eventually as well.
+
+The polynomial equations have full row rank at the supplied
+solutions. In the local completion proof their Jacobian differs
+by an exponentially small operator from a map with uniformly
+bounded right inverse. At a zero jet, multiplication by
+$\det(H-tU)$ and composition with $f$ induce invertible
+triangular maps on the first $h$ jets. The original polynomial
+equations therefore have the same full row rank.
+
+Here is the deterministic selection rule. Enumerate all finite
+rational encodings consisting of an admissible
+$m$, a subset of $h$ coordinates, rational values for the other
+coordinates, a rational cube $B(c,r)$ in the selected coordinates,
+and a rational square matrix $K$. If $F$ is the resulting square
+polynomial system, seek strict interval certificates
+\[
+ \sup_{B(c,r)}\|I-KDF\|_\infty<\tfrac12,\qquad
+ \|KF(c)\|_\infty<r/2.
+\]
+Also certify both $R$ bounds and all four norm budgets throughout
+the cube. To fix the order completely, write each rational in
+reduced form with positive denominator, list the coordinate subset
+in increasing order, and list matrix entries in row order. The height
+of an encoding is the maximum of $m$ and the absolute values of all
+its integer numerators and denominators. In round $N$ inspect all
+encodings of height at most $N$ in lexicographic order, with absolute
+coefficient-enclosure error at most $2^{-N}$, and select the first
+one whose strict certificates succeed. Each round is finite.
+Use tail-enclosure tolerance at most $\min(2^{-N},\beta_j/8)$.
+The displayed estimates make $z\mapsto z-KF(z)$ a contraction
+of the cube into itself. They also imply that $K$ is invertible.
+Its unique fixed point is the selected exact root, and the
+contraction iteration specifies that root as a computable real vector.
+
+The coefficients remain computable by induction. The explicit stage
+budgets also give a computable uniform modulus of convergence for
+the final Fourier series. All norm certificates are computable. For a restored polynomial
+of maximum degree magnitude $N_0$, the exact equality $D_v(-1)=0$
+and the binomial recurrences give, for $n>2N_0$,
+\[
+ |[s^{-n}]g_0D_v|\le 8N_0\|D_v\|_{\mathcal W^0}n^{-5/2},
+ \qquad
+ |[s^{-n}]D_v/g_0|\le 8N_0\|D_v\|_{\mathcal W^0}n^{-3/2}.
+\]
+Finite sums and integral tail bounds therefore give upper
+enclosures of the two infinite norms. More explicitly, past
+$J>2N_0$ their respective omitted norm tails are at most
+$128N_0\|D_v\|_{\mathcal W^0}J^{-3/8}$ and
+$16N_0\|D_v\|_{\mathcal W^0}J^{-1/2}$.
+The constants follow from $A_n\le(n+1)^{-1/2}$ and the
+first-difference recurrences for $A_n$ and $\binom{1/2}{n}$.
+Use an enclosure tolerance
+less than a quarter of the stage budget. The remaining terms
+are finite polynomial coefficient norms. The cancellation in
+$D_v$ is structural and holds throughout every cube, so this
+tail estimate does not use an approximately zero endpoint value.
+
+The search terminates. At a regular root supplied above some
+$h$ columns of the Jacobian form an invertible matrix. By the
+implicit-function theorem the other coordinates may be chosen
+rationally nearby while preserving a root and the strict budgets.
+A sufficiently small rational cube and a sufficiently accurate
+rational inverse preconditioner satisfy both contraction
+inequalities. Refining the coefficient and tail enclosures
+eventually certifies all the strict conditions. The dovetailed
+search reaches such a certificate in a finite round.
+
+Choose this $m$ as $m_j$, add its exact $D_v$ to $P_-$, and
+continue. The sums of the positive and negative stage costs are
+smaller than $\gamma/8$. Thus all finite backgrounds remain
+strictly within the neighborhood of the operator theorem:
+the three negative norms and the positive $\mathcal W^4$ norm
+are controlled separately, and both types of squared-curve
+increments have summable bounds. This proves the induction.
+
+The resulting series converges in $\mathcal W^0$ to a continuous
+$g$, hence to a continuous $a(z)=zg(z^2)$.
+Every later change is invisible to a previously selected
+$T_{2m_j+1}(a)$. The next positive packet starts at Fourier
+frequency $2m_j+1$ in $a$; the next negative correction starts
+beyond $4m_j$ in the $g$ variable; and the current restoring
+packet starts at $g_{-m_j-1}$. All lie outside the diagonals
+used by the previously fixed section. Its exact characteristic
+factor $(w^2-1)^{\lfloor\theta m_j\rfloor}$ therefore persists
+in the final symbol.
+
+The positive coefficient at $g_{m_{j-1}}$ is exactly $\tau_j$,
+and $\log\tau_j/(2m_{j-1}+1)\to0$. At $g_{-3m_j}$ no
+correction ever acts: the current restoration ends at
+$-2m_j-1$ and the next correction starts beyond $-4m_j$.
+These coefficients are the original nonzero binomial coefficients,
+of order $m_j^{-3/2}$. Consequently both positive and negative
+Fourier root limsups of $a$ equal one. An outer annular extension
+would give $|a_k|\le C_\rho\rho^{-k}$ for some $\rho>1$ by
+Cauchy's Laurent coefficient formula; an inner extension would
+give the analogous geometric decay of $a_{-k}$. Both are excluded.
+
+Finally $a_0(\T)$ satisfies $|w^2-1|=1$ and its distance from
+either $1$ or $-1$ is $\sqrt2-1$. For example,
+$1=|w-1||w+1|\le d(2+d)$, where $d=|w-1|$,
+and equality is attained at $w=\sqrt2$.
+The total uniform perturbation is smaller than $2\gamma$, so
+both points remain outside $a(\T)$. The explicit test function
+$\Phi(w)=\max\{0,1-8|w-1|\}$ is continuous, nonnegative,
+compactly supported, and zero on $a(\T)$.
+Its integral against $a_*m$ is zero. At $n_j=2m_j+1$ its empirical eigenvalue
+integral is at least
+$\lfloor\theta m_j\rfloor/(2m_j+1)\to\theta/2>0$.
+This proves the asserted failure of canonical convergence.
+\end{proof}
+
+\begin{thebibliography}{9}
+\bibitem{BBG} J. M. Bogoya, A. B\"ottcher, S. M. Grudsky,
+Asymptotics of individual eigenvalues of a class of large Hessenberg
+Toeplitz matrices, OTAA \textbf{220} (2012), 77--95.
+\url{https://doi.org/10.1007/978-3-0348-0346-5_5}.
+Author manuscript: \url{https://www.math.cinvestav.mx/~grudsky/Papers/116.pdf}.
+
+\bibitem{BFGM} A. B\"ottcher, L. Fukshansky, S. R. Garcia, H. Maharaj,
+Toeplitz determinants with perturbations in the corners,
+J. Funct. Anal. \textbf{268} (2015), 171--193.
+\url{https://doi.org/10.1016/j.jfa.2014.10.023}.
+Section 3, equation (6), pp. 174--175, states the finite-section
+stability result used here. The continuous nonvanishing
+zero-index case is within its hypotheses.
+
+\bibitem{Clopen} clopen.solutions,
+\emph{OP-00159: Widom's canonical distribution conjecture for Toeplitz
+eigenvalues}. Online problem catalogue.
+\url{https://clopen.solutions/OP-00159/}.
+Accessed 7 October 2026.
+
+\bibitem{OpenProblemsInNLA} OpenProblemsInNLA contributors,
+\emph{SP-14: Widom's canonical distribution conjecture for Toeplitz
+eigenvalues}. Open Problems in Numerical Linear Algebra,
+GitHub repository (2026).
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/eigenvalues-and-inverse-problems/SP-14/README.md}.
+Accessed 9 October 2026.
+\end{thebibliography}
+
+\section*{AI usage disclosure}
+OpenAI's Codex was used extensively to develop the mathematical
+construction and arguments, search and check references, write and run
+computational experiments, draft this manuscript, and conduct an
+internal review of the argument. This AI-assisted review does not
+constitute independent peer review or formal proof-assistant verification.
+\end{document}

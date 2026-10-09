@@ -7,10 +7,22 @@
 **Topic:** Nonnormal Toeplitz eigenvalue asymptotics  
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-13
+**Status:** Solved  
+**Last checked:** 2026-10-09
 
-**Rating rationale:** A general theorem must distinguish symbols whose Toeplitz spectra follow their values from the markedly different behavior of analytic symbols. This is a longstanding obstacle in the spectral analysis of nonnormal structured matrices.
+**Rating rationale:** A general theorem must distinguish symbols whose Toeplitz spectra follow their values from the markedly different behavior of analytic symbols. This is a longstanding obstacle in the spectral analysis of nonnormal structured matrices. The ratings above are historical: the displayed conjecture is refuted below, and the earlier partial results and literature checks are retained.
+
+## Resolution — 9 October 2026
+
+**Negative resolution by Clemens Thalhammer**, Seminar for Applied Mathematics, ETH Zurich. [Standalone proof (PDF)](references/thalhammer-2026-10-09/counterexample.pdf) · [LaTeX](references/thalhammer-2026-10-09/counterexample.tex). **Theorem 6.1.**
+
+There is a continuous symbol $`a`$ on $`\mathbb T`$ with neither an inner nor an outer annular analytic extension, and an increasing sequence $`n_j`$, such that $`T_{n_j}(a)`$ has both $`1`$ and $`-1`$ as eigenvalues of algebraic multiplicity at least $`\lfloor\theta(n_j-1)/2\rfloor`$, $`\theta=2^{-10000}`$, while both points lie outside $`a(\mathbb T)`$. For the continuous compactly supported test function $`\Phi(w)=\max\{0,\,1-8|w-1|\}`$ the right-hand side of the displayed limit is $`0`$ and the left-hand side is at least $`\theta/2`$ along $`n_j`$, so the conjectured limit fails.
+
+The symbol is $`a(z)=z\,g(z^2)`$ with $`g(s)=\sqrt{1+s^{-1}}+P_-(s)+P_+(s)`$. The base symbol $`a_0(z)=\sqrt{z^2+1}`$ traces the lemniscate $`|w^2-1|=1`$, a figure-eight through the origin, and $`T_{2m+1}(a_0)`$ has characteristic polynomial $`w(w^2-1)^m`$ exactly; $`a_0`$ itself has an outer extension. Positive Fourier packets $`\tau_js^{m_{j-1}}(1+s)`$ with $`\tau_j=\kappa\,2^{-\lceil\sqrt{2m_{j-1}+1}\rceil}`$ remove the outer extension; finitely many corrections of the coefficients $`g_{-m_j},\dots,g_{-5m_j/8-1}`$, each with an invisible endpoint-restoring packet, recreate the factor $`(w^2-1)^{\lfloor\theta m_j\rfloor}`$ in the characteristic polynomial of $`T_{2m_j+1}(a)`$, and the untouched coefficients $`g_{-3m_j}=\binom{1/2}{3m_j}`$ remove the inner extension. Later stages change no entry of an earlier selected section. The corrections exist by a quantitative implicit-function argument in a conformal spectral coordinate (Sections 2–5) and are fixed by a deterministic certificate search (Section 6).
+
+**Comparison with the target.** The statement above quantifies over every continuous symbol with both extensions absent and over every continuous compactly supported $`F`$, with algebraic multiplicities. One such symbol and one such $`F`$ with a non-canonical limit refute it. The range is not a Jordan curve, so Widom's Jordan-curve theorem, Tilli's theorem and the Jordan-range subsequence result of 13 September 2026 below are untouched and consistent. The conjecture as stated here, in Bogoya–Böttcher–Grudsky 2012 §1, and in two further secondary sources carries no Jordan-curve hypothesis; Widom's 1990 text was not consulted.
+
+**Verification status.** An [independent informal AI-agent review](references/thalhammer-2026-10-09/verification/independent-review-2026-10-09.md) (Claude, Anthropic, 9 October 2026, separate from the sessions that produced the argument) returned **PASS**: every finite identity was verified exactly, the construction was reproduced end to end at a small order in 60-digit arithmetic, the two central analytic estimates were confirmed numerically up to order 8192, and the logical chain and both external citations were audited. The review did not recompute the explicit constant ledger and did not re-prove the two-level isomorphism and far-factor derivative propositions line by line. The argument was developed with substantial AI assistance in ChatGPT (OpenAI) sessions directed by the author. This is not external human peer review, and no Lean verification was performed. [Submission record and reproduction](references/thalhammer-2026-10-09/README.md).
 
 ## Reviewed continuation — 13 September 2026
 
