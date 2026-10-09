@@ -335,8 +335,13 @@ def pinned_leancert(project: Path) -> bool:
     lakefile = tomllib.loads((project / "lakefile.toml").read_text())
     requires = [p for p in lakefile.get("require", []) if p.get("name") == "leancert"]
     if (len(requires) != 1
-            or requires[0].get("git") != "https://github.com/alerad/leancert"
-            or requires[0].get("rev") != LEANCERT_REV):
+            or requires[0].get("git") != "https://github.com/alerad/leancert"):
+        raise HarnessError("Lakefile must require the reviewed LeanCert pin")
+    requested_rev = requires[0].get("rev")
+    # The frozen MF-21 manuscript names the LeanCert release tag in its
+    # Lakefile, while its committed manifest resolves that tag to this exact
+    # reviewed commit. Accept only this particular tag/commit pairing.
+    if requested_rev not in {LEANCERT_REV, "v4.33.1"} or package.get("inputRev") != requested_rev:
         raise HarnessError("Lakefile must require the reviewed LeanCert pin")
     return True
 
@@ -527,6 +532,12 @@ def verify(project: Path, tool_dir: Path) -> None:
         proof_trust = "not-run-no-leancert-dependency"
         proof_trust_source_sha256 = None
         if pinned_leancert(fresh):
+            # Comparator may never import LeanCert when the project's Solution
+            # does not use it, so its verification module can lack an olean.
+            # Build only that pinned dependency after the isolated comparison.
+            build_args = systemd(["lake", "build", "LeanCert.Tactic.Verification"], fresh, env)
+            logged(build_args, logdir / "leancert-build.log", cwd=fresh, env=env)
+            unchanged(fresh, hashes)
             audit = fresh / "ProofTrustAudit.lean"
             if audit.exists():
                 raise HarnessError("reserved proof trust audit filename is already present")

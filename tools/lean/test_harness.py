@@ -118,7 +118,8 @@ class HarnessTests(unittest.TestCase):
         self.assertFalse(harness.pinned_leancert(self.project))
         package = {"name": "leancert", "type": "git",
                    "url": "https://github.com/alerad/leancert",
-                   "rev": harness.LEANCERT_REV}
+                   "rev": harness.LEANCERT_REV,
+                   "inputRev": harness.LEANCERT_REV}
         self.manifest["packages"] = [package]
         self.write()
         with self.assertRaisesRegex(harness.HarnessError, "Lakefile must require"):
@@ -128,6 +129,20 @@ class HarnessTests(unittest.TestCase):
             'git = "https://github.com/alerad/leancert"\n'
             f'rev = "{harness.LEANCERT_REV}"\n')
         self.assertTrue(harness.pinned_leancert(self.project))
+        (self.project / "lakefile.toml").write_text(
+            'name = "Fixture"\n[[require]]\nname = "leancert"\n'
+            'git = "https://github.com/alerad/leancert"\nrev = "v4.33.1"\n')
+        self.manifest["packages"] = [{**package, "inputRev": "v4.33.1"}]
+        self.write()
+        self.assertTrue(harness.pinned_leancert(self.project))
+        self.manifest["packages"] = [{**package, "inputRev": "main"}]
+        self.write()
+        with self.assertRaisesRegex(harness.HarnessError, "Lakefile must require"):
+            harness.pinned_leancert(self.project)
+        (self.project / "lakefile.toml").write_text(
+            'name = "Fixture"\n[[require]]\nname = "leancert"\n'
+            'git = "https://github.com/alerad/leancert"\n'
+            f'rev = "{harness.LEANCERT_REV}"\n')
         for change in [{"rev": "0" * 40},
                        {"url": "https://github.com/other/leancert"}]:
             with self.subTest(change=change):

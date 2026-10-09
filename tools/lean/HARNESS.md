@@ -68,10 +68,14 @@ After Comparator accepts a project with the reviewed LeanCert dependency
 separate `ProofTrustAudit.lean` from the same `comparator.json`. It imports
 the actual `Solution`, requires every selected name to be a theorem constant,
 and runs `#assert_trust kernel` plus `#print axioms` on each proof. The audit
-is checked in the same restricted user service with the pinned Lean toolchain;
+first builds the pinned LeanCert verification module (which may be unused by
+the Solution) and is checked in the same restricted user service with the pinned Lean toolchain;
 its source digest and result
 are recorded in `result.json`, and its output is retained in
-`leancert-proof-trust.log`. A different LeanCert revision fails. Legacy projects
+`leancert-proof-trust.log`; the dependency build has its own
+`leancert-build.log`. The frozen MF-21 manuscript's `v4.33.1` Lakefile
+tag is accepted only when the committed manifest resolves it to the same
+reviewed commit. A different LeanCert revision fails. Legacy projects
 without LeanCert retain the Comparator gate and are marked
 `not-run-no-leancert-dependency` in the receipt; they cannot claim this
 additional LeanCert audit. Adding LeanCert to a project enables it without

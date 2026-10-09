@@ -24,12 +24,24 @@ dependency build artifacts were reused.
 
 In a separate temporary source file, I imported `Solution` and
 `LeanCert.Tactic.Verification`, set `leancert.trust` to `"kernel"`, and ran
-`#print axioms` plus `#assert_trust kernel` on four declarations:
+`#print axioms` plus `#assert_trust kernel` on four declarations. The complete
+audit source was:
 
 ```lean
+import Solution
+import LeanCert.Tactic.Verification
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+
+#check NLA.TR13.generic_rank_equality
+#print axioms NLA.TR13.generic_rank_equality
 #assert_trust kernel NLA.TR13.generic_rank_equality
+#print axioms NLA.TR13.generic_vandermonde_upper
 #assert_trust kernel NLA.TR13.generic_vandermonde_upper
+#print axioms NLA.TR13.generic_border_lower
 #assert_trust kernel NLA.TR13.generic_border_lower
+#print axioms NLA.TR13.all_ranks_equal_of_bounds
 #assert_trust kernel NLA.TR13.all_ranks_equal_of_bounds
 ```
 
