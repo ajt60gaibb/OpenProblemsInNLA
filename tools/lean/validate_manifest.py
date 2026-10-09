@@ -7,9 +7,13 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+import sys
 import jsonschema
 import yaml
 
+# This file is also loaded directly by the repository's metadata tests with
+# importlib, which does not add its directory to Python's import path.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 from upstream_source_lock import validate_mf23_source_lock
 from ra06_source_lock import validate_ra06_source_lock
 
