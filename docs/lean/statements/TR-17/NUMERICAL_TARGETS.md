@@ -1,0 +1,13 @@
+# TR-17 exact algebraic and numerical target
+
+`ORIGINAL.md` preserves the permanent canonical README byte for byte. This is a pre-implementation proposition specification; it does not independently prove the cited resolution.
+
+For every number of factors `k≥1`, every family of dimensions `n_j≥2`, and every family of positive symmetric powers `d_j≥1` whose total tensor order `∑d_j≥3`, form the real tensor space `W_R=⊗_j Sym^(d_j)(ℝ^(n_j))` and its complexification `W_C`. The affine rank-one cone `X⊂W_C` consists of **all** scalar multiples `c·⊗_j v_j^(⊗d_j)`, including zero, with arbitrary complex scalar and complex vectors. The critical-point count uses its **smooth nonzero locus**; singular and zero points are excluded from the count, not used as alternative critical points.
+
+Let `Q` range over **all** positive definite symmetric real bilinear forms on `W_R`. Complexify `Q` bilinearly, **without conjugation**, and define the polynomial squared-distance objective `Z↦Q(A−Z,A−Z)` for complex `A`. `ED_Q(X)` is the number of complex critical points of that objective on the smooth nonzero part of `X` for **Zariski-generic** `A∈W_C`, counted with algebraic multiplicity. A formalization must make the generic stable critical-point count concrete, for example using an algebraic critical scheme and its finite generic fiber length; it may not select a favorable `A`, count only real critical points, omit multiplicities, or assume all fibers are reduced.
+
+`Q_F` is the restriction to `W_R` of the entrywise Frobenius inner product on the full unsymmetrized tensor product, with standard Euclidean forms on factors. The restriction carries the repeated-entry/binomial weights on symmetric tensor coordinates. Do not substitute an unweighted coefficient dot product in a monomial basis. Its complexification is bilinear as above.
+
+`Target` states the exact natural-number inequality `ED_Q(X)≥ED_QF(X)` for **every** admissible format and **every** positive definite `Q`, with `Q_F` fixed by that format. There is no genericity restriction on the metric, local-only conclusion, approximation factor, asymptotic order, or probability threshold. The Zariski-generic qualification attaches to the datum `A` used to define each ED degree, and both degrees count algebraic multiplicity. The order-two matrix case lies outside the quantified formats.
+
+A Lean boundary needs concrete symmetric tensor spaces, Segre–Veronese cone, bilinear critical equations on its smooth nonzero part, a generic-fiber/algebraic-multiplicity degree, and the weighted `Q_F` construction (or a proved equivalent coordinate model). Uninterpreted `ED`/`Critical` predicates are insufficient because they could make the inequality vacuous.
