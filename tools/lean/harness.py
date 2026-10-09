@@ -321,8 +321,7 @@ def validate_project(project: Path, profile: str = "default") -> dict:
     if (project / "lakefile.lean").exists() or not (project / "lakefile.toml").is_file():
         raise HarnessError("initial harness requires exactly one lakefile.toml and no lakefile.lean")
     project_name = tomllib.loads((project / "lakefile.toml").read_text()).get("name")
-    if (project_name == "NLARA06" or (project / "ra06-source-lock.json").exists()
-            or (project / "NLA/Proofs/RA06").exists()):
+    if project_name == "NLARA06" or (project / "ra06-source-lock.json").exists():
         try:
             validate_ra06_source_lock(project)
         except ValueError as error:
