@@ -266,7 +266,8 @@ def render_coverage(inventory):
     for status in ("Solved", "Partially resolved", "Open"):
         entries = [e for e in inventory["entries"] if e["status"] == status and
                    e["classification"] in {"missing-statement", "local-scope-gap"}]
-        lines.append(f"- **{status} ({len(entries)}):** " + ", ".join(e["id"] for e in entries) + ".")
+        listed = ", ".join(e["id"] for e in entries) if entries else "None"
+        lines.append(f"- **{status} ({len(entries)}):** {listed}.")
     return "\n".join(lines) + "\n"
 
 
