@@ -20,7 +20,7 @@
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [FR-05](FR-05/README.md) | Vanishing injectivity probability at 4d minus 5 complex phase measurements | **🟠 SOLUTION CLAIMED** | challenging | interesting to the community | [PDF](FR-05/problem.pdf) · [TeX](FR-05/problem.tex) |
+| [FR-05](FR-05/README.md) | Vanishing injectivity probability at 4d minus 5 complex phase measurements | **✅ SOLVED** | challenging | interesting to the community | [PDF](FR-05/problem.pdf) · [TeX](FR-05/problem.tex) |
 | [FR-10](FR-10/README.md) | Sharp sampling complexity for Walsh restricted isometries | **✅ SOLVED** | extreme | broadly interesting | [PDF](FR-10/problem.pdf) · [TeX](FR-10/problem.tex) |
 | [FR-12](FR-12/README.md) | Counting real Hadamard matrices | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](FR-12/problem.pdf) · [TeX](FR-12/problem.tex) |
 

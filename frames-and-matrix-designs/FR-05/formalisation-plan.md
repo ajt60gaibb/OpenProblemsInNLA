@@ -4,8 +4,9 @@ This is the historical development plan, retained with its original checkpoint
 descriptions and proposed module names. As of 27 September 2026, the complete
 bound and limit are locally proved; its statements below about unfinished work
 are superseded by the [current source guide](lean/README.md) and
-[final assembly](lean/FINAL_ASSEMBLY.md). Independent review and the isolated
-Linux verification are still pending.
+[final assembly](lean/FINAL_ASSEMBLY.md). An independent informal manuscript
+audit on 8 October 2026 supports `Solved`; the isolated Linux verification
+required for `Lean verified` is still pending.
 
 ## Scope and source boundary
 
@@ -125,4 +126,4 @@ Gaussian reference invariance + Cauchy–Schwarz ────────┴─ 
 
 ## Verification gates
 
-After the full proof: freeze source hashes; run two fresh statement reviews and the required proof/scope/reuse reviews; use Lean 4.33.1 with the repository-pinned Mathlib/LeanCert setup; expose every advertised theorem in `Challenge.lean` and `Solution.lean`; run kernel-only LeanCert and Comparator; then reproduce the project in the required fresh non-root Linux sandbox. Only that full record can promote FR-05 beyond its current `Solution claimed` status.
+After the full proof: freeze source hashes; run two fresh statement reviews and the required proof/scope/reuse reviews; use Lean 4.33.1 with the repository-pinned Mathlib/LeanCert setup; expose every advertised theorem in `Challenge.lean` and `Solution.lean`; run kernel-only LeanCert and Comparator; then reproduce the project in the required fresh non-root Linux sandbox. That full record remains required for `Lean verified`. The separate informal manuscript audit supports the catalog's `Solved` status without asserting that these formal gates have passed.
