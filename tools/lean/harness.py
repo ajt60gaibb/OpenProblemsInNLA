@@ -26,6 +26,7 @@ import subprocess
 import sys
 import tempfile
 import time
+import tomllib
 import urllib.parse
 import urllib.request
 
@@ -33,6 +34,7 @@ import urllib.request
 ROOT = Path(__file__).resolve().parent
 LOCK = ROOT / "source-lock.json"
 STANDARD_AXIOMS = {"propext", "Quot.sound", "Classical.choice"}
+LEANCERT_REV = "621a43d7cf21f87872392a01e874f2f1dbddc926"
 MODULE = re.compile(r"[A-Za-z_][A-Za-z0-9_']*(?:\.[A-Za-z_][A-Za-z0-9_']*)*\Z")
 SHA = re.compile(r"[0-9a-f]{40}\Z")
 
@@ -314,6 +316,58 @@ def validate_project(project: Path) -> dict:
     return config
 
 
+def pinned_leancert(project: Path) -> bool:
+    """Return whether the project has the reviewed LeanCert pin.
+
+    Existing proof projects without LeanCert remain distinguishable in the
+    receipt. A present but different pin is never silently accepted.
+    """
+    manifest = read_json(project / "lake-manifest.json")
+    packages = [p for p in manifest["packages"] if p.get("name") == "leancert"]
+    if len(packages) > 1:
+        raise HarnessError("duplicate LeanCert packages in Lake manifest")
+    if not packages:
+        return False
+    package = packages[0]
+    if (package.get("url") != "https://github.com/alerad/leancert"
+            or package.get("rev") != LEANCERT_REV):
+        raise HarnessError("LeanCert does not match the reviewed proof-audit pin")
+    lakefile = tomllib.loads((project / "lakefile.toml").read_text())
+    requires = [p for p in lakefile.get("require", []) if p.get("name") == "leancert"]
+    if (len(requires) != 1
+            or requires[0].get("git") != "https://github.com/alerad/leancert"
+            or requires[0].get("rev") != LEANCERT_REV):
+        raise HarnessError("Lakefile must require the reviewed LeanCert pin")
+    return True
+
+
+def proof_trust_source(config: dict) -> str:
+    """Audit the actual Solution proof constants named by Comparator."""
+    module = config["solution_module"]
+    names = config["theorem_names"]
+    if not MODULE.fullmatch(module) or not names or any(
+            not MODULE.fullmatch(name) for name in names):
+        raise HarnessError("invalid proof trust audit module or theorem name")
+    lines = [
+        f"import {module}",
+        "import LeanCert.Tactic.Verification",
+        "set_option autoImplicit false",
+        'set_option leancert.trust "kernel"',
+        "",
+        "open Lean Elab Command in",
+        'elab "#assert_proof_constant " n:ident : command => do',
+        "  let decl ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n",
+        "  match (← getEnv).find? decl with",
+        "  | some (.thmInfo _) => pure ()",
+        '  | _ => throwErrorAt n "expected a proved theorem constant"',
+        "",
+    ]
+    for name in names:
+        lines.extend((f"#assert_proof_constant {name}",
+                      f"#assert_trust kernel {name}", f"#print axioms {name}"))
+    return "\n".join(lines) + "\n"
+
+
 def snapshot(project: Path, destination: Path) -> tuple[dict, dict[str, str]]:
     repo = Path(command(["git", "rev-parse", "--show-toplevel"], cwd=project))
     relative = project.relative_to(repo).as_posix()
@@ -470,9 +524,25 @@ def verify(project: Path, tool_dir: Path) -> None:
         logged(args, logdir / "comparator.log", cwd=fresh, env=env,
                markers=("Lean default kernel accepts the solution", "Your solution is okay!"))
         unchanged(fresh, hashes)
+        proof_trust = "not-run-no-leancert-dependency"
+        proof_trust_source_sha256 = None
+        if pinned_leancert(fresh):
+            audit = fresh / "ProofTrustAudit.lean"
+            if audit.exists():
+                raise HarnessError("reserved proof trust audit filename is already present")
+            source = proof_trust_source(config)
+            audit.write_text(source)
+            proof_trust_source_sha256 = digest(audit)
+            audit_args = systemd(["lake", "env", "lean", str(audit)], fresh, env)
+            logged(audit_args,
+                   logdir / "leancert-proof-trust.log", cwd=fresh, env=env)
+            proof_trust = "kernel-checked"
+            unchanged(fresh, hashes)
         result = {**provenance, "config": config, "input_sha256": hashes,
                   "source_lock_sha256": digest(LOCK), "tool_receipt": receipt,
-                  "result": "comparator-accepted", "semantic_review": "not-performed-by-this-command"}
+                  "result": "comparator-accepted", "lean_cert_proof_trust": proof_trust,
+                  "lean_cert_proof_trust_source_sha256": proof_trust_source_sha256,
+                  "semantic_review": "not-performed-by-this-command"}
         (logdir / "result.json").write_text(json.dumps(result, indent=2) + "\n")
     print(f"PASS: fresh Comparator run and all controls. Evidence: {logdir}")
 

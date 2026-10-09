@@ -63,6 +63,20 @@ isolation. There is no preceding Solution build in that fresh directory.
 The exact allowed axiom set is a subset of `propext`, `Quot.sound`, and
 `Classical.choice`; custom and native-execution trust axioms are forbidden.
 
+After Comparator accepts a project with the reviewed LeanCert dependency
+`621a43d7cf21f87872392a01e874f2f1dbddc926`, the verifier generates a
+separate `ProofTrustAudit.lean` from the same `comparator.json`. It imports
+the actual `Solution`, requires every selected name to be a theorem constant,
+and runs `#assert_trust kernel` plus `#print axioms` on each proof. The audit
+is checked in the same restricted user service with the pinned Lean toolchain;
+its source digest and result
+are recorded in `result.json`, and its output is retained in
+`leancert-proof-trust.log`. A different LeanCert revision fails. Legacy projects
+without LeanCert retain the Comparator gate and are marked
+`not-run-no-leancert-dependency` in the receipt; they cannot claim this
+additional LeanCert audit. Adding LeanCert to a project enables it without
+changing the project-specific proof statements.
+
 If a cache is unavailable, explicitly set `NLA_LEAN_SKIP_CACHE=1` to request
 a source build. This changes build cost, not the statement, proof, axiom
 policy or sandbox. Network is used during public dependency preparation;
