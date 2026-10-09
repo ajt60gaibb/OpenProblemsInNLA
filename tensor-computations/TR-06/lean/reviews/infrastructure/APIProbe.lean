@@ -1,0 +1,14 @@
+import Mathlib.Analysis.InnerProductSpace.NormDet
+import Mathlib.Analysis.SpecialFunctions.Gaussian.GaussianIntegral
+import Mathlib.MeasureTheory.Function.Jacobian
+import Mathlib.Geometry.Manifold.Riemannian.Basic
+
+#check LinearMap.normDet_sq
+#check LinearMap.normDet_eq_prod_singularValues
+#check LinearMap.euclideanHausdorffMeasure_image_eq_normDet_mul_volume
+#check MeasureTheory.Measure.euclideanHausdorffMeasure
+#check MeasureTheory.lintegral_abs_det_fderiv_eq_addHaar_image
+#check MeasureTheory.lintegral_image_eq_lintegral_abs_det_fderiv_mul
+#check integrableOn_rpow_mul_exp_neg_mul_sq
+#print axioms LinearMap.euclideanHausdorffMeasure_image_eq_normDet_mul_volume
+#print axioms integrableOn_rpow_mul_exp_neg_mul_sq
