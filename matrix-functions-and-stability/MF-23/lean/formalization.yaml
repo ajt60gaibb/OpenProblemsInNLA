@@ -1,0 +1,83 @@
+version: v0.4
+project:
+  name: 'MF-23: complete Crouzeix inequality in canonical block order'
+  description: >-
+    Source-locked upstream finite-matrix proof of the constant-two complete
+    Crouzeix inequality, with a local Lean proof of the block-factor swap.
+  authors:
+  - OpenAI mathematics formalization contributors (pinned upstream proof)
+  - OpenAI Codex AI (canonical block-order bridge and packaging)
+  license: Apache-2.0
+repository:
+  role: thin-wrapper
+  substantive_formalization:
+    id: https://github.com/openai/math
+    revision: adc7f1241b42e322a6451854ab7e4b4c146bf78a
+sources:
+- title: 'MF-23 — Complete Crouzeix conjecture'
+  id: ../README.md
+  type: web-post
+  location: Problem statement
+  relationship: formalizes
+  author_endorsement: n/a
+  note: >-
+    The ID, canonical path, and original all-size matrix-valued target are
+    retained. CanonicalStatement.lean encodes the published block ordering.
+- title: 'A direct proof of the complete Crouzeix inequality'
+  id: https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a
+  type: formal-proof-and-manuscript
+  location: lean/OAI/Analysis/DirectCrouzeix/CompleteBound.lean
+  relationship: adapts
+  author_endorsement: not-contacted
+  note: >-
+    The 41-file CompleteBound import closure is copied byte-for-byte from the
+    immutable upstream revision and listed in upstream-source-lock.json.
+    The upstream theorem uses the opposite Kronecker factor order.
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: >-
+      Lean 4.34.1; Mathlib d13f23b723b8a846827a245b89c10fc7d3f11612;
+      LeanCert 7f91b6eb3567437f6cfac03ed279706603ee22f4.
+    prompting_notes: >-
+      Write and independently review the exact canonical mathematical and
+      numerical statement before implementing the factor-swap proof.
+  notes: >-
+    The local macOS Lean build and LeanCert kernel audit passed. Isolated
+    Linux Comparator verification remains pending.
+status:
+  scope: >-
+    Every positive base and coefficient size, every finite degree, every
+    complex A and matrix coefficient family, with Euclidean operator norms,
+    the full numerical range maximum, and the exact real constant two.
+  whole_problem_verified: false
+  canonical_status: Solved
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: [propext, Classical.choice, Quot.sound]
+  main_results:
+  - declaration: NLA.MF23.canonical_crouzeix
+    file: Solution.lean
+    sorry_count: 0
+    axioms: [propext, Classical.choice, Quot.sound]
+    comparator_config: comparator.json
+    verification_status: >-
+      Local Lean 4.34.1 and LeanCert kernel audit passed; isolated Linux
+      Comparator and independent proof review pending.
+fidelity:
+  divergences: >-
+    No target weakening. The local bridge applies the index-swap equivalence
+    to convert the upstream A^k tensor B_k evaluation to the canonical
+    B_k tensor A^k block matrix, preserving the Euclidean operator norm.
+review:
+  status: agent-reviewed-statement
+  reviewers:
+  - /root
+  notes: >-
+    The canonical statement received an independent hash-bound approval
+    before proof development. The proof body and Linux Comparator gate
+    require separate review.
+acknowledgements: >-
+  The upstream proof is credited to the pinned OpenAI mathematics source;
+  copying it does not imply upstream endorsement of this adaptation.

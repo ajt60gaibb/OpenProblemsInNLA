@@ -7,18 +7,14 @@ canonical READMEs are unchanged. Historical copies under `reviews/`,
 `verification/`, and archive directories are evidence, not live solution
 sources.
 
-## Full-target local proof candidates (2)
+## Full-target local proof candidates (4)
 
 | ID | Live proof source | Evidence and remaining gate |
 | --- | --- | --- |
 | FR-05 | [`Solution.lean`](../../../frames-and-matrix-designs/FR-05/lean/Solution.lean) | Exports the original Gaussian/all-signals limit and the stronger `C/d` bound. Independent [source review](FR-05/INDEPENDENT_REVIEW.md) and the [isolated Linux Comparator/LeanCert kernel receipt](FR-05/LINUX_CI_RECEIPT.md) pass with only standard axioms. The separate `Challenge.lean` contains deliberate `sorry`s and is not imported by `Solution`. |
-| TR-13 | [`Solution.lean`](../../../tensor-computations/TR-13/lean/Solution.lean) | Exports `NLA.TR13.generic_rank_equality` for every odd `m ≥ 5`, `n ≥ 2`, giving all five ranks their exact generic value. A recorded macOS Lean 4.33.1 build and transitive axiom report list only standard axioms. Its separate comparison challenge is not imported. Independent final proof reviews and isolated Linux Comparator/kernel verification remain outstanding. |
-
-## External full-target proof claim without reproduced verification (1)
-
-| ID | Pinned source | Evidence and remaining gate |
-| --- | --- | --- |
-| MF-23 | [OpenAI mathematics repository, `CompleteBound.lean`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/OAI/Analysis/DirectCrouzeix/CompleteBound.lean) | The pinned source declares `OAI.DirectCrouzeix.complete_crouzeix : UniversalBound 2` for the finite matrix-valued target. The [canonical README](../../../matrix-functions-and-stability/MF-23/README.md) reports no dated successful kernel build, Comparator log, or transitive axiom report for that revision. No local proof checkout was counted. |
+| TR-13 | [`Solution.lean`](../../../tensor-computations/TR-13/lean/Solution.lean) | Exports `NLA.TR13.generic_rank_equality` and the [independently reviewed all-width bridge](TR-13/EXACT_STATEMENT_INDEPENDENT_REVIEW.md) for every odd `m ≥ 5`, `n ≥ 2`, with all five exact generic ranks and equivalence at every natural width. Pinned local LeanCert kernel checks pass with only standard axioms. Isolated Linux Comparator verification of the new bridge remains outstanding. |
+| MF-23 | [`CanonicalBridge.lean`](../../../matrix-functions-and-stability/MF-23/lean/CanonicalBridge.lean) | Proves the [reviewed canonical block-order target](MF-23/CANONICAL_BRIDGE_INDEPENDENT_REVIEW.md) from the pinned external `complete_crouzeix` proof by a norm-preserving tensor-factor swap. Its self-contained source-locked project, pinned Lean 4.34.1 build, and LeanCert kernel audit pass locally. Isolated Linux Comparator verification remains outstanding. |
+| RA-06 | [`Final.lean`](../../../lean-statements/NLA/Proofs/RA06/Final.lean) | The [independently reviewed full theorem](RA-06/FINAL_INDEPENDENT_REVIEW.md) inhabits the frozen original negative `Target` for every `p > 2`, with the exact sampler, same `α`, expected retained count, and raw log budget. Pinned Lean 4.33.1 aggregate build and independent LeanCert kernel audit pass with only standard axioms. Isolated Linux Comparator verification of the self-contained project remains outstanding. |
 
 ## Local partial solution projects (6)
 
@@ -31,7 +27,7 @@ sources.
 | MD-06 | [`Solution.lean`](../../../matrix-discrepancy-and-optimization/MD-06/lean/Solution.lean) | Extracts a nonsynchronized critical point from an assumed stable event. Graph probability and local-minimum semantics are parameters of an abstract structure. |
 | TR-04 | [`Solution.lean`](../../../tensor-computations/TR-04/lean/Solution.lean) | Elementary candidate/window count inequalities. It explicitly does not prove the TT-SVD approximation target; the current statement has unconstrained rank and operation-count fields. |
 
-## Shared statement only; no live proof source (37)
+## Shared statement only; no live proof source (36)
 
 The following files define a `Target : Prop` and pass statement-boundary checks.
 They do **not** contain a theorem proving `Target`. The source-path pattern is
@@ -49,7 +45,7 @@ They do **not** contain a theorem proving `Target`. The source-path pattern is
 | MI-31 | [`MI31.lean`](../../../lean-statements/NLA/Statements/MI31.lean) | NM-03 | [`NM03.lean`](../../../lean-statements/NLA/Statements/NM03.lean) |
 | PF-04 | [`PF04.lean`](../../../lean-statements/NLA/Statements/PF04.lean) | PF-05 | [`PF05.lean`](../../../lean-statements/NLA/Statements/PF05.lean) |
 | RA-04 | [`RA04.lean`](../../../lean-statements/NLA/Statements/RA04.lean) | RA-05 | [`RA05.lean`](../../../lean-statements/NLA/Statements/RA05.lean) |
-| RA-06 | [`RA06.lean`](../../../lean-statements/NLA/Statements/RA06.lean) | RA-10 | [`RA10.lean`](../../../lean-statements/NLA/Statements/RA10.lean) |
+| RA-10 | [`RA10.lean`](../../../lean-statements/NLA/Statements/RA10.lean) | | |
 | RA-12 | [`RA12.lean`](../../../lean-statements/NLA/Statements/RA12.lean) | RA-13 | [`RA13.lean`](../../../lean-statements/NLA/Statements/RA13.lean) |
 | RA-19 | [`RA19.lean`](../../../lean-statements/NLA/Statements/RA19.lean) | RE-05 | [`RE05.lean`](../../../lean-statements/NLA/Statements/RE05.lean) |
 | RE-06 | [`RE06.lean`](../../../lean-statements/NLA/Statements/RE06.lean) | SP-11 | [`SP11.lean`](../../../lean-statements/NLA/Statements/SP11.lean) |
@@ -61,5 +57,5 @@ They do **not** contain a theorem proving `Target`. The source-path pattern is
 
 LeanCert `#assert_statement`, `#assert_trust kernel`, frozen identity checks,
 and the shared Comparator certificates check statement definitions and their
-trust closure. They do not prove any of the 37 propositions or upgrade the six
+trust closure. They do not prove any of the 36 propositions or upgrade the six
 partial projects to full proofs.
