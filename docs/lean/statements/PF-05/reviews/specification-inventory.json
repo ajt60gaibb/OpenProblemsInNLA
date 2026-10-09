@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "PF-05",
+  "reviewer": "/root/inventory",
+  "is_ai": true,
+  "phase": "specification",
+  "verdict": "approve",
+  "report_path": "docs/lean/statements/PF-05/reviews/specification-inventory.md",
+  "report_sha256": "0d6640e3d863ded838942c636e96f02dccf2a9b0f82d2cf4cf742ef054fb2213",
+  "input_sha256": {
+    "nonnegative-and-positive-factorizations/PF-05/README.md": "f7acc0629067696f7aa2828673740e286730fb9654348b742752eb146a840f71",
+    "docs/lean/statements/PF-05/NUMERICAL_TARGETS.md": "d5c00daa8a0bfa9b520c999b017217ab07fe9bb76b2cac6240f12f241b5db184",
+    "docs/lean/statements/PF-05/ORIGINAL.md": "f7acc0629067696f7aa2828673740e286730fb9654348b742752eb146a840f71"
+  },
+  "rationale": [
+    "The complete canonical README is retained byte for byte. The specification quantifies every entrywise nonnegative real p-by-q matrix with ordinary real rank exactly three and real PSD rank exactly two, and then every fixed size-two PSD factorization. Rank three excludes empty dimensions without needing an extra dimension restriction.",
+    "A size-k factorization is concretely the family of real symmetric PSD matrices satisfying every exact trace product equation. Existence at k=2 together with nonexistence at k=1 is exactly minimum PSD size two because the canonical minimum ranges over integers k>=1; no k=0 loophole occurs.",
+    "Feasible directions retain real symmetric E_i,F_j, every first-order equation trace(E_i*B_j)+trace(A_i*F_j)=0 and one common h>0 such that every perturbed factor is PSD for every 0<=t<h. This is the actual straight-line condition. It neither weakens it to an unsupported tangent-cone assertion nor strengthens it to exact factorization at positive t.",
+    "The rigidity clause uses one shared real scalar d with E_i=d*A_i and F_j=-d*B_j for all factors. The uniqueness clause quantifies every other real size-two factorization and one invertible real S shared by the entire family, with Atilde_i=S^T*A_i*S and Btilde_j=S^-1*B_j*(S^-1)^T. This preserves both congruence direction and inverse/transpose order.",
+    "The proposed equivalence retains both directions and every fixed original factorization. Zeros, singular and repeated factors, and zero rows or columns are not excluded. There is no positive-entry, positive-definite or normalization assumption, and no replacement of exact equalities by tolerance tests.",
+    "The requirements that PSD, rank, trace, products and inverses expand to actual mathematical definitions are sufficient for a statement-only implementation. Invertibility must guard the inverse in the uniqueness clause. No analytic, numerical or computational proof of the equivalence is claimed by this specification review."
+  ],
+  "limits": "Approval is of the exact mathematical specification before implementation, not the correctness of an authored resolution, Lean elaboration, formal model lemmas or a Linux Comparator run. Final implementation definitions and the complete import closure require a separate independent Lean-boundary review."
+}

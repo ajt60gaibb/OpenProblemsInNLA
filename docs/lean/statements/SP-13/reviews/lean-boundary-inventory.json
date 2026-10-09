@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "SP-13",
+  "reviewer": "/root/inventory",
+  "is_ai": true,
+  "phase": "lean-boundary",
+  "verdict": "approve",
+  "report_path": "docs/lean/statements/SP-13/reviews/lean-boundary-inventory.md",
+  "report_sha256": "52d0d4ad79795a2884a1430c4f348d86a29cfb6e74e8757e599c6c1f6999e9ac",
+  "input_sha256": {
+    "docs/lean/statements/SP-13/IMPLEMENTATION_NOTES.md": "2860c32cd0e97149cbc967f3859b618d0cd785cdc66c4da88d6af4651134fbc3",
+    "docs/lean/statements/SP-13/NUMERICAL_TARGETS.md": "5f10905d6e0acfc2469a470321b310038e8d30ddb66d58bdf4b560b733fa7e60",
+    "docs/lean/statements/SP-13/ORIGINAL.md": "3db39d15a2d3879c0e72a983dd78197bcc8b99ac256a07fcaeee5b6f0962a57a",
+    "eigenvalues-and-inverse-problems/SP-13/README.md": "3db39d15a2d3879c0e72a983dd78197bcc8b99ac256a07fcaeee5b6f0962a57a",
+    "lean-statements/NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+    "lean-statements/NLA/Statements/SP13.lean": "59b9796c201eb0991479586d4372bbaf4500ad26fcfadd2bb5691c29653b089b",
+    "lean-statements/Reviewed/SP13.lean": "d1af51cd8b565dbcaee8ed9e73764cb0816955038dcffb3862abfe0ce37bcb9c",
+    "lean-statements/lake-manifest.json": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+    "lean-statements/lakefile.toml": "1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40",
+    "lean-statements/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71"
+  },
+  "rationale": [
+    "The complete canonical README equals ORIGINAL.md byte for byte. The exact same symbol is used before and after perturbation. Target quantifies every complex Hermitian sequence and every arbitrary complex perturbation sequence satisfying the complete real nuclear-norm/n limit. There are no spectral-norm, normality, rank or Frobenius restrictions beyond the original hypothesis.",
+    "NuclearNorm sums indices0 through n-1 of the pinned actual Matrix.toEuclideanLin singularValues. The inspected source defines these as square roots of eigenvalues of T-adjoint composed with T, with multiplicity, descending and zero beyond dimension. Matrix.toEuclideanLin uses complex Euclidean spaces, not the componentwise maximum norm. Thus precisely all n singular values are included, including zero ones.",
+    "Empirical maps F over the characteristic-polynomial root multiset and sums it, multiplied by complex 1/n. Polynomial.roots explicitly retains multiplicities; charpoly is monic of degree n and splits over Complex, so all n eigenvalues are represented with algebraic multiplicity. No diagonalization assumption is placed on the perturbed matrix.",
+    "Distributed quantifies every complex-valued Continuous HasCompactSupport test function, with the original complex limit along atTop. SymbolIntegral is the actual complex Bochner integral under real Lebesgue volume restricted to Icc0,1. The explicit Lebesgue.Basic import supplies that measure. Tests are neither restricted to real values nor to the real axis.",
+    "The symbol is required only AEMeasurable for that restricted measure. This retains all original measurable symbols and allows irrelevant null-set changes; a measurable representative gives the same integrals. Compact support bounds F, so the composition is integrable on the finite-measure interval without any integrability or boundedness assumption on f. Values outside the interval are unused. The n=0 terms and their totalized divisions have no effect on the limit and impose only vacuous zero-dimensional Hermitian symmetry.",
+    "Every local import of the live and frozen modules and all three package-pin files are bound below. The frozen source differs only by the prescribed namespace substitution/comment. Author-provided local macOS live/frozen elaboration and identity logs were inspected against their recorded source hashes: all exits were zero and only the standard three axioms were reported. This independent source review did not rerun Lean; the local identity evidence is not Linux Comparator execution or target truth."
+  ],
+  "inspected_evidence": "docs/lean/statements/verification/2026-09-28-spectral-hankel"
+}

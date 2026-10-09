@@ -1,0 +1,16 @@
+# MI-31, FR-10, RA-06 and TR-21 resolution submission
+
+Submitted by Diar Haidary. MI-31, FR-10 and RA-06 were recorded on 30 September 2026; TR-21 was added on 1 October 2026. The FR-10 and RA-06 working manuscripts are supplied without any novelty or priority claim; their author fields are empty and are preserved as supplied. FR-10 is described by the submitter as a trivial extension of Burstein–Iosevich–Krause, arXiv:2609.22568v1. The supplied TeX and PDF files are copied without mathematical edits.
+
+| Problem | Primary resolution | Supplied ChatGPT 6 Pro audit |
+| --- | --- | --- |
+| [MI-31](../../matrix-inequalities-and-norms/MI-31/README.md) | Bednorz–Martynek–Meller, [arXiv:2609.22927v1](https://arxiv.org/abs/2609.22927v1), Theorem 1.1 | [Audit](https://chatgpt.com/share/6abd40d2-7d54-83ed-96b3-d674c1c20eb0) |
+| [FR-10](../../frames-and-matrix-designs/FR-10/README.md) | [Revised manuscript](Walsh_RIP_with_replacement_revised.pdf), Theorem 1.1 and Sections 2–6; [source](Walsh_RIP_with_replacement_revised.tex) | [Audit and revision](https://chatgpt.com/share/6abd4125-5848-83eb-9598-f9b2d8822c71) |
+| [RA-06](../../randomized-and-low-rank-approximation/RA-06/README.md) | [Revised manuscript](ra06-counterexample-revised.pdf), Theorem 5.1; [source](ra06-counterexample-revised.tex) | [Audit and revision](https://chatgpt.com/share/6abd3ea9-6310-83ed-8d37-edc449055572) |
+| [TR-21](../../tensor-computations/TR-21/README.md) | [Revised manuscript](TR-21-Seginer-comparison-revised.pdf), Theorem 1.1 and Sections 2–6; [source](TR-21-Seginer-comparison-revised.tex) | [Audit and revision](https://chatgpt.com/share/6abd7541-acb0-83ed-a0bc-fde3f977bf84) |
+
+The model identity is reported by the submitter as ChatGPT 6 Pro. These are supplied informal AI audits; this submission does not claim external human peer review, journal acceptance or formal proof-assistant certification. The MI-31 audit identifies a minor entropy-convention correction to the general contraction input and verifies that the actual proof application satisfies the corrected convention. That correction is recorded prominently on the canonical page. The preprint itself is not modified.
+
+FR-10 retains attribution to BIK for the improved logarithmic upper rate and to Błasiok–Lopatto–Luh–Marcinek–Rao for the subspace lower-bound mechanism. It does not supersede Colbrook's sharper endpoint constants. RA-06 retains attribution to Woodruff–Yasuda for the conjecture and ordinary-sensitivity rule. No literature-priority determination is asserted for either of these two manuscripts.
+
+TR-21 extends Zhou–Zhu's shared-class discrepancy, joint-rate and heavy-tuple framework across magnitude labels; it credits their [2026 paper](https://arxiv.org/abs/2609.20520v1), Lemmas 4.4–4.5 and 5.1, Proposition 4.6 and Appendix A, together with their [earlier tensor work](https://doi.org/10.1214/21-EJS1838) and the [Kahn–Szemerédi lineage](https://doi.org/10.1145/73007.73063). Its imported estimates are Lucca–Pesenti's [Theorem 1.4 and Corollary 4.3](https://arxiv.org/html/2607.07308v1) and Seginer's [Corollary 2.2](https://doi.org/10.1017/S096354830000420X); Lucca–Pesenti are credited for Conjecture 1.8. The additional contribution is the magnitude-labelled discrepancy and simultaneous heavy-sum extension, followed by the reduction to arbitrary integrable iid laws.

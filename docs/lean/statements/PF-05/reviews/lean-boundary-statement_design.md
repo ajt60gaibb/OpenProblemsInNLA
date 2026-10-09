@@ -1,0 +1,48 @@
+# PF-05: independent lean-boundary review
+
+Reviewer: /root/statement_design, OpenAI Codex AI agent. Date: 2026-09-28.
+Verdict: **approve**, bound to the exact input bytes below.
+
+## Fidelity reasoning
+
+1. The target retains every entrywise nonnegative finite real matrix of ordinary rank three and PSD rank two, and then every fixed size-two PSD factorization. Positive dimensions are implicit in rank three. Zero entries, zero rows and columns, repeated factors and singular factors remain allowed.
+
+2. PositiveSemidefinite expands to explicit real symmetry and the full quadratic-form sum against every real vector. Factorization uses these genuine cones and ordinary matrix multiplication followed by trace, so the exact source equations are preserved.
+
+3. Existence at size two together with nonexistence at size one is precisely PSD rank two because the canonical minimum ranges over positive integer sizes. There is no replacement by ordinary rank or an arbitrary rank predicate.
+
+4. Every direction family is explicitly symmetric. Feasibility imposes the first-order trace equation and one common real h>0 such that every factor follows the actual PSD straight segment for every real 0<=t<h. It neither changes to a tangent cone nor requires exact positive-time factorization.
+
+5. Rigidity quantifies every feasible direction and a single real scalar d for every factor, with E=d*A and F=-d*B. Uniqueness quantifies every alternative size-two factorization and a single real matrix S with nonzero determinant.
+
+6. The congruence formulas have the correct orientation: S transpose * A * S and S inverse * B * transpose(S inverse). The nonzero real determinant makes the imported total inverse a genuine two-sided inverse.
+
+7. The final connective is an equivalence with all source premises and quantifier order intact. No spectral norm, approximation, normalization, positivity, probability or computational restriction has been introduced.
+
+8. The actual live module declares a safe closed Target : Prop and invokes global LeanCert kernel trust, #assert_statement and #assert_trust kernel. Infrastructure was inspected: it requires a safe proposition definition and whitelists only propext, Classical.choice and Quot.sound, without supplying any mathematical premise.
+
+9. The implementer log /private/tmp/nla-pf05-evidence/PF05.log reports exit 0 and exactly the standard three axioms. This is supporting build evidence; this reviewer did not rerun Lean or Comparator.
+
+10. Mechanical byte comparison confirms complete ORIGINAL equals the canonical README and the frozen boundary equals the live code after only the standard leading comment and namespace change. The complete local import closure and three pin files are bound.
+
+## Imported source evidence
+
+- Mathlib/LinearAlgebra/Matrix/Rank.lean: SHA-256 67b4fa7bee02c1806f29562718bfb34c0e1f40af5ec6a91ef91cc33610657491; Matrix.rank is finrank of the range of mulVecLin; on real finite matrices this is ordinary real rank.
+- Mathlib/LinearAlgebra/Matrix/Trace.lean: SHA-256 8053b04dc1c67b3a7d14262acc43b574e521940085e031726947f3c2241b7a73; trace is the full sum of diagonal entries.
+- Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean: SHA-256 1ee785b6ebd213ad2ed971bf3c804afee8cc6ce52be69e63572b4cf1bdb5e880; Inverse is determinant ring-inverse times adjugate, and both inverse identities hold under IsUnit determinant; over the reals det!=0 is sufficient.
+
+## Bound inputs
+
+- docs/lean/statements/PF-05/NUMERICAL_TARGETS.md: d5c00daa8a0bfa9b520c999b017217ab07fe9bb76b2cac6240f12f241b5db184
+- docs/lean/statements/PF-05/ORIGINAL.md: f7acc0629067696f7aa2828673740e286730fb9654348b742752eb146a840f71
+- lean-statements/NLA/Statements/Infrastructure.lean: 8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37
+- lean-statements/NLA/Statements/PF05.lean: 3ac9a2fb395d96c3b61c6f2593144caac010da4bfafd2d96f86627aa7a75859d
+- lean-statements/Reviewed/PF05.lean: df79daee68563e5bb6a6d85cf70246bf2154f12bcc5fe5a6a806e8009e558b7f
+- lean-statements/lake-manifest.json: a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8
+- lean-statements/lakefile.toml: 1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40
+- lean-statements/lean-toolchain: 3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71
+- nonnegative-and-positive-factorizations/PF-05/README.md: f7acc0629067696f7aa2828673740e286730fb9654348b742752eb146a840f71
+
+## Limits
+
+Independent source-level Lean-boundary fidelity review by an AI agent, independent of specification author /root and implementation author /root/infra_audit. The actual code, source snapshot, approved specification, import meanings and build log were inspected. This approval does not prove the mathematical target and does not substitute for Linux CI or Comparator execution.

@@ -1,0 +1,17 @@
+# Proposed minimal MatrixInfra source adoption
+
+Source: [YuanheZ/lean-stat-learning-theory](https://github.com/YuanheZ/lean-stat-learning-theory), pinned commit `d0f506f0a695018265dccb33bcb05e2f5ca1c876`. License: Apache-2.0. Copyright/author notices identify Yuanhe Zhang, Jason D. Lee and Fanghui Liu. Upstream uses Lean 4.32.0; our existing compiler/dependency pins remain unchanged. The source clone was read only; no upstream script, hook, dependency fetch or build command has been run.
+
+Propose adopting only `SLT/MatrixInfra/Basic.lean` (737 lines) and `SLT/MatrixInfra/CourantFischer.lean` (1507 lines). The latter imports the former; the former imports only Mathlib's `Analysis.InnerProductSpace.SingularValues`. No other SLT source is in this closure. Static searches of these two files found no sorry, admit, custom axiom, native_decide, unsafe/extern implementation, custom elaborator or macro. Kernel compilation with transitive axiom audit is still mandatory before relying on the port.
+
+## Exact useful mathematical contracts
+
+- `Matrix.singularValues A` is exactly `(Matrix.toEuclideanLin A).singularValues`, the existing Mathlib descending zero-based sequence. Nonnegativity, ordering, zero-padding and rank support are inherited from that definition. This matches the already approved IE-06 definition, so there is no switch to an unrelated singular sequence.
+- Right singular vectors form the orthonormal Gram eigenbasis. Their images are singular value times a left vector. Left vectors corresponding to nonzero singular values are orthonormal. The finite-sum reconstruction is the actual matrix A; zero singular directions are explicitly handled and are not claimed to be unit left vectors.
+- For any symmetric linear map T on an n-dimensional real or complex finite-dimensional inner-product space and i:Fin n, its descending eigenvalue i equals the supremum, over subspaces of dimension i+1, of the infimum of the Rayleigh quotient on nonzero vectors. It also equals the infimum, over subspaces of dimension n−i, of the supremum of the Rayleigh quotient. The quotient is Re⟪Tx,x⟫/‖x‖²; the bounds explicitly exclude the zero vector where needed.
+- For any linear map T between finite-dimensional inner-product spaces and i:Fin n where n is the domain dimension, Mathlib's actual `T.singularValues i` equals the analogous max–min of ‖Tx‖/‖x‖ over dimension i+1 and the analogous min–max over dimension n−i.
+- The leading/trailing Gram eigenspaces have the exact stated dimensions and respectively give lower/upper singular quotient bounds at index i. The proofs use the sorted orthonormal eigenbasis and the dimension-intersection lemma, not an assumed min–max or interlacing theorem.
+
+All public and helper statements in these two files will be retained unchanged apart from namespacing. Preserve their full copyright headers, original sources and license byte-for-byte as evidence. Allowed edits are namespace/import adaptation, pinned-version API/proof repairs and kernel trust/axiom instrumentation. If an actual hypothesis or conclusion needs a mathematical change, pause and review that change first.
+
+No interlacing theorem or Moore–Penrose pseudoinverse is supplied by this minimal closure; those remain IE-06 proof work. In particular, this adoption does not itself establish Lemma 4.6. It supplies the min–max and SVD lemmas needed to implement the already approved four-step proof route and retains the forward Euclidean-map singular values throughout.

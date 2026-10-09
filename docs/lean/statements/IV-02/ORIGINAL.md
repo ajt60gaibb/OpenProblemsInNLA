@@ -1,0 +1,90 @@
+# IV-02 — Exact determinant ranges of general tridiagonal interval matrices
+
+<!-- navigation -->
+[All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
+<!-- /navigation -->
+
+**Difficulty:** challenging  
+**Importance:** interesting to specialist  
+**Topic:** interval linear algebra; determinants; computational complexity  
+**Last checked:** 2026-09-11
+**Status:** Solved
+
+**Rating rationale:** Challenging reflects classifying exact determinant-range computation for a structured but dependency-sensitive interval family; specialist impact concerns this particular interval matrix class.
+
+<!-- colbrook-intervals -->
+## Independently reviewed resolution - 2026-09-11
+
+**Complexity classification.** Theorem 1 proves NP-completeness of the upper determinant threshold and NP-hardness of exact determinant-range computation, even for regular independent-entry tridiagonal interval matrices. Section 5 supplies the exact-output upper bound: a polynomial algorithm for the full displayed target exists if and only if $`\mathsf P=\mathsf{NP}`$. No unconditional separation or strong NP-hardness is asserted.
+
+**Author:** Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. See the [complete manuscript](../../references/colbrook-intervals-2026-09-11/manuscripts/IV-02_IV-04.pdf), [independent agent review](../../references/colbrook-intervals-2026-09-11/verification/reviews/IV-02_IV-04-review.md) and [submission record](../../references/colbrook-intervals-2026-09-11/README.md). The source archive identifies the drafts as AI-generated; authorship is recorded at the submitter's request. This is agent verification, not external human peer review or formal proof-assistant certification.
+
+The difficulty, importance and rating rationale below are historical assessments of the original open target. The original statement and dated audits are preserved.
+<!-- /colbrook-intervals -->
+
+## Lean formalization scaffold
+
+The repository retains the approved statement boundary and current supporting Lean work in [`lean/`](lean/), including [`Challenge.lean`](lean/Challenge.lean) and [`Solution.lean`](lean/Solution.lean). This is an **unverified, incomplete formalization**; the existing mathematical status and resolution above are unchanged. See [`lean/README.md`](lean/README.md) for scope, blockers, pinned metadata, and review records.
+
+## Problem statement
+
+For $`n\geq2`$, let the input consist of $`3n-2`$ closed real intervals with
+rational endpoints: diagonal intervals $`[\underline a_i,\overline a_i]`$
+for $`1\leq i\leq n`$, upper-diagonal intervals
+$`[\underline b_i,\overline b_i]`$, and lower-diagonal intervals
+$`[\underline c_i,\overline c_i]`$ for $`1\leq i< n`$.
+All lower endpoints are at most their upper endpoints. Define
+
+```math
+\mathcal T=\{T\in\mathbb R^{n\times n}:
+T_{ii}\in[\underline a_i,\overline a_i],\quad
+T_{i,i+1}\in[\underline b_i,\overline b_i],\quad
+T_{i+1,i}\in[\underline c_i,\overline c_i],\quad
+T_{ij}=0\text{ if }|i-j|>1\}.
+```
+
+All uncertain entries vary independently. Does a deterministic algorithm
+exist that returns the two exact rational numbers
+
+```math
+d_- = \min_{T\in\mathcal T}\det T,
+\qquad
+d_+ = \max_{T\in\mathcal T}\det T
+```
+
+in time polynomial in the total binary input length? The target is the
+exact range $`[d_-,d_+]`$, including instances containing singular matrices
+and intervals crossing zero. Rational output is appropriate because the
+determinant is affine in each entry separately and its extrema are attained
+at endpoint matrices. The polynomial bound must be uniform in $`n`$.
+
+## References
+
+Horáček, Hladík, and Matějka,
+[*Determinants of interval matrices*](https://doi.org/10.13001/1081-3810.3719),
+Electronic Journal of Linear Algebra 33 (2018), 99–112,
+**§5.4, p. 106**, immediately after Proposition 5.6;
+[journal PDF](https://journals.uwyo.edu/index.php/ela/article/download/1831/1831/1831).
+The corresponding location in [arXiv:1809.03736v1](https://arxiv.org/abs/1809.03736v1)
+is §6.4, p. 9, after Proposition 6.7. The source proves polynomial
+computability for interval tridiagonal H-matrices and explicitly leaves
+general tridiagonal interval matrices open.
+
+## Status check (2026-09-08)
+
+Searches for `tridiagonal interval determinant
+complexity`, `tridiagonal determinant range`, and `tridiagonal interval
+determinant polynomial 2026` found no resolution for independent-entry
+exact ranges. Two superficially conflicting Thirupathi–Thamaraiselvan papers,
+[*Symbolic Algorithm for Inverting General k-Tridiagonal Interval Matrices*](https://doi.org/10.28924/2291-8639-21-2023-20)
+and [*A Symbolic Algorithm for Solving Doubly Bordered k-Tridiagonal Interval Linear Systems*](https://doi.org/10.28924/2291-8639-21-2023-87),
+both published in 2023, use different generalized arithmetic (§2.2,
+pp. 3–4). Their multiplication centers the result at the product of
+midpoints and takes the smaller distance to the standard product endpoints.
+Consequently it sends $`[1,2]`$ and $`[2,3]`$ to $`[2,11/2]`$, while independent
+products range over $`[2,6]`$. Their symbolic determinant algorithms therefore
+do not establish exact ranges in the sense defined above.
+
+## Audit update — 2026-09-10
+
+Rechecked Hladík's [primary paper](https://journals.uwyo.edu/index.php/ela/article/download/1831/1831/1831), §5.4 after Proposition 5.6. The tridiagonal interval H-matrix subclass has a polynomial exact determinant-range algorithm and is a substantive included part of the displayed target, so the status is Partially resolved. The general tridiagonal complexity question remains unresolved. Later determinant-range searches found no classification in standard independent-entry interval arithmetic; the generalized-arithmetic claims discussed above use a different operation. Impact is narrowed to specialist. The remaining general question has a historical explicit source, without a recent reaffirmation.

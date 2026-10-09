@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "IE-10",
+  "reviewer": "/root",
+  "is_ai": true,
+  "phase": "lean-boundary",
+  "verdict": "approve",
+  "input_sha256": {
+    "docs/lean/statements/IE-10/IMPLEMENTATION_NOTES.md": "7e5260e85e8a9a10371eb3ca7683a8ddd9850d633533926b144867c5e6561785",
+    "docs/lean/statements/IE-10/NUMERICAL_TARGETS.md": "eec19ed42d3b851c634f3d775533002b4f9499a0e00f1ccd2a6d312e40529e7d",
+    "docs/lean/statements/IE-10/ORIGINAL.md": "61c9f5e820b4201e6b34e55cd43e3b65bc0e746dcdef6551ccfe50602ebe644a",
+    "docs/lean/statements/verification/2026-09-28-krylov/CheckKrylov.lean": "9c859b0bcd12f63989f1c637bc9112c3ddca4dad24c3e635394326715ce08b3e",
+    "docs/lean/statements/verification/2026-09-28-krylov/CheckKrylov.log": "540c0d11b36a546f42850fd8db3e34bf9871c9dc70977f61f94b8d5ddddef0ef",
+    "docs/lean/statements/verification/2026-09-28-krylov/NLA-Statements-IE10.lean.log": "e6157a745483d23ee8a61ab43a2454e6e27424004e45df0729d84b7b7c6319ba",
+    "docs/lean/statements/verification/2026-09-28-krylov/NLA-Statements-KrylovCompression.lean.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/lean/statements/verification/2026-09-28-krylov/Reviewed-IE10.lean.log": "7705a4cede64746a7d2a5fc31867612b67dd3b989c9b3ed2f61725976b7179e4",
+    "docs/lean/statements/verification/2026-09-28-krylov/receipt.json": "8d93553dc6514c8b66e138fdbbd1b9655fb7b8aa6fc7652aecc7cd7e446b8217",
+    "eigenvalues-and-inverse-problems/IE-10/README.md": "61c9f5e820b4201e6b34e55cd43e3b65bc0e746dcdef6551ccfe50602ebe644a",
+    "lean-statements/NLA/Statements/IE10.lean": "55dd33eed940f0979222ae3f019a11192a9ee16e6d3b5c2ca5016c17b0079c74",
+    "lean-statements/NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+    "lean-statements/NLA/Statements/KrylovCompression.lean": "3d33cd4d2fff054a977cb3ff4ad796e4790b0ebcd83b4c46512ad42afc5cd7ce",
+    "lean-statements/Reviewed/IE10.lean": "b6535bc916f33aa3c37f7fcbef26791b1a0f79d767d2ce199cf7eb5feb3620ef",
+    "lean-statements/lake-manifest.json": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+    "lean-statements/lakefile.toml": "1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40",
+    "lean-statements/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71"
+  },
+  "rationale": [
+    "Actual finite independent standard-normal coordinates produce the complex Gaussian; normalization uses the full Euclidean norm and e0 only on its zero draw. The cyclic matrix sends column j to row j+1 modulo n. Ordered Gram-Schmidt uses precisely the previous residual-normalized columns, conjugates the first inner-product argument and compresses by Q conjugate-transpose C Q.",
+    "All k residuals must be positive. Failure receives ENNReal infinity, which cannot meet any finite threshold. EigenvectorCondition is the ENNReal infimum over every genuine complex diagonalization with a nonzero determinant and actual Euclidean continuous-linear-map norm. Empty infima, defective matrices, repeated eigenvalues and unattained infima retain their stated meanings.",
+    "The same positive real C and c precede all n>=3 and 2<=k<n. Real exponentiation, non-strict success inequality and exact 99/100 remain unchanged; no expectation, fixed exponent or simultaneous-in-k surrogate is used.",
+    "The first root frozen equality check exposed the separately recursive GramSchmidt issue. Reviewed the unchanged helper extraction into KrylovCompression and freshly compiled that shared module, both boundaries and the actual rfl identity: all passed with only the standard three axioms. This corrects definitional sharing without modifying the mathematical target or weakening the identity gate."
+  ],
+  "report_path": "docs/lean/statements/IE-10/reviews/lean-boundary-root.md",
+  "report_sha256": "d09c1afa4a7d40bffbb18f5a914b21d49fb747e8294a91a4a12fbcffb0d30048"
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "TR-14",
+  "reviewer": "/root/inventory",
+  "is_ai": true,
+  "phase": "specification",
+  "verdict": "approve",
+  "report_path": "docs/lean/statements/TR-14/reviews/specification-inventory.md",
+  "report_sha256": "133601ec8267d35d4601442b038b6414e88750611e02e9a7b05a650389d7536c",
+  "input_sha256": {
+    "tensor-computations/TR-14/README.md": "a6ae45a647f1cb5e057c7b1f09c5b4d99bdd5a29c25677f352f91ea0788e6d86",
+    "docs/lean/statements/TR-14/NUMERICAL_TARGETS.md": "6c50aa83745fc3d096e08b476fb08a841ffc0fefb2cdd58511f924c49f09da17",
+    "docs/lean/statements/TR-14/ORIGINAL.md": "a6ae45a647f1cb5e057c7b1f09c5b4d99bdd5a29c25677f352f91ea0788e6d86"
+  },
+  "rationale": [
+    "The retained domain m>=3, n>=2, h in C^(m(n-1)+1) includes exceptional and zero Hankel data. Replacing one-based indices by Fin n makes the source subscript sum(i_k)-m equal the sum of zero-based index values. Each subscript lies between 0 and m(n-1).",
+    "The ordinary decomposition has independent complex vectors for every term and every mode, with exactly the coordinate product of their entries. The symmetric decomposition includes an unrestricted complex scalar coefficient for each repeated-vector power. No conjugation, unit-norm condition, Vandermonde shape or genericity assumption enters.",
+    "Widths include r=0, where the empty sum is zero. Both decomposition predicates are upward closed in width by appending zero terms. Consequently equality of their least admissible widths implies equivalence at each r, and equivalence at each r implies equality of their minima.",
+    "The witness sets needed for that equivalence are nonempty: ordinary coordinate tensors span the finite tensor space; symmetric pure powers span symmetric tensors over C by polarization, and the Hankel tensor is symmetric. The symmetric-to-ordinary direction also absorbs its scalar coefficient into one mode, which exists since m>=3. No arbitrary supplied rank function is required.",
+    "The full width-by-width biconditional is therefore an exact form of the original ordinary-rank/symmetric-rank equality. It neither asserts border-rank equality nor imports the stronger explicit apolar formula from the resolution. Exact complex equality and all numerical endpoint conventions are retained.",
+    "The specification is sufficient for implementation. The bounded Hankel index construction, ordinary versus repeated-mode coordinate products, and empty-width behavior require inspection in the actual Lean definition."
+  ],
+  "limits": "Independent specification correspondence review only. No Lean implementation, mathematical proof, cited-paper verification, or kernel/Comparator execution is certified."
+}

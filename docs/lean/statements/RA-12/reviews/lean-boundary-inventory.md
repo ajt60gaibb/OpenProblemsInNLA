@@ -1,0 +1,43 @@
+# RA-12 independent Lean boundary review
+
+Reviewer: OpenAI Codex AI agent `/root/inventory`, independent of specification author `/root/statement_design` and Lean author `/root/infra_audit`.
+
+Phase: `lean-boundary`. Verdict: **APPROVE** the statement boundary and its fidelity to the reviewed complete original target. This is not a proof of the target.
+
+The entire canonical README equals ORIGINAL.md byte for byte, including provenance, solved status and retained auxiliary results. The declaration addresses the complete original comparison chain, not an auxiliary mode or inflection claim.
+
+GaussianLaw is the actual finite Measure.pi product indexed by Fin m × Fin n of gaussianReal 0 1, hence all sample-coordinate variables have the required joint independent standard Gaussian law. Estimator sums every p,q quadratic-form term for each sample and divides by m; each extremizer uses its own dimension.
+
+SpectralNorm is the supremum of the Euclidean image norm over the Euclidean unit sphere, with squared-coordinate sums and Real.sqrt. For the quantified n>0 the sphere is nonempty and compact and its continuous image is bounded, so no empty or unbounded sSup convention changes the target. Nonzero A makes this norm positive. These are direct mathematical correspondence checks, not newly claimed Lean proofs of those facts.
+
+Trace is exactly the diagonal sum. FrobeniusNorm is the nonnegative square root of the sum of all squared entries. Symmetric and NonnegativeQuadraticForm use all coordinates over real vectors; they are concrete predicates, not assumed semantic callbacks.
+
+Pinned Mathlib gammaMeasure shape rate is volume.withDensity ofReal(rate^shape / Gamma(shape) * x^(shape-1) * exp(-(rate*x))) on nonnegative x. The value at x=0 differs from the strict-positive source branch only on a Lebesgue-null singleton. Thus the actual measure is the required shape/rate law, not scale parametrization. Its existing probability-measure lemma applies to the positive parameters derived from the target hypotheses.
+
+Target quantifies every n>0, nonzero real symmetric PSD matrix, m>0 and real epsilon at or above exactly 2/(m*EffectiveRank A). It adds no positive-definiteness, finiteness-of-spectrum, trace-nonzero or rationality restriction. EffectiveRank is Trace A / SpectralNorm A, so positivity and effective rank at least one are consequences of the original hypotheses.
+
+Extremizer has dimension Nat.floor(mu)+1, its first floor(mu) diagonal entries are 1/mu and its final entry is (mu-floor(mu))/mu. Since mu>=1 here, Nat.floor is the intended ordinary nonnegative floor. It retains the final zero at integral mu, even when the resulting dimension exceeds n.
+
+Comparison conjoins first<=middle and middle<=last with exactly the same middle probability. The first event is |T_m(A)-tr A|>=epsilon*tr A; the middle is |T_m(B)-1|>=epsilon; the Gamma event is |x-1|>=epsilon with shape and rate both m*mu/2. All thresholds and events remain non-strict, including equality.
+
+The current and frozen modules match exactly after the prescribed namespace substitution and one frozen-boundary comment. Every repository-local imported module plus all three package-pin files is bound below. The frozen equality confirms retained syntax/meaning only; it does not prove Target.
+
+Author-provided local macOS elaboration logs were inspected and all recorded source/log hashes were checked. Target logs report only propext, Classical.choice and Quot.sound, and the frozen-boundary identity log reports exit 0. This review did not rerun Lean, and those logs are not a Linux Comparator execution.
+
+## Scope limits
+
+This is an independent mathematical and source review, with inspected author-local compilation evidence. It is not external human peer review, a resolution proof, numerical certification, or an independently executed Linux Comparator run. No numerical calculation is needed to state these symbolic probability inequalities; the retained modules explicitly set LeanCert kernel trust and assert the target boundary.
+
+## Reviewed input hashes
+
+- `docs/lean/statements/RA-12/NUMERICAL_TARGETS.md`: `9bd0297d87682e08bd785045651b31fcd9f7f0f73ba29c1a0c2c0dc7018667a6`
+- `docs/lean/statements/RA-12/ORIGINAL.md`: `4771d76230e0a37ccf706b9d7fc0824d257856835d099465963cd200c0adb573`
+- `lean-statements/NLA/Statements/GaussianTrace.lean`: `fb2abf78f23834a862954d872a87e05390d11ac472bdd264757f0358d196f4c0`
+- `lean-statements/NLA/Statements/Infrastructure.lean`: `8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37`
+- `lean-statements/NLA/Statements/RA12.lean`: `e27319f57c2f997197684ce0d4f6576b748a97cd4fb13c4fcc73c7b6a9657b8c`
+- `lean-statements/Reviewed/RA12.lean`: `7f8a43a7585c9254e1c2524e0214f784112793bec967f268a58b31cdcaf17cd6`
+- `lean-statements/lake-manifest.json`: `a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8`
+- `lean-statements/lakefile.toml`: `1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40`
+- `lean-statements/lean-toolchain`: `3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71`
+- `randomized-and-low-rank-approximation/RA-12/README.md`: `4771d76230e0a37ccf706b9d7fc0824d257856835d099465963cd200c0adb573`
+- `docs/lean/statements/RA-12/source-lock.json`: `ff98031f6231deeb28edec802a4d31b9945307fd47f1d4c97f5eb94f9d385843`

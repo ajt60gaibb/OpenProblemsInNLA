@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "id": "IE-12",
+  "scope": "statement-only",
+  "canonical_readme": "linear-systems-and-elimination/IE-12/README.md",
+  "specification": "docs/lean/statements/IE-12/NUMERICAL_TARGETS.md",
+  "module": "NLA.Statements.IE12",
+  "declaration": "NLA.Statements.IE12.Target",
+  "authors": [
+    "/root/statement_design",
+    "/root/infra_audit"
+  ],
+  "source_sha256": "a46926ac2cec003913f0ae71d3f4b54dfb44e82bb90daeaa3ab79ed757421b77",
+  "specification_sha256": "68eb633d1c59347f714d4eab8d32912cdbcd27343ecb50a9dc557741a781cf3d",
+  "lean_sha256": "3b87e45a6896f7cf31fed7338265475bb1ced9f8e7c161ccda7ad8f877bb1343",
+  "frozen_sha256": "02bd169de535a01b877c5d55691a434365767c8e1a9e0246babea7f7fca4904d",
+  "reviews": [
+    {
+      "schema_version": 1,
+      "id": "IE-12",
+      "reviewer": "/root",
+      "is_ai": true,
+      "phase": "specification",
+      "verdict": "approve",
+      "input_sha256": {
+        "docs/lean/statements/IE-12/NUMERICAL_TARGETS.md": "68eb633d1c59347f714d4eab8d32912cdbcd27343ecb50a9dc557741a781cf3d",
+        "docs/lean/statements/IE-12/ORIGINAL.md": "a46926ac2cec003913f0ae71d3f4b54dfb44e82bb90daeaa3ab79ed757421b77",
+        "linear-systems-and-elimination/IE-12/README.md": "a46926ac2cec003913f0ae71d3f4b54dfb44e82bb90daeaa3ab79ed757421b77",
+        "docs/lean/statements/IE-12/source-lock.json": "8179a06b0dd286ff4b1bec2a127ec8c950cce289e2db8c72a7b456f59933fec0"
+      },
+      "rationale": [
+        "The exact original domain n>=1, nonsingular real A of Euclidean norm one, b nonzero and 0<epsilon<1/2 is retained. One finite program and positive real C,q precede every input and draw. The runtime is bounded on all draws, with nonzero output, while the original A-only backward error has probability at least 99/100. No conditioning, forward-error, storage or success-parameter strengthening is introduced.",
+        "The finite syntax exposes every scalar arithmetic/square-root/comparison/random draw and charges scalar memory, branch and address operations. Unbounded indexed storage is concrete, with dense input and zero elsewhere, not an input-answer oracle. Integer counters have charged natural arithmetic and only a natural-to-real conversion; there is no real-to-integer, floor, logarithm, digit extraction or black-box solve.",
+        "Fixed finite real constants are uniform program data. Gaussian and bit streams are independent concrete product laws and consumed sequentially, including adaptive selection of instruction types. Explicit initialization, finite successors, absorbing successful/failure tags and bounded natural iteration determine the output rather than a supplied evaluator or cost.",
+        "The original permitted exact-real model and archived manuscript expressly allow unit-cost indexed scalar-array reads/writes with charged integer loops. I inspected its problem/result, table-access and all-realizations sections. Every-draw termination includes zero Gaussian events and nonzero fallbacks, and no dimension-dependent logarithm is hidden in the fixed C. The q=3 stronger result is retained as source context only.",
+        "The model must be implemented and independently reviewed, including actual countable product measures and scalar transition semantics. Neither the target nor source-algorithm correctness is assumed by this specification. Exact source and full original snapshot are preserved."
+      ],
+      "report_path": "docs/lean/statements/IE-12/reviews/specification-root.md",
+      "report_sha256": "dc65ae484aa6d1b6f08510a79b229ac158d797e5928a11db0339e252362f90aa"
+    },
+    {
+      "schema_version": 1,
+      "id": "IE-12",
+      "reviewer": "/root/inventory",
+      "is_ai": true,
+      "phase": "specification",
+      "verdict": "approve",
+      "report_path": "docs/lean/statements/IE-12/reviews/specification-inventory.md",
+      "report_sha256": "0dfa8e86d3b6c8bcb56ba84ee80b30c8e66134995561d732f5542c93b58a6537",
+      "input_sha256": {
+        "linear-systems-and-elimination/IE-12/README.md": "a46926ac2cec003913f0ae71d3f4b54dfb44e82bb90daeaa3ab79ed757421b77",
+        "docs/lean/statements/IE-12/NUMERICAL_TARGETS.md": "68eb633d1c59347f714d4eab8d32912cdbcd27343ecb50a9dc557741a781cf3d",
+        "docs/lean/statements/IE-12/ORIGINAL.md": "a46926ac2cec003913f0ae71d3f4b54dfb44e82bb90daeaa3ab79ed757421b77",
+        "docs/lean/statements/IE-12/source-lock.json": "8179a06b0dd286ff4b1bec2a127ec8c950cce289e2db8c72a7b456f59933fec0"
+      },
+      "rationale": [
+        "The complete canonical README and ORIGINAL snapshot agree byte for byte. The specification preserves one fixed program and positive real C,q before every n,A,b,epsilon and random realization; it retains n>=1, nonsingular normalized A, arbitrary nonzero b and 0<epsilon<1/2. The success threshold is the original A-only backward-error ratio <=epsilon with probability >=99/100. The norm promise is not replaced by a free norm computation.",
+        "The concrete finite instruction syntax charges every scalar arithmetic operation, square root, comparison, branch, indexed load/store, address arithmetic, natural-to-real conversion, random draw and halt. Fixed scalar constants and register/label counts are global finite program data. There is no real-to-natural conversion, digit extraction, table advice, free solver, spectral operation or arbitrary input evaluator. Natural counters with charged arithmetic implement ordinary exact integer-valued scalar indexing in this exact-real model, not binary-time computation.",
+        "The initialized dense store has exactly the matrix, RHS and epsilon entries at the stated addresses. Other locations are zero; finite traces write only finitely many cells. The output is a concrete n-entry stored slice. Returning its address cannot compute its entries for free, and optional O(n) serialization is absorbed in the allowed n^2*epsilon^-q scale. No storage bound or restricted access pattern is added.",
+        "The independent Gaussian and fair-bit countable product streams give actual independent draws under adaptive instruction choices; separate sequential cursors prohibit reading an unlimited random object in one step. Successful halt and failure are distinct tags. Division by zero, invalid square root and nontermination cannot satisfy the all-realization bounded-return condition.",
+        "The worst-case t bound and nonzero return are required on every realization; probability is reserved for the backward-error guarantee. The archived source expressly handles zero Gaussian denominators and nonzero fallback vectors and states that every realization terminates within the same bound, so the specification does not replace worst-case cost with expected or high-probability runtime. The exact source paragraphs on indexed scalar-array reads, table identifiers and all realizations were inspected.",
+        "The target retains the existential real exponent and original epsilon/error/probability domain rather than the source solution\u2019s fixed exponent, stronger constants, singular-input extension or storage bound. Primitive state transitions and a countable union of finite-time events give the intended measurable success event. The exact instruction evaluator and stream measure must be implemented and reviewed before completion; the solver algorithm and its complexity proof are not prerequisites merely to define the closed target."
+      ]
+    },
+    {
+      "schema_version": 1,
+      "id": "IE-12",
+      "reviewer": "/root",
+      "is_ai": true,
+      "phase": "lean-boundary",
+      "verdict": "approve",
+      "input_sha256": {
+        "docs/lean/statements/IE-12/IMPLEMENTATION_NOTES.md": "8fa1fab63fdcbf3005ca94544188ddda2eff18efb54be4a6ef24eb90f7d1a1aa",
+        "docs/lean/statements/IE-12/NUMERICAL_TARGETS.md": "68eb633d1c59347f714d4eab8d32912cdbcd27343ecb50a9dc557741a781cf3d",
+        "docs/lean/statements/IE-12/ORIGINAL.md": "a46926ac2cec003913f0ae71d3f4b54dfb44e82bb90daeaa3ab79ed757421b77",
+        "docs/lean/statements/verification/2026-09-28-exact-real/CheckExactReal.lean": "78705cef6dd620887071fcc46e04b8d0a75292a17bb0258ec3cf65d3b0957aaa",
+        "docs/lean/statements/verification/2026-09-28-exact-real/CheckExactReal.log": "1aa17c7b2432b5e23e224d9c443d66370a598aa4f3022d0accdd0815ae3350f6",
+        "docs/lean/statements/verification/2026-09-28-exact-real/NLA-Computation-ExactRealControls.lean.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "docs/lean/statements/verification/2026-09-28-exact-real/NLA-Computation-ExactRealMachine.lean.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "docs/lean/statements/verification/2026-09-28-exact-real/NLA-Statements-IE12.lean.log": "e5f0d5c73aabc2cbd788a9adebdc7973dbaf45e4e6da0f6c29fa7ee08adc4e24",
+        "docs/lean/statements/verification/2026-09-28-exact-real/Reviewed-IE12.lean.log": "432722e7a5990a0cebc157eb1501eea4800d78c01c9af076b1dbb21603da4547",
+        "docs/lean/statements/verification/2026-09-28-exact-real/receipt.json": "7564eeb0ee77eb802e39cf4aedc6410f68d279fac0904608faff7aa076f8dfbf",
+        "lean-statements/NLA/Computation/ExactRealControls.lean": "49c287c46bc3b8de2b6f4e0bef049306965572762c8c02b5d6394e0c33b1f04a",
+        "lean-statements/NLA/Computation/ExactRealMachine.lean": "d96cd036d1b559225f7b861ea0ffed4ebf403d089c431ac0ae8a3482c4b830c8",
+        "lean-statements/NLA/Statements/IE12.lean": "3b87e45a6896f7cf31fed7338265475bb1ced9f8e7c161ccda7ad8f877bb1343",
+        "lean-statements/NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+        "lean-statements/Reviewed/IE12.lean": "02bd169de535a01b877c5d55691a434365767c8e1a9e0246babea7f7fca4904d",
+        "lean-statements/lake-manifest.json": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+        "lean-statements/lakefile.toml": "1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40",
+        "lean-statements/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+        "linear-systems-and-elimination/IE-12/README.md": "a46926ac2cec003913f0ae71d3f4b54dfb44e82bb90daeaa3ab79ed757421b77"
+      },
+      "rationale": [
+        "The shared Program is a fixed finite syntax over finite label/register/constant indices, with globally fixed real constants. Each running step interprets one actual scalar opcode; no arbitrary transition, solver, cost or input-answer callback is supplied. Integer indexing operations are separately charged and there is no real-to-natural or digit-extraction instruction.",
+        "InputMemory places every dense A entry, b entry and epsilon at the exact reviewed addresses, then zero elsewhere. The quotient/remainder in free input placement is not a program instruction. Every read/write is a scalar indexed operation. Operands are read from the old state before one destination is changed, including overlap cases.",
+        "Division by zero and negative square-root inputs enter the distinct failed state; failure and successful halt are absorbing. A successful halt is a charged instruction and returns an actual consecutive memory slice of the original dimension. Natural run recursion counts every instruction and output cannot succeed while running or failed.",
+        "StreamLaw is the actual product of independent countably infinite standard-normal and fair-Bernoulli product measures, with proved probability-measure instances. The opcodes consume their separate next coordinates and increment only the corresponding cursor. There is no free access to the whole stream or an input-dependent law.",
+        "Target existentially chooses one P and positive real C,q before all n,A,b,epsilon. Every stream must give a bounded nonzero returned vector, including exceptional Gaussian draws. The same exact BoundedReturn predicate is used in the probability event with original A,b and the normwise A-only backward error. The target norm is the genuine Euclidean induced norm, so the norm-one/nonzero-output guards make its denominator positive.",
+        "The all-draw bound is C*n^2*epsilon^(-q), with real q, not expected runtime or q fixed to the stronger resolution. The probability comparison is exactly >=99/100, epsilon ranges over (0,1/2), and nonsingularity and arbitrary nonzero RHS are unchanged. No storage or conditioning premise is introduced.",
+        "Independently compiled the shared machine, live and frozen targets, eight operational controls and live=frozen identity using the pinned runtime/dependencies. All exited zero and reported only the three permitted standard axioms. Controls test actual addressing, charged halt, failure paths, absorption, sequential stream consumption and probability normalization. No solver-existence or runtime correctness theorem is asserted."
+      ],
+      "report_path": "docs/lean/statements/IE-12/reviews/lean-boundary-root.md",
+      "report_sha256": "67a98fb65b595ca6469c5d868e908bad35fd13c3f20817079dc2c8aa601ee7d0"
+    },
+    {
+      "schema_version": 1,
+      "id": "IE-12",
+      "reviewer": "/root/inventory",
+      "is_ai": true,
+      "phase": "lean-boundary",
+      "verdict": "approve",
+      "report_path": "docs/lean/statements/IE-12/reviews/lean-boundary-inventory.md",
+      "report_sha256": "2dc97e055835dc349144c154e0d430d64af385bf1b618022c55b303bdcab36f0",
+      "input_sha256": {
+        "docs/lean/statements/IE-12/IMPLEMENTATION_NOTES.md": "8fa1fab63fdcbf3005ca94544188ddda2eff18efb54be4a6ef24eb90f7d1a1aa",
+        "docs/lean/statements/IE-12/NUMERICAL_TARGETS.md": "68eb633d1c59347f714d4eab8d32912cdbcd27343ecb50a9dc557741a781cf3d",
+        "docs/lean/statements/IE-12/ORIGINAL.md": "a46926ac2cec003913f0ae71d3f4b54dfb44e82bb90daeaa3ab79ed757421b77",
+        "docs/lean/statements/IE-12/source-lock.json": "8179a06b0dd286ff4b1bec2a127ec8c950cce289e2db8c72a7b456f59933fec0",
+        "lean-statements/NLA/Computation/ExactRealControls.lean": "49c287c46bc3b8de2b6f4e0bef049306965572762c8c02b5d6394e0c33b1f04a",
+        "lean-statements/NLA/Computation/ExactRealMachine.lean": "d96cd036d1b559225f7b861ea0ffed4ebf403d089c431ac0ae8a3482c4b830c8",
+        "lean-statements/NLA/Statements/IE12.lean": "3b87e45a6896f7cf31fed7338265475bb1ced9f8e7c161ccda7ad8f877bb1343",
+        "lean-statements/NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+        "lean-statements/Reviewed/IE12.lean": "02bd169de535a01b877c5d55691a434365767c8e1a9e0246babea7f7fca4904d",
+        "lean-statements/lake-manifest.json": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+        "lean-statements/lakefile.toml": "1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40",
+        "lean-statements/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+        "linear-systems-and-elimination/IE-12/README.md": "a46926ac2cec003913f0ae71d3f4b54dfb44e82bb90daeaa3ab79ed757421b77"
+      }
+    }
+  ]
+}

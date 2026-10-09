@@ -34,7 +34,7 @@ norms},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MI-25}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-10-06}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -60,8 +60,9 @@ Schatten classes require new control across the Schatten scale, a
 challenging norm-geometry question; dimension-independent control would
 inform perturbation estimates across the community.
 
+\hypertarget{partial-result-2026-09-11}{%
 \subsection{Partial result ---
-2026-09-11}\label{partial-result-2026-09-11}
+2026-09-11}\label{partial-result-2026-09-11}}
 
 \textbf{Partial result by Matthew J. Colbrook}, Department of Applied
 Mathematics and Theoretical Physics, University of Cambridge.
@@ -72,7 +73,7 @@ family has defect ratio asymptotic to \(2/(3t)\) as \(t\downarrow0\).
 Zero-row padding gives the same failure on real \(3\times3\) matrices.
 
 \textbf{Still open:} The remaining finite Schatten exponents
-\(1<p<\infty\) are undetermined by this result; the known value
+\(1< p<\infty\) are undetermined by this result; the known value
 \(C_2=1\) is unchanged. The ratings apply to this surviving question.
 
 \textbf{Primary manuscript:}
@@ -89,14 +90,17 @@ external human peer review or formal certification.
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-2026-09-11/README.md}{Submission
 record}.
 
-\subsection{Problem statement}\label{problem-statement}
+\hypertarget{problem-statement}{%
+\subsection{Problem statement}\label{problem-statement}}
 
 For each \(1\le p<\infty\), determine the smallest \(C_p\in[0,\infty]\)
 such that for every pair of positive integers \(N,M\) and every
-\(X,Y,Z\in\mathbb C^{N\times M}\), \[
-\|X\|_p+\|Y\|_p+\|Z\|_p-\|X+Y+Z\|_p
-\le C_p\bigl(D_p(X,Y)+D_p(X,Z)+D_p(Y,Z)\bigr),
-\] where \(D_p(U,V)=\|U\|_p+\|V\|_p-\|U+V\|_p\) and
+\(X,Y,Z\in\mathbb C^{N\times M}\),
+
+\[\|X\|_p+\|Y\|_p+\|Z\|_p-\|X+Y+Z\|_p
+\le C_p\bigl(D_p(X,Y)+D_p(X,Z)+D_p(Y,Z)\bigr),\]
+
+where \(D_p(U,V)=\|U\|_p+\|V\|_p-\|U+V\|_p\) and
 \(\|U\|_p=(\sum_j s_j(U)^p)^{1/p}\). The value \(C_p=\infty\) means that
 no finite constant works uniformly over dimensions. The inequality must
 also hold when the parenthesized expression vanishes; a ratio definition
@@ -107,7 +111,66 @@ be controlled sharply by the cancellation losses of its pairs. Such
 estimates concern the geometry of the matrix norms used in perturbation
 bounds and low-rank approximation.
 
-\subsection{References}\label{references}
+\newpage
+
+\hypertarget{literature-update-2026-10-06}{%
+\subsection{Literature update ---
+2026-10-06}\label{literature-update-2026-10-06}}
+
+Ezzeri Esa's September 2026 \emph{Dimension-independent Hlawka constants
+for Schatten norms} proof release states that a finite
+dimension-independent constant exists for every \(1< p<\infty\). The
+pinned source declaration
+\textit{PalomarHlawkaSchatten.dimension\_independent\_hlawka\_constant\_for\_schatten\_norms}
+uses the Schatten norm defined from singular values and quantifies over
+all finite-dimensional complex domain and codomain spaces. Its
+inequality includes triples with zero total pair defect, so its stated
+scope matches the finiteness part of this problem for rectangular
+complex matrices
+(\href{https://github.com/savarin/hlawka-schatten/blob/1829591140522193a81ae721330e4d775c81123e/README.md}{release
+README},
+\href{https://github.com/savarin/hlawka-schatten/blob/1829591140522193a81ae721330e4d775c81123e/ExistenceSolution.lean}{existence
+solution}). The author does not claim to determine the sharp constants
+for general operators.
+
+The September 25, 2026
+\href{https://palomar-registry.org/entry?id=PALOMAR-2026-09-25-000006\&version=1}{Palomar
+record, version 1}, lists three verified declarations in the
+\textit{ConstructionDiagonal} namespace within
+\textit{PalomarHlawkaSchatten}:
+
+\begin{itemize}
+\tightlist
+\item
+  \textit{diagonal\_hlawka\_bound};
+\item
+  \textit{diagonal\_hlawka\_sharp};
+\item
+  \textit{cyclic\_maximum\_attained}.
+\end{itemize}
+
+These concern an explicit sharp constant for complex diagonal matrices
+when \(p\ge256\), expressed as a one-variable maximum over \([1/2,2]\)
+and attained by a three-coordinate cyclic construction. The bound is
+uniform in dimension, with sharpness in each dimension at least three
+(\href{https://github.com/savarin/hlawka-schatten/blob/1829591140522193a81ae721330e4d775c81123e/ConstructionDiagonalSolution.lean}{pinned
+diagonal solution},
+\href{https://github.com/savarin/hlawka-schatten/blob/1829591140522193a81ae721330e4d775c81123e/comparator-construction-diagonal.json}{registry
+comparator}). The registry's listed declarations do not include the
+general-matrix existence theorem; its diagonal verification record must
+be distinguished from the author's broader existence proof release.
+
+\textbf{Scope and remaining gap:} The existence theorem and the sharp
+diagonal subcase are partial progress toward the original target.
+Determining the least constants for general complex matrices, beyond
+already settled cases such as \(C_2=1\), remains open. The status
+remains \textbf{Partially resolved}. This update inspected the pinned
+source and registry record; it did not run Lean or independently audit
+the complete existence proof, and it does not assign full-target formal
+verification.
+
+\hypertarget{references}{%
+\subsection{References}\label{references}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -123,6 +186,16 @@ bounds and low-rank approximation.
   6, equation (48), p.~25.
   \href{https://www.impan.pl/shop/en/publication/transaction/download/product/111309}{Publisher
   PDF}.
+\item
+  E. Esa, \emph{Dimension-independent Hlawka constants for Schatten
+  norms}, September 2026 proof release, pinned at commit
+  \textit{1829591140522193a81ae721330e4d775c81123e}; general existence
+  and diagonal construction are separate declarations.
+  \href{https://github.com/savarin/hlawka-schatten/tree/1829591140522193a81ae721330e4d775c81123e}{Source}.
+  The diagonal construction is recorded as PALOMAR-2026-09-25-000006,
+  version 1.
+  \href{https://palomar-registry.org/entry?id=PALOMAR-2026-09-25-000006\&version=1}{Registry
+  record}.
 \end{enumerate}
 
 Status check (2026-09-10): the source gives \(C_2=1\) and demonstrates

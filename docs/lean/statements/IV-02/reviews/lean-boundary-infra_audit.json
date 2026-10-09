@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "IV-02",
+  "reviewer": "/root/infra_audit",
+  "is_ai": true,
+  "phase": "lean-boundary",
+  "verdict": "approve",
+  "authors_excluded": [
+    "/root/inventory"
+  ],
+  "input_sha256": {
+    "docs/lean/statements/IV-02/NUMERICAL_TARGETS.md": "19234a7806b52868f56723f6e6bad413d174d6ad1ac56f88b3b4bcb2ea36c922",
+    "docs/lean/statements/IV-02/ORIGINAL.md": "8b1ffc82e9760aaffee717005e4547dc9cace7f97bc77d0f0f82a25b62b303d7",
+    "intervals-and-absolute-value-equations/IV-02/README.md": "8b1ffc82e9760aaffee717005e4547dc9cace7f97bc77d0f0f82a25b62b303d7",
+    "lean-statements/NLA/Computation/BandIntervals.lean": "01c35fb784321faf870022eb803ad94abf3ea0961b574fe83b18ba724fac8a89",
+    "lean-statements/NLA/Computation/BinaryEncoding.lean": "d494ffb15274500ea5c06c480c2b2032a48390533f7171b4ed993d947c44ee6a",
+    "lean-statements/NLA/Computation/FiniteMachine.lean": "7c8b2a8e88220b3a1a66bf9c9748ee2213b155dd239809654240095180918d9d",
+    "lean-statements/NLA/Statements/IV02.lean": "a1afac2450f4a6a165d56106fa548f7c9623b889b15867b2c14391c4e4aaea68",
+    "lean-statements/NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+    "lean-statements/Reviewed/IV02.lean": "d4cd44091d99b9979aef04a941d47d5756843349c1ef0f29af349ba9005bdf90",
+    "lean-statements/lake-manifest.json": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+    "lean-statements/lakefile.toml": "1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40",
+    "lean-statements/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+    "docs/lean/statements/IV-02/IMPLEMENTATION_NOTES.md": "1431b57f067920e2322851ddefb9e462b1e38aae55ae1050c4aa516c7bb1bcd7",
+    "docs/lean/statements/IV-02/source-lock.json": "034462d59bef18e8528b8c9fff6fa788743f78af4112024c2e776f38a58ed7d2",
+    "lean-statements/NLA/Computation/BandIntervalControls.lean": "4a020c63f8236fe5e72cd738447d471f9c5abf70050b4b818d52e8f5d948c0f1",
+    "docs/lean/statements/IV-02/reviews/lean-boundary-infra-audit-evidence/NLA-Statements-IV02.log": "f0af31471c2fd2742b474a052ecdb10e0f3971d30e1ddf3c4a774aa4c370c42f",
+    "docs/lean/statements/IV-02/reviews/lean-boundary-infra-audit-evidence/Reviewed-IV02.log": "a8079e09f9a8eb1f5c8995c0fa8c36f371de41e5003b72687180f431a2f98abe",
+    "docs/lean/statements/IV-02/reviews/lean-boundary-infra-audit-evidence/NLA-Computation-FiniteMachine.log": "2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30",
+    "docs/lean/statements/IV-02/reviews/lean-boundary-infra-audit-evidence/NLA-Computation-BinaryEncoding.log": "2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30",
+    "docs/lean/statements/IV-02/reviews/lean-boundary-infra-audit-evidence/NLA-Computation-BandIntervals.log": "2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30",
+    "docs/lean/statements/IV-02/reviews/lean-boundary-infra-audit-evidence/NLA-Computation-BandIntervalControls.log": "2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30",
+    "docs/lean/statements/IV-02/reviews/lean-boundary-infra-audit-evidence/identity.log": "2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30",
+    "docs/lean/statements/IV-02/reviews/lean-boundary-infra-audit-evidence/Identity.lean": "592ab45b0b8c2c0c999f52ae501211bce6acd33d788e5be0db34337837c54180",
+    "docs/lean/statements/IV-02/reviews/lean-boundary-infra-audit-evidence/result.json": "0b31129ff68e52ddffd767bdd046b53fe1f660c0d29905dd67ab9810b670707b"
+  },
+  "rationale": [
+    "Target quantifies all ordered band inputs with n>=2. CorrectRange simultaneously gives universal determinant lower/upper bounds over every admissible real matrix and two separate real matrix witnesses attaining the rational endpoints. This is exactly the actual min/max, not a loose enclosure, endpoint-only restriction or common-extremizer requirement. Matrix.det is the genuine finite real determinant.",
+    "The same fixed deterministic machine must halt with exactly encodeRat dlo followed by encodeRat dhi within its uniform bound. Output rational extrema are quantified only after this machine and budget, so mathematical pointwise existence cannot satisfy the algorithmic requirement on its own. No nonsingularity or positivity promise removes original instances.",
+    "I read both final live and frozen targets, the entire BandIntervals helper and BandIntervalControls, both implementation notes, and the actual unchanged finite-machine/encoding imports against the independently approved specification and complete canonical originals. All prereview hash bindings remain valid. The original algorithm-existence question remains Target; no separate P=NP classification, assumed separation or unconditional solver is substituted.",
+    "BandInput contains exactly n diagonal and n-1 upper/lower intervals. MatrixMember uses genuine real entries: edgeLeft i=i and edgeRight i=i+1 with checked bounds, correct upper/lower orientation, and zero precisely outside the three bands. All choices are independent; duplicated interval values do not couple entries. Ordered endpoints, zero widths, crossings and singular members retain their complete intended domains.",
+    "encodeBand transmits exactly one dimension then every lower/upper endpoint pair in increasing diagonal, upper and lower order. encodeSystem appends every RHS pair without repeating the dimension. Canonical rational fields are the reviewed signed reduced numerator and positive denominator encodings with explicit binary framing. Counts and grammars determine all fields uniquely; a dense uncounted matrix or arbitrary encoder is not used.",
+    "The unchanged finite machine is an actual TM0 table on finite states and Option Bool symbols, with current-symbol moves/writes only. RunsWithin requires genuine EvalsToInTime from the explicit input, a reached terminal configuration and equality of its complete nonblank-bit suffix to the complete output word. One positive natural polynomial coefficient and one natural exponent precede every input. Both targets measure the entire encoded input length, including dimension, numerators, denominators and framing; no free evaluator, semantic runtime field or arithmetic oracle appears.",
+    "BandIntervalControls verifies distinct-stamped input order, appended RHS order, finite/infinite output tags and empty-versus-zero-box distinction. Its actual one-dimensional singular examples prove global emptiness for 0*x=1 and the full real hull for 0*x=0. The disconnected set test checks endpoint semantics without falsely claiming its projection is an interval or proving its system representation.",
+    "I independently compiled fresh Infrastructure, FiniteMachine, BinaryEncoding, BandIntervals, BandIntervalControls, both live and frozen targets and the actual rfl identity checks in a separate macOS build. All exited0. Both Target closures have only propext, Classical.choice and Quot.sound, with #assert_statement and LeanCert kernel trust checks passed. General codec inverses, machine simulation theorems and actual catalog algorithms/classifications remain future proof work; none is assumed inside these definitions.",
+    "Live and frozen targets have separately defined Target constants and intentionally share the same concrete reviewed interval/computation types. The entire local import closure and pins are bound here: frozen reflexivity alone does not authorize changes to shared semantics. No original problem ID, target text, source credit or historical Lean file was changed."
+  ],
+  "verification_scope": "Independent full source/mathematical boundary review and local kernel/frozen identity checks; no target truth, formal model equivalence or Linux Comparator claim.",
+  "report_path": "docs/lean/statements/IV-02/reviews/lean-boundary-infra_audit.md",
+  "report_sha256": "5da8ab592f99ee847fc12e4cfeb15137e724b854dd66ba0f018ab8f1b2b3d984"
+}

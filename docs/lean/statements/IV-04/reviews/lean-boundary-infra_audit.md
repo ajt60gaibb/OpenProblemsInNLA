@@ -1,0 +1,54 @@
+# IV-04 independent final Lean-boundary review
+
+Reviewer: `/root/infra_audit`, OpenAI Codex AI agent independent of implementation/specification author `/root/inventory`. Phase: `lean-boundary`. Verdict: **approve**.
+
+Target includes every n>=1 ordered independent band/RHS input with no regularity promise. SolutionSet is the complete real set of x admitting a real T,b in their independent intervals with the actual T.mulVec x=b. No inverse, rational-solution restriction or convexity assumption changes singular/inconsistent behavior.
+
+CorrectHull.empty means equality of the entire united set to the empty set. Its box branch explicitly requires nonemptiness. Finite endpoint clauses combine universal lower/upper bounds with arbitrarily close epsilon witnesses; infinite endpoint clauses require a witness beyond every real threshold. Thus these are exactly infimum/supremum/unboundedness, with witnesses allowed to vary by coordinate, endpoint and epsilon and no unjustified endpoint-attainment requirement.
+
+The distinct lower/upper endpoint types rule out +infinity as a lower endpoint and -infinity as an upper endpoint of a nonempty real set. The single global empty flag prevents inconsistent coordinate emptiness. A box output carries the original dimension and every coordinate pair, using side-specific infinity tags or exact rationals. The bounded actual run must write this entire word, not merely provide mathematical endpoint data.
+
+The disconnected-projection defect in the historical HullCase is fully removed: LowerCorrect/UpperCorrect characterize the smallest interval containing a projection and do not require that projection itself to equal an interval. Empty, unbounded, one-sided and bounded cases all have their canonical meanings.
+
+I read both final live and frozen targets, the entire BandIntervals helper and BandIntervalControls, both implementation notes, and the actual unchanged finite-machine/encoding imports against the independently approved specification and complete canonical originals. All prereview hash bindings remain valid. The original algorithm-existence question remains Target; no separate P=NP classification, assumed separation or unconditional solver is substituted.
+
+BandInput contains exactly n diagonal and n-1 upper/lower intervals. MatrixMember uses genuine real entries: edgeLeft i=i and edgeRight i=i+1 with checked bounds, correct upper/lower orientation, and zero precisely outside the three bands. All choices are independent; duplicated interval values do not couple entries. Ordered endpoints, zero widths, crossings and singular members retain their complete intended domains.
+
+encodeBand transmits exactly one dimension then every lower/upper endpoint pair in increasing diagonal, upper and lower order. encodeSystem appends every RHS pair without repeating the dimension. Canonical rational fields are the reviewed signed reduced numerator and positive denominator encodings with explicit binary framing. Counts and grammars determine all fields uniquely; a dense uncounted matrix or arbitrary encoder is not used.
+
+The unchanged finite machine is an actual TM0 table on finite states and Option Bool symbols, with current-symbol moves/writes only. RunsWithin requires genuine EvalsToInTime from the explicit input, a reached terminal configuration and equality of its complete nonblank-bit suffix to the complete output word. One positive natural polynomial coefficient and one natural exponent precede every input. Both targets measure the entire encoded input length, including dimension, numerators, denominators and framing; no free evaluator, semantic runtime field or arithmetic oracle appears.
+
+BandIntervalControls verifies distinct-stamped input order, appended RHS order, finite/infinite output tags and empty-versus-zero-box distinction. Its actual one-dimensional singular examples prove global emptiness for 0*x=1 and the full real hull for 0*x=0. The disconnected set test checks endpoint semantics without falsely claiming its projection is an interval or proving its system representation.
+
+I independently compiled fresh Infrastructure, FiniteMachine, BinaryEncoding, BandIntervals, BandIntervalControls, both live and frozen targets and the actual rfl identity checks in a separate macOS build. All exited0. Both Target closures have only propext, Classical.choice and Quot.sound, with #assert_statement and LeanCert kernel trust checks passed. General codec inverses, machine simulation theorems and actual catalog algorithms/classifications remain future proof work; none is assumed inside these definitions.
+
+Live and frozen targets have separately defined Target constants and intentionally share the same concrete reviewed interval/computation types. The entire local import closure and pins are bound here: frozen reflexivity alone does not authorize changes to shared semantics. No original problem ID, target text, source credit or historical Lean file was changed.
+
+This is independent AI-agent mathematical/source review and independently executed local kernel evidence, not external human review, proof of a catalog algorithm/classification, or a Linux Comparator run.
+
+## Bound inputs
+
+- `docs/lean/statements/IV-04/IMPLEMENTATION_NOTES.md`: `4ecbb98842823a7032eda2529f2360b2f4111201d40e32741544bd83b0a1183f`
+- `docs/lean/statements/IV-04/NUMERICAL_TARGETS.md`: `53aee2b51e51b95459640c52d6c3f09186bca4bf180b7ede0b0380145f1962c2`
+- `docs/lean/statements/IV-04/ORIGINAL.md`: `bea3f7d4322d1293944253138d3ee6f6f1fce1b1451084bfe3b6c716035c0735`
+- `docs/lean/statements/IV-04/reviews/lean-boundary-infra-audit-evidence/Identity.lean`: `592ab45b0b8c2c0c999f52ae501211bce6acd33d788e5be0db34337837c54180`
+- `docs/lean/statements/IV-04/reviews/lean-boundary-infra-audit-evidence/NLA-Computation-BandIntervalControls.log`: `2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30`
+- `docs/lean/statements/IV-04/reviews/lean-boundary-infra-audit-evidence/NLA-Computation-BandIntervals.log`: `2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30`
+- `docs/lean/statements/IV-04/reviews/lean-boundary-infra-audit-evidence/NLA-Computation-BinaryEncoding.log`: `2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30`
+- `docs/lean/statements/IV-04/reviews/lean-boundary-infra-audit-evidence/NLA-Computation-FiniteMachine.log`: `2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30`
+- `docs/lean/statements/IV-04/reviews/lean-boundary-infra-audit-evidence/NLA-Statements-IV04.log`: `482a9d2468a58f743397f8f0b390c9fab78e7e4c076fa3c4db5c890fc34f6f57`
+- `docs/lean/statements/IV-04/reviews/lean-boundary-infra-audit-evidence/Reviewed-IV04.log`: `c4253f49653983f21b97c9756c275b939e851dc52e31dc636f52533799521e35`
+- `docs/lean/statements/IV-04/reviews/lean-boundary-infra-audit-evidence/identity.log`: `2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30`
+- `docs/lean/statements/IV-04/reviews/lean-boundary-infra-audit-evidence/result.json`: `0b31129ff68e52ddffd767bdd046b53fe1f660c0d29905dd67ab9810b670707b`
+- `docs/lean/statements/IV-04/source-lock.json`: `57df03550b721a9097192f3b49e21be98aa76fe33c1f1f253d4404652a30cb8f`
+- `intervals-and-absolute-value-equations/IV-04/README.md`: `bea3f7d4322d1293944253138d3ee6f6f1fce1b1451084bfe3b6c716035c0735`
+- `lean-statements/NLA/Computation/BandIntervalControls.lean`: `4a020c63f8236fe5e72cd738447d471f9c5abf70050b4b818d52e8f5d948c0f1`
+- `lean-statements/NLA/Computation/BandIntervals.lean`: `01c35fb784321faf870022eb803ad94abf3ea0961b574fe83b18ba724fac8a89`
+- `lean-statements/NLA/Computation/BinaryEncoding.lean`: `d494ffb15274500ea5c06c480c2b2032a48390533f7171b4ed993d947c44ee6a`
+- `lean-statements/NLA/Computation/FiniteMachine.lean`: `7c8b2a8e88220b3a1a66bf9c9748ee2213b155dd239809654240095180918d9d`
+- `lean-statements/NLA/Statements/IV04.lean`: `0fa9f07081aece070f3dedfd2a3e35faf98cc3a2339bfaac184a4df8196d7ce3`
+- `lean-statements/NLA/Statements/Infrastructure.lean`: `8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37`
+- `lean-statements/Reviewed/IV04.lean`: `bc32e8012bd39024d6ee5898ed5fdc276071a11d5ee30793f397cdb6b235b3bf`
+- `lean-statements/lake-manifest.json`: `a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8`
+- `lean-statements/lakefile.toml`: `1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40`
+- `lean-statements/lean-toolchain`: `3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71`

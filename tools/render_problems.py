@@ -29,6 +29,20 @@ def plain_pdf_title(title):
 
 def restore_pdf_layout(identifier, body):
     """Keep document commands out of the public mathematical statements."""
+    if identifier == "MD-01":
+        # Keep the original expectation target together after the resolution notice.
+        body = body.replace("## Original problem statement\n", "\\newpage\n\n## Original problem statement\n", 1)
+    if identifier == "MI-25":
+        # Keep the new proof-release scope and its evidence on the same page.
+        body = body.replace("## Literature update", "\\newpage\n\n## Literature update", 1)
+    if identifier == "IE-06":
+        # Keep the theorem comparison and its references together after the target.
+        heading = "## Scope of the resolution\n"
+        body = body.replace(heading, "\\newpage\n\n" + heading, 1)
+    if identifier == "RA-01":
+        # Keep each dated partial result together after the new manuscript notice.
+        body = body.replace("## Partial resolution - 13 September 2026\n",
+                            "\\newpage\n\n## Partial resolution - 13 September 2026\n", 1)
     if identifier == "SP-04":
         # Keep the complete retained question together after verification notices.
         heading = "## Original problem statement\n"
@@ -58,6 +72,9 @@ def restore_pdf_layout(identifier, body):
         # Separate formal evidence and keep the unchanged original target together.
         body = body.replace("## Lean proof and verification evidence\n", "\\newpage\n\n## Lean proof and verification evidence\n", 1)
         body = body.replace("## Statement\n", "\\newpage\n\n## Statement\n", 1)
+    if identifier == "MF-23":
+        # Keep the resolution notice and retained original target on separate pages.
+        body = body.replace("## Context and notation\n", "\\newpage\n\n## Context and notation\n", 1)
     if identifier in {"RA-12", "RA-13"}:
         heading = "## Problem statement\n"
         body = body.replace(heading, "\\newpage\n\n" + heading, 1)
@@ -88,7 +105,7 @@ def render(source):
         # Keep the unchanged original target together after its resolution notice.
         # This PDF-only layout instruction should not appear on the GitHub page.
         body = body.replace("## Context and notation\n", "\\newpage\n\n## Context and notation\n", 1)
-    if identifier in {"SP-13", "IE-26"}:
+    if identifier in {"SP-13", "IE-26", "TR-13"}:
         # Keep the complete retained target together after its resolution notice.
         body = body.replace("## Statement\n", "\\newpage\n\n## Statement\n", 1)
     # GitHub-relative links become usable links in a downloaded PDF or TeX file.
@@ -108,9 +125,12 @@ def render(source):
             input=body.strip(), text=True, capture_output=True, check=True,
         )
         tex = result.stdout
+        if identifier == "TR-21":
+            # Preserve the complete conjecture first, then keep its resolution together.
+            tex = tex.replace(r"\subsection{Resolution", "\\newpage\n" + r"\subsection{Resolution", 1)
         if identifier == "TR-27":
             tex = tex.replace("headheight=15pt", "headheight=20pt")
-        if identifier in {"IE-02", "IE-04", "IE-14", "IV-03", "KE-05", "MF-05", "MF-12", "MF-18", "MF-21", "MF-22", "MI-24", "MI-27", "MI-28", "NM-04", "NR-04", "PF-03", "SP-04", "SP-05", "SP-15", "TR-27"}:
+        if identifier in {"IE-02", "IE-04", "IE-06", "IE-14", "IV-03", "KE-05", "MF-05", "MF-12", "MF-18", "MF-21", "MF-22", "MI-15", "MI-18", "MI-24", "MI-27", "MI-28", "NM-04", "NR-04", "PF-03", "SP-04", "SP-05", "SP-15", "TR-07", "TR-27"}:
             # These publication dates record formal verification, not a literature search.
             tex = tex.replace("Literature check:", "Verification check:")
         # The code spans in this catalog are literal search phrases. Set them
@@ -121,14 +141,14 @@ def render(source):
         # leave only a few lines on a second page after the status audit.
         if identifier in {
             'AA-01', 'AC-13', 'AV-01', 'AV-02', 'AV-03', 'FR-01', 'FR-02', 'FR-04',
-            'FR-10', 'FR-11', 'FR-12', 'IE-01', 'IE-03', 'IE-06', 'IE-08', 'IE-10', 'IE-11', 'IE-13',
+            'FR-10', 'FR-11', 'FR-12', 'IE-01', 'IE-03', 'IE-08', 'IE-10', 'IE-11', 'IE-13',
             'IE-14', 'IE-15', 'IE-17', 'IE-19', 'IE-21', 'IE-22',
             'IE-24', 'IE-25', 'IE-26', 'IS-02', 'IS-03', 'IS-05', 'IV-02', 'IV-03', 'IV-04',
             'IV-05', 'IV-06', 'KE-03', 'KE-04', 'MD-06', 'MF-15',
             'MF-16', 'MF-17', 'MI-03', 'MI-04', 'MI-06', 'MI-07', 'MI-08',
-            'MI-09', 'MI-19', 'MI-23', 'MI-29', 'NM-03', 'NM-04', 'PF-05',
+            'MI-09', 'MI-15', 'MI-19', 'MI-23', 'MI-29', 'NM-03', 'NM-04', 'PF-05',
             'RA-02', 'RA-06', 'RA-08', 'RA-09', 'RA-10', 'RA-12',
-            'RA-15', 'RE-01', 'RE-02', 'RE-06', 'SP-04',
+            'RE-01', 'RE-02', 'RE-06', 'SP-04',
             'SP-05', 'SP-06', 'SP-09', 'SP-12', 'TR-11', 'TR-20', 'TR-21',
             'TR-24', 'TR-26', 'TR-30',
             'IE-27', 'MI-30', 'MI-31',

@@ -1,0 +1,119 @@
+name: Lean statement boundaries
+
+on:
+  pull_request:
+    paths:
+      - 'lean-statements/**'
+      - 'tools/lean_statements/**'
+      - 'tools/statement_inventory.py'
+      - 'tests/test_statement_inventory.py'
+      - 'docs/lean/statements/**'
+      - 'problem_ids.json'
+      - '**/README.md'
+      - '.github/workflows/lean-statements.yml'
+  push:
+    paths:
+      - 'lean-statements/**'
+      - 'tools/lean_statements/**'
+      - 'tools/statement_inventory.py'
+      - 'tests/test_statement_inventory.py'
+      - 'docs/lean/statements/**'
+      - 'problem_ids.json'
+      - '**/README.md'
+      - '.github/workflows/lean-statements.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lean-statements-${{ github.event_name }}-${{ github.event.pull_request.head.repo.full_name || github.repository }}-${{ github.event.pull_request.head.ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  statement-boundaries:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Review hashes and metadata rejection controls
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.sha || github.event.before || 'origin/main' }}
+        run: |
+          python3 -m unittest discover -s tools/lean_statements -p 'test_*.py' -v
+          python3 -m unittest discover -s tests -p 'test_statement_inventory.py' -v
+          python3 - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          inventory = json.loads(Path('docs/lean/statements/inventory.json').read_text())
+          subprocess.run(['python3', 'tools/statement_inventory.py', '--base-ref', inventory['base_commit'], '--check'], check=True)
+          PY
+          if [ "$BASE_REF" = "0000000000000000000000000000000000000000" ]; then BASE_REF=origin/main; fi
+          python3 tools/lean_statements/check.py --base-ref "$BASE_REF" validate
+      - uses: leanprover/lean-action@96e06131c0e9943c780388fd166f55d1e2fa0433
+        with:
+          lake-package-directory: lean-statements
+          auto-config: false
+          build: false
+          test: false
+          lint: false
+          use-mathlib-cache: false
+          use-github-cache: false
+      - name: Pinned dependencies and Mathlib cache
+        working-directory: lean-statements
+        run: lake exe cache get
+      - name: Elaborate statements and audit transitive axioms
+        run: python3 tools/lean_statements/check.py elaborate --output "$RUNNER_TEMP/nla-statement-elaboration"
+      - name: Retain statement evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: lean-statement-elaboration
+          path: ${{ runner.temp }}/nla-statement-elaboration/
+          if-no-files-found: warn
+
+  comparator-identities:
+    needs: statement-boundaries
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.27.1'
+          cache: false
+      - uses: leanprover/lean-action@96e06131c0e9943c780388fd166f55d1e2fa0433
+        with:
+          lake-package-directory: lean-statements
+          auto-config: false
+          build: false
+          test: false
+          lint: false
+          use-mathlib-cache: false
+          use-github-cache: false
+      - name: Prepare actual unprivileged Linux isolation
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bubblewrap dbus-user-session
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+          sudo loginctl enable-linger "$(id -un)"
+          sudo systemctl start "user@$(id -u).service"
+          echo "XDG_RUNTIME_DIR=/run/user/$(id -u)" >> "$GITHUB_ENV"
+          echo "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus" >> "$GITHUB_ENV"
+      - name: Check frozen-boundary equalities and infrastructure certificate
+        run: |
+          ulimit -n 65536
+          tools/lean/bootstrap.sh "$RUNNER_TEMP/nla-statement-tools"
+          tools/lean/verify.sh lean-statements "$RUNNER_TEMP/nla-statement-tools"
+      - name: Retain Comparator identity evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: lean-statement-comparator-identities
+          path: ${{ runner.temp }}/nla-statement-tools/logs/
+          if-no-files-found: warn

@@ -1,0 +1,585 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{microtype}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+
+\hypersetup{
+  pdftitle={An Accuracy Obstruction for lp Row Sparsification},
+  pdfsubject={A complete-graph counterexample to RA-06 for p greater than two},
+  pdfkeywords={sensitivity sampling, subspace embedding, row sparsification, graph energy}
+}
+
+\linespread{1.06}
+\setlength{\parskip}{3pt plus 1pt minus 1pt}
+\setlength{\emergencystretch}{2em}
+\raggedbottom
+
+\newtheoremstyle{spaced}
+  {9pt plus 2pt minus 2pt}{9pt plus 2pt minus 2pt}
+  {\itshape}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{spaced}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\numberwithin{equation}{section}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Sp}{\mathcal{S}}
+\newcommand{\one}{\mathbf{1}}
+\DeclareMathOperator{\supp}{supp}
+
+\title{An Accuracy Obstruction for $\ell_p$ Row Sparsification\\[4pt]
+  \large A Complete-Graph Counterexample to RA-06}
+\author{}
+\date{30 September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For every fixed real $p>2$, we construct full-column-rank matrices with
+ordinary $\ell_p$ sensitivity $\Sp=\Theta_p(d)$ for which every
+nonnegative reweighted row subset preserving all $p$-th powers of norms
+within $1\pm\varepsilon$ needs
+$\Omega_p((\Sp+d)\varepsilon^{-p})$ rows, in an explicit large-dimension
+regime. The matrices are grounded incidence matrices of complete graphs.
+An elementary, support-dependent test potential proves the lower bound.
+For the prescribed ordinary-sensitivity sampler, even one successful
+realization forces the same order of expected row count. This disproves
+RA-06 and the $p>2$ quadratic-accuracy sensitivity-sampling conjecture it
+formalizes: no fixed polylogarithmic factor can absorb the gap between
+$\varepsilon^{-p}$ and $\varepsilon^{-2}$.
+\end{abstract}
+
+\section{Introduction and the target assertion}\label{sec:introduction}
+
+For a full-column-rank matrix $A\in\R^{n\times d}$ with rows $a_i^T$,
+its ordinary $\ell_p$ row sensitivities and total sensitivity are
+\begin{equation}\label{eq:sensitivity-definition}
+ s_i=\sup_{x\ne0}\frac{|a_i^Tx|^p}{\|Ax\|_p^p},
+ \qquad
+ \Sp=\sum_{i=1}^n s_i.
+\end{equation}
+The question is whether these quantities alone support a row-sampling
+bound that is nearly linear in $\Sp+d$ and quadratic in the inverse
+accuracy.
+
+Woodruff and Yasuda conjectured the sample complexity
+$\widetilde O(\varepsilon^{-2}(\Sp+d))$ for sensitivity sampling
+\cite[Section~3]{wy}. Their sampling model and ordinary-sensitivity rule
+appear in Definition~1.1 and Theorem~1.5 of that work. The problem
+catalogue entry RA-06 records the following precise $p>2$ formulation
+\cite{ra06}.
+
+\medskip
+\noindent\textbf{Target assertion (RA-06).}
+Fix $p>2$. Do constants $C_p,c_p>0$ exist such that, for every
+full-column-rank $A\in\R^{n\times d}$ and every
+$0<\varepsilon,\delta<1/2$, one can choose $\alpha>0$ so that independent
+row retention with probabilities
+\begin{equation}\label{eq:ra06-probabilities}
+ q_i=\min\{1,1/n+s_i/\alpha\}
+\end{equation}
+satisfies the expected-size bound
+\begin{equation}\label{eq:ra06-budget}
+ \sum_{i=1}^n q_i
+ \le C_p\varepsilon^{-2}(\Sp+d)
+      \log^{c_p}\!\left(\frac{2nd}{\varepsilon\delta}\right),
+\end{equation}
+while the matrix $\widetilde A$ obtained by scaling each retained row by
+$q_i^{-1/p}$ obeys, with probability at least $1-\delta$,
+\begin{equation}\label{eq:matrix-embedding}
+ (1-\varepsilon)\|Ax\|_p^p
+ \le \|\widetilde Ax\|_p^p
+ \le (1+\varepsilon)\|Ax\|_p^p
+ \qquad\text{for every }x\in\R^d?
+\end{equation}
+\medskip
+
+We give a negative answer for every fixed real $p>2$. The obstruction is
+an accuracy cost, not a claim that nearly linear sensitivity dependence
+is impossible at fixed accuracy. The argument has two levels. First,
+any nonnegative weighted subgraph approximating the complete graph's
+$p$-energy must have many support edges. Second, equal sensitivities
+force the rule \eqref{eq:ra06-probabilities} to use a common probability,
+which converts the deterministic obstruction into a lower bound on the
+sampler's expected size. The latter conclusion rules out every allowed
+choice of $\alpha$, including the floor and saturation in the rule.
+
+All logarithms are natural. Constants with a subscript $p$ may depend
+on the fixed exponent $p$, but not on the matrix dimensions or accuracy.
+
+\section{Complete-graph matrices and exact sensitivities}\label{sec:matrix}
+
+Let $v\ge3$, and write
+\[
+ [v]=\{1,\ldots,v\},\qquad R=v-1,\qquad
+ n=\binom v2,\qquad d=v-1.
+\]
+Choose an orientation of every edge of the complete graph $K_v$.
+Let $A_v\in\R^{n\times d}$ be its edge--vertex incidence matrix with the
+column for vertex $v$ deleted. Define the complete-graph $p$-energy by
+\begin{equation}\label{eq:complete-energy}
+ F(z)=\sum_{1\le i<j\le v}|z_i-z_j|^p,
+ \qquad z\in\R^v.
+\end{equation}
+
+For $x\in\R^{v-1}$, the grounded potential $z=(x,0)$ satisfies
+$\|A_vx\|_p^p=F(z)$. Conversely, replacing any $z\in\R^v$ by
+$z-z_v\one$ grounds its last coordinate and leaves every edge difference
+unchanged. Thus preservation of $F$ for all vertex potentials is
+exactly the matrix embedding requirement for $A_v$; grounding discards
+no test direction. The matrix has full column rank, since a grounded
+potential whose pairwise differences all vanish is zero.
+
+\begin{lemma}[Exact sensitivities]\label{lem:sensitivity}
+For every real $p>1$, every row of $A_v$ has sensitivity
+\begin{equation}\label{eq:exact-sensitivity}
+ s_v=\frac{1}{1+(v-2)2^{1-p}}.
+\end{equation}
+Consequently,
+\begin{equation}\label{eq:total-sensitivity}
+ \Sp=\frac{\binom v2}{1+(v-2)2^{1-p}}
+ \le 2^{p-2}v.
+\end{equation}
+For $p\ge2$, one also has
+\begin{equation}\label{eq:sensitivity-comparison}
+ d=v-1\le\Sp,
+ \qquad
+ \Sp+d\le(2^{p-2}+1)v.
+\end{equation}
+In particular, $\Sp=\Theta_p(d)$ for each fixed $p>2$.
+\end{lemma}
+
+\begin{proof}
+Fix an edge $\{i,j\}$. For each $w\notin\{i,j\}$, convexity gives
+\[
+ |z_i-z_w|^p+|z_j-z_w|^p
+ \ge 2^{1-p}|z_i-z_j|^p.
+\]
+Adding these inequalities, the edge $\{i,j\}$, and the remaining
+nonnegative energies yields
+\[
+ F(z)\ge\bigl(1+(v-2)2^{1-p}\bigr)|z_i-z_j|^p.
+\]
+Equality holds at $z_i=1$, $z_j=0$, and $z_w=1/2$ for every other
+vertex. Translating this potential to grounded coordinates proves
+\eqref{eq:exact-sensitivity}.
+
+Summing the equal sensitivities gives the identity in
+\eqref{eq:total-sensitivity}. Since
+$1+(v-2)2^{1-p}\ge(v-1)2^{1-p}$ for $p>1$, its upper bound follows.
+For $p\ge2$, the reverse comparison
+$1+(v-2)2^{1-p}\le v/2$ gives $\Sp\ge v-1$.
+Finally, $d\le v$ gives the last bound in
+\eqref{eq:sensitivity-comparison}.
+\end{proof}
+
+\section{A lower bound for arbitrary nonnegative row weights}
+\label{sec:weighted}
+
+Assign a finite nonnegative weight $w_{ij}$ to each unordered edge
+$\{i,j\}$ of $K_v$, and set
+\begin{equation}\label{eq:weighted-energy}
+ U_w(z)=\sum_{i<j}w_{ij}|z_i-z_j|^p.
+\end{equation}
+Write $w_{ji}=w_{ij}$ and $w_{ii}=0$. Let $H_w$ be the support graph,
+whose edges are those with positive weight. Its number of edges and the
+support degree of a vertex $u$ are
+\[
+ M=|E(H_w)|,
+ \qquad
+ \kappa_u=|\{j\ne u:w_{uj}>0\}|.
+\]
+Support degree counts retained edges; it is distinct from the weighted
+degree $d_w(u)=\sum_{j\ne u}w_{uj}$.
+
+\begin{theorem}[Deterministic support obstruction]\label{thm:weighted}
+Let $p>1$, $v\ge3$, and $0<\varepsilon<1/2$. Suppose that
+\begin{equation}\label{eq:weighted-embedding}
+ (1-\varepsilon)F(z)\le U_w(z)\le(1+\varepsilon)F(z)
+ \qquad\text{for all }z\in\R^v.
+\end{equation}
+Then every vertex has positive support degree and satisfies
+\begin{equation}\label{eq:support-necessary}
+ \kappa_u^{-1/p}\le4\varepsilon+\frac{2\kappa_u}{R}.
+\end{equation}
+In particular,
+\begin{equation}\label{eq:support-degree}
+ \kappa_u\ge
+ \min\{R\varepsilon,(6\varepsilon)^{-p}\},
+\end{equation}
+and therefore
+\begin{equation}\label{eq:weighted-support-bound}
+ M\ge\frac v2\min\{R\varepsilon,(6\varepsilon)^{-p}\}.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+\emph{Singleton tests control weighted degrees.}
+Apply \eqref{eq:weighted-embedding} to the potential equal to one at
+vertex $u$ and zero elsewhere. This gives
+\begin{equation}\label{eq:weighted-degrees}
+ (1-\varepsilon)R\le d_w(u)\le(1+\varepsilon)R
+ \qquad(u\in[v]).
+\end{equation}
+The lower bound is positive, so $\kappa_u\ge1$.
+
+\emph{A support-dependent potential exposes the missing edges.}
+Fix $u$, let $W=\{j:w_{uj}>0\}$, and write $k=|W|$ and
+$O=[v]\setminus(W\cup\{u\})$. Choose
+\[
+ t=k^{-1/p}\in(0,1],
+ \qquad
+ z_u=1,\quad z_j=t\ (j\in W),\quad z_j=0\ (j\in O).
+\]
+The test is permitted to depend on $H_w$: the hypothesis requires
+preservation for every potential after the weights are fixed.
+
+There are $k$ edges from $u$ to $W$, $R-k$ from $u$ to $O$, and
+$k(R-k)$ from $W$ to $O$. All other complete-graph edges have zero
+energy at this potential. Since $kt^p=1$,
+\begin{align}
+ F(z)
+ &=k(1-t)^p+(R-k)+k(R-k)t^p \notag\\
+ &=2(R-k)+k(1-t)^p.
+ \label{eq:witness-complete}
+\end{align}
+There are no positive-weight edges from $u$ to $O$. Consequently,
+\begin{equation}\label{eq:witness-weighted}
+ U_w(z)=d_w(u)(1-t)^p+
+       t^p\sum_{i\in W}\sum_{j\in O}w_{ij}.
+\end{equation}
+The crossing weight is at most
+\[
+ \sum_{i\in W}\sum_{j\in O}w_{ij}
+ \le\sum_{i\in W}d_w(i)
+ \le k(1+\varepsilon)R.
+\]
+Combining this estimate, $t^p=1/k$, and
+\eqref{eq:weighted-degrees} at $u$ yields
+\begin{equation}\label{eq:witness-upper}
+ U_w(z)\le(1+\varepsilon)R\bigl(1+(1-t)^p\bigr).
+\end{equation}
+
+\emph{The energy comparison forces a large support degree.}
+Put $h=1-(1-t)^p$. The lower half of
+\eqref{eq:weighted-embedding}, together with
+\eqref{eq:witness-complete} and \eqref{eq:witness-upper}, gives
+\[
+ 2(1-\varepsilon)(R-k)
+ \le(1+\varepsilon)R(2-h).
+\]
+Rearranging,
+\begin{equation}\label{eq:nonlinear-necessary}
+ (1+\varepsilon)h
+ \le4\varepsilon+2(1-\varepsilon)k/R.
+\end{equation}
+For $p>1$ and $0\le t\le1$, one has $(1-t)^p\le1-t$, hence
+$h\ge t$. It follows that
+\[
+ k^{-1/p}=t\le4\varepsilon+2k/R,
+\]
+which proves \eqref{eq:support-necessary}.
+
+If $k$ were smaller than both $R\varepsilon$ and
+$(6\varepsilon)^{-p}$, the right-hand side would be less than
+$6\varepsilon$, while the left-hand side would exceed
+$6\varepsilon$. This contradiction proves
+\eqref{eq:support-degree}. Summing that inequality over all vertices
+and using $\sum_u\kappa_u=2M$ proves
+\eqref{eq:weighted-support-bound}.
+\end{proof}
+
+The witness lifts every retained neighbor of $u$ to the small common
+potential $t$. This reduces all supported edges incident to $u$, whereas
+each missing edge from $u$ to $O$ still has difference one in the original
+complete graph. Weighted-degree control limits the compensation that
+edges leaving $W$ can provide. The balance $kt^p=1$ makes the resulting
+error visible on the scale $k^{-1/p}$.
+
+\begin{corollary}[Row-subset and randomized lower bounds]
+\label{cor:weighted-accuracy}
+Fix $p>2$ and $0<\varepsilon<1/2$. If
+\begin{equation}\label{eq:large-v}
+ (v-1)\varepsilon\ge(6\varepsilon)^{-p},
+ \quad\text{equivalently}\quad
+ v-1\ge6^{-p}\varepsilon^{-(p+1)},
+\end{equation}
+then every nonnegative weighted row subset of $A_v$ satisfying
+\eqref{eq:matrix-embedding} has support size
+\begin{equation}\label{eq:weighted-accuracy}
+ M\ge\frac{6^{-p}}2\,v\varepsilon^{-p}
+ \ge\beta_p(\Sp+d)\varepsilon^{-p},
+ \qquad
+ \beta_p=\frac{6^{-p}}{2(2^{p-2}+1)}.
+\end{equation}
+If a randomized nonnegative weighted row-subset construction succeeds
+with probability at least $1-\delta$, where $0\le\delta<1$, then
+\begin{equation}\label{eq:weighted-expectation}
+ \E M\ge(1-\delta)\frac{6^{-p}}2\,v\varepsilon^{-p}.
+\end{equation}
+No independence or restriction on how the weights are chosen is required.
+\end{corollary}
+
+\begin{proof}
+A weight $w_{ij}$ corresponds to retaining the associated row of $A_v$
+scaled by $w_{ij}^{1/p}$. Grounding identifies its matrix energy with
+\eqref{eq:weighted-energy}. Apply Theorem~\ref{thm:weighted}, the
+condition \eqref{eq:large-v}, and Lemma~\ref{lem:sensitivity} to obtain
+\eqref{eq:weighted-accuracy}. Every successful randomized output obeys
+the deterministic lower bound, and support size is nonnegative on the
+failure event; taking expectations proves
+\eqref{eq:weighted-expectation}.
+Repeated copies of a row can be combined into one nonnegative weight,
+so the lower bounds also apply to the total number of output rows.
+\end{proof}
+
+\section{Common-probability sampling: an expected-size obstruction}
+\label{sec:common}
+
+For $q\in(0,1]$ and a subgraph $G\subseteq K_v$, define
+\[
+ U_{G,q}(z)=\frac1q\sum_{\{i,j\}\in E(G)}|z_i-z_j|^p,
+ \qquad D=qR.
+\]
+This is the weighted energy with weight $1/q$ on each retained edge.
+If every edge has marginal retention probability $q$, the expected
+number of retained edges is exactly
+\begin{equation}\label{eq:expected-size}
+ \E|E(G)|=nq=\frac{vD}{2}.
+\end{equation}
+Here $D$ is a deterministic parameter, not a realized graph degree.
+
+\begin{theorem}[Necessary common sampling probability]\label{thm:common}
+Let $p>1$, $v\ge3$, $0<\varepsilon<1/2$, and $q\in(0,1]$.
+If a subgraph $G$ satisfies
+\begin{equation}\label{eq:common-embedding}
+ (1-\varepsilon)F(z)\le U_{G,q}(z)\le(1+\varepsilon)F(z)
+ \qquad(z\in\R^v),
+\end{equation}
+then
+\begin{equation}\label{eq:common-necessary}
+ \bigl((1+\varepsilon)D\bigr)^{-1/p}
+ \le4\varepsilon+\frac{2(1+\varepsilon)D}{R},
+\end{equation}
+and
+\begin{equation}\label{eq:common-degree-bound}
+ D\ge\frac1{1+\varepsilon}
+       \min\{R\varepsilon,(6\varepsilon)^{-p}\}.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+The singleton inequalities \eqref{eq:weighted-degrees} specialize to
+\begin{equation}\label{eq:unweighted-degrees}
+ (1-\varepsilon)R\le\frac{\deg_G(u)}q
+ \le(1+\varepsilon)R.
+\end{equation}
+Thus the support degree $k=\deg_G(u)$ obeys
+$1\le k\le(1+\varepsilon)D$. Theorem~\ref{thm:weighted} gives
+\[
+ \bigl((1+\varepsilon)D\bigr)^{-1/p}
+ \le k^{-1/p}
+ \le4\varepsilon+\frac{2k}{R}
+ \le4\varepsilon+\frac{2(1+\varepsilon)D}{R},
+\]
+which proves \eqref{eq:common-necessary}. Alternatively, combining
+\eqref{eq:support-degree} with $k\le(1+\varepsilon)D$ directly gives
+\eqref{eq:common-degree-bound}.
+\end{proof}
+
+\begin{corollary}[Even one successful realization is costly]
+\label{cor:common-accuracy}
+Fix $p>2$. Under \eqref{eq:large-v}, every common probability $q$ that
+admits even one subgraph satisfying \eqref{eq:common-embedding} obeys
+\begin{align}
+ nq
+ &\ge\frac{v}{2(1+\varepsilon)}(6\varepsilon)^{-p}
+ \ge\frac{6^{-p}}3\,v\varepsilon^{-p},
+ \label{eq:common-v-lower}\\
+ nq
+ &\ge\gamma_p(\Sp+d)\varepsilon^{-p},
+ \qquad
+ \gamma_p=\frac{6^{-p}}{3(2^{p-2}+1)}.
+ \label{eq:common-sensitivity-lower}
+\end{align}
+If $nq$ violates the first lower bound in
+\eqref{eq:common-v-lower}, no subgraph can succeed; the success
+probability of the corresponding sampler is zero.
+\end{corollary}
+
+\begin{proof}
+Use \eqref{eq:common-degree-bound}, \eqref{eq:large-v},
+$nq=vD/2$, $1+\varepsilon<3/2$, and
+\eqref{eq:sensitivity-comparison}. The necessary inequality constrains
+the fixed parameter $q$ for each individual successful graph.
+\end{proof}
+
+Unlike \eqref{eq:weighted-expectation}, this bound has no factor
+$1-\delta$. The common rescaling links every successful graph's degrees
+to the prescribed $q$, so the existence of a single successful graph
+already forces the expected-size bound. No realized edge count is
+substituted for its expectation.
+
+\section{Refutation of RA-06}\label{sec:refutation}
+
+By Lemma~\ref{lem:sensitivity}, every row of $A_v$ has the same
+sensitivity. Therefore each choice of $\alpha>0$ in
+\eqref{eq:ra06-probabilities} produces one common probability
+\begin{equation}\label{eq:equal-probability}
+ q=\min\{1,1/n+s_v/\alpha\}>0.
+\end{equation}
+Its rescaled row energy is exactly $U_{G,q}$. The results of
+Section~\ref{sec:common} cover every $q\in(0,1]$, including the
+saturated choice $q=1$, and hence every probability allowed by
+\eqref{eq:equal-probability}.
+
+\begin{theorem}[Negative answer to RA-06]\label{thm:ra06}
+For every fixed real $p>2$, there are no constants $C_p,c_p>0$
+satisfying the target assertion of Section~\ref{sec:introduction}.
+\end{theorem}
+
+\begin{proof}
+Suppose such constants exist. For an integer $b\ge3$, choose
+\begin{equation}\label{eq:counterexample-sequence}
+ \varepsilon=b^{-1},\qquad\delta=\tfrac14,
+ \qquad v=\lceil b^{p+2}\rceil,\qquad A=A_v.
+\end{equation}
+For all sufficiently large $b$, one has
+$(v-1)\varepsilon\ge(6\varepsilon)^{-p}$, so
+Corollary~\ref{cor:common-accuracy} applies. Positive success probability
+requires
+\begin{equation}\label{eq:contradiction-lower}
+ nq\ge\frac{6^{-p}}3\,v b^p.
+\end{equation}
+On the other hand, \eqref{eq:ra06-budget} and
+Lemma~\ref{lem:sensitivity} require
+\begin{equation}\label{eq:contradiction-upper-raw}
+ nq\le C_p(2^{p-2}+1)\,vb^2
+       \log^{c_p}\!\left(8b\binom v2(v-1)\right).
+\end{equation}
+Since $v\le2b^{p+2}$ for $b\ge3$,
+\[
+ 8b\binom v2(v-1)\le4bv^3\le32b^{3p+7}.
+\]
+Thus there is a constant $K_{p,C_p,c_p}$, independent of $b$, such that
+\begin{equation}\label{eq:contradiction-upper}
+ nq\le K_{p,C_p,c_p}\,vb^2(\log b)^{c_p}.
+\end{equation}
+For every fixed $p>2$ and fixed $c_p>0$,
+\[
+ \frac{b^{p-2}}{(\log b)^{c_p}}\longrightarrow\infty.
+\]
+Consequently, \eqref{eq:contradiction-lower} and
+\eqref{eq:contradiction-upper} are incompatible for large $b$.
+
+Every $\alpha$ satisfying the proposed expected-size budget then has
+success probability zero, whereas the assertion requires success
+probability at least $3/4$. This proves the contradiction.
+\end{proof}
+
+The matrix may depend on $\varepsilon$: the target quantifies over
+every matrix and every admissible accuracy. The sequence
+\eqref{eq:counterexample-sequence} also keeps $n$, $d$, and
+$\varepsilon^{-1}$ polynomially related, which is why no fixed
+polylogarithmic factor can hide the accuracy gap.
+
+\begin{corollary}[The same budget fails for arbitrary reweighted subsets]
+\label{cor:general-budget}
+Fix $p>2$ and a success probability $\rho\in(0,1]$. No constants
+$C,c>0$ guarantee, for every full-column-rank matrix and every
+$0<\varepsilon<1/2$, a randomized nonnegative weighted row subset
+satisfying \eqref{eq:matrix-embedding} with probability at least $\rho$
+and expected support size at most
+\[
+ C\varepsilon^{-2}(\Sp+d)
+ \log^c\!\left(\frac{2nd}{\varepsilon}\right).
+\]
+This remains false when selection is dependent and the weights are
+chosen adaptively.
+\end{corollary}
+
+\begin{proof}
+For the sequence \eqref{eq:counterexample-sequence},
+\eqref{eq:weighted-expectation} gives
+$\E M\ge\rho\,6^{-p}vb^p/2$. The proposed budget is at most
+$K_{p,C,c}vb^2(\log b)^c$. The same polynomial-versus-logarithmic
+comparison gives a contradiction.
+\end{proof}
+
+\section{Scope and relation to prior bounds}\label{sec:scope}
+
+\paragraph{What the obstruction rules out.}
+Theorem~\ref{thm:ra06} refutes the joint dependence
+$\widetilde O_p(\varepsilon^{-2}(\Sp+d))$ in RA-06.
+Corollary~\ref{cor:general-budget} goes beyond its particular sampling
+rule: nonnegative row reweighting and dependent selection cannot restore
+that budget. The lower bounds concern row-subset representations,
+including repeated rows after their weights are combined. They do not
+apply to unrestricted linear sketches whose output rows are arbitrary
+linear combinations of the input rows.
+
+\paragraph{The dimension regime matters.}
+The simplified $\varepsilon^{-p}$ lower bound is asserted under
+\eqref{eq:large-v}; the finite-$v$ statement is the minimum in
+\eqref{eq:weighted-support-bound}. No $\varepsilon^{-p}$ lower bound
+is claimed for all accuracies with $v$ fixed. At fixed accuracy the
+construction gives a lower bound only linear in $\Sp+d$, so it does
+not itself rule out nearly linear sensitivity dependence in that regime.
+The deterministic argument holds for $p>1$, but its comparison with
+quadratic inverse-accuracy dependence produces a contradiction only
+when $p>2$.
+
+\paragraph{Ordinary-sensitivity upper bounds.}
+Woodruff--Yasuda's proved ordinary-sensitivity bound is
+$\widetilde O_p(\varepsilon^{-2}\Sp^{2-2/p})$ for $p>2$
+\cite[Theorem~1.5]{wy}. Its larger sensitivity exponent distinguishes
+it from the conjectured bound rejected here. Our lower bound does not
+contradict that theorem. The conjecture and the sampling model are due
+to Woodruff--Yasuda; the deterministic support obstruction and its
+consequences are the results proved in this note.
+
+\paragraph{A weaker inverse-accuracy dependence.}
+Under its stated convexity and sampling-envelope hypotheses,
+Dai--Kosov--Murasko's Theorem~3.5 gives a sufficient sample-size
+condition containing the factor
+$(\varepsilon^{-1}\log\varepsilon^{-1})^p$ \cite{dkm}.
+Thus that theorem does not assert the quadratic accuracy dependence
+refuted here. We use it only for this comparison of accuracy exponents;
+no transfer of its guarantee to the particular Bernoulli rule
+\eqref{eq:ra06-probabilities} is asserted or needed.
+
+\begin{thebibliography}{9}
+
+\bibitem{wy}
+David P. Woodruff and Taisuke Yasuda.
+\emph{Sharper Bounds for $\ell_p$ Sensitivity Sampling}.
+ICML 2023; arXiv:2306.00732v2 (2024).
+Definition~1.1, Theorem~1.5, and Section~3.
+\par
+\url{https://arxiv.org/html/2306.00732v2}.
+
+\bibitem{ra06}
+\emph{Open Problems in Numerical Linear Algebra}.
+RA-06: Sensitivity-dependent row sampling for $\ell_p$ embeddings
+when $p$ exceeds two.
+Statement accessed 30 September 2026.
+\par
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-06/README.md}.
+
+\bibitem{dkm}
+Feng Dai, Egor Kosov, and Noel Murasko.
+\emph{Empirical Approximation of $L_p$ Norms}.
+arXiv:2606.00347v1 (2026), Theorem~3.5.
+\par
+\url{https://arxiv.org/html/2606.00347v1}.
+
+\end{thebibliography}
+\end{document}

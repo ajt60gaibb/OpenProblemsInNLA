@@ -1,0 +1,155 @@
+version: v0.4
+project:
+  name: 'KE-03: complete randomized exact-query eigenvalue-location algorithm'
+  description: >-
+    Full original target with a concrete terminating oracle algorithm,
+    success probability at least 99/100, and universal query constant 32768
+    with exponents a = 1 and b = 2. The complete proof passed fresh Ubuntu
+    Comparator, default-kernel and permitted-axiom verification; two independent
+    nonauthor AI agents approved the full statement and proof.
+  authors:
+    - 'OpenAI Codex AI agent /root (formalization coauthor)'
+    - 'OpenAI Codex AI agent /root/choose_tensors (formalization coauthor)'
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+  - title: 'KE-03 — Find a near-largest nonnormal eigenvalue using few matrix-vector products'
+    id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/80c0e3e638b2f26dcb3a00353651fc3d2215dd65/eigenvalues-and-inverse-problems/KE-03/README.md
+    type: web-post
+    relationship: formalizes
+    location: Entire original problem statement
+    author_endorsement: not-contacted
+    note: >-
+      Retained canonical problem at the fixed source revision. SHA256
+      6e2f296520b00a62662c156f84cba6d69455f8caffbf57067ee888de3a5dfbc2.
+      Original problem and prior-result authors retain their attribution in
+      that page. Repository submission authorization is distinct from source-author endorsement.
+  - title: 'KE-03: Locating a near-largest eigenvalue in the exact-query model'
+    authors:
+      - Matthew J. Colbrook
+    id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/80c0e3e638b2f26dcb3a00353651fc3d2215dd65/eigenvalues-and-inverse-problems/KE-03/solution.md
+    type: manuscript
+    relationship: adapts
+    location: Theorem KE-03 and sections 1–5
+    author_endorsement: not-contacted
+    note: >-
+      Mathematical resolution credited to Matthew J. Colbrook, Department of
+      Applied Mathematics and Theoretical Physics, University of Cambridge.
+      The source records that its original draft was generated in a ChatGPT
+      conversation and separately checked by a Codex agent. Manuscript SHA256
+      e8696c97fbb703463f2fc5b8f146a8ac06f058176ee7c979711ddd620e4e1b60;
+      adjacent solution.tex SHA256
+      123aeda0ac5bc2fb7eee61ab9a7b8baf658f5b624dcd61019afde00cddbf1a8e.
+      The new Lean implementation uses an integer grid and exact finite
+      counting, retaining the complete original problem target.
+related_formalizations:
+  - id: https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474
+    relationship: builds-on
+    note: >-
+      Euclidean spaces and matrix continuous linear maps, operator norms,
+      complex arithmetic, finite cardinalities, natural logarithms,
+      the binomial theorem, and partial computations.
+automation:
+  methods:
+    - method: agent
+      framework: OpenAI Codex
+      tool_setup: >-
+        Lean 4.33.1 and Mathlib revision
+        0df444a360eaa60ab8c11dca51a86af692955474, with a pinned transitive
+        manifest. Two agents coauthored disjoint modules; two other agents
+        were reserved for independent statement and final review.
+      prompting_notes: >-
+        The user required the entire original theorem. Two independent
+        statement approvals preceded proof implementation. The frozen
+        Definitions and Challenge were not changed during proof development;
+        Solution does not import Challenge.
+  notes: >-
+    AI-generated Lean source and documentation. Local macOS compilation and
+    transitive axiom checks are distinct from the required fresh unprivileged
+    Linux Comparator run. No elapsed-time or monetary-cost measurement is
+    asserted. No external human peer review or source-author endorsement is claimed.
+status:
+  scope: >-
+    Every positive dimension n, K >= 1, 0 < epsilon < 1/2, and complex
+    diagonalizable matrix with Euclidean diagonalizer condition number at
+    most K and positive actual spectral radius. One concrete algorithm
+    terminates on every finite random seed, uses at most
+    32768*(1+log(n*K))/epsilon^2 exact matrix-vector queries on every seed,
+    and with probability at least 99/100 returns z such that one actual eigenvalue
+    mu satisfies both required relative location and near-largest-modulus
+    inequalities. Repeated eigenvalues and ties are included.
+  whole_problem_verified: true
+  canonical_status: Lean verified
+  sorry_count: 0
+  sorry_in_definitions: 0
+  source_scan_note: >-
+    Challenge contains one deliberate comparison placeholder and is excluded
+    from the Solution import graph. No mathematical cases remain unproved;
+    all frozen proof inputs match the successful Linux verification receipt.
+  axioms: [propext, Classical.choice, Quot.sound]
+  main_results:
+    - declaration: NLA.KE03.complete_query_algorithm
+      file: Solution.lean
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+      comparator_config: comparator.json
+      verification_status: >-
+        PASS on 2026-09-28: fresh Ubuntu Comparator, default-kernel replay,
+        permitted-axiom checks and rejection controls in run 36428948274,
+        proof revision 0b61bc859f622a69204f8705445c144095e4446d. All proof
+        source hashes match verification/PROOF_SHA256.json. Two independent
+        final AI-agent reviews approve the complete formalization.
+fidelity:
+  divergences: >-
+    No weakening of the original problem target. Replace the source's
+    normalized random grid by integer coordinates on a power-of-two grid;
+    each bad coordinate fiber contains at most one point, so finite counting
+    proves the needed probability. Prove direct shifted-power estimates
+    rather than a separate theorem about all polynomials. Implement radius
+    approximation by sequential enumeration of positive rationals and
+    circle directions by a finite rational stereographic mesh. Give the
+    explicit universal query constant 32768. The algorithm has exact real
+    arithmetic and comparison semantics through Part, with every search
+    proved terminating; no total-runtime, bit-complexity, or floating-point
+    guarantee is asserted. The finite cardinality seed law is uniform and
+    its power-of-two grid admits a fixed finite fair-bit realization.
+review:
+  status: 'Two independent pre-proof approvals and two independent final AI-agent approvals'
+  reviewers:
+    - 'OpenAI Codex AI agent /root/choose_algebra'
+    - 'OpenAI Codex AI agent /root/environment'
+  notes: >-
+    Both reviewers authored neither the KE-03 mathematical definitions nor
+    its proof modules. Statement approvals are retained in
+    reviews/statement-1.md and reviews/statement-2.md, with exact reviewed
+    hashes. Final reviewers independently inspected source and evidence; reports
+    are reviews/final-1.md and reviews/final-2.md.
+    Coauthor checks are not counted as independent review. No human peer
+    review is claimed. Actual Linux verification evidence is retained at
+    verification/linux-36428948274, separate from local checks.
+alignment:
+  original_target: 'Canonical KE-03 problem statement at revision 80c0e3e638b2f26dcb3a00353651fc3d2215dd65'
+  target_record: NUMERICAL_TARGETS.md
+  frozen_definitions: NLA/KE03/Definitions.lean
+  independent_signature: Challenge.lean
+  boundary_hashes: verification/STATEMENT_SHA256.json
+  concrete_algorithm: NLA.KE03.runAlgorithm
+  full_specification: NLA.KE03.SolvesKE03
+  proof_guide: README.md
+  universal_constants:
+    C: 32768
+    a: 1
+    b: 2
+  notes: >-
+    Vector norms and opNorm are Euclidean. Unbundled diagonal lists and
+    inverse-diagonalizer rows use the ordinary function supremum norm only
+    as intermediate proof quantities. Eigenvalue is defined by a nonzero
+    eigenvector; radius is defined from the actual eigenvalues. Neither
+    a diagonalizer nor spectral information is supplied to the algorithm.
+acknowledgements: >-
+  Mathlib supplies the imported mathematical library. The repository's
+  existing pinned verification harness supplies statement comparison,
+  transitive axiom checks, and isolated kernel replay; its provenance and
+  license notices remain in tools/lean/NOTICE.md. No checker-author
+  endorsement is implied.

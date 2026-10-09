@@ -34,7 +34,7 @@ entries},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}TR-21}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-10-01}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -52,7 +52,7 @@ entries\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+{\sffamily\small\bfseries\color{accent}Status: Solved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -66,19 +66,25 @@ approximation and random multilinear algorithms.
 Fix an integer \(r\geq 3\). For integers \(n_1,\ldots,n_r\geq2\), let
 \(T\in\mathbb R^{n_1\times\cdots\times n_r}\) have independent
 identically distributed integrable real entries of mean zero. Its
-injective norm is \[
-\|T\|_{\mathrm{inj}}=
+injective norm is
+
+\[\|T\|_{\mathrm{inj}}=
 \sup_{\|x_j\|_2=1,\ 1\leq j\leq r}
-|\langle T,x_1\otimes\cdots\otimes x_r\rangle|.
-\] Define the largest expected Euclidean fiber norm by \[
-F(T)=\max_{1\leq k\leq r}\mathbb E
+|\langle T,x_1\otimes\cdots\otimes x_r\rangle|.\]
+
+Define the largest expected Euclidean fiber norm by
+
+\[F(T)=\max_{1\leq k\leq r}\mathbb E
 \max_{\substack{i_j\in\{1,\ldots,n_j\}\\j\ne k}}
 \left(\sum_{a=1}^{n_k}
-T_{i_1,\ldots,i_{k-1},a,i_{k+1},\ldots,i_r}^{\,2}\right)^{1/2}.
-\] Do constants \(0<c_r\leq C_r<\infty\), depending only on the order
-\(r\), exist such that \[
-c_rF(T)\leq\mathbb E\|T\|_{\mathrm{inj}}\leq C_rF(T)
-\] for every such format and entry distribution?
+T_{i_1,\ldots,i_{k-1},a,i_{k+1},\ldots,i_r}^{\,2}\right)^{1/2}.\]
+
+Do constants \(0< c_r\leq C_r<\infty\), depending only on the order
+\(r\), exist such that
+
+\[c_rF(T)\leq\mathbb E\|T\|_{\mathrm{inj}}\leq C_rF(T)\]
+
+for every such format and entry distribution?
 
 This is Lucca--Pesenti's Conjecture 1.8, with its comparison notation
 written as explicit quantifiers. The entry distribution may depend on
@@ -87,6 +93,58 @@ density, or dimension-independent moment-equivalence hypothesis is
 imposed. Integrability makes both expectations finite in every finite
 format. The matrix case \(r=2\) is Seginer's theorem and is included
 only as background.
+
+\newpage
+\subsection{Resolution --- 2026-10-01}\label{resolution-2026-10-01}
+
+\textbf{Affirmative resolution.} Theorem 1.1 of the supplied revised
+manuscript, \emph{A Seginer theorem for random tensors with arbitrary
+iid integrable entries} (30 September 2026), proves
+
+\[F(T)\leq\mathbb E\|T\|_{\mathrm{inj}}\leq C_rF(T),\]
+
+where \(C_r\) depends only on the tensor order. See the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/haidary-resolutions-2026-09-30/TR-21-Seginer-comparison-revised.pdf}{complete
+manuscript} and its
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/haidary-resolutions-2026-09-30/TR-21-Seginer-comparison-revised.tex}{preserved
+LaTeX source}, Theorem 1.1 and Sections 2--6. The result covers every
+rectangular format in the original statement and every integrable iid
+mean-zero real entry law, including dimension-dependent laws, without a
+finite-variance or higher-moment assumption. The maximum over modes in
+\(F(T)\) remains outside the expectation. Thus it answers the full
+Lucca--Pesenti Conjecture 1.8; Corollary 1.2 includes centered Bernoulli
+entries at every density.
+
+\textbf{Attribution and contribution.} The proof builds on Zhou--Zhu's
+shared-class discrepancy, joint-rate and heavy-tuple arguments in
+\href{https://arxiv.org/abs/2609.20520v1}{arXiv:2609.20520v1}, Lemmas
+4.4--4.5 and 5.1, Proposition 4.6 and Appendix A. The manuscript's
+additional step extends that framework across magnitude labels: shared
+coordinate classes are charged once across the labels, and fiber and
+variance contributions are summed with squared amplitudes before the
+reduction to arbitrary integrable laws. It imports Lucca--Pesenti's
+sparse-tail estimate from
+\href{https://arxiv.org/html/2607.07308v1}{Theorem 1.4 and Corollary
+4.3}, distinct from their moment-restricted comparison, and Seginer's
+matrix comparison from
+\href{https://doi.org/10.1017/S096354830000420X}{Corollary 2.2} for
+elongated rectangular formats. Lucca--Pesenti are also credited for the
+conjecture. The attribution section, point-of-use citations and
+bibliography acknowledge the
+\href{https://doi.org/10.1145/73007.73063}{Kahn--Szemerédi light--heavy
+lineage} and \href{https://doi.org/10.1214/21-EJS1838}{Zhou--Zhu's
+earlier sparse-tensor work}.
+
+\textbf{Review evidence.} The submitter reports an audit by
+\textbf{ChatGPT 6 Pro}; the
+\href{https://chatgpt.com/share/6abd7541-acb0-83ed-a0bc-fde3f977bf84}{supplied
+audit and revision transcript} audits the full integrable-law comparison
+and records the citation and presentation corrections incorporated in
+this revision. This is an informal AI audit, not formal proof-assistant
+certification or external human peer review. \textbf{Solved} records
+that audit level under the catalog policy. The original target,
+historical ratings and dated literature check below are retained; this
+notice supersedes the earlier partial status.
 
 \subsection{Why it matters}\label{why-it-matters}
 

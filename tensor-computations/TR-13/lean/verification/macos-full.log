@@ -1,0 +1,23 @@
+Local development verification; authoritative Linux Comparator remains pending.
+UTC: 2026-09-28T11:21:26.451582+00:00
+Host: macOS-26.6.2-arm64-arm-64bit-Mach-O
+$ lean --version
+Lean (version 4.33.1, arm64-apple-darwin24.6.0, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)
+Exit: 0
+$ lake build Solution Challenge
+⚠ [3410/3413] Replayed Challenge
+warning: Challenge.lean:8:8: declaration uses `sorry`
+✔ [3412/3413] Built Solution (4.2s)
+Build completed successfully (3413 jobs).
+Exit: 0
+$ lake env lean Check.lean
+NLA.TR13.generic_rank_equality (m n : ℕ) (hm : 5 ≤ m) (hodd : Odd m) (hn : 2 ≤ n) :
+  ∃ p,
+    p ≠ 0 ∧
+      (NLA.TR13.principalOpen p).Nonempty ∧
+        ∀ h ∈ NLA.TR13.principalOpen p, NLA.TR13.AllRanksEqual (NLA.TR13.hankel h) (NLA.TR13.expectedRank m n)
+'NLA.TR13.generic_rank_equality' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR13.generic_vandermonde_upper' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR13.generic_border_lower' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR13.all_ranks_equal_of_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+Exit: 0

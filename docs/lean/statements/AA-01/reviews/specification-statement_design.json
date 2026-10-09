@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "id": "AA-01",
+  "phase": "specification",
+  "reviewer": "/root/statement_design",
+  "is_ai": true,
+  "verdict": "approve",
+  "input_sha256": {
+    "arithmetic-and-complexity/AA-01/README.md": "7c95575dd3b31fd6d9d0b6da31839c545a033e07eb58bba7e2eaf4e1d8a6f316",
+    "arithmetic-and-complexity/AA-01/problem.tex": "4afcbc9a481c983cda67e5adbe47285001ccc86fa20efcf7f5cd839a681692e7",
+    "arithmetic-and-complexity/AA-01/solution.md": "65b8207b67d0cd14e6fc015b3daa64fc3a502b98b00d81f978c3cf0a0d963b0b",
+    "arithmetic-and-complexity/AA-01/solution.tex": "14165ab6a606af9bc966b4ecf60f0dd79542e4a65ee4a6519e4a07bff6b4e139",
+    "docs/lean/statements/AA-01/NUMERICAL_TARGETS.md": "ae12a6116c32ee45e2125512dc44d28783d6158e592853a98caa9d9806ff741d",
+    "docs/lean/statements/AA-01/ORIGINAL.md": "7c95575dd3b31fd6d9d0b6da31839c545a033e07eb58bba7e2eaf4e1d8a6f316",
+    "docs/lean/statements/AA-01/source-lock.json": "592373fefd184b75a79bd89b5fc506219afa67fd3e20a8e57cd2e810f41bd16f",
+    "lean-statements/NLA/Computation/BinaryEncoding.lean": "d494ffb15274500ea5c06c480c2b2032a48390533f7171b4ed993d947c44ee6a",
+    "lean-statements/NLA/Computation/FiniteMachine.lean": "7c8b2a8e88220b3a1a66bf9c9748ee2213b155dd239809654240095180918d9d",
+    "references/colbrook-arithmetic-2026-09-11/manuscripts/AA-01.tex": "2332fcd37efcfb0a49e9dac12c44185330d200de44610fd1b33fafc64e854a38"
+  },
+  "rationale": [
+    "The complete canonical original and specification were read. The question is existence of one always-halting ordinary Turing decider for accurate finite-tree existence, not accuracy of a supplied tree, a complexity bound, or an assumed signed-gap criterion. The proposed Target retains that complete existential question and keeps construction of a successful evaluator as separate stronger proof material.",
+    "PolynomialInput contains every integer coefficient occurrence and all natural exponents in a finite list of fixed dimension. Exact sum/product semantics collect duplicates through addition, allow zero coefficients and noncanonical list order, and use the ordinary zero-power convention. ValidInput checks precisely p(0)=0, including cancellation of listed constant monomials. No homogeneity or normalized-support promise appears.",
+    "The input grammar writes framed dimension, term count, each signed integer coefficient and every coordinate exponent in fixed order. It describes a concrete finite encoding using the already-reviewed binary primitives. Since no runtime bound is prescribed, choosing a computably interconvertible sparse coefficient list does not impose a hidden polynomial translation requirement. These symbolic integers are Turing input, never free numerical constants for the rounded evaluator.",
+    "Program r is finite inductive control-flow syntax whose only constructors return an available register, append exact negation, append a rounded binary add/subtract/multiply result, or branch on exact comparison of available values. Register indices are bounded by the current r, the initial vector is exactly x, and no implicit zero/one/default-output register is introduced.",
+    "Appending versions and retaining every old register is a faithful representation of finite storage and copying: later references reuse the same numerical value and its existing error dependence. Overwriting finite named registers can be represented by renaming subsequent references to appended versions. Finite bounded control flow can be unfolded into this tree; conversely every constructor is an allowed canonical operation. No arbitrary real function or unbounded loop replaces syntax.",
+    "Comparisons act on actual current real values and select less/equal/greater continuations with the same unchanged registers. Their outcomes can depend on previous errors and do not produce numeric Boolean constants. Equality branches and comparisons involving raw, negated and rounded values are retained. Exact negation consumes no rounding coordinate.",
+    "The static rounded-node count is zero at returns, unchanged by negation, incremented at each rounded node and summed over every comparison subtree. The explicit structural slices preserve preorder offsets for less/equal/greater, including skipped branches. A coordinate belongs to a distinct syntactic operation, while repeated reads of a stored result neither recompute nor allocate errors. Finite-vector evaluation therefore has exactly the canonical N(P) error domain.",
+    "Every allowed error vector is universally quantified with independent arbitrary coordinate choices, not a random law, deterministic operand-dependent rounding rule or chosen execution oracle. The specification permits a stream implementation only with the same finite public domain and a structurally checked no-outside-read property, so that simplification cannot enlarge the model.",
+    "Accuracy separately requires actual zero-error execution to equal the polynomial at every input. One fixed P precedes every eta in (0,1); then u in (0,1) precedes every real x and every error vector in the full closed box. Thus u cannot depend on x, ties, branch or error choice, and zeros force exact output for every allowed error. No absolute-error floor, bounded domain or generic-input restriction changes the target.",
+    "The natural-dimension edge case is explicitly supported by the retained Colbrook model-boundary paragraph: with zero inputs no register-valued output tree can be formed, so the valid zero-variable zero polynomial is a no-instance. With positive dimension a rounded x0-x0 tree computes zero for every error. The specification does not silently add an input variable or a constant-zero output constructor.",
+    "Target uses the actual previously reviewed finite binary machine and exact one-bit terminal output. Its machine is chosen before every valid polynomial input, but its finite time witness T follows that input and is unconstrained by a PolynomialBound. Every valid encoding must halt correctly; malformed words and nonzero-constant inputs are outside the stated domain. No quantifier-elimination, real comparison or tree-existence oracle is added to the binary machine.",
+    "The Stepaniants precise-model section and halting Corollary 7.1, plus Colbrook Section 1 and model-boundary paragraphs, were inspected directly. They require the same exact inputs, stored-value reuse, available-value outputs, error-dependent comparisons, all-branch node numbering, whole-real-space accuracy and absence of additional primitives. The specification correctly leaves collected-coefficient signed-gap tests and evaluator construction as future proof work, not target assumptions.",
+    "The primary Demmel-Dumitriu-Holtz model sections independently confirm bounded finite evaluation, exact negation/comparisons, separately selectable errors and stored-result reuse. That source also discusses broader primitive sets; the canonical restricted primitive set, rather than those broader variants, controls this review. [Primary model, Sections 2.1-2.7](https://arxiv.org/html/math/0508350v2#S2).",
+    "The proposed future kernel controls address meaningful operational distinctions: reuse versus recomputation, error-dependent equality, static offsets past unused branches, zero-error correctness, exact negation and the absent Program 0. No numerical sampling or criterion theorem is required simply to state the complete question, but the eventual implementation must have concrete structural semantics and independently reviewed full helper closure."
+  ],
+  "limits": "Independent AI-agent preimplementation mathematical and computational-model review, independent of specification author /root/inventory. The complete original and specification, retained precise-model/decision/model-boundary sections and primary external model sections were inspected; all locked local source hashes were checked. This is not a re-audit of every new proof in the retained manuscripts or an approval of as-yet-unwritten Lean syntax/evaluation. No decidability theorem, successful evaluator or new kernel result is claimed. Final full-source/pin/operational-control and frozen-identity review remains required.",
+  "external_sources_inspected": [
+    {
+      "url": "https://arxiv.org/html/math/0508350v2#S2",
+      "sections": "2.1-2.7",
+      "accessed": "2026-09-28",
+      "scope": "primary model correspondence; canonical restricted semantics controls"
+    }
+  ],
+  "report_path": "docs/lean/statements/AA-01/reviews/specification-statement_design.md",
+  "report_sha256": "0c251ce4924e2bc37d08f88ab95107de3a129b74f0ff52741bd1666087ca6a03"
+}

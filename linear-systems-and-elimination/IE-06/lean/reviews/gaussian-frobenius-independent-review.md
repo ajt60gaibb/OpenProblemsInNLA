@@ -1,0 +1,11 @@
+# Independent review: centered Gaussian Frobenius concentration
+
+Reviewed source SHA-256: `f1a71eb36815668458220fb44c13b9ce301eef3c85c9b7d7c2e2753e0a836a95`. Specification SHA-256: `bc5b374c08cdb46a8aeaa6366a6e18a598517de2ef733f3db07f7ce28804ec4b`. Reviewer: independent mathematical-review agent. Verdict: approved; no mathematical or statement-fidelity defects found.
+
+The public theorem is the exact centered Gaussian matrix bound with threshold `2*m*frobeniusSq M + 4*x*(euclideanOpNorm M)^2` for arbitrary matrix dimensions and x>0 under the literal nested coordinate Gaussian law. The Euclidean operator norm is the continuous-linear-map norm induced by `Matrix.toEuclideanLin`. The scoped matrix norm in the internal spectral lemmas is Mathlib’s L2 operator norm, and the equality to the public norm is definitional. No entrywise norm is substituted.
+
+The Gram matrix is M Mᵀ, so the row energy zᵀ M Mᵀ z has the actual eigenvalue weights. Their nonnegativity, upper bound by the squared operator norm, and sum equal to the squared Frobenius norm all follow from explicit spectral theorems. The orthonormal eigenbasis transformation is applied to the actual plain-coordinate Gaussian vector: the map identity is derived through EuclideanSpace and then mapped back by ofLp. Thus the weighted-square Gaussian estimate is applied to the correct law, with no implicit invariance hypothesis. Integrability is established before transferring the scalar moment and before the finite product over rows.
+
+The matrix MGF uses parameter 1/(4 op²), yielding exp(m F²/(2 op²)); Chernoff at the stated threshold cancels exactly to exp(−x). The strict exceedance event is bounded by the non-strict event. For M=0 it is empty; any dimension forcing the matrix to be zero is covered, and the product over zero rows is also covered. The source assumption x>0 is preserved although the algebra does not need its proof. This is centered concentration only; it does not assert the shifted form, adaptive conditioning, or the final IE-06 growth theorem.
+
+This review checks the implementation against the approved mathematical contract. The author’s Lean compilation and root’s immutable whole-package audit are separate evidence; no independent clean Linux Comparator replay is claimed by this review.

@@ -1,0 +1,14 @@
+Local upper-branch audit; no independent review or Linux harness claim.
+UTC: 2026-09-28T11:16:29.967678+00:00
+Host: macOS-26.6.2-arm64-arm-64bit-Mach-O
+$ lean --version
+Lean (version 4.33.1, arm64-apple-darwin24.6.0, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)
+Exit: 0
+$ lake env lean UpperAudit.lean
+'NLA.TR13.generic_vandermonde_upper' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR13.prony_representation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR13.upperPolynomial_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+Exit: 0
+$ rg -n \b(sorry|axiom|admit)\b NLA/TR13/Prony.lean NLA/TR13/PronyPolynomial.lean NLA/TR13/PronyWitness.lean NLA/TR13/UpperPolynomial.lean NLA/TR13/Upper.lean
+Exit: 1
+No sorry, axiom, or admit tokens found in upper proof sources.

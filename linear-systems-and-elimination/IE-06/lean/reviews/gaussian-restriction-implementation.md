@@ -1,0 +1,13 @@
+# Gaussian shift and restriction implementation
+
+The centered A4-min Gaussian restriction dependency is now proved. This does not complete the whole IE-06 probabilistic argument.
+
+GaussianShift.lean has SHA-256 2585fecb36ecd290eb9bd2b5a67690ff57f31580f798713133c3ba2f12c14936. It first derives the midpoint form of the adopted Prékopa–Leindler theorem using the exact finite-dimensional Lebesgue scaling factor. It proves the Gaussian midpoint density inequality, uses convexity to obtain the indicator premise, uses symmetry to equate the two shifted integrals, and handles dimension zero directly. The existing GaussianSmallest product-density identity identifies the weighted Lebesgue measure with the concrete independent standard Gaussian law. Thus gaussian_shift_le is an unconditional finite-dimensional Anderson shift inequality for measurable convex centrally symmetric sets. Closedness is not needed.
+
+GaussianRestriction.lean has SHA-256 05684a5622e0862df037fdbe42490799f5e9e7fcde741ce43fa9184152145c85. It defines the normalized restriction explicitly, proves its probability mass, proves the exact nonnegative completing-square integral identity by translation of Lebesgue measure, and obtains integrability from the already proved full Gaussian linear MGF. The actual shift theorem then bounds the directional MGF. restricted_directional_subGaussian has geometric hypotheses only; no assumed subGaussian or shift theorem remains. restricted_quadratic_tail proves the required threshold (2+4x) times the squared Frobenius norm, with tail exp(-x), using SubGaussianQuadratic. Zero directions, zero matrices and zero dimension are covered.
+
+Preimplementation approval for the exact GaussianRestriction contract was given by the root coordinator before code. GaussianShift received independent source review by the root coordinator at the hash above. GaussianRestriction has been submitted for its independent source review.
+
+All 20 declarations in GaussianShift and all 9 in GaussianRestriction compile with no warnings and pass LeanCert kernel assertions. Their transitive axiom reports contain only propext, Classical.choice and Quot.sound. The adopted Prékopa–Leindler closure separately passed checks for all 27 declarations. Local logs are /private/tmp/ie06-gaussian-shift-kernel-check.log and /private/tmp/ie06-gaussian-restriction-kernel-check.log. No native or opaque externally trusted proof was introduced.
+
+The earlier gaussian-shift-dependency.md records the investigation before the external proof was found. Its statement that the required inequality was absent from pinned Mathlib remains accurate; its then-unfinished status is superseded by this implementation and the separately retained, attributed, pinned source port.

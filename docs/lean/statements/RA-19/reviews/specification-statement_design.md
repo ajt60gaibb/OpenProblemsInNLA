@@ -1,0 +1,36 @@
+# RA-19: independent specification review
+
+Reviewer: /root/statement_design (OpenAI Codex AI agent), 2026-09-28.
+Verdict: **approve** for the exact bound bytes.
+
+## Fidelity reasoning
+
+1. The full canonical target ranges over all n>=3 and generic complex data with exactly one fixed zero. Reparametrizing n=d+3 covers exactly that domain, and 5*(d+3)-7=5*d+8 preserves the count without natural-subtraction ambiguity. The explicitly excluded n=2 case is not reintroduced.
+
+2. The determinant differential is the polynomial identity trace(adjugate(X)*Z), with adjugate indices ij multiplying Z_ji. It holds on singular matrices; no inverse-based derivative formula is used.
+
+3. The restricted determinant is nonzero because a permutation swapping coordinates 0 and 1 avoids the fixed-zero entry. It is multiaffine in the remaining variables, hence squarefree: any repeated nonconstant irreducible factor would have degree at least two in some variable. The reduced-hypersurface Jacobian criterion therefore identifies the specified nonzero restricted derivative with exactly the smooth locus.
+
+4. The smooth condition includes both defining equations and existence of a direction in the fixed-zero hyperplane with nonzero determinant differential. It excludes rank<=n-2 and rank n-1 points whose gradient is proportional to the fixed-coordinate normal. Merely imposing corank one would lose this necessary exclusion.
+
+5. At a smooth point the two linear tangent equations are exactly Z_00=0 and the determinant differential=0. The distance derivative is twice the same-index complex bilinear sum (X_ij-U_ij)*Z_ij; dropping the nonzero common factor two preserves criticality. There is no conjugation, transpose mistake or restriction to real critical points.
+
+6. The nonempty principal polynomial-open subset is chosen in the entire complex data space, before the universal data matrix. It is equivalent to the source generic condition, and does not impose the resolution proof normal form or an arbitrary genericity predicate.
+
+7. A type equivalence between the full smooth-critical-point subtype and Fin(5*n-7), wrapped in Nonempty, imposes both finiteness and exact distinct-point cardinality. It does not use totalized infinite cardinality or resultant multiplicity. No nonisotropic or nonzero-multiplier restriction is imposed on the points.
+
+8. The retained solution Section 3 Lemma 2 was read directly. Its reduced-hypersurface and gradient-transversality justification agrees with the specification. Its later resultant and generic-reducedness arguments are proof tools, not substituted targets.
+
+9. Canonical README and complete ORIGINAL snapshot are byte-identical. Specification author /root is independent of this reviewer; no new Lean target was present for this preimplementation review.
+
+## Bound inputs
+
+- docs/lean/statements/RA-19/NUMERICAL_TARGETS.md: 2576b6a692a79ee6ce96c11910363d9b1ec951f7363547f9af8d5d1108d95c6e
+- docs/lean/statements/RA-19/ORIGINAL.md: e952b7183d746bae9c3750ac47e8e2a878808e5287a56bf3b106f44c975c8db3
+- randomized-and-low-rank-approximation/RA-19/README.md: e952b7183d746bae9c3750ac47e8e2a878808e5287a56bf3b106f44c975c8db3
+- randomized-and-low-rank-approximation/RA-19/solution.md: edbbf77a2227e6cf99a30cc2eea2ce170cd7d6346b2cc9e0b5c7ceb9fe06c94b
+- randomized-and-low-rank-approximation/RA-19/solution.tex: f02c9be73ad9b5b6f31363190b9d977f6b345fd73c23e5b85b7bf387856ec3d6
+
+## Limits
+
+Independent AI-agent mathematical specification review only. Final Matrix.adjugate, trace, MvPolynomial evaluation and Equiv semantics must be reviewed against actual Lean source. No ED-degree theorem, generic nondegeneracy or symbolic elimination computation is proved by this report.

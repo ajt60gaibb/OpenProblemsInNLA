@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "id": "PF-04",
+  "scope": "statement-only",
+  "canonical_readme": "nonnegative-and-positive-factorizations/PF-04/README.md",
+  "source_sha256": "acbf30a432e4ee1898661c05a9efc2f24f9ec32183da33836315b58e6c46e08a",
+  "specification": "docs/lean/statements/PF-04/NUMERICAL_TARGETS.md",
+  "specification_sha256": "3294326a93bf021afac3caae3349b01e6f5c23425060cbc22c8cba8c08af1e02",
+  "module": "NLA.Statements.PF04",
+  "declaration": "NLA.Statements.PF04.Target",
+  "lean_sha256": "0b374f4b5efdc770cf678264b99085bb4961ad2993b3edae725db0b1908fa01f",
+  "frozen_sha256": "4111d1beaadf78565c112f7a29cfb89960479d4f48566f5b1660c165ff8cc41f",
+  "authors": [
+    "/root"
+  ],
+  "reviews": [
+    {
+      "schema_version": 1,
+      "id": "PF-04",
+      "reviewer": "/root/inventory",
+      "phase": "specification",
+      "verdict": "approve",
+      "canonical_readme": "nonnegative-and-positive-factorizations/PF-04/README.md",
+      "source_sha256": "acbf30a432e4ee1898661c05a9efc2f24f9ec32183da33836315b58e6c46e08a",
+      "snapshot_sha256": "acbf30a432e4ee1898661c05a9efc2f24f9ec32183da33836315b58e6c46e08a",
+      "input_path": "docs/lean/statements/PF-04/NUMERICAL_TARGETS.md",
+      "input_sha256": {
+        "nonnegative-and-positive-factorizations/PF-04/README.md": "acbf30a432e4ee1898661c05a9efc2f24f9ec32183da33836315b58e6c46e08a",
+        "docs/lean/statements/PF-04/NUMERICAL_TARGETS.md": "3294326a93bf021afac3caae3349b01e6f5c23425060cbc22c8cba8c08af1e02",
+        "docs/lean/statements/PF-04/ORIGINAL.md": "acbf30a432e4ee1898661c05a9efc2f24f9ec32183da33836315b58e6c46e08a"
+      },
+      "rationale": [
+        "Factor(A,r) expands the exact entrywise Gram identity A(i,j) = sum_k B(i,k)B(j,k) with real nonnegative B of shape 6-by-r. This is complete positivity, not the weaker doubly nonnegative condition.",
+        "Quantifying over all real 6-by-6 A and then assuming an existential finite-width Gram factor admits exactly every completely positive matrix. Symmetry follows from the defining identity; neither strict positivity nor nonsingularity is imposed.",
+        "The universal width-nine factor statement is the original explicit equivalent formulation. Arbitrary smaller widths can be padded by zero columns, so exactly nine columns is the original at-most-nine assertion.",
+        "The additional existential CP matrix admitting no factor at every natural width r < 9 faithfully retains the displayed maximum-equals-nine formulation and its stated established lower bound. Combined with the universal clause this is precisely a maximum of nine, without a misleading totalized rank on non-CP inputs.",
+        "The width-zero empty sum includes A=0 and gives its cp-rank convention correctly. The lower-bound witness is not required positive definite, of full ordinary rank, on the boundary, or of a specified support; these would be unrequested strengthenings.",
+        "Numerical constants 6 and 9, non-strict entry nonnegativity, strict comparison r < 9, and exact equality are preserved. No approximate, computational-complexity or certificate claim is inserted. The complete original README is byte-identical to its snapshot."
+      ],
+      "limits": "Independent specification fidelity review only. No Lean implementation, proof, cited-paper verification, or kernel/Comparator run is certified by this review.",
+      "is_ai": true,
+      "report_path": "docs/lean/statements/PF-04/reviews/specification-inventory.md",
+      "report_sha256": "cc3d5749e6f3dcb8e5f4eecce2b958f2f74f76fd54cd43e052bdffeae857a7b4"
+    },
+    {
+      "schema_version": 1,
+      "id": "PF-04",
+      "reviewer": "/root/infra_audit",
+      "is_ai": true,
+      "phase": "specification",
+      "verdict": "approve",
+      "canonical_readme": "nonnegative-and-positive-factorizations/PF-04/README.md",
+      "source_sha256": "acbf30a432e4ee1898661c05a9efc2f24f9ec32183da33836315b58e6c46e08a",
+      "snapshot_sha256": "acbf30a432e4ee1898661c05a9efc2f24f9ec32183da33836315b58e6c46e08a",
+      "input_path": "docs/lean/statements/PF-04/NUMERICAL_TARGETS.md",
+      "input_sha256": {
+        "nonnegative-and-positive-factorizations/PF-04/README.md": "acbf30a432e4ee1898661c05a9efc2f24f9ec32183da33836315b58e6c46e08a",
+        "docs/lean/statements/PF-04/NUMERICAL_TARGETS.md": "3294326a93bf021afac3caae3349b01e6f5c23425060cbc22c8cba8c08af1e02",
+        "docs/lean/statements/PF-04/ORIGINAL.md": "acbf30a432e4ee1898661c05a9efc2f24f9ec32183da33836315b58e6c46e08a"
+      },
+      "rationale": [
+        "The real Gram-factor predicate explicitly requires entrywise nonnegative B and exact entry equalities Aij = sum_k Bik Bjk. Quantification over finite natural widths, including width zero with empty sums, is the original completely-positive cone; symmetry follows without imposing additional restrictions.",
+        "The universal width-nine factor assertion is the exact padded-column version of at most nine nonnegative rank-one summands. Zero columns permit every smaller width and do not exclude singular or zero inputs.",
+        "The separate CP witness having no factor of any width r < 9 preserves the displayed maximum-equals-nine formulation. Combined with the universal width-nine part it expresses both existence and sharpness of that maximum, without assuming the lower bound as an axiom.",
+        "No positive-definite, positive-entry, support, boundary-face, approximate, or algorithmic restriction was added. Zero A is correctly included but cannot satisfy the sharpness witness. The complete canonical README, including historical and author provenance, is preserved byte for byte."
+      ],
+      "limits": "Independent preimplementation specification review only; no Lean target, proof, cited-paper audit, or Comparator run certified.",
+      "report_path": "docs/lean/statements/PF-04/reviews/specification-infra_audit.md",
+      "report_sha256": "6949a007cd9bdccbd8425b5087a9d0b41b79eef736bb0ec21de5605481189599"
+    },
+    {
+      "schema_version": 1,
+      "id": "PF-04",
+      "reviewer": "/root/statement_design",
+      "phase": "lean-boundary",
+      "verdict": "approve",
+      "canonical_readme": "nonnegative-and-positive-factorizations/PF-04/README.md",
+      "input_path": "lean-statements/NLA/Statements/PF04.lean",
+      "input_sha256": {
+        "docs/lean/statements/PF-04/NUMERICAL_TARGETS.md": "3294326a93bf021afac3caae3349b01e6f5c23425060cbc22c8cba8c08af1e02",
+        "docs/lean/statements/PF-04/ORIGINAL.md": "acbf30a432e4ee1898661c05a9efc2f24f9ec32183da33836315b58e6c46e08a",
+        "lean-statements/NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+        "lean-statements/NLA/Statements/PF04.lean": "0b374f4b5efdc770cf678264b99085bb4961ad2993b3edae725db0b1908fa01f",
+        "lean-statements/Reviewed/PF04.lean": "4111d1beaadf78565c112f7a29cfb89960479d4f48566f5b1660c165ff8cc41f",
+        "lean-statements/lake-manifest.json": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+        "lean-statements/lakefile.toml": "1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40",
+        "lean-statements/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+        "nonnegative-and-positive-factorizations/PF-04/README.md": "acbf30a432e4ee1898661c05a9efc2f24f9ec32183da33836315b58e6c46e08a"
+      },
+      "rationale": [
+        "HasFactor uses a real 6-by-r indexed matrix B, entrywise nonnegativity, and A_ij=sum_k B_ik B_jk. This is the full exact Gram definition; symmetry of A follows from the formula rather than a restrictive premise.",
+        "CompletelyPositive quantifies over every natural finite width r, including zero. The empty finite sum is zero, preserving the source cp-rank convention at the zero matrix.",
+        "The universal target conjunct supplies width exactly 9 to every CP matrix; zero padding makes this the at-most-nine statement. The separate existential conjunct requires a CP witness with no factor of every width r<9, preserving sharpness.",
+        "No rank, support, nonsingularity, strict positivity, approximation tolerance or computational restriction replaces the full order-six domain.",
+        "All three declarations are explicit safe proposition definitions, with no target theorem, axiom or placeholder. Local infrastructure performs trust checks but does not supply mathematical assumptions.",
+        "The live and frozen files were compared mechanically: the frozen source is exactly the live source with the documented leading comment and full namespace rename; mathematical bodies are identical.",
+        "All review_inputs files are hash-bound, including canonical README, complete ORIGINAL snapshot, approved specification, both Lean source namespaces, transitive local Infrastructure import and three dependency/toolchain pin files."
+      ],
+      "limits": "Independent source-level Lean-boundary fidelity review. The exact live and frozen source and imported mathematical meanings were inspected. This reviewer did not execute Lean or Comparator; those build/kernel/identity gates remain separate. No mathematical problem is proved and no cited informal solution is re-audited.",
+      "is_ai": true,
+      "report_path": "docs/lean/statements/PF-04/reviews/lean-boundary-statement_design.md",
+      "report_sha256": "fd2ddee06dfbcd5cd58ce5df0f8cc7203517537b67df0aa173572a6c27288f72",
+      "external_sources_inspected": [
+        {
+          "url": "https://raw.githubusercontent.com/leanprover-community/mathlib4/0df444a360eaa60ab8c11dca51a86af692955474/Mathlib/Data/Matrix/Basic.lean",
+          "inspected": "Matrix indexed-function meaning; ordinary real entries and explicit finite sums are used in these boundaries."
+        }
+      ]
+    },
+    {
+      "schema_version": 1,
+      "id": "PF-04",
+      "reviewer": "/root/infra_audit",
+      "is_ai": true,
+      "phase": "lean-boundary",
+      "verdict": "approve",
+      "authors_excluded": [
+        "/root"
+      ],
+      "input_sha256": {
+        "docs/lean/statements/PF-04/NUMERICAL_TARGETS.md": "3294326a93bf021afac3caae3349b01e6f5c23425060cbc22c8cba8c08af1e02",
+        "docs/lean/statements/PF-04/ORIGINAL.md": "acbf30a432e4ee1898661c05a9efc2f24f9ec32183da33836315b58e6c46e08a",
+        "lean-statements/NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+        "lean-statements/NLA/Statements/PF04.lean": "0b374f4b5efdc770cf678264b99085bb4961ad2993b3edae725db0b1908fa01f",
+        "lean-statements/Reviewed/PF04.lean": "4111d1beaadf78565c112f7a29cfb89960479d4f48566f5b1660c165ff8cc41f",
+        "lean-statements/lake-manifest.json": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+        "lean-statements/lakefile.toml": "1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40",
+        "lean-statements/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+        "nonnegative-and-positive-factorizations/PF-04/README.md": "acbf30a432e4ee1898661c05a9efc2f24f9ec32183da33836315b58e6c46e08a",
+        "docs/lean/statements/PF-04/reviews/lean-boundary-infra-audit-evidence/NLA-Statements-PF04.log": "3eb406c8412b6bc4d36d5cd5c562a06a3e3bacbc2ec5f197b5f98368196f83fd",
+        "docs/lean/statements/PF-04/reviews/lean-boundary-infra-audit-evidence/Reviewed-PF04.log": "b741c585d7e82272901b4485a2b7193287fb3bc4ca8468693f127b2e03c2018f",
+        "docs/lean/statements/PF-04/reviews/lean-boundary-infra-audit-evidence/identity.log": "2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30"
+      },
+      "dependency_sources": [
+        {
+          "package": "mathlib",
+          "revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+          "path": "Mathlib/LinearAlgebra/Matrix/Defs.lean",
+          "sha256": "d4e5b5a2762eb91e47bd4d913ed72cd3fac2f7ebf40b32ae4dc0db7f34332d54"
+        },
+        {
+          "package": "mathlib",
+          "revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+          "path": "Mathlib/Algebra/BigOperators/Group/Finset/Defs.lean",
+          "sha256": "2f39541f66288cb9ae9f77d97fd3656825a1dd1a4b5ca6a156f938d8fa1678a8"
+        }
+      ],
+      "rationale": [
+        "HasFactor explicitly quantifies a Matrix (Fin 6) (Fin r) real, requires every entry nonnegative, and equates every Aij to the full real sum Bik*Bjk. This is exactly BB transpose, with no conjugation or approximate tolerance.",
+        "At r=0 the Fin 0 sum is zero and the nonnegativity condition is vacuous, so only A=0 has a width-zero factor. CompletelyPositive quantifies an actual finite natural width; it is not replaced by PSD together with entrywise nonnegativity.",
+        "The first conjunct gives an actual nine-column factor for every CP order-six matrix, including zero and singular matrices. Zero columns provide the at-most-nine interpretation. No diagonal, definiteness, or graph-support restriction is imposed.",
+        "The second conjunct preserves full sharpness: an actual CP real order-six witness has no factor of any natural width r<9. Combined with the first conjunct, its minimum width is precisely nine. Lower-bound sharpness is not treated as an axiom or erased from the original maximum formulation.",
+        "The actual Target and all helpers are ordinary concrete definitions, not proof claims. The frozen namespace duplicates their complete mathematical content; independent identity elaboration succeeds by rfl."
+      ],
+      "verification_scope": "Independent local Lean 4.33.1 elaboration, transitive axiom assertions, and frozen equality checks; no Target proof or Linux Comparator execution.",
+      "report_path": "docs/lean/statements/PF-04/reviews/lean-boundary-infra_audit.md",
+      "report_sha256": "5b1710792d6a41db1b926084558c414911002ba7bb6ee4d0f9def59ddd351df3"
+    }
+  ]
+}

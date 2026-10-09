@@ -1,0 +1,26 @@
+# IE-21 independent specification review
+
+Reviewer: OpenAI Codex AI agent `/root/inventory`, independent of specification author `/root/infra_audit` and prospective Lean author `/root`.
+
+Phase: `specification`. Verdict: **APPROVE** before implementation.
+
+The complete canonical README equals ORIGINAL.md byte for byte. OriginalLimitTarget separately preserves exactly the canonical probability limit and both growth hypotheses n_j->infinity and m_j/n_j->infinity. The independently named QuantitativeAnswerTarget is explicitly a credited concrete answer to the otherwise unprescribed quantitative request, not misrepresented as an equivalent original numerical conjecture. The combined target retains both named components.
+
+The infimum defining sSq is over all row subsets of cardinality floor(theta*m) and all real Euclidean unit vectors. For positive dimension and theta in (0,1), that domain is nonempty, nonnegative and compact in the vector coordinate with finitely many subsets. Its value is the square of the original attained minimum, including k=0 and rank-deficient maps. The full opSq is the bounded nonempty Euclidean quadratic-form supremum and is positive for at least one unit row. No totalized infimum or division can make the intended domain vacuous.
+
+The actual Euclidean Haar-to-sphere measure normalized by its finite positive total mass is the uniform rotational law. The pinned HaarToSphere source defines its total mass as dimension times unit-ball volume and gives nonzero/finite results in positive finite dimension. The explicit finite product of this law makes rows jointly independent and uniform, including the two-point n=1 sphere. This fixes the old support-only record and avoids an artificial top measurable space.
+
+The positive Gaussian quantile uses the actual mean-zero variance-one law and equality of its interval probability with theta. The standard quantile is uniquely defined for every theta in (0,1), and the exact normalized trimmed-second-moment integral is unchanged. Probability convergence uses every positive epsilon with the >=epsilon failure event, varying sample spaces, and no extra growth comparison or cross-index coupling.
+
+The full retained manuscript Sections4-5 were inspected for the quantitative constants. L=2/(1-theta), D=2*L*eta+L/m+2*(1+t)*delta, E=D+sqrt(2/n), F=(E+t)/(1-t), and B=2*9^n*exp(-m*t^2/512)+5*(1+2/delta)^n*exp(-2*m*eta^2) match exactly. The union of strict error exceedances is bounded on one common exceptional event; using an intersection or an extra union-bound factor would change the answer.
+
+The quantitative domain m>=1,n>=2 and parameter ranges 0<t,delta<1, 0<eta<=(1-theta)/2 are correct. The source common-event statement covers both displayed errors simultaneously. Choosing t=eta=delta=32*sqrt(log Q/Q), Q=m/n, gives the exact first failure term 2*(9/Q^2)^n and the stated second upper estimate for large Q; both vanish with the two original limits and no logarithmic growth relation between Q and n. This is a scope check, not a new proof of the concentration bound.
+
+This approves exact specification correspondence and the stated concrete definitions, not a resolution proof, formal derivation of all correspondence lemmas, compilation or Linux Comparator execution. Final live/frozen definitions and every local import require independent boundary review. No numerical quadrature or simulation is necessary to state these targets.
+
+## Reviewed input hashes
+
+- `linear-systems-and-elimination/IE-21/README.md`: `71783a338942837a9c37bf2d50801484e711e55ee36a8da62d009bad518ae3ba`
+- `docs/lean/statements/IE-21/NUMERICAL_TARGETS.md`: `68cfc356391fa85cf41564afaac75feb5fdc428a211d96d71776fd6db057da08`
+- `docs/lean/statements/IE-21/ORIGINAL.md`: `71783a338942837a9c37bf2d50801484e711e55ee36a8da62d009bad518ae3ba`
+- `references/colbrook-recovered-2026-09-11/manuscripts/IE-21-22.tex`: `31a1949c07f63408538f04e3803d90e8d3d0c3d1e47dc89a2ffa5a04ef4f3880`

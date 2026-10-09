@@ -7,8 +7,8 @@
 **Topic:** Expected norms of random matrices with unequal entry variances  
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Partially resolved  
-**Last checked:** 2026-09-11
+**Status:** Solved  
+**Last checked:** 2026-09-30
 
 **Rating rationale:** The expectation is characterized for fixed norm exponents, but making the constant uniform requires sharper control as the exponents and dimensions vary. Such estimates quantify amplification by random matrices under different input and output norms.
 
@@ -44,6 +44,14 @@ Use the usual maximum norm for an $`\ell_\infty`$ vector norm and
 $`\min\{\infty,L(k)\}=L(k)`$. The conjecture is a uniform upper bound;
 it does not assert a matching lower bound with these same three terms for
 every variance profile.
+
+## Resolution — 2026-09-30
+
+**Affirmative resolution, with an explicitly recorded entropy-convention correction.** Theorem 1.1 of Witold Bednorz, Rafał Martynek and Rafał Meller, *A candidate proof of the sharp Latala and Strzelecka Gaussian matrix bound*, [arXiv:2609.22927v1](https://arxiv.org/abs/2609.22927v1) ([PDF](https://arxiv.org/pdf/2609.22927v1)), establishes the displayed upper bound with one absolute constant, uniformly in the dimensions, exponents and real variance profile, including the stated endpoints. It addresses the sharp parameter dependence in Conjecture 5, rather than only the older fixed-exponent comparison.
+
+**Review and correction.** The supplied [ChatGPT 6 Pro audit](https://chatgpt.com/share/6abd40d2-7d54-83ed-96b3-d674c1c20eb0) reports a positive audit of all 11 pages and the principal external chaining inputs. It identifies one literal error in the general entropy/contraction statement in Section 2: entropy covers must use strictly fewer than $`2^{2^k}`$ centers to match the initial singleton partition, or the contraction conclusion must include an initial diameter term. The audit checks that the actual application already satisfies the strict convention: levels 0 and 1 are paid by the diameter, and the covers at later levels have strict cardinality slack. The positive resolution assessment incorporates this correction; it does not assert that the auxiliary statement is valid verbatim in v1.
+
+The preprint is explicitly titled a candidate proof. The status here records the supplied informal AI audit and its correction, not journal acceptance, external human peer review, or formal proof-assistant certification. The original target is retained above, and the historical status check is retained below. Historical difficulty and importance ratings are retained.
 
 ## Known cases and numerical significance
 

@@ -1,0 +1,44 @@
+# RA-10 independent Lean-boundary review
+
+Reviewer: `/root/infra_audit`, an OpenAI Codex AI agent independent of target author `/root/statement_design`. Phase: lean-boundary. Verdict: **approve**.
+
+I compared the complete actual live and frozen Lean definitions with the previously approved specification and full canonical README. I inspected the pinned singular-value definition, Euclidean matrix map and full finite-sum convention, and expanded every target helper as described below. Local semantic source hashes are listed below; dependency meanings are additionally identified by their pinned package sources.
+
+NuclearNorm sums exactly n terms of the pinned LinearMap.singularValues of Matrix.toEuclideanLin M. I inspected toEuclideanLin = toLpLin 2 2 and toLpLin_apply: this is ordinary matrix multiplication between Euclidean spaces, not the coordinate sup norm. The singularValues definition takes nonnegative square roots of eigenvalues of the Euclidean adjoint composed with the map, repeated with multiplicity, and zero after domain dimension n. Therefore the sum is precisely the full nuclear norm, also for indefinite nonsymmetric differences.
+
+OrderedPSDSpectralDecomposition explicitly enforces nonnegative antitone eigenvalues, orthonormal columns of a square real Q, and exact reconstruction. Square orthonormal columns give a complete basis, so the predicate represents every real PSD matrix's ordered orthonormal eigendecompositions. It adds no positive eigenvalue, spectral gap or prescribed tie-breaking condition.
+
+FunctionMatrix uses the complete spectral sum; FunctionTruncation selects a.val<k in the explicitly quantified basis. This preserves every first-k selection within tied or zero eigenspaces and includes f(0) contributions even when the original truncated matrix has smaller rank. It does not mistakenly use f of the zero-padded truncated matrix.
+
+OperatorMonotoneOnNonnegative quantifies every positive matrix dimension and all ordered PSD spectral data for H and G, assumes concrete real PSD order H-G, and concludes PSD order for their full function matrices. The missing zero-dimensional instance is tautological. This is genuine all-size real operator monotonicity, not scalar monotonicity, concavity or monotonicity only in the current n.
+
+AdmissibleFunction requires only continuity on the closed nonnegative half-line and nonnegative values there. A real-valued extension to negative arguments has no constraints and is never evaluated in the spectral sums, so this does not impose global continuity or strengthen the original function domain.
+
+Target quantifies a single real C>=1 before every matrix size, k, pair, spectral choice, epsilon and f. The premise uses identity-function truncations with the same selected bases that the conclusion uses. The multiplicative loss is exactly 1+C*epsilon, with all weak inequalities and epsilon=0 retained. There is no ordering/commutation assumption, division by the optimal tail, or substitution of the stronger known constant 11.
+
+Live and frozen definitions independently compile with only the standard three axioms and compare by reflexivity. These are concrete closed proposition definitions, not proofs of the transfer theorem.
+
+I independently elaborated the live and frozen modules with Lean 4.33.1 into a separate review build directory, then checked the frozen identity by reflexivity. All commands exited 0. Each target axiom report contains only propext, Classical.choice, Quot.sound; #assert_statement and LeanCert #assert_trust kernel both passed. Retained logs are under lean-boundary-infra-audit-evidence/. These are local macOS development checks, not authoritative Linux Comparator execution and not proofs of Target. No numerical domain was reduced and no status promotion is supported by this review.
+
+## Reviewed repository inputs
+
+- `docs/lean/statements/RA-10/NUMERICAL_TARGETS.md`: `9a736152257f91d97f113a7b8b43d286e268a25fa142a97bdd62214387cb85de`
+- `docs/lean/statements/RA-10/ORIGINAL.md`: `cbf022a051a4fd445b49fa977e1f2541e332d588b4c039a14588ce234f4eb742`
+- `lean-statements/NLA/Statements/Infrastructure.lean`: `8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37`
+- `lean-statements/NLA/Statements/RA10.lean`: `dd7235bc531fd808d7eb5c591b42c618fe8eba1104af4d54c981742d77d22c82`
+- `lean-statements/Reviewed/RA10.lean`: `9762f20d48ca7fbdfaf4b3a99809dddeccb20ad0ef9efe2b987a71de39495400`
+- `lean-statements/lake-manifest.json`: `a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8`
+- `lean-statements/lakefile.toml`: `1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40`
+- `lean-statements/lean-toolchain`: `3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71`
+- `randomized-and-low-rank-approximation/RA-10/README.md`: `cbf022a051a4fd445b49fa977e1f2541e332d588b4c039a14588ce234f4eb742`
+- `docs/lean/statements/RA-10/IMPLEMENTATION_NOTES.md`: `2507b20d52634aff91fb48d74e24076f7811ffe9c7b7cad3dba6e3b7a933f49f`
+- `docs/lean/statements/RA-10/reviews/lean-boundary-infra-audit-evidence/NLA-Statements-RA10.log`: `8d1a5728ff8cff0712dab80fa309aeff3b08f6ff93256167970dc3aee8ce5a7e`
+- `docs/lean/statements/RA-10/reviews/lean-boundary-infra-audit-evidence/Reviewed-RA10.log`: `3797e92d2a32a0a29e3f82a718e1dee527d441a4e3748c194f19fb170176d6ee`
+- `docs/lean/statements/RA-10/reviews/lean-boundary-infra-audit-evidence/identity.log`: `2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30`
+
+## Inspected pinned dependency meaning
+
+- mathlib `0df444a360eaa60ab8c11dca51a86af692955474`, `Mathlib/Analysis/InnerProductSpace/SingularValues.lean`: `ce8193fcd5d226845a71f66b8ca7ad385358916a6e0e688745410ac412ed5c81`
+- mathlib `0df444a360eaa60ab8c11dca51a86af692955474`, `Mathlib/Analysis/InnerProductSpace/PiL2.lean`: `1f9827b2db67213c725a2dcc3fec52a87772966d1fbd3fc6857a019dbd7a6053`
+- mathlib `0df444a360eaa60ab8c11dca51a86af692955474`, `Mathlib/Analysis/Normed/Lp/Matrix.lean`: `976400e4430cbe64214a24e37f3f98c807c30f1c9926c8cbd367ae2fd111e2f9`
+- mathlib `0df444a360eaa60ab8c11dca51a86af692955474`, `Mathlib/Algebra/BigOperators/Group/Finset/Defs.lean`: `2f39541f66288cb9ae9f77d97fd3656825a1dd1a4b5ca6a156f938d8fa1678a8`

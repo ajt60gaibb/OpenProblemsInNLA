@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "IE-12",
+  "reviewer": "/root/inventory",
+  "is_ai": true,
+  "phase": "specification",
+  "verdict": "approve",
+  "report_path": "docs/lean/statements/IE-12/reviews/specification-inventory.md",
+  "report_sha256": "0dfa8e86d3b6c8bcb56ba84ee80b30c8e66134995561d732f5542c93b58a6537",
+  "input_sha256": {
+    "linear-systems-and-elimination/IE-12/README.md": "a46926ac2cec003913f0ae71d3f4b54dfb44e82bb90daeaa3ab79ed757421b77",
+    "docs/lean/statements/IE-12/NUMERICAL_TARGETS.md": "68eb633d1c59347f714d4eab8d32912cdbcd27343ecb50a9dc557741a781cf3d",
+    "docs/lean/statements/IE-12/ORIGINAL.md": "a46926ac2cec003913f0ae71d3f4b54dfb44e82bb90daeaa3ab79ed757421b77",
+    "docs/lean/statements/IE-12/source-lock.json": "8179a06b0dd286ff4b1bec2a127ec8c950cce289e2db8c72a7b456f59933fec0"
+  },
+  "rationale": [
+    "The complete canonical README and ORIGINAL snapshot agree byte for byte. The specification preserves one fixed program and positive real C,q before every n,A,b,epsilon and random realization; it retains n>=1, nonsingular normalized A, arbitrary nonzero b and 0<epsilon<1/2. The success threshold is the original A-only backward-error ratio <=epsilon with probability >=99/100. The norm promise is not replaced by a free norm computation.",
+    "The concrete finite instruction syntax charges every scalar arithmetic operation, square root, comparison, branch, indexed load/store, address arithmetic, natural-to-real conversion, random draw and halt. Fixed scalar constants and register/label counts are global finite program data. There is no real-to-natural conversion, digit extraction, table advice, free solver, spectral operation or arbitrary input evaluator. Natural counters with charged arithmetic implement ordinary exact integer-valued scalar indexing in this exact-real model, not binary-time computation.",
+    "The initialized dense store has exactly the matrix, RHS and epsilon entries at the stated addresses. Other locations are zero; finite traces write only finitely many cells. The output is a concrete n-entry stored slice. Returning its address cannot compute its entries for free, and optional O(n) serialization is absorbed in the allowed n^2*epsilon^-q scale. No storage bound or restricted access pattern is added.",
+    "The independent Gaussian and fair-bit countable product streams give actual independent draws under adaptive instruction choices; separate sequential cursors prohibit reading an unlimited random object in one step. Successful halt and failure are distinct tags. Division by zero, invalid square root and nontermination cannot satisfy the all-realization bounded-return condition.",
+    "The worst-case t bound and nonzero return are required on every realization; probability is reserved for the backward-error guarantee. The archived source expressly handles zero Gaussian denominators and nonzero fallback vectors and states that every realization terminates within the same bound, so the specification does not replace worst-case cost with expected or high-probability runtime. The exact source paragraphs on indexed scalar-array reads, table identifiers and all realizations were inspected.",
+    "The target retains the existential real exponent and original epsilon/error/probability domain rather than the source solution\u2019s fixed exponent, stronger constants, singular-input extension or storage bound. Primitive state transitions and a countable union of finite-time events give the intended measurable success event. The exact instruction evaluator and stream measure must be implemented and reviewed before completion; the solver algorithm and its complexity proof are not prerequisites merely to define the closed target."
+  ]
+}

@@ -52,7 +52,7 @@ products\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -94,6 +94,49 @@ submission history and diagnostic record} preserve the initial solution
 claim. The ratings above are historical, and the earlier literature
 checks below are retained.
 
+\subsection{Lean proof and verification
+evidence}\label{lean-proof-and-verification-evidence}
+
+The
+\href{https://github.com/marcusdavidwebb/OpenProblemsInNLA/tree/0b61bc859f622a69204f8705445c144095e4446d/eigenvalues-and-inverse-problems/KE-03/lean}{complete
+Lean proof} formalizes the entire original exact-query target. Its
+declaration \textit{NLA.KE03.complete\_query\_algorithm} proves that the
+concrete algorithm terminates on every seed and uses at most
+\(32768[1+\log(nK)]/\varepsilon^2\) queries. With probability at least
+\(99/100\), one actual eigenvalue satisfies both required inequalities.
+All positive dimensions, supplied condition bounds, allowed tolerances,
+spectral scales, repeated eigenvalues and ties are included.
+
+The formalization uses an integer random grid and exact finite counting,
+positive-rational enumeration for radius approximation, and a rational
+circle mesh.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/eigenvalues-and-inverse-problems/KE-03/lean/NUMERICAL_TARGETS.md}{The
+statement correspondence} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/eigenvalues-and-inverse-problems/KE-03/lean/README.md}{proof
+guide} explain the complete algorithm, Euclidean norms, uniform seed
+law, and query accounting. No diagonalizer or spectral information is an
+algorithm input. Total runtime, bit complexity and floating-point
+stability remain outside the original target.
+
+The project pins Lean \textit{4.33.1} and Mathlib
+\textit{0df444a360eaa60ab8c11dca51a86af692955474}. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/eigenvalues-and-inverse-problems/KE-03/lean/verification/README.md}{verification
+record} includes reproduction commands, source hashes, local build and
+transitive axiom logs, and the successful fresh Ubuntu Comparator run of
+28 September 2026. The complete theorem uses only \textit{propext},
+\textit{Classical.choice} and \textit{Quot.sound}; the independent
+Challenge placeholder is excluded from its dependencies.
+
+The mathematical resolution remains credited to Matthew J. Colbrook.
+OpenAI Codex agents authored the Lean implementation. Two separate,
+nonauthor agents approved the full statement and proof;
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/eigenvalues-and-inverse-problems/KE-03/lean/reviews/README.md}{their
+reports} disclose their scope and evidence. This is AI-agent review,
+with no claim of external human peer review. The complete proof passed
+statement comparison, permitted-axiom checks, default-kernel replay and
+rejection controls; the retained evidence supports \textbf{Lean
+verified} status.
+
 \subsection{Context and notation}\label{context-and-notation}
 
 All norms are Euclidean vector norms or their induced matrix norms.
@@ -111,11 +154,9 @@ Do universal constants \(C,a,b>0\) and a randomized algorithm exist
 that, for every such input and every \(\varepsilon\in(0,1/2)\), returns
 a complex number \(z\) with probability at least \(0.99\) such that
 
-\[
-\text{there exists }\mu\in\sigma(A):
+\[\text{there exists }\mu\in\sigma(A):
 \quad |\mu|\geq(1-\varepsilon)\rho(A),
-\qquad |z-\mu|\leq\varepsilon\rho(A),
-\]
+\qquad |z-\mu|\leq\varepsilon\rho(A),\]
 
 using at most \(C[1+\log(nK)]^a\varepsilon^{-b}\) matrix-vector queries?
 The algorithm may perform finite exact arithmetic between queries; the

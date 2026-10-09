@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "id": "TR-13",
+  "scope": "statement-only",
+  "canonical_readme": "tensor-computations/TR-13/README.md",
+  "specification": "docs/lean/statements/TR-13/NUMERICAL_TARGETS.md",
+  "module": "NLA.Statements.TR13",
+  "declaration": "NLA.Statements.TR13.Target",
+  "authors": [
+    "/root"
+  ],
+  "source_sha256": "da720e9599af7271686127b618b21038685e52a754031c2d43915c9d255f015f",
+  "specification_sha256": "1df6ae38c9f787c4d0994c676f149e0fc02ed94b85e5d6e0e65c7e236d744b3d",
+  "lean_sha256": "5b43b0a5410d91a7ec9a796a3e6d7cdd50f75929797d2eca4587cb2b0905a99d",
+  "frozen_sha256": "8b876a24f87eeecdb983ca6044b7548aa629db0a3f0fe9c3878516cba8b29b16",
+  "reviews": [
+    {
+      "schema_version": 1,
+      "id": "TR-13",
+      "reviewer": "/root/infra_audit",
+      "is_ai": true,
+      "phase": "specification",
+      "verdict": "approve",
+      "canonical_readme": "tensor-computations/TR-13/README.md",
+      "source_sha256": "da720e9599af7271686127b618b21038685e52a754031c2d43915c9d255f015f",
+      "snapshot_sha256": "da720e9599af7271686127b618b21038685e52a754031c2d43915c9d255f015f",
+      "input_path": "docs/lean/statements/TR-13/NUMERICAL_TARGETS.md",
+      "input_sha256": {
+        "tensor-computations/TR-13/README.md": "da720e9599af7271686127b618b21038685e52a754031c2d43915c9d255f015f",
+        "docs/lean/statements/TR-13/NUMERICAL_TARGETS.md": "1df6ae38c9f787c4d0994c676f149e0fc02ed94b85e5d6e0e65c7e236d744b3d",
+        "docs/lean/statements/TR-13/ORIGINAL.md": "da720e9599af7271686127b618b21038685e52a754031c2d43915c9d255f015f"
+      },
+      "rationale": [
+        "The quantifiers retain every odd natural m>=5 and every n>=2. The target asks for existence of a nonempty open domain in the full complex Hankel coefficient space and all five rank equalities there; it is not changed to the separate all-Hankel rank question TR14 or to a sampled finite range.",
+        "The reviewed TR14 zero-based Hankel coordinate and ordinary/symmetric width definitions preserve exactly the source tensor entries. Width r means rank at most r because zero terms permit padding, including r=0 for the zero tensor. Over complex numbers these finite minima exist.",
+        "Vandermonde width uses the complete homogeneous vector a^(n-1-i)*b^i with (a,b) not both zero. It retains a=0, the projective point at infinity, as well as b=0. Zero coefficients allow padding; no distinct-node, nonzero-weight, affine-only, real or positivity restriction is imposed.",
+        "The ordinary border predicate permits arbitrary complex tensor approximants at every sequence index; the symmetric border predicate requires only actual symmetric decompositions, not Hankel or Vandermonde approximants. Full coordinate convergence is exactly the canonical entrywise complex convergence, and neither border definition is replaced by a restricted structured limit.",
+        "Each of the five width predicates is upward closed, and every Hankel tensor has finite admissible width (for example D+1 distinct affine Vandermonde nodes span the D+1 coefficient entries); constant sequences give finite border widths. Equality of the predicates at every natural threshold is therefore equivalent to equality of all five least widths, as specified.",
+        "A polynomial with an explicit coefficient-vector witness p(h0)!=0 defines a nonempty principal Zariski open D(p). Conversely, if a nonempty affine open has complement V(S), at any point of the open some polynomial in S is nonzero and its principal open is contained in the original open. Requiring the rank property on some D(p) is thus equivalent to the original nonempty-open existence, with no invented genericity oracle.",
+        "The extra generic Vandermonde-rank value stated as background is not substituted for or conflated with the five-rank equality question. Complete ORIGINAL.md bytes match the canonical README; all endpoint, parity and dimension guards remain exact."
+      ],
+      "limits": "Independent preimplementation specification review only; no Lean target, proof, cited-paper audit, or Comparator run certified.",
+      "report_path": "docs/lean/statements/TR-13/reviews/specification-infra_audit.md",
+      "report_sha256": "bcf09c23139f384ebcb7274f0d745845479b7a433dc62793307b57028fcbeb3d"
+    },
+    {
+      "schema_version": 1,
+      "id": "TR-13",
+      "phase": "specification",
+      "reviewer": "/root/statement_design",
+      "is_ai": true,
+      "verdict": "approve",
+      "canonical_readme": "tensor-computations/TR-13/README.md",
+      "input_sha256": {
+        "docs/lean/statements/TR-13/NUMERICAL_TARGETS.md": "1df6ae38c9f787c4d0994c676f149e0fc02ed94b85e5d6e0e65c7e236d744b3d",
+        "docs/lean/statements/TR-13/ORIGINAL.md": "da720e9599af7271686127b618b21038685e52a754031c2d43915c9d255f015f",
+        "tensor-computations/TR-13/README.md": "da720e9599af7271686127b618b21038685e52a754031c2d43915c9d255f015f"
+      },
+      "rationale": [
+        "The quantifiers preserve every odd order m>=5 and dimension n>=2 and the entire complex Hankel coefficient space of dimension m(n-1)+1. Zero-based sum-of-indices entries exactly match the original one-based shifted formula.",
+        "All five ranks are retained: ordinary, symmetric, ordinary border, symmetric border and Vandermonde. Ordinary width allows arbitrary products; symmetric width allows complex multiples of arbitrary powers; neither is confined to Hankel factors.",
+        "The Vandermonde family retains homogeneous pairs (a,b)!=0, including a=0 and b=0 individually and thus the point at infinity. Zero coefficients permit padding even though the projective pairs themselves are nonzero.",
+        "Ordinary border approximants are arbitrary complex tensors, while symmetric border approximants have symmetric width. Neither sequence is restricted to Hankel tensors. Entrywise usual complex convergence is exactly the specified limiting notion.",
+        "All-width equivalences characterize equality of the five minimum ranks because the predicates are upward closed under padding and each minimum exists. Ordinary pure products span all tensors. Symmetric pure powers span the symmetric space in characteristic zero. For Hankel tensors, D+1 distinct finite complex nodes give an invertible Vandermonde coefficient system; hence Vandermonde widths are finite as well. Constant sequences supply finite border widths.",
+        "An explicitly witnessed nonempty principal open D(p) for an actual complex multivariate polynomial is equivalent to existence of a nonempty affine Zariski-open subset with the equalities: any nonempty open is a union of principal opens and contains one through any chosen point.",
+        "The polynomial and its nonemptiness witness depend on m,n and precede the universal h,r quantifiers. Requiring the equalities only where p(h)!=0 preserves the generic claim without strengthening to every tensor or prescribing a particular open set.",
+        "The displayed explicit generic rank value in the canonical page is known background, whereas the original question asks equality of the five ranks. Omitting that additional already-known formula from the conjunction does not omit a subquestion or replace the target.",
+        "The full canonical README and byte-identical ORIGINAL were read, including target, definitions, resolution and preserved historical material. This specification approval is independent of the author /root and precedes implementation."
+      ],
+      "limits": "Independent mathematical specification review only. Future Lean definitions and the imported TR14 tensor/width constructions require a separate boundary review. No tensor-rank theorem, decomposition algorithm, genericity theorem or original conjecture is proved here.",
+      "report_path": "docs/lean/statements/TR-13/reviews/specification-statement_design.md",
+      "report_sha256": "539fe8aa02e30b71103d5fcf4a929d001d621e0ca50c81b87e6b85412e9a2a79"
+    },
+    {
+      "schema_version": 1,
+      "id": "TR-13",
+      "reviewer": "/root/inventory",
+      "is_ai": true,
+      "phase": "lean-boundary",
+      "verdict": "approve",
+      "report_path": "docs/lean/statements/TR-13/reviews/lean-boundary-inventory.md",
+      "report_sha256": "2bd75b81be09a6fee20b8fa910538abe80691c0f1f94ae3123cbf14b472066ff",
+      "input_sha256": {
+        "docs/lean/statements/TR-13/IMPLEMENTATION_NOTES.md": "11300fbbcd0c6c4917d4a49a30de552ad71d155778673576cb63d345208a7d15",
+        "docs/lean/statements/TR-13/NUMERICAL_TARGETS.md": "1df6ae38c9f787c4d0994c676f149e0fc02ed94b85e5d6e0e65c7e236d744b3d",
+        "docs/lean/statements/TR-13/ORIGINAL.md": "da720e9599af7271686127b618b21038685e52a754031c2d43915c9d255f015f",
+        "lean-statements/NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+        "lean-statements/NLA/Statements/TR13.lean": "5b43b0a5410d91a7ec9a796a3e6d7cdd50f75929797d2eca4587cb2b0905a99d",
+        "lean-statements/NLA/Statements/TR14.lean": "515387732a4aff4c343625d7578d687fa9d11255ddeaaeb278b9410e55e02dc9",
+        "lean-statements/Reviewed/TR13.lean": "8b876a24f87eeecdb983ca6044b7548aa629db0a3f0fe9c3878516cba8b29b16",
+        "lean-statements/lake-manifest.json": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+        "lean-statements/lakefile.toml": "1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40",
+        "lean-statements/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+        "tensor-computations/TR-13/README.md": "da720e9599af7271686127b618b21038685e52a754031c2d43915c9d255f015f"
+      },
+      "rationale": [
+        "The complete canonical README equals ORIGINAL.md byte for byte. Target retains odd m>=5 and n>=2, then one polynomial nonempty-open witness before every Hankel coefficient vector. It asks exactly equality of all five ranks, without adding the known numerical generic-rank formula or strengthening to every Hankel tensor.",
+        "The transitive TR14 import was reread: HankelIndex is the bounded zero-based sum of indices and ordinary/symmetric widths are actual finite sums of arbitrary vector products or scalar-weighted symmetric powers. No arbitrary rank function is assumed. Zero padding makes width r equivalent to rank at most r; finite decompositions exist for these Hankel tensors.",
+        "VandermondeVector uses the full homogeneous rational normal curve a^(n-1-i)*b^i, with no subtraction underflow for Fin n indices in the target domain. The pair is required not jointly zero, while either coordinate may vanish individually; infinity and all projective nodes remain available. Coefficients may be zero, retaining padding and the r=0 boundary.",
+        "OrdinaryBorderWidth allows arbitrary complex tensor approximants of ordinary width r, and SymmetricBorderWidth allows symmetric-width approximants without requiring Hankel structure. Entrywise Tendsto is the usual complex Euclidean limit. Neither border predicate is replaced by restricted structured approximants, finite equality or an abstract closure oracle.",
+        "EqualFiveRanks explicitly conjoins four equivalences between ordinary width and each remaining width for every natural r. Their upward-closed threshold sets determine the same finite minima, so the complete five-rank equality is retained, not merely a single bound or two of the ranks.",
+        "The actual MvPolynomial nonvanishing locus is a principal Zariski open and an explicit coefficient-vector witness proves it nonempty. Conversely any nonempty affine Zariski open contains a nonempty principal open, by choosing a defining polynomial of its closed complement nonzero at a point outside. Thus this existential concrete formulation is exactly the original generic-domain question and not a vacuous or finite-sample condition.",
+        "Every local import of the live and frozen modules and all three package-pin files are bound below. The frozen source differs only by the prescribed namespace substitution/comment. Author-provided local macOS live/frozen elaboration and identity logs were inspected against their recorded source hashes: all exits were zero and only the standard three axioms were reported. This independent source review did not rerun Lean; the local identity evidence is not Linux Comparator execution or target truth."
+      ],
+      "inspected_evidence": "docs/lean/statements/verification/2026-09-28-spectral-hankel"
+    },
+    {
+      "schema_version": 1,
+      "id": "TR-13",
+      "phase": "lean-boundary",
+      "reviewer": "/root/statement_design",
+      "is_ai": true,
+      "verdict": "approve",
+      "canonical_readme": "tensor-computations/TR-13/README.md",
+      "input_sha256": {
+        "docs/lean/statements/TR-13/IMPLEMENTATION_NOTES.md": "11300fbbcd0c6c4917d4a49a30de552ad71d155778673576cb63d345208a7d15",
+        "docs/lean/statements/TR-13/NUMERICAL_TARGETS.md": "1df6ae38c9f787c4d0994c676f149e0fc02ed94b85e5d6e0e65c7e236d744b3d",
+        "docs/lean/statements/TR-13/ORIGINAL.md": "da720e9599af7271686127b618b21038685e52a754031c2d43915c9d255f015f",
+        "docs/lean/statements/TR-14/NUMERICAL_TARGETS.md": "6c50aa83745fc3d096e08b476fb08a841ffc0fefb2cdd58511f924c49f09da17",
+        "docs/lean/statements/verification/2026-09-28-spectral-hankel/CheckSpectralHankel.lean": "59a4c13e5624787c2af2cf7c07fa7e98db574bfed2fecacf924e8433a7ab0a41",
+        "docs/lean/statements/verification/2026-09-28-spectral-hankel/CheckSpectralHankel.log": "1797afd3028dada80af15ade3887c347c346978237cd707a058d188fb3f2b412",
+        "docs/lean/statements/verification/2026-09-28-spectral-hankel/NLA-Statements-TR13.lean.log": "79055668abe8114ea39027a07a011afff87e328c6fd92885d7958f01a0ba40b3",
+        "docs/lean/statements/verification/2026-09-28-spectral-hankel/Reviewed-TR13.lean.log": "0eca9935aec97fa2f31e0a8ef5aa0e7df8b7991b26643189d6aefe6a104884ac",
+        "docs/lean/statements/verification/2026-09-28-spectral-hankel/receipt.json": "0fd2fe5b25646c0794268333e35e0815dc617c397fc38d6eba125ad9095f0881",
+        "lean-statements/NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+        "lean-statements/NLA/Statements/TR13.lean": "5b43b0a5410d91a7ec9a796a3e6d7cdd50f75929797d2eca4587cb2b0905a99d",
+        "lean-statements/NLA/Statements/TR14.lean": "515387732a4aff4c343625d7578d687fa9d11255ddeaaeb278b9410e55e02dc9",
+        "lean-statements/Reviewed/TR13.lean": "8b876a24f87eeecdb983ca6044b7548aa629db0a3f0fe9c3878516cba8b29b16",
+        "lean-statements/lake-manifest.json": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+        "lean-statements/lakefile.toml": "1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40",
+        "lean-statements/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+        "tensor-computations/TR-13/README.md": "da720e9599af7271686127b618b21038685e52a754031c2d43915c9d255f015f"
+      },
+      "rationale": [
+        "Actual Target quantifies all m,n with 5<=m, Odd m and 2<=n. It then chooses an actual multivariate polynomial on all m(n-1)+1 Hankel coefficients and explicitly witnesses a nonzero evaluation before imposing the equality at every point of its nonvanishing locus.",
+        "The imported TR14 HankelIndex uses the complete zero-based index sum, with a proved bound m(n-1)+1. Its Hankel, OrdinaryWidth and SymmetricWidth definitions were reread. They are full complex sums of arbitrary products and complex scalar multiples of pure powers, respectively, with no hidden rank predicates.",
+        "VandermondeVector has entries a^(n-1-i)*b^i for every Fin n index. Natural subtraction does not underflow on this range. The nonzero-pair disjunction retains the points a=0 or b=0 individually, including the point at infinity; coefficients may vanish.",
+        "OrdinaryBorderWidth uses a sequence of arbitrary ambient tensors, not symmetric or Hankel tensors. SymmetricBorderWidth constrains each approximant only by a symmetric width decomposition, not a Hankel or Vandermonde restriction. Both limits are every-coordinate convergence in the usual complex topology.",
+        "EqualFiveRanks includes all four equivalences against OrdinaryWidth at every natural width r, including r=0. Zero padding makes each predicate upward closed. Ordinary/symmetric/Vandermonde finite decompositions exist for Hankel tensors, and constant approximating sequences give finite border upper bounds, so these all-width equivalences match equality of all five minima.",
+        "The actual polynomial evaluation is the ring-homomorphism evaluation from the pinned MvPolynomial API. Its nonzero locus is a principal affine Zariski open; existence of a witnessed nonempty principal open is equivalent to existence of some nonempty open satisfying the original property.",
+        "No explicit generic-rank value was added, since that is background rather than an additional subquestion. Conversely no rank equality, projective endpoint, odd order or full generic coefficient domain was omitted.",
+        "Complete original/specification and implementation notes were compared to the actual source. The frozen copy is mechanically identical except the documented leading comment and namespace rename. The hash bindings include the transitive local source closure, pins and notes.",
+        "The source defines, rather than proves, Target. Global kernel trust and both statement/trust assertions are present. The retained pinned macOS live/frozen logs report the standard three axioms; the author-local root receipt reports exit zero for these modules and rfl identity checks. This reviewer inspected those records but did not independently rerun Lean or Linux Comparator."
+      ],
+      "limits": "Independent AI-agent source-level final boundary review, independent of /root, who authored the specification and implementation. It approves mathematical/model correspondence of the exact definition bytes, not the truth of the catalog problem. Author-local root compile receipts were inspected as evidence; no independent execution or Linux Comparator pass is asserted here.",
+      "external_sources_inspected": [
+        {
+          "path": "Mathlib/Algebra/MvPolynomial/Eval.lean",
+          "sha256": "4df972e1914f2292171801920bbf014a3a2e56a679520edaf4403ef3638f3007",
+          "meaning": "eval h is the genuine polynomial evaluation ring homomorphism; coefficient sum/product formula is eval_eq."
+        }
+      ],
+      "report_path": "docs/lean/statements/TR-13/reviews/lean-boundary-statement_design.md",
+      "report_sha256": "f311c05b9e3c63be19bb290ad30892dedb6ebd60785c5b75aee566db0d1b2f9b"
+    }
+  ]
+}

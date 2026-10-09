@@ -1,0 +1,60 @@
+$ lake env lean --stdin
+import Solution
+#print NLA.TR07.SolvesTR07
+#check NLA.TR07.random_column_subsets
+#print axioms NLA.TR07.random_column_subsets
+#print axioms NLA.TR07.uniform_expected_defect
+#print axioms NLA.TR07.reservoir_success_probability
+#print axioms NLA.TR07.reservoirKernel_dominates
+#print axioms NLA.TR07.reservoirStep_span
+#print axioms NLA.TR07.Law.coupledPaths_inputs
+#print axioms NLA.TR07.Law.coupledPaths_states
+#print axioms NLA.TR07.Law.paths_scaled_expect_le
+#print axioms NLA.TR07.expected_defect_of_reconstruction
+#print axioms NLA.TR07.subsetTail_le_of_defect_mean
+#print axioms NLA.TR07.defect_ordered_eq_zero
+#print axioms NLA.TR07.aspect_ratio_bounds
+#print axioms NLA.TR07.sample_fraction_tendsto_zero
+#print axioms NLA.TR07.probability_bound_tendsto_zero
+#print axioms NLA.TR07.ideal_success_probability
+#print axioms NLA.TR07.sparse_filter_bound
+#print axioms NLA.TR07.defect_ge_half_of_witnesses
+#print axioms NLA.TR07.subset_prob_le_of_iid_expect
+#print axioms NLA.TR07.exists_collision_coupling
+#print axioms NLA.TR07.ordered_range_prob
+
+def NLA.TR07.SolvesTR07 : Prop :=
+∀ (s : ℕ),
+  2 ≤ s →
+    ∀ (C : ℝ),
+      1 ≤ C →
+        ∀ (r n : ℕ → ℕ),
+          (∀ (k : ℕ), r k ≤ k) →
+            (∀ (k : ℕ), r k ≤ n k) →
+              Filter.Tendsto (fun k => ↑k / ↑(r k)) Filter.atTop (nhds C) →
+                Filter.Tendsto (fun k => ↑(n k) / ↑(r k)) Filter.atTop Filter.atTop →
+                  ∀ (M : (k : ℕ) → NLA.TR07.Mat k (n k)),
+                    (∀ᶠ (k : ℕ) in Filter.atTop, NLA.TR07.SignedSparse s (M k)) →
+                      ∀ (η : ℝ),
+                        0 < η → Filter.Tendsto (fun k => NLA.TR07.subsetTail (M k) (r k) η) Filter.atTop (nhds 0)
+NLA.TR07.random_column_subsets : NLA.TR07.SolvesTR07
+'NLA.TR07.random_column_subsets' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR07.uniform_expected_defect' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR07.reservoir_success_probability' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR07.reservoirKernel_dominates' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR07.reservoirStep_span' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR07.Law.coupledPaths_inputs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR07.Law.coupledPaths_states' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR07.Law.paths_scaled_expect_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR07.expected_defect_of_reconstruction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR07.subsetTail_le_of_defect_mean' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR07.defect_ordered_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR07.aspect_ratio_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR07.sample_fraction_tendsto_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR07.probability_bound_tendsto_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR07.ideal_success_probability' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR07.sparse_filter_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR07.defect_ge_half_of_witnesses' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR07.subset_prob_le_of_iid_expect' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR07.exists_collision_coupling' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR07.ordered_range_prob' depends on axioms: [propext, Classical.choice, Quot.sound]

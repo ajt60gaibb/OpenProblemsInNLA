@@ -1,0 +1,841 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{xurl}
+\usepackage{needspace}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\hypersetup{
+  pdftitle={A Seginer theorem for random tensors with arbitrary iid integrable entries},
+  pdfsubject={TR-21: expected injective norm and Euclidean fiber norms},
+  pdfkeywords={random tensors, Seginer theorem, injective norm, discrepancy, TR-21},
+  bookmarksnumbered=true
+}
+\urlstyle{same}
+\linespread{1.045}
+\setlength{\parskip}{0.3em plus 0.1em minus 0.1em}
+\setlength{\parindent}{1.2em}
+\setlength{\emergencystretch}{1.5em}
+\setcounter{tocdepth}{1}
+\newtheoremstyle{spaced}{9pt}{9pt}{\itshape}{}{\bfseries}{.}{0.5em}{}
+\theoremstyle{spaced}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Pp}{\mathbb P}
+\newcommand{\inj}{\mathrm{inj}}
+\newcommand{\NN}{\mathbb N_0}
+\newcommand{\ind}{\mathbf 1}
+\newcommand{\step}[1]{\par\addvspace{0.5\baselineskip}\noindent\textbf{#1}\enspace}
+\title{A Seginer theorem for random tensors\\with arbitrary iid integrable entries}
+\author{}
+\date{30 September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For every fixed order $k\ge3$, we prove that the expected injective norm
+of a tensor with iid mean-zero integrable entries is comparable to its
+largest expected Euclidean fiber norm, uniformly over all rectangular
+dimensions and entry laws. This proves the conjecture of Lucca and
+Pesenti recorded as TR-21. The proof extends Zhou--Zhu's shared-class
+discrepancy method across magnitude levels and combines it with
+Lucca--Pesenti's sparse-tail theorem and Seginer's matrix comparison.
+\end{abstract}
+
+\section{Main theorem and attribution}\label{sec:main}
+
+For a real tensor $T\in\mathbb R^{n_1\times\cdots\times n_k}$, its
+injective norm is
+\begin{equation}\label{eq:injective-definition}
+ \|T\|_{\inj}
+ =\sup_{\substack{\|x_j\|_2=1\\1\le j\le k}}
+ \left|\sum_{i_1=1}^{n_1}\cdots\sum_{i_k=1}^{n_k}
+ T_{i_1,\ldots,i_k}\prod_{j=1}^k x_{j,i_j}\right|.
+\end{equation}
+Let $\mathcal F_j$ denote the one-dimensional fibers in mode $j$:
+all indices except the $j$th are fixed. Define
+\begin{equation}\label{eq:fiber-definition}
+ F(T)=\max_{1\le j\le k}\E\max_{f\in\mathcal F_j}\|T_f\|_2.
+\end{equation}
+The maximum over modes in this definition is \emph{outside} the
+expectation.
+
+\begin{theorem}[Seginer comparison for iid tensors]\label{thm:main}
+Fix $k\ge3$. There is a finite constant $C_k$, depending only on $k$,
+such that every tensor $T\in\mathbb R^{n_1\times\cdots\times n_k}$,
+$n_j\ge2$, with iid real mean-zero integrable entries satisfies
+\begin{equation}\label{eq:main-comparison}
+ F(T)\le\E\|T\|_{\inj}\le C_kF(T).
+\end{equation}
+The constant is independent of the dimensions and the common entry law;
+in particular, the law may depend on the dimensions. No finite-variance
+or higher-moment hypothesis is imposed.
+\end{theorem}
+
+Both expectations are finite: the injective norm and every fiber norm
+are bounded by the sum of the absolute values of the entries.
+The lower comparison holds pointwise with constant one. The upper
+comparison is proved in Sections~\ref{sec:discrepancy}--\ref{sec:assembly}.
+It answers the full integrable-law formulation of TR-21~\cite{TR} and
+proves Lucca--Pesenti's Conjecture~1.8~\cite{LP}.
+
+\begin{corollary}[Bernoulli entries at every density]\label{cor:bernoulli}
+Let $X\in\mathbb R^{n_1\times\cdots\times n_k}$ have iid
+$\operatorname{Bernoulli}(p)$ entries, where $k\ge3$, $n_j\ge2$, and
+$p\in[0,1]$. For $W=X-\E X$,
+\[
+ F(W)\le\E\|W\|_{\inj}\le C_kF(W).
+\]
+\end{corollary}
+
+This is immediate from Theorem~\ref{thm:main}. A separate Bernoulli
+argument is retained in Appendix~\ref{app:bernoulli}; it also identifies
+a summation refinement of Zhou--Zhu's deterministic heavy-tuple estimate.
+
+\subsection{Relation to prior work and the additional step}
+
+Seginer proved the corresponding comparison for iid mean-zero matrix
+entries~\cite[Corollary~2.2]{Seg}. Lucca and Pesenti formulated its tensor
+extension and proved a comparison under moment-equivalence hypotheses
+\cite[Assumption~1.6, Theorem~1.7, and Conjecture~1.8]{LP}.
+Their sparse-tail estimate, used below, is a separate result from that
+moment-restricted comparison.
+
+The light--heavy decomposition goes back to the Kahn--Szemer\'edi
+method~\cite{FKS}. Zhou and Zhu developed this approach for sparse tensors
+\cite{ZZ21} and subsequently introduced a simultaneous multibox
+discrepancy estimate that charges each shared coordinate class only once
+\cite[Lemmas~4.4--4.5, Proposition~4.6, and Appendix~A]{ZZ}.
+Their Lemma~5.1 supplies the joint-rate argument for dependent occupancy
+counts. Their stated Bernoulli concentration theorem assumes
+$np\ge c\log n$~\cite[Theorem~2.1]{ZZ}.
+
+The additional step here is a \emph{magnitude-labelled} discrepancy
+estimate (Lemma~\ref{lem:weighted-discrepancy}) and a simultaneous
+heavy-sum estimate (Proposition~\ref{prop:heavy}). Coordinate classes are
+charged once across all magnitude labels, while fiber and variance
+contributions are summed with squared amplitudes. These are extensions
+of the cited Zhou--Zhu arguments, not independent origins of the
+discrepancy method or its entropy bookkeeping. The proof then uses a
+deterministic scale grid, a quantile truncation, and symmetrization to
+obtain the full-law comparison. The matrix and rare-tail estimates are
+imported in the precise forms stated next.
+
+\subsection{External estimates used in the proof}\label{sec:inputs}
+
+\step{Seginer's matrix comparison.}
+For an iid mean-zero integrable random matrix $A$, there is a numerical
+constant $C_S$ such that
+\begin{equation}\label{eq:seginer-input}
+ \E\|A\|_{\mathrm{op}}
+ \le C_S\left(
+ \E\max_i\|A_{i,:}\|_2+\E\max_j\|A_{:,j}\|_2\right).
+\end{equation}
+This is \cite[Corollary~2.2, with moment exponent one]{Seg}. It is used
+only for the elongated rectangular regime in
+Section~\ref{sec:rectangular}.
+
+\step{Lucca--Pesenti's rare-tail estimate.}
+Fix $k\ge3$. For independent integrable entries $U_i$ on $[n]^k$,
+$n\ge2$, such that $\Pp(U_i\ne0)\le n^{-5/4}$ for every $i$,
+\begin{equation}\label{eq:LP-input}
+ \E\|U-\E U\|_{\inj}\le A_k\E\max_i|U_i|,
+\end{equation}
+where $A_k$ depends only on $k$. This is
+\cite[Theorem~1.4 and Corollary~4.3]{LP}, with
+$\varepsilon=1/4$. Neither identical distributions nor higher moments
+are required, so deterministic zero padding is permitted.
+
+The two estimates above are not reproved. The discrepancy and heavy-sum
+adaptations are proved below; the elementary net and light-part
+arguments follow the framework of \cite[Lemmas~4.1--4.2]{ZZ}.
+
+\subsection{Notation and proof outline}
+
+Write $[n]=\{1,\ldots,n\}$ and $\NN=\{0,1,2,\ldots\}$.
+All logarithms are natural unless a base is shown, and
+$\log_+t=\max\{0,\log t\}$. The letters $C_k$ and $C_{k,R}$ may
+denote different constants at different occurrences, with only the
+indicated dependence. For $\mu>0$ and $v\ge0$, define the upper
+Poisson rate
+\begin{equation}\label{eq:rate-definition}
+ I_\mu(v)=
+ \begin{cases}
+ v\log(v/\mu)-v+\mu,&v\ge\mu,\\
+ 0,&v<\mu.
+ \end{cases}
+\end{equation}
+For fixed $v$, this rate is nonincreasing in the reference mean $\mu$.
+
+Padding a rectangular tensor with zeros into $[n]^k$, where
+$n=\max_jn_j$, preserves its injective norm and all modewise fiber
+maxima. Sections~\ref{sec:discrepancy}--\ref{sec:bounded} work with
+independent bounded entries that are identically distributed on the
+original rectangle and zero outside it. Section~\ref{sec:assembly}
+combines that bounded-law estimate with \eqref{eq:LP-input}, handles
+elongated formats using \eqref{eq:seginer-input}, and removes symmetry.
+Section~\ref{sec:magnitudes} explains why the iid placement of magnitudes
+cannot be replaced by an arbitrary deterministic coefficient tensor.
+
+\section{Magnitude-labelled discrepancy}\label{sec:discrepancy}
+
+Fix $k\ge3$ and $n\ge2$. Consider independent entries $Y_i$ on $[n]^k$, iid on an original
+rectangular subarray and zero elsewhere, with $|Y_i|\le1$.
+For $m\in\NN$ put $v_m=2^{-m}$ and
+$p_m=\Pp(v_m/2<|Y_i|\le v_m)$ on the original subarray.
+Labels with $p_m=0$ can be discarded almost surely. In each mode choose
+pairwise disjoint, nonempty coordinate classes $D_j^\ell\subset[n]$,
+labelled by $\ell\in\NN$. Write
+$Q_b=\prod_jD_j^{\ell_j}$ for $b=(\ell_1,\ldots,\ell_k)$ and define
+\[
+ e_{b,m}=\#\{i\in Q_b:v_m/2<|Y_i|\le v_m\},\qquad
+ \mu_{b,m}=p_m|Q_b|,\qquad I_{b,m}=I_{\mu_{b,m}}(e_{b,m}).
+\]
+The reference mean $\mu_{b,m}$ may exceed the actual mean after padding.
+For a finite nonempty collection $\mathcal B$ of pairs $(b,m)$, let
+\begin{align*}
+ H(\mathcal B)&=\sum_{j=1}^k\sum_{\ell\text{ used in mode }j}h(D_j^\ell),
+ &h(S)&=|S|\log\frac{en}{|S|},\\
+ c(b,m)&=\log2+2\sum_{j=1}^k\log(\ell_j+2)+2\log(m+2).
+\end{align*}
+Each used coordinate class contributes once to $H$, irrespective of the
+number of its coordinate-box or magnitude-label appearances. Set
+$H(\varnothing)=0$; sums over an empty collection are zero.
+
+\begin{lemma}[Joint discrepancy with magnitude labels]\label{lem:weighted-discrepancy}
+For $R>0$ and $K=2(R+k+3)$, with probability at least $1-n^{-R}$,
+simultaneously for every such assignment and finite collection,
+\begin{equation}\label{eq:weighted-discrepancy}
+ \sum_{(b,m)\in\mathcal B}I_{b,m}
+ \le K\left(H(\mathcal B)+\sum_{(b,m)\in\mathcal B}c(b,m)\right).
+\end{equation}
+\end{lemma}
+\begin{proof}
+We adapt the shared-class union bound of \cite[Lemmas~4.4--4.5]{ZZ}
+and the joint-rate argument of \cite[Lemma~5.1]{ZZ} to box--magnitude pairs.
+Fix a valid assignment and collection. An entry belongs to at most one
+selected pair $(b,m)$: distinct coordinate boxes are disjoint and an
+entry has at most one magnitude level. For nonnegative $t_{b,m}$,
+independence across entries and $1+u\le e^u$ therefore give
+\[
+ \E\exp\left(\sum_{\mathcal B}t_{b,m}e_{b,m}\right)
+ \le\exp\left(\sum_{\mathcal B}\mu_{b,m}(e^{t_{b,m}}-1)\right).
+\]
+The counts at different magnitude levels need not be independent.
+The displayed estimate uses their exclusivity within each entry instead.
+For each subset $A\subseteq\mathcal B$ and $s_a\ge0$, choose
+$u_a\ge\mu_a$ with $I_{\mu_a}(u_a)=s_a$ and apply the estimate with
+$t_a=\log(u_a/\mu_a)$, zero outside $A$. Markov's inequality yields
+\[
+ \Pp\{I_a>s_a\text{ for all }a\in A\}\le e^{-\sum_{a\in A}s_a}.
+\]
+Expanding the product using
+$e^{z/2}-1=\frac12\int_0^\infty e^{s/2}\mathbf1_{\{z>s\}}\,ds$
+and integrating this joint tail gives
+$\E\exp(\frac12\sum_{\mathcal B}I_a)\le2^{|\mathcal B|}$.
+The probability that \eqref{eq:weighted-discrepancy} fails for this assignment
+is thus at most
+\[
+ 2^{|\mathcal B|}e^{-KH(\mathcal B)/2}
+       \prod_{a\in\mathcal B}e^{-Kc(a)/2}.
+\]
+Put $Z_n=\sum_{\varnothing\ne S\subset[n]}e^{-Kh(S)/2}$.
+The bound $\binom ns\le(en/s)^s$ and monotonicity of
+$s\log(en/s)$ on $[1,n]$ give
+\[
+ Z_n\le\sum_{s=1}^n(en/s)^{-(K/2-1)s}
+ \le n(en)^{-(K/2-1)}\le n^{-R-1}\le1.
+\]
+For fixed $\mathcal B$, summing $e^{-KH/2}$ over assignments is at most
+$Z_n^q\le Z_n$, where $q\ge1$ is the number of used coordinate
+classes; dropping their disjointness restrictions only increases the sum.
+There is no coordinate-set choice for a magnitude label.
+The remaining union over finite nonempty collections is at most
+\[
+ Z_n\left[\prod_{b,m}(1+2e^{-Kc(b,m)/2})-1\right]
+ \le Z_n(e^{S_K}-1),\qquad
+ S_K=2^{1-K/2}\left(\sum_{q\ge0}(q+2)^{-K}\right)^{k+1}.
+\]
+Since $K\ge12$, $\sum_{q\ge0}(q+2)^{-K}\le1$ and
+$S_K\le2^{1-K/2}\le1/32$, so $e^{S_K}-1<1$.
+The countable union, or equivalently its increasing finite truncations,
+has probability at most $Z_n\le n^{-R}$.
+\end{proof}
+
+\section{All magnitude levels in one heavy sum}\label{sec:heavy}
+
+The three-class decomposition below follows
+\cite[Proposition~4.6]{ZZ}. Its modification is to sum all magnitude
+levels within each fiber, variance, and shared-class entropy estimate.
+
+\begin{proposition}[Simultaneous heavy-sum estimate]\label{prop:heavy}
+Let $Y$ be as in Section~\ref{sec:discrepancy}, and suppose that
+\eqref{eq:weighted-discrepancy} holds with constant $K$ for all class
+assignments and finite collections. Write
+\[
+ \sigma^2=\E Y_i^2\quad\text{on the original rectangle},
+ \qquad \Phi=\max_{j,f\in\mathcal F_j}\|Y_f\|_2.
+\]
+For every $D\ge\max\{1,n\sigma^2,4\Phi^2\}$ and every tuple of unit
+vectors $x_1,\ldots,x_k$, put
+$q_i=\prod_j|x_{j,i_j}|$ and $\tau=\sqrt D/n$. Then
+\begin{equation}\label{eq:heavy}
+ \sum_{i:\,|Y_i|q_i>\tau}|Y_i|q_i
+ \le\left(k4^{k-1}+e^24^{k+1}+\frac{28k}{3}K\right)\sqrt D+KB_k,
+\end{equation}
+where $B_k=2^k[2\log2+8(k+1)]$.
+\end{proposition}
+
+\begin{proof}
+If $\tau\ge1$ there are no heavy tuples. Otherwise fix unit vectors,
+write $q_i=\prod_j|x_{j,i_j}|$, and let
+$D_j^\ell=\{i:2^{-\ell-1}<|x_{j,i}|\le2^{-\ell}\}$.
+Empty classes are omitted. With $a_j=2^{-\ell_j}$, $s_j=|D_j^{\ell_j}|$,
+$\alpha_{j,\ell}=|D_j^\ell|2^{-2\ell}$, and $a_b=\prod_ja_j$, one has
+\[
+ \sum_\ell\alpha_{j,\ell}\le4,
+ \qquad |Q_b|a_b^2=\prod_j\alpha_{j,\ell_j}.
+\]
+Every tuple with $|Y_i|q_i>\tau$ belongs to a pair with
+$\rho_{b,m}=na_bv_m/\sqrt D>1$. Since $D\ge1$, such pairs satisfy
+$m+\sum_j\ell_j<\log_2n$ and form a finite collection.
+For these pairs put $\lambda_{b,m}=e_{b,m}/\mu_{b,m}$.
+The nonnegative heavy sum is at most $\sum a_bv_me_{b,m}$.
+Let $\mathcal B$ denote these pairs, and split them into
+\begin{align*}
+ \mathcal C_1&=\{(b,m)\in\mathcal B:na_j^2\le\rho_{b,m}
+                   \text{ for some }j\},\\
+ \mathcal C_2&=\{(b,m)\in\mathcal B:\lambda_{b,m}\le e^2\rho_{b,m}\}
+                   \setminus\mathcal C_1,\\
+ \mathcal C_3&=\mathcal B\setminus(\mathcal C_1\cup\mathcal C_2).
+\end{align*}
+\step{The squared fiber charge in $\mathcal C_1$.}
+Fix $j$ and the other coordinate labels, and write $P=\prod_{i\ne j}a_i$.
+The condition is $a_j\le v_mP/\sqrt D$. The sets $D_j^{\ell_j}$ are
+disjoint. If $c_m(f)$ counts level-$m$ entries in fiber $f$, then
+\[
+ \sum_m v_m^2c_m(f)\le4\sum_{i\in f}Y_i^2\le D.
+\]
+It follows, summing the qualifying pairs, that
+\[
+ \begin{aligned}
+ \sum_{\substack{\ell_j,m:\,(b,m)\in\mathcal B\\
+                 a_j\le v_mP/\sqrt D}}a_jPv_me_{b,m}
+ &\le\frac{P^2}{\sqrt D}
+       \sum_{f\text{ in the fixed other classes}}\sum_m v_m^2c_m(f)\\
+ &\le\sqrt D\prod_{i\ne j}\alpha_{i,\ell_i}.
+ \end{aligned}
+\]
+The sum on the right controls all the qualifying pairs because the
+classes $D_j^{\ell_j}$ are disjoint. Summing over the other labels
+and then $j$ (overcounting a pair that qualifies for several modes is
+harmless) gives
+\begin{equation}\label{eq:C1}
+ \sum_{\mathcal C_1}a_bv_me_{b,m}\le k4^{k-1}\sqrt D.
+\end{equation}
+\step{The combined variance charge in $\mathcal C_2$.}
+Here
+\[
+ \frac{a_bv_me_{b,m}}{\sqrt D}
+ \le e^2\frac{np_mv_m^2}{D}\prod_j\alpha_{j,\ell_j}.
+\]
+Since $\sum_mp_mv_m^2\le4\sigma^2$, summing all labels gives
+\begin{equation}\label{eq:C2}
+ \sum_{\mathcal C_2}a_bv_me_{b,m}\le e^24^{k+1}\sqrt D.
+\end{equation}
+\step{Shared entropy in $\mathcal C_3$.}
+The defining inequalities are $1<\rho_{b,m}<na_j^2$ for every $j$ and
+$\lambda_{b,m}>e^2\rho_{b,m}$. Thus
+$I_{b,m}\ge e_{b,m}\log(e\rho_{b,m})$.
+For $u\ge0$, let
+\[
+ \mathcal C_3(u)=\left\{(b,m)\in\mathcal C_3:
+  u<\frac{a_bv_m}{\sqrt D\log(e\rho_{b,m})}\right\}.
+\]
+Integrating \eqref{eq:weighted-discrepancy} over these subcollections gives
+\begin{equation}\label{eq:C3-integral}
+ \frac1{\sqrt D}\sum_{\mathcal C_3}a_bv_me_{b,m}
+ \le K\int_0^\infty H(\mathcal C_3(u))\,du
+    +K\sum_{\mathcal C_3}
+          \frac{c(b,m)a_bv_m}{\sqrt D\log(e\rho_{b,m})}.
+\end{equation}
+The interval endpoint equals $\rho_{b,m}/[n\log(e\rho_{b,m})]$.
+Monotonicity of $t/\log(et)$ for $t\ge1$ bounds the lifetime of each
+used class $D_j^\ell$, across \emph{all} magnitude labels, by
+$a_\ell^2/\log(ena_\ell^2)$, with $na_\ell^2>1$.
+Since $h(D_j^\ell)=|D_j^\ell|\log(en/|D_j^\ell|)$, its integrated cost is at most
+\[
+ \alpha_{j,\ell}
+ \left(1+\frac{\log_+(1/\alpha_{j,\ell})}{\log(en4^{-\ell})}\right).
+\]
+For $t_\ell=n4^{-\ell}>1$, this is bounded by
+$2\alpha_{j,\ell}+1/t_\ell$: use
+$\log_+(1/\alpha)\le\log t+1/(\alpha t)$.
+Since $\sum_{t_\ell>1}1/t_\ell<4/3$, the entropy integral is at most
+$28k/3$. This is the entropy estimate from \cite[Appendix~A]{ZZ},
+with one lifetime for each shared class across all magnitude labels.
+It imposes no lower bound on $n\sigma^2$.
+For the label term, $\log(e\rho)>1$ and $\log(q+2)\le q+1$ give
+\[
+ \sum_{b,m\ge0}c(b,m)2^{-(\sum_j\ell_j+m)}
+ \le B_k:=2^k[2\log2+8(k+1)].
+\]
+Combining \eqref{eq:C1}--\eqref{eq:C3-integral} proves
+\eqref{eq:heavy}. In particular, no number of magnitude levels enters
+the bound.
+\end{proof}
+
+\section{Bounded symmetric entry laws}\label{sec:bounded}
+
+\begin{theorem}[Bounded-law high-probability estimate]\label{thm:bounded}
+Fix $k\ge3$ and $R>0$. Let the entries of $Y$ be iid and symmetric on
+a rectangular subarray of $[n]^k$, $n\ge2$, and zero elsewhere.
+Assume $|Y_i|\le1$, and set
+\[
+ \sigma^2=\E Y_i^2\quad\text{on the original rectangle},
+ \qquad \Phi=\max_{j,f\in\mathcal F_j}\|Y_f\|_2.
+\]
+There is a constant $C_{k,R}$ such that
+\begin{equation}\label{eq:bounded-hp}
+ \Pp\!\left\{\|Y\|_{\inj}>
+ C_{k,R}\bigl(1+\sqrt{n\sigma^2}+\Phi\bigr)\right\}\le2n^{-R}.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+For fixed unit vectors $x_1,\ldots,x_k$, put
+$q_i=\prod_j|x_{j,i_j}|$. For deterministic
+$D_0\ge\max\{1,n\sigma^2\}$, the light sum has summands
+\[
+ Y_i\prod_jx_{j,i_j}\,
+ \mathbf1_{\{|Y_i|q_i\le\sqrt{D_0}/n\}}.
+\]
+They are centered because they are odd functions of symmetric entries,
+independent, bounded by $\sqrt{D_0}/n$, and have total variance at most
+$\sigma^2\le D_0/n$. Bernstein's inequality gives
+\[
+ \Pp\{|L_Y|>B\sqrt{D_0}\}
+ \le2\exp\left(-\frac{nB^2}{2+2B/3}\right).
+\]
+Choose a deterministic $1/(2k)$-net $\mathcal T$ of the unit
+sphere with $|\mathcal T|\le(1+4k)^n$, as in
+\cite[Lemma~4.1]{ZZ}. Replacing one vector at a time gives
+\[
+ \|Y\|_{\inj}\le2\max_{(x_1,\ldots,x_k)\in\mathcal T^k}
+ |Y(x_1,\ldots,x_k)|.
+\]
+This inequality is applied to the full multilinear form, not to its
+truncated light part. Union over the product net and the grid
+\[
+ \mathcal D_n=\{2^q:0\le q\le\lceil\log_2(4n)\rceil\}.
+\]
+This grid has $O(\log(en))$ elements and maximum in $[4n,8n)$.
+With $B=B_{k,R}$ sufficiently large, all allowed light bounds hold
+with failure probability at most $n^{-R}$. After sampling, select the
+smallest grid value
+$D_0\ge\max\{1,n\sigma^2,4\Phi^2\}$.
+This exists because $\sigma^2\le1$ and $\Phi^2\le n$, and it is less
+than twice that maximum. Combine Lemma~\ref{lem:weighted-discrepancy},
+Proposition~\ref{prop:heavy}, and the net bound.
+If $D_0\ge n^2$ the heavy set is empty and the same light bound suffices.
+The two exceptional events have total probability at most
+$2n^{-R}$. Since $D_0$ is less than twice
+$\max\{1,n\sigma^2,4\Phi^2\}$ and $D_0\ge1$, the additive $KB_k$
+in \eqref{eq:heavy} is absorbed into a constant times $\sqrt{D_0}$.
+This proves \eqref{eq:bounded-hp}.
+\end{proof}
+
+\begin{remark}
+The grid has the fixed lower endpoint $1$. Its corresponding additive
+amplitude term in \eqref{eq:bounded-hp} is retained, not discarded;
+Section~\ref{sec:assembly} charges it to $F$ after truncation and rescaling.
+The simultaneous deterministic grid is what permits a random final
+choice of $D_0$ without conditioning away centering or independence.
+\end{remark}
+
+\clearpage
+\section{Proof of the full-law comparison}\label{sec:assembly}
+
+We first prove the upper bound for symmetric iid integrable entries,
+then reduce the centered case to it by symmetrization.
+
+\subsection{Elongated rectangular formats}\label{sec:rectangular}
+
+Let $Z$ have symmetric iid integrable entries in the original format. Write $n=\max_jn_j$, $V=\prod_jn_j$.
+If $n\ge\prod_{i\ne j}n_i$ for a longest mode $j$, flatten into an
+$n\times P$ iid matrix with $P\le n$. Its maximal column norm is the
+mode-$j$ fiber maximum. To compare rows and columns, couple iid squared
+entries along a line of length $nP$ and partition it into blocks of
+length $P$ and, separately, length $n$. Each shorter block intersects
+at most two longer ones. Hence the expected maximal row norm is at
+most $\sqrt2$ times the expected maximal column norm. Seginer's estimate \eqref{eq:seginer-input} and
+$\|Z\|_{\inj}\le\|\mathrm{flatten}(Z)\|_{\mathrm{op}}$ give
+$\E\|Z\|_{\inj}\le C_S(1+\sqrt2)F(Z)$.
+The coupling compares the two marginal expectations and need not
+be the row and column partition of one matrix realization.
+
+\subsection{Quantile truncation and the rare component}\label{sec:truncation}
+
+It remains to consider $V>n^2$. Pad the tensor with zeros to $[n]^k$,
+without changing its norm or fiber maxima, and put
+\[
+ \theta=\inf\{t\ge0:\Pp(|Z_i|>t)\le n^{-5/4}\},\quad
+ Z^{\rm rare}_i=Z_i\mathbf1_{\{|Z_i|>\theta\}},\quad
+ Z^{\rm c}_i=Z_i\mathbf1_{\{|Z_i|\le\theta\}}.
+\]
+The quantile is finite and, by right-continuity of the strict tail,
+$\Pp(|Z_i|>\theta)\le n^{-5/4}$.
+Both components are symmetric, independent across entries, and
+integrable. Equation \eqref{eq:LP-input} gives
+\[
+ \E\|Z^{\rm rare}\|_{\inj}
+ \le A_k\E\max_i|Z^{\rm rare}_i|\le A_kF(Z).
+\]
+If $\theta=0$ this already handles $Z$. For $\theta>0$, each $0\le t<\theta$
+has strict-tail probability greater than $n^{-5/4}$. Independence gives
+\[
+ \E\max_i|Z_i|\ge
+ t\bigl(1-e^{-Vn^{-5/4}}\bigr).
+\]
+Letting $t\uparrow\theta$ and using $V\ge n^2$, $n\ge2$, yields
+\begin{equation}\label{eq:theta-charge}
+ \theta\le2\E\max_i|Z_i|\le2F(Z).
+\end{equation}
+\subsection{The bounded component and its variance term}
+
+Let $\sigma_{\rm c}^2=\E(Z_i^{\rm c})^2$ and
+$\Phi_{\rm c}=\max_f\|Z_f^{\rm c}\|_2$.
+Apply Theorem~\ref{thm:bounded} to $Y=Z^{\rm c}/\theta$.
+On its failure event use
+$\|Z^{\rm c}\|_{\inj}\le\theta n^{k/2}$.
+Taking $R=k+2$ gives
+\begin{equation}\label{eq:bounded-expectation}
+ \E\|Z^{\rm c}\|_{\inj}
+ \le C_k\bigl(\theta+\sqrt{n\sigma_{\rm c}^2}+\E\Phi_{\rm c}\bigr)
+       +2\theta n^{k/2-R}.
+\end{equation}
+Monotonicity of each squared fiber energy implies
+$\E\Phi_{\rm c}\le\sum_j\E\max_{f\in\mathcal F_j}\|Z_f\|_2
+\le kF(Z)$.
+For the variance term put
+$S=\sum_{i\text{ original}}(Z_i^{\rm c})^2$ and
+$\mu=\E S=V\sigma_{\rm c}^2$.
+Each summand lies in $[0,\theta^2]$, so independence gives
+$\E S^2\le\mu^2+\theta^2\mu$.
+If $\mu\ge8\theta^2$, the Paley--Zygmund inequality yields
+\[
+ \Pp(S\ge\mu/2)\ge\frac{\mu^2}{4\E S^2}
+ \ge\frac1{4(1+1/8)}=\frac29.
+\]
+The longest mode has $V/n$ fibers; its maximal squared fiber energy
+is at least $nS/V$. Therefore
+\[
+ F(Z)\ge\sqrt{n/V}\,\E\sqrt S
+ \ge\frac{2}{9\sqrt2}\sqrt{n\sigma_{\rm c}^2}.
+\]
+If $\mu<8\theta^2$, then
+$\sqrt{n\sigma_{\rm c}^2}<\sqrt8\,\theta\sqrt{n/V}
+\le\sqrt8\,\theta$, absorbed by \eqref{eq:theta-charge}.
+Every term in \eqref{eq:bounded-expectation}, including its failure contribution,
+is thus at most a constant depending only on $k$ times $F(Z)$.
+The triangle inequality and the rare-component estimate therefore
+prove $\E\|Z\|_{\inj}\le C_kF(Z)$ for symmetric iid integrable laws.
+
+\subsection{Symmetrization and completion of the proof}
+
+For the centered iid tensor $T$ in Theorem \ref{thm:main}, let $T'$
+be an independent copy and set $Z=T-T'$. Its entries are symmetric iid
+and integrable. Conditional Jensen and $\E T'=0$ give
+$\E\|T\|_{\inj}\le\E\|Z\|_{\inj}$.
+For each mode, the triangle inequality applied before taking the
+maximum and expectation gives $F(Z)\le2F(T)$.
+The symmetric comparison therefore proves the asserted upper bound.
+The lower bound is pointwise: fix all but one argument to coordinate
+vectors and optimize over the remaining fiber.
+
+
+Equivalently, the final reduction reads
+\[
+ \E\|T\|_{\inj}\le\E\|T-T'\|_{\inj}
+ \le C_kF(T-T')\le2C_kF(T).
+\]
+Renaming the constant proves Theorem~\ref{thm:main}.
+
+\section{Why iid magnitude placement matters}\label{sec:magnitudes}
+
+A layerwise triangle inequality would replace the fiber norm of the
+whole tensor by a sum of layerwise fiber scales. Such a sum need not be
+controlled without a loss depending on the number of layers.
+Zhou--Zhu's deterministic-weight bound
+\cite[Corollary~2.2]{ZZ}, expressed through a maximum weight and a maximum
+sampling probability, does not supply the joint estimate needed here.
+The proof above instead sums squared amplitudes in
+\eqref{eq:C1} and \eqref{eq:C2}, and charges each coordinate class once
+across all magnitude levels in \eqref{eq:C3-integral}.
+
+The iid placement of magnitudes cannot simply be discarded. To see
+this, let $M=2^{2d^2}$ and construct an order-three coefficient tensor
+$A$ supported on $M$ disjoint $d\times d$ all-one blocks, with disjoint
+first- and second-mode coordinate sets and a separate third-mode
+coordinate for each block. Pad with zeros into cubic format. Then
+\[
+ \max_f\|A_f\|_2=\sqrt d.
+\]
+For independent Rademacher signs $\varepsilon_i$, an individual block
+of $\varepsilon\odot A$ is all positive with probability $2^{-d^2}$,
+and these events are independent across blocks. Thus
+\[
+ \Pp\{\text{some block is all positive}\}
+ =1-(1-2^{-d^2})^M\longrightarrow1.
+\]
+On that event, choose normalized all-one vectors on the corresponding
+first- and second-mode blocks and the appropriate third-mode coordinate
+vector. Their evaluation is $d$, so
+\[
+ \E_\varepsilon\|\varepsilon\odot A\|_{\inj}
+ \ge d\bigl[1-(1-2^{-d^2})^M\bigr].
+\]
+Consequently, a uniform comparison with the largest fiber norm is false
+for arbitrary deterministic magnitudes, even after averaging signs.
+This does not contradict Theorem~\ref{thm:main}: its entries are iid,
+whereas this coefficient construction fixes a highly nonuniform support.
+
+\clearpage
+\appendix
+\section{A direct Bernoulli argument}\label{app:bernoulli}
+
+This appendix proves Corollary~\ref{cor:bernoulli} directly from the
+Zhou--Zhu discrepancy and heavy-tuple framework, without using
+\eqref{eq:seginer-input} or \eqref{eq:LP-input}. Its additional steps
+are the retained-denominator estimate below and a simultaneous choice
+of the degree parameter. The all-density comparison is a deduction
+here, not a theorem stated in \cite{ZZ}.
+
+\subsection{The retained-denominator summation}
+
+For $t>1$, define
+\[
+ S_k(t)=\sum_{\substack{\ell\in\NN^k\\t2^{-|\ell|_1}>1}}
+ \frac{2^{-|\ell|_1}}{1+\log(t2^{-|\ell|_1})}.
+\]
+\begin{lemma}[A dyadic summation bound]\label{lem:summation}
+For fixed $k$, $S_k(t)\leq C_k/(1+\log t)$ for every $t>1$.
+\end{lemma}
+\begin{proof}
+Write $u=\log_2 t$. Grouping by $s=|\ell|_1$ gives
+\[
+ S_k(t)=\sum_{0\leq s<u}
+ \binom{s+k-1}{k-1}\frac{2^{-s}}{1+(u-s)\log2}.
+\]
+For $s\leq u/2$, the denominator is at least $1+(\log t)/2$, and
+$\sum_{s\geq0}\binom{s+k-1}{k-1}2^{-s}=2^k$.
+For $s>u/2$, use the denominator bound $1$ and the geometric tail estimate
+\[
+ \sum_{s>u/2}\binom{s+k-1}{k-1}2^{-s}
+ \leq C_k(1+u)^{k-1}2^{-u/2}
+ \leq \frac{C'_k}{1+u}.
+\]
+The last inequality follows from the boundedness of a fixed polynomial times an exponentially decreasing function, including bounded $u$. These two bounds prove the claim.
+\end{proof}
+
+Set $N=\max_j n_j$, $L_*=1+\lfloor\log_2 N\rfloor$, and let $1\leq D\leq N$ be a parameter. For a nonnegative tensor padded with zeros into $[N]^k$, assume every fiber has sum at most $D$. Suppose that the multibox discrepancy inequality of Zhou--Zhu \cite[Lemma~4.5]{ZZ} holds with constant $K$, labels $0,\ldots,L_*-1$, and reference means $(D/N)|Q_b|$:
+\begin{equation}\label{eq:bernoulli-discrepancy}
+ \sum_{b\in\mathcal B}I_{(D/N)|Q_b|}(e(Q_b))
+ \leq K\bigl(H(\mathcal B)+|\mathcal B|\log(eL_*)\bigr).
+\end{equation}
+Here $e(Q)$ is the sum in a box, $I_\mu$ is
+\eqref{eq:rate-definition}, and for coordinate classes $D_j^\ell$ and
+boxes $Q_b=\prod_jD_j^{\ell_j}$,
+\[
+ H(\mathcal B)=\sum_{j=1}^k\sum_{\ell\text{ used in mode }j}
+ |D_j^\ell|\log\frac{eN}{|D_j^\ell|}.
+\]
+For unit vectors, use the heavy threshold $\tau=\sqrt D/N$.
+The dyadic classes in \cite[Proposition~4.6]{ZZ} have amplitudes
+$a_\ell=2^{-\ell}$; classes that occur in a heavy tuple require at most
+$L_*$ labels. In its difficult class $\mathcal C_3$, write
+$a_b=2^{-|b|_1}$ and $\rho_b=Na_b/\sqrt D>1$.
+The estimate preceding the simplification in
+\cite[equations~(4.15)--(4.17)]{ZZ} gives an \emph{absolute},
+unnormalized label-cost contribution of at most
+\[
+ K\log(eL_*)\sum_{b\in\mathcal C_3}\frac{a_b}{\log(e\rho_b)}.
+\]
+Lemma \ref{lem:summation}, with $t=N/\sqrt D$, bounds this by
+\[
+ \frac{C_k K\log(eL_*)}{1+\log(N/\sqrt D)}\leq C'_k K,
+\]
+because $D\leq N$ implies $N/\sqrt D\geq\sqrt N$. The other terms in \cite[proof of Proposition~4.6]{ZZ} are unchanged:
+equations~(4.12) and (4.13) give respectively $k4^{k-1}\sqrt D$ and $e^24^k\sqrt D$, while (4.16) gives $(28/3)kK\sqrt D$. The entropy estimate in \cite[Appendix~A]{ZZ} does not require
+a lower bound proportional to $\log N$. Since $D\geq1$, the resulting heavy sum is at most $C_{k,K}\sqrt D$.
+
+Thus the proof yields the deterministic heavy bound for $1\leq D\leq N$; the assumption $D\geq c\log N$ is unnecessary after this refinement. This does \emph{not} mean that the final bound can use $D=Np$ below logarithmic degree: the fiber-degree hypothesis must still hold.
+
+\subsection{Probabilistic inputs with a random degree scale}
+It suffices to treat $0<p\leq1/2$; complementing Bernoulli entries handles $p>1/2$, and $p=0,1$ are trivial. Pad $X$ and $\E X$ with zeros into $[N]^k$, which preserves the injective norm and fiber maxima. Put
+\[
+ d=Np,\qquad
+ \Delta=\max_f\sum_{i\in f}X_i,\qquad
+ D=\left\lceil\max\{1,d,\Delta\}\right\rceil\in\{1,\ldots,N\}.
+\]
+Fix a failure exponent $R>0$. The padded counts in disjoint boxes are independent binomials with means at most $p|Q|$. Their upper tails are bounded by the Poisson rate $I_{p|Q|}$: this follows either from their exponential moment bound or from monotonicity in the reference mean. Consequently, \cite[proofs of Lemmas~4.4--4.5]{ZZ} give, with probability at least $1-N^{-R}$,
+\[
+ \sum_{b\in\mathcal B}I_{p|Q_b|}(e(Q_b))
+ \leq K\bigl(H(\mathcal B)+|\mathcal B|\log(eL_*)\bigr)
+\]
+for every partial partition and nonempty box collection. The zero padding therefore does not require identical distributions in this input.
+
+For fixed $v$, $I_\mu(v)$ is nonincreasing in $\mu>0$: on $\mu<v$, its derivative is $1-v/\mu\leq0$, and it is zero when $\mu\geq v$. Since $D\geq Np$, the same event implies \eqref{eq:bernoulli-discrepancy} for every allowed $D$. Every fiber has degree at most $D$ by definition.
+
+For the light part, take the deterministic product net of \cite[Lemma~4.1]{ZZ}. For each deterministic integer $a\in[1,N]$ with $a\geq d$, use threshold $\tau_a=\sqrt a/N$. At a fixed net point, the centered summands are bounded by $\tau_a$ and have total variance at most $p\leq a/N$. Bernstein's inequality gives
+\[
+ \Pp\{|L_W|>B\sqrt a\}
+ \leq 2\exp\left\{-\frac{N B^2}{2+(2/3)B}\right\}.
+\]
+Choose $B=B_{k,R}$ sufficiently large to union bound over at most $(1+4k)^{kN}$ product-net points and at most $N$ integer parameters. The light estimate then holds simultaneously for all these parameters, outside an event of probability at most $N^{-R}$. Selecting $a=D$ is valid even though $D$ is random.
+
+The heavy part of the mean is bounded by
+\[
+ p\sum_{i:\,q_i>\sqrt D/N}q_i
+ \leq\frac{pN}{\sqrt D}\sum_i q_i^2
+ =\frac d{\sqrt D}\leq\sqrt D,
+ \qquad q_i=\prod_{j=1}^k|x_{j,i_j}|.
+\]
+The refined deterministic bound controls the nonnegative heavy part of $X$. Combining these estimates and the factor-two net approximation gives
+\begin{equation}\label{eq:bernoulli-hp}
+ \|W\|_{\inj}\leq C_{k,R}\sqrt D
+ \quad\text{outside an event of probability at most }2N^{-R}.
+\end{equation}
+Since $|W_i|\leq1$, the norm is always at most $N^{k/2}$. Hence
+\begin{equation}\label{eq:bernoulli-expectation}
+ \E\|W\|_{\inj}
+ \leq C_{k,R}\E\sqrt D+2N^{k/2-R}.
+\end{equation}
+
+\subsection{Charging the degree scale to the actual fibers}
+Let $V=\prod_jn_j$ and $\lambda=Vp$. Write $\Delta_j$ for the maximum count in a mode-$j$ fiber. A fiber containing $m$ ones obeys
+\[
+ \|W_f\|_2^2=m(1-p)^2+(n_j-m)p^2\geq m/4.
+\]
+It follows that
+\[
+ \E\sqrt\Delta\leq\sum_{j=1}^k\E\sqrt{\Delta_j}\leq2kF(W).
+\]
+On the event of at least one nonzero entry of $X$, each mode has a centered fiber norm at least $1-p\geq1/2$. Thus
+\begin{equation}\label{eq:bernoulli-presence}
+ F(W)\geq\tfrac12\bigl(1-(1-p)^V\bigr)
+ \geq\tfrac12(1-e^{-\lambda}).
+\end{equation}
+If $d=Np\geq1$, a fixed fiber in a longest mode has count $M\sim\operatorname{Bin}(N,p)$. The Paley--Zygmund inequality gives
+\[
+ \Pp\{M\geq d/2\}\geq\frac{d^2}{4\E M^2}
+ \geq\frac{d}{4(d+1)}\geq\tfrac18.
+\]
+Therefore $F(W)\geq\sqrt d/(16\sqrt2)$.
+
+If $\lambda\geq1$, \eqref{eq:bernoulli-presence} bounds $F(W)$ below by a numerical constant, and $\sqrt d\leq C F(W)$ whether $d\geq1$ or $d<1$. Since
+\[
+ \sqrt D\leq\sqrt2\bigl(1+\sqrt d+\sqrt\Delta\bigr),
+\]
+we obtain $\E\sqrt D\leq C_kF(W)$. Choose $R=k+2$ in \eqref{eq:bernoulli-expectation}; its residual is bounded by a constant and is absorbed by $F(W)$. This proves the upper bound in this regime.
+
+If $\lambda<1$, let $M_{\rm tot}$ be the total number of ones. The elementary estimate
+\[
+ \E\|W\|_{\inj}
+ \leq\E\|X\|_F+\|\E X\|_{\inj}
+ =\E\sqrt{M_{\rm tot}}+p\sqrt V
+ \leq\lambda+\lambda=2\lambda
+\]
+uses $\sqrt m\leq m$ for nonnegative integers. By \eqref{eq:bernoulli-presence} and
+$1-e^{-\lambda}\geq(1-e^{-1})\lambda$ on $[0,1]$, $F(W)\geq c\lambda$. The upper bound follows here as well. The lower bound in Corollary~\ref{cor:bernoulli} is immediate by fixing all but one argument to coordinate vectors. This completes the proof.
+
+\subsection{The critical density \texorpdfstring{$p=1/n$}{p=1/n}}
+\label{app:critical}
+
+In cubic format $n^k$, a fixed mode contains $n^{k-1}$ independent $\operatorname{Bin}(n,1/n)$ fiber counts. If $\Delta_j$ is their maximum, then, for fixed $k$ and $n\to\infty$,
+\[
+ \E\sqrt{\Delta_j}\asymp_k\sqrt{\frac{\log n}{\log\log n}}.
+\]
+For completeness, Chernoff's bound
+\[
+ \Pp\{\operatorname{Bin}(n,1/n)\geq t\}\leq(e/t)^t
+\]
+and a union bound, followed by summing the tail above a sufficiently
+large multiple of $\log n/\log\log n$, give the upper scale. For the lower scale, for integers $1\leq t\leq n$,
+\[
+ \Pp\{\operatorname{Bin}(n,1/n)=t\}\geq\tfrac14t^{-t}.
+\]
+Choosing $t=\lfloor((k-1)/2)\log n/\log\log n\rfloor$ makes the expected number of fibers with this count tend to infinity; independence gives occurrence with probability tending to one. A centered fiber with count $m$ has squared norm
+$m(1-2/n)+1/n$, which lies between $m/4$ and $m+1/n$ for $n\ge2$.
+Thus the expected centered fiber maximum has the same square-root scale. Consequently, as $n\to\infty$,
+\[
+ \E\|X-1/n\|_{\inj}\asymp_k F(X-1/n)
+ \asymp_k\sqrt{\frac{\log n}{\log\log n}}.
+\]
+This benchmark also follows from \cite[proof of Proposition~4.6]{ZZ}
+without the retained-denominator refinement: that proof gives a heavy bound $C_{k,K}(\sqrt D+\log(eL_*))$, and $\log(eL_*)=O(\log\log n)$ is smaller than
+$\E\sqrt D\asymp_k\sqrt{\log n/\log\log n}$ in this regime.
+This observation uses the random-degree and expectation reductions above;
+it is not a direct application of \cite[Theorem~2.1]{ZZ}.
+
+\phantomsection
+\addcontentsline{toc}{section}{References}
+\begin{thebibliography}{99}
+
+\bibitem{FKS}
+J.~Friedman, J.~Kahn, and E.~Szemer\'edi.
+\newblock On the second eigenvalue of random regular graphs.
+\newblock In \emph{Proceedings of the Twenty-First Annual ACM Symposium
+on Theory of Computing (STOC '89)}, pages 587--598, 1989.
+\newblock \href{https://doi.org/10.1145/73007.73063}{doi:10.1145/73007.73063}.
+
+\bibitem{LP}
+K.~Lucca and L.~Pesenti.
+\newblock \emph{Norm Bounds for Sparse Random Tensors and Spectral Gap
+of Random Hypergraphs}.
+\newblock arXiv:2607.07308v1, 8 July 2026.
+\newblock The rare-tail input is Theorem~1.4 and Corollary~4.3;
+Theorem~1.7 is the moment-restricted comparison, and Conjecture~1.8
+is the full tensor comparison.
+\newblock \url{https://arxiv.org/abs/2607.07308v1}.
+
+\bibitem{TR}
+\emph{TR-21: A Seginer theorem for arbitrary independent identically
+distributed tensor entries}.
+\newblock Open Problems in NLA, problem catalogue. Accessed 30 September 2026.
+\newblock \url{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tensor-computations/TR-21/README.md}.
+
+\bibitem{Seg}
+Y.~Seginer.
+\newblock The expected norm of random matrices.
+\newblock \emph{Combinatorics, Probability and Computing},
+9(2):149--166, 2000.
+\newblock Corollary~2.2.
+\newblock \href{https://doi.org/10.1017/S096354830000420X}{doi:10.1017/S096354830000420X}.
+
+\bibitem{ZZ21}
+Z.~Zhou and Y.~Zhu.
+\newblock Sparse random tensors: Concentration, regularization and applications.
+\newblock \emph{Electronic Journal of Statistics}, 15(1):2483--2516, 2021.
+\newblock \href{https://doi.org/10.1214/21-EJS1838}{doi:10.1214/21-EJS1838}.
+
+\bibitem{ZZ}
+Z.~Zhou and Y.~Zhu.
+\newblock \emph{Sharp spectral norm concentration of sparse random tensors}.
+\newblock arXiv:2609.20520v1, 17 September 2026.
+\newblock The proof adaptations use Lemmas~4.1--4.5 and~5.1,
+Proposition~4.6, and Appendix~A. All corresponding external equation
+numbers in this manuscript refer to this version.
+\newblock \url{https://arxiv.org/abs/2609.20520v1}.
+
+\end{thebibliography}
+\end{document}

@@ -8,7 +8,7 @@
 **Importance:** interesting to the community  
 **Topic:** nonsymmetric eigenvalue computation; query complexity  
 **Last checked:** 2026-09-11  
-**Status:** Solved  
+**Status:** Lean verified
 
 **Rating rationale:** Challenging reflects a query bound for general nonnormal matrices, whose eigenvalues need not be controlled by power iteration; community impact is the complexity of large nonsymmetric eigenproblems.
 
@@ -19,6 +19,16 @@
 The algorithm uses $`O(\varepsilon^{-2}[1+\log(nK)])`$ exact matrix-vector queries, with success probability at least $`0.997`$, for every input in the displayed model. It supplies both eigenvalue-location guarantees using the given condition bound $`K`$ and finite exact arithmetic between queries. The result bounds query count, not total runtime, bit complexity or floating-point error.
 
 The original proof draft was generated in a ChatGPT conversation. A separate Codex agent independently verified the full proof and its match to the exact target on 11 September 2026: [detailed PASS review](../../references/colbrook-2026-09-11/verification/reviews/KE-03-review.md). The review records a hash of the unchanged proof text. This is independent agent verification, not external human peer review or formal certification. [The submission history and diagnostic record](../../references/colbrook-2026-09-11/README.md) preserve the initial solution claim. The ratings above are historical, and the earlier literature checks below are retained.
+
+## Lean proof and verification evidence
+
+The [complete Lean proof](https://github.com/marcusdavidwebb/OpenProblemsInNLA/tree/0b61bc859f622a69204f8705445c144095e4446d/eigenvalues-and-inverse-problems/KE-03/lean) formalizes the entire original exact-query target. Its declaration `NLA.KE03.complete_query_algorithm` proves that the concrete algorithm terminates on every seed and uses at most $`32768[1+\log(nK)]/\varepsilon^2`$ queries. With probability at least $`99/100`$, one actual eigenvalue satisfies both required inequalities. All positive dimensions, supplied condition bounds, allowed tolerances, spectral scales, repeated eigenvalues and ties are included.
+
+The formalization uses an integer random grid and exact finite counting, positive-rational enumeration for radius approximation, and a rational circle mesh. [The statement correspondence](lean/NUMERICAL_TARGETS.md) and [proof guide](lean/README.md) explain the complete algorithm, Euclidean norms, uniform seed law, and query accounting. No diagonalizer or spectral information is an algorithm input. Total runtime, bit complexity and floating-point stability remain outside the original target.
+
+The project pins Lean `4.33.1` and Mathlib `0df444a360eaa60ab8c11dca51a86af692955474`. The [verification record](lean/verification/README.md) includes reproduction commands, source hashes, local build and transitive axiom logs, and the successful fresh Ubuntu Comparator run of 28 September 2026. The complete theorem uses only `propext`, `Classical.choice` and `Quot.sound`; the independent Challenge placeholder is excluded from its dependencies.
+
+The mathematical resolution remains credited to Matthew J. Colbrook. OpenAI Codex agents authored the Lean implementation. Two separate, nonauthor agents approved the full statement and proof; [their reports](lean/reviews/README.md) disclose their scope and evidence. This is AI-agent review, with no claim of external human peer review. The complete proof passed statement comparison, permitted-axiom checks, default-kernel replay and rejection controls; the retained evidence supports **Lean verified** status.
 
 ## Context and notation
 

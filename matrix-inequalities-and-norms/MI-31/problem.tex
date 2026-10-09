@@ -34,7 +34,7 @@ norms},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MI-31}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-30}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ parameter dependence for structured Gaussian operator norms\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+{\sffamily\small\bfseries\color{accent}Status: Solved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -72,30 +72,59 @@ Let \(m,n\) be positive integers, \(1\le p\le2\le q\le\infty\), and
 standard real Gaussian variables \(g_{ij}\), set \(G_A=(a_{ij}g_{ij})\).
 Define
 
-\[
-\|B\|_{p\to q}=\sup_{\|x\|_p\le1}\|Bx\|_q,
+\[\|B\|_{p\to q}=\sup_{\|x\|_p\le1}\|Bx\|_q,
 \qquad
 D_1=\max_{1\le i\le m}\|(a_{ij})_{j=1}^n\|_{p^*},
 \qquad
-D_2=\max_{1\le j\le n}\|(a_{ij})_{i=1}^m\|_q.
-\]
+D_2=\max_{1\le j\le n}\|(a_{ij})_{i=1}^m\|_q.\]
 
 \textbf{Conjecture (Latała--Strzelecka).} There is an absolute constant
 \(C>0\), independent of \(m,n,p,q,A\), such that
 
-\[
-\mathbb E\|G_A\|_{p\to q}
+\[\mathbb E\|G_A\|_{p\to q}
 \le C\left[
 \sqrt{\min\{p^*,L(n)\}}\,D_1
 +\sqrt{\min\{q,L(m)\}}\,D_2
 +\mathbb E\max_{i,j}|a_{ij}g_{ij}|
-\right].
-\]
+\right].\]
 
 Use the usual maximum norm for an \(\ell_\infty\) vector norm and
 \(\min\{\infty,L(k)\}=L(k)\). The conjecture is a uniform upper bound;
 it does not assert a matching lower bound with these same three terms
 for every variance profile.
+
+\subsection{Resolution --- 2026-09-30}\label{resolution-2026-09-30}
+
+\textbf{Affirmative resolution, with an explicitly recorded
+entropy-convention correction.} Theorem 1.1 of Witold Bednorz, Rafał
+Martynek and Rafał Meller, \emph{A candidate proof of the sharp Latala
+and Strzelecka Gaussian matrix bound},
+\href{https://arxiv.org/abs/2609.22927v1}{arXiv:2609.22927v1}
+(\href{https://arxiv.org/pdf/2609.22927v1}{PDF}), establishes the
+displayed upper bound with one absolute constant, uniformly in the
+dimensions, exponents and real variance profile, including the stated
+endpoints. It addresses the sharp parameter dependence in Conjecture 5,
+rather than only the older fixed-exponent comparison.
+
+\textbf{Review and correction.} The supplied
+\href{https://chatgpt.com/share/6abd40d2-7d54-83ed-96b3-d674c1c20eb0}{ChatGPT
+6 Pro audit} reports a positive audit of all 11 pages and the principal
+external chaining inputs. It identifies one literal error in the general
+entropy/contraction statement in Section 2: entropy covers must use
+strictly fewer than \(2^{2^k}\) centers to match the initial singleton
+partition, or the contraction conclusion must include an initial
+diameter term. The audit checks that the actual application already
+satisfies the strict convention: levels 0 and 1 are paid by the
+diameter, and the covers at later levels have strict cardinality slack.
+The positive resolution assessment incorporates this correction; it does
+not assert that the auxiliary statement is valid verbatim in v1.
+
+The preprint is explicitly titled a candidate proof. The status here
+records the supplied informal AI audit and its correction, not journal
+acceptance, external human peer review, or formal proof-assistant
+certification. The original target is retained above, and the historical
+status check is retained below. Historical difficulty and importance
+ratings are retained.
 
 \subsection{Known cases and numerical
 significance}\label{known-cases-and-numerical-significance}

@@ -1,0 +1,37 @@
+# PF-04 independent Lean-boundary review
+
+Reviewer: `/root/infra_audit`, an OpenAI Codex AI agent independent of target author `/root`. Phase: lean-boundary. Verdict: **approve**.
+
+I compared the complete actual live and frozen Lean definitions with the previously approved specification and full canonical README. I inspected the pinned Matrix definition (a two-index function), finite-sum notation (sum over Finset.univ), and the real-square-root definition where used. Local semantic source hashes are listed below; dependency meanings are additionally identified by their pinned package sources.
+
+HasFactor explicitly quantifies a Matrix (Fin 6) (Fin r) real, requires every entry nonnegative, and equates every Aij to the full real sum Bik*Bjk. This is exactly BB transpose, with no conjugation or approximate tolerance.
+
+At r=0 the Fin 0 sum is zero and the nonnegativity condition is vacuous, so only A=0 has a width-zero factor. CompletelyPositive quantifies an actual finite natural width; it is not replaced by PSD together with entrywise nonnegativity.
+
+The first conjunct gives an actual nine-column factor for every CP order-six matrix, including zero and singular matrices. Zero columns provide the at-most-nine interpretation. No diagonal, definiteness, or graph-support restriction is imposed.
+
+The second conjunct preserves full sharpness: an actual CP real order-six witness has no factor of any natural width r<9. Combined with the first conjunct, its minimum width is precisely nine. Lower-bound sharpness is not treated as an axiom or erased from the original maximum formulation.
+
+The actual Target and all helpers are ordinary concrete definitions, not proof claims. The frozen namespace duplicates their complete mathematical content; independent identity elaboration succeeds by rfl.
+
+I independently elaborated the live and frozen modules with Lean 4.33.1 into a separate review build directory, then checked all three frozen identities by reflexivity. All commands exited 0. Each target axiom report contains only propext, Classical.choice, Quot.sound; #assert_statement and LeanCert #assert_trust kernel both passed. Retained logs are under lean-boundary-infra-audit-evidence/. These are local macOS development checks, not authoritative Linux Comparator execution and not proofs of Target. No numerical domain was reduced and no status promotion is supported by this review.
+
+## Reviewed repository inputs
+
+- `docs/lean/statements/PF-04/NUMERICAL_TARGETS.md`: `3294326a93bf021afac3caae3349b01e6f5c23425060cbc22c8cba8c08af1e02`
+- `docs/lean/statements/PF-04/ORIGINAL.md`: `acbf30a432e4ee1898661c05a9efc2f24f9ec32183da33836315b58e6c46e08a`
+- `lean-statements/NLA/Statements/Infrastructure.lean`: `8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37`
+- `lean-statements/NLA/Statements/PF04.lean`: `0b374f4b5efdc770cf678264b99085bb4961ad2993b3edae725db0b1908fa01f`
+- `lean-statements/Reviewed/PF04.lean`: `4111d1beaadf78565c112f7a29cfb89960479d4f48566f5b1660c165ff8cc41f`
+- `lean-statements/lake-manifest.json`: `a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8`
+- `lean-statements/lakefile.toml`: `1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40`
+- `lean-statements/lean-toolchain`: `3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71`
+- `nonnegative-and-positive-factorizations/PF-04/README.md`: `acbf30a432e4ee1898661c05a9efc2f24f9ec32183da33836315b58e6c46e08a`
+- `docs/lean/statements/PF-04/reviews/lean-boundary-infra-audit-evidence/NLA-Statements-PF04.log`: `3eb406c8412b6bc4d36d5cd5c562a06a3e3bacbc2ec5f197b5f98368196f83fd`
+- `docs/lean/statements/PF-04/reviews/lean-boundary-infra-audit-evidence/Reviewed-PF04.log`: `b741c585d7e82272901b4485a2b7193287fb3bc4ca8468693f127b2e03c2018f`
+- `docs/lean/statements/PF-04/reviews/lean-boundary-infra-audit-evidence/identity.log`: `2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30`
+
+## Inspected pinned dependency meaning
+
+- mathlib `0df444a360eaa60ab8c11dca51a86af692955474`, `Mathlib/LinearAlgebra/Matrix/Defs.lean`: `d4e5b5a2762eb91e47bd4d913ed72cd3fac2f7ebf40b32ae4dc0db7f34332d54`
+- mathlib `0df444a360eaa60ab8c11dca51a86af692955474`, `Mathlib/Algebra/BigOperators/Group/Finset/Defs.lean`: `2f39541f66288cb9ae9f77d97fd3656825a1dd1a4b5ca6a156f938d8fa1678a8`

@@ -2,11 +2,89 @@
 
 **Difficulty:** challenging  
 **Importance:** broadly interesting  
-**Status:** Open  
-**Last checked:** 2026-09-10
+**Status:** Solution claimed  
+**Last checked:** 2026-10-09
 
 **Rating rationale:** A sharp expectation constant requires new random SDP analysis beyond order bounds; it connects matrix optimization with probabilistic combinatorics.
 
+The difficulty and importance ratings above are historical ratings of the
+original open target.
+
+## Full-resolution claim — checked 6 October 2026
+
+Aaron Potechin and Jeff Xu, [*Sharp Lovász-Theta Bounds on Random
+Graphs*](https://arxiv.org/abs/2609.30064v1), arXiv:2609.30064v1, first
+submitted 24 September 2026. In §1.1, **Theorem 1.2 and Corollary 1.3**
+(printed p. 3 of the [full manuscript](https://arxiv.org/pdf/2609.30064)),
+the authors claim that $`\vartheta(G_n)/\sqrt n\to1`$ in probability.
+Appendix F (printed pp. 76–77) identifies their formulation with the
+trace-normalized SDP used in this entry.
+The v1 corollary prints an exact high-probability lower bound
+$`\vartheta(G_n)\ge\sqrt n`$. Coauthor Jeff Xu confirmed in correspondence
+supplied by the maintainer on 8 October 2026 that its intended lower bound
+is $`(1-o_n(1))\sqrt n`$. He also confirmed that Claim 4.15's proof should
+have a logarithm, rather than $`n`$, inside the disputed square root.
+These corrections leave the leading-constant claim unchanged; a corrected
+arXiv version was not yet available on 9 October 2026.
+The [official FOCS 2026 accepted-paper list](https://focs.computer.org/2026/accepted-papers/)
+includes this paper; acceptance is recorded separately from publication in
+the proceedings.
+
+**Correspondence with the expectation target.** The claimed probabilistic
+limit implies the original expectation limit by the following elementary
+uniform-integrability argument. Let $`A_n`$ be the ordinary zero-one
+adjacency matrix and put $`B_n=J-I-2A_n`$. For every matrix $`X`$ feasible
+in the original SDP, the edge constraints give
+
+```math
+\langle J,X\rangle=\langle I+B_n,X\rangle
+\le1+\|B_n\|_2,
+\qquad
+0\le\frac{\vartheta(G_n)}{\sqrt n}
+\le\frac{1+\|B_n\|_2}{\sqrt n}.
+```
+
+The independent upper-triangular entries of $`B_n`$ are uniform signs.
+For a fixed real unit vector $`x`$, the sum
+$`x^TB_nx=2\sum_{i< j}(B_n)_{ij}x_ix_j`$ has squared coefficient sum at
+most two. The elementary exponential-moment bound for a sum of independent
+signs therefore gives $`\Pr\{|x^TB_nx|>t\}\le2e^{-t^2/4}`$.
+A $`1/4`$-net of the real unit sphere with at most $`9^n`$ points controls
+the norm of a symmetric matrix within a factor of two. Consequently,
+
+```math
+\Pr\{\|B_n\|_2>s\}
+\le\min\{1,2\cdot9^n e^{-s^2/16}\},
+\qquad
+\mathbb E\|B_n\|_2^2
+\le16(n\log9+\log2+1).
+```
+
+The moment bound follows by integrating this tail bound. Thus
+$`\sup_n\mathbb E[(\vartheta(G_n)/\sqrt n)^2]<\infty`$, so the
+normalized Lovász numbers are uniformly integrable. Theorem 1.2's
+high-probability upper bound therefore gives
+$`\limsup_n\mathbb E\vartheta(G_n)/\sqrt n\le1`$.
+For the lower bound, the deterministic inequality
+$`\vartheta(G)\vartheta(\bar G)\ge n`$ and the fact that
+$`G_n`$ and $`\bar G_n`$ have the same distribution give, by the
+arithmetic-geometric mean inequality,
+$`\mathbb E\vartheta(G_n)\ge\sqrt n`$ for every $`n`$.
+Together these establish the original expectation limit, conditional on
+Theorem 1.2. The argument preserves the original SDP, graph ensemble and
+quantifiers; it does not replace the expectation statement with a
+probabilistic one.
+
+**Evidence, 9 October 2026:** an [independent AI-agent review](../../reviews/2026-10-08-claimed-solutions/MD-01.md)
+checks the expectation bridge but not the general graph-matrix estimates.
+Theorem 3.24's printed $`O(1)`$ mixed-moment remainder fails;
+$`O(\sqrt n)`$ is sharp, while its equal-shape case retains $`O(1)`$.
+Definition 4.3 also makes Lemma 4.11 false as printed. Both failures have
+plausible local corrections, but the corrected general proof and an MD-01
+Lean proof remain unverified. The paper's "Formal Verification" appendix is
+a written argument. **Status: Solution claimed.**
+
+## Original problem statement
 
 Let $`G_n`$ be the simple random graph on $`n`$ labelled vertices in which each unordered pair is an edge independently with probability $`1/2`$. For a graph $`G`$, define its Lovász number by
 
@@ -23,6 +101,7 @@ This asks for the leading constant of a random semidefinite matrix optimization 
 ## References
 
 1. A. S. Bandeira, D. Dmitriev, K. Lucca, P. Nizić-Nikolac, and A. Rödder, *Randomstrasse101: Open Problems of 2025*, Entry 9, Conjecture 17 and the preceding SDP definition. [Archived paper](https://arxiv.org/abs/2603.29571).
+2. A. Potechin and J. Xu, [*Sharp Lovász-Theta Bounds on Random Graphs*](https://arxiv.org/abs/2609.30064v1), arXiv:2609.30064v1, 24 September 2026, §1.1, Theorem 1.2 and Corollary 1.3, printed p. 3; accepted for FOCS 2026.
 
 ## Status check — 2026-09-10
 

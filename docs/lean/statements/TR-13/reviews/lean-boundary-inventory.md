@@ -1,0 +1,37 @@
+# TR-13 independent Lean boundary review
+
+Reviewer: OpenAI Codex AI agent `/root/inventory`, independent of statement author `/root`.
+
+Phase: `lean-boundary`. Verdict: **APPROVE** for exact statement fidelity, not a proof of Target.
+
+The complete canonical README equals ORIGINAL.md byte for byte. Target retains odd m>=5 and n>=2, then one polynomial nonempty-open witness before every Hankel coefficient vector. It asks exactly equality of all five ranks, without adding the known numerical generic-rank formula or strengthening to every Hankel tensor.
+
+The transitive TR14 import was reread: HankelIndex is the bounded zero-based sum of indices and ordinary/symmetric widths are actual finite sums of arbitrary vector products or scalar-weighted symmetric powers. No arbitrary rank function is assumed. Zero padding makes width r equivalent to rank at most r; finite decompositions exist for these Hankel tensors.
+
+VandermondeVector uses the full homogeneous rational normal curve a^(n-1-i)*b^i, with no subtraction underflow for Fin n indices in the target domain. The pair is required not jointly zero, while either coordinate may vanish individually; infinity and all projective nodes remain available. Coefficients may be zero, retaining padding and the r=0 boundary.
+
+OrdinaryBorderWidth allows arbitrary complex tensor approximants of ordinary width r, and SymmetricBorderWidth allows symmetric-width approximants without requiring Hankel structure. Entrywise Tendsto is the usual complex Euclidean limit. Neither border predicate is replaced by restricted structured approximants, finite equality or an abstract closure oracle.
+
+EqualFiveRanks explicitly conjoins four equivalences between ordinary width and each remaining width for every natural r. Their upward-closed threshold sets determine the same finite minima, so the complete five-rank equality is retained, not merely a single bound or two of the ranks.
+
+The actual MvPolynomial nonvanishing locus is a principal Zariski open and an explicit coefficient-vector witness proves it nonempty. Conversely any nonempty affine Zariski open contains a nonempty principal open, by choosing a defining polynomial of its closed complement nonzero at a point outside. Thus this existential concrete formulation is exactly the original generic-domain question and not a vacuous or finite-sample condition.
+
+Every local import of the live and frozen modules and all three package-pin files are bound below. The frozen source differs only by the prescribed namespace substitution/comment. Author-provided local macOS live/frozen elaboration and identity logs were inspected against their recorded source hashes: all exits were zero and only the standard three axioms were reported. This independent source review did not rerun Lean; the local identity evidence is not Linux Comparator execution or target truth.
+
+## Scope limits
+
+Independent mathematical/source review and inspected author-local execution evidence. No catalog resolution, universal correspondence lemma, external human review or independently executed Linux Comparator run is claimed. These qualitative symbolic targets need no numerical certificate.
+
+## Reviewed input hashes
+
+- `docs/lean/statements/TR-13/IMPLEMENTATION_NOTES.md`: `11300fbbcd0c6c4917d4a49a30de552ad71d155778673576cb63d345208a7d15`
+- `docs/lean/statements/TR-13/NUMERICAL_TARGETS.md`: `1df6ae38c9f787c4d0994c676f149e0fc02ed94b85e5d6e0e65c7e236d744b3d`
+- `docs/lean/statements/TR-13/ORIGINAL.md`: `da720e9599af7271686127b618b21038685e52a754031c2d43915c9d255f015f`
+- `lean-statements/NLA/Statements/Infrastructure.lean`: `8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37`
+- `lean-statements/NLA/Statements/TR13.lean`: `5b43b0a5410d91a7ec9a796a3e6d7cdd50f75929797d2eca4587cb2b0905a99d`
+- `lean-statements/NLA/Statements/TR14.lean`: `515387732a4aff4c343625d7578d687fa9d11255ddeaaeb278b9410e55e02dc9`
+- `lean-statements/Reviewed/TR13.lean`: `8b876a24f87eeecdb983ca6044b7548aa629db0a3f0fe9c3878516cba8b29b16`
+- `lean-statements/lake-manifest.json`: `a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8`
+- `lean-statements/lakefile.toml`: `1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40`
+- `lean-statements/lean-toolchain`: `3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71`
+- `tensor-computations/TR-13/README.md`: `da720e9599af7271686127b618b21038685e52a754031c2d43915c9d255f015f`

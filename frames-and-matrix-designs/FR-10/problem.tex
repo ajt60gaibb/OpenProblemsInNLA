@@ -34,7 +34,7 @@ isometries},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}FR-10}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-30}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ sampling complexity for Walsh restricted isometries\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} broadly
 interesting\par}
-{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+{\sffamily\small\bfseries\color{accent}Status: Solved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -59,6 +59,80 @@ interesting\par}
 is a longstanding restricted-isometry barrier comparable in scale to the
 cyclic Fourier problem, with consequences for sparse recovery and fast
 sketches.
+
+\subsection{Statement}\label{statement}
+
+Let \(N=2^d\) with \(d\ge1\) and index rows and columns by
+\(\mathbb F_2^d\). The normalized Walsh matrix is
+
+\[(H_N)_{a,b}=N^{-1/2}(-1)^{a\cdot b}.\]
+
+For \(m\ge1\), choose row indices \(a_1,\ldots,a_m\) independently and
+uniformly with replacement and set
+\(\Phi=\sqrt{N/m}(H_N)_{(a_1,\ldots,a_m),:}\). Let \(E_{m,N,k}\) be the
+event that
+
+\[\tfrac12\|x\|_2^2\le\|\Phi x\|_2^2\le\tfrac32\|x\|_2^2
+\quad\text{for every }x\in\mathbb R^N\text{ with }|\mathop{\mathrm{supp}}\nolimits x|\le k.\]
+
+Define
+
+\[m_*(N,k)=\min\{m\in\mathbb N:m\ge1,\ \Pr(E_{m,N,k})\ge0.9\}.\]
+
+\textbf{Problem.} Determine \(m_*(N,k)\) up to universal multiplicative
+constants, uniformly for \(1\le k\le N\), including all necessary
+logarithmic factors. The same sample must work for all sparse vectors.
+This is a quantitative restatement of the published sampling gap, not a
+separately numbered conjecture; the success probability and distortion
+fix a convention.
+
+The Walsh transform is the Fourier transform on \(\mathbb F_2^d\). Its
+subspace structure differs from the cyclic Fourier ensemble in FR-02, so
+their lower bounds cannot be interchanged.
+
+\subsection{Resolution --- 2026-09-30}\label{resolution-2026-09-30}
+
+\textbf{Affirmative resolution.} Theorem 1.1 of
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/haidary-resolutions-2026-09-30/Walsh_RIP_with_replacement_revised.pdf}{\emph{Walsh
+restricted isometries under sampling with replacement}}
+(\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/haidary-resolutions-2026-09-30/Walsh_RIP_with_replacement_revised.tex}{LaTeX
+source}), working manuscript dated 30 September 2026, proves
+
+\[m_*(N,1)=1,\qquad
+c\,k\log(2k)\log(2eN/k)\le m_*(N,k)
+\le C\,k\log(2k)\log(2eN/k)\quad(2\le k\le N),\]
+
+with universal constants (the manuscript gives \(c=1/2000\)). This
+settles the exact with-replacement model, distortion \(1/2\), success
+probability \(0.9\), and whole sparsity range in the original target.
+Sections 2--4 extend the entropic encoding and probability argument to
+indexed repeated row occurrences, including sample counts above \(N\);
+Sections 5--6 give the affine-subspace lower bound and all-sparsity
+completion.
+
+\textbf{Attribution.} The submitter describes this manuscript as a
+trivial extension of W. Burstein, A. Iosevich and B. Krause,
+\emph{Restricted isometry of sampled Fourier and Hadamard matrices via
+entropic descent},
+\href{https://arxiv.org/abs/2609.22568v1}{arXiv:2609.22568v1}. The
+improved logarithmic upper rate and entropic encoding input are credited
+to that work. The lower-bound subspace obstruction is credited to
+Błasiok--Lopatto--Luh--Marcinek--Rao. \textbf{No novelty or priority is
+claimed for this local manuscript.} The order estimate does not
+supersede Colbrook's sharper endpoint leading constants recorded below.
+
+\textbf{Review.} The supplied
+\href{https://chatgpt.com/share/6abd4125-5848-83eb-9598-f9b2d8822c71}{ChatGPT
+6 Pro audit} reports no substantive gap in the repeated-occurrence
+extension, paired-sign argument, fixed-draw affine second moment, or
+all-sparsity completion. The revised source incorporates the audit's
+LaTeX repair and explicit citations to BIK Lemmas 4.1--4.2 and 6.1. This
+is an informal AI audit, not external human peer review or formal
+proof-assistant certification. See the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/haidary-resolutions-2026-09-30/README.md}{submission
+record}. Historical ratings are retained, and the original target is
+retained above; the September 11 partial-status notice is superseded by
+this resolution.
 
 \subsection{Reviewed submission -
 2026-09-11}\label{reviewed-submission---2026-09-11}
@@ -80,30 +154,8 @@ See the
 agent review}, and
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-frames-2026-09-11/README.md}{reproducible
 submission record}. Independent agent review is not external human peer
-review or formal proof-assistant certification. Original problem,
-ratings and historical audits are retained below.
-
-Let \(N=2^d\) with \(d\ge1\) and index rows and columns by
-\(\mathbb F_2^d\). The normalized Walsh matrix is \[
-(H_N)_{a,b}=N^{-1/2}(-1)^{a\cdot b}.
-\] For \(m\ge1\), choose row indices \(a_1,\ldots,a_m\) independently
-and uniformly with replacement and set
-\(\Phi=\sqrt{N/m}(H_N)_{(a_1,\ldots,a_m),:}\). Let \(E_{m,N,k}\) be the
-event that \[
-\tfrac12\|x\|_2^2\le\|\Phi x\|_2^2\le\tfrac32\|x\|_2^2
-\quad\text{for every }x\in\mathbb R^N\text{ with }|\operatorname{supp}x|\le k.
-\] Define \[
-m_*(N,k)=\min\{m\in\mathbb N:m\ge1,\ \Pr(E_{m,N,k})\ge0.9\}.
-\] \textbf{Problem.} Determine \(m_*(N,k)\) up to universal
-multiplicative constants, uniformly for \(1\le k\le N\), including all
-necessary logarithmic factors. The same sample must work for all sparse
-vectors. This is a quantitative restatement of the published sampling
-gap, not a separately numbered conjecture; the success probability and
-distortion fix a convention.
-
-The Walsh transform is the Fourier transform on \(\mathbb F_2^d\). Its
-subspace structure differs from the cyclic Fourier ensemble in FR-02, so
-their lower bounds cannot be interchanged.
+review or formal proof-assistant certification. The original problem,
+ratings and historical audits are retained on this page.
 
 \newpage
 \subsection{References}\label{references}

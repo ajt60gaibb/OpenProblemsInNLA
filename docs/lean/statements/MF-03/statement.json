@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "id": "MF-03",
+  "scope": "statement-only",
+  "canonical_readme": "matrix-functions-and-stability/MF-03/README.md",
+  "specification": "docs/lean/statements/MF-03/NUMERICAL_TARGETS.md",
+  "module": "NLA.Statements.MF03",
+  "declaration": "NLA.Statements.MF03.Target",
+  "authors": [
+    "/root",
+    "/root/statement_design"
+  ],
+  "source_sha256": "57a39aef2af14ff19c83100fdb037de571ebb525ca836c045ddba6d91ae40f5a",
+  "specification_sha256": "7330918bbef9002e38a2d38cd1b019d1170a707e3b8c1e4dfcb18e9b4133dd28",
+  "lean_sha256": "35f494bd3efdc2d710aa14927c9ee4f6664355199c331f85308f850a533f9f24",
+  "frozen_sha256": "a0c55c3f315c5330d8da170fc2f4c8ac6dab715b8a30b0111660d262ea0d0674",
+  "reviews": [
+    {
+      "schema_version": 1,
+      "id": "MF-03",
+      "reviewer": "/root/inventory",
+      "is_ai": true,
+      "phase": "specification",
+      "verdict": "approve",
+      "report_path": "docs/lean/statements/MF-03/reviews/specification-inventory.md",
+      "report_sha256": "9a3701acd145b4c15b82481f318ba9b6836e2ea8dda73566e72e93d0bdedb38c",
+      "input_sha256": {
+        "matrix-functions-and-stability/MF-03/README.md": "57a39aef2af14ff19c83100fdb037de571ebb525ca836c045ddba6d91ae40f5a",
+        "docs/lean/statements/MF-03/NUMERICAL_TARGETS.md": "7330918bbef9002e38a2d38cd1b019d1170a707e3b8c1e4dfcb18e9b4133dd28",
+        "docs/lean/statements/MF-03/ORIGINAL.md": "57a39aef2af14ff19c83100fdb037de571ebb525ca836c045ddba6d91ae40f5a"
+      },
+      "rationale": [
+        "The complete canonical README is retained byte for byte, and the specification preserves every order m>=1, every complex z in the closed norm<=3 disk, absence of poles of the reduced rational function and the exact weak error bound norm(1-r_m(z))<=2. It adds neither an m<=20 truncation nor the stronger strict/sharpness conclusions from the solved-status discussion.",
+        "The coefficient identities sum Q.coeff(i)/((2*(j-i))!) for i=0 through j and all j=0 through 2m inclusive. They are precisely the coefficients through order 2m of Q times the entire Taylor series minus P. Analyticity of the entire series makes their vanishing equivalent to the stated O(z^(2m+1)) condition. They introduce no complex square-root branch and do not merely approximate f numerically on a finite grid.",
+        "The bounds deg P,deg Q<=m and Q(0)=1 are retained. At j=0 the coefficient identity forces P(0)=1, so natDegree conventions for the zero polynomial cannot introduce a spurious representation. Complex coefficients do not add a different approximant: for two such representations the cross product P1*Q2-P2*Q1 has degree<=2m and vanishes through degree2m, and therefore is identically zero.",
+        "Requiring IsCoprime P Q matches the original reduced rational function. A common factor has nonzero value at zero because Q(0)=1, so cancelling it preserves the approximation order and degree bounds; multiplying numerator and denominator by a nonzero scalar then restores Q(0)=1. Consequently pole absence is Q(z)!=0 for reduced Q. Imposing this on every unreduced denominator would have been stronger, and the specification correctly avoids that.",
+        "The explicit existence conjunct prevents an empty family of representations from making the target vacuous. The canonical phrase letting the approximant exist for every m already presupposes that existence; its resolution also establishes it. Quantifying every reduced representation is representation-independent by the preceding uniqueness argument. These are mathematical correspondence reasons, not newly asserted formal proof lemmas.",
+        "No numerical certificate, finite evaluation set, real-axis restriction, root-sign assumption, or extra regularity hypothesis is used to replace any universal quantifier. The planned target is a closed Prop only; its existence conjunct and universal estimate remain assertions to be proved later."
+      ],
+      "limits": "Approval is of the exact mathematical specification before implementation, not the correctness of an authored resolution, Lean elaboration, formal model lemmas or a Linux Comparator run. Final implementation definitions and the complete import closure require a separate independent Lean-boundary review."
+    },
+    {
+      "schema_version": 1,
+      "id": "MF-03",
+      "reviewer": "/root/infra_audit",
+      "is_ai": true,
+      "phase": "specification",
+      "verdict": "approve",
+      "canonical_readme": "matrix-functions-and-stability/MF-03/README.md",
+      "source_sha256": "57a39aef2af14ff19c83100fdb037de571ebb525ca836c045ddba6d91ae40f5a",
+      "snapshot_sha256": "57a39aef2af14ff19c83100fdb037de571ebb525ca836c045ddba6d91ae40f5a",
+      "input_path": "docs/lean/statements/MF-03/NUMERICAL_TARGETS.md",
+      "input_sha256": {
+        "matrix-functions-and-stability/MF-03/README.md": "57a39aef2af14ff19c83100fdb037de571ebb525ca836c045ddba6d91ae40f5a",
+        "docs/lean/statements/MF-03/NUMERICAL_TARGETS.md": "7330918bbef9002e38a2d38cd1b019d1170a707e3b8c1e4dfcb18e9b4133dd28",
+        "docs/lean/statements/MF-03/ORIGINAL.md": "57a39aef2af14ff19c83100fdb037de571ebb525ca836c045ddba6d91ae40f5a"
+      },
+      "rationale": [
+        "The original entire series has coefficient 1/(2j)!, and the proposed identities are exactly the convolution coefficient equations for Qf-P at every j=0,...,2m. Thus they express the order-2m+1 agreement without a square-root branch or an approximate disk evaluation. At j=0, Q(0)=1 forces P(0)=1.",
+        "Degree bounds at most m, normalization Q(0)=1, and coprimality describe reduced normalized representatives of the intended diagonal Pade rational function. Cancelling a common polynomial factor preserves the vanishing order because the factor is nonzero at zero; renormalizing the quotient denominator at zero preserves both degree bounds and all coefficient equations.",
+        "Two normalized solutions determine the same rational function: P1 Q2-P2 Q1 has degree at most 2m and a zero of order at least 2m+1, hence vanishes identically. Reduced denominators are therefore appropriate for the no-pole assertion; requiring arbitrary unreduced denominator nonvanishing would add an unintended condition, which this specification avoids.",
+        "The existence conjunct explicitly records the approximants presupposed by the source's for-each-order wording and prevents a vacuous universal over an empty representation set. For a reduced complex polynomial fraction, a denominator zero is a genuine pole because coprimality rules out a common zero. The proposed nonvanishing condition is therefore precisely the reduced-rational no-pole condition.",
+        "All positive orders, complex points in the closed disk of radius exactly 3, and the weak error bound 2 are retained. The specification adds neither the stronger strict bound for m>=2 nor a finite-order restriction. Complete ORIGINAL.md bytes match the canonical README."
+      ],
+      "limits": "Independent preimplementation specification review only; no Lean target, proof, cited-paper audit, or Comparator run certified.",
+      "report_path": "docs/lean/statements/MF-03/reviews/specification-infra_audit.md",
+      "report_sha256": "4a6106cfae680fbc9bdc31b81c755e5f9c5f6c9d31ef0df683f18f37e25d12b5"
+    },
+    {
+      "schema_version": 1,
+      "id": "MF-03",
+      "reviewer": "/root/inventory",
+      "is_ai": true,
+      "phase": "lean-boundary",
+      "verdict": "approve",
+      "report_path": "docs/lean/statements/MF-03/reviews/lean-boundary-inventory.md",
+      "report_sha256": "fc0c4083433248e3e23a3f5c786f876250c77243c4b444256b7991400b9308c9",
+      "input_sha256": {
+        "docs/lean/statements/MF-03/NUMERICAL_TARGETS.md": "7330918bbef9002e38a2d38cd1b019d1170a707e3b8c1e4dfcb18e9b4133dd28",
+        "docs/lean/statements/MF-03/ORIGINAL.md": "57a39aef2af14ff19c83100fdb037de571ebb525ca836c045ddba6d91ae40f5a",
+        "lean-statements/NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+        "lean-statements/NLA/Statements/MF03.lean": "35f494bd3efdc2d710aa14927c9ee4f6664355199c331f85308f850a533f9f24",
+        "lean-statements/Reviewed/MF03.lean": "a0c55c3f315c5330d8da170fc2f4c8ac6dab715b8a30b0111660d262ea0d0674",
+        "lean-statements/lake-manifest.json": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+        "lean-statements/lakefile.toml": "1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40",
+        "lean-statements/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+        "matrix-functions-and-stability/MF-03/README.md": "57a39aef2af14ff19c83100fdb037de571ebb525ca836c045ddba6d91ae40f5a"
+      },
+      "rationale": [
+        "The complete canonical README and ORIGINAL snapshot agree byte for byte, and the implementation matches the separately approved specification. All actual local definitions were read; the source and frozen module are identical except for the required namespace substitution and frozen comment. Every local import and dependency-pin file is bound below.",
+        "NormalizedPadeRepresentation uses both natDegree bounds, Q.eval 0=1 and the exact convolution over Finset.range(j+1), for every natural j<=2*m. Factorial division occurs in complex numbers and no integer-division truncation is introduced. j-i only occurs for i<=j in this range, so Nat subtraction gives the intended coefficient index.",
+        "ReducedPadeRepresentation adds actual polynomial IsCoprime. Target conjoins existence of one reduced representation at every m>=1 with the estimate for every reduced representative and every complex point in the closed norm<=3 disk. The denominator nonzero guard and weak norm<=2 conclusion have exactly the intended meaning, including boundary points and all orders. There is no approximation grid, low-order cutoff, stronger strict bound or extra reality assumption.",
+        "The declaration is an actual closed safe Prop definition and retains the kernel-trust and transitive-axiom assertions. The inspected author-local elaboration output reports only propext, Classical.choice and Quot.sound. Recorded source hashes match the reviewed bytes. Compilation evidence was inspected, not independently rerun in this review; the frozen equality is not a proof of Target."
+      ]
+    },
+    {
+      "schema_version": 1,
+      "id": "MF-03",
+      "reviewer": "/root/infra_audit",
+      "is_ai": true,
+      "phase": "lean-boundary",
+      "verdict": "approve",
+      "authors_excluded": [
+        "/root",
+        "/root/statement_design"
+      ],
+      "input_sha256": {
+        "docs/lean/statements/MF-03/NUMERICAL_TARGETS.md": "7330918bbef9002e38a2d38cd1b019d1170a707e3b8c1e4dfcb18e9b4133dd28",
+        "docs/lean/statements/MF-03/ORIGINAL.md": "57a39aef2af14ff19c83100fdb037de571ebb525ca836c045ddba6d91ae40f5a",
+        "lean-statements/NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+        "lean-statements/NLA/Statements/MF03.lean": "35f494bd3efdc2d710aa14927c9ee4f6664355199c331f85308f850a533f9f24",
+        "lean-statements/Reviewed/MF03.lean": "a0c55c3f315c5330d8da170fc2f4c8ac6dab715b8a30b0111660d262ea0d0674",
+        "lean-statements/lake-manifest.json": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+        "lean-statements/lakefile.toml": "1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40",
+        "lean-statements/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+        "matrix-functions-and-stability/MF-03/README.md": "57a39aef2af14ff19c83100fdb037de571ebb525ca836c045ddba6d91ae40f5a",
+        "docs/lean/statements/MF-03/IMPLEMENTATION_NOTES.md": "96171b10dd9fe2a69130a16992e84da8f7b0463373a6ea7a907ba2f18436b859",
+        "docs/lean/statements/MF-03/reviews/lean-boundary-infra-audit-evidence/NLA-Statements-MF03.log": "386f85ffd4e79aadc889dfdd9ec8ec233a64a832de5549d1354c7628b6492409",
+        "docs/lean/statements/MF-03/reviews/lean-boundary-infra-audit-evidence/Reviewed-MF03.log": "6763d920339ce197a8d063f479f5b72cffc8703bb951868aa053d901df1bf1b7",
+        "docs/lean/statements/MF-03/reviews/lean-boundary-infra-audit-evidence/identity.log": "2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30"
+      },
+      "dependency_sources": [
+        {
+          "package": "mathlib",
+          "revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+          "path": "Mathlib/Algebra/Polynomial/Degree/Defs.lean",
+          "sha256": "ff616e11c821c0baac9f9f4adb43b28eb1b442ef5e4752a9f8d3469350af7ffc"
+        },
+        {
+          "package": "mathlib",
+          "revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+          "path": "Mathlib/Algebra/Polynomial/Eval/Defs.lean",
+          "sha256": "324a019feeb6134861ed550dcbdff5425ff062b8894024ef852643d5dc873a7b"
+        },
+        {
+          "package": "mathlib",
+          "revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+          "path": "Mathlib/Data/Nat/Factorial/Basic.lean",
+          "sha256": "25fc9752f155b265be6c262e44ac5e92bdff54f1777ca2ea344b76fc4c1fa57f"
+        },
+        {
+          "package": "mathlib",
+          "revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+          "path": "Mathlib/RingTheory/Coprime/Basic.lean",
+          "sha256": "b4209cdf2174b684a50c5b883d99ae5f2963e702f1b8041a1013d3005dd7e809"
+        },
+        {
+          "package": "mathlib",
+          "revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+          "path": "Mathlib/Analysis/Complex/Norm.lean",
+          "sha256": "815efa05d2282b0b234139eac16d614f1128d69e39cf02249df887934ccc9741"
+        },
+        {
+          "package": "mathlib",
+          "revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+          "path": "Mathlib/Algebra/BigOperators/Group/Finset/Defs.lean",
+          "sha256": "2f39541f66288cb9ae9f77d97fd3656825a1dd1a4b5ca6a156f938d8fa1678a8"
+        }
+      ],
+      "rationale": [
+        "NormalizedPadeRepresentation uses actual complex polynomials and exact factorial coefficients. Finset.range (j+1) includes exactly i=0,...,j, so natural j-i is the correct coefficient offset. Every coefficient equation through j=2*m inclusive is required, giving precisely the convolution conditions for Qf-P to vanish to order 2m+1.",
+        "I inspected the pinned Nat.factorial recursion, Polynomial.eval and natDegree definitions. Factorials are exact positive natural integers cast to the complex field, with exact reciprocals. Q.eval 0=1 and the j=0 equation imply Q(0)=P(0)=1, so the zero-polynomial natDegree convention cannot change the degree bounds in an admissible pair.",
+        "ReducedPadeRepresentation adds the actual Bezout IsCoprime predicate. Over the univariate complex polynomial ring this forbids any common nonconstant factor, and hence common roots. Thus a denominator zero would be a genuine pole; requiring Q.eval z != 0 gives precisely the reduced-rational no-pole condition, not the stronger requirement on arbitrary unreduced denominators.",
+        "The explicit existence conjunct is inside the quantifier for every m>=1 and prevents vacuity. Cancellation and normalization preserve the coefficient conditions because all cancelled factors are nonzero at zero; the degree-bound cross-product argument from the approved specification makes all qualifying pairs represent the same rational function.",
+        "The complex norm was checked in the pinned API as sqrt(normSq z), namely ordinary complex modulus. Target covers every point of the entire closed radius-three complex disk and requires both denominator nonvanishing and the exact weak norm error bound two. Totalized division at zero cannot bypass the first conjunct. There is no finite-order cutoff, restriction to real z or real coefficients, or stronger strict inequality.",
+        "Live and frozen definitions independently compile and their equality elaborates by rfl. Both Target axiom closures contain only propext, Classical.choice and Quot.sound. The target is a closed proposition definition, with no proof body or numerical approximation claiming to settle the original question."
+      ],
+      "verification_scope": "Independent local Lean 4.33.1 elaboration, transitive axiom assertions, and frozen equality checks; no Target proof or Linux Comparator execution.",
+      "report_path": "docs/lean/statements/MF-03/reviews/lean-boundary-infra_audit.md",
+      "report_sha256": "ca2e2f353f5c03c00b4f1f1fafb2b84114881dfca155f69cdd18ab51ebea37d5"
+    }
+  ]
+}

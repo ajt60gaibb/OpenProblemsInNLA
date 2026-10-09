@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "id": "IE-12",
+  "reviewer": "/root",
+  "is_ai": true,
+  "phase": "lean-boundary",
+  "verdict": "approve",
+  "input_sha256": {
+    "docs/lean/statements/IE-12/IMPLEMENTATION_NOTES.md": "8fa1fab63fdcbf3005ca94544188ddda2eff18efb54be4a6ef24eb90f7d1a1aa",
+    "docs/lean/statements/IE-12/NUMERICAL_TARGETS.md": "68eb633d1c59347f714d4eab8d32912cdbcd27343ecb50a9dc557741a781cf3d",
+    "docs/lean/statements/IE-12/ORIGINAL.md": "a46926ac2cec003913f0ae71d3f4b54dfb44e82bb90daeaa3ab79ed757421b77",
+    "docs/lean/statements/verification/2026-09-28-exact-real/CheckExactReal.lean": "78705cef6dd620887071fcc46e04b8d0a75292a17bb0258ec3cf65d3b0957aaa",
+    "docs/lean/statements/verification/2026-09-28-exact-real/CheckExactReal.log": "1aa17c7b2432b5e23e224d9c443d66370a598aa4f3022d0accdd0815ae3350f6",
+    "docs/lean/statements/verification/2026-09-28-exact-real/NLA-Computation-ExactRealControls.lean.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/lean/statements/verification/2026-09-28-exact-real/NLA-Computation-ExactRealMachine.lean.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/lean/statements/verification/2026-09-28-exact-real/NLA-Statements-IE12.lean.log": "e5f0d5c73aabc2cbd788a9adebdc7973dbaf45e4e6da0f6c29fa7ee08adc4e24",
+    "docs/lean/statements/verification/2026-09-28-exact-real/Reviewed-IE12.lean.log": "432722e7a5990a0cebc157eb1501eea4800d78c01c9af076b1dbb21603da4547",
+    "docs/lean/statements/verification/2026-09-28-exact-real/receipt.json": "7564eeb0ee77eb802e39cf4aedc6410f68d279fac0904608faff7aa076f8dfbf",
+    "lean-statements/NLA/Computation/ExactRealControls.lean": "49c287c46bc3b8de2b6f4e0bef049306965572762c8c02b5d6394e0c33b1f04a",
+    "lean-statements/NLA/Computation/ExactRealMachine.lean": "d96cd036d1b559225f7b861ea0ffed4ebf403d089c431ac0ae8a3482c4b830c8",
+    "lean-statements/NLA/Statements/IE12.lean": "3b87e45a6896f7cf31fed7338265475bb1ced9f8e7c161ccda7ad8f877bb1343",
+    "lean-statements/NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+    "lean-statements/Reviewed/IE12.lean": "02bd169de535a01b877c5d55691a434365767c8e1a9e0246babea7f7fca4904d",
+    "lean-statements/lake-manifest.json": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+    "lean-statements/lakefile.toml": "1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40",
+    "lean-statements/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+    "linear-systems-and-elimination/IE-12/README.md": "a46926ac2cec003913f0ae71d3f4b54dfb44e82bb90daeaa3ab79ed757421b77"
+  },
+  "rationale": [
+    "The shared Program is a fixed finite syntax over finite label/register/constant indices, with globally fixed real constants. Each running step interprets one actual scalar opcode; no arbitrary transition, solver, cost or input-answer callback is supplied. Integer indexing operations are separately charged and there is no real-to-natural or digit-extraction instruction.",
+    "InputMemory places every dense A entry, b entry and epsilon at the exact reviewed addresses, then zero elsewhere. The quotient/remainder in free input placement is not a program instruction. Every read/write is a scalar indexed operation. Operands are read from the old state before one destination is changed, including overlap cases.",
+    "Division by zero and negative square-root inputs enter the distinct failed state; failure and successful halt are absorbing. A successful halt is a charged instruction and returns an actual consecutive memory slice of the original dimension. Natural run recursion counts every instruction and output cannot succeed while running or failed.",
+    "StreamLaw is the actual product of independent countably infinite standard-normal and fair-Bernoulli product measures, with proved probability-measure instances. The opcodes consume their separate next coordinates and increment only the corresponding cursor. There is no free access to the whole stream or an input-dependent law.",
+    "Target existentially chooses one P and positive real C,q before all n,A,b,epsilon. Every stream must give a bounded nonzero returned vector, including exceptional Gaussian draws. The same exact BoundedReturn predicate is used in the probability event with original A,b and the normwise A-only backward error. The target norm is the genuine Euclidean induced norm, so the norm-one/nonzero-output guards make its denominator positive.",
+    "The all-draw bound is C*n^2*epsilon^(-q), with real q, not expected runtime or q fixed to the stronger resolution. The probability comparison is exactly >=99/100, epsilon ranges over (0,1/2), and nonsingularity and arbitrary nonzero RHS are unchanged. No storage or conditioning premise is introduced.",
+    "Independently compiled the shared machine, live and frozen targets, eight operational controls and live=frozen identity using the pinned runtime/dependencies. All exited zero and reported only the three permitted standard axioms. Controls test actual addressing, charged halt, failure paths, absorption, sequential stream consumption and probability normalization. No solver-existence or runtime correctness theorem is asserted."
+  ],
+  "report_path": "docs/lean/statements/IE-12/reviews/lean-boundary-root.md",
+  "report_sha256": "67a98fb65b595ca6469c5d868e908bad35fd13c3f20817079dc2c8aa601ee7d0"
+}

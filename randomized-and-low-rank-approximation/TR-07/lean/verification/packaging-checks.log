@@ -1,0 +1,208 @@
+TR-07 canonical promotion packaging checks — 2026-09-29
+Local macOS packaging checks; separate from authoritative Linux Lean verification.
+Published base upstream/main = 80c0e3e638b2f26dcb3a00353651fc3d2215dd65
+Render environment: PANDOC=/opt/homebrew/bin/pandoc XELATEX=/Library/TeX/texbin/xelatex
+
+$ python3 tools/validate_problem_ids.py --base-ref upstream/main
+Validated 217 permanent problem IDs against upstream/main
+EXIT_STATUS=0
+
+$ python3 tools/update_catalog.py --base-ref upstream/main
+Indexed 217 entries: Lean verified=65, Open=40, Partially resolved=70, Solution claimed=1, Solved=41
+EXIT_STATUS=0
+
+$ python3 -m unittest discover -s tests -p test_problem_ids.py -v
+test_append_only_and_large_suffixes (test_problem_ids.PermanentIDTests.test_append_only_and_large_suffixes) ... ok
+test_cannot_fill_historical_gap (test_problem_ids.PermanentIDTests.test_cannot_fill_historical_gap) ... ok
+test_cannot_reassign_registered_path (test_problem_ids.PermanentIDTests.test_cannot_reassign_registered_path) ... ok
+test_cannot_remove_page_and_registry_record_together (test_problem_ids.PermanentIDTests.test_cannot_remove_page_and_registry_record_together) ... ok
+test_committed_branch_renumber_detected_against_published_branch (test_problem_ids.PermanentIDTests.test_committed_branch_renumber_detected_against_published_branch) ... ok
+test_current_registry_and_status_changes (test_problem_ids.PermanentIDTests.test_current_registry_and_status_changes) ... ok
+test_duplicate_heading_id (test_problem_ids.PermanentIDTests.test_duplicate_heading_id) ... ok
+test_duplicate_json_keys (test_problem_ids.PermanentIDTests.test_duplicate_json_keys) ... ok
+test_first_registry_protects_already_published_ids (test_problem_ids.PermanentIDTests.test_first_registry_protects_already_published_ids) ... ok
+test_heading_rename_and_malformed_ids (test_problem_ids.PermanentIDTests.test_heading_rename_and_malformed_ids) ... ok
+test_indexer_does_not_write_when_validation_fails (test_problem_ids.PermanentIDTests.test_indexer_does_not_write_when_validation_fails) ... ok
+test_invalid_base_is_not_silently_ignored (test_problem_ids.PermanentIDTests.test_invalid_base_is_not_silently_ignored) ... ok
+test_missing_registered_page (test_problem_ids.PermanentIDTests.test_missing_registered_page) ... ok
+test_paths_cannot_escape_or_alias (test_problem_ids.PermanentIDTests.test_paths_cannot_escape_or_alias) ... ok
+test_symlinked_canonical_page (test_problem_ids.PermanentIDTests.test_symlinked_canonical_page) ... ok
+test_symlinked_registry (test_problem_ids.PermanentIDTests.test_symlinked_registry) ... ok
+test_unregistered_entry (test_problem_ids.PermanentIDTests.test_unregistered_entry) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 1.451s
+
+OK
+EXIT_STATUS=0
+
+$ python3 tools/render_problems.py TR-07
+Traceback (most recent call last):
+  File "/Users/h88637mw/Documents/Open Problems in NLA/OpenProblemsInNLA/tools/render_problems.py", line 184, in <module>
+    for identifier, warnings in pool.map(render, sources):
+                                ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/concurrent/futures/_base.py", line 639, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/concurrent/futures/_base.py", line 311, in _result_or_cancel
+    return fut.result(timeout)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/concurrent/futures/_base.py", line 450, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/concurrent/futures/_base.py", line 395, in __get_result
+    raise self._exception
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/concurrent/futures/thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/concurrent/futures/thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "/Users/h88637mw/Documents/Open Problems in NLA/OpenProblemsInNLA/tools/render_problems.py", line 168, in render
+    raise RuntimeError(f"{identifier}: XeLaTeX failed\n{compiled.stdout[-5000:]}")
+RuntimeError: TR-07: XeLaTeX failed
+eometry.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/iftex/ifvtex.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/iftex/iftex.sty)))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/fontspec/fontspec.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/l3kernel/expl3.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-xetex.def)))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/fontspec/fontspec-xetex.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/fontspec/fontspec.cfg)))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/amssymb.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/unicode-math/unicode-math.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/unicode-math/unicode-math-xetex.s
+ty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty)
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/base/fix-cm.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/ts1enc.def))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/unicode-math/unicode-math-table.t
+ex))) (/usr/local/texlive/2025/texmf-dist/tex/latex/xcolor/xcolor.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics-def/xetex.def)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/microtype.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/microtype-xetex.def)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/microtype.cfg))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/enumitem/enumitem.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/needspace/needspace.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/bookmark/bookmark.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/infwarerr/infwarerr.sty)))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty (/usr/local/texlive/2025/texmf-dist/tex/latex/kvoptions/kvoptions.sty)))
+(/usr/local/texlive/2025/texmf-dist/tex/generic/stringenc/stringenc.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/url/url.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/hxetex.def
+(/usr/local/texlive/2025/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+))) (/usr/local/texlive/2025/texmf-dist/tex/latex/bookmark/bkm-dvipdfm.def))
+No file problem.aux.
+*geometry* driver: auto-detecting
+*geometry* detected driver: xetex
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msa.cfg)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msb.cfg)
+
+! LaTeX Error: Environment Shaded undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.144 \begin{Shaded}
+                    
+No pages of output.
+Transcript written on problem.log.
+
+EXIT_STATUS=1
+
+Render correction: use an unannotated shell-command fence compatible with the existing template; no tool changes.
+$ python3 tools/render_problems.py TR-07
+TR-07: OK
+Rendered 1 problem documents.
+EXIT_STATUS=0
+
+Final render after explicit same-page README.md anchor correction.
+$ python3 tools/render_problems.py TR-07
+TR-07: OK
+Rendered 1 problem documents.
+EXIT_STATUS=0
+
+Post-render checks:
+Original Problem statement, Reference, Status check and Audit sections: byte-identical to HEAD (PASS).
+Permanent problem_ids.json: unchanged (PASS).
+All canonical README local file/directory links resolve (PASS).
+Git whitespace check: PASS with intentional Markdown end-of-line hard breaks allowed.
+PDF: 2 A4 pages; pdftotext extraction reviewed; both rendered pages visually inspected by formalization coauthor /root/choose_tensors (not an independent review).
+No clipping, missing characters or overflow observed. Full original statement begins on page 2.
+Final link-only rerender has identical extracted text and reports TR-07: OK.
+Existing renderer footer says Literature check; dated body explicitly identifies this as Lean verification. Rendering tools unchanged.
+
+Footer precision correction requested by coordinator: add only TR-07 to the existing verification-footer ID set in tools/render_problems.py. No other rendering behavior changed.
+$ python3 tools/render_problems.py TR-07
+TR-07: OK
+Rendered 1 problem documents.
+EXIT_STATUS=0
+Footer correction verified on both PDF pages: Verification check: 2026-09-29.
+Extracted PDF text differs from the visually inspected rendering only in the two footer labels and their alignment spaces (PASS).
+Whitespace check with intended Markdown line breaks allowed: PASS.
+Final packaging checks complete.
+
+Coordinator status metadata regression tests (actual retained local result):
+test_promotion_preserves_counts_and_canonical_identity (test_problem_statuses.ProblemStatusTests.test_promotion_preserves_counts_and_canonical_identity) ... ok
+test_read_problem_accepts_lean_verified (test_problem_statuses.ProblemStatusTests.test_read_problem_accepts_lean_verified) ... ok
+test_read_problem_rejects_unknown_status (test_problem_statuses.ProblemStatusTests.test_read_problem_rejects_unknown_status) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.513s
+
+OK
+EXIT_STATUS=0 (coordinator-reported; successful unittest summary inspected)
+
+Coordinator PDF rendering regression tests (actual retained local result):
+test_currency_and_literal_code_are_untouched (test_render_math.PandocMathTests.test_currency_and_literal_code_are_untouched) ... ok
+test_displaystyle_with_prose_remains_inline (test_render_math.PandocMathTests.test_displaystyle_with_prose_remains_inline) ... ok
+test_fenced_math_stays_in_ordered_and_bullet_lists (test_render_math.PandocMathTests.test_fenced_math_stays_in_ordered_and_bullet_lists) ... ok
+test_legacy_math_and_raw_page_directives_are_untouched (test_render_math.PandocMathTests.test_legacy_math_and_raw_page_directives_are_untouched) ... ok
+test_multiline_fence_preserves_aligned_rows (test_render_math.PandocMathTests.test_multiline_fence_preserves_aligned_rows) ... ok
+test_protected_inline_preserves_macros_and_norm_backslashes (test_render_math.PandocMathTests.test_protected_inline_preserves_macros_and_norm_backslashes) ... ok
+test_protected_math_is_parsed_in_title_metadata (test_render_math.PandocMathTests.test_protected_math_is_parsed_in_title_metadata) ... ok
+test_standalone_displaystyle_is_promoted_inside_nested_lists (test_render_math.PandocMathTests.test_standalone_displaystyle_is_promoted_inside_nested_lists) ... ok
+test_standalone_inline_without_displaystyle_is_not_promoted (test_render_math.PandocMathTests.test_standalone_inline_without_displaystyle_is_not_promoted) ... ok
+test_protected_math_title_has_no_wrapper_backticks (test_render_math.PdfMetadataAndLayoutTests.test_protected_math_title_has_no_wrapper_backticks) ... ok
+test_removed_public_layout_commands_return_at_original_headings (test_render_math.PdfMetadataAndLayoutTests.test_removed_public_layout_commands_return_at_original_headings) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 1.773s
+
+OK
+EXIT_STATUS=0 (coordinator-reported; successful unittest summary inspected)

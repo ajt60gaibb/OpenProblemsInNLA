@@ -1,0 +1,33 @@
+# RA-05 independent preimplementation specification review
+
+Reviewer: `/root/infra_audit`, OpenAI Codex AI agent independent of author `/root`. Phase: `specification`. Verdict: **approve**.
+
+The full original asks for both an unrestricted joint support-size classification up to logarithms and the displayed subsidiary additive bound. Classification gives a concrete credited answer to the first request; OriginalAdditiveConjecture preserves the second assertion unchanged; NegativeAnswer negates its whole quantifier chain for every fixed p>2. Target combines the resolved classification and its negative answer, not the false original conjecture.
+
+The proposed finite real symmetric idempotent projector with actual rank<=k is exactly an orthogonal projection onto a real Euclidean subspace of dimension at most k. It includes zero and lower ranks, and the row residual A_i-A_i P equals A_i(I-P). The square root of the full squared-coordinate sum is the literal Euclidean distance, and its real p-th power preserves every real p>2 and zero residuals.
+
+The same nonnegative arbitrary real weight vector must satisfy both weak relative inequalities for every such projector. Support counts nonzero original row indices, not weight mass, repeated rows or replacement directions. No signed weights, weak one-optimizer guarantee, limited ambient dimension, restricted rank or conditioning premise is introduced.
+
+The natural candidate support-budget set is nonempty because the all-one vector gives exact equality and support at most n. Its natural infimum is thus an attained least budget equal to the true least support. Empty and all-zero inputs cause no undefined minimum. The unrestricted supremum over all finite n,d>k,A correctly uses ENNReal, so possible unboundedness remains infinity rather than the real sSup default.
+
+I directly inspected the explicit model/rate/theorem statements in retained Part I Section1 and Part II Section1. The rate is exactly k^(p/2)/epsilon^2 for non-even p, and the minimum of that term with k^((p+1)/2)/epsilon+k^(p/2-1)/epsilon^2 for even p. The natural even witness p=2*s with s>=2 is precisely the allowed even exponent domain.
+
+The lower logarithmic loss is exactly 5*p/2+3 for non-even powers and zero for even powers; the common upper loss is p+5. log(2*k/epsilon)>1 on the entire k>=1, 0<epsilon<1/2 domain. Positive finite constants c<=C depend only on p and precede k, epsilon and all data hidden in the supremum. All real powers, including p/2-1, are genuine real exponentiation rather than natural truncated subtraction.
+
+The literal additive proposal uses positive real Cp and cp, then every n,d,k with 1<=k<d, every real A and every allowed epsilon, and the exact Cp*(k^(p/2)/epsilon+k/epsilon^2)*log(2*k/epsilon)^cp budget. Its universal negative answer allows counterexamples to depend on attempted constants, dimension, data and accuracy; no single p=4 or selected algorithm failure substitutes for the full statement.
+
+Part I Section8 explicitly supplies that all-p negative answer: the non-even choice epsilon=k^-1 produces polynomial gap min(1,p/2-1)>0, and the even choice epsilon=k^-1/4 gives gap1/4. This checks agreement with the cited answer and literal original quantifiers, not a new proof or re-audit of the complete manuscript.
+
+The original is an existence/support-size question and the specification adds no efficient-construction or running-time target. All k>=1, real p>2 and allowed accuracies, arbitrary data and rank, and all ambient dimensions d>k remain. Prior partial notices and source credit are preserved and not allowed to override the later complete answer. No numerical approximation or large finite certificate is needed merely to state this boundary.
+
+This approves exact mathematical specification correspondence. The complete canonical and specification and relevant model/theorem/negative-answer portions of the archived sources were inspected; this is not a re-audit of every manuscript proof, a Lean implementation approval, external human review or target proof. Actual definitions, imported rank/power/cardinality meanings and kernel/frozen checks still require independent final review.
+
+## Bound inputs
+
+- `docs/lean/statements/RA-05/NUMERICAL_TARGETS.md`: `23a9cb637b7b1456fe0a0f06f3ee414c3c7dbcfc5c80a69fc303b7e347166ac5`
+- `docs/lean/statements/RA-05/ORIGINAL.md`: `6e03461d0079b656779e5b87d5faa91f198c4c90ea63beb613732226e678181c`
+- `docs/lean/statements/RA-05/source-lock.json`: `d222ee4017511ce05172f25cc71730c4f810bfabf0145052b75aa98a2db56c06`
+- `randomized-and-low-rank-approximation/RA-05/README.md`: `6e03461d0079b656779e5b87d5faa91f198c4c90ea63beb613732226e678181c`
+- `randomized-and-low-rank-approximation/RA-05/problem.tex`: `dad4fa443e5ce7d94122b9ff1bfcbc8513893471fc456802730170e2ac7ca1b6`
+- `references/holden-further-2026-09-14/RA-05/part-1.tex`: `6cc00d4e27c20529eb95a406313bb19fbaee5049bda2febca3d88ec5e3673712`
+- `references/holden-further-2026-09-14/RA-05/part-2.tex`: `911fe25ca20da6f3f3b05686d5d646f7aa0604a4488e3b368cdefeff73ef1175`

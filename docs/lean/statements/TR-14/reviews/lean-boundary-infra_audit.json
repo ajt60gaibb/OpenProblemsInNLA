@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "id": "TR-14",
+  "reviewer": "/root/infra_audit",
+  "is_ai": true,
+  "phase": "lean-boundary",
+  "verdict": "approve",
+  "authors_excluded": [
+    "/root"
+  ],
+  "input_sha256": {
+    "docs/lean/statements/TR-14/NUMERICAL_TARGETS.md": "6c50aa83745fc3d096e08b476fb08a841ffc0fefb2cdd58511f924c49f09da17",
+    "docs/lean/statements/TR-14/ORIGINAL.md": "a6ae45a647f1cb5e057c7b1f09c5b4d99bdd5a29c25677f352f91ea0788e6d86",
+    "lean-statements/NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+    "lean-statements/NLA/Statements/TR14.lean": "515387732a4aff4c343625d7578d687fa9d11255ddeaaeb278b9410e55e02dc9",
+    "lean-statements/Reviewed/TR14.lean": "9990f933adf8a8593f6a1fcc70aeeaeed8abdfe05e7738bd5b538e719ad9c356",
+    "lean-statements/lake-manifest.json": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+    "lean-statements/lakefile.toml": "1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40",
+    "lean-statements/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+    "tensor-computations/TR-14/README.md": "a6ae45a647f1cb5e057c7b1f09c5b4d99bdd5a29c25677f352f91ea0788e6d86",
+    "docs/lean/statements/TR-14/reviews/lean-boundary-infra-audit-evidence/NLA-Statements-TR14.log": "a2ee3c0ae62aef2eb6d2dc29fc4327958d5f7957c1c4892a483a243bff12c2f5",
+    "docs/lean/statements/TR-14/reviews/lean-boundary-infra-audit-evidence/Reviewed-TR14.log": "56bd91eda25a7657fc8278fbce493bda1aee0217c6d6433b16d5332048f332c6",
+    "docs/lean/statements/TR-14/reviews/lean-boundary-infra-audit-evidence/identity.log": "2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30"
+  },
+  "dependency_sources": [
+    {
+      "package": "mathlib",
+      "revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "path": "Mathlib/LinearAlgebra/Matrix/Defs.lean",
+      "sha256": "d4e5b5a2762eb91e47bd4d913ed72cd3fac2f7ebf40b32ae4dc0db7f34332d54"
+    },
+    {
+      "package": "mathlib",
+      "revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "path": "Mathlib/Algebra/BigOperators/Group/Finset/Defs.lean",
+      "sha256": "2f39541f66288cb9ae9f77d97fd3656825a1dd1a4b5ca6a156f938d8fa1678a8"
+    },
+    {
+      "package": "mathlib",
+      "revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "path": "Mathlib/Data/Complex/Basic.lean",
+      "sha256": "e279bd6369e83ebf6716e17a8f38c81c812020753472cac5e7ae2a501790b760"
+    }
+  ],
+  "rationale": [
+    "HankelIndex is the actual sum of zero-based coordinate values, with a kernel-checked finite bound. Each coordinate is <=n-1; summing m such terms gives <=m*(n-1)<m*(n-1)+1. The omega steps discharge only these elementary natural-number bounds, not the rank target. No modulo, clamping, missing coordinate, or altered data length is used.",
+    "Hankel reads exactly h at that bounded index, matching the source one-based sum minus m. The target quantifies every m>=3, n>=2, all complex h of the required length and every natural r, including r=0. It includes exceptional and zero tensors.",
+    "OrdinaryWidth has a separate complex vector for each summand and mode and equates every tensor coordinate to the full finite sum of products. SymmetricWidth uses one repeated vector per summand with a complex scalar coefficient outside the product. These are exact multilinear complex decompositions without conjugation, norm restrictions or a Vandermonde restriction.",
+    "At r=0 both empty sums are zero; increasing r permits zero padding. Every symmetric width-r decomposition is ordinary width-r by absorbing its coefficient into the first mode, available since m>=3. Both rank minima exist; for Hankel tensors a D+1-point Vandermonde basis of the moment sequence produces a finite symmetric decomposition. Thus all-width predicate equivalence is exactly equality of the two minimum ranks, not a stronger demand that all factors be nonzero.",
+    "The actual frozen module contains the whole indexing proof and decomposition definitions in its independent namespace. Both independently compile, their identity check succeeds by rfl, and Target has no proof, custom axiom or numerical certificate."
+  ],
+  "verification_scope": "Independent local Lean 4.33.1 elaboration, transitive axiom assertions, and frozen equality checks; no Target proof or Linux Comparator execution.",
+  "report_path": "docs/lean/statements/TR-14/reviews/lean-boundary-infra_audit.md",
+  "report_sha256": "6be50581eca1e4c8feea08f767effdfde212e47afa1f6a9b0b716e14aa7f64bf"
+}

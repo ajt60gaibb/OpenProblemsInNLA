@@ -1,0 +1,65 @@
+version: v0.4
+project:
+  name: 'TR-13: complete generic odd-order Hankel rank equality'
+  description: 'Proof of the full original target, using Prony reconstruction and a Koszul determinant certificate; draft pending authoritative Linux verification and final independent review.'
+  authors:
+  - OpenAI Codex agents (AI-generated formalization)
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+- title: 'TR-13 — Equality of ranks for generic odd-order Hankel tensors'
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/80c0e3e638b2f26dcb3a00353651fc3d2215dd65/tensor-computations/TR-13/README.md
+  type: web-post
+  relationship: formalizes
+  location: Entire original statement
+  author_endorsement: not-contacted
+- title: 'Equality of ranks for generic odd-order Hankel tensors'
+  authors:
+  - Matthew J. Colbrook
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/80c0e3e638b2f26dcb3a00353651fc3d2215dd65/references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-13.tex
+  type: manuscript
+  relationship: formalizes
+  location: Theorem 1 and Sections 2–5
+  author_endorsement: not-contacted
+  note: 'Mathematical resolution credited to Matthew J. Colbrook, Department of Applied Mathematics and Theoretical Physics, University of Cambridge. The formal proof replaces the generic upper-bound argument by Prony reconstruction.'
+- title: Hankel Tensor Decompositions and Ranks
+  authors:
+  - Jiawang Nie
+  - Ke Ye
+  id: https://doi.org/10.1137/18M1168285
+  type: article
+  relationship: background
+  location: Section 6, Question 6.1 and Conjecture 6.2
+  author_endorsement: not-contacted
+related_formalizations:
+- id: https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474
+  relationship: builds-on
+  note: 'Polynomial roots, resultants, Vandermonde matrices, matrix rank, and finite-product topology.'
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: 'Lean 4.33.1 and exact Mathlib revision; local macOS compiler. Multiple agents authored disjoint proof modules.'
+    prompting_notes: 'The user requires the entire original theorem. Independent statement reviews preceded proof development. Solution never imports Challenge.'
+  notes: 'AI-generated proof source. Component reviews exclude each reviewer’s own authored modules. Full independent final review and the canonical Linux checker remain pending; no human endorsement is claimed.'
+status:
+  scope: 'Every odd m >= 5 and n >= 2; a nonempty principal Zariski-open subset of complex Hankel parameters has ordinary, symmetric, ordinary-border, symmetric-border and Vandermonde ranks all equal to ceil((m(n-1)+1)/2). Ordinary-border limits range over the full ambient tensor space.'
+  whole_problem_verified: false
+  canonical_status: Solved
+  sorry_count: 0
+  sorry_in_definitions: 0
+  source_scan_note: 'Challenge contains one deliberate comparison placeholder and is not imported by Solution. Whole-problem status awaits the repository’s remaining verification gates, not additional mathematical cases.'
+  axioms: [propext, Classical.choice, Quot.sound]
+  main_results:
+  - declaration: NLA.TR13.generic_rank_equality
+    file: Solution.lean
+    sorry_count: 0
+    axioms: [propext, Classical.choice, Quot.sound]
+    comparator_config: comparator.json
+    verification_status: 'Draft: local compiler and axiom evidence retained; canonical Linux Comparator pending.'
+fidelity:
+  divergences: 'No target weakening. Prony recurrence replaces dominance/constructibility. The same Koszul construction handles binary tensors using repeated middle-coordinate selection. Principal polynomial nonvanishing explicitly supplies the required Zariski-open set.'
+review:
+  status: 'Two independent pre-proof statement approvals; scoped component reviews; full independent final review pending.'
+  notes: 'Pre-proof reviewers subsequently contributed separate proof modules. Later reviews state their authorship exclusions and do not constitute independent review of their own code.'

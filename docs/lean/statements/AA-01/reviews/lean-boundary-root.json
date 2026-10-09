@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "id": "AA-01",
+  "reviewer": "/root",
+  "is_ai": true,
+  "phase": "lean-boundary",
+  "verdict": "approve",
+  "authors_excluded": [
+    "/root/inventory"
+  ],
+  "input_sha256": {
+    "arithmetic-and-complexity/AA-01/README.md": "7c95575dd3b31fd6d9d0b6da31839c545a033e07eb58bba7e2eaf4e1d8a6f316",
+    "arithmetic-and-complexity/AA-01/problem.tex": "4afcbc9a481c983cda67e5adbe47285001ccc86fa20efcf7f5cd839a681692e7",
+    "arithmetic-and-complexity/AA-01/solution.md": "65b8207b67d0cd14e6fc015b3daa64fc3a502b98b00d81f978c3cf0a0d963b0b",
+    "arithmetic-and-complexity/AA-01/solution.tex": "14165ab6a606af9bc966b4ecf60f0dd79542e4a65ee4a6519e4a07bff6b4e139",
+    "docs/lean/statements/AA-01/IMPLEMENTATION_NOTES.md": "671fabd015872c47361430ed512b95d950e633880c0f98a357a45574199c049c",
+    "docs/lean/statements/AA-01/NUMERICAL_TARGETS.md": "ae12a6116c32ee45e2125512dc44d28783d6158e592853a98caa9d9806ff741d",
+    "docs/lean/statements/AA-01/ORIGINAL.md": "7c95575dd3b31fd6d9d0b6da31839c545a033e07eb58bba7e2eaf4e1d8a6f316",
+    "docs/lean/statements/AA-01/source-lock.json": "592373fefd184b75a79bd89b5fc506219afa67fd3e20a8e57cd2e810f41bd16f",
+    "docs/lean/statements/verification/2026-09-28-rounded-tree/CheckAA01.lean": "c04d26d2f6c0f383aadab18920417df4fe2033cebde0f90df65db68c355bce0a",
+    "docs/lean/statements/verification/2026-09-28-rounded-tree/CheckAA01.log": "bb4af337f23355e6fb8914786e5ef0aecee9716141bd8b2611a9413c5dea5a28",
+    "docs/lean/statements/verification/2026-09-28-rounded-tree/NLA-Computation-RoundedTree.lean.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/lean/statements/verification/2026-09-28-rounded-tree/NLA-Computation-RoundedTreeControls.lean.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/lean/statements/verification/2026-09-28-rounded-tree/NLA-Statements-AA01.lean.log": "212aa7c4ddad80a6596b98a6dd1d84812d1f67526ad789237da4af382669d7cf",
+    "docs/lean/statements/verification/2026-09-28-rounded-tree/Reviewed-AA01.lean.log": "6aec9e4ada1dde9ae66b33a71d6f19b3058c1c08d508b2f655fdde1b687ecf45",
+    "docs/lean/statements/verification/2026-09-28-rounded-tree/receipt.json": "93f21e6c0693ccc696c9ce963b7a3245f14e14723c5d075199f7604d9735fd79",
+    "lean-statements/NLA/Computation/BinaryEncoding.lean": "d494ffb15274500ea5c06c480c2b2032a48390533f7171b4ed993d947c44ee6a",
+    "lean-statements/NLA/Computation/FiniteMachine.lean": "7c8b2a8e88220b3a1a66bf9c9748ee2213b155dd239809654240095180918d9d",
+    "lean-statements/NLA/Computation/RoundedTree.lean": "b12aa0ae03935b78f9d36abfe77862dedeb27503a66324617621c0c6ecf2c9d7",
+    "lean-statements/NLA/Computation/RoundedTreeControls.lean": "4a0fc5e0c0e305f2ff287555a78f4e19db5d81e2e90e3a58b23b1804ffe38471",
+    "lean-statements/NLA/Statements/AA01.lean": "8957840f7a5b678d019c85f154662ba1755c9a43f9398446bd2ea3a4a627f331",
+    "lean-statements/NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+    "lean-statements/Reviewed/AA01.lean": "5cb25d70ebcf90ce6f1eba3704886013cdd3f10c3d859e3e97be731ae009efd2",
+    "lean-statements/lake-manifest.json": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+    "lean-statements/lakefile.toml": "1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40",
+    "lean-statements/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+    "references/colbrook-arithmetic-2026-09-11/manuscripts/AA-01.tex": "2332fcd37efcfb0a49e9dac12c44185330d200de44610fd1b33fafc64e854a38"
+  },
+  "rationale": [
+    "The final RoundedTree source is a genuinely finite context-indexed inductive program, with only available-register return, exact negation, rounded add/subtract/multiply and exact three-way comparison. Fin.snoc preserves all previous registers and appends one result. No constant input, oracle, arbitrary semantic function, hidden output default, loop or exact binary arithmetic operation is present.",
+    "I checked every evaluation clause and error slice. Each rounded node reads coordinate zero and shifts its remaining finite vector by one. Comparison branches use fixed offsets zero, less-count and less-plus-equal-count, with explicit checked bounds. The roundedCount includes every branch. Actual current real values determine the comparison, including ties and error-dependent paths. Stored reuse retains the same earlier error factor; independent recomputation receives another coordinate.",
+    "The exact polynomial value sums all integer-coefficient occurrences, with every natural exponent and ordinary 0^0/empty-product convention. ValidInput tests the collected p(0), allowing constant cancellation. Encoding contains dimension, list length and all coefficient/exponent fields in fixed order using unchanged reviewed finite binary primitives. Coefficients do not become real evaluator registers.",
+    "Accurate keeps one finite program before all eta, then one uniform positive u before all real inputs and independent error vectors. Exact zero-error correctness follows the actual path. The full relative inequality includes polynomial zeros with no exceptional set, absolute floor or probabilistic interpretation. Program0 is impossible by the actual constructor indices, matching the disclosed source boundary; positive-dimensional self-subtraction computes the zero polynomial under every error.",
+    "Target fixes one genuine ordinary finite binary decision machine before every valid coefficient-list input and requires its exact Boolean answer in a finite input-dependent time. It imposes no polynomial bound and assumes no signed-gap, real-quantifier-elimination or tree-existence oracle. The full imported finite machine and encoding are unchanged. Shared nominal/recursive helper meanings are identical in live/frozen imports and included in the hash-bound closure.",
+    "Independently compiled the final helper, semantic controls and live/frozen sources with pinned Lean4.33.1, then compiled the actual rfl Target identity. All passed and Target/equality use only propext, Classical.choice and Quot.sound. The controls symbolically check persistent reuse, separate errors, exact negation, changed comparison branches, static offsets, ignored unused errors, encoding and both zero-polynomial conventions. These checks are kernel operational/identity evidence, not a proof of the decision theorem or a Linux Comparator claim."
+  ],
+  "report_path": "docs/lean/statements/AA-01/reviews/lean-boundary-root.md",
+  "report_sha256": "cccba69552eb0cc0275d8d2472537e809e8a95c5f279b7c58bcc9d87ee030ff5"
+}

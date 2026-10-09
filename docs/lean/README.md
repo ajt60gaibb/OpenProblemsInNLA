@@ -1,5 +1,10 @@
 # Lean verification of retained problems
 
+For the separate campaign to state every remaining problem, see
+[statement coverage and review](statements/README.md). A statement is a
+definition of the proposition being asked; its elaboration does not prove that
+proposition. The campaign keeps the completed-proof workflow below intact.
+
 Use one pull request per permanent problem ID, after the shared verification infrastructure is available. Each PR adds a self-contained project at `category/ID/lean/` and the verification evidence required by [CONTRIBUTING.md](../../CONTRIBUTING.md#lean-verification). The existing problem README remains the source of truth. A proof of the full original target is required to promote `Solved` to `Lean verified`.
 
 ## Project layout

@@ -1,0 +1,29 @@
+# MF-03 independent Lean boundary review
+
+Reviewer: OpenAI Codex AI agent `/root/inventory`, independent of the statement authors (/root and /root/statement_design).
+
+Phase: `lean-boundary`. Verdict: **APPROVE** the exact statement boundary. No target proof is asserted.
+
+The complete canonical README and ORIGINAL snapshot agree byte for byte, and the implementation matches the separately approved specification. All actual local definitions were read; the source and frozen module are identical except for the required namespace substitution and frozen comment. Every local import and dependency-pin file is bound below.
+
+NormalizedPadeRepresentation uses both natDegree bounds, Q.eval 0=1 and the exact convolution over Finset.range(j+1), for every natural j<=2*m. Factorial division occurs in complex numbers and no integer-division truncation is introduced. j-i only occurs for i<=j in this range, so Nat subtraction gives the intended coefficient index.
+
+ReducedPadeRepresentation adds actual polynomial IsCoprime. Target conjoins existence of one reduced representation at every m>=1 with the estimate for every reduced representative and every complex point in the closed norm<=3 disk. The denominator nonzero guard and weak norm<=2 conclusion have exactly the intended meaning, including boundary points and all orders. There is no approximation grid, low-order cutoff, stronger strict bound or extra reality assumption.
+
+The declaration is an actual closed safe Prop definition and retains the kernel-trust and transitive-axiom assertions. The inspected author-local elaboration output reports only propext, Classical.choice and Quot.sound. Recorded source hashes match the reviewed bytes. Compilation evidence was inspected, not independently rerun in this review; the frozen equality is not a proof of Target.
+
+## Scope limits
+
+Mathematical/source review and checked author-local elaboration evidence only. This is not external human review, a newly proved solution, or an independently executed Linux Comparator run. Numerical computation is unnecessary to state this symbolic target.
+
+## Reviewed input hashes
+
+- `docs/lean/statements/MF-03/NUMERICAL_TARGETS.md`: `7330918bbef9002e38a2d38cd1b019d1170a707e3b8c1e4dfcb18e9b4133dd28`
+- `docs/lean/statements/MF-03/ORIGINAL.md`: `57a39aef2af14ff19c83100fdb037de571ebb525ca836c045ddba6d91ae40f5a`
+- `lean-statements/NLA/Statements/Infrastructure.lean`: `8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37`
+- `lean-statements/NLA/Statements/MF03.lean`: `35f494bd3efdc2d710aa14927c9ee4f6664355199c331f85308f850a533f9f24`
+- `lean-statements/Reviewed/MF03.lean`: `a0c55c3f315c5330d8da170fc2f4c8ac6dab715b8a30b0111660d262ea0d0674`
+- `lean-statements/lake-manifest.json`: `a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8`
+- `lean-statements/lakefile.toml`: `1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40`
+- `lean-statements/lean-toolchain`: `3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71`
+- `matrix-functions-and-stability/MF-03/README.md`: `57a39aef2af14ff19c83100fdb037de571ebb525ca836c045ddba6d91ae40f5a`

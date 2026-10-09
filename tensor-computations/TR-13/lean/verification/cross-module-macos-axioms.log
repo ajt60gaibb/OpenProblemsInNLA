@@ -1,0 +1,21 @@
+Scoped local cross-module audit by choose_tensors.
+UTC: 2026-09-28T11:20:11.682222+00:00
+Host: macOS-26.6.2-arm64-arm-64bit-Mach-O
+a94e4eb3185101220c8a8192bb3beb2a3ff8fcfadf35f9267f47fc83ccb6b491  NLA/TR13/MatrixCertificate.lean
+bf7afd3d2b04ea9daf42aa54260f1ba8f0f1e7da49e091d0c4b4e07582410602  NLA/TR13/LowerRank.lean
+a3c3ae15b0a4c0c1585bd2314a994a54f2b27e0cbc0cdf32447470647025702b  NLA/TR13/Compression.lean
+555d6e6ee61f29a4ddc3c199a1ee9ab71ea6a132961f92d2ce352a9817fdd6e3  NLA/TR13/RankComparison.lean
+$ lake env lean verification/cross-module-audit.lean
+'NLA.TR13.exists_fixed_rank_minor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR13.matrix_rank_le_of_tendsto' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR13.exists_polynomial_rank_certificate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR13.tensorKoszul_rank_le_of_ordinaryBorder' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR13.exists_lower_polynomial_of_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR13.compressedTensor_hankel' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR13.compressedTensor_pure' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR13.all_ranks_equal_of_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.TR13.principalOpen_nonempty' depends on axioms: [propext, Classical.choice, Quot.sound]
+Exit: 0
+$ rg -n \b(sorry|axiom|admit)\b NLA/TR13/MatrixCertificate.lean NLA/TR13/LowerRank.lean NLA/TR13/Compression.lean NLA/TR13/RankComparison.lean
+Exit: 1
+No sorry, axiom, or admit tokens found in scoped proof sources.

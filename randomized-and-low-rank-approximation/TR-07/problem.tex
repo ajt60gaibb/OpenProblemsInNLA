@@ -34,7 +34,7 @@ matrices},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}TR-07}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Verification check: 2026-09-29}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ column subsets of arbitrary fixed-sparsity matrices\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -80,8 +80,10 @@ A separate
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-tr07-2026-09-12/independent-review.md}{independent
 Codex AI-agent audit} returned PASS without mathematical corrections,
 satisfying the \textbf{Solved} policy. AI assistance was used for review
-and submission preparation; this is informal automated review, not human
-peer review or formal verification. No Lean verification was performed.
+and submission preparation; that audit was informal automated review,
+not human peer review or formal verification. The later Lean
+verification is recorded
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/TR-07/README.md\#lean-proof-and-verification-evidence}{below}.
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/TR-07/solution.tex}{Proof
 source} ·
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/holden-tr07-2026-09-12/README.md}{Submission
@@ -90,6 +92,61 @@ record}.
 Huang, Rudelson and Tikhomirov retain conjecture and prior-result
 credit. The original target and ID remain unchanged; the earlier checks
 below are historical.
+
+\subsection{Lean proof and verification
+evidence}\label{lean-proof-and-verification-evidence}
+
+\textbf{Lean verified, 29 September 2026.} OpenAI Codex agents authored
+the
+\href{https://github.com/marcusdavidwebb/OpenProblemsInNLA/tree/4aa20f0e6ad92037a616c81fa8b1d7f57abca2dc/randomized-and-low-rank-approximation/TR-07/lean}{complete
+Lean project at immutable revision \textit{4aa20f0e}}. The declaration
+\textit{NLA.TR07.random\_column\_subsets : SolvesTR07} proves the
+entire original asymptotic target, including arbitrary signs, repeated
+column values and unrestricted support intersections.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/TR-07/lean/NUMERICAL_TARGETS.md}{Frozen
+definitions and target correspondence} use Euclidean singular values and
+the exact uniform subset law. The explicit subset-size validity
+condition and eventual sparsity account for the experiment's domain and
+irrelevant initial dimensions; eventual positive, diverging sample size
+is proved.
+
+This submission ran a fresh unprivileged Ubuntu check in
+\href{https://github.com/marcusdavidwebb/OpenProblemsInNLA/actions/runs/36544197412}{run
+36544197412}. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/TR-07/lean/verification/linux-36544197412}{retained
+Linux receipt and logs} record successful Comparator statement matching,
+default-kernel replay, permitted-axiom checks and rejection controls for
+the immutable proof. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/TR-07/lean/verification/axioms.log}{transitive
+axiom report} lists only \textit{propext}, \textit{Classical.choice} and
+\textit{Quot.sound}.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/TR-07/lean/reviews/README.md}{Two
+independent nonauthor AI-agent reviews} cover the full statement and
+proof; no human peer review or source-author endorsement is claimed.
+
+The pins are Lean 4.33.1 and
+\href{https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474}{Mathlib
+revision \textit{0df444a3}}, with
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/TR-07/lean/lake-manifest.json}{pinned
+transitive dependencies}. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/TR-07/lean/README.md}{proof
+guide} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/TR-07/lean/formalization.yaml}{formalization
+metadata} document regularization, reservoir reconstruction and the
+polynomial probability bound. The source's stronger exponential finite
+tail and positive-fraction singular-value theorem are not claimed as
+formalized. Mathematical-resolution credit remains Sidney Holden.
+
+Reproduce on the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/README.md}{supported
+unprivileged Linux environment}, from the repository root:
+
+\begin{verbatim}
+tools/lean/bootstrap.sh /tmp/nla-tr07-checker
+tools/lean/verify.sh \
+  randomized-and-low-rank-approximation/TR-07/lean \
+  /tmp/nla-tr07-checker
+\end{verbatim}
 
 \subsection{Problem statement}\label{problem-statement}
 

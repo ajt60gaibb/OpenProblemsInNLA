@@ -34,7 +34,7 @@ two},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RA-06}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-30}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ row sampling for \(\ell_p\) embeddings when p exceeds two\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Open\par}
+{\sffamily\small\bfseries\color{accent}Status: Solved\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -60,26 +60,36 @@ must control all directions with nearly linear total-sensitivity cost;
 community impact is instance-sensitive regression and subspace
 sketching.
 
+\subsection{Statement}\label{statement}
+
 Fix \(p>2\). For a full-column-rank matrix
-\(A\in\mathbb R^{n\times d}\), with rows \(a_i^T\), set \[
-s_i=\sup_{x\ne0}\frac{|a_i^Tx|^p}{\|Ax\|_p^p},\qquad
-\mathcal S=\sum_{i=1}^n s_i.
-\] For a scalar \(\alpha>0\), retain row \(i\) independently with
-probability \[
-q_i=\min\{1,1/n+s_i/\alpha\},
-\] and scale each retained row by \(q_i^{-1/p}\); let \(\widetilde A\)
-be the resulting matrix.
+\(A\in\mathbb R^{n\times d}\), with rows \(a_i^T\), set
+
+\[s_i=\sup_{x\ne0}\frac{|a_i^Tx|^p}{\|Ax\|_p^p},\qquad
+\mathcal S=\sum_{i=1}^n s_i.\]
+
+For a scalar \(\alpha>0\), retain row \(i\) independently with
+probability
+
+\[q_i=\min\{1,1/n+s_i/\alpha\},\]
+
+and scale each retained row by \(q_i^{-1/p}\); let \(\widetilde A\) be
+the resulting matrix.
 
 Do constants \(C_p,c_p>0\) exist such that, for every \(A\) and
-\(0<\varepsilon,\delta<1/2\), one can choose \(\alpha\) with \[
-\sum_iq_i\leq C_p\varepsilon^{-2}(\mathcal S+d)
-\log^{c_p}\!\left(\frac{2nd}{\varepsilon\delta}\right),
-\] while, with probability at least \(1-\delta\), \[
-(1-\varepsilon)\|Ax\|_p^p\leq\|\widetilde Ax\|_p^p
+\(0<\varepsilon,\delta<1/2\), one can choose \(\alpha\) with
+
+\[\sum_iq_i\leq C_p\varepsilon^{-2}(\mathcal S+d)
+\log^{c_p}\!\left(\frac{2nd}{\varepsilon\delta}\right),\]
+
+while, with probability at least \(1-\delta\),
+
+\[(1-\varepsilon)\|Ax\|_p^p\leq\|\widetilde Ax\|_p^p
 \leq(1+\varepsilon)\|Ax\|_p^p
-\qquad\text{for all }x\in\mathbb R^d?
-\] The size is the expected number of retained rows. The question
-concerns this independent sampling rule based on the ordinary \(\ell_p\)
+\qquad\text{for all }x\in\mathbb R^d?\]
+
+The size is the expected number of retained rows. The question concerns
+this independent sampling rule based on the ordinary \(\ell_p\)
 sensitivities, not arbitrary row weights or augmented sensitivities.
 
 This would exploit easy instances through total sensitivity rather than
@@ -88,6 +98,53 @@ sketching \(\ell_p\) regression and other computations on the column
 space of \(A\). The p\textgreater2 ordinary-sensitivity theorem of
 Woodruff--Yasuda has size
 \(\widetilde O_p(\varepsilon^{-2}\mathcal S^{2-2/p})\).
+
+\subsection{Resolution --- 2026-09-30}\label{resolution-2026-09-30}
+
+\textbf{Negative resolution for every fixed real exponent} \(p>2\).
+Theorem 5.1 of
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/haidary-resolutions-2026-09-30/ra06-counterexample-revised.pdf}{\emph{An
+Accuracy Obstruction for lp Row Sparsification: A Complete-Graph
+Counterexample to RA-06}}
+(\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/haidary-resolutions-2026-09-30/ra06-counterexample-revised.tex}{LaTeX
+source}), dated 30 September 2026, refutes the original expected-size
+guarantee with exactly its ordinary sensitivities, independent retention
+rule, rescaling and simultaneous norm-power preservation.
+
+The grounded incidence matrix of the complete graph on \(v\) vertices
+has \(n=\binom v2\), \(d=v-1\), and equal row sensitivities
+
+\[s_i=\frac1{1+(v-2)2^{1-p}},\qquad \mathcal S=\Theta_p(d).\]
+
+Under \(v-1\ge6^{-p}\varepsilon^{-(p+1)}\), Corollary 4.2 forces
+expected sample size \(\Omega_p((\mathcal S+d)\varepsilon^{-p})\) even
+for one successful realization of the prescribed common-probability
+sampler. Taking \(\varepsilon=b^{-1}\), \(\delta=1/4\) and
+\(v=\lceil b^{p+2}\rceil\) contradicts every fixed polylogarithmic
+multiplier of the proposed quadratic inverse-accuracy budget. The floor
+and saturation in the original rule are included.
+
+Theorem 3.1 and Corollary 3.2 also give a support obstruction for
+arbitrary nonnegative reweighted row subsets, with a success-probability
+factor for randomized expected support. The obstruction concerns
+accuracy dependence in an explicit growing-dimension regime; it does not
+rule out nearly linear sensitivity dependence at fixed accuracy and does
+not concern unrestricted linear sketches.
+
+\textbf{Attribution and review.} The original conjecture and sampling
+model are credited to Woodruff--Yasuda, Section 3 and Definition
+1.1/Theorem 1.5. \textbf{No novelty or priority is claimed for this
+local manuscript.} The supplied
+\href{https://chatgpt.com/share/6abd3ea9-6310-83ed-8d37-edc449055572}{ChatGPT
+6 Pro audit} reports that the mathematical core refutes RA-06 and
+derives the arbitrary-weight strengthening. Its follow-up revision
+incorporates that strengthening, direct attribution, the explicit
+dimension regime and the requested presentation fixes. This is an
+informal AI audit, not external human peer review or formal
+proof-assistant certification. See the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/haidary-resolutions-2026-09-30/README.md}{submission
+record}. Historical ratings are retained, and the original target is
+retained above.
 
 \newpage
 \subsection{References}\label{references}

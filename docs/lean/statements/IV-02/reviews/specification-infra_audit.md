@@ -1,0 +1,36 @@
+# IV-02 independent preimplementation specification review
+
+Reviewer: `/root/infra_audit`, OpenAI Codex AI agent independent of specification author `/root/inventory`. Phase: `specification`. Verdict: **approve**.
+
+The dimension restriction is exactly n>=2. CorrectRange quantifies every real admissible matrix and requires separate attained rational lower and upper extremizers. This is exact min/max, not an enclosure, vertex-only search condition or existential rational range without a uniform machine. Multiaffinity on the compact independent-entry box justifies the rational attained endpoint convention without adding an assumption to Target.
+
+The full output is exactly lower rational then upper rational. I checked the old Challenge: its four unrestricted Prop fields can all be True, so its ComplexityContract is vacuous. Replacing that contract by concrete machine semantics repairs the actual original question rather than merely proving pointwise existence.
+
+I read the credited joint manuscript, including Section5. The retained restricted hardness family and denominator-clearing bound n! H^n are proof context, not a restriction on Target or a supplied NP oracle.
+
+The entire canonical README and preserved original were read and compared byte-for-byte. The existing solution status and credited manuscript classify complexity without asserting P unequal to NP or an unconditional polynomial algorithm. Target keeps the original algorithm-existence question; a later equivalence to PEqualsNP is a separate proposition.
+
+The specification selects a single actual finite binary transducer and one positive-coefficient natural-exponent polynomial before every dimension and rational input. RunsWithin refers to actual initialization, charged move/write execution, terminality and exact complete output. This preserves uniform polynomial time in all input bits and excludes a free evaluator, real-arithmetic cost, arbitrary complexity fields or a separate machine per instance.
+
+The compact band encoding contains n, every diagonal interval, every upper interval and every lower interval in fixed order, with canonical framed rationals and no uncounted off-band data. Ordered endpoints include zero widths and zero crossings. All real in-band entries vary independently, even when interval data coincide; all off-band entries are zero. No promise of nonsingularity or sign is inserted.
+
+No numerical approximation or sample enumeration is needed for these propositions. The historical proof files remain preserved. Kernel elaboration and frozen identity will check the eventual statement boundary but do not establish its truth; final mathematical/source review is still required after implementation.
+
+This is a mathematical and computational boundary review of the exact specification bytes, not external human review or a proof of a polynomial algorithm or complexity classification.
+
+## Bound inputs
+
+- `docs/lean/statements/IV-02/NUMERICAL_TARGETS.md`: `19234a7806b52868f56723f6e6bad413d174d6ad1ac56f88b3b4bcb2ea36c922`
+- `docs/lean/statements/IV-02/ORIGINAL.md`: `8b1ffc82e9760aaffee717005e4547dc9cace7f97bc77d0f0f82a25b62b303d7`
+- `docs/lean/statements/IV-02/source-lock.json`: `034462d59bef18e8528b8c9fff6fa788743f78af4112024c2e776f38a58ed7d2`
+- `intervals-and-absolute-value-equations/IV-02/README.md`: `8b1ffc82e9760aaffee717005e4547dc9cace7f97bc77d0f0f82a25b62b303d7`
+- `intervals-and-absolute-value-equations/IV-02/lean/Challenge.lean`: `b1d8367d493d58ec10138b51428d8a0fd9e863248623f69f9132493d4e3da3f0`
+- `intervals-and-absolute-value-equations/IV-02/lean/Reduction.lean`: `0c97e96a960cfbb20709b8c44a0f5a560fd0d76da4b02279f1905f7cc7624000`
+- `intervals-and-absolute-value-equations/IV-02/lean/SPEC.md`: `636b3b1c24efc423e76d6a7349673dc9c02531edb2582eb2cdc03e1ff946e53d`
+- `intervals-and-absolute-value-equations/IV-02/lean/Solution.lean`: `feb3c1984f2191bde06e2d24ccd918479bb47dd1bff27b9d1119f3f73c365c6b`
+- `intervals-and-absolute-value-equations/IV-02/problem.tex`: `632fee65ec551aacf0079abb76004633daad0a3153cb8ba30d763d49bc04779a`
+- `lean-statements/NLA/Computation/BinaryEncoding.lean`: `d494ffb15274500ea5c06c480c2b2032a48390533f7171b4ed993d947c44ee6a`
+- `lean-statements/NLA/Computation/FiniteMachine.lean`: `7c8b2a8e88220b3a1a66bf9c9748ee2213b155dd239809654240095180918d9d`
+- `lean-statements/lake-manifest.json`: `a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8`
+- `lean-statements/lean-toolchain`: `3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71`
+- `references/colbrook-intervals-2026-09-11/manuscripts/IV-02_IV-04.tex`: `fffed1605054c4a3fa42fcb367286dba6ff5b829555a3e717827c448095cbb0c`

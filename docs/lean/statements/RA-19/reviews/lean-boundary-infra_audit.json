@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "RA-19",
+  "reviewer": "/root/infra_audit",
+  "is_ai": true,
+  "phase": "lean-boundary",
+  "verdict": "approve",
+  "authors_excluded": [
+    "/root"
+  ],
+  "input_sha256": {
+    "docs/lean/statements/RA-19/NUMERICAL_TARGETS.md": "2576b6a692a79ee6ce96c11910363d9b1ec951f7363547f9af8d5d1108d95c6e",
+    "docs/lean/statements/RA-19/ORIGINAL.md": "e952b7183d746bae9c3750ac47e8e2a878808e5287a56bf3b106f44c975c8db3",
+    "lean-statements/NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+    "lean-statements/NLA/Statements/RA19.lean": "680a77490e093611c835ab6d074e67267274474d22c12158490da5aaade63845",
+    "lean-statements/Reviewed/RA19.lean": "1113d22daab22f1e4eeee3f4d7b9bd0b4dc8eadf4268abafdb83b1dd563e8384",
+    "lean-statements/lake-manifest.json": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+    "lean-statements/lakefile.toml": "1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40",
+    "lean-statements/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+    "randomized-and-low-rank-approximation/RA-19/README.md": "e952b7183d746bae9c3750ac47e8e2a878808e5287a56bf3b106f44c975c8db3",
+    "docs/lean/statements/RA-19/IMPLEMENTATION_NOTES.md": "971186a309c62ab5b835ca6c5a32e0122620f8a3d837b155412a04a26ef320d5",
+    "randomized-and-low-rank-approximation/RA-19/solution.md": "edbbf77a2227e6cf99a30cc2eea2ce170cd7d6346b2cc9e0b5c7ceb9fe06c94b",
+    "docs/lean/statements/RA-19/reviews/lean-boundary-infra-audit-evidence/NLA-Statements-RA19.log": "719442acf20199aca29ea9befaaab21fa5c165cfbf0a2fe2a1b4db33b14418cc",
+    "docs/lean/statements/RA-19/reviews/lean-boundary-infra-audit-evidence/Reviewed-RA19.log": "d9ecc5096342970032a32d646c1de2e8d9fd535bae799e5175ab1ab885029cf6",
+    "docs/lean/statements/RA-19/reviews/lean-boundary-infra-audit-evidence/identity.log": "2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30"
+  },
+  "dependency_sources": [
+    {
+      "package": "mathlib",
+      "revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "path": "Mathlib/LinearAlgebra/Matrix/Adjugate.lean",
+      "sha256": "7e28f11ff275a95412e8e8849715da0c763ff96709005d75843b8e0c40c5fef3"
+    },
+    {
+      "package": "mathlib",
+      "revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "path": "Mathlib/LinearAlgebra/Matrix/Trace.lean",
+      "sha256": "8053b04dc1c67b3a7d14262acc43b574e521940085e031726947f3c2241b7a73"
+    },
+    {
+      "package": "mathlib",
+      "revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "path": "Mathlib/Algebra/MvPolynomial/Eval.lean",
+      "sha256": "4df972e1914f2292171801920bbf014a3a2e56a679520edaf4403ef3638f3007"
+    }
+  ],
+  "rationale": [
+    "Actual Target quantifies every d : Nat with matrix order d+3. This is exactly all n>=3; 5*(d+3)-7 is positive and equals 5*d+8, so natural subtraction neither truncates the desired count nor reintroduces the excluded order-two case.",
+    "The inspected pinned adjugate is the transpose of the cofactor matrix, defined polynomially through determinants of row replacements. Trace is the sum of diagonal entries and ordinary matrix multiplication gives sum_ij adj(X)_ij*Z_ji. Thus DetDifferential is the full determinant directional derivative at singular as well as invertible X; there is no inverse or conjugation.",
+    "SmoothPoint includes X_00=0, det(X)=0 and a direction Z in the fixed-zero hyperplane with nonzero restricted determinant derivative. The nonzero restricted determinant is multiaffine and therefore squarefree; over Complex the reduced-hypersurface Jacobian criterion gives exactly this smooth locus. I checked the retained source Lemma2 and this reasoning independently. In particular, rank-n-1 gradient-degenerate points are excluded rather than all corank-one points being silently accepted.",
+    "Critical tests every tangent direction satisfying the two exact linear equations Z_00=0 and DetDifferential(X,Z)=0. Its distance derivative uses the full same-index sum (X_ij-U_ij)*Z_ij. Removing the nonzero factor2 preserves the complex bilinear criticality condition. No real, Hermitian, nonisotropic, multiplier-nonzero or normal-form restriction is imposed.",
+    "The data polynomial is an actual MvPolynomial in all n^2 complex coordinates, with an actual data witness where its evaluation is nonzero. Its nonvanishing locus is a nonempty principal Zariski open, chosen before the universally quantified data U; this matches genericity without an arbitrary predicate or a vacuous zero polynomial.",
+    "The full Critical subtype must be equivalent to Fin(5*n-7), wrapped in Nonempty. This certifies both finiteness and exact distinct-point cardinality. It does not count a selected list, real solutions, resultant roots with multiplicity or singular-locus points.",
+    "Both live and independently frozen definitions preserve the full approved proposition. I independently compiled both with pinned Lean4.33.1 and checked their equality by rfl into separate review output. All exited0; each Target printed only propext, Classical.choice and Quot.sound and passed #assert_statement/#assert_trust kernel. The canonical/full original snapshots and both preimplementation approval hashes remain intact."
+  ],
+  "verification_scope": "Independent source review and local kernel elaboration/frozen equality; no Target proof or Linux Comparator run.",
+  "report_path": "docs/lean/statements/RA-19/reviews/lean-boundary-infra_audit.md",
+  "report_sha256": "fe49fd4e5a4e5e7b85c2d95e309afde7bb33adb1985d260cc61e0275722cef3c"
+}

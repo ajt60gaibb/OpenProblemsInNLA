@@ -1,0 +1,50 @@
+# SP-12: independent Lean-boundary review
+
+Reviewer: /root/statement_design (OpenAI Codex AI agent), independent of author /root.
+Date: 2026-09-28. Verdict: **approve**. No mathematical correction requested.
+
+## Source and meaning checks
+
+1. HasPattern is real symmetry and exact off-diagonal graph pattern. NonnegativeQuadraticForm explicitly sums x_i A_ij x_j over every pair; together they are precisely real symmetric PSD.
+
+2. StrongArnold quantifies every real symmetric X. Its A*X=0 is ordinary matrix multiplication; separate scalar products enforce the Hadamard zero condition; the final diagonal constraint is exactly I Hadamard X=0. No constraint has been conflated with another.
+
+3. ChromaticNumber is sInf of a concrete natural coloring set. Identity Fin n to Fin n is proper since a simple graph has no loops, so the set is nonempty. At n>0 no map into Fin 0 exists, yielding chromatic number >=1. The pinned Nat.sInf uses Nat.find on this nonempty set, so no empty-default branch changes the target.
+
+4. The real matrix rank is finrank of its linear-map range and <=n. Thus natural n-A.rank is exactly nullity; natural chi-1 is the ordinary nonnegative difference. The combined conjunction supplies one matrix satisfying every property simultaneously.
+
+5. The witness formulation is equivalent to the original maximum-nu bound: feasible nullities lie in the finite interval 0..n and the class is nonempty, since an SPD matrix with the graph off-diagonal pattern is invertible and hence SAP. No arbitrary chromatic/nullity oracle or vertex-critical restriction is present.
+
+6. Live and frozen mathematical bodies agree exactly after the documented namespace substitution and leading comment. Canonical source and ORIGINAL snapshot are byte-identical. All local review_inputs and immutable pins are hash-bound below.
+
+7. Infrastructure.lean was read in full. It checks safe definition, closed type Prop and permitted axiom closure. It supplies no mathematical hypothesis; kernel trust assertions do not assert target truth.
+
+## Bound review inputs
+
+- docs/lean/statements/SP-12/NUMERICAL_TARGETS.md: 6dae7d486ecaeab1903b31e816e34f57fef417ef15627574f4c4a307b902cae7
+- docs/lean/statements/SP-12/ORIGINAL.md: cdc8003bc5160604408ce6b95c344a4ea1b9bfbf8af0f99ae1e8e016648d53e1
+- eigenvalues-and-inverse-problems/SP-12/README.md: cdc8003bc5160604408ce6b95c344a4ea1b9bfbf8af0f99ae1e8e016648d53e1
+- lean-statements/NLA/Statements/Infrastructure.lean: 8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37
+- lean-statements/NLA/Statements/SP12.lean: c41acae980a06e3f1e8d59e2c552f85812c521ed5e66473b74e01542bfd80f2b
+- lean-statements/Reviewed/SP12.lean: adfb89f439ce5e2959aaeeb4b3ef6c432bf38f364567765715fdd8f9a1510d86
+- lean-statements/lake-manifest.json: a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8
+- lean-statements/lakefile.toml: 1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40
+- lean-statements/lean-toolchain: 3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71
+
+## Imported source inspected
+
+- /Users/ajt253/Documents/ConvergenceOfAAA_chatgpt6/lean/.lake/packages/mathlib/Mathlib/Combinatorics/SimpleGraph/Basic.lean: e45d2248020078b2b2f853e6c6000af23cc0808e28ef54fda0471924bc4c9f8a, dependency revision 0df444a360eaa60ab8c11dca51a86af692955474
+- /Users/ajt253/Documents/ConvergenceOfAAA_chatgpt6/lean/.lake/packages/mathlib/Mathlib/LinearAlgebra/Matrix/Rank.lean: 67b4fa7bee02c1806f29562718bfb34c0e1f40af5ec6a91ef91cc33610657491, dependency revision 0df444a360eaa60ab8c11dca51a86af692955474
+- /Users/ajt253/Documents/ConvergenceOfAAA_chatgpt6/lean/.lake/packages/mathlib/Mathlib/Order/Lattice/Nat.lean: f231ec6e610f9b0f38eaea3fd48730f3d8068eeeadd03668564846bf4dd072c3, dependency revision 0df444a360eaa60ab8c11dca51a86af692955474
+
+## Development evidence inspected
+
+{
+  "path": "/private/tmp/nla-statements-development/SP12.log",
+  "sha256": "f284cdd8d953c64738bddbc8dca1f7b4cf5b84ef4364685a75335e1165db922d",
+  "observed": "Author-generated development log reports only propext, Classical.choice and Quot.sound for Target. Reviewer read the log but did not execute the compilation."
+}
+
+## Limits
+
+Independent Lean-boundary source/fidelity review. Pinned imported meanings and author-generated axiom logs were inspected; this reviewer did not run Lean or Comparator. This certifies neither the truth of the catalog proposition nor a new audit of its cited informal proof. Authoritative build and Linux Comparator gates remain separate.

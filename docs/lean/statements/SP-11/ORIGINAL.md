@@ -1,0 +1,57 @@
+# SP-11 — The delta conjecture for minimum symmetric rank
+
+<!-- navigation -->
+[All categories](../../README.md) · [Category index](../README.md) · [Read PDF](problem.pdf) · [LaTeX source](problem.tex)
+<!-- /navigation -->
+
+**Difficulty:** extreme  
+**Importance:** interesting to the community  
+**Status:** Solved
+**Last checked:** 2026-09-11
+
+**Rating rationale (historical):** Extreme reflects the longstanding all-graph gap between a local degree constraint and an exact matrix-realization guarantee. Community impact comes from controlling achievable eigenvalue multiplicity across symmetric sparsity patterns.
+
+## Literature-dependent resolution - 2026-09-11
+
+**Solved.** Hall's **Corollaries 3.22 and 3.24**, based on **Theorem 3.20**, give a PSD SAP matrix with nullity at least $`\delta(G)`$. Forgetting PSD and SAP proves the exact unrestricted symmetric target $`\mathop{\mathrm{mr}}\nolimits(G)\le n-\delta(G)`$ for every finite simple graph.
+
+The all-graph theorem is due to **H. Tracy Hall**, [*The Delta Theorem*, arXiv:2601.01211v1](https://arxiv.org/html/2601.01211v1), submitted 3 January 2026. **George Stepaniants**, Department of Computing and Mathematical Sciences, California Institute of Technology, is the author of the [explanatory application note](solution.md); no new theorem discovery or priority is claimed. [Application PDF](solution.pdf) · [Standalone TeX](solution.tex).
+
+A separate [Codex-agent review](../../references/stepaniants-sp11-sp12-2026-09-11/verification/SP-11-SP-12-independent-review.md) checked the full essential proof in Hall's preprint and the exact deduction and returned **PASS**. The source remains a preprint; this is independent automated-agent review, not external human peer review or formal verification. Substantial ChatGPT/Codex assistance and the review's precise limits are disclosed in the [submission record](../../references/stepaniants-sp11-sp12-2026-09-11/README.md).
+
+The earlier status checks below are retained as historical records. The original ID, target, path, historical ratings and attributed partial results remain unchanged. Unsupported prior artifact and graph-atlas claims remain withdrawn.
+
+## Problem statement
+
+Let $`G`$ be any finite simple undirected graph on $`n\ge1`$ vertices, and let $`\delta(G)`$ be its minimum vertex degree. Let $`\mathcal S(G)`$ consist of the real symmetric $`n\times n`$ matrices whose off-diagonal nonzero entries occur exactly at edges of $`G`$, with unrestricted diagonal entries.
+
+Must there exist $`A\in\mathcal S(G)`$ such that
+
+```math
+\dim\ker A\ge\delta(G)?
+```
+
+Equivalently, with $`\mathop{\mathrm{mr}}\nolimits(G)=\min_{A\in\mathcal S(G)}\mathop{\mathrm{rank}}\nolimits A`$, is
+
+```math
+\mathop{\mathrm{mr}}\nolimits(G)\le n-\delta(G)
+```
+
+valid for every $`G`$?
+
+## Relevance and ratings
+
+ This asks whether local sparsity information guarantees feasibility of a symmetric matrix with a specified large nullspace. It belongs to structured inverse eigenvalue and low-rank matrix construction. It does not prescribe the numerical edge weights, and does not require positive semidefiniteness.
+
+## References
+
+- F. Barioli, S. M. Fallat, H. Gupta, and Z. Li, *The weak version of the graph complement conjecture and partial results for the delta conjecture*, Discrete Mathematics 349 (2026), 114861, §1, paragraph immediately before Conjecture 1.5 ([primary manuscript](https://arxiv.org/html/2505.24577v1); [journal](https://doi.org/10.1016/j.disc.2025.114861)).
+- S. M. Fallat and L. Hogben, *The minimum rank of symmetric matrices described by a graph: A survey*, Linear Algebra and its Applications 426 (2007), 558–582, minimum-rank definitions and inverse eigenvalue interpretation ([primary manuscript](https://aimath.org/WWN/matrixspectrum/FallatHogbenMinRank07.pdf); [journal](https://doi.org/10.1016/j.laa.2007.05.036)).
+
+## Status check
+
+ The 2026 article treats the original conjecture as open and establishes results under additional graph restrictions. Its numbered Conjecture 1.5 is a stronger positive-semidefinite/SAP statement; the present entry retains the original real symmetric formulation stated directly before it. Searches for “minimum rank”, “delta conjecture”, “proof”, and 2025–2026 found no general resolution. The stronger variants are not counted as additional problems.
+
+## Audit update — 2026-09-10
+
+**Partially resolved:** Barioli–Fallat–Gupta–Li, Theorem 2.11(a), proves the stronger bound $`\nu(G)\ge\delta(G)`$ for graphs of girth at least $`11`$ and minimum degree at least $`4`$. Parts (b)–(e) give further explicit girth and forbidden-subgraph regimes. These PSD/SAP witnesses also belong to the unrestricted symmetric class displayed here. The full primary manuscript, 2026 publication record and later-resolution searches were checked; no proof for all graphs was located.

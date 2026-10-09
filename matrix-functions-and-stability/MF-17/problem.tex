@@ -34,7 +34,7 @@ generator},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MF-17}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-10}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-30}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ uniform growth after inversion of an exponentially stable generator\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Open\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -62,25 +62,149 @@ discretization.\\
 \textbf{Provenance:} explicit fixed-bound formalization of the source's
 growth question.
 
+\subsection{Resolution --- 30 September
+2026}\label{resolution-30-september-2026}
+
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-17/MF-17-research-handoff.pdf\#page=43}{Part
+VI of the submitted manuscript}, Theorem S.1.1 (printed p.~42; PDF page
+43), states the matching fixed-bound asymptotic
+
+\[c_M L(t)^{\alpha(M)}\leq G_M(t)\leq C_M L(t)^{\alpha(M)}
+\qquad(t\geq t_M),\]
+
+where
+
+\[L(t)=\log\log(t+e^e),\qquad
+\alpha(M)=\frac{2}{\pi}\arccos(M^{-1}).\]
+
+For every fixed \(M>1\), the constants \(c_M,C_M,t_M>0\) depend only on
+\(M\). The upper bound covers all strongly continuous semigroups in the
+original class, including unbounded generators. The lower bound has
+finite-dimensional witnesses with the same prescribed bound \(M\); the
+witnesses may depend on \(t\). The formalization also proves
+\(G_1(t)=1\) for all \(t\geq0\).
+
+This determines the asymptotic order requested below, with the exact
+fixed-\(M\) exponent. It does not assert a limiting leading coefficient
+or uniform constants as \(M\downarrow1\). Part VI, Sections S.2--S.8,
+supplies the proposed upper and lower arguments; Section S.9 treats the
+endpoint. The manuscript is retained unchanged, including material
+outside this submission's sharp-rate claim.
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-17/lean/Solution.lean}{accompanying
+Lean source} contains the declarations
+\textit{ProofProject.sharp\_growth},
+\textit{ProofProject.finite\_dimensional\_lower},
+\textit{ProofProject.contractive\_envelope},
+\textit{ProofProject.attainableNorms\_bddAbove}, and
+\textit{ProofProject.stableSemigroup\_hasGeneratorInverse}. Its
+definitions represent the full strong generator graph and quantify over
+arbitrary complete complex Hilbert spaces in a fixed universe. The
+supplied project specifies Lean 4.33.1 and Mathlib v4.33.1. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-17/lean/NUMERICAL_TARGETS.md}{statement
+correspondence} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-17/lean/README.md}{reproduction
+instructions} describe the five contracts.
+
+\subsection{Lean proof and verification
+evidence}\label{lean-proof-and-verification-evidence}
+
+\textbf{Lean verified, 30 September 2026.} All five declarations above
+passed a fresh non-root Linux Comparator run, including statement
+identity, transitive permitted-axiom checks and Lean's default-kernel
+replay. The complete harness exited successfully after all sandbox and
+rejection controls and cleanup. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-17/lean/verification/README.md}{verification
+report},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-17/lean/verification/linux-verification/result.json}{successful
+run receipt},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-17/lean/verification/linux-verification/comparator.log}{Comparator
+log}, and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-17/lean/verification/linux-verification/driver.log}{driver
+log} retain the actual local execution evidence.
+
+The published immutable
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/cad3785440a2678b5b30aa8133d425e709b6811d/matrix-functions-and-stability/MF-17/lean}{proof-source
+snapshot} is commit \textit{cad37854}. It uses Lean 4.33.1 and Mathlib
+\textit{0df444a360eaa60ab8c11dca51a86af692955474}, with all other
+dependencies fixed in \textit{lean/lake-manifest.json}.
+
+The retained run receipt names the submitter's unpublished local commit
+\textit{ac582d01}. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-17/lean/reviews/maintainer-integration-2026-09-30.md}{maintainer
+integration review} matched every Lean file, dependency pin and
+Comparator configuration in the published snapshot to that receipt's
+SHA-256 hashes. The catalog reviewed the retained Linux execution
+evidence; this integration review did not rerun Lean or the Linux
+verifier.
+
+The inverse and envelope-finiteness contracts cover every semigroup in
+the original class for \(M\geq1\) (and nonnegative time for the
+envelope). The sharp-growth and finite-witness contracts cover every
+fixed \(M>1\); the endpoint contract covers \(M=1\) and every
+\(t\geq0\). The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-17/lean/NUMERICAL_TARGETS.md}{statement
+correspondence} expands the definitions, quantifiers and conclusions,
+and identifies the adapted scalar lower proof and refined constants.
+There are no unproved extra premises or replaceable definition holes.
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-17/lean/verification/axioms.log}{five
+transitive axiom reports} contain exactly \textit{propext},
+\textit{Classical.choice} and \textit{Quot.sound}.
+
+Two independent retrospective AI statement reviews approve all five
+contracts; separate upper and lower source reviews approve their
+inspected proof paths. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-17/lean/reviews}{reports}
+record their coverage and accepted corrections. These are AI source
+reviews, not external human peer review.
+
+On Linux with the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tools/lean/HARNESS.md}{checker
+prerequisites}, run from the repository root at the published
+proof-source snapshot:
+
+\begin{verbatim}
+python3 tools/lean/harness.py bootstrap /tmp/mf17-tools
+python3 tools/lean/harness.py verify \
+  matrix-functions-and-stability/MF-17/lean /tmp/mf17-tools
+\end{verbatim}
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-17/lean/README.md\#verification}{project
+instructions} also reproduce the ordinary build, independent target-type
+check and axiom report. The original statement and historical checks
+remain below; the ratings describe the original question. This date
+records review and verification of the submitted solution, not a new
+comprehensive literature search.
+
+\subsection{Original problem
+statement}\label{original-problem-statement}
+
 For each fixed real number \(M>1\), let \(\mathcal A_M\) consist of all
 pairs \((H,A)\) such that \(H\) is a complex Hilbert space and \(A\) is
 the generator of a strongly continuous semigroup \(T(s)\) on \(H\)
-satisfying \[
-\|T(s)\|_{\mathcal L(H)}\leq M e^{-s}
-\qquad(s\geq0).
-\] Here \(A\) may be unbounded and is understood on its dense domain.
+satisfying
+
+\[\|T(s)\|_{\mathcal L(H)}\leq M e^{-s}
+\qquad(s\geq0).\]
+
+Here \(A\) may be unbounded and is understood on its dense domain.
 Exponential stability implies that \(0\) belongs to the resolvent set of
 \(A\), so \(A^{-1}\) is bounded on \(H\) and its exponential is defined
 by the operator-norm convergent power series.
 
 Determine, for each fixed \(M>1\), the asymptotic order as
-\(t\to\infty\) of \[
-G_M(t)=
+\(t\to\infty\) of
+
+\[G_M(t)=
 \sup_{(H,A)\in\mathcal A_M}
-\|\exp(tA^{-1})\|_{\mathcal L(H)}.
-\] An asymptotic order means a rate \(g_M(t)\) with matching positive
-upper and lower multiplicative bounds for all sufficiently large \(t\);
-their constants may depend on \(M\), but must be uniform over
+\|\exp(tA^{-1})\|_{\mathcal L(H)}.\]
+
+An asymptotic order means a rate \(g_M(t)\) with matching positive upper
+and lower multiplicative bounds for all sufficiently large \(t\); their
+constants may depend on \(M\), but must be uniform over
 \((H,A)\in\mathcal A_M\).
 
 The source's Problem 1.3 asks for the optimal inverse-semigroup growth
@@ -125,16 +249,18 @@ checked the current arXiv history, with latest version v3 dated
 2026-08-26 and no withdrawal, and searched ``inverse generator Problem
 1.3'' and ``inverse generator growth 2026 logarithmic''. Corollary 5.7
 of reference 2 gives, in the present sign convention and at decay rate
-one, \[
-G_M(t)\leq2M^2\bigl(2-e^{-1}+e^{-1}\log t\bigr),
-\qquad t>1.
-\] Theorem 1.2(2) of reference 1 gives examples with a doubly
-logarithmic lower bound raised to a positive exponent, while the
-original semigroup bound is \(1+C\alpha/(1-\alpha)\) for an absolute
-\(C\) and \(0<\alpha<1\). Thus its parameters allow examples within each
-fixed \(M>1\) class. These estimates do not determine the matching
-asymptotic order. The older yes/no inverse-generator problem was
-resolved negatively in the 2026 paper and is not listed as open here.
+one,
+
+\[G_M(t)\leq2M^2\bigl(2-e^{-1}+e^{-1}\log t\bigr),
+\qquad t>1.\]
+
+Theorem 1.2(2) of reference 1 gives examples with a doubly logarithmic
+lower bound raised to a positive exponent, while the original semigroup
+bound is \(1+C\alpha/(1-\alpha)\) for an absolute \(C\) and
+\(0<\alpha<1\). Thus its parameters allow examples within each fixed
+\(M>1\) class. These estimates do not determine the matching asymptotic
+order. The older yes/no inverse-generator problem was resolved
+negatively in the 2026 paper and is not listed as open here.
 
 \subsection{Audit --- 2026-09-10}\label{audit-2026-09-10}
 

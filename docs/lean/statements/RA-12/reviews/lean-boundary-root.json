@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "id": "RA-12",
+  "reviewer": "/root",
+  "is_ai": true,
+  "phase": "lean-boundary",
+  "verdict": "approve",
+  "input_sha256": {
+    "docs/lean/statements/RA-12/NUMERICAL_TARGETS.md": "9bd0297d87682e08bd785045651b31fcd9f7f0f73ba29c1a0c2c0dc7018667a6",
+    "docs/lean/statements/RA-12/ORIGINAL.md": "4771d76230e0a37ccf706b9d7fc0824d257856835d099465963cd200c0adb573",
+    "lean-statements/NLA/Statements/GaussianTrace.lean": "fb2abf78f23834a862954d872a87e05390d11ac472bdd264757f0358d196f4c0",
+    "lean-statements/NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+    "lean-statements/NLA/Statements/RA12.lean": "e27319f57c2f997197684ce0d4f6576b748a97cd4fb13c4fcc73c7b6a9657b8c",
+    "lean-statements/Reviewed/RA12.lean": "7f8a43a7585c9254e1c2524e0214f784112793bec967f268a58b31cdcaf17cd6",
+    "lean-statements/lake-manifest.json": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+    "lean-statements/lakefile.toml": "1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40",
+    "lean-statements/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+    "randomized-and-low-rank-approximation/RA-12/README.md": "4771d76230e0a37ccf706b9d7fc0824d257856835d099465963cd200c0adb573",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/CheckRA.lean": "0fe4cfe9f89fa222b4ba9a80c4fc3b3e941a45822b545089284c1db7aabe2767",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/CheckRA.log": "715989bec91e8827919b9d49b93fb3b6a6b7731bcfd4ac6c4914bb7f8f611b42",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/NLA-Statements-GaussianTrace.lean.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/NLA-Statements-RA10.lean.log": "e1941c2250488df1c9e91505374bf72d3a26cdfc96379d489bcb74b192c61b2a",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/NLA-Statements-RA12.lean.log": "cfd0aec4adc79b7885c92053e4a76c490d0bb5c26850460341ae7d4863f14fd8",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/NLA-Statements-RA13.lean.log": "6c18da698f418ffa5ce4b30788179d62e59b90d4c6fa815c9fe9159289426175",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/Reviewed-RA10.lean.log": "6ba6a94077665c16d4446e2166a619fa423acb2dc71983319d189747fa0c1a39",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/Reviewed-RA12.lean.log": "c094e837e83c3959f9bb274183b1a8e29c47de2a9dddae71ef9fd32f9dce362b",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/Reviewed-RA13.lean.log": "df1f6a00935530adde62fd3d146418ee1c20af7c7ec36b774f4a02b371260f02",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/receipt.json": "23e0a93f36cc34ba2467e1bba335b8c4abd04adfa280214817bc92988f738145"
+  },
+  "rationale": [
+    "GaussianTrace uses the actual finite joint product of independent gaussianReal 0 1 laws, with all sample and coordinate pairs. Estimator is the exact full quadratic sum divided by m in its own matrix dimension. Pinned gaussianReal mean/variance and gammaMeasure shape/rate definitions were directly inspected.",
+    "SpectralNorm is the supremum of the Euclidean image norm on the Euclidean unit sphere; positive finite n ensures a nonempty compact sphere and finite supremum. On nonzero PSD input the norm and trace are positive and effective rank >=1, so no totalized-division or natural-floor edge changes the proposition.",
+    "The extremizer has floor(mu)+1 diagonal entries, the first floor(mu) equal 1/mu and last (mu-floor(mu))/mu, retaining the zero padding at integer effective rank. The exact joint-law middle event is present in both comparisons.",
+    "Target includes all nonzero symmetric PSD matrices and positive n,m; threshold epsilon>=2/(m*mu), both absolute events and both weak comparisons are exact. Gamma shape and rate are both m*mu/2. Gamma density convention at zero differs only on a Lebesgue-null singleton.",
+    "Independently compiled the exact live/frozen sources and equality checks with pinned Lean 4.33.1 and exact dependency revisions. Kernel trust assertions succeeded; all target and equality axiom closures contain only propext, Classical.choice and Quot.sound. These checks do not prove Target or replace Linux Comparator."
+  ],
+  "report_path": "docs/lean/statements/RA-12/reviews/lean-boundary-root.md",
+  "report_sha256": "97a8d790f8c1229bafc37f9b8dc2019675276c5cbfa34c90b2b1cf49a0c0d899",
+  "verification_scope": "Independent macOS Lean source elaboration, kernel axiom assertions and frozen equality; not Target truth or Linux Comparator."
+}

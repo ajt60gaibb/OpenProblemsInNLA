@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "author": "/root/inventory",
+  "is_ai": true,
+  "scope": "read-only API research; no Lean implementation or model-equivalence proof",
+  "mathlib_commit": "0df444a360eaa60ab8c11dca51a86af692955474",
+  "batteries_commit": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+  "mathlib_source_sha256": {
+    "Mathlib/Computability/TuringMachine/Computable.lean": "acb5fa046c00afd1f85570d4439653b009b7353d7ed93aa7a6fc52dae346a59b",
+    "Mathlib/Computability/TuringMachine/PostTuringMachine.lean": "2380a758451146b8575fe10d84b8c5c71c0a190e572d84674d4782ce59a79854",
+    "Mathlib/Computability/TuringMachine/StackTuringMachine.lean": "7d71a8e1090b5fc5de0a68701fe80d4e67541f9ac0ca8f78a5146d7165f02334",
+    "Mathlib/Computability/TuringMachine/Tape.lean": "76144efd656fa16485735ce381a2b1c98feb95893a8bc60addf6ad009a043f13",
+    "Mathlib/Computability/TuringMachine/Config.lean": "9fdacc9bb460fa9c8f5aaaa0022dd92721eb4311479a72a17bdf6ac8d5110e0a",
+    "Mathlib/Computability/TuringMachine/ToPartrec.lean": "75d87f3ff31ff05b61562e27c950f699f3dd8161dcfde70898b34c92887e20f1",
+    "Mathlib/Computability/Encoding.lean": "9c0c23bb942f2af3d003705adaa519d0af14fda21a92fcfbc71af028bcf7ebb9",
+    "Mathlib/Computability/StateTransition.lean": "eceb96a26dccbd8f8abcd83874539b49b8b7e797f195a864cff85c1bbe8476b2"
+  },
+  "batteries_source_sha256": {
+    "Batteries/Util/ProofWanted.lean": "cfd89307234c074205ee323ee1e77cd9aab0c5c895e16eac032d478d93feec1b"
+  },
+  "input_sha256": {
+    "docs/lean/statements/AV-01/NUMERICAL_TARGETS.md": "d524be200a4238cc2b23c86eb08523bb76fe4c6accc5dac204451f2cc335b3cf",
+    "docs/lean/statements/AV-02/NUMERICAL_TARGETS.md": "26dba9081ffffa9d4b46d2feee2749992fb659bc2e9d12afdaeabb0a672da7da",
+    "docs/lean/statements/IV-05/NUMERICAL_TARGETS.md": "a70e3008bfa3cfae8b068fc3af690a761ee44f75bb46a2fb2a8d101ede2ff931"
+  },
+  "model_specification": "docs/lean/statements/computational-model/MODEL_SPECIFICATION.md",
+  "model_specification_sha256": "2190ec99aceb23943c6ece7f270ad31c535c8cab594f3e755e2ed11110d0311c",
+  "search_scope": "Mathlib/Computability plus repository-wide searches for names NP, NPHard, NPComplete, PolyTime, PolynomialTime, TuringReduction, many-one and oracle",
+  "observations": [
+    "TM0 has actual one-move/write step semantics; instantiate a fixed finite tape alphabet and finite state table.",
+    "FinTM2 requires Fintype for only the input stack alphabet, so an all-finite wrapper is necessary for this campaign.",
+    "TM2ComputableInPolyTime.comp is proof_wanted at Computable.lean:284; Batteries ProofWanted records an unmet proposition rather than supplying an axiom or theorem.",
+    "EvalsToInTime is a witness structure, and reaching some configuration does not assert its terminality.",
+    "encodeNat uses an LSB-first numeral and empty zero; the proposed prefix-framed MSB convention is intentionally explicit.",
+    "No NP/coNP, NP-hardness, polynomial many-one reduction or promised-oracle reduction definitions were found within the bounded searches. This is an API-discovery result, not a theorem that no differently named equivalent definition exists.",
+    "StackTuringMachine contains reachability/evaluation simulations; no quantitative polynomial runtime theorem was identified in the inspected source."
+  ],
+  "implementation_status": "proposed specification awaiting two independent reviews"
+}

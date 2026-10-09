@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "id": "RA-13",
+  "reviewer": "/root",
+  "is_ai": true,
+  "phase": "lean-boundary",
+  "verdict": "approve",
+  "input_sha256": {
+    "docs/lean/statements/RA-13/NUMERICAL_TARGETS.md": "9cb1d0597b603f7db4576a65120df68e4eafa2e07491905804764094dd01861d",
+    "docs/lean/statements/RA-13/ORIGINAL.md": "16a973ffc9040332e2a521a6a2d2938dcb95df736304185f88ea195a8c78a377",
+    "lean-statements/NLA/Statements/GaussianTrace.lean": "fb2abf78f23834a862954d872a87e05390d11ac472bdd264757f0358d196f4c0",
+    "lean-statements/NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+    "lean-statements/NLA/Statements/RA13.lean": "97df340b6fb8111fa70f1a210634b84f56abec5b82ff625b064a46f7b14d7372",
+    "lean-statements/Reviewed/RA13.lean": "81ba49c5c9b5f2a56103e4d2550136ad2b102f1287a7cf7fde665e5aace21fec",
+    "lean-statements/lake-manifest.json": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+    "lean-statements/lakefile.toml": "1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40",
+    "lean-statements/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+    "randomized-and-low-rank-approximation/RA-13/README.md": "16a973ffc9040332e2a521a6a2d2938dcb95df736304185f88ea195a8c78a377",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/CheckRA.lean": "0fe4cfe9f89fa222b4ba9a80c4fc3b3e941a45822b545089284c1db7aabe2767",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/CheckRA.log": "715989bec91e8827919b9d49b93fb3b6a6b7731bcfd4ac6c4914bb7f8f611b42",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/NLA-Statements-GaussianTrace.lean.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/NLA-Statements-RA10.lean.log": "e1941c2250488df1c9e91505374bf72d3a26cdfc96379d489bcb74b192c61b2a",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/NLA-Statements-RA12.lean.log": "cfd0aec4adc79b7885c92053e4a76c490d0bb5c26850460341ae7d4863f14fd8",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/NLA-Statements-RA13.lean.log": "6c18da698f418ffa5ce4b30788179d62e59b90d4c6fa815c9fe9159289426175",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/Reviewed-RA10.lean.log": "6ba6a94077665c16d4446e2166a619fa423acb2dc71983319d189747fa0c1a39",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/Reviewed-RA12.lean.log": "c094e837e83c3959f9bb274183b1a8e29c47de2a9dddae71ef9fd32f9dce362b",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/Reviewed-RA13.lean.log": "df1f6a00935530adde62fd3d146418ee1c20af7c7ec36b774f4a02b371260f02",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/receipt.json": "23e0a93f36cc34ba2467e1bba335b8c4abd04adfa280214817bc92988f738145"
+  },
+  "rationale": [
+    "Inspected the same exact shared GaussianTrace import closure, full iid product law, quadratic estimator, Euclidean induced norm and Frobenius sum-of-squares norm. Probabilities are actual ENNReal event measures, so the two uncapped factors 2 preserve the original inequalities.",
+    "The domain is every nonzero real symmetric matrix, including indefinite and zero-trace inputs; no PSD or trace-positivity condition appears. Nonzero input gives positive norm, stable rank>=1 and positive Gamma parameters without new premises.",
+    "The floor(stableRank)+1 extremizer has all full lambda entries then lambda*sqrt(rho-floor(rho)), retaining padded zeros. Threshold is exactly 2*lambda/m+sqrt(2*phi^2/m+(2*lambda/m)^2), with equality included.",
+    "Both comparison links are retained. The initial event is two-sided about trace(A); the middle and last are upper tails multiplied by exactly 2. Gamma shape m*rho/2 and rate m/(2*lambda) and center phi^2/lambda match the original, including signed input spectra.",
+    "Independently compiled the exact live/frozen sources and equality checks with pinned Lean 4.33.1 and exact dependency revisions. Kernel trust assertions succeeded; all target and equality axiom closures contain only propext, Classical.choice and Quot.sound. These checks do not prove Target or replace Linux Comparator."
+  ],
+  "report_path": "docs/lean/statements/RA-13/reviews/lean-boundary-root.md",
+  "report_sha256": "e1fcf2343d77a26860ce0b6a9876db20da6f61b9747c1e6713bae83a885c31c0",
+  "verification_scope": "Independent macOS Lean source elaboration, kernel axiom assertions and frozen equality; not Target truth or Linux Comparator."
+}

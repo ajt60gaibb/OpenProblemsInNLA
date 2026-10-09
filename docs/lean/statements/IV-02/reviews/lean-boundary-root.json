@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "id": "IV-02",
+  "reviewer": "/root",
+  "is_ai": true,
+  "phase": "lean-boundary",
+  "verdict": "approve",
+  "input_sha256": {
+    "docs/lean/statements/IV-02/IMPLEMENTATION_NOTES.md": "1431b57f067920e2322851ddefb9e462b1e38aae55ae1050c4aa516c7bb1bcd7",
+    "docs/lean/statements/IV-02/NUMERICAL_TARGETS.md": "19234a7806b52868f56723f6e6bad413d174d6ad1ac56f88b3b4bcb2ea36c922",
+    "docs/lean/statements/IV-02/ORIGINAL.md": "8b1ffc82e9760aaffee717005e4547dc9cace7f97bc77d0f0f82a25b62b303d7",
+    "docs/lean/statements/verification/2026-09-28-band-interval/CheckBandInterval.lean": "0fbd02b8d702bc6a2e8f76a24d5ae7405fc41a3bc208a9ee8959b40eeb0c3ce3",
+    "docs/lean/statements/verification/2026-09-28-band-interval/CheckBandInterval.log": "9a16903bf455cb0fbb11af2f9d1bc0dd9db95c2e16b777424560af9edca7121d",
+    "docs/lean/statements/verification/2026-09-28-band-interval/NLA-Computation-BandIntervalControls.lean.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/lean/statements/verification/2026-09-28-band-interval/NLA-Computation-BandIntervals.lean.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/lean/statements/verification/2026-09-28-band-interval/NLA-Statements-IV02.lean.log": "0d41a1c81e4edcc43e7bd7ef74f6a73b0bec59f12ec8ecbd82c1736112c634dd",
+    "docs/lean/statements/verification/2026-09-28-band-interval/NLA-Statements-IV04.lean.log": "441c524a15d1e5fa4bbb77c88eddd1f2236be926676eaaf8440351929f0fb055",
+    "docs/lean/statements/verification/2026-09-28-band-interval/Reviewed-IV02.lean.log": "a763c70c3b33a5040028fbb6494a733ce03e7947d48b311bd14927915ddd7055",
+    "docs/lean/statements/verification/2026-09-28-band-interval/Reviewed-IV04.lean.log": "b24c025a68049db166dd76c0acca7d4a89377b5b6f1e9d16278c1bb746bfd2ea",
+    "docs/lean/statements/verification/2026-09-28-band-interval/receipt.json": "eddc79a0c4a891a52ba37499d03981cb8747dd313c5bee036aac6cc63b71e482",
+    "intervals-and-absolute-value-equations/IV-02/README.md": "8b1ffc82e9760aaffee717005e4547dc9cace7f97bc77d0f0f82a25b62b303d7",
+    "lean-statements/NLA/Computation/BandIntervalControls.lean": "4a020c63f8236fe5e72cd738447d471f9c5abf70050b4b818d52e8f5d948c0f1",
+    "lean-statements/NLA/Computation/BandIntervals.lean": "01c35fb784321faf870022eb803ad94abf3ea0961b574fe83b18ba724fac8a89",
+    "lean-statements/NLA/Computation/BinaryEncoding.lean": "d494ffb15274500ea5c06c480c2b2032a48390533f7171b4ed993d947c44ee6a",
+    "lean-statements/NLA/Computation/FiniteMachine.lean": "7c8b2a8e88220b3a1a66bf9c9748ee2213b155dd239809654240095180918d9d",
+    "lean-statements/NLA/Statements/IV02.lean": "a1afac2450f4a6a165d56106fa548f7c9623b889b15867b2c14391c4e4aaea68",
+    "lean-statements/NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+    "lean-statements/Reviewed/IV02.lean": "d4cd44091d99b9979aef04a941d47d5756843349c1ef0f29af349ba9005bdf90",
+    "lean-statements/lake-manifest.json": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+    "lean-statements/lakefile.toml": "1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40",
+    "lean-statements/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71"
+  },
+  "rationale": [
+    "CorrectRange covers every admitted real matrix, bounds its determinant above/below and requires separate attaining matrices for the two rational endpoints. Both endpoints are actually encoded lower then upper. The target includes n>=2, singular families, zero widths and intervals crossing zero with no regularity premise.",
+    "The shared BandIntervals definitions were read in full. They store only n diagonal and n-1 upper/lower interval pairs, encode them in the approved order, and use proof-checked successive Fin indices. Every independent real entry is retained, with precisely all off-band entries zero. RHS encoding uses the same dimension and appends every independent interval. The previous concrete finite machine and rational grammar are unchanged.",
+    "One actual finite binary transducer and fixed polynomial precede all dimensions and input data; RunsWithin requires the complete exact output in the same bounded terminal run. There is no oracle, arbitrary evaluator, per-input machine or unit-cost rational model. The original algorithm-existence question remains Target without assuming either P=NP or its negation.",
+    "Fresh root compilation of the helper, both live/frozen targets and semantic controls passed, followed by actual rfl equalities for both targets with only the three permitted axioms. Controls check distinct stamped endpoint ordering, infinity/finite tags, global emptiness and actual singular consistent/inconsistent cases. The disconnected-set test checks endpoint semantics without claiming a proof of an interval-system representation. No algorithm or classification theorem is proved by these checks."
+  ],
+  "report_path": "docs/lean/statements/IV-02/reviews/lean-boundary-root.md",
+  "report_sha256": "4261ba833b93e8fb7a130d14028ca5c2b1ab9e381535f0ec1232c96200c9a681"
+}

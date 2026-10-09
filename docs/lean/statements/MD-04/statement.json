@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "id": "MD-04",
+  "scope": "statement-only",
+  "canonical_readme": "matrix-discrepancy-and-optimization/MD-04/README.md",
+  "source_sha256": "a8be36a5217cb0b3031c8f87cfc25e5421ca78dd8c42ecc151219fa62eb8156e",
+  "specification": "docs/lean/statements/MD-04/NUMERICAL_TARGETS.md",
+  "specification_sha256": "b1713525efa62b36a87fcad78a1718a0b8d5d3a30015b7bfa303d9bedc8d79d8",
+  "module": "NLA.Statements.MD04",
+  "declaration": "NLA.Statements.MD04.Target",
+  "lean_sha256": "c3536d295078f8223c82046f80f2d4a02eee5310cd07125013d303991ae41894",
+  "frozen_sha256": "e7893db1c2656e6834009267738b6244c1b0e60dde582a525b0009ae079c7257",
+  "authors": [
+    "/root"
+  ],
+  "reviews": [
+    {
+      "schema_version": 1,
+      "id": "MD-04",
+      "reviewer": "/root/inventory",
+      "phase": "specification",
+      "verdict": "approve",
+      "canonical_readme": "matrix-discrepancy-and-optimization/MD-04/README.md",
+      "source_sha256": "a8be36a5217cb0b3031c8f87cfc25e5421ca78dd8c42ecc151219fa62eb8156e",
+      "snapshot_sha256": "a8be36a5217cb0b3031c8f87cfc25e5421ca78dd8c42ecc151219fa62eb8156e",
+      "input_path": "docs/lean/statements/MD-04/NUMERICAL_TARGETS.md",
+      "input_sha256": {
+        "matrix-discrepancy-and-optimization/MD-04/README.md": "a8be36a5217cb0b3031c8f87cfc25e5421ca78dd8c42ecc151219fa62eb8156e",
+        "docs/lean/statements/MD-04/NUMERICAL_TARGETS.md": "b1713525efa62b36a87fcad78a1718a0b8d5d3a30015b7bfa303d9bedc8d79d8",
+        "docs/lean/statements/MD-04/ORIGINAL.md": "a8be36a5217cb0b3031c8f87cfc25e5421ca78dd8c42ecc151219fa62eb8156e"
+      },
+      "rationale": [
+        "The universal constant C is chosen before m, n, t and A. Positive natural m,n and natural 1 <= t <= m represent the stated integer domain exactly, including both endpoints.",
+        "Every entry of A is exactly 0 or 1; the column hypothesis is its ordinary full sum bounded by t. Thus signed cancellation cannot falsely satisfy a sparsity hypothesis.",
+        "All n columns receive a -1 or 1 sign, including zero columns. All row inequalities use the same signing and the precise real factor C*sqrt(t). Positive m makes the pointwise row formulation equivalent to the stated infinity norm.",
+        "All displayed inequalities have the original weak endpoints. The nonnegative square-root convention is explicit; no division by sqrt(t), rounding, asymptotic-only range or extra probability model enters the target.",
+        "The specification retains the unrestricted offline existential claim, without importing the stronger numerical constant or requiring an algorithm. The complete original README is preserved byte for byte."
+      ],
+      "limits": "Independent specification fidelity review only. No Lean implementation, proof, cited-paper verification, or kernel/Comparator run is certified by this review.",
+      "is_ai": true,
+      "report_path": "docs/lean/statements/MD-04/reviews/specification-inventory.md",
+      "report_sha256": "e82af648bdad33cc834dbc78c6ca26d26c095629b7d316e9eb85e63160d2396c"
+    },
+    {
+      "schema_version": 1,
+      "id": "MD-04",
+      "reviewer": "/root/infra_audit",
+      "is_ai": true,
+      "phase": "specification",
+      "verdict": "approve",
+      "canonical_readme": "matrix-discrepancy-and-optimization/MD-04/README.md",
+      "source_sha256": "a8be36a5217cb0b3031c8f87cfc25e5421ca78dd8c42ecc151219fa62eb8156e",
+      "snapshot_sha256": "a8be36a5217cb0b3031c8f87cfc25e5421ca78dd8c42ecc151219fa62eb8156e",
+      "input_path": "docs/lean/statements/MD-04/NUMERICAL_TARGETS.md",
+      "input_sha256": {
+        "matrix-discrepancy-and-optimization/MD-04/README.md": "a8be36a5217cb0b3031c8f87cfc25e5421ca78dd8c42ecc151219fa62eb8156e",
+        "docs/lean/statements/MD-04/NUMERICAL_TARGETS.md": "b1713525efa62b36a87fcad78a1718a0b8d5d3a30015b7bfa303d9bedc8d79d8",
+        "docs/lean/statements/MD-04/ORIGINAL.md": "a8be36a5217cb0b3031c8f87cfc25e5421ca78dd8c42ecc151219fa62eb8156e"
+      },
+      "rationale": [
+        "The single positive finite real C precedes positive m,n and t. A natural t with 1 <= t <= m represents exactly the integer sparsities allowed by the source; t=0 remains excluded.",
+        "The entries are actual real zeros or ones, making a weak column sum bound by the real cast of t precisely the incidence sparsity condition. Every column receives a sign chosen with access to all A.",
+        "The conclusion uses the same sign vector for all rows and the nonnegative real square root of positive t. Its weak row bound is exactly the stated infinity-norm bound. C is independent of m,n,t.",
+        "The formulation preserves all allowed sparsities and does not add an online restriction or replace C by a stronger explicit constant. The complete original canonical README is retained byte for byte."
+      ],
+      "limits": "Independent preimplementation specification review only; no Lean target, proof, cited-paper audit, or Comparator run certified.",
+      "report_path": "docs/lean/statements/MD-04/reviews/specification-infra_audit.md",
+      "report_sha256": "6a0c18fdc36d4b44afc28cfda0d8b9fb31ee5076b4de33ba33de77cfe58e037c"
+    },
+    {
+      "schema_version": 1,
+      "id": "MD-04",
+      "reviewer": "/root/statement_design",
+      "phase": "lean-boundary",
+      "verdict": "approve",
+      "canonical_readme": "matrix-discrepancy-and-optimization/MD-04/README.md",
+      "input_path": "lean-statements/NLA/Statements/MD04.lean",
+      "input_sha256": {
+        "docs/lean/statements/MD-04/NUMERICAL_TARGETS.md": "b1713525efa62b36a87fcad78a1718a0b8d5d3a30015b7bfa303d9bedc8d79d8",
+        "docs/lean/statements/MD-04/ORIGINAL.md": "a8be36a5217cb0b3031c8f87cfc25e5421ca78dd8c42ecc151219fa62eb8156e",
+        "lean-statements/NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+        "lean-statements/NLA/Statements/MD04.lean": "c3536d295078f8223c82046f80f2d4a02eee5310cd07125013d303991ae41894",
+        "lean-statements/Reviewed/MD04.lean": "e7893db1c2656e6834009267738b6244c1b0e60dde582a525b0009ae079c7257",
+        "lean-statements/lake-manifest.json": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+        "lean-statements/lakefile.toml": "1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40",
+        "lean-statements/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+        "matrix-discrepancy-and-optimization/MD-04/README.md": "a8be36a5217cb0b3031c8f87cfc25e5421ca78dd8c42ecc151219fa62eb8156e"
+      },
+      "rationale": [
+        "Actual Target quantifies a single positive real C before positive m,n and natural t with 1<=t<=m. This exactly retains the canonical parameter domain.",
+        "Every real matrix entry is explicitly 0 or 1. Each full column sum is bounded by the real cast of t; there is no signed cancellation or alternative sparsity definition.",
+        "The post-matrix sign vector has every coordinate -1 or 1, and all rows obey C * Real.sqrt(t) non-strictly. The pinned Real.sqrt is the nonnegative square root, defined through NNReal.sqrt after toNNReal; for these positive natural casts it is precisely the source square root.",
+        "No online, algorithmic, positivity-of-A-beyond-incidence or higher-sparsity restriction was introduced. The zero-column and t=1,t=m cases remain covered.",
+        "Target is a proposition definition only. No catalog target proof, axiom or placeholder has been added, and the assertion commands do not prove the target.",
+        "The live and frozen files were compared mechanically: the frozen source is exactly the live source with the documented leading comment and full namespace rename; mathematical bodies are identical.",
+        "All review_inputs files are hash-bound, including canonical README, complete ORIGINAL snapshot, approved specification, both Lean source namespaces, transitive local Infrastructure import and three dependency/toolchain pin files."
+      ],
+      "limits": "Independent source-level Lean-boundary fidelity review. The exact live and frozen source and imported mathematical meanings were inspected. This reviewer did not execute Lean or Comparator; those build/kernel/identity gates remain separate. No mathematical problem is proved and no cited informal solution is re-audited.",
+      "is_ai": true,
+      "report_path": "docs/lean/statements/MD-04/reviews/lean-boundary-statement_design.md",
+      "report_sha256": "f507da328f8048030e9aa2903e8e03a1868a45bc0cc80ea2f37a206573a5b1c9",
+      "external_sources_inspected": [
+        {
+          "url": "https://raw.githubusercontent.com/leanprover-community/mathlib4/0df444a360eaa60ab8c11dca51a86af692955474/Mathlib/Data/Matrix/Basic.lean",
+          "inspected": "Matrix indexed-function meaning; ordinary real entries and explicit finite sums are used in these boundaries."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/leanprover-community/mathlib4/0df444a360eaa60ab8c11dca51a86af692955474/Mathlib/Analysis/Real/Sqrt.lean",
+          "inspected": "Real.sqrt definition and sqrt_nonneg, mul_self_sqrt; relevant to MD-04 only."
+        }
+      ]
+    },
+    {
+      "schema_version": 1,
+      "id": "MD-04",
+      "reviewer": "/root/infra_audit",
+      "is_ai": true,
+      "phase": "lean-boundary",
+      "verdict": "approve",
+      "authors_excluded": [
+        "/root"
+      ],
+      "input_sha256": {
+        "docs/lean/statements/MD-04/NUMERICAL_TARGETS.md": "b1713525efa62b36a87fcad78a1718a0b8d5d3a30015b7bfa303d9bedc8d79d8",
+        "docs/lean/statements/MD-04/ORIGINAL.md": "a8be36a5217cb0b3031c8f87cfc25e5421ca78dd8c42ecc151219fa62eb8156e",
+        "lean-statements/NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+        "lean-statements/NLA/Statements/MD04.lean": "c3536d295078f8223c82046f80f2d4a02eee5310cd07125013d303991ae41894",
+        "lean-statements/Reviewed/MD04.lean": "e7893db1c2656e6834009267738b6244c1b0e60dde582a525b0009ae079c7257",
+        "lean-statements/lake-manifest.json": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+        "lean-statements/lakefile.toml": "1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40",
+        "lean-statements/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+        "matrix-discrepancy-and-optimization/MD-04/README.md": "a8be36a5217cb0b3031c8f87cfc25e5421ca78dd8c42ecc151219fa62eb8156e",
+        "docs/lean/statements/MD-04/reviews/lean-boundary-infra-audit-evidence/NLA-Statements-MD04.log": "6cd3898376706d42f089990cb54e86796321674c6848d741c2814320c196250d",
+        "docs/lean/statements/MD-04/reviews/lean-boundary-infra-audit-evidence/Reviewed-MD04.log": "b687df1aeee8019957a195253cf0785efc5b0145c4136af3c0c7640b05c751c5",
+        "docs/lean/statements/MD-04/reviews/lean-boundary-infra-audit-evidence/identity.log": "2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30"
+      },
+      "dependency_sources": [
+        {
+          "package": "mathlib",
+          "revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+          "path": "Mathlib/LinearAlgebra/Matrix/Defs.lean",
+          "sha256": "d4e5b5a2762eb91e47bd4d913ed72cd3fac2f7ebf40b32ae4dc0db7f34332d54"
+        },
+        {
+          "package": "mathlib",
+          "revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+          "path": "Mathlib/Algebra/BigOperators/Group/Finset/Defs.lean",
+          "sha256": "2f39541f66288cb9ae9f77d97fd3656825a1dd1a4b5ca6a156f938d8fa1678a8"
+        },
+        {
+          "package": "mathlib",
+          "revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+          "path": "Mathlib/Analysis/Real/Sqrt.lean",
+          "sha256": "d6055b85eb3279133dd76eead0e1306032314c2c42c99b431b07e6aad654da86"
+        }
+      ],
+      "rationale": [
+        "Actual Target is a closed Prop definition with one real C>0 preceding m,n,t and A. The natural bounds 1<=t<=m are exactly the integer sparsity range in the source, with positive dimensions and no case silently dropped.",
+        "The explicit real entry restriction is a disjunction Aij=0 or Aij=1, and the whole column sum is at most the real cast of t. This is literal incidence sparsity, not a cancellation-prone signed constraint.",
+        "The one n-entry sign vector is chosen after all columns are known, with each value exactly -1 or 1. The conclusion uses weak simultaneous row bounds by C*Real.sqrt(t). The inspected pinned Real.sqrt is the nonnegative square root and agrees with the standard root at nonnegative arguments; here t>=1 ensures positivity.",
+        "The final source imports Mathlib.Analysis.Real.Sqrt. I independently reran that final import version, both live and frozen, without the earlier deprecated-import warning. Frozen identity succeeds by rfl. This remains a statement, with no proof of the discrepancy conjecture or runtime assertion."
+      ],
+      "verification_scope": "Independent local Lean 4.33.1 elaboration, transitive axiom assertions, and frozen equality checks; no Target proof or Linux Comparator execution.",
+      "report_path": "docs/lean/statements/MD-04/reviews/lean-boundary-infra_audit.md",
+      "report_sha256": "29dc34c158a5a568467d4670d6473b6c26b79fe39cf46a1d7784c3064d37d58c"
+    }
+  ]
+}

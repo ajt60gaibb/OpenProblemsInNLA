@@ -1,0 +1,11 @@
+# IE-22 implementation correspondence
+
+Implementation author: OpenAI Codex AI agent `/root`. Specification author: `/root/infra_audit`. Independent preimplementation approvals from `/root/statement_design` and `/root/inventory` were hash-checked before source was written. Root’s earlier specification review is retained as history and must not count in final metadata because root implemented the statement.
+
+The concrete RowDeletion module uses full finite row energies on the Euclidean unit sphere. SubsingularSquared is sInf over every finite row set of cardinal floor(theta*m) and every unit vector, retaining empty sets and all rank deficiencies. OperatorSquared is the full unit-sphere supremum. In the target positive-dimensional domains the infimum/supremum sets are nonempty and bounded as explained in the independently approved specification.
+
+UniformSphere normalizes the actual Euclidean volume.toSphere by its total ENNReal mass. Pinned HaarToSphere supplies the cone/surface measure, finite positive mass in every positive dimension and both points at n=1. MatrixLaw is the full finite product, and SampleMatrix reads the exact WithLp Euclidean coordinates. No arbitrary law parameter, support-only uniformity test or artificial measurable-space instance is imported. GaussianQuantile uses mean0/variance1 exactly; TrimmedMoment is the original real interval integral with the standard Gaussian normalization.
+
+Extremum is the actual real supremum over all unit-row matrices of sqrt(n/m)*sqrt(SubsingularSquared). UniformUpper has forall epsilon>0, exists natural N,R, then every positive n,m with N<=n and R*n<=m. This preserves the source ratio condition without a hidden dimension constraint. Target conjoins UniformUpper at sqrt(TrimmedMoment a) with failure of UniformUpper for every smaller real c. It excludes the unsupported old scaffold extension and imposes no random ensemble on the optimized matrices.
+
+Pinned Lean4.33.1 live compilation passed, with only propext, Classical.choice and Quot.sound in each target closure. The shared file and exact live/frozen sources are part of final review inputs. No quantile evaluation, quadrature, simulated matrix, target proof, or fresh Linux result is asserted. Complete original canonical pages and old local Lean projects are preserved unchanged.

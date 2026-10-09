@@ -1,0 +1,25 @@
+# MF-03 independent specification review
+
+Reviewer: OpenAI Codex AI agent `/root/inventory`, independent of specification author `/root`.
+
+Phase: `specification`. Verdict: **APPROVE**. Read the complete canonical README and specification and checked ORIGINAL.md byte for byte before implementation.
+
+The complete canonical README is retained byte for byte, and the specification preserves every order m>=1, every complex z in the closed norm<=3 disk, absence of poles of the reduced rational function and the exact weak error bound norm(1-r_m(z))<=2. It adds neither an m<=20 truncation nor the stronger strict/sharpness conclusions from the solved-status discussion.
+
+The coefficient identities sum Q.coeff(i)/((2*(j-i))!) for i=0 through j and all j=0 through 2m inclusive. They are precisely the coefficients through order 2m of Q times the entire Taylor series minus P. Analyticity of the entire series makes their vanishing equivalent to the stated O(z^(2m+1)) condition. They introduce no complex square-root branch and do not merely approximate f numerically on a finite grid.
+
+The bounds deg P,deg Q<=m and Q(0)=1 are retained. At j=0 the coefficient identity forces P(0)=1, so natDegree conventions for the zero polynomial cannot introduce a spurious representation. Complex coefficients do not add a different approximant: for two such representations the cross product P1*Q2-P2*Q1 has degree<=2m and vanishes through degree2m, and therefore is identically zero.
+
+Requiring IsCoprime P Q matches the original reduced rational function. A common factor has nonzero value at zero because Q(0)=1, so cancelling it preserves the approximation order and degree bounds; multiplying numerator and denominator by a nonzero scalar then restores Q(0)=1. Consequently pole absence is Q(z)!=0 for reduced Q. Imposing this on every unreduced denominator would have been stronger, and the specification correctly avoids that.
+
+The explicit existence conjunct prevents an empty family of representations from making the target vacuous. The canonical phrase letting the approximant exist for every m already presupposes that existence; its resolution also establishes it. Quantifying every reduced representation is representation-independent by the preceding uniqueness argument. These are mathematical correspondence reasons, not newly asserted formal proof lemmas.
+
+No numerical certificate, finite evaluation set, real-axis restriction, root-sign assumption, or extra regularity hypothesis is used to replace any universal quantifier. The planned target is a closed Prop only; its existence conjunct and universal estimate remain assertions to be proved later.
+
+Approval is of the exact mathematical specification before implementation, not the correctness of an authored resolution, Lean elaboration, formal model lemmas or a Linux Comparator run. Final implementation definitions and the complete import closure require a separate independent Lean-boundary review.
+
+## Reviewed input hashes
+
+- `matrix-functions-and-stability/MF-03/README.md`: `57a39aef2af14ff19c83100fdb037de571ebb525ca836c045ddba6d91ae40f5a`
+- `docs/lean/statements/MF-03/NUMERICAL_TARGETS.md`: `7330918bbef9002e38a2d38cd1b019d1170a707e3b8c1e4dfcb18e9b4133dd28`
+- `docs/lean/statements/MF-03/ORIGINAL.md`: `57a39aef2af14ff19c83100fdb037de571ebb525ca836c045ddba6d91ae40f5a`

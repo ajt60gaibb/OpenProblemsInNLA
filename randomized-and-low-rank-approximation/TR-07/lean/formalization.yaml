@@ -1,0 +1,201 @@
+version: v0.4
+project:
+  name: 'TR-07: random column subsets of arbitrary fixed-sparsity matrices'
+  description: >-
+    Complete original asymptotic target: the smallest singular value of a
+    uniform column subset tends to zero in probability for every admissible
+    deterministic fixed-sparsity matrix sequence. The complete proof builds
+    locally on macOS and its transitive axiom audit passes. Fresh sandboxed
+    Linux Comparator and default-kernel verification passed on 29 September
+    2026. Two independent nonauthor AI agents approved the complete final
+    mathematical source; their evidence addenda review the retained receipt.
+  authors:
+    - 'OpenAI Codex AI agent /root (formalization coauthor)'
+    - 'OpenAI Codex AI agent /root/choose_tensors (formalization coauthor)'
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+  - title: 'TR-07 — Random column subsets of arbitrary fixed-sparsity matrices'
+    id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/80c0e3e638b2f26dcb3a00353651fc3d2215dd65/randomized-and-low-rank-approximation/TR-07/README.md
+    type: web-post
+    relationship: formalizes
+    location: Entire original problem statement
+    contributors:
+      - name: Han Huang
+        role: Conjecture and prior-result author
+      - name: Mark Rudelson
+        role: Conjecture and prior-result author
+      - name: Konstantin Tikhomirov
+        role: Conjecture and prior-result author
+    author_endorsement: not-contacted
+    note: >-
+      Retained canonical problem at the fixed source revision. SHA256
+      1f2b4c9bfd606f49d2c522483a7375cff104744e7a540db1613bb01f91a281d0.
+      The source attributes the original conjecture to Section 7,
+      Conjecture 7.1 of Well-Invertible Column Subsets of Sparse Matrices
+      Are Rare, arXiv:2607.05384v2. Repository submission authorization
+      is distinct from source-author endorsement.
+  - title: 'Random column subsets of fixed-sparsity matrices: an unrestricted theorem'
+    authors:
+      - Sidney Holden
+    id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/80c0e3e638b2f26dcb3a00353651fc3d2215dd65/randomized-and-low-rank-approximation/TR-07/solution.tex
+    type: manuscript
+    relationship: adapts
+    location: Corollary 1.2; proof route in Sections 2–5
+    author_endorsement: not-contacted
+    note: >-
+      Mathematical resolution dated 12 September 2026 and credited to
+      Sidney Holden, Center for Computational Biology, Flatiron Institute,
+      Simons Foundation, New York, USA. The LaTeX file is the complete proof;
+      solution.md is a short pointer. LaTeX SHA256
+      207eb87c6b47d3a3a1a529c49b7c5a4dcaf099a942d60fdc1b9b5e3285aae7a0;
+      Markdown SHA256
+      307e8b419a4eb453e789120d86e1344b2aecaf8a8ce759f87d9585a470496fee.
+      The formalization proves the entire original asymptotic target,
+      not the manuscript's stronger exponential finite tail or its
+      positive-fraction singular-value theorem. The manuscript's existing
+      informal AI-agent audit is separate from this Lean verification.
+related_formalizations:
+  - id: https://github.com/leanprover-community/mathlib4/tree/0df444a360eaa60ab8c11dca51a86af692955474
+    relationship: builds-on
+    note: >-
+      Euclidean spaces, linear isometries, orthonormal bases, Bessel's
+      inequality, rank-nullity, positive semidefinite matrices, the
+      Hermitian spectral theorem, finite sums and products, and filter limits.
+automation:
+  methods:
+    - method: agent
+      framework: OpenAI Codex
+      tool_setup: >-
+        Lean 4.33.1 and Mathlib revision
+        0df444a360eaa60ab8c11dca51a86af692955474, with a pinned transitive
+        manifest. Two agents coauthored disjoint modules; two other agents
+        were reserved for independent statement and final review.
+      prompting_notes: >-
+        The user required the entire original theorem. Two independent
+        statement approvals preceded proof implementation. Definitions,
+        Challenge and the target record were frozen at commit 1b27d9f8
+        and were not changed during proof development. Solution does not
+        import Challenge. Auxiliary proof constants may change without
+        altering the frozen exported proposition.
+  notes: >-
+    AI-generated Lean source and documentation. Local macOS compilation and
+    transitive axiom checks are distinct from the required fresh unprivileged
+    Linux Comparator run. No elapsed-time or monetary-cost measurement is
+    asserted. No external human peer review or source-author endorsement is claimed.
+status:
+  scope: >-
+    For every fixed natural s >= 2, finite real C >= 1, natural sequences
+    r and n with r_k <= k, r_k <= n_k, k/r_k tending to C and n_k/r_k
+    tending to positive infinity, every deterministic matrix sequence
+    eventually having entries in {-1,0,1} and exactly s nonzeros per column,
+    and every eta > 0, the exact uniform r_k-subset probability of
+    eta < smallestSingular tends to zero. Arbitrary signs, repeated column
+    values and unrestricted support intersections are included.
+  whole_problem_verified: true
+  canonical_status: Lean verified
+  sorry_count: 0
+  sorry_in_definitions: 0
+  source_scan_note: >-
+    Challenge contains one deliberate comparison placeholder and is excluded
+    from the Solution import graph. The complete proof development has no
+    unresolved placeholders. Local compilation and axiom checks pass;
+    two independent final mathematical reviews approve the full source.
+    Fresh Linux verification passed for all 36 unchanged frozen proof inputs.
+  axioms: [propext, Classical.choice, Quot.sound]
+  main_results:
+    - declaration: NLA.TR07.random_column_subsets
+      file: Solution.lean
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+      comparator_config: comparator.json
+      verification_status: >-
+        PASS on 2026-09-29: fresh Ubuntu Comparator, default-kernel replay,
+        permitted-axiom checks and rejection controls in run 36544197412,
+        revision 4aa20f0e6ad92037a616c81fa8b1d7f57abca2dc. All 36 proof
+        input hashes match verification/PROOF_SHA256.json and the retained
+        machine-readable result. The local build and transitive axiom audit
+        also pass. Two independent final mathematical AI-agent reviews
+        approve the entire original theorem.
+
+fidelity:
+  divergences: >-
+    The entire original asymptotic target is retained. Explicit r_k <= n_k
+    expresses the domain of the uniform subset experiment. Sparsity is
+    required eventually, covering the irrelevant small dimensions k < s;
+    positivity and divergence of r_k are proved from the ratio assumptions.
+    Replace source pruning by the regularized diagonal D_i = E[u_i^2]+1/k,
+    retaining the whole column law and adding an absorbing zero state.
+    A PSD conjugation proves the averaged residual bound 2*s^2/(2*L+1)
+    for the possibly nonsymmetric polynomial filter
+    (I-Sigma*D^(-1)/s)^L; no Euclidean contraction of that filter is assumed.
+    Use deletion deficiency instead of a count of small singular values,
+    with a rank-nullity and Bessel argument for shared-reservoir witnesses.
+    Prove finite weighted-law identities, IID variance bounds, and a
+    binomial estimator averaged over independent paths conditional on its
+    center. Finite positive L and b depend only on s and eta and make
+    the ideal success probability at least 3/4. In the real reservoir
+    transition, both the initial half-probability branch and a no-hit
+    outcome return zero. This replaces the failure outcome in the frozen
+    planned route by an honest finite law and preserves actual span
+    membership and unconditional pointwise kernel domination. No favorable
+    trajectory conditioning is assumed. With J=b*L, R=4*J, floor(r/2)
+    centers and equal remaining blocks, use c=beta/(8*J) and
+    rho=c^(L*b)/8=c^J/8, replacing the more conservative planned constants.
+    IID variance at most r and sequential uniform collision repair with
+    expected Hamming cost r*(r-1)/(2*n) yield the polynomial tail
+    4/(rho^2*r)+(r-1)/(rho*n). Equal fibers of size r! identify the ordered
+    injective sample with the exact uniform subset law. This tail suffices
+    for the original limit; the stronger exponential finite tail,
+    positive-fraction singular-value statement and growing-sparsity rates
+    are not advertised. No numerical spectrum, floating-point calculation,
+    unproved certificate, probabilistic oracle or new axiom is used.
+review:
+  status: 'Two independent pre-proof approvals and two independent final AI-agent approvals, with Linux evidence addenda'
+  reviewers:
+    - 'OpenAI Codex AI agent /root/choose_algebra'
+    - 'OpenAI Codex AI agent /root/environment'
+  notes: >-
+    Both reviewers authored neither the TR-07 mathematical definitions nor
+    its proof modules. Statement approvals are retained in
+    reviews/statement-1.md and reviews/statement-2.md, with exact reviewed
+    hashes. Intermediate core reviews are retained in reviews/core-1.md
+    and reviews/proof-core-2.md; these are not counted as full final
+    approvals. Coauthor checks are not counted as independent review.
+    Full final approvals are reviews/final-1.md and reviews/final-2.md,
+    binding all 36 proof inputs to revision
+    810014241511510dce72a418e1ba80a4cd4c7a7e. Each reviewer independently
+    rebuilt and audited the complete source. No human peer review is claimed.
+    Actual Linux verification evidence is retained at
+    verification/linux-36544197412, separately from the local checks;
+    dated reviewer addenda inspect its receipt, controls and source hashes.
+alignment:
+  original_target: 'Canonical TR-07 problem statement at revision 80c0e3e638b2f26dcb3a00353651fc3d2215dd65'
+  target_record: NUMERICAL_TARGETS.md
+  frozen_definitions: NLA/TR07/Definitions.lean
+  independent_signature: Challenge.lean
+  boundary_hashes: verification/STATEMENT_SHA256.json
+  full_specification: NLA.TR07.SolvesTR07
+  proof_guide: README.md
+  auxiliary_constants:
+    J: b*L
+    R: 4*J
+    c: beta/(8*J)
+    rho: c^J/8
+    asymptotic_beta: 1/(2*C)
+  finite_tail: 4/(rho^2*r)+(r-1)/(rho*n)
+  notes: >-
+    selectedAction is literal rectangular matrix multiplication on
+    Euclidean coefficient and output spaces. smallestSingular is the
+    infimum over every Euclidean unit coefficient vector. The empty-set
+    infimum convention is irrelevant eventually. subsetTail is exactly
+    a real cardinality ratio over powersetCard, retaining repeated column
+    values through distinct indices. No restriction on support
+    intersections or assumption on reconstruction coefficients is added.
+acknowledgements: >-
+  Mathlib supplies the imported mathematical library. The repository's
+  existing pinned verification harness supplies statement comparison,
+  transitive axiom checks, and isolated kernel replay; its provenance and
+  license notices remain in tools/lean/NOTICE.md. No checker-author
+  endorsement is implied.

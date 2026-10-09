@@ -4,9 +4,108 @@
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because matching growth bounds require uniform control over arbitrary Hilbert-space generators; community impact includes semigroup stability and rational time discretization.  
 **Provenance:** explicit fixed-bound formalization of the source's growth question.  
-**Last checked:** 2026-09-10  
+**Last checked:** 2026-09-30  
 
-**Status:** Open  
+**Status:** Lean verified
+
+## Resolution — 30 September 2026
+
+[Part VI of the submitted manuscript](MF-17-research-handoff.pdf#page=43),
+Theorem S.1.1 (printed p. 42; PDF page 43), states the matching fixed-bound
+asymptotic
+
+```math
+c_M L(t)^{\alpha(M)}\leq G_M(t)\leq C_M L(t)^{\alpha(M)}
+\qquad(t\geq t_M),
+```
+
+where
+
+```math
+L(t)=\log\log(t+e^e),\qquad
+\alpha(M)=\frac{2}{\pi}\arccos(M^{-1}).
+```
+
+For every fixed $`M>1`$, the constants $`c_M,C_M,t_M>0`$ depend only on
+$`M`$. The upper bound covers all strongly continuous semigroups in the
+original class, including unbounded generators. The lower bound has
+finite-dimensional witnesses with the same prescribed bound $`M`$; the
+witnesses may depend on $`t`$. The formalization also proves $`G_1(t)=1`$ for
+all $`t\geq0`$.
+
+This determines the asymptotic order requested below, with the exact
+fixed-$`M`$ exponent. It does not assert a limiting leading coefficient or
+uniform constants as $`M\downarrow1`$. Part VI, Sections S.2–S.8, supplies
+the proposed upper and lower arguments; Section S.9 treats the endpoint.
+The manuscript is retained unchanged, including material outside this
+submission's sharp-rate claim.
+
+The [accompanying Lean source](lean/Solution.lean)
+contains the declarations `ProofProject.sharp_growth`,
+`ProofProject.finite_dimensional_lower`, `ProofProject.contractive_envelope`,
+`ProofProject.attainableNorms_bddAbove`, and
+`ProofProject.stableSemigroup_hasGeneratorInverse`. Its definitions represent
+the full strong generator graph and quantify over arbitrary complete complex
+Hilbert spaces in a fixed universe. The supplied project specifies Lean
+4.33.1 and Mathlib v4.33.1. The [statement correspondence](lean/NUMERICAL_TARGETS.md) and
+[reproduction instructions](lean/README.md) describe the five contracts.
+
+## Lean proof and verification evidence
+
+**Lean verified, 30 September 2026.** All five declarations above passed a
+fresh non-root Linux Comparator run, including statement identity, transitive
+permitted-axiom checks and Lean's default-kernel replay. The complete harness
+exited successfully after all sandbox and rejection controls and cleanup.
+The [verification report](lean/verification/README.md),
+[successful run receipt](lean/verification/linux-verification/result.json),
+[Comparator log](lean/verification/linux-verification/comparator.log), and
+[driver log](lean/verification/linux-verification/driver.log) retain the actual
+local execution evidence.
+
+The published immutable [proof-source snapshot](https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/cad3785440a2678b5b30aa8133d425e709b6811d/matrix-functions-and-stability/MF-17/lean)
+is commit `cad37854`. It uses Lean 4.33.1 and Mathlib
+`0df444a360eaa60ab8c11dca51a86af692955474`, with all other dependencies fixed
+in `lean/lake-manifest.json`.
+
+The retained run receipt names the submitter's
+unpublished local commit `ac582d01`.
+The [maintainer integration review](lean/reviews/maintainer-integration-2026-09-30.md)
+matched every Lean file, dependency pin and Comparator configuration in the
+published snapshot to that receipt's SHA-256 hashes. The catalog reviewed
+the retained Linux execution evidence; this integration review did not rerun
+Lean or the Linux verifier.
+
+The inverse and envelope-finiteness contracts cover every semigroup in the
+original class for $`M\geq1`$ (and nonnegative time for the envelope).
+The sharp-growth and finite-witness contracts cover every fixed $`M>1`$;
+the endpoint contract covers $`M=1`$ and every $`t\geq0`$. The
+[statement correspondence](lean/NUMERICAL_TARGETS.md) expands the definitions,
+quantifiers and conclusions, and identifies the adapted scalar lower proof
+and refined constants. There are no unproved extra premises or replaceable
+definition holes. The [five transitive axiom reports](lean/verification/axioms.log)
+contain exactly `propext`, `Classical.choice` and `Quot.sound`.
+
+Two independent retrospective AI statement reviews approve all five contracts;
+separate upper and lower source reviews approve their inspected proof paths.
+The [reports](lean/reviews/) record their coverage and accepted corrections.
+These are AI source reviews, not external human peer review.
+
+On Linux with the [checker prerequisites](../../tools/lean/HARNESS.md), run
+from the repository root at the published proof-source snapshot:
+
+```
+python3 tools/lean/harness.py bootstrap /tmp/mf17-tools
+python3 tools/lean/harness.py verify \
+  matrix-functions-and-stability/MF-17/lean /tmp/mf17-tools
+```
+
+The [project instructions](lean/README.md#verification) also reproduce the
+ordinary build, independent target-type check and axiom report. The original
+statement and historical checks remain below; the ratings describe the
+original question. This date records review and verification of the submitted
+solution, not a new comprehensive literature search.
+
+## Original problem statement
 
 For each fixed real number $`M>1`$, let $`\mathcal A_M`$ consist of all pairs $`(H,A)`$ such that $`H`$ is a complex Hilbert space and $`A`$ is the generator of a strongly continuous semigroup $`T(s)`$ on $`H`$ satisfying
 

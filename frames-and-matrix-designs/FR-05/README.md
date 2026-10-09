@@ -2,8 +2,8 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Solution claimed
-**Last checked:** 2026-09-14
+**Status:** Solved
+**Last checked:** 2026-10-08
 
 **Rating rationale:** The asymptotic typical-injectivity question needs quantitative algebraic and probabilistic control beyond positive failure probability; it informs phase-retrieval measurement design.
 
@@ -27,9 +27,9 @@ Is
 
 This is part (b) of Vinzant's conjecture as restated in Randomstrasse 101. It distinguishes injective exceptional measurement systems from typical matrices at a row count just below $`4d-4`$. Injectivity is the basic identifiability requirement before conditioning and stable numerical inversion can be addressed.
 
-## Solution claim — 14 September 2026
+## Resolution — independently audited 8 October 2026
 
-Zhangsong Li's [13-page manuscript](https://zhangsong-li.github.io/injectivity_phase_retrieval.pdf), Theorem 1.4, claims the stronger bound
+Zhangsong Li's [13-page manuscript](https://zhangsong-li.github.io/injectivity_phase_retrieval.pdf), Theorem 1.4, proves the stronger bound
 
 ```math
 p_d\leq C/d\qquad(d\geq2)
@@ -37,17 +37,17 @@ p_d\leq C/d\qquad(d\geq2)
 
 for an absolute constant $`C>0`$. This implies the displayed limit. The argument plants a two-dimensional ambiguity, compares its law in $`L^2`$ to a covariance-matched Gaussian law, and uses a quantitative implicit-function argument to turn the planted approximate ambiguity into an exact one.
 
-This remains a **solution claim**, not a repository-verified resolution: the manuscript is the primary source, and independent review and the repository's isolated Linux Lean verification remain outstanding. The original target, permanent identifier, and canonical path are unchanged. The implementation route is recorded in the [formalisation plan](formalisation-plan.md).
+An [independent AI-agent proof audit](../../reviews/2026-10-08-claimed-solutions/FR-05.md) checked the manuscript's planted and reference laws, the cone and overlap estimates, the small-ball and Newton arguments, and the final probability reduction. No proof gap was found. This supports **Solved** under the catalog's informal-audit rule; it is not external human peer review or `Lean verified`. The original target, permanent identifier, and canonical path are unchanged.
 
 ### Local Lean development — 27 September 2026
 
-The [Lean solution](lean/Solution.lean) now proves the bound $`p_d\le C/d`$ for every $`d\ge2`$ and the original limit $`p_d\to0`$, using the original Gaussian law and all-signals injectivity predicate. The local build and transitive axiom audit pass, using only standard Lean axioms and no proof placeholders in the solution. See the [final assembly](lean/FINAL_ASSEMBLY.md), [source guide](lean/README.md), and [local verification record](lean/verification/library-cleanup/README.md). This development check does not replace independent statement review or the isolated Linux Comparator/kernel workflow; the catalog status is unchanged.
+The [Lean solution](lean/Solution.lean) now proves the bound $`p_d\le C/d`$ for every $`d\ge2`$ and the original limit $`p_d\to0`$, using the original Gaussian law and all-signals injectivity predicate. The recorded local build and transitive axiom audit pass, using only standard Lean axioms and no proof placeholders in the solution. See the [final assembly](lean/FINAL_ASSEMBLY.md), [source guide](lean/README.md), and [local verification record](lean/verification/library-cleanup/README.md). An independent statement review and isolated Linux Comparator/kernel verification remain outstanding for `Lean verified`; the 8 October promotion rests on the manuscript proof audit above.
 
 ## References
 
 1. A. S. Bandeira et al., *Randomstrasse 101: Open Problems of 2025*, arXiv:2603.29571 (2026), Conjecture 19(b). [Paper](https://arxiv.org/html/2603.29571v1).
 2. C. Vinzant, *A small frame and a certificate of its injectivity*, SAMPTA 2015, arXiv:1502.04656. The explicit 11-vector frame in $`\mathbb C^4`$ demonstrates why the below-$`4d-4`$ regime cannot simply be dismissed. [Paper](https://arxiv.org/abs/1502.04656).
-3. Z. Li, *Resolution of Vinzant's Conjecture on Phase Retrieval Injectivity* (13 September 2026), Theorem 1.4. The manuscript claims $`p_d\le C/d`$ for every $`d\ge2`$. [Manuscript](https://zhangsong-li.github.io/injectivity_phase_retrieval.pdf).
+3. Z. Li, *Resolution of Vinzant's Conjecture on Phase Retrieval Injectivity* (13 September 2026), Theorem 1.4. The manuscript proves $`p_d\le C/d`$ for every $`d\ge2`$; the audited copy is pinned by SHA-256 in the [review](../../reviews/2026-10-08-claimed-solutions/FR-05.md). [Manuscript](https://zhangsong-li.github.io/injectivity_phase_retrieval.pdf).
 4. Z. Li, *On Injectivity of Phase Retrieval*, arXiv:2606.17922 (2026). This earlier version established only $`p_d<1`$. [Paper](https://arxiv.org/abs/2606.17922).
 
 ## Historical status check — 2026-09-10

@@ -1,0 +1,724 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue,
+ pdftitle={Walsh restricted isometries under sampling with replacement}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\F}{\mathbb F}
+\newcommand{\R}{\mathbb R}
+\newcommand{\1}{\mathbf 1}
+\newcommand{\K}{\mathcal K}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\KL}{D_{\mathrm{KL}}}
+\newcommand{\gaussbinom}[2]{\genfrac{[}{]}{0pt}{}{#1}{#2}_{\!2}}
+\DeclareMathOperator{\Var}{Var}
+\allowdisplaybreaks
+\setlength{\emergencystretch}{2em}
+\title{Walsh restricted isometries under sampling with replacement\\[4pt]
+\large An extension of the entropic sampling argument}
+\author{}
+\date{Working manuscript, 30 September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $N=2^d$, and sample $m$ rows of the Walsh matrix independently and
+uniformly, retaining repetitions. We determine, up to universal constants,
+the smallest $m$ for which the normalized sample has restricted isometry
+constant at most $1/2$ at sparsity $k$ with probability at least $0.9$:
+the answer is one for $k=1$, and
+$k\log(2k)\log(2eN/k)$ for $2\leq k\leq N$.
+The upper bound uses the entropic encoding estimates of Burstein,
+Iosevich, and Krause. We extend their sampling argument by applying the
+decoder to indexed row occurrences and randomizing paired assignments to
+two independent samples. The lower bound follows the Walsh subspace
+obstruction of B{\l}asiok, Lopatto, Luh, Marcinek, and Rao. Averaging over
+affine offsets under the fixed-sample law gives an elementary second-moment
+bound uniform over all dyadic sparsities. A reduction completes the dense
+and nondyadic regimes. The entropic encoding result is an explicitly
+identified input from the public literature; the sampling extension and
+the uniform lower-bound calculation are proved here.
+\end{abstract}
+
+\section{Statement and attribution}
+
+All logarithms are natural unless a base is displayed. Let $G=\F_2^d$,
+$d\geq1$, and $N=2^d$. Write
+\[
+ H(a,b)=(-1)^{a\cdot b},\qquad a,b\in G,
+ \qquad H^TH=NI_N.
+\]
+Thus $N^{-1/2}H$ is the normalized Walsh matrix. Let
+$a_1,\ldots,a_m$ be independent uniform elements of $G$ and set
+\begin{equation}\label{eq:sample}
+ \Phi_m=\frac1{\sqrt m}
+ \begin{pmatrix}H(a_1,:)\\ \vdots\\H(a_m,:)\end{pmatrix}.
+\end{equation}
+Every draw is retained, including repetitions. Denote by $E_{m,N,k}$ the
+event that
+\begin{equation}\label{eq:rip}
+ \frac12\|x\|_2^2\leq\|\Phi_m x\|_2^2\leq\frac32\|x\|_2^2
+ \quad\text{for all }x\in\R^N\text{ with }|\supp x|\leq k,
+\end{equation}
+and define
+\[
+ m_*(N,k)=\min\{m\in\mathbb N:m\geq1,\ \Prob(E_{m,N,k})\geq0.9\}.
+\]
+This is the convention in Problem FR-10 of the public
+\emph{Open Problems in Numerical Linear Algebra} catalog \cite{FR10}.
+
+\begin{theorem}\label{thm:main}
+For every $N=2^d$, $d\geq1$, one has $m_*(N,1)=1$. There are universal
+constants $c,C>0$ such that, simultaneously for $2\leq k\leq N$,
+\begin{equation}\label{eq:main}
+ c\,k\log(2k)\log\frac{2eN}{k}
+ \leq m_*(N,k)\leq
+ C\,k\log(2k)\log\frac{2eN}{k}.
+\end{equation}
+One may take $c=1/2000$. The upper bound uses the entropic encoding
+estimates of \cite[Sections 2--4]{BIK}, in the occurrence form stated
+in Lemma~\ref{lem:encoding} below.
+\end{theorem}
+
+\paragraph{Attribution and scope.}
+The essential improvement in the upper logarithmic rate belongs to
+Burstein--Iosevich--Krause \cite{BIK}. Their stated sampling theorems
+concern Bernoulli selection and uniform subsets of distinct rows. Here we
+supply the passage to independent sampling with replacement, including
+$m>N$. This is an extension of their proof, not an independent method
+for obtaining the improved rate.
+
+The lower-bound mechanism---a missed Walsh subspace produces a sparse
+kernel vector, followed by a second-moment argument---is due to
+B{\l}asiok--Lopatto--Luh--Marcinek--Rao \cite{BLLMR}. The calculation here
+uses affine offsets and the exact joint law for a fixed number of
+independent draws to obtain one uniform, nonasymptotic bound. We make no
+claim that the underlying obstruction is new. The catalog also records
+Colbrook's sharper leading-constant analyses at small fixed sparsities
+and near full sparsity \cite{FR10}; the order estimate
+\eqref{eq:main} does not supersede those constants.
+
+The sole specialized external proof input is Lemma~\ref{lem:encoding}.
+All other estimates needed below are proved in this manuscript. The
+references are public; no unpublished companion note or private file is
+a dependency. In particular, the lower bound is independent of
+\cite{BIK}. Statements about the upper bound carry exactly the dependence
+on that paper identified above. This working manuscript does not assert
+an exhaustive priority determination for the extensions.
+
+\section{The entropic input and its occurrence interpretation}
+
+For this section let $H$ be any real $N\times N$ matrix with
+$H^TH=NI_N$ and $|H(a,b)|\leq1$. Fix $2\leq k\leq N$ and put
+\begin{equation}\label{eq:class}
+ \K_k=\{y\in\R^N:\|y\|_2=1,\ \|y\|_1\leq\sqrt k\},
+ \qquad L=\log\frac{2eN}{k}.
+\end{equation}
+For $z_a(y)=|(Hy)_a|^2$, orthogonality and the norm constraint give
+\begin{equation}\label{eq:energyfacts}
+ \E_a z_a(y)=1,\qquad 0\leq z_a(y)\leq k.
+\end{equation}
+Every $k$-sparse unit vector belongs to $\K_k$.
+
+Choose $0<\eta<1/16$. Let $a_j=(1+\eta)^j$, $b_j=a_j^2$, and choose
+integers $j_-<j_+$ satisfying
+\[
+ \frac{\eta}{4(1+\eta)}<a_{j_-}\leq\frac\eta4,
+ \qquad
+ \frac{\sqrt k}{1-\eta}\leq a_{j_+}
+ <\frac{(1+\eta)\sqrt k}{1-\eta}.
+\]
+Write $\mathcal J=\{j_-,\ldots,j_+\}$ and $\ell=|\mathcal J|$.
+Elementary geometric summation gives
+\begin{align}
+ \ell&\leq C_\eta\log(2k),&
+ B:=\sum_j b_j&\leq C_\eta k,\label{eq:geometry1}\\
+ \sum_{j\leq h}b_j&\leq C_\eta b_h,&
+ \sum_j b_j(j_+-j+1)&\leq C_\eta k.\label{eq:geometry2}
+\end{align}
+Constants $C_\eta$ may depend only on $\eta$; constants denoted $C_0$
+below are absolute.
+
+\begin{lemma}[Entropic encoding input; Burstein--Iosevich--Krause]
+\label{lem:encoding}
+Fix an ordered list of $M$ rows $h_1,\ldots,h_M$ of $H$, with repetitions
+allowed. For every $y\in\K_k$, there are correction records with $d_j$
+positions and one of three labels at each position at level $j$, such that
+\begin{equation}\label{eq:cost}
+ 0\leq d_j\leq M,\qquad D:=\sum_j b_jd_j\leq C_\eta kL.
+\end{equation}
+A deterministic decoder produces disjoint subsets $I_j\subseteq[M]$ and
+$v_i=\sum_j b_j\1_{I_j}(i)$ satisfying
+\begin{equation}\label{eq:approx}
+ \big|v_i-|h_i y|^2\big|
+ \leq C_0\eta |h_i y|^2+C_0\eta^2.
+\end{equation}
+The set $I_j$ is determined by the records at levels $h\geq j$.
+At each level, the number of possible records of length $d$ is at most
+\begin{equation}\label{eq:recordnumber}
+ N_M(d)=\binom Md3^d,\qquad 0\leq d\leq M.
+\end{equation}
+The decoder can also be run on arbitrary such records, whether or not
+they arise from a target $y$.
+\end{lemma}
+
+\begin{proof}[Justification of the occurrence interpretation]
+The estimates and decoder are the public input from
+\cite[Lemmas 2.2 and 3.1, Proposition 3.2, and Lemmas 4.1--4.2 and
+6.1]{BIK}.
+Their deterministic procedure uses an ordered sequence of bounded row
+queries. Replace each query index by its occurrence index. The experts
+remain $\{\pm\sqrt{k}e_b:b\in[N]\}$, so the initial comparison entropy
+remains bounded by $L$, independent of $M$. Each recorded correction at
+level $j$ decreases the potential by at least $3\eta^2b_j/(32k)$.
+Telescoping proves \eqref{eq:cost} for the repeated-query sequence.
+The decoder follows the same query order and updates, so its amplitude
+estimate and the higher-level dependence identified in
+\cite[Lemma 6.1]{BIK} are unchanged. Record positions
+are now chosen from $[M]$, giving \eqref{eq:recordnumber}. These steps
+use neither distinctness of queries nor $M\leq N$.
+\end{proof}
+
+The distinction between $M$ and $N$ will be important: $M$ counts
+observed occurrences, whereas $N$ counts coordinates in the target.
+No enlargement of the ambient coordinate space is involved.
+
+\section{From entropic records to two independent samples}
+
+The estimates in this section implement the occurrence extension of the
+counting and symmetrization argument of \cite[Sections 5--8]{BIK}.
+We give the probability calculation explicitly because signs attached
+to paired occurrences need not be independent across individual
+occurrences.
+
+\subsection{Weighted counts}
+
+Set $h_M(d)=\log N_M(d)$, with $h_M(0)=0$. If
+$D=\sum_j b_jd_j>0$, the binomial estimate and concavity of the logarithm
+give
+\begin{align}
+ \sum_j b_jh_M(d_j)
+ &\leq\sum_{d_j>0}b_jd_j\log\frac{3eM}{d_j}\notag\\
+ &\leq D\log\frac{3eM B}{D}.\label{eq:weightedentropy}
+\end{align}
+Indeed, apply Jensen with weights $b_jd_j/D$; the corresponding weighted
+average of $1/d_j$ is at most $B/D$. If $D=0$, the left side is zero.
+Since $D\leq MB$ and $u\mapsto u\log(3eMB/u)$ is increasing on
+$(0,MB]$, \eqref{eq:cost} and \eqref{eq:geometry1} imply, for $M=2m$,
+\begin{equation}\label{eq:entropyfinal}
+ \sum_j b_jh_M(d_j)
+ \leq C_\eta kL\log\left(e+\frac mL\right).
+\end{equation}
+For completeness, let $D_0=C_\eta kL$ be the bound in
+\eqref{eq:cost}. If $D_0\leq MB$, substitute $D_0$ in
+\eqref{eq:weightedentropy}; the factor $MB/D_0$ is at most a constant
+depending on $\eta$ times $m/L$. If $D_0>MB$, use
+$D\log(3eMB/D)\leq MB\log(3e)\leq D_0\log(3e)$.
+This proves \eqref{eq:entropyfinal} in both cases.
+
+\subsection{Paired signs and simultaneous decoded bands}
+
+Fix an ordered pool
+\[
+ \Omega=\{(t,0),(t,1):1\leq t\leq m\}
+\]
+of $M=2m$ row occurrences. A row value may appear more than once.
+Independently of this fixed pool, let $\varepsilon_1,\ldots,
+\varepsilon_m$ be independent uniform signs. For a deterministic subset
+$I\subseteq\Omega$, put
+\[
+ S_I=\sum_{t=1}^m\varepsilon_t
+ \big(\1_I(t,0)-\1_I(t,1)\big).
+\]
+Writing the coefficient in parentheses as $c_t$, one has
+\begin{equation}\label{eq:varianceproxy}
+ \sum_t c_t^2\leq |I|,
+ \qquad
+ \E_\varepsilon e^{uS_I}
+ =\prod_t\cosh(uc_t)\leq e^{u^2|I|/2}.
+\end{equation}
+Here $\log\cosh x\leq x^2/2$, as follows by integrating
+$\tanh x\leq x$ for $x\geq0$ and using symmetry. Chernoff's argument
+therefore yields, for $q>0$,
+\begin{equation}\label{eq:bandtail}
+ \Prob_\varepsilon\{|S_I|>\sqrt{2|I|q}\}\leq 2e^{-q}.
+\end{equation}
+For an empty set the asserted bound holds deterministically.
+
+\begin{lemma}\label{lem:uniformsigned}
+Fix $0<\rho<1$. With conditional probability at least $1-\rho$ over the
+paired signs, simultaneously for all targets $y\in\K_k$ and the records
+of Lemma~\ref{lem:encoding},
+\begin{equation}\label{eq:signedv}
+ \left|\sum_t\varepsilon_t(v_{t,0}-v_{t,1})\right|
+ \leq\sqrt{2V A_m},\qquad V=\sum_{i\in\Omega}v_i,
+\end{equation}
+where one may take
+\begin{equation}\label{eq:Am}
+ A_m=C_\eta\left[
+ kL\log\left(e+\frac mL\right)+k\log\frac{2\ell}{\rho}
+ \right].
+\end{equation}
+The constant can be chosen independently of the pool and of $m,N,k$.
+\end{lemma}
+
+\begin{proof}
+Let
+\[
+ Z_M=\sum_{d=0}^M N_M(d)^{-1}\leq\sum_{d=0}^M3^{-d}\leq\frac32,
+ \qquad \pi_M(d)=\frac1{Z_M N_M(d)}.
+\]
+For a fixed $j$ and tail profile
+$\mathbf d=(d_j,\ldots,d_{j_+})$, the decoded sets $I_j$ constitute a
+family $\mathcal G_{j,\mathbf d}$ of cardinality at most
+\[
+ \prod_{h\geq j}N_M(d_h).
+\]
+This family is fixed before the signs are drawn. Allocate failure
+probability
+\[
+ p_{j,\mathbf d}=\frac\rho\ell\prod_{h\geq j}\pi_M(d_h)
+\]
+to it. Summing these probabilities over all profiles and levels gives
+$\rho$. For nonempty families, a union bound using
+\eqref{eq:bandtail} shows that all their bands satisfy
+$|S_I|\leq\sqrt{2|I|Q_{j,\mathbf d}}$, outside an event of probability
+at most $\rho$, where
+\begin{align}
+ Q_{j,\mathbf d}
+ &=\log\frac{2|\mathcal G_{j,\mathbf d}|}{p_{j,\mathbf d}}\notag\\
+ &\leq \log\frac{2\ell}{\rho}
+ +2\sum_{h\geq j}h_M(d_h)
+ +(j_+-j+1)\log Z_M.\label{eq:profileQ}
+\end{align}
+Empty families require no bound.
+
+Now take the records of any target $y$. By disjointness of its decoded
+bands and Cauchy--Schwarz,
+\begin{align*}
+ \left|\sum_t\varepsilon_t(v_{t,0}-v_{t,1})\right|
+ &\leq\sum_j b_j\sqrt{2|I_j|Q_{j,\mathbf d}}\\
+ &\leq\sqrt{2\left(\sum_jb_j|I_j|\right)
+                   \left(\sum_jb_jQ_{j,\mathbf d}\right)}.
+\end{align*}
+The first parenthesis equals $V$. For the second, reverse the order in
+the double sum of \eqref{eq:profileQ} and apply
+\eqref{eq:geometry1}--\eqref{eq:geometry2} to obtain
+\[
+ \sum_jb_jQ_{j,\mathbf d}
+ \leq C_\eta\left[
+ k\log\frac{2\ell}{\rho}+k+\sum_hb_hh_M(d_h)\right]
+ \leq A_m.
+\]
+The last step is \eqref{eq:entropyfinal}, with the constant enlarged.
+The union bound covered all records, so this event is uniform in $y$,
+even if the target is selected after the signs have been observed.
+\end{proof}
+
+\subsection{The independent-copy inequality}
+
+Let $a_{t,0},a_{t,1}$, $1\leq t\leq m$, be independent uniform row
+indices. Apply the preceding lemma to this ordered pool, and use the
+independent signs to assign one member of each pair to the first sample
+and the other to the second. The two resulting samples are independent
+lists of $m$ uniform rows. For $y\in\K_k$, let their energies be
+$X_y$ and $X'_y$. Regardless of the assignments,
+\[
+ X_y+X'_y=\sum_{t,s} z_{a_{t,s}}(y),
+ \qquad
+ X_y-X'_y=\sum_t\varepsilon_t
+ \big(z_{a_{t,0}}(y)-z_{a_{t,1}}(y)\big).
+\]
+By \eqref{eq:approx},
+\[
+ V\leq(1+C_0\eta)(X_y+X'_y)+2C_0\eta^2m.
+\]
+The difference between the signed sums of $v$ and $z$ is at most
+$C_0\eta(X_y+X'_y)+2C_0\eta^2m$. Lemma~\ref{lem:uniformsigned}
+therefore proves the following statement after averaging over the pool.
+
+\begin{proposition}\label{prop:pair}
+For two independent samples of $m$ uniform rows, with probability at
+least $1-\rho$,
+\begin{equation}\label{eq:pair}
+ \begin{split}
+ |X_y-X'_y|\leq{}& C_1\sqrt{A_m(X_y+X'_y+\eta^2m)}\\
+ &+C_1\eta(X_y+X'_y)+C_1\eta^2m
+ \qquad (y\in\K_k),
+ \end{split}
+\end{equation}
+where $C_1$ is absolute and $A_m$ is as in \eqref{eq:Am}.
+There is no restriction $m\leq N$.
+\end{proposition}
+
+The decoder's occurrence order must be fixed before the signs. In
+particular, it is not obtained by first listing whichever occurrences
+the signs assign to the first sample. Keeping the original paired order
+is what makes the families in the union bound deterministic.
+
+\section{The with-replacement upper bound}
+
+\begin{lemma}[Absorption]\label{lem:absorb}
+Fix $0<\delta<1/4$. There exist positive constants $c_0,c_1$, depending
+only on the absolute constant $C_1$ in \eqref{eq:pair}, such that the
+following holds. Suppose $u,v\geq0$, $m>0$,
+$|v-m|\leq\delta m/4$, $\eta\leq c_0\delta$, $A\leq c_1\delta^2m$,
+and
+\[
+ |u-v|\leq C_1\sqrt{A(u+v+\eta^2m)}
+                +C_1\eta(u+v)+C_1\eta^2m.
+\]
+Then $|u-m|\leq\delta m$.
+\end{lemma}
+
+\begin{proof}
+Put $s=u+v$. Since $s\leq2v+|u-v|$ and $v\leq(1+\delta/4)m$, Young's
+inequality bounds the square-root term by $s/4+C_2A+C_2\eta m$, for an
+absolute $C_2$. Choose $\eta$ small enough that $C_1\eta\leq1/4$.
+Using $A\leq m$ then gives $s\leq C_3m$, with $C_3$ absolute.
+Substitute this bound in the assumed inequality to get
+\[
+ |u-v|\leq C_4\sqrt{Am}+C_4\eta m.
+\]
+Choose $c_0,c_1$ small enough that the right side is at most
+$3\delta m/4$. The triangle inequality proves the result.
+\end{proof}
+
+\begin{theorem}\label{thm:upper}
+For every fixed $0<\delta<1/4$, there is $C_\delta>0$ such that
+\begin{equation}\label{eq:upperm}
+ m\geq C_\delta k\log\frac{2eN}{k}\log(2k)
+\end{equation}
+implies, with probability at least $23/24$,
+\[
+ \left|\frac1m\sum_{t=1}^m |(Hy)_{a_t}|^2-1\right|\leq\delta
+ \qquad\text{for every }y\in\K_k.
+\]
+This holds for any real $H$ as above and independent uniform row draws.
+\end{theorem}
+
+\begin{proof}
+Set $\rho=1/32$ and first fix $\eta>0$ small enough for
+Lemma~\ref{lem:absorb}. We claim that a sufficiently large $C_\delta$ in
+\eqref{eq:upperm} ensures $A_m\leq c_1\delta^2m$.
+Indeed, put $t=m/(kL)$ and $q=\log(2k)$. By
+\eqref{eq:geometry1} and \eqref{eq:Am},
+\begin{equation}\label{eq:Aoverm}
+ \frac{A_m}{m}\leq C_\eta
+ \left[\frac{\log(e+kt)}t+\frac{\log(64\ell)}{Lt}\right].
+\end{equation}
+Here $L\geq\log(2e)$, $\ell\leq C_\eta q$, and
+$\log(e+kt)\leq q+\log(e+t)$. If $t\geq Bq$, the right side of
+\eqref{eq:Aoverm} tends uniformly to zero as $B\to\infty$:
+$q/t\leq1/B$, $\log(e+t)/t$ is decreasing, and
+$\log(64C_\eta q)/q$ is bounded for $q\geq\log4$.
+This proves the claim.
+
+For a fixed $y\in\K_k$, the independent-copy energy satisfies, by
+\eqref{eq:energyfacts},
+\[
+ \E X'_y=m,\qquad \Var(X'_y)\leq mk.
+\]
+Consequently Chebyshev's inequality gives
+\begin{equation}\label{eq:ghost}
+ \Prob\{|X'_y-m|>\delta m/4\}
+ \leq\frac{16k}{\delta^2m}\leq\frac14
+\end{equation}
+once $m\geq64k/\delta^2$, also ensured by increasing $C_\delta$.
+
+Let $B$ be the event that the first sample fails the asserted uniform
+estimate. On $B$, choose a witness $y$ with $|X_y-m|>\delta m$.
+There is no measurability problem: the first sample takes only finitely
+many values, and a witness can be chosen for each bad value. Conditional
+on the first sample, \eqref{eq:ghost} applies to this fixed witness.
+Thus with conditional probability at least $3/4$, its independent-copy
+energy lies within $\delta m/4$ of $m$. On that event,
+Lemma~\ref{lem:absorb} implies that \eqref{eq:pair} cannot hold for this
+witness. Proposition~\ref{prop:pair} therefore gives
+\[
+ \frac34\Prob(B)\leq\rho,\qquad
+ \Prob(B)\leq\frac{4\rho}{3}=\frac1{24}.
+\]
+This proves the theorem, with no upper restriction on the number of draws.
+\end{proof}
+
+\section{A uniform affine-subspace lower bound}
+
+Return to the Walsh matrix on $G=\F_2^d$. Fix
+\begin{equation}\label{eq:dyadicpars}
+ K=2^r,\qquad 1\leq r\leq d-1,\qquad s=d-r.
+\end{equation}
+For an $r$-dimensional subspace $V\subseteq G$ and a linear functional
+$f\in V^*$, define
+\[
+ A(V,f)=\{a\in G:a\cdot v=f(v)\text{ for all }v\in V\}.
+\]
+This affine row subspace has density $1/K$.
+
+\begin{lemma}[A missed affine subspace]\label{lem:witness}
+If none of the $m$ sampled rows lies in $A(V,f)$, then $\Phi_m$ has a
+$K$-sparse unit vector in its kernel.
+\end{lemma}
+
+\begin{proof}
+Define $x_b=K^{-1/2}(-1)^{f(b)}$ for $b\in V$ and $x_b=0$ otherwise.
+Then $\|x\|_2=1$. Orthogonality of characters on $V$ gives
+\[
+ (Hx)_a=K^{-1/2}\sum_{b\in V}(-1)^{a\cdot b+f(b)}
+        =\sqrt K\,\1_{A(V,f)}(a).
+\]
+The sampled coordinates of this vector vanish under the stated condition.
+\end{proof}
+
+Let $X$ count all pairs $(V,f)$ for which $A(V,f)$ is missed. The number
+of such pairs is $T=K\gaussbinom dr$, where the bracket denotes a Gaussian
+binomial coefficient. In the fixed-$m$ sampling model,
+\begin{equation}\label{eq:firstmoment}
+ p=(1-1/K)^m,\qquad \E X=Tp>0.
+\end{equation}
+
+\begin{lemma}[Exact offset average]\label{lem:joint}
+Fix $r$-dimensional subspaces $V,W$ with $\dim(V\cap W)=j$.
+Average over independent uniform $f\in V^*$ and $g\in W^*$.
+The probability that both $A(V,f)$ and $A(W,g)$ are missed is
+\begin{equation}\label{eq:joint}
+ 2^{-j}\left(1-\frac2K+\frac{2^j}{K^2}\right)^m
+ +(1-2^{-j})\left(1-\frac2K\right)^m.
+\end{equation}
+For $j=0$, this is exactly $p^2$.
+\end{lemma}
+
+\begin{proof}
+The restrictions of $f$ and $g$ to $V\cap W$ agree with probability
+$2^{-j}$. In that case their common affine solution set has codimension
+$\dim(V+W)=2r-j$, hence density $2^j/K^2$; otherwise it is empty.
+Each of the two affine sets has density $1/K$. A single draw misses
+their union with the probabilities appearing in \eqref{eq:joint}.
+Independence of the $m$ draws gives the powers. At $j=0$ the first base
+equals $(1-1/K)^2$, and the second term has coefficient zero.
+\end{proof}
+
+\begin{lemma}[Intersection probability]\label{lem:intersection}
+Let $V,W$ be independent uniform $r$-dimensional subspaces of $\F_2^d$,
+and write $q_j=\Prob\{\dim(V\cap W)=j\}$. For $1\leq j\leq r$,
+\begin{equation}\label{eq:qbound}
+ q_j\leq4\,2^{-j(s-r+j)}.
+\end{equation}
+Every feasible $j$ also satisfies $j\geq r-s$.
+\end{lemma}
+
+\begin{proof}
+Fix $V$. If $\dim(V\cap W)\geq j$, then some $j$-dimensional subspace
+$U\subseteq V$ lies in $W$. For a fixed $U$, elementary subspace counting
+gives
+\[
+ \Prob\{U\subseteq W\}
+ =\prod_{i=0}^{j-1}\frac{2^r-2^i}{2^d-2^i}
+ \leq2^{-js}.
+\]
+For example, the product identity follows by counting ordered independent
+$j$-tuples in a random $W$ and in the whole space. A union bound over the
+$\gaussbinom rj$ possible $U$ yields
+\[
+ q_j\leq\gaussbinom rj 2^{-js}
+ \leq4\,2^{j(r-j)}2^{-js}.
+\]
+For the last inequality, use
+\[
+ \gaussbinom rj
+ =2^{j(r-j)}
+ \prod_{i=0}^{j-1}\frac{1-2^{i-r}}{1-2^{i-j}}
+ \leq \frac{2^{j(r-j)}}{\prod_{h=1}^\infty(1-2^{-h})}
+ <4\,2^{j(r-j)}.
+\]
+Indeed the infinite product is at least
+$(1-1/2)(1-1/4)(1-\sum_{h\geq3}2^{-h})=9/32>1/4$;
+the inequality for the tail follows first for finite products and then
+by a limit. Finally $\dim(V+W)\leq d$ implies $j\geq2r-d=r-s$.
+\end{proof}
+
+\begin{proposition}[Uniform second moment]\label{prop:second}
+Under \eqref{eq:dyadicpars}, if $m$ is a positive integer satisfying
+\begin{equation}\label{eq:lowerthreshold}
+ m\leq\frac{Krs\log2}{100},
+\end{equation}
+then
+\begin{equation}\label{eq:ratio}
+ \frac{\E X^2}{(\E X)^2}
+ \leq1+\frac4{2^{3/4}-1}<7.
+\end{equation}
+In particular, with probability greater than $1/7$, $\Phi_m$ has a
+$K$-sparse unit vector in its kernel.
+\end{proposition}
+
+\begin{proof}
+Using Lemma~\ref{lem:joint} to average over all ordered pairs of affine
+subspaces, divide by $p^2$ from \eqref{eq:firstmoment}. Put
+\[
+ A_j=1+\frac{2^j-1}{(K-1)^2},\qquad
+ B_0=1-\frac1{(K-1)^2}\in[0,1].
+\]
+The exact ratio is
+\begin{equation}\label{eq:exactratio}
+ R:=\frac{\E X^2}{(\E X)^2}
+ =\sum_{j=0}^r q_j\left[2^{-j}A_j^m+(1-2^{-j})B_0^m\right].
+\end{equation}
+Since $A_0=1$ and $B_0^m\leq1$,
+\begin{align}
+ R&\leq1+\sum_{j\geq1}q_j2^{-j}(A_j^m-1)\notag\\
+ &\leq1+\sum_{\substack{j\geq1\\q_j>0}}
+ q_j2^{-j}\exp\left(\frac{m2^j}{(K-1)^2}\right).
+ \label{eq:ratioexp}
+\end{align}
+Here and below $j\leq r$ in sums over feasible intersections.
+
+Write $l=r-j$. Feasibility gives $0\leq l\leq s$ and $j\geq1$.
+The elementary inequality
+\begin{equation}\label{eq:keyelementary}
+ rs\,2^{-l}\leq2j(s-l+1)
+\end{equation}
+holds throughout this range. For $l=0$ it is immediate. For $l\geq1$,
+\[
+ \frac{s}{s-l+1}\leq l,\qquad \frac{r}{j}=1+\frac lj\leq l+1,
+\]
+so the ratio of the left side of \eqref{eq:keyelementary} to
+$j(s-l+1)$ is at most $l(l+1)2^{-l}\leq2$. The last inequality holds
+at $l=1,2$ and propagates for $l\geq2$ because
+$(l+2)/(2l)\leq1$.
+
+As $K\geq2$, one has $K/(K-1)^2\leq4/K$. Combining this with
+\eqref{eq:lowerthreshold} and \eqref{eq:keyelementary} yields
+\begin{align}
+ \frac{m2^j}{(K-1)^2}
+ &\leq\frac{4\log2}{100}\,rs\,2^{j-r}\notag\\
+ &\leq\frac{8\log2}{100}\,j(s-r+j+1)\notag\\
+ &\leq\frac{\log2}{4}\,j(s-r+j+1).\label{eq:exponent}
+\end{align}
+Lemma~\ref{lem:intersection} now gives, for every term of
+\eqref{eq:ratioexp},
+\[
+ q_j2^{-j}\exp\left(\frac{m2^j}{(K-1)^2}\right)
+ \leq4\,2^{-\frac34 j(s-r+j+1)}.
+\]
+Every feasible $j$ has $s-r+j+1\geq1$. Summing a geometric series proves
+\[
+ R\leq1+4\sum_{j\geq1}2^{-3j/4}
+   =1+\frac4{2^{3/4}-1}<7.
+\]
+The final strict inequality follows from $2^{3/4}>5/3$, which can be
+checked by raising both positive sides to the fourth power.
+Finally, Cauchy--Schwarz applied to $X\1_{\{X>0\}}$ gives
+\[
+ \Prob\{X>0\}\geq\frac{(\E X)^2}{\E X^2}>\frac17.
+\]
+Lemma~\ref{lem:witness} proves the kernel assertion.
+\end{proof}
+
+\begin{remark}
+The offset average in \eqref{eq:joint} is taken under the actual
+independent-draw law. No Poissonization or independent occupation
+approximation is used. In particular, $j=0$ contributes exactly one to
+the normalized pair probability. For highly overlapping subspaces,
+\eqref{eq:keyelementary} controls the excess without a restriction that
+$r$ or $d-r$ grow with $d$. This is why a constant failure probability
+suffices uniformly up to the boundary of the dyadic range.
+\end{remark}
+
+\section{All sparsities and completion of the theorem}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Each column of $\Phi_m$ has squared norm exactly one for every $m\geq1$.
+Thus $m_*(N,1)=1$.
+
+For $2\leq k\leq N$, Theorem~\ref{thm:upper} with $\delta=1/8$ gives
+\eqref{eq:rip} with probability at least $23/24>0.9$ whenever
+$m\geq Ck\log(2k)\log(2eN/k)$. Taking a ceiling and enlarging the
+universal constant proves the upper bound in \eqref{eq:main}.
+
+For the lower bound suppose first that $N\geq4$. Choose
+\[
+ r=\min\{\lfloor\log_2 k\rfloor,d-1\},\qquad K=2^r.
+\]
+Then $k/2\leq K\leq k$ and $2\leq K\leq N/2$. Proposition~\ref{prop:second}
+excludes every positive integer
+\[
+ m\leq T_0:=\frac{K\log K\log(N/K)}{100\log2}
+\]
+from the defining set for $m_*(N,k)$: a $K$-sparse kernel vector is also
+$k$-sparse, and its probability exceeds $0.1$. Consequently
+$m_*(N,k)>T_0$. If $T_0<1$, this conclusion follows instead directly
+from $m_*(N,k)\geq1$.
+
+Let $F=k\log(2k)\log(2eN/k)$. Since $k\leq2K$, $K\geq2$ and
+$N/K\geq2$,
+\[
+ \log(2k)\leq3\log K,\qquad
+ \log\frac{2eN}{k}\leq\log\frac{2eN}{K}\leq4\log\frac NK.
+\]
+Thus $F\leq24K\log K\log(N/K)$ and
+\[
+ T_0\geq\frac F{2400\log2}>\frac F{2000}.
+\]
+For the remaining case $N=2$, $k=2$, the inequality $m_*(2,2)\geq1$
+is more than sufficient for the same lower constant. This completes
+the proof for every parameter pair.
+\end{proof}
+
+\begin{remark}[Full sparsity and multiplicities]
+At $k=N$, the formula gives order $N\log N$. In fact, if $n_a$ denotes
+the number of times row $a$ is sampled, orthogonality diagonalizes
+$\Phi_m^T\Phi_m$ with eigenvalues $Nn_a/m$. Hence the full-sparsity
+event requires every occupancy to lie between $m/(2N)$ and $3m/(2N)$.
+Keeping all $N$ distinct rows would give an exact isometry, but it is a
+different sampling rule. The proof above retains the prescribed rule
+also when $m>N$.
+\end{remark}
+
+\begin{remark}[What the extension establishes]
+The result is an order estimate at fixed distortion and fixed success
+probability. It does not determine the optimal upper constant, sharp
+distortion dependence, or the leading constants in endpoint asymptotics.
+Its upper-bound mechanism is the entropic encoding of \cite{BIK}.
+The additional work is the probability interface for repeated
+occurrences and the uniform affine second-moment completion of the
+Walsh lower bound. Those are the contributions claimed here.
+\end{remark}
+
+\begin{thebibliography}{9}
+
+\bibitem{BIK}
+W.~Burstein, A.~Iosevich, and B.~Krause,
+\emph{Restricted isometry of sampled Fourier and Hadamard matrices via
+entropic descent}, arXiv:2609.22568v1 (2026).
+\href{https://arxiv.org/abs/2609.22568v1}{Public preprint};
+\href{https://arxiv.org/html/2609.22568v1}{versioned full text}.
+
+\bibitem{BLLMR}
+J.~B{\l}asiok, P.~Lopatto, K.~Luh, J.~Marcinek, and S.~Rao,
+\emph{An improved lower bound for sparse reconstruction from subsampled
+Walsh matrices}, Discrete Analysis 2023:3;
+arXiv:1903.12135v3.
+\href{https://arxiv.org/abs/1903.12135v3}{Public paper}.
+
+\bibitem{FR10}
+\emph{Open Problems in Numerical Linear Algebra},
+FR-10: Sharp sampling complexity for Walsh restricted isometries.
+Public problem statement and endpoint-results record, consulted
+30 September 2026.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/frames-and-matrix-designs/FR-10/README.md}{Problem and bibliography}.
+
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,68 @@
+# Ordinary computation model: independent final boundary review
+
+Reviewer: /root/statement_design (OpenAI Codex AI agent), 2026-09-28.
+Verdict: **approve** for the exact ordinary-definition scope and bound bytes below.
+
+## Definition fidelity and scope
+
+1. FiniteMachine fixes the alphabet to Option Bool (blank and two nonblank bits) and state type Fin(stateBound+1). Its table is a function on a finite domain, hence finitely many transition choices, not an input-wide evaluator or an infinite-data instruction.
+
+2. Its step and initial definitions directly call pinned TM0.step and TM0.init. The inspected TM0 source reads only the state and current head symbol, then moves one cell or writes one symbol. Initial state is the default Fin value zero, and initialization stores the mapped input bits on an otherwise blank tape.
+
+3. RunsWithin requires a concrete EvalsToInTime trace to some final configuration, a separate step(c)=none condition, and exact output. The imported witness contains an actual iterate count and proof count<=T. An intermediate configuration is not an accepting halt, and Option.none is not treated as a decoded answer.
+
+4. HasOutput compares the entire right-side ListBlank beginning at the final head with the mapped finite output word. Since some false and some true differ from the blank none, trailing zero bits cannot disappear. Ignoring the tape left of the final head is exactly the approved convention; output still comes from physically present finite tape cells.
+
+5. PolynomialBound uses a positive natural coefficient and natural exponent with coefficient*(length+1)^exponent. There is no input-dependent supplied cost, complexity theorem, LP callback or oracle in these ordinary definitions.
+
+6. Nat.bits is LSB-first in the pinned source; binary correctly reverses it and special-cases zero to one false bit. encodeNat frames this exact numeral by its bit length, not its numeric value. parseNat rejects missing separators, zero-length, truncation and noncanonical leading zeros using exact re-encoding.
+
+7. Integer sign uses the actual integer ordering and natAbs; the parser explicitly rejects negative zero. Rational encoding uses the normalized Rat numerator/positive denominator; parsing rejects zero denominator and noncoprime pairs before mkRat. Thus arbitrary valid rational objects, including zero and negative rationals, have the stated syntax.
+
+8. Row-major matrixEntries uses the outer Fin n list of rows and inner Fin n list of columns. The AV, threshold and interval encoders list every rational entry in the reviewed order. Exact output encoding includes dimension then all lower then all upper coordinates. Every full decoder rejects leftover suffixes.
+
+9. parseRats checks field count against remaining bit length before its recursion. The proved parseRats_length gives exactly the requested number of parsed fields; for matrix reconstruction every i*n+j lies below n*n, and vector indices below n. Consequently getD defaults cannot silently supply omitted input coordinates, even though these finite-index inequalities are not separately packaged as decoder theorems here.
+
+10. Decoders recognize only syntax. Dimension positivity, threshold positivity, endpoint order, regularity and inverse-M promises remain separate target predicates. Accepting a syntactically valid negative threshold is explicitly tested and does not provide a free analytic promise recognizer.
+
+11. Controls proves general framing-length and prefix-recovery results and successful parser field length, plus finite positive/negative syntax cases, exact field-order examples and true terminal-output distinctions. They use ordinary kernel decide and proof tactics, with explicit LeanCert kernel trust. The finite examples are correctly documented as regression controls, not proofs of general codec inversion.
+
+12. The final NLA.lean imports NLA.Computation.Controls, placing this code and its concrete controls in the package checked import path. That file, its full local import closure including KernelSmoke and Infrastructure, the complete reviewed model, implementation notes and dependency pins are bound in this report.
+
+13. The retained root macOS compilation receipts and logs report successful fresh compilation of FiniteMachine, BinaryEncoding, Controls and NLA. The printed axiom reports list only propext, Classical.choice and Quot.sound. This reviewer inspected the source and receipts but did not independently execute Lean or claim a Linux CI run.
+
+14. General encode/decode inversion, full injectivity and quantitative polynomial model/encoding translation theorems are still pending. This is accurately stated in IMPLEMENTATION_NOTES. Their absence does not turn the concrete definitions into placeholders: direct encoded-instance Target propositions can use them without assuming those theorems. A later proof or a claim of mechanically proved model equivalence must discharge the relevant obligations.
+
+15. NP verifier classes and tagged three-tape oracle semantics are not implemented by these files and are outside this approval. AV02 requires that separate extension. No catalog mathematical target or runtime guarantee of a constructed solver has been proved by the shared ordinary library.
+
+## Pinned external definitions inspected
+
+- Mathlib/Computability/TuringMachine/PostTuringMachine.lean: 2380a758451146b8575fe10d84b8c5c71c0a190e572d84674d4782ce59a79854; Stmt, Machine, step and init were read; bounded move/write interpretation is actual code.
+- Mathlib/Computability/StateTransition.lean: eceb96a26dccbd8f8abcd83874539b49b8b7e797f195a864cff85c1bbe8476b2; EvalsTo and EvalsToInTime store actual iteration and a bound, not termination by themselves.
+- Mathlib/Computability/TuringMachine/Tape.lean: 76144efd656fa16485735ce381a2b1c98feb95893a8bc60addf6ad009a043f13; Finite ListBlank/tape representation and right-side output convention, also inspected in the approved model prereview.
+- Mathlib/Data/Nat/Bits.lean: a11e29552e7962e7b7098a68a1eba9203e97f186ccec6e6ce6f52dd320745a3d; bits is explicitly LSB-first via binaryRec.
+- Mathlib/Data/Rat/Defs.lean: e644776b8813e3764493563b13beac92092a98854d017081f496c329078d2c1f; Rat normalized numerator/denominator and mkRat_self correspondence exposed by the API.
+
+## Bound inputs
+
+- docs/lean/statements/computational-model/IMPLEMENTATION_NOTES.md: 46d47e5f1ab70ddb0659e159d423da6ac035d40e74efabc510a92fd7377d4e5b
+- docs/lean/statements/computational-model/MODEL_SPECIFICATION.md: 2190ec99aceb23943c6ece7f270ad31c535c8cab594f3e755e2ed11110d0311c
+- docs/lean/statements/computational-model/source-audit.json: 7e8efd4460378bb329cdd941d631c13126881569c142fd017404a4e44a476d10
+- docs/lean/statements/verification/2026-09-28-computational-model/NLA-Computation-BinaryEncoding.lean.log: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+- docs/lean/statements/verification/2026-09-28-computational-model/NLA-Computation-Controls.lean.log: 7644ec1bef5ba9349ab54b229e836012bebeed22b197516dceb85319bd4afc48
+- docs/lean/statements/verification/2026-09-28-computational-model/NLA-Computation-FiniteMachine.lean.log: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+- docs/lean/statements/verification/2026-09-28-computational-model/NLA.lean.log: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+- docs/lean/statements/verification/2026-09-28-computational-model/receipt.json: 2bccfb27c646df659be64ceb6e9e6218dc9e6932ffc333318dbe0090c9650d12
+- lean-statements/NLA.lean: 21dc2012a3202ab5151925cedda9ee85b1192b23afa921558511b393c1b7294c
+- lean-statements/NLA/Computation/BinaryEncoding.lean: d494ffb15274500ea5c06c480c2b2032a48390533f7171b4ed993d947c44ee6a
+- lean-statements/NLA/Computation/Controls.lean: 3ee7958d508bbcef064b1c23e4826c26535de7ea1115795c941acc7f0e763cfc
+- lean-statements/NLA/Computation/FiniteMachine.lean: 7c8b2a8e88220b3a1a66bf9c9748ee2213b155dd239809654240095180918d9d
+- lean-statements/NLA/Statements/Infrastructure.lean: 8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37
+- lean-statements/NLA/Statements/KernelSmoke.lean: d2974e121f3e06ff2fb7ec220ebd026ce843db41a798e86aca3bc07c82f154fe
+- lean-statements/lake-manifest.json: a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8
+- lean-statements/lakefile.toml: 1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40
+- lean-statements/lean-toolchain: 3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71
+
+## Limits
+
+Independent AI-agent final source/model fidelity review, independent of the specification and implementation author /root/inventory. Approval covers the ordinary finite-machine, encoders/parsers and control definitions only. It does not claim general codec inversion, efficient compiler/translation theorems, NP/oracle semantics, a catalog Target theorem or independently executed Lean/Comparator verification.

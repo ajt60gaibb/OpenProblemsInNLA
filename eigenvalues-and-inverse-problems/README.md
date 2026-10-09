@@ -2,7 +2,7 @@
 
 [← All categories](../README.md) · [Full catalog](../CATALOG.md) · [Solved and claimed solutions](../RESOLVED.md)
 
-**13 problems with open targets.** 13 retained entries are excluded from the open count.
+**12 problems with open targets.** 14 retained entries are excluded from the open count.
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
@@ -18,7 +18,6 @@
 | [SP-08](SP-08/README.md) | Rank-two maximizers of spectral spread on an entry interval | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](SP-08/problem.pdf) · [TeX](SP-08/problem.tex) |
 | [SP-09](SP-09/README.md) | Unitary-orbit distance under finite block repetition | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](SP-09/problem.pdf) · [TeX](SP-09/problem.tex) |
 | [SP-10](SP-10/README.md) | The graph complement conjecture for minimum symmetric rank | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](SP-10/problem.pdf) · [TeX](SP-10/problem.tex) |
-| [SP-14](SP-14/README.md) | Widom's canonical distribution conjecture for Toeplitz eigenvalues | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](SP-14/problem.pdf) · [TeX](SP-14/problem.tex) |
 
 ## Retained entries outside the open count
 
@@ -28,7 +27,7 @@
 | [IE-10](IE-10/README.md) | Conditioning of a random Krylov compression of a cyclic shift | **✅ SOLVED** | challenging | interesting to specialist | [PDF](IE-10/problem.pdf) · [TeX](IE-10/problem.tex) |
 | [IS-02](IS-02/README.md) | Where a symmetric stochastic matrix can be spectrally unique | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](IS-02/problem.pdf) · [TeX](IS-02/problem.tex) |
 | [IS-03](IS-03/README.md) | Johnson's derivative-realizability conjecture | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](IS-03/problem.pdf) · [TeX](IS-03/problem.tex) |
-| [KE-03](KE-03/README.md) | Find a near-largest nonnormal eigenvalue using few matrix-vector products | **✅ SOLVED** | challenging | interesting to the community | [PDF](KE-03/problem.pdf) · [TeX](KE-03/problem.tex) |
+| [KE-03](KE-03/README.md) | Find a near-largest nonnormal eigenvalue using few matrix-vector products | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](KE-03/problem.pdf) · [TeX](KE-03/problem.tex) |
 | [KE-04](KE-04/README.md) | Strict interlacing across block Lanczos iterations | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](KE-04/problem.pdf) · [TeX](KE-04/problem.tex) |
 | [SP-04](SP-04/README.md) | The smallest-multiplier rule for nearest unit-absolute-determinant matrices | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](SP-04/problem.pdf) · [TeX](SP-04/problem.tex) |
 | [SP-05](SP-05/README.md) | Symmetric minimizer for a positive definite Jordan–Kronecker product | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](SP-05/problem.pdf) · [TeX](SP-05/problem.tex) |
@@ -36,6 +35,7 @@
 | [SP-11](SP-11/README.md) | The delta conjecture for minimum symmetric rank | **✅ SOLVED** | extreme | interesting to the community | [PDF](SP-11/problem.pdf) · [TeX](SP-11/problem.tex) |
 | [SP-12](SP-12/README.md) | A chromatic lower bound for positive-semidefinite nullity with SAP | **✅ SOLVED** | challenging | interesting to specialist | [PDF](SP-12/problem.pdf) · [TeX](SP-12/problem.tex) |
 | [SP-13](SP-13/README.md) | Trace-norm-small perturbations preserve Hermitian spectral distributions | **✅ SOLVED** | challenging | interesting to the community | [PDF](SP-13/problem.pdf) · [TeX](SP-13/problem.tex) |
+| [SP-14](SP-14/README.md) | Widom's canonical distribution conjecture for Toeplitz eigenvalues | **✅ SOLVED** | extreme | interesting to the community | [PDF](SP-14/problem.pdf) · [TeX](SP-14/problem.tex) |
 | [SP-15](SP-15/README.md) | Finitely many unitary classes with prescribed shifted singular values | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](SP-15/problem.pdf) · [TeX](SP-15/problem.tex) |
 
 Ratings are editorial; each entry explains both ratings and the scope of its status evidence. [Definitions](../README.md#problem-status).

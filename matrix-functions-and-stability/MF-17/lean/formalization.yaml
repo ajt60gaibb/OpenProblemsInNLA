@@ -1,0 +1,136 @@
+version: v0.4
+project:
+  name: 'MF-17: sharp fixed-bound inverse-semigroup growth'
+  authors:
+  - AI assistants
+  license: Apache-2.0
+  description: Symbolic formalization of the full strong-generator inverse, fixed-M sharp
+    growth, finite-dimensional lower witnesses, and contractive endpoint.
+repository:
+  role: substantive-development
+sources:
+- title: MF-17 — Optimal uniform growth after inversion of an exponentially stable generator
+  id: ../README.md
+  type: webpage
+  relationship: formalizes
+  location: Original problem statement
+- title: 'MF-17 Research Handoff: Complete Proposed Proof and Attempt History'
+  id: ../MF-17-research-handoff.pdf
+  type: manuscript
+  relationship: adapts
+  location: Part VI, Theorem S.1.1 and Sections S.2–S.9; printed pages 42–56
+  note: Submitted manuscript retained unchanged. Formalization covers the sharp-rate theorem,
+    not all later numerical or leading-constant claims.
+- title: A solution to the inverse generator problem and related questions
+  authors:
+  - E. Lorist
+  - M. Meyries
+  - M. Veraar
+  id: https://arxiv.org/html/2608.06272v3
+  type: article
+  relationship: background
+  location: Problem 1.3 and Theorem 1.2(2)
+automation:
+  methods:
+  - method: agent
+    tool_setup: Existing symbolic Lean formalization, local build and axiom inspection, pinned
+      repository Comparator workflow, and independent retrospective source reviews.
+  notes: AI assistance in formalization and verification is disclosed; no external human peer
+    review is claimed. No model identity or measured cost is asserted.
+status:
+  scope: The full original fixed-M growth target over arbitrary complex Hilbert spaces, plus
+    the exact contractive endpoint and finite-dimensional sharp lower witnesses.
+  whole_problem_verified: true
+  sorry_count: 0
+  sorry_in_definitions: 0
+  source_scan_note: All 221 solution source files have no proof holes or custom axioms. Challenge
+    contains five deliberate specification placeholders and is excluded from Solution. The
+    local build, five independent target-type checks, five transitive axiom reports, and complete
+    fresh Linux Comparator/default-kernel workflow passed on 2026-09-30.
+  main_results:
+  - declaration: ProofProject.stableSemigroup_hasGeneratorInverse
+    file: Solution.lean
+    sorry_count: 0
+    comparator_config: comparator.json
+    verification_status: 'PASS: local build and target-type/axiom checks; fresh sandboxed
+      Comparator statement/axiom comparison and default-kernel replay; complete harness exit
+      0.'
+    axioms: &id001
+    - propext
+    - Classical.choice
+    - Quot.sound
+  - declaration: ProofProject.attainableNorms_bddAbove
+    file: ProofProject/Envelope.lean
+    sorry_count: 0
+    comparator_config: comparator.json
+    verification_status: 'PASS: local build and target-type/axiom checks; fresh sandboxed
+      Comparator statement/axiom comparison and default-kernel replay; complete harness exit
+      0.'
+    axioms: *id001
+  - declaration: ProofProject.sharp_growth
+    file: ProofProject/SharpGrowth.lean
+    sorry_count: 0
+    comparator_config: comparator.json
+    verification_status: 'PASS: local build and target-type/axiom checks; fresh sandboxed
+      Comparator statement/axiom comparison and default-kernel replay; complete harness exit
+      0.'
+    axioms: *id001
+  - declaration: ProofProject.finite_dimensional_lower
+    file: ProofProject/LowerBound.lean
+    sorry_count: 0
+    comparator_config: comparator.json
+    verification_status: 'PASS: local build and target-type/axiom checks; fresh sandboxed
+      Comparator statement/axiom comparison and default-kernel replay; complete harness exit
+      0.'
+    axioms: *id001
+  - declaration: ProofProject.contractive_envelope
+    file: ProofProject/Endpoint.lean
+    sorry_count: 0
+    comparator_config: comparator.json
+    verification_status: 'PASS: local build and target-type/axiom checks; fresh sandboxed
+      Comparator statement/axiom comparison and default-kernel replay; complete harness exit
+      0.'
+    axioms: *id001
+  axioms: *id001
+fidelity:
+  divergences: The target is unchanged. The lower proof uses a symmetrized scalar weight,
+    alternating coefficients, orthogonal replication and Euclidean metric perturbation in
+    place of the manuscript two-component construction. Coefficient-deficit and endpoint constants
+    are proved refinements. NUMERICAL_TARGETS.md explicitly corrects inherited exact-source
+    attributions without changing proof bytes.
+review:
+  status: Independent retrospective source reviews approved within their stated scope; all
+    required mechanical gates passed.
+  reviewers:
+  - Ptolemy, independent AI statement reviewer
+  - Hume, independent AI upper-proof reviewer
+  - Aquinas, independent AI statement/lower-proof reviewer
+  notes: Two independent statement-fidelity reviews approve all five contracts. The upper
+    and lower reviews found no mathematical defect within their inspected scope. Two lower-proof
+    correspondence/attribution objections were corrected in NUMERICAL_TARGETS.md and approved
+    in the final incorporation addendum. These are retrospective AI source reviews, not human
+    peer review or build execution.
+alignment:
+  source_correspondence: NUMERICAL_TARGETS.md
+  numerical_boundary: NUMERICAL_TARGETS.md
+  proposed_statements: Challenge.lean
+  proposed_declarations:
+  - ProofProject.stableSemigroup_hasGeneratorInverse
+  - ProofProject.attainableNorms_bddAbove
+  - ProofProject.sharp_growth
+  - ProofProject.finite_dimensional_lower
+  - ProofProject.contractive_envelope
+verification:
+  date: '2026-09-30'
+  development_build: verification/build.log
+  target_types: verification/statement-types.log
+  axiom_report: verification/axioms.log
+  isolated_comparator: verification/linux-verification/result.json
+  published_to_github: true
+  published_source_revision: cad3785440a2678b5b30aa8133d425e709b6811d
+  publication_review: reviews/maintainer-integration-2026-09-30.md
+  isolated_log: verification/linux-verification/comparator.log
+  driver_log: verification/linux-verification/driver.log
+  source_revision: ac582d01532a914538cbfb74863437b18433038a
+  harness_exit_status: 0
+  runner_notes: verification/linux-verification/README.md

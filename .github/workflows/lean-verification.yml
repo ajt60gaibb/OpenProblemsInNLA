@@ -106,7 +106,15 @@ jobs:
         env:
           LEAN_PROJECT: ${{ matrix.project }}
         run: |
-          python3 -m pip install -r tools/lean/requirements.txt
+          for attempt in 1 2 3; do
+            if python3 -m pip install --retries 10 --timeout 30 -r tools/lean/requirements.txt; then
+              break
+            fi
+            if [ "$attempt" -eq 3 ]; then
+              exit 1
+            fi
+            sleep $((attempt * 10))
+          done
           python3 tools/lean/validate_manifest.py "$LEAN_PROJECT"
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6
         with:

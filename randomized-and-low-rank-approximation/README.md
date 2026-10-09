@@ -2,12 +2,11 @@
 
 [← All categories](../README.md) · [Full catalog](../CATALOG.md) · [Solved and claimed solutions](../RESOLVED.md)
 
-**12 problems with open targets.** 18 retained entries are excluded from the open count.
+**11 problems with open targets.** 19 retained entries are excluded from the open count.
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
 | [RA-01](RA-01/README.md) | Optimal pivot count for RPCholesky trace approximation | **🟡 PARTIAL** | challenging | interesting to the community | [PDF](RA-01/problem.pdf) · [TeX](RA-01/problem.tex) |
-| [RA-06](RA-06/README.md) | Sensitivity-dependent row sampling for $`\ell_p`$ embeddings when p exceeds two | **🔵 OPEN** | challenging | interesting to the community | [PDF](RA-06/problem.pdf) · [TeX](RA-06/problem.tex) |
 | [RA-11](RA-11/README.md) | Optimal trace-estimation complexity using Kronecker matrix-vector queries | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](RA-11/problem.pdf) · [TeX](RA-11/problem.tex) |
 | [RA-14](RA-14/README.md) | Optimal query complexity of spectral rank-$`k`$ approximation | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](RA-14/problem.pdf) · [TeX](RA-14/problem.tex) |
 | [RA-15](RA-15/README.md) | Query complexity from Schatten to spectral norms | **🟡 PARTIAL** | extreme | interesting to the community | [PDF](RA-15/problem.pdf) · [TeX](RA-15/problem.tex) |
@@ -28,6 +27,7 @@
 | [RA-03](RA-03/README.md) | Improve the randomized LU squared-error factor to $`2^k`$ | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](RA-03/problem.pdf) · [TeX](RA-03/problem.tex) |
 | [RA-04](RA-04/README.md) | Clustered singular-value gaps in randomized block Krylov approximation | **✅ SOLVED** | hard | interesting to specialist | [PDF](RA-04/problem.pdf) · [TeX](RA-04/problem.tex) |
 | [RA-05](RA-05/README.md) | Sharp joint rank and accuracy dependence for strong $`\ell_p`$ subspace coresets | **✅ SOLVED** | challenging | interesting to the community | [PDF](RA-05/problem.pdf) · [TeX](RA-05/problem.tex) |
+| [RA-06](RA-06/README.md) | Sensitivity-dependent row sampling for $`\ell_p`$ embeddings when p exceeds two | **✅ SOLVED** | challenging | interesting to the community | [PDF](RA-06/problem.pdf) · [TeX](RA-06/problem.tex) |
 | [RA-07](RA-07/README.md) | Convexity of the expected error of volume-sampled column subsets | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](RA-07/problem.pdf) · [TeX](RA-07/problem.tex) |
 | [RA-08](RA-08/README.md) | Concave-function transfer of spectral low-rank error | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](RA-08/problem.pdf) · [TeX](RA-08/problem.tex) |
 | [RA-09](RA-09/README.md) | Concave-function transfer of Frobenius low-rank error | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](RA-09/problem.pdf) · [TeX](RA-09/problem.tex) |
@@ -39,7 +39,7 @@
 | [RE-05](RE-05/README.md) | Pure relative error for approximation by a linear matrix family | **✅ SOLVED** | challenging | interesting to the community | [PDF](RE-05/problem.pdf) · [TeX](RE-05/problem.tex) |
 | [RE-06](RE-06/README.md) | Nonadaptive queries for finite-family matrix approximation | **✅ SOLVED** | challenging | interesting to the community | [PDF](RE-06/problem.pdf) · [TeX](RE-06/problem.tex) |
 | [TR-01](TR-01/README.md) | Optimal dimension for a rerandomized Hadamard embedding | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](TR-01/problem.pdf) · [TeX](TR-01/problem.tex) |
-| [TR-07](TR-07/README.md) | Random column subsets of arbitrary fixed-sparsity matrices | **✅ SOLVED** | challenging | interesting to the community | [PDF](TR-07/problem.pdf) · [TeX](TR-07/problem.tex) |
+| [TR-07](TR-07/README.md) | Random column subsets of arbitrary fixed-sparsity matrices | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](TR-07/problem.pdf) · [TeX](TR-07/problem.tex) |
 | [TR-08](TR-08/README.md) | Sharp sparsity threshold for injectivity of a random sparse rectangular matrix | **✅ SOLVED** | challenging | interesting to the community | [PDF](TR-08/problem.pdf) · [TeX](TR-08/problem.tex) |
 
 Ratings are editorial; each entry explains both ratings and the scope of its status evidence. [Definitions](../README.md#problem-status).

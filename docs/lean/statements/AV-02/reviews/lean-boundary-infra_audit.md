@@ -1,0 +1,74 @@
+# AV-02 independent final Lean-boundary review
+
+Reviewer: `/root/infra_audit`, OpenAI Codex AI agent independent of per-ID author `/root/statement_design` and computational-model author `/root/inventory`. Phase: `lean-boundary`. Verdict: **approve**.
+
+I read the complete canonical original, final approved specification, actual live and frozen definitions, implementation notes, and full ordinary-machine/encoding/NP/oracle source closure. The complete ORIGINAL remains byte-identical. Both independent preimplementation approval hash sets remain intact.
+
+InDiagonalCube quantifies all real d with each coordinate in the closed interval [-1,1]. Perturbed embeds every rational A entry and subtracts Matrix.diagonal d. Regular demands det(A-diag d)!=0 everywhere on the cube. The exact input dimension n>=1 and positive rational threshold remain required; no generic, triangular, symmetric, vertex-only or fixed-diagonal restriction is added.
+
+The pinned Matrix.toEuclideanLin is exactly toLpLin 2 2 and acts by the actual matrix-vector product on Euclidean spaces. LinearMap.toContinuousLinearMap preserves that same linear action. Its continuous-linear-map norm is therefore the real Euclidean induced operator norm, not a Frobenius or coordinatewise norm.
+
+ConditionNumber takes the real sSup of genuine inverse norms over the entire cube. This cube is nonempty and compact; the regularity premise makes inversion and then the operator norm continuous there. The values form a nonempty bounded compact set, so the supremum is the attained canonical maximum. No totalized empty/unbounded sSup value is used on legal inputs, and the determinant premise guards the totalized matrix inverse at every point.
+
+LegalWords and YesWords are concrete encoded-input languages, with all matrix/dimension/threshold bits and the same promise included in both. The exact threshold<=ConditionNumber inequality includes equality. The fixed canonical binary grammar does not identify distinct mathematical inputs; no procedure for recognizing the analytic promise is assumed.
+
+The shared InNP is a genuine finite ordinary verifier with one polynomial certificate-length bound and one uniform polynomial time bound, selected before all words/certificates. It returns a Boolean on every encoded pair, including overlong certificates, and membership is witnessed by an actual bounded accepting computation on a short certificate. The pair syntax is explicit, not a semantic verifier field.
+
+The ordinary machine uses finite control and current-symbol move/write actions over Option Bool; actual EvalsToInTime plus terminality and exact suffix equality define its output. The three-tape oracle extension likewise observes only finite control and three current symbols. Work performs at most one action per tape per counted step, and query invokes the oracle only on the current physical query suffix. The machine cannot inspect an unbounded semantic input or query log.
+
+QueryTape decodes only contiguous nonblank bits followed by blanks; internal blanks followed by bits fail. False bits differ from blanks. Its trailing-blank invariance makes the operation well-defined on the pinned quotient tape. Query preserves tapes and changes to a fixed yes/no state. Failed and halted statuses are distinct, absorbing tags, and only halted can satisfy RunsWithin; malformed queries cannot accept a preexisting output.
+
+The query trace derives from every actual time before the one successful bounded halt witness. The exact returned Boolean and legality of every recorded query refer to that same run. PolynomialOracleReduces chooses one finite program and bound before every compatible oracle and source word. Compatible constrains only legal target words, leaving other replies arbitrary; correctness and legal-query requirements hold for all such oracles. Compatible oracles exist, so this quantifier is not vacuous.
+
+Target universally quantifies every language in the concrete NP class, preserving promise-safe polynomial Turing NP-hardness. It does not replace this by one selected MAX-CUT numerical equivalence or assume a completeness/reduction theorem. Adaptive queries, full uniform bounds and every-query legality are retained.
+
+I independently compiled fresh Infrastructure, FiniteMachine, BinaryEncoding, Complexity, QueryTape, OracleMachine, OracleControls, live AV02, frozen AV02 and their actual rfl identity in a separate macOS build. All exited0. Oracle controls verify charged branches, real query traces, legal/illegal queries, malformed failure and absorbing tags. Live/frozen Target and complexity closures show only propext, Classical.choice and Quot.sound; #assert_statement and LeanCert #assert_trust kernel passed.
+
+The separate live and frozen per-ID definitions intentionally share reviewed computational types. This entire local import closure and pins are hash-bound, so frozen equality alone cannot authorize mutable shared semantics. General codec inverses, polynomial simulation equivalences, concrete reductions and target proof remain future work; none is an assumed field or axiom in these definitions.
+
+This is independent AI source/mathematical review and local kernel evidence, not external human review, proof of AV-02, or a Linux Comparator run.
+
+## Bound inputs
+
+- `docs/lean/statements/AV-02/IMPLEMENTATION_NOTES.md`: `524f84547a275c74358b9295e970ffd40aa9a9abbc35663827c3d5f4852893a0`
+- `docs/lean/statements/AV-02/NUMERICAL_TARGETS.md`: `26dba9081ffffa9d4b46d2feee2749992fb659bc2e9d12afdaeabb0a672da7da`
+- `docs/lean/statements/AV-02/ORIGINAL.md`: `c3e81826d271c719b61c0b2ba102206e24d2452a4684511d87cbacb1e7224828`
+- `docs/lean/statements/AV-02/reviews/lean-boundary-infra-audit-evidence/Identity.lean`: `63790e7ef4f3cab1a322b22f49239eb4675faa863082488c756551d1f7080030`
+- `docs/lean/statements/AV-02/reviews/lean-boundary-infra-audit-evidence/NLA-Computation-BinaryEncoding.log`: `2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30`
+- `docs/lean/statements/AV-02/reviews/lean-boundary-infra-audit-evidence/NLA-Computation-Complexity.log`: `2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30`
+- `docs/lean/statements/AV-02/reviews/lean-boundary-infra-audit-evidence/NLA-Computation-FiniteMachine.log`: `2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30`
+- `docs/lean/statements/AV-02/reviews/lean-boundary-infra-audit-evidence/NLA-Computation-OracleControls.log`: `6c8710cdc6581d9af3cfe4745041b3a5b65c912add23dd3be6e7953b4178352e`
+- `docs/lean/statements/AV-02/reviews/lean-boundary-infra-audit-evidence/NLA-Computation-OracleMachine.log`: `2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30`
+- `docs/lean/statements/AV-02/reviews/lean-boundary-infra-audit-evidence/NLA-Computation-QueryTape.log`: `2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30`
+- `docs/lean/statements/AV-02/reviews/lean-boundary-infra-audit-evidence/NLA-Statements-AV02.log`: `04f1883483fddf92deea08d74eec06fe63fb8455e64be5f37673bcdfe82ab88d`
+- `docs/lean/statements/AV-02/reviews/lean-boundary-infra-audit-evidence/NLA-Statements-Infrastructure.log`: `2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30`
+- `docs/lean/statements/AV-02/reviews/lean-boundary-infra-audit-evidence/Reviewed-AV02.log`: `7368bfcfb08fae934910c1749ecf80ce8165cf5cf0aecc0851891d8102e2b245`
+- `docs/lean/statements/AV-02/reviews/lean-boundary-infra-audit-evidence/identity.log`: `2a3954627795f50423fd88b74045fed1aa6fcc709aa93aa4113bc4d4ac5d9a30`
+- `docs/lean/statements/AV-02/reviews/lean-boundary-infra-audit-evidence/result.json`: `61b8cb0f321393389808b37f6e3afd7b777798f67782e7b068c79d5aa0413256`
+- `docs/lean/statements/AV-02/source-lock.json`: `dd1a71dcad5909fd0c55bf81d67f24dfd83f91f0a3d3ee8f59c179b779530f50`
+- `docs/lean/statements/computational-model/MODEL_SPECIFICATION.md`: `2190ec99aceb23943c6ece7f270ad31c535c8cab594f3e755e2ed11110d0311c`
+- `docs/lean/statements/computational-model/ORACLE_IMPLEMENTATION_NOTES.md`: `2d241730aa94c93bf66c3ddd445ab0a9d17e9e957b34b0b068a99d0863b9b2fd`
+- `intervals-and-absolute-value-equations/AV-02/README.md`: `c3e81826d271c719b61c0b2ba102206e24d2452a4684511d87cbacb1e7224828`
+- `lean-statements/NLA/Computation/BinaryEncoding.lean`: `d494ffb15274500ea5c06c480c2b2032a48390533f7171b4ed993d947c44ee6a`
+- `lean-statements/NLA/Computation/Complexity.lean`: `0ad5ee64d5ef0b77f5531b31bb1b69a1a668c556cbd79b42fea7b6f108275c88`
+- `lean-statements/NLA/Computation/FiniteMachine.lean`: `7c8b2a8e88220b3a1a66bf9c9748ee2213b155dd239809654240095180918d9d`
+- `lean-statements/NLA/Computation/OracleControls.lean`: `3a33851e293024dd03d5d2fecf315418679d517c352d8be4a9dec9f8b17ac4a3`
+- `lean-statements/NLA/Computation/OracleMachine.lean`: `83d5ce8087aeb2acaf6618d6e4e38aa622ff895ff895619e7d934a4a3960cd6c`
+- `lean-statements/NLA/Computation/QueryTape.lean`: `835806202af142538cf57942f5512a065178bad57d725b82db739ca1cad05b83`
+- `lean-statements/NLA/Statements/AV02.lean`: `dbaa0a5c1eed3c9142a6fe35b80ffa9e4cb20c21920dab80bdf37ed9516b039e`
+- `lean-statements/NLA/Statements/Infrastructure.lean`: `8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37`
+- `lean-statements/Reviewed/AV02.lean`: `b7789623c5e2a3056120a09ded155edb43c5ccac533b9b9f0b6e8755c3742f3f`
+- `lean-statements/lake-manifest.json`: `a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8`
+- `lean-statements/lakefile.toml`: `1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40`
+- `lean-statements/lean-toolchain`: `3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71`
+
+## Inspected pinned dependency sources
+
+- `Mathlib/Analysis/InnerProductSpace/PiL2.lean` at `0df444a360eaa60ab8c11dca51a86af692955474`: `1f9827b2db67213c725a2dcc3fec52a87772966d1fbd3fc6857a019dbd7a6053`
+- `Mathlib/Topology/Algebra/Module/FiniteDimension.lean` at `0df444a360eaa60ab8c11dca51a86af692955474`: `4e5ae8beb3a56ca35b98e0c56fc0c80ecf749e8c9107bdb3b4c86ef809e48fe9`
+- `Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean` at `0df444a360eaa60ab8c11dca51a86af692955474`: `1ee785b6ebd213ad2ed971bf3c804afee8cc6ce52be69e63572b4cf1bdb5e880`
+- `Mathlib/Computability/TuringMachine/Tape.lean` at `0df444a360eaa60ab8c11dca51a86af692955474`: `76144efd656fa16485735ce381a2b1c98feb95893a8bc60addf6ad009a043f13`
+- `Mathlib/Computability/TuringMachine/PostTuringMachine.lean` at `0df444a360eaa60ab8c11dca51a86af692955474`: `2380a758451146b8575fe10d84b8c5c71c0a190e572d84674d4782ce59a79854`
+- `Mathlib/Computability/StateTransition.lean` at `0df444a360eaa60ab8c11dca51a86af692955474`: `eceb96a26dccbd8f8abcd83874539b49b8b7e797f195a864cff85c1bbe8476b2`
+- `Mathlib/Data/Nat/Bits.lean` at `0df444a360eaa60ab8c11dca51a86af692955474`: `a11e29552e7962e7b7098a68a1eba9203e97f186ccec6e6ce6f52dd320745a3d`
+- `Mathlib/Data/Rat/Defs.lean` at `0df444a360eaa60ab8c11dca51a86af692955474`: `e644776b8813e3764493563b13beac92092a98854d017081f496c329078d2c1f`

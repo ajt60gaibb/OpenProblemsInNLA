@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "RA-10",
+  "reviewer": "/root",
+  "is_ai": true,
+  "phase": "lean-boundary",
+  "verdict": "approve",
+  "input_sha256": {
+    "docs/lean/statements/RA-10/NUMERICAL_TARGETS.md": "9a736152257f91d97f113a7b8b43d286e268a25fa142a97bdd62214387cb85de",
+    "docs/lean/statements/RA-10/ORIGINAL.md": "cbf022a051a4fd445b49fa977e1f2541e332d588b4c039a14588ce234f4eb742",
+    "lean-statements/NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+    "lean-statements/NLA/Statements/RA10.lean": "dd7235bc531fd808d7eb5c591b42c618fe8eba1104af4d54c981742d77d22c82",
+    "lean-statements/Reviewed/RA10.lean": "9762f20d48ca7fbdfaf4b3a99809dddeccb20ad0ef9efe2b987a71de39495400",
+    "lean-statements/lake-manifest.json": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+    "lean-statements/lakefile.toml": "1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40",
+    "lean-statements/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+    "randomized-and-low-rank-approximation/RA-10/README.md": "cbf022a051a4fd445b49fa977e1f2541e332d588b4c039a14588ce234f4eb742",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/CheckRA.lean": "0fe4cfe9f89fa222b4ba9a80c4fc3b3e941a45822b545089284c1db7aabe2767",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/CheckRA.log": "715989bec91e8827919b9d49b93fb3b6a6b7731bcfd4ac6c4914bb7f8f611b42",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/NLA-Statements-GaussianTrace.lean.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/NLA-Statements-RA10.lean.log": "e1941c2250488df1c9e91505374bf72d3a26cdfc96379d489bcb74b192c61b2a",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/NLA-Statements-RA12.lean.log": "cfd0aec4adc79b7885c92053e4a76c490d0bb5c26850460341ae7d4863f14fd8",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/NLA-Statements-RA13.lean.log": "6c18da698f418ffa5ce4b30788179d62e59b90d4c6fa815c9fe9159289426175",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/Reviewed-RA10.lean.log": "6ba6a94077665c16d4446e2166a619fa423acb2dc71983319d189747fa0c1a39",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/Reviewed-RA12.lean.log": "c094e837e83c3959f9bb274183b1a8e29c47de2a9dddae71ef9fd32f9dce362b",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/Reviewed-RA13.lean.log": "df1f6a00935530adde62fd3d146418ee1c20af7c7ec36b774f4a02b371260f02",
+    "docs/lean/statements/verification/2026-09-28-ra-bounds/receipt.json": "23e0a93f36cc34ba2467e1bba335b8c4abd04adfa280214817bc92988f738145"
+  },
+  "rationale": [
+    "Inspected the exact pinned Mathlib singularValues and Matrix.toEuclideanLin definitions. The matrix acts on Euclidean spaces and the sum includes its full n singular values. No coordinate norm or trace surrogate is used.",
+    "All positive matrix sizes occur in operator monotonicity, with exact PSD differences and full spectral sums. Continuity and nonnegativity apply only on the closed nonnegative half-line. Ordered square orthonormal reconstructions capture all PSD eigendecompositions, including ties and zero eigenvalues.",
+    "Truncation uses the first k columns of the same chosen basis in premise and conclusion for each matrix, preserving f(0) contributions and selected zero directions. Independent choices for the two matrices are universally quantified. One C>=1 precedes all input, epsilon, function and spectral choices.",
+    "Both nuclear inequalities and the factor 1+C*epsilon exactly match the reviewed original. No commutation, order, spectral gap, positive-tail or positive-definiteness restriction was introduced; zero epsilon and zero optimal tails remain.",
+    "Independently compiled the exact live/frozen sources and equality checks with pinned Lean 4.33.1 and exact dependency revisions. Kernel trust assertions succeeded; all target and equality axiom closures contain only propext, Classical.choice and Quot.sound. These checks do not prove Target or replace Linux Comparator."
+  ],
+  "report_path": "docs/lean/statements/RA-10/reviews/lean-boundary-root.md",
+  "report_sha256": "88cf56eb37309a7204f84a45901bf12e1af7ccc0ab458070adc784eeb96feb45",
+  "verification_scope": "Independent macOS Lean source elaboration, kernel axiom assertions and frozen equality; not Target truth or Linux Comparator."
+}

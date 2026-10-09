@@ -1,0 +1,25 @@
+# SP-13 independent preimplementation specification review
+
+Reviewer: `/root/infra_audit`, an OpenAI Codex AI agent independent of the target specification author. Phase: specification. Verdict: **approve**.
+
+I read the complete canonical README and exact specification and independently checked the proposed mathematical representation before any target Lean implementation. Infrastructure authorship does not make this reviewer an author of these problem specifications.
+
+The universal domain is every complex Hermitian sequence H, every arbitrary complex perturbation sequence E, and every real interval symbol with the stated a.e.-measurability. There is no norm boundedness, normality of E or H+E, convergence rate, or eigenvalue-matching assumption. The same symbol occurs in the premise and conclusion.
+
+The empirical functional must sum the characteristic polynomial root multiset, preserving algebraic multiplicities, and divide by the dimension. For each complex n-by-n matrix the monic characteristic polynomial has degree n and splits, giving exactly n roots with multiplicity. The n=0 convention is immaterial to limits at infinity and its Hermitian condition is tautological.
+
+The trace norm is the complete sum of genuine complex Euclidean singular values, normalized by the real n. It is not a Frobenius norm, eigenvalue absolute sum of a nonnormal matrix, or an operator norm. The precise hypothesis is that this real normalized norm tends to zero at infinity.
+
+Every continuous compactly supported complex-valued function on the entire complex plane is quantified, including non-real-valued tests and tests not supported on the real axis. Complex Bochner integrals and complex-valued convergence therefore reproduce the original spectral-distribution definition without a test-class restriction.
+
+The final specification resolves my initial Borel-domain concern by using AEMeasurable f under Lebesgue measure restricted to the closed unit interval. It includes all Lebesgue-measurable interval symbols and their null modifications, with unconstrained values outside the interval. A measurable representative leaves all composed test integrals unchanged, so this is the original symbol class up to its irrelevant a.e. representative.
+
+Compactly supported continuous F is bounded, and its composition with the a.e.-measurable symbol is a.e.-measurable; on the finite-measure interval it is integrable without any integrability or boundedness assumption on f itself. Closed endpoints differ from the source integral convention only on measure-zero sets.
+
+Complete ORIGINAL.md is byte-identical to the canonical README. The final Lean implementation must still be reviewed for the actual root-multiset, Euclidean singular-value, measure and limit APIs; this specification approval asserts no target proof or numerical verification.
+
+This approval applies only to the input bytes below. It verifies statement fidelity, not truth of the conjecture or cited resolution, human peer review, a Lean boundary, or Linux Comparator execution. The implemented definitions still require independent boundary review.
+
+- `eigenvalues-and-inverse-problems/SP-13/README.md`: `3db39d15a2d3879c0e72a983dd78197bcc8b99ac256a07fcaeee5b6f0962a57a`
+- `docs/lean/statements/SP-13/NUMERICAL_TARGETS.md`: `5f10905d6e0acfc2469a470321b310038e8d30ddb66d58bdf4b560b733fa7e60`
+- `docs/lean/statements/SP-13/ORIGINAL.md`: `3db39d15a2d3879c0e72a983dd78197bcc8b99ac256a07fcaeee5b6f0962a57a`

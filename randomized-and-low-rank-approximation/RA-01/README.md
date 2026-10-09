@@ -11,6 +11,48 @@
 **Last checked:** 2026-09-13  
 **Status:** Partially resolved  
 
+## Further partial result - 29 September 2026
+
+[*Iterated-logarithmic pivot bounds for randomly pivoted Cholesky*](RA-01.pdf),
+submitted manuscript, 29 September 2026.
+
+Theorems 1.1 and 1.2 (pp. 3-4) give sufficient pivot counts for the original
+coordinate, exact-arithmetic RPCholesky law on every finite complex Hermitian
+positive-semidefinite input, without a spectral-decay or eigenvector assumption:
+
+```math
+\mathbb E\mathop{\mathrm{tr}}\nolimits(R_k)\le(1+\varepsilon)\tau_r(A),
+\qquad
+k=\min\{n,K_j(r,\varepsilon)\},\qquad j\in\{2,4\},
+```
+
+where, for absolute constants $`C_2,C_4`$ and $`0<\varepsilon\le1`$,
+
+```math
+K_2(r,\varepsilon)\le C_2r\bigl(\varepsilon^{-1}+\Lambda_2(r)\bigr),
+\qquad
+K_4(r,\varepsilon)\le C_4r\bigl(\varepsilon^{-1}+\Lambda_4(r)\bigr).
+```
+
+Here $`\Lambda_1(r)=\log(e+r)`$ and
+$`\Lambda_{j+1}(r)=\log(e+\Lambda_j(r))`$ regularize the iterated logarithms
+at small ranks. Explicit finite-rank counts appear in equations (18) and (44);
+rank one has $`K_j(1,\varepsilon)=\lceil\varepsilon^{-1}\rceil`$, and zero
+rank-$`r`$ tails terminate in at most $`r`$ positive pivots. Thus the reported
+unrestricted counts are $`O(r/\varepsilon+r\log\log r)`$ and, more sharply,
+$`O(r/\varepsilon+r\log\log\log\log r)`$ in large-rank notation.
+
+Proposition 8.1 (pp. 19-21) also gives explicit robustness bounds for two-sided
+multiplicative approximations to the pivot probabilities, with exact Schur
+updates. **The unrestricted $`O(r/\varepsilon)`$ target remains open:** the
+fourfold iterated-logarithmic rank term is still unbounded. The prior
+tail-envelope result below addresses a different, restricted spectral scope.
+
+The manuscript discloses assistance from OpenAI Codex/ChatGPT and Claude in
+the mathematical development, exposition, experiments and proof review.
+This submission records a manuscript result; it does not assert formal
+verification or external human peer review.
+
 ## Partial resolution - 13 September 2026
 
 **Author:** Sidney Holden, Center for Computational Biology, Flatiron Institute,
