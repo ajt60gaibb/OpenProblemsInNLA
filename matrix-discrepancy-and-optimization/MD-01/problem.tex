@@ -34,7 +34,7 @@ graphs},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MD-01}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-10-08}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-10-09}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -72,7 +72,14 @@ September 2026. In §1.1, \textbf{Theorem 1.2 and Corollary 1.3} (printed
 p.~3 of the \href{https://arxiv.org/pdf/2609.30064}{full manuscript}),
 the authors claim that \(\vartheta(G_n)/\sqrt n\to1\) in probability.
 Appendix F (printed pp.~76--77) identifies their formulation with the
-trace-normalized SDP used in this entry. The
+trace-normalized SDP used in this entry. The v1 corollary prints an
+exact high-probability lower bound \(\vartheta(G_n)\ge\sqrt n\).
+Coauthor Jeff Xu confirmed in correspondence supplied by the maintainer
+on 8 October 2026 that its intended lower bound is
+\((1-o_n(1))\sqrt n\). He also confirmed that Claim 4.15's proof should
+have a logarithm, rather than \(n\), inside the disputed square root.
+These corrections leave the leading-constant claim unchanged; a
+corrected arXiv version was not yet available on 9 October 2026. The
 \href{https://focs.computer.org/2026/accepted-papers/}{official FOCS
 2026 accepted-paper list} includes this paper; acceptance is recorded
 separately from publication in the proceedings.
@@ -117,16 +124,16 @@ establish the original expectation limit, conditional on Theorem 1.2.
 The argument preserves the original SDP, graph ensemble and quantifiers;
 it does not replace the expectation statement with a probabilistic one.
 
-\textbf{Evidence level, 8 October 2026:} an
+\textbf{Evidence, 9 October 2026:} an
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/reviews/2026-10-08-claimed-solutions/MD-01.md}{independent
-AI-agent review} checked the theorem's match to the expectation target,
-the bridge above, and the witness construction through its main
-dependency chain. It could not independently certify the decisive
-graph-matrix norm, product and correction estimates (Theorem
-3.27/Corollary 3.28 and Theorems 4.7 and 4.17). The status therefore
-remains \textbf{Solution claimed}; no Lean verification or external
-human peer review is asserted. The original mathematical statement
-follows unchanged.
+AI-agent review} checks the expectation bridge but not the general
+graph-matrix estimates. Theorem 3.24's printed \(O(1)\) mixed-moment
+remainder fails; \(O(\sqrt n)\) is sharp, while its equal-shape case
+retains \(O(1)\). Definition 4.3 also makes Lemma 4.11 false as printed.
+Both failures have plausible local corrections, but the corrected
+general proof and an MD-01 Lean proof remain unverified. The paper's
+``Formal Verification'' appendix is a written argument. \textbf{Status:
+Solution claimed.}
 
 \newpage
 
