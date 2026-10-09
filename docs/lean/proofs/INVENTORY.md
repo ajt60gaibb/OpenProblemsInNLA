@@ -1,4 +1,4 @@
-# Proof inventory for the 46 Solved problems
+# Proof inventory for the 47 Solved problems
 
 This is a source-level inventory against `problem_ids.json` and the canonical
 README status fields at the current branch. It records proof availability, not
@@ -26,6 +26,12 @@ sources.
 | IV-04 | [`Solution.lean`](../../../intervals-and-absolute-value-equations/IV-04/lean/Solution.lean) | A two-by-two corner algebra lemma. The original complexity target is absent and the current statement's interval semantics have a known scope gap. |
 | MD-06 | [`Solution.lean`](../../../matrix-discrepancy-and-optimization/MD-06/lean/Solution.lean) | Extracts a nonsynchronized critical point from an assumed stable event. Graph probability and local-minimum semantics are parameters of an abstract structure. |
 | TR-04 | [`Solution.lean`](../../../tensor-computations/TR-04/lean/Solution.lean) | Elementary candidate/window count inequalities. It explicitly does not prove the TT-SVD approximation target; the current statement has unconstrained rank and operation-count fields. |
+
+## Solved target without a Lean statement (1)
+
+| ID | Canonical source | Next required gate |
+| --- | --- | --- |
+| SP-14 | [`README.md`](../../../eigenvalues-and-inverse-problems/SP-14/README.md) | This target became Solved when the stacked statement branch incorporated the 9 October 2026 resolution. An exact mathematical and numerical statement review, independent review, and frozen Lean statement are required before proof work. |
 
 ## Shared statement only; no live proof source (36)
 
@@ -57,5 +63,5 @@ They do **not** contain a theorem proving `Target`. The source-path pattern is
 
 LeanCert `#assert_statement`, `#assert_trust kernel`, frozen identity checks,
 and the shared Comparator certificates check statement definitions and their
-trust closure. They do not prove any of the 36 propositions or upgrade the six
-partial projects to full proofs.
+trust closure. They do not prove any of the 36 statement-only propositions,
+upgrade the six partial projects to full proofs, or formalize SP-14.
