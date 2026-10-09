@@ -11,7 +11,7 @@ sources.
 
 | ID | Live proof source | Evidence and remaining gate |
 | --- | --- | --- |
-| FR-05 | [`Solution.lean`](../../../frames-and-matrix-designs/FR-05/lean/Solution.lean) | Exports the original Gaussian/all-signals limit and the stronger `C/d` bound. A recorded macOS Lean 4.33.1 build and transitive axiom report list only standard axioms. The separate `Challenge.lean` contains deliberate `sorry`s and is not imported by `Solution`. Independent final proof review and the repository's isolated Linux Comparator/kernel gate remain outstanding. |
+| FR-05 | [`Solution.lean`](../../../frames-and-matrix-designs/FR-05/lean/Solution.lean) | Exports the original Gaussian/all-signals limit and the stronger `C/d` bound. Independent [source review](FR-05/INDEPENDENT_REVIEW.md) and the [isolated Linux Comparator/LeanCert kernel receipt](FR-05/LINUX_CI_RECEIPT.md) pass with only standard axioms. The separate `Challenge.lean` contains deliberate `sorry`s and is not imported by `Solution`. |
 | TR-13 | [`Solution.lean`](../../../tensor-computations/TR-13/lean/Solution.lean) | Exports `NLA.TR13.generic_rank_equality` for every odd `m ≥ 5`, `n ≥ 2`, giving all five ranks their exact generic value. A recorded macOS Lean 4.33.1 build and transitive axiom report list only standard axioms. Its separate comparison challenge is not imported. Independent final proof reviews and isolated Linux Comparator/kernel verification remain outstanding. |
 
 ## External full-target proof claim without reproduced verification (1)
