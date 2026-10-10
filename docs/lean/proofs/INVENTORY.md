@@ -33,14 +33,17 @@ sources.
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
 it proves the source's displayed right inverse, range, and sharp norm estimate
-from explicit two-space bounds. Constructing the required maps on the literal
-weighted spaces and proving bounds for the actual background operator remain open.
+from explicit two-space bounds. Its actual background-operator hypotheses
+remain open.
 
 The [independently reviewed physical weighted-sequence model](SP-14/WEIGHTED_SOBOLEV_PHYSICAL_INDEPENDENT_FINAL_REVIEW.md)
 now identifies the complete complex `ℓ²` carrier with exactly the coefficient
 sequences of finite `(n+1)^(2s)` energy and proves the exact norm-square sum.
-Its continuous inclusion, truncation, lift, and the actual background bounds
-remain open.
+The [independently reviewed concrete operators](SP-14/WEIGHTED_SOBOLEV_OPERATORS_INDEPENDENT_FINAL_REVIEW.md)
+are continuous complex-linear inclusion, degree-`<h` truncation, and finite
+lift; they preserve literal physical coefficients and prove the exact
+`(q+1)^(-τ)` tail and `h^τ` finite-band inequalities. Compatible inverses and
+norm bounds for the actual background operator remain open.
 
 The TR-14 chart work also has an [independently reviewed complete coefficient
 basis](TR-14/GL2_COEFFICIENT_BASIS_INDEPENDENT_FINAL_REVIEW.md) for genuine

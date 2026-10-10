@@ -51,6 +51,7 @@ import NLA.Proofs.SP14.BaseJetPencilFormula
 import NLA.Proofs.SP14.BaseJetRealSolve
 import NLA.Proofs.SP14.SobolevOversampling
 import NLA.Proofs.SP14.WeightedSobolevPhysical
+import NLA.Proofs.SP14.WeightedSobolevOperators
 import NLA.Proofs.TR14.WidthBasics
 import NLA.Proofs.TR14.MomentIndex
 import NLA.Proofs.TR14.ApolarMinimal
@@ -106,8 +107,9 @@ The source's Sobolev oversampling operator algebra has its exact five conclusion
 from explicit compatible inverse and weighted projection estimates.
 The complete complex `ℓ²` carrier has an exact coefficientwise bijection to
 physical Sobolev sequences with finite `(n+1)^(2s)` energy and its norm-square
-identity. Continuous inclusion, truncation, lift, and background bounds remain
-separate obligations.
+identity. Continuous inclusion, truncation, and finite lift preserve literal
+physical coefficients, and their sharp `q+1` tail and `h` band estimates hold.
+Background-dependent compatible inverse bounds remain separate obligations.
 TR-14 width semantics supply the symmetric-to-ordinary direction and exact
 zero-width endpoints. Every moment coordinate appears in the frozen Hankel
 tensor; the exact apolar map has a least nonzero degree for nonzero moments.
