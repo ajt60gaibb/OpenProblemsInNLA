@@ -32,6 +32,7 @@ import NLA.Proofs.RA10.OrderedSpectralRayleigh
 import NLA.Proofs.RA10.OrderedSpectralIntersection
 import NLA.Proofs.RA10.SelectedCompressionPrefixSupport
 import NLA.Proofs.RA10.SelectedCompressionComparison
+import NLA.Proofs.RA10.NuclearIdealOperatorBridge
 import NLA.Proofs.MF03.OrderOne
 import NLA.Proofs.MF03.Transport
 import NLA.Proofs.MF03.Finite02
@@ -91,6 +92,7 @@ import NLA.Proofs.MF03.FiniteColumnPathCutExt
 import NLA.Proofs.MF03.FiniteColumnPathRightInverse
 import NLA.Proofs.MF03.FiniteColumnPathEquiv
 import NLA.Proofs.MF03.FiniteTableauCellSet
+import NLA.Proofs.MF03.FiniteTableauColumnProduct
 import NLA.Proofs.MF03.FiniteTableauPair
 import NLA.Proofs.MF03.FiniteTableauWeightFactor
 import NLA.Proofs.MF03.FiniteTableauTailBound

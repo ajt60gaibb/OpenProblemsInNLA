@@ -53,7 +53,7 @@ theorem nuclearNorm_mul_as_operator_comp {n : ℕ}
 
 theorem matrix_l2_opNorm_eq_operator_norm {n : ℕ}
     (X : Matrix (Fin n) (Fin n) ℝ) :
-    ‖X‖ = ‖Matrix.toEuclideanCLM X‖ := by
+    ‖X‖ = ‖Matrix.toEuclideanCLM (n := Fin n) (𝕜 := ℝ) X‖ := by
   ...
 
 end NLA.Proofs.RA10

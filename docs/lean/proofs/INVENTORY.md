@@ -140,7 +140,9 @@ gives the literal path/tableau bijection; weight transport remains open.
 The [original-cell set equality](MF-03/FINITE_TABLEAU_CELL_SET_INDEPENDENT_FINAL_REVIEW.md)
 identifies each actual column label set with the original upper cells and
 optional genuine bottom cell, excluding the temporary sentinel. Products
-and weighted-sum transport remain open under the
+over actual labels now equal the product of precisely those original cells
+in the [independently audited product gate](MF-03/FINITE_TABLEAU_COLUMN_PRODUCT_INDEPENDENT_FINAL_REVIEW.md).
+Pointwise path weight and weighted-sum transport remain open under the
 [reviewed contract](MF-03/FINITE_WEIGHTED_TABLEAU_TRANSPORT_INDEPENDENT_PRE_REVIEW.md).
 
 The SP-14 partial project also contains the [independently reviewed exact
@@ -283,6 +285,11 @@ The actual positive-prefix support step has an
 The [exact compression comparison](RA-10/SELECTED_COMPRESSION_COMPARISON_INDEPENDENT_FINAL_REVIEW.md)
 now proves the source coefficient-one `0≤h_i≤a_i` for the actual selected
 `C=PAP` and every supplied ordered decomposition, including ties and zeros.
+The [exact matrix/operator bridge](RA-10/NUCLEAR_IDEAL_OPERATOR_BRIDGE_INDEPENDENT_FINAL_REVIEW.md)
+identifies the frozen `Fin n` singular-value sum after matrix composition
+and the scoped L2 matrix norm with its Euclidean operator norm. Nuclear
+homogeneity, ideal inequalities, Equation (14)'s bound, and the full target
+remain open under the [reviewed exact contract](RA-10/NUCLEAR_IDEAL_EQ14_INDEPENDENT_PRE_REVIEW.md).
 
 The [independently reviewed normalized exterior boundary factor](SP-14/BASE_EXTERIOR_FACTOR_INDEPENDENT_FINAL_REVIEW.md)
 is a continuous half-binomial series with exact square, endpoint zero, and
