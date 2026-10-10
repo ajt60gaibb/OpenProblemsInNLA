@@ -17,6 +17,7 @@ import NLA.Proofs.RA10.RidgeShiftInverse
 import NLA.Proofs.RA10.RidgeResolventMatrix
 import NLA.Proofs.RA10.RidgeResolventProduct
 import NLA.Proofs.RA10.MatchedLeadingRidge
+import NLA.Proofs.RA10.RidgeResolventLoewner
 import NLA.Proofs.MF03.OrderOne
 import NLA.Proofs.MF03.Transport
 import NLA.Proofs.MF03.Finite02
@@ -54,6 +55,7 @@ import NLA.Proofs.MF03.FiniteColumnOrder
 import NLA.Proofs.MF03.FiniteColumnCuts
 import NLA.Proofs.MF03.FinitePathCuts
 import NLA.Proofs.MF03.FiniteColumnSorted
+import NLA.Proofs.MF03.FiniteColumnSystem
 import NLA.Proofs.MF03.FiniteTableauTail
 import NLA.Proofs.MF03.FiniteTableauPair
 import NLA.Proofs.MF03.FiniteTableauWeightFactor
@@ -124,6 +126,7 @@ import NLA.Proofs.SP14.EndpointNegativeRowSummable
 import NLA.Proofs.SP14.EndpointNegativeOutputEnergy
 import NLA.Proofs.SP14.EndpointNegativeOperator
 import NLA.Proofs.SP14.EndpointTwoSidedCoefficient
+import NLA.Proofs.SP14.EndpointCircleCoeffSummable
 import NLA.Proofs.SP14.SobolevOversampling
 import NLA.Proofs.SP14.WeightedSobolevPhysical
 import NLA.Proofs.SP14.WeightedSobolevOperators

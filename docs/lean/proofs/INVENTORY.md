@@ -77,6 +77,9 @@ labels and proves the exact adjacent noncollision inequality at every cut.
 The [sorted-column gate](MF-03/FINITE_COLUMN_SORTED_INDEPENDENT_FINAL_REVIEW.md)
 enumerates each exact advance-label set in increasing order and preserves
 every cut count without relabeling factors.
+The [column-system gate](MF-03/FINITE_COLUMN_SYSTEM_INDEPENDENT_FINAL_REVIEW.md)
+packages exactly those original label sets, cardinalities, and every-cut
+noncollision inequality from each literal valid path.
 
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
@@ -147,6 +150,9 @@ The [two-sided coefficient operator](SP-14/ENDPOINT_TWOSIDED_COEFFICIENT_INDEPEN
 has the exact positive input and actual negative Fourier blocks, orthogonal
 norm-square identity, and literal bound `sqrt(1+C_r²)`. Circle `H^r`
 realization remains open.
+The [circle coefficient summability gate](SP-14/ENDPOINT_CIRCLE_COEFF_SUMMABLE_INDEPENDENT_FINAL_REVIEW.md)
+proves that every physical weighted coefficient sequence is absolutely
+summable for `r>1/2`; the actual circle series remains open.
 
 The [RA-10 selected-projector gates](RA-10/SELECTED_PROJECTOR_INDEPENDENT_FINAL_REVIEW.md)
 identify the exact frozen first-`k` eigenvector projector, prove symmetry and
@@ -166,6 +172,8 @@ difference, including the source's Equation (14) order.
 The [matched-leading ridge gate](RA-10/MATCHED_LEADING_RIDGE_INDEPENDENT_FINAL_REVIEW.md)
 constructs `B₀` in the supplied selected basis and proves the exact matrix
 equality underlying Equation (14).
+The [basic Loewner factor gate](RA-10/RIDGE_RESOLVENT_LOEWNER_BASIC_INDEPENDENT_FINAL_REVIEW.md)
+proves `0≼(sI+A)⁻¹≼(1/s)I` and the exact zero-based cutoff witness.
 
 The [independently reviewed normalized exterior boundary factor](SP-14/BASE_EXTERIOR_FACTOR_INDEPENDENT_FINAL_REVIEW.md)
 is a continuous half-binomial series with exact square, endpoint zero, and
