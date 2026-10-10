@@ -31,6 +31,7 @@ import NLA.Proofs.MF03.FiniteTableauTail
 import NLA.Proofs.MF03.FiniteTableauPair
 import NLA.Proofs.MF03.FiniteTableauWeightFactor
 import NLA.Proofs.MF03.FiniteTableauTailBound
+import NLA.Proofs.MF03.FiniteTableauCanonical
 import NLA.Proofs.MF03.LargeOrderDisk
 import NLA.Proofs.SP14.SubsequenceGap
 import NLA.Proofs.SP14.BaseCoefficient
