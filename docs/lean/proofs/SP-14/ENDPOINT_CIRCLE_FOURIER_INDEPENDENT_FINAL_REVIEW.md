@@ -1,0 +1,9 @@
+# SP-14 original-integral Fourier coefficients of the circle series: independent final review
+
+**Author:** `/root/sp14_base_proof`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact Fourier-integral gate; the conventional Sobolev energy and frozen negative Target remain open.
+
+The frozen source `EndpointCircleFourier.lean` has SHA-256 `a086299a49f93533e49d101c4bc0f2a2d2d43bbcf588309814fbc7b828430e3b`. I checked it against the independently approved circle-realization precontract, the original `FourierCoefficient` definition, and the already audited continuous circle series. A generic private theorem integrates any absolutely summable integer-mode circle series termwise under the **frozen normalized real-interval integral**, retaining its `exp(-ipt)` sign and `1/(2π)` factor; it uses pinned interval-integral summability and the previously reviewed all-integer circle-mode orthogonality. The public theorems prove that every nonnegative mode `k≥0`, including zero, is exactly `physicalCoeff r y k`, while every strictly negative mode `-(t+1)` is exactly the physical coordinate of the actual negative Fourier operator output. Positive and negative branches do not collide; `t=0` is mode `-1`. The result holds for every `1/2<r<1` and every weighted input, not merely polynomials.
+
+An independent imported audit at `/private/tmp/sp14-endpoint-circle-fourier-independent-audit.lean`, SHA-256 `32a518824b1524c5acd97dc0255deba4e99b18a53e85b4f7766b316c338234e6`, elaborated both exact public frozen-integral signatures, passed `#assert_trust kernel`, and reported only `propext`, `Classical.choice`, and `Quot.sound`. No proof escape or new axiom appears in the source.
+
+The conventional full-circle Sobolev energy bound, pointwise `g₀V` identity, inverse `V`, endpoint vanishing, perturbed-background construction, and frozen SP-14 negative Target remain open.

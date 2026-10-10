@@ -83,6 +83,9 @@ noncollision inequality from each literal valid path.
 The [uniform-column sentinel gate](MF-03/FINITE_UNIFORM_COLUMNS_INDEPENDENT_FINAL_REVIEW.md)
 adds a temporary `N` only outside short-column tableau cells, proves exact
 suffix corrections, and derives weak rows for all sorted temporary columns.
+The [sentinel-placement gate](MF-03/FINITE_UNIFORM_COLUMN_BOUNDS_INDEPENDENT_FINAL_REVIEW.md)
+proves `N` is exactly each excluded short-column bottom value and every
+original tableau cell label is `<N`.
 
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
@@ -158,7 +161,9 @@ proves that every physical weighted coefficient sequence is absolutely
 summable for `r>1/2`; the actual circle series remains open.
 The [continuous circle series](SP-14/ENDPOINT_CIRCLE_SERIES_INDEPENDENT_FINAL_REVIEW.md)
 now uses the exact positive and negative physical coefficients for `r>1/2`.
-The original Fourier-integral identities remain open.
+The [original-integral Fourier gate](SP-14/ENDPOINT_CIRCLE_FOURIER_INDEPENDENT_FINAL_REVIEW.md)
+identifies all nonnegative and strictly negative modes of that actual
+continuous circle series with the exact two-block physical coefficients.
 
 The [RA-10 selected-projector gates](RA-10/SELECTED_PROJECTOR_INDEPENDENT_FINAL_REVIEW.md)
 identify the exact frozen first-`k` eigenvector projector, prove symmetry and
@@ -183,6 +188,8 @@ proves `0≼(sI+A)⁻¹≼(1/s)I` and the exact zero-based cutoff witness.
 The [sharp selected Loewner gate](RA-10/RIDGE_RESOLVENT_LOEWNER_SELECTED_INDEPENDENT_FINAL_REVIEW.md)
 proves `0≼P(sI+B₀)⁻¹P≼[1/(s+c)]P` with source `c=a_k` and the same
 supplied selected eigenbasis.
+The [first Euclidean operator-norm factor](RA-10/RIDGE_RESOLVENT_OPNORM_BASIC_INDEPENDENT_FINAL_REVIEW.md)
+proves the actual full shifted inverse has L2 operator norm at most `1/s`.
 
 The [independently reviewed normalized exterior boundary factor](SP-14/BASE_EXTERIOR_FACTOR_INDEPENDENT_FINAL_REVIEW.md)
 is a continuous half-binomial series with exact square, endpoint zero, and
