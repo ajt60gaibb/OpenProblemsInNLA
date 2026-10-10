@@ -65,6 +65,9 @@ records exact zero-based factor labels and proves their count equals the
 endpoint displacement and augmented-tableau column length for every path.
 The [independently reviewed path-weight identity](MF-03/FINITE_PATH_WEIGHT_INDEPENDENT_FINAL_REVIEW.md)
 factors each literal valid-chain weight over those exact advance labels.
+The [generic column-order lemma](MF-03/FINITE_COLUMN_ORDER_INDEPENDENT_FINAL_REVIEW.md)
+equates rowwise weak increase with all lower-label prefix-count inequalities
+for equal and one-extra-bottom-cell adjacent columns.
 
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
@@ -124,7 +127,9 @@ The [weighted-sequence truncation density theorem](SP-14/ENDPOINT_NEGATIVE_TRUNC
 also proves that the actual first-`N` truncations tend to every input in the
 literal `lp ℂ 2` carrier. The [actual negative Fourier-row bound](SP-14/ENDPOINT_NEGATIVE_ROW_INDEPENDENT_FINAL_REVIEW.md)
 proves every finite row's squared norm is at most the literal `C_r²`.
-Unconditional row summability and the infinite operator remain open.
+The [independently reviewed row-summability gate](SP-14/ENDPOINT_NEGATIVE_ROW_SUMMABLE_INDEPENDENT_FINAL_REVIEW.md)
+puts every actual row in `lp 2` and proves its product with any input is
+unconditionally summable. The infinite operator remains open.
 
 The [RA-10 selected-projector gates](RA-10/SELECTED_PROJECTOR_INDEPENDENT_FINAL_REVIEW.md)
 identify the exact frozen first-`k` eigenvector projector, prove symmetry and
@@ -132,6 +137,9 @@ idempotence from every supplied ordered decomposition, and give rank `k` for
 `k≤n`, including tied and zero eigenvalues. The [supported functional-calculus identity](RA-10/SELECTED_PROJECTION_FUNCTION_INDEPENDENT_FINAL_REVIEW.md)
 holds for every real `f`, including `f(0)>0`, with the same supplied `Q`.
 The nuclear pinching contraction remains open.
+The [independently reviewed shifted-inverse gate](RA-10/RIDGE_SHIFT_INVERSE_INDEPENDENT_FINAL_REVIEW.md)
+identifies the exact frozen reciprocal spectral matrix with the actual
+inverse of `sI+A` for every supplied PSD decomposition and `s>0`.
 
 The [independently reviewed normalized exterior boundary factor](SP-14/BASE_EXTERIOR_FACTOR_INDEPENDENT_FINAL_REVIEW.md)
 is a continuous half-binomial series with exact square, endpoint zero, and
