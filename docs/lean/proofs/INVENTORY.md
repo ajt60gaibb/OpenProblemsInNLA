@@ -137,6 +137,11 @@ inverse, both directions of the path/column-system bijection are proved;
 the [exact equivalence](MF-03/FINITE_COLUMN_PATH_EQUIV_INDEPENDENT_FINAL_REVIEW.md)
 packages these maps. Composing it with the tableau/column-system equivalence
 gives the literal path/tableau bijection; weight transport remains open.
+The [original-cell set equality](MF-03/FINITE_TABLEAU_CELL_SET_INDEPENDENT_FINAL_REVIEW.md)
+identifies each actual column label set with the original upper cells and
+optional genuine bottom cell, excluding the temporary sentinel. Products
+and weighted-sum transport remain open under the
+[reviewed contract](MF-03/FINITE_WEIGHTED_TABLEAU_TRANSPORT_INDEPENDENT_PRE_REVIEW.md).
 
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):

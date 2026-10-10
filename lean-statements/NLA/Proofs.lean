@@ -90,6 +90,7 @@ import NLA.Proofs.MF03.FiniteColumnPathLeftInverse
 import NLA.Proofs.MF03.FiniteColumnPathCutExt
 import NLA.Proofs.MF03.FiniteColumnPathRightInverse
 import NLA.Proofs.MF03.FiniteColumnPathEquiv
+import NLA.Proofs.MF03.FiniteTableauCellSet
 import NLA.Proofs.MF03.FiniteTableauPair
 import NLA.Proofs.MF03.FiniteTableauWeightFactor
 import NLA.Proofs.MF03.FiniteTableauTailBound
