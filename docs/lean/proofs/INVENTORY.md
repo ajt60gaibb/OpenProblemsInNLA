@@ -32,7 +32,9 @@ sources.
 
 The [independently reviewed MF-03 dense-set cosine product](MF-03/COSINE_DENSE_PRODUCT_INDEPENDENT_FINAL_REVIEW.md)
 identifies the factorial wave series with `cos(πw)` and proves convergence
-of its finite cosine product when `sin(πw)≠0`. The integer arguments and
+of its finite cosine product when `sin(πw)≠0`. The [all-complex extension](MF-03/COSINE_ALL_COMPLEX_INDEPENDENT_FINAL_REVIEW.md)
+now proves the exact positive-factor product value identity and finite-product
+convergence for every complex argument. Coefficient transfer and the
 all-order Padé target remain open.
 
 The SP-14 partial project also contains the [independently reviewed exact
@@ -65,12 +67,24 @@ has exact strict-sign corrections, continuous source boundary objects,
 `−1`, including empty and nonempty endpoint cases. Analytic estimates remain
 open.
 
+The [independently reviewed finite negative Laurent endpoint division](SP-14/NEGATIVE_LAURENT_ENDPOINT_DIVISION_INDEPENDENT_FINAL_REVIEW.md)
+derives `P₋=(1+s)Q₋` from the actual separate contact equation for every
+finite coefficient length, including zero and one. Weighted convolution and
+background estimates remain open.
+
+The [independently reviewed negative-product Fourier support](SP-14/NEGATIVE_PRODUCT_FOURIER_SUPPORT_INDEPENDENT_FINAL_REVIEW.md)
+proves the actual `g₀P₋` has zero frozen Fourier coefficient at every
+nonnegative frequency under the same contact premise. Its weighted norm
+and the remaining estimates are open.
+
 The [independently reviewed regularized exterior coefficients](SP-14/REGULARIZED_BASE_COEFF_INDEPENDENT_FINAL_REVIEW.md)
 satisfy the exact endpoint-cancellation recurrence and unconditional
 `9/8`-weighted summability. The [independently reviewed actual regularized
 factor](SP-14/REGULARIZED_FACTOR_FOURIER_INDEPENDENT_FINAL_REVIEW.md) has an
 exact circle series and all-integer Fourier coefficients under the frozen
-integral. Its product Wiener bound remains open.
+integral. Its [literal bilateral weighted Wiener size](SP-14/REGULARIZED_FACTOR_WIENER_INDEPENDENT_FINAL_REVIEW.md)
+is finite with the exact positive singleton and regularized negative tail.
+The background product estimates remain open.
 
 The TR-14 chart work also has an [independently reviewed complete coefficient
 basis](TR-14/GL2_COEFFICIENT_BASIS_INDEPENDENT_FINAL_REVIEW.md) for genuine
@@ -117,7 +131,12 @@ proves the exact truncated power basis, coefficient convolution, and unique
 reversed-coefficient representation of every local linear functional. Its
 Frobenius nonzero and finite-root consequences are now proved in the
 [independently reviewed local unit/root module](TR-14/LOCAL_UNIT_ROOT_INDEPENDENT_FINAL_REVIEW.md).
-The local Fourier decomposition and global width conclusions remain open.
+The [independently reviewed one-factor Fourier decomposition](TR-14/LOCAL_ONE_FACTOR_FOURIER_INDEPENDENT_FINAL_REVIEW.md)
+expresses every genuine local Frobenius product as exactly
+`(m−1)(ℓ−1)+1` same-factor terms. Its [exact zero-based mode-vector
+corollary](TR-14/LOCAL_FOURIER_MODE_INDEPENDENT_FINAL_REVIEW.md) supplies
+the corresponding local tensor-coordinate vectors for arbitrary `ℓ>0`.
+CRT and global width conclusions remain open.
 
 ## Shared statement only; no live proof source (34)
 

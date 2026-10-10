@@ -25,6 +25,7 @@ import NLA.Proofs.MF03.CosineTail
 import NLA.Proofs.MF03.WaveAtThree
 import NLA.Proofs.MF03.CosineProduct
 import NLA.Proofs.MF03.CosineDenseProduct
+import NLA.Proofs.MF03.CosineAllComplexProduct
 import NLA.Proofs.MF03.LargeOrderDisk
 import NLA.Proofs.SP14.SubsequenceGap
 import NLA.Proofs.SP14.BaseCoefficient
@@ -43,8 +44,11 @@ import NLA.Proofs.SP14.BaseExteriorPattern
 import NLA.Proofs.SP14.BaseExteriorBoundarySquare
 import NLA.Proofs.SP14.BaseExteriorFactor
 import NLA.Proofs.SP14.FiniteLaurentBackground
+import NLA.Proofs.SP14.NegativeLaurentEndpointDivision
+import NLA.Proofs.SP14.NegativeProductFourierSupport
 import NLA.Proofs.SP14.RegularizedBaseCoeff
 import NLA.Proofs.SP14.RegularizedBaseFactorFourier
+import NLA.Proofs.SP14.RegularizedFactorWiener
 import NLA.Proofs.SP14.PositivePacketInvisibility
 import NLA.Proofs.SP14.NegativeRestorationInvisibility
 import NLA.Proofs.SP14.OddFrequencyToeplitzCharpoly
@@ -79,13 +83,15 @@ import NLA.Proofs.TR14.LocalFourierFilter
 import NLA.Proofs.TR14.MomentQuotientModePairing
 import NLA.Proofs.TR14.LocalTopCoefficient
 import NLA.Proofs.TR14.LocalUnitRoot
+import NLA.Proofs.TR14.LocalFourierOneFactor
+import NLA.Proofs.TR14.LocalFourierMode
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
 original target. Compile the separately scoped MF-03 order-one-through-fifteen
 target clauses, analytic tail and value-at-three bounds, and initial product
-convergence, including the factorial cosine identity and product limit on the
-nonzero-sine set. A normalized MF-03 pair with the exact large-order denominator
+convergence, including the factorial cosine identity and all-complex product
+value and finite-product limit. A normalized MF-03 pair with the exact large-order denominator
 tail coefficient bound also has the required closed-disk estimate; existence
 of such a pair remains open. Compile the conditional SP-14 subsequence, finite base-block
 algebra, frozen integral's pure-mode Fourier orthogonality, and the conditional
@@ -103,10 +109,16 @@ symbol through `s=z²`.
 Finite real strictly signed Laurent corrections give the exact boundary
 curve and symbol identities, including separate contact at `-1` and the
 empty and two-term endpoint cases.
+Every finite negative correction with actual contact at `-1` factors
+exactly through `1+s` with a same-index real strictly negative quotient.
+The actual `g₀P₋` product then has no nonnegative Fourier modes under
+the frozen integral, for every such finite contact correction.
 The endpoint-cancelled exterior coefficients satisfy the exact half-binomial
 recurrence and unconditional `9/8`-weighted summability.
 The actual regularized exterior factor has its exact absolutely convergent
 circle series and all-integer Fourier coefficients under the frozen integral.
+Its literal bilateral `9/8`-weighted Wiener size is finite and equals the
+positive singleton plus the exact regularized negative-coefficient sum.
 The first positive packet has exact frozen Fourier support and preserves
 smaller Toeplitz sections over continuous backgrounds.
 The finite negative restoration packet cancels at the endpoint, its restoring
@@ -183,6 +195,10 @@ top-product representation.
 Local Frobenius nondegeneracy forces the reversed element's constant
 coefficient nonzero, and every such local class has an exact positive-integer
 root in the truncated quotient by finite nilpotent lifting.
+One genuine local Frobenius factor has the exact `N`-node symmetric
+multilinear Fourier expansion using canonical polynomial remainders.
+Its exact zero-based mode-vector corollary gives the same local Fourier
+coordinate vector in every tensor mode for all `n≥2`.
 These results do not prove the full all-width rank equality.
 -/
 
