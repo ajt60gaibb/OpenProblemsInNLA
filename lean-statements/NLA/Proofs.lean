@@ -48,6 +48,7 @@ import NLA.Proofs.SP14.BaseJetTriangular
 import NLA.Proofs.SP14.BaseJetCorner
 import NLA.Proofs.SP14.BaseJetFourierMatrix
 import NLA.Proofs.SP14.BaseJetPencilFormula
+import NLA.Proofs.SP14.BaseJetRealSolve
 import NLA.Proofs.TR14.WidthBasics
 import NLA.Proofs.TR14.MomentIndex
 import NLA.Proofs.TR14.ApolarMinimal
@@ -90,6 +91,8 @@ Fourier coefficients seen by the selected section equal the coefficient-defined
 upper triangular matrix; both odd Toeplitz blocks have the required orientation.
 The corrected section's actual odd jet polynomial obeys the source's exact
 finite triangular pencil formula for every allowed order and packet size.
+The resulting real first-jet map equals the source triangular matrix, has an
+explicit right inverse, and has bijective derivative at every base-model vector.
 TR-14 width semantics supply the symmetric-to-ordinary direction and exact
 zero-width endpoints. Every moment coordinate appears in the frozen Hankel
 tensor; the exact apolar map has a least nonzero degree for nonzero moments.
