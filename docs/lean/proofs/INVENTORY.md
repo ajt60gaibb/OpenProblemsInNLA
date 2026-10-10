@@ -39,6 +39,15 @@ transfer](MF-03/COSINE_COEFFICIENT_TRANSFER_INDEPENDENT_FINAL_REVIEW.md)
 identifies every finite-subset elementary coefficient with the exact factorial
 wave coefficient. Schur/Padé denominator bounds and the all-order Target remain open.
 
+The [independently reviewed finite bidiagonal minor](MF-03/FINITE_BIDIAGONAL_MINOR_INDEPENDENT_FINAL_REVIEW.md)
+identifies every finite rectangular and augmented determinant with the exact
+minor of a product of the original factor matrices, uniformly in `N,m,j`,
+including empty and endpoint shapes. The [independently reviewed Toeplitz/Cramer
+gate](MF-03/PADE_TOEPLITZ_CRAMER_INDEPENDENT_FINAL_REVIEW.md) identifies the
+original rectangular determinant with the high Padé system determinant and
+proves its unnormalized Cramer equation. Cauchy–Binet/tableau identity,
+determinant positivity, signed coefficient ratios, and the full target remain open.
+
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
 it proves the source's displayed right inverse, range, and sharp norm estimate
@@ -78,6 +87,11 @@ the actual negative Fourier entry as
 `((k+1/2)/(k+j)) Aₖ A₍ⱼ₋₁₎`, where `Aₙ=binom(2n,n)/4ⁿ>0`, and proves
 `(n+1)Aₙ²≤1` and the resulting square-root entry bound for every `k≥0`,
 `j≥1`. Weighted Schur sums and operator estimates remain open.
+
+The [independently reviewed scalar Schur power comparisons](SP-14/ENDPOINT_WEIGHTED_SCHUR_POWER_INDEPENDENT_FINAL_REVIEW.md)
+prove the exact finite prefix and infinite strict-tail bounds for every
+`0<r<1` and `N≥1`; the strict-tail bound itself only needs `r>0`.
+The two actual weighted row/column sums and finite Schur inequalities remain open.
 
 The [independently reviewed normalized exterior boundary factor](SP-14/BASE_EXTERIOR_FACTOR_INDEPENDENT_FINAL_REVIEW.md)
 is a continuous half-binomial series with exact square, endpoint zero, and
