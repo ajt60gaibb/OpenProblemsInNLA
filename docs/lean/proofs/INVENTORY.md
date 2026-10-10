@@ -12,11 +12,11 @@ sources.
 | ID | Live proof source | Evidence and remaining gate |
 | --- | --- | --- |
 | FR-05 | [`Solution.lean`](../../../frames-and-matrix-designs/FR-05/lean/Solution.lean) | Exports the original Gaussian/all-signals limit and the stronger `C/d` bound. Independent [source review](FR-05/INDEPENDENT_REVIEW.md) and the [isolated Linux Comparator/LeanCert kernel receipt](FR-05/LINUX_CI_RECEIPT.md) pass with only standard axioms. The separate `Challenge.lean` contains deliberate `sorry`s and is not imported by `Solution`. |
-| TR-13 | [`Solution.lean`](../../../tensor-computations/TR-13/lean/Solution.lean) | Exports `NLA.TR13.generic_rank_equality` and the [independently reviewed all-width bridge](TR-13/EXACT_STATEMENT_INDEPENDENT_REVIEW.md) for every odd `m ≥ 5`, `n ≥ 2`, with all five exact generic ranks and equivalence at every natural width. Pinned local LeanCert kernel checks pass with only standard axioms. Isolated Linux Comparator verification of the new bridge remains outstanding. |
-| MF-23 | [`CanonicalBridge.lean`](../../../matrix-functions-and-stability/MF-23/lean/CanonicalBridge.lean) | Proves the [reviewed canonical block-order target](MF-23/CANONICAL_BRIDGE_INDEPENDENT_REVIEW.md) from the pinned external `complete_crouzeix` proof by a norm-preserving tensor-factor swap. Its self-contained source-locked project, pinned Lean 4.34.1 build, and LeanCert kernel audit pass locally. Isolated Linux Comparator verification remains outstanding. |
-| RA-06 | [`Final.lean`](../../../lean-statements/NLA/Proofs/RA06/Final.lean) | The [independently reviewed full theorem](RA-06/FINAL_INDEPENDENT_REVIEW.md) inhabits the frozen original negative `Target` for every `p > 2`, with the exact sampler, same `α`, expected retained count, and raw log budget. Pinned Lean 4.33.1 aggregate build and independent LeanCert kernel audit pass with only standard axioms. Isolated Linux Comparator verification of the self-contained project remains outstanding. |
+| TR-13 | [`Solution.lean`](../../../tensor-computations/TR-13/lean/Solution.lean) | Exports `NLA.TR13.generic_rank_equality` and the [independently reviewed all-width bridge](TR-13/EXACT_STATEMENT_INDEPENDENT_REVIEW.md) for every odd `m ≥ 5`, `n ≥ 2`, with all five exact generic ranks and equivalence at every natural width. The [isolated Linux Comparator/LeanCert kernel receipt](TR-13/LINUX_CI_RECEIPT.md) passes with only standard axioms. |
+| MF-23 | [`CanonicalBridge.lean`](../../../matrix-functions-and-stability/MF-23/lean/CanonicalBridge.lean) | Proves the [reviewed canonical block-order target](MF-23/CANONICAL_BRIDGE_INDEPENDENT_REVIEW.md) from the pinned external `complete_crouzeix` proof by a norm-preserving tensor-factor swap. Its self-contained source-locked project and [isolated Linux Comparator/LeanCert kernel receipt](MF-23/LINUX_CI_RECEIPT.md) pass with only standard axioms. |
+| RA-06 | [`Final.lean`](../../../lean-statements/NLA/Proofs/RA06/Final.lean) | The [independently reviewed full theorem](RA-06/FINAL_INDEPENDENT_REVIEW.md) inhabits the frozen original negative `Target` for every `p > 2`, with the exact sampler, same `α`, expected retained count, and raw log budget. The [isolated Linux Comparator/LeanCert kernel receipt](RA-06/LINUX_CI_RECEIPT.md) passes with only standard axioms. |
 
-## Local partial solution projects (6)
+## Local partial solution projects (8)
 
 | ID | Live source | What is actually proved |
 | --- | --- | --- |
@@ -25,15 +25,11 @@ sources.
 | IV-02 | [`Solution.lean`](../../../intervals-and-absolute-value-equations/IV-02/lean/Solution.lean) | Rotation identity and positive even layer count. The original complexity claim remains absent from the implemented semantics. |
 | IV-04 | [`Solution.lean`](../../../intervals-and-absolute-value-equations/IV-04/lean/Solution.lean) | A two-by-two corner algebra lemma. The original complexity target is absent and the current statement's interval semantics have a known scope gap. |
 | MD-06 | [`Solution.lean`](../../../matrix-discrepancy-and-optimization/MD-06/lean/Solution.lean) | Extracts a nonsynchronized critical point from an assumed stable event. Graph probability and local-minimum semantics are parameters of an abstract structure. |
+| MF-03 | [`FiniteRange.lean`](../../../lean-statements/NLA/Proofs/MF03/FiniteRange.lean) | Proves the exact frozen target clause for every order 1–15, including reduced-pair existence and every reduced representative, from [independently reviewed](MF-03/FINITE03_15_INDEPENDENT_REVIEW.md) exact certificates, gcd reduction and disk transport. Pinned LeanCert kernel checks pass. Orders ≥16 and the full all-order target remain unproved. |
+| SP-14 | [`SubsequenceGap.lean`](../../../lean-statements/NLA/Proofs/SP14/SubsequenceGap.lean) | [Independently reviewed](SP-14/SUBSEQUENCE_GAP_INDEPENDENT_FINAL_REVIEW.md) kernel proof that a supplied continuous counterexample with a positive eventual empirical gap refutes the exact frozen conjecture. Separate [base-coefficient convolution](SP-14/BASE_COEFFICIENT_INDEPENDENT_REVIEW.md), [finite base-block characteristic polynomial](SP-14/BASE_BLOCK_CHARPOLY_INDEPENDENT_REVIEW.md), and [conditional selected-product bridge](SP-14/BASE_PRODUCT_BLOCK_INDEPENDENT_REVIEW.md) lemmas are kernel checked. The counterexample construction, actual Fourier/Toeplitz bridge, and multiplicity estimates remain unproved in Lean. |
 | TR-04 | [`Solution.lean`](../../../tensor-computations/TR-04/lean/Solution.lean) | Elementary candidate/window count inequalities. It explicitly does not prove the TT-SVD approximation target; the current statement has unconstrained rank and operation-count fields. |
 
-## Solved target without a Lean statement (1)
-
-| ID | Canonical source | Next required gate |
-| --- | --- | --- |
-| SP-14 | [`README.md`](../../../eigenvalues-and-inverse-problems/SP-14/README.md) | This target became Solved when the stacked statement branch incorporated the 9 October 2026 resolution. An exact mathematical and numerical statement review, independent review, and frozen Lean statement are required before proof work. |
-
-## Shared statement only; no live proof source (36)
+## Shared statement only; no live proof source (35)
 
 The following files define a `Target : Prop` and pass statement-boundary checks.
 They do **not** contain a theorem proving `Target`. The source-path pattern is
@@ -46,7 +42,7 @@ They do **not** contain a theorem proving `Target`. The source-path pattern is
 | IE-08 | [`IE08.lean`](../../../lean-statements/NLA/Statements/IE08.lean) | IE-10 | [`IE10.lean`](../../../lean-statements/NLA/Statements/IE10.lean) |
 | IE-12 | [`IE12.lean`](../../../lean-statements/NLA/Statements/IE12.lean) | IE-26 | [`IE26.lean`](../../../lean-statements/NLA/Statements/IE26.lean) |
 | IV-05 | [`IV05.lean`](../../../lean-statements/NLA/Statements/IV05.lean) | MD-03 | [`MD03.lean`](../../../lean-statements/NLA/Statements/MD03.lean) |
-| MD-04 | [`MD04.lean`](../../../lean-statements/NLA/Statements/MD04.lean) | MF-03 | [`MF03.lean`](../../../lean-statements/NLA/Statements/MF03.lean) |
+| MD-04 | [`MD04.lean`](../../../lean-statements/NLA/Statements/MD04.lean) | | |
 | MF-08 | [`MF08.lean`](../../../lean-statements/NLA/Statements/MF08.lean) | MI-16 | [`MI16.lean`](../../../lean-statements/NLA/Statements/MI16.lean) |
 | MI-31 | [`MI31.lean`](../../../lean-statements/NLA/Statements/MI31.lean) | NM-03 | [`NM03.lean`](../../../lean-statements/NLA/Statements/NM03.lean) |
 | PF-04 | [`PF04.lean`](../../../lean-statements/NLA/Statements/PF04.lean) | PF-05 | [`PF05.lean`](../../../lean-statements/NLA/Statements/PF05.lean) |
@@ -63,5 +59,5 @@ They do **not** contain a theorem proving `Target`. The source-path pattern is
 
 LeanCert `#assert_statement`, `#assert_trust kernel`, frozen identity checks,
 and the shared Comparator certificates check statement definitions and their
-trust closure. They do not prove any of the 36 statement-only propositions,
-upgrade the six partial projects to full proofs, or formalize SP-14.
+trust closure. They do not prove any of the 35 statement-only propositions or
+upgrade the eight partial projects to full proofs.
