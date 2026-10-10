@@ -86,6 +86,10 @@ suffix corrections, and derives weak rows for all sorted temporary columns.
 The [sentinel-placement gate](MF-03/FINITE_UNIFORM_COLUMN_BOUNDS_INDEPENDENT_FINAL_REVIEW.md)
 proves `N` is exactly each excluded short-column bottom value and every
 original tableau cell label is `<N`.
+The [forward tableau map](MF-03/FINITE_UNIFORM_TABLEAU_INDEPENDENT_FINAL_REVIEW.md)
+fills exactly the original augmented Young diagram from sorted path columns,
+with weak rows, strict columns, and every actual entry `<N`; the inverse and
+weighted bijection remain open.
 
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
@@ -190,6 +194,9 @@ proves `0≼P(sI+B₀)⁻¹P≼[1/(s+c)]P` with source `c=a_k` and the same
 supplied selected eigenbasis.
 The [first Euclidean operator-norm factor](RA-10/RIDGE_RESOLVENT_OPNORM_BASIC_INDEPENDENT_FINAL_REVIEW.md)
 proves the actual full shifted inverse has L2 operator norm at most `1/s`.
+The [selected Euclidean operator-norm factor](RA-10/RIDGE_RESOLVENT_OPNORM_SELECTED_INDEPENDENT_FINAL_REVIEW.md)
+proves the actual `P(sI+B₀)⁻¹P` has L2 operator norm at most the sharp
+`1/(s+c)` with source `c=a_k`. The nuclear ideal inequality remains open.
 
 The [independently reviewed normalized exterior boundary factor](SP-14/BASE_EXTERIOR_FACTOR_INDEPENDENT_FINAL_REVIEW.md)
 is a continuous half-binomial series with exact square, endpoint zero, and

@@ -20,6 +20,7 @@ import NLA.Proofs.RA10.MatchedLeadingRidge
 import NLA.Proofs.RA10.RidgeResolventLoewner
 import NLA.Proofs.RA10.RidgeResolventLoewnerSelected
 import NLA.Proofs.RA10.RidgeResolventOpNorm
+import NLA.Proofs.RA10.RidgeResolventOpNormSelected
 import NLA.Proofs.MF03.OrderOne
 import NLA.Proofs.MF03.Transport
 import NLA.Proofs.MF03.Finite02
@@ -61,6 +62,7 @@ import NLA.Proofs.MF03.FiniteColumnSystem
 import NLA.Proofs.MF03.FiniteUniformColumns
 import NLA.Proofs.MF03.FiniteUniformColumnBounds
 import NLA.Proofs.MF03.FiniteTableauTail
+import NLA.Proofs.MF03.FiniteUniformTableau
 import NLA.Proofs.MF03.FiniteTableauPair
 import NLA.Proofs.MF03.FiniteTableauWeightFactor
 import NLA.Proofs.MF03.FiniteTableauTailBound
