@@ -69,8 +69,10 @@ define `g₀(s)=Σ aₙs⁻ⁿ` on the circle, prove absolute convergence and co
 and compute every integer Fourier coefficient using the frozen interval integral.
 The [independently reviewed finite inverse monomial and negative-frequency kernel](SP-14/ENDPOINT_EXTENSION_NEGATIVE_KERNEL_INDEPENDENT_FINAL_REVIEW.md)
 now compute every negative Fourier coefficient of the actual endpoint extension
-in the exact signed closed form. The nonnegative projection and weighted
-operator estimates remain open.
+in the exact signed closed form. The [independently reviewed nonnegative
+projection](SP-14/ENDPOINT_EXTENSION_POSITIVE_INDEPENDENT_FINAL_REVIEW.md)
+also gives the exact Kronecker Fourier coefficients for every input and
+nonnegative output index. Weighted operator estimates remain open.
 
 The [independently reviewed normalized exterior boundary factor](SP-14/BASE_EXTERIOR_FACTOR_INDEPENDENT_FINAL_REVIEW.md)
 is a continuous half-binomial series with exact square, endpoint zero, and
