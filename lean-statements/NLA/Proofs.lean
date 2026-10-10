@@ -49,6 +49,8 @@ import NLA.Proofs.SP14.NegativeProductFourierSupport
 import NLA.Proofs.SP14.RegularizedBaseCoeff
 import NLA.Proofs.SP14.RegularizedBaseFactorFourier
 import NLA.Proofs.SP14.RegularizedFactorWiener
+import NLA.Proofs.SP14.FiniteNegativeWiener
+import NLA.Proofs.SP14.FiniteNegativeWienerMultiplier
 import NLA.Proofs.SP14.PositivePacketInvisibility
 import NLA.Proofs.SP14.NegativeRestorationInvisibility
 import NLA.Proofs.SP14.OddFrequencyToeplitzCharpoly
@@ -85,6 +87,7 @@ import NLA.Proofs.TR14.LocalTopCoefficient
 import NLA.Proofs.TR14.LocalUnitRoot
 import NLA.Proofs.TR14.LocalFourierOneFactor
 import NLA.Proofs.TR14.LocalFourierMode
+import NLA.Proofs.TR14.LocalCRTRootData
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
@@ -119,6 +122,10 @@ The actual regularized exterior factor has its exact absolutely convergent
 circle series and all-integer Fourier coefficients under the frozen integral.
 Its literal bilateral `9/8`-weighted Wiener size is finite and equals the
 positive singleton plus the exact regularized negative-coefficient sum.
+Every finite negative Laurent correction has its literal bilateral
+weighted Wiener size equal to its finite coefficient sum.
+Multiplication by such a correction preserves literal weighted Fourier
+summability and obeys the constant-one weighted Wiener product bound.
 The first positive packet has exact frozen Fourier support and preserves
 smaller Toeplitz sections over continuous backgrounds.
 The finite negative restoration packet cancels at the endpoint, its restoring
@@ -199,6 +206,9 @@ One genuine local Frobenius factor has the exact `N`-node symmetric
 multilinear Fourier expansion using canonical polynomial remainders.
 Its exact zero-based mode-vector corollary gives the same local Fourier
 coordinate vector in every tensor mode for all `n≥2`.
+The first CRT gate retains every distinct complex root and its exact
+multiplicity, proves the monic factorization and sum of multiplicities,
+and proves pairwise coprimality of the corresponding factor powers.
 These results do not prove the full all-width rank equality.
 -/
 

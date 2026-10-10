@@ -84,6 +84,11 @@ factor](SP-14/REGULARIZED_FACTOR_FOURIER_INDEPENDENT_FINAL_REVIEW.md) has an
 exact circle series and all-integer Fourier coefficients under the frozen
 integral. Its [literal bilateral weighted Wiener size](SP-14/REGULARIZED_FACTOR_WIENER_INDEPENDENT_FINAL_REVIEW.md)
 is finite with the exact positive singleton and regularized negative tail.
+The [finite negative Laurent correction](SP-14/FINITE_NEGATIVE_WIENER_INDEPENDENT_FINAL_REVIEW.md)
+also has a literal Wiener size equal to its finite coefficient sum.
+The [generic finite negative Laurent multiplier](SP-14/FINITE_NEGATIVE_WIENER_MULTIPLIER_INDEPENDENT_FINAL_REVIEW.md)
+preserves literal weighted Fourier summability and satisfies the
+constant-one weighted Wiener product bound.
 The background product estimates remain open.
 
 The TR-14 chart work also has an [independently reviewed complete coefficient
@@ -137,6 +142,10 @@ expresses every genuine local Frobenius product as exactly
 corollary](TR-14/LOCAL_FOURIER_MODE_INDEPENDENT_FINAL_REVIEW.md) supplies
 the corresponding local tensor-coordinate vectors for arbitrary `ℓ>0`.
 CRT and global width conclusions remain open.
+The [independently reviewed root-data gate](TR-14/LOCAL_CRT_ROOT_DATA_INDEPENDENT_FINAL_REVIEW.md)
+retains every multiplicity and proves the exact monic factorization,
+degree sum, and pairwise coprimality of the root-factor powers. The
+algebra CRT equivalence and local functional transfer remain open.
 
 ## Shared statement only; no live proof source (34)
 
