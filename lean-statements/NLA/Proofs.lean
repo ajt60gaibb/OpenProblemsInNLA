@@ -24,6 +24,7 @@ import NLA.Proofs.MF03.FiniteRange
 import NLA.Proofs.MF03.CosineTail
 import NLA.Proofs.MF03.WaveAtThree
 import NLA.Proofs.MF03.CosineProduct
+import NLA.Proofs.MF03.CosineDenseProduct
 import NLA.Proofs.MF03.LargeOrderDisk
 import NLA.Proofs.SP14.SubsequenceGap
 import NLA.Proofs.SP14.BaseCoefficient
@@ -43,6 +44,7 @@ import NLA.Proofs.SP14.BaseExteriorBoundarySquare
 import NLA.Proofs.SP14.BaseExteriorFactor
 import NLA.Proofs.SP14.FiniteLaurentBackground
 import NLA.Proofs.SP14.RegularizedBaseCoeff
+import NLA.Proofs.SP14.RegularizedBaseFactorFourier
 import NLA.Proofs.SP14.PositivePacketInvisibility
 import NLA.Proofs.SP14.NegativeRestorationInvisibility
 import NLA.Proofs.SP14.OddFrequencyToeplitzCharpoly
@@ -75,12 +77,15 @@ import NLA.Proofs.TR14.GL2WidthTransport
 import NLA.Proofs.TR14.GL2MiddleRankTransport
 import NLA.Proofs.TR14.LocalFourierFilter
 import NLA.Proofs.TR14.MomentQuotientModePairing
+import NLA.Proofs.TR14.LocalTopCoefficient
+import NLA.Proofs.TR14.LocalUnitRoot
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
 original target. Compile the separately scoped MF-03 order-one-through-fifteen
 target clauses, analytic tail and value-at-three bounds, and initial product
-convergence. A normalized MF-03 pair with the exact large-order denominator
+convergence, including the factorial cosine identity and product limit on the
+nonzero-sine set. A normalized MF-03 pair with the exact large-order denominator
 tail coefficient bound also has the required closed-disk estimate; existence
 of such a pair remains open. Compile the conditional SP-14 subsequence, finite base-block
 algebra, frozen integral's pure-mode Fourier orthogonality, and the conditional
@@ -100,6 +105,8 @@ curve and symbol identities, including separate contact at `-1` and the
 empty and two-term endpoint cases.
 The endpoint-cancelled exterior coefficients satisfy the exact half-binomial
 recurrence and unconditional `9/8`-weighted summability.
+The actual regularized exterior factor has its exact absolutely convergent
+circle series and all-integer Fourier coefficients under the frozen integral.
 The first positive packet has exact frozen Fourier support and preserves
 smaller Toeplitz sections over continuous backgrounds.
 The finite negative restoration packet cancels at the endpoint, its restoring
@@ -170,6 +177,12 @@ one.
 The genuine affine mode polynomial maps to the quotient-root sum, and its
 all-moment functional product equals the frozen zero-based Hankel
 multilinear pairing for every order and mode size.
+In each truncated local quotient, exact power-basis coefficients reconstruct
+every class, and every linear functional has a unique reversed-coefficient
+top-product representation.
+Local Frobenius nondegeneracy forces the reversed element's constant
+coefficient nonzero, and every such local class has an exact positive-integer
+root in the truncated quotient by finite nilpotent lifting.
 These results do not prove the full all-width rank equality.
 -/
 

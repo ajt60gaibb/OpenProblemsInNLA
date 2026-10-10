@@ -30,6 +30,11 @@ sources.
 | TR-04 | [`Solution.lean`](../../../tensor-computations/TR-04/lean/Solution.lean) | Elementary candidate/window count inequalities. It explicitly does not prove the TT-SVD approximation target; the current statement has unconstrained rank and operation-count fields. |
 | TR-14 | [`WidthBasics.lean`](../../../lean-statements/NLA/Proofs/TR14/WidthBasics.lean) | [Independently reviewed](TR-14/WIDTH_BASICS_INDEPENDENT_FINAL_REVIEW.md) kernel proofs of symmetric-width implies ordinary-width and both exact width-zero characterizations, [moment-index surjectivity and the Hankel-zero equivalence](TR-14/MOMENT_INDEX_INDEPENDENT_FINAL_REVIEW.md), [the exact apolar map and least nonzero degree](TR-14/APOLAR_MINIMAL_INDEPENDENT_FINAL_REVIEW.md), [conditional monic quotient all-moment matching](TR-14/NORMALIZED_QUOTIENT_INDEPENDENT_PARTIAL_REVIEW.md), [the normalized least-apolar quotient’s full Frobenius pairing](TR-14/FROBENIUS_MINIMAL_INDEPENDENT_FINAL_REVIEW.md), [the exact middle catalecticant rank in that monic chart](TR-14/MIDDLE_CATALECTICANT_INDEPENDENT_FINAL_REVIEW.md), and [the genuine homogeneous chart substitution, degreewise equivalence, multiplication, and inverse-dual pairing](TR-14/GL2_HOMOGENEOUS_INDEPENDENT_FINAL_REVIEW.md). The original-coordinate middle catalecticant rank is now proved through the independently reviewed GL₂ chart bridge below. The arbitrary ordinary-to-symmetric implication and full all-width target remain unproved. |
 
+The [independently reviewed MF-03 dense-set cosine product](MF-03/COSINE_DENSE_PRODUCT_INDEPENDENT_FINAL_REVIEW.md)
+identifies the factorial wave series with `cos(πw)` and proves convergence
+of its finite cosine product when `sin(πw)≠0`. The integer arguments and
+all-order Padé target remain open.
+
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
 it proves the source's displayed right inverse, range, and sharp norm estimate
@@ -62,8 +67,10 @@ open.
 
 The [independently reviewed regularized exterior coefficients](SP-14/REGULARIZED_BASE_COEFF_INDEPENDENT_FINAL_REVIEW.md)
 satisfy the exact endpoint-cancellation recurrence and unconditional
-`9/8`-weighted summability. Their Fourier identification and product Wiener
-bound remain open.
+`9/8`-weighted summability. The [independently reviewed actual regularized
+factor](SP-14/REGULARIZED_FACTOR_FOURIER_INDEPENDENT_FINAL_REVIEW.md) has an
+exact circle series and all-integer Fourier coefficients under the frozen
+integral. Its product Wiener bound remains open.
 
 The TR-14 chart work also has an [independently reviewed complete coefficient
 basis](TR-14/GL2_COEFFICIENT_BASIS_INDEPENDENT_FINAL_REVIEW.md) for genuine
@@ -104,6 +111,13 @@ The [independently reviewed moment-to-quotient mode pairing](TR-14/MOMENT_QUOTIE
 identifies each genuine affine mode polynomial with its quotient image and
 proves the exact all-moment Hankel product identity, including empty modes and
 top degree. Local factorization and width conclusions remain open.
+
+The [independently reviewed local top-coefficient algebra](TR-14/LOCAL_TOP_COEFFICIENT_INDEPENDENT_FINAL_REVIEW.md)
+proves the exact truncated power basis, coefficient convolution, and unique
+reversed-coefficient representation of every local linear functional. Its
+Frobenius nonzero and finite-root consequences are now proved in the
+[independently reviewed local unit/root module](TR-14/LOCAL_UNIT_ROOT_INDEPENDENT_FINAL_REVIEW.md).
+The local Fourier decomposition and global width conclusions remain open.
 
 ## Shared statement only; no live proof source (34)
 
