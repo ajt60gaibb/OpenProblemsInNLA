@@ -153,8 +153,12 @@ tail bound](MF-03/FINITE_DETERMINANT_TAIL_INDEPENDENT_FINAL_REVIEW.md)
 uses the exact `m≤k<N` cosine-factor tail and actual bottom length `j`.
 The [original finite and infinite determinant tail bounds](MF-03/ORIGINAL_DETERMINANT_INFINITE_TAIL_INDEPENDENT_FINAL_REVIEW.md)
 retain coefficient one and the exact infinite cosine-factor tail. Strict
-positivity of the infinite rectangular determinant, transfer to Padé
-coefficients, and the full all-order MF-03 Target remain open.
+positivity of the original infinite rectangular determinant is now proved
+from a [fixed canonical tableau lower bound](MF-03/RECT_DETERMINANT_POSITIVITY_INDEPENDENT_FINAL_REVIEW.md).
+The [exact original determinant ratio](MF-03/ORIGINAL_DETERMINANT_RATIO_INDEPENDENT_FINAL_REVIEW.md)
+is nonnegative and bounded by `(cosineTail m)^j` with coefficient one.
+Transfer to the actual Padé coefficients and the full all-order MF-03 Target
+remain open.
 
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
