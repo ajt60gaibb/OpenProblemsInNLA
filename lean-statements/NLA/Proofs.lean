@@ -44,6 +44,7 @@ import NLA.Proofs.SP14.NegativeRestorationInvisibility
 import NLA.Proofs.SP14.OddFrequencyToeplitzCharpoly
 import NLA.Proofs.SP14.FiniteCorrectedOddSupport
 import NLA.Proofs.SP14.JetVanishingMultiplicity
+import NLA.Proofs.SP14.BaseJetTriangular
 import NLA.Proofs.TR14.WidthBasics
 import NLA.Proofs.TR14.MomentIndex
 import NLA.Proofs.TR14.ApolarMinimal
@@ -75,6 +76,8 @@ Every finite corrected symbol made from the exterior base and source packets
 is continuous, has this exact odd Fourier support, and inherits that shape.
 If its first jet coefficients vanish, the actual characteristic-root multiset
 has the corresponding algebraic multiplicity at both `1` and `-1`.
+The source's explicit real base-jet matrix has a verified triangular inverse;
+its identification with the actual Toeplitz jet map is still outstanding.
 TR-14 width semantics supply the symmetric-to-ordinary direction and exact
 zero-width endpoints. Every moment coordinate appears in the frozen Hankel
 tensor; the exact apolar map has a least nonzero degree for nonzero moments.
