@@ -151,8 +151,10 @@ The [original finite rectangular determinant/tableau identity](MF-03/FINITE_RECT
 handles the `j=0` specialization. The [coefficient-one finite determinant
 tail bound](MF-03/FINITE_DETERMINANT_TAIL_INDEPENDENT_FINAL_REVIEW.md)
 uses the exact `m≤k<N` cosine-factor tail and actual bottom length `j`.
-The original infinite determinant bound, denominator positivity, and the
-full all-order MF-03 Target remain open.
+The [original finite and infinite determinant tail bounds](MF-03/ORIGINAL_DETERMINANT_INFINITE_TAIL_INDEPENDENT_FINAL_REVIEW.md)
+retain coefficient one and the exact infinite cosine-factor tail. Strict
+positivity of the infinite rectangular determinant, transfer to Padé
+coefficients, and the full all-order MF-03 Target remain open.
 
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
