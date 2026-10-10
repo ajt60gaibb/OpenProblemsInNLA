@@ -58,6 +58,12 @@ The [independently reviewed half-binomial base-jet inverse](SP-14/BASE_JET_BINOM
 proves an exact two-sided matrix inverse and finite solve for every size,
 including zero. It does not supply the actual background inverse bounds.
 
+The [independently reviewed endpoint partial convolution](SP-14/BASE_ENDPOINT_PARTIAL_CONVOLUTION_INDEPENDENT_FINAL_REVIEW.md)
+proves the exact scalar binomial identity for every finite input index and
+every strictly negative output frequency. Its formal power-series proof
+includes the zero input index. The actual endpoint projection matrix and
+Sobolev operator estimates remain open.
+
 The [independently reviewed normalized exterior boundary factor](SP-14/BASE_EXTERIOR_FACTOR_INDEPENDENT_FINAL_REVIEW.md)
 is a continuous half-binomial series with exact square, endpoint zero, and
 base-symbol factor identities. Exterior holomorphy and finite-background

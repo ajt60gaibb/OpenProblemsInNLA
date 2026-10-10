@@ -79,6 +79,7 @@ import NLA.Proofs.SP14.BaseJetFourierMatrix
 import NLA.Proofs.SP14.BaseJetPencilFormula
 import NLA.Proofs.SP14.BaseJetRealSolve
 import NLA.Proofs.SP14.BaseJetBinomialInverse
+import NLA.Proofs.SP14.BaseEndpointPartialConvolution
 import NLA.Proofs.SP14.SobolevOversampling
 import NLA.Proofs.SP14.WeightedSobolevPhysical
 import NLA.Proofs.SP14.WeightedSobolevOperators
