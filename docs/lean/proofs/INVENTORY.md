@@ -93,6 +93,9 @@ also has a literal Wiener size equal to its finite coefficient sum.
 The [generic finite negative Laurent multiplier](SP-14/FINITE_NEGATIVE_WIENER_MULTIPLIER_INDEPENDENT_FINAL_REVIEW.md)
 preserves literal weighted Fourier summability and satisfies the
 constant-one weighted Wiener product bound.
+The [canonical first Wiener sizes](SP-14/CANONICAL_FIRST_WIENER_SIZES_INDEPENDENT_FINAL_REVIEW.md)
+give exact finite negative W⁰ and positive W⁴ norms under the frozen
+Fourier integral and prove the exterior base factor's W⁰ size is at most two.
 The background product estimates remain open.
 
 The TR-14 chart work also has an [independently reviewed complete coefficient
@@ -162,6 +165,10 @@ is now proved from actual monic apolarity in the [independently reviewed
 moment transfer](TR-14/LOCAL_CRT_MOMENTS_INDEPENDENT_FINAL_REVIEW.md),
 including every supplied moment and zero-based tensor coordinate. The
 global width theorem remains open.
+The [independently reviewed dependent root/Fourier sum](TR-14/LOCAL_CRT_FOURIER_SIGMA_INDEPENDENT_FINAL_REVIEW.md)
+now gives every frozen Hankel coordinate as a finite sum of same-vector
+symmetric terms under actual nonzero least-apolar hypotheses. Exact node
+count, reindexing to the frozen width predicate, and the full Target remain open.
 
 ## Shared statement only; no live proof source (34)
 

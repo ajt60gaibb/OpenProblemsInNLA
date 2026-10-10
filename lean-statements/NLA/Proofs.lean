@@ -53,6 +53,7 @@ import NLA.Proofs.SP14.RegularizedFactorWiener
 import NLA.Proofs.SP14.FiniteNegativeWiener
 import NLA.Proofs.SP14.FiniteNegativeWienerMultiplier
 import NLA.Proofs.SP14.ActualNegativeWienerBound
+import NLA.Proofs.SP14.CanonicalFirstWienerSizes
 import NLA.Proofs.SP14.PositivePacketInvisibility
 import NLA.Proofs.SP14.NegativeRestorationInvisibility
 import NLA.Proofs.SP14.OddFrequencyToeplitzCharpoly
@@ -94,6 +95,7 @@ import NLA.Proofs.TR14.LocalCRTShift
 import NLA.Proofs.TR14.LocalCRTAlgebra
 import NLA.Proofs.TR14.LocalCRTFunctional
 import NLA.Proofs.TR14.LocalCRTMoments
+import NLA.Proofs.TR14.LocalCRTFourierSigma
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
@@ -135,6 +137,9 @@ Multiplication by such a correction preserves literal weighted Fourier
 summability and obeys the constant-one weighted Wiener product bound.
 At actual endpoint contact, the corrected exterior base product inherits
 that summability and bound from its exact finite Laurent quotient.
+The canonical W⁰ and W⁴ sizes of finite negative and positive Laurent
+backgrounds are exact, while the exterior base factor has all-integer
+Fourier support and literal W⁰ size at most two.
 The first positive packet has exact frozen Fourier support and preserves
 smaller Toeplitz sections over continuous backgrounds.
 The finite negative restoration packet cancels at the endpoint, its restoring
@@ -230,6 +235,9 @@ local component without assuming local nondegeneracy separately.
 Actual monic apolarity then reconstructs every moment through the full
 supplied degree and every frozen zero-based Hankel coordinate as a sum
 of local product evaluations.
+For a nonzero moment vector and exact least monic apolar polynomial, the
+local Fourier formulas assemble into one dependent root/node sum for
+every frozen Hankel coordinate, with a shared vector in all modes.
 These results do not prove the full all-width rank equality.
 -/
 
