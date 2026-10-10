@@ -27,6 +27,7 @@ import NLA.Proofs.MF03.CosineProduct
 import NLA.Proofs.MF03.CosineDenseProduct
 import NLA.Proofs.MF03.CosineAllComplexProduct
 import NLA.Proofs.MF03.CosineCoefficientTransfer
+import NLA.Proofs.MF03.FiniteElementaryLimit
 import NLA.Proofs.MF03.FiniteTableauTail
 import NLA.Proofs.MF03.FiniteTableauPair
 import NLA.Proofs.MF03.FiniteTableauWeightFactor
@@ -83,6 +84,7 @@ import NLA.Proofs.SP14.BaseJetBinomialInverse
 import NLA.Proofs.SP14.BaseEndpointPartialConvolution
 import NLA.Proofs.SP14.EndpointBaseSeries
 import NLA.Proofs.SP14.EndpointBaseFourier
+import NLA.Proofs.SP14.EndpointExtensionKernel
 import NLA.Proofs.SP14.SobolevOversampling
 import NLA.Proofs.SP14.WeightedSobolevPhysical
 import NLA.Proofs.SP14.WeightedSobolevOperators
