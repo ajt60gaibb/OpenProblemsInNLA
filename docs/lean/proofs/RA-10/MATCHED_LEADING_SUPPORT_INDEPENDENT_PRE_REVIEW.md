@@ -1,0 +1,7 @@
+# RA-10 matched-leading support algebra: independent pre-review
+
+**Author:** `/root/ra10_spectral_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact source-locked support algebra for Lean implementation.
+
+I reviewed `MATCHED_LEADING_SUPPORT_PRE_REVIEW.md` at SHA-256 `81de5f0df9f9484ae454ce4bd675e70db889ec1930f0a1c44e44f53f3c23ff72` against the frozen RA-10 solution, exact selected-projection and matched-leading matrix gates, and the selected Euclidean opnorm theorem. The contract uses the actual `P=selectedProjection k QAhat`, `B₀=FunctionTruncation k id eigenvaluesA QAhat`, `C=PAP`, and `D=B₀−C`. Their shared selected-basis construction and `P²=P` imply `PB₀P=B₀`, `PCP=C`, and `PDP=D` without changing eigenvectors or cutoff. The supplied `s>0` shifted-inverse theorem and common basis justify `P R_B₀=R_B₀ P`. Consequently `R_B₀ D R_C=(P R_B₀ P) D R_C` follows in the original noncommutative order, with `R_C=(sI+C)⁻¹` and no `B₀,C` commutation assumption. These identities remain valid for empty and tied spectra and are narrower than a false arbitrary-PSD-`C` insertion.
+
+Approval covers the five displayed exact Lean declarations and their supporting algebra. It does not supply the nuclear ideal-property theorem or prove Equation (14)'s norm inequality. Freeze the implementation for separate imported exact-signature and LeanCert kernel/axiom audit before aggregate import.

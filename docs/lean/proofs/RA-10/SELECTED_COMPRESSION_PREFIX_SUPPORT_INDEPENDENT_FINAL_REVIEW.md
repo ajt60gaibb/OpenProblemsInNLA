@@ -1,0 +1,7 @@
+# RA-10 positive compression prefix support: independent final review
+
+**Author:** `/root/ra10_spectral_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE exact supplied-basis reconstruction and actual-projector support; comparison `h_i≤a_i` remains open.
+
+The frozen source `SelectedCompressionPrefixSupport.lean` has SHA-256 `96769da49e4b10fff8a47ababb707a0d7ea8e8de709fb490e16ad7bce526bb8c`. I checked it against the independently approved precontract, frozen ordered PSD predicate, audited single-positive-eigenvector support, and exact supplied-basis coordinate convention. Orthogonal square Q gives `QQᵀ=I`, so the first theorem reconstructs **every** vector from its coordinates in the same supplied basis. For the actual `C=PAP`, if `λC a>0`, antitonicity makes every prefix column `b≤a` positive and the earlier helper fixes each under the actual selected P. The strict suffix-zero premise removes all other columns, and finite linearity proves `P*ᵥx=x` exactly, for arbitrary tied bases, zeros outside the prefix, and all dimensions.
+
+The independent imported exact-signature audit `/private/tmp/ra10-selected-compression-prefix-support-independent-audit.lean`, SHA-256 `5ab10d8bb97ea62533a40ac28d1cadf1a402a3a7f0dbf7eaf2dd36188eac9ffe`, passed pinned LeanCert kernel. Both public theorems report only `propext`, `Classical.choice`, and `Quot.sound`. The C/A quadratic equality on this range, positive squared-norm cancellation, coefficient-one eigenvalue comparison, nuclear inequalities, and full RA-10 Target remain open.

@@ -1,0 +1,7 @@
+# SP-14 absolute endpoint kernel: independent pre-implementation review
+
+**Reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the frozen exact mathematical and numerical contract `ENDPOINT_ABSOLUTE_KERNEL_PRE_REVIEW.md` at SHA-256 `5ebfe8f126c9517488d081320d3f6e72287fcf9ef0af316d65b13f9310823bf5` before Lean implementation.
+
+I checked the canonical source and frozen negative Target hashes in the contract, the independently audited signed endpoint Fourier theorem, and the central-binomial coefficients. `A_n=(-1)^n choose(-1/2,n)` is positive and satisfies `A₀=1` and `A_(n+1)=((2n+1)/(2n+2))A_n`; the quoted exact polynomial difference for the squared induction is `(2n+2)^2(n+1)−(2n+1)^2(n+2)=3n+2`. Thus `(n+1)A_n²≤1` holds from `n=0`, and positivity gives `A_n≤(n+1)^(-1/2)` without numerical approximation. Taking the complex norm of the audited signed Fourier coefficient gives exactly `K_(j,k)=((k+1/2)/(k+j))A_kA_(j−1)` for all `k≥0`, `j≥1`, followed by the stated pointwise square-root bound. I independently checked `A₀,…,A₄` and the 3×3 absolute-value rational table against the earlier signed table.
+
+This approval covers the finite entry equality and bound. Infinite Schur sums, Hilbert–Schmidt inverse, bounded extension, perturbed background, and frozen SP-14 Target remain separate proof obligations. The Lean source must be frozen and independently audited after implementation.

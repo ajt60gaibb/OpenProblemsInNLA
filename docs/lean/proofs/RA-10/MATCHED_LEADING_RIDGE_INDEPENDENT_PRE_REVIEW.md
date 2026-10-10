@@ -1,0 +1,9 @@
+# RA-10 matched leading ridge matrix: independent pre-review
+
+**Author:** `/root/ra10_spectral_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact matched-leading gate for Lean implementation.
+
+I reviewed `MATCHED_LEADING_RIDGE_PRE_REVIEW.md` at SHA-256 `a3e47f3b9398f93f95a29b871b0884cad0d128e29ed4d9ecacd45d6ccf6b870f` against the locked RA-10 solution Section 3 and Equation (14), the frozen `FunctionTruncation`, and the independently audited resolvent product. The proposed `B₀` uses the first `k` **eigenvalues of `A`** in the selected supplied basis `QAhat` of `Ahat`; it does not substitute `QA`. Clipping the ordered nonnegative eigenvalue sequence to zero after the strict zero-based cutoff preserves nonnegativity and antitonicity, including the cross-cutoff pair. The supplied `QAhat` orthonormality therefore gives the complete frozen ordered PSD decomposition of `B₀`, including ties, zero values, `k=0`, `k≥n`, and `n=0`.
+
+Because the exact ridge atom has `ridgeAtom s 0=0` for `s>0`, its full functional calculus on clipped values equals the **frozen** leading ridge truncation entrywise. This would fail for a general function with positive value at zero, so the declaration correctly keeps the ridge atom. Applying the independently audited right-order product with first matrix `C` and second matrix `B₀` gives precisely `s(sI+B₀)⁻¹(B₀−C)(sI+C)⁻¹`, the matrix equality printed in source Equation (14) before its nuclear-norm bound. `C` retains an independently supplied PSD decomposition and no commuting or eigenvalue-gap assumption is introduced.
+
+Approval covers the three exact proposed declarations, with complete frozen arguments and original indexing. Freeze each implementation stage for an imported exact-signature and LeanCert kernel/axiom audit before aggregate import. The nuclear ideal-property estimate, compression Lemma 2, positive-integral transfer, and frozen RA-10 Target remain open.

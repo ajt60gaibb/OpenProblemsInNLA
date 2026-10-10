@@ -1,6 +1,7 @@
 import NLA.TR13.Upper
 import NLA.TR13.Lower
 import NLA.TR13.RankComparison
+import NLA.TR13.ExactStatementBridge
 
 namespace NLA.TR13
 

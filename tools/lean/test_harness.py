@@ -82,6 +82,11 @@ class HarnessTests(unittest.TestCase):
         self.write()
         harness.validate_project(self.project)
 
+    def test_shared_statement_tree_can_contain_ra06_proof_modules(self):
+        (self.project / "lakefile.toml").write_text('name = "NLAStatements"\n')
+        (self.project / "NLA/Proofs/RA06").mkdir(parents=True)
+        self.assertEqual(harness.validate_project(self.project), self.config)
+
     def test_custom_sorry_and_native_axioms_are_rejected(self):
         for axiom in ["custom", "sorryAx", "Lean.ofReduceBool", "Lean.trustCompiler"]:
             with self.subTest(axiom=axiom):
@@ -113,6 +118,68 @@ class HarnessTests(unittest.TestCase):
                 self.write()
                 with self.assertRaisesRegex(harness.HarnessError, "immutable HTTPS"):
                     harness.validate_project(self.project)
+
+    def test_proof_audit_requires_the_reviewed_leancert_pin_when_present(self):
+        self.assertFalse(harness.pinned_leancert(self.project))
+        package = {"name": "leancert", "type": "git",
+                   "url": "https://github.com/alerad/leancert",
+                   "rev": harness.LEANCERT_REV,
+                   "inputRev": harness.LEANCERT_REV}
+        self.manifest["packages"] = [package]
+        self.write()
+        with self.assertRaisesRegex(harness.HarnessError, "Lakefile must require"):
+            harness.pinned_leancert(self.project)
+        (self.project / "lakefile.toml").write_text(
+            'name = "Fixture"\n[[require]]\nname = "leancert"\n'
+            'git = "https://github.com/alerad/leancert"\n'
+            f'rev = "{harness.LEANCERT_REV}"\n')
+        self.assertTrue(harness.pinned_leancert(self.project))
+        (self.project / "lakefile.toml").write_text(
+            'name = "Fixture"\n[[require]]\nname = "leancert"\n'
+            'git = "https://github.com/alerad/leancert"\nrev = "v4.33.1"\n')
+        self.manifest["packages"] = [{**package, "inputRev": "v4.33.1"}]
+        self.write()
+        self.assertTrue(harness.pinned_leancert(self.project))
+        self.manifest["packages"] = [{**package, "inputRev": "main"}]
+        self.write()
+        with self.assertRaisesRegex(harness.HarnessError, "Lakefile must require"):
+            harness.pinned_leancert(self.project)
+        (self.project / "lakefile.toml").write_text(
+            'name = "Fixture"\n[[require]]\nname = "leancert"\n'
+            'git = "https://github.com/alerad/leancert"\n'
+            f'rev = "{harness.LEANCERT_REV}"\n')
+        for change in [{"rev": "0" * 40},
+                       {"url": "https://github.com/other/leancert"}]:
+            with self.subTest(change=change):
+                self.manifest["packages"] = [{**package, **change}]
+                self.write()
+                with self.assertRaisesRegex(harness.HarnessError, "LeanCert does not match"):
+                    harness.pinned_leancert(self.project)
+        self.manifest["packages"] = [package, package]
+        self.write()
+        with self.assertRaisesRegex(harness.HarnessError, "duplicate LeanCert"):
+            harness.pinned_leancert(self.project)
+        self.manifest["packages"] = [package]
+        self.write()
+        (self.project / "lakefile.toml").write_text(
+            'name = "Fixture"\n[[require]]\nname = "leancert"\n'
+            'git = "https://github.com/alerad/leancert"\n'
+            'rev = "0000000000000000000000000000000000000000"\n')
+        with self.assertRaisesRegex(harness.HarnessError, "Lakefile must require"):
+            harness.pinned_leancert(self.project)
+
+    def test_generated_audit_checks_solution_theorems_not_statement_names(self):
+        source = harness.proof_trust_source(self.config)
+        self.assertIn("import Solution\n", source)
+        self.assertIn('set_option leancert.trust "kernel"', source)
+        self.assertIn("some (.thmInfo _)", source)
+        self.assertIn("#assert_proof_constant NlaFixture.checked", source)
+        self.assertIn("#assert_trust kernel NlaFixture.checked", source)
+        self.assertIn("#print axioms NlaFixture.checked", source)
+        self.assertNotIn("import Challenge", source)
+        self.config["theorem_names"] = ["invalid-name"]
+        with self.assertRaisesRegex(harness.HarnessError, "invalid proof trust audit"):
+            harness.proof_trust_source(self.config)
 
     def test_same_module_and_empty_theorem_list_are_rejected(self):
         self.config["solution_module"] = "Challenge"

@@ -69,6 +69,8 @@ import NLA.Statements.SP12
 import Reviewed.SP12
 import NLA.Statements.SP13
 import Reviewed.SP13
+import NLA.Statements.SP14
+import Reviewed.SP14
 import NLA.Statements.TR04
 import Reviewed.TR04
 import NLA.Statements.TR06
@@ -127,6 +129,7 @@ theorem identity_RE06 : NLA.Statements.RE06.Target = NLA.ReviewedStatements.RE06
 theorem identity_SP11 : NLA.Statements.SP11.Target = NLA.ReviewedStatements.SP11.Target := by rfl
 theorem identity_SP12 : NLA.Statements.SP12.Target = NLA.ReviewedStatements.SP12.Target := by rfl
 theorem identity_SP13 : NLA.Statements.SP13.Target = NLA.ReviewedStatements.SP13.Target := by rfl
+theorem identity_SP14 : NLA.Statements.SP14.Target = NLA.ReviewedStatements.SP14.Target := by rfl
 theorem identity_TR04 : NLA.Statements.TR04.Target = NLA.ReviewedStatements.TR04.Target := by rfl
 theorem identity_TR06 : NLA.Statements.TR06.Target = NLA.ReviewedStatements.TR06.Target := by rfl
 theorem identity_TR08 : NLA.Statements.TR08.Target = NLA.ReviewedStatements.TR08.Target := by rfl
@@ -172,6 +175,7 @@ theorem identity_TR26 : NLA.Statements.TR26.Target = NLA.ReviewedStatements.TR26
 #assert_trust kernel NLA.Statements.ComparatorControl.identity_SP11
 #assert_trust kernel NLA.Statements.ComparatorControl.identity_SP12
 #assert_trust kernel NLA.Statements.ComparatorControl.identity_SP13
+#assert_trust kernel NLA.Statements.ComparatorControl.identity_SP14
 #assert_trust kernel NLA.Statements.ComparatorControl.identity_TR04
 #assert_trust kernel NLA.Statements.ComparatorControl.identity_TR06
 #assert_trust kernel NLA.Statements.ComparatorControl.identity_TR08
@@ -217,6 +221,7 @@ theorem identity_TR26 : NLA.Statements.TR26.Target = NLA.ReviewedStatements.TR26
 #print axioms NLA.Statements.ComparatorControl.identity_SP11
 #print axioms NLA.Statements.ComparatorControl.identity_SP12
 #print axioms NLA.Statements.ComparatorControl.identity_SP13
+#print axioms NLA.Statements.ComparatorControl.identity_SP14
 #print axioms NLA.Statements.ComparatorControl.identity_TR04
 #print axioms NLA.Statements.ComparatorControl.identity_TR06
 #print axioms NLA.Statements.ComparatorControl.identity_TR08

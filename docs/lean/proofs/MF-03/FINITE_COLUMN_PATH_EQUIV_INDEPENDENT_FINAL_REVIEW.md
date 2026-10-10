@@ -1,0 +1,7 @@
+# MF-03 literal valid paths and actual column systems: independent final review
+
+**Author:** `/root/mf03_jt_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact all-order path/column-system equivalence; weights remain open.
+
+The frozen source `FiniteColumnPathEquiv.lean` has SHA-256 `fe8c7c82a2d678f791f4df81873d4995b75d1d22a51d72fd68a80d023b3e464e`. Its forward map is the audited extraction of **actual** zero-based advance-label sets from a literal valid path with the original omitted-row start and terminal tuple. Its inverse is the audited cut-by-cut path constructor. The two separately proved literal round trips supply the exact `Equiv` laws for all `N,m,j` with `j≤m`, including the empty-shape and zero-factor cases. It introduces no quotient, sentinel factor, reordered endpoint, or assumption about weights.
+
+The independent imported exact-signature audit `/private/tmp/mf03-finite-column-path-equiv-independent-audit.lean`, SHA-256 `94beb69dabf89d2181165481283b18fb40d23de98e3b48fb275c78d752ccf595`, passed pinned LeanCert kernel and reported only `propext`, `Classical.choice`, and `Quot.sound`. Combined with the separately audited tableau/column-system equivalence, the literal path/tableau bijection is now available by composition. Proving weight preservation and transporting the original determinant sum to the original tableau sum remain separate gates; the full MF-03 Target is open.

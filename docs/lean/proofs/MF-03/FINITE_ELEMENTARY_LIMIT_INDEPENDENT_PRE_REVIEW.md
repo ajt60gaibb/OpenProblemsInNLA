@@ -1,0 +1,5 @@
+# MF-03 finite elementary coefficients: independent pre-review
+
+**Independent mathematical reviewer:** `/root/sp14_base_proof`, 10 October 2026. **Verdict:** APPROVE the frozen exact contract `FINITE_ELEMENTARY_LIMIT_PRE_REVIEW.md` at SHA-256 `553c301c927251159859441f3978870c0a4ab1ce3f8bb75fe812746a7ee7df15` before Lean implementation. The reviewer made no MF-03 source edits and ran no Lake build.
+
+The proposed finite coefficient uses exactly the subsets of `Finset.range N` with cardinality `j`, and its weight uses the original zero-based factor `cosineFactor(k+1)`. This matches `cosineElementaryCoeff`'s exact cardinality-subtype `tsum`. The finite cutoff family is nested and exhausts every finite subset. Every factor and finite-subset product is nonnegative, and the complete finite-subset product family is summable, so the four proposed nonnegativity, monotonicity, upper bound, and limit conclusions are mathematically valid. The reviewer checked `j=0`, including `N=0`, and `j>N`; no determinant identity or full MF-03 Target follows from this gate alone.

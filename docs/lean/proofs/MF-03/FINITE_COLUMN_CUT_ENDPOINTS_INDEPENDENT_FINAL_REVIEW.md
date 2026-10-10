@@ -1,0 +1,7 @@
+# MF-03 cut endpoints and exact factor steps: independent final review
+
+**Author:** `/root/mf03_jt_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact original endpoints and one-step transitions; literal path assembly remains open.
+
+The frozen source `FiniteColumnCutEndpoints.lean` has SHA-256 `ae23b248556bd85aaefc6512639c2e1ac3a7e8be369b913cbb42228f6f475bfe`. I checked it against the independently approved cut contract and prior imported ordered-cut gate. Since actual labels satisfy `<N`, cut `N` gives precisely the original omitted-row start tuple `finitePathStart m j hj`. Cut zero counts every label, and the exact cardinalities give the original terminal tuple `finitePathEnd m`. The suffix recurrence proves `finiteValidStep m` from cut `q+1` to cut `q`, advancing a coordinate exactly when its actual set contains zero-based factor label `q`. This is the frozen descending factor order, with no sentinel or coefficient change, and includes empty and endpoint cases.
+
+The independent imported exact-signature audit `/private/tmp/mf03-finite-column-cut-endpoints-independent-audit.lean`, SHA-256 `f12bc83f73bc1c7bd5df49614dd6b4d393ae9683bb5e514489c0a5fe40c7c28a`, passed pinned LeanCert kernel. All three public theorems report only `propext`, `Classical.choice`, and `Quot.sound`. Literal chain assembly, mutual inverse, weight equality, and full MF-03 Target remain open.

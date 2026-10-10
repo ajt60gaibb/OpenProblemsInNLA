@@ -1,0 +1,7 @@
+# MF-03 actual labels recovered from reconstructed path: independent final review
+
+**Author:** `/root/mf03_jt_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact column-system left inverse; the reverse literal-path identity remains open.
+
+The frozen source `FiniteColumnPathLeftInverse.lean` has SHA-256 `eff422728478a54fbfa52e392b1e7d24a130fbc13796dbcf480d93ad607e8bd7`. I checked it against the independently approved inverse precontract, frozen `finiteAdvanceLabels`, the exact cut recurrence, and the original start/end tuples. Its induction proves that the length-`n` reconstructed auxiliary path has exactly the original labels `<n` in every coordinate. At the top cut, every actual label is `<N`, so extracting all labels from the full constructed path returns every original `D.labels p`; structure extensionality then gives literal equality of `FiniteColumnSystem` records. It preserves every zero-based factor index and does not add or extract the temporary sentinel.
+
+The independent imported exact-signature audit `/private/tmp/mf03-finite-column-path-left-inverse-independent-audit.lean`, SHA-256 `e4899be898adda114a89be92f6e51c6b43ad09a4387e56e32a5f77aaf16e7629`, passed pinned LeanCert kernel. Both public theorems report only `propext`, `Classical.choice`, and `Quot.sound`. The reverse path identity, weighted bijection, determinant/tableau equality, and full MF-03 Target remain open.
