@@ -28,7 +28,7 @@ sources.
 | MF-03 | [`FiniteRange.lean`](../../../lean-statements/NLA/Proofs/MF03/FiniteRange.lean) | Proves the exact frozen target clause for every order 1–15, including reduced-pair existence and every reduced representative, from [independently reviewed](MF-03/FINITE03_15_INDEPENDENT_REVIEW.md) exact certificates, gcd reduction and disk transport. Separate [all-order cosine-tail](MF-03/COSINE_TAIL_INDEPENDENT_FINAL_REVIEW.md), [value-at-three/numeric-margin](MF-03/WAVE_AT_THREE_INDEPENDENT_FINAL_REVIEW.md), and [complex factor-product convergence](MF-03/COSINE_PRODUCT_INDEPENDENT_PARTIAL_REVIEW.md) lemmas are kernel checked. The series-product identity, orders ≥16, and full all-order target remain unproved. |
 | SP-14 | [`SubsequenceGap.lean`](../../../lean-statements/NLA/Proofs/SP14/SubsequenceGap.lean) | [Independently reviewed](SP-14/SUBSEQUENCE_GAP_INDEPENDENT_FINAL_REVIEW.md) kernel proof that a supplied continuous counterexample with a positive eventual empirical gap refutes the exact frozen conjecture. Separate [base-coefficient convolution](SP-14/BASE_COEFFICIENT_INDEPENDENT_REVIEW.md), [unconditional coefficient-defined block product](SP-14/BASE_CB_INDEPENDENT_FINAL_REVIEW.md), [frozen-integral monomial Fourier orthogonality](SP-14/BASE_FOURIER_MODE_INDEPENDENT_REVIEW.md), [absolute summability of the exterior half-binomial coefficients](SP-14/BASE_COEFF_SUMMABLE_INDEPENDENT_REVIEW.md), [continuous exterior boundary series](SP-14/BASE_EXTERIOR_SERIES_INDEPENDENT_REVIEW.md), [termwise frozen Fourier integration](SP-14/BASE_EXTERIOR_FOURIER_INDEPENDENT_REVIEW.md), [the exterior base symbol's exact Fourier pattern and actual odd Toeplitz characteristic polynomial](SP-14/BASE_EXTERIOR_PATTERN_INDEPENDENT_REVIEW.md), [its boundary square and zero identities](SP-14/BASE_EXTERIOR_BOUNDARY_SQUARE_INDEPENDENT_REVIEW.md), [positive packet Fourier support and small-section invisibility](SP-14/POSITIVE_PACKET_INVISIBILITY_INDEPENDENT_FINAL_REVIEW.md), [finite negative-restoration algebra and earlier-section persistence](SP-14/NEGATIVE_RESTORATION_INVISIBILITY_INDEPENDENT_FINAL_REVIEW.md), [the conditional all-order odd-frequency Toeplitz characteristic polynomial in the jet coordinate](SP-14/ODD_FREQUENCY_TOEPLITZ_CHARPOLY_INDEPENDENT_FINAL_REVIEW.md), [continuous odd Fourier support and jet polynomial shape for every finite corrected symbol](SP-14/FINITE_CORRECTED_ODD_SUPPORT_INDEPENDENT_FINAL_REVIEW.md), [the exact conditional jet-to-algebraic-root-multiplicity bridge](SP-14/JET_VANISHING_MULTIPLICITY_INDEPENDENT_FINAL_REVIEW.md), [the real upper-triangular base-jet matrix with its unique inverse solve](SP-14/BASE_JET_TRIANGULAR_INDEPENDENT_PARTIAL_REVIEW.md), and [the generic selected-block cofactor identity](SP-14/BASE_JET_CORNER_INDEPENDENT_FINAL_REVIEW.md), and [the exact frozen Fourier-to-matrix bridge for a base plus restored packet](SP-14/BASE_JET_FOURIER_MATRIX_INDEPENDENT_FINAL_REVIEW.md), and [the actual corrected odd-jet polynomial’s finite pencil formula](SP-14/BASE_JET_PENCIL_FORMULA_INDEPENDENT_FINAL_REVIEW.md), and [the explicit real first-jet solve and bijective derivative of that actual base-model map](SP-14/BASE_JET_REAL_SOLVE_INDEPENDENT_FINAL_REVIEW.md) are kernel checked. The base symbol has an outer annular extension and is not the counterexample; selecting correction vectors for perturbed backgrounds, the final infinite symbol, two-sided nonextension, unconditional multiplicity estimates, and final subsequence gap remain unproved in Lean. |
 | TR-04 | [`Solution.lean`](../../../tensor-computations/TR-04/lean/Solution.lean) | Elementary candidate/window count inequalities. It explicitly does not prove the TT-SVD approximation target; the current statement has unconstrained rank and operation-count fields. |
-| TR-14 | [`WidthBasics.lean`](../../../lean-statements/NLA/Proofs/TR14/WidthBasics.lean) | [Independently reviewed](TR-14/WIDTH_BASICS_INDEPENDENT_FINAL_REVIEW.md) kernel proofs of symmetric-width implies ordinary-width and both exact width-zero characterizations, [moment-index surjectivity and the Hankel-zero equivalence](TR-14/MOMENT_INDEX_INDEPENDENT_FINAL_REVIEW.md), [the exact apolar map and least nonzero degree](TR-14/APOLAR_MINIMAL_INDEPENDENT_FINAL_REVIEW.md), [conditional monic quotient all-moment matching](TR-14/NORMALIZED_QUOTIENT_INDEPENDENT_PARTIAL_REVIEW.md), [the normalized least-apolar quotient’s full Frobenius pairing](TR-14/FROBENIUS_MINIMAL_INDEPENDENT_FINAL_REVIEW.md), [the exact middle catalecticant rank in that monic chart](TR-14/MIDDLE_CATALECTICANT_INDEPENDENT_FINAL_REVIEW.md), and [the genuine homogeneous chart substitution, degreewise equivalence, multiplication, and inverse-dual pairing](TR-14/GL2_HOMOGENEOUS_INDEPENDENT_FINAL_REVIEW.md). Apolar and Hankel-width chart transport, original-coordinate middle catalecticant rank, arbitrary ordinary-to-symmetric implication, and the full all-width target remain unproved. |
+| TR-14 | [`WidthBasics.lean`](../../../lean-statements/NLA/Proofs/TR14/WidthBasics.lean) | [Independently reviewed](TR-14/WIDTH_BASICS_INDEPENDENT_FINAL_REVIEW.md) kernel proofs of symmetric-width implies ordinary-width and both exact width-zero characterizations, [moment-index surjectivity and the Hankel-zero equivalence](TR-14/MOMENT_INDEX_INDEPENDENT_FINAL_REVIEW.md), [the exact apolar map and least nonzero degree](TR-14/APOLAR_MINIMAL_INDEPENDENT_FINAL_REVIEW.md), [conditional monic quotient all-moment matching](TR-14/NORMALIZED_QUOTIENT_INDEPENDENT_PARTIAL_REVIEW.md), [the normalized least-apolar quotient’s full Frobenius pairing](TR-14/FROBENIUS_MINIMAL_INDEPENDENT_FINAL_REVIEW.md), [the exact middle catalecticant rank in that monic chart](TR-14/MIDDLE_CATALECTICANT_INDEPENDENT_FINAL_REVIEW.md), and [the genuine homogeneous chart substitution, degreewise equivalence, multiplication, and inverse-dual pairing](TR-14/GL2_HOMOGENEOUS_INDEPENDENT_FINAL_REVIEW.md). The original-coordinate middle catalecticant rank is now proved through the independently reviewed GL₂ chart bridge below. The arbitrary ordinary-to-symmetric implication and full all-width target remain unproved. |
 
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
@@ -45,6 +45,10 @@ lift; they preserve literal physical coefficients and prove the exact
 `(q+1)^(-τ)` tail and `h^τ` finite-band inequalities. Compatible inverses and
 norm bounds for the actual background operator remain open.
 
+The [independently reviewed half-binomial base-jet inverse](SP-14/BASE_JET_BINOMIAL_INVERSE_INDEPENDENT_FINAL_REVIEW.md)
+proves an exact two-sided matrix inverse and finite solve for every size,
+including zero. It does not supply the actual background inverse bounds.
+
 The TR-14 chart work also has an [independently reviewed complete coefficient
 basis](TR-14/GL2_COEFFICIENT_BASIS_INDEPENDENT_FINAL_REVIEW.md) for genuine
 homogeneous binary forms, including the exact monomial product index. The
@@ -52,8 +56,8 @@ homogeneous binary forms, including the exact monomial product index. The
 and [all-degree apolar product equivalence](TR-14/GL2_APOLAR_PAIRING_INDEPENDENT_FINAL_REVIEW.md)
 are also kernel checked. The [inverse-dual chart transport of every apolar
 kernel and nonzero apolar degree](TR-14/GL2_APOLAR_TRANSPORT_INDEPENDENT_FINAL_REVIEW.md)
-is kernel checked as well. Hankel width transport remains a separate proof
-obligation.
+is kernel checked as well. The ordinary-to-symmetric rank comparison remains
+a separate proof obligation.
 
 The [independently reviewed affine dehomogenization and chart-selection
 lemma](TR-14/GL2_DEHOMOGENIZE_INDEPENDENT_FINAL_REVIEW.md) recovers every
@@ -64,8 +68,16 @@ form. This supplies the chart used by the monic normalization below.
 The [independently reviewed chosen least-apolar normalization](TR-14/GL2_CHART_NORMALIZE_INDEPENDENT_FINAL_REVIEW.md)
 now transports any supplied nonzero least witness to a monic affine polynomial
 of exact degree and preserves nonzero moments and every lower zero apolar
-kernel. Original-coordinate Hankel middle rank and all-width tensor equality
-remain open.
+kernel. All-width tensor equality remains open.
+
+The [independently reviewed exact Hankel mode pairing](TR-14/GL2_HANKEL_MODE_INDEPENDENT_FINAL_REVIEW.md)
+expands the tensor contraction with no multinomial factors and proves the
+inverse-dual chart identity on every mode vector. Frozen ordinary/symmetric
+width equivalences follow in the [independently reviewed width transport](TR-14/GL2_WIDTH_TRANSPORT_INDEPENDENT_FINAL_REVIEW.md)
+for every width including zero. The [middle-rank transport and original-coordinate
+least-apolar rank theorem](TR-14/GL2_MIDDLE_RANK_TRANSPORT_INDEPENDENT_FINAL_REVIEW.md)
+are also kernel checked. The two symmetric upper constructions and general
+ordinary-rank lower bound remain separate obligations.
 
 ## Shared statement only; no live proof source (34)
 

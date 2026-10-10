@@ -49,6 +49,7 @@ import NLA.Proofs.SP14.BaseJetCorner
 import NLA.Proofs.SP14.BaseJetFourierMatrix
 import NLA.Proofs.SP14.BaseJetPencilFormula
 import NLA.Proofs.SP14.BaseJetRealSolve
+import NLA.Proofs.SP14.BaseJetBinomialInverse
 import NLA.Proofs.SP14.SobolevOversampling
 import NLA.Proofs.SP14.WeightedSobolevPhysical
 import NLA.Proofs.SP14.WeightedSobolevOperators
@@ -65,6 +66,9 @@ import NLA.Proofs.TR14.GL2ApolarPairing
 import NLA.Proofs.TR14.GL2ApolarTransport
 import NLA.Proofs.TR14.GL2Dehomogenize
 import NLA.Proofs.TR14.GL2ChartNormalize
+import NLA.Proofs.TR14.GL2HankelMode
+import NLA.Proofs.TR14.GL2WidthTransport
+import NLA.Proofs.TR14.GL2MiddleRankTransport
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
@@ -85,6 +89,8 @@ smaller Toeplitz sections over continuous backgrounds.
 The finite negative restoration packet cancels at the endpoint, its restoring
 term is invisible at its matching section, and the full packet preserves
 earlier sections under the source's numerical separation hypotheses.
+The half-binomial coefficient matrix is an exact two-sided inverse of the
+finite base-jet triangular matrix, including the zero-size case.
 Under exact vanishing of the frozen even Fourier coefficients, every odd
 Toeplitz section has an explicit characteristic-polynomial quotient in the
 source's jet coordinate.
@@ -135,6 +141,13 @@ coefficient, including degree zero and an initial infinity root.
 Any chosen nonzero least apolar vector can therefore be transported and
 scaled to a monic affine polynomial of exact least degree, while all lower
 apolar kernels remain zero in the chosen chart.
+The exact zero-based Hankel tensor contraction equals the homogeneous moment
+pairing of its mode forms, and the inverse-dual chart has the corresponding
+all-mode multilinear identity for every natural order and degree.
+The same invertible chart preserves each frozen ordinary and symmetric
+width predicate separately for every width, including zero.
+The middle catalecticant rank is chart-invariant in every degree, and equals
+the least nonzero apolar degree for every nonzero original moment vector.
 These results do not prove the full all-width rank equality.
 -/
 
