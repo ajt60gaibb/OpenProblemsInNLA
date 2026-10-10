@@ -47,6 +47,7 @@ import NLA.Proofs.SP14.JetVanishingMultiplicity
 import NLA.Proofs.TR14.WidthBasics
 import NLA.Proofs.TR14.MomentIndex
 import NLA.Proofs.TR14.ApolarMinimal
+import NLA.Proofs.TR14.NormalizedQuotient
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
@@ -77,6 +78,8 @@ has the corresponding algebraic multiplicity at both `1` and `-1`.
 TR-14 width semantics supply the symmetric-to-ordinary direction and exact
 zero-width endpoints. Every moment coordinate appears in the frozen Hankel
 tensor; the exact apolar map has a least nonzero degree for nonzero moments.
+Under a monic affine apolar premise, the normalized quotient functional matches
+every moment through the full tensor degree.
 These results do not prove the full all-width rank equality.
 -/
 
