@@ -49,12 +49,14 @@ original rectangular determinant with the high Padé system determinant and
 proves its unnormalized Cramer equation. The [finite minor Cauchy–Binet
 identity](MF-03/FINITE_MINOR_CAUCHY_BINET_INDEPENDENT_FINAL_REVIEW.md) is now
 kernel checked for arbitrary real site matrices, including the empty minor.
-The path-chain/tableau identity, determinant positivity, signed coefficient
-ratios, and the full target remain open.
+The [literal finite valid-path chain expansion](MF-03/FINITE_PATH_CHAIN_INDEPENDENT_FINAL_REVIEW.md)
+now identifies every bidiagonal-product minor with the exact descending-label
+weighted sum, including empty cases. The endpoint path/tableau bijection,
+determinant positivity, signed coefficient ratios, and the full target remain open.
 The [independently reviewed one-factor minor](MF-03/FINITE_BIDIAGONAL_STEP_INDEPENDENT_FINAL_REVIEW.md)
 proves that every ordered upper-bidiagonal minor has exactly its stationary or
 advance product weight, with all nonidentity determinant permutations zero.
-The finite path-chain sum and tableau bijection remain open.
+The endpoint path/tableau bijection remains open.
 
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
@@ -107,7 +109,9 @@ uniform infinite sums at the literal `C_r=1+1/r+1/(1−r)` for all `0<r<1`,
 including the endpoint indices. The [finite Schur inequalities for the actual
 Fourier kernel](SP-14/ENDPOINT_WEIGHTED_KERNEL_SCHUR_INDEPENDENT_FINAL_REVIEW.md)
 now hold for every cutoff, including empty sums, with this exact constant.
-The finite complex matrix norm bound and infinite operator estimate remain open.
+The [finite complex Fourier-matrix Schur bound](SP-14/ENDPOINT_FINITE_MATRIX_SCHUR_INDEPENDENT_FINAL_REVIEW.md)
+now gives the exact `C_r²` squared-norm estimate for all finite input/output
+cutoffs. The infinite operator estimate remains open.
 
 The [independently reviewed normalized exterior boundary factor](SP-14/BASE_EXTERIOR_FACTOR_INDEPENDENT_FINAL_REVIEW.md)
 is a continuous half-binomial series with exact square, endpoint zero, and

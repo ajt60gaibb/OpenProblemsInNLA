@@ -38,6 +38,7 @@ import NLA.Proofs.MF03.PadeToeplitzCramer
 import NLA.Proofs.MF03.FiniteBidiagonalMinor
 import NLA.Proofs.MF03.FiniteBidiagonalStep
 import NLA.Proofs.MF03.FiniteMinorCauchyBinet
+import NLA.Proofs.MF03.FinitePathChain
 import NLA.Proofs.MF03.FiniteTableauTail
 import NLA.Proofs.MF03.FiniteTableauPair
 import NLA.Proofs.MF03.FiniteTableauWeightFactor
@@ -101,6 +102,7 @@ import NLA.Proofs.SP14.EndpointWeightedSchur
 import NLA.Proofs.SP14.EndpointSchurSums
 import NLA.Proofs.SP14.EndpointSchurBounds
 import NLA.Proofs.SP14.EndpointWeightedKernelSchur
+import NLA.Proofs.SP14.EndpointFiniteMatrixSchur
 import NLA.Proofs.SP14.SobolevOversampling
 import NLA.Proofs.SP14.WeightedSobolevPhysical
 import NLA.Proofs.SP14.WeightedSobolevOperators
