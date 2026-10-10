@@ -24,6 +24,7 @@ import NLA.Proofs.MF03.FiniteRange
 import NLA.Proofs.MF03.CosineTail
 import NLA.Proofs.MF03.WaveAtThree
 import NLA.Proofs.MF03.CosineProduct
+import NLA.Proofs.MF03.LargeOrderDisk
 import NLA.Proofs.SP14.SubsequenceGap
 import NLA.Proofs.SP14.BaseCoefficient
 import NLA.Proofs.SP14.BaseBlockCharpoly
@@ -39,6 +40,9 @@ import NLA.Proofs.SP14.BaseExteriorSeries
 import NLA.Proofs.SP14.BaseExteriorFourier
 import NLA.Proofs.SP14.BaseExteriorPattern
 import NLA.Proofs.SP14.BaseExteriorBoundarySquare
+import NLA.Proofs.SP14.BaseExteriorFactor
+import NLA.Proofs.SP14.FiniteLaurentBackground
+import NLA.Proofs.SP14.RegularizedBaseCoeff
 import NLA.Proofs.SP14.PositivePacketInvisibility
 import NLA.Proofs.SP14.NegativeRestorationInvisibility
 import NLA.Proofs.SP14.OddFrequencyToeplitzCharpoly
@@ -69,12 +73,16 @@ import NLA.Proofs.TR14.GL2ChartNormalize
 import NLA.Proofs.TR14.GL2HankelMode
 import NLA.Proofs.TR14.GL2WidthTransport
 import NLA.Proofs.TR14.GL2MiddleRankTransport
+import NLA.Proofs.TR14.LocalFourierFilter
+import NLA.Proofs.TR14.MomentQuotientModePairing
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
 original target. Compile the separately scoped MF-03 order-one-through-fifteen
 target clauses, analytic tail and value-at-three bounds, and initial product
-convergence. Compile the conditional SP-14 subsequence, finite base-block
+convergence. A normalized MF-03 pair with the exact large-order denominator
+tail coefficient bound also has the required closed-disk estimate; existence
+of such a pair remains open. Compile the conditional SP-14 subsequence, finite base-block
 algebra, frozen integral's pure-mode Fourier orthogonality, and the conditional
 actual Toeplitz odd-order characteristic polynomial. These are not full-target
 proofs. The exterior half-binomial coefficient norms are summable, and the
@@ -84,6 +92,14 @@ The exterior base symbol's all-integer Fourier pattern and actual odd Toeplitz
 characteristic polynomial are unconditional; they are not the SP-14 target.
 The normalized base symbol also satisfies its square identity and boundary
 zero criterion at every circle point.
+The normalized exterior factor is the exact half-binomial boundary series;
+it is continuous, squares to `1+s⁻¹`, vanishes at `-1`, and factors the base
+symbol through `s=z²`.
+Finite real strictly signed Laurent corrections give the exact boundary
+curve and symbol identities, including separate contact at `-1` and the
+empty and two-term endpoint cases.
+The endpoint-cancelled exterior coefficients satisfy the exact half-binomial
+recurrence and unconditional `9/8`-weighted summability.
 The first positive packet has exact frozen Fourier support and preserves
 smaller Toeplitz sections over continuous backgrounds.
 The finite negative restoration packet cancels at the endpoint, its restoring
@@ -148,6 +164,12 @@ The same invertible chart preserves each frozen ordinary and symmetric
 width predicate separately for every width, including zero.
 The middle catalecticant rank is chart-invariant in every degree, and equals
 the least nonzero apolar degree for every nonzero original moment vector.
+The exact finite root-of-unity filter recovers the local top coefficient
+with the canonical node count and inverse character, including multiplicity
+one.
+The genuine affine mode polynomial maps to the quotient-root sum, and its
+all-moment functional product equals the frozen zero-based Hankel
+multilinear pairing for every order and mode size.
 These results do not prove the full all-width rank equality.
 -/
 
