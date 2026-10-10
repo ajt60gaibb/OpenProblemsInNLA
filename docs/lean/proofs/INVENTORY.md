@@ -49,14 +49,19 @@ homogeneous binary forms, including the exact monomial product index. The
 and [all-degree apolar product equivalence](TR-14/GL2_APOLAR_PAIRING_INDEPENDENT_FINAL_REVIEW.md)
 are also kernel checked. The [inverse-dual chart transport of every apolar
 kernel and nonzero apolar degree](TR-14/GL2_APOLAR_TRANSPORT_INDEPENDENT_FINAL_REVIEW.md)
-is kernel checked as well. Completing monic chart normalization and Hankel
-width transport remain subsequent proof obligations.
+is kernel checked as well. Hankel width transport remains a separate proof
+obligation.
 
 The [independently reviewed affine dehomogenization and chart-selection
 lemma](TR-14/GL2_DEHOMOGENIZE_INDEPENDENT_FINAL_REVIEW.md) recovers every
 coefficient, proves the transformed final coefficient equals exact polynomial
 evaluation, and selects a chart where it is nonzero for any chosen nonzero
-form. Monic scaling, least-witness preservation, and Hankel width transport
+form. This supplies the chart used by the monic normalization below.
+
+The [independently reviewed chosen least-apolar normalization](TR-14/GL2_CHART_NORMALIZE_INDEPENDENT_FINAL_REVIEW.md)
+now transports any supplied nonzero least witness to a monic affine polynomial
+of exact degree and preserves nonzero moments and every lower zero apolar
+kernel. Original-coordinate Hankel middle rank and all-width tensor equality
 remain open.
 
 ## Shared statement only; no live proof source (34)

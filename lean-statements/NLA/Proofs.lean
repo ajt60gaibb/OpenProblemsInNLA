@@ -63,6 +63,7 @@ import NLA.Proofs.TR14.GL2MomentDual
 import NLA.Proofs.TR14.GL2ApolarPairing
 import NLA.Proofs.TR14.GL2ApolarTransport
 import NLA.Proofs.TR14.GL2Dehomogenize
+import NLA.Proofs.TR14.GL2ChartNormalize
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
@@ -129,6 +130,9 @@ image and preserves existence of nonzero apolar forms in every degree.
 For every nonzero homogeneous coefficient vector, exact affine
 dehomogenization and the explicit chart yield a nonzero transformed final
 coefficient, including degree zero and an initial infinity root.
+Any chosen nonzero least apolar vector can therefore be transported and
+scaled to a monic affine polynomial of exact least degree, while all lower
+apolar kernels remain zero in the chosen chart.
 These results do not prove the full all-width rank equality.
 -/
 
