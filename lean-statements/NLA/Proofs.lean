@@ -29,6 +29,7 @@ import NLA.Proofs.MF03.CosineAllComplexProduct
 import NLA.Proofs.MF03.CosineCoefficientTransfer
 import NLA.Proofs.MF03.FiniteTableauTail
 import NLA.Proofs.MF03.FiniteTableauPair
+import NLA.Proofs.MF03.FiniteTableauWeightFactor
 import NLA.Proofs.MF03.LargeOrderDisk
 import NLA.Proofs.SP14.SubsequenceGap
 import NLA.Proofs.SP14.BaseCoefficient
@@ -64,6 +65,7 @@ import NLA.Proofs.SP14.WienerAdd
 import NLA.Proofs.SP14.FiniteCorrectionSquareWiener
 import NLA.Proofs.SP14.WienerShift
 import NLA.Proofs.SP14.FiniteBackgroundDeviationWiener
+import NLA.Proofs.SP14.TwoModeFirstSmallness
 import NLA.Proofs.SP14.PositivePacketInvisibility
 import NLA.Proofs.SP14.NegativeRestorationInvisibility
 import NLA.Proofs.SP14.OddFrequencyToeplitzCharpoly
