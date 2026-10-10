@@ -1,0 +1,5 @@
+# MF-03 finite determinant limits: independent pre-implementation review
+
+**Independent mathematical reviewer:** `/root/sp14_base_proof`, 10 October 2026. **Verdict:** APPROVE the frozen exact contract `FINITE_DETERMINANT_LIMIT_PRE_REVIEW.md` at SHA-256 `6d742a8373b8b36b5235d8d6708a7ad67d6ff9f6a6c4caa50eeee4acaef4aa93` before Lean implementation. The reviewer made no MF-03 source edits and ran no Lake build.
+
+The four matrix index formulas agree exactly with the approved Schur–Padé contract. Since `r.val<m`, natural subtraction does not truncate an intended negative coefficient index. The augmented matrix shifts precisely its first `j` rows by one, and `j=0` agrees with the rectangle. For fixed finite `m`, each entry converges by the independently reviewed finite elementary coefficient limit, and the determinant is a polynomial in these fixed `m²` entries. The limits include the `m=0`, `j=0` empty determinant of one. The contract does not infer determinant positivity or a tableau identity from entrywise convergence.

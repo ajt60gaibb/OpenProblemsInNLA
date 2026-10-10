@@ -28,6 +28,7 @@ import NLA.Proofs.MF03.CosineDenseProduct
 import NLA.Proofs.MF03.CosineAllComplexProduct
 import NLA.Proofs.MF03.CosineCoefficientTransfer
 import NLA.Proofs.MF03.FiniteElementaryLimit
+import NLA.Proofs.MF03.FiniteDeterminantLimit
 import NLA.Proofs.MF03.FiniteTableauTail
 import NLA.Proofs.MF03.FiniteTableauPair
 import NLA.Proofs.MF03.FiniteTableauWeightFactor
