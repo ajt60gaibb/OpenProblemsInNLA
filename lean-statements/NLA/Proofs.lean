@@ -63,6 +63,7 @@ import NLA.Proofs.SP14.FinitePositiveWienerSize
 import NLA.Proofs.SP14.WienerAdd
 import NLA.Proofs.SP14.FiniteCorrectionSquareWiener
 import NLA.Proofs.SP14.WienerShift
+import NLA.Proofs.SP14.FiniteBackgroundDeviationWiener
 import NLA.Proofs.SP14.PositivePacketInvisibility
 import NLA.Proofs.SP14.NegativeRestorationInvisibility
 import NLA.Proofs.SP14.OddFrequencyToeplitzCharpoly

@@ -110,7 +110,10 @@ The [actual finite correction and its square](SP-14/FINITE_CORRECTION_SQUARE_WIE
 have summable weighted coefficients and the constant-one square bound.
 The [circle-mode shift](SP-14/WIENER_SHIFT_INDEPENDENT_FINAL_REVIEW.md)
 costs exactly the `2^(9/8)` weight in the norm bound.
-The full background product estimates remain open.
+The [actual finite-background deviation](SP-14/FINITE_BACKGROUND_DEVIATION_WIENER_INDEPENDENT_FINAL_REVIEW.md)
+now has the reviewed literal `W^(9/8)` bound for all finite corrections
+with separate endpoint contact. Its strict two-mode threshold witness and
+the stagewise infinite-background estimates remain open.
 
 The TR-14 chart work also has an [independently reviewed complete coefficient
 basis](TR-14/GL2_COEFFICIENT_BASIS_INDEPENDENT_FINAL_REVIEW.md) for genuine
