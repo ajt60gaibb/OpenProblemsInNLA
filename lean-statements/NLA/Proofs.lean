@@ -38,6 +38,7 @@ import NLA.Proofs.SP14.BaseCoeffSummable
 import NLA.Proofs.SP14.BaseExteriorSeries
 import NLA.Proofs.SP14.BaseExteriorFourier
 import NLA.Proofs.SP14.BaseExteriorPattern
+import NLA.Proofs.SP14.BaseExteriorBoundarySquare
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
@@ -51,6 +52,8 @@ normalized exterior boundary series is continuous and has a justified
 all-integer Fourier-coefficient series under the frozen interval integral.
 The exterior base symbol's all-integer Fourier pattern and actual odd Toeplitz
 characteristic polynomial are unconditional; they are not the SP-14 target.
+The normalized base symbol also satisfies its square identity and boundary
+zero criterion at every circle point.
 -/
 
 set_option leancert.trust "kernel"
