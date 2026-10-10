@@ -14,6 +14,7 @@ import NLA.Proofs.RA10.SelectedProjectionIdempotent
 import NLA.Proofs.RA10.SelectedProjectionRank
 import NLA.Proofs.RA10.SelectedProjectionFunction
 import NLA.Proofs.RA10.RidgeShiftInverse
+import NLA.Proofs.RA10.RidgeResolventMatrix
 import NLA.Proofs.MF03.OrderOne
 import NLA.Proofs.MF03.Transport
 import NLA.Proofs.MF03.Finite02
@@ -48,6 +49,7 @@ import NLA.Proofs.MF03.FinitePathEndpoint
 import NLA.Proofs.MF03.FinitePathLabels
 import NLA.Proofs.MF03.FinitePathWeight
 import NLA.Proofs.MF03.FiniteColumnOrder
+import NLA.Proofs.MF03.FiniteColumnCuts
 import NLA.Proofs.MF03.FiniteTableauTail
 import NLA.Proofs.MF03.FiniteTableauPair
 import NLA.Proofs.MF03.FiniteTableauWeightFactor
@@ -115,6 +117,7 @@ import NLA.Proofs.SP14.EndpointFiniteMatrixSchur
 import NLA.Proofs.SP14.EndpointNegativeTruncation
 import NLA.Proofs.SP14.EndpointNegativeRow
 import NLA.Proofs.SP14.EndpointNegativeRowSummable
+import NLA.Proofs.SP14.EndpointNegativeOutputEnergy
 import NLA.Proofs.SP14.SobolevOversampling
 import NLA.Proofs.SP14.WeightedSobolevPhysical
 import NLA.Proofs.SP14.WeightedSobolevOperators

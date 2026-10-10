@@ -68,6 +68,9 @@ factors each literal valid-chain weight over those exact advance labels.
 The [generic column-order lemma](MF-03/FINITE_COLUMN_ORDER_INDEPENDENT_FINAL_REVIEW.md)
 equates rowwise weak increase with all lower-label prefix-count inequalities
 for equal and one-extra-bottom-cell adjacent columns.
+The [finite cut formulation](MF-03/FINITE_COLUMN_CUTS_INDEPENDENT_FINAL_REVIEW.md)
+gives the equivalent exact suffix-count inequalities with allowance zero or
+one according to the augmented column lengths.
 
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
@@ -129,7 +132,10 @@ literal `lp ℂ 2` carrier. The [actual negative Fourier-row bound](SP-14/ENDPOI
 proves every finite row's squared norm is at most the literal `C_r²`.
 The [independently reviewed row-summability gate](SP-14/ENDPOINT_NEGATIVE_ROW_SUMMABLE_INDEPENDENT_FINAL_REVIEW.md)
 puts every actual row in `lp 2` and proves its product with any input is
-unconditionally summable. The infinite operator remains open.
+unconditionally summable. The [actual infinite-output prefix bound](SP-14/ENDPOINT_NEGATIVE_OUTPUT_ENERGY_INDEPENDENT_FINAL_REVIEW.md)
+passes the finite Fourier-matrix estimate to exact row `tsum`s and bounds
+every finite output energy by `C_r²‖y‖²`. The continuous linear operator
+remains open.
 
 The [RA-10 selected-projector gates](RA-10/SELECTED_PROJECTOR_INDEPENDENT_FINAL_REVIEW.md)
 identify the exact frozen first-`k` eigenvector projector, prove symmetry and
@@ -140,6 +146,9 @@ The nuclear pinching contraction remains open.
 The [independently reviewed shifted-inverse gate](RA-10/RIDGE_SHIFT_INVERSE_INDEPENDENT_FINAL_REVIEW.md)
 identifies the exact frozen reciprocal spectral matrix with the actual
 inverse of `sI+A` for every supplied PSD decomposition and `s>0`.
+The [ridge-resolvent matrix gate](RA-10/RIDGE_RESOLVENT_MATRIX_INDEPENDENT_FINAL_REVIEW.md)
+proves the exact frozen ridge functional calculus and the source-oriented
+`f_s(C)−f_s(A)` subtraction with literal factor `s`.
 
 The [independently reviewed normalized exterior boundary factor](SP-14/BASE_EXTERIOR_FACTOR_INDEPENDENT_FINAL_REVIEW.md)
 is a continuous half-binomial series with exact square, endpoint zero, and
