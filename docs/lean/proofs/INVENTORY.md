@@ -136,14 +136,19 @@ every original intermediate row and the full chain. Together with the left
 inverse, both directions of the path/column-system bijection are proved;
 the [exact equivalence](MF-03/FINITE_COLUMN_PATH_EQUIV_INDEPENDENT_FINAL_REVIEW.md)
 packages these maps. Composing it with the tableau/column-system equivalence
-gives the literal path/tableau bijection; weight transport remains open.
+gives the literal path/tableau bijection.
 The [original-cell set equality](MF-03/FINITE_TABLEAU_CELL_SET_INDEPENDENT_FINAL_REVIEW.md)
 identifies each actual column label set with the original upper cells and
 optional genuine bottom cell, excluding the temporary sentinel. Products
 over actual labels now equal the product of precisely those original cells
 in the [independently audited product gate](MF-03/FINITE_TABLEAU_COLUMN_PRODUCT_INDEPENDENT_FINAL_REVIEW.md).
-Pointwise path weight and weighted-sum transport remain open under the
+The [pointwise path/tableau weight identity](MF-03/FINITE_PATH_TABLEAU_WEIGHT_INDEPENDENT_FINAL_REVIEW.md),
+[finite weighted-sum reindexing](MF-03/FINITE_PATH_TABLEAU_SUM_INDEPENDENT_FINAL_REVIEW.md),
+and [original finite augmented determinant/tableau equality](MF-03/FINITE_AUG_DET_TABLEAU_INDEPENDENT_FINAL_REVIEW.md)
+now close the exact finite transport under the
 [reviewed contract](MF-03/FINITE_WEIGHTED_TABLEAU_TRANSPORT_INDEPENDENT_PRE_REVIEW.md).
+Finite and infinite determinant tail bounds, denominator positivity, and the
+full all-order MF-03 Target remain open.
 
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
