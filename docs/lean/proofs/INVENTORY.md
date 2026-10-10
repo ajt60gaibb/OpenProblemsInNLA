@@ -102,6 +102,12 @@ cut from weak rows and exact sentinel erasure; the literal inverse path remains 
 The [tableau-to-column-system map](MF-03/FINITE_TABLEAU_COLUMN_SYSTEM_INDEPENDENT_FINAL_REVIEW.md)
 packages these sentinel-free labels with the exact original lengths and
 noncollision condition for every `j≤m`; the two-sided inverse remains open.
+The [recovered uniform-column gate](MF-03/FINITE_TABLEAU_UNIFORM_INVERSE_INDEPENDENT_FINAL_REVIEW.md)
+proves that reaugmentation and strict sorting of those exact labels reproduce
+every original tableau uniform value; tableau equality remains open.
+The [tableau round trip](MF-03/FINITE_TABLEAU_ROUNDTRIP_INDEPENDENT_FINAL_REVIEW.md)
+now proves exact equality after conversion to the actual-label column system
+and back, cellwise on the unchanged augmented shape; reverse system identity remains open.
 
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
@@ -221,6 +227,9 @@ the exact noncommutative Equation (14) product. The nuclear ideal step remains o
 The [actual-compression Equation (14) gate](RA-10/MATCHED_LEADING_EQ14_RESTRICTED_INDEPENDENT_FINAL_REVIEW.md)
 retains `C=PAP`, source factor `s`, matrix order, and literal frozen nuclear-norm
 equality under a supplied decomposition of that `C`; its numerical inequality remains open.
+The [selected-compression PSD gate](RA-10/SELECTED_COMPRESSION_PSD_INDEPENDENT_FINAL_REVIEW.md)
+proves the exact quadratic identity and both frozen PSD conjuncts for actual
+`C=PAP`; constructing its sorted spectral decomposition remains open.
 
 The [independently reviewed normalized exterior boundary factor](SP-14/BASE_EXTERIOR_FACTOR_INDEPENDENT_FINAL_REVIEW.md)
 is a continuous half-binomial series with exact square, endpoint zero, and

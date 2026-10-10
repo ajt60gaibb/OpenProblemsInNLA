@@ -23,6 +23,7 @@ import NLA.Proofs.RA10.RidgeResolventOpNorm
 import NLA.Proofs.RA10.RidgeResolventOpNormSelected
 import NLA.Proofs.RA10.MatchedLeadingSupport
 import NLA.Proofs.RA10.MatchedLeadingEq14Restricted
+import NLA.Proofs.RA10.SelectedCompressionPSD
 import NLA.Proofs.MF03.OrderOne
 import NLA.Proofs.MF03.Transport
 import NLA.Proofs.MF03.Finite02
@@ -69,6 +70,8 @@ import NLA.Proofs.MF03.FiniteTableauUniform
 import NLA.Proofs.MF03.FiniteTableauUniformSets
 import NLA.Proofs.MF03.FiniteTableauUniformCuts
 import NLA.Proofs.MF03.FiniteTableauColumnSystem
+import NLA.Proofs.MF03.FiniteTableauUniformInverse
+import NLA.Proofs.MF03.FiniteTableauRoundTrip
 import NLA.Proofs.MF03.FiniteTableauPair
 import NLA.Proofs.MF03.FiniteTableauWeightFactor
 import NLA.Proofs.MF03.FiniteTableauTailBound
