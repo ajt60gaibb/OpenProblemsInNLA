@@ -72,7 +72,12 @@ now compute every negative Fourier coefficient of the actual endpoint extension
 in the exact signed closed form. The [independently reviewed nonnegative
 projection](SP-14/ENDPOINT_EXTENSION_POSITIVE_INDEPENDENT_FINAL_REVIEW.md)
 also gives the exact Kronecker Fourier coefficients for every input and
-nonnegative output index. Weighted operator estimates remain open.
+nonnegative output index. The [independently reviewed absolute endpoint
+kernel](SP-14/ENDPOINT_ABSOLUTE_KERNEL_INDEPENDENT_FINAL_REVIEW.md) identifies
+the actual negative Fourier entry as
+`((k+1/2)/(k+j)) Aₖ A₍ⱼ₋₁₎`, where `Aₙ=binom(2n,n)/4ⁿ>0`, and proves
+`(n+1)Aₙ²≤1` and the resulting square-root entry bound for every `k≥0`,
+`j≥1`. Weighted Schur sums and operator estimates remain open.
 
 The [independently reviewed normalized exterior boundary factor](SP-14/BASE_EXTERIOR_FACTOR_INDEPENDENT_FINAL_REVIEW.md)
 is a continuous half-binomial series with exact square, endpoint zero, and
