@@ -39,6 +39,7 @@ import NLA.Proofs.SP14.BaseExteriorSeries
 import NLA.Proofs.SP14.BaseExteriorFourier
 import NLA.Proofs.SP14.BaseExteriorPattern
 import NLA.Proofs.SP14.BaseExteriorBoundarySquare
+import NLA.Proofs.SP14.PositivePacketInvisibility
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
@@ -54,6 +55,8 @@ The exterior base symbol's all-integer Fourier pattern and actual odd Toeplitz
 characteristic polynomial are unconditional; they are not the SP-14 target.
 The normalized base symbol also satisfies its square identity and boundary
 zero criterion at every circle point.
+The first positive packet has exact frozen Fourier support and preserves
+smaller Toeplitz sections over continuous backgrounds.
 -/
 
 set_option leancert.trust "kernel"
