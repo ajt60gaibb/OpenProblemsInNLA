@@ -1,0 +1,7 @@
+# MF-03 finite tableau unrestricted-tail bound: independent pre-review
+
+**Reviewer:** `/root/sp14_base_proof`, 10 October 2026. **Verdict:** APPROVE the frozen exact contract `FINITE_TABLEAU_TAIL_PAIR_PRE_REVIEW.md` at SHA-256 `f48f745928a55c8421f11c80d714ba3ee6430825215da09a49fc3543b8dbed7f` before Lean implementation. This is not a determinant identity or full-target proof.
+
+Refining the audited bottom tuple to the subtype `{k:Fin N // m≤k.val}` preserves injectivity: the kernel-checked bottom-label theorem supplies the subtype proof, and forgetting it recovers the audited pair map. All `cosineFactor(k+1)` are positive, so rectangular and bottom products are nonnegative. The reviewed exact weight factorization therefore lets the augmented-tableau sum be bounded by the unrestricted rectangle/tail-tuple pair sum. `Fintype.sum_pow` evaluates the latter tuple sum exactly as the `j`th power of the finite zero-based tail. This direct enlargement to ordered tuples counts no augmented tableau twice and gives the same upper bound as the originally approved Schur/Padé contract.
+
+The reviewer checked `j=0` (one empty tuple and `0^0=1`) and `N≤m`, `j>0` (empty tail and no augmented tableau by the row-label bound), plus empty rectangular shapes. There is no hidden `N≥m+1` assumption in the proposed upper bound. The finite determinant/tableau identity, positivity of a canonical tableau term, and infinite limit remain separate gates. The implementation must receive an independent frozen source/signature/kernel audit before aggregate import.
