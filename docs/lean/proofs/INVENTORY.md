@@ -80,6 +80,9 @@ every cut count without relabeling factors.
 The [column-system gate](MF-03/FINITE_COLUMN_SYSTEM_INDEPENDENT_FINAL_REVIEW.md)
 packages exactly those original label sets, cardinalities, and every-cut
 noncollision inequality from each literal valid path.
+The [uniform-column sentinel gate](MF-03/FINITE_UNIFORM_COLUMNS_INDEPENDENT_FINAL_REVIEW.md)
+adds a temporary `N` only outside short-column tableau cells, proves exact
+suffix corrections, and derives weak rows for all sorted temporary columns.
 
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
@@ -153,6 +156,9 @@ realization remains open.
 The [circle coefficient summability gate](SP-14/ENDPOINT_CIRCLE_COEFF_SUMMABLE_INDEPENDENT_FINAL_REVIEW.md)
 proves that every physical weighted coefficient sequence is absolutely
 summable for `r>1/2`; the actual circle series remains open.
+The [continuous circle series](SP-14/ENDPOINT_CIRCLE_SERIES_INDEPENDENT_FINAL_REVIEW.md)
+now uses the exact positive and negative physical coefficients for `r>1/2`.
+The original Fourier-integral identities remain open.
 
 The [RA-10 selected-projector gates](RA-10/SELECTED_PROJECTOR_INDEPENDENT_FINAL_REVIEW.md)
 identify the exact frozen first-`k` eigenvector projector, prove symmetry and
@@ -174,6 +180,9 @@ constructs `B₀` in the supplied selected basis and proves the exact matrix
 equality underlying Equation (14).
 The [basic Loewner factor gate](RA-10/RIDGE_RESOLVENT_LOEWNER_BASIC_INDEPENDENT_FINAL_REVIEW.md)
 proves `0≼(sI+A)⁻¹≼(1/s)I` and the exact zero-based cutoff witness.
+The [sharp selected Loewner gate](RA-10/RIDGE_RESOLVENT_LOEWNER_SELECTED_INDEPENDENT_FINAL_REVIEW.md)
+proves `0≼P(sI+B₀)⁻¹P≼[1/(s+c)]P` with source `c=a_k` and the same
+supplied selected eigenbasis.
 
 The [independently reviewed normalized exterior boundary factor](SP-14/BASE_EXTERIOR_FACTOR_INDEPENDENT_FINAL_REVIEW.md)
 is a continuous half-binomial series with exact square, endpoint zero, and
