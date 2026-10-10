@@ -147,7 +147,11 @@ The [pointwise path/tableau weight identity](MF-03/FINITE_PATH_TABLEAU_WEIGHT_IN
 and [original finite augmented determinant/tableau equality](MF-03/FINITE_AUG_DET_TABLEAU_INDEPENDENT_FINAL_REVIEW.md)
 now close the exact finite transport under the
 [reviewed contract](MF-03/FINITE_WEIGHTED_TABLEAU_TRANSPORT_INDEPENDENT_PRE_REVIEW.md).
-Finite and infinite determinant tail bounds, denominator positivity, and the
+The [original finite rectangular determinant/tableau identity](MF-03/FINITE_RECT_DETERMINANT_TABLEAU_INDEPENDENT_FINAL_REVIEW.md)
+handles the `j=0` specialization. The [coefficient-one finite determinant
+tail bound](MF-03/FINITE_DETERMINANT_TAIL_INDEPENDENT_FINAL_REVIEW.md)
+uses the exact `m≤k<N` cosine-factor tail and actual bottom length `j`.
+The original infinite determinant bound, denominator positivity, and the
 full all-order MF-03 Target remain open.
 
 The SP-14 partial project also contains the [independently reviewed exact

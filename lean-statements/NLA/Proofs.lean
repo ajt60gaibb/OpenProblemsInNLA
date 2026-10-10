@@ -96,6 +96,8 @@ import NLA.Proofs.MF03.FiniteTableauColumnProduct
 import NLA.Proofs.MF03.FinitePathTableauWeight
 import NLA.Proofs.MF03.FinitePathTableauSum
 import NLA.Proofs.MF03.FiniteAugDetTableau
+import NLA.Proofs.MF03.FiniteRectDetTableau
+import NLA.Proofs.MF03.FiniteDeterminantTail
 import NLA.Proofs.MF03.FiniteTableauPair
 import NLA.Proofs.MF03.FiniteTableauWeightFactor
 import NLA.Proofs.MF03.FiniteTableauTailBound
