@@ -71,6 +71,9 @@ for equal and one-extra-bottom-cell adjacent columns.
 The [finite cut formulation](MF-03/FINITE_COLUMN_CUTS_INDEPENDENT_FINAL_REVIEW.md)
 gives the equivalent exact suffix-count inequalities with allowance zero or
 one according to the augmented column lengths.
+The [literal valid-path cut gate](MF-03/FINITE_PATH_CUTS_INDEPENDENT_FINAL_REVIEW.md)
+identifies each intermediate position with its start plus processed advance
+labels and proves the exact adjacent noncollision inequality at every cut.
 
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
@@ -150,6 +153,9 @@ inverse of `sI+A` for every supplied PSD decomposition and `s>0`.
 The [ridge-resolvent matrix gate](RA-10/RIDGE_RESOLVENT_MATRIX_INDEPENDENT_FINAL_REVIEW.md)
 proves the exact frozen ridge functional calculus and the source-oriented
 `f_s(C)−f_s(A)` subtraction with literal factor `s`.
+The [noncommutative resolvent product gate](RA-10/RIDGE_RESOLVENT_PRODUCT_INDEPENDENT_FINAL_REVIEW.md)
+establishes shifted invertibility and both exact product orders for that
+difference, including the source's Equation (14) order.
 
 The [independently reviewed normalized exterior boundary factor](SP-14/BASE_EXTERIOR_FACTOR_INDEPENDENT_FINAL_REVIEW.md)
 is a continuous half-binomial series with exact square, endpoint zero, and
