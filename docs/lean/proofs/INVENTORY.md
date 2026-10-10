@@ -127,13 +127,13 @@ ordinary-rank lower bound remain separate obligations.
 
 The [independently reviewed local Fourier filter](TR-14/LOCAL_FOURIER_FILTER_INDEPENDENT_FINAL_REVIEW.md)
 recovers one local top coefficient with exactly `(m−1)(ℓ−1)+1` root-of-unity
-nodes for every `m≥3`, `ℓ≥1`, including `ℓ=1`. CRT and the symmetric tensor
-upper bound remain to be proved.
+nodes for every `m≥3`, `ℓ≥1`, including `ℓ=1`. The all-moment CRT bridge
+and symmetric tensor upper bound remain to be proved.
 
 The [independently reviewed moment-to-quotient mode pairing](TR-14/MOMENT_QUOTIENT_MODE_PAIRING_INDEPENDENT_FINAL_REVIEW.md)
 identifies each genuine affine mode polynomial with its quotient image and
 proves the exact all-moment Hankel product identity, including empty modes and
-top degree. Local factorization and width conclusions remain open.
+top degree. Local-functional reconstruction and width conclusions remain open.
 
 The [independently reviewed local top-coefficient algebra](TR-14/LOCAL_TOP_COEFFICIENT_INDEPENDENT_FINAL_REVIEW.md)
 proves the exact truncated power basis, coefficient convolution, and unique
@@ -145,15 +145,20 @@ expresses every genuine local Frobenius product as exactly
 `(m−1)(ℓ−1)+1` same-factor terms. Its [exact zero-based mode-vector
 corollary](TR-14/LOCAL_FOURIER_MODE_INDEPENDENT_FINAL_REVIEW.md) supplies
 the corresponding local tensor-coordinate vectors for arbitrary `ℓ>0`.
-CRT and global width conclusions remain open.
+The all-moment CRT bridge and global width conclusions remain open.
 The [independently reviewed root-data gate](TR-14/LOCAL_CRT_ROOT_DATA_INDEPENDENT_FINAL_REVIEW.md)
 retains every multiplicity and proves the exact monic factorization,
-degree sum, and pairwise coprimality of the root-factor powers. The
-algebra CRT equivalence and local functional transfer remain open.
+degree sum, and pairwise coprimality of the root-factor powers.
 The [independently reviewed primary shift](TR-14/LOCAL_CRT_SHIFT_INDEPENDENT_FINAL_REVIEW.md)
 is a genuine complex-algebra equivalence for each one-root power quotient
 and carries its quotient root exactly to the root scalar plus local nilpotent
-generator. The product CRT equivalence remains open.
+generator. The [full algebra CRT equivalence](TR-14/LOCAL_CRT_ALGEBRA_INDEPENDENT_FINAL_REVIEW.md)
+now identifies the monic quotient with the product of all such local
+algebras and gives the exact quotient-root image, powers, and finite
+products. The [supported local-functional transfer](TR-14/LOCAL_CRT_FUNCTIONAL_INDEPENDENT_FINAL_REVIEW.md)
+decomposes every quotient functional and derives local Frobenius
+nondegeneracy from global Frobenius. The all-moment Hankel reconstruction
+and global width theorem remain open.
 
 ## Shared statement only; no live proof source (34)
 

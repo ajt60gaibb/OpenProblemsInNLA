@@ -91,6 +91,8 @@ import NLA.Proofs.TR14.LocalFourierOneFactor
 import NLA.Proofs.TR14.LocalFourierMode
 import NLA.Proofs.TR14.LocalCRTRootData
 import NLA.Proofs.TR14.LocalCRTShift
+import NLA.Proofs.TR14.LocalCRTAlgebra
+import NLA.Proofs.TR14.LocalCRTFunctional
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
@@ -218,6 +220,12 @@ and proves pairwise coprimality of the corresponding factor powers.
 Each primary factor quotient has an explicit complex-algebra shift
 equivalence to the matching truncated local algebra, with root image
 equal to the scalar root plus its nilpotent generator.
+The full monic quotient has an exact complex-algebra CRT equivalence to
+the product of these local algebras, preserving every multiplicity and
+carrying the quotient root to the corresponding scalar-plus-generator.
+Supported component insertion gives exact sum decomposition of every
+quotient functional, and global Frobenius nondegeneracy passes to each
+local component without assuming local nondegeneracy separately.
 These results do not prove the full all-width rank equality.
 -/
 
