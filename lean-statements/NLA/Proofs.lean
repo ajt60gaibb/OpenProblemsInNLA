@@ -27,6 +27,7 @@ import NLA.Proofs.MF03.CosineProduct
 import NLA.Proofs.MF03.CosineDenseProduct
 import NLA.Proofs.MF03.CosineAllComplexProduct
 import NLA.Proofs.MF03.CosineCoefficientTransfer
+import NLA.Proofs.MF03.FiniteTableauTail
 import NLA.Proofs.MF03.LargeOrderDisk
 import NLA.Proofs.SP14.SubsequenceGap
 import NLA.Proofs.SP14.BaseCoefficient
@@ -54,6 +55,8 @@ import NLA.Proofs.SP14.FiniteNegativeWiener
 import NLA.Proofs.SP14.FiniteNegativeWienerMultiplier
 import NLA.Proofs.SP14.ActualNegativeWienerBound
 import NLA.Proofs.SP14.CanonicalFirstWienerSizes
+import NLA.Proofs.SP14.PositiveEndpointRatio
+import NLA.Proofs.SP14.NegativeRatioW0
 import NLA.Proofs.SP14.PositivePacketInvisibility
 import NLA.Proofs.SP14.NegativeRestorationInvisibility
 import NLA.Proofs.SP14.OddFrequencyToeplitzCharpoly
@@ -96,6 +99,8 @@ import NLA.Proofs.TR14.LocalCRTAlgebra
 import NLA.Proofs.TR14.LocalCRTFunctional
 import NLA.Proofs.TR14.LocalCRTMoments
 import NLA.Proofs.TR14.LocalCRTFourierSigma
+import NLA.Proofs.TR14.LocalCRTFourierCount
+import NLA.Proofs.TR14.LocalCRTFourierWidth
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
