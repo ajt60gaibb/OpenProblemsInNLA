@@ -52,6 +52,7 @@ import NLA.Proofs.TR14.MomentIndex
 import NLA.Proofs.TR14.ApolarMinimal
 import NLA.Proofs.TR14.NormalizedQuotient
 import NLA.Proofs.TR14.FrobeniusMinimal
+import NLA.Proofs.TR14.MiddleCatalecticant
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
@@ -93,6 +94,8 @@ Under a monic affine apolar premise, the normalized quotient functional matches
 every moment through the full tensor degree.
 With the exact least-apolar-degree premise, that quotient functional also has
 the full Frobenius nondegeneracy property, by the power-basis argument.
+In the same normalized monic chart, the exact middle Hankel catalecticant
+has rank equal to the least apolar degree, including balanced and odd cases.
 These results do not prove the full all-width rank equality.
 -/
 
