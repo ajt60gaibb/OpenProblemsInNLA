@@ -5,6 +5,7 @@ import NLA.Proofs.RA06.GraphFinite
 import NLA.Proofs.RA06.Asymptotic
 import NLA.Proofs.RA06.Final
 import NLA.Proofs.RA10.SpectralQuadratic
+import NLA.Proofs.RA10.NuclearNormZero
 import NLA.Proofs.MF03.OrderOne
 import NLA.Proofs.MF03.Transport
 import NLA.Proofs.MF03.Finite02
@@ -94,6 +95,7 @@ import NLA.Proofs.SP14.EndpointExtensionPositive
 import NLA.Proofs.SP14.EndpointAbsoluteKernel
 import NLA.Proofs.SP14.EndpointWeightedSchur
 import NLA.Proofs.SP14.EndpointSchurSums
+import NLA.Proofs.SP14.EndpointSchurBounds
 import NLA.Proofs.SP14.SobolevOversampling
 import NLA.Proofs.SP14.WeightedSobolevPhysical
 import NLA.Proofs.SP14.WeightedSobolevOperators
