@@ -127,6 +127,16 @@ assembles those steps into the original `FiniteValidPath`. Its
 recovers every original actual label set from the reconstructed path; the
 reverse path identity is specified in the
 [independently reviewed inverse contract](MF-03/FINITE_COLUMN_PATH_INVERSE_INDEPENDENT_PRE_REVIEW.md).
+The [cut-extensionality gate](MF-03/FINITE_COLUMN_PATH_CUT_EXT_INDEPENDENT_FINAL_REVIEW.md)
+proves that all factor cuts determine a literal path and that the reconstructed
+path visits exactly its prescribed cut rows.
+The [literal path right inverse](MF-03/FINITE_COLUMN_PATH_RIGHT_INVERSE_INDEPENDENT_FINAL_REVIEW.md)
+now proves that extracting actual labels and reconstructing the path recovers
+every original intermediate row and the full chain. Together with the left
+inverse, both directions of the path/column-system bijection are proved;
+the [exact equivalence](MF-03/FINITE_COLUMN_PATH_EQUIV_INDEPENDENT_FINAL_REVIEW.md)
+packages these maps. Composing it with the tableau/column-system equivalence
+gives the literal path/tableau bijection; weight transport remains open.
 
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
@@ -260,7 +270,14 @@ discharges the separate hC premise for the exact matrix and nuclear norm
 equalities. The compression eigenvalue comparison remains open under its
 [reviewed min-max contract](RA-10/SELECTED_COMPRESSION_EIGENVALUE_INDEPENDENT_PRE_REVIEW.md),
 with [exact Rayleigh dependencies](RA-10/ORDERED_SPECTRAL_RAYLEIGH_INDEPENDENT_PRE_REVIEW.md)
-reviewed before implementation.
+now [kernel proved](RA-10/ORDERED_SPECTRAL_RAYLEIGH_INDEPENDENT_FINAL_REVIEW.md).
+The simultaneous nonzero coordinate intersection has its
+[independently reviewed proof](RA-10/ORDERED_SPECTRAL_INTERSECTION_INDEPENDENT_FINAL_REVIEW.md).
+The actual positive-prefix support step has an
+[independently reviewed proof](RA-10/SELECTED_COMPRESSION_PREFIX_SUPPORT_INDEPENDENT_FINAL_REVIEW.md).
+The [exact compression comparison](RA-10/SELECTED_COMPRESSION_COMPARISON_INDEPENDENT_FINAL_REVIEW.md)
+now proves the source coefficient-one `0≤h_i≤a_i` for the actual selected
+`C=PAP` and every supplied ordered decomposition, including ties and zeros.
 
 The [independently reviewed normalized exterior boundary factor](SP-14/BASE_EXTERIOR_FACTOR_INDEPENDENT_FINAL_REVIEW.md)
 is a continuous half-binomial series with exact square, endpoint zero, and

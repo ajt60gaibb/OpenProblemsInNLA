@@ -1,0 +1,9 @@
+# RA-10 actual compression eigenvalue comparison: independent final pre-review
+
+**Author:** `/root/ra10_spectral_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact double-quadratic, squared-norm, and coefficient-one comparison contracts for staged Lean implementation.
+
+I checked `SELECTED_COMPRESSION_COMPARISON_PRE_REVIEW.md` at SHA-256 `881efa31c6c5de44a5688a81906b2faecd1f3147a81eec0dc448a51df2ee4ae6` against the unchanged RA-10 source, earlier independently approved min-max contract, and the audited projector, Rayleigh, nonzero intersection, and positive-prefix gates. All source hashes match. For the **actual** `C=(P*A)*P`, symmetry of the supplied selected projector and `P*ᵥx=x` imply equality of the frozen real double quadratic sums for C and A; both P factors are used. A nonzero finite real vector has strictly positive `Σ_i x_i²`, including all nonempty dimensions.
+
+For an arbitrary supplied ordered hC of this same C, the zero eigenvalue case follows from A nonnegativity. In the positive case, one nonzero intersection vector satisfies the exact QC prefix and QA suffix coordinate conditions. The audited positive-prefix theorem fixes it under P; the quadratic equality and both coefficient-one Rayleigh inequalities squeeze `λC a·Σx²` below `λA a·Σx²`. Strict positivity cancels the common factor without error or division by zero. The public signature retains `a.val<k≤n`, the source one-based mapping, every original basis and spectral quantifier, ties, zeros, `k=n`, and empty cases. It does not infer the false order `PAP≤A`.
+
+Approval covers the two scalar/algebraic helpers and exact final comparison, each requiring frozen source hash, pinned LeanCert kernel check, and independent imported exact-signature/source/axiom audit before aggregate import. Nuclear pinching, Lemma 2, Equation (14)'s nuclear ideal inequality, integral transfer, and full RA-10 Target remain open.

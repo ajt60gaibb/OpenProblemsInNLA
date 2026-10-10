@@ -1,0 +1,7 @@
+# MF-03 literal path equality from every factor cut: independent final review
+
+**Author:** `/root/mf03_jt_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE cut extensionality and exact reconstructed auxiliary cuts; the final path right inverse remains open.
+
+The frozen source `FiniteColumnPathCutExt.lean` has SHA-256 `0fec036cc2ed68d4adece93bef0f3799d8ae4bc9d70769ade3af119b6626ebe5`. I checked it against the independently approved two-inverse contract, the frozen recursive `FiniteValidPath`, `finitePathAtCut`, and the audited column-system path constructor. A path's cut at its top label is the original start tuple. Induction on length shows that equality at every cut determines the first intermediate tuple and then the whole tail, yielding equality of literal path values, including their proposition-valued validity fields. A separate induction shows that the auxiliary path built from D visits exactly the explicit `P_q` at every cut `q≤n`, with the original descending factor labels and no sentinel advance.
+
+The independent imported exact-signature audit `/private/tmp/mf03-finite-column-path-cut-ext-independent-audit.lean`, SHA-256 `e54d0839dc9bef8cd4a4d8956415be4e81fd837095a1233c33a9560d990f736b`, passed pinned LeanCert kernel. Top-cut identity reports only `propext`; the two other declarations report only `propext`, `Classical.choice`, and `Quot.sound`. The final path right inverse, equivalence, weights, determinant/tableau equality, and full MF-03 Target remain open.

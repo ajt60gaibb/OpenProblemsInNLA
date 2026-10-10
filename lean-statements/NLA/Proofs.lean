@@ -28,6 +28,10 @@ import NLA.Proofs.RA10.CustomPSDMathlibBridge
 import NLA.Proofs.RA10.SelectedCompressionOrderedSpectral
 import NLA.Proofs.RA10.SelectedCompressionEigenvalue
 import NLA.Proofs.RA10.MatchedLeadingEq14Constructed
+import NLA.Proofs.RA10.OrderedSpectralRayleigh
+import NLA.Proofs.RA10.OrderedSpectralIntersection
+import NLA.Proofs.RA10.SelectedCompressionPrefixSupport
+import NLA.Proofs.RA10.SelectedCompressionComparison
 import NLA.Proofs.MF03.OrderOne
 import NLA.Proofs.MF03.Transport
 import NLA.Proofs.MF03.Finite02
@@ -83,6 +87,9 @@ import NLA.Proofs.MF03.FiniteColumnCutPositions
 import NLA.Proofs.MF03.FiniteColumnCutEndpoints
 import NLA.Proofs.MF03.FiniteColumnCutPath
 import NLA.Proofs.MF03.FiniteColumnPathLeftInverse
+import NLA.Proofs.MF03.FiniteColumnPathCutExt
+import NLA.Proofs.MF03.FiniteColumnPathRightInverse
+import NLA.Proofs.MF03.FiniteColumnPathEquiv
 import NLA.Proofs.MF03.FiniteTableauPair
 import NLA.Proofs.MF03.FiniteTableauWeightFactor
 import NLA.Proofs.MF03.FiniteTableauTailBound
