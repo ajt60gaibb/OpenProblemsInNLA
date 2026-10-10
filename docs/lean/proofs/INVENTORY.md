@@ -93,6 +93,9 @@ weighted bijection remain open.
 The [reverse tableau-column values](MF-03/FINITE_TABLEAU_UNIFORM_INDEPENDENT_FINAL_REVIEW.md)
 recover actual entries on every original cell and use `N` only at an omitted
 short-column bottom position; the label sets and inverse path remain open.
+The [uniform and actual label sets](MF-03/FINITE_TABLEAU_UNIFORM_SETS_INDEPENDENT_FINAL_REVIEW.md)
+have the exact `m+1` temporary length and original long/short cardinalities
+after erasing only the excluded sentinel; cut conditions remain open.
 
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
@@ -203,6 +206,9 @@ proves the actual full shifted inverse has L2 operator norm at most `1/s`.
 The [selected Euclidean operator-norm factor](RA-10/RIDGE_RESOLVENT_OPNORM_SELECTED_INDEPENDENT_FINAL_REVIEW.md)
 proves the actual `P(sI+B₀)⁻¹P` has L2 operator norm at most the sharp
 `1/(s+c)` with source `c=a_k`. The nuclear ideal inequality remains open.
+The [matched-leading support algebra](RA-10/MATCHED_LEADING_SUPPORT_INDEPENDENT_FINAL_REVIEW.md)
+proves `P(B₀−PAP)P=B₀−PAP` and inserts the same `P` around the left inverse in
+the exact noncommutative Equation (14) product. The nuclear ideal step remains open.
 
 The [independently reviewed normalized exterior boundary factor](SP-14/BASE_EXTERIOR_FACTOR_INDEPENDENT_FINAL_REVIEW.md)
 is a continuous half-binomial series with exact square, endpoint zero, and
