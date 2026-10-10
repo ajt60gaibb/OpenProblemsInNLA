@@ -26,6 +26,7 @@ import NLA.Proofs.MF03.WaveAtThree
 import NLA.Proofs.MF03.CosineProduct
 import NLA.Proofs.MF03.CosineDenseProduct
 import NLA.Proofs.MF03.CosineAllComplexProduct
+import NLA.Proofs.MF03.CosineCoefficientTransfer
 import NLA.Proofs.MF03.LargeOrderDisk
 import NLA.Proofs.SP14.SubsequenceGap
 import NLA.Proofs.SP14.BaseCoefficient
@@ -51,6 +52,7 @@ import NLA.Proofs.SP14.RegularizedBaseFactorFourier
 import NLA.Proofs.SP14.RegularizedFactorWiener
 import NLA.Proofs.SP14.FiniteNegativeWiener
 import NLA.Proofs.SP14.FiniteNegativeWienerMultiplier
+import NLA.Proofs.SP14.ActualNegativeWienerBound
 import NLA.Proofs.SP14.PositivePacketInvisibility
 import NLA.Proofs.SP14.NegativeRestorationInvisibility
 import NLA.Proofs.SP14.OddFrequencyToeplitzCharpoly
@@ -88,13 +90,15 @@ import NLA.Proofs.TR14.LocalUnitRoot
 import NLA.Proofs.TR14.LocalFourierOneFactor
 import NLA.Proofs.TR14.LocalFourierMode
 import NLA.Proofs.TR14.LocalCRTRootData
+import NLA.Proofs.TR14.LocalCRTShift
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
 original target. Compile the separately scoped MF-03 order-one-through-fifteen
 target clauses, analytic tail and value-at-three bounds, and initial product
 convergence, including the factorial cosine identity and all-complex product
-value and finite-product limit. A normalized MF-03 pair with the exact large-order denominator
+value and finite-product limit. The all-order elementary coefficients of that
+product equal the factorial wave coefficients exactly. A normalized MF-03 pair with the exact large-order denominator
 tail coefficient bound also has the required closed-disk estimate; existence
 of such a pair remains open. Compile the conditional SP-14 subsequence, finite base-block
 algebra, frozen integral's pure-mode Fourier orthogonality, and the conditional
@@ -126,6 +130,8 @@ Every finite negative Laurent correction has its literal bilateral
 weighted Wiener size equal to its finite coefficient sum.
 Multiplication by such a correction preserves literal weighted Fourier
 summability and obeys the constant-one weighted Wiener product bound.
+At actual endpoint contact, the corrected exterior base product inherits
+that summability and bound from its exact finite Laurent quotient.
 The first positive packet has exact frozen Fourier support and preserves
 smaller Toeplitz sections over continuous backgrounds.
 The finite negative restoration packet cancels at the endpoint, its restoring
@@ -209,6 +215,9 @@ coordinate vector in every tensor mode for all `n≥2`.
 The first CRT gate retains every distinct complex root and its exact
 multiplicity, proves the monic factorization and sum of multiplicities,
 and proves pairwise coprimality of the corresponding factor powers.
+Each primary factor quotient has an explicit complex-algebra shift
+equivalence to the matching truncated local algebra, with root image
+equal to the scalar root plus its nilpotent generator.
 These results do not prove the full all-width rank equality.
 -/
 
