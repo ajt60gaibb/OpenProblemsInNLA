@@ -55,6 +55,7 @@ import NLA.Proofs.TR14.ApolarMinimal
 import NLA.Proofs.TR14.NormalizedQuotient
 import NLA.Proofs.TR14.FrobeniusMinimal
 import NLA.Proofs.TR14.MiddleCatalecticant
+import NLA.Proofs.TR14.GL2Homogeneous
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
@@ -102,6 +103,8 @@ With the exact least-apolar-degree premise, that quotient functional also has
 the full Frobenius nondegeneracy property, by the power-basis argument.
 In the same normalized monic chart, the exact middle Hankel catalecticant
 has rank equal to the least apolar degree, including balanced and odd cases.
+An explicit homogeneous binary-form chart is invertible in every degree,
+respects multiplication, and has the exact inverse-dual moment pairing.
 These results do not prove the full all-width rank equality.
 -/
 
