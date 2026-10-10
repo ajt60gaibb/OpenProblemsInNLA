@@ -49,6 +49,7 @@ import NLA.Proofs.SP14.BaseJetCorner
 import NLA.Proofs.SP14.BaseJetFourierMatrix
 import NLA.Proofs.SP14.BaseJetPencilFormula
 import NLA.Proofs.SP14.BaseJetRealSolve
+import NLA.Proofs.SP14.SobolevOversampling
 import NLA.Proofs.TR14.WidthBasics
 import NLA.Proofs.TR14.MomentIndex
 import NLA.Proofs.TR14.ApolarMinimal
@@ -56,6 +57,10 @@ import NLA.Proofs.TR14.NormalizedQuotient
 import NLA.Proofs.TR14.FrobeniusMinimal
 import NLA.Proofs.TR14.MiddleCatalecticant
 import NLA.Proofs.TR14.GL2Homogeneous
+import NLA.Proofs.TR14.GL2CoefficientBasis
+import NLA.Proofs.TR14.GL2MomentDual
+import NLA.Proofs.TR14.GL2ApolarPairing
+import NLA.Proofs.TR14.GL2ApolarTransport
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
@@ -94,6 +99,8 @@ The corrected section's actual odd jet polynomial obeys the source's exact
 finite triangular pencil formula for every allowed order and packet size.
 The resulting real first-jet map equals the source triangular matrix, has an
 explicit right inverse, and has bijective derivative at every base-model vector.
+The source's Sobolev oversampling operator algebra has its exact five conclusions
+from explicit compatible inverse and weighted projection estimates.
 TR-14 width semantics supply the symmetric-to-ordinary direction and exact
 zero-width endpoints. Every moment coordinate appears in the frozen Hankel
 tensor; the exact apolar map has a least nonzero degree for nonzero moments.
@@ -105,6 +112,14 @@ In the same normalized monic chart, the exact middle Hankel catalecticant
 has rank equal to the least apolar degree, including balanced and odd cases.
 An explicit homogeneous binary-form chart is invertible in every degree,
 respects multiplication, and has the exact inverse-dual moment pairing.
+The complete zero-based monomial basis identifies every coefficient vector
+with a genuine homogeneous form, and multiplication adds the indices exactly.
+The unweighted homogeneous moment dual has exact monomial coordinates,
+inverse coordinate reconstruction, and the inverse-dual chart relation.
+Every frozen apolar equation is equivalent to annihilation of all
+complementary homogeneous products, including every endpoint degree.
+The inverse-dual chart carries every degree's apolar kernel to its exact
+image and preserves existence of nonzero apolar forms in every degree.
 These results do not prove the full all-width rank equality.
 -/
 

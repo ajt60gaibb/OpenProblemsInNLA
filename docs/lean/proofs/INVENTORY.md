@@ -30,6 +30,22 @@ sources.
 | TR-04 | [`Solution.lean`](../../../tensor-computations/TR-04/lean/Solution.lean) | Elementary candidate/window count inequalities. It explicitly does not prove the TT-SVD approximation target; the current statement has unconstrained rank and operation-count fields. |
 | TR-14 | [`WidthBasics.lean`](../../../lean-statements/NLA/Proofs/TR14/WidthBasics.lean) | [Independently reviewed](TR-14/WIDTH_BASICS_INDEPENDENT_FINAL_REVIEW.md) kernel proofs of symmetric-width implies ordinary-width and both exact width-zero characterizations, [moment-index surjectivity and the Hankel-zero equivalence](TR-14/MOMENT_INDEX_INDEPENDENT_FINAL_REVIEW.md), [the exact apolar map and least nonzero degree](TR-14/APOLAR_MINIMAL_INDEPENDENT_FINAL_REVIEW.md), [conditional monic quotient all-moment matching](TR-14/NORMALIZED_QUOTIENT_INDEPENDENT_PARTIAL_REVIEW.md), [the normalized least-apolar quotient’s full Frobenius pairing](TR-14/FROBENIUS_MINIMAL_INDEPENDENT_FINAL_REVIEW.md), [the exact middle catalecticant rank in that monic chart](TR-14/MIDDLE_CATALECTICANT_INDEPENDENT_FINAL_REVIEW.md), and [the genuine homogeneous chart substitution, degreewise equivalence, multiplication, and inverse-dual pairing](TR-14/GL2_HOMOGENEOUS_INDEPENDENT_FINAL_REVIEW.md). Apolar and Hankel-width chart transport, original-coordinate middle catalecticant rank, arbitrary ordinary-to-symmetric implication, and the full all-width target remain unproved. |
 
+The SP-14 partial project also contains the [independently reviewed exact
+Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
+it proves the source's displayed right inverse, range, and sharp norm estimate
+from explicit two-space bounds. Constructing the literal weighted Sobolev
+spaces and proving those bounds for the actual background operator remain open.
+
+The TR-14 chart work also has an [independently reviewed complete coefficient
+basis](TR-14/GL2_COEFFICIENT_BASIS_INDEPENDENT_FINAL_REVIEW.md) for genuine
+homogeneous binary forms, including the exact monomial product index. The
+[unweighted homogeneous moment dual and its inverse-dual chart relation](TR-14/GL2_MOMENT_DUAL_INDEPENDENT_FINAL_REVIEW.md)
+and [all-degree apolar product equivalence](TR-14/GL2_APOLAR_PAIRING_INDEPENDENT_FINAL_REVIEW.md)
+are also kernel checked. The [inverse-dual chart transport of every apolar
+kernel and nonzero apolar degree](TR-14/GL2_APOLAR_TRANSPORT_INDEPENDENT_FINAL_REVIEW.md)
+is kernel checked as well. Chart normalization and Hankel width transport
+remain subsequent proof obligations.
+
 ## Shared statement only; no live proof source (34)
 
 The following files define a `Target : Prop` and pass statement-boundary checks.
