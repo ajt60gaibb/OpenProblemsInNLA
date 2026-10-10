@@ -4,6 +4,7 @@ import NLA.Proofs.RA06.Bernoulli
 import NLA.Proofs.RA06.GraphFinite
 import NLA.Proofs.RA06.Asymptotic
 import NLA.Proofs.RA06.Final
+import NLA.Proofs.RA10.SpectralQuadratic
 import NLA.Proofs.MF03.OrderOne
 import NLA.Proofs.MF03.Transport
 import NLA.Proofs.MF03.Finite02
@@ -31,6 +32,7 @@ import NLA.Proofs.MF03.FiniteElementaryLimit
 import NLA.Proofs.MF03.FiniteDeterminantLimit
 import NLA.Proofs.MF03.PadeToeplitzCramer
 import NLA.Proofs.MF03.FiniteBidiagonalMinor
+import NLA.Proofs.MF03.FiniteBidiagonalStep
 import NLA.Proofs.MF03.FiniteTableauTail
 import NLA.Proofs.MF03.FiniteTableauPair
 import NLA.Proofs.MF03.FiniteTableauWeightFactor
@@ -91,6 +93,7 @@ import NLA.Proofs.SP14.EndpointExtensionKernel
 import NLA.Proofs.SP14.EndpointExtensionPositive
 import NLA.Proofs.SP14.EndpointAbsoluteKernel
 import NLA.Proofs.SP14.EndpointWeightedSchur
+import NLA.Proofs.SP14.EndpointSchurSums
 import NLA.Proofs.SP14.SobolevOversampling
 import NLA.Proofs.SP14.WeightedSobolevPhysical
 import NLA.Proofs.SP14.WeightedSobolevOperators
