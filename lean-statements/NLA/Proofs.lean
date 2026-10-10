@@ -36,6 +36,8 @@ import NLA.Proofs.SP14.BaseOffdiagonalCharpoly
 import NLA.Proofs.SP14.BaseToeplitzCharpolyConditional
 import NLA.Proofs.SP14.BaseCoeffSummable
 import NLA.Proofs.SP14.BaseExteriorSeries
+import NLA.Proofs.SP14.BaseExteriorFourier
+import NLA.Proofs.SP14.BaseExteriorPattern
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
@@ -45,7 +47,10 @@ convergence. Compile the conditional SP-14 subsequence, finite base-block
 algebra, frozen integral's pure-mode Fourier orthogonality, and the conditional
 actual Toeplitz odd-order characteristic polynomial. These are not full-target
 proofs. The exterior half-binomial coefficient norms are summable, and the
-normalized exterior boundary series is continuous.
+normalized exterior boundary series is continuous and has a justified
+all-integer Fourier-coefficient series under the frozen interval integral.
+The exterior base symbol's all-integer Fourier pattern and actual odd Toeplitz
+characteristic polynomial are unconditional; they are not the SP-14 target.
 -/
 
 set_option leancert.trust "kernel"
