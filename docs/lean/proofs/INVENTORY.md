@@ -135,7 +135,8 @@ puts every actual row in `lp 2` and proves its product with any input is
 unconditionally summable. The [actual infinite-output prefix bound](SP-14/ENDPOINT_NEGATIVE_OUTPUT_ENERGY_INDEPENDENT_FINAL_REVIEW.md)
 passes the finite Fourier-matrix estimate to exact row `tsum`s and bounds
 every finite output energy by `C_r²‖y‖²`. The continuous linear operator
-remains open.
+is now [constructed from the actual Fourier entries](SP-14/ENDPOINT_NEGATIVE_OPERATOR_INDEPENDENT_FINAL_REVIEW.md)
+with the literal norm bound `C_r`. The two-sided Sobolev extension remains open.
 
 The [RA-10 selected-projector gates](RA-10/SELECTED_PROJECTOR_INDEPENDENT_FINAL_REVIEW.md)
 identify the exact frozen first-`k` eigenvector projector, prove symmetry and

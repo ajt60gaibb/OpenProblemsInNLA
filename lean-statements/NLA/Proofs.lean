@@ -118,6 +118,7 @@ import NLA.Proofs.SP14.EndpointNegativeTruncation
 import NLA.Proofs.SP14.EndpointNegativeRow
 import NLA.Proofs.SP14.EndpointNegativeRowSummable
 import NLA.Proofs.SP14.EndpointNegativeOutputEnergy
+import NLA.Proofs.SP14.EndpointNegativeOperator
 import NLA.Proofs.SP14.SobolevOversampling
 import NLA.Proofs.SP14.WeightedSobolevPhysical
 import NLA.Proofs.SP14.WeightedSobolevOperators
