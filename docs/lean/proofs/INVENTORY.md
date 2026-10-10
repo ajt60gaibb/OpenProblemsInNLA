@@ -74,6 +74,9 @@ one according to the augmented column lengths.
 The [literal valid-path cut gate](MF-03/FINITE_PATH_CUTS_INDEPENDENT_FINAL_REVIEW.md)
 identifies each intermediate position with its start plus processed advance
 labels and proves the exact adjacent noncollision inequality at every cut.
+The [sorted-column gate](MF-03/FINITE_COLUMN_SORTED_INDEPENDENT_FINAL_REVIEW.md)
+enumerates each exact advance-label set in increasing order and preserves
+every cut count without relabeling factors.
 
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
@@ -139,7 +142,11 @@ unconditionally summable. The [actual infinite-output prefix bound](SP-14/ENDPOI
 passes the finite Fourier-matrix estimate to exact row `tsum`s and bounds
 every finite output energy by `C_r²‖y‖²`. The continuous linear operator
 is now [constructed from the actual Fourier entries](SP-14/ENDPOINT_NEGATIVE_OPERATOR_INDEPENDENT_FINAL_REVIEW.md)
-with the literal norm bound `C_r`. The two-sided Sobolev extension remains open.
+with the literal norm bound `C_r`.
+The [two-sided coefficient operator](SP-14/ENDPOINT_TWOSIDED_COEFFICIENT_INDEPENDENT_FINAL_REVIEW.md)
+has the exact positive input and actual negative Fourier blocks, orthogonal
+norm-square identity, and literal bound `sqrt(1+C_r²)`. Circle `H^r`
+realization remains open.
 
 The [RA-10 selected-projector gates](RA-10/SELECTED_PROJECTOR_INDEPENDENT_FINAL_REVIEW.md)
 identify the exact frozen first-`k` eigenvector projector, prove symmetry and
@@ -156,6 +163,9 @@ proves the exact frozen ridge functional calculus and the source-oriented
 The [noncommutative resolvent product gate](RA-10/RIDGE_RESOLVENT_PRODUCT_INDEPENDENT_FINAL_REVIEW.md)
 establishes shifted invertibility and both exact product orders for that
 difference, including the source's Equation (14) order.
+The [matched-leading ridge gate](RA-10/MATCHED_LEADING_RIDGE_INDEPENDENT_FINAL_REVIEW.md)
+constructs `B₀` in the supplied selected basis and proves the exact matrix
+equality underlying Equation (14).
 
 The [independently reviewed normalized exterior boundary factor](SP-14/BASE_EXTERIOR_FACTOR_INDEPENDENT_FINAL_REVIEW.md)
 is a continuous half-binomial series with exact square, endpoint zero, and

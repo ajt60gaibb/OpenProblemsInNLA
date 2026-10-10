@@ -1,0 +1,9 @@
+# RA-10 matched leading spectrum and ridge product: independent final review
+
+**Author:** `/root/ra10_spectral_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact matched-leading gate; the nuclear ideal bound and full RA-10 Target remain open.
+
+The frozen source `MatchedLeadingRidge.lean` has SHA-256 `6ee44a9e0f081b318a73aa97aa234ed37c596623c3d667875b1f461a63a0af31`. I checked it against the independently approved source-locked matched-leading contract, the frozen RA-10 truncation, and source Equation (14). The first public theorem constructs the **complete frozen ordered PSD eigendecomposition** of `B₀=FunctionTruncation k id eigenvaluesA QAhat` from the clipped leading eigenvalues of `A` in the same supplied selected basis `QAhat` of `Ahat`, without replacing either basis. The clipped sequence is nonnegative and antitone across the strict zero-based cutoff, including ties, zero selected values, and all boundary dimensions. The second theorem uses exactly `ridgeAtom s 0=0` to identify its full spectral functional calculus with the frozen leading ridge truncation. The third specializes the audited noncommutative right product to obtain the exact source Equation (14) matrix equality `f_s(B₀)−f_s(C)=s(sI+B₀)⁻¹(B₀−C)(sI+C)⁻¹`, with arbitrary independently supplied PSD `C` and no commuting assumption.
+
+An independent imported audit at `/private/tmp/ra10-matched-leading-ridge-independent-audit.lean`, SHA-256 `3ebbaccef331164ae5698fcc0e3943970705f30dc092b1ac2ade2b7a92eafeba`, elaborated all three exact public signatures, passed `#assert_trust kernel`, and reported only `propext`, `Classical.choice`, and `Quot.sound`. No proof escape or new axiom appears in the source.
+
+The source Equation (14) nuclear ideal-property inequality, compression Lemma 2, integral representation, and frozen RA-10 Target remain open.
