@@ -127,8 +127,8 @@ ordinary-rank lower bound remain separate obligations.
 
 The [independently reviewed local Fourier filter](TR-14/LOCAL_FOURIER_FILTER_INDEPENDENT_FINAL_REVIEW.md)
 recovers one local top coefficient with exactly `(m−1)(ℓ−1)+1` root-of-unity
-nodes for every `m≥3`, `ℓ≥1`, including `ℓ=1`. The all-moment CRT bridge
-and symmetric tensor upper bound remain to be proved.
+nodes for every `m≥3`, `ℓ≥1`, including `ℓ=1`. Global node reindexing
+and the symmetric tensor upper bound remain to be proved.
 
 The [independently reviewed moment-to-quotient mode pairing](TR-14/MOMENT_QUOTIENT_MODE_PAIRING_INDEPENDENT_FINAL_REVIEW.md)
 identifies each genuine affine mode polynomial with its quotient image and
@@ -145,7 +145,7 @@ expresses every genuine local Frobenius product as exactly
 `(m−1)(ℓ−1)+1` same-factor terms. Its [exact zero-based mode-vector
 corollary](TR-14/LOCAL_FOURIER_MODE_INDEPENDENT_FINAL_REVIEW.md) supplies
 the corresponding local tensor-coordinate vectors for arbitrary `ℓ>0`.
-The all-moment CRT bridge and global width conclusions remain open.
+Global node reindexing and width conclusions remain open.
 The [independently reviewed root-data gate](TR-14/LOCAL_CRT_ROOT_DATA_INDEPENDENT_FINAL_REVIEW.md)
 retains every multiplicity and proves the exact monic factorization,
 degree sum, and pairwise coprimality of the root-factor powers.
@@ -158,7 +158,10 @@ algebras and gives the exact quotient-root image, powers, and finite
 products. The [supported local-functional transfer](TR-14/LOCAL_CRT_FUNCTIONAL_INDEPENDENT_FINAL_REVIEW.md)
 decomposes every quotient functional and derives local Frobenius
 nondegeneracy from global Frobenius. The all-moment Hankel reconstruction
-and global width theorem remain open.
+is now proved from actual monic apolarity in the [independently reviewed
+moment transfer](TR-14/LOCAL_CRT_MOMENTS_INDEPENDENT_FINAL_REVIEW.md),
+including every supplied moment and zero-based tensor coordinate. The
+global width theorem remains open.
 
 ## Shared statement only; no live proof source (34)
 

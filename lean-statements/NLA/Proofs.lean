@@ -93,6 +93,7 @@ import NLA.Proofs.TR14.LocalCRTRootData
 import NLA.Proofs.TR14.LocalCRTShift
 import NLA.Proofs.TR14.LocalCRTAlgebra
 import NLA.Proofs.TR14.LocalCRTFunctional
+import NLA.Proofs.TR14.LocalCRTMoments
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
@@ -226,6 +227,9 @@ carrying the quotient root to the corresponding scalar-plus-generator.
 Supported component insertion gives exact sum decomposition of every
 quotient functional, and global Frobenius nondegeneracy passes to each
 local component without assuming local nondegeneracy separately.
+Actual monic apolarity then reconstructs every moment through the full
+supplied degree and every frozen zero-based Hankel coordinate as a sum
+of local product evaluations.
 These results do not prove the full all-width rank equality.
 -/
 
