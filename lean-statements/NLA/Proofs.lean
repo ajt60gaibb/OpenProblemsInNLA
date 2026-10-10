@@ -8,6 +8,7 @@ import NLA.Proofs.RA10.SpectralQuadratic
 import NLA.Proofs.RA10.NuclearNormZero
 import NLA.Proofs.RA10.RidgeScalar
 import NLA.Proofs.RA10.ConstantElevenArithmetic
+import NLA.Proofs.RA10.PinchingReflection
 import NLA.Proofs.MF03.OrderOne
 import NLA.Proofs.MF03.Transport
 import NLA.Proofs.MF03.Finite02
