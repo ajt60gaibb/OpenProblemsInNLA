@@ -40,7 +40,10 @@ import NLA.Proofs.SP14.BaseExteriorFourier
 import NLA.Proofs.SP14.BaseExteriorPattern
 import NLA.Proofs.SP14.BaseExteriorBoundarySquare
 import NLA.Proofs.SP14.PositivePacketInvisibility
+import NLA.Proofs.SP14.NegativeRestorationInvisibility
+import NLA.Proofs.SP14.OddFrequencyToeplitzCharpoly
 import NLA.Proofs.TR14.WidthBasics
+import NLA.Proofs.TR14.MomentIndex
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
@@ -58,8 +61,15 @@ The normalized base symbol also satisfies its square identity and boundary
 zero criterion at every circle point.
 The first positive packet has exact frozen Fourier support and preserves
 smaller Toeplitz sections over continuous backgrounds.
+The finite negative restoration packet cancels at the endpoint, its restoring
+term is invisible at its matching section, and the full packet preserves
+earlier sections under the source's numerical separation hypotheses.
+Under exact vanishing of the frozen even Fourier coefficients, every odd
+Toeplitz section has an explicit characteristic-polynomial quotient in the
+source's jet coordinate.
 TR-14 width semantics supply the symmetric-to-ordinary direction and exact
-zero-width endpoints, but not the full Hankel rank equality.
+zero-width endpoints. Every moment coordinate appears in the frozen Hankel
+tensor. These results do not prove the full all-width rank equality.
 -/
 
 set_option leancert.trust "kernel"
