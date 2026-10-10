@@ -16,7 +16,7 @@ sources.
 | MF-23 | [`CanonicalBridge.lean`](../../../matrix-functions-and-stability/MF-23/lean/CanonicalBridge.lean) | Proves the [reviewed canonical block-order target](MF-23/CANONICAL_BRIDGE_INDEPENDENT_REVIEW.md) from the pinned external `complete_crouzeix` proof by a norm-preserving tensor-factor swap. Its self-contained source-locked project and [isolated Linux Comparator/LeanCert kernel receipt](MF-23/LINUX_CI_RECEIPT.md) pass with only standard axioms. |
 | RA-06 | [`Final.lean`](../../../lean-statements/NLA/Proofs/RA06/Final.lean) | The [independently reviewed full theorem](RA-06/FINAL_INDEPENDENT_REVIEW.md) inhabits the frozen original negative `Target` for every `p > 2`, with the exact sampler, same `α`, expected retained count, and raw log budget. The [isolated Linux Comparator/LeanCert kernel receipt](RA-06/LINUX_CI_RECEIPT.md) passes with only standard axioms. |
 
-## Local partial solution projects (8)
+## Local partial solution projects (9)
 
 | ID | Live source | What is actually proved |
 | --- | --- | --- |
@@ -28,8 +28,9 @@ sources.
 | MF-03 | [`FiniteRange.lean`](../../../lean-statements/NLA/Proofs/MF03/FiniteRange.lean) | Proves the exact frozen target clause for every order 1–15, including reduced-pair existence and every reduced representative, from [independently reviewed](MF-03/FINITE03_15_INDEPENDENT_REVIEW.md) exact certificates, gcd reduction and disk transport. Separate [all-order cosine-tail](MF-03/COSINE_TAIL_INDEPENDENT_FINAL_REVIEW.md), [value-at-three/numeric-margin](MF-03/WAVE_AT_THREE_INDEPENDENT_FINAL_REVIEW.md), and [complex factor-product convergence](MF-03/COSINE_PRODUCT_INDEPENDENT_PARTIAL_REVIEW.md) lemmas are kernel checked. The series-product identity, orders ≥16, and full all-order target remain unproved. |
 | SP-14 | [`SubsequenceGap.lean`](../../../lean-statements/NLA/Proofs/SP14/SubsequenceGap.lean) | [Independently reviewed](SP-14/SUBSEQUENCE_GAP_INDEPENDENT_FINAL_REVIEW.md) kernel proof that a supplied continuous counterexample with a positive eventual empirical gap refutes the exact frozen conjecture. Separate [base-coefficient convolution](SP-14/BASE_COEFFICIENT_INDEPENDENT_REVIEW.md), [unconditional coefficient-defined block product](SP-14/BASE_CB_INDEPENDENT_FINAL_REVIEW.md), [frozen-integral monomial Fourier orthogonality](SP-14/BASE_FOURIER_MODE_INDEPENDENT_REVIEW.md), [absolute summability of the exterior half-binomial coefficients](SP-14/BASE_COEFF_SUMMABLE_INDEPENDENT_REVIEW.md), [continuous exterior boundary series](SP-14/BASE_EXTERIOR_SERIES_INDEPENDENT_REVIEW.md), [termwise frozen Fourier integration](SP-14/BASE_EXTERIOR_FOURIER_INDEPENDENT_REVIEW.md), [the exterior base symbol's exact Fourier pattern and actual odd Toeplitz characteristic polynomial](SP-14/BASE_EXTERIOR_PATTERN_INDEPENDENT_REVIEW.md), [its boundary square and zero identities](SP-14/BASE_EXTERIOR_BOUNDARY_SQUARE_INDEPENDENT_REVIEW.md), and [positive packet Fourier support and small-section invisibility](SP-14/POSITIVE_PACKET_INVISIBILITY_INDEPENDENT_FINAL_REVIEW.md) are kernel checked. The base symbol has an outer annular extension and is not the counterexample; negative packet construction, two-sided nonextension, multiplicity estimates, and final subsequence gap remain unproved in Lean. |
 | TR-04 | [`Solution.lean`](../../../tensor-computations/TR-04/lean/Solution.lean) | Elementary candidate/window count inequalities. It explicitly does not prove the TT-SVD approximation target; the current statement has unconstrained rank and operation-count fields. |
+| TR-14 | [`WidthBasics.lean`](../../../lean-statements/NLA/Proofs/TR14/WidthBasics.lean) | [Independently reviewed](TR-14/WIDTH_BASICS_INDEPENDENT_FINAL_REVIEW.md) kernel proofs of symmetric-width implies ordinary-width and both exact width-zero characterizations. The arbitrary ordinary-to-symmetric implication and full all-width Hankel target remain unproved. |
 
-## Shared statement only; no live proof source (35)
+## Shared statement only; no live proof source (34)
 
 The following files define a `Target : Prop` and pass statement-boundary checks.
 They do **not** contain a theorem proving `Target`. The source-path pattern is
@@ -53,11 +54,11 @@ They do **not** contain a theorem proving `Target`. The source-path pattern is
 | RE-06 | [`RE06.lean`](../../../lean-statements/NLA/Statements/RE06.lean) | SP-11 | [`SP11.lean`](../../../lean-statements/NLA/Statements/SP11.lean) |
 | SP-12 | [`SP12.lean`](../../../lean-statements/NLA/Statements/SP12.lean) | SP-13 | [`SP13.lean`](../../../lean-statements/NLA/Statements/SP13.lean) |
 | TR-06 | [`TR06.lean`](../../../lean-statements/NLA/Statements/TR06.lean) | TR-08 | [`TR08.lean`](../../../lean-statements/NLA/Statements/TR08.lean) |
-| TR-14 | [`TR14.lean`](../../../lean-statements/NLA/Statements/TR14.lean) | TR-17 | [`TR17.lean`](../../../lean-statements/NLA/Statements/TR17.lean) |
+| TR-17 | [`TR17.lean`](../../../lean-statements/NLA/Statements/TR17.lean) | | |
 | TR-20 | [`TR20.lean`](../../../lean-statements/NLA/Statements/TR20.lean) | TR-21 | [`TR21.lean`](../../../lean-statements/NLA/Statements/TR21.lean) |
 | TR-26 | [`TR26.lean`](../../../lean-statements/NLA/Statements/TR26.lean) | | |
 
 LeanCert `#assert_statement`, `#assert_trust kernel`, frozen identity checks,
 and the shared Comparator certificates check statement definitions and their
-trust closure. They do not prove any of the 35 statement-only propositions or
-upgrade the eight partial projects to full proofs.
+trust closure. They do not prove any of the 34 statement-only propositions or
+upgrade the nine partial projects to full proofs.

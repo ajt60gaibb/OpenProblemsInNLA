@@ -2,6 +2,8 @@
 
 **Reviewer:** `/root/ra06_sampling_review` (AI agent), 10 October 2026. This is a read-only prioritization of the 35 Solved entries listed as statement-only in `INVENTORY.md`. None of the three candidates below has a live theorem proving its frozen `Target`; `#assert_statement` and LeanCert checks of their declarations do not constitute proofs. Permanent IDs, canonical READMEs, and frozen statements remain unchanged.
 
+**Progress after this triage:** TR-14 now has [independently reviewed width-basics lemmas](TR-14/WIDTH_BASICS_INDEPENDENT_FINAL_REVIEW.md) and is classified as partial in the current inventory. Its full frozen `Target` remains unproved; the statement-only count is now 34.
+
 | Priority | Exact frozen target and canonical proof source | Main formalization obstacle | Status |
 | --- | --- | --- | --- |
 | **TR-14: best self-contained next campaign** | `NLA.Statements.TR14.Target`: for every `m≥3`, `n≥2`, Hankel data `h`, and width `r`, `OrdinaryWidth (Hankel h) r ↔ SymmetricWidth (Hankel h) r`. The canonical [README](../../../tensor-computations/TR-14/README.md) cites a complete [solution.tex](../../../tensor-computations/TR-14/solution.tex), Theorem 1.1 and §§2–5, covering zero and exceptional tensors. | Formalize finite moment/apolar algebra, symmetric upper bounds, and the lower bound for **arbitrary ordinary** decompositions under its Frobenius constraint. The 906-line proof is substantial, but its central route is algebraic and does not rest on one unformalized external analytic or probabilistic theorem. Width equivalence must be established at every `r`, not just equality of generic ranks. | Frozen statement only; no live Lean proof. |

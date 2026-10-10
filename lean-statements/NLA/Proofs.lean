@@ -40,6 +40,7 @@ import NLA.Proofs.SP14.BaseExteriorFourier
 import NLA.Proofs.SP14.BaseExteriorPattern
 import NLA.Proofs.SP14.BaseExteriorBoundarySquare
 import NLA.Proofs.SP14.PositivePacketInvisibility
+import NLA.Proofs.TR14.WidthBasics
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
@@ -57,6 +58,8 @@ The normalized base symbol also satisfies its square identity and boundary
 zero criterion at every circle point.
 The first positive packet has exact frozen Fourier support and preserves
 smaller Toeplitz sections over continuous backgrounds.
+TR-14 width semantics supply the symmetric-to-ordinary direction and exact
+zero-width endpoints, but not the full Hankel rank equality.
 -/
 
 set_option leancert.trust "kernel"
