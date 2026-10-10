@@ -57,6 +57,9 @@ The [independently reviewed one-factor minor](MF-03/FINITE_BIDIAGONAL_STEP_INDEP
 proves that every ordered upper-bidiagonal minor has exactly its stationary or
 advance product weight, with all nonidentity determinant permutations zero.
 The endpoint path/tableau bijection remains open.
+The [independently reviewed finite endpoint gate](MF-03/FINITE_PATH_ENDPOINT_INDEPENDENT_FINAL_REVIEW.md)
+identifies the original augmented determinant with the exact valid-chain sum
+and proves the per-path advance counts `m+1` and `m` for every `j≤m`.
 
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
@@ -112,6 +115,15 @@ now hold for every cutoff, including empty sums, with this exact constant.
 The [finite complex Fourier-matrix Schur bound](SP-14/ENDPOINT_FINITE_MATRIX_SCHUR_INDEPENDENT_FINAL_REVIEW.md)
 now gives the exact `C_r²` squared-norm estimate for all finite input/output
 cutoffs. The infinite operator estimate remains open.
+The [weighted-sequence truncation density theorem](SP-14/ENDPOINT_NEGATIVE_TRUNCATION_INDEPENDENT_FINAL_REVIEW.md)
+also proves that the actual first-`N` truncations tend to every input in the
+literal `lp ℂ 2` carrier. Row summability and the infinite operator remain open.
+
+The [RA-10 selected-projector gates](RA-10/SELECTED_PROJECTOR_INDEPENDENT_FINAL_REVIEW.md)
+identify the exact frozen first-`k` eigenvector projector, prove symmetry and
+idempotence from every supplied ordered decomposition, and give rank `k` for
+`k≤n`, including tied and zero eigenvalues. Supported functional calculus and
+the nuclear pinching contraction remain open.
 
 The [independently reviewed normalized exterior boundary factor](SP-14/BASE_EXTERIOR_FACTOR_INDEPENDENT_FINAL_REVIEW.md)
 is a continuous half-binomial series with exact square, endpoint zero, and

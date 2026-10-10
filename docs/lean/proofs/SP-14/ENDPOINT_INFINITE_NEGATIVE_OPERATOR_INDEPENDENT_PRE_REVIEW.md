@@ -1,6 +1,6 @@
 # SP-14 infinite negative Fourier operator: independent pre-implementation review
 
-**Author:** `/root/sp14_base_proof`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact infinite-sequence gate for Lean implementation.
+**Author:** `/root/sp14_base_proof`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** SUPERSEDED for the row-summability proof route by `ENDPOINT_INFINITE_NEGATIVE_OPERATOR_INDEPENDENT_REREVIEW.md`. The truncation-density assertion was unaffected.
 
 I reviewed `ENDPOINT_INFINITE_NEGATIVE_OPERATOR_PRE_REVIEW.md` at SHA-256 `d9812ed8dbbee37467b342d4419d9c6688add126da9cb3b9485f2e51fee4ce75` against the frozen actual Fourier entry, finite complex Schur theorem, and literal `SobolevCoeff r = lp ℂ 2` model. The input coordinate `y k` is weighted by `(k+1)^r` relative to `physicalCoeff`; output coordinate `t` represents negative mode `−(t+1)`. The proposed continuous linear map must use `endpointFiniteFourierEntry r t k`, retain the actual frozen Fourier integral, and have operator norm at most the literal `C_r=1+1/r+1/(1−r)` for every `0<r<1`.
 

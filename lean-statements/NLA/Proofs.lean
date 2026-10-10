@@ -9,6 +9,9 @@ import NLA.Proofs.RA10.NuclearNormZero
 import NLA.Proofs.RA10.RidgeScalar
 import NLA.Proofs.RA10.ConstantElevenArithmetic
 import NLA.Proofs.RA10.PinchingReflection
+import NLA.Proofs.RA10.SelectedProjectionBasic
+import NLA.Proofs.RA10.SelectedProjectionIdempotent
+import NLA.Proofs.RA10.SelectedProjectionRank
 import NLA.Proofs.MF03.OrderOne
 import NLA.Proofs.MF03.Transport
 import NLA.Proofs.MF03.Finite02
@@ -39,6 +42,7 @@ import NLA.Proofs.MF03.FiniteBidiagonalMinor
 import NLA.Proofs.MF03.FiniteBidiagonalStep
 import NLA.Proofs.MF03.FiniteMinorCauchyBinet
 import NLA.Proofs.MF03.FinitePathChain
+import NLA.Proofs.MF03.FinitePathEndpoint
 import NLA.Proofs.MF03.FiniteTableauTail
 import NLA.Proofs.MF03.FiniteTableauPair
 import NLA.Proofs.MF03.FiniteTableauWeightFactor
@@ -103,6 +107,7 @@ import NLA.Proofs.SP14.EndpointSchurSums
 import NLA.Proofs.SP14.EndpointSchurBounds
 import NLA.Proofs.SP14.EndpointWeightedKernelSchur
 import NLA.Proofs.SP14.EndpointFiniteMatrixSchur
+import NLA.Proofs.SP14.EndpointNegativeTruncation
 import NLA.Proofs.SP14.SobolevOversampling
 import NLA.Proofs.SP14.WeightedSobolevPhysical
 import NLA.Proofs.SP14.WeightedSobolevOperators

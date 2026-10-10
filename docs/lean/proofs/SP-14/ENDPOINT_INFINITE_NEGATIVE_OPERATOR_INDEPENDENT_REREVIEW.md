@@ -1,0 +1,9 @@
+# SP-14 infinite negative Fourier operator: independent corrected pre-review
+
+**Author:** `/root/sp14_base_proof`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the revised source-locked contract for row summability and operator implementation.
+
+The revised `ENDPOINT_INFINITE_NEGATIVE_OPERATOR_PRE_REVIEW.md` is SHA-256 `d3a5195b527abde82ff6063a9a275e1268f016202a0353d415e46bbebbc83cfc`. It supersedes its first SHA `d9812ed8dbbee37467b342d4419d9c6688add126da9cb3b9485f2e51fee4ce75` and the initial review's insufficient inference from ordinary interval-partial-sum convergence to Mathlib `Summable`. The already frozen weighted truncation-density theorem is independent of that inference.
+
+I checked the correction against the exact all-cutoff finite Fourier-matrix bound. For fixed row `t`, set `S_N=Σ_{k<N}‖B_{t,k}‖²≥0` and test with `x_k=conj(B_{t,k})` at `J=t+1`. The selected output row is the complex real embedding of `S_N`; all other output squared norms are nonnegative. Thus `S_N²≤C_r² S_N`. If `S_N=0` the bound is trivial; otherwise division by positive `S_N` gives `S_N≤C_r²`. These increasing partial sums are bounded, so the actual Fourier row is in `ℓ²`. Cauchy–Schwarz/Hölder with the input `y∈ℓ²` gives absolute summability of `‖B_{t,k}y_k‖`; therefore the complex series is unconditionally `Summable` and its `tsum` is valid. No arbitrary matrix, dimension-dependent constant, or selected subsequence is introduced.
+
+Finite output square bounds pass to the rowwise `tsum` limits, and the increasing output cutoff yields an `lp 2` vector with norm at most the literal `C_r=1+1/r+1/(1−r)`. The desired continuous linear map still must be constructed with the exact frozen Fourier entries and that norm bound; no proof is credited by this review. The positive projection and full two-sided `sqrt(1+C_r²)` estimate remain separate. Freeze every implementation for an independent imported exact-signature/LeanCert kernel audit.

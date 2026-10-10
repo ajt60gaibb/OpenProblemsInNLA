@@ -1,6 +1,8 @@
 # SP-14: infinite negative Fourier operator from the finite Schur bound
 
-**Status:** source-locked mathematical and exact-numerical pre-implementation contract; independent review required before Lean source. **Author:** `/root/sp14_base_proof`, 10 October 2026.
+**Status:** revised source-locked mathematical and exact-numerical pre-implementation contract; independent re-review required before the row/operator Lean source. **Author:** `/root/sp14_base_proof`, 10 October 2026.
+
+This revision supersedes the first contract SHA-256 `d9812ed8dbbee37467b342d4419d9c6688add126da9cb3b9485f2e51fee4ce75` and its initial independent pre-review `ENDPOINT_INFINITE_NEGATIVE_OPERATOR_INDEPENDENT_PRE_REVIEW.md` SHA-256 `74d8d05e12ad3c0b13892871a435dad12c8311bcefabd0ac666e30fe0719b81c` for the row-summability step. The already frozen truncation-density theorem does not use that insufficient step.
 
 The frozen negative Target is `lean-statements/NLA/Statements/SP14.lean`, SHA-256 `2f8e69c4335d8a7a33d38756fce60957ca770af1415a54da5a66b7fa92611c00`. The canonical construction is `eigenvalues-and-inverse-problems/SP-14/references/thalhammer-2026-10-09/counterexample.tex`, SHA-256 `34b917113c3031dee7f2b2f803d03a2eec0fb515582a29fa6c059870439522cd`, in the square-root extension lemma. The actual Fourier matrix and its all-cutoff finite complex Schur bound are frozen in `lean-statements/NLA/Proofs/SP14/EndpointFiniteMatrixSchur.lean`, SHA-256 `0b8c3b6c2647a2f955a638993b0560343cc101f10adb8df16ad4fd096800de3b`. The literal weighted coefficient space is `SobolevCoeff s` in `WeightedSobolevPhysical.lean`, SHA-256 `ea0166080ec91c5df4da14e2f38eca5fc2a7f9271866099aad1fb8f46e5ba109`; its truncation is `sobolevTruncation` in `WeightedSobolevOperators.lean`, SHA-256 `f0368eb90ab2af9bdbdce1405c1bae511e4c1868ff95015d575cde65fd07b0f1`.
 
@@ -55,7 +57,9 @@ For `y : SobolevCoeff r`, let `P_N y = sobolevTruncation r N y`. First prove `P_
  \le C_r^2\sum_{k<N}|y_k|^2.
 \]
 
-For fixed `t`, apply it with `J=t+1` to a vector supported on any finite interval `[N,M)`. Thus its row partial sums are Cauchy, with tail at most `C_r(\sum_{N\le k<M}|y_k|^2)^{1/2}`. This proves ordinary series summability in `ℂ`, not merely convergence along a selected subsequence. The same all-`J` estimate and passage to limits give
+For fixed `t`, put `S_N=∑_{k<N}|B^(r)_{t,k}|²`. Apply the finite theorem with `J=t+1` and the complex test vector `x_k=conj(B^(r)_{t,k})`. Its selected row is the nonnegative real number `S_N`; the other row squares are nonnegative. Hence `S_N²≤C_r² S_N`, and therefore `S_N≤C_r²`, including `S_N=0`. Bounded monotone partial sums prove `∑_k|B^(r)_{t,k}|²<∞`, so each actual Fourier row belongs to `ℓ²`. The pinned `lp.summable_mul` (Hölder exponents `2,2`) then proves `∑_k |B^(r)_{t,k} y_k|<∞` for every `y∈ℓ²`, and `Summable.of_norm` gives the displayed complex `tsum`. This **absolute** summability is essential: Cauchy convergence of ordered interval partial sums alone would not establish Mathlib's unconditional `Summable` predicate.
+
+The same all-`J` estimate and passage to limits of these absolutely convergent row sums give
 
 \[
 \sum_{t<J}\left|\sum_{k\ge0}B^{(r)}_{t,k}y_k\right|^2
