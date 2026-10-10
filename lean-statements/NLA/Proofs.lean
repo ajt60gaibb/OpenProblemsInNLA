@@ -7,6 +7,7 @@ import NLA.Proofs.RA06.Final
 import NLA.Proofs.RA10.SpectralQuadratic
 import NLA.Proofs.RA10.NuclearNormZero
 import NLA.Proofs.RA10.RidgeScalar
+import NLA.Proofs.RA10.ConstantElevenArithmetic
 import NLA.Proofs.MF03.OrderOne
 import NLA.Proofs.MF03.Transport
 import NLA.Proofs.MF03.Finite02
@@ -35,6 +36,7 @@ import NLA.Proofs.MF03.FiniteDeterminantLimit
 import NLA.Proofs.MF03.PadeToeplitzCramer
 import NLA.Proofs.MF03.FiniteBidiagonalMinor
 import NLA.Proofs.MF03.FiniteBidiagonalStep
+import NLA.Proofs.MF03.FiniteMinorCauchyBinet
 import NLA.Proofs.MF03.FiniteTableauTail
 import NLA.Proofs.MF03.FiniteTableauPair
 import NLA.Proofs.MF03.FiniteTableauWeightFactor
