@@ -21,16 +21,19 @@ import NLA.Proofs.MF03.Finite13
 import NLA.Proofs.MF03.Finite14
 import NLA.Proofs.MF03.Finite15
 import NLA.Proofs.MF03.FiniteRange
+import NLA.Proofs.MF03.CosineTail
 import NLA.Proofs.SP14.SubsequenceGap
 import NLA.Proofs.SP14.BaseCoefficient
 import NLA.Proofs.SP14.BaseBlockCharpoly
 import NLA.Proofs.SP14.BaseProductBlock
+import NLA.Proofs.SP14.BaseCB
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
 original target. Compile the separately scoped MF-03 order-one-through-fifteen
-target clauses and the conditional SP-14 subsequence, base-coefficient,
-base-block and selected-product lemmas; these are not full-target proofs.
+target clauses and the MF-03 analytic tail bound. Compile the conditional
+SP-14 subsequence and the finite base-coefficient and block lemmas; these
+are not full-target proofs.
 -/
 
 set_option leancert.trust "kernel"
