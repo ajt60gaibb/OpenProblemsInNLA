@@ -63,6 +63,7 @@ import NLA.Proofs.MF03.FiniteUniformColumns
 import NLA.Proofs.MF03.FiniteUniformColumnBounds
 import NLA.Proofs.MF03.FiniteTableauTail
 import NLA.Proofs.MF03.FiniteUniformTableau
+import NLA.Proofs.MF03.FiniteTableauUniform
 import NLA.Proofs.MF03.FiniteTableauPair
 import NLA.Proofs.MF03.FiniteTableauWeightFactor
 import NLA.Proofs.MF03.FiniteTableauTailBound
@@ -135,6 +136,7 @@ import NLA.Proofs.SP14.EndpointTwoSidedCoefficient
 import NLA.Proofs.SP14.EndpointCircleCoeffSummable
 import NLA.Proofs.SP14.EndpointCircleSeries
 import NLA.Proofs.SP14.EndpointCircleFourier
+import NLA.Proofs.SP14.EndpointCircleEnergy
 import NLA.Proofs.SP14.SobolevOversampling
 import NLA.Proofs.SP14.WeightedSobolevPhysical
 import NLA.Proofs.SP14.WeightedSobolevOperators

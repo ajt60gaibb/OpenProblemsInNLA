@@ -90,6 +90,9 @@ The [forward tableau map](MF-03/FINITE_UNIFORM_TABLEAU_INDEPENDENT_FINAL_REVIEW.
 fills exactly the original augmented Young diagram from sorted path columns,
 with weak rows, strict columns, and every actual entry `<N`; the inverse and
 weighted bijection remain open.
+The [reverse tableau-column values](MF-03/FINITE_TABLEAU_UNIFORM_INDEPENDENT_FINAL_REVIEW.md)
+recover actual entries on every original cell and use `N` only at an omitted
+short-column bottom position; the label sets and inverse path remain open.
 
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
@@ -168,6 +171,9 @@ now uses the exact positive and negative physical coefficients for `r>1/2`.
 The [original-integral Fourier gate](SP-14/ENDPOINT_CIRCLE_FOURIER_INDEPENDENT_FINAL_REVIEW.md)
 identifies all nonnegative and strictly negative modes of that actual
 continuous circle series with the exact two-block physical coefficients.
+The [conventional full-circle Sobolev energy gate](SP-14/ENDPOINT_CIRCLE_ENERGY_INDEPENDENT_FINAL_REVIEW.md)
+proves summability and the exact comparison with the two-block norm, retaining
+the negative-mode weight shift and factor `2^(2r)` for `1/2<r<1`.
 
 The [RA-10 selected-projector gates](RA-10/SELECTED_PROJECTOR_INDEPENDENT_FINAL_REVIEW.md)
 identify the exact frozen first-`k` eigenvector projector, prove symmetry and
