@@ -51,6 +51,7 @@ import NLA.Proofs.TR14.WidthBasics
 import NLA.Proofs.TR14.MomentIndex
 import NLA.Proofs.TR14.ApolarMinimal
 import NLA.Proofs.TR14.NormalizedQuotient
+import NLA.Proofs.TR14.FrobeniusMinimal
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
@@ -90,6 +91,8 @@ zero-width endpoints. Every moment coordinate appears in the frozen Hankel
 tensor; the exact apolar map has a least nonzero degree for nonzero moments.
 Under a monic affine apolar premise, the normalized quotient functional matches
 every moment through the full tensor degree.
+With the exact least-apolar-degree premise, that quotient functional also has
+the full Frobenius nondegeneracy property, by the power-basis argument.
 These results do not prove the full all-width rank equality.
 -/
 
