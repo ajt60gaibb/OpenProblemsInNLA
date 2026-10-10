@@ -46,6 +46,7 @@ import NLA.Proofs.SP14.FiniteCorrectedOddSupport
 import NLA.Proofs.SP14.JetVanishingMultiplicity
 import NLA.Proofs.SP14.BaseJetTriangular
 import NLA.Proofs.SP14.BaseJetCorner
+import NLA.Proofs.SP14.BaseJetFourierMatrix
 import NLA.Proofs.TR14.WidthBasics
 import NLA.Proofs.TR14.MomentIndex
 import NLA.Proofs.TR14.ApolarMinimal
@@ -81,6 +82,9 @@ The source's explicit real base-jet matrix has a verified triangular inverse;
 its identification with the actual Toeplitz jet map is still outstanding.
 The selected finite block's characteristic polynomial equals an exact pencil
 adjugate corner for arbitrary block data, including the empty lower block.
+For the exterior base plus one restored negative packet, the actual frozen
+Fourier coefficients seen by the selected section equal the coefficient-defined
+upper triangular matrix; both odd Toeplitz blocks have the required orientation.
 TR-14 width semantics supply the symmetric-to-ordinary direction and exact
 zero-width endpoints. Every moment coordinate appears in the frozen Hankel
 tensor; the exact apolar map has a least nonzero degree for nonzero moments.
