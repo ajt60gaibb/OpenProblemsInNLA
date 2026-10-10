@@ -177,6 +177,9 @@ continuous circle series with the exact two-block physical coefficients.
 The [conventional full-circle Sobolev energy gate](SP-14/ENDPOINT_CIRCLE_ENERGY_INDEPENDENT_FINAL_REVIEW.md)
 proves summability and the exact comparison with the two-block norm, retaining
 the negative-mode weight shift and factor `2^(2r)` for `1/2<r<1`.
+The [explicit circle-energy bound](SP-14/ENDPOINT_CIRCLE_ENERGY_BOUND_INDEPENDENT_FINAL_REVIEW.md)
+combines that comparison with the actual negative Fourier operator to give
+`2^(2r)(1+C_r²)‖y‖²` with source `C_r=1+1/r+1/(1-r)`.
 
 The [RA-10 selected-projector gates](RA-10/SELECTED_PROJECTOR_INDEPENDENT_FINAL_REVIEW.md)
 identify the exact frozen first-`k` eigenvector projector, prove symmetry and

@@ -139,6 +139,7 @@ import NLA.Proofs.SP14.EndpointCircleCoeffSummable
 import NLA.Proofs.SP14.EndpointCircleSeries
 import NLA.Proofs.SP14.EndpointCircleFourier
 import NLA.Proofs.SP14.EndpointCircleEnergy
+import NLA.Proofs.SP14.EndpointCircleEnergyBound
 import NLA.Proofs.SP14.SobolevOversampling
 import NLA.Proofs.SP14.WeightedSobolevPhysical
 import NLA.Proofs.SP14.WeightedSobolevOperators
