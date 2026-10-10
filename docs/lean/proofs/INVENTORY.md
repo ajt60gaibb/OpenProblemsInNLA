@@ -64,6 +64,11 @@ every strictly negative output frequency. Its formal power-series proof
 includes the zero input index. The actual endpoint projection matrix and
 Sobolev operator estimates remain open.
 
+The [independently reviewed actual endpoint base series and Fourier integral](SP-14/ENDPOINT_BASE_SERIES_FOURIER_INDEPENDENT_FINAL_REVIEW.md)
+define `g₀(s)=Σ aₙs⁻ⁿ` on the circle, prove absolute convergence and continuity,
+and compute every integer Fourier coefficient using the frozen interval integral.
+The finite inverse monomial and its projected kernel remain open.
+
 The [independently reviewed normalized exterior boundary factor](SP-14/BASE_EXTERIOR_FACTOR_INDEPENDENT_FINAL_REVIEW.md)
 is a continuous half-binomial series with exact square, endpoint zero, and
 base-symbol factor identities. Exterior holomorphy and finite-background

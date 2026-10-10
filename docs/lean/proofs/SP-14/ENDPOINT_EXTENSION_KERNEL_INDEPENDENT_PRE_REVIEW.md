@@ -1,0 +1,9 @@
+# SP-14 actual endpoint-extension Fourier kernel: independent pre-review
+
+**Reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact mathematical and numerical contract `ENDPOINT_EXTENSION_KERNEL_PRE_REVIEW.md` at SHA-256 `02c6e68d49e4ec2fefed5a58dd81ae1a1f48ad388c0ec5025df6090cb06b8c03` before Lean implementation.
+
+I checked the canonical manuscript at SHA-256 `34b917113c3031dee7f2b2f803d03a2eec0fb515582a29fa6c059870439522cd`, the unchanged frozen SP-14 Target at SHA-256 `2f8e69c4335d8a7a33d38756fce60957ca770af1415a54da5a66b7fa92611c00`, and the existing coefficient and frozen interval-integral definitions. The endpoint symbol here is the absolutely summable series `g₀(s)=Σ_{n≥0}choose(1/2,n)s^{-n}`; it is distinct from the previously formalized odd-frequency exterior symbol. Its triangular inverse monomial is exactly `V_k(s)=Σ_{l=0}^k choose(-1/2,l)s^{k-l}`.
+
+At each nonnegative Fourier index `p`, the full binomial convolution gives the coefficient `δ_{p,k}` for all `k,p≥0`, including `k=p=0` and `p>k`. At index `−j`, `j≥1`, mode matching gives `Σ_{d=0}^k a_{d+j}b_{k-d}`, exactly the independently reviewed scalar theorem, with `j−1` on its right side. Since `b_n=(-1)^n A_n`, the signed kernel has parity `(-1)^{k+j-1}` and the nonnegative absolute kernel is `((k+1/2)/(k+j))A_kA_{j-1}`. I independently checked the displayed 3×3 rational table against the prior 16-entry scalar table and the endpoint cases `a₁=1/2`, `a₂=-1/8`. The coefficient statements retain the frozen `1/(2π)` interval integral and are to be proved using summability and termwise integration.
+
+This approval covers the exact actual Fourier formulas and their series definitions. Schur and Hilbert–Schmidt estimates, bounded endpoint extension, background inverse, and the frozen negative Target remain separate. The Lean source must be reviewed after implementation and before aggregate import.
