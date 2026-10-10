@@ -50,6 +50,7 @@ import NLA.Proofs.SP14.BaseJetFourierMatrix
 import NLA.Proofs.SP14.BaseJetPencilFormula
 import NLA.Proofs.SP14.BaseJetRealSolve
 import NLA.Proofs.SP14.SobolevOversampling
+import NLA.Proofs.SP14.WeightedSobolevPhysical
 import NLA.Proofs.TR14.WidthBasics
 import NLA.Proofs.TR14.MomentIndex
 import NLA.Proofs.TR14.ApolarMinimal
@@ -61,6 +62,7 @@ import NLA.Proofs.TR14.GL2CoefficientBasis
 import NLA.Proofs.TR14.GL2MomentDual
 import NLA.Proofs.TR14.GL2ApolarPairing
 import NLA.Proofs.TR14.GL2ApolarTransport
+import NLA.Proofs.TR14.GL2Dehomogenize
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
@@ -101,6 +103,10 @@ The resulting real first-jet map equals the source triangular matrix, has an
 explicit right inverse, and has bijective derivative at every base-model vector.
 The source's Sobolev oversampling operator algebra has its exact five conclusions
 from explicit compatible inverse and weighted projection estimates.
+The complete complex `ℓ²` carrier has an exact coefficientwise bijection to
+physical Sobolev sequences with finite `(n+1)^(2s)` energy and its norm-square
+identity. Continuous inclusion, truncation, lift, and background bounds remain
+separate obligations.
 TR-14 width semantics supply the symmetric-to-ordinary direction and exact
 zero-width endpoints. Every moment coordinate appears in the frozen Hankel
 tensor; the exact apolar map has a least nonzero degree for nonzero moments.
@@ -120,6 +126,9 @@ Every frozen apolar equation is equivalent to annihilation of all
 complementary homogeneous products, including every endpoint degree.
 The inverse-dual chart carries every degree's apolar kernel to its exact
 image and preserves existence of nonzero apolar forms in every degree.
+For every nonzero homogeneous coefficient vector, exact affine
+dehomogenization and the explicit chart yield a nonzero transformed final
+coefficient, including degree zero and an initial infinity root.
 These results do not prove the full all-width rank equality.
 -/
 

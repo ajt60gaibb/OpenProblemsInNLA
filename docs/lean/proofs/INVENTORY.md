@@ -33,8 +33,14 @@ sources.
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
 it proves the source's displayed right inverse, range, and sharp norm estimate
-from explicit two-space bounds. Constructing the literal weighted Sobolev
-spaces and proving those bounds for the actual background operator remain open.
+from explicit two-space bounds. Constructing the required maps on the literal
+weighted spaces and proving bounds for the actual background operator remain open.
+
+The [independently reviewed physical weighted-sequence model](SP-14/WEIGHTED_SOBOLEV_PHYSICAL_INDEPENDENT_FINAL_REVIEW.md)
+now identifies the complete complex `ℓ²` carrier with exactly the coefficient
+sequences of finite `(n+1)^(2s)` energy and proves the exact norm-square sum.
+Its continuous inclusion, truncation, lift, and the actual background bounds
+remain open.
 
 The TR-14 chart work also has an [independently reviewed complete coefficient
 basis](TR-14/GL2_COEFFICIENT_BASIS_INDEPENDENT_FINAL_REVIEW.md) for genuine
@@ -43,8 +49,15 @@ homogeneous binary forms, including the exact monomial product index. The
 and [all-degree apolar product equivalence](TR-14/GL2_APOLAR_PAIRING_INDEPENDENT_FINAL_REVIEW.md)
 are also kernel checked. The [inverse-dual chart transport of every apolar
 kernel and nonzero apolar degree](TR-14/GL2_APOLAR_TRANSPORT_INDEPENDENT_FINAL_REVIEW.md)
-is kernel checked as well. Chart normalization and Hankel width transport
-remain subsequent proof obligations.
+is kernel checked as well. Completing monic chart normalization and Hankel
+width transport remain subsequent proof obligations.
+
+The [independently reviewed affine dehomogenization and chart-selection
+lemma](TR-14/GL2_DEHOMOGENIZE_INDEPENDENT_FINAL_REVIEW.md) recovers every
+coefficient, proves the transformed final coefficient equals exact polynomial
+evaluation, and selects a chart where it is nonzero for any chosen nonzero
+form. Monic scaling, least-witness preservation, and Hankel width transport
+remain open.
 
 ## Shared statement only; no live proof source (34)
 
