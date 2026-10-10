@@ -100,6 +100,10 @@ The [positive endpoint and continuous negative ratio](SP-14/POSITIVE_ENDPOINT_RA
 also have exact finite factorization and off-endpoint quotient identity.
 The [actual ratio extension's W⁰ size](SP-14/NEGATIVE_RATIO_W0_INDEPENDENT_FINAL_REVIEW.md)
 is summable with the constant-one bound by `W⁰(g₀)Σ|qⱼ|`.
+The [finite positive Laurent multiplier](SP-14/FINITE_POSITIVE_WIENER_MULTIPLIER_INDEPENDENT_FINAL_REVIEW.md)
+has exact frequency shifts and a constant-one `W^(9/8)` product bound.
+The [actual positive Laurent literal weighted size](SP-14/FINITE_POSITIVE_WIENER_SIZE_INDEPENDENT_FINAL_REVIEW.md)
+equals its exact finite coefficient sum.
 The full background product estimates remain open.
 
 The TR-14 chart work also has an [independently reviewed complete coefficient

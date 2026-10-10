@@ -57,6 +57,8 @@ import NLA.Proofs.SP14.ActualNegativeWienerBound
 import NLA.Proofs.SP14.CanonicalFirstWienerSizes
 import NLA.Proofs.SP14.PositiveEndpointRatio
 import NLA.Proofs.SP14.NegativeRatioW0
+import NLA.Proofs.SP14.FinitePositiveWienerMultiplier
+import NLA.Proofs.SP14.FinitePositiveWienerSize
 import NLA.Proofs.SP14.PositivePacketInvisibility
 import NLA.Proofs.SP14.NegativeRestorationInvisibility
 import NLA.Proofs.SP14.OddFrequencyToeplitzCharpoly
