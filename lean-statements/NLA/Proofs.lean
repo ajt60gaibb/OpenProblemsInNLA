@@ -35,6 +35,7 @@ import NLA.Proofs.SP14.BaseParityBlocks
 import NLA.Proofs.SP14.BaseOffdiagonalCharpoly
 import NLA.Proofs.SP14.BaseToeplitzCharpolyConditional
 import NLA.Proofs.SP14.BaseCoeffSummable
+import NLA.Proofs.SP14.BaseExteriorSeries
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
@@ -43,7 +44,8 @@ target clauses, analytic tail and value-at-three bounds, and initial product
 convergence. Compile the conditional SP-14 subsequence, finite base-block
 algebra, frozen integral's pure-mode Fourier orthogonality, and the conditional
 actual Toeplitz odd-order characteristic polynomial. These are not full-target
-proofs. The exterior half-binomial coefficient norms are summable.
+proofs. The exterior half-binomial coefficient norms are summable, and the
+normalized exterior boundary series is continuous.
 -/
 
 set_option leancert.trust "kernel"
