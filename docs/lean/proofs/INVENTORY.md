@@ -108,6 +108,9 @@ every original tableau uniform value; tableau equality remains open.
 The [tableau round trip](MF-03/FINITE_TABLEAU_ROUNDTRIP_INDEPENDENT_FINAL_REVIEW.md)
 now proves exact equality after conversion to the actual-label column system
 and back, cellwise on the unchanged augmented shape; reverse system identity remains open.
+The [reverse column-system round trip](MF-03/FINITE_COLUMN_UNIFORM_INVERSE_INDEPENDENT_FINAL_REVIEW.md)
+recovers every original actual label set after the forward tableau map and
+proves the second exact identity; the literal path-chain inverse remains open.
 
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
@@ -230,6 +233,9 @@ equality under a supplied decomposition of that `C`; its numerical inequality re
 The [selected-compression PSD gate](RA-10/SELECTED_COMPRESSION_PSD_INDEPENDENT_FINAL_REVIEW.md)
 proves the exact quadratic identity and both frozen PSD conjuncts for actual
 `C=PAP`; constructing its sorted spectral decomposition remains open.
+The [frozen-to-Mathlib PSD bridge](RA-10/CUSTOM_PSD_MATHLIB_BRIDGE_INDEPENDENT_FINAL_REVIEW.md)
+proves an exact iff in every finite real dimension and applies it to the same
+actual `C=PAP`; sorted spectral existence remains open.
 
 The [independently reviewed normalized exterior boundary factor](SP-14/BASE_EXTERIOR_FACTOR_INDEPENDENT_FINAL_REVIEW.md)
 is a continuous half-binomial series with exact square, endpoint zero, and
