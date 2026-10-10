@@ -42,8 +42,10 @@ import NLA.Proofs.SP14.BaseExteriorBoundarySquare
 import NLA.Proofs.SP14.PositivePacketInvisibility
 import NLA.Proofs.SP14.NegativeRestorationInvisibility
 import NLA.Proofs.SP14.OddFrequencyToeplitzCharpoly
+import NLA.Proofs.SP14.FiniteCorrectedOddSupport
 import NLA.Proofs.TR14.WidthBasics
 import NLA.Proofs.TR14.MomentIndex
+import NLA.Proofs.TR14.ApolarMinimal
 
 /-!
 Build and kernel-audit the reviewed RA-06 theorem inhabiting the frozen
@@ -67,9 +69,12 @@ earlier sections under the source's numerical separation hypotheses.
 Under exact vanishing of the frozen even Fourier coefficients, every odd
 Toeplitz section has an explicit characteristic-polynomial quotient in the
 source's jet coordinate.
+Every finite corrected symbol made from the exterior base and source packets
+is continuous, has this exact odd Fourier support, and inherits that shape.
 TR-14 width semantics supply the symmetric-to-ordinary direction and exact
 zero-width endpoints. Every moment coordinate appears in the frozen Hankel
-tensor. These results do not prove the full all-width rank equality.
+tensor; the exact apolar map has a least nonzero degree for nonzero moments.
+These results do not prove the full all-width rank equality.
 -/
 
 set_option leancert.trust "kernel"
