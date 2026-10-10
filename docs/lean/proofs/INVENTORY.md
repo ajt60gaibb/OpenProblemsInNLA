@@ -111,6 +111,22 @@ and back, cellwise on the unchanged augmented shape; reverse system identity rem
 The [reverse column-system round trip](MF-03/FINITE_COLUMN_UNIFORM_INVERSE_INDEPENDENT_FINAL_REVIEW.md)
 recovers every original actual label set after the forward tableau map and
 proves the second exact identity; the literal path-chain inverse remains open.
+The [tableau/column-system equivalence](MF-03/FINITE_TABLEAU_COLUMN_EQUIV_INDEPENDENT_FINAL_REVIEW.md)
+packages both exact inverse maps on the original augmented shape. The
+[finite label-suffix recurrence](MF-03/FINITE_LABEL_SUFFIX_STEP_INDEPENDENT_FINAL_REVIEW.md)
+counts every zero-based advance label exactly; the source-locked
+[cut-reconstruction contract](MF-03/FINITE_COLUMN_CUT_RECONSTRUCTION_INDEPENDENT_PRE_REVIEW.md)
+fixes the pending literal path inverse and factor order.
+The [cut-position gate](MF-03/FINITE_COLUMN_CUT_POSITIONS_INDEPENDENT_FINAL_REVIEW.md)
+constructs every original-site ordered row at every label cut. The
+[cut endpoint and transition gate](MF-03/FINITE_COLUMN_CUT_ENDPOINTS_INDEPENDENT_FINAL_REVIEW.md)
+recovers the literal original endpoint tuples and factor-indexed valid steps;
+the [literal cut-path constructor](MF-03/FINITE_COLUMN_CUT_PATH_INDEPENDENT_FINAL_REVIEW.md)
+assembles those steps into the original `FiniteValidPath`. Its
+[first exact inverse](MF-03/FINITE_COLUMN_PATH_LEFT_INVERSE_INDEPENDENT_FINAL_REVIEW.md)
+recovers every original actual label set from the reconstructed path; the
+reverse path identity is specified in the
+[independently reviewed inverse contract](MF-03/FINITE_COLUMN_PATH_INVERSE_INDEPENDENT_PRE_REVIEW.md).
 
 The SP-14 partial project also contains the [independently reviewed exact
 Sobolev oversampling operator algebra](SP-14/SOBOLEV_OVERSAMPLING_INDEPENDENT_FINAL_REVIEW.md):
@@ -235,7 +251,16 @@ proves the exact quadratic identity and both frozen PSD conjuncts for actual
 `C=PAP`; constructing its sorted spectral decomposition remains open.
 The [frozen-to-Mathlib PSD bridge](RA-10/CUSTOM_PSD_MATHLIB_BRIDGE_INDEPENDENT_FINAL_REVIEW.md)
 proves an exact iff in every finite real dimension and applies it to the same
-actual `C=PAP`; sorted spectral existence remains open.
+actual `C=PAP`. The [ordered spectral construction](RA-10/SELECTED_COMPRESSION_ORDERED_SPECTRAL_INDEPENDENT_FINAL_REVIEW.md)
+constructs all four frozen spectral conjuncts for this actual compression;
+the [positive-eigenvector support lemma](RA-10/SELECTED_COMPRESSION_POSITIVE_EIGENVECTOR_INDEPENDENT_FINAL_REVIEW.md)
+shows each positive C eigenvector lies in the original selected range. The
+[constructed-witness Equation (14)](RA-10/MATCHED_LEADING_EQ14_CONSTRUCTED_INDEPENDENT_FINAL_REVIEW.md)
+discharges the separate hC premise for the exact matrix and nuclear norm
+equalities. The compression eigenvalue comparison remains open under its
+[reviewed min-max contract](RA-10/SELECTED_COMPRESSION_EIGENVALUE_INDEPENDENT_PRE_REVIEW.md),
+with [exact Rayleigh dependencies](RA-10/ORDERED_SPECTRAL_RAYLEIGH_INDEPENDENT_PRE_REVIEW.md)
+reviewed before implementation.
 
 The [independently reviewed normalized exterior boundary factor](SP-14/BASE_EXTERIOR_FACTOR_INDEPENDENT_FINAL_REVIEW.md)
 is a continuous half-binomial series with exact square, endpoint zero, and

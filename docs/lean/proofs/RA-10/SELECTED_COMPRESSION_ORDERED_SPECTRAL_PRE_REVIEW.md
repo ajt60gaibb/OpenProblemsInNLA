@@ -18,13 +18,13 @@ Source Section 3 sets `P` to the first `k` supplied `QAhat` eigenvectors and `C=
 
 For arbitrary finite `n` and a real `M : Matrix (Fin n) (Fin n) ℝ` with pinned `Matrix.PosSemidef M`, write `hHerm := hM.1`. Pinned Mathlib `Matrix.IsHermitian.eigenvalues₀ hHerm` is indexed by `Fin (Fintype.card (Fin n))`, is antitone by `eigenvalues₀_antitone`, and its unsorted-index companion `hHerm.eigenvalues` is paired with columns of `hHerm.eigenvectorUnitary`. Pinned `Matrix.PosSemidef.eigenvalues_nonneg` gives nonnegativity of each paired eigenvalue. The real `hHerm.spectral_theorem` reconstructs M from those columns and eigenvalues.
 
-The library's `Fintype.equivOfCardEq (Fintype.card_fin n)` maps the sorted-index type to `Fin n`, but that arbitrary equivalence need **not** preserve order. Do **not** infer `Antitone hHerm.eigenvalues` directly. Instead use the order-preserving
+The library's `Fintype.equivOfCardEq (Fintype.card_fin (Fintype.card (Fin n)))` maps the sorted-index type to `Fin n`, but that arbitrary equivalence need **not** preserve order. The inner `Fintype.card (Fin n)` is essential: `Fintype.card_fin n` alone has type `card (Fin n)=n` and does not type the required equivalence. Do **not** infer `Antitone hHerm.eigenvalues` directly. Instead use the order-preserving
 
 ```text
 t : Fin n ≃o Fin (Fintype.card (Fin n))
   := Fin.castOrderIso (Fintype.card_fin n).symm,
 e : Fin (Fintype.card (Fin n)) ≃ Fin n
-  := Fintype.equivOfCardEq (Fintype.card_fin n),
+  := Fintype.equivOfCardEq (Fintype.card_fin (Fintype.card (Fin n))),
 σ : Fin n ≃ Fin n := t.toEquiv.trans e.
 ```
 
@@ -47,7 +47,7 @@ namespace NLA.Proofs.RA10
 
 noncomputable def sortedHermitianIndex (n : ℕ) : Fin n ≃ Fin n :=
   (Fin.castOrderIso (Fintype.card_fin n).symm).toEquiv.trans
-    (Fintype.equivOfCardEq (Fintype.card_fin n))
+    (Fintype.equivOfCardEq (Fintype.card_fin (Fintype.card (Fin n))))
 
 theorem mathlibPosSemidef_sortedEigenvalues_antitone {n : ℕ}
     {M : Matrix (Fin n) (Fin n) ℝ} (hM : Matrix.PosSemidef M) :
