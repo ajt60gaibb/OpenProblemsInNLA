@@ -10,6 +10,7 @@ import NLA.Proofs.SP14.EndpointInverseHSScalar
 import NLA.Proofs.SP14.EndpointFiniteInverseEnergy
 import NLA.Proofs.SP14.EndpointFiniteInverseParseval
 import NLA.Proofs.SP14.EndpointFiniteInverseNorm
+import NLA.Proofs.SP14.EndpointFiniteInverseTruncation
 import NLA.Proofs.SP14.SubsequenceGap
 import NLA.Proofs.SP14.BaseCoefficient
 import NLA.Proofs.SP14.BaseBlockCharpoly
