@@ -68,6 +68,7 @@ import NLA.Proofs.SP14.EndpointVanishingByDensity
 import NLA.Proofs.SP14.EndpointFiniteInverseFourier
 import NLA.Proofs.SP14.EndpointInverseHSScalar
 import NLA.Proofs.SP14.EndpointFiniteInverseEnergy
+import NLA.Proofs.SP14.EndpointFiniteInverseParseval
 import NLA.Proofs.TR14.ChartLocalFourierWidth
 import NLA.Proofs.TR14.GL2AffineChartPolynomial
 import NLA.Proofs.TR14.GL2MobiusEval
