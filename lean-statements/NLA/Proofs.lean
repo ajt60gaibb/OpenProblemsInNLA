@@ -50,6 +50,7 @@ import NLA.Proofs.RA10.MatchedLeadingEq10
 import NLA.Proofs.RA10.SelectedCompressionTail
 import NLA.Proofs.RA10.MatchedLeadingEq11Scalar
 import NLA.Proofs.RA10.RidgeCompressionDefectSupport
+import NLA.Proofs.RA10.RidgeCompressionEq6Eigenvector
 import NLA.Proofs.RA10.RidgeCompressionEq7Scalar
 import NLA.Proofs.RA10.MatchedLeadingEq11Variational
 import NLA.Proofs.RA10.MatchedLeadingEq12RidgeLoss
