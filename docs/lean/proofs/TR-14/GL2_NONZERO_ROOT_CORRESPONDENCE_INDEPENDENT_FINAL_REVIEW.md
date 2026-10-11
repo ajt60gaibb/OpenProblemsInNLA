@@ -1,0 +1,7 @@
+# TR-14 nonzero finite-root correspondence: independent imported review
+
+**Disposition:** pass the exact nonzero finite-root equivalence and its two coordinate formulas as partial gates. Multiplicities, chart points at infinity, the projective support count, width bounds, and frozen Target remain open.
+
+I reviewed `GL2NonzeroRootCorrespondence.lean` at frozen SHA-256 `10ad66167d9cfbc7f4b3d5de93a693e91e0ff4d70cb05a14c926fbf462e5a794` against the source-locked [precontract](GL2_NONZERO_ROOT_CORRESPONDENCE_PRE_REVIEW.md) and [independent mathematical review](GL2_NONZERO_ROOT_CORRESPONDENCE_INDEPENDENT_PRE_REVIEW.md). The root iff theorem uses the audited `q(t)=t^d p(z+t⁻¹)` at `t≠0`. The subtype equivalence sends each original finite root `α≠z` to `(α−z)⁻¹` and has inverse `t↦z+t⁻¹`; both apply theorems export these exact coordinate maps. It quantifies over every ambient degree, including zero and trailing-zero coefficient vectors, and does not infer multiplicity or total projective root count.
+
+A separate importing file checked all four exact signatures, both explicit map equations, `#assert_trust kernel`, and `#print axioms` under `set_option leancert.trust "kernel"`. Pinned Lean 4.33.1 exited zero. The equivalence and inverse-map theorem report only `[propext, Classical.choice, Quot.sound]`; the source has no `sorry`, `admit`, new `axiom`, `unsafe`, or `native_decide`. The agent's direct module build passed 3,038 jobs. Aggregate import remains the next gate.
