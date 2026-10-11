@@ -1,0 +1,9 @@
+# SP-14 finite inverse linearity: independent imported review
+
+**Disposition:** approve the exact finite additivity and complex homogeneity gates. The completed `L²` inverse and frozen negative `NLA.Statements.SP14.Target` remain open.
+
+I reviewed `EndpointFiniteInverseLinearity.lean` at SHA-256 `c9c48b126d81a773a323f62ee59d643e6bce8083ae4a98a15146c135223a0454` independently of its author, after the [source/indexing contract](ENDPOINT_FINITE_INVERSE_LINEARITY_PRE_REVIEW.md) and [independent pre-implementation review](ENDPOINT_FINITE_INVERSE_LINEARITY_INDEPENDENT_PRE_REVIEW.md) were frozen. The source uses the already audited actual `endpointFiniteInverse` and its probability-Haar `endpointFiniteInverseLp` class. It changes neither the weighted input coefficients nor the output carrier.
+
+The public theorem types match the two approved signatures verbatim: for every real `r`, every `N : ℕ`, all `y,z : SobolevCoeff r`, and every `c : ℂ`, `endpointFiniteInverseLp r (y+z) N` equals the sum of the two finite outputs and `endpointFiniteInverseLp r (c•y) N` equals `c` times the finite output. There is no `r>1/2` hypothesis and `N=0` is included. The private proofs establish these identities pointwise for the actual finite polynomial sum and then use the complex-linear continuous-map-to-`Lp` operation; they add no Fourier sign, normalization factor, or artificial replacement operator.
+
+I independently imported the frozen module in `/private/tmp/nla-sp14-linearity-independent-audit.lean`, typechecked both exact public signatures, and ran `#assert_trust kernel` under LeanCert `kernel` for each theorem. Pinned Lean 4.33.1 exited zero; each `#print axioms` reported only `[propext, Classical.choice, Quot.sound]`. The source has no `sorry`, `admit`, new `axiom`, `unsafe`, or `native_decide`. The split aggregate `lake build NLA.Proofs` passed 3,137 jobs after import. Aggregate import is approved for these two finite identities only.
