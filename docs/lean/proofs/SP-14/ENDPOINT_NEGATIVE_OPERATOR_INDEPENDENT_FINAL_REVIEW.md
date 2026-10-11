@@ -1,0 +1,9 @@
+# SP-14 actual infinite negative Fourier operator: independent final review
+
+**Author:** `/root/sp14_base_proof`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact infinite negative-operator gate; the frozen SP-14 negative Target remains open.
+
+The frozen source `EndpointNegativeOperator.lean` has SHA-256 `16685a4f52b47911d79fc79b78cbdd9117e3efcb914e5102e0b068da118442b1`. I checked it against the corrected source-locked infinite-operator contract, the actual Fourier-entry definition, and the independently audited row summability and all-output prefix estimates. Its public `endpointNegativeOperator r hr hr1` is an unconditional complex continuous linear map `SobolevCoeff r →L[ℂ] SobolevCoeff r` for every `0<r<1`. Every coordinate is exactly the unconditional `tsum` of the actual frozen weighted Fourier entry times the input coordinate. The operator norm is at most the **literal** `C_r=1+1/r+1/(1-r)`, with no larger cutoff-dependent constant. The proof derives output `lp 2` membership and the norm bound from all finite prefixes, proves linearity by summable `tsum` identities, then uses `mkContinuous`. It retains zero input/output modes and the supplied real parameter without a finite cutoff or assumed extension.
+
+An independent imported audit at `/private/tmp/sp14-endpoint-negative-operator-independent-audit.lean`, SHA-256 `5210036e36c8c527c75970b0d25aa276bcd19b600d21d3036c435d7ede9f5117`, elaborated the CLM type, exact coordinate theorem, and literal norm bound, passed `#assert_trust kernel`, and reported only `propext`, `Classical.choice`, and `Quot.sound`. No proof escape or new axiom appears in the source.
+
+The operator supplies the negative coefficient block. The two-sided extension, circle `H^r` realization, actual background inverse estimates, pointwise endpoint behavior, nonextension, and frozen negative Target remain open.
