@@ -1,0 +1,9 @@
+# SP-14 finite-support density: independent imported review
+
+**Disposition:** approve the exact finite-support carrier and density theorem as prerequisites for the completed inverse. This gate does not define the completed operator or prove the frozen negative `NLA.Statements.SP14.Target`.
+
+I reviewed `EndpointInverseL2Dense.lean` at SHA-256 `f772c3b09528367fcceeb16f606043a4ac279d7ba6928f6f99190428ba424e0a` independently of its author, after freezing the [source/indexing contract](ENDPOINT_INVERSE_L2_DENSE_PRE_REVIEW.md) and [independent mathematical review](ENDPOINT_INVERSE_L2_DENSE_INDEPENDENT_PRE_REVIEW.md). The source candidate existed before that review and was held unimported and unaccepted; this separate audit checks the accepted frozen bytes against the approved signatures.
+
+The public `endpointFiniteSupport r` is definitionally the submodule with carrier `{y : SobolevCoeff r | ∃ N, ∀ n ≥ N, y n = 0}` in the **weighted** coordinates. Its zero, add, and complex-smul laws keep the exact finite-support condition. The theorem `endpointFiniteSupport_dense (r : ℝ) : DenseRange (endpointFiniteSupport r).subtype` has no extra hypothesis: it uses the literal first-`N` truncation and the already audited norm convergence theorem for every real `r`. The `N=0` empty truncation and arbitrary finite support are included.
+
+I independently imported the frozen module in `/private/tmp/nla-sp14-dense-independent-audit.lean`. An exact-carrier `Iff.rfl` example and exact density-signature example typechecked; `#assert_trust kernel` passed for the definition and theorem under LeanCert `kernel`. Pinned Lean 4.33.1 exited zero, and `#print axioms` reported only `[propext, Classical.choice, Quot.sound]`. The source has no `sorry`, `admit`, new `axiom`, `unsafe`, or `native_decide`. The split aggregate `lake build NLA.Proofs` passed 3,138 jobs after import. Aggregate import is approved as this density gate only.
