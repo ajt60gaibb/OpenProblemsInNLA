@@ -14,6 +14,7 @@ import NLA.Proofs.SP14.EndpointFiniteInverseTruncation
 import NLA.Proofs.SP14.EndpointFiniteInverseTail
 import NLA.Proofs.SP14.EndpointFiniteInverseLinearity
 import NLA.Proofs.SP14.EndpointInverseL2Dense
+import NLA.Proofs.SP14.EndpointInverseL2FiniteSupportMap
 import NLA.Proofs.SP14.SubsequenceGap
 import NLA.Proofs.SP14.BaseCoefficient
 import NLA.Proofs.SP14.BaseBlockCharpoly
