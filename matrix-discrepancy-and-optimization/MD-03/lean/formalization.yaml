@@ -1,0 +1,79 @@
+version: v0.4
+project:
+  name: 'MD-03: complete discrepancy target via Komlos'
+  description: Proof of the existing reviewed target with universal constant 36.
+  authors:
+  - Arav Bhattacharyya
+  - OpenAI Codex (AI assistance)
+  license: Apache-2.0
+repository:
+  role: thin-wrapper
+  substantive_formalization:
+    id: https://github.com/gdahia/Komlos
+    revision: fac7d8f71f08caac7f5fe67786abe387cfe18b10
+sources:
+- title: MD-03 canonical problem
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/775bedc1e33cc0951d08610cc7ba50d2901eda1a/matrix-discrepancy-and-optimization/MD-03/README.md
+  type: web-post
+  relationship: formalizes
+  location: Complete original existential target
+  author_endorsement: not-contacted
+- title: Komlos Lean formalization
+  authors:
+  - Gabriel Dahia
+  id: https://github.com/gdahia/Komlos/tree/fac7d8f71f08caac7f5fe67786abe387cfe18b10
+  type: software
+  relationship: adapts
+  license: Apache-2.0
+  location: Komlos.discrepancy_le_of_forall_sum_sq_le_one and discrepancy-to-signing lemmas
+  author_endorsement: not-contacted
+- title: An elementary proof of the Komlos conjecture
+  authors:
+  - Sankeerth Rao Karingula
+  - Shachar Lovett
+  id: https://eccc.weizmann.ac.il/report/2026/188/
+  type: article
+  relationship: background
+  note: Mathematical source followed by the reused formalization; no separate paper audit claimed.
+  author_endorsement: not-contacted
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: Lean 4.33.1; pinned dependencies in lake-manifest.json; local build, statement identity
+      and transitive axiom checks.
+    prompting_notes: Keep reviewed statements unchanged; bridge the external matrix discrepancy theorem
+      to MD-03 and derive MD-04 by scaling.
+  notes: Existing independent statement reviews predate this implementation. No new independent proof
+    review or human endorsement is asserted.
+status:
+  scope: Complete original target proved locally. Authoritative isolated Linux Comparator verification
+    and independent review of this proof remain pending. Catalog status unchanged.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms:
+  - propext
+  - Classical.choice
+  - Quot.sound
+  main_results:
+  - declaration: NLA.MD03.target
+    file: NLA/MD03/Proof.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+fidelity:
+  divergences: The exact reviewed proposition is unchanged. The proof uses constant 36 instead of the
+    sharper constant in the existing Guo-Fang-Lu resolution note. Imported mathematical theorems have
+    checked proof terms, not assumed literature axioms.
+review:
+  status: existing statements reviewed; new proof independently unreviewed
+  notes: Reviewed copies are byte-identical and definitionally equal to the existing frozen statements.
+    New independent proof review and isolated Linux verification remain pending.
+acknowledgements: 'The substantive Komlos formalization is by Gabriel Dahia, with its own disclosed AI
+  assistance. The historical Guo-Fang-Lu result and George Stepaniants application-note attribution remain
+  unchanged. Stepaniants affiliation: Department of Computing and Mathematical Sciences, California Institute
+  of Technology.'

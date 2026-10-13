@@ -3,7 +3,7 @@
 **Difficulty:** challenging  
 **Importance:** broadly interesting  
 **Status:** Solution claimed  
-**Last checked:** 2026-10-09
+**Last checked:** 2026-10-10
 
 **Rating rationale:** A sharp expectation constant requires new random SDP analysis beyond order bounds; it connects matrix optimization with probabilistic combinatorics.
 
@@ -25,7 +25,7 @@ supplied by the maintainer on 8 October 2026 that its intended lower bound
 is $`(1-o_n(1))\sqrt n`$. He also confirmed that Claim 4.15's proof should
 have a logarithm, rather than $`n`$, inside the disputed square root.
 These corrections leave the leading-constant claim unchanged; a corrected
-arXiv version was not yet available on 9 October 2026.
+arXiv version was not yet available on 10 October 2026.
 The [official FOCS 2026 accepted-paper list](https://focs.computer.org/2026/accepted-papers/)
 includes this paper; acceptance is recorded separately from publication in
 the proceedings.
@@ -75,14 +75,16 @@ Theorem 1.2. The argument preserves the original SDP, graph ensemble and
 quantifiers; it does not replace the expectation statement with a
 probabilistic one.
 
-**Evidence, 9 October 2026:** an [independent AI-agent review](../../reviews/2026-10-08-claimed-solutions/MD-01.md)
+**Evidence, 10 October 2026:** an [independent AI-agent review](../../reviews/2026-10-08-claimed-solutions/MD-01.md)
 checks the expectation bridge but not the general graph-matrix estimates.
 Theorem 3.24's printed $`O(1)`$ mixed-moment remainder fails;
 $`O(\sqrt n)`$ is sharp, while its equal-shape case retains $`O(1)`$.
-Definition 4.3 also makes Lemma 4.11 false as printed. Both failures have
-plausible local corrections, but the corrected general proof and an MD-01
-Lean proof remain unverified. The paper's "Formal Verification" appendix is
-a written argument. **Status: Solution claimed.**
+Definition 4.3 also makes Lemma 4.11 false as printed. Coauthor Aaron
+Potechin confirmed in correspondence supplied by the maintainer on 10 October
+2026 that Theorem 3.24 needs the general $`O(\sqrt n)`$ remainder and that
+Definition 4.3 must exclude the starting boundary vertex `u`. The corrected
+general proof and an MD-01 Lean proof remain unverified. The paper's
+"Formal Verification" appendix is a written argument. **Status: Solution claimed.**
 
 ## Original problem statement
 
