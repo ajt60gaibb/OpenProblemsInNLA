@@ -1,0 +1,9 @@
+# RA-10 Equation (10): independent pre-implementation review
+
+**Disposition:** approve the staged generic positive-part identity and exact source Equation (10) as separate Lean obligations. Neither is the full RA-10 Target.
+
+I independently checked `MATCHED_LEADING_EQ10_POSITIVE_PART_PRE_REVIEW.md` at SHA-256 `2c929ff997a36fb4fb1e168c9959ff7dd389a7b657be166f25b3e889e28528c5` against the unchanged canonical README and solution, frozen Target, and all ten dependency SHA locks; each matches. Source Equation (10) is exactly `e_C=L+2 tr((C−A)₊)` for the selected compression `C=PAP`. The proposed `hermitianPositivePart` is the **matrix** obtained from the actual real Hermitian eigenbasis by replacing each eigenvalue with `max(λ,0)`, including zero eigenvalues and `Fin 0`. Returning zero off the Hermitian domain is only a totalization; every theorem use carries and must discharge the actual Hermitian premise. This avoids applying the source PSD decomposition to the indefinite `C−A`.
+
+The scalar equality `|λ|=2 max(λ,0)−λ` fixes the generic coefficient two. For the source theorem, symmetry of `A` and `P` gives Hermitian `C−A`, the full supplied spectral reconstruction gives `tr A=S_top+τ`, and sign invariance gives `NuclearNorm(A−C)=NuclearNorm(C−A)`. Thus `NuclearNorm(A−C)−τ=2 tr((C−A)₊)−tr C+S_top`, exactly `L+2 tr((C−A)₊)`. There is no positive-tail, gap, invertibility, or eigenbasis-alignment premise in the public theorem. The strict `i.val<k` top and `k≤i.val` tail use every `Fin n` eigenvalue.
+
+An exact two-dimensional check uses `A=diag(3,1)`, `P` onto `(1,1)/√2`, and `C=2P`. Here `τ=L=1`, `C−A` has eigenvalues `−1±√2`, `tr((C−A)₊)=√2−1`, and `e_C=2√2−1=L+2(√2−1)`. This checks the sign and factor two without rounding. The generic frozen-norm identity and then source Equation (10) must each pass direct pinned Lean 4.33.1/LeanCert kernel checks and a separate imported exact-signature/source/axiom audit before aggregate import.

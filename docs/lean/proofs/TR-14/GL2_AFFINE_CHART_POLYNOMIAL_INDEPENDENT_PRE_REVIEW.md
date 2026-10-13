@@ -1,0 +1,7 @@
+# TR-14 affine chart polynomial: independent pre-implementation review
+
+**Disposition:** approve the exact public polynomial identity for Lean implementation as a partial chart gate. It does not prove projective root multiplicity preservation or the full TR-14 Target.
+
+I independently checked `GL2_AFFINE_CHART_POLYNOMIAL_PRE_REVIEW.md` at SHA-256 `d51b3fb3e5cfc57a7670a6278a1327fbb2d9c9fbb813392055c6ff254a5ba071` against the unchanged canonical README, solution source, frozen `Target`, and all five imported chart source locks; every listed hash matches. The audited basis represents `g` as `Σ_i g_i X^(d−i)Y^i`, `chartPhi z d` substitutes `(X,Y)↦(Y,X+zY)`, and `dehomogenize` is `Σ_i g_i t^i`. Evaluating the transformed homogeneous polynomial at `(1,t)` gives exactly `Σ_i g_i t^(d−i)(1+zt)^i`, with neither conjugation nor reversal beyond `d−i`. The public theorem quantifies over every `d,z,g` and imposes no apolarity or degree hypothesis.
+
+For a degree-two exact check, with `g=(a,b,c)`, the right side is `c+(b+2cz)t+(a+bz+cz²)t²`, matching `G(t,1+zt)` for `G(X,Y)=aX²+bXY+cY²`. At `z=0` it reverses the coefficients, and at `d=0` it is the constant `g₀`. The leading coefficient is `G(1,z)=Σ_i g_i z^i`, which agrees with the already audited chart last-coefficient identity. Trailing zeros and infinity cases remain included. Implementation may now proceed in an unimported module and must receive a separate imported exact-signature/source/kernel audit before aggregate import.

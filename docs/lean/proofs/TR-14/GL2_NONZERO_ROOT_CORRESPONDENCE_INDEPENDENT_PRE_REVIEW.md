@@ -1,0 +1,11 @@
+# TR-14 nonzero finite-root correspondence: independent pre-implementation review
+
+**Disposition:** approve the exact four proposed declarations for implementation as partial gates. They do not establish projective multiplicity invariance, the projective support count, any tensor width bound, or the frozen Target.
+
+I independently checked `GL2_NONZERO_ROOT_CORRESPONDENCE_PRE_REVIEW.md` at SHA-256 `33fa44fc1443ce411059d5964b5deb519f168490c549e9ad163610311a4dda47` against the canonical TR-14 source, frozen statement, and all nine listed Lean/source locks; each SHA-256 matches. This is the reviewed source after removal of one Markdown trailing-space line break, with no mathematical text changed. The already audited equality is `q(t)=t^d p(z+t⁻¹)` for `t≠0`, with the ambient homogeneous degree retained. Since `t^d≠0` over `ℂ`, the proposed zero-evaluation equivalence follows for all `d`, including zero, and for the zero coefficient vector.
+
+The specified subtype equivalence is a genuine two-sided inverse. For an original finite root `α≠z`, `t=(α−z)⁻¹` is nonzero and satisfies `z+t⁻¹=α`; the audited evaluation equivalence makes it a transformed root. For a transformed root `t≠0`, `α=z+t⁻¹` differs from `z`, and `(α−z)⁻¹=t`. The two apply theorems are essential: they prevent replacing the coordinate map by an arbitrary bijection. Neither side includes its chart point at infinity, and neither theorem asserts multiplicity or cardinality for a nonzero polynomial.
+
+The exact examples check out. For `p(u)=u²−u−2`, `z=1`, the chart polynomial is `1+t−2t²`, whose roots `1,-1/2` correspond to original roots `2,-1`. For ambient `d=2` and `p=u−2`, the chart is `t−t²`; its extra zero at `t=0` is correctly excluded. For `p=u−1`, `z=1`, the chart is `t` and the original root at `α=z` is correctly excluded. At `d=0`, the zero form gives the inverse-coordinate bijection of the punctured affine domains, while a nonzero constant has empty root sets. These checks preserve trailing zeros and do not substitute `p.natDegree` for `d`.
+
+Implementation should import `GL2MobiusEval`, prove the exact public signatures, and receive a separate imported signature/map/axiom audit with pinned Lean 4.33.1 and LeanCert `kernel` before aggregate import. No source README, ID, or frozen Target change is needed.

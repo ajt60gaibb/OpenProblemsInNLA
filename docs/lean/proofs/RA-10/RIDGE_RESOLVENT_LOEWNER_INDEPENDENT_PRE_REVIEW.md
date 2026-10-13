@@ -1,0 +1,9 @@
+# RA-10 ridge-resolvent Loewner bounds: independent pre-review
+
+**Author:** `/root/ra10_spectral_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact Loewner-factor gate for Lean implementation.
+
+I reviewed `RIDGE_RESOLVENT_LOEWNER_PRE_REVIEW.md` at SHA-256 `45352ec44b93234f0c72342ff0433aa147cbdbf92083b46634d5aabab929dd87` against the locked RA-10 solution's Equation (14), frozen real-matrix `PositiveSemidefinite`, and previously audited spectral/resolvent gates. For a supplied PSD decomposition, `s+a_i>0` when `s>0` and `a_i≥0`. The shifted inverse has spectral coefficients `1/(s+a_i)≥0`; its upper difference has exact coefficient `1/s−1/(s+a_i)=a_i/[s(s+a_i)]≥0`. These give both full-matrix Loewner bounds with the same supplied eigenbasis and satisfy both symmetry and quadratic parts of the frozen PSD predicate, including zero eigenvalues and dimension zero.
+
+For the selected factor, the proposed witness `j.val+1=k` exists under the frozen `1≤k<n` range and names the source's one-based `a_k` without modular wraparound. Every selected index `a.val<k` has `a≤j`, so antitonicity gives `a_a≥c=eigenvaluesA j≥0`. The sandwiched resolvent has selected coefficient `1/(s+a_a)` and zero elsewhere. Its upper difference has selected coefficient `1/(s+c)−1/(s+a_a)=(a_a−c)/[(s+c)(s+a_a)]≥0`, exactly the source's sharp `1/(s+c)` factor, with equality allowed at ties and with `c=0`. The same supplied `QAhat` defines both `B₀` and `P`; no commuting or strict-PSD hypothesis is introduced.
+
+Approval covers the five proposed public declarations and exact indexing, symmetry, denominators, and scalar signs. Operator-norm conversion, nuclear ideal-property inequality, compression Lemma 2, integral representation, and full RA-10 Target remain open. Freeze implementation stages for separate imported exact-signature and LeanCert kernel/axiom audit.

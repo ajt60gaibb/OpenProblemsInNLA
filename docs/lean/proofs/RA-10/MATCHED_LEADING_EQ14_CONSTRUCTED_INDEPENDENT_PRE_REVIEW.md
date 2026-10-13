@@ -1,0 +1,9 @@
+# RA-10 Equation (14) with constructed compression witnesses: independent pre-review
+
+**Author:** `/root/ra10_spectral_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact constructed-witness identity for implementation; no nuclear ideal estimate is claimed.
+
+I checked `MATCHED_LEADING_EQ14_CONSTRUCTED_PRE_REVIEW.md` at SHA-256 `b69f351afddff35703bf425ec5d7e5f4aa3eb0ea8d375313a53e3643978672ee` against the unchanged RA-10 source, the reviewed restricted Equation (14) theorem, and the newly audited ordered spectral construction of the actual `C=PAP`. All source hashes match. The theorem simply chooses one ordered decomposition of this same compression from the original `hA,hAhat` premises, then applies both already proved restricted identities. The same C witnesses appear in the PSD, matrix, and nuclear conjuncts. The original supplied `QA`, `QAhat`, and eigenvalues remain unchanged.
+
+The proposed matrix equality retains `FunctionTruncation k (ridgeAtom s) eigenvaluesA QAhat − FunctionMatrix (ridgeAtom s) eigenvaluesC QC`, the factor `s`, the selected left factor `P*RB*P`, and the noncommutative product `(B₀−C)*RC`. The nuclear equality is exact congruence of that matrix equality and does not assert the source's subsequent `1/(s+c)` inequality. The already proved generic compression decomposition and restricted identity include ties, zeros, empty dimension, and arbitrary `k`; no extra positive cutoff or spectral gap is introduced.
+
+Approval covers only the stated common-witness packaging. It requires a frozen source hash, pinned LeanCert kernel direct check, and independent imported exact-signature/source/axiom audit before aggregate import. Nuclear ideal property, ridge Lemma 2, min-max, integral transfer, and full RA-10 Target remain open.
