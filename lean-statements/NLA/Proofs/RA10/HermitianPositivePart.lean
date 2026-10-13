@@ -150,4 +150,11 @@ theorem nuclearNorm_eq_two_trace_positivePart_sub_trace {n : ℕ}
 #assert_trust kernel nuclearNorm_eq_two_trace_positivePart_sub_trace
 #print axioms nuclearNorm_eq_two_trace_positivePart_sub_trace
 
+/-- Public reuse of the proved diagonal nuclear-norm formula. -/
+theorem nuclearNorm_diagonal {n : ℕ} (d : Fin n → ℝ) :
+    NLA.Statements.RA10.NuclearNorm (Matrix.diagonal d) = ∑ i : Fin n, |d i| :=
+  nuclearNorm_diagonal_eq_sum_abs d
+
+#assert_trust kernel nuclearNorm_diagonal
+
 end NLA.Proofs.RA10
