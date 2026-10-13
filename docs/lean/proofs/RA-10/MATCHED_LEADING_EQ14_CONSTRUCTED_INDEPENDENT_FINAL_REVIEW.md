@@ -1,0 +1,7 @@
+# RA-10 Equation (14) with constructed compression witnesses: independent final review
+
+**Author:** `/root/ra10_spectral_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact common-witness matrix and nuclear equalities; the nuclear inequality remains open.
+
+The frozen source `MatchedLeadingEq14Constructed.lean` has SHA-256 `d80e6c2bf614ca8386c26e10cef4bca1c9109458d443b7854895e6d80fd7ab86`. I checked its complete public signature against the independently approved constructed-witness precontract, audited ordered decomposition of the actual `C=PAP`, and both previously proved restricted Equation (14) identities. It chooses a single pair `eigenvaluesC,QC` from the original `hA,hAhat` hypotheses and uses that same pair for the frozen ordered PSD predicate, exact source matrix product with factor `s` and noncommutative order, and the literal nuclear norm equality. The original supplied bases and eigenvalues remain unchanged. No inequality or extra `hC` premise is introduced.
+
+The independent imported exact-signature audit `/private/tmp/ra10-matched-leading-eq14-constructed-independent-audit.lean`, SHA-256 `4aceaa879124a6fcc274ee79386d2177d9fe857b48cf2bd825b1e99e4a80ea4c`, passed pinned LeanCert kernel and reported only `propext`, `Classical.choice`, and `Quot.sound`. The nuclear ideal estimate, source Lemma 2, min-max, integral transfer, and full RA-10 Target remain open.

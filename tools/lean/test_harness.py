@@ -82,6 +82,11 @@ class HarnessTests(unittest.TestCase):
         self.write()
         harness.validate_project(self.project)
 
+    def test_shared_statement_tree_can_contain_ra06_proof_modules(self):
+        (self.project / "lakefile.toml").write_text('name = "NLAStatements"\n')
+        (self.project / "NLA/Proofs/RA06").mkdir(parents=True)
+        self.assertEqual(harness.validate_project(self.project), self.config)
+
     def test_custom_sorry_and_native_axioms_are_rejected(self):
         for axiom in ["custom", "sorryAx", "Lean.ofReduceBool", "Lean.trustCompiler"]:
             with self.subTest(axiom=axiom):

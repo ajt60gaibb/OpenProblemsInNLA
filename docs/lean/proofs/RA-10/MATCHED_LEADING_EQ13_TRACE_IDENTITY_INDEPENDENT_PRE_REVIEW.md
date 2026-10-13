@@ -1,0 +1,11 @@
+# RA-10 Equation (13) first trace identity: independent pre-implementation review
+
+**Disposition:** approve the sole exact positive-cutoff public signature for implementation as a partial gate. Lemma 2's ridge positive-part estimate, Equation (13)'s inequalities, integral transfer, and frozen Target remain open.
+
+I independently checked `MATCHED_LEADING_EQ13_TRACE_IDENTITY_PRE_REVIEW.md` at SHA-256 `910bc3d4fe6aab064910d266a72fdeaaf865117d7bc556d2d488bcb26bcbd917` against the canonical RA-10 solution Equation (13), frozen statement, and all six listed dependency sources. Every SHA-256 matches. The proposed signature keeps the actual selected compression `C=PAP`, both independently supplied original spectral bases, arbitrary ordered compression witness, exact full `FunctionMatrix` for `f_s(x)=x/(s+x)`, the zero-based tail `i.val≥k`, and the original coefficient `2` with the positive part of `F_C−F_A`.
+
+The derivation is exact. The audited Hermitian trace identity applied to `M=F_C−F_A` gives `‖M‖_*=2tr(M₊)−tr M`. Negative homogeneity changes `‖F_A−F_C‖_*` to `‖M‖_*`; spectral trace gives `tr F_A=Σ_{i<k}f_s(a_i)+τ_s`. Since `−tr M=tr F_A−tr F_C`, subtracting `τ_s` yields the proposed equality. `f_s(0)=0` identifies the full-space compression function with the source's range-restricted `f_s(H)` even when `C` has a zero eigenvalue, without aligning the supplied `QC` zero basis with `P`. Neither Loewner comparison nor Lemma 2 is used. The `c>0` premise matches the source's positive-cutoff branch; this algebraic gate does not cover the frozen target's separate zero branch.
+
+An exact two-dimensional check tests the sign and factor two. Take `A=diag(3,1)`, `k=1`, `P` onto `(1,1)/√2`, and `s=1`. Then `C=2P`, `F_A=diag(3/4,1/2)`, and `F_C=(2/3)P`. The matrix `M=F_C−F_A` has trace `−7/12`, determinant `−1/24`, and positive eigenvalue `(√73−7)/24`. Thus `‖F_A−F_C‖_*−τ_s=(√73−6)/12`, while `L_s+2tr(M₊)=1/12+2(√73−7)/24=(√73−6)/12`. Reversing the positive-part orientation or dropping the coefficient two fails this check.
+
+Implementation must pass pinned Lean 4.33.1/LeanCert `kernel`, followed by a separate imported exact-signature/source/axiom audit and aggregate import. No canonical ID, README, solution, or frozen Target changes are needed.

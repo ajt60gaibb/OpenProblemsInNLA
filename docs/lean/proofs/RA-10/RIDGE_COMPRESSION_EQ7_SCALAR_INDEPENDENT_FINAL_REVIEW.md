@@ -1,0 +1,9 @@
+# RA-10 Equation (7) scalar step: independent imported review
+
+**Disposition:** approve the exact scalar coefficient-two dependency from source Lemma 2. The single-positive-eigenvector estimate, positive-eigenspace sum, singular-compression limit, full Lemma 2 bound, and frozen `NLA.Statements.RA10.Target` remain open.
+
+I reviewed `RidgeCompressionEq7Scalar.lean` at SHA-256 `de0382fa58336db491343e3e996d342bb6dc12029548b693608d0b0741a17e3f` independently of its author, after the corrected [source and numerical contract](RIDGE_COMPRESSION_EQ7_SCALAR_PRE_REVIEW.md) and [independent pre-implementation review](RIDGE_COMPRESSION_EQ7_SCALAR_INDEPENDENT_PRE_REVIEW.md) were frozen. The sole public theorem has the approved `lam` signature verbatim: `s,c>0`, `0<lam<1`, `μ=lam/(1+lam)`, and `lam*(s+c)/2 ≤ μ*s + μ*(2−μ)*c/[2*(1−μ)]`. The spelling `lam` represents the source's `λ`; no hypothesis, denominator, or coefficient changed.
+
+The proof derives the exact nonnegative right-minus-left expression `lam*((1−lam)*s+c)/[2*(1+lam)]`, which is algebraically the reviewed `μ[s(1−2μ)+c(1−μ)]/[2(1−μ)]`. Its positivity uses only the approved strict hypotheses. The pre-reviewed rational checks `(1,1,1/2)` and `(2,3,1/3)` give gaps `1/4` and `13/24`, respectively; no endpoint `lam=0` or `lam=1` is silently added.
+
+I independently imported the frozen module in `/private/tmp/nla-ra10-eq7-independent-audit.lean`, typechecked the exact signature, and ran `#assert_trust kernel` under LeanCert `kernel`. Pinned Lean 4.33.1 exited zero; `#print axioms` reported only `[propext, Classical.choice, Quot.sound]`. The source has no `sorry`, `admit`, new `axiom`, `unsafe`, or `native_decide`. The split aggregate `lake build NLA.Proofs` passed 2,787 jobs after import. Aggregate import is approved as this scalar gate only.

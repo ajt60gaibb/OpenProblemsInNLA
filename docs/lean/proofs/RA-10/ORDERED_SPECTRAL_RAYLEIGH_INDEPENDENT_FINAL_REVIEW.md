@@ -1,0 +1,7 @@
+# RA-10 exact ordered spectral Parseval and Rayleigh bounds: independent final review
+
+**Author:** `/root/ra10_spectral_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact three generic gates; the nonzero intersection and compression eigenvalue bound remain separate.
+
+The frozen source `OrderedSpectralRayleigh.lean` has SHA-256 `3a7c03df2db70a97f16fcf05a00585e3f25d10fc523c27f2a3c31a6f9c1a4fc8`. I checked it against the independently approved precontract, the frozen ordered PSD predicate, and the exact preexisting spectral double-quadratic expansion. The supplied square real Q has `QᵀQ=I`, so its coordinates satisfy Parseval with exactly `Σ_i x_i²`. For the prefix lower bound, coordinates after `a` vanish and antitonicity gives `λ_b≥λ_a` on every retained squared coordinate. For the suffix upper bound, coordinates before `a` vanish and antitonicity gives `λ_b≤λ_a`. The source's literal double sum and coefficient one are preserved; no gap, normalized vector, or positive-eigenvalue premise is added.
+
+The independent imported exact-signature audit `/private/tmp/ra10-ordered-spectral-rayleigh-independent-audit.lean`, SHA-256 `80f4ef68956a032a45a756a9e92524d9e158a0cbb5fca12338552750191c4e98`, passed pinned LeanCert kernel. All three theorems report only `propext`, `Classical.choice`, and `Quot.sound`. The simultaneous nonzero intersection, support and quadratic identity on the selected range, min-max comparison, and full RA-10 Target remain open.

@@ -7,8 +7,15 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+import sys
 import jsonschema
 import yaml
+
+# This file is also loaded directly by the repository's metadata tests with
+# importlib, which does not add its directory to Python's import path.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from upstream_source_lock import validate_mf23_source_lock
+from ra06_source_lock import validate_ra06_source_lock
 
 ALLOWED_AXIOMS = {"propext", "Classical.choice", "Quot.sound"}
 
@@ -31,6 +38,10 @@ class UniqueSafeLoader(yaml.SafeLoader):
 
 
 def validate(project: Path, schema: dict) -> None:
+    if project.parent.name == "MF-23" and project.name == "lean":
+        validate_mf23_source_lock(project)
+    if project.parent.name == "RA-06" and project.name == "lean":
+        validate_ra06_source_lock(project)
     metadata = yaml.load((project / "formalization.yaml").read_text(), Loader=UniqueSafeLoader)
     validator = jsonschema.validators.validator_for(schema)
     validator.check_schema(schema)

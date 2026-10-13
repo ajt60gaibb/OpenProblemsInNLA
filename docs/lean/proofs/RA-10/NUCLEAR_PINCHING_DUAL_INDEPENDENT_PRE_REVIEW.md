@@ -1,0 +1,9 @@
+# RA-10 nuclear trace dual and pinching: independent pre-review
+
+**Disposition:** approved for the exact staged Lean implementation. I independently reviewed `NUCLEAR_PINCHING_DUAL_PRE_REVIEW.md` at SHA-256 `049436ae380a2e2ec340ca2b775464951acc69c17f3f3d4e931df4d9452db2a9` and verified all eleven repository and pinned Mathlib source locks.
+
+The orthogonal trace pairing is `trace(UᵀM)`, with the **actual frozen** nuclear norm as upper bound and attained value. The Gram matrix is `MᵀM`, whose ordered eigenvalues are `σ_i(M)^2` at the same zero-based `Fin n` indices. On positive singular indices the vectors `Mv_i/σ_i` are orthonormal. Pinned `Orthonormal.exists_orthonormalBasis_extension_of_card_eq` does have the required fixed-index subset conclusion, conditional on proving its orthonormality and cardinality hypotheses; this permits rank-deficient and zero matrices without silently dropping zero singular values. The trace identity and the Euclidean/matrix bridge remain genuine kernel obligations.
+
+Attainment plus the trace upper bound yields the coefficient-one triangle inequality for arbitrary matrices. For a symmetric idempotent `P`, the already audited reflection is orthogonal and its average identity is exactly `pinch P M=(M+RMR)/2`; audited homogeneity and two-sided invariance then give contraction with coefficient one, including `Fin 0`, rank-zero/full projections, and nonsymmetric `M`. The exact proposed public signatures retain all original matrix quantifiers and norms. This review approves the mathematical route, not the unproved dual or pinching theorems.
+
+Before aggregate import, freeze and independently audit each public Lean stage under pinned LeanCert `kernel`; no trace duality, SVD, triangle inequality, or pinching contraction may enter as a custom axiom or an additional target premise. The source Equation (8), compression Lemma 2, general integral transfer, and full RA-10 Target remain separate obligations.
