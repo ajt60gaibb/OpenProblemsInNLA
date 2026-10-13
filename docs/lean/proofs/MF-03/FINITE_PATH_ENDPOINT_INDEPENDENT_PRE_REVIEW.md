@@ -1,0 +1,9 @@
+# MF-03 finite path endpoints and tableau bijection: independent pre-review
+
+**Author:** `/root/mf03_jt_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact all-order finite combinatorial contract for staged Lean implementation.
+
+I reviewed `FINITE_PATH_ENDPOINT_PRE_REVIEW.md` at SHA-256 `c758075048eb1c31f6d2ea6c34a5c62e567c469ae7dfe2b7326b467f90a7406b` against the frozen finite minor, valid-path and tableau definitions, and the source-locked MF-03 solution. The row map `I_(m,j)` omits exactly row `j`; the column map `J_m(p)=m+1+p` retains the original minor orientation. Their differences are `m+1` for `p<j` and `m` otherwise, matching the exact augmented shape's column lengths. At `m=0` both maps and the tableau shape are empty.
+
+The product order `B_(N−1)⋯B_0` makes chronological transition `t` carry label `N−1−t`; an advance contributes `cosineFactor(k+1)`, and a stationary move contributes one. Sorting each path's advance labels increasingly gives strict tableau columns. At a suffix cut `q`, adjacent positions remain strictly ordered exactly when `A_p(q)≤A_(p+1)(q)+ε_p`, where the only extra initial gap is at `p+1=j`. For equal column lengths this is the standard suffix-count characterization of weak row increase; for the one long-to-short boundary the allowed surplus one matches the extra bottom cell. This equivalence must be proved for every intermediate cut and every `m,N,j`, not inferred from endpoint order. The zero-label case has a path/tableau only for the empty shape `m=0`, with weight one.
+
+Approval covers the endpoint determinant-to-chain identity, exact path/tableau bijection, label and weight preservation, and the resulting full finite determinant/tableau equality for all `j≤m`. It does not establish positivity of the limiting original determinants, all-order Padé pairs, or frozen MF-03 `Target`. Freeze and independently import-audit each implemented stage before aggregate import.

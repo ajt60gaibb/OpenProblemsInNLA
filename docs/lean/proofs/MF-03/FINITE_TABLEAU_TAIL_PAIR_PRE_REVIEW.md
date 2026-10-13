@@ -1,0 +1,11 @@
+# MF-03 finite tableau tail via unrestricted tuples: pre-implementation contract
+
+**Author:** `/root`, 10 October 2026. **Status:** awaiting independent mathematical review before Lean implementation. This is a narrower finite combinatorial gate under the already approved `SCHUR_PADE_ALL_ORDER_PRE_REVIEW.md`; it does not assert the dual Jacobi–Trudi determinant identity or the all-order Target.
+
+For all natural `N,m,j` with `j≤m`, let `TailLabel(N,m)={k:Fin N // m≤k.val}` and define the exact finite tail `S_(m,N)=Σ_{k:TailLabel(N,m)}cosineFactor(k.val+1)`. This is the original zero-based factor tail over `m≤k<N`; it equals zero when the label subtype is empty. Use the existing bounded tableau types and their literal product weights. The exact proposed theorem is
+
+`finiteAugTableauSum N m j ≤ finiteRectTableauSum N m * S_(m,N)^j`.
+
+The already kernel-checked bottom-row bound puts every augmented tableau's bottom label in `TailLabel(N,m)`. The already independently reviewed restriction-plus-bottom map is injective, and the independently reviewed factorization identifies its weight with the product of the rectangle weight and the bottom tuple weight. Every factor `cosineFactor(k+1)=1/[π²(k+1/2)²]` is strictly positive for `k≥0`; therefore every tableau and tuple weight is nonnegative. Sum over the injective image, enlarge to **all ordered** `Fin j→TailLabel(N,m)` tuples, and separate the product-type sum. `Fintype.sum_pow` gives their exact total weight `S_(m,N)^j`. This direct enlargement is valid because every semistandard bottom row is one of those ordered tuples; it does not count a row more than once and does not need a weak-row intermediate sum. It leaves the target upper bound unchanged and uses only finite sums, no large numerical computation.
+
+At `j=0`, the tuple type has one function and the empty product/power is one, so the inequality includes the rectangle case. If `N≤m` and `j>0`, no bounded augmented tableau can have a bottom label `≥m`; the left sum and tail power are both zero. `N=0`, `m=0`, and empty rectangular shapes are included. The canonical positivity and determinant transfer are separate gates. No frozen Target, permanent ID, or canonical README changes.
