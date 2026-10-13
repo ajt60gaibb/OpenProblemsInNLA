@@ -1,0 +1,7 @@
+# SP-14 endpoint vanishing by density: independent imported review
+
+**Disposition:** pass as a source-faithful partial gate. It does not prove the frozen negative SP-14 Target.
+
+I reviewed the frozen implementation `EndpointVanishingByDensity.lean` at SHA-256 `1daf44e7a211de2faccc628d86710e3d6469c3d62b2499d072e52b72c567bf8d` against the approved precontract and its independent pre-review. The theorem uses the actual `endpointCircleRealization`, literal `SobolevCoeff r` input, exact range `1/2<r<1`, and the actual circle point `-1`. The finite truncation proof uses the imported pointwise finite inverse identity and `endpointBaseSymbol(-1)=0`. The arbitrary-input limit uses the imported input difference estimate with the same explicit `‖endpointCircleWeightLp‖*(1+endpointSchurConstant r)` multiplier and the audited truncation convergence. There is no division by the vanishing symbol or substitution into an infinite polynomial.
+
+A separate file imported the built module and checked the exact public signature with an example, then ran `#assert_trust kernel` and `#print axioms` under `set_option leancert.trust "kernel"`. Pinned Lean 4.33.1 exited zero; the reported axioms were exactly `[propext, Classical.choice, Quot.sound]`. The source has no `sorry`, `admit`, new `axiom`, `unsafe`, or `native_decide`. The agent's direct module build also passed 3,106 jobs. Aggregate import remains the next gate.
