@@ -6,8 +6,8 @@ This generated source inventory covers every permanent registered ID. It does no
 
 Registered entries: **217**.
 
-- external-statement-source: **6**
-- local-statement-source: **66**
+- external-statement-source: **5**
+- local-statement-source: **67**
 - missing-statement: **101**
 - shared-statement-source: **44**
 
@@ -117,7 +117,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [MF-20](../../../matrix-functions-and-stability/MF-20/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [MF-21](../../../matrix-functions-and-stability/MF-21/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [MF-22](../../../matrix-functions-and-stability/MF-22/README.md) | Lean verified | local-statement-source | Not audited here. |
-| [MF-23](../../../matrix-functions-and-stability/MF-23/README.md) | Solved | external-statement-source | Not audited here. |
+| [MF-23](../../../matrix-functions-and-stability/MF-23/README.md) | Solved | local-statement-source | Not audited here. |
 | [MF-24](../../../matrix-functions-and-stability/MF-24/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [MI-01](../../../matrix-inequalities-and-norms/MI-01/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [MI-02](../../../matrix-inequalities-and-norms/MI-02/README.md) | Partially resolved | missing-statement | Not audited here. |
