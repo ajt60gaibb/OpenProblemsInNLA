@@ -1,0 +1,9 @@
+# MF-03 exact cut reconstruction: independent pre-review
+
+**Author:** `/root/mf03_jt_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the source-locked cut/path contract for staged Lean implementation; no new inverse or weighted equality is claimed yet.
+
+I checked `FINITE_COLUMN_CUT_RECONSTRUCTION_PRE_REVIEW.md` at SHA-256 `e765a2f2047ec10619a5b37fd7bbaf7ab26f3167fb2872183cb278fd44779ff8` against the unchanged MF-03 README, frozen augmented determinant endpoints, exact valid-chain and label-set definitions, independently reviewed sentinel contract, and two proved tableau/column-system round trips. All recorded source hashes match. The actual sets contain only labels `<N`, with the exact `m+1` or `m` column sizes; the sentinel is absent from each actual set and every frozen tableau cell.
+
+For each path coordinate, the proposed `P_q=I+|S∩[q,∞)|` remains within `Fin(2m+1)` and is strictly ordered at every `q≤N` by the one-gap noncollision inequality. Its endpoints are exactly the original `I` and `J`. The finite-set recurrence gives each transition `P_(q+1)→P_q` precisely one advance when `q∈S`; the descending sequence has the same zero-based factor order as the existing `FiniteValidPath`. The two planned inverses require literal equality of every intermediate row and every original advance-label set, so they cannot be satisfied by matching only cardinalities or a reordered chain. The `m=0`, `N=0`, `j=0`, and `j=m` cases are included without division or per-order calculation.
+
+Approval covers the mathematical statements and indexing of the proposed suffix, position, endpoint, path, inverse, and later weight gates. Each implemented source stage still requires a separate frozen hash, direct pinned LeanCert kernel check, and independent imported exact-signature/axiom audit before aggregate import. Weighted determinant/tableau equality and the full MF-03 Target remain open.

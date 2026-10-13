@@ -1,0 +1,7 @@
+# MF-03 literal valid path from actual column labels: independent final review
+
+**Author:** `/root/mf03_jt_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact literal chain constructor; both inverse laws remain open.
+
+The frozen source `FiniteColumnCutPath.lean` has SHA-256 `f292db6d7750c4359f4d0020b7afcacef0ad25dd40f026efe0a7335a520bbcbb`. I checked it against the independently approved cut reconstruction contract, the audited original endpoint equalities, the exact factor-indexed `finiteValidStep`, and the frozen recursive `FiniteValidPath`. Its auxiliary recursion builds the chain from cut `n` through cuts `n−1,...,0`, so the first transition of a length-`n+1` path carries the original zero-based factor label `n`. Endpoint transport yields exactly `FiniteValidPath m N (finitePathStart m j hj) (finitePathEnd m)` for every `FiniteColumnSystem N m j`; there is no quotient, relaxed row type, sentinel advance, or coefficient change.
+
+The independent imported exact-signature audit `/private/tmp/mf03-finite-column-cut-path-independent-audit.lean`, SHA-256 `9b5b0be86d02a7bc862b7679a4d98697e4ae353068fc6fb4daf28aea53a3fcf5`, passed pinned LeanCert kernel. Both the auxiliary and endpoint constructor report only `propext`, `Classical.choice`, and `Quot.sound`. Actual-label recovery, the reverse path identity, weight transport, determinant/tableau equality, and full MF-03 Target remain open.

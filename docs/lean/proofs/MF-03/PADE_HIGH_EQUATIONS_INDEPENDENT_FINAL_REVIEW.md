@@ -1,0 +1,9 @@
+# MF-03 all-order high equations: independent final review
+
+**Disposition:** approved for aggregate import as an exact all-order normalized-pair gate. Frozen source `lean-statements/NLA/Proofs/MF03/PadeHighEquations.lean` has SHA-256 `9365a22a1a2e7e193477917b0658390c44a86b5adacf1d5a6ef544a1331540ea`. Its single public theorem states, for every `m : ℕ`, the unchanged `NLA.Statements.MF03.NormalizedPadeRepresentation m (cosinePadeNumerator m) (cosinePadeDenominator m)`.
+
+I checked this exact signature against the frozen MF-03 statement, README, manuscript, and approved `ALL_ORDER_POLYNOMIAL_PAIR_PRE_REVIEW.md`. The lower equations `j≤m` are exactly the literal numerator coefficients. For `m<j≤2m`, the proof takes `r=j−(m+1):Fin m`, so `j=m+r+1`. Denominator terms above `m` vanish; the `i=0` term is `e_j`, and `i=c+1` is exactly the Toeplitz row coefficient `q_c e_(m+r−c)`. The original system's right side is `−e_j`, so the complete convolution vanishes. The final row `r=m−1` reaches `j=2m`; `m=0` has no high rows. The complex coercion of the independently proved `e_k=1/(2k)!` changes no factor or sign. The degree and constant-one conjuncts use the frozen denominator/numerator definitions.
+
+I independently built `NLA.Proofs.MF03.PadeHighEquations` with pinned Lean 4.33.1 (8,769 jobs). Separate imported audit `/private/tmp/mf03-pade-high-equations-independent-audit.lean` has SHA-256 `522dd38dd7d9ae9e3d843121e6785df55da0f0cb7dd117be83c3e98486d34dc4`; it restates the exact public theorem, passed `#assert_trust kernel`, and reported only `[propext, Classical.choice, Quot.sound]`. The source uses kernel trust and contains no `sorry`, `admit`, custom axiom, `native_decide`, or unsafe declaration.
+
+This gate establishes the normalized polynomial pair; the separate disk, reduction, and original Target bridge remain to be audited.
