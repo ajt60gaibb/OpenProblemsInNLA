@@ -1,0 +1,7 @@
+# MF-03 actual column labels are exactly the original tableau cells: independent final review
+
+**Author:** `/root/mf03_jt_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact per-column cell-set equality; product and weighted-sum identities remain open.
+
+The frozen source `FiniteTableauCellSet.lean` has SHA-256 `737c49941e6ba01830432ce9f56f280fc1e0a1e8cb1dad07a87a90874b213722`. I checked it against the independently approved weighted transport precontract, the original `finiteAugShape m j`, frozen uniform-column/sentinel definitions, and the audited actual-label inverse. It proves that erasing temporary sentinel `N` from a uniform column leaves exactly the values of its original upper `m` cells and the genuine bottom cell only when `p<j`. Every actual cell value is `<N`; for `p≥j` the noncell bottom has value `N` and is excluded. This is literal finite-set equality for all `N,m,j` with `j≤m`, including empty and extreme-shape cases. It does not introduce a product or new weight.
+
+The author-provided source passed my direct pinned Lean check and module build (8,740 jobs) without alteration. The independent imported exact-signature audit `/private/tmp/mf03-finite-tableau-cell-set-independent-audit.lean`, SHA-256 `712fbf615d00ffa15a23d3fdeccd716b7aa04de058f9efaaea1af57ff3fa747d`, passed LeanCert kernel; its public theorem reports only `propext`, `Classical.choice`, and `Quot.sound`. Per-column product, pointwise path weight, finite sum transport, determinant equality, and full MF-03 Target remain open.
