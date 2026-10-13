@@ -1,0 +1,11 @@
+# MF-03 all-order polynomial pair: independent pre-review
+
+**Disposition:** approved for the proposed staged Lean implementation. I independently reviewed `ALL_ORDER_POLYNOMIAL_PAIR_PRE_REVIEW.md` at SHA-256 `a9da6d70ba2c4c8fc968955e78d2041eb7809ad843729970f1be8f3496bf1f0c`; all seven source locks match the canonical MF-03 README, manuscript, frozen statement, exact nonconstant coefficients, factorial transfer, large-order disk gate, and reduction gate.
+
+The denominator is exactly `1+Σ_{c:Fin m}(q_c:ℂ)X^(c.val+1)`, so its constant coefficient is `1`, each `c` maps to the one-based degree `c.val+1`, all these exponents are distinct, and the degree is at most `m`. The empty sum gives `Q₀=1`. The numerator's `n≤m` coefficient is the literal frozen convolution `Σ_{i<n+1} Q.coeff i / (2(n−i))!`; the polynomial truncates it after degree `m`, giving `P₀=1`. The audited `cosineElementaryCoeff_eq_factorial` identifies the complex coercion of every original elementary coefficient with that exact factorial term, with no scale change.
+
+For high degree `n=m+r.val+1` with `r:Fin m`, the range is exactly `m+1,…,2m`; at `r=m−1` it includes the top degree `2m`. Terms with `i>m` vanish by the denominator degree bound. The `i=0` term is `e_(m+r.val+1)`. The remaining `i=c.val+1` terms are `q_c e_(m+r.val−c.val)`, exactly row `r`, column `c` of the audited Toeplitz system `T*ᵥq=−e_(m+r.val+1)`. This cancels the constant term, and `P.coeff n=0` beyond `m`, proving the frozen high-degree equation. There are no high-degree rows at `m=0`; the constant equation holds with `P₀=Q₀=1`.
+
+For every `1≤j≤m`, `c=j−1:Fin m` gives `Q.coeff j=(q_c:ℂ)` and `‖Q.coeff j‖=|q_c|≤(cosineTail m)^j` with coefficient one. This is precisely the coefficient hypothesis of the existing `largeOrder_disk_of_tail_coefficients`, whose threshold `m≥16`, radius `3`, and error `2` remain unchanged. The normalized polynomial witness and reduced representative/Target transport remain separate proof stages.
+
+This approval is mathematical and source-level; each staged Lean source still requires direct pinned LeanCert kernel checks, frozen SHA, and independent imported exact-signature/source/axiom audit before aggregate import.

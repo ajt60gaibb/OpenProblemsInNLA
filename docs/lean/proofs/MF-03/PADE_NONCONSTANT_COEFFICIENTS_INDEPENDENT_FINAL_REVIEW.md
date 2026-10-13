@@ -1,0 +1,9 @@
+# MF-03 nonconstant Padé coefficients: independent final review
+
+**Disposition:** approved for aggregate import as an exact partial gate. The frozen source `lean-statements/NLA/Proofs/MF03/PadeNonconstantCoefficients.lean` has SHA-256 `10149304072ac0bce64065282058b3483b4c60290a2270a495b7c817bad66b77` and implements the independently approved precontract SHA-256 `ee9fcaf41be2493b9eeed23ecd6646e2532f453af34abffd8ef907fe3e87a462`.
+
+I checked all public declarations against the original frozen Toeplitz/Cramer and infinite determinant objects. `cosinePadeNonconstantCoeff m c` is exactly the actual Cramer coordinate divided by `cosineRectDet m`. The system theorem uses the already proved `T *ᵥ cramer(T,b)=det(T) • b`, the exact determinant equality, and strict positivity to cancel the same determinant; it has no added premise and includes the empty `m=0` vector. The signed identity uses the audited original augmented determinant, exponent `c.val+1`, and no finite proxy. The absolute bound uses the audited nonnegative original ratio, so `|(-1)^(c.val+1)|=1` yields exactly `(cosineTail m)^(c.val+1)` with coefficient one. The index runs through every `c : Fin m` and thus all `1≤j≤m`, including both endpoints.
+
+I independently built `NLA.Proofs.MF03.PadeNonconstantCoefficients` with pinned Lean 4.33.1 (8,764 jobs). The separate imported audit `/private/tmp/mf03-pade-nonconstant-coefficients-independent-audit.lean` at SHA-256 `6079bc451f8cf76ade62430b68d8c77460a991cbe658130a2ba274a4c8ffc438` restates the definition and all three public theorem signatures exactly; it passed `#assert_trust kernel` for each and reports only `[propext, Classical.choice, Quot.sound]` for the final bound. Source scan found no `sorry`, `admit`, custom axiom, `native_decide`, or unsafe declaration.
+
+The constant coefficient, polynomial/numerator construction, reduction, disk estimate, and full MF-03 Target remain separate obligations.
