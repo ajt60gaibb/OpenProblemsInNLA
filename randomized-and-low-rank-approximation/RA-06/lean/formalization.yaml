@@ -1,0 +1,83 @@
+version: v0.4
+project:
+  name: 'RA-06: failure of the ordinary-sensitivity row-sampling guarantee'
+  description: >-
+    A complete negative theorem for every real p>2, retaining the original
+    independent Bernoulli sampling rule, expected-size budget, and simultaneous
+    norm-power embedding assertion.
+  authors:
+  - OpenAI Codex AI (Lean formalization and packaging)
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+- title: 'RA-06 — Sensitivity-dependent row sampling for ell_p embeddings when p exceeds two'
+  id: ../README.md
+  type: web-post
+  location: Original statement and 2026-09-30 resolution
+  relationship: formalizes
+  author_endorsement: n/a
+  note: >-
+    The permanent ID, canonical README path, and original positive claim are
+    retained. The target is its complete negation for every real exponent p>2.
+- title: 'An Accuracy Obstruction for lp Row Sparsification: A Complete-Graph Counterexample to RA-06'
+  id: ../../../references/haidary-resolutions-2026-09-30/ra06-counterexample-revised.tex
+  type: manuscript
+  location: Theorem 5.1 and supporting complete-graph construction
+  relationship: formalizes
+  author_endorsement: n/a
+  note: >-
+    The 16 copied Lean statement/proof modules are byte-identical to their
+    frozen lean-statements sources and pinned by ra06-source-lock.json.
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: >-
+      Lean 4.33.1; Mathlib 0df444a360eaa60ab8c11dca51a86af692955474;
+      LeanCert 621a43d7cf21f87872392a01e874f2f1dbddc926.
+    prompting_notes: >-
+      Independently review the exact original mathematical and numerical
+      statement before implementation. Prove the full frozen Target.
+  notes: >-
+    Local build and selected-theorem LeanCert kernel audit passed. Isolated
+    Linux Comparator verification remains pending.
+status:
+  scope: >-
+    Every real p>2 negates the exact positive assertion with arbitrary positive
+    constants C,c, all full-column-rank real input matrices and admissible
+    tolerances, one sampling parameter, exact expected-size budget, and joint
+    all-vector embedding success probability.
+  whole_problem_verified: false
+  canonical_status: Solved
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: [propext, Classical.choice, Quot.sound]
+  main_results:
+  - declaration: NLA.RA06.target
+    file: Solution.lean
+    sorry_count: 0
+    axioms: [propext, Classical.choice, Quot.sound]
+    comparator_config: comparator.json
+    verification_status: >-
+      Local Lean 4.33.1 and LeanCert kernel audit passed; independent final
+      mathematical and kernel review approved. Isolated Linux Comparator pending.
+fidelity:
+  divergences: >-
+    No target weakening. Solution.lean exports the complete frozen
+    NLA.Statements.RA06.Target using the byte-identical copied theorem
+    NLA.Proofs.RA06.target.
+review:
+  status: agent-reviewed
+  reviewers:
+  - /root
+  - /root/ra06_sampling_review
+  notes: >-
+    The canonical statement and numerical target received independent review
+    before proof implementation. The complete frozen target proof received a
+    hash-bound independent mathematical and local kernel review in
+    docs/lean/proofs/RA-06/FINAL_INDEPENDENT_REVIEW.md. Linux Comparator
+    verification remains pending.
+acknowledgements: >-
+  Mathematical source attribution follows the canonical RA-06 README and
+  referenced manuscript. The formal proof is a local Codex development.

@@ -143,8 +143,13 @@ jobs:
           LEAN_PROJECT: ${{ matrix.project }}
         run: |
           ulimit -n 65536
-          tools/lean/bootstrap.sh "$RUNNER_TEMP/nla-lean-tools"
-          tools/lean/verify.sh "$LEAN_PROJECT" "$RUNNER_TEMP/nla-lean-tools"
+          if [ "$LEAN_PROJECT" = "matrix-functions-and-stability/MF-23/lean" ]; then
+            profile=mf23
+          else
+            profile=default
+          fi
+          tools/lean/bootstrap.sh "$RUNNER_TEMP/nla-lean-tools" --profile "$profile"
+          tools/lean/verify.sh "$LEAN_PROJECT" "$RUNNER_TEMP/nla-lean-tools" --profile "$profile"
       - name: Retain verification logs
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4

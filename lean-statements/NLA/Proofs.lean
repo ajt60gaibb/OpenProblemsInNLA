@@ -113,7 +113,6 @@ import NLA.Proofs.TR14.LocalCRTMoments
 import NLA.Proofs.TR14.LocalCRTFourierSigma
 import NLA.Proofs.TR14.LocalCRTFourierCount
 import NLA.Proofs.TR14.LocalCRTFourierWidth
-
 import NLA.Proofs.RA10.SpectralQuadratic
 import NLA.Proofs.RA10.NuclearNormZero
 import NLA.Proofs.RA10.RidgeScalar
@@ -176,6 +175,12 @@ import NLA.Proofs.RA10.NuclearOrthogonalLeft
 import NLA.Proofs.RA10.NuclearOrthogonalRight
 import NLA.Proofs.RA10.NuclearOrthogonalConjugation
 import NLA.Proofs.RA10.OrderedPSDLoewnerEigenvalue
+import NLA.Proofs.RA06.GraphSupportCount
+import NLA.Proofs.RA06.GraphSampling
+import NLA.Proofs.RA06.Bernoulli
+import NLA.Proofs.RA06.GraphFinite
+import NLA.Proofs.RA06.Asymptotic
+import NLA.Proofs.RA06.Final
 
 /-!
 Aggregate import for independently reviewed kernel proofs of Solved targets.
