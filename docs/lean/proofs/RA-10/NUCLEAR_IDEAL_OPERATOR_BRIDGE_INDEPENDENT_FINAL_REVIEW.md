@@ -1,0 +1,7 @@
+# RA-10 exact matrix/operator representation: independent final review
+
+**Author:** `/root/ra10_spectral_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the four exact semantic declarations; nuclear ideal inequalities and Equation (14)'s bound remain open.
+
+The frozen source `NuclearIdealOperatorBridge.lean` has SHA-256 `27a30c33bb8b758013f99e1775c01d0515d90b3a4fe62ceb60d28fc9d8cf5ced`. I checked it against the independently approved operator-bridge precontract (SHA-256 `7b47541fd7bb6c3941210c02cd12882f86b0238b93103ad2e93fc88778a55aff`), frozen `RA10.NuclearNorm`, and pinned Mathlib matrix C-star semantics. Multiplication has the correct `X * Y` to `X ∘ Y` order; real scalar action is exact; the sum remains over all `Fin n` singular values; and the scoped L2 matrix norm equals the induced norm of the matching Euclidean continuous operator, including `n=0`. The source makes no estimate of a singular value or nuclear norm.
+
+The author passed a direct pinned Lean check and module build (2,725 jobs). My separate imported exact-signature audit `/private/tmp/ra10-nuclear-operator-bridge-independent-audit.lean`, SHA-256 `e0dd0bbe59ec9f8f497582b6f55da76cf5634aba592c8042d4d7e508b36e2795`, passed LeanCert kernel on all four signatures. Each reports only `propext`, `Classical.choice`, and `Quot.sound`. Nuclear homogeneity, the two coefficient-one ideal inequalities, the selected Eq. (14) numerical estimate, and the full RA-10 Target remain open.

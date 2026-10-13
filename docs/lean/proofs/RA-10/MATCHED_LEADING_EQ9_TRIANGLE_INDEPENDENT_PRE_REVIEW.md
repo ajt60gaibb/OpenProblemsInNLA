@@ -1,0 +1,7 @@
+# RA-10 Equation (9): independent pre-implementation review
+
+**Disposition:** approve the exact public theorem in `MATCHED_LEADING_EQ9_TRIANGLE_PRE_REVIEW.md` for Lean implementation. Equation (9) is a partial gate; the full RA-10 Target remains open.
+
+I independently checked the contract at SHA-256 `9c9e0c05403b8bf33e405bd1ecbe2834eeb169d0d75c275712e0f8b6f3714e96` against the unchanged canonical RA-10 source, frozen Target, and every listed source/dependency SHA. The source's Equation (9) uses the same `τ` in `e_C=NuclearNorm(A−C)−τ` and `e₀=NuclearNorm(A−B₀)−τ`, with `R=NuclearNorm(B₀−C)`. Exact matrix cancellation gives `A−C=(A−B₀)+(B₀−C)`; the independently audited coefficient-one triangle then gives `e_C≤e₀+R`. No sign condition on the excess, spectral gap, positive tail, aligned bases, or extra constant is needed. Retaining the supplied `hA` and `hAhat` and `1≤k<n` in the public theorem matches the original quantifier context even though the underlying triangle is algebraic.
+
+An exact two-dimensional check uses `A=diag(3,1)`, `P` onto `(1,1)/√2`, `B₀=3P`, and `C=PAP=2P`. Then `τ=1`, `R=1`, `e₀=√13−1`, and `e_C=2√2−1`; indeed `2√2−1≤√13=e₀+R`. This checks the tail subtraction, sign of `B₀−C`, and coefficient one without decimal approximations. The implementation must prove the displayed theorem with the actual frozen `NuclearNorm`, then undergo a separate imported exact-signature/source/kernel audit before aggregate import.

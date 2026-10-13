@@ -1,0 +1,7 @@
+# RA-10 nonzero supplied-basis coordinate intersection: independent final review
+
+**Author:** `/root/ra10_spectral_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact nonzero intersection gate; compression eigenvalue comparison remains open.
+
+The frozen source `OrderedSpectralIntersection.lean` has SHA-256 `7f0b889dcc02b9d17ed8974fb639b313b6364615eeab3f0c3fb83446adec348d`. I checked it against the independently approved precontract and frozen real coordinate convention. The proof uses a linear map from `Fin n→ℝ` to functions indexed by the `n−1` indices other than `a`. At each index before `a`, it imposes the supplied QA coordinate zero; at each index after `a`, it imposes the supplied QC coordinate zero. The codomain has strictly smaller finite dimension, so the kernel contains a **nonzero** vector satisfying both exact strict cutoffs simultaneously. It assumes no orthogonality, spectral gap, or matrix order; ties, zero eigenvalues, `n=1`, and the vacuous `n=0` case retain their correct scope.
+
+The independent imported exact-signature audit `/private/tmp/ra10-ordered-spectral-intersection-independent-audit.lean`, SHA-256 `ae252b3c025f97cdabd53e4cb494cbc664990b3502ca62683d0d91a772c1869e`, passed pinned LeanCert kernel and reported only `propext`, `Classical.choice`, and `Quot.sound`. Positive-prefix P-support, equality of quadratic forms, coefficient-one min-max cancellation, nuclear inequalities, and full RA-10 Target remain open.
