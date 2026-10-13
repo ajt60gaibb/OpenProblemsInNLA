@@ -67,6 +67,9 @@ jobs:
         run: lake exe cache get
       - name: Elaborate statements and audit transitive axioms
         run: python3 tools/lean_statements/check.py elaborate --output "$RUNNER_TEMP/nla-statement-elaboration"
+      - name: Build reviewed proofs with LeanCert kernel checks
+        working-directory: lean-statements
+        run: lake build NLA.Proofs
       - name: Retain statement evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
