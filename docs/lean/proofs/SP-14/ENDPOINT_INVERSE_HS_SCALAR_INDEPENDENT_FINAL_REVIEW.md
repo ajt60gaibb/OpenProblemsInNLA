@@ -1,0 +1,7 @@
+# SP-14 inverse Hilbert–Schmidt scalar bound: independent imported review
+
+**Disposition:** pass the exact scalar summability and explicit squared bound as partial gates. The finite coefficient energy, normalized-circle Parseval, `H^r→L²` inverse extension, and frozen negative SP-14 Target remain open.
+
+I reviewed `EndpointInverseHSScalar.lean` at frozen SHA-256 `1cb184a240b5486f6063d39972b4a5f2e323d746fc048334364ec7f4e5e723a9` against the source-locked [inverse-extension precontract](ENDPOINT_INVERSE_L2_EXTENSION_PRE_REVIEW.md) and its [independent mathematical review](ENDPOINT_INVERSE_L2_EXTENSION_INDEPENDENT_PRE_REVIEW.md). Its public definitions are the actual nonnegative column mass `S_{r,k}=(k+1)^(-2r)Σ_{l≤k}A_l²`, their infinite sum `S_r`, and the explicit bound `B_r=1+1/(r−1/2)`. For every `r>1/2`, it proves summability and `S_r≤B_r²` with no `r<1` restriction. The proof uses the audited central-coefficient square bound, a harmonic/log estimate, and the decreasing-integral p-series tail. No numerical truncation or approximate comparison replaces the exact sum.
+
+A separate importing file checked the exact public definitions and both theorem signatures by examples, then ran `#assert_trust kernel` and `#print axioms` under `set_option leancert.trust "kernel"`. Pinned Lean 4.33.1 exited zero; both declarations report only `[propext, Classical.choice, Quot.sound]`. The source has no `sorry`, `admit`, new `axiom`, `unsafe`, or `native_decide`. The agent's direct module build passed; aggregate import remains the next gate.

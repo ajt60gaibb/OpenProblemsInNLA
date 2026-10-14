@@ -26,13 +26,26 @@ import subprocess
 import sys
 import tempfile
 import time
+import tomllib
 import urllib.parse
 import urllib.request
+
+from upstream_source_lock import validate_mf23_source_lock
+from ra06_source_lock import validate_ra06_source_lock
 
 
 ROOT = Path(__file__).resolve().parent
 LOCK = ROOT / "source-lock.json"
 STANDARD_AXIOMS = {"propext", "Quot.sound", "Classical.choice"}
+LEANCERT_REV = "621a43d7cf21f87872392a01e874f2f1dbddc926"
+MF23_LEANCERT_REV = "7f91b6eb3567437f6cfac03ed279706603ee22f4"
+MF23_MATHLIB_REV = "d13f23b723b8a846827a245b89c10fc7d3f11612"
+MF23_TOOLCHAIN = "leanprover/lean4:v4.34.1"
+MF23_TOOLCHAIN_FILES = {
+    ".tools/comparator/lean-toolchain",
+    ".tools/lean4export/lean-toolchain",
+    "lean-toolchain",
+}
 MODULE = re.compile(r"[A-Za-z_][A-Za-z0-9_']*(?:\.[A-Za-z_][A-Za-z0-9_']*)*\Z")
 SHA = re.compile(r"[0-9a-f]{40}\Z")
 
@@ -95,6 +108,20 @@ def load_lock() -> dict:
     return lock
 
 
+def profile_toolchain(profile: str, lock: dict) -> str:
+    if profile == "default":
+        return lock["lean_toolchain"]
+    if profile == "mf23":
+        return MF23_TOOLCHAIN
+    raise HarnessError(f"unsupported Lean verifier profile: {profile}")
+
+
+def expected_source_sha256(entry: dict, profile: str) -> str:
+    if profile == "mf23" and entry["destination"] in MF23_TOOLCHAIN_FILES:
+        return hashlib.sha256((MF23_TOOLCHAIN + "\n").encode()).hexdigest()
+    return entry["sha256"]
+
+
 def linux_requirements() -> None:
     if platform.system() != "Linux":
         raise HarnessError("authoritative Comparator verification requires Linux; "
@@ -155,19 +182,20 @@ def logged(args: list[str], logfile: Path, *, cwd: Path,
     return output
 
 
-def verify_sources(tool_dir: Path, lock: dict) -> None:
+def verify_sources(tool_dir: Path, lock: dict, profile: str = "default") -> None:
     for entry in lock["files"]:
         path = regular_path(tool_dir / entry["destination"])
         if (not path.is_file() or path.stat().st_size != entry["bytes"]
-                or digest(path) != entry["sha256"]):
+                or digest(path) != expected_source_sha256(entry, profile)):
             raise HarnessError(f"missing or modified pinned verification source: {path}")
 
 
-def fetch_sources(tool_dir: Path, lock: dict) -> None:
+def fetch_sources(tool_dir: Path, lock: dict, profile: str = "default") -> None:
     def fetch(entry: dict) -> None:
         target = regular_path(tool_dir / entry["destination"])
         if target.exists():
-            if target.stat().st_size == entry["bytes"] and digest(target) == entry["sha256"]:
+            if (target.stat().st_size == entry["bytes"]
+                    and digest(target) in {entry["sha256"], expected_source_sha256(entry, profile)}):
                 return
             raise HarnessError(f"refusing to overwrite modified source: {target}")
         url = ("https://raw.githubusercontent.com/sgstepaniants/Forsythe/"
@@ -186,7 +214,15 @@ def fetch_sources(tool_dir: Path, lock: dict) -> None:
         path = tool_dir / entry["destination"]
         if path.suffix in {".sh", ".py"}:
             path.chmod(0o755)
-    verify_sources(tool_dir, lock)
+    # MF-23's separately reviewed profile makes only the three explicit
+    # Lean toolchain-file substitutions below. All checker code stays pinned.
+    if profile == "mf23":
+        for entry in lock["files"]:
+            if entry["destination"] in MF23_TOOLCHAIN_FILES:
+                path = tool_dir / entry["destination"]
+                if digest(path) == entry["sha256"]:
+                    path.write_text(MF23_TOOLCHAIN + "\n")
+    verify_sources(tool_dir, lock, profile)
 
 
 def tool_environment(tool_dir: Path, receipt: dict) -> dict[str, str]:
@@ -223,7 +259,7 @@ def ci_probe_source(tool_dir: Path) -> str:
     return source
 
 
-def bootstrap(tool_dir: Path) -> None:
+def bootstrap(tool_dir: Path, profile: str = "default") -> None:
     linux_requirements()
     for name in ["elan", "go", "cc"]:
         if not shutil.which(name):
@@ -233,17 +269,19 @@ def bootstrap(tool_dir: Path) -> None:
     lock = load_lock()
     logdir = tool_dir / "logs/bootstrap"
     env = clean_environment()
-    fetch_sources(tool_dir, lock)
+    fetch_sources(tool_dir, lock, profile)
     ci_probe = tool_dir / "reproduction/checks/sandbox_probe_ci.py"
     ci_probe.write_text(ci_probe_source(tool_dir))
     (tool_dir / ".verification-tmp").mkdir(exist_ok=True)
     (tool_dir / ".tools/bin").mkdir(exist_ok=True)
     (tool_dir / ".tools/cache").mkdir(exist_ok=True)
-    logged(["elan", "toolchain", "install", lock["lean_toolchain"]],
+    toolchain = profile_toolchain(profile, lock)
+    logged(["elan", "toolchain", "install", toolchain],
            logdir / "elan.log", cwd=tool_dir, env=env)
-    prefix = command(["elan", "run", lock["lean_toolchain"], "lean", "--print-prefix"], env=env)
+    prefix = command(["elan", "run", toolchain, "lean", "--print-prefix"], env=env)
     lean_version = command([str(Path(prefix) / "bin/lean"), "--version"], env=env)
-    if not re.search(r"version 4\.33\.1(?:\D|$)", lean_version):
+    version = "4.33.1" if profile == "default" else "4.34.1"
+    if not re.search(r"version " + re.escape(version) + r"(?:\D|$)", lean_version):
         raise HarnessError(f"unexpected Lean version: {lean_version}")
     go_version = command(["go", "version"], env=env)
     go_match = re.search(r"go(\d+)\.(\d+)", go_version)
@@ -257,10 +295,10 @@ def bootstrap(tool_dir: Path) -> None:
            logdir / "landrun-build.log", cwd=tool_dir / ".tools/landrun", env=env)
     logged(["lake", "build", "lean4export", "comparator"],
            logdir / "comparator-build.log", cwd=tool_dir / ".tools/comparator", env=env)
-    verify_sources(tool_dir, lock)
+    verify_sources(tool_dir, lock, profile)
     receipt = {"source_lock_sha256": digest(LOCK), "forsythe_commit": lock["commit"],
                "ci_sandbox_probe_sha256": digest(ci_probe),
-               "lean_toolchain": lock["lean_toolchain"], "lean_prefix": prefix,
+               "profile": profile, "lean_toolchain": toolchain, "lean_prefix": prefix,
                "lean_version": lean_version, "go_version": go_version,
                "platform": platform.platform(), "executables": {}}
     for name in [".tools/comparator/.lake/build/bin/comparator",
@@ -279,9 +317,21 @@ def bootstrap(tool_dir: Path) -> None:
     print(f"Tools built; isolation and checker controls run during verify. Receipt: {tool_dir / 'bootstrap.json'}")
 
 
-def validate_project(project: Path) -> dict:
+def validate_project(project: Path, profile: str = "default") -> dict:
     if (project / "lakefile.lean").exists() or not (project / "lakefile.toml").is_file():
         raise HarnessError("initial harness requires exactly one lakefile.toml and no lakefile.lean")
+    project_name = tomllib.loads((project / "lakefile.toml").read_text()).get("name")
+    if project_name == "NLARA06" or (project / "ra06-source-lock.json").exists():
+        try:
+            validate_ra06_source_lock(project)
+        except ValueError as error:
+            raise HarnessError(str(error)) from error
+    if (profile == "mf23" or (project / "OAI/Analysis/DirectCrouzeix").exists()
+            or (project / "upstream-source-lock.json").exists()):
+        try:
+            validate_mf23_source_lock(project)
+        except ValueError as error:
+            raise HarnessError(str(error)) from error
     manifest = read_json(project / "lake-manifest.json")
     if manifest.get("packagesDir") != ".lake/packages":
         raise HarnessError("lake-manifest.json must use contained .lake/packages")
@@ -292,6 +342,13 @@ def validate_project(project: Path) -> dict:
                 or parsed.query or parsed.fragment):
             raise HarnessError("dependencies must be immutable HTTPS GitHub git revisions; "
                                "path, credential-bearing and floating dependencies are unsupported")
+    if profile == "mf23":
+        pinned_mf23_mathlib(project, manifest)
+        pinned_leancert(project, profile)
+    if project_name == "NLARA06":
+        pinned_ra06_mathlib(project, manifest)
+        if not pinned_leancert(project):
+            raise HarnessError("RA-06 requires the reviewed LeanCert kernel-audit dependency")
     config = read_json(project / "comparator.json")
     required = {"challenge_module", "solution_module", "theorem_names", "permitted_axioms"}
     if set(config) - required - {"definition_names"} or not required <= set(config):
@@ -312,6 +369,98 @@ def validate_project(project: Path) -> dict:
             or len(set(axioms)) != len(axioms) or not set(axioms) <= STANDARD_AXIOMS):
         raise HarnessError("only propext, Quot.sound and Classical.choice may be permitted")
     return config
+
+
+def pinned_mf23_mathlib(project: Path, manifest: dict) -> None:
+    """Require the exact upstream Mathlib revision in both Lake inputs."""
+    url = "https://github.com/leanprover-community/mathlib4.git"
+    packages = [p for p in manifest.get("packages", []) if p.get("name") == "mathlib"]
+    if (len(packages) != 1 or packages[0].get("url") != url
+            or packages[0].get("rev") != MF23_MATHLIB_REV
+            or packages[0].get("inputRev") != MF23_MATHLIB_REV):
+        raise HarnessError("MF-23 Mathlib manifest does not match the pinned upstream revision")
+    lakefile = tomllib.loads((project / "lakefile.toml").read_text())
+    requires = [p for p in lakefile.get("require", []) if p.get("name") == "mathlib"]
+    if (len(requires) != 1 or requires[0].get("git") != url
+            or requires[0].get("rev") != MF23_MATHLIB_REV):
+        raise HarnessError("MF-23 Lakefile must require the pinned Mathlib revision")
+
+
+def pinned_ra06_mathlib(project: Path, manifest: dict) -> None:
+    """Require RA-06's reviewed Mathlib revision in both Lake inputs."""
+    url = "https://github.com/leanprover-community/mathlib4.git"
+    revision = "0df444a360eaa60ab8c11dca51a86af692955474"
+    packages = [p for p in manifest.get("packages", []) if p.get("name") == "mathlib"]
+    if (len(packages) != 1 or packages[0].get("url") != url
+            or packages[0].get("rev") != revision
+            or packages[0].get("inputRev") != revision):
+        raise HarnessError("RA-06 Mathlib manifest does not match the frozen statement revision")
+    lakefile = tomllib.loads((project / "lakefile.toml").read_text())
+    requires = [p for p in lakefile.get("require", []) if p.get("name") == "mathlib"]
+    if (len(requires) != 1 or requires[0].get("git") != url
+            or requires[0].get("rev") != revision):
+        raise HarnessError("RA-06 Lakefile must require the frozen Mathlib revision")
+
+
+def pinned_leancert(project: Path, profile: str = "default") -> bool:
+    """Return whether the project has the reviewed LeanCert pin.
+
+    Existing proof projects without LeanCert remain distinguishable in the
+    receipt. A present but different pin is never silently accepted.
+    """
+    manifest = read_json(project / "lake-manifest.json")
+    packages = [p for p in manifest["packages"] if p.get("name") == "leancert"]
+    if len(packages) > 1:
+        raise HarnessError("duplicate LeanCert packages in Lake manifest")
+    if not packages:
+        if profile == "mf23":
+            raise HarnessError("MF-23 requires the reviewed LeanCert kernel-audit dependency")
+        return False
+    package = packages[0]
+    revision = LEANCERT_REV if profile == "default" else MF23_LEANCERT_REV
+    url = ("https://github.com/alerad/leancert" if profile == "default"
+           else "https://github.com/alerad/leancert.git")
+    if package.get("url") != url or package.get("rev") != revision:
+        raise HarnessError("LeanCert does not match the reviewed proof-audit pin")
+    lakefile = tomllib.loads((project / "lakefile.toml").read_text())
+    requires = [p for p in lakefile.get("require", []) if p.get("name") == "leancert"]
+    if len(requires) != 1 or requires[0].get("git") != url:
+        raise HarnessError("Lakefile must require the reviewed LeanCert pin")
+    requested_rev = requires[0].get("rev")
+    # The frozen MF-21 manuscript names the LeanCert release tag in its
+    # Lakefile, while its committed manifest resolves that tag to this exact
+    # reviewed commit. Accept only this particular tag/commit pairing.
+    allowed_revs = {LEANCERT_REV, "v4.33.1"} if profile == "default" else {MF23_LEANCERT_REV}
+    if requested_rev not in allowed_revs or package.get("inputRev") != requested_rev:
+        raise HarnessError("Lakefile must require the reviewed LeanCert pin")
+    return True
+
+
+def proof_trust_source(config: dict) -> str:
+    """Audit the actual Solution proof constants named by Comparator."""
+    module = config["solution_module"]
+    names = config["theorem_names"]
+    if not MODULE.fullmatch(module) or not names or any(
+            not MODULE.fullmatch(name) for name in names):
+        raise HarnessError("invalid proof trust audit module or theorem name")
+    lines = [
+        f"import {module}",
+        "import LeanCert.Tactic.Verification",
+        "set_option autoImplicit false",
+        'set_option leancert.trust "kernel"',
+        "",
+        "open Lean Elab Command in",
+        'elab "#assert_proof_constant " n:ident : command => do',
+        "  let decl ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n",
+        "  match (← getEnv).find? decl with",
+        "  | some (.thmInfo _) => pure ()",
+        '  | _ => throwErrorAt n "expected a proved theorem constant"',
+        "",
+    ]
+    for name in names:
+        lines.extend((f"#assert_proof_constant {name}",
+                      f"#assert_trust kernel {name}", f"#print axioms {name}"))
+    return "\n".join(lines) + "\n"
 
 
 def snapshot(project: Path, destination: Path) -> tuple[dict, dict[str, str]]:
@@ -358,17 +507,20 @@ def systemd(args: list[str], cwd: Path, env: dict[str, str]) -> list[str]:
             "/usr/bin/env", "-i", *exports, *args]
 
 
-def extra_regressions(tool_dir: Path, logdir: Path, env: dict[str, str]) -> None:
+def extra_regressions(tool_dir: Path, logdir: Path, env: dict[str, str],
+                      profile: str = "default") -> None:
     # These are checker fixtures, not NLA mathematical results.
     for case, statement, honest_proof, proof, marker in [
         ("sorry", "(1 : Nat) = 1", "rfl", "sorry", "Illegal axiom detected: 'sorryAx'"),
         # Lean 4.33.1 creates a fresh named axiom rather than using the older
         # generic Lean.ofReduceBool. #print axioms was checked for this fixture.
         ("native", "(List.range 37).reverse.length = 37", "decide", "native_decide",
-         "Illegal axiom detected: 'checked._native.native_decide.ax_1_1'")]:
+         ("Illegal axiom detected: 'checked._native.native_decide.ax_1_1'"
+          if profile == "default" else "Illegal axiom detected:"))]:
         with tempfile.TemporaryDirectory(prefix="nla-axiom-", dir=env["TMPDIR"]) as name:
             project = Path(name)
-            (project / "lean-toolchain").write_text("leanprover/lean4:v4.33.1\n")
+            (project / "lean-toolchain").write_text(
+                profile_toolchain(profile, load_lock()) + "\n")
             (project / "lakefile.toml").write_text(
                 'name = "NlaAxiomFixture"\n[[lean_lib]]\nname = "Challenge"\n'
                 '[[lean_lib]]\nname = "Solution"\n')
@@ -384,11 +536,13 @@ def extra_regressions(tool_dir: Path, logdir: Path, env: dict[str, str]) -> None
                    expected=1, markers=("Building Challenge", "Building Solution", marker))
 
 
-def validated_tools(tool_dir: Path) -> tuple[dict, dict[str, str]]:
+def validated_tools(tool_dir: Path, profile: str = "default") -> tuple[dict, dict[str, str]]:
     linux_requirements()
     lock = load_lock()
-    verify_sources(tool_dir, lock)
+    verify_sources(tool_dir, lock, profile)
     receipt = read_json(tool_dir / "bootstrap.json")
+    if receipt.get("profile") != profile or receipt.get("lean_toolchain") != profile_toolchain(profile, lock):
+        raise HarnessError("tool bootstrap used another Lean verifier profile")
     if receipt["source_lock_sha256"] != digest(LOCK):
         raise HarnessError("tool bootstrap used a different source lock")
     ci_probe = regular_path(tool_dir / "reproduction/checks/sandbox_probe_ci.py")
@@ -411,7 +565,8 @@ def validated_tools(tool_dir: Path) -> tuple[dict, dict[str, str]]:
     return receipt, env
 
 
-def run_controls(tool_dir: Path, logdir: Path, env: dict[str, str]) -> None:
+def run_controls(tool_dir: Path, logdir: Path, env: dict[str, str],
+                 profile: str = "default") -> None:
     # Fail before any solution work if this Linux host cannot supply the real sandbox.
     startup = systemd(["/usr/bin/true"], tool_dir, env)
     startup[1:1] = ["-p", "RuntimeMaxSec=40"]
@@ -425,7 +580,7 @@ def run_controls(tool_dir: Path, logdir: Path, env: dict[str, str]) -> None:
     logged(["python3", str(tool_dir / "reproduction/checks/comparator_regressions.py")],
            logdir / "comparator-controls.log", cwd=tool_dir, env=env,
            markers=("PASS: all five Comparator regressions",))
-    extra_regressions(tool_dir, logdir, env)
+    extra_regressions(tool_dir, logdir, env, profile)
 
 
 def new_logdir(tool_dir: Path, phase: str) -> Path:
@@ -434,32 +589,33 @@ def new_logdir(tool_dir: Path, phase: str) -> Path:
     return logdir
 
 
-def selftest(tool_dir: Path) -> None:
+def selftest(tool_dir: Path, profile: str = "default") -> None:
     linux_requirements()
     tool_dir = regular_path(tool_dir)
-    receipt, env = validated_tools(tool_dir)
+    receipt, env = validated_tools(tool_dir, profile)
     logdir = new_logdir(tool_dir, "selftest")
-    run_controls(tool_dir, logdir, env)
+    run_controls(tool_dir, logdir, env, profile)
     (logdir / "result.json").write_text(json.dumps({
         "result": "checker-selftest-passed", "tool_receipt": receipt,
         "mathematical_verification": "none; checker fixtures only"}, indent=2) + "\n")
     print(f"PASS: sandbox and checker controls only. Evidence: {logdir}")
 
 
-def verify(project: Path, tool_dir: Path) -> None:
+def verify(project: Path, tool_dir: Path, profile: str = "default") -> None:
     linux_requirements()
     project, tool_dir = regular_path(project), regular_path(tool_dir)
     lock = load_lock()
-    receipt, env = validated_tools(tool_dir)
+    receipt, env = validated_tools(tool_dir, profile)
     logdir = new_logdir(tool_dir, "verify")
-    run_controls(tool_dir, logdir, env)
+    run_controls(tool_dir, logdir, env, profile)
     with tempfile.TemporaryDirectory(prefix="nla-fresh-proof-", dir=env["TMPDIR"]) as temporary:
         fresh = Path(temporary) / "project"
         fresh.mkdir()
         provenance, hashes = snapshot(project, fresh)
-        config = validate_project(fresh)
-        if (fresh / "lean-toolchain").read_text().strip() != lock["lean_toolchain"]:
-            raise HarnessError("project toolchain must match the pinned verifier: " + lock["lean_toolchain"])
+        config = validate_project(fresh, profile)
+        if (fresh / "lean-toolchain").read_text().strip() != profile_toolchain(profile, lock):
+            raise HarnessError("project toolchain must match the pinned verifier: "
+                               + profile_toolchain(profile, lock))
         # Materialize exact public dependencies; no Solution build precedes Comparator.
         logged(["lake", "env", "true"], logdir / "dependencies.log", cwd=fresh, env=env)
         unchanged(fresh, hashes)
@@ -470,9 +626,32 @@ def verify(project: Path, tool_dir: Path) -> None:
         logged(args, logdir / "comparator.log", cwd=fresh, env=env,
                markers=("Lean default kernel accepts the solution", "Your solution is okay!"))
         unchanged(fresh, hashes)
+        proof_trust = "not-run-no-leancert-dependency"
+        proof_trust_source_sha256 = None
+        if pinned_leancert(fresh, profile):
+            # Comparator may never import LeanCert when the project's Solution
+            # does not use it, so its verification module can lack an olean.
+            # Build only that pinned dependency after the isolated comparison.
+            build_args = systemd(["lake", "build", "LeanCert.Tactic.Verification"], fresh, env)
+            logged(build_args, logdir / "leancert-build.log", cwd=fresh, env=env)
+            unchanged(fresh, hashes)
+            audit = fresh / "ProofTrustAudit.lean"
+            if audit.exists():
+                raise HarnessError("reserved proof trust audit filename is already present")
+            source = proof_trust_source(config)
+            audit.write_text(source)
+            proof_trust_source_sha256 = digest(audit)
+            audit_args = systemd(["lake", "env", "lean", str(audit)], fresh, env)
+            logged(audit_args,
+                   logdir / "leancert-proof-trust.log", cwd=fresh, env=env)
+            proof_trust = "kernel-checked"
+            unchanged(fresh, hashes)
         result = {**provenance, "config": config, "input_sha256": hashes,
                   "source_lock_sha256": digest(LOCK), "tool_receipt": receipt,
-                  "result": "comparator-accepted", "semantic_review": "not-performed-by-this-command"}
+                  "verifier_profile": profile,
+                  "result": "comparator-accepted", "lean_cert_proof_trust": proof_trust,
+                  "lean_cert_proof_trust_source_sha256": proof_trust_source_sha256,
+                  "semantic_review": "not-performed-by-this-command"}
         (logdir / "result.json").write_text(json.dumps(result, indent=2) + "\n")
     print(f"PASS: fresh Comparator run and all controls. Evidence: {logdir}")
 
@@ -482,19 +661,22 @@ def main() -> int:
     commands = parser.add_subparsers(dest="action", required=True)
     install = commands.add_parser("bootstrap")
     install.add_argument("tool_dir", type=Path)
+    install.add_argument("--profile", choices=("default", "mf23"), default="default")
     controls = commands.add_parser("selftest")
     controls.add_argument("tool_dir", type=Path)
+    controls.add_argument("--profile", choices=("default", "mf23"), default="default")
     check = commands.add_parser("verify")
     check.add_argument("project", type=Path)
     check.add_argument("tool_dir", type=Path)
+    check.add_argument("--profile", choices=("default", "mf23"), default="default")
     args = parser.parse_args()
     try:
         if args.action == "bootstrap":
-            bootstrap(args.tool_dir)
+            bootstrap(args.tool_dir, args.profile)
         elif args.action == "selftest":
-            selftest(args.tool_dir)
+            selftest(args.tool_dir, args.profile)
         else:
-            verify(args.project, args.tool_dir)
+            verify(args.project, args.tool_dir, args.profile)
         return 0
     except (HarnessError, OSError, ValueError, KeyError, subprocess.SubprocessError) as error:
         print(f"Lean verification precondition/check failed: {error}", file=sys.stderr)

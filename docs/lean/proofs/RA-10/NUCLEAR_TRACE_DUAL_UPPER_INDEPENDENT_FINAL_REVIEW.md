@@ -1,0 +1,9 @@
+# RA-10 orthogonal trace upper bound: independent final review
+
+**Disposition:** approved for aggregate import as the upper half of the source-locked nuclear trace duality. Orthogonal attainment, the triangle inequality, pinching contraction, and the full RA-10 Target remain open.
+
+I independently inspected `NuclearTraceDualUpper.lean` at SHA-256 `67927e3c16d9244992cd37c3adeb4aa61948499688a88e6fb78df0b6c113d1e2` against the canonical RA-10 source, frozen `NuclearNorm`, and the independently approved trace-duality precontract. The exact public signature quantifies over every finite dimension, every real square `M`, and an orthogonal `U` with both original inverse equations. It bounds the literal `Matrix.trace (U.transpose * M)` by the frozen sum of **all** zero-based singular values of `M`; it adds no rank, invertibility, symmetry, or positive-dimension premise.
+
+The proof uses the actual ordered Gram eigenbasis of `MᵀM`. It proves `‖Mvᵢ‖ = σᵢ(M)` at each same `Fin n` index, converts ordinary matrix trace to the Euclidean linear trace, expands it in that orthonormal basis, and applies the real inner-product Cauchy–Schwarz bound with `‖Uvᵢ‖=1`. The coefficient is exactly one. This argument handles repeated and zero singular values, including the empty `Fin 0` sum; the unused right orthogonality hypothesis is retained in the contracted public signature.
+
+Separate imported audit `/private/tmp/ra10-trace-dual-upper-independent-audit.lean` at SHA-256 `33155890e18a9c0d5bcc8f318192240d2c78335dd0c044abfae1ea1a0bcc6b4b` restated the full public signature and passed pinned Lean 4.33.1 with LeanCert `kernel`. `#assert_trust` passed; `#print axioms` lists only `propext`, `Classical.choice`, and `Quot.sound`. Source scan found no `sorry`, `admit`, `native_decide`, `unsafe`, or custom axiom.

@@ -95,6 +95,37 @@ def review_inputs(root: Path, metadata: dict, phase: str) -> set[str]:
     return inputs
 
 
+def reviewed_statement_preserved(original: bytes, canonical: bytes, problem_id: str) -> bool:
+    """Allow a catalog promotion while keeping the reviewed target byte for byte.
+
+    ORIGINAL.md and the review hashes remain bound to the earlier complete
+    README. A later status/evidence update cannot silently change its target.
+    """
+    if original == canonical:
+        return True
+    old = original.decode("utf-8")
+    new = canonical.decode("utf-8")
+    if old.splitlines()[0] != new.splitlines()[0] or not old.startswith(f"# {problem_id} — "):
+        return False
+    if not re.search(r"(?m)^\*\*Status:\*\* Lean verified\s*$", new):
+        return False
+    if not re.search(r"(?m)^## Lean proof and verification evidence\b", new):
+        return False
+
+    def target(text: str) -> str | None:
+        lines = text.splitlines(keepends=True)
+        starts = [i for i, line in enumerate(lines)
+                  if re.fullmatch(r"## (?:Problem statement|Statement)\s*", line)]
+        if len(starts) != 1:
+            return None
+        start = starts[0]
+        end = next((i for i in range(start + 1, len(lines)) if lines[i].startswith("## ")), len(lines))
+        return "".join(lines[start:end])
+
+    original_target = target(old)
+    return original_target is not None and original_target == target(new)
+
+
 def validate_metadata(root: Path, path: Path, *, require_reviews: bool = True) -> dict:
     contained(root, path.relative_to(root).as_posix())
     data = read_json(path)
@@ -113,12 +144,12 @@ def validate_metadata(root: Path, path: Path, *, require_reviews: bool = True) -
         raise ValueError("specification must be retained beside its metadata")
     original = contained(root, f"docs/lean/statements/{problem_id}/ORIGINAL.md")
     canonical = contained(root, data["canonical_readme"])
-    if original.read_bytes() != canonical.read_bytes():
-        raise ValueError("ORIGINAL.md must preserve the complete canonical README byte for byte")
+    if not reviewed_statement_preserved(original.read_bytes(), canonical.read_bytes(), problem_id):
+        raise ValueError("the reviewed original target changed in the canonical README")
     if data.get("module") != f"NLA.Statements.{compact}" or data.get("declaration") != f"NLA.Statements.{compact}.Target":
         raise ValueError("module/declaration must retain the permanent ID")
-    for relative, key in [(data["canonical_readme"], "source_sha256"),
-                          (data["specification"], "specification_sha256"),
+    check_hash(root, f"docs/lean/statements/{problem_id}/ORIGINAL.md", data["source_sha256"])
+    for relative, key in [(data["specification"], "specification_sha256"),
                           (source.as_posix(), "lean_sha256"),
                           (frozen_path(problem_id).as_posix(), "frozen_sha256")]:
         check_hash(root, relative, data[key])
@@ -140,7 +171,11 @@ def validate_metadata(root: Path, path: Path, *, require_reviews: bool = True) -
             if not review_inputs(root, data, phase) <= bindings.keys():
                 raise ValueError(f"{phase} review omits source, specification, or Lean import closure")
             for relative, sha in bindings.items():
-                check_hash(root, relative, sha)
+                if relative == data["canonical_readme"]:
+                    if sha != data["source_sha256"]:
+                        raise ValueError("reviewed canonical snapshot hash changed")
+                else:
+                    check_hash(root, relative, sha)
             reviewers.add(reviewer)
         if require_reviews and len(reviewers) < 2:
             raise ValueError(f"{problem_id}: two independent {phase} approvals required")

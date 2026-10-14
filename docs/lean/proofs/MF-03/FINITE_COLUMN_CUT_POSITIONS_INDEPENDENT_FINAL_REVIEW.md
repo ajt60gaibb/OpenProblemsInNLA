@@ -1,0 +1,7 @@
+# MF-03 exact cut positions and ordered path rows: independent final review
+
+**Author:** `/root/mf03_jt_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact cut-position and strict-row gate; endpoints and literal path assembly remain open.
+
+The frozen source `FiniteColumnCutPositions.lean` has SHA-256 `cb5f149dbba9e812145ba7c94614576fbca65015ac4eae3b1d2717a66256928f`. I checked it against the independently approved cut reconstruction contract and original MF-03 start/end indices. At cut `q`, path `p` is placed exactly at its original start plus the number of its actual labels at or above `q`. The suffix count is bounded by the source-locked endpoint displacement, so every position lies in the original `Fin(2m+1)` sites. The exact one-gap noncollision inequality gives strict adjacent order, and the proof extends this to every pair and packages the existing `StrictRows m`. It introduces no sentinel into a position or coefficient and works for all `N,m,j` with `j≤m` and every `q≤N`.
+
+The independent imported exact-signature audit `/private/tmp/mf03-finite-column-cut-positions-independent-audit.lean`, SHA-256 `f92db884fab165b5c5d0930d7281799a5f329c1f3899cc89ab90d902bf3e2aea`, passed pinned LeanCert kernel. The packaged row declaration reports only `propext`, `Classical.choice`, and `Quot.sound`. Exact endpoints, valid transitions, mutual path inverse, weight identity, and full MF-03 Target remain open.

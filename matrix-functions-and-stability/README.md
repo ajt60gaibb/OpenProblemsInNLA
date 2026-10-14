@@ -21,7 +21,7 @@
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
 | [MF-02](MF-02/README.md) | Multiplication overhead of cubic sign compositions | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](MF-02/problem.pdf) · [TeX](MF-02/problem.tex) |
-| [MF-03](MF-03/README.md) | A uniform disk bound for wave-kernel Padé approximants | **✅ SOLVED** | hard | interesting to specialist | [PDF](MF-03/problem.pdf) · [TeX](MF-03/problem.tex) |
+| [MF-03](MF-03/README.md) | A uniform disk bound for wave-kernel Padé approximants | **🏆 LEAN VERIFIED** | hard | interesting to specialist | [PDF](MF-03/problem.pdf) · [TeX](MF-03/problem.tex) |
 | [MF-05](MF-05/README.md) | Local Hölder continuity of the joint spectral radius | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](MF-05/problem.pdf) · [TeX](MF-05/problem.tex) |
 | [MF-06](MF-06/README.md) | A pointwise Lipschitz lower bound for the joint spectral radius | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](MF-06/problem.pdf) · [TeX](MF-06/problem.tex) |
 | [MF-07](MF-07/README.md) | Uniform polynomial bounds for products at joint spectral radius one | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](MF-07/problem.pdf) · [TeX](MF-07/problem.tex) |
@@ -33,7 +33,7 @@
 | [MF-18](MF-18/README.md) | Imaginary-part rank in a limiting Green-function matrix equation | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](MF-18/problem.pdf) · [TeX](MF-18/problem.tex) |
 | [MF-21](MF-21/README.md) | The uniform expansion threshold for Toeplitz symbols with higher-order zeros | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](MF-21/problem.pdf) · [TeX](MF-21/problem.tex) |
 | [MF-22](MF-22/README.md) | Polynomial conditioning of the cubic C1 spline Schrödinger Toeplitz family | **🏆 LEAN VERIFIED** | hard | interesting to specialist | [PDF](MF-22/problem.pdf) · [TeX](MF-22/problem.tex) |
-| [MF-23](MF-23/README.md) | Complete Crouzeix conjecture | **✅ SOLVED** | extreme | broadly interesting | [PDF](MF-23/problem.pdf) · [TeX](MF-23/problem.tex) |
+| [MF-23](MF-23/README.md) | Complete Crouzeix conjecture | **🏆 LEAN VERIFIED** | extreme | broadly interesting | [PDF](MF-23/problem.pdf) · [TeX](MF-23/problem.tex) |
 | [MF-24](MF-24/README.md) | A dimension-independent polynomial norm bound from super-identical pseudospectra | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](MF-24/problem.pdf) · [TeX](MF-24/problem.tex) |
 | [SF-01](SF-01/README.md) | Preservation of real H-matrix structure by Newton square-root iterates | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](SF-01/problem.pdf) · [TeX](SF-01/problem.tex) |
 

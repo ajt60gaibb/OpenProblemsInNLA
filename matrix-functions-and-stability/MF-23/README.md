@@ -7,8 +7,8 @@
 **Topic:** Matrix-valued polynomial functional calculus  
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
-**Status:** Solved
-**Last checked:** 2026-10-08
+**Status:** Lean verified
+**Last checked:** 2026-10-13
 
 **Rating rationale:** Historical ratings retained. The uniform bound must survive arbitrary matrix amplification, beyond the scalar functional calculus; it would give sharp bounds for block matrix functions and connect numerical-range estimates to dilation and similarity theory.
 
@@ -18,7 +18,15 @@ OpenAI's [mathematics catalog, family 325](https://github.com/openai/math/blob/a
 
 At immutable OpenAI revision `adc7f1241b42e322a6451854ab7e4b4c146bf78a`, the project publishes a [Lean formalization scope record](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/325.md). Its [finite-matrix proof source](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/OAI/Analysis/DirectCrouzeix/CompleteBound.lean) declares `OAI.DirectCrouzeix.complete_crouzeix : UniversalBound 2`. The [Comparator challenge](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/DirectCrouzeix.lean) defines `UniversalBound` with arbitrary positive matrix sizes, degree and complex coefficients, using the Euclidean operator norm and the supremum over the numerical range. The [formalization catalog](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/formalization.yaml) maps the declaration to this challenge, and its [Comparator configuration](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/DirectCrouzeix.json) permits only Lean's standard foundational axioms.
 
-**Lean evidence check, 8 October 2026:** the pinned proof source declares the exact `UniversalBound 2` target. The [review](../../reviews/2026-10-08-claimed-solutions/MF-23.md) compared its definitions with the Comparator challenge and scanned the direct proof modules for placeholders and bypasses. The repository publishes a pinned toolchain and dependencies, but no dated successful kernel build or Comparator log and no transitive axiom report were found for the cited revision. This therefore remains **Solved**, not `Lean verified`, under the catalog's [formal evidence criteria](../../CONTRIBUTING.md#lean-verification). No external human peer review or local Lean rerun is asserted.
+The [8 October evidence review](../../reviews/2026-10-08-claimed-solutions/MF-23.md) found no dated successful kernel build for the external source at that time. The subsequent local bridge, independent statement review, and isolated Linux verification are in the [evidence section](#lean-proof-and-verification-evidence). No external human peer review is asserted.
+
+## Lean proof and verification evidence
+
+**Reviewed 13 October 2026.**
+
+At immutable repository revision [`bca7904b`](https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/bca7904b8d6f43b7258bc0eaed636a2b6b4a8792/matrix-functions-and-stability/MF-23/lean/CanonicalBridge.lean), `NLA.MF23.canonical_crouzeix_proved` proves the local canonical `Target`; [`Solution.lean`](lean/Solution.lean) exports the same target as `NLA.MF23.canonical_crouzeix`. The [independent statement](../../docs/lean/proofs/MF-23/CANONICAL_STATEMENT_INDEPENDENT_REVIEW.md) and [bridge reviews](../../docs/lean/proofs/MF-23/CANONICAL_BRIDGE_INDEPENDENT_REVIEW.md) compare that target with the original block polynomial inequality: all positive matrix and block sizes, every degree and complex coefficient, the full numerical range, Euclidean operator norms, and the exact constant two are retained. The proof imports pinned upstream `complete_crouzeix` and uses a norm-preserving tensor-factor swap; it adds no mathematical premise.
+
+The [source-locked project](lean/lake-manifest.json) pins Lean **4.34.1**, Mathlib `d13f23b723b8`, LeanCert `7f91b6eb3567`, and the upstream source revision recorded in [the lock](lean/upstream-source-lock.json). From `matrix-functions-and-stability/MF-23/lean`, run `lake build Challenge Solution`. The [10 October isolated Linux Comparator/LeanCert job and log](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/38006337671/job/114076127209) passed the selected export and kernel trust; its transitive axioms were only `propext`, `Classical.choice`, and `Quot.sound`. The [receipt](../../docs/lean/proofs/MF-23/LINUX_CI_RECEIPT.md) records the verified source closure and reproduction details. This catalog reviewed that public verification record; it did not rerun Lean locally for this status update.
 
 ## Context and notation
 

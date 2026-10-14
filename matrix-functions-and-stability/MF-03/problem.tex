@@ -34,7 +34,7 @@ approximants},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MF-03}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-10-13}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ uniform disk bound for wave-kernel Padé approximants\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} hard\quad\textbf{Importance:} interesting
 to specialist\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -73,7 +73,10 @@ every order.
 
 The complete target is resolved. Its former difficulty rating is
 historical; the original statement, references and dated audits remain
-below.
+below. The later
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-03\#lean-proof-and-verification-evidence}{Lean
+proof and verification evidence} records the exact target and kernel
+checks.
 
 \textbf{Primary reference:}
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-functions-2026-09-11/manuscripts/MF-03.pdf}{complete
@@ -83,16 +86,47 @@ TeX}, \textbf{Theorem 1}.
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-functions-2026-09-11/verification/reviews/MF-03-review.md}{Independent
 proof review} ·
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-matrix-functions-2026-09-11/README.md}{Authorship
-and submission record}. Verification is independent agent review, not
-external human peer review or formal certification.
+and submission record}. This manuscript review is an independent agent
+review, not external human peer review; the later formal checks are
+recorded separately.
+
+\subsection{Lean proof and verification
+evidence}\label{lean-proof-and-verification-evidence}
+
+\textbf{Reviewed 13 October 2026.}
+
+At immutable repository revision
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/bca7904b8d6f43b7258bc0eaed636a2b6b4a8792/lean-statements/NLA/Proofs/MF03/AllOrderTarget.lean}{\textit{bca7904b}},
+\textit{NLA.Proofs.MF03.all\_order\_target} has the literal frozen type
+\textit{NLA.Statements.MF03.Target}. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/proofs/MF-03/ALL_ORDER_TARGET_INDEPENDENT_FINAL_REVIEW.md}{independent
+final statement and proof review} checks every positive Padé order,
+existence of a reduced representative, all reduced representatives,
+denominator nonvanishing on the closed radius-three disk, and the error
+bound two. Audited finite certificates cover orders 1--15, and the
+source determinant argument covers every order at least 16; the proof
+adds no premise or weaker radius.
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/lean-statements/lake-manifest.json}{manifest}
+pins Lean \textbf{4.33.1}, Mathlib \textit{0df444a360ea}, and LeanCert
+\textit{621a43d7cf21}. From \textit{lean-statements}, run
+\textit{lake build NLA.Proofs.MF03.AllOrderTarget NLA.Proofs}. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/38165413203/job/114546847894}{successful
+PR \#349 aggregate kernel build} ran the imported target and its
+\textit{\#assert\_statement} and \textit{\#assert\_trust kernel}
+checks. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/proofs/MF-03/ALL_ORDER_TARGET_INDEPENDENT_FINAL_REVIEW.md}{independent
+audit} reports only \textit{propext}, \textit{Classical.choice}, and
+\textit{Quot.sound} as transitive axioms, with no proof admission or
+custom axiom. This catalog reviewed those dated public and independent
+records; it did not rerun Lean locally for this status update.
 
 \subsection{Problem statement}\label{problem-statement}
 
 Let
 
-\[
-f(z)=\sum_{j=0}^\infty\frac{z^j}{(2j)!}=\cosh\sqrt z,
-\]
+\[f(z)=\sum_{j=0}^\infty\frac{z^j}{(2j)!}=\cosh\sqrt z,\]
 
 where the series defines the entire function without a square-root
 branch choice. For each integer \(m\ge1\), let \(r_m=P_m/Q_m\) be its
@@ -101,9 +135,7 @@ diagonal Padé approximant at zero: \(\deg P_m,\deg Q_m\le m\),
 reduced rational function \(r_m\) has no pole in
 \(\{z\in\mathbb C:|z|\le3\}\) and
 
-\[
-|1-r_m(z)|\le2\qquad (|z|\le3)
-\]
+\[|1-r_m(z)|\le2\qquad (|z|\le3)\]
 
 for every \(m\)?
 

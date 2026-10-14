@@ -1,0 +1,7 @@
+# RA-10 frozen nuclear norm zero: independent pre-implementation review
+
+**Reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact mathematical and index contract `NUCLEAR_NORM_ZERO_GATE_PRE_REVIEW.md` at SHA-256 `05254f9e49658cb29ec124d02c8bd4b1c7e2f16612bbdacd1222334beccdb956` before Lean implementation.
+
+I compared it with the frozen `NuclearNorm` definition and checked the pinned Mathlib facts it names. The frozen sum uses `i:Fin n` and `singularValues i.val`. Every term is nonnegative. If that sum is zero, every index below `n` has zero singular value; `LinearMap.singularValues_of_finrank_le` supplies zero at every index at least `n` because the Euclidean domain has real dimension `n`. `LinearMap.singularValues_eq_zero_iff` then gives the zero linear map. `Matrix.toEuclideanLin` is a linear equivalence, so its injectivity gives the **original** matrix `M=0`. The converse follows for the zero matrix. When `n=0`, the sum is empty and the matrix type has one value, so the same equivalence holds without an extra positive-dimension premise.
+
+This approval covers exactly `0≤NuclearNorm M` and `NuclearNorm M=0↔M=0` for every real square matrix and every natural dimension. It does not permit replacing the frozen nuclear norm by a trace surrogate and does not prove triangle inequality, pinching, spectral perturbation, the RA-10 constant-eleven transfer, or the frozen Target. Freeze any Lean source for independent imported exact-signature and LeanCert kernel review before aggregate import.

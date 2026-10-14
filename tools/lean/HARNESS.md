@@ -63,6 +63,67 @@ isolation. There is no preceding Solution build in that fresh directory.
 The exact allowed axiom set is a subset of `propext`, `Quot.sound`, and
 `Classical.choice`; custom and native-execution trust axioms are forbidden.
 
+After Comparator accepts a project with the reviewed LeanCert dependency
+`621a43d7cf21f87872392a01e874f2f1dbddc926`, the verifier generates a
+separate `ProofTrustAudit.lean` from the same `comparator.json`. It imports
+the actual `Solution`, requires every selected name to be a theorem constant,
+and runs `#assert_trust kernel` plus `#print axioms` on each proof. The audit
+first builds the pinned LeanCert verification module (which may be unused by
+the Solution) and is checked in the same restricted user service with the pinned Lean toolchain;
+its source digest and result
+are recorded in `result.json`, and its output is retained in
+`leancert-proof-trust.log`; the dependency build has its own
+`leancert-build.log`. The frozen MF-21 manuscript's `v4.33.1` Lakefile
+tag is accepted only when the committed manifest resolves it to the same
+reviewed commit. A different LeanCert revision fails. Legacy projects
+without LeanCert retain the Comparator gate and are marked
+`not-run-no-leancert-dependency` in the receipt; they cannot claim this
+additional LeanCert audit. Adding LeanCert to a project enables it without
+changing the project-specific proof statements.
+
+## RA-06 frozen proof package
+
+`randomized-and-low-rank-approximation/RA-06/lean` uses the existing Lean
+4.33.1 default checker profile. Comparator selects the exact frozen target
+theorem `NLA.RA06.target` after comparing its isolated `Challenge.lean` hole
+against `Solution.lean`. The 16 byte-identical statement/proof modules under
+`NLA/` are pinned by `ra06-source-lock.json`; the shared metadata validator
+and verifier reject missing, changed, symlinked, or extra modules. The
+verifier also requires the frozen Mathlib and LeanCert revisions in both
+Lake inputs and audits the selected theorem with LeanCert in kernel mode.
+
+## MF-23 Lean 4.34.1 profile
+
+The MF-23 project requires Lean 4.34.1, Mathlib
+`d13f23b723b8a846827a245b89c10fc7d3f11612`, and LeanCert
+`7f91b6eb3567437f6cfac03ed279706603ee22f4`. The CI matrix selects
+`--profile mf23` only for its canonical project path. The default profile
+continues to use the original Lean 4.33.1 source lock and LeanCert revision.
+
+The MF-23 bootstrap fetches **all** Forsythe checker and `lean4export`
+source bytes from the same immutable commit and verifies their source-lock
+hashes. It then changes only three pinned `lean-toolchain` text files (root,
+Comparator and `lean4export`) from the original
+`leanprover/lean4:v4.33.1` to exact `leanprover/lean4:v4.34.1` bytes.
+The profile-specific source check enforces the adapted hashes for those
+three files and the original source-lock hashes for every other file, both
+after the build and before verification. The 4.34.1 binaries are built from
+those source bytes with the 4.34.1 toolchain, and their executable hashes
+are recorded in the bootstrap receipt. This is an explicit compatibility
+adaptation, not a claim that the original Forsythe revision published 4.34.1
+toolchain files.
+
+The MF-23 verifier runs the **same** real Linux sandbox probes, kernel and
+Comparator controls, plus `sorryAx` and native-axiom rejection fixtures,
+before it snapshots the project. It requires the 41-file pinned OpenAI
+direct-proof closure and license to match `upstream-source-lock.json`;
+changed, missing or extra modules fail. Comparator runs in the restricted
+service on a fresh checkout before any Solution build. Only after its
+acceptance does the verifier build the exact MF-23 LeanCert revision and
+generate the selected-theorem kernel audit. A local macOS build alone does
+not establish that the adapted Comparator and exporter compile and pass on
+Linux; the CI result is the authoritative evidence for this profile.
+
 If a cache is unavailable, explicitly set `NLA_LEAN_SKIP_CACHE=1` to request
 a source build. This changes build cost, not the statement, proof, axiom
 policy or sandbox. Network is used during public dependency preparation;

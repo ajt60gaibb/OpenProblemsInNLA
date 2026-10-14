@@ -34,7 +34,7 @@ measurements},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}FR-05}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-10-08}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-10-13}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ injectivity probability at 4d minus 5 complex phase measurements\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -103,29 +103,61 @@ An
 AI-agent proof audit} checked the manuscript's planted and reference
 laws, the cone and overlap estimates, the small-ball and Newton
 arguments, and the final probability reduction. No proof gap was found.
-This supports \textbf{Solved} under the catalog's informal-audit rule;
-it is not external human peer review or \textit{Lean verified}. The
-original target, permanent identifier, and canonical path are unchanged.
+That informal audit is separate from the Lean verification recorded
+below; neither is external human peer review. The original target,
+permanent identifier, and canonical path are unchanged.
 
 \subsubsection{Local Lean development --- 27 September
 2026}\label{local-lean-development-27-september-2026}
 
 The
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/frames-and-matrix-designs/FR-05/lean/Solution.lean}{Lean
-solution} now proves the bound \(p_d\le C/d\) for every \(d\ge2\) and
-the original limit \(p_d\to0\), using the original Gaussian law and
-all-signals injectivity predicate. The recorded local build and
-transitive axiom audit pass, using only standard Lean axioms and no
-proof placeholders in the solution. See the
+solution} proves the bound \(p_d\le C/d\) for every \(d\ge2\) and the
+original limit \(p_d\to0\), using the original Gaussian law and
+all-signals injectivity predicate. See the
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/frames-and-matrix-designs/FR-05/lean/FINAL_ASSEMBLY.md}{final
 assembly},
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/frames-and-matrix-designs/FR-05/lean/README.md}{source
 guide}, and
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/frames-and-matrix-designs/FR-05/lean/verification/library-cleanup/README.md}{local
-verification record}. An independent statement review and isolated Linux
-Comparator/kernel verification remain outstanding for
-\textit{Lean verified}; the 8 October promotion rests on the manuscript
-proof audit above.
+verification record}. The subsequent independent review and isolated
+Linux verification are in the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/frames-and-matrix-designs/FR-05\#lean-proof-and-verification-evidence}{evidence
+section}.
+
+\subsection{Lean proof and verification
+evidence}\label{lean-proof-and-verification-evidence}
+
+\textbf{Reviewed 13 October 2026.}
+
+At immutable repository revision
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/bca7904b8d6f43b7258bc0eaed636a2b6b4a8792/frames-and-matrix-designs/FR-05/lean/Solution.lean}{\textit{bca7904b}},
+\textit{NLA.FR05.phaseRetrieval\_injective\_probability\_le\_inv} proves
+one positive absolute constant \(C\) bounds the original injectivity
+probability by \(C/d\) for every \(d\ge2\);
+\textit{NLA.FR05.phaseRetrieval\_injective\_probability\_tendsto\_zero}
+proves the retained limit. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/proofs/FR-05/INDEPENDENT_REVIEW.md}{independent
+mathematical and statement review} checks the original iid
+complex-Gaussian law at \(4d-5\) measurements, the all-signals
+quantifier, the global-phase equivalence, and the asymptotic conclusion.
+No extra mathematical premise is used.
+
+The project pins Lean \textbf{4.33.1}, Mathlib \textit{0df444a360ea},
+and LeanCert \textit{621a43d7cf21} in its
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/frames-and-matrix-designs/FR-05/lean/lake-manifest.json}{toolchain
+and manifest}. From \textit{frames-and-matrix-designs/FR-05/lean}, run
+\textit{lake build Challenge Solution}; the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/38000947893/job/114058782811}{9
+October isolated Linux Comparator/LeanCert job and log} also checks the
+selected exports against the challenge and passes kernel trust. Its
+transitive axiom reports contain only \textit{propext},
+\textit{Classical.choice}, and \textit{Quot.sound}, with no proof
+admission or custom axiom. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/proofs/FR-05/LINUX_CI_RECEIPT.md}{receipt}
+records source hashes and reproduction details. This catalog reviewed
+that public verification record; it did not rerun Lean locally for this
+status update.
 
 \subsection{References}\label{references}
 

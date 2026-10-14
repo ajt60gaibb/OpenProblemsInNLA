@@ -1,0 +1,11 @@
+# SP-14 absolute endpoint kernel: independent final review
+
+**Reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE this exact partial gate for aggregate import. It is not the frozen SP-14 Target.
+
+The mathematical and numerical statement was independently approved before implementation in `ENDPOINT_ABSOLUTE_KERNEL_INDEPENDENT_PRE_REVIEW.md` (SHA-256 `cbf45a2357968d19666051de4e66322674c6a8a8a3547562e4d746df8ca26e0f`) against the author contract (SHA-256 `5ebfe8f126c9517488d081320d3f6e72287fcf9ef0af316d65b13f9310823bf5`). The reviewed Lean source `lean-statements/NLA/Proofs/SP14/EndpointAbsoluteKernel.lean` is frozen at SHA-256 `da1aad945e27098c98daefddeacad99ad0246eb8a61890953317edfa05b2b673`.
+
+I read the complete source and checked that `endpointCentralCoeff` is exactly `(-1)^n * baseInverseCoeff n`, and `endpointKernelAbs` is the complex norm of the **actual frozen Fourier integral** of the endpoint base symbol times the finite inverse monomial at frequency `-j`. The public theorems state the exact central-binomial identity, positivity and recurrence, the sharp `(n+1)Aₙ²≤1`, its square-root consequence, and the exact absolute kernel formula and pointwise bound for all `k≥0`, `j≥1`. The proof uses the already reviewed signed Fourier formula, with no change to its denominator or frequency range. The source has no `sorry`, `admit`, local axiom, or weakened alias of the target.
+
+I separately imported this frozen module in `/private/tmp/sp14-endpoint-absolute-kernel-independent-audit.lean` (SHA-256 `1d3ba8800d95946b11d37ebd0cc852af74314bd5a91ed1525d13d96e2d4f3d29`). Pinned Lean 4.33.1 checked exact-signature examples for both definitions and all substantive public conclusions, plus five `#assert_trust kernel` directives. `#print axioms endpointKernelAbs_le` returned only `[propext, Classical.choice, Quot.sound]`. The module's own five kernel assertions also passed its direct build. The aggregate build is recorded in the PR verification after import.
+
+This gate proves individual entries. It does not prove the infinite weighted Schur row/column sums, Hilbert–Schmidt inverse, bounded extension, perturbed-background compatibility, final symbol, or nonextension claim.

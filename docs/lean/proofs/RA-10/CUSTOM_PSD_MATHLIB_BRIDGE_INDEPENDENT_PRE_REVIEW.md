@@ -1,0 +1,7 @@
+# RA-10 frozen PSD to pinned Mathlib PSD: independent pre-review
+
+**Author:** `/root/ra10_spectral_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact finite real PSD equivalence and actual-compression corollary for Lean implementation.
+
+I reviewed `CUSTOM_PSD_MATHLIB_BRIDGE_PRE_REVIEW.md` at SHA-256 `03faa6ac28c63bbe829a8796a5264d03f84ce5cc546c53b97286542d7a6137cd` against the frozen RA-10 predicate, audited selected-compression PSD gate, and pinned Mathlib `Mathlib/LinearAlgebra/Matrix/PosDef.lean`. Mathlib defines `Matrix.PosSemidef M` by Hermitian symmetry and a nonnegative quadratic form over finitely supported vectors. On `Fin n`, every vector has finite support; `posSemidef_iff_dotProduct_mulVec` exposes the ordinary real vector form. For real matrices, Hermitian symmetry is precisely `M_ij=M_ji`, and `star x ⬝ᵥ (M*ᵥx)` is the same finite double sum as the frozen predicate, with no factor or sign change. This remains true for `n=0`. The proposed corollary applies the equivalence to the **actual** `PAP` with the original `QAhat`, preserving the supplied independent decompositions.
+
+Approval covers the exact iff theorem and source-compression corollary. It does not construct an ordered spectral decomposition of `C`, prove eigenvalue comparison, nuclear ideal bounds, Lemma 2, integral transfer, or the full RA-10 Target. Freeze implementation for separate imported exact-signature and LeanCert kernel/axiom audit.

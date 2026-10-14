@@ -1,0 +1,9 @@
+# RA-10 sharp selected resolvent Loewner bound: independent final review
+
+**Author:** `/root/ra10_spectral_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact selected factor gate; operator-norm conversion and full RA-10 Target remain open.
+
+The frozen source `RidgeResolventLoewnerSelected.lean` has SHA-256 `82ca6ccb9434dc4d57737c4d421be929df6bf06bdbb42f74e7b260aa2e3f9186`. I checked it against the independently approved source-locked Loewner contract, exact selected projector, matched-leading `B₀`, and frozen real-matrix `PositiveSemidefinite`. For the supplied `QAhat`, it proves `0≼P(sI+B₀)⁻¹P≼[1/(s+c)]P` where `P=selectedProjection k QAhat`, `B₀=FunctionTruncation k id eigenvaluesA QAhat`, and `c=eigenvaluesA j` with `j.val+1=k`. The selected spectral coefficient is exactly `1/(s+a_a)` and the complement is zero; the upper difference has exact nonnegative coefficient `(a_a−c)/[(s+c)(s+a_a)]` because the original ordered `A` eigenvalues satisfy `a_a≥c` for `a<k`. Both symmetry and quadratic requirements of the frozen PSD predicate are proved. The same supplied `QAhat` is used throughout, with no spectral gap, commutation premise, or changed cutoff. The public source-range hypotheses `1≤k<n` remain intact even where the lower algebra is stronger.
+
+An independent imported audit at `/private/tmp/ra10-ridge-resolvent-loewner-selected-independent-audit.lean`, SHA-256 `909013eecc80b761a2de3295548b03998ac2b8b9bb209fdca0952c128d9ebc30`, elaborated both exact public signatures, passed `#assert_trust kernel`, and reported only `propext`, `Classical.choice`, and `Quot.sound`. No proof escape or new axiom appears in the source.
+
+This does not yet prove the corresponding operator norm inequalities, nuclear ideal-property bound, compression Lemma 2, integral representation, or frozen RA-10 Target.

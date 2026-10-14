@@ -1,0 +1,11 @@
+# SP-14 actual-kernel finite Schur inequalities: independent final review
+
+**Source author:** `/root/sp14_base_proof`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE this exact partial gate for aggregate import.
+
+The independently approved mathematical and numerical contract is `ENDPOINT_WEIGHTED_SCHUR_INDEPENDENT_PRE_REVIEW.md`; its author contract `ENDPOINT_WEIGHTED_SCHUR_PRE_REVIEW.md` is SHA-256 `0433186b4e5af5637f31ebc752e13b4f545a5639a0fa4e4a547e9ff8ce205c21`. The frozen Lean source `lean-statements/NLA/Proofs/SP14/EndpointWeightedKernelSchur.lean` is SHA-256 `b7ba755ef50d356c00bd1c2b73529ddc053740b6537df974eec095d528c91849`.
+
+I checked that `endpointWeightedKernel r j k` is definitionally `j^r (k+1)^(-r) endpointKernelAbs j k`, where `endpointKernelAbs` is the already audited norm of the actual Fourier coefficient. Its entrywise bound has exactly `sqrt(k+1)/((j+k)sqrt(j))`, with `j≥1`, `k≥0`. Multiplication by column weight `1/sqrt(k+1)` yields the source row summand times `1/sqrt(j)`. Multiplication by row weight `1/sqrt(j)` at `j=t+1` yields the source column summand times `1/sqrt(k+1)`. Both finite sums use `Finset.range N`, so `N=0` is empty, the row covers `k=0,…,N−1`, and the column covers `j=1,…,N`. The literal constant is `C_r=1+1/r+1/(1−r)` for every real `0<r<1`; no numerical approximation or strengthened premise is introduced.
+
+The direct pinned Lean 4.33.1 build passed. My separate imported exact-signature audit `/private/tmp/sp14-endpoint-weighted-kernel-schur-independent-audit.lean` is SHA-256 `6548980390be14f3ecf24adea6040d8d05f256202819cbd947404d95ad88cf73`; it checked the public definitions, entry bound, both finite Schur inequalities, and LeanCert `#assert_trust kernel`. Both axiom reports were exactly `[propext, Classical.choice, Quot.sound]`. A source scan found no proof escape. Changed source bytes require a new review.
+
+This gate stops at finite weighted row and column inequalities. It does not prove a complex finite-matrix norm inequality, a bounded infinite-dimensional endpoint operator, an inverse Hilbert–Schmidt estimate, endpoint vanishing, perturbed-background compatibility, or the frozen SP-14 negative `Target`.

@@ -1,0 +1,9 @@
+# RA-10 Equation (14) selected resolvent product: independent final review
+
+**Disposition:** approved for aggregate import as the exact numerical nuclear product bound. The restricted ridge-difference inequality, integral transfer, and full RA-10 Target remain open.
+
+I independently inspected `NuclearIdealEq14Product.lean` at SHA-256 `9fac30846f25f1bf739907e7f742c31bef3df78842546a6b161f4fb19ce296ac` against the independently approved `NUCLEAR_IDEAL_EQ14_PRE_REVIEW.md`, canonical source, and frozen statement. Its public signature is exactly the preapproved `matchedLeading_ridge_nuclear_product_le`: supplied ordered PSD decompositions include the actual compression `C=PAP`; the cutoff is `j.val+1=k`; the selected left resolvent is **`P*RB*P`**; the right is `RC`; the product contains the original factor `s` and `B₀−C`; and the bound is exactly `1/(s+a_j)` times the frozen nuclear norm. There is no extra `a_j>0`, commutation, rank, or spectral-gap premise.
+
+The proof uses the independently audited nuclear homogeneity and both coefficient-one ideal inequalities, the sharp selected L2 bound `‖P*RB*P‖≤1/(s+a_j)`, and the full `‖RC‖≤1/s` bound. Positivity from `s>0` and `a_j≥0` justifies all multiplications. The original `s` cancels precisely with `1/s`, leaving no factor of 2, dimension, rank, or residual inverse. The actual matrix multiplication order is preserved.
+
+Separate imported audit `/private/tmp/ra10-eq14-product-independent-audit.lean` at SHA-256 `02efd21648f6500ee1f139f09eddf8cbb91f0d04a2777e425f6825ae1a2cc804` restated the full public signature and passed pinned Lean 4.33.1 with LeanCert `kernel`. `#assert_trust` passed; `#print axioms` lists only `propext`, `Classical.choice`, and `Quot.sound`. Source scan found no `sorry`, `admit`, `native_decide`, `unsafe`, or custom axiom.

@@ -16,8 +16,9 @@ class StatementGates(unittest.TestCase):
         problem_id = "RA-01"
         canonical = "randomized/RA-01/README.md"
         specification = "docs/lean/statements/RA-01/NUMERICAL_TARGETS.md"
-        files = {canonical: "Complete original problem\n",
-                 "docs/lean/statements/RA-01/ORIGINAL.md": "Complete original problem\n",
+        reviewed_page = "# RA-01 — Exact target\n\n**Status:** Solved\n\n## Statement\n\nOriginal target.\n\n"
+        files = {canonical: reviewed_page,
+                 "docs/lean/statements/RA-01/ORIGINAL.md": reviewed_page,
                  specification: "Exact specification\n",
                  check.source_path(problem_id).as_posix(): "import NLA.Statements.Shared\nnamespace NLA.Statements.RA01\ndef Target : Prop := True\nend NLA.Statements.RA01\n",
                  "lean-statements/NLA/Statements/Shared.lean": "-- complete mathematical shared definitions\n",
@@ -159,7 +160,21 @@ class StatementGates(unittest.TestCase):
             root = Path(directory).resolve()
             path, _ = self.fixture(root)
             (path.parent / "ORIGINAL.md").write_text("Only easy subquestion")
-            with self.assertRaisesRegex(ValueError, "complete canonical"):
+            with self.assertRaisesRegex(ValueError, "reviewed original target"):
+                check.validate_metadata(root, path)
+
+    def test_status_promotion_keeps_review_bindings_and_target(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            path, data = self.fixture(root)
+            canonical = root / data["canonical_readme"]
+            original = canonical.read_text()
+            promoted = original.replace("**Status:** Solved", "**Status:** Lean verified")
+            promoted += "## Lean proof and verification evidence\n\nReviewed proof.\n"
+            canonical.write_text(promoted)
+            check.validate_metadata(root, path)
+            canonical.write_text(promoted.replace("Original target.", "Different target."))
+            with self.assertRaisesRegex(ValueError, "reviewed original target"):
                 check.validate_metadata(root, path)
 
     def test_two_approvals_required_for_each_phase(self):

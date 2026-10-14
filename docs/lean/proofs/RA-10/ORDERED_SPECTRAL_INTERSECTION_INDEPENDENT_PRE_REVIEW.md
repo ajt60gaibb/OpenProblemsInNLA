@@ -1,0 +1,9 @@
+# RA-10 simultaneous spectral coordinate cuts: independent pre-review
+
+**Author:** `/root/ra10_spectral_bridge`. **Independent reviewer:** `/root`, 10 October 2026. **Verdict:** APPROVE the exact nonzero-intersection statement for Lean implementation; the compression eigenvalue comparison remains open.
+
+I checked `ORDERED_SPECTRAL_INTERSECTION_PRE_REVIEW.md` at SHA-256 `6a6d2bdc47571ea1e101af66e9a0efab5343ac959138f5110c684891b76c761c` against the unchanged RA-10 source, frozen supplied-basis coordinate convention, and the approved min-max/Rayleigh contracts. All source hashes match. For `a : Fin n`, the strict QC suffix has `n−1−a.val` coordinate equations and the strict QA prefix has `a.val`, totaling `n−1` homogeneous real equations on `n` unknowns. Thus their common kernel contains a nonzero vector. This count requires no orthogonality or PSD hypothesis and holds for any supplied matrices, including tied and zero eigenspaces; the `n=0` quantified case is empty and `n=1` has no coordinate constraints.
+
+The proposed signature returns one **nonzero** vector satisfying both exact strict cuts. QC's later coordinates vanish for the C lower Rayleigh bound, and QA's earlier coordinates vanish for the A upper bound; neither orientation is reversed. It does not assume P-support or infer `PAP≤A`. Completing the source comparison still requires support of the entire positive C prefix span, equality of the C and A quadratic forms on the selected range, and cancellation of a strictly positive squared norm.
+
+Approval covers only the exact intersection theorem. It needs a frozen source hash, direct pinned LeanCert kernel check, and independent imported exact-signature/source/axiom audit before aggregate import. Nuclear inequalities, Lemma 2, integral transfer, and full RA-10 Target remain open.

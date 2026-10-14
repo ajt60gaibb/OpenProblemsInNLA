@@ -14,6 +14,7 @@ import re
 import sys
 
 from validate_problem_ids import git, id_parts, read_registry
+from lean_statements.check import reviewed_statement_preserved
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = "docs/lean/statements/inventory.json"
@@ -117,9 +118,16 @@ def campaign_record(root, identifier, canonical_path, source_hash):
         raise ValueError(f"{path}: statement metadata must be an object")
     issues = []
     for field, expected in (("id", identifier), ("canonical_readme", canonical_path),
-                            ("source_sha256", source_hash), ("scope", "statement-only")):
+                            ("scope", "statement-only")):
         if record.get(field) != expected:
             issues.append(f"{field} does not match the canonical source contract")
+    original = root / "docs/lean/statements" / identifier / "ORIGINAL.md"
+    if record.get("source_sha256") != source_hash:
+        if (not original.is_file() or
+                sha256(original.read_bytes()) != record.get("source_sha256") or
+                not reviewed_statement_preserved(original.read_bytes(),
+                                                 (root / canonical_path).read_bytes(), identifier)):
+            issues.append("source_sha256 does not match the reviewed original target")
     module = record.get("module", "")
     # Module names are paths, not shell expressions or arbitrary file references.
     if not isinstance(module, str) or not re.fullmatch(r"NLA\.Statements\.[A-Za-z][A-Za-z0-9_]*", module):
@@ -201,7 +209,7 @@ def build_inventory(root, base_ref):
         if identifier == "FR-05":
             if status == "Solved":
                 concerns.append("The Solved label rests on a separate informal manuscript audit; the local Challenge boundary still awaits independent statement review and formal verification.")
-            else:
+            elif status != "Lean verified":
                 concerns.append("The catalog labels the solution claimed, and the Challenge boundary is marked pending independent review.")
         entries.append({
             "id": identifier,

@@ -69,6 +69,8 @@ import NLA.Statements.SP12
 import Reviewed.SP12
 import NLA.Statements.SP13
 import Reviewed.SP13
+import NLA.Statements.SP14
+import Reviewed.SP14
 import NLA.Statements.TR04
 import Reviewed.TR04
 import NLA.Statements.TR06
@@ -126,6 +128,7 @@ theorem identity_RE06 : NLA.Statements.RE06.Target = NLA.ReviewedStatements.RE06
 theorem identity_SP11 : NLA.Statements.SP11.Target = NLA.ReviewedStatements.SP11.Target := by sorry
 theorem identity_SP12 : NLA.Statements.SP12.Target = NLA.ReviewedStatements.SP12.Target := by sorry
 theorem identity_SP13 : NLA.Statements.SP13.Target = NLA.ReviewedStatements.SP13.Target := by sorry
+theorem identity_SP14 : NLA.Statements.SP14.Target = NLA.ReviewedStatements.SP14.Target := by sorry
 theorem identity_TR04 : NLA.Statements.TR04.Target = NLA.ReviewedStatements.TR04.Target := by sorry
 theorem identity_TR06 : NLA.Statements.TR06.Target = NLA.ReviewedStatements.TR06.Target := by sorry
 theorem identity_TR08 : NLA.Statements.TR08.Target = NLA.ReviewedStatements.TR08.Target := by sorry
