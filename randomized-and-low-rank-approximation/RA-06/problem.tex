@@ -34,7 +34,7 @@ two},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RA-06}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-30}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-10-13}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ row sampling for \(\ell_p\) embeddings when p exceeds two\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -139,12 +139,49 @@ local manuscript.} The supplied
 6 Pro audit} reports that the mathematical core refutes RA-06 and
 derives the arbitrary-weight strengthening. Its follow-up revision
 incorporates that strengthening, direct attribution, the explicit
-dimension regime and the requested presentation fixes. This is an
-informal AI audit, not external human peer review or formal
-proof-assistant certification. See the
+dimension regime and the requested presentation fixes. This manuscript
+review is an informal AI audit, not external human peer review; the
+later formal checks are in the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-06\#lean-proof-and-verification-evidence}{evidence
+section}. See the
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/haidary-resolutions-2026-09-30/README.md}{submission
 record}. Historical ratings are retained, and the original target is
 retained above.
+
+\subsection{Lean proof and verification
+evidence}\label{lean-proof-and-verification-evidence}
+
+\textbf{Reviewed 13 October 2026.}
+
+At immutable repository revision
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/bca7904b8d6f43b7258bc0eaed636a2b6b4a8792/lean-statements/NLA/Proofs/RA06/Final.lean}{\textit{bca7904b}},
+the proof defines \textit{NLA.Proofs.RA06.target}. Its literal type is
+\textit{NLA.Statements.RA06.Target}: for every real exponent greater
+than two, it refutes the original positive claim. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/proofs/RA-06/FINAL_INDEPENDENT_REVIEW.md}{independent
+mathematical and exact-statement review} checks the unchanged ordinary
+sensitivities, independent retention probabilities and rescaling, one
+common sampling parameter, expected row count, and simultaneous
+embedding quantifiers. The proof adds no premise and does not substitute
+a different sampler.
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/randomized-and-low-rank-approximation/RA-06/lean/lake-manifest.json}{source-locked
+project} pins Lean \textbf{4.33.1}, Mathlib \textit{0df444a360ea}, and
+LeanCert \textit{621a43d7cf21}. From
+\textit{randomized-and-low-rank-approximation/RA-06/lean}, run
+\textit{lake build Challenge Solution}; from
+\textit{lean-statements}, run
+\textit{lake build NLA.Proofs.RA06.Final}. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/38006337671/job/114076127303}{10
+October isolated Linux Comparator/LeanCert job and log} passed for the
+selected \textit{NLA.RA06.target} export. Its transitive axiom report
+contains only \textit{propext}, \textit{Classical.choice}, and
+\textit{Quot.sound}; the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/proofs/RA-06/LINUX_CI_RECEIPT.md}{receipt}
+records the successful revision and reproduction details. This catalog
+reviewed that public record and the unchanged reviewed source hash; it
+did not rerun Lean locally for this status update.
 
 \newpage
 \subsection{References}\label{references}

@@ -38,7 +38,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [FR-02](../../../frames-and-matrix-designs/FR-02/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [FR-03](../../../frames-and-matrix-designs/FR-03/README.md) | Open | missing-statement | Not audited here. |
 | [FR-04](../../../frames-and-matrix-designs/FR-04/README.md) | Open | missing-statement | Not audited here. |
-| [FR-05](../../../frames-and-matrix-designs/FR-05/README.md) | Solved | local-statement-source | The Solved label rests on a separate informal manuscript audit; the local Challenge boundary still awaits independent statement review and formal verification. |
+| [FR-05](../../../frames-and-matrix-designs/FR-05/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [FR-06](../../../frames-and-matrix-designs/FR-06/README.md) | Open | missing-statement | Not audited here. |
 | [FR-07](../../../frames-and-matrix-designs/FR-07/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [FR-08](../../../frames-and-matrix-designs/FR-08/README.md) | Partially resolved | missing-statement | Not audited here. |
@@ -97,7 +97,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [MD-06](../../../matrix-discrepancy-and-optimization/MD-06/README.md) | Solved | shared-statement-source | Graph probability and local-minimum semantics remain parameters of an abstract Semantics structure. |
 | [MF-01](../../../matrix-functions-and-stability/MF-01/README.md) | Open | missing-statement | Not audited here. |
 | [MF-02](../../../matrix-functions-and-stability/MF-02/README.md) | Lean verified | local-statement-source | Not audited here. |
-| [MF-03](../../../matrix-functions-and-stability/MF-03/README.md) | Solved | shared-statement-source | Not audited here. |
+| [MF-03](../../../matrix-functions-and-stability/MF-03/README.md) | Lean verified | shared-statement-source | Not audited here. |
 | [MF-04](../../../matrix-functions-and-stability/MF-04/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [MF-05](../../../matrix-functions-and-stability/MF-05/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [MF-06](../../../matrix-functions-and-stability/MF-06/README.md) | Lean verified | local-statement-source | Not audited here. |
@@ -117,7 +117,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [MF-20](../../../matrix-functions-and-stability/MF-20/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [MF-21](../../../matrix-functions-and-stability/MF-21/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [MF-22](../../../matrix-functions-and-stability/MF-22/README.md) | Lean verified | local-statement-source | Not audited here. |
-| [MF-23](../../../matrix-functions-and-stability/MF-23/README.md) | Solved | local-statement-source | Not audited here. |
+| [MF-23](../../../matrix-functions-and-stability/MF-23/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [MF-24](../../../matrix-functions-and-stability/MF-24/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [MI-01](../../../matrix-inequalities-and-norms/MI-01/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [MI-02](../../../matrix-inequalities-and-norms/MI-02/README.md) | Partially resolved | missing-statement | Not audited here. |
@@ -168,7 +168,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [RA-03](../../../randomized-and-low-rank-approximation/RA-03/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [RA-04](../../../randomized-and-low-rank-approximation/RA-04/README.md) | Solved | shared-statement-source | Not audited here. |
 | [RA-05](../../../randomized-and-low-rank-approximation/RA-05/README.md) | Solved | shared-statement-source | Not audited here. |
-| [RA-06](../../../randomized-and-low-rank-approximation/RA-06/README.md) | Solved | shared-statement-source | Not audited here. |
+| [RA-06](../../../randomized-and-low-rank-approximation/RA-06/README.md) | Lean verified | shared-statement-source | Not audited here. |
 | [RA-07](../../../randomized-and-low-rank-approximation/RA-07/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [RA-08](../../../randomized-and-low-rank-approximation/RA-08/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [RA-09](../../../randomized-and-low-rank-approximation/RA-09/README.md) | Lean verified | local-statement-source | Not audited here. |
@@ -215,7 +215,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [TR-10](../../../tensor-computations/TR-10/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [TR-11](../../../tensor-computations/TR-11/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [TR-12](../../../tensor-computations/TR-12/README.md) | Partially resolved | missing-statement | Not audited here. |
-| [TR-13](../../../tensor-computations/TR-13/README.md) | Solved | shared-statement-source | Not audited here. |
+| [TR-13](../../../tensor-computations/TR-13/README.md) | Lean verified | shared-statement-source | Not audited here. |
 | [TR-14](../../../tensor-computations/TR-14/README.md) | Solved | shared-statement-source | Not audited here. |
 | [TR-15](../../../tensor-computations/TR-15/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [TR-16](../../../tensor-computations/TR-16/README.md) | Open | missing-statement | Not audited here. |

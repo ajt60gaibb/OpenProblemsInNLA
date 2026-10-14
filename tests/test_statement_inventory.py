@@ -9,6 +9,7 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 from statement_inventory import build_inventory, campaign_record, main, sha256
+from lean_statements.check import reviewed_statement_preserved
 
 
 class StatementInventoryTests(unittest.TestCase):
@@ -91,6 +92,14 @@ class StatementInventoryTests(unittest.TestCase):
         campaign = self.inventory()["entries"][0]["campaign"]
         self.assertEqual(campaign["metadata_issues"], [])
         self.assertEqual(campaign["fidelity_verdict"], "not-established-by-inventory")
+
+    def test_status_promotion_retains_reviewed_statement(self):
+        original = b"# RA-01 \xe2\x80\x94 Exact target\n\n**Status:** Solved\n\n## Statement\n\nOriginal target.\n\n## Resolution\n\nOld audit.\n"
+        promoted = original.replace(b"**Status:** Solved", b"**Status:** Lean verified").replace(
+            b"## Resolution", b"## Lean proof and verification evidence\n\nVerified proof.\n\n## Resolution")
+        self.assertTrue(reviewed_statement_preserved(original, promoted, "RA-01"))
+        self.assertFalse(reviewed_statement_preserved(original, promoted.replace(b"Original target.", b"Different target."), "RA-01"))
+        self.assertFalse(reviewed_statement_preserved(original, promoted.replace(b"**Status:** Lean verified", b"**Status:** Solved"), "RA-01"))
 
     def test_scope_gap_does_not_become_proof_from_solution_file(self):
         path = "matrix-discrepancy-and-optimization/MD-06/README.md"

@@ -2,8 +2,8 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Solved
-**Last checked:** 2026-10-08
+**Status:** Lean verified
+**Last checked:** 2026-10-13
 
 **Rating rationale:** The asymptotic typical-injectivity question needs quantitative algebraic and probabilistic control beyond positive failure probability; it informs phase-retrieval measurement design.
 
@@ -37,11 +37,19 @@ p_d\leq C/d\qquad(d\geq2)
 
 for an absolute constant $`C>0`$. This implies the displayed limit. The argument plants a two-dimensional ambiguity, compares its law in $`L^2`$ to a covariance-matched Gaussian law, and uses a quantitative implicit-function argument to turn the planted approximate ambiguity into an exact one.
 
-An [independent AI-agent proof audit](../../reviews/2026-10-08-claimed-solutions/FR-05.md) checked the manuscript's planted and reference laws, the cone and overlap estimates, the small-ball and Newton arguments, and the final probability reduction. No proof gap was found. This supports **Solved** under the catalog's informal-audit rule; it is not external human peer review or `Lean verified`. The original target, permanent identifier, and canonical path are unchanged.
+An [independent AI-agent proof audit](../../reviews/2026-10-08-claimed-solutions/FR-05.md) checked the manuscript's planted and reference laws, the cone and overlap estimates, the small-ball and Newton arguments, and the final probability reduction. No proof gap was found. That informal audit is separate from the Lean verification recorded below; neither is external human peer review. The original target, permanent identifier, and canonical path are unchanged.
 
 ### Local Lean development — 27 September 2026
 
-The [Lean solution](lean/Solution.lean) now proves the bound $`p_d\le C/d`$ for every $`d\ge2`$ and the original limit $`p_d\to0`$, using the original Gaussian law and all-signals injectivity predicate. The recorded local build and transitive axiom audit pass, using only standard Lean axioms and no proof placeholders in the solution. See the [final assembly](lean/FINAL_ASSEMBLY.md), [source guide](lean/README.md), and [local verification record](lean/verification/library-cleanup/README.md). An independent statement review and isolated Linux Comparator/kernel verification remain outstanding for `Lean verified`; the 8 October promotion rests on the manuscript proof audit above.
+The [Lean solution](lean/Solution.lean) proves the bound $`p_d\le C/d`$ for every $`d\ge2`$ and the original limit $`p_d\to0`$, using the original Gaussian law and all-signals injectivity predicate. See the [final assembly](lean/FINAL_ASSEMBLY.md), [source guide](lean/README.md), and [local verification record](lean/verification/library-cleanup/README.md). The subsequent independent review and isolated Linux verification are in the [evidence section](#lean-proof-and-verification-evidence).
+
+## Lean proof and verification evidence
+
+**Reviewed 13 October 2026.**
+
+At immutable repository revision [`bca7904b`](https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/bca7904b8d6f43b7258bc0eaed636a2b6b4a8792/frames-and-matrix-designs/FR-05/lean/Solution.lean), `NLA.FR05.phaseRetrieval_injective_probability_le_inv` proves one positive absolute constant $`C`$ bounds the original injectivity probability by $`C/d`$ for every $`d\ge2`$; `NLA.FR05.phaseRetrieval_injective_probability_tendsto_zero` proves the retained limit. The [independent mathematical and statement review](../../docs/lean/proofs/FR-05/INDEPENDENT_REVIEW.md) checks the original iid complex-Gaussian law at $`4d-5`$ measurements, the all-signals quantifier, the global-phase equivalence, and the asymptotic conclusion. No extra mathematical premise is used.
+
+The project pins Lean **4.33.1**, Mathlib `0df444a360ea`, and LeanCert `621a43d7cf21` in its [toolchain and manifest](lean/lake-manifest.json). From `frames-and-matrix-designs/FR-05/lean`, run `lake build Challenge Solution`; the [9 October isolated Linux Comparator/LeanCert job and log](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/38000947893/job/114058782811) also checks the selected exports against the challenge and passes kernel trust. Its transitive axiom reports contain only `propext`, `Classical.choice`, and `Quot.sound`, with no proof admission or custom axiom. The [receipt](../../docs/lean/proofs/FR-05/LINUX_CI_RECEIPT.md) records source hashes and reproduction details. This catalog reviewed that public verification record; it did not rerun Lean locally for this status update.
 
 ## References
 

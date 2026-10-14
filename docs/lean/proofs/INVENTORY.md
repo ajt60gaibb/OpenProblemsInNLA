@@ -1,13 +1,16 @@
-# Proof inventory for the 47 Solved problems
+# Proof inventory for the 47 formerly Solved targets
 
-This is a source-level inventory against `problem_ids.json` and the canonical
-README status fields at the current branch. It records proof availability, not
-mathematical correctness or a `Lean verified` status. Permanent IDs and
-canonical READMEs are unchanged. Historical copies under `reviews/`,
-`verification/`, and archive directories are evidence, not live solution
-sources.
+This source-level inventory records the 47 targets that had `Solved` status
+before the split proof campaign. The five full-target proofs below now have
+canonical `Lean verified` status after independent scope review and recorded
+kernel verification. The remaining 42 retain `Solved` status. This inventory
+alone does not certify a proof; each promoted canonical README records its
+statement comparison, pinned source, successful verification log, and axiom
+audit. Permanent IDs and mathematical targets are unchanged. Historical copies
+under `reviews/`, `verification/`, and archive directories are evidence, not
+live solution sources.
 
-## Full-target local proof candidates (5)
+## Full-target local proofs promoted to Lean verified (5)
 
 | ID | Live proof source | Evidence and remaining gate |
 | --- | --- | --- |

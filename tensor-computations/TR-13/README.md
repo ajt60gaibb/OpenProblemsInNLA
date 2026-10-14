@@ -3,8 +3,8 @@
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
 **Rating rationale:** Challenging because the remaining odd orders require rank lower bounds beyond the proved even-order and cubic mechanisms; specialist importance reflects the restriction to generic Hankel tensors.  
-**Last checked:** 2026-09-11  
-**Status:** Solved  
+**Last checked:** 2026-10-13  
+**Status:** Lean verified  
 
 <!-- colbrook-recovered-tensors -->
 ## Resolution — 2026-09-11
@@ -34,17 +34,25 @@ and `Quot.sound`. The solution contains no unfinished proof or custom axiom;
 the separate comparison challenge is never imported by it. Reproduction
 commands and source hashes are retained in [verification](lean/verification/README.md).
 
-**Draft verification status:** authoritative Linux Comparator checks and two
-fully independent final reviews remain pending. Two pre-proof statement reviews
-and scoped component cross-reviews are retained, with each agent's authorship
-exclusions made explicit in the [review index](lean/reviews/README.md).
-The catalog therefore remains **Solved**, without a Lean-verified promotion.
+The later [independent all-width statement review](../../docs/lean/proofs/TR-13/EXACT_STATEMENT_INDEPENDENT_REVIEW.md)
+and [isolated Linux Comparator/LeanCert receipt](../../docs/lean/proofs/TR-13/LINUX_CI_RECEIPT.md)
+completed the verification gates in the [evidence section](#lean-proof-and-verification-evidence). The reviewer notes that the
+local and frozen targets live in separate Lake projects, so their mathematical
+correspondence is source reviewed rather than expressed by one cross-project theorem.
 
 The implementation was generated with OpenAI Codex agents. Matthew J. Colbrook
 retains credit for the mathematical resolution, and Nie and Ye for the
 conjecture and prior results. The formalization uses an elementary Prony
 reconstruction for the upper bound and a uniform Koszul certificate, including
 the binary case. No human or source-author endorsement is claimed.
+
+## Lean proof and verification evidence
+
+**Reviewed 13 October 2026.**
+
+At immutable repository revision [`bca7904b`](https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/bca7904b8d6f43b7258bc0eaed636a2b6b4a8792/tensor-computations/TR-13/lean/Solution.lean), `NLA.TR13.generic_rank_equality` gives the common exact rank for every odd $`m\ge5`$ and $`n\ge2`$, while `NLA.TR13.generic_width_equivalence` proves the retained equivalence at every natural width. The [independent comparison with the frozen target](../../docs/lean/proofs/TR-13/EXACT_STATEMENT_INDEPENDENT_REVIEW.md) checks the nonempty principal open set, all five rank notions, unrestricted ordinary-border limits, and the absence of an added premise or weaker conclusion.
+
+The [manifest](lean/lake-manifest.json) pins Lean **4.33.1**, Mathlib `0df444a360ea`, and LeanCert `621a43d7cf21`. From `tensor-computations/TR-13/lean`, run `lake build Challenge Solution`. The [10 October Linux job and log](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/38006337671/job/114076129861) passed Comparator and kernel trust for both selected exports; their transitive axiom sets contain only `propext`, `Classical.choice`, and `Quot.sound`. The [receipt](../../docs/lean/proofs/TR-13/LINUX_CI_RECEIPT.md) records the successful revision and reproduction context. This catalog reviewed that public verification record; it did not rerun Lean locally for this status update.
 
 ## Statement
 

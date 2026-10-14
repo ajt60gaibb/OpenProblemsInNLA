@@ -3,9 +3,9 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because ordinary sensitivities must control all directions with nearly linear total-sensitivity cost; community impact is instance-sensitive regression and subspace sketching.  
-**Last checked:** 2026-09-30  
+**Last checked:** 2026-10-13  
 
-**Status:** Solved  
+**Status:** Lean verified  
 
 ## Statement
 
@@ -57,7 +57,15 @@ Under $`v-1\ge6^{-p}\varepsilon^{-(p+1)}`$, Corollary 4.2 forces expected sample
 
 Theorem 3.1 and Corollary 3.2 also give a support obstruction for arbitrary nonnegative reweighted row subsets, with a success-probability factor for randomized expected support. The obstruction concerns accuracy dependence in an explicit growing-dimension regime; it does not rule out nearly linear sensitivity dependence at fixed accuracy and does not concern unrestricted linear sketches.
 
-**Attribution and review.** The original conjecture and sampling model are credited to Woodruff–Yasuda, Section 3 and Definition 1.1/Theorem 1.5. **No novelty or priority is claimed for this local manuscript.** The supplied [ChatGPT 6 Pro audit](https://chatgpt.com/share/6abd3ea9-6310-83ed-8d37-edc449055572) reports that the mathematical core refutes RA-06 and derives the arbitrary-weight strengthening. Its follow-up revision incorporates that strengthening, direct attribution, the explicit dimension regime and the requested presentation fixes. This is an informal AI audit, not external human peer review or formal proof-assistant certification. See the [submission record](../../references/haidary-resolutions-2026-09-30/README.md). Historical ratings are retained, and the original target is retained above.
+**Attribution and review.** The original conjecture and sampling model are credited to Woodruff–Yasuda, Section 3 and Definition 1.1/Theorem 1.5. **No novelty or priority is claimed for this local manuscript.** The supplied [ChatGPT 6 Pro audit](https://chatgpt.com/share/6abd3ea9-6310-83ed-8d37-edc449055572) reports that the mathematical core refutes RA-06 and derives the arbitrary-weight strengthening. Its follow-up revision incorporates that strengthening, direct attribution, the explicit dimension regime and the requested presentation fixes. This manuscript review is an informal AI audit, not external human peer review; the later formal checks are in the [evidence section](#lean-proof-and-verification-evidence). See the [submission record](../../references/haidary-resolutions-2026-09-30/README.md). Historical ratings are retained, and the original target is retained above.
+
+## Lean proof and verification evidence
+
+**Reviewed 13 October 2026.**
+
+At immutable repository revision [`bca7904b`](https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/bca7904b8d6f43b7258bc0eaed636a2b6b4a8792/lean-statements/NLA/Proofs/RA06/Final.lean), the proof defines `NLA.Proofs.RA06.target`. Its literal type is `NLA.Statements.RA06.Target`: for every real exponent greater than two, it refutes the original positive claim. The [independent mathematical and exact-statement review](../../docs/lean/proofs/RA-06/FINAL_INDEPENDENT_REVIEW.md) checks the unchanged ordinary sensitivities, independent retention probabilities and rescaling, one common sampling parameter, expected row count, and simultaneous embedding quantifiers. The proof adds no premise and does not substitute a different sampler.
+
+The [source-locked project](lean/lake-manifest.json) pins Lean **4.33.1**, Mathlib `0df444a360ea`, and LeanCert `621a43d7cf21`. From `randomized-and-low-rank-approximation/RA-06/lean`, run `lake build Challenge Solution`; from `lean-statements`, run `lake build NLA.Proofs.RA06.Final`. The [10 October isolated Linux Comparator/LeanCert job and log](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/38006337671/job/114076127303) passed for the selected `NLA.RA06.target` export. Its transitive axiom report contains only `propext`, `Classical.choice`, and `Quot.sound`; the [receipt](../../docs/lean/proofs/RA-06/LINUX_CI_RECEIPT.md) records the successful revision and reproduction details. This catalog reviewed that public record and the unchanged reviewed source hash; it did not rerun Lean locally for this status update.
 
 ## References
 

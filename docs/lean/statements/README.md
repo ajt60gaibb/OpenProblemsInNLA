@@ -29,6 +29,12 @@ After implementing the proposition, obtain two independent boundary reviews
 of the actual definitions, imported semantics and frozen source. AI-agent
 reviews are labeled as such. Authors do not count as their own referees.
 Changing mathematical source bytes reopens the corresponding review gate.
+After a proof is verified, the canonical page may gain a `Lean verified`
+status and proof-evidence section. `ORIGINAL.md` remains the complete page
+that the statement reviewers actually saw, with their original hash bindings.
+The checker permits such a promotion only when the permanent-ID heading and
+entire original `Statement` or `Problem statement` section remain byte for byte
+unchanged. Any target change still reopens independent statement review.
 
 ## Statement library and checking
 

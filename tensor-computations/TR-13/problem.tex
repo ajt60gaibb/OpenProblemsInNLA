@@ -34,7 +34,7 @@ tensors},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}TR-13}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-10-13}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ of ranks for generic odd-order Hankel tensors\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to specialist\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -115,13 +115,16 @@ axiom; the separate comparison challenge is never imported by it.
 Reproduction commands and source hashes are retained in
 \href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tensor-computations/TR-13/lean/verification/README.md}{verification}.
 
-\textbf{Draft verification status:} authoritative Linux Comparator
-checks and two fully independent final reviews remain pending. Two
-pre-proof statement reviews and scoped component cross-reviews are
-retained, with each agent's authorship exclusions made explicit in the
-\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tensor-computations/TR-13/lean/reviews/README.md}{review
-index}. The catalog therefore remains \textbf{Solved}, without a
-Lean-verified promotion.
+The later
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/proofs/TR-13/EXACT_STATEMENT_INDEPENDENT_REVIEW.md}{independent
+all-width statement review} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/proofs/TR-13/LINUX_CI_RECEIPT.md}{isolated
+Linux Comparator/LeanCert receipt} completed the verification gates in
+the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tensor-computations/TR-13\#lean-proof-and-verification-evidence}{evidence
+section}. The reviewer notes that the local and frozen targets live in
+separate Lake projects, so their mathematical correspondence is source
+reviewed rather than expressed by one cross-project theorem.
 
 The implementation was generated with OpenAI Codex agents. Matthew J.
 Colbrook retains credit for the mathematical resolution, and Nie and Ye
@@ -129,6 +132,37 @@ for the conjecture and prior results. The formalization uses an
 elementary Prony reconstruction for the upper bound and a uniform Koszul
 certificate, including the binary case. No human or source-author
 endorsement is claimed.
+
+\subsection{Lean proof and verification
+evidence}\label{lean-proof-and-verification-evidence}
+
+\textbf{Reviewed 13 October 2026.}
+
+At immutable repository revision
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/bca7904b8d6f43b7258bc0eaed636a2b6b4a8792/tensor-computations/TR-13/lean/Solution.lean}{\textit{bca7904b}},
+\textit{NLA.TR13.generic\_rank\_equality} gives the common exact rank
+for every odd \(m\ge5\) and \(n\ge2\), while
+\textit{NLA.TR13.generic\_width\_equivalence} proves the retained
+equivalence at every natural width. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/proofs/TR-13/EXACT_STATEMENT_INDEPENDENT_REVIEW.md}{independent
+comparison with the frozen target} checks the nonempty principal open
+set, all five rank notions, unrestricted ordinary-border limits, and the
+absence of an added premise or weaker conclusion.
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/tensor-computations/TR-13/lean/lake-manifest.json}{manifest}
+pins Lean \textbf{4.33.1}, Mathlib \textit{0df444a360ea}, and LeanCert
+\textit{621a43d7cf21}. From \textit{tensor-computations/TR-13/lean}, run
+\textit{lake build Challenge Solution}. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/38006337671/job/114076129861}{10
+October Linux job and log} passed Comparator and kernel trust for both
+selected exports; their transitive axiom sets contain only
+\textit{propext}, \textit{Classical.choice}, and \textit{Quot.sound}.
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/proofs/TR-13/LINUX_CI_RECEIPT.md}{receipt}
+records the successful revision and reproduction context. This catalog
+reviewed that public verification record; it did not rerun Lean locally
+for this status update.
 
 \newpage
 

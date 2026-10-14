@@ -2,7 +2,7 @@
 
 **99 problems with open targets:** 36 open and 63 partially resolved. **118 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 47 solved (published or independently audited); 70 solved with Lean verification.
+**Resolution evidence:** 42 solved (published or independently audited); 75 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -101,7 +101,7 @@ Retained entries outside the open count:
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
 | [MF-02](matrix-functions-and-stability/MF-02/README.md) | Multiplication overhead of cubic sign compositions | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-02/problem.pdf) · [TeX](matrix-functions-and-stability/MF-02/problem.tex) |
-| [MF-03](matrix-functions-and-stability/MF-03/README.md) | A uniform disk bound for wave-kernel Padé approximants | **✅ SOLVED** | hard | interesting to specialist | [PDF](matrix-functions-and-stability/MF-03/problem.pdf) · [TeX](matrix-functions-and-stability/MF-03/problem.tex) |
+| [MF-03](matrix-functions-and-stability/MF-03/README.md) | A uniform disk bound for wave-kernel Padé approximants | **🏆 LEAN VERIFIED** | hard | interesting to specialist | [PDF](matrix-functions-and-stability/MF-03/problem.pdf) · [TeX](matrix-functions-and-stability/MF-03/problem.tex) |
 | [MF-05](matrix-functions-and-stability/MF-05/README.md) | Local Hölder continuity of the joint spectral radius | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-05/problem.pdf) · [TeX](matrix-functions-and-stability/MF-05/problem.tex) |
 | [MF-06](matrix-functions-and-stability/MF-06/README.md) | A pointwise Lipschitz lower bound for the joint spectral radius | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-06/problem.pdf) · [TeX](matrix-functions-and-stability/MF-06/problem.tex) |
 | [MF-07](matrix-functions-and-stability/MF-07/README.md) | Uniform polynomial bounds for products at joint spectral radius one | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-07/problem.pdf) · [TeX](matrix-functions-and-stability/MF-07/problem.tex) |
@@ -113,7 +113,7 @@ Retained entries outside the open count:
 | [MF-18](matrix-functions-and-stability/MF-18/README.md) | Imaginary-part rank in a limiting Green-function matrix equation | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-18/problem.pdf) · [TeX](matrix-functions-and-stability/MF-18/problem.tex) |
 | [MF-21](matrix-functions-and-stability/MF-21/README.md) | The uniform expansion threshold for Toeplitz symbols with higher-order zeros | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/MF-21/problem.pdf) · [TeX](matrix-functions-and-stability/MF-21/problem.tex) |
 | [MF-22](matrix-functions-and-stability/MF-22/README.md) | Polynomial conditioning of the cubic C1 spline Schrödinger Toeplitz family | **🏆 LEAN VERIFIED** | hard | interesting to specialist | [PDF](matrix-functions-and-stability/MF-22/problem.pdf) · [TeX](matrix-functions-and-stability/MF-22/problem.tex) |
-| [MF-23](matrix-functions-and-stability/MF-23/README.md) | Complete Crouzeix conjecture | **✅ SOLVED** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-23/problem.pdf) · [TeX](matrix-functions-and-stability/MF-23/problem.tex) |
+| [MF-23](matrix-functions-and-stability/MF-23/README.md) | Complete Crouzeix conjecture | **🏆 LEAN VERIFIED** | extreme | broadly interesting | [PDF](matrix-functions-and-stability/MF-23/problem.pdf) · [TeX](matrix-functions-and-stability/MF-23/problem.tex) |
 | [MF-24](matrix-functions-and-stability/MF-24/README.md) | A dimension-independent polynomial norm bound from super-identical pseudospectra | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](matrix-functions-and-stability/MF-24/problem.pdf) · [TeX](matrix-functions-and-stability/MF-24/problem.tex) |
 | [SF-01](matrix-functions-and-stability/SF-01/README.md) | Preservation of real H-matrix structure by Newton square-root iterates | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](matrix-functions-and-stability/SF-01/problem.pdf) · [TeX](matrix-functions-and-stability/SF-01/problem.tex) |
 
@@ -143,7 +143,7 @@ Retained entries outside the open count:
 | [RA-03](randomized-and-low-rank-approximation/RA-03/README.md) | Improve the randomized LU squared-error factor to $`2^k`$ | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](randomized-and-low-rank-approximation/RA-03/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-03/problem.tex) |
 | [RA-04](randomized-and-low-rank-approximation/RA-04/README.md) | Clustered singular-value gaps in randomized block Krylov approximation | **✅ SOLVED** | hard | interesting to specialist | [PDF](randomized-and-low-rank-approximation/RA-04/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-04/problem.tex) |
 | [RA-05](randomized-and-low-rank-approximation/RA-05/README.md) | Sharp joint rank and accuracy dependence for strong $`\ell_p`$ subspace coresets | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-05/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-05/problem.tex) |
-| [RA-06](randomized-and-low-rank-approximation/RA-06/README.md) | Sensitivity-dependent row sampling for $`\ell_p`$ embeddings when p exceeds two | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-06/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-06/problem.tex) |
+| [RA-06](randomized-and-low-rank-approximation/RA-06/README.md) | Sensitivity-dependent row sampling for $`\ell_p`$ embeddings when p exceeds two | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-06/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-06/problem.tex) |
 | [RA-07](randomized-and-low-rank-approximation/RA-07/README.md) | Convexity of the expected error of volume-sampled column subsets | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-07/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-07/problem.tex) |
 | [RA-08](randomized-and-low-rank-approximation/RA-08/README.md) | Concave-function transfer of spectral low-rank error | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-08/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-08/problem.tex) |
 | [RA-09](randomized-and-low-rank-approximation/RA-09/README.md) | Concave-function transfer of Frobenius low-rank error | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-09/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-09/problem.tex) |
@@ -186,7 +186,7 @@ Retained entries outside the open count:
 | --- | --- | --- | --- | --- | --- |
 | [TR-04](tensor-computations/TR-04/README.md) | Improve the worst-case approximation factor for prescribed tensor-train ranks | **✅ SOLVED** | extreme | interesting to the community | [PDF](tensor-computations/TR-04/problem.pdf) · [TeX](tensor-computations/TR-04/problem.tex) |
 | [TR-06](tensor-computations/TR-06/README.md) | Finite mean angular condition number for identifiable tensor decomposition | **✅ SOLVED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-06/problem.pdf) · [TeX](tensor-computations/TR-06/problem.tex) |
-| [TR-13](tensor-computations/TR-13/README.md) | Equality of ranks for generic odd-order Hankel tensors | **✅ SOLVED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-13/problem.pdf) · [TeX](tensor-computations/TR-13/problem.tex) |
+| [TR-13](tensor-computations/TR-13/README.md) | Equality of ranks for generic odd-order Hankel tensors | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-13/problem.pdf) · [TeX](tensor-computations/TR-13/problem.tex) |
 | [TR-14](tensor-computations/TR-14/README.md) | Comon's exact-rank conjecture for Hankel tensors | **✅ SOLVED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-14/problem.pdf) · [TeX](tensor-computations/TR-14/problem.tex) |
 | [TR-15](tensor-computations/TR-15/README.md) | Nonnegative H-eigenvalue inheritance from odd-order Hankel tensors | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-15/problem.pdf) · [TeX](tensor-computations/TR-15/problem.tex) |
 | [TR-17](tensor-computations/TR-17/README.md) | Frobenius inner products minimize the algebraic complexity of rank-one approximation | **✅ SOLVED** | challenging | interesting to the community | [PDF](tensor-computations/TR-17/problem.pdf) · [TeX](tensor-computations/TR-17/problem.tex) |
@@ -280,7 +280,7 @@ Retained entries outside the open count:
 
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
-| [FR-05](frames-and-matrix-designs/FR-05/README.md) | Vanishing injectivity probability at 4d minus 5 complex phase measurements | **✅ SOLVED** | challenging | interesting to the community | [PDF](frames-and-matrix-designs/FR-05/problem.pdf) · [TeX](frames-and-matrix-designs/FR-05/problem.tex) |
+| [FR-05](frames-and-matrix-designs/FR-05/README.md) | Vanishing injectivity probability at 4d minus 5 complex phase measurements | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](frames-and-matrix-designs/FR-05/problem.pdf) · [TeX](frames-and-matrix-designs/FR-05/problem.tex) |
 | [FR-10](frames-and-matrix-designs/FR-10/README.md) | Sharp sampling complexity for Walsh restricted isometries | **✅ SOLVED** | extreme | broadly interesting | [PDF](frames-and-matrix-designs/FR-10/problem.pdf) · [TeX](frames-and-matrix-designs/FR-10/problem.tex) |
 | [FR-12](frames-and-matrix-designs/FR-12/README.md) | Counting real Hadamard matrices | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](frames-and-matrix-designs/FR-12/problem.pdf) · [TeX](frames-and-matrix-designs/FR-12/problem.tex) |
 

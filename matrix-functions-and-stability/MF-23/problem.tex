@@ -34,7 +34,7 @@ conjecture},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}MF-23}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-10-08}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-10-13}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ Crouzeix conjecture\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} broadly
 interesting\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -102,18 +102,52 @@ catalog} maps the declaration to this challenge, and its
 \href{https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/DirectCrouzeix.json}{Comparator
 configuration} permits only Lean's standard foundational axioms.
 
-\textbf{Lean evidence check, 8 October 2026:} the pinned proof source
-declares the exact \textit{UniversalBound 2} target. The
-\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/reviews/2026-10-08-claimed-solutions/MF-23.md}{review}
-compared its definitions with the Comparator challenge and scanned the
-direct proof modules for placeholders and bypasses. The repository
-publishes a pinned toolchain and dependencies, but no dated successful
-kernel build or Comparator log and no transitive axiom report were found
-for the cited revision. This therefore remains \textbf{Solved}, not
-\textit{Lean verified}, under the catalog's
-\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/CONTRIBUTING.md\#lean-verification}{formal
-evidence criteria}. No external human peer review or local Lean rerun is
-asserted.
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/reviews/2026-10-08-claimed-solutions/MF-23.md}{8
+October evidence review} found no dated successful kernel build for the
+external source at that time. The subsequent local bridge, independent
+statement review, and isolated Linux verification are in the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-23\#lean-proof-and-verification-evidence}{evidence
+section}. No external human peer review is asserted.
+
+\subsection{Lean proof and verification
+evidence}\label{lean-proof-and-verification-evidence}
+
+\textbf{Reviewed 13 October 2026.}
+
+At immutable repository revision
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/bca7904b8d6f43b7258bc0eaed636a2b6b4a8792/matrix-functions-and-stability/MF-23/lean/CanonicalBridge.lean}{\textit{bca7904b}},
+\textit{NLA.MF23.canonical\_crouzeix\_proved} proves the local canonical
+\textit{Target};
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-23/lean/Solution.lean}{\textit{Solution.lean}}
+exports the same target as \textit{NLA.MF23.canonical\_crouzeix}. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/proofs/MF-23/CANONICAL_STATEMENT_INDEPENDENT_REVIEW.md}{independent
+statement} and
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/proofs/MF-23/CANONICAL_BRIDGE_INDEPENDENT_REVIEW.md}{bridge
+reviews} compare that target with the original block polynomial
+inequality: all positive matrix and block sizes, every degree and
+complex coefficient, the full numerical range, Euclidean operator norms,
+and the exact constant two are retained. The proof imports pinned
+upstream \textit{complete\_crouzeix} and uses a norm-preserving
+tensor-factor swap; it adds no mathematical premise.
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-23/lean/lake-manifest.json}{source-locked
+project} pins Lean \textbf{4.34.1}, Mathlib \textit{d13f23b723b8},
+LeanCert \textit{7f91b6eb3567}, and the upstream source revision
+recorded in
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/matrix-functions-and-stability/MF-23/lean/upstream-source-lock.json}{the
+lock}. From \textit{matrix-functions-and-stability/MF-23/lean}, run
+\textit{lake build Challenge Solution}. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/38006337671/job/114076127209}{10
+October isolated Linux Comparator/LeanCert job and log} passed the
+selected export and kernel trust; its transitive axioms were only
+\textit{propext}, \textit{Classical.choice}, and \textit{Quot.sound}.
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/proofs/MF-23/LINUX_CI_RECEIPT.md}{receipt}
+records the verified source closure and reproduction details. This
+catalog reviewed that public verification record; it did not rerun Lean
+locally for this status update.
 
 \newpage
 
