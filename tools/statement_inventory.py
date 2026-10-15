@@ -45,6 +45,12 @@ EXTERNAL_PROJECTS = {
         "statement_path": "lean/Problem56/PaperV7/Certification.lean",
         "entry_point": "lean/Problem56/PaperV7/Certification.lean",
     },
+    "IV-01": {
+        "repository": "https://github.com/erenup/two-vertex-sign-regularity",
+        "revision": "22fedcfb6940fd943d67f1582068ed5b9b91a83e",
+        "statement_path": "lean/IV01/Definitions.lean",
+        "entry_point": "lean/IV01/Statement.lean",
+    },
     "MI-15": {
         "repository": "https://github.com/erenup/toeplitz-bw-not-sos",
         "revision": "7126c0841b008dc89a21edfd008bbf1b748d280f",
@@ -257,7 +263,7 @@ def render_coverage(inventory):
              f"Registered entries: **{counts['registered']}**.", ""]
     lines += [f"- {key}: **{value}**" for key, value in counts["classification"].items()]
     lines += ["", "The six existing scope gaps remain explicit even when a new shared statement is recorded. "
-              "IE-01, TR-01, MI-15, MI-18, MF-23, and MI-32 cite pinned external formalizations and are tracked separately "
+              "IE-01, TR-01, IV-01, MI-15, MI-18, MF-23, and MI-32 cite pinned external formalizations and are tracked separately "
               "from entries with no Lean statement. Copied historical and review projects do not count.", "",
               "Regenerate with `python3 tools/statement_inventory.py --base-ref <published-commit>`; "
               "add `--check` to reject stale generated files. The base commit is explicit so unrelated "

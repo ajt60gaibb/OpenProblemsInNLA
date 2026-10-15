@@ -1,8 +1,8 @@
 # All problems and their status
 
-**99 problems with open targets:** 36 open and 63 partially resolved. **118 other retained entries**, excluded from the open count.
+**98 problems with open targets:** 36 open and 62 partially resolved. **119 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 42 solved (published or independently audited); 75 solved with Lean verification.
+**Resolution evidence:** 42 solved (published or independently audited); 76 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -332,7 +332,6 @@ Retained entries outside the open count:
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
 | [AV-03](intervals-and-absolute-value-equations/AV-03/README.md) | Polynomial-time solution under the regularity promise | **🟡 PARTIAL** | extreme | broadly interesting | [PDF](intervals-and-absolute-value-equations/AV-03/problem.pdf) · [TeX](intervals-and-absolute-value-equations/AV-03/problem.tex) |
-| [IV-01](intervals-and-absolute-value-equations/IV-01/README.md) | Two-vertex certification of nonsingular sign regularity | **🟡 PARTIAL** | challenging | interesting to specialist | [PDF](intervals-and-absolute-value-equations/IV-01/problem.pdf) · [TeX](intervals-and-absolute-value-equations/IV-01/problem.tex) |
 
 Retained entries outside the open count:
 
@@ -340,6 +339,7 @@ Retained entries outside the open count:
 | --- | --- | --- | --- | --- | --- |
 | [AV-01](intervals-and-absolute-value-equations/AV-01/README.md) | Recognizing the maximum finite number of solutions | **✅ SOLVED** | challenging | interesting to specialist | [PDF](intervals-and-absolute-value-equations/AV-01/problem.pdf) · [TeX](intervals-and-absolute-value-equations/AV-01/problem.tex) |
 | [AV-02](intervals-and-absolute-value-equations/AV-02/README.md) | Hardness of the spectral-norm condition number | **✅ SOLVED** | challenging | interesting to specialist | [PDF](intervals-and-absolute-value-equations/AV-02/problem.pdf) · [TeX](intervals-and-absolute-value-equations/AV-02/problem.tex) |
+| [IV-01](intervals-and-absolute-value-equations/IV-01/README.md) | Two-vertex certification of nonsingular sign regularity | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](intervals-and-absolute-value-equations/IV-01/problem.pdf) · [TeX](intervals-and-absolute-value-equations/IV-01/problem.tex) |
 | [IV-02](intervals-and-absolute-value-equations/IV-02/README.md) | Exact determinant ranges of general tridiagonal interval matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](intervals-and-absolute-value-equations/IV-02/problem.pdf) · [TeX](intervals-and-absolute-value-equations/IV-02/problem.tex) |
 | [IV-03](intervals-and-absolute-value-equations/IV-03/README.md) | Polynomial-size vertex test for inverse M-matrix intervals | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](intervals-and-absolute-value-equations/IV-03/problem.pdf) · [TeX](intervals-and-absolute-value-equations/IV-03/problem.tex) |
 | [IV-04](intervals-and-absolute-value-equations/IV-04/README.md) | Exact solution hulls for tridiagonal interval systems | **✅ SOLVED** | challenging | interesting to the community | [PDF](intervals-and-absolute-value-equations/IV-04/problem.pdf) · [TeX](intervals-and-absolute-value-equations/IV-04/problem.tex) |

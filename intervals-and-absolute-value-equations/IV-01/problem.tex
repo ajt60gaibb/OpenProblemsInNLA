@@ -34,7 +34,7 @@ regularity},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}IV-01}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-12}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Verification check: 2026-10-15}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,16 +51,179 @@ certification of nonsingular sign regularity\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to specialist\par}
-{\sffamily\small\bfseries\color{accent}Status: Partially resolved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
 \textbf{Area:} structured matrices and interval linear algebra
 
-\textbf{Rating rationale:} Challenging reflects extending two-vertex
-certification through zero minors in arbitrary dimension; specialist
-impact is the efficient recognition of structured interval matrix
-families.
+\textbf{Rating rationale:} These ratings are historical and refer to the
+original question: extending two-vertex certification through zero
+minors in arbitrary dimension was challenging, with specialist impact in
+the efficient recognition of structured interval matrix families.
+
+\subsection{Resolution --- 15 October
+2026}\label{resolution-15-october-2026}
+
+\textbf{Resolved affirmatively.} Wenqi Zhu (University of Oxford), Kai
+Zou (King's College London), and Ping Nie (University of Waterloo).
+
+The answer is \textbf{yes}. For every positive integer dimension,
+arbitrary real entrywise bounds, and every common signature, nonsingular
+sign regularity at the two checker vertices implies nonsingular sign
+regularity throughout the closed matrix interval. The result allows
+arbitrary fixed entries, including fixed zeros of both checker parities,
+and vanishing proper minors. The range \(n\ge1\) includes the original
+question's \(n\ge5\), with no additional hypothesis on the interval or
+its signature.
+
+The primary formal result is
+\href{https://github.com/erenup/two-vertex-sign-regularity/blob/22fedcfb6940fd943d67f1582068ed5b9b91a83e/lean/IV01/Statement.lean}{\textit{IV01.twoCheckerVertices}}.
+Theorem 1.1 of the
+\href{https://github.com/erenup/two-vertex-sign-regularity/blob/22fedcfb6940fd943d67f1582068ed5b9b91a83e/paper/main.pdf}{paper,
+\emph{Two-vertex certification of nonsingular sign-regular matrix
+intervals}} states the equivalent two-vertex characterization. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/intervals-and-absolute-value-equations/IV-01\#lean-proof-and-verification-evidence}{Lean
+proof and verification evidence} below gives the exact statement
+comparison and reproducible formal record. The retained partial-result
+and literature records below predate this resolution.
+
+\subsection{Lean proof and verification
+evidence}\label{lean-proof-and-verification-evidence}
+
+\subsubsection{Immutable source and
+dependencies}\label{immutable-source-and-dependencies}
+
+The
+\href{https://github.com/erenup/two-vertex-sign-regularity/tree/22fedcfb6940fd943d67f1582068ed5b9b91a83e}{proof
+repository at \textit{22fedcfb6940fd943d67f1582068ed5b9b91a83e}} pins
+Lean \textbf{\textit{v4.34.0-rc2}} in its
+\href{https://github.com/erenup/two-vertex-sign-regularity/blob/22fedcfb6940fd943d67f1582068ed5b9b91a83e/lean/lean-toolchain}{toolchain
+file} and Mathlib
+\textbf{\textit{85e3a25e006c35636f0e53b0e9296caca2685bc0}} in its
+\href{https://github.com/erenup/two-vertex-sign-regularity/blob/22fedcfb6940fd943d67f1582068ed5b9b91a83e/lean/lake-manifest.json}{dependency
+manifest}. The manifest pins all remaining dependencies as well.
+
+\subsubsection{Declarations and statement
+correspondence}\label{declarations-and-statement-correspondence}
+
+All predicates used by the target are defined in
+\href{https://github.com/erenup/two-vertex-sign-regularity/blob/22fedcfb6940fd943d67f1582068ed5b9b91a83e/lean/IV01/Definitions.lean}{\textit{lean/IV01/Definitions.lean}}.
+The
+\href{https://github.com/erenup/two-vertex-sign-regularity/blob/22fedcfb6940fd943d67f1582068ed5b9b91a83e/LEAN_STATEMENT_CORRESPONDENCE.md}{complete
+correspondence} compares them with the original catalogue statement:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Matrices and dimensions:} \textit{Square n} is
+  \textit{Matrix (Fin n) (Fin n) Real}. The theorem quantifies over
+  every \(n\ge1\) and all real matrices of that dimension. This includes
+  every \(n\ge5\) in the original question.
+\item
+  \textbf{Signature:} \textit{IsSignature n ε} requires
+  \textit{ε k = 1} or \textit{ε k = -1} for every \(1\le k\le n\).
+  The function \textit{ε : Nat → Real} represents the finite
+  signature by minor order. Unused values are unrestricted; every
+  original signature extends to this representation.
+\item
+  \textbf{Interval:} \textit{EntrywiseLE L U} is the ordinary
+  pointwise inequality, and \textit{InBox L U M} means
+  \(L\le M\le U\). The interval is closed, with no strict-width
+  condition. Fixed coordinates may occur anywhere.
+\item
+  \textbf{Checker vertices:} \textit{checkerMinus} chooses the lower
+  entry at even row-plus-column parity and the upper entry at odd
+  parity; \textit{checkerPlus} reverses those choices. Lean's zero-based
+  row and column labels preserve the original checker parity when both
+  are shifted to one-based labels.
+\item
+  \textbf{All minors and weak signs:} \textit{SignRegular ε M}
+  quantifies over every order \(1\le k\le n\) and every pair of strictly
+  increasing row and column maps. Its inequality is
+  \(0\le\epsilon_k\det M[I,J]\). These are all minors, with row and
+  column indices in increasing order; proper zero minors are allowed.
+\item
+  \textbf{Nonsingularity and common signature:}
+  \textit{NonsingularSignRegular ε M} is the conjunction of
+  \textit{Matrix.det M ≠ 0} and \textit{SignRegular ε M}. Both
+  checker-vertex assumptions and the conclusion use the same \textit{ε}.
+  Nonsingularity is assumed only at the two checker vertices and proved
+  for every matrix in the box.
+\end{itemize}
+
+\href{https://github.com/erenup/two-vertex-sign-regularity/blob/22fedcfb6940fd943d67f1582068ed5b9b91a83e/lean/IV01/Statement.lean}{\textit{IV01.twoCheckerVertices}}
+proves the complete original implication. Its premises are the
+dimension, signature, entrywise bounds, the two endpoint conditions, and
+membership of the arbitrary matrix in the box. Its rectangle-exclusion
+ingredients are proved dependencies, not extra assumptions. There are no
+additional conditions on fixed coordinates, their directed graph, or
+vanishing proper minors.
+
+The supporting declarations
+\href{https://github.com/erenup/two-vertex-sign-regularity/blob/22fedcfb6940fd943d67f1582068ed5b9b91a83e/lean/IV01/Box.lean}{\textit{IV01.checkerMinus\_mem\_box}
+and \textit{IV01.checkerPlus\_mem\_box}} prove that both checker
+vertices belong to the box. Specializing the universal box property to
+them gives the converse in the paper's equivalence; the catalogue
+question itself asks for the implication already proved by the main
+target. No separate bundled equivalence declaration is claimed.
+
+\subsubsection{Reproduction and verification
+record}\label{reproduction-and-verification-record}
+
+The
+\href{https://github.com/erenup/two-vertex-sign-regularity/blob/22fedcfb6940fd943d67f1582068ed5b9b91a83e/VERIFICATION.md}{verification
+record} links the dated successful
+\href{https://github.com/erenup/two-vertex-sign-regularity/blob/22fedcfb6940fd943d67f1582068ed5b9b91a83e/lean/verification/2026-10-14-build.log}{build
+log},
+\href{https://github.com/erenup/two-vertex-sign-regularity/blob/22fedcfb6940fd943d67f1582068ed5b9b91a83e/lean/verification/2026-10-14-receipt.json}{build
+receipt}, and
+\href{https://github.com/erenup/two-vertex-sign-regularity/blob/22fedcfb6940fd943d67f1582068ed5b9b91a83e/lean/verification/2026-10-14-dependencies.json}{dependency
+record}. On 14 October 2026, all 41 production modules were compiled
+into initially empty project objects with the pinned compiler and
+dependency libraries. \textbf{The catalogue did not rerun the checks};
+the evidence supplied for this status is the external project's
+verification record. The installed compiler and pinned dependency
+libraries are disclosed trusted inputs; their original builds were not
+reconstructed.
+
+With the pinned Lean toolchain installed, reproduce from the immutable
+revision:
+
+\begin{verbatim}
+git clone https://github.com/erenup/two-vertex-sign-regularity.git
+cd two-vertex-sign-regularity
+git checkout --detach 22fedcfb6940fd943d67f1582068ed5b9b91a83e
+cd lean
+lake exe cache get
+python3 -B verify.py --output .audit-build
+\end{verbatim}
+
+The output directory must be new. The
+\href{https://github.com/erenup/two-vertex-sign-regularity/blob/22fedcfb6940fd943d67f1582068ed5b9b91a83e/lean/README.md}{Lean
+guide} documents the compiler pin, dependencies, resource requirements
+and rejection controls. Separate exact rational checks of examples
+supplement the complete formal theorem; they do not substitute for its
+universal quantifiers.
+
+\subsubsection{Transitive axioms}\label{transitive-axioms}
+
+The literal
+\href{https://github.com/erenup/two-vertex-sign-regularity/blob/22fedcfb6940fd943d67f1582068ed5b9b91a83e/lean/verification/2026-10-14-axioms.log}{transitive
+axiom report} for \textit{IV01.twoCheckerVertices} contains only
+\textit{propext}, \textit{Classical.choice}, and \textit{Quot.sound}. No
+\textit{sorryAx}, unproved custom axiom or additional trust in native
+execution supports the target. The
+\href{https://github.com/erenup/two-vertex-sign-regularity/blob/22fedcfb6940fd943d67f1582068ed5b9b91a83e/lean/verify.py}{verifier}
+checks the source, configuration and dependency pins, compiles fresh
+project objects, and rejects unexpected axiom output. Its
+\href{https://github.com/erenup/two-vertex-sign-regularity/blob/22fedcfb6940fd943d67f1582068ed5b9b91a83e/lean/verification/2026-10-14-controls.json}{control
+record} records the rejection tests.
+
+The
+\href{https://github.com/erenup/two-vertex-sign-regularity/blob/22fedcfb6940fd943d67f1582068ed5b9b91a83e/paper-lean-mapping/README.md}{paper-to-Lean
+map} distinguishes the complete main theorem from stronger auxiliary
+paper formulations and finite example checks.
 
 \subsection{Further partial resolution --- 12 September
 2026}\label{further-partial-resolution-12-september-2026}
