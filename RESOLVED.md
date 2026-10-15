@@ -38,6 +38,24 @@ The passing scopes include AC-01's small-CW upper bound (also relevant to AC-04)
 
 ## Resolved catalog entries
 
+### 🏆 IV-01 — two-vertex certification of nonsingular sign regularity
+
+**Lean verified, affirmative, 15 October 2026.** Wenqi Zhu (University of
+Oxford), Kai Zou (King's College London), and Ping Nie (University of Waterloo).
+For every positive integer dimension, two nonsingular sign-regular checker
+vertices with one common signature certify the same property throughout the
+closed real matrix interval. This includes the original $`n\ge5`$ target,
+arbitrary fixed entries, fixed zeros at both parities, and zero proper minors.
+
+The primary declaration is
+[`IV01.twoCheckerVertices`](https://github.com/erenup/two-vertex-sign-regularity/blob/22fedcfb6940fd943d67f1582068ed5b9b91a83e/lean/IV01/Statement.lean).
+The [canonical evidence section](intervals-and-absolute-value-equations/IV-01/README.md#lean-proof-and-verification-evidence)
+gives the immutable source, exact-target comparison, dependency pins,
+reproduction commands and dated build and transitive-axiom records. The
+catalogue did not rerun the checks. The paper's Theorem 1.1 gives the equivalent
+two-vertex characterization. The original ID, statement, historical ratings
+and earlier partial result are retained.
+
 ### ✅ SP-14 — a negative resolution of Widom's canonical distribution conjecture — Clemens Thalhammer
 
 **Solved negatively, 9 October 2026.** Clemens Thalhammer (Seminar for Applied Mathematics, ETH Zurich), [standalone proof](eigenvalues-and-inverse-problems/SP-14/references/thalhammer-2026-10-09/counterexample.pdf) ([LaTeX](eigenvalues-and-inverse-problems/SP-14/references/thalhammer-2026-10-09/counterexample.tex)), **Theorem 6.1**, constructs a continuous symbol $`a`$ with neither an inner nor an outer annular analytic extension whose Toeplitz sections $`T_{n_j}(a)`$ carry $`\pm1`$ as eigenvalues of algebraic multiplicity at least $`\lfloor\theta(n_j-1)/2\rfloor`$, $`\theta=2^{-10000}`$, along an increasing sequence $`n_j`$, with both points off $`a(\mathbb T)`$. An explicit compactly supported continuous test function then has canonical integral $`0`$ and empirical integrals at least $`\theta/2`$, refuting the universal statement of the [retained original target](eigenvalues-and-inverse-problems/SP-14/README.md). The range is a figure-eight, not a Jordan curve, so Widom's and Tilli's positive theorems and the earlier Jordan-range partial result are untouched.

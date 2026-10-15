@@ -6,12 +6,12 @@ This generated source inventory covers every permanent registered ID. It does no
 
 Registered entries: **217**.
 
-- external-statement-source: **5**
+- external-statement-source: **6**
 - local-statement-source: **67**
-- missing-statement: **100**
+- missing-statement: **99**
 - shared-statement-source: **45**
 
-The six existing scope gaps remain explicit even when a new shared statement is recorded. IE-01, TR-01, MI-15, MI-18, MF-23, and MI-32 cite pinned external formalizations and are tracked separately from entries with no Lean statement. Copied historical and review projects do not count.
+The six existing scope gaps remain explicit even when a new shared statement is recorded. IE-01, TR-01, IV-01, MI-15, MI-18, MF-23, and MI-32 cite pinned external formalizations and are tracked separately from entries with no Lean statement. Copied historical and review projects do not count.
 
 Regenerate with `python3 tools/statement_inventory.py --base-ref <published-commit>`; add `--check` to reject stale generated files. The base commit is explicit so unrelated working-branch commits do not change the inventory.
 
@@ -78,7 +78,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [IS-03](../../../eigenvalues-and-inverse-problems/IS-03/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [IS-04](../../../eigenvalues-and-inverse-problems/IS-04/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [IS-05](../../../eigenvalues-and-inverse-problems/IS-05/README.md) | Partially resolved | missing-statement | Not audited here. |
-| [IV-01](../../../intervals-and-absolute-value-equations/IV-01/README.md) | Partially resolved | missing-statement | Not audited here. |
+| [IV-01](../../../intervals-and-absolute-value-equations/IV-01/README.md) | Lean verified | external-statement-source | Not audited here. |
 | [IV-02](../../../intervals-and-absolute-value-equations/IV-02/README.md) | Solved | shared-statement-source | ComplexityContract contains unconstrained propositions, without computational semantics. |
 | [IV-03](../../../intervals-and-absolute-value-equations/IV-03/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [IV-04](../../../intervals-and-absolute-value-equations/IV-04/README.md) | Solved | shared-statement-source | The complexity target is absent, and raw coordinate sets are required to be intervals instead of defining their hulls. |
@@ -240,5 +240,5 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 Within each status, finite explicit assertions can share basic matrix definitions. Computational, probabilistic, and algebraic-geometric targets require concrete models; uninterpreted predicates are not complete replacements for those targets.
 
 - **Solved (0):** None.
-- **Partially resolved (63):** AC-07, AC-08, AC-09, AC-11, AC-12, AC-13, AV-03, FR-02, FR-07, FR-08, FR-09, FR-11, IE-03, IE-20, IE-27, IE-28, IS-04, IS-05, IV-01, KE-01, KE-02, MF-04, MF-15, MF-19, MF-20, MI-01, MI-02, MI-05, MI-08, MI-09, MI-10, MI-11, MI-12, MI-14, MI-17, MI-25, MI-30, NR-01, NR-02, PF-01, RA-01, RA-11, RA-14, RA-15, RA-17, RA-18, RE-03, SP-03, SP-08, SP-09, SP-10, TR-03, TR-05, TR-10, TR-11, TR-12, TR-18, TR-19, TR-25, TR-28, TR-29, TR-30, TR-31.
+- **Partially resolved (62):** AC-07, AC-08, AC-09, AC-11, AC-12, AC-13, AV-03, FR-02, FR-07, FR-08, FR-09, FR-11, IE-03, IE-20, IE-27, IE-28, IS-04, IS-05, KE-01, KE-02, MF-04, MF-15, MF-19, MF-20, MI-01, MI-02, MI-05, MI-08, MI-09, MI-10, MI-11, MI-12, MI-14, MI-17, MI-25, MI-30, NR-01, NR-02, PF-01, RA-01, RA-11, RA-14, RA-15, RA-17, RA-18, RE-03, SP-03, SP-08, SP-09, SP-10, TR-03, TR-05, TR-10, TR-11, TR-12, TR-18, TR-19, TR-25, TR-28, TR-29, TR-30, TR-31.
 - **Open (36):** AC-01, AC-02, AC-03, AC-04, AC-05, AC-06, AC-10, FR-01, FR-03, FR-04, FR-06, IE-07, IE-11, IE-24, IE-25, IS-01, MD-02, MD-05, MF-01, MF-09, MF-10, MF-11, MF-13, MI-20, NM-01, RA-16, RE-01, RE-02, SP-01, SP-02, SP-07, TR-09, TR-16, TR-22, TR-23, TR-24.

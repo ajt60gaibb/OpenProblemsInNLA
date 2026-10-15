@@ -13,13 +13,13 @@ If one of your favorite open problems is solved here, we strongly encourage you 
 [NLA, explained](https://nla-explained.com/) welcomes papers and videos that explain proofs from this repository, with credit to the original authors and sources. If you would like to help make these results easier to understand, consider contributing an explanation.
 
 <!-- catalog-summary -->
-**99 problems with open targets:** 36 open and 63 partially resolved. **118 other retained entries**, excluded from the open count.
+**98 problems with open targets:** 36 open and 62 partially resolved. **119 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 42 solved (published or independently audited); 75 solved with Lean verification.
+**Resolution evidence:** 42 solved (published or independently audited); 76 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
-**[Browse all 99 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
+**[Browse all 98 open targets →](CATALOG.md)** · **[Solved and claimed solutions →](RESOLVED.md)**
 <!-- /catalog-summary -->
 
 ## Special thanks
@@ -44,7 +44,7 @@ If you would like to get involved but don't know how, please email [townsend@cor
 | [Frames and matrix designs](frames-and-matrix-designs/README.md) | 9 |
 | [Matrix discrepancy and optimization](matrix-discrepancy-and-optimization/README.md) | 2 |
 | [Arithmetic and complexity](arithmetic-and-complexity/README.md) | 13 |
-| [Intervals and absolute value equations](intervals-and-absolute-value-equations/README.md) | 2 |
+| [Intervals and absolute value equations](intervals-and-absolute-value-equations/README.md) | 1 |
 
 Open a category, then a problem folder. Every problem has three files:
 
