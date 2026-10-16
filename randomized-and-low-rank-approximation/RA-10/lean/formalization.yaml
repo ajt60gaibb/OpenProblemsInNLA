@@ -1,0 +1,59 @@
+version: v0.4
+project:
+  name: 'RA-10: exact nuclear-error transfer target'
+  description: Isolated Comparator wrapper for the unchanged reviewed RA-10 Target, using the pinned complete proof with witness C = 11.
+  authors:
+  - George Stepaniants
+  - OpenAI Codex (AI assistance)
+  license: Apache-2.0
+repository:
+  role: thin-wrapper
+  substantive_formalization:
+    id: https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/844237f7e979146c937c0dc88f5c3f6e5f40c9b9/lean-statements
+    revision: 844237f7e979146c937c0dc88f5c3f6e5f40c9b9
+sources:
+- title: RA-10 canonical problem and complete resolution
+  authors:
+  - George Stepaniants
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/47006df8b3a6c724a557266c891893d03e69323a/randomized-and-low-rank-approximation/RA-10/README.md
+  type: web-post
+  relationship: formalizes
+  location: Complete original existential target; full solution uses C = 11
+  author_endorsement: participated
+- title: RA-10 Lean proof source
+  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/844237f7e979146c937c0dc88f5c3f6e5f40c9b9/lean-statements/NLA/Proofs/RA10/OperatorMonotoneRepresentation.lean
+  type: software
+  relationship: adapts
+  location: NLA.Proofs.RA10.ra10_target and its full imported proof closure
+  author_endorsement: n/a
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: Lean 4.33.1; pinned Mathlib and LeanCert; frozen-statement identity; isolated Linux Comparator in kernel mode.
+    prompting_notes: Preserve the exact frozen target and source theorem; select the full existential claim in Comparator.
+  notes: The source proof predates this wrapper. Independent final proof review and fresh isolated Linux verification are pending.
+status:
+  scope: Complete original Target has a local Lean proof. This wrapper is awaiting independent final review and authoritative isolated Linux Comparator evidence. Canonical status remains Solved.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms:
+  - propext
+  - Classical.choice
+  - Quot.sound
+  main_results:
+  - declaration: NLA.RA10.target
+    file: Solution.lean
+    sorry_count: 0
+    axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound
+    comparator_config: comparator.json
+    literature_dependencies: []
+fidelity:
+  divergences: None in the target. The selected theorem proves the unchanged frozen existential claim with the concrete witness 11. The pinned proof and reviewed statements are identified in source-lock.json.
+review:
+  status: frozen statement independently reviewed; complete proof awaiting independent final review
+  notes: A successful Comparator run will establish kernel checking and the allowed axiom closure, not English-to-Lean fidelity or human peer review.
+acknowledgements: The mathematical resolution is attributed to George Stepaniants. The formal proof was developed with substantial AI assistance, as disclosed in the canonical problem and proof records.
