@@ -2,7 +2,7 @@
 
 **98 problems with open targets:** 36 open and 62 partially resolved. **119 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 42 solved (published or independently audited); 76 solved with Lean verification.
+**Resolution evidence:** 41 solved (published or independently audited); 77 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -297,7 +297,7 @@ Retained entries outside the open count:
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
 | [MD-01](matrix-discrepancy-and-optimization/MD-01/README.md) | The sharp Lovász-theta constant for dense random graphs | **🟠 SOLUTION CLAIMED** | challenging | broadly interesting | [PDF](matrix-discrepancy-and-optimization/MD-01/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-01/problem.tex) |
-| [MD-03](matrix-discrepancy-and-optimization/MD-03/README.md) | The Komlós discrepancy conjecture | **✅ SOLVED** | extreme | broadly interesting | [PDF](matrix-discrepancy-and-optimization/MD-03/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-03/problem.tex) |
+| [MD-03](matrix-discrepancy-and-optimization/MD-03/README.md) | The Komlós discrepancy conjecture | **🏆 LEAN VERIFIED** | extreme | broadly interesting | [PDF](matrix-discrepancy-and-optimization/MD-03/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-03/problem.tex) |
 | [MD-04](matrix-discrepancy-and-optimization/MD-04/README.md) | The Beck–Fiala discrepancy conjecture | **✅ SOLVED** | extreme | broadly interesting | [PDF](matrix-discrepancy-and-optimization/MD-04/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-04/problem.tex) |
 | [MD-06](matrix-discrepancy-and-optimization/MD-06/README.md) | Global synchronization of a random cubic graph | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-discrepancy-and-optimization/MD-06/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-06/problem.tex) |
 
