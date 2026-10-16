@@ -3,7 +3,8 @@
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
 **Provenance:** source-stated conjecture.  
-**Status:** Lean verified<br>
+**Status:** Lean verified
+
 **Last checked:** 2026-10-16
 
 **Rating rationale:** Dimension-free vector balancing is a foundational discrepancy barrier with wide implications for rounding, optimization and algorithms.
