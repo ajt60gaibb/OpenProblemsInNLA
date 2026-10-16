@@ -112,6 +112,20 @@ def reviewed_statement_preserved(original: bytes, canonical: bytes, problem_id: 
     if not re.search(r"(?m)^## Lean proof and verification evidence\b", new):
         return False
 
+    if problem_id == "RA-10":
+        # RA-10's published question predates the "## Statement" convention.
+        # Preserve the complete original-question suffix, including references,
+        # historical audits, and navigation, rather than extracting a fragment.
+        marker = b"Does a universal constant "
+
+        def original_suffix(content: bytes) -> bytes | None:
+            lines = content.splitlines(keepends=True)
+            starts = [i for i, line in enumerate(lines) if line.startswith(marker)]
+            return b"".join(lines[starts[0]:]) if len(starts) == 1 else None
+
+        suffix = original_suffix(original)
+        return suffix is not None and suffix == original_suffix(canonical)
+
     def target(text: str) -> str | None:
         lines = text.splitlines(keepends=True)
         starts = [i for i, line in enumerate(lines)
