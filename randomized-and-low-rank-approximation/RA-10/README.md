@@ -4,8 +4,8 @@
 **Importance:** interesting to the community  
 **Rating rationale:** Historical assessment of the original question: challenging because a dimension-independent loss must survive removal of matrix ordering; community impact is transferring nuclear-error guarantees between matrix functions.  
 **Topic:** Low-rank approximation of matrix functions.  
-**Last checked:** 2026-09-11  
-**Status:** Solved  
+**Last checked:** 2026-10-16<br>
+**Status:** Lean verified
 
 <!-- stepaniants-ra10-resolution -->
 ## Resolution - 2026-09-11
@@ -31,6 +31,21 @@ The sharp nuclear relative-excess factor is two when $`A`$, $`B=\widehat A_k`$ a
 **Primary reference:** [complete authored PDF](../../references/colbrook-transfer-2026-09-11/manuscripts/06_commuting_schatten_transfer.pdf), [standalone TeX](../../references/colbrook-transfer-2026-09-11/manuscripts/06_commuting_schatten_transfer.tex), **Theorem 1.1 and Section 3**. [Independent proof review](../../references/colbrook-transfer-2026-09-11/verification/reviews/RA-10-review.md) · [Authorship and submission record](../../references/colbrook-transfer-2026-09-11/README.md). Verification is independent agent review, not external human peer review or formal certification.
 
 <!-- /colbrook-transfer -->
+
+## Lean proof and verification evidence
+
+The complete original target has a Lean proof with universal constant $`C=11`$.
+The [frozen statement](../../lean-statements/Reviewed/RA10.lean) and the
+[live statement](../../lean-statements/NLA/Statements/RA10.lean) are
+definitionally identical; the [isolated proof project](lean/README.md) selects
+that exact target and imports the pinned full proof. Two independent AI-agent
+[source reviews](lean/reviews/FINAL_FORMALIZATION_REVIEW_1.md) and
+[second source review](lean/reviews/FINAL_FORMALIZATION_REVIEW_2.md) checked
+the statement, proof path, and numerical constant. The
+[isolated Linux Comparator and LeanCert kernel receipt](../../docs/lean/proofs/RA-10/LINUX_CI_RECEIPT.md)
+records the accepted proof and only the standard axioms `propext`,
+`Classical.choice`, and `Quot.sound`. The complete original question and its
+historical record follow unchanged below.
 
 Does a universal constant $`C\ge1`$ exist with the following property? For every $`n\ge2`$, $`1\le k< n`$, real symmetric positive semidefinite matrices $`A,\widehat A\in\mathbb R^{n\times n}`$, $`\varepsilon\ge0`$, and continuous operator-monotone function $`f:[0,\infty)\to[0,\infty)`$,
 
