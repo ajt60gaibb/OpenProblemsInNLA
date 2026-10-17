@@ -1,16 +1,16 @@
 # Proof inventory for the 47 formerly Solved targets
 
 This source-level inventory records the 47 targets that had `Solved` status
-before the split proof campaign. The seven full-target proofs below now have
+before the split proof campaign. The eight full-target proofs below now have
 canonical `Lean verified` status after independent scope review and recorded
-kernel verification. The remaining 40 retain `Solved` status. This inventory
+kernel verification. The remaining 39 retain `Solved` status. This inventory
 alone does not certify a proof; each promoted canonical README records its
 statement comparison, pinned source, successful verification log, and axiom
 audit. Permanent IDs and mathematical targets are unchanged. Historical copies
 under `reviews/`, `verification/`, and archive directories are evidence, not
 live solution sources.
 
-## Full-target local proofs promoted to Lean verified (7)
+## Full-target local proofs promoted to Lean verified (8)
 
 | ID | Live proof source | Evidence and remaining gate |
 | --- | --- | --- |
@@ -19,10 +19,11 @@ live solution sources.
 | MF-23 | [`CanonicalBridge.lean`](../../../matrix-functions-and-stability/MF-23/lean/CanonicalBridge.lean) | Proves the [reviewed canonical block-order target](MF-23/CANONICAL_BRIDGE_INDEPENDENT_REVIEW.md) from the pinned external `complete_crouzeix` proof by a norm-preserving tensor-factor swap. Its self-contained source-locked project and [isolated Linux Comparator/LeanCert kernel receipt](MF-23/LINUX_CI_RECEIPT.md) pass with only standard axioms. |
 | RA-06 | [`Final.lean`](../../../lean-statements/NLA/Proofs/RA06/Final.lean) | The [independently reviewed full theorem](RA-06/FINAL_INDEPENDENT_REVIEW.md) inhabits the frozen original negative `Target` for every `p > 2`, with the exact sampler, same `α`, expected retained count, and raw log budget. The [isolated Linux Comparator/LeanCert kernel receipt](RA-06/LINUX_CI_RECEIPT.md) passes with only standard axioms. |
 | MF-03 | [`AllOrderTarget.lean`](../../../lean-statements/NLA/Proofs/MF03/AllOrderTarget.lean) | The [independently reviewed full theorem](MF-03/ALL_ORDER_TARGET_INDEPENDENT_FINAL_REVIEW.md) inhabits the frozen all-order `Target`: reduced-pair existence and the radius-3, error-2 bound for every reduced representative at every positive Padé order. Orders 1–15 use audited finite certificates; orders ≥16 use the source determinant-derived symbolic pair and coefficient-one tail. The pinned aggregate LeanCert kernel build passes with only standard axioms. |
+| RA-10 | [`Solution.lean`](../../../randomized-and-low-rank-approximation/RA-10/lean/Solution.lean) | The [two independent final source reviews](../../../randomized-and-low-rank-approximation/RA-10/lean/reviews/FINAL_FORMALIZATION_REVIEW_1.md) and [isolated Linux Comparator/LeanCert kernel receipt](RA-10/LINUX_CI_RECEIPT.md) verify the complete frozen existential target with universal witness 11, arbitrary PSD pair and selected eigenbases, all admissible operator-monotone functions, and only standard axioms. The substantive 95-module proof closure is pinned to commit `844237f7`. |
 | MD-03 | [`Proof.lean`](../../../matrix-discrepancy-and-optimization/MD-03/lean/NLA/MD03/Proof.lean) | Proves the complete universal signing target with C=36 through a pinned Komlós formalization. The [independent source review](MD-03/INDEPENDENT_REVIEW.md) and [isolated Linux Comparator/kernel receipt](MD-03/LINUX_CI_RECEIPT.md) pass with only standard axioms. |
 | MD-04 | [`Proof.lean`](../../../matrix-discrepancy-and-optimization/MD-04/lean/NLA/MD04/Proof.lean) | Proves the complete square-root sparsity target with C=36 by rescaling 0–1 matrices into the pinned MD-03 Komlós theorem. The [independent source review](MD-04/INDEPENDENT_REVIEW.md) and [isolated Linux Comparator/kernel receipt](MD-04/LINUX_CI_RECEIPT.md) pass with only standard axioms. |
 
-## Local partial solution projects (9)
+## Local partial solution projects (8)
 
 | ID | Live source | What is actually proved |
 | --- | --- | --- |
@@ -31,7 +32,6 @@ live solution sources.
 | IV-02 | [`Solution.lean`](../../../intervals-and-absolute-value-equations/IV-02/lean/Solution.lean) | Rotation identity and positive even layer count. The original complexity claim remains absent from the implemented semantics. |
 | IV-04 | [`Solution.lean`](../../../intervals-and-absolute-value-equations/IV-04/lean/Solution.lean) | A two-by-two corner algebra lemma. The original complexity target is absent and the current statement's interval semantics have a known scope gap. |
 | MD-06 | [`Solution.lean`](../../../matrix-discrepancy-and-optimization/MD-06/lean/Solution.lean) | Extracts a nonsynchronized critical point from an assumed stable event. Graph probability and local-minimum semantics are parameters of an abstract structure. |
-| RA-10 | [`SpectralQuadratic.lean`](../../../lean-statements/NLA/Proofs/RA10/SpectralQuadratic.lean) | Source spectral, compression, resolvent, and exact Equation (14) nuclear inequalities are proved below. The frozen all-singular-value nuclear norm has kernel-proved homogeneity, orthogonal invariance, coefficient-one ideal inequalities, exact orthogonal trace duality, sharp triangle, pinching contraction, PSD nuclear norm equals trace, complementary-block additivity, source Equations (8)–(11), the positive-cutoff ridge trace-loss consequence of Equation (12), and Equation (13)'s first exact trace identity. Lemma 2, restricted-block trace integration, ridge/integral transfer, and full Target remain open. |
 | SP-14 | [`SubsequenceGap.lean`](../../../lean-statements/NLA/Proofs/SP14/SubsequenceGap.lean) | [Independently reviewed](SP-14/SUBSEQUENCE_GAP_INDEPENDENT_FINAL_REVIEW.md) kernel proof that a supplied continuous counterexample with a positive eventual empirical gap refutes the exact frozen conjecture. Separate [base-coefficient convolution](SP-14/BASE_COEFFICIENT_INDEPENDENT_REVIEW.md), [unconditional coefficient-defined block product](SP-14/BASE_CB_INDEPENDENT_FINAL_REVIEW.md), [frozen-integral monomial Fourier orthogonality](SP-14/BASE_FOURIER_MODE_INDEPENDENT_REVIEW.md), [absolute summability of the exterior half-binomial coefficients](SP-14/BASE_COEFF_SUMMABLE_INDEPENDENT_REVIEW.md), [continuous exterior boundary series](SP-14/BASE_EXTERIOR_SERIES_INDEPENDENT_REVIEW.md), [termwise frozen Fourier integration](SP-14/BASE_EXTERIOR_FOURIER_INDEPENDENT_REVIEW.md), [the exterior base symbol's exact Fourier pattern and actual odd Toeplitz characteristic polynomial](SP-14/BASE_EXTERIOR_PATTERN_INDEPENDENT_REVIEW.md), [its boundary square and zero identities](SP-14/BASE_EXTERIOR_BOUNDARY_SQUARE_INDEPENDENT_REVIEW.md), [positive packet Fourier support and small-section invisibility](SP-14/POSITIVE_PACKET_INVISIBILITY_INDEPENDENT_FINAL_REVIEW.md), [finite negative-restoration algebra and earlier-section persistence](SP-14/NEGATIVE_RESTORATION_INVISIBILITY_INDEPENDENT_FINAL_REVIEW.md), [the conditional all-order odd-frequency Toeplitz characteristic polynomial in the jet coordinate](SP-14/ODD_FREQUENCY_TOEPLITZ_CHARPOLY_INDEPENDENT_FINAL_REVIEW.md), [continuous odd Fourier support and jet polynomial shape for every finite corrected symbol](SP-14/FINITE_CORRECTED_ODD_SUPPORT_INDEPENDENT_FINAL_REVIEW.md), [the exact conditional jet-to-algebraic-root-multiplicity bridge](SP-14/JET_VANISHING_MULTIPLICITY_INDEPENDENT_FINAL_REVIEW.md), [the real upper-triangular base-jet matrix with its unique inverse solve](SP-14/BASE_JET_TRIANGULAR_INDEPENDENT_PARTIAL_REVIEW.md), and [the generic selected-block cofactor identity](SP-14/BASE_JET_CORNER_INDEPENDENT_FINAL_REVIEW.md), and [the exact frozen Fourier-to-matrix bridge for a base plus restored packet](SP-14/BASE_JET_FOURIER_MATRIX_INDEPENDENT_FINAL_REVIEW.md), and [the actual corrected odd-jet polynomial’s finite pencil formula](SP-14/BASE_JET_PENCIL_FORMULA_INDEPENDENT_FINAL_REVIEW.md), and [the explicit real first-jet solve and bijective derivative of that actual base-model map](SP-14/BASE_JET_REAL_SOLVE_INDEPENDENT_FINAL_REVIEW.md) are kernel checked. The base symbol has an outer annular extension and is not the counterexample; selecting correction vectors for perturbed backgrounds, the final infinite symbol, two-sided nonextension, unconditional multiplicity estimates, and final subsequence gap remain unproved in Lean. |
 | TR-04 | [`Solution.lean`](../../../tensor-computations/TR-04/lean/Solution.lean) | Elementary candidate/window count inequalities. It explicitly does not prove the TT-SVD approximation target; the current statement has unconstrained rank and operation-count fields. |
 | TR-14 | [`WidthBasics.lean`](../../../lean-statements/NLA/Proofs/TR14/WidthBasics.lean) | [Independently reviewed](TR-14/WIDTH_BASICS_INDEPENDENT_FINAL_REVIEW.md) kernel proofs of symmetric-width implies ordinary-width and both exact width-zero characterizations, [moment-index surjectivity and the Hankel-zero equivalence](TR-14/MOMENT_INDEX_INDEPENDENT_FINAL_REVIEW.md), [the exact apolar map and least nonzero degree](TR-14/APOLAR_MINIMAL_INDEPENDENT_FINAL_REVIEW.md), [conditional monic quotient all-moment matching](TR-14/NORMALIZED_QUOTIENT_INDEPENDENT_PARTIAL_REVIEW.md), [the normalized least-apolar quotient’s full Frobenius pairing](TR-14/FROBENIUS_MINIMAL_INDEPENDENT_FINAL_REVIEW.md), [the exact middle catalecticant rank in that monic chart](TR-14/MIDDLE_CATALECTICANT_INDEPENDENT_FINAL_REVIEW.md), and [the genuine homogeneous chart substitution, degreewise equivalence, multiplication, and inverse-dual pairing](TR-14/GL2_HOMOGENEOUS_INDEPENDENT_FINAL_REVIEW.md). The original-coordinate middle catalecticant rank and a conditional local CRT/Fourier symmetric upper width are now proved through independently reviewed GL₂ chart bridges below. The arbitrary ordinary-to-symmetric implication and full all-width target remain unproved. |
@@ -298,6 +298,10 @@ probability-Haar `Lp` norm square with the actual first `N` triangular inverse
 coefficient energy. The finite operator bound and infinite inverse extension
 remain open.
 
+The following RA-10 paragraphs record incremental proof gates as they were
+completed. Any intermediate "remaining" steps described there are historical;
+the full pinned target is now verified as recorded in the full-target table.
+
 The [RA-10 selected-projector gates](RA-10/SELECTED_PROJECTOR_INDEPENDENT_FINAL_REVIEW.md)
 identify the exact frozen first-`k` eigenvector projector, prove symmetry and
 idempotence from every supplied ordered decomposition, and give rank `k` for
@@ -420,10 +424,11 @@ now proves exact `0≤L_s≤L/(s+c)` with the actual full-space functional
 matrix and zero compression tail. The [first Equation (13) trace
 identity](RA-10/MATCHED_LEADING_EQ13_TRACE_IDENTITY_INDEPENDENT_FINAL_REVIEW.md)
 now equates the exact ridge nuclear excess with `L_s` plus twice the
-positive-part trace of `F_C−F_A`. The `c=0` branch, Lemma 2's positive-part
-bound, remaining Equation (13) inequalities, and full Target remain open.
-The remaining compression, perturbation, integral transfer, and full Target
-remain open under the [reviewed exact contract](RA-10/NUCLEAR_IDEAL_EQ14_INDEPENDENT_PRE_REVIEW.md).
+positive-part trace of `F_C−F_A`. Subsequent proof development discharged the
+`c=0` branch, Lemma 2's positive-part bound, Equation (13), compression,
+perturbation, integral transfer, and the full Target. The
+[final source reviews](../../../randomized-and-low-rank-approximation/RA-10/lean/reviews/FINAL_FORMALIZATION_REVIEW_1.md)
+and [isolated kernel receipt](RA-10/LINUX_CI_RECEIPT.md) cover the pinned full proof.
 
 The [independently reviewed normalized exterior boundary factor](SP-14/BASE_EXTERIOR_FACTOR_INDEPENDENT_FINAL_REVIEW.md)
 is a continuous half-binomial series with exact square, endpoint zero, and
