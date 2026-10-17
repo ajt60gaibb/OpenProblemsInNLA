@@ -3,8 +3,8 @@
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
 **Provenance:** source-stated conjecture.  
-**Status:** Solved  
-**Last checked:** 2026-09-11
+**Status:** Lean verified
+**Last checked:** 2026-10-16
 
 **Rating rationale:** The unrestricted square-root sparsity law is a central discrepancy conjecture with broad consequences for combinatorics, rounding and optimization.
 
@@ -15,6 +15,12 @@
 **Application note by George Stepaniants**, Department of Computing and Mathematical Sciences, California Institute of Technology: [proof by reference](solution.md), **Theorem 2** ([PDF](../../references/stepaniants-2026-09-11/manuscripts/md03_md04_proofs.pdf) · [LaTeX](../../references/stepaniants-2026-09-11/manuscripts/md03_md04_proofs.tex)). Stepaniants authors the explanatory note; both the theorem and its Beck–Fiala corollary are credited to Guo, Fang and Lu.
 
 A separate Codex agent checked the application and substantive source proof and returned **PASS**: [independent review](../../references/stepaniants-2026-09-11/verification/reviews/MD-03-MD-04-review.md). Verification is independent automated-agent review, not external human peer review or formal certification. The source remains a preprint and discloses Odin AI use; the application draft was prepared with ChatGPT. No case of the original target remains open under the reviewed result. The original statement and earlier status evidence remain below, and the ratings above are historical. [Submission record](../../references/stepaniants-2026-09-11/README.md).
+
+## Lean proof and verification evidence
+
+The [Lean solution](lean/Solution.lean) proves the complete original existential target with universal constant `C = 36`. It imports the pinned formal Komlós theorem of Gabriel Dahia through the [MD-03 bridge](lean/NLA/MD03/Proof.lean), then applies the [source-locked scaling reduction](lean/NLA/MD04/Reduction.lean) to each `{0,1}` matrix at every allowed sparsity. The historical Guo–Fang–Lu result above gives the sharper value `3√(2π)`; the original question asks only whether some dimension-independent positive constant exists. Neither the original target nor its permanent ID has changed.
+
+An [independent AI mathematical and proof review](../../docs/lean/proofs/MD-04/INDEPENDENT_REVIEW.md) checked every quantifier, endpoint, entry and sign condition, and the exact rescaling argument against the frozen Lean statement. The [13 October isolated Ubuntu Comparator job](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/38392383534/job/115299684643) built the separate Challenge and Solution, checked `NLA.MD04.target` with Lean's default kernel, and reported only `propext`, `Classical.choice`, and `Quot.sound` as transitive axioms. Its [downloaded artifact and source-hash receipt](../../docs/lean/proofs/MD-04/LINUX_CI_RECEIPT.md) bind all proof inputs and the exact comparator result. The Challenge has one deliberate comparison-hole `sorry`; it is not imported by Solution. This is Lean kernel verification of the displayed target, not external human peer review or a formalization of the sharper historical constant.
 
 ## Problem statement
 
