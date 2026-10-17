@@ -3,8 +3,9 @@
 **Difficulty:** extreme  
 **Importance:** broadly interesting  
 **Provenance:** source-stated conjecture.  
-**Status:** Solved  
-**Last checked:** 2026-09-11
+**Status:** Lean verified
+
+**Last checked:** 2026-10-16
 
 **Rating rationale:** Dimension-free vector balancing is a foundational discrepancy barrier with wide implications for rounding, optimization and algorithms.
 
@@ -15,6 +16,24 @@
 **Application note by George Stepaniants**, Department of Computing and Mathematical Sciences, California Institute of Technology: [proof by reference](solution.md), **Theorem 1** ([PDF](../../references/stepaniants-2026-09-11/manuscripts/md03_md04_proofs.pdf) · [LaTeX](../../references/stepaniants-2026-09-11/manuscripts/md03_md04_proofs.tex)). Stepaniants authors this explanatory note; the discrepancy theorem is credited to Guo, Fang and Lu.
 
 A separate Codex agent checked both the application and the substantive source proof, including its published eigenvalue-convexity input, and returned **PASS**: [independent review](../../references/stepaniants-2026-09-11/verification/reviews/MD-03-MD-04-review.md). This is independent automated-agent verification under the repository's status definition, not external human peer review or formal certification. The source remains a preprint and discloses Odin AI use. The application draft was prepared with ChatGPT. The original statement and dated history below are retained; the ratings above are historical. [Submission record](../../references/stepaniants-2026-09-11/README.md).
+
+## Lean proof and verification evidence — 16 October 2026
+
+The [Lean theorem `NLA.MD03.target`](lean/NLA/MD03/Proof.lean) proves the exact
+original existential statement with universal constant $`C=36`$. The live and
+frozen reviewed targets are definitionally identical. The theorem translates
+Gabriel Dahia's pinned, kernel-checked Komlós formalization to a sign for every
+column and a bound for every row, at all positive dimensions. It does not
+claim the sharper constant in the historical Guo–Fang–Lu resolution.
+
+An [independent Codex-agent source review](../../docs/lean/proofs/MD-03/INDEPENDENT_REVIEW.md)
+checked the mathematical target, proof bridge, and separate Challenge wrapper.
+The [13 October isolated Linux Comparator job](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/38392383534/job/115299684562)
+accepted the solution with the default Lean kernel, LeanCert kernel trust, and
+only `propext`, `Classical.choice`, and `Quot.sound` as transitive axioms. The
+[receipt](../../docs/lean/proofs/MD-03/LINUX_CI_RECEIPT.md) binds the checked
+source hashes and pinned dependencies. This review is automated-agent review,
+not external human peer review; the original target and permanent ID are unchanged.
 
 ## Problem statement
 
