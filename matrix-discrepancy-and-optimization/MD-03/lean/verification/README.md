@@ -18,15 +18,17 @@ compiler version and project source hashes. The local build reused the existing
 pinned macOS Mathlib cache; the external proof source and new modules were
 compiled locally. This is not a fresh isolated verification run.
 
-The [authoritative verifier attempt](linux-precondition.log) stopped at its
-Linux precondition. No sandbox substitute or Comparator success is claimed.
-On a suitable non-root Linux host, from the repository root:
+The retained [local verifier attempt](linux-precondition.log) stopped at its
+Linux precondition. A later [GitHub Actions isolated Linux verification
+job](../../../../docs/lean/proofs/MD-03/LINUX_CI_RECEIPT.md) passed Comparator,
+the default Lean kernel, LeanCert trust checks, and the axiom audit. To reproduce
+on a suitable non-root Linux host, from the repository root:
 
 ```sh
 bash tools/lean/bootstrap.sh /tmp/nla-md-checker
 bash tools/lean/verify.sh matrix-discrepancy-and-optimization/MD-03/lean /tmp/nla-md-checker
 ```
 
-Independent review of the new proof and Challenge wrapper is also pending.
-The existing independent statement reviews and their limitations are described
-in [../reviews/README.md](../reviews/README.md). No catalog status was promoted.
+The [independent proof and wrapper review](../../../../docs/lean/proofs/MD-03/INDEPENDENT_REVIEW.md)
+and the earlier statement reviews are described in
+[../reviews/README.md](../reviews/README.md). The catalog status is Lean verified.

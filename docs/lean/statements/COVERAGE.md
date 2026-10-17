@@ -91,8 +91,8 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [KE-05](../../../randomized-and-low-rank-approximation/KE-05/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [MD-01](../../../matrix-discrepancy-and-optimization/MD-01/README.md) | Solution claimed | missing-statement | Not audited here. |
 | [MD-02](../../../matrix-discrepancy-and-optimization/MD-02/README.md) | Open | missing-statement | Not audited here. |
-| [MD-03](../../../matrix-discrepancy-and-optimization/MD-03/README.md) | Solved | shared-statement-source | Not audited here. |
-| [MD-04](../../../matrix-discrepancy-and-optimization/MD-04/README.md) | Solved | shared-statement-source | Not audited here. |
+| [MD-03](../../../matrix-discrepancy-and-optimization/MD-03/README.md) | Lean verified | shared-statement-source | Not audited here. |
+| [MD-04](../../../matrix-discrepancy-and-optimization/MD-04/README.md) | Lean verified | shared-statement-source | Not audited here. |
 | [MD-05](../../../matrix-discrepancy-and-optimization/MD-05/README.md) | Open | missing-statement | Not audited here. |
 | [MD-06](../../../matrix-discrepancy-and-optimization/MD-06/README.md) | Solved | shared-statement-source | Graph probability and local-minimum semantics remain parameters of an abstract Semantics structure. |
 | [MF-01](../../../matrix-functions-and-stability/MF-01/README.md) | Open | missing-statement | Not audited here. |

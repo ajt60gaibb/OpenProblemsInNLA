@@ -18,15 +18,21 @@ cache and compiled dependency modules were reused. This is not a fresh isolated
 verification run. The sole deliberate Challenge placeholder is never imported
 by the solution.
 
-The [authoritative verifier attempt](linux-precondition.log) stopped at its
-Linux precondition. No sandbox substitute or Comparator success is claimed.
-On a suitable non-root Linux host, from the repository root:
+The historical [11 October verifier attempt](linux-precondition.log) stopped at
+its Linux precondition. A later [13 October Ubuntu job and downloaded artifact](../../../../docs/lean/proofs/MD-04/LINUX_CI_RECEIPT.md)
+provide the authoritative isolated Comparator result. The job built a fresh
+Challenge and Solution, accepted `NLA.MD04.target` with Lean's default kernel,
+reported only `propext`, `Classical.choice`, and `Quot.sound` as transitive
+axioms, and passed the strict sandbox controls. The [independent mathematical
+review](../../../../docs/lean/proofs/MD-04/INDEPENDENT_REVIEW.md) separately
+checks the exact target and reduction. On a suitable non-root Linux host,
+from the repository root, reproduce with:
 
 ```sh
 bash tools/lean/bootstrap.sh /tmp/nla-md-checker
 bash tools/lean/verify.sh matrix-discrepancy-and-optimization/MD-04/lean /tmp/nla-md-checker
 ```
 
-Independent review of the new proof and Challenge wrapper is also pending.
-The existing independent statement reviews and their limitations are described
-in [../reviews/README.md](../reviews/README.md). No catalog status was promoted.
+The earlier independent statement reviews and their limits remain described
+in [../reviews/README.md](../reviews/README.md). The canonical page was
+promoted to `Lean verified` after the proof review and Linux receipt.
