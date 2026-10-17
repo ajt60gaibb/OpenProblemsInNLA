@@ -1,0 +1,32 @@
+NLA.Proofs.SP11.alternatingContraction_orthogonal.{u_1} {R : Type u_1} [CommRing R] {d k : ℕ}
+  (a : NLA.Proofs.SP11.CoordinateVector R d [⋀^Fin (k + 1)]→ₗ[R] R) (w : Fin k → NLA.Proofs.SP11.CoordinateVector R d)
+  (s : Fin k) : NLA.Proofs.SP11.alternatingContraction a w ⬝ᵥ w s = 0
+NLA.Proofs.SP11.polynomialAlternatingForm_apply.{u_1, u_2} {R : Type u_1} [CommRing R] {d r : ℕ} {V : Type u_2}
+  (name : NLA.Proofs.SP11.CoordinateSubset d r → V)
+  (w : Fin r → NLA.Proofs.SP11.CoordinateVector (MvPolynomial V R) d) :
+  (NLA.Proofs.SP11.polynomialAlternatingForm name) w = ∑ s, MvPolynomial.X (name s) * Matrix.det fun i j => w i (↑s j)
+NLA.Proofs.SP11.uniformLSS_orthogonal_nonedge.{u_1} {R : Type u_1} [CommRing R] {n d : ℕ} (G : SimpleGraph (Fin n))
+  (a : NLA.Proofs.SP11.VertexForms G R d) (i j : Fin n) (hij : i ≠ j) (hnot : ¬G.Adj i j) :
+  NLA.Proofs.SP11.uniformLSS G a i ⬝ᵥ NLA.Proofs.SP11.uniformLSS G a j = 0
+NLA.Proofs.SP11.exists_pattern_matrix_of_polynomialLSS_nonzero {n d : ℕ} (G : SimpleGraph (Fin n))
+  (hd : d + NLA.Statements.SP11.MinimumDegree G ≤ n)
+  (hnonzero :
+    ∀ (i j : Fin n), i = j ∨ G.Adj i j → NLA.Proofs.SP11.polynomialGram (NLA.Proofs.SP11.polynomialLSS G d) i j ≠ 0) :
+  ∃ A, NLA.Statements.SP11.HasPattern G A ∧ NLA.Statements.SP11.MinimumDegree G ≤ n - A.rank
+NLA.Proofs.SP11.target_of_polynomial_representations
+  (h :
+    ∀ (n : ℕ),
+      0 < n →
+        ∀ (G : SimpleGraph (Fin n)),
+          ∃ d σ P,
+            d + NLA.Statements.SP11.MinimumDegree G ≤ n ∧
+              (∀ (i j : Fin n), i ≠ j → ¬G.Adj i j → NLA.Proofs.SP11.polynomialGram P i j = 0) ∧
+                ∀ (i j : Fin n), i = j ∨ G.Adj i j → NLA.Proofs.SP11.polynomialGram P i j ≠ 0) :
+  NLA.Statements.SP11.Target
+'NLA.Proofs.SP11.alternatingContraction_orthogonal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.SP11.polynomialAlternatingForm_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.SP11.uniformLSS_orthogonal_nonedge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.SP11.exists_pattern_matrix_of_polynomialLSS_nonzero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NLA.Proofs.SP11.target_of_polynomial_representations' depends on axioms: [propext, Classical.choice, Quot.sound]

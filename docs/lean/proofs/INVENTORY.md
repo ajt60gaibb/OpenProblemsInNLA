@@ -20,7 +20,20 @@ live solution sources.
 | RA-06 | [`Final.lean`](../../../lean-statements/NLA/Proofs/RA06/Final.lean) | The [independently reviewed full theorem](RA-06/FINAL_INDEPENDENT_REVIEW.md) inhabits the frozen original negative `Target` for every `p > 2`, with the exact sampler, same `α`, expected retained count, and raw log budget. The [isolated Linux Comparator/LeanCert kernel receipt](RA-06/LINUX_CI_RECEIPT.md) passes with only standard axioms. |
 | MF-03 | [`AllOrderTarget.lean`](../../../lean-statements/NLA/Proofs/MF03/AllOrderTarget.lean) | The [independently reviewed full theorem](MF-03/ALL_ORDER_TARGET_INDEPENDENT_FINAL_REVIEW.md) inhabits the frozen all-order `Target`: reduced-pair existence and the radius-3, error-2 bound for every reduced representative at every positive Padé order. Orders 1–15 use audited finite certificates; orders ≥16 use the source determinant-derived symbolic pair and coefficient-one tail. The pinned aggregate LeanCert kernel build passes with only standard axioms. |
 
-## Local partial solution projects (9)
+## Complete proof projects awaiting canonical promotion (2)
+
+The published tree also contains complete-target MD-03 and MD-04 wrappers over
+the pinned external Komlós proof. Their source existence is separate from
+canonical promotion and the exact-revision verification receipts. See the
+[17 October campaign inventory](../campaign-2026-10-17/inventory/README.md) for
+the later candidate revisions and retained evidence.
+
+| ID | Live source | Actual scope |
+| --- | --- | --- |
+| MD-03 | [`Solution.lean`](../../../matrix-discrepancy-and-optimization/MD-03/lean/Solution.lean) | Full frozen Komlós target from the pinned external proof, with constant 36. |
+| MD-04 | [`Solution.lean`](../../../matrix-discrepancy-and-optimization/MD-04/lean/Solution.lean) | Full frozen Beck–Fiala target via the same MD-03 theorem and exact scaling. |
+
+## Local partial solution projects (10)
 
 | ID | Live source | What is actually proved |
 | --- | --- | --- |
@@ -30,6 +43,7 @@ live solution sources.
 | IV-04 | [`Solution.lean`](../../../intervals-and-absolute-value-equations/IV-04/lean/Solution.lean) | A two-by-two corner algebra lemma. The original complexity target is absent and the current statement's interval semantics have a known scope gap. |
 | MD-06 | [`Solution.lean`](../../../matrix-discrepancy-and-optimization/MD-06/lean/Solution.lean) | Extracts a nonsynchronized critical point from an assumed stable event. Graph probability and local-minimum semantics are parameters of an abstract structure. |
 | RA-10 | [`SpectralQuadratic.lean`](../../../lean-statements/NLA/Proofs/RA10/SpectralQuadratic.lean) | Source spectral, compression, resolvent, and exact Equation (14) nuclear inequalities are proved below. The frozen all-singular-value nuclear norm has kernel-proved homogeneity, orthogonal invariance, coefficient-one ideal inequalities, exact orthogonal trace duality, sharp triangle, pinching contraction, PSD nuclear norm equals trace, complementary-block additivity, source Equations (8)–(11), the positive-cutoff ridge trace-loss consequence of Equation (12), and Equation (13)'s first exact trace identity. Lemma 2, restricted-block trace integration, ridge/integral transfer, and full Target remain open. |
+| SP-11 | [`PolynomialLSS.lean`](../../../lean-statements/NLA/Proofs/SP11/PolynomialLSS.lean) | [Independently reviewed support proofs](SP-11/README.md) construct the actual shared-variable polynomial LSS vectors and prove exact nonedge orthogonality, greedy dimension bounds, simultaneous real specialization, and the Gram rank reduction. Shared-variable non-cancellation, greedy-order transport, the full Target, and fresh Linux Comparator proof verification remain. |
 | SP-14 | [`SubsequenceGap.lean`](../../../lean-statements/NLA/Proofs/SP14/SubsequenceGap.lean) | [Independently reviewed](SP-14/SUBSEQUENCE_GAP_INDEPENDENT_FINAL_REVIEW.md) kernel proof that a supplied continuous counterexample with a positive eventual empirical gap refutes the exact frozen conjecture. Separate [base-coefficient convolution](SP-14/BASE_COEFFICIENT_INDEPENDENT_REVIEW.md), [unconditional coefficient-defined block product](SP-14/BASE_CB_INDEPENDENT_FINAL_REVIEW.md), [frozen-integral monomial Fourier orthogonality](SP-14/BASE_FOURIER_MODE_INDEPENDENT_REVIEW.md), [absolute summability of the exterior half-binomial coefficients](SP-14/BASE_COEFF_SUMMABLE_INDEPENDENT_REVIEW.md), [continuous exterior boundary series](SP-14/BASE_EXTERIOR_SERIES_INDEPENDENT_REVIEW.md), [termwise frozen Fourier integration](SP-14/BASE_EXTERIOR_FOURIER_INDEPENDENT_REVIEW.md), [the exterior base symbol's exact Fourier pattern and actual odd Toeplitz characteristic polynomial](SP-14/BASE_EXTERIOR_PATTERN_INDEPENDENT_REVIEW.md), [its boundary square and zero identities](SP-14/BASE_EXTERIOR_BOUNDARY_SQUARE_INDEPENDENT_REVIEW.md), [positive packet Fourier support and small-section invisibility](SP-14/POSITIVE_PACKET_INVISIBILITY_INDEPENDENT_FINAL_REVIEW.md), [finite negative-restoration algebra and earlier-section persistence](SP-14/NEGATIVE_RESTORATION_INVISIBILITY_INDEPENDENT_FINAL_REVIEW.md), [the conditional all-order odd-frequency Toeplitz characteristic polynomial in the jet coordinate](SP-14/ODD_FREQUENCY_TOEPLITZ_CHARPOLY_INDEPENDENT_FINAL_REVIEW.md), [continuous odd Fourier support and jet polynomial shape for every finite corrected symbol](SP-14/FINITE_CORRECTED_ODD_SUPPORT_INDEPENDENT_FINAL_REVIEW.md), [the exact conditional jet-to-algebraic-root-multiplicity bridge](SP-14/JET_VANISHING_MULTIPLICITY_INDEPENDENT_FINAL_REVIEW.md), [the real upper-triangular base-jet matrix with its unique inverse solve](SP-14/BASE_JET_TRIANGULAR_INDEPENDENT_PARTIAL_REVIEW.md), and [the generic selected-block cofactor identity](SP-14/BASE_JET_CORNER_INDEPENDENT_FINAL_REVIEW.md), and [the exact frozen Fourier-to-matrix bridge for a base plus restored packet](SP-14/BASE_JET_FOURIER_MATRIX_INDEPENDENT_FINAL_REVIEW.md), and [the actual corrected odd-jet polynomial’s finite pencil formula](SP-14/BASE_JET_PENCIL_FORMULA_INDEPENDENT_FINAL_REVIEW.md), and [the explicit real first-jet solve and bijective derivative of that actual base-model map](SP-14/BASE_JET_REAL_SOLVE_INDEPENDENT_FINAL_REVIEW.md) are kernel checked. The base symbol has an outer annular extension and is not the counterexample; selecting correction vectors for perturbed backgrounds, the final infinite symbol, two-sided nonextension, unconditional multiplicity estimates, and final subsequence gap remain unproved in Lean. |
 | TR-04 | [`Solution.lean`](../../../tensor-computations/TR-04/lean/Solution.lean) | Elementary candidate/window count inequalities. It explicitly does not prove the TT-SVD approximation target; the current statement has unconstrained rank and operation-count fields. |
 | TR-14 | [`WidthBasics.lean`](../../../lean-statements/NLA/Proofs/TR14/WidthBasics.lean) | [Independently reviewed](TR-14/WIDTH_BASICS_INDEPENDENT_FINAL_REVIEW.md) kernel proofs of symmetric-width implies ordinary-width and both exact width-zero characterizations, [moment-index surjectivity and the Hankel-zero equivalence](TR-14/MOMENT_INDEX_INDEPENDENT_FINAL_REVIEW.md), [the exact apolar map and least nonzero degree](TR-14/APOLAR_MINIMAL_INDEPENDENT_FINAL_REVIEW.md), [conditional monic quotient all-moment matching](TR-14/NORMALIZED_QUOTIENT_INDEPENDENT_PARTIAL_REVIEW.md), [the normalized least-apolar quotient’s full Frobenius pairing](TR-14/FROBENIUS_MINIMAL_INDEPENDENT_FINAL_REVIEW.md), [the exact middle catalecticant rank in that monic chart](TR-14/MIDDLE_CATALECTICANT_INDEPENDENT_FINAL_REVIEW.md), and [the genuine homogeneous chart substitution, degreewise equivalence, multiplication, and inverse-dual pairing](TR-14/GL2_HOMOGENEOUS_INDEPENDENT_FINAL_REVIEW.md). The original-coordinate middle catalecticant rank and a conditional local CRT/Fourier symmetric upper width are now proved through independently reviewed GL₂ chart bridges below. The arbitrary ordinary-to-symmetric implication and full all-width target remain unproved. |
@@ -569,7 +583,7 @@ symmetric terms under actual nonzero least-apolar hypotheses. Its
 give one normalized-chart upper bound, including repeated roots. The
 original-coordinate projective root count, other width bounds, and full Target remain open.
 
-## Shared statement only; no live proof source (33)
+## Shared statement only; no live proof source (30)
 
 The following files define a `Target : Prop` and pass statement-boundary checks.
 They do **not** contain a theorem proving `Target`. The source-path pattern is
@@ -581,22 +595,20 @@ They do **not** contain a theorem proving `Target`. The source-path pattern is
 | AV-02 | [`AV02.lean`](../../../lean-statements/NLA/Statements/AV02.lean) | FR-10 | [`FR10.lean`](../../../lean-statements/NLA/Statements/FR10.lean) |
 | IE-08 | [`IE08.lean`](../../../lean-statements/NLA/Statements/IE08.lean) | IE-10 | [`IE10.lean`](../../../lean-statements/NLA/Statements/IE10.lean) |
 | IE-12 | [`IE12.lean`](../../../lean-statements/NLA/Statements/IE12.lean) | IE-26 | [`IE26.lean`](../../../lean-statements/NLA/Statements/IE26.lean) |
-| IV-05 | [`IV05.lean`](../../../lean-statements/NLA/Statements/IV05.lean) | MD-03 | [`MD03.lean`](../../../lean-statements/NLA/Statements/MD03.lean) |
-| MD-04 | [`MD04.lean`](../../../lean-statements/NLA/Statements/MD04.lean) | | |
-| MF-08 | [`MF08.lean`](../../../lean-statements/NLA/Statements/MF08.lean) | MI-16 | [`MI16.lean`](../../../lean-statements/NLA/Statements/MI16.lean) |
-| MI-31 | [`MI31.lean`](../../../lean-statements/NLA/Statements/MI31.lean) | NM-03 | [`NM03.lean`](../../../lean-statements/NLA/Statements/NM03.lean) |
-| PF-04 | [`PF04.lean`](../../../lean-statements/NLA/Statements/PF04.lean) | PF-05 | [`PF05.lean`](../../../lean-statements/NLA/Statements/PF05.lean) |
-| RA-04 | [`RA04.lean`](../../../lean-statements/NLA/Statements/RA04.lean) | RA-05 | [`RA05.lean`](../../../lean-statements/NLA/Statements/RA05.lean) |
-| RA-12 | [`RA12.lean`](../../../lean-statements/NLA/Statements/RA12.lean) | RA-13 | [`RA13.lean`](../../../lean-statements/NLA/Statements/RA13.lean) |
-| RA-19 | [`RA19.lean`](../../../lean-statements/NLA/Statements/RA19.lean) | RE-05 | [`RE05.lean`](../../../lean-statements/NLA/Statements/RE05.lean) |
-| RE-06 | [`RE06.lean`](../../../lean-statements/NLA/Statements/RE06.lean) | SP-11 | [`SP11.lean`](../../../lean-statements/NLA/Statements/SP11.lean) |
+| IV-05 | [`IV05.lean`](../../../lean-statements/NLA/Statements/IV05.lean) | MF-08 | [`MF08.lean`](../../../lean-statements/NLA/Statements/MF08.lean) |
+| MI-16 | [`MI16.lean`](../../../lean-statements/NLA/Statements/MI16.lean) | MI-31 | [`MI31.lean`](../../../lean-statements/NLA/Statements/MI31.lean) |
+| NM-03 | [`NM03.lean`](../../../lean-statements/NLA/Statements/NM03.lean) | PF-04 | [`PF04.lean`](../../../lean-statements/NLA/Statements/PF04.lean) |
+| PF-05 | [`PF05.lean`](../../../lean-statements/NLA/Statements/PF05.lean) | RA-04 | [`RA04.lean`](../../../lean-statements/NLA/Statements/RA04.lean) |
+| RA-05 | [`RA05.lean`](../../../lean-statements/NLA/Statements/RA05.lean) | RA-12 | [`RA12.lean`](../../../lean-statements/NLA/Statements/RA12.lean) |
+| RA-13 | [`RA13.lean`](../../../lean-statements/NLA/Statements/RA13.lean) | RA-19 | [`RA19.lean`](../../../lean-statements/NLA/Statements/RA19.lean) |
+| RE-05 | [`RE05.lean`](../../../lean-statements/NLA/Statements/RE05.lean) | RE-06 | [`RE06.lean`](../../../lean-statements/NLA/Statements/RE06.lean) |
 | SP-12 | [`SP12.lean`](../../../lean-statements/NLA/Statements/SP12.lean) | SP-13 | [`SP13.lean`](../../../lean-statements/NLA/Statements/SP13.lean) |
 | TR-06 | [`TR06.lean`](../../../lean-statements/NLA/Statements/TR06.lean) | TR-08 | [`TR08.lean`](../../../lean-statements/NLA/Statements/TR08.lean) |
-| TR-17 | [`TR17.lean`](../../../lean-statements/NLA/Statements/TR17.lean) | | |
-| TR-20 | [`TR20.lean`](../../../lean-statements/NLA/Statements/TR20.lean) | TR-21 | [`TR21.lean`](../../../lean-statements/NLA/Statements/TR21.lean) |
-| TR-26 | [`TR26.lean`](../../../lean-statements/NLA/Statements/TR26.lean) | | |
+| TR-17 | [`TR17.lean`](../../../lean-statements/NLA/Statements/TR17.lean) | TR-20 | [`TR20.lean`](../../../lean-statements/NLA/Statements/TR20.lean) |
+| TR-21 | [`TR21.lean`](../../../lean-statements/NLA/Statements/TR21.lean) | TR-26 | [`TR26.lean`](../../../lean-statements/NLA/Statements/TR26.lean) |
 
 LeanCert `#assert_statement`, `#assert_trust kernel`, frozen identity checks,
 and the shared Comparator certificates check statement definitions and their
-trust closure. They do not prove any of the 33 statement-only propositions or
-upgrade the nine partial projects to full proofs.
+trust closure. They do not prove any of the 30 statement-only propositions or
+upgrade the ten partial projects to full proofs. Complete-target wrappers
+still require their own reviewed exact-revision verification and promotion.
