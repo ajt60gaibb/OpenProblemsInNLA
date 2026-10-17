@@ -54,10 +54,11 @@ kernel trust and prints the complete target theorem's transitive axioms.
 
 ## Verification boundary
 
-See [verification/README.md](verification/README.md) for the retained local
-build and axiom evidence. Existing independent reviews apply to the unchanged
-statement files; new proof review and authoritative isolated Linux Comparator
-verification are still pending. The catalog status is unchanged.
+See [verification/README.md](verification/README.md) for the local build evidence.
+The [independent source review](../../../docs/lean/proofs/MD-03/INDEPENDENT_REVIEW.md)
+checks the exact target and new proof bridge. The [isolated Linux
+receipt](../../../docs/lean/proofs/MD-03/LINUX_CI_RECEIPT.md) records the
+successful Comparator and kernel checks. The catalog status is Lean verified.
 
 The MD-04 project uses a byte-identical copy of the small MD-03 bridge and the
 same external dependency, keeping both projects self-contained for the fresh

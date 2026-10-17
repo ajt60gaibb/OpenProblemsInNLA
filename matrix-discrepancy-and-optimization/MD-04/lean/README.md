@@ -60,6 +60,8 @@ lake env lean NLA/MD04/Proof.lean
 The single deliberate placeholder in `Challenge.lean` is excluded from the
 solution. The final command checks kernel trust and prints the target's
 transitive axiom report. See [verification/README.md](verification/README.md)
-for local evidence. The unchanged statements retain their existing reviews;
-independent review of the new proofs and authoritative isolated Linux
-Comparator verification remain pending. The catalog status is unchanged.
+for the local and later isolated Linux evidence. The unchanged statements
+retain their earlier reviews; the [independent proof and Challenge review](../../../docs/lean/proofs/MD-04/INDEPENDENT_REVIEW.md)
+approves this exact theorem and the [Linux CI receipt](../../../docs/lean/proofs/MD-04/LINUX_CI_RECEIPT.md)
+records a successful fresh Comparator/default-kernel check on 13 October 2026.
+The canonical MD-04 status is `Lean verified` as of 16 October 2026.

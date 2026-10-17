@@ -1,16 +1,16 @@
 # Proof inventory for the 47 formerly Solved targets
 
 This source-level inventory records the 47 targets that had `Solved` status
-before the split proof campaign. The five full-target proofs below now have
+before the split proof campaign. The seven full-target proofs below now have
 canonical `Lean verified` status after independent scope review and recorded
-kernel verification. The remaining 42 retain `Solved` status. This inventory
+kernel verification. The remaining 40 retain `Solved` status. This inventory
 alone does not certify a proof; each promoted canonical README records its
 statement comparison, pinned source, successful verification log, and axiom
 audit. Permanent IDs and mathematical targets are unchanged. Historical copies
 under `reviews/`, `verification/`, and archive directories are evidence, not
 live solution sources.
 
-## Full-target local proofs promoted to Lean verified (5)
+## Full-target local proofs promoted to Lean verified (7)
 
 | ID | Live proof source | Evidence and remaining gate |
 | --- | --- | --- |
@@ -19,6 +19,8 @@ live solution sources.
 | MF-23 | [`CanonicalBridge.lean`](../../../matrix-functions-and-stability/MF-23/lean/CanonicalBridge.lean) | Proves the [reviewed canonical block-order target](MF-23/CANONICAL_BRIDGE_INDEPENDENT_REVIEW.md) from the pinned external `complete_crouzeix` proof by a norm-preserving tensor-factor swap. Its self-contained source-locked project and [isolated Linux Comparator/LeanCert kernel receipt](MF-23/LINUX_CI_RECEIPT.md) pass with only standard axioms. |
 | RA-06 | [`Final.lean`](../../../lean-statements/NLA/Proofs/RA06/Final.lean) | The [independently reviewed full theorem](RA-06/FINAL_INDEPENDENT_REVIEW.md) inhabits the frozen original negative `Target` for every `p > 2`, with the exact sampler, same `α`, expected retained count, and raw log budget. The [isolated Linux Comparator/LeanCert kernel receipt](RA-06/LINUX_CI_RECEIPT.md) passes with only standard axioms. |
 | MF-03 | [`AllOrderTarget.lean`](../../../lean-statements/NLA/Proofs/MF03/AllOrderTarget.lean) | The [independently reviewed full theorem](MF-03/ALL_ORDER_TARGET_INDEPENDENT_FINAL_REVIEW.md) inhabits the frozen all-order `Target`: reduced-pair existence and the radius-3, error-2 bound for every reduced representative at every positive Padé order. Orders 1–15 use audited finite certificates; orders ≥16 use the source determinant-derived symbolic pair and coefficient-one tail. The pinned aggregate LeanCert kernel build passes with only standard axioms. |
+| MD-03 | [`Proof.lean`](../../../matrix-discrepancy-and-optimization/MD-03/lean/NLA/MD03/Proof.lean) | Proves the complete universal signing target with C=36 through a pinned Komlós formalization. The [independent source review](MD-03/INDEPENDENT_REVIEW.md) and [isolated Linux Comparator/kernel receipt](MD-03/LINUX_CI_RECEIPT.md) pass with only standard axioms. |
+| MD-04 | [`Proof.lean`](../../../matrix-discrepancy-and-optimization/MD-04/lean/NLA/MD04/Proof.lean) | Proves the complete square-root sparsity target with C=36 by rescaling 0–1 matrices into the pinned MD-03 Komlós theorem. The [independent source review](MD-04/INDEPENDENT_REVIEW.md) and [isolated Linux Comparator/kernel receipt](MD-04/LINUX_CI_RECEIPT.md) pass with only standard axioms. |
 
 ## Local partial solution projects (9)
 
@@ -569,10 +571,10 @@ symmetric terms under actual nonzero least-apolar hypotheses. Its
 give one normalized-chart upper bound, including repeated roots. The
 original-coordinate projective root count, other width bounds, and full Target remain open.
 
-## Shared statement only; no live proof source (33)
+## Unpromoted shared statement definitions (31)
 
 The following files define a `Target : Prop` and pass statement-boundary checks.
-They do **not** contain a theorem proving `Target`. The source-path pattern is
+They have no full live proof. The source-path pattern is
 `lean-statements/NLA/Statements/IDWITHOUTDASH.lean`.
 
 | ID | Statement source | ID | Statement source |
@@ -581,8 +583,7 @@ They do **not** contain a theorem proving `Target`. The source-path pattern is
 | AV-02 | [`AV02.lean`](../../../lean-statements/NLA/Statements/AV02.lean) | FR-10 | [`FR10.lean`](../../../lean-statements/NLA/Statements/FR10.lean) |
 | IE-08 | [`IE08.lean`](../../../lean-statements/NLA/Statements/IE08.lean) | IE-10 | [`IE10.lean`](../../../lean-statements/NLA/Statements/IE10.lean) |
 | IE-12 | [`IE12.lean`](../../../lean-statements/NLA/Statements/IE12.lean) | IE-26 | [`IE26.lean`](../../../lean-statements/NLA/Statements/IE26.lean) |
-| IV-05 | [`IV05.lean`](../../../lean-statements/NLA/Statements/IV05.lean) | MD-03 | [`MD03.lean`](../../../lean-statements/NLA/Statements/MD03.lean) |
-| MD-04 | [`MD04.lean`](../../../lean-statements/NLA/Statements/MD04.lean) | | |
+| IV-05 | [`IV05.lean`](../../../lean-statements/NLA/Statements/IV05.lean) | | |
 | MF-08 | [`MF08.lean`](../../../lean-statements/NLA/Statements/MF08.lean) | MI-16 | [`MI16.lean`](../../../lean-statements/NLA/Statements/MI16.lean) |
 | MI-31 | [`MI31.lean`](../../../lean-statements/NLA/Statements/MI31.lean) | NM-03 | [`NM03.lean`](../../../lean-statements/NLA/Statements/NM03.lean) |
 | PF-04 | [`PF04.lean`](../../../lean-statements/NLA/Statements/PF04.lean) | PF-05 | [`PF05.lean`](../../../lean-statements/NLA/Statements/PF05.lean) |
