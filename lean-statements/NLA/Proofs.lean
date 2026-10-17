@@ -1,3 +1,10 @@
+import NLA.Proofs.SP11.GramBridge
+import NLA.Proofs.SP11.PolynomialFaithfulness
+import NLA.Proofs.SP11.GreedyOrdering
+import NLA.Proofs.SP11.AlternatingContraction
+import NLA.Proofs.SP11.AlternatingPolynomial
+import NLA.Proofs.SP11.UniformLSS
+import NLA.Proofs.SP11.PolynomialLSS
 import NLA.Proofs.MF03.OrderOne
 import NLA.Proofs.MF03.Transport
 import NLA.Proofs.MF03.Finite02
