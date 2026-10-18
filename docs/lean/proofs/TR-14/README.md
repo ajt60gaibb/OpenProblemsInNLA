@@ -8,9 +8,9 @@ mode-dependent ordinary factors are included. The local full theorem passes
 LeanCert kernel trust and reports only `propext`, `Classical.choice` and
 `Quot.sound`. Independent fresh shared/canonical audits pass 79/83 Lean
 commands, with 451/453 declaration checks and 353/355 theorem-kind checks.
-All 42 actual private constants are checked directly. Actual isolated Linux
-Comparator verification is pending. The canonical page
-remains Solved; the user's campaign remains active and incomplete.
+All 42 actual private constants are checked directly. The actual exact-source Linux job has passed; its strict complete-workflow
+receipt is still pending as detailed below. The canonical page remains Solved;
+the user's campaign remains active and incomplete.
 
 ## Exact statement and original sources
 
@@ -106,9 +106,34 @@ private constants, kernel trust and standard axioms. The separate
 distinguish each author's implemented prerequisites from independent review.
 
 Fresh local source/kernel/axiom/theorem-kind checks are distinct from actual
-isolated Linux Comparator verification. No Linux result is claimed yet.
-The standard workflow will check the committed package and rejection/isolation
-controls and retain exact input hashes. All reviews are by AI agents; no external
+isolated Linux Comparator verification. The actual job evidence below records
+Linux acceptance, while the complete strict workflow receipt remains pending. All reviews are by AI agents; no external
 human peer review or source-author participation is claimed. Mathematical credit
 remains with Sidney Holden's submitted proof, Beck--Lecouvey's transformation
 lemma, and Nie--Ye/Qi's original problem context.
+
+## Actual Linux job evidence, before status promotion
+
+The exact proof-source push job [117797444256](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/39168804604/job/117797444256)
+passed at immutable commit 54dcced753d75e70a6592bd50b1e3daa7af2ca7e. The original
+GitHub artifact 12152368692, SHA256 30ea4c77c4d9069dd75b86aaac9ff81ce37445e365fbaee6727e914ee11bbe15,
+metadata and raw job log are retained under verification/full-linux-ci-push.
+Before this descriptive README/metadata refresh, independent replay of the
+unchanged checker passed 40/41 checks, all 139 original committed input hashes
+and the exact 82-Lean-input set. The only pending check is complete overall
+workflow success: its unrelated NR-03 job is still running. The actual TR-14 job
+passed Comparator, default and LeanCert kernels, standard-axiom/theorem checks
+and every rejection/isolation control. Status remains Solved and
+whole_problem_verified remains false until a complete strict receipt passes.
+
+The earlier successful PR job used GitHub's synthetic merge checkout. Its retained
+strict replay correctly fails source-commit identity; a separate independent
+review proves all 139 canonical inputs, all 18 checker-tool sources and all 4 workflows
+match the exact proof source. It is retained as additional source-correspondence
+evidence and is not relabeled as a strict exact-commit receipt. The actual
+push job has the correct exact source commit and only the overall-workflow gate
+remains. These historical failed/pending replay results are preserved.
+
+All 82 checked Lean inputs remain byte-identical after the descriptive refresh.
+The refreshed committed canonical package requires a new actual Linux run; the
+old receipt is not relabeled with changed descriptive input hashes.
