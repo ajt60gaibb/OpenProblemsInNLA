@@ -6,8 +6,11 @@ changes status to Lean verified and dates the verification. All original text,
 mathematical targets, authorship credit, IDs and canonical paths are preserved.
 Five exact original files remain archived in `../originals-main-36767/`.
 
-The repository renderer succeeded without warnings on its first attempt.
-`render-attempt-1.log` and `render.log` are exact output; `pdfinfo.txt`, both page
+The repository renderer succeeded without warnings on both renders. The first
+reviewed promotion is retained in `attempt-1/`. The second changes only the
+verification notice heading to the established wording required by the unchanged
+statement-boundary guard; all 45 statement metadata records then pass.
+`render-attempt-1.log`, `render-attempt-2.log` and `render.log` are exact output; `pdfinfo.txt`, both page
 images and both independent visual reports retain the layout evidence.
 `preservation.json` checks the intentional promotion separately from the earlier
 strict 828-file byte-preservation record. The independent failed first attempt

@@ -7,7 +7,7 @@
 **Status:** Lean verified  
 
 <!-- formal-lean-proof:start -->
-## Lean verification — 18 October 2026
+## Lean proof and verification evidence — 18 October 2026
 
 The [complete Lean proof](lean/Solution.lean) establishes the displayed rank equality for every complex Hankel tensor, including zero and exceptional data and unrestricted ordinary factors. The [actual Linux run](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/39168804604) passed Comparator, the default kernel, LeanCert kernel mode and rejection/isolation controls. [Independent replay](../../docs/lean/proofs/TR-14/PUSH_LINUX_EXACT_COMMIT_REVIEW_3_2026-10-18.md) passed all 41 checks and all 139 original package inputs, including 82 Lean sources. Only the three standard axioms occur.
 
