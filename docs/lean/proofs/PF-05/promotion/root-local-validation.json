@@ -1,0 +1,87 @@
+{
+  "reviewer": "/root",
+  "scope": "Post-promotion local safeguards; actual Linux proof evidence remains separately identified",
+  "base_ref": "origin/main",
+  "records": [
+    {
+      "command": [
+        "python3",
+        "tools/validate_problem_ids.py",
+        "--base-ref",
+        "origin/main"
+      ],
+      "exit_code": 0,
+      "log": "docs/lean/proofs/PF-05/promotion/local-validation-1.log",
+      "log_sha256": "44cc74bfe8f011df4389835465a6043310e12828a092e8c74d318f50d26da3a0"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/statement_inventory.py",
+        "--base-ref",
+        "7ebc4e21f2a4e19db341a3fb28644ab4e2df7ebf",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log": "docs/lean/proofs/PF-05/promotion/local-validation-2.log",
+      "log_sha256": "84dc4cd8288fa7687065d6c8ef88d46c7ecff8aec7c47b0b18055ec6831e53f2"
+    },
+    {
+      "command": [
+        "/private/tmp/pr359-checks-venv/bin/python3",
+        "tools/lean/validate_manifest.py",
+        "nonnegative-and-positive-factorizations/PF-05/lean"
+      ],
+      "exit_code": 0,
+      "log": "docs/lean/proofs/PF-05/promotion/local-validation-4.log",
+      "log_sha256": "2575614a644e24867d1b6b0f88265a081adf2d9d0ea43ca59ae8d322fdd340e7"
+    },
+    {
+      "command": [
+        "/private/tmp/pr359-checks-venv/bin/python3",
+        "tools/lean_statements/check.py",
+        "validate"
+      ],
+      "exit_code": 0,
+      "log": "docs/lean/proofs/PF-05/promotion/local-validation-6.log",
+      "log_sha256": "96654ca284b22037752a6a93661a467cb41a4a957b75dc4fae12b705695478cf"
+    },
+    {
+      "command": [
+        "python3",
+        "docs/lean/proofs/PF-05/sync-canonical-proof.py"
+      ],
+      "exit_code": 0,
+      "log": "docs/lean/proofs/PF-05/promotion/local-validation-7.log",
+      "log_sha256": "f3d2d97ff3504843bf4c9f98e0a8fd3ed1bd4ee7b9077d3fa7d8896c60cae810"
+    }
+  ],
+  "all_passed": true,
+  "PDF": {
+    "pages": 2,
+    "sha256": "612a72a66023c22aaa74de5c1923e3fc4277a5a1914facee66cbf0a733f63307",
+    "visual_QA": "PASS both pages; complete statement, readable equations and retained history without clipping or overlap"
+  },
+  "initial_command_usage_errors": [
+    {
+      "command": [
+        "/private/tmp/pr359-checks-venv/bin/python3",
+        "tools/lean_statements/check.py"
+      ],
+      "exit_code": 2,
+      "log": "docs/lean/proofs/PF-05/promotion/local-validation-3.log",
+      "log_sha256": "cacd34a5080520bfce1d016dc95414c5957151be38c4d5257b36b32bb197c338"
+    },
+    {
+      "command": [
+        "python3",
+        "docs/lean/proofs/PF-05/sync-canonical-proof.py",
+        "--check"
+      ],
+      "exit_code": 2,
+      "log": "docs/lean/proofs/PF-05/promotion/local-validation-5.log",
+      "log_sha256": "d42009f51f59f7361dfeef83ad637866744376558f459bb37968b3425e40b9ed"
+    }
+  ],
+  "usage_errors_note": "Initial checker invocations omitted the required validate action and passed an unsupported --check option; these argparse errors ran no validation. Corrected invocations and raw logs are retained separately."
+}

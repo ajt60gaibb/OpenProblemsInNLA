@@ -162,7 +162,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [PF-02](../../../nonnegative-and-positive-factorizations/PF-02/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [PF-03](../../../nonnegative-and-positive-factorizations/PF-03/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [PF-04](../../../nonnegative-and-positive-factorizations/PF-04/README.md) | Solved | shared-statement-source | Not audited here. |
-| [PF-05](../../../nonnegative-and-positive-factorizations/PF-05/README.md) | Solved | shared-statement-source | Not audited here. |
+| [PF-05](../../../nonnegative-and-positive-factorizations/PF-05/README.md) | Lean verified | shared-statement-source | Not audited here. |
 | [RA-01](../../../randomized-and-low-rank-approximation/RA-01/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [RA-02](../../../randomized-and-low-rank-approximation/RA-02/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [RA-03](../../../randomized-and-low-rank-approximation/RA-03/README.md) | Lean verified | local-statement-source | Not audited here. |

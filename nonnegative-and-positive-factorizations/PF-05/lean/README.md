@@ -7,8 +7,13 @@ boundary approvals. The full shared immutable audit passes 43 commands, 382
 constant checks and 297 theorem-kind checks, with only the three standard axioms.
 The complete canonical immutable audit passes 47 commands for 46 Lean inputs,
 384 constant checks and 299 theorem-kind checks, with kernel trust and standard
-axioms. Actual isolated Linux verification is pending; the canonical problem
-remains Solved.
+axioms. The actual exact-source Linux workflow at proof commit
+10e71f134795c6cb94ab90edf2a8deef0f4722fe passed Comparator, both kernels and
+all rejection/isolation controls. Two independent strict replays pass all
+41 controls and 90 original package inputs, including 46 Lean sources. The
+canonical problem is Lean verified. All 46 checked Lean inputs remain unchanged;
+this descriptive/status refresh requires its own fresh committed-package Linux
+receipt, retained separately from the original proof-commit artifact.
 
 The frozen feasible directions require exact first-order trace cancellation
 and actual straight PSD segments on one common positive interval. Rigidity

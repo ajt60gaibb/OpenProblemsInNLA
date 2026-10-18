@@ -22,6 +22,6 @@
 | [PF-02](PF-02/README.md) | Connectedness of minimal positive semidefinite factorization orbits | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](PF-02/problem.pdf) · [TeX](PF-02/problem.tex) |
 | [PF-03](PF-03/README.md) | Rational factors for rational completely positive boundary matrices | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](PF-03/problem.pdf) · [TeX](PF-03/problem.tex) |
 | [PF-04](PF-04/README.md) | The maximum cp-rank in order six | **✅ SOLVED** | challenging | interesting to the community | [PDF](PF-04/problem.pdf) · [TeX](PF-04/problem.tex) |
-| [PF-05](PF-05/README.md) | Infinitesimal rigidity detects unique size-two factors in the presence of zeros | **✅ SOLVED** | challenging | interesting to specialist | [PDF](PF-05/problem.pdf) · [TeX](PF-05/problem.tex) |
+| [PF-05](PF-05/README.md) | Infinitesimal rigidity detects unique size-two factors in the presence of zeros | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](PF-05/problem.pdf) · [TeX](PF-05/problem.tex) |
 
 Ratings are editorial; each entry explains both ratings and the scope of its status evidence. [Definitions](../README.md#problem-status).

@@ -5,8 +5,10 @@ The unchanged `NLA.Statements.PF05.Target` is proved by the shared
 The canonical [Solution](../../../../nonnegative-and-positive-factorizations/PF-05/lean/Solution.lean)
 exports precisely `NLA.PF05.target` with that same full type. Independent fresh
 shared audits pass the literal Target and standard three axioms in LeanCert
-kernel mode. Actual isolated Linux Comparator evidence is pending; the
-canonical page remains Solved, and the overall campaign remains incomplete.
+kernel mode. The actual exact-source Linux run passed all 41 controls on all
+90 package inputs, including 46 Lean sources; root and independent artifact
+replays both pass. The canonical page is now Lean verified. The later descriptive
+package refresh requires its own fresh Linux receipt; the campaign remains incomplete.
 
 The target keeps every original binder: every real entrywise nonnegative
 ordinary-rank-three matrix of PSD rank two, every fixed actual size-two PSD
@@ -33,7 +35,17 @@ The [preservation checker](check-preservation.py) passes all three checks on
 all 828 registered original pages/immediate artifacts against proof base
 54dcced753d75e70a6592bd50b1e3daa7af2ca7e. Every one of the 217 permanent IDs and
 canonical paths is retained. Submitted manuscript originals are also hash-bound
-in the archive manifest. No canonical problem text or status was edited.
+in the archive manifest. That historical report predates the intentional status
+promotion. The separate [promotion preservation checker](check-promotion-preservation.py)
+compares against 235984a1515b3dc8d22712bd7fb7bb26d5f70487, permits only the
+marked PF-05 notice/status/date and two regenerated artifacts, and passes all
+18 controls. It recovers every original Markdown byte after removing that notice
+and restoring the old status/date, preserves all other canonical pages, and
+checks every one of the 46 Lean source inputs against the actual Linux receipt.
+The [independent promotion review](PROMOTION_INDEPENDENT_REVIEW_3_2026-10-18.md)
+also verifies the full original TeX modulo the documented presentation changes
+and visually approves the clean two-page PDF. [Promotion evidence](promotion/README.md)
+retains both rendering attempts and the exact original archives.
 
 Two independent canonical Challenge/Identity/Comparator/pin reviews were recorded
 before Solution existed. The [historical pre-Solution lock](../../../../nonnegative-and-positive-factorizations/PF-05/lean/pre-solution-boundary-lock.json)
@@ -106,7 +118,21 @@ The independent canonical fresh selected-export audit passes 47 commands for
 all 46 actual Lean inputs, 384 constants and 299 theorem-kind checks, with the
 literal selected full Target, kernel trust and standard axioms. The independent
 57-check copy/boundary audit and separate 65-check post-boundary review pass.
-Actual Linux artifacts remain a separate pending gate.
+The exact-source push run
+[39172661343](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/39172661343),
+job 117816715607, succeeded at 10e71f134795c6cb94ab90edf2a8deef0f4722fe.
+Its artifact 12154257592 is retained with ZIP SHA-256
+`3df695b0faad81583fa3eeb717190896436488e102f2314feef75513e24a6860`.
+The unchanged [offline checker](verification/check-linux-artifact.py) and both
+[root and independent replays](LINUX_CI_RECEIPT.md) pass all 41 controls, all
+90 inputs and all 46 Lean inputs, including isolated Comparator execution,
+default kernel, LeanCert kernel mode, and rejection/isolation controls.
+Synthetic PR-merge runs are retained separately: they pass input/tool/workflow
+correspondence, while their strict exact-commit checks correctly fail the
+commit-identity control. They are never reported as exact-source receipts.
+The later package README/YAML promotion changes descriptions; all 46 Lean
+inputs remain byte-identical. That package refresh requires a separate fresh
+Linux receipt and does not inherit the old receipt's commit identity.
 
 Two independently reviewed auxiliary shared modules, PositiveCoercivity and
 PositiveOrbitClosed, prove actual quantitative bounds and orbit closedness.
