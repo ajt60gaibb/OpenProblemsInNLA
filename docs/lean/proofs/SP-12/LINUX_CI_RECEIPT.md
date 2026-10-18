@@ -30,3 +30,26 @@ The first four files are in `verify-20261018T162848Z-4209/` under the retained [
 Mathematical and exact-boundary evidence is supplied by the preproof statement reviews, two pre-Solution boundary approvals, [complete independent source review](CLOSURE_REVIEW_2_2026-10-18.md), [extension/final review](EXTENSION_FINAL_REVIEW_2_2026-10-18.md), and [canonical package audit](CANONICAL_CLOSURE_REVIEW_2_2026-10-18.md). The latter passed all 55 real source builds plus the independent consumer, 379 declarations and 270 theorem-kind checks, including the literal unchanged Target and actual private helper. Every copied closure source matches the separately reviewed shared source.
 
 This receipt binds the immutable first checked package and original artifact. Subsequent promotion changes to canonical status and descriptive package metadata require a fresh committed CI run; those changed hashes are not these original 96 inputs. Original mathematical text, credits, history, IDs and paths must remain retained.
+
+## Refreshed promoted package — actual Linux PASS
+
+The promoted package was freshly accepted at immutable commit
+[`a7adfc8e30ad284f42ec2ea0221a990ee9804031`](https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/a7adfc8e30ad284f42ec2ea0221a990ee9804031/eigenvalues-and-inverse-problems/SP-12/lean)
+by actual [push run 39149417211](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/39149417211),
+[SP-12 job 117739903353](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/39149417211/job/117739903353).
+The real full-Target Comparator/default kernel, LeanCert kernel trust, controls
+and sandbox checks all passed. An [independent refreshed artifact review](REFRESHED_LINUX_ARTIFACT_REVIEW_2_2026-10-18.md)
+passed all 40 checks and matched all 96 committed/current project input hashes
+and the exact file set. This separately resolves the descriptive-input refresh
+required above; the first checked receipt and artifact remain unchanged.
+
+The original refreshed artifact ID is `12143944681`, with zip SHA-256
+`b0727fbe155790ef58328831a7630e121b8450c3fd91daaaf662fd4b7a20841f`.
+It matches GitHub's digest and the actual upload log, and every extracted member
+matches the retained original archive. Evidence is retained under
+[verification/refreshed-linux-ci/](verification/refreshed-linux-ci/), with the
+[machine-readable audit](verification/refreshed-linux-artifact-check.json).
+Comparing both actual result manifests confirms all 55 Lean sources unchanged
+and only the package README/formalization metadata modified, as recorded in
+[verification/refreshed-proof-identity.json](verification/refreshed-proof-identity.json).
+The full frozen Target, original mathematical statement and proof are preserved.
