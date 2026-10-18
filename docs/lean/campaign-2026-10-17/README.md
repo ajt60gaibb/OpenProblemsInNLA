@@ -18,7 +18,7 @@ IDs, canonical pages, and original mathematical targets are preserved.
   workflow was cancelled. This audit reuses actual retained evidence; it is not
   a new Linux proof run.
 - **Remaining queue:** The [independent registry inventory](inventory/README.md)
-  records 42 Solved entries on published main, existing partial/full candidates,
+  records the immutable initial 42 Solved entries, existing partial/full candidates,
   and later RA-10/MD-03/MD-04 evidence. Proof existence, complete-target scope,
   verification and canonical promotion are tracked separately.
 - **SP-11:** Thirty-six completed [modules](../proofs/SP-11/README.md) establish
@@ -42,7 +42,16 @@ support receipt remains historical; the new dedicated full-project receipt
 records actual SP-11 proof comparison. Shared statement identities remain a
 separate check.
 
-SP-12 is the next proof development, in a separate checkout, after two fresh
-independent reviews of its exact PSD/SAP/chromatic statement. The other Solved
-entries remain in the queue; this milestone does not complete the user’s
-overall goal.
+SP-12 now has a complete [shared and canonical proof](../proofs/SP-12/README.md)
+after two fresh independent exact-statement reviews. Its twelve new modules
+supply real predecessor independence, Gram SAP, Strong Delta, actual Gram-map
+local surjectivity and vertex extension, and the chromatic induction. The full
+frozen Target compiles in LeanCert kernel mode with standard axioms. Fresh
+independent closure/package audits and actual committed-project Linux evidence
+are retained as separate gates; canonical status remains Solved until they pass.
+All 217 canonical pages and 611 immediate original artifacts remain byte-identical
+to the recorded SP-11 base before any SP-12 promotion. The source-level inventory
+tracks nine promoted targets, one complete pending target, eight partial projects
+and twenty-nine statement-only entries. Published main additionally contains the
+merged RA-10/MD-03/MD-04 promotions. There are 38 remaining Solved entries after
+SP-11; this milestone does not complete the user’s overall goal.

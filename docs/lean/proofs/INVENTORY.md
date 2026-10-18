@@ -28,6 +28,12 @@ The [17 October campaign inventory](../campaign-2026-10-17/inventory/README.md)
 retains the original immutable snapshots and candidate evidence. MD-03, MD-04,
 and RA-10 were subsequently merged into published main; SP-11 is promoted here.
 
+## Complete proof awaiting canonical Linux verification (1)
+
+| ID | Live proof source | Evidence and remaining gate |
+| --- | --- | --- |
+| SP-12 | [`Final.lean`](../../../lean-statements/NLA/Proofs/SP12/Final.lean) and [`Solution.lean`](../../../eigenvalues-and-inverse-problems/SP-12/lean/Solution.lean) | Proves the unchanged full real symmetric PSD/SAP target with nullity at least the actual chromatic number minus one, using actual Strong Delta factors, the nonedge Gram derivative, one-vertex extension and finite graph induction. [Independent statement/source reviews and local kernel evidence](SP-12/README.md) are retained. Fresh full-closure and canonical review evidence is recorded separately; actual committed-project Linux Comparator and its independent artifact audit remain required. Canonical status remains Solved. |
+
 ## Local partial solution projects (8)
 
 | ID | Live source | What is actually proved |
@@ -581,7 +587,7 @@ symmetric terms under actual nonzero least-apolar hypotheses. Its
 give one normalized-chart upper bound, including repeated roots. The
 original-coordinate projective root count, other width bounds, and full Target remain open.
 
-## Shared statement only; no live proof source (30)
+## Shared statement only; no live proof source (29)
 
 The following files define a `Target : Prop` and pass statement-boundary checks.
 They have no full live proof. The source-path pattern is
@@ -600,13 +606,13 @@ They have no full live proof. The source-path pattern is
 | RA-05 | [`RA05.lean`](../../../lean-statements/NLA/Statements/RA05.lean) | RA-12 | [`RA12.lean`](../../../lean-statements/NLA/Statements/RA12.lean) |
 | RA-13 | [`RA13.lean`](../../../lean-statements/NLA/Statements/RA13.lean) | RA-19 | [`RA19.lean`](../../../lean-statements/NLA/Statements/RA19.lean) |
 | RE-05 | [`RE05.lean`](../../../lean-statements/NLA/Statements/RE05.lean) | RE-06 | [`RE06.lean`](../../../lean-statements/NLA/Statements/RE06.lean) |
-| SP-12 | [`SP12.lean`](../../../lean-statements/NLA/Statements/SP12.lean) | SP-13 | [`SP13.lean`](../../../lean-statements/NLA/Statements/SP13.lean) |
+| SP-13 | [`SP13.lean`](../../../lean-statements/NLA/Statements/SP13.lean) | | |
 | TR-06 | [`TR06.lean`](../../../lean-statements/NLA/Statements/TR06.lean) | TR-08 | [`TR08.lean`](../../../lean-statements/NLA/Statements/TR08.lean) |
 | TR-17 | [`TR17.lean`](../../../lean-statements/NLA/Statements/TR17.lean) | TR-20 | [`TR20.lean`](../../../lean-statements/NLA/Statements/TR20.lean) |
 | TR-21 | [`TR21.lean`](../../../lean-statements/NLA/Statements/TR21.lean) | TR-26 | [`TR26.lean`](../../../lean-statements/NLA/Statements/TR26.lean) |
 
 LeanCert `#assert_statement`, `#assert_trust kernel`, frozen identity checks,
 and the shared Comparator certificates check statement definitions and their
-trust closure. They do not prove any of the 30 statement-only propositions or
+trust closure. They do not prove any of the 29 statement-only propositions or
 upgrade the eight partial projects to full proofs. Complete-target wrappers
 still require their own reviewed exact-revision verification and promotion.

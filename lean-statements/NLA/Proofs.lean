@@ -1,3 +1,4 @@
+import NLA.Proofs.SP12.Final
 import NLA.Proofs.SP11.Final
 import NLA.Proofs.SP11.AlternatingContraction
 import NLA.Proofs.SP11.AlternatingPolynomial
