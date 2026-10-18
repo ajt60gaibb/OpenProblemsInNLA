@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Check intentional SP11 status promotion while preserving IDs and originals."""
+import argparse
 import hashlib
 import json
 from pathlib import Path, PurePosixPath
@@ -12,6 +13,11 @@ EVIDENCE = Path(__file__).with_name("sp11-promotion")
 ARCHIVE = Path(__file__).with_name("sp11-originals-47006")
 CANONICAL = "eigenvalues-and-inverse-problems/SP-11/README.md"
 PROJECT = "eigenvalues-and-inverse-problems/SP-11/lean"
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--base-ref", default=BASE)
+parser.add_argument("--output", type=Path, default=EVIDENCE / "preservation.json")
+args = parser.parse_args()
+BASE = subprocess.check_output(["git", "rev-parse", args.base_ref], cwd=REPO, text=True).strip()
 checks = []
 
 
@@ -95,12 +101,12 @@ check("all-checked-Lean-proof-statement-inputs-unchanged", all(sha((REPO / PROJE
       for name, h in lean_inputs.items()), lean_source_count=len(lean_inputs), checked_commit=ci["repository_commit"])
 check("repository-render-succeeded-without-warnings", (EVIDENCE / "render.log").read_text().strip() ==
       "SP-11: OK\nRendered 1 problem documents.")
-result = {"checked_on": "2026-10-18", "reviewer": "/root/lean_verification (Codex AI agent)",
+result = {"checked_on": "2026-10-18", "reviewer": "reproducible preservation checker (Codex AI agents)",
           "scope": "Intentional SP11 status/evidence promotion, permanent-ID/path preservation, exact original archives and unchanged target/proof sources",
           "base_ref": BASE, "checks": checks, "pages": pages, "original_artifacts": artifacts,
           "passed": all(c["passed"] for c in checks),
           "note": "Historical strict all-pages/all-611 byte-preservation reports remain unchanged. This separate report allows only the documented SP11 notice/status and two regenerated artifacts, with exact originals archived."}
-(EVIDENCE / "preservation.json").write_text(json.dumps(result, indent=2) + "\n")
+args.output.write_text(json.dumps(result, indent=2) + "\n")
 print(json.dumps({"passed": result["passed"], "checks": len(checks),
                   "failed_checks": [c["name"] for c in checks if not c["passed"]]}, indent=2))
 raise SystemExit(0 if result["passed"] else 1)

@@ -79,10 +79,26 @@ formalization metadata), so it requires a fresh committed-project CI run.
 The existing Linux receipt remains bound to its immutable original commit;
 it does not claim the refreshed metadata has the old hashes. No proof source,
 statement, Comparator selection or source lock was modified for promotion.
-This work is left uncommitted for the parent agent's inspection and push.
+The parent agent inspected the promotion and committed it before merging the newer published main.
 
 To reproduce the preservation check:
 
 ```bash
 python3 docs/lean/campaign-2026-10-17/verification/check-sp11-promotion-preservation.py
+```
+
+## Published-main refresh
+
+While the promotion was prepared, MD-03, MD-04 and RA-10 were merged into
+published main `36767fa4`. The promotion was reconciled with that main without
+changing any SP-11 proof or statement input. The separate
+[current-base preservation report](preservation-main-36767.json) repeats all
+16 checks against that published main: SP-11 is still the only changed
+canonical page, all 217 IDs and paths are unchanged, and all originals and
+42 checked Lean inputs remain preserved. The earlier reports and their
+original base remain unchanged. Regenerated catalogs now report Lean
+verified=80 and Solved=38; all other status counts are unchanged.
+
+```bash
+python3 docs/lean/campaign-2026-10-17/verification/check-sp11-promotion-preservation.py --base-ref origin/main --output docs/lean/campaign-2026-10-17/verification/sp11-promotion/preservation-main-36767.json
 ```
