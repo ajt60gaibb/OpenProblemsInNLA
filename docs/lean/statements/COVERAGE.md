@@ -200,7 +200,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [SP-09](../../../eigenvalues-and-inverse-problems/SP-09/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [SP-10](../../../eigenvalues-and-inverse-problems/SP-10/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [SP-11](../../../eigenvalues-and-inverse-problems/SP-11/README.md) | Lean verified | shared-statement-source | Not audited here. |
-| [SP-12](../../../eigenvalues-and-inverse-problems/SP-12/README.md) | Solved | shared-statement-source | Not audited here. |
+| [SP-12](../../../eigenvalues-and-inverse-problems/SP-12/README.md) | Lean verified | shared-statement-source | Not audited here. |
 | [SP-13](../../../eigenvalues-and-inverse-problems/SP-13/README.md) | Solved | shared-statement-source | Not audited here. |
 | [SP-14](../../../eigenvalues-and-inverse-problems/SP-14/README.md) | Solved | shared-statement-source | Not audited here. |
 | [SP-15](../../../eigenvalues-and-inverse-problems/SP-15/README.md) | Lean verified | local-statement-source | Not audited here. |

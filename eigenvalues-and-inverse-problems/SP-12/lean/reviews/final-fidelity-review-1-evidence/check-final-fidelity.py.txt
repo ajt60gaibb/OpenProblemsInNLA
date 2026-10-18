@@ -1,0 +1,78 @@
+#!/usr/bin/env python3
+from pathlib import Path
+import os,subprocess,json,hashlib,shutil,platform,re,sys
+root=Path('/private/tmp/nla-sp12-lean-oct18')
+pkg=root/'eigenvalues-and-inverse-problems/SP-12/lean'
+shared=root/'lean-statements'
+evidence=pkg/'reviews/final-fidelity-review-1-evidence'
+evidence.mkdir(parents=True,exist_ok=True)
+out=Path('/private/tmp/nla-sp12-final-fidelity-1-objects')
+if out.exists(): shutil.rmtree(out)
+shutil.copytree(shared/'.lake/build/lib/lean',out)
+for x in [out/'NLA/Proofs/SP12/Final.olean',out/'Solution.olean']:
+ if x.exists(): x.unlink()
+bindir=Path('/private/tmp/pf05-tooling/elan-home/toolchains/leanprover--lean4---v4.33.1/bin')
+deps=[p/'.lake/build/lib/lean' for p in (shared/'.lake/packages').iterdir() if (p/'.lake/build/lib/lean').is_dir()]
+env=dict(os.environ,PATH=str(bindir)+':'+os.environ['PATH'],LEAN_PATH=':'.join(map(str,[out]+deps)))
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+res={'reviewer':'/root/fr05_statement','date':'2026-10-18','platform':platform.platform(),'scope':'Independent final assembly/package fidelity; own implementation modules excluded. Fresh named source compiles with existing byte-locked pinned prerequisite objects, not a fresh full closure or Linux Comparator run.','builds':[]}
+lock=json.loads((pkg/'proof-source-lock.json').read_text())
+res['copies']=[]
+for x in lock['copies']:
+ a,b=root/x['source'],root/x['destination']
+ row={'module':x['module'],'source_sha256':sha(a),'destination_sha256':sha(b),'lock_source_sha256':x['source_sha256'],'lock_destination_sha256':x['destination_sha256']}
+ row['pass']=row['source_sha256']==row['destination_sha256']==row['lock_source_sha256']==row['lock_destination_sha256']
+ assert row['pass'],row
+ res['copies'].append(row)
+res['package_exports']=[]
+for name,digest in lock['package_exports'].items():
+ row={'path':name,'sha256':sha(pkg/name),'expected':digest,'pass':sha(pkg/name)==digest}; assert row['pass']; res['package_exports'].append(row)
+assert len(res['copies'])==51
+files=sorted([*pkg.glob('NLA/**/*.lean'),*pkg.glob('Reviewed/**/*.lean'),pkg/'Challenge.lean',pkg/'Identity.lean',pkg/'Solution.lean'])
+assert len(files)==55
+res['lean_source_count']=len(files)
+res['admission_token_scan']=[]
+for p in files:
+ text=p.read_text()
+ # Exclude nested Lean block comments and line comments from the token scan.
+ depth=0; stripped=[]; idx=0
+ while idx<len(text):
+  if text[idx:idx+2]=='/-': depth+=1; idx+=2
+  elif depth and text[idx:idx+2]=='-/': depth-=1; idx+=2
+  elif depth: idx+=1
+  elif text[idx:idx+2]=='--':
+   end=text.find('\n',idx); idx=len(text) if end<0 else end
+  else: stripped.append(text[idx]); idx+=1
+ text=''.join(stripped)
+ text=re.sub(r'"(?:\\.|[^"\\])*"','""',text)
+ hits=re.findall(r'\b(?:sorry|admit|axiom|unsafe|implemented_by)\b',text)
+ if hits:res['admission_token_scan'].append({'path':str(p.relative_to(pkg)),'tokens':hits})
+assert res['admission_token_scan']==[{'path':'Challenge.lean','tokens':['sorry']}],res['admission_token_scan']
+for tag,cwd,source,module in [
+ ('shared-Final',shared,Path('NLA/Proofs/SP12/Final.lean'),'NLA/Proofs/SP12/Final'),
+ ('canonical-Final',pkg,Path('NLA/Proofs/SP12/Final.lean'),'NLA/Proofs/SP12/Final'),
+ ('canonical-Solution',pkg,Path('Solution.lean'),'Solution')]:
+ dest=out/(module+'.olean'); dest.parent.mkdir(parents=True,exist_ok=True)
+ cmd=[str(bindir/'lean'),'-o',str(dest),str(source)]
+ run=subprocess.run(cmd,cwd=cwd,env=env,text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+ log=evidence/(tag+'.log');log.write_text(run.stdout)
+ row={'tag':tag,'cwd':str(cwd),'source':str(source),'source_sha256':sha(cwd/source),'command':cmd,'exit_code':run.returncode,'log':log.name,'log_sha256':sha(log),'output_olean_sha256':sha(dest) if dest.exists() else None}
+ res['builds'].append(row)
+ assert run.returncode==0,row
+ assert 'sorryAx' not in run.stdout,run.stdout
+ print(tag,run.returncode,run.stdout.strip(),flush=True)
+res['documents']={str(p.relative_to(pkg)):sha(p) for p in [pkg/'README.md',pkg/'formalization.yaml',pkg/'proof-source-lock.json',pkg/'comparator.json',pkg/'lakefile.toml',pkg/'lake-manifest.json',pkg/'ORIGINAL.md',pkg/'NUMERICAL_TARGETS.md',pkg/'Reviewed/SP12.lean']}
+res['original_checks']={
+ 'canonical_readme_matches_original':sha(root/'eigenvalues-and-inverse-problems/SP-12/README.md')==sha(pkg/'ORIGINAL.md'),
+ 'live_statement_matches_copied':sha(shared/'NLA/Statements/SP12.lean')==sha(pkg/'NLA/Statements/SP12.lean'),
+ 'frozen_statement_matches_copied':sha(shared/'Reviewed/SP12.lean')==sha(pkg/'Reviewed/SP12.lean'),
+ 'numerical_spec_matches_copied':sha(root/'docs/lean/statements/SP-12/NUMERICAL_TARGETS.md')==sha(pkg/'NUMERICAL_TARGETS.md')}
+assert all(res['original_checks'].values())
+res['comparator']=json.loads((pkg/'comparator.json').read_text())
+assert res['comparator']['definition_names']==[]
+assert res['comparator']['theorem_names']==['NLA.SP12.target']
+assert res['comparator']['permitted_axioms']==['propext','Classical.choice','Quot.sound']
+res['pass']=True
+(evidence/'result.json').write_text(json.dumps(res,indent=2)+'\n')
+shutil.copy2(__file__,evidence/'check-final-fidelity.py.txt')
+print(json.dumps({'pass':True,'copies':len(res['copies']),'exports':len(res['package_exports']),'lean_sources':len(files),'builds':len(res['builds'])}))
