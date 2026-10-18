@@ -91,8 +91,8 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [KE-05](../../../randomized-and-low-rank-approximation/KE-05/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [MD-01](../../../matrix-discrepancy-and-optimization/MD-01/README.md) | Solution claimed | missing-statement | Not audited here. |
 | [MD-02](../../../matrix-discrepancy-and-optimization/MD-02/README.md) | Open | missing-statement | Not audited here. |
-| [MD-03](../../../matrix-discrepancy-and-optimization/MD-03/README.md) | Solved | shared-statement-source | Not audited here. |
-| [MD-04](../../../matrix-discrepancy-and-optimization/MD-04/README.md) | Solved | shared-statement-source | Not audited here. |
+| [MD-03](../../../matrix-discrepancy-and-optimization/MD-03/README.md) | Lean verified | shared-statement-source | Not audited here. |
+| [MD-04](../../../matrix-discrepancy-and-optimization/MD-04/README.md) | Lean verified | shared-statement-source | Not audited here. |
 | [MD-05](../../../matrix-discrepancy-and-optimization/MD-05/README.md) | Open | missing-statement | Not audited here. |
 | [MD-06](../../../matrix-discrepancy-and-optimization/MD-06/README.md) | Solved | shared-statement-source | Graph probability and local-minimum semantics remain parameters of an abstract Semantics structure. |
 | [MF-01](../../../matrix-functions-and-stability/MF-01/README.md) | Open | missing-statement | Not audited here. |
@@ -172,7 +172,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [RA-07](../../../randomized-and-low-rank-approximation/RA-07/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [RA-08](../../../randomized-and-low-rank-approximation/RA-08/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [RA-09](../../../randomized-and-low-rank-approximation/RA-09/README.md) | Lean verified | local-statement-source | Not audited here. |
-| [RA-10](../../../randomized-and-low-rank-approximation/RA-10/README.md) | Solved | shared-statement-source | Not audited here. |
+| [RA-10](../../../randomized-and-low-rank-approximation/RA-10/README.md) | Lean verified | shared-statement-source | Not audited here. |
 | [RA-11](../../../randomized-and-low-rank-approximation/RA-11/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [RA-12](../../../randomized-and-low-rank-approximation/RA-12/README.md) | Solved | shared-statement-source | Not audited here. |
 | [RA-13](../../../randomized-and-low-rank-approximation/RA-13/README.md) | Solved | shared-statement-source | Not audited here. |

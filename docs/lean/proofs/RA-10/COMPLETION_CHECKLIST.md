@@ -1,10 +1,10 @@
 # RA-10 completion checklist
 
-Checked boxes mean a local Lean proof exists, not that independent review or
-the required isolated Linux verification has been completed. The unchanged
-`NLA.Statements.RA10.Target` is now proved locally with witness 11 in
-`OperatorMonotoneRepresentation.lean`. Mathematical proof development is complete;
-independent review and isolated Linux verification remain outstanding.
+Checked boxes record the complete proof and its verification gates. The
+unchanged `NLA.Statements.RA10.Target` is proved with witness 11 in
+`OperatorMonotoneRepresentation.lean`. Two independent AI-agent final source
+reviews and [isolated Linux Comparator/LeanCert kernel verification](LINUX_CI_RECEIPT.md)
+are complete.
 
 Before implementing each section, inspect existing RA-10 modules, the pinned
 Mathlib and relevant external work; record useful reuse and simplifications.
@@ -134,17 +134,18 @@ handles it without a separate limiting argument.
 - [x] Prove `TransferBound 11` and witness the unchanged `Target`.
 - [x] Record final signatures, source hashes and the local build log.
 - [x] Audit all transitive axioms of the representation, transfer bound and frozen target.
-- [ ] Obtain independent scope and proof reviews of the final source hashes.
-- [ ] Run isolated non-root Linux Comparator with controls.
-- [ ] Only after verification, update the retained canonical page and status, preserving all IDs.
+- [x] Obtain independent scope and proof reviews of the final source hashes.
+- [x] Run isolated non-root Linux Comparator with controls.
+- [x] Update the retained canonical page and status, preserving all IDs.
 
 Local check:
 `lake build NLA.Proofs.RA10.OperatorMonotoneRepresentation NLA.Proofs.RA10.OperatorMonotoneConcavity`.
 The unconditional representation, `transferBound_eleven` and `ra10_target`
 report only `propext`, `Classical.choice`, and `Quot.sound`. The statement hash
 is unchanged. Evidence is in `verification/2026-10-11-complete/`.
-Independent review and authoritative Linux verification remain open; no
-Docker or Podman executable was available in this macOS session.
+The historical local check preceded the [authoritative isolated Linux
+verification](LINUX_CI_RECEIPT.md); no Docker or Podman executable was
+available in that macOS development session.
 
 Original development branch: `codex/ra10-spectral-transfer`, at baseline
 `50106db1b75a1019b708f495db747ab37bb8efbd`. The upstream submission branch is

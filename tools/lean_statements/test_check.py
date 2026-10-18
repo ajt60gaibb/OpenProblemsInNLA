@@ -177,6 +177,25 @@ class StatementGates(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "reviewed original target"):
                 check.validate_metadata(root, path)
 
+    def test_ra10_promotion_preserves_unheaded_original_suffix(self):
+        original = (b"# RA-10 \xe2\x80\x94 Exact target\n\n**Status:** Solved\n\n"
+                    b"Does a universal constant $C\\ge1$ exist?\n"
+                    b"For every PSD matrix, preserve the domain and truncation.\n\n"
+                    b"## References\n\nOriginal source.\n")
+        promoted = original.replace(b"**Status:** Solved", b"**Status:** Lean verified")
+        insertion = b"## Lean proof and verification evidence\n\nKernel receipt.\n\n"
+        promoted = promoted.replace(b"Does a universal constant ", insertion + b"Does a universal constant ")
+        self.assertTrue(check.reviewed_statement_preserved(original, promoted, "RA-10"))
+        self.assertFalse(check.reviewed_statement_preserved(
+            original, promoted.replace(b"$C\\ge1$", b"$C\\ge2$"), "RA-10"))
+        self.assertFalse(check.reviewed_statement_preserved(
+            original, promoted.replace(b"domain and truncation", b"domain"), "RA-10"))
+        self.assertFalse(check.reviewed_statement_preserved(
+            original, promoted.replace(b"Original source.", b"Different source."), "RA-10"))
+        self.assertFalse(check.reviewed_statement_preserved(
+            original, promoted.replace(b"Does a universal constant ",
+                                       b"Does a universal constant " * 2), "RA-10"))
+
     def test_two_approvals_required_for_each_phase(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory).resolve()

@@ -2,7 +2,7 @@
 
 **98 problems with open targets:** 36 open and 62 partially resolved. **119 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 42 solved (published or independently audited); 76 solved with Lean verification.
+**Resolution evidence:** 39 solved (published or independently audited); 79 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -147,7 +147,7 @@ Retained entries outside the open count:
 | [RA-07](randomized-and-low-rank-approximation/RA-07/README.md) | Convexity of the expected error of volume-sampled column subsets | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-07/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-07/problem.tex) |
 | [RA-08](randomized-and-low-rank-approximation/RA-08/README.md) | Concave-function transfer of spectral low-rank error | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-08/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-08/problem.tex) |
 | [RA-09](randomized-and-low-rank-approximation/RA-09/README.md) | Concave-function transfer of Frobenius low-rank error | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-09/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-09/problem.tex) |
-| [RA-10](randomized-and-low-rank-approximation/RA-10/README.md) | Constant-loss nuclear-error transfer without matrix ordering | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-10/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-10/problem.tex) |
+| [RA-10](randomized-and-low-rank-approximation/RA-10/README.md) | Constant-loss nuclear-error transfer without matrix ordering | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-10/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-10/problem.tex) |
 | [RA-12](randomized-and-low-rank-approximation/RA-12/README.md) | Relative-error threshold for extremal Gaussian trace bounds | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-12/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-12/problem.tex) |
 | [RA-13](randomized-and-low-rank-approximation/RA-13/README.md) | Absolute-error threshold for extremal Gaussian trace bounds | **✅ SOLVED** | challenging | interesting to the community | [PDF](randomized-and-low-rank-approximation/RA-13/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-13/problem.tex) |
 | [RA-19](randomized-and-low-rank-approximation/RA-19/README.md) | Critical-point count for corank-one approximation with a fixed zero | **✅ SOLVED** | challenging | interesting to specialist | [PDF](randomized-and-low-rank-approximation/RA-19/problem.pdf) · [TeX](randomized-and-low-rank-approximation/RA-19/problem.tex) |
@@ -297,8 +297,8 @@ Retained entries outside the open count:
 | ID | Problem | Status | Difficulty | Impact | Read / source |
 | --- | --- | --- | --- | --- | --- |
 | [MD-01](matrix-discrepancy-and-optimization/MD-01/README.md) | The sharp Lovász-theta constant for dense random graphs | **🟠 SOLUTION CLAIMED** | challenging | broadly interesting | [PDF](matrix-discrepancy-and-optimization/MD-01/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-01/problem.tex) |
-| [MD-03](matrix-discrepancy-and-optimization/MD-03/README.md) | The Komlós discrepancy conjecture | **✅ SOLVED** | extreme | broadly interesting | [PDF](matrix-discrepancy-and-optimization/MD-03/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-03/problem.tex) |
-| [MD-04](matrix-discrepancy-and-optimization/MD-04/README.md) | The Beck–Fiala discrepancy conjecture | **✅ SOLVED** | extreme | broadly interesting | [PDF](matrix-discrepancy-and-optimization/MD-04/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-04/problem.tex) |
+| [MD-03](matrix-discrepancy-and-optimization/MD-03/README.md) | The Komlós discrepancy conjecture | **🏆 LEAN VERIFIED** | extreme | broadly interesting | [PDF](matrix-discrepancy-and-optimization/MD-03/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-03/problem.tex) |
+| [MD-04](matrix-discrepancy-and-optimization/MD-04/README.md) | The Beck–Fiala discrepancy conjecture | **🏆 LEAN VERIFIED** | extreme | broadly interesting | [PDF](matrix-discrepancy-and-optimization/MD-04/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-04/problem.tex) |
 | [MD-06](matrix-discrepancy-and-optimization/MD-06/README.md) | Global synchronization of a random cubic graph | **✅ SOLVED** | challenging | interesting to the community | [PDF](matrix-discrepancy-and-optimization/MD-06/problem.pdf) · [TeX](matrix-discrepancy-and-optimization/MD-06/problem.tex) |
 
 

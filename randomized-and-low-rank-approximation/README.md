@@ -31,7 +31,7 @@
 | [RA-07](RA-07/README.md) | Convexity of the expected error of volume-sampled column subsets | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](RA-07/problem.pdf) · [TeX](RA-07/problem.tex) |
 | [RA-08](RA-08/README.md) | Concave-function transfer of spectral low-rank error | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](RA-08/problem.pdf) · [TeX](RA-08/problem.tex) |
 | [RA-09](RA-09/README.md) | Concave-function transfer of Frobenius low-rank error | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](RA-09/problem.pdf) · [TeX](RA-09/problem.tex) |
-| [RA-10](RA-10/README.md) | Constant-loss nuclear-error transfer without matrix ordering | **✅ SOLVED** | challenging | interesting to the community | [PDF](RA-10/problem.pdf) · [TeX](RA-10/problem.tex) |
+| [RA-10](RA-10/README.md) | Constant-loss nuclear-error transfer without matrix ordering | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](RA-10/problem.pdf) · [TeX](RA-10/problem.tex) |
 | [RA-12](RA-12/README.md) | Relative-error threshold for extremal Gaussian trace bounds | **✅ SOLVED** | challenging | interesting to the community | [PDF](RA-12/problem.pdf) · [TeX](RA-12/problem.tex) |
 | [RA-13](RA-13/README.md) | Absolute-error threshold for extremal Gaussian trace bounds | **✅ SOLVED** | challenging | interesting to the community | [PDF](RA-13/problem.pdf) · [TeX](RA-13/problem.tex) |
 | [RA-19](RA-19/README.md) | Critical-point count for corank-one approximation with a fixed zero | **✅ SOLVED** | challenging | interesting to specialist | [PDF](RA-19/problem.pdf) · [TeX](RA-19/problem.tex) |
