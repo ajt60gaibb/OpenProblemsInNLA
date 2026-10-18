@@ -1,0 +1,568 @@
+import NLA.Proofs.SP11.ColorBounds
+import NLA.Proofs.SP11.ColoringExt
+import NLA.Proofs.SP11.OccurrenceParent
+import NLA.Proofs.SP11.PriorInsertion
+import NLA.Proofs.SP11.AugmentedColors
+import NLA.Proofs.SP11.MonomialProducts
+import LeanCert.Tactic.Verification
+open Lean Elab Command in
+elab "#assert_proof_constant " n:ident : command => do
+  let decl ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  match (← getEnv).find? decl with
+  | some (.thmInfo _) => pure ()
+  | _ => throwErrorAt n "expected a proved theorem constant"
+#assert_proof_constant NLA.Proofs.SP11.color_ge_of_covered_prefix
+#assert_trust kernel NLA.Proofs.SP11.color_ge_of_covered_prefix
+#print axioms NLA.Proofs.SP11.color_ge_of_covered_prefix
+#assert_proof_constant NLA.Proofs.SP11.color_ge_slot_of_earlier_fixed
+#assert_trust kernel NLA.Proofs.SP11.color_ge_slot_of_earlier_fixed
+#print axioms NLA.Proofs.SP11.color_ge_slot_of_earlier_fixed
+#assert_proof_constant NLA.Proofs.SP11.outputColor_ge_arity
+#assert_trust kernel NLA.Proofs.SP11.outputColor_ge_arity
+#print axioms NLA.Proofs.SP11.outputColor_ge_arity
+#assert_trust kernel NLA.Proofs.SP11.CoordinateVector
+#print axioms NLA.Proofs.SP11.CoordinateVector
+#assert_trust kernel NLA.Proofs.SP11.contractionFunctional
+#print axioms NLA.Proofs.SP11.contractionFunctional
+#assert_trust kernel NLA.Proofs.SP11.alternatingContraction
+#print axioms NLA.Proofs.SP11.alternatingContraction
+#assert_proof_constant NLA.Proofs.SP11.alternatingContraction_dotProduct
+#assert_trust kernel NLA.Proofs.SP11.alternatingContraction_dotProduct
+#print axioms NLA.Proofs.SP11.alternatingContraction_dotProduct
+#assert_proof_constant NLA.Proofs.SP11.alternatingContraction_orthogonal
+#assert_trust kernel NLA.Proofs.SP11.alternatingContraction_orthogonal
+#print axioms NLA.Proofs.SP11.alternatingContraction_orthogonal
+#assert_trust kernel NLA.Proofs.SP11.priorNonneighbors
+#print axioms NLA.Proofs.SP11.priorNonneighbors
+#assert_proof_constant NLA.Proofs.SP11.mem_priorNonneighbors
+#assert_trust kernel NLA.Proofs.SP11.mem_priorNonneighbors
+#print axioms NLA.Proofs.SP11.mem_priorNonneighbors
+#assert_trust kernel NLA.Proofs.SP11.priorVertex
+#print axioms NLA.Proofs.SP11.priorVertex
+#assert_proof_constant NLA.Proofs.SP11.priorVertex_lt
+#assert_trust kernel NLA.Proofs.SP11.priorVertex_lt
+#print axioms NLA.Proofs.SP11.priorVertex_lt
+#assert_trust kernel NLA.Proofs.SP11.VertexForms
+#print axioms NLA.Proofs.SP11.VertexForms
+#assert_trust kernel NLA.Proofs.SP11.uniformLSS
+#print axioms NLA.Proofs.SP11.uniformLSS
+#assert_proof_constant NLA.Proofs.SP11.uniformLSS_eq
+#assert_trust kernel NLA.Proofs.SP11.uniformLSS_eq
+#print axioms NLA.Proofs.SP11.uniformLSS_eq
+#assert_proof_constant NLA.Proofs.SP11.uniformLSS_orthogonal_prior
+#assert_trust kernel NLA.Proofs.SP11.uniformLSS_orthogonal_prior
+#print axioms NLA.Proofs.SP11.uniformLSS_orthogonal_prior
+#assert_proof_constant NLA.Proofs.SP11.uniformLSS_orthogonal_nonedge
+#assert_trust kernel NLA.Proofs.SP11.uniformLSS_orthogonal_nonedge
+#print axioms NLA.Proofs.SP11.uniformLSS_orthogonal_nonedge
+#assert_trust kernel NLA.Proofs.SP11.CoordinateSubset
+#print axioms NLA.Proofs.SP11.CoordinateSubset
+#assert_trust kernel NLA.Proofs.SP11.coordinateSubsetFintype
+#print axioms NLA.Proofs.SP11.coordinateSubsetFintype
+#assert_trust kernel NLA.Proofs.SP11.selectedCoordinates
+#print axioms NLA.Proofs.SP11.selectedCoordinates
+#assert_trust kernel NLA.Proofs.SP11.coordinateMinorForm
+#print axioms NLA.Proofs.SP11.coordinateMinorForm
+#assert_proof_constant NLA.Proofs.SP11.coordinateMinorForm_apply
+#assert_trust kernel NLA.Proofs.SP11.coordinateMinorForm_apply
+#print axioms NLA.Proofs.SP11.coordinateMinorForm_apply
+#assert_trust kernel NLA.Proofs.SP11.weightedMinorForm
+#print axioms NLA.Proofs.SP11.weightedMinorForm
+#assert_proof_constant NLA.Proofs.SP11.weightedMinorForm_apply
+#assert_trust kernel NLA.Proofs.SP11.weightedMinorForm_apply
+#print axioms NLA.Proofs.SP11.weightedMinorForm_apply
+#assert_trust kernel NLA.Proofs.SP11.polynomialAlternatingForm
+#print axioms NLA.Proofs.SP11.polynomialAlternatingForm
+#assert_proof_constant NLA.Proofs.SP11.polynomialAlternatingForm_apply
+#assert_trust kernel NLA.Proofs.SP11.polynomialAlternatingForm_apply
+#print axioms NLA.Proofs.SP11.polynomialAlternatingForm_apply
+#assert_proof_constant NLA.Proofs.SP11.polynomialAlternatingForm_contraction_orthogonal
+#assert_trust kernel NLA.Proofs.SP11.polynomialAlternatingForm_contraction_orthogonal
+#print axioms NLA.Proofs.SP11.polynomialAlternatingForm_contraction_orthogonal
+#assert_trust kernel NLA.Proofs.SP11.gram
+#print axioms NLA.Proofs.SP11.gram
+#assert_proof_constant NLA.Proofs.SP11.gram_apply
+#assert_trust kernel NLA.Proofs.SP11.gram_apply
+#print axioms NLA.Proofs.SP11.gram_apply
+#assert_proof_constant NLA.Proofs.SP11.gram_hasPattern
+#assert_trust kernel NLA.Proofs.SP11.gram_hasPattern
+#print axioms NLA.Proofs.SP11.gram_hasPattern
+#assert_proof_constant NLA.Proofs.SP11.gram_rank_le
+#assert_trust kernel NLA.Proofs.SP11.gram_rank_le
+#print axioms NLA.Proofs.SP11.gram_rank_le
+#assert_proof_constant NLA.Proofs.SP11.minDegree_le_gram_nullity
+#assert_trust kernel NLA.Proofs.SP11.minDegree_le_gram_nullity
+#print axioms NLA.Proofs.SP11.minDegree_le_gram_nullity
+#assert_proof_constant NLA.Proofs.SP11.target_of_faithful_representations
+#assert_trust kernel NLA.Proofs.SP11.target_of_faithful_representations
+#print axioms NLA.Proofs.SP11.target_of_faithful_representations
+#assert_trust kernel NLA.Proofs.SP11.polynomialGram
+#print axioms NLA.Proofs.SP11.polynomialGram
+#assert_proof_constant NLA.Proofs.SP11.exists_real_eval_ne_zero
+#assert_trust kernel NLA.Proofs.SP11.exists_real_eval_ne_zero
+#print axioms NLA.Proofs.SP11.exists_real_eval_ne_zero
+#assert_proof_constant NLA.Proofs.SP11.exists_simultaneous_real_eval_ne_zero
+#assert_trust kernel NLA.Proofs.SP11.exists_simultaneous_real_eval_ne_zero
+#print axioms NLA.Proofs.SP11.exists_simultaneous_real_eval_ne_zero
+#assert_proof_constant NLA.Proofs.SP11.eval_polynomialGram
+#assert_trust kernel NLA.Proofs.SP11.eval_polynomialGram
+#print axioms NLA.Proofs.SP11.eval_polynomialGram
+#assert_proof_constant NLA.Proofs.SP11.exists_faithful_real_evaluation
+#assert_trust kernel NLA.Proofs.SP11.exists_faithful_real_evaluation
+#print axioms NLA.Proofs.SP11.exists_faithful_real_evaluation
+#assert_proof_constant NLA.Proofs.SP11.target_of_polynomial_representations
+#assert_trust kernel NLA.Proofs.SP11.target_of_polynomial_representations
+#print axioms NLA.Proofs.SP11.target_of_polynomial_representations
+#assert_trust kernel NLA.Proofs.SP11.LSSVariable
+#print axioms NLA.Proofs.SP11.LSSVariable
+#assert_trust kernel NLA.Proofs.SP11.universalVertexForms
+#print axioms NLA.Proofs.SP11.universalVertexForms
+#assert_trust kernel NLA.Proofs.SP11.polynomialLSS
+#print axioms NLA.Proofs.SP11.polynomialLSS
+#assert_proof_constant NLA.Proofs.SP11.polynomialLSS_nonedge
+#assert_trust kernel NLA.Proofs.SP11.polynomialLSS_nonedge
+#print axioms NLA.Proofs.SP11.polynomialLSS_nonedge
+#assert_proof_constant NLA.Proofs.SP11.exists_pattern_matrix_of_polynomialLSS_nonzero
+#assert_trust kernel NLA.Proofs.SP11.exists_pattern_matrix_of_polynomialLSS_nonzero
+#print axioms NLA.Proofs.SP11.exists_pattern_matrix_of_polynomialLSS_nonzero
+#assert_proof_constant NLA.Proofs.SP11.exists_coordinate_omitted
+#assert_trust kernel NLA.Proofs.SP11.exists_coordinate_omitted
+#print axioms NLA.Proofs.SP11.exists_coordinate_omitted
+#assert_proof_constant NLA.Proofs.SP11.coordinateMinorForm_basis
+#assert_trust kernel NLA.Proofs.SP11.coordinateMinorForm_basis
+#print axioms NLA.Proofs.SP11.coordinateMinorForm_basis
+#assert_proof_constant NLA.Proofs.SP11.weightedMinorForm_basis
+#assert_trust kernel NLA.Proofs.SP11.weightedMinorForm_basis
+#print axioms NLA.Proofs.SP11.weightedMinorForm_basis
+#assert_proof_constant NLA.Proofs.SP11.polynomialAlternatingForm_basis
+#assert_trust kernel NLA.Proofs.SP11.polynomialAlternatingForm_basis
+#print axioms NLA.Proofs.SP11.polynomialAlternatingForm_basis
+#assert_proof_constant NLA.Proofs.SP11.alternatingForm_coordinateExpansion
+#assert_trust kernel NLA.Proofs.SP11.alternatingForm_coordinateExpansion
+#print axioms NLA.Proofs.SP11.alternatingForm_coordinateExpansion
+#assert_proof_constant NLA.Proofs.SP11.alternatingContraction_coordinateExpansion
+#assert_trust kernel NLA.Proofs.SP11.alternatingContraction_coordinateExpansion
+#print axioms NLA.Proofs.SP11.alternatingContraction_coordinateExpansion
+#assert_trust kernel NLA.Proofs.SP11.vertexCoefficient
+#print axioms NLA.Proofs.SP11.vertexCoefficient
+#assert_proof_constant NLA.Proofs.SP11.polynomialLSS_coordinateExpansion
+#assert_trust kernel NLA.Proofs.SP11.polynomialLSS_coordinateExpansion
+#print axioms NLA.Proofs.SP11.polynomialLSS_coordinateExpansion
+#assert_proof_constant NLA.Proofs.SP11.alternatingForm_basis_perm
+#assert_trust kernel NLA.Proofs.SP11.alternatingForm_basis_perm
+#print axioms NLA.Proofs.SP11.alternatingForm_basis_perm
+#assert_proof_constant NLA.Proofs.SP11.polynomialAlternatingForm_basis_perm
+#assert_trust kernel NLA.Proofs.SP11.polynomialAlternatingForm_basis_perm
+#print axioms NLA.Proofs.SP11.polynomialAlternatingForm_basis_perm
+#assert_proof_constant NLA.Proofs.SP11.polynomialAlternatingForm_basis_eq_zero_of_not_injective
+#assert_trust kernel NLA.Proofs.SP11.polynomialAlternatingForm_basis_eq_zero_of_not_injective
+#print axioms NLA.Proofs.SP11.polynomialAlternatingForm_basis_eq_zero_of_not_injective
+#assert_trust kernel NLA.Proofs.SP11.GardenTree
+#print axioms NLA.Proofs.SP11.GardenTree
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.Coloring
+#print axioms NLA.Proofs.SP11.GardenTree.Coloring
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.coloringFintype
+#print axioms NLA.Proofs.SP11.GardenTree.coloringFintype
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.rootColor
+#print axioms NLA.Proofs.SP11.GardenTree.rootColor
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.value
+#print axioms NLA.Proofs.SP11.GardenTree.value
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.weight
+#print axioms NLA.Proofs.SP11.GardenTree.weight
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.value_eq_sum_weight
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.value_eq_sum_weight
+#print axioms NLA.Proofs.SP11.GardenTree.value_eq_sum_weight
+#assert_proof_constant NLA.Proofs.SP11.exists_sorted_coordinate_tuple
+#assert_trust kernel NLA.Proofs.SP11.exists_sorted_coordinate_tuple
+#print axioms NLA.Proofs.SP11.exists_sorted_coordinate_tuple
+#assert_proof_constant NLA.Proofs.SP11.polynomialAlternatingForm_basis_injective
+#assert_trust kernel NLA.Proofs.SP11.polynomialAlternatingForm_basis_injective
+#print axioms NLA.Proofs.SP11.polynomialAlternatingForm_basis_injective
+#assert_trust kernel NLA.Proofs.SP11.sortedColors
+#print axioms NLA.Proofs.SP11.sortedColors
+#assert_trust kernel NLA.Proofs.SP11.colorPermutation
+#print axioms NLA.Proofs.SP11.colorPermutation
+#assert_proof_constant NLA.Proofs.SP11.sortedColors_spec
+#assert_trust kernel NLA.Proofs.SP11.sortedColors_spec
+#print axioms NLA.Proofs.SP11.sortedColors_spec
+#assert_trust kernel NLA.Proofs.SP11.colorExponent
+#print axioms NLA.Proofs.SP11.colorExponent
+#assert_trust kernel NLA.Proofs.SP11.colorSign
+#print axioms NLA.Proofs.SP11.colorSign
+#assert_proof_constant NLA.Proofs.SP11.polynomialAlternatingForm_basis_eq_monomial
+#assert_trust kernel NLA.Proofs.SP11.polynomialAlternatingForm_basis_eq_monomial
+#print axioms NLA.Proofs.SP11.polynomialAlternatingForm_basis_eq_monomial
+#assert_proof_constant NLA.Proofs.SP11.colorSign_ne_zero
+#assert_trust kernel NLA.Proofs.SP11.colorSign_ne_zero
+#print axioms NLA.Proofs.SP11.colorSign_ne_zero
+#assert_trust kernel NLA.Proofs.SP11.lssGarden
+#print axioms NLA.Proofs.SP11.lssGarden
+#assert_proof_constant NLA.Proofs.SP11.lssGarden_eq
+#assert_trust kernel NLA.Proofs.SP11.lssGarden_eq
+#print axioms NLA.Proofs.SP11.lssGarden_eq
+#assert_proof_constant NLA.Proofs.SP11.lssGarden_value
+#assert_trust kernel NLA.Proofs.SP11.lssGarden_value
+#print axioms NLA.Proofs.SP11.lssGarden_value
+#assert_proof_constant NLA.Proofs.SP11.polynomialLSS_eq_sum_garden
+#assert_trust kernel NLA.Proofs.SP11.polynomialLSS_eq_sum_garden
+#print axioms NLA.Proofs.SP11.polynomialLSS_eq_sum_garden
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.BelowColoring
+#print axioms NLA.Proofs.SP11.GardenTree.BelowColoring
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.belowColoringFintype
+#print axioms NLA.Proofs.SP11.GardenTree.belowColoringFintype
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.withRootColor
+#print axioms NLA.Proofs.SP11.GardenTree.withRootColor
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.rootColor_withRootColor
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.rootColor_withRootColor
+#print axioms NLA.Proofs.SP11.GardenTree.rootColor_withRootColor
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.DoubleColoring
+#print axioms NLA.Proofs.SP11.GardenTree.DoubleColoring
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.leftColoring
+#print axioms NLA.Proofs.SP11.GardenTree.leftColoring
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.rightColoring
+#print axioms NLA.Proofs.SP11.GardenTree.rightColoring
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.Occurrence
+#print axioms NLA.Proofs.SP11.GardenTree.Occurrence
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.occurrenceFintype
+#print axioms NLA.Proofs.SP11.GardenTree.occurrenceFintype
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.occurrenceLabel
+#print axioms NLA.Proofs.SP11.GardenTree.occurrenceLabel
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.occurrenceColors
+#print axioms NLA.Proofs.SP11.GardenTree.occurrenceColors
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.occurrenceFactor
+#print axioms NLA.Proofs.SP11.GardenTree.occurrenceFactor
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.weight_eq_prod_occurrenceFactor
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.weight_eq_prod_occurrenceFactor
+#print axioms NLA.Proofs.SP11.GardenTree.weight_eq_prod_occurrenceFactor
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.doubleWeight
+#print axioms NLA.Proofs.SP11.GardenTree.doubleWeight
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.dotProduct_eq_sum_doubleWeight
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.dotProduct_eq_sum_doubleWeight
+#print axioms NLA.Proofs.SP11.GardenTree.dotProduct_eq_sum_doubleWeight
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.SharedVariable
+#print axioms NLA.Proofs.SP11.GardenTree.SharedVariable
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.sharedVertexForms
+#print axioms NLA.Proofs.SP11.GardenTree.sharedVertexForms
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.occurrenceExponent
+#print axioms NLA.Proofs.SP11.GardenTree.occurrenceExponent
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.coloringExponent
+#print axioms NLA.Proofs.SP11.GardenTree.coloringExponent
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.coloringSign
+#print axioms NLA.Proofs.SP11.GardenTree.coloringSign
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.prod_monomial
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.prod_monomial
+#print axioms NLA.Proofs.SP11.GardenTree.prod_monomial
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.weight_sharedVertexForms_eq_monomial
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.weight_sharedVertexForms_eq_monomial
+#print axioms NLA.Proofs.SP11.GardenTree.weight_sharedVertexForms_eq_monomial
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.DoubleOccurrence
+#print axioms NLA.Proofs.SP11.GardenTree.DoubleOccurrence
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.doubleColoringExponent
+#print axioms NLA.Proofs.SP11.GardenTree.doubleColoringExponent
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.doubleColoringSign
+#print axioms NLA.Proofs.SP11.GardenTree.doubleColoringSign
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.doubleWeight_sharedVertexForms_eq_monomial
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.doubleWeight_sharedVertexForms_eq_monomial
+#print axioms NLA.Proofs.SP11.GardenTree.doubleWeight_sharedVertexForms_eq_monomial
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.dotProduct_sharedVertexForms_eq_sum_monomial
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.dotProduct_sharedVertexForms_eq_sum_monomial
+#print axioms NLA.Proofs.SP11.GardenTree.dotProduct_sharedVertexForms_eq_sum_monomial
+#assert_proof_constant NLA.Proofs.SP11.polynomialGram_eq_sum_signedGardenMonomial
+#assert_trust kernel NLA.Proofs.SP11.polynomialGram_eq_sum_signedGardenMonomial
+#print axioms NLA.Proofs.SP11.polynomialGram_eq_sum_signedGardenMonomial
+#assert_proof_constant NLA.Proofs.SP11.weight_sum_eq_of_occurrence_histogram_eq
+#assert_trust kernel NLA.Proofs.SP11.weight_sum_eq_of_occurrence_histogram_eq
+#print axioms NLA.Proofs.SP11.weight_sum_eq_of_occurrence_histogram_eq
+#assert_proof_constant NLA.Proofs.SP11.occurrence_weight_eq_of_histogram_eq
+#assert_trust kernel NLA.Proofs.SP11.occurrence_weight_eq_of_histogram_eq
+#print axioms NLA.Proofs.SP11.occurrence_weight_eq_of_histogram_eq
+#assert_trust kernel NLA.Proofs.SP11.coordinateSubsetWeight
+#print axioms NLA.Proofs.SP11.coordinateSubsetWeight
+#assert_proof_constant NLA.Proofs.SP11.sortedColors_weight_eq
+#assert_trust kernel NLA.Proofs.SP11.sortedColors_weight_eq
+#print axioms NLA.Proofs.SP11.sortedColors_weight_eq
+#assert_trust kernel NLA.Proofs.SP11.vertexClassWeight
+#print axioms NLA.Proofs.SP11.vertexClassWeight
+#assert_proof_constant NLA.Proofs.SP11.vertexClassWeight_colorExponent
+#assert_trust kernel NLA.Proofs.SP11.vertexClassWeight_colorExponent
+#print axioms NLA.Proofs.SP11.vertexClassWeight_colorExponent
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.doubleOccurrenceLabel
+#print axioms NLA.Proofs.SP11.GardenTree.doubleOccurrenceLabel
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.doubleOccurrenceColors
+#print axioms NLA.Proofs.SP11.GardenTree.doubleOccurrenceColors
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.doubleIncidentSum
+#print axioms NLA.Proofs.SP11.GardenTree.doubleIncidentSum
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.classIncidentSum
+#print axioms NLA.Proofs.SP11.GardenTree.classIncidentSum
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.doubleOccurrenceColors_injective_of_sign_ne_zero
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.doubleOccurrenceColors_injective_of_sign_ne_zero
+#print axioms NLA.Proofs.SP11.GardenTree.doubleOccurrenceColors_injective_of_sign_ne_zero
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.vertexClassWeight_doubleColoringExponent_of_injective
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.vertexClassWeight_doubleColoringExponent_of_injective
+#print axioms NLA.Proofs.SP11.GardenTree.vertexClassWeight_doubleColoringExponent_of_injective
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.vertexClassWeight_doubleColoringExponent
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.vertexClassWeight_doubleColoringExponent
+#print axioms NLA.Proofs.SP11.GardenTree.vertexClassWeight_doubleColoringExponent
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.classIncidentSum_eq_of_exponent_eq
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.classIncidentSum_eq_of_exponent_eq
+#print axioms NLA.Proofs.SP11.GardenTree.classIncidentSum_eq_of_exponent_eq
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.doubleIncidentSum_eq_of_exponent_eq
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.doubleIncidentSum_eq_of_exponent_eq
+#print axioms NLA.Proofs.SP11.GardenTree.doubleIncidentSum_eq_of_exponent_eq
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.coloring_ext_of_occurrence_outputs
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.coloring_ext_of_occurrence_outputs
+#print axioms NLA.Proofs.SP11.GardenTree.coloring_ext_of_occurrence_outputs
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.doubleColoring_ext_of_occurrence_outputs
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.doubleColoring_ext_of_occurrence_outputs
+#print axioms NLA.Proofs.SP11.GardenTree.doubleColoring_ext_of_occurrence_outputs
+#assert_trust kernel NLA.Proofs.SP11.localNonneighbors
+#print axioms NLA.Proofs.SP11.localNonneighbors
+#assert_trust kernel NLA.Proofs.SP11.GreedyFrom
+#print axioms NLA.Proofs.SP11.GreedyFrom
+#assert_proof_constant NLA.Proofs.SP11.localNonneighbors_mono
+#assert_trust kernel NLA.Proofs.SP11.localNonneighbors_mono
+#print axioms NLA.Proofs.SP11.localNonneighbors_mono
+#assert_proof_constant NLA.Proofs.SP11.exists_greedyFrom
+#assert_trust kernel NLA.Proofs.SP11.exists_greedyFrom
+#print axioms NLA.Proofs.SP11.exists_greedyFrom
+#assert_proof_constant NLA.Proofs.SP11.exists_greedyListing
+#assert_trust kernel NLA.Proofs.SP11.exists_greedyListing
+#print axioms NLA.Proofs.SP11.exists_greedyListing
+#assert_trust kernel NLA.Proofs.SP11.precedingCount
+#print axioms NLA.Proofs.SP11.precedingCount
+#assert_proof_constant NLA.Proofs.SP11.GreedyFrom.count_le_later
+#assert_trust kernel NLA.Proofs.SP11.GreedyFrom.count_le_later
+#print axioms NLA.Proofs.SP11.GreedyFrom.count_le_later
+#assert_proof_constant NLA.Proofs.SP11.take_toFinset_mono
+#assert_trust kernel NLA.Proofs.SP11.take_toFinset_mono
+#print axioms NLA.Proofs.SP11.take_toFinset_mono
+#assert_proof_constant NLA.Proofs.SP11.GreedyFrom.precedingCount_mono
+#assert_trust kernel NLA.Proofs.SP11.GreedyFrom.precedingCount_mono
+#print axioms NLA.Proofs.SP11.GreedyFrom.precedingCount_mono
+#assert_trust kernel NLA.Proofs.SP11.nonneighborPosition
+#print axioms NLA.Proofs.SP11.nonneighborPosition
+#assert_proof_constant NLA.Proofs.SP11.GreedyFrom.precedingCount_lt_position
+#assert_trust kernel NLA.Proofs.SP11.GreedyFrom.precedingCount_lt_position
+#print axioms NLA.Proofs.SP11.GreedyFrom.precedingCount_lt_position
+#assert_proof_constant NLA.Proofs.SP11.nonneighborPosition_eq_filter_length
+#assert_trust kernel NLA.Proofs.SP11.nonneighborPosition_eq_filter_length
+#print axioms NLA.Proofs.SP11.nonneighborPosition_eq_filter_length
+#assert_proof_constant NLA.Proofs.SP11.exists_greedyEquiv
+#assert_trust kernel NLA.Proofs.SP11.exists_greedyEquiv
+#print axioms NLA.Proofs.SP11.exists_greedyEquiv
+#assert_proof_constant NLA.Proofs.SP11.lastStageCount_eq
+#assert_trust kernel NLA.Proofs.SP11.lastStageCount_eq
+#print axioms NLA.Proofs.SP11.lastStageCount_eq
+#assert_proof_constant NLA.Proofs.SP11.greedy_dimension_bound
+#assert_trust kernel NLA.Proofs.SP11.greedy_dimension_bound
+#print axioms NLA.Proofs.SP11.greedy_dimension_bound
+#assert_proof_constant NLA.Proofs.SP11.greedyListing_length
+#assert_trust kernel NLA.Proofs.SP11.greedyListing_length
+#print axioms NLA.Proofs.SP11.greedyListing_length
+#assert_trust kernel NLA.Proofs.SP11.OrderedGreedy
+#print axioms NLA.Proofs.SP11.OrderedGreedy
+#assert_proof_constant NLA.Proofs.SP11.minimumDegree_comap
+#assert_trust kernel NLA.Proofs.SP11.minimumDegree_comap
+#print axioms NLA.Proofs.SP11.minimumDegree_comap
+#assert_proof_constant NLA.Proofs.SP11.rank_relabel
+#assert_trust kernel NLA.Proofs.SP11.rank_relabel
+#print axioms NLA.Proofs.SP11.rank_relabel
+#assert_proof_constant NLA.Proofs.SP11.hasPattern_comap
+#assert_trust kernel NLA.Proofs.SP11.hasPattern_comap
+#print axioms NLA.Proofs.SP11.hasPattern_comap
+#assert_proof_constant NLA.Proofs.SP11.hasPattern_of_comap
+#assert_trust kernel NLA.Proofs.SP11.hasPattern_of_comap
+#print axioms NLA.Proofs.SP11.hasPattern_of_comap
+#assert_proof_constant NLA.Proofs.SP11.localNonneighbors_comap
+#assert_trust kernel NLA.Proofs.SP11.localNonneighbors_comap
+#print axioms NLA.Proofs.SP11.localNonneighbors_comap
+#assert_proof_constant NLA.Proofs.SP11.priorNonneighbors_length_eq
+#assert_trust kernel NLA.Proofs.SP11.priorNonneighbors_length_eq
+#print axioms NLA.Proofs.SP11.priorNonneighbors_length_eq
+#assert_proof_constant NLA.Proofs.SP11.priorNonneighbors_filter_lt_length
+#assert_trust kernel NLA.Proofs.SP11.priorNonneighbors_filter_lt_length
+#print axioms NLA.Proofs.SP11.priorNonneighbors_filter_lt_length
+#assert_proof_constant NLA.Proofs.SP11.OrderedGreedy.prior_length_lt_insertionPosition
+#assert_trust kernel NLA.Proofs.SP11.OrderedGreedy.prior_length_lt_insertionPosition
+#print axioms NLA.Proofs.SP11.OrderedGreedy.prior_length_lt_insertionPosition
+#assert_proof_constant NLA.Proofs.SP11.prefix_image_of_listing
+#assert_trust kernel NLA.Proofs.SP11.prefix_image_of_listing
+#print axioms NLA.Proofs.SP11.prefix_image_of_listing
+#assert_proof_constant NLA.Proofs.SP11.exists_orderedGreedy_comap
+#assert_trust kernel NLA.Proofs.SP11.exists_orderedGreedy_comap
+#print axioms NLA.Proofs.SP11.exists_orderedGreedy_comap
+#assert_proof_constant NLA.Proofs.SP11.target_of_orderedGreedy_polynomialLSS_nonzero
+#assert_trust kernel NLA.Proofs.SP11.target_of_orderedGreedy_polynomialLSS_nonzero
+#print axioms NLA.Proofs.SP11.target_of_orderedGreedy_polynomialLSS_nonzero
+#assert_proof_constant NLA.Proofs.SP11.sortedLT_filter_lt_length
+#assert_trust kernel NLA.Proofs.SP11.sortedLT_filter_lt_length
+#print axioms NLA.Proofs.SP11.sortedLT_filter_lt_length
+#assert_proof_constant NLA.Proofs.SP11.priorNonneighbors_sortedLT
+#assert_trust kernel NLA.Proofs.SP11.priorNonneighbors_sortedLT
+#print axioms NLA.Proofs.SP11.priorNonneighbors_sortedLT
+#assert_proof_constant NLA.Proofs.SP11.priorVertex_strictMono
+#assert_trust kernel NLA.Proofs.SP11.priorVertex_strictMono
+#print axioms NLA.Proofs.SP11.priorVertex_strictMono
+#assert_proof_constant NLA.Proofs.SP11.priorVertex_label_lt_parent
+#assert_trust kernel NLA.Proofs.SP11.priorVertex_label_lt_parent
+#print axioms NLA.Proofs.SP11.priorVertex_label_lt_parent
+#assert_proof_constant NLA.Proofs.SP11.priorNonneighbors_count_lt_priorVertex
+#assert_trust kernel NLA.Proofs.SP11.priorNonneighbors_count_lt_priorVertex
+#print axioms NLA.Proofs.SP11.priorNonneighbors_count_lt_priorVertex
+#assert_proof_constant NLA.Proofs.SP11.OrderedGreedy.priorVertex_arity_le_slot
+#assert_trust kernel NLA.Proofs.SP11.OrderedGreedy.priorVertex_arity_le_slot
+#print axioms NLA.Proofs.SP11.OrderedGreedy.priorVertex_arity_le_slot
+#assert_trust kernel NLA.Proofs.SP11.augmentedPriorNonneighbors
+#print axioms NLA.Proofs.SP11.augmentedPriorNonneighbors
+#assert_proof_constant NLA.Proofs.SP11.mem_augmentedPriorNonneighbors
+#assert_trust kernel NLA.Proofs.SP11.mem_augmentedPriorNonneighbors
+#print axioms NLA.Proofs.SP11.mem_augmentedPriorNonneighbors
+#assert_proof_constant NLA.Proofs.SP11.adjacent_not_mem_priorNonneighbors
+#assert_trust kernel NLA.Proofs.SP11.adjacent_not_mem_priorNonneighbors
+#print axioms NLA.Proofs.SP11.adjacent_not_mem_priorNonneighbors
+#assert_proof_constant NLA.Proofs.SP11.augmentedPriorNonneighbors_sortedLT
+#assert_trust kernel NLA.Proofs.SP11.augmentedPriorNonneighbors_sortedLT
+#print axioms NLA.Proofs.SP11.augmentedPriorNonneighbors_sortedLT
+#assert_proof_constant NLA.Proofs.SP11.augmentedPriorNonneighbors_length
+#assert_trust kernel NLA.Proofs.SP11.augmentedPriorNonneighbors_length
+#print axioms NLA.Proofs.SP11.augmentedPriorNonneighbors_length
+#assert_trust kernel NLA.Proofs.SP11.augmentedPriorVertex
+#print axioms NLA.Proofs.SP11.augmentedPriorVertex
+#assert_proof_constant NLA.Proofs.SP11.augmentedPriorVertex_strictMono
+#assert_trust kernel NLA.Proofs.SP11.augmentedPriorVertex_strictMono
+#print axioms NLA.Proofs.SP11.augmentedPriorVertex_strictMono
+#assert_proof_constant NLA.Proofs.SP11.augmentedPriorVertex_label_lt_parent
+#assert_trust kernel NLA.Proofs.SP11.augmentedPriorVertex_label_lt_parent
+#print axioms NLA.Proofs.SP11.augmentedPriorVertex_label_lt_parent
+#assert_proof_constant NLA.Proofs.SP11.augmentedPriorNonneighbors_count_lt_vertex
+#assert_trust kernel NLA.Proofs.SP11.augmentedPriorNonneighbors_count_lt_vertex
+#print axioms NLA.Proofs.SP11.augmentedPriorNonneighbors_count_lt_vertex
+#assert_proof_constant NLA.Proofs.SP11.prior_filter_length_le_augmented
+#assert_trust kernel NLA.Proofs.SP11.prior_filter_length_le_augmented
+#print axioms NLA.Proofs.SP11.prior_filter_length_le_augmented
+#assert_proof_constant NLA.Proofs.SP11.OrderedGreedy.augmentedPriorVertex_arity_le_slot
+#assert_trust kernel NLA.Proofs.SP11.OrderedGreedy.augmentedPriorVertex_arity_le_slot
+#print axioms NLA.Proofs.SP11.OrderedGreedy.augmentedPriorVertex_arity_le_slot
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.rootLabel
+#print axioms NLA.Proofs.SP11.GardenTree.rootLabel
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.rootOccurrence
+#print axioms NLA.Proofs.SP11.GardenTree.rootOccurrence
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.occurrenceLabel_rootOccurrence
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.occurrenceLabel_rootOccurrence
+#print axioms NLA.Proofs.SP11.GardenTree.occurrenceLabel_rootOccurrence
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.childOccurrence
+#print axioms NLA.Proofs.SP11.GardenTree.childOccurrence
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.occurrenceColors_rootOccurrence
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.occurrenceColors_rootOccurrence
+#print axioms NLA.Proofs.SP11.GardenTree.occurrenceColors_rootOccurrence
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.occurrenceColors_childOccurrence
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.occurrenceColors_childOccurrence
+#print axioms NLA.Proofs.SP11.GardenTree.occurrenceColors_childOccurrence
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.HasChildLabels
+#print axioms NLA.Proofs.SP11.GardenTree.HasChildLabels
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.occurrenceLabel_childOccurrence
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.occurrenceLabel_childOccurrence
+#print axioms NLA.Proofs.SP11.GardenTree.occurrenceLabel_childOccurrence
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.IsRootOccurrence
+#print axioms NLA.Proofs.SP11.GardenTree.IsRootOccurrence
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.DescendingLabels
+#print axioms NLA.Proofs.SP11.GardenTree.DescendingLabels
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.occurrenceLabel_le_root
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.occurrenceLabel_le_root
+#print axioms NLA.Proofs.SP11.GardenTree.occurrenceLabel_le_root
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.occurrenceLabel_lt_root_of_not_root
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.occurrenceLabel_lt_root_of_not_root
+#print axioms NLA.Proofs.SP11.GardenTree.occurrenceLabel_lt_root_of_not_root
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.occurrenceLabel_eq_root_iff
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.occurrenceLabel_eq_root_iff
+#print axioms NLA.Proofs.SP11.GardenTree.occurrenceLabel_eq_root_iff
+#assert_proof_constant NLA.Proofs.SP11.lssGarden_rootLabel
+#assert_trust kernel NLA.Proofs.SP11.lssGarden_rootLabel
+#print axioms NLA.Proofs.SP11.lssGarden_rootLabel
+#assert_proof_constant NLA.Proofs.SP11.lssGarden_hasChildLabels
+#assert_trust kernel NLA.Proofs.SP11.lssGarden_hasChildLabels
+#print axioms NLA.Proofs.SP11.lssGarden_hasChildLabels
+#assert_proof_constant NLA.Proofs.SP11.lssGarden_childOccurrence_label
+#assert_trust kernel NLA.Proofs.SP11.lssGarden_childOccurrence_label
+#print axioms NLA.Proofs.SP11.lssGarden_childOccurrence_label
+#assert_proof_constant NLA.Proofs.SP11.lssGarden_childOccurrence_label_lt
+#assert_trust kernel NLA.Proofs.SP11.lssGarden_childOccurrence_label_lt
+#print axioms NLA.Proofs.SP11.lssGarden_childOccurrence_label_lt
+#assert_proof_constant NLA.Proofs.SP11.lssGarden_descendingLabels
+#assert_trust kernel NLA.Proofs.SP11.lssGarden_descendingLabels
+#print axioms NLA.Proofs.SP11.lssGarden_descendingLabels
+#assert_proof_constant NLA.Proofs.SP11.lssGarden_occurrenceLabel_le
+#assert_trust kernel NLA.Proofs.SP11.lssGarden_occurrenceLabel_le
+#print axioms NLA.Proofs.SP11.lssGarden_occurrenceLabel_le
+#assert_proof_constant NLA.Proofs.SP11.lssGarden_occurrenceLabel_eq_iff_root
+#assert_trust kernel NLA.Proofs.SP11.lssGarden_occurrenceLabel_eq_iff_root
+#print axioms NLA.Proofs.SP11.lssGarden_occurrenceLabel_eq_iff_root
+#assert_proof_constant NLA.Proofs.SP11.lssGarden_child_occurrenceLabel_lt
+#assert_trust kernel NLA.Proofs.SP11.lssGarden_child_occurrenceLabel_lt
+#print axioms NLA.Proofs.SP11.lssGarden_child_occurrenceLabel_lt
+#assert_proof_constant NLA.Proofs.SP11.lssGarden_prior_sibling_rootLabel_lt
+#assert_trust kernel NLA.Proofs.SP11.lssGarden_prior_sibling_rootLabel_lt
+#print axioms NLA.Proofs.SP11.lssGarden_prior_sibling_rootLabel_lt
+#assert_proof_constant NLA.Proofs.SP11.lssGarden_augmented_sibling_rootLabel_lt
+#assert_trust kernel NLA.Proofs.SP11.lssGarden_augmented_sibling_rootLabel_lt
+#print axioms NLA.Proofs.SP11.lssGarden_augmented_sibling_rootLabel_lt
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.isRootOccurrence_iff_eq
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.isRootOccurrence_iff_eq
+#print axioms NLA.Proofs.SP11.GardenTree.isRootOccurrence_iff_eq
+#assert_proof_constant NLA.Proofs.SP11.GardenTree.exists_parent_of_not_root
+#assert_trust kernel NLA.Proofs.SP11.GardenTree.exists_parent_of_not_root
+#print axioms NLA.Proofs.SP11.GardenTree.exists_parent_of_not_root
+#assert_proof_constant NLA.Proofs.SP11.priorInsertionPosition_le_length
+#assert_trust kernel NLA.Proofs.SP11.priorInsertionPosition_le_length
+#print axioms NLA.Proofs.SP11.priorInsertionPosition_le_length
+#assert_trust kernel NLA.Proofs.SP11.priorInsertionPosition
+#print axioms NLA.Proofs.SP11.priorInsertionPosition
+#assert_proof_constant NLA.Proofs.SP11.priorInsertionPosition_val
+#assert_trust kernel NLA.Proofs.SP11.priorInsertionPosition_val
+#print axioms NLA.Proofs.SP11.priorInsertionPosition_val
+#assert_trust kernel NLA.Proofs.SP11.augmentedPriorIndex
+#print axioms NLA.Proofs.SP11.augmentedPriorIndex
+#assert_proof_constant NLA.Proofs.SP11.augmentedPriorIndex_val
+#assert_trust kernel NLA.Proofs.SP11.augmentedPriorIndex_val
+#print axioms NLA.Proofs.SP11.augmentedPriorIndex_val
+#assert_proof_constant NLA.Proofs.SP11.augmented_filter_lt_inserted_eq
+#assert_trust kernel NLA.Proofs.SP11.augmented_filter_lt_inserted_eq
+#print axioms NLA.Proofs.SP11.augmented_filter_lt_inserted_eq
+#assert_proof_constant NLA.Proofs.SP11.augmentedPriorVertex_at_insertion
+#assert_trust kernel NLA.Proofs.SP11.augmentedPriorVertex_at_insertion
+#print axioms NLA.Proofs.SP11.augmentedPriorVertex_at_insertion
+#assert_proof_constant NLA.Proofs.SP11.augmentedPriorVertex_succAbove
+#assert_trust kernel NLA.Proofs.SP11.augmentedPriorVertex_succAbove
+#print axioms NLA.Proofs.SP11.augmentedPriorVertex_succAbove
+#assert_trust kernel NLA.Proofs.SP11.augmentedColors
+#print axioms NLA.Proofs.SP11.augmentedColors
+#assert_proof_constant NLA.Proofs.SP11.augmentedColors_at_cap
+#assert_trust kernel NLA.Proofs.SP11.augmentedColors_at_cap
+#print axioms NLA.Proofs.SP11.augmentedColors_at_cap
+#assert_proof_constant NLA.Proofs.SP11.augmentedColors_at_child
+#assert_trust kernel NLA.Proofs.SP11.augmentedColors_at_child
+#print axioms NLA.Proofs.SP11.augmentedColors_at_child
+#assert_proof_constant NLA.Proofs.SP11.augmentedColors_injective
+#assert_trust kernel NLA.Proofs.SP11.augmentedColors_injective
+#print axioms NLA.Proofs.SP11.augmentedColors_injective
+#assert_proof_constant NLA.Proofs.SP11.augmentedColors_reindex
+#assert_trust kernel NLA.Proofs.SP11.augmentedColors_reindex
+#print axioms NLA.Proofs.SP11.augmentedColors_reindex
+#assert_proof_constant NLA.Proofs.SP11.augmentedColors_castLE
+#assert_trust kernel NLA.Proofs.SP11.augmentedColors_castLE
+#print axioms NLA.Proofs.SP11.augmentedColors_castLE
+#assert_proof_constant NLA.Proofs.SP11.occurrenceExponent_le
+#assert_trust kernel NLA.Proofs.SP11.occurrenceExponent_le
+#print axioms NLA.Proofs.SP11.occurrenceExponent_le
+#assert_proof_constant NLA.Proofs.SP11.occurrenceExponent_lt
+#assert_trust kernel NLA.Proofs.SP11.occurrenceExponent_lt
+#print axioms NLA.Proofs.SP11.occurrenceExponent_lt
+#assert_proof_constant NLA.Proofs.SP11.occurrenceExponent_eq_iff
+#assert_trust kernel NLA.Proofs.SP11.occurrenceExponent_eq_iff
+#print axioms NLA.Proofs.SP11.occurrenceExponent_eq_iff
+#assert_proof_constant NLA.Proofs.SP11.coeff_sum_monomial_of_unique
+#assert_trust kernel NLA.Proofs.SP11.coeff_sum_monomial_of_unique
+#print axioms NLA.Proofs.SP11.coeff_sum_monomial_of_unique
+#assert_proof_constant NLA.Proofs.SP11.sum_monomial_ne_zero_of_unique
+#assert_trust kernel NLA.Proofs.SP11.sum_monomial_ne_zero_of_unique
+#print axioms NLA.Proofs.SP11.sum_monomial_ne_zero_of_unique

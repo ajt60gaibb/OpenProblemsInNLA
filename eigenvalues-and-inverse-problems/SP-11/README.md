@@ -6,10 +6,21 @@
 
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
-**Status:** Solved
-**Last checked:** 2026-09-11
+**Status:** Lean verified
+**Last checked:** 2026-10-18
 
 **Rating rationale (historical):** Extreme reflects the longstanding all-graph gap between a local degree constraint and an exact matrix-realization guarantee. Community impact comes from controlling achievable eigenvalue multiplicity across symmetric sparsity patterns.
+
+<!-- formal-lean-proof:start -->
+## Lean proof and verification evidence - 2026-10-18
+
+**Lean verified.** The [immutable complete Lean proof](https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/9264361fafb89b37b5c48236afebb304bc84110a/eigenvalues-and-inverse-problems/SP-11/lean/Solution.lean) proves the original all-graph real symmetric target, with unrestricted diagonal and edge signs. The exact statement, full proof and canonical package received [independent AI-agent reviews](../../docs/lean/proofs/SP-11/README.md).
+
+The [actual Linux CI run](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/39131755109) passed the real isolated Comparator, default kernel, LeanCert kernel trust and rejection controls. The [receipt](../../docs/lean/proofs/SP-11/LINUX_CI_RECEIPT.md) binds all 135 project inputs to the checked commit. Only the standard foundational axioms are used.
+
+The mathematical theorem remains credited to H. Tracy Hall; the Lean formalization and reviews are OpenAI Codex AI-agent work. The original [page, TeX and PDF](../../docs/lean/campaign-2026-10-17/verification/sp11-originals-47006/manifest.json) are archived byte for byte. All mathematical text, attribution and dated history below are retained.
+
+<!-- formal-lean-proof:end -->
 
 ## Literature-dependent resolution - 2026-09-11
 

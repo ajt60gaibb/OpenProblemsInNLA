@@ -1,16 +1,16 @@
 # Proof inventory for the 47 formerly Solved targets
 
 This source-level inventory records the 47 targets that had `Solved` status
-before the split proof campaign. The eight full-target proofs below now have
+before the split proof campaign. The nine full-target proofs below now have
 canonical `Lean verified` status after independent scope review and recorded
-kernel verification. The remaining 39 retain `Solved` status. This inventory
+kernel verification. The remaining 38 retain `Solved` status. This inventory
 alone does not certify a proof; each promoted canonical README records its
 statement comparison, pinned source, successful verification log, and axiom
 audit. Permanent IDs and mathematical targets are unchanged. Historical copies
 under `reviews/`, `verification/`, and archive directories are evidence, not
 live solution sources.
 
-## Full-target local proofs promoted to Lean verified (8)
+## Full-target local proofs promoted to Lean verified (9)
 
 | ID | Live proof source | Evidence and remaining gate |
 | --- | --- | --- |
@@ -22,6 +22,11 @@ live solution sources.
 | RA-10 | [`Solution.lean`](../../../randomized-and-low-rank-approximation/RA-10/lean/Solution.lean) | The [two independent final source reviews](../../../randomized-and-low-rank-approximation/RA-10/lean/reviews/FINAL_FORMALIZATION_REVIEW_1.md) and [isolated Linux Comparator/LeanCert kernel receipt](RA-10/LINUX_CI_RECEIPT.md) verify the complete frozen existential target with universal witness 11, arbitrary PSD pair and selected eigenbases, all admissible operator-monotone functions, and only standard axioms. The substantive 95-module proof closure is pinned to commit `844237f7`. |
 | MD-03 | [`Proof.lean`](../../../matrix-discrepancy-and-optimization/MD-03/lean/NLA/MD03/Proof.lean) | Proves the complete universal signing target with C=36 through a pinned Komlós formalization. The [independent source review](MD-03/INDEPENDENT_REVIEW.md) and [isolated Linux Comparator/kernel receipt](MD-03/LINUX_CI_RECEIPT.md) pass with only standard axioms. |
 | MD-04 | [`Proof.lean`](../../../matrix-discrepancy-and-optimization/MD-04/lean/NLA/MD04/Proof.lean) | Proves the complete square-root sparsity target with C=36 by rescaling 0–1 matrices into the pinned MD-03 Komlós theorem. The [independent source review](MD-04/INDEPENDENT_REVIEW.md) and [isolated Linux Comparator/kernel receipt](MD-04/LINUX_CI_RECEIPT.md) pass with only standard axioms. |
+| SP-11 | [`Solution.lean`](../../../eigenvalues-and-inverse-problems/SP-11/lean/Solution.lean) | Proves the full frozen unrestricted real symmetric delta Target using actual shared-variable noncancellation and greedy relabeling. Independent [full source/package reviews](SP-11/README.md) and the [actual isolated Linux Comparator/LeanCert kernel receipt](SP-11/LINUX_CI_RECEIPT.md) pass with only standard axioms. The original page, TeX and PDF are archived byte for byte. |
+
+The [17 October campaign inventory](../campaign-2026-10-17/inventory/README.md)
+retains the original immutable snapshots and candidate evidence. MD-03, MD-04,
+and RA-10 were subsequently merged into published main; SP-11 is promoted here.
 
 ## Local partial solution projects (8)
 
@@ -576,7 +581,7 @@ symmetric terms under actual nonzero least-apolar hypotheses. Its
 give one normalized-chart upper bound, including repeated roots. The
 original-coordinate projective root count, other width bounds, and full Target remain open.
 
-## Unpromoted shared statement definitions (31)
+## Shared statement only; no live proof source (30)
 
 The following files define a `Target : Prop` and pass statement-boundary checks.
 They have no full live proof. The source-path pattern is
@@ -588,21 +593,20 @@ They have no full live proof. The source-path pattern is
 | AV-02 | [`AV02.lean`](../../../lean-statements/NLA/Statements/AV02.lean) | FR-10 | [`FR10.lean`](../../../lean-statements/NLA/Statements/FR10.lean) |
 | IE-08 | [`IE08.lean`](../../../lean-statements/NLA/Statements/IE08.lean) | IE-10 | [`IE10.lean`](../../../lean-statements/NLA/Statements/IE10.lean) |
 | IE-12 | [`IE12.lean`](../../../lean-statements/NLA/Statements/IE12.lean) | IE-26 | [`IE26.lean`](../../../lean-statements/NLA/Statements/IE26.lean) |
-| IV-05 | [`IV05.lean`](../../../lean-statements/NLA/Statements/IV05.lean) | | |
-| MF-08 | [`MF08.lean`](../../../lean-statements/NLA/Statements/MF08.lean) | MI-16 | [`MI16.lean`](../../../lean-statements/NLA/Statements/MI16.lean) |
-| MI-31 | [`MI31.lean`](../../../lean-statements/NLA/Statements/MI31.lean) | NM-03 | [`NM03.lean`](../../../lean-statements/NLA/Statements/NM03.lean) |
-| PF-04 | [`PF04.lean`](../../../lean-statements/NLA/Statements/PF04.lean) | PF-05 | [`PF05.lean`](../../../lean-statements/NLA/Statements/PF05.lean) |
-| RA-04 | [`RA04.lean`](../../../lean-statements/NLA/Statements/RA04.lean) | RA-05 | [`RA05.lean`](../../../lean-statements/NLA/Statements/RA05.lean) |
-| RA-12 | [`RA12.lean`](../../../lean-statements/NLA/Statements/RA12.lean) | RA-13 | [`RA13.lean`](../../../lean-statements/NLA/Statements/RA13.lean) |
-| RA-19 | [`RA19.lean`](../../../lean-statements/NLA/Statements/RA19.lean) | RE-05 | [`RE05.lean`](../../../lean-statements/NLA/Statements/RE05.lean) |
-| RE-06 | [`RE06.lean`](../../../lean-statements/NLA/Statements/RE06.lean) | SP-11 | [`SP11.lean`](../../../lean-statements/NLA/Statements/SP11.lean) |
+| IV-05 | [`IV05.lean`](../../../lean-statements/NLA/Statements/IV05.lean) | MF-08 | [`MF08.lean`](../../../lean-statements/NLA/Statements/MF08.lean) |
+| MI-16 | [`MI16.lean`](../../../lean-statements/NLA/Statements/MI16.lean) | MI-31 | [`MI31.lean`](../../../lean-statements/NLA/Statements/MI31.lean) |
+| NM-03 | [`NM03.lean`](../../../lean-statements/NLA/Statements/NM03.lean) | PF-04 | [`PF04.lean`](../../../lean-statements/NLA/Statements/PF04.lean) |
+| PF-05 | [`PF05.lean`](../../../lean-statements/NLA/Statements/PF05.lean) | RA-04 | [`RA04.lean`](../../../lean-statements/NLA/Statements/RA04.lean) |
+| RA-05 | [`RA05.lean`](../../../lean-statements/NLA/Statements/RA05.lean) | RA-12 | [`RA12.lean`](../../../lean-statements/NLA/Statements/RA12.lean) |
+| RA-13 | [`RA13.lean`](../../../lean-statements/NLA/Statements/RA13.lean) | RA-19 | [`RA19.lean`](../../../lean-statements/NLA/Statements/RA19.lean) |
+| RE-05 | [`RE05.lean`](../../../lean-statements/NLA/Statements/RE05.lean) | RE-06 | [`RE06.lean`](../../../lean-statements/NLA/Statements/RE06.lean) |
 | SP-12 | [`SP12.lean`](../../../lean-statements/NLA/Statements/SP12.lean) | SP-13 | [`SP13.lean`](../../../lean-statements/NLA/Statements/SP13.lean) |
 | TR-06 | [`TR06.lean`](../../../lean-statements/NLA/Statements/TR06.lean) | TR-08 | [`TR08.lean`](../../../lean-statements/NLA/Statements/TR08.lean) |
-| TR-17 | [`TR17.lean`](../../../lean-statements/NLA/Statements/TR17.lean) | | |
-| TR-20 | [`TR20.lean`](../../../lean-statements/NLA/Statements/TR20.lean) | TR-21 | [`TR21.lean`](../../../lean-statements/NLA/Statements/TR21.lean) |
-| TR-26 | [`TR26.lean`](../../../lean-statements/NLA/Statements/TR26.lean) | | |
+| TR-17 | [`TR17.lean`](../../../lean-statements/NLA/Statements/TR17.lean) | TR-20 | [`TR20.lean`](../../../lean-statements/NLA/Statements/TR20.lean) |
+| TR-21 | [`TR21.lean`](../../../lean-statements/NLA/Statements/TR21.lean) | TR-26 | [`TR26.lean`](../../../lean-statements/NLA/Statements/TR26.lean) |
 
 LeanCert `#assert_statement`, `#assert_trust kernel`, frozen identity checks,
 and the shared Comparator certificates check statement definitions and their
-trust closure. They do not prove any of the 33 statement-only propositions or
-upgrade the nine partial projects to full proofs.
+trust closure. They do not prove any of the 30 statement-only propositions or
+upgrade the eight partial projects to full proofs. Complete-target wrappers
+still require their own reviewed exact-revision verification and promotion.

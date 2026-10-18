@@ -1,0 +1,13 @@
+import Challenge
+import Identity
+import LeanCert.Tactic.Verification
+#check NLA.SP11.target
+#check NLA.SP11.target_eq_reviewed
+#assert_trust kernel NLA.SP11.target_eq_reviewed
+#print axioms NLA.SP11.target_eq_reviewed
+open Lean Elab Command in
+elab "#require_target_theorem" : command => do
+  match (← getEnv).find? `NLA.SP11.target with
+  | some (.thmInfo _) => pure ()
+  | _ => throwError "target must be a theorem constant"
+#require_target_theorem

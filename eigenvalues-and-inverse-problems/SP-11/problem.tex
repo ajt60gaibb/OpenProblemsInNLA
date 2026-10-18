@@ -34,7 +34,7 @@ rank},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}SP-11}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Verification check: 2026-10-18}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -51,7 +51,7 @@ delta conjecture for minimum symmetric rank\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} extreme\quad\textbf{Importance:} interesting
 to the community\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
@@ -61,14 +61,39 @@ exact matrix-realization guarantee. Community impact comes from
 controlling achievable eigenvalue multiplicity across symmetric sparsity
 patterns.
 
+\subsection{Lean proof and verification evidence -
+2026-10-18}\label{lean-proof-and-verification-evidence---2026-10-18}
+
+\textbf{Lean verified.} The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/9264361fafb89b37b5c48236afebb304bc84110a/eigenvalues-and-inverse-problems/SP-11/lean/Solution.lean}{immutable
+complete Lean proof} proves the original all-graph real symmetric
+target, with unrestricted diagonal and edge signs. The exact statement,
+full proof and canonical package received
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/proofs/SP-11/README.md}{independent
+AI-agent reviews}.
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/39131755109}{actual
+Linux CI run} passed the real isolated Comparator, default kernel,
+LeanCert kernel trust and rejection controls. The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/proofs/SP-11/LINUX_CI_RECEIPT.md}{receipt}
+binds all 135 project inputs to the checked commit. Only the standard
+foundational axioms are used.
+
+The mathematical theorem remains credited to H. Tracy Hall; the Lean
+formalization and reviews are OpenAI Codex AI-agent work. The original
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/campaign-2026-10-17/verification/sp11-originals-47006/manifest.json}{page,
+TeX and PDF} are archived byte for byte. All mathematical text,
+attribution and dated history below are retained.
+
 \subsection{Literature-dependent resolution -
 2026-09-11}\label{literature-dependent-resolution---2026-09-11}
 
 \textbf{Solved.} Hall's \textbf{Corollaries 3.22 and 3.24}, based on
 \textbf{Theorem 3.20}, give a PSD SAP matrix with nullity at least
 \(\delta(G)\). Forgetting PSD and SAP proves the exact unrestricted
-symmetric target \(\operatorname{mr}(G)\le n-\delta(G)\) for every
-finite simple graph.
+symmetric target \(\mathop{\mathrm{mr}}\nolimits(G)\le n-\delta(G)\) for
+every finite simple graph.
 
 The all-graph theorem is due to \textbf{H. Tracy Hall},
 \href{https://arxiv.org/html/2601.01211v1}{\emph{The Delta Theorem},
@@ -106,13 +131,17 @@ and let \(\delta(G)\) be its minimum vertex degree. Let
 whose off-diagonal nonzero entries occur exactly at edges of \(G\), with
 unrestricted diagonal entries.
 
-Must there exist \(A\in\mathcal S(G)\) such that \[
-\dim\ker A\ge\delta(G)?
-\] Equivalently, with
-\(\operatorname{mr}(G)=\min_{A\in\mathcal S(G)}\operatorname{rank}A\),
-is \[
-\operatorname{mr}(G)\le n-\delta(G)
-\] valid for every \(G\)?
+Must there exist \(A\in\mathcal S(G)\) such that
+
+\[\dim\ker A\ge\delta(G)?\]
+
+Equivalently, with
+\(\mathop{\mathrm{mr}}\nolimits(G)=\min_{A\in\mathcal S(G)}\mathop{\mathrm{rank}}\nolimits A\),
+is
+
+\[\mathop{\mathrm{mr}}\nolimits(G)\le n-\delta(G)\]
+
+valid for every \(G\)?
 
 \subsection{Relevance and ratings}\label{relevance-and-ratings}
 
