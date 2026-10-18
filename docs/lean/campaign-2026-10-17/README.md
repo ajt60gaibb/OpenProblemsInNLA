@@ -2,7 +2,7 @@
 
 **Active and incomplete.** The user requested exact Lean proofs of every Solved
 problem without one, starting with FR-05, using independent agents and
-LeanCert kernel mode. SP-11 is now promoted to Lean verified; permanent IDs
+LeanCert kernel mode. SP-11 and SP-12 are now promoted to Lean verified; permanent IDs
 and original mathematical targets are unchanged.
 
 The initial working checkout was stale and had unrelated uncommitted work.
@@ -46,12 +46,18 @@ SP-12 now has a complete [shared and canonical proof](../proofs/SP-12/README.md)
 after two fresh independent exact-statement reviews. Its twelve new modules
 supply real predecessor independence, Gram SAP, Strong Delta, actual Gram-map
 local surjectivity and vertex extension, and the chromatic induction. The full
-frozen Target compiles in LeanCert kernel mode with standard axioms. Fresh
-independent closure/package audits and actual committed-project Linux evidence
-are retained as separate gates; canonical status remains Solved until they pass.
-All 217 canonical pages and 611 immediate original artifacts remain byte-identical
-to the recorded SP-11 base before any SP-12 promotion. The source-level inventory
-tracks nine promoted targets, one complete pending target, eight partial projects
-and twenty-nine statement-only entries. Published main additionally contains the
-merged RA-10/MD-03/MD-04 promotions. There are 38 remaining Solved entries after
-SP-11; this milestone does not complete the user’s overall goal.
+frozen Target passes independent fresh shared/canonical audits (52/56 commands),
+actual isolated Linux run `39142969327` at immutable commit `529e7b0560cef6461c98e950046860a160e6f86c`,
+and its independent 40-check/96-input retained-artifact audit. Canonical status
+is Lean verified. Exact originals were archived before editing, and a separate
+16-check promotion audit preserves all IDs, original text/credit/history and
+55 checked Lean inputs. The descriptive metadata refresh receives new CI.
+
+The source-level inventory tracks ten promoted targets, eight partial projects
+and twenty-nine statement-only entries. Published main additionally contains
+the merged RA-10/MD-03/MD-04 promotions. There are 37 remaining Solved entries
+after SP-11/SP-12. The next actual proof development is TR-14, in a separate
+clone with all 39 exact retained candidate modules and two fresh independent
+preproof statement/route approvals. Its binary upper and unrestricted ordinary
+lower bounds remain substantive missing gates. This does not complete the
+user's overall goal.

@@ -47,9 +47,15 @@ The full shared theorem passed local LeanCert kernel checks with only
 `propext`, `Classical.choice` and `Quot.sound`. Independent source reviews and
 fresh full-closure audits are retained under
 [`docs/lean/proofs/SP-12`](../../../docs/lean/proofs/SP-12/README.md).
-The actual committed-project Linux Comparator run remains a separate gate.
-The canonical page remains Solved until that run and its independent artifact
-audit pass. Existing originals, IDs, paths and other canonical pages are unchanged.
+The [actual committed-project Linux receipt](../../../docs/lean/proofs/SP-12/LINUX_CI_RECEIPT.md)
+records successful full-target Comparator/default-kernel acceptance, LeanCert
+kernel trust and rejection controls at immutable commit
+`529e7b0560cef6461c98e950046860a160e6f86c`, run `39142969327`.
+Its independent artifact audit passes all 40 checks and every one of 96 original
+project input hashes. The canonical page is now Lean verified. This descriptive
+metadata refresh retains all 55 checked Lean inputs and will receive a fresh
+committed-project CI check. Originals, IDs, paths and other canonical pages remain
+preserved.
 
 Pinned dependencies: Lean 4.33.1, Mathlib
 `0df444a360eaa60ab8c11dca51a86af692955474`, LeanCert
@@ -70,5 +76,5 @@ tools/lean/verify.sh eigenvalues-and-inverse-problems/SP-12/lean /absolute/outsi
 The verifier requires a committed unchanged self-contained package and the
 normal unprivileged Linux isolation environment. It checks exactly
 `NLA.SP12.target`, permits no replaceable definitions and allows only the three
-foundational axioms. Local builds and the SP-11 prerequisite receipt are not a
-Linux Comparator receipt for SP-12. Do not commit dependency or compiled objects.
+foundational axioms. The SP-12 receipt above binds its actual immutable Linux-checked inputs; the
+separate SP-11 receipt covers prerequisites. Do not commit dependency or compiled objects.

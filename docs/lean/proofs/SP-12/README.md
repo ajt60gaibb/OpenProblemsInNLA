@@ -9,8 +9,11 @@ The final theorem has no extra premise. Local kernel checks report only
 `propext`, `Classical.choice` and `Quot.sound`.
 
 The self-contained [canonical package](../../../../eigenvalues-and-inverse-problems/SP-12/lean/README.md)
-is prepared for the real isolated Linux Comparator. Until that gate and its
-independent retained-artifact audit pass, the canonical page retains Solved.
+passed the [real isolated Linux Comparator/kernel gate](LINUX_CI_RECEIPT.md)
+at immutable proof commit `529e7b0560cef6461c98e950046860a160e6f86c`.
+The [retained-artifact audit](LINUX_ARTIFACT_REVIEW_2_2026-10-18.md) passes all
+40 checks and all 96 original project input hashes. The canonical page is now
+Lean verified; refreshed descriptive metadata receives a separate new CI run.
 IDs, canonical paths, original statements, original documents and all existing
 mathematical attributions are preserved.
 
@@ -76,5 +79,12 @@ peer review. The formal proof supplies the required constructions explicitly
 rather than assuming the paper's theorem. Its Gram-factor local-surjectivity
 route avoids formalizing a rank-stratum manifold, and its finite graph induction
 avoids a minimal-subgraph choice; both prove the unchanged original target.
-Local kernel compilation and the SP-11 receipt do not certify the committed
-SP-12 package's Linux Comparator acceptance. That receipt remains a separate gate.
+The [SP-12 receipt](LINUX_CI_RECEIPT.md) records its actual full committed-package
+acceptance; the separate SP-11 receipt covers prerequisites. The first package
+and refreshed metadata retain separate input hashes. Full fresh local audits
+are in [shared closure review](CLOSURE_REVIEW_2_2026-10-18.md) and
+[canonical closure review](CANONICAL_CLOSURE_REVIEW_2_2026-10-18.md). The
+[promotion preservation report](promotion/preservation.json) verifies that
+removing only the new marked notice/status/date recovers the entire original
+canonical page. [Original README, TeX and PDF](originals-main-36767/manifest.json)
+were archived byte for byte before promotion.
