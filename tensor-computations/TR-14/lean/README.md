@@ -5,11 +5,14 @@ NLA.Statements.TR14.Target`. The shared full theorem compiles with LeanCert
 kernel trust and only `propext`, `Classical.choice` and `Quot.sound`. Independent
 fresh shared and canonical audits pass 79 and 83 Lean commands, respectively.
 The canonical audit checks 453 declarations and 355 theorem kinds, including
-private constants and the literal unchanged Target. The actual exact-source Linux job has passed Comparator, both kernels and
-rejection/isolation controls at proof commit 54dcced7. At its pre-refresh audit, independent replay of the
-original artifact passed all source/control checks; the complete workflow receipt
-is pending only because the unrelated NR-03 job is still running. The canonical
-problem remains Solved until a complete strict receipt is retained.
+private constants and the literal unchanged Target. The exact-source Linux
+workflow passed Comparator, both kernels and rejection/isolation controls at
+proof commit 54dcced753d75e70a6592bd50b1e3daa7af2ca7e. Two independent strict
+replays in immutable proof-commit checkouts now pass all 41 controls and all
+139 original package input hashes, including 82 Lean sources. The canonical
+problem is Lean verified. All 82 checked Lean inputs remain byte-identical;
+this later descriptive/status refresh requires its own fresh committed-package
+Linux receipt, recorded separately from the original proof-commit artifact.
 
 The unchanged target quantifies every m >= 3, n >= 2, every complex moment
 vector of length m*(n-1)+1 and every natural width, including zero. Ordinary

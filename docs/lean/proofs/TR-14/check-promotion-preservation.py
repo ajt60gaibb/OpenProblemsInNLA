@@ -54,7 +54,7 @@ stripped, count = re.subn(pattern, "", new_readme, flags=re.S)
 stripped = stripped.replace("**Status:** Lean verified", "**Status:** Solved", 1)
 stripped = stripped.replace("**Last checked:** 2026-10-18", "**Last checked:** 2026-09-12", 1)
 check("all-original-TR14-text-credits-history-retained", count == 1 and stripped == base_readme)
-check("TR14-status-Lean-verified", "**Status:** Lean verified\n" in new_readme)
+check("TR14-status-Lean-verified", re.search(r"^\*\*Status:\*\* Lean verified[ \t]*$", new_readme, re.M) is not None)
 manifest = json.loads((ARCHIVE / "manifest.json").read_text())
 for item in manifest["records"]:
     data = (REPO / item["archive"]).read_bytes()
