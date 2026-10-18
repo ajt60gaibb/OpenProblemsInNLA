@@ -1,0 +1,102 @@
+NLA.Proofs.PF05.CommonChart.lowerShear_det (z : ℝ) : Matrix.det (NLA.Proofs.PF05.CommonChart.lowerShear z) = 1
+'NLA.Proofs.PF05.CommonChart.lowerShear_det' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.PF05.CommonChart.lowerShear_inv (z : ℝ) :
+  (NLA.Proofs.PF05.CommonChart.lowerShear z)⁻¹ = NLA.Proofs.PF05.CommonChart.lowerShear (-z)
+'NLA.Proofs.PF05.CommonChart.lowerShear_inv' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.PF05.CommonChart.exists_common_nonroot.{u_1} {ι : Type u_1} [Fintype ι] (P : ι → Polynomial ℝ)
+  (hP : ∀ (i : ι), P i ≠ 0) : ∃ z, ∀ (i : ι), Polynomial.eval z (P i) ≠ 0
+'NLA.Proofs.PF05.CommonChart.exists_common_nonroot' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.PF05.CommonChart.exists_common_chart {p q : ℕ} (A : Fin p → NLA.Proofs.PF05.CommonChart.M2)
+  (B : Fin q → NLA.Proofs.PF05.CommonChart.M2) (hA : ∀ (i : Fin p), NLA.Statements.PF05.PositiveSemidefinite (A i))
+  (hB : ∀ (j : Fin q), NLA.Statements.PF05.PositiveSemidefinite (B j)) (hneA : ∀ (i : Fin p), A i ≠ 0)
+  (hneB : ∀ (j : Fin q), B j ≠ 0) :
+  ∃ S,
+    Matrix.det S ≠ 0 ∧
+      (∀ (i : Fin p), 0 < NLA.Proofs.PF05.primalCongruence S (A i) 0 0) ∧
+        ∀ (j : Fin q), 0 < NLA.Proofs.PF05.dualCongruence S (B j) 1 1
+'NLA.Proofs.PF05.CommonChart.exists_common_chart' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.PF05.ConicDeterminant.conic_coefficients (L : NLA.Proofs.PF05.ConicDeterminant.M3)
+  (h :
+    ∀ (v : NLA.Proofs.PF05.ConicDeterminant.Vec2),
+      Matrix.det (NLA.Proofs.PF05.CoordinateActions.primal L (NLA.Proofs.PF05.ConicDeterminant.outer v)) = 0) :
+  L 0 0 * L 0 1 - L 0 2 ^ 2 = 0 ∧
+    L 1 0 * L 1 1 - L 1 2 ^ 2 = 0 ∧
+      L 0 0 * L 2 1 + L 2 0 * L 0 1 - 2 * L 0 2 * L 2 2 = 0 ∧
+        L 1 0 * L 2 1 + L 2 0 * L 1 1 - 2 * L 1 2 * L 2 2 = 0 ∧
+          NLA.Proofs.PF05.ConicDeterminant.scale L + L 2 0 * L 2 1 - L 2 2 ^ 2 = 0
+'NLA.Proofs.PF05.ConicDeterminant.conic_coefficients' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.PF05.ConicDeterminant.determinant_scale (L : NLA.Proofs.PF05.ConicDeterminant.M3)
+  (h :
+    ∀ (v : NLA.Proofs.PF05.ConicDeterminant.Vec2),
+      Matrix.det (NLA.Proofs.PF05.CoordinateActions.primal L (NLA.Proofs.PF05.ConicDeterminant.outer v)) = 0)
+  (A : NLA.Proofs.PF05.ConicDeterminant.M2) (hA : NLA.Statements.PF05.Symmetric A) :
+  Matrix.det (NLA.Proofs.PF05.CoordinateActions.primal L A) = NLA.Proofs.PF05.ConicDeterminant.scale L * Matrix.det A
+'NLA.Proofs.PF05.ConicDeterminant.determinant_scale' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.PF05.ConicDeterminant.metric_identity (L : NLA.Proofs.PF05.ConicDeterminant.M3)
+  (h :
+    ∀ (v : NLA.Proofs.PF05.ConicDeterminant.Vec2),
+      Matrix.det (NLA.Proofs.PF05.CoordinateActions.primal L (NLA.Proofs.PF05.ConicDeterminant.outer v)) = 0) :
+  L * NLA.Proofs.PF05.ConicDeterminant.metric * Matrix.transpose L =
+    NLA.Proofs.PF05.ConicDeterminant.scale L • NLA.Proofs.PF05.ConicDeterminant.metric
+'NLA.Proofs.PF05.ConicDeterminant.metric_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.PF05.ConicDeterminant.scale_cube (L : NLA.Proofs.PF05.ConicDeterminant.M3)
+  (h :
+    ∀ (v : NLA.Proofs.PF05.ConicDeterminant.Vec2),
+      Matrix.det (NLA.Proofs.PF05.CoordinateActions.primal L (NLA.Proofs.PF05.ConicDeterminant.outer v)) = 0) :
+  NLA.Proofs.PF05.ConicDeterminant.scale L ^ 3 = Matrix.det L ^ 2
+'NLA.Proofs.PF05.ConicDeterminant.scale_cube' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.PF05.ConicDeterminant.scale_pos (L : NLA.Proofs.PF05.ConicDeterminant.M3) (hL : Matrix.det L ≠ 0)
+  (h :
+    ∀ (v : NLA.Proofs.PF05.ConicDeterminant.Vec2),
+      Matrix.det (NLA.Proofs.PF05.CoordinateActions.primal L (NLA.Proofs.PF05.ConicDeterminant.outer v)) = 0) :
+  0 < NLA.Proofs.PF05.ConicDeterminant.scale L
+'NLA.Proofs.PF05.ConicDeterminant.scale_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.PF05.ConicPositive.primal_outer_psd (L : NLA.Proofs.PF05.ConicPositive.M3) (hL : Matrix.det L ≠ 0)
+  (h :
+    ∀ (v : NLA.Proofs.PF05.ConicPositive.Vec2),
+      Matrix.det (NLA.Proofs.PF05.CoordinateActions.primal L (NLA.Proofs.PF05.ConicPositive.outer v)) = 0)
+  (P : NLA.Proofs.PF05.ConicPositive.M2) (hP : Matrix.PosDef P)
+  (hLP : Matrix.PosDef (NLA.Proofs.PF05.CoordinateActions.primal L P)) (v : NLA.Proofs.PF05.ConicPositive.Vec2) :
+  NLA.Statements.PF05.PositiveSemidefinite
+    (NLA.Proofs.PF05.CoordinateActions.primal L (NLA.Proofs.PF05.ConicPositive.outer v))
+'NLA.Proofs.PF05.ConicPositive.primal_outer_psd' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.PF05.ConicPositive.primal_inv_outer_psd (L : NLA.Proofs.PF05.ConicPositive.M3) (hL : Matrix.det L ≠ 0)
+  (h :
+    ∀ (v : NLA.Proofs.PF05.ConicPositive.Vec2),
+      Matrix.det (NLA.Proofs.PF05.CoordinateActions.primal L (NLA.Proofs.PF05.ConicPositive.outer v)) = 0)
+  (P : NLA.Proofs.PF05.ConicPositive.M2) (hP : Matrix.PosDef P)
+  (hLP : Matrix.PosDef (NLA.Proofs.PF05.CoordinateActions.primal L P)) (v : NLA.Proofs.PF05.ConicPositive.Vec2) :
+  NLA.Statements.PF05.PositiveSemidefinite
+    (NLA.Proofs.PF05.CoordinateActions.primal L⁻¹ (NLA.Proofs.PF05.ConicPositive.outer v))
+'NLA.Proofs.PF05.ConicPositive.primal_inv_outer_psd' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.PF05.ConicPositive.dual_inv_outer_psd (L : NLA.Proofs.PF05.ConicPositive.M3) (hL : Matrix.det L ≠ 0)
+  (h :
+    ∀ (v : NLA.Proofs.PF05.ConicPositive.Vec2),
+      Matrix.det (NLA.Proofs.PF05.CoordinateActions.primal L (NLA.Proofs.PF05.ConicPositive.outer v)) = 0)
+  (P : NLA.Proofs.PF05.ConicPositive.M2) (hP : Matrix.PosDef P)
+  (hLP : Matrix.PosDef (NLA.Proofs.PF05.CoordinateActions.primal L P)) (w : NLA.Proofs.PF05.ConicPositive.Vec2) :
+  NLA.Statements.PF05.PositiveSemidefinite
+    (NLA.Proofs.PF05.CoordinateActions.dual L⁻¹ (NLA.Proofs.PF05.ConicPositive.outer w))
+'NLA.Proofs.PF05.ConicPositive.dual_inv_outer_psd' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.PF05.ConicCongruence.actual_rank : NLA.Proofs.PF05.ConicCongruence.matrix.rank = 3
+'NLA.Proofs.PF05.ConicCongruence.actual_rank' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.PF05.ConicCongruence.operator_congruence (L : NLA.Proofs.PF05.ConicCongruence.M3) (hL : Matrix.det L ≠ 0)
+  (h :
+    ∀ (v : NLA.Proofs.PF05.ConicCongruence.Vec2),
+      Matrix.det (NLA.Proofs.PF05.CoordinateActions.primal L (NLA.Proofs.PF05.ConicPositive.outer v)) = 0)
+  (P : NLA.Proofs.PF05.ConicCongruence.M2) (hP : Matrix.PosDef P)
+  (hLP : Matrix.PosDef (NLA.Proofs.PF05.CoordinateActions.primal L P)) :
+  ∃ S, Matrix.det S ≠ 0 ∧ L = NLA.Proofs.PF05.CoordinateActions.congruenceOperator S
+'NLA.Proofs.PF05.ConicCongruence.operator_congruence' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.PF05.ConicCongruence.congruent_of_conic_alternative {p q : ℕ} (M : Matrix (Fin p) (Fin q) ℝ)
+  (A At : Fin p → NLA.Proofs.PF05.ConicCongruence.M2) (B Bt : Fin q → NLA.Proofs.PF05.ConicCongruence.M2)
+  (hfact : NLA.Statements.PF05.Factorization M A B) (ht : NLA.Statements.PF05.Factorization M At Bt)
+  (hrank : M.rank = 3) (L : NLA.Proofs.PF05.ConicCongruence.M3) (hL : Matrix.det L ≠ 0)
+  (hmap : ∀ (i : Fin p), At i = NLA.Proofs.PF05.CoordinateActions.primal L (A i))
+  (h :
+    ∀ (v : NLA.Proofs.PF05.ConicCongruence.Vec2),
+      Matrix.det (NLA.Proofs.PF05.CoordinateActions.primal L (NLA.Proofs.PF05.ConicPositive.outer v)) = 0) :
+  NLA.Proofs.PF05.Congruent A At B Bt
+'NLA.Proofs.PF05.ConicCongruence.congruent_of_conic_alternative' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
