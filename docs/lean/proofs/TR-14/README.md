@@ -159,4 +159,14 @@ pre-promotion record and is not relabeled as a post-promotion claim.
 The canonical package's descriptive README and metadata changed after the
 proof-commit receipt. All 82 checked Lean sources remain byte-identical; the
 promotion requires a fresh actual Linux run for its current committed package.
-That refreshed receipt is recorded separately when available.
+The [actual promotion-package Linux receipt](verification/promotion-linux-ci/20d11f8c/independent-review-3.json)
+and [root replay](verification/promotion-linux-ci/20d11f8c/root-review.json) now
+pass all 41 controls and all 139 current package inputs at exact promotion
+commit 20d11f8c4dce455fcd952b04b390d42c0bc4d25e. The later heading-only correction
+16a1150d81f606ed6a8333be8c04730e0a477525 keeps the entire checked package
+byte-identical; its own exact-commit Linux and boundary runs are tracked
+separately. The initial boundary failure was a required notice heading mismatch.
+The heading was corrected to the established wording, the unchanged validator
+then passed all 45 records, and both regenerated PDF pages passed independent
+visual review again. First-promotion files, reports and the failed CI log remain
+archived. No statement guard or proof input was changed.
