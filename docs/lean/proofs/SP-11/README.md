@@ -1,10 +1,10 @@
 # SP-11 proof development
 
-**Full local proof; final Linux verification pending.**
+**Lean verified: complete target and actual Linux Comparator/kernel evidence.**
 `NLA.Proofs.SP11.target` proves the unchanged frozen
-`NLA.Statements.SP11.Target` in LeanCert kernel mode. The canonical Solved
-status, original text, permanent ID and source
-credits are unchanged. The substantive delta theorem is H. Tracy Hall's
+`NLA.Statements.SP11.Target` in LeanCert kernel mode. The canonical status is
+Lean verified. The original text, permanent ID and source credits are retained;
+pre-promotion originals are archived byte for byte. The substantive delta theorem is H. Tracy Hall's
 [*The Delta Theorem*](https://arxiv.org/html/2601.01211v1); this development
 formalizes its representation route with OpenAI Codex AI agents.
 
@@ -54,10 +54,24 @@ records a fresh 32-module local closure audit of 263 declarations, including
 [full-target review](CLOSURE_REVIEW_2_2026-10-18.md) records 39 fresh commands,
 289 declarations and 199 theorem/lemma checks, including the literal Target
 type, kernel trust and standard axiom closure of `NLA.Proofs.SP11.target`.
-The retained [Linux support receipt](LINUX_SUPPORT_CI_RECEIPT.md) covers only
-the earlier seven-module published revision; it does not cover later files.
-The historical shared Comparator job verifies frozen statement identities;
-it is not a full SP-11 proof comparison. The self-contained canonical project
-is being assembled after independent hash-bound Challenge reviews. Final
-independent reviews and a successful fresh Linux Comparator/kernel run for
-that exact project remain required before canonical promotion.
+The [complete canonical-package review](CANONICAL_CLOSURE_REVIEW_2_2026-10-18.md)
+records 42 fresh commands and 291 audited declarations, including the literal
+full `NLA.SP11.target` and only standard foundational axioms. The
+[first full closure review](CLOSURE_REVIEW_1.md) and second full-target review
+provide independent source and scope checks.
+
+The [actual complete-target Linux receipt](LINUX_CI_RECEIPT.md) records successful
+run [39131755109](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/39131755109)
+for immutable commit `9264361fafb89b37b5c48236afebb304bc84110a`. The real isolated
+Comparator accepted `NLA.SP11.target`; LeanCert checked its kernel trust and
+standard axiom closure. An independent artifact audit passed 40 checks and bound
+all 135 committed project inputs, the original archive, raw job log and all
+sandbox/kernel/Comparator rejection controls. This proof needs exact finite
+algebra, not a numerical interval certificate.
+
+The older [Linux support receipt](LINUX_SUPPORT_CI_RECEIPT.md) and historical
+statement-identity runs remain separate support-only checkpoints. The current
+promotion changes descriptive metadata and canonical status, while retaining
+all proof and frozen statement bytes; the refreshed committed project will be
+rechecked by CI. The original canonical page, TeX and PDF are retained in the
+[campaign archive](../../campaign-2026-10-17/verification/sp11-originals-47006/manifest.json).

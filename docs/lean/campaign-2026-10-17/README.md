@@ -2,7 +2,8 @@
 
 **Active and incomplete.** The user requested exact Lean proofs of every Solved
 problem without one, starting with FR-05, using independent agents and
-LeanCert kernel mode. No new canonical problem status is changed here.
+LeanCert kernel mode. SP-11 is now promoted to Lean verified; permanent IDs
+and original mathematical targets are unchanged.
 
 The initial working checkout was stale and had unrelated uncommitted work.
 The campaign uses published base `47006df8b3a6c724a557266c891893d03e69323a`
@@ -24,21 +25,24 @@ IDs, canonical pages, and original mathematical targets are preserved.
   greedy ordering and relabeling, the actual polynomial construction, exact
   signed-monomial expansion, classwise color recovery, diagonal and edge
   uniqueness, simultaneous real specialization and the rank reduction.
-  `NLA.Proofs.SP11.target` now proves the full unchanged frozen target locally.
-  Independent AI-agent reviews and fresh local kernel/axiom audits are
-  retained. Exact-project Linux Comparator verification and final promotion
-  remain pending.
+  `NLA.Proofs.SP11.target` proves the full unchanged frozen target. Independent
+  AI-agent reviews, fresh local kernel/axiom audits and the
+  [actual Linux Comparator/kernel receipt](../proofs/SP-11/LINUX_CI_RECEIPT.md)
+  pass. The receipt binds all 135 project inputs at immutable commit
+  `9264361fafb89b37b5c48236afebb304bc84110a`. The original page, TeX and PDF
+  are archived byte for byte. The subsequent descriptive metadata refresh
+  receives another committed-project CI check.
 
 Reproduction scripts, raw logs, dependency/source hashes, rejection controls,
 and the all-canonical preservation manifest are in [verification/](verification/).
 Local checks use Lean 4.33.1, the pinned Mathlib and LeanCert revisions, and
 read-only dependency caches with fresh output directories. The existing CI
-aggregate now imports the complete 36-module SP-11 proof closure. Historical Linux CI
-evidence covers only the earlier seven-module revision. Shared Comparator identity checks
-must not be presented as a full SP-11 proof comparison.
+aggregate imports the complete 36-module SP-11 proof closure. The seven-module
+support receipt remains historical; the new dedicated full-project receipt
+records actual SP-11 proof comparison. Shared statement identities remain a
+separate check.
 
-The next acceptance gates are the final self-contained package, independent
-final reviews, and running the final self-contained project through fresh
-Linux Comparator and kernel verification of the exact unchanged Target.
-The other Solved entries remain in the queue; this milestone does not complete
-the user’s overall goal.
+SP-12 is the next proof development, in a separate checkout, after two fresh
+independent reviews of its exact PSD/SAP/chromatic statement. The other Solved
+entries remain in the queue; this milestone does not complete the user’s
+overall goal.

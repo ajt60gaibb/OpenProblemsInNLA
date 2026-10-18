@@ -1,16 +1,16 @@
 # Proof inventory for the 47 formerly Solved targets
 
 This source-level inventory records the 47 targets that had `Solved` status
-before the split proof campaign. The five full-target proofs below now have
+before the split proof campaign. The six full-target proofs below now have
 canonical `Lean verified` status after independent scope review and recorded
-kernel verification. The remaining 42 retain `Solved` status. This inventory
+kernel verification. The remaining 41 retain `Solved` status. This inventory
 alone does not certify a proof; each promoted canonical README records its
 statement comparison, pinned source, successful verification log, and axiom
 audit. Permanent IDs and mathematical targets are unchanged. Historical copies
 under `reviews/`, `verification/`, and archive directories are evidence, not
 live solution sources.
 
-## Full-target local proofs promoted to Lean verified (5)
+## Full-target local proofs promoted to Lean verified (6)
 
 | ID | Live proof source | Evidence and remaining gate |
 | --- | --- | --- |
@@ -19,14 +19,13 @@ live solution sources.
 | MF-23 | [`CanonicalBridge.lean`](../../../matrix-functions-and-stability/MF-23/lean/CanonicalBridge.lean) | Proves the [reviewed canonical block-order target](MF-23/CANONICAL_BRIDGE_INDEPENDENT_REVIEW.md) from the pinned external `complete_crouzeix` proof by a norm-preserving tensor-factor swap. Its self-contained source-locked project and [isolated Linux Comparator/LeanCert kernel receipt](MF-23/LINUX_CI_RECEIPT.md) pass with only standard axioms. |
 | RA-06 | [`Final.lean`](../../../lean-statements/NLA/Proofs/RA06/Final.lean) | The [independently reviewed full theorem](RA-06/FINAL_INDEPENDENT_REVIEW.md) inhabits the frozen original negative `Target` for every `p > 2`, with the exact sampler, same `α`, expected retained count, and raw log budget. The [isolated Linux Comparator/LeanCert kernel receipt](RA-06/LINUX_CI_RECEIPT.md) passes with only standard axioms. |
 | MF-03 | [`AllOrderTarget.lean`](../../../lean-statements/NLA/Proofs/MF03/AllOrderTarget.lean) | The [independently reviewed full theorem](MF-03/ALL_ORDER_TARGET_INDEPENDENT_FINAL_REVIEW.md) inhabits the frozen all-order `Target`: reduced-pair existence and the radius-3, error-2 bound for every reduced representative at every positive Padé order. Orders 1–15 use audited finite certificates; orders ≥16 use the source determinant-derived symbolic pair and coefficient-one tail. The pinned aggregate LeanCert kernel build passes with only standard axioms. |
+| SP-11 | [`Solution.lean`](../../../eigenvalues-and-inverse-problems/SP-11/lean/Solution.lean) | Proves the full frozen unrestricted real symmetric delta Target using actual shared-variable noncancellation and greedy relabeling. Independent [full source/package reviews](SP-11/README.md) and the [actual isolated Linux Comparator/LeanCert kernel receipt](SP-11/LINUX_CI_RECEIPT.md) pass with only standard axioms. The original page, TeX and PDF are archived byte for byte. |
 
-## Complete proof projects awaiting canonical promotion (3)
+## Complete proof projects awaiting canonical promotion (2)
 
 The published tree also contains complete-target MD-03 and MD-04 wrappers over
 the pinned external Komlós proof. Their source existence is separate from
-canonical promotion and the exact-revision verification receipts. SP-11 now
-has an unconditional local kernel proof; its final Linux verification remains
-pending. See the
+canonical promotion and the exact-revision verification receipts. See the
 [17 October campaign inventory](../campaign-2026-10-17/inventory/README.md) for
 the later candidate revisions and retained evidence.
 
@@ -34,7 +33,6 @@ the later candidate revisions and retained evidence.
 | --- | --- | --- |
 | MD-03 | [`Solution.lean`](../../../matrix-discrepancy-and-optimization/MD-03/lean/Solution.lean) | Full frozen Komlós target from the pinned external proof, with constant 36. |
 | MD-04 | [`Solution.lean`](../../../matrix-discrepancy-and-optimization/MD-04/lean/Solution.lean) | Full frozen Beck–Fiala target via the same MD-03 theorem and exact scaling. |
-| SP-11 | [`Final.lean`](../../../lean-statements/NLA/Proofs/SP11/Final.lean) | [Full frozen unrestricted real symmetric delta target](SP-11/README.md), using actual shared-variable noncancellation and greedy relabeling. Independent local kernel/axiom checks pass; exact-project Linux Comparator verification remains pending. |
 
 ## Local partial solution projects (9)
 

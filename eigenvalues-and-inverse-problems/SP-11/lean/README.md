@@ -12,9 +12,15 @@ canonical package contains exact byte copies of its 36 proof modules and two
 statement modules; `proof-source-lock.json` records their imports and both source
 and destination hashes. All 42 canonical modules passed a fresh local source build using isolated
 project objects and pinned cached dependencies; the selected full export passed
-LeanCert kernel trust with only the three foundational axioms. Final independent
-source/scope reviews and isolated Linux Comparator verification remain pending.
-The canonical problem status stays Solved and whole_problem_verified stays false.
+LeanCert kernel trust with only the three foundational axioms. Independent
+[full source reviews](../../../docs/lean/proofs/SP-11/CLOSURE_REVIEW_2_2026-10-18.md)
+and [canonical package review](../../../docs/lean/proofs/SP-11/CANONICAL_CLOSURE_REVIEW_2_2026-10-18.md)
+are complete. The [actual Linux receipt](../../../docs/lean/proofs/SP-11/LINUX_CI_RECEIPT.md)
+records Comparator/default-kernel acceptance and LeanCert kernel trust for all
+135 project inputs at immutable commit `9264361fafb89b37b5c48236afebb304bc84110a`.
+The canonical problem status is Lean verified and whole_problem_verified is true.
+This descriptive metadata refresh retains the checked proof/statement sources
+and will receive a fresh committed-project CI check.
 
 The proof constructs the actual polynomial LSS vectors using shared variables by
 original vertex label, expands their Gram entries over finite paired occurrence
@@ -73,6 +79,7 @@ reproduced by `verification/check_package.py` with its explicit pinned dependenc
 cache/toolchain arguments. That script checks source/destination equality and all
 ten cached dependency revisions, and rebuilds all 42 modules without shared NLA
 objects. It is a direct Lean source check, not a lake build or Linux receipt. A
-local build or support-only CI run is not this acceptance receipt. Preserve the actual final result, Comparator,
-proof-trust and control logs before making any canonical verification claim.
+local build or support-only CI run is distinct from the retained complete-target
+Linux receipt above. Its original archive, result, Comparator, proof-trust,
+controls and input hashes are preserved in the campaign verification evidence.
 Compiled objects and materialized dependencies must not be committed.
