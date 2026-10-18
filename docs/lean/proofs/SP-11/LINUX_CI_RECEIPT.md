@@ -75,3 +75,23 @@ inputs require a fresh committed CI check; this receipt does not relabel
 their changed hashes as the original 135 inputs. The original pre-promotion
 [README, TeX and PDF archive](../../campaign-2026-10-17/verification/sp11-originals-47006/manifest.json)
 is byte-identical to published base `47006df8b3a6c724a557266c891893d03e69323a`.
+
+## Refreshed promoted package — actual Linux PASS
+
+The promoted package was freshly accepted at immutable commit
+[`9c1f62be980d174b9418285d2e54fb9deae3a5bc`](https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/9c1f62be980d174b9418285d2e54fb9deae3a5bc/eigenvalues-and-inverse-problems/SP-11/lean)
+by [run 39140854908](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/39140854908),
+[SP-11 job 117714897072](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/39140854908/job/117714897072).
+The real full-Target Comparator and LeanCert kernel checks, controls and sandbox
+checks all passed. An [independent refreshed-artifact review](../../campaign-2026-10-17/verification/SP11-REFRESHED-LINUX-CI-INDEPENDENT-REVIEW.md)
+passed all 40 checks and matched all 135 committed/current project input hashes
+and the exact file set. This separately resolves the refreshed-input check
+required above; the original receipt and artifact remain historical evidence.
+
+The original refreshed `lean-SP-11` artifact ID is `12141672724`, with archive
+SHA-256 `2dbbcc28fd12ea1978ca5bf0bcdebfe56ed209b694c289ec8f78c4e9be21ee37`.
+Its digest matches GitHub metadata and the actual upload log; every extracted
+member matches the retained zip. Actual logs, API metadata and the original zip
+are retained under [sp11-refreshed-linux-ci/](../../campaign-2026-10-17/verification/sp11-refreshed-linux-ci/),
+with the complete [machine-readable audit](../../campaign-2026-10-17/verification/sp11-refreshed-linux-artifact-check.json).
+The proof sources and full frozen Target are unchanged.
