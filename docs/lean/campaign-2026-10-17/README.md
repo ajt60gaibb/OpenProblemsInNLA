@@ -56,8 +56,12 @@ is Lean verified. Exact originals were archived before editing, and a separate
 The source-level inventory tracks ten promoted targets, eight partial projects
 and twenty-nine statement-only entries. Published main additionally contains
 the merged RA-10/MD-03/MD-04 promotions. There are 37 remaining Solved entries
-after SP-11/SP-12. The next actual proof development is TR-14, in a separate
-clone with all 39 exact retained candidate modules and two fresh independent
-preproof statement/route approvals. Its binary upper and unrestricted ordinary
-lower bounds remain substantive missing gates. This does not complete the
-user's overall goal.
+after SP-11/SP-12. TR-14 now has a complete [shared and canonical proof](../proofs/TR-14/README.md)
+in a separate clone, with all 39 exact retained candidate modules and two fresh
+independent preproof statement/route approvals. Its actual binary upper and
+unrestricted ordinary lower constructions close the full unchanged all-width
+Target with LeanCert kernel trust and only standard axioms. The canonical
+package has 82 actual Lean inputs; independent fresh shared/canonical audits
+pass 79/83 Lean commands, 451/453 declaration checks and 353/355 theorem-kind
+checks. Actual isolated Linux Comparator verification is pending. The original
+page remains Solved. This does not complete the user's overall goal.

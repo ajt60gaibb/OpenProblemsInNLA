@@ -1,0 +1,21 @@
+# TR-14 one actual chosen chart and both original-tensor widths — independent review
+
+Reviewer: `/root/lean_verification`, Codex AI agent, 18 October 2026.
+I authored no TR-14 proof source. **APPROVE `ChartUpperConstruction.lean` at SHA-256 `a03aeeb3155df3bde6a1e3d91a1f1a63e26c3e60b4982b1ae6f6703c053d768a`.** This constructs two actual upper-width witnesses; it does not prove the arbitrary ordinary lower comparison or full Target.
+
+`exists_normalized_minimal_chart` selects an actual least-degree nonzero homogeneous apolar vector using the proved minimal-apolar existence theorem. The actual invertible chart normalizer supplies one chart parameter, one affine monic polynomial of exactly that same degree, transformed nonzero moments, its coefficient vector and every lower zero-kernel condition. Substituting the degree equality preserves the exact dependent bound in the apolar predicate, and extensional coefficient equality identifies the actual coefficient function with the transported normalized vector. The output retains all conditions required by both subsequent constructions. There is no separately supplied chosen chart, nonzero chart coefficient, genericity or least-polynomial oracle.
+
+`exists_chart_two_symmetricWidths` uses m≥3 and n≥2 to establish the positive total moment degree. It obtains its z and g exactly once and passes the same transformed moment vector, monicity, degree, actual apolarity and minimality to both constructions. The binary theorem gives width `D-deg(g)+2`; its actual symmetric-width witness is transported back by `chart_symmetricWidth_reverse`. The local CRT/Fourier theorem gives width `(m-1)*deg(g)-(m-2)*card(localRootSupport g)` and likewise transports to the original Hankel tensor. Both resulting predicates are literally `SymmetricWidth (Hankel h)`, not merely a transformed tensor or a conditional projective support formula. Their g and its root support are the same selected data, so later comparison with their minimum is legitimate. The retained transport map applies one common factor map to every symmetric mode and leaves scalar coefficients unchanged. No ordinary lower-bound premise occurs.
+
+The theorem correctly keeps h≠0 as an explicit support-gate condition; full Target still includes zero, to be handled separately. Exceptional nonzero tensors and an original apolar root at infinity are covered by the actual chart-normalization theorem, without restricting the frozen Target's decomposition vectors.
+
+A fresh immutable-source audit passed **42 Lean commands**: 39 actual proof modules, two statement/infrastructure files and a separate consumer. It audits **243 explicit constants**, including **176 theorem/lemma constants**. Proof names must have theorem kind; all constants pass LeanCert kernel trust and transitive printed axioms. The **42 private constants** are directly checked by unique actual environment name: 34 theorem constants require `.thmInfo`, while six definitions and two abbreviations require `.defnInfo`. They are not silently excluded or reclassified as theorems. All source bytes and ten dependency pins/tracked trees pass before/after; local output objects are fresh/private and cached dependency objects alone are reused. Only propext, Classical.choice, Quot.sound occur.
+
+Reproduce from the repository root:
+
+```bash
+python3 docs/lean/proofs/TR-14/verification/check-chart-upper.py \
+  --top ChartUpperConstruction --evidence-name chart-upper-review-3
+```
+
+Exact source/consumer/driver snapshots and logs are in [verification/chart-upper-review-3/](verification/chart-upper-review-3/). The initial auditor attempt stopped before Lean compilation because retained chart foundations contain private definitions/abbreviations; that attempt and driver are preserved separately. The corrected consumer explicitly enforces their actual definition kind and the same kernel checks; no proof source or mathematical hypothesis was changed. Imported source semantics retain their preceding source reviews; this report independently reviews the new assembly and provides fresh constant/kernel evidence for its complete import closure. It is local macOS Lean4.33.1 evidence, not a full Target proof, Linux Comparator receipt, external human peer review or source-author endorsement.

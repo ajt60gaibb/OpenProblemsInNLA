@@ -1,0 +1,25 @@
+from pathlib import Path
+import json,hashlib,subprocess,os,platform,shutil
+r=Path('/private/tmp/nla-tr14-lean-oct18');e=Path('/private/tmp/nla-tr14-next-preproof/corner-inheritance-review-2');e.mkdir(exist_ok=True)
+base=Path('/private/tmp/nla-tr14-next-preproof/corner-source-review-2');dep=json.loads((base/'result.json').read_text());assert dep['pass']
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+checks=[{'path':x['path'],'sha256':x['sha256'],'snapshot_match':sha(base/'snapshot'/x['path'])==x['sha256'],'live_match':sha(r/'lean-statements'/x['path'])==x['sha256']} for x in dep['sources']]
+assert all(x['snapshot_match'] and x['live_match'] for x in checks)
+snap=e/'snapshot';out=e/'objects';snap.mkdir(exist_ok=True);out.mkdir(exist_ok=True)
+p=Path('NLA/Proofs/TR14/CornerInheritance.lean');src=r/'lean-statements'/p;dest=snap/p;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(src.read_bytes())
+assert sha(dest)=='b671205fdaea4bcb2e139c072d40e9f9c5ce302eca062fc898936399deafdbb4'
+bin=Path('/private/tmp/pf05-tooling/elan-home/toolchains/leanprover--lean4---v4.33.1/bin')
+shutil.copytree(base/'objects',out,dirs_exist_ok=True)
+paths=[out]+[p/'.lake/build/lib/lean' for p in (r/'lean-statements/.lake/packages').iterdir() if(p/'.lake/build/lib/lean').is_dir()]
+env=dict(os.environ,PATH=str(bin)+':'+os.environ['PATH'],LEAN_PATH=':'.join(map(str,paths)))
+res={'date':'2026-10-18','reviewer':'/root/fr05_statement','platform':platform.platform(),'source_sha256':sha(dest),'prerequisite_result_sha256':sha(base/'result.json'),'prerequisite_source_checks':checks,'commands':[]}
+consumer=snap/'CornerInheritanceConsumer.lean';names=['cornerBlock_list_allbutone_projection','cornerBlockFunctional_ne_zero','primitive_corner_list_dimension_bound','cornerBlockSpace_finrank_upper','primitive_corner_block_dimension_inequality']
+consumer.write_text('import NLA.Proofs.TR14.CornerInheritance\nset_option leancert.trust "kernel"\n'+''.join('#assert_trust kernel NLA.Proofs.TR14.'+x+'\n#print axioms NLA.Proofs.TR14.'+x+'\n' for x in names))
+for source in [p,consumer.relative_to(snap)]:
+ obj=out/source.with_suffix('.olean');obj.parent.mkdir(parents=True,exist_ok=True)
+ cmd=[str(bin/'lean'),'-o',str(obj),str(source)];run=subprocess.run(cmd,cwd=snap,env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)
+ log=e/(source.stem+'.log');log.write_text(run.stdout)
+ res['commands'].append({'source':str(source),'sha256':sha(snap/source),'command':cmd,'cwd':str(snap),'exit_code':run.returncode,'log':log.name,'log_sha256':sha(log),'object_sha256':sha(obj) if obj.exists() else None})
+ print(source,run.returncode,run.stdout.strip(),flush=True);assert run.returncode==0;assert 'sorryAx' not in run.stdout
+res['live_source_equal_after']=sha(src)==sha(dest);res['pass']=res['live_source_equal_after'];assert res['pass']
+(e/'result.json').write_text(json.dumps(res,indent=2)+'\n');(e/'check-build.py.txt').write_text(Path(__file__).read_text())

@@ -1,0 +1,27 @@
+import Solution
+import Identity
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open Lean Elab Command in
+elab "#assert_literal_tr14_target " n:ident : command => do
+  let decl <- liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  match (<- getEnv).find? decl with
+  | some (.thmInfo info) =>
+    unless info.type == mkConst ``NLA.Statements.TR14.Target do
+      throwErrorAt n "expected literal unchanged Target with no parameters"
+  | _ => throwErrorAt n "expected theorem constant"
+#assert_literal_tr14_target NLA.TR14.target
+#assert_literal_tr14_target NLA.Proofs.TR14.target
+theorem frozen_full_target : NLA.ReviewedStatements.TR14.Target := by
+  rw [<- NLA.TR14.target_eq_reviewed]
+  exact NLA.TR14.target
+#assert_trust kernel NLA.Proofs.TR14.ordinaryWidth_to_symmetricWidth
+#assert_trust kernel NLA.Proofs.TR14.target
+#assert_trust kernel NLA.TR14.target
+#assert_trust kernel NLA.TR14.target_eq_reviewed
+#assert_trust kernel frozen_full_target
+#print axioms NLA.Proofs.TR14.ordinaryWidth_to_symmetricWidth
+#print axioms NLA.Proofs.TR14.target
+#print axioms NLA.TR14.target
+#print axioms NLA.TR14.target_eq_reviewed
+#print axioms frozen_full_target

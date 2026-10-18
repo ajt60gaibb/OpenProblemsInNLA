@@ -1,0 +1,31 @@
+from pathlib import Path
+import hashlib,json,subprocess,platform
+r=Path('/private/tmp/nla-tr14-lean-oct18')
+e=Path('/private/tmp/nla-tr14-next-preproof/binary-construction-implementation');e.mkdir(exist_ok=True)
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+mods=['TR14BinaryInverse','TR14BinaryPencil','TR14BinaryApolarPencil','MomentRecurrenceReconstruction','ReducedSubalgebras','ReducedPrimitiveBlocks','CyclicSpanDimension','BlockPolynomialImage','LocalBlockSupport','OrthogonalBlockDimensions']
+review1=Path('/private/tmp/nla-tr14-next-preproof/independent-review-1/PREPROOF_STATEMENT_REVIEW_1.md')
+review2=Path('/private/tmp/nla-tr14-next-preproof/independent-review-2/PREPROOF_REVIEW_2_2026-10-18.md')
+j={'date':'2026-10-18','author':'/root/fr05_statement','platform':platform.platform(),'scope':'Actual inverse/apolar-pencil construction only. No complete Target proof claimed. Both reviews existed before new proof bodies. Fresh new-module compiles use own isolated prerequisite objects freshly built from unchanged sources; no readonly cache or old checkout is mutated.','preproof_approvals':[{'path':str(p),'sha256':sha(p)} for p in [review1,review2]],'builds':[]}
+if (e/'result.json').exists():
+ j=json.loads((e/'result.json').read_text())
+for m in mods:
+ p=Path('NLA/Proofs/TR14')/(m+'.lean')
+ obj=Path('/private/tmp/nla-tr14-binary-review2-objects')/p.with_suffix('.olean')
+ source=r/'lean-statements'/p
+ if any(x['source_sha256']==sha(source) and x['exit_code']==0 for x in j['builds']): continue
+ obj.unlink(missing_ok=True)
+ cmd=['python3','/private/tmp/nla-tr14-binary-lean.py',str(p)]
+ run=subprocess.run(cmd,cwd=r,text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+ log=e/(m+'.log');log.write_text(run.stdout)
+ source=r/'lean-statements'/p
+ (e/(m+'.lean.txt')).write_bytes(source.read_bytes())
+ j['builds'].append({'source':str(source.relative_to(r)),'source_sha256':sha(source),'command':cmd,'cwd':str(r),'exit_code':run.returncode,'log':log.name,'log_sha256':sha(log),'object_sha256':sha(obj) if obj.exists() else None})
+ print(m,run.returncode,run.stdout.strip(),flush=True)
+ assert run.returncode==0
+ assert 'sorryAx' not in run.stdout
+j['scope']='Actual new binary inverse/apolar pencil/finite recurrence, reduced subalgebra classification, primitive indicators, cyclic and block dimensions, actual CRT idempotent support, and complete orthogonal block dimension partition. These are proof gates; no complete TR14 Target or Linux/Comparator success is claimed. Both exact statement preproof approvals were retained before new proof bodies. All objects are isolated; no readonly cache or old checkout is mutated.'
+j['pass']=True
+(e/'result.json').write_text(json.dumps(j,indent=2)+'\n')
+(e/'check-build.py.txt').write_text(Path(__file__).read_text())
+(e/'compile-helper.py.txt').write_text(Path('/private/tmp/nla-tr14-binary-lean.py').read_text())
