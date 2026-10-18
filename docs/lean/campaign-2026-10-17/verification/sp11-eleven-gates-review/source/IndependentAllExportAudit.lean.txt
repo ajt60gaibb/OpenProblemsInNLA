@@ -1,0 +1,242 @@
+import NLA.Proofs.SP11.PolynomialLSS
+import NLA.Proofs.SP11.GreedyRelabel
+import NLA.Proofs.SP11.MonomialProducts
+import NLA.Proofs.SP11.GardenExpansion
+import LeanCert.Tactic.Verification
+open Lean Elab Command in
+elab "#assert_proof_constant " n:ident : command => do
+  let decl ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  match (← getEnv).find? decl with
+  | some (.thmInfo _) => pure ()
+  | _ => throwErrorAt n "expected a proved theorem constant"
+#assert_trust kernel NLA.Proofs.SP11.gram
+#print axioms NLA.Proofs.SP11.gram
+#assert_proof_constant NLA.Proofs.SP11.gram_apply
+#assert_trust kernel NLA.Proofs.SP11.gram_apply
+#print axioms NLA.Proofs.SP11.gram_apply
+#assert_proof_constant NLA.Proofs.SP11.gram_hasPattern
+#assert_trust kernel NLA.Proofs.SP11.gram_hasPattern
+#print axioms NLA.Proofs.SP11.gram_hasPattern
+#assert_proof_constant NLA.Proofs.SP11.gram_rank_le
+#assert_trust kernel NLA.Proofs.SP11.gram_rank_le
+#print axioms NLA.Proofs.SP11.gram_rank_le
+#assert_proof_constant NLA.Proofs.SP11.minDegree_le_gram_nullity
+#assert_trust kernel NLA.Proofs.SP11.minDegree_le_gram_nullity
+#print axioms NLA.Proofs.SP11.minDegree_le_gram_nullity
+#assert_proof_constant NLA.Proofs.SP11.target_of_faithful_representations
+#assert_trust kernel NLA.Proofs.SP11.target_of_faithful_representations
+#print axioms NLA.Proofs.SP11.target_of_faithful_representations
+#assert_trust kernel NLA.Proofs.SP11.polynomialGram
+#print axioms NLA.Proofs.SP11.polynomialGram
+#assert_proof_constant NLA.Proofs.SP11.exists_real_eval_ne_zero
+#assert_trust kernel NLA.Proofs.SP11.exists_real_eval_ne_zero
+#print axioms NLA.Proofs.SP11.exists_real_eval_ne_zero
+#assert_proof_constant NLA.Proofs.SP11.exists_simultaneous_real_eval_ne_zero
+#assert_trust kernel NLA.Proofs.SP11.exists_simultaneous_real_eval_ne_zero
+#print axioms NLA.Proofs.SP11.exists_simultaneous_real_eval_ne_zero
+#assert_proof_constant NLA.Proofs.SP11.eval_polynomialGram
+#assert_trust kernel NLA.Proofs.SP11.eval_polynomialGram
+#print axioms NLA.Proofs.SP11.eval_polynomialGram
+#assert_proof_constant NLA.Proofs.SP11.exists_faithful_real_evaluation
+#assert_trust kernel NLA.Proofs.SP11.exists_faithful_real_evaluation
+#print axioms NLA.Proofs.SP11.exists_faithful_real_evaluation
+#assert_proof_constant NLA.Proofs.SP11.target_of_polynomial_representations
+#assert_trust kernel NLA.Proofs.SP11.target_of_polynomial_representations
+#print axioms NLA.Proofs.SP11.target_of_polynomial_representations
+#assert_trust kernel NLA.Proofs.SP11.CoordinateVector
+#print axioms NLA.Proofs.SP11.CoordinateVector
+#assert_trust kernel NLA.Proofs.SP11.contractionFunctional
+#print axioms NLA.Proofs.SP11.contractionFunctional
+#assert_trust kernel NLA.Proofs.SP11.alternatingContraction
+#print axioms NLA.Proofs.SP11.alternatingContraction
+#assert_proof_constant NLA.Proofs.SP11.alternatingContraction_dotProduct
+#assert_trust kernel NLA.Proofs.SP11.alternatingContraction_dotProduct
+#print axioms NLA.Proofs.SP11.alternatingContraction_dotProduct
+#assert_proof_constant NLA.Proofs.SP11.alternatingContraction_orthogonal
+#assert_trust kernel NLA.Proofs.SP11.alternatingContraction_orthogonal
+#print axioms NLA.Proofs.SP11.alternatingContraction_orthogonal
+#assert_trust kernel NLA.Proofs.SP11.CoordinateSubset
+#print axioms NLA.Proofs.SP11.CoordinateSubset
+#assert_trust kernel NLA.Proofs.SP11.coordinateSubsetFintype
+#print axioms NLA.Proofs.SP11.coordinateSubsetFintype
+#assert_trust kernel NLA.Proofs.SP11.selectedCoordinates
+#print axioms NLA.Proofs.SP11.selectedCoordinates
+#assert_trust kernel NLA.Proofs.SP11.coordinateMinorForm
+#print axioms NLA.Proofs.SP11.coordinateMinorForm
+#assert_proof_constant NLA.Proofs.SP11.coordinateMinorForm_apply
+#assert_trust kernel NLA.Proofs.SP11.coordinateMinorForm_apply
+#print axioms NLA.Proofs.SP11.coordinateMinorForm_apply
+#assert_trust kernel NLA.Proofs.SP11.weightedMinorForm
+#print axioms NLA.Proofs.SP11.weightedMinorForm
+#assert_proof_constant NLA.Proofs.SP11.weightedMinorForm_apply
+#assert_trust kernel NLA.Proofs.SP11.weightedMinorForm_apply
+#print axioms NLA.Proofs.SP11.weightedMinorForm_apply
+#assert_trust kernel NLA.Proofs.SP11.polynomialAlternatingForm
+#print axioms NLA.Proofs.SP11.polynomialAlternatingForm
+#assert_proof_constant NLA.Proofs.SP11.polynomialAlternatingForm_apply
+#assert_trust kernel NLA.Proofs.SP11.polynomialAlternatingForm_apply
+#print axioms NLA.Proofs.SP11.polynomialAlternatingForm_apply
+#assert_proof_constant NLA.Proofs.SP11.polynomialAlternatingForm_contraction_orthogonal
+#assert_trust kernel NLA.Proofs.SP11.polynomialAlternatingForm_contraction_orthogonal
+#print axioms NLA.Proofs.SP11.polynomialAlternatingForm_contraction_orthogonal
+#assert_trust kernel NLA.Proofs.SP11.priorNonneighbors
+#print axioms NLA.Proofs.SP11.priorNonneighbors
+#assert_proof_constant NLA.Proofs.SP11.mem_priorNonneighbors
+#assert_trust kernel NLA.Proofs.SP11.mem_priorNonneighbors
+#print axioms NLA.Proofs.SP11.mem_priorNonneighbors
+#assert_trust kernel NLA.Proofs.SP11.priorVertex
+#print axioms NLA.Proofs.SP11.priorVertex
+#assert_proof_constant NLA.Proofs.SP11.priorVertex_lt
+#assert_trust kernel NLA.Proofs.SP11.priorVertex_lt
+#print axioms NLA.Proofs.SP11.priorVertex_lt
+#assert_trust kernel NLA.Proofs.SP11.VertexForms
+#print axioms NLA.Proofs.SP11.VertexForms
+#assert_trust kernel NLA.Proofs.SP11.uniformLSS
+#print axioms NLA.Proofs.SP11.uniformLSS
+#assert_proof_constant NLA.Proofs.SP11.uniformLSS_eq
+#assert_trust kernel NLA.Proofs.SP11.uniformLSS_eq
+#print axioms NLA.Proofs.SP11.uniformLSS_eq
+#assert_proof_constant NLA.Proofs.SP11.uniformLSS_orthogonal_prior
+#assert_trust kernel NLA.Proofs.SP11.uniformLSS_orthogonal_prior
+#print axioms NLA.Proofs.SP11.uniformLSS_orthogonal_prior
+#assert_proof_constant NLA.Proofs.SP11.uniformLSS_orthogonal_nonedge
+#assert_trust kernel NLA.Proofs.SP11.uniformLSS_orthogonal_nonedge
+#print axioms NLA.Proofs.SP11.uniformLSS_orthogonal_nonedge
+#assert_trust kernel NLA.Proofs.SP11.LSSVariable
+#print axioms NLA.Proofs.SP11.LSSVariable
+#assert_trust kernel NLA.Proofs.SP11.universalVertexForms
+#print axioms NLA.Proofs.SP11.universalVertexForms
+#assert_trust kernel NLA.Proofs.SP11.polynomialLSS
+#print axioms NLA.Proofs.SP11.polynomialLSS
+#assert_proof_constant NLA.Proofs.SP11.polynomialLSS_nonedge
+#assert_trust kernel NLA.Proofs.SP11.polynomialLSS_nonedge
+#print axioms NLA.Proofs.SP11.polynomialLSS_nonedge
+#assert_proof_constant NLA.Proofs.SP11.exists_pattern_matrix_of_polynomialLSS_nonzero
+#assert_trust kernel NLA.Proofs.SP11.exists_pattern_matrix_of_polynomialLSS_nonzero
+#print axioms NLA.Proofs.SP11.exists_pattern_matrix_of_polynomialLSS_nonzero
+#assert_trust kernel NLA.Proofs.SP11.localNonneighbors
+#print axioms NLA.Proofs.SP11.localNonneighbors
+#assert_trust kernel NLA.Proofs.SP11.GreedyFrom
+#print axioms NLA.Proofs.SP11.GreedyFrom
+#assert_proof_constant NLA.Proofs.SP11.localNonneighbors_mono
+#assert_trust kernel NLA.Proofs.SP11.localNonneighbors_mono
+#print axioms NLA.Proofs.SP11.localNonneighbors_mono
+#assert_proof_constant NLA.Proofs.SP11.exists_greedyFrom
+#assert_trust kernel NLA.Proofs.SP11.exists_greedyFrom
+#print axioms NLA.Proofs.SP11.exists_greedyFrom
+#assert_proof_constant NLA.Proofs.SP11.exists_greedyListing
+#assert_trust kernel NLA.Proofs.SP11.exists_greedyListing
+#print axioms NLA.Proofs.SP11.exists_greedyListing
+#assert_trust kernel NLA.Proofs.SP11.precedingCount
+#print axioms NLA.Proofs.SP11.precedingCount
+#assert_proof_constant NLA.Proofs.SP11.GreedyFrom.count_le_later
+#assert_trust kernel NLA.Proofs.SP11.GreedyFrom.count_le_later
+#print axioms NLA.Proofs.SP11.GreedyFrom.count_le_later
+#assert_proof_constant NLA.Proofs.SP11.take_toFinset_mono
+#assert_trust kernel NLA.Proofs.SP11.take_toFinset_mono
+#print axioms NLA.Proofs.SP11.take_toFinset_mono
+#assert_proof_constant NLA.Proofs.SP11.GreedyFrom.precedingCount_mono
+#assert_trust kernel NLA.Proofs.SP11.GreedyFrom.precedingCount_mono
+#print axioms NLA.Proofs.SP11.GreedyFrom.precedingCount_mono
+#assert_trust kernel NLA.Proofs.SP11.nonneighborPosition
+#print axioms NLA.Proofs.SP11.nonneighborPosition
+#assert_proof_constant NLA.Proofs.SP11.GreedyFrom.precedingCount_lt_position
+#assert_trust kernel NLA.Proofs.SP11.GreedyFrom.precedingCount_lt_position
+#print axioms NLA.Proofs.SP11.GreedyFrom.precedingCount_lt_position
+#assert_proof_constant NLA.Proofs.SP11.nonneighborPosition_eq_filter_length
+#assert_trust kernel NLA.Proofs.SP11.nonneighborPosition_eq_filter_length
+#print axioms NLA.Proofs.SP11.nonneighborPosition_eq_filter_length
+#assert_proof_constant NLA.Proofs.SP11.exists_greedyEquiv
+#assert_trust kernel NLA.Proofs.SP11.exists_greedyEquiv
+#print axioms NLA.Proofs.SP11.exists_greedyEquiv
+#assert_proof_constant NLA.Proofs.SP11.lastStageCount_eq
+#assert_trust kernel NLA.Proofs.SP11.lastStageCount_eq
+#print axioms NLA.Proofs.SP11.lastStageCount_eq
+#assert_proof_constant NLA.Proofs.SP11.greedy_dimension_bound
+#assert_trust kernel NLA.Proofs.SP11.greedy_dimension_bound
+#print axioms NLA.Proofs.SP11.greedy_dimension_bound
+#assert_proof_constant NLA.Proofs.SP11.greedyListing_length
+#assert_trust kernel NLA.Proofs.SP11.greedyListing_length
+#print axioms NLA.Proofs.SP11.greedyListing_length
+#assert_trust kernel NLA.Proofs.SP11.OrderedGreedy
+#print axioms NLA.Proofs.SP11.OrderedGreedy
+#assert_proof_constant NLA.Proofs.SP11.minimumDegree_comap
+#assert_trust kernel NLA.Proofs.SP11.minimumDegree_comap
+#print axioms NLA.Proofs.SP11.minimumDegree_comap
+#assert_proof_constant NLA.Proofs.SP11.rank_relabel
+#assert_trust kernel NLA.Proofs.SP11.rank_relabel
+#print axioms NLA.Proofs.SP11.rank_relabel
+#assert_proof_constant NLA.Proofs.SP11.hasPattern_comap
+#assert_trust kernel NLA.Proofs.SP11.hasPattern_comap
+#print axioms NLA.Proofs.SP11.hasPattern_comap
+#assert_proof_constant NLA.Proofs.SP11.hasPattern_of_comap
+#assert_trust kernel NLA.Proofs.SP11.hasPattern_of_comap
+#print axioms NLA.Proofs.SP11.hasPattern_of_comap
+#assert_proof_constant NLA.Proofs.SP11.localNonneighbors_comap
+#assert_trust kernel NLA.Proofs.SP11.localNonneighbors_comap
+#print axioms NLA.Proofs.SP11.localNonneighbors_comap
+#assert_proof_constant NLA.Proofs.SP11.priorNonneighbors_length_eq
+#assert_trust kernel NLA.Proofs.SP11.priorNonneighbors_length_eq
+#print axioms NLA.Proofs.SP11.priorNonneighbors_length_eq
+#assert_proof_constant NLA.Proofs.SP11.priorNonneighbors_filter_lt_length
+#assert_trust kernel NLA.Proofs.SP11.priorNonneighbors_filter_lt_length
+#print axioms NLA.Proofs.SP11.priorNonneighbors_filter_lt_length
+#assert_proof_constant NLA.Proofs.SP11.OrderedGreedy.prior_length_lt_insertionPosition
+#assert_trust kernel NLA.Proofs.SP11.OrderedGreedy.prior_length_lt_insertionPosition
+#print axioms NLA.Proofs.SP11.OrderedGreedy.prior_length_lt_insertionPosition
+#assert_proof_constant NLA.Proofs.SP11.prefix_image_of_listing
+#assert_trust kernel NLA.Proofs.SP11.prefix_image_of_listing
+#print axioms NLA.Proofs.SP11.prefix_image_of_listing
+#assert_proof_constant NLA.Proofs.SP11.exists_orderedGreedy_comap
+#assert_trust kernel NLA.Proofs.SP11.exists_orderedGreedy_comap
+#print axioms NLA.Proofs.SP11.exists_orderedGreedy_comap
+#assert_proof_constant NLA.Proofs.SP11.target_of_orderedGreedy_polynomialLSS_nonzero
+#assert_trust kernel NLA.Proofs.SP11.target_of_orderedGreedy_polynomialLSS_nonzero
+#print axioms NLA.Proofs.SP11.target_of_orderedGreedy_polynomialLSS_nonzero
+#assert_proof_constant NLA.Proofs.SP11.occurrenceExponent_le
+#assert_trust kernel NLA.Proofs.SP11.occurrenceExponent_le
+#print axioms NLA.Proofs.SP11.occurrenceExponent_le
+#assert_proof_constant NLA.Proofs.SP11.occurrenceExponent_lt
+#assert_trust kernel NLA.Proofs.SP11.occurrenceExponent_lt
+#print axioms NLA.Proofs.SP11.occurrenceExponent_lt
+#assert_proof_constant NLA.Proofs.SP11.occurrenceExponent_eq_iff
+#assert_trust kernel NLA.Proofs.SP11.occurrenceExponent_eq_iff
+#print axioms NLA.Proofs.SP11.occurrenceExponent_eq_iff
+#assert_proof_constant NLA.Proofs.SP11.coeff_sum_monomial_of_unique
+#assert_trust kernel NLA.Proofs.SP11.coeff_sum_monomial_of_unique
+#print axioms NLA.Proofs.SP11.coeff_sum_monomial_of_unique
+#assert_proof_constant NLA.Proofs.SP11.sum_monomial_ne_zero_of_unique
+#assert_trust kernel NLA.Proofs.SP11.sum_monomial_ne_zero_of_unique
+#print axioms NLA.Proofs.SP11.sum_monomial_ne_zero_of_unique
+#assert_proof_constant NLA.Proofs.SP11.exists_coordinate_omitted
+#assert_trust kernel NLA.Proofs.SP11.exists_coordinate_omitted
+#print axioms NLA.Proofs.SP11.exists_coordinate_omitted
+#assert_proof_constant NLA.Proofs.SP11.coordinateMinorForm_basis
+#assert_trust kernel NLA.Proofs.SP11.coordinateMinorForm_basis
+#print axioms NLA.Proofs.SP11.coordinateMinorForm_basis
+#assert_proof_constant NLA.Proofs.SP11.weightedMinorForm_basis
+#assert_trust kernel NLA.Proofs.SP11.weightedMinorForm_basis
+#print axioms NLA.Proofs.SP11.weightedMinorForm_basis
+#assert_proof_constant NLA.Proofs.SP11.polynomialAlternatingForm_basis
+#assert_trust kernel NLA.Proofs.SP11.polynomialAlternatingForm_basis
+#print axioms NLA.Proofs.SP11.polynomialAlternatingForm_basis
+#assert_proof_constant NLA.Proofs.SP11.alternatingForm_coordinateExpansion
+#assert_trust kernel NLA.Proofs.SP11.alternatingForm_coordinateExpansion
+#print axioms NLA.Proofs.SP11.alternatingForm_coordinateExpansion
+#assert_proof_constant NLA.Proofs.SP11.alternatingContraction_coordinateExpansion
+#assert_trust kernel NLA.Proofs.SP11.alternatingContraction_coordinateExpansion
+#print axioms NLA.Proofs.SP11.alternatingContraction_coordinateExpansion
+#assert_trust kernel NLA.Proofs.SP11.vertexCoefficient
+#print axioms NLA.Proofs.SP11.vertexCoefficient
+#assert_proof_constant NLA.Proofs.SP11.polynomialLSS_coordinateExpansion
+#assert_trust kernel NLA.Proofs.SP11.polynomialLSS_coordinateExpansion
+#print axioms NLA.Proofs.SP11.polynomialLSS_coordinateExpansion
+#assert_proof_constant NLA.Proofs.SP11.alternatingForm_basis_perm
+#assert_trust kernel NLA.Proofs.SP11.alternatingForm_basis_perm
+#print axioms NLA.Proofs.SP11.alternatingForm_basis_perm
+#assert_proof_constant NLA.Proofs.SP11.polynomialAlternatingForm_basis_perm
+#assert_trust kernel NLA.Proofs.SP11.polynomialAlternatingForm_basis_perm
+#print axioms NLA.Proofs.SP11.polynomialAlternatingForm_basis_perm
+#assert_proof_constant NLA.Proofs.SP11.polynomialAlternatingForm_basis_eq_zero_of_not_injective
+#assert_trust kernel NLA.Proofs.SP11.polynomialAlternatingForm_basis_eq_zero_of_not_injective
+#print axioms NLA.Proofs.SP11.polynomialAlternatingForm_basis_eq_zero_of_not_injective

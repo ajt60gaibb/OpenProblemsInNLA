@@ -1,0 +1,87 @@
+version: v0.4
+project:
+  name: 'SP-11: unrestricted real symmetric delta conjecture'
+  description: >-
+    Frozen statement and Comparator boundary scaffold. The complete target proof
+    and Solution.lean are pending; no theorem of the target is advertised yet.
+  authors:
+  - OpenAI Codex AI agents (Lean formalization, independent review, packaging)
+  license: Apache-2.0
+repository:
+  role: substantive-development
+sources:
+- title: 'SP-11 — The delta conjecture for minimum symmetric rank'
+  id: ../README.md
+  type: web-post
+  location: Original problem statement, retained unchanged in ORIGINAL.md
+  relationship: formalizes
+  author_endorsement: n/a
+  note: Permanent ID, canonical path, original target and mathematical credits are retained.
+- title: The Delta Theorem
+  authors: [H. Tracy Hall]
+  id: https://arxiv.org/html/2601.01211v1
+  type: preprint
+  location: Theorem 3.20, Corollaries 3.22 and 3.24, and Unique Monomial Lemma 5.14
+  relationship: adapts
+  author_endorsement: not-contacted
+  note: >-
+    Hall is credited with the mathematical theorem. The formal development uses
+    exact polynomial specialization and retains shared variables by vertex label.
+- title: SP-11 explanatory application note
+  authors: [George Stepaniants]
+  id: ../solution.md
+  type: application-note
+  relationship: background
+  author_endorsement: not-contacted
+  note: >-
+    The canonical source identifies Stepaniants with the Department of Computing
+    and Mathematical Sciences, California Institute of Technology. No theorem
+    discovery, source-author participation or human proof endorsement is claimed.
+automation:
+  methods:
+  - method: agent
+    framework: OpenAI Codex
+    tool_setup: >-
+      Lean 4.33.1; Mathlib 0df444a360eaa60ab8c11dca51a86af692955474;
+      LeanCert 621a43d7cf21f87872392a01e874f2f1dbddc926.
+    prompting_notes: >-
+      Independently review the exact original and numerical statement, freeze the
+      boundary, and implement only the full unchanged Target with kernel trust.
+  notes: >-
+    Boundary-only scaffold. Challenge.lean has one deliberate Comparator
+    placeholder. It is not a proof-development result. Solution.lean is absent.
+status:
+  phase: frozen-statement-scaffold
+  scope: >-
+    For every n>0 and every simple graph on Fin n, a real symmetric matrix with
+    exactly that off-diagonal nonzero pattern and minimum-degree nullity bound.
+    Diagonal entries and edge signs are unrestricted; isolated vertices are included.
+  whole_problem_verified: false
+  canonical_status: Solved
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: [propext, Classical.choice, Quot.sound]
+  main_results: []
+  planned_results:
+  - declaration: NLA.SP11.target
+    file: Solution.lean
+    comparator_config: comparator.json
+    verification_status: Pending proof implementation and final independent review.
+fidelity:
+  divergences: >-
+    None in the boundary. NLA/Statements/SP11.lean and Infrastructure.lean are
+    exact byte copies of reviewed shared statements. Identity.lean checks the
+    copied live Target is definitionally equal to the separately frozen Target.
+review:
+  status: boundary-review-pending
+  reviewers: []
+  notes: >-
+    The shared exact specification and Lean definitions received independent
+    reviews under docs/lean/statements/SP-11 and docs/lean/proofs/SP-11.
+    This new package boundary requires two hash-bound independent approvals
+    before Solution.lean is written. No full proof or Linux Comparator success
+    is claimed by this scaffold.
+acknowledgements: >-
+  Mathematical credit remains with Hall; Stepaniants authored the explanatory
+  application note. Formalization and checks are AI-agent work, not external
+  human peer review.

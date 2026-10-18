@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Record permanent-ID, canonical page/status, and original artifact identity."""
 import argparse
+from datetime import date
 import hashlib
 import json
 from pathlib import Path, PurePosixPath
@@ -11,6 +12,7 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--repo", type=Path, default=Path(__file__).resolve().parents[4])
 parser.add_argument("--base-ref", default="47006df8b3a6c724a557266c891893d03e69323a")
 parser.add_argument("--output", type=Path, default=Path(__file__).with_name("canonical-preservation.json"))
+parser.add_argument("--checked-on", default=date.today().isoformat())
 args = parser.parse_args()
 
 
@@ -65,7 +67,7 @@ for name in source_paths:
     sources.append({"path": name, "base_sha256": sha(original), "current_sha256": sha(current),
                     "bytes_unchanged": original == current})
 report = {
-    "schema_version": 1, "checked_on": "2026-10-17",
+    "schema_version": 1, "checked_on": args.checked_on,
     "reviewer": "/root/lean_verification (independent Codex AI agent)",
     "scope": "Byte identity of every registered canonical README/status, registry, original immediate problem artifacts, and selected SP-11 source/frozen boundary",
     "base_ref": args.base_ref,
