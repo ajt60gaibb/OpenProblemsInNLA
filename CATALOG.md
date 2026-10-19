@@ -2,7 +2,7 @@
 
 **98 problems with open targets:** 36 open and 62 partially resolved. **119 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 36 solved (published or independently audited); 82 solved with Lean verification.
+**Resolution evidence:** 35 solved (published or independently audited); 83 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -216,7 +216,7 @@ Retained entries outside the open count:
 | [PF-02](nonnegative-and-positive-factorizations/PF-02/README.md) | Connectedness of minimal positive semidefinite factorization orbits | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](nonnegative-and-positive-factorizations/PF-02/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-02/problem.tex) |
 | [PF-03](nonnegative-and-positive-factorizations/PF-03/README.md) | Rational factors for rational completely positive boundary matrices | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](nonnegative-and-positive-factorizations/PF-03/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-03/problem.tex) |
 | [PF-04](nonnegative-and-positive-factorizations/PF-04/README.md) | The maximum cp-rank in order six | **✅ SOLVED** | challenging | interesting to the community | [PDF](nonnegative-and-positive-factorizations/PF-04/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-04/problem.tex) |
-| [PF-05](nonnegative-and-positive-factorizations/PF-05/README.md) | Infinitesimal rigidity detects unique size-two factors in the presence of zeros | **✅ SOLVED** | challenging | interesting to specialist | [PDF](nonnegative-and-positive-factorizations/PF-05/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-05/problem.tex) |
+| [PF-05](nonnegative-and-positive-factorizations/PF-05/README.md) | Infinitesimal rigidity detects unique size-two factors in the presence of zeros | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](nonnegative-and-positive-factorizations/PF-05/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-05/problem.tex) |
 
 
 ## [Matrix inequalities and norms](matrix-inequalities-and-norms/README.md)

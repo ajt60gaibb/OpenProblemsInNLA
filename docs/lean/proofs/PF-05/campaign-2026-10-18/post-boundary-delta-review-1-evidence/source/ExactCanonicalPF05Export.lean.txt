@@ -1,0 +1,15 @@
+import Solution
+import LeanCert.Tactic.Verification
+open Lean Elab Command in
+elab "#assert_exact_selected_pf05_export" : command => do
+  let name := ``NLA.PF05.target
+  match (← getEnv).find? name with
+  | some (.thmInfo info) =>
+    unless info.type == mkConst ``NLA.Statements.PF05.Target do
+      throwError "expected the exact literal unchanged Target, without parameters"
+  | _ => throwError "expected proved theorem declaration"
+#assert_exact_selected_pf05_export
+#assert_trust kernel NLA.PF05.target
+#assert_trust kernel NLA.PF05.target_eq_reviewed
+#print axioms NLA.PF05.target
+#print axioms NLA.PF05.target_eq_reviewed

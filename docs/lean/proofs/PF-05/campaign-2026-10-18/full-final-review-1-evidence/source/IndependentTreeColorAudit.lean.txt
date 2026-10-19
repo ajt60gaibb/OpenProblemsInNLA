@@ -1,0 +1,1053 @@
+import NLA.Proofs.PF05.Final
+import LeanCert.Tactic.Verification
+open Lean Elab Command in
+elab "#assert_proof_constant " n:ident : command => do
+  let decl ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  match (← getEnv).find? decl with
+  | some (.thmInfo _) => pure ()
+  | _ => throwErrorAt n "expected a proved theorem constant"
+open Lean Elab Command in
+elab "#assert_private_constant " mod:str suffix:str expected:str : command => do
+  let declPrefix := "_private." ++ mod.getString ++ "."
+  let ending := "." ++ suffix.getString
+  let candidates := (← getEnv).constants.toList.filter fun (n, _) =>
+    n.toString.startsWith declPrefix && n.toString.endsWith ending
+  unless candidates.length == 1 do
+    throwError "expected exactly one actual private declaration"
+  let some (decl, info) := candidates.head? | throwError "private declaration missing"
+  match expected.getString, info with
+  | "theorem", .thmInfo _ => pure ()
+  | "definition", .defnInfo _ => pure ()
+  | _, _ => throwError "private declaration kind does not match its source"
+  logInfo m!"PRIVATE_CONSTANT {decl} KIND={expected.getString}"
+  let declIdent := mkIdent decl
+  elabCommand (← `(#assert_trust $(mkIdent `kernel):ident $declIdent:ident))
+  elabCommand (← `(#print axioms $declIdent:ident))
+#assert_proof_constant NLA.Proofs.PF05.psd_iff_posSemidef
+#assert_trust kernel NLA.Proofs.PF05.psd_iff_posSemidef
+#print axioms NLA.Proofs.PF05.psd_iff_posSemidef
+#assert_proof_constant NLA.Proofs.PF05.psd_diag_nonneg
+#assert_trust kernel NLA.Proofs.PF05.psd_diag_nonneg
+#print axioms NLA.Proofs.PF05.psd_diag_nonneg
+#assert_proof_constant NLA.Proofs.PF05.psd_det_nonneg
+#assert_trust kernel NLA.Proofs.PF05.psd_det_nonneg
+#print axioms NLA.Proofs.PF05.psd_det_nonneg
+#assert_proof_constant NLA.Proofs.PF05.psd_zero_of_trace_zero
+#assert_trust kernel NLA.Proofs.PF05.psd_zero_of_trace_zero
+#print axioms NLA.Proofs.PF05.psd_zero_of_trace_zero
+#assert_private_constant "NLA.Proofs.PF05.Basic" "NLA.Proofs.PF05.trace_pair_P" "theorem"
+#assert_private_constant "NLA.Proofs.PF05.Basic" "NLA.Proofs.PF05.trace_pair_Q" "theorem"
+#assert_private_constant "NLA.Proofs.PF05.Basic" "NLA.Proofs.PF05.trace_pair_R" "theorem"
+#assert_proof_constant NLA.Proofs.PF05.trace_pairing_symm_nondegenerate
+#assert_trust kernel NLA.Proofs.PF05.trace_pairing_symm_nondegenerate
+#print axioms NLA.Proofs.PF05.trace_pairing_symm_nondegenerate
+#assert_private_constant "NLA.Proofs.PF05.Basic" "NLA.Proofs.PF05.quadratic_form_fin_two" "theorem"
+#assert_proof_constant NLA.Proofs.PF05.psd_fin_two_iff
+#assert_trust kernel NLA.Proofs.PF05.psd_fin_two_iff
+#print axioms NLA.Proofs.PF05.psd_fin_two_iff
+#assert_proof_constant NLA.Proofs.PF05.psd_zero_00_offdiag
+#assert_trust kernel NLA.Proofs.PF05.psd_zero_00_offdiag
+#print axioms NLA.Proofs.PF05.psd_zero_00_offdiag
+#assert_proof_constant NLA.Proofs.PF05.psd_zero_11_offdiag
+#assert_trust kernel NLA.Proofs.PF05.psd_zero_11_offdiag
+#print axioms NLA.Proofs.PF05.psd_zero_11_offdiag
+#assert_proof_constant NLA.Proofs.PF05.trace_zero_with_P
+#assert_trust kernel NLA.Proofs.PF05.trace_zero_with_P
+#print axioms NLA.Proofs.PF05.trace_zero_with_P
+#assert_proof_constant NLA.Proofs.PF05.trace_zero_with_Q
+#assert_trust kernel NLA.Proofs.PF05.trace_zero_with_Q
+#print axioms NLA.Proofs.PF05.trace_zero_with_Q
+#assert_proof_constant NLA.Proofs.PF05.trace_mul_symmetric_coordinates
+#assert_trust kernel NLA.Proofs.PF05.trace_mul_symmetric_coordinates
+#print axioms NLA.Proofs.PF05.trace_mul_symmetric_coordinates
+#assert_trust kernel NLA.Proofs.PF05.leftCoordinates
+#print axioms NLA.Proofs.PF05.leftCoordinates
+#assert_trust kernel NLA.Proofs.PF05.rightCoordinates
+#print axioms NLA.Proofs.PF05.rightCoordinates
+#assert_proof_constant NLA.Proofs.PF05.factorization_coordinates
+#assert_trust kernel NLA.Proofs.PF05.factorization_coordinates
+#print axioms NLA.Proofs.PF05.factorization_coordinates
+#assert_proof_constant NLA.Proofs.PF05.factorization_coordinates_full_rank
+#assert_trust kernel NLA.Proofs.PF05.factorization_coordinates_full_rank
+#print axioms NLA.Proofs.PF05.factorization_coordinates_full_rank
+#assert_proof_constant NLA.Proofs.PF05.factorization_coordinate_spans
+#assert_trust kernel NLA.Proofs.PF05.factorization_coordinate_spans
+#print axioms NLA.Proofs.PF05.factorization_coordinate_spans
+#assert_proof_constant NLA.Proofs.PF05.dotProduct_zero_of_column_span
+#assert_trust kernel NLA.Proofs.PF05.dotProduct_zero_of_column_span
+#print axioms NLA.Proofs.PF05.dotProduct_zero_of_column_span
+#assert_proof_constant NLA.Proofs.PF05.trace_pairing_right_nondegenerate_of_rank_three
+#assert_trust kernel NLA.Proofs.PF05.trace_pairing_right_nondegenerate_of_rank_three
+#print axioms NLA.Proofs.PF05.trace_pairing_right_nondegenerate_of_rank_three
+#assert_proof_constant NLA.Proofs.PF05.trace_pairing_left_nondegenerate_of_rank_three
+#assert_trust kernel NLA.Proofs.PF05.trace_pairing_left_nondegenerate_of_rank_three
+#print axioms NLA.Proofs.PF05.trace_pairing_left_nondegenerate_of_rank_three
+#assert_proof_constant NLA.Proofs.PF05.factor_zero_row
+#assert_trust kernel NLA.Proofs.PF05.factor_zero_row
+#print axioms NLA.Proofs.PF05.factor_zero_row
+#assert_proof_constant NLA.Proofs.PF05.factor_zero_column
+#assert_trust kernel NLA.Proofs.PF05.factor_zero_column
+#print axioms NLA.Proofs.PF05.factor_zero_column
+#assert_proof_constant NLA.Proofs.PF05.feasible_zero_row
+#assert_trust kernel NLA.Proofs.PF05.feasible_zero_row
+#print axioms NLA.Proofs.PF05.feasible_zero_row
+#assert_proof_constant NLA.Proofs.PF05.feasible_zero_column
+#assert_trust kernel NLA.Proofs.PF05.feasible_zero_column
+#print axioms NLA.Proofs.PF05.feasible_zero_column
+#assert_proof_constant NLA.Proofs.PF05.trace_zero_psd_mul_eq_zero
+#assert_trust kernel NLA.Proofs.PF05.trace_zero_psd_mul_eq_zero
+#print axioms NLA.Proofs.PF05.trace_zero_psd_mul_eq_zero
+#assert_proof_constant NLA.Proofs.PF05.det_zero_of_mul_zero_right_nonzero
+#assert_trust kernel NLA.Proofs.PF05.det_zero_of_mul_zero_right_nonzero
+#print axioms NLA.Proofs.PF05.det_zero_of_mul_zero_right_nonzero
+#assert_proof_constant NLA.Proofs.PF05.det_zero_of_mul_zero_left_nonzero
+#assert_trust kernel NLA.Proofs.PF05.det_zero_of_mul_zero_left_nonzero
+#print axioms NLA.Proofs.PF05.det_zero_of_mul_zero_left_nonzero
+#assert_proof_constant NLA.Proofs.PF05.psd_trace_zero_mul_eq_zero
+#assert_trust kernel NLA.Proofs.PF05.psd_trace_zero_mul_eq_zero
+#print axioms NLA.Proofs.PF05.psd_trace_zero_mul_eq_zero
+#assert_proof_constant NLA.Proofs.PF05.nonzero_zero_pair_singular
+#assert_trust kernel NLA.Proofs.PF05.nonzero_zero_pair_singular
+#print axioms NLA.Proofs.PF05.nonzero_zero_pair_singular
+#assert_proof_constant NLA.Proofs.PF05.left_inverse_of_row_span
+#assert_trust kernel NLA.Proofs.PF05.left_inverse_of_row_span
+#print axioms NLA.Proofs.PF05.left_inverse_of_row_span
+#assert_proof_constant NLA.Proofs.PF05.right_inverse_of_column_span
+#assert_trust kernel NLA.Proofs.PF05.right_inverse_of_column_span
+#print axioms NLA.Proofs.PF05.right_inverse_of_column_span
+#assert_proof_constant NLA.Proofs.PF05.full_rank_factorization_change_of_basis
+#assert_trust kernel NLA.Proofs.PF05.full_rank_factorization_change_of_basis
+#print axioms NLA.Proofs.PF05.full_rank_factorization_change_of_basis
+#assert_proof_constant NLA.Proofs.PF05.factorization_change_of_basis
+#assert_trust kernel NLA.Proofs.PF05.factorization_change_of_basis
+#print axioms NLA.Proofs.PF05.factorization_change_of_basis
+#assert_proof_constant NLA.Proofs.PF05.full_rank_infinitesimal_operator
+#assert_trust kernel NLA.Proofs.PF05.full_rank_infinitesimal_operator
+#print axioms NLA.Proofs.PF05.full_rank_infinitesimal_operator
+#assert_proof_constant NLA.Proofs.PF05.first_order_coordinates
+#assert_trust kernel NLA.Proofs.PF05.first_order_coordinates
+#print axioms NLA.Proofs.PF05.first_order_coordinates
+#assert_proof_constant NLA.Proofs.PF05.feasible_direction_operator
+#assert_trust kernel NLA.Proofs.PF05.feasible_direction_operator
+#print axioms NLA.Proofs.PF05.feasible_direction_operator
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.M2
+#print axioms NLA.Proofs.PF05.CoordinateActions.M2
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.M3
+#print axioms NLA.Proofs.PF05.CoordinateActions.M3
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.leftVector
+#print axioms NLA.Proofs.PF05.CoordinateActions.leftVector
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.rightVector
+#print axioms NLA.Proofs.PF05.CoordinateActions.rightVector
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.decodeLeft
+#print axioms NLA.Proofs.PF05.CoordinateActions.decodeLeft
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.decodeRight
+#print axioms NLA.Proofs.PF05.CoordinateActions.decodeRight
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.leftVector_decode
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.leftVector_decode
+#print axioms NLA.Proofs.PF05.CoordinateActions.leftVector_decode
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.rightVector_decode
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.rightVector_decode
+#print axioms NLA.Proofs.PF05.CoordinateActions.rightVector_decode
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.decodeLeft_vector
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.decodeLeft_vector
+#print axioms NLA.Proofs.PF05.CoordinateActions.decodeLeft_vector
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.decodeRight_vector
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.decodeRight_vector
+#print axioms NLA.Proofs.PF05.CoordinateActions.decodeRight_vector
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.decodeLeft_symmetric
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.decodeLeft_symmetric
+#print axioms NLA.Proofs.PF05.CoordinateActions.decodeLeft_symmetric
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.decodeRight_symmetric
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.decodeRight_symmetric
+#print axioms NLA.Proofs.PF05.CoordinateActions.decodeRight_symmetric
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.leftVector_injective_symmetric
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.leftVector_injective_symmetric
+#print axioms NLA.Proofs.PF05.CoordinateActions.leftVector_injective_symmetric
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.rightVector_injective_symmetric
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.rightVector_injective_symmetric
+#print axioms NLA.Proofs.PF05.CoordinateActions.rightVector_injective_symmetric
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.leftVector_add
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.leftVector_add
+#print axioms NLA.Proofs.PF05.CoordinateActions.leftVector_add
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.rightVector_add
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.rightVector_add
+#print axioms NLA.Proofs.PF05.CoordinateActions.rightVector_add
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.leftVector_smul
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.leftVector_smul
+#print axioms NLA.Proofs.PF05.CoordinateActions.leftVector_smul
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.rightVector_smul
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.rightVector_smul
+#print axioms NLA.Proofs.PF05.CoordinateActions.rightVector_smul
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.rightVector_zero
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.rightVector_zero
+#print axioms NLA.Proofs.PF05.CoordinateActions.rightVector_zero
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.leftVector_zero
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.leftVector_zero
+#print axioms NLA.Proofs.PF05.CoordinateActions.leftVector_zero
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.primal
+#print axioms NLA.Proofs.PF05.CoordinateActions.primal
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.dual
+#print axioms NLA.Proofs.PF05.CoordinateActions.dual
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.primal_symmetric
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.primal_symmetric
+#print axioms NLA.Proofs.PF05.CoordinateActions.primal_symmetric
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.dual_symmetric
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.dual_symmetric
+#print axioms NLA.Proofs.PF05.CoordinateActions.dual_symmetric
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.leftVector_primal
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.leftVector_primal
+#print axioms NLA.Proofs.PF05.CoordinateActions.leftVector_primal
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.rightVector_dual
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.rightVector_dual
+#print axioms NLA.Proofs.PF05.CoordinateActions.rightVector_dual
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.primal_one
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.primal_one
+#print axioms NLA.Proofs.PF05.CoordinateActions.primal_one
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.dual_one
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.dual_one
+#print axioms NLA.Proofs.PF05.CoordinateActions.dual_one
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.primal_zero_input
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.primal_zero_input
+#print axioms NLA.Proofs.PF05.CoordinateActions.primal_zero_input
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.dual_zero_input
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.dual_zero_input
+#print axioms NLA.Proofs.PF05.CoordinateActions.dual_zero_input
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.primal_one_add_smul
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.primal_one_add_smul
+#print axioms NLA.Proofs.PF05.CoordinateActions.primal_one_add_smul
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.dual_one_add_smul
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.dual_one_add_smul
+#print axioms NLA.Proofs.PF05.CoordinateActions.dual_one_add_smul
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.family_left_primal
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.family_left_primal
+#print axioms NLA.Proofs.PF05.CoordinateActions.family_left_primal
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.family_right_dual
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.family_right_dual
+#print axioms NLA.Proofs.PF05.CoordinateActions.family_right_dual
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.dual_resolvent_eigen
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.dual_resolvent_eigen
+#print axioms NLA.Proofs.PF05.CoordinateActions.dual_resolvent_eigen
+#assert_proof_constant NLA.Proofs.PF05.nonzero_psd_two_positive_diagonal
+#assert_trust kernel NLA.Proofs.PF05.nonzero_psd_two_positive_diagonal
+#print axioms NLA.Proofs.PF05.nonzero_psd_two_positive_diagonal
+#assert_proof_constant NLA.Proofs.PF05.zero_pair_coordinates_of_A00_pos
+#assert_trust kernel NLA.Proofs.PF05.zero_pair_coordinates_of_A00_pos
+#print axioms NLA.Proofs.PF05.zero_pair_coordinates_of_A00_pos
+#assert_proof_constant NLA.Proofs.PF05.zero_pair_coordinates_of_A11_pos
+#assert_trust kernel NLA.Proofs.PF05.zero_pair_coordinates_of_A11_pos
+#print axioms NLA.Proofs.PF05.zero_pair_coordinates_of_A11_pos
+#assert_trust kernel NLA.Proofs.PF05.determinantDirection
+#print axioms NLA.Proofs.PF05.determinantDirection
+#assert_proof_constant NLA.Proofs.PF05.det_add_smul_two
+#assert_trust kernel NLA.Proofs.PF05.det_add_smul_two
+#print axioms NLA.Proofs.PF05.det_add_smul_two
+#assert_proof_constant NLA.Proofs.PF05.determinantDirection_nonneg_of_segment
+#assert_trust kernel NLA.Proofs.PF05.determinantDirection_nonneg_of_segment
+#print axioms NLA.Proofs.PF05.determinantDirection_nonneg_of_segment
+#assert_proof_constant NLA.Proofs.PF05.det_direction_nonneg_of_flat_segment
+#assert_trust kernel NLA.Proofs.PF05.det_direction_nonneg_of_flat_segment
+#print axioms NLA.Proofs.PF05.det_direction_nonneg_of_flat_segment
+#assert_private_constant "NLA.Proofs.PF05.PSDLine" "NLA.Proofs.PF05.flat_coordinates" "theorem"
+#assert_proof_constant NLA.Proofs.PF05.flat_psd_segment_direction_scalar
+#assert_trust kernel NLA.Proofs.PF05.flat_psd_segment_direction_scalar
+#print axioms NLA.Proofs.PF05.flat_psd_segment_direction_scalar
+#assert_proof_constant NLA.Proofs.PF05.psd_two_of_trace_pos_det_nonneg
+#assert_trust kernel NLA.Proofs.PF05.psd_two_of_trace_pos_det_nonneg
+#print axioms NLA.Proofs.PF05.psd_two_of_trace_pos_det_nonneg
+#assert_proof_constant NLA.Proofs.PF05.polynomial_signed_strictification
+#assert_trust kernel NLA.Proofs.PF05.polynomial_signed_strictification
+#print axioms NLA.Proofs.PF05.polynomial_signed_strictification
+#assert_trust kernel NLA.Proofs.PF05.chartOuter
+#print axioms NLA.Proofs.PF05.chartOuter
+#assert_trust kernel NLA.Proofs.PF05.chartDual
+#print axioms NLA.Proofs.PF05.chartDual
+#assert_trust kernel NLA.Proofs.PF05.coordinateQuadratic
+#print axioms NLA.Proofs.PF05.coordinateQuadratic
+#assert_trust kernel NLA.Proofs.PF05.alternativePolynomial
+#print axioms NLA.Proofs.PF05.alternativePolynomial
+#assert_trust kernel NLA.Proofs.PF05.directionPolynomial
+#print axioms NLA.Proofs.PF05.directionPolynomial
+#assert_proof_constant NLA.Proofs.PF05.alternativePolynomial_degree
+#assert_trust kernel NLA.Proofs.PF05.alternativePolynomial_degree
+#print axioms NLA.Proofs.PF05.alternativePolynomial_degree
+#assert_proof_constant NLA.Proofs.PF05.directionPolynomial_degree
+#assert_trust kernel NLA.Proofs.PF05.directionPolynomial_degree
+#print axioms NLA.Proofs.PF05.directionPolynomial_degree
+#assert_proof_constant NLA.Proofs.PF05.alternativePolynomial_eval
+#assert_trust kernel NLA.Proofs.PF05.alternativePolynomial_eval
+#print axioms NLA.Proofs.PF05.alternativePolynomial_eval
+#assert_proof_constant NLA.Proofs.PF05.directionPolynomial_eval
+#assert_trust kernel NLA.Proofs.PF05.directionPolynomial_eval
+#print axioms NLA.Proofs.PF05.directionPolynomial_eval
+#assert_proof_constant NLA.Proofs.PF05.directionPolynomial_dual_eval
+#assert_trust kernel NLA.Proofs.PF05.directionPolynomial_dual_eval
+#print axioms NLA.Proofs.PF05.directionPolynomial_dual_eval
+#assert_trust kernel NLA.Proofs.PF05.quarticAction
+#print axioms NLA.Proofs.PF05.quarticAction
+#assert_proof_constant NLA.Proofs.PF05.directionPolynomial_quarticAction
+#assert_trust kernel NLA.Proofs.PF05.directionPolynomial_quarticAction
+#print axioms NLA.Proofs.PF05.directionPolynomial_quarticAction
+#assert_proof_constant NLA.Proofs.PF05.coordinateActions_trace_cancel
+#assert_trust kernel NLA.Proofs.PF05.coordinateActions_trace_cancel
+#print axioms NLA.Proofs.PF05.coordinateActions_trace_cancel
+#assert_proof_constant NLA.Proofs.PF05.determinantDirection_smul
+#assert_trust kernel NLA.Proofs.PF05.determinantDirection_smul
+#print axioms NLA.Proofs.PF05.determinantDirection_smul
+#assert_proof_constant NLA.Proofs.PF05.primal_smul_input
+#assert_trust kernel NLA.Proofs.PF05.primal_smul_input
+#print axioms NLA.Proofs.PF05.primal_smul_input
+#assert_proof_constant NLA.Proofs.PF05.dual_smul_input
+#assert_trust kernel NLA.Proofs.PF05.dual_smul_input
+#print axioms NLA.Proofs.PF05.dual_smul_input
+#assert_proof_constant NLA.Proofs.PF05.det_nonpos_of_trace_zero_psd
+#assert_trust kernel NLA.Proofs.PF05.det_nonpos_of_trace_zero_psd
+#print axioms NLA.Proofs.PF05.det_nonpos_of_trace_zero_psd
+#assert_trust kernel NLA.Proofs.PF05.Sym2
+#print axioms NLA.Proofs.PF05.Sym2
+#assert_trust kernel NLA.Proofs.PF05.RayCompression
+#print axioms NLA.Proofs.PF05.RayCompression
+#assert_trust kernel NLA.Proofs.PF05.RayCompression.reduced
+#print axioms NLA.Proofs.PF05.RayCompression.reduced
+#assert_trust kernel NLA.Proofs.PF05.RayCompression.extend
+#print axioms NLA.Proofs.PF05.RayCompression.extend
+#assert_proof_constant NLA.Proofs.PF05.RayCompression.reduced_apply
+#assert_trust kernel NLA.Proofs.PF05.RayCompression.reduced_apply
+#print axioms NLA.Proofs.PF05.RayCompression.reduced_apply
+#assert_proof_constant NLA.Proofs.PF05.RayCompression.extend_apply_pick
+#assert_trust kernel NLA.Proofs.PF05.RayCompression.extend_apply_pick
+#print axioms NLA.Proofs.PF05.RayCompression.extend_apply_pick
+#assert_proof_constant NLA.Proofs.PF05.RayCompression.extend_reduced
+#assert_trust kernel NLA.Proofs.PF05.RayCompression.extend_reduced
+#print axioms NLA.Proofs.PF05.RayCompression.extend_reduced
+#assert_proof_constant NLA.Proofs.PF05.RayCompression.reconstruct_pick
+#assert_trust kernel NLA.Proofs.PF05.RayCompression.reconstruct_pick
+#print axioms NLA.Proofs.PF05.RayCompression.reconstruct_pick
+#assert_trust kernel NLA.Proofs.PF05.reducedMatrix
+#print axioms NLA.Proofs.PF05.reducedMatrix
+#assert_trust kernel NLA.Proofs.PF05.rowExpansion
+#print axioms NLA.Proofs.PF05.rowExpansion
+#assert_trust kernel NLA.Proofs.PF05.columnExpansion
+#print axioms NLA.Proofs.PF05.columnExpansion
+#assert_private_constant "NLA.Proofs.PF05.PositiveReduction" "NLA.Proofs.PF05.trace_scaled" "theorem"
+#assert_proof_constant NLA.Proofs.PF05.entry_reconstruct
+#assert_trust kernel NLA.Proofs.PF05.entry_reconstruct
+#print axioms NLA.Proofs.PF05.entry_reconstruct
+#assert_proof_constant NLA.Proofs.PF05.matrix_reconstruct
+#assert_trust kernel NLA.Proofs.PF05.matrix_reconstruct
+#print axioms NLA.Proofs.PF05.matrix_reconstruct
+#assert_proof_constant NLA.Proofs.PF05.factorization_restrict
+#assert_trust kernel NLA.Proofs.PF05.factorization_restrict
+#print axioms NLA.Proofs.PF05.factorization_restrict
+#assert_proof_constant NLA.Proofs.PF05.reduced_rank_three
+#assert_trust kernel NLA.Proofs.PF05.reduced_rank_three
+#print axioms NLA.Proofs.PF05.reduced_rank_three
+#assert_trust kernel NLA.Proofs.PF05.TraceSeparating
+#print axioms NLA.Proofs.PF05.TraceSeparating
+#assert_proof_constant NLA.Proofs.PF05.factorization_trace_separating
+#assert_trust kernel NLA.Proofs.PF05.factorization_trace_separating
+#print axioms NLA.Proofs.PF05.factorization_trace_separating
+#assert_proof_constant NLA.Proofs.PF05.row_relation
+#assert_trust kernel NLA.Proofs.PF05.row_relation
+#print axioms NLA.Proofs.PF05.row_relation
+#assert_proof_constant NLA.Proofs.PF05.column_relation
+#assert_trust kernel NLA.Proofs.PF05.column_relation
+#print axioms NLA.Proofs.PF05.column_relation
+#assert_proof_constant NLA.Proofs.PF05.alternative_row_relation
+#assert_trust kernel NLA.Proofs.PF05.alternative_row_relation
+#print axioms NLA.Proofs.PF05.alternative_row_relation
+#assert_proof_constant NLA.Proofs.PF05.alternative_column_relation
+#assert_trust kernel NLA.Proofs.PF05.alternative_column_relation
+#print axioms NLA.Proofs.PF05.alternative_column_relation
+#assert_proof_constant NLA.Proofs.PF05.direction_row_relation
+#assert_trust kernel NLA.Proofs.PF05.direction_row_relation
+#print axioms NLA.Proofs.PF05.direction_row_relation
+#assert_proof_constant NLA.Proofs.PF05.direction_column_relation
+#assert_trust kernel NLA.Proofs.PF05.direction_column_relation
+#print axioms NLA.Proofs.PF05.direction_column_relation
+#assert_proof_constant NLA.Proofs.PF05.psd_smul_of_nonneg
+#assert_trust kernel NLA.Proofs.PF05.psd_smul_of_nonneg
+#print axioms NLA.Proofs.PF05.psd_smul_of_nonneg
+#assert_proof_constant NLA.Proofs.PF05.factorization_extend
+#assert_trust kernel NLA.Proofs.PF05.factorization_extend
+#print axioms NLA.Proofs.PF05.factorization_extend
+#assert_proof_constant NLA.Proofs.PF05.direction_extend
+#assert_trust kernel NLA.Proofs.PF05.direction_extend
+#print axioms NLA.Proofs.PF05.direction_extend
+#assert_proof_constant NLA.Proofs.PF05.direction_restrict
+#assert_trust kernel NLA.Proofs.PF05.direction_restrict
+#print axioms NLA.Proofs.PF05.direction_restrict
+#assert_proof_constant NLA.Proofs.PF05.rigid_full_of_reduced
+#assert_trust kernel NLA.Proofs.PF05.rigid_full_of_reduced
+#print axioms NLA.Proofs.PF05.rigid_full_of_reduced
+#assert_proof_constant NLA.Proofs.PF05.rigid_reduced_of_full
+#assert_trust kernel NLA.Proofs.PF05.rigid_reduced_of_full
+#print axioms NLA.Proofs.PF05.rigid_reduced_of_full
+#assert_proof_constant NLA.Proofs.PF05.rigid_iff_reduced
+#assert_trust kernel NLA.Proofs.PF05.rigid_iff_reduced
+#print axioms NLA.Proofs.PF05.rigid_iff_reduced
+#assert_proof_constant NLA.Proofs.PF05.unique_reduced_of_full
+#assert_trust kernel NLA.Proofs.PF05.unique_reduced_of_full
+#print axioms NLA.Proofs.PF05.unique_reduced_of_full
+#assert_proof_constant NLA.Proofs.PF05.unique_full_of_reduced
+#assert_trust kernel NLA.Proofs.PF05.unique_full_of_reduced
+#print axioms NLA.Proofs.PF05.unique_full_of_reduced
+#assert_proof_constant NLA.Proofs.PF05.unique_iff_reduced
+#assert_trust kernel NLA.Proofs.PF05.unique_iff_reduced
+#print axioms NLA.Proofs.PF05.unique_iff_reduced
+#assert_proof_constant NLA.Proofs.PF05.rigidity_and_uniqueness_iff_reduced_of_rank_three
+#assert_trust kernel NLA.Proofs.PF05.rigidity_and_uniqueness_iff_reduced_of_rank_three
+#print axioms NLA.Proofs.PF05.rigidity_and_uniqueness_iff_reduced_of_rank_three
+#assert_trust kernel NLA.Proofs.PF05.SamePositiveRay
+#print axioms NLA.Proofs.PF05.SamePositiveRay
+#assert_proof_constant NLA.Proofs.PF05.samePositiveRay_refl
+#assert_trust kernel NLA.Proofs.PF05.samePositiveRay_refl
+#print axioms NLA.Proofs.PF05.samePositiveRay_refl
+#assert_proof_constant NLA.Proofs.PF05.samePositiveRay_symm
+#assert_trust kernel NLA.Proofs.PF05.samePositiveRay_symm
+#print axioms NLA.Proofs.PF05.samePositiveRay_symm
+#assert_proof_constant NLA.Proofs.PF05.samePositiveRay_trans
+#assert_trust kernel NLA.Proofs.PF05.samePositiveRay_trans
+#print axioms NLA.Proofs.PF05.samePositiveRay_trans
+#assert_trust kernel NLA.Proofs.PF05.positiveRaySetoid
+#print axioms NLA.Proofs.PF05.positiveRaySetoid
+#assert_proof_constant NLA.Proofs.PF05.exists_distinct_positive_ray_compression
+#assert_trust kernel NLA.Proofs.PF05.exists_distinct_positive_ray_compression
+#print axioms NLA.Proofs.PF05.exists_distinct_positive_ray_compression
+#assert_proof_constant NLA.Proofs.PF05.exists_positive_reduction
+#assert_trust kernel NLA.Proofs.PF05.exists_positive_reduction
+#print axioms NLA.Proofs.PF05.exists_positive_reduction
+#assert_trust kernel NLA.Proofs.PF05.Vec2
+#print axioms NLA.Proofs.PF05.Vec2
+#assert_trust kernel NLA.Proofs.PF05.outer
+#print axioms NLA.Proofs.PF05.outer
+#assert_trust kernel NLA.Proofs.PF05.cross
+#print axioms NLA.Proofs.PF05.cross
+#assert_trust kernel NLA.Proofs.PF05.pairMatrix
+#print axioms NLA.Proofs.PF05.pairMatrix
+#assert_proof_constant NLA.Proofs.PF05.outer_smul
+#assert_trust kernel NLA.Proofs.PF05.outer_smul
+#print axioms NLA.Proofs.PF05.outer_smul
+#assert_proof_constant NLA.Proofs.PF05.exists_smul_of_cross_eq_zero
+#assert_trust kernel NLA.Proofs.PF05.exists_smul_of_cross_eq_zero
+#print axioms NLA.Proofs.PF05.exists_smul_of_cross_eq_zero
+#assert_proof_constant NLA.Proofs.PF05.samePositiveRay_outer_of_cross_eq_zero
+#assert_trust kernel NLA.Proofs.PF05.samePositiveRay_outer_of_cross_eq_zero
+#print axioms NLA.Proofs.PF05.samePositiveRay_outer_of_cross_eq_zero
+#assert_proof_constant NLA.Proofs.PF05.cross_ne_zero_of_outer_distinct
+#assert_trust kernel NLA.Proofs.PF05.cross_ne_zero_of_outer_distinct
+#print axioms NLA.Proofs.PF05.cross_ne_zero_of_outer_distinct
+#assert_proof_constant NLA.Proofs.PF05.pairMatrix_det
+#assert_trust kernel NLA.Proofs.PF05.pairMatrix_det
+#print axioms NLA.Proofs.PF05.pairMatrix_det
+#assert_proof_constant NLA.Proofs.PF05.linearIndependent_of_outer_distinct
+#assert_trust kernel NLA.Proofs.PF05.linearIndependent_of_outer_distinct
+#print axioms NLA.Proofs.PF05.linearIndependent_of_outer_distinct
+#assert_proof_constant NLA.Proofs.PF05.outer_of_psd_det_zero
+#assert_trust kernel NLA.Proofs.PF05.outer_of_psd_det_zero
+#print axioms NLA.Proofs.PF05.outer_of_psd_det_zero
+#assert_proof_constant NLA.Proofs.PF05.outer_ne_zero_of_vector_ne_zero
+#assert_trust kernel NLA.Proofs.PF05.outer_ne_zero_of_vector_ne_zero
+#print axioms NLA.Proofs.PF05.outer_ne_zero_of_vector_ne_zero
+#assert_proof_constant NLA.Proofs.PF05.row_factor_ne_zero_of_positive_entry
+#assert_trust kernel NLA.Proofs.PF05.row_factor_ne_zero_of_positive_entry
+#print axioms NLA.Proofs.PF05.row_factor_ne_zero_of_positive_entry
+#assert_proof_constant NLA.Proofs.PF05.column_factor_ne_zero_of_positive_entry
+#assert_trust kernel NLA.Proofs.PF05.column_factor_ne_zero_of_positive_entry
+#print axioms NLA.Proofs.PF05.column_factor_ne_zero_of_positive_entry
+#assert_proof_constant NLA.Proofs.PF05.row_singular_pair_independent_of_distinct_rays
+#assert_trust kernel NLA.Proofs.PF05.row_singular_pair_independent_of_distinct_rays
+#print axioms NLA.Proofs.PF05.row_singular_pair_independent_of_distinct_rays
+#assert_proof_constant NLA.Proofs.PF05.column_singular_pair_independent_of_distinct_rays
+#assert_trust kernel NLA.Proofs.PF05.column_singular_pair_independent_of_distinct_rays
+#print axioms NLA.Proofs.PF05.column_singular_pair_independent_of_distinct_rays
+#assert_trust kernel NLA.Proofs.PF05.primalSlope
+#print axioms NLA.Proofs.PF05.primalSlope
+#assert_trust kernel NLA.Proofs.PF05.dualSlope
+#print axioms NLA.Proofs.PF05.dualSlope
+#assert_proof_constant NLA.Proofs.PF05.singular_primal_chart
+#assert_trust kernel NLA.Proofs.PF05.singular_primal_chart
+#print axioms NLA.Proofs.PF05.singular_primal_chart
+#assert_proof_constant NLA.Proofs.PF05.singular_dual_chart
+#assert_trust kernel NLA.Proofs.PF05.singular_dual_chart
+#print axioms NLA.Proofs.PF05.singular_dual_chart
+#assert_proof_constant NLA.Proofs.PF05.coordinateActions_trace_pairing
+#assert_trust kernel NLA.Proofs.PF05.coordinateActions_trace_pairing
+#print axioms NLA.Proofs.PF05.coordinateActions_trace_pairing
+#assert_proof_constant NLA.Proofs.PF05.actual_dual_identity_of_primal
+#assert_trust kernel NLA.Proofs.PF05.actual_dual_identity_of_primal
+#print axioms NLA.Proofs.PF05.actual_dual_identity_of_primal
+#assert_trust kernel NLA.Proofs.PF05.ContactIndex
+#print axioms NLA.Proofs.PF05.ContactIndex
+#assert_trust kernel NLA.Proofs.PF05.contactNode
+#print axioms NLA.Proofs.PF05.contactNode
+#assert_trust kernel NLA.Proofs.PF05.contactSign
+#print axioms NLA.Proofs.PF05.contactSign
+#assert_proof_constant NLA.Proofs.PF05.contactSign_ne_zero
+#assert_trust kernel NLA.Proofs.PF05.contactSign_ne_zero
+#print axioms NLA.Proofs.PF05.contactSign_ne_zero
+#assert_proof_constant NLA.Proofs.PF05.chart_trace_same
+#assert_trust kernel NLA.Proofs.PF05.chart_trace_same
+#print axioms NLA.Proofs.PF05.chart_trace_same
+#assert_proof_constant NLA.Proofs.PF05.contactNode_injective
+#assert_trust kernel NLA.Proofs.PF05.contactNode_injective
+#print axioms NLA.Proofs.PF05.contactNode_injective
+#assert_proof_constant NLA.Proofs.PF05.eventually_psd_line_of_strict
+#assert_trust kernel NLA.Proofs.PF05.eventually_psd_line_of_strict
+#print axioms NLA.Proofs.PF05.eventually_psd_line_of_strict
+#assert_proof_constant NLA.Proofs.PF05.strict_actions_feasible
+#assert_trust kernel NLA.Proofs.PF05.strict_actions_feasible
+#print axioms NLA.Proofs.PF05.strict_actions_feasible
+#assert_proof_constant NLA.Proofs.PF05.directionPolynomial_zero_of_scalar
+#assert_trust kernel NLA.Proofs.PF05.directionPolynomial_zero_of_scalar
+#print axioms NLA.Proofs.PF05.directionPolynomial_zero_of_scalar
+#assert_proof_constant NLA.Proofs.PF05.alternativePolynomial_contact_weak
+#assert_trust kernel NLA.Proofs.PF05.alternativePolynomial_contact_weak
+#print axioms NLA.Proofs.PF05.alternativePolynomial_contact_weak
+#assert_proof_constant NLA.Proofs.PF05.quartic_strict_actions_feasible
+#assert_trust kernel NLA.Proofs.PF05.quartic_strict_actions_feasible
+#print axioms NLA.Proofs.PF05.quartic_strict_actions_feasible
+#assert_proof_constant NLA.Proofs.PF05.rigid_chart_alternativePolynomial_zero
+#assert_trust kernel NLA.Proofs.PF05.rigid_chart_alternativePolynomial_zero
+#print axioms NLA.Proofs.PF05.rigid_chart_alternativePolynomial_zero
+#assert_proof_constant NLA.Proofs.PF05.alternativePolynomial_coeff_four
+#assert_trust kernel NLA.Proofs.PF05.alternativePolynomial_coeff_four
+#print axioms NLA.Proofs.PF05.alternativePolynomial_coeff_four
+#assert_proof_constant NLA.Proofs.PF05.alternativePolynomial_zero_outer
+#assert_trust kernel NLA.Proofs.PF05.alternativePolynomial_zero_outer
+#print axioms NLA.Proofs.PF05.alternativePolynomial_zero_outer
+#assert_trust kernel NLA.Proofs.PF05.ConicDeterminant.M2
+#print axioms NLA.Proofs.PF05.ConicDeterminant.M2
+#assert_trust kernel NLA.Proofs.PF05.ConicDeterminant.M3
+#print axioms NLA.Proofs.PF05.ConicDeterminant.M3
+#assert_trust kernel NLA.Proofs.PF05.ConicDeterminant.Vec2
+#print axioms NLA.Proofs.PF05.ConicDeterminant.Vec2
+#assert_trust kernel NLA.Proofs.PF05.ConicDeterminant.outer
+#print axioms NLA.Proofs.PF05.ConicDeterminant.outer
+#assert_trust kernel NLA.Proofs.PF05.ConicDeterminant.scale
+#print axioms NLA.Proofs.PF05.ConicDeterminant.scale
+#assert_proof_constant NLA.Proofs.PF05.ConicDeterminant.conic_coefficients
+#assert_trust kernel NLA.Proofs.PF05.ConicDeterminant.conic_coefficients
+#print axioms NLA.Proofs.PF05.ConicDeterminant.conic_coefficients
+#assert_proof_constant NLA.Proofs.PF05.ConicDeterminant.determinant_scale
+#assert_trust kernel NLA.Proofs.PF05.ConicDeterminant.determinant_scale
+#print axioms NLA.Proofs.PF05.ConicDeterminant.determinant_scale
+#assert_trust kernel NLA.Proofs.PF05.ConicDeterminant.metric
+#print axioms NLA.Proofs.PF05.ConicDeterminant.metric
+#assert_proof_constant NLA.Proofs.PF05.ConicDeterminant.metric_identity
+#assert_trust kernel NLA.Proofs.PF05.ConicDeterminant.metric_identity
+#print axioms NLA.Proofs.PF05.ConicDeterminant.metric_identity
+#assert_proof_constant NLA.Proofs.PF05.ConicDeterminant.scale_cube
+#assert_trust kernel NLA.Proofs.PF05.ConicDeterminant.scale_cube
+#print axioms NLA.Proofs.PF05.ConicDeterminant.scale_cube
+#assert_proof_constant NLA.Proofs.PF05.ConicDeterminant.scale_pos
+#assert_trust kernel NLA.Proofs.PF05.ConicDeterminant.scale_pos
+#print axioms NLA.Proofs.PF05.ConicDeterminant.scale_pos
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.trace_eq_coordinate_dot
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.trace_eq_coordinate_dot
+#print axioms NLA.Proofs.PF05.CoordinateActions.trace_eq_coordinate_dot
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.trace_primal_dual
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.trace_primal_dual
+#print axioms NLA.Proofs.PF05.CoordinateActions.trace_primal_dual
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.factorization_primal_dual
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.factorization_primal_dual
+#print axioms NLA.Proofs.PF05.CoordinateActions.factorization_primal_dual
+#assert_trust kernel NLA.Proofs.PF05.ConicPositive.M2
+#print axioms NLA.Proofs.PF05.ConicPositive.M2
+#assert_trust kernel NLA.Proofs.PF05.ConicPositive.M3
+#print axioms NLA.Proofs.PF05.ConicPositive.M3
+#assert_trust kernel NLA.Proofs.PF05.ConicPositive.Vec2
+#print axioms NLA.Proofs.PF05.ConicPositive.Vec2
+#assert_trust kernel NLA.Proofs.PF05.ConicPositive.outer
+#print axioms NLA.Proofs.PF05.ConicPositive.outer
+#assert_trust kernel NLA.Proofs.PF05.ConicPositive.polar
+#print axioms NLA.Proofs.PF05.ConicPositive.polar
+#assert_proof_constant NLA.Proofs.PF05.ConicPositive.primal_add
+#assert_trust kernel NLA.Proofs.PF05.ConicPositive.primal_add
+#print axioms NLA.Proofs.PF05.ConicPositive.primal_add
+#assert_proof_constant NLA.Proofs.PF05.ConicPositive.polar_outer
+#assert_trust kernel NLA.Proofs.PF05.ConicPositive.polar_outer
+#print axioms NLA.Proofs.PF05.ConicPositive.polar_outer
+#assert_proof_constant NLA.Proofs.PF05.ConicPositive.polar_outer_pos
+#assert_trust kernel NLA.Proofs.PF05.ConicPositive.polar_outer_pos
+#print axioms NLA.Proofs.PF05.ConicPositive.polar_outer_pos
+#assert_proof_constant NLA.Proofs.PF05.ConicPositive.psd_or_neg_of_det_nonneg
+#assert_trust kernel NLA.Proofs.PF05.ConicPositive.psd_or_neg_of_det_nonneg
+#print axioms NLA.Proofs.PF05.ConicPositive.psd_or_neg_of_det_nonneg
+#assert_proof_constant NLA.Proofs.PF05.ConicPositive.psd_of_det_zero_polar_pos
+#assert_trust kernel NLA.Proofs.PF05.ConicPositive.psd_of_det_zero_polar_pos
+#print axioms NLA.Proofs.PF05.ConicPositive.psd_of_det_zero_polar_pos
+#assert_proof_constant NLA.Proofs.PF05.ConicPositive.polar_scale
+#assert_trust kernel NLA.Proofs.PF05.ConicPositive.polar_scale
+#print axioms NLA.Proofs.PF05.ConicPositive.polar_scale
+#assert_proof_constant NLA.Proofs.PF05.ConicPositive.primal_outer_psd
+#assert_trust kernel NLA.Proofs.PF05.ConicPositive.primal_outer_psd
+#print axioms NLA.Proofs.PF05.ConicPositive.primal_outer_psd
+#assert_proof_constant NLA.Proofs.PF05.ConicPositive.primal_comp
+#assert_trust kernel NLA.Proofs.PF05.ConicPositive.primal_comp
+#print axioms NLA.Proofs.PF05.ConicPositive.primal_comp
+#assert_proof_constant NLA.Proofs.PF05.ConicPositive.primal_inv_left
+#assert_trust kernel NLA.Proofs.PF05.ConicPositive.primal_inv_left
+#print axioms NLA.Proofs.PF05.ConicPositive.primal_inv_left
+#assert_proof_constant NLA.Proofs.PF05.ConicPositive.primal_inv_outer_psd
+#assert_trust kernel NLA.Proofs.PF05.ConicPositive.primal_inv_outer_psd
+#print axioms NLA.Proofs.PF05.ConicPositive.primal_inv_outer_psd
+#assert_proof_constant NLA.Proofs.PF05.ConicPositive.trace_outer_right
+#assert_trust kernel NLA.Proofs.PF05.ConicPositive.trace_outer_right
+#print axioms NLA.Proofs.PF05.ConicPositive.trace_outer_right
+#assert_proof_constant NLA.Proofs.PF05.ConicPositive.dual_inv_outer_psd
+#assert_trust kernel NLA.Proofs.PF05.ConicPositive.dual_inv_outer_psd
+#print axioms NLA.Proofs.PF05.ConicPositive.dual_inv_outer_psd
+#assert_proof_constant NLA.Proofs.PF05.zeroAlternative_raw
+#assert_trust kernel NLA.Proofs.PF05.zeroAlternative_raw
+#print axioms NLA.Proofs.PF05.zeroAlternative_raw
+#assert_trust kernel NLA.Proofs.PF05.primalCongruence
+#print axioms NLA.Proofs.PF05.primalCongruence
+#assert_trust kernel NLA.Proofs.PF05.dualCongruence
+#print axioms NLA.Proofs.PF05.dualCongruence
+#assert_proof_constant NLA.Proofs.PF05.primalCongruence_psd
+#assert_trust kernel NLA.Proofs.PF05.primalCongruence_psd
+#print axioms NLA.Proofs.PF05.primalCongruence_psd
+#assert_proof_constant NLA.Proofs.PF05.dualCongruence_psd
+#assert_trust kernel NLA.Proofs.PF05.dualCongruence_psd
+#print axioms NLA.Proofs.PF05.dualCongruence_psd
+#assert_proof_constant NLA.Proofs.PF05.trace_congruence_invariant
+#assert_trust kernel NLA.Proofs.PF05.trace_congruence_invariant
+#print axioms NLA.Proofs.PF05.trace_congruence_invariant
+#assert_proof_constant NLA.Proofs.PF05.factorization_congruence
+#assert_trust kernel NLA.Proofs.PF05.factorization_congruence
+#print axioms NLA.Proofs.PF05.factorization_congruence
+#assert_proof_constant NLA.Proofs.PF05.primalCongruence_symmetric
+#assert_trust kernel NLA.Proofs.PF05.primalCongruence_symmetric
+#print axioms NLA.Proofs.PF05.primalCongruence_symmetric
+#assert_proof_constant NLA.Proofs.PF05.dualCongruence_symmetric
+#assert_trust kernel NLA.Proofs.PF05.dualCongruence_symmetric
+#print axioms NLA.Proofs.PF05.dualCongruence_symmetric
+#assert_proof_constant NLA.Proofs.PF05.primalCongruence_add_smul
+#assert_trust kernel NLA.Proofs.PF05.primalCongruence_add_smul
+#print axioms NLA.Proofs.PF05.primalCongruence_add_smul
+#assert_proof_constant NLA.Proofs.PF05.dualCongruence_add_smul
+#assert_trust kernel NLA.Proofs.PF05.dualCongruence_add_smul
+#print axioms NLA.Proofs.PF05.dualCongruence_add_smul
+#assert_proof_constant NLA.Proofs.PF05.feasibleDirection_congruence
+#assert_trust kernel NLA.Proofs.PF05.feasibleDirection_congruence
+#print axioms NLA.Proofs.PF05.feasibleDirection_congruence
+#assert_trust kernel NLA.Proofs.PF05.zeroCanonicalPrimal
+#print axioms NLA.Proofs.PF05.zeroCanonicalPrimal
+#assert_trust kernel NLA.Proofs.PF05.zeroCanonicalDual
+#print axioms NLA.Proofs.PF05.zeroCanonicalDual
+#assert_trust kernel NLA.Proofs.PF05.zeroPrimalDirection
+#print axioms NLA.Proofs.PF05.zeroPrimalDirection
+#assert_trust kernel NLA.Proofs.PF05.zeroDualDirection
+#print axioms NLA.Proofs.PF05.zeroDualDirection
+#assert_proof_constant NLA.Proofs.PF05.zeroPrimalDirection_symmetric
+#assert_trust kernel NLA.Proofs.PF05.zeroPrimalDirection_symmetric
+#print axioms NLA.Proofs.PF05.zeroPrimalDirection_symmetric
+#assert_proof_constant NLA.Proofs.PF05.zeroDualDirection_symmetric
+#assert_trust kernel NLA.Proofs.PF05.zeroDualDirection_symmetric
+#print axioms NLA.Proofs.PF05.zeroDualDirection_symmetric
+#assert_proof_constant NLA.Proofs.PF05.zeroDirection_trace
+#assert_trust kernel NLA.Proofs.PF05.zeroDirection_trace
+#print axioms NLA.Proofs.PF05.zeroDirection_trace
+#assert_proof_constant NLA.Proofs.PF05.zeroCanonical_trace
+#assert_trust kernel NLA.Proofs.PF05.zeroCanonical_trace
+#print axioms NLA.Proofs.PF05.zeroCanonical_trace
+#assert_proof_constant NLA.Proofs.PF05.zeroPrimalDirection_endpoint
+#assert_trust kernel NLA.Proofs.PF05.zeroPrimalDirection_endpoint
+#print axioms NLA.Proofs.PF05.zeroPrimalDirection_endpoint
+#assert_proof_constant NLA.Proofs.PF05.zeroDualDirection_endpoint
+#assert_trust kernel NLA.Proofs.PF05.zeroDualDirection_endpoint
+#print axioms NLA.Proofs.PF05.zeroDualDirection_endpoint
+#assert_proof_constant NLA.Proofs.PF05.psd_add_two
+#assert_trust kernel NLA.Proofs.PF05.psd_add_two
+#print axioms NLA.Proofs.PF05.psd_add_two
+#assert_proof_constant NLA.Proofs.PF05.psd_line_of_endpoint
+#assert_trust kernel NLA.Proofs.PF05.psd_line_of_endpoint
+#print axioms NLA.Proofs.PF05.psd_line_of_endpoint
+#assert_trust kernel NLA.Proofs.PF05.Congruent
+#print axioms NLA.Proofs.PF05.Congruent
+#assert_proof_constant NLA.Proofs.PF05.primalCongruence_comp
+#assert_trust kernel NLA.Proofs.PF05.primalCongruence_comp
+#print axioms NLA.Proofs.PF05.primalCongruence_comp
+#assert_proof_constant NLA.Proofs.PF05.dualCongruence_comp
+#assert_trust kernel NLA.Proofs.PF05.dualCongruence_comp
+#print axioms NLA.Proofs.PF05.dualCongruence_comp
+#assert_proof_constant NLA.Proofs.PF05.congruence_inv_det_ne_zero
+#assert_trust kernel NLA.Proofs.PF05.congruence_inv_det_ne_zero
+#print axioms NLA.Proofs.PF05.congruence_inv_det_ne_zero
+#assert_proof_constant NLA.Proofs.PF05.primalCongruence_one
+#assert_trust kernel NLA.Proofs.PF05.primalCongruence_one
+#print axioms NLA.Proofs.PF05.primalCongruence_one
+#assert_proof_constant NLA.Proofs.PF05.dualCongruence_one
+#assert_trust kernel NLA.Proofs.PF05.dualCongruence_one
+#print axioms NLA.Proofs.PF05.dualCongruence_one
+#assert_proof_constant NLA.Proofs.PF05.primalCongruence_cancel_left
+#assert_trust kernel NLA.Proofs.PF05.primalCongruence_cancel_left
+#print axioms NLA.Proofs.PF05.primalCongruence_cancel_left
+#assert_proof_constant NLA.Proofs.PF05.primalCongruence_cancel_right
+#assert_trust kernel NLA.Proofs.PF05.primalCongruence_cancel_right
+#print axioms NLA.Proofs.PF05.primalCongruence_cancel_right
+#assert_proof_constant NLA.Proofs.PF05.dualCongruence_cancel_left
+#assert_trust kernel NLA.Proofs.PF05.dualCongruence_cancel_left
+#print axioms NLA.Proofs.PF05.dualCongruence_cancel_left
+#assert_proof_constant NLA.Proofs.PF05.dualCongruence_cancel_right
+#assert_trust kernel NLA.Proofs.PF05.dualCongruence_cancel_right
+#print axioms NLA.Proofs.PF05.dualCongruence_cancel_right
+#assert_proof_constant NLA.Proofs.PF05.congruent_refl
+#assert_trust kernel NLA.Proofs.PF05.congruent_refl
+#print axioms NLA.Proofs.PF05.congruent_refl
+#assert_proof_constant NLA.Proofs.PF05.congruent_trans
+#assert_trust kernel NLA.Proofs.PF05.congruent_trans
+#print axioms NLA.Proofs.PF05.congruent_trans
+#assert_proof_constant NLA.Proofs.PF05.congruent_symm
+#assert_trust kernel NLA.Proofs.PF05.congruent_symm
+#print axioms NLA.Proofs.PF05.congruent_symm
+#assert_proof_constant NLA.Proofs.PF05.infinitesimallyRigid_congruence
+#assert_trust kernel NLA.Proofs.PF05.infinitesimallyRigid_congruence
+#print axioms NLA.Proofs.PF05.infinitesimallyRigid_congruence
+#assert_trust kernel NLA.Proofs.PF05.zeroShear
+#print axioms NLA.Proofs.PF05.zeroShear
+#assert_trust kernel NLA.Proofs.PF05.zeroReflection
+#print axioms NLA.Proofs.PF05.zeroReflection
+#assert_proof_constant NLA.Proofs.PF05.zeroShear_det
+#assert_trust kernel NLA.Proofs.PF05.zeroShear_det
+#print axioms NLA.Proofs.PF05.zeroShear_det
+#assert_proof_constant NLA.Proofs.PF05.zeroReflection_det
+#assert_trust kernel NLA.Proofs.PF05.zeroReflection_det
+#print axioms NLA.Proofs.PF05.zeroReflection_det
+#assert_proof_constant NLA.Proofs.PF05.zeroShear_primal
+#assert_trust kernel NLA.Proofs.PF05.zeroShear_primal
+#print axioms NLA.Proofs.PF05.zeroShear_primal
+#assert_proof_constant NLA.Proofs.PF05.zeroReflection_primal
+#assert_trust kernel NLA.Proofs.PF05.zeroReflection_primal
+#print axioms NLA.Proofs.PF05.zeroReflection_primal
+#assert_proof_constant NLA.Proofs.PF05.zeroAlternative_shear
+#assert_trust kernel NLA.Proofs.PF05.zeroAlternative_shear
+#print axioms NLA.Proofs.PF05.zeroAlternative_shear
+#assert_proof_constant NLA.Proofs.PF05.zeroCanonical_dual_of_primal
+#assert_trust kernel NLA.Proofs.PF05.zeroCanonical_dual_of_primal
+#print axioms NLA.Proofs.PF05.zeroCanonical_dual_of_primal
+#assert_private_constant "NLA.Proofs.PF05.ZeroNormalize" "NLA.Proofs.PF05.primal_normalization_algebra" "theorem"
+#assert_private_constant "NLA.Proofs.PF05.ZeroNormalize" "NLA.Proofs.PF05.dual_factorization_algebra" "theorem"
+#assert_private_constant "NLA.Proofs.PF05.ZeroNormalize" "NLA.Proofs.PF05.dual_normalize_of_congruence" "theorem"
+#assert_proof_constant NLA.Proofs.PF05.normalize_zero_pair_of_A00_pos
+#assert_trust kernel NLA.Proofs.PF05.normalize_zero_pair_of_A00_pos
+#print axioms NLA.Proofs.PF05.normalize_zero_pair_of_A00_pos
+#assert_private_constant "NLA.Proofs.PF05.ZeroNormalize" "NLA.Proofs.PF05.primal_normalization_algebra_swap" "theorem"
+#assert_private_constant "NLA.Proofs.PF05.ZeroNormalize" "NLA.Proofs.PF05.dual_factorization_algebra_swap" "theorem"
+#assert_proof_constant NLA.Proofs.PF05.normalize_zero_pair_of_A11_pos
+#assert_trust kernel NLA.Proofs.PF05.normalize_zero_pair_of_A11_pos
+#print axioms NLA.Proofs.PF05.normalize_zero_pair_of_A11_pos
+#assert_proof_constant NLA.Proofs.PF05.normalize_nonzero_zero_pair
+#assert_trust kernel NLA.Proofs.PF05.normalize_nonzero_zero_pair
+#print axioms NLA.Proofs.PF05.normalize_nonzero_zero_pair
+#assert_proof_constant NLA.Proofs.PF05.zeroAlternative_normal_form
+#assert_trust kernel NLA.Proofs.PF05.zeroAlternative_normal_form
+#print axioms NLA.Proofs.PF05.zeroAlternative_normal_form
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.congruenceOperator
+#print axioms NLA.Proofs.PF05.CoordinateActions.congruenceOperator
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.primal_congruenceOperator
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.primal_congruenceOperator
+#print axioms NLA.Proofs.PF05.CoordinateActions.primal_congruenceOperator
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.operator_eq_congruence_of_factors
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.operator_eq_congruence_of_factors
+#print axioms NLA.Proofs.PF05.CoordinateActions.operator_eq_congruence_of_factors
+#assert_private_constant "NLA.Proofs.PF05.CongruenceLine" "NLA.Proofs.PF05.CoordinateActions.coefficients_of_two_roots" "theorem"
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.rank_one_scalar_of_congruence_line
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.rank_one_scalar_of_congruence_line
+#print axioms NLA.Proofs.PF05.CoordinateActions.rank_one_scalar_of_congruence_line
+#assert_private_constant "NLA.Proofs.PF05.CongruenceLine" "NLA.Proofs.PF05.CoordinateActions.scalar_of_four_rays" "theorem"
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.congruence_line_scalar
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.congruence_line_scalar
+#print axioms NLA.Proofs.PF05.CoordinateActions.congruence_line_scalar
+#assert_trust kernel NLA.Proofs.PF05.PositiveTopology.Sym2
+#print axioms NLA.Proofs.PF05.PositiveTopology.Sym2
+#assert_trust kernel NLA.Proofs.PF05.PositiveTopology.Vec2
+#print axioms NLA.Proofs.PF05.PositiveTopology.Vec2
+#assert_private_constant "NLA.Proofs.PF05.PositiveTopology" "NLA.Proofs.PF05.PositiveTopology.outer" "definition"
+#assert_private_constant "NLA.Proofs.PF05.PositiveTopology" "NLA.Proofs.PF05.PositiveTopology.outer_ne_zero" "theorem"
+#assert_private_constant "NLA.Proofs.PF05.PositiveTopology" "NLA.Proofs.PF05.PositiveTopology.trace_mul_outer_eq_qform" "theorem"
+#assert_proof_constant NLA.Proofs.PF05.PositiveTopology.sum_posDef_of_trace_separating
+#assert_trust kernel NLA.Proofs.PF05.PositiveTopology.sum_posDef_of_trace_separating
+#print axioms NLA.Proofs.PF05.PositiveTopology.sum_posDef_of_trace_separating
+#assert_proof_constant NLA.Proofs.PF05.PositiveTopology.sum_rows_posDef
+#assert_trust kernel NLA.Proofs.PF05.PositiveTopology.sum_rows_posDef
+#print axioms NLA.Proofs.PF05.PositiveTopology.sum_rows_posDef
+#assert_proof_constant NLA.Proofs.PF05.PositiveTopology.sum_columns_posDef
+#assert_trust kernel NLA.Proofs.PF05.PositiveTopology.sum_columns_posDef
+#print axioms NLA.Proofs.PF05.PositiveTopology.sum_columns_posDef
+#assert_proof_constant NLA.Proofs.PF05.PositiveTopology.det_ne_zero_of_congruence_posDef
+#assert_trust kernel NLA.Proofs.PF05.PositiveTopology.det_ne_zero_of_congruence_posDef
+#print axioms NLA.Proofs.PF05.PositiveTopology.det_ne_zero_of_congruence_posDef
+#assert_proof_constant NLA.Proofs.PF05.PositiveTopology.sum_congruence
+#assert_trust kernel NLA.Proofs.PF05.PositiveTopology.sum_congruence
+#print axioms NLA.Proofs.PF05.PositiveTopology.sum_congruence
+#assert_proof_constant NLA.Proofs.PF05.PositiveTopology.congruence_det_nonzero_of_rank_three
+#assert_trust kernel NLA.Proofs.PF05.PositiveTopology.congruence_det_nonzero_of_rank_three
+#print axioms NLA.Proofs.PF05.PositiveTopology.congruence_det_nonzero_of_rank_three
+#assert_trust kernel NLA.Proofs.PF05.ConicCongruence.M2
+#print axioms NLA.Proofs.PF05.ConicCongruence.M2
+#assert_trust kernel NLA.Proofs.PF05.ConicCongruence.M3
+#print axioms NLA.Proofs.PF05.ConicCongruence.M3
+#assert_trust kernel NLA.Proofs.PF05.ConicCongruence.Vec2
+#print axioms NLA.Proofs.PF05.ConicCongruence.Vec2
+#assert_trust kernel NLA.Proofs.PF05.ConicCongruence.rowVectors
+#print axioms NLA.Proofs.PF05.ConicCongruence.rowVectors
+#assert_trust kernel NLA.Proofs.PF05.ConicCongruence.columnVectors
+#print axioms NLA.Proofs.PF05.ConicCongruence.columnVectors
+#assert_trust kernel NLA.Proofs.PF05.ConicCongruence.rows
+#print axioms NLA.Proofs.PF05.ConicCongruence.rows
+#assert_trust kernel NLA.Proofs.PF05.ConicCongruence.columns
+#print axioms NLA.Proofs.PF05.ConicCongruence.columns
+#assert_trust kernel NLA.Proofs.PF05.ConicCongruence.matrix
+#print axioms NLA.Proofs.PF05.ConicCongruence.matrix
+#assert_proof_constant NLA.Proofs.PF05.ConicCongruence.outer_psd
+#assert_trust kernel NLA.Proofs.PF05.ConicCongruence.outer_psd
+#print axioms NLA.Proofs.PF05.ConicCongruence.outer_psd
+#assert_proof_constant NLA.Proofs.PF05.ConicCongruence.actual_factorization
+#assert_trust kernel NLA.Proofs.PF05.ConicCongruence.actual_factorization
+#print axioms NLA.Proofs.PF05.ConicCongruence.actual_factorization
+#assert_proof_constant NLA.Proofs.PF05.ConicCongruence.actual_rank
+#assert_trust kernel NLA.Proofs.PF05.ConicCongruence.actual_rank
+#print axioms NLA.Proofs.PF05.ConicCongruence.actual_rank
+#assert_proof_constant NLA.Proofs.PF05.ConicCongruence.operator_congruence
+#assert_trust kernel NLA.Proofs.PF05.ConicCongruence.operator_congruence
+#print axioms NLA.Proofs.PF05.ConicCongruence.operator_congruence
+#assert_proof_constant NLA.Proofs.PF05.ConicCongruence.primal_sum
+#assert_trust kernel NLA.Proofs.PF05.ConicCongruence.primal_sum
+#print axioms NLA.Proofs.PF05.ConicCongruence.primal_sum
+#assert_proof_constant NLA.Proofs.PF05.ConicCongruence.congruent_of_conic_alternative
+#assert_trust kernel NLA.Proofs.PF05.ConicCongruence.congruent_of_conic_alternative
+#print axioms NLA.Proofs.PF05.ConicCongruence.congruent_of_conic_alternative
+#assert_trust kernel NLA.Proofs.PF05.CommonChart.M2
+#print axioms NLA.Proofs.PF05.CommonChart.M2
+#assert_trust kernel NLA.Proofs.PF05.CommonChart.lowerShear
+#print axioms NLA.Proofs.PF05.CommonChart.lowerShear
+#assert_proof_constant NLA.Proofs.PF05.CommonChart.lowerShear_det
+#assert_trust kernel NLA.Proofs.PF05.CommonChart.lowerShear_det
+#print axioms NLA.Proofs.PF05.CommonChart.lowerShear_det
+#assert_proof_constant NLA.Proofs.PF05.CommonChart.lowerShear_inv
+#assert_trust kernel NLA.Proofs.PF05.CommonChart.lowerShear_inv
+#print axioms NLA.Proofs.PF05.CommonChart.lowerShear_inv
+#assert_trust kernel NLA.Proofs.PF05.CommonChart.primalQuadratic
+#print axioms NLA.Proofs.PF05.CommonChart.primalQuadratic
+#assert_trust kernel NLA.Proofs.PF05.CommonChart.dualQuadratic
+#print axioms NLA.Proofs.PF05.CommonChart.dualQuadratic
+#assert_proof_constant NLA.Proofs.PF05.CommonChart.primalQuadratic_ne_zero
+#assert_trust kernel NLA.Proofs.PF05.CommonChart.primalQuadratic_ne_zero
+#print axioms NLA.Proofs.PF05.CommonChart.primalQuadratic_ne_zero
+#assert_proof_constant NLA.Proofs.PF05.CommonChart.dualQuadratic_ne_zero
+#assert_trust kernel NLA.Proofs.PF05.CommonChart.dualQuadratic_ne_zero
+#print axioms NLA.Proofs.PF05.CommonChart.dualQuadratic_ne_zero
+#assert_proof_constant NLA.Proofs.PF05.CommonChart.primal_lowerShear_entry
+#assert_trust kernel NLA.Proofs.PF05.CommonChart.primal_lowerShear_entry
+#print axioms NLA.Proofs.PF05.CommonChart.primal_lowerShear_entry
+#assert_proof_constant NLA.Proofs.PF05.CommonChart.dual_lowerShear_entry
+#assert_trust kernel NLA.Proofs.PF05.CommonChart.dual_lowerShear_entry
+#print axioms NLA.Proofs.PF05.CommonChart.dual_lowerShear_entry
+#assert_proof_constant NLA.Proofs.PF05.CommonChart.exists_common_nonroot
+#assert_trust kernel NLA.Proofs.PF05.CommonChart.exists_common_nonroot
+#print axioms NLA.Proofs.PF05.CommonChart.exists_common_nonroot
+#assert_proof_constant NLA.Proofs.PF05.CommonChart.exists_common_lower_shear
+#assert_trust kernel NLA.Proofs.PF05.CommonChart.exists_common_lower_shear
+#print axioms NLA.Proofs.PF05.CommonChart.exists_common_lower_shear
+#assert_proof_constant NLA.Proofs.PF05.CommonChart.exists_common_chart
+#assert_trust kernel NLA.Proofs.PF05.CommonChart.exists_common_chart
+#print axioms NLA.Proofs.PF05.CommonChart.exists_common_chart
+#assert_proof_constant NLA.Proofs.PF05.chart_distinct_rigid_implies_unique
+#assert_trust kernel NLA.Proofs.PF05.chart_distinct_rigid_implies_unique
+#print axioms NLA.Proofs.PF05.chart_distinct_rigid_implies_unique
+#assert_proof_constant NLA.Proofs.PF05.positive_rigid_implies_unique
+#assert_trust kernel NLA.Proofs.PF05.positive_rigid_implies_unique
+#print axioms NLA.Proofs.PF05.positive_rigid_implies_unique
+#assert_proof_constant NLA.Proofs.PF05.zeroDirection_feasible
+#assert_trust kernel NLA.Proofs.PF05.zeroDirection_feasible
+#print axioms NLA.Proofs.PF05.zeroDirection_feasible
+#assert_proof_constant NLA.Proofs.PF05.zeroPrimalDirection_scalar_parameters
+#assert_trust kernel NLA.Proofs.PF05.zeroPrimalDirection_scalar_parameters
+#print axioms NLA.Proofs.PF05.zeroPrimalDirection_scalar_parameters
+#assert_proof_constant NLA.Proofs.PF05.rigid_zeroCanonical_parameters
+#assert_trust kernel NLA.Proofs.PF05.rigid_zeroCanonical_parameters
+#print axioms NLA.Proofs.PF05.rigid_zeroCanonical_parameters
+#assert_proof_constant NLA.Proofs.PF05.zeroCanonicalPrimal_identity
+#assert_trust kernel NLA.Proofs.PF05.zeroCanonicalPrimal_identity
+#print axioms NLA.Proofs.PF05.zeroCanonicalPrimal_identity
+#assert_proof_constant NLA.Proofs.PF05.zeroCanonicalDual_identity
+#assert_trust kernel NLA.Proofs.PF05.zeroCanonicalDual_identity
+#print axioms NLA.Proofs.PF05.zeroCanonicalDual_identity
+#assert_proof_constant NLA.Proofs.PF05.zeroCanonical_explicit_nonscalar
+#assert_trust kernel NLA.Proofs.PF05.zeroCanonical_explicit_nonscalar
+#print axioms NLA.Proofs.PF05.zeroCanonical_explicit_nonscalar
+#assert_proof_constant NLA.Proofs.PF05.rigid_normalized_zero_pair_unique
+#assert_trust kernel NLA.Proofs.PF05.rigid_normalized_zero_pair_unique
+#print axioms NLA.Proofs.PF05.rigid_normalized_zero_pair_unique
+#assert_proof_constant NLA.Proofs.PF05.zero_pair_rigid_implies_unique
+#assert_trust kernel NLA.Proofs.PF05.zero_pair_rigid_implies_unique
+#print axioms NLA.Proofs.PF05.zero_pair_rigid_implies_unique
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.M2
+#print axioms NLA.Proofs.PF05.ZeroRestriction.M2
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.Selection
+#print axioms NLA.Proofs.PF05.ZeroRestriction.Selection
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.reduced
+#print axioms NLA.Proofs.PF05.ZeroRestriction.reduced
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.lookup
+#print axioms NLA.Proofs.PF05.ZeroRestriction.lookup
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.pick_lookup
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.pick_lookup
+#print axioms NLA.Proofs.PF05.ZeroRestriction.pick_lookup
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.extend
+#print axioms NLA.Proofs.PF05.ZeroRestriction.extend
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.extend_of_zero
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.extend_of_zero
+#print axioms NLA.Proofs.PF05.ZeroRestriction.extend_of_zero
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.extend_of_ne_zero
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.extend_of_ne_zero
+#print axioms NLA.Proofs.PF05.ZeroRestriction.extend_of_ne_zero
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.extend_pick
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.extend_pick
+#print axioms NLA.Proofs.PF05.ZeroRestriction.extend_pick
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.extend_reduced
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.extend_reduced
+#print axioms NLA.Proofs.PF05.ZeroRestriction.extend_reduced
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.exists_selection
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.exists_selection
+#print axioms NLA.Proofs.PF05.ZeroRestriction.exists_selection
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.reducedMatrix
+#print axioms NLA.Proofs.PF05.ZeroRestriction.reducedMatrix
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.factorization_restrict
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.factorization_restrict
+#print axioms NLA.Proofs.PF05.ZeroRestriction.factorization_restrict
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.row_coordinate_span
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.row_coordinate_span
+#print axioms NLA.Proofs.PF05.ZeroRestriction.row_coordinate_span
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.column_coordinate_span
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.column_coordinate_span
+#print axioms NLA.Proofs.PF05.ZeroRestriction.column_coordinate_span
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.reduced_rank_three
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.reduced_rank_three
+#print axioms NLA.Proofs.PF05.ZeroRestriction.reduced_rank_three
+#assert_private_constant "NLA.Proofs.PF05.ZeroRestrictionTransfer" "NLA.Proofs.PF05.ZeroRestriction.zero_psd" "theorem"
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.extend_psd
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.extend_psd
+#print axioms NLA.Proofs.PF05.ZeroRestriction.extend_psd
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.extend_symmetric
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.extend_symmetric
+#print axioms NLA.Proofs.PF05.ZeroRestriction.extend_symmetric
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.extend_add_smul
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.extend_add_smul
+#print axioms NLA.Proofs.PF05.ZeroRestriction.extend_add_smul
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.eq_map_of_restricted_eq
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.eq_map_of_restricted_eq
+#print axioms NLA.Proofs.PF05.ZeroRestriction.eq_map_of_restricted_eq
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.factorization_extend
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.factorization_extend
+#print axioms NLA.Proofs.PF05.ZeroRestriction.factorization_extend
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.direction_restrict
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.direction_restrict
+#print axioms NLA.Proofs.PF05.ZeroRestriction.direction_restrict
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.direction_extend
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.direction_extend
+#print axioms NLA.Proofs.PF05.ZeroRestriction.direction_extend
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.rigid_reduced_of_full
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.rigid_reduced_of_full
+#print axioms NLA.Proofs.PF05.ZeroRestriction.rigid_reduced_of_full
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.rigid_full_of_reduced
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.rigid_full_of_reduced
+#print axioms NLA.Proofs.PF05.ZeroRestriction.rigid_full_of_reduced
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.rigid_iff_reduced
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.rigid_iff_reduced
+#print axioms NLA.Proofs.PF05.ZeroRestriction.rigid_iff_reduced
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.unique_reduced_of_full
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.unique_reduced_of_full
+#print axioms NLA.Proofs.PF05.ZeroRestriction.unique_reduced_of_full
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.unique_full_of_reduced
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.unique_full_of_reduced
+#print axioms NLA.Proofs.PF05.ZeroRestriction.unique_full_of_reduced
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.unique_iff_reduced
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.unique_iff_reduced
+#print axioms NLA.Proofs.PF05.ZeroRestriction.unique_iff_reduced
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.psdRankTwo_of_rank_three_factorization
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.psdRankTwo_of_rank_three_factorization
+#print axioms NLA.Proofs.PF05.ZeroRestriction.psdRankTwo_of_rank_three_factorization
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.reduced_positive_of_no_nonzero_zero_pair
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.reduced_positive_of_no_nonzero_zero_pair
+#print axioms NLA.Proofs.PF05.ZeroRestriction.reduced_positive_of_no_nonzero_zero_pair
+#assert_proof_constant NLA.Proofs.PF05.ZeroRestriction.exists_positive_core_of_no_nonzero_zero_pair
+#assert_trust kernel NLA.Proofs.PF05.ZeroRestriction.exists_positive_core_of_no_nonzero_zero_pair
+#print axioms NLA.Proofs.PF05.ZeroRestriction.exists_positive_core_of_no_nonzero_zero_pair
+#assert_proof_constant NLA.Proofs.PF05.feasible_direction_actions
+#assert_trust kernel NLA.Proofs.PF05.feasible_direction_actions
+#print axioms NLA.Proofs.PF05.feasible_direction_actions
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.inversePencil
+#print axioms NLA.Proofs.PF05.CoordinateActions.inversePencil
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.hasDerivAt_inversePencil
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.hasDerivAt_inversePencil
+#print axioms NLA.Proofs.PF05.CoordinateActions.hasDerivAt_inversePencil
+#assert_private_constant "NLA.Proofs.PF05.Resolvent" "NLA.Proofs.PF05.CoordinateActions.entryCLM" "definition"
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.inversePencil_entry_derivative
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.inversePencil_entry_derivative
+#print axioms NLA.Proofs.PF05.CoordinateActions.inversePencil_entry_derivative
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.inverse_dual_entry_derivative
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.inverse_dual_entry_derivative
+#print axioms NLA.Proofs.PF05.CoordinateActions.inverse_dual_entry_derivative
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.inverse_dual_zero
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.inverse_dual_zero
+#print axioms NLA.Proofs.PF05.CoordinateActions.inverse_dual_zero
+#assert_proof_constant NLA.Proofs.PF05.CoordinateActions.pencil_det_eventually_ne_zero
+#assert_trust kernel NLA.Proofs.PF05.CoordinateActions.pencil_det_eventually_ne_zero
+#print axioms NLA.Proofs.PF05.CoordinateActions.pencil_det_eventually_ne_zero
+#assert_proof_constant NLA.Proofs.PF05.positive_on_right_of_derivative_pos
+#assert_trust kernel NLA.Proofs.PF05.positive_on_right_of_derivative_pos
+#print axioms NLA.Proofs.PF05.positive_on_right_of_derivative_pos
+#assert_proof_constant NLA.Proofs.PF05.right_segment_of_eventually_nhds
+#assert_trust kernel NLA.Proofs.PF05.right_segment_of_eventually_nhds
+#print axioms NLA.Proofs.PF05.right_segment_of_eventually_nhds
+#assert_proof_constant NLA.Proofs.PF05.trace_pos_of_psd_ne_zero
+#assert_trust kernel NLA.Proofs.PF05.trace_pos_of_psd_ne_zero
+#print axioms NLA.Proofs.PF05.trace_pos_of_psd_ne_zero
+#assert_proof_constant NLA.Proofs.PF05.matrix_trace_derivative
+#assert_trust kernel NLA.Proofs.PF05.matrix_trace_derivative
+#print axioms NLA.Proofs.PF05.matrix_trace_derivative
+#assert_proof_constant NLA.Proofs.PF05.matrix_determinant_derivative
+#assert_trust kernel NLA.Proofs.PF05.matrix_determinant_derivative
+#print axioms NLA.Proofs.PF05.matrix_determinant_derivative
+#assert_proof_constant NLA.Proofs.PF05.psd_near_of_det_pos
+#assert_trust kernel NLA.Proofs.PF05.psd_near_of_det_pos
+#print axioms NLA.Proofs.PF05.psd_near_of_det_pos
+#assert_proof_constant NLA.Proofs.PF05.psd_near_of_det_derivative_pos
+#assert_trust kernel NLA.Proofs.PF05.psd_near_of_det_derivative_pos
+#print axioms NLA.Proofs.PF05.psd_near_of_det_derivative_pos
+#assert_proof_constant NLA.Proofs.PF05.inverse_dual_psd_near_of_segment
+#assert_trust kernel NLA.Proofs.PF05.inverse_dual_psd_near_of_segment
+#print axioms NLA.Proofs.PF05.inverse_dual_psd_near_of_segment
+#assert_proof_constant NLA.Proofs.PF05.finite_common_psd_interval
+#assert_trust kernel NLA.Proofs.PF05.finite_common_psd_interval
+#print axioms NLA.Proofs.PF05.finite_common_psd_interval
+#assert_proof_constant NLA.Proofs.PF05.integrate_feasible_direction
+#assert_trust kernel NLA.Proofs.PF05.integrate_feasible_direction
+#print axioms NLA.Proofs.PF05.integrate_feasible_direction
+#assert_proof_constant NLA.Proofs.PF05.primal_scalar_operator
+#assert_trust kernel NLA.Proofs.PF05.primal_scalar_operator
+#print axioms NLA.Proofs.PF05.primal_scalar_operator
+#assert_proof_constant NLA.Proofs.PF05.dual_scalar_operator
+#assert_trust kernel NLA.Proofs.PF05.dual_scalar_operator
+#print axioms NLA.Proofs.PF05.dual_scalar_operator
+#assert_proof_constant NLA.Proofs.PF05.unique_implies_infinitesimallyRigid
+#assert_trust kernel NLA.Proofs.PF05.unique_implies_infinitesimallyRigid
+#print axioms NLA.Proofs.PF05.unique_implies_infinitesimallyRigid
+#assert_proof_constant NLA.Proofs.PF05.rigid_implies_unique
+#assert_trust kernel NLA.Proofs.PF05.rigid_implies_unique
+#print axioms NLA.Proofs.PF05.rigid_implies_unique
+#assert_proof_constant NLA.Proofs.PF05.target
+#assert_trust kernel NLA.Proofs.PF05.target
+#print axioms NLA.Proofs.PF05.target
+open Lean Elab Command in
+elab "#assert_literal_pf05_target " n:ident : command => do
+  let decl ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  match (← getEnv).find? decl with
+  | some (.thmInfo info) =>
+    unless info.type == mkConst ``NLA.Statements.PF05.Target do
+      throwErrorAt n "expected the literal unchanged PF05 Target, without parameters"
+  | _ => throwErrorAt n "expected a proved theorem constant"
+#assert_literal_pf05_target NLA.Proofs.PF05.target
+#assert_trust kernel NLA.Proofs.PF05.target
+#print axioms NLA.Proofs.PF05.target
