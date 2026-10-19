@@ -1,0 +1,39 @@
+from pathlib import Path
+import re,json,hashlib,subprocess,os,platform
+r=Path('/private/tmp/nla-tr14-lean-oct18')
+e=Path('/private/tmp/nla-tr14-next-preproof/graph-context-review-2');e.mkdir(exist_ok=True)
+snap=e/'snapshot';snap.mkdir(exist_ok=True)
+out=e/'objects';out.mkdir(exist_ok=True)
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+targets=['GraphNormalization','GraphQuotientContext','GraphListContext','GraphBlockModeDimension']
+mods=['NLA.Proofs.TR14.'+m for m in targets]
+order=[];seen=set()
+def visit(m):
+ if m in seen:return
+ seen.add(m)
+ p=Path(m.replace('.','/')+'.lean');s=(r/'lean-statements'/p).read_text()
+ for dep in re.findall(r'^import\s+([\w.]+)',s,re.M):
+  if dep.startswith('NLA.'):visit(dep)
+ dest=snap/p;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(s)
+ order.append((m,p))
+for m in mods:visit(m)
+bin=Path('/private/tmp/pf05-tooling/elan-home/toolchains/leanprover--lean4---v4.33.1/bin')
+packages=r/'lean-statements/.lake/packages'
+paths=[out]+[p/'.lake/build/lib/lean' for p in packages.iterdir() if(p/'.lake/build/lib/lean').is_dir()]
+env=dict(os.environ,PATH=str(bin)+':'+os.environ['PATH'],LEAN_PATH=':'.join(map(str,paths)))
+result={'date':'2026-10-18','reviewer':'/root/fr05_statement','platform':platform.platform(),'scope':'Independent fresh immutable import closure of solver actual normalized ordinary graph context and intrinsic block mode dimension bridges. Author-owned cyclic/block image and classification support excluded from independent implementation approval.','targets':mods,'sources':[],'commands':[]}
+for m,p in order:
+ src=snap/p;obj=out/p.with_suffix('.olean');obj.parent.mkdir(parents=True,exist_ok=True)
+ result['sources'].append({'module':m,'path':str(p),'sha256':sha(src),'live_equal_before':src.read_bytes()==(r/'lean-statements'/p).read_bytes()})
+ cmd=[str(bin/'lean'),'-o',str(obj),str(p)]
+ run=subprocess.run(cmd,cwd=snap,env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)
+ log=e/(m.split('.')[-1]+'.log');log.write_text(run.stdout)
+ result['commands'].append({'module':m,'command':cmd,'cwd':str(snap),'exit_code':run.returncode,'log':log.name,'log_sha256':sha(log),'object_sha256':sha(obj) if obj.exists() else None})
+ print(m,run.returncode,run.stdout.strip(),flush=True)
+ (e/'result.json').write_text(json.dumps(result,indent=2)+'\n')
+ if run.returncode!=0:raise SystemExit(1)
+ assert 'sorryAx' not in run.stdout
+for x in result['sources']:x['live_equal_after']=(snap/x['path']).read_bytes()==(r/'lean-statements'/x['path']).read_bytes()
+result['pass']=all(x['live_equal_before'] and x['live_equal_after'] for x in result['sources'])
+(e/'result.json').write_text(json.dumps(result,indent=2)+'\n')
+(e/'check-build.py.txt').write_text(Path(__file__).read_text())

@@ -1,0 +1,149 @@
+{
+  "date": "2026-10-18",
+  "reviewer": "/root/solved_inventory",
+  "candidate_revision": "fdb40b66425ec58e4806cee93d2aaf92a0f8597c",
+  "canonical_id": "TR-14",
+  "canonical_path": "tensor-computations/TR-14/README.md",
+  "statement_decision": "APPROVE_UNCHANGED_TARGET_FOR_IMPLEMENTATION_PENDING_SECOND_FRESH_APPROVAL",
+  "new_proof_bodies_written": false,
+  "candidate_proof_modules": 39,
+  "fresh_build_commands": 42,
+  "all_retained_commands_passed": true,
+  "full_target_proved": false,
+  "linux_or_comparator_claim": false,
+  "gates": [
+    {
+      "id": "statement",
+      "status": "approved-one-fresh-review",
+      "exact_scope": "Unchanged all-width exact Target; second independent approval required before bodies",
+      "dependencies": []
+    },
+    {
+      "id": "retained39",
+      "status": "fresh-build-pass",
+      "exact_scope": "39 candidate support modules, no full Target",
+      "dependencies": []
+    },
+    {
+      "id": "normalized-moment-frobenius",
+      "status": "proved-retained",
+      "exact_scope": "Least apolar chart, all moments, Frobenius, CRT",
+      "dependencies": [
+        "retained39"
+      ]
+    },
+    {
+      "id": "local-upper",
+      "status": "proved-retained",
+      "exact_scope": "Actual symmetric width L witness and chart transport",
+      "dependencies": [
+        "normalized-moment-frobenius"
+      ]
+    },
+    {
+      "id": "binary-inverse",
+      "status": "proved-retained",
+      "exact_scope": "Top remainder Frobenius and representer unit inverse",
+      "dependencies": [
+        "normalized-moment-frobenius"
+      ]
+    },
+    {
+      "id": "binary-polynomial-apolar",
+      "status": "missing",
+      "exact_scope": "Extract inverse representative, actual apolar annihilation, coprimeness",
+      "dependencies": [
+        "binary-inverse"
+      ]
+    },
+    {
+      "id": "squarefree-pencil",
+      "status": "missing",
+      "exact_scope": "Actual degree-v monic squarefree apolar polynomial",
+      "dependencies": [
+        "binary-polynomial-apolar"
+      ]
+    },
+    {
+      "id": "vandermonde-reconstruction",
+      "status": "missing",
+      "exact_scope": "Monic squarefree degree v<=D+1 plus all actual recurrences => actual symmetric width v",
+      "dependencies": []
+    },
+    {
+      "id": "binary-upper",
+      "status": "missing",
+      "exact_scope": "Actual symmetric width D-rho+2, including rho=1 endpoint",
+      "dependencies": [
+        "squarefree-pencil",
+        "vandermonde-reconstruction"
+      ]
+    },
+    {
+      "id": "product-stabilizer-basics",
+      "status": "missing",
+      "exact_scope": "Actual subspace product, unit scaling, stabilizer algebra",
+      "dependencies": []
+    },
+    {
+      "id": "transformation",
+      "status": "missing",
+      "exact_scope": "Induction gives K,T with dim inequality",
+      "dependencies": [
+        "product-stabilizer-basics"
+      ]
+    },
+    {
+      "id": "finite-reduced-subalgebras",
+      "status": "missing",
+      "exact_scope": "Residue injection, partitions, whole-factor idempotents",
+      "dependencies": [
+        "product-stabilizer-basics"
+      ]
+    },
+    {
+      "id": "contextual-product",
+      "status": "missing",
+      "exact_scope": "Every auxiliary K reduced then repeated-parameter dimension bound",
+      "dependencies": [
+        "transformation",
+        "finite-reduced-subalgebras"
+      ]
+    },
+    {
+      "id": "minimum-ordinary-graphs",
+      "status": "missing",
+      "exact_scope": "Actual arbitrary minimum decomposition, independence, normalized graphs",
+      "dependencies": [
+        "normalized-moment-frobenius"
+      ]
+    },
+    {
+      "id": "primitive-block-lower",
+      "status": "missing",
+      "exact_scope": "Whole-local-factor blocks, block dimensions, all-width lower",
+      "dependencies": [
+        "contextual-product",
+        "minimum-ordinary-graphs"
+      ]
+    },
+    {
+      "id": "final-target",
+      "status": "missing",
+      "exact_scope": "Closed exact frozen all-width Target",
+      "dependencies": [
+        "local-upper",
+        "binary-upper",
+        "primitive-block-lower"
+      ]
+    },
+    {
+      "id": "canonical-linux-comparator",
+      "status": "not-started",
+      "exact_scope": "Full export exact-copy package and actual Linux Comparator evidence",
+      "dependencies": [
+        "final-target"
+      ]
+    }
+  ]
+}

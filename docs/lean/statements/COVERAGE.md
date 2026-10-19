@@ -216,7 +216,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [TR-11](../../../tensor-computations/TR-11/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [TR-12](../../../tensor-computations/TR-12/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [TR-13](../../../tensor-computations/TR-13/README.md) | Lean verified | shared-statement-source | Not audited here. |
-| [TR-14](../../../tensor-computations/TR-14/README.md) | Solved | shared-statement-source | Not audited here. |
+| [TR-14](../../../tensor-computations/TR-14/README.md) | Lean verified | shared-statement-source | Not audited here. |
 | [TR-15](../../../tensor-computations/TR-15/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [TR-16](../../../tensor-computations/TR-16/README.md) | Open | missing-statement | Not audited here. |
 | [TR-17](../../../tensor-computations/TR-17/README.md) | Solved | shared-statement-source | Not audited here. |

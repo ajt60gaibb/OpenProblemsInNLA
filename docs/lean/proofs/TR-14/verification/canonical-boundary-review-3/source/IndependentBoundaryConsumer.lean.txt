@@ -1,0 +1,15 @@
+import Challenge
+import Identity
+import LeanCert.Tactic.Verification
+#check NLA.TR14.target
+#check NLA.TR14.target_eq_reviewed
+#assert_trust kernel NLA.TR14.target_eq_reviewed
+#print axioms NLA.TR14.target_eq_reviewed
+open Lean Elab Command in
+elab "#require_target_theorem" : command => do
+  match (← getEnv).find? `NLA.TR14.target with
+  | some (.thmInfo info) =>
+    unless info.type == mkConst ``NLA.Statements.TR14.Target do
+      throwError "target must have the literal frozen TR14 Target type"
+  | _ => throwError "target must be a theorem constant"
+#require_target_theorem

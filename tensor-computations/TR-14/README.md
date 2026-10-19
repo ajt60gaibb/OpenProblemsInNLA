@@ -3,8 +3,16 @@
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
 **Rating rationale:** Challenging because exceptional Hankel tensors require a uniform comparison of structured and unrestricted exact decompositions; specialist importance reflects this particular structured tensor class.  
-**Last checked:** 2026-09-12  
-**Status:** Solved  
+**Last checked:** 2026-10-18  
+**Status:** Lean verified  
+
+<!-- formal-lean-proof:start -->
+## Lean proof and verification evidence — 18 October 2026
+
+The [complete Lean proof](lean/Solution.lean) establishes the displayed rank equality for every complex Hankel tensor, including zero and exceptional data and unrestricted ordinary factors. The [actual Linux run](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/39168804604) passed Comparator, the default kernel, LeanCert kernel mode and rejection/isolation controls. [Independent replay](../../docs/lean/proofs/TR-14/PUSH_LINUX_EXACT_COMMIT_REVIEW_3_2026-10-18.md) passed all 41 checks and all 139 original package inputs, including 82 Lean sources. Only the three standard axioms occur.
+
+The [reviewed exact statement, proof and retained evidence](../../docs/lean/proofs/TR-14/README.md) preserve all original quantifiers and source credit. The stronger rank formula below is not separately exported. The resolution and dated notes below remain verbatim historical records; their description of the earlier informal audit predates this formal proof. [Exact originals](../../docs/lean/proofs/TR-14/originals-main-36767/manifest.json) are retained.
+<!-- formal-lean-proof:end -->
 
 ## Resolution: affirmative, 12 September 2026
 
