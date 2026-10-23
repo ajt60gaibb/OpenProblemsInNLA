@@ -3,8 +3,11 @@
 `Solution.lean` proves the unchanged intrinsic `NLA.Statements.TR06.Target` and
 exports all ten exact published candidate declarations. The author build passes
 all eleven LeanCert kernel assertions with only `propext`, `Classical.choice`
-and `Quot.sound`. Canonical status remains **Solved** until the actual Linux
-Comparator run and independent receipt review pass.
+and `Quot.sound`. Canonical status is **Lean verified** after actual Linux run
+40035041685 at exact proof commit `2b049df5` and two strict receipt replays.
+All 45 controls and all 153 original package inputs passed. The descriptive
+promotion changes receive a separate fresh Linux receipt; all 144 checked Lean
+input bytes remain unchanged.
 
 The law is induced Euclidean volume on the identifiable tensor locus, weighted
 by the Gaussian of the tensor norm. The angular derivative individually

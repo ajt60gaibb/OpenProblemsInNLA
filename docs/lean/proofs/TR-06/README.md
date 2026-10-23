@@ -4,9 +4,10 @@ The complete unchanged intrinsic
 [`NLA.Statements.TR06.Target`](../../../../lean-statements/NLA/Statements/TR06.lean)
 is proved in [`Final.lean`](../../../../lean-statements/NLA/Proofs/TR06/Final.lean).
 All ten exact original published candidate theorem types are also proved.
-The canonical entry remains **Solved** pending actual Linux Comparator
-acceptance and independent receipt review. Originals and all permanent IDs are
-preserved.
+The canonical entry is **Lean verified** after actual exact-push Linux run
+40035041685 at proof commit `2b049df5` and two strict45 receipt replays. Originals
+and all permanent IDs are preserved. Descriptive promotion changes require
+fresh actual Linux evidence; all144 checked Lean input bytes remain unchanged.
 
 The proof concerns the induced tensor-volume Gaussian law on identifiable real
 tensors and the derivative that individually normalizes recovered rank-one
@@ -43,11 +44,15 @@ The evidence has distinct scopes:
   reused source/object-bound project dependencies are disclosed.
 - The [canonical author build](verification/canonical-author-build-2026-10-23/result.json)
   passes all eleven selected exports in LeanCert kernel mode with only the
-  standard three axioms. The separate fresh canonical audit must also rebuild
-  all 144 inputs and reject the eleven deliberate Challenge placeholders.
-- Actual Linux Comparator/default-kernel/LeanCert/rejection/isolation acceptance
-  requires a completed CI run at the exact package source commit and strict
-  receipt replay. No local audit is relabeled as Linux evidence.
+  standard three axioms. The separate fresh canonical audit passes all145 positive commands for
+  all144 inputs plus its exact consumer, and rejects all eleven deliberate
+  Challenge placeholders in an actual separate negative invocation.
+- [Actual Linux run40035041685](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/40035041685)
+  passes at exact proof commit`2b049df5`. Both [strict replays](verification/linux-ci/2b049df5/)
+  pass45controls and all153inputs (144Lean). Actual default-kernel acceptance,
+  LeanCert kernel trust, negative controls and sandbox isolation logs are retained.
+  The earlier tracked-cache-link attempt was correctly rejected and is preserved
+  separately. Descriptive/status promotion receives fresh actual CI.
 
 [Campaign records](campaign-2026-10-18/) retain contribution reviews and honest
 recovery provenance. Temporary files were cleared during an interruption;

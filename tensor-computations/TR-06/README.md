@@ -7,8 +7,18 @@
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
 **Rating rationale:** Challenging because generic uniqueness does not supply the integrability estimates needed near degenerate decompositions; specialist importance reflects the particular angular condition number and volume-based input model.  
-**Status:** Solved  
-**Last checked:** 2026-09-11  
+**Status:** Lean verified  
+**Last checked:** 2026-10-23  
+
+<!-- lean-tr06-complete-2026-10-23 -->
+## Lean proof and verification evidence — 23 October 2026
+
+The [complete Lean proof](lean/Solution.lean) establishes the unchanged intrinsic volume-Gaussian finite-mean target and all ten original published candidate theorem statements. The [actual Linux run](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/40035041685) passed Comparator, the default kernel, LeanCert kernel mode and all rejection/isolation controls at exact proof commit `2b049df5`. Two [strict receipt replays](../../docs/lean/proofs/TR-06/verification/linux-ci/2b049df5/) passed all 45 controls and all 153 checked package inputs, including 144 Lean sources. Every selected theorem uses only the three standard Lean axioms.
+
+The [independent complete-source audit](../../docs/lean/proofs/TR-06/campaign-2026-10-18/verification/CANONICAL_144_APPROVAL_2026-10-23.json) rebuilt all 144 sources and checked the literal target, original theorem types and 772 declarations; it separately rejected all eleven intentional Challenge placeholders. The proof derives full-measure regularity, positive annular volume, finite volume of the actual whole normalized graph and angular integrability from the original hypotheses. All 58 retained candidate sources, the original mathematical target and permanent ID/path are preserved exactly.
+
+[Original problem and manuscript archives](../../docs/lean/proofs/TR-06/originals-c4c7be59/manifest.json) retain the pre-verification files. Mathematical credit remains with Matthew J. Colbrook; retained formalization credit remains in its sources. New formal proofs and independent reviews are AI-agent work. The dated resolution and original statement below remain unchanged. Descriptive status/package changes receive a separate fresh Linux receipt; the checked Lean source bytes remain identical.
+<!-- /lean-tr06-complete-2026-10-23 -->
 
 <!-- colbrook-unclaimed -->
 ## Resolution — 2026-09-11
