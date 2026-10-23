@@ -28,10 +28,11 @@ The [17 October campaign inventory](../campaign-2026-10-17/inventory/README.md)
 retains the original immutable snapshots and candidate evidence. MD-03, MD-04,
 and RA-10 were subsequently merged into published main; SP-11 is promoted here.
 
-## Local partial solution projects (8)
+## Local partial solution projects (9)
 
 | ID | Live source | What is actually proved |
 | --- | --- | --- |
+| RA-05 | [`SupportMinimum.lean`](../../../randomized-and-low-rank-approximation/RA-05/lean/NLA/Proofs/RA05/SupportMinimum.lean) and [`HyperplaneBridge.lean`](../../../randomized-and-low-rank-approximation/RA-05/lean/NLA/Proofs/RA05/HyperplaneBridge.lean) | Eleven independently reviewed kernel-checked support results establish exact minimum attainment and the all-dimensional arbitrary-weight hyperplane reduction. Neither the full rate classification nor the negative additive answer is proved; [scope/evidence](RA-05/README.md). |
 | IE-21 | [`Solution.lean`](../../../linear-systems-and-elimination/IE-21/lean/Solution.lean) | Zero vector and empty row-energy lemmas. The full target is an axiom and the spherical-row law semantics remain unimplemented. |
 | IE-22 | [`Solution.lean`](../../../linear-systems-and-elimination/IE-22/lean/Solution.lean) | Zero vector and empty row-energy lemmas. The full target is an axiom; complete semantics and proof remain. |
 | IV-02 | [`Solution.lean`](../../../intervals-and-absolute-value-equations/IV-02/lean/Solution.lean) | Rotation identity and positive even layer count. The original complexity claim remains absent from the implemented semantics. |
@@ -581,7 +582,7 @@ symmetric terms under actual nonzero least-apolar hypotheses. Its
 give one normalized-chart upper bound, including repeated roots. The
 original-coordinate projective root count, other width bounds, and full Target remain open.
 
-## Shared statement only; no live proof source (30)
+## Shared statement only; no live proof source (29)
 
 The following files define a `Target : Prop` and pass statement-boundary checks.
 They have no full live proof. The source-path pattern is
@@ -597,7 +598,7 @@ They have no full live proof. The source-path pattern is
 | MI-16 | [`MI16.lean`](../../../lean-statements/NLA/Statements/MI16.lean) | MI-31 | [`MI31.lean`](../../../lean-statements/NLA/Statements/MI31.lean) |
 | NM-03 | [`NM03.lean`](../../../lean-statements/NLA/Statements/NM03.lean) | PF-04 | [`PF04.lean`](../../../lean-statements/NLA/Statements/PF04.lean) |
 | PF-05 | [`PF05.lean`](../../../lean-statements/NLA/Statements/PF05.lean) | RA-04 | [`RA04.lean`](../../../lean-statements/NLA/Statements/RA04.lean) |
-| RA-05 | [`RA05.lean`](../../../lean-statements/NLA/Statements/RA05.lean) | RA-12 | [`RA12.lean`](../../../lean-statements/NLA/Statements/RA12.lean) |
+| | | RA-12 | [`RA12.lean`](../../../lean-statements/NLA/Statements/RA12.lean) |
 | RA-13 | [`RA13.lean`](../../../lean-statements/NLA/Statements/RA13.lean) | RA-19 | [`RA19.lean`](../../../lean-statements/NLA/Statements/RA19.lean) |
 | RE-05 | [`RE05.lean`](../../../lean-statements/NLA/Statements/RE05.lean) | RE-06 | [`RE06.lean`](../../../lean-statements/NLA/Statements/RE06.lean) |
 | SP-12 | [`SP12.lean`](../../../lean-statements/NLA/Statements/SP12.lean) | SP-13 | [`SP13.lean`](../../../lean-statements/NLA/Statements/SP13.lean) |
@@ -607,6 +608,6 @@ They have no full live proof. The source-path pattern is
 
 LeanCert `#assert_statement`, `#assert_trust kernel`, frozen identity checks,
 and the shared Comparator certificates check statement definitions and their
-trust closure. They do not prove any of the 30 statement-only propositions or
-upgrade the eight partial projects to full proofs. Complete-target wrappers
+trust closure. They do not prove any of the 29 statement-only propositions or
+upgrade the nine partial projects to full proofs. Complete-target wrappers
 still require their own reviewed exact-revision verification and promotion.

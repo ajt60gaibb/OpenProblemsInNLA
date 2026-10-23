@@ -1,0 +1,9 @@
+# RA-05 support proofs
+
+This package proves eleven exact support results for the retained RA-05 problem. The complete target `Classification ∧ NegativeAnswer` remains unproved and canonical RA-05 remains Solved.
+
+`SupportMinimum` proves that unit weights give a coreset for nonnegative accuracy, the natural minimum is attained, and any individual minimum lies below the exact ENNReal worst-case supremum. `HyperplaneBridge` proves the actual rank-(d−1) projector and exact row-cost identity, then transfers any strong coreset to all-vector ℓp energy preservation with the same arbitrary nonnegative weights and accuracy. Empty rows, real exponents, zero vectors and dimension one are included in their stated domains. This is not a theorem about the RA06 prescribed sampler.
+
+All statements import the unchanged reviewed definitions. `Reviewed/RA05.lean` preserves the frozen full original Target and `Identity.lean` proves its definitional identity only. `sources/` retains the exact original and specification and credited mathematical manuscripts. Permanent IDs and original canonical paths are untouched. The Challenge has eleven intentional reference holes, and Solution imports only actual proofs. Comparator selects every advertised support export, has no definition holes, and permits only the three foundational axioms.
+
+On the pinned environment run `lake build Solution SupportAudit Identity`. For authoritative credential-free Linux verification, from the repository root run `python3 tools/lean/validate_manifest.py randomized-and-low-rank-approximation/RA-05/lean`, `tools/lean/bootstrap.sh /tmp/nla-ra05-tools`, and `tools/lean/verify.sh randomized-and-low-rank-approximation/RA-05/lean /tmp/nla-ra05-tools`. The project must be committed and unchanged. Retain Comparator, LeanCert proof-trust, raw-kernel and rejection-control receipts. Local macOS checks are development evidence; a Linux result applies only to its recorded source commit.
