@@ -7,8 +7,16 @@
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
 **Rating rationale:** Challenging because zeros change the feasible infinitesimal motions and defeat the positive-entry argument; specialist importance is a precise uniqueness test for size-two PSD factors.  
-**Status:** Solved  
-**Last checked:** 2026-09-11  
+**Status:** Lean verified  
+**Last checked:** 2026-10-18  
+
+<!-- formal-lean-proof:start -->
+## Lean proof and verification evidence — 18 October 2026
+
+The [complete Lean proof](lean/Solution.lean) establishes the displayed equivalence for every stated factorization, including all zero patterns, zero factors, singular factors and repeated rays. It retains the exact first-order trace constraint, one common positive interval of straight PSD feasibility, and every alternative factorization up to one shared genuine congruence. The [actual exact-source Linux run](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/39172661343) passed Comparator, the default kernel, LeanCert kernel mode and rejection/isolation controls. [Independent replay](../../docs/lean/proofs/PF-05/PUSH_LINUX_EXACT_COMMIT_REVIEW_3_2026-10-18.md) passed all 41 controls and all 90 original package inputs, including 46 Lean sources. Only the three standard axioms occur.
+
+The [reviewed statement, proof and retained evidence](../../docs/lean/proofs/PF-05/README.md) preserve the original target and source credit. The positive case has a direct formal quartic/conic proof. The resolution and dated audits below remain verbatim historical records; their earlier description of informal verification predates this formal proof. [Exact original documents](../../docs/lean/proofs/PF-05/originals-main-36767/manifest.json) are retained.
+<!-- formal-lean-proof:end -->
 
 <!-- colbrook-factorization -->
 ## Resolution — 2026-09-11

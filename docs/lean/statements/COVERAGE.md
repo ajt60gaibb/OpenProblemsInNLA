@@ -162,7 +162,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [PF-02](../../../nonnegative-and-positive-factorizations/PF-02/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [PF-03](../../../nonnegative-and-positive-factorizations/PF-03/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [PF-04](../../../nonnegative-and-positive-factorizations/PF-04/README.md) | Solved | shared-statement-source | Not audited here. |
-| [PF-05](../../../nonnegative-and-positive-factorizations/PF-05/README.md) | Solved | shared-statement-source | Not audited here. |
+| [PF-05](../../../nonnegative-and-positive-factorizations/PF-05/README.md) | Lean verified | shared-statement-source | Not audited here. |
 | [RA-01](../../../randomized-and-low-rank-approximation/RA-01/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [RA-02](../../../randomized-and-low-rank-approximation/RA-02/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [RA-03](../../../randomized-and-low-rank-approximation/RA-03/README.md) | Lean verified | local-statement-source | Not audited here. |
@@ -200,7 +200,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [SP-09](../../../eigenvalues-and-inverse-problems/SP-09/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [SP-10](../../../eigenvalues-and-inverse-problems/SP-10/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [SP-11](../../../eigenvalues-and-inverse-problems/SP-11/README.md) | Lean verified | shared-statement-source | Not audited here. |
-| [SP-12](../../../eigenvalues-and-inverse-problems/SP-12/README.md) | Solved | shared-statement-source | Not audited here. |
+| [SP-12](../../../eigenvalues-and-inverse-problems/SP-12/README.md) | Lean verified | shared-statement-source | Not audited here. |
 | [SP-13](../../../eigenvalues-and-inverse-problems/SP-13/README.md) | Solved | shared-statement-source | Not audited here. |
 | [SP-14](../../../eigenvalues-and-inverse-problems/SP-14/README.md) | Solved | shared-statement-source | Not audited here. |
 | [SP-15](../../../eigenvalues-and-inverse-problems/SP-15/README.md) | Lean verified | local-statement-source | Not audited here. |
@@ -216,7 +216,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [TR-11](../../../tensor-computations/TR-11/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [TR-12](../../../tensor-computations/TR-12/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [TR-13](../../../tensor-computations/TR-13/README.md) | Lean verified | shared-statement-source | Not audited here. |
-| [TR-14](../../../tensor-computations/TR-14/README.md) | Solved | shared-statement-source | Not audited here. |
+| [TR-14](../../../tensor-computations/TR-14/README.md) | Lean verified | shared-statement-source | Not audited here. |
 | [TR-15](../../../tensor-computations/TR-15/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [TR-16](../../../tensor-computations/TR-16/README.md) | Open | missing-statement | Not audited here. |
 | [TR-17](../../../tensor-computations/TR-17/README.md) | Solved | shared-statement-source | Not audited here. |

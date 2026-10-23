@@ -1,0 +1,39 @@
+from pathlib import Path
+import re,json,hashlib,subprocess,os,shutil,platform
+r=Path('/private/tmp/nla-tr14-lean-oct18');base=Path('/private/tmp/nla-tr14-next-preproof/normalized-lower-review-2');prev=json.loads((base/'result.json').read_text());assert prev['pass']
+e=Path('/private/tmp/nla-tr14-next-preproof/full-target-review-2');e.mkdir(exist_ok=True);snap=e/'snapshot';out=e/'objects'
+shutil.copytree(base/'snapshot',snap,dirs_exist_ok=True);shutil.copytree(base/'objects',out,dirs_exist_ok=True)
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+known={x['module']:x for x in prev['sources']};oldbuild={x['module']:x for x in prev['commands']}
+order=[];seen=set()
+def visit(m):
+ if m in seen:return
+ seen.add(m);p=Path(m.replace('.','/')+'.lean');live=r/'lean-statements'/p
+ s=live.read_text()
+ for dep in re.findall(r'^import\s+([\w.]+)',s,re.M):
+  if dep.startswith('NLA.'):visit(dep)
+ dest=snap/p;dest.parent.mkdir(parents=True,exist_ok=True)
+ if m in known:
+  assert sha(live)==known[m]['sha256'];assert sha(dest)==known[m]['sha256'];assert sha(out/p.with_suffix('.olean'))==oldbuild[m]['object_sha256']
+ else:dest.write_text(s)
+ order.append((m,p))
+visit('NLA.Proofs.TR14.Final')
+assert sha(snap/'NLA/Proofs/TR14/Final.lean')=='31ecd9e91c05d3afb0dc8feadf49019c6b251e016eb65e829af8953e6c207cbf'
+bin=Path('/private/tmp/pf05-tooling/elan-home/toolchains/leanprover--lean4---v4.33.1/bin');paths=[out]+[p/'.lake/build/lib/lean' for p in (r/'lean-statements/.lake/packages').iterdir() if(p/'.lake/build/lib/lean').is_dir()]
+env=dict(os.environ,PATH=str(bin)+':'+os.environ['PATH'],LEAN_PATH=':'.join(map(str,paths)))
+j={'date':'2026-10-18','reviewer':'/root/fr05_statement','platform':platform.platform(),'prerequisite_fresh56_result_sha256':sha(base/'result.json'),'sources':[],'fresh_commands':[],'reused_fresh_source_builds':[]}
+for m,p in order:
+ src=snap/p;obj=out/p.with_suffix('.olean');obj.parent.mkdir(parents=True,exist_ok=True)
+ j['sources'].append({'module':m,'path':str(p),'sha256':sha(src),'live_equal_before':src.read_bytes()==(r/'lean-statements'/p).read_bytes()})
+ if m in known:
+  j['reused_fresh_source_builds'].append({'module':m,'source_sha256':known[m]['sha256'],'object_sha256':sha(obj),'build_evidence':str(base/'result.json')});continue
+ cmd=[str(bin/'lean'),'-o',str(obj),str(p)];run=subprocess.run(cmd,cwd=snap,env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)
+ log=e/(m.split('.')[-1]+'.log');log.write_text(run.stdout)
+ j['fresh_commands'].append({'module':m,'command':cmd,'cwd':str(snap),'exit_code':run.returncode,'log':log.name,'log_sha256':sha(log),'object_sha256':sha(obj) if obj.exists() else None})
+ print(m,run.returncode,run.stdout.strip() if run.returncode else '',flush=True)
+ (e/'result.json').write_text(json.dumps(j,indent=2)+'\n');assert run.returncode==0;assert 'sorryAx' not in run.stdout
+consumer=snap/'FullTargetConsumer.lean';consumer.write_text('import NLA.Proofs.TR14.Final\nset_option leancert.trust "kernel"\n#assert_trust kernel NLA.Proofs.TR14.ordinary_lower_of_minimal_monic_succ\n#assert_trust kernel NLA.Proofs.TR14.ordinary_lower_of_minimal_monic\n#assert_trust kernel NLA.Proofs.TR14.ordinaryWidth_to_symmetricWidth\n#assert_trust kernel NLA.Proofs.TR14.target\n#print axioms NLA.Proofs.TR14.ordinary_lower_of_minimal_monic_succ\n#print axioms NLA.Proofs.TR14.ordinary_lower_of_minimal_monic\n#print axioms NLA.Proofs.TR14.ordinaryWidth_to_symmetricWidth\n#print axioms NLA.Proofs.TR14.target\nexample : NLA.Statements.TR14.Target := NLA.Proofs.TR14.target\n')
+cmd=[str(bin/'lean'),'-o',str(out/'FullTargetConsumer.olean'),str(consumer.relative_to(snap))];run=subprocess.run(cmd,cwd=snap,env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True);log=e/'FullTargetConsumer.log';log.write_text(run.stdout);print('CONSUMER',run.returncode,run.stdout,flush=True);assert run.returncode==0;assert 'sorryAx' not in run.stdout
+j['consumer']={'source_sha256':sha(consumer),'command':cmd,'exit_code':run.returncode,'log_sha256':sha(log)}
+for x in j['sources']:x['live_equal_after']=(snap/x['path']).read_bytes()==(r/'lean-statements'/x['path']).read_bytes()
+j['pass']=all(x['live_equal_before'] and x['live_equal_after'] for x in j['sources']);assert j['pass'];(e/'result.json').write_text(json.dumps(j,indent=2)+'\n');(e/'check-build.py.txt').write_text(Path(__file__).read_text())

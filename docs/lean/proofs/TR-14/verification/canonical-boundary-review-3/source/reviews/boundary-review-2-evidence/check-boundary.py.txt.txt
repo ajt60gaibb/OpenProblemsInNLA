@@ -1,0 +1,40 @@
+from pathlib import Path
+import subprocess,os,json,hashlib,shutil,platform
+r=Path('/private/tmp/nla-tr14-lean-oct18');p=r/'tensor-computations/TR-14/lean';e=p/'reviews/boundary-review-2-evidence';e.mkdir(parents=True,exist_ok=True)
+out=Path('/private/tmp/nla-tr14-canonical-boundary-review2-objects');out.mkdir(exist_ok=True)
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+assert not(p/'Solution.lean').exists()
+lock=json.loads((p/'boundary-source-lock.json').read_text())
+j={'date':'2026-10-18','reviewer':'/root/fr05_statement','platform':platform.platform(),'phase':'pre-solution-boundary','solution_absent':True,'lock_sha256':sha(p/'boundary-source-lock.json'),'copy_checks':[],'core_checks':[],'builds':[]}
+assert j['lock_sha256']=='f9b3a2ac61aa2b257be127a6983adecb9e5d2e72b9f6df8ce092eba2952b6ab5'
+for x in lock['copies']:
+ row={'source':x['source'],'package_path':x['package_path'],'source_sha256':sha(r/x['source']),'package_sha256':sha(p/x['package_path']),'lock_sha256':x['sha256']}
+ row['pass']=row['source_sha256']==row['package_sha256']==row['lock_sha256'];assert row['pass'];j['copy_checks'].append(row)
+for name,h in lock['core'].items():
+ row={'path':name,'sha256':sha(p/name),'expected':h,'pass':sha(p/name)==h};assert row['pass'];j['core_checks'].append(row)
+assert sha(p/'ORIGINAL.md')==sha(r/'tensor-computations/TR-14/README.md')
+cache=r/'lean-statements/.lake/packages';bindir=Path('/private/tmp/pf05-tooling/elan-home/toolchains/leanprover--lean4---v4.33.1/bin')
+deps=[q/'.lake/build/lib/lean' for q in cache.iterdir() if(q/'.lake/build/lib/lean').is_dir()]
+env=dict(os.environ,PATH=str(bindir)+':'+os.environ['PATH'],LEAN_PATH=':'.join(map(str,[out]+deps)))
+for name in ['NLA/Statements/Infrastructure.lean','NLA/Statements/TR14.lean','Reviewed/TR14.lean','Challenge.lean','Identity.lean']:
+ dest=out/Path(name).with_suffix('.olean');dest.parent.mkdir(parents=True,exist_ok=True)
+ cmd=[str(bindir/'lean'),'-o',str(dest),name]
+ run=subprocess.run(cmd,cwd=p,env=env,text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+ log=e/(name.replace('/','_')+'.log');log.write_text(run.stdout)
+ j['builds'].append({'source':name,'source_sha256':sha(p/name),'command':cmd,'cwd':str(p),'exit_code':run.returncode,'log':log.name,'log_sha256':sha(log)})
+ print(name,run.returncode,flush=True);assert run.returncode==0
+probe=Path('/private/tmp/nla-tr14-boundary-review2-RejectChallenge.lean');probe.write_text('import Challenge\nimport LeanCert.Tactic.Verification\nset_option leancert.trust "kernel"\n#assert_trust kernel NLA.TR14.target\n')
+cmd=[str(bindir/'lean'),str(probe)]
+run=subprocess.run(cmd,cwd=p,env=env,text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+log=e/'RejectChallenge.log';log.write_text(run.stdout)
+assert run.returncode!=0 and 'sorryAx' in run.stdout
+shutil.copy2(probe,e/'RejectChallenge.lean.txt')
+j['negative_control']={'command':cmd,'exit_code':run.returncode,'expected_rejection':True,'reason':'sorryAx','log':log.name,'retained_source':'RejectChallenge.lean.txt','log_sha256':sha(log)}
+j['dependencies']=[]
+for q in json.loads((p/'lake-manifest.json').read_text())['packages']:
+ actual=subprocess.check_output(['git','rev-parse','HEAD'],cwd=cache/q['name'],text=True).strip()
+ row={'name':q['name'],'expected':q['rev'],'actual':actual,'pass':actual==q['rev']};assert row['pass'];j['dependencies'].append(row)
+assert not(p/'Solution.lean').exists()
+j['approval']='PASS: exact unchanged boundary before Solution'
+(e/'result.json').write_text(json.dumps(j,indent=2)+'\n');shutil.copy2(__file__,e/'check-boundary.py.txt')
+print('APPROVE',len(j['copy_checks'])+len(j['core_checks']),'hashes',len(j['builds']),'positive builds, expected placeholder rejection',flush=True)

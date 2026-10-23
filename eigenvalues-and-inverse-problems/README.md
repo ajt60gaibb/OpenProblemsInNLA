@@ -33,7 +33,7 @@
 | [SP-05](SP-05/README.md) | Symmetric minimizer for a positive definite Jordan–Kronecker product | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](SP-05/problem.pdf) · [TeX](SP-05/problem.tex) |
 | [SP-06](SP-06/README.md) | A real-valued symbol on a Jordan curve and real Toeplitz spectra | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](SP-06/problem.pdf) · [TeX](SP-06/problem.tex) |
 | [SP-11](SP-11/README.md) | The delta conjecture for minimum symmetric rank | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](SP-11/problem.pdf) · [TeX](SP-11/problem.tex) |
-| [SP-12](SP-12/README.md) | A chromatic lower bound for positive-semidefinite nullity with SAP | **✅ SOLVED** | challenging | interesting to specialist | [PDF](SP-12/problem.pdf) · [TeX](SP-12/problem.tex) |
+| [SP-12](SP-12/README.md) | A chromatic lower bound for positive-semidefinite nullity with SAP | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](SP-12/problem.pdf) · [TeX](SP-12/problem.tex) |
 | [SP-13](SP-13/README.md) | Trace-norm-small perturbations preserve Hermitian spectral distributions | **✅ SOLVED** | challenging | interesting to the community | [PDF](SP-13/problem.pdf) · [TeX](SP-13/problem.tex) |
 | [SP-14](SP-14/README.md) | Widom's canonical distribution conjecture for Toeplitz eigenvalues | **✅ SOLVED** | extreme | interesting to the community | [PDF](SP-14/problem.pdf) · [TeX](SP-14/problem.tex) |
 | [SP-15](SP-15/README.md) | Finitely many unitary classes with prescribed shifted singular values | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](SP-15/problem.pdf) · [TeX](SP-15/problem.tex) |

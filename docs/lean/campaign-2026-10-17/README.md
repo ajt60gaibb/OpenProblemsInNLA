@@ -2,7 +2,7 @@
 
 **Active and incomplete.** The user requested exact Lean proofs of every Solved
 problem without one, starting with FR-05, using independent agents and
-LeanCert kernel mode. SP-11 is now promoted to Lean verified; permanent IDs
+LeanCert kernel mode. SP-11 and SP-12 are now promoted to Lean verified; permanent IDs
 and original mathematical targets are unchanged.
 
 The initial working checkout was stale and had unrelated uncommitted work.
@@ -18,7 +18,7 @@ IDs, canonical pages, and original mathematical targets are preserved.
   workflow was cancelled. This audit reuses actual retained evidence; it is not
   a new Linux proof run.
 - **Remaining queue:** The [independent registry inventory](inventory/README.md)
-  records 42 Solved entries on published main, existing partial/full candidates,
+  records the immutable initial 42 Solved entries, existing partial/full candidates,
   and later RA-10/MD-03/MD-04 evidence. Proof existence, complete-target scope,
   verification and canonical promotion are tracked separately.
 - **SP-11:** Thirty-six completed [modules](../proofs/SP-11/README.md) establish
@@ -42,7 +42,26 @@ support receipt remains historical; the new dedicated full-project receipt
 records actual SP-11 proof comparison. Shared statement identities remain a
 separate check.
 
-SP-12 is the next proof development, in a separate checkout, after two fresh
-independent reviews of its exact PSD/SAP/chromatic statement. The other Solved
-entries remain in the queue; this milestone does not complete the user’s
-overall goal.
+SP-12 now has a complete [shared and canonical proof](../proofs/SP-12/README.md)
+after two fresh independent exact-statement reviews. Its twelve new modules
+supply real predecessor independence, Gram SAP, Strong Delta, actual Gram-map
+local surjectivity and vertex extension, and the chromatic induction. The full
+frozen Target passes independent fresh shared/canonical audits (52/56 commands),
+actual isolated Linux run `39142969327` at immutable commit `529e7b0560cef6461c98e950046860a160e6f86c`,
+and its independent 40-check/96-input retained-artifact audit. Canonical status
+is Lean verified. Exact originals were archived before editing, and a separate
+16-check promotion audit preserves all IDs, original text/credit/history and
+55 checked Lean inputs. The descriptive metadata refresh receives new CI.
+
+The source-level inventory tracks ten promoted targets, eight partial projects
+and twenty-nine statement-only entries. Published main additionally contains
+the merged RA-10/MD-03/MD-04 promotions. There are 37 remaining Solved entries
+after SP-11/SP-12. TR-14 now has a complete [shared and canonical proof](../proofs/TR-14/README.md)
+in a separate clone, with all 39 exact retained candidate modules and two fresh
+independent preproof statement/route approvals. Its actual binary upper and
+unrestricted ordinary lower constructions close the full unchanged all-width
+Target with LeanCert kernel trust and only standard axioms. The canonical
+package has 82 actual Lean inputs; independent fresh shared/canonical audits
+pass 79/83 Lean commands, 451/453 declaration checks and 353/355 theorem-kind
+checks. Actual isolated Linux Comparator verification is pending. The original
+page remains Solved. This does not complete the user's overall goal.

@@ -6,10 +6,16 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Solved
-**Last checked:** 2026-09-11
+**Status:** Lean verified
+**Last checked:** 2026-10-18
 
 **Rating rationale (historical):** Challenging reflects the need for a stronger general PSD/SAP realization bound than current connectivity estimates supply; implication from Hadwiger does not establish equivalent difficulty. Specialist impact reflects the focus on this particular graph nullity invariant.
+
+<!-- formal-lean-proof:start -->
+## Lean proof and verification evidence — 2026-10-18
+
+The [self-contained Lean project](lean/README.md) proves `NLA.SP12.target`, the complete original PSD/SAP/chromatic assertion. Independent [exact statement and source reviews](../../docs/lean/proofs/SP-12/README.md), fresh kernel audits and the [actual isolated Linux Comparator/LeanCert kernel receipt](../../docs/lean/proofs/SP-12/LINUX_CI_RECEIPT.md) pass with only the three standard foundational axioms. The checked proof commit is `529e7b0560cef6461c98e950046860a160e6f86c`, [run 39142969327](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/39142969327). The [original page, TeX and PDF](../../docs/lean/proofs/SP-12/originals-main-36767/manifest.json) are preserved byte for byte. Mathematical attribution and all original text and history below remain unchanged. Formalization and independent reviews are AI-agent work, not external human peer review.
+<!-- formal-lean-proof:end -->
 
 ## Literature-dependent resolution - 2026-09-11
 

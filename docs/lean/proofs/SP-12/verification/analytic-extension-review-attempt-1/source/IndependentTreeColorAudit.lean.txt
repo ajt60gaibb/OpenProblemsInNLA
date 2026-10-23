@@ -1,0 +1,155 @@
+import NLA.Proofs.SP12.VertexExtension
+import LeanCert.Tactic.Verification
+open Lean Elab Command in
+elab "#assert_proof_constant " n:ident : command => do
+  let decl ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  match (← getEnv).find? decl with
+  | some (.thmInfo _) => pure ()
+  | _ => throwErrorAt n "expected a proved theorem constant"
+open Lean Elab Command in
+elab "#assert_private_theorem " mod:str suffix:str : command => do
+  let prefix := "_private." ++ mod.getString ++ "."
+  let ending := "." ++ suffix.getString
+  let candidates := (← getEnv).constants.toList.filter fun (n, _) =>
+    n.toString.startsWith prefix && n.toString.endsWith ending
+  unless candidates.length == 1 do
+    throwError "expected exactly one actual private declaration"
+  let some (decl, info) := candidates.head? | throwError "private declaration missing"
+  match info with
+  | .thmInfo _ => pure ()
+  | _ => throwError "private declaration must be a proved theorem"
+  logInfo m!"PRIVATE_THEOREM {decl}"
+  let ident := mkIdent decl
+  elabCommand (← `(#assert_trust kernel $ident:ident))
+  elabCommand (← `(#print axioms $ident:ident))
+#assert_trust kernel NLA.Proofs.SP11.gram
+#print axioms NLA.Proofs.SP11.gram
+#assert_proof_constant NLA.Proofs.SP11.gram_apply
+#assert_trust kernel NLA.Proofs.SP11.gram_apply
+#print axioms NLA.Proofs.SP11.gram_apply
+#assert_proof_constant NLA.Proofs.SP11.gram_hasPattern
+#assert_trust kernel NLA.Proofs.SP11.gram_hasPattern
+#print axioms NLA.Proofs.SP11.gram_hasPattern
+#assert_proof_constant NLA.Proofs.SP11.gram_rank_le
+#assert_trust kernel NLA.Proofs.SP11.gram_rank_le
+#print axioms NLA.Proofs.SP11.gram_rank_le
+#assert_proof_constant NLA.Proofs.SP11.minDegree_le_gram_nullity
+#assert_trust kernel NLA.Proofs.SP11.minDegree_le_gram_nullity
+#print axioms NLA.Proofs.SP11.minDegree_le_gram_nullity
+#assert_proof_constant NLA.Proofs.SP11.target_of_faithful_representations
+#assert_trust kernel NLA.Proofs.SP11.target_of_faithful_representations
+#print axioms NLA.Proofs.SP11.target_of_faithful_representations
+#assert_trust kernel NLA.Proofs.SP12.sapTestSpace
+#print axioms NLA.Proofs.SP12.sapTestSpace
+#assert_proof_constant NLA.Proofs.SP12.mem_sapTestSpace
+#assert_trust kernel NLA.Proofs.SP12.mem_sapTestSpace
+#print axioms NLA.Proofs.SP12.mem_sapTestSpace
+#assert_trust kernel NLA.Proofs.SP12.testMultiplication
+#print axioms NLA.Proofs.SP12.testMultiplication
+#assert_proof_constant NLA.Proofs.SP12.testMultiplication_apply
+#assert_trust kernel NLA.Proofs.SP12.testMultiplication_apply
+#print axioms NLA.Proofs.SP12.testMultiplication_apply
+#assert_trust kernel NLA.Proofs.SP12.testMultiplicationFamily
+#print axioms NLA.Proofs.SP12.testMultiplicationFamily
+#assert_proof_constant NLA.Proofs.SP12.isOpen_injective_testMultiplication
+#assert_trust kernel NLA.Proofs.SP12.isOpen_injective_testMultiplication
+#print axioms NLA.Proofs.SP12.isOpen_injective_testMultiplication
+#assert_proof_constant NLA.Proofs.SP12.strongArnold_iff_injective_testMultiplication
+#assert_trust kernel NLA.Proofs.SP12.strongArnold_iff_injective_testMultiplication
+#print axioms NLA.Proofs.SP12.strongArnold_iff_injective_testMultiplication
+#assert_trust kernel NLA.Proofs.SP12.NonedgePair
+#print axioms NLA.Proofs.SP12.NonedgePair
+#assert_trust kernel NLA.Proofs.SP12.nonedgePairFintype
+#print axioms NLA.Proofs.SP12.nonedgePairFintype
+#assert_trust kernel NLA.Proofs.SP12.nonedgeGram
+#print axioms NLA.Proofs.SP12.nonedgeGram
+#assert_trust kernel NLA.Proofs.SP12.offGram
+#print axioms NLA.Proofs.SP12.offGram
+#assert_trust kernel NLA.Proofs.SP12.gramDifferential
+#print axioms NLA.Proofs.SP12.gramDifferential
+#assert_proof_constant NLA.Proofs.SP12.gramDifferential_apply
+#assert_trust kernel NLA.Proofs.SP12.gramDifferential_apply
+#print axioms NLA.Proofs.SP12.gramDifferential_apply
+#assert_proof_constant NLA.Proofs.SP12.gramDifferential_matrix
+#assert_trust kernel NLA.Proofs.SP12.gramDifferential_matrix
+#print axioms NLA.Proofs.SP12.gramDifferential_matrix
+#assert_trust kernel NLA.Proofs.SP12.nonedgeBasis
+#print axioms NLA.Proofs.SP12.nonedgeBasis
+#assert_proof_constant NLA.Proofs.SP12.nonedgeBasis_symm
+#assert_trust kernel NLA.Proofs.SP12.nonedgeBasis_symm
+#print axioms NLA.Proofs.SP12.nonedgeBasis_symm
+#assert_proof_constant NLA.Proofs.SP12.nonedgeBasis_diag
+#assert_trust kernel NLA.Proofs.SP12.nonedgeBasis_diag
+#print axioms NLA.Proofs.SP12.nonedgeBasis_diag
+#assert_proof_constant NLA.Proofs.SP12.nonedgeBasis_edge
+#assert_trust kernel NLA.Proofs.SP12.nonedgeBasis_edge
+#print axioms NLA.Proofs.SP12.nonedgeBasis_edge
+#assert_proof_constant NLA.Proofs.SP12.gramDifferential_single
+#assert_trust kernel NLA.Proofs.SP12.gramDifferential_single
+#print axioms NLA.Proofs.SP12.gramDifferential_single
+#assert_trust kernel NLA.Proofs.SP12.matrixEntryCLM
+#print axioms NLA.Proofs.SP12.matrixEntryCLM
+#assert_proof_constant NLA.Proofs.SP12.matrixEntryCLM_apply
+#assert_trust kernel NLA.Proofs.SP12.matrixEntryCLM_apply
+#print axioms NLA.Proofs.SP12.matrixEntryCLM_apply
+#assert_proof_constant NLA.Proofs.SP12.hasStrictFDerivAt_nonedgeGram
+#assert_trust kernel NLA.Proofs.SP12.hasStrictFDerivAt_nonedgeGram
+#print axioms NLA.Proofs.SP12.hasStrictFDerivAt_nonedgeGram
+#assert_proof_constant NLA.Proofs.SP12.nonedgeBasis_pair
+#assert_trust kernel NLA.Proofs.SP12.nonedgeBasis_pair
+#print axioms NLA.Proofs.SP12.nonedgeBasis_pair
+#assert_proof_constant NLA.Proofs.SP12.gramDifferential_annihilator_zero
+#assert_trust kernel NLA.Proofs.SP12.gramDifferential_annihilator_zero
+#print axioms NLA.Proofs.SP12.gramDifferential_annihilator_zero
+#assert_proof_constant NLA.Proofs.SP12.gramDifferential_surjective
+#assert_trust kernel NLA.Proofs.SP12.gramDifferential_surjective
+#print axioms NLA.Proofs.SP12.gramDifferential_surjective
+#assert_proof_constant NLA.Proofs.SP12.map_nonedgeGram_nhds
+#assert_trust kernel NLA.Proofs.SP12.map_nonedgeGram_nhds
+#print axioms NLA.Proofs.SP12.map_nonedgeGram_nhds
+#assert_trust kernel NLA.Proofs.SP12.extendedRows
+#print axioms NLA.Proofs.SP12.extendedRows
+#assert_proof_constant NLA.Proofs.SP12.gram_extendedRows_zero_zero
+#assert_trust kernel NLA.Proofs.SP12.gram_extendedRows_zero_zero
+#print axioms NLA.Proofs.SP12.gram_extendedRows_zero_zero
+#assert_proof_constant NLA.Proofs.SP12.gram_extendedRows_zero_succ
+#assert_trust kernel NLA.Proofs.SP12.gram_extendedRows_zero_succ
+#print axioms NLA.Proofs.SP12.gram_extendedRows_zero_succ
+#assert_proof_constant NLA.Proofs.SP12.gram_extendedRows_succ_zero
+#assert_trust kernel NLA.Proofs.SP12.gram_extendedRows_succ_zero
+#print axioms NLA.Proofs.SP12.gram_extendedRows_succ_zero
+#assert_proof_constant NLA.Proofs.SP12.gram_extendedRows_succ_succ
+#assert_trust kernel NLA.Proofs.SP12.gram_extendedRows_succ_succ
+#print axioms NLA.Proofs.SP12.gram_extendedRows_succ_succ
+#assert_proof_constant NLA.Proofs.SP12.continuous_gram_extendedRows
+#assert_trust kernel NLA.Proofs.SP12.continuous_gram_extendedRows
+#print axioms NLA.Proofs.SP12.continuous_gram_extendedRows
+#assert_proof_constant NLA.Proofs.SP12.injective_testMultiplication_extendedRows_zero
+#assert_trust kernel NLA.Proofs.SP12.injective_testMultiplication_extendedRows_zero
+#print axioms NLA.Proofs.SP12.injective_testMultiplication_extendedRows_zero
+#assert_proof_constant NLA.Proofs.SP12.exists_nonzero_lift_in_nhds
+#assert_trust kernel NLA.Proofs.SP12.exists_nonzero_lift_in_nhds
+#print axioms NLA.Proofs.SP12.exists_nonzero_lift_in_nhds
+#assert_trust kernel NLA.Proofs.SP12.addedCoordinates
+#print axioms NLA.Proofs.SP12.addedCoordinates
+#assert_proof_constant NLA.Proofs.SP12.addedCoordinates_zero
+#assert_trust kernel NLA.Proofs.SP12.addedCoordinates_zero
+#print axioms NLA.Proofs.SP12.addedCoordinates_zero
+#assert_proof_constant NLA.Proofs.SP12.continuous_addedCoordinates
+#assert_trust kernel NLA.Proofs.SP12.continuous_addedCoordinates
+#print axioms NLA.Proofs.SP12.continuous_addedCoordinates
+#assert_trust kernel NLA.Proofs.SP12.extensionTarget
+#print axioms NLA.Proofs.SP12.extensionTarget
+#assert_proof_constant NLA.Proofs.SP12.extensionTarget_zero
+#assert_trust kernel NLA.Proofs.SP12.extensionTarget_zero
+#print axioms NLA.Proofs.SP12.extensionTarget_zero
+#assert_proof_constant NLA.Proofs.SP12.continuous_extensionTarget
+#assert_trust kernel NLA.Proofs.SP12.continuous_extensionTarget
+#print axioms NLA.Proofs.SP12.continuous_extensionTarget
+#assert_private_theorem "NLA.Proofs.SP12.VertexExtension" "NLA.Proofs.SP12.gram_entry_symm"
+#assert_proof_constant NLA.Proofs.SP12.gram_nonedge_eq_of_nonedgeGram
+#assert_trust kernel NLA.Proofs.SP12.gram_nonedge_eq_of_nonedgeGram
+#print axioms NLA.Proofs.SP12.gram_nonedge_eq_of_nonedgeGram
+#assert_proof_constant NLA.Proofs.SP12.exists_vertexExtension
+#assert_trust kernel NLA.Proofs.SP12.exists_vertexExtension
+#print axioms NLA.Proofs.SP12.exists_vertexExtension
