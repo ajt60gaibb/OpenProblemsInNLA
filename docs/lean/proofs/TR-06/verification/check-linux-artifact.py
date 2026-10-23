@@ -46,7 +46,7 @@ PUBLISHED_EXPORTS = [
 ]
 TARGETS = PUBLISHED_EXPORTS + [TARGET]
 STANDARD_AXIOMS = ["propext", "Classical.choice", "Quot.sound"]
-EXPECTED_COUNTS = {"selected_exports": 11, "canonical_Lean_inputs": 144,
+EXPECTED_COUNTS = {"selected_exports": 11, "canonical_inputs": 153, "canonical_Lean_inputs": 144,
                    "copied_sources": 140, "proof_sources": 80, "retained_sources": 58}
 BASE_CONTROL_COUNT = 41
 ADDITIONAL_CONTROL_COUNT = 4
@@ -108,8 +108,9 @@ proof_lock = json.loads(source(PROJECT + "/proof-source-lock.json"))
 expected_lean = {item["destination"][len(PROJECT)+1:] for item in proof_lock["copies"]}
 expected_lean.update({"Reviewed/TR06.lean", "Challenge.lean", "Identity.lean", "Solution.lean"})
 check("exact-reviewed-144-Lean-input-set", len(expected_lean) == 144
+      and len(result["input_sha256"]) == 153
       and {name for name in result["input_sha256"] if name.endswith(".lean")} == expected_lean,
-      count=len(expected_lean))
+      count=len(expected_lean), total_input_count=len(result["input_sha256"]))
 
 # Additional guards bind every copy to its exact shared source and the
 # immutable original candidate. These supplement, rather than replace, the
@@ -283,6 +284,7 @@ report = {"schema_version": 1, "reviewer": args.reviewer,
           "additional_control_count": ADDITIONAL_CONTROL_COUNT,
           "expected_counts": EXPECTED_COUNTS,
           "actual_counts": {"selected_exports": len(config["theorem_names"]),
+                            "canonical_inputs": len(result["input_sha256"]),
                             "canonical_Lean_inputs": sum(name.endswith(".lean") for name in result["input_sha256"]),
                             "copied_sources": len(copy_records), "proof_sources": proof_count,
                             "retained_sources": retained_count},
