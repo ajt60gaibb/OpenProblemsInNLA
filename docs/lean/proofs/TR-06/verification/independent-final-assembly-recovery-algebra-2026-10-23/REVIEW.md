@@ -1,0 +1,27 @@
+# Independent review of the actual TR-06 final assembly
+
+23 October 2026. Reviewer: `/root/recover_algebra`. Verdict: **approve the listed other-author source assembly and local kernel consumers**. No mathematical blocker was found. This is not a Linux/Comparator acceptance or catalog-status approval.
+
+The review covers the fifteen exact sources bound by `APPROVAL.json`: the controlled projection atlas and derivative inequality; actual graph Euclidean coordinates, parameter and selected-row bridges; actual controlled-character endpoint; finite pivot union; bounded graph and controlled-volume estimate; actual finite graph fibers and graph volume; literal intrinsic Target; and the two retained-boundary assembly modules. My own twenty-six algebra/radial sources are expressly excluded from independent authorship review. Using them as checked prerequisites does not make this an independent approval of their authorship.
+
+## Mathematical fidelity
+
+The controlled atlas retains an actual open projection-inverse chart with a Lipschitz estimate. Its local estimate differentiates on real lines and forces the selected projection derivative to be injective on the actual smooth graph tangent. This avoids the false implication from real setwise injectivity alone to complex quasi-finiteness. Exact pivot/coordinate transport proves that its genuine projected derivative is the one used by the algebraic character theorem.
+
+For each selected projection, genuine quasi-finite source characters bound every finite collection of actual graph points. Distinct actual graph points give distinct characters through literal input/output coordinates. The finite pivot union covers all actual ordered decomposition branches. The bound is chosen before the projection base value. Neither a finite whole fiber nor a finite graph-volume theorem is assumed in the final construction.
+
+The norm of the tuple of individually normalized summands is exactly the square root of the number of summands, so the open annular graph is bounded. Its countable controlled atlas and bounded finite-subset fibers give finite expected-dimensional Euclidean Hausdorff volume through the genuine Lipschitz/overlap estimate. The actual Hilbert-product-to-Euclidean linear isometry transports this exact measure, without changing metric or dimension. Empty graph and dimension bounds are handled inside the proof.
+
+The intrinsic theorem keeps every original format, every rank at least three, and the original nonvacuous generic complex identifiability hypothesis. Actual full measure and positive annular volume come from the proved algebraic-locus construction. Actual finite graph volume gives the true annular input volume and angular-slope integral. The homogeneous Gaussian theorem uses the exact Hausdorff volume-Gaussian law and individual-normalization derivative; the proved semantic/measure bridge concludes the literal unchanged intrinsic Target. No extra geometric or integrability premise remains. The normalizer is explicitly positive and finite, so a vacuous law convention cannot establish the result.
+
+The retained-boundary Locus module proves the exact original measurable/full-measure/positive-volume and source-law clauses. Mean transports the actual intrinsic normalizer and angular integral through proved normalized-law equalities and null-set restoration. Its two selected mean theorems retain only the original format and genericity hypotheses. Probability validity and angular measurability are proved explicitly. All ten published type headers are preserved.
+
+## Independent local execution
+
+The source closure contains 139 project sources. Eighteen selected sources were compiled freshly into private outputs: fifteen other-author assembly/bridge modules and the unchanged Statement, Infrastructure and reviewed mirror. A nineteenth command compiled a new consumer with all ten verbatim published Challenge type headers, an explicit literal intrinsic quantifier/normalizer/numerator statement, and the separately reviewed Target. All twelve consumer theorems pass LeanCert kernel assertions and have only `propext`, `Classical.choice`, and `Quot.sound`.
+
+The other 121 previously built project dependencies were imported through a read-only per-file object view. Actual source hashes, source-binding metadata hashes and object hashes are recorded and checked before and after execution. They are not represented as fresh compilations. All hashes in the whole 139-source closure remained unchanged during the replay. The original-header consumer is regenerated from the preserved published Challenge and never imports Challenge.
+
+The first runner attempt exposed Lean's single-root namespace lookup: an unselected retained projection module was absent from the new private namespace. That failed attempt is preserved under `attempt-1-namespace-search/`. The runner was corrected to use individual hash-bound read-only prerequisite symlinks. No proof source changed; all nineteen commands passed in the final run.
+
+`result.json`, `closure-source-lock.json`, `read-only-prerequisite-bindings.json`, `consumer-provenance.json`, private source snapshots and compiler logs bind this approval to exact bytes. The canonical pre-Solution boundary has its separate independent approval. Full canonical package replay, actual Linux CI and Comparator acceptance, and the preservation/status workflow remain separate required evidence.

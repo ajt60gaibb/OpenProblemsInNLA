@@ -1,0 +1,22 @@
+# Independent actual polynomial good-base review 3
+
+**PASS for the frozen ten-module support gate.** Reviewer `/root/lean_verification` authored no TR06 proof source. This extends the separate seven-module properness review; its historical evidence remains unchanged.
+
+A fresh immutable snapshot rebuilt **31 actual local source files plus one consumer (32 successful commands)**. The consumer checks 253 explicit declarations, including 137 actual theorem constants, with LeanCert kernel trust and printed axiom closures restricted to `propext`, `Classical.choice`, and `Quot.sound`. Explicit retained private declarations are independently resolved and checked. All 58 retained sources and ten pinned dependency revisions/cleanliness checks passed before/after. All ten new source hashes match `root-properness-support-lock.json`; the exact per-source hashes, snapshots, consumer, logs and driver are retained in `actual-good-base-review-3/`.
+
+The reviewed three-module delta contains six theorem constants. `FiniteLocalizedFibers` embeds algebra characters into evaluations on a finite module generating set. Linear independence of distinct algebra characters yields finiteness without a Module.Free assumption. Characters in a nonvanishing-denominator fiber extend to the canonical source/base localizations and remain injectively distinguishable on original source values. Thus the finite-module result applies to the exact localized scalar action rather than to an unrelated character space.
+
+`AdditionFiniteFibers` transports that finite character fiber to the complete actual closed zero-or-rank-one tuple fiber by the retained character correspondence, including the empty-fiber branch. I inspected the retained `AlgebraFiber` and `FiniteFiberExactness` proofs: shorter positive-length decompositions produce an actual injective split-parameter family; the zero-rank case produces an actual cancellation family using a nonzero pure tensor. For `0 < d`, positive mode sizes and `2 ≤ r`, these complete fibers cannot be finite at a lower-rank tensor. Consequently every real length-r decomposition over the good denominator has complex exact rank r; zeros and cancellation are not silently excluded.
+
+`AdditionGoodBase` multiplies the finite-localization denominator's actual ambient representative by the original generic identifiability polynomial. Both pullbacks are proved nonzero in the actual domain, the latter by evaluation at the actual exact-rank witness. Their product therefore has nonzero Segre pullback. Its real nonvanishing set is open. Every real length-r decomposition there has complex exact rank r from proved finite complete fibers, so the original generic identifiability premise now applies and actual real exactness/identifiability follows through the retained complexification theorem. Complete compact real addition preimages restrict from the previously proved denominator good set.
+
+The top theorem `generic_identifiability_good_base` assumes only `0 < d`, positive mode sizes, `2 ≤ r` and the original `GenericComplexIdentifiable`. It constructs the ambient polynomial, nonzero Segre pullback, openness, actual `IdentifiableAdditionOn`, and actual complete `CompactAdditionPreimagesOn`. No properness, finite-fiber, Jacobian, unramifiedness, or generic-good-base certificate remains as an additional top-level hypothesis.
+
+This approval does not claim full TR06 Target, full measure, actual regularity on the whole good base, Gaussian annular integrability, or uniform normalized-graph projection fiber bounds. Nonzero Segre pullback is the proved algebraic nonvanishing fact; the separate real nullity/fullmeasure step is not inferred here. This is a local macOS kernel review, with no Linux Comparator claim.
+
+Reproduce with a new evidence name to preserve the original receipt:
+
+```sh
+python3 docs/lean/proofs/TR-06/campaign-2026-10-18/verification/check-good-base-gate-review-3.py \
+  --top AdditionGoodBase --evidence-name actual-good-base-review-3
+```
