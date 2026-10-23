@@ -1,0 +1,667 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=.9in]{geometry}
+\usepackage{booktabs,array,longtable,xcolor,fancyhdr}
+\usepackage[colorlinks=true,linkcolor=blue!45!black,citecolor=blue!45!black,urlcolor=blue!45!black,breaklinks=true]{hyperref}
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries}{\thesection}{.65em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{.6em}{}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\setlength{\headheight}{14pt}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small RA-05 | The even/non-even dichotomy}\fancyhead[R]{\small Part I: non-even exponents}\fancyfoot[C]{I--\thepage}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}\newcommand{\E}{\mathbb E}\newcommand{\Prob}{\mathbb P}
+\newcommand{\eps}{\varepsilon}\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\ip}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\supp}{\operatorname{supp}}\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\tr}{\operatorname{tr}}\newcommand{\op}{\mathrm{op}}
+\newcommand{\srank}{\operatorname{srank}}\newcommand{\cost}{\operatorname{cost}}
+\newcommand{\Sp}{S_p}\newcommand{\Lam}{\Lambda}
+\usepackage{xurl}\setlength{\emergencystretch}{3em}
+\hypersetup{pdfauthor={Sidney Holden}}
+\begin{document}
+\begin{titlepage}
+\thispagestyle{empty}
+{\LARGE\bfseries RA-05 submission}\par\bigskip
+{\Large Sidney Holden}\par\medskip
+Center for Computational Biology, Flatiron Institute, Simons Foundation.\par\medskip
+14 September 2026\par\bigskip
+\textbf{Submission disposition.} Solved by an independently audited informal argument. Part I, Theorem 1.1, together with Part II, Theorem 1.1, classifies strong original-row coreset size for every fixed real power p greater than 2, all allowed ranks and accuracies, up to logarithmic factors. The original additive proposal is false. Historical Part II statements that non-even powers remain open refer to that earlier part alone.\par\bigskip
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/reviews/2026-09-14-further-submissions/RA-05-review.md}{Independent informal Codex AI-agent review}.\par\medskip
+ChatGPT assistance is disclosed. No Lean verification, external human peer review or formal verification is claimed. This dated notice supersedes historical statements about pending review. Inherited claims are accepted only within the linked review scope.\par\bigskip
+The mathematical body and its references are retained from the submitted source.\par
+\end{titlepage}
+
+\begin{titlepage}
+{\small\bfseries RESEARCH MANUSCRIPT / COMPLETE RESOLUTION CLAIM FOR RA-05}\par\vspace{1cm}
+{\huge\bfseries Strong row coresets:\par the even/non-even dichotomy}\par\vspace{.45cm}
+{\Large All fixed real powers $p>2$, all ranks,\par and all accuracies, up to logarithmic factors}\par\vspace{.7cm}
+\textbf{Sidney Holden}\par Center for Computational Biology\par Flatiron Institute, Simons Foundation\par Prepared with ChatGPT assistance\par
+September 13, 2026\par\vspace{.6cm}
+\textbf{Abstract.} Let $S_p(k,\eps)$ be the worst-case minimum support of a nonnegative strong coreset on original rows for Euclidean subspace costs of power $p$. There is no restriction on input rank. For every fixed real $p>2$ that is not an even integer, we prove
+\[
+ \frac{c_p k^{p/2}}{\eps^2\log^{5p/2+3}(2k/\eps)}
+ \le S_p(k,\eps)
+ \le \frac{C_p k^{p/2}}{\eps^2}\log^{p+5}(2k/\eps)
+\]
+for all integers $k\ge1$ and $0<\eps<1/2$. The upper bound is imported from Lin--Mirrokni--Woodruff. The lower bound tensors a bounded-cost, stably evaluable core with a selected Boolean-cube family. The nonvanishing middle Walsh spectrum of absolute non-even powers supplies the accuracy factor. This Fourier mechanism has a direct antecedent in Li--Wang--Woodruff; we give the needed analytic estimates and a direct support argument rather than a bit-complexity reduction.
+
+Together with the complete even-power proof reproduced as Part II, the answer is
+\[
+ S_p(k,\eps)=\widetilde\Theta_p\!\left(
+ \begin{cases}
+ k^{p/2}\eps^{-2},&p\notin 2\mathbb Z,\\[1mm]
+ \min\{k^{p/2}\eps^{-2},\ k^{(p+1)/2}\eps^{-1}
+                  +k^{p/2-1}\eps^{-2}\},&p\in2\mathbb Z.
+ \end{cases}\right)
+\]
+The constants depend only on fixed $p$. The subsidiary proposed bound is false for every fixed $p>2$.
+
+\vfill
+\textbf{Evidence and status.} This is a complete mathematical proof claim, with explicit imported theorems, an author-side audit, and reproducible finite checks. It is not an independently reviewed or proof-assistant-verified solution. The exact cubic certificate proves a finite universal support inequality; it is not substituted for the asymptotic proofs. No first-discovery priority is asserted and no repository file has been changed.
+\end{titlepage}
+\tableofcontents
+\clearpage
+\section{The exact target and the full rate function}
+\subsection{Original-row strong coresets}
+For a finite matrix with rows $a_i^T\in\R^d$ and a linear subspace $F$, let
+\[
+ \cost_A(F)=\sum_i\norm{(I-P_F)a_i}_2^p.
+\]
+A strong row coreset has weights $w_i\ge0$ and satisfies
+\begin{equation}\label{eq:strong}
+ \left|\sum_i(w_i-1)\norm{(I-P_F)a_i}_2^p\right|
+ \le\eps\cost_A(F)\qquad(\dim F\le k).
+\end{equation}
+Its size is the number of nonzero weights, not their sum. Let $S_p(k,\eps)$ be the supremum over all finite inputs with ambient dimension $d>k$ of the minimum such size. The quantifiers in RA-05 are fixed real $p>2$, every integer $k\ge1$, every $0<\eps<1/2$, arbitrary input rank, and constants independent of $n,d,k,\eps$ \cite{ra05}. There is no extra running-time target.
+
+Put $\Lam=\log(2k/\eps)>1$ and define
+\begin{equation}\label{eq:rate}
+ \mathcal R_p(k,\eps)=
+ \begin{cases}
+ k^{p/2}\eps^{-2},&p>2,\ p\notin2\mathbb Z,\\
+ \min\{k^{p/2}\eps^{-2},\ k^{(p+1)/2}\eps^{-1}
+                  +k^{p/2-1}\eps^{-2}\},&p\in\{4,6,8,\ldots\}.
+ \end{cases}
+\end{equation}
+\begin{theorem}[Full classification, with explicit logarithmic losses]\label{thm:full}
+For each fixed real $p>2$, there are $0<c_p\le C_p<\infty$ such that
+\begin{equation}\label{eq:full}
+ \frac{c_p\mathcal R_p(k,\eps)}{\Lam^{b_p}}
+ \le S_p(k,\eps)\le C_p\mathcal R_p(k,\eps)\Lam^{p+5},
+ \quad
+ b_p=\begin{cases}5p/2+3,&p\notin2\mathbb Z,\\0,&p\in2\mathbb Z,\end{cases}
+\end{equation}
+for all $k\ge1$ and $0<\eps<1/2$. All upper bounds select and reweight original rows nonnegatively.
+\end{theorem}
+The notation $\widetilde\Theta_p$ in the abstract means precisely bounds of this type. It does not suppress a polynomial power of $k$ or $1/\eps$.
+
+\subsection{Proof map and the role of Part II}
+The new non-even lower bound is Theorem~\ref{thm:noneven}, proved in Sections~\ref{sec:core}--\ref{sec:parameters}. It uses only the stated restricted-invertibility theorem as a non-elementary structural input. The general upper theorem is stated explicitly below. These two results prove \eqref{eq:full} for non-even $p$.
+
+For even $p=2s\ge4$, Part II reproduces the entire preceding 26-page manuscript \emph{Sharp unrestricted even-power row coresets}, without alteration. Its local Theorem 1.1 proves the even case of \eqref{eq:full}; its local Theorem 1.2 gives the second upper branch with $\log^5(2k/\eps)$. All the upper and lower proofs, and their imported dependencies, are included there. Part II is an included proof, not an externally verified black box or an assumption that interpolation in $p$ is valid. Its historical statements that non-even powers remain unclassified describe that earlier manuscript alone. Part I supplies the missing case.
+
+Thus the two parts jointly cover every exponent in the original question. The proof-status qualification concerns verification, not a deliberately omitted parameter regime.
+
+\begin{theorem}[Non-even powers]\label{thm:noneven}
+For every fixed $p>2$ not an even integer, there is $c_p>0$ with
+\begin{equation}\label{eq:noneven}
+ S_p(k,\eps)\ge \frac{c_p k^{p/2}}{\eps^2\log^{5p/2+3}(2k/\eps)}
+ \qquad(k\ge1,\ 0<\eps<1/2).
+\end{equation}
+When the tensor construction used below fits in dimension $k+1$, its support inequality even allows arbitrary real weights. The auxiliary small-rank construction uses nonnegative weights, exactly as the original model permits.
+\end{theorem}
+
+\subsection{A direct antecedent and what the tensor argument adds}
+Li--Wang--Woodruff \cite{lww}, Section 3.1 (especially Lemmas 3.1--3.3 and Corollary 3.4), analyze the matrix of absolute $p$-th powers of Boolean inner products. They use its middle Walsh spectrum to separate non-even powers from even ones. Their Section 6 also gives a sampling-based embedding lower bound. The middle-spectrum mechanism here is that same classical mechanism, not a new Fourier discovery.
+
+The proof below extracts a stably evaluable \emph{original-column subset} and tensors it with an independent bounded-cost core. The exact error matrix is $G\Delta F^T$. Its two least singular values force a bound on every omitted tensor row simultaneously. This yields a multiplicative $k^{p/2}\eps^{-2}$ obstruction up to logarithms, without restrictions on the precision, sign, randomness, or data dependence of the tensor reweighting. No bit-complexity lower bound is silently treated as a support lower bound.
+
+\section{External inputs and hyperplane reduction}\label{sec:imports}
+\begin{theorem}[General row-coreset upper bound; imported]\label{thm:upper}
+For each fixed real $p>2$, every input admits a nonnegative original-row strong coreset of size
+\[
+ C_p k^{p/2}\eps^{-2}\log^{p+5}(2k/\eps).
+\]
+\end{theorem}
+This is Theorem 1.2 of Lin--Mirrokni--Woodruff \cite{lmw}, with a fixed failure probability such as $1/4$. Positive success probability gives existence. Absorbing the fixed $p$-dependent constants inside its logarithm changes only $C_p$. The theorem concerns exactly the original-row model in \eqref{eq:strong}. We do not claim a new upper-bound algorithm for non-even powers.
+
+\begin{theorem}[Restricted invertibility; imported]\label{thm:ri}
+If a nonzero real matrix $B$ has $n$ columns and $m$ is an integer with
+$m\le\srank(B):=\norm B_F^2/\norm B_{\op}^2$, then some $m$ columns form $B_J$ satisfying
+\begin{equation}\label{eq:ri}
+ \sigma_{\min}(B_J)^2\ge
+ \left(1-\sqrt{m/\srank(B)}\right)^2\frac{\norm B_F^2}{n}.
+\end{equation}
+\end{theorem}
+This is the Spielman--Srivastava stable-rank theorem, stated as Theorem 1.1 of Marcus--Spielman--Srivastava \cite{mss}. There is no unit-column hypothesis. We use it once for a real spherical core and once for a Boolean spectral projection. The least singular value in \eqref{eq:ri} is the infimum on the full coefficient space of the selected columns.
+
+\begin{lemma}[Hyperplane tests]\label{lem:hyperplane}
+In ambient dimension $d=k+1$, \eqref{eq:strong} implies
+\begin{equation}\label{eq:linear}
+ \left|\sum_i(w_i-1)|a_i\cdot z|^p\right|
+ \le\eps\sum_i|a_i\cdot z|^p\qquad(z\in\R^d).
+\end{equation}
+\end{lemma}
+\begin{proof}
+For unit $z$, use the rank-$k$ hyperplane $z^\perp$. Its residual is $(a_i\cdot z)z$. Homogeneity extends the inequality to every $z$, including the trivial zero case. Padding input rows and normals by zeros leaves the linear-form costs unchanged and produces legal hyperplanes of dimension exactly $k$ in dimension $k+1$.
+\end{proof}
+Only necessity is used for the new lower bound. Tensor test vectors are actual normals, not linear combinations of nonlinear cost queries.
+
+\section{A bounded-cost core with stable evaluation}\label{sec:core}
+Let $\gamma_t=\E|g|^t$ for a standard scalar Gaussian $g$, and write $s=p/2>1$.
+\begin{lemma}[Core lemma]\label{lem:core}
+For each fixed $p>2$, there are $r_0(p)$ and $C_0(p)$ such that, for every integer $r\ge r_0(p)$, there exist unit test vectors $z_1,\ldots,z_L\in\R^r$ and a selected subset $u_1,\ldots,u_M$ with
+\begin{gather}
+ L=\lfloor r^s\rfloor,\qquad M=\lfloor L/48\rfloor,
+ \qquad L\le96M,\quad M\ge r^s/192,\label{eq:corecount}\\
+ \sum_{i=1}^L|z_i\cdot x|^p\le C_0\norm x^p\quad(x\in\R^r),\label{eq:coremoment}\\
+ G_{ij}=|z_i\cdot u_j|^p,\qquad \sigma_{\min}(G)^2\ge g_0:=3/64.\label{eq:corestable}
+\end{gather}
+In particular every row sum of $G$ is at most $C_0$.
+\end{lemma}
+\begin{proof}
+Draw independent standard Gaussian vectors $g_i\in\R^r$, write $\mathcal G$ for their row matrix, and set $z_i=g_i/\norm{g_i}$. The elementary Gaussian comparison proved in Appendix~\ref{app:gauss} gives
+\[
+ \E\norm{\mathcal G}_{2\to p}\le\sqrt r+(L\gamma_p)^{1/p}
+ \le(1+\gamma_p^{1/p})\sqrt r.
+\]
+Markov bounds failure of eight times this estimate by $1/8$. The radial tail in that appendix bounds the failure of $\min_i\norm{g_i}\ge\sqrt r/2$ by $Le^{-r/8}$, at most $1/8$ for sufficiently large $r$. On these two good events,
+\[
+ \sum_i|z_i\cdot x|^p
+ \le[16(1+\gamma_p^{1/p})]^p\norm x^p.
+\]
+Use this displayed quantity for $C_0$.
+
+For a uniform unit vector $v$ and $t\ge2$,
+\begin{equation}\label{eq:spherical}
+ \E|v\cdot x|^t\le\gamma_t r^{-t/2}\quad(\norm x=1).
+\end{equation}
+Indeed, a standard Gaussian vector is its independent radius times its uniform direction. Jensen gives $\E\norm g^t\ge r^{t/2}$; divide its one-coordinate moment by that radial moment.
+
+Consider the symmetric $L\times L$ matrix $K_{ij}=|z_i\cdot z_j|^p$. It has diagonal one, and \eqref{eq:spherical} gives
+\[
+ \E\norm{K-I}_F^2\le\gamma_{2p}L^2r^{-p}\le\gamma_{2p}.
+\]
+Consequently the probability of $\norm{K-I}_F^2>L/16$ is at most $16\gamma_{2p}/L\le1/8$ for large $r$. The three good events therefore have positive joint probability. Fix a realization satisfying them. We do not assume that this nonlinear kernel is positive semidefinite.
+
+If $\lambda_i$ are its real eigenvalues, then $\sum_i(\lambda_i-1)^2\le L/16$. At least $3L/4$ lie in $[1/2,3/2]$. Let $\Pi$ project onto those eigenspaces and put $B=\Pi K$. Then
+\[
+ \norm B_{\op}\le3/2,\qquad \norm B_F^2\ge3L/16,
+ \qquad \srank(B)\ge L/12.
+\]
+Apply Theorem~\ref{thm:ri} with $M=\lfloor L/48\rfloor\le\srank(B)/4$. It selects $M$ columns with squared least singular value at least $3/64$. The corresponding unprojected columns of $K$ have no smaller least singular value, since $\Pi$ is a contraction. They form $G$ and select the original $u_j$. Selecting a subset can only decrease a sum of nonnegative moments, proving the row-sum assertion. Taking $r_0$ large enough that $L\ge96$ gives all floor estimates in \eqref{eq:corecount}.
+\end{proof}
+The core is selected once for each dimension and exponent. It has no accuracy-dependent distortion. Its total number of rows is of order $r^{p/2}$, while its cost at every chosen unit test remains bounded independently of $r$.
+
+\section{The middle Boolean spectrum at non-even powers}\label{sec:fourier}
+Fix $p>2$ not an even integer for the remainder of the new construction. Let
+\[
+ q=\lfloor p/2\rfloor,\qquad 2q<p<2q+2,
+ \qquad R_q(t)=\cos t-\sum_{j=0}^q\frac{(-1)^jt^{2j}}{(2j)!}.
+\]
+\begin{lemma}[A nonzero absolute-power integral]\label{lem:J}
+The finite real number
+\begin{equation}\label{eq:J}
+ J_p=\int_0^\infty R_q(t)t^{-p-1}\,dt
+\end{equation}
+is nonzero, with sign $(-1)^{q+1}$. For every $u\in\R$,
+\begin{equation}\label{eq:absintegral}
+ |u|^p=J_p^{-1}\int_0^\infty R_q(tu)t^{-p-1}\,dt.
+\end{equation}
+\end{lemma}
+\begin{proof}
+At zero the remainder is $O(t^{2q+2})$; at infinity it is $O(1+t^{2q})$. Both give absolute integrability in \eqref{eq:J}. The remainder has a fixed sign on $[0,\infty)$: $R_0(t)=\cos t-1\le0$, and for $q\ge1$,
+$R_q''=-R_{q-1}$ and $R_q(0)=R_q'(0)=0$. Twice integrating inductively proves $(-1)^{q+1}R_q(t)\ge0$. The remainder is not identically zero, as its leading Taylor term shows. Therefore $J_p$ has the stated strict sign. For nonzero $u$, substitute $v=t|u|$ and use evenness of $R_q$. The zero case is immediate.
+\end{proof}
+For numerical evaluation one may also use
+\begin{equation}\label{eq:Jgamma}
+ J_p=-\frac{\pi}{2\Gamma(p+1)\sin(\pi p/2)}.
+\end{equation}
+Appendix~\ref{app:J} derives this identity; the main existence proof only needs Lemma~\ref{lem:J}. Its nonzero denominator is precisely where even powers are excluded.
+
+Take an integer $h\in4\mathbb N$ with $h/2>p$ and $h\ge8$. Put
+\[
+ \ell=h/2,\qquad n=2^h,\qquad \mathcal Q_h=\{-1,1\}^h.
+\]
+For $x,y\in\mathcal Q_h$ define
+\begin{equation}\label{eq:H}
+ H_{xy}=\left|\frac{x\cdot y}{h}\right|^p,
+ \qquad f(z)=\left|\frac{\sum_{j=1}^h z_j}{h}\right|^p.
+\end{equation}
+The Walsh characters $\chi_S(z)=\prod_{j\in S}z_j$ are orthogonal with squared norm $n$ on the cube. Since $H_{xy}=f(x\odot y)$, where $\odot$ is componentwise multiplication, they are eigenvectors:
+\[
+ H\chi_S=n\widehat f(S)\chi_S,
+ \qquad \widehat f(S)=2^{-h}\sum_{z\in\mathcal Q_h}f(z)\chi_S(z).
+\]
+Permutation symmetry makes $\widehat f(S)$ depend only on $|S|$.
+
+\begin{lemma}[Nonvanishing middle eigenvalue]\label{lem:middle}
+For $|S|=\ell=h/2$,
+\begin{equation}\label{eq:middleintegral}
+ \widehat f(S)=\frac{(-1)^{\ell/2}h^{-p}}{J_p}
+ \int_0^\infty(\sin t)^\ell(\cos t)^{h-\ell}t^{-p-1}\,dt.
+\end{equation}
+In particular its eigenvalue $\lambda=n\widehat f(S)$ has multiplicity at least
+$D=\binom h{h/2}$ and satisfies
+\begin{equation}\label{eq:lambdalower}
+ |\lambda|\ge\frac{\sqrt n}{4|J_p|h^{p+1/2}}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Use \eqref{eq:absintegral} on each of the finitely many values $u=\sum z_j$ and interchange a finite sum and absolutely convergent integrals. The Walsh expectation of every subtracted polynomial is zero: each monomial in $(\sum z_j)^{2a}$ has degree at most $2a\le2q<\ell$, whereas $\chi_S$ contains $\ell$ distinct coordinates. Some coordinate of $S$ occurs an odd number of times in the product, and its independent mean is zero.
+
+The characteristic-function identity is
+\[
+ \E_z\big[e^{it\sum z_j}\chi_S(z)\big]
+ =(i\sin t)^{\ell}(\cos t)^{h-\ell}.
+\]
+Taking the real part gives \eqref{eq:middleintegral}. The resulting integral is integrable at zero because $\ell>p$, and at infinity because $p>0$. Both exponents $\ell$ and $h-\ell$ are even, so its integrand is nonnegative. There is no cancellation between different periods.
+
+Restrict to
+\[
+ I_h=\left[\frac\pi4-\frac1{4\sqrt h},\ \frac\pi4+\frac1{4\sqrt h}\right]\subset(0,1).
+\]
+For $t\in I_h$, $\sin(2t)\ge1-1/(8h)$. Bernoulli's inequality gives
+$[\sin(2t)]^{h/2}\ge15/16$. Thus
+\[
+ (\sin t\cos t)^{h/2}\ge\frac{15}{16}2^{-h/2},
+ \qquad t^{-p-1}\ge1.
+\]
+The interval length is $1/(2\sqrt h)$. Its contribution is at least
+$2^{-h/2}/(4\sqrt h)$. Substitution in \eqref{eq:middleintegral} proves \eqref{eq:lambdalower}. The $D$ middle characters are linearly independent and share this eigenvalue.
+\end{proof}
+As noted above, this is a self-contained version of the middle-spectrum mechanism in \cite{lww}. We use a deliberately nonoptimized polynomial loss in $h$.
+
+\begin{lemma}[Selected Boolean noise columns]\label{lem:noise}
+Under the preceding hypotheses there are $N$ unit vectors $v_1,\ldots,v_N\in\R^h$, selected from the normalized cube, with tests $y_x=x/\sqrt h$ for all $x\in\mathcal Q_h$, such that
+\begin{gather}
+ \frac{n}{16h}\le N=\lfloor D/4\rfloor\le n,\label{eq:N}\\
+ F_{xt}=|y_x\cdot v_t|^p,\qquad
+ \sigma_{\min}(F)^2\ge \frac{\beta_p n}{h^{a_p}},
+ \quad a_p=2p+2,\quad \beta_p=\frac1{128J_p^2}.\label{eq:Fstable}
+\end{gather}
+Every entry lies in $[0,1]$, so every row sum is at most $N$.
+\end{lemma}
+\begin{proof}
+Let $\Pi_\ell$ be the orthogonal projection onto the middle Walsh layer. By Lemma~\ref{lem:middle},
+$B=\Pi_\ell H=\lambda\Pi_\ell$ has stable rank $D$ and squared Frobenius norm $D\lambda^2$. Apply Theorem~\ref{thm:ri} to its $n$ columns with $N=\lfloor D/4\rfloor$. It selects columns whose squared least singular value is at least $D\lambda^2/(4n)$. The same original columns of $H$ have no smaller value, since $\Pi_\ell$ is a contraction. Use those cube indices for the $v_t$.
+
+The largest binomial coefficient is at least the average, so
+$D\ge2^h/(h+1)\ge n/(2h)$. Since $h\ge8$, $D\ge8$ and
+$N\ge D/8\ge n/(16h)$. Also
+\[
+ \frac{D\lambda^2}{4n}\ge\frac{\lambda^2}{8h}
+ \ge\frac{n}{128J_p^2h^{2p+2}},
+\]
+which proves \eqref{eq:Fstable}.
+\end{proof}
+The selected columns are original Boolean vectors, not linear combinations of them. Spectral projection is a proof device for choosing a well-conditioned subset; it does not modify the coreset model.
+
+\section{Tensor amplification: simultaneous support rather than separate queries}\label{sec:tensor}
+\begin{proposition}[Finite tensor support inequality]\label{prop:tensor}
+Use the core of Lemma~\ref{lem:core} and the Boolean family of Lemma~\ref{lem:noise}. In dimension $rh$, form the $MN$ unit rows
+\begin{equation}\label{eq:tensorrows}
+ a_{jt}=u_j\otimes v_t\qquad(1\le j\le M,\ 1\le t\le N).
+\end{equation}
+Suppose any real weights $w_{jt}$ preserve all hyperplane costs at accuracy $\eps$. Their support size $m$ satisfies
+\begin{equation}\label{eq:tensorbound}
+ m\ge MN\left(1-K_p\eps^2Nh^{a_p}\right),
+ \qquad K_p=\frac{96C_0(p)^2}{g_0\beta_p},\quad g_0=3/64.
+\end{equation}
+The same statement holds after zero padding to any dimension $k+1\ge rh$, using its rank-$k$ hyperplanes.
+\end{proposition}
+\begin{proof}
+Use the unit normals $z_i\otimes y_x$, with $1\le i\le L$ and $x\in\mathcal Q_h$. Tensor inner products factor, and taking an absolute power preserves multiplication:
+\[
+ |a_{jt}\cdot(z_i\otimes y_x)|^p=G_{ij}F_{xt}.
+\]
+Let $W=(w_{jt})$ and $\Delta=W-\boldsymbol1_{M\times N}$. The entire $L\times n$ error matrix on these tests is exactly
+\begin{equation}\label{eq:matrixerror}
+ E=G\Delta F^T.
+\end{equation}
+The original cost at test $(i,x)$ is
+\[
+ f_{ix}=\left(\sum_jG_{ij}\right)\left(\sum_tF_{xt}\right)\le C_0N.
+\]
+The uniform guarantee on these legal hyperplanes therefore gives
+\begin{equation}\label{eq:errorupper}
+ \norm E_F^2\le\eps^2 C_0^2N^2Ln.
+\end{equation}
+On the other hand, applying the least-singular-value inequality first to each column and then to each row gives
+\begin{equation}\label{eq:errorlower}
+ \norm{G\Delta F^T}_F^2
+ \ge\sigma_{\min}(G)^2\sigma_{\min}(F)^2\norm\Delta_F^2
+ \ge\frac{g_0\beta_p n}{h^{a_p}}\norm\Delta_F^2.
+\end{equation}
+Every omitted row has $w_{jt}=0$, hence $\Delta_{jt}=-1$. Thus $MN-m\le\norm\Delta_F^2$. Combine this fact with \eqref{eq:errorupper}--\eqref{eq:errorlower} and $L\le96M$ to obtain \eqref{eq:tensorbound}.
+
+None of these inequalities requires weights to be nonnegative or bounded, or to be chosen independently of the input. If $rh\le k+1$, padding the input rows and normals by zeros gives the same costs and rank-$k$ hyperplanes. No extra tensor query is interpreted as a low-rank fitted subspace of an incorrect dimension.
+\end{proof}
+The product form is important. Merely finding a bad query separately for each group would not justify adding their costs or their support requirements. Equation~\eqref{eq:matrixerror} controls the complete cross-product of tests in one matrix norm, and is the source of the multiplicative amplification.
+
+\section{Two auxiliary lower bounds for all parameter ranges}\label{sec:aux}
+The tensor construction uses $h$ auxiliary coordinates per core coordinate. We next cover accuracies for which that construction is not admissible, and ranks too small to fit it. These auxiliary inequalities are for the original unrestricted model.
+
+\begin{lemma}[Constant-accuracy rank lower bound]\label{lem:rank}
+For every fixed $p>2$, some $c_p>0$ satisfies
+$S_p(k,\eps)\ge c_pk^{p/2}$ for every $k\ge1$ and $0<\eps<1/2$.
+\end{lemma}
+\begin{proof}
+For $r=k+1\ge r_0(p)$, take the $M$ selected unit rows $u_j$ from Lemma~\ref{lem:core}. Testing the normal $u_j$ bounds its own weight by
+$w_j\le(1+\eps)\sum_t|u_t\cdot u_j|^p\le3C_0/2$, using nonnegativity. The zero-subspace query gives $\sum_jw_j\ge M/2$ because all rows have norm one. Therefore the support is at least $M/(3C_0)\ge c_pk^{p/2}$. For the finitely many smaller $k$, a nonzero one-row input forces at least one retained row. Reducing $c_p$ covers them.
+\end{proof}
+
+\begin{lemma}[Explicit arbitrary-rank accuracy lower bound]\label{lem:block}
+For every real $p>2$, every $k\ge1$ and $0<\eps<1/2$,
+\begin{equation}\label{eq:blocklower}
+ S_p(k,\eps)\ge\frac{k}{144\,4^p\eps^2}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Write $s=p/2>1$, $N=\lceil\eps^{-2}\rceil$ and $R=2\sqrt k$. Use mutually orthonormal coordinates $e_j,e_{jt}$, $1\le j\le k$, $1\le t\le N$, in dimension $k+kN$, and input rows
+\[
+ a_{jt}=N^{-1/p}(Re_j+e_{jt}).
+\]
+Put $\alpha_{jt}=w_{jt}/N\ge0$, $s_j=\sum_t\alpha_{jt}$, $W=\sum_js_j$, $q_j=|\{t:w_{jt}\ne0\}|$, and $m=\sum_jq_j$. The rank-$k$ head span $F_0=\operatorname{span}\{e_1,\ldots,e_k\}$ has original cost $k$, giving $|W-k|\le\eps k$.
+
+Remove just $e_j$ from that span. With $C=(R^2+1)^s$, this rank-$(k-1)$ query has original cost $k+C-1$ and weighted cost $W+(C-1)s_j$. Consequently
+\[
+ |s_j-1|\le\eps\left(1+\frac{2k}{C-1}\right)
+ \le\frac32\eps<\frac34,
+\]
+since $C-1\ge R^2=4k$. In particular every group has mass at least $1/4$ and is nonempty.
+
+In the private auxiliary space of group $j$ set $b_j=\sum_t\alpha_{jt}e_{jt}$ and $y_j=b_j/\norm{b_j}$. Its coordinates $u_{jt}=e_{jt}\cdot y_j$ are nonnegative and have squared sum one. The two subspaces
+\[
+ F_\pm=\operatorname{span}\left\{
+ \frac{Re_j\pm y_j}{\sqrt{R^2+1}}:1\le j\le k\right\}
+\]
+have orthonormal spanning vectors and dimension exactly $k$. The squared residual of an unscaled row is
+\[
+ D_\pm(u)=2-d_0-d_0u^2\mp cu,
+ \quad d_0=(R^2+1)^{-1},\quad c=2R^2/(R^2+1).
+\]
+For $0\le u\le1$, these lie in $[0,4]$, their midpoint is at least one, and $1\le c\le2$. Integrating $sv^{s-1}$ from $D_+(u)$ to $D_-(u)$ proves
+\[
+ su\le D_-(u)^s-D_+(u)^s\le s4^su.
+\]
+The upper half of the integration interval suffices for the lower inequality; its full length is at most $4u$ for the upper inequality.
+
+The difference of the two original costs is at most $s4^sk/\sqrt N$, since $\sum_tu_{jt}\le\sqrt N$. The weighted difference is at least $s\sum_j\norm{b_j}$. Each original cost is at most $4^sk$, so preservation of both queries gives
+\[
+ \sum_j\norm{b_j}\le4^sk(N^{-1/2}+2\eps/s).
+\]
+Within each group, Cauchy--Schwarz gives $\norm{b_j}\ge s_j/\sqrt{q_j}\ge1/(4\sqrt{q_j})$. Convexity of $q\mapsto q^{-1/2}$ gives $\sum_jq_j^{-1/2}\ge k^{3/2}/\sqrt m$. Therefore
+\[
+ m\ge\frac{k}{16\,4^p(N^{-1/2}+2\eps/s)^2}
+ \ge\frac{k}{144\,4^p\eps^2}.
+\]
+The last step uses $N^{-1/2}\le\eps$ and $1+2/s\le3$. The ambient dimension grows with accuracy, but every fitted subspace has dimension at most $k$. This proof uses nonnegative weights and supplies precisely the fallback needed for small ranks.
+\end{proof}
+
+\section{Choosing the parameters and completing the non-even proof}\label{sec:parameters}
+\begin{proof}[Proof of Theorem~\ref{thm:noneven}]
+Fix non-even $p>2$, set $s=p/2$, $a=2p+2$, and $b=s+a+1=5p/2+3$. Let $h_0\ge8$ be the smallest positive multiple of four with $h_0/2>p$. Choose
+\[
+ \theta_p=\min\{1,(2K_p)^{-1}\}>0,
+ \qquad
+ \eps_0=\min\left\{\frac14,\sqrt{\frac{\theta_p}{2^{h_0}h_0^a}}\right\}>0.
+\]
+All these constants depend only on $p$.
+
+\textbf{Accuracies $\eps\ge\eps_0$.}
+Lemma~\ref{lem:rank} gives $S_p\ge c_pk^s$. Since $\eps^{-2}\le\eps_0^{-2}$ and $\Lam>1$, it implies \eqref{eq:noneven} after reducing the constant.
+
+\textbf{Accuracies $\eps<\eps_0$.}
+Choose the largest multiple of four $h\ge h_0$ for which
+\begin{equation}\label{eq:hchoice}
+ \eps^2 2^h h^a\le\theta_p.
+\end{equation}
+The admissible set is nonempty by definition of $\eps_0$, and finite because its left side eventually grows without bound. As $\theta_p\le1$,
+\begin{equation}\label{eq:hlog}
+ h\le\frac{2\log(1/\eps)}{\log2}\le C\Lam.
+\end{equation}
+Maximality means that $h+4$ fails \eqref{eq:hchoice}, hence
+\begin{equation}\label{eq:nlower}
+ 2^h>\frac{\theta_p}{16\eps^2(h+4)^a}
+ \ge\frac{\theta_p}{16\,2^a}\eps^{-2}h^{-a}.
+\end{equation}
+Use the noise family for this $h$. Equations~\eqref{eq:N} and \eqref{eq:nlower} give
+\begin{equation}\label{eq:Nlower}
+ N\ge c_p\eps^{-2}h^{-(a+1)}.
+\end{equation}
+Also $N\le2^h$, so $K_p\eps^2Nh^a\le1/2$.
+
+If $k+1\ge2r_0(p)h$, set $r=\lfloor(k+1)/h\rfloor$. Then $r\ge r_0(p)$, $rh\le k+1$, and $r\ge(k+1)/(2h)$. Proposition~\ref{prop:tensor} supplies a legal padded input in dimension $k+1$ whose every valid reweighting has
+\[
+ m\ge MN/2\ge c_pr^s\eps^{-2}h^{-(a+1)}
+ \ge c_pk^s\eps^{-2}h^{-b}
+ \ge\frac{c_pk^s}{\eps^2\Lam^b}.
+\]
+This proves the desired bound in the main tensor regime.
+
+If instead $k+1<2r_0(p)h$, then \eqref{eq:hlog} gives $k\le C_p\Lam$. Because $s>1$ and $b>s-1$,
+\[
+ \frac{k^s}{\Lam^b}\le C_p^{s-1}k\Lam^{s-1-b}\le C'_p k.
+\]
+Lemma~\ref{lem:block} therefore implies the desired lower bound in this remaining regime. This step is why a dimension threshold such as $k\gtrsim\log(1/\eps)$ is not left as a hypothesis of the final theorem.
+
+The three cases cover every $k\ge1$ and every $0<\eps<1/2$. Every input used is finite, and may depend on $k,\eps,p$, as permitted by a worst-case lower bound. No constant has acquired a dependence on $k$ or $\eps$.
+\end{proof}
+\begin{proof}[Completion of Theorem~\ref{thm:full}]
+For non-even $p$, combine Theorem~\ref{thm:noneven} with Theorem~\ref{thm:upper}. For even $p=2s\ge4$, apply Part II, local Theorem 1.1, whose full proof is reproduced after this part. Its logarithmic exponent $2s+5$ is exactly $p+5$ and its lower bound has no logarithmic loss. These disjoint cases exhaust all real $p>2$.
+\end{proof}
+
+\section{Consequences, quantifiers, and the subsidiary proposal}
+\begin{corollary}[The displayed proposed inequality is false]\label{cor:proposal}
+For no fixed real $p>2$ do constants $C,c>0$ make
+\[
+ S_p(k,\eps)\le C\left(k^{p/2}/\eps+k/\eps^2\right)\log^c(2k/\eps)
+\]
+valid for all ranks and accuracies.
+\end{corollary}
+\begin{proof}
+For non-even $p$, put $s=p/2>1$ and $\eps=k^{-1}$. Theorem~\ref{thm:noneven} gives a lower polynomial exponent $s+2$, versus exponents $s+1$ and $3$ in the proposal. The strict gap is $\min\{1,s-1\}>0$, which beats every fixed logarithmic power. For even $p=2s\ge4$, choose $\eps=k^{-1/4}$. The even rate is then $k^{s+1/2}$, whereas the larger proposed term is $k^{s+1/4}$. Its exponent gap $1/4$ again dominates every fixed logarithmic factor.
+\end{proof}
+For illustration, with only constants and logarithms suppressed,
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+Exponent & Accuracy & Classified unrestricted size\\
+\midrule
+$3$ & $k^{-1}$ & $k^{7/2}$\\
+$7/2$ & $k^{-2}$ & $k^{23/4}$\\
+$4$ & $k^{-2}$ & $k^5$\\
+$5$ & $k^{-1}$ & $k^{9/2}$\\
+$6$ & $k^{-1}$ & $k^{9/2}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+These are asymptotic rates, not finite coefficient-one predictions.
+
+\textbf{Why continuity in $p$ is not a transfer proof.}
+For an even $p$ and a Walsh character of degree greater than $p$, the Boolean coefficient is exactly zero: $|\sum z_j|^p=(\sum z_j)^p$ is a polynomial of degree $p$. For non-even $p$, Lemma~\ref{lem:middle} shows a nonzero coefficient. Formula~\eqref{eq:Jgamma} makes the degeneration near an even exponent explicit. Constants in the new lower bound deteriorate as $p$ approaches an even integer; the theorem fixes $p$ before varying $k,\eps$. Thus the dichotomy neither asserts nor requires uniform constants across an even exponent.
+
+\textbf{Input rank versus query rank.}
+The main non-even tensor input has rank at most $k+1$ only when its dimension fits. In the complementary regime, the block input can have much larger rank. No statement here classifies all non-even inputs under an additional fixed intrinsic-rank restriction. The theorem classifies the unrestricted supremum actually asked for by RA-05.
+
+\textbf{Existence rather than a new efficient algorithm.}
+The upper theorem for non-even powers is imported; the lower constructions use positive-probability selection and restricted invertibility. Part II's improved even upper bound is an existence proof using partial coloring. The delivered finite code does not implement all these asymptotic selection oracles.
+
+\section{An exact cubic universal-support certificate}\label{sec:certificate}
+The certificate in \texttt{results/cubic\_tensor\_certificate.json} provides a finite instance of the new tensor argument at $p=3$. Unlike merely checking one bad candidate, its spectral inequalities prove a support lower bound for \emph{every real reweighting} preserving the specified hyperplane tests.
+
+\subsection{The core and its exact spectral bound}
+In dimension four use the twelve unit rows with numerator matrix
+\[
+ U_{\rm num}=\begin{bmatrix}2I_4\\ H_4\\ J_4-2I_4\end{bmatrix},
+ \qquad
+ H_4=\begin{bmatrix}
+ 1&1&1&1\\1&-1&1&-1\\1&1&-1&-1\\1&-1&-1&1
+ \end{bmatrix},\qquad U=U_{\rm num}/2.
+\]
+Here $J_m$ is the all-ones matrix. The cubic absolute-inner-product matrix $G$ has diagonal one, zero within each basis off the diagonal, and $1/8$ between bases. Let
+$B=\operatorname{diag}(J_4,J_4,J_4)/4$ and $J=J_{12}/12$. These are orthogonal projections with $BJ=J$. Direct arithmetic gives
+\[
+ G=I-\tfrac12 B+\tfrac32J,
+ \qquad G^2-\tfrac14I=\tfrac34(I-B)+\tfrac{15}4J\succeq0.
+\]
+Thus $\sigma_{\min}(G)^2\ge1/4$, and every row sum is exactly two.
+
+\subsection{Seventeen Boolean columns}
+Use $h=8$ and the cube indices
+\[
+ 0,1,14,15,50,51,60,84,85,91,103,105,104,90,61,102,21.
+\]
+Index $x$ corresponds to the sign vector whose $j$th entry is $1-2\operatorname{bit}_j(x)$, with bit numbering starting at zero. Let $C$ be the $70\times256$ matrix of all degree-four Walsh characters, and let $C_J$ denote these selected columns. Let $F$ be the corresponding $256\times17$ selected noise evaluation matrix, with entries $|x\cdot y/8|^3$.
+
+Integer arithmetic verifies
+\[
+ CC^T=256I_{70},\qquad CF=C_J.
+\]
+The certificate includes a rational $LDL^T$ factorization of $C_J^TC_J-32I_{17}$ with all diagonal pivots positive. Consequently
+\[
+ F^TF\succeq F^T\left(\frac{C^TC}{256}\right)F
+ =\frac{C_J^TC_J}{256}\succeq\frac18I_{17}.
+\]
+This verifies the selected family directly; no finite numerical instance is assumed to satisfy the conservative constants of the asymptotic selection lemma.
+
+\subsection{The universal support conclusion}
+The $12\cdot17=204$ tensor rows lie in dimension $4\cdot8=32$, so the tested hyperplanes have query rank $31$. Across all $12\cdot256=3072$ product normals, exact arithmetic gives
+\[
+ \sum_{i,x} f_{ix}^2=\frac{34287}{2}.
+\]
+For arbitrary real weights, the error matrix is $G\Delta F^T$. Its squared Frobenius norm is at least $\norm\Delta_F^2/32$. Repeating the support argument yields the finite inequality
+\begin{equation}\label{eq:exactbound}
+ \boxed{\ m\ge204-548592\eps^2\ }.
+\end{equation}
+In particular accuracy $1/100$ requires at least $150$ rows, and accuracy $1/1000$ requires all $204$ rows. These statements quantify over every real reweighting satisfying the tested accuracy, not just weights generated by a sampling algorithm.
+
+The saved input uses integer rows $U_{{\rm num},j}\otimes y_t$, omitting the common normalization factor $\sqrt{32}$. This common scaling cannot change relative preservation or the support conclusion. The integer matrix has full rank $32$, certified by a nonsingular minor modulo a prime.
+
+For a direct violating example, put weight $17$ on the first auxiliary row in each core group and zero elsewhere. It has support $12$ and preserves total mass. The saved integer normal $q$ has $q^Tq=32$ and gives the genuine rank-$31$ projector $P=I-qq^T/32$. The exact Euclidean cubic costs are
+\[
+ \cost_A(q^\perp)=396\sqrt2,\qquad
+ \cost_w(q^\perp)=4352\sqrt2,\qquad
+ \frac{|\cost_w-\cost_A|}{\cost_A}=\frac{989}{99}.
+\]
+The standard-library checker verifies projector symmetry, idempotence, trace, direct residual vectors, and these cost coefficients using integers and rational numbers. The common $\sqrt2$ factor is handled symbolically.
+
+\section{Verification record and proof-status boundary}\label{sec:verification}
+The new finite diagnostic suite passes 240 assertions. It checks exact odd-power Fourier coefficients, exact vanishing above even polynomial degree, noninteger Fourier-integral identities at 75-digit precision (including $p=3.999$ and $p=4.001$), projected noise matrices, tensor error identities, actual hyperplane residuals, and parameter-range arithmetic. The largest scaled floating-point residual is below $1.60\times10^{-15}$. These are finite diagnostics, not a formalization of the uniform or asymptotic statements.
+
+The separate cubic certificate checker passes 17,575 integer/rational assertions. Of these, 17,136 are repeated sampled integer tensor-factorization equalities and 408 check individual direct residuals. The universal support conclusion rests on the small exact core decomposition, Walsh projection identity, positive rational $LDL^T$ certificate, and exact squared-cost sum; it does not rest on counting many successful samples.
+
+The preceding even package was rerun separately. Its 87,932 finite assertions and its separate 135 exact assertions remain evidence of their stated finite checks, not independent corroboration of the new result. The predecessor archive, source, and PDF are preserved unchanged. A final extraction check verifies the delivered archive hashes and reruns the new diagnostics and exact checker.
+
+\textbf{Dependency boundary.} Part I imports the general upper theorem and restricted invertibility; its core, Fourier estimates, tensor amplification, and small-parameter coverage are proved here. The historical middle-spectrum mechanism is explicitly attributed to \cite{lww}. Part II additionally imports Rothvoss's partial-coloring lemma and Tropp's Gaussian matrix bound at their exact points of use, and includes the full even-power proof.
+
+\textbf{Status.} The two parts claim a complete answer to the mathematical target. They have not been independently audited, peer reviewed, or checked in a proof assistant. Under the repository's distinction between a complete manuscript and an accepted or independently checked resolution \cite{status}, the appropriate proposed status is \emph{Solution claimed}, pending review, rather than automatically \emph{Solved}. No repository edit has been performed.
+
+\appendix
+\section{Elementary Gaussian facts for the core}\label{app:gauss}
+\subsection{Increment comparison}
+For finite centered Gaussian families $X,Y$, suppose
+$\E(X_i-X_j)^2\le\E(Y_i-Y_j)^2$ for every pair. For independent copies interpolate $Z(t)=\sqrt tX+\sqrt{1-t}Y$ and use
+$f_\beta(z)=\beta^{-1}\log\sum_i e^{\beta z_i}$. Gaussian integration by parts and the softmax Hessian give
+\[
+ \frac d{dt}\E f_\beta(Z(t))
+ =\frac\beta4\E\sum_{i,j}a_i a_j
+ \big[\E(X_i-X_j)^2-\E(Y_i-Y_j)^2\big]\le0,
+\]
+where $a_i=e^{\beta Z_i}/\sum_j e^{\beta Z_j}$. Integrate and let $\beta\to\infty$, using the error bound $(\log n)/\beta$ between the soft maximum and the maximum. Adding an arbitrarily small independent Gaussian handles singular covariances. Thus $\E\max_i X_i\le\E\max_iY_i$. For the compact finite-dimensional index sets below, use finite dense nets and pass to the limit by continuity and domination by integrable Gaussian norms.
+
+\subsection{The Gaussian $2\to p$ norm}
+Let $\mathcal G\in\R^{L\times r}$ be standard Gaussian and $p'=p/(p-1)<2$. Index
+\[
+ X_{x,y}=y^T\mathcal Gx,\qquad Y_{x,y}=g\cdot x+h\cdot y,
+ \qquad \norm x_2=1,\quad\norm y_{p'}\le1,
+\]
+with independent standard $g\in\R^r,h\in\R^L$. For two indices put $a=x\cdot x'$ and $b=y\cdot y'$. Both are at most one, since $\norm y_2\le\norm y_{p'}\le1$. Direct expansion gives the $Y$ increment variance minus the $X$ increment variance as $2(1-a)(1-b)\ge0$. Increment comparison and duality give
+\[
+ \E\norm{\mathcal G}_{2\to p}
+ \le\E\norm g_2+\E\norm h_p
+ \le\sqrt r+(L\gamma_p)^{1/p}.
+\]
+The final estimates are Jensen's inequality.
+
+\subsection{A radial lower tail}
+For a chi-square variable $Z$ with $r$ degrees of freedom, direct Gaussian integration gives
+$\E e^{-tZ}=(1+2t)^{-r/2}$. Markov at $t=1/2$ yields
+\[
+ \Prob\{Z\le r/4\}\le e^{r/8}2^{-r/2}\le e^{-r/8}.
+\]
+A union bound over $L$ Gaussian rows gives the radial estimate used in Lemma~\ref{lem:core}.
+
+\section{The integral constant and numerical evaluation}\label{app:J}
+For completeness, let $\alpha=p-2q\in(0,2)$. Integration by parts $2q$ times in \eqref{eq:J} gives
+\[
+ J_p=\frac{(-1)^q}{p(p-1)\cdots(p-2q+1)}
+ \int_0^\infty(\cos t-1)t^{-\alpha-1}\,dt.
+\]
+All boundary terms vanish: at zero the relevant remainder derivative has order $2q+2-j$, and at infinity its polynomial part has degree at most $2q-j$, while $2q<p<2q+2$.
+
+The Laplace representation of $t^{-\alpha-1}$ and Tonelli's theorem, applied to the nonnegative integrand $1-\cos t$, give
+\begin{align*}
+ \int_0^\infty(1-\cos t)t^{-\alpha-1}\,dt
+ &=\frac1{\Gamma(1+\alpha)}
+ \int_0^\infty u^{\alpha}\left(\frac1u-\frac{u}{1+u^2}\right)\,du\\
+ &=\frac1{\Gamma(1+\alpha)}\int_0^\infty\frac{u^{\alpha-1}}{1+u^2}\,du
+ =\frac\pi{2\Gamma(1+\alpha)\sin(\pi\alpha/2)}.
+\end{align*}
+The last equality is Euler's beta integral after $v=u^2$. Combining this with
+$\sin(\pi p/2)=(-1)^q\sin(\pi\alpha/2)$ proves \eqref{eq:Jgamma}.
+
+The finite-sum formula used by the diagnostic code is
+\[
+ \widehat f(\ell)=2^{-h}h^{-p}
+ \sum_{j=0}^{h/2}(-1)^j\binom{h/2}{j}|h-4j|^p.
+\]
+It follows by comparing coefficients in
+$(1-z)^{h/2}(1+z)^{h/2}=(1-z^2)^{h/2}$, the same combinatorial identity used in \cite{lww}. For fractional powers the independently evaluated positive integral is folded onto a single period $T=\pi/2$:
+\[
+ \int_0^\infty(\sin t\cos t)^{h/2}t^{-p-1}\,dt
+ =T^{-p-1}\int_0^T(\sin t\cos t)^{h/2}
+       \zeta(p+1,t/T)\,dt.
+\]
+Here $\zeta(s,a)=\sum_{m\ge0}(m+a)^{-s}$. The identity follows by summing nonnegative period integrals. It is a numerical evaluation aid, not a premise of the lower-bound proof.
+
+\section{Audit checklist specific to this completion}
+\textbf{The two stable matrices are actual evaluations.}
+The projection operators in both selection arguments only choose original columns. The final test normals are the original vectors $z_i\otimes y_x$. No nonlinear query is replaced by a spectral linear combination.
+
+\textbf{The error factorization is global.}
+All $L2^h$ tests are used in the matrix $G\Delta F^T$. The singular-value lower bound applies to its full Frobenius norm. Counting omitted entries is valid for arbitrary real weights and does not require a per-group mass argument in the tensor regime.
+
+\textbf{The non-even coefficient does not cancel.}
+The dimension is a multiple of four, so both trigonometric powers in \eqref{eq:middleintegral} are even. The middle character degree exceeds $p$, which justifies both polynomial annihilation and integrability. Nonzero $J_p$ is proved, not assumed from numerical Fourier sums.
+
+\textbf{The rank is $rh-1$ before padding.}
+A tensor normal in $\R^{rh}$ defines a hyperplane of that dimension minus one. The proof explicitly chooses $rh\le k+1$, then pads to dimension $k+1$. When this is impossible, the separate legal-rank block construction covers the case.
+
+\textbf{Logarithmic losses are explicit.}
+The chosen noise dimension is $O(\log(1/\eps))$, and its size is at least $c_p\eps^{-2}h^{-(2p+3)}$. The core dimension pays another $h^{-p/2}$, giving the displayed exponent $5p/2+3$. All small-rank and bounded-accuracy constants are allowed to depend only on fixed $p$.
+
+\textbf{The even proof is included, not interpolated.}
+Part II's structured polynomial proof remains a separate integer-degree argument. The new non-even theorem uses a different lower rate and the general upper theorem. There is no assumption of a uniform limit in $p$.
+
+\begin{thebibliography}{9}
+\bibitem{ra05} OpenProblemsInNLA. \emph{RA-05: Sharp joint rank and accuracy dependence for strong $\ell_p$ subspace coresets}. Canonical entry, accessed September 13, 2026.\newline
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/randomized-and-low-rank-approximation/RA-05}
+\bibitem{lmw} H. Lin, V. Mirrokni, and D. P. Woodruff. \emph{Nearly Optimal Strong Coresets for $\ell_p$ Subspace Approximation}. arXiv:2608.26047v2, August 27, 2026. Theorem 1.2; Section 1.4.\newline
+\url{https://arxiv.org/html/2608.26047v2}
+\bibitem{lww} Y. Li, R. Wang, and D. P. Woodruff. \emph{Tight Bounds for the Subspace Sketch Problem with Applications}. SIAM Journal on Computing 50(4), 2021; arXiv:1904.05543v3. Section 3.1 and Section 6. The Boolean middle-spectrum mechanism is an explicit antecedent of Section~\ref{sec:fourier}.\newline
+\url{https://arxiv.org/abs/1904.05543}
+\bibitem{mss} A. W. Marcus, D. A. Spielman, and N. Srivastava. \emph{Interlacing Families III: Sharper Restricted Invertibility Estimates}. arXiv:1712.07766. Theorem 1.1 states the Spielman--Srivastava stable-rank result used here.\newline
+\url{https://arxiv.org/html/1712.07766}
+\bibitem{even} \emph{Sharp unrestricted even-power row coresets: All ranks and accuracies through structured polynomial Gaussian control}. Prepared in the preceding conversation for Sidney Holden with ChatGPT, September 13, 2026. Reproduced in full as Part II and preserved unchanged in the archive. This is an included proof claim, not independent peer-reviewed evidence.
+\bibitem{status} OpenProblemsInNLA. \emph{Resolution and status guidelines}. Accessed September 13, 2026.\newline
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/RESOLVED.md}
+\end{thebibliography}
+\end{document}
