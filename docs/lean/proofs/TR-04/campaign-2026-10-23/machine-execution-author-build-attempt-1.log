@@ -1,0 +1,51 @@
+NLA.Computation.SVDMachine 0
+NLA.Computation.TensorTrainApproximation 0
+NLA.Statements.Infrastructure 0
+'NLA.Statements.TR04.Target' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Statements.TR04 0
+NLA/Proofs/TR04/MachineExecution.lean:61:39: error: unexpected identifier; expected '}'
+NLA/Proofs/TR04/MachineExecution.lean:50:39: error: Application type mismatch: The argument
+  rfl
+has type
+  ?m.51 = ?m.51
+but is expected to have type
+  charge P s = 0
+in the application
+  And.intro rfl
+NLA/Proofs/TR04/MachineExecution.lean:52:39: error: Application type mismatch: The argument
+  rfl
+has type
+  ?m.76 = ?m.76
+but is expected to have type
+  charge P s = 0
+in the application
+  And.intro rfl
+NLA/Proofs/TR04/MachineExecution.lean:55:39: error: unsolved goals
+hsvd : ∀ (m l : ℕ) (B : Matrix (Fin m) (Fin l) ℝ), ∃ U sigma V, ValidSVD B U sigma V
+P : Program
+s : State P
+hs : s.status = Status.running
+rows✝ cols✝ inputBase✝ uBase✝ sigmaBase✝ vBase✝ : Fin (P.extraNatRegisters + 1)
+next✝ : Fin (P.extraLabels + 1)
+hi : P.code s.label = Instruction.svd rows✝ cols✝ inputBase✝ uBase✝ sigmaBase✝ vBase✝ next✝
+⊢ if
+      OutputBlocksDisjoint (s.natural rows✝) (s.natural cols✝) (s.natural uBase✝) (s.natural sigmaBase✝)
+        (s.natural vBase✝) then
+    ∃ U sigma V,
+      ValidSVD (readMatrix s.memory (s.natural rows✝) (s.natural cols✝) (s.natural inputBase✝)) U sigma V ∧
+        ordinaryStep P s =
+          { label := next✝, real := s.real, natural := s.natural,
+            memory := writeSVD s.memory (s.natural uBase✝) (s.natural sigmaBase✝) (s.natural vBase✝) U sigma V,
+            status := Status.running }
+  else
+    ordinaryStep P s =
+      { label := s.label, real := s.real, natural := s.natural, memory := s.memory, status := Status.failed }
+NLA/Proofs/TR04/MachineExecution.lean:56:6: error: No goals to be solved
+NLA/Proofs/TR04/MachineExecution.lean:78:21: error: #assert_trust: 'NLA.Proofs.TR04.step_total_of_svd_total' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+NLA/Proofs/TR04/MachineExecution.lean:79:21: error: #assert_trust: 'NLA.Proofs.TR04.exists_legalTrace_of_svd_total' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.TR04.exists_legalTrace_of_svd_total' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineExecution 1
