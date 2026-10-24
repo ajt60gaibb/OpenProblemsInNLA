@@ -1,0 +1,31 @@
+import NLA.TR06.RegularChart
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+namespace NLA.TR06.Proposed
+
+example : AdditionFiberNeighborhoodStatement := addition_fiber_neighborhood
+example : SmoothChartOfProperImmersionStatement := smooth_chart_of_proper_immersion
+example : SmoothRegularOnProperImmersionStatement := smooth_regular_on_proper_immersion
+
+#print axioms addition_fiber_neighborhood
+#assert_trust kernel addition_fiber_neighborhood
+#print axioms continuous_permuteRankOne
+#assert_trust kernel continuous_permuteRankOne
+#print axioms sum_permuteRankOne
+#assert_trust kernel sum_permuteRankOne
+#print axioms isOpen_identifiable_addition_image
+#assert_trust kernel isOpen_identifiable_addition_image
+#print axioms isOpenEmbedding_pivotDecoder
+#assert_trust kernel isOpenEmbedding_pivotDecoder
+#print axioms exists_immersion_patch
+#assert_trust kernel exists_immersion_patch
+#print axioms exists_pivot_open_chart
+#assert_trust kernel exists_pivot_open_chart
+#print axioms contDiffOn_normalizedTuple
+#assert_trust kernel contDiffOn_normalizedTuple
+#print axioms smooth_chart_of_proper_immersion
+#assert_trust kernel smooth_chart_of_proper_immersion
+#print axioms smooth_regular_on_proper_immersion
+#assert_trust kernel smooth_regular_on_proper_immersion
+end NLA.TR06.Proposed

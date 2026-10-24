@@ -1,0 +1,6 @@
+from pathlib import Path
+import json,hashlib
+b=Path('docs/lean/proofs/TR-06/campaign-2026-10-18');lock=json.loads((b/'root-properness-support-lock.json').read_text())
+for m,h in lock['source_sha256'].items():assert hashlib.sha256(Path('lean-statements/NLA/Proofs/TR06/'+m+'.lean').read_bytes()).hexdigest()==h
+p=b/'verification';s=(p/'check-model-G0-review-3.py').read_text().replace('default=["ModelAngular"]','default=["RealAdditionProperness"]').replace('Fresh-source local TR06 frozen eight-module G0 intrinsic/chart model angular correspondence audit; no full-measure converse or full TR06 Target claim','Fresh-source local TR06 frozen seven-module complete real addition properness support audit; no full TR06 Target claim')
+(p/'check-properness-gate-review-3.py').write_text(s)

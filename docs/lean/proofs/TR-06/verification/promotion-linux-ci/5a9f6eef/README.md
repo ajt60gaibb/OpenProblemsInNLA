@@ -1,0 +1,9 @@
+# TR-06 actual promoted push receipt
+
+**PASS, exact promoted source `5a9f6eefd2fc462144501a02a75cf313be4a09d7`.** [Actual push run 40038367753](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/40038367753), target job `120703437619`, artifact `12537869929`, original ZIP SHA-256 `dd992199223ad908a1cd67f0fb7ca9a04f0077d767c23214bdeeeafcb1f5dfbc`. The PR synthetic merge is distinct and supplies no evidence in this receipt.
+
+Both `root-review-2026-10-23.json` and `independent-review-2026-10-23.json` pass all45 strict controls over all153 actual package inputs, including144 Lean files and11 selected theorem exports. Original ZIP/extraction, raw job log, GitHub metadata, kernel/Comparator acceptance, actual standard-three axiom reports and rejection/isolation controls are retained. `PROMOTED_LINUX_APPROVAL_2026-10-23.json` binds both separate replays and their hashes to the exact approved pre-commit promotion inputs. Only the package README/YAML changed from the earlier accepted proof commit; all144 Lean bytes remain identical.
+
+Actual push statement-boundary run40038367785 and permanent-ID run40038367783 also completed successfully at the same exact commit. Their original artifacts and raw logs are retained in `boundary-and-IDs/`, with a separately scoped twelve-control integrity observation. Statement metadata/identity acceptance is distinct from the full Target receipt.
+
+The later proposed three final YAML labels are separately reviewed in `../../final-receipt-labels-2026-10-23/INDEPENDENT_REVIEW_2026-10-23.json`; their own exact-input CI remains required. This directory approves the immutable promoted5a package and does not mislabel its receipt as acceptance of later bytes. The earlier failed cache-symlink attempt and the proof-commit approvals remain separately retained. No canonical input was edited by this verifier.
