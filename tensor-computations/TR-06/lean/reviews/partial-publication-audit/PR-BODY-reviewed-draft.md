@@ -1,0 +1,13 @@
+TR-06's Lean formalization is incomplete. This draft preserves the full original finite-mean angular-condition-number target and publishes the independently reviewed progress so far. The canonical status remains **Solved**, and this PR does **not** promote it to Lean verified.
+
+Start with [`STATUS.md`](tensor-computations/TR-06/lean/STATUS.md) for the current scope, outstanding obligations and verification limits. The frozen definitions and ten `Challenge.lean` specifications retain the original tensor-volume Gaussian model and the derivative of the individually normalized summands.
+
+Implemented and independently reviewed contributions include five exact correspondence declarations: derivative/operator-norm equality, local angular-slope correspondence, induced chart volume, genericity equivalence and the local ordered-addition inverse. Supporting proofs cover radial integrability, homogeneity, measurability, area and graph-Jacobian estimates, coordinate-projection atlases, closed decomposition fibers, exact-dimensional Segre coordinates, character algebras and generic finite/unramified localization. Contribution-level reviews and source-hash receipts are retained alongside the code.
+
+The full-measure regular locus, the actual bounded normalized-graph volume estimate, polar-volume integration, normalization, and complete finite-mean/source-model correspondence remain unfinished. There is no `Solution.lean`. The ten Challenge placeholders are specifications, and `formalization.yaml` truthfully reports `complete_problem_verified: false`, no main results, and zero completed problem targets.
+
+Validation: local Lean 4.33.1 development builds reuse pinned dependency caches; audited proof closures use only `propext`, `Classical.choice` and `Quot.sound`, with LeanCert kernel-mode assertions. No full-target Lean4 Comparator run, fresh authoritative Linux verification, or independent kernel replay is claimed. The existing strict complete-project CI gate is preserved and is expected to reject this incomplete manifest. A green local development check is not complete TR-06 verification.
+
+Canonical IDs, original statements, the permanent registry, catalogs and existing verifications are unchanged. This draft uses the existing shared Lean/CI/Comparator infrastructure; it does not relax its acceptance requirements.
+
+Formalization: **George Stepaniants**, Department of Computing and Mathematical Sciences, California Institute of Technology, with AI assistance and independent AI-agent contribution reviews. Original mathematical proof: **Matthew J. Colbrook**. No external human peer review or author endorsement is claimed.
