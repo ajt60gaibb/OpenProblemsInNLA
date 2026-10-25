@@ -1,18 +1,7 @@
-# IE-22 proof development checkpoint
+# IE-22 complete author source checkpoint
 
-Two independent non-author reviews approved the exact literal Target and the
-uniform squared upper/near-sharp matrix endpoints before implementation.
-The near-sharp actual finite unit-row matrix witness is now proved, together
-with Gaussian, finite-sampling, energy/extrema and conditional assembly helpers.
-The universal upper bound and literal full Target remain separate unfinished
-obligations. IE-22 remains Solved; no Linux or Comparator proof acceptance is
-claimed by this checkpoint. The author lock records exact source bytes.
+The exact reviewed universal squared upper estimate and near-sharp finite unit-row matrix witness now supply the literal unchanged `NLA.Statements.IE22.Target`. All 19 proof modules have individual local pinned Lean/LeanCert kernel author builds; the final theorem reports only `propext`, `Classical.choice` and `Quot.sound`. The JSON lock binds the exact sources and final author command.
 
-The original unit rows, floor convention, every real unit direction, Gaussian
-quantile/moment, matrix supremum and original probability-free extremal target
-are preserved. The historical canonical scaffold and all original sources are
-retained verbatim in the pre-proof packet. Original mathematical credit remains
-with Matthew J. Colbrook; the new derivative-free Gaussian covariance route,
-formal proofs and reviews are AI-agent work. No external human endorsement is
-claimed. Independent final source review and fresh kernel/CI evidence are still
-required before any full-target promotion.
+This is author evidence, separate from independent fresh full-closure replay and the canonical package. No Linux or Comparator acceptance is claimed. IE-22 remains Solved until the complete verification and review gates pass. The earlier 14-module lower-only checkpoint and its distinct independent reviews remain retained with their original scopes.
+
+Permanent IDs, canonical paths, original source mathematics, and live/frozen target definitions are unchanged. The old scaffold and its unsupported extra convergence clause are preserved verbatim in the pre-proof packet and are never imported into the proof. Original mathematical credit remains with Matthew J. Colbrook; the formal proofs and reviews are AI-agent work, with no external human endorsement claimed.

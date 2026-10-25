@@ -5,6 +5,7 @@ import Mathlib.Analysis.Matrix.PosDef
 import Mathlib.Analysis.InnerProductSpace.Trace
 
 set_option autoImplicit false
+set_option maxHeartbeats 2000000
 set_option leancert.trust "kernel"
 noncomputable section
 open scoped BigOperators
@@ -110,6 +111,164 @@ theorem ordered_covariance_basis {m n : ℕ}
       _ = ∑ _i : Fin m, (1 : ℝ) := Finset.sum_congr rfl (fun i _ => hA i)
       _ = _ := by simp
 
+/-- Ordered nonnegative eigenvalues obey the trace-over-index tail bound. -/
+theorem antitone_tail_le {n r : ℕ} (hr : r < n) (lam : Fin n → ℝ)
+    (hanti : Antitone lam) (hpos : ∀ j, 0 ≤ lam j) {M : ℝ}
+    (hsum : ∑ j, lam j ≤ M) (j : Fin n) (hj : r ≤ j.val) :
+    lam j ≤ M/(r+1 : ℕ) := by
+  classical
+  let q : Fin n := ⟨r, hr⟩
+  let e : Fin (r+1) → Fin n := fun i => ⟨i.val, by omega⟩
+  have heinj : Function.Injective e := by
+    intro i j hij
+    exact Fin.ext (congrArg (fun x : Fin n => x.val) hij)
+  have hprefix : ∑ i : Fin (r+1), lam (e i) ≤ ∑ j, lam j := by
+    rw [← Finset.sum_image (fun i _ j _ hij => heinj hij)]
+    exact Finset.sum_le_univ_sum_of_nonneg hpos
+  have hlower : ((r+1 : ℕ) : ℝ)*lam q ≤ ∑ i : Fin (r+1), lam (e i) := by
+    calc
+      _ = ∑ _i : Fin (r+1), lam q := by simp
+      _ ≤ _ := Finset.sum_le_sum fun i _ => hanti (by change i.val ≤ r; omega)
+  have hq : lam q ≤ M/(r+1 : ℕ) := by
+    apply (le_div_iff₀ (by positivity : (0 : ℝ) < (r+1 : ℕ))).2
+    nlinarith [(hlower.trans hprefix).trans hsum]
+  exact (hanti (by exact hj)).trans hq
+
+set_option backward.isDefEq.respectTransparency false in
+set_option backward.isDefEq.respectTransparency.types false in
+/-- The linear map with a genuinely orthonormal column family is an isometry. -/
+def columnIsometry {n d : ℕ} (u : Fin d → Euclid n) (hu : Orthonormal ℝ u) :
+    Euclid d →ₗᵢ[ℝ] Euclid n := by
+  let U : Matrix (Fin n) (Fin d) ℝ := fun k j => u j k
+  let L := Matrix.toEuclideanLin U
+  have himage : L ∘ (EuclideanSpace.basisFun (Fin d) ℝ).toBasis = u := by
+    ext j k
+    change (WithLp.ofLp (Matrix.toEuclideanLin U ((EuclideanSpace.basisFun (Fin d) ℝ) j))) k = u j k
+    rw [Matrix.ofLp_toEuclideanLin_apply]
+    simp only [EuclideanSpace.basisFun_apply, EuclideanSpace.single, PiLp.ofLp_single]
+    exact congrArg (fun v : Fin n → ℝ => v k) (Matrix.mulVec_single_one U j)
+  let eb : Module.Basis (Fin d) ℝ (Euclid d) := (EuclideanSpace.basisFun (Fin d) ℝ).toBasis
+  have heb : Orthonormal ℝ eb := (EuclideanSpace.basisFun (Fin d) ℝ).orthonormal
+  have hL : Orthonormal ℝ (L ∘ eb) := by
+    change Orthonormal ℝ (L ∘ (EuclideanSpace.basisFun (Fin d) ℝ).toBasis)
+    rw [himage]
+    exact hu
+  exact L.isometryOfOrthonormal (v := eb) heb hL
+
+theorem columnIsometry_apply {n d : ℕ} (u : Fin d → Euclid n) (hu : Orthonormal ℝ u)
+    (g : Euclid d) :
+    WithLp.ofLp (columnIsometry u hu g) =
+      Matrix.mulVec ((fun k j => u j k) : Matrix (Fin n) (Fin d) ℝ) (WithLp.ofLp g) := rfl
+
+/-- Data of a genuine orthogonal retained subspace and its actual projected rows. -/
+structure SpectralProjectionData {m n : ℕ} (A : Matrix (Fin m) (Fin n) ℝ) (r : ℕ) where
+  rows : Matrix (Fin m) (Fin (n-r)) ℝ
+  lift : Euclid (n-r) →ₗᵢ[ℝ] Euclid n
+  row_eq : ∀ i (g : Euclid (n-r)),
+    NLA.Statements.RowDeletion.RowValue A i (WithLp.ofLp (lift g)) =
+      inner ℝ (WithLp.toLp 2 (rows i)) g
+  row_norm_sq : ∀ i, ‖WithLp.toLp 2 (rows i)‖^2 ≤ 1
+  gram_sum : (∑ i, ∑ j, |inner ℝ (WithLp.toLp 2 (rows i)) (WithLp.toLp 2 (rows j))|) ≤
+    (m : ℝ)^2/Real.sqrt (r+1 : ℕ)
+
+/-- The actual covariance eigenspace construction supplies every field of the
+retained-subspace data, with no spectral assumption beyond genuine unit rows. -/
+theorem exists_spectral_projection {m n r : ℕ} (hr : r < n)
+    (A : Matrix (Fin m) (Fin n) ℝ) (hA : NLA.Statements.RowDeletion.UnitRows A) :
+    Nonempty (SpectralProjectionData A r) := by
+  classical
+  obtain ⟨b,lam,hanti,hpos,hsum,heigen⟩ := ordered_covariance_basis A hA
+  let e : Fin (n-r) → Fin n := fun j => ⟨r+j.val, by omega⟩
+  have heinj : Function.Injective e := by
+    intro i j hij
+    apply Fin.ext
+    have hv := congrArg Fin.val hij
+    dsimp [e] at hv
+    omega
+  let u : Fin (n-r) → Euclid n := fun j => b (e j)
+  have hu : Orthonormal ℝ u := b.orthonormal.comp e heinj
+  let U : Matrix (Fin n) (Fin (n-r)) ℝ := fun k j => u j k
+  let B := A*U
+  let lam' : Fin (n-r) → ℝ := fun j => lam (e j)
+  have hCU : ∀ k j, ((A.transpose*A)*U) k j = lam' j * U k j := by
+    intro k j
+    have h := congrArg (fun x : Euclid n => x k) (heigen (e j))
+    change ((A.transpose*A).mulVec (WithLp.ofLp (u j))) k = lam' j * U k j at h
+    exact h
+  have hUU : U.transpose*U = 1 := by
+    ext i j
+    have h := (orthonormal_iff_ite.mp hu) i j
+    change (∑ k, U k i * U k j) = if i = j then 1 else 0
+    change (∑ k, u i k * u j k) = _
+    simpa only [EuclideanSpace.inner_eq_star_dotProduct, dotProduct, star_trivial, mul_comm] using h
+  have hdiag : B.transpose*B = Matrix.diagonal lam' := by
+    change (A*U).transpose*(A*U) = _
+    rw [Matrix.transpose_mul]
+    have hmul : (U.transpose*A.transpose)*(A*U) = U.transpose*((A.transpose*A)*U) := by
+      simp only [Matrix.mul_assoc]
+    rw [hmul]
+    ext i j
+    simp only [Matrix.mul_apply, hCU]
+    have hf : ∑ k, U.transpose i k * (lam' j * U k j) =
+        lam' j * (U.transpose*U) i j := by
+      simp only [Matrix.mul_apply, Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro k _
+      ring
+    rw [hf, hUU]
+    by_cases hij : i = j <;> simp [Matrix.diagonal_apply, Matrix.one_apply, hij]
+  have hrow : ∀ i, ∑ j, B i j ^ 2 ≤ 1 := by
+    intro i
+    have h := hu.sum_inner_products_le (x := WithLp.toLp 2 (A i)) (s := Finset.univ)
+    have heq (j : Fin (n-r)) : inner ℝ (u j) (WithLp.toLp 2 (A i)) = B i j := by
+      simp only [EuclideanSpace.inner_eq_star_dotProduct, dotProduct,
+        star_trivial, B, Matrix.mul_apply, U]
+      apply Finset.sum_congr rfl
+      intro k _
+      ring
+    simpa only [heq, Real.norm_eq_abs, sq_abs, EuclideanSpace.norm_sq_eq,
+      WithLp.ofLp_toLp, hA i] using h
+  have htrace : ∑ j, lam' j ≤ (m : ℝ) := by
+    have heq : ∑ j, lam' j = ∑ i, ∑ j, B i j ^ 2 := by
+      rw [matrix_entry_square_sum, hdiag]
+      simp
+    rw [heq]
+    calc
+      _ ≤ ∑ _i : Fin m, (1 : ℝ) := Finset.sum_le_sum (fun i _ => hrow i)
+      _ = _ := by simp
+  have hcap : ∀ j, lam' j ≤ (m : ℝ)/(r+1 : ℕ) := by
+    intro j
+    exact antitone_tail_le hr lam hanti hpos hsum.le (e j) (by dsimp [e]; omega)
+  let lift : Euclid (n-r) →ₗᵢ[ℝ] Euclid n := columnIsometry u hu
+  refine ⟨{rows := B, lift := lift, row_eq := ?_, row_norm_sq := ?_, gram_sum := ?_}⟩
+  · intro i g
+    have hlift : WithLp.ofLp (lift g) = U.mulVec (WithLp.ofLp g) := columnIsometry_apply u hu g
+    unfold NLA.Statements.RowDeletion.RowValue
+    rw [hlift]
+    change (A.mulVec (U.mulVec (WithLp.ofLp g))) i = _
+    rw [Matrix.mulVec_mulVec]
+    simp only [EuclideanSpace.inner_eq_star_dotProduct, dotProduct, star_trivial,
+      B, Matrix.mulVec]
+    apply Finset.sum_congr rfl
+    intro j _
+    ring
+  · intro i
+    simpa only [EuclideanSpace.norm_sq_eq, Real.norm_eq_abs, sq_abs] using hrow i
+  · have hg := gram_abs_sum_le_of_diagonal B lam' hdiag (fun j => hpos (e j)) hcap htrace
+    convert hg using 1
+    apply Finset.sum_congr rfl
+    intro i _
+    apply Finset.sum_congr rfl
+    intro j _
+    simp only [EuclideanSpace.inner_eq_star_dotProduct, dotProduct, star_trivial,
+      Matrix.mul_apply, Matrix.transpose_apply]
+    congr 1
+    apply Finset.sum_congr rfl
+    intro k _
+    ring
+
+#assert_trust kernel antitone_tail_le
+#assert_trust kernel exists_spectral_projection
 #assert_trust kernel ordered_covariance_basis
 #assert_trust kernel gram_abs_sum_le_of_diagonal
 #print axioms gram_abs_sum_le_of_diagonal
