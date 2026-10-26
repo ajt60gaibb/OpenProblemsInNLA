@@ -1,0 +1,240 @@
+import NLA.Proofs.RE06.TranscriptAudit
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open scoped BigOperators Matrix.Norms.Frobenius
+open NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06
+open Lean Elab Command in
+elab "#inventory_theorem " n:ident : command => do
+  let d ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  match (← getEnv).find? d with
+  | some (.thmInfo _) => pure ()
+  | _ => throwErrorAt n "inventory expects genuine theorem"
+namespace Inventory.RE06.Transcript
+theorem literal_minimum {m : ℕ} (score : Fin (m+2) → ℝ) (j : Fin (m+2)) :
+    score (minimumIndex score) ≤ score j := minimumIndex_score_le score j
+theorem literal_full_stored {n : ℕ} (A : Matrix (Fin n) (Fin n) ℝ) (P : Plan n)
+    (hP : P.full = true) (i j : Fin n) :
+    storedVector (oracleAnswers A P) j.val i = A i j := storedVector_full A P hP i j
+theorem literal_full_error {n m : ℕ} (F : Family n m) (A : Matrix (Fin n) (Fin n) ℝ)
+    (ε : ℝ) (ω : ℕ → ℝ) (hP : (makePlan n m ε ω).full = true) :
+    frobenius A (run F A ε ω) = optimum A F := run_full_error F A ε ω hP
+theorem literal_full_success {n m : ℕ} (F : Family n m) (A : Matrix (Fin n) (Fin n) ℝ)
+    (ε : ℝ) (hε : 0 ≤ ε) (hf : n ≤ firstWidth m ε+secondWidth m ε+thirdWidth m ε) :
+    Successful F A ε := successful_full_branch F A ε hε hf
+theorem literal_sketch0 {n : ℕ} (A : Matrix (Fin n) (Fin n) ℝ) (P : Plan n)
+    (hP : P.full = false) (j : Fin P.s) : storedVector (oracleAnswers A P) j.val =
+    fun i => (A*P.G0) i j := storedVector_sketch0 A P hP j
+theorem literal_sketch1 {n : ℕ} (A : Matrix (Fin n) (Fin n) ℝ) (P : Plan n)
+    (hP : P.full = false) (j : Fin P.k) : storedVector (oracleAnswers A P) (P.s+j.val) =
+    fun i => (A*P.G1) i j := storedVector_sketch1 A P hP j
+theorem literal_sketchH {n : ℕ} (A : Matrix (Fin n) (Fin n) ℝ) (P : Plan n)
+    (hP : P.full = false) (j : Fin P.ell) : storedVector (oracleAnswers A P) (P.s+P.k+j.val) =
+    fun i => (A.transpose*P.H) i j := storedVector_sketchH A P hP j
+theorem literal_warm {n m : ℕ} (F : Family n m) (A : Matrix (Fin n) (Fin n) ℝ) (P : Plan n) :
+    sketchWarmIndex F A P = minimumIndex (fun b => squaredFrobenius (A*P.G0) (F b*P.G0)) := rfl
+theorem literal_repair {n m : ℕ} (F : Family n m) (A : Matrix (Fin n) (Fin n) ℝ) (P : Plan n) :
+    sketchRepair F A P = let b0 := sketchWarmIndex F A P; let Y := (A-F b0)*P.G1;
+      F b0+Y*pseudoInverse (P.H.transpose*Y)*(P.H.transpose*(A-F b0)) := rfl
+theorem literal_postprocess {n m : ℕ} (F : Family n m) (A : Matrix (Fin n) (Fin n) ℝ)
+    (P : Plan n) (hP : P.full = false) : postprocess F P (oracleAnswers A P) =
+    minimumIndex (fun b => squaredFrobenius (sketchRepair F A P) (F b)) := postprocess_sketch F A P hP
+theorem literal_norm {a b : ℕ} (X Y : Matrix (Fin a) (Fin b) ℝ) :
+    frobenius X Y = ‖X-Y‖ := frobenius_eq_norm_sub X Y
+theorem literal_triangle {a b : ℕ} (X Y Z : Matrix (Fin a) (Fin b) ℝ) :
+    frobenius X Z ≤ frobenius X Y+frobenius Y Z := frobenius_triangle X Y Z
+theorem literal_nearest {n m : ℕ} (F : Family n m) (A X : Matrix (Fin n) (Fin n) ℝ) :
+    frobenius A (F (minimumIndex (fun b => squaredFrobenius X (F b)))) ≤
+      optimum A F+2*frobenius A X := nearest_family_error F A X
+theorem literal_run_error {n m : ℕ} (F : Family n m) (A : Matrix (Fin n) (Fin n) ℝ)
+    (ε : ℝ) (ω : ℕ → ℝ) (hP : (makePlan n m ε ω).full = false) :
+    frobenius A (run F A ε ω) ≤ optimum A F+2*frobenius A (sketchRepair F A (makePlan n m ε ω)) := run_sketch_error F A ε ω hP
+theorem literal_repair_transfer {n m : ℕ} (F : Family n m) (A : Matrix (Fin n) (Fin n) ℝ)
+    (ε η : ℝ) (ω : ℕ → ℝ) (hP : (makePlan n m ε ω).full = false)
+    (hRepair : frobenius A (sketchRepair F A (makePlan n m ε ω)) ≤ (1+2*η)*optimum A F) :
+    frobenius A (run F A ε ω) ≤ (3+4*η)*optimum A F := run_sketch_error_of_repair F A ε η ω hP hRepair
+theorem literal_live_identity : NLA.Statements.RE06.Target = NLA.ReviewedStatements.RE06.Target := rfl
+end Inventory.RE06.Transcript
+
+#inventory_theorem NLA.Proofs.RE06.scan_le_initial
+#assert_trust kernel NLA.Proofs.RE06.scan_le_initial
+#print axioms NLA.Proofs.RE06.scan_le_initial
+
+#inventory_theorem NLA.Proofs.RE06.scan_le_member
+#assert_trust kernel NLA.Proofs.RE06.scan_le_member
+#print axioms NLA.Proofs.RE06.scan_le_member
+
+#inventory_theorem NLA.Proofs.RE06.minimumIndex_score_le
+#assert_trust kernel NLA.Proofs.RE06.minimumIndex_score_le
+#print axioms NLA.Proofs.RE06.minimumIndex_score_le
+
+#inventory_theorem NLA.Proofs.RE06.storedVector_finRange
+#assert_trust kernel NLA.Proofs.RE06.storedVector_finRange
+#print axioms NLA.Proofs.RE06.storedVector_finRange
+
+#inventory_theorem NLA.Proofs.RE06.answer_standardBasis
+#assert_trust kernel NLA.Proofs.RE06.answer_standardBasis
+#print axioms NLA.Proofs.RE06.answer_standardBasis
+
+#inventory_theorem NLA.Proofs.RE06.oracleAnswers_full
+#assert_trust kernel NLA.Proofs.RE06.oracleAnswers_full
+#print axioms NLA.Proofs.RE06.oracleAnswers_full
+
+#inventory_theorem NLA.Proofs.RE06.storedVector_full
+#assert_trust kernel NLA.Proofs.RE06.storedVector_full
+#print axioms NLA.Proofs.RE06.storedVector_full
+
+#inventory_theorem NLA.Proofs.RE06.postprocess_full
+#assert_trust kernel NLA.Proofs.RE06.postprocess_full
+#print axioms NLA.Proofs.RE06.postprocess_full
+
+#inventory_theorem NLA.Proofs.RE06.run_full_error
+#assert_trust kernel NLA.Proofs.RE06.run_full_error
+#print axioms NLA.Proofs.RE06.run_full_error
+
+#inventory_theorem NLA.Proofs.RE06.frobenius_nonnegative
+#assert_trust kernel NLA.Proofs.RE06.frobenius_nonnegative
+#print axioms NLA.Proofs.RE06.frobenius_nonnegative
+
+#inventory_theorem NLA.Proofs.RE06.successful_full_branch
+#assert_trust kernel NLA.Proofs.RE06.successful_full_branch
+#print axioms NLA.Proofs.RE06.successful_full_branch
+
+#inventory_theorem NLA.Proofs.RE06.storedVector_append_left
+#assert_trust kernel NLA.Proofs.RE06.storedVector_append_left
+#print axioms NLA.Proofs.RE06.storedVector_append_left
+
+#inventory_theorem NLA.Proofs.RE06.storedVector_append_right
+#assert_trust kernel NLA.Proofs.RE06.storedVector_append_right
+#print axioms NLA.Proofs.RE06.storedVector_append_right
+
+#inventory_theorem NLA.Proofs.RE06.oracleAnswers_sketch
+#assert_trust kernel NLA.Proofs.RE06.oracleAnswers_sketch
+#print axioms NLA.Proofs.RE06.oracleAnswers_sketch
+
+#inventory_theorem NLA.Proofs.RE06.storedVector_sketch0
+#assert_trust kernel NLA.Proofs.RE06.storedVector_sketch0
+#print axioms NLA.Proofs.RE06.storedVector_sketch0
+
+#inventory_theorem NLA.Proofs.RE06.storedVector_sketch1
+#assert_trust kernel NLA.Proofs.RE06.storedVector_sketch1
+#print axioms NLA.Proofs.RE06.storedVector_sketch1
+
+#inventory_theorem NLA.Proofs.RE06.storedVector_sketchH
+#assert_trust kernel NLA.Proofs.RE06.storedVector_sketchH
+#print axioms NLA.Proofs.RE06.storedVector_sketchH
+
+#inventory_theorem NLA.Proofs.RE06.postprocess_sketch
+#assert_trust kernel NLA.Proofs.RE06.postprocess_sketch
+#print axioms NLA.Proofs.RE06.postprocess_sketch
+
+#inventory_theorem NLA.Proofs.RE06.sketchWarmIndex_score_le
+#assert_trust kernel NLA.Proofs.RE06.sketchWarmIndex_score_le
+#print axioms NLA.Proofs.RE06.sketchWarmIndex_score_le
+
+#inventory_theorem NLA.Proofs.RE06.frobenius_eq_norm_sub
+#assert_trust kernel NLA.Proofs.RE06.frobenius_eq_norm_sub
+#print axioms NLA.Proofs.RE06.frobenius_eq_norm_sub
+
+#inventory_theorem NLA.Proofs.RE06.frobenius_triangle
+#assert_trust kernel NLA.Proofs.RE06.frobenius_triangle
+#print axioms NLA.Proofs.RE06.frobenius_triangle
+
+#inventory_theorem NLA.Proofs.RE06.frobenius_symmetric
+#assert_trust kernel NLA.Proofs.RE06.frobenius_symmetric
+#print axioms NLA.Proofs.RE06.frobenius_symmetric
+
+#inventory_theorem NLA.Proofs.RE06.frobenius_minimumIndex_le
+#assert_trust kernel NLA.Proofs.RE06.frobenius_minimumIndex_le
+#print axioms NLA.Proofs.RE06.frobenius_minimumIndex_le
+
+#inventory_theorem NLA.Proofs.RE06.frobenius_eq_zero_iff
+#assert_trust kernel NLA.Proofs.RE06.frobenius_eq_zero_iff
+#print axioms NLA.Proofs.RE06.frobenius_eq_zero_iff
+
+#inventory_theorem NLA.Proofs.RE06.nearest_family_error
+#assert_trust kernel NLA.Proofs.RE06.nearest_family_error
+#print axioms NLA.Proofs.RE06.nearest_family_error
+
+#inventory_theorem NLA.Proofs.RE06.run_sketch_error
+#assert_trust kernel NLA.Proofs.RE06.run_sketch_error
+#print axioms NLA.Proofs.RE06.run_sketch_error
+
+#inventory_theorem NLA.Proofs.RE06.run_sketch_error_of_repair
+#assert_trust kernel NLA.Proofs.RE06.run_sketch_error_of_repair
+#print axioms NLA.Proofs.RE06.run_sketch_error_of_repair
+
+#inventory_theorem NLA.Proofs.RE06.TranscriptAudit.live_frozen_identity
+#assert_trust kernel NLA.Proofs.RE06.TranscriptAudit.live_frozen_identity
+#print axioms NLA.Proofs.RE06.TranscriptAudit.live_frozen_identity
+
+#inventory_theorem Inventory.RE06.Transcript.literal_minimum
+#assert_trust kernel Inventory.RE06.Transcript.literal_minimum
+#print axioms Inventory.RE06.Transcript.literal_minimum
+
+#inventory_theorem Inventory.RE06.Transcript.literal_full_stored
+#assert_trust kernel Inventory.RE06.Transcript.literal_full_stored
+#print axioms Inventory.RE06.Transcript.literal_full_stored
+
+#inventory_theorem Inventory.RE06.Transcript.literal_full_error
+#assert_trust kernel Inventory.RE06.Transcript.literal_full_error
+#print axioms Inventory.RE06.Transcript.literal_full_error
+
+#inventory_theorem Inventory.RE06.Transcript.literal_full_success
+#assert_trust kernel Inventory.RE06.Transcript.literal_full_success
+#print axioms Inventory.RE06.Transcript.literal_full_success
+
+#inventory_theorem Inventory.RE06.Transcript.literal_sketch
+#assert_trust kernel Inventory.RE06.Transcript.literal_sketch
+#print axioms Inventory.RE06.Transcript.literal_sketch
+
+#inventory_theorem Inventory.RE06.Transcript.literal_sketch
+#assert_trust kernel Inventory.RE06.Transcript.literal_sketch
+#print axioms Inventory.RE06.Transcript.literal_sketch
+
+#inventory_theorem Inventory.RE06.Transcript.literal_sketchH
+#assert_trust kernel Inventory.RE06.Transcript.literal_sketchH
+#print axioms Inventory.RE06.Transcript.literal_sketchH
+
+#inventory_theorem Inventory.RE06.Transcript.literal_warm
+#assert_trust kernel Inventory.RE06.Transcript.literal_warm
+#print axioms Inventory.RE06.Transcript.literal_warm
+
+#inventory_theorem Inventory.RE06.Transcript.literal_repair
+#assert_trust kernel Inventory.RE06.Transcript.literal_repair
+#print axioms Inventory.RE06.Transcript.literal_repair
+
+#inventory_theorem Inventory.RE06.Transcript.literal_postprocess
+#assert_trust kernel Inventory.RE06.Transcript.literal_postprocess
+#print axioms Inventory.RE06.Transcript.literal_postprocess
+
+#inventory_theorem Inventory.RE06.Transcript.literal_norm
+#assert_trust kernel Inventory.RE06.Transcript.literal_norm
+#print axioms Inventory.RE06.Transcript.literal_norm
+
+#inventory_theorem Inventory.RE06.Transcript.literal_triangle
+#assert_trust kernel Inventory.RE06.Transcript.literal_triangle
+#print axioms Inventory.RE06.Transcript.literal_triangle
+
+#inventory_theorem Inventory.RE06.Transcript.literal_nearest
+#assert_trust kernel Inventory.RE06.Transcript.literal_nearest
+#print axioms Inventory.RE06.Transcript.literal_nearest
+
+#inventory_theorem Inventory.RE06.Transcript.literal_run_error
+#assert_trust kernel Inventory.RE06.Transcript.literal_run_error
+#print axioms Inventory.RE06.Transcript.literal_run_error
+
+#inventory_theorem Inventory.RE06.Transcript.literal_repair_transfer
+#assert_trust kernel Inventory.RE06.Transcript.literal_repair_transfer
+#print axioms Inventory.RE06.Transcript.literal_repair_transfer
+
+#inventory_theorem Inventory.RE06.Transcript.literal_live_identity
+#assert_trust kernel Inventory.RE06.Transcript.literal_live_identity
+#print axioms Inventory.RE06.Transcript.literal_live_identity
+
+open Lean Elab Command in
+elab "#inventory_absent " n:ident : command => do
+  if (← getEnv).contains n.getId then throwErrorAt n "unexpected unconditional public result"
+#inventory_absent NLA.Proofs.RE06.successful
+#inventory_absent NLA.Proofs.RE06.original_claim
+#inventory_absent NLA.Proofs.RE06.explicit_claim
+#inventory_absent NLA.Proofs.RE06.target
