@@ -1,0 +1,1280 @@
+import NLA.Proofs.TR04.MachineTTInitializationFull
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open Lean Elab Command in
+elab "#audit_named " user:str modName:str visibility:str expected:str : command => do
+  unless visibility.getString == "public" || visibility.getString == "private" || visibility.getString == "local" do
+    throwErrorAt visibility "unsupported visibility"
+  let decl := if visibility.getString == "private" then
+    Lean.mkPrivateNameCore modName.getString.toName user.getString.toName
+    else user.getString.toName
+  let some info := (← getEnv).find? decl | throwErrorAt user "missing exact compiler constant {decl}"
+  match expected.getString, info with
+  | "theorem", .thmInfo _ => pure ()
+  | "definition", .defnInfo _ => pure ()
+  | "inductive", .inductInfo _ => pure ()
+  | _, _ => throwErrorAt user "constant kind differs from frozen source"
+  logInfo m!"AUDITED_KIND {user.getString} {expected.getString}"
+  logInfo m!"AUDITED_ACTUAL {user.getString} {decl.toString} {visibility.getString}"
+  elabCommand (← `(#assert_trust $(mkIdent `kernel) $(mkIdent decl)))
+  elabCommand (← `(#print axioms $(mkIdent decl)))
+  let axs ← liftCoreM <| collectAxioms decl
+  let body := String.intercalate "," (axs.toList.map Name.toString)
+  logInfo m!"AUDITED_AXIOMS {user.getString} [{body}]"
+#audit_named "NLA.Proofs.TR04.ttFirstRankEntryTime" "NLA.Proofs.TR04.MachineTTInitializationFull" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TTInitialRankRead" "NLA.Proofs.TR04.MachineTTInitializationFull" "public" "inductive"
+#audit_named "NLA.Proofs.TR04.ttInitial_rank_read" "NLA.Proofs.TR04.MachineTTInitializationFull" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTInitialSVDData" "NLA.Proofs.TR04.MachineTTInitializationFull" "public" "inductive"
+#audit_named "NLA.Proofs.TR04.ttInitial_svd_ready" "NLA.Proofs.TR04.MachineTTInitializationFull" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInitialDecoderTime" "NLA.Proofs.TR04.MachineTTInitialization" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttInitial_decoder" "NLA.Proofs.TR04.MachineTTInitialization" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttFirstModeDecodedTime" "NLA.Proofs.TR04.MachineTTInitialization" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttInitial_mode_decoded" "NLA.Proofs.TR04.MachineTTInitialization" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInitial_mode_full" "NLA.Proofs.TR04.MachineTTInitialization" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_nonzero_realRegisters" "NLA.Proofs.TR04.MachineTTStartup" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_labels" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_naturals" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_reals" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code119" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code120" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code121" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code122" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code123" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code124" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code125" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code126" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code127" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code128" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code129" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code130" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code131" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code132" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code133" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code134" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code135" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code136" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code137" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code138" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code139" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code140" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code141" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code142" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_code143" "NLA.Proofs.TR04.MachineTTStartup" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ordinary_nosvd_prefix_of_running" "NLA.Proofs.TR04.MachineTTStartup" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartupNatural" "NLA.Proofs.TR04.MachineTTStartup" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttStartupEnd" "NLA.Proofs.TR04.MachineTTStartup" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttStartupNaturalPrefix" "NLA.Proofs.TR04.MachineTTStartup" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttStartupMiddle" "NLA.Proofs.TR04.MachineTTStartup" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttStartup_first" "NLA.Proofs.TR04.MachineTTStartup" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_second" "NLA.Proofs.TR04.MachineTTStartup" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_third" "NLA.Proofs.TR04.MachineTTStartup" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_fourth" "NLA.Proofs.TR04.MachineTTStartup" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_steps" "NLA.Proofs.TR04.MachineTTStartup" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTAllocationRegisters" "NLA.Proofs.TR04.MachineTTStartup" "public" "inductive"
+#audit_named "NLA.Proofs.TR04.ttStartup_allocation" "NLA.Proofs.TR04.MachineTTStartup" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_decoder" "NLA.Proofs.TR04.MachineTTStartup" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_flags" "NLA.Proofs.TR04.MachineTTStartup" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttStartup_run_at" "NLA.Proofs.TR04.MachineTTStartup" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttProgram_code_first_svd" "NLA.Proofs.TR04.MachineTTProgramFacts" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttProgram_code_child_svd" "NLA.Proofs.TR04.MachineTTProgramFacts" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttProgram_code_header_exit" "NLA.Proofs.TR04.MachineTTProgramFacts" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttProgram_code_matrix_exit" "NLA.Proofs.TR04.MachineTTProgramFacts" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttProgram_code_copy_exit" "NLA.Proofs.TR04.MachineTTProgramFacts" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttProgram_code_gather_exit" "NLA.Proofs.TR04.MachineTTProgramFacts" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttProgram_code_threshold_exit" "NLA.Proofs.TR04.MachineTTProgramFacts" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttProgram_code_best_exit" "NLA.Proofs.TR04.MachineTTProgramFacts" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttProgram_code_caller" "NLA.Proofs.TR04.MachineTTProgramFacts" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttProgram_svd_positions" "NLA.Proofs.TR04.MachineTTProgramFacts" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttHeader_initial_relates" "NLA.Proofs.TR04.MachineTTProgramFacts" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttProgram_trace_exists" "NLA.Proofs.TR04.MachineTTProgramFacts" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttProgram_header_result" "NLA.Proofs.TR04.MachineTTProgramFacts" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttProgram_header_natural_outside" "NLA.Proofs.TR04.MachineTTProgramFacts" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttControllerProgram" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttHeaderRegisters" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttBankStage1" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttMatrixRegisters" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttBankStage2" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttCopyRegisters" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttBankStage3" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttGatherRegisters" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttBankStage4" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttThresholdRegisters" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttBankStage5" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttBestRegisters" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttBankStage6" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttProgram" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttHeaderEmbeddingStage1" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttHeaderEmbeddingStage2" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttHeaderEmbeddingStage3" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttHeaderEmbeddingStage4" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttHeaderEmbeddingStage5" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttHeaderEmbeddingStage6" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttHeaderEmbedding" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttMatrixEmbeddingStage2" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttMatrixEmbeddingStage3" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttMatrixEmbeddingStage4" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttMatrixEmbeddingStage5" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttMatrixEmbeddingStage6" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttMatrixEmbedding" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttCopyEmbeddingStage3" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttCopyEmbeddingStage4" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttCopyEmbeddingStage5" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttCopyEmbeddingStage6" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttCopyEmbedding" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttGatherEmbeddingStage4" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttGatherEmbeddingStage5" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttGatherEmbeddingStage6" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttGatherEmbedding" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttThresholdEmbeddingStage5" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttThresholdEmbeddingStage6" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttThresholdEmbedding" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttBestEmbeddingStage6" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttBestEmbedding" "NLA.Proofs.TR04.MachineTTProgram" "public" "definition"
+#audit_named "NLA.Proofs.TR04.BankRegisters" "NLA.Proofs.TR04.MachineCodeBanks" "public" "inductive"
+#audit_named "NLA.Proofs.TR04.offsetBankRegisters" "NLA.Proofs.TR04.MachineCodeBanks" "public" "definition"
+#audit_named "NLA.Proofs.TR04.bankLabel" "NLA.Proofs.TR04.MachineCodeBanks" "public" "definition"
+#audit_named "NLA.Proofs.TR04.installCodeBank" "NLA.Proofs.TR04.MachineCodeBanks" "public" "definition"
+#audit_named "NLA.Proofs.TR04.installCodeBank_outside" "NLA.Proofs.TR04.MachineCodeBanks" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.installedBankEmbedding" "NLA.Proofs.TR04.MachineCodeBanks" "public" "definition"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.throughInstalledBank" "NLA.Proofs.TR04.MachineCodeBanks" "public" "definition"
+#audit_named "NLA.Proofs.TR04.installCodeBank_exit" "NLA.Proofs.TR04.MachineCodeBanks" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.instructionIsHalt" "NLA.Proofs.TR04.MachineRelocation" "public" "definition"
+#audit_named "NLA.Proofs.TR04.relocateInstruction" "NLA.Proofs.TR04.MachineRelocation" "public" "definition"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding" "NLA.Proofs.TR04.MachineRelocation" "public" "inductive"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.Relates" "NLA.Proofs.TR04.MachineRelocation" "public" "inductive"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.Relates.real_apply" "NLA.Proofs.TR04.MachineRelocation" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.Relates.natural_apply" "NLA.Proofs.TR04.MachineRelocation" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.ordinaryStep_relates" "NLA.Proofs.TR04.MachineRelocation" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.instructionIsSVD_relocate" "NLA.Proofs.TR04.MachineRelocation" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.charge_eq" "NLA.Proofs.TR04.MachineRelocation" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.scalar_step" "NLA.Proofs.TR04.MachineRelocation" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.scalar_trace_prefix" "NLA.Proofs.TR04.MachineRelocation" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.scalar_trace_cost" "NLA.Proofs.TR04.MachineRelocation" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.scalar_trace_cost_le" "NLA.Proofs.TR04.MachineRelocation" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.ordinaryStep_real_outside" "NLA.Proofs.TR04.MachineRelocation" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.ordinaryStep_natural_outside" "NLA.Proofs.TR04.MachineRelocation" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.scalar_trace_real_outside" "NLA.Proofs.TR04.MachineRelocation" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.scalar_trace_natural_outside" "NLA.Proofs.TR04.MachineRelocation" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.machineState_ext" "NLA.Proofs.TR04.MachineScalarBlocks" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.instructionIsSVD" "NLA.Proofs.TR04.MachineScalarBlocks" "public" "definition"
+#audit_named "NLA.Proofs.TR04.step_iff_ordinary_of_scalar" "NLA.Proofs.TR04.MachineScalarBlocks" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.legalTrace_scalar_prefix" "NLA.Proofs.TR04.MachineScalarBlocks" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.costThrough_scalar_prefix" "NLA.Proofs.TR04.MachineScalarBlocks" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.charge_le_one_of_scalar" "NLA.Proofs.TR04.MachineScalarBlocks" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.costThrough_le_scalar" "NLA.Proofs.TR04.MachineScalarBlocks" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.legalTrace_cost_eq" "NLA.Proofs.TR04.MachineTraceBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.costThrough_zero" "NLA.Proofs.TR04.MachineTraceBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.costThrough_succ" "NLA.Proofs.TR04.MachineTraceBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.charge_pos_of_running" "NLA.Proofs.TR04.MachineTraceBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.legalTrace_halted_state_add" "NLA.Proofs.TR04.MachineTraceBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.costThrough_add_of_halted" "NLA.Proofs.TR04.MachineTraceBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.step_total" "NLA.Proofs.TR04.MachineTotality" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.exists_legalTrace" "NLA.Proofs.TR04.MachineTotality" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.step_cost_eq" "NLA.Proofs.TR04.MachineExecution" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.step_of_halted" "NLA.Proofs.TR04.MachineExecution" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.step_of_failed" "NLA.Proofs.TR04.MachineExecution" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.exists_legalTrace_of_step_total" "NLA.Proofs.TR04.MachineExecution" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.step_total_of_svd_total" "NLA.Proofs.TR04.MachineExecution" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.exists_legalTrace_of_svd_total" "NLA.Proofs.TR04.MachineExecution" "public" "theorem"
+#audit_named "NLA.Statements.TR04.Target" "NLA.Statements.TR04" "public" "definition"
+#audit_named "NLA.Computation.TensorTrainApproximation.Shape" "NLA.Computation.TensorTrainApproximation" "public" "inductive"
+#audit_named "NLA.Computation.TensorTrainApproximation.Index" "NLA.Computation.TensorTrainApproximation" "public" "definition"
+#audit_named "NLA.Computation.TensorTrainApproximation.Tensor" "NLA.Computation.TensorTrainApproximation" "public" "definition"
+#audit_named "NLA.Computation.TensorTrainApproximation.Cut" "NLA.Computation.TensorTrainApproximation" "public" "definition"
+#audit_named "NLA.Computation.TensorTrainApproximation.Ranks" "NLA.Computation.TensorTrainApproximation" "public" "definition"
+#audit_named "NLA.Computation.TensorTrainApproximation.RowIndex" "NLA.Computation.TensorTrainApproximation" "public" "definition"
+#audit_named "NLA.Computation.TensorTrainApproximation.ColIndex" "NLA.Computation.TensorTrainApproximation" "public" "definition"
+#audit_named "NLA.Computation.TensorTrainApproximation.join" "NLA.Computation.TensorTrainApproximation" "public" "definition"
+#audit_named "NLA.Computation.TensorTrainApproximation.Unfold" "NLA.Computation.TensorTrainApproximation" "public" "definition"
+#audit_named "NLA.Computation.TensorTrainApproximation.Feasible" "NLA.Computation.TensorTrainApproximation" "public" "definition"
+#audit_named "NLA.Computation.TensorTrainApproximation.FrobeniusSq" "NLA.Computation.TensorTrainApproximation" "public" "definition"
+#audit_named "NLA.Computation.TensorTrainApproximation.Optimum" "NLA.Computation.TensorTrainApproximation" "public" "definition"
+#audit_named "NLA.Computation.TensorTrainApproximation.DenseSize" "NLA.Computation.TensorTrainApproximation" "public" "definition"
+#audit_named "NLA.Computation.TensorTrainApproximation.SuffixSize" "NLA.Computation.TensorTrainApproximation" "public" "definition"
+#audit_named "NLA.Computation.TensorTrainApproximation.Offset" "NLA.Computation.TensorTrainApproximation" "public" "definition"
+#audit_named "NLA.Computation.TensorTrainApproximation.Decode" "NLA.Computation.TensorTrainApproximation" "public" "definition"
+#audit_named "NLA.Computation.TensorTrainApproximation.InputMemory" "NLA.Computation.TensorTrainApproximation" "public" "definition"
+#audit_named "NLA.Computation.TensorTrainApproximation.Start" "NLA.Computation.TensorTrainApproximation" "public" "definition"
+#audit_named "NLA.Computation.TensorTrainApproximation.Returns" "NLA.Computation.TensorTrainApproximation" "public" "definition"
+#audit_named "NLA.Computation.TensorTrainApproximation.Size" "NLA.Computation.TensorTrainApproximation" "public" "definition"
+#audit_named "NLA.Computation.SVDMachine.Instruction" "NLA.Computation.SVDMachine" "public" "inductive"
+#audit_named "NLA.Computation.SVDMachine.Program" "NLA.Computation.SVDMachine" "public" "inductive"
+#audit_named "NLA.Computation.SVDMachine.Status" "NLA.Computation.SVDMachine" "public" "inductive"
+#audit_named "NLA.Computation.SVDMachine.State" "NLA.Computation.SVDMachine" "public" "inductive"
+#audit_named "NLA.Computation.SVDMachine.initial" "NLA.Computation.SVDMachine" "public" "definition"
+#audit_named "NLA.Computation.SVDMachine.ordinaryStep" "NLA.Computation.SVDMachine" "public" "definition"
+#audit_named "NLA.Computation.SVDMachine.ValidSVD" "NLA.Computation.SVDMachine" "public" "definition"
+#audit_named "NLA.Computation.SVDMachine.DisjointBlocks" "NLA.Computation.SVDMachine" "public" "definition"
+#audit_named "NLA.Computation.SVDMachine.OutputBlocksDisjoint" "NLA.Computation.SVDMachine" "public" "definition"
+#audit_named "NLA.Computation.SVDMachine.matrixCell" "NLA.Computation.SVDMachine" "public" "definition"
+#audit_named "NLA.Computation.SVDMachine.readMatrix" "NLA.Computation.SVDMachine" "public" "definition"
+#audit_named "NLA.Computation.SVDMachine.writeSVD" "NLA.Computation.SVDMachine" "public" "definition"
+#audit_named "NLA.Computation.SVDMachine.charge" "NLA.Computation.SVDMachine" "public" "definition"
+#audit_named "NLA.Computation.SVDMachine.Step" "NLA.Computation.SVDMachine" "public" "definition"
+#audit_named "NLA.Computation.SVDMachine.Trace" "NLA.Computation.SVDMachine" "public" "inductive"
+#audit_named "NLA.Computation.SVDMachine.LegalTrace" "NLA.Computation.SVDMachine" "public" "definition"
+#audit_named "NLA.Computation.SVDMachine.CostThrough" "NLA.Computation.SVDMachine" "public" "definition"
+#audit_named "NLA.Proofs.TR04.SVD.image_rightBasis_eq_smul" "NLA.Proofs.TR04.SVDTotal" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.sum_fin_truncate" "NLA.Proofs.TR04.SVDTotal" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.exists_validSVD" "NLA.Proofs.TR04.SVDTotal" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.Space" "NLA.Proofs.TR04.SVDCore" "public" "definition"
+#audit_named "NLA.Proofs.TR04.SVD.rightBasis" "NLA.Proofs.TR04.SVDCore" "public" "definition"
+#audit_named "NLA.Proofs.TR04.SVD.norm_image_rightBasis" "NLA.Proofs.TR04.SVDCore" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.inner_image_rightBasis" "NLA.Proofs.TR04.SVDCore" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.image_rightBasis_eq_zero" "NLA.Proofs.TR04.SVDCore" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.range_finrank_le_domain" "NLA.Proofs.TR04.SVDCore" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.range_finrank_le_codomain" "NLA.Proofs.TR04.SVDCore" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.leftVector" "NLA.Proofs.TR04.SVDCore" "public" "definition"
+#audit_named "NLA.Proofs.TR04.SVD.orthonormal_leftVector_positive" "NLA.Proofs.TR04.SVDCore" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.exists_leftBasis" "NLA.Proofs.TR04.SVDCore" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerProductProgram" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "definition"
+#audit_named "NLA.Proofs.TR04.headerDecoderLabelMap" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "definition"
+#audit_named "NLA.Proofs.TR04.headerDecoderNatMap" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "definition"
+#audit_named "NLA.Proofs.TR04.headerDecoderEmbedding" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "definition"
+#audit_named "NLA.Proofs.TR04.headerPrefixProduct" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "definition"
+#audit_named "NLA.Proofs.TR04.headerPrefixTime" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "definition"
+#audit_named "NLA.Proofs.TR04.headerProductLoopState" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "definition"
+#audit_named "NLA.Proofs.TR04.headerProductDecodeState" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "definition"
+#audit_named "NLA.Proofs.TR04.headerProductProgram_scalar" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerProduct_setup" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerProduct_decode_relates" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerProductAfterDecode" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "definition"
+#audit_named "NLA.Proofs.TR04.headerProduct_decode" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerPrefixProduct_succ" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerPrefixTime_succ" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerProduct_finish" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerProduct_iteration" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerProduct_iterations" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerProduct_initial" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerProductFinalState" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "definition"
+#audit_named "NLA.Proofs.TR04.headerProduct_exit" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerProductTime" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "definition"
+#audit_named "NLA.Proofs.TR04.headerProduct_trace_result" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerProduct_trace_cost" "NLA.Proofs.TR04.MachineHeaderProduct" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.ordinary_iterate_relates" "NLA.Proofs.TR04.MachineRelocationOrdinary" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.ordinary_iterate_natural_outside" "NLA.Proofs.TR04.MachineRelocationOrdinary" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.ordinary_iterate_real_outside" "NLA.Proofs.TR04.MachineRelocationOrdinary" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.copyProgram_nohalt_phase" "NLA.Proofs.TR04.MachineScalarRoutines" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.copyProgram_nohalt_prefix" "NLA.Proofs.TR04.MachineScalarRoutines" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.copyReturnState" "NLA.Proofs.TR04.MachineScalarRoutines" "public" "definition"
+#audit_named "NLA.Proofs.TR04.copyProgram_return" "NLA.Proofs.TR04.MachineScalarRoutines" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.copy_run" "NLA.Proofs.TR04.MachineScalarRoutines" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.decodeNaturalProgram_nohalt_phase" "NLA.Proofs.TR04.MachineScalarRoutines" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.decodeNaturalProgram_nohalt_initial" "NLA.Proofs.TR04.MachineScalarRoutines" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.decodeNaturalProgram_nohalt_prefix" "NLA.Proofs.TR04.MachineScalarRoutines" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.decodeNaturalReturnState" "NLA.Proofs.TR04.MachineScalarRoutines" "public" "definition"
+#audit_named "NLA.Proofs.TR04.decodeNaturalProgram_return" "NLA.Proofs.TR04.MachineScalarRoutines" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.decodeNatural_run" "NLA.Proofs.TR04.MachineScalarRoutines" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.copyProgram" "NLA.Proofs.TR04.MachineCopy" "public" "definition"
+#audit_named "NLA.Proofs.TR04.copiedMemory" "NLA.Proofs.TR04.MachineCopy" "public" "definition"
+#audit_named "NLA.Proofs.TR04.copyLoopState" "NLA.Proofs.TR04.MachineCopy" "public" "definition"
+#audit_named "NLA.Proofs.TR04.copiedMemory_zero" "NLA.Proofs.TR04.MachineCopy" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.copiedMemory_outside" "NLA.Proofs.TR04.MachineCopy" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.copiedMemory_source_next" "NLA.Proofs.TR04.MachineCopy" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.copiedMemory_succ" "NLA.Proofs.TR04.MachineCopy" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.copyProgram_scalar" "NLA.Proofs.TR04.MachineCopy" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.copyProgram_six_steps" "NLA.Proofs.TR04.MachineCopy" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.copyProgram_iterations" "NLA.Proofs.TR04.MachineCopy" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.copyFinalState" "NLA.Proofs.TR04.MachineCopy" "public" "definition"
+#audit_named "NLA.Proofs.TR04.copyProgram_exit" "NLA.Proofs.TR04.MachineCopy" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.copyProgram_trace_result" "NLA.Proofs.TR04.MachineCopy" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.copyProgram_trace_cells" "NLA.Proofs.TR04.MachineCopy" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.copyProgram_trace_cost" "NLA.Proofs.TR04.MachineCopy" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.decodeNaturalProgram" "NLA.Proofs.TR04.MachineHeaderDecode" "public" "definition"
+#audit_named "NLA.Proofs.TR04.decodeNaturalLoopState" "NLA.Proofs.TR04.MachineHeaderDecode" "public" "definition"
+#audit_named "NLA.Proofs.TR04.decodeNaturalProgram_scalar" "NLA.Proofs.TR04.MachineHeaderDecode" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.decodeNaturalProgram_three_steps" "NLA.Proofs.TR04.MachineHeaderDecode" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.decodeNaturalProgram_iterations" "NLA.Proofs.TR04.MachineHeaderDecode" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.decodeNaturalFinalState" "NLA.Proofs.TR04.MachineHeaderDecode" "public" "definition"
+#audit_named "NLA.Proofs.TR04.decodeNaturalProgram_exit" "NLA.Proofs.TR04.MachineHeaderDecode" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.decodeNaturalProgram_trace_result" "NLA.Proofs.TR04.MachineHeaderDecode" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.decodeNaturalProgram_trace_cost" "NLA.Proofs.TR04.MachineHeaderDecode" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.matrixMultiplyProgram" "NLA.Proofs.TR04.MachineMatrixMultiply" "public" "definition"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyScratch" "NLA.Proofs.TR04.MachineMatrixMultiply" "public" "inductive"
+#audit_named "NLA.Proofs.TR04.matrixMultiplyState" "NLA.Proofs.TR04.MachineMatrixMultiply" "public" "definition"
+#audit_named "NLA.Proofs.TR04.matrixMultiplyCellState" "NLA.Proofs.TR04.MachineMatrixMultiply" "public" "definition"
+#audit_named "NLA.Proofs.TR04.matrixMultiplyInnerState" "NLA.Proofs.TR04.MachineMatrixMultiply" "public" "definition"
+#audit_named "NLA.Proofs.TR04.matrixMultiplyRowState" "NLA.Proofs.TR04.MachineMatrixMultiply" "public" "definition"
+#audit_named "NLA.Proofs.TR04.matrixMultiplyProgram_scalar" "NLA.Proofs.TR04.MachineMatrixMultiply" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.matrixMultiplyProgram_cell_setup" "NLA.Proofs.TR04.MachineMatrixMultiply" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.matrixMultiplyProgram_inner_eight" "NLA.Proofs.TR04.MachineMatrixMultiply" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.matrixMultiplyProgram_inner_iterations" "NLA.Proofs.TR04.MachineMatrixMultiply" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.matrixMultiplyProgram_cell_exit" "NLA.Proofs.TR04.MachineMatrixMultiply" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyData" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "inductive"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyData.bAddress" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "definition"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyData.cAddress" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "definition"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyData.leftMatrix" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "definition"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyData.rightMatrix" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "definition"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyData.productMatrix" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "definition"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyData.leftMatrix_dense" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyData.rightMatrix_dense" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyData.leftMatrix_transpose" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyData.rightMatrix_transpose" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyData.partialProduct" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "definition"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyData.partialProduct_zero" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyData.partialProduct_succ" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyData.productMatrix_entry" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyData.InputsOutsideOutput" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "definition"
+#audit_named "NLA.Proofs.TR04.prefixMemory" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "definition"
+#audit_named "NLA.Proofs.TR04.prefixMemory_zero" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.prefixMemory_outside" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.prefixMemory_update" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyData.outputPrefix" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "definition"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyData.outputPrefix_source" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyData.outputPrefix_b" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyData.outputPrefix_c" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyData.outputPrefix_update" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyData.outputPrefix_read" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.MatrixMultiplyData.dense_inputsOutsideOutput" "NLA.Proofs.TR04.MachineMatrixMultiplyMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.matrix_offset_lt" "NLA.Proofs.TR04.MachineSVDMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.matrixCell_entry" "NLA.Proofs.TR04.MachineSVDMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.disjointBlocks_not_mem_right" "NLA.Proofs.TR04.MachineSVDMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.disjointBlocks_not_mem_left" "NLA.Proofs.TR04.MachineSVDMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.writeSVD_u_entry" "NLA.Proofs.TR04.MachineSVDMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.readMatrix_writeSVD_u" "NLA.Proofs.TR04.MachineSVDMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.writeSVD_sigma_entry" "NLA.Proofs.TR04.MachineSVDMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.writeSVD_v_entry" "NLA.Proofs.TR04.MachineSVDMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.readMatrix_writeSVD_v" "NLA.Proofs.TR04.MachineSVDMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.writeSVD_outside" "NLA.Proofs.TR04.MachineSVDMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.frameGatherProgram" "NLA.Proofs.TR04.MachineFrameGather" "public" "definition"
+#audit_named "NLA.Proofs.TR04.frameGatherOuterState" "NLA.Proofs.TR04.MachineFrameGather" "public" "definition"
+#audit_named "NLA.Proofs.TR04.frameGatherStart" "NLA.Proofs.TR04.MachineFrameGather" "public" "definition"
+#audit_named "NLA.Proofs.TR04.frameGatherInnerState" "NLA.Proofs.TR04.MachineFrameGather" "public" "definition"
+#audit_named "NLA.Proofs.TR04.frameGatherProgram_scalar" "NLA.Proofs.TR04.MachineFrameGather" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.frameGatherProgram_initialize" "NLA.Proofs.TR04.MachineFrameGather" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.frameGatherProgram_row_setup" "NLA.Proofs.TR04.MachineFrameGather" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.FrameGatherParameters" "NLA.Proofs.TR04.MachineFrameGatherMemory" "public" "inductive"
+#audit_named "NLA.Proofs.TR04.FrameGatherParameters.width" "NLA.Proofs.TR04.MachineFrameGatherMemory" "public" "definition"
+#audit_named "NLA.Proofs.TR04.FrameGatherParameters.Valid" "NLA.Proofs.TR04.MachineFrameGatherMemory" "public" "inductive"
+#audit_named "NLA.Proofs.TR04.FrameGatherParameters.counter" "NLA.Proofs.TR04.MachineFrameGatherMemory" "public" "definition"
+#audit_named "NLA.Proofs.TR04.FrameGatherParameters.column" "NLA.Proofs.TR04.MachineFrameGatherMemory" "public" "definition"
+#audit_named "NLA.Proofs.TR04.FrameGatherParameters.sourceAddress" "NLA.Proofs.TR04.MachineFrameGatherMemory" "public" "definition"
+#audit_named "NLA.Proofs.TR04.FrameGatherParameters.Valid.width_le" "NLA.Proofs.TR04.MachineFrameGatherMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.FrameGatherParameters.counter_prefix" "NLA.Proofs.TR04.MachineFrameGatherMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.FrameGatherParameters.counter_lt" "NLA.Proofs.TR04.MachineFrameGatherMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.FrameGatherParameters.counter_succ" "NLA.Proofs.TR04.MachineFrameGatherMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.FrameGatherParameters.column_lt" "NLA.Proofs.TR04.MachineFrameGatherMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.FrameGatherParameters.sourceAddress_flat" "NLA.Proofs.TR04.MachineFrameGatherMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.FrameGatherParameters.sourceAddress_mem" "NLA.Proofs.TR04.MachineFrameGatherMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.frameGatherMemory" "NLA.Proofs.TR04.MachineFrameGatherMemory" "public" "definition"
+#audit_named "NLA.Proofs.TR04.frameGatherMemory_zero" "NLA.Proofs.TR04.MachineFrameGatherMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.frameGatherMemory_outside" "NLA.Proofs.TR04.MachineFrameGatherMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.frameGatherMemory_succ" "NLA.Proofs.TR04.MachineFrameGatherMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.frameGatherMemory_input" "NLA.Proofs.TR04.MachineFrameGatherMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.frameGatherMemory_read" "NLA.Proofs.TR04.MachineFrameGatherMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.frameGatherMemory_output" "NLA.Proofs.TR04.MachineFrameGatherMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.shiftedTrace" "NLA.Proofs.TR04.MachineTraceComposition" "public" "definition"
+#audit_named "NLA.Proofs.TR04.legalTrace_shift" "NLA.Proofs.TR04.MachineTraceComposition" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.costThrough_shift" "NLA.Proofs.TR04.MachineTraceComposition" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.costThrough_compose_le" "NLA.Proofs.TR04.MachineTraceComposition" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.copy_run_at" "NLA.Proofs.TR04.MachineTraceComposition" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.decodeNatural_run_at" "NLA.Proofs.TR04.MachineTraceComposition" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ordinaryStep_eq_of_stopped" "NLA.Proofs.TR04.MachineNoEarlyHalt" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ordinary_iterate_eq_of_stopped" "NLA.Proofs.TR04.MachineNoEarlyHalt" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ordinary_running_prefix" "NLA.Proofs.TR04.MachineNoEarlyHalt" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ordinary_nohalt_prefix_of_running" "NLA.Proofs.TR04.MachineNoEarlyHalt" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.thresholdScanProgram" "NLA.Proofs.TR04.MachineThresholdScan" "public" "definition"
+#audit_named "NLA.Proofs.TR04.thresholdScanProgram_nonzero_reals" "NLA.Proofs.TR04.MachineThresholdScan" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.thresholdScanLoopState" "NLA.Proofs.TR04.MachineThresholdScan" "public" "definition"
+#audit_named "NLA.Proofs.TR04.thresholdScanStart" "NLA.Proofs.TR04.MachineThresholdScan" "public" "definition"
+#audit_named "NLA.Proofs.TR04.thresholdScanProgram_scalar" "NLA.Proofs.TR04.MachineThresholdScan" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.thresholdScanProgram_initialize" "NLA.Proofs.TR04.MachineThresholdScan" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ThresholdScanParameters" "NLA.Proofs.TR04.MachineThresholdScanCounts" "public" "inductive"
+#audit_named "NLA.Proofs.TR04.thresholdAboveCount" "NLA.Proofs.TR04.MachineThresholdScanCounts" "public" "definition"
+#audit_named "NLA.Proofs.TR04.thresholdTiedCount" "NLA.Proofs.TR04.MachineThresholdScanCounts" "public" "definition"
+#audit_named "NLA.Proofs.TR04.thresholdTakeCount" "NLA.Proofs.TR04.MachineThresholdScanCounts" "public" "definition"
+#audit_named "NLA.Proofs.TR04.thresholdAboveCount_zero" "NLA.Proofs.TR04.MachineThresholdScanCounts" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.thresholdTiedCount_zero" "NLA.Proofs.TR04.MachineThresholdScanCounts" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.thresholdTakeCount_zero" "NLA.Proofs.TR04.MachineThresholdScanCounts" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.thresholdAboveCount_succ" "NLA.Proofs.TR04.MachineThresholdScanCounts" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.thresholdTiedCount_succ" "NLA.Proofs.TR04.MachineThresholdScanCounts" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.thresholdTakeCount_succ" "NLA.Proofs.TR04.MachineThresholdScanCounts" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.bestCandidateProgram" "NLA.Proofs.TR04.MachineBestCandidate" "public" "definition"
+#audit_named "NLA.Proofs.TR04.bestCandidateProgram_nonzero_realRegisters" "NLA.Proofs.TR04.MachineBestCandidate" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.bestCandidateErrorLabels" "NLA.Proofs.TR04.MachineBestCandidate" "public" "definition"
+#audit_named "NLA.Proofs.TR04.bestCandidateErrorNaturals" "NLA.Proofs.TR04.MachineBestCandidate" "public" "definition"
+#audit_named "NLA.Proofs.TR04.bestCandidateErrorReals" "NLA.Proofs.TR04.MachineBestCandidate" "public" "definition"
+#audit_named "NLA.Proofs.TR04.bestCandidateErrorEmbedding" "NLA.Proofs.TR04.MachineBestCandidate" "public" "definition"
+#audit_named "NLA.Proofs.TR04.BestCandidateScratch" "NLA.Proofs.TR04.MachineBestCandidate" "public" "inductive"
+#audit_named "NLA.Proofs.TR04.bestCandidateState" "NLA.Proofs.TR04.MachineBestCandidate" "public" "definition"
+#audit_named "NLA.Proofs.TR04.bestCandidateLoopState" "NLA.Proofs.TR04.MachineBestCandidate" "public" "definition"
+#audit_named "NLA.Proofs.TR04.bestCandidateErrorState" "NLA.Proofs.TR04.MachineBestCandidate" "public" "definition"
+#audit_named "NLA.Proofs.TR04.bestCandidateAfterError" "NLA.Proofs.TR04.MachineBestCandidate" "public" "definition"
+#audit_named "NLA.Proofs.TR04.bestCandidateProgram_scalar" "NLA.Proofs.TR04.MachineBestCandidate" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.bestCandidateProgram_setup" "NLA.Proofs.TR04.MachineBestCandidate" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.bestCandidate_error_relates" "NLA.Proofs.TR04.MachineBestCandidate" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.BestCandidateData" "NLA.Proofs.TR04.MachineBestCandidateMemory" "public" "inductive"
+#audit_named "NLA.Proofs.TR04.BestCandidateData.candidateBase" "NLA.Proofs.TR04.MachineBestCandidateMemory" "public" "definition"
+#audit_named "NLA.Proofs.TR04.BestCandidateData.candidateError" "NLA.Proofs.TR04.MachineBestCandidateMemory" "public" "definition"
+#audit_named "NLA.Proofs.TR04.BestCandidateData.MinimumSoFar" "NLA.Proofs.TR04.MachineBestCandidateMemory" "public" "definition"
+#audit_named "NLA.Proofs.TR04.BestCandidateData.minimum_take" "NLA.Proofs.TR04.MachineBestCandidateMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.BestCandidateData.minimum_keep" "NLA.Proofs.TR04.MachineBestCandidateMemory" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.squaredErrorProgram_nohalt_phase" "NLA.Proofs.TR04.MachineSquaredErrorTrace" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.squaredErrorProgram_nohalt_loop_prefix" "NLA.Proofs.TR04.MachineSquaredErrorTrace" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.squaredErrorProgram_nohalt_prefix" "NLA.Proofs.TR04.MachineSquaredErrorTrace" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.squaredErrorReturnState" "NLA.Proofs.TR04.MachineSquaredErrorTrace" "public" "definition"
+#audit_named "NLA.Proofs.TR04.squaredErrorProgram_return" "NLA.Proofs.TR04.MachineSquaredErrorTrace" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.squaredError_run" "NLA.Proofs.TR04.MachineSquaredErrorTrace" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.squaredError_run_at" "NLA.Proofs.TR04.MachineSquaredErrorTrace" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.squaredError_run_value" "NLA.Proofs.TR04.MachineSquaredErrorTrace" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.squaredErrorProgram" "NLA.Proofs.TR04.MachineSquaredError" "public" "definition"
+#audit_named "NLA.Proofs.TR04.squaredErrorProgram_nonzero_realRegisters" "NLA.Proofs.TR04.MachineSquaredError" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.squaredErrorSum" "NLA.Proofs.TR04.MachineSquaredError" "public" "definition"
+#audit_named "NLA.Proofs.TR04.squaredErrorSum_zero" "NLA.Proofs.TR04.MachineSquaredError" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.squaredErrorSum_succ" "NLA.Proofs.TR04.MachineSquaredError" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.squaredErrorLoopState" "NLA.Proofs.TR04.MachineSquaredError" "public" "definition"
+#audit_named "NLA.Proofs.TR04.squaredErrorStart" "NLA.Proofs.TR04.MachineSquaredError" "public" "definition"
+#audit_named "NLA.Proofs.TR04.squaredErrorProgram_scalar" "NLA.Proofs.TR04.MachineSquaredError" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.squaredErrorProgram_initialize" "NLA.Proofs.TR04.MachineSquaredError" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.squaredErrorProgram_nine_steps" "NLA.Proofs.TR04.MachineSquaredError" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.squaredErrorProgram_iterations" "NLA.Proofs.TR04.MachineSquaredError" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.squaredErrorFinalState" "NLA.Proofs.TR04.MachineSquaredError" "public" "definition"
+#audit_named "NLA.Proofs.TR04.squaredErrorProgram_exit" "NLA.Proofs.TR04.MachineSquaredError" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.squaredErrorProgram_finish" "NLA.Proofs.TR04.MachineSquaredError" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.squaredErrorProgram_trace_result" "NLA.Proofs.TR04.MachineSquaredError" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.squaredErrorProgram_trace_cost" "NLA.Proofs.TR04.MachineSquaredError" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerPrefixProduct_shape" "NLA.Proofs.TR04.MachineHeaderProductOriginal" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerPrefixProduct_shape_le" "NLA.Proofs.TR04.MachineHeaderProductOriginal" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerPrefixTime_shape" "NLA.Proofs.TR04.MachineHeaderProductOriginal" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerProductTime_shape" "NLA.Proofs.TR04.MachineHeaderProductOriginal" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerProductTime_shape_le_size" "NLA.Proofs.TR04.MachineHeaderProductOriginal" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.shape_headerProduct_trace_exists" "NLA.Proofs.TR04.MachineHeaderProductOriginal" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.shape_headerProduct_trace_result" "NLA.Proofs.TR04.MachineHeaderProductOriginal" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.shapeHeaderValues" "NLA.Proofs.TR04.ShapeInitializationBounds" "public" "definition"
+#audit_named "NLA.Proofs.TR04.shapeHeaderValues_fin" "NLA.Proofs.TR04.ShapeInitializationBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.inputMemory_shapeHeader" "NLA.Proofs.TR04.ShapeInitializationBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.shapeHeaderValues_sum" "NLA.Proofs.TR04.ShapeInitializationBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.shapeHeaderValues_product" "NLA.Proofs.TR04.ShapeInitializationBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.fin_sum_le_prod_of_two_le_aux" "NLA.Proofs.TR04.ShapeInitializationBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.fin_sum_le_prod_of_two_le" "NLA.Proofs.TR04.ShapeInitializationBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.shape_sum_modes_le_denseSize" "NLA.Proofs.TR04.ShapeInitializationBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.shape_denseSize_pos" "NLA.Proofs.TR04.ShapeInitializationBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.shape_order_le_denseSize" "NLA.Proofs.TR04.ShapeInitializationBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.shape_mode_le_denseSize" "NLA.Proofs.TR04.ShapeInitializationBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.shape_suffix_pos" "NLA.Proofs.TR04.ShapeInitializationBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.shape_suffix_le_denseSize" "NLA.Proofs.TR04.ShapeInitializationBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.shape_denseSize_le_size" "NLA.Proofs.TR04.ShapeInitializationBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerProductReturnTime" "NLA.Proofs.TR04.MachineHeaderProductCallable" "public" "definition"
+#audit_named "NLA.Proofs.TR04.headerProductReturnState" "NLA.Proofs.TR04.MachineHeaderProductCallable" "public" "definition"
+#audit_named "NLA.Proofs.TR04.headerProduct_exit_test" "NLA.Proofs.TR04.MachineHeaderProductCallable" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerProduct_return" "NLA.Proofs.TR04.MachineHeaderProductCallable" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerProduct_return_running" "NLA.Proofs.TR04.MachineHeaderProductCallable" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.headerProduct_run_at" "NLA.Proofs.TR04.MachineHeaderProductCallable" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.trace_scalar_block_at" "NLA.Proofs.TR04.MachineInstructionTrace" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.trace_svd_at" "NLA.Proofs.TR04.MachineInstructionTrace" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerSingleReturnState" "NLA.Proofs.TR04.MachineHeaderProductSingle" "public" "definition"
+#audit_named "NLA.Proofs.TR04.headerSingle_after_decode" "NLA.Proofs.TR04.MachineHeaderProductSingle" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerSingle_return" "NLA.Proofs.TR04.MachineHeaderProductSingle" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.headerSingle_run_at" "NLA.Proofs.TR04.MachineHeaderProductSingle" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.endAddress_eq" "NLA.Proofs.TR04.TTMemoryLayoutBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.store_le_endAddress" "NLA.Proofs.TR04.TTMemoryLayoutBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.metadata_before_store" "NLA.Proofs.TR04.TTMemoryLayoutBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.workA_before_store" "NLA.Proofs.TR04.TTMemoryLayoutBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.workB_before_store" "NLA.Proofs.TR04.TTMemoryLayoutBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.prefix_address_lt_end" "NLA.Proofs.TR04.TTMemoryLayoutBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.frame_address_lt_end" "NLA.Proofs.TR04.TTMemoryLayoutBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.metadata_address_lt_end" "NLA.Proofs.TR04.TTMemoryLayoutBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.candidate_address_lt_end" "NLA.Proofs.TR04.TTMemoryLayoutBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.endAddress_le_cubic" "NLA.Proofs.TR04.TTMemoryLayoutBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.ofShape_input" "NLA.Proofs.TR04.TTMemoryLayoutBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.ofShape_endAddress_le_size" "NLA.Proofs.TR04.TTMemoryLayoutBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.ofShape_allocated_address_lt_size" "NLA.Proofs.TR04.TTMemoryLayoutBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.StageMetadata" "NLA.Proofs.TR04.TTMemoryLayoutBounds" "public" "inductive"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.StageMetadata.value" "NLA.Proofs.TR04.TTMemoryLayoutBounds" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.StageMetadata.Bounded" "NLA.Proofs.TR04.TTMemoryLayoutBounds" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.StageMetadata.value_le" "NLA.Proofs.TR04.TTMemoryLayoutBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.StageMetadata.frame_capacity" "NLA.Proofs.TR04.TTMemoryLayoutBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.StageMetadata.original_value_le_size" "NLA.Proofs.TR04.TTMemoryLayoutBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.first_outputs_disjoint" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.child_outputs_disjoint" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.header_disjoint" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.input_disjoint" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.firstU_before_workA" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.firstV_before_workA" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.firstSigma_before_workA" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.input_before_workA" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.childSigma_before_workA" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.childV_before_workA" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.frame_before_workA" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.before_work_disjoint" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.work_buffers_disjoint" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.workA_candidate_disjoint" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.workB_candidate_disjoint" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.frame_metadata_disjoint" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.frame_work_disjoint" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.frame_rectangle_fits" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.workA_rectangle_fits" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.workB_rectangle_fits" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.frame_workA_rectangle_disjoint" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.work_rectangle_disjoint" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.writeSVD_preserves_disjoint_block" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.write_firstSVD_prefix" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.write_childSVD_work" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.firstU_frame_disjoint" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.write_firstSVD_later" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.write_childSVD_other_frame" "NLA.Proofs.TR04.TTMemoryLayoutProtection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout" "NLA.Proofs.TR04.TTMemoryLayout" "public" "inductive"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.ofShape" "NLA.Proofs.TR04.TTMemoryLayout" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.input" "NLA.Proofs.TR04.TTMemoryLayout" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.firstU" "NLA.Proofs.TR04.TTMemoryLayout" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.firstSigma" "NLA.Proofs.TR04.TTMemoryLayout" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.firstV" "NLA.Proofs.TR04.TTMemoryLayout" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.childSigma" "NLA.Proofs.TR04.TTMemoryLayout" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.childV" "NLA.Proofs.TR04.TTMemoryLayout" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.frames" "NLA.Proofs.TR04.TTMemoryLayout" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.frame" "NLA.Proofs.TR04.TTMemoryLayout" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.metadata" "NLA.Proofs.TR04.TTMemoryLayout" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.metadataCell" "NLA.Proofs.TR04.TTMemoryLayout" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.workA" "NLA.Proofs.TR04.TTMemoryLayout" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.workB" "NLA.Proofs.TR04.TTMemoryLayout" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.store" "NLA.Proofs.TR04.TTMemoryLayout" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.candidate" "NLA.Proofs.TR04.TTMemoryLayout" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.endAddress" "NLA.Proofs.TR04.TTMemoryLayout" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Fits" "NLA.Proofs.TR04.TTMemoryLayout" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.fits_same" "NLA.Proofs.TR04.TTMemoryLayout" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.fits_trans" "NLA.Proofs.TR04.TTMemoryLayout" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.disjoint_symm" "NLA.Proofs.TR04.TTMemoryLayout" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.disjoint_of_end_le" "NLA.Proofs.TR04.TTMemoryLayout" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.disjoint_fits" "NLA.Proofs.TR04.TTMemoryLayout" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.fits_address" "NLA.Proofs.TR04.TTMemoryLayout" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.square_capacity" "NLA.Proofs.TR04.TTMemoryLayout" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.rectangle_capacity" "NLA.Proofs.TR04.TTMemoryLayout" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.frame_fits" "NLA.Proofs.TR04.TTMemoryLayout" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.frame_before_metadata" "NLA.Proofs.TR04.TTMemoryLayout" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.frames_disjoint" "NLA.Proofs.TR04.TTMemoryLayout" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.metadataCell_mem" "NLA.Proofs.TR04.TTMemoryLayout" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.metadataCell_injective" "NLA.Proofs.TR04.TTMemoryLayout" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.candidate_fits" "NLA.Proofs.TR04.TTMemoryLayout" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TTMemoryLayout.Layout.candidates_disjoint" "NLA.Proofs.TR04.TTMemoryLayout" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInitTrace_naturals" "NLA.Proofs.TR04.MachineTTInitializationTrace" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.TTInitKept" "NLA.Proofs.TR04.MachineTTInitializationTrace" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TTInitPreserves" "NLA.Proofs.TR04.MachineTTInitializationTrace" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttInitPreserves_trans" "NLA.Proofs.TR04.MachineTTInitializationTrace" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInitPreserves_allocation" "NLA.Proofs.TR04.MachineTTInitializationTrace" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttModeSuffix_preserves" "NLA.Proofs.TR04.MachineTTInitializationTrace" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttColsRank_preserves" "NLA.Proofs.TR04.MachineTTInitializationTrace" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttFirstRank_preserves" "NLA.Proofs.TR04.MachineTTInitializationTrace" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttHeaderDispatch_preserves" "NLA.Proofs.TR04.MachineTTInitializationTrace" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttHeader_preserves_of_outside" "NLA.Proofs.TR04.MachineTTInitializationTrace" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttScalar_finish_at" "NLA.Proofs.TR04.MachineTTInitializationTrace" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttFirstRank_fields" "NLA.Proofs.TR04.MachineTTInitializationTrace" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttFirstRank_run_at" "NLA.Proofs.TR04.MachineTTInitializationTrace" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttModeSuffix_call_at" "NLA.Proofs.TR04.MachineTTInitializationTrace" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttColsRank_call_at" "NLA.Proofs.TR04.MachineTTInitializationTrace" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttHeaderDispatch_call_at" "NLA.Proofs.TR04.MachineTTInitializationTrace" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttHeader_outside_at" "NLA.Proofs.TR04.MachineTTHeaderCalls" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttHeaderSingle_full_at" "NLA.Proofs.TR04.MachineTTHeaderCalls" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttHeaderRange_full_at" "NLA.Proofs.TR04.MachineTTHeaderCalls" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttAllocation_transfer" "NLA.Proofs.TR04.MachineTTHeaderCalls" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttModeSuffix_relates" "NLA.Proofs.TR04.MachineTTHeaderCalls" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttColsRank_relates" "NLA.Proofs.TR04.MachineTTHeaderCalls" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInitScalar_nonzero_reals" "NLA.Proofs.TR04.MachineTTInitializationScalar" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInitScalar_labels" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInitScalar_naturals" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInitScalar_reals" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code144" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code145" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code146" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code147" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code148" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code149" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code150" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code151" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code152" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code153" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code154" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code155" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code156" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code157" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code158" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code159" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code160" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code161" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code162" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code163" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code164" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code165" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttInit_code166" "NLA.Proofs.TR04.MachineTTInitializationScalar" "private" "theorem"
+#audit_named "NLA.Proofs.TR04.ttModeSuffixEntry" "NLA.Proofs.TR04.MachineTTInitializationScalar" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttModeSuffix_steps" "NLA.Proofs.TR04.MachineTTInitializationScalar" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttColsRankEntry" "NLA.Proofs.TR04.MachineTTInitializationScalar" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttColsRank_steps" "NLA.Proofs.TR04.MachineTTInitializationScalar" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttFirstMinRowsEnd" "NLA.Proofs.TR04.MachineTTInitializationScalar" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttFirstMinRows_steps" "NLA.Proofs.TR04.MachineTTInitializationScalar" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttFirstMinCapRowsEnd" "NLA.Proofs.TR04.MachineTTInitializationScalar" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttFirstMinCapRows_steps" "NLA.Proofs.TR04.MachineTTInitializationScalar" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttFirstMinCapColsEnd" "NLA.Proofs.TR04.MachineTTInitializationScalar" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttFirstMinCapCols_steps" "NLA.Proofs.TR04.MachineTTInitializationScalar" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttFirstRankEnd" "NLA.Proofs.TR04.MachineTTInitializationScalar" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttFirstRank_steps" "NLA.Proofs.TR04.MachineTTInitializationScalar" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttHeaderHandler" "NLA.Proofs.TR04.MachineTTHeaderDispatch" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttHeaderTagLabel" "NLA.Proofs.TR04.MachineTTHeaderDispatch" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttHeaderCompareLabel" "NLA.Proofs.TR04.MachineTTHeaderDispatch" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttHeaderRejectLabel" "NLA.Proofs.TR04.MachineTTHeaderDispatch" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttProgram_code_header_tag" "NLA.Proofs.TR04.MachineTTHeaderDispatch" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttProgram_code_header_compare" "NLA.Proofs.TR04.MachineTTHeaderDispatch" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttHeaderRejectedState" "NLA.Proofs.TR04.MachineTTHeaderDispatch" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttHeaderDispatchEnd" "NLA.Proofs.TR04.MachineTTHeaderDispatch" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttHeader_reject_steps" "NLA.Proofs.TR04.MachineTTHeaderDispatch" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttHeader_accept_steps" "NLA.Proofs.TR04.MachineTTHeaderDispatch" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttHeader_scan_steps" "NLA.Proofs.TR04.MachineTTHeaderDispatch" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttHeaderDispatch_steps" "NLA.Proofs.TR04.MachineTTHeaderDispatch" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttOrdinary_nosvd_prefix_of_running" "NLA.Proofs.TR04.MachineTTHeaderDispatch" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttHeaderDispatch_run_at" "NLA.Proofs.TR04.MachineTTHeaderDispatch" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttHeaderDispatch_fields_at" "NLA.Proofs.TR04.MachineTTHeaderDispatch" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerRangeValues" "NLA.Proofs.TR04.MachineHeaderProductRange" "public" "definition"
+#audit_named "NLA.Proofs.TR04.headerRangeProduct" "NLA.Proofs.TR04.MachineHeaderProductRange" "public" "definition"
+#audit_named "NLA.Proofs.TR04.headerRangeTime" "NLA.Proofs.TR04.MachineHeaderProductRange" "public" "definition"
+#audit_named "NLA.Proofs.TR04.headerRange_prefix_start" "NLA.Proofs.TR04.MachineHeaderProductRange" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerRange_prefix_product" "NLA.Proofs.TR04.MachineHeaderProductRange" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerRange_iterations" "NLA.Proofs.TR04.MachineHeaderProductRange" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerRangeEntryState" "NLA.Proofs.TR04.MachineHeaderProductRange" "public" "definition"
+#audit_named "NLA.Proofs.TR04.headerRangeReturnState" "NLA.Proofs.TR04.MachineHeaderProductRange" "public" "definition"
+#audit_named "NLA.Proofs.TR04.headerRange_entry_product" "NLA.Proofs.TR04.MachineHeaderProductRange" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerRange_entry_eq" "NLA.Proofs.TR04.MachineHeaderProductRange" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerRange_return_product" "NLA.Proofs.TR04.MachineHeaderProductRange" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerRange_return" "NLA.Proofs.TR04.MachineHeaderProductRange" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerRange_time_le" "NLA.Proofs.TR04.MachineHeaderProductRange" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.RoutineEmbedding.headerRange_run_at" "NLA.Proofs.TR04.MachineHeaderProductRange" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttFirstRankValue" "NLA.Proofs.TR04.MachineTTInitialShape" "public" "definition"
+#audit_named "NLA.Proofs.TR04.ttFirstCols" "NLA.Proofs.TR04.MachineTTInitialShape" "public" "definition"
+#audit_named "NLA.Proofs.TR04.inputMemory_rankHeader" "NLA.Proofs.TR04.MachineTTInitialShape" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.inputMemory_firstRank" "NLA.Proofs.TR04.MachineTTInitialShape" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerRangeProduct_shape_drop" "NLA.Proofs.TR04.MachineTTInitialShape" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttFirstCols_prod" "NLA.Proofs.TR04.MachineTTInitialShape" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttFirstCols_pos" "NLA.Proofs.TR04.MachineTTInitialShape" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttFirstCols_le_denseSize" "NLA.Proofs.TR04.MachineTTInitialShape" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttFirstMode_le_size" "NLA.Proofs.TR04.MachineTTInitialShape" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.ttFirstRankValue_le_size" "NLA.Proofs.TR04.MachineTTInitialShape" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.headerRangeTime_shape_le_size" "NLA.Proofs.TR04.MachineTTInitialShape" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.Reachable" "NLA.Proofs.TR04.TTDimensionBoundsReachable" "public" "inductive"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.Reachable.invariants" "NLA.Proofs.TR04.TTDimensionBoundsReachable" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.Reachable.step_bounds" "NLA.Proofs.TR04.TTDimensionBoundsReachable" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.Reachable.nonempty" "NLA.Proofs.TR04.TTDimensionBoundsReachable" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.tail_drop" "NLA.Proofs.TR04.TTDimensionBoundsReachable" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.Reachable.tail_eq_drop" "NLA.Proofs.TR04.TTDimensionBoundsReachable" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.Reachable.level_lt" "NLA.Proofs.TR04.TTDimensionBoundsReachable" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.positiveModes_original" "NLA.Proofs.TR04.TTDimensionBoundsReachable" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.positiveRanks_original" "NLA.Proofs.TR04.TTDimensionBoundsReachable" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.Reachable.original_invariants" "NLA.Proofs.TR04.TTDimensionBoundsReachable" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.Reachable.original_step_bounds" "NLA.Proofs.TR04.TTDimensionBoundsReachable" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.Reachable.original_level_lt" "NLA.Proofs.TR04.TTDimensionBoundsReachable" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.Reachable.original_suffix" "NLA.Proofs.TR04.TTDimensionBoundsReachable" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.PositiveModes" "NLA.Proofs.TR04.TTDimensionBounds" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.PositiveRanks" "NLA.Proofs.TR04.TTDimensionBounds" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.positiveModes_cons" "NLA.Proofs.TR04.TTDimensionBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.positiveModes_prod" "NLA.Proofs.TR04.TTDimensionBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.suffixSize_eq_prod" "NLA.Proofs.TR04.TTDimensionBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.suffixSize_pos" "NLA.Proofs.TR04.TTDimensionBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.mode_le_prod" "NLA.Proofs.TR04.TTDimensionBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.stepRank_le_rows" "NLA.Proofs.TR04.TTDimensionBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.stepRank_le_cols" "NLA.Proofs.TR04.TTDimensionBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.stepRank_le_request" "NLA.Proofs.TR04.TTDimensionBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.stepRank_pos" "NLA.Proofs.TR04.TTDimensionBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.step_prod_le" "NLA.Proofs.TR04.TTDimensionBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.step_compressed_dense_le" "NLA.Proofs.TR04.TTDimensionBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.step_length" "NLA.Proofs.TR04.TTDimensionBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.step_positiveModes" "NLA.Proofs.TR04.TTDimensionBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.step_positiveRanks" "NLA.Proofs.TR04.TTDimensionBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.StepBounds" "NLA.Proofs.TR04.TTDimensionBounds" "public" "inductive"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Dimensions.step_bounds_of_product" "NLA.Proofs.TR04.TTDimensionBounds" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.RankFeasible" "NLA.Proofs.TR04.TTCompletion" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.stepRank" "NLA.Proofs.TR04.TTCompletion" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.stepFrame" "NLA.Proofs.TR04.TTCompletion" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.stepInput" "NLA.Proofs.TR04.TTCompletion" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.stepOutput" "NLA.Proofs.TR04.TTCompletion" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Completion" "NLA.Proofs.TR04.TTCompletion" "public" "inductive"
+#audit_named "NLA.Proofs.TR04.TensorFormat.completion_exists" "NLA.Proofs.TR04.TTCompletion" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.rankFeasible_merge_contract" "NLA.Proofs.TR04.TTCompletion" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.completion_feasible" "NLA.Proofs.TR04.TTCompletion" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.suffixSize" "NLA.Proofs.TR04.TensorCompressionSVD" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.suffixEquiv" "NLA.Proofs.TR04.TensorCompressionSVD" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.denseFirst" "NLA.Proofs.TR04.TensorCompressionSVD" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.rank_denseFirst" "NLA.Proofs.TR04.TensorCompressionSVD" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.energy_denseFirst" "NLA.Proofs.TR04.TensorCompressionSVD" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.denseFirst_sub" "NLA.Proofs.TR04.TensorCompressionSVD" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.cappedRank" "NLA.Proofs.TR04.TensorCompressionSVD" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.prefixFrame" "NLA.Proofs.TR04.TensorCompressionSVD" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.prefixFrame_orthonormal" "NLA.Proofs.TR04.TensorCompressionSVD" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.denseFirst_actFirst" "NLA.Proofs.TR04.TensorCompressionSVD" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.denseFirst_prefix_projection" "NLA.Proofs.TR04.TensorCompressionSVD" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.error_prefix_projection_le" "NLA.Proofs.TR04.TensorCompressionSVD" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.reindexLinearEquiv" "NLA.Proofs.TR04.TensorCompressionMerge" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.energy_reindex" "NLA.Proofs.TR04.TensorCompressionMerge" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.error_reindex" "NLA.Proofs.TR04.TensorCompressionMerge" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.mergeIndexEquiv" "NLA.Proofs.TR04.TensorCompressionMerge" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.merge" "NLA.Proofs.TR04.TensorCompressionMerge" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.merge_apply" "NLA.Proofs.TR04.TensorCompressionMerge" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.energy_merge" "NLA.Proofs.TR04.TensorCompressionMerge" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.error_merge" "NLA.Proofs.TR04.TensorCompressionMerge" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.unfold_merge" "NLA.Proofs.TR04.TensorCompressionMerge" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.rank_unfold_merge" "NLA.Proofs.TR04.TensorCompressionMerge" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.projected_error_eq" "NLA.Proofs.TR04.TensorCompressionMerge" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.prefixAction" "NLA.Proofs.TR04.TensorCompressionRanks" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.unfold_actFirst_succ" "NLA.Proofs.TR04.TensorCompressionRanks" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.rank_unfold_actFirst_le" "NLA.Proofs.TR04.TensorCompressionRanks" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.rank_unfold_contract_le" "NLA.Proofs.TR04.TensorCompressionRanks" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.rank_unfold_lift_le" "NLA.Proofs.TR04.TensorCompressionRanks" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.headIndexEquiv" "NLA.Proofs.TR04.TensorCompressionRanks" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.unfold_one_eq_submatrix" "NLA.Proofs.TR04.TensorCompressionRanks" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.rank_unfold_one" "NLA.Proofs.TR04.TensorCompressionRanks" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.rank_unfold_lift_one_le" "NLA.Proofs.TR04.TensorCompressionRanks" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.firstMatrix" "NLA.Proofs.TR04.TensorCompression" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.firstMatrixLinearEquiv" "NLA.Proofs.TR04.TensorCompression" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.actFirst" "NLA.Proofs.TR04.TensorCompression" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.contract" "NLA.Proofs.TR04.TensorCompression" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.lift" "NLA.Proofs.TR04.TensorCompression" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.firstMatrix_actFirst" "NLA.Proofs.TR04.TensorCompression" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.actFirst_zero" "NLA.Proofs.TR04.TensorCompression" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.actFirst_sub" "NLA.Proofs.TR04.TensorCompression" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.actFirst_comp" "NLA.Proofs.TR04.TensorCompression" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.actFirst_one" "NLA.Proofs.TR04.TensorCompression" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.contract_lift" "NLA.Proofs.TR04.TensorCompression" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.energy_firstMatrix" "NLA.Proofs.TR04.TensorCompression" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.energy_lift" "NLA.Proofs.TR04.TensorCompression" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.error_lift" "NLA.Proofs.TR04.TensorCompression" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.inner" "NLA.Proofs.TR04.TensorCompression" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.energy_add" "NLA.Proofs.TR04.TensorCompression" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.inner_contract_lift" "NLA.Proofs.TR04.TensorCompression" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.residual_inner_lift" "NLA.Proofs.TR04.TensorCompression" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.error_lift_decomposition" "NLA.Proofs.TR04.TensorCompression" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.energy_contract_le" "NLA.Proofs.TR04.TensorCompression" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.error_contract_le" "NLA.Proofs.TR04.TensorCompression" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Index" "NLA.Proofs.TR04.TensorFormat" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.indexFintype" "NLA.Proofs.TR04.TensorFormat" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.Tensor" "NLA.Proofs.TR04.TensorFormat" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.splitIndex" "NLA.Proofs.TR04.TensorFormat" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.joinIndex" "NLA.Proofs.TR04.TensorFormat" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.joinIndex_zero" "NLA.Proofs.TR04.TensorFormat" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.join_splitIndex" "NLA.Proofs.TR04.TensorFormat" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.split_joinIndex" "NLA.Proofs.TR04.TensorFormat" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.splitEquiv" "NLA.Proofs.TR04.TensorFormat" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.unfold" "NLA.Proofs.TR04.TensorFormat" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.unfoldLinearEquiv" "NLA.Proofs.TR04.TensorFormat" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.energy" "NLA.Proofs.TR04.TensorFormat" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.error" "NLA.Proofs.TR04.TensorFormat" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.energy_nonneg" "NLA.Proofs.TR04.TensorFormat" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.energy_unfold" "NLA.Proofs.TR04.TensorFormat" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.unfold_zero" "NLA.Proofs.TR04.TensorFormat" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.unfold_sub" "NLA.Proofs.TR04.TensorFormat" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.error_unfold" "NLA.Proofs.TR04.TensorFormat" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.energy_zero" "NLA.Proofs.TR04.TensorFormat" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.error_zero_right" "NLA.Proofs.TR04.TensorFormat" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.error_nonneg" "NLA.Proofs.TR04.TensorFormat" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.card_index" "NLA.Proofs.TR04.TensorFormat" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.modeList" "NLA.Proofs.TR04.TensorFormat" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.modeList_eq_ofFn" "NLA.Proofs.TR04.TensorFormat" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.length_modeList" "NLA.Proofs.TR04.TensorFormat" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.vectorIndexEquiv" "NLA.Proofs.TR04.TensorFormat" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.ofFnIndexEquiv" "NLA.Proofs.TR04.TensorFormat" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.originalTensorLinearEquiv" "NLA.Proofs.TR04.TensorFormat" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.original_error_eq" "NLA.Proofs.TR04.TensorFormat" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.sum_unfold_indices" "NLA.Proofs.TR04.ReshapeFrobenius" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.frobeniusSq_eq_unfold_sum" "NLA.Proofs.TR04.ReshapeFrobenius" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.splitIndex" "NLA.Proofs.TR04.Reshape" "public" "definition"
+#audit_named "NLA.Proofs.TR04.splitIndex_join" "NLA.Proofs.TR04.Reshape" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.join_splitIndex" "NLA.Proofs.TR04.Reshape" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.joinEquiv" "NLA.Proofs.TR04.Reshape" "public" "definition"
+#audit_named "NLA.Proofs.TR04.unfoldLinearEquiv" "NLA.Proofs.TR04.Reshape" "public" "definition"
+#audit_named "NLA.Proofs.TR04.unfoldContinuousLinearEquiv" "NLA.Proofs.TR04.Reshape" "public" "definition"
+#audit_named "NLA.Proofs.TR04.unfoldLinearEquiv_apply" "NLA.Proofs.TR04.Reshape" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.unfoldContinuousLinearEquiv_apply" "NLA.Proofs.TR04.Reshape" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.continuous_unfold" "NLA.Proofs.TR04.Reshape" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.unfold_zero" "NLA.Proofs.TR04.Reshape" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.unfold_add" "NLA.Proofs.TR04.Reshape" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.unfold_smul" "NLA.Proofs.TR04.Reshape" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.unfold_injective" "NLA.Proofs.TR04.Reshape" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.OrthonormalColumns" "NLA.Proofs.TR04.SVDEnergy" "public" "definition"
+#audit_named "NLA.Proofs.TR04.SVD.transpose_mul_eq_one" "NLA.Proofs.TR04.SVDEnergy" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.orthonormalColumns_submatrix" "NLA.Proofs.TR04.SVDEnergy" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.orthonormalColumns_inner" "NLA.Proofs.TR04.SVDEnergy" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.orthonormalColumns_sum_sq" "NLA.Proofs.TR04.SVDEnergy" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.matrixEnergy" "NLA.Proofs.TR04.SVDEnergy" "public" "definition"
+#audit_named "NLA.Proofs.TR04.SVD.synthesis" "NLA.Proofs.TR04.SVDEnergy" "public" "definition"
+#audit_named "NLA.Proofs.TR04.SVD.validSVD_eq_synthesis" "NLA.Proofs.TR04.SVDEnergy" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.synthesis_energy" "NLA.Proofs.TR04.SVDEnergy" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.validSVD_energy" "NLA.Proofs.TR04.SVDEnergy" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.synthesis_sub" "NLA.Proofs.TR04.SVDEnergy" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.validSVD_error_energy" "NLA.Proofs.TR04.SVDEnergy" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.truncate" "NLA.Proofs.TR04.SVDEnergy" "public" "definition"
+#audit_named "NLA.Proofs.TR04.SVD.tailEnergy" "NLA.Proofs.TR04.SVDEnergy" "public" "definition"
+#audit_named "NLA.Proofs.TR04.SVD.validSVD_truncate_error" "NLA.Proofs.TR04.SVDEnergy" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.validSVD_prefix_coefficients" "NLA.Proofs.TR04.SVDFrameProjection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.validSVD_prefix_projection" "NLA.Proofs.TR04.SVDFrameProjection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.tailEnergy_eq_zero_iff" "NLA.Proofs.TR04.SVDConsequences" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.validSVD_rank_le_iff_tail_zero" "NLA.Proofs.TR04.SVDConsequences" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.validSVD_truncate_best" "NLA.Proofs.TR04.SVDConsequences" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.validSVD_positive_tail" "NLA.Proofs.TR04.SVDConsequences" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.validSVD_eckartYoung_eq_threshold" "NLA.Proofs.TR04.SVDEckartThreshold" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.validSVD_eckartYoung_eq_last_retained" "NLA.Proofs.TR04.SVDEckartThreshold" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.projectionWeight_eq_one_iff" "NLA.Proofs.TR04.SVDEckartEquality" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.projectionWeight_eq_zero_iff" "NLA.Proofs.TR04.SVDEckartEquality" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.validSVD_eckartYoung_eq" "NLA.Proofs.TR04.SVDEckartEquality" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.right_synthesis_energy" "NLA.Proofs.TR04.SVDEckartYoung" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.matrixColumn_synthesis" "NLA.Proofs.TR04.SVDEckartYoung" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.validSVD_project_energy" "NLA.Proofs.TR04.SVDEckartYoung" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.sum_fin_prefix_le" "NLA.Proofs.TR04.SVDEckartYoung" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.sum_svd_projectionWeight_le" "NLA.Proofs.TR04.SVDEckartYoung" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.singularSquares_antitone" "NLA.Proofs.TR04.SVDEckartYoung" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.prefix_add_tail" "NLA.Proofs.TR04.SVDEckartYoung" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.tailEnergy_eq_zero_of_length_le" "NLA.Proofs.TR04.SVDEckartYoung" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.columnSpace" "NLA.Proofs.TR04.SVDEckartYoung" "public" "definition"
+#audit_named "NLA.Proofs.TR04.SVD.matrixColumn_mem_columnSpace" "NLA.Proofs.TR04.SVDEckartYoung" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.finrank_columnSpace" "NLA.Proofs.TR04.SVDEckartYoung" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.validSVD_eckartYoung" "NLA.Proofs.TR04.SVDEckartYoung" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.matrixColumn" "NLA.Proofs.TR04.SVDProjection" "public" "definition"
+#audit_named "NLA.Proofs.TR04.SVD.projectMatrix" "NLA.Proofs.TR04.SVDProjection" "public" "definition"
+#audit_named "NLA.Proofs.TR04.SVD.matrixColumn_projectMatrix" "NLA.Proofs.TR04.SVDProjection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.matrixColumn_sub" "NLA.Proofs.TR04.SVDProjection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.matrixEnergy_eq_sum_column_norm" "NLA.Proofs.TR04.SVDProjection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.projectMatrix_energy_decomposition" "NLA.Proofs.TR04.SVDProjection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.projectMatrix_error_decomposition" "NLA.Proofs.TR04.SVDProjection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.projectMatrix_error_le" "NLA.Proofs.TR04.SVDProjection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.projectMatrix_error_eq_iff" "NLA.Proofs.TR04.SVDProjection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.exists_basis_of_orthonormalColumns" "NLA.Proofs.TR04.SVDProjection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.projection_norm_sq_basis_sum" "NLA.Proofs.TR04.SVDProjection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.projectionWeight" "NLA.Proofs.TR04.SVDProjection" "public" "definition"
+#audit_named "NLA.Proofs.TR04.SVD.projectionWeight_nonneg" "NLA.Proofs.TR04.SVDProjection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.projectionWeight_le_one" "NLA.Proofs.TR04.SVDProjection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.sum_projectionWeight" "NLA.Proofs.TR04.SVDProjection" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.prefixEnergy" "NLA.Proofs.TR04.SVDWeights" "public" "definition"
+#audit_named "NLA.Proofs.TR04.SVD.weightDefect" "NLA.Proofs.TR04.SVDWeights" "public" "definition"
+#audit_named "NLA.Proofs.TR04.SVD.prefix_count" "NLA.Proofs.TR04.SVDWeights" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.weighted_prefix_defect" "NLA.Proofs.TR04.SVDWeights" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.weightDefect_nonneg" "NLA.Proofs.TR04.SVDWeights" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.weighted_prefix_le" "NLA.Proofs.TR04.SVDWeights" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.weighted_prefix_eq_support" "NLA.Proofs.TR04.SVDWeights" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.truncate_rank_le" "NLA.Proofs.TR04.SVDRank" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.matrixEnergy_nonneg" "NLA.Proofs.TR04.SVDRank" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.matrixEnergy_entry_sq_le" "NLA.Proofs.TR04.SVDRank" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.matrixEnergy_eq_zero_iff" "NLA.Proofs.TR04.SVDRank" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.matrixError_eq_zero_iff" "NLA.Proofs.TR04.SVDRank" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.validSVD_zero_tail_iff_truncate" "NLA.Proofs.TR04.SVDRank" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.tailEnergy_nonneg" "NLA.Proofs.TR04.SVDRank" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.thresholdDefect" "NLA.Proofs.TR04.SVDThresholdWeights" "public" "definition"
+#audit_named "NLA.Proofs.TR04.SVD.prefix_count_of_le" "NLA.Proofs.TR04.SVDThresholdWeights" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.weighted_threshold_defect" "NLA.Proofs.TR04.SVDThresholdWeights" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.thresholdDefect_nonneg" "NLA.Proofs.TR04.SVDThresholdWeights" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.weighted_threshold_le" "NLA.Proofs.TR04.SVDThresholdWeights" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.SVD.weighted_threshold_eq_support" "NLA.Proofs.TR04.SVDThresholdWeights" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.radixIndexEquiv" "NLA.Proofs.TR04.TensorCompressionRadix" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.radixOffset" "NLA.Proofs.TR04.TensorCompressionRadix" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.radixIndexEquiv_symm_val" "NLA.Proofs.TR04.TensorCompressionRadix" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.radixOffset_lt" "NLA.Proofs.TR04.TensorCompressionRadix" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.radixIndexEquiv_decode_encode" "NLA.Proofs.TR04.TensorCompressionRadix" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.cardToProdEquiv" "NLA.Proofs.TR04.TensorCompressionRadix" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.radixSuffixEquiv" "NLA.Proofs.TR04.TensorCompressionRadix" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.radixSuffixEquiv_symm_val" "NLA.Proofs.TR04.TensorCompressionRadix" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.prod_modeList" "NLA.Proofs.TR04.TensorCompressionRadix" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.vectorSuffixSize" "NLA.Proofs.TR04.TensorCompressionRadix" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.vectorSuffixSize_zero" "NLA.Proofs.TR04.TensorCompressionRadix" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.vectorSuffixSize_succ" "NLA.Proofs.TR04.TensorCompressionRadix" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.vectorOffset" "NLA.Proofs.TR04.TensorCompressionRadix" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.radixOffset_vector" "NLA.Proofs.TR04.TensorCompressionRadix" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.original_radixOffset" "NLA.Proofs.TR04.TensorCompressionRadix" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.original_offset_lt_denseSize" "NLA.Proofs.TR04.TensorCompressionRadix" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.take_ofFn_modes" "NLA.Proofs.TR04.TensorCompressionOriginal" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.drop_ofFn_modes" "NLA.Proofs.TR04.TensorCompressionOriginal" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.prefixIndexEquiv" "NLA.Proofs.TR04.TensorCompressionOriginal" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.suffixPositionZeroEquiv" "NLA.Proofs.TR04.TensorCompressionOriginal" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.suffixPositionSuccEquiv" "NLA.Proofs.TR04.TensorCompressionOriginal" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.suffixIndexEquiv" "NLA.Proofs.TR04.TensorCompressionOriginal" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.prefix_join_coordinate" "NLA.Proofs.TR04.TensorCompressionOriginal" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.suffix_join_coordinate" "NLA.Proofs.TR04.TensorCompressionOriginal" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.originalCut_le" "NLA.Proofs.TR04.TensorCompressionOriginal" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.originalRowPositionEquiv" "NLA.Proofs.TR04.TensorCompressionOriginal" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.originalColPositionEquiv" "NLA.Proofs.TR04.TensorCompressionOriginal" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.originalRowEquiv" "NLA.Proofs.TR04.TensorCompressionOriginal" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.originalColEquiv" "NLA.Proofs.TR04.TensorCompressionOriginal" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.original_join" "NLA.Proofs.TR04.TensorCompressionOriginal" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.unfold_original" "NLA.Proofs.TR04.TensorCompressionOriginal" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.rank_unfold_original" "NLA.Proofs.TR04.TensorCompressionOriginal" "public" "theorem"
+#audit_named "NLA.Proofs.TR04.TensorFormat.originalRanks" "NLA.Proofs.TR04.TensorCompressionOriginal" "public" "definition"
+#audit_named "NLA.Proofs.TR04.TensorFormat.original_feasible_iff" "NLA.Proofs.TR04.TensorCompressionOriginal" "public" "theorem"
+
+noncomputable section
+open scoped BigOperators Matrix
+open NLA.Computation.SVDMachine
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation TTMemoryLayout
+example (S : Shape) (r : Ranks S) (A : Tensor S)
+    (trace : Trace ttProgram) (ht : LegalTrace ttProgram (Start ttProgram S r A) trace) :
+    TTInitialRankRead S r A (trace.state (ttFirstRankEntryTime S r)) ∧
+    CostThrough ttProgram trace (ttFirstRankEntryTime S r)≤
+      7*Size S r+3*shapeHeaderValues S 0+headerRangeTime (shapeHeaderValues S) 1 S.order+
+        3*ttFirstRankValue S r+72 := by
+  exact @NLA.Proofs.TR04.ttInitial_rank_read S r A trace ht
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation TTMemoryLayout
+example (S : Shape) (r : Ranks S) (A : Tensor S)
+    (trace : Trace ttProgram) (ht : LegalTrace ttProgram (Start ttProgram S r A) trace) :
+    ∃ n : ℕ,n≤10 ∧
+      TTInitialSVDData S r A (trace.state (ttFirstRankEntryTime S r+n)) ∧
+      ttFirstRankEntryTime S r+n≤102*(Size S r+1) ∧
+      CostThrough ttProgram trace (ttFirstRankEntryTime S r+n)≤102*(Size S r+1) := by
+  exact @NLA.Proofs.TR04.ttInitial_svd_ready S r A trace ht
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation TTMemoryLayout
+example (S : Shape) (r : Ranks S) (A : Tensor S)
+    (trace : Trace ttProgram) (ht : LegalTrace ttProgram (Start ttProgram S r A) trace) :
+    ∃ scratch : ℝ,
+      ttHeaderEmbedding.Relates
+        (headerProductDecodeState (InputMemory S r A) S.order S.order 1
+          (shapeHeaderValues S 0) scratch) (trace.state (ttInitialDecoderTime S)) ∧
+      TTAllocationRegisters (ofShape S) (trace.state (ttInitialDecoderTime S)) ∧
+      (trace.state (ttInitialDecoderTime S)).natural 76=0 ∧
+      (trace.state (ttInitialDecoderTime S)).natural 97=1 ∧
+      CostThrough ttProgram trace (ttInitialDecoderTime S)≤7*Size S r+28 := by
+  exact @NLA.Proofs.TR04.ttInitial_decoder S r A trace ht
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation TTMemoryLayout
+example (S : Shape) (r : Ranks S) (A : Tensor S)
+    (trace : Trace ttProgram) (ht : LegalTrace ttProgram (Start ttProgram S r A) trace) :
+    (trace.state (ttFirstModeDecodedTime S)).label=10 ∧
+    (trace.state (ttFirstModeDecodedTime S)).status=.running ∧
+    (trace.state (ttFirstModeDecodedTime S)).natural 0=S.order ∧
+    (trace.state (ttFirstModeDecodedTime S)).natural 2=shapeHeaderValues S 0 ∧
+    (trace.state (ttFirstModeDecodedTime S)).memory=InputMemory S r A ∧
+    CostThrough ttProgram trace (ttFirstModeDecodedTime S)≤
+      7*Size S r+28+(3*shapeHeaderValues S 0+5) := by
+  exact @NLA.Proofs.TR04.ttInitial_mode_decoded S r A trace ht
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation TTMemoryLayout
+example (S : Shape) (r : Ranks S) (A : Tensor S)
+    (trace : Trace ttProgram) (ht : LegalTrace ttProgram (Start ttProgram S r A) trace) :
+    ttHeaderEmbedding.Relates
+      (headerSingleReturnState (InputMemory S r A) S.order (shapeHeaderValues S 0))
+      (trace.state (ttFirstModeDecodedTime S)) ∧
+    TTAllocationRegisters (ofShape S) (trace.state (ttFirstModeDecodedTime S)) ∧
+    (trace.state (ttFirstModeDecodedTime S)).natural 76=0 ∧
+    (trace.state (ttFirstModeDecodedTime S)).natural 97=1 ∧
+    CostThrough ttProgram trace (ttFirstModeDecodedTime S)≤
+      7*Size S r+28+(3*shapeHeaderValues S 0+5) := by
+  exact @NLA.Proofs.TR04.ttInitial_mode_full S r A trace ht
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TTMemoryLayout
+example {s t u : State ttProgram}
+    (h : TTInitPreserves s t) (k : TTInitPreserves t u) : TTInitPreserves s u := by
+  exact @NLA.Proofs.TR04.ttInitPreserves_trans s t u h k
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TTMemoryLayout
+example {s t : State ttProgram} {L : Layout}
+    (h : TTInitPreserves s t) (hs : TTAllocationRegisters L s) : TTAllocationRegisters L t := by
+  exact @NLA.Proofs.TR04.ttInitPreserves_allocation s t L h hs
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TTMemoryLayout
+example (s : State ttProgram) : TTInitPreserves s (ttModeSuffixEntry s) := by
+  exact @NLA.Proofs.TR04.ttModeSuffix_preserves s
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TTMemoryLayout
+example (s : State ttProgram) : TTInitPreserves s (ttColsRankEntry s) := by
+  exact @NLA.Proofs.TR04.ttColsRank_preserves s
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TTMemoryLayout
+example (s : State ttProgram) : TTInitPreserves s (ttFirstRankEnd s) := by
+  exact @NLA.Proofs.TR04.ttFirstRank_preserves s
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TTMemoryLayout
+example (s : State ttProgram) (k : Fin 11) :
+    TTInitPreserves s (ttHeaderDispatchEnd s k) := by
+  exact @NLA.Proofs.TR04.ttHeaderDispatch_preserves s k
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TTMemoryLayout
+example {s t : State ttProgram}
+    (hm : t.memory=s.memory) (hd : t.natural 0=s.natural 0)
+    (hn : ∀ j : Fin 128,4≤j.val → t.natural j=s.natural j) : TTInitPreserves s t := by
+  exact @NLA.Proofs.TR04.ttHeader_preserves_of_outside s t hm hd hn
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TTMemoryLayout
+example {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset n : ℕ) (t : State ttProgram)
+    (he : (ordinaryStep ttProgram)^[n] (trace.state offset)=t) (hr : t.status=.running) :
+    trace.state (offset+n)=t ∧ CostThrough ttProgram trace (offset+n)≤
+      CostThrough ttProgram trace offset+n := by
+  exact @NLA.Proofs.TR04.ttScalar_finish_at start trace ht offset n t he hr
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TTMemoryLayout
+example (s : State ttProgram) :
+    (ttFirstRankEnd s).label=167 ∧
+    (ttFirstRankEnd s).natural 80=s.natural 2 ∧
+    (ttFirstRankEnd s).natural 105=min (s.natural 81) (s.natural 82) ∧
+    (ttFirstRankEnd s).natural 106=min (s.natural 2) (min (s.natural 81) (s.natural 82)) ∧
+    (ttFirstRankEnd s).natural 81=s.natural 81 ∧
+    (ttFirstRankEnd s).natural 82=s.natural 82 := by
+  exact @NLA.Proofs.TR04.ttFirstRank_fields s
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TTMemoryLayout
+example {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ)
+    (hl : (trace.state offset).label=157) (hs : (trace.state offset).status=.running) :
+    ∃ n : ℕ,n≤10 ∧ trace.state (offset+n)=ttFirstRankEnd (trace.state offset) ∧
+      TTInitPreserves (trace.state offset) (trace.state (offset+n)) ∧
+      CostThrough ttProgram trace (offset+n)≤CostThrough ttProgram trace offset+10 := by
+  exact @NLA.Proofs.TR04.ttFirstRank_run_at start trace ht offset hl hs
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TTMemoryLayout
+example {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ) (values : ℕ → ℕ)
+    (hl : (trace.state offset).label=144) (hs : (trace.state offset).status=.running)
+    (hone : (trace.state offset).natural 126=1) (hd : 1≤(trace.state offset).natural 0)
+    (hm : ∀ j,1≤j → j<(trace.state offset).natural 0 →
+      (trace.state offset).memory j=(values j : ℝ)) :
+    ∃ last : ℕ,∃ reals : Fin 2 → ℝ,
+      let time := offset+6+headerRangeTime values 1 ((trace.state offset).natural 0)
+      ttHeaderEmbedding.Relates (headerRangeReturnState (trace.state offset).memory
+        ((trace.state offset).natural 0) 1 values last reals) (trace.state time) ∧
+      TTInitPreserves (trace.state offset) (trace.state time) ∧
+      (trace.state time).natural 81=(trace.state offset).natural 2 ∧
+      (trace.state time).natural 97=2 ∧
+      CostThrough ttProgram trace time≤CostThrough ttProgram trace offset+6+
+        headerRangeTime values 1 ((trace.state offset).natural 0) := by
+  exact @NLA.Proofs.TR04.ttModeSuffix_call_at start trace ht offset values hl hs hone hd hm
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TTMemoryLayout
+example {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset value : ℕ)
+    (hl : (trace.state offset).label=150) (hs : (trace.state offset).status=.running)
+    (hm : (trace.state offset).memory ((trace.state offset).natural 0)=(value : ℝ)) :
+    let time := offset+7+(3*value+5)
+    ttHeaderEmbedding.Relates (headerSingleReturnState (trace.state offset).memory
+      ((trace.state offset).natural 0) value) (trace.state time) ∧
+    TTInitPreserves (trace.state offset) (trace.state time) ∧
+    (trace.state time).natural 81=(trace.state offset).natural 81 ∧
+    (trace.state time).natural 82=(trace.state offset).natural 2 ∧
+    (trace.state time).natural 97=3 ∧
+    CostThrough ttProgram trace time≤CostThrough ttProgram trace offset+7+(3*value+5) := by
+  exact @NLA.Proofs.TR04.ttColsRank_call_at start trace ht offset value hl hs hm
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TTMemoryLayout
+example {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ) (k : Fin 11)
+    (hl : (trace.state offset).label=10) (hs : (trace.state offset).status=.running)
+    (htag : (trace.state offset).natural 97=k.val) :
+    let time := offset+(2*k.val+3)
+    (trace.state time).label=ttHeaderHandler k ∧
+    (trace.state time).status=.running ∧
+    TTInitPreserves (trace.state offset) (trace.state time) ∧
+    (∀ j : Fin 128,j≠123 → (trace.state time).natural j=(trace.state offset).natural j) ∧
+    CostThrough ttProgram trace time≤CostThrough ttProgram trace offset+(2*k.val+3) := by
+  exact @NLA.Proofs.TR04.ttHeaderDispatch_call_at start trace ht offset k hl hs htag
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TTMemoryLayout
+example {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ) (s : State headerProductProgram)
+    (he : ttHeaderEmbedding.Relates s (trace.state offset)) (n : ℕ)
+    (hr : ((ordinaryStep headerProductProgram)^[n] s).status=.running)
+    (j : Fin 128) (hj : 4≤j.val) :
+    (trace.state (offset+n)).natural j=(trace.state offset).natural j := by
+  exact @NLA.Proofs.TR04.ttHeader_outside_at start trace ht offset s he n hr j hj
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TTMemoryLayout
+example {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ) (memory : ℕ → ℝ)
+    (d value : ℕ) (scratch : ℝ)
+    (he : ttHeaderEmbedding.Relates
+      (headerProductDecodeState memory d d 1 value scratch) (trace.state offset)) :
+    ttHeaderEmbedding.Relates (headerSingleReturnState memory d value)
+      (trace.state (offset+(3*value+5))) ∧
+    (∀ j : Fin 128,4≤j.val → (trace.state (offset+(3*value+5))).natural j=
+      (trace.state offset).natural j) ∧
+    CostThrough ttProgram trace (offset+(3*value+5))≤
+      CostThrough ttProgram trace offset+(3*value+5) := by
+  exact @NLA.Proofs.TR04.ttHeaderSingle_full_at start trace ht offset memory d value scratch he
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TTMemoryLayout
+example {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ) (memory : ℕ → ℝ)
+    (d a : ℕ) (values : ℕ → ℕ) (had : a≤d)
+    (hm : ∀ j,a≤j → j<d → memory j=(values j : ℝ))
+    (counter : ℕ) (reals : Fin 2 → ℝ)
+    (he : ttHeaderEmbedding.Relates
+      (headerRangeEntryState memory d a values counter reals) (trace.state offset)) :
+    ∃ last : ℕ,∃ registers : Fin 2 → ℝ,
+    ttHeaderEmbedding.Relates (headerRangeReturnState memory d a values last registers)
+      (trace.state (offset+headerRangeTime values a d)) ∧
+    (∀ j : Fin 128,4≤j.val →
+      (trace.state (offset+headerRangeTime values a d)).natural j=(trace.state offset).natural j) ∧
+    CostThrough ttProgram trace (offset+headerRangeTime values a d)≤
+      CostThrough ttProgram trace offset+headerRangeTime values a d := by
+  exact @NLA.Proofs.TR04.ttHeaderRange_full_at start trace ht offset memory d a values had hm counter reals he
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TTMemoryLayout
+example {L : Layout} {s t : State ttProgram}
+    (hs : TTAllocationRegisters L s)
+    (hd : t.natural 0=s.natural 0)
+    (hn : ∀ j : Fin 128,4≤j.val → t.natural j=s.natural j) : TTAllocationRegisters L t := by
+  exact @NLA.Proofs.TR04.ttAllocation_transfer L s t hs hd hn
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TTMemoryLayout
+example (s : State ttProgram) (values : ℕ → ℕ)
+    (hs : s.status=.running) :
+    ttHeaderEmbedding.Relates
+      (headerRangeEntryState s.memory (s.natural 0) 1 values 0
+        (fun i => s.real (ttHeaderEmbedding.reals i))) (ttModeSuffixEntry s) := by
+  exact @NLA.Proofs.TR04.ttModeSuffix_relates s values hs
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TTMemoryLayout
+example (s : State ttProgram) (value : ℕ)
+    (hm : s.memory (s.natural 0)=(value : ℝ)) (hs : s.status=.running) :
+    ttHeaderEmbedding.Relates
+      (headerProductDecodeState s.memory (s.natural 0) (s.natural 0) 1 value (s.real 1))
+      (ttColsRankEntry s) := by
+  exact @NLA.Proofs.TR04.ttColsRank_relates s value hm hs
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine
+example (s : State ttProgram) (hl : s.label=144)
+    (hs : s.status=.running) (hone : s.natural 126=1) :
+    (ordinaryStep ttProgram)^[6] s=ttModeSuffixEntry s := by
+  exact @NLA.Proofs.TR04.ttModeSuffix_steps s hl hs hone
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine
+example (s : State ttProgram) (hl : s.label=150)
+    (hs : s.status=.running) :
+    (ordinaryStep ttProgram)^[7] s=ttColsRankEntry s := by
+  exact @NLA.Proofs.TR04.ttColsRank_steps s hl hs
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine
+example (s : State ttProgram) (hl : s.label=157)
+    (hs : s.status=.running) :
+    ∃ n : ℕ, n≤4 ∧ (ordinaryStep ttProgram)^[n] s=ttFirstMinRowsEnd s := by
+  exact @NLA.Proofs.TR04.ttFirstMinRows_steps s hl hs
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine
+example (s : State ttProgram) (hl : s.label=161)
+    (hs : s.status=.running) :
+    ∃ n : ℕ, n≤3 ∧ (ordinaryStep ttProgram)^[n] s=ttFirstMinCapRowsEnd s := by
+  exact @NLA.Proofs.TR04.ttFirstMinCapRows_steps s hl hs
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine
+example (s : State ttProgram) (hl : s.label=164)
+    (hs : s.status=.running) :
+    ∃ n : ℕ, n≤3 ∧ (ordinaryStep ttProgram)^[n] s=ttFirstMinCapColsEnd s := by
+  exact @NLA.Proofs.TR04.ttFirstMinCapCols_steps s hl hs
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine
+example (s : State ttProgram) (hl : s.label=157)
+    (hs : s.status=.running) :
+    ∃ n : ℕ, n≤10 ∧ (ordinaryStep ttProgram)^[n] s=ttFirstRankEnd s := by
+  exact @NLA.Proofs.TR04.ttFirstRank_steps s hl hs
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation
+example (S : Shape) (r : Ranks S) (A : Tensor S)
+    (j : ℕ) (hj : j<S.order-1) :
+    InputMemory S r A (S.order+j)=(r ⟨j,hj⟩ : ℝ) := by
+  exact @NLA.Proofs.TR04.inputMemory_rankHeader S r A j hj
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation
+example (S : Shape) (r : Ranks S) (A : Tensor S) :
+    InputMemory S r A S.order=(ttFirstRankValue S r : ℝ) := by
+  exact @NLA.Proofs.TR04.inputMemory_firstRank S r A
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation
+example (S : Shape) (a : ℕ) (ha : a≤S.order) :
+    headerRangeProduct (shapeHeaderValues S) a S.order=
+      ((TensorFormat.modeList S.mode).drop a).prod := by
+  exact @NLA.Proofs.TR04.headerRangeProduct_shape_drop S a ha
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation
+example (S : Shape) :
+    shapeHeaderValues S 0*ttFirstCols S=DenseSize S := by
+  exact @NLA.Proofs.TR04.ttFirstCols_prod S
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation
+example (S : Shape) : 0<ttFirstCols S := by
+  exact @NLA.Proofs.TR04.ttFirstCols_pos S
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation
+example (S : Shape) : ttFirstCols S≤DenseSize S := by
+  exact @NLA.Proofs.TR04.ttFirstCols_le_denseSize S
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation
+example (S : Shape) (r : Ranks S) : shapeHeaderValues S 0≤Size S r := by
+  exact @NLA.Proofs.TR04.ttFirstMode_le_size S r
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation
+example (S : Shape) (r : Ranks S) : ttFirstRankValue S r≤Size S r := by
+  exact @NLA.Proofs.TR04.ttFirstRankValue_le_size S r
+end NLA.Proofs.TR04
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation
+example (S : Shape) (r : Ranks S) (a : ℕ) :
+    headerRangeTime (shapeHeaderValues S) a S.order≤7*Size S r := by
+  exact @NLA.Proofs.TR04.headerRangeTime_shape_le_size S r a
+end NLA.Proofs.TR04
+
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation TTMemoryLayout
+
+-- The actual original Start state reaches a running SVD instruction with
+-- output-block safety derived from its computed dimensions/allocation.
+example (S : Shape) (r : Ranks S) (A : Tensor S) (trace : Trace ttProgram)
+    (ht : LegalTrace ttProgram (Start ttProgram S r A) trace) :
+    ∃ t : ℕ, t ≤ 102*(Size S r+1) ∧
+      (trace.state t).label=167 ∧ (trace.state t).status=.running ∧
+      (trace.state t).memory=InputMemory S r A ∧
+      OutputBlocksDisjoint ((trace.state t).natural 81) ((trace.state t).natural 82)
+        ((trace.state t).natural 72) ((trace.state t).natural 73) ((trace.state t).natural 74) ∧
+      CostThrough ttProgram trace t ≤ 102*(Size S r+1) := by
+  obtain ⟨n,_,hd,htime,hcost⟩ := ttInitial_svd_ready S r A trace ht
+  refine ⟨ttFirstRankEntryTime S r+n,htime,hd.label,hd.status,hd.memory,?_,hcost⟩
+  rw [hd.rows,hd.cols,hd.allocation.firstU,hd.allocation.firstSigma,hd.allocation.firstV]
+  apply (ofShape S).first_outputs_disjoint
+  · have hi : 0<S.order := by have := S.order_ge; omega
+    change shapeHeaderValues S 0≤DenseSize S
+    simpa only [shapeHeaderValues,dif_pos hi] using shape_mode_le_denseSize S ⟨0,hi⟩
+  · exact ttFirstCols_le_denseSize S
+
+-- Requested zero ranks are decoded, rather than excluded by an entry premise.
+example (S : Shape) (A : Tensor S) (trace : Trace ttProgram)
+    (ht : LegalTrace ttProgram (Start ttProgram S (fun _ => 0) A) trace) :
+    ∃ t : ℕ, t ≤ 102*(Size S (fun _ => 0)+1) ∧
+      (trace.state t).label=167 ∧ (trace.state t).status=.running ∧
+      (trace.state t).natural 80=0 ∧ (trace.state t).natural 106=0 ∧
+      (trace.state t).memory=InputMemory S (fun _ => 0) A ∧
+      CostThrough ttProgram trace t ≤ 102*(Size S (fun _ => 0)+1) := by
+  obtain ⟨n,_,hd,htime,hcost⟩ := ttInitial_svd_ready S (fun _ => 0) A trace ht
+  refine ⟨ttFirstRankEntryTime S (fun _ => 0)+n,htime,hd.label,hd.status,?_,?_,hd.memory,hcost⟩
+  · simpa only [ttFirstRankValue] using hd.rank
+  · simpa only [ttFirstRankValue,Nat.zero_min] using hd.cap
+
+end NLA.Proofs.TR04
+
+end
