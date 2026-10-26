@@ -1,0 +1,9 @@
+import Independent.FullTargetAudit
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open MeasureTheory ProbabilityTheory
+open NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06 NLA.Proofs.RE06.Repair
+theorem Hole (n m : ℕ) (hn : 0 < n)
+    (F : NLA.Computation.NonadaptiveMatrixQuery.Family n m) (hF : Function.Injective F)
+    (A : Matrix (Fin n) (Fin n) ℝ) (ε : ℝ) (hε0 : 0 < ε) (hεh : ε < 1 / 2) : NLA.Computation.NonadaptiveMatrixQuery.Successful F A ε := by sorry
+#assert_trust kernel Hole

@@ -1,0 +1,33 @@
+namespace IndependentFull
+theorem consume_svd_total  :
+    NLA.Computation.NonadaptiveMatrixQuery.SVDTotal := by
+  exact NLA.Proofs.RE06.svd_total 
+
+theorem consume_query_bound (n m : ℕ) (hn : 0 < n) (ε : ℝ) (hε0 : 0 < ε) (hεh : ε < 1 / 2) :
+    NLA.Computation.NonadaptiveMatrixQuery.QueryBound n m ε 4000000 0 := by
+  exact NLA.Proofs.RE06.query_bound n m hn ε hε0 hεh
+
+theorem consume_successful (n m : ℕ) (hn : 0 < n)
+    (F : NLA.Computation.NonadaptiveMatrixQuery.Family n m) (hF : Function.Injective F)
+    (A : Matrix (Fin n) (Fin n) ℝ) (ε : ℝ) (hε0 : 0 < ε) (hεh : ε < 1 / 2) :
+    NLA.Computation.NonadaptiveMatrixQuery.Successful F A ε := by
+  exact NLA.Proofs.RE06.successful n m hn F hF A ε hε0 hεh
+
+theorem consume_original_claim  :
+    NLA.Statements.RE06.OriginalClaim := by
+  exact NLA.Proofs.RE06.original_claim 
+
+theorem consume_explicit_claim  :
+    NLA.Statements.RE06.ExplicitClaim := by
+  exact NLA.Proofs.RE06.explicit_claim 
+
+theorem consume_target  :
+    NLA.Statements.RE06.Target := by
+  exact NLA.Proofs.RE06.target 
+
+theorem live_reviewed_identity : NLA.Statements.RE06.Target =
+    NLA.ReviewedStatements.RE06.Target := rfl
+theorem consume_reviewed_target : NLA.ReviewedStatements.RE06.Target := by
+  rw [← live_reviewed_identity]
+  exact NLA.Proofs.RE06.target
+end IndependentFull

@@ -1,0 +1,15 @@
+import Independent.FullTargetAudit
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open MeasureTheory ProbabilityTheory
+open NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06 NLA.Proofs.RE06.Repair
+open Lean Elab Command
+elab "#review_kind " kind:ident target:ident : command => do
+  let n ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo target
+  match ← liftCoreM <| getConstInfo n with
+  | .thmInfo _ => unless kind.getId == `thm do throwError "expected definition"
+  | .defnInfo _ => unless kind.getId == `defn do throwError "review requires actual theorem"
+  | _ => throwError "unexpected declaration kind"
+noncomputable def CounterfeitTarget := @NLA.Proofs.RE06.target
+#assert_trust kernel CounterfeitTarget
+#review_kind thm CounterfeitTarget

@@ -1,0 +1,740 @@
+import NLA.Proofs.RE06.PseudoInverseGlobalAudit
+import NLA.Proofs.RE06.PseudoInverseAudit
+import NLA.Proofs.RE06.GaussianMomentFullRankAudit
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open scoped BigOperators Topology
+open MeasureTheory ProbabilityTheory Filter
+open NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06
+open Lean Elab Command in
+elab "#inventory_theorem " n:ident : command => do
+  let d ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  match (← getEnv).find? d with
+  | some (.thmInfo _) => pure ()
+  | _ => throwErrorAt n "inventory expects genuine theorem"
+namespace Inventory.RE06.MP
+theorem literal_MP {a b : ℕ} (B : Matrix (Fin a) (Fin b) ℝ) :
+    Pseudo.IsMP B (pseudoInverse B) := Pseudo.actual_isMP B
+theorem literal_unique {a b : ℕ} (B : Matrix (Fin a) (Fin b) ℝ)
+    (P : Matrix (Fin b) (Fin a) ℝ) (hP : Pseudo.IsMP B P) :
+    pseudoInverse B=P := Pseudo.actual_eq_of_isMP B P hP
+theorem literal_zero (a b : ℕ) : pseudoInverse (0 : Matrix (Fin a) (Fin b) ℝ)=0 := Pseudo.zero
+theorem literal_full_row {a b : ℕ} (B : Matrix (Fin a) (Fin b) ℝ)
+    (hdet : (B*B.transpose).det≠0) : pseudoInverse B=B.transpose*(B*B.transpose)⁻¹ := Pseudo.full_row_formula B hdet
+theorem literal_range_repair {n k r ell : ℕ} (Y : Matrix (Fin n) (Fin k) ℝ)
+    (Q : Matrix (Fin n) (Fin r) ℝ) (Ht : Matrix (Fin ell) (Fin n) ℝ)
+    (hQ : Q.transpose*Q=1) (hRange : Set.range Q.mulVec=Set.range Y.mulVec)
+    (hC : ((Ht*Q).transpose*(Ht*Q)).det≠0) :
+    Y*pseudoInverse(Ht*Y)=Q*pseudoInverse(Ht*Q) := Pseudo.repair_orthonormal_range Y Q Ht hQ hRange hC
+theorem literal_trace {a b : ℕ} (B : Matrix (Fin a) (Fin b) ℝ)
+    (hdet : (B*B.transpose).det≠0) : Pseudo.frobeniusSq(pseudoInverse B)=Matrix.trace (B*B.transpose)⁻¹ := Pseudo.full_row_frobeniusSq_trace_inverse_gram B hdet
+theorem literal_fullrank (d p : ℕ) (hdp : d≤p) :
+    ∀ᵐ x : Fin d × Fin p → ℝ ∂Measure.pi (fun _ : Fin d × Fin p => gaussianReal 0 1),
+      (GaussianMoment.entryMatrix x*(GaussianMoment.entryMatrix x).transpose).det≠0 := GaussianMoment.gaussian_gram_det_ne_zero_ae d p hdp
+theorem literal_stream_fullrank (d p offset : ℕ) (hdp : d≤p) :
+    ∀ᵐ ω ∂GaussianLaw, (gaussianBlock d p offset ω*(gaussianBlock d p offset ω).transpose).det≠0 := GaussianMoment.stream_block_gram_det_ne_zero_ae d p offset hdp
+theorem literal_reciprocal_integrable (d : ℕ) (hd : 2<d) :
+    Integrable (fun x : Fin d→ℝ => (GaussianMoment.normSq x)⁻¹) (Measure.pi (fun _ : Fin d => gaussianReal 0 1)) := GaussianMoment.normSq_inverse_integrable d hd
+theorem literal_reciprocal_moment (d : ℕ) (hd : 2<d) :
+    (∫ x : Fin d→ℝ, (GaussianMoment.normSq x)⁻¹ ∂Measure.pi (fun _ : Fin d => gaussianReal 0 1))=1/((d : ℝ)-2) := GaussianMoment.normSq_inverse_integral d hd
+theorem literal_projected_moment {p q : ℕ} (hq : 2<q)
+    (T : GaussianEuclid p →L[ℝ] GaussianEuclid q)
+    (hT : T.comp T.adjoint=ContinuousLinearMap.id ℝ (GaussianEuclid q)) :
+    (∫ x : Fin p→ℝ, (GaussianMoment.normSq (WithLp.ofLp (T (WithLp.toLp 2 x))))⁻¹ ∂Measure.pi (fun _ : Fin p => gaussianReal 0 1))=1/((q : ℝ)-2) := GaussianMoment.projected_normSq_inverse_integral hq T hT
+theorem literal_global_measurable (a b : ℕ) :
+    Measurable (fun B : Matrix (Fin a) (Fin b) ℝ => pseudoInverse B) := Pseudo.measurable_actual a b
+theorem literal_global_aemeasurable {Ω : Type*} [MeasurableSpace Ω] {a b : ℕ}
+    (μ : Measure Ω) (X : Ω→Matrix (Fin a) (Fin b) ℝ) (hX : AEMeasurable X μ) :
+    AEMeasurable (fun ω=>pseudoInverse(X ω)) μ := Pseudo.aemeasurable_actual μ X hX
+theorem literal_Tikhonov {a b : ℕ} (B : Matrix (Fin a) (Fin b) ℝ) :
+    Tendsto (fun j=>Pseudo.tikhonov B (Pseudo.regularizationParameter j)) atTop (𝓝(pseudoInverse B)) := Pseudo.tikhonov_tendsto B
+theorem literal_original_Target_identity : NLA.Statements.RE06.Target=NLA.ReviewedStatements.RE06.Target := rfl
+end Inventory.RE06.MP
+
+#inventory_theorem NLA.Proofs.TR04.SVD.norm_image_rightBasis
+#assert_trust kernel NLA.Proofs.TR04.SVD.norm_image_rightBasis
+#print axioms NLA.Proofs.TR04.SVD.norm_image_rightBasis
+
+#inventory_theorem NLA.Proofs.TR04.SVD.inner_image_rightBasis
+#assert_trust kernel NLA.Proofs.TR04.SVD.inner_image_rightBasis
+#print axioms NLA.Proofs.TR04.SVD.inner_image_rightBasis
+
+#inventory_theorem NLA.Proofs.TR04.SVD.image_rightBasis_eq_zero
+#assert_trust kernel NLA.Proofs.TR04.SVD.image_rightBasis_eq_zero
+#print axioms NLA.Proofs.TR04.SVD.image_rightBasis_eq_zero
+
+#inventory_theorem NLA.Proofs.TR04.SVD.range_finrank_le_domain
+#assert_trust kernel NLA.Proofs.TR04.SVD.range_finrank_le_domain
+#print axioms NLA.Proofs.TR04.SVD.range_finrank_le_domain
+
+#inventory_theorem NLA.Proofs.TR04.SVD.range_finrank_le_codomain
+#assert_trust kernel NLA.Proofs.TR04.SVD.range_finrank_le_codomain
+#print axioms NLA.Proofs.TR04.SVD.range_finrank_le_codomain
+
+#inventory_theorem NLA.Proofs.TR04.SVD.orthonormal_leftVector_positive
+#assert_trust kernel NLA.Proofs.TR04.SVD.orthonormal_leftVector_positive
+#print axioms NLA.Proofs.TR04.SVD.orthonormal_leftVector_positive
+
+#inventory_theorem NLA.Proofs.TR04.SVD.exists_leftBasis
+#assert_trust kernel NLA.Proofs.TR04.SVD.exists_leftBasis
+#print axioms NLA.Proofs.TR04.SVD.exists_leftBasis
+
+#inventory_theorem NLA.Proofs.TR04.SVD.image_rightBasis_eq_smul
+#assert_trust kernel NLA.Proofs.TR04.SVD.image_rightBasis_eq_smul
+#print axioms NLA.Proofs.TR04.SVD.image_rightBasis_eq_smul
+
+#inventory_theorem NLA.Proofs.TR04.SVD.sum_fin_truncate
+#assert_trust kernel NLA.Proofs.TR04.SVD.sum_fin_truncate
+#print axioms NLA.Proofs.TR04.SVD.sum_fin_truncate
+
+#inventory_theorem NLA.Proofs.TR04.SVD.exists_validSVD
+#assert_trust kernel NLA.Proofs.TR04.SVD.exists_validSVD
+#print axioms NLA.Proofs.TR04.SVD.exists_validSVD
+
+#inventory_theorem NLA.Proofs.RE06.svd_total
+#assert_trust kernel NLA.Proofs.RE06.svd_total
+#print axioms NLA.Proofs.RE06.svd_total
+
+#inventory_theorem NLA.Proofs.RE06.stream_coordinate_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.stream_coordinate_hasLaw
+#print axioms NLA.Proofs.RE06.stream_coordinate_hasLaw
+
+#inventory_theorem NLA.Proofs.RE06.stream_selection_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.stream_selection_hasLaw
+#print axioms NLA.Proofs.RE06.stream_selection_hasLaw
+
+#inventory_theorem NLA.Proofs.RE06.finite_stream_selection_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.finite_stream_selection_hasLaw
+#print axioms NLA.Proofs.RE06.finite_stream_selection_hasLaw
+
+#inventory_theorem NLA.Proofs.RE06.stream_groups_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.stream_groups_hasLaw
+#print axioms NLA.Proofs.RE06.stream_groups_hasLaw
+
+#inventory_theorem NLA.Proofs.RE06.finite_stream_groups_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.finite_stream_groups_hasLaw
+#print axioms NLA.Proofs.RE06.finite_stream_groups_hasLaw
+
+#inventory_theorem NLA.Proofs.RE06.stream_selection_independent
+#assert_trust kernel NLA.Proofs.RE06.stream_selection_independent
+#print axioms NLA.Proofs.RE06.stream_selection_independent
+
+#inventory_theorem NLA.Proofs.RE06.gaussianBlockIndex_injective
+#assert_trust kernel NLA.Proofs.RE06.gaussianBlockIndex_injective
+#print axioms NLA.Proofs.RE06.gaussianBlockIndex_injective
+
+#inventory_theorem NLA.Proofs.RE06.gaussianBlock_entries_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.gaussianBlock_entries_hasLaw
+#print axioms NLA.Proofs.RE06.gaussianBlock_entries_hasLaw
+
+#inventory_theorem NLA.Proofs.RE06.gaussianThreeColumn_injective
+#assert_trust kernel NLA.Proofs.RE06.gaussianThreeColumn_injective
+#print axioms NLA.Proofs.RE06.gaussianThreeColumn_injective
+
+#inventory_theorem NLA.Proofs.RE06.gaussianThreeIndex_injective
+#assert_trust kernel NLA.Proofs.RE06.gaussianThreeIndex_injective
+#print axioms NLA.Proofs.RE06.gaussianThreeIndex_injective
+
+#inventory_theorem NLA.Proofs.RE06.gaussianThreeBlocks_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.gaussianThreeBlocks_hasLaw
+#print axioms NLA.Proofs.RE06.gaussianThreeBlocks_hasLaw
+
+#inventory_theorem NLA.Proofs.RE06.gaussianThreeBlocks_independent
+#assert_trust kernel NLA.Proofs.RE06.gaussianThreeBlocks_independent
+#print axioms NLA.Proofs.RE06.gaussianThreeBlocks_independent
+
+#inventory_theorem NLA.Proofs.RE06.makePlan_sketch_blocks
+#assert_trust kernel NLA.Proofs.RE06.makePlan_sketch_blocks
+#print axioms NLA.Proofs.RE06.makePlan_sketch_blocks
+
+#inventory_theorem NLA.Proofs.RE06.gaussian_square_exp_integral
+#assert_trust kernel NLA.Proofs.RE06.gaussian_square_exp_integral
+#print axioms NLA.Proofs.RE06.gaussian_square_exp_integral
+
+#inventory_theorem NLA.Proofs.RE06.gaussian_square_exp_integrable
+#assert_trust kernel NLA.Proofs.RE06.gaussian_square_exp_integrable
+#print axioms NLA.Proofs.RE06.gaussian_square_exp_integrable
+
+#inventory_theorem NLA.Proofs.RE06.gaussian_square_laplace
+#assert_trust kernel NLA.Proofs.RE06.gaussian_square_laplace
+#print axioms NLA.Proofs.RE06.gaussian_square_laplace
+
+#inventory_theorem NLA.Proofs.RE06.gaussian_square_laplace_integrable
+#assert_trust kernel NLA.Proofs.RE06.gaussian_square_laplace_integrable
+#print axioms NLA.Proofs.RE06.gaussian_square_laplace_integrable
+
+#inventory_theorem NLA.Proofs.RE06.inv_sqrt_eq_exp_neg_half_log
+#assert_trust kernel NLA.Proofs.RE06.inv_sqrt_eq_exp_neg_half_log
+#print axioms NLA.Proofs.RE06.inv_sqrt_eq_exp_neg_half_log
+
+#inventory_theorem NLA.Proofs.RE06.gaussianQuadratic_exp_integral
+#assert_trust kernel NLA.Proofs.RE06.gaussianQuadratic_exp_integral
+#print axioms NLA.Proofs.RE06.gaussianQuadratic_exp_integral
+
+#inventory_theorem NLA.Proofs.RE06.gaussianQuadratic_exp_integral_log
+#assert_trust kernel NLA.Proofs.RE06.gaussianQuadratic_exp_integral_log
+#print axioms NLA.Proofs.RE06.gaussianQuadratic_exp_integral_log
+
+#inventory_theorem NLA.Proofs.RE06.streamQuadratic_exp_integral
+#assert_trust kernel NLA.Proofs.RE06.streamQuadratic_exp_integral
+#print axioms NLA.Proofs.RE06.streamQuadratic_exp_integral
+
+#inventory_theorem NLA.Proofs.RE06.streamQuadratic_exp_integrable
+#assert_trust kernel NLA.Proofs.RE06.streamQuadratic_exp_integrable
+#print axioms NLA.Proofs.RE06.streamQuadratic_exp_integrable
+
+#inventory_theorem NLA.Proofs.RE06.streamQuadratic_lower_chernoff
+#assert_trust kernel NLA.Proofs.RE06.streamQuadratic_lower_chernoff
+#print axioms NLA.Proofs.RE06.streamQuadratic_lower_chernoff
+
+#inventory_theorem NLA.Proofs.RE06.gaussianBlock_columns_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.gaussianBlock_columns_hasLaw
+#print axioms NLA.Proofs.RE06.gaussianBlock_columns_hasLaw
+
+#inventory_theorem NLA.Proofs.RE06.gaussianEuclid_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.gaussianEuclid_hasLaw
+#print axioms NLA.Proofs.RE06.gaussianEuclid_hasLaw
+
+#inventory_theorem NLA.Proofs.RE06.gaussianEuclid_coordinates_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.gaussianEuclid_coordinates_hasLaw
+#print axioms NLA.Proofs.RE06.gaussianEuclid_coordinates_hasLaw
+
+#inventory_theorem NLA.Proofs.RE06.gaussianEuclid_rotation_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.gaussianEuclid_rotation_hasLaw
+#print axioms NLA.Proofs.RE06.gaussianEuclid_rotation_hasLaw
+
+#inventory_theorem NLA.Proofs.RE06.gaussianBlock_euclidean_columns_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.gaussianBlock_euclidean_columns_hasLaw
+#print axioms NLA.Proofs.RE06.gaussianBlock_euclidean_columns_hasLaw
+
+#inventory_theorem NLA.Proofs.RE06.gaussianBlock_rotated_columns_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.gaussianBlock_rotated_columns_hasLaw
+#print axioms NLA.Proofs.RE06.gaussianBlock_rotated_columns_hasLaw
+
+#inventory_theorem NLA.Proofs.RE06.gaussianBlock_rotated_coordinates_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.gaussianBlock_rotated_coordinates_hasLaw
+#print axioms NLA.Proofs.RE06.gaussianBlock_rotated_coordinates_hasLaw
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.svd_U_gram
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.svd_U_gram
+#print axioms NLA.Proofs.RE06.Pseudo.svd_U_gram
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.svd_V_gram
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.svd_V_gram
+#print axioms NLA.Proofs.RE06.Pseudo.svd_V_gram
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.svd_U_cogram
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.svd_U_cogram
+#print axioms NLA.Proofs.RE06.Pseudo.svd_U_cogram
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.svd_V_cogram
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.svd_V_cogram
+#print axioms NLA.Proofs.RE06.Pseudo.svd_V_cogram
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.thinU_orthogonal
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.thinU_orthogonal
+#print axioms NLA.Proofs.RE06.Pseudo.thinU_orthogonal
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.thinV_orthogonal
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.thinV_orthogonal
+#print axioms NLA.Proofs.RE06.Pseudo.thinV_orthogonal
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.reconstruction
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.reconstruction
+#print axioms NLA.Proofs.RE06.Pseudo.reconstruction
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.pseudoinverse_decomposition
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.pseudoinverse_decomposition
+#print axioms NLA.Proofs.RE06.Pseudo.pseudoinverse_decomposition
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.diagonal_sigma_inv_sigma
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.diagonal_sigma_inv_sigma
+#print axioms NLA.Proofs.RE06.Pseudo.diagonal_sigma_inv_sigma
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.diagonal_inv_sigma_inv
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.diagonal_inv_sigma_inv
+#print axioms NLA.Proofs.RE06.Pseudo.diagonal_inv_sigma_inv
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.diagonal_sigma_inv_commute
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.diagonal_sigma_inv_commute
+#print axioms NLA.Proofs.RE06.Pseudo.diagonal_sigma_inv_commute
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.mul_pseudoinverse
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.mul_pseudoinverse
+#print axioms NLA.Proofs.RE06.Pseudo.mul_pseudoinverse
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.pseudoinverse_mul
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.pseudoinverse_mul
+#print axioms NLA.Proofs.RE06.Pseudo.pseudoinverse_mul
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.sandwich_contract
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.sandwich_contract
+#print axioms NLA.Proofs.RE06.Pseudo.sandwich_contract
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.sandwich_diagonal_transpose
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.sandwich_diagonal_transpose
+#print axioms NLA.Proofs.RE06.Pseudo.sandwich_diagonal_transpose
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.mul_pseudoinverse_mul
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.mul_pseudoinverse_mul
+#print axioms NLA.Proofs.RE06.Pseudo.mul_pseudoinverse_mul
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.pseudoinverse_mul_pseudoinverse
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.pseudoinverse_mul_pseudoinverse
+#print axioms NLA.Proofs.RE06.Pseudo.pseudoinverse_mul_pseudoinverse
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.mul_pseudoinverse_transpose
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.mul_pseudoinverse_transpose
+#print axioms NLA.Proofs.RE06.Pseudo.mul_pseudoinverse_transpose
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.pseudoinverse_mul_transpose
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.pseudoinverse_mul_transpose
+#print axioms NLA.Proofs.RE06.Pseudo.pseudoinverse_mul_transpose
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.actual_isMP
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.actual_isMP
+#print axioms NLA.Proofs.RE06.Pseudo.actual_isMP
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.symmetric_absorption_unique
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.symmetric_absorption_unique
+#print axioms NLA.Proofs.RE06.Pseudo.symmetric_absorption_unique
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.isMP_unique
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.isMP_unique
+#print axioms NLA.Proofs.RE06.Pseudo.isMP_unique
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.actual_eq_of_isMP
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.actual_eq_of_isMP
+#print axioms NLA.Proofs.RE06.Pseudo.actual_eq_of_isMP
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.zero
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.zero
+#print axioms NLA.Proofs.RE06.Pseudo.zero
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.transpose
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.transpose
+#print axioms NLA.Proofs.RE06.Pseudo.transpose
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.mul_actual_eq_one_of_right_inverse
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.mul_actual_eq_one_of_right_inverse
+#print axioms NLA.Proofs.RE06.Pseudo.mul_actual_eq_one_of_right_inverse
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.actual_mul_eq_one_of_left_inverse
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.actual_mul_eq_one_of_left_inverse
+#print axioms NLA.Proofs.RE06.Pseudo.actual_mul_eq_one_of_left_inverse
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.full_row_formula
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.full_row_formula
+#print axioms NLA.Proofs.RE06.Pseudo.full_row_formula
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.full_column_formula
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.full_column_formula
+#print axioms NLA.Proofs.RE06.Pseudo.full_column_formula
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.orthonormal_columns
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.orthonormal_columns
+#print axioms NLA.Proofs.RE06.Pseudo.orthonormal_columns
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.reverse_order
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.reverse_order
+#print axioms NLA.Proofs.RE06.Pseudo.reverse_order
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.reverse_order_of_gram_det
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.reverse_order_of_gram_det
+#print axioms NLA.Proofs.RE06.Pseudo.reverse_order_of_gram_det
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.repair_range_factorization
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.repair_range_factorization
+#print axioms NLA.Proofs.RE06.Pseudo.repair_range_factorization
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.repair_range_factorization_of_gram_det
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.repair_range_factorization_of_gram_det
+#print axioms NLA.Proofs.RE06.Pseudo.repair_range_factorization_of_gram_det
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.range_subset_iff_matrix_factor
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.range_subset_iff_matrix_factor
+#print axioms NLA.Proofs.RE06.Pseudo.range_subset_iff_matrix_factor
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.repair_orthonormal_range
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.repair_orthonormal_range
+#print axioms NLA.Proofs.RE06.Pseudo.repair_orthonormal_range
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.measurable_nonsing_inverse
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.measurable_nonsing_inverse
+#print axioms NLA.Proofs.RE06.Pseudo.measurable_nonsing_inverse
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.measurable_matrix_mul
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.measurable_matrix_mul
+#print axioms NLA.Proofs.RE06.Pseudo.measurable_matrix_mul
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.measurable_matrix_transpose
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.measurable_matrix_transpose
+#print axioms NLA.Proofs.RE06.Pseudo.measurable_matrix_transpose
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.measurable_full_row_representative
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.measurable_full_row_representative
+#print axioms NLA.Proofs.RE06.Pseudo.measurable_full_row_representative
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.aemeasurable_actual_of_full_row
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.aemeasurable_actual_of_full_row
+#print axioms NLA.Proofs.RE06.Pseudo.aemeasurable_actual_of_full_row
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.gram_det_ne_zero_of_right_inverse
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.gram_det_ne_zero_of_right_inverse
+#print axioms NLA.Proofs.RE06.Pseudo.gram_det_ne_zero_of_right_inverse
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.gram_det_ne_zero_iff_right_inverse
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.gram_det_ne_zero_iff_right_inverse
+#print axioms NLA.Proofs.RE06.Pseudo.gram_det_ne_zero_iff_right_inverse
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.gram_det_ne_zero_iff_surjective
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.gram_det_ne_zero_iff_surjective
+#print axioms NLA.Proofs.RE06.Pseudo.gram_det_ne_zero_iff_surjective
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.measurableSet_full_row_rank
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.measurableSet_full_row_rank
+#print axioms NLA.Proofs.RE06.Pseudo.measurableSet_full_row_rank
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.frobeniusSq_nonneg
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.frobeniusSq_nonneg
+#print axioms NLA.Proofs.RE06.Pseudo.frobeniusSq_nonneg
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.frobeniusSq_trace
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.frobeniusSq_trace
+#print axioms NLA.Proofs.RE06.Pseudo.frobeniusSq_trace
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.full_row_inverse_gram
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.full_row_inverse_gram
+#print axioms NLA.Proofs.RE06.Pseudo.full_row_inverse_gram
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.full_row_frobeniusSq_trace_inverse_gram
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.full_row_frobeniusSq_trace_inverse_gram
+#print axioms NLA.Proofs.RE06.Pseudo.full_row_frobeniusSq_trace_inverse_gram
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.gammaPDFReal_inverse_weight
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.gammaPDFReal_inverse_weight
+#print axioms NLA.Proofs.RE06.GaussianMoment.gammaPDFReal_inverse_weight
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.gamma_inverse_lintegral
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.gamma_inverse_lintegral
+#print axioms NLA.Proofs.RE06.GaussianMoment.gamma_inverse_lintegral
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.gamma_ae_nonneg
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.gamma_ae_nonneg
+#print axioms NLA.Proofs.RE06.GaussianMoment.gamma_ae_nonneg
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.gamma_inverse_integrable
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.gamma_inverse_integrable
+#print axioms NLA.Proofs.RE06.GaussianMoment.gamma_inverse_integrable
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.gamma_inverse_integral
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.gamma_inverse_integral
+#print axioms NLA.Proofs.RE06.GaussianMoment.gamma_inverse_integral
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.scalar_inverse_laplace
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.scalar_inverse_laplace
+#print axioms NLA.Proofs.RE06.GaussianMoment.scalar_inverse_laplace
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.affine_power_integral
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.affine_power_integral
+#print axioms NLA.Proofs.RE06.GaussianMoment.affine_power_integral
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.affine_power_integrable
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.affine_power_integrable
+#print axioms NLA.Proofs.RE06.GaussianMoment.affine_power_integrable
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.normSq_nonneg
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.normSq_nonneg
+#print axioms NLA.Proofs.RE06.GaussianMoment.normSq_nonneg
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.normSq_pos_ae
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.normSq_pos_ae
+#print axioms NLA.Proofs.RE06.GaussianMoment.normSq_pos_ae
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.normSq_laplace
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.normSq_laplace
+#print axioms NLA.Proofs.RE06.GaussianMoment.normSq_laplace
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.normSq_laplace_integrable
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.normSq_laplace_integrable
+#print axioms NLA.Proofs.RE06.GaussianMoment.normSq_laplace_integrable
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.normSq_laplace_lintegral
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.normSq_laplace_lintegral
+#print axioms NLA.Proofs.RE06.GaussianMoment.normSq_laplace_lintegral
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.normSq_inverse_lintegral
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.normSq_inverse_lintegral
+#print axioms NLA.Proofs.RE06.GaussianMoment.normSq_inverse_lintegral
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.normSq_inverse_integrable
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.normSq_inverse_integrable
+#print axioms NLA.Proofs.RE06.GaussianMoment.normSq_inverse_integrable
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.normSq_inverse_integral
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.normSq_inverse_integral
+#print axioms NLA.Proofs.RE06.GaussianMoment.normSq_inverse_integral
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.normSq_inverse_integral_of_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.normSq_inverse_integral_of_hasLaw
+#print axioms NLA.Proofs.RE06.GaussianMoment.normSq_inverse_integral_of_hasLaw
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.stream_normSq_inverse_integral
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.stream_normSq_inverse_integral
+#print axioms NLA.Proofs.RE06.GaussianMoment.stream_normSq_inverse_integral
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.coisometry_adjoint_norm_sq
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.coisometry_adjoint_norm_sq
+#print axioms NLA.Proofs.RE06.GaussianMoment.coisometry_adjoint_norm_sq
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.stdGaussian_map_coisometry
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.stdGaussian_map_coisometry
+#print axioms NLA.Proofs.RE06.GaussianMoment.stdGaussian_map_coisometry
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.coisometry_coordinates_hasLaw
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.coisometry_coordinates_hasLaw
+#print axioms NLA.Proofs.RE06.GaussianMoment.coisometry_coordinates_hasLaw
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.projected_normSq_inverse_integral
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.projected_normSq_inverse_integral
+#print axioms NLA.Proofs.RE06.GaussianMoment.projected_normSq_inverse_integral
+
+#inventory_theorem NLA.Proofs.RE06.PseudoAudit.live_frozen_identity
+#assert_trust kernel NLA.Proofs.RE06.PseudoAudit.live_frozen_identity
+#print axioms NLA.Proofs.RE06.PseudoAudit.live_frozen_identity
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.polynomial_eval_ne_zero_ae
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.polynomial_eval_ne_zero_ae
+#print axioms NLA.Proofs.RE06.GaussianMoment.polynomial_eval_ne_zero_ae
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.mvPolynomial_eval_ne_zero_ae
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.mvPolynomial_eval_ne_zero_ae
+#print axioms NLA.Proofs.RE06.GaussianMoment.mvPolynomial_eval_ne_zero_ae
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.mvPolynomial_fintype_eval_ne_zero_ae
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.mvPolynomial_fintype_eval_ne_zero_ae
+#print axioms NLA.Proofs.RE06.GaussianMoment.mvPolynomial_fintype_eval_ne_zero_ae
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.eval_gramDetPolynomial
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.eval_gramDetPolynomial
+#print axioms NLA.Proofs.RE06.GaussianMoment.eval_gramDetPolynomial
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.gramDetPolynomial_ne_zero
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.gramDetPolynomial_ne_zero
+#print axioms NLA.Proofs.RE06.GaussianMoment.gramDetPolynomial_ne_zero
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.gaussian_gram_det_ne_zero_ae
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.gaussian_gram_det_ne_zero_ae
+#print axioms NLA.Proofs.RE06.GaussianMoment.gaussian_gram_det_ne_zero_ae
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.gaussian_surjective_ae
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.gaussian_surjective_ae
+#print axioms NLA.Proofs.RE06.GaussianMoment.gaussian_surjective_ae
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.hasLaw_gram_det_ne_zero_ae
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.hasLaw_gram_det_ne_zero_ae
+#print axioms NLA.Proofs.RE06.GaussianMoment.hasLaw_gram_det_ne_zero_ae
+
+#inventory_theorem NLA.Proofs.RE06.GaussianMoment.stream_block_gram_det_ne_zero_ae
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.stream_block_gram_det_ne_zero_ae
+#print axioms NLA.Proofs.RE06.GaussianMoment.stream_block_gram_det_ne_zero_ae
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.transpose_reconstruction
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.transpose_reconstruction
+#print axioms NLA.Proofs.RE06.Pseudo.transpose_reconstruction
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.gram_decomposition
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.gram_decomposition
+#print axioms NLA.Proofs.RE06.Pseudo.gram_decomposition
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.regularized_diagonal_identity
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.regularized_diagonal_identity
+#print axioms NLA.Proofs.RE06.Pseudo.regularized_diagonal_identity
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.regularized_gram_isUnit
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.regularized_gram_isUnit
+#print axioms NLA.Proofs.RE06.Pseudo.regularized_gram_isUnit
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.regularized_solution
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.regularized_solution
+#print axioms NLA.Proofs.RE06.Pseudo.regularized_solution
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.tikhonov_decomposition
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.tikhonov_decomposition
+#print axioms NLA.Proofs.RE06.Pseudo.tikhonov_decomposition
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.regularizationParameter_pos
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.regularizationParameter_pos
+#print axioms NLA.Proofs.RE06.Pseudo.regularizationParameter_pos
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.regularizationParameter_tendsto
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.regularizationParameter_tendsto
+#print axioms NLA.Proofs.RE06.Pseudo.regularizationParameter_tendsto
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.regularizedSigma_tendsto
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.regularizedSigma_tendsto
+#print axioms NLA.Proofs.RE06.Pseudo.regularizedSigma_tendsto
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.tikhonov_entry
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.tikhonov_entry
+#print axioms NLA.Proofs.RE06.Pseudo.tikhonov_entry
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.pseudoinverse_entry
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.pseudoinverse_entry
+#print axioms NLA.Proofs.RE06.Pseudo.pseudoinverse_entry
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.tikhonov_tendsto
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.tikhonov_tendsto
+#print axioms NLA.Proofs.RE06.Pseudo.tikhonov_tendsto
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.measurable_tikhonov
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.measurable_tikhonov
+#print axioms NLA.Proofs.RE06.Pseudo.measurable_tikhonov
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.measurable_actual
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.measurable_actual
+#print axioms NLA.Proofs.RE06.Pseudo.measurable_actual
+
+#inventory_theorem NLA.Proofs.RE06.Pseudo.aemeasurable_actual
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.aemeasurable_actual
+#print axioms NLA.Proofs.RE06.Pseudo.aemeasurable_actual
+
+#inventory_theorem Inventory.RE06.MP.literal_MP
+#assert_trust kernel Inventory.RE06.MP.literal_MP
+#print axioms Inventory.RE06.MP.literal_MP
+
+#inventory_theorem Inventory.RE06.MP.literal_unique
+#assert_trust kernel Inventory.RE06.MP.literal_unique
+#print axioms Inventory.RE06.MP.literal_unique
+
+#inventory_theorem Inventory.RE06.MP.literal_zero
+#assert_trust kernel Inventory.RE06.MP.literal_zero
+#print axioms Inventory.RE06.MP.literal_zero
+
+#inventory_theorem Inventory.RE06.MP.literal_full_row
+#assert_trust kernel Inventory.RE06.MP.literal_full_row
+#print axioms Inventory.RE06.MP.literal_full_row
+
+#inventory_theorem Inventory.RE06.MP.literal_range_repair
+#assert_trust kernel Inventory.RE06.MP.literal_range_repair
+#print axioms Inventory.RE06.MP.literal_range_repair
+
+#inventory_theorem Inventory.RE06.MP.literal_trace
+#assert_trust kernel Inventory.RE06.MP.literal_trace
+#print axioms Inventory.RE06.MP.literal_trace
+
+#inventory_theorem Inventory.RE06.MP.literal_fullrank
+#assert_trust kernel Inventory.RE06.MP.literal_fullrank
+#print axioms Inventory.RE06.MP.literal_fullrank
+
+#inventory_theorem Inventory.RE06.MP.literal_stream_fullrank
+#assert_trust kernel Inventory.RE06.MP.literal_stream_fullrank
+#print axioms Inventory.RE06.MP.literal_stream_fullrank
+
+#inventory_theorem Inventory.RE06.MP.literal_reciprocal_integrable
+#assert_trust kernel Inventory.RE06.MP.literal_reciprocal_integrable
+#print axioms Inventory.RE06.MP.literal_reciprocal_integrable
+
+#inventory_theorem Inventory.RE06.MP.literal_reciprocal_moment
+#assert_trust kernel Inventory.RE06.MP.literal_reciprocal_moment
+#print axioms Inventory.RE06.MP.literal_reciprocal_moment
+
+#inventory_theorem Inventory.RE06.MP.literal_projected_moment
+#assert_trust kernel Inventory.RE06.MP.literal_projected_moment
+#print axioms Inventory.RE06.MP.literal_projected_moment
+
+#inventory_theorem Inventory.RE06.MP.literal_global_measurable
+#assert_trust kernel Inventory.RE06.MP.literal_global_measurable
+#print axioms Inventory.RE06.MP.literal_global_measurable
+
+#inventory_theorem Inventory.RE06.MP.literal_global_aemeasurable
+#assert_trust kernel Inventory.RE06.MP.literal_global_aemeasurable
+#print axioms Inventory.RE06.MP.literal_global_aemeasurable
+
+#inventory_theorem Inventory.RE06.MP.literal_Tikhonov
+#assert_trust kernel Inventory.RE06.MP.literal_Tikhonov
+#print axioms Inventory.RE06.MP.literal_Tikhonov
+
+#inventory_theorem Inventory.RE06.MP.literal_original_Target_identity
+#assert_trust kernel Inventory.RE06.MP.literal_original_Target_identity
+#print axioms Inventory.RE06.MP.literal_original_Target_identity
+
+#assert_trust kernel NLA.Proofs.TR04.SVD.Space
+#print axioms NLA.Proofs.TR04.SVD.Space
+
+#assert_trust kernel NLA.Proofs.TR04.SVD.rightBasis
+#print axioms NLA.Proofs.TR04.SVD.rightBasis
+
+#assert_trust kernel NLA.Proofs.TR04.SVD.leftVector
+#print axioms NLA.Proofs.TR04.SVD.leftVector
+
+#assert_trust kernel NLA.Proofs.RE06.gaussianBlockIndex
+#print axioms NLA.Proofs.RE06.gaussianBlockIndex
+
+#assert_trust kernel NLA.Proofs.RE06.gaussianBlock
+#print axioms NLA.Proofs.RE06.gaussianBlock
+
+#assert_trust kernel NLA.Proofs.RE06.gaussianBlockWidth
+#print axioms NLA.Proofs.RE06.gaussianBlockWidth
+
+#assert_trust kernel NLA.Proofs.RE06.gaussianBlockOffset
+#print axioms NLA.Proofs.RE06.gaussianBlockOffset
+
+#assert_trust kernel NLA.Proofs.RE06.gaussianThreeColumn
+#print axioms NLA.Proofs.RE06.gaussianThreeColumn
+
+#assert_trust kernel NLA.Proofs.RE06.gaussianThreeIndex
+#print axioms NLA.Proofs.RE06.gaussianThreeIndex
+
+#assert_trust kernel NLA.Proofs.RE06.gaussianQuadratic
+#print axioms NLA.Proofs.RE06.gaussianQuadratic
+
+#assert_trust kernel NLA.Proofs.RE06.GaussianEuclid
+#print axioms NLA.Proofs.RE06.GaussianEuclid
+
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.thinU
+#print axioms NLA.Proofs.RE06.Pseudo.thinU
+
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.thinV
+#print axioms NLA.Proofs.RE06.Pseudo.thinV
+
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.sigma
+#print axioms NLA.Proofs.RE06.Pseudo.sigma
+
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.sigmaInv
+#print axioms NLA.Proofs.RE06.Pseudo.sigmaInv
+
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.IsMP
+#print axioms NLA.Proofs.RE06.Pseudo.IsMP
+
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.frobeniusSq
+#print axioms NLA.Proofs.RE06.Pseudo.frobeniusSq
+
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.normSq
+#print axioms NLA.Proofs.RE06.GaussianMoment.normSq
+
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.entryMatrix
+#print axioms NLA.Proofs.RE06.GaussianMoment.entryMatrix
+
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.variableMatrix
+#print axioms NLA.Proofs.RE06.GaussianMoment.variableMatrix
+
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.gramDetPolynomial
+#print axioms NLA.Proofs.RE06.GaussianMoment.gramDetPolynomial
+
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.tikhonov
+#print axioms NLA.Proofs.RE06.Pseudo.tikhonov
+
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.regularizedSigma
+#print axioms NLA.Proofs.RE06.Pseudo.regularizedSigma
+
+#assert_trust kernel NLA.Proofs.RE06.Pseudo.regularizationParameter
+#print axioms NLA.Proofs.RE06.Pseudo.regularizationParameter
+
+open Lean Elab Command in
+elab "#inventory_absent " n:ident : command => do
+  if (← getEnv).contains n.getId then throwErrorAt n "unexpected full public proof"
+#inventory_absent NLA.Proofs.RE06.successful
+#inventory_absent NLA.Proofs.RE06.original_claim
+#inventory_absent NLA.Proofs.RE06.explicit_claim
+#inventory_absent NLA.Proofs.RE06.target

@@ -1,0 +1,20 @@
+import Independent.FullTargetAudit
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open MeasureTheory ProbabilityTheory
+open NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06 NLA.Proofs.RE06.Repair
+open Lean Elab Command
+elab "#review_kind " kind:ident target:ident : command => do
+  let n ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo target
+  match ← liftCoreM <| getConstInfo n with
+  | .thmInfo _ => unless kind.getId == `thm do throwError "expected definition"
+  | .defnInfo _ => unless kind.getId == `defn do throwError "review requires actual theorem"
+  | _ => throwError "unexpected declaration kind"
+theorem ConditionalSuccessful (n m : ℕ) (hn : 0 < n)
+    (F : NLA.Computation.NonadaptiveMatrixQuery.Family n m) (hF : Function.Injective F)
+    (A : Matrix (Fin n) (Fin n) ℝ) (ε : ℝ) (hε0 : 0 < ε) (hεh : ε < 1 / 2) (hAnalytic : NLA.Computation.NonadaptiveMatrixQuery.Successful F A ε) : NLA.Computation.NonadaptiveMatrixQuery.Successful F A ε := hAnalytic
+#review_kind thm ConditionalSuccessful
+#assert_trust kernel ConditionalSuccessful
+example (n m : ℕ) (hn : 0 < n)
+    (F : NLA.Computation.NonadaptiveMatrixQuery.Family n m) (hF : Function.Injective F)
+    (A : Matrix (Fin n) (Fin n) ℝ) (ε : ℝ) (hε0 : 0 < ε) (hεh : ε < 1 / 2) : NLA.Computation.NonadaptiveMatrixQuery.Successful F A ε := ConditionalSuccessful n m hn F hF A ε hε0 hεh

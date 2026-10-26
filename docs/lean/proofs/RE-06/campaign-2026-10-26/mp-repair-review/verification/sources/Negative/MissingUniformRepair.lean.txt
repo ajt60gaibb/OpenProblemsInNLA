@@ -1,0 +1,12 @@
+import Independent.MPRepairAudit
+set_option leancert.trust "kernel"
+open MeasureTheory ProbabilityTheory
+open NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06 NLA.Proofs.RE06.Repair
+example {n m : ℕ} (F : Family n m) (A : Matrix (Fin n) (Fin n) ℝ)
+   (ε η δ : ℝ) (hsketch : firstWidth m ε+secondWidth m ε+thirdWidth m ε < n) :
+   NullMeasurableSet {ω | (1+η)*residualTailEnergy (A-F (sketchWarmIndex F A (makePlan n m ε ω))) (rootWidth m) <
+     squaredFrobenius A (sketchRepair F A (makePlan n m ε ω))} GaussianLaw ∧
+   GaussianLaw.real {ω | (1+η)*residualTailEnergy (A-F (sketchWarmIndex F A (makePlan n m ε ω))) (rootWidth m) <
+     squaredFrobenius A (sketchRepair F A (makePlan n m ε ω))} ≤ δ :=
+   actual_selected_repair_failure_le F A ε η δ hsketch
+ 
