@@ -1,0 +1,16 @@
+# Actual reverse level author kernel replay
+
+PASS: seven frozen sources, 123 explicit authored declarations, a fresh 84-source project closure and expanded literal consumer (85 accepted kernel commands). LeanCert uses kernel mode throughout. Only propext, Classical.choice and Quot.sound occur in printed axiom lists. No project object from earlier runs was reused; only pinned external package caches were reused.
+
+The complete actual reverse level starts at287. It computes the saved metadata address, reads four actual real cells, and decodes each through the shared Single natural decoder and literal caller tags7/8/9/10. This takes exactly3*(m+q+cols+stride)+132 transitions to319 and preserves the entire memory. The actual stride/frame/matrix preparation takes22 transitions; the frozen strided multiply stores every entry of lift Q A. The actual eight-transition return swaps current/next and either decrements a positive level to parent read287 or reaches candidate copy349 at level0, with destination123=store71+j76*entries64. A separate actual pre-step proves286→287 with the initial level decrement.
+
+`ttReverse_unmerge_at` accepts the actually stored merged child Z and proves that its output at the actual current pointer is lift Q(merge.symm Z). This uses the frozen exact radix address identity; no free unmerge evaluator, selected SVD basis or approximation assumption is used. Arbitrary separated protected blocks, frame/input, all nonscratch natural globals and reals outside0..4 are preserved. The actual charged prefix is bounded by metadataTime+22+17*(m+q+cols+1)^3+8; exact elapsed time uses the actual matrix return time. Zero dimensions remain included under the explicit source/output separation and q≤stride premises.
+
+The consumer expands the arithmetic metadata/matrix time, both parent/candidate continuations, actual output/input pointers and level, candidate destination, frame address/stride, stored reconstructed tensor, arbitrary protected memory and charged bound. It also checks actual286 pre-step and the literal frozen prefix stepOutput boundary, and asserts all123 authored declarations. An initial development consumer required an explicit update-index type annotation; the failed probe and previous consumer are retained. No proof source changed after freeze. Acceptance is exclusively the complete `final/` empty-object replay.
+
+Scope: author evidence only. No independent approval, complete TT recursive execution/Target, Linux CI or Comparator acceptance is claimed. Prior forward/header/tensor/layout/dimension/selector/radix/assembly sources, original25 inputs, reviewed/literal boundaries, runtime pins and permanent IDs remained byte-exact. The original initializer source-lock is intentionally preserved even though its consumer-only attempt was superseded; imported initializer proof bodies are unchanged and rebuilt in this closure.
+
+Source lock SHA256: 0401785d6f060150f98400363139e56b7f6a040229a730dd7502d62f2ccccb02.
+Result SHA256: 11109b7ac6ccab21189c1751d1309bf393b93c214fc7db2d7b8d91b7a2e5f80b.
+Consumer SHA256: ece2600f7d42459864d92540d0760e107a00c68ccfb5a7486d391a88c144df8a.
+Reproduce: `python3 docs/lean/proofs/TR-04/campaign-2026-10-26/tt-reverse-author/replay.py --output <new-directory>` from the persistent TR04 clone.

@@ -1,0 +1,27 @@
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation
+
+-- All memory inputs describe actual original-offset arrays. The conclusion is
+-- the value read by the actual halt instruction and its original Frobenius minimum.
+example {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ) (S : Shape) (r : Ranks S)
+    (A : Tensor S) (C : ℕ → Tensor S)
+    (hl : (trace.state offset).label=189) (hs : (trace.state offset).status=.running)
+    (hz : (trace.state offset).natural 127=0)
+    (hp : 0<(trace.state offset).natural 75)
+    (hfull : (trace.state offset).natural 75≤(trace.state offset).natural 76)
+    (hK : (trace.state offset).natural 75≤DenseSize S)
+    (hN : (trace.state offset).natural 64=DenseSize S)
+    (hA : ∀ x,(trace.state offset).memory ((trace.state offset).natural 92+Offset S x)=A x)
+    (hC : ∀ i<(trace.state offset).natural 75,∀ x,
+      (trace.state offset).memory ((trace.state offset).natural 71+i*DenseSize S+Offset S x)=C i x) :
+    ∃ time winner : ℕ,winner<(trace.state offset).natural 75 ∧
+      (trace.state time).status=.halted ((trace.state offset).natural 71+winner*DenseSize S) ∧
+      (∀ i<(trace.state offset).natural 75,FrobeniusSq S A (C winner)≤FrobeniusSq S A (C i)) ∧
+      (trace.state time).memory=(trace.state offset).memory ∧
+      CostThrough ttProgram trace time≤CostThrough ttProgram trace offset+300*(Size S r+1)^2 := by
+  obtain ⟨winner,hw,hhalt,_,_,_,hmin,hm,_,hc⟩ :=
+    ttBest_halt_original_at ht offset S r A C hl hs hz hp hfull hK hN hA hC
+  exact ⟨_,winner,hw,hhalt,hmin,hm,hc⟩
+
+end NLA.Proofs.TR04

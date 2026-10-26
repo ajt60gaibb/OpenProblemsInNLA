@@ -1,0 +1,27 @@
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation
+
+-- The already-computed destination pointer is consumed at349; no347/348 step
+-- is assumed or rerun. Every earlier candidate and every header cell survives.
+example {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ) (S : Shape) (r : Ranks S) (B : Tensor S)
+    (hl : (trace.state offset).label=349) (hs : (trace.state offset).status=.running)
+    (hz : (trace.state offset).natural 127=0)
+    (hptr : (trace.state offset).natural 123=ttCandidateStoreBase (trace.state offset))
+    (hN : (trace.state offset).natural 64=DenseSize S)
+    (hd : DisjointBlocks ((trace.state offset).natural 89) ((trace.state offset).natural 64)
+      (ttCandidateStoreBase (trace.state offset)) ((trace.state offset).natural 64))
+    (hB : ∀ x,(trace.state offset).memory ((trace.state offset).natural 89+Offset S x)=B x) :
+    let time := offset+(6*DenseSize S+10)
+    (trace.state time).label=189 ∧ (trace.state time).status=.running ∧
+      (trace.state time).natural 76=(trace.state offset).natural 76+1 ∧
+      (∀ i<(trace.state offset).natural 76,∀ k<DenseSize S,
+        (trace.state time).memory ((trace.state offset).natural 71+i*DenseSize S+k)=
+          (trace.state offset).memory ((trace.state offset).natural 71+i*DenseSize S+k)) ∧
+      (∀ a,a<(trace.state offset).natural 71 → (trace.state time).memory a=(trace.state offset).memory a) ∧
+      CostThrough ttProgram trace time≤CostThrough ttProgram trace offset+18*(Size S r+1) := by
+  obtain ⟨hl',hs',hj,_,hearlier,hprefix,_,hc⟩ :=
+    ttCandidate_copy349_original_at ht offset S r B hl hs hz hptr hN hd hB
+  exact ⟨hl',hs',hj,hearlier,hprefix,hc⟩
+
+end NLA.Proofs.TR04
