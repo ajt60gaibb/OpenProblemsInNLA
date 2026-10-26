@@ -43,6 +43,42 @@ modes, and the write/network/namespace/AF_UNIX isolation controls. The
 [mathematical source review](campaign-2026-10-26/independent-full-target-review/ACCEPTANCE.json)
 is separately bound; the harness does not perform that review.
 
-Final descriptive promotion changes only package metadata and display/status
-text. Its final package receives a separate source-bound Linux receipt, to be
-recorded here after that run and its independent original-artifact audit pass.
+## Final promoted package
+
+The independently approved descriptive promotion at commit
+`09cd782576559502787fb536bc1427bf64b7b3e4` passed
+[final run 40408919808](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/40408919808),
+[job 121875088207](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/40408919808/job/121875088207).
+Its actual executed PR merge is `5c58fa518732636edcb21c377f8014fa00f34480`,
+with exact parents `01141f415715a27473cabc1f35ef898e86aafae2` and
+`09cd782576559502787fb536bc1427bf64b7b3e4`.
+
+The [unchanged original final ZIP](campaign-2026-10-26/linux-pr370-promotion/original-GitHub-artifact12692842329.zip)
+(artifact 12692842329) is 33,585 bytes, SHA-256
+`bd48f52a1f448b3f09b8f39e2a07a946b38bc9e610d9ca55f965a9a80196efcc`.
+The [original final raw job](campaign-2026-10-26/linux-pr370-promotion/job121875088207.log)
+is 248,078 bytes, SHA-256
+`03be81cfc841504b92aa8a41e47d2798ba97996d9a18962779bb5b94f884f920`.
+The [root collection provenance](campaign-2026-10-26/linux-pr370-promotion/COLLECTION_PROVENANCE.json)
+retains the original API values and exact byte identities.
+
+Two independent final audits pass: [827 checks](campaign-2026-10-26/independent-linux-promotion-algebra/APPROVAL.json)
+and [1,214 checks with a separately fetched original ZIP/raw/API collection](campaign-2026-10-26/independent-linux-promotion-review/terminal-result.json).
+Both verify every final canonical input, the exact merge parents, all selected
+exports and their transitive axioms, actual default-kernel and LeanCert kernel
+acceptance, and every rejection/isolation/raw-command control. All 190 Lean
+inputs and 184 shared-source copies are identical to the accepted proof
+candidate. Of the 205 canonical inputs, only `formalization.yaml` changed.
+The actual final Linux import build again contains 187 project modules,
+including all 179 proof modules.
+
+The [post-promotion display audit](campaign-2026-10-26/independent-linux-promotion-review/POSTPROMOTION_DISPLAY.json)
+checks all 217 IDs, 216 unchanged other problem pages, the exact approved README
+replacement and original statement suffix, 13 reproduced catalog outputs,
+and all 17 numbering tests. The branch has 87 Lean verified and 31 Solved
+entries. The [historical checkpoint audit](campaign-2026-10-26/independent-linux-promotion-review/HISTORICAL_CHECKPOINT.json)
+binds the earlier 6,349-artifact source index to checkpoint
+`e7b6c9c592d823973aac5d39a6dbe6c81c0005ce`, where the original README and
+pre-promotion metadata remain live byte for byte. Historical checks should be
+replayed at that checkpoint; final package checks use the promoted 205-input
+freeze and this final run.

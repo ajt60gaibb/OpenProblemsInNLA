@@ -1,0 +1,99 @@
+--- accepted-candidate795/audit-linux.py
++++ final-promotion/audit-linux.py
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env python3
+-"""Offline read-only audit of original TR04 candidate Linux ZIP/raw-job/API bytes.
++"""Offline read-only audit of original TR04 final-promotion Linux ZIP/raw-job/API bytes.
+ 
+ Only the requested JSON report beneath this audit directory is written. No
+ network, checkout, extraction, Lean, Comparator, shell or proof code is run.
+@@ -8,15 +8,21 @@
+ 
+ HERE=pathlib.Path(__file__).resolve().parent
+ PROJECT='tensor-computations/TR-04/lean'
+-HEAD='027aaefbadf602ac460d0cf4cae7beed3181d712'
++HEAD='09cd782576559502787fb536bc1427bf64b7b3e4'
++CANDIDATE='027aaefbadf602ac460d0cf4cae7beed3181d712'
+ BASE='01141f415715a27473cabc1f35ef898e86aafae2'
+-RUN=40405628070
++RUN=40408919808
++EXPECTED_JOB=121875088207
+ PR=370
+ DOC='docs/lean/proofs/TR-04/campaign-2026-10-26/'
+-FREEZE=DOC+'CANONICAL_PACKAGE_PREACCEPTANCE_FREEZE_2026-10-26.json'
+-FREEZE_SHA='8ee1d4585f3c0a60b101ec962fa9631ebbc043270cf35360669b8018152301eb'
+-APPROVAL=DOC+'independent-canonical-package-algebra/APPROVAL.json'
+-APPROVAL_SHA='2c1dfac6d0864d8bbb994f79ed99fd1973aeb59763f10f31f8e57ce0ad7ef082'
++FREEZE=DOC+'CANONICAL_PROMOTION_FREEZE_2026-10-26.json'
++FREEZE_SHA='44b5df77ea7ed70c35aac6e87b2001f2b6860a36f58f1156a50d01a3c83374f7'
++APPROVAL=DOC+'independent-promotion-source-algebra/APPROVAL.json'
++APPROVAL_SHA='cd73378761ccbb3136ace67f3ce7132785f92b6e6663658e2745428eb075ce33'
++PROPOSAL=DOC+'promotion-draft/PROMOTION_PROPOSAL.json'
++PROPOSAL_SHA='c352fedca0c34cf23c89e41fdc82cb870ff552b5d50c6fe01a1fc6b5d47a11b0'
++ORIGINAL_ARCHIVE=DOC.removesuffix('campaign-2026-10-26/')+'originals-before-full-proof-2026-10-26/manifest.json'
++ORIGINAL_ARCHIVE_SHA='81d4086ffcbc92eb2b1c92f815ed1d859f2393d0b47d2fca0c3275968d308047'
+ NAMES=['candidate_count_le_first_mode','cyclic_window_count_le_first_mode','NLA.TR04.target']
+ STANDARD=['propext','Classical.choice','Quot.sound']
+ EXPECTED_AXIOMS={NAMES[0]:[],NAMES[1]:[],NAMES[2]:STANDARD}
+@@ -95,7 +101,7 @@
+   run=decode(a.run_json.read_bytes());jobs=decode(a.jobs_json.read_bytes());listing=decode(a.artifacts_json.read_bytes());art=decode(a.artifact_metadata.read_bytes())
+   check('fixed-run-PR370-head-terminal-success',run['id']==RUN and run['head_sha']==HEAD and run['head_commit']['id']==HEAD and run['event']=='pull_request' and run['status']=='completed' and run['conclusion']=='success' and run['run_attempt']==1 and any(x['number']==PR for x in run['pull_requests']))
+   selected=[x for x in jobs['jobs'] if x['name']=='verify (TR-04, '+PROJECT+')'];check('one-exact-project-job',len(selected)==1);job=selected[0]
+-  check('fixed-job-head-run-terminal-success',job['id']==a.job and job['run_id']==RUN and job['head_sha']==HEAD and job['status']=='completed' and job['conclusion']=='success')
++  check('fixed-job-head-run-terminal-success',job['id']==a.job==EXPECTED_JOB and job['run_id']==RUN and job['head_sha']==HEAD and job['status']=='completed' and job['conclusion']=='success')
+   for n in ['Validate formalization manifest','Fresh sandboxed statement, axiom and kernel verification','Retain verification logs']:
+    check('successful-required-step:'+n,sum(x['name']==n and x['conclusion']=='success' for x in job['steps'])==1)
+   check('actual-ubuntu2404-GitHub-runner',job['labels']==['ubuntu-24.04'] and job['runner_name'].startswith('GitHub Actions '))
+@@ -124,7 +130,15 @@
+   check('actual-receipt-merge-project-default-kernel-acceptance',result['repository_commit']==merge and result['project']==PROJECT and result['result']=='comparator-accepted' and result['lean_cert_proof_trust']=='kernel-checked' and result['verifier_profile']=='default' and result['semantic_review']=='not-performed-by-this-command')
+   check('exact-three-theorem-config-no-definition-holes',result['config']==CONFIG and decode(blob(HEAD,PROJECT+'/comparator.json'))==CONFIG)
+   frozenbytes=blob(HEAD,FREEZE);freeze=decode(frozenbytes);inputs=result['input_sha256']
+-  check('exact-prior205-package-freeze-and-own-approval',sha(frozenbytes)==FREEZE_SHA and sha(blob(HEAD,APPROVAL))==APPROVAL_SHA and decode(blob(HEAD,APPROVAL))['outcome']=='approved' and len(freeze['inputs'])==205 and inputs==freeze['inputs'])
++  check('exact-final205-promotion-freeze-and-own-source-approval',sha(frozenbytes)==FREEZE_SHA and sha(blob(HEAD,APPROVAL))==APPROVAL_SHA and decode(blob(HEAD,APPROVAL))['outcome']=='approved' and len(freeze['inputs'])==205 and inputs==freeze['inputs'])
++  proposal=decode(blob(HEAD,PROPOSAL))
++  check('exact-approved-revision2-proposal',sha(blob(HEAD,PROPOSAL))==PROPOSAL_SHA and freeze['proposal']==dict(path=PROPOSAL,sha256=PROPOSAL_SHA) and proposal['revision']==2 and proposal['post_promotion_package_inputs']==inputs and proposal['requires_final_source_bound_Linux_receipt'] is True)
++  before=decode(blob(CANDIDATE,DOC+'CANONICAL_PACKAGE_PREACCEPTANCE_FREEZE_2026-10-26.json'))['inputs']
++  check('only-one-of205-package-inputs-changes-from-accepted-candidate',set(before)==set(inputs) and sorted(q for q in inputs if inputs[q]!=before[q])==['formalization.yaml'] and inputs['formalization.yaml']=='1302638065dbc0a3ea98b0b0730811b1b8828ddb95ac06441e400bcb11249633')
++  for change in proposal['proposed_replacements']:
++   b=blob(HEAD,change['destination'])
++   check('exact-applied-approved-descriptive-replacement:'+change['destination'],sha(b)==change['proposed_sha256'] and b==blob(HEAD,change['proposed_path'])==blob(merge,change['destination'])==(repo/change['destination']).read_bytes())
++  check('original-candidate795-auditor-and-receipt-retained-immutable',sha(blob(HEAD,DOC+'independent-linux-candidate-algebra/audit-linux.py'))=='82303ba91fbe0584d6ed4fb25890510fa31a13cb511330de5d69663b7cfabba2' and sha(blob(HEAD,DOC+'independent-linux-candidate-algebra/terminal-result.json'))=='576281c8bab2560176c60fdff3b4b4e5d638150092af15b1220213d55c0db6bf' and sha(blob(HEAD,DOC+'independent-linux-candidate-algebra/APPROVAL.json'))=='8fd5d17193709a4ad5a87367a751a9ac79a34cef4a6691fa0ee45853fe1546b9')
+   check('exact205-head-and-merge-file-sets',tree(HEAD)==tree(merge)==set(inputs) and len(inputs)==205)
+   check('exact190-Lean-inputs',sum(q.endswith('.lean') for q in inputs)==190)
+   for q,h in inputs.items():
+@@ -134,9 +148,16 @@
+   for c in lock['copies']:
+    q=c['module'].replace('.','/')+'.lean';b=blob(HEAD,c['source'])
+    check('all184shared-source-copy-identities:'+q,c['source']=='lean-statements/'+q and c['destination']==PROJECT+'/'+q and sha(b)==c['source_sha256']==c['destination_sha256']==inputs[q] and b==blob(merge,c['source'])==blob(merge,c['destination'])==(repo/c['source']).read_bytes())
+-  original_manifest=decode(blob(HEAD,freeze['original_archive']['path']));check('exact25-original-archive-manifest',sha(blob(HEAD,freeze['original_archive']['path']))==freeze['original_archive']['sha256'] and len(original_manifest['records'])==25)
++  original_manifest=decode(blob(HEAD,ORIGINAL_ARCHIVE));check('exact25-original-archive-manifest',freeze['preserved_original_archive']==ORIGINAL_ARCHIVE and sha(blob(HEAD,ORIGINAL_ARCHIVE))==ORIGINAL_ARCHIVE_SHA and len(original_manifest['records'])==25)
+   for c in original_manifest['records']:
+-   b=blob(HEAD,c['original_path']);check('all25-live-archived-originals:'+c['original_path'],sha(b)==c['sha256'] and b==blob(HEAD,c['archive_path'])==blob(merge,c['original_path'])==blob(merge,c['archive_path'])==(repo/c['original_path']).read_bytes())
++   archived=blob(HEAD,c['archive_path'])
++   check('all25-archived-originals:'+c['original_path'],sha(archived)==c['sha256'] and archived==blob(merge,c['archive_path'])==blob(CANDIDATE,c['original_path'])==(repo/c['archive_path']).read_bytes())
++   if c['original_path']!='tensor-computations/TR-04/README.md':
++    check('all24-live-originals:'+c['original_path'],archived==blob(HEAD,c['original_path'])==blob(merge,c['original_path'])==(repo/c['original_path']).read_bytes())
++  original_README=blob(CANDIDATE,'tensor-computations/TR-04/README.md');promoted_README=blob(HEAD,'tensor-computations/TR-04/README.md')
++  check('entire-original-problem-statement-suffix-unchanged',promoted_README.split(b'## Problem statement\n',1)[1]==original_README.split(b'## Problem statement\n',1)[1])
++  restored_prefix=promoted_README.split(b'## Lean verification',1)[0].replace(b'**Status:** Lean verified',b'**Status:** Solved').replace(b'**Last checked:** 2026-10-26',b'**Last checked:** 2026-09-11')
++  check('original-resolution-prefix-only-status-date-changes',restored_prefix==original_README.split(b'## Lean formalization scaffold',1)[0])
+   check('all217-permanent-ID-path-pairs',len(decode(blob(HEAD,'problem_ids.json')))==217 and blob(HEAD,'problem_ids.json')==blob(BASE,'problem_ids.json'))
+   challenge=blob(merge,PROJECT+'/Challenge.lean').decode();solution=blob(merge,PROJECT+'/Solution.lean').decode()
+   for n in NAMES[:2]:check('literal-retained-support-theorem-type:'+n,header(challenge,n)==header(solution,n))
+@@ -180,6 +201,7 @@
+   for n in sorted(visited):check('actual-imported-source-built-or-replayed:'+n,re.search(r'(?:Built|Replayed) '+re.escape(n)+r'\b',comp) is not None)
+   runtime={q.removesuffix('.lean').replace('/','.') for q in inputs if q.endswith('.lean')}
+   compiled={n for n in runtime if re.search(r'(?:Built|Replayed) '+re.escape(n)+r'\b',comp)}
++  check('exact187-actual-imported-modules179proofs-not190',len(visited)==len(compiled)==187 and sum(n.startswith('NLA.Proofs.TR04.') for n in compiled)==179 and sorted(runtime-compiled)==['Check','Identity','Reviewed.TR04'])
+   for marker in ['RETURN honest_with_inductives_and_quotients: accepted','RETURN invalid_raw_proof: rejected:','(kernel) declaration type mismatch','RETURN quotient_postcheck_mismatch: rejected:','Quotient post-check rejects the solution','PASS: all three actual Comparator.runBuiltinKernel cases behaved as required']:
+    check('actual-raw-kernel-control:'+marker,marker in log('kernel-controls'))
+   for n,code,marker in [('simple_match',0,'Your solution is okay!'),('simple_mismatch',1,"Challenge and solution constant kind don't match: 'comm'"),('simple_axiom_issue',1,"Illegal axiom detected: 'helper'"),('simple_kind_mismatch',1,"Illegal axiom detected: 'helper'"),('type_mismatch',1,"Challenge and solution theorem statement do not match: 'checked'")]:
+@@ -230,7 +252,7 @@
+  finally:
+   if reader is not None:
+    reader.stdin.close();reader.wait()
+- report=dict(reviewer='/root/recover_algebra',scope='Independent read-only integrity audit of actual original GitHub Linux/Comparator bytes; own authored mathematical prerequisites excluded from independent mathematical source scope',passed=error is None and all(x['passed'] for x in checks),error=error,check_count=len(checks),checks=checks,driver_sha256=sha(pathlib.Path(__file__).read_bytes()),evidence_file_sha256=evidence_hashes,limitations=['No network, checkout, extraction, Lean, Comparator or new Linux execution was performed by this auditor.','Actual executed source comes from raw checkout plus immutable Git parents, not a mutable current PR merge SHA.','All190 Lean inputs are hash-bound; only actual import-closure build markers are claimed compiled in this job. Separate local fresh audits cover unused helper files.','Semantic proof fidelity and my authored prerequisites rely on separately bound independent source/kernel reviews; receipt integrity review does not claim independent authorship of those proofs.'],**details)
++ report=dict(reviewer='/root/recover_algebra',scope='Independent read-only integrity audit of actual final-promotion GitHub Linux/Comparator bytes and approved descriptive delta; own authored mathematical prerequisites excluded from independent mathematical source scope',passed=error is None and all(x['passed'] for x in checks),error=error,check_count=len(checks),checks=checks,driver_sha256=sha(pathlib.Path(__file__).read_bytes()),evidence_file_sha256=evidence_hashes,limitations=['No network, checkout, extraction, Lean, Comparator or new Linux execution was performed by this auditor.','Actual executed source comes from raw checkout plus immutable Git parents, not a mutable current PR merge SHA.','All190 Lean inputs are hash-bound; only actual import-closure build markers are claimed compiled in this job. Separate local fresh audits cover unused helper files.','Semantic proof fidelity and my authored prerequisites rely on separately bound independent source/kernel reviews; receipt integrity review does not claim independent authorship of those proofs.'],**details)
+  with output.open('x') as f:f.write(json.dumps(report,indent=2)+'\n')
+  print(json.dumps({k:report[k] for k in ['passed','error','check_count','driver_sha256']},indent=2));return 0 if report['passed'] else 1
+ 
