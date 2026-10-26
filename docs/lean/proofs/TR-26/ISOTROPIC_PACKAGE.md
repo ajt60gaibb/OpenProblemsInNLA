@@ -1,0 +1,9 @@
+# TR-26 exact isotropic endpoint package
+
+The [canonical partial package](../../../../tensor-computations/TR-26/lean/README.md) selects only the actual theorem `NLA.Proofs.TR26.isotropic_degree`: the unchanged raw full-ideal isotropic image has reduced degree `2*d` for every `d≥2`. The nonisotropic endpoint and full Target remain unproved. TR-26 remains Solved, and its canonical README, original mathematical target and all permanent ID/path pairs are unchanged.
+
+The proof sources are frozen at `4692336f0e1a50d5e261bba68277875da30fba51`. Two independent non-author AI-agent source reviews approve that exact endpoint: [inventory](campaign-2026-10-26/isotropic-review/inventory/REVIEW.md) and [verification](campaign-2026-10-26/isotropic-review/verification/REVIEW.md). Full scripts, source snapshots, checks and raw fresh-build logs are retained with the reports. The source mathematical credit remains with Matthew J. Colbrook; no external human endorsement is claimed.
+
+The package preserves 36 exact shared Lean copies and compiles 40 runtime Lean inputs, including separate reference Challenge, actual Solution, endpoint-kind/kernel audit and frozen identity. The author fresh-object replay passed all 40 builds plus three actual rejection controls: the reference hole, an exact-typed custom-axiom counterfeit, and a definition alias counted as a theorem. These local receipts are not isolated Linux Comparator/raw-kernel receipts.
+
+Canonical package reviews and actual isolated Linux verification remain separate pending gates. The 353 package input hashes are fixed by `PACKAGE_LOCK.json`; Comparator has one theorem export and no replaceable definition holes. Subsequent package and Linux receipts will identify their exact source/merge/artifact without relabeling these author or source-review builds.

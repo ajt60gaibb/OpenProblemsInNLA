@@ -1,0 +1,11 @@
+# TR-26 isotropic endpoint
+
+This package proves exactly `NLA.Proofs.TR26.isotropic_degree`: for every d≥2, the unchanged raw `IsotropicImage d` has `HasReducedDegree d (2*d)`. It uses the full original vanishing ideal and its entire z-Jacobian space, the fixed unweighted Veronese curve, independent complex symmetric-matrix coordinates and bilinear pairings. Infinity, the matrix-to-numerator kernel, zero numerator and numerator proportional to the denominator are included.
+
+The nonisotropic reduced-degree endpoint and full `Target` remain unproved. TR-26 remains **Solved**. `Identity.lean` checks the frozen original full statement only; it does not prove it. Comparator selects the actual isotropic theorem and no replaceable definition holes. The challenge contains its one intentional reference hole and is never imported by Solution; the original three-endpoint reference is retained as text under reviews/preproof.
+
+The 33 proof sources and three statement/identity inputs are byte-exact copies from source checkpoint `4692336f0e1a50d5e261bba68277875da30fba51`; `SOURCE_MAP.json` records every source and hash. Complete originals, manuscript and pre-proof reviews are retained. Source mathematical credit remains with Matthew J. Colbrook; formal implementation and reviews are AI-agent work, with no external human endorsement or new licence grant claimed.
+
+Author and two independent non-author LeanCert kernel source reviews approve the exact endpoint at the immutable source checkpoint above; their full reproducible evidence is retained under reviews/isotropic. Canonical package review and authentic isolated Linux Comparator/raw-kernel receipts are separate gates, reported with their own source-bound receipts. No Linux acceptance is implied by a local source build or source approval.
+
+Run `python3 reproduce.py --lean /absolute/path/to/pinned/lean --packages /absolute/path/to/pinned/packages --output /new/empty/output/path` for a fresh local replay. The project pins Lean 4.33.1, Mathlib 0df444a360eaa60ab8c11dca51a86af692955474 and LeanCert 621a43d7cf21f87872392a01e874f2f1dbddc926. The repository's unchanged `tools/lean/verify.sh` supplies the separate Linux isolation, actual theorem-kind/axiom checks, Comparator and raw-kernel replay.
