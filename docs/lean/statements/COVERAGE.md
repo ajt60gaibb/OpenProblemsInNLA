@@ -187,7 +187,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [RE-02](../../../randomized-and-low-rank-approximation/RE-02/README.md) | Open | missing-statement | Not audited here. |
 | [RE-03](../../../randomized-and-low-rank-approximation/RE-03/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [RE-05](../../../randomized-and-low-rank-approximation/RE-05/README.md) | Solved | shared-statement-source | Not audited here. |
-| [RE-06](../../../randomized-and-low-rank-approximation/RE-06/README.md) | Solved | shared-statement-source | Not audited here. |
+| [RE-06](../../../randomized-and-low-rank-approximation/RE-06/README.md) | Lean verified | shared-statement-source | Not audited here. |
 | [SF-01](../../../matrix-functions-and-stability/SF-01/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [SP-01](../../../eigenvalues-and-inverse-problems/SP-01/README.md) | Open | missing-statement | Not audited here. |
 | [SP-02](../../../eigenvalues-and-inverse-problems/SP-02/README.md) | Open | missing-statement | Not audited here. |
