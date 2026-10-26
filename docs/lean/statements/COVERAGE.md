@@ -1,6 +1,6 @@
 # Lean statement coverage
 
-Published base: `7ebc4e21f2a4e19db341a3fb28644ab4e2df7ebf`.
+Published base: `5487945e5a72abd952b0c89915915de8cc9b3e65`.
 
 This generated source inventory covers every permanent registered ID. It does not certify proofs, compilation, or mathematical fidelity. Catalog statuses are retained verbatim. A solution file's existence is not evidence that the original target is proved.
 

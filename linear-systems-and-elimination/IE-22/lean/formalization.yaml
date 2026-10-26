@@ -1,58 +1,117 @@
-version: v0.4
-project:
-  name: 'IE-22 Lean formalization scaffold'
-  description: 'Statement-first formalization of the complete uniform row-deletion target; supporting lemmas only.'
-  authors:
-  - Matthew J. Colbrook
-  responsible_maintainers:
-  - OpenProblemsInNLA formalization team
-  license: Apache-2.0
-repository:
-  role: substantive-development
-sources:
-- title: 'IE-22 problem statement and independently reviewed resolution'
-  id: https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/aa8d010bdd5a/linear-systems-and-elimination/IE-22/README.md
-  type: web-post
-  relationship: formalizes
-  note: 'Canonical source snapshot recorded in SPEC.md.'
-- title: 'IE-21/IE-22 resolution manuscript'
-  type: manuscript
-  location: '04_twenty_problem_resolutions/main.tex, sec:rows'
-  relationship: formalizes
-automation:
-  methods:
-  - method: agent
-    framework: OpenAI Codex
-    tool_setup: Pinned Lean 4.33.1, Mathlib and LeanCert revisions are recorded in lakefile.toml.
-    prompting_notes: The full Challenge target is isolated from the supporting Solution lemmas.
-toolchain:
-  lean: leanprover/lean4:v4.33.1
-  mathlib: 0df444a360eaa60ab8c11dca51a86af692955474
-  leancert: 621a43d7cf21f87872392a01e874f2f1dbddc926
-  dependency_manifest: lake-manifest.json
-status:
-  scope: 'Challenge.lean records the full uniform row-deletion theorem; Solution.lean proves only l2Sq_zero and rowEnergy_empty.'
-  whole_problem_verified: false
-  canonical_status: 'not Lean verified'
-  sorry_count: 0
-  sorry_in_definitions: 0
-  axioms:
-  - propext
-  - Classical.choice
-  - Quot.sound
-  main_results:
-  - declaration: IE22.l2Sq_zero
-    file: Solution.lean
-    sorry_count: 0
-    axioms: [propext, Classical.choice, Quot.sound]
-    comparator_config: comparator.json
-  - declaration: IE22.rowEnergy_empty
-    file: Solution.lean
-    sorry_count: 0
-    axioms: [propext, Classical.choice, Quot.sound]
-    comparator_config: comparator.json
-fidelity:
-  divergences: 'The complete probability infrastructure for uniform sphere laws and varying-dimensional convergence remains an explicit blocker; the full target is retained in Challenge.lean.'
-review:
-  status: 'AI statement-reviewed; proof-blocked'
-  notes: 'Independent proof and Comparator verification remain pending.'
+{
+  "version": "v0.4",
+  "project": {
+    "name": "IE-22: optimal uniform row-deletion singular-value constant",
+    "description": "Literal unchanged shared Target and two pre-reviewed squared endpoints. Local author kernel proofs complete; independent full-source/package review, Linux CI and Comparator acceptance pending.",
+    "authors": [
+      "OpenAI Codex AI agents (Lean formalization and packaging)"
+    ],
+    "responsible_maintainers": [
+      "OpenProblemsInNLA formalization team"
+    ],
+    "license": "Apache-2.0"
+  },
+  "repository": {
+    "role": "substantive-development"
+  },
+  "sources": [
+    {
+      "title": "IE-22 canonical problem and independently reviewed resolution",
+      "id": "../README.md",
+      "type": "web-post",
+      "relationship": "formalizes",
+      "note": "Permanent ID, canonical path, original mathematical target and all source credits preserved."
+    },
+    {
+      "title": "IE-21/IE-22 complete resolution manuscript",
+      "authors": [
+        "Matthew J. Colbrook"
+      ],
+      "type": "manuscript",
+      "location": "../../../references/colbrook-recovered-2026-09-11/manuscripts/IE-21-22.tex, Theorem 2 and Sections 6-7",
+      "relationship": "adapts",
+      "author_endorsement": "not-contacted",
+      "note": "The original mathematical credit remains with Colbrook. The qualitative Gaussian covariance and finite-net formal argument is AI-agent work; no source-author participation or external human endorsement is claimed."
+    }
+  ],
+  "automation": {
+    "methods": [
+      {
+        "method": "agent",
+        "framework": "OpenAI Codex",
+        "tool_setup": "Lean 4.33.1, pinned Mathlib and LeanCert; global leancert.trust kernel and transitive axiom guards.",
+        "prompting_notes": "Two independent exact pre-proof reviews, three implementation agents, separate non-author final source and mechanical verification reviews."
+      }
+    ],
+    "notes": "Challenge contains three deliberate reference placeholders and is never imported by Solution. Original support lemmas and Definitions.lean remain available. This package does not import the historical scaffold axiom or its unsupported extra convergence clause."
+  },
+  "toolchain": {
+    "lean": "leanprover/lean4:v4.33.1",
+    "mathlib": "0df444a360eaa60ab8c11dca51a86af692955474",
+    "leancert": "621a43d7cf21f87872392a01e874f2f1dbddc926",
+    "dependency_manifest": "lake-manifest.json"
+  },
+  "status": {
+    "phase": "source-complete-awaiting-verification",
+    "scope": "For every positive quantile parameter and 0<theta<1, the exact eventual uniform extremal upper constant and failure of every smaller real constant; also a squared bound uniform in all positive row counts and actual near-sharp unit-row matrices beyond every dimension/aspect-ratio threshold.",
+    "whole_problem_verified": false,
+    "canonical_status": "not Lean verified",
+    "sorry_count": 0,
+    "sorry_in_definitions": 0,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "main_results": [
+      {
+        "declaration": "NLA.Proofs.IE22.uniform_squared_upper",
+        "file": "Solution.lean",
+        "sorry_count": 0,
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "comparator_config": "comparator.json",
+        "verification_status": "Local author kernel proofs; independent canonical full-closure replay and actual Linux/Comparator acceptance pending."
+      },
+      {
+        "declaration": "NLA.Proofs.IE22.near_sharp_unit_row_witness",
+        "file": "Solution.lean",
+        "sorry_count": 0,
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "comparator_config": "comparator.json",
+        "verification_status": "Local author kernel proofs; independent canonical full-closure replay and actual Linux/Comparator acceptance pending."
+      },
+      {
+        "declaration": "NLA.Proofs.IE22.target",
+        "file": "Solution.lean",
+        "sorry_count": 0,
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "comparator_config": "comparator.json",
+        "verification_status": "Local author kernel proofs; independent canonical full-closure replay and actual Linux/Comparator acceptance pending."
+      }
+    ]
+  },
+  "fidelity": {
+    "divergences": "No change to the published shared Target. Real Euclidean rows, actual floor, all positive dimensions, every real direction, genuine matrix infimum/supremum, Gaussian law and moment, quantifier order and negative smaller constants are retained. Identity.lean checks live/frozen Target equality by rfl. The manuscript quantitative convergence rate is not claimed by the qualitative formal theorem. The historical unsupported extra convergence clause is preserved as text and excluded from the reviewed acceptance boundary."
+  },
+  "review": {
+    "status": "preproof-approved-final-review-pending",
+    "reviewers": [
+      "/root/inventory (independent non-author source/fidelity reviewer)",
+      "/root/verification (independent non-author source and fresh kernel reviewer)"
+    ],
+    "notes": "Two independent pre-proof approvals bind the exact original source, shared/frozen definitions and all three Challenge endpoints. Lower-only approvals retain their frozen 7660eae8 scope. Full final-source/package review and Linux/Comparator evidence remain pending; local author acceptance is not relabeled as those gates."
+  },
+  "acknowledgements": "Mathematical source credit: Matthew J. Colbrook. Formalization, verification and reviews: independent AI agents, not external human peer review."
+}
