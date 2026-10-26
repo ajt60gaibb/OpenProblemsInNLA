@@ -1,0 +1,124 @@
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/PseudoInverseCore.lean:34:2: error: Type mismatch: After simplification, term
+  h
+ has type
+  @Eq ℝ (∑ a_1, (exactSVD B).U a_1 (Fin.castLE ⋯ i) * (exactSVD B).U a_1 (Fin.castLE ⋯ j)) (if i = j then 1 else 0)
+but is expected to have type
+  @Eq ℝ (∑ j_1, (exactSVD B).U j_1 (Fin.castLE ⋯ i) * (exactSVD B).U j_1 (Fin.castLE ⋯ j)) (1 i j)
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/PseudoInverseCore.lean:41:2: error: Type mismatch: After simplification, term
+  h
+ has type
+  @Eq ℝ (∑ a_1, (exactSVD B).V a_1 (Fin.castLE ⋯ i) * (exactSVD B).V a_1 (Fin.castLE ⋯ j)) (if i = j then 1 else 0)
+but is expected to have type
+  @Eq ℝ (∑ j_1, (exactSVD B).V j_1 (Fin.castLE ⋯ i) * (exactSVD B).V j_1 (Fin.castLE ⋯ j)) (1 i j)
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/PseudoInverseCore.lean:46:2: error: Type mismatch: After simplification, term
+  (svd_total a b B).right.right.right.right i j
+ has type
+  B i j = ∑ k, (exactSVD B).U i ⟨↑k, ⋯⟩ * (exactSVD B).sigma k * (exactSVD B).V j ⟨↑k, ⋯⟩
+but is expected to have type
+  B i j =
+    ∑ j_1,
+      (∑ j, (exactSVD B).U i (Fin.castLE ⋯ j) * Matrix.diagonal (exactSVD B).sigma j j_1) *
+        (exactSVD B).V j (Fin.castLE ⋯ j_1)
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/PseudoInverseCore.lean:54:2: error: Tactic `rfl` failed: The left-hand side
+  ∑ t,
+    ((exactSVD B).V i ⟨↑t, ⋯⟩ * if (exactSVD B).sigma t = 0 then 0 else ((exactSVD B).sigma t)⁻¹) *
+      (exactSVD B).U j ⟨↑t, ⋯⟩
+is not definitionally equal to the right-hand side
+  ∑ j_1,
+    (∑ j, (exactSVD B).V i (Fin.castLE ⋯ j) * Matrix.diagonal (sigmaInv B) j j_1) * (exactSVD B).U j (Fin.castLE ⋯ j_1)
+
+a b : ℕ
+B : Matrix (Fin a) (Fin b) ℝ
+i : Fin b
+j : Fin a
+⊢ ∑ t,
+      ((exactSVD B).V i ⟨↑t, ⋯⟩ * if (exactSVD B).sigma t = 0 then 0 else ((exactSVD B).sigma t)⁻¹) *
+        (exactSVD B).U j ⟨↑t, ⋯⟩ =
+    ∑ j_1,
+      (∑ j, (exactSVD B).V i (Fin.castLE ⋯ j) * Matrix.diagonal (sigmaInv B) j j_1) *
+        (exactSVD B).U j (Fin.castLE ⋯ j_1)
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/PseudoInverseCore.lean:52:46: warning: This simp argument is unused:
+  Matrix.mul_diagonal
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [pseudoInverse, Matrix.mul_apply, Matrix.transpose_apply, thinV, thinU, sigmaInv, sigma]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/PseudoInverseCore.lean:53:42: warning: This simp argument is unused:
+  sigmaInv
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [pseudoInverse, Matrix.mul_apply, Matrix.mul_diagonal, Matrix.transpose_apply, thinV, thinU, sigma]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/PseudoInverseCore.lean:53:52: warning: This simp argument is unused:
+  sigma
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [pseudoInverse, Matrix.mul_apply, Matrix.mul_diagonal, Matrix.transpose_apply, thinV, thinU,
+    sigmaInv]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/PseudoInverseCore.lean:62:52: warning: This simp argument is unused:
+  mul_assoc
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [sigmaInv, h]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/PseudoInverseCore.lean:70:52: warning: This simp argument is unused:
+  mul_assoc
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [sigmaInv, h]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/PseudoInverseCore.lean:83:24: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  pseudoInverse B
+in the target expression
+  thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose *
+      pseudoInverse (thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose) =
+    thinU (thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose) *
+        (Matrix.diagonal (sigma (thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose)) *
+          Matrix.diagonal (sigmaInv (thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose))) *
+      (thinU (thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose)).transpose
+
+a b : ℕ
+B : Matrix (Fin a) (Fin b) ℝ
+⊢ thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose *
+      pseudoInverse (thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose) =
+    thinU (thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose) *
+        (Matrix.diagonal (sigma (thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose)) *
+          Matrix.diagonal (sigmaInv (thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose))) *
+      (thinU (thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose)).transpose
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/PseudoInverseCore.lean:93:24: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  pseudoInverse B
+in the target expression
+  pseudoInverse (thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose) *
+      (thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose) =
+    thinV (thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose) *
+        (Matrix.diagonal (sigmaInv (thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose)) *
+          Matrix.diagonal (sigma (thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose))) *
+      (thinV (thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose)).transpose
+
+a b : ℕ
+B : Matrix (Fin a) (Fin b) ℝ
+⊢ pseudoInverse (thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose) *
+      (thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose) =
+    thinV (thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose) *
+        (Matrix.diagonal (sigmaInv (thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose)) *
+          Matrix.diagonal (sigma (thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose))) *
+      (thinV (thinU B * Matrix.diagonal (sigma B) * (thinV B).transpose)).transpose
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/PseudoInverseCore.lean:100:21: error: #assert_trust: 'NLA.Proofs.RE06.Pseudo.reconstruction' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/PseudoInverseCore.lean:101:21: error: #assert_trust: 'NLA.Proofs.RE06.Pseudo.pseudoinverse_decomposition' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/PseudoInverseCore.lean:102:21: error: #assert_trust: 'NLA.Proofs.RE06.Pseudo.mul_pseudoinverse' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/PseudoInverseCore.lean:103:21: error: #assert_trust: 'NLA.Proofs.RE06.Pseudo.pseudoinverse_mul' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.RE06.Pseudo.pseudoinverse_mul' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
