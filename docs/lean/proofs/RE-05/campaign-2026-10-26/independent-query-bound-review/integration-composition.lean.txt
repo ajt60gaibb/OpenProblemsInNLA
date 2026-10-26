@@ -1,0 +1,29 @@
+namespace RE05IndependentComposition
+open NLA.Computation.LinearFamilyQuery
+
+theorem actual_query_cap {n q : ℕ} (P : Basis n q) (hP : Independent P)
+    (ε : ℝ) (hpos : 0 < ε) (hsmall : ε < 1 / 2) :
+    ∀ ω : ℕ → ℝ, ((batchQueries (plans P ε ω)).length : ℝ) ≤
+      1000000 * Real.sqrt (q + 1 : ℕ) * ε⁻¹ *
+        (1 + Real.log (2 + (q + 1 : ℕ)) + Real.log (1 / ε)) := by
+  simpa only [NLA.Statements.RE05.QueryBound, pow_one] using
+    NLA.Proofs.RE05.queryBound_of_sourceQueryBound P ε hpos hsmall
+      (NLA.Proofs.RE05.sourceQueryBound P hP ε hpos)
+
+theorem uniform_deterministic_constants : ∃ C : ℝ, 0 < C ∧ ∃ a b : ℕ,
+    ∀ (n q : ℕ), 0 < n → q + 1 ≤ n * n →
+      ∀ P : Basis n q, Independent P →
+        ∀ A : Square n, ∀ ε : ℝ, 0 < ε → ε < 1 / 2 →
+          NLA.Statements.RE05.QueryBound P ε C a b := by
+  refine ⟨1000000, by norm_num, 1, 1, ?_⟩
+  intro n q _hn _hqn P hP _A ε hpos hsmall
+  exact NLA.Proofs.RE05.queryBound_of_sourceQueryBound P ε hpos hsmall
+    (NLA.Proofs.RE05.sourceQueryBound P hP ε hpos)
+
+theorem reviewed_Target_identity :
+    NLA.Statements.RE05.Target = NLA.ReviewedStatements.RE05.Target := rfl
+
+#audit_named "RE05IndependentComposition.actual_query_cap" "IndependentQueryComposition" "public" "theorem"
+#audit_named "RE05IndependentComposition.uniform_deterministic_constants" "IndependentQueryComposition" "public" "theorem"
+#audit_named "RE05IndependentComposition.reviewed_Target_identity" "IndependentQueryComposition" "public" "theorem"
+end RE05IndependentComposition
