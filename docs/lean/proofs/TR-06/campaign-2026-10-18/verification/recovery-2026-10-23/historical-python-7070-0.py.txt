@@ -1,0 +1,5 @@
+from pathlib import Path
+import json,hashlib
+v=Path('docs/lean/proofs/TR-06/campaign-2026-10-18/verification');p=Path('docs/lean/proofs/TR-06/campaign-2026-10-18/graph-projection-source-lock.json');assert hashlib.sha256(p.read_bytes()).hexdigest()=='c63dcecde8e4b32a028e2a4e2977f43f080131794125d1c8b1ddf863050912c5';d=json.loads(p.read_text())
+for r in d:assert hashlib.sha256(Path(r['path']).read_bytes()).hexdigest()==r['sha256'],r['path']
+(v/'graph-projection-final-lock-review-3.json').write_text(json.dumps(d,indent=2)+'\n');s=(v/'check-properness-gate-review-3.py').read_text().replace('Fresh-source local TR06 frozen seven-module complete real addition properness support audit; no full TR06 Target claim','Fresh-source local TR06 actual normalized-graph characters and pointwise projection quasi-finiteness from genuine real derivative rank support audit; no discharged derivative premise, uniform graph-fiber bound or full TR06 Target claim');(v/'check-graph-projection-review-3.py').write_text(s);print('all ten final actual graph-character/projection hashes matched')

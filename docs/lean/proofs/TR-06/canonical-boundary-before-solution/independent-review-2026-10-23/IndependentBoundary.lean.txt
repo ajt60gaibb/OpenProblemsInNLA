@@ -1,0 +1,24 @@
+import Challenge
+import Identity
+import LeanCert.Tactic.Verification
+open Lean Elab Command in
+elab "#assert_actual_proof_constant " n:ident : command => do
+  let decl ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  match (← getEnv).find? decl with
+  | some (.thmInfo _) => pure ()
+  | _ => throwErrorAt n "expected an actual theorem constant"
+open Lean Elab Command in
+elab "#assert_literal_challenge_target " n:ident : command => do
+  let decl ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  match (← getEnv).find? decl with
+  | some (.thmInfo info) =>
+    unless info.type == mkConst ``NLA.Statements.TR06.Target do
+      throwErrorAt n "expected the literal intrinsic Target, with no added hypotheses"
+  | _ => throwErrorAt n "expected an intentional challenge theorem placeholder"
+#assert_literal_challenge_target NLA.TR06.target
+#assert_actual_proof_constant NLA.TR06.target_eq_reviewed
+#assert_trust kernel NLA.TR06.target_eq_reviewed
+#print axioms NLA.TR06.target_eq_reviewed
+-- This print intentionally exposes sorryAx in the comparison specification.
+-- No Challenge placeholder is accepted as a proof.
+#print axioms NLA.TR06.target

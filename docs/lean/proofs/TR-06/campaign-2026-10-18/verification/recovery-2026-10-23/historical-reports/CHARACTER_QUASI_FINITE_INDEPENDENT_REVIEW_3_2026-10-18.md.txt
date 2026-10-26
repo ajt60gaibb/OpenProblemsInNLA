@@ -1,0 +1,18 @@
+# Independent character quasi-finiteness support review 3
+
+**PASS for the generic three-module support criterion.** Reviewer `/root/lean_verification` authored none of the reviewed proof sources. All three frozen source hashes match `character-quasi-finite-final-lock-review-3.json`. A new isolated output tree rebuilt all three actual modules plus one consumer (four successful commands), with eight explicit declaration checks and seven theorem-kind checks. Every constant passes LeanCert kernel trust with only `propext`, `Classical.choice`, and `Quot.sound`. The ten pinned dependencies and all 58 retained source hashes remain exact before/after. Complete evidence is retained in `character-quasi-finite-review-3/`.
+
+Source review confirms that the cotangent proof uses the actual Kähler universal property: each linear functional on the character cotangent fiber restricts to a relative derivation, so vanishing of all such derivations kills every functional. Field-linear dual separation then forces the actual cotangent fiber to be zero. Finite type supplies finite generation of differentials, and the pinned support/Nakayama criterion yields actual local unramifiedness. The Mathlib local unramified finite-type instance yields actual algebraic quasi-finiteness.
+
+The character residue field is identified by an actual source-algebra equivalence constructed from the residue-field lift. Its field-map injectivity and source-character surjectivity are proved, not assumed as an unspecified residue identification. The equivalence is over the source ring, so its tensor transport preserves the canonical character action.
+
+The final endpoint uses explicit complex algebra characters `χ` and `ψ`, and exact compatibility `χ ∘ algebraMap = ψ`. These construct the actual scalar towers. Every R-relative derivation restricts to a complex-linear χ-Leibniz map that annihilates the base, so the explicit point-derivation premise applies. Constants prove χ-surjectivity. The conclusion is actual `IsUnramifiedAt R (ker χ)` and `QuasiFiniteAt R (ker χ)`, valid even for singular/nonreduced algebras when this genuine relative cotangent condition is met.
+
+This is **not** a proof that the actual normalized tensor graph satisfies the derivation-vanishing premise, nor a proof of uniform graph fiber bounds or full TR06 Target. It never infers complex quasi-finiteness from real setwise local injectivity. The actual graph algebra, radius and pivot equations, analytic-to-algebraic tangent comparison, faithful character encoding and finite-type/noetherian conditions remain separate construction obligations before the retained uniform character bound can be applied.
+
+Reproduce with a fresh evidence name:
+
+```sh
+python3 docs/lean/proofs/TR-06/campaign-2026-10-18/verification/check-character-quasi-finite-review-3.py \
+  --top GraphQuasiFinite --evidence-name character-quasi-finite-review-3
+```
