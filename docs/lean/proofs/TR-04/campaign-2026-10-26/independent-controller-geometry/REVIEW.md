@@ -1,0 +1,17 @@
+# Independent source review: finite TT controller assembly
+
+Reviewer `/root/recover_geometry`. Scope is the actual `MachineTTProgram.lean`, retained generator and JSON controller map. This is a source review of finite syntax and component wiring, not a new kernel replay or a whole-program correctness/complexity theorem.
+
+The review found one concrete component-contract mismatch: the initial prefix branch set tied-count to zero, while the frozen frame-gather entry contract requires positive tied-count and start below it even when take is zero. Root corrected precisely the prefix literal at label185 to tied=1. Prefix take=0, K=1 and candidate j=0 remain unchanged, matching the frozen prefix gather specification. The initial finding and race-aware hash capture are retained separately. After this correction, no further concrete wiring defect was found.
+
+Bank intervals are disjoint and finite: header0–10, matrix11–32, copy33–39, gather40–65, threshold66–88, best89–118, caller119–394 inside 512 labels. Natural frames 0–3,4–20,21–25,26–40,41–48,49–61 leave permanent data registers64+ outside; real bank ranges fit16. Every local halt cell retains its actual caller continuation. The final selector winner-base global55 is copied into output83 before halt. The installed-bank embeddings prove literal non-halt code agreement, without replacing a local exit by a halt.
+
+Initial execution reuses the actual header product bank from literal Start. The original d in natural0 is preserved, the product is saved as N, and the allocated bases exactly match the layout reviewed separately. Single-header decoding jumps to decoder label5 with product1, cursor d and zero counter; it bypasses the header read without requiring a conversion opcode. Suffix decoding enters label2 with the correct cursor. The 11 dispatch tags route all such exits to the intended continuation while leaving saved phase registers outside the header frame.
+
+First-mode setup computes p=min(rows,cols) and q=min(requested,p). The threshold read occurs only for requested≤p, and positive threshold invokes the actual scan with count p, rank requested, sigma base and threshold in the correct injected registers. Its above/tied/retained counts feed gathering, with K=tied. Prefix uses capped q and the corrected dummy tied=1. The initial frame is dense q-stride; subsequent SVD U frames use full rows stride. Matrix input/output counters, bases and transpose strides match literal contraction and lifting programs.
+
+After first contraction current becomes workA and next workB; every child contraction and reverse lift swaps exactly those pointers. Forward level increments process levels0 through d−2 and stop at d−1, then reverse begins at d−2 and decodes rows/q/cols/stride at four consecutive metadata cells. Reverse lifts descend to zero before copying N actual dense cells to store+j*N. Each candidate resets first-phase pointers and frame gathering. The read-only selector consumes K,N,input,store in its actual register frame and preserves candidate memory.
+
+These checks support the fixed syntax architecture. The full actual execution induction, reachable dimension/capacity invariants, all-SVD mathematical output relation and total charged polynomial bound remain separate obligations. No literal Target, canonical promotion, Linux CI or Comparator claim is made here.
+
+The retained generator was read and run with `--check` only: PASS, reproducing exactly 276 caller instructions, the Lean source and JSON map without writes.

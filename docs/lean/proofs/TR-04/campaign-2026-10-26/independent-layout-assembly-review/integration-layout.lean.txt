@@ -1,0 +1,17 @@
+
+namespace NLA.Proofs.TR04.TTMemoryLayout
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation
+
+-- Expand the actual heap endpoint in the original input size, preserving K<=N+1.
+example (S : Shape) (r : Ranks S) (count : ℕ) (hk : count ≤ DenseSize S + 1) :
+    (2 * S.order - 1) + (S.order + 3) * DenseSize S ^ 2 +
+      (count + 5) * DenseSize S + 4 * S.order ≤ 20 * (Size S r + 1) ^ 3 := by
+  have h := ofShape_endAddress_le_size S r count hk
+  rw [Layout.endAddress_eq] at h
+  exact h
+
+-- Empty SVD dimensions obey the actual model's disjoint-block convention.
+example (L : Layout) : OutputBlocksDisjoint 0 0 L.firstU L.firstSigma L.firstV :=
+  L.first_outputs_disjoint 0 0 (Nat.zero_le _) (Nat.zero_le _)
+
+end NLA.Proofs.TR04.TTMemoryLayout

@@ -1,0 +1,31 @@
+
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine
+
+-- Derive loop nonemptiness and the exact computed frame width from the actual
+-- first-SVD phase endpoint for every legal reply, rather than assuming them.
+example {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ) (s : State ttProgram)
+    (he : trace.state offset = s) (hl : s.label = 167) (hs : s.status = .running)
+    (hp : s.natural 105 = min (s.natural 81) (s.natural 82))
+    (hr : 1 ≤ s.natural 80) (hzero : s.natural 127 = 0)
+    (hcap : s.natural 106 = min (s.natural 80) (min (s.natural 81) (s.natural 82)))
+    (hd : OutputBlocksDisjoint (s.natural 81) (s.natural 82)
+      (s.natural 72) (s.natural 73) (s.natural 74)) :
+    ∃ n : ℕ, n ≤ 9 * min (s.natural 81) (s.natural 82) + 24 ∧
+      (trace.state (offset + n)).label = 189 ∧ (trace.state (offset + n)).status = .running ∧
+      0 < (trace.state (offset + n)).natural 75 ∧
+      (trace.state (offset + n)).natural 77 + (trace.state (offset + n)).natural 79 =
+        min (s.natural 80) (min (s.natural 81) (s.natural 82)) ∧
+      CostThrough ttProgram trace (offset + n) ≤ CostThrough ttProgram trace offset +
+        (s.natural 81 + s.natural 82 + 1)^3 + (9 * min (s.natural 81) (s.natural 82) + 23) := by
+  obtain ⟨U, sigma, V, hvalid, n, hn, hlabel, hrun, hselected, _, _, _, hcost⟩ :=
+    ttFirstSelection_svd_family ht offset s he hl hs hp hr hzero hcap hd
+  refine ⟨n, hn, hlabel, hrun, ?_, ?_, hcost⟩
+  · rw [hselected.2.2.2]
+    exact ttFirstChoice_count_pos sigma hvalid.2.2.2.1 (s.natural 80)
+      (min (s.natural 80) (min (s.natural 81) (s.natural 82))) hr
+  · rw [hselected.1, hselected.2.2.1]
+    exact ttFirstChoice_width sigma hvalid.2.2.2.1 (s.natural 80) hr
+
+end NLA.Proofs.TR04

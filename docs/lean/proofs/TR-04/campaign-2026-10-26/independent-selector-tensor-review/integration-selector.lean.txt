@@ -1,0 +1,14 @@
+namespace NLA.Proofs.TR04
+/-- Empty arrays still produce an actual zero minimum from any initial error. -/
+example (p : BestCandidateData) (hp : 0 < p.count) (hN : p.entries = 0)
+    (value : ℝ) (scratch : BestCandidateScratch) (trace : Trace bestCandidateProgram)
+    (ht : LegalTrace bestCandidateProgram (bestCandidateStart p value scratch) trace) :
+    ∃ winner < p.count,
+      (trace.state (bestCandidateTime p)).status = .halted p.store ∧
+      (trace.state (bestCandidateTime p)).real 3 = 0 ∧
+      (trace.state (bestCandidateTime p)).memory = p.memory := by
+  obtain ⟨winner, hw, hs, _, _, he, _, hm, _⟩ := bestCandidateProgram_run p hp value scratch trace ht
+  have hz : p.candidateError winner = 0 := by simp [BestCandidateData.candidateError, squaredErrorSum, hN]
+  refine ⟨winner, hw, ?_, he.trans hz, hm⟩
+  simpa only [hN, Nat.mul_zero, Nat.add_zero] using hs
+end NLA.Proofs.TR04

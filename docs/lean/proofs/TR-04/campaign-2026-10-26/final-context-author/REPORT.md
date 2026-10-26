@@ -1,0 +1,9 @@
+# Completed original context to actual final minimum author replay
+
+The frozen MachineTTFinalContext module connects the actual completed first-family loop at label189 to the unchanged original Returns, Feasible and strict-or-zero clauses, with actual selector charge at most 300*(Size+1)^2. The extraTime is exactly the actual BestCandidate bank return time plus17.
+
+The fixed first reply determines the explicit cyclic/prefix family before all child replies. TTCompletedCandidates.collect retrieves Completion witnesses only from actually stored completed slots. No completion witness is selected from a mathematical existence theorem. A local property quantifies the entire SVD tuple/family before transporting dimension and first-rank equalities, avoiding any favorable basis or dependent-family change. The frozen raw-SVD minimum bridge then executes the actual selector on the supplied legal trace.
+
+Author replay passed all 164 immutable project source snapshots plus the complete literal endpoint consumer: 165 actual compiler commands, 2 selected consumer kernel assertions and 237 printed axiom lists. Every printed list uses only propext, Classical.choice and Quot.sound; no sorryAx. Lean4.33.1 compiler819816b2 was used with private objects and no project object reuse. The pinned external package objects are explicitly reused. All current source hashes matched the frozen lock after replay.
+
+The source-lock, sources/, ExactConsumer.lean, run-author.py, replay-input-lock.json, command/result JSON and raw build.log retain the complete reproducible author evidence. Reproduce in a fresh copied evidence directory without objects/. This is author component evidence only: no independent replay, whole-loop/Target, actual Linux CI or Comparator claim. Original targets/models, IDs/statuses, canonical scaffolds and all prior frozen sources remain unchanged.

@@ -1,0 +1,11 @@
+# Independent source review of fixed first-family context
+
+Approved source-only at the four exact hashes in FIRST_LOOP_CONTEXT_FREEZE_2026-10-26.json. I read all four bodies in full. There is no source-level blocker. This review by `/root/recover_geometry` excludes my authored state/dimension/matrix/recursive prerequisites and does not claim a fresh replay, full Target, CI or Comparator acceptance.
+
+The context fixes the same original first SVD reply and its explicit frame family across all candidates. It retains the literal allocation/global fields and actual readbacks of original input, U, sigma and V. Its transfer theorem derives the required matrix-cell memory bounds from the concrete childSigma boundary and the stated original dense capacities. The preserved prefix includes the original data, rather than merely retaining a logical tensor unrelated to RAM. Candidate index76 is intentionally allowed to advance, while fields determining the fixed family remain unchanged.
+
+The family-count proof treats both the full tie-block and one-candidate fallback; its bound uses the actual finite singular dimension and positive original entry count. Count equality links the actual register75 to the same `R.family.count` later used by the finite outer loop.
+
+The gather theorem instantiates the actual protected gather routine from the retained readbacks, not a fresh favorable SVD response. It returns the actual candidate index, stored frame, metadata fields, running label241, protected original state and actual charged bound. The source/matrix block bounds and order positivity justify memory separation. Its conversion to stage data records literal dense stride q, actual frame0, original input89 and workA90, with tag0. This prevents the original input from becoming the reverse output buffer.
+
+The original bridge proves the exact two-head format from the unchanged Shape, readMatrix equality via the proved format cast, exact first requested rank, and equality of the explicit family's width with the actual capped stepRank. This width equality is available before dependent matrix binder conversion in the outer candidate proof. No solver, optimizer, new capacity or altered target is assumed. No source was edited.

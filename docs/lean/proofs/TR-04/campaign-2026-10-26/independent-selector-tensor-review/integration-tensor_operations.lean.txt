@@ -1,0 +1,40 @@
+namespace NLA.Proofs.TR04
+open TensorFormat
+/-- A prefix retained in the full U array uses physical row stride m. -/
+example {Caller : Program} (E : RoutineEmbedding matrixMultiplyProgram Caller)
+    {m q : ℕ} {ns : List ℕ} (memory : ℕ → ℝ)
+    (frameBase inputBase outputBase : ℕ) (hq : q ≤ m)
+    (U : Matrix (Fin m) (Fin m) ℝ) (hU : readMatrix memory m m frameBase = U)
+    (A : Tensor (m :: ns)) (hA : StoresTensor memory inputBase (m :: ns) A)
+    (hQblock : DisjointBlocks frameBase (m * m) outputBase (q * suffixSize ns))
+    (hAblock : DisjointBlocks inputBase (m * suffixSize ns) outputBase (q * suffixSize ns))
+    (scratch : MatrixMultiplyScratch) {start : State Caller} {trace : Trace Caller}
+    (ht : LegalTrace Caller start trace) (offset : ℕ)
+    (hs : E.Relates (matrixMultiplyRowState
+      (contractMultiplyData memory m q ns frameBase m inputBase outputBase) 0 scratch) (trace.state offset)) :
+    StoresTensor (trace.state (offset + matrixMultiplyReturnTime
+      (contractMultiplyData memory m q ns frameBase m inputBase outputBase))).memory
+        outputBase (q :: ns) (contract (U.submatrix id (Fin.castLE hq)) A) := by
+  have H := E.contract_run_at memory frameBase m inputBase outputBase hq
+    (U.submatrix id (Fin.castLE hq)) (storesFrame_prefix memory frameBase U hq hU)
+    A hA hQblock hAblock scratch ht offset hs
+  exact H.2.2.1
+
+/-- A separately stored dense Q frame instead has physical row stride q. -/
+example {Caller : Program} (E : RoutineEmbedding matrixMultiplyProgram Caller)
+    {m q : ℕ} {ns : List ℕ} (memory : ℕ → ℝ)
+    (frameBase inputBase outputBase : ℕ)
+    (Q : Matrix (Fin m) (Fin q) ℝ) (hQ : readMatrix memory m q frameBase = Q)
+    (A : Tensor (q :: ns)) (hA : StoresTensor memory inputBase (q :: ns) A)
+    (hQblock : DisjointBlocks frameBase (m * q) outputBase (m * suffixSize ns))
+    (hAblock : DisjointBlocks inputBase (q * suffixSize ns) outputBase (m * suffixSize ns))
+    (scratch : MatrixMultiplyScratch) {start : State Caller} {trace : Trace Caller}
+    (ht : LegalTrace Caller start trace) (offset : ℕ)
+    (hs : E.Relates (matrixMultiplyRowState
+      (liftMultiplyData memory m q ns frameBase q inputBase outputBase) 0 scratch) (trace.state offset)) :
+    StoresTensor (trace.state (offset + matrixMultiplyReturnTime
+      (liftMultiplyData memory m q ns frameBase q inputBase outputBase))).memory outputBase (m :: ns) (lift Q A) := by
+  have H := E.lift_run_at memory frameBase q inputBase outputBase le_rfl Q
+    ((storesFrame_dense_iff memory frameBase Q).mpr hQ) A hA hQblock hAblock scratch ht offset hs
+  exact H.2.2.1
+end NLA.Proofs.TR04

@@ -1,0 +1,312 @@
+import NLA.Proofs.TR04.MachineTTInitializationFull
+set_option leancert.trust "kernel"
+set_option backward.isDefEq.respectTransparency false
+noncomputable section
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation NLA.Proofs.TR04 NLA.Proofs.TR04.TTMemoryLayout
+
+-- Literal public theorem header from MachineTTInitializationScalar.lean: ttModeSuffix_steps
+example : ∀ (s : State ttProgram) (hl : s.label=144)
+    (hs : s.status=.running) (hone : s.natural 126=1),
+  (ordinaryStep ttProgram)^[6] s=ttModeSuffixEntry s := @ttModeSuffix_steps
+
+-- Literal public theorem header from MachineTTInitializationScalar.lean: ttColsRank_steps
+example : ∀ (s : State ttProgram) (hl : s.label=150)
+    (hs : s.status=.running),
+  (ordinaryStep ttProgram)^[7] s=ttColsRankEntry s := @ttColsRank_steps
+
+-- Literal public theorem header from MachineTTInitializationScalar.lean: ttFirstMinRows_steps
+example : ∀ (s : State ttProgram) (hl : s.label=157)
+    (hs : s.status=.running),
+  ∃ n : ℕ, n≤4 ∧ (ordinaryStep ttProgram)^[n] s=ttFirstMinRowsEnd s := @ttFirstMinRows_steps
+
+-- Literal public theorem header from MachineTTInitializationScalar.lean: ttFirstMinCapRows_steps
+example : ∀ (s : State ttProgram) (hl : s.label=161)
+    (hs : s.status=.running),
+  ∃ n : ℕ, n≤3 ∧ (ordinaryStep ttProgram)^[n] s=ttFirstMinCapRowsEnd s := @ttFirstMinCapRows_steps
+
+-- Literal public theorem header from MachineTTInitializationScalar.lean: ttFirstMinCapCols_steps
+example : ∀ (s : State ttProgram) (hl : s.label=164)
+    (hs : s.status=.running),
+  ∃ n : ℕ, n≤3 ∧ (ordinaryStep ttProgram)^[n] s=ttFirstMinCapColsEnd s := @ttFirstMinCapCols_steps
+
+-- Literal public theorem header from MachineTTInitializationScalar.lean: ttFirstRank_steps
+example : ∀ (s : State ttProgram) (hl : s.label=157)
+    (hs : s.status=.running),
+  ∃ n : ℕ, n≤10 ∧ (ordinaryStep ttProgram)^[n] s=ttFirstRankEnd s := @ttFirstRank_steps
+
+-- Literal public theorem header from MachineTTHeaderCalls.lean: ttHeader_outside_at
+example : ∀ {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ) (s : State headerProductProgram)
+    (he : ttHeaderEmbedding.Relates s (trace.state offset)) (n : ℕ)
+    (hr : ((ordinaryStep headerProductProgram)^[n] s).status=.running)
+    (j : Fin 128) (hj : 4≤j.val),
+  (trace.state (offset+n)).natural j=(trace.state offset).natural j := @ttHeader_outside_at
+
+-- Literal public theorem header from MachineTTHeaderCalls.lean: ttHeaderSingle_full_at
+example : ∀ {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ) (memory : ℕ → ℝ)
+    (d value : ℕ) (scratch : ℝ)
+    (he : ttHeaderEmbedding.Relates
+      (headerProductDecodeState memory d d 1 value scratch) (trace.state offset)),
+  ttHeaderEmbedding.Relates (headerSingleReturnState memory d value)
+      (trace.state (offset+(3*value+5))) ∧
+    (∀ j : Fin 128,4≤j.val → (trace.state (offset+(3*value+5))).natural j=
+      (trace.state offset).natural j) ∧
+    CostThrough ttProgram trace (offset+(3*value+5))≤
+      CostThrough ttProgram trace offset+(3*value+5) := @ttHeaderSingle_full_at
+
+-- Literal public theorem header from MachineTTHeaderCalls.lean: ttHeaderRange_full_at
+example : ∀ {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ) (memory : ℕ → ℝ)
+    (d a : ℕ) (values : ℕ → ℕ) (had : a≤d)
+    (hm : ∀ j,a≤j → j<d → memory j=(values j : ℝ))
+    (counter : ℕ) (reals : Fin 2 → ℝ)
+    (he : ttHeaderEmbedding.Relates
+      (headerRangeEntryState memory d a values counter reals) (trace.state offset)),
+  ∃ last : ℕ,∃ registers : Fin 2 → ℝ,
+    ttHeaderEmbedding.Relates (headerRangeReturnState memory d a values last registers)
+      (trace.state (offset+headerRangeTime values a d)) ∧
+    (∀ j : Fin 128,4≤j.val →
+      (trace.state (offset+headerRangeTime values a d)).natural j=(trace.state offset).natural j) ∧
+    CostThrough ttProgram trace (offset+headerRangeTime values a d)≤
+      CostThrough ttProgram trace offset+headerRangeTime values a d := @ttHeaderRange_full_at
+
+-- Literal public theorem header from MachineTTHeaderCalls.lean: ttAllocation_transfer
+example : ∀ {L : Layout} {s t : State ttProgram}
+    (hs : TTAllocationRegisters L s)
+    (hd : t.natural 0=s.natural 0)
+    (hn : ∀ j : Fin 128,4≤j.val → t.natural j=s.natural j),
+  TTAllocationRegisters L t := @ttAllocation_transfer
+
+-- Literal public theorem header from MachineTTHeaderCalls.lean: ttModeSuffix_relates
+example : ∀ (s : State ttProgram) (values : ℕ → ℕ)
+    (hs : s.status=.running),
+  ttHeaderEmbedding.Relates
+      (headerRangeEntryState s.memory (s.natural 0) 1 values 0
+        (fun i => s.real (ttHeaderEmbedding.reals i))) (ttModeSuffixEntry s) := @ttModeSuffix_relates
+
+-- Literal public theorem header from MachineTTHeaderCalls.lean: ttColsRank_relates
+example : ∀ (s : State ttProgram) (value : ℕ)
+    (hm : s.memory (s.natural 0)=(value : ℝ)) (hs : s.status=.running),
+  ttHeaderEmbedding.Relates
+      (headerProductDecodeState s.memory (s.natural 0) (s.natural 0) 1 value (s.real 1))
+      (ttColsRankEntry s) := @ttColsRank_relates
+
+-- Literal public theorem header from MachineTTInitializationTrace.lean: ttInitPreserves_trans
+example : ∀ {s t u : State ttProgram}
+    (h : TTInitPreserves s t) (k : TTInitPreserves t u),
+  TTInitPreserves s u :=
+  ⟨k.1.trans h.1,fun j hj => (k.2 j hj).trans (h.2 j hj)⟩
+
+theorem ttInitPreserves_allocation {s t : State ttProgram} {L : Layout}
+    (h : TTInitPreserves s t) (hs : TTAllocationRegisters L s) : TTAllocationRegisters L t := @ttInitPreserves_trans
+
+-- Literal public theorem header from MachineTTInitializationTrace.lean: ttInitPreserves_allocation
+example : ∀ {s t : State ttProgram} {L : Layout}
+    (h : TTInitPreserves s t) (hs : TTAllocationRegisters L s),
+  TTAllocationRegisters L t := @ttInitPreserves_allocation
+
+-- Literal public theorem header from MachineTTInitializationTrace.lean: ttModeSuffix_preserves
+example : ∀ (s : State ttProgram),
+  TTInitPreserves s (ttModeSuffixEntry s) := @ttModeSuffix_preserves
+
+-- Literal public theorem header from MachineTTInitializationTrace.lean: ttColsRank_preserves
+example : ∀ (s : State ttProgram),
+  TTInitPreserves s (ttColsRankEntry s) := @ttColsRank_preserves
+
+-- Literal public theorem header from MachineTTInitializationTrace.lean: ttFirstRank_preserves
+example : ∀ (s : State ttProgram),
+  TTInitPreserves s (ttFirstRankEnd s) := @ttFirstRank_preserves
+
+-- Literal public theorem header from MachineTTInitializationTrace.lean: ttHeaderDispatch_preserves
+example : ∀ (s : State ttProgram) (k : Fin 11),
+  TTInitPreserves s (ttHeaderDispatchEnd s k) := @ttHeaderDispatch_preserves
+
+-- Literal public theorem header from MachineTTInitializationTrace.lean: ttHeader_preserves_of_outside
+example : ∀ {s t : State ttProgram}
+    (hm : t.memory=s.memory) (hd : t.natural 0=s.natural 0)
+    (hn : ∀ j : Fin 128,4≤j.val → t.natural j=s.natural j),
+  TTInitPreserves s t := @ttHeader_preserves_of_outside
+
+-- Literal public theorem header from MachineTTInitializationTrace.lean: ttScalar_finish_at
+example : ∀ {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset n : ℕ) (t : State ttProgram)
+    (he : (ordinaryStep ttProgram)^[n] (trace.state offset)=t) (hr : t.status=.running),
+  trace.state (offset+n)=t ∧ CostThrough ttProgram trace (offset+n)≤
+      CostThrough ttProgram trace offset+n := @ttScalar_finish_at
+
+-- Literal public theorem header from MachineTTInitializationTrace.lean: ttFirstRank_fields
+example : ∀ (s : State ttProgram),
+  (ttFirstRankEnd s).label=167 ∧
+    (ttFirstRankEnd s).natural 80=s.natural 2 ∧
+    (ttFirstRankEnd s).natural 105=min (s.natural 81) (s.natural 82) ∧
+    (ttFirstRankEnd s).natural 106=min (s.natural 2) (min (s.natural 81) (s.natural 82)) ∧
+    (ttFirstRankEnd s).natural 81=s.natural 81 ∧
+    (ttFirstRankEnd s).natural 82=s.natural 82 := @ttFirstRank_fields
+
+-- Literal public theorem header from MachineTTInitializationTrace.lean: ttFirstRank_run_at
+example : ∀ {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ)
+    (hl : (trace.state offset).label=157) (hs : (trace.state offset).status=.running),
+  ∃ n : ℕ,n≤10 ∧ trace.state (offset+n)=ttFirstRankEnd (trace.state offset) ∧
+      TTInitPreserves (trace.state offset) (trace.state (offset+n)) ∧
+      CostThrough ttProgram trace (offset+n)≤CostThrough ttProgram trace offset+10 := @ttFirstRank_run_at
+
+-- Literal public theorem header from MachineTTInitializationTrace.lean: ttModeSuffix_call_at
+example : ∀ {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ) (values : ℕ → ℕ)
+    (hl : (trace.state offset).label=144) (hs : (trace.state offset).status=.running)
+    (hone : (trace.state offset).natural 126=1) (hd : 1≤(trace.state offset).natural 0)
+    (hm : ∀ j,1≤j → j<(trace.state offset).natural 0 →
+      (trace.state offset).memory j=(values j : ℝ)),
+  ∃ last : ℕ,∃ reals : Fin 2 → ℝ,
+      let time := offset+6+headerRangeTime values 1 ((trace.state offset).natural 0)
+      ttHeaderEmbedding.Relates (headerRangeReturnState (trace.state offset).memory
+        ((trace.state offset).natural 0) 1 values last reals) (trace.state time) ∧
+      TTInitPreserves (trace.state offset) (trace.state time) ∧
+      (trace.state time).natural 81=(trace.state offset).natural 2 ∧
+      (trace.state time).natural 97=2 ∧
+      CostThrough ttProgram trace time≤CostThrough ttProgram trace offset+6+
+        headerRangeTime values 1 ((trace.state offset).natural 0) := @ttModeSuffix_call_at
+
+-- Literal public theorem header from MachineTTInitializationTrace.lean: ttColsRank_call_at
+example : ∀ {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset value : ℕ)
+    (hl : (trace.state offset).label=150) (hs : (trace.state offset).status=.running)
+    (hm : (trace.state offset).memory ((trace.state offset).natural 0)=(value : ℝ)),
+  let time := offset+7+(3*value+5)
+    ttHeaderEmbedding.Relates (headerSingleReturnState (trace.state offset).memory
+      ((trace.state offset).natural 0) value) (trace.state time) ∧
+    TTInitPreserves (trace.state offset) (trace.state time) ∧
+    (trace.state time).natural 81=(trace.state offset).natural 81 ∧
+    (trace.state time).natural 82=(trace.state offset).natural 2 ∧
+    (trace.state time).natural 97=3 ∧
+    CostThrough ttProgram trace time≤CostThrough ttProgram trace offset+7+(3*value+5) := @ttColsRank_call_at
+
+-- Literal public theorem header from MachineTTInitializationTrace.lean: ttHeaderDispatch_call_at
+example : ∀ {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ) (k : Fin 11)
+    (hl : (trace.state offset).label=10) (hs : (trace.state offset).status=.running)
+    (htag : (trace.state offset).natural 97=k.val),
+  let time := offset+(2*k.val+3)
+    (trace.state time).label=ttHeaderHandler k ∧
+    (trace.state time).status=.running ∧
+    TTInitPreserves (trace.state offset) (trace.state time) ∧
+    (∀ j : Fin 128,j≠123 → (trace.state time).natural j=(trace.state offset).natural j) ∧
+    CostThrough ttProgram trace time≤CostThrough ttProgram trace offset+(2*k.val+3) := @ttHeaderDispatch_call_at
+
+-- Literal public theorem header from MachineTTInitialShape.lean: inputMemory_rankHeader
+example : ∀ (S : Shape) (r : Ranks S) (A : Tensor S)
+    (j : ℕ) (hj : j<S.order-1),
+  InputMemory S r A (S.order+j)=(r ⟨j,hj⟩ : ℝ) := @inputMemory_rankHeader
+
+-- Literal public theorem header from MachineTTInitialShape.lean: inputMemory_firstRank
+example : ∀ (S : Shape) (r : Ranks S) (A : Tensor S),
+  InputMemory S r A S.order=(ttFirstRankValue S r : ℝ) := @inputMemory_firstRank
+
+-- Literal public theorem header from MachineTTInitialShape.lean: headerRangeProduct_shape_drop
+example : ∀ (S : Shape) (a : ℕ) (ha : a≤S.order),
+  headerRangeProduct (shapeHeaderValues S) a S.order=
+      ((TensorFormat.modeList S.mode).drop a).prod := @headerRangeProduct_shape_drop
+
+-- Literal public theorem header from MachineTTInitialShape.lean: ttFirstCols_prod
+example : ∀ (S : Shape),
+  shapeHeaderValues S 0*ttFirstCols S=DenseSize S := @ttFirstCols_prod
+
+-- Literal public theorem header from MachineTTInitialShape.lean: ttFirstCols_pos
+example : ∀ (S : Shape),
+  0<ttFirstCols S := @ttFirstCols_pos
+
+-- Literal public theorem header from MachineTTInitialShape.lean: ttFirstCols_le_denseSize
+example : ∀ (S : Shape),
+  ttFirstCols S≤DenseSize S := @ttFirstCols_le_denseSize
+
+-- Literal public theorem header from MachineTTInitialShape.lean: ttFirstMode_le_size
+example : ∀ (S : Shape) (r : Ranks S),
+  shapeHeaderValues S 0≤Size S r := @ttFirstMode_le_size
+
+-- Literal public theorem header from MachineTTInitialShape.lean: ttFirstRankValue_le_size
+example : ∀ (S : Shape) (r : Ranks S),
+  ttFirstRankValue S r≤Size S r := @ttFirstRankValue_le_size
+
+-- Literal public theorem header from MachineTTInitialShape.lean: headerRangeTime_shape_le_size
+example : ∀ (S : Shape) (r : Ranks S) (a : ℕ),
+  headerRangeTime (shapeHeaderValues S) a S.order≤7*Size S r := @headerRangeTime_shape_le_size
+
+-- Literal public theorem header from MachineTTInitialization.lean: ttInitial_decoder
+example : ∀ (S : Shape) (r : Ranks S) (A : Tensor S)
+    (trace : Trace ttProgram) (ht : LegalTrace ttProgram (Start ttProgram S r A) trace),
+  ∃ scratch : ℝ,
+      ttHeaderEmbedding.Relates
+        (headerProductDecodeState (InputMemory S r A) S.order S.order 1
+          (shapeHeaderValues S 0) scratch) (trace.state (ttInitialDecoderTime S)) ∧
+      TTAllocationRegisters (ofShape S) (trace.state (ttInitialDecoderTime S)) ∧
+      (trace.state (ttInitialDecoderTime S)).natural 76=0 ∧
+      (trace.state (ttInitialDecoderTime S)).natural 97=1 ∧
+      CostThrough ttProgram trace (ttInitialDecoderTime S)≤7*Size S r+28 := @ttInitial_decoder
+
+-- Literal public theorem header from MachineTTInitialization.lean: ttInitial_mode_decoded
+example : ∀ (S : Shape) (r : Ranks S) (A : Tensor S)
+    (trace : Trace ttProgram) (ht : LegalTrace ttProgram (Start ttProgram S r A) trace),
+  (trace.state (ttFirstModeDecodedTime S)).label=10 ∧
+    (trace.state (ttFirstModeDecodedTime S)).status=.running ∧
+    (trace.state (ttFirstModeDecodedTime S)).natural 0=S.order ∧
+    (trace.state (ttFirstModeDecodedTime S)).natural 2=shapeHeaderValues S 0 ∧
+    (trace.state (ttFirstModeDecodedTime S)).memory=InputMemory S r A ∧
+    CostThrough ttProgram trace (ttFirstModeDecodedTime S)≤
+      7*Size S r+28+(3*shapeHeaderValues S 0+5) := @ttInitial_mode_decoded
+
+-- Literal public theorem header from MachineTTInitialization.lean: ttInitial_mode_full
+example : ∀ (S : Shape) (r : Ranks S) (A : Tensor S)
+    (trace : Trace ttProgram) (ht : LegalTrace ttProgram (Start ttProgram S r A) trace),
+  ttHeaderEmbedding.Relates
+      (headerSingleReturnState (InputMemory S r A) S.order (shapeHeaderValues S 0))
+      (trace.state (ttFirstModeDecodedTime S)) ∧
+    TTAllocationRegisters (ofShape S) (trace.state (ttFirstModeDecodedTime S)) ∧
+    (trace.state (ttFirstModeDecodedTime S)).natural 76=0 ∧
+    (trace.state (ttFirstModeDecodedTime S)).natural 97=1 ∧
+    CostThrough ttProgram trace (ttFirstModeDecodedTime S)≤
+      7*Size S r+28+(3*shapeHeaderValues S 0+5) := @ttInitial_mode_full
+
+-- Literal public theorem header from MachineTTInitializationFull.lean: ttInitial_rank_read
+example : ∀ (S : Shape) (r : Ranks S) (A : Tensor S)
+    (trace : Trace ttProgram) (ht : LegalTrace ttProgram (Start ttProgram S r A) trace),
+  TTInitialRankRead S r A (trace.state (ttFirstRankEntryTime S r)) ∧
+    CostThrough ttProgram trace (ttFirstRankEntryTime S r)≤
+      7*Size S r+3*shapeHeaderValues S 0+headerRangeTime (shapeHeaderValues S) 1 S.order+
+        3*ttFirstRankValue S r+72 := @ttInitial_rank_read
+
+-- Literal public theorem header from MachineTTInitializationFull.lean: ttInitial_svd_ready
+example : ∀ (S : Shape) (r : Ranks S) (A : Tensor S)
+    (trace : Trace ttProgram) (ht : LegalTrace ttProgram (Start ttProgram S r A) trace),
+  ∃ n : ℕ,n≤10 ∧
+      TTInitialSVDData S r A (trace.state (ttFirstRankEntryTime S r+n)) ∧
+      ttFirstRankEntryTime S r+n≤102*(Size S r+1) ∧
+      CostThrough ttProgram trace (ttFirstRankEntryTime S r+n)≤102*(Size S r+1) := @ttInitial_svd_ready
+
+-- Composed original-input endpoint: actual first SVD readiness entails the
+-- actual allocated U/sigma/V pointers and retained original dense input.
+example (S : Shape) (r : Ranks S) (A : Tensor S) (trace : Trace ttProgram)
+    (ht : LegalTrace ttProgram (Start ttProgram S r A) trace) :
+    ∃ time : ℕ,time≤102*(Size S r+1) ∧
+      (trace.state time).label=167 ∧ (trace.state time).status=.running ∧
+      (trace.state time).memory=InputMemory S r A ∧
+      (trace.state time).natural 72=(ofShape S).firstU ∧
+      (trace.state time).natural 73=(ofShape S).firstSigma ∧
+      (trace.state time).natural 74=(ofShape S).firstV ∧
+      (trace.state time).natural 76=0 ∧
+      CostThrough ttProgram trace time≤102*(Size S r+1) := by
+  obtain ⟨n,_,h,htime,hcost⟩ := ttInitial_svd_ready S r A trace ht
+  exact ⟨ttFirstRankEntryTime S r+n,htime,h.label,h.status,h.memory,
+    h.allocation.firstU,h.allocation.firstSigma,h.allocation.firstV,h.candidateZero,hcost⟩
+
+-- Requested rank zero is still read literally; this support theorem does not
+-- silently narrow the header domain to consistent or positive ranks.
+example (S : Shape) (A : Tensor S) (trace : Trace ttProgram)
+    (ht : LegalTrace ttProgram (Start ttProgram S (fun _ => 0) A) trace) :
+    ∃ time : ℕ,(trace.state time).label=167 ∧ (trace.state time).natural 80=0 ∧
+      (trace.state time).natural 106=0 := by
+  obtain ⟨n,_,h,_,_⟩ := ttInitial_svd_ready S (fun _ => 0) A trace ht
+  refine ⟨ttFirstRankEntryTime S (fun _ => 0)+n,h.label,?_,?_⟩
+  · exact h.rank
+  · simpa only [ttFirstRankValue,Nat.zero_min] using h.cap

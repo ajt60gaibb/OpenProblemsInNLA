@@ -1,0 +1,27 @@
+
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine
+
+-- The generic actual child decoder permits zero mode/rank headers and still
+-- reaches its SVD entry with genuinely computed zero rows/cap and intact memory.
+example {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ) (values : ℕ → ℕ)
+    (hl : (trace.state offset).label=208) (hs : (trace.state offset).status=.running)
+    (had : (trace.state offset).natural 84+1≤(trace.state offset).natural 0)
+    (hmode : (trace.state offset).memory ((trace.state offset).natural 84)=(0:ℝ))
+    (hrank : (trace.state offset).memory ((trace.state offset).natural 0+(trace.state offset).natural 84)=(0:ℝ))
+    (hvalues : ∀ j,(trace.state offset).natural 84+1≤j → j<(trace.state offset).natural 0 →
+      (trace.state offset).memory j=(values j:ℝ)) :
+    ∃ elapsed : ℕ,elapsed≤headerRangeTime values ((trace.state offset).natural 84+1)
+        ((trace.state offset).natural 0)+78 ∧
+      (trace.state (offset+elapsed)).label=237 ∧ (trace.state (offset+elapsed)).status=.running ∧
+      (trace.state (offset+elapsed)).natural 85=0 ∧ (trace.state (offset+elapsed)).natural 86=0 ∧
+      (trace.state (offset+elapsed)).memory=(trace.state offset).memory ∧
+      CostThrough ttProgram trace (offset+elapsed)≤CostThrough ttProgram trace offset+
+        headerRangeTime values ((trace.state offset).natural 84+1) ((trace.state offset).natural 0)+78 := by
+  obtain ⟨elapsed,he,hi,hcost⟩ := ttChild_initialize_at ht offset 0 0 values hl hs had (by simpa only [Nat.cast_zero] using hmode) (by simpa only [Nat.cast_zero] using hrank) hvalues
+  refine ⟨elapsed,by omega,hi.label,hi.running,?_,?_,hi.preserves.1,by omega⟩
+  · simpa only [Nat.mul_zero] using hi.rows
+  · simpa only [Nat.zero_min] using hi.cap
+
+end NLA.Proofs.TR04

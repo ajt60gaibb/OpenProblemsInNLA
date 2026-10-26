@@ -1,0 +1,228 @@
+import NLA.Proofs.TR04.MachineTTChildSVD
+import NLA.Proofs.TR04.MachineTTLoopState
+set_option leancert.trust "kernel"
+set_option backward.isDefEq.respectTransparency false
+noncomputable section
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation NLA.Proofs.TR04 NLA.Proofs.TR04.TTMemoryLayout NLA.Proofs.TR04.TensorFormat
+
+-- Literal public theorem header from MachineTTChildSVD.lean: ttChildSVDReturn_steps
+example : ∀ (s : State ttProgram) (hl : s.label=238)
+    (hs : s.status=.running),
+  (
+    (ordinaryStep ttProgram)^[3] s=ttChildSVDReturnState s
+  ) := @NLA.Proofs.TR04.ttChildSVDReturn_steps
+
+-- Literal public theorem header from MachineTTChildSVD.lean: ttChild_svd_at
+example : ∀ {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ) (s : State ttProgram)
+    (he : trace.state offset=s) (hl : s.label=237) (hs : s.status=.running)
+    (L : Layout) (level : ℕ) (hlevel : level<L.order)
+    (hrows : s.natural 85≤L.entries) (hcols : s.natural 87≤L.entries)
+    (hq : s.natural 86≤s.natural 85)
+    (hframe : s.natural 94=L.frame level)
+    (hsigma : s.natural 103=L.childSigma) (hvbase : s.natural 104=L.childV)
+    (hcurrent : L.workA≤s.natural 89),
+  (
+    ∃ U : Matrix (Fin (s.natural 85)) (Fin (s.natural 85)) ℝ,
+    ∃ sigma : Fin (min (s.natural 85) (s.natural 87)) → ℝ,
+    ∃ V : Matrix (Fin (s.natural 87)) (Fin (s.natural 87)) ℝ,
+      ValidSVD (readMatrix s.memory (s.natural 85) (s.natural 87) (s.natural 89)) U sigma V ∧
+      (trace.state (offset+4)).label=241 ∧ (trace.state (offset+4)).status=.running ∧
+      (trace.state (offset+4)).natural 88=s.natural 85 ∧
+      (trace.state (offset+4)).natural 108=1 ∧
+      (trace.state (offset+4)).memory=
+        writeSVD s.memory (L.frame level) L.childSigma L.childV U sigma V ∧
+      StoresFrame (trace.state (offset+4)).memory (L.frame level) (s.natural 85)
+        (U.submatrix id (Fin.castLE hq)) ∧
+      (∀ address,s.natural 89≤address →
+        (trace.state (offset+4)).memory address=s.memory address) ∧
+      (∀ address,TTStageProtected L level address →
+        (trace.state (offset+4)).memory address=s.memory address) ∧
+      (∀ j : Fin 128,j≠88 → j≠108 → (trace.state (offset+4)).natural j=s.natural j) ∧
+      (trace.state (offset+4)).real=s.real ∧
+      CostThrough ttProgram trace (offset+4)≤CostThrough ttProgram trace offset+
+        (s.natural 85+s.natural 87+1)^3+3
+  ) := @NLA.Proofs.TR04.ttChild_svd_at
+
+-- Literal public theorem header from MachineTTLoopState.lean: ttStagePreserves_refl
+example : ∀ (L : Layout) (level : ℕ) (s : State ttProgram),
+  (
+    TTStagePreserves L level s s
+  ) := @NLA.Proofs.TR04.ttStagePreserves_refl
+
+-- Literal public theorem header from MachineTTLoopState.lean: ttStagePreserves_trans
+example : ∀ {L : Layout} {level : ℕ} {s t u : State ttProgram}
+    (h : TTStagePreserves L level s t) (k : TTStagePreserves L level t u),
+  (
+    TTStagePreserves L level s u
+  ) := @NLA.Proofs.TR04.ttStagePreserves_trans
+
+-- Literal public theorem header from MachineTTLoopState.lean: ttStagePreserves_lower
+example : ∀ {L : Layout} {level level' : ℕ} {s t : State ttProgram}
+    (h : TTStagePreserves L level' s t) (hl : level≤level'),
+  (
+    TTStagePreserves L level s t
+  ) := @NLA.Proofs.TR04.ttStagePreserves_lower
+
+-- Literal public theorem header from MachineTTLoopState.lean: ttStagePreserves_allocation
+example : ∀ {L : Layout} {level : ℕ} {s t : State ttProgram}
+    (h : TTStagePreserves L level s t) (hs : TTAllocationRegisters L s),
+  (
+    TTAllocationRegisters L t
+  ) := @NLA.Proofs.TR04.ttStagePreserves_allocation
+
+-- Literal public theorem header from MachineTTLoopState.lean: ttLoopKept_not_metadataScratch
+example : ∀ (j : Fin 128) (hj : TTLoopKept j),
+  (
+    j≠93
+  ) := @NLA.Proofs.TR04.ttLoopKept_not_metadataScratch
+
+-- Literal public theorem header from MachineTTLoopState.lean: ttLoopKept_child
+example : ∀ (j : Fin 128) (hj : TTLoopKept j),
+  (
+    TTChildKept j
+  ) := @NLA.Proofs.TR04.ttLoopKept_child
+
+-- Literal public theorem header from MachineTTLoopState.lean: ttLoopKept_forward
+example : ∀ (j : Fin 128) (hj : TTLoopKept j),
+  (
+    TTForwardStable j
+  ) := @NLA.Proofs.TR04.ttLoopKept_forward
+
+-- Literal public theorem header from MachineTTLoopState.lean: ttChildPreserves_stage
+example : ∀ {L : Layout} {level : ℕ} {s t : State ttProgram}
+    (h : TTChildPreserves s t),
+  (
+    TTStagePreserves L level s t
+  ) := @NLA.Proofs.TR04.ttChildPreserves_stage
+
+-- Literal public theorem header from MachineTTLoopState.lean: TTForwardResult.stagePreserves
+example : ∀ {old final : State ttProgram}
+    {m q : ℕ} {ns : List ℕ} {stride frame input output next : ℕ}
+    {Q : Matrix (Fin m) (Fin q) ℝ} {A : Tensor (m::ns)}
+    (h : TTForwardResult old final m q ns stride frame input output next Q A)
+    (L : Layout) (level : ℕ) (hl : level<L.order)
+    (hb : output=L.workA ∨ output=L.workB) (hc : q*suffixSize ns≤L.entries),
+  (
+    TTStagePreserves L level old final
+  ) := @NLA.Proofs.TR04.TTForwardResult.stagePreserves
+
+-- Literal public theorem header from MachineTTLoopState.lean: ttMetadata_stagePreserves_at
+example : ∀ {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ) (L : Layout) (level : ℕ)
+    (hlevel : level<L.order)
+    (hl : (trace.state offset).label=241) (hs : (trace.state offset).status=.running)
+    (hmeta : (trace.state offset).natural 68=L.metadata)
+    (hfour : (trace.state offset).natural 125=4) (hlev : (trace.state offset).natural 84=level),
+  (
+    TTStagePreserves L level (trace.state offset) (trace.state (offset+14))
+  ) := @NLA.Proofs.TR04.ttMetadata_stagePreserves_at
+
+-- Literal public theorem header from MachineTTLoopState.lean: ttStagePreserves_prior_frame
+example : ∀ {L : Layout} {level : ℕ} {s t : State ttProgram}
+    (h : TTStagePreserves L (level+1) s t) {m q stride : ℕ}
+    (Q : Matrix (Fin m) (Fin q) ℝ) (hq : q≤stride)
+    (hm : m≤L.entries) (hstride : stride≤L.entries)
+    (hQ : StoresFrame s.memory (L.frame level) stride Q),
+  (
+    StoresFrame t.memory (L.frame level) stride Q
+  ) := @NLA.Proofs.TR04.ttStagePreserves_prior_frame
+
+-- Literal public theorem header from MachineTTLoopState.lean: ttStagePreserves_prior_metadata
+example : ∀ {L : Layout} {level : ℕ} {s t : State ttProgram}
+    (h : TTStagePreserves L (level+1) s t) (field : Fin 4),
+  (
+    t.memory (L.metadataCell level field.val)=s.memory (L.metadataCell level field.val)
+  ) := @NLA.Proofs.TR04.ttStagePreserves_prior_metadata
+
+-- Literal public theorem header from MachineTTLoopState.lean: ttLoopKept_not_childSvdScratch
+example : ∀ (j : Fin 128) (hj : TTLoopKept j),
+  (
+    j≠88 ∧ j≠108
+  ) := @NLA.Proofs.TR04.ttLoopKept_not_childSvdScratch
+
+-- Literal public theorem header from MachineTTLoopState.lean: ttStagePreserves_of_childSvd
+example : ∀ {L : Layout} {level : ℕ} {s t : State ttProgram}
+    (hm : ∀ a,TTStageProtected L level a → t.memory a=s.memory a)
+    (hn : ∀ j : Fin 128,j≠88 → j≠108 → t.natural j=s.natural j),
+  (
+    TTStagePreserves L level s t
+  ) := @NLA.Proofs.TR04.ttStagePreserves_of_childSvd
+
+-- The actual full child reply and its literal return jointly supply the
+-- frame and the recursion's protected-memory/global-state invariant.
+example {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ) (s : State ttProgram)
+    (he : trace.state offset=s) (hl : s.label=237) (hs : s.status=.running)
+    (L : Layout) (level : ℕ) (hlevel : level<L.order)
+    (hrows : s.natural 85≤L.entries) (hcols : s.natural 87≤L.entries)
+    (hq : s.natural 86≤s.natural 85) (hframe : s.natural 94=L.frame level)
+    (hsigma : s.natural 103=L.childSigma) (hv : s.natural 104=L.childV)
+    (hcurrent : L.workA≤s.natural 89) :
+    ∃ U : Matrix (Fin (s.natural 85)) (Fin (s.natural 85)) ℝ,
+    ∃ sigma : Fin (min (s.natural 85) (s.natural 87)) → ℝ,
+    ∃ V : Matrix (Fin (s.natural 87)) (Fin (s.natural 87)) ℝ,
+      ValidSVD (readMatrix s.memory (s.natural 85) (s.natural 87) (s.natural 89)) U sigma V ∧
+      (trace.state (offset+4)).label=241 ∧
+      TensorFormat.StoresFrame (trace.state (offset+4)).memory (L.frame level) (s.natural 85)
+        (U.submatrix id (Fin.castLE hq)) ∧
+      TTStagePreserves L level s (trace.state (offset+4)) ∧
+      CostThrough ttProgram trace (offset+4)≤CostThrough ttProgram trace offset+
+        (s.natural 85+s.natural 87+1)^3+3 := by
+  obtain ⟨U,sigma,V,hvalid,hlabel,_,_,_,_,hQ,_,hmem,hn,_,hc⟩ :=
+    ttChild_svd_at ht offset s he hl hs L level hlevel hrows hcols hq hframe hsigma hv hcurrent
+  exact ⟨U,sigma,V,hvalid,hlabel,hQ,ttStagePreserves_of_childSvd hmem hn,hc⟩
+
+-- A complete child stage preserves the parent's actual frame and metadata.
+example {L : Layout} {level : ℕ} {s t : State ttProgram}
+    (h : TTStagePreserves L (level+1) s t) {m q stride : ℕ}
+    (Q : Matrix (Fin m) (Fin q) ℝ) (hq : q≤stride)
+    (hm : m≤L.entries) (hstride : stride≤L.entries)
+    (hQ : TensorFormat.StoresFrame s.memory (L.frame level) stride Q)
+    (values : Fin 4 → ℕ)
+    (hv : ∀ f : Fin 4,s.memory (L.metadataCell level f.val)=(values f : ℝ)) :
+    TensorFormat.StoresFrame t.memory (L.frame level) stride Q ∧
+      ∀ f : Fin 4,t.memory (L.metadataCell level f.val)=(values f : ℝ) := by
+  refine ⟨ttStagePreserves_prior_frame h Q hq hm hstride hQ,?_⟩
+  intro f
+  exact (ttStagePreserves_prior_metadata h f).trans (hv f)
+#assert_trust kernel NLA.Proofs.TR04.ttChildSVDReturnState
+#print axioms NLA.Proofs.TR04.ttChildSVDReturnState
+#assert_trust kernel NLA.Proofs.TR04.ttChildSVDReturn_steps
+#print axioms NLA.Proofs.TR04.ttChildSVDReturn_steps
+#assert_trust kernel NLA.Proofs.TR04.ttChild_svd_at
+#print axioms NLA.Proofs.TR04.ttChild_svd_at
+#assert_trust kernel NLA.Proofs.TR04.TTLoopKept
+#print axioms NLA.Proofs.TR04.TTLoopKept
+#assert_trust kernel NLA.Proofs.TR04.TTStagePreserves
+#print axioms NLA.Proofs.TR04.TTStagePreserves
+#assert_trust kernel NLA.Proofs.TR04.TTWorkPair
+#print axioms NLA.Proofs.TR04.TTWorkPair
+#assert_trust kernel NLA.Proofs.TR04.ttStagePreserves_refl
+#print axioms NLA.Proofs.TR04.ttStagePreserves_refl
+#assert_trust kernel NLA.Proofs.TR04.ttStagePreserves_trans
+#print axioms NLA.Proofs.TR04.ttStagePreserves_trans
+#assert_trust kernel NLA.Proofs.TR04.ttStagePreserves_lower
+#print axioms NLA.Proofs.TR04.ttStagePreserves_lower
+#assert_trust kernel NLA.Proofs.TR04.ttStagePreserves_allocation
+#print axioms NLA.Proofs.TR04.ttStagePreserves_allocation
+#assert_trust kernel NLA.Proofs.TR04.ttLoopKept_not_metadataScratch
+#print axioms NLA.Proofs.TR04.ttLoopKept_not_metadataScratch
+#assert_trust kernel NLA.Proofs.TR04.ttLoopKept_child
+#print axioms NLA.Proofs.TR04.ttLoopKept_child
+#assert_trust kernel NLA.Proofs.TR04.ttLoopKept_forward
+#print axioms NLA.Proofs.TR04.ttLoopKept_forward
+#assert_trust kernel NLA.Proofs.TR04.ttChildPreserves_stage
+#print axioms NLA.Proofs.TR04.ttChildPreserves_stage
+#assert_trust kernel NLA.Proofs.TR04.TTForwardResult.stagePreserves
+#print axioms NLA.Proofs.TR04.TTForwardResult.stagePreserves
+#assert_trust kernel NLA.Proofs.TR04.ttMetadata_stagePreserves_at
+#print axioms NLA.Proofs.TR04.ttMetadata_stagePreserves_at
+#assert_trust kernel NLA.Proofs.TR04.ttStagePreserves_prior_frame
+#print axioms NLA.Proofs.TR04.ttStagePreserves_prior_frame
+#assert_trust kernel NLA.Proofs.TR04.ttStagePreserves_prior_metadata
+#print axioms NLA.Proofs.TR04.ttStagePreserves_prior_metadata
+#assert_trust kernel NLA.Proofs.TR04.ttLoopKept_not_childSvdScratch
+#print axioms NLA.Proofs.TR04.ttLoopKept_not_childSvdScratch
+#assert_trust kernel NLA.Proofs.TR04.ttStagePreserves_of_childSvd
+#print axioms NLA.Proofs.TR04.ttStagePreserves_of_childSvd

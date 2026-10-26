@@ -1,0 +1,34 @@
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation
+
+-- Expanded immutable original Target. In particular the program/coefficient/
+-- exponent precede all formats, ranks, input tensors and legal reply traces.
+example : ∃ P : Program,∃ C k : ℕ,1≤C ∧
+    ∀ S : Shape,∀ r : Ranks S,(∀ j,1≤r j) → ∀ A : Tensor S,
+      (∃ trace : Trace P,LegalTrace P (Start P S r A) trace) ∧
+      ∀ trace : Trace P,LegalTrace P (Start P S r A) trace →
+        ∃ t : ℕ,∃ X : Tensor S,
+          Returns P S (trace.state t) X ∧
+          CostThrough P trace t≤C*Size S r^k ∧
+          Feasible S r X ∧
+          (0<Optimum S r A → FrobeniusSq S A X<((S.order : ℝ)-1)*Optimum S r A) ∧
+          (Optimum S r A=0 → X=A) := fullTarget
+
+-- Explicit fixed-program theorem, including existence for every original
+-- input and behavior for every legal full-SVD response trace, not a chosen run.
+example : (∀ S : Shape,∀ r : Ranks S,∀ A : Tensor S,
+      ∃ trace : Trace ttProgram,LegalTrace ttProgram (Start ttProgram S r A) trace) ∧
+    (∀ S : Shape,∀ r : Ranks S,(∀ j,1≤r j) → ∀ A : Tensor S,
+      ∀ trace : Trace ttProgram,LegalTrace ttProgram (Start ttProgram S r A) trace →
+        ∃ t : ℕ,∃ X : Tensor S,
+          Returns ttProgram S (trace.state t) X ∧
+          CostThrough ttProgram trace t≤1000000*Size S r^5 ∧
+          Feasible S r X ∧
+          (0<Optimum S r A → FrobeniusSq S A X<((S.order : ℝ)-1)*Optimum S r A) ∧
+          (Optimum S r A=0 → X=A)) :=
+  ⟨ttProgram_trace_exists,ttProgram_original_trace⟩
+
+-- Actual definitional identity against the separately frozen Reviewed mirror.
+example : NLA.Statements.TR04.Target=NLA.ReviewedStatements.TR04.Target := rfl
+
+end NLA.Proofs.TR04

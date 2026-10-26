@@ -1,0 +1,51 @@
+namespace NLA.Proofs.TR04
+/-- Actual caller trace readback is the literal explicit cyclic SVD frame. -/
+example {Q : Program} (E : RoutineEmbedding frameGatherProgram Q)
+    {m l : ℕ} {sigma : Fin (min m l) → ℝ} {a : Fin (min m l)}
+    (T : SVD.TieStructure sigma a) (j : Fin T.tied) (inputBase outputBase : ℕ)
+    (memory : ℕ → ℝ) (U : Matrix (Fin m) (Fin m) ℝ)
+    (hU : ∀ i k, memory (inputBase + i.val * m + k.val) = U i k)
+    (hd : DisjointBlocks inputBase (m * m) outputBase (m * (T.above + T.take)))
+    (aux : Fin 5 → ℕ) (rowScratch widthScratch writeScratch : ℕ) (value : ℝ)
+    {start : State Q} {trace : Trace Q} (offset : ℕ)
+    (hs : E.Relates (frameGatherStart memory (tieGatherParameters T j inputBase outputBase)
+      aux rowScratch widthScratch writeScratch value) (trace.state offset))
+    (ht : LegalTrace Q start trace) :
+    ∀ i : Fin m, ∀ k : Fin (T.above + T.take),
+      (trace.state (offset + (m * (11 * (T.above + T.take) + 7) + 4))).memory
+        (outputBase + i.val * (T.above + T.take) + k.val) =
+          T.explicitFrame U j i (Fin.cast T.rank_eq k) := by
+  have H := E.frameGather_run_matrix memory (tieGatherParameters T j inputBase outputBase)
+    (tieGatherParameters_valid T j inputBase outputBase) hd U hU aux
+    rowScratch widthScratch writeScratch value offset hs ht
+  intro i k
+  have hc := H i k
+  have hf := congrArg (fun M => M i (Fin.cast T.rank_eq k))
+    (frameGatherMatrix_tie T j inputBase outputBase U)
+  change frameGatherMatrix (tieGatherParameters T j inputBase outputBase)
+    (tieGatherParameters_valid T j inputBase outputBase) U i
+      (Fin.cast T.rank_eq.symm (Fin.cast T.rank_eq k)) = _ at hf
+  have hk : Fin.cast T.rank_eq.symm (Fin.cast T.rank_eq k) = k := Fin.ext rfl
+  rw [hk] at hf
+  exact hc.trans hf
+
+/-- Actual caller trace readback is the literal prefix U frame, including width0. -/
+example {Q : Program} (E : RoutineEmbedding frameGatherProgram Q)
+    (m width inputBase outputBase : ℕ) (hw : width ≤ m)
+    (memory : ℕ → ℝ) (U : Matrix (Fin m) (Fin m) ℝ)
+    (hU : ∀ i k, memory (inputBase + i.val * m + k.val) = U i k)
+    (hd : DisjointBlocks inputBase (m * m) outputBase (m * width))
+    (aux : Fin 5 → ℕ) (rowScratch widthScratch writeScratch : ℕ) (value : ℝ)
+    {start : State Q} {trace : Trace Q} (offset : ℕ)
+    (hs : E.Relates (frameGatherStart memory (prefixGatherParameters m width inputBase outputBase)
+      aux rowScratch widthScratch writeScratch value) (trace.state offset))
+    (ht : LegalTrace Q start trace) :
+    ∀ i : Fin m, ∀ k : Fin width,
+      (trace.state (offset + (m * (11 * width + 7) + 4))).memory
+        (outputBase + i.val * width + k.val) = U i (Fin.castLE hw k) := by
+  have H := E.frameGather_run_matrix memory (prefixGatherParameters m width inputBase outputBase)
+    (prefixGatherParameters_valid m width inputBase outputBase hw) hd U hU aux
+    rowScratch widthScratch writeScratch value offset hs ht
+  rw [frameGatherMatrix_prefix m width inputBase outputBase hw U] at H
+  simpa only [prefixGatherParameters, FrameGatherParameters.width, Nat.add_zero, Matrix.submatrix] using H
+end NLA.Proofs.TR04

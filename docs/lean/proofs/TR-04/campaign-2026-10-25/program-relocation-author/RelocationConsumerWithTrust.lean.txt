@@ -1,0 +1,174 @@
+import NLA.Proofs.TR04.MachineSVDRelocation
+import Mathlib.Tactic.FinCases
+set_option leancert.trust "kernel"
+open NLA.Computation.SVDMachine NLA.Proofs.TR04
+
+/-- A concrete caller with a cyclic successor-label mapping and extra registers.
+The local copy exit becomes caller label0, whose halt instruction is arbitrary
+continuation code and is not executed by the callable-prefix theorem. -/
+def remappedCopyCaller : Program where
+  extraLabels := 6
+  realRegisters := 2
+  extraNatRegisters := 5
+  constantCount := 0
+  constants := Fin.elim0
+  code label := match label.val with
+    | 0 => .halt 0
+    | 1 => .lessNat 1 2 2 0
+    | 2 => .read 1 3 3
+    | 3 => .write 4 1 4
+    | 4 => .increment 3 5
+    | 5 => .increment 4 6
+    | _ => .increment 1 1
+
+def copyLabelMap (i : Fin 7) : Fin 7 := ⟨(i.val + 1) % 7,Nat.mod_lt _ (by omega)⟩
+def copyNatMap (i : Fin 5) : Fin 6 := ⟨i.val + 1,by omega⟩
+def remappedCopyEmbedding : RoutineEmbedding copyProgram remappedCopyCaller where
+  labels := copyLabelMap
+  reals := fun _ => ⟨1,by change 1 < 2;omega⟩
+  naturals := copyNatMap
+  constants := Fin.elim0
+  reals_injective := by
+    intro i j _
+    apply Fin.ext
+    have hi : i.val < 1 := i.isLt
+    have hj : j.val < 1 := j.isLt
+    omega
+  naturals_injective := by
+    intro i j h
+    apply Fin.ext
+    have hv := congrArg Fin.val h
+    simp only [copyNatMap] at hv
+    omega
+  constant_values := by
+    intro i
+    exact Fin.elim0 i
+  code := by
+    intro l hl
+    fin_cases l <;> first | rfl | cases hl
+
+#assert_trust kernel remappedCopyEmbedding
+#print axioms remappedCopyEmbedding
+
+example (mem : ℕ → ℝ) (src dst n : ℕ) (scratch : ℝ)
+    (hd : DisjointBlocks src n dst n) (start : State remappedCopyCaller)
+    (tr : Trace remappedCopyCaller)
+    (hs : remappedCopyEmbedding.Relates (copyLoopState mem src dst n 0 scratch) start)
+    (ht : LegalTrace remappedCopyCaller start tr) :
+    (tr.state (6*n+1)).label = 0 ∧
+    (∀ i < n, (tr.state (6*n+1)).memory (dst+i) = mem (src+i)) ∧
+    CostThrough remappedCopyCaller tr (6*n+1) ≤ 6*n+1 := by
+  obtain ⟨⟨value,hr⟩,hc⟩ := remappedCopyEmbedding.copy_run mem src dst n scratch hd hs ht
+  refine ⟨?_,?_,hc⟩
+  · apply hr.label.trans
+    apply Fin.ext
+    norm_num [remappedCopyEmbedding,copyReturnState,copyLabelMap,copyProgram,remappedCopyCaller]
+  · intro i hi
+    rw [hr.memory]
+    simp [copyReturnState,copyLoopState,copiedMemory,hi]
+
+example (Q : Program) (E : RoutineEmbedding copyProgram Q)
+    (mem : ℕ → ℝ) (src dst n : ℕ) (scratch : ℝ)
+    (hd : DisjointBlocks src n dst n) (start : State Q) (tr : Trace Q)
+    (ht : LegalTrace Q start tr) (offset : ℕ)
+    (hs : E.Relates (copyLoopState mem src dst n 0 scratch) (tr.state offset)) :
+    ∃ value : ℝ, E.Relates (copyReturnState mem src dst n value) (tr.state (offset+(6*n+1))) ∧
+      CostThrough Q tr (offset+(6*n+1)) ≤ CostThrough Q tr offset+(6*n+1) :=
+  E.copy_run_at mem src dst n scratch hd ht offset hs
+
+example (P Q : Program) (E : RoutineEmbedding P Q) (s : State P) (start : State Q)
+    (tr : Trace Q) (ht : LegalTrace Q start tr) (hs : E.Relates s start) (n : ℕ)
+    (hn : ∀ k<n, instructionIsHalt (P.code ((ordinaryStep P)^[k] s).label) = false)
+    (hc : ∀ k<n, instructionIsSVD (P.code ((ordinaryStep P)^[k] s).label) = false)
+    (j : Fin Q.realRegisters) (hj : ∀ i,j ≠ E.reals i) :
+    (tr.state n).real j = start.real j := E.scalar_trace_real_outside s hs ht n hn hc j hj
+
+example (P Q : Program) (E : RoutineEmbedding P Q) (s : State P) (start : State Q)
+    (tr : Trace Q) (ht : LegalTrace Q start tr) (time : ℕ)
+    (h : E.Relates s (tr.state time)) (hs : s.status = .running)
+    (rows cols inputBase uBase sigmaBase vBase : Fin (P.extraNatRegisters+1))
+    (next : Fin (P.extraLabels+1))
+    (hi : P.code s.label = .svd rows cols inputBase uBase sigmaBase vBase next)
+    (hd : OutputBlocksDisjoint (s.natural rows) (s.natural cols)
+      (s.natural uBase) (s.natural sigmaBase) (s.natural vBase)) :
+    ∃ U : Matrix (Fin (s.natural rows)) (Fin (s.natural rows)) ℝ,
+    ∃ sigma : Fin (min (s.natural rows) (s.natural cols)) → ℝ,
+    ∃ V : Matrix (Fin (s.natural cols)) (Fin (s.natural cols)) ℝ,
+      ValidSVD (readMatrix s.memory (s.natural rows) (s.natural cols) (s.natural inputBase)) U sigma V ∧
+      E.Relates { s with
+        label := next
+        memory := writeSVD s.memory (s.natural uBase) (s.natural sigmaBase) (s.natural vBase) U sigma V }
+        (tr.state (time+1)) ∧ tr.cost time = (s.natural rows+s.natural cols+1)^3 :=
+  E.svd_trace_step ht time h hs rows cols inputBase uBase sigmaBase vBase next hi hd
+#assert_trust kernel NLA.Proofs.TR04.instructionIsHalt
+#print axioms NLA.Proofs.TR04.instructionIsHalt
+#assert_trust kernel NLA.Proofs.TR04.relocateInstruction
+#print axioms NLA.Proofs.TR04.relocateInstruction
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding
+#print axioms NLA.Proofs.TR04.RoutineEmbedding
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.Relates
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.Relates
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.Relates.real_apply
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.Relates.real_apply
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.Relates.natural_apply
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.Relates.natural_apply
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.ordinaryStep_relates
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.ordinaryStep_relates
+#assert_trust kernel NLA.Proofs.TR04.instructionIsSVD_relocate
+#print axioms NLA.Proofs.TR04.instructionIsSVD_relocate
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.charge_eq
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.charge_eq
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.scalar_step
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.scalar_step
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.scalar_trace_prefix
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.scalar_trace_prefix
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.scalar_trace_cost
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.scalar_trace_cost
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.scalar_trace_cost_le
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.scalar_trace_cost_le
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.ordinaryStep_real_outside
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.ordinaryStep_real_outside
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.ordinaryStep_natural_outside
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.ordinaryStep_natural_outside
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.scalar_trace_real_outside
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.scalar_trace_real_outside
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.scalar_trace_natural_outside
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.scalar_trace_natural_outside
+#assert_trust kernel NLA.Proofs.TR04.copyProgram_nohalt_phase
+#print axioms NLA.Proofs.TR04.copyProgram_nohalt_phase
+#assert_trust kernel NLA.Proofs.TR04.copyProgram_nohalt_prefix
+#print axioms NLA.Proofs.TR04.copyProgram_nohalt_prefix
+#assert_trust kernel NLA.Proofs.TR04.copyReturnState
+#print axioms NLA.Proofs.TR04.copyReturnState
+#assert_trust kernel NLA.Proofs.TR04.copyProgram_return
+#print axioms NLA.Proofs.TR04.copyProgram_return
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.copy_run
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.copy_run
+#assert_trust kernel NLA.Proofs.TR04.decodeNaturalProgram_nohalt_phase
+#print axioms NLA.Proofs.TR04.decodeNaturalProgram_nohalt_phase
+#assert_trust kernel NLA.Proofs.TR04.decodeNaturalProgram_nohalt_initial
+#print axioms NLA.Proofs.TR04.decodeNaturalProgram_nohalt_initial
+#assert_trust kernel NLA.Proofs.TR04.decodeNaturalProgram_nohalt_prefix
+#print axioms NLA.Proofs.TR04.decodeNaturalProgram_nohalt_prefix
+#assert_trust kernel NLA.Proofs.TR04.decodeNaturalReturnState
+#print axioms NLA.Proofs.TR04.decodeNaturalReturnState
+#assert_trust kernel NLA.Proofs.TR04.decodeNaturalProgram_return
+#print axioms NLA.Proofs.TR04.decodeNaturalProgram_return
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.decodeNatural_run
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.decodeNatural_run
+#assert_trust kernel NLA.Proofs.TR04.shiftedTrace
+#print axioms NLA.Proofs.TR04.shiftedTrace
+#assert_trust kernel NLA.Proofs.TR04.legalTrace_shift
+#print axioms NLA.Proofs.TR04.legalTrace_shift
+#assert_trust kernel NLA.Proofs.TR04.costThrough_shift
+#print axioms NLA.Proofs.TR04.costThrough_shift
+#assert_trust kernel NLA.Proofs.TR04.costThrough_compose_le
+#print axioms NLA.Proofs.TR04.costThrough_compose_le
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.copy_run_at
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.copy_run_at
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.decodeNatural_run_at
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.decodeNatural_run_at
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.svd_step
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.svd_step
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.svd_trace_step
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.svd_trace_step

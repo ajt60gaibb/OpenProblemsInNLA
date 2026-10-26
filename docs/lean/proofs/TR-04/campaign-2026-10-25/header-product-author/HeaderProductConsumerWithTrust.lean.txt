@@ -1,0 +1,106 @@
+import NLA.Proofs.TR04.MachineHeaderProductCallable
+set_option leancert.trust "kernel"
+open scoped BigOperators
+open NLA.Computation.SVDMachine NLA.Proofs.TR04
+example (memory : ℕ → ℝ) (d : ℕ) (values : ℕ → ℕ)
+    (hm : ∀ j<d,memory j = (values j : ℝ)) (tr : Trace headerProductProgram)
+    (ht : LegalTrace headerProductProgram (initial headerProductProgram d memory) tr) :
+    (tr.state (headerPrefixTime values d+4)).status = .halted (∏ i ∈ Finset.range d,values i) ∧
+    (tr.state (headerPrefixTime values d+4)).memory = memory ∧
+    CostThrough headerProductProgram tr (headerPrefixTime values d+4) ≤ headerPrefixTime values d+4 := by
+  obtain ⟨counter,reals,hv⟩ := headerProduct_trace_result memory d values hm tr ht
+  change tr.state (headerPrefixTime values d+4) = _ at hv
+  refine ⟨?_,?_,headerProduct_trace_cost memory d values tr ht⟩
+  · rw [hv];rfl
+  · rw [hv];rfl
+example (memory : ℕ → ℝ) (tr : Trace headerProductProgram)
+    (ht : LegalTrace headerProductProgram (initial headerProductProgram 0 memory) tr) :
+    (tr.state 4).status = .halted 1 ∧ (tr.state 4).memory = memory := by
+  obtain ⟨counter,reals,hv⟩ := headerProduct_trace_result memory 0 (fun _ => 0)
+    (by intro j hj;omega) tr ht
+  have heq : headerProductTime (fun _ => 0) 0 = 4 := rfl
+  rw [heq] at hv
+  rw [hv]
+  exact ⟨rfl,rfl⟩
+example (Q : Program) (E : RoutineEmbedding headerProductProgram Q)
+    (memory : ℕ → ℝ) (d : ℕ) (values : ℕ → ℕ)
+    (hm : ∀ j<d,memory j = (values j : ℝ)) (start : State Q) (tr : Trace Q)
+    (ht : LegalTrace Q start tr) (offset : ℕ)
+    (hs : E.Relates (initial headerProductProgram d memory) (tr.state offset)) :
+    ∃ counter : ℕ,∃ reals : Fin 2 → ℝ,
+      E.Relates (headerProductReturnState memory d values counter reals)
+        (tr.state (offset+headerPrefixTime values d+3)) ∧
+      CostThrough Q tr (offset+headerPrefixTime values d+3) ≤
+        CostThrough Q tr offset+headerPrefixTime values d+3 := by
+  simpa only [headerProductReturnTime,Nat.add_assoc] using E.headerProduct_run_at memory d values hm ht offset hs
+example (memory : ℕ → ℝ) (d : ℕ) (values : ℕ → ℕ)
+    (hm : ∀ j<d,memory j = (values j : ℝ)) (k : ℕ) (hk : k<headerProductReturnTime values d) :
+    instructionIsHalt (headerProductProgram.code ((ordinaryStep headerProductProgram)^[k]
+      (initial headerProductProgram d memory)).label) = false :=
+  ordinary_nohalt_prefix_of_running _ _ (headerProduct_return_running memory d values hm) k hk
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.ordinary_iterate_relates
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.ordinary_iterate_relates
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.ordinary_iterate_natural_outside
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.ordinary_iterate_natural_outside
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.ordinary_iterate_real_outside
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.ordinary_iterate_real_outside
+#assert_trust kernel NLA.Proofs.TR04.headerProductProgram
+#print axioms NLA.Proofs.TR04.headerProductProgram
+#assert_trust kernel NLA.Proofs.TR04.headerDecoderLabelMap
+#print axioms NLA.Proofs.TR04.headerDecoderLabelMap
+#assert_trust kernel NLA.Proofs.TR04.headerDecoderNatMap
+#print axioms NLA.Proofs.TR04.headerDecoderNatMap
+#assert_trust kernel NLA.Proofs.TR04.headerDecoderEmbedding
+#print axioms NLA.Proofs.TR04.headerDecoderEmbedding
+#assert_trust kernel NLA.Proofs.TR04.headerPrefixProduct
+#print axioms NLA.Proofs.TR04.headerPrefixProduct
+#assert_trust kernel NLA.Proofs.TR04.headerPrefixTime
+#print axioms NLA.Proofs.TR04.headerPrefixTime
+#assert_trust kernel NLA.Proofs.TR04.headerProductLoopState
+#print axioms NLA.Proofs.TR04.headerProductLoopState
+#assert_trust kernel NLA.Proofs.TR04.headerProductDecodeState
+#print axioms NLA.Proofs.TR04.headerProductDecodeState
+#assert_trust kernel NLA.Proofs.TR04.headerProductProgram_scalar
+#print axioms NLA.Proofs.TR04.headerProductProgram_scalar
+#assert_trust kernel NLA.Proofs.TR04.headerProduct_setup
+#print axioms NLA.Proofs.TR04.headerProduct_setup
+#assert_trust kernel NLA.Proofs.TR04.headerProduct_decode_relates
+#print axioms NLA.Proofs.TR04.headerProduct_decode_relates
+#assert_trust kernel NLA.Proofs.TR04.headerProductAfterDecode
+#print axioms NLA.Proofs.TR04.headerProductAfterDecode
+#assert_trust kernel NLA.Proofs.TR04.headerProduct_decode
+#print axioms NLA.Proofs.TR04.headerProduct_decode
+#assert_trust kernel NLA.Proofs.TR04.headerPrefixProduct_succ
+#print axioms NLA.Proofs.TR04.headerPrefixProduct_succ
+#assert_trust kernel NLA.Proofs.TR04.headerPrefixTime_succ
+#print axioms NLA.Proofs.TR04.headerPrefixTime_succ
+#assert_trust kernel NLA.Proofs.TR04.headerProduct_finish
+#print axioms NLA.Proofs.TR04.headerProduct_finish
+#assert_trust kernel NLA.Proofs.TR04.headerProduct_iteration
+#print axioms NLA.Proofs.TR04.headerProduct_iteration
+#assert_trust kernel NLA.Proofs.TR04.headerProduct_iterations
+#print axioms NLA.Proofs.TR04.headerProduct_iterations
+#assert_trust kernel NLA.Proofs.TR04.headerProduct_initial
+#print axioms NLA.Proofs.TR04.headerProduct_initial
+#assert_trust kernel NLA.Proofs.TR04.headerProductFinalState
+#print axioms NLA.Proofs.TR04.headerProductFinalState
+#assert_trust kernel NLA.Proofs.TR04.headerProduct_exit
+#print axioms NLA.Proofs.TR04.headerProduct_exit
+#assert_trust kernel NLA.Proofs.TR04.headerProductTime
+#print axioms NLA.Proofs.TR04.headerProductTime
+#assert_trust kernel NLA.Proofs.TR04.headerProduct_trace_result
+#print axioms NLA.Proofs.TR04.headerProduct_trace_result
+#assert_trust kernel NLA.Proofs.TR04.headerProduct_trace_cost
+#print axioms NLA.Proofs.TR04.headerProduct_trace_cost
+#assert_trust kernel NLA.Proofs.TR04.headerProductReturnTime
+#print axioms NLA.Proofs.TR04.headerProductReturnTime
+#assert_trust kernel NLA.Proofs.TR04.headerProductReturnState
+#print axioms NLA.Proofs.TR04.headerProductReturnState
+#assert_trust kernel NLA.Proofs.TR04.headerProduct_exit_test
+#print axioms NLA.Proofs.TR04.headerProduct_exit_test
+#assert_trust kernel NLA.Proofs.TR04.headerProduct_return
+#print axioms NLA.Proofs.TR04.headerProduct_return
+#assert_trust kernel NLA.Proofs.TR04.headerProduct_return_running
+#print axioms NLA.Proofs.TR04.headerProduct_return_running
+#assert_trust kernel NLA.Proofs.TR04.RoutineEmbedding.headerProduct_run_at
+#print axioms NLA.Proofs.TR04.RoutineEmbedding.headerProduct_run_at

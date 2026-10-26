@@ -1,0 +1,11 @@
+# Actual original minimum and strictness bridge author replay
+
+The two frozen MachineTTMinimumStrict modules connect the unchanged explicit first-family theorem to the actual fixed selector. The first ValidSVD fixes the deterministic cyclic/prefix family before every supplied child output Z. The completion family and its literal stored reconstructed original outputs are premises from actual execution; this bridge does not choose Completion witnesses from a mathematical existence theorem. It uses only the universal supplied-Z/minimum clause of first_svd_explicit_strict_family.
+
+Every legal completed 189 trace then executes the actual error selector and halt. Its genuine winning Nat index is converted to Fin F.count. The endpoint gives literal original Returns, output pointer 83, actual index 54/error 12/minimum, Feasible, strict FrobeniusSq<((order:Real)-1)*actual Optimum when the optimum is positive, and exact X=A when the optimum is zero. Selector memory is unchanged and the charged prefix costs at most 300 * (Size+1)^2.
+
+There is no additional count-capacity hypothesis: count≤min(m,l)+1 and the original m*l=DenseSize≥2 imply count≤DenseSize. The raw mixed-radix first-SVD wrapper reindexes only V. A proved equality shows that the literal explicit family is identical for unchanged U/sigma/r, so its frames are retained before all child replies.
+
+Author evidence passed all 107 immutable source snapshots plus a complete literal consumer: 108 compiler invocations, 13 selected consumer kernel assertions and 166 printed axiom lists. Every printed list uses only propext, Classical.choice and Quot.sound; no sorryAx. Lean 4.33.1 compiler 819816b2 was used with no project object reuse. All current source hashes matched the lock after replay. The consumer duplicates complete dense/radix endpoint headers, derived count bound and literal same-U/sigma family identity.
+
+Reproduce using source-lock.json, all source snapshots, ExactConsumer.lean, run-author.py, replay-input-lock.json and raw build.log. Run in a fresh copied evidence directory without objects/. Result.json records every command and output. This is author component evidence, with no full loop/Target, independent-review, actual Linux CI or Comparator claim. Original targets/models, IDs, statuses and all prior frozen sources remain unchanged.

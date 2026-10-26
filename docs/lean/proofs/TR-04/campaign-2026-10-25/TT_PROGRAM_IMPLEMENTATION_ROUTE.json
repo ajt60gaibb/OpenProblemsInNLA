@@ -1,0 +1,86 @@
+{
+  "scope": "Implementation route for the remaining concrete finite TT program; this document is not a theorem or acceptance receipt.",
+  "status": "fixed-program syntax, six-bank embeddings, original header prefix and memory layout independently accepted; complete execution and total charge pending",
+  "full_TR04_Target_proved": false,
+  "root_workspace": "campaign-workspaces/tr04",
+  "preservation": "Frozen literal Target/models and all published problem IDs/originals remain unchanged.",
+  "program_shape": {
+    "one_fixed_finite_program": true,
+    "fixed_register_frames": [
+      "caller counters/pointers",
+      "shared header decoder",
+      "shared strided matrix multiply",
+      "shared squared-error evaluator",
+      "shared best-output copier",
+      "explicit frame gather"
+    ],
+    "subroutine_return": "Each local halt label is mapped to finite caller continuation/dispatch code, never executed by the proved block prefix; return tags are ordinary finite natural literals.",
+    "forbidden_shortcuts": [
+      "real-to-natural opcode",
+      "free evaluator or solver",
+      "optimal tensor oracle",
+      "freely assigned cost",
+      "favorable SVD reply assumption",
+      "Fintype choice enumeration as executable instruction"
+    ],
+    "header_bank_reuse": {
+      "initial_product": "Enter frozen headerProductProgram label0 with caller natural0=d; collect N from product register at the mapped exit.",
+      "suffix_product": "Enter label2 with cursor=start and product1; MachineHeaderProductRange proves actual suffix product with memory premises only at cells read, independently accepted.",
+      "single_natural": "Enter label5 after caller read of real natural, cursor=d/product1/counter0; MachineHeaderProductSingle proves actual decode/multiply/increment/exit return in3*value+5 steps, independently accepted."
+    },
+    "labels": 512,
+    "real_registers": 16,
+    "natural_registers": 128,
+    "constant_pool": 0,
+    "static_caller_instructions": 276,
+    "fixed_program_source": "lean-statements/NLA/Proofs/TR04/MachineTTProgram.lean",
+    "reproducer": "docs/lean/proofs/TR-04/campaign-2026-10-26/program-assembly/generate-controller.py"
+  },
+  "memory": {
+    "original_input": "mode/rank headers followed by original N tensor cells; retained read-only",
+    "original_SVD": "full first U in N^2 cells, sigma in N cells, V in N^2 cells",
+    "frames": "d blocks of N^2 cells; first explicit Q dense m*q, later full SVD U matrices with recorded row stride",
+    "metadata": "four real-cast naturals per level: rows, capped rank, suffix columns, frame row stride; decoded via actual header decoder when needed",
+    "working": "Two disjoint N-cell work buffers plus K disjoint N-cell candidate output blocks; K<=N+1, so candidate storage is polynomial. The read-only selector returns a winning candidate pointer.",
+    "allocation": "Contiguous fixed polynomial arithmetic from input end; exact address and disjointness bounds remain to prove."
+  },
+  "steps": [
+    "Read original d from natural register0; compute N by decoding each real mode header and multiplying actual natural registers.",
+    "Compute original rows and suffix products with finite header loops; no division opcode is needed. Decode requested rank and cap it by actual first SVD dimensions.",
+    "Run the literal first SVD once, retaining every legal reply. Inspect last-retained sigma; for positive threshold and rank<=min dimensions count complete above/equal threshold block, otherwise choose one capped-prefix frame.",
+    "Loop through the deterministic finite cyclic family fixed before all child responses. Materialize each frame by explicit U-column gather with increment/wrap counters.",
+    "Contract Q^T*A using strided multiplication. Reshape merged modes by identical row-major memory layout, justified by the radix bridge.",
+    "Loop over remaining modes, recomputing suffix products, decoding rank allowance, capping rank, running every actual child SVD, retaining U in its level frame block, and contracting into the alternating dense buffer.",
+    "Reverse levels and lift Q*Z by strided multiplication, decoding recorded natural metadata. The final dense candidate has exactly the original N entries.",
+    "After reverse lifting, copy each candidate into its own store+j*N block, preserving all previous candidates. After all candidates, the actual finite read-only best-candidate selector evaluates squared error against original A and uses literal strict lessReal comparisons (first candidate initializes; ties keep old winner).",
+    "Halt at the actual winning candidate pointer. Apply explicit-family/every-actual-child/all-minimum theorem and native Offset/Decode/Returns bridge."
+  ],
+  "bounds": {
+    "dimension_invariants": [
+      "all compressed dense entry counts <= N",
+      "all SVD dimensions and capped ranks <= N",
+      "number of TT levels <= d <= N",
+      "number of first-frame candidates <= N+1"
+    ],
+    "proof_remaining": "Derive all loop/address/header-decoding costs from actual trace composition and bound by one fixed C*Size^k; no coefficient or exponent has yet been accepted."
+  },
+  "implemented_components_at_record": [
+    "SVD existence/Eckart equality/strict cyclic projector mathematics",
+    "ordinary recursive Completion and explicit radix layout",
+    "strict original mathematical endpoint and deterministic explicit family",
+    "actual scalar copy/header decoder, instruction relocation and trace composition",
+    "actual arbitrary SVD relocation and exact memory readback",
+    "actual strided matrix multiply and squared error with callable costs",
+    "independently accepted actual header-bank single-natural/suffix-product entries",
+    "independently accepted actual explicit frame gather",
+    "author-checked literal read-only threshold counts and actual all-candidate selector",
+    "independently accepted generic finite code linker, fixed caller/six-bank embeddings, actual initial header prefix and concrete memory allocation"
+  ],
+  "active_component_owners": {
+    "root": "whole finite TT assembly, execution and uniform cost proof",
+    "recover_geometry": "frozen actual best-candidate selector; new exact allocation/metadata/polynomial bounds",
+    "recover_algebra": "frozen actual frame gather and threshold scan; new actual dense tensor contraction/lift bridges",
+    "recover_verification": "independent frozen source/kernel audits"
+  },
+  "independent_finite_program_checkpoint": "docs/lean/proofs/TR-04/campaign-2026-10-26/FINITE_PROGRAM_CHECKPOINT_2026-10-26.json"
+}

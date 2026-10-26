@@ -1,0 +1,13 @@
+# Actual candidate entry and frame gather: author evidence
+
+The six frozen MachineTTCandidateGather modules prove the literal ttProgram phase from candidate label 189, when actual j<K, through setup 190..197, installed gather bank 40..65, and return 198..207 to metadata label 241. The frame is the exact explicitFirstFrames candidate indexed by the actual j, before any future child SVD reply.
+
+The entry uses the previous frozen first-selection result, actual stored full U, capped first rank, and the concrete first layout. The gather validity follows from the proved explicit-family realization; its positive tied modulus includes the prefix t=1,s=0 case. There is no mathematical evaluator, future-response restriction, or approximation premise. Empty and full-width prefixes remain valid.
+
+At metadata 241, the named TTCandidateMetadataFields gives level84=0, rows85=old81, width86=old106, columns87=old82, stride88=old106, frame94=old67, input89=old92, next90=old69, and tag108=0. The actual output satisfies StoresFrame for the selected mathematical matrix, with actual candidate index value old76. The original dense input and all U/sigma/V reads are preserved. Every memory cell outside the dense frame destination and every caller natural outside bank 26..40/result-field writes is preserved, including header order0 and candidate/selection/allocation globals; all real registers except gather scratch 6 are preserved.
+
+The exact phase time and actual charge bound are m*(11q+7)+24. Individual m,q,l≤N bounds and literal layout addresses prove saved-block separation and the uniform bound 24*(N+1)^2. Work-buffer product capacities remain separate and are not inferred from individual bounds.
+
+Development compilation and the literal consumer passed LeanCert kernel mode with only the standard three axioms. The consumer has 32 selected assertions: 27 public declarations and five literal endpoints covering exact candidate/protected arrays, actual j/frame storage, empty gather charge, candidate branch syntax and metadata return syntax. The fully fresh replay passed all 109 source commands plus the literal consumer (110 actual compiler commands), with the 32 selected consumer kernel assertions and only the standard three axioms. The private project-object directory started empty; pinned external package objects were reused explicitly. Full commands, raw output, compiler version and source checks are recorded in result.json and build.log.
+
+No earlier frozen source, original target, problem ID, canonical model or status was changed. This is author component evidence only, with no independent review, complete TR04 Target, Linux CI or Comparator claim.

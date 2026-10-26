@@ -1,0 +1,33 @@
+import NLA.Proofs.TR04.MachineTraceBounds
+set_option leancert.trust "kernel"
+#assert_trust kernel NLA.Proofs.TR04.step_cost_eq
+#print axioms NLA.Proofs.TR04.step_cost_eq
+#assert_trust kernel NLA.Proofs.TR04.step_of_halted
+#print axioms NLA.Proofs.TR04.step_of_halted
+#assert_trust kernel NLA.Proofs.TR04.step_of_failed
+#print axioms NLA.Proofs.TR04.step_of_failed
+#assert_trust kernel NLA.Proofs.TR04.exists_legalTrace_of_step_total
+#print axioms NLA.Proofs.TR04.exists_legalTrace_of_step_total
+#assert_trust kernel NLA.Proofs.TR04.step_total_of_svd_total
+#print axioms NLA.Proofs.TR04.step_total_of_svd_total
+#assert_trust kernel NLA.Proofs.TR04.exists_legalTrace_of_svd_total
+#print axioms NLA.Proofs.TR04.exists_legalTrace_of_svd_total
+#assert_trust kernel NLA.Proofs.TR04.step_total
+#print axioms NLA.Proofs.TR04.step_total
+#assert_trust kernel NLA.Proofs.TR04.exists_legalTrace
+#print axioms NLA.Proofs.TR04.exists_legalTrace
+#assert_trust kernel NLA.Proofs.TR04.legalTrace_cost_eq
+#print axioms NLA.Proofs.TR04.legalTrace_cost_eq
+#assert_trust kernel NLA.Proofs.TR04.costThrough_zero
+#print axioms NLA.Proofs.TR04.costThrough_zero
+#assert_trust kernel NLA.Proofs.TR04.costThrough_succ
+#print axioms NLA.Proofs.TR04.costThrough_succ
+#assert_trust kernel NLA.Proofs.TR04.charge_pos_of_running
+#print axioms NLA.Proofs.TR04.charge_pos_of_running
+#assert_trust kernel NLA.Proofs.TR04.legalTrace_halted_state_add
+#print axioms NLA.Proofs.TR04.legalTrace_halted_state_add
+#assert_trust kernel NLA.Proofs.TR04.costThrough_add_of_halted
+#print axioms NLA.Proofs.TR04.costThrough_add_of_halted
+example (P : NLA.Computation.SVDMachine.Program) (s : NLA.Computation.SVDMachine.State P) :
+    ∃ tr : NLA.Computation.SVDMachine.Trace P, NLA.Computation.SVDMachine.LegalTrace P s tr :=
+  NLA.Proofs.TR04.exists_legalTrace P s

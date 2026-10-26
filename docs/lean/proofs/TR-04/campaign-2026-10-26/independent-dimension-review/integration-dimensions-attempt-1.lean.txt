@@ -1,0 +1,33 @@
+
+namespace NLA.Proofs.TR04.TensorFormat.Dimensions
+open NLA.Computation.TensorTrainApproximation
+
+-- Derive the actual N-cell dense buffers and N^2 squares together, using only
+-- original cut-rank positivity and literal recursive reachability.
+example (S : Shape) (r : Ranks S) (hr : ∀ j, 1 ≤ r j)
+    {level m n : ℕ} {ns : List ℕ}
+    (h : Reachable (modeList S.mode) (originalRanks S r) level (m :: n :: ns)) :
+    0 < stepRank m (n :: ns) (fun j => originalRanks S r (level + j)) ∧
+    m * suffixSize (n :: ns) ≤ DenseSize S ∧
+    stepRank m (n :: ns) (fun j => originalRanks S r (level + j)) *
+      suffixSize (n :: ns) ≤ DenseSize S ∧
+    m * m ≤ DenseSize S ^ 2 ∧
+    m * stepRank m (n :: ns) (fun j => originalRanks S r (level + j)) ≤ DenseSize S ^ 2 ∧
+    suffixSize (n :: ns) * suffixSize (n :: ns) ≤ DenseSize S ^ 2 := by
+  have b := h.original_step_bounds S r hr
+  exact ⟨b.rank_pos, b.input_dense_le, b.contracted_dense_le,
+    b.frame_square_le, b.frame_rectangle_le, b.right_square_le⟩
+
+-- Even with zero modes or zero requested ranks, the actual child tensor's
+-- index cardinality cannot exceed that of the parent input tensor.
+example (m n : ℕ) (ns : List ℕ) (r : ℕ → ℕ) :
+    Fintype.card (Index ((stepRank m (n :: ns) r * n) :: ns)) ≤
+      Fintype.card (Index (m :: n :: ns)) := by
+  simpa only [card_index] using step_prod_le m n ns r
+
+example (m n : ℕ) (ns : List ℕ) :
+    stepRank m (n :: ns) (fun _ => 0) = 0 ∧
+      ((stepRank m (n :: ns) (fun _ => 0) * n) :: ns).prod = 0 := by
+  simp [stepRank, cappedRank]
+
+end NLA.Proofs.TR04.TensorFormat.Dimensions
