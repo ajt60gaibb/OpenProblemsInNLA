@@ -1,5 +1,6 @@
-import NLA.Proofs.TR26.IsotropicDegree
+import NLA.Proofs.TR26.MainTarget
 
-/-! One literal endpoint only. The nonisotropic endpoint and full Target
-remain unproved and are not selected as Comparator exports. -/
+/-! Both literal degree endpoints and the unchanged full Target. Acceptance
+of this candidate package is recorded separately in source-bound reviews
+and actual Linux/Comparator receipts. -/
 set_option leancert.trust "kernel"
