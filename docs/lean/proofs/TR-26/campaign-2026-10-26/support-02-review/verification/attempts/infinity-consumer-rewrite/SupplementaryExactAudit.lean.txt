@@ -1,0 +1,85 @@
+import NLA.Proofs.TR26.ChartIncidence
+import NLA.Proofs.TR26.CurveNormalRank
+import NLA.Proofs.TR26.IsotropicFamilyFactor
+import NLA.Proofs.TR26.BinaryScaling
+import Reviewed.TR26
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open scoped BigOperators
+open NLA.Statements.TR26 NLA.Proofs.TR26
+open NLA.Proofs.TR26.BinaryDiscriminant
+
+example : NLA.Statements.TR26.Target = NLA.ReviewedStatements.TR26.Target := rfl
+
+example {k : ℕ} (hk : 2 ≤ k) (c : Fin (k+1) → ℂ) :
+    MvPolynomial.eval c (fixedDiscriminant k) = 0 ↔
+      ∃ a b : ℂ, (a ≠ 0 ∨ b ≠ 0) ∧
+        binaryEval (MvPolynomial.pderiv 0 (binaryFromCoefficients k c)) a b = 0 ∧
+        binaryEval (MvPolynomial.pderiv 1 (binaryFromCoefficients k c)) a b = 0 :=
+  eval_fixedDiscriminant_eq_zero_iff_actual_partials hk c
+
+example (d : ℕ) : Squarefree (isotropicEvaluationFactor d) :=
+  isotropicEvaluationFactor_squarefree d
+example (d : ℕ) : (isotropicEvaluationFactor d).totalDegree = 2*d :=
+  isotropicEvaluationFactor_totalDegree d
+example (d : ℕ) (H : Parameter d) :
+    MvPolynomial.eval H (isotropicEvaluationFactor d) = 0 ↔
+      ∃ r ∈ denominatorRoots d, (affineNumerator H).eval r = 0 :=
+  eval_isotropicEvaluationFactor_eq_zero_iff d H
+example {d : ℕ} (hd : 1 ≤ d) :
+    isotropicEvaluationFactor d ∣ wronskianFamilyDiscriminant d :=
+  isotropicEvaluationFactor_dvd_wronskianFamilyDiscriminant hd
+
+example {d : ℕ} (hd : 1 ≤ d) (H : Parameter d) :
+    MvPolynomial.eval H (wronskianFamilyDiscriminant d) = 0 ↔
+      ∃ a b : ℂ, (a ≠ 0 ∨ b ≠ 0) ∧
+        binaryEval (MvPolynomial.pderiv 0 (binaryWronskian H)) a b = 0 ∧
+        binaryEval (MvPolynomial.pderiv 1 (binaryWronskian H)) a b = 0 :=
+  eval_wronskianFamilyDiscriminant_eq_zero_iff hd H
+example {d : ℕ} (hd : 1 ≤ d) :
+    (wronskianFamilyDiscriminant d).IsHomogeneous (8*d-6) :=
+  wronskianFamilyDiscriminant_homogeneous hd
+
+example {d : ℕ} (hd : 0 < d) (H : Parameter d) {a b : ℂ}
+    (hab : a ≠ 0 ∨ b ≠ 0) :
+    (quotientDerivativeNumerator H (veronese d a b) (veroneseDa d a b) = 0 ∧
+      quotientDerivativeNumerator H (veronese d a b) (veroneseDb d a b) = 0) ↔
+      binaryEval (binaryWronskian H) a b = 0 :=
+  parameterCritical_iff hd H hab
+
+example (d : ℕ) (hd : 1 ≤ d) (z : CurveVector d) (H : Parameter d)
+    (hz : z 0 ≠ 0) :
+    d-1 ≤ Module.finrank ℂ (JacobianSpace d z H) :=
+  affineCurve_jacobian_rank_lower d hd z H hz
+
+example (d : ℕ) (ζ : ℂ → CurveVector d) (hζ : Continuous ζ)
+    (L : SymIndex d → Polynomial ℂ) (P : Polynomial ℂ) (hP : P ≠ 0)
+    (hcritical : ∀ s (A : Parameter d), A ≠ 0 → P.eval s ≠ 0 →
+      linearCriticalValue L s A = 0 → OpenCritical (ζ s) A)
+    (t : ℂ) (H : Parameter d) (hH : H ≠ 0) (hcurve : OnCurve (ζ t))
+    (j : SymIndex d) (hj : (L j).eval t ≠ 0)
+    (ht : linearCriticalValue L t H = 0)
+    (hderiv : (linearCriticalPolynomial L H).derivative.eval t = 0)
+    (v : CurveVector d) (hv : ∀ i, HasDerivAt (fun s => ζ s i) (v i) t)
+    (hind : LinearIndependent ℂ ![ζ t,v]) : Ramification d (ζ t) H :=
+  chart_ramification_of_double_root d ζ hζ L P hP hcritical t H hH hcurve j hj
+    ht hderiv v hv hind
+
+-- A quadratic a² has a repeated root at the projective infinity (a,b)=(0,1).
+example : MvPolynomial.eval (fun i : Fin 3 => if i.val = 0 then (1 : ℂ) else 0)
+    (fixedDiscriminant 2) = 0 := by
+  apply multiple_projective_root_vanishes (by omega)
+  refine ⟨0,1,Or.inr one_ne_zero,?_,?_⟩
+  all_goals norm_num [partialACoeff,partialBCoeff,lowerIndex,upperIndex,Fin.sum_univ_two]
+
+-- The fixed quadratic a*b has two simple projective roots, one at infinity.
+example : MvPolynomial.eval (fun i : Fin 3 => if i.val = 1 then (1 : ℂ) else 0)
+    (fixedDiscriminant 2) ≠ 0 := by
+  rw [eval_fixedDiscriminant_eq_zero_iff (by omega)]
+  rintro ⟨a,b,hab,ha,hb⟩
+  norm_num [partialACoeff,partialBCoeff,lowerIndex,upperIndex,Fin.sum_univ_two] at ha hb
+  rcases hab with ha0 | hb0
+  · exact ha0 hb
+  · exact hb0 ha
+
