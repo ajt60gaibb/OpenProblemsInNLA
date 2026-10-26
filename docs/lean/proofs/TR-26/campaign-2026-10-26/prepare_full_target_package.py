@@ -65,15 +65,18 @@ theorem OracleFullTarget : NLA.Statements.TR26.Target := PackageOracle
  metadata['fidelity']['divergences']='No mathematical divergence is intended: the frozen original Target and both exact degree endpoints are consumed literally. Candidate author builds do not imply final package or Linux/Comparator acceptance.'
  metadata['review']={'status':'Two independent pre-proof approvals and two earlier isotropic endpoint source approvals; full-source/package and Linux acceptance pending','reviewers':['/root/inventory','/root/verification'],'notes':'Earlier isotropic-only reviews remain verbatim under reviews/isotropic. They do not approve the later nonisotropic endpoint or full Target. Full author source checkpoint '+SOURCE_REF+' is bound separately.'}
  if a.full_reviews_root:
-  bindings=[]
+  bindings=[];omitted=[]
   for reviewer in ['inventory','verification']:
    src=a.full_reviews_root/reviewer
    assert (src/'REVIEW.md').is_file(),src
-   dst=out/'reviews/full-target-review'/reviewer;shutil.copytree(src,dst)
+   for artifact in sorted(src.rglob('*')):
+    if artifact.is_file() and artifact.suffix in ['.pyc','.pyo','.olean','.ilean']:
+     omitted.append({'path':'reviews/full-target-review/'+reviewer+'/'+artifact.relative_to(src).as_posix(),'sha256':sha(artifact),'bytes':artifact.stat().st_size,'reason':'Regenerable compiler output, not a proof or review source input.'})
+   dst=out/'reviews/full-target-review'/reviewer;shutil.copytree(src,dst,ignore=shutil.ignore_patterns('__pycache__','*.pyc','*.pyo','*.olean','*.ilean'))
    for p in sorted(dst.rglob('*')):
     if p.is_file():
      assert p.suffix not in ['.olean','.ilean'];bindings.append({'path':p.relative_to(out).as_posix(),'sha256':sha(p),'bytes':p.stat().st_size})
-  js('reviews/FULL_SOURCE_REVIEW_BINDINGS.json',{'proof_source_ref':SOURCE_REF,'scope':'Two independent exact full-source reviews; canonical-package and Linux acceptance are separate gates.','files':bindings})
+  js('reviews/FULL_SOURCE_REVIEW_BINDINGS.json',{'proof_source_ref':SOURCE_REF,'scope':'Two independent exact full-source reviews; canonical-package and Linux acceptance are separate gates.','files':bindings,'omitted_regenerable_artifacts':omitted})
   metadata['review']['status']='Two independent full-source AI-agent reviews retained; canonical package and actual Linux acceptance separate'
   metadata['review']['notes']='Both full-source review packets are retained verbatim under reviews/full-target-review and bound by FULL_SOURCE_REVIEW_BINDINGS.json. Source checkpoint '+SOURCE_REF+'. No package or Linux acceptance is implied by these reports.'
   for rec in metadata['status']['main_results']:rec['verification_status']='Author and two independent full-source LeanCert kernel audits; canonical package and actual Linux/Comparator receipt separate.'
