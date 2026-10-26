@@ -1,0 +1,2257 @@
+import NLA.Proofs.TR06.AdditionFiniteFibers
+import NLA.Proofs.TR06.AdditionGoodBase
+import NLA.Proofs.TR06.AdditionPolynomialValues
+import NLA.Proofs.TR06.AdditionProperness
+import NLA.Proofs.TR06.AlgebraicLocusFullMeasure
+import NLA.Proofs.TR06.AlgebraicLocusNull
+import NLA.Proofs.TR06.AlgebraicLocusPolynomial
+import NLA.Proofs.TR06.AlgebraicLocusPositiveVolume
+import NLA.Proofs.TR06.AlgebraicLocusPullback
+import NLA.Proofs.TR06.ControlledProjectionAtlas
+import NLA.Proofs.TR06.ControlledProjectionDerivative
+import NLA.Proofs.TR06.ControlledProjectionVolume
+import NLA.Proofs.TR06.Final
+import NLA.Proofs.TR06.FiniteLocalizationRelations
+import NLA.Proofs.TR06.FiniteLocalizedFibers
+import NLA.Proofs.TR06.FiniteMonicProperness
+import NLA.Proofs.TR06.FiniteUnionFiberBounds
+import NLA.Proofs.TR06.GraphCharacterAlgebra
+import NLA.Proofs.TR06.GraphCharacterOrdered
+import NLA.Proofs.TR06.GraphCharacterReal
+import NLA.Proofs.TR06.GraphProjection
+import NLA.Proofs.TR06.GraphProjectionCharacterBound
+import NLA.Proofs.TR06.GraphProjectionDerivation
+import NLA.Proofs.TR06.GraphProjectionFiniteType
+import NLA.Proofs.TR06.GraphProjectionJet
+import NLA.Proofs.TR06.GraphProjectionLinear
+import NLA.Proofs.TR06.GraphProjectionOrdered
+import NLA.Proofs.TR06.GraphProjectionOrderedBound
+import NLA.Proofs.TR06.GraphProjectionPolynomial
+import NLA.Proofs.TR06.GraphQuasiFinite
+import NLA.Proofs.TR06.GraphQuasiFiniteCharacter
+import NLA.Proofs.TR06.GraphQuasiFiniteCotangent
+import NLA.Proofs.TR06.HomogeneousGaussian
+import NLA.Proofs.TR06.HomogeneousGaussianAnnuli
+import NLA.Proofs.TR06.HomogeneousGaussianMean
+import NLA.Proofs.TR06.HomogeneousGaussianScaling
+import NLA.Proofs.TR06.HomogeneousGaussianSeries
+import NLA.Proofs.TR06.LocalizedCharacterRelations
+import NLA.Proofs.TR06.ModelAngular
+import NLA.Proofs.TR06.ModelChartDerivative
+import NLA.Proofs.TR06.ModelCone
+import NLA.Proofs.TR06.ModelGaussian
+import NLA.Proofs.TR06.ModelMeasure
+import NLA.Proofs.TR06.ModelMeasureRestoration
+import NLA.Proofs.TR06.ModelNormalization
+import NLA.Proofs.TR06.ModelOuterDerivative
+import NLA.Proofs.TR06.ModelRegularity
+import NLA.Proofs.TR06.ModelSemantics
+import NLA.Proofs.TR06.ModelTangent
+import NLA.Proofs.TR06.ModelTupleNormalization
+import NLA.Proofs.TR06.MonicCoefficientFamily
+import NLA.Proofs.TR06.NormalizedGraphAlgebra
+import NLA.Proofs.TR06.NormalizedGraphArea
+import NLA.Proofs.TR06.NormalizedGraphAreaJacobian
+import NLA.Proofs.TR06.NormalizedGraphAreaPartition
+import NLA.Proofs.TR06.NormalizedGraphAreaPiece
+import NLA.Proofs.TR06.NormalizedGraphAreaVolume
+import NLA.Proofs.TR06.NormalizedGraphAreaWeighted
+import NLA.Proofs.TR06.NormalizedGraphBounded
+import NLA.Proofs.TR06.NormalizedGraphCharts
+import NLA.Proofs.TR06.NormalizedGraphChartsBasic
+import NLA.Proofs.TR06.NormalizedGraphChartsRadial
+import NLA.Proofs.TR06.NormalizedGraphChartsSeparation
+import NLA.Proofs.TR06.NormalizedGraphDefinitions
+import NLA.Proofs.TR06.NormalizedGraphEuclidean
+import NLA.Proofs.TR06.NormalizedGraphFiniteFibers
+import NLA.Proofs.TR06.NormalizedGraphFiniteVolume
+import NLA.Proofs.TR06.NormalizedGraphParameter
+import NLA.Proofs.TR06.NormalizedGraphQuasiFiniteControlled
+import NLA.Proofs.TR06.NormalizedGraphQuasiFiniteRows
+import NLA.Proofs.TR06.NormalizedGraphRows
+import NLA.Proofs.TR06.RealAdditionProperness
+import NLA.Proofs.TR06.RetainedBoundaryLocus
+import NLA.Proofs.TR06.RetainedBoundaryMean
+import NLA.Proofs.TR06.UnramifiedDifferentialAlgebra
+import NLA.Proofs.TR06.UnramifiedDifferentialCoordinates
+import NLA.Proofs.TR06.UnramifiedDifferentialGoodLocus
+import NLA.Proofs.TR06.UnramifiedDifferentialJet
+import NLA.Proofs.TR06.UnramifiedDifferentialReal
+import NLA.Proofs.TR06.UnramifiedDifferentialRealJet
+import LeanCert.Tactic.Verification
+open Lean Elab Command in
+elab "#assert_proof_constant " n:ident : command => do
+  let decl ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  match (← getEnv).find? decl with
+  | some (.thmInfo _) => pure ()
+  | _ => throwErrorAt n "expected a proved theorem constant"
+open Lean Elab Command in
+elab "#assert_internal_constant " mod:str suffix:str expected:str : command => do
+  let declPrefix := "_private." ++ mod.getString ++ "."
+  let ending := "." ++ suffix.getString
+  let candidates := (← getEnv).constants.toList.filter fun (n, _) =>
+    n.toString == suffix.getString || (n.toString.startsWith declPrefix && n.toString.endsWith ending)
+  unless candidates.length == 1 do
+    throwError "expected exactly one actual private declaration"
+  let some (decl, info) := candidates.head? | throwError "private declaration missing"
+  match expected.getString, info with
+  | "theorem", .thmInfo _ => pure ()
+  | "definition", .defnInfo _ => pure ()
+  | _, _ => throwError "private declaration kind does not match its source"
+  logInfo m!"INTERNAL_CONSTANT {decl} KIND={expected.getString}"
+  let declIdent := mkIdent decl
+  elabCommand (← `(#assert_trust $(mkIdent `kernel):ident $declIdent:ident))
+  elabCommand (← `(#print axioms $declIdent:ident))
+#assert_trust kernel NLA.TR06.TensorIndex
+#print axioms NLA.TR06.TensorIndex
+#assert_trust kernel NLA.TR06.Tensor
+#print axioms NLA.TR06.Tensor
+#assert_trust kernel NLA.TR06.pureTensor
+#print axioms NLA.TR06.pureTensor
+#assert_trust kernel NLA.TR06.RankOne
+#print axioms NLA.TR06.RankOne
+#assert_trust kernel NLA.TR06.Decomposes
+#print axioms NLA.TR06.Decomposes
+#assert_trust kernel NLA.TR06.ExactRank
+#print axioms NLA.TR06.ExactRank
+#assert_trust kernel NLA.TR06.Identifiable
+#print axioms NLA.TR06.Identifiable
+#assert_trust kernel NLA.TR06.GenericComplexIdentifiable
+#print axioms NLA.TR06.GenericComplexIdentifiable
+#assert_trust kernel NLA.TR06.expectedDimension
+#print axioms NLA.TR06.expectedDimension
+#assert_trust kernel NLA.TR06.identifiableRealSet
+#print axioms NLA.TR06.identifiableRealSet
+#assert_trust kernel NLA.TR06.AngularOutput
+#print axioms NLA.TR06.AngularOutput
+#assert_trust kernel NLA.TR06.normalizedTuple
+#print axioms NLA.TR06.normalizedTuple
+#assert_trust kernel NLA.TR06.angularDistance
+#print axioms NLA.TR06.angularDistance
+#assert_trust kernel NLA.TR06.angularSlope
+#print axioms NLA.TR06.angularSlope
+#assert_trust kernel NLA.TR06.tensorVolume
+#print axioms NLA.TR06.tensorVolume
+#assert_trust kernel NLA.TR06.gaussianWeight
+#print axioms NLA.TR06.gaussianWeight
+#assert_trust kernel NLA.TR06.unnormalizedInput
+#print axioms NLA.TR06.unnormalizedInput
+#assert_trust kernel NLA.TR06.normalization
+#print axioms NLA.TR06.normalization
+#assert_trust kernel NLA.TR06.inputMeasure
+#print axioms NLA.TR06.inputMeasure
+#assert_trust kernel NLA.TR06.derivativeRatio
+#print axioms NLA.TR06.derivativeRatio
+#assert_trust kernel NLA.TR06.inducedDerivative
+#print axioms NLA.TR06.inducedDerivative
+#assert_trust kernel NLA.TR06.DecompositionChart
+#print axioms NLA.TR06.DecompositionChart
+#assert_trust kernel NLA.TR06.regularSet
+#print axioms NLA.TR06.regularSet
+#assert_trust kernel NLA.TR06.regularVolume
+#print axioms NLA.TR06.regularVolume
+#assert_trust kernel NLA.TR06.regularNormalization
+#print axioms NLA.TR06.regularNormalization
+#assert_trust kernel NLA.TR06.regularInputMeasure
+#print axioms NLA.TR06.regularInputMeasure
+#assert_trust kernel NLA.TR06.SourceGenericComplexIdentifiable
+#print axioms NLA.TR06.SourceGenericComplexIdentifiable
+#assert_trust kernel NLA.TR06.SourceSmoothChart
+#print axioms NLA.TR06.SourceSmoothChart
+#assert_trust kernel NLA.TR06.sourceSmoothSet
+#print axioms NLA.TR06.sourceSmoothSet
+#assert_trust kernel NLA.TR06.SmoothDecompositionChart
+#print axioms NLA.TR06.SmoothDecompositionChart
+#assert_trust kernel NLA.TR06.smoothRegularSet
+#print axioms NLA.TR06.smoothRegularSet
+#assert_trust kernel NLA.TR06.OrderedRankOne
+#print axioms NLA.TR06.OrderedRankOne
+#assert_trust kernel NLA.TR06.IsLocalAdditionInverse
+#print axioms NLA.TR06.IsLocalAdditionInverse
+#assert_trust kernel NLA.TR06.sourceAngular
+#print axioms NLA.TR06.sourceAngular
+#assert_trust kernel NLA.TR06.sourceVolume
+#print axioms NLA.TR06.sourceVolume
+#assert_trust kernel NLA.TR06.sourceNormalization
+#print axioms NLA.TR06.sourceNormalization
+#assert_trust kernel NLA.TR06.sourceInputMeasure
+#print axioms NLA.TR06.sourceInputMeasure
+#assert_trust kernel NLA.TR06.rankAtMostOne
+#print axioms NLA.TR06.rankAtMostOne
+#assert_trust kernel NLA.TR06.closedRankOneProduct
+#print axioms NLA.TR06.closedRankOneProduct
+#assert_trust kernel NLA.TR06.closedAdditionFiber
+#print axioms NLA.TR06.closedAdditionFiber
+#assert_proof_constant NLA.TR06.exists_decomposes_remove_zeros
+#assert_trust kernel NLA.TR06.exists_decomposes_remove_zeros
+#print axioms NLA.TR06.exists_decomposes_remove_zeros
+#assert_proof_constant NLA.TR06.rankOne_of_mem_closedAdditionFiber
+#assert_trust kernel NLA.TR06.rankOne_of_mem_closedAdditionFiber
+#print axioms NLA.TR06.rankOne_of_mem_closedAdditionFiber
+#assert_proof_constant NLA.TR06.closedAdditionFiber_finite_nonempty
+#assert_trust kernel NLA.TR06.closedAdditionFiber_finite_nonempty
+#print axioms NLA.TR06.closedAdditionFiber_finite_nonempty
+#assert_trust kernel NLA.TR06.rankOnePivotPolynomial
+#print axioms NLA.TR06.rankOnePivotPolynomial
+#assert_proof_constant NLA.TR06.prod_prod_diagonal_identity
+#assert_trust kernel NLA.TR06.prod_prod_diagonal_identity
+#print axioms NLA.TR06.prod_prod_diagonal_identity
+#assert_proof_constant NLA.TR06.pureTensor_pivot_identity
+#assert_trust kernel NLA.TR06.pureTensor_pivot_identity
+#print axioms NLA.TR06.pureTensor_pivot_identity
+#assert_trust kernel NLA.TR06.rankOneNormalizedFactors
+#print axioms NLA.TR06.rankOneNormalizedFactors
+#assert_proof_constant NLA.TR06.reconstruction_of_pivot_equations
+#assert_trust kernel NLA.TR06.reconstruction_of_pivot_equations
+#print axioms NLA.TR06.reconstruction_of_pivot_equations
+#assert_internal_constant "NLA.TR06.ClosedCone" "NLA.TR06.pureTensor_absorb_scale" "theorem"
+#assert_proof_constant NLA.TR06.rankAtMostOne_iff_pivot_equations
+#assert_trust kernel NLA.TR06.rankAtMostOne_iff_pivot_equations
+#print axioms NLA.TR06.rankAtMostOne_iff_pivot_equations
+#assert_proof_constant NLA.TR06.rankAtMostOne_iff_eval_pivotPolynomial_eq_zero
+#assert_trust kernel NLA.TR06.rankAtMostOne_iff_eval_pivotPolynomial_eq_zero
+#print axioms NLA.TR06.rankAtMostOne_iff_eval_pivotPolynomial_eq_zero
+#assert_proof_constant NLA.TR06.rankOne_reconstruction_rlike
+#assert_trust kernel NLA.TR06.rankOne_reconstruction_rlike
+#print axioms NLA.TR06.rankOne_reconstruction_rlike
+#assert_proof_constant NLA.TR06.range_pureTensor_eq_rankAtMostOne
+#assert_trust kernel NLA.TR06.range_pureTensor_eq_rankAtMostOne
+#print axioms NLA.TR06.range_pureTensor_eq_rankAtMostOne
+#assert_proof_constant NLA.TR06.isClosed_rankAtMostOne
+#assert_trust kernel NLA.TR06.isClosed_rankAtMostOne
+#print axioms NLA.TR06.isClosed_rankAtMostOne
+#assert_proof_constant NLA.TR06.isClosed_closedRankOneProduct
+#assert_trust kernel NLA.TR06.isClosed_closedRankOneProduct
+#print axioms NLA.TR06.isClosed_closedRankOneProduct
+#assert_proof_constant NLA.TR06.isClosed_closedAdditionFiber
+#assert_trust kernel NLA.TR06.isClosed_closedAdditionFiber
+#print axioms NLA.TR06.isClosed_closedAdditionFiber
+#assert_trust kernel NLA.TR06.Proposed.OrderedFactorIndex
+#print axioms NLA.TR06.Proposed.OrderedFactorIndex
+#assert_trust kernel NLA.TR06.Proposed.segreCoordinatePolynomial
+#print axioms NLA.TR06.Proposed.segreCoordinatePolynomial
+#assert_trust kernel NLA.TR06.Proposed.segreSourceSubalgebra
+#print axioms NLA.TR06.Proposed.segreSourceSubalgebra
+#assert_trust kernel NLA.TR06.Proposed.SegreSource
+#print axioms NLA.TR06.Proposed.SegreSource
+#assert_trust kernel NLA.TR06.Proposed.segreCoordinate
+#print axioms NLA.TR06.Proposed.segreCoordinate
+#assert_trust kernel NLA.TR06.Proposed.characterTuple
+#print axioms NLA.TR06.Proposed.characterTuple
+#assert_trust kernel NLA.TR06.Proposed.additionAlgebraHom
+#print axioms NLA.TR06.Proposed.additionAlgebraHom
+#assert_trust kernel NLA.TR06.Proposed.SegreAlgebraStructureStatement
+#print axioms NLA.TR06.Proposed.SegreAlgebraStructureStatement
+#assert_trust kernel NLA.TR06.Proposed.SegreCharactersStatement
+#print axioms NLA.TR06.Proposed.SegreCharactersStatement
+#assert_proof_constant NLA.TR06.Proposed.segre_algebra_structure
+#assert_trust kernel NLA.TR06.Proposed.segre_algebra_structure
+#print axioms NLA.TR06.Proposed.segre_algebra_structure
+#assert_proof_constant NLA.TR06.Proposed.characterTuple_injective
+#assert_trust kernel NLA.TR06.Proposed.characterTuple_injective
+#print axioms NLA.TR06.Proposed.characterTuple_injective
+#assert_proof_constant NLA.TR06.Proposed.character_comp_addition
+#assert_trust kernel NLA.TR06.Proposed.character_comp_addition
+#print axioms NLA.TR06.Proposed.character_comp_addition
+#assert_trust kernel NLA.TR06.Proposed.factorCharacter
+#print axioms NLA.TR06.Proposed.factorCharacter
+#assert_proof_constant NLA.TR06.Proposed.characterTuple_factorCharacter
+#assert_trust kernel NLA.TR06.Proposed.characterTuple_factorCharacter
+#print axioms NLA.TR06.Proposed.characterTuple_factorCharacter
+#assert_proof_constant NLA.TR06.Proposed.segreCoordinate_pivot_identity
+#assert_trust kernel NLA.TR06.Proposed.segreCoordinate_pivot_identity
+#print axioms NLA.TR06.Proposed.segreCoordinate_pivot_identity
+#assert_proof_constant NLA.TR06.Proposed.characterTuple_mem_closedProduct
+#assert_trust kernel NLA.TR06.Proposed.characterTuple_mem_closedProduct
+#print axioms NLA.TR06.Proposed.characterTuple_mem_closedProduct
+#assert_proof_constant NLA.TR06.Proposed.range_characterTuple
+#assert_trust kernel NLA.TR06.Proposed.range_characterTuple
+#print axioms NLA.TR06.Proposed.range_characterTuple
+#assert_proof_constant NLA.TR06.Proposed.segre_characters
+#assert_trust kernel NLA.TR06.Proposed.segre_characters
+#print axioms NLA.TR06.Proposed.segre_characters
+#assert_trust kernel NLA.TR06.Proposed.GenericFiniteLocalizationStatement
+#print axioms NLA.TR06.Proposed.GenericFiniteLocalizationStatement
+#assert_proof_constant NLA.TR06.Proposed.generic_finite_localization
+#assert_trust kernel NLA.TR06.Proposed.generic_finite_localization
+#print axioms NLA.TR06.Proposed.generic_finite_localization
+#assert_trust kernel NLA.TR06.Proposed.AdditionImage
+#print axioms NLA.TR06.Proposed.AdditionImage
+#assert_trust kernel NLA.TR06.Proposed.AdditionFiniteLocalizationStatement
+#print axioms NLA.TR06.Proposed.AdditionFiniteLocalizationStatement
+#assert_trust kernel NLA.TR06.Proposed.characterFiberIdeal
+#print axioms NLA.TR06.Proposed.characterFiberIdeal
+#assert_trust kernel NLA.TR06.Proposed.characterFiber
+#print axioms NLA.TR06.Proposed.characterFiber
+#assert_trust kernel NLA.TR06.Proposed.QuotientCharacterCorrespondenceStatement
+#print axioms NLA.TR06.Proposed.QuotientCharacterCorrespondenceStatement
+#assert_trust kernel NLA.TR06.Proposed.QuasiFiniteAtOfFiniteCharacterFiberStatement
+#print axioms NLA.TR06.Proposed.QuasiFiniteAtOfFiniteCharacterFiberStatement
+#assert_trust kernel NLA.TR06.Proposed.GenericQuasiFiniteOfFiniteNonemptyCharacterFiberStatement
+#print axioms NLA.TR06.Proposed.GenericQuasiFiniteOfFiniteNonemptyCharacterFiberStatement
+#assert_trust kernel NLA.TR06.Proposed.FiniteAlgebraOfFiniteCharactersStatement
+#print axioms NLA.TR06.Proposed.FiniteAlgebraOfFiniteCharactersStatement
+#assert_proof_constant NLA.TR06.Proposed.finite_algebra_of_finite_characters
+#assert_trust kernel NLA.TR06.Proposed.finite_algebra_of_finite_characters
+#print axioms NLA.TR06.Proposed.finite_algebra_of_finite_characters
+#assert_proof_constant NLA.TR06.Proposed.quotient_character_correspondence
+#assert_trust kernel NLA.TR06.Proposed.quotient_character_correspondence
+#print axioms NLA.TR06.Proposed.quotient_character_correspondence
+#assert_proof_constant NLA.TR06.Proposed.quasiFiniteAt_of_finite_character_fiber
+#assert_trust kernel NLA.TR06.Proposed.quasiFiniteAt_of_finite_character_fiber
+#print axioms NLA.TR06.Proposed.quasiFiniteAt_of_finite_character_fiber
+#assert_proof_constant NLA.TR06.Proposed.generic_quasiFinite_of_finite_nonempty_character_fiber
+#assert_trust kernel NLA.TR06.Proposed.generic_quasiFinite_of_finite_nonempty_character_fiber
+#print axioms NLA.TR06.Proposed.generic_quasiFinite_of_finite_nonempty_character_fiber
+#assert_proof_constant NLA.TR06.Proposed.addition_finite_localization
+#assert_trust kernel NLA.TR06.Proposed.addition_finite_localization
+#print axioms NLA.TR06.Proposed.addition_finite_localization
+#assert_trust kernel NLA.Proofs.TR06.awayCoefficientValue
+#print axioms NLA.Proofs.TR06.awayCoefficientValue
+#assert_proof_constant NLA.Proofs.TR06.away_lift_eq_coefficientValue
+#assert_trust kernel NLA.Proofs.TR06.away_lift_eq_coefficientValue
+#print axioms NLA.Proofs.TR06.away_lift_eq_coefficientValue
+#assert_proof_constant NLA.Proofs.TR06.continuousOn_awayCoefficientValue
+#assert_trust kernel NLA.Proofs.TR06.continuousOn_awayCoefficientValue
+#print axioms NLA.Proofs.TR06.continuousOn_awayCoefficientValue
+#assert_proof_constant NLA.Proofs.TR06.finite_localization_monic_relations
+#assert_trust kernel NLA.Proofs.TR06.finite_localization_monic_relations
+#print axioms NLA.Proofs.TR06.finite_localization_monic_relations
+#assert_trust kernel NLA.Proofs.TR06.additionRepresentative
+#print axioms NLA.Proofs.TR06.additionRepresentative
+#assert_proof_constant NLA.Proofs.TR06.additionRepresentative_spec
+#assert_trust kernel NLA.Proofs.TR06.additionRepresentative_spec
+#print axioms NLA.Proofs.TR06.additionRepresentative_spec
+#assert_trust kernel NLA.Proofs.TR06.additionBaseValue
+#print axioms NLA.Proofs.TR06.additionBaseValue
+#assert_proof_constant NLA.Proofs.TR06.continuous_additionBaseValue
+#assert_trust kernel NLA.Proofs.TR06.continuous_additionBaseValue
+#print axioms NLA.Proofs.TR06.continuous_additionBaseValue
+#assert_proof_constant NLA.Proofs.TR06.additionBaseValue_characterTuple
+#assert_trust kernel NLA.Proofs.TR06.additionBaseValue_characterTuple
+#print axioms NLA.Proofs.TR06.additionBaseValue_characterTuple
+#assert_trust kernel NLA.Proofs.TR06.additionAwayValue
+#print axioms NLA.Proofs.TR06.additionAwayValue
+#assert_proof_constant NLA.Proofs.TR06.continuousOn_additionAwayValue
+#assert_trust kernel NLA.Proofs.TR06.continuousOn_additionAwayValue
+#print axioms NLA.Proofs.TR06.continuousOn_additionAwayValue
+#assert_proof_constant NLA.Proofs.TR06.additionAwayValue_characterTuple
+#assert_trust kernel NLA.Proofs.TR06.additionAwayValue_characterTuple
+#print axioms NLA.Proofs.TR06.additionAwayValue_characterTuple
+#assert_proof_constant NLA.Proofs.TR06.addition_coordinate_monic_relations
+#assert_trust kernel NLA.Proofs.TR06.addition_coordinate_monic_relations
+#print axioms NLA.Proofs.TR06.addition_coordinate_monic_relations
+#assert_trust kernel NLA.Proofs.TR06.localizedSourceCharacter
+#print axioms NLA.Proofs.TR06.localizedSourceCharacter
+#assert_proof_constant NLA.Proofs.TR06.localizedSourceCharacter_algebraMap
+#assert_trust kernel NLA.Proofs.TR06.localizedSourceCharacter_algebraMap
+#print axioms NLA.Proofs.TR06.localizedSourceCharacter_algebraMap
+#assert_proof_constant NLA.Proofs.TR06.localizedSourceCharacter_comp_base
+#assert_trust kernel NLA.Proofs.TR06.localizedSourceCharacter_comp_base
+#print axioms NLA.Proofs.TR06.localizedSourceCharacter_comp_base
+#assert_proof_constant NLA.Proofs.TR06.localized_relation_isRoot
+#assert_trust kernel NLA.Proofs.TR06.localized_relation_isRoot
+#print axioms NLA.Proofs.TR06.localized_relation_isRoot
+#assert_trust kernel NLA.Proofs.TR06.monicCoefficientPolynomial
+#print axioms NLA.Proofs.TR06.monicCoefficientPolynomial
+#assert_proof_constant NLA.Proofs.TR06.monicCoefficientPolynomial_coeff
+#assert_trust kernel NLA.Proofs.TR06.monicCoefficientPolynomial_coeff
+#print axioms NLA.Proofs.TR06.monicCoefficientPolynomial_coeff
+#assert_proof_constant NLA.Proofs.TR06.monicCoefficientPolynomial_natDegree_le
+#assert_trust kernel NLA.Proofs.TR06.monicCoefficientPolynomial_natDegree_le
+#print axioms NLA.Proofs.TR06.monicCoefficientPolynomial_natDegree_le
+#assert_proof_constant NLA.Proofs.TR06.monicCoefficientPolynomial_monic
+#assert_trust kernel NLA.Proofs.TR06.monicCoefficientPolynomial_monic
+#print axioms NLA.Proofs.TR06.monicCoefficientPolynomial_monic
+#assert_proof_constant NLA.Proofs.TR06.monicCoefficientPolynomial_eq_map
+#assert_trust kernel NLA.Proofs.TR06.monicCoefficientPolynomial_eq_map
+#print axioms NLA.Proofs.TR06.monicCoefficientPolynomial_eq_map
+#assert_proof_constant NLA.Proofs.TR06.continuousOn_monicCoefficientPolynomial_coeff
+#assert_trust kernel NLA.Proofs.TR06.continuousOn_monicCoefficientPolynomial_coeff
+#print axioms NLA.Proofs.TR06.continuousOn_monicCoefficientPolynomial_coeff
+#assert_proof_constant NLA.Proofs.TR06.monic_root_bound
+#assert_trust kernel NLA.Proofs.TR06.monic_root_bound
+#print axioms NLA.Proofs.TR06.monic_root_bound
+#assert_proof_constant NLA.Proofs.TR06.compact_monic_root_bound
+#assert_trust kernel NLA.Proofs.TR06.compact_monic_root_bound
+#print axioms NLA.Proofs.TR06.compact_monic_root_bound
+#assert_proof_constant NLA.Proofs.TR06.compact_preimage_of_monic_coordinates
+#assert_trust kernel NLA.Proofs.TR06.compact_preimage_of_monic_coordinates
+#print axioms NLA.Proofs.TR06.compact_preimage_of_monic_coordinates
+#assert_trust kernel NLA.Proofs.TR06.orderedComplexCoordinates
+#print axioms NLA.Proofs.TR06.orderedComplexCoordinates
+#assert_proof_constant NLA.Proofs.TR06.complex_addition_preimages_compact
+#assert_trust kernel NLA.Proofs.TR06.complex_addition_preimages_compact
+#print axioms NLA.Proofs.TR06.complex_addition_preimages_compact
+#assert_trust kernel NLA.TR06.complexify
+#print axioms NLA.TR06.complexify
+#assert_proof_constant NLA.TR06.complexify_apply
+#assert_trust kernel NLA.TR06.complexify_apply
+#print axioms NLA.TR06.complexify_apply
+#assert_proof_constant NLA.TR06.complexify_injective
+#assert_trust kernel NLA.TR06.complexify_injective
+#print axioms NLA.TR06.complexify_injective
+#assert_proof_constant NLA.TR06.complexify_zero
+#assert_trust kernel NLA.TR06.complexify_zero
+#print axioms NLA.TR06.complexify_zero
+#assert_proof_constant NLA.TR06.complexify_add
+#assert_trust kernel NLA.TR06.complexify_add
+#print axioms NLA.TR06.complexify_add
+#assert_proof_constant NLA.TR06.complexify_sum
+#assert_trust kernel NLA.TR06.complexify_sum
+#print axioms NLA.TR06.complexify_sum
+#assert_proof_constant NLA.TR06.complexify_pureTensor
+#assert_trust kernel NLA.TR06.complexify_pureTensor
+#print axioms NLA.TR06.complexify_pureTensor
+#assert_proof_constant NLA.TR06.complexify_rankOne
+#assert_trust kernel NLA.TR06.complexify_rankOne
+#print axioms NLA.TR06.complexify_rankOne
+#assert_proof_constant NLA.TR06.complexify_decomposes
+#assert_trust kernel NLA.TR06.complexify_decomposes
+#print axioms NLA.TR06.complexify_decomposes
+#assert_proof_constant NLA.TR06.exactRank_of_complexify
+#assert_trust kernel NLA.TR06.exactRank_of_complexify
+#print axioms NLA.TR06.exactRank_of_complexify
+#assert_proof_constant NLA.TR06.identifiable_of_complexify
+#assert_trust kernel NLA.TR06.identifiable_of_complexify
+#print axioms NLA.TR06.identifiable_of_complexify
+#assert_proof_constant NLA.TR06.exact_identifiable_of_complexify
+#assert_trust kernel NLA.TR06.exact_identifiable_of_complexify
+#print axioms NLA.TR06.exact_identifiable_of_complexify
+#assert_proof_constant NLA.TR06.pureTensor_factor_pivot_ne_zero
+#assert_trust kernel NLA.TR06.pureTensor_factor_pivot_ne_zero
+#print axioms NLA.TR06.pureTensor_factor_pivot_ne_zero
+#assert_proof_constant NLA.TR06.pureTensor_slice_div_pivot
+#assert_trust kernel NLA.TR06.pureTensor_slice_div_pivot
+#print axioms NLA.TR06.pureTensor_slice_div_pivot
+#assert_trust kernel NLA.TR06.pivotFactors
+#print axioms NLA.TR06.pivotFactors
+#assert_proof_constant NLA.TR06.pivotFactors_pivot
+#assert_trust kernel NLA.TR06.pivotFactors_pivot
+#print axioms NLA.TR06.pivotFactors_pivot
+#assert_proof_constant NLA.TR06.rankOne_pivot_reconstruction
+#assert_trust kernel NLA.TR06.rankOne_pivot_reconstruction
+#print axioms NLA.TR06.rankOne_pivot_reconstruction
+#assert_proof_constant NLA.TR06.pureTensor_smul_factor
+#assert_trust kernel NLA.TR06.pureTensor_smul_factor
+#print axioms NLA.TR06.pureTensor_smul_factor
+#assert_trust kernel NLA.TR06.PivotIndex
+#print axioms NLA.TR06.PivotIndex
+#assert_trust kernel NLA.TR06.PivotData
+#print axioms NLA.TR06.PivotData
+#assert_trust kernel NLA.TR06.expandedPivotFactors
+#print axioms NLA.TR06.expandedPivotFactors
+#assert_trust kernel NLA.TR06.tensorFromPivotData
+#print axioms NLA.TR06.tensorFromPivotData
+#assert_trust kernel NLA.TR06.tensorToPivotData
+#print axioms NLA.TR06.tensorToPivotData
+#assert_proof_constant NLA.TR06.expandedPivotFactors_pivot
+#assert_trust kernel NLA.TR06.expandedPivotFactors_pivot
+#print axioms NLA.TR06.expandedPivotFactors_pivot
+#assert_proof_constant NLA.TR06.pureTensor_expandedPivotFactors_pivot
+#assert_trust kernel NLA.TR06.pureTensor_expandedPivotFactors_pivot
+#print axioms NLA.TR06.pureTensor_expandedPivotFactors_pivot
+#assert_proof_constant NLA.TR06.tensorFromPivotData_pivot
+#assert_trust kernel NLA.TR06.tensorFromPivotData_pivot
+#print axioms NLA.TR06.tensorFromPivotData_pivot
+#assert_proof_constant NLA.TR06.tensorFromPivotData_rankOne
+#assert_trust kernel NLA.TR06.tensorFromPivotData_rankOne
+#print axioms NLA.TR06.tensorFromPivotData_rankOne
+#assert_proof_constant NLA.TR06.tensorToPivotData_from
+#assert_trust kernel NLA.TR06.tensorToPivotData_from
+#print axioms NLA.TR06.tensorToPivotData_from
+#assert_proof_constant NLA.TR06.tensorFromPivotData_to
+#assert_trust kernel NLA.TR06.tensorFromPivotData_to
+#print axioms NLA.TR06.tensorFromPivotData_to
+#assert_proof_constant NLA.TR06.continuous_tensorFromPivotData
+#assert_trust kernel NLA.TR06.continuous_tensorFromPivotData
+#print axioms NLA.TR06.continuous_tensorFromPivotData
+#assert_proof_constant NLA.TR06.continuousOn_tensorToPivotData
+#assert_trust kernel NLA.TR06.continuousOn_tensorToPivotData
+#print axioms NLA.TR06.continuousOn_tensorToPivotData
+#assert_trust kernel NLA.TR06.rankOnePivotHomeomorph
+#print axioms NLA.TR06.rankOnePivotHomeomorph
+#assert_proof_constant NLA.TR06.isOpen_rankOnePivotSet
+#assert_trust kernel NLA.TR06.isOpen_rankOnePivotSet
+#print axioms NLA.TR06.isOpen_rankOnePivotSet
+#assert_proof_constant NLA.TR06.isOpen_nonzeroPivotData
+#assert_trust kernel NLA.TR06.isOpen_nonzeroPivotData
+#print axioms NLA.TR06.isOpen_nonzeroPivotData
+#assert_proof_constant NLA.TR06.card_pivotIndex
+#assert_trust kernel NLA.TR06.card_pivotIndex
+#print axioms NLA.TR06.card_pivotIndex
+#assert_proof_constant NLA.TR06.contDiff_tensorFromPivotData
+#assert_trust kernel NLA.TR06.contDiff_tensorFromPivotData
+#print axioms NLA.TR06.contDiff_tensorFromPivotData
+#assert_proof_constant NLA.TR06.contDiffOn_tensorToPivotData
+#assert_trust kernel NLA.TR06.contDiffOn_tensorToPivotData
+#print axioms NLA.TR06.contDiffOn_tensorToPivotData
+#assert_proof_constant NLA.TR06.finrank_pivotData
+#assert_trust kernel NLA.TR06.finrank_pivotData
+#print axioms NLA.TR06.finrank_pivotData
+#assert_proof_constant NLA.TR06.finrank_orderedPivotData
+#assert_trust kernel NLA.TR06.finrank_orderedPivotData
+#print axioms NLA.TR06.finrank_orderedPivotData
+#assert_trust kernel NLA.TR06.OrderedPivotData
+#print axioms NLA.TR06.OrderedPivotData
+#assert_trust kernel NLA.TR06.orderedTensorToPivotData
+#print axioms NLA.TR06.orderedTensorToPivotData
+#assert_trust kernel NLA.TR06.orderedTensorFromPivotData
+#print axioms NLA.TR06.orderedTensorFromPivotData
+#assert_trust kernel NLA.TR06.orderedRankOnePivotHomeomorph
+#print axioms NLA.TR06.orderedRankOnePivotHomeomorph
+#assert_proof_constant NLA.TR06.isOpen_orderedRankOnePivotSet
+#assert_trust kernel NLA.TR06.isOpen_orderedRankOnePivotSet
+#print axioms NLA.TR06.isOpen_orderedRankOnePivotSet
+#assert_proof_constant NLA.TR06.isOpen_orderedNonzeroPivotData
+#assert_trust kernel NLA.TR06.isOpen_orderedNonzeroPivotData
+#print axioms NLA.TR06.isOpen_orderedNonzeroPivotData
+#assert_proof_constant NLA.TR06.contDiff_orderedTensorFromPivotData
+#assert_trust kernel NLA.TR06.contDiff_orderedTensorFromPivotData
+#print axioms NLA.TR06.contDiff_orderedTensorFromPivotData
+#assert_proof_constant NLA.TR06.contDiffOn_orderedTensorToPivotData
+#assert_trust kernel NLA.TR06.contDiffOn_orderedTensorToPivotData
+#print axioms NLA.TR06.contDiffOn_orderedTensorToPivotData
+#assert_proof_constant NLA.TR06.isOpen_orderedTensorPivotSet
+#assert_trust kernel NLA.TR06.isOpen_orderedTensorPivotSet
+#print axioms NLA.TR06.isOpen_orderedTensorPivotSet
+#assert_trust kernel NLA.TR06.chartPivotMap
+#print axioms NLA.TR06.chartPivotMap
+#assert_trust kernel NLA.TR06.pivotSum
+#print axioms NLA.TR06.pivotSum
+#assert_proof_constant NLA.TR06.contDiff_pivotSum
+#assert_trust kernel NLA.TR06.contDiff_pivotSum
+#print axioms NLA.TR06.contDiff_pivotSum
+#assert_proof_constant NLA.TR06.chart_summands_contDiffAt
+#assert_trust kernel NLA.TR06.chart_summands_contDiffAt
+#print axioms NLA.TR06.chart_summands_contDiffAt
+#assert_proof_constant NLA.TR06.chartPivotMap_contDiffAt
+#assert_trust kernel NLA.TR06.chartPivotMap_contDiffAt
+#print axioms NLA.TR06.chartPivotMap_contDiffAt
+#assert_proof_constant NLA.TR06.pivotSum_chartPivotMap_eventuallyEq
+#assert_trust kernel NLA.TR06.pivotSum_chartPivotMap_eventuallyEq
+#print axioms NLA.TR06.pivotSum_chartPivotMap_eventuallyEq
+#assert_proof_constant NLA.TR06.chartPivotMap_injective_derivative
+#assert_trust kernel NLA.TR06.chartPivotMap_injective_derivative
+#print axioms NLA.TR06.chartPivotMap_injective_derivative
+#assert_proof_constant NLA.TR06.chartPivotMap_exists_localHomeomorph
+#assert_trust kernel NLA.TR06.chartPivotMap_exists_localHomeomorph
+#print axioms NLA.TR06.chartPivotMap_exists_localHomeomorph
+#assert_proof_constant NLA.TR06.sourceSmoothSet_subset_identifiable
+#assert_trust kernel NLA.TR06.sourceSmoothSet_subset_identifiable
+#print axioms NLA.TR06.sourceSmoothSet_subset_identifiable
+#assert_proof_constant NLA.TR06.sourceSmoothSet_relatively_open
+#assert_trust kernel NLA.TR06.sourceSmoothSet_relatively_open
+#print axioms NLA.TR06.sourceSmoothSet_relatively_open
+#assert_proof_constant NLA.TR06.isOpenEmbedding_sourceSmoothInclusion
+#assert_trust kernel NLA.TR06.isOpenEmbedding_sourceSmoothInclusion
+#print axioms NLA.TR06.isOpenEmbedding_sourceSmoothInclusion
+#assert_proof_constant NLA.TR06.isOpenEmbedding_restrict_open_source
+#assert_trust kernel NLA.TR06.isOpenEmbedding_restrict_open_source
+#print axioms NLA.TR06.isOpenEmbedding_restrict_open_source
+#assert_proof_constant NLA.TR06.smooth_summands_local_open_embedding
+#assert_trust kernel NLA.TR06.smooth_summands_local_open_embedding
+#print axioms NLA.TR06.smooth_summands_local_open_embedding
+#assert_proof_constant NLA.TR06.smooth_chart_is_local_addition_inverse
+#assert_trust kernel NLA.TR06.smooth_chart_is_local_addition_inverse
+#print axioms NLA.TR06.smooth_chart_is_local_addition_inverse
+#assert_trust kernel NLA.TR06.Proposed.CompactAdditionPreimagesOn
+#print axioms NLA.TR06.Proposed.CompactAdditionPreimagesOn
+#assert_trust kernel NLA.TR06.Proposed.IdentifiableAdditionOn
+#print axioms NLA.TR06.Proposed.IdentifiableAdditionOn
+#assert_trust kernel NLA.TR06.Proposed.AdditionFiberNeighborhoodStatement
+#print axioms NLA.TR06.Proposed.AdditionFiberNeighborhoodStatement
+#assert_trust kernel NLA.TR06.Proposed.SmoothChartOfProperImmersionStatement
+#print axioms NLA.TR06.Proposed.SmoothChartOfProperImmersionStatement
+#assert_trust kernel NLA.TR06.Proposed.SmoothRegularOnProperImmersionStatement
+#print axioms NLA.TR06.Proposed.SmoothRegularOnProperImmersionStatement
+#assert_trust kernel NLA.Proofs.TR06.complexifyLinear
+#print axioms NLA.Proofs.TR06.complexifyLinear
+#assert_proof_constant NLA.Proofs.TR06.isClosedEmbedding_complexify
+#assert_trust kernel NLA.Proofs.TR06.isClosedEmbedding_complexify
+#print axioms NLA.Proofs.TR06.isClosedEmbedding_complexify
+#assert_trust kernel NLA.Proofs.TR06.orderedComplexifyLinear
+#print axioms NLA.Proofs.TR06.orderedComplexifyLinear
+#assert_proof_constant NLA.Proofs.TR06.isClosedEmbedding_orderedComplexify
+#assert_trust kernel NLA.Proofs.TR06.isClosedEmbedding_orderedComplexify
+#print axioms NLA.Proofs.TR06.isClosedEmbedding_orderedComplexify
+#assert_trust kernel NLA.Proofs.TR06.realAdditionGoodSet
+#print axioms NLA.Proofs.TR06.realAdditionGoodSet
+#assert_proof_constant NLA.Proofs.TR06.isOpen_realAdditionGoodSet
+#assert_trust kernel NLA.Proofs.TR06.isOpen_realAdditionGoodSet
+#print axioms NLA.Proofs.TR06.isOpen_realAdditionGoodSet
+#assert_proof_constant NLA.Proofs.TR06.real_addition_preimages_compact
+#assert_trust kernel NLA.Proofs.TR06.real_addition_preimages_compact
+#print axioms NLA.Proofs.TR06.real_addition_preimages_compact
+#assert_proof_constant NLA.Proofs.TR06.generic_identifiability_real_addition_proper
+#assert_trust kernel NLA.Proofs.TR06.generic_identifiability_real_addition_proper
+#print axioms NLA.Proofs.TR06.generic_identifiability_real_addition_proper
+#assert_proof_constant NLA.Proofs.TR06.additionRepresentative_pullback_ne_zero
+#assert_trust kernel NLA.Proofs.TR06.additionRepresentative_pullback_ne_zero
+#print axioms NLA.Proofs.TR06.additionRepresentative_pullback_ne_zero
+#assert_proof_constant NLA.Proofs.TR06.generic_identifiability_real_addition_proper_polynomial
+#assert_trust kernel NLA.Proofs.TR06.generic_identifiability_real_addition_proper_polynomial
+#print axioms NLA.Proofs.TR06.generic_identifiability_real_addition_proper_polynomial
+#assert_trust kernel NLA.TR06.generatorEvaluation
+#print axioms NLA.TR06.generatorEvaluation
+#assert_proof_constant NLA.TR06.generatorEvaluation_injective
+#assert_trust kernel NLA.TR06.generatorEvaluation_injective
+#print axioms NLA.TR06.generatorEvaluation_injective
+#assert_proof_constant NLA.TR06.card_algHom_finset_le_of_span_eq_top
+#assert_trust kernel NLA.TR06.card_algHom_finset_le_of_span_eq_top
+#print axioms NLA.TR06.card_algHom_finset_le_of_span_eq_top
+#assert_proof_constant NLA.Proofs.TR06.finite_algHom_of_finite_module
+#assert_trust kernel NLA.Proofs.TR06.finite_algHom_of_finite_module
+#print axioms NLA.Proofs.TR06.finite_algHom_of_finite_module
+#assert_proof_constant NLA.Proofs.TR06.finite_character_fiber_of_finite_localization
+#assert_trust kernel NLA.Proofs.TR06.finite_character_fiber_of_finite_localization
+#print axioms NLA.Proofs.TR06.finite_character_fiber_of_finite_localization
+#assert_trust kernel NLA.TR06.FiniteFiber.splitTuple
+#print axioms NLA.TR06.FiniteFiber.splitTuple
+#assert_trust kernel NLA.TR06.FiniteFiber.cancelTuple
+#print axioms NLA.TR06.FiniteFiber.cancelTuple
+#assert_trust kernel NLA.TR06.FiniteFiber.unitTensor
+#print axioms NLA.TR06.FiniteFiber.unitTensor
+#assert_trust kernel NLA.TR06.FiniteFiber.RankBoundStatement
+#print axioms NLA.TR06.FiniteFiber.RankBoundStatement
+#assert_trust kernel NLA.TR06.FiniteFiber.SplitFamilyStatement
+#print axioms NLA.TR06.FiniteFiber.SplitFamilyStatement
+#assert_trust kernel NLA.TR06.FiniteFiber.UnitTensorStatement
+#print axioms NLA.TR06.FiniteFiber.UnitTensorStatement
+#assert_trust kernel NLA.TR06.FiniteFiber.CancelFamilyStatement
+#print axioms NLA.TR06.FiniteFiber.CancelFamilyStatement
+#assert_trust kernel NLA.TR06.FiniteFiber.ShorterInfiniteStatement
+#print axioms NLA.TR06.FiniteFiber.ShorterInfiniteStatement
+#assert_trust kernel NLA.TR06.FiniteFiber.ExactRankStatement
+#print axioms NLA.TR06.FiniteFiber.ExactRankStatement
+#assert_trust kernel NLA.TR06.Segre.Coordinate
+#print axioms NLA.TR06.Segre.Coordinate
+#assert_trust kernel NLA.TR06.Segre.Parameter
+#print axioms NLA.TR06.Segre.Parameter
+#assert_trust kernel NLA.TR06.Segre.factor
+#print axioms NLA.TR06.Segre.factor
+#assert_trust kernel NLA.TR06.Segre.summands
+#print axioms NLA.TR06.Segre.summands
+#assert_trust kernel NLA.TR06.Segre.sum
+#print axioms NLA.TR06.Segre.sum
+#assert_trust kernel NLA.TR06.Segre.factorPolynomial
+#print axioms NLA.TR06.Segre.factorPolynomial
+#assert_trust kernel NLA.TR06.Segre.summandPolynomial
+#print axioms NLA.TR06.Segre.summandPolynomial
+#assert_trust kernel NLA.TR06.Segre.sumPolynomial
+#print axioms NLA.TR06.Segre.sumPolynomial
+#assert_trust kernel NLA.TR06.Segre.pullback
+#print axioms NLA.TR06.Segre.pullback
+#assert_trust kernel NLA.TR06.Segre.amplitudesPolynomial
+#print axioms NLA.TR06.Segre.amplitudesPolynomial
+#assert_trust kernel NLA.TR06.Segre.DimensionStatement
+#print axioms NLA.TR06.Segre.DimensionStatement
+#assert_trust kernel NLA.TR06.Segre.EvaluationStatement
+#print axioms NLA.TR06.Segre.EvaluationStatement
+#assert_trust kernel NLA.TR06.Segre.DecompositionStatement
+#print axioms NLA.TR06.Segre.DecompositionStatement
+#assert_trust kernel NLA.TR06.Segre.RepresentationStatement
+#print axioms NLA.TR06.Segre.RepresentationStatement
+#assert_trust kernel NLA.TR06.Segre.NonzeroPullbackStatement
+#print axioms NLA.TR06.Segre.NonzeroPullbackStatement
+#assert_trust kernel NLA.TR06.Segre.RealWitnessStatement
+#print axioms NLA.TR06.Segre.RealWitnessStatement
+#assert_proof_constant NLA.TR06.Segre.card_coordinate
+#assert_trust kernel NLA.TR06.Segre.card_coordinate
+#print axioms NLA.TR06.Segre.card_coordinate
+#assert_proof_constant NLA.TR06.Segre.dimension_statement
+#assert_trust kernel NLA.TR06.Segre.dimension_statement
+#print axioms NLA.TR06.Segre.dimension_statement
+#assert_proof_constant NLA.TR06.Segre.eval_factorPolynomial
+#assert_trust kernel NLA.TR06.Segre.eval_factorPolynomial
+#print axioms NLA.TR06.Segre.eval_factorPolynomial
+#assert_proof_constant NLA.TR06.Segre.eval_summandPolynomial
+#assert_trust kernel NLA.TR06.Segre.eval_summandPolynomial
+#print axioms NLA.TR06.Segre.eval_summandPolynomial
+#assert_proof_constant NLA.TR06.Segre.eval_sumPolynomial
+#assert_trust kernel NLA.TR06.Segre.eval_sumPolynomial
+#print axioms NLA.TR06.Segre.eval_sumPolynomial
+#assert_proof_constant NLA.TR06.Segre.eval_pullback
+#assert_trust kernel NLA.TR06.Segre.eval_pullback
+#print axioms NLA.TR06.Segre.eval_pullback
+#assert_proof_constant NLA.TR06.Segre.evaluation_statement
+#assert_trust kernel NLA.TR06.Segre.evaluation_statement
+#print axioms NLA.TR06.Segre.evaluation_statement
+#assert_proof_constant NLA.TR06.Segre.factor_pivot
+#assert_trust kernel NLA.TR06.Segre.factor_pivot
+#print axioms NLA.TR06.Segre.factor_pivot
+#assert_proof_constant NLA.TR06.Segre.summands_pivot
+#assert_trust kernel NLA.TR06.Segre.summands_pivot
+#print axioms NLA.TR06.Segre.summands_pivot
+#assert_proof_constant NLA.TR06.Segre.pureTensor_smul_mode
+#assert_trust kernel NLA.TR06.Segre.pureTensor_smul_mode
+#print axioms NLA.TR06.Segre.pureTensor_smul_mode
+#assert_proof_constant NLA.TR06.Segre.decomposes_decoded
+#assert_trust kernel NLA.TR06.Segre.decomposes_decoded
+#print axioms NLA.TR06.Segre.decomposes_decoded
+#assert_proof_constant NLA.TR06.Segre.decomposition_statement
+#assert_trust kernel NLA.TR06.Segre.decomposition_statement
+#print axioms NLA.TR06.Segre.decomposition_statement
+#assert_proof_constant NLA.TR06.Segre.represented_of_nonzero_pivots
+#assert_trust kernel NLA.TR06.Segre.represented_of_nonzero_pivots
+#print axioms NLA.TR06.Segre.represented_of_nonzero_pivots
+#assert_proof_constant NLA.TR06.Segre.representation_statement
+#assert_trust kernel NLA.TR06.Segre.representation_statement
+#print axioms NLA.TR06.Segre.representation_statement
+#assert_proof_constant NLA.TR06.FiniteFiber.rank_bound_statement
+#assert_trust kernel NLA.TR06.FiniteFiber.rank_bound_statement
+#print axioms NLA.TR06.FiniteFiber.rank_bound_statement
+#assert_proof_constant NLA.TR06.FiniteFiber.rankAtMostOne_smul
+#assert_trust kernel NLA.TR06.FiniteFiber.rankAtMostOne_smul
+#print axioms NLA.TR06.FiniteFiber.rankAtMostOne_smul
+#assert_proof_constant NLA.TR06.FiniteFiber.unit_tensor_statement
+#assert_trust kernel NLA.TR06.FiniteFiber.unit_tensor_statement
+#print axioms NLA.TR06.FiniteFiber.unit_tensor_statement
+#assert_proof_constant NLA.TR06.FiniteFiber.splitTuple_injective
+#assert_trust kernel NLA.TR06.FiniteFiber.splitTuple_injective
+#print axioms NLA.TR06.FiniteFiber.splitTuple_injective
+#assert_proof_constant NLA.TR06.FiniteFiber.sum_splitTuple
+#assert_trust kernel NLA.TR06.FiniteFiber.sum_splitTuple
+#print axioms NLA.TR06.FiniteFiber.sum_splitTuple
+#assert_proof_constant NLA.TR06.FiniteFiber.split_family_statement
+#assert_trust kernel NLA.TR06.FiniteFiber.split_family_statement
+#print axioms NLA.TR06.FiniteFiber.split_family_statement
+#assert_proof_constant NLA.TR06.FiniteFiber.cancelTuple_injective
+#assert_trust kernel NLA.TR06.FiniteFiber.cancelTuple_injective
+#print axioms NLA.TR06.FiniteFiber.cancelTuple_injective
+#assert_proof_constant NLA.TR06.FiniteFiber.sum_cancelTuple
+#assert_trust kernel NLA.TR06.FiniteFiber.sum_cancelTuple
+#print axioms NLA.TR06.FiniteFiber.sum_cancelTuple
+#assert_proof_constant NLA.TR06.FiniteFiber.cancel_family_statement
+#assert_trust kernel NLA.TR06.FiniteFiber.cancel_family_statement
+#print axioms NLA.TR06.FiniteFiber.cancel_family_statement
+#assert_proof_constant NLA.TR06.FiniteFiber.shorter_infinite_statement
+#assert_trust kernel NLA.TR06.FiniteFiber.shorter_infinite_statement
+#print axioms NLA.TR06.FiniteFiber.shorter_infinite_statement
+#assert_proof_constant NLA.TR06.FiniteFiber.exact_rank_statement
+#assert_trust kernel NLA.TR06.FiniteFiber.exact_rank_statement
+#print axioms NLA.TR06.FiniteFiber.exact_rank_statement
+#assert_proof_constant NLA.Proofs.TR06.closed_addition_fiber_finite
+#assert_trust kernel NLA.Proofs.TR06.closed_addition_fiber_finite
+#print axioms NLA.Proofs.TR06.closed_addition_fiber_finite
+#assert_proof_constant NLA.Proofs.TR06.complex_exactRank_on_real_good_base
+#assert_trust kernel NLA.Proofs.TR06.complex_exactRank_on_real_good_base
+#print axioms NLA.Proofs.TR06.complex_exactRank_on_real_good_base
+#assert_proof_constant NLA.Proofs.TR06.addition_pullback_ne_zero_of_exact_rank_witness
+#assert_trust kernel NLA.Proofs.TR06.addition_pullback_ne_zero_of_exact_rank_witness
+#print axioms NLA.Proofs.TR06.addition_pullback_ne_zero_of_exact_rank_witness
+#assert_proof_constant NLA.Proofs.TR06.generic_identifiability_good_base
+#assert_trust kernel NLA.Proofs.TR06.generic_identifiability_good_base
+#print axioms NLA.Proofs.TR06.generic_identifiability_good_base
+#assert_proof_constant NLA.TR06.continuous_real_polynomial_eval
+#assert_trust kernel NLA.TR06.continuous_real_polynomial_eval
+#print axioms NLA.TR06.continuous_real_polynomial_eval
+#assert_proof_constant NLA.TR06.measurePreserving_fin_cons
+#assert_trust kernel NLA.TR06.measurePreserving_fin_cons
+#print axioms NLA.TR06.measurePreserving_fin_cons
+#assert_proof_constant NLA.TR06.real_polynomial_zero_locus_null
+#assert_trust kernel NLA.TR06.real_polynomial_zero_locus_null
+#print axioms NLA.TR06.real_polynomial_zero_locus_null
+#assert_proof_constant NLA.TR06.Area.normDet_eq_sqrt
+#assert_trust kernel NLA.TR06.Area.normDet_eq_sqrt
+#print axioms NLA.TR06.Area.normDet_eq_sqrt
+#assert_proof_constant NLA.TR06.Area.continuous_normDet
+#assert_trust kernel NLA.TR06.Area.continuous_normDet
+#print axioms NLA.TR06.Area.continuous_normDet
+#assert_proof_constant NLA.TR06.Area.euclidean_image_le_of_lipschitzOn
+#assert_trust kernel NLA.TR06.Area.euclidean_image_le_of_lipschitzOn
+#print axioms NLA.TR06.Area.euclidean_image_le_of_lipschitzOn
+#assert_proof_constant NLA.TR06.Area.euclidean_le_image_of_antilipschitz
+#assert_trust kernel NLA.TR06.Area.euclidean_le_image_of_antilipschitz
+#print axioms NLA.TR06.Area.euclidean_le_image_of_antilipschitz
+#assert_proof_constant NLA.TR06.Area.euclidean_le_image_of_antilipschitzOn
+#assert_trust kernel NLA.TR06.Area.euclidean_le_image_of_antilipschitzOn
+#print axioms NLA.TR06.Area.euclidean_le_image_of_antilipschitzOn
+#assert_proof_constant NLA.TR06.Area.approximation_image_norm_bounds
+#assert_trust kernel NLA.TR06.Area.approximation_image_norm_bounds
+#print axioms NLA.TR06.Area.approximation_image_norm_bounds
+#assert_proof_constant NLA.TR06.Area.approximation_image_lipschitz
+#assert_trust kernel NLA.TR06.Area.approximation_image_lipschitz
+#print axioms NLA.TR06.Area.approximation_image_lipschitz
+#assert_proof_constant NLA.TR06.Area.approximation_image_antilipschitz
+#assert_trust kernel NLA.TR06.Area.approximation_image_antilipschitz
+#print axioms NLA.TR06.Area.approximation_image_antilipschitz
+#assert_proof_constant NLA.TR06.Area.approximation_euclidean_image_le
+#assert_trust kernel NLA.TR06.Area.approximation_euclidean_image_le
+#print axioms NLA.TR06.Area.approximation_euclidean_image_le
+#assert_proof_constant NLA.TR06.Area.approximation_le_euclidean_image
+#assert_trust kernel NLA.TR06.Area.approximation_le_euclidean_image
+#print axioms NLA.TR06.Area.approximation_le_euclidean_image
+#assert_proof_constant NLA.TR06.Area.approximation_euclidean_image_lower
+#assert_trust kernel NLA.TR06.Area.approximation_euclidean_image_lower
+#print axioms NLA.TR06.Area.approximation_euclidean_image_lower
+#assert_proof_constant NLA.TR06.contDiff_image_null
+#assert_trust kernel NLA.TR06.contDiff_image_null
+#print axioms NLA.TR06.contDiff_image_null
+#assert_proof_constant NLA.Proofs.TR06.AlgebraicLocus.real_polynomial_zero_null_fintype
+#assert_trust kernel NLA.Proofs.TR06.AlgebraicLocus.real_polynomial_zero_null_fintype
+#print axioms NLA.Proofs.TR06.AlgebraicLocus.real_polynomial_zero_null_fintype
+#assert_proof_constant NLA.Proofs.TR06.AlgebraicLocus.real_polynomial_zero_null_euclidean
+#assert_trust kernel NLA.Proofs.TR06.AlgebraicLocus.real_polynomial_zero_null_euclidean
+#print axioms NLA.Proofs.TR06.AlgebraicLocus.real_polynomial_zero_null_euclidean
+#assert_proof_constant NLA.Proofs.TR06.AlgebraicLocus.contDiff_real_polynomial
+#assert_trust kernel NLA.Proofs.TR06.AlgebraicLocus.contDiff_real_polynomial
+#print axioms NLA.Proofs.TR06.AlgebraicLocus.contDiff_real_polynomial
+#assert_proof_constant NLA.Proofs.TR06.AlgebraicLocus.contDiff_segreSum
+#assert_trust kernel NLA.Proofs.TR06.AlgebraicLocus.contDiff_segreSum
+#print axioms NLA.Proofs.TR06.AlgebraicLocus.contDiff_segreSum
+#assert_proof_constant NLA.TR06.Segre.exists_eval_ne_zero
+#assert_trust kernel NLA.TR06.Segre.exists_eval_ne_zero
+#print axioms NLA.TR06.Segre.exists_eval_ne_zero
+#assert_proof_constant NLA.TR06.Segre.exists_real_eval_ne_zero
+#assert_trust kernel NLA.TR06.Segre.exists_real_eval_ne_zero
+#print axioms NLA.TR06.Segre.exists_real_eval_ne_zero
+#assert_trust kernel NLA.TR06.Segre.RawCoordinate
+#print axioms NLA.TR06.Segre.RawCoordinate
+#assert_trust kernel NLA.TR06.Segre.rawFactors
+#print axioms NLA.TR06.Segre.rawFactors
+#assert_trust kernel NLA.TR06.Segre.rawSumPolynomial
+#print axioms NLA.TR06.Segre.rawSumPolynomial
+#assert_trust kernel NLA.TR06.Segre.rawPullback
+#print axioms NLA.TR06.Segre.rawPullback
+#assert_trust kernel NLA.TR06.Segre.rawPivotsPolynomial
+#print axioms NLA.TR06.Segre.rawPivotsPolynomial
+#assert_proof_constant NLA.TR06.Segre.eval_rawSumPolynomial
+#assert_trust kernel NLA.TR06.Segre.eval_rawSumPolynomial
+#print axioms NLA.TR06.Segre.eval_rawSumPolynomial
+#assert_proof_constant NLA.TR06.Segre.eval_rawPullback
+#assert_trust kernel NLA.TR06.Segre.eval_rawPullback
+#print axioms NLA.TR06.Segre.eval_rawPullback
+#assert_proof_constant NLA.TR06.Segre.rawPivotsPolynomial_ne_zero
+#assert_trust kernel NLA.TR06.Segre.rawPivotsPolynomial_ne_zero
+#print axioms NLA.TR06.Segre.rawPivotsPolynomial_ne_zero
+#assert_proof_constant NLA.TR06.Segre.amplitudesPolynomial_ne_zero
+#assert_trust kernel NLA.TR06.Segre.amplitudesPolynomial_ne_zero
+#print axioms NLA.TR06.Segre.amplitudesPolynomial_ne_zero
+#assert_proof_constant NLA.TR06.Segre.pullback_ne_zero_of_decomposition
+#assert_trust kernel NLA.TR06.Segre.pullback_ne_zero_of_decomposition
+#print axioms NLA.TR06.Segre.pullback_ne_zero_of_decomposition
+#assert_proof_constant NLA.TR06.Segre.nonzero_pullback_statement
+#assert_trust kernel NLA.TR06.Segre.nonzero_pullback_statement
+#print axioms NLA.TR06.Segre.nonzero_pullback_statement
+#assert_trust kernel NLA.TR06.Segre.complexParameter
+#print axioms NLA.TR06.Segre.complexParameter
+#assert_proof_constant NLA.TR06.Segre.factor_complexParameter
+#assert_trust kernel NLA.TR06.Segre.factor_complexParameter
+#print axioms NLA.TR06.Segre.factor_complexParameter
+#assert_proof_constant NLA.TR06.Segre.sum_complexParameter
+#assert_trust kernel NLA.TR06.Segre.sum_complexParameter
+#print axioms NLA.TR06.Segre.sum_complexParameter
+#assert_proof_constant NLA.TR06.Segre.real_witness_statement
+#assert_trust kernel NLA.TR06.Segre.real_witness_statement
+#print axioms NLA.TR06.Segre.real_witness_statement
+#assert_trust kernel NLA.Proofs.TR06.AlgebraicLocus.rawAnchorPolynomial
+#print axioms NLA.Proofs.TR06.AlgebraicLocus.rawAnchorPolynomial
+#assert_proof_constant NLA.Proofs.TR06.AlgebraicLocus.rawAnchorPolynomial_ne_zero
+#assert_trust kernel NLA.Proofs.TR06.AlgebraicLocus.rawAnchorPolynomial_ne_zero
+#print axioms NLA.Proofs.TR06.AlgebraicLocus.rawAnchorPolynomial_ne_zero
+#assert_proof_constant NLA.Proofs.TR06.AlgebraicLocus.exists_decomposition_eval_ne_zero_of_source_pullback
+#assert_trust kernel NLA.Proofs.TR06.AlgebraicLocus.exists_decomposition_eval_ne_zero_of_source_pullback
+#print axioms NLA.Proofs.TR06.AlgebraicLocus.exists_decomposition_eval_ne_zero_of_source_pullback
+#assert_proof_constant NLA.Proofs.TR06.AlgebraicLocus.pivot_pullback_ne_zero_of_source_pullback
+#assert_trust kernel NLA.Proofs.TR06.AlgebraicLocus.pivot_pullback_ne_zero_of_source_pullback
+#print axioms NLA.Proofs.TR06.AlgebraicLocus.pivot_pullback_ne_zero_of_source_pullback
+#assert_proof_constant NLA.Proofs.TR06.AlgebraicLocus.eval_real_pivot_pullback
+#assert_trust kernel NLA.Proofs.TR06.AlgebraicLocus.eval_real_pivot_pullback
+#print axioms NLA.Proofs.TR06.AlgebraicLocus.eval_real_pivot_pullback
+#assert_proof_constant NLA.Proofs.TR06.AlgebraicLocus.pivot_bad_image_null
+#assert_trust kernel NLA.Proofs.TR06.AlgebraicLocus.pivot_bad_image_null
+#print axioms NLA.Proofs.TR06.AlgebraicLocus.pivot_bad_image_null
+#assert_proof_constant NLA.Proofs.TR06.AlgebraicLocus.decomposable_bad_hausdorff_null
+#assert_trust kernel NLA.Proofs.TR06.AlgebraicLocus.decomposable_bad_hausdorff_null
+#print axioms NLA.Proofs.TR06.AlgebraicLocus.decomposable_bad_hausdorff_null
+#assert_proof_constant NLA.Proofs.TR06.AlgebraicLocus.measurableSet_real_polynomial_zero
+#assert_trust kernel NLA.Proofs.TR06.AlgebraicLocus.measurableSet_real_polynomial_zero
+#print axioms NLA.Proofs.TR06.AlgebraicLocus.measurableSet_real_polynomial_zero
+#assert_proof_constant NLA.Proofs.TR06.AlgebraicLocus.sampling_bad_polynomial_null
+#assert_trust kernel NLA.Proofs.TR06.AlgebraicLocus.sampling_bad_polynomial_null
+#print axioms NLA.Proofs.TR06.AlgebraicLocus.sampling_bad_polynomial_null
+#assert_proof_constant NLA.Proofs.TR06.AlgebraicLocus.sampling_ae_polynomial_ne_zero
+#assert_trust kernel NLA.Proofs.TR06.AlgebraicLocus.sampling_ae_polynomial_ne_zero
+#print axioms NLA.Proofs.TR06.AlgebraicLocus.sampling_ae_polynomial_ne_zero
+#assert_proof_constant NLA.Proofs.TR06.AlgebraicLocus.exists_real_decomposition_good
+#assert_trust kernel NLA.Proofs.TR06.AlgebraicLocus.exists_real_decomposition_good
+#print axioms NLA.Proofs.TR06.AlgebraicLocus.exists_real_decomposition_good
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.point_derivation_zero_of_unramified_away
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.point_derivation_zero_of_unramified_away
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.point_derivation_zero_of_unramified_away
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.point_derivation_zero_of_localized_unramified
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.point_derivation_zero_of_localized_unramified
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.point_derivation_zero_of_localized_unramified
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.rawPivotPolynomial
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.rawPivotPolynomial
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.pivotSourceHom
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.pivotSourceHom
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.pivotSourceHom_coordinate
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.pivotSourceHom_coordinate
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.pivotSourceHom_coordinate
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.pivotSourceHom_addition
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.pivotSourceHom_addition
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.pivotSourceHom_addition
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.pivotJet
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.pivotJet
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_X
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_X
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_X
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_fst
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_fst
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_fst
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_C
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_C
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_C
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_add_snd
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_add_snd
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_add_snd
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_mul_snd
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_mul_snd
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_mul_snd
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.summandPolynomial_pivot
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.summandPolynomial_pivot
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.summandPolynomial_pivot
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.summandPolynomial_update
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.summandPolynomial_update
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.summandPolynomial_update
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_direction_zero
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_direction_zero
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_direction_zero
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.contDiff_pivot_polynomial
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.contDiff_pivot_polynomial
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.contDiff_pivot_polynomial
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.hasDerivAt_pivot_polynomial_line
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.hasDerivAt_pivot_polynomial_line
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.hasDerivAt_pivot_polynomial_line
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.differentiable_pivot_sum
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.differentiable_pivot_sum
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.differentiable_pivot_sum
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_sum_zero_of_fderiv_eq_zero
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_sum_zero_of_fderiv_eq_zero
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_sum_zero_of_fderiv_eq_zero
+#assert_trust kernel NLA.TR06.Proposed.GenericUnramifiedAtStatement
+#print axioms NLA.TR06.Proposed.GenericUnramifiedAtStatement
+#assert_trust kernel NLA.TR06.Proposed.GenericUnramifiedLocalizationStatement
+#print axioms NLA.TR06.Proposed.GenericUnramifiedLocalizationStatement
+#assert_proof_constant NLA.TR06.Proposed.generic_unramified_at
+#assert_trust kernel NLA.TR06.Proposed.generic_unramified_at
+#print axioms NLA.TR06.Proposed.generic_unramified_at
+#assert_proof_constant NLA.TR06.Proposed.generic_unramified_localization
+#assert_trust kernel NLA.TR06.Proposed.generic_unramified_localization
+#print axioms NLA.TR06.Proposed.generic_unramified_localization
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.sourceJet
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.sourceJet
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.sourceCharacter
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.sourceCharacter
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.sourceDirection
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.sourceDirection
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.sourceJet_fst
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.sourceJet_fst
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.sourceJet_fst
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.sourceDirection_leibniz
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.sourceDirection_leibniz
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.sourceDirection_leibniz
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.sourceCharacter_addition_polynomial
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.sourceCharacter_addition_polynomial
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.sourceCharacter_addition_polynomial
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.sourceDirection_base_zero_of_coordinate_jets
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.sourceDirection_base_zero_of_coordinate_jets
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.sourceDirection_base_zero_of_coordinate_jets
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.sourceDirection_base_zero
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.sourceDirection_base_zero
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.sourceDirection_base_zero
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.pivot_direction_zero_of_unramified
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.pivot_direction_zero_of_unramified
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.pivot_direction_zero_of_unramified
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.fderiv_pivot_sum_injective_of_unramified
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.fderiv_pivot_sum_injective_of_unramified
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.fderiv_pivot_sum_injective_of_unramified
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.exists_unramified_addition_denominator
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.exists_unramified_addition_denominator
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.exists_unramified_addition_denominator
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.exists_unramified_derivative_denominator
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.exists_unramified_derivative_denominator
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.exists_unramified_derivative_denominator
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.contDiff_real_pivot_polynomial
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.contDiff_real_pivot_polynomial
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.contDiff_real_pivot_polynomial
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.differentiable_real_pivot_sum
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.differentiable_real_pivot_sum
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.differentiable_real_pivot_sum
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.complexParameter_affine_line
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.complexParameter_affine_line
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.complexParameter_affine_line
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_sum_zero_of_real_fderiv_eq_zero
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_sum_zero_of_real_fderiv_eq_zero
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.pivotJet_sum_zero_of_real_fderiv_eq_zero
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.pivotParameterLinearEquiv
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.pivotParameterLinearEquiv
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.pivotParameterEquiv
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.pivotParameterEquiv
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.pivotParameterEquiv_amplitude
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.pivotParameterEquiv_amplitude
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.pivotParameterEquiv_amplitude
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.summands_pivotParameterEquiv
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.summands_pivotParameterEquiv
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.summands_pivotParameterEquiv
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.sum_pivotParameterEquiv
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.sum_pivotParameterEquiv
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.sum_pivotParameterEquiv
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.fderiv_real_pivot_sum_injective_of_unramified
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.fderiv_real_pivot_sum_injective_of_unramified
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.fderiv_real_pivot_sum_injective_of_unramified
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.fderiv_ordered_pivotSum_injective_of_unramified
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.fderiv_ordered_pivotSum_injective_of_unramified
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.fderiv_ordered_pivotSum_injective_of_unramified
+#assert_proof_constant NLA.Proofs.TR06.UnramifiedDifferential.exists_ambient_real_derivative_denominator
+#assert_trust kernel NLA.Proofs.TR06.UnramifiedDifferential.exists_ambient_real_derivative_denominator
+#print axioms NLA.Proofs.TR06.UnramifiedDifferential.exists_ambient_real_derivative_denominator
+#assert_proof_constant NLA.TR06.Proposed.addition_fiber_neighborhood
+#assert_trust kernel NLA.TR06.Proposed.addition_fiber_neighborhood
+#print axioms NLA.TR06.Proposed.addition_fiber_neighborhood
+#assert_trust kernel NLA.TR06.Proposed.permuteRankOne
+#print axioms NLA.TR06.Proposed.permuteRankOne
+#assert_proof_constant NLA.TR06.Proposed.continuous_permuteRankOne
+#assert_trust kernel NLA.TR06.Proposed.continuous_permuteRankOne
+#print axioms NLA.TR06.Proposed.continuous_permuteRankOne
+#assert_proof_constant NLA.TR06.Proposed.sum_permuteRankOne
+#assert_trust kernel NLA.TR06.Proposed.sum_permuteRankOne
+#print axioms NLA.TR06.Proposed.sum_permuteRankOne
+#assert_proof_constant NLA.TR06.Proposed.isOpen_identifiable_addition_image
+#assert_trust kernel NLA.TR06.Proposed.isOpen_identifiable_addition_image
+#print axioms NLA.TR06.Proposed.isOpen_identifiable_addition_image
+#assert_proof_constant NLA.TR06.Proposed.isOpenEmbedding_pivotDecoder
+#assert_trust kernel NLA.TR06.Proposed.isOpenEmbedding_pivotDecoder
+#print axioms NLA.TR06.Proposed.isOpenEmbedding_pivotDecoder
+#assert_proof_constant NLA.TR06.Proposed.exists_immersion_patch
+#assert_trust kernel NLA.TR06.Proposed.exists_immersion_patch
+#print axioms NLA.TR06.Proposed.exists_immersion_patch
+#assert_proof_constant NLA.TR06.Proposed.exists_pivot_open_chart
+#assert_trust kernel NLA.TR06.Proposed.exists_pivot_open_chart
+#print axioms NLA.TR06.Proposed.exists_pivot_open_chart
+#assert_proof_constant NLA.TR06.Proposed.contDiffOn_normalizedTuple
+#assert_trust kernel NLA.TR06.Proposed.contDiffOn_normalizedTuple
+#print axioms NLA.TR06.Proposed.contDiffOn_normalizedTuple
+#assert_proof_constant NLA.TR06.Proposed.smooth_chart_of_proper_immersion
+#assert_trust kernel NLA.TR06.Proposed.smooth_chart_of_proper_immersion
+#print axioms NLA.TR06.Proposed.smooth_chart_of_proper_immersion
+#assert_proof_constant NLA.TR06.Proposed.smooth_regular_on_proper_immersion
+#assert_trust kernel NLA.TR06.Proposed.smooth_regular_on_proper_immersion
+#print axioms NLA.TR06.Proposed.smooth_regular_on_proper_immersion
+#assert_internal_constant "NLA.TR06.Measurability" "NLA.TR06.measurableSet_image_locallyClosed" "theorem"
+#assert_internal_constant "NLA.TR06.Measurability" "NLA.TR06.Factors" "definition"
+#assert_internal_constant "NLA.TR06.Measurability" "NLA.TR06.factorTuple" "definition"
+#assert_internal_constant "NLA.TR06.Measurability" "NLA.TR06.factorSum" "definition"
+#assert_internal_constant "NLA.TR06.Measurability" "NLA.TR06.nonzeroFactors" "definition"
+#assert_internal_constant "NLA.TR06.Measurability" "NLA.TR06.continuous_factorTuple" "theorem"
+#assert_internal_constant "NLA.TR06.Measurability" "NLA.TR06.continuous_factorSum" "theorem"
+#assert_internal_constant "NLA.TR06.Measurability" "NLA.TR06.isOpen_nonzeroFactors" "theorem"
+#assert_internal_constant "NLA.TR06.Measurability" "NLA.TR06.factorSum_image_nonzeroFactors" "theorem"
+#assert_proof_constant NLA.TR06.measurableSet_decomposable
+#assert_trust kernel NLA.TR06.measurableSet_decomposable
+#print axioms NLA.TR06.measurableSet_decomposable
+#assert_proof_constant NLA.TR06.measurableSet_exactRank
+#assert_trust kernel NLA.TR06.measurableSet_exactRank
+#print axioms NLA.TR06.measurableSet_exactRank
+#assert_internal_constant "NLA.TR06.Measurability" "NLA.TR06.disagreeingFactors" "definition"
+#assert_internal_constant "NLA.TR06.Measurability" "NLA.TR06.equalSumFactors" "definition"
+#assert_internal_constant "NLA.TR06.Measurability" "NLA.TR06.isOpen_disagreeingFactors" "theorem"
+#assert_internal_constant "NLA.TR06.Measurability" "NLA.TR06.isClosed_equalSumFactors" "theorem"
+#assert_internal_constant "NLA.TR06.Measurability" "NLA.TR06.factorSum_image_nonidentifiable" "theorem"
+#assert_proof_constant NLA.TR06.measurableSet_nonidentifiable
+#assert_trust kernel NLA.TR06.measurableSet_nonidentifiable
+#print axioms NLA.TR06.measurableSet_nonidentifiable
+#assert_proof_constant NLA.TR06.measurableSet_identifiableRealSet
+#assert_trust kernel NLA.TR06.measurableSet_identifiableRealSet
+#print axioms NLA.TR06.measurableSet_identifiableRealSet
+#assert_proof_constant NLA.TR06.regularSet_subset_identifiable
+#assert_trust kernel NLA.TR06.regularSet_subset_identifiable
+#print axioms NLA.TR06.regularSet_subset_identifiable
+#assert_proof_constant NLA.TR06.smoothRegularSet_subset_sourceSmoothSet
+#assert_trust kernel NLA.TR06.smoothRegularSet_subset_sourceSmoothSet
+#print axioms NLA.TR06.smoothRegularSet_subset_sourceSmoothSet
+#assert_proof_constant NLA.TR06.smoothRegularSet_subset_identifiable
+#assert_trust kernel NLA.TR06.smoothRegularSet_subset_identifiable
+#print axioms NLA.TR06.smoothRegularSet_subset_identifiable
+#assert_proof_constant NLA.TR06.regularSet_relatively_open
+#assert_trust kernel NLA.TR06.regularSet_relatively_open
+#print axioms NLA.TR06.regularSet_relatively_open
+#assert_proof_constant NLA.TR06.smoothRegularSet_relatively_open
+#assert_trust kernel NLA.TR06.smoothRegularSet_relatively_open
+#print axioms NLA.TR06.smoothRegularSet_relatively_open
+#assert_internal_constant "NLA.TR06.LocusMeasurability" "NLA.TR06.measurableSet_of_relative_open" "theorem"
+#assert_proof_constant NLA.TR06.measurableSet_regularSet
+#assert_trust kernel NLA.TR06.measurableSet_regularSet
+#print axioms NLA.TR06.measurableSet_regularSet
+#assert_proof_constant NLA.TR06.measurableSet_sourceSmoothSet
+#assert_trust kernel NLA.TR06.measurableSet_sourceSmoothSet
+#print axioms NLA.TR06.measurableSet_sourceSmoothSet
+#assert_proof_constant NLA.TR06.measurableSet_smoothRegularSet
+#assert_trust kernel NLA.TR06.measurableSet_smoothRegularSet
+#print axioms NLA.TR06.measurableSet_smoothRegularSet
+#assert_proof_constant NLA.Proofs.TR06.AlgebraicLocus.isOpen_real_polynomial_ne_zero
+#assert_trust kernel NLA.Proofs.TR06.AlgebraicLocus.isOpen_real_polynomial_ne_zero
+#print axioms NLA.Proofs.TR06.AlgebraicLocus.isOpen_real_polynomial_ne_zero
+#assert_proof_constant NLA.Proofs.TR06.AlgebraicLocus.generic_smooth_regular_good_polynomial
+#assert_trust kernel NLA.Proofs.TR06.AlgebraicLocus.generic_smooth_regular_good_polynomial
+#print axioms NLA.Proofs.TR06.AlgebraicLocus.generic_smooth_regular_good_polynomial
+#assert_proof_constant NLA.Proofs.TR06.AlgebraicLocus.generic_smoothRegular_full_measure
+#assert_trust kernel NLA.Proofs.TR06.AlgebraicLocus.generic_smoothRegular_full_measure
+#print axioms NLA.Proofs.TR06.AlgebraicLocus.generic_smoothRegular_full_measure
+#assert_proof_constant NLA.Proofs.TR06.AlgebraicLocus.generic_smoothRegular_nonempty
+#assert_trust kernel NLA.Proofs.TR06.AlgebraicLocus.generic_smoothRegular_nonempty
+#print axioms NLA.Proofs.TR06.AlgebraicLocus.generic_smoothRegular_nonempty
+#assert_proof_constant NLA.Proofs.TR06.Model.outer_eq_pureTensor
+#assert_trust kernel NLA.Proofs.TR06.Model.outer_eq_pureTensor
+#print axioms NLA.Proofs.TR06.Model.outer_eq_pureTensor
+#assert_proof_constant NLA.Proofs.TR06.Model.rankOne_iff
+#assert_trust kernel NLA.Proofs.TR06.Model.rankOne_iff
+#print axioms NLA.Proofs.TR06.Model.rankOne_iff
+#assert_proof_constant NLA.Proofs.TR06.Model.decomposes_iff
+#assert_trust kernel NLA.Proofs.TR06.Model.decomposes_iff
+#print axioms NLA.Proofs.TR06.Model.decomposes_iff
+#assert_proof_constant NLA.Proofs.TR06.Model.exactRank_iff
+#assert_trust kernel NLA.Proofs.TR06.Model.exactRank_iff
+#print axioms NLA.Proofs.TR06.Model.exactRank_iff
+#assert_proof_constant NLA.Proofs.TR06.Model.identifiable_iff
+#assert_trust kernel NLA.Proofs.TR06.Model.identifiable_iff
+#print axioms NLA.Proofs.TR06.Model.identifiable_iff
+#assert_proof_constant NLA.Proofs.TR06.Model.generic_iff
+#assert_trust kernel NLA.Proofs.TR06.Model.generic_iff
+#print axioms NLA.Proofs.TR06.Model.generic_iff
+#assert_proof_constant NLA.Proofs.TR06.Model.dimension_eq
+#assert_trust kernel NLA.Proofs.TR06.Model.dimension_eq
+#print axioms NLA.Proofs.TR06.Model.dimension_eq
+#assert_proof_constant NLA.Proofs.TR06.Model.gaussianWeight_eq
+#assert_trust kernel NLA.Proofs.TR06.Model.gaussianWeight_eq
+#print axioms NLA.Proofs.TR06.Model.gaussianWeight_eq
+#assert_proof_constant NLA.Proofs.TR06.Model.smoothIdentifiable_subset_sampling
+#assert_trust kernel NLA.Proofs.TR06.Model.smoothIdentifiable_subset_sampling
+#print axioms NLA.Proofs.TR06.Model.smoothIdentifiable_subset_sampling
+#assert_trust kernel NLA.Proofs.TR06.Model.FactorSpace
+#print axioms NLA.Proofs.TR06.Model.FactorSpace
+#assert_trust kernel NLA.Proofs.TR06.Model.factorEntry
+#print axioms NLA.Proofs.TR06.Model.factorEntry
+#assert_trust kernel NLA.Proofs.TR06.Model.outerDerivative
+#print axioms NLA.Proofs.TR06.Model.outerDerivative
+#assert_proof_constant NLA.Proofs.TR06.Model.outerDerivative_apply
+#assert_trust kernel NLA.Proofs.TR06.Model.outerDerivative_apply
+#print axioms NLA.Proofs.TR06.Model.outerDerivative_apply
+#assert_proof_constant NLA.Proofs.TR06.Model.hasFDerivAt_pureTensor
+#assert_trust kernel NLA.Proofs.TR06.Model.hasFDerivAt_pureTensor
+#print axioms NLA.Proofs.TR06.Model.hasFDerivAt_pureTensor
+#assert_proof_constant NLA.Proofs.TR06.Model.fderiv_pureTensor_apply
+#assert_trust kernel NLA.Proofs.TR06.Model.fderiv_pureTensor_apply
+#print axioms NLA.Proofs.TR06.Model.fderiv_pureTensor_apply
+#assert_trust kernel NLA.Proofs.TR06.Model.pivotFactorMap
+#print axioms NLA.Proofs.TR06.Model.pivotFactorMap
+#assert_proof_constant NLA.Proofs.TR06.Model.pureTensor_pivotFactorMap
+#assert_trust kernel NLA.Proofs.TR06.Model.pureTensor_pivotFactorMap
+#print axioms NLA.Proofs.TR06.Model.pureTensor_pivotFactorMap
+#assert_proof_constant NLA.Proofs.TR06.Model.contDiff_pivotFactorMap
+#assert_trust kernel NLA.Proofs.TR06.Model.contDiff_pivotFactorMap
+#print axioms NLA.Proofs.TR06.Model.contDiff_pivotFactorMap
+#assert_proof_constant NLA.Proofs.TR06.Model.rankOneTangent_decoder
+#assert_trust kernel NLA.Proofs.TR06.Model.rankOneTangent_decoder
+#print axioms NLA.Proofs.TR06.Model.rankOneTangent_decoder
+#assert_proof_constant NLA.Proofs.TR06.Model.rankOneTangent_has_pivot_preimage
+#assert_trust kernel NLA.Proofs.TR06.Model.rankOneTangent_has_pivot_preimage
+#print axioms NLA.Proofs.TR06.Model.rankOneTangent_has_pivot_preimage
+#assert_proof_constant NLA.Proofs.TR06.Model.rankOneTangent_iff_pivotRange
+#assert_trust kernel NLA.Proofs.TR06.Model.rankOneTangent_iff_pivotRange
+#print axioms NLA.Proofs.TR06.Model.rankOneTangent_iff_pivotRange
+#assert_proof_constant NLA.Proofs.TR06.Model.decoder_derivative_injective
+#assert_trust kernel NLA.Proofs.TR06.Model.decoder_derivative_injective
+#print axioms NLA.Proofs.TR06.Model.decoder_derivative_injective
+#assert_proof_constant NLA.Proofs.TR06.Model.fderiv_pivotSum_apply
+#assert_trust kernel NLA.Proofs.TR06.Model.fderiv_pivotSum_apply
+#print axioms NLA.Proofs.TR06.Model.fderiv_pivotSum_apply
+#assert_proof_constant NLA.Proofs.TR06.Model.regularDecomposition_decoder_iff
+#assert_trust kernel NLA.Proofs.TR06.Model.regularDecomposition_decoder_iff
+#print axioms NLA.Proofs.TR06.Model.regularDecomposition_decoder_iff
+#assert_trust kernel NLA.Proofs.TR06.Model.normalize
+#print axioms NLA.Proofs.TR06.Model.normalize
+#assert_trust kernel NLA.Proofs.TR06.Model.normalizationDerivative
+#print axioms NLA.Proofs.TR06.Model.normalizationDerivative
+#assert_proof_constant NLA.Proofs.TR06.Model.hasFDerivAt_norm_actual
+#assert_trust kernel NLA.Proofs.TR06.Model.hasFDerivAt_norm_actual
+#print axioms NLA.Proofs.TR06.Model.hasFDerivAt_norm_actual
+#assert_proof_constant NLA.Proofs.TR06.Model.hasFDerivAt_normalize
+#assert_trust kernel NLA.Proofs.TR06.Model.hasFDerivAt_normalize
+#print axioms NLA.Proofs.TR06.Model.hasFDerivAt_normalize
+#assert_proof_constant NLA.Proofs.TR06.Model.normalizationDerivative_eq_variation
+#assert_trust kernel NLA.Proofs.TR06.Model.normalizationDerivative_eq_variation
+#print axioms NLA.Proofs.TR06.Model.normalizationDerivative_eq_variation
+#assert_proof_constant NLA.Proofs.TR06.Model.fderiv_normalize_apply
+#assert_trust kernel NLA.Proofs.TR06.Model.fderiv_normalize_apply
+#print axioms NLA.Proofs.TR06.Model.fderiv_normalize_apply
+#assert_trust kernel NLA.Proofs.TR06.Model.tupleNormalizationDerivative
+#print axioms NLA.Proofs.TR06.Model.tupleNormalizationDerivative
+#assert_proof_constant NLA.Proofs.TR06.Model.tupleNormalizationDerivative_apply
+#assert_trust kernel NLA.Proofs.TR06.Model.tupleNormalizationDerivative_apply
+#print axioms NLA.Proofs.TR06.Model.tupleNormalizationDerivative_apply
+#assert_proof_constant NLA.Proofs.TR06.Model.hasFDerivAt_normalizedTuple
+#assert_trust kernel NLA.Proofs.TR06.Model.hasFDerivAt_normalizedTuple
+#print axioms NLA.Proofs.TR06.Model.hasFDerivAt_normalizedTuple
+#assert_proof_constant NLA.Proofs.TR06.Model.fderiv_normalizedTuple_apply
+#assert_trust kernel NLA.Proofs.TR06.Model.fderiv_normalizedTuple_apply
+#print axioms NLA.Proofs.TR06.Model.fderiv_normalizedTuple_apply
+#assert_proof_constant NLA.Proofs.TR06.Model.chart_decoder_eventuallyEq
+#assert_trust kernel NLA.Proofs.TR06.Model.chart_decoder_eventuallyEq
+#print axioms NLA.Proofs.TR06.Model.chart_decoder_eventuallyEq
+#assert_proof_constant NLA.Proofs.TR06.Model.chart_summand_derivative_decoder
+#assert_trust kernel NLA.Proofs.TR06.Model.chart_summand_derivative_decoder
+#print axioms NLA.Proofs.TR06.Model.chart_summand_derivative_decoder
+#assert_proof_constant NLA.Proofs.TR06.Model.chart_tangent_range
+#assert_trust kernel NLA.Proofs.TR06.Model.chart_tangent_range
+#print axioms NLA.Proofs.TR06.Model.chart_tangent_range
+#assert_proof_constant NLA.Proofs.TR06.Model.chart_input_derivative_sum
+#assert_trust kernel NLA.Proofs.TR06.Model.chart_input_derivative_sum
+#print axioms NLA.Proofs.TR06.Model.chart_input_derivative_sum
+#assert_proof_constant NLA.Proofs.TR06.Model.chart_regularDecomposition
+#assert_trust kernel NLA.Proofs.TR06.Model.chart_regularDecomposition
+#print axioms NLA.Proofs.TR06.Model.chart_regularDecomposition
+#assert_proof_constant NLA.Proofs.TR06.Model.smoothRegular_subset_intrinsic
+#assert_trust kernel NLA.Proofs.TR06.Model.smoothRegular_subset_intrinsic
+#print axioms NLA.Proofs.TR06.Model.smoothRegular_subset_intrinsic
+#assert_proof_constant NLA.Proofs.TR06.Model.chart_output_derivative
+#assert_trust kernel NLA.Proofs.TR06.Model.chart_output_derivative
+#print axioms NLA.Proofs.TR06.Model.chart_output_derivative
+#assert_trust kernel NLA.TR06.permuteAngular
+#print axioms NLA.TR06.permuteAngular
+#assert_proof_constant NLA.TR06.permuteAngular_apply
+#assert_trust kernel NLA.TR06.permuteAngular_apply
+#print axioms NLA.TR06.permuteAngular_apply
+#assert_proof_constant NLA.TR06.normalizedTuple_perm
+#assert_trust kernel NLA.TR06.normalizedTuple_perm
+#print axioms NLA.TR06.normalizedTuple_perm
+#assert_proof_constant NLA.TR06.decomposes_perm
+#assert_trust kernel NLA.TR06.decomposes_perm
+#print axioms NLA.TR06.decomposes_perm
+#assert_proof_constant NLA.TR06.edist_normalizedTuple_perm
+#assert_trust kernel NLA.TR06.edist_normalizedTuple_perm
+#print axioms NLA.TR06.edist_normalizedTuple_perm
+#assert_proof_constant NLA.TR06.angularDistance_eq_iInf_perm
+#assert_trust kernel NLA.TR06.angularDistance_eq_iInf_perm
+#print axioms NLA.TR06.angularDistance_eq_iInf_perm
+#assert_proof_constant NLA.TR06.eventually_iInf_isometry_edist_eq
+#assert_trust kernel NLA.TR06.eventually_iInf_isometry_edist_eq
+#print axioms NLA.TR06.eventually_iInf_isometry_edist_eq
+#assert_proof_constant NLA.TR06.eventually_angularDistance_eq_chart_edist
+#assert_trust kernel NLA.TR06.eventually_angularDistance_eq_chart_edist
+#print axioms NLA.TR06.eventually_angularDistance_eq_chart_edist
+#assert_proof_constant NLA.TR06.eventually_norm_sub_le_mul_norm_sub
+#assert_trust kernel NLA.TR06.eventually_norm_sub_le_mul_norm_sub
+#print axioms NLA.TR06.eventually_norm_sub_le_mul_norm_sub
+#assert_proof_constant NLA.TR06.tendsto_directional_norm_ratio
+#assert_trust kernel NLA.TR06.tendsto_directional_norm_ratio
+#print axioms NLA.TR06.tendsto_directional_norm_ratio
+#assert_proof_constant NLA.TR06.limsup_norm_ratio_eq_derivative_ratio
+#assert_trust kernel NLA.TR06.limsup_norm_ratio_eq_derivative_ratio
+#print axioms NLA.TR06.limsup_norm_ratio_eq_derivative_ratio
+#assert_proof_constant NLA.TR06.punctured_iInf_iSup_eq_limsup
+#assert_trust kernel NLA.TR06.punctured_iInf_iSup_eq_limsup
+#print axioms NLA.TR06.punctured_iInf_iSup_eq_limsup
+#assert_proof_constant NLA.TR06.angularDistance_self
+#assert_trust kernel NLA.TR06.angularDistance_self
+#print axioms NLA.TR06.angularDistance_self
+#assert_proof_constant NLA.TR06.angularSlope_eq_limsup
+#assert_trust kernel NLA.TR06.angularSlope_eq_limsup
+#print axioms NLA.TR06.angularSlope_eq_limsup
+#assert_proof_constant NLA.TR06.angularSlope_eq_chart_derivative
+#assert_trust kernel NLA.TR06.angularSlope_eq_chart_derivative
+#print axioms NLA.TR06.angularSlope_eq_chart_derivative
+#assert_proof_constant NLA.TR06.derivativeRatio_eq_operatorNorm
+#assert_trust kernel NLA.TR06.derivativeRatio_eq_operatorNorm
+#print axioms NLA.TR06.derivativeRatio_eq_operatorNorm
+#assert_trust kernel NLA.TR06.SmoothDecompositionChart.toC1
+#print axioms NLA.TR06.SmoothDecompositionChart.toC1
+#assert_proof_constant NLA.TR06.smoothRegularSet_subset_regularSet
+#assert_trust kernel NLA.TR06.smoothRegularSet_subset_regularSet
+#print axioms NLA.TR06.smoothRegularSet_subset_regularSet
+#assert_proof_constant NLA.TR06.smooth_chart_operatorNorm_eq_angularSlope
+#assert_trust kernel NLA.TR06.smooth_chart_operatorNorm_eq_angularSlope
+#print axioms NLA.TR06.smooth_chart_operatorNorm_eq_angularSlope
+#assert_proof_constant NLA.TR06.sourceAngular_le_angularSlope
+#assert_trust kernel NLA.TR06.sourceAngular_le_angularSlope
+#print axioms NLA.TR06.sourceAngular_le_angularSlope
+#assert_proof_constant NLA.TR06.sourceAngular_eq_angularSlope_on_smoothRegularSet
+#assert_trust kernel NLA.TR06.sourceAngular_eq_angularSlope_on_smoothRegularSet
+#print axioms NLA.TR06.sourceAngular_eq_angularSlope_on_smoothRegularSet
+#assert_proof_constant NLA.Proofs.TR06.Model.angularProductVariation_perm
+#assert_trust kernel NLA.Proofs.TR06.Model.angularProductVariation_perm
+#print axioms NLA.Proofs.TR06.Model.angularProductVariation_perm
+#assert_proof_constant NLA.Proofs.TR06.Model.norm_angularProductVariation_perm
+#assert_trust kernel NLA.Proofs.TR06.Model.norm_angularProductVariation_perm
+#print axioms NLA.Proofs.TR06.Model.norm_angularProductVariation_perm
+#assert_proof_constant NLA.Proofs.TR06.Model.angularCondition_eq_chart_derivative
+#assert_trust kernel NLA.Proofs.TR06.Model.angularCondition_eq_chart_derivative
+#print axioms NLA.Proofs.TR06.Model.angularCondition_eq_chart_derivative
+#assert_proof_constant NLA.Proofs.TR06.Model.angularCondition_eq_angularSlope_at_chart
+#assert_trust kernel NLA.Proofs.TR06.Model.angularCondition_eq_angularSlope_at_chart
+#print axioms NLA.Proofs.TR06.Model.angularCondition_eq_angularSlope_at_chart
+#assert_proof_constant NLA.Proofs.TR06.Model.angularCondition_eq_angularSlope_on_smoothRegular
+#assert_trust kernel NLA.Proofs.TR06.Model.angularCondition_eq_angularSlope_on_smoothRegular
+#print axioms NLA.Proofs.TR06.Model.angularCondition_eq_angularSlope_on_smoothRegular
+#assert_proof_constant NLA.Proofs.TR06.Model.angularCondition_eq_sourceAngular_on_smoothRegular
+#assert_trust kernel NLA.Proofs.TR06.Model.angularCondition_eq_sourceAngular_on_smoothRegular
+#print axioms NLA.Proofs.TR06.Model.angularCondition_eq_sourceAngular_on_smoothRegular
+#assert_proof_constant NLA.TR06.pureTensor_smul
+#assert_trust kernel NLA.TR06.pureTensor_smul
+#print axioms NLA.TR06.pureTensor_smul
+#assert_proof_constant NLA.TR06.rankOne_smul
+#assert_trust kernel NLA.TR06.rankOne_smul
+#print axioms NLA.TR06.rankOne_smul
+#assert_proof_constant NLA.TR06.decomposes_smul
+#assert_trust kernel NLA.TR06.decomposes_smul
+#print axioms NLA.TR06.decomposes_smul
+#assert_proof_constant NLA.TR06.exists_decomposes_smul_iff
+#assert_trust kernel NLA.TR06.exists_decomposes_smul_iff
+#print axioms NLA.TR06.exists_decomposes_smul_iff
+#assert_proof_constant NLA.TR06.exactRank_smul_iff
+#assert_trust kernel NLA.TR06.exactRank_smul_iff
+#print axioms NLA.TR06.exactRank_smul_iff
+#assert_proof_constant NLA.TR06.identifiable_smul
+#assert_trust kernel NLA.TR06.identifiable_smul
+#print axioms NLA.TR06.identifiable_smul
+#assert_proof_constant NLA.TR06.identifiable_smul_iff
+#assert_trust kernel NLA.TR06.identifiable_smul_iff
+#print axioms NLA.TR06.identifiable_smul_iff
+#assert_proof_constant NLA.TR06.smul_mem_identifiableRealSet_iff
+#assert_trust kernel NLA.TR06.smul_mem_identifiableRealSet_iff
+#print axioms NLA.TR06.smul_mem_identifiableRealSet_iff
+#assert_proof_constant NLA.TR06.normalizedTuple_pos_smul
+#assert_trust kernel NLA.TR06.normalizedTuple_pos_smul
+#print axioms NLA.TR06.normalizedTuple_pos_smul
+#assert_internal_constant "NLA.TR06.Homogeneity" "NLA.TR06.angularDistance_pos_smul_le" "theorem"
+#assert_proof_constant NLA.TR06.angularDistance_pos_smul
+#assert_trust kernel NLA.TR06.angularDistance_pos_smul
+#print axioms NLA.TR06.angularDistance_pos_smul
+#assert_proof_constant NLA.TR06.angularRatio_pos_smul
+#assert_trust kernel NLA.TR06.angularRatio_pos_smul
+#print axioms NLA.TR06.angularRatio_pos_smul
+#assert_internal_constant "NLA.TR06.Homogeneity" "NLA.TR06.angularSlope_pos_smul_mul_le" "theorem"
+#assert_proof_constant NLA.TR06.angularSlope_pos_smul
+#assert_trust kernel NLA.TR06.angularSlope_pos_smul
+#print axioms NLA.TR06.angularSlope_pos_smul
+#assert_proof_constant NLA.TR06.continuousOn_chart_directionalRatio
+#assert_trust kernel NLA.TR06.continuousOn_chart_directionalRatio
+#print axioms NLA.TR06.continuousOn_chart_directionalRatio
+#assert_proof_constant NLA.TR06.lowerSemicontinuousOn_chart_derivativeRatio
+#assert_trust kernel NLA.TR06.lowerSemicontinuousOn_chart_derivativeRatio
+#print axioms NLA.TR06.lowerSemicontinuousOn_chart_derivativeRatio
+#assert_internal_constant "NLA.TR06.AngularMeasurability" "NLA.TR06.lowerSemicontinuousOn_angularSlope_chart_target" "theorem"
+#assert_proof_constant NLA.TR06.lowerSemicontinuous_angularSlope_regularSet
+#assert_trust kernel NLA.TR06.lowerSemicontinuous_angularSlope_regularSet
+#print axioms NLA.TR06.lowerSemicontinuous_angularSlope_regularSet
+#assert_proof_constant NLA.TR06.measurable_angularSlope_regularSet
+#assert_trust kernel NLA.TR06.measurable_angularSlope_regularSet
+#print axioms NLA.TR06.measurable_angularSlope_regularSet
+#assert_proof_constant NLA.TR06.aemeasurable_angularSlope_regularVolume
+#assert_trust kernel NLA.TR06.aemeasurable_angularSlope_regularVolume
+#print axioms NLA.TR06.aemeasurable_angularSlope_regularVolume
+#assert_trust kernel NLA.Proofs.TR06.Model.samplingScale
+#print axioms NLA.Proofs.TR06.Model.samplingScale
+#assert_proof_constant NLA.Proofs.TR06.Model.scaled_chart_val
+#assert_trust kernel NLA.Proofs.TR06.Model.scaled_chart_val
+#print axioms NLA.Proofs.TR06.Model.scaled_chart_val
+#assert_trust kernel NLA.Proofs.TR06.Model.scaleSmoothChart
+#print axioms NLA.Proofs.TR06.Model.scaleSmoothChart
+#assert_proof_constant NLA.Proofs.TR06.Model.pos_smul_mem_smoothRegular
+#assert_trust kernel NLA.Proofs.TR06.Model.pos_smul_mem_smoothRegular
+#print axioms NLA.Proofs.TR06.Model.pos_smul_mem_smoothRegular
+#assert_proof_constant NLA.Proofs.TR06.Model.pos_smul_mem_smoothRegular_iff
+#assert_trust kernel NLA.Proofs.TR06.Model.pos_smul_mem_smoothRegular_iff
+#print axioms NLA.Proofs.TR06.Model.pos_smul_mem_smoothRegular_iff
+#assert_proof_constant NLA.Proofs.TR06.Model.measurableSet_smoothRegular
+#assert_trust kernel NLA.Proofs.TR06.Model.measurableSet_smoothRegular
+#print axioms NLA.Proofs.TR06.Model.measurableSet_smoothRegular
+#assert_proof_constant NLA.Proofs.TR06.Model.zero_not_mem_smoothRegular
+#assert_trust kernel NLA.Proofs.TR06.Model.zero_not_mem_smoothRegular
+#print axioms NLA.Proofs.TR06.Model.zero_not_mem_smoothRegular
+#assert_proof_constant NLA.Proofs.TR06.Model.aemeasurable_angularSlope_smoothVolume
+#assert_trust kernel NLA.Proofs.TR06.Model.aemeasurable_angularSlope_smoothVolume
+#print axioms NLA.Proofs.TR06.Model.aemeasurable_angularSlope_smoothVolume
+#assert_proof_constant NLA.Proofs.TR06.Model.angularSlope_pos_smul
+#assert_trust kernel NLA.Proofs.TR06.Model.angularSlope_pos_smul
+#print axioms NLA.Proofs.TR06.Model.angularSlope_pos_smul
+#assert_proof_constant NLA.Proofs.TR06.HomogeneousGaussian.measurePreserving_scale
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.measurePreserving_scale
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.measurePreserving_scale
+#assert_proof_constant NLA.Proofs.TR06.HomogeneousGaussian.lintegral_scaled_set
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.lintegral_scaled_set
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.lintegral_scaled_set
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.annulus
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.annulus
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.PositiveCone
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.PositiveCone
+#assert_proof_constant NLA.Proofs.TR06.AlgebraicLocus.chart_open_inter_volume_pos
+#assert_trust kernel NLA.Proofs.TR06.AlgebraicLocus.chart_open_inter_volume_pos
+#print axioms NLA.Proofs.TR06.AlgebraicLocus.chart_open_inter_volume_pos
+#assert_proof_constant NLA.Proofs.TR06.AlgebraicLocus.smooth_annular_volume_pos_of_nonempty
+#assert_trust kernel NLA.Proofs.TR06.AlgebraicLocus.smooth_annular_volume_pos_of_nonempty
+#print axioms NLA.Proofs.TR06.AlgebraicLocus.smooth_annular_volume_pos_of_nonempty
+#assert_proof_constant NLA.Proofs.TR06.AlgebraicLocus.generic_smooth_annular_volume_pos
+#assert_trust kernel NLA.Proofs.TR06.AlgebraicLocus.generic_smooth_annular_volume_pos
+#print axioms NLA.Proofs.TR06.AlgebraicLocus.generic_smooth_annular_volume_pos
+#assert_proof_constant NLA.TR06.Area.euclidean_image_le_mul_of_normDet_lt
+#assert_trust kernel NLA.TR06.Area.euclidean_image_le_mul_of_normDet_lt
+#print axioms NLA.TR06.Area.euclidean_image_le_mul_of_normDet_lt
+#assert_proof_constant NLA.TR06.Area.mul_le_euclidean_image_of_lt_normDet
+#assert_trust kernel NLA.TR06.Area.mul_le_euclidean_image_of_lt_normDet
+#print axioms NLA.TR06.Area.mul_le_euclidean_image_of_lt_normDet
+#assert_proof_constant NLA.TR06.Area.approximation_norm_fderiv_sub_le
+#assert_trust kernel NLA.TR06.Area.approximation_norm_fderiv_sub_le
+#print axioms NLA.TR06.Area.approximation_norm_fderiv_sub_le
+#assert_proof_constant NLA.TR06.Area.exists_volume_radius
+#assert_trust kernel NLA.TR06.Area.exists_volume_radius
+#print axioms NLA.TR06.Area.exists_volume_radius
+#assert_proof_constant NLA.TR06.Area.image_measurable
+#assert_trust kernel NLA.TR06.Area.image_measurable
+#print axioms NLA.TR06.Area.image_measurable
+#assert_proof_constant NLA.TR06.Area.area_estimates_aux
+#assert_trust kernel NLA.TR06.Area.area_estimates_aux
+#print axioms NLA.TR06.Area.area_estimates_aux
+#assert_proof_constant NLA.TR06.Area.area_finite
+#assert_trust kernel NLA.TR06.Area.area_finite
+#print axioms NLA.TR06.Area.area_finite
+#assert_proof_constant NLA.TR06.Area.immersion_area
+#assert_trust kernel NLA.TR06.Area.immersion_area
+#print axioms NLA.TR06.Area.immersion_area
+#assert_proof_constant NLA.TR06.induced_volume_chart
+#assert_trust kernel NLA.TR06.induced_volume_chart
+#print axioms NLA.TR06.induced_volume_chart
+#assert_trust kernel NLA.TR06.Area.Proposed.Euclid
+#print axioms NLA.TR06.Area.Proposed.Euclid
+#assert_trust kernel NLA.TR06.Area.Proposed.coordProjection
+#print axioms NLA.TR06.Area.Proposed.coordProjection
+#assert_trust kernel NLA.TR06.Area.Proposed.HasSmoothEmbeddedCharts
+#print axioms NLA.TR06.Area.Proposed.HasSmoothEmbeddedCharts
+#assert_trust kernel NLA.TR06.Area.Proposed.ProjectionLocallyInjectiveSet
+#print axioms NLA.TR06.Area.Proposed.ProjectionLocallyInjectiveSet
+#assert_trust kernel NLA.TR06.Area.Proposed.UniformProjectionAtlasStatement
+#print axioms NLA.TR06.Area.Proposed.UniformProjectionAtlasStatement
+#assert_proof_constant NLA.TR06.Area.Proposed.matrix_exists_injective_row_restriction
+#assert_trust kernel NLA.TR06.Area.Proposed.matrix_exists_injective_row_restriction
+#print axioms NLA.TR06.Area.Proposed.matrix_exists_injective_row_restriction
+#assert_trust kernel NLA.TR06.Area.Proposed.coordProjectionL
+#print axioms NLA.TR06.Area.Proposed.coordProjectionL
+#assert_proof_constant NLA.TR06.Area.Proposed.coordProjectionL_apply
+#assert_trust kernel NLA.TR06.Area.Proposed.coordProjectionL_apply
+#print axioms NLA.TR06.Area.Proposed.coordProjectionL_apply
+#assert_proof_constant NLA.TR06.Area.Proposed.exists_injective_coordinate_projection
+#assert_trust kernel NLA.TR06.Area.Proposed.exists_injective_coordinate_projection
+#print axioms NLA.TR06.Area.Proposed.exists_injective_coordinate_projection
+#assert_trust kernel NLA.TR06.Area.Proposed.isometricOperators
+#print axioms NLA.TR06.Area.Proposed.isometricOperators
+#assert_proof_constant NLA.TR06.Area.Proposed.isCompact_isometricOperators
+#assert_trust kernel NLA.TR06.Area.Proposed.isCompact_isometricOperators
+#print axioms NLA.TR06.Area.Proposed.isCompact_isometricOperators
+#assert_proof_constant NLA.TR06.Area.Proposed.exists_coordinate_bound_neighborhood
+#assert_trust kernel NLA.TR06.Area.Proposed.exists_coordinate_bound_neighborhood
+#print axioms NLA.TR06.Area.Proposed.exists_coordinate_bound_neighborhood
+#assert_proof_constant NLA.TR06.Area.Proposed.uniform_isometric_coordinate_bound
+#assert_trust kernel NLA.TR06.Area.Proposed.uniform_isometric_coordinate_bound
+#print axioms NLA.TR06.Area.Proposed.uniform_isometric_coordinate_bound
+#assert_proof_constant NLA.TR06.Area.Proposed.uniform_tangent_coordinate_bound
+#assert_trust kernel NLA.TR06.Area.Proposed.uniform_tangent_coordinate_bound
+#print axioms NLA.TR06.Area.Proposed.uniform_tangent_coordinate_bound
+#assert_proof_constant NLA.TR06.Area.Proposed.tangent_coordinate_equiv
+#assert_trust kernel NLA.TR06.Area.Proposed.tangent_coordinate_equiv
+#print axioms NLA.TR06.Area.Proposed.tangent_coordinate_equiv
+#assert_proof_constant NLA.TR06.Area.Proposed.projection_chart_locally_injective
+#assert_trust kernel NLA.TR06.Area.Proposed.projection_chart_locally_injective
+#print axioms NLA.TR06.Area.Proposed.projection_chart_locally_injective
+#assert_proof_constant NLA.TR06.Area.Proposed.local_projection_charts
+#assert_trust kernel NLA.TR06.Area.Proposed.local_projection_charts
+#print axioms NLA.TR06.Area.Proposed.local_projection_charts
+#assert_proof_constant NLA.TR06.Area.Proposed.zero_dimensional_charts_countable
+#assert_trust kernel NLA.TR06.Area.Proposed.zero_dimensional_charts_countable
+#print axioms NLA.TR06.Area.Proposed.zero_dimensional_charts_countable
+#assert_proof_constant NLA.TR06.Area.Proposed.uniform_projection_atlas
+#assert_trust kernel NLA.TR06.Area.Proposed.uniform_projection_atlas
+#print axioms NLA.TR06.Area.Proposed.uniform_projection_atlas
+#assert_trust kernel NLA.Proofs.TR06.ControlledProjectionSet
+#print axioms NLA.Proofs.TR06.ControlledProjectionSet
+#assert_trust kernel NLA.Proofs.TR06.UniformControlledProjectionAtlasStatement
+#print axioms NLA.Proofs.TR06.UniformControlledProjectionAtlasStatement
+#assert_proof_constant NLA.Proofs.TR06.uniform_controlled_projection_atlas
+#assert_trust kernel NLA.Proofs.TR06.uniform_controlled_projection_atlas
+#print axioms NLA.Proofs.TR06.uniform_controlled_projection_atlas
+#assert_proof_constant NLA.Proofs.TR06.fderiv_norm_le_of_local_comparison
+#assert_trust kernel NLA.Proofs.TR06.fderiv_norm_le_of_local_comparison
+#print axioms NLA.Proofs.TR06.fderiv_norm_le_of_local_comparison
+#assert_proof_constant NLA.Proofs.TR06.controlled_projection_chart_derivative_injective
+#assert_trust kernel NLA.Proofs.TR06.controlled_projection_chart_derivative_injective
+#print axioms NLA.Proofs.TR06.controlled_projection_chart_derivative_injective
+#assert_proof_constant NLA.TR06.Area.sum_measure_le_of_bounded_overlap
+#assert_trust kernel NLA.TR06.Area.sum_measure_le_of_bounded_overlap
+#print axioms NLA.TR06.Area.sum_measure_le_of_bounded_overlap
+#assert_proof_constant NLA.TR06.Area.finite_volume_of_bounded_overlap
+#assert_trust kernel NLA.TR06.Area.finite_volume_of_bounded_overlap
+#print axioms NLA.TR06.Area.finite_volume_of_bounded_overlap
+#assert_proof_constant NLA.TR06.Area.bounded_overlap_of_fiber_bound
+#assert_trust kernel NLA.TR06.Area.bounded_overlap_of_fiber_bound
+#print axioms NLA.TR06.Area.bounded_overlap_of_fiber_bound
+#assert_proof_constant NLA.Proofs.TR06.finite_volume_of_controlled_projection_fibers
+#assert_trust kernel NLA.Proofs.TR06.finite_volume_of_controlled_projection_fibers
+#print axioms NLA.Proofs.TR06.finite_volume_of_controlled_projection_fibers
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphCharts.rankOneTangent_radial
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphCharts.rankOneTangent_radial
+#print axioms NLA.Proofs.TR06.NormalizedGraphCharts.rankOneTangent_radial
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphCharts.regularDecomposition_linearIndependent
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphCharts.regularDecomposition_linearIndependent
+#print axioms NLA.Proofs.TR06.NormalizedGraphCharts.regularDecomposition_linearIndependent
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphCharts.chart_summands_linearIndependent
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphCharts.chart_summands_linearIndependent
+#print axioms NLA.Proofs.TR06.NormalizedGraphCharts.chart_summands_linearIndependent
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphCharts.normalizedTuple_permutation_stabilizer
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphCharts.normalizedTuple_permutation_stabilizer
+#print axioms NLA.Proofs.TR06.NormalizedGraphCharts.normalizedTuple_permutation_stabilizer
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphCharts.chart_normalizedTuple_permutation_stabilizer
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphCharts.chart_normalizedTuple_permutation_stabilizer
+#print axioms NLA.Proofs.TR06.NormalizedGraphCharts.chart_normalizedTuple_permutation_stabilizer
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphCharts.outputCell
+#print axioms NLA.Proofs.TR06.NormalizedGraphCharts.outputCell
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphCharts.isOpen_outputCell
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphCharts.isOpen_outputCell
+#print axioms NLA.Proofs.TR06.NormalizedGraphCharts.isOpen_outputCell
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphCharts.self_mem_outputCell
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphCharts.self_mem_outputCell
+#print axioms NLA.Proofs.TR06.NormalizedGraphCharts.self_mem_outputCell
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphCharts.exists_open_separating_neighborhood
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphCharts.exists_open_separating_neighborhood
+#print axioms NLA.Proofs.TR06.NormalizedGraphCharts.exists_open_separating_neighborhood
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphCharts.permuteSmoothChart
+#print axioms NLA.Proofs.TR06.NormalizedGraphCharts.permuteSmoothChart
+#assert_trust kernel NLA.TR06.pairedL2Map
+#print axioms NLA.TR06.pairedL2Map
+#assert_trust kernel NLA.TR06.graphL2Map
+#print axioms NLA.TR06.graphL2Map
+#assert_trust kernel NLA.TR06.rangeInverseOperator
+#print axioms NLA.TR06.rangeInverseOperator
+#assert_internal_constant "NLA.TR06.GraphJacobian" "NLA.TR06.normDet_graphL2Map_sq" "theorem"
+#assert_proof_constant NLA.TR06.opNorm_le_normDet_graphL2Map
+#assert_trust kernel NLA.TR06.opNorm_le_normDet_graphL2Map
+#print axioms NLA.TR06.opNorm_le_normDet_graphL2Map
+#assert_internal_constant "NLA.TR06.GraphJacobian" "NLA.TR06.normDet_postcomp_linearIsometry" "theorem"
+#assert_proof_constant NLA.TR06.opNorm_rangeInverseOperator_mul_normDet_le
+#assert_trust kernel NLA.TR06.opNorm_rangeInverseOperator_mul_normDet_le
+#print axioms NLA.TR06.opNorm_rangeInverseOperator_mul_normDet_le
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphAmbient
+#print axioms NLA.Proofs.TR06.NormalizedGraphAmbient
+#assert_trust kernel NLA.Proofs.TR06.normalizedGraphPoint
+#print axioms NLA.Proofs.TR06.normalizedGraphPoint
+#assert_trust kernel NLA.Proofs.TR06.normalizedAnnularGraph
+#print axioms NLA.Proofs.TR06.normalizedAnnularGraph
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphCharts.inputProjection
+#print axioms NLA.Proofs.TR06.NormalizedGraphCharts.inputProjection
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphCharts.outputProjection
+#print axioms NLA.Proofs.TR06.NormalizedGraphCharts.outputProjection
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphCharts.graphInput
+#print axioms NLA.Proofs.TR06.NormalizedGraphCharts.graphInput
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphCharts.continuous_graphInput
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphCharts.continuous_graphInput
+#print axioms NLA.Proofs.TR06.NormalizedGraphCharts.continuous_graphInput
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphCharts.continuous_graphOutput
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphCharts.continuous_graphOutput
+#print axioms NLA.Proofs.TR06.NormalizedGraphCharts.continuous_graphOutput
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphCharts.branchMap
+#print axioms NLA.Proofs.TR06.NormalizedGraphCharts.branchMap
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphCharts.contDiffOn_branchMap
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphCharts.contDiffOn_branchMap
+#print axioms NLA.Proofs.TR06.NormalizedGraphCharts.contDiffOn_branchMap
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphCharts.branchMap_mem_graph
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphCharts.branchMap_mem_graph
+#print axioms NLA.Proofs.TR06.NormalizedGraphCharts.branchMap_mem_graph
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphCharts.exists_aligned_chart
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphCharts.exists_aligned_chart
+#print axioms NLA.Proofs.TR06.NormalizedGraphCharts.exists_aligned_chart
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphCharts.lift_chart
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphCharts.lift_chart
+#print axioms NLA.Proofs.TR06.NormalizedGraphCharts.lift_chart
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphCharts.exists_normalizedGraph_chart
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphCharts.exists_normalizedGraph_chart
+#print axioms NLA.Proofs.TR06.NormalizedGraphCharts.exists_normalizedGraph_chart
+#assert_trust kernel NLA.Proofs.TR06.graphAmbientDimension
+#print axioms NLA.Proofs.TR06.graphAmbientDimension
+#assert_trust kernel NLA.Proofs.TR06.graphEuclideanEquiv
+#print axioms NLA.Proofs.TR06.graphEuclideanEquiv
+#assert_trust kernel NLA.Proofs.TR06.euclideanNormalizedGraph
+#print axioms NLA.Proofs.TR06.euclideanNormalizedGraph
+#assert_trust kernel NLA.Proofs.TR06.graphSetHomeomorph
+#print axioms NLA.Proofs.TR06.graphSetHomeomorph
+#assert_proof_constant NLA.Proofs.TR06.graphSetHomeomorph_val
+#assert_trust kernel NLA.Proofs.TR06.graphSetHomeomorph_val
+#print axioms NLA.Proofs.TR06.graphSetHomeomorph_val
+#assert_proof_constant NLA.Proofs.TR06.euclideanNormalizedGraph_hasSmoothEmbeddedCharts
+#assert_trust kernel NLA.Proofs.TR06.euclideanNormalizedGraph_hasSmoothEmbeddedCharts
+#print axioms NLA.Proofs.TR06.euclideanNormalizedGraph_hasSmoothEmbeddedCharts
+#assert_trust kernel NLA.Proofs.TR06.GraphAlgebra.Variable
+#print axioms NLA.Proofs.TR06.GraphAlgebra.Variable
+#assert_trust kernel NLA.Proofs.TR06.GraphAlgebra.PolynomialRing
+#print axioms NLA.Proofs.TR06.GraphAlgebra.PolynomialRing
+#assert_trust kernel NLA.Proofs.TR06.GraphAlgebra.summand
+#print axioms NLA.Proofs.TR06.GraphAlgebra.summand
+#assert_trust kernel NLA.Proofs.TR06.GraphAlgebra.radius
+#print axioms NLA.Proofs.TR06.GraphAlgebra.radius
+#assert_trust kernel NLA.Proofs.TR06.GraphAlgebra.radiusEquation
+#print axioms NLA.Proofs.TR06.GraphAlgebra.radiusEquation
+#assert_trust kernel NLA.Proofs.TR06.GraphAlgebra.radiusIdeal
+#print axioms NLA.Proofs.TR06.GraphAlgebra.radiusIdeal
+#assert_trust kernel NLA.Proofs.TR06.GraphAlgebra.QuotientRing
+#print axioms NLA.Proofs.TR06.GraphAlgebra.QuotientRing
+#assert_trust kernel NLA.Proofs.TR06.GraphAlgebra.quotientHom
+#print axioms NLA.Proofs.TR06.GraphAlgebra.quotientHom
+#assert_trust kernel NLA.Proofs.TR06.GraphAlgebra.denominator
+#print axioms NLA.Proofs.TR06.GraphAlgebra.denominator
+#assert_trust kernel NLA.Proofs.TR06.GraphAlgebra.Source
+#print axioms NLA.Proofs.TR06.GraphAlgebra.Source
+#assert_trust kernel NLA.Proofs.TR06.GraphAlgebra.sourceHom
+#print axioms NLA.Proofs.TR06.GraphAlgebra.sourceHom
+#assert_trust kernel NLA.Proofs.TR06.GraphAlgebra.sourceRadius
+#print axioms NLA.Proofs.TR06.GraphAlgebra.sourceRadius
+#assert_trust kernel NLA.Proofs.TR06.GraphAlgebra.sourceSummand
+#print axioms NLA.Proofs.TR06.GraphAlgebra.sourceSummand
+#assert_trust kernel NLA.Proofs.TR06.GraphAlgebra.sourceRadiusInverse
+#print axioms NLA.Proofs.TR06.GraphAlgebra.sourceRadiusInverse
+#assert_proof_constant NLA.Proofs.TR06.GraphAlgebra.sourceRadius_mul_inverse
+#assert_trust kernel NLA.Proofs.TR06.GraphAlgebra.sourceRadius_mul_inverse
+#print axioms NLA.Proofs.TR06.GraphAlgebra.sourceRadius_mul_inverse
+#assert_proof_constant NLA.Proofs.TR06.GraphAlgebra.sourceRadius_sq
+#assert_trust kernel NLA.Proofs.TR06.GraphAlgebra.sourceRadius_sq
+#print axioms NLA.Proofs.TR06.GraphAlgebra.sourceRadius_sq
+#assert_trust kernel NLA.Proofs.TR06.GraphAlgebra.OutputCoordinate
+#print axioms NLA.Proofs.TR06.GraphAlgebra.OutputCoordinate
+#assert_trust kernel NLA.Proofs.TR06.GraphAlgebra.graphCoordinate
+#print axioms NLA.Proofs.TR06.GraphAlgebra.graphCoordinate
+#assert_trust kernel NLA.Proofs.TR06.GraphAlgebra.source_finiteType
+#print axioms NLA.Proofs.TR06.GraphAlgebra.source_finiteType
+#assert_trust kernel NLA.Proofs.TR06.graphCoordinateDecode
+#print axioms NLA.Proofs.TR06.graphCoordinateDecode
+#assert_trust kernel NLA.Proofs.TR06.graphCoordinateEncode
+#print axioms NLA.Proofs.TR06.graphCoordinateEncode
+#assert_proof_constant NLA.Proofs.TR06.graphCoordinateDecode_encode
+#assert_trust kernel NLA.Proofs.TR06.graphCoordinateDecode_encode
+#print axioms NLA.Proofs.TR06.graphCoordinateDecode_encode
+#assert_trust kernel NLA.Proofs.TR06.graphProjectionRows
+#print axioms NLA.Proofs.TR06.graphProjectionRows
+#assert_proof_constant NLA.Proofs.TR06.graphProjectionRows_apply
+#assert_trust kernel NLA.Proofs.TR06.graphProjectionRows_apply
+#print axioms NLA.Proofs.TR06.graphProjectionRows_apply
+#assert_trust kernel NLA.Proofs.TR06.normalizedPivotGraph
+#print axioms NLA.Proofs.TR06.normalizedPivotGraph
+#assert_trust kernel NLA.Proofs.TR06.chartGraphParameter
+#print axioms NLA.Proofs.TR06.chartGraphParameter
+#assert_proof_constant NLA.Proofs.TR06.chartGraphParameter_differentiableAt
+#assert_trust kernel NLA.Proofs.TR06.chartGraphParameter_differentiableAt
+#print axioms NLA.Proofs.TR06.chartGraphParameter_differentiableAt
+#assert_proof_constant NLA.Proofs.TR06.chartGraphParameter_derivative_bijective
+#assert_trust kernel NLA.Proofs.TR06.chartGraphParameter_derivative_bijective
+#print axioms NLA.Proofs.TR06.chartGraphParameter_derivative_bijective
+#assert_proof_constant NLA.Proofs.TR06.normalizedPivotGraph_chart_eventuallyEq
+#assert_trust kernel NLA.Proofs.TR06.normalizedPivotGraph_chart_eventuallyEq
+#print axioms NLA.Proofs.TR06.normalizedPivotGraph_chart_eventuallyEq
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.polynomialCharacter
+#print axioms NLA.Proofs.TR06.GraphCharacter.polynomialCharacter
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.quotientCharacter
+#print axioms NLA.Proofs.TR06.GraphCharacter.quotientCharacter
+#assert_proof_constant NLA.Proofs.TR06.GraphCharacter.quotientCharacter_quotientHom
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.quotientCharacter_quotientHom
+#print axioms NLA.Proofs.TR06.GraphCharacter.quotientCharacter_quotientHom
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.characterFromValues
+#print axioms NLA.Proofs.TR06.GraphCharacter.characterFromValues
+#assert_proof_constant NLA.Proofs.TR06.GraphCharacter.characterFromValues_sourceHom
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.characterFromValues_sourceHom
+#print axioms NLA.Proofs.TR06.GraphCharacter.characterFromValues_sourceHom
+#assert_proof_constant NLA.Proofs.TR06.GraphCharacter.characterFromValues_radius
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.characterFromValues_radius
+#print axioms NLA.Proofs.TR06.GraphCharacter.characterFromValues_radius
+#assert_proof_constant NLA.Proofs.TR06.GraphCharacter.characterFromValues_variable
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.characterFromValues_variable
+#print axioms NLA.Proofs.TR06.GraphCharacter.characterFromValues_variable
+#assert_proof_constant NLA.Proofs.TR06.GraphCharacter.characterFromValues_radiusInverse
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.characterFromValues_radiusInverse
+#print axioms NLA.Proofs.TR06.GraphCharacter.characterFromValues_radiusInverse
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.realCoordinates
+#print axioms NLA.Proofs.TR06.GraphCharacter.realCoordinates
+#assert_proof_constant NLA.Proofs.TR06.GraphCharacter.polynomialCharacter_real_summand
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.polynomialCharacter_real_summand
+#print axioms NLA.Proofs.TR06.GraphCharacter.polynomialCharacter_real_summand
+#assert_proof_constant NLA.Proofs.TR06.GraphCharacter.realCoordinates_radiusEquation
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.realCoordinates_radiusEquation
+#print axioms NLA.Proofs.TR06.GraphCharacter.realCoordinates_radiusEquation
+#assert_proof_constant NLA.Proofs.TR06.GraphCharacter.summands_ne_zero
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.summands_ne_zero
+#print axioms NLA.Proofs.TR06.GraphCharacter.summands_ne_zero
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.character
+#print axioms NLA.Proofs.TR06.GraphCharacter.character
+#assert_proof_constant NLA.Proofs.TR06.GraphCharacter.character_source_variable
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.character_source_variable
+#print axioms NLA.Proofs.TR06.GraphCharacter.character_source_variable
+#assert_proof_constant NLA.Proofs.TR06.GraphCharacter.character_source_radius
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.character_source_radius
+#print axioms NLA.Proofs.TR06.GraphCharacter.character_source_radius
+#assert_proof_constant NLA.Proofs.TR06.GraphCharacter.character_source_summand
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.character_source_summand
+#print axioms NLA.Proofs.TR06.GraphCharacter.character_source_summand
+#assert_proof_constant NLA.Proofs.TR06.GraphCharacter.character_source_radiusInverse
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.character_source_radiusInverse
+#print axioms NLA.Proofs.TR06.GraphCharacter.character_source_radiusInverse
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.realGraphValues
+#print axioms NLA.Proofs.TR06.GraphCharacter.realGraphValues
+#assert_proof_constant NLA.Proofs.TR06.GraphCharacter.character_graphCoordinate
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.character_graphCoordinate
+#print axioms NLA.Proofs.TR06.GraphCharacter.character_graphCoordinate
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.point_derivation_one
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.point_derivation_one
+#print axioms NLA.Proofs.TR06.GraphProjection.point_derivation_one
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.point_derivation_constant
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.point_derivation_constant
+#print axioms NLA.Proofs.TR06.GraphProjection.point_derivation_constant
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.realLinearMap_ofReal_mul
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.realLinearMap_ofReal_mul
+#print axioms NLA.Proofs.TR06.GraphProjection.realLinearMap_ofReal_mul
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.character_real_polynomial
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.character_real_polynomial
+#print axioms NLA.Proofs.TR06.GraphProjection.character_real_polynomial
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.hasDerivAt_real_polynomial_of_point_derivation
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.hasDerivAt_real_polynomial_of_point_derivation
+#print axioms NLA.Proofs.TR06.GraphProjection.hasDerivAt_real_polynomial_of_point_derivation
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.point_derivation_polynomial_zero_of_variables
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.point_derivation_polynomial_zero_of_variables
+#print axioms NLA.Proofs.TR06.GraphProjection.point_derivation_polynomial_zero_of_variables
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.point_derivation_zero_of_variables
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.point_derivation_zero_of_variables
+#print axioms NLA.Proofs.TR06.GraphProjection.point_derivation_zero_of_variables
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.point_derivation_radius_relation
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.point_derivation_radius_relation
+#print axioms NLA.Proofs.TR06.GraphProjection.point_derivation_radius_relation
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.point_derivation_zero_of_pivot_variables
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.point_derivation_zero_of_pivot_variables
+#print axioms NLA.Proofs.TR06.GraphProjection.point_derivation_zero_of_pivot_variables
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.pivotHom
+#print axioms NLA.Proofs.TR06.GraphProjection.pivotHom
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.direction
+#print axioms NLA.Proofs.TR06.GraphProjection.direction
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.map_real_factorPolynomial
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.map_real_factorPolynomial
+#print axioms NLA.Proofs.TR06.GraphProjection.map_real_factorPolynomial
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.map_real_summandPolynomial
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.map_real_summandPolynomial
+#print axioms NLA.Proofs.TR06.GraphProjection.map_real_summandPolynomial
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.hasDerivAt_summand_of_point_derivation
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.hasDerivAt_summand_of_point_derivation
+#print axioms NLA.Proofs.TR06.GraphProjection.hasDerivAt_summand_of_point_derivation
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.component_radius_relation
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.component_radius_relation
+#print axioms NLA.Proofs.TR06.GraphProjection.component_radius_relation
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.hasDerivAt_radius_of_point_derivation
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.hasDerivAt_radius_of_point_derivation
+#print axioms NLA.Proofs.TR06.GraphProjection.hasDerivAt_radius_of_point_derivation
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.graphCoordinate_mul_radius
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.graphCoordinate_mul_radius
+#print axioms NLA.Proofs.TR06.GraphProjection.graphCoordinate_mul_radius
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.hasDerivAt_normalized_of_point_derivation
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.hasDerivAt_normalized_of_point_derivation
+#print axioms NLA.Proofs.TR06.GraphProjection.hasDerivAt_normalized_of_point_derivation
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.hasDerivAt_graphCoordinate_of_point_derivation
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.hasDerivAt_graphCoordinate_of_point_derivation
+#print axioms NLA.Proofs.TR06.GraphProjection.hasDerivAt_graphCoordinate_of_point_derivation
+#assert_proof_constant NLA.Proofs.TR06.GraphQuasiFinite.cotangent_fiber_subsingleton_of_derivations
+#assert_trust kernel NLA.Proofs.TR06.GraphQuasiFinite.cotangent_fiber_subsingleton_of_derivations
+#print axioms NLA.Proofs.TR06.GraphQuasiFinite.cotangent_fiber_subsingleton_of_derivations
+#assert_proof_constant NLA.Proofs.TR06.GraphQuasiFinite.isUnramifiedAt_of_cotangent_fiber_subsingleton
+#assert_trust kernel NLA.Proofs.TR06.GraphQuasiFinite.isUnramifiedAt_of_cotangent_fiber_subsingleton
+#print axioms NLA.Proofs.TR06.GraphQuasiFinite.isUnramifiedAt_of_cotangent_fiber_subsingleton
+#assert_proof_constant NLA.Proofs.TR06.GraphQuasiFinite.quasiFiniteAt_of_cotangent_fiber_subsingleton
+#assert_trust kernel NLA.Proofs.TR06.GraphQuasiFinite.quasiFiniteAt_of_cotangent_fiber_subsingleton
+#print axioms NLA.Proofs.TR06.GraphQuasiFinite.quasiFiniteAt_of_cotangent_fiber_subsingleton
+#assert_trust kernel NLA.Proofs.TR06.GraphQuasiFinite.residueCharacterEquiv
+#print axioms NLA.Proofs.TR06.GraphQuasiFinite.residueCharacterEquiv
+#assert_proof_constant NLA.Proofs.TR06.GraphQuasiFinite.isUnramifiedAt_character_of_derivations
+#assert_trust kernel NLA.Proofs.TR06.GraphQuasiFinite.isUnramifiedAt_character_of_derivations
+#print axioms NLA.Proofs.TR06.GraphQuasiFinite.isUnramifiedAt_character_of_derivations
+#assert_proof_constant NLA.Proofs.TR06.GraphQuasiFinite.quasiFiniteAt_character_of_derivations
+#assert_trust kernel NLA.Proofs.TR06.GraphQuasiFinite.quasiFiniteAt_character_of_derivations
+#print axioms NLA.Proofs.TR06.GraphQuasiFinite.quasiFiniteAt_character_of_derivations
+#assert_proof_constant NLA.Proofs.TR06.GraphQuasiFinite.isUnramifiedAt_of_point_derivations
+#assert_trust kernel NLA.Proofs.TR06.GraphQuasiFinite.isUnramifiedAt_of_point_derivations
+#print axioms NLA.Proofs.TR06.GraphQuasiFinite.isUnramifiedAt_of_point_derivations
+#assert_proof_constant NLA.Proofs.TR06.GraphQuasiFinite.quasiFiniteAt_of_point_derivations
+#assert_trust kernel NLA.Proofs.TR06.GraphQuasiFinite.quasiFiniteAt_of_point_derivations
+#print axioms NLA.Proofs.TR06.GraphQuasiFinite.quasiFiniteAt_of_point_derivations
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.quasiFiniteAt_aeval_of_point_derivations
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.quasiFiniteAt_aeval_of_point_derivations
+#print axioms NLA.Proofs.TR06.GraphProjection.quasiFiniteAt_aeval_of_point_derivations
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.projectedValues
+#print axioms NLA.Proofs.TR06.GraphProjection.projectedValues
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.projectionHom
+#print axioms NLA.Proofs.TR06.GraphProjection.projectionHom
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.differentiableAt_realGraphValues
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.differentiableAt_realGraphValues
+#print axioms NLA.Proofs.TR06.GraphProjection.differentiableAt_realGraphValues
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.differentiableAt_projectedValues
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.differentiableAt_projectedValues
+#print axioms NLA.Proofs.TR06.GraphProjection.differentiableAt_projectedValues
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.point_derivation_zero_of_projected_fderiv_injective
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.point_derivation_zero_of_projected_fderiv_injective
+#print axioms NLA.Proofs.TR06.GraphProjection.point_derivation_zero_of_projected_fderiv_injective
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.quasiFiniteAt_projection_of_fderiv_injective
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.quasiFiniteAt_projection_of_fderiv_injective
+#print axioms NLA.Proofs.TR06.GraphProjection.quasiFiniteAt_projection_of_fderiv_injective
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.rowProjectedValues
+#print axioms NLA.Proofs.TR06.GraphProjection.rowProjectedValues
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.rowProjectionCoordinate
+#print axioms NLA.Proofs.TR06.GraphProjection.rowProjectionCoordinate
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.rowProjectionHom
+#print axioms NLA.Proofs.TR06.GraphProjection.rowProjectionHom
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.character_rowProjectionCoordinate
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.character_rowProjectionCoordinate
+#print axioms NLA.Proofs.TR06.GraphProjection.character_rowProjectionCoordinate
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.differentiableAt_rowProjectedValues
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.differentiableAt_rowProjectedValues
+#print axioms NLA.Proofs.TR06.GraphProjection.differentiableAt_rowProjectedValues
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.hasDerivAt_rowProjection_of_point_derivation
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.hasDerivAt_rowProjection_of_point_derivation
+#print axioms NLA.Proofs.TR06.GraphProjection.hasDerivAt_rowProjection_of_point_derivation
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.point_derivation_zero_of_rowProjected_fderiv_injective
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.point_derivation_zero_of_rowProjected_fderiv_injective
+#print axioms NLA.Proofs.TR06.GraphProjection.point_derivation_zero_of_rowProjected_fderiv_injective
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.quasiFiniteAt_rowProjection_of_fderiv_injective
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.quasiFiniteAt_rowProjection_of_fderiv_injective
+#print axioms NLA.Proofs.TR06.GraphProjection.quasiFiniteAt_rowProjection_of_fderiv_injective
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.ambientValues
+#print axioms NLA.Proofs.TR06.GraphCharacter.ambientValues
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.orderedCharacter
+#print axioms NLA.Proofs.TR06.GraphCharacter.orderedCharacter
+#assert_proof_constant NLA.Proofs.TR06.GraphCharacter.realGraphValues_ordered
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.realGraphValues_ordered
+#print axioms NLA.Proofs.TR06.GraphCharacter.realGraphValues_ordered
+#assert_proof_constant NLA.Proofs.TR06.GraphCharacter.orderedCharacter_graphCoordinate
+#assert_trust kernel NLA.Proofs.TR06.GraphCharacter.orderedCharacter_graphCoordinate
+#print axioms NLA.Proofs.TR06.GraphCharacter.orderedCharacter_graphCoordinate
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.orderedRowValues
+#print axioms NLA.Proofs.TR06.GraphProjection.orderedRowValues
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.rowProjectedValues_pivotParameterEquiv
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.rowProjectedValues_pivotParameterEquiv
+#print axioms NLA.Proofs.TR06.GraphProjection.rowProjectedValues_pivotParameterEquiv
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.rowProjected_fderiv_injective_of_ordered
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.rowProjected_fderiv_injective_of_ordered
+#print axioms NLA.Proofs.TR06.GraphProjection.rowProjected_fderiv_injective_of_ordered
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.quasiFiniteAt_orderedRowProjection_of_fderiv_injective
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.quasiFiniteAt_orderedRowProjection_of_fderiv_injective
+#print axioms NLA.Proofs.TR06.GraphProjection.quasiFiniteAt_orderedRowProjection_of_fderiv_injective
+#assert_proof_constant NLA.Proofs.TR06.normalizedPivotGraph_rows
+#assert_trust kernel NLA.Proofs.TR06.normalizedPivotGraph_rows
+#print axioms NLA.Proofs.TR06.normalizedPivotGraph_rows
+#assert_proof_constant NLA.Proofs.TR06.chart_rowProjected_derivative_injective
+#assert_trust kernel NLA.Proofs.TR06.chart_rowProjected_derivative_injective
+#print axioms NLA.Proofs.TR06.chart_rowProjected_derivative_injective
+#assert_proof_constant NLA.Proofs.TR06.controlled_normalizedGraph_chart_derivative_injective
+#assert_trust kernel NLA.Proofs.TR06.controlled_normalizedGraph_chart_derivative_injective
+#print axioms NLA.Proofs.TR06.controlled_normalizedGraph_chart_derivative_injective
+#assert_proof_constant NLA.Proofs.TR06.controlled_normalizedGraph_exists_quasiFinite_character
+#assert_trust kernel NLA.Proofs.TR06.controlled_normalizedGraph_exists_quasiFinite_character
+#print axioms NLA.Proofs.TR06.controlled_normalizedGraph_exists_quasiFinite_character
+#assert_trust kernel NLA.TR06.Proposed.characterPrime
+#print axioms NLA.TR06.Proposed.characterPrime
+#assert_trust kernel NLA.TR06.Proposed.AwayCharacterRestrictionStatement
+#print axioms NLA.TR06.Proposed.AwayCharacterRestrictionStatement
+#assert_trust kernel NLA.TR06.Proposed.UniformQuasiFiniteCharacterBoundStatement
+#print axioms NLA.TR06.Proposed.UniformQuasiFiniteCharacterBoundStatement
+#assert_proof_constant NLA.TR06.Proposed.away_character_restriction
+#assert_trust kernel NLA.TR06.Proposed.away_character_restriction
+#print axioms NLA.TR06.Proposed.away_character_restriction
+#assert_proof_constant NLA.TR06.Proposed.uniform_quasiFinite_character_bound
+#assert_trust kernel NLA.TR06.Proposed.uniform_quasiFinite_character_bound
+#print axioms NLA.TR06.Proposed.uniform_quasiFinite_character_bound
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.exists_uniform_aeval_character_finset_bound
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.exists_uniform_aeval_character_finset_bound
+#print axioms NLA.Proofs.TR06.GraphProjection.exists_uniform_aeval_character_finset_bound
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.exists_uniform_aeval_character_family_bound
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.exists_uniform_aeval_character_family_bound
+#print axioms NLA.Proofs.TR06.GraphProjection.exists_uniform_aeval_character_family_bound
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.exists_uniform_row_character_family_bound
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.exists_uniform_row_character_family_bound
+#print axioms NLA.Proofs.TR06.GraphProjection.exists_uniform_row_character_family_bound
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.ambientValues_injective
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.ambientValues_injective
+#print axioms NLA.Proofs.TR06.GraphProjection.ambientValues_injective
+#assert_proof_constant NLA.Proofs.TR06.GraphProjection.exists_uniform_ordered_graph_family_bound
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.exists_uniform_ordered_graph_family_bound
+#print axioms NLA.Proofs.TR06.GraphProjection.exists_uniform_ordered_graph_family_bound
+#assert_proof_constant NLA.Proofs.TR06.finite_union_finite_subset_bound
+#assert_trust kernel NLA.Proofs.TR06.finite_union_finite_subset_bound
+#print axioms NLA.Proofs.TR06.finite_union_finite_subset_bound
+#assert_proof_constant NLA.Proofs.TR06.normalizedPivotGraph_ambientValues
+#assert_trust kernel NLA.Proofs.TR06.normalizedPivotGraph_ambientValues
+#print axioms NLA.Proofs.TR06.normalizedPivotGraph_ambientValues
+#assert_proof_constant NLA.Proofs.TR06.normalizedGraph_controlled_finite_subset_bound
+#assert_trust kernel NLA.Proofs.TR06.normalizedGraph_controlled_finite_subset_bound
+#print axioms NLA.Proofs.TR06.normalizedGraph_controlled_finite_subset_bound
+#assert_proof_constant NLA.Proofs.TR06.normalizedTuple_norm_sq
+#assert_trust kernel NLA.Proofs.TR06.normalizedTuple_norm_sq
+#print axioms NLA.Proofs.TR06.normalizedTuple_norm_sq
+#assert_proof_constant NLA.Proofs.TR06.normalizedAnnularGraph_norm_lt
+#assert_trust kernel NLA.Proofs.TR06.normalizedAnnularGraph_norm_lt
+#print axioms NLA.Proofs.TR06.normalizedAnnularGraph_norm_lt
+#assert_proof_constant NLA.Proofs.TR06.euclideanNormalizedGraph_bounded
+#assert_trust kernel NLA.Proofs.TR06.euclideanNormalizedGraph_bounded
+#print axioms NLA.Proofs.TR06.euclideanNormalizedGraph_bounded
+#assert_proof_constant NLA.Proofs.TR06.normalizedAnnularGraph_volume_lt_top
+#assert_trust kernel NLA.Proofs.TR06.normalizedAnnularGraph_volume_lt_top
+#print axioms NLA.Proofs.TR06.normalizedAnnularGraph_volume_lt_top
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.inputProjection_lipschitz
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.inputProjection_lipschitz
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.inputProjection_lipschitz
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.annulus_subset_inputProjection_graph
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.annulus_subset_inputProjection_graph
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.annulus_subset_inputProjection_graph
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.annular_volume_le_graph_volume
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.annular_volume_le_graph_volume
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.annular_volume_le_graph_volume
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.annular_volume_lt_top_of_graph_volume_lt_top
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.annular_volume_lt_top_of_graph_volume_lt_top
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.annular_volume_lt_top_of_graph_volume_lt_top
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.input
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.input
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.inputImage
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.inputImage
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.input_continuousOn
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.input_continuousOn
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.input_continuousOn
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.input_injOn
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.input_injOn
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.input_injOn
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.inputImage_measurable
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.inputImage_measurable
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.inputImage_measurable
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.inputImage_relatively_open
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.inputImage_relatively_open
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.inputImage_relatively_open
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.exists_inputGraphChart
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.exists_inputGraphChart
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.exists_inputGraphChart
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.exists_countable_input_partition
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.exists_countable_input_partition
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.exists_countable_input_partition
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.fderiv_branchMap
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.fderiv_branchMap
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.fderiv_branchMap
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.branch_jacobian_bound
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.branch_jacobian_bound
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.branch_jacobian_bound
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.graphChart_jacobian_bound
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.graphChart_jacobian_bound
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.graphChart_jacobian_bound
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.exists_measurable_slopeWeight
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.exists_measurable_slopeWeight
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.exists_measurable_slopeWeight
+#assert_proof_constant NLA.TR06.Area.immersion_map_withDensity
+#assert_trust kernel NLA.TR06.Area.immersion_map_withDensity
+#print axioms NLA.TR06.Area.immersion_map_withDensity
+#assert_proof_constant NLA.TR06.Area.immersion_lintegral
+#assert_trust kernel NLA.TR06.Area.immersion_lintegral
+#print axioms NLA.TR06.Area.immersion_lintegral
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.open_immersion_lintegral
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.open_immersion_lintegral
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.open_immersion_lintegral
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.parameterPiece
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.parameterPiece
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.graphPiece
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.graphPiece
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.parameterPiece_measurable
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.parameterPiece_measurable
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.parameterPiece_measurable
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.input_parameterPiece
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.input_parameterPiece
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.input_parameterPiece
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.graphPiece_subset
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.graphPiece_subset
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.graphPiece_subset
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.inputProjection_mem_piece
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.inputProjection_mem_piece
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.inputProjection_mem_piece
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.graphPiece_measurable
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.graphPiece_measurable
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.graphPiece_measurable
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.jacobian_bound
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.jacobian_bound
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.jacobian_bound
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.piece_angularIntegral_le_graphVolume
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.piece_angularIntegral_le_graphVolume
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.InputGraphChart.piece_angularIntegral_le_graphVolume
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.annular_angularIntegral_le_graphVolume
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.annular_angularIntegral_le_graphVolume
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.annular_angularIntegral_le_graphVolume
+#assert_proof_constant NLA.Proofs.TR06.NormalizedGraphArea.actualAnnularBounds_of_graphVolume_lt_top
+#assert_trust kernel NLA.Proofs.TR06.NormalizedGraphArea.actualAnnularBounds_of_graphVolume_lt_top
+#print axioms NLA.Proofs.TR06.NormalizedGraphArea.actualAnnularBounds_of_graphVolume_lt_top
+#assert_proof_constant NLA.Proofs.TR06.Model.inducedVolume_eq_tensorVolume
+#assert_trust kernel NLA.Proofs.TR06.Model.inducedVolume_eq_tensorVolume
+#print axioms NLA.Proofs.TR06.Model.inducedVolume_eq_tensorVolume
+#assert_proof_constant NLA.Proofs.TR06.Model.angularCondition_ae_eq_angularSlope
+#assert_trust kernel NLA.Proofs.TR06.Model.angularCondition_ae_eq_angularSlope
+#print axioms NLA.Proofs.TR06.Model.angularCondition_ae_eq_angularSlope
+#assert_proof_constant NLA.Proofs.TR06.Model.normalizer_eq_normalization
+#assert_trust kernel NLA.Proofs.TR06.Model.normalizer_eq_normalization
+#print axioms NLA.Proofs.TR06.Model.normalizer_eq_normalization
+#assert_proof_constant NLA.Proofs.TR06.Model.angularIntegral_eq_weightedSlope
+#assert_trust kernel NLA.Proofs.TR06.Model.angularIntegral_eq_weightedSlope
+#print axioms NLA.Proofs.TR06.Model.angularIntegral_eq_weightedSlope
+#assert_proof_constant NLA.Proofs.TR06.Model.finiteAngularMean_of_weightedSlope
+#assert_trust kernel NLA.Proofs.TR06.Model.finiteAngularMean_of_weightedSlope
+#print axioms NLA.Proofs.TR06.Model.finiteAngularMean_of_weightedSlope
+#assert_proof_constant NLA.Proofs.TR06.HomogeneousGaussian.cone_eq_iUnion_annulus
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.cone_eq_iUnion_annulus
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.cone_eq_iUnion_annulus
+#assert_proof_constant NLA.Proofs.TR06.HomogeneousGaussian.homogeneous_annular_integral
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.homogeneous_annular_integral
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.homogeneous_annular_integral
+#assert_proof_constant NLA.Proofs.TR06.HomogeneousGaussian.summable_dyadic_gaussian
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.summable_dyadic_gaussian
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.summable_dyadic_gaussian
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.dyadicCoefficient
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.dyadicCoefficient
+#assert_proof_constant NLA.Proofs.TR06.HomogeneousGaussian.dyadicCoefficient_nonneg
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.dyadicCoefficient_nonneg
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.dyadicCoefficient_nonneg
+#assert_proof_constant NLA.Proofs.TR06.HomogeneousGaussian.summable_dyadicCoefficient
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.summable_dyadicCoefficient
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.summable_dyadicCoefficient
+#assert_proof_constant NLA.Proofs.TR06.HomogeneousGaussian.tsum_dyadicCoefficient_lt_top
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.tsum_dyadicCoefficient_lt_top
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.tsum_dyadicCoefficient_lt_top
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.gaussian
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.gaussian
+#assert_proof_constant NLA.Proofs.TR06.HomogeneousGaussian.gaussian_pos
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.gaussian_pos
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.gaussian_pos
+#assert_proof_constant NLA.Proofs.TR06.HomogeneousGaussian.gaussian_le_one
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.gaussian_le_one
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.gaussian_le_one
+#assert_proof_constant NLA.Proofs.TR06.HomogeneousGaussian.gaussian_le_of_norm
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.gaussian_le_of_norm
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.gaussian_le_of_norm
+#assert_proof_constant NLA.Proofs.TR06.HomogeneousGaussian.norm_lower_of_mem_scaled_annulus
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.norm_lower_of_mem_scaled_annulus
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.norm_lower_of_mem_scaled_annulus
+#assert_proof_constant NLA.Proofs.TR06.HomogeneousGaussian.measurableSet_annulus
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.measurableSet_annulus
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.measurableSet_annulus
+#assert_proof_constant NLA.Proofs.TR06.HomogeneousGaussian.gaussian_scaled_annular_bound
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.gaussian_scaled_annular_bound
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.gaussian_scaled_annular_bound
+#assert_proof_constant NLA.Proofs.TR06.HomogeneousGaussian.gaussian_lintegral_lt_top
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.gaussian_lintegral_lt_top
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.gaussian_lintegral_lt_top
+#assert_proof_constant NLA.Proofs.TR06.HomogeneousGaussian.measurable_gaussian
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.measurable_gaussian
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.measurable_gaussian
+#assert_proof_constant NLA.Proofs.TR06.HomogeneousGaussian.gaussian_normalizer_pos
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.gaussian_normalizer_pos
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.gaussian_normalizer_pos
+#assert_proof_constant NLA.Proofs.TR06.HomogeneousGaussian.gaussian_normalizer_lt_top
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.gaussian_normalizer_lt_top
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.gaussian_normalizer_lt_top
+#assert_proof_constant NLA.Proofs.TR06.HomogeneousGaussian.gaussian_numerator_lt_top
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.gaussian_numerator_lt_top
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.gaussian_numerator_lt_top
+#assert_proof_constant NLA.Proofs.TR06.HomogeneousGaussian.finite_gaussian_mean_of_annulus
+#assert_trust kernel NLA.Proofs.TR06.HomogeneousGaussian.finite_gaussian_mean_of_annulus
+#print axioms NLA.Proofs.TR06.HomogeneousGaussian.finite_gaussian_mean_of_annulus
+#assert_proof_constant NLA.Proofs.TR06.Model.expectedDimension_gt_one
+#assert_trust kernel NLA.Proofs.TR06.Model.expectedDimension_gt_one
+#print axioms NLA.Proofs.TR06.Model.expectedDimension_gt_one
+#assert_proof_constant NLA.Proofs.TR06.Model.smoothVolume_eq_tensorVolume
+#assert_trust kernel NLA.Proofs.TR06.Model.smoothVolume_eq_tensorVolume
+#print axioms NLA.Proofs.TR06.Model.smoothVolume_eq_tensorVolume
+#assert_proof_constant NLA.Proofs.TR06.Model.smooth_gaussianNormalizer_eq_normalization
+#assert_trust kernel NLA.Proofs.TR06.Model.smooth_gaussianNormalizer_eq_normalization
+#print axioms NLA.Proofs.TR06.Model.smooth_gaussianNormalizer_eq_normalization
+#assert_proof_constant NLA.Proofs.TR06.Model.smooth_weightedSlope_eq_weightedSlope
+#assert_trust kernel NLA.Proofs.TR06.Model.smooth_weightedSlope_eq_weightedSlope
+#print axioms NLA.Proofs.TR06.Model.smooth_weightedSlope_eq_weightedSlope
+#assert_proof_constant NLA.Proofs.TR06.Model.finiteAngularMean_of_actualAnnularBounds
+#assert_trust kernel NLA.Proofs.TR06.Model.finiteAngularMean_of_actualAnnularBounds
+#print axioms NLA.Proofs.TR06.Model.finiteAngularMean_of_actualAnnularBounds
+#assert_proof_constant NLA.Proofs.TR06.Model.regularVolume_eq_tensorVolume
+#assert_trust kernel NLA.Proofs.TR06.Model.regularVolume_eq_tensorVolume
+#print axioms NLA.Proofs.TR06.Model.regularVolume_eq_tensorVolume
+#assert_proof_constant NLA.Proofs.TR06.Model.sourceVolume_eq_tensorVolume
+#assert_trust kernel NLA.Proofs.TR06.Model.sourceVolume_eq_tensorVolume
+#print axioms NLA.Proofs.TR06.Model.sourceVolume_eq_tensorVolume
+#assert_proof_constant NLA.Proofs.TR06.Model.regularNormalization_eq_normalization
+#assert_trust kernel NLA.Proofs.TR06.Model.regularNormalization_eq_normalization
+#print axioms NLA.Proofs.TR06.Model.regularNormalization_eq_normalization
+#assert_proof_constant NLA.Proofs.TR06.Model.sourceNormalization_eq_normalization
+#assert_trust kernel NLA.Proofs.TR06.Model.sourceNormalization_eq_normalization
+#print axioms NLA.Proofs.TR06.Model.sourceNormalization_eq_normalization
+#assert_proof_constant NLA.Proofs.TR06.Model.regularInputMeasure_eq_inputMeasure
+#assert_trust kernel NLA.Proofs.TR06.Model.regularInputMeasure_eq_inputMeasure
+#print axioms NLA.Proofs.TR06.Model.regularInputMeasure_eq_inputMeasure
+#assert_proof_constant NLA.Proofs.TR06.Model.sourceInputMeasure_eq_inputMeasure
+#assert_trust kernel NLA.Proofs.TR06.Model.sourceInputMeasure_eq_inputMeasure
+#print axioms NLA.Proofs.TR06.Model.sourceInputMeasure_eq_inputMeasure
+#assert_proof_constant NLA.Proofs.TR06.Model.inputMeasure_isProbability
+#assert_trust kernel NLA.Proofs.TR06.Model.inputMeasure_isProbability
+#print axioms NLA.Proofs.TR06.Model.inputMeasure_isProbability
+#assert_proof_constant NLA.Proofs.TR06.Model.aemeasurable_angularSlope_tensorVolume
+#assert_trust kernel NLA.Proofs.TR06.Model.aemeasurable_angularSlope_tensorVolume
+#print axioms NLA.Proofs.TR06.Model.aemeasurable_angularSlope_tensorVolume
+#assert_proof_constant NLA.Proofs.TR06.Model.inputMeasure_absolutelyContinuous
+#assert_trust kernel NLA.Proofs.TR06.Model.inputMeasure_absolutelyContinuous
+#print axioms NLA.Proofs.TR06.Model.inputMeasure_absolutelyContinuous
+#assert_proof_constant NLA.Proofs.TR06.Model.normalized_angularIntegral_eq
+#assert_trust kernel NLA.Proofs.TR06.Model.normalized_angularIntegral_eq
+#print axioms NLA.Proofs.TR06.Model.normalized_angularIntegral_eq
+#assert_proof_constant NLA.Proofs.TR06.Model.sourceAngular_ae_eq_angularSlope
+#assert_trust kernel NLA.Proofs.TR06.Model.sourceAngular_ae_eq_angularSlope
+#print axioms NLA.Proofs.TR06.Model.sourceAngular_ae_eq_angularSlope
+#assert_proof_constant NLA.Proofs.TR06.Model.aemeasurable_sourceAngular_inputMeasure
+#assert_trust kernel NLA.Proofs.TR06.Model.aemeasurable_sourceAngular_inputMeasure
+#print axioms NLA.Proofs.TR06.Model.aemeasurable_sourceAngular_inputMeasure
+#assert_proof_constant NLA.Proofs.TR06.Model.normalized_sourceAngularIntegral_eq
+#assert_trust kernel NLA.Proofs.TR06.Model.normalized_sourceAngularIntegral_eq
+#print axioms NLA.Proofs.TR06.Model.normalized_sourceAngularIntegral_eq
+#assert_proof_constant NLA.Proofs.TR06.target
+#assert_trust kernel NLA.Proofs.TR06.target
+#print axioms NLA.Proofs.TR06.target
+#assert_proof_constant NLA.TR06.generic_iff_source
+#assert_trust kernel NLA.TR06.generic_iff_source
+#print axioms NLA.TR06.generic_iff_source
+#assert_proof_constant NLA.TR06.regular_locus
+#assert_trust kernel NLA.TR06.regular_locus
+#print axioms NLA.TR06.regular_locus
+#assert_proof_constant NLA.TR06.smooth_locus_correspondence
+#assert_trust kernel NLA.TR06.smooth_locus_correspondence
+#print axioms NLA.TR06.smooth_locus_correspondence
+#assert_proof_constant NLA.TR06.source_model_correspondence
+#assert_trust kernel NLA.TR06.source_model_correspondence
+#print axioms NLA.TR06.source_model_correspondence
+#assert_proof_constant NLA.Proofs.TR06.RetainedBoundary.model_integrability_of_intrinsic_mean
+#assert_trust kernel NLA.Proofs.TR06.RetainedBoundary.model_integrability_of_intrinsic_mean
+#print axioms NLA.Proofs.TR06.RetainedBoundary.model_integrability_of_intrinsic_mean
+#assert_proof_constant NLA.TR06.finite_angular_mean
+#assert_trust kernel NLA.TR06.finite_angular_mean
+#print axioms NLA.TR06.finite_angular_mean
+#assert_proof_constant NLA.TR06.finite_angular_mean_source
+#assert_trust kernel NLA.TR06.finite_angular_mean_source
+#print axioms NLA.TR06.finite_angular_mean_source
+open Lean Elab Command in
+elab "#assert_literal_tr06_target " n:ident : command => do
+  let decl ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  match (← getEnv).find? decl with
+  | some (.thmInfo info) =>
+    unless info.type == mkConst ``NLA.Statements.TR06.Target do
+      throwErrorAt n "expected the literal unchanged TR06 Target, without parameters"
+  | _ => throwErrorAt n "expected a proved theorem constant"
+#assert_literal_tr06_target NLA.Proofs.TR06.target
+#assert_trust kernel NLA.Proofs.TR06.target
+#print axioms NLA.Proofs.TR06.target
+
+noncomputable section
+open scoped ENNReal MeasureTheory
+open MeasureTheory Set
+namespace NLA.TR06
+example {d : ℕ} {n : Fin d → ℕ} {r k : ℕ}
+    (dφ : EuclideanSpace ℝ (Fin k) →L[ℝ] Tensor ℝ d n)
+    (dg : EuclideanSpace ℝ (Fin k) →L[ℝ] AngularOutput d n r)
+    (hinj : Function.Injective dφ) :
+    derivativeRatio dφ dg = ENNReal.ofReal ‖inducedDerivative dφ dg hinj‖ := @NLA.TR06.derivativeRatio_eq_operatorNorm d n r k dφ dg hinj
+#assert_proof_constant NLA.TR06.derivativeRatio_eq_operatorNorm
+#assert_trust kernel NLA.TR06.derivativeRatio_eq_operatorNorm
+#print axioms NLA.TR06.derivativeRatio_eq_operatorNorm
+example {d : ℕ} {n : Fin d → ℕ} {r : ℕ}
+    (c : DecompositionChart d n r)
+    (u : EuclideanSpace ℝ (Fin (expectedDimension d n r))) (hu : u ∈ c.chart.source) :
+    angularSlope r (c.chart u).val =
+      derivativeRatio (fderiv ℝ (fun v => (c.chart v).val) u)
+        (fderiv ℝ (fun v => normalizedTuple (c.summands v)) u) := @NLA.TR06.angularSlope_eq_chart_derivative d n r c u hu
+#assert_proof_constant NLA.TR06.angularSlope_eq_chart_derivative
+#assert_trust kernel NLA.TR06.angularSlope_eq_chart_derivative
+#print axioms NLA.TR06.angularSlope_eq_chart_derivative
+example {d : ℕ} {n : Fin d → ℕ} {r : ℕ}
+    (c : DecompositionChart d n r)
+    (s : Set (EuclideanSpace ℝ (Fin (expectedDimension d n r))))
+    (hs : MeasurableSet s) (hsub : s ⊆ c.chart.source) :
+    (μHE[expectedDimension d n r] : Measure (Tensor ℝ d n))
+      ((fun v => (c.chart v).val) '' s) =
+    ∫⁻ v in s,
+      ENNReal.ofReal ((fderiv ℝ (fun w => (c.chart w).val) v).toLinearMap.normDet) := @NLA.TR06.induced_volume_chart d n r c s hs hsub
+#assert_proof_constant NLA.TR06.induced_volume_chart
+#assert_trust kernel NLA.TR06.induced_volume_chart
+#print axioms NLA.TR06.induced_volume_chart
+example {d : ℕ} (n : Fin d → ℕ) (r : ℕ)
+    (hd : 3 ≤ d) (hn : ∀ j, 2 ≤ n j) (hr : 3 ≤ r)
+    (hgeneric : GenericComplexIdentifiable d n r) :
+    MeasurableSet (identifiableRealSet d n r) ∧
+    MeasurableSet (regularSet d n r) ∧
+    regularSet d n r ⊆ identifiableRealSet d n r ∧
+    tensorVolume d n r (identifiableRealSet d n r \ regularSet d n r) = 0 ∧
+    regularVolume d n r Set.univ ≠ 0 := @NLA.TR06.regular_locus d n r hd hn hr hgeneric
+#assert_proof_constant NLA.TR06.regular_locus
+#assert_trust kernel NLA.TR06.regular_locus
+#print axioms NLA.TR06.regular_locus
+example {d : ℕ} (n : Fin d → ℕ) (r : ℕ)
+    (hd : 3 ≤ d) (hn : ∀ j, 2 ≤ n j) (hr : 3 ≤ r)
+    (hgeneric : GenericComplexIdentifiable d n r) :
+    0 < normalization d n r ∧ normalization d n r < ⊤ ∧
+    regularNormalization d n r = normalization d n r ∧
+    regularInputMeasure d n r = inputMeasure d n r ∧
+    IsProbabilityMeasure (regularInputMeasure d n r) ∧
+    AEMeasurable (angularSlope (d := d) (n := n) r) (tensorVolume d n r) ∧
+    (∫⁻ A, angularSlope r A ∂(inputMeasure d n r)) < ⊤ ∧
+    (∫⁻ A, angularSlope r A ∂(regularInputMeasure d n r)) < ⊤ := @NLA.TR06.finite_angular_mean d n r hd hn hr hgeneric
+#assert_proof_constant NLA.TR06.finite_angular_mean
+#assert_trust kernel NLA.TR06.finite_angular_mean
+#print axioms NLA.TR06.finite_angular_mean
+example (d : ℕ) (n : Fin d → ℕ) (r : ℕ) :
+    GenericComplexIdentifiable d n r ↔ SourceGenericComplexIdentifiable d n r := @NLA.TR06.generic_iff_source d n r
+#assert_proof_constant NLA.TR06.generic_iff_source
+#assert_trust kernel NLA.TR06.generic_iff_source
+#print axioms NLA.TR06.generic_iff_source
+example {d : ℕ} (n : Fin d → ℕ) (r : ℕ)
+    (hd : 3 ≤ d) (hn : ∀ j, 2 ≤ n j) (hr : 3 ≤ r)
+    (hgeneric : SourceGenericComplexIdentifiable d n r) :
+    MeasurableSet (sourceSmoothSet d n r) ∧
+    MeasurableSet (smoothRegularSet d n r) ∧
+    smoothRegularSet d n r ⊆ sourceSmoothSet d n r ∧
+    tensorVolume d n r (identifiableRealSet d n r \ smoothRegularSet d n r) = 0 ∧
+    sourceVolume d n r = regularVolume d n r := @NLA.TR06.smooth_locus_correspondence d n r hd hn hr hgeneric
+#assert_proof_constant NLA.TR06.smooth_locus_correspondence
+#assert_trust kernel NLA.TR06.smooth_locus_correspondence
+#print axioms NLA.TR06.smooth_locus_correspondence
+example {d : ℕ} {n : Fin d → ℕ} {r : ℕ}
+    (hd : 3 ≤ d) (hn : ∀ j, 2 ≤ n j) (hr : 3 ≤ r)
+    (c : SmoothDecompositionChart d n r)
+    (u : EuclideanSpace ℝ (Fin (expectedDimension d n r))) (hu : u ∈ c.chart.source) :
+    IsLocalAdditionInverse c u := @NLA.TR06.smooth_chart_is_local_addition_inverse d n r hd hn hr c u hu
+#assert_proof_constant NLA.TR06.smooth_chart_is_local_addition_inverse
+#assert_trust kernel NLA.TR06.smooth_chart_is_local_addition_inverse
+#print axioms NLA.TR06.smooth_chart_is_local_addition_inverse
+example {d : ℕ} (n : Fin d → ℕ) (r : ℕ)
+    (hd : 3 ≤ d) (hn : ∀ j, 2 ≤ n j) (hr : 3 ≤ r)
+    (hgeneric : SourceGenericComplexIdentifiable d n r) :
+    sourceNormalization d n r = normalization d n r ∧
+    sourceInputMeasure d n r = inputMeasure d n r ∧
+    (∀ᵐ A ∂(sourceVolume d n r), sourceAngular d n r A = angularSlope r A) := @NLA.TR06.source_model_correspondence d n r hd hn hr hgeneric
+#assert_proof_constant NLA.TR06.source_model_correspondence
+#assert_trust kernel NLA.TR06.source_model_correspondence
+#print axioms NLA.TR06.source_model_correspondence
+example {d : ℕ} (n : Fin d → ℕ) (r : ℕ)
+    (hd : 3 ≤ d) (hn : ∀ j, 2 ≤ n j) (hr : 3 ≤ r)
+    (hgeneric : SourceGenericComplexIdentifiable d n r) :
+    0 < sourceNormalization d n r ∧ sourceNormalization d n r < ⊤ ∧
+    IsProbabilityMeasure (sourceInputMeasure d n r) ∧
+    AEMeasurable (sourceAngular d n r) (sourceInputMeasure d n r) ∧
+    (∫⁻ A, sourceAngular d n r A ∂(sourceInputMeasure d n r)) < ⊤ := @NLA.TR06.finite_angular_mean_source d n r hd hn hr hgeneric
+#assert_proof_constant NLA.TR06.finite_angular_mean_source
+#assert_trust kernel NLA.TR06.finite_angular_mean_source
+#print axioms NLA.TR06.finite_angular_mean_source
+end NLA.TR06

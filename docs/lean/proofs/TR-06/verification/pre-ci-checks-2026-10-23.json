@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-23",
+  "reviewer": "/root (package author; static checks)",
+  "scope": "Executed local static metadata/ID/index controls. Independent proof and actual Linux evidence are separate.",
+  "checks": {
+    "217 IDs": {
+      "command": "python3 tools/validate_problem_ids.py --base-ref origin/main",
+      "passed": true,
+      "count": 217
+    },
+    "catalog": {
+      "command": "python3 tools/update_catalog.py --base-ref origin/main",
+      "passed": true,
+      "entries": 217,
+      "counts": {
+        "Lean verified": 83,
+        "Solved": 35,
+        "Open": 36,
+        "Partially resolved": 62,
+        "Solution claimed": 1
+      }
+    },
+    "ID tests": {
+      "command": "python3 -m unittest discover -s tests -p 'test_problem_ids.py' -v",
+      "passed": true,
+      "tests": 17
+    },
+    "manifest selector tests": {
+      "command": "metadata-venv/bin/python -m unittest discover -s tests -p 'test_lean_verification.py' -v",
+      "passed": true,
+      "tests": 30
+    },
+    "manifest": {
+      "command": "metadata-venv/bin/python tools/lean/validate_manifest.py tensor-computations/TR-06/lean",
+      "passed": true,
+      "exports": 11
+    },
+    "copy lock": {
+      "command": "python3 docs/lean/proofs/TR-06/sync-canonical-proof.py",
+      "passed": true,
+      "copies": 140,
+      "Lean inputs": 144
+    },
+    "statement metadata": {
+      "command": "python3 tools/lean_statements/check.py --base-ref origin/main validate",
+      "passed": true,
+      "records": 45
+    },
+    "statement inventory tests": {
+      "passed": true,
+      "tests": 8,
+      "log": "docs/lean/proofs/TR-06/verification/statement-inventory-tests-2026-10-23.log",
+      "sha256": "604e3ebb263b275e2df789c20a7b6c0608695d654b8e2ce2c1dbf4e7580674f7"
+    },
+    "statement rejection tests": {
+      "passed": true,
+      "tests": 17,
+      "log": "docs/lean/proofs/TR-06/verification/statement-boundary-tests-2026-10-23.log",
+      "sha256": "e598c6d8a399748c3785380f3535254e40d15ac187758ba0ccff492d0342c936"
+    }
+  },
+  "passed": true
+}

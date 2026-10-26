@@ -1,0 +1,33 @@
+from pathlib import Path
+import json
+v=Path('docs/lean/proofs/TR-06/campaign-2026-10-18/verification');d=json.loads((v/'unramified-differential-review-3/result.json').read_text());h=json.loads((v/'unramified-differential-final-source-lock-review-3.json').read_text());assert d['passed']
+for n,x in h.items():assert d['source_sha256']['NLA/Proofs/TR06/'+n+'.lean']==x
+newds=[x for x in d['declarations'] if x['source'] in ['NLA/Proofs/TR06/'+n+'.lean' for n in h]]
+a={'date':'2026-10-18','reviewer':'/root/lean_verification','reviewer_authored_TR06_proof_sources':[],'status':'PASS actual generic-unramified localization to real ordered-pivot derivative injectivity','frozen_six_module_sha256':h,'actual_local_sources_rebuilt':len(d['source_unchanged_after']),'fresh_commands':len(d['commands']),'declarations_checked':len(d['declarations']),'theorem_kind_checks':d['proof_theorem_count'],'new_six_module_declarations':len(newds),'new_six_module_theorems':sum(x['kind']=='theorem' for x in newds),'private_declarations_checked':sum(x['visibility']=='private' for x in d['declarations']),'kernel_trust_passed':True,'observed_axioms':['Classical.choice','Quot.sound','propext'],'retained_58_before':d['retained_58_before'],'retained_58_after':d['retained_58_after'],'all_10_pinned_dependencies_clean_before_after':True,'full_TR06_Target_proved':False,'authoritative_linux_comparator':False,'actual_top_level_premises':['0 < d','original GenericComplexIdentifiable d n r'],'additional_Jacobian_rank_unramified_or_finite_localization_certificate_premise':False,'fullmeasure_or_normalized_graph_projection_bound_claim':False,'evidence':'unramified-differential-review-3/result.json','report':'UNRAMIFIED_DIFFERENTIAL_INDEPENDENT_REVIEW_3_2026-10-18.md','driver_sha256':d['audit_driver_sha256']}
+(v/'UNRAMIFIED_DIFFERENTIAL_APPROVAL_3.json').write_text(json.dumps(a,indent=2)+'\n')
+(v/'UNRAMIFIED_DIFFERENTIAL_INDEPENDENT_REVIEW_3_2026-10-18.md').write_text('''# Independent actual unramified differential support review 3
+
+**PASS for the frozen six-module G1 differential subgate.** Reviewer `/root/lean_verification` authored no TR06 proof module. All six author-frozen SHA-256 values match `unramified-differential-final-source-lock-review-3.json` and the fresh source snapshots.
+
+The independent fresh closure rebuilt **26 actual local sources plus one consumer (27 successful commands)**. It checks 245 explicitly named declarations and 138 actual theorem constants, including all private declarations in the imported retained closure. Every selected constant passes LeanCert kernel trust, and axiom closures contain only `propext`, `Classical.choice`, and `Quot.sound`. All 58 retained source hashes and ten pinned dependency revisions/cleanliness checks remain exact before/after. Raw commands, source bytes, consumer, dependency data, executable hash, driver and output are in `unramified-differential-review-3/`.
+
+I read all 721 lines of the six new modules and the retained generic-unramified localization implementation, with its actual finite/domain/character inputs checked against the already reviewed addition-localization closure. No blocker was found.
+
+`UnramifiedDifferentialAlgebra` converts an actual point derivation into a genuine dual-number algebra homomorphism. The nonzero character value makes the denominator invertible in both the ordinary and zero-jet lifts. Actual formally unramified square-zero lift uniqueness forces their equality, hence the derivation vanishes. Simultaneously localized source and base use the canonical scalar tower; unramifiedness is composed with base localization explicitly.
+
+`Coordinates` embeds actual raw pivot factors into the retained Segre polynomial subalgebra, absorbing amplitude in one actual mode. This is an actual substitution algebra homomorphism, not a supplied symbolic coordinate oracle. Pivot amplitude and one-mode replacement coordinates detect every parameter direction when amplitudes are nonzero. `Jet` proves first-jet coefficients equal actual analytic directional derivatives by polynomial induction and uniqueness of derivatives. No real/complex tensor-rank identification is used.
+
+`GoodLocus` proves that a direction killed by the actual addition derivative annihilates **every** base algebra element by polynomial generation; annihilation of coordinate generators is not left as an extra hypothesis. Actual localized unramifiedness kills its source derivation, and the pivot-coordinate detection recovers zero parameter direction. The original generic complex identifiability hypothesis supplies a nonzero base denominator using the retained finite character fiber, generic quasi-finiteness, characteristic-zero separability, and generic unramified localization. These are proved algebraic gates, not additional top-level assumptions.
+
+`RealJet` compares the actual real directional derivative with the complex dual-number jet along the same real affine line. `Real` uses a literal finite-dimensional continuous linear equivalence between the two retained parameter layouts and proves exact equality of the actual tensor-sum functions. Injectivity transfers through that equivalence to the actual retained `fderiv ℝ (pivotSum q₀)`. Choosing an ambient representative of the actual nonzero denominator yields `exists_ambient_real_derivative_denominator`: from `0 < d` and the original generic-complex premise it produces a polynomial with nonzero Segre pullback whose nonvanishing forces derivative injectivity at every nonzero-amplitude ordered-pivot point.
+
+No Jacobian rank, unramifiedness, finite localization, or polynomial denominator certificate remains as an extra premise of this top theorem. Nonzero amplitudes and denominator evaluations are the stated conditions on points where the conclusion applies. The gate does not itself prove exceptional-set nullity, full measure, compact addition preimages, uniform normalized graph fibers, Gaussian integrability, or the full TR06 Target. It does not infer complex quasi-finiteness from real local setwise injectivity.
+
+Reproduce using a fresh evidence name:
+
+```sh
+python3 docs/lean/proofs/TR-06/campaign-2026-10-18/verification/check-unramified-differential-review-3.py \\
+  --top UnramifiedDifferentialReal --evidence-name unramified-differential-review-3
+```
+''')
+print({k:a[k] for k in ['status','actual_local_sources_rebuilt','fresh_commands','declarations_checked','theorem_kind_checks','new_six_module_declarations','new_six_module_theorems','private_declarations_checked']})

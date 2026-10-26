@@ -1,0 +1,73 @@
+NLA/Proofs/TR06/NormalizedGraphQuasiFiniteRows.lean:23:9: error: Type mismatch
+  graphCoordinateDecode (realGraphValues q p) = normalizedPivotGraph q p
+has type
+  Prop
+of sort `Type` but is expected to have type
+  Type
+of sort `Type 1`
+NLA/Proofs/TR06/NormalizedGraphQuasiFiniteRows.lean:42:6: error(lean.unknownIdentifier): Unknown identifier `branchMap_contDiffOn`
+NLA/Proofs/TR06/NormalizedGraphQuasiFiniteRows.lean:51:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  fderiv ℝ (⇑e ∘ fun v => coordProjection σ ((graphEuclideanEquiv d n r) (branchMap c v))) u
+in the target expression
+  Function.Injective ⇑(fderiv ℝ (fun v => (coordProjection σ ((graphEuclideanEquiv d n r) (branchMap c v))).ofLp) u)
+
+d : ℕ
+n : Fin d → ℕ
+r k : ℕ
+σ : Fin k ↪ Fin (graphAmbientDimension d n r)
+c : SmoothDecompositionChart d n r
+q : Fin r → TensorIndex d n
+u : EuclideanSpace ℝ (Fin (expectedDimension d n r))
+hu : u ∈ c.chart.source
+hp : ∀ (i : Fin r), (c.summands u i).ofLp (q i) ≠ 0
+hinj : Function.Injective ⇑(fderiv ℝ (fun v => coordProjection σ ((graphEuclideanEquiv d n r) (branchMap c v))) u)
+e : (PiLp 2 fun x => ℝ) ≃L[ℝ] Fin k → ℝ := PiLp.continuousLinearEquiv 2 ℝ fun x => ℝ
+hbranch : DifferentiableAt ℝ (branchMap c) u
+hproject : DifferentiableAt ℝ (fun v => coordProjection σ ((graphEuclideanEquiv d n r) (branchMap c v))) u
+hflat :
+  fderiv ℝ (⇑e ∘ fun v => coordProjection σ ((graphEuclideanEquiv d n r) (branchMap c v))) u =
+    ↑e ∘SL fderiv ℝ (fun v => coordProjection σ ((graphEuclideanEquiv d n r) (branchMap c v))) u
+⊢ Function.Injective ⇑(fderiv ℝ (fun v => (coordProjection σ ((graphEuclideanEquiv d n r) (branchMap c v))).ofLp) u)
+NLA/Proofs/TR06/NormalizedGraphQuasiFiniteRows.lean:67:16: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  fderiv ?m.460 (fun v => rowProjectedValues q (graphProjectionRows σ) (chartGraphParameter c q v)) u
+in the target expression
+  Function.Injective ⇑(fderiv ℝ (rowProjectedValues q (graphProjectionRows σ) ∘ chartGraphParameter c q) u)
+
+d : ℕ
+n : Fin d → ℕ
+r k : ℕ
+σ : Fin k ↪ Fin (graphAmbientDimension d n r)
+c : SmoothDecompositionChart d n r
+q : Fin r → TensorIndex d n
+u : EuclideanSpace ℝ (Fin (expectedDimension d n r))
+hu : u ∈ c.chart.source
+hp : ∀ (i : Fin r), (c.summands u i).ofLp (q i) ≠ 0
+hinj : Function.Injective ⇑(fderiv ℝ (fun v => coordProjection σ ((graphEuclideanEquiv d n r) (branchMap c v))) u)
+e : (PiLp 2 fun x => ℝ) ≃L[ℝ] Fin k → ℝ := PiLp.continuousLinearEquiv 2 ℝ fun x => ℝ
+hbranch : DifferentiableAt ℝ (branchMap c) u
+hproject : DifferentiableAt ℝ (fun v => coordProjection σ ((graphEuclideanEquiv d n r) (branchMap c v))) u
+hflat :
+  fderiv ℝ (⇑e ∘ fun v => coordProjection σ ((graphEuclideanEquiv d n r) (branchMap c v))) u =
+    ↑e ∘SL fderiv ℝ (fun v => coordProjection σ ((graphEuclideanEquiv d n r) (branchMap c v))) u
+hflatInj :
+  Function.Injective ⇑(fderiv ℝ (fun v => (coordProjection σ ((graphEuclideanEquiv d n r) (branchMap c v))).ofLp) u)
+hlocal :
+  (fun v => rowProjectedValues q (graphProjectionRows σ) (chartGraphParameter c q v)) =ᶠ[𝓝 u] fun v =>
+    (coordProjection σ ((graphEuclideanEquiv d n r) (branchMap c v))).ofLp
+hamp : ∀ (i : Fin r), (chartGraphParameter c q u).ofLp ⟨i, none⟩ ≠ 0
+hcomp :
+  fderiv ℝ (rowProjectedValues q (graphProjectionRows σ) ∘ chartGraphParameter c q) u =
+    fderiv ℝ (rowProjectedValues q (graphProjectionRows σ)) (chartGraphParameter c q u) ∘SL
+      fderiv ℝ (chartGraphParameter c q) u
+⊢ Function.Injective ⇑(fderiv ℝ (rowProjectedValues q (graphProjectionRows σ) ∘ chartGraphParameter c q) u)
+NLA/Proofs/TR06/NormalizedGraphQuasiFiniteRows.lean:75:21: error: #assert_trust: 'NLA.Proofs.TR06.normalizedPivotGraph_rows' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+NLA/Proofs/TR06/NormalizedGraphQuasiFiniteRows.lean:76:21: error: #assert_trust: 'NLA.Proofs.TR06.chart_rowProjected_derivative_injective' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.TR06.chart_rowProjected_derivative_injective' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.TR06.NormalizedGraphQuasiFiniteRows 1

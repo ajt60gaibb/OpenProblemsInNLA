@@ -1,0 +1,12 @@
+import NLA.Proofs.TR06.GraphProjectionOrderedBound
+set_option leancert.trust "kernel"
+#print axioms NLA.Proofs.TR06.GraphProjection.exists_uniform_aeval_character_finset_bound
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.exists_uniform_aeval_character_finset_bound
+#print axioms NLA.Proofs.TR06.GraphProjection.exists_uniform_aeval_character_family_bound
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.exists_uniform_aeval_character_family_bound
+#print axioms NLA.Proofs.TR06.GraphProjection.exists_uniform_row_character_family_bound
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.exists_uniform_row_character_family_bound
+#print axioms NLA.Proofs.TR06.GraphProjection.ambientValues_injective
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.ambientValues_injective
+#print axioms NLA.Proofs.TR06.GraphProjection.exists_uniform_ordered_graph_family_bound
+#assert_trust kernel NLA.Proofs.TR06.GraphProjection.exists_uniform_ordered_graph_family_bound

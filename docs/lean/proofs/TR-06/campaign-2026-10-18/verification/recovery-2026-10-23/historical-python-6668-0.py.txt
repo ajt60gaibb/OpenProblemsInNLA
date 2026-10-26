@@ -1,0 +1,7 @@
+from pathlib import Path
+import hashlib,json
+v=Path('docs/lean/proofs/TR-06/campaign-2026-10-18/verification');s=(v/'check-properness-gate-review-3.py').read_text().replace('Fresh-source local TR06 frozen seven-module complete real addition properness support audit; no full TR06 Target claim','Fresh-source local TR06 actual whole normalized annular graph charts, positive annular volume and generic character-quasi-finite support audit; no actual uniform graph-fiber or full TR06 Target claim');(v/'check-normalized-graph-charts-review-3.py').write_text(s)
+h={'NormalizedGraphChartsRadial':'f9c897eefad4e07765d9dcdc832cd12866847822e976c4428fd4a4d4c63d3f5b','NormalizedGraphChartsSeparation':'d0281a1fc4d2040495e84d7d3d8b073a9b35739dc0509dbcea55cde5201b34f4','NormalizedGraphChartsBasic':'199cf6d4753ff2486f413caca2a5200ae947eb661cadaf5679cca292ae382f1f','NormalizedGraphCharts':'9d60fd0251a3e25041225f8f6a4329e08d50bf0d9fcced6f83e4939fe6603c8d','AlgebraicLocusPositiveVolume':'b78c24d76248f096b76dd9c29cf24d314ab52cc5be837afd3eb0c39ab2b02a1b'}
+for n,x in h.items():assert hashlib.sha256((Path('lean-statements/NLA/Proofs/TR06')/(n+'.lean')).read_bytes()).hexdigest()==x,n
+p=Path('lean-statements/NLA/Proofs/TR06/NormalizedGraphDefinitions.lean');g=hashlib.sha256(p.read_bytes()).hexdigest();assert g.startswith('8ec8'),g;h['NormalizedGraphDefinitions']=g
+(v/'normalized-graph-charts-final-lock-review-3.json').write_text(json.dumps(h,indent=2)+'\n');print('all four final chart sources and positive volume hashes matched; root graph definition hash',g)
