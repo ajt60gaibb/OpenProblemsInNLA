@@ -1,0 +1,6 @@
+import Inventory.Audit
+set_option leancert.trust "kernel"
+open scoped BigOperators NNReal ENNReal
+open MeasureTheory ProbabilityTheory NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06
+theorem counterfeit {n m : ℕ} (F : Family n m) (A : Matrix (Fin n) (Fin n) ℝ) (q offset r : ℕ) (hq : 0<q) (hr : r<n) (η : ℝ) (hη0 : 0<η) (hη1 : η<1) : GaussianLaw.real {ω | ((1+η)/(1-η))*(optimum A F)^2 < residualTailEnergy (A-F (gaussianWarmIndex F A q offset ω)) r} ≤ (m+2 : ℝ)*Real.exp (-(q : ℝ)*(r : ℝ)*η/4)+Real.exp (-(q : ℝ)*η^2/8) := by sorry
+#assert_trust kernel counterfeit

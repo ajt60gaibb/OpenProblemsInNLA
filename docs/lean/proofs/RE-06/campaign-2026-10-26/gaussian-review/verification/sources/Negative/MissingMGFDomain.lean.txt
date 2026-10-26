@@ -1,0 +1,7 @@
+import NLA.Proofs.RE06.GaussianWarmStartResidual
+set_option leancert.trust "kernel"
+open scoped BigOperators
+open MeasureTheory ProbabilityTheory
+open NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06
+example : (∫ x : ℝ, Real.exp ((1 : ℝ)*x^2) ∂gaussianReal 0 1) =
+    (Real.sqrt (1-2*(1 : ℝ)))⁻¹ := gaussian_square_exp_integral 1
