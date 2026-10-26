@@ -1,0 +1,32 @@
+NLA/Proofs/RE05/ComplementProjection.lean:29:8: error: typeclass instance problem is stuck
+  NonUnitalCommSemiring ?m.17
+
+Note: Lean will not try to resolve this typeclass instance problem because the type argument to `NonUnitalCommSemiring` is a metavariable. This argument must be fully determined before Lean will try to resolve the typeclass.
+
+Hint: Adding type annotations and supplying implicit arguments to functions can give Lean more information for typeclass resolution. For example, if you have a variable `x` that you intend to be a `Nat`, but Lean reports it as having an unresolved type like `?m`, replacing `x` with `(x : Nat)` can get typeclass resolution un-stuck.
+NLA/Proofs/RE05/ComplementProjection.lean:82:9: error: Tactic `rewrite` failed: motive is not type correct:
+  fun _a => (if _a then 1 else 0) = if a = b then 1 else 0
+Error: Application type mismatch: The argument
+  instDecidableEqFin n plan.selected[a] plan.selected[b]
+has type
+  Decidable (plan.selected[a] = plan.selected[b])
+but is expected to have type
+  Decidable _a
+in the application
+  @ite ℝ _a (instDecidableEqFin n plan.selected[a] plan.selected[b])
+
+Explanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.
+
+Possible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).
+
+n q : ℕ
+P : Basis n q
+ξ : ℝ
+ω : ℕ → ℝ
+copy : Fin 15
+plan : Plan n := makePlan P ξ ω copy
+hI : ∀ (a b : Fin plan.selected.length), plan.selected[a] = plan.selected[b] ↔ a = b
+a b : Fin (makePlan P ξ ω copy).selected.length
+h : ∑ i, plan.U i plan.selected[a] * plan.U i plan.selected[b] = if plan.selected[a] = plan.selected[b] then 1 else 0
+⊢ (if plan.selected[a] = plan.selected[b] then 1 else 0) = if a = b then 1 else 0
+NLA.Proofs.RE05.ComplementProjection 1

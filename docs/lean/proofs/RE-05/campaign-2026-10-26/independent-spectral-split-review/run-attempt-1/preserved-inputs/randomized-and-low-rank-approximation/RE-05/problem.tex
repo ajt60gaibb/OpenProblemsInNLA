@@ -1,0 +1,175 @@
+% Standalone problem document, generated from the adjacent README.md.
+% Compile with XeLaTeX. Mathematical content is maintained in Markdown.
+\documentclass[11pt,a4paper]{article}
+\usepackage[fontsize=10.5pt]{scrextend}
+\usepackage[margin=22mm,headheight=15pt,headsep=9mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{texgyrecursor}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usepackage{xcolor,microtype,enumitem,needspace,fancyhdr}
+\usepackage{bookmark}
+\definecolor{ink}{HTML}{17344B}
+\definecolor{accent}{HTML}{197D80}
+\definecolor{muted}{HTML}{596773}
+\hypersetup{colorlinks=true,linkcolor=accent,urlcolor=accent,pdftitle={RE-05 - Pure
+relative error for approximation by a linear matrix
+family},pdfauthor={Open Problems in Numerical Linear Algebra}}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\linespread{1.04}
+\setlength{\emergencystretch}{3em}
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[1]
+\setlist{nosep,leftmargin=1.5em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\pandocbounded}[1]{#1}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
+\fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}RE-05}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
+\makeatletter
+\renewcommand{\section}{\Needspace{5\baselineskip}\@startsection{section}{1}{0pt}{12pt plus 2pt minus 2pt}{4pt}{\sffamily\bfseries\large\color{ink}}}
+\renewcommand{\subsection}{\Needspace{4\baselineskip}\@startsection{subsection}{2}{0pt}{9pt plus 1pt minus 1pt}{3pt}{\sffamily\bfseries\normalsize\color{ink}}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\begin{document}
+{\sffamily\small\color{muted}Randomized and low-rank approximation\par}
+\vspace{3pt}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\sffamily\bfseries\fontsize{21}{24}\selectfont\color{ink}Pure
+relative error for approximation by a linear matrix family\par}
+\vspace{7pt}
+{\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
+to the community\par}
+{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+\vspace{4pt}
+{\color{accent}\hrule height 0.8pt}
+\vspace{6pt}
+\textbf{Rating rationale:} Challenging because arbitrary matrix
+subspaces need pure relative error with few queries; community impact
+spans structured least squares and matrix compression.
+
+\subsection{Resolution --- 2026-09-11}\label{resolution-2026-09-11}
+
+\textbf{Author:} Matthew J. Colbrook, Department of Applied Mathematics
+and Theoretical Physics, University of Cambridge. \textbf{Independent
+Codex-agent review: PASS for the exact target.}
+
+The nonadaptive two-sided algorithm achieves pure relative Frobenius
+error with \(O(\sqrt{q(\log q+1/\varepsilon)}+\log q)\) queries at
+constant success. Fifteen independent copies with internal squared
+parameter \(\varepsilon/9\) and the proved median selector give failure
+at most \(e^{-4.8}<0.01\) and norm factor at most \(1+\varepsilon\).
+This meets the exact canonical uniform query bound and arithmetic model.
+
+The complete target is resolved. Its former difficulty rating is
+historical; the original mathematical statement and source evidence are
+retained below.
+
+The manuscript acknowledges the same algorithm in an earlier public
+manuscript repository. The independent review now compares its available
+main source and supplement. No priority for the algorithm or resolution,
+or novelty of the logarithmic refinement, is claimed.
+
+\textbf{Primary reference:}
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-transfer-2026-09-11/manuscripts/05_linear_family_relative_sketch.pdf}{complete
+authored PDF},
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-transfer-2026-09-11/manuscripts/05_linear_family_relative_sketch.tex}{standalone
+TeX}, \textbf{Theorem 2.1 and Proposition 5.1}.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-transfer-2026-09-11/verification/reviews/RE-05-review.md}{Independent
+proof review} ·
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/colbrook-transfer-2026-09-11/README.md}{Authorship
+and submission record}. Verification is independent agent review, not
+external human peer review or formal certification.
+
+\textbf{Area:} matrix sketching and structured least squares
+
+\subsection{Context and notation}\label{context-and-notation}
+
+Use exact real arithmetic, with comparisons, standard Gaussian sampling,
+and exact SVDs available as primitives; charge an SVD of an
+\(a\times b\) matrix \(O(ab\min(a,b))\) operations. This states the
+idealized arithmetic model used here, rather than a finite precision or
+bit complexity claim. A matrix--vector query returns either \(Av\) or
+\(A^\mathsf Tv\) for one chosen real vector \(v\); both types count
+toward the total. Randomized guarantees are for every fixed input, with
+probability or expectation over the algorithm's randomness.
+
+\subsection{Problem statement}\label{problem-statement}
+
+Let \(1\le q\le n^2\) and suppose linearly independent matrices
+\(P_1,\ldots,P_q\in\mathbb R^{n\times n}\) are given explicitly. Write
+
+\[
+\mathcal L=\operatorname{span}_{\mathbb R}\{P_1,\ldots,P_q\}.
+\]
+
+An arbitrary \(A\in\mathbb R^{n\times n}\) is accessible only through
+matrix--vector queries.
+
+\newpage
+\subsubsection{Question}\label{question}
+
+Do absolute constants \(C>0\), integers \(a,b\ge0\), and a uniform
+randomized algorithm exist that, for every \(0<\varepsilon<1/2\), use at
+most
+
+\[
+C\sqrt q\,\varepsilon^{-a}
+\bigl[1+\log(2+q)+\log(1/\varepsilon)\bigr]^b
+\]
+
+queries and return coefficients \(c_1,\ldots,c_q\in\mathbb R\) such
+that, with probability at least \(0.99\),
+
+\[
+\left\|A-\sum_{j=1}^q c_jP_j\right\|_F
+\le(1+\varepsilon)\min_{D\in\mathcal L}\|A-D\|_F?
+\]
+
+Adaptive queries and unrestricted computation between queries are
+permitted. The displayed bound must hold uniformly over the basis and
+the target.
+
+\subsection{Reference}\label{reference}
+
+Noah Amsel, Pratyush Avi, Tyler Chen, Feyza Duman Keles, Chinmay Hegde,
+Christopher Musco, Cameron Musco, and David Persson,
+\href{https://arxiv.org/html/2507.19290v2}{\emph{Query Efficient
+Structured Matrix Learning}}, COLT 2026, PMLR \textbf{336}, 158--194,
+§5, linear-family conjecture; Corollary 1 has an additional term
+\(\alpha\|A\|_F\) and query dependence on \(\alpha\).
+
+\subsection{Status evidence}\label{status-evidence}
+
+The August 21, 2026 revision explicitly retains this question. Searches
+for ``linear matrix families pure relative error'' and ``linearly
+parameterized matrix relative error 2026'' found no resolution. Its
+abstract update resolves a related finite-family problem; finite-family
+discretization still produces additive error and does not automatically
+supply the displayed guarantee. See the
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/references/SCREENED-OUT.md\#excluded-and-uncounted-leads}{finite-family
+exclusion}.
+
+\subsection{Audit --- 2026-09-10}\label{audit-2026-09-10}
+
+Rechecked \href{https://arxiv.org/html/2507.19290v2}{Amsel et al.,
+Corollary 1 and §5}. The general linear-family conjecture survives the
+finite-family update.
+\href{https://doi.org/10.1137/25M1742710}{Fixed-sparsity approximation}
+uses \(O(s/\varepsilon)\) queries for fixed patterns with at most \(s\)
+entries per row. For patterns with exactly \(s\) entries in every row,
+\(q=ns\) and \(s\le\sqrt q\), establishing the requested scale for this
+subclass; arbitrary bases remain open. Linear-family and nonadaptive
+follow-up searches found no general resolution.
+\end{document}
