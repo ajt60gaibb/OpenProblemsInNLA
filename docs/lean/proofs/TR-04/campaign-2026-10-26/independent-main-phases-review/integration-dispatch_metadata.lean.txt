@@ -1,0 +1,39 @@
+
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TTMemoryLayout
+
+example {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ)
+    (hl : (trace.state offset).label = 10) (hs : (trace.state offset).status = .running)
+    (htag : (trace.state offset).natural 97 = 0) :
+    (trace.state (offset + 3)).label = 119 ∧
+    (trace.state (offset + 3)).memory = (trace.state offset).memory ∧
+    CostThrough ttProgram trace (offset + 3) ≤ CostThrough ttProgram trace offset + 3 := by
+  have h := ttHeaderDispatch_fields_at ht offset 0 hl hs htag
+  exact ⟨h.1, h.2.2.1, h.2.2.2.2.2.2⟩
+
+example {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ)
+    (hl : (trace.state offset).label = 10) (hs : (trace.state offset).status = .running)
+    (htag : (trace.state offset).natural 97 = 10) :
+    (trace.state (offset + 23)).label = 319 ∧
+    (trace.state (offset + 23)).memory = (trace.state offset).memory ∧
+    CostThrough ttProgram trace (offset + 23) ≤ CostThrough ttProgram trace offset + 23 := by
+  have h := ttHeaderDispatch_fields_at ht offset 10 hl hs htag
+  exact ⟨h.1, h.2.2.1, h.2.2.2.2.2.2⟩
+
+-- The four stored metadata cells are actual casts of the four old registers.
+example {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ) (L : Layout) (level : ℕ)
+    (hl : (trace.state offset).label = 241) (hs : (trace.state offset).status = .running)
+    (hmeta : (trace.state offset).natural 68 = L.metadata)
+    (hfour : (trace.state offset).natural 125 = 4)
+    (hlevel : (trace.state offset).natural 84 = level) :
+    (trace.state (offset + 14)).memory (L.metadataCell level 0) = ((trace.state offset).natural 85 : ℝ) ∧
+    (trace.state (offset + 14)).memory (L.metadataCell level 1) = ((trace.state offset).natural 86 : ℝ) ∧
+    (trace.state (offset + 14)).memory (L.metadataCell level 2) = ((trace.state offset).natural 87 : ℝ) ∧
+    (trace.state (offset + 14)).memory (L.metadataCell level 3) = ((trace.state offset).natural 88 : ℝ) := by
+  have h := ttMetadata_fields_at ht offset L level hl hs hmeta hfour hlevel
+  exact ⟨h.2.2.2.1 0, h.2.2.2.1 1, h.2.2.2.1 2, h.2.2.2.1 3⟩
+
+end NLA.Proofs.TR04

@@ -1,0 +1,30 @@
+
+set_option maxRecDepth 8192
+set_option maxHeartbeats 4000000
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TTMemoryLayout
+
+-- Compose the actual memory read at startup with the real installed decoder.
+-- The header value is constrained only by its actual old memory cell.
+example {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ) (L : Layout) (value : ℕ)
+    (hl : (trace.state offset).label = 119) (hs : (trace.state offset).status = .running)
+    (hd : (trace.state offset).natural 0 = L.order)
+    (hn : (trace.state offset).natural 2 = L.entries)
+    (hz : (trace.state offset).natural 127 = 0)
+    (hm : (trace.state offset).memory 0 = (value : ℝ)) :
+    (trace.state (offset + 25 + (3 * value + 5))).label = 10 ∧
+    (trace.state (offset + 25 + (3 * value + 5))).status = .running ∧
+    (trace.state (offset + 25 + (3 * value + 5))).natural 2 = value ∧
+    (trace.state (offset + 25 + (3 * value + 5))).memory = (trace.state offset).memory ∧
+    CostThrough ttProgram trace (offset + 25 + (3 * value + 5)) ≤
+      CostThrough ttProgram trace offset + 25 + (3 * value + 5) := by
+  obtain ⟨hentry, _, _, _, hc25⟩ := ttStartup_run_at ht offset L value hl hs hd hn hz hm
+  obtain ⟨hreturn, hcdecode⟩ := ttHeaderEmbedding.headerSingle_run_at
+    (trace.state offset).memory L.order value ((trace.state offset).real 1)
+    ht (offset + 25) hentry
+  have hv := hreturn.natural_apply 2
+  change (trace.state (offset + 25 + (3 * value + 5))).natural 2 = value at hv
+  exact ⟨hreturn.label, hreturn.status, hv, hreturn.memory, by omega⟩
+
+end NLA.Proofs.TR04
