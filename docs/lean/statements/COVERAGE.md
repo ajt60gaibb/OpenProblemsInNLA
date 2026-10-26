@@ -11,7 +11,7 @@ Registered entries: **217**.
 - missing-statement: **99**
 - shared-statement-source: **45**
 
-The six existing scope gaps remain explicit even when a new shared statement is recorded. IE-01, TR-01, IV-01, MI-15, MI-18, MF-23, and MI-32 cite pinned external formalizations and are tracked separately from entries with no Lean statement. Copied historical and review projects do not count.
+The 5 existing scope gaps remain explicit even when a new shared statement is recorded. IE-01, TR-01, IV-01, MI-15, MI-18, MF-23, and MI-32 cite pinned external formalizations and are tracked separately from entries with no Lean statement. Copied historical and review projects do not count.
 
 Regenerate with `python3 tools/statement_inventory.py --base-ref <published-commit>`; add `--check` to reject stale generated files. The base commit is explicit so unrelated working-branch commits do not change the inventory.
 

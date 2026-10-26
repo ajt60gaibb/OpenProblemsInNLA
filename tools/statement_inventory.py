@@ -265,7 +265,7 @@ def render_coverage(inventory):
              "A solution file's existence is not evidence that the original target is proved.", "",
              f"Registered entries: **{counts['registered']}**.", ""]
     lines += [f"- {key}: **{value}**" for key, value in counts["classification"].items()]
-    lines += ["", "The six existing scope gaps remain explicit even when a new shared statement is recorded. "
+    lines += ["", f"The {len(SCOPE_GAPS)} existing scope gaps remain explicit even when a new shared statement is recorded. "
               "IE-01, TR-01, IV-01, MI-15, MI-18, MF-23, and MI-32 cite pinned external formalizations and are tracked separately "
               "from entries with no Lean statement. Copied historical and review projects do not count.", "",
               "Regenerate with `python3 tools/statement_inventory.py --base-ref <published-commit>`; "
