@@ -1,0 +1,11 @@
+import NLA.Proofs.RE06.ActualRepairAudit
+set_option leancert.trust "kernel"
+open NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06 NLA.Proofs.RE06.Repair
+theorem fake_error {n k c ell : ℕ} (Y : Matrix (Fin n)(Fin k) ℝ)
+ (C : Matrix (Fin n)(Fin c) ℝ) (Ht : Matrix (Fin ell)(Fin n) ℝ) :
+ squaredFrobenius (C-Y*pseudoInverse(Ht*Y)*(Ht*C)) 0 =
+ squaredFrobenius (actualRangeResidual Y C) 0+actualRegressionEnergy Y C Ht := by sorry
+#assert_trust kernel fake_error
+theorem fake_meas {n : ℕ} (C : Matrix(Fin n)(Fin n) ℝ) (k ell r : ℕ)(η:ℝ) :
+ MeasurableSet (repairFailureSet C k ell r η) := by sorry
+#assert_trust kernel fake_meas
