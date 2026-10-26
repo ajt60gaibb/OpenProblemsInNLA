@@ -1,0 +1,19 @@
+# IE-22 independent promotion review
+
+**APPROVE corrected promotion commit 53ddb09ee25f863f483a05f91b3f02ff1ad7b0d6. No remaining finding.**
+
+Reviewer: AI agent `/root/verification`, 2026-10-26. I did not author the IE22 proof or promotion. This independently reviews metadata, preservation and retained evidence. Earlier full-source/kernel approvals remain separately bound to 353ebcfc/57784643/06f31cdd. No new Lean, Comparator, sandbox or CI run is claimed.
+
+The immutable final snapshot passes **114/114 independent checks**, **7/7 correction checks**, and all seven metadata/preservation/test/evidence command groups. The author preservation driver passes 271/271 static checks; seven independent README guard cases and eight existing inventory regression tests pass. The offline retained original-Linux auditor passes 220/220 checks. Exact inputs, logs, reproducible drivers and results are retained alongside this report.
+
+All **59 canonical package inputs** match the promotion lock and original 6202 promotion package. All **27 Lean files** remain byte-identical to accepted 06f31cdd; the 23 shared mathematical modules match immutable 353ebcfc. Comparator selects exactly `uniform_squared_upper`, `near_sharp_unit_row_witness` and literal `target` in `NLA.Proofs.IE22`, with no replaceable definitions and only propext, Classical.choice and Quot.sound. No lower-only checkpoint is represented as the full proof.
+
+The exact README status/date replacements and Lean evidence section preserve every other original prefix byte and the complete suffix from Problem statement onward. Target, credits, references and historical audits remain unchanged; the full original page and historical scaffold remain archived. All five added review Markdown files are verbatim campaign-original copies, including my full-source/kernel report. Colbrook's mathematical credit and AI-review limitations remain explicit.
+
+All **217 permanent IDs and paths** equal published base 01ed3c64648d2d8350ba80c4018894b6d785d2c9. IE-22 retains its canonical README. Independent page counts and catalog summaries agree: **85 Lean verified, 33 Solved, 62 Partially resolved, 36 Open, one Solution claimed**. All 45 statement metadata records pass; source inventory explicitly makes no proof claim.
+
+Correction 799077c8 removes the false live-IE22-axiom description, scopes the preserved prepromotion audit, and adds the exact README promotion guard. The stale six-gap sentence was corrected at 53ddb09e by deriving the actual count five. This final correction changes only tools/statement_inventory.py and generated COVERAGE.md; all 59 canonical inputs and the original Linux receipt remain unchanged. No safeguard was weakened.
+
+Receipt references retain authentic original **PR368 run40255260833/job121355717650**, head **06f31cdd**, executed merge **88b9366e6cfcef7e60a2d740ff8a7101399bf1a8**. Artifact **12622124226** is 18,506 bytes, ZIP SHA-256 **006c1919528d800bc18903d9f7f99633408cd0178f03d429bf57bd3489ef5468**. The decoded raw job is 106,057 bytes, SHA-256 **d679fea63d8044b0051bdafa2b53ff004a063f7395b187605a191a4952730d27**. Offline replay validates original provenance, 54 original inputs/27 Lean files, three exact exports, generated consumer, kernel/axiom reports and actual Comparator/sandbox/rejection controls. It does not relabel that execution as a promotion run. The later reported 799-head Linux receipt is outside this review and retains its own independent audit.
+
+Two reviewer diagnostics remain archived: initially missing extra AA-01 review inputs in my private snapshot, and an expected mixed-case catalog badge. Both review issues were corrected before the final complete pass; no reviewed source changed. DETAILS.md provides full reproduction and scope. No canonical file was edited. The campaign remains active for other Solved problems.
