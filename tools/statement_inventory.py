@@ -26,12 +26,15 @@ REPOSITORY = "https://github.com/ajt60gaibb/OpenProblemsInNLA"
 # a gap; retaining the old project must not silently erase the historical issue.
 SCOPE_GAPS = {
     "IE-21": "The full target is an axiom and the SphericalRowLaw semantic boundary is unimplemented.",
-    "IE-22": "The full target is an axiom; complete semantic and proof obligations remain.",
     "IV-02": "ComplexityContract contains unconstrained propositions, without computational semantics.",
     "IV-04": "The complexity target is absent, and raw coordinate sets are required to be intervals instead of defining their hulls.",
     "MD-06": "Graph probability and local-minimum semantics remain parameters of an abstract Semantics structure.",
     "TR-04": "Unfolding rank is an arbitrary function and the operation count is an unconstrained natural-number output.",
 }
+# IE-22's former scaffold axiom is preserved in its original-scaffold archive.
+# The live project now proves the unchanged full Target; two independent final
+# reviews and authentic Linux receipts are in docs/lean/proofs/IE-22/
+# campaign-2026-10-23/LINUX_CI_RECEIPT.md. Source inventory itself checks no proof.
 EXTERNAL_PROJECTS = {
     "IE-01": {
         "repository": "https://github.com/sgstepaniants/Forsythe",
@@ -262,7 +265,7 @@ def render_coverage(inventory):
              "A solution file's existence is not evidence that the original target is proved.", "",
              f"Registered entries: **{counts['registered']}**.", ""]
     lines += [f"- {key}: **{value}**" for key, value in counts["classification"].items()]
-    lines += ["", "The six existing scope gaps remain explicit even when a new shared statement is recorded. "
+    lines += ["", f"The {len(SCOPE_GAPS)} existing scope gaps remain explicit even when a new shared statement is recorded. "
               "IE-01, TR-01, IV-01, MI-15, MI-18, MF-23, and MI-32 cite pinned external formalizations and are tracked separately "
               "from entries with no Lean statement. Copied historical and review projects do not count.", "",
               "Regenerate with `python3 tools/statement_inventory.py --base-ref <published-commit>`; "

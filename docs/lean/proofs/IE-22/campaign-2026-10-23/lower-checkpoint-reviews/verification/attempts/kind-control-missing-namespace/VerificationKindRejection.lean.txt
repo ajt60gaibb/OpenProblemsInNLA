@@ -1,0 +1,16 @@
+import NLA.Statements.IE22
+
+elab "#review_theorem " target:ident : command => do
+  let name ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo target
+  let info ← liftCoreM <| getConstInfo name
+  match info with
+  | .thmInfo _ => pure ()
+  | _ => throwError "review requires an actual theorem: {name}"
+elab "#review_definition " target:ident : command => do
+  let name ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo target
+  let info ← liftCoreM <| getConstInfo name
+  match info with
+  | .defnInfo _ => pure ()
+  | _ => throwError "review requires an actual definition: {name}"
+def VerificationFakeTheorem : True := True.intro
+#review_theorem VerificationFakeTheorem

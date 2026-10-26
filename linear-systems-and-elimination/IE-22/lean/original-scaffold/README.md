@@ -1,0 +1,3 @@
+# Retained historical IE-22 scaffold
+
+These files retain the exact earlier bytes under text suffixes. Definitions.lean and the two original support theorems remain available in the current package. The historical Challenge declared an axiom and added a supremum-convergence clause without ambient dimension tending to infinity. That extra clause is outside the published target; the current package proves the separately reviewed unchanged shared Target. No historical axiom is imported by Solution. The complete frozen input packet and two pre-proof reviews are in ../../../../docs/lean/proofs/IE-22/campaign-2026-10-23/preproof/.

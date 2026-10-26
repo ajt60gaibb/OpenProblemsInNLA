@@ -6,8 +6,8 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
-**Status:** Solved
-**Last checked:** 2026-09-11
+**Status:** Lean verified
+**Last checked:** 2026-10-26
 
 <!-- colbrook-recovered -->
 ## Independently reviewed resolution - 2026-09-11
@@ -21,9 +21,9 @@ The difficulty, importance and rating rationale below are historical assessments
 
 **Rating rationale:** Challenging reflects an optimal uniform extremum over matrices and deleted row sets; community impact is a sharp robustness limit for row-sampling methods.
 
-## Lean formalization scaffold
+## Lean proof and verification evidence
 
-The repository retains the approved statement boundary and current supporting Lean work in [`lean/`](lean/), including [`Challenge.lean`](lean/Challenge.lean) and [`Solution.lean`](lean/Solution.lean). This is an **unverified, incomplete formalization**; the existing mathematical status and resolution above are unchanged. See [`lean/README.md`](lean/README.md) for scope, blockers, pinned metadata, and review records.
+The complete unchanged sharp-constant target is proved in [`lean/`](lean/), including the exact eventual uniform upper bound and failure of every smaller real constant. Both reviewed squared endpoints are also proved. Two independent final source/package reviews and actual isolated Linux Comparator/kernel checks pass, with only the three standard Lean axioms. [Exact immutable receipts and independent artifact audit](../../docs/lean/proofs/IE-22/campaign-2026-10-23/LINUX_CI_RECEIPT.md) bind the checked sources and raw controls; the promotion metadata receives fresh CI. The [original page](ORIGINAL.md), original mathematical statement, source attribution and historical scaffold are retained. Formal proofs and reviews are AI-agent work, not external human peer review; the formal result is qualitative and does not claim the manuscript's explicit error rate.
 
 ## Problem statement
 
