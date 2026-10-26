@@ -1,0 +1,48 @@
+{
+  "phase": "promotion-working-tree-validation",
+  "proof_source": "ecc597cb68b65b473aecce9ac635e27d35c09694",
+  "canonical_candidate_receipt_head": "fa85c05acc70bbaa05bb3346fb43b57b1546af67",
+  "commands": [
+    {
+      "command": "python3 tools/validate_problem_ids.py --base-ref origin/main",
+      "passed": true,
+      "registered": 217
+    },
+    {
+      "command": "python3 tools/update_catalog.py --base-ref origin/main",
+      "passed": true,
+      "registered": 217,
+      "Lean verified": 86,
+      "Solved": 32
+    },
+    {
+      "command": "python3 -m unittest discover -s tests -p 'test_problem_ids.py' -v",
+      "passed": true,
+      "tests": 17
+    },
+    {
+      "command": "python3 tools/statement_inventory.py --base-ref 01ed3c64648d2d8350ba80c4018894b6d785d2c9",
+      "passed": true
+    },
+    {
+      "command": "python3 tools/statement_inventory.py --base-ref 01ed3c64648d2d8350ba80c4018894b6d785d2c9 --check",
+      "passed": true
+    },
+    {
+      "command": "python3 -m unittest discover -s tests -p 'test_statement_inventory.py' -v",
+      "passed": true,
+      "tests": 8
+    },
+    {
+      "command": "PYTHONPATH=/private/tmp/nla-oct23-pydeps python3 tools/lean/validate_manifest.py tensor-computations/TR-26/lean",
+      "passed": true,
+      "declarations": 3
+    },
+    {
+      "command": "python3 tools/lean_statements/check.py --base-ref 01ed3c64648d2d8350ba80c4018894b6d785d2c9 validate",
+      "passed": true,
+      "metadata_records": 45
+    }
+  ],
+  "limitation": "Observed command results recorded by coordinator; this JSON is not an original Linux artifact or a new Lean execution."
+}
