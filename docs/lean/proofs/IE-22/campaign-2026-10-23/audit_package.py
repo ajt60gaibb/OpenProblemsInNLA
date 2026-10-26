@@ -58,6 +58,26 @@ def digest(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
+def reviewed_readme_preserved(original_text: str, current_text: str) -> bool:
+    """Allow only the actual status/date promotion and Lean evidence section.
+
+    Every other preamble byte and the complete target/historical suffix remain
+    exact. The original full page is independently required in both archives.
+    """
+    before, tail = original_text.split("## Lean formalization scaffold\n", 1)
+    _, after = tail.split("## Problem statement\n", 1)
+    normalized = current_text
+    if "**Status:** Lean verified\n" in current_text:
+        if current_text.count("**Status:** Lean verified\n") != 1 or \
+                current_text.count("**Last checked:** 2026-10-26\n") != 1 or \
+                "## Lean proof and verification evidence\n" not in current_text:
+            return False
+        normalized = normalized.replace("**Status:** Lean verified\n", "**Status:** Solved\n", 1)
+        normalized = normalized.replace("**Last checked:** 2026-10-26\n",
+                                        "**Last checked:** 2026-09-11\n", 1)
+    return normalized.startswith(before) and current_text.endswith("## Problem statement\n" + after)
+
+
 def lean_code(text: str) -> str:
     """Erase nested Lean comments and strings, retaining line boundaries.
 
@@ -203,12 +223,8 @@ class Audit:
                 current = self.read(rel)
                 original_text = original.decode()
                 current_text = current.decode()
-                marker = "## Lean formalization scaffold\n"
-                target = "## Problem statement\n"
-                before, tail = original_text.split(marker, 1)
-                _, after = tail.split(target, 1)
                 self.check("canonical_readme_original_content_preserved",
-                           current_text.startswith(before) and target + after in current_text)
+                           reviewed_readme_preserved(original_text, current_text))
             else:
                 self.check(f"unrefreshed_input_unchanged:{rel}", self.read(rel) == original)
         for p in sorted((self.root / CANONICAL / "original-scaffold").glob("*.txt")):
