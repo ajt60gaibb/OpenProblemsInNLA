@@ -1,0 +1,55 @@
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/FiniteProjectiveDensity.lean:28:2: error: Type mismatch: After simplification, term
+  hij
+ has type
+  matrixJetPolynomial d ij ≠ 0
+but is expected to have type
+  matrixJetPolynomial d (reverseSymIndex d (reverseSymIndex d ij)) ≠ 0
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/FiniteProjectiveDensity.lean:80:4: error: Application type mismatch: The argument
+  finiteDoubleWronskianImage_eq_matrixJetImage hd
+has type
+  finiteDoubleWronskianImage d =
+    {H | ∃ x, (MvPolynomial.eval x) (matrixJetDenominator d) ≠ 0 ∧ matrixJetMap d x ≠ 0 ∧ matrixJetMap d x = H}
+but is expected to have type
+  (J ∈ finiteDoubleWronskianImage d) = ?m.86
+in the application
+  Eq.mp (finiteDoubleWronskianImage_eq_matrixJetImage hd)
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/FiniteProjectiveDensity.lean:104:11: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  reverseParameterOver (reverseParameterOver H)
+in the target expression
+  (MvPolynomial.eval (reverseParameter (reverseParameter H))) f = 0
+
+case neg
+d : ℕ
+hd : 2 ≤ d
+f : MvPolynomial (SymIndex d) ℂ
+hf : f ∈ MvPolynomial.vanishingIdeal ℂ (finiteDoubleWronskianImage d)
+H : SymIndex d → ℂ
+hH✝ : H ∈ NonisotropicImage d
+hH : H ≠ 0
+a b : ℂ
+hab : a ≠ 0 ∨ b ≠ 0
+hD : binaryEval (binaryDenominator d) a b ≠ 0
+h0 : binaryEval ((MvPolynomial.pderiv 0) (binaryWronskian H)) a b = 0
+h1 : binaryEval ((MvPolynomial.pderiv 1) (binaryWronskian H)) a b = 0
+ha : ¬a ≠ 0
+hb : b ≠ 0
+hrH : reverseParameter H ≠ 0
+hp :
+  binaryEval ((MvPolynomial.pderiv 0) (binaryWronskian (reverseParameter H))) b a = 0 ∧
+    binaryEval ((MvPolynomial.pderiv 1) (binaryWronskian (reverseParameter H))) b a = 0
+hJ : reverseParameter H ∈ finiteDoubleWronskianImage d
+hh : (MvPolynomial.eval (reverseParameter (reverseParameter H))) f = 0
+⊢ (MvPolynomial.aeval H) f = 0
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/FiniteProjectiveDensity.lean:107:21: error: #assert_trust: 'NLA.Proofs.TR26.exists_reverseMatrixJetSubstitution_X_ne_zero' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/FiniteProjectiveDensity.lean:110:21: error: #assert_trust: 'NLA.Proofs.TR26.vanishing_on_reverse_finite_of_vanishing_on_finite' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/FiniteProjectiveDensity.lean:111:21: error: #assert_trust: 'NLA.Proofs.TR26.nonisotropicImage_vanishingIdeal_eq_finite' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.TR26.nonisotropicImage_vanishingIdeal_eq_finite' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
