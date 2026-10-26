@@ -1,0 +1,50 @@
+
+namespace NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TensorFormat
+
+-- The actual first contraction's terminal-level branch reaches the reverse
+-- entry286 before its decrement and stores the computed contraction.
+example {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ)
+    (m q : ℕ) (ns : List ℕ) (stride frame input output : ℕ)
+    (hl : (trace.state offset).label=255) (hs : (trace.state offset).status=.running)
+    (hr : TTForwardRegisters (trace.state offset) m q (suffixSize ns) stride frame input output 0)
+    (hw : (trace.state offset).natural 69=output)
+    (hq : q≤stride) (Q : Matrix (Fin m) (Fin q) ℝ)
+    (hQ : StoresFrame (trace.state offset).memory frame stride Q)
+    (A : Tensor (m::ns)) (hA : StoresTensor (trace.state offset).memory input (m::ns) A)
+    (hQblock : DisjointBlocks frame (m*stride) output (q*suffixSize ns))
+    (hAblock : DisjointBlocks input (m*suffixSize ns) output (q*suffixSize ns))
+    (hlast : ¬((trace.state offset).natural 84+1<(trace.state offset).natural 0-1)) :
+    let p := contractMultiplyData (trace.state offset).memory m q ns frame stride input output
+    let t := offset+19+matrixMultiplyReturnTime p+9
+    (trace.state t).label=286 ∧ (trace.state t).status=.running ∧
+      StoresTensor (trace.state t).memory ((trace.state t).natural 89) (q::ns) (contract Q A) ∧
+      (trace.state t).natural 90=(trace.state offset).natural 70 ∧
+      CostThrough ttProgram trace t≤CostThrough ttProgram trace offset+19+17*(q+m+suffixSize ns+1)^3+9 := by
+  obtain ⟨h,hcost⟩ := ttForward_first_at ht offset m q ns stride frame input output hl hs hr hw hq Q hQ A hA hQblock hAblock
+  refine ⟨?_,h.running,h.currentStored,h.nextBuffer,hcost⟩
+  simpa only [if_neg hlast] using h.label
+
+-- The actual child return swaps the two buffers and its tensor can be merged
+-- by the literal radix identity without executing a copy or assuming a result.
+example {start : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ)
+    (m q n : ℕ) (ns : List ℕ) (stride frame input output : ℕ)
+    (hl : (trace.state offset).label=255) (hs : (trace.state offset).status=.running)
+    (hr : TTForwardRegisters (trace.state offset) m q (suffixSize (n::ns)) stride frame input output 1)
+    (hq : q≤stride) (Q : Matrix (Fin m) (Fin q) ℝ)
+    (hQ : StoresFrame (trace.state offset).memory frame stride Q)
+    (A : Tensor (m::n::ns)) (hA : StoresTensor (trace.state offset).memory input (m::n::ns) A)
+    (hQblock : DisjointBlocks frame (m*stride) output (q*suffixSize (n::ns)))
+    (hAblock : DisjointBlocks input (m*suffixSize (n::ns)) output (q*suffixSize (n::ns))) :
+    let p := contractMultiplyData (trace.state offset).memory m q (n::ns) frame stride input output
+    let t := offset+19+matrixMultiplyReturnTime p+11
+    (trace.state t).natural 89=output ∧ (trace.state t).natural 90=input ∧
+      StoresTensor (trace.state t).memory ((trace.state t).natural 89) ((q*n)::ns)
+        (merge q n ns (contract Q A)) ∧
+      CostThrough ttProgram trace t≤CostThrough ttProgram trace offset+19+17*(q+m+suffixSize (n::ns)+1)^3+11 := by
+  obtain ⟨h,hcost⟩ := ttForward_child_at ht offset m q (n::ns) stride frame input output hl hs hr hq Q hQ A hA hQblock hAblock
+  exact ⟨h.current,h.nextBuffer,h.mergedStored,hcost⟩
+
+end NLA.Proofs.TR04
