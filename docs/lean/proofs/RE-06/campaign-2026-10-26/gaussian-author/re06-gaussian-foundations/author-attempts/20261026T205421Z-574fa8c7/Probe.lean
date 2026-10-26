@@ -1,0 +1,17 @@
+import Mathlib
+#check Nat.mul_add_div
+#check Nat.mul_add_mod_self_left
+#check Nat.mul_add_mod_self_right
+#check Nat.add_mul_div_left
+#check Nat.add_mul_mod_self_left
+#check Nat.add_mul_mod_self_right
+#check Nat.mul_mod_left
+#check Nat.mul_mod_right
+#check measurable_pi_lambda
+#check measurable_pi_iff
+#check Measurable.comp
+#check Measurable.eval
+#check measurable_pi_apply
+#check Nat.div_add_div_same
+#check Nat.mul_div_left
+#check Nat.mul_div_right

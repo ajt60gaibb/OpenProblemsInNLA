@@ -1,0 +1,48 @@
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianLogBounds.lean:52:60: error: `ring_nf` made no progress on the goal
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianLogBounds.lean:52:60: error: `ring_nf` made no progress on the goal
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianLogBounds.lean:72:2: error: linarith failed to find a contradiction
+η : ℝ
+hη0 : 0 ≤ η
+hη1 : η ≤ 1
+f : ℝ → ℝ := fun x => x - Real.log (1 + x) - x ^ 2 / 4
+df : ℝ → ℝ := fun x => 1 - (1 + x)⁻¹ - x / 2
+hd : ∀ x ∈ Set.Icc 0 1, HasDerivAt f (df x) x
+hdf : ∀ x ∈ Set.Icc 0 1, 0 ≤ df x
+hm : MonotoneOn f (Set.Icc 0 1)
+h : 0 - Real.log (1 + 0) ≤ η - Real.log (1 + η) - η ^ 2 / 4
+a✝ : η - η ^ 2 / 4 < Real.log (1 + η)
+⊢ False
+failed
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianLogBounds.lean:70:13: warning: This simp argument is unused:
+  Real.log_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [zero_add, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_div, sub_zero] at h
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianLogBounds.lean:70:27: warning: This simp argument is unused:
+  zero_add
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Real.log_one, zero_pow (by decide : (2 : ℕ) ≠ 0), zero_div, sub_zero] at h
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianLogBounds.lean:77:21: error: #assert_trust: 'NLA.Proofs.RE06.log_one_add_le_sub_quarter_sq' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.RE06.log_one_add_ge_half' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.RE06.log_one_add_ge_scaled' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.RE06.log_one_sub_mul_ge_mul_log' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.RE06.log_one_add_le_sub_quarter_sq' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
