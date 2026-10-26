@@ -1,0 +1,62 @@
+import NLA.Proofs.RE06.RangeFinder
+import NLA.Proofs.RE06.RepairRegression
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+noncomputable section
+namespace NLA.Proofs.RE06.Repair
+open NLA.Computation.NonadaptiveMatrixQuery
+
+def excessMajorant {n r t k d ell : ℕ}
+    (C : Matrix (Fin n) (Fin n) ℝ) (V1 : Matrix (Fin n) (Fin r) ℝ)
+    (V2 : Matrix (Fin n) (Fin t) ℝ) (S2 : Matrix (Fin t) (Fin t) ℝ)
+    (G : Matrix (Fin n) (Fin k) ℝ) (Q : Matrix (Fin n) (Fin d) ℝ)
+    (Ht : Matrix (Fin ell) (Fin n) ℝ) : ℝ :=
+  squaredFrobenius (S2*(V2.transpose*G)*pseudoInverse (V1.transpose*G)) 0 +
+  squaredFrobenius (pseudoInverse (Ht*Q)*(Ht*rangeResidual Q C)) 0
+
+theorem excessMajorant_nonneg {n r t k d ell : ℕ}
+    (C : Matrix (Fin n) (Fin n) ℝ) (V1 : Matrix (Fin n) (Fin r) ℝ)
+    (V2 : Matrix (Fin n) (Fin t) ℝ) (S2 : Matrix (Fin t) (Fin t) ℝ)
+    (G : Matrix (Fin n) (Fin k) ℝ) (Q : Matrix (Fin n) (Fin d) ℝ)
+    (Ht : Matrix (Fin ell) (Fin n) ℝ) :
+    0 ≤ excessMajorant C V1 V2 S2 G Q Ht := by
+  exact add_nonneg (squaredFrobenius_zero_nonneg _) (squaredFrobenius_zero_nonneg _)
+
+theorem actual_repair_majorant {n r t k d ell : ℕ}
+    (C : Matrix (Fin n) (Fin n) ℝ)
+    (U1 V1 : Matrix (Fin n) (Fin r) ℝ)
+    (U2 V2 : Matrix (Fin n) (Fin t) ℝ)
+    (S1 : Matrix (Fin r) (Fin r) ℝ) (S2 : Matrix (Fin t) (Fin t) ℝ)
+    (G : Matrix (Fin n) (Fin k) ℝ) (Q : Matrix (Fin n) (Fin d) ℝ)
+    (Ht : Matrix (Fin ell) (Fin n) ℝ)
+    (hC : C = U1*S1*V1.transpose + U2*S2*V2.transpose)
+    (hU2 : U2.transpose*U2=1) (hV1 : V1.transpose*V1=1)
+    (hV2 : V2.transpose*V2=1) (hV21 : V2.transpose*V1=0)
+    (hOmega : (V1.transpose*G)*pseudoInverse (V1.transpose*G)=1)
+    (hQ : Q.transpose*Q=1) (hrange : Set.range Q.mulVec = Set.range (C*G).mulVec)
+    (hS : ((Ht*Q).transpose*(Ht*Q)).det ≠ 0) :
+    squaredFrobenius (C-(C*G)*pseudoInverse (Ht*(C*G))*(Ht*C)) 0 ≤
+      squaredFrobenius S2 0 + excessMajorant C V1 V2 S2 G Q Ht := by
+  rw [actual_repair_error_energy (C*G) Q hQ C Ht hrange hS]
+  have h := rangefinder_majorant C U1 V1 U2 V2 S1 S2 G Q
+    hC hU2 hV1 hV2 hV21 hOmega hQ hrange
+  change _ ≤ squaredFrobenius S2 0 +
+    (squaredFrobenius (S2*(V2.transpose*G)*pseudoInverse (V1.transpose*G)) 0 + _)
+  linarith
+
+theorem sketchRepair_residual_identity {n m : ℕ} (F : Family n m)
+    (A : Matrix (Fin n) (Fin n) ℝ) (P : Plan n) :
+    A-sketchRepair F A P =
+      (A-F (sketchWarmIndex F A P)) -
+      ((A-F (sketchWarmIndex F A P))*P.G1)*
+        pseudoInverse (P.H.transpose*((A-F (sketchWarmIndex F A P))*P.G1))*
+        (P.H.transpose*(A-F (sketchWarmIndex F A P))) := by
+  unfold sketchRepair
+  abel
+
+#assert_trust kernel excessMajorant_nonneg
+#assert_trust kernel actual_repair_majorant
+#assert_trust kernel sketchRepair_residual_identity
+#print axioms actual_repair_majorant
+end NLA.Proofs.RE06.Repair
