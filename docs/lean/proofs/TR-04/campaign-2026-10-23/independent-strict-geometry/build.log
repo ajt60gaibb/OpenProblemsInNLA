@@ -1,0 +1,150 @@
+'NLA.Proofs.TR04.TensorFormat.TTStrict.completionOutput_strict_of_first_lt' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NLA.Proofs.TR04.TensorFormat.TTStrict.exists_firstFrames' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.TR04.TensorFormat.TTStrict.family_min_strict' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.TR04.TensorFormat.TTStrict.exists_strict_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.TR04.TensorFormat.TTStrict.Original.output_feasible' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NLA.Proofs.TR04.TensorFormat.TTStrict.Original.first_svd_strict_family' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'NLA.Proofs.TR04.TensorFormat.TTStrict.Original.exists_strict_tensor' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'StrictGeometryExactConsumer.actual_original_mathematics' depends on axioms: [propext, Classical.choice, Quot.sound]
+theorem NLA.Proofs.TR04.TensorFormat.TTStrict.Original.first_svd_strict_family : ∀ (S : Shape) (r : Ranks S),
+  (∀ (j : Cut S), 1 ≤ r j) →
+    ∀ (A : Tensor S) {m n : ℕ} {ns : List ℕ} (hl : NLA.Proofs.TR04.TensorFormat.modeList S.mode = m :: n :: ns)
+      {U : Matrix (Fin m) (Fin m) ℝ} {sigma : Fin (min m (NLA.Proofs.TR04.TensorFormat.suffixSize (n :: ns))) → ℝ}
+      {V :
+        Matrix (Fin (NLA.Proofs.TR04.TensorFormat.suffixSize (n :: ns)))
+          (Fin (NLA.Proofs.TR04.TensorFormat.suffixSize (n :: ns))) ℝ},
+      NLA.Computation.SVDMachine.ValidSVD
+          (NLA.Proofs.TR04.TensorFormat.denseFirst (NLA.Proofs.TR04.TensorFormat.TTStrict.Original.input hl A)) U sigma
+          V →
+        ∃ F,
+          F.count ≤ min m (NLA.Proofs.TR04.TensorFormat.suffixSize (n :: ns)) + 1 ∧
+            F.width ≤ min m (NLA.Proofs.TR04.TensorFormat.suffixSize (n :: ns)) ∧
+              (∃ Z,
+                  ∀ (j : Fin F.count),
+                    NLA.Proofs.TR04.TensorFormat.Completion (F.width * n :: ns)
+                      (fun i => NLA.Proofs.TR04.TensorFormat.originalRanks S r (i + 1))
+                      ((NLA.Proofs.TR04.TensorFormat.merge F.width n ns)
+                        (NLA.Proofs.TR04.TensorFormat.contract (F.frame j)
+                          (NLA.Proofs.TR04.TensorFormat.TTStrict.Original.input hl A)))
+                      (Z j)) ∧
+                ∀ (Z : Fin F.count → NLA.Proofs.TR04.TensorFormat.Tensor (F.width * n :: ns)),
+                  (∀ (j : Fin F.count),
+                      NLA.Proofs.TR04.TensorFormat.Completion (F.width * n :: ns)
+                        (fun i => NLA.Proofs.TR04.TensorFormat.originalRanks S r (i + 1))
+                        ((NLA.Proofs.TR04.TensorFormat.merge F.width n ns)
+                          (NLA.Proofs.TR04.TensorFormat.contract (F.frame j)
+                            (NLA.Proofs.TR04.TensorFormat.TTStrict.Original.input hl A)))
+                        (Z j)) →
+                    (∃ imin,
+                        NLA.Proofs.TR04.TensorFormat.TTStrict.IsMinimum
+                          (NLA.Proofs.TR04.TensorFormat.TTStrict.Original.input hl A)
+                          (fun j => NLA.Proofs.TR04.TensorFormat.TTStrict.completionOutput (F.frame j) (Z j)) imin) ∧
+                      ∀ (imin : Fin F.count),
+                        NLA.Proofs.TR04.TensorFormat.TTStrict.IsMinimum
+                            (NLA.Proofs.TR04.TensorFormat.TTStrict.Original.input hl A)
+                            (fun j => NLA.Proofs.TR04.TensorFormat.TTStrict.completionOutput (F.frame j) (Z j)) imin →
+                          Feasible S r
+                              (NLA.Proofs.TR04.TensorFormat.TTStrict.Original.output hl
+                                (NLA.Proofs.TR04.TensorFormat.TTStrict.completionOutput (F.frame imin) (Z imin))) ∧
+                            (0 < Optimum S r A →
+                                FrobeniusSq S A
+                                    (NLA.Proofs.TR04.TensorFormat.TTStrict.Original.output hl
+                                      (NLA.Proofs.TR04.TensorFormat.TTStrict.completionOutput (F.frame imin)
+                                        (Z imin))) <
+                                  (↑S.order - 1) * Optimum S r A) ∧
+                              (Optimum S r A = 0 →
+                                NLA.Proofs.TR04.TensorFormat.TTStrict.Original.output hl
+                                    (NLA.Proofs.TR04.TensorFormat.TTStrict.completionOutput (F.frame imin) (Z imin)) =
+                                  A) :=
+fun S r hr A {m n} {ns} hl {U} {sigma} {V} h =>
+  Exists.casesOn
+    (NLA.Proofs.TR04.TensorFormat.TTStrict.exists_strict_family
+      (NLA.Proofs.TR04.TensorFormat.TTStrict.Original.length_pos hl)
+      (NLA.Proofs.TR04.TensorFormat.TTStrict.Original.first_rank_pos S r hr) h)
+    fun F h =>
+    And.casesOn h fun hc right =>
+      And.casesOn right fun hw right =>
+        And.casesOn right fun hex hall =>
+          Exists.intro F
+            ⟨hc,
+              ⟨hw,
+                ⟨hex, fun Z hZ =>
+                  And.casesOn (hall Z hZ) fun hminex hminall =>
+                    ⟨hminex, fun imin hmin =>
+                      And.casesOn (hminall imin hmin) fun hfeas hcmp =>
+                        ⟨NLA.Proofs.TR04.TensorFormat.TTStrict.Original.output_feasible hl r
+                            (NLA.Proofs.TR04.TensorFormat.TTStrict.completionOutput (F.frame imin) (Z imin)) hfeas,
+                          ⟨fun hpos =>
+                            Exists.casesOn (NLA.Proofs.TR04.exists_optimum S r A) fun Y h =>
+                              And.casesOn h fun hY hopt =>
+                                have hy := (NLA.Proofs.TR04.TensorFormat.TTStrict.Original.input_feasible hl r Y).mp hY;
+                                have he :=
+                                  Eq.trans (Eq.symm (NLA.Proofs.TR04.TensorFormat.TTStrict.Original.input_error hl A Y))
+                                    (Eq.symm hopt);
+                                have hb :=
+                                  (hcmp (NLA.Proofs.TR04.TensorFormat.TTStrict.Original.input hl Y) hy).left
+                                    (Eq.mpr (id (congrArg (fun _a => 0 < _a) he)) hpos);
+                                Eq.mp
+                                  (congrArg
+                                    (fun _a =>
+                                      FrobeniusSq S A
+                                          (NLA.Proofs.TR04.TensorFormat.TTStrict.Original.output hl
+                                            (NLA.Proofs.TR04.TensorFormat.TTStrict.completionOutput (F.frame imin)
+                                              (Z imin))) <
+                                        _a * Optimum S r A)
+                                    (NLA.Proofs.TR04.TensorFormat.TTStrict.Original.length_factor hl))
+                                  (Eq.mp
+                                    (congrArg
+                                      (fun _a =>
+                                        FrobeniusSq S A
+                                            (NLA.Proofs.TR04.TensorFormat.TTStrict.Original.output hl
+                                              (NLA.Proofs.TR04.TensorFormat.TTStrict.completionOutput (F.frame imin)
+                                                (Z imin))) <
+                                          (↑ns.length + 1) * _a)
+                                      he)
+                                    (Eq.mp
+                                      (congrArg
+                                        (fun _a =>
+                                          _a <
+                                            (↑ns.length + 1) *
+                                              NLA.Proofs.TR04.TensorFormat.error (m :: n :: ns)
+                                                (NLA.Proofs.TR04.TensorFormat.TTStrict.Original.input hl A)
+                                                (NLA.Proofs.TR04.TensorFormat.TTStrict.Original.input hl Y))
+                                        (Eq.symm
+                                          (NLA.Proofs.TR04.TensorFormat.TTStrict.Original.output_error hl A
+                                            (NLA.Proofs.TR04.TensorFormat.TTStrict.completionOutput (F.frame imin)
+                                              (Z imin)))))
+                                      hb)),
+                            fun hzero =>
+                            Exists.casesOn (NLA.Proofs.TR04.exists_optimum S r A) fun Y h =>
+                              And.casesOn h fun hY hopt =>
+                                have hy := (NLA.Proofs.TR04.TensorFormat.TTStrict.Original.input_feasible hl r Y).mp hY;
+                                have he :=
+                                  Eq.mpr
+                                    (id
+                                      (congrArg (fun _a => _a = 0)
+                                        (Eq.symm (NLA.Proofs.TR04.TensorFormat.TTStrict.Original.input_error hl A Y))))
+                                    (Eq.mpr (id (congrArg (fun _a => _a = 0) (Eq.symm hopt)))
+                                      (Eq.mpr (id (congrArg (fun _a => _a = 0) hzero)) (Eq.refl 0)));
+                                have hx :=
+                                  (hcmp (NLA.Proofs.TR04.TensorFormat.TTStrict.Original.input hl Y) hy).right he;
+                                Eq.mpr
+                                  (id
+                                    (congrArg
+                                      (fun _a => NLA.Proofs.TR04.TensorFormat.TTStrict.Original.output hl _a = A) hx))
+                                  (Eq.mpr
+                                    (id
+                                      (congrArg (fun _a => _a = A)
+                                        (NLA.Proofs.TR04.TensorFormat.TTStrict.Original.output_input hl A)))
+                                    (Eq.refl A))⟩⟩⟩⟩⟩⟩
+'NLA.Proofs.TR04.TensorFormat.TTStrict.Original.first_svd_strict_family' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
