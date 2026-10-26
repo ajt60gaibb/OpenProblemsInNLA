@@ -6,8 +6,8 @@
 
 **Difficulty:** challenging  
 **Importance:** interesting to specialist  
-**Status:** Solved  
-**Last checked:** 2026-09-11
+**Status:** Lean verified  
+**Last checked:** 2026-10-26
 
 **Rating rationale:** Separating the isotropic and nonisotropic degree contributions requires substantial algebraic analysis beyond the known total. The result mainly interests specialists in conditioning of constrained eigenvalue problems.
 
@@ -20,6 +20,12 @@
 
 This AI-assisted proof passed independent agent review; this is not external human peer review or formal verification. The difficulty, importance and rating rationale below are historical. The original target and dated status audit are retained. No priority claim is made.
 <!-- /colbrook-unclaimed -->
+
+## Lean proof and verification evidence
+
+Both exact degree formulas and the unchanged full Target are proved for every $`d\ge2`$ in the [Lean package](lean/README.md). The proof retains the fixed unweighted embedding, bilinear form, full incidence ideal and Jacobian, raw isotropic image, nonisotropic Zariski closure, both projective charts, matrix-kernel directions and $`d=2`$.
+
+The [full source and package reviews](../../docs/lean/proofs/TR-26/FULL_TARGET_PACKAGE.md) contain two independent non-author approvals at each stage. The [original Linux/Comparator receipt](../../docs/lean/proofs/TR-26/LINUX_CI_RECEIPT.md) binds all three genuine theorem exports, LeanCert kernel mode, standard-only axioms, empty Comparator definition allowances, raw kernel replay and isolation/rejection controls. Final promotion metadata receives a separately bound Linux run. The [complete earlier README](ORIGINAL.md), original mathematical target, manuscripts and authorship records remain preserved. Matthew J. Colbrook retains mathematical source credit; AI agents supplied the formalization and reviews.
 
 ## Problem statement
 

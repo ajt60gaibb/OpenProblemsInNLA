@@ -2,7 +2,7 @@
 
 **98 problems with open targets:** 36 open and 62 partially resolved. **119 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 33 solved (published or independently audited); 85 solved with Lean verification.
+**Resolution evidence:** 32 solved (published or independently audited); 86 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -192,7 +192,7 @@ Retained entries outside the open count:
 | [TR-17](tensor-computations/TR-17/README.md) | Frobenius inner products minimize the algebraic complexity of rank-one approximation | **✅ SOLVED** | challenging | interesting to the community | [PDF](tensor-computations/TR-17/problem.pdf) · [TeX](tensor-computations/TR-17/problem.tex) |
 | [TR-20](tensor-computations/TR-20/README.md) | Rayleigh–Ritz discriminant degrees for rank-one matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-20/problem.pdf) · [TeX](tensor-computations/TR-20/problem.tex) |
 | [TR-21](tensor-computations/TR-21/README.md) | A Seginer theorem for arbitrary independent identically distributed tensor entries | **✅ SOLVED** | challenging | interesting to the community | [PDF](tensor-computations/TR-21/problem.pdf) · [TeX](tensor-computations/TR-21/problem.tex) |
-| [TR-26](tensor-computations/TR-26/README.md) | Degrees of the two Rayleigh–Ritz discriminant parts for rational normal curves | **✅ SOLVED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-26/problem.pdf) · [TeX](tensor-computations/TR-26/problem.tex) |
+| [TR-26](tensor-computations/TR-26/README.md) | Degrees of the two Rayleigh–Ritz discriminant parts for rational normal curves | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-26/problem.pdf) · [TeX](tensor-computations/TR-26/problem.tex) |
 | [TR-27](tensor-computations/TR-27/README.md) | Border-rank deficiency forcing strict submultiplicativity at the tensor square | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](tensor-computations/TR-27/problem.pdf) · [TeX](tensor-computations/TR-27/problem.tex) |
 
 
