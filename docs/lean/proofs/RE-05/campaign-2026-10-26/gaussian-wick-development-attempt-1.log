@@ -1,0 +1,78 @@
+NLA/Proofs/RE05/GaussianWick.lean:21:4: warning: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+NLA/Proofs/RE05/GaussianWick.lean:38:79: error: unsolved goals
+case pos
+ι : Type u_1
+inst✝¹ : Fintype ι
+inst✝ : DecidableEq ι
+a b c d : ι
+S : Finset ι := {a, b, c, d}
+hS :
+  ∏ x,
+      ∫ (x_1 : ℝ),
+        x_1 ^
+          ((((if x = d then 1 else 0) + if x = d then 1 else 0) + if x = d then 1 else 0) +
+            if x = d then 1 else 0) ∂gaussianReal 0 1 =
+    3
+had : a = d
+hbd : b = d
+hcd : c = d
+⊢ 3 = 1 + 1 + 1
+
+case pos
+ι : Type u_1
+inst✝¹ : Fintype ι
+inst✝ : DecidableEq ι
+a b c d : ι
+S : Finset ι := {a, b, c, d}
+hS :
+  ∏ x,
+      ∫ (x_1 : ℝ),
+        x_1 ^
+          ((((if x = b then 1 else 0) + if x = b then 1 else 0) + if x = d then 1 else 0) +
+            if x = d then 1 else 0) ∂gaussianReal 0 1 =
+    ∫ (x : ℝ), x ^ (((if d = b then 1 else 0) + if d = b then 1 else 0) + 1 + 1) ∂gaussianReal 0 1
+hab : a = b
+hbd : ¬b = d
+hcd : c = d
+⊢ ∫ (x : ℝ), x ^ (((if d = b then 1 else 0) + if d = b then 1 else 0) + 1 + 1) ∂gaussianReal 0 1 = 1
+
+case neg
+ι : Type u_1
+inst✝¹ : Fintype ι
+inst✝ : DecidableEq ι
+a b c d : ι
+S : Finset ι := {a, b, c, d}
+hS :
+  ∏ x,
+      ∫ (x_1 : ℝ),
+        x_1 ^
+          ((((if x = b then 1 else 0) + if x = b then 1 else 0) + if x = c then 1 else 0) +
+            if x = d then 1 else 0) ∂gaussianReal 0 1 =
+    (∫ (x : ℝ), x ^ (((if c = b then 1 else 0) + if c = b then 1 else 0) + 1) ∂gaussianReal 0 1) *
+      ∫ (x : ℝ),
+        x ^ ((((if d = b then 1 else 0) + if d = b then 1 else 0) + if d = c then 1 else 0) + 1) ∂gaussianReal 0 1
+hab : a = b
+hbc : ¬b = c
+hbd : ¬b = d
+hcd : ¬c = d
+⊢ ∫ (x : ℝ), x ^ (((if c = b then 1 else 0) + if c = b then 1 else 0) + 1) ∂gaussianReal 0 1 = 0 ∨
+    ∫ (x : ℝ),
+        x ^ ((((if d = b then 1 else 0) + if d = b then 1 else 0) + if d = c then 1 else 0) + 1) ∂gaussianReal 0 1 =
+      0
+NLA/Proofs/RE05/GaussianWick.lean:58:38: warning: This simp argument is unused:
+  gaussian_first_integral
+
+Hint: Omit it from the simp argument list.
+  [apply] simp_all [S, quarticMultiplicity, gaussian_second_integral, gaussian_third_integral, gaussian_fourth_integral]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/Proofs/RE05/GaussianWick.lean:64:21: error: #assert_trust: 'NLA.Proofs.RE05.gaussian_wick_four' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.RE05.quarticMultiplicity' does not depend on any axioms
+'NLA.Proofs.RE05.quartic_eq_product_powers' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.RE05.gaussian_quartic_integrable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.RE05.gaussian_wick_four' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+NLA.Proofs.RE05.GaussianWick 1
