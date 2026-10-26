@@ -1,0 +1,170 @@
+import NLA.Proofs.TR04.MachineTTFirstContext
+import NLA.Proofs.TR04.MachineTTFirstGather
+import NLA.Proofs.TR04.MachineTTFirstStage
+import NLA.Proofs.TR04.MachineTTFirstOriginal
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+set_option backward.isDefEq.respectTransparency false
+noncomputable section
+
+section
+open NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation TTMemoryLayout
+
+-- Literal public theorem header from MachineTTFirstContext.lean: ttFirstChoice_count_le
+example : ∀ {p : ℕ} (sigma : Fin p → ℝ) (hord : Antitone sigma)
+    (r cap : ℕ) (hr : 1≤r) (N : ℕ) (hp : p≤N) (hN : 0<N),
+  (
+    (ttFirstChoice sigma hord r cap hr).count≤N
+  ) := @NLA.Proofs.TR04.ttFirstChoice_count_le
+
+-- Literal public theorem header from MachineTTFirstContext.lean: TTFirstContext.count_le
+example : ∀ {s0 s : State ttProgram} {R : TTFirstReply s0}
+    {hr : 1≤s0.natural 80} {L : Layout} (h : TTFirstContext R hr L s),
+  (
+    s.natural 75≤L.entries
+  ) := @NLA.Proofs.TR04.TTFirstContext.count_le
+
+-- Literal public theorem header from MachineTTFirstContext.lean: TTFirstContext.count_eq
+example : ∀ {s0 s : State ttProgram} {R : TTFirstReply s0}
+    {hr : 1≤s0.natural 80} {L : Layout} (h : TTFirstContext R hr L s),
+  (
+    s.natural 75=R.family.count
+  ) := @NLA.Proofs.TR04.TTFirstContext.count_eq
+
+-- Literal public theorem header from MachineTTFirstContext.lean: TTFirstContext.transfer
+example : ∀ {s0 s t : State ttProgram} {R : TTFirstReply s0}
+    {hr : 1≤s0.natural 80} {L : Layout} (h : TTFirstContext R hr L s)
+    (hm : ∀ a,a<L.childSigma → t.memory a=s.memory a)
+    (hn : ∀ j : Fin 128,TTLoopKept j → j≠76 → t.natural j=s.natural j),
+  (
+    TTFirstContext R hr L t
+  ) := @NLA.Proofs.TR04.TTFirstContext.transfer
+
+-- Literal public theorem header from MachineTTFirstContext.lean: TTFirstContext.of_stage
+example : ∀ {s0 s t : State ttProgram} {R : TTFirstReply s0}
+    {hr : 1≤s0.natural 80} {L : Layout} (h : TTFirstContext R hr L s)
+    {level : ℕ} (hp : TTStagePreserves L level s t),
+  (
+    TTFirstContext R hr L t
+  ) := @NLA.Proofs.TR04.TTFirstContext.of_stage
+
+-- Literal public theorem header from MachineTTFirstContext.lean: TTFirstFamilyPhase.context
+example : ∀ {S : Shape} {r : Ranks S} {A : Tensor S}
+    {s0 t : State ttProgram} (hi : TTInitialSVDData S r A s0)
+    {R : TTFirstReply s0} {hr : 1≤s0.natural 80} (h : TTFirstFamilyPhase R hr t)
+    (ha : TTAllocationRegisters (ofShape S) t),
+  (
+    TTFirstContext R hr (ofShape S) t
+  ) := @NLA.Proofs.TR04.TTFirstFamilyPhase.context
+end
+
+section
+open NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TensorFormat TensorFormat.TTStrict TTMemoryLayout
+
+-- Literal public theorem header from MachineTTFirstGather.lean: ttLoopKept_candidate
+example : ∀ (j : Fin 128) (hj : TTLoopKept j),
+  (
+    TTCandidateProtectedNat j
+  ) := @NLA.Proofs.TR04.ttLoopKept_candidate
+
+-- Literal public theorem header from MachineTTFirstGather.lean: TTFirstContext.gather
+example : ∀ {start s0 : State ttProgram} {trace : Trace ttProgram}
+    (ht : LegalTrace ttProgram start trace) (offset : ℕ) (s : State ttProgram)
+    (he : trace.state offset=s) (hl : s.label=189) (hs : s.status=.running)
+    {R : TTFirstReply s0} {hr : 1≤s0.natural 80} {L : Layout}
+    (h : TTFirstContext R hr L s) (hj : s.natural 76<s.natural 75),
+  (
+    let time := s0.natural 81*(11*s.natural 106+7)+24
+    let t := trace.state (offset+time)
+    ∃ j : Fin R.family.count,j.val=s.natural 76 ∧ s.natural 106=R.family.width ∧
+      time≤24*(L.entries+1)^2 ∧ t.label=241 ∧ t.status=.running ∧
+      StoresFrame t.memory L.frames R.family.width (R.family.frame j) ∧
+      TTFirstContext R hr L t ∧ TTStagePreserves L 0 s t ∧
+      TTCandidateMetadataFields s t ∧
+      CostThrough ttProgram trace (offset+time)≤CostThrough ttProgram trace offset+24*(L.entries+1)^2
+  ) := @NLA.Proofs.TR04.TTFirstContext.gather
+end
+
+section
+open NLA.Proofs.TR04
+open NLA.Computation.SVDMachine TensorFormat TensorFormat.TTStrict TTMemoryLayout
+
+-- Literal public theorem header from MachineTTFirstStage.lean: ttFirstCandidate_stage
+example : ∀ {s0 s t : State ttProgram} {R : TTFirstReply s0}
+    {hr : 1≤s0.natural 80} {L : Layout} (h : TTFirstContext R hr L s)
+    (ht : TTFirstContext R hr L t) (hf : TTCandidateMetadataFields s t)
+    {ns : List ℕ} (A : Tensor (s0.natural 81::ns))
+    (hcols : suffixSize ns=s0.natural 82)
+    (hread : readMatrix s0.memory (s0.natural 81) (suffixSize ns) (s0.natural 92)=radixDenseFirst A)
+    (j : Fin R.family.count) (hq : s.natural 106=R.family.width)
+    (hQ : StoresFrame t.memory L.frames R.family.width (R.family.frame j)),
+  (
+    TTStageData L 0 (s0.natural 81) R.family.width ns (R.family.frame j) A t
+  ) := @NLA.Proofs.TR04.ttFirstCandidate_stage
+end
+
+section
+open NLA.Proofs.TR04
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation TTMemoryLayout
+open TensorFormat TensorFormat.TTStrict
+
+-- Literal public theorem header from MachineTTFirstOriginal.lean: TTInitialSVDData.two_format
+example : ∀ {S : Shape} {r : Ranks S} {A : NLA.Computation.TensorTrainApproximation.Tensor S}
+    {s0 : State ttProgram} (hi : TTInitialSVDData S r A s0),
+  (
+    ∃ n : ℕ,∃ ns : List ℕ,modeList S.mode=s0.natural 81::n::ns ∧
+      suffixSize (n::ns)=s0.natural 82 ∧ 1≤ns.length
+  ) := @NLA.Proofs.TR04.TTInitialSVDData.two_format
+
+-- Literal public theorem header from MachineTTFirstOriginal.lean: ttStoresTensor_formatCast
+example : ∀ {ns ms : List ℕ} (he : ns=ms)
+    {memory : ℕ → ℝ} {base : ℕ} {A : TensorFormat.Tensor ns}
+    (h : StoresTensor memory base ns A),
+  (
+    StoresTensor memory base ms (Original.formatCast he A)
+  ) := @NLA.Proofs.TR04.ttStoresTensor_formatCast
+
+-- Literal public theorem header from MachineTTFirstOriginal.lean: TTInitialSVDData.read_original
+example : ∀ {S : Shape} {r : Ranks S}
+    {A : NLA.Computation.TensorTrainApproximation.Tensor S} {s0 : State ttProgram}
+    (hi : TTInitialSVDData S r A s0) {ns : List ℕ}
+    (he : modeList S.mode=s0.natural 81::ns),
+  (
+    readMatrix s0.memory (s0.natural 81) (suffixSize ns) (s0.natural 92)=
+      radixDenseFirst (Original.input he A)
+  ) := @NLA.Proofs.TR04.TTInitialSVDData.read_original
+
+-- Literal public theorem header from MachineTTFirstOriginal.lean: TTInitialSVDData.first_rank
+example : ∀ {S : Shape} {r : Ranks S}
+    {A : NLA.Computation.TensorTrainApproximation.Tensor S} {s0 : State ttProgram}
+    (hi : TTInitialSVDData S r A s0),
+  (
+    s0.natural 80=originalRanks S r 0
+  ) := @NLA.Proofs.TR04.TTInitialSVDData.first_rank
+
+-- Literal public theorem header from MachineTTFirstOriginal.lean: TTFirstContext.original_width
+example : ∀ {S : Shape} {r : Ranks S}
+    {A : NLA.Computation.TensorTrainApproximation.Tensor S} {s0 s : State ttProgram}
+    (hi : TTInitialSVDData S r A s0) {R : TTFirstReply s0} {hr : 1≤s0.natural 80}
+    (_h : TTFirstContext R hr (ofShape S) s) {ns : List ℕ}
+    (hcols : suffixSize ns=s0.natural 82),
+  (
+    R.family.width=stepRank (s0.natural 81) ns (originalRanks S r)
+  ) := @NLA.Proofs.TR04.TTFirstContext.original_width
+end
+
+
+open NLA.Computation.SVDMachine NLA.Computation.TensorTrainApproximation NLA.Proofs.TR04 NLA.Proofs.TR04.TTMemoryLayout
+-- The actual first-family endpoint has at most the original dense input size.
+example {S : Shape} {r : Ranks S} {A : Tensor S} {s0 t : State ttProgram}
+    (hi : TTInitialSVDData S r A s0) {R : TTFirstReply s0} {hr : 1≤s0.natural 80}
+    (h : TTFirstFamilyPhase R hr t) (ha : TTAllocationRegisters (ofShape S) t) :
+    t.natural 75≤DenseSize S := (h.context hi ha).count_le
+-- Every actual child stage retains the SAME saved first family.
+example {s0 s t : State ttProgram} {R : TTFirstReply s0} {hr : 1≤s0.natural 80}
+    {L : Layout} (h : TTFirstContext R hr L s) (level : ℕ)
+    (hp : TTStagePreserves L level s t) :
+    TTFirstContext R hr L t ∧ t.natural 75=R.family.count :=
+  ⟨h.of_stage hp,(h.of_stage hp).count_eq⟩

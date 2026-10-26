@@ -1,0 +1,68 @@
+'NLA.Proofs.TR04.ttReverseRead_steps' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTReverseScalar 0
+'NLA.Proofs.TR04.ttReverseLift_setup_steps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.TR04.ttReverseLift_return_steps' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTReverseLift 0
+'NLA.Proofs.TR04.ttReverse_lift_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTReverseLiftCall 0
+'NLA.Proofs.TR04.ttReverseRead_call_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTReverseRead 0
+'NLA.Proofs.TR04.ttReverseMetadata_run_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTReverseMetadata 0
+'NLA.Proofs.TR04.ttReverse_lift_return_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTReverseResult 0
+'NLA.Proofs.TR04.ttReverse_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.TR04.ttReverse_unmerge_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTReverse 0
+'NLA.Proofs.TR04.TTReverseResult.stagePreserves' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTRecursiveState 0
+'NLA.Proofs.TR04.TensorFormat.Dimensions.Reachable.next_mode_header' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.TR04.TTRecursiveDimensions 0
+'NLA.Proofs.TR04.ttStage_metadata_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTStageMetadata 0
+NLA/Proofs/TR04/MachineTTFirstStage.lean:20:82: error: Type mismatch
+  radixDenseFirst A
+has type
+  Matrix (Fin (s0.natural 81)) (Fin (suffixSize ns)) ℝ
+but is expected to have type
+  Matrix (Fin (s0.natural 81)) (Fin (s0.natural 82)) ℝ
+NLA/Proofs/TR04/MachineTTFirstStage.lean:38:8: error: Tactic `rewrite` failed: motive is not type correct:
+  fun _a => readMatrix t.memory (s0.natural 81) _a L.input = radixDenseFirst A
+Error: Application type mismatch: The argument
+  radixDenseFirst A
+has type
+  Matrix (Fin (s0.natural 81)) (Fin (suffixSize ns)) ℝ
+but is expected to have type
+  Matrix (Fin (s0.natural 81)) (Fin _a) ℝ
+in the application
+  readMatrix t.memory (s0.natural 81) _a L.input = radixDenseFirst A
+
+Explanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.
+
+Possible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).
+
+case inputStored
+s0 s t : State ttProgram
+R : TTFirstReply s0
+hr : 1 ≤ s0.natural 80
+L : Layout
+h : TTFirstContext R hr L s
+ht : TTFirstContext R hr L t
+hf : TTCandidateMetadataFields s t
+ns : List ℕ
+A : Tensor (s0.natural 81 :: ns)
+hcols : suffixSize ns = s0.natural 82
+hread : sorry
+j : Fin R.family.count
+hq : s.natural 106 = R.family.width
+hQ : StoresFrame t.memory L.frames R.family.width (R.family.frame j)
+hstride : t.natural 88 = R.family.width
+hinput : t.natural 89 = L.input
+⊢ readMatrix t.memory (s0.natural 81) (suffixSize ns) L.input = radixDenseFirst A
+NLA/Proofs/TR04/MachineTTFirstStage.lean:42:21: error: #assert_trust: 'NLA.Proofs.TR04.ttFirstCandidate_stage' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.TR04.ttFirstCandidate_stage' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTFirstStage 1

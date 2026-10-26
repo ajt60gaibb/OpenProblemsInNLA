@@ -1,0 +1,9 @@
+# Independent source review of fixed first-response context
+
+I read all four frozen MachineTTFirstContext, MachineTTFirstGather, MachineTTFirstStage and MachineTTFirstOriginal bodies in full. Their exact hashes match FIRST_LOOP_CONTEXT_FREEZE_2026-10-26.json. No mathematical or scope blocker was found.
+
+The fixed TTFirstReply retains arbitrary actual U/sigma/V and identifies its literal explicitFirstFrames family. Context construction derives row/column/product capacities from the original shape, saves original input/header before firstU and first SVD outputs before childSigma, and reads the actual disjoint writeSVD result. The candidate count bound includes the one-candidate prefix fallback; selected registers identify the same fixed family. The transfer theorem preserves exact globals and low saved data while allowing only the candidate index to change.
+
+Gather uses actual j, saved first U/sigma/V, the literal bank implementation and concrete frame-write protection to return exact family.frame j at metadata241. It preserves the first context and prior candidates. The stage bridge uses actual candidate metadata fields and dense readMatrix/StoresTensor equivalence; its first-mode dimensions, row stride and tag/buffers are literal. Original bridges transport modeList, actual header rank and actual radix tensor without replacing the original target. The family is fixed before later child responses.
+
+This is an independent source-only approval by /root/recover_algebra of the four other-author bodies. My authored gather/selection/SVD and tensor-memory prerequisites are excluded from independent authorship scope. No separate fresh compiler, whole-loop/Target, Linux CI or Comparator claim is made here. Frozen sources, original mathematical targets/models, IDs and canonical scaffolds were not modified by this review.

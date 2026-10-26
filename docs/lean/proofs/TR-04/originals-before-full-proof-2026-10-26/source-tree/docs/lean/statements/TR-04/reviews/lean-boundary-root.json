@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "id": "TR-04",
+  "reviewer": "/root",
+  "is_ai": true,
+  "phase": "lean-boundary",
+  "verdict": "approve",
+  "authors_excluded": [
+    "/root/infra_audit"
+  ],
+  "input_sha256": {
+    "docs/lean/statements/TR-04/IMPLEMENTATION_NOTES.md": "a661d83390918eef7ceb893f9e035bb569eb955f361b4f1df2f670e8e09f2390",
+    "docs/lean/statements/TR-04/NUMERICAL_TARGETS.md": "f1bfd6d4a73a326a5dec79c052dba4f5ae38cc2f4c9e40622492a7694c5074f4",
+    "docs/lean/statements/TR-04/ORIGINAL.md": "614dfc1189a99b0c2de54a04b948c01d35301d468e0b723c7fcb34b9918957cf",
+    "docs/lean/statements/TR-04/source-lock.json": "1203a4fc275f4c0624db2673ec1535e4b5a71a810c5a10c599548066f6660b72",
+    "docs/lean/statements/verification/2026-09-28-svd-tensor/CheckTR04.lean": "a89a6b3fef94f594cc79ade6837d7183cc870d05d74e2f3cb72b3d0c349971bc",
+    "docs/lean/statements/verification/2026-09-28-svd-tensor/CheckTR04.log": "ee453bb262962a7b60c0324725d91ee9110cbc5bf120d3f0ef0ae8fb29d17006",
+    "docs/lean/statements/verification/2026-09-28-svd-tensor/NLA-Computation-SVDControls.lean.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/lean/statements/verification/2026-09-28-svd-tensor/NLA-Computation-SVDMachine.lean.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/lean/statements/verification/2026-09-28-svd-tensor/NLA-Computation-TensorTrainApproximation.lean.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/lean/statements/verification/2026-09-28-svd-tensor/NLA-Statements-TR04.lean.log": "aa3647d1b1eae17656fa87fa4187639bf9e8e4d83e7e92d4863517c92789f858",
+    "docs/lean/statements/verification/2026-09-28-svd-tensor/Reviewed-TR04.lean.log": "d8524084862ac8d976dbfea2347f87d2afb5f5751167ce204e853ab7b20eaa7b",
+    "docs/lean/statements/verification/2026-09-28-svd-tensor/receipt.json": "a8b0517089762b40d230f0595fba13b7ac2a6abcde05a6bc1ad4e8c537e9f238",
+    "lean-statements/NLA/Computation/SVDControls.lean": "340bed2b81f7a74853d06847f8af4562600548801254a770de1a97e7fd6fac54",
+    "lean-statements/NLA/Computation/SVDMachine.lean": "8ec5866326b5a311b334651600db5d7f3065f2059175823626319afef7cf7581",
+    "lean-statements/NLA/Computation/TensorTrainApproximation.lean": "05038abcc6cf85d422cf580b3cc527e7aa7dad146802da5621911b6331494d2d",
+    "lean-statements/NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+    "lean-statements/NLA/Statements/TR04.lean": "6f595cd3fa4c5d317bc757628a3e7858ab4576c90cbe967ac5289c8b3fbd780c",
+    "lean-statements/Reviewed/TR04.lean": "5b2260e25e8ce7dda5455a3cf11a5c16fc2493ce3d0cf1ab84a447d2fb1f54cd",
+    "lean-statements/lake-manifest.json": "a19377882192a9dbfc01c4d4e73edd887a8de91f735edabaeff2dfa38a4b4ec8",
+    "lean-statements/lakefile.toml": "1e061d7d0521587189437bc8a07b43fcc684889e70ca2e4a03e537e42b7b3a40",
+    "lean-statements/lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+    "references/colbrook-recovered-tensors-2026-09-11/manuscripts/TR-04.tex": "e7770aa08ee91fbda82e0bfe3e087f1a9c8ee2a076218144bf0040e4d282bf73",
+    "tensor-computations/TR-04/README.md": "614dfc1189a99b0c2de54a04b948c01d35301d468e0b723c7fcb34b9918957cf",
+    "tensor-computations/TR-04/lean/Challenge.lean": "e2593ab837691309d993bc46c77c5d37e8c12e9c975254324adbebace2246f32",
+    "tensor-computations/TR-04/lean/SPEC.md": "9a67b4545286ff189a6c12c880862df4ca1767e1da3107c4509569d8a3600902",
+    "tensor-computations/TR-04/lean/Solution.lean": "dd02b5ba519b14e19aeebd005a72c85aba30084347bc3e82d5d8f61d4a94aa75",
+    "tensor-computations/TR-04/problem.tex": "5b07e197470623eb5b26cca49d4a78a6bfba580c36442c8ee456abacb536ef36"
+  },
+  "rationale": [
+    "I read the concrete SVD machine, shared tensor helper, final live/frozen target and implementation notes against the approved full specification. Shape includes every order>=3 and every mode>=2. All order-minus-one cuts use complementary dependent product indices, their joined tensor entries and actual real matrix rank. Every positive prescribed rank is admitted without upper truncation or consistency restriction.",
+    "The Frobenius squared error sums every coordinate. The true feasible-error infimum is well-defined and attained by the usual finite-dimensional closedness/coercivity argument; no minimizer is supplied to the machine. Positive optimum requires the strict factor d-1 and zero optimum requires exact returned tensor equality. No genericity or conditioning restriction changes these cases.",
+    "The finite SVD instruction validates full orthogonal bases, all nonnegative ordered singular values and exact old-store reconstruction. It admits every valid tied basis. All three disjoint output blocks are written, overlapping outputs fail distinctly, and empty blocks and input overlap have explicit semantics. Scalar instructions have genuine old-state semantics and forbidden operations fail; no real-to-natural, optimization or free matrix-product oracle is added.",
+    "LegalTrace fixes each transition and its real charge: every running scalar/halt costs one and each SVD costs (rows+columns+1)^3. Terminal states absorb at zero cost. Target both requires a legal trace and quantifies every legal trace, precluding vacuous absence or a favorable selected SVD response. One finite program, positive coefficient and natural exponent precede all formats, ranks, inputs and responses.",
+    "Input placement includes all modes, ranks and dense entries with last-index-fastest offsets, and no optimizer or spectral advice. Positive radix sizes give the standard offset/decode bijection. Returns reads exactly all original-shaped dense entries from a genuinely halted pointer. Size includes dense entry count, order and numerical rank sum; this is the approved idealized arithmetic/SVD convention, not a binary complexity claim.",
+    "Independently rebuilt SVDMachine, TensorTrainApproximation, live/frozen TR04 and all ten SVDControls with pinned Lean 4.33.1. Every compilation and the actual rfl Target identity passed with only propext, Classical.choice and Quot.sound. Controls exercise tied bases, rejection, block writes, charged transitions, failure/halting and mixed-radix layout. These are operational/identity checks, not a proof of the tensor solver or Linux Comparator result."
+  ],
+  "report_path": "docs/lean/statements/TR-04/reviews/lean-boundary-root.md",
+  "report_sha256": "07123fa7869bd3a59ed2a17aeae0cc7611d928c4a0c1a7a50c492548d5d1275f"
+}
