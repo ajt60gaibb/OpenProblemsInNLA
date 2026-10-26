@@ -1,0 +1,12 @@
+import NLA.Proofs.RE06.CountAudit
+open Lean Elab Command
+elab "#review_kind " kind:ident target:ident : command => do
+  let n ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo target
+  match ← liftCoreM <| getConstInfo n with
+  | .thmInfo _ => unless kind.getId == `thm do throwError "expected definition"
+  | .defnInfo _ => unless kind.getId == `defn do throwError "review requires actual theorem"
+  | _ => throwError "unexpected declaration kind"
+elab "#review_absent " target:ident : command => do
+  if (← getEnv).contains target.getId then throwError "unexpected full scope declaration"
+def CounterfeitSVD : NLA.Computation.NonadaptiveMatrixQuery.SVDTotal := NLA.Proofs.RE06.svd_total
+#review_kind thm CounterfeitSVD
