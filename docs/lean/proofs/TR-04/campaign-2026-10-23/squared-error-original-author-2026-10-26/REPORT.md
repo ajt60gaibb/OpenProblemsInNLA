@@ -1,0 +1,11 @@
+# Original Frobenius memory/caller bridge author replay
+
+Author `/root/recover_geometry`, 2026-10-26. New source `MachineSquaredErrorOriginal.lean` SHA-256 `fe6c69fe636c1a8c01ec132cc764e86855223fcb46cd02743bc58577e3c1453a` is frozen by source-lock SHA-256 `a7cda1ef20bceeb98ab93de1cf49c2c4fd95c624d727264d1ea31103adac59bd`. It preserves the original model, frozen radix sources, squared-error component, and earlier shape/header supports.
+
+The explicit original radix equivalence equals the literal digit decoder at each valid dense address. Native offset-index memory representation is equivalent to dense Decode representation. Reindexing the finite memory sum through this actual bijection proves `squaredErrorSum(memory,baseA,baseB,DenseSize)=FrobeniusSq S A B`. The hypotheses are exactly equations for the actual cells holding A and B, with no disjointness requirement or error/approximation assumption.
+
+`RoutineEmbedding.squaredError_run_frobenius` works at an arbitrary actual caller trace time. At return time `9*DenseSize+2`, the injected actual real register contains literal original FrobeniusSq, the caller is running at its mapped continuation, the whole memory is unchanged, and every caller register outside the frame is preserved. Actual prefix charges are bounded by the previous cost plus `9*DenseSize+2`, hence plus `11*Size`. No input optimizer or error oracle is present.
+
+Fresh author replay passed all41 project source compilations and a separate exact-type consumer with the original squared sum expanded (42commands). All five new declarations passed kernel assertions; printed axiom lists use at most `propext`, `Classical.choice`, and `Quot.sound`. No project objects were reused; pinned external Mathlib/LeanCert objects were reused. All frozen referenced sources and all25 original reviewed inputs remain exact.
+
+Receipt `run/result.json` SHA-256 `23902404ac184390e012b6dcd2b63c38c34140eea8f393a2b8e34e10e74d677f`. This is author support evidence, not independent approval, a complete TT program/Target, Linux CI, or Comparator acceptance. Reproduce with `python3 docs/lean/proofs/TR-04/campaign-2026-10-23/squared-error-original-author-2026-10-26/replay.py --output /absolute/new/output`.
