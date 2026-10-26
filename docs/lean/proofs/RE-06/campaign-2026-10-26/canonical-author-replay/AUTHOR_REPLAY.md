@@ -1,0 +1,9 @@
+# RE-06 fresh canonical author replay
+
+The immutable v2 candidate at Git `0c6d346763a932eb2d379f555e66d8ab3dbf3255`, with PACKAGE_LOCK SHA-256 `7bfbc8d0493068bce0abcf6d239b539e047061bc5139ce1720e02c64b5592153`, passed all 94 expected local author commands: 91 source-only Lean builds from an empty project-object tree and three actual rejection controls. No project objects were borrowed. All six public exports are genuine theorem constants checked with LeanCert kernel mode and have exactly the standard three transitive axioms. All ten dependency heads were checked before and after the replay. This is author evidence, separate from independent source/package review and actual Linux/Comparator acceptance.
+
+The three controls genuinely reject all six reference holes, a definition alias, and a custom Target axiom. The corrected reference-hole control records exactly six trust errors with no unknown-name errors. Compiled temporary project objects were removed by the driver. Sources, actual commands, exit codes and unedited diagnostics are retained. Harmless inherited warnings are not hidden.
+
+The interrupted v1 replay is retained under `v1-superseded`. It has no complete acceptance result. The independent reviewer found that its moved control lacked the original namespace and would fail with unknown names instead of the intended trust errors. V2 corrects only the control namespace and associated descriptive metadata; all 91 runtime Lean inputs are byte-identical. The supersession record retains this history.
+
+Replay at the candidate checkout using the canonical `randomized-and-low-rank-approximation/RE-06/lean/reproduce.py`, passing `--lean`, `--packages` and a new `--output` directory. The exact executed driver bytes are retained here as text. All 282 original report files are copied verbatim, with no omissions; no compiled objects or Python bytecode are included.
