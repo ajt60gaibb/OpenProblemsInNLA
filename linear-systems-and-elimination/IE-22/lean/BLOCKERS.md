@@ -1,3 +1,3 @@
-# Remaining acceptance gates
+# IE-22 acceptance evidence
 
-Both exact squared endpoints and the literal unchanged Target have local author kernel proofs. Independent complete-source review, fresh canonical closure/axiom/theorem-kind replay, real Linux sandbox/Comparator checks, immutable input/artifact receipts, and final package/promotion review remain to be completed. The historical blocker text is preserved under original-scaffold/.
+The complete unchanged Target, both squared endpoints, two independent final source/package reviews and actual Linux/Comparator/kernel acceptance pass. The promotion preserves all27Lean sources and receives fresh committed-project CI. The immutable receipts and exact review scopes are recorded in ../../../docs/lean/proofs/IE-22/campaign-2026-10-23/LINUX_CI_RECEIPT.md. Historical blocker text remains under original-scaffold/.

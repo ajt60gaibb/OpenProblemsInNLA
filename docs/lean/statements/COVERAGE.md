@@ -1,6 +1,6 @@
 # Lean statement coverage
 
-Published base: `5487945e5a72abd952b0c89915915de8cc9b3e65`.
+Published base: `01ed3c64648d2d8350ba80c4018894b6d785d2c9`.
 
 This generated source inventory covers every permanent registered ID. It does not certify proofs, compilation, or mathematical fidelity. Catalog statuses are retained verbatim. A solution file's existence is not evidence that the original target is proved.
 
@@ -66,7 +66,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [IE-19](../../../linear-systems-and-elimination/IE-19/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [IE-20](../../../linear-systems-and-elimination/IE-20/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [IE-21](../../../linear-systems-and-elimination/IE-21/README.md) | Solved | shared-statement-source | The full target is an axiom and the SphericalRowLaw semantic boundary is unimplemented. |
-| [IE-22](../../../linear-systems-and-elimination/IE-22/README.md) | Solved | shared-statement-source | The full target is an axiom; complete semantic and proof obligations remain. |
+| [IE-22](../../../linear-systems-and-elimination/IE-22/README.md) | Lean verified | shared-statement-source | The full target is an axiom; complete semantic and proof obligations remain. |
 | [IE-23](../../../linear-systems-and-elimination/IE-23/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [IE-24](../../../linear-systems-and-elimination/IE-24/README.md) | Open | missing-statement | Not audited here. |
 | [IE-25](../../../linear-systems-and-elimination/IE-25/README.md) | Open | missing-statement | Not audited here. |
