@@ -1,0 +1,9 @@
+import NLA.Proofs.RE06.GaussianMomentOuterAudit
+set_option leancert.trust "kernel"
+namespace Negative
+theorem fake_svd : NLA.Computation.NonadaptiveMatrixQuery.SVDTotal := by sorry
+theorem fake_count (n m : ℕ) (hn : 0<n) (ε : ℝ) (hε0 : 0<ε) (hεh : ε<1/2) :
+ NLA.Computation.NonadaptiveMatrixQuery.QueryBound n m ε 4000000 0 := by sorry
+#assert_trust kernel fake_svd
+#assert_trust kernel fake_count
+end Negative
