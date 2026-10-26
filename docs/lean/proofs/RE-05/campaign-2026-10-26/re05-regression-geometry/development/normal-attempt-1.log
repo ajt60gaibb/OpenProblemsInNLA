@@ -1,0 +1,31 @@
+NLA/Proofs/RE05/RegressionNormal.lean:85:22: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ⟪?y, observationVector plan responses⟫_ℝ
+in the target expression
+  ⟪observationVector plan responses, (coefficientMeasurement P plan) d⟫_ℝ -
+      ⟪(coefficientMeasurement P plan) c, (coefficientMeasurement P plan) d⟫_ℝ =
+    0
+
+n q : ℕ
+P : Basis n q
+plan : Plan n
+responses : List (Fin n → ℝ)
+c : Fin (q + 1) → ℝ
+hc : gram P plan *ᵥ c = rhs P plan responses
+d : Fin (q + 1) → ℝ
+⊢ ⟪observationVector plan responses, (coefficientMeasurement P plan) d⟫_ℝ -
+      ⟪(coefficientMeasurement P plan) c, (coefficientMeasurement P plan) d⟫_ℝ =
+    0
+NLA/Proofs/RE05/RegressionNormal.lean:104:2: error: Type mismatch
+  hp
+has type
+  ‖observationVector plan responses - (coefficientMeasurement P plan) d‖ *
+      ‖observationVector plan responses - (coefficientMeasurement P plan) d‖ =
+    ‖observationVector plan responses - (coefficientMeasurement P plan) c‖ *
+        ‖observationVector plan responses - (coefficientMeasurement P plan) c‖ +
+      ‖(coefficientMeasurement P plan) c - (coefficientMeasurement P plan) d‖ *
+        ‖(coefficientMeasurement P plan) c - (coefficientMeasurement P plan) d‖
+but is expected to have type
+  ‖observationVector plan responses - (coefficientMeasurement P plan) d‖ ^ 2 =
+    ‖observationVector plan responses - (coefficientMeasurement P plan) c‖ ^ 2 +
+      ‖(coefficientMeasurement P plan) c - (coefficientMeasurement P plan) d‖ ^ 2
+NLA.Proofs.RE05.RegressionNormal 1

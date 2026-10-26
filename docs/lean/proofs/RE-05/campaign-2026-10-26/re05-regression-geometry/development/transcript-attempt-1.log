@@ -1,0 +1,36 @@
+NLA/Proofs/RE05/RegressionTranscript.lean:15:2: error: Unnecessary `generalizing` argument: Variable `f` is generalized automatically
+NLA/Proofs/RE05/RegressionTranscript.lean:19:50: warning: This simp argument is unused:
+  Fin.sum_univ_succ
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [List.finRange_succ, List.flatMap_map]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/Proofs/RE05/RegressionTranscript.lean:75:78: error: unsolved goals
+n : ℕ
+A : Square n
+plan : Plan n
+g : Fin plan.s
+h :
+  Computation.NonadaptiveMatrixQuery.storedVector
+      (List.map (fun h k => ∑ i, A i k * plan.U i h) plan.selected ++
+        List.map (fun g i => ∑ k, A i k * plan.G k g) (List.finRange plan.s))
+      (plan.selected.length + ↑g) =
+    Computation.NonadaptiveMatrixQuery.storedVector
+      (List.map (fun g i => ∑ k, A i k * plan.G k g) (List.finRange plan.s)) ↑g
+⊢ (fun i => ∑ x, A i x * plan.G x g) = A *ᵥ fun k => plan.G k g
+NLA/Proofs/RE05/RegressionTranscript.lean:83:61: warning: This simp argument is unused:
+  Matrix.mulVec
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [NLA.Computation.NonadaptiveMatrixQuery.storedVector, dotProduct]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/Proofs/RE05/RegressionTranscript.lean:83:76: warning: This simp argument is unused:
+  dotProduct
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [NLA.Computation.NonadaptiveMatrixQuery.storedVector, Matrix.mulVec]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA.Proofs.RE05.RegressionTranscript 1
