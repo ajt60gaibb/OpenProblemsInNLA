@@ -1,0 +1,29 @@
+import Lean
+import Comparator.Compare
+open Lean
+def imported (moduleName : Name) : IO Export.ExportedEnv := do
+  let env ← importModules #[{ module := moduleName }] {} 0
+  let consts := env.constants.toList
+  return { constMap := Std.HashMap.ofList consts, constOrder := (consts.map Prod.fst).toArray }
+def requireSuccess (label : String) (result : Except String Unit) : IO Unit := do
+  match result with
+  | .ok _ => IO.println s!"PASS {label}"
+  | .error err => throw <| IO.userError s!"{label}: unexpected rejection: {err}"
+def requireRejection (label needle : String) (result : Except String Unit) : IO Unit := do
+  match result with
+  | .ok _ => throw <| IO.userError s!"{label}: unexpectedly accepted"
+  | .error err =>
+    if (err.splitOn needle).length < 2 then
+      throw <| IO.userError s!"{label}: unexpected rejection reason: {err}"
+    IO.println s!"PASS {label}: {err}"
+def main : IO Unit := do
+  initSearchPath (← findSysroot)
+  let challenge ← imported `Challenge
+  let solution ← imported `Solution
+  for name in #[`NLA.Proofs.RE06.svd_total, `NLA.Proofs.RE06.query_bound, `NLA.Proofs.RE06.successful, `NLA.Proofs.RE06.original_claim, `NLA.Proofs.RE06.explicit_claim, `NLA.Proofs.RE06.target] do
+    requireSuccess s!"actual exact signature: {name}" <|
+      Comparator.compareAt challenge solution #[name] #[] #[]
+    requireSuccess s!"actual transitive standard-three axiom audit: {name}" <|
+      Comparator.checkAxioms solution #[name] #[] #[`propext, `Classical.choice, `Quot.sound]
+    requireRejection s!"actual reference sorry rejection: {name}" "Illegal axiom detected: 'sorryAx'" <|
+      Comparator.checkAxioms challenge #[name] #[] #[`propext, `Classical.choice, `Quot.sound]

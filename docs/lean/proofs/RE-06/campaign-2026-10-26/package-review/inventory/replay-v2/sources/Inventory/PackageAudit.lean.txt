@@ -1,0 +1,98 @@
+import Solution
+import Reviewed.RE06
+import LeanCert.Tactic.Verification
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open Lean Elab Command in
+elab "#inventory_theorem " n:ident : command => do
+  let d ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  match (← getEnv).find? d with
+  | some (.thmInfo _) => pure ()
+  | _ => throwErrorAt n "inventory expects genuine theorem"
+namespace Inventory.RE06.Package
+
+theorem consumeSVD : NLA.Computation.NonadaptiveMatrixQuery.SVDTotal :=
+  NLA.Proofs.RE06.svd_total
+
+theorem consumeQueries (n m : ℕ) (hn : 0 < n) (ε : ℝ)
+    (hε0 : 0 < ε) (hεh : ε < 1 / 2) :
+    NLA.Computation.NonadaptiveMatrixQuery.QueryBound n m ε 4000000 0 :=
+  NLA.Proofs.RE06.query_bound n m hn ε hε0 hεh
+
+theorem consumeSuccess (n m : ℕ) (hn : 0 < n)
+    (F : NLA.Computation.NonadaptiveMatrixQuery.Family n m) (hF : Function.Injective F)
+    (A : Matrix (Fin n) (Fin n) ℝ) (ε : ℝ) (hε0 : 0 < ε) (hεh : ε < 1 / 2) :
+    NLA.Computation.NonadaptiveMatrixQuery.Successful F A ε :=
+  NLA.Proofs.RE06.successful n m hn F hF A ε hε0 hεh
+
+theorem consumeOriginal : NLA.Statements.RE06.OriginalClaim :=
+  NLA.Proofs.RE06.original_claim
+
+theorem consumeExplicit : NLA.Statements.RE06.ExplicitClaim :=
+  NLA.Proofs.RE06.explicit_claim
+
+theorem consumeTarget : NLA.Statements.RE06.Target := NLA.Proofs.RE06.target
+
+theorem liveReviewedIdentity :
+    NLA.Statements.RE06.Target = NLA.ReviewedStatements.RE06.Target := rfl
+
+theorem consumeReviewedTarget : NLA.ReviewedStatements.RE06.Target := by
+  rw [← liveReviewedIdentity]
+  exact NLA.Proofs.RE06.target
+end Inventory.RE06.Package
+
+#inventory_theorem NLA.Proofs.RE06.svd_total
+#assert_trust kernel NLA.Proofs.RE06.svd_total
+#print axioms NLA.Proofs.RE06.svd_total
+
+#inventory_theorem NLA.Proofs.RE06.query_bound
+#assert_trust kernel NLA.Proofs.RE06.query_bound
+#print axioms NLA.Proofs.RE06.query_bound
+
+#inventory_theorem NLA.Proofs.RE06.successful
+#assert_trust kernel NLA.Proofs.RE06.successful
+#print axioms NLA.Proofs.RE06.successful
+
+#inventory_theorem NLA.Proofs.RE06.original_claim
+#assert_trust kernel NLA.Proofs.RE06.original_claim
+#print axioms NLA.Proofs.RE06.original_claim
+
+#inventory_theorem NLA.Proofs.RE06.explicit_claim
+#assert_trust kernel NLA.Proofs.RE06.explicit_claim
+#print axioms NLA.Proofs.RE06.explicit_claim
+
+#inventory_theorem NLA.Proofs.RE06.target
+#assert_trust kernel NLA.Proofs.RE06.target
+#print axioms NLA.Proofs.RE06.target
+
+#inventory_theorem Inventory.RE06.Package.consumeSVD
+#assert_trust kernel Inventory.RE06.Package.consumeSVD
+#print axioms Inventory.RE06.Package.consumeSVD
+
+#inventory_theorem Inventory.RE06.Package.consumeQueries
+#assert_trust kernel Inventory.RE06.Package.consumeQueries
+#print axioms Inventory.RE06.Package.consumeQueries
+
+#inventory_theorem Inventory.RE06.Package.consumeSuccess
+#assert_trust kernel Inventory.RE06.Package.consumeSuccess
+#print axioms Inventory.RE06.Package.consumeSuccess
+
+#inventory_theorem Inventory.RE06.Package.consumeOriginal
+#assert_trust kernel Inventory.RE06.Package.consumeOriginal
+#print axioms Inventory.RE06.Package.consumeOriginal
+
+#inventory_theorem Inventory.RE06.Package.consumeExplicit
+#assert_trust kernel Inventory.RE06.Package.consumeExplicit
+#print axioms Inventory.RE06.Package.consumeExplicit
+
+#inventory_theorem Inventory.RE06.Package.consumeTarget
+#assert_trust kernel Inventory.RE06.Package.consumeTarget
+#print axioms Inventory.RE06.Package.consumeTarget
+
+#inventory_theorem Inventory.RE06.Package.liveReviewedIdentity
+#assert_trust kernel Inventory.RE06.Package.liveReviewedIdentity
+#print axioms Inventory.RE06.Package.liveReviewedIdentity
+
+#inventory_theorem Inventory.RE06.Package.consumeReviewedTarget
+#assert_trust kernel Inventory.RE06.Package.consumeReviewedTarget
+#print axioms Inventory.RE06.Package.consumeReviewedTarget
