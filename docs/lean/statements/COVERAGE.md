@@ -206,7 +206,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [SP-15](../../../eigenvalues-and-inverse-problems/SP-15/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [TR-01](../../../randomized-and-low-rank-approximation/TR-01/README.md) | Lean verified | external-statement-source | Not audited here. |
 | [TR-03](../../../randomized-and-low-rank-approximation/TR-03/README.md) | Partially resolved | missing-statement | Not audited here. |
-| [TR-04](../../../tensor-computations/TR-04/README.md) | Solved | shared-statement-source | Unfolding rank is an arbitrary function and the operation count is an unconstrained natural-number output. |
+| [TR-04](../../../tensor-computations/TR-04/README.md) | Lean verified | shared-statement-source | Unfolding rank is an arbitrary function and the operation count is an unconstrained natural-number output. |
 | [TR-05](../../../tensor-computations/TR-05/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [TR-06](../../../tensor-computations/TR-06/README.md) | Lean verified | shared-statement-source | Not audited here. |
 | [TR-07](../../../randomized-and-low-rank-approximation/TR-07/README.md) | Lean verified | local-statement-source | Not audited here. |
