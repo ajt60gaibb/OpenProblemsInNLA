@@ -1,3 +1,7 @@
+import NLA.Proofs.TR14.Final
+import NLA.Proofs.PF05.Final
+import NLA.Proofs.PF05.PositiveOrbitClosed
+import NLA.Proofs.SP12.Final
 import NLA.Proofs.SP11.Final
 import NLA.Proofs.SP11.AlternatingContraction
 import NLA.Proofs.SP11.AlternatingPolynomial

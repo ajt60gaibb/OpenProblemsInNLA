@@ -1,0 +1,216 @@
+import NLA.Proofs.TR14.ContextualProduct
+import NLA.Proofs.TR14.ReducedPrimitiveBlocks
+import NLA.Proofs.TR14.MinimumOrdinary
+import LeanCert.Tactic.Verification
+open Lean Elab Command in
+elab "#assert_proof_constant " n:ident : command => do
+  let decl ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  match (← getEnv).find? decl with
+  | some (.thmInfo _) => pure ()
+  | _ => throwErrorAt n "expected a proved theorem constant"
+open Lean Elab Command in
+elab "#assert_private_theorem " mod:str suffix:str : command => do
+  let declPrefix := "_private." ++ mod.getString ++ "."
+  let ending := "." ++ suffix.getString
+  let candidates := (← getEnv).constants.toList.filter fun (n, _) =>
+    n.toString.startsWith declPrefix && n.toString.endsWith ending
+  unless candidates.length == 1 do
+    throwError "expected exactly one actual private declaration"
+  let some (decl, info) := candidates.head? | throwError "private declaration missing"
+  match info with
+  | .thmInfo _ => pure ()
+  | _ => throwError "private declaration must be a proved theorem"
+  logInfo m!"PRIVATE_THEOREM {decl}"
+  let declIdent := mkIdent decl
+  elabCommand (← `(#assert_trust $(mkIdent `kernel):ident $declIdent:ident))
+  elabCommand (← `(#print axioms $declIdent:ident))
+#assert_trust kernel NLA.Proofs.TR14.productStabilizer
+#print axioms NLA.Proofs.TR14.productStabilizer
+#assert_proof_constant NLA.Proofs.TR14.mem_productStabilizer
+#assert_trust kernel NLA.Proofs.TR14.mem_productStabilizer
+#print axioms NLA.Proofs.TR14.mem_productStabilizer
+#assert_proof_constant NLA.Proofs.TR14.productStabilizer_mul
+#assert_trust kernel NLA.Proofs.TR14.productStabilizer_mul
+#print axioms NLA.Proofs.TR14.productStabilizer_mul
+#assert_proof_constant NLA.Proofs.TR14.productStabilizer_le_mul_right
+#assert_trust kernel NLA.Proofs.TR14.productStabilizer_le_mul_right
+#print axioms NLA.Proofs.TR14.productStabilizer_le_mul_right
+#assert_proof_constant NLA.Proofs.TR14.scalar_subalgebra_le_productStabilizer
+#assert_trust kernel NLA.Proofs.TR14.scalar_subalgebra_le_productStabilizer
+#print axioms NLA.Proofs.TR14.scalar_subalgebra_le_productStabilizer
+#assert_proof_constant NLA.Proofs.TR14.productStabilizer_le_mul_left
+#assert_trust kernel NLA.Proofs.TR14.productStabilizer_le_mul_left
+#print axioms NLA.Proofs.TR14.productStabilizer_le_mul_left
+#assert_trust kernel NLA.Proofs.TR14.unitMultiplication
+#print axioms NLA.Proofs.TR14.unitMultiplication
+#assert_trust kernel NLA.Proofs.TR14.unitScale
+#print axioms NLA.Proofs.TR14.unitScale
+#assert_proof_constant NLA.Proofs.TR14.mem_unitScale
+#assert_trust kernel NLA.Proofs.TR14.mem_unitScale
+#print axioms NLA.Proofs.TR14.mem_unitScale
+#assert_proof_constant NLA.Proofs.TR14.finrank_unitScale
+#assert_trust kernel NLA.Proofs.TR14.finrank_unitScale
+#print axioms NLA.Proofs.TR14.finrank_unitScale
+#assert_proof_constant NLA.Proofs.TR14.one_mem_unitScale_inv
+#assert_trust kernel NLA.Proofs.TR14.one_mem_unitScale_inv
+#print axioms NLA.Proofs.TR14.one_mem_unitScale_inv
+#assert_proof_constant NLA.Proofs.TR14.submodule_le_mul_of_one_mem_right
+#assert_trust kernel NLA.Proofs.TR14.submodule_le_mul_of_one_mem_right
+#print axioms NLA.Proofs.TR14.submodule_le_mul_of_one_mem_right
+#assert_proof_constant NLA.Proofs.TR14.submodule_le_mul_of_one_mem_left
+#assert_trust kernel NLA.Proofs.TR14.submodule_le_mul_of_one_mem_left
+#print axioms NLA.Proofs.TR14.submodule_le_mul_of_one_mem_left
+#assert_proof_constant NLA.Proofs.TR14.productStabilizer_le_list_tail
+#assert_trust kernel NLA.Proofs.TR14.productStabilizer_le_list_tail
+#print axioms NLA.Proofs.TR14.productStabilizer_le_list_tail
+#assert_proof_constant NLA.Proofs.TR14.spectrum_lmul_eq
+#assert_trust kernel NLA.Proofs.TR14.spectrum_lmul_eq
+#print axioms NLA.Proofs.TR14.spectrum_lmul_eq
+#assert_proof_constant NLA.Proofs.TR14.algebra_finite_spectrum
+#assert_trust kernel NLA.Proofs.TR14.algebra_finite_spectrum
+#print axioms NLA.Proofs.TR14.algebra_finite_spectrum
+#assert_proof_constant NLA.Proofs.TR14.exists_unit_scalar_sub
+#assert_trust kernel NLA.Proofs.TR14.exists_unit_scalar_sub
+#print axioms NLA.Proofs.TR14.exists_unit_scalar_sub
+#assert_proof_constant NLA.Proofs.TR14.span_units_eq_of_one_mem
+#assert_trust kernel NLA.Proofs.TR14.span_units_eq_of_one_mem
+#print axioms NLA.Proofs.TR14.span_units_eq_of_one_mem
+#assert_proof_constant NLA.Proofs.TR14.unitScale_one
+#assert_trust kernel NLA.Proofs.TR14.unitScale_one
+#print axioms NLA.Proofs.TR14.unitScale_one
+#assert_proof_constant NLA.Proofs.TR14.unitScale_comp
+#assert_trust kernel NLA.Proofs.TR14.unitScale_comp
+#print axioms NLA.Proofs.TR14.unitScale_comp
+#assert_proof_constant NLA.Proofs.TR14.unitScale_inv_scale
+#assert_trust kernel NLA.Proofs.TR14.unitScale_inv_scale
+#print axioms NLA.Proofs.TR14.unitScale_inv_scale
+#assert_proof_constant NLA.Proofs.TR14.unitScale_scale_inv
+#assert_trust kernel NLA.Proofs.TR14.unitScale_scale_inv
+#print axioms NLA.Proofs.TR14.unitScale_scale_inv
+#assert_proof_constant NLA.Proofs.TR14.unitScale_inf
+#assert_trust kernel NLA.Proofs.TR14.unitScale_inf
+#print axioms NLA.Proofs.TR14.unitScale_inf
+#assert_proof_constant NLA.Proofs.TR14.mem_unitScale_inv_iff
+#assert_trust kernel NLA.Proofs.TR14.mem_unitScale_inv_iff
+#print axioms NLA.Proofs.TR14.mem_unitScale_inv_iff
+#assert_proof_constant NLA.Proofs.TR14.transformation_dimension_sum
+#assert_trust kernel NLA.Proofs.TR14.transformation_dimension_sum
+#print axioms NLA.Proofs.TR14.transformation_dimension_sum
+#assert_proof_constant NLA.Proofs.TR14.transformation_product_le
+#assert_trust kernel NLA.Proofs.TR14.transformation_product_le
+#print axioms NLA.Proofs.TR14.transformation_product_le
+#assert_proof_constant NLA.Proofs.TR14.le_productStabilizer_of_unit_products
+#assert_trust kernel NLA.Proofs.TR14.le_productStabilizer_of_unit_products
+#print axioms NLA.Proofs.TR14.le_productStabilizer_of_unit_products
+#assert_proof_constant NLA.Proofs.TR14.linearTransformation_normalized
+#assert_trust kernel NLA.Proofs.TR14.linearTransformation_normalized
+#print axioms NLA.Proofs.TR14.linearTransformation_normalized
+#assert_proof_constant NLA.Proofs.TR14.unitScale_eq_pointwise
+#assert_trust kernel NLA.Proofs.TR14.unitScale_eq_pointwise
+#print axioms NLA.Proofs.TR14.unitScale_eq_pointwise
+#assert_proof_constant NLA.Proofs.TR14.unitScale_mono
+#assert_trust kernel NLA.Proofs.TR14.unitScale_mono
+#print axioms NLA.Proofs.TR14.unitScale_mono
+#assert_proof_constant NLA.Proofs.TR14.unitScale_mul_right
+#assert_trust kernel NLA.Proofs.TR14.unitScale_mul_right
+#print axioms NLA.Proofs.TR14.unitScale_mul_right
+#assert_proof_constant NLA.Proofs.TR14.unitScale_stable
+#assert_trust kernel NLA.Proofs.TR14.unitScale_stable
+#print axioms NLA.Proofs.TR14.unitScale_stable
+#assert_proof_constant NLA.Proofs.TR14.linearTransformation_unit
+#assert_trust kernel NLA.Proofs.TR14.linearTransformation_unit
+#print axioms NLA.Proofs.TR14.linearTransformation_unit
+#assert_proof_constant NLA.Proofs.TR14.scalar_line_hits_subsingleton
+#assert_trust kernel NLA.Proofs.TR14.scalar_line_hits_subsingleton
+#print axioms NLA.Proofs.TR14.scalar_line_hits_subsingleton
+#assert_proof_constant NLA.Proofs.TR14.exists_unit_avoiding_finite_subspaces
+#assert_trust kernel NLA.Proofs.TR14.exists_unit_avoiding_finite_subspaces
+#print axioms NLA.Proofs.TR14.exists_unit_avoiding_finite_subspaces
+#assert_proof_constant NLA.Proofs.TR14.exists_unit_class_spans
+#assert_trust kernel NLA.Proofs.TR14.exists_unit_class_spans
+#print axioms NLA.Proofs.TR14.exists_unit_class_spans
+#assert_proof_constant NLA.Proofs.TR14.nilpotent_eq_zero_of_context
+#assert_trust kernel NLA.Proofs.TR14.nilpotent_eq_zero_of_context
+#print axioms NLA.Proofs.TR14.nilpotent_eq_zero_of_context
+#assert_proof_constant NLA.Proofs.TR14.subalgebra_isReduced_of_context
+#assert_trust kernel NLA.Proofs.TR14.subalgebra_isReduced_of_context
+#print axioms NLA.Proofs.TR14.subalgebra_isReduced_of_context
+#assert_proof_constant NLA.Proofs.TR14.productStabilizer_isReduced_of_context
+#assert_trust kernel NLA.Proofs.TR14.productStabilizer_isReduced_of_context
+#print axioms NLA.Proofs.TR14.productStabilizer_isReduced_of_context
+#assert_proof_constant NLA.Proofs.TR14.auxiliarySubalgebra_isReduced_of_context
+#assert_trust kernel NLA.Proofs.TR14.auxiliarySubalgebra_isReduced_of_context
+#print axioms NLA.Proofs.TR14.auxiliarySubalgebra_isReduced_of_context
+#assert_proof_constant NLA.Proofs.TR14.contextual_product_step_of_finite_reduced
+#assert_trust kernel NLA.Proofs.TR14.contextual_product_step_of_finite_reduced
+#print axioms NLA.Proofs.TR14.contextual_product_step_of_finite_reduced
+#assert_proof_constant NLA.Proofs.TR14.reduced_algebra_span_idempotents
+#assert_trust kernel NLA.Proofs.TR14.reduced_algebra_span_idempotents
+#print axioms NLA.Proofs.TR14.reduced_algebra_span_idempotents
+#assert_proof_constant NLA.Proofs.TR14.reducedSubalgebra_eq_span_idempotents
+#assert_trust kernel NLA.Proofs.TR14.reducedSubalgebra_eq_span_idempotents
+#print axioms NLA.Proofs.TR14.reducedSubalgebra_eq_span_idempotents
+#assert_proof_constant NLA.Proofs.TR14.finite_reducedSubalgebras
+#assert_trust kernel NLA.Proofs.TR14.finite_reducedSubalgebras
+#print axioms NLA.Proofs.TR14.finite_reducedSubalgebras
+#assert_proof_constant NLA.Proofs.TR14.finite_idempotents_of_artinian
+#assert_trust kernel NLA.Proofs.TR14.finite_idempotents_of_artinian
+#print axioms NLA.Proofs.TR14.finite_idempotents_of_artinian
+#assert_proof_constant NLA.Proofs.TR14.finite_reducedSubalgebras_of_finiteDimensional
+#assert_trust kernel NLA.Proofs.TR14.finite_reducedSubalgebras_of_finiteDimensional
+#print axioms NLA.Proofs.TR14.finite_reducedSubalgebras_of_finiteDimensional
+#assert_proof_constant NLA.Proofs.TR14.contextual_product_step
+#assert_trust kernel NLA.Proofs.TR14.contextual_product_step
+#print axioms NLA.Proofs.TR14.contextual_product_step
+#assert_proof_constant NLA.Proofs.TR14.reduced_complex_exists_equiv_fin
+#assert_trust kernel NLA.Proofs.TR14.reduced_complex_exists_equiv_fin
+#print axioms NLA.Proofs.TR14.reduced_complex_exists_equiv_fin
+#assert_trust kernel NLA.Proofs.TR14.reducedBlockIdempotent
+#print axioms NLA.Proofs.TR14.reducedBlockIdempotent
+#assert_proof_constant NLA.Proofs.TR14.reducedBlockIdempotent_mem
+#assert_trust kernel NLA.Proofs.TR14.reducedBlockIdempotent_mem
+#print axioms NLA.Proofs.TR14.reducedBlockIdempotent_mem
+#assert_proof_constant NLA.Proofs.TR14.reducedBlockIdempotent_ne_zero
+#assert_trust kernel NLA.Proofs.TR14.reducedBlockIdempotent_ne_zero
+#print axioms NLA.Proofs.TR14.reducedBlockIdempotent_ne_zero
+#assert_proof_constant NLA.Proofs.TR14.reducedBlockIdempotent_mul_self
+#assert_trust kernel NLA.Proofs.TR14.reducedBlockIdempotent_mul_self
+#print axioms NLA.Proofs.TR14.reducedBlockIdempotent_mul_self
+#assert_proof_constant NLA.Proofs.TR14.reducedBlockIdempotent_mul_eq_zero
+#assert_trust kernel NLA.Proofs.TR14.reducedBlockIdempotent_mul_eq_zero
+#print axioms NLA.Proofs.TR14.reducedBlockIdempotent_mul_eq_zero
+#assert_proof_constant NLA.Proofs.TR14.reducedBlockIdempotent_sum
+#assert_trust kernel NLA.Proofs.TR14.reducedBlockIdempotent_sum
+#print axioms NLA.Proofs.TR14.reducedBlockIdempotent_sum
+#assert_proof_constant NLA.Proofs.TR14.reducedBlockIdempotent_scalar_action
+#assert_trust kernel NLA.Proofs.TR14.reducedBlockIdempotent_scalar_action
+#print axioms NLA.Proofs.TR14.reducedBlockIdempotent_scalar_action
+#assert_proof_constant NLA.Proofs.TR14.symmetricWidth_to_ordinaryWidth
+#assert_trust kernel NLA.Proofs.TR14.symmetricWidth_to_ordinaryWidth
+#print axioms NLA.Proofs.TR14.symmetricWidth_to_ordinaryWidth
+#assert_proof_constant NLA.Proofs.TR14.ordinaryWidth_zero_iff
+#assert_trust kernel NLA.Proofs.TR14.ordinaryWidth_zero_iff
+#print axioms NLA.Proofs.TR14.ordinaryWidth_zero_iff
+#assert_proof_constant NLA.Proofs.TR14.symmetricWidth_zero_iff
+#assert_trust kernel NLA.Proofs.TR14.symmetricWidth_zero_iff
+#print axioms NLA.Proofs.TR14.symmetricWidth_zero_iff
+#assert_trust kernel NLA.Proofs.TR14.ordinarySummand
+#print axioms NLA.Proofs.TR14.ordinarySummand
+#assert_proof_constant NLA.Proofs.TR14.exists_minimal_ordinaryWidth
+#assert_trust kernel NLA.Proofs.TR14.exists_minimal_ordinaryWidth
+#print axioms NLA.Proofs.TR14.exists_minimal_ordinaryWidth
+#assert_proof_constant NLA.Proofs.TR14.ordinaryWidth_of_weighted_summands
+#assert_trust kernel NLA.Proofs.TR14.ordinaryWidth_of_weighted_summands
+#print axioms NLA.Proofs.TR14.ordinaryWidth_of_weighted_summands
+#assert_proof_constant NLA.Proofs.TR14.sum_eq_reweighted_erase
+#assert_trust kernel NLA.Proofs.TR14.sum_eq_reweighted_erase
+#print axioms NLA.Proofs.TR14.sum_eq_reweighted_erase
+#assert_proof_constant NLA.Proofs.TR14.ordinaryWidth_erase_of_relation
+#assert_trust kernel NLA.Proofs.TR14.ordinaryWidth_erase_of_relation
+#print axioms NLA.Proofs.TR14.ordinaryWidth_erase_of_relation
+#assert_proof_constant NLA.Proofs.TR14.minimal_ordinary_summands_independent
+#assert_trust kernel NLA.Proofs.TR14.minimal_ordinary_summands_independent
+#print axioms NLA.Proofs.TR14.minimal_ordinary_summands_independent
+#assert_proof_constant NLA.Proofs.TR14.ordinary_mode_ne_zero_of_independent
+#assert_trust kernel NLA.Proofs.TR14.ordinary_mode_ne_zero_of_independent
+#print axioms NLA.Proofs.TR14.ordinary_mode_ne_zero_of_independent

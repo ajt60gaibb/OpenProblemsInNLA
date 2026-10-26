@@ -1,0 +1,126 @@
+import NLA.Proofs.TR14.CornerProduct
+import LeanCert.Tactic.Verification
+open Lean Elab Command in
+elab "#assert_proof_constant " n:ident : command => do
+  let decl ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  match (← getEnv).find? decl with
+  | some (.thmInfo _) => pure ()
+  | _ => throwErrorAt n "expected a proved theorem constant"
+open Lean Elab Command in
+elab "#assert_private_constant " mod:str suffix:str expected:str : command => do
+  let declPrefix := "_private." ++ mod.getString ++ "."
+  let ending := "." ++ suffix.getString
+  let candidates := (← getEnv).constants.toList.filter fun (n, _) =>
+    n.toString.startsWith declPrefix && n.toString.endsWith ending
+  unless candidates.length == 1 do
+    throwError "expected exactly one actual private declaration"
+  let some (decl, info) := candidates.head? | throwError "private declaration missing"
+  match expected.getString, info with
+  | "theorem", .thmInfo _ => pure ()
+  | "definition", .defnInfo _ => pure ()
+  | _, _ => throwError "private declaration kind does not match its source"
+  logInfo m!"PRIVATE_CONSTANT {decl} KIND={expected.getString}"
+  let declIdent := mkIdent decl
+  elabCommand (← `(#assert_trust $(mkIdent `kernel):ident $declIdent:ident))
+  elabCommand (← `(#print axioms $declIdent:ident))
+#assert_trust kernel NLA.Proofs.TR14.productStabilizer
+#print axioms NLA.Proofs.TR14.productStabilizer
+#assert_proof_constant NLA.Proofs.TR14.mem_productStabilizer
+#assert_trust kernel NLA.Proofs.TR14.mem_productStabilizer
+#print axioms NLA.Proofs.TR14.mem_productStabilizer
+#assert_proof_constant NLA.Proofs.TR14.productStabilizer_mul
+#assert_trust kernel NLA.Proofs.TR14.productStabilizer_mul
+#print axioms NLA.Proofs.TR14.productStabilizer_mul
+#assert_proof_constant NLA.Proofs.TR14.productStabilizer_le_mul_right
+#assert_trust kernel NLA.Proofs.TR14.productStabilizer_le_mul_right
+#print axioms NLA.Proofs.TR14.productStabilizer_le_mul_right
+#assert_proof_constant NLA.Proofs.TR14.scalar_subalgebra_le_productStabilizer
+#assert_trust kernel NLA.Proofs.TR14.scalar_subalgebra_le_productStabilizer
+#print axioms NLA.Proofs.TR14.scalar_subalgebra_le_productStabilizer
+#assert_proof_constant NLA.Proofs.TR14.productStabilizer_le_mul_left
+#assert_trust kernel NLA.Proofs.TR14.productStabilizer_le_mul_left
+#print axioms NLA.Proofs.TR14.productStabilizer_le_mul_left
+#assert_trust kernel NLA.Proofs.TR14.unitMultiplication
+#print axioms NLA.Proofs.TR14.unitMultiplication
+#assert_trust kernel NLA.Proofs.TR14.unitScale
+#print axioms NLA.Proofs.TR14.unitScale
+#assert_proof_constant NLA.Proofs.TR14.mem_unitScale
+#assert_trust kernel NLA.Proofs.TR14.mem_unitScale
+#print axioms NLA.Proofs.TR14.mem_unitScale
+#assert_proof_constant NLA.Proofs.TR14.finrank_unitScale
+#assert_trust kernel NLA.Proofs.TR14.finrank_unitScale
+#print axioms NLA.Proofs.TR14.finrank_unitScale
+#assert_proof_constant NLA.Proofs.TR14.one_mem_unitScale_inv
+#assert_trust kernel NLA.Proofs.TR14.one_mem_unitScale_inv
+#print axioms NLA.Proofs.TR14.one_mem_unitScale_inv
+#assert_proof_constant NLA.Proofs.TR14.submodule_le_mul_of_one_mem_right
+#assert_trust kernel NLA.Proofs.TR14.submodule_le_mul_of_one_mem_right
+#print axioms NLA.Proofs.TR14.submodule_le_mul_of_one_mem_right
+#assert_proof_constant NLA.Proofs.TR14.submodule_le_mul_of_one_mem_left
+#assert_trust kernel NLA.Proofs.TR14.submodule_le_mul_of_one_mem_left
+#print axioms NLA.Proofs.TR14.submodule_le_mul_of_one_mem_left
+#assert_proof_constant NLA.Proofs.TR14.productStabilizer_le_list_tail
+#assert_trust kernel NLA.Proofs.TR14.productStabilizer_le_list_tail
+#print axioms NLA.Proofs.TR14.productStabilizer_le_list_tail
+#assert_trust kernel NLA.Proofs.TR14.IdempotentCorner
+#print axioms NLA.Proofs.TR14.IdempotentCorner
+#assert_trust kernel NLA.Proofs.TR14.cornerProjection
+#print axioms NLA.Proofs.TR14.cornerProjection
+#assert_proof_constant NLA.Proofs.TR14.cornerIdeal_le_mulLeft_ker
+#assert_trust kernel NLA.Proofs.TR14.cornerIdeal_le_mulLeft_ker
+#print axioms NLA.Proofs.TR14.cornerIdeal_le_mulLeft_ker
+#assert_trust kernel NLA.Proofs.TR14.cornerInclusion
+#print axioms NLA.Proofs.TR14.cornerInclusion
+#assert_proof_constant NLA.Proofs.TR14.cornerInclusion_projection
+#assert_trust kernel NLA.Proofs.TR14.cornerInclusion_projection
+#print axioms NLA.Proofs.TR14.cornerInclusion_projection
+#assert_proof_constant NLA.Proofs.TR14.cornerProjection_eq_zero_iff
+#assert_trust kernel NLA.Proofs.TR14.cornerProjection_eq_zero_iff
+#print axioms NLA.Proofs.TR14.cornerProjection_eq_zero_iff
+#assert_proof_constant NLA.Proofs.TR14.cornerInclusion_injective
+#assert_trust kernel NLA.Proofs.TR14.cornerInclusion_injective
+#print axioms NLA.Proofs.TR14.cornerInclusion_injective
+#assert_proof_constant NLA.Proofs.TR14.cornerInclusion_one
+#assert_trust kernel NLA.Proofs.TR14.cornerInclusion_one
+#print axioms NLA.Proofs.TR14.cornerInclusion_one
+#assert_proof_constant NLA.Proofs.TR14.cornerInclusion_mul
+#assert_trust kernel NLA.Proofs.TR14.cornerInclusion_mul
+#print axioms NLA.Proofs.TR14.cornerInclusion_mul
+#assert_proof_constant NLA.Proofs.TR14.cornerInclusion_range
+#assert_trust kernel NLA.Proofs.TR14.cornerInclusion_range
+#print axioms NLA.Proofs.TR14.cornerInclusion_range
+#assert_trust kernel NLA.Proofs.TR14.cornerEquivRange
+#print axioms NLA.Proofs.TR14.cornerEquivRange
+#assert_proof_constant NLA.Proofs.TR14.cornerEquivRange_projection
+#assert_trust kernel NLA.Proofs.TR14.cornerEquivRange_projection
+#print axioms NLA.Proofs.TR14.cornerEquivRange_projection
+#assert_proof_constant NLA.Proofs.TR14.corner_finrank
+#assert_trust kernel NLA.Proofs.TR14.corner_finrank
+#print axioms NLA.Proofs.TR14.corner_finrank
+#assert_trust kernel NLA.Proofs.TR14.cornerMap
+#print axioms NLA.Proofs.TR14.cornerMap
+#assert_proof_constant NLA.Proofs.TR14.cornerMap_projection
+#assert_trust kernel NLA.Proofs.TR14.cornerMap_projection
+#print axioms NLA.Proofs.TR14.cornerMap_projection
+#assert_trust kernel NLA.Proofs.TR14.cornerProductMap
+#print axioms NLA.Proofs.TR14.cornerProductMap
+#assert_proof_constant NLA.Proofs.TR14.cornerProductMap_projection
+#assert_trust kernel NLA.Proofs.TR14.cornerProductMap_projection
+#print axioms NLA.Proofs.TR14.cornerProductMap_projection
+#assert_proof_constant NLA.Proofs.TR14.cornerProductMap_bijective
+#assert_trust kernel NLA.Proofs.TR14.cornerProductMap_bijective
+#print axioms NLA.Proofs.TR14.cornerProductMap_bijective
+#assert_trust kernel NLA.Proofs.TR14.cornerProductEquiv
+#print axioms NLA.Proofs.TR14.cornerProductEquiv
+#assert_proof_constant NLA.Proofs.TR14.cornerProductEquiv_projection
+#assert_trust kernel NLA.Proofs.TR14.cornerProductEquiv_projection
+#print axioms NLA.Proofs.TR14.cornerProductEquiv_projection
+#assert_proof_constant NLA.Proofs.TR14.cornerProductEquiv_inclusion
+#assert_trust kernel NLA.Proofs.TR14.cornerProductEquiv_inclusion
+#print axioms NLA.Proofs.TR14.cornerProductEquiv_inclusion
+#assert_proof_constant NLA.Proofs.TR14.cornerInclusion_pow_succ
+#assert_trust kernel NLA.Proofs.TR14.cornerInclusion_pow_succ
+#print axioms NLA.Proofs.TR14.cornerInclusion_pow_succ
+#assert_proof_constant NLA.Proofs.TR14.corner_isReduced
+#assert_trust kernel NLA.Proofs.TR14.corner_isReduced
+#print axioms NLA.Proofs.TR14.corner_isReduced

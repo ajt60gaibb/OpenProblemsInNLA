@@ -1,0 +1,27 @@
+$ bash /home/runner/work/_temp/nla-lean-tools/reproduction/checks/run_replay.sh
+Replay probe: RestrictAddressFamilies=~AF_UNIX (deny AF_UNIX sockets).
+Lean (version 4.33.1, x86_64-unknown-linux-gnu, Release)
+/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean/Init.olean
+/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean/Init.olean
+/home/runner/work/_temp/nla-lean-tools/.tools/comparator/.lake/build/lib/lean/Main.olean
+Trusted base fixture: 11 constants
+BEGIN honest_with_inductives_and_quotients
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+RETURN honest_with_inductives_and_quotients: accepted
+BEGIN invalid_raw_proof
+Running Lean default kernel on solution.
+Lean default kernel rejects the solution
+RETURN invalid_raw_proof: rejected: while replaying declaration 'PinnedReplayProbe.invalid':
+(kernel) declaration type mismatch, 'PinnedReplayProbe.invalid' has type
+  True
+but it is expected to have type
+  False
+BEGIN quotient_postcheck_mismatch
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Quotient post-check rejects the solution
+RETURN quotient_postcheck_mismatch: rejected: Quotient constant mismatch on: Quot.lift
+PASS: all three actual Comparator.runBuiltinKernel cases behaved as required
+
+EXIT_STATUS=0

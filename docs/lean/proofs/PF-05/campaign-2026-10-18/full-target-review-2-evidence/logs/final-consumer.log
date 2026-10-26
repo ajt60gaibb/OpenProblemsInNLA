@@ -1,0 +1,52 @@
+NLA.Proofs.PF05.target : NLA.Statements.PF05.Target
+'NLA.Proofs.PF05.target' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.PF05.rigid_implies_unique {p q : ℕ} (M : Matrix (Fin p) (Fin q) ℝ)
+  (A : Fin p → NLA.Proofs.PF05.CoordinateActions.M2) (B : Fin q → NLA.Proofs.PF05.CoordinateActions.M2)
+  (hM : ∀ (i : Fin p) (j : Fin q), 0 ≤ M i j) (hf : NLA.Statements.PF05.Factorization M A B) (hrank : M.rank = 3)
+  (hRigid : NLA.Statements.PF05.InfinitesimallyRigid A B) : NLA.Statements.PF05.UniqueUpToCongruence M A B
+'NLA.Proofs.PF05.rigid_implies_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.PF05.positive_rigid_implies_unique {p q : ℕ} (M : Matrix (Fin p) (Fin q) ℝ)
+  (A : Fin p → NLA.Proofs.PF05.CoordinateActions.M2) (B : Fin q → NLA.Proofs.PF05.CoordinateActions.M2)
+  (hf : NLA.Statements.PF05.Factorization M A B) (hrank : M.rank = 3) (hpos : ∀ (i : Fin p) (j : Fin q), 0 < M i j)
+  (hRigid : NLA.Statements.PF05.InfinitesimallyRigid A B) : NLA.Statements.PF05.UniqueUpToCongruence M A B
+'NLA.Proofs.PF05.positive_rigid_implies_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.PF05.unique_implies_infinitesimallyRigid {p q : ℕ} (M : Matrix (Fin p) (Fin q) ℝ)
+  (A : Fin p → NLA.Proofs.PF05.CoordinateActions.M2) (B : Fin q → NLA.Proofs.PF05.CoordinateActions.M2)
+  (hfact : NLA.Statements.PF05.Factorization M A B) (hrank : M.rank = 3)
+  (hunique : NLA.Statements.PF05.UniqueUpToCongruence M A B) : NLA.Statements.PF05.InfinitesimallyRigid A B
+'NLA.Proofs.PF05.unique_implies_infinitesimallyRigid' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.PF05.ZeroRestriction.exists_positive_core_of_no_nonzero_zero_pair {p q : ℕ} (M : Matrix (Fin p) (Fin q) ℝ)
+  (A : Fin p → NLA.Proofs.PF05.ZeroRestriction.M2) (B : Fin q → NLA.Proofs.PF05.ZeroRestriction.M2)
+  (hM : ∀ (i : Fin p) (j : Fin q), 0 ≤ M i j) (hfact : NLA.Statements.PF05.Factorization M A B) (hrank : M.rank = 3)
+  (hno : ¬∃ i j, A i ≠ 0 ∧ B j ≠ 0 ∧ M i j = 0) :
+  ∃ r s cA cB,
+    NLA.Statements.PF05.Factorization (NLA.Proofs.PF05.ZeroRestriction.reducedMatrix M cA cB)
+        (NLA.Proofs.PF05.ZeroRestriction.reduced cA) (NLA.Proofs.PF05.ZeroRestriction.reduced cB) ∧
+      (NLA.Proofs.PF05.ZeroRestriction.reducedMatrix M cA cB).rank = 3 ∧
+        NLA.Statements.PF05.PSDRankTwo (NLA.Proofs.PF05.ZeroRestriction.reducedMatrix M cA cB) ∧
+          (∀ (a : Fin r) (b : Fin s), 0 < NLA.Proofs.PF05.ZeroRestriction.reducedMatrix M cA cB a b) ∧
+            (NLA.Statements.PF05.InfinitesimallyRigid A B ↔
+                NLA.Statements.PF05.InfinitesimallyRigid (NLA.Proofs.PF05.ZeroRestriction.reduced cA)
+                  (NLA.Proofs.PF05.ZeroRestriction.reduced cB)) ∧
+              (NLA.Statements.PF05.UniqueUpToCongruence M A B ↔
+                NLA.Statements.PF05.UniqueUpToCongruence (NLA.Proofs.PF05.ZeroRestriction.reducedMatrix M cA cB)
+                  (NLA.Proofs.PF05.ZeroRestriction.reduced cA) (NLA.Proofs.PF05.ZeroRestriction.reduced cB))
+'NLA.Proofs.PF05.ZeroRestriction.exists_positive_core_of_no_nonzero_zero_pair' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.PF05.ZeroRestriction.rigid_iff_reduced {p q r s : ℕ} (M : Matrix (Fin p) (Fin q) ℝ)
+  (A : Fin p → NLA.Proofs.PF05.ZeroRestriction.M2) (B : Fin q → NLA.Proofs.PF05.ZeroRestriction.M2)
+  (cA : NLA.Proofs.PF05.ZeroRestriction.Selection p r A) (cB : NLA.Proofs.PF05.ZeroRestriction.Selection q s B)
+  (hbase : NLA.Statements.PF05.Factorization M A B) (hrank : M.rank = 3) :
+  NLA.Statements.PF05.InfinitesimallyRigid A B ↔
+    NLA.Statements.PF05.InfinitesimallyRigid (NLA.Proofs.PF05.ZeroRestriction.reduced cA)
+      (NLA.Proofs.PF05.ZeroRestriction.reduced cB)
+'NLA.Proofs.PF05.ZeroRestriction.rigid_iff_reduced' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.PF05.ZeroRestriction.unique_iff_reduced {p q r s : ℕ} (M : Matrix (Fin p) (Fin q) ℝ)
+  (A : Fin p → NLA.Proofs.PF05.ZeroRestriction.M2) (B : Fin q → NLA.Proofs.PF05.ZeroRestriction.M2)
+  (cA : NLA.Proofs.PF05.ZeroRestriction.Selection p r A) (cB : NLA.Proofs.PF05.ZeroRestriction.Selection q s B)
+  (hbase : NLA.Statements.PF05.Factorization M A B) (hrank : M.rank = 3) :
+  NLA.Statements.PF05.UniqueUpToCongruence M A B ↔
+    NLA.Statements.PF05.UniqueUpToCongruence (NLA.Proofs.PF05.ZeroRestriction.reducedMatrix M cA cB)
+      (NLA.Proofs.PF05.ZeroRestriction.reduced cA) (NLA.Proofs.PF05.ZeroRestriction.reduced cB)
+'NLA.Proofs.PF05.ZeroRestriction.unique_iff_reduced' depends on axioms: [propext, Classical.choice, Quot.sound]

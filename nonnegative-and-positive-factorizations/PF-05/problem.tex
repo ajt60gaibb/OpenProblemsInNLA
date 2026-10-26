@@ -34,7 +34,7 @@ zeros},pdfauthor={Open Problems in Numerical Linear Algebra}}
 \fancyhf{}
 \fancyhead[L]{\sffamily\footnotesize\color{muted}OPEN PROBLEMS IN NUMERICAL LINEAR ALGEBRA}
 \fancyhead[R]{\sffamily\bfseries\footnotesize\color{accent}PF-05}
-\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Literature check: 2026-09-11}}
+\fancyfoot[L]{\parbox[b]{0.9\textwidth}{\sffamily\fontsize{8}{10}\selectfont\color{muted}Editorial ratings; a bounded search cannot certify that a problem remains unsolved.\\Verification check: 2026-10-18}}
 \fancyfoot[R]{\sffamily\footnotesize\color{muted}\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{accent}\leaders\hrule height \headrulewidth\hfill}}
@@ -52,13 +52,41 @@ rigidity detects unique size-two factors in the presence of zeros\par}
 \vspace{7pt}
 {\sffamily\small\textbf{Difficulty:} challenging\quad\textbf{Importance:} interesting
 to specialist\par}
-{\sffamily\small\bfseries\color{accent}Status: Solved\par}
+{\sffamily\small\bfseries\color{accent}Status: Lean verified\par}
 \vspace{4pt}
 {\color{accent}\hrule height 0.8pt}
 \vspace{6pt}
 \textbf{Rating rationale:} Challenging because zeros change the feasible
 infinitesimal motions and defeat the positive-entry argument; specialist
 importance is a precise uniqueness test for size-two PSD factors.
+
+\subsection{Lean proof and verification evidence --- 18 October
+2026}\label{lean-proof-and-verification-evidence-18-october-2026}
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/nonnegative-and-positive-factorizations/PF-05/lean/Solution.lean}{complete
+Lean proof} establishes the displayed equivalence for every stated
+factorization, including all zero patterns, zero factors, singular
+factors and repeated rays. It retains the exact first-order trace
+constraint, one common positive interval of straight PSD feasibility,
+and every alternative factorization up to one shared genuine congruence.
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/39172661343}{actual
+exact-source Linux run} passed Comparator, the default kernel, LeanCert
+kernel mode and rejection/isolation controls.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/proofs/PF-05/PUSH_LINUX_EXACT_COMMIT_REVIEW_3_2026-10-18.md}{Independent
+replay} passed all 41 controls and all 90 original package inputs,
+including 46 Lean sources. Only the three standard axioms occur.
+
+The
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/proofs/PF-05/README.md}{reviewed
+statement, proof and retained evidence} preserve the original target and
+source credit. The positive case has a direct formal quartic/conic
+proof. The resolution and dated audits below remain verbatim historical
+records; their earlier description of informal verification predates
+this formal proof.
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/docs/lean/proofs/PF-05/originals-main-36767/manifest.json}{Exact
+original documents} are retained.
 
 \subsection{Resolution --- 2026-09-11}\label{resolution-2026-09-11}
 
@@ -90,6 +118,8 @@ proof review} ·
 and submission record}. Verification is independent agent review, not
 external human peer review or formal certification.
 
+\newpage
+
 \subsection{Context and notation}\label{context-and-notation}
 
 Write \(\mathbb S_+^k\) for the cone of real symmetric positive
@@ -97,35 +127,31 @@ semidefinite \(k\times k\) matrices. For an entrywise nonnegative matrix
 \(M\in\mathbb R_+^{p\times q}\), its \textbf{real positive semidefinite
 rank} is
 
-\[
-\operatorname{rank}_{\rm psd}(M)
+\[\mathop{\mathrm{rank}}\nolimits_{\rm psd}(M)
 =\min\{k\ge1:\ \exists A_1,\ldots,A_p,B_1,\ldots,B_q\in\mathbb S_+^k,\quad
-M_{ij}=\operatorname{tr}(A_iB_j)\ \text{for all }i,j\}.
-\]
+M_{ij}=\mathop{\mathrm{tr}}\nolimits(A_iB_j)\ \text{for all }i,j\}.\]
 
 This definition concerns a family of matrix factors indexed by the rows
 and columns of \(M\).
 
 \subsection{Problem statement}\label{problem-statement}
 
-Let \(M\in\mathbb R_+^{p\times q}\) satisfy \(\operatorname{rank}(M)=3\)
-and \(\operatorname{rank}_{\rm psd}(M)=2\), and fix any size-two
-factorization \(M_{ij}=\operatorname{tr}(A_iB_j)\). Zero entries of
-\(M\) are allowed.
+Let \(M\in\mathbb R_+^{p\times q}\) satisfy
+\(\mathop{\mathrm{rank}}\nolimits(M)=3\) and
+\(\mathop{\mathrm{rank}}\nolimits_{\rm psd}(M)=2\), and fix any size-two
+factorization \(M_{ij}=\mathop{\mathrm{tr}}\nolimits(A_iB_j)\). Zero
+entries of \(M\) are allowed.
 
 Call a collection of real symmetric matrices \((E_i,F_j)\) a feasible
 linear direction if
 
-\[
-\operatorname{tr}(E_iB_j)+\operatorname{tr}(A_iF_j)=0\quad\text{for every }i,j
-\]
+\[\mathop{\mathrm{tr}}\nolimits(E_iB_j)+\mathop{\mathrm{tr}}\nolimits(A_iF_j)=0\quad\text{for every }i,j\]
 
 and some \(h>0\) satisfies \(A_i+tE_i\succeq0\), \(B_j+tF_j\succeq0\)
 for all \(i,j\) and \(t\in[0,h)\). The trace constraint is imposed only
 to first order; the perturbed factors need not represent \(M\) at
 positive \(t\).
 
-\newpage
 \subsubsection{Question}\label{question}
 
 Are the following conditions equivalent for every such factorization?

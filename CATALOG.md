@@ -2,7 +2,7 @@
 
 **98 problems with open targets:** 36 open and 62 partially resolved. **119 other retained entries**, excluded from the open count.
 
-**Resolution evidence:** 38 solved (published or independently audited); 80 solved with Lean verification.
+**Resolution evidence:** 35 solved (published or independently audited); 83 solved with Lean verification.
 
 Each entry records its own literature-check date. Literature checks are bounded; ratings are editorial. “Impact” uses the canonical `Importance` field.
 
@@ -76,7 +76,7 @@ Retained entries outside the open count:
 | [SP-05](eigenvalues-and-inverse-problems/SP-05/README.md) | Symmetric minimizer for a positive definite Jordan–Kronecker product | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-05/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-05/problem.tex) |
 | [SP-06](eigenvalues-and-inverse-problems/SP-06/README.md) | A real-valued symbol on a Jordan curve and real Toeplitz spectra | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-06/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-06/problem.tex) |
 | [SP-11](eigenvalues-and-inverse-problems/SP-11/README.md) | The delta conjecture for minimum symmetric rank | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-11/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-11/problem.tex) |
-| [SP-12](eigenvalues-and-inverse-problems/SP-12/README.md) | A chromatic lower bound for positive-semidefinite nullity with SAP | **✅ SOLVED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/SP-12/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-12/problem.tex) |
+| [SP-12](eigenvalues-and-inverse-problems/SP-12/README.md) | A chromatic lower bound for positive-semidefinite nullity with SAP | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](eigenvalues-and-inverse-problems/SP-12/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-12/problem.tex) |
 | [SP-13](eigenvalues-and-inverse-problems/SP-13/README.md) | Trace-norm-small perturbations preserve Hermitian spectral distributions | **✅ SOLVED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-13/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-13/problem.tex) |
 | [SP-14](eigenvalues-and-inverse-problems/SP-14/README.md) | Widom's canonical distribution conjecture for Toeplitz eigenvalues | **✅ SOLVED** | extreme | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-14/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-14/problem.tex) |
 | [SP-15](eigenvalues-and-inverse-problems/SP-15/README.md) | Finitely many unitary classes with prescribed shifted singular values | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](eigenvalues-and-inverse-problems/SP-15/problem.pdf) · [TeX](eigenvalues-and-inverse-problems/SP-15/problem.tex) |
@@ -187,7 +187,7 @@ Retained entries outside the open count:
 | [TR-04](tensor-computations/TR-04/README.md) | Improve the worst-case approximation factor for prescribed tensor-train ranks | **✅ SOLVED** | extreme | interesting to the community | [PDF](tensor-computations/TR-04/problem.pdf) · [TeX](tensor-computations/TR-04/problem.tex) |
 | [TR-06](tensor-computations/TR-06/README.md) | Finite mean angular condition number for identifiable tensor decomposition | **✅ SOLVED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-06/problem.pdf) · [TeX](tensor-computations/TR-06/problem.tex) |
 | [TR-13](tensor-computations/TR-13/README.md) | Equality of ranks for generic odd-order Hankel tensors | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-13/problem.pdf) · [TeX](tensor-computations/TR-13/problem.tex) |
-| [TR-14](tensor-computations/TR-14/README.md) | Comon's exact-rank conjecture for Hankel tensors | **✅ SOLVED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-14/problem.pdf) · [TeX](tensor-computations/TR-14/problem.tex) |
+| [TR-14](tensor-computations/TR-14/README.md) | Comon's exact-rank conjecture for Hankel tensors | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-14/problem.pdf) · [TeX](tensor-computations/TR-14/problem.tex) |
 | [TR-15](tensor-computations/TR-15/README.md) | Nonnegative H-eigenvalue inheritance from odd-order Hankel tensors | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-15/problem.pdf) · [TeX](tensor-computations/TR-15/problem.tex) |
 | [TR-17](tensor-computations/TR-17/README.md) | Frobenius inner products minimize the algebraic complexity of rank-one approximation | **✅ SOLVED** | challenging | interesting to the community | [PDF](tensor-computations/TR-17/problem.pdf) · [TeX](tensor-computations/TR-17/problem.tex) |
 | [TR-20](tensor-computations/TR-20/README.md) | Rayleigh–Ritz discriminant degrees for rank-one matrices | **✅ SOLVED** | challenging | interesting to specialist | [PDF](tensor-computations/TR-20/problem.pdf) · [TeX](tensor-computations/TR-20/problem.tex) |
@@ -216,7 +216,7 @@ Retained entries outside the open count:
 | [PF-02](nonnegative-and-positive-factorizations/PF-02/README.md) | Connectedness of minimal positive semidefinite factorization orbits | **🏆 LEAN VERIFIED** | challenging | interesting to the community | [PDF](nonnegative-and-positive-factorizations/PF-02/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-02/problem.tex) |
 | [PF-03](nonnegative-and-positive-factorizations/PF-03/README.md) | Rational factors for rational completely positive boundary matrices | **🏆 LEAN VERIFIED** | extreme | interesting to the community | [PDF](nonnegative-and-positive-factorizations/PF-03/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-03/problem.tex) |
 | [PF-04](nonnegative-and-positive-factorizations/PF-04/README.md) | The maximum cp-rank in order six | **✅ SOLVED** | challenging | interesting to the community | [PDF](nonnegative-and-positive-factorizations/PF-04/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-04/problem.tex) |
-| [PF-05](nonnegative-and-positive-factorizations/PF-05/README.md) | Infinitesimal rigidity detects unique size-two factors in the presence of zeros | **✅ SOLVED** | challenging | interesting to specialist | [PDF](nonnegative-and-positive-factorizations/PF-05/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-05/problem.tex) |
+| [PF-05](nonnegative-and-positive-factorizations/PF-05/README.md) | Infinitesimal rigidity detects unique size-two factors in the presence of zeros | **🏆 LEAN VERIFIED** | challenging | interesting to specialist | [PDF](nonnegative-and-positive-factorizations/PF-05/problem.pdf) · [TeX](nonnegative-and-positive-factorizations/PF-05/problem.tex) |
 
 
 ## [Matrix inequalities and norms](matrix-inequalities-and-norms/README.md)

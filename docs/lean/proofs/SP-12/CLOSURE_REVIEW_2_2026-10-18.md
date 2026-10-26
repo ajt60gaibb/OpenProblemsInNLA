@@ -1,0 +1,37 @@
+# SP-12 complete target and analytic closure — independent source review
+
+Reviewer: `/root/lean_verification`, Codex AI agent, 18 October 2026.
+I authored none of the twelve SP-12 proof modules, statement definitions or canonical wrapper. **APPROVE the exact complete shared SP-12 Target proof below.** This approval is hash-bound mathematical/source review and fresh local LeanCert kernel evidence; Linux Comparator acceptance is a separate gate.
+
+| Newly reviewed module | SHA-256 |
+| --- | --- |
+| `GramDifferential` | `0c6d363dca51ee58ea22a8e20da7381f885fe8e060f7e0192bf4ea4941baf748` |
+| `NeighborhoodLifting` | `26bd77032db9a61803aa6fa483cf6b080341c627bc61ac321ea9542f895c7722` |
+| `VertexExtension` | `648476c3e983193de5678507fd2227e2d6f7b268079e454e4f5e063bf89adadd` |
+| `Final` | `df9812c527efabaf60a12ecccc7ed33fe1c69bc0e3a399a7cb28030ddf59e61d` |
+
+The other eight SP-12 modules were independently approved in [the preserved support review](SUPPORT_REVIEW_2_2026-10-18.md). Their exact bytes are included unchanged in this full fresh audit. The earlier conditional support checkpoint is preserved; this report approves the newly discharged closure.
+
+`GramDifferential` defines coordinates for exactly one ordering of each distinct nonedge. Its continuous linear derivative is the actual coordinate derivative of the Gram matrix, proved by coordinate multiplication and finite summation with a strict Fréchet derivative. To show surjectivity it takes an arbitrary functional annihilating the derivative and constructs its actual symmetric coefficient matrix from the two-orientation nonedge basis. That matrix has zero diagonal and vanishes on graph edges. Single-entry factor variations force its product with the old row factor to vanish; symmetry then gives `gram R * X = 0`. The original Strong Arnold property, with its ordinary product, Hadamard and diagonal constraints, kills this matrix. Its values on the coordinate basis kill the functional, giving surjectivity by the finite-dimensional dual criterion. The actual strict derivative theorem gives neighborhood-image equality. No full-column-rank, rank-manifold, generic-position or invertible derivative assumption is supplied.
+
+`NeighborhoodLifting` uses the proved neighborhood-image equality and a chosen good neighborhood in factor/added-coordinate space. The product map has a neighborhood image, so every sufficiently small target-curve value has a preimage inside that neighborhood. Choosing a positive half-radius supplies one actual nonzero real parameter. It assumes only the explicitly quantified map-neighborhood and convergence facts that its caller proves. It assumes no continuous selection or perturbation oracle.
+
+`VertexExtension` constructs the old-row added coordinates as a common parameter on new edges and zero on new nonedges. Its target nonedge coordinates are the negatives of the resulting rank-one products. The larger fixed SAP test-space multiplication is injective at the unit-block base point by `ExtendedRows`; openness retains injectivity near that point, and finitely many old edges remain nonzero by continuity. The actual neighborhood-image theorem supplies an old factor and added coordinates realizing those exact cancelling products inside the good neighborhood. A nonzero parameter realizes precisely the new edges. The Gram block formula and ordered/unordered nonedge symmetry give the entire new graph's exact pattern. The fixed-space injectivity equivalence then gives the original Strong Arnold property. Empty old vertex sets and zero factor dimensions remain allowed. The result has only the original old-pattern and old-SAP premises, and supplies an actual factor with one additional ambient coordinate.
+
+`Final` directly instantiates the previously reviewed chromatic induction with the actual Strong Delta Gram construction and this actual one-vertex extension. Both previously explicit mathematical inputs are discharged. It proves `NLA.Proofs.SP12.target : NLA.Statements.SP12.Target` with no additional parameters or assumptions. The unchanged positive-order/all-simple-graphs conclusion includes real symmetry, exact off-diagonal nonzero pattern, nonnegative quadratic form, full SAP and nullity at least the actual least proper-color count minus one. There is no remaining graph-class or perturbation premise. The witness stays a genuine Gram matrix, so its PSD/rank bounds are those already proved in the support closure.
+
+The independent immutable-source run passed **52 Lean commands**: **51 real local source modules** (36 unchanged SP-11 proofs, 12 SP-12 proofs, three statements/infrastructure modules) plus a separate generated consumer. It checks **377 explicit declarations**, including **268 theorem/lemma constants**. The SP-12 contribution is 88 declarations, including 69 theorem/lemma constants. Every proof name must have Lean's `.thmInfo` kind; every explicit declaration passes LeanCert `#assert_trust kernel` and its transitive axioms are printed. The additional target check requires its literal type to be `mkConst NLA.Statements.SP12.Target`, without theorem parameters. All sources remained byte-identical before/after, and all ten dependency pins/tracked source trees passed before/after. The accepted axiom closure is only `propext`, `Classical.choice`, `Quot.sound`.
+
+The one private theorem is not silently excluded. The consumer looks up exactly one actual mangled declaration matching its source module/name, requires theorem kind, and applies the same kernel/axiom checks to `_private.NLA.Proofs.SP12.VertexExtension.0.NLA.Proofs.SP12.gram_entry_symm`. Generated unnamed helpers remain covered transitively by all exported results. The driver explicitly rejects unsupported declaration modifiers rather than treating them as reviewed proof constants.
+
+Reproduce from the repository root:
+
+```bash
+python3 docs/lean/proofs/SP-12/verification/check-support.py \
+  --top Final --target-theorem NLA.Proofs.SP12.target \
+  --evidence-name full-target-review-final
+```
+
+The successful exact driver, source snapshots, generated consumer, compiler identity, pins, raw output and machine-readable result are retained in [verification/full-target-review-final/](verification/full-target-review-final/). Every local project object is rebuilt into a fresh private output directory; no campaign project objects are imported. Pinned cached Mathlib/LeanCert dependency objects are reused. The earlier [analytic consumer attempt](verification/analytic-extension-review-attempt-1/) and [first full-target attempt](verification/full-target-review/) remain as failed audit-driver evidence: all real source builds passed, while consumer commands failed on a reserved identifier and then quoted-command hygiene respectively. The corrected final run rebuilds all sources and passes; these were auditor implementation failures, not repaired mathematical hypotheses.
+
+I authored five historical SP-11 support modules; other agents supply their independent semantic reviews. Their 38 unchanged prerequisite source files match the canonical inputs accepted at immutable SP-11 commit `9264361fafb89b37b5c48236afebb304bc84110a`, recorded in [verification/SP11-prerequisite-identity.json](verification/SP11-prerequisite-identity.json). This report provides fresh runtime evidence for that prerequisite closure, not independent self-review. These are AI-agent reviews, not external human peer review or source-author endorsement. No proof source, canonical original, ID or statement was modified for this audit.

@@ -1,0 +1,13 @@
+# Three complete proof packages ready for main
+
+This branch presents the existing complete SP-12, TR-14 and PF-05 proofs for integration into main. Their earlier PRs #362–#364 were merged into stacked campaign branches. No mathematical proof or statement is changed here. The source checkpoint is `42d1665800d0185581149ef494e03055b533d636`; the later incomplete TR-06 recovery and separate RA-05 support PR #365 are outside this branch.
+
+The exported literal Targets are `NLA.SP12.target`, `NLA.TR14.target` and `NLA.PF05.target`. Fresh independent [source/input audit](integration-audit/README.md) and [strict Linux-artifact audit](integration-audit/verification/REVIEW.md) confirm all 325 package inputs, all 183 Lean source inputs and the authentic retained original ZIPs. The strict checker replays pass 40, 41 and 41 checks; all actual exported targets have only propext, Classical.choice and Quot.sound. Every selected theorem is a full original Target, rather than a statement identity or partial reduction.
+
+The earlier actual Linux runs are [SP-12 39149417211](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/39149417211), [TR-14 39174291223](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/39174291223) and [PF-05 39176870923](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/39176870923). Their receipts, source/statement reviews, archives, exact input hashes and raw controls remain in the individual proof directories. This integration adds independent reuse audits, not a claim to have freshly rerun those Linux jobs. New branch CI verifies the committed merge context.
+
+All 217 permanent ID/path pairs are identical to published main. Separate preservation checks bind 13 archived originals, all retained mathematical text and credits, original Target definitions and 171 reviewed proof/export copy pairs. Fresh manifests, generated statement inventory, 45 statement records, 17 permanent-ID tests and 30 manifest/selector tests pass. The unchanged selector requests exactly SP-12, TR-14 and PF-05. No workflow or verification safeguard is modified.
+
+The candidate records 83 Lean-verified entries and 35 Solved entries; published main `5487945e` records 80 and 38 until this integration is accepted. The original user goal remains active and incomplete. RA-05's eleven support theorems have their own reviewed and Linux-verified PR, and do not constitute its full classification or negative answer. TR-06 remains incomplete.
+
+Fresh PR #366 Linux verification subsequently passed all three full Targets in the exact executed merge context; the [new receipt and 126-check original-artifact audit](FRESH_LINUX_RECEIPT.md) are retained separately from the earlier reuse evidence.

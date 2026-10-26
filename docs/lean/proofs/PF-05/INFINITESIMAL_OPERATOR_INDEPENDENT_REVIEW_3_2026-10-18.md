@@ -1,0 +1,22 @@
+# PF-05 G01 infinitesimal coordinate operator — independent review
+
+Reviewer: `/root/lean_verification`, Codex AI agent, 18 October 2026. I authored no PF-05 proof source and made no proof edits. **APPROVE `InfinitesimalOperator.lean` at SHA-256 `f6a678b45baae40ff6bb346d036ddf476b486df88751c7c21872d6a1f7a6ead4` as the stated support gate. This is not a proof of the full PF-05 Target.**
+
+The generic `full_rank_infinitesimal_operator` has exactly the needed hypotheses: the rows of the actual `p×3` matrix X span the three-coordinate space, the columns of the actual `3×q` matrix Y span it, and the actual first-order equation is `E*Y+X*F=0`. The retained inverse lemmas give U*X=1 and Y*V=1. Defining T=−F*V and multiplying the equation on the right by V gives E=X*T. Multiplication on the left by U then gives F=−T*Y. Any second candidate has the same X*T and is equal after multiplying by U. Thus existence and uniqueness are proved algebraically; neither an operator oracle nor an invertibility condition on T is inserted. Empty or undersized index sets are handled by the explicit spanning hypotheses rather than new dimension restrictions.
+
+`first_order_coordinates` uses the actual symmetric two-by-two matrices and the literal derivative `trace(E_i*B_j)+trace(A_i*F_j)=0`. The left coordinate row is `(A00,A11,A01)` and the right coordinate column is `(B00,B11,2*B01)`. The two trace terms therefore translate to precisely `left(E)*right(B)+left(A)*right(F)=0`, retaining the off-diagonal weight two. Row/column orientations explain the negative T action on the right; no transpose or unweighted pairing is silently substituted.
+
+`feasible_direction_operator` reads the actual frozen `Factorization`, `M.rank=3`, and `FeasibleDirection` definitions. The retained rank-three coordinate-span theorem supplies the two spanning conditions from that same factorization. Factor PSD supplies symmetry of A and B; the actual feasible direction supplies symmetry of E and F and the trace derivative. The resulting unique T acts on the actual coordinates of these four families. No strictly positive factor, entrywise positive M, nonzero row/column, PSD-rank oracle, or favorable operator is assumed. Singular and zero individual factors remain allowed.
+
+The common straight-segment PSD interval in `FeasibleDirection` is not needed for this necessary first-order representation. This module does not prove that an arbitrary T is feasible, that feasible T must be scalar, that every congruence direction is straight-line feasible, or either direction of the rigidity/uniqueness equivalence. Those remain distinct later obligations. It also does not impose positive-time exact trace factorization, which the frozen direction definition deliberately does not require.
+
+Independent immutable verification passed **six Lean commands**: five actual local sources (Infrastructure, the unchanged PF05 statement, retained Basic/Operator, and the new module) plus a separate consumer. The consumer checks **39 explicit proof declarations**, with **37 theorem/lemma-kind checks**, including four actual private theorem constants in Basic. All constants pass `#assert_trust kernel`, and every printed transitive axiom closure is contained in `[propext, Classical.choice, Quot.sound]`. The three new theorems are directly checked by theorem kind and kernel trust.
+
+Every local object is rebuilt from frozen source snapshots into fresh isolated outputs, excluding campaign project outputs; only pinned dependency/core objects are reused. Source bytes and all ten dependency revisions/tracked trees remain unchanged before/after. Independently hashed checks of **all seven retained candidate modules** against `retained-candidate-7-lock.json` pass both before and after, including the retained modules outside this particular import closure.
+
+```bash
+python3 docs/lean/proofs/PF-05/verification/check-infinitesimal.py \
+  --top InfinitesimalOperator --evidence-name infinitesimal-operator-review-3
+```
+
+Frozen sources, generated consumer, exact driver, hashes and raw logs are retained in [verification/infinitesimal-operator-review-3/](verification/infinitesimal-operator-review-3/). Its result explicitly records `full_pf05_target_proved: false` and `authoritative_linux_comparator: false`. No retained proof, original page, statement, registry ID or canonical path was changed. This is AI-agent source review and local kernel evidence, not external human review or authoritative Linux/Comparator acceptance.

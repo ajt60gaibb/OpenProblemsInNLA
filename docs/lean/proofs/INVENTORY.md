@@ -1,16 +1,16 @@
 # Proof inventory for the 47 formerly Solved targets
 
 This source-level inventory records the 47 targets that had `Solved` status
-before the split proof campaign. The nine full-target proofs below now have
+before the split proof campaign. The ten full-target proofs below now have
 canonical `Lean verified` status after independent scope review and recorded
-kernel verification. The remaining 38 retain `Solved` status. This inventory
+kernel verification. The remaining 37 retain `Solved` status. This inventory
 alone does not certify a proof; each promoted canonical README records its
 statement comparison, pinned source, successful verification log, and axiom
 audit. Permanent IDs and mathematical targets are unchanged. Historical copies
 under `reviews/`, `verification/`, and archive directories are evidence, not
 live solution sources.
 
-## Full-target local proofs promoted to Lean verified (9)
+## Full-target local proofs promoted to Lean verified (10)
 
 | ID | Live proof source | Evidence and remaining gate |
 | --- | --- | --- |
@@ -23,10 +23,11 @@ live solution sources.
 | MD-03 | [`Proof.lean`](../../../matrix-discrepancy-and-optimization/MD-03/lean/NLA/MD03/Proof.lean) | Proves the complete universal signing target with C=36 through a pinned Komlós formalization. The [independent source review](MD-03/INDEPENDENT_REVIEW.md) and [isolated Linux Comparator/kernel receipt](MD-03/LINUX_CI_RECEIPT.md) pass with only standard axioms. |
 | MD-04 | [`Proof.lean`](../../../matrix-discrepancy-and-optimization/MD-04/lean/NLA/MD04/Proof.lean) | Proves the complete square-root sparsity target with C=36 by rescaling 0–1 matrices into the pinned MD-03 Komlós theorem. The [independent source review](MD-04/INDEPENDENT_REVIEW.md) and [isolated Linux Comparator/kernel receipt](MD-04/LINUX_CI_RECEIPT.md) pass with only standard axioms. |
 | SP-11 | [`Solution.lean`](../../../eigenvalues-and-inverse-problems/SP-11/lean/Solution.lean) | Proves the full frozen unrestricted real symmetric delta Target using actual shared-variable noncancellation and greedy relabeling. Independent [full source/package reviews](SP-11/README.md) and the [actual isolated Linux Comparator/LeanCert kernel receipt](SP-11/LINUX_CI_RECEIPT.md) pass with only standard axioms. The original page, TeX and PDF are archived byte for byte. |
+| SP-12 | [`Solution.lean`](../../../eigenvalues-and-inverse-problems/SP-12/lean/Solution.lean) | Proves the full frozen real symmetric PSD/SAP target with nullity at least the actual chromatic number minus one. Independent [statement/source/package reviews](SP-12/README.md), fresh kernel audits and the [actual isolated Linux Comparator/LeanCert kernel receipt](SP-12/LINUX_CI_RECEIPT.md) pass with only standard axioms. The original page, TeX and PDF are archived byte for byte. |
 
 The [17 October campaign inventory](../campaign-2026-10-17/inventory/README.md)
 retains the original immutable snapshots and candidate evidence. MD-03, MD-04,
-and RA-10 were subsequently merged into published main; SP-11 is promoted here.
+and RA-10 were subsequently merged into published main; SP-11 and SP-12 are promoted here.
 
 ## Local partial solution projects (9)
 
@@ -601,7 +602,7 @@ They have no full live proof. The source-path pattern is
 | | | RA-12 | [`RA12.lean`](../../../lean-statements/NLA/Statements/RA12.lean) |
 | RA-13 | [`RA13.lean`](../../../lean-statements/NLA/Statements/RA13.lean) | RA-19 | [`RA19.lean`](../../../lean-statements/NLA/Statements/RA19.lean) |
 | RE-05 | [`RE05.lean`](../../../lean-statements/NLA/Statements/RE05.lean) | RE-06 | [`RE06.lean`](../../../lean-statements/NLA/Statements/RE06.lean) |
-| SP-12 | [`SP12.lean`](../../../lean-statements/NLA/Statements/SP12.lean) | SP-13 | [`SP13.lean`](../../../lean-statements/NLA/Statements/SP13.lean) |
+| SP-13 | [`SP13.lean`](../../../lean-statements/NLA/Statements/SP13.lean) | | |
 | TR-06 | [`TR06.lean`](../../../lean-statements/NLA/Statements/TR06.lean) | TR-08 | [`TR08.lean`](../../../lean-statements/NLA/Statements/TR08.lean) |
 | TR-17 | [`TR17.lean`](../../../lean-statements/NLA/Statements/TR17.lean) | TR-20 | [`TR20.lean`](../../../lean-statements/NLA/Statements/TR20.lean) |
 | TR-21 | [`TR21.lean`](../../../lean-statements/NLA/Statements/TR21.lean) | TR-26 | [`TR26.lean`](../../../lean-statements/NLA/Statements/TR26.lean) |
@@ -609,5 +610,5 @@ They have no full live proof. The source-path pattern is
 LeanCert `#assert_statement`, `#assert_trust kernel`, frozen identity checks,
 and the shared Comparator certificates check statement definitions and their
 trust closure. They do not prove any of the 29 statement-only propositions or
-upgrade the nine partial projects to full proofs. Complete-target wrappers
+upgrade the eight partial projects to full proofs. Complete-target wrappers
 still require their own reviewed exact-revision verification and promotion.

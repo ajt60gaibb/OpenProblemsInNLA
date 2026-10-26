@@ -101,11 +101,11 @@ def render(source):
         body = body[:match.start()] + body[match.end():]
     body = re.sub(r"<!-- navigation -->.*?<!-- /navigation -->", "", body, flags=re.S)
     body = restore_pdf_layout(identifier, body)
-    if identifier in {"IE-04", "IE-05", "SP-15", "MF-02", "MF-12", "RE-03", "RA-01", "MF-24", "PF-03"}:
+    if identifier in {"IE-04", "IE-05", "SP-15", "MF-02", "MF-12", "RE-03", "RA-01", "MF-24", "PF-03", "PF-05"}:
         # Keep the unchanged original target together after its resolution notice.
         # This PDF-only layout instruction should not appear on the GitHub page.
         body = body.replace("## Context and notation\n", "\\newpage\n\n## Context and notation\n", 1)
-    if identifier in {"SP-13", "IE-26", "TR-13"}:
+    if identifier in {"SP-13", "IE-26", "TR-13", "TR-14"}:
         # Keep the complete retained target together after its resolution notice.
         body = body.replace("## Statement\n", "\\newpage\n\n## Statement\n", 1)
     # GitHub-relative links become usable links in a downloaded PDF or TeX file.
@@ -130,7 +130,7 @@ def render(source):
             tex = tex.replace(r"\subsection{Resolution", "\\newpage\n" + r"\subsection{Resolution", 1)
         if identifier == "TR-27":
             tex = tex.replace("headheight=15pt", "headheight=20pt")
-        if identifier in {"IE-02", "IE-04", "IE-06", "IE-14", "IV-01", "IV-03", "KE-05", "MF-05", "MF-12", "MF-18", "MF-21", "MF-22", "MI-15", "MI-18", "MI-24", "MI-27", "MI-28", "NM-04", "NR-04", "PF-03", "SP-04", "SP-05", "SP-11", "SP-15", "TR-07", "TR-27"}:
+        if identifier in {"IE-02", "IE-04", "IE-06", "IE-14", "IV-01", "IV-03", "KE-05", "MF-05", "MF-12", "MF-18", "MF-21", "MF-22", "MI-15", "MI-18", "MI-24", "MI-27", "MI-28", "NM-04", "NR-04", "PF-03", "PF-05", "SP-04", "SP-05", "SP-11", "SP-12", "SP-15", "TR-07", "TR-14", "TR-27"}:
             # These publication dates record formal verification, not a literature search.
             tex = tex.replace("Literature check:", "Verification check:")
         # The code spans in this catalog are literal search phrases. Set them
@@ -164,9 +164,6 @@ def render(source):
             tex = tex.replace(r"Define \(P_{\rm CG}", "\\newpage\n" + r"Define \(P_{\rm CG}", 1)
         if identifier == "RE-05":
             # The resolution notice makes the quantified question cross a page.
-            tex = re.sub(r"\\(?:sub)*section\{Question\}", lambda m: "\\newpage\n" + m[0], tex, count=1)
-        if identifier == "PF-05":
-            # Keep the two equivalent conditions together after the new notice.
             tex = re.sub(r"\\(?:sub)*section\{Question\}", lambda m: "\\newpage\n" + m[0], tex, count=1)
         if identifier == "RA-10":
             # Keep the complete original implication together after its resolution.

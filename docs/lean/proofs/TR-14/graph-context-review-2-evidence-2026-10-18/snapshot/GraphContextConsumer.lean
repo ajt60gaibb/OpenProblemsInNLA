@@ -1,0 +1,49 @@
+import NLA.Proofs.TR14.GraphNormalization
+import NLA.Proofs.TR14.GraphQuotientContext
+import NLA.Proofs.TR14.GraphListContext
+import NLA.Proofs.TR14.GraphBlockModeDimension
+set_option leancert.trust "kernel"
+#assert_trust kernel NLA.Proofs.TR14.normalizedGraphSpace
+#print axioms NLA.Proofs.TR14.normalizedGraphSpace
+#assert_trust kernel NLA.Proofs.TR14.normalizedGraphFunctional
+#print axioms NLA.Proofs.TR14.normalizedGraphFunctional
+#assert_trust kernel NLA.Proofs.TR14.normalizedGraphFunctional_apply
+#print axioms NLA.Proofs.TR14.normalizedGraphFunctional_apply
+#assert_trust kernel NLA.Proofs.TR14.one_mem_normalizedGraphSpace
+#print axioms NLA.Proofs.TR14.one_mem_normalizedGraphSpace
+#assert_trust kernel NLA.Proofs.TR14.normalizedGraph_product
+#print axioms NLA.Proofs.TR14.normalizedGraph_product
+#assert_trust kernel NLA.Proofs.TR14.normalizedGraph_product_annihilated
+#print axioms NLA.Proofs.TR14.normalizedGraph_product_annihilated
+#assert_trust kernel NLA.Proofs.TR14.normalizedGraphFunctional_frobenius
+#print axioms NLA.Proofs.TR14.normalizedGraphFunctional_frobenius
+#assert_trust kernel NLA.Proofs.TR14.normalizedGraph_product_snd
+#print axioms NLA.Proofs.TR14.normalizedGraph_product_snd
+#assert_trust kernel NLA.Proofs.TR14.normalizedGraphFunctional_scalar_ne_zero
+#print axioms NLA.Proofs.TR14.normalizedGraphFunctional_scalar_ne_zero
+#assert_trust kernel NLA.Proofs.TR14.quotientModeLinear_one_mem_range
+#print axioms NLA.Proofs.TR14.quotientModeLinear_one_mem_range
+#assert_trust kernel NLA.Proofs.TR14.ordinaryGraph_subproduct_fst
+#print axioms NLA.Proofs.TR14.ordinaryGraph_subproduct_fst
+#assert_trust kernel NLA.Proofs.TR14.normalizedGraph_subproduct_fst_top
+#print axioms NLA.Proofs.TR14.normalizedGraph_subproduct_fst_top
+#assert_trust kernel NLA.Proofs.TR14.middle_degree_le_all_but_one
+#print axioms NLA.Proofs.TR14.middle_degree_le_all_but_one
+#assert_trust kernel NLA.Proofs.TR14.normalizedGraph_all_but_one_fst_top
+#print axioms NLA.Proofs.TR14.normalizedGraph_all_but_one_fst_top
+#assert_trust kernel NLA.Proofs.TR14.unitScale_list_prod
+#print axioms NLA.Proofs.TR14.unitScale_list_prod
+#assert_trust kernel NLA.Proofs.TR14.ordinaryGraph_listproduct_fst
+#print axioms NLA.Proofs.TR14.ordinaryGraph_listproduct_fst
+#assert_trust kernel NLA.Proofs.TR14.normalizedGraph_listproduct_fst_top
+#print axioms NLA.Proofs.TR14.normalizedGraph_listproduct_fst_top
+#assert_trust kernel NLA.Proofs.TR14.normalizedGraph_list_all_but_one_projection
+#print axioms NLA.Proofs.TR14.normalizedGraph_list_all_but_one_projection
+#assert_trust kernel NLA.Proofs.TR14.mul_quotientModeLinear_eq_blockMode
+#print axioms NLA.Proofs.TR14.mul_quotientModeLinear_eq_blockMode
+#assert_trust kernel NLA.Proofs.TR14.corner_quotient_mode_image_finrank
+#print axioms NLA.Proofs.TR14.corner_quotient_mode_image_finrank
+#assert_trust kernel NLA.Proofs.TR14.normalizedGraph_corner_fst_image
+#print axioms NLA.Proofs.TR14.normalizedGraph_corner_fst_image
+#assert_trust kernel NLA.Proofs.TR14.normalizedGraph_corner_mode_finrank_lower
+#print axioms NLA.Proofs.TR14.normalizedGraph_corner_mode_finrank_lower

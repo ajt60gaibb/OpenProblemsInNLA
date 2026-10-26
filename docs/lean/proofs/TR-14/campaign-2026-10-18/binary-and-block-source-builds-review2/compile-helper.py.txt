@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+from pathlib import Path
+import os,subprocess,sys
+root=Path('/private/tmp/nla-tr14-lean-oct18/lean-statements')
+bin=Path('/private/tmp/pf05-tooling/elan-home/toolchains/leanprover--lean4---v4.33.1/bin')
+out=Path('/private/tmp/nla-tr14-binary-review2-objects')
+paths=[out]+[p/'.lake/build/lib/lean' for p in (root/'.lake/packages').iterdir() if(p/'.lake/build/lib/lean').is_dir()]
+env=dict(os.environ,PATH=str(bin)+':'+os.environ['PATH'],LEAN_PATH=':'.join(map(str,paths)))
+f=Path(sys.argv[1]);dest=out/f.with_suffix('.olean');dest.parent.mkdir(parents=True,exist_ok=True)
+raise SystemExit(subprocess.run([str(bin/'lean'),'-o',str(dest),str(f)],cwd=root,env=env).returncode)

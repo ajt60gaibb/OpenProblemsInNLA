@@ -1,0 +1,11 @@
+import NLA.Proofs.SP12.NeighborhoodLifting
+import LeanCert.Tactic.Verification
+open Lean Elab Command in
+elab "#assert_proof_constant " n:ident : command => do
+  let decl ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  match (← getEnv).find? decl with
+  | some (.thmInfo _) => pure ()
+  | _ => throwErrorAt n "expected a proved theorem constant"
+#assert_proof_constant NLA.Proofs.SP12.exists_nonzero_lift_in_nhds
+#assert_trust kernel NLA.Proofs.SP12.exists_nonzero_lift_in_nhds
+#print axioms NLA.Proofs.SP12.exists_nonzero_lift_in_nhds

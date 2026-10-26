@@ -1,0 +1,26 @@
+# PF-05 G09 actual closed congruence orbit — independent review
+
+Reviewer: `/root/lean_verification`, Codex AI agent, 18 October 2026. I authored no PF-05 proof source and made no proof edits. **APPROVE `PositiveOrbitClosed.lean` at SHA-256 `21a8eef6d07ab6865692c6b28ca533993e1a2fae767be34bf41a312cfd20aa08` as the stated topological support gate. No full PF-05 Target is claimed.**
+
+The actual `FactorizationFiber M` is the subtype of pairs of finite real two-by-two factor families satisfying the frozen `Factorization` predicate. It retains the ordinary inherited product/subtype topology. The local `FirstCountableTopology Sym2` instance is obtained from the existing finite real function-space instance; it proves a property of that topology and does not replace it with a different topology.
+
+`norm_bounded_of_trace_bound` derives an explicit bound on the elementwise matrix norm of every S from an actual congruence trace bound. The previously proved positive constant det(P)/trace(P) bounds each entry's square. Elementary real inequalities then bound each absolute entry by `C/(det(P)/trace(P))+1`. The statement allows arbitrary S and assumes neither an inverse nor a previously bounded representative. The norm is the finite product norm compatible with the inherited real matrix topology.
+
+`congruence_sequence_bounded` uses actual convergence of the congruence matrices to obtain boundedness of their scalar traces, including the finite initial part of the sequence. That scalar bound and the same fixed positive definite P give one bound for every chosen S_n. Thus bounded representatives are proved from actual images, not inserted as a compactness premise.
+
+For `congruent_of_tendsto`, the original row aggregate is positive definite by actual PSD factorization and rank three, using the retained trace-separation proof. Actual row convergence gives convergence of the aggregate images. Any chosen sequence of congruence representatives is therefore bounded. Compactness of a closed ball in the actual four-dimensional real matrix space supplies an actual convergent subsequence. Its index function is strictly increasing, so the original row-family convergence is preserved along that subsequence. Continuity of matrix congruence and uniqueness of limits identify all limiting rows with the same limiting congruence matrix.
+
+Invertibility is proved **at that actual limit**: the limit belongs to the same rank-three PSD factorization fiber, so its row aggregate is positive definite and the retained determinant argument rules out a singular limiting matrix. No assumption that invertible matrices form a closed set is made. Finally, factorization preservation gives the candidate dual family; its difference from the actual limiting dual family is symmetric and trace-orthogonal to every actual limiting row. Rank-three trace separation forces that difference to vanish for every column. This recovery avoids assuming continuity of inverses at an unproved invertible limit. The supplied column convergence is not needed for that stronger recovery, which is justified by membership in the actual same fiber.
+
+`isClosed_congruence_orbit` applies this result to every convergent sequence in the actual orbit, with the limit taken in `FactorizationFiber M`. Standard finite product/subtype first countability converts sequential closedness to closedness. The conclusion is correctly **relative closedness in the factorization fiber**; it does not assert closedness in the whole ambient matrix space. Ordinary rank three and actual PSD factorization are explicit. No entrywise strict positivity, distinct-ray condition, singular-factor exclusion, closed-orbit premise, or boundedness oracle is added.
+
+Independent immutable verification passed **nine Lean commands**: eight actual local sources plus a separate consumer. It audits **80 explicit proof declarations**, with **68 theorem/lemma-kind checks** and seven directly located private constants (six theorems and one definition). All pass LeanCert kernel trust. Every printed transitive axiom closure is contained in `[propext, Classical.choice, Quot.sound]`.
+
+All local objects are freshly rebuilt from frozen snapshots into isolated outputs excluding campaign project objects; only pinned dependency/core objects are reused. Every source byte and all ten dependency revisions/tracked trees remain unchanged before/after. All seven retained candidate modules independently match their retained hash lock both before and after, including retained modules outside this particular import closure.
+
+```bash
+python3 docs/lean/proofs/PF-05/verification/check-positive-orbit.py \
+  --top PositiveOrbitClosed --evidence-name positive-orbit-review-3
+```
+
+Exact source and driver snapshots, generated consumer, hashes and raw output are retained in [verification/positive-orbit-review-3/](verification/positive-orbit-review-3/). The result records `full_pf05_target_proved: false` and `authoritative_linux_comparator: false`. Orbit openness, connectedness, a global uniqueness implication and the full rigidity equivalence remain separate obligations. No proof, original, frozen statement, permanent ID or canonical path was changed. This is independent AI-agent source review and local kernel evidence, not external human peer review or actual Linux/Comparator acceptance.

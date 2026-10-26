@@ -1,0 +1,17 @@
+from pathlib import Path
+import re,json,hashlib,subprocess,os
+r=Path('/private/tmp/nla-tr14-lean-oct18');e=Path('/private/tmp/nla-tr14-next-preproof/graph-context-review-2');j=json.loads((e/'result.json').read_text());assert j['pass']
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();snap=e/'snapshot';out=e/'objects'
+names=[]
+for m in j['targets']:
+ s=(snap/(m.replace('.','/')+'.lean')).read_text()
+ names+=['NLA.Proofs.TR14.'+n for n in re.findall(r'^(?:@\[[^\n]*\]\s*)?(?:theorem|lemma|def|abbrev)\s+([\w]+)',s,re.M)]
+p=Path('GraphContextConsumer.lean');src=snap/p
+src.write_text(''.join('import '+m+'\n' for m in j['targets'])+'set_option leancert.trust "kernel"\n'+''.join('#assert_trust kernel '+n+'\n#print axioms '+n+'\n' for n in names))
+bin=Path('/private/tmp/pf05-tooling/elan-home/toolchains/leanprover--lean4---v4.33.1/bin')
+paths=[out]+[p/'.lake/build/lib/lean' for p in (r/'lean-statements/.lake/packages').iterdir() if(p/'.lake/build/lib/lean').is_dir()]
+env=dict(os.environ,PATH=str(bin)+':'+os.environ['PATH'],LEAN_PATH=':'.join(map(str,paths)))
+cmd=[str(bin/'lean'),'-o',str(out/p.with_suffix('.olean')),str(p)];run=subprocess.run(cmd,cwd=snap,env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)
+log=e/'GraphContextConsumer.log';log.write_text(run.stdout);print(run.returncode,len(names),run.stdout,flush=True);assert run.returncode==0;assert 'sorryAx' not in run.stdout
+j['consumer']={'source':str(p),'sha256':sha(src),'declarations':names,'command':cmd,'cwd':str(snap),'exit_code':run.returncode,'log':log.name,'log_sha256':sha(log)}
+(e/'result.json').write_text(json.dumps(j,indent=2)+'\n');(e/'check-consumer.py.txt').write_text(Path(__file__).read_text())
