@@ -314,6 +314,8 @@ import NLA.Proofs.TR26.MainTarget
 import NLA.Proofs.RE05.SelectedCharge
 import NLA.Proofs.RE05.QueryAsymptotic
 import NLA.Proofs.RE05.MedianRobust
+import NLA.Proofs.RE05.BasisProjection
+import NLA.Proofs.RE05.GaussianWick
 /-!
 Aggregate import for independently reviewed kernel proofs of Solved targets.
 Target-specific proof PRs add their audited modules here.
