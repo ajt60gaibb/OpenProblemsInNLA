@@ -1,0 +1,9 @@
+# RA-05 support proof checkpoint, 23 October 2026
+
+RA-05 remains Solved. The full frozen `Classification ∧ NegativeAnswer` is unproved. This checkpoint proves eleven support statements: nonnegative costs, a unit-weight coreset, attained exact minimum support and its supremum inclusion, and the all-dimensional hyperplane reduction to actual weighted all-vector ℓp energy preservation. It does not reuse the RA-06 sampler failure as an arbitrary-coreset impossibility theorem.
+
+The live support package is [`randomized-and-low-rank-approximation/RA-05/lean`](../../../randomized-and-low-rank-approximation/RA-05/lean/README.md). Its original/specification/manuscript copies and frozen original Target preserve the published bytes; the canonical problem, mathematical target, status and all 217 permanent ID/path pairs are unchanged. [`reviews/2026-10-23-solved-lean`](../../../reviews/2026-10-23-solved-lean/) contains the refreshed 38-target queue, independent pre-proof and final source reviews, fresh local source replays, actual eleven-export Comparator-library comparisons and generated LeanCert theorem-kind/axiom checks. Every actual export has exactly the standard three axioms. Local checks do not supply the Linux exporter, sandbox or raw-kernel replay.
+
+The pinned canonical project has passed source replay of all eleven modules, including separate Challenge and Solution, frozen identity and all support audits. Its unchanged shared Linux workflow must verify the committed project and retain a result bound to that exact source commit before any authoritative isolated receipt is claimed. Complete-target proof and promotion remain separate future gates.
+
+The eleven support exports subsequently passed actual isolated Linux Comparator/kernel verification; see the [exact receipt](LINUX_CI_RECEIPT.md) and its two independent original-artifact audits. The complete Target remains unproved.

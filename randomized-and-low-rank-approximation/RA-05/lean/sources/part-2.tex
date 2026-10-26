@@ -1,0 +1,1058 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,mathtools,bm}
+\usepackage[margin=0.86in]{geometry}
+\usepackage{booktabs,array,longtable,enumitem,xcolor,fancyhdr}
+\usepackage[colorlinks=true,linkcolor=blue!45!black,citecolor=blue!45!black,urlcolor=blue!45!black]{hyperref}
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries}{\thesection}{.7em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{.6em}{}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\setlength{\headheight}{14pt}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small RA-05 | All-accuracy even powers}\fancyhead[R]{\small September 13, 2026}\fancyfoot[C]{\thepage}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}\newcommand{\E}{\mathbb E}\newcommand{\Prob}{\mathbb P}
+\newcommand{\eps}{\varepsilon}\newcommand{\Sym}{\operatorname{Sym}}
+\newcommand{\tr}{\operatorname{tr}}\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\supp}{\operatorname{supp}}\newcommand{\op}{\mathrm{op}}\newcommand{\HS}{\mathrm{HS}}
+\newcommand{\norm}[1]{\left\|#1\right\|}\newcommand{\ip}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\cost}{\mathcal C}\newcommand{\OPT}{\mathsf{OPT}}
+\newcommand{\asymps}{\asymp_s}\newcommand{\lesss}{\lesssim_s}
+\newcommand{\Sps}{S_{2s}}
+\newcommand{\vertiii}[1]{\left|\!\left|\!\left|#1\right|\!\right|\!\right|}
+\DeclareMathOperator{\srank}{srank}
+\usepackage{xurl}\setlength{\emergencystretch}{3em}
+\hypersetup{pdfauthor={Sidney Holden}}
+\begin{document}
+\begin{titlepage}
+\thispagestyle{empty}
+{\LARGE\bfseries RA-05 submission}\par\bigskip
+{\Large Sidney Holden}\par\medskip
+Center for Computational Biology, Flatiron Institute, Simons Foundation.\par\medskip
+14 September 2026\par\bigskip
+\textbf{Submission disposition.} Solved by an independently audited informal argument. Part I, Theorem 1.1, together with Part II, Theorem 1.1, classifies strong original-row coreset size for every fixed real power p greater than 2, all allowed ranks and accuracies, up to logarithmic factors. The original additive proposal is false. Historical Part II statements that non-even powers remain open refer to that earlier part alone.\par\bigskip
+\href{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/reviews/2026-09-14-further-submissions/RA-05-review.md}{Independent informal Codex AI-agent review}.\par\medskip
+ChatGPT assistance is disclosed. No Lean verification, external human peer review or formal verification is claimed. This dated notice supersedes historical statements about pending review. Inherited claims are accepted only within the linked review scope.\par\bigskip
+The mathematical body and its references are retained from the submitted source.\par
+\end{titlepage}
+
+\begin{titlepage}
+{\small\bfseries RESEARCH CONTINUATION / RA-05}\par\vspace{1.05cm}
+{\huge\bfseries Sharp unrestricted even-power row coresets}\par\vspace{.45cm}
+{\Large All ranks and accuracies through structured\par polynomial Gaussian control}\par\vspace{.7cm}
+\textbf{Sidney Holden}\par Center for Computational Biology\par Flatiron Institute, Simons Foundation\par Prepared with ChatGPT assistance\par
+September 13, 2026\par\vspace{.65cm}
+\textbf{Abstract.} For each fixed integer $s\ge2$, let $S_{2s}(k,\eps)$ be the worst-case minimum support of a nonnegative strong coreset on original rows for Euclidean subspace costs of power $2s$. Input rank and ambient dimension are unrestricted. Put
+\[
+ \mathcal R_s(k,\eps)=\min\left\{\frac{k^s}{\eps^2},\ \frac{k^{s+1/2}}{\eps}+\frac{k^{s-1}}{\eps^2}\right\}.
+\]
+We prove, for every $k\ge1$ and $0<\eps<1/2$,
+\[
+ c_s\mathcal R_s(k,\eps)\le S_{2s}(k,\eps)
+ \le C_s\mathcal R_s(k,\eps)\log^{2s+5}(2k/\eps).
+\]
+The improved upper branch separately has only a fifth power of the logarithm. Thus the unrestricted joint-size problem is classified, up to logarithms, for \emph{every even exponent $p\ge4$ and every accuracy}. The three regimes have breakpoints $k^{-1/2}$ and $k^{-3/2}$, independently of $s$.
+
+The new estimate controls a Gaussian matrix only after applying a structured, matrix-valued polynomial query. It uses both its left variance and its full vectorized covariance. A norm adapted to the head rows gives a constant-mesh polynomial norming set of cardinality $\exp(O_s(k^2))$, with no condition-number dependence. Protecting scalar coordinates in the full matrix Hilbert space removes the previous intermediate-accuracy rank loss. Every mixed term, the nonnegative rounding, and both lower-bound constructions are proved in the text.
+
+\vspace{.2cm}
+\fbox{\begin{minipage}{.94\textwidth}
+\textbf{Scope: full even-power classification; partial resolution of RA-05.}
+The original target quantifies over all real $p>2$, including non-even powers. Those exponents are not classified here. This manuscript is a proof claim with an internal audit and reproducible finite checks, not independent peer review or a proof-assistant certificate. The unchanged previous package is retained for provenance; its theorems are not premises of the new upper bound.
+\end{minipage}}
+\vfill
+{\small Package: manuscript and source; covariance and tensor verification; exact certificates; proof audit; precise scope and source notes; unchanged preceding even-power package.}
+\end{titlepage}
+{\small\setlength{\parskip}{0pt}\tableofcontents}\newpage
+
+\section{Target and statements}
+\subsection{The original-row model}
+For rows $a_i\in\R^{\mathsf d}$ and a linear subspace $F$, set
+\[
+ \cost_A(F)=\sum_i\norm{(I-P_F)a_i}^{2s}.
+\]
+A strong row coreset consists of nonnegative weights $w_i$ satisfying
+\begin{equation}\label{eq:strong}
+ \left|\sum_i(w_i-1)\norm{(I-P_F)a_i}^{2s}\right|
+ \le\eps\cost_A(F)\quad(\dim F\le k).
+\end{equation}
+Its size is $|\supp(w)|$. Taking the supremum of the minimum size over all finite matrices, all ambient dimensions greater than $k$, and arbitrary input ranks defines $S_{2s}(k,\eps)$. This is the even-power specialization of RA-05 \cite{ra05}. There is no running-time target. Constants indexed by $s$ depend only on that fixed integer.
+
+Define
+\begin{equation}\label{eq:rate}
+ \mathcal R_s(k,\eps)=\min\{k^s\eps^{-2},\ k^{s+1/2}\eps^{-1}+k^{s-1}\eps^{-2}\}.
+\end{equation}
+\begin{theorem}[Complete unrestricted even-power classification]\label{thm:classification}
+For every integer $s\ge2$ there are $0<c_s\le C_s<\infty$ such that, for every $k\ge1$ and $0<\eps<1/2$,
+\begin{equation}\label{eq:classification}
+ c_s\mathcal R_s(k,\eps)\le S_{2s}(k,\eps)
+ \le C_s\mathcal R_s(k,\eps)\log^{2s+5}(2k/\eps).
+\end{equation}
+All upper bounds use nonnegative weights on original indices. Neither input rank nor ambient dimension is restricted.
+\end{theorem}
+\begin{theorem}[Improved compression branch]\label{thm:upper}
+Under the same quantifiers,
+\begin{equation}\label{eq:upper}
+ S_{2s}(k,\eps)\le C_s\left(k^{s+1/2}\eps^{-1}+k^{s-1}\eps^{-2}\right)\log^5(2k/\eps).
+\end{equation}
+\end{theorem}
+\begin{theorem}[Uncapped lower bound]\label{thm:lower}
+For every integer $s\ge2$, some $c_s>0$ satisfies
+\begin{equation}\label{eq:lower}
+ S_{2s}(k,\eps)\ge c_s k^{s-1}\eps^{-2}
+ \quad(k\ge1,\ 0<\eps<1/2).
+\end{equation}
+For sufficiently large $k$, the construction also rules out signed reweightings of smaller support satisfying the same guarantee.
+\end{theorem}
+A second, variable-density lower construction is proved in Section~\ref{sec:variable-lower}. Together the two lower families prove the lower half of Theorem~\ref{thm:classification}.
+Theorem 1.2 of Lin--Mirrokni--Woodruff \cite{lmw}, at fixed failure probability, supplies the other upper branch:
+\begin{equation}\label{eq:baseline}
+ S_{2s}(k,\eps)\le C_s k^s\eps^{-2}\log^{2s+5}(C_s k/\eps).
+\end{equation}
+Taking the better of \eqref{eq:upper} and \eqref{eq:baseline} gives the upper half of \eqref{eq:classification}. Constants can be enlarged so all logarithms use $2k/\eps$.
+
+\begin{corollary}[Three accuracy regimes]\label{cor:regimes}
+For fixed $s\ge2$, up to $s$-dependent factors and logarithms,
+\[
+ S_{2s}(k,\eps)=\widetilde\Theta_s\!\left(
+ \begin{cases}
+ k^s\eps^{-2},&\eps\ge k^{-1/2},\\
+ k^{s+1/2}\eps^{-1},&k^{-3/2}\le\eps\le k^{-1/2},\\
+ k^{s-1}\eps^{-2},&\eps\le k^{-3/2}.
+ \end{cases}\right)
+\]
+Only intersections with $0<\eps<1/2$ are used. Moreover, the rate functions obey $\mathcal R_s=k^{s-2}\mathcal R_2$ exactly. This is an equality of asymptotic rate functions, not an asserted reduction of one coreset algorithm to another.
+\end{corollary}
+
+\subsection{What removes the previous gap}
+The preceding even-power package \cite{prior} gave the second upper branch
+\[
+ \widetilde O_s(k^{(3s-1)/2}\eps^{-1}+k^{s-1}\eps^{-2}).
+\]
+The gap was the factor $k^{(s-2)/2}$ in its first term. It arose from demanding a full operator-norm estimate for a matrix whose actual left query has a much smaller polynomial parameter space. The new structured Gaussian lemma in Section~\ref{sub:structured} is the replacement. It is proved here, including the condition-independent norming argument and Gaussian tail estimate.
+
+\begin{center}
+\begin{tabular}{ccccc}
+\toprule
+$p$ & Accuracy & Earlier lower & Earlier best upper & New matched order\\
+\midrule
+$6$ & $k^{-1}$ & $k^{9/2}$ & $\widetilde O(k^5)$ & $\widetilde\Theta(k^{9/2})$\\
+$6$ & $k^{-3/2}$ & $k^5$ & $\widetilde O(k^{11/2})$ & $\widetilde\Theta(k^5)$\\
+$8$ & $k^{-1}$ & $k^{11/2}$ & $\widetilde O(k^6)$ & $\widetilde\Theta(k^{11/2})$\\
+$10$ & $k^{-1}$ & $k^{13/2}$ & $\widetilde O(k^7)$ & $\widetilde\Theta(k^{13/2})$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The earlier columns summarize the archived package and the earlier lower bounds it explicitly cites. They are comparisons, not premises of the new theorem. Both lower constructions and the full upper proof are included below. Non-even exponents remain outside this classification; see Section~\ref{sec:gap}.
+
+\section{Imported tools and elementary Gaussian consequences}\label{sec:tools}
+\subsection{The imported statements}
+We use the following fixed-constant consequence of Rothvoss's Lemma~9 \cite{rothvoss}. It is important that its starting point is arbitrary.
+\begin{theorem}[Subspace partial coloring; imported]\label{thm:pc}
+There are absolute $c_0,\kappa_0>0$ with the following property. Let $U\subseteq\R^a$ have codimension at most $c_0a$, and let $K\subseteq U$ be symmetric and convex with standard Gaussian measure in $U$ at least $e^{-c_0a}$. For each $x^0\in(-1,1)^a$, a point $x\in(x^0+K)\cap[-1,1]^a$ exists with at least $\kappa_0a$ coordinates in $\{-1,1\}$.
+\end{theorem}
+For example, fix any sufficiently small positive $\xi\le1/60000$ in that lemma, and use its codimension constant $\frac32\xi\log_2(1/\xi)$ and saturation fraction $\xi/2$. Only existence is used here.
+
+Tropp's rectangular Gaussian-series inequality \cite[Theorem~1.5]{tropp} says that for fixed matrices $X_i$ of size $d_1\times d_2$ and independent standard Gaussian $g_i$,
+\begin{equation}\label{eq:tropp}
+ \Prob\!\left\{\norm{\sum_i g_iX_i}_{\op}\ge t\right\}
+ \le(d_1+d_2)\exp[-t^2/(2\sigma^2)],\quad
+ \sigma^2=\max\left\{\norm{\sum_iX_iX_i^T}_{\op},\norm{\sum_iX_i^TX_i}_{\op}\right\}.
+\end{equation}
+Thus a fixed high-probability operator bound costs $C\sigma\sqrt{\log(2+d_1+d_2)}$.
+
+The lower bound uses the Spielman--Srivastava restricted-invertibility theorem in the form recorded as Theorem~1.1 of Marcus--Spielman--Srivastava \cite{mss}:
+\begin{equation}\label{eq:ri}
+ \sigma_{\min}(B_J)^2\ge
+ \left(1-\sqrt{m/\srank(B)}\right)^2\frac{\norm B_F^2}{L},
+ \qquad \srank(B)=\frac{\norm B_F^2}{\norm B_{\op}^2},
+\end{equation}
+for some $m$ columns $J$ of a nonzero matrix $B$ with $L$ columns, whenever $m\le\srank(B)$. No unit-column hypothesis is imposed.
+
+Finally, \eqref{eq:baseline} is imported from \cite{lmw}. It is used both as a comparison and to reduce the original number of rows before compression. None of the other structural ingredients are left implicit.
+
+\subsection{Coefficient restriction, right normalization, and widths}
+\begin{lemma}[Coefficient projection and anisotropic normalization]\label{lem:variance}
+Let $\Pi$ be an orthogonal projection on coefficient space and $Z=\sum_i(\Pi g)_iX_i$. Then
+\[
+ \E ZZ^T\preceq\sum_iX_iX_i^T,\qquad \E Z^TZ\preceq\sum_iX_i^TX_i.
+\]
+If $\sum_iX_iX_i^T\preceq aI$, $a>0$, and $B=\sum_iX_i^TX_i$, then with fixed arbitrarily high probability,
+\begin{equation}\label{eq:aniso}
+ \norm{Z(B+aI)^{-1/2}}_{\op}\le C\sqrt{\log(2+d_1+d_2)}.
+\end{equation}
+The same conclusions hold if the coefficient Gaussian is first restricted to a subset of indices.
+\end{lemma}
+\begin{proof}
+For each vector $v$, arrange the vectors $X_i^Tv$ as columns. Right multiplication by $\Pi$ cannot increase their squared Frobenius norm, proving the first quadratic-form inequality. Transpose the atoms for the second. Replacing the atoms by $X_i(B+aI)^{-1/2}$ makes both full variances at most $I$. Projection contracts both. Express the projected Gaussian in an orthonormal basis of its range and apply \eqref{eq:tropp}. A subset simply removes positive-semidefinite summands before these operations.
+\end{proof}
+The analogous contraction holds for vector second moments and for increments of scalar Gaussian processes. Constrained Gaussian coordinates are not assumed independent.
+
+We also use the Gaussian increment comparison: if centered finite Gaussian families satisfy $\E(X_u-X_v)^2\le\E(Y_u-Y_v)^2$, then $\E\max X_u\le\E\max Y_u$. Appendix~\ref{app:gaussian} proves the version needed here.
+\begin{lemma}[Polynomial Gaussian width]\label{lem:width}
+For a centered Gaussian tensor $G$ in $\Sym^{2a}(\R^k)$ whose covariance is at most $v^2I$, with $a\ge1$,
+\[
+ \E\sup_{\norm x=1}|\ip{G}{x^{\otimes2a}}|\le C_a v\sqrt{k}.
+\]
+\end{lemma}
+\begin{proof}
+The squared increment is bounded by $2v^2(1-(x\cdot y)^{2a})\le2av^2\norm{x-y}^2$. Compare to $\sqrt{2a}\,v\,g\cdot x$. Add a zero index to both processes; its variance inequality also holds. The comparison bounds the positive part of the supremum. Apply it to the negative process as well and add. This justifies an absolute supremum even for even-degree polynomials.
+\end{proof}
+Tensor Hilbert spaces always carry the inner product inherited from the full tensor product, so $\norm{x^{\otimes j}}=\norm x^j$. Symmetrization is an orthogonal projection and cannot increase a norm.
+
+\subsection{Structured polynomial Gaussian control}\label{sub:structured}
+The next three lemmas are the new input. They distinguish the matrix left variance from the covariance of \emph{all vectorized entries}. Vectorization is an isometry for the Frobenius norm.
+
+\begin{lemma}[Gaussian norm bound from trace and top eigenvalue]\label{lem:gaussian-norm}
+Let $Y$ be a finite-dimensional centered Gaussian vector with covariance $\Sigma$. If $\tr\Sigma\le a$ and $\norm\Sigma_{\op}\le b$, then, for $u>0$,
+\[
+ \Prob\{\norm Y>\sqrt a+\sqrt{2bu}\}\le e^{-u}.
+\]
+The assertion includes singular covariances and the deterministic zero case.
+\end{lemma}
+\begin{proof}
+Diagonalize $\Sigma$, with eigenvalues $\lambda_i\ge0$, and write $\norm Y^2=\sum_i\lambda_i g_i^2$. Put $v=\sum_i\lambda_i^2\le ba$. For $0<t<(2b)^{-1}$, the Gaussian integral and the logarithmic series give
+\[
+ \log\E\exp\{t(\norm Y^2-\tr\Sigma)\}
+ =\sum_i\{-t\lambda_i-\tfrac12\log(1-2t\lambda_i)\}
+ \le\frac{t^2v}{1-2bt}.
+\]
+For $v>0$, take $t=\sqrt u/(\sqrt v+2b\sqrt u)$ in exponential Markov. This yields
+\[
+ \Prob\{\norm Y^2>\tr\Sigma+2\sqrt{vu}+2bu\}\le e^{-u}.
+\]
+Since $v\le ba$ and $(\sqrt a+\sqrt{2bu})^2\ge a+2\sqrt{bau}+2bu$, the stated bound follows. Zero $v$ means $Y=0$ almost surely.
+\end{proof}
+
+\begin{lemma}[A constant-mesh norming set for a homogeneous polynomial]\label{lem:polynet}
+Let $\mathcal V$ be a real normed space of dimension $d$, let $\mathcal H$ be a finite-dimensional normed output space, and let $P:\mathcal V\to\mathcal H$ be a homogeneous polynomial of integer degree $l\ge1$. There is a set $\mathcal N$ on the unit sphere, depending only on the domain norm and $l$, with
+\[
+ |\mathcal N|\le(1+4l C_l)^d,\qquad C_l=l^l/l!,
+ \qquad \sup_{\norm V=1}\norm{P(V)}\le2\max_{V\in\mathcal N}\norm{P(V)}.
+\]
+The same set works for every such $P$ and every output dimension.
+\end{lemma}
+\begin{proof}
+Choose a $\delta$-net of the unit sphere in the domain norm, where $\delta=(2lC_l)^{-1}$. Comparing disjoint translates of the radius-$\delta/2$ unit ball bounds its size by $(1+2/\delta)^d$.
+Write $P(V)=A(V,\ldots,V)$ with $A$ symmetric $l$-linear. Polarization gives
+\[
+ A(V_1,\ldots,V_l)=\frac1{2^l l!}\sum_{\epsilon\in\{-1,1\}^l}
+ \Big(\prod_j\epsilon_j\Big)P\Big(\sum_j\epsilon_jV_j\Big).
+\]
+If $M=\sup_{\norm V=1}\norm{P(V)}$, homogeneity and $\norm{\sum_j\epsilon_jV_j}\le l$ imply $\norm A\le C_lM$. Telescoping the multilinear expression yields
+$\norm{P(V)-P(U)}\le lC_lM\norm{V-U}$ for unit $V,U$.
+Taking $U$ in the net gives $M\le\max_{\mathcal N}\norm{P(U)}+M/2$. Compactness makes $M$ finite. If $M=0$, the statement is immediate.
+\end{proof}
+
+For the structured lemma, fix spanning vectors $B_i\in\R^k$, positive numbers $\omega_i$, and an integer $l\ge1$. Set
+\[
+ M_l=\sum_i\omega_i B_i^{\otimes l}(B_i^{\otimes l})^T.
+\]
+Use coordinates only on its positive range, of dimension $D_l$. Put $\nu=l\bmod2$, and define a tensor map by
+\[
+ A_V(B^{\otimes l})=
+ \begin{cases}
+ \norm{VB}^{l},&l\text{ even},\\
+ \norm{VB}^{l-1}VB,&l\text{ odd},
+ \end{cases}
+ \qquad \mathcal L_V=A_VM_l^{1/2}.
+\]
+Here $V$ may have any finite output dimension. Each displayed expression is a homogeneous polynomial of degree $l$ in $B$, so polarization defines its linear map on symmetric tensors. In particular,
+\begin{equation}\label{eq:Lnorm}
+ \norm{\mathcal L_V}_F^2=\sum_i\omega_i\norm{VB_i}^{2l}.
+\end{equation}
+
+\begin{lemma}[Structured matrix-valued polynomial Gaussian estimate]\label{lem:structured}
+Let $Z$ be a centered Gaussian matrix with $D_l$ rows and an arbitrary finite number of columns. Suppose
+\[
+ \E ZZ^T\preceq \sigma^2 I,\qquad
+ \operatorname{Cov}(\operatorname{vec} Z)\preceq v^2 I.
+\]
+For every $0<\zeta<1$, with probability at least $1-\zeta$, simultaneously for every $V$,
+\begin{equation}\label{eq:structured}
+ \norm{\mathcal L_VZ}_F
+ \le C_l\{\sigma+v(k+\sqrt{\log(1/\zeta)})\}\norm{\mathcal L_V}_F.
+\end{equation}
+No constant depends on the number of columns of $Z$, on the condition number of $M_l$, or on the number of rows $B_i$.
+\end{lemma}
+\begin{proof}
+First take $V\in\R^{k\times k}$. On this $k^2$-dimensional space use the norm
+\[
+ \vertiii V:=\left(\sum_i\omega_i\norm{VB_i}^{2l}\right)^{1/(2l)}.
+\]
+It is a norm by the weighted $\ell_{2l}$ triangle inequality and spanning of the $B_i$. Its unit sphere is compact, regardless of conditioning. For each fixed unit $V$, \eqref{eq:Lnorm} says $\norm{\mathcal L_V}_F=1$. Thus
+\[
+ \E\norm{\mathcal L_VZ}_F^2
+ =\tr(\mathcal L_V\E ZZ^T\mathcal L_V^T)\le\sigma^2.
+\]
+The covariance of $\operatorname{vec}(\mathcal L_VZ)$ has top eigenvalue at most
+$v^2\norm{\mathcal L_V}_{\op}^2\le v^2$. Lemma~\ref{lem:gaussian-norm} therefore gives
+\[
+ \Prob\{\norm{\mathcal L_VZ}_F>\sigma+v\sqrt{2u}\}\le e^{-u}.
+\]
+For fixed $Z$, the function $V\mapsto\mathcal L_VZ$ is a homogeneous degree-$l$ polynomial with matrix output. Use the deterministic norming set in Lemma~\ref{lem:polynet}, with domain norm $\vertiii\cdot$ and dimension $k^2$. A union bound with $u=\log(|\mathcal N|/\zeta)$, followed by the norming inequality, bounds the supremum by
+$C_l\{\sigma+v(k+\sqrt{\log(1/\zeta)})\}$. Homogeneity rescales the result: $\norm{\mathcal L_V}_F=(\vertiii V)^l$.
+
+For an output space of dimension different from $k$, choose $V_0\in\R^{k\times k}$ with $V_0^TV_0=V^TV$. An isometry from $\operatorname{range}V_0$ to $\operatorname{range}V$ takes $V_0B$ to $VB$. If $l$ is even the two tensor maps coincide. If $l$ is odd, all outputs of $\mathcal L_{V_0}$ lie in $\operatorname{range}V_0$, so applying this isometry preserves both Frobenius norms. This proves the same event for all output dimensions. The zero map causes no exception.
+\end{proof}
+
+\begin{remark}[Why a Euclidean net or a full operator norm is not substituted]
+A net in the ordinary entries of $V$, followed by an uncontrolled comparison of head norms, could introduce an arbitrary condition number. The norm $\vertiii\cdot$ removes it. A bound on $\norm Z_{\op}$ would instead pay for all left directions in a space of dimension $D_l$. Lemma~\ref{lem:structured} only pays for $k^2$ polynomial parameters, while keeping the Gaussian Frobenius mean independent of the right-hand ambient dimension.
+\end{remark}
+
+\section{Fixed features from an optimal head}\label{sec:features}
+\subsection{The geometric split and two densities}
+After an optional preliminary reduction, suppose there are $n_0$ rows. Identify their row span isometrically with $\R^{\mathsf d}$, where $\mathsf d\le n_0$. An ambient projector compresses to a positive contraction $0\preceq P\preceq I$ of rank at most $k$, and its cost on the rows is
+\begin{equation}\label{eq:contraction}
+ \cost(P)=\sum_i\bigl(a_i^T(I-P)a_i\bigr)^s.
+\end{equation}
+It suffices to preserve every such contraction. Since $P\preceq P_{\operatorname{range}P}$, its cost is no smaller than the optimum among rank-at-most-$k$ subspaces.
+
+First assume $\rank(A)>k$. Choose an optimal rank-$k$ head $\mathcal B$, split $a_i=b_i+c_i$ with $b_i\in\mathcal B$, $c_i\perp\mathcal B$, and rescale so that
+\[
+ \rho_i=\norm{c_i},\qquad \sum_i\rho_i^{2s}=1=\OPT.
+\]
+The optimum exists by compactness. The $b_i$ span the head: otherwise an unused head direction could be replaced by a direction detecting a nonzero residual, decreasing the objective. Put $Q=(I-P)^{1/2}$, $V=Q|_{\mathcal B}$, and $W=Q|_{\mathcal B^\perp}$. Then
+\begin{equation}\label{eq:relative}
+ \cost(P)\ge1,\qquad H(P):=\sum_i\norm{Vb_i}^{2s}\le 2^{2s}\cost(P),\qquad
+ H(P)^u\le C_s\cost(P)\quad(0\le u\le1).
+\end{equation}
+The second inequality follows from $Vb_i=Qa_i-Wc_i$ and $\norm{x-y}^{2s}\le2^{2s-1}(\norm x^{2s}+\norm y^{2s})$.
+
+There is an invertible head map $T$ with
+\begin{equation}\label{eq:lewis}
+ Tb_i=\lambda_i^{1/(2s)}u_i,\quad
+ \sum_i\lambda_i u_iu_i^T=I_k,\quad \sum_i\lambda_i=k,\quad
+ k^{1-s}\norm x^{2s}\le\sum_i\lambda_i|u_i\cdot x|^{2s}\le\norm x^{2s}.
+\end{equation}
+Here $\norm{u_i}=1$ for nonzero head rows; set $u_i=0,\lambda_i=0$ on zero ones. To prove existence, minimize $\sum_i\norm{Tb_i}^{2s}$ over determinant-one maps. Spanning bounds the top singular value on a sublevel set, and the determinant bounds the least singular value away from zero. Compactness gives a minimizer. Differentiating along $e^{tX}T$ for symmetric traceless $X$ shows that $\sum_i\norm{Tb_i}^{2s-2}(Tb_i)(Tb_i)^T$ is a positive scalar multiple of $I$. Rescale to obtain isotropy. Trace and Jensen with probabilities $\lambda_i/k$ give \eqref{eq:lewis}.
+
+Scalar sensitivity and Gaussian averaging give
+\begin{equation}\label{eq:head-sensitivity}
+ \norm{Vb_i}^{2s}\le k^{s-1}\lambda_i H(P).
+\end{equation}
+Indeed the scalar version follows at once from \eqref{eq:lewis}. Substitute $V^Tg$ in the original coordinates and use $\E|g\cdot z|^{2s}=\gamma_{2s}\norm z^{2s}$, where $\gamma_t=\E|N(0,1)|^t$.
+
+Define a first probability distribution and rescaled rows by
+\begin{equation}\label{eq:omega}
+ \omega_i=\tfrac12(\lambda_i/k+\rho_i^{2s}),\quad
+ B_i=\omega_i^{-1/(2s)}b_i,\quad C_i=\omega_i^{-1/(2s)}c_i,\quad r_i=\norm{C_i}.
+\end{equation}
+Remove zero input rows. Every remaining $\omega_i$ is positive. Crucially,
+\begin{equation}\label{eq:bounded-tail}
+ \sum_i\omega_i=1,\quad r_i^{2s}\le2,\quad
+ \sum_i\omega_i r_i^{2s}=1,\quad
+ \sum_i\omega_i\norm{VB_i}^{2s}=H(P).
+\end{equation}
+Only the tail is made uniformly bounded; the rescaled head need not be bounded.
+
+\subsection{Pure-head and mixed feature families}
+For $1\le l\le s$, define
+\begin{equation}\label{eq:E}
+ M_l=\sum_i\omega_i B_i^{\otimes l}(B_i^{\otimes l})^T,\quad
+ E_{l,i}=\sqrt{\omega_i}\,M_l^{\dagger/2}B_i^{\otimes l},\quad D_l=\rank(M_l)\le C_s k^l.
+\end{equation}
+Coordinates are restricted to the positive range, so $\sum_iE_{l,i}E_{l,i}^T=I_{D_l}$.
+
+For $0\le j\le s-1$, $1\le t\le2s$, define
+\begin{equation}\label{eq:F}
+ \begin{split}
+ N_{jt}&=\sum_i\omega_i r_i^{2t}B_i^{\otimes j}(B_i^{\otimes j})^T,\\
+ F_{jt,i}&=\sqrt{\omega_i}\,(N_{jt}^{\dagger/2}B_i^{\otimes j})\otimes C_i^{\otimes t},
+ \qquad h_{jt}=\rank(N_{jt})\le C_s k^j.
+ \end{split}
+\end{equation}
+Use the convention $B_i^{\otimes0}=1$. If $N_{jt}=0$, omit that family. Set $F_{jt,i}=0$ on a zero tail. For a nonzero tail, $B_i^{\otimes j}$ lies in the range of $N_{jt}$, since its inner product with every kernel vector must vanish in the defining sum of squares.
+
+Writing $v_i=C_i/r_i$ on nonzero tails gives
+\begin{equation}\label{eq:Fcov}
+ \sum_iF_{jt,i}F_{jt,i}^T\preceq I,\qquad
+ \sum_i\norm{F_{jt,i}}^2=h_{jt}.
+\end{equation}
+For proof, the head vectors $\sqrt{\omega_i}r_i^tN_{jt}^{\dagger/2}B_i^{\otimes j}$ are isotropic on their range, and $v_i^{\otimes t}(v_i^{\otimes t})^T\preceq I$ has trace one. The family has ambient dimension at most $C_s n_0^{3s}$, regardless of its covariance rank.
+
+Take the average of $\omega$ and every nonzero probability vector
+\begin{equation}\label{eq:pi}
+ \frac{\norm{E_{l,i}}^2}{D_l},\qquad
+ \frac{\norm{F_{jt,i}}^2}{h_{jt}},
+\end{equation}
+and call the resulting fixed distribution $\pi$. There are only $O_s(1)$ components. Consequently
+\begin{equation}\label{eq:scores}
+ \frac{\omega_i}{\pi_i}\le C_s,\quad
+ \frac{\lambda_i}{\pi_i}\le C_s k,\quad
+ \frac{\rho_i^{2s}}{\pi_i}\le C_s,\quad
+ \frac{\norm{E_{l,i}}^2}{\pi_i}\le C_s k^l,\quad
+ \frac{\norm{F_{jt,i}}^2}{\pi_i}\le C_s k^j.
+\end{equation}
+All features, $T$, $\omega$, and $\pi$ are fixed once; none are recomputed during rounding.
+
+A current density mass $\mu_i$ is placed on the atom $a_i/\pi_i^{1/(2s)}$. Its original-row weight is $\mu_i/\pi_i$. From \eqref{eq:head-sensitivity}, \eqref{eq:relative}, and \eqref{eq:scores},
+\begin{equation}\label{eq:round-sensitivity}
+ \frac{\norm{Qa_i}^{2s}}{\pi_i}\le C_s k^s\cost(P).
+\end{equation}
+This bound will make the initial downward rounding uniform over all queries.
+
+\section{Every term of the even-power expansion}\label{sec:monomials}
+Let $P_C$ be the tail block of the positive contraction $P$. Its Frobenius norm satisfies $\norm{P_C}_F^2\le k$. For each row put
+\[
+ A_i=\norm{VB_i}^2,\quad X_i=\ip{VB_i}{WC_i},\quad R_i=C_i^TP_CC_i.
+\]
+Then $0\le R_i\le r_i^2$ and
+\begin{equation}\label{eq:expansion}
+ \norm{Qa_i}^{2s}=\omega_i(A_i+2X_i+r_i^2-R_i)^s
+ =\sum_{a+b+c+d=s}\frac{s!\,2^b(-1)^c}{a!b!c!d!}\,
+ \omega_i A_i^aX_i^bR_i^cr_i^{2d}.
+\end{equation}
+Here $d$ denotes a nonnegative \emph{monomial exponent}, not ambient dimension. Every index is nonnegative. The finite number of terms depends only on $s$.
+
+For a query, probability-weighted power means give
+\begin{equation}\label{eq:powermean}
+ \sum_i\omega_i A_i^u\le H(P)^{u/s}\quad(0\le u\le s).
+\end{equation}
+Bounded $r_i$ allows factors $r_i^v$, with $0\le v\le8s$, to be inserted at the cost of $C_s$.
+
+\subsection[Radial head terms]{Radial head terms: $b=c=0$}
+For $1\le a\le s$, $d=s-a$, the original-row expression is
+\[
+ \omega_i A_i^ar_i^{2d}=\rho_i^{2d}\norm{Vb_i}^{2a}.
+\]
+Its scalar polynomial in Lewis coordinates has coefficient
+\begin{equation}\label{eq:radial}
+ q_{a,i}=\lambda_i^{a/s}\rho_i^{2(s-a)},\qquad q_{a,i}/\pi_i\le C_s k^{a/s}.
+\end{equation}
+The inequality is the weighted geometric mean of the corresponding bounds in \eqref{eq:scores}. We control these polynomials by partial-step spectral truncation in Section~\ref{sec:round}. They are not imposed as all exact moment constraints.
+
+\subsection[Positive head factors: operator-valued factorization]{Terms with $a\ge1$ and $b+c>0$: operator-valued factorization}\label{sub:operator}
+Set
+\begin{equation}\label{eq:indices}
+ l=\min(2a,s),\quad \nu=l\bmod2,\quad h=\lfloor l/2\rfloor,\quad
+ e=a-\lceil l/2\rceil,\quad j=2a+b-l,\quad t=b+2c.
+\end{equation}
+Then $e\ge0$, $1\le l\le s$, $0\le j\le s-1$, $1\le t\le2s$, and
+\begin{equation}\label{eq:indices-identities}
+ 2h+\nu=l,\qquad 2e+b+\nu=j,\qquad h+e+\nu=a.
+\end{equation}
+Define linear maps on symmetric tensor spaces, by their values on pure powers, as follows:
+\begin{align}
+ \mathcal L(B^{\otimes l})&=\norm{VB}^{2h}(VB)^{\otimes\nu},\label{eq:Lmap}\\
+ \mathcal R(B^{\otimes j}\otimes C^{\otimes t})
+ &=\norm{VB}^{2e}\ip{VB}{WC}^{b}(C^TP_CC)^c(VB)^{\otimes\nu}.\label{eq:Rmap}
+\end{align}
+The common output is $\R$ when $\nu=0$ and the output space of $V$ when $\nu=1$. The degree identities make these well-defined homogeneous polynomial maps, and hence linear tensor maps by polarization.
+
+Let $L=\mathcal L M_l^{1/2}$ and $J=\mathcal R(N_{jt}^{1/2}\otimes I)$, restricted to the feature ranges. Then
+\begin{equation}\label{eq:op-factor}
+ \omega_i A_i^aX_i^bR_i^cr_i^{2d}
+ =r_i^{2d}\ip{L E_{l,i}}{J F_{jt,i}}.
+\end{equation}
+Zero-tail rows cause no exception: the monomial and the mixed feature both vanish.
+
+The following norm bounds are decisive:
+\begin{equation}\label{eq:query-maps}
+ \norm L_F^2=\sum_i\omega_iA_i^l\le H^{l/s},\qquad
+ \norm J_F^2\le k^c\sum_i\omega_i r_i^{2t}A_i^j\le C_s k^cH^{j/s}.
+\end{equation}
+For the second inequality, fix $B$ in \eqref{eq:Rmap}. Its tail coefficient tensor, before symmetrization, is
+\[
+ \norm{VB}^{2e}(VB)^{\otimes\nu}\otimes(W^TVB)^{\otimes b}\otimes P_C^{\otimes c}.
+\]
+Its squared norm is at most $A^{2e+\nu+b}k^c=A^jk^c$. Taking the weighted covariance $N_{jt}$ proves the asserted Hilbert--Schmidt estimate. This remains true after symmetrization.
+
+For any signed coefficients $\theta_i$, set
+\[
+ Z=\sum_i\theta_i r_i^{2d}E_{l,i}F_{jt,i}^T.
+\]
+The associated monomial error equals $\tr(LZJ^T)$, so
+\begin{equation}\label{eq:op-query}
+ |\tr(LZJ^T)|\le C_s k^{c/2}H^{(2a+b)/(2s)}\norm Z_{\op}.
+\end{equation}
+This uses $\norm{J^TL}_*\le\norm J_F\norm L_F$. When $\nu=1$, it would be incorrect to assert that the query is rank one. The operator-valued formulation is what avoids that error.
+
+The rank bookkeeping is
+\begin{equation}\label{eq:rank-book}
+ j+c\le s-1,\quad l+j+c=s+a-d\le2s-1,\quad 1+(l+j+c)/2\le s+1/2.
+\end{equation}
+If $l=2a$, then $j+c=b+c=s-a-d$. If $l=s$, then $j+c=a-d$. Both are at most $s-1$ because $b+c>0$.
+
+\subsection[No pure-head quadratic factor]{No pure-head quadratic factor: $a=0$}
+Three additional cases complete the expansion.
+
+\textbf{At least two cross factors, $b\ge2$.} Put $b_1=\lfloor b/2\rfloor$ and $b_2=\lceil b/2\rceil$. Use the features
+\[
+ F_{b_1,b_1,i},\qquad F_{b_2,b_2+2c,i},
+\]
+whose scalar query functionals evaluate $X_i^{b_1}$ and $X_i^{b_2}R_i^c$, with the appropriate $\sqrt{\omega_i}$ factors. Their norm product is at most
+\begin{equation}\label{eq:balanced-query}
+ C_s k^{c/2}H^{b/(2s)}.
+\end{equation}
+Indeed the same tail-coefficient calculation as above bounds the two squared norms by $C_sH^{b_1/s}$ and $C_s k^cH^{b_2/s}$. Notice
+\begin{equation}\label{eq:balanced-rank}
+ 1\le b_1\le b_2\le s-1,\qquad b_2+c=s-b_1-d\le s-1.
+\end{equation}
+
+\textbf{Exactly one cross factor, $b=1$.} There is a query vector $z$ on $F_{11}$ with
+\[
+ F_{11,i}^Tz=\sqrt{\omega_i}X_i,\qquad \norm z^2\le C_sH^{1/s}.
+\]
+For $c=0$, the monomial is the contraction of $z$ against the vector atom $\sqrt{\omega_i}r_i^{2d}F_{11,i}$. For $c\ge1$, use the matrix atom $r_i^{2d}F_{11,i}F_{0,2c,i}^T$. Its right query is
+\begin{equation}\label{eq:pquery}
+ p_c=N_{0,2c}^{1/2}\operatorname{vec}(P_C^{\otimes c}),\quad
+ F_{0,2c,i}^Tp_c=\sqrt{\omega_i}R_i^c,\quad \norm{p_c}^2\le C_s k^c.
+\end{equation}
+Section~\ref{sub:aniso} uses an anisotropic bound instead of multiplying a crude operator norm by this whole query norm.
+
+\textbf{Pure tail, $a=b=0$.} Recombine these monomials before bounding them. They are exactly
+\begin{equation}\label{eq:pure-tail}
+ \rho_i^{2s}(1-v_i^TP_Cv_i)^s,\qquad v_i=c_i/\rho_i.
+\end{equation}
+A Gaussian Lipschitz comparison controls this class at rank cost $\sqrt{k}$, rather than $k^{s/2}$. Rows with $\rho_i=0$ contribute zero.
+
+\section{Positive measures and all Gaussian bounds}\label{sec:gaussian-bounds}
+\subsection{Fixed invariants}
+At an outer stage let $\mu$ be the full positive measure, including frozen entries. Maintain
+\begin{equation}\label{eq:scalar-states}
+ \sum_i\mu_i\le1,\quad \sum_i\mu_i\omega_i/\pi_i\le1,\quad
+ \sum_i\mu_i\rho_i^{2s}/\pi_i\le1,\quad
+ \sum_i\mu_i\norm{F_{jt,i}}^2/\pi_i\le h_{jt}
+\end{equation}
+and
+\begin{equation}\label{eq:matrix-states}
+ \sum_i\frac{\mu_i}{\pi_i}E_{l,i}E_{l,i}^T\preceq2I,\qquad
+ \sum_i\frac{\mu_i}{\pi_i}F_{jt,i}F_{jt,i}^T\preceq2I.
+\end{equation}
+The original $\mu=\pi$ satisfies the matrix bounds with constant one. Initial downward rounding can only decrease all these quantities. Every scalar in \eqref{eq:scalar-states} is subsequently preserved exactly.
+
+Active copies have common mass $\eta$, and their index multiset is dominated, as a measure, by $\mu$. Sums below may run over any subset of these copies. Repeated original indices are permitted. A coloring increment $x_\ell$ changes the original-row weight by $\eta x_\ell/\pi_{i_\ell}$. Therefore unscaled Gaussian bounds must be multiplied by $\eta$ before they become cost errors.
+
+\subsection{Hilbert-space protection for structured matrix queries}\label{sub:new-protection}
+Consider a monomial from Section~\ref{sub:operator}, with unscaled atoms on the current fractional subset
+\[
+ X_\ell=r_{i_\ell}^{2d}E_{l,i_\ell}F_{jt,i_\ell}^T/\pi_{i_\ell}.
+\]
+Let $A$ be the number of still-fractional coordinates, and keep the common mass $\eta$ and the full positive measure from the beginning of the outer round. Bounded tails, the leverage bounds, and the maintained feature matrices give
+\begin{equation}\label{eq:new-left-trace}
+ \sum_\ell X_\ell X_\ell^T\preceq C_s k^j\eta^{-1}I,
+ \qquad \sum_\ell\norm{X_\ell}_F^2\le C_s D_l k^j/\eta\le C_s k^{l+j}/\eta.
+\end{equation}
+For example, the first sum is at most $C_s k^j\sum_\ell E_{l,i_\ell}E_{l,i_\ell}^T/\pi_{i_\ell}\preceq C_s k^j\eta^{-1}I$. Its trace proves the second bound.
+
+Form the full matrix-Hilbert-space covariance
+\[
+ \mathsf S=\sum_\ell\operatorname{vec}(X_\ell)\operatorname{vec}(X_\ell)^T.
+\]
+Fix a small constant $\theta_s>0$, to be allocated in Section~\ref{sec:round}, and put $q=\lfloor\theta_s A\rfloor$. Protect its top $q$ output eigendirections by requiring
+\begin{equation}\label{eq:new-constraints}
+ \left\langle U_h,\sum_\ell x_\ell X_\ell\right\rangle_F=0
+ \quad(1\le h\le q),
+\end{equation}
+where $U_h$ are the corresponding Frobenius-orthonormal matrices. If the output range has dimension at most $q$, impose all of it and the matrix error is zero. Otherwise this costs exactly at most $q$ scalar equations, \emph{not} $D_lq$: one Frobenius inner product is being fixed for each output direction. We do not claim to fix $q$ entire matrix columns.
+
+For a standard Gaussian increment on any further constrained coefficient subspace, let $Z=\sum_\ell g_\ell X_\ell$. Coefficient projection contracts its left variance. Its vectorized covariance is at most $\mathsf S$ and has range orthogonal to the protected eigenspace. Consequently
+\begin{equation}\label{eq:new-fullcov}
+ \E ZZ^T\preceq C_s k^j\eta^{-1}I,\qquad
+ \operatorname{Cov}(\operatorname{vec}Z)
+ \preceq\frac{\tr\mathsf S}{q+1}I
+ \preceq\frac{C_s k^{l+j}}{\eta A}I.
+\end{equation}
+The last constant absorbs the fixed $\theta_s$; $A\ge C_s$ makes the integer rounding harmless. Compressing $\mathsf S$ to the unprotected output space justifies the spectral statement even though the coefficient restrictions for different families are imposed simultaneously.
+
+Apply Lemma~\ref{lem:structured} with any fixed $s$-dependent failure probability. Its map $\mathcal L_V$ is exactly the normalized map $L$ in \eqref{eq:op-factor}. It gives one event on which, for every query,
+\begin{equation}\label{eq:new-structured-cost}
+ \norm{LZ}_F
+ \le\frac{C_s}{\sqrt\eta}
+ \left(k^{j/2}+\frac{k^{1+(l+j)/2}}{\sqrt A}\right)\norm L_F.
+\end{equation}
+Pair this with $J$ using the Frobenius inequality
+$|\tr(LZJ^T)|\le\norm{LZ}_F\norm{J}_F$.
+After multiplying by $\eta$, \eqref{eq:query-maps} and \eqref{eq:rank-book} yield
+\begin{align}
+ \eta|\tr(LZJ^T)|
+ &\le C_s\sqrt\eta\left(k^{(j+c)/2}+\frac{k^{1+(l+j+c)/2}}{\sqrt A}\right)
+ H(P)^{(l+j)/(2s)}\notag\\
+ &\le C_s\sqrt\eta\left(k^{(s-1)/2}+\frac{k^{s+1/2}}{\sqrt{m_0}}\right)\cost(P),
+ \qquad A>m_0.\label{eq:protected-error}
+\end{align}
+This is the improved rank exponent. The output eigendirections may be recomputed at each inner partial step. Unlike the exact scalar invariants, they are not required to remain fixed across that step sequence: each step has its own uniform error bound, which is later summed.
+
+Every bound uses the pre-round positive measure and the original common mass. The temporarily fractional measure inside the partial-coloring sequence is not assumed to satisfy a newly computed invariant.
+
+\subsection{Balanced terms, vectors, and maintained matrices}
+For the two-feature factorization with $a=0,b\ge2$, each full feature covariance is bounded by \eqref{eq:matrix-states}. The left and right variances of the atom product are therefore at most $C_s k^{b_2}/\eta$. No directions need protection. By \eqref{eq:balanced-query} and \eqref{eq:balanced-rank}, its Gaussian relative error after multiplying by $\eta$ is
+\begin{equation}\label{eq:balanced-error}
+ C_s\sqrt{\eta L}\,k^{(b_2+c)/2}\cost(P)
+ \le C_s\sqrt{\eta L}\,k^{(s-1)/2}\cost(P).
+\end{equation}
+The multiplier $r_i^{2d}$ changes only $C_s$.
+
+For $a=0,b=1,c=0$, the sum of squared vector-atom norms is
+\[
+ \sum_\ell\norm{\sqrt{\omega_i}r_i^{2d}F_{11,i}/\pi_i}^2
+ \le C_s\sum_\ell\norm{F_{11,i}}^2/\pi_i\le C_s k/\eta.
+\]
+The last inequality uses the exactly maintained mixed-feature trace. Markov's inequality for a squared Gaussian vector norm and the query norm of $z$ give an error at most $C_s\sqrt{k\eta}\cost(P)$ with fixed high probability.
+
+For any maintained feature $v_i$ of leverage ratio $\norm{v_i}^2/\pi_i\le C_s k^u$, the covariance atom $v_iv_i^T/\pi_i$ squares to at most $C_s k^u(v_iv_i^T/\pi_i)$. Consequently its Gaussian matrix variation, after multiplying by $\eta$, is at most
+\begin{equation}\label{eq:state-drift}
+ C_s\sqrt{k^u\eta L}.
+\end{equation}
+Here $u=l\le s$ for $E_l$ and $u=j\le s-1$ for $F_{jt}$.
+
+\subsection{The one-cross anisotropic case}\label{sub:aniso}
+For $a=0,b=1,c\ge1$ write
+\[
+ X_\ell=r_i^{2d}F_{11,i}F_{0,2c,i}^T/\pi_i,\qquad B=\sum_{\ell\text{ in full round}}X_\ell^TX_\ell.
+\]
+The left variance is at most $C_s\eta^{-1}I$, because the right feature has leverage rank one. For every query, \eqref{eq:pquery}, $R_i\le r_i^2$, and bounded tails give
+\begin{equation}\label{eq:aniso-query}
+ p_c^TBp_c
+ =\sum_\ell\frac{r_i^{4d}\norm{F_{11,i}}^2\omega_iR_i^{2c}}{\pi_i^2}
+ \le C_s\sum_\ell\frac{\norm{F_{11,i}}^2}{\pi_i}
+ \le C_s k/\eta.
+\end{equation}
+Take $a_*=C_s/\eta$ large enough to dominate the left variance. Lemma~\ref{lem:variance} applied with $B+a_*I$ yields one fixed operator event on which
+\[
+ \norm{\bigl(\sum_\ell g_\ell X_\ell\bigr)p_c}
+ \le C_s\sqrt{L}\sqrt{k/\eta+k^c/\eta}
+\]
+simultaneously for every $P$. Pair with $z$ and multiply by $\eta$. Since $c\le s-1$, this costs at most
+\begin{equation}\label{eq:onecross-error}
+ C_s k^{(s-1)/2}\sqrt{\eta L}\cost(P).
+\end{equation}
+The same fixed right metric works after restricting to any fractional subset. No independence of the constrained coefficients is needed.
+
+\subsection{Pure tail via scalar Gaussian comparison}\label{sub:tail}
+Exactly preserve the tail mass, so the constant part of \eqref{eq:pure-tail} has zero error. Put $\phi(z)=(1-z)^s-1$, which is $s$-Lipschitz on $[0,1]$, and $c_i=\rho_i^{2s}/\pi_i$. For the unscaled constrained Gaussian process
+\[
+ X_P=\sum_\ell(\Pi g)_\ell c_i\phi(v_i^TP_Cv_i),
+\]
+coefficient contraction and Lipschitzness show that its increment metric is bounded by that of
+\[
+ Y_P=s\sum_\ell g_\ell c_i\ip{P_C}{v_iv_i^T}.
+\]
+Include $P=0$, where both vanish, and apply the Gaussian increment comparison to both signs. Since $\norm{P_C}_F\le\sqrt{k}$,
+\[
+ \E\sup_P|X_P|\le C_s\sqrt{k}\left(\sum_\ell c_i^2\right)^{1/2}
+ \le C_s\sqrt{k/\eta}.
+\]
+The last inequality uses $\rho_i^{2s}/\pi_i\le C_s$ and the maintained tail mass. Markov gives a fixed-high-probability event costing at most $C_s\sqrt{k\eta}\cost(P)$ after multiplication by $\eta$, using $\cost(P)\ge1$.
+
+The supremum is over a compact family of positive contractions, so passage from finite nets is justified by continuity. Its sublevel sets are symmetric and convex in the coefficient increment even though the rank-constrained query family itself is not convex. This avoids a spurious $k^{s/2}$ tail-tensor factor.
+
+\section{One constrained compression round}\label{sec:round}
+Let
+\[
+ \alpha_s=s+1/2.
+\]
+\begin{proposition}[A round with at most $m_0$ fractional exceptions]\label{prop:round}
+Suppose \eqref{eq:scalar-states}--\eqref{eq:matrix-states} hold and there are $n>m_0$ active copies of common mass $\eta$, where $m_0\ge C_s k^s$. There is $x\in[-1,1]^n$ with at most $m_0$ strictly fractional coordinates. It exactly preserves all scalar quantities in \eqref{eq:scalar-states}, including total density mass, and its cost variation satisfies
+\begin{equation}\label{eq:one-round}
+ |\Delta\cost(P)|\le C_s L^{3/2}
+ \left(k^{s+1/2}\eta+k^{(s-1)/2}\sqrt\eta+
+ k^{\alpha_s}\sqrt{\eta/m_0}\right)\cost(P).
+\end{equation}
+The variation of each maintained $E_l$ matrix is at most $C_sL^{3/2}\sqrt{k^s\eta}$, and that of each $F_{jt}$ matrix is at most $C_sL^{3/2}\sqrt{k^{s-1}\eta}$. One may take
+\[
+ L=C_s\bigl(1+\log(2n)+\log(2n_0)\bigr).
+\]
+\end{proposition}
+\begin{proof}
+Start at $x=0$ and repeatedly work on its strictly fractional coordinates. Suppose their current number is $A>m_0$. Add the $O_s(1)$ exact scalar constraints from \eqref{eq:scalar-states}. For each matrix family from Section~\ref{sub:operator}, use \eqref{eq:new-constraints} with $q=\lfloor\theta_s A\rfloor$, or protect its whole output range if smaller. Choose $\theta_s>0$ so that the total cost over all these families is at most $c_0A/8$ scalar constraints. The matrix-Hilbert output directions are recomputed for this fractional subset, and the bounds in Section~\ref{sub:new-protection} apply to their intersection with all other coefficient constraints.
+
+For each radial head degree $a=1,\ldots,s$, form the tensor covariance on these coordinates of atoms
+\[
+ v_{a,\ell}=(q_{a,i_\ell}/\pi_{i_\ell})u_{i_\ell}^{\otimes2a}.
+\]
+Its trace is at most $C_s k^{2a/s}A$. Impose zero change on its top $\lfloor c_0 A/(8s)\rfloor$ output eigendirections, or on the whole output space if smaller. Over all radial degrees this costs at most $c_0A/8$ dimensions. The remaining covariance is bounded by $C_s k^{2a/s}I$ after projecting coefficient space onto all the constraints: its range lies in the unprotected output space, and its full covariance is contracted. This explicitly justifies spectral truncation.
+
+By Lemma~\ref{lem:width}, a standard Gaussian on the resulting coefficient subspace has radial scalar-polynomial error at most $C_s k^{a/s+1/2}\norm y^{2a}$ with fixed high probability. To transfer to the vector query, substitute $y=T^{-T}V^Tg$ and average over an independent standard Gaussian $g$. From \eqref{eq:lewis},
+\[
+ \E\norm{T^{-T}V^Tg}^{2s}\le\gamma_{2s}k^{s-1}H(P),
+\]
+and hence its $2a$ moment is at most $C_s k^{a(s-1)/s}H(P)^{a/s}$. Divide by $\gamma_{2a}$ to convert linear-form moments to Euclidean powers. The radial cost variation for one partial increment is therefore at most
+\[
+ C_s\eta k^{a+1/2}H(P)^{a/s}\le C_s\eta k^{s+1/2}\cost(P).
+\]
+This proves the needed radial estimate without fixing every high-degree head moment exactly.
+
+The total coefficient codimension is at most $c_0A$ after enlarging the absolute $s$-dependent threshold for $m_0$. Intersect the radial events with all structured-query, operator, vector, state-matrix, and pure-tail events from Section~\ref{sec:gaussian-bounds}. There are $O_s(1)$ such events, so their constants may be chosen to leave Gaussian measure at least $1/2$. Each is a norm or seminorm constraint on a linear function of the increment; thus their intersection is symmetric and convex. It can also be intersected with a sufficiently large Euclidean ball at negligible probability cost if a bounded body is desired. All feature dimensions are polynomial in $n_0$ with exponents depending only on $s$, giving the displayed logarithm.
+
+Theorem~\ref{thm:pc} applies from the \emph{current} fractional point, which need not be zero. Every application saturates at least a fixed fraction of the remaining coordinates. After $C\log(2n)$ applications, at most $m_0$ remain fractional. The scalar invariants persist under addition of increments. The output-protection subspaces may change between partial steps; their uniform error bounds are summed rather than asserted to be one persistent exact constraint. The protected bounds \eqref{eq:protected-error}, all the unprotected bounds, and the radial bound hold simultaneously for all queries at each partial step. Sum over these steps, including the $\sqrt L$ matrix factor, to obtain \eqref{eq:one-round}. Sum \eqref{eq:state-drift} in the same way for the state-matrix bounds.
+\end{proof}
+
+The term $a=s-1$, $b=1$, $c=d=0$ illustrates the difference from the preceding package. It has $l=s$, $j=s-1$. Right-column protection previously gave the exponent $l+j/2=(3s-1)/2$. Matrix-Hilbert protection plus the structured query lemma gives $1+(l+j)/2=s+1/2$. The improvement is in a proved simultaneous query bound, not in an uncounted reduction of exact constraints.
+
+\section{Positive halving, invariant induction, and the upper theorem}\label{sec:upper-finish}
+Fix an accuracy target $0<\delta<1/2$ for the $n_0$-row input of positive optimum. Choose
+\[
+ \eta_0=\frac{\delta}{C_s k^s n_0},\qquad n_i=\lfloor\pi_i/\eta_0\rfloor.
+\]
+Replace $\pi_i$ by $n_i$ copies of common mass $\eta_0$. The lost cost is nonnegative and, by \eqref{eq:round-sensitivity}, at most $\delta\cost(P)/8$ after choosing the constant large enough. All scalar and matrix invariants decrease. There are at most $1/\eta_0$ initial copies. Fix throughout
+\begin{equation}\label{eq:m0}
+ L=C_s\bigl(1+\log(2/\eta_0)+\log(2n_0)\bigr),\qquad
+ m_0=\left\lceil C_s L^4\left(k^{\alpha_s}/\delta+k^{s-1}/\delta^2\right)\right\rceil.
+\end{equation}
+The constants are chosen in increasing dependency order; $m_0\ge C_s k^s$ follows because $\alpha_s=s+1/2$ for $s\ge2$.
+
+At a stage with $n>m_0$ active full copies of mass $\eta$, apply Proposition~\ref{prop:round}. Replace each mass by $\eta(1+x_\ell)$. Discard entries with $x_\ell=-1$, carry entries with $x_\ell=1$ as full copies of mass $2\eta$, and \emph{freeze} every remaining fractional entry permanently with its positive mass. At most $m_0$ entries are newly frozen in a stage. No negative weights are produced.
+
+The scalar constraint $\sum_\ell x_\ell=0$ preserves total density mass and implies that the number of positive full copies is at most $n/2$. Indeed, if there are $f$ fractional coordinates, $n_+-n_-=-\sum_{\mathrm{fractional}}x_\ell$ and $n_++n_-=n-f$. Thus the active count halves, and there are at most $C\log(2/\eta_0)\le C_sL$ stages. Frozen entries remain included in every state invariant.
+
+At any executed stage, positivity gives $n\eta\le1$. Since $n>m_0$, its pre-round mass is less than $1/m_0$. Successive full-copy masses double. Over every executed prefix,
+\begin{equation}\label{eq:geometric}
+ \sum_j\eta_j\le2/m_0,\qquad \sum_j\sqrt{\eta_j}\le4/\sqrt{m_0}.
+\end{equation}
+These bounds also hold when no full copies remain after a stage.
+
+Initially every matrix invariant has constant one. Assuming the constant-two bounds through a prefix, Proposition~\ref{prop:round} and \eqref{eq:geometric} bound each cumulative matrix deviation by $C_sL^{3/2}\sqrt{k^s/m_0}$ or the smaller $C_sL^{3/2}\sqrt{k^{s-1}/m_0}$. The choice \eqref{eq:m0} makes these at most $1/2$. Therefore every matrix stays below $\frac32I$, closing the induction. This proof does not assume that the current measure is pointwise dominated by the original one; only the active submeasure is dominated by the current full positive measure.
+
+Summing \eqref{eq:one-round} with \eqref{eq:geometric}, and using $\alpha_s=s+1/2$, gives relative error at most
+\begin{equation}\label{eq:total-error}
+ C_s L^{3/2}\left(\frac{k^{\alpha_s}}{m_0}+
+ \sqrt{\frac{k^{s-1}}{m_0}}\right)\le\delta/2.
+\end{equation}
+The $L^4$ in \eqref{eq:m0} dominates both the linear and square-root logarithmic requirements. Together with initial loss this gives error less than $\delta$. At termination there are at most $m_0$ full copies, plus at most $m_0$ frozen entries per stage. Merge repeated original indices. The final support is at most
+\begin{equation}\label{eq:n0-upper}
+ C_s\left(k^{\alpha_s}/\delta+k^{s-1}/\delta^2\right)
+ \log^5(C_s k n_0/\delta).
+\end{equation}
+The weight on original row $i$ is its final merged density mass divided by $\pi_i$.
+
+\subsection{Zero optimum and composition}
+If the input has rank $r\le k$, identify its span with $\R^r$. Only the pure-head argument is needed. Use head Lewis weights, density $\lambda_i/r$, and the degree-$2s$ radial partial-step truncation. It costs $C_s r^{s+1/2}\eta$ in relative linear-form error. The same exact-cardinality constraint, fractional freezing, and geometric sums yield a linear-form embedding of size at most
+\[
+ C_s r^{s+1/2}\delta^{-1}\log^5(C_srn_0/\delta).
+\]
+Initial downward rounding uses sensitivity $r^s$. This is absorbed by \eqref{eq:n0-upper} because $r\le k$ and $s+1/2\le\alpha_s$. A zero input needs no rows.
+
+Linear-form preservation transfers to all Euclidean residual costs: for a fixed real linear map $B$, substitute $B^Tg$ in the linear-form inequality and average over a standard Gaussian $g$. The identity $\E|g\cdot Ba_i|^{2s}=\gamma_{2s}\norm{Ba_i}^{2s}$ gives the result, including zero-cost queries. An invertible head normalization is undone in the linear-form domain; it is not asserted to preserve Euclidean projectors.
+
+For a completely arbitrary original input, first apply \eqref{eq:baseline} at accuracy $\delta=\eps/8$ and fix a successful nonnegative outcome. Represent its row weights by rescaling rows by their $2s$-th roots. The resulting $n_0$ is polynomial in $k,1/\eps$ with $s$-dependent exponents and logarithms, so
+\[
+ \log(C_skn_0/\delta)\le C_s\log(2k/\eps).
+\]
+Compress this reweighted input at the same $\delta$. Composing the positive row weights preserves original indices. Distortions $(1\pm\delta)^2$ lie inside $1\pm\eps$. This proves Theorem~\ref{thm:upper}.
+
+The construction is an existence proof. It uses an exact optimal head, exact feature ranges, and a partial-coloring existence theorem. The finite code is not represented as a fast or complete implementation of these oracles. No hidden logarithm of the original $n$ or ambient dimension remains in \eqref{eq:upper}.
+
+\section{A self-contained high-accuracy lower bound}\label{sec:lower}
+\subsection{A smoothed core with stable evaluation}
+Fix $s\ge2$. Let $r$ be sufficiently large, $L=\lfloor r^s\rfloor$, and $M=\lfloor L/48\rfloor$. Define
+\[
+ \Phi_r(t)=\frac{t(t^2+2/r)^{s-1}}{(1+2/r)^{s-1}},\qquad \Phi_r(1)=1.
+\]
+\begin{lemma}\label{lem:core}
+There are unit $z_1,\ldots,z_L\in\R^r$ and a subset $u_1,\ldots,u_M$ such that
+\[
+ \sum_{i=1}^L|z_i\cdot x|^{2s}\le C_s\norm x^{2s},\qquad
+ \sigma_{\min}\bigl((\Phi_r(z_i\cdot u_j))_{i,j}\bigr)^2\ge3/64,
+ \qquad L\le96M.
+\]
+\end{lemma}
+\begin{proof}
+Take independent standard Gaussian $g_i\in\R^r$, let $G$ have these rows, and set $z_i=g_i/\norm{g_i}$. The comparison in Appendix~\ref{app:gaussian} gives
+\[
+ \E\norm G_{2\to2s}\le\sqrt r+\gamma_{2s}^{1/(2s)}L^{1/(2s)}\le C_s\sqrt r.
+\]
+Markov bounds failure of eight times this estimate by $1/8$. A chi-square lower-tail bound gives $\Prob\{\min_i\norm{g_i}<\sqrt r/2\}\le Le^{-r/8}\le1/8$ for sufficiently large $r$. On the good events, normalization gives the stated moment bound.
+
+For a uniform unit vector $v$ and $a\ge2$, $\E|v\cdot x|^a\le\gamma_a r^{-a/2}$ for unit $x$. To see this, write a standard Gaussian as its independent radius times direction, and use Jensen to bound its radial $a$-th moment below by $r^{a/2}$. Thus for independent $z_i,z_j$,
+\[
+ \E|\Phi_r(z_i\cdot z_j)|^2\le C_s r^{-(2s-1)}\quad(i\ne j).
+\]
+Indeed $|\Phi_r(t)|^2\le C_s(|t|^{4s-2}+r^{-(2s-2)}|t|^2)$.
+
+For the symmetric square kernel $K$ on all $z_i$, the diagonal is one and
+\[
+ \Prob\{\norm{K-I}_F^2>L/16\}\le C_s L r^{-(2s-1)}\le C_s r^{1-s}\le1/8.
+\]
+All three good events have positive joint probability. At least $3L/4$ eigenvalues of $K$ lie in $[1/2,3/2]$. Let $\Pi$ project onto their eigenspaces and put $B=\Pi K$. Then $\norm B_{\op}\le3/2$, $\norm B_F^2\ge3L/16$, and $\srank(B)\ge L/12$. Apply \eqref{eq:ri} to select $M\le\srank(B)/4$ columns with squared least singular value at least $3/64$. Their unprojected columns of $K$ have no smaller least singular value. Select the corresponding $u_j$. The rounding bound $L\le96M$ holds for $L\ge96$.
+\end{proof}
+All the $z_i$ remain actual query directions. Spectral projection only selects input columns; it does not turn a combination of nonlinear costs into a new query.
+
+\subsection{Arbitrarily many auxiliary coordinates at fixed query rank}
+Set $\tau_0=r^{-1/2}$. For any positive integer $N$, use the $MN$ rows
+\begin{equation}\label{eq:lower-input}
+ a_{jt}=N^{-1/(2s)}(u_j,0,\tau_0e_t)\in\R^r\oplus\R e_0\oplus\R^N.
+\end{equation}
+For a core direction $z_i$ and a unit $y\in\R^N$, let
+\begin{equation}\label{eq:lower-query}
+ F_{i,y}(t)=z_i^\perp\ \oplus\
+ \operatorname{span}\left\{\frac{(z_i,-e_0)/\sqrt2+t y}{\sqrt{1+t^2}}\right\}.
+\end{equation}
+The first summand is inside the core. The sums are orthogonal, so every query has dimension exactly $r$, independent of $N$.
+
+Writing $a=(z_i\cdot u_j)/\sqrt2$ and $\beta=y_t$, the unscaled squared residual is exactly
+\begin{equation}\label{eq:D}
+ D(a,\beta,t)=a^2+\tau_0^2(1-\beta^2)+\frac{(\tau_0\beta-ta)^2}{1+t^2}.
+\end{equation}
+Put $D_0=a^2+\tau_0^2$. For real $t$, $0\le D\le2D_0$. The original zero-parameter cost is
+\[
+ f_i(0)=\sum_j\left((z_i\cdot u_j)^2/2+1/r\right)^s\le C_s,
+\]
+using Lemma~\ref{lem:core} and $M\le r^s$.
+
+Suppose weights, possibly signed, preserve all these queries and the zero subspace. Write $g=f_w-f$, $\alpha_{jt}=w_{jt}/N$, and let $H$ have rows
+\[
+ H_{j,:}=(\alpha_{j1},\ldots,\alpha_{jN})-N^{-1}(1,\ldots,1).
+\]
+For fixed $i,y$, $(1+t^2)^sg(t)$ is a polynomial of degree at most $2s$, and its derivative at zero equals $g'(0)$. Interpolation at the fixed nodes $0,1,\ldots,2s$, together with $D\le2D_0$, gives
+\begin{equation}\label{eq:derivative}
+ |g'(0)|\le C_s\eps.
+\end{equation}
+This uses only finitely many genuine subspace queries, and requires no sign assumption on weights.
+
+Direct differentiation of \eqref{eq:D} yields
+\[
+ g'(0)=-2s\tau_0\sum_j E_{ij}\ip{H_{j,:}}{y},\qquad
+ E_{ij}=\frac{z_i\cdot u_j}{\sqrt2}\left(\frac{(z_i\cdot u_j)^2}{2}+\frac1r\right)^{s-1}.
+\]
+The matrix $E$ is the stable kernel in Lemma~\ref{lem:core} multiplied by a positive scalar bounded below in terms of $s$ only. Maximize in $y$, square, and sum over $i$ to get
+\begin{equation}\label{eq:Hlower}
+ \norm H_F^2\le C_sMr\eps^2.
+\end{equation}
+Every coordinate of every group mean is controlled; there is no small-subset cutoff.
+
+All unscaled rows in \eqref{eq:lower-input} have the same norm. The zero-subspace query gives $\sum_{jt}\alpha_{jt}\ge(1-\eps)M\ge M/2$. Also,
+\[
+ \sum_{jt}\alpha_{jt}^2\le2\norm H_F^2+2M/N\le C_sMr\eps^2+2M/N.
+\]
+Cauchy--Schwarz on the $m$ nonzero coefficients proves
+\begin{equation}\label{eq:finite-lower}
+ m\ge c_s\frac{M}{r\eps^2+1/N}.
+\end{equation}
+Choose $N=\lceil(r\eps^2)^{-1}\rceil$ and set $r=k$. Then $M\asymp_s k^s$, proving \eqref{eq:lower} for all sufficiently large $k$ and all accuracies. The input may depend on $\eps$, as a worst-case lower bound permits.
+
+\subsection{Small ranks: an explicit nonnegative construction}
+For completeness the following proof covers the finitely many ranks excluded by the core lemma. Set $R=2\sqrt k$, $N=\lceil\eps^{-2}\rceil$, and use mutually orthogonal $e_j,e_{jt}$ with rows
+\[
+ a_{jt}=N^{-1/(2s)}(Re_j+e_{jt}).
+\]
+Let $\alpha_{jt}=w_{jt}/N\ge0$, $s_j=\sum_t\alpha_{jt}$, and $W_0=\sum_j s_j$. The rank-$k$ head query gives $|W_0-k|\le\eps k$. Omitting one head direction gives cost $k+C_0-1$ and weighted cost $W_0+(C_0-1)s_j$, where $C_0=(R^2+1)^s$. Since $C_0-1\ge4k$,
+\[
+ |s_j-1|\le\eps\left(1+\frac{2k}{C_0-1}\right)\le\tfrac32\eps<\tfrac34.
+\]
+Thus every group has mass at least $1/4$. Write $b_j=\sum_t\alpha_{jt}e_{jt}$ and $y_j=b_j/\norm{b_j}$. Its coordinates $u_{jt}\ge0$ have squared sum one. The two legal rank-$k$ subspaces spanned by $(Re_j\pm y_j)/\sqrt{R^2+1}$ have unscaled squared residual
+\[
+ D_\pm(u)=2-d_0-d_0u^2\mp cu,\quad d_0=(R^2+1)^{-1},\quad c=2R^2/(R^2+1).
+\]
+For $0\le u\le1$, these lie in $[0,4]$, their midpoint is at least one, and $1\le c\le2$. Integrating $sv^{s-1}$ between them gives
+\[
+ su\le D_-(u)^s-D_+(u)^s\le s4^su.
+\]
+The difference of original costs is at most $s4^s k/\sqrt N$, by $\sum_tu_{jt}\le\sqrt N$. The weighted difference is at least $s\sum_j\norm{b_j}$. Preservation of both queries, whose original costs are at most $4^s k$, implies
+\[
+ \sum_j\norm{b_j}\le4^s k(N^{-1/2}+2\eps/s).
+\]
+If $q_j$ rows remain in group $j$, $\norm{b_j}\ge1/(4\sqrt{q_j})$. Convexity of $q\mapsto q^{-1/2}$, with $m=\sum_jq_j$, yields
+\[
+ m\ge\frac{k}{16\,4^{2s}(N^{-1/2}+2\eps/s)^2}
+ \ge\frac{k}{144\,4^{2s}\eps^2}.
+\]
+For the finitely many $k<k_0(s)$, reduce $c_s$ to absorb $k^{s-2}$. Together with the large-rank argument this proves Theorem~\ref{thm:lower} for all $k$. The small-rank argument uses positivity, as stated.
+
+\section{The dense and intermediate lower regimes}\label{sec:variable-lower}
+This section reproves the variable-density construction needed in addition to Theorem~\ref{thm:lower}. It does not appeal to the earlier rank-restricted classification.
+
+\subsection{Variable-density core vectors}
+Fix $s\ge2$, and write $\gamma_t=\E|N(0,1)|^t$. Set $a_s=(128\gamma_{4s-2})^{-1}$. For all sufficiently large integers $r$, choose an integer
+\[
+ \lceil r^s\rceil\le L\le\lfloor a_s r^{2s-1}\rfloor,
+ \qquad M=\lfloor L/48\rfloor.
+\]
+There are unit vectors $z_1,\ldots,z_L\in\R^r$ and a selected subset $u_1,\ldots,u_M$ with
+\begin{equation}\label{eq:variable-core}
+ \sum_{i=1}^L|z_i\cdot x|^{2s}\le C_s(1+M/r^s)\norm x^{2s},\qquad
+ E_{ij}=(z_i\cdot u_j)^{2s-1},\quad \sigma_{\min}(E)^2\ge3/64,
+\end{equation}
+where $L/96\le M\le L/48$. The moment bound also holds for the selected subset.
+
+To prove this, draw independent standard Gaussian $g_i\in\R^r$ and normalize $z_i=g_i/\norm{g_i}$. The Gaussian norm bound in Appendix~\ref{app:gaussian}, Markov, and the radial tail give the stated moment bound with failure probability at most $1/4$, uniformly over the displayed polynomial range of $L$. Specifically, on the events $\norm G_{2\to2s}\le8(\sqrt r+\gamma_{2s}^{1/(2s)}L^{1/(2s)})$ and $\min_i\norm{g_i}\ge\sqrt r/2$, the bound follows with $L$ in place of $M$; the two are within a constant factor.
+
+Let $K_{ij}=(z_i\cdot z_j)^{2s-1}$. It is symmetric with diagonal one. For independent uniform unit directions, the spherical moment estimate proved in Section~\ref{sec:lower} gives
+\[
+ \E K_{ij}^2\le\gamma_{4s-2}r^{-(2s-1)}\quad(i\ne j),\qquad
+ \Prob\{\norm{K-I}_F^2>L/16\}\le16\gamma_{4s-2}Lr^{-(2s-1)}\le1/8.
+\]
+Thus all good events occur together with positive probability. At least $3L/4$ eigenvalues of $K$ lie in $[1/2,3/2]$. Project onto them using $\Pi$, set $B=\Pi K$, and note
+$\norm B_{\op}\le3/2$, $\norm B_F^2\ge3L/16$, and $\srank(B)\ge L/12$.
+The imported bound \eqref{eq:ri} selects $M\le\srank(B)/4$ columns with squared least singular value at least $3/64$. Their unprojected columns are no less well conditioned. They give \eqref{eq:variable-core}. All $z_i$ remain actual query directions; the projection only selects input columns.
+
+\subsection{Entire orthonormal auxiliary groups}
+There are $M$ orthonormal bases $(v_{j1},\ldots,v_{jr})$ of $\R^r$ such that
+\begin{equation}\label{eq:variable-noise}
+ \frac1r\sum_{j,t}|v_{jt}\cdot y|^{2s}\le C_sMr^{-s}\norm y^{2s},
+ \qquad \norm{r^{-1}\sum_t v_{jt}}^2=1/r.
+\end{equation}
+For completeness, choose the bases independently from Haar measure. At fixed unit $y$, the variables $X_j=\sum_t|v_{jt}\cdot y|^{2s}$ satisfy $0\le X_j\le1$ and $\E X_j\le\gamma_{2s}r^{1-s}$. The inequality $e^x\le1+(e-1)x$ on $[0,1]$ and exponential Markov give
+\[
+ \Prob\{\sum_jX_j\ge A_sMr^{1-s}\}
+ \le\exp[-\{A_s-(e-1)\gamma_{2s}\}Mr^{1-s}].
+\]
+Since $M\ge r^s/96$, choose $A_s=(e-1)\gamma_{2s}+96(\log9+2)$. A $1/4$-net of the unit sphere has at most $9^r$ points, so the union bound leaves failure probability at most $e^{-2r}$. The $2s$-th root of the sum is a seminorm, and net extension costs a factor $(4/3)^{2s}$. Orthogonality gives the mean identity exactly. Only independence between whole bases is used.
+
+Use rows
+\[
+ a_{jt}=r^{-1/(2s)}(u_j,v_{jt})\in\R^{2r},\qquad 1\le j\le M,\quad1\le t\le r.
+\]
+Write $D=1+M/r^s$. Their homogeneous hyperplane form obeys
+\[
+ f(x,y)=r^{-1}\sum_{j,t}(u_j\cdot x+v_{jt}\cdot y)^{2s}
+ \le C_sD(\norm x^{2s}+\norm y^{2s}).
+\]
+A strong coreset at query rank $2r-1$ necessarily preserves this form for every $(x,y)$, by homogeneity of the normal. Put $g=f_w-f$, $\alpha_{jt}=w_{jt}/r$, $b_j=\sum_t\alpha_{jt}v_{jt}$, $\mu_j=r^{-1}\sum_tv_{jt}$, and let row $j$ of $H$ be $(b_j-\mu_j)^T$.
+
+For fixed unit $x,y$, the function $h(t)=g(x,ty)$ is a polynomial of degree at most $2s$. Interpolation at $0,1,\ldots,2s$ extracts $h'(0)$ exactly. More explicitly, if $q=2s$, the coefficients
+\[
+ d_0=-\sum_{j=1}^q j^{-1},\qquad d_j=(-1)^{j+1}\binom qj/j\ (1\le j\le q)
+\]
+obey $P'(0)=\sum_{j=0}^q d_jP(j)$ for every polynomial of degree at most $q$, by differentiating its Lagrange formula. Hence
+\[
+ \left|\sum_j(u_j\cdot x)^{2s-1}\langle b_j-\mu_j,y\rangle\right|\le C_sD\eps.
+\]
+Evaluate at all $x=z_i$, maximize over unit $y$, square and sum. The stable evaluation map gives
+\[
+ \norm H_F^2\le C_sMD^2\eps^2.
+\]
+The zero-subspace query gives $\sum_{j,t}\alpha_{jt}\ge M/2$, since the unscaled rows all have norm $\sqrt2$. Entire-group orthogonality, followed by Cauchy--Schwarz on the $m$ nonzero weights, gives
+\[
+ \sum_{j,t}\alpha_{jt}^2=\sum_j\norm{b_j}^2\le C_sMD^2\eps^2+2M/r,
+ \qquad m\ge c_s\frac{M}{\eps^2(1+M/r^s)^2+1/r}.\tag{*}
+\]
+This construction permits signed weights satisfying the guarantee; no positivity is used in this support argument.
+
+\subsection{Density optimization and the matching combination}
+Up to fixed $s$-dependent factors, the available $M$ ranges from $r^s$ to $r^{2s-1}$. If $\eps\ge r^{-1/2}$, choose $M\asymp_s r^s$ in (*), giving $c_sr^s\eps^{-2}$. For $\eps<r^{-1/2}$, the ideal density is $M\asymp_s r^{s-1/2}/\eps$. If it lies in the available range, the denominator in (*) is $O_s(1/r)$ and the bound is $c_sr^{s+1/2}/\eps$. Once the ideal value exceeds the upper endpoint, choose $M\asymp_s r^{2s-1}$; the same denominator bound gives $c_sr^{2s}$. Integer roundings and the fixed constant at the endpoint only change $s$-dependent factors. Thus
+\begin{equation}\label{eq:three-lower}
+ S_{2s}(k,\eps)\ge c_s\min\{k^s\eps^{-2},\ k^{s+1/2}\eps^{-1},\ k^{2s}\}.
+\end{equation}
+For large $k$, this follows by setting $r=\lfloor(k+1)/2\rfloor$, padding the rows and normals to dimension $k+1$, and keeping the zero-subspace query. For the finitely many smaller $k$, the minimum is at most $k^{2s}$ and the trivial lower bound one suffices after reducing $c_s$.
+
+\begin{proof}[Completion of Theorem~\ref{thm:classification}]
+Let $A=k^s\eps^{-2}$, $B=k^{s+1/2}\eps^{-1}$, and $D=k^{s-1}\eps^{-2}$. If $\eps\ge k^{-3/2}$, then $B\le k^{s+2}\le k^{2s}$ and $D\le B$. Therefore \eqref{eq:three-lower} is at least a constant times $\min(A,B)$, while $\min(A,B+D)\le2\min(A,B)$. If $\eps\le k^{-3/2}$, then $D\ge B$, so Theorem~\ref{thm:lower} gives a constant times $D$, while $\min(A,B+D)\le2D$. This proves the lower bound $c_s\mathcal R_s$. The upper bound follows from Theorem~\ref{thm:upper} and \eqref{eq:baseline}, as stated after the main theorem.
+\end{proof}
+
+\section{Exact certificates, finite checks, and what they do not prove}\label{sec:verification}
+\subsection{New checks for the structural replacement}
+The deterministic report in \texttt{results/verification.json} records 87,932 successful finite assertions. Of these, 86,450 are monomial-degree/rank identities enumerated for $s=2,\ldots,20$; they are repeated bookkeeping checks, not independent audits of the proof. The remaining categories are:
+\begin{center}
+\begin{tabular}{lr}
+\toprule
+Category & Assertions\\
+\midrule
+Rate-regime algebra & 520\\
+Exact rational polarization & 54\\
+Feature state, mixed factorizations, and query-map bounds & 340\\
+Output isometries and polynomial homogeneity & 210\\
+Coefficient projections and full-covariance protection & 108\\
+Left-variance contraction and Gaussian query moments & 72\\
+Projected trace identities and conditioning changes & 58\\
+Gaussian moment-generating-function algebra & 120\\
+\bottomrule
+\end{tabular}
+\end{center}
+The numerical tensor instances use $p=4,6,8,10,12$, with 32 rows each. The sextic instance has head dimension three; the others have head dimension two. Eighteen covariance-family instances explicitly impose top output eigendirections plus extra coefficient constraints, including strict subsets of fractional coordinates. They check the full vectorized spectral cutoff, the separate left variance, both structured Gaussian moment bounds, and the actual contracted monomial error. No optimal-head property is asserted for these diagnostic inputs.
+
+The largest recorded scaled residual or positive-semidefinite violation in these checks is below $3.19\times10^{-14}$. This is floating-point implementation evidence, not a proof of the uniform Gaussian or asymptotic statements. The norming lemma is proved analytically; finite sampling is not used to infer its all-direction conclusion.
+
+\subsection{An exact nonnegative original-row certificate}
+The separate certificate contains the 81 integer rows
+\[
+ a_{tu}=(1,t,u),\qquad -4\le t,u\le4.
+\]
+Their input rank is three. Its 45 positive weights on original rows preserve every homogeneous degree-eight moment exactly. Because the first coordinate is one, this also implies exact preservation of every lower even degree; the standalone checker nevertheless verifies degrees two, four, six, and eight separately, using Python integers and rational numbers.
+
+For the rank-one projector onto $q=(1,2,-1)$, namely $P=qq^T/6$, the exact original and coreset residual costs agree:
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+$p$ & Original cost & Weighted coreset cost\\
+\midrule
+$2$ & $1395/2$ & $1395/2$\\
+$4$ & $40557/4$ & $40557/4$\\
+$6$ & $1530571/8$ & $1530571/8$\\
+$8$ & $67473645/16$ & $67473645/16$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The rank is genuinely larger than $k+1$ for this query rank $k=1$. The 135 assertions in the separate checker verify positivity, support, input rank, all stated moments, projector identities, and direct Euclidean residual costs. They are recorded separately from the 87,932 checks above. This finite moment reduction is not an implementation of the asymptotic partial-coloring construction.
+
+The same example also illustrates the boundary of even-moment transfer. For the unnormalized normal $z=(0,1,2)$, its cubic linear-form sums are
+\[
+ \sum_i|a_i\cdot z|^3=21836,\qquad
+ \sum_iw_i|a_i\cdot z|^3=\frac{2313282971232393}{105876835400}.
+\]
+Their relative difference is the nonzero rational number
+\[
+ \frac{1356393437993}{2311926577794400}.
+\]
+Thus exact agreement at the stated even powers does not make this same weighted subset exact at $p=3$. Normalizing $z$ does not change the relative difference. This observation is only a finite nontransfer example, not a lower bound against all possible cubic coresets and not a claim that non-even analogues of our theorem are false.
+
+\subsection{Evidence boundary}
+The new Gaussian lemma, its norming argument, and the rank-independent probability bounds are justified by the proofs in Section~\ref{sub:structured}, not by sampled queries. The finite programs do not implement the full asymptotic partial-coloring construction, certify the random core's large-dimension events, or independently prove the imported theorems. Small numerical examples need not have optimal heads unless that property is separately certified. The unchanged preceding package is included for provenance, not counted as independent corroboration. A final extraction and rerun checks the deliverable archive.
+
+\section{The exact remaining RA-05 gap}\label{sec:gap}
+Theorem~\ref{thm:classification} includes every even $p\ge4$, all ranks, every allowed accuracy, arbitrary input rank, and original-row nonnegative weights. In particular, the earlier examples $p=6$, $\eps=k^{-1}$ and $p=6$, $\eps=k^{-3/2}$ no longer have intermediate-accuracy gaps.
+
+RA-05 also includes real exponents that are not even integers. This manuscript does \emph{not} classify those exponents. Three uses of integrality must not be silently extended: the finite expansion \eqref{eq:expansion}; the homogeneous-polynomial norming argument applied to the structured maps; and the finite polynomial extraction in the lower bound. Constants in these arguments may depend on the fixed integer $s$, but replacing $s$ by an approximation degree depending on $k$ or $\eps$ would change the joint size bound.
+
+The prior packages include general-real-exponent lower bounds and a negative answer to the subsidiary proposed inequality. Those results are not a matching non-even classification and are not premises of Theorem~\ref{thm:classification}. Likewise, success at every even integer does not imply the intervening real exponents by continuity: coreset weights, accuracies, and constants would all need uniform control, which has not been established here.
+
+The appropriate proposed status of the original full entry therefore remains \emph{Partially resolved}, subject to review \cite{status}. The mathematical subtarget resolved by this manuscript is the unrestricted even-power problem. No repository file has been modified. No independent human review, formal verification, or first-discovery priority is claimed.
+
+\appendix
+\section{Elementary Gaussian facts used in the proof}\label{app:gaussian}
+\subsection{Increment comparison}
+For finite centered Gaussian families $X,Y$, interpolate independent copies and apply the smooth maximum $f_\beta(z)=\beta^{-1}\log\sum_i e^{\beta z_i}$. Gaussian integration by parts gives the covariance derivative in the form
+\[
+ \frac{d}{dt}\E f_\beta(\sqrt t X+\sqrt{1-t}Y)
+ =\frac\beta4\E\sum_{i,j}p_ip_j
+ \left(\E(X_i-X_j)^2-\E(Y_i-Y_j)^2\right),
+\]
+where $p_i$ are the softmax weights. The sign is nonpositive under increment domination. Integrate and let $\beta\to\infty$; the difference between smooth maximum and maximum is bounded by $(\log n)/\beta$. Add a small independent Gaussian and pass to a limit if a covariance is singular. For the compact finite-dimensional index families used above, finite dense nets, continuity, and an integrable Gaussian-norm bound justify passage to the full supremum.
+
+\subsection[Gaussian matrix norm and a radial tail]{Gaussian $2\to p$ norm and a radial tail}
+For a Gaussian matrix $G\in\R^{L\times r}$ and fixed $p>2$, let $p'=p/(p-1)<2$. Compare
+\[
+ X_{x,y}=y^TGx,\qquad Y_{x,y}=g\cdot x+h\cdot y,
+ \quad\norm x_2=1,\quad\norm y_{p'}\le1,
+\]
+where $g,h$ are independent standard Gaussians. For two indices put $a=x\cdot x'$, $b=y\cdot y'$. Since $\norm y_2\le1$, $a,b\le1$. The $Y$ increment variance minus the $X$ increment variance is $2(1-a)(1-b)\ge0$. Comparison and duality give
+\[
+ \E\norm G_{2\to p}\le\E\norm g_2+\E\norm h_p
+ \le\sqrt r+(L\gamma_p)^{1/p}.
+\]
+For a chi-square random variable $Z$ with $r$ degrees of freedom, $\E e^{-tZ}=(1+2t)^{-r/2}$. Markov at $t=1/2$ implies $\Prob\{Z\le r/4\}\le e^{r/8}2^{-r/2}\le e^{-r/8}$. These are the estimates used in Lemma~\ref{lem:core}.
+
+\section{Proof-audit checklist and dependency boundaries}
+\textbf{The new covariance is the full one.} The bound on $\operatorname{Cov}(\operatorname{vec}Z)$ is proved from scalar output constraints. It is not inferred from a bound on $\E ZZ^T$ alone. Both quantities are separately used in Lemma~\ref{lem:structured}.
+
+\textbf{The norming set is deterministic and condition independent.} It is chosen on a $k^2$-dimensional normed space before the Gaussian is sampled. Its cardinality is controlled by volume in that norm, not by a condition-number comparison with Euclidean entries. Polarization proves extension from the net, including for vector and matrix outputs.
+
+\textbf{Only actual query maps are controlled.} The improved estimate is for $\mathcal L_V Z$ in Frobenius norm. It does not claim the same bound for $\norm Z_{\op}$. Arbitrary output dimensions reduce by an isometry on $\operatorname{range}V$, including when $V$ is rank deficient.
+
+\textbf{Every equation has its real scalar cost.} A protected matrix-Hilbert direction is one Frobenius inner product, so it costs one equation. In contrast, fixing a matrix column would cost a whole column's dimension. The proof uses the former and explicitly allocates its total codimension at every partial step.
+
+\textbf{The current measure is positive but not pointwise dominated.} Active copies are dominated by the full current measure; exact scalar invariants and proved operator deviations control that full measure. Frozen fractional entries remain in all invariants. Fixed normalizations are never recomputed.
+
+\textbf{Rank, range, and zero cases.} All query subspaces obey the original rank restriction. Ambient projectors are handled through compressed positive contractions. Tensor inverses act only on positive ranges; zero tails and singular mixed metrics are treated explicitly. Zero optimum reduces to the head-only argument.
+
+\textbf{External dependencies.} The upper proof imports the general row-reduction theorem, Rothvoss's subspace partial-coloring lemma, and Tropp's rectangular Gaussian bound. The lower proof imports the specified restricted-invertibility theorem. The structured Gaussian lemma and both lower constructions are proved here. Earlier session-specific asymptotic theorems are not silently assumed.
+
+\textbf{No non-even interpolation.} The paper's final theorem is restricted to $p=2s$ with integer $s\ge2$. The full RA-05 entry remains partial for the explicitly stated reason in Section~\ref{sec:gap}.
+
+\clearpage
+\begin{thebibliography}{9}\raggedright
+\bibitem{ra05} OpenProblemsInNLA. RA-05: Sharp joint rank and accuracy dependence for strong $\ell_p$ subspace coresets. Canonical entry, accessed September 13, 2026.\newline
+\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/tree/main/randomized-and-low-rank-approximation/RA-05}
+\bibitem{lmw} H. Lin, V. Mirrokni, and D. P. Woodruff. \emph{Nearly Optimal Strong Coresets for $\ell_p$ Subspace Approximation}. arXiv:2608.26047v2, August 27, 2026. Theorem 1.2 and Section 1.4.\newline\url{https://arxiv.org/html/2608.26047v2}
+\bibitem{rothvoss} T. Rothvoss. \emph{Constructive Discrepancy Minimization for Convex Sets}. arXiv:1404.0339v4, 2016. Lemma 9, including arbitrary starting centers and a coefficient subspace.\newline\url{https://arxiv.org/pdf/1404.0339}
+\bibitem{tropp} J. A. Tropp. \emph{User-Friendly Tail Bounds for Sums of Random Matrices}. arXiv:1004.4389v7. Theorem 1.5, rectangular Gaussian series.\newline\url{https://arxiv.org/html/1004.4389v7}
+\bibitem{mss} A. W. Marcus, D. A. Spielman, and N. Srivastava. \emph{Interlacing Families III: Sharper Restricted Invertibility Estimates}. arXiv:1712.07766. Theorem 1.1, stating the Spielman--Srivastava stable-rank bound.\newline\url{https://arxiv.org/html/1712.07766}
+\bibitem{prior} Earlier manuscripts prepared in this conversation. \emph{Unrestricted even-power row coresets: A high-accuracy classification and a uniform mixed-tensor compression theorem}, September 13, 2026, and its nested predecessor packages. Preserved unchanged as \texttt{prior\_work/RA05\_even\_power\_high\_accuracy\_package.zip}. These are earlier conversation artifacts, not independent review of the new manuscript. Prior review records, where available, apply only to their stated scopes.
+\bibitem{status} OpenProblemsInNLA. \emph{Resolution and status guidelines}, accessed September 13, 2026.\newline\url{https://github.com/ajt60gaibb/OpenProblemsInNLA/blob/main/RESOLVED.md}
+\end{thebibliography}
+\end{document}
