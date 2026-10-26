@@ -1,0 +1,88 @@
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianSelectionMeasurable.lean:38:35: error(lean.invalidField): Invalid field `measurableSet_lt`: The environment does not contain `Function.measurableSet_lt`, so it is not possible to project the field `measurableSet_lt` from an expression
+  hscore j
+of type
+  MeasurableSet ?m.86 → MeasurableSet (score j ⁻¹' ?m.86)
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianSelectionMeasurable.lean:49:43: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  HMul (Matrix (Fin n) (Fin n) ℝ) (Fin n → Fin q → ℝ) ?m.13
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianSelectionMeasurable.lean:49:51: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  HMul (Matrix (Fin n) (Fin n) ℝ) (Fin n → Fin q → ℝ) ?m.17
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianSelectionMeasurable.lean:54:2: error: Tactic `apply` failed: could not unify the conclusion of `@measurable_minimumIndex`
+  Measurable fun ω => minimumIndex fun b => ?score b ω
+with the goal
+  Measurable (warmIndexFromEntries F A q)
+
+Note: The full type of `@measurable_minimumIndex` is
+  ∀ {Ω : Type ?u.15} [inst : MeasurableSpace Ω] {m : ℕ} (score : Fin (m + 2) → Ω → ℝ),
+    (∀ (b : Fin (m + 2)), Measurable (score b)) → Measurable fun ω => minimumIndex fun b => score b ω
+
+n m : ℕ
+F : Family n m
+A : Matrix (Fin n) (Fin n) ℝ
+q : ℕ
+⊢ Measurable (warmIndexFromEntries F A q)
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianSelectionMeasurable.lean:63:2: error: Tactic `apply` failed: could not unify the conclusion of `Measurable.comp (warmIndexFromEntries_measurable F A q)`
+  Measurable (warmIndexFromEntries F A q ∘ ?m.17)
+with the goal
+  Measurable (gaussianWarmIndex F A q offset)
+
+Note: The full type of `Measurable.comp (warmIndexFromEntries_measurable F A q)` is
+  Measurable ?m.17 → Measurable (warmIndexFromEntries F A q ∘ ?m.17)
+
+n m : ℕ
+F : Family n m
+A : Matrix (Fin n) (Fin n) ℝ
+q offset : ℕ
+⊢ Measurable (gaussianWarmIndex F A q offset)
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianSelectionMeasurable.lean:75:4: error: Type mismatch: After simplification, term
+  measurable_const
+ has type
+  Measurable fun x => minimumIndex fun b => squaredFrobenius (A * 0) (F b * 0)
+but is expected to have type
+  Measurable fun ω =>
+    minimumIndex fun b =>
+      squaredFrobenius
+        (A *
+          (if n ≤ firstWidth m ε + secondWidth m ε + thirdWidth m ε then
+              { full := true, s := 0, k := 0, ell := 0, G0 := 0, G1 := 0, H := 0 }
+            else
+              { full := false, s := firstWidth m ε, k := secondWidth m ε, ell := thirdWidth m ε,
+                G0 := fun i j => ω (↑j * n + ↑i), G1 := fun i j => ω ((firstWidth m ε + ↑j) * n + ↑i),
+                H := fun i j => ω ((firstWidth m ε + secondWidth m ε + ↑j) * n + ↑i) }).G0)
+        (F b *
+          (if n ≤ firstWidth m ε + secondWidth m ε + thirdWidth m ε then
+              { full := true, s := 0, k := 0, ell := 0, G0 := 0, G1 := 0, H := 0 }
+            else
+              { full := false, s := firstWidth m ε, k := secondWidth m ε, ell := thirdWidth m ε,
+                G0 := fun i j => ω (↑j * n + ↑i), G1 := fun i j => ω ((firstWidth m ε + ↑j) * n + ↑i),
+                H := fun i j => ω ((firstWidth m ε + secondWidth m ε + ↑j) * n + ↑i) }).G0)
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianSelectionMeasurable.lean:79:4: error: Type mismatch: After simplification, term
+  gaussianWarmIndex_measurable F A (firstWidth m ε) 0
+ has type
+  Measurable (gaussianWarmIndex F A (firstWidth m ε) 0)
+but is expected to have type
+  Measurable fun ω => sketchWarmIndex F A (makePlan n m ε ω)
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianSelectionMeasurable.lean:83:21: error: #assert_trust: 'NLA.Proofs.RE06.measurable_scan_minimum' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianSelectionMeasurable.lean:84:21: error: #assert_trust: 'NLA.Proofs.RE06.measurable_minimumIndex' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianSelectionMeasurable.lean:85:21: error: #assert_trust: 'NLA.Proofs.RE06.warmIndexFromEntries_measurable' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianSelectionMeasurable.lean:86:21: error: #assert_trust: 'NLA.Proofs.RE06.gaussianWarmIndex_measurable' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianSelectionMeasurable.lean:87:21: error: #assert_trust: 'NLA.Proofs.RE06.sketchWarmIndex_measurable' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.RE06.measurable_score_at_finite_index' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.RE06.measurable_scan_minimum' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.Proofs.RE06.measurable_minimumIndex' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.Proofs.RE06.warmIndexFromEntries_measurable' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.Proofs.RE06.gaussianWarmIndex_measurable' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.Proofs.RE06.sketchWarmIndex_measurable' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
