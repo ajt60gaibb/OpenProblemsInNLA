@@ -7,8 +7,8 @@
 **Difficulty:** extreme  
 **Importance:** interesting to the community  
 **Rating rationale:** Extreme because the guarantee must improve a general worst-case approximation barrier without increasing ranks; community importance reflects the central role of TT compression in numerical tensor methods.  
-**Status:** Solved  
-**Last checked:** 2026-09-11  
+**Status:** Lean verified  
+**Last checked:** 2026-10-26  
 
 <!-- colbrook-recovered-tensors -->
 ## Resolution — 2026-09-11
@@ -20,9 +20,11 @@
 The recovered AI-assisted proof passed independent agent review; this is not external human peer review or formal certification. The original target and dated source audit are retained. Difficulty, importance and rating rationale are historical. No novelty or priority claim is made.
 <!-- /colbrook-recovered-tensors -->
 
-## Lean formalization scaffold
+## Lean verification — 2026-10-26
 
-The repository retains the approved statement boundary and current supporting Lean work in [`lean/`](lean/), including [`Challenge.lean`](lean/Challenge.lean) and [`Solution.lean`](lean/Solution.lean). This is an **unverified, incomplete formalization**; the existing mathematical status and resolution above are unchanged. See [`lean/README.md`](lean/README.md) for scope, blockers, pinned metadata, and review records.
+The complete reviewed computational target is proved by [`FullSolution.lean`](lean/FullSolution.lean), using the fixed finite program `ttProgram` and the global operation bound `1000000 * Size^5`. The same program handles every permitted input and every legal full-SVD reply trace. Its actual dense output satisfies every prescribed unfolding-rank bound, has squared error strictly below `(d−1)E_*` when `E_*>0`, and equals the input when `E_*=0`.
+
+Independent complete source/package reviews, two fresh canonical kernel audits, and the actual isolated Linux Comparator/default-kernel and LeanCert kernel checks passed with only `propext`, `Classical.choice`, and `Quot.sound`. See the [proof and verification record](../../docs/lean/proofs/TR-04/README.md) and [Linux receipt](../../docs/lean/proofs/TR-04/LINUX_CI_RECEIPT.md). The historical `lean/Challenge.lean`, `lean/Solution.lean`, `lean/SPEC.md`, and `lean/README.md` remain byte exact; the separate full-target wrappers certify the independently reviewed concrete computational statement. All original files are retained in the [preservation archive](../../docs/lean/proofs/TR-04/originals-before-full-proof-2026-10-26/manifest.json).
 
 ## Problem statement
 
