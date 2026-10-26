@@ -1,0 +1,150 @@
+diff --git a/tensor-computations/TR-26/README.md b/tensor-computations/TR-26/README.md
+index 43e73a7e..83f34bea 100644
+--- a/tensor-computations/TR-26/README.md
++++ b/tensor-computations/TR-26/README.md
+@@ -6,8 +6,8 @@
+ 
+ **Difficulty:** challenging  
+ **Importance:** interesting to specialist  
+-**Status:** Solved  
+-**Last checked:** 2026-09-11
++**Status:** Lean verified  
++**Last checked:** 2026-10-26
+ 
+ **Rating rationale:** Separating the isotropic and nonisotropic degree contributions requires substantial algebraic analysis beyond the known total. The result mainly interests specialists in conditioning of constrained eigenvalue problems.
+ 
+@@ -21,6 +21,12 @@
+ This AI-assisted proof passed independent agent review; this is not external human peer review or formal verification. The difficulty, importance and rating rationale below are historical. The original target and dated status audit are retained. No priority claim is made.
+ <!-- /colbrook-unclaimed -->
+ 
++## Lean proof and verification evidence
++
++Both exact degree formulas and the unchanged full Target are proved for every $`d\ge2`$ in the [Lean package](lean/README.md). The proof retains the fixed unweighted embedding, bilinear form, full incidence ideal and Jacobian, raw isotropic image, nonisotropic Zariski closure, both projective charts, matrix-kernel directions and $`d=2`$.
++
++The [full source and package reviews](../../docs/lean/proofs/TR-26/FULL_TARGET_PACKAGE.md) contain two independent non-author approvals at each stage. The [original Linux/Comparator receipt](../../docs/lean/proofs/TR-26/LINUX_CI_RECEIPT.md) binds all three genuine theorem exports, LeanCert kernel mode, standard-only axioms, empty Comparator definition allowances, raw kernel replay and isolation/rejection controls. Final promotion metadata receives a separately bound Linux run. The [complete earlier README](ORIGINAL.md), original mathematical target, manuscripts and authorship records remain preserved. Matthew J. Colbrook retains mathematical source credit; AI agents supplied the formalization and reviews.
++
+ ## Problem statement
+ 
+ For every integer $`d\geq2`$, use the specific rational normal curve
+diff --git a/tensor-computations/TR-26/lean/PACKAGE_LOCK.json b/tensor-computations/TR-26/lean/PACKAGE_LOCK.json
+index 63ce291c..3d7f56bc 100644
+--- a/tensor-computations/TR-26/lean/PACKAGE_LOCK.json
++++ b/tensor-computations/TR-26/lean/PACKAGE_LOCK.json
+@@ -1,6 +1,6 @@
+ {
+   "proof_source_ref": "ecc597cb68b65b473aecce9ac635e27d35c09694",
+-  "scope": "Both exact endpoints and full Target candidate; final acceptance separately bound.",
++  "scope": "Both exact endpoints and unchanged full Target; independently reviewed proof/package and original Linux receipt accepted; final promotion metadata receipt separately bound.",
+   "files": {
+     "Challenge.lean": {
+       "sha256": "122ad60aaddf59e91dacd627637cf7237b8614d83b6d2eead381a76a698d7aba",
+@@ -331,8 +331,8 @@
+       "bytes": 7071
+     },
+     "README.md": {
+-      "sha256": "9e3990a7ad67abef1531ceb38c3caf6a6b69b448e22e336e0373bd155f55b22d",
+-      "bytes": 2544
++      "sha256": "527b4d229af14786f352d8831689aafaaaa7229d8e12cd0498e2d53d75eba223",
++      "bytes": 2879
+     },
+     "Reviewed/TR26.lean": {
+       "sha256": "e1700dde28c3679f126eaae1ea7cb16e979a18e94f1e77d198996f0f6ede6820",
+@@ -363,8 +363,8 @@
+       "bytes": 127
+     },
+     "formalization.yaml": {
+-      "sha256": "3ee60e81aa5df37dfc204a543811c84a5f17868ca21d332b6fee5f2221a1efcf",
+-      "bytes": 4588
++      "sha256": "fc273a6f7c4610acf3392cb5b318b8be0c38b78068c38fd8d2deb7bb4a8d3475",
++      "bytes": 5387
+     },
+     "lake-manifest.json": {
+       "sha256": "87c580ed2ba9646f15b51007bc19cc29b9a02a22590566383edd70a56b3875d4",
+diff --git a/tensor-computations/TR-26/lean/README.md b/tensor-computations/TR-26/lean/README.md
+index 84ec8592..d708477b 100644
+--- a/tensor-computations/TR-26/lean/README.md
++++ b/tensor-computations/TR-26/lean/README.md
+@@ -1,4 +1,4 @@
+-# TR-26 exact full Target candidate
++# TR-26 exact full Target proof
+ 
+ This package supplies actual proofs of both preapproved endpoints and the unchanged full Target: for every d≥2, `NonisotropicClosure d` has reduced degree `6*(d-1)` and the raw `IsotropicImage d` has reduced degree `2*d`. The original unweighted Veronese curve, bilinear pairings, independent complex symmetric-matrix coordinates and full incidence vanishing ideal/Jacobian are retained. Both projective charts, the point at infinity, matrix-kernel directions and d=2 are included.
+ 
+@@ -6,6 +6,6 @@ This package supplies actual proofs of both preapproved endpoints and the unchan
+ 
+ All 77 proof modules and three shared statement/reference modules are byte-exact copies from source checkpoint `ecc597cb68b65b473aecce9ac635e27d35c09694`. SOURCE_MAP records copies and hashes. Complete originals, manuscript, pre-proof approvals and earlier independent isotropic-only source reviews are preserved. Earlier partial metadata is retained under reviews/partial-package-6c607ab; those historical scope statements describe that earlier package. Later full-source and canonical-package reviews and Linux receipts have their own exact source bindings.
+ 
+-This is a full Target candidate. TR-26 remains **Solved** until required independent reviews and actual Linux/Comparator verification support promotion. Author or local source replay is not an isolated Linux or raw-kernel receipt. Mathematical source credit remains with Matthew J. Colbrook; AI agents implemented the formalization and reviews. No external human endorsement or new licence grant is claimed.
++Both independent full-source reviewers and both corrected canonical-package reviewers approve. Actual Linux run40396604016 at fa85c05a verifies the unchanged three-export proof closure through Comparator, raw kernel replay and isolation/rejection controls; its original artifact is independently audited. TR-26 is **Lean verified**. The final promotion metadata receives its own source-bound Linux receipt. See [source/package reviews](../../../docs/lean/proofs/TR-26/FULL_TARGET_PACKAGE.md) and the [Linux receipt](../../../docs/lean/proofs/TR-26/LINUX_CI_RECEIPT.md). Mathematical source credit remains with Matthew J. Colbrook; AI agents implemented the formalization and reviews. No external human endorsement or new licence grant is claimed.
+ 
+ For a fresh local replay, run `python3 reproduce.py --lean /absolute/path/to/pinned/lean --packages /absolute/path/to/pinned/packages --output /new/empty/output/path`. This checks 84 runtime sources with fresh own objects and three actual rejection controls; the first control rejects all three reference holes. Pins: Lean 4.33.1, Mathlib 0df444a360eaa60ab8c11dca51a86af692955474 and LeanCert 621a43d7cf21f87872392a01e874f2f1dbddc926. The repository's unchanged tools/lean/verify.sh separately supplies genuine Linux isolation, theorem-kind/axiom checks, Comparator and raw-kernel replay.
+diff --git a/tensor-computations/TR-26/lean/formalization.yaml b/tensor-computations/TR-26/lean/formalization.yaml
+index dde71ccd..9105a3c9 100644
+--- a/tensor-computations/TR-26/lean/formalization.yaml
++++ b/tensor-computations/TR-26/lean/formalization.yaml
+@@ -2,7 +2,7 @@
+   "version": "v0.4",
+   "project": {
+     "name": "TR-26: exact reduced degrees of both discriminant parts",
+-    "description": "Both unchanged all-order reduced-degree endpoints and literal original Target, including d=2; candidate canonical package awaiting source-bound acceptance.",
++    "description": "Both unchanged all-order reduced-degree endpoints and the literal original Target, including d=2, accepted by independent source/package review and actual Linux Comparator/kernel verification.",
+     "authors": [
+       "OpenAI Codex AI agents /root, /root/proof_route and /root/ie22_sampling (formal implementation); final independent non-author reviews are separately bound below"
+     ],
+@@ -39,10 +39,10 @@
+     "notes": "LeanCert kernel mode. All algebraic and analytic proofs are kernel-checked; no numerical certificate is required."
+   },
+   "status": {
+-    "phase": "full-target-candidate",
++    "phase": "full-target-verified",
+     "scope": "Both exact reduced-degree endpoints and literal full Target for every d>=2, retaining full incidence ideal, all projective representatives, raw isotropic image and nonisotropic closure.",
+-    "whole_problem_verified": false,
+-    "canonical_status": "Solved",
++    "whole_problem_verified": true,
++    "canonical_status": "Lean verified",
+     "sorry_count": 0,
+     "sorry_in_definitions": 0,
+     "axioms": [
+@@ -61,7 +61,7 @@
+           "Quot.sound"
+         ],
+         "comparator_config": "comparator.json",
+-        "verification_status": "Author and two independent full-source LeanCert kernel audits; canonical package and actual Linux/Comparator receipt separate."
++        "verification_status": "Both independent full-source and canonical-package approvals; actual Linux run40396604016 at fa85c05a accepts this unchanged theorem closure via Comparator and raw kernel replay. Promotion metadata will receive a separate source-bound final receipt before final evidence sealing."
+       },
+       {
+         "declaration": "NLA.Proofs.TR26.isotropic_degree",
+@@ -73,7 +73,7 @@
+           "Quot.sound"
+         ],
+         "comparator_config": "comparator.json",
+-        "verification_status": "Author and two independent full-source LeanCert kernel audits; canonical package and actual Linux/Comparator receipt separate."
++        "verification_status": "Both independent full-source and canonical-package approvals; actual Linux run40396604016 at fa85c05a accepts this unchanged theorem closure via Comparator and raw kernel replay. Promotion metadata will receive a separate source-bound final receipt before final evidence sealing."
+       },
+       {
+         "declaration": "NLA.Proofs.TR26.target",
+@@ -85,20 +85,20 @@
+           "Quot.sound"
+         ],
+         "comparator_config": "comparator.json",
+-        "verification_status": "Author and two independent full-source LeanCert kernel audits; canonical package and actual Linux/Comparator receipt separate."
++        "verification_status": "Both independent full-source and canonical-package approvals; actual Linux run40396604016 at fa85c05a accepts this unchanged theorem closure via Comparator and raw kernel replay. Promotion metadata will receive a separate source-bound final receipt before final evidence sealing."
+       }
+     ]
+   },
+   "fidelity": {
+-    "divergences": "No mathematical divergence is intended: the frozen original Target and both exact degree endpoints are consumed literally. Candidate author builds do not imply final package or Linux/Comparator acceptance."
++    "divergences": "No mathematical divergence: the frozen original Target and both exact degree endpoints are consumed literally, with all original source bytes preserved. Historical partial/candidate evidence retains its original scope."
+   },
+   "review": {
+-    "status": "Two independent full-source AI-agent reviews retained; canonical package and actual Linux acceptance separate",
++    "status": "Two independent full-source and two independent canonical-package AI-agent approvals; actual source-bound Linux receipt accepted separately.",
+     "reviewers": [
+       "/root/inventory",
+       "/root/verification"
+     ],
+-    "notes": "Both full-source review packets are retained verbatim under reviews/full-target-review and bound by FULL_SOURCE_REVIEW_BINDINGS.json. Source checkpoint ecc597cb68b65b473aecce9ac635e27d35c09694. No package or Linux acceptance is implied by these reports."
++    "notes": "Source checkpoint ecc597cb68b65b473aecce9ac635e27d35c09694 is bound by FULL_SOURCE_REVIEW_BINDINGS.json. Both corrected full-package approvals are retained outside executable inputs at docs/lean/proofs/TR-26/campaign-2026-10-26/full-package-review. Actual candidate Linux run40396604016/job121831441827 and independently fetched original artifact12688115670 are bound by docs/lean/proofs/TR-26/LINUX_CI_RECEIPT.md; final promotion inputs receive a separate receipt. No external human endorsement is claimed."
+   },
+   "acknowledgements": "Matthew J. Colbrook retains source mathematical credit. Original references and authorship/provenance records are preserved. Mathlib and LeanCert APIs are reused."
+ }
