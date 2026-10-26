@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "reviewer": "/root/recover_verification",
+  "scope": "Historical author failure is preserved and excluded; V2 only explicitly unfolds already frozen composition/evaluation/GaussianLaw in one unchanged-type stream-coordinate example.",
+  "initial_author_acceptance": false,
+  "initial_author_exit_sequence": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1
+  ],
+  "V2_author_exit_sequence": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "all_seven_math_and_reviewed_source_bytes_identical": {
+    "Reviewed/RE05.lean": "aa200e741fa811474096a72b3f45900109cce080edcc9a51d6b40166a3a9d42f",
+    "NLA/Computation/SVDMachine.lean": "8ec5866326b5a311b334651600db5d7f3065f2059175823626319afef7cf7581",
+    "NLA/Computation/LinearFamilyQuery.lean": "9896ef3618e60d2d0949cf6b1713256e9ec3e22896620108248e72b2f3f6ae80",
+    "NLA/Computation/NonadaptiveMatrixQuery.lean": "66345a3ed3274e6dd351ffaa7e1b75a0aa95afa63c3ece937d37f1efaad29b21",
+    "NLA/Statements/Infrastructure.lean": "8e019f11ea18ec66b50563648c39af76e41881912a3fb5f56002adf1850fcc37",
+    "NLA/Statements/RE05.lean": "aaee94feb3f85702cbfda9cad5e0a32521f0ccb26421b4e8108453fd2a32529e",
+    "NLA/Proofs/RE05/GaussianMoments.lean": "90ccd03775e4d41ce8bd2f923bd9afd09e1fff9374f307d783ce79805ae37fc3"
+  },
+  "consumer_diff": [
+    "--- V1",
+    "+++ V2",
+    "@@ -27,7 +27,8 @@",
+    "   have h := (measurePreserving_eval_infinitePi",
+    "     (fun _ : \u2115 => gaussianReal 0 1) j).hasLaw.integral_comp",
+    "       (show AEStronglyMeasurable (fun x : \u211d => x ^ 4) (gaussianReal 0 1) by fun_prop)",
+    "-  simpa only [gaussian_fourth_integral] using h",
+    "+  simpa only [gaussian_fourth_integral, Function.comp_apply, Function.eval,",
+    "+    NLA.Computation.NonadaptiveMatrixQuery.GaussianLaw] using h",
+    " ",
+    " #assert_trust kernel gaussian_power_integrable",
+    " #assert_trust kernel gaussian_first_integral"
+  ],
+  "bound_artifacts": {
+    "docs/lean/proofs/RE-05/campaign-2026-10-26/GAUSSIAN_MOMENTS_FREEZE_2026-10-26.json": "1ba6ec6943f9d6be29330aa154ec99102300fb1962062da5e95901225b16e122",
+    "docs/lean/proofs/RE-05/campaign-2026-10-26/GAUSSIAN_MOMENTS_FREEZE_V2_2026-10-26.json": "d8659205efd0466f9cb2cd7516dd1526d0821a22542d14e09aeba2263bed5912",
+    "docs/lean/proofs/RE-05/campaign-2026-10-26/gaussian-moments-author/result.json": "bdbf4e721e8eb2995ef5d2dd33635353b7316c15152a55b0927d669a65505928",
+    "docs/lean/proofs/RE-05/campaign-2026-10-26/gaussian-moments-author/source-lock.json": "fb67ed0eb8fef0f5db669d28f8f458d993ce552a888a26467bc2882a25ed23de",
+    "docs/lean/proofs/RE-05/campaign-2026-10-26/gaussian-moments-author/consumer.log": "7368a30adc7797cbe1df617feb8c305a857b502dfcd898373e85bbf67a023555",
+    "docs/lean/proofs/RE-05/campaign-2026-10-26/gaussian-moments-author-v2/result.json": "3bc892751146bbe7ee556bdb5708821d3a7dd0eddea0474c25ea26834b7eb769",
+    "docs/lean/proofs/RE-05/campaign-2026-10-26/gaussian-moments-author-v2/source-lock.json": "94e7539c6864c22de2c53a1446323b821ddc56259eb0085247902cc5fb6bd6ba",
+    "docs/lean/proofs/RE-05/campaign-2026-10-26/gaussian-moments-author-v2/consumer.log": "0a810b579e5e3a8384bc7eee86814927861981f8be4d05cd29634e1b2b859bfd",
+    "docs/lean/proofs/RE-05/campaign-2026-10-26/GaussianMomentsConsumer.lean.txt": "1d687a70ac8e698be7a61bf75c4b485055a907bef082211616ea1060d3d41eb2",
+    "docs/lean/proofs/RE-05/campaign-2026-10-26/GaussianMomentsConsumerV2.lean.txt": "81a3b8437dcaffc9424fe0dd61f243429f1ba554d62ac726f25b6d52997f7cbc"
+  },
+  "proof_source_or_public_private_type_changes": false
+}
