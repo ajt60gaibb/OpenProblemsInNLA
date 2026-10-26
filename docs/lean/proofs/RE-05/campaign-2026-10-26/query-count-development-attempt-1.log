@@ -1,0 +1,56 @@
+NLA/Proofs/RE05/QueryCount.lean:20:38: error: Ambiguous term
+  makePlan
+Possible interpretations:
+  Computation.NonadaptiveMatrixQuery.makePlan : (n : ℕ) → ℕ → ℝ → (ℕ → ℝ) → Computation.NonadaptiveMatrixQuery.Plan n
+  
+  Computation.LinearFamilyQuery.makePlan : Basis ?m.19 ?m.20 →
+    ℝ → (ℕ → ℝ) → Fin 15 → Computation.LinearFamilyQuery.Plan ?m.19
+NLA/Proofs/RE05/QueryCount.lean:19:72: error: unsolved goals
+n q : ℕ
+P : Basis n q
+ε : ℝ
+ω : ℕ → ℝ
+⊢ (List.map (fun i => (Computation.LinearFamilyQuery.makePlan P (squaredAccuracy ε) ω i).selected.length)
+          (List.finRange 15)).sum +
+      (List.map (fun i => (Computation.LinearFamilyQuery.makePlan P (squaredAccuracy ε) ω i).s)
+          (List.finRange 15)).sum =
+    15 *
+      ((List.filter (fun j => decide (threshold q (squaredAccuracy ε) < (exactSVD (leverage P)).sigma (Fin.cast ⋯ j)))
+            (List.finRange n)).length +
+        gaussianWidth q (squaredAccuracy ε))
+NLA/Proofs/RE05/QueryCount.lean:21:4: warning: This simp argument is unused:
+  List.map_const
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [batchQueries, plans, queries, makePlan, selectedCount, List.length_flatMap, List.sum_replicate]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/Proofs/RE05/QueryCount.lean:21:20: warning: This simp argument is unused:
+  List.sum_replicate
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [batchQueries, plans, queries, makePlan, selectedCount, List.length_flatMap, List.map_const]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/Proofs/RE05/QueryCount.lean:71:4: error: Type mismatch: After simplification, term
+  hcharge
+ has type
+  threshold q (squaredAccuracy ε) * ↑(selectedCount P ε) ≤ ↑(q + 1)
+but is expected to have type
+  t * ↑(selectedCount P ε) ≤ z * t
+NLA/Proofs/RE05/QueryCount.lean:83:2: error: 'change' tactic failed, pattern
+  15 * (↑(selectedCount P ε) + ↑(gaussianWidth q (squaredAccuracy ε))) ≤ 15 * (2 * z + 8 * Real.log (20 * ↑(q + 1)) + 1)
+is not definitionally equal to target
+  15 * (↑(selectedCount P ε) + ↑(gaussianWidth q (squaredAccuracy ε))) ≤
+    15 * (2 * √((↑q + 1) * baseWidth q (squaredAccuracy ε)) + 8 * Real.log (20 * (↑q + 1)) + 1)
+NLA/Proofs/RE05/QueryCount.lean:88:21: error: #assert_trust: 'NLA.Proofs.RE05.batchQueries_length' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+NLA/Proofs/RE05/QueryCount.lean:91:21: error: #assert_trust: 'NLA.Proofs.RE05.sourceQueryBound_of_selected_charge' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.RE05.sourceQueryBound_of_selected_charge' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE05.QueryCount 1
