@@ -1,0 +1,45 @@
+NLA/Proofs/TR04/MachineTTProgramFacts.lean:66:13: warning: This simp argument is unused:
+  Nat.zero_add
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [costThrough_zero, zero_add] at hr hc
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/Proofs/TR04/MachineTTProgramFacts.lean:103:4: error: Tactic `split` failed: Could not split an `if` or `match` expression in the goal
+
+Hint: Use `set_option trace.split.failure true` to display additional diagnostic information
+
+S : Shape
+r : Ranks S
+A : Tensor S
+trace : Trace ttProgram
+ht : LegalTrace ttProgram (Start ttProgram S r A) trace
+j : Fin 128
+hj : 4 ≤ ↑j
+values : ℕ → ℕ := shapeHeaderValues S
+memory : ℕ → ℝ := InputMemory S r A
+hs : ttHeaderEmbedding.Relates (initial headerProductProgram S.order memory) (initial ttProgram S.order memory)
+hn :
+  ∀ k < headerProductReturnTime values S.order,
+    instructionIsHalt
+        (headerProductProgram.code
+          ((ordinaryStep headerProductProgram)^[k] (initial headerProductProgram S.order memory)).label) =
+      false
+hc :
+  ∀ k < headerProductReturnTime values S.order,
+    instructionIsSVD
+        (headerProductProgram.code
+          ((ordinaryStep headerProductProgram)^[k] (initial headerProductProgram S.order memory)).label) =
+      false
+hframe : ∀ (i : Fin (headerProductProgram.extraNatRegisters + 1)), j ≠ ttHeaderEmbedding.naturals i
+hv : (trace.state (headerProductReturnTime values S.order)).natural j = (initial ttProgram S.order memory).natural j
+⊢ { label := 0, real := fun x => 0, natural := fun r => if r = 0 then S.order else 0, memory := memory,
+          status := Status.running }.natural
+      j =
+    0
+NLA/Proofs/TR04/MachineTTProgramFacts.lean:123:21: error: #assert_trust: 'NLA.Proofs.TR04.ttProgram_header_natural_outside' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.TR04.ttProgram_header_result' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.TR04.ttProgram_svd_positions' depends on axioms: [propext, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineTTProgramFacts 1

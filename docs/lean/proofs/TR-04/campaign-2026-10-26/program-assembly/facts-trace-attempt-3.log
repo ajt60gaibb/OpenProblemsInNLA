@@ -1,0 +1,32 @@
+NLA/Proofs/TR04/MachineInstructionTrace.lean:59:26: error: Application type mismatch: The argument
+  heq
+has type
+  trace.state (time + 1) =
+    { label := next, real := (trace.state time).real, natural := (trace.state time).natural,
+      memory :=
+        writeSVD (trace.state time).memory ((trace.state time).natural uBase) ((trace.state time).natural sigmaBase)
+          ((trace.state time).natural vBase) U sigma V,
+      status := Status.running }
+but is expected to have type
+  trace.state (time + 1) =
+    let __src := trace.state time;
+    { label := next, real := __src.real, natural := __src.natural,
+      memory :=
+        writeSVD (trace.state time).memory ((trace.state time).natural uBase) ((trace.state time).natural sigmaBase)
+          ((trace.state time).natural vBase) U sigma V,
+      status := __src.status }
+in the application
+  And.intro heq
+NLA/Proofs/TR04/MachineInstructionTrace.lean:57:37: warning: This simp argument is unused:
+  true_and
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Step, hs, hcode, hd, if_pos] at hstep
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/Proofs/TR04/MachineInstructionTrace.lean:62:21: error: #assert_trust: 'NLA.Proofs.TR04.trace_svd_at' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.TR04.trace_scalar_block_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.TR04.trace_svd_at' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+NLA.Proofs.TR04.MachineInstructionTrace 1
