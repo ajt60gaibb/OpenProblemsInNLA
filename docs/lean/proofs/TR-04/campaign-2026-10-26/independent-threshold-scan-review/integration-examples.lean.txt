@@ -1,0 +1,23 @@
+namespace NLA.Proofs.TR04
+/-- Every legal rectangular SVD reply instantiates the actual counted scan endpoint. -/
+example {Q : Program} (E : RoutineEmbedding thresholdScanProgram Q)
+    {m l : ℕ} {B : Matrix (Fin m) (Fin l) ℝ} {U : Matrix (Fin m) (Fin m) ℝ}
+    {sigma : Fin (min m l) → ℝ} {V : Matrix (Fin l) (Fin l) ℝ}
+    (h : ValidSVD B U sigma V) (r : ℕ) (hr : 1 ≤ r) (hrp : r ≤ min m l)
+    (memory : ℕ → ℝ) (base : ℕ)
+    (hmem : ∀ k : Fin (min m l), memory (base + k.val) = sigma k)
+    (scratch : ℝ) (aux : Fin 5 → ℕ) {start : State Q} {trace : Trace Q} (offset : ℕ)
+    (hs : E.Relates (thresholdScanStart memory ⟨min m l, r, base⟩
+      (sigma ⟨r - 1, by omega⟩) scratch aux) (trace.state offset)) (ht : LegalTrace Q start trace) :
+    let a : Fin (min m l) := ⟨r - 1, by omega⟩
+    let T := SVD.countedTieStructure sigma h.2.2.2.1 a
+    let n := offset + (9 * min m l + 6)
+    (trace.state n).label = E.labels 22 ∧ (trace.state n).status = .running ∧
+      (trace.state n).natural (E.naturals 5) = T.above ∧
+      (trace.state n).natural (E.naturals 6) = T.tied ∧
+      (trace.state n).natural (E.naturals 7) = T.take ∧
+      (trace.state n).natural (E.naturals 5) + (trace.state n).natural (E.naturals 7) = r ∧
+      (trace.state n).real (E.reals 0) = sigma a ∧ (trace.state n).memory = memory ∧
+      CostThrough Q trace n ≤ CostThrough Q trace offset + (9 * min m l + 6) :=
+  E.thresholdScan_run_counted sigma h.2.2.2.1 r hr hrp memory base hmem scratch aux offset hs ht
+end NLA.Proofs.TR04

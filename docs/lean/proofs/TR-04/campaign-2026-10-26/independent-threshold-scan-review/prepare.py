@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+from pathlib import Path
+import hashlib,json,shutil,sys
+BASE=Path(__file__).resolve().parent;REPO=BASE.parents[5];PRIOR=BASE.parent/'independent-header-bank-review'
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+shutil.copyfile(PRIOR/'source_inventory.py',BASE/'source_inventory.py');sys.path.insert(0,str(BASE));from source_inventory import declarations_of
+p=REPO/'docs/lean/proofs/TR-04/campaign-2026-10-23/threshold-scan-author-2026-10-26/source-lock.json';digest='580bc5c1c9ab0dee1002e9a2d84f2bcf08ecebc49eb7e3cbb0835f435f02dc65';assert sha(p)==digest;d=json.loads(p.read_text());records=[dict(r,path='lean-statements/'+r['path']) for r in d['sources']]
+for r in records:assert sha(REPO/r['path'])==r['sha256']
+owned=[r for r in records if r['path'].removeprefix('lean-statements/') in d['authored_sources']];decls=[v for r in records for v in declarations_of(r['path'].removeprefix('lean-statements/'),(REPO/r['path']).read_bytes())];ownednames=sorted(v['name'] for v in decls if 'lean-statements/'+v['source'] in {r['path'] for r in owned})
+endpoints=['thresholdAboveCount_succ','thresholdTiedCount_succ','thresholdTakeCount_succ','thresholdScanProgram_initialize','thresholdScanProgram_nine_steps','thresholdScanProgram_trace_result','RoutineEmbedding.thresholdScan_run_values','thresholdCard_filter_fin_interval','thresholdCounts_countedTieStructure','RoutineEmbedding.thresholdScan_run_counted']
+block={'key':'threshold_scan','author_lock_path':str(p.relative_to(REPO)),'author_lock_sha256':digest,'author':'/root/recover_algebra','records':records,'owned':owned,'declarations':decls,'owned_declarations':ownednames,'roots':['NLA.Proofs.TR04.MachineThresholdScanSVD'],'literal_endpoints':['NLA.Proofs.TR04.'+n for n in endpoints]}
+config={'reviewer':'/root/recover_verification','self_authored_proof_sources':[],'scope':'Five frozen actual threshold-scan RAM components; full46-source prerequisite rebuild, actual scan/caller counts and exact ordered-SVD threshold-block fields. No whole approximation program, full Target, total polynomial complexity, Linux or Comparator acceptance claim.','blocks':[block],'union':records,'inventory_helper_provenance':{'path':str((PRIOR/'source_inventory.py').relative_to(REPO)),'sha256':sha(PRIOR/'source_inventory.py'),'change':'Exact copy.'}}
+(BASE/'source-lock.json').write_text(json.dumps(config,indent=2)+'\n')
+s=(PRIOR/'replay.py').read_text();old="d['name']=='NLA.Proofs.TR04.squaredErrorProgram_nonzero_realRegisters'";new="d['name'] in {'NLA.Proofs.TR04.squaredErrorProgram_nonzero_realRegisters','NLA.Proofs.TR04.thresholdScanProgram_nonzero_reals'}";assert old in s;s=s.replace(old,new);(BASE/'replay.py').write_text(s)
+(BASE/'prop-instance-kind-provenance.json').write_text(json.dumps({'name':'NLA.Proofs.TR04.thresholdScanProgram_nonzero_reals','source_keyword':'instance','source_type':'NeZero thresholdScanProgram.realRegisters','expected_actual_constant_kind':'theorem','reason':'Named proof of a Prop-valued class, as previously validated for the squared-error NeZero instance. The assertion requires thmInfo; no generic kind guard is relaxed.','source_hash':next(r['sha256'] for r in records if r['path'].endswith('/MachineThresholdScan.lean'))},indent=2)+'\n')
+print('SNAPSHOT',len(records),'sources',len(ownednames),'new named',len(decls),'full named')

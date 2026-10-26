@@ -1,0 +1,57 @@
+import NLA.Proofs.TR04.MachineHeaderProductRange
+set_option leancert.trust "kernel"
+open scoped BigOperators
+open NLA.Computation.SVDMachine NLA.Proofs.TR04
+
+example (Q : Program) (E : RoutineEmbedding headerProductProgram Q)
+    (memory : ℕ → ℝ) (d value : ℕ) (scratch : ℝ)
+    (start : State Q) (tr : Trace Q) (ht : LegalTrace Q start tr) (offset : ℕ)
+    (hs : E.Relates (headerProductDecodeState memory d d 1 value scratch) (tr.state offset)) :
+    (tr.state (offset+(3*value+5))).natural (E.naturals 2) = value ∧
+    (tr.state (offset+(3*value+5))).memory = memory ∧
+    (tr.state (offset+(3*value+5))).status = .running ∧
+    CostThrough Q tr (offset+(3*value+5)) ≤ CostThrough Q tr offset+(3*value+5) := by
+  obtain ⟨hr,hc⟩ := E.headerSingle_run_at memory d value scratch ht offset hs
+  exact ⟨hr.natural_apply 2,hr.memory,hr.status,hc⟩
+
+example (memory : ℕ → ℝ) (d : ℕ) (scratch : ℝ) :
+    (ordinaryStep headerProductProgram)^[5]
+      (headerProductDecodeState memory d d 1 0 scratch) = headerSingleReturnState memory d 0 := by
+  simpa using headerSingle_return memory d 0 scratch
+
+example (Q : Program) (E : RoutineEmbedding headerProductProgram Q)
+    (memory : ℕ → ℝ) (d a : ℕ) (values : ℕ → ℕ) (had : a≤d)
+    (hm : ∀ j, a≤j → j<d → memory j = (values j : ℝ))
+    (counter : ℕ) (reals : Fin 2 → ℝ) (start : State Q) (tr : Trace Q)
+    (ht : LegalTrace Q start tr) (offset : ℕ)
+    (hs : E.Relates (headerRangeEntryState memory d a values counter reals) (tr.state offset)) :
+    (tr.state (offset+headerRangeTime values a d)).natural (E.naturals 2) =
+        (∏ j ∈ Finset.Ico a d,values j) ∧
+    (tr.state (offset+headerRangeTime values a d)).memory = memory ∧
+    (tr.state (offset+headerRangeTime values a d)).status = .running ∧
+    CostThrough Q tr (offset+headerRangeTime values a d) ≤
+      CostThrough Q tr offset+headerRangeTime values a d := by
+  obtain ⟨last,registers,hr,hc⟩ := E.headerRange_run_at memory d a values had hm counter reals ht offset hs
+  refine ⟨(hr.natural_apply 2).trans ?_,hr.memory,hr.status,hc⟩
+  exact headerRange_return_product memory d a values last registers had
+
+example (memory : ℕ → ℝ) (d a : ℕ) (values : ℕ → ℕ)
+    (counter : ℕ) (reals : Fin 2 → ℝ) :
+    headerRangeEntryState memory d a values counter reals =
+      {label:=2,real:=reals,natural:=![d,a,1,counter],memory:=memory,status:=.running} :=
+  headerRange_entry_eq memory d a values counter reals
+
+example (memory : ℕ → ℝ) (d : ℕ) (values : ℕ → ℕ)
+    (counter : ℕ) (reals : Fin 2 → ℝ) :
+    ∃ last : ℕ,∃ registers : Fin 2 → ℝ,
+      ordinaryStep headerProductProgram (headerRangeEntryState memory d d values counter reals) =
+        headerRangeReturnState memory d d values last registers := by
+  simpa [headerRangeTime] using headerRange_return memory d d values le_rfl
+    (by intro j hdj hjd;omega) counter reals
+
+example (values : ℕ → ℕ) (a d : ℕ) :
+    headerRangeTime values a d ≤ headerPrefixTime values d+1 := headerRange_time_le values a d
+
+example (values : ℕ → ℕ) (a d : ℕ) (had : a≤d) :
+    headerPrefixProduct (headerRangeValues values a) d = ∏ j ∈ Finset.Ico a d,values j :=
+  headerRange_prefix_product values a d had
