@@ -1,0 +1,67 @@
+#!/usr/bin/env python3
+"""Independent metadata/source-preservation review; no new Lean or Linux execution."""
+import argparse,datetime,gzip,hashlib,io,json,re,subprocess,zipfile
+from collections import Counter
+from pathlib import Path
+REF='240e607ddc8f74d19f04e9ea1a64fe2bad1762b2';OLD='fa85c05acc70bbaa05bb3346fb43b57b1546af67';PROOF='ecc597cb68b65b473aecce9ac635e27d35c09694';P='tensor-computations/TR-26/lean/';D='docs/lean/proofs/TR-26/campaign-2026-10-26/';L=D+'linux-full-candidate-fa85/'
+ROOT=Path('/Users/ajt253/Documents/OpenProblemsInNLA');OUT=ROOT/'reviews/2026-10-23-solved-lean/tr26-promotion-review/verification'
+def sha(b):return hashlib.sha256(b).hexdigest()
+def main():
+ global ROOT,OUT
+ parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--repo',type=Path,default=ROOT);parser.add_argument('--output',type=Path);parser.add_argument('--prior-package',type=Path);args=parser.parse_args();ROOT=args.repo;OUT=args.output or ROOT/'reviews/2026-10-23-solved-lean/tr26-promotion-review/verification'
+ OUT.mkdir(parents=True,exist_ok=True);checks=[];cache={};proc=subprocess.Popen(['git','-C',str(ROOT),'cat-file','--batch'],stdin=subprocess.PIPE,stdout=subprocess.PIPE)
+ def blob(path,ref=REF):
+  key=(ref,path)
+  if key not in cache:
+   proc.stdin.write((ref+':'+path+'\n').encode());proc.stdin.flush();header=proc.stdout.readline().decode().strip().split();assert len(header)==3 and header[1]=='blob',(key,header);b=proc.stdout.read(int(header[2]));assert proc.stdout.read(1)==b'\n';cache[key]=b
+  return cache[key]
+ def git(*v):return subprocess.check_output(['git','-C',str(ROOT),*v])
+ def ck(n,v,**d):
+  checks.append({'check':n,'pass':bool(v),**d})
+  if not v:raise RuntimeError('Failed check: '+n)
+ names=[s[len(P):] for s in git('ls-tree','-r','--name-only',REF,'--',P).decode().splitlines()];oldnames=[s[len(P):] for s in git('ls-tree','-r','--name-only',OLD,'--',P).decode().splitlines()];ck('same857_tracked_package_inputs',names==oldnames and len(names)==857)
+ changed=[n for n in names if blob(P+n)!=blob(P+n,OLD)];ck('exact3_package_promotion_changes',set(changed)=={'README.md','formalization.yaml','PACKAGE_LOCK.json'},changed=changed)
+ lock=json.loads(blob(P+'PACKAGE_LOCK.json'));ck('856_complete_lock_entries',len(lock['files'])==856 and set(lock['files'])==set(names)-{'PACKAGE_LOCK.json'})
+ for n,e in lock['files'].items():b=blob(P+n);ck('lock:'+n,sha(b)==e['sha256'] and len(b)==e['bytes'])
+ freeze=json.loads(blob(D+'PROMOTION_SOURCE_FREEZE.json'));ck('complete_promotion_freeze',freeze['accepted_candidate']==OLD and freeze['proof_source']==PROOF and set(freeze['all_package_inputs'])==set(names))
+ for n,e in freeze['all_package_inputs'].items():b=blob(P+n);ck('promotion_freeze:'+n,sha(b)==e['sha256'] and len(b)==e['bytes'])
+ runtime=[n for n in names if n.endswith('.lean') and not n.startswith('reviews/')];exe=runtime+['reproduce.py','lakefile.toml','lake-manifest.json','lean-toolchain','comparator.json']+['controls/'+n+'.lean.txt' for n in ['ChallengeTrustRejection','DefinitionKindRejection','CustomAxiomRejection']];ck('84runtime92executable_inputs',len(runtime)==84 and len(exe)==92)
+ for n in exe:ck('unchanged_executable_or_pin:'+n,blob(P+n)==blob(P+n,OLD))
+ mapping=json.loads(blob(P+'SOURCE_MAP.json'));shared=[e for e in mapping['copies'] if e['path'].startswith(('NLA/','Reviewed/')) and e['path'].endswith('.lean')];ck('80_approved_ECC_shared_sources',len(shared)==80)
+ priorpath=args.prior_package or ROOT/'reviews/2026-10-23-solved-lean/tr26-full-package-review/verification';priorbytes=(priorpath/'result.json').read_bytes();prior=json.loads(priorbytes);approval=json.loads((priorpath/'APPROVAL.json').read_bytes());ck('own_prior_full_package_approval_bound',prior['pass'] and prior['package_commit']==OLD and approval['result_sha256']==sha(priorbytes) and approval['review_sha256']==sha((priorpath/'REVIEW.md').read_bytes()))
+ priorobjects={e['module']:e for e in prior['reuse_records']}
+ for e in shared:
+  b=blob(P+e['path']);n=e['path'][:-5].replace('/','.');o=priorobjects[n];ck('approved_source_and_own_object:'+n,b==blob(e['source_path'],PROOF) and sha(b)==e['sha256']==o['source_sha256'] and sha(Path(o['to']).read_bytes())==o['object_sha256'] and sha(Path(o['from']).read_bytes())==o['object_sha256'])
+ oldreadme=blob('tensor-computations/TR-26/README.md',OLD);newreadme=blob('tensor-computations/TR-26/README.md');original=blob('tensor-computations/TR-26/ORIGINAL.md');ck('complete_earlier_README_retained_verbatim',original==oldreadme)
+ oldtext=oldreadme.decode();newtext=newreadme.decode();ck('entire_original_problem_suffix_verbatim',oldtext.split('## Problem statement',1)[1]==newtext.split('## Problem statement',1)[1]);without=newtext[:newtext.index('## Lean proof and verification evidence')]+newtext[newtext.index('## Problem statement'):];expected=re.sub(r'^\*\*Status:\*\* Solved', '**Status:** Lean verified',oldtext,flags=re.M);expected=re.sub(r'^\*\*Last checked:\*\* .*$', '**Last checked:** 2026-10-26',expected,flags=re.M);ck('only_original_status_date_and_evidence_section_change',without==expected)
+ registry=json.loads(blob('problem_ids.json'));ck('all217_ID_path_pairs_unchanged',len(registry)==217 and blob('problem_ids.json')==blob('problem_ids.json',OLD) and registry['TR-26']=='tensor-computations/TR-26/README.md')
+ statuses={ref:Counter(re.search(r'^\*\*Status:\*\*\s*([^\n]+)',blob(path,ref).decode(),re.M)[1].strip() for path in registry.values()) for ref in [OLD,REF]};ck('catalog_status86verified32Solved',statuses[OLD]['Lean verified']==85 and statuses[OLD]['Solved']==33 and statuses[REF]['Lean verified']==86 and statuses[REF]['Solved']==32 and sum(statuses[REF].values())==217)
+ for n in ['README.md','CATALOG.md']:ck('generated_counts_text:'+n,'86' in blob(n).decode() and '32' in blob(n).decode())
+ ck('generated_statement_coverage_TR26_status',re.search(r'^\| \[TR-26\].*\| Lean verified \|',blob('docs/lean/statements/COVERAGE.md').decode(),re.M) is not None)
+ meta=json.loads(blob(P+'formalization.yaml'));config=json.loads(blob(P+'comparator.json'));ck('three_exports_no_definition_allowances_std3',config==json.loads(blob(P+'comparator.json',OLD)) and len(config['theorem_names'])==3 and config['definition_names']==[] and set(config['permitted_axioms'])=={'propext','Classical.choice','Quot.sound'})
+ ck('promotion_status_exact_full_target',meta['status']['phase']=='full-target-verified' and meta['status']['whole_problem_verified'] is True and meta['status']['canonical_status']=='Lean verified' and meta['status']['sorry_count']==0 and meta['status']['sorry_in_definitions']==0)
+ for e in meta['status']['main_results']:ck('truthful_candidate_vs_future_final:'+e['declaration'],'run40396604016 at fa85c05a' in e['verification_status'] and 'will receive a separate source-bound final receipt before final evidence sealing' in e['verification_status'])
+ receipt=blob('docs/lean/proofs/TR-26/LINUX_CI_RECEIPT.md').decode();ck('explicit_final_run_pending_no_240e_acceptance_claim','That final run is pending at this checkpoint.' in receipt and freeze['final_source_bound_Linux_pending'] is True and '40396604016' in receipt and '40400589674' not in receipt)
+ for manifest,base in [('FULL_LINUX_CANDIDATE_EXPORTS.json',L)]:
+  j=json.loads(blob(D+manifest));ck('candidate_export_manifest_head',j['source_head']==OLD)
+  for n,e in j['files'].items():b=blob(base+n);ck('exported_original_evidence:'+n,sha(b)==e['sha256'] and len(b)==e['bytes'])
+ fullreviews=json.loads(blob(D+'FULL_PACKAGE_REVIEW_EXPORTS.json'));ck('two_full_package_review_exports',fullreviews['approved_package_ref']==OLD and {e['reviewer'] for e in fullreviews['exports']}=={'inventory','verification'})
+ for row in fullreviews['exports']:
+  for e in row['copied_verbatim']:
+   b=blob(D+'full-package-review/'+row['reviewer']+'/'+e['path']);ck('exported_package_review:'+row['reviewer']+':'+e['path'],sha(b)==e['sha256'] and len(b)==e['bytes'])
+ for n in ['REVIEW.md','result.json','APPROVAL.json']:ck('verbatim_own_exported_approval:'+n,blob(D+'full-package-review/verification/'+n)==(priorpath/n).read_bytes())
+ term=L+'retained/run-40396604016/terminal/';zb=blob(term+'original-artifact.zip');raw=blob(term+'job-121831441827.log');gz=blob(term+'job-121831441827.log.gz');ck('retained_actual_original_ZIP_and_raw_log_hashes',len(zb)==44840 and sha(zb)=='f5f55dd18b6e3f92a6d504d4e5390f975bfe42ead6c3adbd2e72008dda2c279f' and len(raw)==128931 and sha(raw)=='b5d6d9a95d39cbd4177769742ed1f00e06ec2f58c4b0bee5eef8e61121b366b3' and gzip.decompress(gz)==raw)
+ artifact=L+'corrected-candidate-audit/artifact/';members=[]
+ with zipfile.ZipFile(io.BytesIO(zb)) as z:
+  for e in z.infolist():
+   if e.is_dir():continue
+   ck('safe_original_ZIP_member:'+e.filename,not Path(e.filename).is_absolute() and '..' not in Path(e.filename).parts and (e.external_attr>>16)&0o170000!=0o120000);b=z.read(e);ck('original_ZIP_extracted_member:'+e.filename,b==blob(artifact+e.filename));members.append({'path':e.filename,'sha256':sha(b),'bytes':len(b)})
+ result=json.loads(blob(artifact+'verify-20261026T203445Z-4205/result.json'));ck('actual_candidate_result_scope',result['repository_commit']=='68b328659b93033184fd5d65316ef7abcaca9aab' and result['config']==config and result['result']=='comparator-accepted' and result['lean_cert_proof_trust']=='kernel-checked' and result['verifier_profile']=='default' and set(result['input_sha256'])==set(names))
+ for n,v in result['input_sha256'].items():ck('actual_CI_input_matches_approved_fa85:'+n,sha(blob(P+n,OLD))==v)
+ parents=git('show','-s','--format=%P',result['repository_commit']).decode().split();ck('actual_merge_parents_bound_to_candidate',parents==['ccc7864f5034cf7c4602f7577ceaf083ebf63d52',OLD] and result['repository_commit'].encode() in raw)
+ aud=[]
+ for path,count in [('corrected-candidate-audit/AUTHOR_CI_RECEIPT.json',2391),('root-independent/accepted-fa85/ROOT_CI_AUDIT.json',2770),('inventory-independent/audit-final/INVENTORY_CI_RECEIPT.json',2934)]:
+  j=json.loads(blob(L+path));passed=j.get('passed',j.get('pass'));ck('retained_accepted_candidate_audit:'+path,passed is True and j.get('check_count',len(j['checks']) if isinstance(j.get('checks'),list) else j.get('checks'))==count and j.get('source_head',OLD)==OLD);aud.append({'path':path,'check_count':count,'sha256':sha(blob(L+path))})
+ comparator=blob(artifact+'verify-20261026T203445Z-4205/comparator.log').decode();kernel=blob(artifact+'verify-20261026T203445Z-4205/kernel-controls.log').decode();ck('retained_actual_kernel_acceptance_controls','Lean default kernel accepts the solution' in comparator and 'Your solution is okay!' in comparator and 'PASS: all three actual Comparator.runBuiltinKernel cases behaved as required' in kernel)
+ proc.stdin.close();proc.wait();report={'pass':all(e['pass'] for e in checks),'reviewer':'/root/verification','UTC':datetime.datetime.now(datetime.timezone.utc).isoformat(),'promotion_commit':REF,'approved_candidate':OLD,'proof_source':PROOF,'scope':'Promotion metadata/original/source preservation and retained-evidence binding only; no new Lean or Linux run','checks':checks,'package_changed_paths':changed,'runtime_sources_unchanged':84,'executable_and_pin_inputs_unchanged':92,'canonical_package_inputs':857,'locked_inputs':856,'own_prior_package_result_sha256':sha(priorbytes),'own_prior_fresh_objects_bound':80,'status_counts':{k:dict(v) for k,v in statuses.items()},'original_artifact_members':members,'retained_audits':aud,'new_Lean_execution':False,'new_Linux_execution':False,'final_source_bound_Linux_receipt_pending':True,'driver_sha256':sha(Path(__file__).read_bytes())};(OUT/'result.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({'pass':report['pass'],'checks':len(checks),'changed':changed}),flush=True)
+if __name__=='__main__':main()

@@ -1,0 +1,7 @@
+# Exact initial package finding
+
+Immutable `f0fc0691c3496822e330894de60a9d6e94b7890a` does not satisfy its file lock: `reviews/full-target-review/verification/__pycache__/reproduce.cpython-313.pyc` is listed in PACKAGE_LOCK.json and FULL_SOURCE_REVIEW_BINDINGS.json, but is absent from the Git tree. Its declared SHA256 is `3e7b89cb7098ef4b5d1b0d3a35f4fc81dadc1c6e0677b8f546df2f5923677556`, length 35478. Git contains 857 package files total, rather than the claimed 858; 856 locked paths plus PACKAGE_LOCK itself actually exist.
+
+The independent static audit ran 2376 checks and found exactly four failures, all consequences of this one missing generated-bytecode input: locked set/count, that file's hash/size, full review binding, and verbatim-copy presence. All 84 runtime sources, 80 approved shared copies, 278 source-map records, exact three theorem targets, original 24 inputs, 217 IDs/paths, and other source/review bindings passed.
+
+Required metadata-only correction: omit this regenerable bytecode from the full-review binding and file lock (record an omitted-artifact manifest if desired), then regenerate hashes for affected binding/lock metadata. Preserve all actual review-report bytes and mathematical/runtime sources. This report does not approve the initial defective snapshot; subsequent corrected-commit review and runtime/Comparator evidence are separate. No canonical file was edited by this reviewer.

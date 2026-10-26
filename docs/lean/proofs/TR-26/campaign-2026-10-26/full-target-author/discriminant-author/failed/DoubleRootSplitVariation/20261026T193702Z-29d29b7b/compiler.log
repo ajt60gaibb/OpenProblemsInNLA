@@ -1,0 +1,60 @@
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/DoubleRootSplitVariation.lean:107:4: error: Type mismatch: After simplification, term
+  resultant_X_sub_C_pow_left r S 2 S.natDegree le_rfl
+ has type
+  ((X - C r) ^ 2).resultant S 2 S.natDegree = eval r S ^ 2
+but is expected to have type
+  ((X - C r) ^ 2 + C 0).resultant S 2 S.natDegree = eval r S ^ 2
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/DoubleRootSplitVariation.lean:111:4: error: Type mismatch
+  fixedDiscriminant_quadraticSplit_product r ε S hS
+has type
+  (MvPolynomial.eval ((toFn (2 + S.natDegree + 1)) (quadraticSplit r ε * S))) (fixedDiscriminant (2 + S.natDegree)) =
+    doubleRootSplitScale S * ε * eval ε (quadraticResultantPolynomial r S) ^ 2
+but is expected to have type
+  (MvPolynomial.eval ((toFn (2 + S.natDegree + 1)) (quadraticSplit r ε * S))) (fixedDiscriminant (2 + S.natDegree)) =
+    doubleRootSplitScale S * (id * (fun x => eval x (quadraticResultantPolynomial r S)) ^ 2) ε
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/DoubleRootSplitVariation.lean:112:2: error: unsolved goals
+case e'_9
+r : ℂ
+S : ℂ[X]
+hS : 0 < S.natDegree
+hR :
+  HasDerivAt (fun x => eval x (quadraticResultantPolynomial r S))
+    (eval 0 (derivative (quadraticResultantPolynomial r S))) 0
+hval : eval 0 (quadraticResultantPolynomial r S) = eval r S ^ 2
+hh :
+  HasDerivAt (fun y => doubleRootSplitScale S * (id * (fun x => eval x (quadraticResultantPolynomial r S)) ^ 2) y)
+    (doubleRootSplitScale S *
+      (1 * ((fun x => eval x (quadraticResultantPolynomial r S)) ^ 2) 0 +
+        id 0 *
+          (↑2 * eval 0 (quadraticResultantPolynomial r S) ^ (2 - 1) *
+            eval 0 (derivative (quadraticResultantPolynomial r S)))))
+    0
+⊢ doubleRootSplitScale S * eval r S ^ 4 =
+    doubleRootSplitScale S * ((fun x => eval x (quadraticResultantPolynomial r S)) ^ 2) 0
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/DoubleRootSplitVariation.lean:113:21: warning: This simp argument is unused:
+  mul_zero
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [id_eq, add_zero, one_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/DoubleRootSplitVariation.lean:113:30: warning: This simp argument is unused:
+  add_zero
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [id_eq, mul_zero, one_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/private/tmp/nla-tr26-dev-oct26/source/NLA/Proofs/TR26/DoubleRootSplitVariation.lean:125:21: error: #assert_trust: 'NLA.Proofs.TR26.BinaryDiscriminant.hasDerivAt_fixedDiscriminant_double_root_split' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.TR26.BinaryDiscriminant.hasDerivAt_fixedDiscriminant_double_root_split' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]

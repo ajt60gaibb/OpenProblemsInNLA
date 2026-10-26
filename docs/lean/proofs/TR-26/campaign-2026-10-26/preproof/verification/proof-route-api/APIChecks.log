@@ -1,0 +1,93 @@
+Polynomial.wronskian.{u_1} {R : Type u_1} [CommRing R] (a b : Polynomial R) : Polynomial R
+Polynomial.wronskianBilin.{u_1} (R : Type u_1) [CommRing R] : Polynomial R →ₗ[R] Polynomial R →ₗ[R] Polynomial R
+Polynomial.degree_wronskian_lt_add.{u_1} {R : Type u_1} [CommRing R] {a b : Polynomial R} (ha : a ≠ 0) (hb : b ≠ 0) :
+  (a.wronskian b).degree < a.degree + b.degree
+IsCoprime.wronskian_eq_zero_iff.{u_1} {R : Type u_1} [CommRing R] [NoZeroDivisors R] {a b : Polynomial R}
+  (hc : IsCoprime a b) : a.wronskian b = 0 ↔ Polynomial.derivative a = 0 ∧ Polynomial.derivative b = 0
+Polynomial.taylor_coeff.{u_1} {R : Type u_1} [Semiring R] (r : R) (f : Polynomial R) (n : ℕ) :
+  ((Polynomial.taylor r) f).coeff n = Polynomial.eval r ((Polynomial.hasseDeriv n) f)
+Polynomial.taylor_coeff_one.{u_1} {R : Type u_1} [Semiring R] (r : R) (f : Polynomial R) :
+  ((Polynomial.taylor r) f).coeff 1 = Polynomial.eval r (Polynomial.derivative f)
+Polynomial.taylorAlgHom.{u_1} {R : Type u_1} [CommSemiring R] (r : R) : Polynomial R →ₐ[R] Polynomial R
+Polynomial.degreeLTEquiv.{u} (R : Type u) [Semiring R] (n : ℕ) : ↥(Polynomial.degreeLT R n) ≃ₗ[R] Fin n → R
+Polynomial.separable_X_pow_sub_C.{u} {F : Type u} [Field F] {n : ℕ} (a : F) (hn : ↑n ≠ 0) (ha : a ≠ 0) :
+  (Polynomial.X ^ n - Polynomial.C a).Separable
+Polynomial.Separable.of_dvd.{u} {R : Type u} [CommSemiring R] {f g : Polynomial R} (hf : f.Separable) (hfg : g ∣ f) :
+  g.Separable
+Polynomial.Separable.aeval_derivative_ne_zero.{u, v} {R : Type u} [CommSemiring R] {S : Type v} [CommSemiring S]
+  [Nontrivial S] [Algebra R S] {p : Polynomial R} (h : p.Separable) {x : S} (hx : (Polynomial.aeval x) p = 0) :
+  (Polynomial.aeval x) (Polynomial.derivative p) ≠ 0
+Polynomial.nodup_roots.{u} {R : Type u} [CommRing R] [IsDomain R] {p : Polynomial R} (hsep : p.Separable) :
+  p.roots.Nodup
+IsAlgClosed.card_roots_eq_natDegree.{u} {k : Type u} [Field k] [IsAlgClosed k] {p : Polynomial k} :
+  p.roots.card = p.natDegree
+Complex.card_rootsOfUnity (n : ℕ) [NeZero n] : Nat.card ↥(rootsOfUnity n ℂ) = n
+Lagrange.eval_interpolate_at_node.{u_1, u_2} {F : Type u_1} [Field F] {ι : Type u_2} [DecidableEq ι] {s : Finset ι}
+  {i : ι} {v : ι → F} (r : ι → F) (hvs : Set.InjOn v ↑s) (hi : i ∈ s) :
+  Polynomial.eval (v i) ((Lagrange.interpolate s v) r) = r i
+Ideal.pi_mkQ_surjective.{u_2, u_3} {R : Type u_2} [CommRing R] {ι : Type u_3} [Finite ι] {I : ι → Ideal R}
+  (hI : Pairwise (Function.onFun IsCoprime I)) : Function.Surjective ⇑(LinearMap.pi fun i => Submodule.mkQ (I i))
+Polynomial.sylvester.{u_1} {R : Type u_1} [Semiring R] (f g : Polynomial R) (m n : ℕ) :
+  Matrix (Fin (m + n)) (Fin (m + n)) R
+Polynomial.resultant.{u_1} {R : Type u_1} [CommRing R] (f g : Polynomial R) (m : ℕ := f.natDegree)
+  (n : ℕ := g.natDegree) : R
+Polynomial.resultant_map_map.{u_1, u_2} {R : Type u_1} {S : Type u_2} [CommRing R] [CommRing S] (f g : Polynomial R)
+  (m n : ℕ) (φ : R →+* S) : (Polynomial.map φ f).resultant (Polynomial.map φ g) m n = φ (f.resultant g m n)
+Polynomial.resultant_eq_zero_iff.{u_2} {K : Type u_2} [Field K] {f g : Polynomial K} :
+  f.resultant g = 0 ↔ (f ≠ 0 ∨ g ≠ 0) ∧ ¬IsCoprime f g
+Polynomial.resultant_eq_prod_roots_sub.{u_3} {K : Type u_3} [Field K] (f g : Polynomial K) (hf : f.Monic) (hg : g.Monic)
+  (hf' : f.Splits) (hg' : g.Splits) : f.resultant g = (Multiset.map (fun ij => ij.1 - ij.2) (f.roots ×ˢ g.roots)).prod
+Polynomial.discr.{u_1} {R : Type u_1} [CommRing R] (f : Polynomial R) : R
+Polynomial.resultant_deriv.{u_1} {R : Type u_1} [CommRing R] {f : Polynomial R} (hf : 0 < f.degree) :
+  f.resultant (Polynomial.derivative f) f.natDegree (f.natDegree - 1) =
+    (-1) ^ (f.natDegree * (f.natDegree - 1) / 2) * f.leadingCoeff * f.discr
+MvPolynomial.vanishingIdeal_zeroLocus_eq_radical.{u_1, u_2, u_3} {k : Type u_1} {K : Type u_2} [Field k] [Field K]
+  [Algebra k K] {σ : Type u_3} [IsAlgClosed K] [Finite σ] (I : Ideal (MvPolynomial σ k)) :
+  MvPolynomial.vanishingIdeal k (MvPolynomial.zeroLocus K I) = I.radical
+MvPolynomial.pderiv_mul.{u, v} {R : Type u} {σ : Type v} [CommSemiring R] {i : σ} {f g : MvPolynomial σ R} :
+  (MvPolynomial.pderiv i) (f * g) = (MvPolynomial.pderiv i) f * g + f * (MvPolynomial.pderiv i) g
+MvPolynomial.pderiv_pow.{u, v} {R : Type u} {σ : Type v} [CommSemiring R] {i : σ} {f : MvPolynomial σ R} {n : ℕ} :
+  (MvPolynomial.pderiv i) (f ^ n) = ↑n * f ^ (n - 1) * (MvPolynomial.pderiv i) f
+MvPolynomial.aeval_sumElim_pderiv_inl.{u, v, u_1, u_2} {R : Type u} {σ : Type v} [CommSemiring R] {S : Type u_1}
+  {τ : Type u_2} [CommRing S] [Algebra R S] (p : MvPolynomial (σ ⊕ τ) R) (f : τ → S) (j : σ) :
+  (MvPolynomial.aeval (Sum.elim MvPolynomial.X (⇑MvPolynomial.C ∘ f))) ((MvPolynomial.pderiv (Sum.inl j)) p) =
+    (MvPolynomial.pderiv j) ((MvPolynomial.aeval (Sum.elim MvPolynomial.X (⇑MvPolynomial.C ∘ f))) p)
+MvPolynomial.IsHomogeneous.sum_X_mul_pderiv.{u_1, u_2} {R : Type u_1} {σ : Type u_2} [CommSemiring R]
+  {φ : MvPolynomial σ R} [Fintype σ] {n : ℕ} (h : φ.IsHomogeneous n) :
+  ∑ i, MvPolynomial.X i * (MvPolynomial.pderiv i) φ = n • φ
+MvPolynomial.IsHomogeneous.prod.{u_1, u_3, u_5} {σ : Type u_1} {R : Type u_3} [CommSemiring R] {ι : Type u_5}
+  (s : Finset ι) (φ : ι → MvPolynomial σ R) (n : ι → ℕ) (h : ∀ i ∈ s, (φ i).IsHomogeneous (n i)) :
+  (∏ i ∈ s, φ i).IsHomogeneous (∑ i ∈ s, n i)
+MvPolynomial.IsHomogeneous.aeval.{u_1, u_2, u_3, u_4} {σ : Type u_1} {τ : Type u_2} {R : Type u_3} {S : Type u_4}
+  [CommSemiring R] [CommSemiring S] {φ : MvPolynomial σ R} {m n : ℕ} [Algebra R S] (hφ : φ.IsHomogeneous m)
+  (g : σ → MvPolynomial τ S) (hg : ∀ (i : σ), (g i).IsHomogeneous n) : ((MvPolynomial.aeval g) φ).IsHomogeneous (n * m)
+MvPolynomial.IsHomogeneous.totalDegree.{u_1, u_3} {σ : Type u_1} {R : Type u_3} [CommSemiring R] {φ : MvPolynomial σ R}
+  {n : ℕ} (hφ : φ.IsHomogeneous n) (h : φ ≠ 0) : φ.totalDegree = n
+Squarefree.of_mul_left.{u_1} {R : Type u_1} [Monoid R] {m n : R} (hmn : Squarefree (m * n)) : Squarefree m
+Finset.squarefree_prod_of_pairwise_isCoprime.{u_1, u_2} {R : Type u_1} [CommMonoidWithZero R] [IsCancelMulZero R]
+  [DecompositionMonoid R] {ι : Type u_2} {s : Finset ι} {f : ι → R} (hs : (↑s).Pairwise (Function.onFun IsRelPrime f))
+  (hs' : ∀ i ∈ s, Squarefree (f i)) : Squarefree (∏ i ∈ s, f i)
+MvPolynomial.prime_C_iff.{u, v} {R : Type u} (σ : Type v) [CommRing R] {r : R} : Prime (MvPolynomial.C r) ↔ Prime r
+MvPolynomial.prime_rename_iff.{u, v} {R : Type u} {σ : Type v} [CommRing R] (s : Set σ) {p : MvPolynomial (↑s) R} :
+  Prime ((MvPolynomial.rename Subtype.val) p) ↔ Prime p
+MvPolynomial.irreducible_of_totalDegree_eq_one.{u_1, u_2} {n : Type u_1} {R : Type u_2} [CommRing R] [IsDomain R]
+  {p : MvPolynomial n R} (hp : p.totalDegree = 1)
+  (hp' : ∀ (x : R), (∀ (i : n →₀ ℕ), x ∣ MvPolynomial.coeff i p) → IsUnit x) : Irreducible p
+Matrix.toMvPolynomial.{u_1, u_2, u_4} {m : Type u_1} {n : Type u_2} {R : Type u_4} [Fintype n] [CommSemiring R]
+  (M : Matrix m n R) (i : m) : MvPolynomial n R
+Matrix.toMvPolynomial_isHomogeneous.{u_1, u_2, u_4} {m : Type u_1} {n : Type u_2} {R : Type u_4} [Fintype n]
+  [CommSemiring R] (M : Matrix m n R) (i : m) : (M.toMvPolynomial i).IsHomogeneous 1
+LinearMap.toMvPolynomial_comp.{u_1, u_2, u_3, u_4, u_5, u_6, u_7} {R : Type u_1} {M₁ : Type u_2} {M₂ : Type u_3}
+  {M₃ : Type u_4} {ι₁ : Type u_5} {ι₂ : Type u_6} {ι₃ : Type u_7} [CommRing R] [AddCommGroup M₁] [AddCommGroup M₂]
+  [AddCommGroup M₃] [Module R M₁] [Module R M₂] [Module R M₃] [Fintype ι₁] [Fintype ι₂] [Finite ι₃] [DecidableEq ι₁]
+  [DecidableEq ι₂] (b₁ : Module.Basis ι₁ R M₁) (b₂ : Module.Basis ι₂ R M₂) (b₃ : Module.Basis ι₃ R M₃) (g : M₂ →ₗ[R] M₃)
+  (f : M₁ →ₗ[R] M₂) (i : ι₃) :
+  LinearMap.toMvPolynomial b₁ b₃ (g ∘ₗ f) i =
+    (MvPolynomial.bind₁ (LinearMap.toMvPolynomial b₁ b₂ f)) (LinearMap.toMvPolynomial b₂ b₃ g i)
+Polynomial.eq_leadingCoeff_mul_of_monic_of_dvd_of_natDegree_le.{u_1} {R : Type u_1} [CommSemiring R]
+  {p q : Polynomial R} (hp : p.Monic) (hdvd : p ∣ q) (hdeg : q.natDegree ≤ p.natDegree) :
+  q = Polynomial.C q.leadingCoeff * p
+MvPolynomial.sumAlgEquiv.{u, v, w} (R : Type u) (S₁ : Type v) (S₂ : Type w) [CommSemiring R] :
+  MvPolynomial (S₁ ⊕ S₂) R ≃ₐ[R] MvPolynomial S₁ (MvPolynomial S₂ R)
+MvPolynomial.finSuccEquiv.{u} (R : Type u) [CommSemiring R] (n : ℕ) :
+  MvPolynomial (Fin (n + 1)) R ≃ₐ[R] Polynomial (MvPolynomial (Fin n) R)
