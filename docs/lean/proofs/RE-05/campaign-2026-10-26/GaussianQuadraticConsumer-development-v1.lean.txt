@@ -1,0 +1,195 @@
+import NLA.Proofs.RE05.GaussianQuadraticCovariance
+import Reviewed.RE05
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+noncomputable section
+open MeasureTheory ProbabilityTheory
+namespace NLA.Proofs.RE05
+
+example {ι : Type*} [Fintype ι] (i : ι) (p : NNReal) :
+    MemLp (fun x : ι → ℝ => x i) p (Measure.pi (fun _ : ι => gaussianReal 0 1)) := by
+  exact @gaussian_coordinate_memLp ι (inferInstance) i p
+
+example {ι : Type*} [Fintype ι] (a b : ι) :
+    Integrable (fun x : ι → ℝ => x a * x b)
+      (Measure.pi (fun _ : ι => gaussianReal 0 1)) := by
+  exact @gaussian_pair_integrable ι (inferInstance) a b
+
+example {ι : Type*} [Fintype ι] (i : ι) :
+    (∫ x : ι → ℝ, x i ∂Measure.pi (fun _ : ι => gaussianReal 0 1)) = 0 := by
+  exact @gaussian_coordinate_mean ι (inferInstance) i
+
+example {ι : Type*} [Fintype ι] [DecidableEq ι] (a b : ι) :
+    (∫ x : ι → ℝ, x a * x b ∂Measure.pi (fun _ : ι => gaussianReal 0 1)) =
+      if a = b then 1 else 0 := by
+  exact @gaussian_pair_integral ι (inferInstance) (inferInstance) a b
+
+example {ι : Type*} [Fintype ι] (A : Matrix ι ι ℝ) :
+    Integrable (gaussianQuadraticForm A) (Measure.pi (fun _ : ι => gaussianReal 0 1)) := by
+  exact @gaussian_quadratic_integrable ι (inferInstance) A
+
+example {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (A : Matrix ι ι ℝ) :
+    (∫ x : ι → ℝ, gaussianQuadraticForm A x
+      ∂Measure.pi (fun _ : ι => gaussianReal 0 1)) = A.trace := by
+  exact @gaussian_quadratic_mean ι (inferInstance) (inferInstance) A
+
+example {ι : Type*} [Fintype ι]
+    (A B : Matrix ι ι ℝ) (x : ι → ℝ) :
+    gaussianQuadraticForm A x * gaussianQuadraticForm B x =
+      ∑ p : (ι × ι) × (ι × ι),
+        (A p.1.1 p.1.2 * B p.2.1 p.2.2) *
+          (x p.1.1 * x p.1.2 * x p.2.1 * x p.2.2) := by
+  exact @gaussian_quadratic_product_expand ι (inferInstance) A B x
+
+example {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (A B : Matrix ι ι ℝ) :
+    Integrable (fun x : ι → ℝ => gaussianQuadraticForm A x * gaussianQuadraticForm B x)
+      (Measure.pi (fun _ : ι => gaussianReal 0 1)) := by
+  exact @gaussian_quadratic_product_integrable ι (inferInstance) (inferInstance) A B
+
+example {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (A B : Matrix ι ι ℝ) :
+    (∑ p : (ι × ι) × (ι × ι),
+      (A p.1.1 p.1.2 * B p.2.1 p.2.2) *
+        ((if p.1.1 = p.1.2 ∧ p.2.1 = p.2.2 then 1 else 0) +
+          (if p.1.1 = p.2.1 ∧ p.1.2 = p.2.2 then 1 else 0) +
+          (if p.1.1 = p.2.2 ∧ p.1.2 = p.2.1 then 1 else 0))) =
+      A.trace * B.trace + (A * B).trace + (A * B.transpose).trace := by
+  exact @gaussian_wick_contraction ι (inferInstance) (inferInstance) A B
+
+example {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (A B : Matrix ι ι ℝ) :
+    (∫ x : ι → ℝ, gaussianQuadraticForm A x * gaussianQuadraticForm B x
+      ∂Measure.pi (fun _ : ι => gaussianReal 0 1)) =
+      A.trace * B.trace + (A * B).trace + (A * B.transpose).trace := by
+  exact @gaussian_quadratic_product_integral ι (inferInstance) (inferInstance) A B
+
+example {ι : Type*} [Fintype ι]
+    (A : Matrix ι ι ℝ) :
+    Integrable (centeredGaussianQuadraticForm A)
+      (Measure.pi (fun _ : ι => gaussianReal 0 1)) := by
+  exact @gaussian_centered_quadratic_integrable ι (inferInstance) A
+
+example {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (A : Matrix ι ι ℝ) :
+    (∫ x : ι → ℝ, centeredGaussianQuadraticForm A x
+      ∂Measure.pi (fun _ : ι => gaussianReal 0 1)) = 0 := by
+  exact @gaussian_centered_quadratic_mean ι (inferInstance) (inferInstance) A
+
+example {ι : Type*} [Fintype ι]
+    (A B : Matrix ι ι ℝ) (x : ι → ℝ) :
+    centeredGaussianQuadraticForm A x * centeredGaussianQuadraticForm B x =
+      gaussianQuadraticForm A x * gaussianQuadraticForm B x -
+        B.trace * gaussianQuadraticForm A x - A.trace * gaussianQuadraticForm B x +
+        A.trace * B.trace := by
+  exact @gaussian_centered_product_expand ι (inferInstance) A B x
+
+example {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (A B : Matrix ι ι ℝ) :
+    Integrable (fun x : ι → ℝ =>
+      centeredGaussianQuadraticForm A x * centeredGaussianQuadraticForm B x)
+      (Measure.pi (fun _ : ι => gaussianReal 0 1)) := by
+  exact @gaussian_centered_product_integrable ι (inferInstance) (inferInstance) A B
+
+example {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (A B : Matrix ι ι ℝ) :
+    (∫ x : ι → ℝ, centeredGaussianQuadraticForm A x * centeredGaussianQuadraticForm B x
+      ∂Measure.pi (fun _ : ι => gaussianReal 0 1)) =
+      (A * B).trace + (A * B.transpose).trace := by
+  exact @gaussian_centered_product_integral ι (inferInstance) (inferInstance) A B
+
+example {ι : Type*} [Fintype ι]
+    (A : Matrix ι ι ℝ) : (A * A).trace ≤ (A * A.transpose).trace := by
+  exact @real_matrix_trace_square_le_frobenius ι (inferInstance) A
+
+example {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (A : Matrix ι ι ℝ) :
+    (∫ x : ι → ℝ, (centeredGaussianQuadraticForm A x) ^ 2
+      ∂Measure.pi (fun _ : ι => gaussianReal 0 1)) ≤
+      2 * (A * A.transpose).trace := by
+  exact @gaussian_centered_quadratic_variance_le ι (inferInstance) (inferInstance) A
+
+#assert_trust kernel gaussian_coordinate_memLp
+#print axioms gaussian_coordinate_memLp
+
+#assert_trust kernel gaussian_pair_integrable
+#print axioms gaussian_pair_integrable
+
+#assert_trust kernel gaussian_coordinate_mean
+#print axioms gaussian_coordinate_mean
+
+#assert_trust kernel gaussian_pair_integral
+#print axioms gaussian_pair_integral
+
+#assert_trust kernel gaussianQuadraticForm
+#print axioms gaussianQuadraticForm
+
+#assert_trust kernel gaussian_quadratic_integrable
+#print axioms gaussian_quadratic_integrable
+
+#assert_trust kernel gaussian_quadratic_mean
+#print axioms gaussian_quadratic_mean
+
+#assert_trust kernel gaussian_quadratic_product_expand
+#print axioms gaussian_quadratic_product_expand
+
+#assert_trust kernel gaussian_quadratic_product_integrable
+#print axioms gaussian_quadratic_product_integrable
+
+#assert_trust kernel gaussian_wick_contraction
+#print axioms gaussian_wick_contraction
+
+#assert_trust kernel gaussian_quadratic_product_integral
+#print axioms gaussian_quadratic_product_integral
+
+#assert_trust kernel centeredGaussianQuadraticForm
+#print axioms centeredGaussianQuadraticForm
+
+#assert_trust kernel gaussian_centered_quadratic_integrable
+#print axioms gaussian_centered_quadratic_integrable
+
+#assert_trust kernel gaussian_centered_quadratic_mean
+#print axioms gaussian_centered_quadratic_mean
+
+#assert_trust kernel gaussian_centered_product_expand
+#print axioms gaussian_centered_product_expand
+
+#assert_trust kernel gaussian_centered_product_integrable
+#print axioms gaussian_centered_product_integrable
+
+#assert_trust kernel gaussian_centered_product_integral
+#print axioms gaussian_centered_product_integral
+
+#assert_trust kernel real_matrix_trace_square_le_frobenius
+#print axioms real_matrix_trace_square_le_frobenius
+
+#assert_trust kernel gaussian_centered_quadratic_variance_le
+#print axioms gaussian_centered_quadratic_variance_le
+
+-- The empty Gaussian product and a genuinely nonsymmetric matrix are covered.
+example : (∫ x : Fin 0 → ℝ, gaussianQuadraticForm (0 : Matrix (Fin 0) (Fin 0) ℝ) x
+    ∂Measure.pi (fun _ : Fin 0 => gaussianReal 0 1)) = 0 := by
+  simpa [Matrix.trace] using gaussian_quadratic_mean (0 : Matrix (Fin 0) (Fin 0) ℝ)
+example : (∫ x : Fin 0 → ℝ,
+    centeredGaussianQuadraticForm (0 : Matrix (Fin 0) (Fin 0) ℝ) x *
+      centeredGaussianQuadraticForm (0 : Matrix (Fin 0) (Fin 0) ℝ) x
+    ∂Measure.pi (fun _ : Fin 0 => gaussianReal 0 1)) = 0 := by
+  simpa [Matrix.trace] using gaussian_centered_product_integral
+    (0 : Matrix (Fin 0) (Fin 0) ℝ) (0 : Matrix (Fin 0) (Fin 0) ℝ)
+example : (∫ x : Fin 2 → ℝ,
+    centeredGaussianQuadraticForm !![0, 1; 0, 0] x *
+      centeredGaussianQuadraticForm !![0, 1; 0, 0] x
+    ∂Measure.pi (fun _ : Fin 2 => gaussianReal 0 1)) = 1 := by
+  have h := gaussian_centered_product_integral
+    (!![0, 1; 0, 0] : Matrix (Fin 2) (Fin 2) ℝ) !![0, 1; 0, 0]
+  norm_num [Matrix.trace, Matrix.diag, Matrix.mul_apply, Matrix.transpose_apply,
+    Fin.sum_univ_two] at h
+  exact h
+example : (∫ x : Fin 1 → ℝ,
+    centeredGaussianQuadraticForm !![1] x * centeredGaussianQuadraticForm !![1] x
+    ∂Measure.pi (fun _ : Fin 1 => gaussianReal 0 1)) = 2 := by
+  simpa [Matrix.trace, Matrix.diag, Matrix.mul_apply, Matrix.transpose_apply] using
+    gaussian_centered_product_integral (!![1] : Matrix (Fin 1) (Fin 1) ℝ) !![1]
+example : NLA.Statements.RE05.Target = Reviewed.RE05.Target := rfl
+end NLA.Proofs.RE05

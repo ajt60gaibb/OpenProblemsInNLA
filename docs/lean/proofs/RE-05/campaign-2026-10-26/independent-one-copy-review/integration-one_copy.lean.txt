@@ -1,0 +1,137 @@
+import NLA.Proofs.RE05.OneCopyError
+import Reviewed.RE05
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+noncomputable section
+namespace RE05OneCopyGeometryConsumer
+open NLA.Computation.LinearFamilyQuery
+open NLA.Proofs.RE05
+open scoped BigOperators Matrix InnerProductSpace
+
+theorem same_original_plan_residual_equation {n q : ℕ} (P : Basis n q) (A : Square n)
+    (ε : ℝ) (ω : ℕ → ℝ) (copy : Fin 15) (c : Fin (q + 1) → ℝ) :
+    gram (orthonormalMember P) (plans P ε ω copy) *ᵥ
+      (singleOutput (orthonormalMember P) (plans P ε ω copy)
+        (copyResponses (plans P ε ω) (batchAnswers A (plans P ε ω)) copy) - c) =
+      rhs (orthonormalMember P) (plans P ε ω copy)
+        (planAnswers (A - represent (orthonormalMember P) c) (plans P ε ω copy)) :=
+  singleOutput_batch_residual_equation (orthonormalMember P) (plans P ε ω) copy A c
+
+theorem raw_cauchy_error {m : ℕ} (G : Matrix (Fin m) (Fin m) ℝ)
+    (α : ℝ) (hα : 0 < α) (hLower : ∀ d : Fin m → ℝ,
+      α * (∑ i, d i * d i) ≤ ∑ i, d i * (G *ᵥ d) i)
+    (d z : Fin m → ℝ) (heq : G *ᵥ d = z) :
+    (∑ i, d i * d i) ≤ (1 / α ^ 2) * ∑ i, z i * z i :=
+  coefficient_error_bound G α hα hLower d z heq
+
+theorem optimum_before_all_original_plans {n q : ℕ} (P : Basis n q)
+    (hP : Independent P) (A : Square n) :
+    ∃ c : Fin (q + 1) → ℝ,
+      NLA.Computation.NonadaptiveMatrixQuery.frobenius A
+        (represent (orthonormalMember P) c) = optimum P A ∧
+      (∀ d : Fin (q + 1) → ℝ,
+        NLA.Computation.LinearFamilyQuery.inner (A - represent (orthonormalMember P) c)
+          (represent (orthonormalMember P) d) = 0) ∧
+      ∀ (ε : ℝ) (ω : ℕ → ℝ) (copy : Fin 15),
+        (∀ d : Fin (q + 1) → ℝ, (1 / 2 : ℝ) * dot d d ≤
+          dot d (gram (orthonormalMember P) (plans P ε ω copy) *ᵥ d)) →
+        dot
+          (rhs (orthonormalMember P) (plans P ε ω copy)
+            (planAnswers (A - represent (orthonormalMember P) c) (plans P ε ω copy)))
+          (rhs (orthonormalMember P) (plans P ε ω copy)
+            (planAnswers (A - represent (orthonormalMember P) c) (plans P ε ω copy))) ≤
+              (squaredAccuracy ε / 4) * optimum P A ^ 2 →
+        NLA.Computation.NonadaptiveMatrixQuery.frobenius A
+          (represent P (singleOutput P (plans P ε ω copy)
+            (copyResponses (plans P ε ω) (batchAnswers A (plans P ε ω)) copy))) ^ 2 ≤
+            (1 + squaredAccuracy ε) * optimum P A ^ 2 := by
+  rcases exists_orthonormal_analysis_optimum P hP A with ⟨c, hc, ho, hp⟩
+  refine ⟨c, hc, ho, fun ε ω copy hLower hOffset => ?_⟩
+  exact singleCopy_batch_relative_squared P hP A (plans P ε ω) copy c hp
+    (squaredAccuracy ε) hLower hOffset
+
+theorem actual_zero_optimum {n q : ℕ} (P : Basis n q) (hP : Independent P)
+    (A : Square n) (plan : Plan n) (c : Fin (q + 1) → ℝ)
+    (hPyth : ∀ d : Fin (q + 1) → ℝ,
+      NLA.Computation.NonadaptiveMatrixQuery.frobenius A
+        (represent (orthonormalMember P) d) ^ 2 = optimum P A ^ 2 + dot (d - c) (d - c))
+    (hLower : ∀ d : Fin (q + 1) → ℝ, (1 / 2 : ℝ) * dot d d ≤
+      dot d (gram (orthonormalMember P) plan *ᵥ d))
+    (hOpt : optimum P A = 0)
+    (hOffset : dot (rhs (orthonormalMember P) plan
+      (planAnswers (A - represent (orthonormalMember P) c) plan))
+      (rhs (orthonormalMember P) plan
+        (planAnswers (A - represent (orthonormalMember P) c) plan)) ≤ 0) :
+    A = represent P (singleOutput P plan (planAnswers A plan)) :=
+  singleCopy_zero_optimum_exact P hP A plan c hPyth hLower hOpt hOffset
+
+theorem empty_coefficient_bound (G : Matrix (Fin 0) (Fin 0) ℝ)
+    (d z : Fin 0 → ℝ) (α : ℝ) (hα : 0 < α) :
+    dot d d ≤ (1 / α ^ 2) * dot z z := by
+  apply coefficient_error_bound G α hα (by intro c; simp [dot])
+  ext i
+  exact Fin.elim0 i
+
+end RE05OneCopyGeometryConsumer
+
+#assert_trust kernel NLA.Proofs.RE05.regressionOffset
+#print axioms NLA.Proofs.RE05.regressionOffset
+#assert_trust kernel NLA.Proofs.RE05.regressionOffset_inner
+#print axioms NLA.Proofs.RE05.regressionOffset_inner
+#assert_trust kernel NLA.Proofs.RE05.regressionOffset_sub
+#print axioms NLA.Proofs.RE05.regressionOffset_sub
+#assert_trust kernel NLA.Proofs.RE05.regressionOffset_represent
+#print axioms NLA.Proofs.RE05.regressionOffset_represent
+#assert_trust kernel NLA.Proofs.RE05.singleOutput_residual_equation
+#print axioms NLA.Proofs.RE05.singleOutput_residual_equation
+#assert_trust kernel NLA.Proofs.RE05.singleOutput_batch_residual_equation
+#print axioms NLA.Proofs.RE05.singleOutput_batch_residual_equation
+#assert_trust kernel NLA.Proofs.RE05.coefficientVector
+#print axioms NLA.Proofs.RE05.coefficientVector
+#assert_trust kernel NLA.Proofs.RE05.coefficientVector_inner
+#print axioms NLA.Proofs.RE05.coefficientVector_inner
+#assert_trust kernel NLA.Proofs.RE05.coefficientVector_norm_sq
+#print axioms NLA.Proofs.RE05.coefficientVector_norm_sq
+#assert_trust kernel NLA.Proofs.RE05.coefficient_error_bound
+#print axioms NLA.Proofs.RE05.coefficient_error_bound
+#assert_trust kernel NLA.Proofs.RE05.singleOutput_coefficient_error
+#print axioms NLA.Proofs.RE05.singleOutput_coefficient_error
+#assert_trust kernel NLA.Proofs.RE05.represent_sub
+#print axioms NLA.Proofs.RE05.represent_sub
+#assert_trust kernel NLA.Proofs.RE05.orthonormal_frobenius_sq
+#print axioms NLA.Proofs.RE05.orthonormal_frobenius_sq
+#assert_trust kernel NLA.Proofs.RE05.exists_orthonormal_analysis_optimum
+#print axioms NLA.Proofs.RE05.exists_orthonormal_analysis_optimum
+#assert_trust kernel NLA.Proofs.RE05.singleCopy_squared_error_bound
+#print axioms NLA.Proofs.RE05.singleCopy_squared_error_bound
+#assert_trust kernel NLA.Proofs.RE05.exists_oneCopy_error_analysis
+#print axioms NLA.Proofs.RE05.exists_oneCopy_error_analysis
+#assert_trust kernel NLA.Proofs.RE05.singleCopy_relative_squared
+#print axioms NLA.Proofs.RE05.singleCopy_relative_squared
+#assert_trust kernel NLA.Proofs.RE05.singleCopy_batch_relative_squared
+#print axioms NLA.Proofs.RE05.singleCopy_batch_relative_squared
+#assert_trust kernel NLA.Proofs.RE05.singleCopy_zero_optimum_exact
+#print axioms NLA.Proofs.RE05.singleCopy_zero_optimum_exact
+#assert_trust kernel RE05OneCopyGeometryConsumer.same_original_plan_residual_equation
+#print axioms RE05OneCopyGeometryConsumer.same_original_plan_residual_equation
+#assert_trust kernel RE05OneCopyGeometryConsumer.raw_cauchy_error
+#print axioms RE05OneCopyGeometryConsumer.raw_cauchy_error
+#assert_trust kernel RE05OneCopyGeometryConsumer.optimum_before_all_original_plans
+#print axioms RE05OneCopyGeometryConsumer.optimum_before_all_original_plans
+#assert_trust kernel RE05OneCopyGeometryConsumer.actual_zero_optimum
+#print axioms RE05OneCopyGeometryConsumer.actual_zero_optimum
+#assert_trust kernel RE05OneCopyGeometryConsumer.empty_coefficient_bound
+#print axioms RE05OneCopyGeometryConsumer.empty_coefficient_bound
+
+example : NLA.Statements.RE05.Target = NLA.ReviewedStatements.RE05.Target := rfl
+
+#audit_named "RE05OneCopyGeometryConsumer.same_original_plan_residual_equation" "Independent_one_copy_Consumer" "public" "theorem"
+
+#audit_named "RE05OneCopyGeometryConsumer.raw_cauchy_error" "Independent_one_copy_Consumer" "public" "theorem"
+
+#audit_named "RE05OneCopyGeometryConsumer.optimum_before_all_original_plans" "Independent_one_copy_Consumer" "public" "theorem"
+
+#audit_named "RE05OneCopyGeometryConsumer.actual_zero_optimum" "Independent_one_copy_Consumer" "public" "theorem"
+
+#audit_named "RE05OneCopyGeometryConsumer.empty_coefficient_bound" "Independent_one_copy_Consumer" "public" "theorem"

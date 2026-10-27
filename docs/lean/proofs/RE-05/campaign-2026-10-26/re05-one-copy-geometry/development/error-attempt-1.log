@@ -1,0 +1,43 @@
+NLA/Proofs/RE05/OneCopyError.lean:25:2: error: Type mismatch
+  add_le_add_left (singleOutput_coefficient_error (orthonormalMember P) plan A c α hα hLower) ?m.184
+has type
+  dot (singleOutput (orthonormalMember P) plan (planAnswers A plan) - c)
+        (singleOutput (orthonormalMember P) plan (planAnswers A plan) - c) +
+      ?m.184 ≤
+    1 / α ^ 2 *
+        dot (regressionOffset (orthonormalMember P) plan (A - represent (orthonormalMember P) c))
+          (regressionOffset (orthonormalMember P) plan (A - represent (orthonormalMember P) c)) +
+      ?m.184
+but is expected to have type
+  optimum P A ^ 2 +
+      dot (singleOutput (orthonormalMember P) plan (planAnswers A plan) - c)
+        (singleOutput (orthonormalMember P) plan (planAnswers A plan) - c) ≤
+    optimum P A ^ 2 +
+      1 / α ^ 2 *
+        dot (regressionOffset (orthonormalMember P) plan (A - represent (orthonormalMember P) c))
+          (regressionOffset (orthonormalMember P) plan (A - represent (orthonormalMember P) c))
+NLA/Proofs/RE05/OneCopyError.lean:72:58: error: unsolved goals
+n q : ℕ
+P : Basis n q
+hP : Independent P
+A : Square n
+plan : Plan n
+c : Fin (q + 1) → ℝ
+hPyth :
+  ∀ (d : Fin (q + 1) → ℝ),
+    Computation.NonadaptiveMatrixQuery.frobenius A (represent (orthonormalMember P) d) ^ 2 =
+      optimum P A ^ 2 + dot (d - c) (d - c)
+ξ : ℝ
+hLower : OrthonormalMeasurementLowerBound P plan (1 / 2)
+hOffset :
+  dot (regressionOffset (orthonormalMember P) plan (A - represent (orthonormalMember P) c))
+      (regressionOffset (orthonormalMember P) plan (A - represent (orthonormalMember P) c)) ≤
+    ξ / 4 * optimum P A ^ 2
+h :
+  Computation.NonadaptiveMatrixQuery.frobenius A (represent P (singleOutput P plan (planAnswers A plan))) ^ 2 ≤
+    optimum P A ^ 2 +
+      4 *
+        dot (regressionOffset (orthonormalMember P) plan (A - represent (orthonormalMember P) c))
+          (regressionOffset (orthonormalMember P) plan (A - represent (orthonormalMember P) c))
+⊢ 0 ≤ ?m.256
+NLA.Proofs.RE05.OneCopyError 1

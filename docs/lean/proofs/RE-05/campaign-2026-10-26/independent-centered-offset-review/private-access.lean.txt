@@ -1,0 +1,7 @@
+
+-- Construct the exact imported private compiler constant as an identifier syntax node.
+-- Numeric Name components are not source text identifiers.
+open Lean in
+macro "private_explicit% " user:str modName:str : term => do
+  let decl := Lean.mkPrivateNameCore modName.getString.toName user.getString.toName
+  `(@$(Lean.mkIdent decl))

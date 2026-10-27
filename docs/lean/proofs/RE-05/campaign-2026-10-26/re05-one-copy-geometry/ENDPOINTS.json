@@ -1,0 +1,107 @@
+{
+  "source_freeze_sha256": "8ebaa3281116cf13c0a945f531eaa250cd28b30689e329c123b428ca2929656c",
+  "theorem_headers": [
+    {
+      "source": "lean-statements/NLA/Proofs/RE05/RegressionOffset.lean",
+      "source_sha256": "44657670df0a7d7ec14dfa8c61930eee60ace4cb55e0230dd248b404d85573c6",
+      "name": "NLA.Proofs.RE05.regressionOffset_inner",
+      "literal_header": "theorem regressionOffset_inner {n q : \u2115} (P : Basis n q) (plan : Plan n)\n    (B : Square n) (j : Fin (q + 1)) :\n    regressionOffset P plan B j =\n      \u27eameasurementVector plan (P j), measurementVector plan B\u27eb_\u211d"
+    },
+    {
+      "source": "lean-statements/NLA/Proofs/RE05/RegressionOffset.lean",
+      "source_sha256": "44657670df0a7d7ec14dfa8c61930eee60ace4cb55e0230dd248b404d85573c6",
+      "name": "NLA.Proofs.RE05.regressionOffset_sub",
+      "literal_header": "theorem regressionOffset_sub {n q : \u2115} (P : Basis n q) (plan : Plan n)\n    (A B : Square n) : regressionOffset P plan (A - B) =\n      regressionOffset P plan A - regressionOffset P plan B"
+    },
+    {
+      "source": "lean-statements/NLA/Proofs/RE05/RegressionOffset.lean",
+      "source_sha256": "44657670df0a7d7ec14dfa8c61930eee60ace4cb55e0230dd248b404d85573c6",
+      "name": "NLA.Proofs.RE05.regressionOffset_represent",
+      "literal_header": "theorem regressionOffset_represent {n q : \u2115} (P : Basis n q) (plan : Plan n)\n    (c : Fin (q + 1) \u2192 \u211d) :\n    regressionOffset P plan (represent P c) = gram P plan *\u1d65 c"
+    },
+    {
+      "source": "lean-statements/NLA/Proofs/RE05/RegressionOffset.lean",
+      "source_sha256": "44657670df0a7d7ec14dfa8c61930eee60ace4cb55e0230dd248b404d85573c6",
+      "name": "NLA.Proofs.RE05.singleOutput_residual_equation",
+      "literal_header": "theorem singleOutput_residual_equation {n q : \u2115} (P : Basis n q) (plan : Plan n)\n    (A : Square n) (c : Fin (q + 1) \u2192 \u211d) :\n    gram P plan *\u1d65 (singleOutput P plan (planAnswers A plan) - c) =\n      regressionOffset P plan (A - represent P c)"
+    },
+    {
+      "source": "lean-statements/NLA/Proofs/RE05/RegressionOffset.lean",
+      "source_sha256": "44657670df0a7d7ec14dfa8c61930eee60ace4cb55e0230dd248b404d85573c6",
+      "name": "NLA.Proofs.RE05.singleOutput_batch_residual_equation",
+      "literal_header": "theorem singleOutput_batch_residual_equation {n q : \u2115} (P : Basis n q)\n    (schedule : Fin 15 \u2192 Plan n) (copy : Fin 15) (A : Square n)\n    (c : Fin (q + 1) \u2192 \u211d) :\n    gram P (schedule copy) *\u1d65\n      (singleOutput P (schedule copy)\n        (copyResponses schedule (batchAnswers A schedule) copy) - c) =\n      regressionOffset P (schedule copy) (A - represent P c)"
+    },
+    {
+      "source": "lean-statements/NLA/Proofs/RE05/CoefficientError.lean",
+      "source_sha256": "a905f9bd063f39ea42ef0c5ce83221454b14c92a9e73bb7ef055f6a62a81d5d1",
+      "name": "NLA.Proofs.RE05.coefficientVector_inner",
+      "literal_header": "theorem coefficientVector_inner {m : \u2115} (c d : Fin m \u2192 \u211d) :\n    dot c d = \u27eacoefficientVector c, coefficientVector d\u27eb_\u211d"
+    },
+    {
+      "source": "lean-statements/NLA/Proofs/RE05/CoefficientError.lean",
+      "source_sha256": "a905f9bd063f39ea42ef0c5ce83221454b14c92a9e73bb7ef055f6a62a81d5d1",
+      "name": "NLA.Proofs.RE05.coefficientVector_norm_sq",
+      "literal_header": "theorem coefficientVector_norm_sq {m : \u2115} (c : Fin m \u2192 \u211d) :\n    dot c c = \u2016coefficientVector c\u2016 ^ 2"
+    },
+    {
+      "source": "lean-statements/NLA/Proofs/RE05/CoefficientError.lean",
+      "source_sha256": "a905f9bd063f39ea42ef0c5ce83221454b14c92a9e73bb7ef055f6a62a81d5d1",
+      "name": "NLA.Proofs.RE05.coefficient_error_bound",
+      "literal_header": "theorem coefficient_error_bound {m : \u2115} (G : Matrix (Fin m) (Fin m) \u211d)\n    (\u03b1 : \u211d) (h\u03b1 : 0 < \u03b1) (hLower : \u2200 d : Fin m \u2192 \u211d, \u03b1 * dot d d \u2264 dot d (G *\u1d65 d))\n    (d z : Fin m \u2192 \u211d) (heq : G *\u1d65 d = z) :\n    dot d d \u2264 (1 / \u03b1 ^ 2) * dot z z"
+    },
+    {
+      "source": "lean-statements/NLA/Proofs/RE05/CoefficientError.lean",
+      "source_sha256": "a905f9bd063f39ea42ef0c5ce83221454b14c92a9e73bb7ef055f6a62a81d5d1",
+      "name": "NLA.Proofs.RE05.singleOutput_coefficient_error",
+      "literal_header": "theorem singleOutput_coefficient_error {n q : \u2115} (P : Basis n q) (plan : Plan n)\n    (A : Square n) (c : Fin (q + 1) \u2192 \u211d) (\u03b1 : \u211d) (h\u03b1 : 0 < \u03b1)\n    (hLower : \u2200 d : Fin (q + 1) \u2192 \u211d, \u03b1 * dot d d \u2264 dot d (gram P plan *\u1d65 d)) :\n    dot (singleOutput P plan (planAnswers A plan) - c)\n      (singleOutput P plan (planAnswers A plan) - c) \u2264\n      (1 / \u03b1 ^ 2) * dot (regressionOffset P plan (A - represent P c))\n        (regressionOffset P plan (A - represent P c))"
+    },
+    {
+      "source": "lean-statements/NLA/Proofs/RE05/OneCopyOptimum.lean",
+      "source_sha256": "691d8935aac0c0648a18f6d5665b84ebef888b2aadb8a4e3781326ed146a31eb",
+      "name": "NLA.Proofs.RE05.represent_sub",
+      "literal_header": "theorem represent_sub {n q : \u2115} (P : Basis n q) (c d : Fin (q + 1) \u2192 \u211d) :\n    represent P (c - d) = represent P c - represent P d"
+    },
+    {
+      "source": "lean-statements/NLA/Proofs/RE05/OneCopyOptimum.lean",
+      "source_sha256": "691d8935aac0c0648a18f6d5665b84ebef888b2aadb8a4e3781326ed146a31eb",
+      "name": "NLA.Proofs.RE05.orthonormal_frobenius_sq",
+      "literal_header": "theorem orthonormal_frobenius_sq {n q : \u2115} (P : Basis n q) (hP : Independent P)\n    (c d : Fin (q + 1) \u2192 \u211d) :\n    NLA.Computation.NonadaptiveMatrixQuery.frobenius\n      (represent (orthonormalMember P) c) (represent (orthonormalMember P) d) ^ 2 =\n      dot (d - c) (d - c)"
+    },
+    {
+      "source": "lean-statements/NLA/Proofs/RE05/OneCopyOptimum.lean",
+      "source_sha256": "691d8935aac0c0648a18f6d5665b84ebef888b2aadb8a4e3781326ed146a31eb",
+      "name": "NLA.Proofs.RE05.exists_orthonormal_analysis_optimum",
+      "literal_header": "theorem exists_orthonormal_analysis_optimum {n q : \u2115} (P : Basis n q)\n    (hP : Independent P) (A : Square n) :\n    \u2203 c : Fin (q + 1) \u2192 \u211d,\n      NLA.Computation.NonadaptiveMatrixQuery.frobenius A\n        (represent (orthonormalMember P) c) = optimum P A \u2227\n      (\u2200 d : Fin (q + 1) \u2192 \u211d,\n        NLA.Computation.LinearFamilyQuery.inner (A - represent (orthonormalMember P) c)\n          (represent (orthonormalMember P) d) = 0) \u2227\n      \u2200 d : Fin (q + 1) \u2192 \u211d,\n        NLA.Computation.NonadaptiveMatrixQuery.frobenius A\n          (represent (orthonormalMember P) d) ^ 2 =\n            optimum P A ^ 2 + dot (d - c) (d - c)"
+    },
+    {
+      "source": "lean-statements/NLA/Proofs/RE05/OneCopyError.lean",
+      "source_sha256": "29dc11900cda5319d103a8a10385d72f17500807516b21757ec02474491ed0c0",
+      "name": "NLA.Proofs.RE05.singleCopy_squared_error_bound",
+      "literal_header": "theorem singleCopy_squared_error_bound {n q : \u2115} (P : Basis n q) (hP : Independent P)\n    (A : Square n) (plan : Plan n) (c : Fin (q + 1) \u2192 \u211d)\n    (hPyth : \u2200 d : Fin (q + 1) \u2192 \u211d,\n      NLA.Computation.NonadaptiveMatrixQuery.frobenius A\n        (represent (orthonormalMember P) d) ^ 2 = optimum P A ^ 2 + dot (d - c) (d - c))\n    (\u03b1 : \u211d) (h\u03b1 : 0 < \u03b1) (hLower : OrthonormalMeasurementLowerBound P plan \u03b1) :\n    NLA.Computation.NonadaptiveMatrixQuery.frobenius A\n      (represent P (singleOutput P plan (planAnswers A plan))) ^ 2 \u2264\n        optimum P A ^ 2 + (1 / \u03b1 ^ 2) *\n          dot (regressionOffset (orthonormalMember P) plan (A - represent (orthonormalMember P) c))\n            (regressionOffset (orthonormalMember P) plan (A - represent (orthonormalMember P) c))"
+    },
+    {
+      "source": "lean-statements/NLA/Proofs/RE05/OneCopyError.lean",
+      "source_sha256": "29dc11900cda5319d103a8a10385d72f17500807516b21757ec02474491ed0c0",
+      "name": "NLA.Proofs.RE05.exists_oneCopy_error_analysis",
+      "literal_header": "theorem exists_oneCopy_error_analysis {n q : \u2115} (P : Basis n q) (hP : Independent P)\n    (A : Square n) :\n    \u2203 c : Fin (q + 1) \u2192 \u211d,\n      NLA.Computation.NonadaptiveMatrixQuery.frobenius A\n        (represent (orthonormalMember P) c) = optimum P A \u2227\n      (\u2200 d : Fin (q + 1) \u2192 \u211d,\n        NLA.Computation.LinearFamilyQuery.inner (A - represent (orthonormalMember P) c)\n          (represent (orthonormalMember P) d) = 0) \u2227\n      (\u2200 d : Fin (q + 1) \u2192 \u211d,\n        NLA.Computation.NonadaptiveMatrixQuery.frobenius A\n          (represent (orthonormalMember P) d) ^ 2 = optimum P A ^ 2 + dot (d - c) (d - c)) \u2227\n      \u2200 (plan : Plan n) (\u03b1 : \u211d), 0 < \u03b1 \u2192 OrthonormalMeasurementLowerBound P plan \u03b1 \u2192\n        NLA.Computation.NonadaptiveMatrixQuery.frobenius A\n          (represent P (singleOutput P plan (planAnswers A plan))) ^ 2 \u2264\n          optimum P A ^ 2 + (1 / \u03b1 ^ 2) *\n            dot (regressionOffset (orthonormalMember P) plan (A - represent (orthonormalMember P) c))\n              (regressionOffset (orthonormalMember P) plan (A - represent (orthonormalMember P) c))"
+    },
+    {
+      "source": "lean-statements/NLA/Proofs/RE05/OneCopyError.lean",
+      "source_sha256": "29dc11900cda5319d103a8a10385d72f17500807516b21757ec02474491ed0c0",
+      "name": "NLA.Proofs.RE05.singleCopy_relative_squared",
+      "literal_header": "theorem singleCopy_relative_squared {n q : \u2115} (P : Basis n q) (hP : Independent P)\n    (A : Square n) (plan : Plan n) (c : Fin (q + 1) \u2192 \u211d)\n    (hPyth : \u2200 d : Fin (q + 1) \u2192 \u211d,\n      NLA.Computation.NonadaptiveMatrixQuery.frobenius A\n        (represent (orthonormalMember P) d) ^ 2 = optimum P A ^ 2 + dot (d - c) (d - c))\n    (\u03be : \u211d) (hLower : OrthonormalMeasurementLowerBound P plan (1 / 2))\n    (hOffset : dot\n      (regressionOffset (orthonormalMember P) plan (A - represent (orthonormalMember P) c))\n      (regressionOffset (orthonormalMember P) plan (A - represent (orthonormalMember P) c)) \u2264\n        (\u03be / 4) * optimum P A ^ 2) :\n    NLA.Computation.NonadaptiveMatrixQuery.frobenius A\n      (represent P (singleOutput P plan (planAnswers A plan))) ^ 2 \u2264\n        (1 + \u03be) * optimum P A ^ 2"
+    },
+    {
+      "source": "lean-statements/NLA/Proofs/RE05/OneCopyError.lean",
+      "source_sha256": "29dc11900cda5319d103a8a10385d72f17500807516b21757ec02474491ed0c0",
+      "name": "NLA.Proofs.RE05.singleCopy_batch_relative_squared",
+      "literal_header": "theorem singleCopy_batch_relative_squared {n q : \u2115} (P : Basis n q) (hP : Independent P)\n    (A : Square n) (schedule : Fin 15 \u2192 Plan n) (copy : Fin 15) (c : Fin (q + 1) \u2192 \u211d)\n    (hPyth : \u2200 d : Fin (q + 1) \u2192 \u211d,\n      NLA.Computation.NonadaptiveMatrixQuery.frobenius A\n        (represent (orthonormalMember P) d) ^ 2 = optimum P A ^ 2 + dot (d - c) (d - c))\n    (\u03be : \u211d) (hLower : OrthonormalMeasurementLowerBound P (schedule copy) (1 / 2))\n    (hOffset : dot\n      (regressionOffset (orthonormalMember P) (schedule copy) (A - represent (orthonormalMember P) c))\n      (regressionOffset (orthonormalMember P) (schedule copy) (A - represent (orthonormalMember P) c)) \u2264\n        (\u03be / 4) * optimum P A ^ 2) :\n    NLA.Computation.NonadaptiveMatrixQuery.frobenius A\n      (represent P (singleOutput P (schedule copy)\n        (copyResponses schedule (batchAnswers A schedule) copy))) ^ 2 \u2264\n        (1 + \u03be) * optimum P A ^ 2"
+    },
+    {
+      "source": "lean-statements/NLA/Proofs/RE05/OneCopyError.lean",
+      "source_sha256": "29dc11900cda5319d103a8a10385d72f17500807516b21757ec02474491ed0c0",
+      "name": "NLA.Proofs.RE05.singleCopy_zero_optimum_exact",
+      "literal_header": "theorem singleCopy_zero_optimum_exact {n q : \u2115} (P : Basis n q) (hP : Independent P)\n    (A : Square n) (plan : Plan n) (c : Fin (q + 1) \u2192 \u211d)\n    (hPyth : \u2200 d : Fin (q + 1) \u2192 \u211d,\n      NLA.Computation.NonadaptiveMatrixQuery.frobenius A\n        (represent (orthonormalMember P) d) ^ 2 = optimum P A ^ 2 + dot (d - c) (d - c))\n    (hLower : OrthonormalMeasurementLowerBound P plan (1 / 2))\n    (hOpt : optimum P A = 0)\n    (hOffset : dot\n      (regressionOffset (orthonormalMember P) plan (A - represent (orthonormalMember P) c))\n      (regressionOffset (orthonormalMember P) plan (A - represent (orthonormalMember P) c)) \u2264 0) :\n    A = represent P (singleOutput P plan (planAnswers A plan))"
+    }
+  ]
+}
