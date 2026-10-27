@@ -1,0 +1,28 @@
+import Lean
+import Comparator.Compare
+open Lean
+def imported (moduleName : Name) : IO Export.ExportedEnv := do
+  let env ← importModules #[{ module := moduleName }] {} 0
+  let consts := env.constants.toList
+  return { constMap := Std.HashMap.ofList consts, constOrder := (consts.map Prod.fst).toArray }
+def requireSuccess (label : String) (result : Except String Unit) : IO Unit := do
+  match result with
+  | .ok _ => IO.println s!"PASS {label}"
+  | .error err => throw <| IO.userError s!"{label}: unexpected rejection: {err}"
+def requireRejection (label needle : String) (result : Except String Unit) : IO Unit := do
+  match result with
+  | .ok _ => throw <| IO.userError s!"{label}: unexpectedly accepted"
+  | .error err =>
+    if (err.splitOn needle).length < 2 then
+      throw <| IO.userError s!"{label}: unexpected rejection reason: {err}"
+    IO.println s!"PASS {label}: {err}"
+def main : IO Unit := do
+  initSearchPath (← findSysroot)
+  let challenge ← imported `Challenge
+  let solution ← imported `Solution
+  requireSuccess "actual exact isotropic signature" <|
+    Comparator.compareAt challenge solution #[`NLA.Proofs.TR26.isotropic_degree] #[] #[]
+  requireSuccess "actual transitive standard-three axiom audit" <|
+    Comparator.checkAxioms solution #[`NLA.Proofs.TR26.isotropic_degree] #[] #[`propext, `Classical.choice, `Quot.sound]
+  requireRejection "actual reference sorry rejection" "Illegal axiom detected: 'sorryAx'" <|
+    Comparator.checkAxioms challenge #[`NLA.Proofs.TR26.isotropic_degree] #[] #[`propext, `Classical.choice, `Quot.sound]

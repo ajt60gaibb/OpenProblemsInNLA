@@ -228,7 +228,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [TR-23](../../../tensor-computations/TR-23/README.md) | Open | missing-statement | Not audited here. |
 | [TR-24](../../../tensor-computations/TR-24/README.md) | Open | missing-statement | Not audited here. |
 | [TR-25](../../../tensor-computations/TR-25/README.md) | Partially resolved | missing-statement | Not audited here. |
-| [TR-26](../../../tensor-computations/TR-26/README.md) | Solved | shared-statement-source | Not audited here. |
+| [TR-26](../../../tensor-computations/TR-26/README.md) | Lean verified | shared-statement-source | Not audited here. |
 | [TR-27](../../../tensor-computations/TR-27/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [TR-28](../../../tensor-computations/TR-28/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [TR-29](../../../tensor-computations/TR-29/README.md) | Partially resolved | missing-statement | Not audited here. |

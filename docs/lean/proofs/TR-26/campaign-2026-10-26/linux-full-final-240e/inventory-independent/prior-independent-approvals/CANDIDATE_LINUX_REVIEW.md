@@ -1,0 +1,25 @@
+# Independent full TR-26 Linux receipt review
+
+**Approve the exact corrected candidate `fa85c05acc70bbaa05bb3346fb43b57b1546af67` and its genuine Linux receipt.** The portable independent auditor passes **2,934 checks**. I authored no TR-26 proof sources. This is an offline audit of the actual GitHub execution, not a new local Linux run or an approval of a later status-promotion commit.
+
+The actual PR 369 workflow is [run 40396604016](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/40396604016), job `121831441827`, on Ubuntu 24.04. The independently retrieved raw checkout, checkout summary and `git log` identify executed synthetic merge `68b328659b93033184fd5d65316ef7abcaca9aab`, whose actual Git parents are `ccc7864f5034cf7c4602f7577ceaf083ebf63d52` and the exact `fa85` head. Mutable nested PR metadata is not used to choose the executed commit.
+
+Original [artifact 12688115670](https://github.com/ajt60gaibb/OpenProblemsInNLA/actions/runs/40396604016/artifacts/12688115670), `lean-TR-26`, is 44,840 bytes with SHA-256 `f5f55dd18b6e3f92a6d504d4e5390f975bfe42ead6c3adbd2e72008dda2c279f`. The original raw job log is 128,931 bytes with SHA-256 `b5d6d9a95d39cbd4177769742ed1f00e06ec2f58c4b0bee5eef8e61121b366b3`; its BOM and ANSI bytes are preserved. Its UTF-8 bytes agree exactly with a separately retrieved GitHub connector log. API listing digest, size, run/head association and raw artifact-upload digest/ID all agree. The ZIP has 15 ordinary safe members and passes CRC checks.
+
+All 857 actual package inputs match both the exact head and executed merge and my prior corrected-package approval: 856 locked inputs plus the lock. I rechecked all 278 source-copy mappings, 221 historical review bindings, 332 full-source review bindings and the explicit regenerable-bytecode omission. All 80 shared mathematical sources equal approved `ecc597cb68b65b473aecce9ac635e27d35c09694`. All 24 original inputs, the original Solved README and all 217 permanent IDs remain intact. The exact runtime sources and pins agree with the separately reviewed candidate. The f0 missing-bytecode rejection remains historical and is not an accepted receipt.
+
+The actual Comparator builds and compares the exact three theorem exports `NLA.Proofs.TR26.nonisotropic_degree`, `NLA.Proofs.TR26.isotropic_degree` and `NLA.Proofs.TR26.target`, with an empty definitions list. The generated consumer checks genuine theorem kind and LeanCert kernel trust for all three; each prints exactly `propext`, `Classical.choice` and `Quot.sound`. Its reconstructed source hash is `a78045c52034b4f31deff461bbe28b9d86783ab82d853c1268d9a48074abd824`. The fixed original Target and both exact degree endpoints are covered, with no additional hypotheses.
+
+Actual raw-bound controls cover kernel acceptance and invalid-proof/quotient rejection, all five Comparator regression cases, `sorryAx` and native-axiom rejection, and Linux isolation in build/export modes with its four invalid-option cases. Every line of every one of the fourteen original artifact logs is ordered and matched in the independently retrieved raw project log, including expected exit statuses. The separate `checker-controls` job was skipped; the controls accepted here actually ran inside the successful TR-26 project job. Official Linux Lean 4.33.1, ten pinned dependencies, checker source lock, default kernel profile and generated CI sandbox-probe bytes are checked.
+
+Compilation scope is explicit. All 84 runtime Lean source inputs are hash-bound. Actual Linux Comparator build/replay markers cover **81**: all **77 proof modules**, the two live statement modules, `Challenge` and `Solution`. `Reviewed.TR26`, `EndpointAudit` and `Identity` have no build markers in this Linux job; they were independently compiled in the prior fresh local full-source/package replay. The generated kernel consumer runs separately. `COMPILE_SCOPE.json` records the exact distinction.
+
+I inspected the frozen author collector and parser, independently retrieved original bytes with read-only `gh api`, and extended the parser with separately owned source/review/input bindings, exact compile scope and independently retrieved connector corroboration. Author parser provenance is explicit; its 2,391 checks are not relabelled as my whole review. My earlier full mathematical source and canonical package approvals are copied verbatim under `prior-independent-approvals/`. `OWN_AUDITOR_CORRECTION.md` preserves an optional reviewer-driver source-path mistake and its correction; it did not modify the candidate or CI bytes.
+
+Reproduce the offline audit with Python 3 and a repository containing the bound Git objects:
+
+```sh
+python3 /path/to/inventory-independent/reproduce.py --repo /path/to/OpenProblemsInNLA --output /tmp/tr26-independent-receipt-replay
+```
+
+`INVENTORY_REVIEW.json` binds the final auditor, original bytes, original metadata, connector receipts and prior approvals. `FILE_SHA256.json` binds the complete retained evidence tree. Canonical promotion and its later exact-head Linux receipt remain separate work.

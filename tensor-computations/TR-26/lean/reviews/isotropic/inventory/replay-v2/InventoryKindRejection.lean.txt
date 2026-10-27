@@ -1,0 +1,49 @@
+import NLA.Proofs.TR26.AnalyticConormal
+import NLA.Proofs.TR26.BinaryDefinitions
+import NLA.Proofs.TR26.BinaryScaling
+import NLA.Proofs.TR26.ChartIncidence
+import NLA.Proofs.TR26.CommonRootWronskian
+import NLA.Proofs.TR26.ConormalLemmas
+import NLA.Proofs.TR26.CurveEquations
+import NLA.Proofs.TR26.CurveNormalRank
+import NLA.Proofs.TR26.Denominator
+import NLA.Proofs.TR26.FamilyDiscriminant
+import NLA.Proofs.TR26.FamilyDiscriminantEvaluation
+import NLA.Proofs.TR26.FixedDiscriminant
+import NLA.Proofs.TR26.FixedDiscriminantBinary
+import NLA.Proofs.TR26.FixedDiscriminantNonzero
+import NLA.Proofs.TR26.FixedDiscriminantResultant
+import NLA.Proofs.TR26.FixedDiscriminantRoots
+import NLA.Proofs.TR26.FixedDiscriminantSpecialization
+import NLA.Proofs.TR26.IncidenceIdeal
+import NLA.Proofs.TR26.IncidenceScaling
+import NLA.Proofs.TR26.IsotropicDivisibility
+import NLA.Proofs.TR26.IsotropicFactor
+import NLA.Proofs.TR26.IsotropicFamilyFactor
+import NLA.Proofs.TR26.LinearCriticalGraph
+import NLA.Proofs.TR26.LocalConormal
+import NLA.Proofs.TR26.Numerator
+import NLA.Proofs.TR26.TangentRank
+import NLA.Proofs.TR26.Wronskian
+import NLA.Proofs.TR26.WronskianLinear
+import NLA.Proofs.TR26.WronskianCharts
+import NLA.Proofs.TR26.CriticalEquation
+import NLA.Proofs.TR26.IsotropicChartCover
+import NLA.Proofs.TR26.IsotropicImageContainment
+import NLA.Proofs.TR26.IsotropicDegree
+import NLA.Statements.Infrastructure
+import NLA.Statements.TR26
+import Reviewed.TR26
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open Lean Elab Command in
+elab "#assert_proof_constant " n:ident : command => do
+  let decl ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  match (← getEnv).find? decl with
+  | some (.thmInfo _) => pure ()
+  | _ => throwErrorAt n "expected a proved theorem constant"
+
+def inventoryDefinitionAlias (d : ℕ) (hd : 2 ≤ d) :
+    NLA.Statements.TR26.HasReducedDegree d (2*d) (NLA.Statements.TR26.IsotropicImage d) :=
+  NLA.Proofs.TR26.isotropic_degree d hd
+#assert_proof_constant inventoryDefinitionAlias
