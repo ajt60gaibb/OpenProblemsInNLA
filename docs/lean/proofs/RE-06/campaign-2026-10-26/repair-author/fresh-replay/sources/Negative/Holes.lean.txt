@@ -1,0 +1,10 @@
+import NLA.Proofs.RE06.RepairAudit
+set_option leancert.trust "kernel"
+namespace Negative
+theorem fake_pythagoras (a b : ℕ) (X Y : Matrix (Fin a) (Fin b) ℝ)
+ (h : X.transpose*Y=0) :
+ NLA.Computation.NonadaptiveMatrixQuery.squaredFrobenius (X-Y) 0 =
+ NLA.Computation.NonadaptiveMatrixQuery.squaredFrobenius X 0 +
+ NLA.Computation.NonadaptiveMatrixQuery.squaredFrobenius Y 0 := by sorry
+#assert_trust kernel fake_pythagoras
+end Negative

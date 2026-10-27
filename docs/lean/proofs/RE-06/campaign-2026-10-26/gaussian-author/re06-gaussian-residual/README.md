@@ -1,0 +1,7 @@
+# RE-06 actual Gaussian residual author acceptance
+
+This is local macOS author evidence, not independent review, Linux CI, Comparator evidence or full RE-06 verification. A fresh source/object tree rebuilt all 23 sources under official Lean 4.33.1, pinned read-only dependencies and LeanCert kernel mode. Every new public theorem has a kernel guard and standard-axiom inspection. All four new modules are warning-free; inherited nonfatal linter warnings are retained verbatim.
+
+The actual SVD is used for each fixed residual, with no full-rank, positive-optimum or SVD-measurability premise. The pointwise energy identity and actual stream/product Gaussian transport preserve zero and rank-deficient cases, and the strict lower-tail empty event handles zero tail energy. Actual lower/upper residual tails and the actual finite-scan warm index are proved with source constants. The warm bound is under GaussianLaw and refers literally to sketchWarmIndex of makePlan; no candidate-score independence or alternate untransported sampling model is used.
+
+The JSON receipt binds all 23 sources and the fresh attempt. Compiler, dependency/runtime preflight, exact sources, failed author attempts and accepted fresh logs are retained. Explicit numerical parameter specialization and finite-valued conditional repair transport are new downstream work; inverse moments, repair analysis and final independent review/CI remain separate obligations.

@@ -1,0 +1,106 @@
+/private/tmp/nla-re06-transcript-dev/source/NLA/Proofs/RE06/Transcript.lean:124:41: error: Type mismatch: After simplification, term
+  j.isLt
+ has type
+  True
+but is expected to have type
+  ↑j < P.s + P.k
+/private/tmp/nla-re06-transcript-dev/source/NLA/Proofs/RE06/Transcript.lean:125:2: error: Type mismatch
+  storedVector_finRange ?m.35 j
+has type
+  storedVector (List.map ?m.35 (List.finRange P.s)) ↑j = ?m.35 j
+but is expected to have type
+  storedVector
+      (List.map (fun j i => (A * P.G0) i j) (List.finRange P.s) ++
+        List.map (fun j i => (A * P.G1) i j) (List.finRange P.k))
+      ↑j =
+    fun i => (A * P.G0) i j
+/private/tmp/nla-re06-transcript-dev/source/NLA/Proofs/RE06/Transcript.lean:132:6: error: Tactic `rewrite` failed: motive is not type correct:
+  fun _a =>
+    storedVector
+        (List.map (fun j i => (A * P.G0) i j) (List.finRange _a) ++
+            List.map (fun j i => (A * P.G1) i j) (List.finRange P.k) ++
+          List.map (fun j i => (A.transpose * P.H) i j) (List.finRange P.ell))
+        (_a + ↑j) =
+      fun i => (A * P.G1) i j
+Error: Application type mismatch: The argument
+  P.G0
+has type
+  Matrix (Fin n) (Fin P.s) ℝ
+but is expected to have type
+  Matrix (Fin n) (Fin _a) ℝ
+in the application
+  A * P.G0
+
+Explanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.
+
+Possible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).
+
+n : ℕ
+A : Matrix (Fin n) (Fin n) ℝ
+P : Plan n
+hP : P.full = false
+j : Fin P.k
+hlen : (List.map (fun j i => (A * P.G0) i j) (List.finRange P.s)).length = P.s
+⊢ storedVector
+      (List.map (fun j i => (A * P.G0) i j) (List.finRange P.s) ++
+          List.map (fun j i => (A * P.G1) i j) (List.finRange P.k) ++
+        List.map (fun j i => (A.transpose * P.H) i j) (List.finRange P.ell))
+      (P.s + ↑j) =
+    fun i => (A * P.G1) i j
+
+Note: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.
+Full error:
+  function expected
+    (A * P.G0) i
+/private/tmp/nla-re06-transcript-dev/source/NLA/Proofs/RE06/Transcript.lean:142:21: error: Tactic `rewrite` failed: motive is not type correct:
+  fun _a =>
+    storedVector
+        (List.map (fun j i => (A * P.G0) i j) (List.finRange _a) ++
+            List.map (fun j i => (A * P.G1) i j) (List.finRange P.k) ++
+          List.map (fun j i => (A.transpose * P.H) i j) (List.finRange P.ell))
+        (_a + (P.k + ↑j)) =
+      fun i => (A.transpose * P.H) i j
+Error: Application type mismatch: The argument
+  P.G0
+has type
+  Matrix (Fin n) (Fin P.s) ℝ
+but is expected to have type
+  Matrix (Fin n) (Fin _a) ℝ
+in the application
+  A * P.G0
+
+Explanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.
+
+Possible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).
+
+n : ℕ
+A : Matrix (Fin n) (Fin n) ℝ
+P : Plan n
+hP : P.full = false
+j : Fin P.ell
+hlen : (List.map (fun j i => (A * P.G0) i j) (List.finRange P.s)).length = P.s
+hlen' : (List.map (fun j i => (A * P.G1) i j) (List.finRange P.k)).length = P.k
+⊢ storedVector
+      (List.map (fun j i => (A * P.G0) i j) (List.finRange P.s) ++
+          List.map (fun j i => (A * P.G1) i j) (List.finRange P.k) ++
+        List.map (fun j i => (A.transpose * P.H) i j) (List.finRange P.ell))
+      (P.s + (P.k + ↑j)) =
+    fun i => (A.transpose * P.H) i j
+
+Note: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.
+Full error:
+  function expected
+    (A * P.G0) i
+'NLA.Proofs.RE06.minimumIndex_score_le' depends on axioms: [propext, choice, Quot.sound]
+'NLA.Proofs.RE06.storedVector_full' depends on axioms: [propext, choice, Quot.sound]
+'NLA.Proofs.RE06.successful_full_branch' depends on axioms: [propext, choice, Quot.sound]
+/private/tmp/nla-re06-transcript-dev/source/NLA/Proofs/RE06/Transcript.lean:161:21: error: #assert_trust: 'NLA.Proofs.RE06.storedVector_sketch0' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-re06-transcript-dev/source/NLA/Proofs/RE06/Transcript.lean:162:21: error: #assert_trust: 'NLA.Proofs.RE06.storedVector_sketch1' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-re06-transcript-dev/source/NLA/Proofs/RE06/Transcript.lean:163:21: error: #assert_trust: 'NLA.Proofs.RE06.storedVector_sketchH' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.RE06.storedVector_sketchH' depends on axioms: [propext, sorryAx, choice, Quot.sound]

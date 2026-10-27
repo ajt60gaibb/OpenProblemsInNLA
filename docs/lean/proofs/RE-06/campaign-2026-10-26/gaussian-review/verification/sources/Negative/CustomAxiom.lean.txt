@@ -1,0 +1,8 @@
+import NLA.Proofs.RE06.GaussianWarmStartResidual
+set_option leancert.trust "kernel"
+open scoped BigOperators
+open MeasureTheory ProbabilityTheory
+open NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06
+axiom GaussianOracle (t : ℝ) (ht : t < 1 / 2) : (∫ x : ℝ, Real.exp (t*x^2) ∂gaussianReal 0 1) = (Real.sqrt (1-2*t))⁻¹
+theorem TaintedGaussian (t : ℝ) (ht : t < 1 / 2) : (∫ x : ℝ, Real.exp (t*x^2) ∂gaussianReal 0 1) = (Real.sqrt (1-2*t))⁻¹ := GaussianOracle t ht
+#assert_trust kernel TaintedGaussian

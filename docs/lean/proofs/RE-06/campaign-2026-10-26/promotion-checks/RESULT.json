@@ -1,0 +1,92 @@
+{
+  "scope": "Author repository/catalog/metadata verification of exact approved promotion; not final Linux acceptance",
+  "UTC": "2026-10-26T23:20:26.442587+00:00",
+  "published_main": "099805ef1ce7347d373e47cccc3b2d7cf580a99e",
+  "records": [
+    {
+      "argv": [
+        "python3",
+        "tools/validate_problem_ids.py",
+        "--base-ref",
+        "origin/main"
+      ],
+      "exit_code": 0,
+      "log": "01.log",
+      "sha256": "44cc74bfe8f011df4389835465a6043310e12828a092e8c74d318f50d26da3a0"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/update_catalog.py",
+        "--base-ref",
+        "origin/main"
+      ],
+      "exit_code": 0,
+      "log": "02.log",
+      "sha256": "5238134d5474426dd7cea07074f5f7ee64a5f8dd4c5362154b75c030b6628351"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_problem_ids.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "03.log",
+      "sha256": "3b05bd77332141675917e391905c1f76bc4ee355c2cbf17777e5f930092cd828"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/statement_inventory.py",
+        "--base-ref",
+        "01ed3c64648d2d8350ba80c4018894b6d785d2c9"
+      ],
+      "exit_code": 0,
+      "log": "04.log",
+      "sha256": "84dc4cd8288fa7687065d6c8ef88d46c7ecff8aec7c47b0b18055ec6831e53f2"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/statement_inventory.py",
+        "--base-ref",
+        "01ed3c64648d2d8350ba80c4018894b6d785d2c9",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log": "05.log",
+      "sha256": "84dc4cd8288fa7687065d6c8ef88d46c7ecff8aec7c47b0b18055ec6831e53f2"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/lean_statements/check.py",
+        "--base-ref",
+        "e7fadd2197de71772f569de202dca4a9a7e9b422",
+        "validate"
+      ],
+      "exit_code": 0,
+      "log": "06.log",
+      "sha256": "96654ca284b22037752a6a93661a467cb41a4a957b75dc4fae12b705695478cf"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/lean/validate_manifest.py",
+        "randomized-and-low-rank-approximation/RE-06/lean"
+      ],
+      "exit_code": 0,
+      "log": "07.log",
+      "sha256": "c954cf1b99ef2790375521bfde2261036029dc670bbc0190521f09d6eacc816e"
+    }
+  ],
+  "expected_commands": 7,
+  "passed": true
+}

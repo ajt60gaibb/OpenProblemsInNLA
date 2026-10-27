@@ -20,7 +20,7 @@
 The recovered AI-assisted proof passed independent agent review; this is not external human peer review or formal certification. The original target and dated source audit are retained. Difficulty, importance and rating rationale are historical. No novelty or priority claim is made.
 <!-- /colbrook-recovered-tensors -->
 
-## Lean verification — 2026-10-26
+## Lean proof and verification evidence — 2026-10-26
 
 The complete reviewed computational target is proved by [`FullSolution.lean`](lean/FullSolution.lean), using the fixed finite program `ttProgram` and the global operation bound `1000000 * Size^5`. The same program handles every permitted input and every legal full-SVD reply trace. Its actual dense output satisfies every prescribed unfolding-rank bound, has squared error strictly below `(d−1)E_*` when `E_*>0`, and equals the input when `E_*=0`.
 

@@ -1,0 +1,23 @@
+ProbabilityTheory.map_pi_eq_stdGaussian.{u_1} {ι : Type u_1} [Fintype ι] :
+  Measure.map (WithLp.toLp 2) (Measure.pi fun x => gaussianReal 0 1) = stdGaussian (EuclideanSpace ℝ ι)
+ProbabilityTheory.stdGaussian_map.{u_2, u_3} {E : Type u_2} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
+  [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] {F : Type u_3} [NormedAddCommGroup F]
+  [InnerProductSpace ℝ F] [MeasurableSpace F] [BorelSpace F] (f : E ≃ₗᵢ[ℝ] F) :
+  Measure.map (⇑f) (stdGaussian E) = stdGaussian F
+ProbabilityTheory.stdGaussian_eq_map_pi_orthonormalBasis.{u_1, u_2} {ι : Type u_1} [Fintype ι] {E : Type u_2}
+  [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]
+  (b : OrthonormalBasis ι ℝ E) :
+  stdGaussian E = Measure.map (fun x => ∑ i, x i • b i) (Measure.pi fun x => gaussianReal 0 1)
+/private/tmp/nla-re06-gaussian-dev/source/Probe.lean:6:7: error(lean.unknownIdentifier): Unknown identifier `stdGaussian_map_orthogonal`
+/private/tmp/nla-re06-gaussian-dev/source/Probe.lean:7:7: error(lean.unknownIdentifier): Unknown constant `LinearIsometryEquiv.measurePreserving_stdGaussian`
+/private/tmp/nla-re06-gaussian-dev/source/Probe.lean:8:7: error(lean.unknownIdentifier): Unknown constant `WithLp.continuous_toLp`
+WithLp.measurable_toLp.{u_1} (p : ENNReal) (X : Type u_1) [MeasurableSpace X] : Measurable (WithLp.toLp p)
+WithLp.toLp.{u_1} (p : ENNReal) {V : Type u_1} (ofLp : V) : WithLp p V
+MeasureTheory.Measure.pi_map_pi.{u_1, u_4, u_5} {ι : Type u_1} [Fintype ι] {X : ι → Type u_4} {Y : ι → Type u_5}
+  {mX : (i : ι) → MeasurableSpace (X i)} {μ : (i : ι) → Measure (X i)} [(i : ι) → MeasurableSpace (Y i)]
+  {f : (i : ι) → X i → Y i} [hμ : ∀ (i : ι), SigmaFinite (Measure.map (f i) (μ i))]
+  (hf : ∀ (i : ι), AEMeasurable (f i) (μ i)) :
+  Measure.map (fun x i => f i (x i)) (Measure.pi μ) = Measure.pi fun i => Measure.map (f i) (μ i)
+ProbabilityTheory.HasLaw.comp.{u_1, u_2, u_3} {Ω : Type u_1} {𝓧 : Type u_2} {mΩ : MeasurableSpace Ω}
+  {m𝓧 : MeasurableSpace 𝓧} {X : Ω → 𝓧} {μ : Measure 𝓧} {P : Measure Ω} {𝓨 : Type u_3} {m𝓨 : MeasurableSpace 𝓨}
+  {ν : Measure 𝓨} {Y : 𝓧 → 𝓨} (hY : HasLaw Y ν μ) (hX : HasLaw X μ P) : HasLaw (Y ∘ X) ν P

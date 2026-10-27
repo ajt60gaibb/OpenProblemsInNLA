@@ -1,0 +1,45 @@
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/GaussianMomentNorm.lean:22:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/GaussianMomentNorm.lean:80:6: error: Tactic `apply` failed: could not unify the conclusion of `@Measurable.ennreal_ofReal`
+  MeasurableSet ((fun x => ENNReal.ofReal (?f x)) ⁻¹' ?t)
+with the goal
+  AEMeasurable (Function.uncurry fun x y => ENNReal.ofReal (rexp (-normSq x * y)))
+    ((Measure.pi fun x => gaussianReal 0 1).prod (ℙ.restrict (Ioi 0)))
+
+Note: The full type of `@Measurable.ennreal_ofReal` is
+  ∀ {α : Type ?u.185} {mα : MeasurableSpace α} {f : α → ℝ}, Measurable f → Measurable fun x => ENNReal.ofReal (f x)
+
+d : ℕ
+hd : 2 < d
+hdp : 0 < d
+hpr : -↑d / 2 < -1
+⊢ AEMeasurable (Function.uncurry fun x y => ENNReal.ofReal (rexp (-normSq x * y)))
+    ((Measure.pi fun x => gaussianReal 0 1).prod (ℙ.restrict (Ioi 0)))
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/GaussianMomentNorm.lean:92:10: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  fun x => ENNReal.ofReal (rexp (-normSq x * t))
+in the target expression
+  (fun x => ∫⁻ (x_1 : Fin d → ℝ), ENNReal.ofReal (rexp (-normSq x_1 * x)) ∂Measure.pi fun x => gaussianReal 0 1) t =
+    (fun x => ENNReal.ofReal ((2 * x + 1) ^ (-↑d / 2))) t
+
+d : ℕ
+hd : 2 < d
+hdp : 0 < d
+hpr : -↑d / 2 < -1
+t : ℝ
+ht : t ∈ Ioi 0
+heq : (fun x => ENNReal.ofReal (rexp (-normSq x * t))) = fun x => ENNReal.ofReal (rexp (-t * normSq x))
+⊢ (fun x => ∫⁻ (x_1 : Fin d → ℝ), ENNReal.ofReal (rexp (-normSq x_1 * x)) ∂Measure.pi fun x => gaussianReal 0 1) t =
+    (fun x => ENNReal.ofReal ((2 * x + 1) ^ (-↑d / 2))) t
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/GaussianMomentNorm.lean:105:21: error: #assert_trust: 'NLA.Proofs.RE06.GaussianMoment.normSq_inverse_lintegral' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.RE06.GaussianMoment.normSq_inverse_lintegral' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]

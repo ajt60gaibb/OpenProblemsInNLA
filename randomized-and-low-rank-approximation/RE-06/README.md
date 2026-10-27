@@ -7,15 +7,21 @@
 **Difficulty:** challenging  
 **Importance:** interesting to the community  
 **Rating rationale:** Challenging because all query choices must precede information about the target; community impact is parallel and pass-efficient structured matrix learning.  
-**Status:** Solved
+**Status:** Lean verified
 **Area:** nonadaptive matrix sketching  
-**Last checked:** 2026-09-13
+**Last checked:** 2026-10-26
 
 ## Resolution — affirmative, 13 September 2026
 
 Sidney Holden (Center for Computational Biology, Flatiron Institute, Simons Foundation) gives a complete affirmative answer in [Theorem 1.1 and Sections 2–6](solution.pdf) ([TeX source](solution.tex)). The algorithm fixes all query vectors and query sides before any answers, succeeds with probability at least 0.99 for every fixed input, and uses at most $`4{,}000{,}000\sqrt{\log(2M)}\,\varepsilon^{-2}`$ queries. Thus the original target holds with $`C=4{,}000{,}000`$ and $`b=0`$, including zero optimal residual and rank-deficient cases, in precisely the stated exact-real, query-only model.
 
 The complete proof passed a separate [independent Codex AI-agent informal audit](../../references/holden-re06-2026-09-13/independent-review.md), satisfying the repository's `Solved` policy. This is not external human peer review or formal verification. No Lean verification was performed. [Authorship, verified affiliation, original submission and checks](../../references/holden-re06-2026-09-13/README.md). The original target and historical evidence below are retained; the stronger nonadaptive relative-error question is not claimed settled.
+
+## Lean proof and verification evidence — 2026-10-26
+
+The complete original target is proved in [`lean/Solution.lean`](lean/Solution.lean), with the unchanged actual Gaussian stream, exact SVD and pseudoinverse, finite-family scan and fixed nonadaptive query transcript. The proof supplies `C=4000000`, `b=0`, the `(3+epsilon)` error guarantee with probability at least `99/100`, and the every-stream query bound. It includes zero optimal residual and rank-deficient matrices.
+
+Two independent complete-source reviews, two independent canonical-package reviews, fresh source-only local replays and the actual isolated Linux Comparator/default-kernel and LeanCert kernel checks passed. The six public exports have only `propext`, `Classical.choice` and `Quot.sound` as transitive axioms. See the [proof record](../../docs/lean/proofs/RE-06/README.md) and [Linux receipt](../../docs/lean/proofs/RE-06/LINUX_CI_RECEIPT.md). Sidney Holden retains mathematical source credit; the formal implementation and independent AI-agent reviews are separately disclosed. The [entire preceding canonical page](../../docs/lean/proofs/RE-06/ORIGINAL.md), all manuscripts, original mathematical target and permanent ID are retained. The September 2026 informal review above is historical.
 
 ## Context and notation
 

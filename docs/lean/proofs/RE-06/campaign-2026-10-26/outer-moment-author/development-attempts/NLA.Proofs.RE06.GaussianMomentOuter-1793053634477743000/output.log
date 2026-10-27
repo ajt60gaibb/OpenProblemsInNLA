@@ -1,0 +1,45 @@
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/GaussianMomentOuter.lean:25:41: error: typeclass instance problem is stuck
+  IsOrderedRing ?m.186
+
+Note: Lean will not try to resolve this typeclass instance problem because the first, second, and third type arguments to `IsOrderedRing` are metavariables. These arguments must be fully determined before Lean will try to resolve the typeclass.
+
+Hint: Adding type annotations and supplying implicit arguments to functions can give Lean more information for typeclass resolution. For example, if you have a variable `x` that you intend to be a `Nat`, but Lean reports it as having an unresolved type like `?m`, replacing `x` with `(x : Nat)` can get typeclass resolution un-stuck.
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/GaussianMomentOuter.lean:79:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∫ (ω : Fin n × Fin ell → ℝ), actualRegressionEnergy (C * G g) C (Matrix.of fun i j => id ω (i, j)).transpose ∂ν
+in the target expression
+  ∫ (h : Fin n × Fin ell → ℝ), actualRegressionEnergy (C * G g) C (Ht h) ∂ν ≤ b * (residualTailEnergy C r + X g)
+
+n k ell : ℕ
+C : Matrix (Fin n) (Fin n) ℝ
+r : ℕ
+hr : r ≤ n
+hk : r + 1 < k
+hell : k + 1 < ell
+μ : Measure (Fin n × Fin k → ℝ) := Measure.pi fun x => gaussianReal 0 1
+ν : Measure (Fin n × Fin ell → ℝ) := Measure.pi fun x => gaussianReal 0 1
+G : (Fin n × Fin k → ℝ) → Matrix (Fin n) (Fin k) ℝ := fun g => Matrix.of fun i j => g (i, j)
+Ht : (Fin n × Fin ell → ℝ) → Matrix (Fin ell) (Fin n) ℝ := fun h => (Matrix.of fun i j => h (i, j)).transpose
+X : (Fin n × Fin k → ℝ) → ℝ := fun g => tailRandomEnergy C r hr (G g)
+V : RepairEntries n k ell → ℝ := fun x => actualRegressionEnergy (C * G x.1) C (Ht x.2)
+a : ℝ := ↑r / (↑k - ↑r - 1)
+b : ℝ := ↑k / (↑ell - ↑k - 1)
+hrot : HasLaw (fun ω => rotateEntries (exactSVD C).V k (id ω)) (Measure.pi fun x => gaussianReal 0 1) μ
+hX :
+  Integrable (fun ω => tailRandomEnergy C r hr (G ω)) μ ∧
+    ∫ (ω : Fin n × Fin k → ℝ), tailRandomEnergy C r hr (G ω) ∂μ = residualTailEnergy C r * (↑r / (↑k - ↑r - 1))
+hhead : ∀ᵐ (ω : Fin n × Fin k → ℝ) ∂μ, headCoordinates C r hr (G ω) * pseudoInverse (headCoordinates C r hr (G ω)) = 1
+hb : 0 ≤ b
+hGa : Measurable fun x => G x.1
+hHa : Measurable fun x => Ht x.2
+hVm : Measurable V
+hV0 : ∀ (x : RepairEntries n k ell), 0 ≤ V x
+hinner :
+  ∀ (g : Fin n × Fin k → ℝ),
+    Integrable (fun ω => actualRegressionEnergy (C * G g) C (Matrix.of fun i j => id ω (i, j)).transpose) ν ∧
+      ∫ (ω : Fin n × Fin ell → ℝ), actualRegressionEnergy (C * G g) C (Matrix.of fun i j => id ω (i, j)).transpose ∂ν =
+        ↑(rangeDimension (C * G g)) / (↑ell - ↑(rangeDimension (C * G g)) - 1) *
+          squaredFrobenius (actualRangeResidual (C * G g) C) 0
+hVi : ∀ᵐ (g : Fin n × Fin k → ℝ) ∂μ, Integrable (fun h => V (g, h)) ν
+g : Fin n × Fin k → ℝ
+hg : headCoordinates C r hr (G g) * pseudoInverse (headCoordinates C r hr (G g)) = 1
+⊢ ∫ (h : Fin n × Fin ell → ℝ), actualRegressionEnergy (C * G g) C (Ht h) ∂ν ≤ b * (residualTailEnergy C r + X g)

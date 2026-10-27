@@ -1,0 +1,37 @@
+/private/tmp/nla-re06-transcript-dev/source/NLA/Proofs/RE06/Transcript.lean:77:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  postprocess F (makePlan n m ε ω) (oracleAnswers A (makePlan n m ε ω))
+in the target expression
+  Computation.NonadaptiveMatrixQuery.frobenius A
+      (have P := makePlan n m ε ω;
+      F (postprocess F P (oracleAnswers A P))) =
+    Computation.NonadaptiveMatrixQuery.frobenius A (F (minimumIndex fun j => squaredFrobenius A (F j)))
+
+n m : ℕ
+F : Family n m
+A : Matrix (Fin n) (Fin n) ℝ
+ε : ℝ
+ω : ℕ → ℝ
+hP : (makePlan n m ε ω).full = true
+⊢ Computation.NonadaptiveMatrixQuery.frobenius A
+      (have P := makePlan n m ε ω;
+      F (postprocess F P (oracleAnswers A P))) =
+    Computation.NonadaptiveMatrixQuery.frobenius A (F (minimumIndex fun j => squaredFrobenius A (F j)))
+/private/tmp/nla-re06-transcript-dev/source/NLA/Proofs/RE06/Transcript.lean:85:24: error: unsolved goals
+n m : ℕ
+F : Family n m
+A : Matrix (Fin n) (Fin n) ℝ
+ε : ℝ
+hε : 0 ≤ ε
+hfull : n ≤ firstWidth m ε + secondWidth m ε + thirdWidth m ε
+hP : ∀ (ω : ℕ → ℝ), (makePlan n m ε ω).full = true
+hev : {ω | Computation.NonadaptiveMatrixQuery.frobenius A (run F A ε ω) ≤ (3 + ε) * optimum A F} = Set.univ
+⊢ 99 / 100 ≤ 1
+'NLA.Proofs.RE06.minimumIndex_score_le' depends on axioms: [propext, choice, Quot.sound]
+'NLA.Proofs.RE06.storedVector_full' depends on axioms: [propext, choice, Quot.sound]
+/private/tmp/nla-re06-transcript-dev/source/NLA/Proofs/RE06/Transcript.lean:109:21: error: #assert_trust: 'NLA.Proofs.RE06.run_full_error' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-re06-transcript-dev/source/NLA/Proofs/RE06/Transcript.lean:110:21: error: #assert_trust: 'NLA.Proofs.RE06.successful_full_branch' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.RE06.successful_full_branch' depends on axioms: [propext, sorryAx, choice, Quot.sound]

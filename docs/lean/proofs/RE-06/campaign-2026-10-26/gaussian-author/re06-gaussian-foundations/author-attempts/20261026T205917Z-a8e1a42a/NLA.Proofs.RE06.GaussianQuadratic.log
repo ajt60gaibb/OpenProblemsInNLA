@@ -1,0 +1,62 @@
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianQuadratic.lean:40:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∫ (x : (i : ?m.138) → ?m.141 i), ∏ i, ?f i (x i) ∂Measure.pi ?μ
+in the target expression
+  (∫ (x : ι → ℝ), ∏ i, Real.exp (t * w i * x i ^ 2) ∂Measure.pi fun x => gaussianReal 0 1) =
+    ∏ i, (√(1 - 2 * (t * w i)))⁻¹
+
+ι : Type u_1
+inst✝ : Fintype ι
+w : ι → ℝ
+t : ℝ
+hdom : ∀ (i : ι), t * w i < 1 / 2
+heq : ∀ (x : ι → ℝ), Real.exp (t * gaussianQuadratic w x) = ∏ i, Real.exp (t * w i * x i ^ 2)
+⊢ (∫ (x : ι → ℝ), ∏ i, Real.exp (t * w i * x i ^ 2) ∂Measure.pi fun x => gaussianReal 0 1) =
+    ∏ i, (√(1 - 2 * (t * w i)))⁻¹
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianQuadratic.lean:49:43: error: Type mismatch
+  this
+has type
+  ∀ (i : ι), 0 < 1 - 2 * (t * w i)
+but is expected to have type
+  0 < ?m.72
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianQuadratic.lean:49:11: error: `simp` made no progress
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianQuadratic.lean:60:87: error: `fun_prop` was unable to prove `AEStronglyMeasurable (fun x => Real.exp (t * ∑ i, w i * x i ^ 2)) (Measure.pi fun x => gaussianReal 0 1)`
+
+Issues:
+  missing pi rule to prove `AEStronglyMeasurable (fun x i => w i * x i ^ 2) (Measure.pi fun x => gaussianReal 0 1)`
+  No theorems found for `Real.exp` in order to prove `AEStronglyMeasurable (fun x => Real.exp (t * ∑ i, w i * x i ^ 2)) (Measure.pi fun x => gaussianReal 0 1)`
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianQuadratic.lean:97:5: error: (deterministic) timeout at `isDefEq`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianQuadratic.lean:102:21: error: #assert_trust: 'NLA.Proofs.RE06.gaussianQuadratic_exp_integral' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianQuadratic.lean:103:21: error: #assert_trust: 'NLA.Proofs.RE06.gaussianQuadratic_exp_integral_log' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianQuadratic.lean:104:21: error: #assert_trust: 'NLA.Proofs.RE06.streamQuadratic_exp_integral' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianQuadratic.lean:105:21: error: #assert_trust: 'NLA.Proofs.RE06.streamQuadratic_exp_integrable' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianQuadratic.lean:106:21: error: #assert_trust: 'NLA.Proofs.RE06.streamQuadratic_lower_chernoff' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianQuadratic.lean:107:21: error: #assert_trust: 'NLA.Proofs.RE06.streamQuadratic_upper_chernoff' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.RE06.inv_sqrt_eq_exp_neg_half_log' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.RE06.gaussianQuadratic_exp_integral' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.Proofs.RE06.gaussianQuadratic_exp_integral_log' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.Proofs.RE06.streamQuadratic_exp_integral' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.Proofs.RE06.streamQuadratic_exp_integrable' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.Proofs.RE06.streamQuadratic_lower_chernoff' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.Proofs.RE06.streamQuadratic_upper_chernoff' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

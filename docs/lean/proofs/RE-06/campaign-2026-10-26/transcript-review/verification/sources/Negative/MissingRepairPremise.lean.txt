@@ -1,0 +1,7 @@
+import NLA.Proofs.RE06.TranscriptAudit
+set_option leancert.trust "kernel"
+open NLA.Computation.NonadaptiveMatrixQuery
+example {n m : ℕ} (F : Family n m) (A : Matrix (Fin n) (Fin n) ℝ)
+    (ε η : ℝ) (ω : ℕ → ℝ) (hP : (makePlan n m ε ω).full = false) :
+    frobenius A (run F A ε ω) ≤ (3+4*η) * optimum A F :=
+  NLA.Proofs.RE06.run_sketch_error_of_repair F A ε η ω hP

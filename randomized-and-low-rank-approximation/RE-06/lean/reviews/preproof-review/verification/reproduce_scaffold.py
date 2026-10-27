@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+"""Independent RE06 pre-proof input/scaffold audit. No mathematical proof or CI claim."""
+import argparse,datetime,hashlib,json,os,re,subprocess
+from pathlib import Path
+REF='729832293829263c2e51dbd6ecc9788ad68b7792';BASE='099805ef1ce7347d373e47cccc3b2d7cf580a99e';PACKET='docs/lean/proofs/RE-06/campaign-2026-10-26/preproof/';STD={'propext','Classical.choice','Quot.sound'}
+def sha(b):return hashlib.sha256(b).hexdigest()
+def main():
+ p=argparse.ArgumentParser();p.add_argument('--repo',type=Path,required=True);p.add_argument('--lean',type=Path,required=True);p.add_argument('--packages',type=Path,required=True);p.add_argument('--build',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args();a.build.mkdir(parents=True,exist_ok=False);a.output.mkdir(parents=True,exist_ok=True)
+ src=a.build/'source';obj=a.build/'objects';snap=a.build/'packet'
+ for d in [src,obj,snap,a.output/'sources',a.output/'logs']:d.mkdir(parents=True,exist_ok=True)
+ def git(*v,repo=a.repo):return subprocess.check_output(['git','-C',str(repo),*v])
+ def blob(path,ref=REF,repo=a.repo):return git('show',ref+':'+path,repo=repo)
+ checks=[];commands=[]
+ def ck(n,v,**d):
+  checks.append({'check':n,'pass':bool(v),**d})
+  if not v:raise RuntimeError('Failed check: '+n)
+ names=git('ls-tree','-r','--name-only',REF,'--',PACKET).decode().splitlines();files={n[len(PACKET):]:blob(n) for n in names};lock=json.loads(files['PACKET_LOCK.json']);ck('103_Git_files102_locked_plus_self',len(files)==103 and len(lock['files'])==102 and set(files)=={e['path'] for e in lock['files']}|{'PACKET_LOCK.json'})
+ for e in lock['files']:ck('packet:'+e['path'],sha(files[e['path']])==e['sha256'] and len(files[e['path']])==e['bytes'])
+ ck('exact_PACKET_LOCK',sha(files['PACKET_LOCK.json'])=='f318ade71c4e97a2952052ee94c76ca254e558bc0f9bbc15b72d90a738106bc9')
+ for n,b in files.items():
+  f=snap/n;f.parent.mkdir(parents=True,exist_ok=True);f.write_bytes(b)
+ for n in ['CONTRACT.md','Challenge.lean','READINESS.md','EXPORTS.json','INPUT_LOCK.json','REUSE_LOCK.json','PACKET_LOCK.json']:(a.output/n).write_bytes(files[n])
+ originals=json.loads(files['INPUT_LOCK.json']);ck('exact_49_original_input_lock',sha(files['INPUT_LOCK.json'])=='fda0f85d913233b3c62b707b46bf0edd2fca9ba8ba34a618b57d6bc7bb4e222a' and len(originals['files'])==49 and originals['published_base']==BASE)
+ for e in originals['files']:
+  b=blob(e['path'],BASE);ck('original:'+e['path'],b==blob(e['path'])==files['originals/'+e['path']] and sha(b)==e['sha256'] and len(b)==e['bytes'] and git('rev-parse',BASE+':'+e['path']).decode().strip()==e['git_blob'])
+ registry=json.loads(blob('problem_ids.json'));ck('all217_permanent_IDs_and_RE06_path_unchanged',len(registry)==217 and registry['RE-06']=='randomized-and-low-rank-approximation/RE-06/README.md' and blob('problem_ids.json')==blob('problem_ids.json',BASE))
+ reuse=json.loads(files['REUSE_LOCK.json']);reuse_repo=Path(reuse['source_repository_read_only']);ck('nine_existing_reuse_files',len(reuse['files'])==9 and reuse['source_commit']=='653b8f1641415f4160811648ff3e23889ba2e136')
+ for e in reuse['files']:
+  b=blob(e['path'],reuse['source_commit'],repo=reuse_repo);ck('reuse:'+e['path'],b==files['supplementary-reuse/'+e['path']] and sha(b)==e['sha256'] and len(b)==e['bytes'] and git('rev-parse',reuse['source_commit']+':'+e['path'],repo=reuse_repo).decode().strip()==e['git_blob'])
+ ck('SVD_reuse_model_exact_original',files['supplementary-reuse/lean-statements/NLA/Computation/SVDMachine.lean']==files['originals/lean-statements/NLA/Computation/SVDMachine.lean'])
+ ck('exact_reviewed_contract_and_challenge',sha(files['CONTRACT.md'])=='5e98b497102cc1626825ed4fe11016417f406467e5ace86b6858d13d47b6ba9c' and sha(files['Challenge.lean'])=='21f59e23c4c4b0168eb031de49b0fe8c31c72179713f1479c895a8020bc7d1a8')
+ exports=json.loads(files['EXPORTS.json'])['exports'];challenge=files['Challenge.lean'].decode();norm=lambda s:' '.join(s.split())
+ for e in exports:
+  header=challenge.split('theorem '+e['name'],1)[1].split(':= by',1)[0];ck('exact_header:'+e['name'],norm(header)==norm(e['binders']+' : '+e['type']))
+ ck('six_exact_exports_and_no_implementation_authorized',len(exports)==6 and lock['implementation_authorized'] is False and lock['independent_preproof_approvals']==0)
+ manifest=json.loads(blob('lean-statements/lake-manifest.json'))
+ def pins():
+  out=[]
+  for e in manifest['packages']:
+   d=a.packages/e['name'];head=git('rev-parse','HEAD',repo=d).decode().strip();status=git('status','--porcelain','--untracked-files=no',repo=d).decode();out.append({'name':e['name'],'expected':e['rev'],'actual':head,'tracked_clean':not status,'pass':head==e['rev'] and not status})
+  return out
+ before=pins();ck('ten_pins_clean_before',len(before)==10 and all(e['pass'] for e in before));version=subprocess.check_output([str(a.lean),'--version'],text=True).strip();ck('pinned_Lean4331',blob('lean-statements/lean-toolchain')==b'leanprover/lean4:v4.33.1\n' and '4.33.1' in version and '819816b2e0a3bf405af45ae5c7af2491d8f5bee6' in version)
+ env=os.environ.copy();env['PATH']=str(a.lean.parent)+os.pathsep+env.get('PATH','');env['LEAN_PATH']=':'.join(map(str,[obj]+[a.packages/e['name']/'.lake/build/lib/lean' for e in manifest['packages']]+[a.lean.parent.parent/'lib/lean']))
+ def run(n,b,expected=0):
+  f=src/(n.replace('.','/')+'.lean');f.parent.mkdir(parents=True,exist_ok=True);f.write_bytes(b);copy=a.output/'sources'/(n.replace('.','/')+'.lean.txt');copy.parent.mkdir(parents=True,exist_ok=True);copy.write_bytes(b);o=obj/(n.replace('.','/')+'.olean');o.parent.mkdir(parents=True,exist_ok=True);argv=[str(a.lean),'-R',str(src),'-o',str(o),str(f)];r=subprocess.run(argv,cwd=src,env=env,capture_output=True,text=True,timeout=420);log=r.stdout+r.stderr;lf=a.output/'logs'/(n+'.log');lf.write_text(log);c={'module':n,'argv':argv,'exit_code':r.returncode,'expected_exit':expected,'source_sha256':sha(b),'log_sha256':sha(log.encode())};commands.append(c);print(n,r.returncode,flush=True);ck('compiler:'+n,r.returncode==expected,**c);return log
+ modules=['NLA.Statements.Infrastructure','NLA.Computation.SVDMachine','NLA.Computation.NonadaptiveMatrixQuery','NLA.Statements.RE06','Reviewed.RE06'];source_records=[]
+ for n in modules:
+  path='lean-statements/'+n.replace('.','/')+'.lean';b=blob(path);run(n,b);source_records.append({'module':n,'path':path,'sha256':sha(b),'bytes':len(b)})
+ signature=re.sub(r'^#(?:assert_trust|print axioms).*\n','',challenge,flags=re.M);signature+='\n'+''.join('#check NLA.Proofs.RE06.'+e['name']+'\n#print axioms NLA.Proofs.RE06.'+e['name']+'\n' for e in exports);log=run('Independent.Signatures',signature.encode());closures={n:{x.strip() for x in v.split(',') if x.strip()} for n,v in re.findall(r"'([^']+)' depends on axioms:\s*\[([^\]]*)\]",log,re.S)};ck('six_actual_reference_signature_axioms_standard3_plus_sorryAx',set(closures)=={'NLA.Proofs.RE06.'+e['name'] for e in exports} and all(v==STD|{'sorryAx'} for v in closures.values()),closures={n:sorted(v) for n,v in closures.items()})
+ identity=b'import NLA.Statements.RE06\nimport Reviewed.RE06\nset_option leancert.trust "kernel"\ntheorem live_frozen_identity : NLA.Statements.RE06.Target = NLA.ReviewedStatements.RE06.Target := rfl\n#assert_trust kernel live_frozen_identity\n#print axioms live_frozen_identity\n';run('Independent.Identity',identity)
+ for e in exports:
+  n=e['name'];log=run('Independent.Hole_'+n,('import Independent.Signatures\nset_option leancert.trust "kernel"\n#assert_trust kernel NLA.Proofs.RE06.'+n+'\n').encode(),1);ck('actual_individual_hole_rejection:'+n,'sorryAx' in log and log.count('depends on sorry or unrecognized axioms')==1)
+ log=run('Independent.FullChallenge',files['Challenge.lean'],1);ck('full_exact_Challenge_six_actual_rejections',log.count('depends on sorry or unrecognized axioms')==6 and 'sorryAx' in log)
+ after=pins();ck('ten_pins_clean_unchanged_after',before==after and all(e['pass'] for e in after));ck('all_private_original_source_bytes_unchanged',all((src/(e['module'].replace('.','/')+'.lean')).read_bytes()==blob(e['path']) for e in source_records))
+ result={'pass':all(e['pass'] for e in checks),'reviewer':'/root/verification','UTC':datetime.datetime.now(datetime.timezone.utc).isoformat(),'packet_commit':REF,'scope':'Independent pre-proof boundary/source preservation and fresh14-command scaffold only; not a mathematical proof, final approval, Comparator or Linux CI','checks':checks,'commands':commands,'source_records':source_records,'compiler_version':version,'compiler_sha256':sha(a.lean.read_bytes()),'dependency_pins_before':before,'dependency_pins_after':after,'LEAN_PATH':env['LEAN_PATH'],'private_build':str(a.build),'reviewed_packet_hashes':{n:sha(files[n]) for n in ['CONTRACT.md','Challenge.lean','EXPORTS.json','INPUT_LOCK.json','REUSE_LOCK.json','READINESS.md','PACKET_LOCK.json']},'script_sha256':sha(Path(__file__).read_bytes())};(a.output/'result.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({'pass':result['pass'],'checks':len(checks),'commands':len(commands)}),flush=True)
+if __name__=='__main__':main()

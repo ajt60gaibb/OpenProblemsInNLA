@@ -1,0 +1,7 @@
+import Inventory.Audit
+set_option leancert.trust "kernel"
+theorem counterfeit (n m : ℕ) (F : NLA.Computation.NonadaptiveMatrixQuery.Family n m) (A : Matrix (Fin n) (Fin n) ℝ)
+(ε η : ℝ) (ω : ℕ→ℝ) (hP : (NLA.Computation.NonadaptiveMatrixQuery.makePlan n m ε ω).full = false)
+(hr : NLA.Computation.NonadaptiveMatrixQuery.frobenius A (NLA.Proofs.RE06.sketchRepair F A (NLA.Computation.NonadaptiveMatrixQuery.makePlan n m ε ω)) ≤ (1+2*η)*NLA.Computation.NonadaptiveMatrixQuery.optimum A F) :
+ NLA.Computation.NonadaptiveMatrixQuery.frobenius A (NLA.Computation.NonadaptiveMatrixQuery.run F A ε ω) ≤ (3+4*η)*NLA.Computation.NonadaptiveMatrixQuery.optimum A F := by sorry
+#assert_trust kernel counterfeit

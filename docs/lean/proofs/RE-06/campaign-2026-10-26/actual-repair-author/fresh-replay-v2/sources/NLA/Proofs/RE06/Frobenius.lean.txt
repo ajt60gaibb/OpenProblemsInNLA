@@ -1,0 +1,85 @@
+import NLA.Proofs.RE06.Transcript
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open scoped BigOperators Matrix.Norms.Frobenius
+open Classical
+namespace NLA.Proofs.RE06
+open NLA.Computation.NonadaptiveMatrixQuery
+
+theorem frobenius_eq_norm_sub {a b : ℕ} (X Y : Matrix (Fin a) (Fin b) ℝ) :
+    frobenius X Y = ‖X-Y‖ := by
+  simp [NLA.Computation.NonadaptiveMatrixQuery.frobenius, squaredFrobenius,
+    Matrix.frobenius_norm_def, Real.sqrt_eq_rpow, Real.norm_eq_abs, sq_abs]
+
+theorem frobenius_triangle {a b : ℕ} (X Y Z : Matrix (Fin a) (Fin b) ℝ) :
+    frobenius X Z ≤ frobenius X Y + frobenius Y Z := by
+  simp only [frobenius_eq_norm_sub]
+  simpa only [dist_eq_norm] using dist_triangle X Y Z
+
+theorem frobenius_symmetric {a b : ℕ} (X Y : Matrix (Fin a) (Fin b) ℝ) :
+    frobenius X Y = frobenius Y X := by
+  simp only [frobenius_eq_norm_sub]
+  exact norm_sub_rev _ _
+
+theorem frobenius_minimumIndex_le {n m : ℕ} (F : Family n m)
+    (X : Matrix (Fin n) (Fin n) ℝ) (j : Fin (m+2)) :
+    frobenius X (F (minimumIndex (fun b => squaredFrobenius X (F b)))) ≤
+      frobenius X (F j) := by
+  exact Real.sqrt_le_sqrt (minimumIndex_score_le (fun b => squaredFrobenius X (F b)) j)
+
+theorem frobenius_eq_zero_iff {a b : ℕ} (X Y : Matrix (Fin a) (Fin b) ℝ) :
+    frobenius X Y = 0 ↔ X = Y := by
+  rw [frobenius_eq_norm_sub, norm_eq_zero, sub_eq_zero]
+
+theorem nearest_family_error {n m : ℕ} (F : Family n m)
+    (A X : Matrix (Fin n) (Fin n) ℝ) :
+    frobenius A (F (minimumIndex (fun b => squaredFrobenius X (F b)))) ≤
+      optimum A F + 2 * frobenius A X := by
+  let j := minimumIndex (fun b => squaredFrobenius X (F b))
+  let opt := minimumIndex (fun b => squaredFrobenius A (F b))
+  calc
+    frobenius A (F j) ≤ frobenius A X + frobenius X (F j) :=
+      frobenius_triangle A X (F j)
+    _ ≤ frobenius A X + frobenius X (F opt) :=
+      by
+        have h := frobenius_minimumIndex_le F X opt
+        change frobenius X (F j) ≤ frobenius X (F opt) at h
+        linarith
+    _ ≤ frobenius A X + (frobenius X A + frobenius A (F opt)) :=
+      by linarith [frobenius_triangle X A (F opt)]
+    _ = optimum A F + 2 * frobenius A X := by
+      rw [frobenius_symmetric X A]
+      change _ = frobenius A (F opt) + 2 * frobenius A X
+      ring
+
+theorem run_sketch_error {n m : ℕ} (F : Family n m)
+    (A : Matrix (Fin n) (Fin n) ℝ) (ε : ℝ) (ω : ℕ → ℝ)
+    (hP : (makePlan n m ε ω).full = false) :
+    frobenius A (run F A ε ω) ≤
+      optimum A F + 2 * frobenius A (sketchRepair F A (makePlan n m ε ω)) := by
+  change frobenius A (F (postprocess F (makePlan n m ε ω)
+    (oracleAnswers A (makePlan n m ε ω)))) ≤ _
+  rw [postprocess_sketch F A (makePlan n m ε ω) hP]
+  exact nearest_family_error F A _
+
+theorem run_sketch_error_of_repair {n m : ℕ} (F : Family n m)
+    (A : Matrix (Fin n) (Fin n) ℝ) (ε η : ℝ) (ω : ℕ → ℝ)
+    (hP : (makePlan n m ε ω).full = false)
+    (hRepair : frobenius A (sketchRepair F A (makePlan n m ε ω)) ≤
+      (1+2*η) * optimum A F) :
+    frobenius A (run F A ε ω) ≤ (3+4*η) * optimum A F := by
+  have h := run_sketch_error F A ε ω hP
+  linarith
+
+#assert_trust kernel frobenius_eq_norm_sub
+#assert_trust kernel frobenius_triangle
+#assert_trust kernel frobenius_symmetric
+#assert_trust kernel frobenius_minimumIndex_le
+#print axioms frobenius_triangle
+#assert_trust kernel frobenius_eq_zero_iff
+#assert_trust kernel nearest_family_error
+#assert_trust kernel run_sketch_error
+#assert_trust kernel run_sketch_error_of_repair
+#print axioms run_sketch_error_of_repair
+end NLA.Proofs.RE06

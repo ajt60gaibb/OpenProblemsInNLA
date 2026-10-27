@@ -1,0 +1,9 @@
+import Independent.MPRepairAudit
+set_option leancert.trust "kernel"
+open MeasureTheory ProbabilityTheory
+open NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06 NLA.Proofs.RE06.Repair
+example {n k ell : ℕ} (C : Matrix (Fin n) (Fin n) ℝ) (r : ℕ) (hr : r ≤ n)
+   (G : Matrix (Fin n) (Fin k) ℝ) (Ht : Matrix (Fin ell) (Fin n) ℝ) :
+   squaredFrobenius (C-(C*G)*pseudoInverse (Ht*(C*G))*(Ht*C)) 0 ≤
+   residualTailEnergy C r+actualExcessMajorant C r hr G Ht := actual_svd_repair_majorant C r hr G Ht
+ 

@@ -1,0 +1,47 @@
+import Mathlib
+import NLA.Computation.NonadaptiveMatrixQuery
+import LeanCert
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open scoped BigOperators
+open Classical MeasureTheory ProbabilityTheory
+namespace NLA.Proofs.RE06
+open NLA.Computation.NonadaptiveMatrixQuery
+
+theorem scan_le_initial {ι : Type*} (score : ι → ℝ) (xs : List ι) (b : ι) :
+    score (xs.foldl (fun best j => if score j < score best then j else best) b) ≤
+      score b := by
+  induction xs generalizing b with
+  | nil => exact le_refl _
+  | cons x xs ih =>
+    rw [List.foldl_cons]
+    apply (ih _).trans
+    split_ifs with h
+    · exact h.le
+    · exact le_refl _
+
+theorem scan_le_member {ι : Type*} (score : ι → ℝ) (xs : List ι) (b j : ι)
+    (hj : j ∈ xs) :
+    score (xs.foldl (fun best j => if score j < score best then j else best) b) ≤
+      score j := by
+  induction xs generalizing b with
+  | nil => simp at hj
+  | cons x xs ih =>
+    rw [List.foldl_cons]
+    rcases List.mem_cons.mp hj with rfl | hj
+    · apply (scan_le_initial score xs _).trans
+      split_ifs with h
+      · exact le_refl _
+      · exact le_of_not_gt h
+    · exact ih _ hj
+
+theorem minimumIndex_score_le {m : ℕ} (score : Fin (m+2) → ℝ) (j : Fin (m+2)) :
+    score (minimumIndex score) ≤ score j := by
+  exact scan_le_member score (List.finRange (m+2)) 0 j (List.mem_finRange j)
+
+#assert_trust kernel scan_le_initial
+#assert_trust kernel scan_le_member
+#assert_trust kernel minimumIndex_score_le
+#print axioms minimumIndex_score_le
+end NLA.Proofs.RE06

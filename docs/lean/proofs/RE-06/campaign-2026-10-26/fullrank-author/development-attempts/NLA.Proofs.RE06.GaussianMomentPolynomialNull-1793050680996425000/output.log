@@ -1,0 +1,43 @@
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/GaussianMomentPolynomialNull.lean:16:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/GaussianMomentPolynomialNull.lean:70:86: error: unsolved goals
+d : ℕ
+ih :
+  ∀ (P : MvPolynomial (Fin d) ℝ),
+    P ≠ 0 → ∀ᵐ (x : Fin d → ℝ) ∂Measure.pi fun x => gaussianReal 0 1, (MvPolynomial.eval x) P ≠ 0
+P : MvPolynomial (Fin (d + 1)) ℝ
+hP : P ≠ 0
+Q : Polynomial (MvPolynomial (Fin d) ℝ) := (MvPolynomial.finSuccEquiv ℝ d) P
+hQ : Q ≠ 0
+k : ℕ
+hk : Q.coeff k ≠ 0
+htail : ∀ᵐ (x : Fin d → ℝ) ∂Measure.pi fun x => gaussianReal 0 1, (MvPolynomial.eval x) (Q.coeff k) ≠ 0
+htailhead :
+  ∀ᵐ (x : Fin d → ℝ) ∂Measure.pi fun x => gaussianReal 0 1,
+    ∀ᵐ (y : ℝ) ∂gaussianReal 0 1, (MvPolynomial.eval (Fin.cons y x)) P ≠ 0
+hcons : Continuous fun z => Fin.cons z.1 z.2
+hpair : MeasurableSet {z | (MvPolynomial.eval (Fin.cons z.1 z.2)) P ≠ 0}
+hprod :
+  ∀ᵐ (z : ℝ × (Fin d → ℝ)) ∂(gaussianReal 0 1).prod (Measure.pi fun x => gaussianReal 0 1),
+    (MvPolynomial.eval (Fin.cons z.1 z.2)) P ≠ 0
+hraw :
+  HasLaw (⇑(MeasurableEquiv.piFinSuccAbove (fun x => ℝ) 0).symm) (Measure.pi fun x => gaussianReal 0 1)
+    ((gaussianReal 0 1).prod (Measure.pi fun j => gaussianReal 0 1))
+z : ℝ × (Fin d → ℝ)
+⊢ Fin.cons z.1 z.2 =
+    { toFun := fun f => Fin.cons f.1 fun j => f.2 j, invFun := fun f => (f 0, Fin.removeNth 0 f), left_inv := ⋯,
+        right_inv := ⋯ }
+      z
+/private/tmp/nla-re06-pseudoinverse-dev/source/NLA/Proofs/RE06/GaussianMomentPolynomialNull.lean:83:21: error: #assert_trust: 'NLA.Proofs.RE06.GaussianMoment.mvPolynomial_eval_ne_zero_ae' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.RE06.GaussianMoment.mvPolynomial_eval_ne_zero_ae' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]

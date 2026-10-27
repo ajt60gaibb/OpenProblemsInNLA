@@ -1,0 +1,149 @@
+#!/usr/bin/env python3
+"""Independent offline audit of original GitHub Linux receipts. Never runs Lean/Comparator."""
+from pathlib import Path,PurePosixPath
+from functools import lru_cache
+import argparse,datetime,gzip,hashlib,io,json,re,subprocess,tarfile,zipfile
+
+P=argparse.ArgumentParser();P.add_argument('--evidence',type=Path);args=P.parse_args()
+HERE=Path(__file__).resolve().parent
+WT=Path('/Users/ajt253/.codex/worktrees/re06-nonadaptive-oct26/OpenProblemsInNLA')
+E=args.evidence or Path(json.loads((HERE/'LATEST_COLLECTION.json').read_text())['directory'])
+HEAD='0c6d346763a932eb2d379f555e66d8ab3dbf3255';SOURCE='181c365dc426875aaa61984c901478b1b7c696e6';EXPECTED_MERGE='1322d6c23e833cba4223b466a3717af1a197b904'
+BASE='099805ef1ce7347d373e47cccc3b2d7cf580a99e';PROJECT='randomized-and-low-rank-approximation/RE-06/lean';DOC='docs/lean/proofs/RE-06/campaign-2026-10-26/'
+NAMES=['NLA.Proofs.RE06.'+s for s in ['svd_total','query_bound','successful','original_claim','explicit_claim','target']]
+STANDARD={'propext','Classical.choice','Quot.sound'};checks=[];observations=[];details={}
+OUT=HERE/('audit-'+datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%S%fZ'));OUT.mkdir()
+digest=lambda b:hashlib.sha256(b).hexdigest()
+def git(*a):return subprocess.check_output(['git','-C',str(WT),*a])
+@lru_cache(None)
+def read(ref,p):return git('show',ref+':'+p)
+def load(n):return json.loads((E/n).read_text())
+def test(name,ok,**kw):
+ checks.append(dict(name=name,passed=bool(ok),**kw))
+ if not ok:raise AssertionError(name)
+def snapshot(ref,prefix):
+ raw=git('archive',ref,prefix)
+ with tarfile.open(fileobj=io.BytesIO(raw)) as t:
+  return {m.name.removeprefix(prefix+'/'):t.extractfile(m).read() for m in t.getmembers() if m.isfile()}
+def audit():
+ run,jobs,arts,pr=[load(n) for n in ['run.json','jobs.json','artifacts.json','pr.json']]
+ test('terminal actual PR371 run',run['id']==40415515989 and run['status']=='completed' and run['conclusion']=='success' and run['event']=='pull_request' and run['run_attempt']==1)
+ test('immutable run source head',run['head_sha']==run['head_commit']['id']==HEAD)
+ joblist=[j for j in jobs['jobs'] if j['name']=='verify (RE-06, '+PROJECT+')'];test('one selected RE06 job',len(joblist)==1)
+ job=joblist[0];test('actual job identity/status/head',job['id']==121897153349 and job['run_id']==run['id'] and job['status']=='completed' and job['conclusion']=='success' and job['head_sha']==HEAD)
+ for n in ['Validate formalization manifest','Fresh sandboxed statement, axiom and kernel verification','Retain verification logs']:
+  test('actual successful step '+n,any(s['name']==n and s['conclusion']=='success' for s in job['steps']))
+ selected=[a for a in arts['artifacts'] if a['name']=='lean-RE-06'];test('single original artifact',len(selected)==1)
+ art=selected[0];zraw=(E/'original-artifact.zip').read_bytes();rawb=(E/'job.log').read_bytes();raw=rawb.decode('utf-8')
+ test('original ZIP bound by API digest/size',not art['expired'] and art['workflow_run']['id']==run['id'] and art['workflow_run']['head_sha']==HEAD and art['digest']=='sha256:'+digest(zraw) and art['size_in_bytes']==len(zraw) and art==load('artifact-metadata.json'))
+ test('lossless retained raw-log compression',gzip.decompress((E/'job.log.gz').read_bytes())==rawb)
+ merges=re.findall(r'fetch[^\n]*\+([0-9a-f]{40}):refs/remotes/pull/371/merge',raw)
+ test('original raw checkout fetch establishes merge',merges==[EXPECTED_MERGE]);merge=merges[0]
+ test('original raw actual checkout and git log', 'git checkout --progress --force refs/remotes/pull/371/merge' in raw and re.search(r'git log -1 --format=%H\n[^\n]* '+merge+r'\n',raw) is not None)
+ summary=re.findall(r'HEAD is now at ([0-9a-f]+) Merge ([0-9a-f]{40}) into ([0-9a-f]{40})',raw)
+ test('raw checkout summary binds immutable source',len(summary)==1 and merge.startswith(summary[0][0]) and summary[0][1]==HEAD)
+ parents=git('show','-s','--format=%P',merge).decode().split();test('actual executed merge parents',parents==[summary[0][2],HEAD])
+ for label,v in [('uploaded archive digest','SHA256 digest of uploaded artifact zip is '+digest(zraw)),('uploaded artifact ID',f'Artifact lean-RE-06.zip successfully finalized. Artifact ID {art["id"]}'),('uploaded artifact size',f'Final size is {len(zraw)} bytes. Artifact ID is {art["id"]}')]:test(label,v in raw)
+ nested=next(x for x in run['pull_requests'] if x['number']==371)
+ observations.append(dict(kind='retrieval-time PR metadata',live_PR_head=pr['head']['sha'],run_nested_PR_head=nested['head']['sha'],immutable_executed_run_head=HEAD,note='Later/live PR head fields are retained rather than substituted for immutable run/job head or original raw checkout.'))
+ members={}
+ with zipfile.ZipFile(io.BytesIO(zraw)) as z:
+  test('original archive CRC integrity',z.testzip() is None)
+  for i in z.infolist():
+   p=PurePosixPath(i.filename)
+   test('safe original ZIP member '+i.filename,not i.is_dir() and not p.is_absolute() and '..' not in p.parts and '\\' not in i.filename and i.filename not in members and (i.external_attr>>16)&0o170000!=0o120000 and not i.flag_bits&1)
+   members[i.filename]=z.read(i)
+ results=[n for n in members if n.endswith('/result.json')];test('single actual harness result',len(results)==1)
+ prefix=results[0][:-len('result.json')];receipt=json.loads(members[results[0]])
+ test('receipt actual source checkout/project',receipt['repository_commit']==merge and receipt['project']==PROJECT)
+ config=dict(challenge_module='Challenge',solution_module='Solution',theorem_names=NAMES,definition_names=[],permitted_axioms=['propext','Classical.choice','Quot.sound'])
+ test('exact six literal theorem comparison/no definitions',receipt['config']==config)
+ test('actual default kernel/Comparator receipt',receipt['result']=='comparator-accepted' and receipt['lean_cert_proof_trust']=='kernel-checked' and receipt['verifier_profile']=='default')
+ canonical=snapshot(HEAD,PROJECT);executed=snapshot(merge,PROJECT);inputs=receipt['input_sha256']
+ test('all295 canonical positive inputs exact',len(canonical)==len(inputs)==295 and set(canonical)==set(inputs))
+ test('all295 source-head/executed-merge input bytes identical',canonical==executed)
+ lock=json.loads(canonical['PACKAGE_LOCK.json']);test('positive294 package-lock closure',len(lock['files'])==294 and set(lock['files'])==set(inputs)-{'PACKAGE_LOCK.json'} and lock['proof_source_ref']==SOURCE)
+ for p,b in canonical.items():
+  test('actual canonical receipt input '+p,digest(b)==inputs[p])
+  if p in lock['files']:test('canonical reviewed lock '+p,lock['files'][p]['sha256']==digest(b) and lock['files'][p]['bytes']==len(b))
+  test('no compiled candidate input '+p,not p.endswith(('.olean','.ilean','.pyc','.pyo')) and '__pycache__' not in PurePosixPath(p).parts)
+ source_map=json.loads(canonical['SOURCE_MAP.json']);test('source-map exact proof epoch',source_map['proof_source_ref']==SOURCE)
+ freeze=read(SOURCE,DOC+'FULL_TARGET_SOURCE_FREEZE.json');fd=json.loads(freeze)
+ test('exact frozen87 epoch',digest(freeze)==source_map['full_source_freeze_sha256']=='93df2eabffe17df3c1d9a2950a60bc0cfcea103e8b4285cbd117b7f945d21e8b' and len(fd['proof_inputs'])==82 and len(fd['shared_inputs'])==5)
+ for row in fd['proof_inputs']+fd['shared_inputs']:
+  p=row['path'];q=p.removeprefix('lean-statements/');b=read(SOURCE,p)
+  test('actual87 frozen source '+q,digest(b)==row['sha256']==inputs[q] and len(b)==row['bytes'] and b==canonical[q]==read(HEAD,p)==read(merge,p))
+ copies=source_map['copies'];test('exact278 upstream copy declarations',len(copies)==278 and len({r['path'] for r in copies})==278)
+ for row in copies:
+  b=read(row['source_ref'],row['source_path']);test('upstream provenance '+row['path'],digest(b)==row['sha256']==inputs[row['path']] and len(b)==row['bytes'] and b==canonical[row['path']])
+ live=[p for p in canonical if p.endswith('.lean') and not p.startswith('reviews/')]
+ test('91 live sources inventory is exact',len(live)==91 and len(source_map['runtime_lean_order'])==91 and set(live)==set(source_map['runtime_lean_order']))
+ module={p.removesuffix('.lean').replace('/','.'):canonical[p].decode() for p in live}
+ closure=set()
+ def visit(n):
+  if n in closure:return
+  test('candidate import exists '+n,n in module);closure.add(n)
+  for d in re.findall(r'^import\s+([\w.]+)',module[n],re.M):
+   if d in module:visit(d)
+ for n in ['Challenge','Solution']:visit(n)
+ log=lambda n:members[prefix+n+'.log'].decode()
+ comparator=log('comparator');trust=log('leancert-proof-trust')
+ compiled=set(re.findall(r'(?:Built|Replayed) ([A-Za-z_][A-Za-z0-9_.]*)',comparator))&set(module)
+ test('actual Linux module markers equal actual import closure',compiled==closure,compiled=sorted(compiled),expected=sorted(closure))
+ omitted=set(module)-compiled
+ observations.append(dict(kind='positive-set versus executed import closure',live_sources=len(module),actual_Linux_compiled_or_replayed_sources=len(compiled),live_but_unimported_sources=sorted(omitted),all91_compiled_claim=False))
+ for phrase in ['Building Challenge','Building Solution','Running Lean default kernel on solution.','Lean default kernel accepts the solution','Your solution is okay!']:test('actual Comparator phase '+phrase,phrase in comparator)
+ ex=[s for s in comparator.splitlines() if s.startswith('Exporting #[')]
+ test('actual six exports compared in both modules',len(ex)==2 and ex[0].endswith('from Challenge') and ex[1].endswith('from Solution') and all(re.findall(r'NLA\.Proofs\.RE06\.[A-Za-z_]+',s)==NAMES for s in ex))
+ lines=['import Solution','import LeanCert.Tactic.Verification','set_option autoImplicit false','set_option leancert.trust "kernel"','','open Lean Elab Command in','elab "#assert_proof_constant " n:ident : command => do','  let decl ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n','  match (← getEnv).find? decl with','  | some (.thmInfo _) => pure ()','  | _ => throwErrorAt n "expected a proved theorem constant"','']
+ for n in NAMES:lines+=['#assert_proof_constant '+n,'#assert_trust kernel '+n,'#print axioms '+n]
+ generated='\n'.join(lines)+'\n';test('actual proof-consumer source digest',digest(generated.encode())==receipt['lean_cert_proof_trust_source_sha256'])
+ ax=re.findall(r"'([^']+)' depends on axioms:\s*\[([^\]]*)\]",trust)
+ test('six actual theorem trust closures standard3', [n for n,_ in ax]==NAMES and all({v.strip() for v in s.split(',')}==STANDARD for _,s in ax))
+ test('kernel audit actual restricted invocation','ProofTrustAudit.lean' in trust and 'RestrictAddressFamilies=~AF_UNIX' in trust)
+ tool=receipt['tool_receipt'];slock=read(merge,'tools/lean/source-lock.json');sl=json.loads(slock)
+ test('actual locked checker receipt',digest(slock)==receipt['source_lock_sha256']==tool['source_lock_sha256'] and sl['commit']==tool['forsythe_commit']=='8d1b0c0545a77b40245e84705aa7d273e6c81e62' and tool['profile']=='default')
+ test('official actual Linux Lean4.33.1','Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)'==tool['lean_version'] and tool['lean_version'] in raw and tool['platform'].startswith('Linux-') and tool['lean_toolchain']=='leanprover/lean4:v4.33.1')
+ pins={p['name']:p['rev'] for p in json.loads(canonical['lake-manifest.json'])['packages']}
+ test('exact10 pins include frozen Mathlib and LeanCert',len(pins)==10 and pins['mathlib']=='0df444a360eaa60ab8c11dca51a86af692955474' and pins['leancert']=='621a43d7cf21f87872392a01e874f2f1dbddc926')
+ for n,r in pins.items():test('actual package revision '+n,"checking out revision '"+r+"'" in log('dependencies'))
+ for q,p in [('bootstrap/comparator-build.log','lake build lean4export comparator'),('bootstrap/landrun-build.log','go build -mod=readonly -buildvcs=false')]:test('actual tool build '+q,p in members[q].decode())
+ test('actual LeanCert dependency build','lake build LeanCert.Tactic.Verification' in log('leancert-build'))
+ for marker in ['RETURN honest_with_inductives_and_quotients: accepted','RETURN invalid_raw_proof: rejected:','(kernel) declaration type mismatch','RETURN quotient_postcheck_mismatch: rejected:','Quotient post-check rejects the solution','PASS: all three actual Comparator.runBuiltinKernel cases behaved as required']:test('real default-kernel control '+marker,marker in log('kernel-controls'))
+ for name,code,marker in [('simple_match',0,'Your solution is okay!'),('simple_mismatch',1,"Challenge and solution constant kind don't match: 'comm'"),('simple_axiom_issue',1,"Illegal axiom detected: 'helper'"),('simple_kind_mismatch',1,"Illegal axiom detected: 'helper'"),('type_mismatch',1,"Challenge and solution theorem statement do not match: 'checked'")]:test('real Comparator regression '+name,f'PASS {name}: exit {code}, expected {code}; required phase: {marker}' in log('comparator-controls'))
+ test('all5 Comparator controls complete','PASS: all five Comparator regressions' in log('comparator-controls'))
+ for n,marker in [('negative-sorry',"Illegal axiom detected: 'sorryAx'"),('negative-native',"Illegal axiom detected: 'checked._native.native_decide.ax_1_1'")]:test('real proof-escape rejection '+n,marker in log(n) and log(n).rstrip().endswith('EXIT_STATUS=1'))
+ sandbox=log('sandbox')
+ for marker in ['outside .lake write-open: denied','outside .lake truncate: denied','outside .lake read-only truncate-open: denied','symlink from .lake to outside write: denied','outside .lake creation: denied','user namespace: private','pid namespace: private','mnt namespace: private','net namespace: private','ipc namespace: private','uts namespace: private','host parent: absent from private /proc','host parent signal lookup: denied','host loopback listener: unreachable','AF_UNIX socket creation: denied','effective capabilities: none','no_new_privs: set','nested namespace write attempt: rejected']:test('actual isolation both modes '+marker,sandbox.count('PASS '+marker)==2)
+ for marker in ['MODE build: exit=0','MODE export: exit=0','PASS build .lake write: allowed','PASS export .lake write-open: denied','PASS export .lake truncate: denied','Outer and export fixture contents unchanged; only designated build fixture written.']:test('actual sandbox mode boundary '+marker,marker in sandbox)
+ for marker in ['unknown option','unexpected --rw','unexpected --rwx','relative --rwx']:test('real sandbox negative option '+marker,'NEGATIVE '+marker+': exit=2' in sandbox)
+ rawlines=[re.sub(r'^\ufeff?\d{4}-\d\d-\d\dT[^ ]+Z ','',s) for s in raw.splitlines()]
+ for name,b in members.items():
+  if not name.endswith('.log'):continue
+  ls=b.decode().splitlines();expected=1 if name.endswith(('negative-sorry.log','negative-native.log')) else 0
+  test('actual log exit '+name,ls[-1]=='EXIT_STATUS='+str(expected));test('actual command independently raw-bound '+name,ls[0].startswith('$ ') and 'Running '+ls[0][2:] in rawlines)
+  cursor=0
+  for s in ls[1:]:
+   if s and not s.startswith('EXIT_STATUS='):cursor=rawlines.index(s,cursor)+1
+  test('all artifact log output raw-bound '+name,True)
+ test('raw job harness completed','PASS: fresh Comparator run and all controls. Evidence:' in raw)
+ test('published verification harness/workflows unchanged',git('diff','--name-only',BASE,merge,'--','tools/lean','.github/workflows')==b'')
+ pre=json.loads(canonical['reviews/preproof/INPUT_LOCK.json'])
+ for r in pre['files']:test('retained original input '+r['path'],digest(read(merge,r['path']))==r['sha256'] and len(read(merge,r['path']))==r['bytes'])
+ test('all217 permanent IDs unchanged',read(merge,'problem_ids.json')==read(BASE,'problem_ids.json') and len(json.loads(read(merge,'problem_ids.json')))==217)
+ deriv=json.loads(canonical['CHALLENGE_DERIVATION.json']);orig=canonical['reviews/preproof/Challenge.lean'];removed=deriv['removed_lines']
+ test('Challenge preserves6 headers with diagnostic-only removal',len(removed)==12 and ''.join(s for s in orig.decode().splitlines(keepends=True) if s.strip() not in removed).encode()==canonical['Challenge.lean'] and not deriv['declaration_headers_changed'] and deriv['reference_placeholders']==6)
+ control=canonical[deriv['negative_control']].decode();test('original negative diagnostics retained exact namespace',control.startswith('import Challenge\n') and 'namespace NLA.Proofs.RE06' in control and control.rstrip().endswith('end NLA.Proofs.RE06') and all(control.splitlines().count(s)==1 for s in removed))
+ formal=json.loads(canonical['formalization.yaml']);test('canonical status remains honest',formal['status']['canonical_status']=='Solved' and not formal['status']['whole_problem_verified'] and formal['status']['phase']=='full-target-candidate')
+ for name,b in members.items():
+  p=OUT/'artifact'/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(b)
+ (OUT/'reconstructed_ProofTrustAudit.lean.txt').write_text(generated)
+ details.update(actual_executed_merge=merge,source_head=HEAD,run=run['id'],job=job['id'],artifact_id=art['id'],original_ZIP_sha256=digest(zraw),original_ZIP_bytes=len(zraw),raw_job_sha256=digest(rawb),raw_job_bytes=len(rawb),original_receipt_sha256=digest(members[results[0]]),canonical_inputs=295,frozen_sources=87,live_source_inventory=91,actual_compiled_sources=sorted(compiled),live_unimported_sources=sorted(omitted),actual_proof_modules=len([n for n in compiled if n.startswith('NLA.Proofs.')]),tool_receipt=tool,source_pins=pins,artifact_member_hashes={n:digest(b) for n,b in sorted(members.items())})
+
+error=None
+try:audit()
+except Exception as e:error=repr(e)
+report=dict(reviewer='/root/re06_counts/inverse_outer_crosscheck',independent_non_author=True,scope='Actual PR371 run40415515989 original Linux/Comparator evidence only; no local Lean/Comparator execution',passed=error is None and all(c['passed'] for c in checks),error=error,evidence_directory=str(E),checks=checks,observations=observations,details=details,driver_sha256=digest(Path(__file__).read_bytes()),limits=['Source/math and canonical-package reviews remain distinct phases.','No all91 Linux-compiled claim; actual Built/Replayed markers are compared with exact Challenge/Solution import closure.','Only exact immutable run/source/artifact bytes are covered, not later PR heads or runs.'])
+(OUT/'RESULT.json').write_text(json.dumps(report,indent=2)+'\n')
+print(json.dumps(dict(passed=report['passed'],error=error,checks=len(checks),output=str(OUT)),indent=2))
+raise SystemExit(0 if report['passed'] else 1)

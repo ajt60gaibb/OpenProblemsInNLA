@@ -1,0 +1,84 @@
+#!/usr/bin/env python3
+"""Independent exact RE06 unpromoted package/statement/reference fidelity audit; no full-source or Linux acceptance."""
+from pathlib import Path,PurePosixPath
+import argparse,hashlib,io,json,re,subprocess,tomllib
+p=argparse.ArgumentParser(description=__doc__);p.add_argument('--repo',type=Path,required=True);p.add_argument('--commit',required=True);p.add_argument('--expected-lock-sha256',required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--twin',type=Path);p.add_argument('--reuse-repo',type=Path,default=Path('/Users/ajt253/Documents/OpenProblemsInNLA/campaign-workspaces/tr04'));a=p.parse_args();o=a.output.resolve();o.mkdir(parents=True,exist_ok=False);r=a.repo.resolve();C=a.commit;F='181c365dc426875aaa61984c901478b1b7c696e6';V1='dd72168242c8fb2148bb22089acec9c109e4e376';BASE='099805ef1ce7347d373e47cccc3b2d7cf580a99e';PRE='729832293829263c2e51dbd6ecc9788ad68b7792';AUTH='bb0dd13e3321bb35af762936a75c2c3a8a8363c6';P='randomized-and-low-rank-approximation/RE-06/lean/';D='docs/lean/proofs/RE-06/campaign-2026-10-26/';sha=lambda b:hashlib.sha256(b).hexdigest();checks=[];error=None;details={}
+def ck(n,v,**x):
+ checks.append(dict(name=n,passed=bool(v),**x))
+ if not v:raise AssertionError(n)
+def git(*v,repo=r):return subprocess.check_output(['git',*v],cwd=repo)
+def unique(ps):
+ d={}
+ for k,v in ps:
+  if k in d:raise ValueError('duplicate JSON key:'+k)
+  d[k]=v
+ return d
+def js(b):return json.loads(b,object_pairs_hook=unique)
+def fetch(ref,paths,repo=r):
+ paths=list(dict.fromkeys(paths));raw=git('cat-file','--batch',repo=repo) if not paths else subprocess.check_output(['git','cat-file','--batch'],input=''.join(ref+':'+q+'\n' for q in paths).encode(),cwd=repo);s=io.BytesIO(raw);ans={}
+ for q in paths:
+  h=s.readline().decode().strip().split();assert len(h)==3 and h[1]=='blob',(ref,q,h);b=s.read(int(h[2]));assert s.read(1)==b'\n';ans[q]=b
+ return ans
+def tree(ref,prefix):
+ ans=[]
+ for e in git('ls-tree','-r','-z',ref,prefix).split(b'\0'):
+  if not e:continue
+  h,q=e.split(b'\t',1);mode,typ,obj=h.decode().split();assert mode in ['100644','100755'] and typ=='blob',(mode,typ);ans.append(q.decode())
+ return ans
+def valid(q):
+ x=PurePosixPath(q);return not x.is_absolute() and str(x)==q and '..' not in x.parts and not any(ord(c)<32 for c in q)
+def audit():
+ ck('exact-immutable-package-commit',git('rev-parse',C+'^{commit}').decode().strip()==C)
+ files=tree(C,P);b=fetch(C,files);pkg={q[len(P):]:v for q,v in b.items()};lock=js(pkg['PACKAGE_LOCK.json']);ck('exact-package-lock',sha(pkg['PACKAGE_LOCK.json'])==a.expected_lock_sha256 and lock['proof_source_ref']==F)
+ ck('295tracked-exact-package-files',len(pkg)==295 and len(lock['files'])==294 and set(pkg)==set(lock['files'])|{'PACKAGE_LOCK.json'})
+ for q,e in lock['files'].items():ck('exact-locked-package-input:'+q,valid(q) and sha(pkg[q])==e['sha256'] and len(pkg[q])==e['bytes'])
+ if a.twin:
+  fs={str(q.relative_to(a.twin)):q for q in a.twin.rglob('*') if q.is_file()};ck('exact-twin-file-positive-set',set(fs)==set(pkg) and not any(q.is_symlink() for q in fs.values()))
+  for q,f in fs.items():ck('exact-twin-byte:'+q,f.read_bytes()==pkg[q])
+ mapping=js(pkg['SOURCE_MAP.json']);copies=mapping['copies'];ck('exact-full-source-ref-and-freeze',mapping['proof_source_ref']==F and mapping['full_source_freeze_sha256']=='93df2eabffe17df3c1d9a2950a60bc0cfcea103e8b4285cbd117b7f945d21e8b')
+ ck('278unique-upstream-copy-paths',len(copies)==278 and len({e['path'] for e in copies})==278 and all(e['source_ref']==F for e in copies))
+ upstream=fetch(F,[e['source_path'] for e in copies])
+ for e in copies:ck('exact-upstream-copy:'+e['path'],valid(e['path']) and valid(e['source_path']) and pkg[e['path']]==upstream[e['source_path']] and sha(pkg[e['path']])==e['sha256'] and len(pkg[e['path']])==e['bytes'])
+ generated={'Challenge.lean','Solution.lean','EndpointAudit.lean','Identity.lean','comparator.json','formalization.yaml','README.md','SOURCE_MAP.json','CHALLENGE_DERIVATION.json','PACKAGE_LOCK.json','lean-toolchain','lake-manifest.json','lakefile.toml','reproduce.py','controls/ChallengeTrustRejection.lean.txt','controls/DefinitionKindRejection.lean.txt','controls/CustomAxiomRejection.lean.txt'}
+ ck('exact-copy-generated-file-partition',set(pkg)=={e['path'] for e in copies}|generated and not ({e['path'] for e in copies}&generated))
+ freeze=js(pkg['reviews/FULL_TARGET_SOURCE_FREEZE.json']);fi=freeze['proof_inputs']+freeze['shared_inputs'];ck('exact87full-source-positive-set',freeze['source_inputs']==87 and len(fi)==87 and len(freeze['proof_inputs'])==82 and len(freeze['shared_inputs'])==5 and sha(pkg['reviews/FULL_TARGET_SOURCE_FREEZE.json'])==mapping['full_source_freeze_sha256'])
+ source_entries={e['path'].removeprefix('lean-statements/'):e for e in fi};mapped_sources={e['path']:e for e in copies if e['source_path'].startswith('lean-statements/')};ck('87exact-live-shared-copy-positive-set',set(mapped_sources)==set(source_entries) and len(mapped_sources)==87)
+ for q,e in source_entries.items():ck('exact-frozen-source-byte:'+q,sha(pkg[q])==e['sha256'] and len(pkg[q])==e['bytes'] and mapped_sources[q]['source_path']==e['path'])
+ runtime=mapping['runtime_lean_order'];ck('exact91runtime-positive-set',len(runtime)==len(set(runtime))==91 and set(runtime)==set(source_entries)|{'Challenge.lean','Solution.lean','EndpointAudit.lean','Identity.lean'})
+ ck('archives-inert-and-excluded-from-runtime',all(not q.startswith(('reviews/','controls/')) for q in runtime) and set(q for q in pkg if q.endswith('.lean') and not q.startswith('reviews/'))==set(runtime))
+ modules={q.removesuffix('.lean').replace('/','.'):q for q in runtime};dependencies={};seen=set()
+ for q in runtime:
+  im=[x for line in pkg[q].decode().splitlines() if line.startswith('import ') for x in line.split()[1:] if x.startswith(('NLA.','Reviewed.')) or x in ['Challenge','Solution','EndpointAudit','Identity']];dependencies[q]=im;ck('exact-runtime-import-order:'+q,all(m in seen for m in im));seen.add(q.removesuffix('.lean').replace('/','.'))
+ def reach(m,visited=None):
+  visited=set() if visited is None else visited
+  if m in visited:return visited
+  visited.add(m)
+  for d in dependencies[modules[m]]:reach(d,visited)
+  return visited
+ ck('Solution-never-imports-Challenge-or-archives','Challenge' not in reach('Solution') and pkg['Solution.lean'].decode().splitlines()[0]=='import NLA.Proofs.RE06.MainTarget')
+ ck('live-proof-sources-no-holes-or-oracles',all(not re.search(r'\b(?:sorry|admit|axiom|unsafe|native_decide|run_tac)\b',pkg[q].decode()) for q in runtime if q.startswith('NLA/Proofs/')))
+ prefiles=tree(PRE,D+'preproof/');pre=fetch(PRE,prefiles);ck('all103frozen-preproof-files-retained',len(prefiles)==103)
+ for q,v in pre.items():ck('exact-retained-preproof:'+q,pkg['reviews/preproof/'+q.removeprefix(D+'preproof/')]==v)
+ inp=js(pkg['reviews/preproof/INPUT_LOCK.json']);cur=fetch(C,[e['path'] for e in inp['files']]+['problem_ids.json']);base=fetch(BASE,[e['path'] for e in inp['files']]+['problem_ids.json']);ck('49original-inputs-base-correct',len(inp['files'])==49 and inp['published_base']==BASE)
+ for e in inp['files']:ck('published-original-preserved:'+e['path'],cur[e['path']]==base[e['path']]==pkg['reviews/preproof/originals/'+e['path']] and sha(cur[e['path']])==e['sha256'] and len(cur[e['path']])==e['bytes'])
+ reuse=js(pkg['reviews/preproof/REUSE_LOCK.json']);ext=fetch(reuse['source_commit'],[e['path'] for e in reuse['files']],repo=a.reuse_repo);ck('9reviewed-reuse-snapshots',len(reuse['files'])==9 and reuse['source_commit']=='653b8f1641415f4160811648ff3e23889ba2e136')
+ for e in reuse['files']:ck('exact-reuse-original:'+e['path'],pkg['reviews/preproof/supplementary-reuse/'+e['path']]==ext[e['path']] and sha(ext[e['path']])==e['sha256'])
+ ck('all217IDs-and-canonical-paths-unchanged',cur['problem_ids.json']==base['problem_ids.json'] and len(js(cur['problem_ids.json']))==217 and js(cur['problem_ids.json'])['RE-06']=='randomized-and-low-rank-approximation/RE-06/README.md')
+ ck('original-README-unchanged-Solved',b'**Status:** Solved' in cur[inp['canonical_readme']])
+ auth=js(pkg['reviews/IMPLEMENTATION_AUTHORIZATION.json']);ck('prior-matching-two-preproof-approvals-authorize-implementation',auth['implementation_authorized'] and auth['frozen_packet_commit']==PRE and {e['reviewer'] for e in auth['independent_non_author_approvals']}=={'/root/inventory','/root/verification'} and subprocess.run(['git','merge-base','--is-ancestor',AUTH,F],cwd=r).returncode==0)
+ for e in auth['independent_non_author_approvals']:ck('exact-original-preproof-approval:'+e['reviewer'],sha(pkg['reviews/'+e['report']])==e['sha256'] and sha(pkg['reviews/'+e['approval']])==e['approval_sha256'])
+ ex=js(pkg['reviews/preproof/EXPORTS.json']);names=['NLA.Proofs.RE06.'+e['name'] for e in ex['exports']];config=js(pkg['comparator.json']);ck('exact6preapprovedComparatornames-empty-definitions-standard3',len(names)==6 and config['theorem_names']==names and config['definition_names']==[] and set(config['permitted_axioms'])=={'propext','Classical.choice','Quot.sound'} and config['challenge_module']=='Challenge' and config['solution_module']=='Solution' and freeze['literal_exports']==ex['exports'])
+ d=js(pkg['CHALLENGE_DERIVATION.json']);original=pkg[d['original']['path']];removed=d['removed_lines'];wanted=['#assert_trust kernel '+e['name'] for e in ex['exports']]+['#print axioms '+e['name'] for e in ex['exports']];ck('exact-twelve-moved-instrumentation-lines',removed==wanted and len(set(removed))==12 and all(original.decode().splitlines().count(x)==1 for x in removed))
+ derived=('\n'.join(x for x in original.decode().splitlines() if x not in removed)+'\n').encode();ck('Challenge-only-removes-diagnostic-lines',pkg['Challenge.lean']==derived and sha(original)==d['original']['sha256'] and sha(derived)==d['canonical_reference_sha256'] and d['declaration_headers_changed'] is False and derived.count(b'  sorry\n')==6 and d['reference_placeholders']==6)
+ control=pkg[d['negative_control']].decode();scoped='import Challenge\n\nnamespace NLA.Proofs.RE06\n'+'\n'.join(removed)+'\nend NLA.Proofs.RE06\n';ck('actual-reference-control-restores-original-namespace',control==scoped and d.get('control_namespace')=='NLA.Proofs.RE06')
+ met=js(pkg['formalization.yaml']);status=met['status'];ck('honest-unpromoted-candidate-metadata',status['canonical_status']=='Solved' and status['phase']=='full-target-candidate' and status['whole_problem_verified'] is False and status['sorry_count']==0 and status['challenge_placeholder_count']==6 and [e['declaration'] for e in status['main_results']]==names and all(e['sorry_count']==0 and set(e['axioms'])==set(config['permitted_axioms']) for e in status['main_results']))
+ ck('source-freeze-preserves-separate-final-gates',freeze['canonical_status']=='Solved' and freeze['whole_problem_verified'] is False and freeze['independent_full_source_approval'] is False and freeze['canonical_package_approval'] is False and freeze['authoritative_Linux_CI'] is False and freeze['Comparator_acceptance'] is False)
+ man=js(pkg['lake-manifest.json']);upman=js(fetch(F,['lean-statements/lake-manifest.json'])['lean-statements/lake-manifest.json']);lake=tomllib.loads(pkg['lakefile.toml'].decode());pins={e['name']:e['rev'] for e in man['packages']};ck('immutable-all10dependency-pins',len(pins)==10 and man['packages']==upman['packages'] and pins['mathlib']=='0df444a360eaa60ab8c11dca51a86af692955474' and pins['leancert']=='621a43d7cf21f87872392a01e874f2f1dbddc926')
+ ck('exact-toolchain-Lake-defaults-and-namespace-globs',pkg['lean-toolchain']==b'leanprover/lean4:v4.33.1\n' and lake['defaultTargets']==['Solution','EndpointAudit','Identity'] and all(e['rev']==pins[e['name']] for e in lake['require']) and lake['lean_lib'][0]['globs']==['NLA.Computation.+','NLA.Statements.+','NLA.Proofs.RE06.+','NLA.Proofs.TR04.+'])
+ v1paths=tree(V1,P);v1={q[len(P):]:v for q,v in fetch(V1,v1paths).items()};delta={q for q in set(pkg)|set(v1) if pkg.get(q)!=v1.get(q)};allowed={'controls/ChallengeTrustRejection.lean.txt','CHALLENGE_DERIVATION.json','formalization.yaml','README.md','PACKAGE_LOCK.json'};ck('v1-correction-only-scoped-control-and-description-lock',delta<=allowed and all(pkg[q]==v1[q] for q in runtime) and pkg['SOURCE_MAP.json']==v1['SOURCE_MAP.json'],changed_files=sorted(delta))
+ target=o/'snapshot';target.mkdir()
+ for q,b in pkg.items():f=target/q;f.parent.mkdir(parents=True,exist_ok=True);f.write_bytes(b)
+ return dict(commit=C,proof_source_ref=F,package_lock_sha256=sha(pkg['PACKAGE_LOCK.json']),source_map_sha256=sha(pkg['SOURCE_MAP.json']),full_source_freeze_sha256=mapping['full_source_freeze_sha256'],locked_inputs=294,total_files=295,source_copies=87,all_upstream_copies=278,runtime_inputs=91,runtime_lean_order=runtime,all_package_file_sha256={q:sha(b) for q,b in pkg.items()},runtime_import_graph=dependencies,export_names=names,pins=pins,v1_correction_delta=sorted(delta),whole_problem_verified=False,canonical_status='Solved')
+try:details=audit()
+except Exception as e:error=str(e)
+j=dict(reviewer='/root/inventory',authored_RE06_proof_sources=[],scope='Independent candidate package/statement/reference/preservation fidelity only; separate full-source and actual Linux/Comparator gates remain required.',passed=error is None,error=error,check_count=len(checks),checks=checks,driver_sha256=sha(Path(__file__).read_bytes()),**details);(o/'RESULT.json').write_text(json.dumps(j,indent=2)+'\n');print(json.dumps({k:j[k] for k in ['passed','error','check_count']}));raise SystemExit(0 if j['passed'] else 1)

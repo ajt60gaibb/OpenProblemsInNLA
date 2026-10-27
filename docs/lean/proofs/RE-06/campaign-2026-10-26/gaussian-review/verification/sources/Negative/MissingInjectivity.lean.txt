@@ -1,0 +1,8 @@
+import NLA.Proofs.RE06.GaussianWarmStartResidual
+set_option leancert.trust "kernel"
+open scoped BigOperators
+open MeasureTheory ProbabilityTheory
+open NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06
+example : HasLaw (fun ω : ℕ → ℝ => fun _i : Fin 2 => ω 0)
+    (Measure.pi (fun _ : Fin 2 => gaussianReal 0 1)) GaussianLaw :=
+  finite_stream_selection_hasLaw (fun _i : Fin 2 => 0)

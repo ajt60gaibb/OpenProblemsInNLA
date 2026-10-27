@@ -1,0 +1,10 @@
+import NLA.Proofs.RE06.GaussianWarmStartResidual
+set_option leancert.trust "kernel"
+open scoped BigOperators
+open MeasureTheory ProbabilityTheory
+open NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06
+example {n : ℕ} (B : Matrix (Fin n) (Fin n) ℝ) (q offset : ℕ)
+    (η : ℝ) (hη0 : 0 < η) (hη1 : η ≤ 1) :
+    GaussianLaw.real {ω | (1+η)*squaredFrobenius B 0 <
+      squaredFrobenius (B * gaussianBlock n q offset ω) 0} ≤
+      Real.exp (-(q : ℝ)*η^2/8) := residualGaussian_upper_tail B q offset η hη0 hη1

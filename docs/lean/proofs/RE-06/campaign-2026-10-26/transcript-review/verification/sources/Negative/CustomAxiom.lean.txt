@@ -1,0 +1,8 @@
+import NLA.Proofs.RE06.TranscriptAudit
+set_option leancert.trust "kernel"
+open NLA.Computation.NonadaptiveMatrixQuery
+axiom TranscriptOracle {n m : ℕ} (F : Family n m) (A : Matrix (Fin n) (Fin n) ℝ)
+    (ε : ℝ) (hε : 0 ≤ ε) (hfull : n ≤ firstWidth m ε + secondWidth m ε + thirdWidth m ε) : Successful F A ε
+theorem TaintedFull {n m : ℕ} (F : Family n m) (A : Matrix (Fin n) (Fin n) ℝ)
+    (ε : ℝ) (hε : 0 ≤ ε) (hfull : n ≤ firstWidth m ε + secondWidth m ε + thirdWidth m ε) : Successful F A ε := TranscriptOracle F A ε hε hfull
+#assert_trust kernel TaintedFull

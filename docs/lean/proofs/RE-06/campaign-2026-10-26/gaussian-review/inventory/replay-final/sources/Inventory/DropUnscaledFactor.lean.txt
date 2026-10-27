@@ -1,0 +1,5 @@
+import Inventory.Audit
+set_option leancert.trust "kernel"
+open scoped BigOperators NNReal ENNReal
+open MeasureTheory ProbabilityTheory NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06
+example : ∀ {n : ℕ} (B : Matrix (Fin n) (Fin n) ℝ) (q offset r : ℕ) (hr : r<n) (η : ℝ), 0<η → η≤1 → GaussianLaw.real {ω | squaredFrobenius (B*gaussianBlock n q offset ω) 0 < (1-η)*residualTailEnergy B r} ≤ Real.exp (-(q : ℝ)*(r : ℝ)*η/4) := @residualGaussian_lower_tail

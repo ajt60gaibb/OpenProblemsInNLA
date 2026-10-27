@@ -1,0 +1,5 @@
+import NLA.Proofs.RE06.ActualRepairAudit
+open NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06 NLA.Proofs.RE06.Repair
+example {n k : ℕ} (C : Matrix (Fin n) (Fin n) ℝ)(r:ℕ)(hr:r≤n)(G:Matrix (Fin n) (Fin k) ℝ) :
+ squaredFrobenius (actualRangeResidual (C*G) C) 0≤residualTailEnergy C r+tailRandomEnergy C r hr G := by
+ exact actual_rangefinder_majorant C r hr G

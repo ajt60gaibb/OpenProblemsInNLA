@@ -1,0 +1,55 @@
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianSuccessAssembly.lean:39:9: error: ambiguous term, use fully qualified name, possible interpretations [_root_.frobenius,
+ @Computation.NonadaptiveMatrixQuery.frobenius]
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianSuccessAssembly.lean:106:35: error: unsolved goals
+n m : ℕ
+F : Family n m
+A : Matrix (Fin n) (Fin n) ℝ
+ε : ℝ
+hε0 : 0 < ε
+hεh : ε < 1 / 2
+hfixed :
+  ∀ (B : Matrix (Fin n) (Fin n) ℝ),
+    NullMeasurableSet (repairFailureSet B (secondWidth m ε) (thirdWidth m ε) (rootWidth m) (ε / 4))
+        (gaussianRepairLaw n (secondWidth m ε) (thirdWidth m ε)) ∧
+      (gaussianRepairLaw n (secondWidth m ε) (thirdWidth m ε)).real
+          (repairFailureSet B (secondWidth m ε) (thirdWidth m ε) (rootWidth m) (ε / 4)) ≤
+        1 / 128 + 1 / 524288
+hfull : ¬n ≤ firstWidth m ε + secondWidth m ε + thirdWidth m ε
+hsketch : firstWidth m ε + secondWidth m ε + thirdWidth m ε < n
+K : (ℕ → ℝ) → Fin (m + 2) := fun ω => sketchWarmIndex F A (makePlan n m ε ω)
+tail : (ℕ → ℝ) → ℝ := fun ω => residualTailEnergy (A - F (K ω)) (rootWidth m)
+badWarm : Set (ℕ → ℝ) := {ω | (1 + ε / 4) / (1 - ε / 4) * optimum A F ^ 2 < tail ω}
+badRepair : Set (ℕ → ℝ) := {ω | (1 + ε / 4) * tail ω < squaredFrobenius A (sketchRepair F A (makePlan n m ε ω))}
+htailmeas : Measurable tail
+hWarmMeas : MeasurableSet badWarm
+hWarm : GaussianLaw.real badWarm ≤ 2 * Real.exp (-16) + Real.exp (-8)
+hRepair :
+  NullMeasurableSet
+      {ω |
+        (1 + ε / 4) * residualTailEnergy (A - F (sketchWarmIndex F A (makePlan n m ε ω))) (rootWidth m) <
+          squaredFrobenius A (sketchRepair F A (makePlan n m ε ω))}
+      GaussianLaw ∧
+    GaussianLaw.real
+        {ω |
+          (1 + ε / 4) * residualTailEnergy (A - F (sketchWarmIndex F A (makePlan n m ε ω))) (rootWidth m) <
+            squaredFrobenius A (sketchRepair F A (makePlan n m ε ω))} ≤
+      1 / 128 + 1 / 524288
+hRepairMeas : NullMeasurableSet badRepair GaussianLaw
+hRepairProb : GaussianLaw.real badRepair ≤ 1 / 128 + 1 / 524288
+hUnionMeas : NullMeasurableSet (badWarm ∪ badRepair) GaussianLaw
+hUnionProb : GaussianLaw.real (badWarm ∪ badRepair) < 1 / 100
+hGoodProb : 99 / 100 ≤ GaussianLaw.real (badWarm ∪ badRepair)ᶜ
+hGoodSubset :
+  (badWarm ∪ badRepair)ᶜ ⊆ {ω | Computation.NonadaptiveMatrixQuery.frobenius A (run F A ε ω) ≤ (3 + ε) * optimum A F}
+⊢ ¬99 / 100 = ∞
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianSuccessAssembly.lean:109:21: error: #assert_trust: 'NLA.Proofs.RE06.repair_norm_of_tail_bounds' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+/private/tmp/nla-re06-gaussian-dev/source/NLA/Proofs/RE06/GaussianSuccessAssembly.lean:110:21: error: #assert_trust: 'NLA.Proofs.RE06.successful_of_fixed_repair_estimate' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.RE06.repair_norm_of_tail_bounds' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.Proofs.RE06.successful_of_fixed_repair_estimate' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]

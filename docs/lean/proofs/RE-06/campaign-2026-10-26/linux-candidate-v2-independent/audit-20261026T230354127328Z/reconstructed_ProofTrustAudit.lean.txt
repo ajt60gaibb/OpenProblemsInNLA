@@ -1,0 +1,30 @@
+import Solution
+import LeanCert.Tactic.Verification
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+
+open Lean Elab Command in
+elab "#assert_proof_constant " n:ident : command => do
+  let decl ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  match (← getEnv).find? decl with
+  | some (.thmInfo _) => pure ()
+  | _ => throwErrorAt n "expected a proved theorem constant"
+
+#assert_proof_constant NLA.Proofs.RE06.svd_total
+#assert_trust kernel NLA.Proofs.RE06.svd_total
+#print axioms NLA.Proofs.RE06.svd_total
+#assert_proof_constant NLA.Proofs.RE06.query_bound
+#assert_trust kernel NLA.Proofs.RE06.query_bound
+#print axioms NLA.Proofs.RE06.query_bound
+#assert_proof_constant NLA.Proofs.RE06.successful
+#assert_trust kernel NLA.Proofs.RE06.successful
+#print axioms NLA.Proofs.RE06.successful
+#assert_proof_constant NLA.Proofs.RE06.original_claim
+#assert_trust kernel NLA.Proofs.RE06.original_claim
+#print axioms NLA.Proofs.RE06.original_claim
+#assert_proof_constant NLA.Proofs.RE06.explicit_claim
+#assert_trust kernel NLA.Proofs.RE06.explicit_claim
+#print axioms NLA.Proofs.RE06.explicit_claim
+#assert_proof_constant NLA.Proofs.RE06.target
+#assert_trust kernel NLA.Proofs.RE06.target
+#print axioms NLA.Proofs.RE06.target

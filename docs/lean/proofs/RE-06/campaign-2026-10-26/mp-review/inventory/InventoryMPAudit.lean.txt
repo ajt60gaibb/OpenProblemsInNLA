@@ -1,0 +1,52 @@
+import NLA.Proofs.RE06.PseudoInverseGlobalAudit
+import NLA.Proofs.RE06.PseudoInverseAudit
+import NLA.Proofs.RE06.GaussianMomentFullRankAudit
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open scoped BigOperators Topology
+open MeasureTheory ProbabilityTheory Filter
+open NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06
+open Lean Elab Command in
+elab "#inventory_theorem " n:ident : command => do
+  let d ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  match (← getEnv).find? d with
+  | some (.thmInfo _) => pure ()
+  | _ => throwErrorAt n "inventory expects genuine theorem"
+namespace Inventory.RE06.MP
+theorem literal_MP {a b : ℕ} (B : Matrix (Fin a) (Fin b) ℝ) :
+    Pseudo.IsMP B (pseudoInverse B) := Pseudo.actual_isMP B
+theorem literal_unique {a b : ℕ} (B : Matrix (Fin a) (Fin b) ℝ)
+    (P : Matrix (Fin b) (Fin a) ℝ) (hP : Pseudo.IsMP B P) :
+    pseudoInverse B=P := Pseudo.actual_eq_of_isMP B P hP
+theorem literal_zero (a b : ℕ) : pseudoInverse (0 : Matrix (Fin a) (Fin b) ℝ)=0 := Pseudo.zero
+theorem literal_full_row {a b : ℕ} (B : Matrix (Fin a) (Fin b) ℝ)
+    (hdet : (B*B.transpose).det≠0) : pseudoInverse B=B.transpose*(B*B.transpose)⁻¹ := Pseudo.full_row_formula B hdet
+theorem literal_range_repair {n k r ell : ℕ} (Y : Matrix (Fin n) (Fin k) ℝ)
+    (Q : Matrix (Fin n) (Fin r) ℝ) (Ht : Matrix (Fin ell) (Fin n) ℝ)
+    (hQ : Q.transpose*Q=1) (hRange : Set.range Q.mulVec=Set.range Y.mulVec)
+    (hC : ((Ht*Q).transpose*(Ht*Q)).det≠0) :
+    Y*pseudoInverse (Ht*Y)=Q*pseudoInverse (Ht*Q) := Pseudo.repair_orthonormal_range Y Q Ht hQ hRange hC
+theorem literal_trace {a b : ℕ} (B : Matrix (Fin a) (Fin b) ℝ)
+    (hdet : (B*B.transpose).det≠0) : Pseudo.frobeniusSq (pseudoInverse B)=Matrix.trace (B*B.transpose)⁻¹ := Pseudo.full_row_frobeniusSq_trace_inverse_gram B hdet
+theorem literal_fullrank (d p : ℕ) (hdp : d≤p) :
+    ∀ᵐ x : Fin d × Fin p → ℝ ∂Measure.pi (fun _ : Fin d × Fin p => gaussianReal 0 1),
+      (GaussianMoment.entryMatrix x*(GaussianMoment.entryMatrix x).transpose).det≠0 := GaussianMoment.gaussian_gram_det_ne_zero_ae d p hdp
+theorem literal_stream_fullrank (d p offset : ℕ) (hdp : d≤p) :
+    ∀ᵐ ω ∂GaussianLaw, (gaussianBlock d p offset ω*(gaussianBlock d p offset ω).transpose).det≠0 := GaussianMoment.stream_block_gram_det_ne_zero_ae d p offset hdp
+theorem literal_reciprocal_integrable (d : ℕ) (hd : 2<d) :
+    Integrable (fun x : Fin d→ℝ => (GaussianMoment.normSq x)⁻¹) (Measure.pi (fun _ : Fin d => gaussianReal 0 1)) := GaussianMoment.normSq_inverse_integrable d hd
+theorem literal_reciprocal_moment (d : ℕ) (hd : 2<d) :
+    (∫ x : Fin d→ℝ, (GaussianMoment.normSq x)⁻¹ ∂Measure.pi (fun _ : Fin d => gaussianReal 0 1))=1/((d : ℝ)-2) := GaussianMoment.normSq_inverse_integral d hd
+theorem literal_projected_moment {p q : ℕ} (hq : 2<q)
+    (T : GaussianEuclid p →L[ℝ] GaussianEuclid q)
+    (hT : T.comp T.adjoint=ContinuousLinearMap.id ℝ (GaussianEuclid q)) :
+    (∫ x : Fin p→ℝ, (GaussianMoment.normSq (WithLp.ofLp (T (WithLp.toLp 2 x))))⁻¹ ∂Measure.pi (fun _ : Fin p => gaussianReal 0 1))=1/((q : ℝ)-2) := GaussianMoment.projected_normSq_inverse_integral hq T hT
+theorem literal_global_measurable (a b : ℕ) :
+    Measurable (fun B : Matrix (Fin a) (Fin b) ℝ => pseudoInverse B) := Pseudo.measurable_actual a b
+theorem literal_global_aemeasurable {Ω : Type*} [MeasurableSpace Ω] {a b : ℕ}
+    (μ : Measure Ω) (X : Ω→Matrix (Fin a) (Fin b) ℝ) (hX : AEMeasurable X μ) :
+    AEMeasurable (fun ω=>pseudoInverse (X ω)) μ := Pseudo.aemeasurable_actual μ X hX
+theorem literal_Tikhonov {a b : ℕ} (B : Matrix (Fin a) (Fin b) ℝ) :
+    Tendsto (fun j=>Pseudo.tikhonov B (Pseudo.regularizationParameter j)) atTop (𝓝 (pseudoInverse B)) := Pseudo.tikhonov_tendsto B
+theorem literal_original_Target_identity : NLA.Statements.RE06.Target=NLA.ReviewedStatements.RE06.Target := rfl
+end Inventory.RE06.MP

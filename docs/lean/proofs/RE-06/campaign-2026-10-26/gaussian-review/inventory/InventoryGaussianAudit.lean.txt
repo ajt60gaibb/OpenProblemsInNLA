@@ -1,0 +1,61 @@
+import NLA.Proofs.RE06.GaussianWarmStartResidual
+import NLA.Statements.RE06
+import Reviewed.RE06
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+open scoped BigOperators NNReal ENNReal
+open MeasureTheory ProbabilityTheory NLA.Computation.NonadaptiveMatrixQuery NLA.Proofs.RE06
+open Lean Elab Command in
+elab "#inventory_theorem " n:ident : command => do
+  let d ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo n
+  match (← getEnv).find? d with
+  | some (.thmInfo _) => pure ()
+  | _ => throwErrorAt n "inventory expects genuine theorem"
+namespace Inventory.RE06.Gaussian
+theorem literal_finite_stream {ι : Type*} [Fintype ι] (f : ι→ℕ) (hf : Function.Injective f) :
+    HasLaw (fun ω : ℕ→ℝ => fun i => ω (f i)) (Measure.pi (fun _ : ι => gaussianReal 0 1)) GaussianLaw := finite_stream_selection_hasLaw f hf
+theorem literal_three_independence (n s k ell : ℕ) :
+    iIndepFun (fun b (ω : ℕ→ℝ) (p : Fin n × Fin (gaussianBlockWidth s k ell b)) =>
+      gaussianBlock n (gaussianBlockWidth s k ell b) (gaussianBlockOffset s k b) ω p.1 p.2) GaussianLaw := gaussianThreeBlocks_independent n s k ell
+theorem literal_quadratic_MGF (t : ℝ) (ht : t<1/2) :
+    (∫ x : ℝ, Real.exp (t*x^2) ∂gaussianReal 0 1) = (Real.sqrt (1-2*t))⁻¹ := gaussian_square_exp_integral t ht
+theorem literal_quadratic_Laplace (a : ℝ) (ha : 0≤a) :
+    (∫ x : ℝ, Real.exp (-a*x^2) ∂gaussianReal 0 1) = (Real.sqrt (1+2*a))⁻¹ := gaussian_square_laplace a ha
+theorem literal_orthogonal_law (n : ℕ) (e : GaussianEuclid n ≃ₗᵢ[ℝ] GaussianEuclid n) :
+    HasLaw e (stdGaussian (GaussianEuclid n)) (stdGaussian (GaussianEuclid n)) := gaussianEuclid_rotation_hasLaw n e
+theorem literal_actual_coordinates {n : ℕ} (B : Matrix (Fin n) (Fin n) ℝ) (q offset : ℕ) :
+    HasLaw (fun ω : ℕ→ℝ => fun p : Fin n × Fin q =>
+      ((exactSVD B).V.transpose * gaussianBlock n q offset ω) p.1 p.2)
+      (Measure.pi (fun _ : Fin n × Fin q => gaussianReal 0 1)) GaussianLaw := residualGaussianCoordinates_hasLaw B q offset
+theorem literal_actual_energy {n : ℕ} (B : Matrix (Fin n) (Fin n) ℝ) (q offset : ℕ) (ω : ℕ→ℝ) :
+    squaredFrobenius (B*gaussianBlock n q offset ω) 0 =
+      gaussianQuadratic (fun p : Fin n × Fin q => (residualSingularValue B p.1)^2)
+        (residualGaussianCoordinates B q offset ω) := residualGaussian_energy B q offset ω
+theorem literal_actual_sorted {n : ℕ} (B : Matrix (Fin n) (Fin n) ℝ) :
+    Antitone (residualSingularValue B) := residualSingularValue_antitone B
+theorem literal_actual_nonnegative {n : ℕ} (B : Matrix (Fin n) (Fin n) ℝ) (i : Fin n) :
+    0≤residualSingularValue B i := residualSingularValue_nonneg B i
+theorem literal_lower_unscaled {n : ℕ} (B : Matrix (Fin n) (Fin n) ℝ)
+    (q offset r : ℕ) (hr : r<n) (η : ℝ) (hη0 : 0<η) (hη1 : η≤1) :
+    GaussianLaw.real {ω | squaredFrobenius (B*gaussianBlock n q offset ω) 0 <
+      (q : ℝ)*(1-η)*residualTailEnergy B r} ≤ Real.exp (-(q : ℝ)*(r : ℝ)*η/4) := residualGaussian_lower_tail B q offset r hr η hη0 hη1
+theorem literal_upper_unscaled {n : ℕ} (B : Matrix (Fin n) (Fin n) ℝ)
+    (q offset : ℕ) (η : ℝ) (hη0 : 0<η) (hη1 : η≤1) :
+    GaussianLaw.real {ω | (q : ℝ)*(1+η)*squaredFrobenius B 0 <
+      squaredFrobenius (B*gaussianBlock n q offset ω) 0} ≤ Real.exp (-(q : ℝ)*η^2/8) := residualGaussian_upper_tail B q offset η hη0 hη1
+theorem literal_actual_warm {n m : ℕ} (F : Family n m) (A : Matrix (Fin n) (Fin n) ℝ)
+    (q offset r : ℕ) (hq : 0<q) (hr : r<n) (η : ℝ) (hη0 : 0<η) (hη1 : η<1) :
+    GaussianLaw.real {ω | ((1+η)/(1-η))*(optimum A F)^2 <
+      residualTailEnergy (A-F (gaussianWarmIndex F A q offset ω)) r} ≤
+      (m+2 : ℝ)*Real.exp (-(q : ℝ)*(r : ℝ)*η/4)+Real.exp (-(q : ℝ)*η^2/8) := gaussianWarmIndex_tail_bound F A q offset r hq hr η hη0 hη1
+theorem literal_program_warm {n m : ℕ} (F : Family n m) (A : Matrix (Fin n) (Fin n) ℝ)
+    (ε : ℝ) (hsketch : firstWidth m ε+secondWidth m ε+thirdWidth m ε<n) (ω : ℕ→ℝ) :
+    gaussianWarmIndex F A (firstWidth m ε) 0 ω = sketchWarmIndex F A (makePlan n m ε ω) := gaussianWarmIndex_eq_sketchWarmIndex F A ε hsketch ω
+theorem literal_program_warm_tail {n m : ℕ} (F : Family n m) (A : Matrix (Fin n) (Fin n) ℝ)
+    (ε : ℝ) (hsketch : firstWidth m ε+secondWidth m ε+thirdWidth m ε<n)
+    (hq : 0<firstWidth m ε) (r : ℕ) (hr : r<n) (η : ℝ) (hη0 : 0<η) (hη1 : η<1) :
+    GaussianLaw.real {ω | ((1+η)/(1-η))*(optimum A F)^2 <
+      residualTailEnergy (A-F (sketchWarmIndex F A (makePlan n m ε ω))) r} ≤
+      (m+2 : ℝ)*Real.exp (-(firstWidth m ε : ℝ)*(r : ℝ)*η/4)+Real.exp (-(firstWidth m ε : ℝ)*η^2/8) := sketchWarmIndex_tail_bound F A ε hsketch hq r hr η hη0 hη1
+theorem literal_original_Target_identity : NLA.Statements.RE06.Target = NLA.ReviewedStatements.RE06.Target := rfl
+end Inventory.RE06.Gaussian

@@ -1,0 +1,27 @@
+import NLA.Proofs.RE06.GaussianMomentInverseAudit
+import NLA.Proofs.RE06.GaussianMomentOuter
+
+set_option autoImplicit false
+set_option leancert.trust "kernel"
+
+#actual_theorem NLA.Proofs.RE06.GaussianMoment.nonnegative_prod_integrable_of_inner_majorant
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.nonnegative_prod_integrable_of_inner_majorant
+#print axioms NLA.Proofs.RE06.GaussianMoment.nonnegative_prod_integrable_of_inner_majorant
+#actual_theorem NLA.Proofs.RE06.GaussianMoment.nonnegative_prod_integral_le_inner_majorant
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.nonnegative_prod_integral_le_inner_majorant
+#print axioms NLA.Proofs.RE06.GaussianMoment.nonnegative_prod_integral_le_inner_majorant
+#actual_theorem NLA.Proofs.RE06.GaussianMoment.excess_prod_integrable_and_integral_le
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.excess_prod_integrable_and_integral_le
+#print axioms NLA.Proofs.RE06.GaussianMoment.excess_prod_integrable_and_integral_le
+#actual_theorem NLA.Proofs.RE06.GaussianMoment.regression_ratio_mono
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.regression_ratio_mono
+#print axioms NLA.Proofs.RE06.GaussianMoment.regression_ratio_mono
+#actual_theorem NLA.Proofs.RE06.GaussianMoment.actual_excess_majorant_moment
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.actual_excess_majorant_moment
+#print axioms NLA.Proofs.RE06.GaussianMoment.actual_excess_majorant_moment
+#actual_theorem NLA.Proofs.RE06.GaussianMoment.gaussianRepair_head_right_inverse_ae
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.gaussianRepair_head_right_inverse_ae
+#print axioms NLA.Proofs.RE06.GaussianMoment.gaussianRepair_head_right_inverse_ae
+#actual_theorem NLA.Proofs.RE06.GaussianMoment.gaussianRepair_majorant_ae
+#assert_trust kernel NLA.Proofs.RE06.GaussianMoment.gaussianRepair_majorant_ae
+#print axioms NLA.Proofs.RE06.GaussianMoment.gaussianRepair_majorant_ae
