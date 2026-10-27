@@ -1,5 +1,11 @@
-# IE-22 Lean formalization scaffold
+# IE-22 complete Lean proof
 
-This directory records the approved Lean statement boundary and the supporting lemmas currently checked for IE-22. The full target is in Challenge.lean; Solution.lean is intentionally incomplete and does not import the challenge. This project is **not Lean verified**: see SPEC.md, the blocker notes, and the retained verification records for the exact scope and limitations.
+The package proves the literal unchanged `NLA.Statements.IE22.Target`: the sharp eventual uniform constant and failure of every smaller real constant. It also proves the exact reviewed squared upper estimate uniformly in every positive row count and actual near-sharp finite unit-row matrix witnesses beyond every dimension and aspect-ratio threshold. All 19 shared proof modules are copied byte-for-byte; `Identity.lean` checks the frozen/live Target by `rfl`.
 
-Pinned toolchain and metadata are in `lean-toolchain`, `lakefile.toml`, and `formalization.yaml`. The independent review records are in `reviews/`.
+Two independent final source/package reviews pass. An independent fresh replay compiled 23 shared sources and checked 114 declaration kinds, kernel trust and transitive standard-only axioms. All 27 canonical Lean files are checked, including wrappers and the two original support lemmas. Actual isolated Linux PR368 run40255260833/job121355717650 accepted all three Comparator exports and their kernel proofs. The independent original-artifact/raw-log audit passes 220 checks and binds all 54 original package inputs. The metadata promotion retains all 27 Lean sources and receives fresh committed-project CI. [Immutable receipts and audits](../../../docs/lean/proofs/IE-22/campaign-2026-10-23/LINUX_CI_RECEIPT.md).
+
+`Challenge.lean` contains the exact three pre-reviewed reference placeholders and is never imported by Solution. Comparator selects actual theorem constants with no replaceable definitions; global LeanCert trust is kernel and only `propext`, `Classical.choice` and `Quot.sound` are permitted.
+
+The original canonical problem is retained in `../ORIGINAL.md`; Definitions and both historical support theorems remain available. Earlier refreshed scaffold files are preserved byte-for-byte with text suffixes under `original-scaffold/`, and the complete original source packet remains in the pre-proof archive. The earlier Challenge's additional convergence clause omitted ambient dimension tending to infinity; that historical extension is preserved and is outside the unchanged published Target. This qualitative formal proof makes no explicit manuscript convergence-rate claim.
+
+Original mathematical credit remains with Matthew J. Colbrook. Formalization, packaging and independent reviews are AI-agent work; no external human endorsement is claimed. Toolchain, Mathlib and LeanCert revisions are pinned in the manifest.

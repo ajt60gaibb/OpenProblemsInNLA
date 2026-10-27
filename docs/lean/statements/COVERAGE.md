@@ -1,6 +1,6 @@
 # Lean statement coverage
 
-Published base: `7ebc4e21f2a4e19db341a3fb28644ab4e2df7ebf`.
+Published base: `01ed3c64648d2d8350ba80c4018894b6d785d2c9`.
 
 This generated source inventory covers every permanent registered ID. It does not certify proofs, compilation, or mathematical fidelity. Catalog statuses are retained verbatim. A solution file's existence is not evidence that the original target is proved.
 
@@ -11,7 +11,7 @@ Registered entries: **217**.
 - missing-statement: **99**
 - shared-statement-source: **45**
 
-The six existing scope gaps remain explicit even when a new shared statement is recorded. IE-01, TR-01, IV-01, MI-15, MI-18, MF-23, and MI-32 cite pinned external formalizations and are tracked separately from entries with no Lean statement. Copied historical and review projects do not count.
+The 5 existing scope gaps remain explicit even when a new shared statement is recorded. IE-01, TR-01, IV-01, MI-15, MI-18, MF-23, and MI-32 cite pinned external formalizations and are tracked separately from entries with no Lean statement. Copied historical and review projects do not count.
 
 Regenerate with `python3 tools/statement_inventory.py --base-ref <published-commit>`; add `--check` to reject stale generated files. The base commit is explicit so unrelated working-branch commits do not change the inventory.
 
@@ -66,7 +66,7 @@ Regenerate with `python3 tools/statement_inventory.py --base-ref <published-comm
 | [IE-19](../../../linear-systems-and-elimination/IE-19/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [IE-20](../../../linear-systems-and-elimination/IE-20/README.md) | Partially resolved | missing-statement | Not audited here. |
 | [IE-21](../../../linear-systems-and-elimination/IE-21/README.md) | Solved | shared-statement-source | The full target is an axiom and the SphericalRowLaw semantic boundary is unimplemented. |
-| [IE-22](../../../linear-systems-and-elimination/IE-22/README.md) | Solved | shared-statement-source | The full target is an axiom; complete semantic and proof obligations remain. |
+| [IE-22](../../../linear-systems-and-elimination/IE-22/README.md) | Lean verified | shared-statement-source | Not audited here. |
 | [IE-23](../../../linear-systems-and-elimination/IE-23/README.md) | Lean verified | local-statement-source | Not audited here. |
 | [IE-24](../../../linear-systems-and-elimination/IE-24/README.md) | Open | missing-statement | Not audited here. |
 | [IE-25](../../../linear-systems-and-elimination/IE-25/README.md) | Open | missing-statement | Not audited here. |

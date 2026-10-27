@@ -1,0 +1,46 @@
+import Solution
+import Identity
+set_option leancert.trust "kernel"
+open Lean Elab Command
+elab "#review_theorem " target:ident : command => do
+  let name ← liftCoreM <| realizeGlobalConstNoOverloadWithInfo target
+  let info ← liftCoreM <| getConstInfo name
+  match info with
+  | .thmInfo _ => pure ()
+  | _ => throwError "actual theorem required: {name}"
+#review_theorem NLA.Proofs.IE22.uniform_squared_upper
+#assert_trust kernel NLA.Proofs.IE22.uniform_squared_upper
+#print axioms NLA.Proofs.IE22.uniform_squared_upper
+#review_theorem NLA.Proofs.IE22.near_sharp_unit_row_witness
+#assert_trust kernel NLA.Proofs.IE22.near_sharp_unit_row_witness
+#print axioms NLA.Proofs.IE22.near_sharp_unit_row_witness
+#review_theorem NLA.Proofs.IE22.target
+#assert_trust kernel NLA.Proofs.IE22.target
+#print axioms NLA.Proofs.IE22.target
+#review_theorem NLA.Proofs.IE22.target_eq_reviewed
+#assert_trust kernel NLA.Proofs.IE22.target_eq_reviewed
+#print axioms NLA.Proofs.IE22.target_eq_reviewed
+#review_theorem IE22.l2Sq_zero
+#assert_trust kernel IE22.l2Sq_zero
+#print axioms IE22.l2Sq_zero
+#review_theorem IE22.rowEnergy_empty
+#assert_trust kernel IE22.rowEnergy_empty
+#print axioms IE22.rowEnergy_empty
+open NLA.Statements.RowDeletion
+example (θ a : ℝ)
+    (hθ0 : 0 < θ) (hθ1 : θ < 1) (ha : 0 < a)
+    (hquantile : GaussianQuantile θ a) :
+    ∀ ε : ℝ, 0 < ε → ∃ N : ℕ,
+      ∀ n m : ℕ, 0 < n → 0 < m → N ≤ n →
+        ∀ A : Matrix (Fin m) (Fin n) ℝ, UnitRows A →
+          (n : ℝ) / (m : ℝ) * SubsingularSquared θ A ≤ TrimmedMoment a + ε := NLA.Proofs.IE22.uniform_squared_upper θ a hθ0 hθ1 ha hquantile
+example (θ a : ℝ)
+    (hθ0 : 0 < θ) (hθ1 : θ < 1) (ha : 0 < a)
+    (hquantile : GaussianQuantile θ a) :
+    ∀ ε : ℝ, 0 < ε → ∀ N R : ℕ,
+      ∃ n m : ℕ, ∃ A : Matrix (Fin m) (Fin n) ℝ,
+        0 < n ∧ 0 < m ∧ N ≤ n ∧ R * n ≤ m ∧ UnitRows A ∧
+          TrimmedMoment a - ε ≤ (n : ℝ) / (m : ℝ) * SubsingularSquared θ A := NLA.Proofs.IE22.near_sharp_unit_row_witness θ a hθ0 hθ1 ha hquantile
+example : NLA.Statements.IE22.Target := NLA.Proofs.IE22.target
+example : NLA.ReviewedStatements.IE22.Target := NLA.Proofs.IE22.target
+example : NLA.Statements.IE22.Target = NLA.ReviewedStatements.IE22.Target := rfl
