@@ -316,6 +316,9 @@ import NLA.Proofs.RE05.QueryAsymptotic
 import NLA.Proofs.RE05.MedianRobust
 import NLA.Proofs.RE05.BasisProjection
 import NLA.Proofs.RE05.GaussianWick
+import NLA.Proofs.RE05.OneCopyError
+import NLA.Proofs.RE05.OffsetContraction
+import NLA.Proofs.RE05.GaussianQuadraticCovariance
 /-!
 Aggregate import for independently reviewed kernel proofs of Solved targets.
 Target-specific proof PRs add their audited modules here.
