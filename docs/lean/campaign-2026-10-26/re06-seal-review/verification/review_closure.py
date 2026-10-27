@@ -1,0 +1,67 @@
+#!/usr/bin/env python3
+"""Independent read-only closure of exact durable seal; no proof replay or restoration."""
+import argparse,collections,hashlib,io,json,re,subprocess,tarfile
+from pathlib import Path,PurePosixPath
+EXPECTED='ac2e99efc7f829e96475fa0f9fc143564ba2ab28ccf0c18bfe0ed491fa2dd496'
+HEAD='669f3cd681b22882836d081a04652880ce39ba24'
+ARCHIVE='71511f51452f7f59e5c298cf8513df0df0f71781'
+SOURCE='181c365dc426875aaa61984c901478b1b7c696e6'
+DOC='docs/lean/proofs/RE-06/'
+SEAL=DOC+'campaign-2026-10-26/FINAL_EVIDENCE_SEAL.json'
+def sha(b):return hashlib.sha256(b).hexdigest()
+def main():
+ p=argparse.ArgumentParser()
+ for n in ['repo','output']:p.add_argument('--'+n,type=Path,required=True)
+ a=p.parse_args();repo=a.repo.resolve();a.output.mkdir(parents=True,exist_ok=True);checks=[]
+ def git(*x):return subprocess.check_output(['git','-C',str(repo),*x])
+ def blob(r,n):return git('show',r+':'+n)
+ def ck(n,v,**d):
+  checks.append({'check':n,'pass':bool(v),**d})
+  if not v:raise RuntimeError('Failed check: '+n)
+ def snap(r,paths,prefix=''):
+  with tarfile.open(fileobj=io.BytesIO(git('archive',r,*paths))) as t:return {e.name[len(prefix):]:t.extractfile(e).read() for e in t if e.isfile()}
+ raw=(repo/SEAL).read_bytes();s=json.loads(raw);head_before=git('rev-parse','HEAD').decode().strip();ck('exact_locked_seal_accepted_input_and_archive_HEAD',sha(raw)==EXPECTED and head_before==ARCHIVE and s['accepted_input_ref']==HEAD and s['proof_source_ref']==SOURCE)
+ ck('correct_narrow_complete_scope',s['whole_RE06_proof_and_evidence_verified'] is True and s['campaign_goal_complete'] is False and s['regenerable_artifacts_included'] is False and s['self_excluded']==SEAL)
+ expected_counts={'canonical_files':295,'evidence_files':5659,'source_files':87}
+ for group,size in expected_counts.items():ck('exact_unique_positive_count:'+group,len(s[group])==size and len({e['path'] for e in s[group]})==size)
+ prefix=s['canonical_project']+'/';canonical=snap(HEAD,[prefix]);paths={}
+ for group in ['canonical_files','evidence_files']:
+  for e in s[group]:
+   q=PurePosixPath(e['path']);f=repo/e['path'];b=f.read_bytes();ck(group+':'+e['path'],not q.is_absolute() and '..' not in q.parts and not f.is_symlink() and sha(b)==e['sha256'] and len(b)==e['bytes'])
+   paths[e['path']]=b
+   if group=='canonical_files':ck('byte_exact_accepted_Git:'+e['path'],canonical.get(e['path'])==b)
+ for name,expected in [('canonical_files',{e['path'] for e in s['canonical_files']}),('evidence_files',{e['path'] for e in s['evidence_files']}|{SEAL})]:
+  root=repo/(s['canonical_project'] if name=='canonical_files' else s['evidence_root']);actual={str(f.relative_to(repo)) for f in root.rglob('*') if f.is_file()};ck('exact_physical_positive_set_no_filters:'+name,actual==expected)
+  ck('no_symlink_anywhere:'+name,all(not f.is_symlink() for f in root.rglob('*')))
+ bad=[n for n in paths if Path(n).suffix in {'.olean','.ilean','.pyc','.pyo'} or '__pycache__' in PurePosixPath(n).parts or '.lake' in PurePosixPath(n).parts or '.git' in PurePosixPath(n).parts];ck('no_compiled_Lean_Python_or_cache_artifacts',not bad,bad=bad)
+ lock=json.loads((repo/prefix/'PACKAGE_LOCK.json').read_text());ck('same295_accepted_promoted_package',sha((repo/prefix/'PACKAGE_LOCK.json').read_bytes())==s['package_lock_sha256']=='e712ded5fbc472ab9fa999de9a1fa885aa86b0b88276f2a55afbc01a7a7a921a' and len(canonical)==295 and len(lock['files'])==294 and set(lock['files'])=={e['path'].removeprefix(prefix) for e in s['canonical_files']}-{'PACKAGE_LOCK.json'})
+ for n,e in lock['files'].items():ck('promoted_package_lock:'+n,sha((repo/prefix/n).read_bytes())==e['sha256'] and (repo/prefix/n).stat().st_size==e['bytes'])
+ freeze=json.loads(blob(SOURCE,DOC+'campaign-2026-10-26/FULL_TARGET_SOURCE_FREEZE.json'));positive={e['path']:e for e in freeze['proof_inputs']+freeze['shared_inputs']};ck('same_frozen87_source_set',set(positive)=={e['path'] for e in s['source_files']})
+ sources=snap(SOURCE,list(positive));accepted=snap(HEAD,list(positive))
+ for e in s['source_files']:
+  n=e['path'];b=sources[n];target=repo/prefix/n.removeprefix('lean-statements/');ck('source_binding:'+n,sha(b)==e['sha256']==positive[n]['sha256'] and len(b)==e['bytes']==positive[n]['bytes'] and b==accepted[n]==target.read_bytes()==(repo/n).read_bytes())
+ source_map=json.loads((repo/prefix/'SOURCE_MAP.json').read_text());ck('unchanged278_copies_and91_runtime_inventory',len(source_map['copies'])==s['source_copy_bindings']==278 and len(source_map['runtime_lean_order'])==s['supplied_runtime_Lean_inputs']==91 and len([e for e in s['canonical_files'] if e['path'].endswith('.lean') and '/reviews/' not in e['path']])==91)
+ for e in source_map['copies']:ck('retained_source_copy:'+e['path'],sha((repo/prefix/e['path']).read_bytes())==e['sha256'] and (repo/prefix/e['path']).stat().st_size==e['bytes'])
+ for label,e in s['approvals'].items():ck('exact_scoped_approval:'+label,sha((repo/e['path']).read_bytes())==e['sha256'])
+ own=json.loads((repo/s['approvals']['final_independent']['path']).read_text());ck('final_actual_independent_approval_not_relabelled',own['approved'] and own['source_head']==HEAD and own['actually_executed_merge']==s['final_ci']['actual_executed_merge'] and own['postapplication_checks']==922 and own['actual_CI_offline_checks']==1600)
+ author=json.loads((repo/s['approvals']['final_author']['path']).read_text());ck('actual_final_author_receipt_bound',sha((repo/s['approvals']['final_author']['path']).read_bytes())=='d2c124600c460d3d4347e580c45f57871b628db35ddbe82df8c310d0d113c989')
+ f=s['final_ci'];ck('actual_final_CI_scope',f['run']==40419199614 and f['job']==121910097866 and f['artifact_id']==12697698303 and f['original_zip_bytes']==31125 and f['original_zip_sha256']=='26a610fa14401f4ace507588a979550bafcd3efa4370204f73f721d1c2307d29' and f['original_raw_bytes']==143193 and f['original_raw_sha256']=='6518907644c74b857b428fa7067c170ee29c2b285f607342afa4759047cf7ebb' and f['author_audit_checks']==1837 and f['independent_actual_CI_checks']==1600 and f['independent_postapplication_checks']==922 and s['actual_Linux_import_modules']==87 and s['actual_Linux_production_proof_modules']==81)
+ names=['NLA.Proofs.RE06.'+x for x in ['svd_total','query_bound','successful','original_claim','explicit_claim','target']];config=json.loads((repo/prefix/'comparator.json').read_text());ck('same6_theorems_empty_definitions_std3',s['exports']==config['theorem_names']==names and config['definition_names']==[] and set(s['permitted_transitive_axioms'])==set(config['permitted_axioms'])=={'propext','Classical.choice','Quot.sound'})
+ idsraw=blob(HEAD,'problem_ids.json');ids=json.loads(idsraw);current=json.loads((repo/'problem_ids.json').read_text());ck('registry217_exact_original_pairs',len(ids)==len(current)==217 and ids==current and sha(idsraw)==s['registry_sha256'])
+ readmes=snap(HEAD,list(ids.values()));counts=collections.Counter()
+ for n,b in readmes.items():counts[re.search(rb'^\*\*Status:\*\*\s*([^\n]+)',b,re.M)[1].decode().strip()]+=1
+ ck('historical_accepted_catalog88_30',dict(counts)==s['catalog_at_accepted_input_ref'] and counts['Lean verified']==88 and counts['Solved']==30 and b'30 solved (published or independently audited); 88 solved with Lean verification.' in blob(HEAD,'CATALOG.md'))
+ old=blob('0c6d346763a932eb2d379f555e66d8ab3dbf3255','randomized-and-low-rank-approximation/RE-06/README.md');now=(repo/'randomized-and-low-rank-approximation/RE-06/README.md').read_bytes();ck('complete_original_page_and_target_context',old==(repo/DOC/'ORIGINAL.md').read_bytes() and now==blob(HEAD,'randomized-and-low-rank-approximation/RE-06/README.md') and now.split(b'## Context and notation',1)[1]==old.split(b'## Context and notation',1)[1])
+ ck('complete_old_candidate_README',blob('0c6d346763a932eb2d379f555e66d8ab3dbf3255',prefix+'README.md')==(repo/DOC/'CANDIDATE_README.md').read_bytes())
+ objroot=repo/DOC/'campaign-2026-10-26/executed-merge-objects';om=json.loads((objroot/'MANIFEST.json').read_text());ck('both_synthetic_commit_records',len(om['entries'])==2 and {e['git_commit'] for e in om['entries']}=={'1322d6c23e833cba4223b466a3717af1a197b904','94c6ab3fe2773767905d0de0656d3d4e4bc019aa'})
+ for e in om['entries']:
+  b=(objroot/e['path']).read_bytes();headers=b.split(b'\n\n',1)[0].splitlines();tree=next(x.split(b' ',1)[1].decode() for x in headers if x.startswith(b'tree '));parents=[x.split(b' ',1)[1].decode() for x in headers if x.startswith(b'parent ')]
+  ck('raw_git_commit_object:'+e['git_commit'],sha(b)==e['sha256'] and len(b)==e['bytes'] and hashlib.sha1(b'commit '+str(len(b)).encode()+b'\0'+b).hexdigest()==e['git_commit'] and git('cat-file','commit',e['git_commit'])==b and tree==e['tree']==git('rev-parse',e['source_head']+'^{tree}').decode().strip()==git('rev-parse',e['git_commit']+'^{tree}').decode().strip() and parents==e['parents']==['e7fadd2197de71772f569de202dca4a9a7e9b422',e['source_head']])
+ text=(repo/DOC/'LINUX_CI_RECEIPT.md').read_text();ck('public_receipt_explicit_candidate_then_accepted_final',text.index('## Accepted final promoted inputs')>text.index('## Final descriptive promotion') and all(x in text for x in ['40415515989','1322d6c23e833cba4223b466a3717af1a197b904','40419199614','121910097866','94c6ab3fe2773767905d0de0656d3d4e4bc019aa',HEAD,f['original_zip_sha256'],f['original_raw_sha256'],'1,837','1,600','922','future-tense final-run promise is fulfilled','87 modules including 81 production proof modules','all 91 supplied runtime files remain unchanged']))
+ for url in re.findall(r'\]\(([^)]+)\)',text):
+  if not re.match(r'[a-zA-Z]+:',url):ck('receipt_relative_target_exists:'+url,(repo/DOC/url).exists())
+ helper=(repo/DOC/'campaign-2026-10-26/verify_final_seal.py').read_text();restore=(objroot/'restore_missing.py').read_text();ck('verifier_claims_only_read_only_integrity', 'kernel acceptance is separate archived evidence' in helper and 'No Lean/Comparator execution claimed.' in helper and all(x not in helper for x in ['hash-object','--restore','--run','lake build']))
+ ck('optional_restore_only_missing_object_no_refs','if not exists and a.restore:' in restore and "['git','hash-object','-t','commit','-w','--stdin']" in restore and all(x not in restore for x in ['update-ref','checkout','fetch','reset','branch']))
+ ck('seal_and_HEAD_unchanged_after_review',(repo/SEAL).read_bytes()==raw and git('rev-parse','HEAD').decode().strip()==head_before)
+ r={'approved_closure':all(e['pass'] for e in checks),'reviewer':'/root/verification','non_author':True,'scope':'Read-only durable seal closure, no new Lean/Comparator/Linux execution or Git restoration','seal_sha256':EXPECTED,'accepted_input_ref':HEAD,'archive_ref':ARCHIVE,'proof_source_ref':SOURCE,'canonical_files':295,'evidence_files':5659,'source_bindings':87,'checks':checks,'regenerable_omissions_claimed':False,'source_verifier_and_restore_reviewed_only':True,'sealed_prefix_edits':False,'script_sha256':sha(Path(__file__).read_bytes())};(a.output/'RESULT.json').write_text(json.dumps(r,indent=2)+'\n');print(json.dumps({'approved_closure':r['approved_closure'],'checks':len(checks),'canonical':295,'evidence':5659,'source_bindings':87},indent=2))
+if __name__=='__main__':main()
