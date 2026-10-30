@@ -1,0 +1,31 @@
+NLA.Proofs.RE05.ComplementProjection 0
+NLA.Proofs.RE05.PositiveSVDColumns 0
+NLA/Proofs/RE05/LeverageMask.lean:58:69: warning: Possibly looping simp theorem: `List.filter_toFinset`
+
+Note: Possibly caused by: `List.toFinset_filter` and `decide_eq_true_eq`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+NLA/Proofs/RE05/LeverageMask.lean:58:4: error: Tactic `simp` failed with a nested error:
+maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+NLA/Proofs/RE05/LeverageMask.lean:71:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∑ h, ?f (makePlan P ξ ω copy).selected[h]
+in the target expression
+  ∑ h, leverageFrame P i (makePlan P ξ ω copy).selected[h] * leverageFrame P k (makePlan P ξ ω copy).selected[h] =
+    (leverageFrame P * Matrix.diagonal (selectedMask P ξ) * (leverageFrame P)ᵀ) i k
+
+n q : ℕ
+P : Basis n q
+ξ : ℝ
+ω : ℕ → ℝ
+copy : Fin 15
+i k : Fin n
+⊢ ∑ h, leverageFrame P i (makePlan P ξ ω copy).selected[h] * leverageFrame P k (makePlan P ξ ω copy).selected[h] =
+    (leverageFrame P * Matrix.diagonal (selectedMask P ξ) * (leverageFrame P)ᵀ) i k
+
+Note: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.
+Full error:
+  function expected
+    leverageFrame P i
+NLA.Proofs.RE05.LeverageMask 1

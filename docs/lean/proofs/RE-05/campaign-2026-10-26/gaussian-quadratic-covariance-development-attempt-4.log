@@ -1,0 +1,85 @@
+NLA/Proofs/RE05/GaussianQuadraticCovariance.lean:28:20: error(lean.unknownIdentifier): Unknown identifier `measureReal_univ_eq_one`
+NLA/Proofs/RE05/GaussianQuadraticCovariance.lean:27:2: error: Type mismatch: After simplification, term
+  h
+ has type
+  (∫ (a : ι → ℝ), gaussianQuadraticForm A a - A.trace ∂Measure.pi fun x => gaussianReal 0 1) =
+    A.trace - (Measure.pi fun x => gaussianReal 0 1).real Set.univ • A.trace
+but is expected to have type
+  (∫ (x : ι → ℝ), gaussianQuadraticForm A x - A.trace ∂Measure.pi fun x => gaussianReal 0 1) = 0
+NLA/Proofs/RE05/GaussianQuadraticCovariance.lean:66:57: error(lean.unknownIdentifier): Unknown identifier `measureReal_univ_eq_one`
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+NLA/Proofs/RE05/GaussianQuadraticCovariance.lean:54:49: error: unsolved goals
+ι : Type u_1
+inst✝¹ : Fintype ι
+inst✝ : DecidableEq ι
+A B : Matrix ι ι ℝ
+ha : Integrable (gaussianQuadraticForm A) (Measure.pi fun x => gaussianReal 0 1)
+hb : Integrable (gaussianQuadraticForm B) (Measure.pi fun x => gaussianReal 0 1)
+hab : Integrable (fun x => gaussianQuadraticForm A x * gaussianQuadraticForm B x) (Measure.pi fun x => gaussianReal 0 1)
+h1 :
+  (∫ (a : ι → ℝ),
+      gaussianQuadraticForm A a * gaussianQuadraticForm B a -
+        B.trace * gaussianQuadraticForm A a ∂Measure.pi fun x => gaussianReal 0 1) =
+    (∫ (a : ι → ℝ), gaussianQuadraticForm A a * gaussianQuadraticForm B a ∂Measure.pi fun x => gaussianReal 0 1) -
+      ∫ (a : ι → ℝ), B.trace * gaussianQuadraticForm A a ∂Measure.pi fun x => gaussianReal 0 1
+h2 :
+  (∫ (a : ι → ℝ),
+      gaussianQuadraticForm A a * gaussianQuadraticForm B a - B.trace * gaussianQuadraticForm A a -
+        A.trace * gaussianQuadraticForm B a ∂Measure.pi fun x => gaussianReal 0 1) =
+    (∫ (a : ι → ℝ),
+        gaussianQuadraticForm A a * gaussianQuadraticForm B a -
+          B.trace * gaussianQuadraticForm A a ∂Measure.pi fun x => gaussianReal 0 1) -
+      ∫ (a : ι → ℝ), A.trace * gaussianQuadraticForm B a ∂Measure.pi fun x => gaussianReal 0 1
+h3 :
+  (∫ (a : ι → ℝ),
+      gaussianQuadraticForm A a * gaussianQuadraticForm B a - B.trace * gaussianQuadraticForm A a -
+          A.trace * gaussianQuadraticForm B a +
+        A.trace * B.trace ∂Measure.pi fun x => gaussianReal 0 1) =
+    (∫ (a : ι → ℝ),
+        gaussianQuadraticForm A a * gaussianQuadraticForm B a - B.trace * gaussianQuadraticForm A a -
+          A.trace * gaussianQuadraticForm B a ∂Measure.pi fun x => gaussianReal 0 1) +
+      ∫ (a : ι → ℝ), A.trace * B.trace ∂Measure.pi fun x => gaussianReal 0 1
+⊢ -(A.trace * B.trace) + A.trace * B.trace * (Measure.pi fun x => gaussianReal 0 1).real Set.univ + (A * B).trace +
+      (A * B.transpose).trace =
+    (A * B).trace + (A * B.transpose).trace
+NLA/Proofs/RE05/GaussianQuadraticCovariance.lean:62:27: warning: This simp argument is unused:
+  Pi.add_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Pi.sub_apply] at h1 h2 h3
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/Proofs/RE05/GaussianQuadraticCovariance.lean:66:82: warning: This simp argument is unused:
+  one_smul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [integral_const_mul, gaussian_quadratic_mean, gaussian_quadratic_product_integral, integral_const,
+    measureReal_univ_eq_one]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+NLA/Proofs/RE05/GaussianQuadraticCovariance.lean:100:21: error: #assert_trust: 'NLA.Proofs.RE05.gaussian_centered_quadratic_mean' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+NLA/Proofs/RE05/GaussianQuadraticCovariance.lean:103:21: error: #assert_trust: 'NLA.Proofs.RE05.gaussian_centered_product_integral' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+NLA/Proofs/RE05/GaussianQuadraticCovariance.lean:105:21: error: #assert_trust: 'NLA.Proofs.RE05.gaussian_centered_quadratic_variance_le' depends on sorry or unrecognized axioms
+  foundational: propext, Classical.choice, Quot.sound
+  sorryAx: sorryAx
+'NLA.Proofs.RE05.centeredGaussianQuadraticForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.RE05.gaussian_centered_quadratic_integrable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.RE05.gaussian_centered_quadratic_mean' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.Proofs.RE05.gaussian_centered_product_expand' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.RE05.gaussian_centered_product_integrable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.RE05.gaussian_centered_product_integral' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'NLA.Proofs.RE05.real_matrix_trace_square_le_frobenius' depends on axioms: [propext, Classical.choice, Quot.sound]
+'NLA.Proofs.RE05.gaussian_centered_quadratic_variance_le' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+NLA.Proofs.RE05.GaussianQuadraticCovariance 1

@@ -1,0 +1,51 @@
+namespace IndependentGaussianQuadraticEdges
+open NLA.Proofs.RE05 MeasureTheory ProbabilityTheory
+
+def upper : Matrix (Fin 2) (Fin 2) ℝ := !![0, 2; 0, 0]
+def skew : Matrix (Fin 2) (Fin 2) ℝ := !![0, 3; -3, 0]
+
+theorem upper_variance : (∫ x : Fin 2 → ℝ,
+    centeredGaussianQuadraticForm upper x * centeredGaussianQuadraticForm upper x
+    ∂Measure.pi (fun _ : Fin 2 => gaussianReal 0 1)) = 4 := by
+  have h := gaussian_centered_product_integral upper upper
+  norm_num [upper, Matrix.trace, Matrix.diag, Matrix.mul_apply, Matrix.transpose_apply,
+    Fin.sum_univ_two] at h
+  exact h
+
+theorem skew_variance : (∫ x : Fin 2 → ℝ,
+    centeredGaussianQuadraticForm skew x * centeredGaussianQuadraticForm skew x
+    ∂Measure.pi (fun _ : Fin 2 => gaussianReal 0 1)) = 0 := by
+  have h := gaussian_centered_product_integral skew skew
+  norm_num [skew, Matrix.trace, Matrix.diag, Matrix.mul_apply, Matrix.transpose_apply,
+    Fin.sum_univ_two] at h
+  exact h
+
+theorem scalar_covariance : (∫ x : Fin 1 → ℝ,
+    centeredGaussianQuadraticForm !![3] x * centeredGaussianQuadraticForm !![5] x
+    ∂Measure.pi (fun _ : Fin 1 => gaussianReal 0 1)) = 30 := by
+  have h := gaussian_centered_product_integral
+    (!![3] : Matrix (Fin 1) (Fin 1) ℝ) !![5]
+  norm_num [Matrix.trace, Matrix.diag, Matrix.mul_apply, Matrix.transpose_apply] at h
+  exact h
+
+theorem empty_joint (A B : Matrix (Fin 0) (Fin 0) ℝ) :
+    (∫ x : Fin 0 → ℝ, gaussianQuadraticForm A x * gaussianQuadraticForm B x
+      ∂Measure.pi (fun _ : Fin 0 => gaussianReal 0 1)) = 0 := by
+  simpa [Matrix.trace] using gaussian_quadratic_product_integral A B
+
+theorem literal_target_identity : NLA.Statements.RE05.Target =
+    NLA.ReviewedStatements.RE05.Target := rfl
+
+#assert_trust kernel upper
+#assert_trust kernel skew
+#assert_trust kernel upper_variance
+#assert_trust kernel skew_variance
+#assert_trust kernel scalar_covariance
+#assert_trust kernel empty_joint
+#assert_trust kernel literal_target_identity
+#print axioms upper_variance
+#print axioms skew_variance
+#print axioms scalar_covariance
+#print axioms empty_joint
+#print axioms literal_target_identity
+end IndependentGaussianQuadraticEdges
